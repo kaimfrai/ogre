@@ -2,6 +2,10 @@
 .idea/
 *.iml
 
+# Ignore KDevelop project directory and files
+.kdev4/
+*.kdev4
+
 # Ignore build directories
 cmake-build-*/
 /build/
