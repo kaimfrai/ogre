@@ -53,7 +53,7 @@ static const char *c_meshNames[] =
 };
 
 //------------------------------------------------------------------------------
-Sample_NewInstancing::Sample_NewInstancing() : NUM_INST_ROW(50), NUM_INST_COLUMN(50), mCurrentManager(0), mCurrentMaterialSet(c_materialsTechniques), mCurrentFlags(0), mSkinningTechniques(NULL)
+Sample_NewInstancing::Sample_NewInstancing() : NUM_INST_ROW(100), NUM_INST_COLUMN(100), mCurrentManager(0), mCurrentMaterialSet(c_materialsTechniques), mCurrentFlags(0), mSkinningTechniques(NULL)
 {
     mInfo["Title"] = "New Instancing";
     mInfo["Description"] = "Demonstrates how to use the new InstancedManager to setup many dynamic"
@@ -151,7 +151,7 @@ void Sample_NewInstancing::setupContent()
 
     mEntities.reserve( NUM_INST_ROW * NUM_INST_COLUMN );
     mSceneNodes.reserve( NUM_INST_ROW * NUM_INST_COLUMN );
-    
+
     mSceneMgr->setSkyBox(true, "Examples/CloudyNoonSkyBox");
 
     // create a mesh for our ground
@@ -219,7 +219,7 @@ void Sample_NewInstancing::switchInstancingTechnique()
         //If you're not bandwidth limited, you may want to lift IM_VTFBESTFIT flag away
 
         InstanceManager::InstancingTechnique technique = InstanceManager::ShaderBased;
-    
+
         switch( mInstancingTechnique )
         {
         case 0: technique = InstanceManager::ShaderBased; break;
@@ -231,7 +231,7 @@ void Sample_NewInstancing::switchInstancingTechnique()
 
         uint16 flags = IM_USEALL;
         flags |= mCurrentFlags;
-        
+
         if (mInstancingTechnique == 4)
         {
             flags |= IM_VTFBONEMATRIXLOOKUP;
@@ -391,7 +391,7 @@ void Sample_NewInstancing::createSceneNodes()
                     mEntities[idx]->getBoundingRadius() * (j - NUM_INST_COLUMN * 0.5f) );
                 mSceneNodes.push_back( sceneNode );
             }
-            
+
         }
     }
 }
@@ -512,7 +512,7 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
     }
     else
     {
-        //No scene nodes (instanced entities only) 
+        //No scene nodes (instanced entities only)
         //Update instanced entities directly
 
         //Randomly move the units along their normal, bouncing around invisible walls
@@ -597,12 +597,12 @@ void Sample_NewInstancing::setupGUI()
 
     //Check box to move the units
     mMoveInstances = mTrayMgr->createCheckBox(TL_TOPRIGHT, "MoveInstances", "Move Instances", 175);
-    mMoveInstances->setChecked(false);
+    mMoveInstances->setChecked(true);
 
     //Check box to animate the units
     mAnimateInstances = mTrayMgr->createCheckBox(TL_TOPRIGHT, "AnimateInstances",
         "Animate Instances", 175);
-    mAnimateInstances->setChecked(false);
+    mAnimateInstances->setChecked(true);
 
     //Checkbox to toggle shadows
     mEnableShadows = mTrayMgr->createCheckBox(TL_TOPRIGHT, "EnableShadows",
@@ -694,7 +694,7 @@ void Sample_NewInstancing::checkHardwareSupport()
         case 0: technique = InstanceManager::ShaderBased; break;
         case 1: technique = InstanceManager::TextureVTF; break;
         case 2: technique = InstanceManager::HWInstancingBasic; break;
-        case 3: 
+        case 3:
         case 4: technique = InstanceManager::HWInstancingVTF; break;
         }
 
