@@ -3,19 +3,19 @@
  This source file is part of OGRE
  (Object-oriented Graphics Rendering Engine)
  For the latest info, see http://www.ogre3d.org/
- 
+
  Copyright (c) 2000-2014 Torus Knot Software Ltd
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -95,71 +95,7 @@ using namespace OgreBites;
 
 DefaultSamplesPlugin::DefaultSamplesPlugin() : SamplePlugin("DefaultSamplesPlugin")
 {
-    addSample(new Sample_AtomicCounters);
-    addSample(new Sample_BezierPatch);
-    addSample(new Sample_CameraTrack);
-    addSample(new Sample_Character);
-    addSample(new CSMShadows);
-#if OGRE_PLATFORM != OGRE_PLATFORM_WINRT
-    addSample(new Sample_DynTex);
-    addSample(new Sample_FacialAnimation);
-    addSample(new Sample_Grass);
-    addSample(new Sample_DualQuaternion);
-    addSample(new Sample_Isosurf);
-#ifdef HAVE_IMGUI
-    addSample(new Sample_ImGui);
-#endif
     addSample(new Sample_NewInstancing);
-    addSample(new Sample_TextureArray);
-    addSample(new Sample_Tessellation);
-    addSample(new Sample_PNTriangles);
-#   ifdef OGRE_BUILD_COMPONENT_VOLUME
-    addSample(new Sample_VolumeCSG);
-    addSample(new Sample_VolumeTerrain);
-#   endif
-    addSample(new Sample_VolumeTex);
-    addSample(new Sample_Shadows);
-    addSample(new Sample_Lighting);
-    addSample(new Sample_LightShafts);
-    addSample(new Sample_MeshLod);
-    addSample(new Sample_ParticleFX);
-#ifdef HAVE_PCZ_PLUGIN
-    addSample(new Sample_PCZTest);
-#endif
-    addSample(new Sample_ParticleGS);
-    addSample(new Sample_Smoke);
-#endif // OGRE_PLATFORM_WINRT
-    addSample(new Sample_SkeletalAnimation);
-    addSample(new Sample_SkyBox);
-    addSample(new Sample_SkyDome);
-    addSample(new Sample_SkyPlane);
-    addSample(new Sample_SphereMapping);
-    addSample(new Sample_TextureFX);
-    addSample(new Sample_Transparency);
-
-    // the samples below require shaders
-    addSample(new Sample_Tessellation);
-    addSample(new Sample_PBR);
-#if defined(OGRE_BUILD_COMPONENT_RTSHADERSYSTEM) && OGRE_PLATFORM != OGRE_PLATFORM_WINRT
-    addSample(new Sample_ShaderSystem);
-    addSample(new Sample_ShaderSystemTexturedFog);
-    addSample(new Sample_ShaderSystemMultiLight);
-#endif
-    addSample(new Sample_BSP);
-    addSample(new Sample_CelShading);
-    addSample(new Sample_Compositor);
-    addSample(new Sample_Compute);
-    addSample(new Sample_CubeMapping);
-    addSample(new Sample_DeferredShading);
-    addSample(new Sample_SSAO);
-    addSample(new Sample_Ocean);
-    addSample(new Sample_Water);
-    addSample(new Sample_Dot3Bump);
-    addSample(new Sample_Fresnel);
-#ifdef OGRE_BUILD_COMPONENT_TERRAIN
-    addSample(new Sample_Terrain);
-    addSample(new Sample_EndlessWorld);
-#endif
 }
 
 DefaultSamplesPlugin::~DefaultSamplesPlugin()
