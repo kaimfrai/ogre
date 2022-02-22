@@ -27,68 +27,7 @@
  */
 #include "DefaultSamplesPlugin.h"
 
-#include "OgreComponents.h"
-
-#include "AtomicCounters.h"
-#include "BezierPatch.h"
-#include "BSP.h"
-#include "CameraTrack.h"
-#include "CelShading.h"
-#include "CharacterSample.h"
-#include "Compositor.h"
-#include "Compute.h"
-#include "CubeMapping.h"
-#include "CSMShadows.h"
-#include "DeferredShadingDemo.h"
-#include "Dot3Bump.h"
-#include "DualQuaternion.h"
-#include "DynTex.h"
-#ifdef OGRE_BUILD_COMPONENT_TERRAIN
-#   include "EndlessWorld.h"
-#   include "Terrain.h"
-#endif
-#include "FacialAnimation.h"
-#include "Fresnel.h"
-#include "Grass.h"
-#ifdef HAVE_IMGUI
-#include "ImGuiDemo.h"
-#endif
-#include "Isosurf.h"
-#include "Lighting.h"
-#include "LightShafts.h"
-#include "MeshLod.h"
 #include "NewInstancing.h"
-#include "OceanDemo.h"
-#include "ParticleFX.h"
-#include "ParticleGS.h"
-#ifdef HAVE_PCZ_PLUGIN
-    #include "PCZTestApp.h"
-#endif
-#include "PBR.h"
-#include "PNTrianglesTessellation.h"
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
-#   include "ShaderSystem.h"
-#   include "ShaderSystemTexturedFog.h"
-#   include "ShaderSystemMultiLight.h"
-#endif
-#include "Shadows.h"
-#include "SkeletalAnimation.h"
-#include "SkyBox.h"
-#include "SkyDome.h"
-#include "SkyPlane.h"
-#include "Smoke.h"
-#include "SphereMapping.h"
-#include "SSAO.h"
-#include "Tessellation.h"
-#include "TextureArray.h"
-#include "TextureFX.h"
-#include "Transparency.h"
-#ifdef OGRE_BUILD_COMPONENT_VOLUME
-#   include "VolumeCSG.h"
-#   include "VolumeTerrain.h"
-#endif
-#include "VolumeTex.h"
-#include "Water.h"
 
 using namespace Ogre;
 using namespace OgreBites;
