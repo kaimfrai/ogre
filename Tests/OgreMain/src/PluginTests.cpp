@@ -12,6 +12,9 @@
 #include <OgreSubEntity.h>
 
 #include "RootWithoutRenderSystemFixture.h"
+#ifdef OGRE_STATIC_LIB
+#include "../../../PlugIns/DotScene/include/OgreDotSceneLoader.h"
+#endif
 
 using namespace Ogre;
 
@@ -19,6 +22,8 @@ typedef RootWithoutRenderSystemFixture DotSceneTests;
 
 TEST_F(DotSceneTests, exportImport)
 {
+
+#ifndef OGRE_STATIC_LIB
     String pluginsCfg = mFSLayer->getConfigFilePath("plugins.cfg");
     ConfigFile cf;
     cf.load(pluginsCfg);
@@ -29,10 +34,14 @@ TEST_F(DotSceneTests, exportImport)
     {
         mRoot->loadPlugin(pluginDir+"/Plugin_DotScene");
     }
-    catch (const std::exception& e)
+    catch (const std::exception&)
     {
         return;
     }
+#else
+    DotScenePlugin dotScenePlugin;
+    mRoot->installPlugin(&dotScenePlugin);
+#endif
 
     mRoot->getInstalledPlugins().front()->initialise();
 
@@ -66,4 +75,8 @@ TEST_F(DotSceneTests, exportImport)
     EXPECT_EQ(sceneMgr->getEntity("EntityUnlit")->getSubEntity(0)->getMaterialName(), "BaseWhiteNoLighting");
 
     FileSystemLayer::removeFile("DotSceneTest.scene");
+
+#ifdef OGRE_STATIC_LIB
+    mRoot->uninstallPlugin(&dotScenePlugin);
+#endif
 }
