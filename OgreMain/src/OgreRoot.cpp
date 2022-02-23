@@ -1147,7 +1147,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Root::loadPlugin(const String& pluginName)
     {
-#if OGRE_PLATFORM != OGRE_PLATFORM_EMSCRIPTEN
+#ifndef OGRE_STATIC_LIB
         // Load plugin library
         DynLib* lib = DynLibManager::getSingleton().load( pluginName );
         // Store for later unload
@@ -1174,7 +1174,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Root::unloadPlugin(const String& pluginName)
     {
-#if OGRE_PLATFORM != OGRE_PLATFORM_EMSCRIPTEN
+#ifndef OGRE_STATIC_LIB
         PluginLibList::iterator i;
 
         for (i = mPluginLibs.begin(); i != mPluginLibs.end(); ++i)
