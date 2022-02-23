@@ -75,7 +75,7 @@ extern "C" _OgreSampleExport void dllStartPlugin()
 
 extern "C" _OgreSampleExport void dllStopPlugin()
 {
-    Ogre::Root::getSingleton().uninstallPlugin(testPlugin); 
+    Ogre::Root::getSingleton().uninstallPlugin(testPlugin);
     OGRE_DELETE testPlugin;
 }
 
