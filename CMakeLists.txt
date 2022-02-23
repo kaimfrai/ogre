@@ -303,7 +303,7 @@ include(Dependencies)
 ######################################################################
 
 # Customise what to build
-option(OGRE_STATIC "Static build" FALSE)
+option(OGRE_STATIC "Static build" TRUE)
 cmake_dependent_option(OGRE_ENABLE_PRECOMPILED_HEADERS "Use precompiled headers to speed up build" TRUE "NOT MINGW; NOT EMSCRIPTEN" FALSE)
 set(OGRE_RESOURCEMANAGER_STRICT "2" CACHE STRING
   "Make ResourceManager strict for faster operation. Possible values:
@@ -352,7 +352,7 @@ cmake_dependent_option(OGRE_BUILD_SAMPLES "Build Ogre demos" TRUE "OGRE_BUILD_CO
 cmake_dependent_option(OGRE_BUILD_TOOLS "Build the command-line tools" TRUE "NOT APPLE_IOS;NOT WINDOWS_STORE;NOT WINDOWS_PHONE" FALSE)
 cmake_dependent_option(OGRE_BUILD_XSIEXPORTER "Build the Softimage exporter" FALSE "Softimage_FOUND" FALSE)
 cmake_dependent_option(OGRE_BUILD_LIBS_AS_FRAMEWORKS "Build frameworks for libraries on OS X." TRUE "APPLE;NOT OGRE_BUILD_PLATFORM_APPLE_IOS" FALSE)
-cmake_dependent_option(OGRE_BUILD_TESTS "Build the unit tests & PlayPen" FALSE "OGRE_BUILD_COMPONENT_BITES" FALSE)
+cmake_dependent_option(OGRE_BUILD_TESTS "Build the unit tests & PlayPen" TRUE "OGRE_BUILD_COMPONENT_BITES" FALSE)
 option(OGRE_CONFIG_DOUBLE "Use doubles instead of floats in Ogre" FALSE)
 option(OGRE_CONFIG_NODE_INHERIT_TRANSFORM "Tells the node whether it should inherit full transform from it's parent node or derived position, orientation and scale" FALSE)
 set(OGRE_CONFIG_THREADS "3" CACHE STRING
