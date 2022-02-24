@@ -43,7 +43,9 @@ VTestPlugin::VTestPlugin()
     // add the playpen tests
     // addSample(new TextureBlitTest()); SEGFAULT reading depth texture
     addSample(new CubeMappingTest());
+#ifdef OGRE_BUILD_PLUGIN_PFX
     addSample(new ParticleTest());
+#endif
     addSample(new StencilShadowTest());
     addSample(new Sample_TextureFX());
     addSample(new Sample_Transparency());
