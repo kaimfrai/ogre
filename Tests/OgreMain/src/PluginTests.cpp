@@ -12,6 +12,7 @@
 #include <OgreSubEntity.h>
 
 #include "RootWithoutRenderSystemFixture.h"
+#ifdef OGRE_BUILD_PLUGIN_DOT_SCENE
 #ifdef OGRE_STATIC_LIB
 #include "../../../PlugIns/DotScene/include/OgreDotSceneLoader.h"
 #endif
@@ -80,3 +81,4 @@ TEST_F(DotSceneTests, exportImport)
     mRoot->uninstallPlugin(&dotScenePlugin);
 #endif
 }
+#endif
