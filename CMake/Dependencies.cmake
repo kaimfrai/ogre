@@ -14,7 +14,7 @@
 # OGRE_DEPENDENCIES_DIR can be used to specify a single base
 # folder where the required dependencies may be found.
 set(OGRE_DEPENDENCIES_DIR "${PROJECT_BINARY_DIR}/Dependencies" CACHE PATH "Path to prebuilt OGRE dependencies")
-option(OGRE_BUILD_DEPENDENCIES "automatically build Ogre Dependencies (SDL2, pugixml)" TRUE)
+option(OGRE_BUILD_DEPENDENCIES "automatically build Ogre Dependencies (SDL2, pugixml)" FALSE)
 
 message(STATUS "DEPENDENCIES_DIR: ${OGRE_DEPENDENCIES_DIR}")
 

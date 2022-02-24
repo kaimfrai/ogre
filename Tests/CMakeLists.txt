@@ -10,7 +10,8 @@
 # Configure Tests build
 if (OGRE_BUILD_TESTS)
 
-  if(NOT EXISTS ${PROJECT_BINARY_DIR}/googletest-release-1.11.0)
+  find_package(GTest CONFIG)
+  if(NOT ${GTest_FOUND} AND NOT EXISTS ${PROJECT_BINARY_DIR}/googletest-release-1.11.0)
     message(STATUS "Building gtest")
     file(DOWNLOAD
         https://github.com/google/googletest/archive/refs/tags/release-1.11.0.tar.gz
@@ -24,8 +25,8 @@ if (OGRE_BUILD_TESTS)
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/googletest-release-1.11.0)
     execute_process(COMMAND ${CMAKE_COMMAND}
         --build ${PROJECT_BINARY_DIR}/googletest-release-1.11.0 ${BUILD_COMMAND_OPTS})
+    find_package(GTest REQUIRED CONFIG)
   endif()
-  find_package(GTest REQUIRED CONFIG)
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Common/include)
 
     # unit tests are go!
