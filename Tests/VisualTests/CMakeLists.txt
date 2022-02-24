@@ -69,7 +69,7 @@ function (TestRenderSystem render_system)
 
   # Run a CMake script that handles the test context
   add_test(NAME "TestContext_${render_system_nospace}"
-    COMMAND "cmake" 
+    COMMAND "cmake"
     "-D" # executable name
       "TEST_CONTEXT_EXECUTABLE=$<TARGET_FILE_NAME:TestContext>"
     "-D" # path to executable (this one's tricker than it seems, since it'll vary based on build config)
@@ -77,10 +77,10 @@ function (TestRenderSystem render_system)
     "-D" # the render system to use
       "TEST_CONTEXT_RENDER_SYSTEM=${render_system}"
     "-D" # the directory where the output file will go
-      "TEST_CONTEXT_RESULT_DIR=${USER_HOME_DIRECTORY}"
+      "TEST_CONTEXT_RESULT_DIR=${CMAKE_BINARY_DIR}/TestResults/"
     "-P" # the script that carries this out
       "RunVTests.cmake")
-      
+
 endfunction (TestRenderSystem)
 
 # Run the tests once for each rendersystem
