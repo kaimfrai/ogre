@@ -10,23 +10,66 @@
 # Configure Tests build
 if (OGRE_BUILD_TESTS)
 
-  find_package(GTest CONFIG)
-  if(NOT ${GTest_FOUND} AND NOT EXISTS ${PROJECT_BINARY_DIR}/googletest-release-1.11.0)
+  find_package(GTest CONFIG
+    NO_DEFAULT_PATH
+    QUIET
+    PATHS
+      ${OGRE_DEPENDENCIES_DIR}/${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}
+  )
+
+  if(NOT ${GTest_FOUND})
     message(STATUS "Building gtest")
-    file(DOWNLOAD
-        https://github.com/google/googletest/archive/refs/tags/release-1.11.0.tar.gz
-        ${PROJECT_BINARY_DIR}/googletest-release-1.11.0.tar.gz)
-    execute_process(COMMAND ${CMAKE_COMMAND}
-        -E tar xf googletest-release-1.11.0.tar.gz WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
-    execute_process(COMMAND ${BUILD_COMMAND_COMMON}
-        ${PROJECT_BINARY_DIR}/googletest-release-1.11.0
+
+    if(NOT EXISTS ${OGRE_DEPENDENCIES_DIR}/Download/googletest-release-1.11.0.tar.gz)
+      file(DOWNLOAD
+          https://github.com/google/googletest/archive/refs/tags/release-1.11.0.tar.gz
+          ${OGRE_DEPENDENCIES_DIR}/Download/googletest-release-1.11.0.tar.gz
+      )
+    endif()
+
+    if(NOT EXISTS ${OGRE_DEPENDENCIES_DIR}/googletest-release-1.11.0)
+      execute_process(
+        COMMAND
+          ${CMAKE_COMMAND}
+          -E tar xf ./Download/googletest-release-1.11.0.tar.gz
+        WORKING_DIRECTORY
+          ${OGRE_DEPENDENCIES_DIR}
+      )
+    endif()
+
+    set(absolute_toolchain_file ${CMAKE_TOOLCHAIN_FILE})
+    cmake_path(
+      ABSOLUTE_PATH absolute_toolchain_file
+      BASE_DIRECTORY ${CMAKE_SOURCE_DIR}
+      NORMALIZE
+    )
+
+    execute_process(
+      COMMAND
+        ${BUILD_COMMAND_COMMON}
+        -S ${OGRE_DEPENDENCIES_DIR}/googletest-release-1.11.0
+        -B ${OGRE_DEPENDENCIES_DIR}/googletest-release-1.11.0/build/${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}
+        -DCMAKE_TOOLCHAIN_FILE=${absolute_toolchain_file}
+        -DCMAKE_INSTALL_PREFIX=${OGRE_DEPENDENCIES_DIR}/${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}
         -Dgtest_force_shared_crt=TRUE
         -DBUILD_GMOCK=FALSE
-        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/googletest-release-1.11.0)
-    execute_process(COMMAND ${CMAKE_COMMAND}
-        --build ${PROJECT_BINARY_DIR}/googletest-release-1.11.0 ${BUILD_COMMAND_OPTS})
-    find_package(GTest REQUIRED CONFIG)
+      WORKING_DIRECTORY
+        ${OGRE_DEPENDENCIES_DIR}/googletest-release-1.11.0
+    )
+    execute_process(
+      COMMAND
+        ${CMAKE_COMMAND}
+        --build ${OGRE_DEPENDENCIES_DIR}/googletest-release-1.11.0/build/${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}
+        ${BUILD_COMMAND_OPTS}
+    )
   endif()
+
+  find_package(GTest REQUIRED CONFIG
+    NO_DEFAULT_PATH
+    PATHS
+      ${OGRE_DEPENDENCIES_DIR}/${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}
+  )
+
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Common/include)
 
     # unit tests are go!
