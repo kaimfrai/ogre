@@ -31,6 +31,9 @@ THE SOFTWARE.
 
 #include "OgreScriptLexer.h"
 #include "OgreScriptCompiler.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 

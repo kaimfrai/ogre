@@ -26,10 +26,20 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <assert.h>
+#include <stddef.h>
+#include <iterator>
+#include <list>
+#include <map>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "OgreBuiltinScriptTranslators.h"
 #include "OgreGpuProgramManager.h"
-#include "OgreHighLevelGpuProgramManager.h"
 #include "OgreParticleSystemRenderer.h"
 #include "OgreParticleEmitter.h"
 #include "OgreParticleAffector.h"
@@ -43,10 +53,41 @@ THE SOFTWARE.
 #include "OgreDistanceLodStrategy.h"
 #include "OgreDepthBuffer.h"
 #include "OgreParticleSystem.h"
-#include "OgreHighLevelGpuProgram.h"
 #include "OgreGpuProgramUsage.h"
+#include "OgreAny.h"
+#include "OgreBlendMode.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreExternalTextureSource.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreLight.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix4.h"
+#include "OgreParticleSystemManager.h"
+#include "OgrePass.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreScriptCompiler.h"
+#include "OgreScriptTranslator.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreTechnique.h"
+#include "OgreTexture.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
 
 namespace Ogre{
+class LodStrategy;
+
     static void applyTextureAliases(const Material* mat, const NameValuePairList& aliasList)
     {
         for (auto t : mat->getTechniques())

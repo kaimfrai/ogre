@@ -29,19 +29,28 @@ THE SOFTWARE.
 #ifndef __AnimationState_H__
 #define __AnimationState_H__
 
-#include "OgrePrerequisites.h"
+#include <assert.h>
+#include <stddef.h>
+#include <list>
+#include <map>
+#include <string>
+#include <vector>
 
+#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreController.h"
 #include "OgreControllerManager.h"
 #include "Threading/OgreThreadHeaders.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
 
     template <typename T> class MapIterator;
     template <typename T> class ConstMapIterator;
     template <typename T> class ConstVectorIterator;
+class AnimationStateSet;
 
     /** \addtogroup Core
     *  @{

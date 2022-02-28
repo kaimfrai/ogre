@@ -28,7 +28,10 @@ THE SOFTWARE.
 #ifndef __OgreETCCodec_H__
 #define __OgreETCCodec_H__
 
+#include <stddef.h>
+
 #include "OgreImageCodec.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     /** \addtogroup Core

@@ -29,12 +29,18 @@ THE SOFTWARE.
 #define __MovablePlane_H__
 
 #include "OgrePrerequisites.h"
-
 #include "OgrePlane.h"
 #include "OgreMovableObject.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreExports.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderable.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class Camera;
+class RenderQueue;
 
 
     /** \addtogroup Core

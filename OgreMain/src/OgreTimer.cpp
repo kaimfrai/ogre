@@ -27,6 +27,8 @@ THE SOFTWARE.
 */
 #include "OgreTimer.h"
 
+#include <time.h>
+
 using namespace std::chrono;
 
 namespace Ogre {

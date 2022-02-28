@@ -29,14 +29,26 @@ THE SOFTWARE.
 #define _TextureManager_H__
 
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <map>
+#include <memory>
+#include <string>
 
+#include "OgrePrerequisites.h"
 #include "OgreResourceManager.h"
 #include "OgreTexture.h"
 #include "OgreSingleton.h"
 #include "OgreTextureUnitState.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class Image;
 
     /** \addtogroup Core
     *  @{

@@ -28,9 +28,17 @@ THE SOFTWARE.
 #ifndef _Image_H__
 #define _Image_H__
 
+#include <assert.h>
+#include <stddef.h>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgrePixelFormat.h"
+#include "OgreColourValue.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
     /** \addtogroup Core

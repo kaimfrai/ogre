@@ -28,11 +28,20 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #ifndef __RenderToVertexBuffer_H__
 #define __RenderToVertexBuffer_H__
 
+#include <memory>
+
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class Renderable;
+class SceneManager;
+class VertexData;
+class VertexDeclaration;
+
     /** \addtogroup Core
      *  @{
      */

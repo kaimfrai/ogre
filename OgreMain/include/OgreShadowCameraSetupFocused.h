@@ -29,6 +29,9 @@ THE SOFTWARE.
 #ifndef __ShadowCameraSetupFocused_H__
 #define __ShadowCameraSetupFocused_H__
 
+#include <stddef.h>
+#include <memory>
+
 #include "OgrePrerequisites.h"
 #include "OgreShadowCameraSetup.h"
 #include "OgrePolygon.h"
@@ -36,8 +39,16 @@ THE SOFTWARE.
 #include "OgreHeaderPrefix.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreSceneNode.h"
+#include "OgreExports.h"
+#include "OgreLight.h"
+#include "OgreMatrix4.h"
+#include "OgreSceneManager.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class Camera;
+class Frustum;
+class Viewport;
 
     /** \addtogroup Core
     *  @{

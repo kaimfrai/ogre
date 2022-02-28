@@ -26,13 +26,45 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreStableHeaders.h"
+#include <array>
+#include <map>
+#include <memory>
+#include <string>
 
+#include "OgreStableHeaders.h"
 #include "OgreEntity.h"
-#include "OgreSubEntity.h"
 #include "OgreViewport.h"
+#include "OgreCamera.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreLogManager.h"
+#include "OgreManualObject.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMesh.h"
+#include "OgreMeshManager.h"
+#include "OgreMovableObject.h"
+#include "OgrePass.h"
+#include "OgrePlane.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderOperation.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
+#include "OgreTechnique.h"
+#include "OgreTexture.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class Node;
+class RenderQueue;
+
 SceneManager::SkyRenderer::SkyRenderer(SceneManager* owner)
     : mSceneManager(owner), mSceneNode(0), mEnabled(false)
 {

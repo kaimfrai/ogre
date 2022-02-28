@@ -25,11 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+
 #include "OgreStableHeaders.h"
 #include "OgreCompositionTargetPass.h"
 #include "OgreCompositionPass.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMaterialManager.h"
+#include "OgreRenderSystem.h"
+#include "OgreRoot.h"
 
 namespace Ogre {
+class CompositionTechnique;
 
 CompositionTargetPass::CompositionTargetPass(CompositionTechnique *parent):
     mParent(parent),

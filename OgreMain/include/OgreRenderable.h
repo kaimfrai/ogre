@@ -28,9 +28,11 @@ THE SOFTWARE.
 #ifndef __Renderable_H__
 #define __Renderable_H__
 
+#include <stddef.h>
+#include <map>
+
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
-
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMatrix4.h"
@@ -40,8 +42,17 @@ THE SOFTWARE.
 #include "OgreException.h"
 #include "OgreUserObjectBindings.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class Any;
+class Camera;
+class Matrix4;
+class RenderOperation;
+class RenderSystem;
+class SceneManager;
+class Technique;
 
     /** \addtogroup Core
     *  @{

@@ -29,12 +29,17 @@ THE SOFTWARE.
 #define __ResourceBackgroundQueue_H__
 
 
+#include <set>
+
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreSingleton.h"
 #include "OgreResource.h"
 #include "OgreWorkQueue.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
     /** \addtogroup Core

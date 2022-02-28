@@ -26,10 +26,18 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <assert.h>
+#include <algorithm>
+#include <functional>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "OgreLodStrategy.h"
+#include "OgreCamera.h"
 
 namespace Ogre {
+class MovableObject;
+
     //-----------------------------------------------------------------------
     LodStrategy::LodStrategy(const String& name)
         : mName(name)

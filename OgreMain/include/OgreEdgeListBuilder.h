@@ -28,12 +28,23 @@ THE SOFTWARE.
 #ifndef __EdgeListBuilder_H__
 #define __EdgeListBuilder_H__
 
+#include <stddef.h>
+#include <map>
+#include <utility>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreVector.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
+class IndexData;
+class Log;
+class VertexData;
 
     /** \addtogroup Core
     *  @{

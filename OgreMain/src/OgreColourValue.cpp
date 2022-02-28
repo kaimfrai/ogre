@@ -25,7 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <algorithm>
+#include <cmath>
+
 #include "OgreStableHeaders.h"
+#include "OgreColourValue.h"
+#include "OgreMath.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
 

@@ -25,12 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <stddef.h>
+#include <map>
+#include <utility>
 
+#include "OgreStableHeaders.h"
 #include "OgreRenderQueue.h"
 #include "OgreMaterial.h"
 #include "OgreRenderQueueSortingGrouping.h"
 #include "OgreSceneManagerEnumerator.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMaterialManager.h"
+#include "OgreMovableObject.h"
+#include "OgrePass.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderable.h"
+#include "OgreSceneManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreTechnique.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 

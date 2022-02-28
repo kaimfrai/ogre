@@ -26,11 +26,10 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreStableHeaders.h"
-
 #include "OgreBillboard.h"
-#include "OgreBillboardSet.h"
 
 namespace Ogre {
+class BillboardSet;
 
     //-----------------------------------------------------------------------
     Billboard::Billboard():

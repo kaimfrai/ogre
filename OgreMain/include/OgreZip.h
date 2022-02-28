@@ -28,17 +28,21 @@ THE SOFTWARE.
 #ifndef __Zip_H__
 #define __Zip_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
 
+#include "OgrePrerequisites.h"
 #include "OgreArchive.h"
 #include "OgreArchiveFactory.h"
 #include "OgreHeaderPrefix.h"
 #include "Threading/OgreThreadHeaders.h"
+#include "OgreExports.h"
+#include "OgrePlatform.h"
 
 struct AAssetManager;
 struct AAsset;
 
 namespace Ogre {
+class Archive;
 
     /** \addtogroup Core
     *  @{

@@ -28,14 +28,22 @@ THE SOFTWARE.
 #ifndef _Texture_H__
 #define _Texture_H__
 
+#include <stddef.h>
+#include <string>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreResource.h"
 #include "OgreImage.h"
 #include "OgreHeaderPrefix.h"
 #include "OgreSharedPtr.h"
+#include "OgreExports.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
+class ResourceManager;
 
     /** \addtogroup Core
      *  @{

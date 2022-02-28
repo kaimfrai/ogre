@@ -28,8 +28,13 @@ THE SOFTWARE.
 #ifndef __OgreDDSCodec_H__
 #define __OgreDDSCodec_H__
 
+#include <stddef.h>
+
 #include "OgreImageCodec.h"
 #include "OgreHeaderPrefix.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     /** \addtogroup Core
@@ -43,6 +48,7 @@ namespace Ogre {
     struct DXTColourBlock;
     struct DXTExplicitAlphaBlock;
     struct DXTInterpolatedAlphaBlock;
+class ColourValue;
 
     /** Codec specialized in loading DDS (Direct Draw Surface) images.
     @remarks

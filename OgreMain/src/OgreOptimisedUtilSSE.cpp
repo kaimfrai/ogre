@@ -25,8 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <mmintrin.h>
+#include <string.h>
+#include <xmmintrin.h>
+
 #include "OgreStableHeaders.h"
 #include "OgreOptimisedUtil.h"
+#include "OgreEdgeListBuilder.h"
+#include "OgreException.h"
+#include "OgreExports.h"
+#include "OgreMatrix4.h"
+#include "OgrePlatform.h"
+#include "OgrePlatformInformation.h"
+#include "OgrePrerequisites.h"
+#include "OgreVector.h"
 
 
 #if __OGRE_HAVE_SSE || __OGRE_HAVE_NEON

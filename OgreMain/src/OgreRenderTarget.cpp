@@ -25,15 +25,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <cxxabi.h>
+#include <time.h>
+#include <algorithm>
+#include <iomanip>
+#include <ostream>
+#include <string>
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgreRenderTarget.h"
-
 #include "OgreViewport.h"
 #include "OgreRenderTargetListener.h"
 #include "OgreDepthBuffer.h"
 #include "OgreTimer.h"
+#include "OgreBuildSettings.h"
+#include "OgreException.h"
+#include "OgreImage.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreProfiler.h"
+#include "OgreRoot.h"
+#include "OgreStringConverter.h"
 
 namespace Ogre {
+class Camera;
 
     RenderTarget::RenderTarget()
         : mPriority(OGRE_DEFAULT_RT_GROUP)

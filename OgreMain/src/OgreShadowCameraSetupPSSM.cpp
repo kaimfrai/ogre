@@ -29,9 +29,17 @@ THE SOFTWARE.
 
 #include "OgreStableHeaders.h"
 #include "OgreShadowCameraSetupPSSM.h"
+#include "OgreCamera.h"
+#include "OgreException.h"
+#include "OgreMath.h"
 
 namespace Ogre
 {
+class Frustum;
+class Light;
+class SceneManager;
+class Viewport;
+
     //---------------------------------------------------------------------
     PSSMShadowCameraSetup::PSSMShadowCameraSetup()
         : mSplitPadding(1.0f), mCurrentIteration(0)

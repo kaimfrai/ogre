@@ -25,7 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <stdlib.h>
+#include <string.h>
+#include <string>
+
 #include "OgreStableHeaders.h"
+#include "OgreBitwise.h"
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreLogManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreSerializer.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 

@@ -26,11 +26,21 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <cmath>
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgreLight.h"
 #include "OgreShadowCameraSetupPlaneOptimal.h"
 #include "OgreNumerics.h"
 #include "OgreMovablePlane.h"
+#include "OgreCamera.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlane.h"
+#include "OgrePlatform.h"
+#include "OgreVector.h"
 
 #if OGRE_COMPILER == OGRE_COMPILER_MSVC
 // we do a lot of PreciseReal -> Real in here, casting is messy
@@ -42,6 +52,9 @@ THE SOFTWARE.
 
 namespace Ogre 
 {
+class SceneManager;
+class Viewport;
+
     // --------------------------------------------------------------------
     Matrix4 PlaneOptimalShadowCameraSetup::computeConstrainedProjection(
         const Vector4& pinhole, 

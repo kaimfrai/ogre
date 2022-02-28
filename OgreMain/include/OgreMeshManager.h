@@ -28,8 +28,11 @@ THE SOFTWARE.
 #ifndef __MeshManager_H__
 #define __MeshManager_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <map>
+#include <memory>
 
+#include "OgrePrerequisites.h"
 #include "OgreResourceManager.h"
 #include "OgreSingleton.h"
 #include "OgreVector.h"
@@ -38,10 +41,18 @@ THE SOFTWARE.
 #include "OgrePatchSurface.h"
 #include "OgreHeaderPrefix.h"
 #include "OgrePlane.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreQuaternion.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
 
 namespace Ogre {
 
     class MeshSerializerListener;
+class Codec;
+class Mesh;
+class SubMesh;
 
     /** \addtogroup Core
     *  @{

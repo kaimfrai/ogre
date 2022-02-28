@@ -27,12 +27,21 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgreShadowCameraSetupLiSPSM.h"
 #include "OgreLight.h"
+#include "OgreCamera.h"
+#include "OgreException.h"
+#include "OgreMatrix3.h"
+#include "OgrePlane.h"
+#include "OgreRay.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {
+class Viewport;
 
 
     LiSPSMShadowCameraSetup::LiSPSMShadowCameraSetup(Real n, bool useSimpleNOpt, Degree angle)

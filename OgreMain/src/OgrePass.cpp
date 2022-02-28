@@ -25,12 +25,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <assert.h>
+#include <stddef.h>
+#include <algorithm>
+#include <iterator>
+#include <memory>
+#include <set>
+#include <string>
+#include <vector>
 
+#include "OgreStableHeaders.h"
 #include "OgreGpuProgramUsage.h"
 #include "OgreTextureUnitState.h"
+#include "OgreBlendMode.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreConfig.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreLight.h"
+#include "OgreMaterial.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePass.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreTechnique.h"
+#include "OgreVector.h"
+#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
+class AutoParamDataSource;
 
     /** Default pass hash function.
     @remarks

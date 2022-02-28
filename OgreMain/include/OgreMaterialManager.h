@@ -28,16 +28,27 @@ THE SOFTWARE.
 #ifndef __MATERIALMANAGER_H__
 #define __MATERIALMANAGER_H__
 
-#include "OgrePrerequisites.h"
+#include <list>
+#include <map>
+#include <string>
 
+#include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreResourceManager.h"
 #include "OgreHeaderPrefix.h"
 #include "OgreTextureUnitState.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
 
     class MaterialSerializer;
+class Material;
+class Renderable;
+class Technique;
 
 
     /** \addtogroup Core

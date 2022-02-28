@@ -29,10 +29,18 @@ THE SOFTWARE.
 #ifndef __DualQuaternion_H__
 #define __DualQuaternion_H__
 
+#include <assert.h>
+#include <string.h>
+#include <ostream>
+#include <utility>
+
 #include "OgrePrerequisites.h"
 #include "OgreMath.h"
+#include "OgreExports.h"
+#include "OgreQuaternion.h"
 
 namespace Ogre {
+class Affine3;
 
     /** \addtogroup Core
     *  @{

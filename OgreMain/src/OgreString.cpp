@@ -25,7 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <ctype.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <string.h>
+#include <strings.h>
+#include <algorithm>
+#include <string>
+#include <vector>
+
 #include "OgreStableHeaders.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreString.h"
+#include "OgreStringVector.h"
 
 // A quick define to overcome different names for the same function
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT

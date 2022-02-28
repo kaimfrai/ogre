@@ -29,12 +29,23 @@ THE SOFTWARE.
 #ifndef __StringConverter_H__
 #define __StringConverter_H__
 
+#include <stddef.h>
+#include <iosfwd>
+#include <locale>
+#include <string>
+
 #include "OgreCommon.h"
 #include "OgrePrerequisites.h"
 #include "OgreStringVector.h"
 #include "OgreColourValue.h"
 #include "OgreMatrix4.h"
 #include "OgreVector.h"
+#include "OgreExports.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgrePlatform.h"
+#include "OgreQuaternion.h"
+#include "OgreString.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT
 #   define locale_t _locale_t

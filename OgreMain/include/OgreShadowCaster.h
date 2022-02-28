@@ -28,13 +28,28 @@ THE SOFTWARE.
 #ifndef __ShadowCaster_H__
 #define __ShadowCaster_H__
 
+#include <stddef.h>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreRenderable.h"
 #include "OgreRenderOperation.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreSharedPtr.h"
 
 
 namespace Ogre {
+class AxisAlignedBox;
+class Camera;
+class EdgeData;
+class Light;
+class Matrix4;
+class MovableObject;
+class VertexData;
 
     /** \addtogroup Core
     *  @{

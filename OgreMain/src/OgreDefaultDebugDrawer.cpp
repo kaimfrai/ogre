@@ -3,10 +3,34 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 
 #include "OgreDefaultDebugDrawer.h"
-#include "OgreStableHeaders.h"
+
+#include <stddef.h>
+#include <algorithm>
+#include <array>
+#include <vector>
+
+#include "OgreBlendMode.h"
+#include "OgreCommon.h"
+#include "OgreFrustum.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
+#include "OgreNode.h"
+#include "OgrePass.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSceneNode.h"
+#include "OgreSharedPtr.h"
+#include "OgreTechnique.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {
+class Viewport;
 
 DefaultDebugDrawer::DefaultDebugDrawer() : mLines(""), mAxes(""), mDrawType(0), mStatic(false) {}
 

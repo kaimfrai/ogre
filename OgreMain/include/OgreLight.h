@@ -28,8 +28,11 @@ THE SOFTWARE.
 #ifndef _LIGHT_H__
 #define _LIGHT_H__
 
-#include "OgrePrerequisites.h"
+#include <assert.h>
+#include <stddef.h>
+#include <map>
 
+#include "OgrePrerequisites.h"
 #include "OgreColourValue.h"
 #include "OgreVector.h"
 #include "OgreMovableObject.h"
@@ -37,8 +40,19 @@ THE SOFTWARE.
 #include "OgreNode.h"
 #include "OgreCamera.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMath.h"
+#include "OgrePlatform.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderable.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class RenderQueue;
+class Sphere;
 
 
     /** \addtogroup Core

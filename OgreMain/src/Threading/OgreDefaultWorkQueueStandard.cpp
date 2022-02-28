@@ -25,7 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <cxxabi.h>
+#include <stddef.h>
+#include <condition_variable>
+#include <mutex>
+#include <thread>
+#include <vector>
+
 #include "OgreStableHeaders.h"
+#include "OgreBuildSettings.h"
+#include "OgreDefaultWorkQueueStandard.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreRoot.h"
+#include "OgreWorkQueue.h"
+#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre
 {

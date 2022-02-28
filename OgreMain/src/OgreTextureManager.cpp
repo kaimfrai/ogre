@@ -25,10 +25,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <map>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgrePixelFormat.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreImage.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreRoot.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreTexture.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
 
 namespace Ogre {
+class ManualResourceLoader;
+
     //-----------------------------------------------------------------------
     template<> TextureManager* Singleton<TextureManager>::msSingleton = 0;
     TextureManager* TextureManager::getSingletonPtr(void)

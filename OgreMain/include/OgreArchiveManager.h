@@ -28,13 +28,19 @@ THE SOFTWARE.
 #ifndef _ArchiveManager_H__
 #define _ArchiveManager_H__
 
-#include "OgrePrerequisites.h"
+#include <map>
+#include <string>
 
+#include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
+class Archive;
+class ArchiveFactory;
 
     /** \addtogroup Core
     *  @{

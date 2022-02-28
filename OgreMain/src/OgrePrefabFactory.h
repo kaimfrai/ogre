@@ -30,8 +30,10 @@ THE SOFTWARE.
 #define __PrefabFactory_H__
 
 #include "OgrePrerequisites.h"
+#include "OgreExports.h"
 
 namespace Ogre {
+class Mesh;
 
     /** \addtogroup Core
     *  @{

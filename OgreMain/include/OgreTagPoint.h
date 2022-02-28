@@ -29,11 +29,14 @@ THE SOFTWARE.
 #define __TagPoint_H_
 
 #include "OgrePrerequisites.h"
-
 #include "OgreBone.h"
 #include "OgreMatrix4.h"
+#include "OgreExports.h"
 
 namespace Ogre  {
+class Entity;
+class MovableObject;
+class Skeleton;
 
 
     

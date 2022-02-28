@@ -28,12 +28,20 @@ THE SOFTWARE.
 #ifndef __HardwareVertexBuffer__
 #define __HardwareVertexBuffer__
 
+#include <stddef.h>
+#include <list>
+#include <map>
+#include <utility>
+
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreSharedPtr.h"
 #include "OgreColourValue.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
     class HardwareBufferManagerBase;

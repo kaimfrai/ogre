@@ -25,7 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <stddef.h>
+#include <limits>
+
 #include "OgreStableHeaders.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgrePrerequisites.h"
+#include "OgreVector.h"
 
 // Adapted from Matrix math by Wild Magic http://www.geometrictools.com/
 

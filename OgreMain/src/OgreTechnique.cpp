@@ -25,8 +25,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <stddef.h>
+#include <algorithm>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "OgreMaterial.h"
+#include "OgreBlendMode.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreConfig.h"
+#include "OgreGpuProgram.h"
+#include "OgreMaterialManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePass.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRoot.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreTechnique.h"
+#include "OgreTexture.h"
+#include "OgreTextureUnitState.h"
 
 
 namespace Ogre {

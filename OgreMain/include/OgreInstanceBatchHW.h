@@ -28,10 +28,22 @@ THE SOFTWARE.
 #ifndef __InstanceBatchHW_H__
 #define __InstanceBatchHW_H__
 
+#include <stddef.h>
+
 #include "OgreInstanceBatch.h"
+#include "OgreExports.h"
+#include "OgreMesh.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre
 {
+class Camera;
+class InstanceManager;
+class Matrix4;
+class RenderOperation;
+class RenderQueue;
+class SubMesh;
     /** \addtogroup Core
     *  @{
     */

@@ -28,14 +28,27 @@ THE SOFTWARE.
 #ifndef __Technique_H__
 #define __Technique_H__
 
+#include <stddef.h>
+#include <string>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgrePass.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreUserObjectBindings.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreBlendMode.h"
+#include "OgreColourValue.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class Material;
+
     /** \addtogroup Core
     *  @{
     */

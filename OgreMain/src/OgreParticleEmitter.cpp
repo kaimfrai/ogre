@@ -25,11 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <assert.h>
+#include <cmath>
+#include <vector>
 
+#include "OgreStableHeaders.h"
 #include "OgreParticleEmitter.h"
 #include "OgreParticleEmitterFactory.h"
 #include "OgreParticleEmitterCommands.h"
+#include "OgreCommon.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre
 {

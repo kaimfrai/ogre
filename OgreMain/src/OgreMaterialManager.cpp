@@ -25,11 +25,33 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <list>
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgreLodStrategyManager.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePass.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreTechnique.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
 
 
 namespace Ogre {
+class Renderable;
 
     //-----------------------------------------------------------------------
     template<> MaterialManager* Singleton<MaterialManager>::msSingleton = 0;

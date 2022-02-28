@@ -28,6 +28,12 @@
 #ifndef __OGRE_DEFLATE_H__
 #define __OGRE_DEFLATE_H__
 
+#include <assert.h>
+#include <string.h>
+
+#include "OgreBuildSettings.h"
+#include "OgreExports.h"
+#include "OgreSharedPtr.h"
 #if OGRE_NO_ZIP_ARCHIVE == 0
 
 #include "OgrePrerequisites.h"
@@ -36,6 +42,7 @@
 
 /// forward decls
 struct mz_stream_s;
+
 typedef struct mz_stream_s z_stream;
 
 namespace Ogre

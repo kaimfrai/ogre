@@ -28,14 +28,21 @@ THE SOFTWARE.
 #ifndef __PatchSurface_H__
 #define __PatchSurface_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <vector>
 
+#include "OgrePrerequisites.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class VertexDeclaration;
 
     /** \addtogroup Core
     *  @{

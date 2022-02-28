@@ -31,10 +31,15 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreNode.h"
+#include "OgreExports.h"
+#include "OgreQuaternion.h"
+#include "OgreVector.h"
 
 
 namespace Ogre 
 {
+class Affine3;
+class Skeleton;
     /** \addtogroup Core
     *  @{
     */

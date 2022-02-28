@@ -25,6 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <algorithm>
+#include <limits>
+#include <memory>
+#include <string>
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgreInstancedEntity.h"
 #include "OgreInstanceBatch.h"
@@ -32,9 +38,19 @@ THE SOFTWARE.
 #include "OgreAnimationState.h"
 #include "OgreOptimisedUtil.h"
 #include "OgreNameGenerator.h"
+#include "OgreCamera.h"
+#include "OgreException.h"
+#include "OgreMath.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgreSharedPtr.h"
+#include "OgreSphere.h"
+#include "OgreStringConverter.h"
 
 namespace Ogre
 {
+class AxisAlignedBox;
+
     NameGenerator InstancedEntity::msNameGenerator("");
 
     InstancedEntity::InstancedEntity( InstanceBatch *batchOwner, uint32 instanceID, InstancedEntity* sharedTransformEntity ) :

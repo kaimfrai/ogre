@@ -28,15 +28,25 @@ THE SOFTWARE.
 #ifndef __OGRE_POSE_H
 #define __OGRE_POSE_H
 
+#include <stddef.h>
+#include <map>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 
     template <typename T> class MapIterator;
     template <typename T> class ConstMapIterator;
+class VertexData;
 
     /** \addtogroup Core
     *  @{

@@ -25,13 +25,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <algorithm>
+#include <cmath>
+#include <iterator>
+#include <list>
+#include <string>
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgreAnimation.h"
 #include "OgreKeyFrame.h"
 #include "OgreEntity.h"
 #include "OgreSubEntity.h"
+#include "OgreBone.h"
+#include "OgreException.h"
+#include "OgreMesh.h"
+#include "OgreSharedPtr.h"
+#include "OgreSkeleton.h"
+#include "OgreStringConverter.h"
 
 namespace Ogre {
+class Node;
+class VertexData;
 
     Animation::InterpolationMode Animation::msDefaultInterpolationMode = Animation::IM_LINEAR;
     Animation::RotationInterpolationMode 

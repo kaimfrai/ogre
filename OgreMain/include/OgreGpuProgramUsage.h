@@ -28,9 +28,15 @@ THE SOFTWARE.
 #ifndef __GpuProgramUsage_H__
 #define __GpuProgramUsage_H__
 
+#include <stddef.h>
+
 #include "OgrePrerequisites.h"
 #include "OgreGpuProgram.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreResource.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre 
 {

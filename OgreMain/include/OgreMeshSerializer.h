@@ -29,14 +29,18 @@ THE SOFTWARE.
 #ifndef __MeshSerializer_H__
 #define __MeshSerializer_H__
 
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreSerializer.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
 
 namespace Ogre {
     
     class MeshSerializerListener;
     class MeshVersionData;
+class Mesh;
     
     /// Mesh compatibility versions
     enum MeshVersion 

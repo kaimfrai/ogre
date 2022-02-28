@@ -29,10 +29,13 @@ THE SOFTWARE.
 #define _WireBoundingBox_H__
 
 #include "OgrePrerequisites.h"
-
 #include "OgreSimpleRenderable.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreExports.h"
 
 namespace Ogre {
+class Camera;
+class Matrix4;
 
     /** \addtogroup Core
     *  @{

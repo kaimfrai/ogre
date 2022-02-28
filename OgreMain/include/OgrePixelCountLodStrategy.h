@@ -29,9 +29,11 @@ THE SOFTWARE.
 #define __Pixel_Count_Lod_Strategy_H__
 
 #include "OgrePrerequisites.h"
-
 #include "OgreLodStrategy.h"
 #include "OgreSingleton.h"
+#include "OgreExports.h"
+#include "OgreMaterial.h"
+#include "OgreMesh.h"
 
 namespace Ogre {
 
@@ -43,6 +45,9 @@ namespace Ogre {
     */
 
     class AbsolutePixelCountLodStrategy;
+class Camera;
+class MovableObject;
+
     /// Backward compatible name for Distance_Box strategy.
     typedef AbsolutePixelCountLodStrategy PixelCountLodStrategy;
 

@@ -25,15 +25,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
+#include <algorithm>
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
 
+#include "OgreStableHeaders.h"
 #include "OgreTextureUnitState.h"
 #include "OgreGpuProgramManager.h"
-#include "OgreHighLevelGpuProgramManager.h"
-#include "OgreExternalTextureSourceManager.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreDistanceLodStrategy.h"
-#include "OgreHighLevelGpuProgram.h"
+#include "OgreBlendMode.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreConfig.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreLight.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMaterialSerializer.h"
+#include "OgreMath.h"
+#include "OgreMatrix4.h"
+#include "OgrePass.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
+#include "OgreStringInterface.h"
+#include "OgreTechnique.h"
+#include "OgreTexture.h"
+#include "OgreTextureManager.h"
+#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre
 {

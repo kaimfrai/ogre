@@ -25,7 +25,45 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <algorithm>
+#include <istream>
+#include <list>
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgreStableHeaders.h"
+#include "OgreBuildSettings.h"
+#include "OgreCommon.h"
+#include "OgreConfig.h"
+#include "OgreConfigOptionMap.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreLogManager.h"
+#include "OgreMaterialManager.h"
+#include "OgreMatrix4.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlane.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreProfiler.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
+#include "OgreStringVector.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 // RenderSystem implementation
 // Note that most of this class is abstract since
 //  we cannot know how to implement the behaviour without
@@ -34,7 +72,6 @@ THE SOFTWARE.
 
 #include "OgreRenderTarget.h"
 #include "OgreDepthBuffer.h"
-#include "OgreHardwareOcclusionQuery.h"
 #include "OgreComponents.h"
 
 #ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
@@ -42,6 +79,10 @@ THE SOFTWARE.
 #endif
 
 namespace Ogre {
+class Camera;
+class HardwareOcclusionQuery;
+class RenderWindow;
+class Viewport;
 
     RenderSystem::Listener* RenderSystem::msSharedEventListener = 0;
 

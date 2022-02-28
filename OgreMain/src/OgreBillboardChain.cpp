@@ -29,13 +29,39 @@ THE SOFTWARE.
 // Thanks to Vincent Cantin (karmaGfa) for the original implementation of this
 // class, although it has now been mostly rewritten
 
+#include <assert.h>
+#include <string.h>
+#include <limits>
+#include <algorithm>
+#include <map>
+#include <string>
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgreBillboardChain.h"
 #include "OgreViewport.h"
-
-#include <limits>
+#include "OgreCamera.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreLogManager.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix4.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreNode.h"
+#include "OgrePlatform.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderQueue.h"
+#include "OgreSceneManager.h"
+#include "OgreStringConverter.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
+class RenderSystem;
+
     const size_t BillboardChain::SEGMENT_EMPTY = std::numeric_limits<size_t>::max();
     //-----------------------------------------------------------------------
     BillboardChain::Element::Element()

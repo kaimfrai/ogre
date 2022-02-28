@@ -25,7 +25,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <stddef.h>
+#include <sys/stat.h>
+#include <algorithm>
+#include <iosfwd>
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgreStableHeaders.h"
+#include "OgreArchive.h"
+#include "OgreBuildSettings.h"
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreFileSystem.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringVector.h"
+#include "OgreZip.h"
+#include "Threading/OgreThreadHeaders.h"
+
+struct zip_t;
 
 #if OGRE_NO_ZIP_ARCHIVE == 0
 #include <zip.h>

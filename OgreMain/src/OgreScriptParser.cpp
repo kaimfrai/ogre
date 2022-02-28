@@ -26,8 +26,16 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <list>
+#include <string>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "OgreScriptParser.h"
+#include "OgreException.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
 
 namespace Ogre
 {

@@ -28,12 +28,32 @@ THE SOFTWARE.
 #ifndef __Math_H__
 #define __Math_H__
 
+#include <assert.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <limits>
+#include <cmath>
+#include <list>
+#include <ostream>
+#include <utility>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgrePlatform.h"
 
 namespace Ogre
 {
+class Affine3;
+class AxisAlignedBox;
+class Degree;
+class Matrix3;
+class Matrix4;
+class Plane;
+class Quaternion;
+class Ray;
+class Sphere;
     /** \addtogroup Core
     *  @{
     */

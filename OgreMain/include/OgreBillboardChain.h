@@ -32,14 +32,33 @@ THE SOFTWARE.
 #ifndef _BillboardChain_H__
 #define _BillboardChain_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <memory>
+#include <vector>
 
+#include "OgrePrerequisites.h"
 #include "OgreMovableObject.h"
 #include "OgreRenderable.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreMaterial.h"
+#include "OgreQuaternion.h"
+#include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class Camera;
+class IndexData;
+class Matrix4;
+class RenderOperation;
+class RenderQueue;
+class RenderSystem;
+class SceneManager;
+class VertexData;
 
     /** \addtogroup Core
     *  @{

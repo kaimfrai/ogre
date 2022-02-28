@@ -26,13 +26,14 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreStableHeaders.h"
-
 #include "OgreRenderTexture.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreDepthBuffer.h"
+#include "OgreException.h"
 
 namespace Ogre
 {
+struct Box;
 
     //-----------------------------------------------------------------------------
     RenderTexture::RenderTexture(HardwarePixelBuffer *buffer, uint32 zoffset):

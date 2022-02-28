@@ -28,7 +28,13 @@ THE SOFTWARE.
 #ifndef _COLOURVALUE_H__
 #define _COLOURVALUE_H__
 
+#include <assert.h>
+#include <stddef.h>
+#include <ostream>
+
 #include "OgrePrerequisites.h"
+#include "OgreExports.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
     /** \addtogroup Core

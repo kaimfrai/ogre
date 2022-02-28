@@ -28,9 +28,15 @@ THE SOFTWARE.
 #include "OgreStableHeaders.h"
 #include "OgreTagPoint.h"
 #include "OgreEntity.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreVector.h"
 
 
 namespace Ogre {
+class Skeleton;
 
     //-----------------------------------------------------------------------------
     TagPoint::TagPoint(unsigned short handle, Skeleton* creator)

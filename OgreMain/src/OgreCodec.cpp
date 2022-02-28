@@ -25,10 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgreCodec.h"
+#include "OgreException.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
 
 namespace Ogre {
+class Any;
 
     std::map< String, Codec * > Codec::msMapCodecs;
 

@@ -28,13 +28,27 @@ THE SOFTWARE.
 #ifndef __ROOT__
 #define __ROOT__
 
+#include <exception>
+#include <deque>
+#include <algorithm>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <vector>
+
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreSceneManagerEnumerator.h"
-
-#include <exception>
-#include <deque>
 #include "OgreHeaderPrefix.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSingleton.h"
 
 namespace Ogre
 {
@@ -47,6 +61,39 @@ namespace Ogre
 
     class AndroidLogListener;
     class ShadowTextureManager;
+class ArchiveFactory;
+class ArchiveManager;
+class CompositorManager;
+class ConfigDialog;
+class ControllerManager;
+class DynLib;
+class DynLibManager;
+class ExternalTextureSourceManager;
+class FrameListener;
+class GpuProgramManager;
+class LodStrategyManager;
+class LogManager;
+class MaterialManager;
+class MeshManager;
+class MovableObjectFactory;
+class ParticleSystemManager;
+class Plugin;
+class Profiler;
+class RenderSystem;
+class RenderSystemCapabilities;
+class RenderSystemCapabilitiesManager;
+class RenderTarget;
+class RenderWindow;
+class ResourceBackgroundQueue;
+class SceneManager;
+class SceneManagerFactory;
+class ScriptCompilerManager;
+class SkeletonManager;
+class TextureManager;
+class Timer;
+class WorkQueue;
+struct FrameEvent;
+struct SceneManagerMetaData;
 
     typedef std::vector<RenderSystem*> RenderSystemList;
     

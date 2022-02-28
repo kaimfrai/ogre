@@ -25,8 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <map>
+#include <string>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "Threading/OgreThreadHeaders.h"
+#include "OgreCommon.h"
+#include "OgrePrerequisites.h"
+#include "OgreStringInterface.h"
 
 namespace Ogre {
     OGRE_STATIC_MUTEX( msDictionaryMutex );

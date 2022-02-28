@@ -25,8 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <assert.h>
+#include <utility>
 
+#include "OgreStableHeaders.h"
 #include "OgreDynLibManager.h"
 #include "OgreDynLib.h"
 

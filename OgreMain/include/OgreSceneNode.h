@@ -28,12 +28,19 @@ THE SOFTWARE.
 #ifndef _SceneNode_H__
 #define _SceneNode_H__
 
+#include <stddef.h>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
-
 #include "OgreNode.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMath.h"
+#include "OgrePlatform.h"
+#include "OgreQuaternion.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 
@@ -41,6 +48,10 @@ namespace Ogre {
     struct VisibleObjectsBoundsInfo;
     template <typename T> class ConstVectorIterator;
     template <typename T> class VectorIterator;
+class Camera;
+class MovableObject;
+class RenderQueue;
+class SceneManager;
 
     /** \addtogroup Core
     *  @{

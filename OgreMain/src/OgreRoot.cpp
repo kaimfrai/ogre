@@ -26,8 +26,19 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 // Ogre includes
-#include "OgreStableHeaders.h"
+#include <assert.h>
+#include <stdlib.h>
+#include <algorithm>
+#include <deque>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
 
+#include "OgreStableHeaders.h"
 #include "OgreRenderWindow.h"
 #include "OgreControllerManager.h"
 #include "OgreDynLibManager.h"
@@ -50,6 +61,46 @@ THE SOFTWARE.
 #include "OgreLodStrategyManager.h"
 #include "OgreFileSystemLayer.h"
 #include "OgreStaticGeometry.h"
+#include "OgreArchiveFactory.h"
+#include "OgreArchiveManager.h"
+#include "OgreBuildSettings.h"
+#include "OgreBuiltinMovableFactories.h"
+#include "OgreCommon.h"
+#include "OgreConfigOptionMap.h"
+#include "OgreDefaultWorkQueueStandard.h"
+#include "OgreException.h"
+#include "OgreFileSystem.h"
+#include "OgreLogManager.h"
+#include "OgreManualObject.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMeshManager.h"
+#include "OgreMovableObject.h"
+#include "OgreParticleSystemManager.h"
+#include "OgrePlatform.h"
+#include "OgrePlatformInformation.h"
+#include "OgrePrerequisites.h"
+#include "OgreProfiler.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderTarget.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneManagerEnumerator.h"
+#include "OgreScriptCompiler.h"
+#include "OgreShadowTextureManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreStringInterface.h"
+#include "OgreStringVector.h"
+#include "OgreTextureManager.h"
+#include "OgreWorkQueue.h"
+#include "OgreZip.h"
+#include "Threading/OgreThreadHeaders.h"
 
 #if OGRE_NO_DDS_CODEC == 0
 #include "OgreDDSCodec.h"

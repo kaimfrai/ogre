@@ -2,7 +2,15 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 
+#include <stddef.h>
+#include <map>
+#include <utility>
+
 #include "OgreStableHeaders.h"
+#include "OgreException.h"
+#include "OgreGpuProgramParams.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderable.h"
 
 namespace Ogre
 {

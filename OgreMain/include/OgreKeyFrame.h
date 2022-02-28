@@ -29,15 +29,23 @@ THE SOFTWARE.
 #ifndef __KeyFrame_H__
 #define __KeyFrame_H__
 
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreVector.h"
 #include "OgreQuaternion.h"
 #include "OgreAny.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre 
 {
+class AnimationTrack;
 
     /** \addtogroup Core
     *  @{

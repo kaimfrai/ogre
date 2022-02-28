@@ -25,10 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <string.h>
+#include <algorithm>
+#include <memory>
+
 #include "OgreStableHeaders.h"
 #include "OgreImage.h"
 #include "OgreImageCodec.h"
 #include "OgreImageResampler.h"
+#include "OgreAny.h"
+#include "OgreCodec.h"
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreMath.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
 
 namespace Ogre {
     ImageCodec::~ImageCodec() {

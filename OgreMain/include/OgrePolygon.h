@@ -29,9 +29,16 @@ THE SOFTWARE.
 #ifndef __Polygon_H__
 #define __Polygon_H__
 
+#include <stddef.h>
+#include <iosfwd>
+#include <map>
+#include <utility>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreVector.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
 
 
 namespace Ogre

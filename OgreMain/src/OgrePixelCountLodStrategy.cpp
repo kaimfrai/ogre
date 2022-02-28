@@ -26,10 +26,18 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <assert.h>
+#include <limits>
+
 #include "OgreStableHeaders.h"
 #include "OgrePixelCountLodStrategy.h"
-
 #include "OgreViewport.h"
+#include "OgreCamera.h"
+#include "OgreFrustum.h"
+#include "OgreMath.h"
+#include "OgreMatrix4.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------

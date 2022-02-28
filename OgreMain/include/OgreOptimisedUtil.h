@@ -28,11 +28,15 @@ THE SOFTWARE.
 #ifndef __OptimisedUtil_H__
 #define __OptimisedUtil_H__
 
-#include "OgrePrerequisites.h"
-#include "OgreEdgeListBuilder.h"
 #include <cstddef>
 
+#include "OgrePrerequisites.h"
+#include "OgreEdgeListBuilder.h"
+#include "OgreExports.h"
+#include "OgrePlatform.h"
+
 namespace Ogre {
+class Affine3;
 
     /** \addtogroup Core
     *  @{

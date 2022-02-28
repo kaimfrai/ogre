@@ -28,9 +28,14 @@ THE SOFTWARE.
 #ifndef __Matrix3_H__
 #define __Matrix3_H__
 
-#include "OgrePrerequisites.h"
+#include <assert.h>
+#include <string.h>
+#include <ostream>
 
+#include "OgrePrerequisites.h"
 #include "OgreVector.h"
+#include "OgreExports.h"
+#include "OgreMath.h"
 
 // NB All code adapted from Wild Magic 0.2 Matrix math (free source code)
 // http://www.geometrictools.com/

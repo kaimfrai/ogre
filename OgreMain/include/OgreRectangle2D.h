@@ -29,10 +29,13 @@ THE SOFTWARE.
 #define _Rectangle2D_H__
 
 #include "OgrePrerequisites.h"
-
 #include "OgreSimpleRenderable.h"
+#include "OgreExports.h"
+#include "OgreHardwareBuffer.h"
 
 namespace Ogre {
+class Camera;
+class Matrix4;
 
     /** \addtogroup Core
     *  @{

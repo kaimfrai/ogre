@@ -28,15 +28,26 @@ THE SOFTWARE.
 #ifndef _Node_H__
 #define _Node_H__
 
-#include "OgrePrerequisites.h"
+#include <set>
+#include <vector>
 
+#include "OgrePrerequisites.h"
 #include "OgreMatrix4.h"
 #include "OgreUserObjectBindings.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreQuaternion.h"
+#include "OgreVector.h"
 
 namespace Ogre {
     template <typename T> class VectorIterator;
     template <typename T> class ConstVectorIterator;
+class Any;
+class Camera;
 
     /** \addtogroup Core
     *  @{

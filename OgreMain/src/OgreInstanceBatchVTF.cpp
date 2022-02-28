@@ -25,15 +25,48 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <string.h>
+#include <algorithm>
+#include <limits>
+#include <map>
+#include <string>
+#include <type_traits>
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgreInstanceBatchVTF.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreInstancedEntity.h"
 #include "OgreMaterial.h"
 #include "OgreDualQuaternion.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMaterialManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePass.h"
+#include "OgrePixelFormat.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreStringConverter.h"
+#include "OgreSubMesh.h"
+#include "OgreTechnique.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre
 {
+class InstanceManager;
+class RenderQueue;
+
     static const uint16 c_maxTexWidth   = 4096;
     static const uint16 c_maxTexHeight  = 4096;
 

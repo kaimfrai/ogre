@@ -28,12 +28,14 @@ THE SOFTWARE.
 
 // Emulate _findfirst, _findnext on non-Windows platforms
 #include "OgreSearchOps.h"
+
 #include <stdio.h>
 #include <dirent.h>
 #include <fnmatch.h>
 #include <sys/stat.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 /* Win32 directory operations emulation */
 #if OGRE_PLATFORM != OGRE_PLATFORM_WIN32 && OGRE_PLATFORM != OGRE_PLATFORM_WINRT

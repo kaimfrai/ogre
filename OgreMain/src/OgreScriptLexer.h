@@ -29,6 +29,13 @@ THE SOFTWARE.
 #ifndef __ScriptLexer_H_
 #define __ScriptLexer_H_
 
+#include <vector>
+
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+
 namespace Ogre {
 
     /** \addtogroup Core

@@ -28,15 +28,18 @@ THE SOFTWARE.
 #ifndef __FileSystem_H__
 #define __FileSystem_H__
 
-#include "OgrePrerequisites.h"
+#include <iosfwd>
 
+#include "OgrePrerequisites.h"
 #include "OgreArchive.h"
 #include "OgreArchiveFactory.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
 
 struct AAssetManager;
 
 namespace Ogre {
+class Archive;
 
     /** \addtogroup Core
     *  @{

@@ -28,13 +28,18 @@ THE SOFTWARE.
 #ifndef __Lod_Strategy_Manager_H__
 #define __Lod_Strategy_Manager_H__
 
-#include "OgrePrerequisites.h"
+#include <map>
+#include <string>
 
+#include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
     template <typename T> class MapIterator;
+class LodStrategy;
 
     /** \addtogroup Core
     *  @{

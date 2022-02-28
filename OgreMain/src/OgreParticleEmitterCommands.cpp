@@ -28,6 +28,8 @@ THE SOFTWARE.
 #include "OgreStableHeaders.h"
 #include "OgreParticleEmitterCommands.h"
 #include "OgreParticleEmitter.h"
+#include "OgreStringConverter.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 

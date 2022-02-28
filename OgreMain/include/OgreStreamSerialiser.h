@@ -28,15 +28,31 @@ THE SOFTWARE.
 #ifndef __StreamSerialiser_H__
 #define __StreamSerialiser_H__
 
+#include <stddef.h>
+#include <deque>
+#include <algorithm>
+
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreDataStream.h"
 #include "OgreHeaderPrefix.h"
-
-#include <deque>
+#include "OgreBuildSettings.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre 
 {
+class AxisAlignedBox;
+class Matrix3;
+class Matrix4;
+class Node;
+class Plane;
+class Quaternion;
+class Radian;
+class Ray;
+class Sphere;
     /** \addtogroup Core
     *  @{
     */

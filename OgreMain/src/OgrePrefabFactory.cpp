@@ -26,8 +26,26 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <math.h>
+#include <stddef.h>
+#include <string>
+
 #include "OgreStableHeaders.h"
 #include "OgrePrefabFactory.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMath.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
+#include "OgreSubMesh.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
     //---------------------------------------------------------------------

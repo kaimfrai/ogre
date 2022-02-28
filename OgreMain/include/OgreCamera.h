@@ -28,19 +28,31 @@ THE SOFTWARE.
 #ifndef __Camera_H__
 #define __Camera_H__
 
+#include <iosfwd>
+#include <vector>
+
 // Default options
 #include "OgrePrerequisites.h"
-
 // Matrices & Vectors
 #include "OgreCommon.h"
 #include "OgreFrustum.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreExports.h"
+#include "OgrePlane.h"
+#include "OgrePlaneBoundedVolume.h"
+#include "OgreQuaternion.h"
+#include "OgreVector.h"
 
 
 namespace Ogre {
 
     class Matrix4;
     class Ray;
+class Affine3;
+class SceneManager;
+class Sphere;
+class Viewport;
 
     /** \addtogroup Core
     *  @{

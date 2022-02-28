@@ -29,6 +29,13 @@ THE SOFTWARE.
 #ifndef __SCRIPTCOMPILER_H_
 #define __SCRIPTCOMPILER_H_
 
+#include <list>
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
 #include "OgreScriptLoader.h"
@@ -36,9 +43,17 @@ THE SOFTWARE.
 #include "OgreAny.h"
 #include "Threading/OgreThreadHeaders.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreStringVector.h"
 
 namespace Ogre
 {
+class Material;
+
     /** \addtogroup Core
     *  @{
     */
@@ -60,6 +75,7 @@ namespace Ogre
 
     /** The ConcreteNode is the struct that holds an un-conditioned sub-tree of parsed input */
     struct ConcreteNode;
+
     typedef SharedPtr<ConcreteNode> ConcreteNodePtr;
     typedef std::list<ConcreteNodePtr> ConcreteNodeList;
     typedef SharedPtr<ConcreteNodeList> ConcreteNodeListPtr;
@@ -84,6 +100,7 @@ namespace Ogre
         ANT_VARIABLE_ACCESS
     };
     class AbstractNode;
+
     typedef SharedPtr<AbstractNode> AbstractNodePtr;
     typedef std::list<AbstractNodePtr> AbstractNodeList;
     typedef SharedPtr<AbstractNodeList> AbstractNodeListPtr;

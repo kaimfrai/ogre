@@ -28,13 +28,28 @@ THE SOFTWARE.
 #ifndef __MaterialSerializer_H__
 #define __MaterialSerializer_H__
 
+#include <stddef.h>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreTextureUnitState.h"
 #include "OgreGpuProgram.h"
 #include "OgreStringVector.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreBlendMode.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
+class ColourValue;
+class Material;
+class Pass;
+class Technique;
 
     /** \addtogroup Core
     *  @{

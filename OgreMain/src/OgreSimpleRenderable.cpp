@@ -25,10 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <stddef.h>
+#include <ostream>
+
 #include "OgreStableHeaders.h"
 #include "OgreRenderQueue.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreCommon.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMatrix4.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderable.h"
+#include "OgreSharedPtr.h"
+#include "OgreSimpleRenderable.h"
 
 namespace Ogre {
+class Camera;
 
     uint SimpleRenderable::msGenNameCount = 0;
 

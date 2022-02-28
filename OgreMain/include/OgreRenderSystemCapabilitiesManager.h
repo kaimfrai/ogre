@@ -28,12 +28,19 @@ THE SOFTWARE.
 #ifndef __RENDERSYSTEMCAPABILITIESMANAGER_H__
 #define __RENDERSYSTEMCAPABILITIESMANAGER_H__
 
+#include <map>
+#include <string>
+
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 
 namespace Ogre {
+class RenderSystemCapabilities;
+class RenderSystemCapabilitiesSerializer;
 
 
     /** \addtogroup Core

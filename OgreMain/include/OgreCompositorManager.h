@@ -28,15 +28,39 @@ THE SOFTWARE.
 #ifndef __CompositorManager_H__
 #define __CompositorManager_H__
 
+#include <stddef.h>
+#include <map>
+#include <set>
+#include <string>
+#include <tuple>
+#include <utility>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreResourceManager.h"
 #include "OgreRenderSystem.h"
 #include "OgreCompositionTechnique.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreTexture.h"
 
 namespace Ogre {
 
     class Rectangle2D;
+class CompositorChain;
+class CompositorInstance;
+class CompositorLogic;
+class CustomCompositionPass;
+class Renderable;
+class Viewport;
 
     /** \addtogroup Core
     *  @{

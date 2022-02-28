@@ -30,10 +30,14 @@ Torus Knot Software Ltd.
 #ifndef __ShadowTextureManager_H__
 #define __ShadowTextureManager_H__
 
+#include <stddef.h>
+
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgrePixelFormat.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreSceneManager.h"
 
 namespace Ogre
 {

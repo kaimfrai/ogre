@@ -26,7 +26,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreStableHeaders.h"
-
 #include "OgreEntity.h"
 #include "OgreLight.h"
 #include "OgreControllerManager.h"
@@ -34,7 +33,6 @@ THE SOFTWARE.
 #include "OgreRenderObjectListener.h"
 #include "OgreBillboardSet.h"
 #include "OgreStaticGeometry.h"
-#include "OgreSubEntity.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreBillboardChain.h"
 #include "OgreRibbonTrail.h"
@@ -44,14 +42,91 @@ THE SOFTWARE.
 #include "OgreInstancedEntity.h"
 #include "OgreRenderTexture.h"
 #include "OgreLodListener.h"
-#include "OgreUnifiedHighLevelGpuProgram.h"
 #include "OgreDefaultDebugDrawer.h"
+#include "OgreAnimable.h"
+#include "OgreAnimationState.h"
+#include "OgreAnimationTrack.h"
+#include "OgreAutoParamDataSource.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreBuiltinMovableFactories.h"
+#include "OgreCamera.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreCompositorInstance.h"
+#include "OgreConfig.h"
+#include "OgreException.h"
+#include "OgreFrustum.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreInstanceManager.h"
+#include "OgreManualObject.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgreMovableObject.h"
+#include "OgreNameGenerator.h"
+#include "OgreNode.h"
+#include "OgreParticleSystemManager.h"
+#include "OgrePass.h"
+#include "OgrePlane.h"
+#include "OgrePlaneBoundedVolume.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreProfiler.h"
+#include "OgreQuaternion.h"
+#include "OgreRectangle2D.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderQueue.h"
+#include "OgreRenderQueueListener.h"
+#include "OgreRenderQueueSortingGrouping.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderable.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreSharedPtr.h"
+#include "OgreSphere.h"
+#include "OgreStringConverter.h"
+#include "OgreTechnique.h"
+#include "OgreTexture.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
+#include "OgreViewport.h"
+#include "Threading/OgreThreadHeaders.h"
 
 // This class implements the most basic scene manager
 
+#include <assert.h>
 #include <cstdio>
+#include <algorithm>
+#include <iterator>
+#include <limits>
+#include <list>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace Ogre {
+class AxisAlignedBoxSceneQuery;
+class IntersectionSceneQuery;
+class PlaneBoundedVolumeListSceneQuery;
+class Ray;
+class RaySceneQuery;
+class SceneQuery;
+class SphereSceneQuery;
+
 static const String INVOCATION_SHADOWS = "SHADOWS";
 //-----------------------------------------------------------------------
 SceneManager::SceneManager(const String& name) :

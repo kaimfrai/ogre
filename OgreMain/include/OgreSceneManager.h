@@ -30,9 +30,16 @@ Torus Knot Software Ltd.
 #ifndef __SceneManager_H__
 #define __SceneManager_H__
 
+#include <stddef.h>
+#include <array>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <vector>
+
 // Precompiler options
 #include "OgrePrerequisites.h"
-
 #include "OgrePlane.h"
 #include "OgreQuaternion.h"
 #include "OgreColourValue.h"
@@ -49,8 +56,47 @@ Torus Knot Software Ltd.
 #include "OgreLodListener.h"
 #include "OgreHeaderPrefix.h"
 #include "OgreNameGenerator.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreLight.h"
+#include "OgreMatrix4.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreNode.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlaneBoundedVolume.h"
+#include "OgrePlatform.h"
+#include "OgreShadowCaster.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
+#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
+class Animation;
+class BillboardChain;
+class BillboardSet;
+class Camera;
+class DebugDrawer;
+class Entity;
+class Frustum;
+class GpuProgram;
+class InstancedEntity;
+class Material;
+class MovableObject;
+class ParticleSystem;
+class Pass;
+class Ray;
+class RenderObjectListener;
+class RenderOperation;
+class RenderQueueListener;
+class Renderable;
+class RibbonTrail;
+class SceneNode;
+class Sphere;
+class StaticGeometry;
+class Viewport;
     /** \addtogroup Core
     *  @{
     */

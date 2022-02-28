@@ -25,15 +25,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <string.h>
+#include <algorithm>
+#include <memory>
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgreInstanceManager.h"
 #include "OgreInstanceBatchHW.h"
 #include "OgreInstanceBatchHW_VTF.h"
 #include "OgreInstanceBatchShader.h"
 #include "OgreInstanceBatchVTF.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreInstanceBatch.h"
+#include "OgreMaterialManager.h"
+#include "OgreMesh.h"
+#include "OgreMeshManager.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreStringConverter.h"
+#include "OgreSubMesh.h"
+#include "OgreVertexBoneAssignment.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre
 {
+class InstancedEntity;
+
     InstanceManager::InstanceManager( const String &customName, SceneManager *sceneManager,
                                         const String &meshName, const String &groupName,
                                         InstancingTechnique instancingTechnique, uint16 instancingFlags,

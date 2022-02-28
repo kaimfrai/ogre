@@ -26,6 +26,15 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <assert.h>
+#include <stddef.h>
+#include <algorithm>
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreRenderTexture.h"
@@ -33,9 +42,49 @@ THE SOFTWARE.
 #include "OgreRectangle2D.h"
 #include "OgreShadowCameraSetup.h"
 #include "OgreShadowVolumeExtrudeProgram.h"
-#include "OgreHighLevelGpuProgram.h"
+#include "OgreAutoParamDataSource.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreBlendMode.h"
+#include "OgreCamera.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreLight.h"
+#include "OgreLogManager.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMeshManager.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePass.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlaneBoundedVolume.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderQueueSortingGrouping.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderTarget.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreSceneQuery.h"
+#include "OgreShadowCaster.h"
+#include "OgreShadowTextureManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSphere.h"
+#include "OgreTechnique.h"
+#include "OgreTexture.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class Frustum;
 
 GpuProgramParametersSharedPtr SceneManager::ShadowRenderer::msInfiniteExtrusionParams;
 GpuProgramParametersSharedPtr SceneManager::ShadowRenderer::msFiniteExtrusionParams;

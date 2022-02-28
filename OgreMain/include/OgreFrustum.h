@@ -33,9 +33,25 @@ THE SOFTWARE.
 #include "OgreAxisAlignedBox.h"
 #include "OgreVertexIndexData.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreMath.h"
+#include "OgreMatrix4.h"
+#include "OgrePlane.h"
+#include "OgrePlaneBoundedVolume.h"
+#include "OgrePlatform.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderable.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {
+class Camera;
+class MovablePlane;
+class RenderQueue;
+class Sphere;
+
     /** \addtogroup Core
     *  @{
     */

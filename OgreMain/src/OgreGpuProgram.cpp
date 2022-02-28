@@ -25,13 +25,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreRenderSystemCapabilities.h"
+#include "OgreCommon.h"
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreRenderSystem.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreStringConverter.h"
+#include "OgreStringInterface.h"
 
 namespace Ogre
 {
+class ResourceManager;
+
     //-----------------------------------------------------------------------------
     namespace {
     /// Command object - see ParamCommand

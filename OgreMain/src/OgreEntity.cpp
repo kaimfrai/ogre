@@ -25,6 +25,14 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <string.h>
+#include <algorithm>
+#include <limits>
+#include <list>
+#include <map>
+#include <string>
+
 #include "OgreStableHeaders.h"
 #include "OgreEntity.h"
 #include "OgreSubEntity.h"
@@ -33,9 +41,44 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include "OgreOptimisedUtil.h"
 #include "OgreLodStrategy.h"
 #include "OgreLodListener.h"
+#include "OgreAnimation.h"
+#include "OgreAnimationState.h"
+#include "OgreAnimationTrack.h"
+#include "OgreBone.h"
+#include "OgreCamera.h"
+#include "OgreEdgeListBuilder.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreLight.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgreMeshManager.h"
+#include "OgreNode.h"
+#include "OgrePass.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderQueue.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreSkeleton.h"
+#include "OgreStringConverter.h"
+#include "OgreSubMesh.h"
+#include "OgreTechnique.h"
+#include "OgreVertexIndexData.h"
 
 
 namespace Ogre {
+class Sphere;
+
     //-----------------------------------------------------------------------
     Entity::Entity ()
         : mAnimationState(NULL),

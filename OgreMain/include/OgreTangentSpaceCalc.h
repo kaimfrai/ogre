@@ -28,13 +28,22 @@ THE SOFTWARE.
 #ifndef _OgreTangentSpaceCalc_H_
 #define _OgreTangentSpaceCalc_H_
 
+#include <stddef.h>
+#include <list>
+#include <utility>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreVector.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreHardwareVertexBuffer.h"
 
 namespace Ogre
 {
+class IndexData;
+class VertexData;
 
     /** \addtogroup Core
     *  @{

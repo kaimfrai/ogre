@@ -28,14 +28,23 @@ THE SOFTWARE.
 #ifndef __HardwarePixelBuffer__
 #define __HardwarePixelBuffer__
 
+#include <stddef.h>
+#include <vector>
+
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreImage.h"
 #include "OgreSharedPtr.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class RenderTexture;
 
     /** \addtogroup Core
     *  @{

@@ -28,14 +28,22 @@ THE SOFTWARE.
 #ifndef __RenderQueue_H__
 #define __RenderQueue_H__
 
+#include <memory>
+
 #include "OgrePrerequisites.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
 
     class Camera;
     class MovableObject;
     struct VisibleObjectsBoundsInfo;
+class RenderQueueGroup;
+class Renderable;
+class Technique;
 
     /** \addtogroup Core
     *  @{

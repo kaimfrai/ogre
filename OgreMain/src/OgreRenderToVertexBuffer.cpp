@@ -26,10 +26,18 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <string>
+
 #include "OgreStableHeaders.h"
 #include "OgreRenderToVertexBuffer.h"
+#include "OgreException.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
+class VertexDeclaration;
+
     //-----------------------------------------------------------------------
     RenderToVertexBuffer::RenderToVertexBuffer() :
         mOperationType(RenderOperation::OT_TRIANGLE_LIST),

@@ -29,8 +29,17 @@ THE SOFTWARE.
 #ifndef __Serializer_H__
 #define __Serializer_H__
 
+#include <stddef.h>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreBuildSettings.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreQuaternion.h"
+#include "OgreSharedPtr.h"
 
 #ifndef OGRE_SERIALIZER_VALIDATE_CHUNKSIZE
 #define OGRE_SERIALIZER_VALIDATE_CHUNKSIZE OGRE_DEBUG_MODE

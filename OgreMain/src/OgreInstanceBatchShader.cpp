@@ -25,13 +25,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <string.h>
+#include <algorithm>
+#include <list>
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "OgreInstanceBatchShader.h"
 #include "OgreRenderOperation.h"
 #include "OgreInstancedEntity.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreLogManager.h"
+#include "OgreMaterial.h"
+#include "OgreMatrix4.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePass.h"
+#include "OgreSharedPtr.h"
+#include "OgreSubMesh.h"
+#include "OgreTechnique.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre
 {
+class InstanceManager;
+
     InstanceBatchShader::InstanceBatchShader( InstanceManager *creator, MeshPtr &meshReference,
                                         const MaterialPtr &material, size_t instancesPerBatch,
                                         const Mesh::IndexMap *indexToBoneMap, const String &batchName ) :

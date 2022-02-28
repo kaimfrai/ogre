@@ -28,11 +28,20 @@ THE SOFTWARE.
 #ifndef __HighLevelGpuProgram_H__
 #define __HighLevelGpuProgram_H__
 
+#include <stddef.h>
+#include <utility>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreGpuProgram.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreResource.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class ResourceManager;
+struct GpuNamedConstants;
 
     /** \addtogroup Core
     *  @{

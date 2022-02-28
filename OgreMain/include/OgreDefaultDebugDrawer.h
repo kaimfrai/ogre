@@ -6,9 +6,18 @@
 #define OGREMAIN_INCLUDE_OGREDEFAULTDEBUGDRAWER_H_
 
 #include "OgreSceneManager.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreColourValue.h"
+#include "OgreExports.h"
+#include "OgreManualObject.h"
 
 namespace Ogre
 {
+class Affine3;
+class Frustum;
+class Node;
+class SceneNode;
+class Viewport;
 
 class _OgreExport DefaultDebugDrawer : public DebugDrawer
 {

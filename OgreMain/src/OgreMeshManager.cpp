@@ -25,10 +25,45 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <assert.h>
+#include <stddef.h>
+#include <cmath>
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
 
+#include "OgreStableHeaders.h"
 #include "OgrePatchMesh.h"
 #include "OgrePrefabFactory.h"
+#include "OgreAny.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreCodec.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgreMeshManager.h"
+#include "OgreMeshSerializer.h"
+#include "OgrePatchSurface.h"
+#include "OgrePlane.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreSubMesh.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre
 {

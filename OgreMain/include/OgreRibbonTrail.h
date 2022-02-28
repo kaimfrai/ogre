@@ -29,14 +29,23 @@ THE SOFTWARE.
 #ifndef __RibbonTrail_H__
 #define __RibbonTrail_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <map>
+#include <vector>
 
+#include "OgrePrerequisites.h"
 #include "OgreBillboardChain.h"
 #include "OgreNode.h"
 #include "OgreControllerManager.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMovableObject.h"
 
 namespace Ogre {
+template <typename T> class Controller;
 
     /** \addtogroup Core
     *  @{

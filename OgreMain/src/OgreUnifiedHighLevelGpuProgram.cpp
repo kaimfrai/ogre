@@ -25,12 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <string>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "OgreUnifiedHighLevelGpuProgram.h"
 #include "OgreGpuProgramManager.h"
+#include "OgreException.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreLogManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreStringInterface.h"
+#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre
 {
+class ResourceManager;
+
     //-----------------------------------------------------------------------
     /// Command object for setting delegate (can set more than once)
     class CmdDelegate : public ParamCommand

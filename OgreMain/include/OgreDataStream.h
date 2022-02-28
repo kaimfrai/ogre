@@ -28,10 +28,16 @@ THE SOFTWARE.
 #ifndef __DataStream_H__
 #define __DataStream_H__
 
+#include <stdio.h>
+#include <istream>
+#include <list>
+
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
-#include <istream>
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
     

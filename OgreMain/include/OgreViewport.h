@@ -28,12 +28,21 @@ THE SOFTWARE.
 #ifndef __Viewport_H__
 #define __Viewport_H__
 
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreFrustum.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreColourValue.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
+class Camera;
+class RenderTarget;
+
     /** \addtogroup Core
     *  @{
     */

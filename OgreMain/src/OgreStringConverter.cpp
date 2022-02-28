@@ -25,7 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <locale.h>
+#include <stdlib.h>
+#include <locale>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "OgreStableHeaders.h"
+#include "OgreBuildSettings.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreStringVector.h"
+#include "OgreVector.h"
 
 // A quick define to overcome different names for the same function
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT

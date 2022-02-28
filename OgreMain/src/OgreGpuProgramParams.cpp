@@ -25,11 +25,34 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
+#include <ios>
+#include <iterator>
+#include <memory>
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreDualQuaternion.h"
 #include "OgreRenderTarget.h"
+#include "OgreAutoParamDataSource.h"
+#include "OgreBuildSettings.h"
+#include "OgreColourValue.h"
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreFileSystem.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreLogManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderable.h"
+#include "OgreRoot.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {

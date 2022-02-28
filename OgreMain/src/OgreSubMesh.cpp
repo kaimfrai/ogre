@@ -25,9 +25,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <stddef.h>
+#include <map>
+#include <memory>
+#include <set>
+#include <vector>
+
 #include "OgreStableHeaders.h"
+#include "OgreAnimationTrack.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreSharedPtr.h"
+#include "OgreSubMesh.h"
+#include "OgreVector.h"
+#include "OgreVertexBoneAssignment.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
+class HardwareBufferManagerBase;
+
     //-----------------------------------------------------------------------
     SubMesh::SubMesh()
         : vertexData(0)

@@ -28,13 +28,19 @@ THE SOFTWARE.
 #ifndef _Archive_H__
 #define _Archive_H__
 
+#include <ctime>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreDataStream.h"
 #include "OgreStringVector.h"
-#include <ctime>
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class Archive;
 
     /** \addtogroup Core
     *  @{

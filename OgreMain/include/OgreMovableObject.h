@@ -29,6 +29,8 @@ THE SOFTWARE.
 #ifndef __MovableObject_H__
 #define __MovableObject_H__
 
+#include <stddef.h>
+
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreAxisAlignedBox.h"
@@ -36,11 +38,26 @@ THE SOFTWARE.
 #include "OgreShadowCaster.h"
 #include "OgreAnimable.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreRenderable.h"
+#include "OgreUserObjectBindings.h"
 
 namespace Ogre {
 
     // Forward declaration
     class MovableObjectFactory;
+class Affine3;
+class Any;
+class Camera;
+class EdgeData;
+class Light;
+class Node;
+class RenderQueue;
+class SceneManager;
+class SceneNode;
 
     /** \addtogroup Core
     *  @{

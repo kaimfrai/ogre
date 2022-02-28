@@ -28,8 +28,14 @@ THE SOFTWARE.
 #ifndef __Mesh_H__
 #define __Mesh_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <map>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreVertexBoneAssignment.h"
@@ -37,6 +43,13 @@ THE SOFTWARE.
 #include "OgreAnimationTrack.h"
 #include "OgreHeaderPrefix.h"
 #include "OgreSharedPtr.h"
+#include "OgreBuildSettings.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreIteratorWrapper.h"
+#include "OgrePose.h"
 
 
 namespace Ogre {
@@ -51,6 +64,14 @@ namespace Ogre {
 
     struct MeshLodUsage;
     class LodStrategy;
+class Affine3;
+class AnimationStateSet;
+class EdgeData;
+class HardwareBufferManagerBase;
+class IndexData;
+class ResourceManager;
+class SubMesh;
+class VertexData;
 
     /** Resource holding data about 3D mesh.
     @remarks

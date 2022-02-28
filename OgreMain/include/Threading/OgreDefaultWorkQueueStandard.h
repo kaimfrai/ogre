@@ -26,7 +26,16 @@ THE SOFTWARE
 #ifndef __OgreDefaultWorkQueueStandard_H__
 #define __OgreDefaultWorkQueueStandard_H__
 
+#include <stddef.h>
+#include <thread>
+#include <vector>
+
 #include "../OgreWorkQueue.h"
+#include "OgreBuildSettings.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgrePrerequisites.h"
+#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre
 {

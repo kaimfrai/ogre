@@ -35,6 +35,8 @@ THE SOFTWARE.
 #include "OgreParticle.h"
 #include "OgreParticleSystem.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMath.h"
 
 
 namespace Ogre {

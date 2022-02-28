@@ -25,14 +25,47 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <assert.h>
+#include <string.h>
+#include <list>
+#include <map>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
+#include "OgreStableHeaders.h"
 #include "OgreMeshSerializerImpl.h"
 #include "OgreMeshFileFormat.h"
 #include "OgreAnimation.h"
 #include "OgreAnimationTrack.h"
 #include "OgreLodStrategyManager.h"
 #include "OgreDistanceLodStrategy.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreBitwise.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreLodStrategy.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgreMeshSerializer.h"
+#include "OgrePlatform.h"
+#include "OgrePose.h"
+#include "OgreRenderOperation.h"
+#include "OgreSharedPtr.h"
+#include "OgreSubMesh.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 #if OGRE_COMPILER == OGRE_COMPILER_MSVC
 // Disable conversion warnings, we do a lot of them, intentionally

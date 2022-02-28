@@ -27,8 +27,25 @@ You may alternatively use this source under the terms of a specific version of
 the OGRE Unrestricted License provided you have obtained such a license from
 Torus Knot Software Ltd.
 -------------------------------------------------------------------------*/
+#include <assert.h>
+#include <stddef.h>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "OgreHardwarePixelBuffer.h"
+#include "OgreHardwareBuffer.h"
+#include "OgrePixelFormat.h"
+#include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSceneManager.h"
+#include "OgreShadowTextureManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreStringConverter.h"
+#include "OgreTexture.h"
+#include "OgreTextureManager.h"
 
 namespace Ogre
 {

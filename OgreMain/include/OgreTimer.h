@@ -29,8 +29,13 @@ THE SOFTWARE.
 #ifndef __OGRE_TIMER_H__
 #define __OGRE_TIMER_H__
 
-#include "OgrePrerequisites.h"
+#include <stdint.h>
+#include <sys/types.h>
 #include <chrono>
+
+#include "OgrePrerequisites.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre
 {

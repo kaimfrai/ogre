@@ -28,12 +28,28 @@ THE SOFTWARE.
 #ifndef __SceneQuery_H__
 #define __SceneQuery_H__
 
+#include <list>
+#include <set>
+#include <utility>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreSphere.h"
 #include "OgreRay.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlaneBoundedVolume.h"
+#include "OgrePlatform.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class MovableObject;
+class Plane;
+class RenderOperation;
+class SceneManager;
+
     /** \addtogroup Core
     *  @{
     */

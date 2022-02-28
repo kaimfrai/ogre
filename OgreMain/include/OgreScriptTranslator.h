@@ -29,12 +29,24 @@ THE SOFTWARE.
 #ifndef __SCRIPTTRANSLATOR_H_
 #define __SCRIPTTRANSLATOR_H_
 
+#include <stddef.h>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreScriptCompiler.h"
 #include "OgreRenderSystem.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreBlendMode.h"
+#include "OgreBuildSettings.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 namespace Ogre{
+class ColourValue;
+class Matrix4;
     /** \addtogroup Core
     *  @{
     */

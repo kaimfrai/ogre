@@ -29,9 +29,13 @@ THE SOFTWARE.
 #ifndef __SimpleSpline_H__
 #define __SimpleSpline_H__
 
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreMatrix4.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 

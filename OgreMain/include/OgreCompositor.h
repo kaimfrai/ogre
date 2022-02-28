@@ -28,11 +28,24 @@ THE SOFTWARE.
 #ifndef __Compositor_H__
 #define __Compositor_H__
 
+#include <stddef.h>
+#include <map>
+#include <string>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreResource.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
     template <typename T> class VectorIterator;
+class CompositionTechnique;
+class MultiRenderTarget;
+class RenderTarget;
+class ResourceManager;
 
     /** \addtogroup Core
     *  @{

@@ -28,12 +28,25 @@ THE SOFTWARE.
 #ifndef __GpuProgramManager_H_
 #define __GpuProgramManager_H_
 
+#include <stddef.h>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreResourceManager.h"
 #include "OgreGpuProgram.h"
 #include "OgreSingleton.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
 

@@ -57,6 +57,8 @@ THE SOFTWARE.
 
 #include "OgreStableHeaders.h"
 #include "OgreDualQuaternion.h"
+#include "OgreMatrix4.h"
+#include "OgreVector.h"
 
 
 namespace Ogre {

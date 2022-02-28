@@ -28,11 +28,16 @@ THE SOFTWARE.
 #ifndef __Matrix4__
 #define __Matrix4__
 
+#include <assert.h>
+#include <string.h>
+#include <ostream>
+
 // Precompiler options
 #include "OgrePrerequisites.h"
-
 #include "OgreMatrix3.h"
 #include "OgreVector.h"
+#include "OgreExports.h"
+#include "OgreQuaternion.h"
 
 namespace Ogre
 {
@@ -44,6 +49,7 @@ namespace Ogre
     */
     class Matrix4;
     class Affine3;
+
     Matrix4 operator*(const Matrix4 &m, const Matrix4 &m2);
     /** Class encapsulating a standard 4x4 homogeneous matrix.
         @remarks

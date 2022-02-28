@@ -28,15 +28,27 @@ THE SOFTWARE.
 #ifndef __SubMesh_H_
 #define __SubMesh_H_
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <map>
+#include <vector>
 
+#include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreVertexBoneAssignment.h"
 #include "OgreAnimationTrack.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class IndexData;
+class Mesh;
+class VertexData;
 
     /** \addtogroup Core
     *  @{

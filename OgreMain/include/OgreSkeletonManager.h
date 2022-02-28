@@ -29,9 +29,12 @@ THE SOFTWARE.
 #define __SkeletonManager_H__
 
 #include "OgrePrerequisites.h"
-
 #include "OgreResourceManager.h"
 #include "OgreSingleton.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
 
 namespace Ogre {
 

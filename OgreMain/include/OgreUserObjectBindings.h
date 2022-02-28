@@ -28,9 +28,15 @@ THE SOFTWARE.
 #ifndef _UserObjectsBinding_H__
 #define _UserObjectsBinding_H__
 
+#include <map>
+#include <memory>
+#include <string>
+
 #include "OgrePrerequisites.h"
 #include "OgreAny.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
 

@@ -25,14 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <assert.h>
+#include <utility>
+#include <vector>
 
+#include "OgreStableHeaders.h"
 #include "OgreRenderSystemCapabilitiesManager.h"
 #include "OgreRenderSystemCapabilitiesSerializer.h"
+#include "OgreArchive.h"
+#include "OgreArchiveManager.h"
+#include "OgreDataStream.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
 
 
 
 namespace Ogre {
+class RenderSystemCapabilities;
 
     //-----------------------------------------------------------------------
     template<> RenderSystemCapabilitiesManager* Singleton<RenderSystemCapabilitiesManager>::msSingleton = 0;

@@ -25,12 +25,33 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <assert.h>
+#include <algorithm>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
 
+#include "OgreStableHeaders.h"
 #include "OgreViewport.h"
-#include "OgreMovablePlane.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreBuildSettings.h"
+#include "OgreCamera.h"
+#include "OgreCommon.h"
+#include "OgreFrustum.h"
+#include "OgreMath.h"
+#include "OgreMatrix4.h"
+#include "OgrePlane.h"
+#include "OgrePlaneBoundedVolume.h"
+#include "OgrePrerequisites.h"
+#include "OgreProfiler.h"
+#include "OgreQuaternion.h"
+#include "OgreRay.h"
+#include "OgreSceneManager.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class Sphere;
 
     String Camera::msMovableType = "Camera";
     //-----------------------------------------------------------------------

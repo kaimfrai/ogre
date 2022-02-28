@@ -28,12 +28,19 @@ THE SOFTWARE.
 #ifndef __CompositionTargetPass_H__
 #define __CompositionTargetPass_H__
 
+#include <stddef.h>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreHeaderPrefix.h"
 #include "OgreCompositionPass.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
     template <typename T> class VectorIterator;
+class CompositionTechnique;
 
     /** \addtogroup Core
     *  @{

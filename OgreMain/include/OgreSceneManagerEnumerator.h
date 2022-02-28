@@ -28,13 +28,23 @@ THE SOFTWARE.
 #ifndef __SceneManagerEnumerator_H__
 #define __SceneManagerEnumerator_H__
 
-#include "OgrePrerequisites.h"
+#include <list>
+#include <map>
+#include <string>
+#include <vector>
 
+#include "OgrePrerequisites.h"
 #include "OgreSceneManager.h"
 #include "OgreSingleton.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
+class RenderSystem;
     
     /** \addtogroup Core
     *  @{

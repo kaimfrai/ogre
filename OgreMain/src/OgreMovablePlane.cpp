@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include "OgreStableHeaders.h"
 #include "OgreMovablePlane.h"
+#include "OgreNode.h"
 
 namespace Ogre {
 

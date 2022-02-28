@@ -28,21 +28,45 @@ THE SOFTWARE.
 #ifndef __RenderSystem_H_
 #define __RenderSystem_H_
 
+#include <stddef.h>
+#include <list>
+#include <map>
+#include <string>
+#include <vector>
+
 // Precompiler options
 #include "OgrePrerequisites.h"
-
 #include "OgreTextureUnitState.h"
 #include "OgreCommon.h"
-
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreConfigOptionMap.h"
 #include "OgreGpuProgram.h"
 #include "OgrePlane.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreBlendMode.h"
+#include "OgreColourValue.h"
+#include "OgreConfig.h"
+#include "OgreExports.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {
+class Camera;
+class DepthBuffer;
+class Frustum;
+class HardwareOcclusionQuery;
+class Matrix4;
+class MultiRenderTarget;
+class RenderOperation;
+class RenderTarget;
+class RenderWindow;
+class Viewport;
     /** \addtogroup Core
     *  @{
     */
@@ -56,6 +80,7 @@ namespace Ogre
     typedef std::multimap<uchar, RenderTarget * > RenderTargetPriorityMap;
 
     class TextureManager;
+
     /// Enum describing the ways to generate texture coordinates
     enum TexCoordCalcMethod
     {

@@ -28,12 +28,25 @@ THE SOFTWARE.
 #ifndef __RenderQueueSortingGrouping_H__
 #define __RenderQueueSortingGrouping_H__
 
+#include <functional>
+#include <map>
+#include <utility>
+#include <vector>
+
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgrePass.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
+class Camera;
+class RenderQueueGroup;
+class Renderable;
+class Technique;
 
     /** \addtogroup Core
     *  @{

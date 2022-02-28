@@ -28,10 +28,20 @@ THE SOFTWARE.
 #ifndef __ShadowCameraSetup_H__
 #define __ShadowCameraSetup_H__
 
+#include <stddef.h>
+#include <memory>
+
 #include "OgrePrerequisites.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class Camera;
+class Light;
+class SceneManager;
+class Viewport;
 
     /** \addtogroup Core
     *  @{

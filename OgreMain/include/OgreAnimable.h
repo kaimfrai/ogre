@@ -28,6 +28,10 @@ THE SOFTWARE.
 #ifndef __ANIMABLE_H__
 #define __ANIMABLE_H__
 
+#include <string.h>
+#include <map>
+#include <string>
+
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreVector.h"
@@ -35,6 +39,11 @@ THE SOFTWARE.
 #include "OgreStringVector.h"
 #include "OgreException.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMath.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreQuaternion.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
 

@@ -25,13 +25,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <assert.h>
+#include <iterator>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <utility>
 
+#include "OgreStableHeaders.h"
 #include "OgreMaterial.h"
 #include "OgreLodStrategyManager.h"
 #include "OgreLodStrategy.h"
+#include "OgreException.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMaterialManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreResourceManager.h"
+#include "OgreTechnique.h"
 
 namespace Ogre {
+class Renderable;
 
     //-----------------------------------------------------------------------
     Material::Material(ResourceManager* creator, const String& name, ResourceHandle handle,

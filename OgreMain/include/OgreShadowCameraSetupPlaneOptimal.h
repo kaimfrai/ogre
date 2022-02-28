@@ -28,11 +28,23 @@ THE SOFTWARE.
 #ifndef __ShadowCameraSetupPlaneOptimal_H__
 #define __ShadowCameraSetupPlaneOptimal_H__
 
+#include <stddef.h>
+#include <memory>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreShadowCameraSetup.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMatrix4.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class Camera;
+class Light;
+class MovablePlane;
+class SceneManager;
+class Viewport;
 
 
     /** \addtogroup Core

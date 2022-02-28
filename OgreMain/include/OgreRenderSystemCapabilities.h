@@ -28,11 +28,20 @@ THE SOFTWARE.
 #ifndef __RenderSystemCapabilities__
 #define __RenderSystemCapabilities__
 
+#include <set>
+#include <string>
+
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreStringVector.h"
 #include "OgreStringConverter.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+
+namespace Ogre {
+class Log;
+}  // namespace Ogre
 
 // Because there are more than 32 possible Capabilities, more than 1 int is needed to store them all.
 // In fact, an array of integers is used to store capabilities. However all the capabilities are defined in the single

@@ -36,10 +36,18 @@ THE SOFTWARE.
 #ifndef __Quaternion_H__
 #define __Quaternion_H__
 
+#include <assert.h>
+#include <string.h>
+#include <cmath>
+#include <ostream>
+#include <utility>
+
 #include "OgrePrerequisites.h"
 #include "OgreMath.h"
+#include "OgreExports.h"
 
 namespace Ogre {
+class Matrix3;
 
     /** \addtogroup Core
     *  @{

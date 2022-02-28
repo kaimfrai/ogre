@@ -25,10 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <algorithm>
+#include <memory>
+#include <string>
+
 #include "OgreStableHeaders.h"
 #include "OgreEdgeListBuilder.h"
 #include "OgreVertexIndexData.h"
 #include "OgreOptimisedUtil.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreLog.h"
+#include "OgreMath.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
 
 namespace Ogre {
 

@@ -25,8 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <assert.h>
+#include <string.h>
+#include <algorithm>
+#include <cmath>
+#include <iterator>
+#include <limits>
+#include <list>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
+#include "OgreStableHeaders.h"
 #include "OgreSkeletonManager.h"
 #include "OgreEdgeListBuilder.h"
 #include "OgreAnimation.h"
@@ -35,7 +50,41 @@ THE SOFTWARE.
 #include "OgreOptimisedUtil.h"
 #include "OgreTangentSpaceCalc.h"
 #include "OgreLodStrategyManager.h"
-#include "OgrePixelCountLodStrategy.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreBone.h"
+#include "OgreBuildSettings.h"
+#include "OgreCodec.h"
+#include "OgreCommon.h"
+#include "OgreConfig.h"
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreLodStrategy.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix4.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgreMeshManager.h"
+#include "OgrePlatform.h"
+#include "OgrePose.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSkeleton.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreSubMesh.h"
+#include "OgreVector.h"
+#include "OgreVertexBoneAssignment.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------

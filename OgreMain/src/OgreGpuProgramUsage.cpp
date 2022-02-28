@@ -25,9 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <memory>
+#include <string>
+
 #include "OgreStableHeaders.h"
 #include "OgreGpuProgramUsage.h"
 #include "OgreGpuProgramManager.h"
+#include "OgreException.h"
+#include "OgreGpuProgramParams.h"
+#include "OgrePass.h"
+#include "OgreResourceGroupManager.h"
 
 namespace Ogre
 {

@@ -28,9 +28,14 @@ THE SOFTWARE.
 #ifndef __Entity_H__
 #define __Entity_H__
 
+#include <stddef.h>
+#include <memory>
+#include <set>
+#include <utility>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
-
 #include "OgreMovableObject.h"
 #include "OgreQuaternion.h"
 #include "OgreVector.h"
@@ -38,8 +43,30 @@ THE SOFTWARE.
 #include "OgreRenderable.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreBuildSettings.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMatrix4.h"
+#include "OgrePlatform.h"
+#include "OgreResource.h"
+#include "OgreShadowCaster.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class AnimationState;
+class AnimationStateSet;
+class Camera;
+class EdgeData;
+class Light;
+class Node;
+class RenderQueue;
+class SkeletonInstance;
+class Sphere;
+class SubEntity;
+class TagPoint;
+class VertexData;
+
     /** \addtogroup Core
     *  @{
     */

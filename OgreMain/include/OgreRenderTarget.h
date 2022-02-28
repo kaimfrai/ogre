@@ -28,10 +28,17 @@ THE SOFTWARE.
 #ifndef __RenderTarget_H__
 #define __RenderTarget_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <map>
+#include <vector>
 
+#include "OgrePrerequisites.h"
 #include "OgrePixelFormat.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 /* Define the number of priority groups for the render system's render targets. */
 #ifndef OGRE_NUM_RENDERTARGET_GROUPS
@@ -41,6 +48,11 @@ THE SOFTWARE.
 #endif
 
 namespace Ogre {
+class Camera;
+class DepthBuffer;
+class RenderTargetListener;
+class Timer;
+class Viewport;
 
     /** \addtogroup Core
     *  @{

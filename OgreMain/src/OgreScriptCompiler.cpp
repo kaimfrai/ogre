@@ -26,10 +26,37 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <assert.h>
+#include <stddef.h>
+#include <algorithm>
+#include <list>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <type_traits>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "OgreScriptParser.h"
 #include "OgreBuiltinScriptTranslators.h"
 #include "OgreComponents.h"
+#include "OgreDataStream.h"
+#include "OgreLogManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreScriptCompiler.h"
+#include "OgreScriptLexer.h"
+#include "OgreScriptTranslator.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreString.h"
+#include "OgreStringVector.h"
+#include "Threading/OgreThreadHeaders.h"
 
 #define DEBUG_AST 0
 

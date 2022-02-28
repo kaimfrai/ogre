@@ -25,11 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <ostream>
+#include <utility>
+
 #include "OgreStableHeaders.h"
 #include "OgreSceneManagerEnumerator.h"
+#include "OgreException.h"
+#include "OgreLogManager.h"
 
 
 namespace Ogre {
+class RenderSystem;
 
     //-----------------------------------------------------------------------
     template<> SceneManagerEnumerator* Singleton<SceneManagerEnumerator>::msSingleton = 0;

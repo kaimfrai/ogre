@@ -25,15 +25,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <assert.h>
+#include <stddef.h>
+#include <map>
+#include <string>
+#include <utility>
 
+#include "OgreStableHeaders.h"
 #include "OgreParticleEmitterFactory.h"
 #include "OgreParticleAffectorFactory.h"
 #include "OgreParticleSystemRenderer.h"
 #include "OgreBillboardParticleRenderer.h"
 #include "OgreParticleSystem.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreFactoryObj.h"
+#include "OgreLogManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreParticleAffector.h"
+#include "OgreParticleEmitter.h"
+#include "OgreParticleSystemManager.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreScriptCompiler.h"
+#include "OgreSingleton.h"
+#include "OgreStringConverter.h"
+#include "OgreStringVector.h"
+#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
+class MovableObject;
+
     //-----------------------------------------------------------------------
     // Shortcut to set up billboard particle renderer
     BillboardParticleRendererFactory* mBillboardRendererFactory = 0;

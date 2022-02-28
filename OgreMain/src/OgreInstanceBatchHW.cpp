@@ -25,13 +25,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "OgreInstanceBatchHW.h"
 #include "OgreRenderOperation.h"
 #include "OgreInstancedEntity.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreInstanceManager.h"
+#include "OgreMatrix4.h"
+#include "OgreRenderQueue.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
+#include "OgreSubMesh.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre
 {
+class Camera;
+
     InstanceBatchHW::InstanceBatchHW( InstanceManager *creator, MeshPtr &meshReference,
                                         const MaterialPtr &material, size_t instancesPerBatch,
                                         const Mesh::IndexMap *indexToBoneMap, const String &batchName ) :

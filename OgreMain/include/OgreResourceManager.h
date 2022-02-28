@@ -28,14 +28,26 @@ THE SOFTWARE.
 #ifndef _ResourceManager_H__
 #define _ResourceManager_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <atomic>
+#include <list>
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <utility>
 
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreCommon.h"
 #include "OgreStringVector.h"
 #include "OgreScriptLoader.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreSharedPtr.h"
+#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
 

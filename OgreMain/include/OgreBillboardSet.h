@@ -29,15 +29,33 @@ THE SOFTWARE.
 #ifndef __BillboardSet_H__
 #define __BillboardSet_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <memory>
+#include <vector>
 
+#include "OgrePrerequisites.h"
 #include "OgreMovableObject.h"
 #include "OgreRenderable.h"
 #include "OgreCommon.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreColourValue.h"
+#include "OgreExports.h"
+#include "OgreMaterial.h"
+#include "OgrePlatform.h"
+#include "OgreQuaternion.h"
+#include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class Billboard;
+class Camera;
+class IndexData;
+class Matrix4;
+class RenderOperation;
+class RenderQueue;
+class VertexData;
     /** \addtogroup Core
     *  @{
     */

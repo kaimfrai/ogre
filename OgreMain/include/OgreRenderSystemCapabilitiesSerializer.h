@@ -28,9 +28,18 @@ THE SOFTWARE.
 #ifndef __RenderSystemCapabilitiesSerializer_H__
 #define __RenderSystemCapabilitiesSerializer_H__
 
+#include <iosfwd>
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreSharedPtr.h"
 
 
 namespace Ogre {

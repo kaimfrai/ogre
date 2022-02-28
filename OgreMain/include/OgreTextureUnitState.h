@@ -28,14 +28,30 @@ THE SOFTWARE.
 #ifndef __TextureUnitState_H__
 #define __TextureUnitState_H__
 
+#include <stddef.h>
+#include <map>
+#include <memory>
+#include <utility>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreBlendMode.h"
 #include "OgreMatrix4.h"
 #include "OgreTexture.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreColourValue.h"
+#include "OgreExports.h"
+#include "OgreMath.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class Frustum;
+class Pass;
+template <typename T> class Controller;
     /** \addtogroup Core
     *  @{
     */

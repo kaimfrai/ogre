@@ -28,10 +28,14 @@ THE SOFTWARE.
 #ifndef __HardwareIndexBuffer__
 #define __HardwareIndexBuffer__
 
+#include <stddef.h>
+
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreSharedPtr.h"
+#include "OgreExports.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
     class HardwareBufferManagerBase;

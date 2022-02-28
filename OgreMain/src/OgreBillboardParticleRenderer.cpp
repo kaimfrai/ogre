@@ -25,13 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <string>
 
+#include "OgreStableHeaders.h"
 #include "OgreBillboardParticleRenderer.h"
 #include "OgreParticle.h"
 #include "OgreBillboard.h"
+#include "OgreException.h"
+#include "OgreMath.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreStringConverter.h"
+#include "OgreStringInterface.h"
 
 namespace Ogre {
+class RenderQueue;
+
     static String rendererTypeName = "billboard";
 
     /** Command object for billboard type (see ParamCommand).*/

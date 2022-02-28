@@ -29,11 +29,22 @@ THE SOFTWARE.
 #ifndef __SkeletonInstance_H__
 #define __SkeletonInstance_H__
 
+#include <list>
+
 #include "OgrePrerequisites.h"
 #include "OgreSkeleton.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreQuaternion.h"
+#include "OgreResource.h"
+#include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class Animation;
+class AnimationStateSet;
+class Bone;
+class TagPoint;
 
     /** \addtogroup Core
     *  @{

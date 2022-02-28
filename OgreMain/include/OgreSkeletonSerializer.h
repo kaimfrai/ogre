@@ -29,12 +29,20 @@ THE SOFTWARE.
 #ifndef __SkeletonSerializer_H__
 #define __SkeletonSerializer_H__
 
+#include <stddef.h>
+
 #include "OgrePrerequisites.h"
 #include "OgreSerializer.h"
+#include "OgreExports.h"
 
 namespace Ogre {
 
     struct LinkedSkeletonAnimationSource;
+class Animation;
+class Bone;
+class NodeAnimationTrack;
+class Skeleton;
+class TransformKeyFrame;
 
     /// Skeleton compatibility versions
     enum SkeletonVersion 

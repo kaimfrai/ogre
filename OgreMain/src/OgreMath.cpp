@@ -25,7 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <stdlib.h>
+#include <algorithm>
+#include <cmath>
+#include <limits>
+#include <list>
+#include <utility>
+#include <vector>
+
 #include "OgreStableHeaders.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreFrustum.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlane.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRay.h"
+#include "OgreSphere.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {

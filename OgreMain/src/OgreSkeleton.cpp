@@ -25,6 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <stddef.h>
+#include <algorithm>
+#include <iterator>
+#include <list>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "OgreAnimationState.h"
 #include "OgreSkeletonManager.h"
@@ -32,9 +44,27 @@ THE SOFTWARE.
 // Just for logging
 #include "OgreAnimationTrack.h"
 #include "OgreKeyFrame.h"
+#include "OgreAnimation.h"
+#include "OgreBone.h"
+#include "OgreException.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMath.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSkeleton.h"
+#include "OgreStringConverter.h"
+#include "OgreStringVector.h"
+#include "OgreVector.h"
 
 
 namespace Ogre {
+class Affine3;
 
     //---------------------------------------------------------------------
     Skeleton::Skeleton()

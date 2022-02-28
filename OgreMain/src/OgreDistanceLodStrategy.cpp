@@ -26,11 +26,18 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <assert.h>
+#include <algorithm>
+
 #include "OgreStableHeaders.h"
 #include "OgreDistanceLodStrategy.h"
 #include "OgreViewport.h"
-
-#include <limits>
+#include "OgreAxisAlignedBox.h"
+#include "OgreCamera.h"
+#include "OgreFrustum.h"
+#include "OgreMatrix4.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
 
 namespace Ogre {
     DistanceLodStrategyBase::DistanceLodStrategyBase(const String& name)

@@ -29,14 +29,40 @@ THE SOFTWARE.
 #ifndef __OgreManualObject_H__
 #define __OgreManualObject_H__
 
+#include <stddef.h>
+#include <algorithm>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreMovableObject.h"
 #include "OgreRenderable.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreConfig.h"
+#include "OgreException.h"
+#include "OgreExports.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreRenderOperation.h"
+#include "OgreShadowCaster.h"
+#include "OgreSharedPtr.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre
 {
+class Camera;
+class EdgeData;
+class Light;
+class Matrix4;
+class RenderQueue;
+class SubMesh;
+
     /** \addtogroup Core
     *  @{
     */

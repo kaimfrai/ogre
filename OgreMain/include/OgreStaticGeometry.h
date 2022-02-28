@@ -28,13 +28,47 @@ THE SOFTWARE.
 #ifndef __StaticGeometry_H__
 #define __StaticGeometry_H__
 
+#include <assert.h>
+#include <stddef.h>
+#include <iosfwd>
+#include <list>
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreMovableObject.h"
 #include "OgreRenderable.h"
 #include "OgreMesh.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMaterial.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreQuaternion.h"
+#include "OgreShadowCaster.h"
+#include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class Camera;
+class EdgeData;
+class Entity;
+class IndexData;
+class Light;
+class LodStrategy;
+class Matrix4;
+class RenderOperation;
+class RenderQueue;
+class SceneManager;
+class SceneNode;
+class SubMesh;
+class Technique;
+class VertexData;
 
     /** \addtogroup Core
     *  @{

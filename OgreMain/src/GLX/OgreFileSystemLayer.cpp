@@ -26,12 +26,20 @@
  -----------------------------------------------------------------------------
  */
 #include "OgreFileSystemLayer.h"
+
 #include <errno.h>
 #include <unistd.h>
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <pwd.h>
 #include <dlfcn.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreString.h"
+#include "OgreStringVector.h"
 
 namespace Ogre
 {

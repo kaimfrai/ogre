@@ -26,7 +26,20 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 // Ogre includes
+#include <stddef.h>
+#include <atomic>
+#include <set>
+#include <string>
+
 #include "OgreStableHeaders.h"
+#include "OgreException.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre 
 {

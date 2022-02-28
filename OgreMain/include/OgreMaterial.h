@@ -28,14 +28,18 @@ THE SOFTWARE.
 #ifndef _Material_H__
 #define _Material_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <map>
+#include <vector>
 
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreCommon.h"
 #include "OgreColourValue.h"
 #include "OgreBlendMode.h"
 #include "OgreHeaderPrefix.h"
 #include "OgreSharedPtr.h"
+#include "OgreExports.h"
 
 namespace Ogre {
 
@@ -43,6 +47,9 @@ namespace Ogre {
     class LodStrategy;
     template <typename T> class ConstVectorIterator;
     template <typename T> class VectorIterator;
+class Renderable;
+class ResourceManager;
+class Technique;
 
     /** \addtogroup Core
     *  @{

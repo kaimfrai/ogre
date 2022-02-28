@@ -28,12 +28,26 @@ THE SOFTWARE.
 #ifndef __BillboardParticleRenderer_H__
 #define __BillboardParticleRenderer_H__
 
+#include <stddef.h>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreParticleSystemRenderer.h"
 #include "OgreBillboardSet.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreFactoryObj.h"
+#include "OgrePlatform.h"
+#include "OgreRenderable.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class Camera;
+class Node;
+class Particle;
+class RenderQueue;
 
     /** \addtogroup Core
     *  @{

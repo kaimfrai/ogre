@@ -7,7 +7,13 @@
 // compile and run any of them on any platform, but your performance with the
 // non-native version will be less than optimal.
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include "OgreStableHeaders.h"
+#include "OgreExports.h"
+#include "OgreMurmurHash3.h"
+#include "OgrePlatform.h"
 
 //-----------------------------------------------------------------------------
 // Platform-specific functions and macros

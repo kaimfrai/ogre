@@ -25,14 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <string.h>
+#include <ostream>
+#include <string>
+
 #include "OgreStableHeaders.h"
+#include "OgreLog.h"
+#include "OgrePlatform.h"
+#include "OgrePlatformInformation.h"
+#include "OgrePrerequisites.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
 
 #if OGRE_COMPILER == OGRE_COMPILER_MSVC
 #include <excpt.h>      // For SEH values
 #include <intrin.h>
 #elif OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG
-#include <signal.h>
-#include <setjmp.h>
 
     #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
         #include <cpu-features.h>

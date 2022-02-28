@@ -26,10 +26,27 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreStableHeaders.h"
+#include <string.h>
+#include <algorithm>
+#include <ostream>
+#include <string>
+#include <utility>
 
+#include "OgreStableHeaders.h"
 #include "OgreDDSCodec.h"
 #include "OgreImage.h"
+#include "OgreCodec.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRoot.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
     // Internal DDS structure definitions

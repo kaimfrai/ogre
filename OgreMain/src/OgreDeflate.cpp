@@ -25,7 +25,15 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
+#include <stdio.h>
+#include <stdlib.h>
+#include <istream>
+
 #include "OgreStableHeaders.h"
+#include "OgreException.h"
+#include "OgreFileSystem.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 #if OGRE_NO_ZIP_ARCHIVE == 0
 

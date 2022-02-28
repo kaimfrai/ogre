@@ -29,8 +29,12 @@ THE SOFTWARE.
 #define __PlatformInformation_H__
 
 #include "OgrePrerequisites.h"
+#include "OgreBuildSettings.h"
+#include "OgreExports.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
+class Log;
 /* Define whether or not Ogre compiled with SSE support.
 */
 #if   OGRE_DOUBLE_PRECISION == 0 && OGRE_CPU == OGRE_CPU_X86 && OGRE_COMPILER == OGRE_COMPILER_MSVC

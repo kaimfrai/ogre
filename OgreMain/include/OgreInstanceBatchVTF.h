@@ -28,12 +28,28 @@ THE SOFTWARE.
 #ifndef __BaseInstanceBatchVTF_H__
 #define __BaseInstanceBatchVTF_H__
 
+#include <assert.h>
+#include <stddef.h>
+#include <vector>
+
 #include "OgreInstanceBatch.h"
 #include "OgreTexture.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMatrix4.h"
+#include "OgreMesh.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre
 {
+class InstanceManager;
+class InstancedEntity;
+class RenderOperation;
+class RenderQueue;
+class SubMesh;
+class VertexData;
     /** \addtogroup Core
     *  @{
     */

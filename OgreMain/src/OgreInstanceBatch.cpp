@@ -25,15 +25,33 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <algorithm>
+#include <limits>
+#include <memory>
+
 #include "OgreStableHeaders.h"
 #include "OgreInstanceManager.h"
 #include "OgreInstanceBatch.h"
 #include "OgreInstancedEntity.h"
 #include "OgreRenderQueue.h"
 #include "OgreLodListener.h"
+#include "OgreCamera.h"
+#include "OgreException.h"
+#include "OgreFrustum.h"
+#include "OgreMaterial.h"
+#include "OgreMath.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreNode.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreSubMesh.h"
 
 namespace Ogre
 {
+class Technique;
+
     InstanceBatch::InstanceBatch( InstanceManager *creator, MeshPtr &meshReference,
                                     const MaterialPtr &material, size_t instancesPerBatch,
                                     const Mesh::IndexMap *indexToBoneMap, const String &batchName ) :

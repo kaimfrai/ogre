@@ -30,6 +30,8 @@ THE SOFTWARE.
 
 // Emulate _findfirst, _findnext on non-Windows platforms
 
+#include <stdint.h>
+
 #include "OgrePlatform.h"
 
 

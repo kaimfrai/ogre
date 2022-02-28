@@ -28,12 +28,26 @@ THE SOFTWARE.
 #ifndef __InstanceManager_H__
 #define __InstanceManager_H__
 
+#include <stddef.h>
+#include <map>
+#include <string>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre
 {
+class InstanceBatch;
+class InstancedEntity;
+class SceneManager;
     /** \addtogroup Core
     *  @{
     */

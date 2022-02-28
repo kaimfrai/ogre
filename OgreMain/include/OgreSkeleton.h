@@ -29,14 +29,27 @@ THE SOFTWARE.
 #ifndef __Skeleton_H__
 #define __Skeleton_H__
 
+#include <stddef.h>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreStringVector.h"
 #include "OgreAnimation.h"
 #include "OgreHeaderPrefix.h"
 #include "OgreSharedPtr.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
+class Affine3;
+class AnimationStateSet;
+class Bone;
+class ResourceManager;
     /** \addtogroup Core
     *  @{
     */

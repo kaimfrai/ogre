@@ -25,9 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
-
+#include <stdlib.h>
 #include <iostream>
+#include <algorithm>
+#include <ctime>
+#include <iomanip>
+#include <string>
+#include <vector>
+
+#include "OgreStableHeaders.h"
+#include "OgreBuildSettings.h"
+#include "OgreLog.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreStringConverter.h"
+#include "Threading/OgreThreadHeaders.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT
 #   include <windows.h>

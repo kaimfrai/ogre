@@ -30,6 +30,7 @@ THE SOFTWARE.
 #define __NumericSolvers_H__
 
 #include "OgrePrerequisites.h"
+#include "OgreExports.h"
 
 
 namespace Ogre {

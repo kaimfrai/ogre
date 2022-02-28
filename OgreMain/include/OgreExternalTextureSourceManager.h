@@ -28,8 +28,11 @@ THE SOFTWARE.
 #ifndef _OgreExternalTextureSourceManager_H
 #define _OgreExternalTextureSourceManager_H
 
+#include <map>
+#include <string>
+
 /***************************************************************************
-OgreExternalTextureSourceManager.h  -  
+OgreExternalTextureSourceManager.h  -
     Handles the registering / unregistering of texture modifier plugins
 
 -------------------
@@ -40,9 +43,14 @@ email                : pjcast@yahoo.com
 #include "OgreResourceGroupManager.h"
 #include "OgreExternalTextureSource.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre
 {
+class ExternalTextureSource;
+
     /** \addtogroup Core
     *  @{
     */

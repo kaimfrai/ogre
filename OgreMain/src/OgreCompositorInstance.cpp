@@ -25,6 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <algorithm>
+
 #include "OgreStableHeaders.h"
 #include "OgreCompositor.h"
 #include "OgreCompositorInstance.h"
@@ -38,6 +41,29 @@ THE SOFTWARE.
 #include "OgreRenderTexture.h"
 #include "OgreRectangle2D.h"
 #include "OgreDepthBuffer.h"
+#include "OgreCamera.h"
+#include "OgreColourValue.h"
+#include "OgreCompositionPass.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreLogManager.h"
+#include "OgreMaterial.h"
+#include "OgreMatrix4.h"
+#include "OgrePass.h"
+#include "OgrePixelFormat.h"
+#include "OgreRenderSystem.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreTechnique.h"
+#include "OgreTexture.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 CompositorInstance::CompositorInstance(CompositionTechnique *technique,

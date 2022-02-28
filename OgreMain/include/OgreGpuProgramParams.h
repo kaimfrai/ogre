@@ -28,7 +28,13 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #ifndef __GpuProgramParams_H_
 #define __GpuProgramParams_H_
 
+#include <assert.h>
+#include <string.h>
 #include <limits>
+#include <algorithm>
+#include <map>
+#include <string>
+#include <vector>
 
 // Precompiler options
 #include "OgrePrerequisites.h"
@@ -37,10 +43,18 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include "OgreAny.h"
 #include "Threading/OgreThreadHeaders.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
     struct TransformBaseReal;
     template <typename T> class ConstMapIterator;
+class AutoParamDataSource;
+class ColourValue;
+class Matrix3;
+class Matrix4;
+template <int dims, typename T> class Vector;
 
     /** \addtogroup Core
      *  @{

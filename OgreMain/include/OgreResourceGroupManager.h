@@ -28,6 +28,13 @@ THE SOFTWARE.
 #ifndef _ResourceGroupManager_H__
 #define _ResourceGroupManager_H__
 
+#include <ctime>
+#include <list>
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreDataStream.h"
@@ -35,8 +42,13 @@ THE SOFTWARE.
 #include "OgreIteratorWrapper.h"
 #include "OgreCommon.h"
 #include "Threading/OgreThreadHeaders.h"
-#include <ctime>
 #include "OgreHeaderPrefix.h"
+#include "OgreBuildSettings.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
 
 // If X11/Xlib.h gets included before this header (for example it happens when
 // including wxWidgets and FLTK), Status is defined as an int which we don't
@@ -54,6 +66,10 @@ THE SOFTWARE.
 #endif
 
 namespace Ogre {
+class ManualResourceLoader;
+class Resource;
+class ResourceManager;
+class ScriptLoader;
 
     /** \addtogroup Core
     *  @{

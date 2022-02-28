@@ -27,12 +27,27 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <algorithm>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "OgreShadowCameraSetupFocused.h"
 #include "OgreLight.h"
+#include "OgreCamera.h"
+#include "OgreException.h"
+#include "OgreFrustum.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreNode.h"
+#include "OgrePlane.h"
+#include "OgreRay.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {
+class Viewport;
+
     /** transform from normal to light space */
     const Matrix4 FocusedShadowCameraSetup::msNormalToLightSpace(
         1,  0,  0,  0,      // x

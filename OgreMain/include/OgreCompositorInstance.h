@@ -28,15 +28,33 @@ THE SOFTWARE.
 #ifndef __CompositorInstance_H__
 #define __CompositorInstance_H__
 
+#include <stddef.h>
+#include <bitset>
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreMaterialManager.h"
 #include "OgreRenderQueue.h"
 #include "OgreCompositionTechnique.h"
 #include "OgreHeaderPrefix.h"
-
-#include <bitset>
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class Camera;
+class CompositionTargetPass;
+class Compositor;
+class CompositorChain;
+class MultiRenderTarget;
+class RenderSystem;
+class RenderTarget;
+class SceneManager;
 
     /** \addtogroup Core
     *  @{

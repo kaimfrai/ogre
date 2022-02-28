@@ -29,14 +29,20 @@ THE SOFTWARE.
 #define __SimpleRenderable_H__
 
 #include "OgrePrerequisites.h"
-
 #include "OgreMovableObject.h"
 #include "OgreRenderable.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreRenderOperation.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreMatrix4.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class Camera;
+class RenderQueue;
+class SceneManager;
 
     /** \addtogroup Core
     *  @{

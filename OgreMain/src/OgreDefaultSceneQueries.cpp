@@ -25,7 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <map>
+#include <set>
+#include <utility>
+#include <vector>
+
 #include "OgreStableHeaders.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreMovableObject.h"
+#include "OgrePlaneBoundedVolume.h"
+#include "OgrePrerequisites.h"
+#include "OgreRay.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneQuery.h"
+#include "OgreSphere.h"
 
 namespace Ogre {
     //---------------------------------------------------------------------

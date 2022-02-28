@@ -28,13 +28,31 @@ THE SOFTWARE.
 #ifndef __InstancedEntity_H__
 #define __InstancedEntity_H__
 
+#include <assert.h>
+#include <stddef.h>
+#include <vector>
+
 #include "OgreMovableObject.h"
 #include "OgreNode.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMatrix4.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderable.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {
     class NameGenerator;
+class AnimationState;
+class AnimationStateSet;
+class AxisAlignedBox;
+class Camera;
+class InstanceBatch;
+class RenderQueue;
+class SkeletonInstance;
 
     /** \addtogroup Core
     *  @{

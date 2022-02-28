@@ -28,15 +28,22 @@ THE SOFTWARE.
 #ifndef __ControllerManager_H__
 #define __ControllerManager_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <set>
 
+#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreSingleton.h"
 #include "OgreTextureUnitState.h"
 #include "OgreSharedPtr.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
+template <typename T> class Controller;
+template <typename T> class ControllerFunction;
+template <typename T> class ControllerValue;
     /** \addtogroup Core
     *  @{
     */

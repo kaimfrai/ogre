@@ -25,7 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <map>
+#include <memory>
+#include <utility>
+
 #include "OgreStableHeaders.h"
+#include "OgreAny.h"
+#include "OgrePrerequisites.h"
+#include "OgreUserObjectBindings.h"
 
 namespace Ogre {
     static Any emptyAny;

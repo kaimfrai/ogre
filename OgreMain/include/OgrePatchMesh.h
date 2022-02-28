@@ -28,11 +28,18 @@ THE SOFTWARE.
 #ifndef __PatchMesh_H__
 #define __PatchMesh_H__
 
+#include <stddef.h>
+
 #include "OgrePrerequisites.h"
 #include "OgreMesh.h"
 #include "OgrePatchSurface.h"
+#include "OgreExports.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreResource.h"
 
 namespace Ogre {
+class ResourceManager;
+class VertexDeclaration;
 
     /** \addtogroup Core
     *  @{

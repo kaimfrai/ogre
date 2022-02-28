@@ -25,7 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <ostream>
+#include <string>
+
 #include "OgreStableHeaders.h"
+#include "OgreException.h"
+#include "OgrePrerequisites.h"
 
 #ifdef __BORLANDC__
     #include <stdio.h>

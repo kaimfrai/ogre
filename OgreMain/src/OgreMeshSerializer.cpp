@@ -25,8 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <ios>
+#include <string>
+#include <vector>
+
 #include "OgreStableHeaders.h"
 #include "OgreMeshSerializerImpl.h"
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreExports.h"
+#include "OgreFileSystem.h"
+#include "OgreLogManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgreMeshSerializer.h"
+#include "OgrePrerequisites.h"
+#include "OgreSerializer.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
 

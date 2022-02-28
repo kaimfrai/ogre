@@ -25,8 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+
 #include "OgreStableHeaders.h"
 #include "OgreResourceBackgroundQueue.h"
+#include "OgreAny.h"
+#include "OgreBuildSettings.h"
+#include "OgreException.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreRoot.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
 

@@ -25,7 +25,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <algorithm>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgreStableHeaders.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreCamera.h"
+#include "OgreCodec.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderQueue.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreString.h"
+#include "OgreVector.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------

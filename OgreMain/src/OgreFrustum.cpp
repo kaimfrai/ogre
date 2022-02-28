@@ -25,11 +25,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <algorithm>
+#include <utility>
+
 #include "OgreStableHeaders.h"
-#include "OgreHardwareVertexBuffer.h"
 #include "OgreMovablePlane.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreBuildSettings.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreFrustum.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePlane.h"
+#include "OgrePlaneBoundedVolume.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderable.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSphere.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class Camera;
+class RenderQueue;
 
     String Frustum::msMovableType = "Frustum";
     const Real Frustum::INFINITE_FAR_PLANE_ADJUST = 0.00001;

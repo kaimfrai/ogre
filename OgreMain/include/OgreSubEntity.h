@@ -28,14 +28,30 @@ THE SOFTWARE.
 #ifndef __SubEntity_H__
 #define __SubEntity_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <memory>
 
+#include "OgrePrerequisites.h"
 #include "OgreRenderable.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreBuildSettings.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class Camera;
+class Entity;
+class Matrix4;
+class RenderOperation;
+class SubMesh;
+class Technique;
+class VertexData;
 
     /** \addtogroup Core
     *  @{

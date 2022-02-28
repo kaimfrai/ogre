@@ -27,8 +27,11 @@ THE SOFTWARE
 #define __RenderWindow_H__
 
 #include "OgrePrerequisites.h"
-
 #include "OgreRenderTarget.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
 
 namespace Ogre
 {

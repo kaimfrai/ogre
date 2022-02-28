@@ -25,14 +25,41 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
+#include <assert.h>
+#include <stddef.h>
+#include <algorithm>
+#include <cmath>
 
+#include "OgreStableHeaders.h"
 #include "OgreTagPoint.h"
 #include "OgreLight.h"
 #include "OgreEntity.h"
 #include "OgreLodListener.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreCamera.h"
+#include "OgreCommon.h"
+#include "OgreFrustum.h"
+#include "OgreMaterial.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderQueue.h"
+#include "OgreRenderable.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreShadowCaster.h"
+#include "OgreSphere.h"
+#include "OgreTechnique.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class Any;
+
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     uint32 MovableObject::msDefaultQueryFlags = 0xFFFFFFFF;

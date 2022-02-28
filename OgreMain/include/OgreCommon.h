@@ -29,11 +29,22 @@ THE SOFTWARE.
 #define __Common_H__
 // Common stuff
 
+#include <assert.h>
+#include <stddef.h>
+#include <map>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "OgreVector.h"
 #include "OgreHeaderPrefix.h"
 #include "OgreMurmurHash3.h"
+#include "OgreExports.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
+class RenderWindow;
 
     /** \addtogroup Core
     *  @{
@@ -585,6 +596,7 @@ namespace Ogre {
     };
 
     class Light;
+
     typedef HashedVector<Light*> LightList;
 
 

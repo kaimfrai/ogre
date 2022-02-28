@@ -25,10 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <stddef.h>
+#include <algorithm>
+#include <set>
+
 #include "OgreStableHeaders.h"
 #include "OgreRenderQueueSortingGrouping.h"
+#include "OgreException.h"
+#include "OgreMaterial.h"
+#include "OgreMath.h"
+#include "OgreRadixSort.h"
+#include "OgreRenderable.h"
+#include "OgreTechnique.h"
+#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
+class Camera;
+
 namespace {
     /// Comparator to order objects by descending camera distance
     struct DistanceSortDescendingLess

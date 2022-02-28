@@ -25,6 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <assert.h>
+#include <memory>
+
 #include "OgreStableHeaders.h"
 #include "OgreCompositor.h"
 #include "OgreCompositorManager.h"
@@ -34,8 +37,19 @@ THE SOFTWARE.
 #include "OgreCompositionTechnique.h"
 #include "OgreRectangle2D.h"
 #include "OgreRenderTarget.h"
+#include "OgreCompositorInstance.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreRenderSystem.h"
+#include "OgreRoot.h"
+#include "OgreTextureManager.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
+class CompositorLogic;
+class CustomCompositionPass;
+class Renderable;
 
 template<> CompositorManager* Singleton<CompositorManager>::msSingleton = 0;
 CompositorManager* CompositorManager::getSingletonPtr(void)

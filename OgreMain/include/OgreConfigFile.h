@@ -28,11 +28,15 @@ THE SOFTWARE.
 #ifndef __ConfigFile_H__
 #define __ConfigFile_H__
 
-#include "OgrePrerequisites.h"
+#include <map>
+#include <string>
 
+#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreStringVector.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
     template <typename T> class MapIterator;

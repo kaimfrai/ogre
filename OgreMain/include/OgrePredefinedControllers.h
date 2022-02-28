@@ -28,14 +28,21 @@ THE SOFTWARE.
 #ifndef __PredefinedControllers_H__
 #define __PredefinedControllers_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
+#include <memory>
+#include <vector>
 
+#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreController.h"
 #include "OgreFrameListener.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreControllerManager.h"
+#include "OgreExports.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class TextureUnitState;
 
     /** \addtogroup Core
     *  @{

@@ -29,11 +29,19 @@ THE SOFTWARE.
 #ifndef __Animation_H__
 #define __Animation_H__
 
+#include <map>
+#include <set>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreAnimationTrack.h"
 #include "OgreAnimationState.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
     /** \addtogroup Core
@@ -45,6 +53,10 @@ namespace Ogre {
     */
 
     class Animation;
+class Entity;
+class Node;
+class Skeleton;
+class VertexData;
     
     /** An animation container interface, which allows generic access to sibling animations.
      @remarks

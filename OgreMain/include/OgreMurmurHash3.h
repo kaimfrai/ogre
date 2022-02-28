@@ -5,12 +5,13 @@
 #ifndef _MURMURHASH3_H_
 #define _MURMURHASH3_H_
 
+#include <stdint.h>
+#include <cstddef>
+
 //-----------------------------------------------------------------------------
 // Platform-specific functions and macros
 #include "OgrePlatform.h"
-
-#include <cstddef>
-#include <stdint.h>
+#include "OgreExports.h"
 
 //-----------------------------------------------------------------------------
 

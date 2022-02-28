@@ -28,11 +28,24 @@ THE SOFTWARE.
 #ifndef __CompositionPass_H__
 #define __CompositionPass_H__
 
+#include <stddef.h>
+#include <string>
+
 #include "OgrePrerequisites.h"
 #include "OgreHeaderPrefix.h"
 #include "OgreRenderSystem.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreConfig.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreRenderQueue.h"
+#include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class CompositionTargetPass;
 
     /** \addtogroup Core
     *  @{

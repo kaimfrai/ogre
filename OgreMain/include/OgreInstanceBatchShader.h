@@ -28,10 +28,21 @@ THE SOFTWARE.
 #ifndef __InstanceBatchShader_H__
 #define __InstanceBatchShader_H__
 
+#include <stddef.h>
+
 #include "OgreInstanceBatch.h"
+#include "OgreExports.h"
+#include "OgreMesh.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre
 {
+class InstanceManager;
+class Matrix4;
+class RenderOperation;
+class SubMesh;
+class VertexData;
     /** \addtogroup Core
     *  @{
     */

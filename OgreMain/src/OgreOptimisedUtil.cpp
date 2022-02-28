@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include "OgreStableHeaders.h"
 #include "OgreOptimisedUtil.h"
+#include "OgrePlatformInformation.h"
 
 //#define __DO_PROFILE__
 

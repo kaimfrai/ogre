@@ -29,16 +29,27 @@ THE SOFTWARE.
 #ifndef __MeshSerializerImpl_H__
 #define __MeshSerializerImpl_H__
 
+#include <stddef.h>
+
 #include "OgrePrerequisites.h"
 #include "OgreSerializer.h"
 #include "OgreEdgeListBuilder.h"
 #include "OgreKeyFrame.h"
 #include "OgreVertexBoneAssignment.h"
+#include "OgreBuildSettings.h"
+#include "OgreExports.h"
+#include "OgreHardwareVertexBuffer.h"
 
 namespace Ogre {
     
     class MeshSerializerListener;
     struct MeshLodUsage;
+class Animation;
+class Mesh;
+class Pose;
+class SubMesh;
+class VertexAnimationTrack;
+class VertexData;
 
     /** \addtogroup Core
     *  @{

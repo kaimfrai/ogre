@@ -28,12 +28,19 @@ THE SOFTWARE.
 #ifndef _Resource_H__
 #define _Resource_H__
 
+#include <stddef.h>
+#include <atomic>
+#include <set>
+
 #include "OgrePrerequisites.h"
 #include "OgreStringInterface.h"
 #include "OgreHeaderPrefix.h"
 #include "Threading/OgreThreadHeaders.h"
+#include "OgreExports.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
+class ResourceManager;
 
     typedef size_t ResourceHandle;
 

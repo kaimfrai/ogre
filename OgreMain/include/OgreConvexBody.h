@@ -29,13 +29,21 @@ THE SOFTWARE.
 #ifndef __ConvexBody_H__
 #define __ConvexBody_H__
 
+#include <stddef.h>
+#include <iosfwd>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgrePolygon.h"
 #include "OgreHeaderPrefix.h"
 #include "Threading/OgreThreadHeaders.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreExports.h"
+#include "OgreFrustum.h"
 
 namespace Ogre
 {
+class Plane;
 
     /** \addtogroup Core
     *  @{

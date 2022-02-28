@@ -29,6 +29,12 @@ THE SOFTWARE.
 #ifndef __SHADOWVOLUMEEXTRUDEPROGRAM_H__
 #define __SHADOWVOLUMEEXTRUDEPROGRAM_H__
 
+#include <vector>
+
+#include "OgreLight.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+
 namespace Ogre {
     class ShadowVolumeExtrudeProgram : public ShadowDataAlloc
     {

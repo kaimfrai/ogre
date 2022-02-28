@@ -28,12 +28,21 @@ THE SOFTWARE.
 #ifndef __VertexIndexData_H__
 #define __VertexIndexData_H__
 
+#include <stddef.h>
+#include <vector>
+
 #include "OgrePrerequisites.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class HardwareBufferManagerBase;
     /** \addtogroup Core
     *  @{
     */

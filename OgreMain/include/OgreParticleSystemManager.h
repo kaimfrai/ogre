@@ -29,15 +29,32 @@ THE SOFTWARE.
 #define __ParticleSystemManager_H__
 
 
+#include <stddef.h>
+#include <map>
+#include <string>
+
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreScriptLoader.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMovableObject.h"
+#include "OgreStringVector.h"
+#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
 
     // Forward decl
     class ParticleSystemFactory;
+class ParticleAffector;
+class ParticleAffectorFactory;
+class ParticleEmitter;
+class ParticleEmitterFactory;
+class ParticleSystem;
+class ParticleSystemRenderer;
     
     /** \addtogroup Core
     *  @{

@@ -28,15 +28,31 @@ THE SOFTWARE.
 #ifndef __AutoParamDataSource_H_
 #define __AutoParamDataSource_H_
 
+#include <stddef.h>
+
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreLight.h"
 #include "OgreSceneNode.h"
+#include "OgreColourValue.h"
+#include "OgreConfig.h"
+#include "OgreExports.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMatrix4.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 
     // forward decls
     struct VisibleObjectsBoundsInfo;
+class Camera;
+class Frustum;
+class Pass;
+class RenderTarget;
+class Renderable;
+class SceneManager;
+class Viewport;
 
     /** \addtogroup Core
     *  @{

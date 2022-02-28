@@ -28,11 +28,15 @@ THE SOFTWARE.
 #ifndef __Exception_H_
 #define __Exception_H_
 
+#include <exception>
+
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreString.h"
-#include <exception>
 #include "OgreHeaderPrefix.h"
+#include "OgreBuildSettings.h"
+#include "OgreExports.h"
+#include "OgrePlatform.h"
 
 // Check for OGRE assert mode
 
@@ -71,6 +75,7 @@ THE SOFTWARE.
 #endif
 
 namespace Ogre {
+class Exception;
 
     /** \addtogroup Core
     *  @{
