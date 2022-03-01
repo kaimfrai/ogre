@@ -46,12 +46,9 @@ THE SOFTWARE.
 #ifndef ps_1_4H
 #define ps_1_4H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
 #include <vector>
 
-#include "OgreGLPrerequisites.h"
 #include "Compiler2Pass.h"
 #include "glad/glad.h"
 

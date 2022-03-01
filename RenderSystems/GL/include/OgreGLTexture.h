@@ -30,10 +30,7 @@ THE SOFTWARE.
 #define __GLTEXTURE_H__
 
 #include "OgreGLPrerequisites.h"
-#include "OgrePlatform.h"
-#include "OgreRenderTexture.h"
 #include "OgreGLTextureCommon.h"
-#include "OgreHardwarePixelBuffer.h"
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "glad/glad.h"

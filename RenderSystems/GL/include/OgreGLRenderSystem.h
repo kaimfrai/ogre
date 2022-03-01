@@ -28,17 +28,13 @@ THE SOFTWARE.
 #ifndef __GLRenderSystem_H__
 #define __GLRenderSystem_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreGLPrerequisites.h"
 #include "OgrePlatform.h"
 #include "OgreRenderSystem.h"
-#include "OgreGLHardwareBufferManager.h"
-#include "OgreGLGpuProgramManager.h"
-#include "OgreVector.h"
 #include "OgreGLRenderSystemCommon.h"
-#include "OgreGLStateCacheManager.h"
 #include "OgreBlendMode.h"
 #include "OgreBuildSettings.h"
 #include "OgreColourValue.h"

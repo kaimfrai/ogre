@@ -30,8 +30,6 @@ THE SOFTWARE.
 #ifndef __GLSLProgramFactory_H__
 #define __GLSLProgramFactory_H__
 
-#include "OgreHighLevelGpuProgramManager.h"
-#include "OgreGLSLExtSupport.h"
 #include "OgreGLPrerequisites.h"
 #include "OgreGpuProgramManager.h"
 #include "OgrePrerequisites.h"

@@ -29,10 +29,8 @@ THE SOFTWARE.
 #ifndef __GLPBRENDERTEXTURE_H__
 #define __GLPBRENDERTEXTURE_H__
 
-#include <stddef.h>
+#include <cstddef>
 
-#include "OgreGLCopyingRenderTexture.h"
-#include "OgreGLPBuffer.h"
 #include "OgreGLPrerequisites.h"
 #include "OgreGLRenderTexture.h"
 #include "OgrePixelFormat.h"

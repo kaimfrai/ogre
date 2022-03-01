@@ -28,9 +28,8 @@ THE SOFTWARE.
 #ifndef __GLPIXELBUFFER_H__
 #define __GLPIXELBUFFER_H__
 
-#include <stddef.h>
+#include <cstddef>
 
-#include "OgreGLPrerequisites.h"
 #include "OgreGLHardwarePixelBufferCommon.h"
 #include "OgreException.h"
 #include "OgrePlatform.h"
@@ -38,11 +37,11 @@ THE SOFTWARE.
 #include "glad/glad.h"
 
 namespace Ogre {
-class GLRenderSystem;
-class GLTexture;
-class PixelBox;
-class RenderTexture;
-struct Box;
+    class GLRenderSystem;
+    class GLTexture;
+    class PixelBox;
+    class RenderTexture;
+    struct Box;
 
     /** Texture surface.
     */

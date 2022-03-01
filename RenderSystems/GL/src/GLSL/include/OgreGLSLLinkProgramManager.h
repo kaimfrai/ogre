@@ -31,8 +31,6 @@ THE SOFTWARE.
 #include "OgreGLPrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreGLSLProgramManagerCommon.h"
-#include "OgreGLSLExtSupport.h"
-#include "OgreGLSLLinkProgram.h"
 #include "OgreGLSLProgramCommon.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"

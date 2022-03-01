@@ -31,7 +31,6 @@ THE SOFTWARE.
 #ifndef __GLSLExtSupport_H__
 #define __GLSLExtSupport_H__
 
-#include "OgreGLPrerequisites.h"
 #include "OgrePrerequisites.h"
 #include "glad/glad.h"
 
@@ -41,14 +40,6 @@ THE SOFTWARE.
 namespace Ogre
 {
     namespace GLSL {
-
-    // forward declarations
-    class GLSLProgram;
-    class GLSLGpuProgram;
-    class GLSLLinkProgram;
-    class GLSLLinkProgramManager;
-    class GLSLProgramFactory;
-
 
     /** Check for GL errors and report them in the Ogre Log.
     */

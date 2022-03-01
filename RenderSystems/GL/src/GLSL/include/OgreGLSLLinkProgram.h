@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgreGLPrerequisites.h"
 #include "OgreGpuProgram.h"
 #include "OgreHardwareVertexBuffer.h"
-#include "OgreGLUniformCache.h"
 #include "OgreGLSLProgramCommon.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
