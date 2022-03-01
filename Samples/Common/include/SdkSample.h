@@ -31,6 +31,7 @@
 #include "Sample.h"
 #include "Ogre.h"
 #include "OgreAdvancedRenderControls.h"
+#include "OgreOverlayManager.h"
 
 namespace OgreBites
 {

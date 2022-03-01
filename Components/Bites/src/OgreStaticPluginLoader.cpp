@@ -1,14 +1,13 @@
 #include "OgreStaticPluginLoader.h"
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreComponents.h"
 #include "OgreRoot.h"
 #include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
 
 namespace Ogre {
-class Plugin;
+    class Plugin;
 }  // namespace Ogre
 
 #ifdef OGRE_BUILD_RENDERSYSTEM_GL

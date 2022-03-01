@@ -29,9 +29,6 @@
 #define __SdkCameraMan_H__
 
 #include "OgreBitesPrerequisites.h"
-#include "OgreCamera.h"
-#include "OgreSceneNode.h"
-#include "OgreFrameListener.h"
 #include "OgreInput.h"
 #include "OgreMath.h"
 #include "OgreNode.h"

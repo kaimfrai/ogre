@@ -28,15 +28,12 @@ THE SOFTWARE.
 #ifndef __OgreWindowEventUtils_H__
 #define __OgreWindowEventUtils_H__
 
-#include "OgrePrerequisites.h"
 #include "OgreBitesPrerequisites.h"
 #include "OgrePlatform.h"
-#include "OgreCommon.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 
 namespace Ogre {
-class RenderWindow;
+    class RenderWindow;
 }  // namespace Ogre
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
@@ -175,7 +172,5 @@ namespace Ogre
     typedef OGRE_DEPRECATED OgreBites::WindowEventListener WindowEventListener;
     typedef OGRE_DEPRECATED OgreBites::WindowEventUtilities WindowEventUtilities;
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

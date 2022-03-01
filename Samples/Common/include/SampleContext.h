@@ -33,6 +33,7 @@
 #include "Sample.h"
 #include "OgreRenderWindow.h"
 #include "OgreProfiler.h"
+#include "OgrePlugin.h"
 
 namespace OgreBites
 {

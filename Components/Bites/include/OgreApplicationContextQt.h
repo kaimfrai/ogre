@@ -8,10 +8,8 @@
 #include <qobject.h>
 #include <qobjectdefs.h>
 #include <qstring.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <QObject>
-#include <QWindow>
+#include <cstddef>
+#include <cstdint>
 
 #include "OgreApplicationContextBase.h"
 #include "OgreCommon.h"

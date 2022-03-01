@@ -30,10 +30,9 @@ THE SOFTWARE.
 #define COMPONENTS_BITES_INCLUDE_OGREBITESCONFIGDIALOG_H_
 
 #include "OgreBitesPrerequisites.h"
-#include "OgreConfigDialog.h"
 
 namespace Ogre {
-class ConfigDialog;
+    class ConfigDialog;
 }  // namespace Ogre
 
 namespace OgreBites {

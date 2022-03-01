@@ -28,7 +28,7 @@
 #ifndef __ApplicationContextBase_H__
 #define __ApplicationContextBase_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <cstdint>
 #include <memory>
 #include <set>
@@ -36,11 +36,7 @@
 #include <vector>
 
 #include "OgreBitesPrerequisites.h"
-#include "OgreBuildSettings.h"
 #include "OgreComponents.h"
-#include "OgreLogManager.h"
-#include "OgrePlugin.h"
-#include "OgreFileSystemLayer.h"
 #include "OgreFrameListener.h"
 #include "OgreStaticPluginLoader.h"
 #include "OgreCommon.h"
@@ -48,29 +44,23 @@
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
-#include "OgreSGTechniqueResolverListener.h"
-#endif // INCLUDE_RTSHADER_SYSTEM
-
 // forward declarations
 extern "C" struct SDL_Window;
 
 namespace Ogre {
     class OverlaySystem;
-class FileSystemLayer;
-class RenderWindow;
-class Root;
+    class FileSystemLayer;
+    class RenderWindow;
+    class Root;
 
-namespace RTShader {
-class ShaderGenerator;
-}  // namespace RTShader
+    namespace RTShader {
+        class ShaderGenerator;
+    }  // namespace RTShader
 }
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 #include <android/native_window.h>
 #endif
-
-#include "OgreInput.h"
 
 namespace OgreBites
 {

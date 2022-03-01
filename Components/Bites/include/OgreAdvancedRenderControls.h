@@ -30,24 +30,18 @@ THE SOFTWARE.
 #define COMPONENTS_BITES_INCLUDE_OGREADVANCEDRENDERCONTROLS_H_
 
 #include "OgreInput.h"
-#include "OgreRoot.h"
-#include "OgreCamera.h"
 #include "OgreComponents.h"
 #include "OgreBitesPrerequisites.h"
 
 namespace Ogre {
-class Camera;
-class Root;
+    class Camera;
+    class Root;
 
-namespace RTShader {
-class ShaderGenerator;
-}  // namespace RTShader
-struct FrameEvent;
+    namespace RTShader {
+        class ShaderGenerator;
+    }  // namespace RTShader
+    struct FrameEvent;
 }  // namespace Ogre
-
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
-#include "OgreRTShaderSystem.h"
-#endif
 
 namespace OgreBites {
 
