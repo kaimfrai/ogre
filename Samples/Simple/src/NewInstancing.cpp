@@ -1,7 +1,48 @@
+#include <stddef.h>
+#include <random>
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+
 #include "SamplePlugin.h"
 #include "NewInstancing.h"
+#include "OgreAnimationState.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreComponents.h"
+#include "OgreEntity.h"
+#include "OgreFrameListener.h"
+#include "OgreInstancedEntity.h"
+#include "OgreLight.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMeshManager.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlane.h"
+#include "OgreRenderSystem.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreShaderExHardwareSkinning.h"
+#include "OgreShaderExIntegratedPSSM3.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderRenderState.h"
+#include "OgreShadowCameraSetupLiSPSM.h"
+#include "OgreStringConverter.h"
+#include "OgreTrays.h"
+#include "OgreVector.h"
+#include "OgreViewport.h"
 
-#include <random>
+namespace Ogre {
+namespace RTShader {
+class SubRenderState;
+}  // namespace RTShader
+}  // namespace Ogre
 
 using namespace Ogre;
 using namespace OgreBites;

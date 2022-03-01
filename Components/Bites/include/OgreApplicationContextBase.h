@@ -60,6 +60,7 @@ namespace Ogre {
 class FileSystemLayer;
 class RenderWindow;
 class Root;
+
 namespace RTShader {
 class ShaderGenerator;
 }  // namespace RTShader

@@ -27,7 +27,13 @@
  */
 #include "DefaultSamplesPlugin.h"
 
+#include <set>
+
 #include "NewInstancing.h"
+#include "OgreBuildSettings.h"
+#include "OgreInput.h"
+#include "OgrePlatform.h"
+#include "Sample.h"
 
 using namespace Ogre;
 using namespace OgreBites;

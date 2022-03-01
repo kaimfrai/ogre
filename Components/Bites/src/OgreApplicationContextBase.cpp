@@ -4,7 +4,6 @@
 
 #include "OgreApplicationContextBase.h"
 
-#include <stdint.h>
 #include <stdlib.h>
 #include <ios>
 #include <map>

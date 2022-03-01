@@ -1,8 +1,31 @@
 #ifndef __NewInstancing_H__
 #define __NewInstancing_H__
 
+#include <set>
+#include <vector>
+
 #include "SdkSample.h"
 #include "OgreInstancedEntity.h"
+#include "SamplePlugin.h"
+#include "OgreInput.h"
+#include "OgreInstanceManager.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+
+namespace Ogre {
+class AnimationState;
+class InstancedEntity;
+class MovableObject;
+class SceneNode;
+struct FrameEvent;
+}  // namespace Ogre
+namespace OgreBites {
+class Button;
+class CheckBox;
+class SelectMenu;
+class Slider;
+}  // namespace OgreBites
 
 using namespace Ogre;
 using namespace OgreBites;

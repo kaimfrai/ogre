@@ -38,6 +38,7 @@ THE SOFTWARE.
 namespace Ogre {
 class Camera;
 class Root;
+
 namespace RTShader {
 class ShaderGenerator;
 }  // namespace RTShader

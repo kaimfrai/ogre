@@ -37,6 +37,7 @@
 namespace Ogre {
 class Material;
 class Renderable;
+
 namespace RTShader {
 class ShaderGenerator;
 }  // namespace RTShader
