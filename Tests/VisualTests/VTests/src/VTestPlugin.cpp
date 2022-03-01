@@ -27,15 +27,16 @@ THE SOFTWARE.
 */
 
 #include "VTestPlugin.h"
-#include "StencilShadowTest.h"
-#include "ParticleTest.h"
-#include "CubeMappingTest.h"
-#include "TextureBlitTest.h"
-#include "OgreResourceGroupManager.h"
 
+#include <set>
+
+#include "StencilShadowTest.h"
+#include "CubeMappingTest.h"
 // samples as tests
 #include "TextureFX.h"
 #include "Transparency.h"
+#include "OgreBuildSettings.h"
+#include "Sample.h"
 
 VTestPlugin::VTestPlugin()
     :SamplePlugin("VTestPlugin")

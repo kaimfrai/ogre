@@ -5,7 +5,6 @@
 #include <string>
 #include <utility>
 
-#include "SamplePlugin.h"
 #include "NewInstancing.h"
 #include "OgreAnimationState.h"
 #include "OgreColourValue.h"

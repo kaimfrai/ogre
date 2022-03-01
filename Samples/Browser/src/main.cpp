@@ -26,8 +26,13 @@
  -----------------------------------------------------------------------------
  */
 #include <time.h>
-#include "OgrePlatform.h"
 #include <iostream>
+#include <string>
+
+#include "OgrePlatform.h"
+#include "OgreException.h"
+#include "OgrePrerequisites.h"
+#include "OgreStringConverter.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -42,6 +47,7 @@
 #if OGRE_PLATFORM == OGRE_PLATFORM_WINRT
 // short version of SDL_winrt_main_NonXAML.cpp
 #include <wrl.h>
+
 #pragma warning(disable:4447)
 #pragma comment(lib, "runtimeobject.lib")
 INT WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)

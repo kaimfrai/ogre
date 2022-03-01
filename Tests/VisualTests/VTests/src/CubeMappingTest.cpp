@@ -28,6 +28,13 @@ THE SOFTWARE.
 
 #include "CubeMappingTest.h"
 
+#include <map>
+
+#include "OgreCommon.h"
+#include "OgreEntity.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+
 CubeMappingTest::CubeMappingTest()
 {
     mInfo["Title"] = "VTests_CubeMapping";

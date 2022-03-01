@@ -31,6 +31,9 @@ THE SOFTWARE.
 
 #include "VisualTest.h"
 #include "SamplePlugin.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
 
 using namespace Ogre;
 

@@ -27,7 +27,13 @@ THE SOFTWARE.
 */
 
 #include "ParticleTest.h"
+
+#include <map>
+
 #include "OgreParticleSystem.h"
+#include "OgreCommon.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
 
 ParticleTest::ParticleTest()
 {

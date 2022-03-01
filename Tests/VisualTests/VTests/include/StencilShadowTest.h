@@ -31,6 +31,11 @@ THE SOFTWARE.
 
 #include "VisualTest.h"
 #include "SamplePlugin.h"
+#include "OgrePlatform.h"
+
+namespace Ogre {
+class Entity;
+}  // namespace Ogre
 
 using namespace Ogre;
 

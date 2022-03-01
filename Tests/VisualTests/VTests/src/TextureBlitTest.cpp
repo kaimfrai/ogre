@@ -28,6 +28,26 @@ THE SOFTWARE.
 
 #include "TextureBlitTest.h"
 
+#include <assert.h>
+#include <map>
+
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreEntity.h"
+#include "OgreHardwarePixelBuffer.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgrePass.h"
+#include "OgrePixelFormat.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreTechnique.h"
+#include "OgreTexture.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
+#include "OgreViewport.h"
+
 /* GIMP RGB C-Source image dump (image.c) */
 
 static struct {

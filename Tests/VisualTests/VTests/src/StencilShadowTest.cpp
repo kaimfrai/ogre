@@ -27,7 +27,22 @@ THE SOFTWARE.
 */
 
 #include "StencilShadowTest.h"
+
+#include <map>
+
 #include "OgreMovablePlane.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreEntity.h"
+#include "OgreLight.h"
+#include "OgreMath.h"
+#include "OgreMeshManager.h"
+#include "OgrePlane.h"
+#include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreVector.h"
 
 StencilShadowTest::StencilShadowTest()
 {
