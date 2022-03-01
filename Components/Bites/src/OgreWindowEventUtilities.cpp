@@ -26,7 +26,15 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreWindowEventUtilities.h"
+
+#include <X11/X.h>
+#include <algorithm>
+#include <map>
+#include <utility>
+#include <vector>
+
 #include "OgreRenderWindow.h"
+#include "OgreCommon.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #  if !defined(WIN32_LEAN_AND_MEAN)

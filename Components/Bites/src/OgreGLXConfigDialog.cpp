@@ -25,36 +25,44 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <cstdlib>
+#include <string>
+#include <map>
+#include <utility>
+#include <vector>
+
 #include "OgreException.h"
 #include "OgreImage.h"
 #include "OgreLogManager.h"
 #include "OgreRoot.h"
 #include "OgreConfigPaths.h"
 #include "OgreFileSystemLayer.h"
-
-#include <cstdlib>
-#include <iostream>
-
-#include <string>
 #include "OgreConfigDialogImp.h"
+#include "OgreConfigOptionMap.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
 
 #define XTSTRINGDEFINES
 
 #include <X11/X.h>
 #include <X11/Xutil.h>
 #include <X11/Xlib.h>
-#include <X11/keysym.h>
 #include <X11/Intrinsic.h>
 #include <X11/StringDefs.h>
 #include <X11/Xaw/Command.h>
 #include <X11/Xaw/Form.h>
-#include <X11/Xaw/Box.h>
 #include <X11/Shell.h>
-#include <X11/Xaw/Toggle.h>
 #include <X11/Xaw/MenuButton.h>
 #include <X11/Xaw/SimpleMenu.h>
 #include <X11/Xaw/SmeBSB.h>
-
+#include <X11/ICE/ICElib.h>
+#include <X11/Xaw/Label.h>
+#include <X11/Xmu/Converters.h>
+#include <string.h>
 #include <list>
 
 using namespace Ogre;

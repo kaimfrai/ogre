@@ -7,6 +7,32 @@
 
 #include "OgreTrays.h"
 
+#include <math.h>
+#include <algorithm>
+#include <iomanip>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <utility>
+
+#include "OgreBuildSettings.h"
+#include "OgreCamera.h"
+#include "OgreException.h"
+#include "OgreFont.h"
+#include "OgreMatrix4.h"
+#include "OgreOverlayManager.h"
+#include "OgrePanelOverlayElement.h"
+#include "OgrePlatform.h"
+#include "OgreRenderTarget.h"
+#include "OgreRenderWindow.h"
+#include "OgreRoot.h"
+#include "OgreStringConverter.h"
+#include "OgreTimer.h"
+
+namespace Ogre {
+struct FrameEvent;
+}  // namespace Ogre
+
 namespace OgreBites
 {
 

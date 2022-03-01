@@ -4,10 +4,36 @@
 // SPDX-License-Identifier: MIT
 
 #include "OgreAdvancedRenderControls.h"
+
+#include <string>
+#include <vector>
+
 #include "OgreTextureManager.h"
 #include "OgreMaterialManager.h"
-
 #include "OgreTrays.h"
+#include "OgreCamera.h"
+#include "OgreCommon.h"
+#include "OgreGpuProgram.h"
+#include "OgrePrerequisites.h"
+#include "OgreProfiler.h"
+#include "OgreQuaternion.h"
+#include "OgreRTShaderConfig.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderTarget.h"
+#include "OgreRoot.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderRenderState.h"
+#include "OgreShaderSubRenderState.h"
+#include "OgreStringConverter.h"
+#include "OgreStringVector.h"
+#include "OgreVector.h"
+#include "OgreViewport.h"
+
+namespace Ogre {
+struct FrameEvent;
+}  // namespace Ogre
 
 namespace OgreBites {
 AdvancedRenderControls::AdvancedRenderControls(TrayManager* trayMgr, Ogre::Camera* cam)

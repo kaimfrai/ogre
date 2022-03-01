@@ -4,7 +4,13 @@
 // SPDX-License-Identifier: MIT
 
 #include "OgreBitesConfigDialog.h"
+
 #include "OgreConfigDialogImp.h"
+#include "OgrePlatform.h"
+
+namespace Ogre {
+class ConfigDialog;
+}  // namespace Ogre
 
 namespace OgreBites {
     Ogre::ConfigDialog* getNativeConfigDialog() {

@@ -27,10 +27,26 @@ THE SOFTWARE.
 */
 
 #include "OgreSTBICodec.h"
+
+#include <stdlib.h>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "OgreLogManager.h"
 #include "OgreDataStream.h"
-
 #include "OgrePlatformInformation.h"
+#include "OgreBuildSettings.h"
+#include "OgreCodec.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringVector.h"
 
 #if __OGRE_HAVE_NEON
 #define STBI_NEON
@@ -43,6 +59,7 @@ THE SOFTWARE.
 
 #ifdef HAVE_ZLIB
 #include <zlib.h>
+
 static Ogre::uchar* custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/)
 {
     unsigned long destLen = compressBound(data_len);

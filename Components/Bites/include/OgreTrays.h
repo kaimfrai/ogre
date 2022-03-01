@@ -28,6 +28,11 @@
 #ifndef __SdkTrays_H__
 #define __SdkTrays_H__
 
+#include <stddef.h>
+#include <iomanip>
+#include <string>
+#include <vector>
+
 #include "OgreBitesPrerequisites.h"
 #include "OgreOverlay.h"
 #include "OgreOverlaySystem.h"
@@ -40,8 +45,25 @@
 #include "OgreCamera.h"
 #include "OgreRenderWindow.h"
 #include "OgreInput.h"
+#include "OgreCommon.h"
+#include "OgreMath.h"
+#include "OgreOverlayContainer.h"
+#include "OgreOverlayElement.h"
+#include "OgrePrerequisites.h"
+#include "OgreRay.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
+#include "OgreVector.h"
 
-#include <iomanip>
+namespace Ogre {
+class Camera;
+class PanelOverlayElement;
+class RenderWindow;
+class Timer;
+struct FrameEvent;
+}  // namespace Ogre
 
 namespace OgreBites
 {

@@ -4,21 +4,36 @@
 
 #include "OgreApplicationContextBase.h"
 
+#include <stdint.h>
+#include <stdlib.h>
+#include <ios>
+#include <map>
+#include <string>
+#include <type_traits>
+
 #include "OgreRoot.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreConfigFile.h"
 #include "OgreRenderWindow.h"
-#include "OgreViewport.h"
 #include "OgreOverlaySystem.h"
 #include "OgreDataStream.h"
 #include "OgreBitesConfigDialog.h"
 #include "OgreWindowEventUtilities.h"
 #include "OgreSceneNode.h"
 #include "OgreCamera.h"
-
-#include "OgreArchiveManager.h"
-
 #include "OgreConfigPaths.h"
+#include "OgreFileSystemLayer.h"
+#include "OgreInput.h"
+#include "OgreLogManager.h"
+#include "OgreMaterialManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreRenderSystem.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSGTechniqueResolverListener.h"
+#include "OgreSceneManager.h"
+#include "OgreShaderGenerator.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
 
 namespace OgreBites {
 

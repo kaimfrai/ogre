@@ -28,6 +28,13 @@
 #ifndef __ApplicationContextBase_H__
 #define __ApplicationContextBase_H__
 
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+#include <set>
+#include <utility>
+#include <vector>
+
 #include "OgreBitesPrerequisites.h"
 #include "OgreBuildSettings.h"
 #include "OgreComponents.h"
@@ -36,6 +43,10 @@
 #include "OgreFileSystemLayer.h"
 #include "OgreFrameListener.h"
 #include "OgreStaticPluginLoader.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 #ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
 #include "OgreSGTechniqueResolverListener.h"
@@ -46,6 +57,12 @@ extern "C" struct SDL_Window;
 
 namespace Ogre {
     class OverlaySystem;
+class FileSystemLayer;
+class RenderWindow;
+class Root;
+namespace RTShader {
+class ShaderGenerator;
+}  // namespace RTShader
 }
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -56,6 +73,9 @@ namespace Ogre {
 
 namespace OgreBites
 {
+class SGTechniqueResolverListener;
+struct InputListener;
+union Event;
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     typedef ANativeWindow NativeWindowType;
 #else

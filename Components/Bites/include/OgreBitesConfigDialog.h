@@ -32,6 +32,10 @@ THE SOFTWARE.
 #include "OgreBitesPrerequisites.h"
 #include "OgreConfigDialog.h"
 
+namespace Ogre {
+class ConfigDialog;
+}  // namespace Ogre
+
 namespace OgreBites {
 
     /**

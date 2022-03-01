@@ -4,10 +4,23 @@
 #ifndef COMPONENTS_BITES_INCLUDE_APPLICATIONCONTEXTQT_H_
 #define COMPONENTS_BITES_INCLUDE_APPLICATIONCONTEXTQT_H_
 
-#include "OgreApplicationContextBase.h"
-
+#include <qcompilerdetection.h>
+#include <qobject.h>
+#include <qobjectdefs.h>
+#include <qstring.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <QObject>
 #include <QWindow>
+
+#include "OgreApplicationContextBase.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgrePrerequisites.h"
+
+class QEvent;
+class QTimerEvent;
+class QWindow;
 
 #if defined(OgreBitesQt_EXPORTS)
 #  define _OgreBitesQtExport Q_DECL_EXPORT
@@ -17,6 +30,7 @@
 
 namespace OgreBites
 {
+struct InputListener;
 /** \addtogroup Optional
 *  @{
 */

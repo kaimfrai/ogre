@@ -31,6 +31,16 @@
 #include "OgreBitesPrerequisites.h"
 #include "OgreRTShaderSystem.h"
 #include "OgreMaterialManager.h"
+#include "OgrePrerequisites.h"
+#include "OgreTechnique.h"
+
+namespace Ogre {
+class Material;
+class Renderable;
+namespace RTShader {
+class ShaderGenerator;
+}  // namespace RTShader
+}  // namespace Ogre
 
 namespace OgreBites {
 /** \addtogroup Optional

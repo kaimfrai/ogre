@@ -33,6 +33,11 @@ THE SOFTWARE.
 #include "OgrePlatform.h"
 #include "OgreCommon.h"
 #include "OgreHeaderPrefix.h"
+#include "OgreExports.h"
+
+namespace Ogre {
+class RenderWindow;
+}  // namespace Ogre
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #include <wtypes.h>

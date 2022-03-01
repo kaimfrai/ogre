@@ -5,16 +5,26 @@
 
 #include "OgreApplicationContextQt.h"
 
+#include <qcoreapplication.h>
+#include <qcoreevent.h>
+#include <qevent.h>
+#include <qguiapplication.h>
+#include <qlist.h>
+#include <qnamespace.h>
+#include <qpoint.h>
+#include <qwindow.h>
 #include <cctype>
+#include <map>
+#include <string>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
 #include "OgreRoot.h"
 #include "OgreRenderWindow.h"
-
-#include <QEvent>
-#include <QWindow>
-#include <QGuiApplication>
-#include <QResizeEvent>
-#include <QKeyEvent>
+#include "OgreInput.h"
+#include "OgrePlatform.h"
+#include "OgreRenderSystem.h"
 
 namespace OgreBites
 {

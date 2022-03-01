@@ -6,8 +6,14 @@
 #ifndef __StaticPluginLoader_H__
 #define __StaticPluginLoader_H__
 
+#include <vector>
+
 #include "OgreBitesPrerequisites.h"
 #include "OgrePrerequisites.h"
+
+namespace Ogre {
+class Plugin;
+}  // namespace Ogre
 
 namespace OgreBites
 {

@@ -2,18 +2,36 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 
-#include "OgreApplicationContext.h"
-
-#include "OgreRoot.h"
-#include "OgreRenderWindow.h"
-
 #include <SDL.h>
 #include <SDL_video.h>
 #include <SDL_syswm.h>
+#include <SDL_events.h>
+#include <SDL_gamecontroller.h>
+#include <SDL_mouse.h>
+#include <SDL_stdinc.h>
+#include <SDL_version.h>
+#include <stddef.h>
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
 
+#include "OgreApplicationContext.h"
+#include "OgreRoot.h"
+#include "OgreRenderWindow.h"
 #include "SDLInputMapping.h"
+#include "OgreApplicationContextBase.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreStringConverter.h"
 
 namespace OgreBites {
+struct InputListener;
 
 ApplicationContextSDL::ApplicationContextSDL(const Ogre::String& appName) : ApplicationContextBase(appName)
 {

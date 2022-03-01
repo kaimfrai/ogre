@@ -32,8 +32,16 @@
 #include "OgreCamera.h"
 #include "OgreSceneNode.h"
 #include "OgreFrameListener.h"
-
 #include "OgreInput.h"
+#include "OgreMath.h"
+#include "OgreNode.h"
+#include "OgrePrerequisites.h"
+#include "OgreVector.h"
+
+namespace Ogre {
+class SceneNode;
+struct FrameEvent;
+}  // namespace Ogre
 
 namespace OgreBites
 {

@@ -1,6 +1,16 @@
 #include "OgreSGTechniqueResolverListener.h"
 
+#include <stddef.h>
+#include <string>
+#include <vector>
+
 #include "OgreTechnique.h"
+#include "OgreMaterial.h"
+#include "OgreShaderGenerator.h"
+
+namespace Ogre {
+class Renderable;
+}  // namespace Ogre
 
 namespace OgreBites {
 
