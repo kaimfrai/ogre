@@ -37,7 +37,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 namespace Ogre {
     class GLContext;
-    class GLSLProgramCommon;
     class GLRenderSystemCommon;
 
     /** Specialisation of VertexDeclaration for OpenGL Vertex Array Object usage */

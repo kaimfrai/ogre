@@ -28,9 +28,10 @@
 
 #include "OgreGLSLProgramManagerCommon.h"
 
-#include <stddef.h>
+#include <cstddef>
 #include <utility>
 #include <vector>
+#include <algorithm>
 
 #include "OgreLogManager.h"
 #include "OgreStringConverter.h"

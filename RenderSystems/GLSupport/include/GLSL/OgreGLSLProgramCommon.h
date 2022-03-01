@@ -32,8 +32,6 @@ THE SOFTWARE.
 #include <array>
 #include <vector>
 
-#include "OgreGLSupportPrerequisites.h"
-#include "OgreConfig.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreGLSLShaderCommon.h"
 #include "OgreGpuProgram.h"

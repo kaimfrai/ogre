@@ -30,7 +30,6 @@ THE SOFTWARE.
 #define RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLHARDWAREPIXELBUFFERCOMMON_H_
 
 #include "OgreGLSupportPrerequisites.h"
-#include "OgreTexture.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreHardwareBuffer.h"
 #include "OgrePixelFormat.h"

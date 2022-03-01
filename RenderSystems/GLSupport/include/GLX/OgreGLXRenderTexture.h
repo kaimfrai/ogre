@@ -28,12 +28,9 @@ THE SOFTWARE.
 #ifndef __GLXRenderTexture_H__
 #define __GLXRenderTexture_H__
 
-#include <stddef.h>
+#include <cstddef>
 
-#include "OgrePrerequisites.h"
 #include "OgreGLPBuffer.h"
-#include "OgreGLXContext.h"
-#include "OgreGLXGLSupport.h"
 #include "OgreExports.h"
 #include "OgrePixelFormat.h"
 

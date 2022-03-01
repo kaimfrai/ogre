@@ -44,13 +44,12 @@ THE SOFTWARE.
 
 namespace Ogre {
     class GLContext;
-    class GLSLProgramCommon;
     class GLNativeSupport;
     class GLRTTManager;
-class Matrix4;
-class VertexElement;
-class Viewport;
-struct Box;
+    class Matrix4;
+    class VertexElement;
+    class Viewport;
+    struct Box;
 
     class _OgreGLExport GLRenderSystemCommon : public RenderSystem
     {
