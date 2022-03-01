@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <gtest/gtest.h>
 #include <stddef.h>
 
-#include "Ogre.h"
 #include "OgreInstancedEntity.h"
 #include "OgreInstanceBatchShader.h"
 #include "RootWithoutRenderSystemFixture.h"

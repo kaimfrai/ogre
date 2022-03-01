@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <memory>
 
-#include "Ogre.h"
 #include "RootWithoutRenderSystemFixture.h"
 #include "OgreShaderGenerator.h"
 #include "OgreShaderFunctionAtom.h"
