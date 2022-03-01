@@ -27,6 +27,11 @@ THE SOFTWARE.
 */
 
 #include "OgreOverlayProfileSessionListener.h"
+
+#include <map>
+#include <string>
+#include <utility>
+
 #include "OgreOverlayManager.h"
 #include "OgreOverlayContainer.h"
 #include "OgreOverlayElement.h"

@@ -27,12 +27,21 @@ THE SOFTWARE.
 */
 
 #include "OgreOverlay.h"
+
+#include <assert.h>
+#include <stddef.h>
+#include <string>
+
 #include "OgreOverlayContainer.h"
-#include "OgreOverlayManager.h"
 #include "OgreVector.h"
 #include "OgreSceneNode.h"
 #include "OgreRenderQueue.h"
 #include "OgreCamera.h"
+#include "OgreBuildSettings.h"
+#include "OgreMatrix3.h"
+#include "OgreOverlayElement.h"
+#include "OgrePlatform.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 

@@ -30,6 +30,14 @@ THE SOFTWARE.
 #define __BorderPanelOverlayElement_H__
 
 #include "OgrePanelOverlayElement.h"
+#include "OgreCommon.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreOverlayElement.h"
+#include "OgreOverlayPrerequisites.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderable.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
     /** \addtogroup Optional
@@ -40,6 +48,9 @@ namespace Ogre {
     */
 
     class BorderRenderable;
+class Camera;
+class Matrix4;
+class RenderQueue;
     
     /** A specialisation of the PanelOverlayElement to provide a panel with a border.
     @remarks

@@ -25,6 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <stddef.h>
+#include <string>
+
 #include "OgreRoot.h"
 #include "OgreRenderSystem.h"
 #include "OgreOverlayElement.h"
@@ -37,6 +40,9 @@ THE SOFTWARE.
 #include "OgreOverlayElementCommands.h"
 #include "OgreTechnique.h"
 #include "OgreLogManager.h"
+#include "OgreMaterial.h"
+#include "OgrePass.h"
+#include "OgreRenderQueue.h"
 
 namespace Ogre {
 

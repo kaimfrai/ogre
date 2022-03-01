@@ -33,10 +33,17 @@ THE SOFTWARE.
 #include "OgreRenderable.h"
 #include "OgreStringInterface.h"
 #include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreMatrix4.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
     class Overlay;
     class OverlayContainer;
+class Camera;
+class RenderQueue;
 
     /** \addtogroup Optional
     *  @{

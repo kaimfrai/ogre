@@ -25,8 +25,10 @@ THE SOFTWARE
 -------------------------------------------------------------------------*/
 
 #include "OgreTextAreaOverlayElement.h"
-#include "OgreRoot.h"
-#include "OgreLogManager.h"
+
+#include <string>
+#include <vector>
+
 #include "OgreOverlayManager.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareVertexBuffer.h"
@@ -35,6 +37,12 @@ THE SOFTWARE
 #include "OgreFont.h"
 #include "OgreFontManager.h"
 #include "OgreOverlayElement.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreMaterial.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringInterface.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 

@@ -27,14 +27,29 @@ THE SOFTWARE.
 */
 
 #include "OgreOverlaySystem.h"
+
+#include <assert.h>
+#include <stddef.h>
+#include <string>
+
 #include "OgreCamera.h"
 #include "OgreRoot.h"
 #include "OgreViewport.h"
 #include "OgreOverlayManager.h"
 #include "OgreOverlayElementFactory.h"
 #include "OgreFontManager.h"
+#include "OgreBorderPanelOverlayElement.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreOverlayProfileSessionListener.h"
+#include "OgrePanelOverlayElement.h"
+#include "OgreProfiler.h"
+#include "OgreRenderQueue.h"
+#include "OgreSceneManager.h"
+#include "OgreTextAreaOverlayElement.h"
 
 namespace Ogre {
+class OverlayElement;
+
     //---------------------------------------------------------------------
     /** Factory for creating PanelOverlayElement instances. */
     class PanelOverlayElementFactory: public OverlayElementFactory

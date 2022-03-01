@@ -27,16 +27,25 @@ THE SOFTWARE
 #ifndef _Font_H__
 #define _Font_H__
 
+#include <stddef.h>
+#include <map>
+#include <utility>
+#include <vector>
+
 #include "OgreOverlayPrerequisites.h"
 #include "OgreResource.h"
 #include "OgreCommon.h"
 #include "OgreSharedPtr.h"
 #include "OgreColourValue.h"
 #include "OgreException.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreString.h"
 
 namespace Ogre
 {
     class BillboardSet;
+class ResourceManager;
 
     /** \addtogroup Optional
     *  @{

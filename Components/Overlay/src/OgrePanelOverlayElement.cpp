@@ -27,13 +27,33 @@ THE SOFTWARE.
 */
 
 #include "OgrePanelOverlayElement.h"
+
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgreTechnique.h"
 #include "OgreStringConverter.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreRoot.h"
 #include "OgreRenderSystem.h"
+#include "OgreException.h"
+#include "OgreExports.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMaterial.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreOverlayElement.h"
+#include "OgrePass.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringInterface.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
+class RenderQueue;
+
     //---------------------------------------------------------------------
     String PanelOverlayElement::msTypeName = "Panel";
     /** Command object for specifying tiling (see ParamCommand).*/

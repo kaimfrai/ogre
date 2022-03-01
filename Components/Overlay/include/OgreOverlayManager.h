@@ -28,12 +28,20 @@ THE SOFTWARE.
 #ifndef __OverlayManager_H__
 #define __OverlayManager_H__
 
+#include <stddef.h>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+
 #include "OgreOverlayPrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreStringVector.h"
 #include "OgreScriptLoader.h"
 #include "OgreFrustum.h"
 #include "OgreScriptTranslator.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     class Overlay;
@@ -41,6 +49,10 @@ namespace Ogre {
     class OverlayElement;
     class OverlayElementFactory;
     template <typename T> class MapIterator;
+class Camera;
+class RenderQueue;
+class ScriptTranslatorManager;
+class Viewport;
 
     /** \addtogroup Optional
     *  @{

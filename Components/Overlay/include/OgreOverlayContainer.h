@@ -29,12 +29,20 @@ THE SOFTWARE.
 #ifndef __OverlayContainer_H__
 #define __OverlayContainer_H__
 
+#include <map>
+#include <string>
+
 #include "OgreOverlayPrerequisites.h"
 #include "OgreOverlayElement.h"
+#include "OgreExports.h"
+#include "OgrePrerequisites.h"
 
 
 namespace Ogre {
     template <typename T> class MapIterator;
+class Matrix4;
+class Overlay;
+class RenderQueue;
 
     /** \addtogroup Optional
     *  @{

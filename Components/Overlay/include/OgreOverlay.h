@@ -29,13 +29,22 @@ THE SOFTWARE.
 #ifndef __Overlay_H__
 #define __Overlay_H__
 
+#include <list>
+
 #include "OgreOverlayPrerequisites.h"
 #include "OgreMatrix4.h"
 #include "OgreViewport.h"
+#include "OgreMath.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     class OverlayContainer;
     class OverlayElement;
+class Camera;
+class RenderQueue;
+class SceneNode;
+class Viewport;
 
     /** \addtogroup Optional
     *  @{

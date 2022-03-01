@@ -27,9 +27,11 @@ THE SOFTWARE.
 */
 
 #include "OgreOverlayElementCommands.h"
+
+#include <string>
+
 #include "OgreOverlayElement.h"
 #include "OgreStringConverter.h"
-#include "OgreLogManager.h"
 
 
 namespace Ogre {

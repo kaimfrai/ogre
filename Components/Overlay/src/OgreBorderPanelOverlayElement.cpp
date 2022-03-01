@@ -27,13 +27,25 @@ THE SOFTWARE.
 */
 
 #include "OgreBorderPanelOverlayElement.h"
+
+#include <string>
+#include <vector>
+
 #include "OgreMaterialManager.h"
-#include "OgreOverlayManager.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreException.h"
 #include "OgreRoot.h"
 #include "OgreRenderSystem.h"
+#include "OgreExports.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreMaterial.h"
+#include "OgreRenderQueue.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreStringInterface.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
     //---------------------------------------------------------------------

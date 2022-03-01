@@ -26,7 +26,13 @@ THE SOFTWARE
 
 #include "OgreFontManager.h"
 
+#include <assert.h>
+#include <memory>
+
 #include "OgreResourceGroupManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
 
 namespace Ogre
 {

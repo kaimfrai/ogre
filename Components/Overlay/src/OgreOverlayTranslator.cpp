@@ -25,12 +25,26 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreOverlayTranslator.h"
+
+#include <stddef.h>
+#include <sstream>
+#include <list>
+#include <string>
+#include <vector>
+
 #include "OgreFontManager.h"
-#include "OgreScriptTranslator.h"
 #include "OgreOverlayManager.h"
 #include "OgreOverlayContainer.h"
-
-#include <sstream>
+#include "OgreAny.h"
+#include "OgreCommon.h"
+#include "OgreMath.h"
+#include "OgreOverlay.h"
+#include "OgreOverlayElement.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreStringVector.h"
 
 namespace Ogre
 {

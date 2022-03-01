@@ -31,6 +31,10 @@ THE SOFTWARE
 #include "OgreSingleton.h"
 #include "OgreResourceManager.h"
 #include "OgreFont.h"
+#include "OgreCommon.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
 
 namespace Ogre
 {

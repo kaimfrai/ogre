@@ -29,10 +29,16 @@ THE SOFTWARE.
 #ifndef __PanelOverlayElement_H__
 #define __PanelOverlayElement_H__
 
+#include <stddef.h>
+
 #include "OgreOverlayContainer.h"
 #include "OgreRenderOperation.h"
+#include "OgreConfig.h"
+#include "OgreOverlayPrerequisites.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
+class RenderQueue;
 
     /** \addtogroup Optional
     *  @{

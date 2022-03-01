@@ -27,12 +27,19 @@ THE SOFTWARE.
 */
 
 #include "OgreOverlayContainer.h"
+
+#include <stddef.h>
+#include <utility>
+
 #include "OgreException.h"
 #include "OgreOverlayManager.h"
 #include "OgreOverlay.h"
 #include "OgreIteratorWrapper.h"
+#include "OgreMath.h"
 
 namespace Ogre {
+class Matrix4;
+class RenderQueue;
 
     //---------------------------------------------------------------------
     OverlayContainer::OverlayContainer(const String& name)

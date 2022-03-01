@@ -27,6 +27,10 @@ THE SOFTWARE.
 */
 
 #include "OgreOverlayManager.h"
+
+#include <assert.h>
+#include <utility>
+
 #include "OgreOverlayContainer.h"
 #include "OgreLogManager.h"
 #include "OgreException.h"
@@ -34,10 +38,19 @@ THE SOFTWARE.
 #include "OgreOverlay.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreOverlayElementFactory.h"
-#include "OgreStringConverter.h"
 #include "OgreOverlayTranslator.h"
+#include "OgreBuildSettings.h"
+#include "OgreDataStream.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreOverlayElement.h"
+#include "OgreScriptCompiler.h"
+#include "OgreScriptTranslator.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
 
 namespace Ogre {
+class Camera;
+class RenderQueue;
 
     //---------------------------------------------------------------------
     template<> OverlayManager *Singleton<OverlayManager>::msSingleton = 0;

@@ -30,8 +30,8 @@ THE SOFTWARE.
 
 #include "OgreOverlayPrerequisites.h"
 #include "OgreStringInterface.h"
-
 #include "OgreOverlayElement.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre  {
 
