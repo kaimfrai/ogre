@@ -31,9 +31,15 @@ THE SOFTWARE.
 
 #include "OgreRenderWindow.h"
 #include "OgreGLRenderTarget.h"
+#include "OgreExports.h"
+#include "OgreRenderTarget.h"
 
 namespace Ogre
 {
+class GLContext;
+class PixelBox;
+struct Box;
+
     class _OgrePrivate GLWindow : public RenderWindow, public GLRenderTarget
     {
     public:

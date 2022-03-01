@@ -10,9 +10,15 @@
 #include "OgreGLContext.h"
 #include "OgreGLRenderSystemCommon.h"
 #include "OgreGLHardwarePixelBufferCommon.h"
+#include "OgrePlatform.h"
 
 namespace Ogre
 {
+class GLContext;
+class GLHardwarePixelBufferCommon;
+class GLRenderSystemCommon;
+class RenderTarget;
+
     /**
         OpenGL supports 3 different methods: FBO, pbuffer & Copy.
         Each one has it's own limitations. Non-FBO methods are solved using "dummy" DepthBuffers.

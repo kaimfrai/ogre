@@ -28,12 +28,20 @@ THE SOFTWARE.
 #ifndef __GLSLShaderCommon_H__
 #define __GLSLShaderCommon_H__
 
+#include <vector>
+
 #include "OgreGLSupportPrerequisites.h"
 #include "OgreHighLevelGpuProgram.h"
 #include "OgreRenderOperation.h"
 #include "OgreGLUniformCache.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreStringInterface.h"
 
 namespace Ogre {
+class GpuProgram;
+class ResourceManager;
+
     /** Specialisation of HighLevelGpuProgram to provide support for OpenGL
         Shader Language (GLSL).
 

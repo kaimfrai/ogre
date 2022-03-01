@@ -27,9 +27,12 @@
 */
 
 #include "OgreGLWindow.h"
+
 #include "OgreException.h"
 #include "OgreGLRenderSystemCommon.h"
 #include "OgreRoot.h"
+#include "OgreCommon.h"
+#include "OgrePixelFormat.h"
 
 namespace Ogre
 {

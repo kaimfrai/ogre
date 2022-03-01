@@ -27,6 +27,10 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 */
 
 #include "OgreGLRenderTexture.h"
+
+#include <assert.h>
+#include <utility>
+
 #include "OgreGLHardwarePixelBufferCommon.h"
 #include "OgreGLRenderSystemCommon.h"
 #include "OgreRoot.h"

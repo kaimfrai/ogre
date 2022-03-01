@@ -28,10 +28,14 @@ THE SOFTWARE.
 #ifndef __OgreGLXContext_H__
 #define __OgreGLXContext_H__
 
+#include <GL/glx.h>
+
 #include "OgreGLContext.h"
 #include "OgreGLXGLSupport.h"
+#include "OgreExports.h"
 
 namespace Ogre {
+class GLXGLSupport;
 
     class _OgrePrivate GLXContext: public GLContext
     {

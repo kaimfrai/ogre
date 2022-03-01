@@ -4,9 +4,12 @@
 // SPDX-License-Identifier: MIT
 
 #include "OgreGLSLProgramCommon.h"
-#include "OgreStringConverter.h"
 
+#include <stddef.h>
 #include <sstream>
+#include <string>
+
+#include "OgreException.h"
 
 namespace Ogre
 {

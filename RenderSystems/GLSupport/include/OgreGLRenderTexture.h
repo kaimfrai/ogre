@@ -29,13 +29,24 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #ifndef __GLRENDERTEXTURE_H__
 #define __GLRENDERTEXTURE_H__
 
+#include <stddef.h>
+#include <map>
+#include <vector>
+
 #include "OgreGLSupportPrerequisites.h"
 #include "OgreRenderTexture.h"
 #include "OgreSingleton.h"
 #include "OgreGLRenderTarget.h"
+#include "OgreConfig.h"
+#include "OgreExports.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     class GLHardwarePixelBufferCommon;
+class GLContext;
+class RenderTarget;
 
     /** GL surface descriptor. Points to a 2D surface that can be rendered to.
      */

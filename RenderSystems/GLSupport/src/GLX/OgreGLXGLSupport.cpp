@@ -26,21 +26,29 @@
   -----------------------------------------------------------------------------
 */
 
+#include <X11/extensions/Xrandr.h>
+#include <X11/extensions/randr.h>
+#include <assert.h>
+#include <istream>
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgreException.h"
 #include "OgreLogManager.h"
 #include "OgreStringConverter.h"
-#include "OgreRoot.h"
-#include "OgreRenderSystem.h"
-
 #include "OgreGLXGLSupport.h"
 #include "OgreGLXWindow.h"
 #include "OgreGLXRenderTexture.h"
-
 #include "OgreGLUtil.h"
-
 #include "OgreX11.h"
+#include "OgreLog.h"
 
-#include <X11/extensions/Xrandr.h>
+namespace Ogre {
+class GLPBuffer;
+class RenderWindow;
+}  // namespace Ogre
 
 static bool ctxErrorOccurred = false;
 static Ogre::String ctxErrorMessage;

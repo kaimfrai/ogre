@@ -3,12 +3,19 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 
 #include "OgreGLDepthBufferCommon.h"
+
 #include "OgreGLHardwarePixelBufferCommon.h"
 #include "OgreGLRenderSystemCommon.h"
 #include "OgreGLRenderTexture.h"
+#include "OgreGLRenderTarget.h"
+#include "OgrePixelFormat.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderTarget.h"
 
 namespace Ogre
 {
+class GLContext;
+
 GLDepthBufferCommon::GLDepthBufferCommon(uint16 poolId, GLRenderSystemCommon* renderSystem,
                                          GLContext* creatorContext, GLHardwarePixelBufferCommon* depth,
                                          GLHardwarePixelBufferCommon* stencil, const RenderTarget* target,

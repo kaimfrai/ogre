@@ -26,10 +26,16 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   -----------------------------------------------------------------------------
 */
 #include "OgreGLVertexArrayObject.h"
+
+#include <algorithm>
+#include <list>
+
 #include "OgreRoot.h"
-#include "OgreLogManager.h"
 #include "OgreGLSLProgramCommon.h"
 #include "OgreGLRenderSystemCommon.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
     GLVertexArrayObject::GLVertexArrayObject() : mCreatorContext(0), mVAO(0), mNeedsUpdate(true), mVertexStart(0) {

@@ -27,8 +27,13 @@ THE SOFTWARE.
 */
 #include "OgreGLHardwarePixelBufferCommon.h"
 
+#include "OgreException.h"
+#include "OgrePrerequisites.h"
+
 namespace Ogre
 {
+struct Box;
+
 GLHardwarePixelBufferCommon::GLHardwarePixelBufferCommon(uint32 inWidth, uint32 inHeight,
                                                        uint32 inDepth, PixelFormat inFormat,
                                                        HardwareBuffer::Usage usage)

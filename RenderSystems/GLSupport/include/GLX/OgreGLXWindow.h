@@ -29,9 +29,13 @@ THE SOFTWARE.
 #ifndef __GLXWindow_H__
 #define __GLXWindow_H__
 
-#include "OgreGLWindow.h"
-
 #include <X11/X.h>
+
+#include "OgreGLWindow.h"
+#include "OgreCommon.h"
+#include "OgreExports.h"
+#include "OgrePixelFormat.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre 
 {

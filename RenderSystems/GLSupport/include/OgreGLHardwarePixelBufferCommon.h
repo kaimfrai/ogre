@@ -32,9 +32,13 @@ THE SOFTWARE.
 #include "OgreGLSupportPrerequisites.h"
 #include "OgreTexture.h"
 #include "OgreHardwarePixelBuffer.h"
+#include "OgreHardwareBuffer.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
 
 namespace Ogre
 {
+struct Box;
 
 class _OgreGLExport GLHardwarePixelBufferCommon : public HardwarePixelBuffer
 {

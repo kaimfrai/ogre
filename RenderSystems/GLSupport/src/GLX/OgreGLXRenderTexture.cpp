@@ -25,16 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <GL/gl.h>
+#include <GL/glx.h>
+#include <X11/X.h>
+#include <X11/Xlib.h>
+#include <climits>
+#include <string>
+
 #include "OgreException.h"
 #include "OgreLogManager.h"
-#include "OgreRoot.h"
 #include "OgreStringConverter.h"
-
 #include "OgreGLXRenderTexture.h"
 #include "OgreGLXContext.h"
 #include "OgreGLXGLSupport.h"
+#include "OgreLog.h"
 
-#include <climits>
+namespace Ogre {
+class GLContext;
+}  // namespace Ogre
 
 #define GLX_RGBA_FLOAT_ATI_BIT 0x00000100
 #define GLX_RGBA_FLOAT_BIT     0x00000004

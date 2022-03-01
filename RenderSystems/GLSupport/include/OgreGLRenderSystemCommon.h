@@ -28,15 +28,29 @@ THE SOFTWARE.
 #ifndef __OgreGLRenderSystemCommon_H__
 #define __OgreGLRenderSystemCommon_H__
 
+#include <stddef.h>
+#include <list>
+#include <set>
+
 #include "OgreGLSupportPrerequisites.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderWindow.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderTarget.h"
+#include "Threading/OgreThreadDefines.h"
 
 namespace Ogre {
     class GLContext;
     class GLSLProgramCommon;
     class GLNativeSupport;
     class GLRTTManager;
+class Matrix4;
+class VertexElement;
+class Viewport;
+struct Box;
 
     class _OgreGLExport GLRenderSystemCommon : public RenderSystem
     {

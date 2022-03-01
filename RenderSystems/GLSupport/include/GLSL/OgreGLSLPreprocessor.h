@@ -29,11 +29,12 @@
 #ifndef __OGRE_CPREPROCESSOR_H__
 #define __OGRE_CPREPROCESSOR_H__
 
-#include "OgrePlatform.h"
 #include <string.h>
 #include <stdlib.h>
 #include <forward_list>
 #include <vector>
+
+#include "OgrePlatform.h"
 
 namespace Ogre {
 

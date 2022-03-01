@@ -27,8 +27,10 @@ THE SOFTWARE.
 */
 
 #include "OgreGLTextureCommon.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
+
+#include <algorithm>
+#include <string>
+
 #include "OgreBitwise.h"
 
 namespace Ogre

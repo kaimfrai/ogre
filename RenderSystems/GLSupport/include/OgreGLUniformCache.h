@@ -29,8 +29,12 @@ THE SOFTWARE.
 #ifndef __GLUniformCache_H__
 #define __GLUniformCache_H__
 
+#include <unordered_map>
+
 #include "OgrePrerequisites.h"
 #include "OgreGLSupportPrerequisites.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
 typedef Ogre::GeneralAllocatedObject UniformCacheAlloc;
 

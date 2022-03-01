@@ -45,6 +45,7 @@ THE SOFTWARE.
 #include "OgreException.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
+#include "OgreHardwareOcclusionQuery.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreLogManager.h"
 #include "OgreMaterialManager.h"
@@ -80,7 +81,6 @@ THE SOFTWARE.
 
 namespace Ogre {
 class Camera;
-class HardwareOcclusionQuery;
 class RenderWindow;
 class Viewport;
 

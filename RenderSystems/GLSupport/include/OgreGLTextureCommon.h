@@ -32,9 +32,13 @@ THE SOFTWARE.
 #include "OgreGLSupportPrerequisites.h"
 #include "OgreTexture.h"
 #include "OgreHardwarePixelBuffer.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
 
 namespace Ogre
 {
+class ResourceManager;
 
 class _OgreGLExport GLTextureCommon  : public Texture
 {

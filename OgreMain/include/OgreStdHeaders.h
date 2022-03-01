@@ -22,6 +22,7 @@
 
 // C++ Stream stuff
 #include <ostream>
+#include <sstream>
 #include <iosfwd>
 
 #include <atomic>

@@ -28,7 +28,12 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #ifndef __GLVERTEXARRAYOBJECT_H__
 #define __GLVERTEXARRAYOBJECT_H__
 
+#include <stddef.h>
+#include <utility>
+#include <vector>
+
 #include "OgreHardwareVertexBuffer.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
     class GLContext;

@@ -28,14 +28,21 @@ THE SOFTWARE.
 #ifndef __GLXRenderTexture_H__
 #define __GLXRenderTexture_H__
 
-#include "OgrePrerequisites.h"
+#include <stddef.h>
 
+#include "OgrePrerequisites.h"
 #include "OgreGLPBuffer.h"
 #include "OgreGLXContext.h"
 #include "OgreGLXGLSupport.h"
+#include "OgreExports.h"
+#include "OgrePixelFormat.h"
 
 namespace Ogre
 {
+class GLContext;
+class GLXContext;
+class GLXGLSupport;
+
     class _OgrePrivate GLXPBuffer : public GLPBuffer
     {
     public:

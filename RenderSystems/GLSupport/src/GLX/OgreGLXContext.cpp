@@ -26,10 +26,14 @@
   -----------------------------------------------------------------------------
 */
 
+#include <GL/gl.h>
+#include <X11/X.h>
+
 #include "OgreGLRenderSystemCommon.h"
 #include "OgreRoot.h"
 #include "OgreGLXContext.h"
 #include "OgreGLXGLSupport.h"
+#include "OgreException.h"
 
 namespace Ogre
 {

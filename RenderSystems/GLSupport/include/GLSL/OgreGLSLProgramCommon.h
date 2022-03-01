@@ -29,15 +29,21 @@ THE SOFTWARE.
 #ifndef RENDERSYSTEMS_GLSUPPORT_INCLUDE_GLSL_OGREGLSLPROGRAMCOMMON_H_
 #define RENDERSYSTEMS_GLSUPPORT_INCLUDE_GLSL_OGREGLSLPROGRAMCOMMON_H_
 
+#include <array>
+#include <vector>
+
 #include "OgreGLSupportPrerequisites.h"
 #include "OgreConfig.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreGLSLShaderCommon.h"
-
-#include <array>
+#include "OgreGpuProgram.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre
 {
+struct GpuConstantDefinition;
+
 /// Structure used to keep track of named uniforms in the linked program object
 struct GLUniformReference
 {

@@ -25,19 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <stdlib.h>
+#include <string.h>
+#include <string>
+#include <utility>
+
 #include "OgreGpuProgram.h"
-#include "OgreRoot.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
 #include "OgreStringConverter.h"
 #include "OgreGpuProgramManager.h"
-#include "OgreHighLevelGpuProgramManager.h"
-#include "OgreLogManager.h"
-
 #include "OgreGLSLShaderCommon.h"
 #include "OgreGLSLPreprocessor.h"
+#include "OgreException.h"
+#include "OgrePlatform.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringVector.h"
 
 namespace Ogre {
+class ResourceManager;
+
     //-----------------------------------------------------------------------
     uint GLSLShaderCommon::mShaderCount = 0;
 

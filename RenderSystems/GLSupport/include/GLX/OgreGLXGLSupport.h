@@ -29,10 +29,24 @@
 #define OGRE_GLXGLSupport_H
 
 #include "OgreGLNativeSupport.h"
+#include "OgreCommon.h"
+#include "OgreGLSupportPrerequisites.h"
+#include "OgrePixelFormat.h"
+#include "OgrePrerequisites.h"
+
+namespace Ogre {
+class GLPBuffer;
+class RenderWindow;
+}  // namespace Ogre
 
 #define GLX_GLXEXT_PROTOTYPES
 #include <GL/glx.h>
 #include <GL/glxext.h>
+#include <GL/gl.h>
+#include <X11/X.h>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <stddef.h>
 
 namespace Ogre {
 

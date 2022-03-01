@@ -27,11 +27,19 @@
 */
 
 #include "OgreGLSLPreprocessor.h"
-#include "OgreLogManager.h"
 
 #include <ctype.h>
 #include <stdio.h>
 #include <assert.h>
+#include <iterator>
+#include <memory>
+#include <utility>
+
+#include "OgreLogManager.h"
+#include "OgreLog.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreString.h"
 
 namespace Ogre {
 
