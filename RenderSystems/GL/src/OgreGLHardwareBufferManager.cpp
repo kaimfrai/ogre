@@ -26,12 +26,18 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreGLHardwareBufferManager.h"
+
+#include <assert.h>
+#include <memory>
+
 #include "OgreGLHardwareBuffer.h"
 #include "OgreGLRenderSystem.h"
 #include "OgreGLRenderToVertexBuffer.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreRoot.h"
-#include "OgreRenderSystemCapabilities.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------

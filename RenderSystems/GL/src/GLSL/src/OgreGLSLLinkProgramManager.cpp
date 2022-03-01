@@ -27,9 +27,19 @@ THE SOFTWARE.
 */
 
 #include "OgreGLSLLinkProgramManager.h"
+
+#include <assert.h>
+#include <stddef.h>
+#include <array>
+#include <map>
+#include <utility>
+
 #include "OgreGLSLProgram.h"
-#include "OgreStringConverter.h"
-#include "OgreLogManager.h"
+#include "OgreCommon.h"
+#include "OgreGLSLLinkProgram.h"
+#include "OgreGLSLShaderCommon.h"
+#include "OgrePlatform.h"
+#include "glad/glad.h"
 
 namespace Ogre {
 

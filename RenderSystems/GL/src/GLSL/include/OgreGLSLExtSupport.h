@@ -32,6 +32,8 @@ THE SOFTWARE.
 #define __GLSLExtSupport_H__
 
 #include "OgreGLPrerequisites.h"
+#include "OgrePrerequisites.h"
+#include "glad/glad.h"
 
 //
 // OpenGL Shading Language entry points

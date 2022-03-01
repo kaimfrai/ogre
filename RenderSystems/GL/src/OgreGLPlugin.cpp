@@ -27,8 +27,10 @@ THE SOFTWARE.
 */
 
 #include "OgreGLPlugin.h"
+
 #include "OgreRoot.h"
 #include "OgreGLRenderSystem.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre 
 {

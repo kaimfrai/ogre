@@ -31,8 +31,13 @@ THE SOFTWARE.
 
 #include "OgreGLPrerequisites.h"
 #include "OgreGLGpuProgram.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "glad/glad.h"
 
 namespace Ogre {
+class ResourceManager;
 
     /** Specialisation of the GL low-level program for ATI Fragment Shader programs. */
     class _OgreGLExport ATI_FS_GLGpuProgram : public GLGpuProgram

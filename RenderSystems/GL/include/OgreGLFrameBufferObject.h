@@ -30,8 +30,13 @@ THE SOFTWARE.
 
 #include "OgreGLCopyingRenderTexture.h"
 #include "OgreGLContext.h"
+#include "OgreGLPrerequisites.h"
+#include "OgreGLRenderTexture.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
+class DepthBuffer;
+class GLFBOManager;
     
     /** Frame Buffer Object abstraction.
     */

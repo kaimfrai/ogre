@@ -28,17 +28,46 @@ THE SOFTWARE.
 #ifndef __GLRenderSystem_H__
 #define __GLRenderSystem_H__
 
+#include <stddef.h>
+#include <vector>
+
 #include "OgreGLPrerequisites.h"
 #include "OgrePlatform.h"
 #include "OgreRenderSystem.h"
 #include "OgreGLHardwareBufferManager.h"
 #include "OgreGLGpuProgramManager.h"
 #include "OgreVector.h"
-
 #include "OgreGLRenderSystemCommon.h"
 #include "OgreGLStateCacheManager.h"
+#include "OgreBlendMode.h"
+#include "OgreBuildSettings.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreConfig.h"
+#include "OgreGpuProgram.h"
+#include "OgreMatrix4.h"
+#include "OgrePlane.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderTarget.h"
+#include "OgreRenderWindow.h"
+#include "OgreTextureUnitState.h"
+#include "glad/glad.h"
 
 namespace Ogre {
+class DepthBuffer;
+class Frustum;
+class GLContext;
+class GLGpuProgramManager;
+class GLStateCacheManager;
+class HardwareBufferManager;
+class HardwareOcclusionQuery;
+class MultiRenderTarget;
+class PixelBox;
+class RenderOperation;
+class RenderSystemCapabilities;
+class VertexElement;
+class Viewport;
+struct GLGpuProgramBase;
     /** \addtogroup RenderSystems RenderSystems
     *  @{
     */

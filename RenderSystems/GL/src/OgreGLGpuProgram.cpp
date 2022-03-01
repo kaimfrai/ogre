@@ -27,12 +27,20 @@ THE SOFTWARE.
 */
 
 #include "OgreGLGpuProgram.h"
+
+#include <stddef.h>
+#include <map>
+#include <string>
+#include <utility>
+
 #include "OgreException.h"
-#include "OgreStringConverter.h"
 #include "OgreLogManager.h"
-#include "OgreGLSLProgramCommon.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreLog.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class ResourceManager;
 
 GLenum GLArbGpuProgram::getProgramType() const
 {

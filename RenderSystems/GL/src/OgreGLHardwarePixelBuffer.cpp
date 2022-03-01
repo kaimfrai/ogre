@@ -27,18 +27,31 @@ THE SOFTWARE.
 */
 #include "OgreGLHardwarePixelBuffer.h"
 
-#include "OgreTextureManager.h"
+#include <assert.h>
+#include <memory>
+#include <string>
 
+#include "OgreTextureManager.h"
 #include "OgreGLTexture.h"
 #include "OgreGLRenderSystem.h"
 #include "OgreGLPixelFormat.h"
 #include "OgreException.h"
-#include "OgreLogManager.h"
 #include "OgreStringConverter.h"
-#include "OgreBitwise.h"
 #include "OgreGLFBORenderTexture.h"
 #include "OgreRoot.h"
 #include "OgreGLStateCacheManager.h"
+#include "OgreCommon.h"
+#include "OgreGLRenderTexture.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwarePixelBuffer.h"
+#include "OgreImage.h"
+#include "OgrePixelFormat.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderTexture.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreTexture.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 //-----------------------------------------------------------------------------  

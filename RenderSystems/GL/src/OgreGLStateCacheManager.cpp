@@ -27,8 +27,13 @@
  */
 
 #include "OgreGLStateCacheManager.h"
+
 #include "OgreGLRenderSystem.h"
 #include "OgreRoot.h"
+#include "OgreException.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
 
 namespace Ogre {
     

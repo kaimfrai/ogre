@@ -32,8 +32,15 @@ THE SOFTWARE.
 #include "OgreGLSLShaderCommon.h"
 #include "OgreRenderOperation.h"
 #include "OgreGLGpuProgram.h"
+#include "OgreException.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
 
 namespace Ogre {
+class ResourceManager;
+
     namespace GLSL {
     class _OgreGLExport GLSLProgram : public GLSLShaderCommon, public GLGpuProgramBase
     {

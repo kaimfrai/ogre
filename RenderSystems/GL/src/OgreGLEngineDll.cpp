@@ -27,8 +27,7 @@ THE SOFTWARE.
 */
 
 #include "OgreGLPrerequisites.h"
-#include "OgreRoot.h"
-#include "OgreGLPlugin.h"
+#include "OgreBuildSettings.h"
 
 #ifndef OGRE_STATIC_LIB
 

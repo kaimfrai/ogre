@@ -25,21 +25,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <stddef.h>
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "OgreGpuProgram.h"
 #include "OgreRoot.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreStringConverter.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreHighLevelGpuProgramManager.h"
 #include "OgreLogManager.h"
-
 #include "OgreGLSLProgram.h"
 #include "OgreGLSLExtSupport.h"
 #include "OgreGLSLLinkProgramManager.h"
-#include "OgreGLSLPreprocessor.h"
+#include "OgreGLSLLinkProgram.h"
+#include "OgreLog.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringInterface.h"
+#include "glad/glad.h"
 
 namespace Ogre {
+class ResourceManager;
+
     namespace GLSL {
     //-----------------------------------------------------------------------
     static RenderOperation::OperationType parseOperationType(const String& val)

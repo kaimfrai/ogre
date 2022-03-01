@@ -26,15 +26,21 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreGLPBRenderTexture.h"
-#include "OgreGLContext.h"
-#include "OgreGLPixelFormat.h"
-#include "OgreLogManager.h"
-#include "OgreStringConverter.h"
-#include "OgreRoot.h"
+
+#include <assert.h>
+#include <string>
+
 #include "OgreGLHardwarePixelBuffer.h"
 #include "OgreGLNativeSupport.h"
+#include "OgreGLHardwarePixelBufferCommon.h"
+#include "OgreGLPBuffer.h"
+#include "OgreGLRenderTarget.h"
+#include "OgreRenderTarget.h"
 
 namespace Ogre {
+class GLContext;
+class RenderTexture;
+
 //-----------------------------------------------------------------------------  
     GLPBRenderTexture::GLPBRenderTexture(GLPBRTTManager *manager, const String &name, 
         const GLSurfaceDesc &target, bool writeGamma, uint fsaa):

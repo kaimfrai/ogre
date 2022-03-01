@@ -32,10 +32,18 @@ THE SOFTWARE.
 
 #include "OgreHighLevelGpuProgramManager.h"
 #include "OgreGLSLExtSupport.h"
+#include "OgreGLPrerequisites.h"
+#include "OgreGpuProgramManager.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
 
 namespace Ogre
 {
+class GpuProgram;
+class ResourceManager;
+
     namespace GLSL {
+class GLSLLinkProgramManager;
 
     /** Factory class for GLSL programs. */
     class _OgreGLExport GLSLProgramFactory : public HighLevelGpuProgramFactory

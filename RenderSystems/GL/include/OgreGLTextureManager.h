@@ -32,8 +32,15 @@ THE SOFTWARE.
 #include "OgreGLPrerequisites.h"
 #include "OgreTextureManager.h"
 #include "OgreGLTexture.h"
+#include "OgreCommon.h"
+#include "OgrePixelFormat.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreTexture.h"
 
 namespace Ogre {
+class GLRenderSystem;
+
     /** GL-specific implementation of a TextureManager */
     class _OgreGLExport GLTextureManager : public TextureManager
     {

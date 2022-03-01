@@ -49,9 +49,11 @@ THE SOFTWARE.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <vector>
 
 #include "OgreGLPrerequisites.h"
 #include "Compiler2Pass.h"
+#include "glad/glad.h"
 
 
 //---------------------------------------------------------------------------

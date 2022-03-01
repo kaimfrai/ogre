@@ -28,10 +28,20 @@ THE SOFTWARE.
 #ifndef __GLRenderToVertexBuffer_H__
 #define __GLRenderToVertexBuffer_H__
 
+#include <stddef.h>
+
 #include "OgreRenderToVertexBuffer.h"
 #include "OgreGLPrerequisites.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
+#include "glad/glad.h"
 
 namespace Ogre {
+class Pass;
+class RenderOperation;
+class SceneManager;
+
     /**
         An object which renders geometry to a vertex.
     @remarks

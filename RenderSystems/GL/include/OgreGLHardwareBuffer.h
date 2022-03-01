@@ -28,10 +28,14 @@ THE SOFTWARE.
 #ifndef __GLHARDWAREVERTEXBUFFER_H__
 #define __GLHARDWAREVERTEXBUFFER_H__
 
+#include <stddef.h>
+
 #include "OgreGLPrerequisites.h"
 #include "OgreHardwareBuffer.h"
+#include "glad/glad.h"
 
 namespace Ogre {
+class GLRenderSystem;
 
     /// Specialisation of HardwareVertexBuffer for OpenGL
     class _OgreGLExport GLHardwareVertexBuffer : public HardwareBuffer

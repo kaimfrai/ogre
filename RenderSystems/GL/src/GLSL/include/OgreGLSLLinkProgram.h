@@ -28,13 +28,20 @@ THE SOFTWARE.
 #ifndef __GLSLLinkProgram_H__
 #define __GLSLLinkProgram_H__
 
+#include <set>
+
 #include "OgreGLPrerequisites.h"
 #include "OgreGpuProgram.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreGLUniformCache.h"
 #include "OgreGLSLProgramCommon.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "glad/glad.h"
 
 namespace Ogre {
+class GLUniformCache;
+
     namespace GLSL {
 
     /** C++ encapsulation of GLSL Program Object

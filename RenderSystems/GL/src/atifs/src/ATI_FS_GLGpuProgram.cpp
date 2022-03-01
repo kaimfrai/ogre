@@ -26,16 +26,21 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <stdio.h>
+#include <map>
+#include <string>
+#include <utility>
+
 #include "ps_1_4.h"
 #include "OgreException.h"
-#include "OgreRoot.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
 #include "OgreLogManager.h"
 #include "ATI_FS_GLGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreSharedPtr.h"
 
 
 namespace Ogre {
+class ResourceManager;
 
 ATI_FS_GLGpuProgram::ATI_FS_GLGpuProgram(ResourceManager* creator, 
         const String& name, ResourceHandle handle, 

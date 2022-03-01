@@ -27,10 +27,14 @@ THE SOFTWARE.
 */
 
 #include "OgreGLSLProgramFactory.h"
+
 #include "OgreGLSLLinkProgramManager.h"
 #include "OgreGLSLProgram.h"
 
 namespace Ogre {
+class GpuProgram;
+class ResourceManager;
+
     namespace GLSL {
     //-----------------------------------------------------------------------
     String GLSLProgramFactory::sLanguageName = "glsl";

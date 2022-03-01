@@ -25,13 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <memory>
+
 #include "OgreGLHardwareBufferManager.h"
 #include "OgreGLHardwareBuffer.h"
 #include "OgreException.h"
-#include "OgreLogManager.h"
 #include "OgreGLStateCacheManager.h"
 #include "OgreRoot.h"
 #include "OgreGLRenderSystem.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
 

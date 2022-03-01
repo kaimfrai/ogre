@@ -29,13 +29,21 @@ THE SOFTWARE.
 #ifndef __GLCOPYINGRENDERTEXTURE_H__
 #define __GLCOPYINGRENDERTEXTURE_H__
 
+#include <stddef.h>
+
 #include "OgreGLPrerequisites.h"
 #include "OgreGLRenderTexture.h"
+#include "OgrePixelFormat.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     /** RenderTexture for simple copying from frame buffer
     */
     class GLCopyingRTTManager;
+class GLContext;
+class RenderTarget;
+class RenderTexture;
+
     class _OgreGLExport GLCopyingRenderTexture: public GLRenderTexture
     {
     public:

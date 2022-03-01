@@ -30,6 +30,9 @@ THE SOFTWARE.
 
 #include "OgreGLPrerequisites.h"
 #include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "glad/glad.h"
+
 namespace Ogre {
     
     /**

@@ -31,8 +31,13 @@ THE SOFTWARE.
 
 #include "OgreGLPrerequisites.h"
 #include "OgreGLGpuProgram.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "glad/glad.h"
 
 namespace Ogre {
+class ResourceManager;
 
 class _OgreGLExport GLGpuNvparseProgram : public GLGpuProgram
 {

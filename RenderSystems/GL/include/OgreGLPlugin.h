@@ -30,6 +30,7 @@ THE SOFTWARE.
 
 #include "OgrePlugin.h"
 #include "OgreGLPrerequisites.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre
 {

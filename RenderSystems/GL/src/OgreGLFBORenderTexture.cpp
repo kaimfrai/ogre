@@ -27,14 +27,25 @@ THE SOFTWARE.
 */
 
 #include "OgreGLFBORenderTexture.h"
+
+#include <stddef.h>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgreGLPixelFormat.h"
 #include "OgreLogManager.h"
-#include "OgreStringConverter.h"
-#include "OgreRoot.h"
 #include "OgreGLHardwarePixelBuffer.h"
-#include "OgreGLFBOMultiRenderTarget.h"
+#include "OgreGLRenderTarget.h"
+#include "OgreRenderTarget.h"
+#include "OgreString.h"
 
 namespace Ogre {
+class DepthBuffer;
+class GLContext;
 
 //-----------------------------------------------------------------------------    
     GLFBORenderTexture::GLFBORenderTexture(GLFBOManager *manager, const String &name,

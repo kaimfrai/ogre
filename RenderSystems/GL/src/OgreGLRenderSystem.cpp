@@ -28,37 +28,75 @@ THE SOFTWARE.
 
 
 #include "OgreGLRenderSystem.h"
+
+#include <assert.h>
+#include <stdint.h>
+#include <string.h>
+#include <algorithm>
+#include <cmath>
+#include <istream>
+#include <list>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <utility>
+
 #include "OgreGLNativeSupport.h"
 #include "OgreLogManager.h"
 #include "OgreStringConverter.h"
-#include "OgreLight.h"
-#include "OgreCamera.h"
 #include "OgreGLTextureManager.h"
 #include "OgreGLHardwareBuffer.h"
-#include "OgreDefaultHardwareBufferManager.h"
 #include "OgreGLUtil.h"
 #include "OgreGLGpuProgram.h"
 #include "OgreGLGpuNvparseProgram.h"
 #include "ATI_FS_GLGpuProgram.h"
 #include "OgreGLGpuProgramManager.h"
 #include "OgreException.h"
-#include "OgreGLSLExtSupport.h"
 #include "OgreGLHardwareOcclusionQuery.h"
 #include "OgreGLDepthBufferCommon.h"
 #include "OgreGLHardwarePixelBuffer.h"
 #include "OgreGLContext.h"
 #include "OgreGLSLProgramFactory.h"
 #include "OgreGLStateCacheManager.h"
-
 #include "OgreGLFBORenderTexture.h"
 #include "OgreGLPBRenderTexture.h"
 #include "OgreConfig.h"
 #include "OgreViewport.h"
-
 #include "OgreGLPixelFormat.h"
-
 #include "OgreGLSLProgramCommon.h"
 #include "OgreGLFBOMultiRenderTarget.h"
+#include "OgreConfigOptionMap.h"
+#include "OgreDepthBuffer.h"
+#include "OgreFrustum.h"
+#include "OgreGLCopyingRenderTexture.h"
+#include "OgreGLHardwareBufferManager.h"
+#include "OgreGLRenderTarget.h"
+#include "OgreGLRenderTexture.h"
+#include "OgreGLTexture.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMath.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePixelFormat.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderTexture.h"
+#include "OgreResource.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringVector.h"
+#include "OgreTextureManager.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
+
+namespace Ogre {
+class HardwareOcclusionQuery;
+class ResourceManager;
+}  // namespace Ogre
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 extern "C" void glFlushRenderAPPLE();

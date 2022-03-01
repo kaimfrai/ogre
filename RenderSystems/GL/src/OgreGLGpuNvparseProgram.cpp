@@ -27,14 +27,17 @@ THE SOFTWARE.
 */
 
 #include "OgreGLGpuNvparseProgram.h"
-#include "OgreException.h"
-#include "OgreRoot.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
+
+#include <stddef.h>
+#include <string>
+
 #include "OgreLogManager.h"
 #include "nvparse.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class ResourceManager;
 
 GLGpuNvparseProgram::GLGpuNvparseProgram(ResourceManager* creator, 
         const String& name, ResourceHandle handle, 

@@ -29,9 +29,15 @@ THE SOFTWARE.
 #ifndef __GLStateCacheManager_H__
 #define __GLStateCacheManager_H__
 
+#include <stddef.h>
+#include <set>
+#include <unordered_map>
+
 #include "OgreGLPrerequisites.h"
 #include "OgreGLStateCacheManagerCommon.h"
 #include "OgreStdHeaders.h"
+#include "OgreCommon.h"
+#include "glad/glad.h"
 
 namespace Ogre
 {

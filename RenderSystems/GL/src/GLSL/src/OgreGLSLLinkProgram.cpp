@@ -26,14 +26,25 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <string.h>
+#include <string>
+#include <vector>
+
 #include "OgreGLSLExtSupport.h"
 #include "OgreGLSLLinkProgram.h"
-#include "OgreStringConverter.h"
 #include "OgreGLSLProgram.h"
 #include "OgreGLSLLinkProgramManager.h"
-#include "OgreException.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreGLSLProgramCommon.h"
+#include "OgreBuildSettings.h"
+#include "OgreDataStream.h"
+#include "OgreGLSLShaderCommon.h"
+#include "OgreGLUniformCache.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreRenderOperation.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringVector.h"
 
 namespace Ogre {
     namespace GLSL {

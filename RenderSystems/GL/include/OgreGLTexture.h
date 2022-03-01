@@ -34,8 +34,13 @@ THE SOFTWARE.
 #include "OgreRenderTexture.h"
 #include "OgreGLTextureCommon.h"
 #include "OgreHardwarePixelBuffer.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "glad/glad.h"
 
 namespace Ogre {
+class GLRenderSystem;
+class ResourceManager;
 
     class _OgreGLExport GLTexture : public GLTextureCommon
     {

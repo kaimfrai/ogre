@@ -29,13 +29,27 @@ THE SOFTWARE.
 #ifndef __GLPBRENDERTEXTURE_H__
 #define __GLPBRENDERTEXTURE_H__
 
+#include <stddef.h>
+
 #include "OgreGLCopyingRenderTexture.h"
 #include "OgreGLPBuffer.h"
+#include "OgreGLPrerequisites.h"
+#include "OgreGLRenderTexture.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+
 namespace Ogre {
     
     /** RenderTexture that uses a PBuffer (offscreen rendering context) for rendering.
     */
     class GLPBRTTManager;
+class GLContext;
+class GLNativeSupport;
+class GLPBuffer;
+class RenderTarget;
+class RenderTexture;
+
     class _OgreGLExport GLPBRenderTexture: public GLRenderTexture
     {
     public:

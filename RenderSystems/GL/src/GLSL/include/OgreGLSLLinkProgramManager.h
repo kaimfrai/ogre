@@ -33,10 +33,16 @@ THE SOFTWARE.
 #include "OgreGLSLProgramManagerCommon.h"
 #include "OgreGLSLExtSupport.h"
 #include "OgreGLSLLinkProgram.h"
+#include "OgreGLSLProgramCommon.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 
     namespace GLSL {
+class GLSLLinkProgram;
+class GLSLProgram;
 
     class _OgreGLExport GLSLLinkProgramManager : public Singleton<GLSLLinkProgramManager>, public GLSLProgramManagerCommon
     {

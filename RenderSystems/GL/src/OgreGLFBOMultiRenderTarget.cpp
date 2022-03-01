@@ -27,13 +27,15 @@ THE SOFTWARE.
 */
 
 #include "OgreGLFBOMultiRenderTarget.h"
-#include "OgreGLPixelFormat.h"
-#include "OgreLogManager.h"
-#include "OgreStringConverter.h"
-#include "OgreRoot.h"
-#include "OgreGLHardwarePixelBuffer.h"
+
+#include <assert.h>
+#include <string>
+
+#include "OgreGLRenderTexture.h"
 
 namespace Ogre {
+class DepthBuffer;
+class GLFBOManager;
 
     GLFBOMultiRenderTarget::GLFBOMultiRenderTarget(GLFBOManager *manager, const String &name):
         MultiRenderTarget(name),

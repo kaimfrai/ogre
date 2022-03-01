@@ -29,9 +29,20 @@ THE SOFTWARE.
 #ifndef __GLMULTIRENDERTARGET_H__
 #define __GLMULTIRENDERTARGET_H__
 
+#include <stddef.h>
+
 #include "OgreGLFrameBufferObject.h"
+#include "OgreGLPrerequisites.h"
+#include "OgreGLRenderTarget.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderTexture.h"
 
 namespace Ogre {
+class DepthBuffer;
+class GLContext;
+class GLFBOManager;
+class GLFrameBufferObjectCommon;
+
     /** MultiRenderTarget for GL. Requires the FBO extension.
     */
     class _OgreGLExport GLFBOMultiRenderTarget : public MultiRenderTarget, public GLRenderTarget

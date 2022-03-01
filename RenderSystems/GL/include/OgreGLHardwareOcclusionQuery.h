@@ -49,6 +49,7 @@ initialised and used in glRenderSystem and copy what is done there.
 
 #include "OgreGLPrerequisites.h"
 #include "OgreHardwareOcclusionQuery.h"
+#include "glad/glad.h"
 
 
 namespace Ogre { 

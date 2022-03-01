@@ -32,8 +32,13 @@ THE SOFTWARE.
 #include "OgreGLPrerequisites.h"
 #include "OgreGpuProgram.h"
 #include "OgreHardwareVertexBuffer.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "glad/glad.h"
 
 namespace Ogre {
+class ResourceManager;
 
     struct GLGpuProgramBase
     {

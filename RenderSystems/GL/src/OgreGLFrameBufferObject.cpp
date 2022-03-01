@@ -27,16 +27,24 @@ THE SOFTWARE.
 */
 
 #include "OgreGLFrameBufferObject.h"
-#include "OgreGLPixelFormat.h"
-#include "OgreLogManager.h"
-#include "OgreStringConverter.h"
+
+#include <algorithm>
+#include <ostream>
+
 #include "OgreRoot.h"
-#include "OgreGLHardwarePixelBuffer.h"
 #include "OgreGLFBORenderTexture.h"
 #include "OgreGLDepthBufferCommon.h"
-#include "OgreGLRenderSystemCommon.h"
+#include "OgreConfig.h"
+#include "OgreException.h"
+#include "OgreGLHardwarePixelBufferCommon.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "glad/glad.h"
 
 namespace Ogre {
+class DepthBuffer;
 
 //-----------------------------------------------------------------------------
     GLFrameBufferObject::GLFrameBufferObject(GLFBOManager *manager, uint fsaa):
