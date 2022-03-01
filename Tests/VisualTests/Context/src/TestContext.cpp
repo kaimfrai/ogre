@@ -25,16 +25,41 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+
+#include <cstdlib>
+#include <ctime>
+#include <memory>
+#include <set>
+#include <utility>
+#include <vector>
+#include <iostream>
+
 #include "TestContext.h"
 #include "SamplePlugin.h"
-#include "TestResultWriter.h"
 #include "HTMLWriter.h"
 #include "CppUnitResultWriter.h"
 #include "OgreConfigFile.h"
 #include "OgrePlatform.h"
 #include "OgreBitesConfigDialog.h"
-
-#include <iostream>
+#include "ImageValidator.h"
+#include "OgreBuildSettings.h"
+#include "OgreCommon.h"
+#include "OgreConfigOptionMap.h"
+#include "OgreControllerManager.h"
+#include "OgreException.h"
+#include "OgreFileSystemLayer.h"
+#include "OgreFrameListener.h"
+#include "OgreLogManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreOverlaySystem.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderWindow.h"
+#include "OgreRoot.h"
+#include "OgreStaticPluginLoader.h"
+#include "OgreStringConverter.h"
+#include "OgreTextureManager.h"
+#include "Sample.h"
+#include "TestBatch.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN

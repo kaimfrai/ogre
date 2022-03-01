@@ -29,15 +29,28 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #ifndef __TestContext_H__
 #define __TestContext_H__
 
-#include "VisualTest.h"
+#include <deque>
+#include <map>
+#include <string>
+
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "SampleContext.h"
-#include "SamplePlugin.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS && defined(__OBJC__)
 #include <iostream>
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #endif
+
+namespace Ogre{
+    struct FrameEvent;
+}
+
+namespace OgreBites{
+    class Sample;
+    class SamplePlugin;
+}
 
 class TestBatch;
 using namespace Ogre;
