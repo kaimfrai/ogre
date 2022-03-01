@@ -32,7 +32,7 @@ THE SOFTWARE.
 #include <string>
 
 #include "OgreLogManager.h"
-#include "nvparse.h"
+// #include "nvparse.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreSharedPtr.h"
 
@@ -98,13 +98,15 @@ void GLGpuNvparseProgram::loadFromSource(void)
         String::size_type newPos = mSource.find("!!", pos + 1);
 
         String script = mSource.substr(pos, newPos - pos);
-        nvparse(script.c_str(), 0);
-
-        for (char* const * errors= nvparse_get_errors(); *errors; errors++)
-        {
-            LogManager::getSingleton().logMessage("Warning: nvparse reported the following errors:");
-            LogManager::getSingleton().logMessage("\t" + String(*errors));
-        }
+        LogManager::getSingleton().logError("nvparse was removed while extracting a minimal subset for migration!");
+        LogManager::getSingleton().logError("script \"" + script + "\" could not be parsed!");
+//         nvparse(script.c_str(), 0);
+//
+//         for (char* const * errors= nvparse_get_errors(); *errors; errors++)
+//         {
+//             LogManager::getSingleton().logMessage("Warning: nvparse reported the following errors:");
+//             LogManager::getSingleton().logMessage("\t" + String(*errors));
+//         }
         
         pos = newPos;
     }
