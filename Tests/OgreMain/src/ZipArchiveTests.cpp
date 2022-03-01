@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreBuildSettings.h"
 #include "OgreDataStream.h"
 #include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringVector.h"

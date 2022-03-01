@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <gtest/gtest.h>
-#include <stddef.h>
+#include <cstddef>
 #include <memory>
 
 #include "RootWithoutRenderSystemFixture.h"
@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreMaterialManager.h"
 #include "OgreMaterialSerializer.h"
 #include "OgrePass.h"
-#include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreShaderParameter.h"

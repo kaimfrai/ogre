@@ -32,20 +32,18 @@ THE SOFTWARE.
 #include <gtest/gtest.h>
 #include <unordered_map>
 
-#include "OgreMesh.h"
 #include "OgreMeshSerializer.h"
-#include "OgreFileSystemLayer.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {
-class EdgeData;
-class FileSystemLayer;
-class IndexData;
-class Mesh;
-class VertexData;
-struct MeshLodUsage;
+    class EdgeData;
+    class FileSystemLayer;
+    class IndexData;
+    class Mesh;
+    class VertexData;
+    struct MeshLodUsage;
 }  // namespace Ogre
 
 using namespace Ogre;

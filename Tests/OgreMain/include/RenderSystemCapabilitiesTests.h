@@ -31,16 +31,12 @@ THE SOFTWARE.
 
 #include <gtest/gtest.h>
 
-#include "OgrePrerequisites.h"
-#include "OgreArchiveManager.h"
-#include "OgreFileSystem.h"
-#include "OgreRenderSystemCapabilitiesManager.h"
 #include "OgrePlatform.h"
 
 namespace Ogre {
-class ArchiveManager;
-class FileSystemArchiveFactory;
-class RenderSystemCapabilitiesManager;
+    class ArchiveManager;
+    class FileSystemArchiveFactory;
+    class RenderSystemCapabilitiesManager;
 }  // namespace Ogre
 
 using namespace Ogre;

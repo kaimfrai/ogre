@@ -31,10 +31,8 @@ THE SOFTWARE.
 
 #include <gtest/gtest.h>
 
-#include "OgreZip.h"
-
 namespace Ogre {
-class Archive;
+    class Archive;
 }  // namespace Ogre
 
 class ZipArchiveTests : public ::testing::Test

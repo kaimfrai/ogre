@@ -31,7 +31,6 @@ THE SOFTWARE.
 
 #include <gtest/gtest.h>
 
-#include "OgreString.h"
 #include "OgrePrerequisites.h"
 
 class StringTests : public ::testing::Test

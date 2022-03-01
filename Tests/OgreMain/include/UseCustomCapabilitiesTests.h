@@ -31,16 +31,8 @@ THE SOFTWARE.
 
 #include <gtest/gtest.h>
 
-#include "OgrePrerequisites.h"
-#include "OgreRoot.h"
-#include "OgreHighLevelGpuProgramManager.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreCompositorManager.h"
-#include "OgreMaterialManager.h"
-#include "OgreResourceGroupManager.h"
 #include "OgreBuildSettings.h"
 #include "OgrePlatform.h"
-
 
 #ifdef OGRE_STATIC_LIB
 #include "OgreStaticPluginLoader.h"

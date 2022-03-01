@@ -31,12 +31,10 @@ THE SOFTWARE.
 
 #include <gtest/gtest.h>
 
-#include "OgreLogManager.h"
-#include "OgreHardwareBufferManager.h"
 #include "OgrePlatform.h"
 
 namespace Ogre {
-class HardwareBufferManager;
+    class HardwareBufferManager;
 }  // namespace Ogre
 
 using namespace Ogre;
