@@ -1,0 +1,12 @@
+
+[
+	{ include: ["<ext/alloc_traits.h>", private, "<memory>", public ] },
+	{ include: ["<ext/type_traits.h>", private, "<type_traits>", public ] },
+	{ include: ["<bits/types/struct_tm.h>", private, "<ctime>", public ] },
+	{ include: ["<bits/std_abs.h>", private, "<cmath>", public ] },
+	{ include: ["<bits/types/locale_t.h>", private, "<locale>", public ]},
+
+	{ include: ["<bits/struct_stat.h>", private, "<sys/stat.h>", public ] },
+
+	{ include: ["@\"OgreThreadDefines.*\"", private, "\"Threading/OgreThreadHeaders.h\"", public ] },
+]
