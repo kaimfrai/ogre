@@ -26,10 +26,13 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <gtest/gtest.h>
+#include <stdlib.h>
+
 #include "GLSL/OgreGLSLPreprocessor.h"
 #include "OgreString.h"
-
-#include <gtest/gtest.h>
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 using namespace Ogre;
 

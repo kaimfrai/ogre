@@ -26,10 +26,22 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <gtest/gtest.h>
+#include <stddef.h>
+
 #include "Ogre.h"
 #include "OgreInstancedEntity.h"
 #include "OgreInstanceBatchShader.h"
 #include "RootWithoutRenderSystemFixture.h"
+#include "OgreEntity.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreSharedPtr.h"
+#include "OgreSubEntity.h"
+#include "OgreVector.h"
 
 using namespace Ogre;
 

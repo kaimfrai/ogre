@@ -30,8 +30,16 @@ THE SOFTWARE.
 #define __FileSystemArchiveTests_H__
 
 #include <gtest/gtest.h>
+#include <stddef.h>
+
 #include "OgreString.h"
 #include "OgreFileSystem.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+
+namespace Ogre {
+class Archive;
+}  // namespace Ogre
 
 using namespace Ogre;
 

@@ -30,8 +30,14 @@ THE SOFTWARE.
 #define __EdgeBuilderTests_H__
 
 #include <gtest/gtest.h>
+
 #include "OgreLogManager.h"
 #include "OgreHardwareBufferManager.h"
+#include "OgrePlatform.h"
+
+namespace Ogre {
+class HardwareBufferManager;
+}  // namespace Ogre
 
 using namespace Ogre;
 

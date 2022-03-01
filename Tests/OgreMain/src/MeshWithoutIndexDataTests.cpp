@@ -26,13 +26,35 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <stdio.h>
-#include "Ogre.h"
-#include "OgreDistanceLodStrategy.h"
+#include <sys/types.h>
+#include <string>
+#include <vector>
+
 #include "OgreDefaultHardwareBufferManager.h"
 #include "OgreFileSystem.h"
 #include "OgreArchiveManager.h"
 #include "MeshWithoutIndexDataTests.h"
 #include "OgreLodStrategyManager.h"
+#include "OgreManualObject.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMaterialSerializer.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgreMeshManager.h"
+#include "OgreMeshSerializer.h"
+#include "OgrePass.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSubMesh.h"
+#include "OgreTechnique.h"
+#include "OgreVertexIndexData.h"
+
+namespace Ogre {
+class InvalidParametersException;
+}  // namespace Ogre
 
 #ifdef OGRE_BUILD_COMPONENT_MESHLODGENERATOR
 #include "OgreLodConfig.h"

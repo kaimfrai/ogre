@@ -8,5 +8,8 @@
 
 	{ include: ["<bits/struct_stat.h>", private, "<sys/stat.h>", public ] },
 
+	{ include: ["@\"gtest/.*\"", private, "<gtest/gtest.h>", public ] },
+	{ include: ["@<gtest/.*>", private, "<gtest/gtest.h>", public ] },
+
 	{ include: ["@\"OgreThreadDefines.*\"", private, "\"Threading/OgreThreadHeaders.h\"", public ] },
 ]

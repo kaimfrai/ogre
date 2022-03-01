@@ -30,7 +30,12 @@ THE SOFTWARE.
 #define __ZipArchiveTests_H__
 
 #include <gtest/gtest.h>
+
 #include "OgreZip.h"
+
+namespace Ogre {
+class Archive;
+}  // namespace Ogre
 
 class ZipArchiveTests : public ::testing::Test
 {

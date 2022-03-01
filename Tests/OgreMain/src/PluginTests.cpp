@@ -5,13 +5,6 @@
 // SPDX-License-Identifier: MIT
 
 #include <gtest/gtest.h>
-
-#include <OgrePlugin.h>
-#include <OgreConfigFile.h>
-#include <OgreEntity.h>
-#include <OgreSubEntity.h>
-
-#include "RootWithoutRenderSystemFixture.h"
 #ifdef OGRE_BUILD_PLUGIN_DOT_SCENE
 #ifdef OGRE_STATIC_LIB
 #include "../../../PlugIns/DotScene/include/OgreDotSceneLoader.h"

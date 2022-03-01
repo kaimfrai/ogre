@@ -29,9 +29,9 @@ THE SOFTWARE.
 #include <gtest/gtest.h>
 
 #include "ResourceLocationPriorityTest.h"
-#include "RootWithoutRenderSystemFixture.h"
-
 #include "OgreArchiveManager.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
 
 TEST(ResourceGroupLocationTest, ResourceLocationPriority)
 {

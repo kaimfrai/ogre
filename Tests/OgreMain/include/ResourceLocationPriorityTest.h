@@ -29,9 +29,19 @@ THE SOFTWARE.
 #ifndef __ResourceLocationPriorityTest_H__
 #define __ResourceLocationPriorityTest_H__
 
+#include <time.h>
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "OgreArchive.h"
 #include "OgreArchiveFactory.h"
 #include "OgreDataStream.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringVector.h"
 
 // Barebones archive containing a single 1-byte file "dummyArchiveTest" whose
 // contents are an unsigned char that increments on each construction of the

@@ -25,10 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <gtest/gtest.h>
+#include <stdlib.h>
+#include <climits>
+#include <list>
+#include <vector>
+
 #include "RadixSortTests.h"
 #include "OgreMath.h"
-#include <climits>
 #include "../../../OgreMain/src/OgreRadixSort.h"
+#include "OgrePlatform.h"
 
 using namespace Ogre;
 

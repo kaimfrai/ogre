@@ -26,10 +26,25 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "ZipArchiveTests.h"
-#include "Threading/OgreThreadHeaders.h"
+
+#include <stddef.h>
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgreCommon.h"
 #include "OgreConfigFile.h"
 #include "OgreFileSystemLayer.h"
+#include "OgreArchive.h"
+#include "OgreBuildSettings.h"
+#include "OgreDataStream.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
+#include "OgreZip.h"
 
 using namespace Ogre;
 

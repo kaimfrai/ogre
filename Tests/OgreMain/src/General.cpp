@@ -26,6 +26,14 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <gtest/gtest.h>
+#include <string.h>
+#include <random>
+#include <list>
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include "OgreRoot.h"
 #include "OgreSceneNode.h"
@@ -33,14 +41,12 @@ THE SOFTWARE.
 #include "OgreCamera.h"
 #include "RootWithoutRenderSystemFixture.h"
 #include "OgreStaticPluginLoader.h"
-
 #include "OgreMaterialSerializer.h"
 #include "OgreTechnique.h"
 #include "OgrePass.h"
 #include "OgreMaterialManager.h"
 #include "OgreConfigFile.h"
 #include "OgreSTBICodec.h"
-#include "OgreHighLevelGpuProgramManager.h"
 #include "OgreMeshManager.h"
 #include "OgreMesh.h"
 #include "OgreSkeletonManager.h"
@@ -49,10 +55,35 @@ THE SOFTWARE.
 #include "OgreTextureManager.h"
 #include "OgreFileSystem.h"
 #include "OgreArchiveManager.h"
-
 #include "OgreHighLevelGpuProgram.h"
+#include "OgreBuildSettings.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreDataStream.h"
+#include "OgreFileSystemLayer.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreImage.h"
+#include "OgreMaterial.h"
+#include "OgreMath.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRay.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneQuery.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
+#include "OgreTexture.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
 
-#include <random>
 using std::minstd_rand;
 
 using namespace Ogre;

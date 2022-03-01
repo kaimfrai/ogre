@@ -30,7 +30,9 @@ THE SOFTWARE.
 #define __PixelFormatTests_H__
 
 #include <gtest/gtest.h>
+
 #include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
 
 using namespace Ogre;
 

@@ -26,9 +26,19 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "EdgeBuilderTests.h"
+
+#include <memory>
+
 #include "OgreDefaultHardwareBufferManager.h"
 #include "OgreVertexIndexData.h"
 #include "OgreEdgeListBuilder.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
 
 
 // Register the test suite

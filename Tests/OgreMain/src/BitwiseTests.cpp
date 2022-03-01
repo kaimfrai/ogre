@@ -26,9 +26,11 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <gtest/gtest.h>
+#include <math.h>
+#include <initializer_list>
 
 #include "OgreBitwise.h"
-#include "OgreStringConverter.h"
+#include "OgrePlatform.h"
 
 using namespace Ogre;
 

@@ -26,8 +26,14 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "PixelFormatTests.h"
+
+#include <string.h>
 #include <cstdlib>
 #include <iomanip>
+#include <ostream>
+#include <string>
+
+#include "OgrePrerequisites.h"
 
 
 // Register the test suite

@@ -26,6 +26,19 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "MeshSerializerTests.h"
+
+#include <stdlib.h>
+#include <string.h>
+#include <fstream>
+#include <algorithm>
+#include <cmath>
+#include <list>
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgreDefaultHardwareBufferManager.h"
 #include "OgreVertexIndexData.h"
 #include "OgreEdgeListBuilder.h"
@@ -33,7 +46,6 @@ THE SOFTWARE.
 #include "OgreMeshManager.h"
 #include "OgreSubMesh.h"
 #include "OgreMeshSerializer.h"
-#include "OgreRoot.h"
 #include "OgreException.h"
 #include "OgreArchive.h"
 #include "OgreArchiveManager.h"
@@ -46,8 +58,21 @@ THE SOFTWARE.
 #include "OgreLodStrategyManager.h"
 #include "OgreSkeleton.h"
 #include "OgreKeyFrame.h"
-
-#include <fstream>
+#include "OgreAnimation.h"
+#include "OgreAnimationTrack.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreBuildSettings.h"
+#include "OgreFileSystemLayer.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePose.h"
+#include "OgreRenderOperation.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreString.h"
+#include "OgreVector.h"
 
 //#define I_HAVE_LOT_OF_FREE_TIME
 

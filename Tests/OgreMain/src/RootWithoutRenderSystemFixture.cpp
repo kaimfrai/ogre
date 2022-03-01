@@ -5,8 +5,19 @@
 
 #include "RootWithoutRenderSystemFixture.h"
 
-#include "Ogre.h"
+#include <map>
+#include <utility>
+
 #include "OgreDefaultHardwareBufferManager.h"
+#include "OgreBuildSettings.h"
+#include "OgreConfigFile.h"
+#include "OgreFileSystemLayer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreMaterialManager.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
 
 using namespace Ogre;
 

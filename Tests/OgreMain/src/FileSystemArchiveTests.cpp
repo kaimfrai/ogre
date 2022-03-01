@@ -26,11 +26,22 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "FileSystemArchiveTests.h"
+
+#include <algorithm>
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgreFileSystem.h"
-#include "OgreException.h"
 #include "OgreCommon.h"
 #include "OgreConfigFile.h"
 #include "OgreFileSystemLayer.h"
+#include "OgreArchive.h"
+#include "OgreBuildSettings.h"
+#include "OgreDataStream.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
 
 
 namespace Ogre {

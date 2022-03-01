@@ -30,9 +30,16 @@ THE SOFTWARE.
 #define TESTS_OGREMAIN_INCLUDE_ROOTWITHOUTRENDERSYSTEMFIXTURE_H_
 
 #include <gtest/gtest.h>
+
 #include "OgreRoot.h"
 #include "OgreFileSystemLayer.h"
 #include "OgreHardwareBufferManager.h"
+
+namespace Ogre {
+class FileSystemLayer;
+class HardwareBufferManager;
+class Root;
+}  // namespace Ogre
 
 class RootWithoutRenderSystemFixture : public ::testing::Test {
 public:

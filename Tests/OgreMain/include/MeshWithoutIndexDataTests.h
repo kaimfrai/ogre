@@ -31,6 +31,14 @@ THE SOFTWARE.
 
 #include <gtest/gtest.h>
 
+#include "OgrePlatform.h"
+
+namespace Ogre {
+class ArchiveManager;
+class HardwareBufferManager;
+class MeshManager;
+}  // namespace Ogre
+
 using namespace Ogre;
 
 class MeshWithoutIndexDataTests : public ::testing::Test

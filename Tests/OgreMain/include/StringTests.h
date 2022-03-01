@@ -30,7 +30,9 @@ THE SOFTWARE.
 #define __StringTests_H__
 
 #include <gtest/gtest.h>
+
 #include "OgreString.h"
+#include "OgrePrerequisites.h"
 
 class StringTests : public ::testing::Test
 {

@@ -25,11 +25,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <gtest/gtest.h>
+#include <stddef.h>
+#include <memory>
+
 #include "Ogre.h"
 #include "RootWithoutRenderSystemFixture.h"
 #include "OgreShaderGenerator.h"
-#include "OgreShaderProgramManager.h"
 #include "OgreShaderFunctionAtom.h"
+#include "OgreGpuProgram.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMaterialSerializer.h"
+#include "OgrePass.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderRenderState.h"
+#include "OgreSharedPtr.h"
+#include "OgreTechnique.h"
+#include "OgreVector.h"
 
 using namespace Ogre;
 
