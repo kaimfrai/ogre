@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef __OverlayElementEmitterCommands_H__
 #define __OverlayElementEmitterCommands_H__
 
-#include "OgreOverlayPrerequisites.h"
 #include "OgreStringInterface.h"
 #include "OgreOverlayElement.h"
 #include "OgrePrerequisites.h"

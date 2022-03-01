@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreStringVector.h"
 #include "OgreScriptLoader.h"
 #include "OgreFrustum.h"
-#include "OgreScriptTranslator.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 
@@ -49,10 +48,10 @@ namespace Ogre {
     class OverlayElement;
     class OverlayElementFactory;
     template <typename T> class MapIterator;
-class Camera;
-class RenderQueue;
-class ScriptTranslatorManager;
-class Viewport;
+    class Camera;
+    class RenderQueue;
+    class ScriptTranslatorManager;
+    class Viewport;
 
     /** \addtogroup Optional
     *  @{

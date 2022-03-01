@@ -27,7 +27,8 @@ THE SOFTWARE
 #ifndef _Font_H__
 #define _Font_H__
 
-#include <stddef.h>
+#include <cstddef>
+#include <algorithm>
 #include <map>
 #include <utility>
 #include <vector>

@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include "OgreOverlayPrerequisites.h"
 #include "OgreRenderQueueListener.h"
 #include "OgreRenderSystem.h"
-#include "OgreOverlayProfileSessionListener.h"
 #include "OgreCommon.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
@@ -41,7 +40,7 @@ THE SOFTWARE.
 namespace Ogre {
     class OverlayManager;
     class FontManager;
-class OverlayProfileSessionListener;
+    class OverlayProfileSessionListener;
 
     /** \addtogroup Optional
     *  @{

@@ -27,7 +27,6 @@ THE SOFTWARE.
 #ifndef _OverlayScriptTranslator_
 #define _OverlayScriptTranslator_
 
-#include "OgreOverlay.h"
 #include "OgreScriptTranslator.h"
 #include "OgreFont.h"
 #include "OgrePlatform.h"

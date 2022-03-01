@@ -23,8 +23,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
+#include <algorithm>
+#include <ostream>
+#include <string>
 
 #include "OgreFont.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreBlendMode.h"
+#include "OgreDataStream.h"
+#include "OgreImage.h"
+#include "OgreMaterial.h"
+#include "OgreMath.h"
+#include "OgrePass.h"
+#include "OgrePixelFormat.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreStringInterface.h"
+#include "OgreVector.h"
+#include "OgreStringVector.h"
 #include "OgreMaterialManager.h"
 #include "OgreTextureManager.h"
 #include "OgreTexture.h"
@@ -41,9 +56,7 @@ THE SOFTWARE
 
 #ifdef HAVE_FREETYPE
 #define generic _generic    // keyword for C++/CX
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
+#include <freetype/freetype.h>
 #undef generic
 #else
 #define STBTT_STATIC
