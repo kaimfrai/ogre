@@ -91,11 +91,11 @@ if (WINDOWS_STORE OR WINDOWS_PHONE)
 
 endif()
 
-if (OGRE_BUILD_TESTS)
-	add_definitions(-DSAMPLES_INCLUDE_PLAYPEN)
-	include_directories(${PROJECT_SOURCE_DIR}/Tests/PlayPen/include
-	${PROJECT_SOURCE_DIR}/Tests/VisualTests/PlayPen/include)
-endif()
+#if (OGRE_BUILD_TESTS)
+	#add_definitions(-DSAMPLES_INCLUDE_PLAYPEN)
+	#include_directories(${PROJECT_SOURCE_DIR}/Tests/PlayPen/include
+	#${PROJECT_SOURCE_DIR}/Tests/VisualTests/PlayPen/include)
+#endif()
 
 # Fix for static build with MinGW
 if (OGRE_BUILD_RENDERSYSTEM_D3D9 AND OGRE_STATIC)
