@@ -58,16 +58,15 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-class Camera;
-class DepthBuffer;
-class Frustum;
-class HardwareOcclusionQuery;
-class Matrix4;
-class MultiRenderTarget;
-class RenderOperation;
-class RenderTarget;
-class RenderWindow;
-class Viewport;
+    class Camera;
+    class DepthBuffer;
+    class Frustum;
+    class Matrix4;
+    class MultiRenderTarget;
+    class RenderOperation;
+    class RenderTarget;
+    class RenderWindow;
+    class Viewport;
     /** \addtogroup Core
     *  @{
     */

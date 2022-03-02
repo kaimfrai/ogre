@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <assert.h>
 #include <stddef.h>
+#include <stdlib.h>
 #include <algorithm>
 #include <cmath>
 

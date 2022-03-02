@@ -27,7 +27,6 @@
  */
 #include <cstdio>
 #include <cstdlib>
-#include <istream>
 #include <fstream>
 
 #include "OgreException.h"

@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include <tuple>
 #include <utility>
 #include <vector>
+#include <algorithm>
 
 #include "OgrePrerequisites.h"
 #include "OgreResourceManager.h"

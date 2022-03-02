@@ -37,6 +37,7 @@ Torus Knot Software Ltd.
 #include <set>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 // Precompiler options
 #include "OgrePrerequisites.h"

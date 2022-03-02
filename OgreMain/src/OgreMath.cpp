@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <stdlib.h>
+#include <stddef.h>
 #include <algorithm>
 #include <cmath>
 #include <limits>
