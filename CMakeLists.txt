@@ -363,14 +363,7 @@ set(OGRE_CONFIG_THREADS "3" CACHE STRING
 	3 - no thread safety. Threaded DefaultWorkQueue."
 )
 set_property(CACHE OGRE_CONFIG_THREADS PROPERTY STRINGS 0 1 2 3)
-set(OGRE_CONFIG_THREAD_PROVIDER "std" CACHE STRING
-	"Select the library to use for thread support. Possible values:
-	boost - Boost thread library. [DEPRECATED]
-	poco  - Poco thread library. [DEPRECATED]
-	tbb   - ThreadingBuildingBlocks library. [DEPRECATED]
-	std   - STL thread library (requires compiler support)."
-)
-set_property(CACHE OGRE_CONFIG_THREAD_PROVIDER PROPERTY STRINGS boost poco tbb std)
+
 cmake_dependent_option(OGRE_BUILD_PLUGIN_FREEIMAGE "Build FreeImage codec." TRUE "FreeImage_FOUND" FALSE)
 cmake_dependent_option(OGRE_BUILD_PLUGIN_EXRCODEC "Build EXR Codec plugin" TRUE "OPENEXR_FOUND;" FALSE)
 option(OGRE_BUILD_PLUGIN_STBI "Enable STBI image codec." TRUE)
@@ -406,9 +399,6 @@ endif ()
 
 # provide option to install dependencies
 include(InstallDependencies)
-
-# determine threading options
-include(PrepareThreadingOptions)
 
 # Enable project folders by default if the IDE supportes them
 # Hide option from other compilers.
