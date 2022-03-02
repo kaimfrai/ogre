@@ -4,11 +4,11 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
 
-#include <gtest/gtest.h>
 #ifdef OGRE_BUILD_PLUGIN_DOT_SCENE
-#ifdef OGRE_STATIC_LIB
-#include "../../../PlugIns/DotScene/include/OgreDotSceneLoader.h"
-#endif
+#   include <gtest/gtest.h>
+#   ifdef OGRE_STATIC_LIB
+#       include "../../../PlugIns/DotScene/include/OgreDotSceneLoader.h"
+#   endif
 
 using namespace Ogre;
 

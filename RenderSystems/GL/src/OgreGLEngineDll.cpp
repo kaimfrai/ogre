@@ -26,7 +26,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLPrerequisites.h"
 #include "OgreBuildSettings.h"
 
 #ifndef OGRE_STATIC_LIB
