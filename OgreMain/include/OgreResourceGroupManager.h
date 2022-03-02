@@ -110,8 +110,6 @@ class ScriptLoader;
         <li>resourcePrepareEnded (*)</li>
         <li>resourceGroupPrepareEnded</li>
         </ul>
-    @note
-        If OGRE_THREAD_SUPPORT is 1, this class is thread-safe.
 
     */
     class _OgreExport ResourceGroupListener

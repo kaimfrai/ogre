@@ -248,9 +248,7 @@ class ResourceManager;
 
         /** Prepares the resource for load, if it is not already.  One can call prepare()
             before load(), but this is not required as load() will call prepare() 
-            itself, if needed.  When OGRE_THREAD_SUPPORT==1 both load() and prepare() 
-            are thread-safe.  When OGRE_THREAD_SUPPORT==2 however, only prepare() 
-            is thread-safe.  The reason for this function is to allow a background 
+            itself, if needed. The reason for this function is to allow a background
             thread to do some of the loading work, without requiring the whole render
             system to be thread-safe.  The background thread would call
             prepare() while the main render loop would later call load().  So long as
@@ -352,8 +350,7 @@ class ResourceManager;
 
         /** Returns whether this Resource has been earmarked for background loading.
         @remarks
-            This option only makes sense when you have built Ogre with 
-            thread support (OGRE_THREAD_SUPPORT). If a resource has been marked
+            If a resource has been marked
             for background loading, then it won't load on demand like normal
             when load() is called. Instead, it will ignore request to load()
             except if the caller indicates it is the background loader. Any
@@ -493,8 +490,7 @@ class ResourceManager;
 
         /** Called when a resource wishes to prepare instead of Resource::prepareImpl
          * @note this could get
-         * called in a background thread even in just a semithreaded ogre
-         * (OGRE_THREAD_SUPPORT==2).  Thus, you must not access the RenderSystem from
+         * called in a background thread. Thus, you must not access the RenderSystem from
          * this callback.  Do that stuff in #loadResource.
         @param resource The resource which wishes to prepare
         */

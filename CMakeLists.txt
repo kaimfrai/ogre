@@ -276,7 +276,6 @@ elseif(EMSCRIPTEN)
   set(OGRE_BUILD_COMPONENT_TERRAIN FALSE CACHE BOOL "Disable terrain component on Emscripten" FORCE)
   set(OGRE_STATIC TRUE CACHE BOOL "Forcing static build for Emscripten" FORCE)
 
-  set(OGRE_CONFIG_THREADS "0" CACHE STRING "Threading is unstable on Emscripten" FORCE)
 elseif (APPLE AND NOT APPLE_IOS)
 
   set(XCODE_ATTRIBUTE_SDKROOT macosx)
@@ -355,14 +354,6 @@ cmake_dependent_option(OGRE_BUILD_LIBS_AS_FRAMEWORKS "Build frameworks for libra
 cmake_dependent_option(OGRE_BUILD_TESTS "Build the unit tests & PlayPen" TRUE "OGRE_BUILD_COMPONENT_BITES" FALSE)
 option(OGRE_CONFIG_DOUBLE "Use doubles instead of floats in Ogre" FALSE)
 option(OGRE_CONFIG_NODE_INHERIT_TRANSFORM "Tells the node whether it should inherit full transform from it's parent node or derived position, orientation and scale" FALSE)
-set(OGRE_CONFIG_THREADS "3" CACHE STRING
-	"Enable Ogre thread safety support for multithreading. Possible values:
-	0 - no thread safety. DefaultWorkQueue is not threaded.
-	1 - background resource preparation and loading is thread safe. Threaded DefaultWorkQueue. [DEPRECATED]
-	2 - only background resource preparation is thread safe. Threaded DefaultWorkQueue. [DEPRECATED]
-	3 - no thread safety. Threaded DefaultWorkQueue."
-)
-set_property(CACHE OGRE_CONFIG_THREADS PROPERTY STRINGS 0 1 2 3)
 
 cmake_dependent_option(OGRE_BUILD_PLUGIN_FREEIMAGE "Build FreeImage codec." TRUE "FreeImage_FOUND" FALSE)
 cmake_dependent_option(OGRE_BUILD_PLUGIN_EXRCODEC "Build EXR Codec plugin" TRUE "OPENEXR_FOUND;" FALSE)
