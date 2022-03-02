@@ -30,6 +30,7 @@ THE SOFTWARE.
 
 #include <cstddef>
 
+#include "OgreGLPrerequisites.h"
 #include "OgreGLHardwarePixelBufferCommon.h"
 #include "OgreException.h"
 #include "OgrePlatform.h"
