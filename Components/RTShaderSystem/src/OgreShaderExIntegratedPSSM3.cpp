@@ -25,7 +25,49 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <stddef.h>
+#include <algorithm>
+#include <list>
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "OgreShaderPrecompiledHeaders.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMaterial.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePass.h"
+#include "OgrePixelFormat.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+#include "OgreSceneManager.h"
+#include "OgreScriptCompiler.h"
+#include "OgreShaderExIntegratedPSSM3.h"
+#include "OgreShaderFFPRenderState.h"
+#include "OgreShaderFunction.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramSet.h"
+#include "OgreShaderRenderState.h"
+#include "OgreShaderScriptTranslator.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreTechnique.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
+
+namespace Ogre {
+class AutoParamDataSource;
+class Renderable;
+}  // namespace Ogre
 #ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 #define SGX_LIB_INTEGRATEDPSSM                      "SGXLib_IntegratedPSSM"

@@ -2,7 +2,32 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
+#include <stddef.h>
+#include <list>
+#include <memory>
+#include <string>
+
 #include "OgreShaderPrecompiledHeaders.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMaterialSerializer.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePass.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+#include "OgreScriptCompiler.h"
+#include "OgreShaderCookTorranceLighting.h"
+#include "OgreShaderFFPRenderState.h"
+#include "OgreShaderFunction.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramSet.h"
+#include "OgreShaderRenderState.h"
+#include "OgreShaderScriptTranslator.h"
+#include "OgreShaderSubRenderState.h"
+#include "OgreVector.h"
 #ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 namespace Ogre

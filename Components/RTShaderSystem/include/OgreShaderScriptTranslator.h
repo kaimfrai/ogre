@@ -27,12 +27,15 @@ THE SOFTWARE.
 #ifndef _ShaderScriptTranslator_
 #define _ShaderScriptTranslator_
 
-#include "OgreShaderPrerequisites.h"
 #include "OgreScriptTranslator.h"
 #include "OgreScriptCompiler.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderExports.h"
 
 namespace Ogre {
 namespace RTShader {
+class RenderState;
+class SubRenderState;
 
 /** \addtogroup Optional
 *  @{

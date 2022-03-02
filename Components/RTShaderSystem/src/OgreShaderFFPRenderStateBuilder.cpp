@@ -24,7 +24,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreShaderPrecompiledHeaders.h"
+#include "OgreRTShaderConfig.h"
+#include "OgreShaderExPerPixelLighting.h"
+#include "OgreShaderFFPAlphaTest.h"
+#include "OgreShaderFFPColour.h"
+#include "OgreShaderFFPFog.h"
+#include "OgreShaderFFPRenderStateBuilder.h"
+#include "OgreShaderFFPTexturing.h"
+#include "OgreShaderFFPTransform.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderRenderState.h"
 #ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 
 namespace Ogre {

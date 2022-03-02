@@ -27,17 +27,14 @@ THE SOFTWARE.
 #ifndef _ShaderProgramWriterGLSLES_
 #define _ShaderProgramWriterGLSLES_
 
-#include "OgreShaderProgramWriterManager.h"
+#include <iosfwd>
+
 #include "OgreShaderGLSLProgramWriter.h"
-#include "OgreShaderParameter.h"
-#include "OgreStringVector.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 namespace RTShader {
 
-    class Function;
-    class FunctionInvocation;
-    class Operand;
     class Program;
 
 /** \addtogroup Optional

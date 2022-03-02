@@ -24,9 +24,76 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreShaderPrecompiledHeaders.h"
+
+#include <assert.h>
+#include <stdio.h>
+#include <algorithm>
+#include <ios>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "OgreAny.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreLight.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMaterialSerializer.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePass.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+#include "OgreRenderObjectListener.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSceneManager.h"
+#include "OgreScriptCompiler.h"
+#include "OgreScriptTranslator.h"
+#include "OgreShaderCookTorranceLighting.h"
+#include "OgreShaderExGBuffer.h"
+#include "OgreShaderExHardwareSkinning.h"
+#include "OgreShaderExIntegratedPSSM3.h"
+#include "OgreShaderExLayeredBlending.h"
+#include "OgreShaderExNormalMapLighting.h"
+#include "OgreShaderExPerPixelLighting.h"
+#include "OgreShaderExTriplanarTexturing.h"
+#include "OgreShaderExWBOIT.h"
+#include "OgreShaderFFPAlphaTest.h"
+#include "OgreShaderFFPColour.h"
+#include "OgreShaderFFPFog.h"
+#include "OgreShaderFFPLighting.h"
+#include "OgreShaderFFPRenderStateBuilder.h"
+#include "OgreShaderFFPTexturing.h"
+#include "OgreShaderFFPTransform.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderMaterialSerializerListener.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgramManager.h"
+#include "OgreShaderProgramWriterManager.h"
+#include "OgreShaderRenderState.h"
+#include "OgreShaderScriptTranslator.h"
+#include "OgreShaderSubRenderState.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreTechnique.h"
+#include "OgreTextureUnitState.h"
+#include "OgreUserObjectBindings.h"
+#include "OgreVector.h"
+#include "OgreViewport.h"
+#include "Threading/OgreThreadDefinesNone.h"
 
 namespace Ogre {
+class AutoParamDataSource;
+class Renderable;
 
 //-----------------------------------------------------------------------
 template<> 

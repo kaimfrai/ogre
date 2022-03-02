@@ -28,6 +28,14 @@ THE SOFTWARE.
 #define _ShaderExHardwareSkinningTechnique_
 
 #include "OgreShaderPrerequisites.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+
+namespace Ogre {
+namespace RTShader {
+class ProgramSet;
+}  // namespace RTShader
+}  // namespace Ogre
 
 #ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #include "OgreShaderFunctionAtom.h"

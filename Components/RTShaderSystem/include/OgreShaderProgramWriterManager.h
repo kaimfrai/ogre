@@ -28,8 +28,17 @@ THE SOFTWARE.
 #ifndef __ShaderProgramWriterManager_H__
 #define __ShaderProgramWriterManager_H__
 
+#include <map>
+#include <string>
+#include <utility>
+
 #include "OgreShaderPrerequisites.h"
 #include "OgreSingleton.h"
+#include "OgreException.h"
+#include "OgreExports.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderExports.h"
 
 namespace Ogre {
 namespace RTShader {

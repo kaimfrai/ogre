@@ -24,8 +24,51 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreShaderPrecompiledHeaders.h"
 
+#include <assert.h>
+#include <stddef.h>
+#include <algorithm>
+#include <list>
+#include <memory>
+#include <string>
+
+#include "OgreAny.h"
+#include "OgreEntity.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialSerializer.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgrePass.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+#include "OgreRenderOperation.h"
+#include "OgreScriptCompiler.h"
+#include "OgreShaderExDualQuaternionSkinning.h"
+#include "OgreShaderExHardwareSkinning.h"
+#include "OgreShaderExHardwareSkinningTechnique.h"
+#include "OgreShaderExLinearSkinning.h"
+#include "OgreShaderFFPRenderState.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderScriptTranslator.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreStringConverter.h"
+#include "OgreSubEntity.h"
+#include "OgreSubMesh.h"
+#include "OgreTechnique.h"
+#include "OgreUserObjectBindings.h"
+#include "OgreVertexIndexData.h"
+
+namespace Ogre {
+namespace RTShader {
+class ProgramSet;
+class RenderState;
+}  // namespace RTShader
+}  // namespace Ogre
 #ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"

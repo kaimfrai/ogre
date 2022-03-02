@@ -27,18 +27,40 @@ THE SOFTWARE.
 #ifndef _ShaderGenerator_
 #define _ShaderGenerator_
 
+#include <string.h>
+#include <algorithm>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "OgreShaderPrerequisites.h"
 #include "OgreSingleton.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreRenderObjectListener.h"
 #include "OgreSceneManager.h"
-#include "OgreShaderRenderState.h"
-#include "OgreScriptTranslator.h"
 #include "OgreShaderScriptTranslator.h"
 #include "OgreMaterialSerializer.h"
+#include "OgreCommon.h"
+#include "OgreGpuProgram.h"
+#include "OgreMaterial.h"
+#include "OgrePass.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderExports.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreScriptCompiler.h"
+#include "Threading/OgreThreadDefinesNone.h"
 
 
 namespace Ogre {
+class AutoParamDataSource;
+class FileSystemLayer;
+class Renderable;
+class ScriptTranslator;
+class Technique;
+class TextureUnitState;
+class Viewport;
 
 
 namespace RTShader {
@@ -54,6 +76,13 @@ class SGRenderObjectListener;
 class SGSceneManagerListener;
 class SGScriptTranslatorManager;
 class SGResourceGroupListener;
+class FFPRenderStateBuilder;
+class ProgramManager;
+class ProgramWriterManager;
+class RenderState;
+class SGMaterialSerializerListener;
+class SubRenderState;
+class SubRenderStateFactory;
 
 /** Shader generator system main interface. This singleton based class
 enables automatic generation of shader code based on existing material techniques.

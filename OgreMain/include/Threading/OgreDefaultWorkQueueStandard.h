@@ -31,7 +31,6 @@ THE SOFTWARE
 #include <vector>
 
 #include "../OgreWorkQueue.h"
-#include "OgreBuildSettings.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgrePrerequisites.h"

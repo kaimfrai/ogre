@@ -25,10 +25,18 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreShaderPrecompiledHeaders.h"
+#include <initializer_list>
+
+#include "OgreGpuProgram.h"
+#include "OgrePrerequisites.h"
+#include "OgreShaderHLSLProgramProcessor.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramProcessor.h"
+#include "OgreShaderProgramSet.h"
 
 namespace Ogre {
 namespace RTShader {
+class Function;
 
 String HLSLProgramProcessor::TargetLanguage = "hlsl";
 

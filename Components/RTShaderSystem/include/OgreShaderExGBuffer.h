@@ -27,9 +27,26 @@ THE SOFTWARE.
 #ifndef _ShaderGBuffer_
 #define _ShaderGBuffer_
 
+#include <algorithm>
+#include <vector>
+
 #include "OgreShaderPrerequisites.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+#include "OgreRTShaderExports.h"
+
+namespace Ogre {
+class MaterialSerializer;
+class Pass;
+class PropertyAbstractNode;
+class ScriptCompiler;
+namespace RTShader {
+class ProgramSet;
+class RenderState;
+class SGScriptTranslator;
+}  // namespace RTShader
+}  // namespace Ogre
 #ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
-#include "OgreShaderParameter.h"
 #include "OgreShaderSubRenderState.h"
 
 namespace Ogre

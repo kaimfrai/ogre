@@ -27,12 +27,24 @@ THE SOFTWARE.
 #ifndef _ShaderRenderState_
 #define _ShaderRenderState_
 
+#include <memory>
+
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderSubRenderState.h"
-#include "OgreShaderProgramSet.h"
+#include "OgreCommon.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderExports.h"
+#include "OgreStringVector.h"
+#include "OgreVector.h"
 
 namespace Ogre {
+class AutoParamDataSource;
+class Pass;
+class Renderable;
+
 namespace RTShader {
+class Program;
+class ProgramSet;
 
 /** \addtogroup Optional
 *  @{

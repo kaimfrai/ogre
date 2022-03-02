@@ -5,11 +5,23 @@
 #ifndef _ShaderCookTorranceLighting_
 #define _ShaderCookTorranceLighting_
 
-#include "OgreShaderPrerequisites.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+#include "OgreShaderSubRenderState.h"
+
+namespace Ogre {
+class MaterialSerializer;
+class Pass;
+class PropertyAbstractNode;
+class ScriptCompiler;
+namespace RTShader {
+class ProgramSet;
+class RenderState;
+class SGScriptTranslator;
+}  // namespace RTShader
+}  // namespace Ogre
 #ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
-#include "OgreShaderExPerPixelLighting.h"
-#include "OgreLight.h"
-#include "OgreCommon.h"
 #include "OgreShaderFFPRenderState.h"
 
 namespace Ogre

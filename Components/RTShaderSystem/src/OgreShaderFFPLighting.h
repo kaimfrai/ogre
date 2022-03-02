@@ -27,7 +27,28 @@ THE SOFTWARE.
 #ifndef _ShaderFFPLighting_
 #define _ShaderFFPLighting_
 
+#include <algorithm>
+#include <vector>
+
 #include "OgreShaderPrerequisites.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+#include "OgreRTShaderExports.h"
+
+namespace Ogre {
+class AutoParamDataSource;
+class MaterialSerializer;
+class Pass;
+class PropertyAbstractNode;
+class Renderable;
+class ScriptCompiler;
+namespace RTShader {
+class FunctionStageRef;
+class ProgramSet;
+class RenderState;
+class SGScriptTranslator;
+}  // namespace RTShader
+}  // namespace Ogre
 #if defined(RTSHADER_SYSTEM_BUILD_CORE_SHADERS) || defined(RTSHADER_SYSTEM_BUILD_EXT_SHADERS)
 #include "OgreShaderSubRenderState.h"
 #include "OgreLight.h"

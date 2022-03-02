@@ -24,10 +24,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreShaderPrecompiledHeaders.h"
+
+#include <memory>
+#include <ostream>
+#include <string>
+
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramWriter.h"
 
 namespace Ogre {
 namespace RTShader {
+class Function;
 
 //-----------------------------------------------------------------------
 void ProgramWriter::writeProgramTitle(std::ostream& os, Program* program)

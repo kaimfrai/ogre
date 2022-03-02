@@ -24,7 +24,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreShaderPrecompiledHeaders.h"
+
+#include <assert.h>
+#include <stddef.h>
+#include <list>
+#include <string>
+#include <vector>
+
+#include "OgreAny.h"
+#include "OgreMaterial.h"
+#include "OgrePass.h"
+#include "OgrePrerequisites.h"
+#include "OgreScriptCompiler.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderRenderState.h"
+#include "OgreShaderScriptTranslator.h"
+#include "OgreShaderSubRenderState.h"
+#include "OgreSharedPtr.h"
+#include "OgreTechnique.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 namespace RTShader {

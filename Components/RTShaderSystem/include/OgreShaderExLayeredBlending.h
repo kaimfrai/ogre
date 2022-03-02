@@ -28,7 +28,27 @@ THE SOFTWARE.
 #ifndef _OgreShaderExLayeredBlending_
 #define _OgreShaderExLayeredBlending_
 
+#include <memory>
+#include <vector>
+
 #include "OgreShaderPrerequisites.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+#include "OgreRTShaderExports.h"
+#include "OgreShaderFunctionAtom.h"
+
+namespace Ogre {
+class LayerBlendModeEx;
+class MaterialSerializer;
+class PropertyAbstractNode;
+class ScriptCompiler;
+class TextureUnitState;
+namespace RTShader {
+class Function;
+class ProgramSet;
+class SGScriptTranslator;
+}  // namespace RTShader
+}  // namespace Ogre
 #ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #include "OgreShaderFFPTexturing.h"
 #include "OgreShaderSubRenderState.h"

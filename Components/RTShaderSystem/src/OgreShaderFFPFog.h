@@ -28,9 +28,23 @@ THE SOFTWARE.
 #define _ShaderFFPFog_
 
 #include "OgreShaderPrerequisites.h"
+#include "OgreCommon.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+
+namespace Ogre {
+class MaterialSerializer;
+class Pass;
+class PropertyAbstractNode;
+class ScriptCompiler;
+namespace RTShader {
+class ProgramSet;
+class RenderState;
+class SGScriptTranslator;
+}  // namespace RTShader
+}  // namespace Ogre
 #ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 #include "OgreShaderSubRenderState.h"
-#include "OgreVector.h"
 
 namespace Ogre {
 namespace RTShader {

@@ -29,8 +29,20 @@ THE SOFTWARE.
 #define _OgreShaderExAlphaTest_
 
 #include "OgreShaderPrerequisites.h"
+#include "OgreCommon.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+
+namespace Ogre {
+class AutoParamDataSource;
+class Pass;
+class Renderable;
+namespace RTShader {
+class ProgramSet;
+class RenderState;
+}  // namespace RTShader
+}  // namespace Ogre
 #ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
-#include "OgreShaderFFPTexturing.h"
 #include "OgreShaderSubRenderState.h"
 
 namespace Ogre {

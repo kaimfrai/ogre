@@ -32,7 +32,6 @@ THE SOFTWARE.
 
 #include "OgreTimer.h"
 #include "../OgreWorkQueue.h"
-#include "OgreBuildSettings.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreRoot.h"

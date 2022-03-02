@@ -24,7 +24,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreShaderPrecompiledHeaders.h"
+
+#include <cassert>
+#include <cstdint>
+#include <algorithm>
+#include <initializer_list>
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
+#include <fstream> // IWYU pragma: keep
+// IWYU pragma: no_include <sstream>
+
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMurmurHash3.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreShaderFunction.h"
+#include "OgreShaderGLSLProgramProcessor.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderHLSLProgramProcessor.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramManager.h"
+#include "OgreShaderProgramProcessor.h"
+#include "OgreShaderProgramSet.h"
+#include "OgreShaderProgramWriter.h"
+#include "OgreShaderProgramWriterManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
 
 namespace Ogre {
 

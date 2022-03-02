@@ -25,7 +25,23 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <string>
+
 #include "OgreShaderPrecompiledHeaders.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+#include "OgreShaderExHardwareSkinningTechnique.h"
+#include "OgreShaderExLinearSkinning.h"
+#include "OgreShaderFFPRenderState.h"
+#include "OgreShaderFunction.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramSet.h"
 #ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"

@@ -27,7 +27,13 @@ THE SOFTWARE.
 #ifndef _ShaderFFPRenderStateBuilder_
 #define _ShaderFFPRenderStateBuilder_
 
-#include "OgreShaderPrerequisites.h"
+#include "OgreRTShaderConfig.h"
+
+namespace Ogre {
+namespace RTShader {
+class TargetRenderState;
+}  // namespace RTShader
+}  // namespace Ogre
 #ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 #include "OgreShaderGenerator.h"
 

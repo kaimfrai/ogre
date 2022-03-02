@@ -27,14 +27,19 @@ THE SOFTWARE.
 #ifndef _ShaderProgramWriter_
 #define _ShaderProgramWriter_
 
+#include <iosfwd>
+#include <map>
+
 #include "OgreShaderPrerequisites.h"
-#include "OgreCommon.h"
 #include "OgreGpuProgramParams.h"
-#include "OgreGpuProgram.h"
 #include "OgreShaderParameter.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderExports.h"
 
 namespace Ogre {
 namespace RTShader {
+class Function;
+class Program;
 
 /** \addtogroup Optional
 *  @{

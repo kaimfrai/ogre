@@ -27,12 +27,13 @@ THE SOFTWARE.
 #ifndef _ShaderGLSLProgramProcessor_
 #define _ShaderGLSLProgramProcessor_
 
-#include "OgreShaderPrerequisites.h"
 #include "OgreShaderProgramProcessor.h"
-#include "OgreStringVector.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 namespace RTShader {
+class Program;
+class ProgramSet;
 
 /** \addtogroup Optional
 *  @{

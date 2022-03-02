@@ -26,7 +26,19 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreShaderPrecompiledHeaders.h"
+#include <assert.h>
+#include <map>
+#include <string>
+#include <utility>
+
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreShaderGLSLESProgramWriter.h"
+#include "OgreShaderGLSLProgramWriter.h"
+#include "OgreShaderHLSLProgramWriter.h"
+#include "OgreShaderProgramWriter.h"
+#include "OgreShaderProgramWriterManager.h"
+#include "OgreSingleton.h"
 
 namespace Ogre {
 

@@ -27,10 +27,14 @@ THE SOFTWARE.
 #ifndef _ShaderProgramWriterGLSL_
 #define _ShaderProgramWriterGLSL_
 
-#include "OgreShaderProgramWriterManager.h"
+#include <iosfwd>
+#include <map>
+#include <set>
+
 #include "OgreShaderProgramWriter.h"
 #include "OgreShaderParameter.h"
-#include "OgreStringVector.h"
+#include "OgreGpuProgram.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 namespace RTShader {

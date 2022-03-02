@@ -5,9 +5,21 @@
 #ifndef _ShaderWBOIT_
 #define _ShaderWBOIT_
 
-#include "OgreShaderPrerequisites.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+
+namespace Ogre {
+class MaterialSerializer;
+class Pass;
+class PropertyAbstractNode;
+class ScriptCompiler;
+namespace RTShader {
+class ProgramSet;
+class RenderState;
+class SGScriptTranslator;
+}  // namespace RTShader
+}  // namespace Ogre
 #ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
-#include "OgreShaderParameter.h"
 #include "OgreShaderSubRenderState.h"
 
 namespace Ogre

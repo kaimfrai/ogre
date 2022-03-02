@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <thread>
 #include <vector>
 
-#include "OgreBuildSettings.h"
 #include "OgreDefaultWorkQueueStandard.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"

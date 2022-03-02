@@ -27,11 +27,31 @@ THE SOFTWARE.
 #ifndef _ShaderSubRenderState_
 #define _ShaderSubRenderState_
 
+#include <stddef.h>
+#include <set>
+#include <vector>
+
 #include "OgreShaderPrerequisites.h"
-#include "OgreShaderScriptTranslator.h"
+#include "OgreCommon.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderExports.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
+class AutoParamDataSource;
+class MaterialSerializer;
+class Pass;
+class PropertyAbstractNode;
+class Renderable;
+class ScriptCompiler;
+class TextureUnitState;
+
 namespace RTShader {
+class ProgramSet;
+class RenderState;
+class SGScriptTranslator;
+class SubRenderStateAccessor;
 
 /** \addtogroup Optional
 *  @{

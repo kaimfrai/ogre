@@ -25,10 +25,24 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreShaderPrecompiledHeaders.h"
+#include <initializer_list>
+#include <memory>
+#include <vector>
+
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgrePrerequisites.h"
+#include "OgreShaderGLSLProgramProcessor.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramProcessor.h"
+#include "OgreShaderProgramSet.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
 
 namespace Ogre {
 namespace RTShader {
+class Function;
 
 //-----------------------------------------------------------------------------
 GLSLProgramProcessor::GLSLProgramProcessor()

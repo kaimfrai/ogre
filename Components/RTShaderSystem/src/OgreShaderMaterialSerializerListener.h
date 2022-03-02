@@ -27,11 +27,18 @@ THE SOFTWARE.
 #ifndef _ShaderMaterialSerializerListener_
 #define _ShaderMaterialSerializerListener_
 
+#include <vector>
+
 #include "OgreShaderPrerequisites.h"
 #include "OgreMaterialSerializer.h"
 #include "OgreShaderGenerator.h"
 
 namespace Ogre {
+class Material;
+class Pass;
+class Technique;
+class TextureUnitState;
+
 namespace RTShader {
 
 /** \addtogroup Optional

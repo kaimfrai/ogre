@@ -28,10 +28,23 @@ THE SOFTWARE.
 #define _ShaderExPerPixelLighting_
 
 #include "OgreShaderPrerequisites.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+#include "OgreShaderSubRenderState.h"
+
+namespace Ogre {
+class MaterialSerializer;
+class Pass;
+class PropertyAbstractNode;
+class ScriptCompiler;
+namespace RTShader {
+class FunctionStageRef;
+class ProgramSet;
+class SGScriptTranslator;
+}  // namespace RTShader
+}  // namespace Ogre
 #ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #include "OgreShaderFFPLighting.h"
-#include "OgreLight.h"
-#include "OgreCommon.h"
 
 namespace Ogre {
 namespace RTShader {

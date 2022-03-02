@@ -27,12 +27,21 @@ THE SOFTWARE.
 #ifndef _ShaderParameter_
 #define _ShaderParameter_
 
+#include <stddef.h>
+#include <vector>
+
 #include "OgreShaderPrerequisites.h"
 #include "OgreVector.h"
 #include "OgreMatrix4.h"
 #include "OgreGpuProgramParams.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderExports.h"
 
 namespace Ogre {
+class ColourValue;
+class Matrix3;
+
 namespace RTShader {
 
 /** \addtogroup Optional

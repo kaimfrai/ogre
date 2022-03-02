@@ -27,7 +27,33 @@ THE SOFTWARE.
 #ifndef _ShaderFFPTextureStage_
 #define _ShaderFFPTextureStage_
 
+#include <stddef.h>
+#include <algorithm>
+#include <vector>
+
 #include "OgreShaderPrerequisites.h"
+#include "OgreBlendMode.h"
+#include "OgreExports.h"
+#include "OgreGpuProgramParams.h"
+#include "OgrePrerequisites.h"
+#include "OgreRTShaderConfig.h"
+#include "OgreRTShaderExports.h"
+#include "OgreShaderFunctionAtom.h"
+
+namespace Ogre {
+class ColourValue;
+class MaterialSerializer;
+class Pass;
+class PropertyAbstractNode;
+class ScriptCompiler;
+class TextureUnitState;
+namespace RTShader {
+class Function;
+class ProgramSet;
+class RenderState;
+class SGScriptTranslator;
+}  // namespace RTShader
+}  // namespace Ogre
 #ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 #include "OgreShaderSubRenderState.h"
 #include "OgreRenderSystem.h"
