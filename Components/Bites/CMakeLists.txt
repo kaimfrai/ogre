@@ -104,40 +104,40 @@ elseif(ANDROID)
   list(APPEND SOURCES  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreApplicationContextAndroid.cpp")
 endif()
 
-if(ANDROID OR EMSCRIPTEN OR APPLE_IOS OR WINDOWS_STORE OR WINDOWS_PHONE)
-  # no config dialog available
-elseif(WIN32)
-  include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src")
-  list(APPEND SOURCES 
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreWIN32ConfigDialog.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/resource.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/misc/OgreWin32Resources.rc")
-  # Need to include resource files so that icons are linked
-  set(RESOURCE_FILES
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/resource.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/misc/OgreWin32Resources.rc"
-  )
-  source_group(Resources FILES ${RESOURCE_FILES})
-elseif(APPLE)
-  list(APPEND SOURCES 
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreOSXConfigDialog.mm"
-    "${CMAKE_CURRENT_SOURCE_DIR}/misc/ogrelogo.png")
-  set_source_files_properties("${CMAKE_CURRENT_SOURCE_DIR}/src/OgreOSXConfigDialog.mm"
-    PROPERTIES COMPILE_FLAGS "-Wno-deprecated-declarations"
-  )
-  set(RESOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/misc/ogrelogo.png")
-  source_group(Resources FILES ${RESOURCE_FILES})
-  set(DEPENDENCIES ${DEPENDENCIES} "-framework Cocoa")
-elseif(UNIX)
-  list(APPEND DEPENDENCIES ${X11_X11_LIB})
-  set(NATIVE_INCLUDES ${X11_Xlib_INCLUDE_PATH})
-  if(XAW_LIBRARY)
-    set_source_files_properties(src/OgreBitesConfigDialog.cpp PROPERTIES COMPILE_DEFINITIONS HAVE_XAW)
-    list(APPEND SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreGLXConfigDialog.cpp")
-    list(APPEND DEPENDENCIES ${X11_Xt_LIB} ${XAW_LIBRARY})
-    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/misc/GLX_backdrop.png" DESTINATION "share/OGRE/")
-  endif()
-endif()
+#if(ANDROID OR EMSCRIPTEN OR APPLE_IOS OR WINDOWS_STORE OR WINDOWS_PHONE)
+  ## no config dialog available
+#elseif(WIN32)
+  #include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src")
+  #list(APPEND SOURCES
+    #"${CMAKE_CURRENT_SOURCE_DIR}/src/OgreWIN32ConfigDialog.cpp"
+    #"${CMAKE_CURRENT_SOURCE_DIR}/src/resource.h"
+    #"${CMAKE_CURRENT_SOURCE_DIR}/misc/OgreWin32Resources.rc")
+  ## Need to include resource files so that icons are linked
+  #set(RESOURCE_FILES
+    #"${CMAKE_CURRENT_SOURCE_DIR}/src/resource.h"
+    #"${CMAKE_CURRENT_SOURCE_DIR}/misc/OgreWin32Resources.rc"
+  #)
+  #source_group(Resources FILES ${RESOURCE_FILES})
+#elseif(APPLE)
+  #list(APPEND SOURCES
+    #"${CMAKE_CURRENT_SOURCE_DIR}/src/OgreOSXConfigDialog.mm"
+    #"${CMAKE_CURRENT_SOURCE_DIR}/misc/ogrelogo.png")
+  #set_source_files_properties("${CMAKE_CURRENT_SOURCE_DIR}/src/OgreOSXConfigDialog.mm"
+    #PROPERTIES COMPILE_FLAGS "-Wno-deprecated-declarations"
+  #)
+  #set(RESOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/misc/ogrelogo.png")
+  #source_group(Resources FILES ${RESOURCE_FILES})
+  #set(DEPENDENCIES ${DEPENDENCIES} "-framework Cocoa")
+#elseif(UNIX)
+  #list(APPEND DEPENDENCIES ${X11_X11_LIB})
+  #set(NATIVE_INCLUDES ${X11_Xlib_INCLUDE_PATH})
+  #if(XAW_LIBRARY)
+    #set_source_files_properties(src/OgreBitesConfigDialog.cpp PROPERTIES COMPILE_DEFINITIONS HAVE_XAW)
+    #list(APPEND SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreGLXConfigDialog.cpp")
+    #list(APPEND DEPENDENCIES ${X11_Xt_LIB} ${XAW_LIBRARY})
+    #install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/misc/GLX_backdrop.png" DESTINATION "share/OGRE/")
+  #endif()
+#endif()
 
 if(OGRE_BUILD_COMPONENT_OVERLAY_IMGUI)
   list(APPEND SOURCES
@@ -175,18 +175,18 @@ generate_export_header(OgreBites
     EXPORT_MACRO_NAME _OgreBitesExport
     EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/include/OgreBitesPrerequisites.h)
 
-if(Qt6_FOUND OR Qt5_FOUND)
-  if(Qt6_FOUND)
-    qt6_wrap_cpp(MOC_SRC "${CMAKE_CURRENT_SOURCE_DIR}/include/OgreApplicationContextQt.h")
-  else()
-    qt5_wrap_cpp(MOC_SRC "${CMAKE_CURRENT_SOURCE_DIR}/include/OgreApplicationContextQt.h")
-  endif()
+#if(Qt6_FOUND OR Qt5_FOUND)
+  #if(Qt6_FOUND)
+    #qt6_wrap_cpp(MOC_SRC "${CMAKE_CURRENT_SOURCE_DIR}/include/OgreApplicationContextQt.h")
+  #else()
+    #qt5_wrap_cpp(MOC_SRC "${CMAKE_CURRENT_SOURCE_DIR}/include/OgreApplicationContextQt.h")
+  #endif()
 
-  add_library(OgreBitesQt ${OGRE_COMP_LIB_TYPE} ${MOC_SRC} "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreApplicationContextQt.cpp")
-  set_target_properties(OgreBitesQt PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
-  target_link_libraries(OgreBitesQt PUBLIC Qt${QT_VERSION_MAJOR}::Gui OgreBites)
-  ogre_config_component(OgreBitesQt)
-endif()
+  #add_library(OgreBitesQt ${OGRE_COMP_LIB_TYPE} ${MOC_SRC} "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreApplicationContextQt.cpp")
+  #set_target_properties(OgreBitesQt PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
+  #target_link_libraries(OgreBitesQt PUBLIC Qt${QT_VERSION_MAJOR}::Gui OgreBites)
+  #ogre_config_component(OgreBitesQt)
+#endif()
 
 # install 
 ogre_config_framework(OgreBites)
