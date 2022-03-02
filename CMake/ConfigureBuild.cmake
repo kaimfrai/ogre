@@ -32,42 +32,6 @@ else ()
   set(OGRE_LIB_TYPE SHARED)
 endif ()
 
-# configure threading options
-set(OGRE_THREAD_PROVIDER 0)
-if (OGRE_CONFIG_THREADS)
-	if (OGRE_CONFIG_THREAD_PROVIDER STREQUAL "boost")
-		set(OGRE_THREAD_PROVIDER 1)
-		include_directories(${Boost_INCLUDE_DIRS})
-		# On MSVC Boost usually tries to autolink boost libraries. However since
-		# this behaviour is not available on all compilers, we need to find the libraries
-		# ourselves, anyway. Disable auto-linking to avoid mess-ups.
-		add_definitions(-DBOOST_ALL_NO_LIB)
-        if (MINGW AND Boost_USE_STATIC_LIBS)
-            # mingw needs this to link against static thread libraries
-            add_definitions(-DBOOST_THREAD_USE_LIB)
-        endif ()
-		set(OGRE_THREAD_LIBRARIES ${Boost_LIBRARIES})
-	endif ()
-
-	if (OGRE_CONFIG_THREAD_PROVIDER STREQUAL "poco")
-		set(OGRE_THREAD_PROVIDER 2)
-		include_directories(${POCO_INCLUDE_DIRS})
-		set(OGRE_THREAD_LIBRARIES ${POCO_LIBRARIES})
-	endif ()
-
-	if (OGRE_CONFIG_THREAD_PROVIDER STREQUAL "tbb")
-		set(OGRE_THREAD_PROVIDER 3)
-		include_directories(${TBB_INCLUDE_DIRS})
-
-		set(OGRE_THREAD_LIBRARIES ${TBB_LIBRARIES})
-	endif ()
-
-	if (OGRE_CONFIG_THREAD_PROVIDER STREQUAL "std")
-		set(OGRE_THREAD_PROVIDER 4)
-	endif ()
-
-endif()
-
 set(OGRE_ASSERT_MODE 2 CACHE STRING
 	"Enable Ogre asserts. Possible values:
 	0 - Standard asserts in debug builds, nothing in release builds.
@@ -82,7 +46,6 @@ set(OGRE_DOUBLE_PRECISION ${OGRE_CONFIG_DOUBLE})
 set(OGRE_NODE_INHERIT_TRANSFORM ${OGRE_SET_NODE_INHERIT_TRANSFORM})
 set(OGRE_SET_ASSERT_MODE ${OGRE_ASSERT_MODE})
 set(OGRE_SET_THREADS ${OGRE_CONFIG_THREADS})
-set(OGRE_SET_THREAD_PROVIDER ${OGRE_THREAD_PROVIDER})
 if (NOT OGRE_CONFIG_ENABLE_MESHLOD)
   set(OGRE_NO_MESHLOD 1)
 endif()
