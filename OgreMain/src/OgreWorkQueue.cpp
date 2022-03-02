@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <ostream>
 #include <thread>
 #include <utility>
+#include <algorithm>
 
 #include "OgreTimer.h"
 #include "../OgreWorkQueue.h"

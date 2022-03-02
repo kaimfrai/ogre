@@ -29,6 +29,7 @@ THE SOFTWARE.
 #define _ArchiveFactory_H__
 
 #include "OgrePrerequisites.h"
+#include "OgreArchive.h"
 #include "OgreFactoryObj.h"
 #include "OgreHeaderPrefix.h"
 

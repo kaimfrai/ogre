@@ -41,8 +41,6 @@ email                : pjcast@yahoo.com
 ***************************************************************************/
 #include "OgreSingleton.h"
 #include "OgreResourceGroupManager.h"
-#include "OgreExternalTextureSource.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
@@ -102,6 +100,5 @@ class ExternalTextureSource;
     /** @} */
 } 
 
-#include "OgreHeaderSuffix.h"
 
 #endif

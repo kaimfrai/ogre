@@ -34,8 +34,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreHardwareVertexBuffer.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -340,7 +338,6 @@ class HardwareBufferManagerBase;
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif
 

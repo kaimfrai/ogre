@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __RenderSystem_H_
 #define __RenderSystem_H_
 
-#include <stddef.h>
+#include <cstddef>
 #include <list>
 #include <map>
 #include <string>
@@ -44,7 +44,6 @@ THE SOFTWARE.
 #include "OgreGpuProgram.h"
 #include "OgrePlane.h"
 #include "OgreHardwareVertexBuffer.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
 #include "OgreConfig.h"
@@ -67,6 +66,7 @@ namespace Ogre
     class RenderTarget;
     class RenderWindow;
     class Viewport;
+    class HardwareOcclusionQuery;
     /** \addtogroup Core
     *  @{
     */
@@ -1295,6 +1295,5 @@ namespace Ogre
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

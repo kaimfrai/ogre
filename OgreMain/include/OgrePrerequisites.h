@@ -71,7 +71,6 @@ namespace Ogre {
     class AnimationState;
     class AnimationStateSet;
     class AnimationTrack;
-    class Archive;
     class ArchiveFactory;
     class ArchiveManager;
     class AutoParamDataSource;

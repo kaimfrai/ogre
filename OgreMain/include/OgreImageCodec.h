@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include "OgreCodec.h"
 #include "OgrePixelFormat.h"
 #include "OgreBitwise.h"
+#include "OgreAny.h" // IWYU pragma: keep
 
 namespace Ogre {
 

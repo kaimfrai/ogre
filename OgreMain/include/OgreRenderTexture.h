@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreRenderTarget.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
@@ -132,6 +131,5 @@ struct Box;
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

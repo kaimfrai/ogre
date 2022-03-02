@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreResourceManager.h"
 #include "OgreGpuProgram.h"
 #include "OgreSingleton.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -316,6 +315,5 @@ namespace Ogre {
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

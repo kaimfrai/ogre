@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __NumericSolvers_H__
 #define __NumericSolvers_H__
 
-#include "OgrePrerequisites.h"
 #include "OgreExports.h"
 
 

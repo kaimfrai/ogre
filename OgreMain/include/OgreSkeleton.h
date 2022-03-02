@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreResource.h"
 #include "OgreStringVector.h"
 #include "OgreAnimation.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreSharedPtr.h"
 #include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
@@ -500,7 +499,6 @@ class ResourceManager;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif
 

@@ -28,8 +28,6 @@ THE SOFTWARE.
 #ifndef _HardwareOcclusionQuery__
 #define _HardwareOcclusionQuery__
 
-// Precompiler options
-#include "OgrePrerequisites.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 

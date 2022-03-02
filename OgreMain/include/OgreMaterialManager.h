@@ -35,8 +35,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreResourceManager.h"
-#include "OgreHeaderPrefix.h"
-#include "OgreTextureUnitState.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreResource.h"
@@ -45,7 +43,6 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    class MaterialSerializer;
 class Material;
 class Renderable;
 class Technique;
@@ -299,6 +296,5 @@ class Technique;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

@@ -28,10 +28,9 @@ THE SOFTWARE.
 #ifndef __Math_H__
 #define __Math_H__
 
-#include <assert.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdint>
+#include <cstdlib>
 #include <limits>
 #include <cmath>
 #include <list>
@@ -40,7 +39,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgrePrerequisites.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgrePlatform.h"
 
@@ -826,6 +824,5 @@ class Sphere;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

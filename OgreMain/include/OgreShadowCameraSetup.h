@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <memory>
 
 #include "OgrePrerequisites.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
@@ -112,6 +111,5 @@ class Viewport;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

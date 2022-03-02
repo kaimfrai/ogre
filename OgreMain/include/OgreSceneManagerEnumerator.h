@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreSceneManager.h"
 #include "OgreSingleton.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
@@ -213,6 +212,5 @@ class RenderSystem;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

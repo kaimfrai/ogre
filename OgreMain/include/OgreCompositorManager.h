@@ -39,9 +39,7 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreResourceManager.h"
-#include "OgreRenderSystem.h"
 #include "OgreCompositionTechnique.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
@@ -282,6 +280,5 @@ class Viewport;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

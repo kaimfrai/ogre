@@ -35,8 +35,6 @@ THE SOFTWARE.
 #include "OgreVector.h"
 #include "OgreQuaternion.h"
 #include "OgreAny.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -262,7 +260,6 @@ class AnimationTrack;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif
 

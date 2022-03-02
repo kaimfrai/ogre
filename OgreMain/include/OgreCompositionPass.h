@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <string>
 
 #include "OgrePrerequisites.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreRenderSystem.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
@@ -424,6 +423,5 @@ class CompositionTargetPass;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

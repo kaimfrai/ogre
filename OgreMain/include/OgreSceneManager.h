@@ -55,7 +55,6 @@ Torus Knot Software Ltd.
 #include "OgreManualObject.h"
 #include "OgreRenderSystem.h"
 #include "OgreLodListener.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreNameGenerator.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreExports.h"
@@ -136,10 +135,6 @@ class Viewport;
     class CompositorChain;
     class InstancedGeometry;
     class Rectangle2D;
-    class LodListener;
-    struct MovableObjectLodChangedEvent;
-    struct EntityMeshLodChangedEvent;
-    struct EntityMaterialLodChangedEvent;
 
     /** Structure collecting together information about the visible objects
     that have been discovered in a scene.
@@ -3568,6 +3563,5 @@ class Viewport;
 
 } // Namespace
 
-#include "OgreHeaderSuffix.h"
 
 #endif

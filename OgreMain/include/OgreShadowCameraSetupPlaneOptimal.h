@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreShadowCameraSetup.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgreSharedPtr.h"
@@ -102,6 +101,5 @@ class Viewport;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

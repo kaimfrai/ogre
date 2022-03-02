@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreScriptCompiler.h"
 #include "OgreRenderSystem.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreBlendMode.h"
 #include "OgreBuildSettings.h"
 #include "OgreCommon.h"
@@ -145,7 +144,6 @@ class Matrix4;
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif
 

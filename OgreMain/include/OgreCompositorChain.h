@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreRenderQueueListener.h"
 #include "OgreCompositorInstance.h"
 #include "OgreViewport.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
@@ -260,6 +259,5 @@ class SceneManager;
     /** @} */
 } // namespace Ogre
 
-#include "OgreHeaderSuffix.h"
 
 #endif // __CompositorChain_H__

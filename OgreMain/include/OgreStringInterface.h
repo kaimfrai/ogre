@@ -38,7 +38,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreStringConverter.h"
 #include "OgreExports.h"
 
@@ -285,7 +284,6 @@ namespace Ogre {
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif
 

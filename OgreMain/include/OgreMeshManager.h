@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgrePatchSurface.h"
-#include "OgreHeaderPrefix.h"
 #include "OgrePlane.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
@@ -492,6 +491,5 @@ class SubMesh;
 
 } //namespace
 
-#include "OgreHeaderSuffix.h"
 
 #endif

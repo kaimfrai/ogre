@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreRenderable.h"
 #include "OgreRenderOperation.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
@@ -268,6 +267,5 @@ class VertexData;
     /** @} */
     /** @} */
 } // namespace Ogre
-#include "OgreHeaderSuffix.h"
 
 #endif // __ShadowCaster_H__

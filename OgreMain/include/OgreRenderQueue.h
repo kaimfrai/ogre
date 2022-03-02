@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <memory>
 
 #include "OgrePrerequisites.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -313,6 +312,5 @@ class Technique;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

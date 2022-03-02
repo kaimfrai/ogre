@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgrePlane.h"
 #include "OgreMovableObject.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreExports.h"
 #include "OgreQuaternion.h"
@@ -101,6 +100,5 @@ class RenderQueue;
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

@@ -25,8 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <stdlib.h>
-#include <stddef.h>
+#include <cstdlib>
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -60,7 +59,7 @@ namespace Ogre
     constexpr Real Math::LOG2;
 
     int Math::mTrigTableSize;
-   Math::AngleUnit Math::msAngleUnit;
+    Math::AngleUnit Math::msAngleUnit;
 
     float  Math::mTrigTableFactor;
     float *Math::mSinTable = NULL;

@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreSphere.h"
 #include "OgreShadowCaster.h"
 #include "OgreAnimable.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -666,6 +665,5 @@ class SceneNode;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

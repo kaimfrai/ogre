@@ -31,15 +31,9 @@ THE SOFTWARE.
 #include <stddef.h>
 
 #include "OgrePrerequisites.h"
-#include "OgreArchive.h"
 #include "OgreArchiveFactory.h"
-#include "OgreHeaderPrefix.h"
-#include "Threading/OgreThreadHeaders.h"
 #include "OgreExports.h"
 #include "OgrePlatform.h"
-
-struct AAssetManager;
-struct AAsset;
 
 namespace Ogre {
 class Archive;
@@ -121,6 +115,5 @@ class Archive;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

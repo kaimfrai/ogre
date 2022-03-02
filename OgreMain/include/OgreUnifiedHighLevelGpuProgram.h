@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramManager.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreResource.h"
@@ -177,6 +176,5 @@ class ResourceManager;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

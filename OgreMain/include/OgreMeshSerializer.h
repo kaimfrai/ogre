@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreSerializer.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 
 namespace Ogre {
@@ -195,6 +194,5 @@ class Mesh;
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

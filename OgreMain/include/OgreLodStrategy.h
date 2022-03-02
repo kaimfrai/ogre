@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreMesh.h"
 #include "OgreMaterial.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
@@ -131,6 +130,5 @@ class MovableObject;
 
 } // namespace
 
-#include "OgreHeaderSuffix.h"
 
 #endif

@@ -48,7 +48,6 @@ namespace Ogre
     *  @{
     */
     class Matrix4;
-    class Affine3;
 
     Matrix4 operator*(const Matrix4 &m, const Matrix4 &m2);
     /** Class encapsulating a standard 4x4 homogeneous matrix.

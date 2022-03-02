@@ -35,7 +35,6 @@ THE SOFTWARE.
 
 #include "OgreMovableObject.h"
 #include "OgreNode.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgrePlatform.h"
@@ -312,6 +311,5 @@ class SkeletonInstance;
     };
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

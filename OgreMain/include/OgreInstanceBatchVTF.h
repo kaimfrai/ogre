@@ -35,7 +35,6 @@ THE SOFTWARE.
 
 #include "OgreInstanceBatch.h"
 #include "OgreTexture.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgreMesh.h"
@@ -241,6 +240,5 @@ class VertexData;
     };
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

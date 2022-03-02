@@ -29,7 +29,6 @@ THE SOFTWARE.
 #define __InstanceBatch_H__
 
 #include <stddef.h>
-#include <ostream>
 #include <vector>
 #include <algorithm>
 
@@ -38,7 +37,6 @@ THE SOFTWARE.
 #include "OgreRenderable.h"
 #include "OgreMovableObject.h"
 #include "OgreMesh.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
@@ -381,6 +379,5 @@ class Technique;
     };
 } // namespace Ogre
 
-#include "OgreHeaderSuffix.h"
 
 #endif // __InstanceBatch_H__

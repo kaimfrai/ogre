@@ -32,8 +32,6 @@ THE SOFTWARE.
 
 // Precompiler options
 #include "OgrePrerequisites.h"
-#include "OgreString.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreBuildSettings.h"
 #include "OgreExports.h"
 #include "OgrePlatform.h"
@@ -75,7 +73,6 @@ THE SOFTWARE.
 #endif
 
 namespace Ogre {
-class Exception;
 
     /** \addtogroup Core
     *  @{
@@ -301,6 +298,5 @@ class Exception;
 
 } // Namespace Ogre
 
-#include "OgreHeaderSuffix.h"
 
 #endif

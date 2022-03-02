@@ -37,8 +37,6 @@ THE SOFTWARE.
 
 #if OGRE_PLATFORM != OGRE_PLATFORM_WIN32 && OGRE_PLATFORM != OGRE_PLATFORM_WINRT
 
-#include <unistd.h>
-
 /* Our simplified data entry structure */
 struct _finddata_t
 {

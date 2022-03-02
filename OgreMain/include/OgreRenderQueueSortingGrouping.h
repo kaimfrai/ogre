@@ -37,7 +37,6 @@ THE SOFTWARE.
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgrePass.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -643,7 +642,6 @@ class Technique;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif
 

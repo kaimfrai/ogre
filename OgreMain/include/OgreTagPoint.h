@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef __TagPoint_H_
 #define __TagPoint_H_
 
-#include "OgrePrerequisites.h"
 #include "OgreBone.h"
 #include "OgreMatrix4.h"
 #include "OgreExports.h"

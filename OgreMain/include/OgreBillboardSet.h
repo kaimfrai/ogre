@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreRenderable.h"
 #include "OgreCommon.h"
 #include "OgreResourceGroupManager.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
 #include "OgreExports.h"
@@ -843,6 +842,5 @@ class VertexData;
 
 } // namespace Ogre
 
-#include "OgreHeaderSuffix.h"
 
 #endif // __BillboardSet_H__

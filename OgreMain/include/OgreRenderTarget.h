@@ -35,7 +35,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgrePixelFormat.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -510,6 +509,5 @@ class Viewport;
 
 } // Namespace
 
-#include "OgreHeaderSuffix.h"
 
 #endif

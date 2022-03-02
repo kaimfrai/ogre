@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgreVector.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreMurmurHash3.h"
 #include "OgreExports.h"
 #include "OgrePlatform.h"
@@ -857,6 +856,5 @@ class RenderWindow;
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

@@ -32,7 +32,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreSharedPtr.h"
 
@@ -155,6 +154,5 @@ class VertexDeclaration;
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

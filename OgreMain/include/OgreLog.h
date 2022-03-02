@@ -30,7 +30,6 @@ THE SOFTWARE.
 #define __Log_H__
 
 #include <fstream>
-#include <sstream>
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -38,7 +37,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "Threading/OgreThreadHeaders.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
@@ -252,6 +250,5 @@ namespace Ogre {
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

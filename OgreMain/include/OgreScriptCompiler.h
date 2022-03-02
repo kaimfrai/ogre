@@ -43,7 +43,6 @@ THE SOFTWARE.
 #include "OgreGpuProgram.h"
 #include "OgreAny.h"
 #include "Threading/OgreThreadHeaders.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -875,6 +874,5 @@ class Material;
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

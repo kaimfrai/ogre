@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __PrefabFactory_H__
 #define __PrefabFactory_H__
 
-#include "OgrePrerequisites.h"
 #include "OgreExports.h"
 
 namespace Ogre {

@@ -42,7 +42,6 @@ THE SOFTWARE.
 #include "OgreMovableObject.h"
 #include "OgreRenderable.h"
 #include "OgreMesh.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
@@ -775,7 +774,6 @@ class VertexData;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif
 

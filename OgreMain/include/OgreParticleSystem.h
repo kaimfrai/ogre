@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreStringInterface.h"
 #include "OgreMovableObject.h"
 #include "OgreResourceGroupManager.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreExports.h"
 #include "OgrePlatform.h"
@@ -790,6 +789,5 @@ template <typename T> class Controller;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

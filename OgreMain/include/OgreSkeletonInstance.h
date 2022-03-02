@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreSkeleton.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreQuaternion.h"
 #include "OgreResource.h"
@@ -167,7 +166,6 @@ class TagPoint;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif
 

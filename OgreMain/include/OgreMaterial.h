@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreColourValue.h"
 #include "OgreBlendMode.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreSharedPtr.h"
 #include "OgreExports.h"
 
@@ -684,6 +683,5 @@ class Technique;
 
 } //namespace 
 
-#include "OgreHeaderSuffix.h"
 
 #endif

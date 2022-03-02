@@ -31,9 +31,7 @@ THE SOFTWARE.
 #include <iosfwd>
 
 #include "OgrePrerequisites.h"
-#include "OgreArchive.h"
 #include "OgreArchiveFactory.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 
 struct AAssetManager;
@@ -91,6 +89,5 @@ class Archive;
 
 } // namespace Ogre
 
-#include "OgreHeaderSuffix.h"
 
 #endif // __FileSystem_H__

@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgrePrerequisites.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgrePlatform.h"
 
@@ -193,6 +192,5 @@ namespace Ogre {
 
 } // namespace Ogre
 
-#include "OgreHeaderSuffix.h"
 
 #endif // _String_H__

@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreLog.h"
 #include "OgreSingleton.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "Threading/OgreThreadHeaders.h"
@@ -155,6 +154,5 @@ namespace Ogre
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

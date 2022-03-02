@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgreRenderable.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreRenderOperation.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreMatrix4.h"
@@ -107,7 +106,6 @@ class SceneManager;
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif
 

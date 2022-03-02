@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef __ROOT__
 #define __ROOT__
 
-#include <exception>
 #include <deque>
 #include <algorithm>
 #include <map>
@@ -40,7 +39,6 @@ THE SOFTWARE.
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreSceneManagerEnumerator.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
@@ -59,7 +57,6 @@ namespace Ogre
     *  @{
     */
 
-    class AndroidLogListener;
     class ShadowTextureManager;
 class ArchiveFactory;
 class ArchiveManager;
@@ -979,6 +976,5 @@ struct SceneManagerMetaData;
     /** @} */
 } // Namespace Ogre
 
-#include "OgreHeaderSuffix.h"
 
 #endif

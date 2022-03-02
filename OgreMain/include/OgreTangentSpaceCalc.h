@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreVector.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreHardwareVertexBuffer.h"
 
@@ -271,6 +270,5 @@ class VertexData;
 
 }
 
-#include "OgreHeaderSuffix.h"
 
 #endif

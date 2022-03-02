@@ -33,15 +33,10 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
-#include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
-#include "OgreMatrix4.h"
 #include "OgreMaterial.h"
-#include "OgrePlane.h"
 #include "OgreVector.h"
-#include "OgreException.h"
 #include "OgreUserObjectBindings.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreSharedPtr.h"
 
@@ -377,5 +372,4 @@ class Technique;
 
 } // namespace Ogre
 
-#include "OgreHeaderSuffix.h"
 #endif //__Renderable_H__
