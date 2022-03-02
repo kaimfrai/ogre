@@ -32,9 +32,7 @@ THE SOFTWARE.
 
 #include "StencilShadowTest.h"
 #include "CubeMappingTest.h"
-// samples as tests
-#include "TextureFX.h"
-#include "Transparency.h"
+
 #include "OgreBuildSettings.h"
 #include "Sample.h"
 
@@ -48,8 +46,6 @@ VTestPlugin::VTestPlugin()
     addSample(new ParticleTest());
 #endif
     addSample(new StencilShadowTest());
-    addSample(new Sample_TextureFX());
-    addSample(new Sample_Transparency());
 }
 //---------------------------------------------------------------------
 
