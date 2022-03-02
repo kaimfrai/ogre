@@ -25,7 +25,6 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#include <time.h>
 #include <iostream>
 #include <string>
 
