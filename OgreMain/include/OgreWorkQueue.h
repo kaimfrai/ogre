@@ -164,7 +164,7 @@ namespace Ogre
         render context, and as such it may not be possible to make
         rendersystem or other GPU-dependent calls in this handler. You can only
         do so if the queue was created with 'workersCanAccessRenderSystem'
-        set to true, and OGRE_THREAD_SUPPORT=1, but this puts extra strain
+        set to true, but this puts extra strain
         on the thread safety of the render system and is not recommended.
         It is best to perform CPU-side work in these handlers and let the
         response handler transfer results to the GPU in the main render thread.
@@ -404,10 +404,7 @@ namespace Ogre
         /** Get whether worker threads will be allowed to access render system
             resources. 
             Accessing render system resources from a separate thread can require that
-            a context is maintained for that thread. Also, it requires that the
-            render system is running in threadsafe mode, which only happens
-            when OGRE_THREAD_SUPPORT=1. This option defaults to false, which means
-            that threads can not use GPU resources, and the render system can 
+            a context is maintained for that thread. Threads can not use GPU resources, and the render system can
             work in non-threadsafe mode, which is more efficient.
         */
         virtual bool getWorkersCanAccessRenderSystem() const;
@@ -416,10 +413,7 @@ namespace Ogre
         /** Set whether worker threads will be allowed to access render system
             resources. 
             Accessing render system resources from a separate thread can require that
-            a context is maintained for that thread. Also, it requires that the
-            render system is running in threadsafe mode, which only happens
-            when OGRE_THREAD_SUPPORT=1. This option defaults to false, which means
-            that threads can not use GPU resources, and the render system can 
+            a context is maintained for that thread. Threads can not use GPU resources, and the render system can
             work in non-threadsafe mode, which is more efficient.
             Calling this will have no effect unless the queue is shut down and
             restarted.

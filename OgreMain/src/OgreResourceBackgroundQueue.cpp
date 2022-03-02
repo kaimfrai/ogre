@@ -118,69 +118,45 @@ namespace Ogre {
     BackgroundProcessTicket ResourceBackgroundQueue::initialiseResourceGroup(
         const String& name, ResourceBackgroundQueue::Listener* listener)
     {
-#if OGRE_THREAD_SUPPORT
         // queue a request
         ResourceRequest req;
         req.type = RT_INITIALISE_GROUP;
         req.groupName = name;
         req.listener = listener;
         return addRequest(req);
-#else
-        // synchronous
-        ResourceGroupManager::getSingleton().initialiseResourceGroup(name);
-        return 0; 
-#endif
     }
     //------------------------------------------------------------------------
     BackgroundProcessTicket 
     ResourceBackgroundQueue::initialiseAllResourceGroups( 
         ResourceBackgroundQueue::Listener* listener)
     {
-#if OGRE_THREAD_SUPPORT
         // queue a request
         ResourceRequest req;
         req.type = RT_INITIALISE_ALL_GROUPS;
         req.listener = listener;
         return addRequest(req);
-#else
-        // synchronous
-        ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
-        return 0; 
-#endif
     }
     //------------------------------------------------------------------------
     BackgroundProcessTicket ResourceBackgroundQueue::prepareResourceGroup(
         const String& name, ResourceBackgroundQueue::Listener* listener)
     {
-#if OGRE_THREAD_SUPPORT
         // queue a request
         ResourceRequest req;
         req.type = RT_PREPARE_GROUP;
         req.groupName = name;
         req.listener = listener;
         return addRequest(req);
-#else
-        // synchronous
-        ResourceGroupManager::getSingleton().prepareResourceGroup(name);
-        return 0; 
-#endif
     }
     //------------------------------------------------------------------------
     BackgroundProcessTicket ResourceBackgroundQueue::loadResourceGroup(
         const String& name, ResourceBackgroundQueue::Listener* listener)
     {
-#if OGRE_THREAD_SUPPORT
         // queue a request
         ResourceRequest req;
         req.type = RT_LOAD_GROUP;
         req.groupName = name;
         req.listener = listener;
         return addRequest(req);
-#else
-        // synchronous
-        ResourceGroupManager::getSingleton().loadResourceGroup(name);
-        return 0; 
-#endif
     }
     //------------------------------------------------------------------------
     BackgroundProcessTicket ResourceBackgroundQueue::prepare(
@@ -190,7 +166,6 @@ namespace Ogre {
         const NameValuePairList* loadParams, 
         ResourceBackgroundQueue::Listener* listener)
     {
-#if OGRE_THREAD_SUPPORT
         // queue a request
         ResourceRequest req;
         req.type = RT_PREPARE_RESOURCE;
@@ -203,13 +178,6 @@ namespace Ogre {
         req.loadParams = ( loadParams ? OGRE_NEW_T(NameValuePairList, MEMCATEGORY_GENERAL)( *loadParams ) : 0 );
         req.listener = listener;
         return addRequest(req);
-#else
-        // synchronous
-        ResourceManager* rm = 
-            ResourceGroupManager::getSingleton()._getResourceManager(resType);
-        rm->prepare(name, group, isManual, loader, loadParams);
-        return 0; 
-#endif
     }
     //------------------------------------------------------------------------
     BackgroundProcessTicket ResourceBackgroundQueue::load(
@@ -219,7 +187,6 @@ namespace Ogre {
         const NameValuePairList* loadParams, 
         ResourceBackgroundQueue::Listener* listener)
     {
-#if OGRE_THREAD_SUPPORT
         // queue a request
         ResourceRequest req;
         req.type = RT_LOAD_RESOURCE;
@@ -232,19 +199,11 @@ namespace Ogre {
         req.loadParams = ( loadParams ? OGRE_NEW_T(NameValuePairList, MEMCATEGORY_GENERAL)( *loadParams ) : 0 );
         req.listener = listener;
         return addRequest(req);
-#else
-        // synchronous
-        ResourceManager* rm = 
-            ResourceGroupManager::getSingleton()._getResourceManager(resType);
-        rm->load(name, group, isManual, loader, loadParams);
-        return 0; 
-#endif
     }
     //---------------------------------------------------------------------
     BackgroundProcessTicket ResourceBackgroundQueue::unload(
         const String& resType, const String& name, Listener* listener)
     {
-#if OGRE_THREAD_SUPPORT
         // queue a request
         ResourceRequest req;
         req.type = RT_UNLOAD_RESOURCE;
@@ -252,20 +211,11 @@ namespace Ogre {
         req.resourceName = name;
         req.listener = listener;
         return addRequest(req);
-#else
-        // synchronous
-        ResourceManager* rm = 
-            ResourceGroupManager::getSingleton()._getResourceManager(resType);
-        rm->unload(name, ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
-        return 0; 
-#endif
-
     }
     //---------------------------------------------------------------------
     BackgroundProcessTicket ResourceBackgroundQueue::unload(
         const String& resType, ResourceHandle handle, Listener* listener)
     {
-#if OGRE_THREAD_SUPPORT
         // queue a request
         ResourceRequest req;
         req.type = RT_UNLOAD_RESOURCE;
@@ -273,32 +223,17 @@ namespace Ogre {
         req.resourceHandle = handle;
         req.listener = listener;
         return addRequest(req);
-#else
-        // synchronous
-        ResourceManager* rm = 
-            ResourceGroupManager::getSingleton()._getResourceManager(resType);
-        rm->unload(handle);
-        return 0; 
-#endif
-
     }
     //---------------------------------------------------------------------
     BackgroundProcessTicket ResourceBackgroundQueue::unloadResourceGroup(
         const String& name, Listener* listener)
     {
-#if OGRE_THREAD_SUPPORT
         // queue a request
         ResourceRequest req;
         req.type = RT_UNLOAD_GROUP;
         req.groupName = name;
         req.listener = listener;
         return addRequest(req);
-#else
-        // synchronous
-        ResourceGroupManager::getSingleton().unloadResourceGroup(name);
-        return 0; 
-#endif
-
     }
     //------------------------------------------------------------------------
     bool ResourceBackgroundQueue::isProcessComplete(
@@ -370,13 +305,8 @@ namespace Ogre {
                     resreq.groupName);
                 break;
             case RT_LOAD_GROUP:
-    #if OGRE_THREAD_SUPPORT == 2
-                ResourceGroupManager::getSingleton().prepareResourceGroup(
-                    resreq.groupName);
-    #else
                 ResourceGroupManager::getSingleton().loadResourceGroup(
                     resreq.groupName);
-    #endif
                 break;
             case RT_UNLOAD_GROUP:
                 ResourceGroupManager::getSingleton().unloadResourceGroup(
@@ -391,13 +321,8 @@ namespace Ogre {
             case RT_LOAD_RESOURCE:
                 rm = ResourceGroupManager::getSingleton()._getResourceManager(
                     resreq.resourceType);
-    #if OGRE_THREAD_SUPPORT == 2
-                resource = rm->prepare(resreq.resourceName, resreq.groupName, resreq.isManual, 
-                    resreq.loader, resreq.loadParams, true);
-    #else
                 resource = rm->load(resreq.resourceName, resreq.groupName, resreq.isManual, 
                     resreq.loader, resreq.loadParams, true);
-    #endif
                 break;
             case RT_UNLOAD_RESOURCE:
                 rm = ResourceGroupManager::getSingleton()._getResourceManager(
@@ -457,19 +382,6 @@ namespace Ogre {
 
         if (res->succeeded())
         {
-#if OGRE_THREAD_SUPPORT == 2
-            // These load commands would have been downgraded to prepare() for the background
-            if (req.type == RT_LOAD_RESOURCE)
-            {
-                ResourceManager *rm = ResourceGroupManager::getSingleton()
-                    ._getResourceManager(req.resourceType);
-                rm->load(req.resourceName, req.groupName, req.isManual, req.loader, req.loadParams, true);
-            } 
-            else if (req.type == RT_LOAD_GROUP) 
-            {
-                ResourceGroupManager::getSingleton().loadResourceGroup(req.groupName);
-            }
-#endif
             mOutstandingRequestSet.erase(res->getRequest()->getID());
 
             // Call resource listener

@@ -76,7 +76,6 @@ namespace Ogre
             OGRE_THREAD_CURRENT_ID
             << ".";
 
-#if OGRE_THREAD_SUPPORT
         if (mWorkerRenderSystemAccess)
             Root::getSingleton().getRenderSystem()->preExtraThreadsStarted();
 
@@ -97,7 +96,6 @@ namespace Ogre
             Root::getSingleton().getRenderSystem()->postExtraThreadsStarted();
 
         }
-#endif
 
         mIsRunning = true;
     }
@@ -125,7 +123,6 @@ namespace Ogre
 
         mShuttingDown = true;
         abortAllRequests();
-#if OGRE_THREAD_SUPPORT
         // wake all threads (they should check shutting down as first thing after wait)
         OGRE_THREAD_NOTIFY_ALL(mRequestCondition);
 
@@ -136,7 +133,6 @@ namespace Ogre
             OGRE_THREAD_DESTROY(*i);
         }
         mWorkers.clear();
-#endif
 
         OGRE_DELETE_T(mWorkerFunc, WorkerFunc, MEMCATEGORY_GENERAL);
         mWorkerFunc = 0;
@@ -153,7 +149,6 @@ namespace Ogre
     //---------------------------------------------------------------------
     void DefaultWorkQueue::waitForNextRequest()
     {
-#if OGRE_THREAD_SUPPORT
         // Lock; note that OGRE_THREAD_WAIT will free the lock
             OGRE_WQ_LOCK_MUTEX_NAMED(mRequestMutex, queueLock);
         if (mRequestQueue.empty())
@@ -165,14 +160,11 @@ namespace Ogre
         // and thus the thread has been woken up. Lock has also been
         // re-acquired, but we won't use it. It's safe to try processing and fail
         // if another thread has got in first and grabbed the request
-#endif
-
     }
     //---------------------------------------------------------------------
     void DefaultWorkQueue::_threadMain()
     {
         // default worker thread
-#if OGRE_THREAD_SUPPORT
         LogManager::getSingleton().stream() << 
             "DefaultWorkQueue('" << getName() << "')::WorkerFunc - thread " 
             << OGRE_THREAD_CURRENT_ID << " starting.";
@@ -194,7 +186,6 @@ namespace Ogre
         LogManager::getSingleton().stream() << 
             "DefaultWorkQueue('" << getName() << "')::WorkerFunc - thread " 
             << OGRE_THREAD_CURRENT_ID << " stopped.";
-#endif
     }
 
 }

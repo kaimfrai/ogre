@@ -223,16 +223,14 @@ namespace Ogre {
                 OGRE_THREAD_CURRENT_ID
                 << "): ID=" << rid
                 << " channel=" << channel << " requestType=" << requestType;
-#if OGRE_THREAD_SUPPORT
             if (!forceSynchronous&& !idleThread)
             {
                 mRequestQueue.push_back(req);
                 notifyWorkers();
                 return rid;
             }
-#endif
         }
-        if(OGRE_THREAD_SUPPORT && idleThread){
+        if(idleThread){
             OGRE_WQ_LOCK_MUTEX(mIdleMutex);
             mIdleRequestQueue.push_back(req);
             if(!mIdleThreadRunning)
@@ -262,12 +260,8 @@ namespace Ogre {
             OGRE_THREAD_CURRENT_ID
             << "): ID=" << rid
                    << " channel=" << channel << " requestType=" << requestType;
-#if OGRE_THREAD_SUPPORT
         mRequestQueue.push_back(req);
         notifyWorkers();
-#else
-        processRequestResponse(req, true);
-#endif
     }
     //---------------------------------------------------------------------
     void DefaultWorkQueueBase::abortRequest(RequestID id)

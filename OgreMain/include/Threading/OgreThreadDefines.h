@@ -30,31 +30,18 @@ THE SOFTWARE
 
 #include "OgreThreadDefinesSTD.h"
 
-#if OGRE_THREAD_SUPPORT == 3
-    #include "OgreThreadDefinesNone.h"
+#include "OgreThreadDefinesNone.h"
 
-    // all empty definitions
-    #define OGRE_MUTEX(name)
+// all empty definitions
+#define OGRE_MUTEX(name)
 
-    #define OGRE_LOCK_MUTEX(name)
-    #define OGRE_LOCK_MUTEX_NAMED(mutexName, lockName)
+#define OGRE_LOCK_MUTEX(name)
+#define OGRE_LOCK_MUTEX_NAMED(mutexName, lockName)
 
-    #define OGRE_RW_MUTEX(name)
-    #define OGRE_LOCK_RW_MUTEX_READ(name)
-    #define OGRE_LOCK_RW_MUTEX_WRITE(name)
-    #define OGRE_THREAD_SYNCHRONISER(sync)
-#else
-    // alias to WQ names
-    #define OGRE_MUTEX(name) OGRE_WQ_MUTEX(name)
-
-    #define OGRE_LOCK_MUTEX(name) OGRE_WQ_LOCK_MUTEX(name)
-    #define OGRE_LOCK_MUTEX_NAMED(mutexName, lockName) OGRE_WQ_LOCK_MUTEX_NAMED(mutexName, lockName)
-
-    #define OGRE_RW_MUTEX(name) OGRE_WQ_RW_MUTEX(name)
-    #define OGRE_LOCK_RW_MUTEX_READ(name) OGRE_WQ_LOCK_RW_MUTEX_READ(name)
-    #define OGRE_LOCK_RW_MUTEX_WRITE(name) OGRE_WQ_LOCK_RW_MUTEX_WRITE(name)
-    #define OGRE_THREAD_SYNCHRONISER(sync) OGRE_WQ_THREAD_SYNCHRONISER(sync)
-#endif
+#define OGRE_RW_MUTEX(name)
+#define OGRE_LOCK_RW_MUTEX_READ(name)
+#define OGRE_LOCK_RW_MUTEX_WRITE(name)
+#define OGRE_THREAD_SYNCHRONISER(sync)
 
 #endif
 

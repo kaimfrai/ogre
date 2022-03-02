@@ -41,44 +41,6 @@
 */
 #define OGRE_ASSERT_MODE @OGRE_SET_ASSERT_MODE@
 
-/** Support for multithreading, there are 3 options
-
-OGRE_THREAD_SUPPORT = 0
-    No support for threading.       
-OGRE_THREAD_SUPPORT = 1
-    Thread support for background loading, by both loading and constructing resources
-    in a background thread. Resource management and SharedPtr handling becomes
-    thread-safe, and resources may be completely loaded in the background. 
-    The places where threading is available are clearly
-    marked, you should assume state is NOT thread safe unless otherwise
-    stated in relation to this flag.
-OGRE_THREAD_SUPPORT = 2
-    Thread support for background resource preparation. This means that resource
-    data can streamed into memory in the background, but the final resource
-    construction (including RenderSystem dependencies) is still done in the primary
-    thread. Has a lower synchronisation primitive overhead than full threading
-    while still allowing the major blocking aspects of resource management (I/O)
-    to be done in the background.
-OGRE_THREAD_SUPPORT = 3
-    No synchronisation primitive overhead. WorkQueue is threaded.
-*/
-#define OGRE_THREAD_SUPPORT @OGRE_SET_THREADS@
-
-/** Provider for threading functionality, there are 4 options.
-
-OGRE_THREAD_PROVIDER = 0
-    No support for threading.
-OGRE_THREAD_PROVIDER = 1
-    Boost libraries provide threading functionality.
-OGRE_THREAD_PROVIDER = 2
-    Poco libraries provide threading functionality.
-OGRE_THREAD_PROVIDER = 3
-    TBB library provides threading functionality.
-OGRE_THREAD_PROVIDER = 4
-    Standard library provides threading functionality. (requires compiler support)
-*/
-#define OGRE_THREAD_PROVIDER @OGRE_SET_THREAD_PROVIDER@
-
 #cmakedefine01 OGRE_NO_MESHLOD
 
 /** Disables use of the internal image codec for loading DDS files. */

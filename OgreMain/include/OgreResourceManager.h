@@ -107,8 +107,6 @@ namespace Ogre {
     */
     /** Defines a generic resource handler.
     @see @ref Resource-Management
-    @note
-        If OGRE_THREAD_SUPPORT is 1, this class is thread-safe.
     */
     class _OgreExport ResourceManager : public ScriptLoader, public ResourceAlloc
     {
