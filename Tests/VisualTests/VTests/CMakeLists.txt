@@ -9,15 +9,11 @@
 
 set(HEADER_FILES
     include/StencilShadowTest.h
-    include/ParticleTest.h
-    include/TextureBlitTest.h
     include/VTestPlugin.h)
 
 set(SOURCE_FILES
     src/StencilShadowTest.cpp
-    src/TextureBlitTest.cpp
     src/CubeMappingTest.cpp
-    src/ParticleTest.cpp
     src/VTestPlugin.cpp)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
