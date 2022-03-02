@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "Threading/OgreThreadHeaders.h"
 #include "OgreCommon.h"
 #include "OgrePrerequisites.h"

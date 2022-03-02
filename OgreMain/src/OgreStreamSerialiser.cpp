@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <string.h>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreStreamSerialiser.h"
 #include "OgreDeflate.h"
 #include "OgreAxisAlignedBox.h"

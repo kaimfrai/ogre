@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <memory>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreMatrix4.h"
 #include "OgrePrerequisites.h"
 #include "OgreSimpleSpline.h"

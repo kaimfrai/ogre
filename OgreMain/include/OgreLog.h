@@ -33,6 +33,7 @@ THE SOFTWARE.
 #include <sstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"

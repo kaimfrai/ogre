@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <functional>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreLodStrategy.h"
 #include "OgreCamera.h"
 

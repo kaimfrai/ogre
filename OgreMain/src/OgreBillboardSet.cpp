@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreBillboardSet.h"
 #include "OgreBillboard.h"
 #include "OgreCamera.h"

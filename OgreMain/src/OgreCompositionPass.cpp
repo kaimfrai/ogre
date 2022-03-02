@@ -27,7 +27,6 @@ THE SOFTWARE.
 */
 #include <assert.h>
 
-#include "OgreStableHeaders.h"
 #include "OgreCompositionPass.h"
 #include "OgreMaterial.h"
 #include "OgreMaterialManager.h"

@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <map>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreRenderQueue.h"
 #include "OgreMaterial.h"
 #include "OgreRenderQueueSortingGrouping.h"

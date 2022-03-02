@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreDefaultHardwareBufferManager.h"
 #include "OgreException.h"

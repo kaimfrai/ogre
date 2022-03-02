@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreFrustum.h"
 #include "OgreMath.h"

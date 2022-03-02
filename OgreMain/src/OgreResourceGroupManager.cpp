@@ -26,7 +26,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <assert.h>
-#include <time.h>
 #include <iterator>
 #include <list>
 #include <map>
@@ -36,7 +35,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreScriptLoader.h"
 #include "OgreArchive.h"
 #include "OgreArchiveManager.h"

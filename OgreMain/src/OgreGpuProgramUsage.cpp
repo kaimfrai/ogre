@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreGpuProgramUsage.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreException.h"

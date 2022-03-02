@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreMovablePlane.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreBuildSettings.h"

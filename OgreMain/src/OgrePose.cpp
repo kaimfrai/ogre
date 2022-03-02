@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <string.h>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgrePose.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"

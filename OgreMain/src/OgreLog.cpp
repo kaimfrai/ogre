@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreBuildSettings.h"
 #include "OgreLog.h"
 #include "OgrePlatform.h"

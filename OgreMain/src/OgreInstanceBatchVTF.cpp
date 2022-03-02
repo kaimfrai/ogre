@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <type_traits>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreInstanceBatchVTF.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreInstancedEntity.h"

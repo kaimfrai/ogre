@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreRenderTarget.h"
 #include "OgreViewport.h"
 #include "OgreRenderTargetListener.h"

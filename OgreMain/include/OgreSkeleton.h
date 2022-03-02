@@ -34,6 +34,7 @@ THE SOFTWARE.
 #include <set>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"

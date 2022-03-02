@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreMeshSerializerImpl.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"

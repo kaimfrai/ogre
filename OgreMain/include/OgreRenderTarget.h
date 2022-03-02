@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <map>
 #include <vector>
+#include <algorithm>
 
 #include "OgrePrerequisites.h"
 #include "OgrePixelFormat.h"

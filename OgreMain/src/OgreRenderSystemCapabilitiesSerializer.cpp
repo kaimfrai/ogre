@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <ostream>
 #include <set>
 
-#include "OgreStableHeaders.h"
 #include "OgreRenderSystemCapabilitiesSerializer.h"
 #include "OgreRenderSystemCapabilitiesManager.h"
 #include "OgreRenderSystemCapabilities.h"

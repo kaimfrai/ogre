@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgrePrefabFactory.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreHardwareBuffer.h"

@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <cmath>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreLight.h"
 #include "OgreShadowCameraSetupPlaneOptimal.h"
 #include "OgreNumerics.h"

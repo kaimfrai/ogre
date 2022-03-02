@@ -27,7 +27,6 @@ THE SOFTWARE.
 */
 #include <assert.h>
 
-#include "OgreStableHeaders.h"
 #include "OgreControllerManager.h"
 #include "OgrePredefinedControllers.h"
 #include "OgreController.h"

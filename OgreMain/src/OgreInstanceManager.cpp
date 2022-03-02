@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <memory>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreInstanceManager.h"
 #include "OgreInstanceBatchHW.h"
 #include "OgreInstanceBatchHW_VTF.h"

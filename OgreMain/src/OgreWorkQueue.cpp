@@ -29,8 +29,6 @@ THE SOFTWARE.
 #include <thread>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreWorkQueue.h"
 #include "OgreTimer.h"
 #include "../OgreWorkQueue.h"
 #include "OgreBuildSettings.h"

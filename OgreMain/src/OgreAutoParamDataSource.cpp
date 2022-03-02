@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <cmath>
 #include <limits>
 
-#include "OgreStableHeaders.h"
 #include "OgreAutoParamDataSource.h"
 #include "OgreRenderable.h"
 #include "OgreRenderTarget.h"

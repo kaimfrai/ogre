@@ -38,7 +38,6 @@ email                : pjcast@yahoo.com
 #include <assert.h>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreExternalTextureSourceManager.h"
 #include "OgreExternalTextureSource.h"
 #include "OgreLogManager.h"

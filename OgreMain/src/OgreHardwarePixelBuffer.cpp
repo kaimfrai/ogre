@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <assert.h>
 #include <memory>
 
-#include "OgreStableHeaders.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreRenderTexture.h"
 #include "OgreException.h"

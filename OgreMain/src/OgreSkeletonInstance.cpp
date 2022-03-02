@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreSkeletonInstance.h"
 #include "OgreTagPoint.h"
 #include "OgreBone.h"

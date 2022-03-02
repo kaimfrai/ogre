@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreInstancedEntity.h"
 #include "OgreInstanceBatch.h"
 #include "OgreSkeletonInstance.h"

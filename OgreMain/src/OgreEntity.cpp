@@ -33,7 +33,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include <map>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreEntity.h"
 #include "OgreSubEntity.h"
 #include "OgreTagPoint.h"

@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreLight.h"
 #include "OgreAnimable.h"
 #include "OgreException.h"

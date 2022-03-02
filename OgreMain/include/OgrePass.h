@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include <memory>
 #include <set>
 #include <vector>
+#include <algorithm>
 
 #include "OgrePrerequisites.h"
 #include "OgreColourValue.h"

@@ -25,7 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
 #include "OgreEntity.h"
 #include "OgreLight.h"
 #include "OgreControllerManager.h"
@@ -106,7 +105,6 @@ THE SOFTWARE.
 // This class implements the most basic scene manager
 
 #include <assert.h>
-#include <cstdio>
 #include <algorithm>
 #include <iterator>
 #include <limits>
@@ -119,13 +117,7 @@ THE SOFTWARE.
 #include <vector>
 
 namespace Ogre {
-class AxisAlignedBoxSceneQuery;
-class IntersectionSceneQuery;
-class PlaneBoundedVolumeListSceneQuery;
 class Ray;
-class RaySceneQuery;
-class SceneQuery;
-class SphereSceneQuery;
 
 static const String INVOCATION_SHADOWS = "SHADOWS";
 //-----------------------------------------------------------------------

@@ -52,7 +52,6 @@ THE SOFTWARE.
 #include "OgreTextureUnitState.h"
 
 namespace Ogre {
-class ManualResourceLoader;
 
     //-----------------------------------------------------------------------
     template<> TextureManager* Singleton<TextureManager>::msSingleton = 0;

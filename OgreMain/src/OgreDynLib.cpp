@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreDynLib.h"
 #include "OgreBuildSettings.h"
 #include "OgreException.h"

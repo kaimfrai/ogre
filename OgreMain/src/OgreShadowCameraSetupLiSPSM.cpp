@@ -29,7 +29,6 @@ THE SOFTWARE.
 
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreShadowCameraSetupLiSPSM.h"
 #include "OgreLight.h"
 #include "OgreCamera.h"

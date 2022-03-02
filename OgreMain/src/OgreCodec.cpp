@@ -27,7 +27,6 @@ THE SOFTWARE.
 */
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreCodec.h"
 #include "OgreException.h"
 #include "OgreSharedPtr.h"

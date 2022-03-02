@@ -33,7 +33,6 @@ Torus Knot Software Ltd.
 #include <string>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreHardwareBuffer.h"
 #include "OgrePixelFormat.h"

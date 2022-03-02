@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <assert.h>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreCompositionTechnique.h"
 #include "OgreCompositionTargetPass.h"
 #include "OgreException.h"

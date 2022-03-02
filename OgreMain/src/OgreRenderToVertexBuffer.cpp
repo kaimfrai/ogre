@@ -28,7 +28,6 @@ THE SOFTWARE.
 
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreRenderToVertexBuffer.h"
 #include "OgreException.h"
 #include "OgreMaterial.h"

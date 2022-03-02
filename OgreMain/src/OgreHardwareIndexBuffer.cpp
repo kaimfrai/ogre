@@ -27,7 +27,6 @@ THE SOFTWARE.
 */
 #include <memory>
 
-#include "OgreStableHeaders.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreDefaultHardwareBufferManager.h"
 #include "OgreException.h"

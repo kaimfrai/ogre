@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <assert.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <limits>
 #include <cmath>
 #include <list>

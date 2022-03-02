@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
 #include "OgrePlatform.h"

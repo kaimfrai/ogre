@@ -36,6 +36,7 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 #include <vector>
+#include <algorithm>
 
 #include "OgrePrerequisites.h"
 #include "OgreMovableObject.h"

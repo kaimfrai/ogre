@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cmath>
 
-#include "OgreStableHeaders.h"
 #include "OgreTagPoint.h"
 #include "OgreLight.h"
 #include "OgreEntity.h"

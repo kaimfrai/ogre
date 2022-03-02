@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <assert.h>
 #include <algorithm>
 
-#include "OgreStableHeaders.h"
 #include "OgreDistanceLodStrategy.h"
 #include "OgreViewport.h"
 #include "OgreAxisAlignedBox.h"

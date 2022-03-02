@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreInstanceBatchHW.h"
 #include "OgreRenderOperation.h"
 #include "OgreInstancedEntity.h"

@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <assert.h>
 #include <limits>
 
-#include "OgreStableHeaders.h"
 #include "OgrePixelCountLodStrategy.h"
 #include "OgreViewport.h"
 #include "OgreCamera.h"

@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include <map>
 #include <utility>
 #include <vector>
+#include <algorithm>
 
 // Precompiler options
 #include "OgrePrerequisites.h"

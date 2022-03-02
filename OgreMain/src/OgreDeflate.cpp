@@ -25,11 +25,11 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <istream>
+#include <fstream>
 
-#include "OgreStableHeaders.h"
 #include "OgreException.h"
 #include "OgreFileSystem.h"
 #include "OgreMemoryAllocatorConfig.h"

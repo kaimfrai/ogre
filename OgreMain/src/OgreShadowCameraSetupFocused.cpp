@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreShadowCameraSetupFocused.h"
 #include "OgreLight.h"
 #include "OgreCamera.h"

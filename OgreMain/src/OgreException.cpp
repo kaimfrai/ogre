@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <ostream>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreException.h"
 #include "OgrePrerequisites.h"
 

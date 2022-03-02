@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreInstanceBatchHW_VTF.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreInstancedEntity.h"

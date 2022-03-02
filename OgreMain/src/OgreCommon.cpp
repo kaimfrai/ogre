@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreCommon.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"

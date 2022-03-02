@@ -30,6 +30,7 @@ THE SOFTWARE.
 
 #include <stddef.h>
 #include <vector>
+#include <algorithm>
 
 #include "OgrePrerequisites.h"
 #include "OgreRenderTargetListener.h"

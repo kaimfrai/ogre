@@ -26,9 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <assert.h>
-#include <stddef.h>
 
-#include "OgreStableHeaders.h"
 #include "OgreAlignedAllocator.h"
 #include "OgreBitwise.h"
 #include "OgrePlatform.h"

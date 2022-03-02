@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <assert.h>
 #include <string.h>
 
-#include "OgreStableHeaders.h"
 #include "OgreDefaultHardwareBufferManager.h"
 #include "OgreAlignedAllocator.h"
 

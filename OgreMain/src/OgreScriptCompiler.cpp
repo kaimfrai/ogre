@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreScriptParser.h"
 #include "OgreBuiltinScriptTranslators.h"
 #include "OgreComponents.h"

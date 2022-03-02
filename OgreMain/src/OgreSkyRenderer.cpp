@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreEntity.h"
 #include "OgreViewport.h"
 #include "OgreCamera.h"

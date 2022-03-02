@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreLight.h"
 #include "OgreEdgeListBuilder.h"
 #include "OgreOptimisedUtil.h"

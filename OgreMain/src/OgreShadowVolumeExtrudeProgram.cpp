@@ -28,7 +28,6 @@ THE SOFTWARE.
 
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreShadowVolumeExtrudeProgram.h"
 #include "OgreException.h"
 #include "OgreGpuProgram.h"

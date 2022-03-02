@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <set>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreCompositor.h"
 #include "OgreCompositionTechnique.h"
 #include "OgreRenderTexture.h"

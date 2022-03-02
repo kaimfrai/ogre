@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreEntity.h"
 #include "OgreSubEntity.h"
 #include "OgreAnimationTrack.h"

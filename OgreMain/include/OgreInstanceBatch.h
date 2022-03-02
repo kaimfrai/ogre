@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <ostream>
 #include <vector>
+#include <algorithm>
 
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"

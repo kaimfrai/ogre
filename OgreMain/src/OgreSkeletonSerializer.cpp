@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreSkeletonFileFormat.h"
 #include "OgreSkeletonSerializer.h"
 #include "OgreAnimation.h"

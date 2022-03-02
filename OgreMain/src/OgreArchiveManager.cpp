@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreArchive.h"
 #include "OgreArchiveFactory.h"
 #include "OgreArchiveManager.h"

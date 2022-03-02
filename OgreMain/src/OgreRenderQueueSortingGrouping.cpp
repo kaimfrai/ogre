@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <set>
 
-#include "OgreStableHeaders.h"
 #include "OgreRenderQueueSortingGrouping.h"
 #include "OgreException.h"
 #include "OgreMaterial.h"

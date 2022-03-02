@@ -30,6 +30,7 @@ THE SOFTWARE.
 
 #include <set>
 #include <vector>
+#include <algorithm>
 
 #include "OgrePrerequisites.h"
 #include "OgreMatrix4.h"

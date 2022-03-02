@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreCompositor.h"
 #include "OgreCompositorChain.h"
 #include "OgreCompositionTechnique.h"

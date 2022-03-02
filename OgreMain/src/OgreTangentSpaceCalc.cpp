@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <map>
 #include <memory>
 
-#include "OgreStableHeaders.h"
 #include "OgreTangentSpaceCalc.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"

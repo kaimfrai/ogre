@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <string.h>
 #include <xmmintrin.h>
 
-#include "OgreStableHeaders.h"
 #include "OgreOptimisedUtil.h"
 #include "OgreEdgeListBuilder.h"
 #include "OgreException.h"

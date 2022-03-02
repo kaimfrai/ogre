@@ -80,9 +80,9 @@ THE SOFTWARE.
 #endif
 
 namespace Ogre {
-class Camera;
-class RenderWindow;
-class Viewport;
+    class Camera;
+    class RenderWindow;
+    class Viewport;
 
     RenderSystem::Listener* RenderSystem::msSharedEventListener = 0;
 

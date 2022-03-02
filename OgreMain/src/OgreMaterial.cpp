@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreMaterial.h"
 #include "OgreLodStrategyManager.h"
 #include "OgreLodStrategy.h"

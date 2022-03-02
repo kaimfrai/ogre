@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreRibbonTrail.h"
 #include "OgreController.h"
 #include "OgreException.h"

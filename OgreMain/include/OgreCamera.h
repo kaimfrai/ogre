@@ -30,6 +30,7 @@ THE SOFTWARE.
 
 #include <iosfwd>
 #include <vector>
+#include <algorithm>
 
 // Default options
 #include "OgrePrerequisites.h"

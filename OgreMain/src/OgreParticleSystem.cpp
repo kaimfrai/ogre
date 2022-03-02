@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreParticleSystem.h"
 #include "OgreParticleEmitter.h"
 #include "OgreParticleAffector.h"

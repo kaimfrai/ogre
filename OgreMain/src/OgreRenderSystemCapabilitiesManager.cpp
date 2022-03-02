@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreRenderSystemCapabilitiesManager.h"
 #include "OgreRenderSystemCapabilitiesSerializer.h"
 #include "OgreArchive.h"

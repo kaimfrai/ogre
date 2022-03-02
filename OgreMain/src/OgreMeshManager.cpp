@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgrePatchMesh.h"
 #include "OgrePrefabFactory.h"
 #include "OgreAny.h"

@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreUnifiedHighLevelGpuProgram.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreException.h"

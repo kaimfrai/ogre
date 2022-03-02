@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <algorithm>
 
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"

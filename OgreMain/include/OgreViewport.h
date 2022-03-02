@@ -29,6 +29,7 @@ THE SOFTWARE.
 #define __Viewport_H__
 
 #include <vector>
+#include <algorithm>
 
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"

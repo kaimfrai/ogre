@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <string.h>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreBitwise.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"

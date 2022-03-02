@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgrePixelFormat.h"
 #include "OgrePixelFormatDescriptions.h"
 #include "OgreBitwise.h"

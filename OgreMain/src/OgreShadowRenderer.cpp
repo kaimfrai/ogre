@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreRenderTexture.h"
 #include "OgreViewport.h"

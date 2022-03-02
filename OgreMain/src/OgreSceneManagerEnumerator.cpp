@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <ostream>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreSceneManagerEnumerator.h"
 #include "OgreException.h"
 #include "OgreLogManager.h"

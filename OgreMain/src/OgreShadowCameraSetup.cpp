@@ -28,7 +28,6 @@ THE SOFTWARE.
 
 #include <cmath>
 
-#include "OgreStableHeaders.h"
 #include "OgreShadowCameraSetup.h"
 #include "OgreViewport.h"
 #include "OgreCamera.h"

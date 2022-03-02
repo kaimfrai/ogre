@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <assert.h>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreUnifiedHighLevelGpuProgram.h"
 #include "OgreStreamSerialiser.h"

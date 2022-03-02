@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <list>
 #include <memory>
 
-#include "OgreStableHeaders.h"
 #include "OgreAnimationTrack.h"
 #include "OgreAnimation.h"
 #include "OgreKeyFrame.h"

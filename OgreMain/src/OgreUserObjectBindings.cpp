@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <memory>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreAny.h"
 #include "OgrePrerequisites.h"
 #include "OgreUserObjectBindings.h"

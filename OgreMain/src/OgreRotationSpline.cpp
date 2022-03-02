@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <memory>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreRotationalSpline.h"
 #include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"

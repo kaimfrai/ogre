@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <map>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreBuiltinMovableFactories.h"
 #include "OgreCommon.h"

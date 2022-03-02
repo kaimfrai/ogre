@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <iomanip>
 #include <iosfwd>
 
-#include "OgreStableHeaders.h"
 #include "OgreViewport.h"
 #include "OgreRenderTarget.h"
 #include "OgreBuildSettings.h"

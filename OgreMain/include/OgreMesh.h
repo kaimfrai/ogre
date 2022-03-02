@@ -34,6 +34,7 @@ THE SOFTWARE.
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
 
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"

@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreParticleEmitterFactory.h"
 #include "OgreParticleAffectorFactory.h"
 #include "OgreParticleSystemRenderer.h"
@@ -56,7 +55,6 @@ THE SOFTWARE.
 #include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
-class MovableObject;
 
     //-----------------------------------------------------------------------
     // Shortcut to set up billboard particle renderer

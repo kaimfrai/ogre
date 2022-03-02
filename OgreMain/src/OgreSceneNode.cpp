@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCamera.h"
 #include "OgreCodec.h"

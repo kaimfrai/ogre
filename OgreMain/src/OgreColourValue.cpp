@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cmath>
 
-#include "OgreStableHeaders.h"
 #include "OgreColourValue.h"
 #include "OgreMath.h"
 #include "OgrePlatform.h"

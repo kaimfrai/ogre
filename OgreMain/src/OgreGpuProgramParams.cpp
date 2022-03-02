@@ -30,7 +30,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include <memory>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreDualQuaternion.h"

@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <memory>
 #include <vector>
+#include <algorithm>
 
 #include "OgrePrerequisites.h"
 #include "OgreMovableObject.h"

@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <ostream>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreConvexBody.h"
 #include "OgreException.h"
 #include "OgreLog.h"

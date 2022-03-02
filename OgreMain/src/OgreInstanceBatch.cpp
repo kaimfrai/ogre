@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <limits>
 #include <memory>
 
-#include "OgreStableHeaders.h"
 #include "OgreInstanceManager.h"
 #include "OgreInstanceBatch.h"
 #include "OgreInstancedEntity.h"

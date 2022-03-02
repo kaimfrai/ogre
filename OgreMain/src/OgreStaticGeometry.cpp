@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <memory>
 #include <ostream>
 
-#include "OgreStableHeaders.h"
 #include "OgreStaticGeometry.h"
 #include "OgreEntity.h"
 #include "OgreEdgeListBuilder.h"

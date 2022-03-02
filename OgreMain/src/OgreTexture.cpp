@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <atomic>
 #include <memory>
 
-#include "OgreStableHeaders.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreImage.h"
 #include "OgreTexture.h"

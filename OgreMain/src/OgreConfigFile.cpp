@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <iostream>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreConfigFile.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreDataStream.h"

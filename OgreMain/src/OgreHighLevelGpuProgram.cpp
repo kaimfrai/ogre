@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreHighLevelGpuProgram.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreDataStream.h"

@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <assert.h>
 #include <stddef.h>
 
-#include "OgreStableHeaders.h"
 #include "OgreOptimisedUtil.h"
 #include "OgreEdgeListBuilder.h"
 #include "OgreExports.h"

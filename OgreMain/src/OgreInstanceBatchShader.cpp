@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreInstanceBatchShader.h"
 #include "OgreRenderOperation.h"
 #include "OgreInstancedEntity.h"

@@ -6,7 +6,6 @@
 #include <map>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreException.h"
 #include "OgreGpuProgramParams.h"
 #include "OgrePrerequisites.h"

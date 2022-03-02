@@ -27,7 +27,6 @@ THE SOFTWARE.
 */
 #include <assert.h>
 
-#include "OgreStableHeaders.h"
 #include "OgreResourceBackgroundQueue.h"
 #include "OgreAny.h"
 #include "OgreBuildSettings.h"

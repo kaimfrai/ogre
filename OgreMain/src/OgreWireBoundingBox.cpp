@@ -27,7 +27,6 @@ THE SOFTWARE.
 */
 #include <algorithm>
 
-#include "OgreStableHeaders.h"
 #include "OgreWireBoundingBox.h"
 #include "OgreCamera.h"
 #include "OgreHardwareBuffer.h"

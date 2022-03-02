@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreMaterial.h"
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"

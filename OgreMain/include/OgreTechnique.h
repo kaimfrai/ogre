@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"

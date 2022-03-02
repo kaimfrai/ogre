@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <set>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreException.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"

@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <string.h>
 #include <cmath>
 
-#include "OgreStableHeaders.h"
 #include "OgreASTCCodec.h"
 #include "OgreImage.h"
 #include "OgreCodec.h"

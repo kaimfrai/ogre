@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include <set>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreVertexIndexData.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreConfig.h"

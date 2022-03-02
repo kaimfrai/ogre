@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cmath>
 
-#include "OgreStableHeaders.h"
 #include "OgrePredefinedControllers.h"
 #include "OgreTextureUnitState.h"
 #include "OgreGpuProgramParams.h"

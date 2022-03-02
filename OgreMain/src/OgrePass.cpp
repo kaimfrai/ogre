@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreGpuProgramUsage.h"
 #include "OgreTextureUnitState.h"
 #include "OgreBlendMode.h"

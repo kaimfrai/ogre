@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <assert.h>
 #include <memory>
 
-#include "OgreStableHeaders.h"
 #include "OgreSkeletonManager.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"

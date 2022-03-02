@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <fstream>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
 #include "OgreLogManager.h"

@@ -27,7 +27,6 @@ THE SOFTWARE.
 */
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreBillboardParticleRenderer.h"
 #include "OgreParticle.h"
 #include "OgreBillboard.h"

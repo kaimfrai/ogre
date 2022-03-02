@@ -27,7 +27,6 @@ THE SOFTWARE.
 */
 #include <limits>
 
-#include "OgreStableHeaders.h"
 #include "OgreResourceManager.h"
 #include "OgreBuildSettings.h"
 #include "OgreException.h"

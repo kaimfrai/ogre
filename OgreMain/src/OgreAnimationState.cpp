@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <memory>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreAnimationState.h"
 #include "OgreException.h"
 #include "OgreIteratorWrapper.h"

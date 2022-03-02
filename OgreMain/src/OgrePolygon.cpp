@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <memory>
 #include <ostream>
 
-#include "OgreStableHeaders.h"
 #include "OgrePolygon.h"
 #include "OgreException.h"
 #include "OgreMath.h"

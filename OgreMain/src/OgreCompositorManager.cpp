@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <assert.h>
 #include <memory>
 
-#include "OgreStableHeaders.h"
 #include "OgreCompositor.h"
 #include "OgreCompositorManager.h"
 #include "OgreCompositorChain.h"

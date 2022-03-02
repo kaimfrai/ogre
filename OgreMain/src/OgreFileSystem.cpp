@@ -26,12 +26,12 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <sys/stat.h>
-#include <stdint.h>
-#include <stdio.h>
+#include <cstdint>
+#include <cstdio>
 #include <ios>
 #include <string>
+#include <fstream>
 
-#include "OgreStableHeaders.h"
 #include "OgreArchive.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"

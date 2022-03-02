@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <assert.h>
 #include <stddef.h>
 #include <vector>
+#include <algorithm>
 
 #include "OgreMovableObject.h"
 #include "OgreNode.h"

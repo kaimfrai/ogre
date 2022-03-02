@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreMovableObject.h"
 #include "OgrePlaneBoundedVolume.h"

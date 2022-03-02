@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <ostream>
 
-#include "OgreStableHeaders.h"
 #include "OgreRenderQueue.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
