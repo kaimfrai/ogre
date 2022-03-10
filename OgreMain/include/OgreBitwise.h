@@ -237,15 +237,9 @@ namespace Ogre {
                     ((uint16*)dest)[0] = (uint16)value;
                     break;
                 case 3:
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG      
-                    ((uint8*)dest)[0] = (uint8)((value >> 16) & 0xFF);
-                    ((uint8*)dest)[1] = (uint8)((value >> 8) & 0xFF);
-                    ((uint8*)dest)[2] = (uint8)(value & 0xFF);
-#else
                     ((uint8*)dest)[2] = (uint8)((value >> 16) & 0xFF);
                     ((uint8*)dest)[1] = (uint8)((value >> 8) & 0xFF);
                     ((uint8*)dest)[0] = (uint8)(value & 0xFF);
-#endif
                     break;
                 case 4:
                     ((uint32*)dest)[0] = (uint32)value;                
@@ -262,15 +256,10 @@ namespace Ogre {
                 case 2:
                     return ((const uint16*)src)[0];
                 case 3:
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG      
-                    return ((uint32)((const uint8*)src)[0]<<16)|
-                            ((uint32)((const uint8*)src)[1]<<8)|
-                            ((uint32)((const uint8*)src)[2]);
-#else
+
                     return ((uint32)((const uint8*)src)[0])|
                             ((uint32)((const uint8*)src)[1]<<8)|
                             ((uint32)((const uint8*)src)[2]<<16);
-#endif
                 case 4:
                     return ((const uint32*)src)[0];
             } 

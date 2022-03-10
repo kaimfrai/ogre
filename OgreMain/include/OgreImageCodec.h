@@ -50,15 +50,9 @@ namespace Ogre {
     protected:
         static void flipEndian(void* pData, size_t size, size_t count)
         {
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-            Bitwise::bswapChunks(pData, size, count);
-#endif
         }
         static void flipEndian(void* pData, size_t size)
         {
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-            Bitwise::bswapBuffer(pData, size);
-#endif
         }
 
     public:

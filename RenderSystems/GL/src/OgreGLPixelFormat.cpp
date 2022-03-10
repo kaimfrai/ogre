@@ -55,13 +55,10 @@ namespace Ogre  {
             {GL_BGR, GL_UNSIGNED_SHORT_5_6_5, GL_RGB5},          // PF_B5G6R5
             {GL_BGRA, GL_UNSIGNED_SHORT_4_4_4_4_REV, GL_RGBA4},  // PF_A4R4G4B4
             {GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV, GL_RGB5_A1},// PF_A1R5G5B5
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-            {GL_RGB, GL_UNSIGNED_BYTE, GL_RGB8},                 // PF_R8G8B8
-            {GL_BGR, GL_UNSIGNED_BYTE, GL_RGB8},                 // PF_B8G8R8
-#else
+
             {GL_BGR, GL_UNSIGNED_BYTE, GL_RGB8},                 // PF_R8G8B8
             {GL_RGB, GL_UNSIGNED_BYTE, GL_RGB8},                 // PF_B8G8R8
-#endif
+
             {GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, GL_RGBA8},    // PF_A8R8G8B8
             {GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, GL_RGBA8},    // PF_A8B8G8R8
             {GL_BGRA, GL_UNSIGNED_INT_8_8_8_8, GL_RGBA8},        // PF_B8G8R8A8

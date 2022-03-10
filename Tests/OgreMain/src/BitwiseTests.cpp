@@ -85,11 +85,9 @@ TEST(BitwiseTests,IntReadWrite)
     EXPECT_TRUE(Bitwise::intRead(&testje2, 2) == 0x1234);
     uint8 testje3 = 0xD3;
     EXPECT_TRUE(Bitwise::intRead(&testje3, 1) == 0xD3);
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-    uint8 testje4[] = {0x12, 0x34, 0x56};
-#else
+
     uint8 testje4[] = {0x56, 0x34, 0x12};
-#endif
+
     EXPECT_TRUE(Bitwise::intRead(&testje4, 3) == 0x123456);
 
     Bitwise::intWrite(&testje, 4, 0x87654321);

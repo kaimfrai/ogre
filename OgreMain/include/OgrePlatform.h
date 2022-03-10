@@ -59,15 +59,6 @@ THE SOFTWARE.
 #   define OGRE_CPU OGRE_CPU_UNKNOWN
 #endif
 
-/* Determine CPU endian.
-   We were once in situation when XCode could produce mixed endian fat binary with x86 and ppc archs inside, so it's safer to sniff compiler macros too
- */
-#if defined(OGRE_CONFIG_BIG_ENDIAN) || (defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__)
-#    define OGRE_ENDIAN OGRE_ENDIAN_BIG
-#else
-#    define OGRE_ENDIAN OGRE_ENDIAN_LITTLE
-#endif
-
 /* See if we can use __forceinline or if we need to use __inline instead */
 
 #define OGRE_FORCE_INLINE inline __attribute__((always_inline))
@@ -103,16 +94,6 @@ THE SOFTWARE.
 #define OGRE_QUOTE_INPLACE(x) # x
 #define OGRE_QUOTE(x) OGRE_QUOTE_INPLACE(x)
 #define OGRE_WARN( x )  message( __FILE__ "(" QUOTE( __LINE__ ) ") : " x "\n" )
-
-
-//----------------------------------------------------------------------------
-// Endian Settings
-// check for BIG_ENDIAN config flag, set OGRE_ENDIAN correctly
-#ifdef OGRE_CONFIG_BIG_ENDIAN
-#    define OGRE_ENDIAN OGRE_ENDIAN_BIG
-#else
-#    define OGRE_ENDIAN OGRE_ENDIAN_LITTLE
-#endif
 
 
 #define OGRE_DEFAULT_LOCALE "C"

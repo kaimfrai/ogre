@@ -57,13 +57,7 @@ namespace Ogre
     */
     static uint32 SuperFastHash (const char * data, int len, uint32 hashSoFar)
     {
-#if OGRE_ENDIAN == OGRE_ENDIAN_LITTLE
 #  define OGRE_GET16BITS(d) (*((const uint16 *) (d)))
-#else
-    // Cast to uint16 in little endian means first byte is least significant
-    // replicate that here
-#  define OGRE_GET16BITS(d) (*((const uint8 *) (d)) + (*((const uint8 *) (d+1))<<8))
-#endif
         uint32 hash;
         int rem;
 
@@ -133,14 +127,8 @@ namespace Ogre
     {
         if (mEndian != ENDIAN_AUTO)
         {
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-            if (mEndian == ENDIAN_LITTLE)
-                mFlipEndian = true;
-#else
             if (mEndian == ENDIAN_BIG)
                 mFlipEndian = true;
-#endif
-
         }
 
         OgreAssert(mStream, "Stream is null");
@@ -318,17 +306,10 @@ namespace Ogre
     //---------------------------------------------------------------------
     void StreamSerialiser::determineEndianness()
     {
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-        if (mFlipEndian)
-            mEndian = ENDIAN_LITTLE;
-        else
-            mEndian = ENDIAN_BIG;
-#else
         if (mFlipEndian)
             mEndian = ENDIAN_BIG;
         else
             mEndian = ENDIAN_LITTLE;
-#endif
     }
     //---------------------------------------------------------------------
     const StreamSerialiser::Chunk* StreamSerialiser::getCurrentChunk() const
@@ -835,13 +816,8 @@ namespace Ogre
         uint32 id = c->id;
         uint16 version = c->version;
         uint32 length = c->length;
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-		Bitwise::bswapBuffer(&id, sizeof(uint32));
-		Bitwise::bswapBuffer(&version, sizeof(uint16));
-		Bitwise::bswapBuffer(&length, sizeof(uint32));
-#endif
 
-		// we cannot switch to murmur3 like everywhere else to allow loading legacy files
+        // we cannot switch to murmur3 like everywhere else to allow loading legacy files
         uint32 hashVal = SuperFastHash((const char*)&id, sizeof(uint32), 0);
         hashVal = SuperFastHash((const char*)&version, sizeof(uint16), hashVal);
         hashVal = SuperFastHash((const char*)&length, sizeof(uint32), hashVal);

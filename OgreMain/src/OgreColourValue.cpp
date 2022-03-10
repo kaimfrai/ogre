@@ -43,11 +43,7 @@ namespace Ogre {
     const ColourValue ColourValue::Blue = ColourValue(0.0,0.0,1.0);
 
     //---------------------------------------------------------------------
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-    ABGR ColourValue::getAsABGR(void) const
-#else
     RGBA ColourValue::getAsRGBA(void) const
-#endif
     {
         uint8 val8;
         uint32 val32 = 0;
@@ -74,11 +70,7 @@ namespace Ogre {
         return val32;
     }
     //---------------------------------------------------------------------
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-    BGRA ColourValue::getAsBGRA(void) const
-#else
     ARGB ColourValue::getAsARGB(void) const
-#endif
     {
         uint8 val8;
         uint32 val32 = 0;
@@ -106,11 +98,7 @@ namespace Ogre {
         return val32;
     }
     //---------------------------------------------------------------------
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-    ARGB ColourValue::getAsARGB(void) const
-#else
     BGRA ColourValue::getAsBGRA(void) const
-#endif
     {
         uint8 val8;
         uint32 val32 = 0;
@@ -138,11 +126,7 @@ namespace Ogre {
         return val32;
     }
     //---------------------------------------------------------------------
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-    RGBA ColourValue::getAsRGBA(void) const
-#else
     ABGR ColourValue::getAsABGR(void) const
-#endif
     {
         uint8 val8;
         uint32 val32 = 0;
@@ -170,11 +154,7 @@ namespace Ogre {
         return val32;
     }
     //---------------------------------------------------------------------
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-    void ColourValue::setAsABGR(ABGR val32)
-#else
     void ColourValue::setAsRGBA(RGBA val32)
-#endif
     {
         // Convert from 32bit pattern
         // (RGBA = 8888)
@@ -192,11 +172,7 @@ namespace Ogre {
         a = float(val32 & 0xFF) / 255.0f;
     }
     //---------------------------------------------------------------------
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-    void ColourValue::setAsBGRA(BGRA val32)
-#else
     void ColourValue::setAsARGB(ARGB val32)
-#endif
     {
         // Convert from 32bit pattern
         // (ARGB = 8888)
@@ -214,11 +190,8 @@ namespace Ogre {
         b = float(val32 & 0xFF) / 255.0f;
     }
     //---------------------------------------------------------------------
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-    void ColourValue::setAsARGB(ARGB val32)
-#else
+
     void ColourValue::setAsBGRA(BGRA val32)
-#endif
     {
         // Convert from 32bit pattern
         // (ARGB = 8888)
@@ -236,11 +209,8 @@ namespace Ogre {
         a = float(val32 & 0xFF) / 255.0f;
     }
     //---------------------------------------------------------------------
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-    void ColourValue::setAsRGBA(RGBA val32)
-#else
+
     void ColourValue::setAsABGR(ABGR val32)
-#endif
     {
         // Convert from 32bit pattern
         // (ABGR = 8888)
