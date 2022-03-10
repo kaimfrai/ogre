@@ -34,10 +34,6 @@ THE SOFTWARE.
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT
-struct HINSTANCE__;
-#endif
-
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -46,11 +42,7 @@ namespace Ogre {
     *  @{
     */
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT
-    typedef struct HINSTANCE__* DYNLIB_HANDLE;
-#else
     typedef void* DYNLIB_HANDLE;
-#endif
 
     /** Resource holding data about a dynamic library.
         @remarks

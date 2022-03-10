@@ -42,20 +42,6 @@ THE SOFTWARE.
 #include <intrin.h>
 #elif OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG
 
-    #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-        #include <cpu-features.h>
-    #elif OGRE_CPU == OGRE_CPU_ARM && OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-        #include <sys/sysctl.h>
-        #if __MACH__
-            #include <mach/machine.h>
-            #ifndef CPU_SUBTYPE_ARM64_V8
-                #define CPU_SUBTYPE_ARM64_V8 ((cpu_subtype_t) 1)
-            #endif
-            #ifndef CPU_SUBTYPE_ARM_V8
-                #define CPU_SUBTYPE_ARM_V8 ((cpu_subtype_t) 13)
-            #endif
-        #endif
-    #endif
 #endif
 
 // Yes, I know, this file looks very ugly, but there aren't other ways to do it better.
@@ -125,7 +111,7 @@ namespace Ogre {
             // Return values in eax, no return statement requirement here for VC.
         }
     #endif
-#elif (OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG) && OGRE_PLATFORM != OGRE_PLATFORM_EMSCRIPTEN
+#elif (OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG)
         #if OGRE_ARCH_TYPE == OGRE_ARCHITECTURE_64
            return true;
        #else
@@ -165,7 +151,7 @@ namespace Ogre {
         result._ecx = CPUInfo[2];
         result._edx = CPUInfo[3];
         return result._eax;
-#elif (OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG) && OGRE_PLATFORM != OGRE_PLATFORM_EMSCRIPTEN
+#elif (OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG)
         #if OGRE_ARCH_TYPE == OGRE_ARCHITECTURE_64
         __asm__
         (
@@ -239,7 +225,7 @@ namespace Ogre {
             return false;
         }
     #endif
-#elif (OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG) && OGRE_PLATFORM != OGRE_PLATFORM_EMSCRIPTEN
+#elif (OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG)
         #if OGRE_ARCH_TYPE == OGRE_ARCHITECTURE_64 
             return true;
         #else
@@ -503,61 +489,6 @@ namespace Ogre {
         return "X86";
     }
 
-#elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    static uint _detectCpuFeatures(void)
-    {
-        uint features = 0;
-#if OGRE_CPU == OGRE_CPU_ARM
-        uint64_t cpufeatures = android_getCpuFeatures();
-        if (cpufeatures & ANDROID_CPU_ARM_FEATURE_NEON)
-        {
-            features |= PlatformInformation::CPU_FEATURE_NEON;
-        }
-        
-        if (cpufeatures & ANDROID_CPU_ARM_FEATURE_VFPv3) 
-        {
-            features |= PlatformInformation::CPU_FEATURE_VFP;
-        }
-#elif OGRE_CPU == OGRE_CPU_X86
-        // see https://developer.android.com/ndk/guides/abis.html
-        features |= PlatformInformation::CPU_FEATURE_SSE;
-        features |= PlatformInformation::CPU_FEATURE_SSE2;
-        features |= PlatformInformation::CPU_FEATURE_SSE3;
-#endif
-        return features;
-    }
-    //---------------------------------------------------------------------
-    static String _detectCpuIdentifier(void)
-    {
-        String cpuID;
-        AndroidCpuFamily cpuInfo = android_getCpuFamily();
-        
-        switch (cpuInfo) {
-            case ANDROID_CPU_FAMILY_ARM64:
-                cpuID = "ARM64";
-                break;
-            case ANDROID_CPU_FAMILY_ARM:
-            {
-                if (android_getCpuFeatures() & ANDROID_CPU_ARM_FEATURE_ARMv7) 
-                {
-                    cpuID = "ARMv7";
-                }
-                else
-                {
-                    cpuID = "Unknown ARM";
-                }
-            }
-            break;
-            case ANDROID_CPU_FAMILY_X86:
-                cpuID = "Unknown X86";
-                break;   
-            default:
-                cpuID = "Unknown";
-                break;
-        }
-        return cpuID;
-    }
-    
 #elif OGRE_CPU == OGRE_CPU_ARM  // OGRE_CPU == OGRE_CPU_ARM
 
     //---------------------------------------------------------------------
@@ -566,13 +497,6 @@ namespace Ogre {
         // Use preprocessor definitions to determine architecture and CPU features
         uint features = 0;
 #if defined(__ARM_NEON__)
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-        int hasNEON;
-        size_t len = sizeof(size_t);
-        sysctlbyname("hw.optional.neon", &hasNEON, &len, NULL, 0);
-
-        if(hasNEON)
-#endif
             features |= PlatformInformation::CPU_FEATURE_NEON;
 #elif defined(__VFP_FP__)
             features |= PlatformInformation::CPU_FEATURE_VFP;
@@ -583,40 +507,6 @@ namespace Ogre {
     static String _detectCpuIdentifier(void)
     {
         String cpuID;
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-        // Get the size of the CPU subtype struct
-        size_t size;
-        sysctlbyname("hw.cpusubtype", NULL, &size, NULL, 0);
-
-        // Get the ARM CPU subtype
-        cpu_subtype_t cpusubtype = 0;
-        sysctlbyname("hw.cpusubtype", &cpusubtype, &size, NULL, 0);
-
-        switch(cpusubtype)
-        {
-            case CPU_SUBTYPE_ARM_V6:
-                cpuID = "ARMv6";
-                break;
-            case CPU_SUBTYPE_ARM_V7:
-                cpuID = "ARMv7";
-                break;
-            case CPU_SUBTYPE_ARM_V7F:
-                cpuID = "ARM Cortex-A9";
-                break;
-            case CPU_SUBTYPE_ARM_V7S:
-                cpuID = "ARM Swift";
-                break;
-            case CPU_SUBTYPE_ARM_V8:
-                cpuID = "ARMv8";
-                break;
-            case CPU_SUBTYPE_ARM64_V8:
-                cpuID = "ARM64v8";
-                break;
-            default:
-                cpuID = "Unknown ARM";
-                break;
-        }
-#endif
         return cpuID;
     }
     
@@ -716,7 +606,7 @@ namespace Ogre {
             pLog->logMessage(
                 " *           HT: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_HTT), true));
         }
-#elif OGRE_CPU == OGRE_CPU_ARM || OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+#elif OGRE_CPU == OGRE_CPU_ARM
         pLog->logMessage(
                 " *          VFP: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_VFP), true));
         pLog->logMessage(

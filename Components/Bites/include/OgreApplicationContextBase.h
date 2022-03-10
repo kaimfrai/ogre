@@ -58,20 +58,12 @@ namespace Ogre {
     }  // namespace RTShader
 }
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-#include <android/native_window.h>
-#endif
-
 namespace OgreBites
 {
-class SGTechniqueResolverListener;
-struct InputListener;
-union Event;
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    typedef ANativeWindow NativeWindowType;
-#else
+    class SGTechniqueResolverListener;
+    struct InputListener;
+    union Event;
     typedef SDL_Window NativeWindowType;
-#endif
 
     /** \addtogroup Optional Optional Components
     *  @{

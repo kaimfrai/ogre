@@ -121,14 +121,6 @@ THE SOFTWARE.
 #  include "OgreASTCCodec.h"
 #endif
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE || OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-#include "macUtils.h"
-#endif
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-#include "Android/OgreAndroidLogListener.h"
-#endif
-
 namespace Ogre {
     //-----------------------------------------------------------------------
     template<> Root* Singleton<Root>::msSingleton = 0;
@@ -174,18 +166,8 @@ namespace Ogre {
         {
             mLogManager.reset(new LogManager());
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_EMSCRIPTEN
-            // suppress writing log to Emscripten virtual FS, improves performance
-            mLogManager->createLog(logFileName, true, true, true);
-#else
             mLogManager->createLog(logFileName, true, true);
-#endif
         }
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-        mAndroidLogger.reset(new AndroidLogListener());
-        mLogManager->getDefaultLog()->addListener(mAndroidLogger.get());
-#endif
 
         mDynLibManager.reset(new DynLibManager());
         mArchiveManager.reset(new ArchiveManager());
@@ -313,35 +295,16 @@ namespace Ogre {
         mAutoWindow = 0;
 
         StringInterface::cleanupDictionary();
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-        mLogManager->getDefaultLog()->removeListener(mAndroidLogger.get());
-#endif
     }
 
     //-----------------------------------------------------------------------
     void Root::saveConfig(void)
     {
-#if OGRE_PLATFORM == OGRE_PLATFORM_EMSCRIPTEN
-        OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "saveConfig is not supported",
-            "Root::saveConfig");
-#endif
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-        // Check the Documents directory within the application sandbox
-        Ogre::String outBaseName, extension, configFileName;
-        Ogre::StringUtil::splitFilename(mConfigFileName, outBaseName, extension);
-        configFileName = iOSDocumentsDirectory() + "/" + outBaseName;
-		std::ofstream of(configFileName.c_str());
-        if (of.is_open())
-            mConfigFileName = configFileName;
-        else
-            mConfigFileName.clear();
-#else
         if (mConfigFileName.empty())
             return;
 
         std::ofstream of(mConfigFileName.c_str());
-#endif
+
         if (!of)
             OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "Cannot create settings file.",
             "Root::saveConfig");
@@ -373,52 +336,6 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     bool Root::restoreConfig(void)
     {
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-        // Read the config from Documents first(user config) if it exists on iOS.
-        // If it doesn't exist or is invalid then use mConfigFileName
-
-        Ogre::String outBaseName, extension, configFileName;
-        Ogre::StringUtil::splitFilename(mConfigFileName, outBaseName, extension);
-        configFileName = iOSDocumentsDirectory() + "/" + outBaseName;
-
-        std::ifstream fp;
-        fp.open(configFileName.c_str(), std::ios::in);
-        if(fp.is_open())
-        {
-            // A config file exists in the users Documents dir, we'll use it
-            mConfigFileName = configFileName;
-        }
-        else
-        {
-            std::ifstream configFp;
-
-            // This might be the first run because there is no config file in the
-            // Documents directory.  It could also mean that a config file isn't being used at all
-
-            // Try the path passed into initialise
-            configFp.open(mConfigFileName.c_str(), std::ios::in);
-
-            // If we can't open this file then we have no default config file to work with
-            // Use the documents dir then.
-            if(!configFp.is_open())
-            {
-                // Check to see if one was included in the app bundle
-                mConfigFileName = macBundlePath() + "/ogre.cfg";
-
-                configFp.open(mConfigFileName.c_str(), std::ios::in);
-
-                // If we can't open this file then we have no default config file to work with
-                // Use the Documents dir then.
-                if(!configFp.is_open())
-                    mConfigFileName = configFileName;
-            }
-
-            configFp.close();
-        }
-
-        fp.close();
-#endif
-
         if (mConfigFileName.empty ())
             return true;
 
@@ -593,18 +510,8 @@ namespace Ogre {
             for(ConfigFile::SettingsMultiMap::const_iterator it = dbs.begin(); it != dbs.end(); ++it)
             {
                 const String& archType = it->first;
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE || OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-                String filename = it->second;
 
-                // Only adjust relative directories
-                if (!StringUtil::startsWith(filename, "/", false))
-                {
-                    filename = StringUtil::replaceAll(filename, "../", "");
-                    filename = String(macBundlePath() + "/Contents/Resources/" + filename);
-                }
-#else
                 String filename = it->second;
-#endif
 
                 rscManager.parseCapabilitiesFromArchive(filename, archType, true);
             }
@@ -1007,11 +914,7 @@ namespace Ogre {
 
         if (!pluginDir.empty() && *pluginDir.rbegin() != '/' && *pluginDir.rbegin() != '\\')
         {
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT
-            pluginDir += "\\";
-#elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
             pluginDir += "/";
-#endif
         }
 
         for( StringVector::iterator it = pluginList.begin(); it != pluginList.end(); ++it )
@@ -1040,7 +943,6 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Root::unloadPlugins(void)
     {
-#if OGRE_PLATFORM != OGRE_PLATFORM_EMSCRIPTEN
         // unload dynamic libs first
         for (PluginLibList::reverse_iterator i = mPluginLibs.rbegin(); i != mPluginLibs.rend(); ++i)
         {
@@ -1065,7 +967,6 @@ namespace Ogre {
             (*i)->uninstall();
         }
         mPlugins.clear();
-#endif
     }
     //---------------------------------------------------------------------
     DataStreamPtr Root::createFileStream(const String& filename, const String& groupName,

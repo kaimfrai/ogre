@@ -159,11 +159,7 @@ TEST_F(UseCustomCapabilitiesTests,CustomCapabilitiesGL)
     mStaticPluginLoader.load();
 #else
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE || OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    Root* root = OGRE_NEW Root(FileSystemLayer::resolveBundlePath("Contents/Resources/plugins.cfg"));
-#else
     Root* root = OGRE_NEW Root("plugins.cfg");
-#endif
 
 #endif
 
@@ -178,13 +174,8 @@ TEST_F(UseCustomCapabilitiesTests,CustomCapabilitiesGL)
             setUpGLRenderSystemOptions(rs);
             root->setRenderSystem(rs);
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE || OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-            root->initialise(true, "OGRE testCustomCapabilitiesGL Window",
-                FileSystemLayer::resolveBundlePath("Contents/Resources/Media/CustomCapabilities/customCapabilitiesTest.cfg"));
-#else
             root->initialise(true, "OGRE testCustomCapabilitiesGL Window",
                 "../../Tests/Media/CustomCapabilities/customCapabilitiesTest.cfg");
-#endif
 
             const RenderSystemCapabilities* caps = rs->getCapabilities();
 

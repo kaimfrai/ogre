@@ -38,15 +38,6 @@
 
 #define ENABLE_SHADERS_CACHE 1
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WINRT
-#    include <sdkddkver.h>
-#    if defined(_WIN32_WINNT) && _WIN32_WINNT == _WIN32_WINNT_WIN8
-//      For WinRT 8.0 we only support running from the cache file.
-#       undef ENABLE_SHADERS_CACHE
-#       define ENABLE_SHADERS_CACHE 1
-#    endif
-#endif
-
 #ifndef __OGRE_WINRT_PHONE
 #define __OGRE_WINRT_PHONE 0
 #endif
@@ -90,10 +81,6 @@ namespace OgreBites
             mDescBox = 0;
             mRendererMenu = 0;
             mCarouselPlace = 0.0f;
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-            mGestureView = 0;
-#endif
         }
 
         virtual void loadStartUpSample()
@@ -289,11 +276,11 @@ namespace OgreBites
             {
                 mTrayMgr->removeWidgetFromTray("StartStop");
                 mTrayMgr->removeWidgetFromTray("Configure");
-#if OGRE_PLATFORM != OGRE_PLATFORM_ANDROID
+
                 mTrayMgr->removeWidgetFromTray("UnloadReload");
                 mTrayMgr->removeWidgetFromTray("Quit");
                 mTrayMgr->moveWidgetToTray("Apply", TL_RIGHT);
-#endif
+
                 mTrayMgr->moveWidgetToTray("Back", TL_RIGHT);
 
                 for (unsigned int i = 0; i < mThumbs.size(); i++)
@@ -338,13 +325,12 @@ namespace OgreBites
                 mTrayMgr->removeWidgetFromTray("ConfigSeparator");
 
                 mTrayMgr->moveWidgetToTray("StartStop", TL_RIGHT);
-#if OGRE_PLATFORM != OGRE_PLATFORM_ANDROID
+
                 mTrayMgr->moveWidgetToTray("UnloadReload", TL_RIGHT);
-#endif
+
                 mTrayMgr->moveWidgetToTray("Configure", TL_RIGHT);
-#if OGRE_PLATFORM != OGRE_PLATFORM_ANDROID
+
                 mTrayMgr->moveWidgetToTray("Quit", TL_RIGHT);
-#endif
 
                 mCarouselPlace += CAROUSEL_REDRAW_EPS;  // force redraw
                 windowResized(mWindow);
@@ -592,41 +578,6 @@ namespace OgreBites
             return SampleContext::keyPressed(evt);
         }
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-        void motionBegan( void )
-        {
-        }
-
-        void motionEnded( void )
-        {
-            if (mTrayMgr->isDialogVisible()) return;  // ignore keypresses when dialog is showing
-
-            if (mTitleLabel->getTrayLocation() != TL_NONE)
-            {
-                // if we're in the main screen and a sample's running, toggle sample pause state
-                if (mCurrentSample)
-                {
-                    if (mSamplePaused)
-                    {
-                        mTrayMgr->hideAll();
-                        unpauseCurrentSample();
-                    }
-                    else
-                    {
-                        pauseCurrentSample();
-                        mTrayMgr->showAll();
-                    }
-                }
-            }
-            else buttonHit((Button*)mTrayMgr->getWidget("Back"));  // if we're in config, just go back
-
-        }
-
-        void motionCancelled( void )
-        {
-        }
-#endif
-
         /*-----------------------------------------------------------------------------
           | Extends pointerPressed to inject mouse press into tray manager, and to check
           | for thumbnail clicks, just because we can.
@@ -806,23 +757,6 @@ namespace OgreBites
           -----------------------------------------------------------------------------*/
         virtual NativeWindowPair createWindow(const Ogre::String& name, uint32_t w, uint32_t h, Ogre::NameValuePairList miscParams)
         {
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-            // Make sure Trays are not tiny -  we cannot easily scale the UI, therefore just reduce resolution
-            float contentScaling = AConfiguration_getDensity(mAConfig)/float(ACONFIGURATION_DENSITY_HIGH);
-            if(contentScaling > 1.0)
-            {
-                miscParams["contentScalingFactor"] = std::to_string(contentScaling);
-                miscParams["FSAA"] = "2";
-            }
-#endif
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-            mGestureView = [[SampleBrowserGestureView alloc] init];
-            mGestureView.mBrowser = this;
-
-            [[[UIApplication sharedApplication] keyWindow] addSubview:mGestureView];
-#endif
-
             return ApplicationContext::createWindow(name, w, h, miscParams);
         }
 
@@ -833,9 +767,7 @@ namespace OgreBites
           -----------------------------------------------------------------------------*/
         virtual void loadResources()
         {
-#if OGRE_PLATFORM != OGRE_PLATFORM_APPLE
             Ogre::OverlayManager::getSingleton().setPixelRatio(getDisplayDPI()/96);
-#endif
 
             Ogre::ResourceGroupManager::getSingleton().initialiseResourceGroup("Essential");
             mTrayMgr = new TrayManager("BrowserControls", getRenderWindow(), this);
@@ -871,12 +803,8 @@ namespace OgreBites
             }
 #else
             Ogre::ConfigFile cfg;
-#   if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-            Ogre::Archive* apk = Ogre::ArchiveManager::getSingleton().load("", "APKFileSystem", true);
-            cfg.load(apk->open(mFSLayer->getConfigFilePath("samples.cfg")));
-#   else
+
             cfg.load(mFSLayer->getConfigFilePath("samples.cfg"));
-#   endif
 
             Ogre::String sampleDir = cfg.getSetting("SampleFolder");        // Mac OS X just uses Resources/ directory
             sampleList = cfg.getMultiSetting("SamplePlugin");
@@ -884,19 +812,13 @@ namespace OgreBites
 
             sampleDir = Ogre::FileSystemLayer::resolveBundlePath(sampleDir);
 
-#   if OGRE_PLATFORM != OGRE_PLATFORM_APPLE && OGRE_PLATFORM != OGRE_PLATFORM_APPLE_IOS
             if (sampleDir.empty()) sampleDir = ".";   // user didn't specify plugins folder, try current one
-#   endif
 
             // add slash or backslash based on platform
             char lastChar = sampleDir[sampleDir.length() - 1];
             if (lastChar != '/' && lastChar != '\\')
             {
-#   if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || (OGRE_PLATFORM == OGRE_PLATFORM_WINRT)
-                sampleDir += "\\";
-#   elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
                 sampleDir += "/";
-#   endif
             }
 #endif
 
@@ -991,21 +913,15 @@ namespace OgreBites
             mTrayMgr->createSeparator(TL_RIGHT, "LogoSep");
             mTrayMgr->createButton(TL_RIGHT, "StartStop", "Start Sample", 120);
 
-#if (OGRE_PLATFORM != OGRE_PLATFORM_WINRT) && (OGRE_PLATFORM != OGRE_PLATFORM_ANDROID)
             mTrayMgr->createButton(TL_RIGHT, "UnloadReload", mLoadedSamples.empty() ? "Reload Samples" : "Unload Samples");
-#endif
-#if (OGRE_PLATFORM != OGRE_PLATFORM_WINRT)
+
             mTrayMgr->createButton(TL_RIGHT, "Configure", "Configure");
-#endif
-#if (OGRE_PLATFORM != OGRE_PLATFORM_ANDROID)
+
             mTrayMgr->createButton(TL_RIGHT, "Quit", "Quit");
-#endif
 
             // create sample viewing controls
             float infoWidth = 250;
-#if (OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS) || (OGRE_PLATFORM == OGRE_PLATFORM_ANDROID)
-            infoWidth *= 0.9;
-#endif
+
             mTitleLabel = mTrayMgr->createLabel(TL_LEFT, "SampleTitle", "");
             mDescBox = mTrayMgr->createTextBox(TL_LEFT, "SampleInfo", "Sample Info", infoWidth, 208);
             mCategoryMenu = mTrayMgr->createThickSelectMenu(TL_LEFT, "CategoryMenu", "Select Category", infoWidth, 10);
@@ -1115,9 +1031,6 @@ namespace OgreBites
           -----------------------------------------------------------------------------*/
         virtual void shutdown()
         {
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-            [mGestureView release];
-#endif
             if (mTrayMgr)
             {
                 delete mTrayMgr;
@@ -1196,9 +1109,6 @@ namespace OgreBites
         int mLastSampleIndex;                          // index of last sample running
         int mStartSampleIndex;                         // directly starts the sample with the given index
     public:
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-        SampleBrowserGestureView *mGestureView;
-#endif
         bool mIsShuttingDown;
         bool mGrabInput;
     };

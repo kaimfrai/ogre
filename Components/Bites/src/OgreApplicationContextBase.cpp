@@ -69,21 +69,10 @@ void ApplicationContextBase::initApp()
     createRoot();
     if (!oneTimeConfig()) return;
 
-#if OGRE_PLATFORM != OGRE_PLATFORM_ANDROID
     // if the context was reconfigured, set requested renderer
     if (!mFirstRun) mRoot->setRenderSystem(mRoot->getRenderSystemByName(mNextRenderer));
-#endif
 
     setup();
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    mRoot->saveConfig();
-
-    Ogre::Root::getSingleton().getRenderSystem()->_initRenderTargets();
-
-    // Clear event times
-    Ogre::Root::getSingleton().clearEventTimes();
-#endif
 }
 
 void ApplicationContextBase::closeApp()
@@ -91,9 +80,8 @@ void ApplicationContextBase::closeApp()
     shutdown();
     if (mRoot)
     {
-#if OGRE_PLATFORM != OGRE_PLATFORM_ANDROID
         mRoot->saveConfig();
-#endif
+
         OGRE_DELETE mRoot;
         mRoot = NULL;
     }
@@ -131,13 +119,8 @@ void ApplicationContextBase::setRTSSWriteShadersToDisk(bool write)
     }
 
     // Set shader cache path.
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    auto subdir = "";
-#elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-    auto subdir = "org.ogre3d.RTShaderCache/";
-#else
     auto subdir = "RTShaderCache";
-#endif
+
     auto path = mFSLayer->getWritablePath(subdir);
     if (!Ogre::FileSystemLayer::fileExists(path))
     {
@@ -188,26 +171,13 @@ void ApplicationContextBase::setup()
 
 void ApplicationContextBase::createRoot()
 {
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    mRoot = OGRE_NEW Ogre::Root("");
-#else
     Ogre::String pluginsPath;
-#   ifndef OGRE_BITES_STATIC_PLUGINS
-    pluginsPath = mFSLayer->getConfigFilePath("plugins.cfg");
-
-    if (!Ogre::FileSystemLayer::fileExists(pluginsPath))
-    {
-        pluginsPath = Ogre::FileSystemLayer::resolveBundlePath(OGRE_CONFIG_DIR "/plugins.cfg");
-    }
-#   endif
 
     mRoot = OGRE_NEW Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogre.cfg"),
                                 mFSLayer->getWritablePath("ogre.log"));
-#endif
 
-#ifdef OGRE_BITES_STATIC_PLUGINS
     mStaticPluginLoader.load();
-#endif
+
     mOverlaySystem = OGRE_NEW Ogre::OverlaySystem();
 }
 
@@ -219,13 +189,9 @@ bool ApplicationContextBase::oneTimeConfig()
         return false;
     }
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    mRoot->setRenderSystem(mRoot->getAvailableRenderers().front());
-#else
     if (!mRoot->restoreConfig()) {
         return mRoot->showConfigDialog(OgreBites::getNativeConfigDialog());
     }
-#endif
     return true;
 }
 
@@ -349,23 +315,12 @@ void ApplicationContextBase::destroyWindow(const Ogre::String& name)
 
 void ApplicationContextBase::_destroyWindow(const NativeWindowPair& win)
 {
-#if !OGRE_BITES_HAVE_SDL
-    // remove window event listener before destroying it
-    WindowEventUtilities::_removeRenderWindow(win.render);
-#endif
     mRoot->destroyRenderTarget(win.render);
 }
 
 void ApplicationContextBase::_fireInputEvent(const Event& event, uint32_t windowID) const
 {
     Event scaled = event;
-    if (OGRE_PLATFORM == OGRE_PLATFORM_APPLE && event.type == MOUSEMOTION)
-    {
-        // assumes all windows have the same scale
-        float viewScale = getRenderWindow()->getViewPointToPixelScale();
-        scaled.motion.x *= viewScale;
-        scaled.motion.y *= viewScale;
-    }
 
     for(InputListenerList::iterator it = mInputListeners.begin();
             it != mInputListeners.end(); ++it)
@@ -433,12 +388,8 @@ void ApplicationContextBase::locateResources()
     // load resource paths from config file
     Ogre::ConfigFile cf;
     Ogre::String resourcesPath = mFSLayer->getConfigFilePath("resources.cfg");
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    Ogre::Archive* apk = Ogre::ArchiveManager::getSingleton().load("", "APKFileSystem", true);
-    cf.load(apk->open(resourcesPath));
-#else
 
-    if (Ogre::FileSystemLayer::fileExists(resourcesPath) || OGRE_PLATFORM == OGRE_PLATFORM_EMSCRIPTEN)
+    if (Ogre::FileSystemLayer::fileExists(resourcesPath))
     {
         Ogre::LogManager::getSingleton().logMessage("Parsing '"+resourcesPath+"'");
         cf.load(resourcesPath);
@@ -447,8 +398,6 @@ void ApplicationContextBase::locateResources()
     {
         rgm.addResourceLocation(getDefaultMediaDir(), "FileSystem", Ogre::RGN_DEFAULT);
     }
-
-#endif
 
     Ogre::String sec, type, arch;
     // go through all specified resource groups
@@ -475,13 +424,11 @@ void ApplicationContextBase::locateResources()
 
             arch = Ogre::FileSystemLayer::resolveBundlePath(arch);
 
-#if OGRE_PLATFORM != OGRE_PLATFORM_EMSCRIPTEN
             if((type == "Zip" || type == "FileSystem") && !Ogre::FileSystemLayer::fileExists(arch))
             {
                 Ogre::LogManager::getSingleton().logWarning("resource location '"+arch+"' does not exist - skipping");
                 continue;
             }
-#endif
 
             rgm.addResourceLocation(arch, type, sec);
         }
@@ -516,27 +463,8 @@ void ApplicationContextBase::reconfigure(const Ogre::String &renderer, Ogre::Nam
     for (Ogre::NameValuePairList::iterator it = options.begin(); it != options.end(); it++)
     {
         rs->setConfigOption(it->first, it->second);
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-        // Change the viewport orientation on the fly if requested
-        if(it->first == "Orientation")
-        {
-            Ogre::RenderWindow* win = getRenderWindow();
-
-            if (it->second == "Landscape Left")
-                win->getViewport(0)->setOrientationMode(Ogre::OR_LANDSCAPELEFT, true);
-            else if (it->second == "Landscape Right")
-                win->getViewport(0)->setOrientationMode(Ogre::OR_LANDSCAPERIGHT, true);
-            else if (it->second == "Portrait")
-                win->getViewport(0)->setOrientationMode(Ogre::OR_PORTRAIT, true);
-        }
-#endif
     }
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    // Need to save the config on iOS to make sure that changes are kept on disk
-    mRoot->saveConfig();
-#endif
     mRoot->queueEndRendering();   // break from render loop
 }
 

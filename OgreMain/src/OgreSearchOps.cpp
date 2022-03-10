@@ -36,9 +36,6 @@ THE SOFTWARE.
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-/* Win32 directory operations emulation */
-#if OGRE_PLATFORM != OGRE_PLATFORM_WIN32 && OGRE_PLATFORM != OGRE_PLATFORM_WINRT
     
 struct _find_search_t
 {
@@ -160,5 +157,3 @@ int _findclose(intptr_t id)
 
     return ret;
 }
-
-#endif

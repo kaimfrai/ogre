@@ -76,23 +76,14 @@ NativeWindowPair ApplicationContextSDL::createWindow(const Ogre::String& name, O
         SDL_CreateWindow(p.name.c_str(), SDL_WINDOWPOS_UNDEFINED_DISPLAY(d),
                          SDL_WINDOWPOS_UNDEFINED_DISPLAY(d), p.width, p.height, flags);
 
-#if OGRE_PLATFORM != OGRE_PLATFORM_EMSCRIPTEN
     SDL_SysWMinfo wmInfo;
     SDL_VERSION(&wmInfo.version);
     SDL_GetWindowWMInfo(ret.native, &wmInfo);
-#endif
 
     // for tiny rendersystem
     p.miscParams["sdlwin"] = Ogre::StringConverter::toString(size_t(ret.native));
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
     p.miscParams["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.x11.window));
-#elif OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-    p.miscParams["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
-#elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-    assert(wmInfo.subsystem == SDL_SYSWM_COCOA);
-    p.miscParams["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.cocoa.window));
-#endif
 
     if(!mWindows.empty())
     {
@@ -117,12 +108,8 @@ void ApplicationContextSDL::setWindowGrab(NativeWindowType* win, bool _grab)
     SDL_bool grab = SDL_bool(_grab);
 
     SDL_SetWindowGrab(win, grab);
-#if OGRE_PLATFORM != OGRE_PLATFORM_APPLE
     // osx workaround: mouse motion events are gone otherwise
     SDL_SetRelativeMouseMode(grab);
-#else
-    SDL_ShowCursor(!grab);
-#endif
 }
 
 float ApplicationContextSDL::getDisplayDPI() const

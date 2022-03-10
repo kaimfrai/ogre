@@ -32,14 +32,6 @@
 #include "OgreBuildSettings.h"
 #include "OgreApplicationContextBase.h"
 
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-#include <android/configuration.h>
-#include <android/asset_manager.h>
-#include <android/native_window.h>
-#include <android/input.h>
-#endif
-
 #include "OgreInput.h"
 
 namespace OgreBites
@@ -50,8 +42,6 @@ namespace OgreBites
     /** \addtogroup Bites
     *  @{
     */
-
-#if OGRE_BITES_HAVE_SDL
     class _OgreBitesExport ApplicationContextSDL : public ApplicationContextBase
     {
     protected:
@@ -75,32 +65,7 @@ namespace OgreBites
     };
 
     typedef ApplicationContextSDL ApplicationContext;
-#elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    class _OgreBitesExport ApplicationContextAndroid : public ApplicationContextBase
-    {
-    public:
-        explicit ApplicationContextAndroid(const Ogre::String& appName = "Ogre3D");
 
-        void initAppForAndroid(AAssetManager* assetMgr, ANativeWindow* window);
-        void _fireInputEventAndroid(AInputEvent* event, int wheel = 0);
-
-        virtual void locateResources();
-        virtual void shutdown();
-        void pollEvents();
-
-        virtual NativeWindowPair
-        createWindow(const Ogre::String& name, uint32_t w = 0, uint32_t h = 0,
-                     Ogre::NameValuePairList miscParams = Ogre::NameValuePairList());
-
-    protected:
-        AAssetManager* mAAssetMgr;
-        AConfiguration* mAConfig;
-    };
-
-    typedef ApplicationContextAndroid ApplicationContext;
-#else
-    typedef ApplicationContextBase ApplicationContext;
-#endif
     /** @} */
     /** @} */
 }

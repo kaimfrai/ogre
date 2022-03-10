@@ -34,9 +34,6 @@ THE SOFTWARE.
 
 #include "OgrePlatform.h"
 
-
-#if OGRE_PLATFORM != OGRE_PLATFORM_WIN32 && OGRE_PLATFORM != OGRE_PLATFORM_WINRT
-
 #include <unistd.h>
 
 /* Our simplified data entry structure */
@@ -52,7 +49,7 @@ struct _finddata_t
 #define _A_HIDDEN 0x02  /* Hidden file */
 #define _A_SYSTEM 0x04  /* System file */
 #define _A_ARCH   0x20  /* Archive file */
-#endif
+
 #define _A_SUBDIR 0x10  /* Subdirectory */
 
 intptr_t _findfirst(const char *pattern, struct _finddata_t *data);

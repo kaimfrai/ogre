@@ -34,13 +34,10 @@ THE SOFTWARE.
 #include "OgrePlatform.h"
 
 namespace Ogre {
-class Log;
+    class Log;
 /* Define whether or not Ogre compiled with SSE support.
 */
-#if   OGRE_DOUBLE_PRECISION == 0 && OGRE_CPU == OGRE_CPU_X86 && OGRE_COMPILER == OGRE_COMPILER_MSVC
-#   define __OGRE_HAVE_SSE  1
-#elif OGRE_DOUBLE_PRECISION == 0 && OGRE_CPU == OGRE_CPU_X86 && (OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG) && \
-      OGRE_PLATFORM != OGRE_PLATFORM_APPLE_IOS
+#if OGRE_DOUBLE_PRECISION == 0 && OGRE_CPU == OGRE_CPU_X86
 #   define __OGRE_HAVE_SSE  1
 #endif
 

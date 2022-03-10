@@ -46,10 +46,6 @@ namespace Ogre {
     // Limit max number of macro arguments to this
 #define MAX_MACRO_ARGS 16
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 && !defined( __MINGW32__ )
-#define snprintf _snprintf
-#endif
-
     /// Return closest power of two not smaller than given number
     static size_t ClosestPow2 (size_t x)
     {

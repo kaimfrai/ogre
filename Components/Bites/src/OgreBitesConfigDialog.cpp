@@ -9,16 +9,11 @@
 #include "OgrePlatform.h"
 
 namespace Ogre {
-class ConfigDialog;
+    class ConfigDialog;
 }  // namespace Ogre
 
 namespace OgreBites {
     Ogre::ConfigDialog* getNativeConfigDialog() {
-#if defined(HAVE_XAW) || (OGRE_PLATFORM == OGRE_PLATFORM_WIN32 && !defined(__MINGW32__)) || OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-        static ConfigDialog dialog;
-        return &dialog;
-#else
         return NULL;
-#endif
     }
 } /* namespace OgreBites */

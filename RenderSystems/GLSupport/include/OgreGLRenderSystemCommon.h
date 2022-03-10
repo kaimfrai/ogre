@@ -160,11 +160,6 @@ namespace Ogre {
         void unregisterThread();
         void preExtraThreadsStarted();
         void postExtraThreadsStarted();
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID || OGRE_PLATFORM == OGRE_PLATFORM_EMSCRIPTEN
-        virtual void resetRenderer(RenderWindow* pRenderWnd) = 0;
-        virtual void notifyOnContextLost() = 0;
-#endif
     };
 }
 

@@ -33,13 +33,6 @@ THE SOFTWARE.
 
 /* Initial platform/compiler-related stuff to set.
 */
-#define OGRE_PLATFORM_WIN32 1
-#define OGRE_PLATFORM_LINUX 2
-#define OGRE_PLATFORM_APPLE 3
-#define OGRE_PLATFORM_APPLE_IOS 4
-#define OGRE_PLATFORM_ANDROID 5
-#define OGRE_PLATFORM_WINRT 7
-#define OGRE_PLATFORM_EMSCRIPTEN 8
     
 #define OGRE_COMPILER_MSVC 1
 #define OGRE_COMPILER_GNUC 2
@@ -136,43 +129,6 @@ THE SOFTWARE.
 #	define OGRE_NORETURN
 #endif
 
-/* Finds the current platform */
-#if (defined( __WIN32__ ) || defined( _WIN32 )) && !defined(__ANDROID__)
-#   include <sdkddkver.h>
-#   if defined(WINAPI_FAMILY)
-#       include <winapifamily.h>
-#       if WINAPI_FAMILY == WINAPI_FAMILY_APP|| WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-#           define OGRE_PLATFORM OGRE_PLATFORM_WINRT
-#       else
-#           define OGRE_PLATFORM OGRE_PLATFORM_WIN32
-#       endif
-#   else
-#       define OGRE_PLATFORM OGRE_PLATFORM_WIN32
-#   endif
-#   define __OGRE_WINRT_STORE     (OGRE_PLATFORM == OGRE_PLATFORM_WINRT && WINAPI_FAMILY == WINAPI_FAMILY_APP)        // WindowsStore 8.0 and 8.1
-#   define __OGRE_WINRT_PHONE     (OGRE_PLATFORM == OGRE_PLATFORM_WINRT && WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)  // WindowsPhone 8.0 and 8.1
-#   define __OGRE_WINRT_PHONE_80  (OGRE_PLATFORM == OGRE_PLATFORM_WINRT && WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP && _WIN32_WINNT <= _WIN32_WINNT_WIN8) // Windows Phone 8.0 often need special handling, while 8.1 is OK
-#   ifndef _CRT_SECURE_NO_WARNINGS
-#       define _CRT_SECURE_NO_WARNINGS
-#   endif
-#   ifndef _SCL_SECURE_NO_WARNINGS
-#       define _SCL_SECURE_NO_WARNINGS
-#   endif
-#elif defined(__EMSCRIPTEN__)
-#   define OGRE_PLATFORM OGRE_PLATFORM_EMSCRIPTEN
-#elif defined( __APPLE_CC__)
-#   include "Availability.h"
-#   ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
-#       define OGRE_PLATFORM OGRE_PLATFORM_APPLE_IOS
-#   else
-#       define OGRE_PLATFORM OGRE_PLATFORM_APPLE
-#   endif
-#elif defined(__ANDROID__)
-#   define OGRE_PLATFORM OGRE_PLATFORM_ANDROID
-#else
-#   define OGRE_PLATFORM OGRE_PLATFORM_LINUX
-#endif
-
 /* Find the arch type */
 #if defined(__LP64__) || defined(_WIN64)
 #   define OGRE_ARCH_TYPE OGRE_ARCHITECTURE_64
@@ -203,33 +159,6 @@ THE SOFTWARE.
 #define OGRE_QUOTE(x) OGRE_QUOTE_INPLACE(x)
 #define OGRE_WARN( x )  message( __FILE__ "(" QUOTE( __LINE__ ) ") : " x "\n" )
 
-//----------------------------------------------------------------------------
-// Windows Settings
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT
-
-// on windows we override OgreBuildSettings.h for convenience
-// see https://bitbucket.org/sinbad/ogre/pull-requests/728
-#ifdef OGRE_DEBUG_MODE
-#undef OGRE_DEBUG_MODE
-#endif
-
-// Win32 compilers use _DEBUG for specifying debug builds.
-// for MinGW, we use NDEBUG
-#   if defined(_DEBUG) || (defined(__MINGW32__) && !defined(NDEBUG))
-#       define OGRE_DEBUG_MODE 1
-#   else
-#       define OGRE_DEBUG_MODE 0
-#   endif
-
-#endif // OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT
-
-//----------------------------------------------------------------------------
-// Android Settings
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-#   ifndef CLOCKS_PER_SEC
-#       define CLOCKS_PER_SEC  1000
-#   endif
-#endif
 
 //----------------------------------------------------------------------------
 // Endian Settings
@@ -240,23 +169,14 @@ THE SOFTWARE.
 #    define OGRE_ENDIAN OGRE_ENDIAN_LITTLE
 #endif
 
-//----------------------------------------------------------------------------
-// Set the default locale for strings
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-//  Locales are not supported by the C lib you have to go through JNI.
-#   define OGRE_DEFAULT_LOCALE ""
-#else
-#   define OGRE_DEFAULT_LOCALE "C"
-#endif
+
+#define OGRE_DEFAULT_LOCALE "C"
 
 //----------------------------------------------------------------------------
 // Library suffixes
 // "_d" for debug builds, nothing otherwise
-#if OGRE_DEBUG_MODE && OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-#   define OGRE_BUILD_SUFFIX "_d"
-#else
-#   define OGRE_BUILD_SUFFIX ""
-#endif
+
+#define OGRE_BUILD_SUFFIX ""
 
 #if OGRE_COMPILER == OGRE_COMPILER_MSVC
 #define DECL_MALLOC __declspec(restrict) __declspec(noalias)

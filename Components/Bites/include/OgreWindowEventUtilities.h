@@ -36,10 +36,6 @@ namespace Ogre {
     class RenderWindow;
 }  // namespace Ogre
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-#include <wtypes.h>
-#endif
-
 namespace OgreBites
 {
     /** \addtogroup Optional
@@ -155,12 +151,6 @@ namespace OgreBites
             The RenderWindow to remove from list
         */
         static void _removeRenderWindow(Ogre::RenderWindow* window);
-
-        // backwards compatibility
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-        //! Internal winProc (RenderWindow's use this when creating the Win32 Window)
-        static LRESULT CALLBACK _WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-#endif
     };
     /** @} */
     /** @} */

@@ -93,6 +93,8 @@ if (NOT OGRE_CONFIG_ENABLE_QUAD_BUFFER_STEREO)
 endif()
 if(SDL2_FOUND OR EMSCRIPTEN)
     set(OGRE_BITES_HAVE_SDL 1)
+else()
+  message(FATAL_ERROR "SDL2 required for minimized subset!")
 endif()
 
 # determine if strtol_l is supported
