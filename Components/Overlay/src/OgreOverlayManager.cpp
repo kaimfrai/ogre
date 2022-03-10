@@ -224,16 +224,11 @@ class RenderQueue;
         RenderQueue* pQueue, Viewport* vp)
     {
         bool orientationModeChanged = false;
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
-        orientationModeChanged = (mLastViewportOrientationMode != vp->getOrientationMode());
-#endif
+
         // Flag for update pixel-based GUIElements if viewport has changed dimensions
         if (mLastViewportWidth != int(vp->getActualWidth() / mPixelRatio) ||
             mLastViewportHeight != int(vp->getActualHeight() / mPixelRatio) || orientationModeChanged)
         {
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
-            mLastViewportOrientationMode = vp->getOrientationMode();
-#endif
             mLastViewportWidth = int(vp->getActualWidth() / mPixelRatio);
             mLastViewportHeight = int(vp->getActualHeight() / mPixelRatio);
         }
@@ -243,13 +238,6 @@ class RenderQueue;
         for (i = mOverlayMap.begin(); i != iend; ++i)
         {
             Overlay* o = i->second;
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
-            if (orientationModeChanged)
-            {
-                // trick to trigger transform update of the overlay
-                o->scroll(0.f, 0.f);
-            }
-#endif
             o->_findVisibleObjects(cam, pQueue, vp);
         }
     }
@@ -271,11 +259,8 @@ class RenderQueue;
     //---------------------------------------------------------------------
     OrientationMode OverlayManager::getViewportOrientationMode(void) const
     {
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE != 0
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Getting ViewPort orientation mode is not supported");
-#endif
-        return mLastViewportOrientationMode;
     }
     //---------------------------------------------------------------------
     float OverlayManager::getPixelRatio(void) const
