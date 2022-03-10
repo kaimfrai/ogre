@@ -222,45 +222,6 @@ class Sphere;
         /// Returns all the attenuation params as (range, constant, linear, quadratic)
         const Vector4f& getAttenuation() const { return mAttenuation; }
 
-#ifdef OGRE_NODELESS_POSITIONING
-        /** Sets the position of the light.
-        @remarks
-            Applicable to point lights and spotlights only.
-        @note
-            This will be overridden if the light is attached to a SceneNode.
-        @deprecated attach to SceneNode and use SceneNode::setPosition
-        */
-        OGRE_DEPRECATED void setPosition(Real x, Real y, Real z);
-
-        /// @overload
-        /// @deprecated attach to SceneNode and use SceneNode::setPosition
-        OGRE_DEPRECATED void setPosition(const Vector3& vec);
-
-        /** Returns the position of the light.
-        @note
-            Applicable to point lights and spotlights only.
-        @deprecated attach to SceneNode and use SceneNode::getPosition
-        */
-        OGRE_DEPRECATED const Vector3& getPosition(void) const;
-
-        /// @deprecated attach to SceneNode and use SceneNode::setDirection
-        OGRE_DEPRECATED void setDirection(Real x, Real y, Real z);
-
-        /// @overload
-        /// @deprecated attach to SceneNode and use SceneNode::setDirection
-        OGRE_DEPRECATED void setDirection(const Vector3& vec);
-
-        /**
-        @deprecated attach to SceneNode and use SceneNode::getLocalAxes
-        */
-        OGRE_DEPRECATED const Vector3& getDirection(void) const;
-
-        /** @copydoc MovableObject::_notifyAttached */
-        void _notifyAttached(Node* parent, bool isTagPoint = false);
-
-        /** @copydoc MovableObject::_notifyMoved */
-        void _notifyMoved(void);
-#endif
         /** Sets the range of a spotlight, i.e. the angle of the inner and outer cones
             and the rate of falloff between them.
         @param innerAngle
@@ -338,9 +299,6 @@ class Sphere;
         /** Retrieves the position of the light including any transform from nodes it is attached to. 
         @param cameraRelativeIfSet If set to true, returns data in camera-relative units if that's been set up (render use)
         */
-#ifdef OGRE_NODELESS_POSITIONING
-        const Vector3& getDerivedPosition(bool cameraRelativeIfSet = false) const;
-#else
         Vector3 getDerivedPosition(bool cameraRelativeIfSet = false) const
         {
             assert(mParentNode && "Light must be attached to a SceneNode");
@@ -349,18 +307,13 @@ class Sphere;
                 ret -= mCameraToBeRelativeTo->getDerivedPosition();
             return ret;
         }
-#endif
 
         /** Retrieves the direction of the light including any transform from nodes it is attached to. */
-#ifdef OGRE_NODELESS_POSITIONING
-        const Vector3& getDerivedDirection(void) const;
-#else
         Vector3 getDerivedDirection(void) const
         {
             assert(mParentNode && "Light must be attached to a SceneNode");
             return -mParentNode->_getDerivedOrientation().zAxis();
         }
-#endif
 
         /** @copydoc MovableObject::setVisible
         @remarks
@@ -577,20 +530,6 @@ class Sphere;
         bool isInLightRange(const Ogre::AxisAlignedBox& container) const;
     
     private:
-#ifdef OGRE_NODELESS_POSITIONING
-        Vector3 mPosition;
-        Vector3 mDirection;
-        mutable Vector3 mDerivedPosition;
-        mutable Vector3 mDerivedDirection;
-        // Slightly hacky but unless we separate observed light render state from main Light...
-        mutable Vector3 mDerivedCamRelativePosition;
-        mutable bool mDerivedCamRelativeDirty;
-        /// Is the derived transform dirty?
-        mutable bool mDerivedTransformDirty;
-
-        /// Internal method for synchronising with parent node (if any)
-        virtual void update(void) const;
-#endif
         ColourValue mDiffuse;
         ColourValue mSpecular;
 

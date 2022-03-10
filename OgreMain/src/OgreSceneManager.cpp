@@ -1274,12 +1274,6 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
             {
                 (*atsni)->_autoTrack();
             }
-#ifdef OGRE_NODELESS_POSITIONING
-            // Auto-track camera if required
-            OGRE_IGNORE_DEPRECATED_BEGIN
-            camera->_autoTrack();
-            OGRE_IGNORE_DEPRECATED_END
-#endif
         }
 
         if (mIlluminationStage != IRS_RENDER_TO_TEXTURE && mFindVisibleObjects)
