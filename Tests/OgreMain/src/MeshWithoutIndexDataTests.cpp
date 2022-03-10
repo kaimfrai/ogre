@@ -53,13 +53,8 @@ THE SOFTWARE.
 #include "OgreVertexIndexData.h"
 
 namespace Ogre {
-class InvalidParametersException;
+    class InvalidParametersException;
 }  // namespace Ogre
-
-#ifdef OGRE_BUILD_COMPONENT_MESHLODGENERATOR
-#include "OgreLodConfig.h"
-#include "OgreMeshLodGenerator.h"
-#endif
 
 // Register the test suite
 
@@ -467,42 +462,3 @@ TEST_F(MeshWithoutIndexDataTests,BuildTangentVectors)
     mMeshMgr->remove(fileName, "General");
 }
 //--------------------------------------------------------------------------
-TEST_F(MeshWithoutIndexDataTests,GenerateLodLevels)
-{
-#ifdef OGRE_BUILD_COMPONENT_MESHLODGENERATOR
-    String fileName = "testGenerateLodLevels.mesh";
-    createMeshWithMaterial(fileName);
-    MeshPtr mesh = mMeshMgr->getByName(fileName, "General");
-
-    LodConfig lodConfig(mesh);
-    lodConfig.createGeneratedLodLevel(600, 2, LodLevel::VRM_CONSTANT);
-    MeshLodGenerator().generateLodLevels(lodConfig);
-    // It may be less then 2, when two levels have the same vertex count it will be optimized out and lodLevel.outSkipped=true
-    EXPECT_TRUE(mesh->getNumLodLevels() == 2);
-    for (ushort i = 0; i < mesh->getNumSubMeshes(); ++i)
-    {
-        SubMesh* subMesh = mesh->getSubMesh(i);
-        for (ushort j = 0; j < mesh->getNumLodLevels() - 1; ++j)
-        {
-            if (subMesh->indexData->indexCount > 0)
-            {
-                // This may not be true for all meshes, but in this test we don't have reduced to 0.
-                EXPECT_TRUE(subMesh->mLodFaceList[j]->indexCount > 0);
-            }
-            else
-            {
-                // Should be 3 because of the dummy triangle being generated
-                EXPECT_TRUE(subMesh->mLodFaceList[j]->indexCount == 3);
-            }
-        }
-    }
-
-    MeshSerializer meshWriter;
-    meshWriter.exportMesh(mesh.get(), fileName);
-
-    remove(fileName.c_str());
-
-    mMeshMgr->remove(fileName, "General");
-#endif
-}
-//--------------------------------------------------------------------------//--------------------------------------------------------------------------

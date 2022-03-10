@@ -88,9 +88,8 @@ protected:
     Ogre::Camera* mCamera;      // main camera
     TrayManager* mTrayMgr;      // tray interface manager
     ParamsPanel* mDetailsPanel; // sample details panel
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
+
     Ogre::RTShader::ShaderGenerator* mShaderGenerator;
-#endif
 };
 /** @} */
 /** @} */

@@ -75,14 +75,12 @@ THE SOFTWARE.
 #include "OgreDepthBuffer.h"
 #include "OgreComponents.h"
 
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
 #include "OgreRTShaderConfig.h"
-#endif
 
 namespace Ogre {
-class Camera;
-class RenderWindow;
-class Viewport;
+    class Camera;
+    class RenderWindow;
+    class Viewport;
 
     RenderSystem::Listener* RenderSystem::msSharedEventListener = 0;
 

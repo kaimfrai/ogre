@@ -85,11 +85,6 @@ THE SOFTWARE.
 #include "OgreXMLMeshSerializer.h"
 #endif
 
-#ifdef OGRE_BUILD_COMPONENT_MESHLODGENERATOR
-#include "OgreMeshLodGenerator.h"
-#include "OgreLodConfig.h"
-#endif
-
 // Register the test suite
 
 //--------------------------------------------------------------------------
@@ -149,12 +144,6 @@ void MeshSerializerTests::SetUp()
     }
 
     mMesh->reload();
-
-#ifdef OGRE_BUILD_COMPONENT_MESHLODGENERATOR
-    {
-        MeshLodGenerator().generateAutoconfiguredLodLevels(mMesh);
-    }
-#endif /* ifdef OGRE_BUILD_COMPONENT_MESHLODGENERATOR */
 
     mOrigMesh = mMesh->clone(mMesh->getName() + ".orig.mesh", mMesh->getGroup());
 }

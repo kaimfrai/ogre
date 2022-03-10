@@ -583,9 +583,8 @@ namespace Ogre
             {
                 ObjectAbstractNode *obj = (ObjectAbstractNode*)(*i).get();
 
-#ifdef OGRE_BUILD_COMPONENT_OVERLAY
                 bool isOverlayElement = obj->cls == "overlay_element";
-#endif
+
                 // Overlay base classes in order.
                 for (String& base : obj->bases)
                 {
@@ -603,7 +602,6 @@ namespace Ogre
 
                         auto src = static_cast<const ObjectAbstractNode&>(*n);
 
-#ifdef OGRE_BUILD_COMPONENT_OVERLAY
                         // uses custom inheritance for renaming children
                         if(isOverlayElement)
                         {
@@ -612,7 +610,6 @@ namespace Ogre
                             else
                                 continue;
                         }
-#endif
                         overlayObject(src, *obj);
                     }
                 }
