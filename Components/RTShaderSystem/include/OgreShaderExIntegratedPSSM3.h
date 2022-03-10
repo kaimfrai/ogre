@@ -29,7 +29,6 @@ THE SOFTWARE.
 #define _ShaderExIntegratedPSSM3_
 
 #include "OgreShaderPrerequisites.h"
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #include "OgreCommon.h"
 #include "OgreShaderSubRenderState.h"
 
@@ -226,6 +225,5 @@ protected:
 }
 }
 
-#endif
 #endif
 

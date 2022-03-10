@@ -25,7 +25,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreShaderPrecompiledHeaders.h"
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 #define SGX_FUNC_TRIPLANAR_TEXTURING "SGX_TriplanarTexturing"
 
@@ -276,5 +275,3 @@ namespace RTShader {
 
 }
 }
-
-#endif

@@ -28,7 +28,6 @@ THE SOFTWARE.
 #define _ShaderExNormalMapLighting_
 
 #include "OgreShaderPrerequisites.h"
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #include "OgreShaderExPerPixelLighting.h"
 #include "OgreLight.h"
 #include "OgreCommon.h"
@@ -200,5 +199,3 @@ protected:
 }
 
 #endif
-#endif
-

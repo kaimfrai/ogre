@@ -198,9 +198,7 @@ bool ShaderGenerator::_initialize()
     mProgramManager.reset(new ProgramManager);
 
     // Allocate and initialize FFP render state builder.
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
     mFFPRenderStateBuilder.reset(new FFPRenderStateBuilder);
-#endif
 
     // Create extensions factories.
     createBuiltinSRSFactories();
@@ -226,7 +224,7 @@ void ShaderGenerator::createBuiltinSRSFactories()
 {
     OGRE_LOCK_AUTO_MUTEX;
     SubRenderStateFactory* curFactory;
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
+
     curFactory = OGRE_NEW FFPTransformFactory;
     ShaderGenerator::getSingleton().addSubRenderStateFactory(curFactory);
     mBuiltinSRSFactories.push_back(curFactory);
@@ -250,8 +248,7 @@ void ShaderGenerator::createBuiltinSRSFactories()
     curFactory = OGRE_NEW FFPAlphaTestFactory;
     ShaderGenerator::getSingleton().addSubRenderStateFactory(curFactory);
     mBuiltinSRSFactories.push_back(curFactory);
-#endif
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
+
     // check if we are running an old shader level in d3d11
     bool d3d11AndLowProfile = ( (GpuProgramManager::getSingleton().isSyntaxSupported("vs_4_0_level_9_1") ||
         GpuProgramManager::getSingleton().isSyntaxSupported("vs_4_0_level_9_3"))
@@ -294,7 +291,6 @@ void ShaderGenerator::createBuiltinSRSFactories()
     curFactory = OGRE_NEW WBOITFactory;
     addSubRenderStateFactory(curFactory);
     mBuiltinSRSFactories.push_back(curFactory);
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -340,9 +336,7 @@ void ShaderGenerator::_destroy()
     // Destroy extensions factories.
     destroyBuiltinSRSFactories();
 
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
     mFFPRenderStateBuilder.reset();
-#endif
 
     mProgramManager.reset();
     mProgramWriterManager.reset();
@@ -1484,10 +1478,8 @@ void ShaderGenerator::SGPass::buildTargetRenderState()
         targetRenderState->link(*renderStateGlobal, mSrcPass, mDstPass);
     }
 
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
     // Build the FFP state.
     FFPRenderStateBuilder::buildRenderState(this, targetRenderState.get());
-#endif
 
     targetRenderState->acquirePrograms(mDstPass);
     mDstPass->getUserObjectBindings().setUserAny(TargetRenderState::UserKey, targetRenderState);

@@ -29,7 +29,6 @@ THE SOFTWARE.
 
 #include "OgreShaderPrerequisites.h"
 
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #include "OgreShaderSubRenderState.h"
 
 #define HS_MAX_WEIGHT_COUNT 4
@@ -331,5 +330,3 @@ protected:
 }
 
 #endif
-#endif
-

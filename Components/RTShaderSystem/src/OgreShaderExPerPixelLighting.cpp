@@ -25,7 +25,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreShaderPrecompiledHeaders.h"
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 namespace Ogre {
 namespace RTShader {
@@ -367,5 +366,3 @@ SubRenderState* PerPixelLightingFactory::createInstanceImpl()
 
 }
 }
-
-#endif

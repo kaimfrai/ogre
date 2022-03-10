@@ -27,8 +27,6 @@ THE SOFTWARE.
 
 #include "OgreShaderPrecompiledHeaders.h"
 
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
-
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 
 namespace Ogre {
@@ -116,7 +114,3 @@ void HardwareSkinningTechnique::copyFrom(const HardwareSkinningTechnique* hardSk
 
 }
 }
-
-#endif
-
-

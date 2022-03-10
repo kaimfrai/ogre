@@ -28,7 +28,6 @@ THE SOFTWARE.
 #define _ShaderFFPTextureStage_
 
 #include "OgreShaderPrerequisites.h"
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 #include "OgreShaderSubRenderState.h"
 #include "OgreRenderSystem.h"
 
@@ -269,6 +268,5 @@ protected:
 }
 }
 
-#endif
 #endif
 

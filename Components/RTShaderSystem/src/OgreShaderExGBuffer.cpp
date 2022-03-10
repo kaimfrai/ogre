@@ -25,7 +25,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreShaderPrecompiledHeaders.h"
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 
 namespace Ogre
 {
@@ -266,5 +265,3 @@ SubRenderState* GBufferFactory::createInstanceImpl() { return OGRE_NEW GBuffer; 
 
 } // namespace RTShader
 } // namespace Ogre
-
-#endif

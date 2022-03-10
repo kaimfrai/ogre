@@ -28,7 +28,6 @@ THE SOFTWARE.
 #define _ShaderExTriplanarTexturing_
 
 #include "OgreShaderPrerequisites.h"
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #include "OgreShaderSubRenderState.h"
 
 namespace Ogre {
@@ -215,5 +214,4 @@ protected:
 }
 }
 
-#endif
 #endif

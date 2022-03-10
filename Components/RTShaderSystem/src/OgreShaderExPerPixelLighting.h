@@ -28,7 +28,6 @@ THE SOFTWARE.
 #define _ShaderExPerPixelLighting_
 
 #include "OgreShaderPrerequisites.h"
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #include "OgreShaderFFPLighting.h"
 #include "OgreLight.h"
 #include "OgreCommon.h"
@@ -147,5 +146,3 @@ protected:
 }
 
 #endif
-#endif
-

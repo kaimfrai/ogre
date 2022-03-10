@@ -6,7 +6,6 @@
 #define _ShaderCookTorranceLighting_
 
 #include "OgreShaderPrerequisites.h"
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 #include "OgreShaderExPerPixelLighting.h"
 #include "OgreLight.h"
 #include "OgreCommon.h"
@@ -74,5 +73,4 @@ protected:
 } // namespace RTShader
 } // namespace Ogre
 
-#endif
 #endif

@@ -3,7 +3,6 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
 #include "OgreShaderPrecompiledHeaders.h"
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 namespace Ogre
 {
@@ -223,5 +222,3 @@ SubRenderState* CookTorranceLightingFactory::createInstanceImpl() { return OGRE_
 
 } // namespace RTShader
 } // namespace Ogre
-
-#endif

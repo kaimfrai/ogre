@@ -29,7 +29,6 @@ THE SOFTWARE.
 #define _OgreShaderExLayeredBlending_
 
 #include "OgreShaderPrerequisites.h"
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #include "OgreShaderFFPTexturing.h"
 #include "OgreShaderSubRenderState.h"
 
@@ -252,5 +251,4 @@ protected:
 } // namespace RTShader
 } // namespace Ogre
 
-#endif // RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #endif // _OgreShaderExLayeredBlending_

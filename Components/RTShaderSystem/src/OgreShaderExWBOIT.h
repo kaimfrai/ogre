@@ -6,7 +6,6 @@
 #define _ShaderWBOIT_
 
 #include "OgreShaderPrerequisites.h"
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 #include "OgreShaderParameter.h"
 #include "OgreShaderSubRenderState.h"
 
@@ -60,5 +59,4 @@ protected:
 } // namespace RTShader
 } // namespace Ogre
 
-#endif
 #endif

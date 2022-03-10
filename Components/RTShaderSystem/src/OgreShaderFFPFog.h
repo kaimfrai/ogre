@@ -28,7 +28,6 @@ THE SOFTWARE.
 #define _ShaderFFPFog_
 
 #include "OgreShaderPrerequisites.h"
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 #include "OgreShaderSubRenderState.h"
 #include "OgreVector.h"
 
@@ -183,5 +182,3 @@ protected:
 }
 
 #endif
-#endif
-

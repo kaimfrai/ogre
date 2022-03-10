@@ -28,7 +28,6 @@ THE SOFTWARE.
 #define _ShaderFFPColur_
 
 #include "OgreShaderPrerequisites.h"
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 #include "OgreShaderSubRenderState.h"
 
 namespace Ogre {
@@ -177,5 +176,4 @@ protected:
 }
 }
 
-#endif
 #endif

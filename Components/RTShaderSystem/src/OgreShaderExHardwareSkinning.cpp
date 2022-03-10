@@ -26,8 +26,6 @@ THE SOFTWARE.
 */
 #include "OgreShaderPrecompiledHeaders.h"
 
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
-
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 
 
@@ -548,7 +546,3 @@ bool HardwareSkinningFactory::imprintSkeletonData(const MaterialPtr& pMaterial, 
 
 }
 }
-
-#endif
-
-

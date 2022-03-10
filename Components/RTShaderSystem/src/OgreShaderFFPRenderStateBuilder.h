@@ -28,7 +28,6 @@ THE SOFTWARE.
 #define _ShaderFFPRenderStateBuilder_
 
 #include "OgreShaderPrerequisites.h"
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 #include "OgreShaderGenerator.h"
 
 namespace Ogre {
@@ -66,5 +65,4 @@ public:
 }
 }
 
-#endif
 #endif

@@ -28,7 +28,6 @@ THE SOFTWARE.
 #define _ShaderFFPLighting_
 
 #include "OgreShaderPrerequisites.h"
-#if defined(RTSHADER_SYSTEM_BUILD_CORE_SHADERS) || defined(RTSHADER_SYSTEM_BUILD_EXT_SHADERS)
 #include "OgreShaderSubRenderState.h"
 #include "OgreLight.h"
 #include "OgreCommon.h"
@@ -272,5 +271,4 @@ protected:
 }
 }
 
-#endif
 #endif

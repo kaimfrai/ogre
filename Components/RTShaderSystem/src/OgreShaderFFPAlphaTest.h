@@ -29,7 +29,6 @@ THE SOFTWARE.
 #define _OgreShaderExAlphaTest_
 
 #include "OgreShaderPrerequisites.h"
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 #include "OgreShaderFFPTexturing.h"
 #include "OgreShaderSubRenderState.h"
 
@@ -120,5 +119,4 @@ protected:
 } // namespace RTShader
 } // namespace Ogre
 
-#endif
 #endif

@@ -25,7 +25,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreShaderPrecompiledHeaders.h"
-#if defined(RTSHADER_SYSTEM_BUILD_CORE_SHADERS) || defined(RTSHADER_SYSTEM_BUILD_EXT_SHADERS)
 namespace Ogre {
 namespace RTShader {
 
@@ -573,5 +572,3 @@ SubRenderState*	FFPLightingFactory::createInstanceImpl()
 
 }
 }
-
-#endif

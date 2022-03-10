@@ -29,7 +29,6 @@ THE SOFTWARE.
 
 #include "OgreShaderPrerequisites.h"
 
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #include "OgreShaderFunctionAtom.h"
 
 namespace Ogre {
@@ -150,5 +149,3 @@ protected:
 }
 
 #endif
-#endif
-

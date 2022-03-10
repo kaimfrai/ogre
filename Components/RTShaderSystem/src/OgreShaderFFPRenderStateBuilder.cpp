@@ -25,7 +25,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreShaderPrecompiledHeaders.h"
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 
 namespace Ogre {
 
@@ -39,11 +38,9 @@ void FFPRenderStateBuilder::buildRenderState(ShaderGenerator::SGPass* sgPass, Ta
     RenderState ffpTemplate;
     ffpTemplate.addTemplateSubRenderState(sg.createSubRenderState(FFPTransform::Type));
     ffpTemplate.addTemplateSubRenderState(sg.createSubRenderState(FFPColour::Type));
-#ifndef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
-    ffpTemplate.addTemplateSubRenderState(sg.createSubRenderState(FFPLighting::Type));
-#else
+
     ffpTemplate.addTemplateSubRenderState(sg.createSubRenderState(PerPixelLighting::Type));
-#endif
+
     ffpTemplate.addTemplateSubRenderState(sg.createSubRenderState(FFPTexturing::Type));
     ffpTemplate.addTemplateSubRenderState(sg.createSubRenderState(FFPFog::Type));
     ffpTemplate.addTemplateSubRenderState(sg.createSubRenderState(FFPAlphaTest::Type));
@@ -52,5 +49,3 @@ void FFPRenderStateBuilder::buildRenderState(ShaderGenerator::SGPass* sgPass, Ta
 }
 }
 }
-
-#endif
