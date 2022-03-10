@@ -509,5 +509,4 @@ class Viewport;
 
 } // Namespace
 
-
 #endif

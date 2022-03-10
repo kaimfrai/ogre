@@ -211,9 +211,7 @@ void Sample_NewInstancing::setupContent()
 
     setupGUI();
 
-#if OGRE_PLATFORM != OGRE_PLATFORM_APPLE_IOS
     setDragLook(true);
-#endif
 
     switchInstancingTechnique();
 }

@@ -356,5 +356,4 @@ class TextureUnitState;
 
 }
 
-
 #endif

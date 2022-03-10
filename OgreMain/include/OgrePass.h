@@ -1600,5 +1600,4 @@ class Technique;
 
 }
 
-
 #endif

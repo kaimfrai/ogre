@@ -24,11 +24,7 @@ namespace Ogre
     void _OgreExport MurmurHash3_x64_128 ( const void * key, size_t len, uint32_t seed, void * out );
 
     inline void MurmurHash3_128( const void * key, size_t len, uint32_t seed, void * out ) {
-#if OGRE_ARCH_TYPE == OGRE_ARCHITECTURE_64
         MurmurHash3_x64_128(key, len, seed, out);
-#else
-        MurmurHash3_x86_128(key, len, seed, out);
-#endif
     }
 }
 

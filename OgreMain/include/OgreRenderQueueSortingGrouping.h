@@ -43,10 +43,10 @@ THE SOFTWARE.
 #include "OgrePlatform.h"
 
 namespace Ogre {
-class Camera;
-class RenderQueueGroup;
-class Renderable;
-class Technique;
+    class Camera;
+    class RenderQueueGroup;
+    class Renderable;
+    class Technique;
 
     /** \addtogroup Core
     *  @{
@@ -642,7 +642,4 @@ class Technique;
 
 }
 
-
 #endif
-
-

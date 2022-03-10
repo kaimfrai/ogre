@@ -589,5 +589,4 @@ class VertexMorphKeyFrame;
     /** @} */
 }
 
-
 #endif

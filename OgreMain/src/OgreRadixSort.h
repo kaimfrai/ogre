@@ -225,11 +225,7 @@ namespace Ogre {
 
         inline unsigned char getByte(int byteIndex, TCompValueType val)
         {
-#if OGRE_ENDIAN == OGRE_ENDIAN_LITTLE
             return ((unsigned char*)(&val))[byteIndex];
-#else
-            return ((unsigned char*)(&val))[mNumPasses - byteIndex - 1];
-#endif
         }
 
     public:

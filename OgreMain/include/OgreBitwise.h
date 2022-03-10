@@ -57,44 +57,19 @@ namespace Ogre {
         */
         static OGRE_FORCE_INLINE uint16 bswap16(uint16 arg)
         {
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC && OGRE_COMP_VER >= 1310
-            return _byteswap_ushort(arg);
-#elif (OGRE_COMPILER == OGRE_COMPILER_CLANG && __has_builtin(__builtin_bswap16)) || (OGRE_COMPILER == OGRE_COMPILER_GNUC && OGRE_COMP_VER >= 480)
             return __builtin_bswap16(arg);
-#else
-            return ((arg << 8) & 0xFF00) | ((arg >> 8) & 0x00FF);
-#endif
         }
         /** Returns value with reversed bytes order.
         */
         static OGRE_FORCE_INLINE uint32 bswap32(uint32 arg)
         {
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC && OGRE_COMP_VER >= 1310
-            return _byteswap_ulong(arg);
-#elif (OGRE_COMPILER == OGRE_COMPILER_CLANG && __has_builtin(__builtin_bswap32)) || (OGRE_COMPILER == OGRE_COMPILER_GNUC && OGRE_COMP_VER >= 430)
             return __builtin_bswap32(arg);
-#else
-            return ((arg & 0x000000FF) << 24) | ((arg & 0x0000FF00) << 8) | ((arg >> 8) & 0x0000FF00) | ((arg >> 24) & 0x000000FF);
-#endif
         }
         /** Returns value with reversed bytes order.
         */
         static OGRE_FORCE_INLINE uint64 bswap64(uint64 arg)
         {
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC && OGRE_COMP_VER >= 1310
-            return _byteswap_uint64(arg);
-#elif (OGRE_COMPILER == OGRE_COMPILER_CLANG && __has_builtin(__builtin_bswap64)) || (OGRE_COMPILER == OGRE_COMPILER_GNUC && OGRE_COMP_VER >= 430)
             return __builtin_bswap64(arg);
-#else
-            union { 
-                uint64 sv;
-                uint32 ul[2];
-            } tmp, result;
-            tmp.sv = arg;
-            result.ul[0] = bswap32(tmp.ul[1]);
-            result.ul[1] = bswap32(tmp.ul[0]);
-            return result.sv; 
-#endif
         }
 
         /** Reverses byte order of buffer. Use bswap16/32/64 instead if possible.
@@ -262,15 +237,9 @@ namespace Ogre {
                     ((uint16*)dest)[0] = (uint16)value;
                     break;
                 case 3:
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG      
-                    ((uint8*)dest)[0] = (uint8)((value >> 16) & 0xFF);
-                    ((uint8*)dest)[1] = (uint8)((value >> 8) & 0xFF);
-                    ((uint8*)dest)[2] = (uint8)(value & 0xFF);
-#else
                     ((uint8*)dest)[2] = (uint8)((value >> 16) & 0xFF);
                     ((uint8*)dest)[1] = (uint8)((value >> 8) & 0xFF);
                     ((uint8*)dest)[0] = (uint8)(value & 0xFF);
-#endif
                     break;
                 case 4:
                     ((uint32*)dest)[0] = (uint32)value;                
@@ -287,15 +256,10 @@ namespace Ogre {
                 case 2:
                     return ((const uint16*)src)[0];
                 case 3:
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG      
-                    return ((uint32)((const uint8*)src)[0]<<16)|
-                            ((uint32)((const uint8*)src)[1]<<8)|
-                            ((uint32)((const uint8*)src)[2]);
-#else
+
                     return ((uint32)((const uint8*)src)[0])|
                             ((uint32)((const uint8*)src)[1]<<8)|
                             ((uint32)((const uint8*)src)[2]<<16);
-#endif
                 case 4:
                     return ((const uint32*)src)[0];
             } 

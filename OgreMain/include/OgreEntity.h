@@ -901,5 +901,4 @@ class VertexData;
 
 } // namespace Ogre
 
-
 #endif // __Entity_H__

@@ -194,5 +194,4 @@ class Mesh;
     /** @} */
 }
 
-
 #endif

@@ -241,5 +241,4 @@ class VertexDeclaration;
 
 } // namespace
 
-
 #endif

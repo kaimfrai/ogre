@@ -430,5 +430,4 @@ class RenderTarget;
 
 }
 
-
 #endif

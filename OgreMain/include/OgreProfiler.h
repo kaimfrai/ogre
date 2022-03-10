@@ -485,5 +485,4 @@ class Timer;
 
 } // end namespace
 
-
 #endif

@@ -40,8 +40,8 @@ THE SOFTWARE.
 
 namespace Ogre {
     template <typename T> class VectorIterator;
-class CompositionTargetPass;
-class Compositor;
+    class CompositionTargetPass;
+    class Compositor;
 
     /** \addtogroup Core
     *  @{
@@ -199,6 +199,5 @@ class Compositor;
     /** @} */
 
 }
-
 
 #endif

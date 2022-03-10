@@ -254,6 +254,4 @@ class Viewport;
 
 }
 
-
 #endif
-

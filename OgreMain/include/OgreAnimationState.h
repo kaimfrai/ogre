@@ -330,6 +330,4 @@ class AnimationStateSet;
     /** @} */
 }
 
-
 #endif
-

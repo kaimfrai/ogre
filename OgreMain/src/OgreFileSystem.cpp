@@ -43,23 +43,7 @@ THE SOFTWARE.
 #include "OgreStringVector.h"
 #include "Threading/OgreThreadHeaders.h"
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX || OGRE_PLATFORM == OGRE_PLATFORM_APPLE || \
-    OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS || \
-    OGRE_PLATFORM == OGRE_PLATFORM_ANDROID || \
-    OGRE_PLATFORM == OGRE_PLATFORM_EMSCRIPTEN
-#   include "OgreSearchOps.h"
-#endif
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT
-#  define WIN32_LEAN_AND_MEAN
-#  if !defined(NOMINMAX) && defined(_MSC_VER)
-#   define NOMINMAX // required to stop windows.h messing up std::min
-#  endif
-#  include <windows.h>
-#  include <direct.h>
-#  include <io.h>
-//#  define _OGRE_FILESYSTEM_ARCHIVE_UNICODE // base path and resources subpathes expected to be in UTF-8 and wchar_t file IO routines are used
-#endif
+#include "OgreSearchOps.h"
 
 namespace Ogre {
 
@@ -143,12 +127,7 @@ namespace {
     //-----------------------------------------------------------------------
     bool FileSystemArchive::isCaseSensitive(void) const
     {
-        #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT
-            return false;
-        #else
-            return true;
-        #endif
-
+        return true;
     }
     //-----------------------------------------------------------------------
 #ifdef _OGRE_FILESYSTEM_ARCHIVE_UNICODE
@@ -162,10 +141,6 @@ namespace {
     //-----------------------------------------------------------------------
     static bool is_absolute_path(const char* path)
     {
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT
-        if (isalpha(uchar(path[0])) && path[1] == ':')
-            return true;
-#endif
         return path[0] == '/' || path[0] == '\\';
     }
     //-----------------------------------------------------------------------
@@ -529,15 +504,9 @@ namespace {
         if (ret && is_absolute_path(filename.c_str()))
         {
             // only valid if full path starts with our base
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT
-            // case insensitive on windows
-            String lowerCaseName = mName;
-            StringUtil::toLowerCase(lowerCaseName);
-            ret = Ogre::StringUtil::startsWith(full_path, lowerCaseName, true);
-#else
+
             // case sensitive
             ret = Ogre::StringUtil::startsWith(full_path, mName, false);
-#endif
         }
 
         return ret;

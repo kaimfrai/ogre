@@ -405,6 +405,4 @@ class Sphere;
     /** @} */
 }
 
-
 #endif
-

@@ -1864,5 +1864,4 @@ template <int dims, typename T> class Vector;
     /** @} */
 }
 
-
 #endif

@@ -41,13 +41,13 @@ THE SOFTWARE.
 #include "OgreSharedPtr.h"
 
 namespace Ogre {
-class Any;
-class Camera;
-class Matrix4;
-class RenderOperation;
-class RenderSystem;
-class SceneManager;
-class Technique;
+    class Any;
+    class Camera;
+    class Matrix4;
+    class RenderOperation;
+    class RenderSystem;
+    class SceneManager;
+    class Technique;
 
     /** \addtogroup Core
     *  @{

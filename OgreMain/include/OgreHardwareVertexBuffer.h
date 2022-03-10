@@ -576,6 +576,4 @@ namespace Ogre {
 
 }
 
-
 #endif
-

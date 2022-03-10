@@ -177,6 +177,4 @@ class RenderQueue;
 
 } // namespace Ogre
 
-
 #endif // __BillboardParticleRenderer_H__
-

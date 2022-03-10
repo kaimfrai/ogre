@@ -423,5 +423,4 @@ class CompositionTargetPass;
 
 }
 
-
 #endif

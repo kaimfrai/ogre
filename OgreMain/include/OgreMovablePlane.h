@@ -100,5 +100,4 @@ class RenderQueue;
     /** @} */
 }
 
-
 #endif

@@ -145,5 +145,4 @@ class RenderTarget;
     };
 }
 
-
 #endif

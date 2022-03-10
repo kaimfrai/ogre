@@ -642,6 +642,5 @@ class Sphere;
     /** @} */
     /** @} */
 
-
 } // namespace Ogre
 #endif // _LIGHT_H__

@@ -130,5 +130,4 @@ class MovableObject;
 
 } // namespace
 
-
 #endif

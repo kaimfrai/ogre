@@ -856,5 +856,4 @@ class RenderWindow;
     /** @} */
 }
 
-
 #endif

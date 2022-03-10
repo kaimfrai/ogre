@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreExports.h"
 #include "OgreMath.h"
 
-
 namespace Ogre {
 
 
@@ -526,7 +525,6 @@ namespace Ogre {
     /** @} */
 
 }
-
 
 #endif
 

@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreVector.h"
 #include "OgreExports.h"
 
-
 namespace Ogre
 {
 
@@ -150,6 +149,5 @@ namespace Ogre
     /** @} */
 
 }
-
 
 #endif

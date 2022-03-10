@@ -559,6 +559,5 @@ class SceneManager;
     /** @} */
 
 }
-    
 
 #endif

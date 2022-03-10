@@ -313,5 +313,4 @@ class Viewport;
 
 } // namespace Ogre
 
-
 #endif // __ShadowCameraSetupFocused_H__

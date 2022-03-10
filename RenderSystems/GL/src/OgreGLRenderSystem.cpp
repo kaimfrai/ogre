@@ -98,10 +98,6 @@ class HardwareOcclusionQuery;
 class ResourceManager;
 }  // namespace Ogre
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-extern "C" void glFlushRenderAPPLE();
-#endif
-
 // Convenience macro from ARB_vertex_buffer_object spec
 #define VBO_BUFFER_OFFSET(i) ((char *)(i))
 
@@ -2838,10 +2834,6 @@ namespace Ogre {
         // It's ready for switching
         if (mCurrentContext!=context)
         {
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-            // NSGLContext::makeCurrentContext does not flush automatically. everybody else does.
-            glFlushRenderAPPLE();
-#endif
             mCurrentContext->endCurrent();
             mCurrentContext = context;
         }

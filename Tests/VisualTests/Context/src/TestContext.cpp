@@ -61,11 +61,6 @@ THE SOFTWARE.
 #include "Sample.h"
 #include "TestBatch.h"
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif
-
 #include "VTestPlugin.h"
 #include "PlayPenTestPlugin.h"
 
@@ -125,20 +120,7 @@ void TestContext::setup()
     mRoot->initialise(false, "OGRE Sample Browser");
 
     // Standard setup.
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    CGSize modeSize = [[UIScreen mainScreen] currentMode].size;
-    uint w = modeSize.width / [UIScreen mainScreen].scale;
-    uint h = modeSize.height / [UIScreen mainScreen].scale;
 
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-
-    if (UIInterfaceOrientationIsPortrait(orientation))
-        std::swap(w, h);
-
-
-    miscParams["retainedBacking"] = StringConverter::toString(true);
-    mWindow = mRoot->createRenderWindow("OGRE Sample Browser", w, h, true, &miscParams);
-#else
     Ogre::ConfigOptionMap ropts = mRoot->getRenderSystem()->getConfigOptions();
 
     size_t w, h;
@@ -153,7 +135,6 @@ void TestContext::setup()
     miscParams["vsync"] = ropts["VSync"].currentValue;
 
     mWindow = mRoot->createRenderWindow("OGRE Sample Browser", w, h, false, &miscParams);
-#endif
 
     mWindow->setDeactivateOnFocusChange(false);
     
@@ -345,9 +326,7 @@ void TestContext::runSample(OgreBites::Sample* sampleToRun)
 void TestContext::createRoot()
 {
     // note that we use a separate config file here
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    mRoot = Ogre::Root::getSingletonPtr();
-#else
+
     Ogre::String pluginsPath = Ogre::BLANKSTRING;
 #ifndef OGRE_STATIC_LIB
     pluginsPath = mFSLayer->getConfigFilePath("plugins.cfg");
@@ -355,7 +334,6 @@ void TestContext::createRoot()
     // we use separate config and log files for the tests
     mRoot = OGRE_NEW Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogretests.cfg"),
                                 mFSLayer->getWritablePath("ogretests.log"));
-#endif
 
 #ifdef OGRE_STATIC_LIB
     mStaticPluginLoader.load();
@@ -566,21 +544,8 @@ void TestContext::setTimestep(Ogre::Real timestep)
     mTimestep = timestep >= 0.f ? timestep : mTimestep;
 }
 
-// main, platform-specific stuff is copied from SampleBrowser and not guaranteed to work...
-
-// since getting commandline args out of WinMain isn't pretty, just use plain main for now...
-//#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-//INT WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
-//#else
 int main(int argc, char *argv[])
-//#endif
 {
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    int retVal = UIApplicationMain(argc, argv, @"UIApplication", @"AppDelegate");
-    [pool release];
-    return retVal;
-#else
     TestContext tc(argc, argv);
 
     try
@@ -589,15 +554,11 @@ int main(int argc, char *argv[])
     }
     catch (Ogre::Exception& e)
     {
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-        MessageBoxA(NULL, e.getFullDescription().c_str(), "An exception has occurred!", MB_ICONERROR | MB_TASKMODAL);
-#else
+
         std::cerr << "An exception has occurred: " << e.getFullDescription().c_str() << std::endl;
 
         return -1;
-#endif
     }
 
     return !tc.wasSuccessful();
-#endif
 }

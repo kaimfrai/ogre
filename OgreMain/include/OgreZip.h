@@ -94,26 +94,9 @@ class Archive;
 
     };
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    class APKZipArchiveFactory : public EmbeddedZipArchiveFactory
-    {
-        std::map<String, AAsset*> mOpenAssets;
-    private:
-        AAssetManager* mAssetMgr;
-    public:
-        APKZipArchiveFactory(AAssetManager* assetMgr) : mAssetMgr(assetMgr) {}
-        virtual ~APKZipArchiveFactory() {}
-
-        const String& getType(void) const override;
-        Archive *createInstance( const String& name, bool readOnly ) override;
-        void destroyInstance( Archive* ptr) override;
-    };
-#endif
-
     /** @} */
     /** @} */
 
 }
-
 
 #endif

@@ -39,8 +39,8 @@ THE SOFTWARE.
 
 namespace Ogre
 {    
-class HardwarePixelBuffer;
-struct Box;
+    class HardwarePixelBuffer;
+    struct Box;
 
     /** \addtogroup Core
     *  @{
@@ -130,6 +130,5 @@ struct Box;
     /** @} */
     /** @} */
 }
-
 
 #endif

@@ -659,5 +659,4 @@ class Sphere;
 
 } // namespace Ogre
 
-
 #endif // __Frustum_H__

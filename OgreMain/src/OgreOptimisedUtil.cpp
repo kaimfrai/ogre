@@ -35,7 +35,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     // External functions
     extern OptimisedUtil* _getOptimisedUtilGeneral(void);
-#if __OGRE_HAVE_SSE || __OGRE_HAVE_NEON
+#if __OGRE_HAVE_SSE
     extern OptimisedUtil* _getOptimisedUtilSSE(void);
 #endif
 
@@ -48,7 +48,7 @@ namespace Ogre {
         enum
         {
             IMPL_DEFAULT,
-#if __OGRE_HAVE_SSE || __OGRE_HAVE_NEON
+#if __OGRE_HAVE_SSE
             IMPL_SSE,
 #endif
             IMPL_COUNT
@@ -92,7 +92,7 @@ namespace Ogre {
         OptimisedUtilProfiler(void)
         {
             mOptimisedUtils.push_back(_getOptimisedUtilGeneral());
-#if __OGRE_HAVE_SSE || __OGRE_HAVE_NEON
+#if __OGRE_HAVE_SSE
             //if (PlatformInformation::getCpuFeatures() & PlatformInformation::CPU_FEATURE_SSE)
             {
                 mOptimisedUtils.push_back(_getOptimisedUtilSSE());
@@ -370,12 +370,6 @@ namespace Ogre {
 
 #if __OGRE_HAVE_SSE
         if (PlatformInformation::getCpuFeatures() & PlatformInformation::CPU_FEATURE_SSE)
-        {
-            return _getOptimisedUtilSSE();
-        }
-        else
-#elif __OGRE_HAVE_NEON
-        if (PlatformInformation::getCpuFeatures() & PlatformInformation::CPU_FEATURE_NEON)
         {
             return _getOptimisedUtilSSE();
         }

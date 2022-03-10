@@ -247,5 +247,4 @@ template <typename T> class Controller;
 
 }
 
-
 #endif

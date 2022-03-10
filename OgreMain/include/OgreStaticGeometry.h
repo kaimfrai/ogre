@@ -774,6 +774,4 @@ class VertexData;
 
 }
 
-
 #endif
-

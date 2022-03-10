@@ -1162,5 +1162,4 @@ private:
 
 } // namespace Ogre
 
-
 #endif // __TextureUnitState_H__

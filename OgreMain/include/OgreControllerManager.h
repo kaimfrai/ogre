@@ -275,5 +275,4 @@ template <typename T> class ControllerValue;
 
 } // namespace Ogre
 
-
 #endif // __ControllerManager_H__

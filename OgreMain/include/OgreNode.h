@@ -689,5 +689,4 @@ class Camera;
 
 } // namespace Ogre
 
-
 #endif // _Node_H__

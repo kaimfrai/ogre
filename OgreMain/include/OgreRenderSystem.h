@@ -1295,5 +1295,4 @@ namespace Ogre
     /** @} */
 }
 
-
 #endif

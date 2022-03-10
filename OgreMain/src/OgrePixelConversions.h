@@ -29,8 +29,6 @@ THE SOFTWARE.
 //using namespace Ogre;
 
 // NB VC6 can't handle these templates
-#if OGRE_COMPILER != OGRE_COMPILER_MSVC || OGRE_COMP_VER >= 1300
-
 #define FMTCONVERTERID(from,to) (((from)<<8)|(to))
 /** \addtogroup Core
 *  @{
@@ -335,11 +333,7 @@ template <int id, unsigned int xshift, unsigned int yshift, unsigned int zshift,
 {
     inline static Ogre::uint32 pixelConvert(const Col3b &inp)
     {
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-        return (0xFF<<ashift) | (((unsigned int)inp.x)<<xshift) | (((unsigned int)inp.y)<<yshift) | (((unsigned int)inp.z)<<zshift);
-#else
         return (0xFF<<ashift) | (((unsigned int)inp.x)<<zshift) | (((unsigned int)inp.y)<<yshift) | (((unsigned int)inp.z)<<xshift);
-#endif
     }
 };
 
@@ -486,5 +480,3 @@ inline int doOptimizedConversion(const Ogre::PixelBox &src, const Ogre::PixelBox
 #undef CASECONVERTER
 /** @} */
 /** @} */
-
-#endif // VC6 protection

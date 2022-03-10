@@ -147,9 +147,7 @@ Button::Button(const Ogre::String &name, const Ogre::DisplayString &caption, Ogr
     mElement = Ogre::OverlayManager::getSingleton().createOverlayElementFromTemplate("SdkTrays/Button", "BorderPanel", name);
     mBP = (Ogre::BorderPanelOverlayElement*)mElement;
     mTextArea = (Ogre::TextAreaOverlayElement*)mBP->getChild(mBP->getName() + "/ButtonCaption");
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    mTextArea->setCharHeight(mTextArea->getCharHeight() - 3);
-#endif
+
     mTextArea->setTop(-(mTextArea->getCharHeight() / 2));
 
     if (width > 0)
@@ -240,10 +238,7 @@ TextBox::TextBox(const Ogre::String &name, const Ogre::DisplayString &caption, O
     mStartingLine = 0;
     mPadding = 15;
     mText = "";
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    mTextArea->setCharHeight(mTextArea->getCharHeight() - 3);
-    mCaptionTextArea->setCharHeight(mCaptionTextArea->getCharHeight() - 3);
-#endif
+
     refitContents();
 }
 
@@ -423,10 +418,6 @@ SelectMenu::SelectMenu(const Ogre::String &name, const Ogre::DisplayString &capt
     mSmallBox->setWidth(width - 10);
     mSmallTextArea = (Ogre::TextAreaOverlayElement*)mSmallBox->getChild(name + "/MenuSmallBox/MenuSmallText");
     mElement->setWidth(width);
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    mTextArea->setCharHeight(mTextArea->getCharHeight() - 3);
-    mSmallTextArea->setCharHeight(mSmallTextArea->getCharHeight() - 3);
-#endif
 
     if (boxWidth > 0)  // long style
     {
@@ -789,9 +780,7 @@ Label::Label(const Ogre::String &name, const Ogre::DisplayString &caption, Ogre:
 {
     mElement = Ogre::OverlayManager::getSingleton().createOverlayElementFromTemplate("SdkTrays/Label", "BorderPanel", name);
     mTextArea = (Ogre::TextAreaOverlayElement*)((Ogre::OverlayContainer*)mElement)->getChild(getName() + "/LabelCaption");
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    mTextArea->setCharHeight(mTextArea->getCharHeight() - 3);
-#endif
+
     setCaption(caption);
     if (width <= 0) mFitToTray = true;
     else
@@ -837,10 +826,6 @@ Slider::Slider(const Ogre::String &name, const Ogre::DisplayString &caption, Ogr
     mValueTextArea = (Ogre::TextAreaOverlayElement*)valueBox->getChild(valueBox->getName() + "/SliderValueText");
     mTrack = (Ogre::BorderPanelOverlayElement*)c->getChild(getName() + "/SliderTrack");
     mHandle = (Ogre::PanelOverlayElement*)mTrack->getChild(mTrack->getName() + "/SliderHandle");
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    mTextArea->setCharHeight(mTextArea->getCharHeight() - 3);
-    mValueTextArea->setCharHeight(mValueTextArea->getCharHeight() - 3);
-#endif
 
     if (trackWidth <= 0)  // tall style
     {
@@ -960,10 +945,7 @@ ParamsPanel::ParamsPanel(const Ogre::String &name, Ogre::Real width, unsigned in
     Ogre::OverlayContainer* c = (Ogre::OverlayContainer*)mElement;
     mNamesArea = (Ogre::TextAreaOverlayElement*)c->getChild(getName() + "/ParamsPanelNames");
     mValuesArea = (Ogre::TextAreaOverlayElement*)c->getChild(getName() + "/ParamsPanelValues");
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    mNamesArea->setCharHeight(mNamesArea->getCharHeight() - 3);
-    mValuesArea->setCharHeight(mValuesArea->getCharHeight() - 3);
-#endif
+
     mElement->setWidth(width);
     mElement->setHeight(mNamesArea->getTop() * 2 + lines * mNamesArea->getCharHeight());
 }
@@ -1064,9 +1046,7 @@ CheckBox::CheckBox(const Ogre::String &name, const Ogre::DisplayString &caption,
     mX = mSquare->getChild(mSquare->getName() + "/CheckBoxX");
     mX->hide();
     mElement->setWidth(width);
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    mTextArea->setCharHeight(mTextArea->getCharHeight() - 3);
-#endif
+
     setCaption(caption);
 }
 
@@ -1303,7 +1283,7 @@ void TrayManager::hideCursor()
 
 void TrayManager::refreshCursor()
 {
-#if (OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0) || (OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS)
+#if (OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0)
     // TODO:
     // the position should be based on the orientation, for now simply return
     return;
@@ -2002,14 +1982,12 @@ void TrayManager::frameRendered(const Ogre::FrameEvent &evt)
 
 void TrayManager::windowUpdate()
 {
-#if OGRE_PLATFORM != OGRE_PLATFORM_APPLE_IOS
     unsigned long currentTime = mTimer->getMilliseconds();
     if (currentTime - mLastStatUpdateTime >= FRAME_UPDATE_DELAY)
     {
         mLastStatUpdateTime = currentTime;
         mWindow->update();
     }
-#endif
 }
 
 void TrayManager::labelHit(Label *label)

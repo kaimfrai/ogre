@@ -683,5 +683,4 @@ class Technique;
 
 } //namespace 
 
-
 #endif

@@ -127,9 +127,7 @@ struct SceneManagerMetaData;
 
         // ordered in reverse destruction sequence
         std::unique_ptr<LogManager> mLogManager;
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-        std::unique_ptr<AndroidLogListener> mAndroidLogger;
-#endif
+
         std::unique_ptr<ScriptCompilerManager> mCompilerManager;
         std::unique_ptr<DynLibManager> mDynLibManager;
         std::unique_ptr<Timer> mTimer;
@@ -975,6 +973,5 @@ struct SceneManagerMetaData;
     /** @} */
     /** @} */
 } // Namespace Ogre
-
 
 #endif

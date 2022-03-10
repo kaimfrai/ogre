@@ -42,9 +42,9 @@ THE SOFTWARE.
 #include "OgrePlatform.h"
 
 namespace Ogre {
-class IndexData;
-class Log;
-class VertexData;
+    class IndexData;
+    class Log;
+    class VertexData;
 
     /** \addtogroup Core
     *  @{
@@ -282,7 +282,6 @@ class VertexData;
     /** @} */
 
 }
-
 
 #endif
 

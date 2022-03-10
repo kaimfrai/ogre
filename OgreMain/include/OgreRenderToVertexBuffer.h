@@ -36,10 +36,10 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include "OgreSharedPtr.h"
 
 namespace Ogre {
-class Renderable;
-class SceneManager;
-class VertexData;
-class VertexDeclaration;
+   class Renderable;
+   class SceneManager;
+   class VertexData;
+   class VertexDeclaration;
 
     /** \addtogroup Core
      *  @{
@@ -153,6 +153,5 @@ class VertexDeclaration;
     /** @} */
     /** @} */
 }
-
 
 #endif

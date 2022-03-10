@@ -287,16 +287,7 @@ namespace Ogre {
         /// Number of pixel formats currently defined
         PF_COUNT,
         // endianess aware aliases
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-        /// @copydoc PF_R8G8B8
-        PF_BYTE_RGB = PF_R8G8B8,
-        /// @copydoc PF_B8G8R8
-        PF_BYTE_BGR = PF_B8G8R8,
-        /// @copydoc PF_B8G8R8A8
-        PF_BYTE_BGRA = PF_B8G8R8A8,
-        /// @copydoc PF_R8G8B8A8
-        PF_BYTE_RGBA = PF_R8G8B8A8,
-#else
+
         /// @copydoc PF_B8G8R8
         PF_BYTE_RGB = PF_B8G8R8,
         /// @copydoc PF_R8G8B8
@@ -305,7 +296,6 @@ namespace Ogre {
         PF_BYTE_BGRA = PF_A8R8G8B8,
         /// @copydoc PF_A8B8G8R8
         PF_BYTE_RGBA = PF_A8B8G8R8,
-#endif
     };
     typedef std::vector<PixelFormat> PixelFormatList;
 
@@ -666,6 +656,5 @@ namespace Ogre {
     /** @} */
 
 }
-
 
 #endif

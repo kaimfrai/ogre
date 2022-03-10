@@ -874,5 +874,4 @@ class Material;
     /** @} */
 }
 
-
 #endif

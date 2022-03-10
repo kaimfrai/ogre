@@ -164,11 +164,10 @@ void ProgramManager::createDefaultProgramProcessors()
     mDefaultProgramProcessors.push_back(OGRE_NEW GLSLProgramProcessor);
     addProgramProcessor("glsles", mDefaultProgramProcessors.back());
     addProgramProcessor("glslang", mDefaultProgramProcessors.back());
-#if OGRE_PLATFORM != OGRE_PLATFORM_ANDROID
+
     addProgramProcessor("glsl", mDefaultProgramProcessors.back());
     mDefaultProgramProcessors.push_back(OGRE_NEW HLSLProgramProcessor);
     addProgramProcessor("hlsl", mDefaultProgramProcessors.back());
-#endif
 }
 
 //-----------------------------------------------------------------------------

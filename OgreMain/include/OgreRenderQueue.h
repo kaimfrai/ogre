@@ -312,5 +312,4 @@ class Technique;
 
 }
 
-
 #endif

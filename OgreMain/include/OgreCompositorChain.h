@@ -259,5 +259,4 @@ class SceneManager;
     /** @} */
 } // namespace Ogre
 
-
 #endif // __CompositorChain_H__

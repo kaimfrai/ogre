@@ -369,5 +369,4 @@ struct GpuNamedConstants;
     /** @} */
 }
 
-
 #endif

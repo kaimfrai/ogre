@@ -202,6 +202,4 @@ class RenderTexture;
     /** @} */
 }
 
-
 #endif
-

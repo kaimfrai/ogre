@@ -89,5 +89,4 @@ class Archive;
 
 } // namespace Ogre
 
-
 #endif // __FileSystem_H__

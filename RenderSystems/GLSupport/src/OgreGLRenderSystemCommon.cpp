@@ -43,10 +43,6 @@ THE SOFTWARE.
 #include "OgreStringConverter.h"
 #include "OgreStringVector.h"
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID || OGRE_PLATFORM == OGRE_PLATFORM_EMSCRIPTEN
-#include "OgreEGLWindow.h"
-#endif
-
 namespace Ogre {
     static void removeDuplicates(std::vector<String>& c)
     {

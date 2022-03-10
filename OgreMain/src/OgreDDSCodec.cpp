@@ -50,11 +50,8 @@ THE SOFTWARE.
 
 namespace Ogre {
     // Internal DDS structure definitions
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-#pragma pack (push, 1)
-#else
-#pragma pack (1)
-#endif
+
+    #pragma pack (1)
 
     // Nested structure
     struct DDSPixelFormat
@@ -130,11 +127,7 @@ namespace Ogre {
         uint8 indexes[6];
     };
     
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-#pragma pack (pop)
-#else
 #pragma pack ()
-#endif
 
 namespace {
     const uint32 DDS_MAGIC = FOURCC('D', 'D', 'S', ' ');

@@ -37,9 +37,6 @@
 #if OGRE_NO_ZIP_ARCHIVE == 0
 
 #include "OgreDeflate.h"
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS || OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-#include "macUtils.h"
-#endif
 
 #define MINIZ_HEADER_FILE_ONLY
 #include <miniz.h>
@@ -161,27 +158,12 @@ namespace Ogre
             if(mTempFileName.empty())
             {
                 // Write to temp file
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT
-                char* tmpname = _tempnam(".", "ogre");
-                if (!tmpname)
-                {
-                    // Having no file name here will cause various problems later.
-                    OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Temporary file name generation failed.", "DeflateStream::init");
-                }
-                else
-                {
-                    mTempFileName = tmpname;
-                    free(tmpname);
-                }
-#elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS || OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-                mTempFileName = macTempFileName();
-#else
+
                 char tmpname[] = "/tmp/ogreXXXXXX";
                 if (mkstemp(tmpname) == -1)
                     OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Temporary file name generation failed.", "DeflateStream::init");
 
                 mTempFileName = tmpname;
-#endif
             }
 
             mTmpWriteStream = _openFileStream(mTempFileName, std::ios::binary | std::ios::out);

@@ -366,6 +366,4 @@ class ParticleSystemRenderer;
 
 }
 
-
 #endif
-

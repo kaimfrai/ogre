@@ -765,15 +765,12 @@ namespace Ogre {
             return;
         }
 
-// NB VC6 can't handle the templates required for optimised conversion, tough
-#if OGRE_COMPILER != OGRE_COMPILER_MSVC || OGRE_COMP_VER >= 1300
         // Is there a specialized, inlined, conversion?
         if(doOptimizedConversion(src, dst))
         {
             // If so, good
             return;
         }
-#endif
 
         const size_t srcPixelSize = PixelUtil::getNumElemBytes(src.format);
         const size_t dstPixelSize = PixelUtil::getNumElemBytes(dst.format);

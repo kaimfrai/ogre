@@ -36,11 +36,9 @@ THE SOFTWARE.
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
-
 namespace Ogre {
-class RenderSystemCapabilities;
-class RenderSystemCapabilitiesSerializer;
-
+    class RenderSystemCapabilities;
+    class RenderSystemCapabilitiesSerializer;
 
     /** \addtogroup Core
     *  @{
@@ -100,6 +98,5 @@ class RenderSystemCapabilitiesSerializer;
     /** @} */
     /** @} */
 }
-
 
 #endif

@@ -189,5 +189,4 @@ class ResourceManager;
     /** @} */
 }
 
-
 #endif

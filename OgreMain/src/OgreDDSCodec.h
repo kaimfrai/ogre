@@ -97,6 +97,4 @@ class ColourValue;
 
 } // namespace
 
-
 #endif
-

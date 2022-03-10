@@ -48,15 +48,6 @@ namespace Ogre {
     typedef shared_ptr<GLTexture> GLTexturePtr;
 }
 
-#if (OGRE_PLATFORM == OGRE_PLATFORM_WIN32)
-#   ifndef WIN32_LEAN_AND_MEAN
-#       define WIN32_LEAN_AND_MEAN 1
-#   endif
-#   ifndef NOMINMAX
-#       define NOMINMAX // required to stop windows.h messing up std::min
-#   endif
-#endif
-
 #include <glad/glad.h>
 
 namespace Ogre {
@@ -79,17 +70,7 @@ namespace Ogre {
     }
 }
 
-#if (OGRE_PLATFORM == OGRE_PLATFORM_WIN32) && !defined(__MINGW32__) && !defined(OGRE_STATIC_LIB)
-#   ifdef OGRE_GLPLUGIN_EXPORTS
-#       define _OgreGLExport __declspec(dllexport)
-#   else
-#       if defined( __MINGW32__ )
-#           define _OgreGLExport
-#       else
-#           define _OgreGLExport __declspec(dllimport)
-#       endif
-#   endif
-#elif defined ( OGRE_GCC_VISIBILITY )
+#if defined ( OGRE_GCC_VISIBILITY )
 #    define _OgreGLExport  __attribute__ ((visibility("default")))
 #else
 #    define _OgreGLExport

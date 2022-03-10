@@ -93,5 +93,4 @@ class DynLib;
     /** @} */
 } // namespace Ogre
 
-
 #endif // __DynLibManager_H__

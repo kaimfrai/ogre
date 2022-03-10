@@ -723,5 +723,4 @@ class Material;
 
 }
 
-
 #endif

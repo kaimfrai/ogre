@@ -499,6 +499,4 @@ class ResourceManager;
 
 }
 
-
 #endif
-

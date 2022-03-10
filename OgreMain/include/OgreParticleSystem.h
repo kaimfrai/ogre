@@ -46,16 +46,15 @@ THE SOFTWARE.
 #include "OgreRenderable.h"
 #include "OgreSharedPtr.h"
 
-
 namespace Ogre {
-class Camera;
-class Node;
-class Particle;
-class ParticleAffector;
-class ParticleEmitter;
-class ParticleSystemRenderer;
-class RenderQueue;
-template <typename T> class Controller;
+    class Camera;
+    class Node;
+    class Particle;
+    class ParticleAffector;
+    class ParticleEmitter;
+    class ParticleSystemRenderer;
+    class RenderQueue;
+    template <typename T> class Controller;
 
     /** \addtogroup Core
     *  @{
@@ -788,6 +787,5 @@ template <typename T> class Controller;
     /** @} */
 
 }
-
 
 #endif

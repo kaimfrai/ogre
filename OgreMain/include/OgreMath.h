@@ -824,5 +824,4 @@ class Sphere;
 
 }
 
-
 #endif

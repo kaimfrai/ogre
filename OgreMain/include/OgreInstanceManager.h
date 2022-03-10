@@ -319,5 +319,4 @@ class SceneManager;
     };
 } // namespace Ogre
 
-
 #endif // __InstanceManager_H__

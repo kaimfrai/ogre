@@ -298,5 +298,4 @@ namespace Ogre {
 
 } // Namespace Ogre
 
-
 #endif

@@ -379,5 +379,4 @@ class Technique;
     };
 } // namespace Ogre
 
-
 #endif // __InstanceBatch_H__

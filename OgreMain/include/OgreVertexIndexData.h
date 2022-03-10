@@ -338,6 +338,4 @@ class HardwareBufferManagerBase;
     /** @} */
 }
 
-
 #endif
-

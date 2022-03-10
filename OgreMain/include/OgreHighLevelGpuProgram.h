@@ -157,5 +157,4 @@ struct GpuNamedConstants;
 
 }
 
-
 #endif

@@ -266,7 +266,4 @@ class VertexData;
 
 } // namespace
 
-
 #endif
-
-

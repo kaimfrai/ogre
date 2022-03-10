@@ -160,5 +160,4 @@ class VertexData;
 
 }
 
-
 #endif

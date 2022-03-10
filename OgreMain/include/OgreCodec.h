@@ -143,5 +143,4 @@ class Any;
 
 } // namespace
 
-
 #endif

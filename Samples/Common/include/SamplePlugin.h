@@ -35,9 +35,7 @@
 #if defined( OGRE_STATIC_LIB )
 #  define _OgreSampleExport
 #else
-#  if (OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT) && !defined(__MINGW32__)
-#    define _OgreSampleExport __declspec(dllexport)
-#  elif defined ( OGRE_GCC_VISIBILITY )
+#  if defined ( OGRE_GCC_VISIBILITY )
 #   define _OgreSampleExport  __attribute__ ((visibility("default")))
 #  else
 #   define _OgreSampleExport

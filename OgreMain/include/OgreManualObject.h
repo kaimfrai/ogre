@@ -738,7 +738,4 @@ class SubMesh;
     /** @} */
 }
 
-
 #endif
-
-

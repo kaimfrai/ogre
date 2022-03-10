@@ -27,13 +27,4 @@
 
 #include <atomic>
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT
-#  undef min
-#  undef max
-#endif
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_EMSCRIPTEN
-#   include <emscripten/emscripten.h>
-#endif
-
 #endif

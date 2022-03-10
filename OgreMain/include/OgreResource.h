@@ -506,5 +506,4 @@ class ResourceManager;
     /** @} */
 }
 
-
 #endif

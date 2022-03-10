@@ -420,6 +420,5 @@ class VertexDeclaration;
     /** @} */
 } // namespace Ogre
 
-
 #endif // __HardwareBufferManager__
 

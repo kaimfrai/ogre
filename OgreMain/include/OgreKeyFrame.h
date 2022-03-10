@@ -260,6 +260,4 @@ class AnimationTrack;
 
 }
 
-
 #endif
-

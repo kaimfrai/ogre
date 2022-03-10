@@ -276,7 +276,6 @@ namespace Ogre
     };
 }
 
-
 #endif
 
 #endif

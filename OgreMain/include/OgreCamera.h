@@ -681,5 +681,4 @@ class Viewport;
 
 } // namespace Ogre
 
-
 #endif // __Camera_H__

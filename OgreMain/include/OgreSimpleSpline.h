@@ -135,7 +135,4 @@ namespace Ogre {
 
 }
 
-
-
 #endif
-

@@ -1026,5 +1026,4 @@ class VertexData;
 
 } // namespace Ogre
 
-
 #endif // __Mesh_H__

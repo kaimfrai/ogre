@@ -804,7 +804,4 @@ namespace Ogre
     /** @} */
 } // namespace
 
-
-
 #endif // __RenderSystemCapabilities__
-

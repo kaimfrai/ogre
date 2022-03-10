@@ -144,6 +144,4 @@ class Matrix4;
     /** @} */
 }
 
-
 #endif
-

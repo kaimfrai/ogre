@@ -107,11 +107,7 @@ namespace Ogre {
         /// value packed as #PF_BYTE_RGBA
         RGBA getAsBYTE() const
         {
-#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-            return getAsRGBA();
-#else
             return getAsABGR();
-#endif
         }
 
         /// Set value from #PF_R8G8B8A8

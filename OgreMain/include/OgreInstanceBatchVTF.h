@@ -240,5 +240,4 @@ class VertexData;
     };
 }
 
-
 #endif

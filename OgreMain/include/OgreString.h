@@ -35,11 +35,7 @@ THE SOFTWARE.
 #include "OgreExports.h"
 #include "OgrePlatform.h"
 
-#if OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG
 #define OGRE_FORMAT_PRINTF(string_idx, first_to_check) __attribute__ ((format (printf, string_idx, first_to_check)))
-#else
-#define OGRE_FORMAT_PRINTF(A, B)
-#endif
 
 namespace Ogre {
     /** \addtogroup Core
@@ -191,6 +187,5 @@ namespace Ogre {
     /** @} */
 
 } // namespace Ogre
-
 
 #endif // _String_H__

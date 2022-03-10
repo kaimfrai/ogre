@@ -842,5 +842,4 @@ class VertexData;
 
 } // namespace Ogre
 
-
 #endif // __BillboardSet_H__
