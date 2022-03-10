@@ -377,12 +377,6 @@ class RenderQueue;
         // Common calcs
         RealRect rect = calcProjectionParameters();
 
-        if (!OGRE_NO_VIEWPORT_ORIENTATIONMODE && mOrientationMode != OR_PORTRAIT)
-        {
-            std::swap(rect.left, rect.bottom);
-            std::swap(rect.right, rect.top);
-        }
-
         Real left = rect.left, right = rect.right, top = rect.top, bottom = rect.bottom;
 
         if (!mCustomProjMatrix)
@@ -486,10 +480,6 @@ class RenderQueue;
             } // ortho            
         } // !mCustomProjMatrix
 
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
-        // Deal with orientation mode
-        mProjMatrix = mProjMatrix * Quaternion(Degree(mOrientationMode * 90.f), Vector3::UNIT_Z);
-#endif
         RenderSystem* renderSystem = Root::getSingleton().getRenderSystem();
 
         if(renderSystem)
@@ -1155,21 +1145,14 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void Frustum::setOrientationMode(OrientationMode orientationMode)
     {
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE != 0
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Setting Frustrum orientation mode is not supported");
-#endif
-        mOrientationMode = orientationMode;
-        invalidateFrustum();
     }
     //---------------------------------------------------------------------
     OrientationMode Frustum::getOrientationMode() const
     {
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE != 0
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Getting Frustrum orientation mode is not supported");
-#endif
-        return mOrientationMode;
     }
 
 

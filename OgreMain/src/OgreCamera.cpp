@@ -60,12 +60,6 @@ class Sphere;
         mAutoAspectRatio(false),
         mUseRenderingDistance(true),
         mUseMinPixelSize(false),
-#ifdef OGRE_NODELESS_POSITIONING
-        mOrientation(Quaternion::IDENTITY),
-        mPosition(Vector3::ZERO),
-        mAutoTrackTarget(0),
-        mAutoTrackOffset(Vector3::ZERO),
-#endif
         mSceneLodFactor(1.0f),
         mSceneLodFactorInv(1.0f),
         mLastViewport(0),
@@ -82,11 +76,6 @@ class Sphere;
         mFarDist = 100000.0f;
         mAspect = 1.33333333333333f;
         mProjType = PT_PERSPECTIVE;
-
-#ifdef OGRE_NODELESS_POSITIONING
-        mYawFixed = true; // Default to fixed yaw, like freelook since most people expect this
-        mYawFixedAxis = Vector3::UNIT_Y;
-#endif
 
         invalidateFrustum();
         invalidateView();
@@ -131,330 +120,18 @@ class Sphere;
     {
         return mSceneDetail;
     }
-#ifdef OGRE_NODELESS_POSITIONING
-    //-----------------------------------------------------------------------
-    void Camera::setPosition(Real x, Real y, Real z)
-    {
-        mPosition.x = x;
-        mPosition.y = y;
-        mPosition.z = z;
-        invalidateView();
-    }
 
-    //-----------------------------------------------------------------------
-    void Camera::setPosition(const Vector3& vec)
-    {
-        mPosition = vec;
-        invalidateView();
-    }
-
-    //-----------------------------------------------------------------------
-    const Vector3& Camera::getPosition(void) const
-    {
-        return mPosition;
-    }
-
-    //-----------------------------------------------------------------------
-    void Camera::move(const Vector3& vec)
-    {
-        mPosition = mPosition + vec;
-        invalidateView();
-    }
-
-    //-----------------------------------------------------------------------
-    void Camera::moveRelative(const Vector3& vec)
-    {
-        // Transform the axes of the relative vector by camera's local axes
-        Vector3 trans = mOrientation * vec;
-
-        mPosition = mPosition + trans;
-        invalidateView();
-    }
-
-    //-----------------------------------------------------------------------
-    void Camera::setDirection(Real x, Real y, Real z)
-    {
-        OGRE_IGNORE_DEPRECATED_BEGIN
-        setDirection(Vector3(x,y,z));
-        OGRE_IGNORE_DEPRECATED_END
-    }
-
-    //-----------------------------------------------------------------------
-    void Camera::setDirection(const Vector3& vec)
-    {
-        // Do nothing if given a zero vector
-        // (Replaced assert since this could happen with auto tracking camera and
-        //  camera passes through the lookAt point)
-        if (vec == Vector3::ZERO) return;
-
-        // Remember, camera points down -Z of local axes!
-        // Therefore reverse direction of direction vector before determining local Z
-        Vector3 zAdjustVec = -vec;
-        zAdjustVec.normalise();
-
-        Quaternion targetWorldOrientation;
-
-        if( mYawFixed )
-        {
-            targetWorldOrientation = Math::lookRotation(zAdjustVec, mYawFixedAxis);
-        }
-        else
-        {
-
-            // Get axes from current quaternion
-            Vector3 axes[3];
-            updateView();
-            mRealOrientation.ToAxes(axes);
-            Quaternion rotQuat;
-            if ( (axes[2]+zAdjustVec).squaredLength() <  0.00005f) 
-            {
-                // Oops, a 180 degree turn (infinite possible rotation axes)
-                // Default to yaw i.e. use current UP
-                rotQuat.FromAngleAxis(Radian(Math::PI), axes[1]);
-            }
-            else
-            {
-                // Derive shortest arc to new direction
-                rotQuat = axes[2].getRotationTo(zAdjustVec);
-
-            }
-            targetWorldOrientation = rotQuat * mRealOrientation;
-        }
-
-        // transform to parent space
-        if (mParentNode)
-        {
-            mOrientation = mParentNode->convertWorldToLocalOrientation(targetWorldOrientation);
-        }
-        else
-        {
-            mOrientation = targetWorldOrientation;
-        }
-
-        // TODO If we have a fixed yaw axis, we mustn't break it by using the
-        // shortest arc because this will sometimes cause a relative yaw
-        // which will tip the camera
-
-        invalidateView();
-
-    }
-
-    //-----------------------------------------------------------------------
-    Vector3 Camera::getDirection(void) const
-    {
-        // Direction points down -Z by default
-        return mOrientation * -Vector3::UNIT_Z;
-    }
-
-    //-----------------------------------------------------------------------
-    Vector3 Camera::getUp(void) const
-    {
-        return mOrientation * Vector3::UNIT_Y;
-    }
-
-    //-----------------------------------------------------------------------
-    Vector3 Camera::getRight(void) const
-    {
-        return mOrientation * Vector3::UNIT_X;
-    }
-
-    //-----------------------------------------------------------------------
-    void Camera::lookAt(const Vector3& targetPoint)
-    {
-        updateView();
-        OGRE_IGNORE_DEPRECATED_BEGIN
-        this->setDirection(targetPoint - mRealPosition);
-        OGRE_IGNORE_DEPRECATED_END
-    }
-
-    //-----------------------------------------------------------------------
-    void Camera::lookAt( Real x, Real y, Real z )
-    {
-        Vector3 vTemp( x, y, z );
-        OGRE_IGNORE_DEPRECATED_BEGIN
-        this->lookAt(vTemp);
-        OGRE_IGNORE_DEPRECATED_END
-    }
-
-    //-----------------------------------------------------------------------
-    void Camera::roll(const Radian& angle)
-    {
-        // Rotate around local Z axis
-        Vector3 zAxis = mOrientation * Vector3::UNIT_Z;
-        OGRE_IGNORE_DEPRECATED_BEGIN
-        rotate(zAxis, angle);
-        OGRE_IGNORE_DEPRECATED_END
-
-        invalidateView();
-    }
-
-    //-----------------------------------------------------------------------
-    void Camera::yaw(const Radian& angle)
-    {
-        Vector3 yAxis;
-
-        if (mYawFixed)
-        {
-            // Rotate around fixed yaw axis
-            yAxis = mYawFixedAxis;
-        }
-        else
-        {
-            // Rotate around local Y axis
-            yAxis = mOrientation * Vector3::UNIT_Y;
-        }
-
-        OGRE_IGNORE_DEPRECATED_BEGIN
-        rotate(yAxis, angle);
-        OGRE_IGNORE_DEPRECATED_END
-
-        invalidateView();
-    }
-
-    //-----------------------------------------------------------------------
-    void Camera::pitch(const Radian& angle)
-    {
-        // Rotate around local X axis
-        Vector3 xAxis = mOrientation * Vector3::UNIT_X;
-        OGRE_IGNORE_DEPRECATED_BEGIN
-        rotate(xAxis, angle);
-        OGRE_IGNORE_DEPRECATED_END
-
-        invalidateView();
-
-    }
-
-    //-----------------------------------------------------------------------
-    void Camera::rotate(const Vector3& axis, const Radian& angle)
-    {
-        Quaternion q;
-        q.FromAngleAxis(angle,axis);
-        OGRE_IGNORE_DEPRECATED_BEGIN
-        rotate(q);
-        OGRE_IGNORE_DEPRECATED_END
-    }
-
-    //-----------------------------------------------------------------------
-    void Camera::rotate(const Quaternion& q)
-    {
-        // Note the order of the mult, i.e. q comes after
-
-        // Normalise the quat to avoid cumulative problems with precision
-        Quaternion qres = q * mOrientation;
-        qres.normalise();
-        mOrientation = qres;
-
-        invalidateView();
-
-    }
-
-    //-----------------------------------------------------------------------
-    void Camera::setFixedYawAxis(bool useFixed, const Vector3& fixedAxis)
-    {
-        mYawFixed = useFixed;
-        mYawFixedAxis = fixedAxis;
-    }
-    //-----------------------------------------------------------------------
-    const Quaternion& Camera::getOrientation(void) const
-    {
-        return mOrientation;
-    }
-    //-----------------------------------------------------------------------
-    void Camera::_autoTrack(void)
-    {
-        // NB assumes that all scene nodes have been updated
-        if (mAutoTrackTarget)
-        {
-            OGRE_IGNORE_DEPRECATED_BEGIN
-            lookAt(mAutoTrackTarget->_getFullTransform() * mAutoTrackOffset);
-            OGRE_IGNORE_DEPRECATED_END
-        }
-    }
-
-    //-----------------------------------------------------------------------
-    void Camera::setOrientation(const Quaternion& q)
-    {
-        mOrientation = q;
-        mOrientation.normalise();
-        invalidateView();
-    }
-    //-----------------------------------------------------------------------
-    void Camera::setAutoTracking(bool enabled, SceneNode* const target,
-        const Vector3& offset)
-    {
-        if (enabled)
-        {
-            assert (target != 0 && "target cannot be a null pointer if tracking is enabled");
-            mAutoTrackTarget = target;
-            mAutoTrackOffset = offset;
-        }
-        else
-        {
-            mAutoTrackTarget = 0;
-        }
-    }
-    //-----------------------------------------------------------------------
-    const Vector3& Camera::getPositionForViewUpdate(void) const
-    {
-        // Note no update, because we're calling this from the update!
-        return mRealPosition;
-    }
-    //-----------------------------------------------------------------------
-    const Quaternion& Camera::getOrientationForViewUpdate(void) const
-    {
-        return mRealOrientation;
-    }
-#endif
     //-----------------------------------------------------------------------
     bool Camera::isViewOutOfDate(void) const
     {
-#ifdef OGRE_NODELESS_POSITIONING
-        // Overridden from Frustum to use local orientation / position offsets
-        // Attached to node?
-        if (mParentNode != 0)
-        {
-            if (mRecalcView ||
-                mParentNode->_getDerivedOrientation() != mLastParentOrientation ||
-                mParentNode->_getDerivedPosition() != mLastParentPosition)
-            {
-                // Ok, we're out of date with SceneNode we're attached to
-                mLastParentOrientation = mParentNode->_getDerivedOrientation();
-                mLastParentPosition = mParentNode->_getDerivedPosition();
-                mRealOrientation = mParentNode->convertLocalToWorldOrientation(mOrientation);
-                mRealPosition = mParentNode->convertLocalToWorldPosition(mPosition);
-                mRecalcView = true;
-                mRecalcWindow = true;
-            }
-        }
-        else
-        {
-            // Rely on own updates
-            mRealOrientation = mOrientation;
-            mRealPosition = mPosition;
-        }
-
-        // Deriving reflection from linked plane?
-        if (mReflect && mLinkedReflectPlane && 
-            !(mLastLinkedReflectionPlane == mLinkedReflectPlane->_getDerivedPlane()))
-        {
-            mReflectPlane = mLinkedReflectPlane->_getDerivedPlane();
-            mReflectMatrix = Math::buildReflectionMatrix(mReflectPlane);
-            mLastLinkedReflectionPlane = mLinkedReflectPlane->_getDerivedPlane();
-            mRecalcView = true;
-            mRecalcWindow = true;
-        }
-#else
         if(Frustum::isViewOutOfDate())
             mRecalcWindow = true;
-#endif
 
         // Deriving reflected orientation / position
         if (mRecalcView)
         {
-#ifndef OGRE_NODELESS_POSITIONING
             const auto& mRealOrientation = mLastParentOrientation;
             const auto& mRealPosition = mLastParentPosition;
-#endif
 
             if (mReflect)
             {
@@ -542,11 +219,9 @@ class Sphere;
     std::ostream& operator<<( std::ostream& o, const Camera& c )
     {
         o << "Camera(Name='" << c.mName << "'";
-#ifdef OGRE_NODELESS_POSITIONING
-        o << ", pos=" << c.mPosition << ", direction=" << -c.mOrientation.zAxis();
-#else
+
         o << ", pos=" << c.mLastParentPosition << ", direction=" << -c.mLastParentOrientation.zAxis();
-#endif
+
         o << ",near=" << c.mNearDist;
         o << ", far=" << c.mFarDist << ", FOVy=" << c.mFOVy.valueDegrees();
         o << ", aspect=" << c.mAspect << ", ";
@@ -619,52 +294,32 @@ class Sphere;
     const Quaternion& Camera::getRealOrientation(void) const
     {
         updateView();
-#ifdef OGRE_NODELESS_POSITIONING
-        return mRealOrientation;
-#else
         return mLastParentOrientation;
-#endif
     }
     //-----------------------------------------------------------------------
     const Vector3& Camera::getRealPosition(void) const
     {
         updateView();
-#ifdef OGRE_NODELESS_POSITIONING
-        return mRealPosition;
-#else
         return mLastParentPosition;
-#endif
     }
     //-----------------------------------------------------------------------
     Vector3 Camera::getRealDirection(void) const
     {
         // Direction points down -Z
         updateView();
-#ifdef OGRE_NODELESS_POSITIONING
-        return mRealOrientation * Vector3::NEGATIVE_UNIT_Z;
-#else
         return -mLastParentOrientation.zAxis();
-#endif
     }
     //-----------------------------------------------------------------------
     Vector3 Camera::getRealUp(void) const
     {
         updateView();
-#ifdef OGRE_NODELESS_POSITIONING
-        return mRealOrientation * Vector3::UNIT_Y;
-#else
         return mLastParentOrientation.yAxis();
-#endif
     }
     //-----------------------------------------------------------------------
     Vector3 Camera::getRealRight(void) const
     {
         updateView();
-#ifdef OGRE_NODELESS_POSITIONING
-        return mRealOrientation * Vector3::UNIT_X;
-#else
         return mLastParentOrientation.xAxis();
-#endif
     }
     //-----------------------------------------------------------------------
     const String& Camera::getMovableType(void) const
@@ -712,14 +367,6 @@ class Sphere;
     void Camera::getCameraToViewportRay(Real screenX, Real screenY, Ray* outRay) const
     {
         Matrix4 inverseVP = (getProjectionMatrix() * getViewMatrix(true)).inverse();
-
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
-        // We need to convert screen point to our oriented viewport (temp solution)
-        Real tX = screenX; Real a = getOrientationMode() * Math::HALF_PI;
-        screenX = Math::Cos(a) * (tX-0.5f) + Math::Sin(a) * (screenY-0.5f) + 0.5f;
-        screenY = Math::Sin(a) * (tX-0.5f) + Math::Cos(a) * (screenY-0.5f) + 0.5f;
-        if ((int)getOrientationMode()&1) screenY = 1.f - screenY;
-#endif
 
         Real nx = (2.0f * screenX) - 1.0f;
         Real ny = 1.0f - (2.0f * screenY);
@@ -1174,10 +821,6 @@ class Sphere;
     void Camera::synchroniseBaseSettingsWith(const Camera* cam)
     {
         this->setProjectionType(cam->getProjectionType());
-#ifdef OGRE_NODELESS_POSITIONING
-        mPosition = cam->mPosition;
-        mOrientation = cam->mOrientation;
-#endif
         invalidateView();
         this->setAspectRatio(cam->getAspectRatio());
         this->setNearClipDistance(cam->getNearClipDistance());

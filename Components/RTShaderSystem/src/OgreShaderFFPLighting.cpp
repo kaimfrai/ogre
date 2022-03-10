@@ -58,10 +58,10 @@ THE SOFTWARE.
 #include "OgreVector.h"
 
 namespace Ogre {
-class AutoParamDataSource;
-class Renderable;
+	class AutoParamDataSource;
+	class Renderable;
 }  // namespace Ogre
-#if defined(RTSHADER_SYSTEM_BUILD_CORE_SHADERS) || defined(RTSHADER_SYSTEM_BUILD_EXT_SHADERS)
+
 namespace Ogre {
 namespace RTShader {
 
@@ -609,5 +609,3 @@ SubRenderState*	FFPLightingFactory::createInstanceImpl()
 
 }
 }
-
-#endif

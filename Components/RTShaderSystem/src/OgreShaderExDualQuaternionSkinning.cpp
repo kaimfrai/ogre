@@ -43,7 +43,6 @@ THE SOFTWARE.
 #include "OgreShaderProgram.h"
 #include "OgreShaderProgramSet.h"
 
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 
 #define SGX_LIB_DUAL_QUATERNION                 "SGXLib_DualQuaternion"
@@ -310,8 +309,3 @@ void DualQuaternionSkinning::addIndexedPositionWeight(Function* vsMain, int inde
 
 }
 }
-
-#endif
-
-
-

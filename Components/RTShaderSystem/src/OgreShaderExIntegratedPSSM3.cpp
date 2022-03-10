@@ -65,10 +65,9 @@ THE SOFTWARE.
 #include "OgreVector.h"
 
 namespace Ogre {
-class AutoParamDataSource;
-class Renderable;
+    class AutoParamDataSource;
+    class Renderable;
 }  // namespace Ogre
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 #define SGX_LIB_INTEGRATEDPSSM                      "SGXLib_IntegratedPSSM"
 #define SGX_FUNC_COMPUTE_SHADOW_COLOUR3             "SGX_ComputeShadowFactor_PSSM3"
@@ -456,5 +455,3 @@ SubRenderState* IntegratedPSSM3Factory::createInstanceImpl()
 
 }
 }
-
-#endif

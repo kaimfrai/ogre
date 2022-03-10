@@ -34,25 +34,24 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreRTShaderConfig.h"
 #include "OgreRTShaderExports.h"
-
-namespace Ogre {
-class AutoParamDataSource;
-class MaterialSerializer;
-class Pass;
-class PropertyAbstractNode;
-class Renderable;
-class ScriptCompiler;
-namespace RTShader {
-class FunctionStageRef;
-class ProgramSet;
-class RenderState;
-class SGScriptTranslator;
-}  // namespace RTShader
-}  // namespace Ogre
-#if defined(RTSHADER_SYSTEM_BUILD_CORE_SHADERS) || defined(RTSHADER_SYSTEM_BUILD_EXT_SHADERS)
 #include "OgreShaderSubRenderState.h"
 #include "OgreLight.h"
 #include "OgreCommon.h"
+
+namespace Ogre {
+    class AutoParamDataSource;
+    class MaterialSerializer;
+    class Pass;
+    class PropertyAbstractNode;
+    class Renderable;
+    class ScriptCompiler;
+    namespace RTShader {
+        class FunctionStageRef;
+        class ProgramSet;
+        class RenderState;
+        class SGScriptTranslator;
+    }  // namespace RTShader
+}  // namespace Ogre
 
 namespace Ogre {
 namespace RTShader {
@@ -293,5 +292,4 @@ protected:
 }
 }
 
-#endif
 #endif

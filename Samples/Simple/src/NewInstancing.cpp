@@ -143,7 +143,6 @@ bool Sample_NewInstancing::keyPressed(const KeyboardEvent& evt)
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::setupContent()
 {
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
     // Make this viewport work with shader generator scheme.
     mViewport->setMaterialScheme(RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
     RTShader::ShaderGenerator& rtShaderGen = RTShader::ShaderGenerator::getSingleton();
@@ -164,7 +163,6 @@ void Sample_NewInstancing::setupContent()
 
     // update scheme for FFP supporting rendersystems
     MaterialManager::getSingleton().setActiveScheme(mViewport->getMaterialScheme());
-#endif
 
     //Initialize the techniques and current mesh variables
     mInstancingTechnique    = 0;

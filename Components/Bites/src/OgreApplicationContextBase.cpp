@@ -53,10 +53,8 @@ ApplicationContextBase::ApplicationContextBase(const Ogre::String& appName)
     mOverlaySystem = NULL;
     mFirstRun = true;
 
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
     mMaterialMgrListener = NULL;
     mShaderGenerator = NULL;
-#endif
 }
 
 ApplicationContextBase::~ApplicationContextBase()
@@ -86,14 +84,11 @@ void ApplicationContextBase::closeApp()
         mRoot = NULL;
     }
 
-#ifdef OGRE_BITES_STATIC_PLUGINS
     mStaticPluginLoader.unload();
-#endif
 }
 
 bool ApplicationContextBase::initialiseRTShaderSystem()
 {
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
     if (Ogre::RTShader::ShaderGenerator::initialize())
     {
         mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
@@ -106,13 +101,11 @@ bool ApplicationContextBase::initialiseRTShaderSystem()
 
         return true;
     }
-#endif
     return false;
 }
 
 void ApplicationContextBase::setRTSSWriteShadersToDisk(bool write)
 {
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
     if(!write) {
         mShaderGenerator->setShaderCachePath("");
         return;
@@ -127,12 +120,10 @@ void ApplicationContextBase::setRTSSWriteShadersToDisk(bool write)
         Ogre::FileSystemLayer::createDirectory(path);
     }
     mShaderGenerator->setShaderCachePath(path);
-#endif
 }
 
 void ApplicationContextBase::destroyRTShaderSystem()
 {
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
     //mShaderGenerator->removeAllShaderBasedTechniques();
     //mShaderGenerator->flushShaderCache();
 
@@ -153,7 +144,6 @@ void ApplicationContextBase::destroyRTShaderSystem()
         Ogre::RTShader::ShaderGenerator::destroy();
         mShaderGenerator = NULL;
     }
-#endif
 }
 
 void ApplicationContextBase::setup()
@@ -203,7 +193,7 @@ void ApplicationContextBase::createDummyScene()
     Ogre::Camera* cam = sm->createCamera("DummyCamera");
     sm->getRootSceneNode()->attachObject(cam);
     mWindows[0].render->addViewport(cam);
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
+
     // Initialize shader generator.
     // Must be before resource loading in order to allow parsing extended material attributes.
     if (!initialiseRTShaderSystem())
@@ -214,7 +204,6 @@ void ApplicationContextBase::createDummyScene()
     }
 
     mShaderGenerator->addSceneManager(sm);
-#endif // OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
 }
 
 void ApplicationContextBase::destroyDummyScene()
@@ -223,9 +212,9 @@ void ApplicationContextBase::destroyDummyScene()
         return;
 
     Ogre::SceneManager*  dummyScene = mRoot->getSceneManager("DummyScene");
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
+
     mShaderGenerator->removeSceneManager(dummyScene);
-#endif
+
     dummyScene->removeRenderQueueListener(mOverlaySystem);
     mWindows[0].render->removeAllViewports();
     mRoot->destroySceneManager(dummyScene);
@@ -439,13 +428,9 @@ void ApplicationContextBase::locateResources()
         const auto& mediaDir = getDefaultMediaDir();
         // add default locations
         rgm.addResourceLocation(mediaDir + "/Main", "FileSystem", Ogre::RGN_INTERNAL);
-#ifdef OGRE_BUILD_COMPONENT_TERRAIN
-        rgm.addResourceLocation(mediaDir + "/Terrain", "FileSystem", Ogre::RGN_INTERNAL);
-#endif
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
+
         rgm.addResourceLocation(mediaDir + "/RTShaderLib/GLSL", "FileSystem", Ogre::RGN_INTERNAL);
         rgm.addResourceLocation(mediaDir + "/RTShaderLib/HLSL_Cg", "FileSystem", Ogre::RGN_INTERNAL);
-#endif
     }
 }
 
@@ -486,10 +471,8 @@ void ApplicationContextBase::shutdown()
             Ogre::LogManager::getSingleton().logWarning("Cannot open shader cache for writing "+path);
     }
 
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
     // Destroy the RT Shader System.
     destroyRTShaderSystem();
-#endif
 
     for(auto it = mWindows.rbegin(); it != mWindows.rend(); ++it)
     {

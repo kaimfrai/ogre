@@ -28,14 +28,13 @@ THE SOFTWARE.
 #define _ShaderFFPRenderStateBuilder_
 
 #include "OgreRTShaderConfig.h"
+#include "OgreShaderGenerator.h"
 
 namespace Ogre {
-namespace RTShader {
-class TargetRenderState;
-}  // namespace RTShader
+    namespace RTShader {
+        class TargetRenderState;
+    }  // namespace RTShader
 }  // namespace Ogre
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
-#include "OgreShaderGenerator.h"
 
 namespace Ogre {
 namespace RTShader {
@@ -72,5 +71,4 @@ public:
 }
 }
 
-#endif
 #endif

@@ -55,11 +55,10 @@ THE SOFTWARE.
 #include "OgreTechnique.h"
 
 namespace Ogre {
-namespace RTShader {
-class RenderState;
-}  // namespace RTShader
+    namespace RTShader {
+        class RenderState;
+    }  // namespace RTShader
 }  // namespace Ogre
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 
 namespace Ogre
 {
@@ -300,5 +299,3 @@ SubRenderState* GBufferFactory::createInstanceImpl() { return OGRE_NEW GBuffer; 
 
 } // namespace RTShader
 } // namespace Ogre
-
-#endif

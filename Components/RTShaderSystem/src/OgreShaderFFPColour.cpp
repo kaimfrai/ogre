@@ -47,11 +47,10 @@ THE SOFTWARE.
 #include "OgreVector.h"
 
 namespace Ogre {
-namespace RTShader {
-class RenderState;
-}  // namespace RTShader
+    namespace RTShader {
+        class RenderState;
+    }  // namespace RTShader
 }  // namespace Ogre
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 
 namespace Ogre {
 namespace RTShader {
@@ -263,5 +262,3 @@ SubRenderState* FFPColourFactory::createInstanceImpl()
 
 }
 }
-
-#endif

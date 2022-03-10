@@ -39,24 +39,23 @@ THE SOFTWARE.
 #include "OgreRTShaderConfig.h"
 #include "OgreRTShaderExports.h"
 #include "OgreShaderFunctionAtom.h"
-
-namespace Ogre {
-class ColourValue;
-class MaterialSerializer;
-class Pass;
-class PropertyAbstractNode;
-class ScriptCompiler;
-class TextureUnitState;
-namespace RTShader {
-class Function;
-class ProgramSet;
-class RenderState;
-class SGScriptTranslator;
-}  // namespace RTShader
-}  // namespace Ogre
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 #include "OgreShaderSubRenderState.h"
 #include "OgreRenderSystem.h"
+
+namespace Ogre {
+    class ColourValue;
+    class MaterialSerializer;
+    class Pass;
+    class PropertyAbstractNode;
+    class ScriptCompiler;
+    class TextureUnitState;
+    namespace RTShader {
+        class Function;
+        class ProgramSet;
+        class RenderState;
+        class SGScriptTranslator;
+    }  // namespace RTShader
+}  // namespace Ogre
 
 namespace Ogre {
 namespace RTShader {
@@ -295,6 +294,5 @@ protected:
 }
 }
 
-#endif
 #endif
 

@@ -32,18 +32,17 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgrePrerequisites.h"
 #include "OgreRTShaderConfig.h"
+#include "OgreShaderSubRenderState.h"
 
 namespace Ogre {
-class AutoParamDataSource;
-class Pass;
-class Renderable;
+    class AutoParamDataSource;
+    class Pass;
+    class Renderable;
 namespace RTShader {
-class ProgramSet;
-class RenderState;
-}  // namespace RTShader
+    class ProgramSet;
+    class RenderState;
+    }  // namespace RTShader
 }  // namespace Ogre
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
-#include "OgreShaderSubRenderState.h"
 
 namespace Ogre {
 namespace RTShader {
@@ -132,5 +131,4 @@ protected:
 } // namespace RTShader
 } // namespace Ogre
 
-#endif
 #endif

@@ -64,12 +64,11 @@ THE SOFTWARE.
 #include "OgreVertexIndexData.h"
 
 namespace Ogre {
-namespace RTShader {
-class ProgramSet;
-class RenderState;
-}  // namespace RTShader
+    namespace RTShader {
+        class ProgramSet;
+        class RenderState;
+    }  // namespace RTShader
 }  // namespace Ogre
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 
@@ -591,7 +590,3 @@ bool HardwareSkinningFactory::imprintSkeletonData(const MaterialPtr& pMaterial, 
 
 }
 }
-
-#endif
-
-

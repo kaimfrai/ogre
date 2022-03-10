@@ -42,7 +42,6 @@ THE SOFTWARE.
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderProgram.h"
 #include "OgreShaderProgramSet.h"
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 
@@ -272,5 +271,3 @@ void LinearSkinning::addIndexedNormalRelatedWeight(Function* vsMain,
 
 }
 }
-
-#endif

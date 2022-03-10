@@ -134,10 +134,6 @@ namespace Ogre {
         {
             if (mCamera->getAutoAspectRatio())
                 mCamera->setAspectRatio((Real) mActWidth / (Real) mActHeight);
-
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
-            mCamera->setOrientationMode(mOrientationMode);
-#endif
         }
 
         LogManager::getSingleton().stream(LML_TRIVIAL)
@@ -231,48 +227,26 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Viewport::setOrientationMode(OrientationMode orientationMode, bool setDefault)
     {
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE != 0
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Setting Viewport orientation mode is not supported");
-#endif
-        mOrientationMode = orientationMode;
-
-        if (setDefault)
-        {
-            setDefaultOrientationMode(orientationMode);
-        }
-
-        if (mCamera)
-        {
-            mCamera->setOrientationMode(mOrientationMode);
-        }
     }
     //---------------------------------------------------------------------
     OrientationMode Viewport::getOrientationMode() const
     {
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE != 0
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Getting Viewport orientation mode is not supported");
-#endif
-        return mOrientationMode;
     }
     //---------------------------------------------------------------------
     void Viewport::setDefaultOrientationMode(OrientationMode orientationMode)
     {
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE != 0
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Setting default Viewport orientation mode is not supported");
-#endif
-        mDefaultOrientationMode = orientationMode;
     }
     //---------------------------------------------------------------------
     OrientationMode Viewport::getDefaultOrientationMode()
     {
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE != 0
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Getting default Viewport orientation mode is not supported");
-#endif
-        return mDefaultOrientationMode;
     }
     //---------------------------------------------------------------------
     void Viewport::setBackgroundColour(const ColourValue& colour)
@@ -366,9 +340,7 @@ namespace Ogre {
             {
                 cam->setAspectRatio((Real) mActWidth / (Real) mActHeight);
             }
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
-            cam->setOrientationMode(mOrientationMode);
-#endif
+
             cam->_notifyViewport(this);
         }
 

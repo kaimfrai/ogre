@@ -35,9 +35,7 @@
 
 #include "OgreFileSystemLayer.h"
 
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
-#   include "OgreRTShaderSystem.h"
-#endif //INCLUDE_RTSHADER_SYSTEM
+#include "OgreRTShaderSystem.h"
 
 #include "OgreInput.h"
 #include "OgreTrays.h"
@@ -66,11 +64,7 @@ namespace OgreBites
             }
         };
 
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
         Sample() : mShaderGenerator(0)
-#else
-        Sample()
-#endif
         {
             mRoot = Ogre::Root::getSingletonPtr();
             mWindow = 0;
@@ -211,9 +205,7 @@ namespace OgreBites
             mResourcesLoaded = false;
             if (mSceneMgr) 
             {
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
                 mShaderGenerator->removeSceneManager(mSceneMgr);
-#endif
                 mSceneMgr->removeRenderQueueListener(mOverlaySystem);
                 mRoot->destroySceneManager(mSceneMgr);              
             }
@@ -275,14 +267,13 @@ namespace OgreBites
         virtual void createSceneManager()
         {
             mSceneMgr = Ogre::Root::getSingleton().createSceneManager();
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
             mShaderGenerator->addSceneManager(mSceneMgr);
             auto mainRenderState =
                 mShaderGenerator->getRenderState(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
             // reset global light state
             mainRenderState->setLightCount(Ogre::Vector3i(0));
             mainRenderState->setLightCountAutoUpdate(true);
-#endif
+
             if(mOverlaySystem)
                 mSceneMgr->addRenderQueueListener(mOverlaySystem);
         }
@@ -332,14 +323,13 @@ namespace OgreBites
         bool mDone;               // flag to mark the end of the sample
         bool mResourcesLoaded;    // whether or not resources have been loaded
         bool mContentSetup;       // whether or not scene was created
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
+
         Ogre::RTShader::ShaderGenerator*            mShaderGenerator;           // The Shader generator instance.
     public:
         void setShaderGenerator(Ogre::RTShader::ShaderGenerator* shaderGenerator) 
         { 
             mShaderGenerator = shaderGenerator;
         }
-#endif
     private:
         // VisualTest fields
         std::set<int> mScreenshotFrames;

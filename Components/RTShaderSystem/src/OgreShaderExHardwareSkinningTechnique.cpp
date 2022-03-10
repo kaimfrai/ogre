@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include "OgreRTShaderConfig.h"
 #include "OgreShaderExHardwareSkinningTechnique.h"
 #include "OgreShaderFunctionAtom.h"
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 
@@ -121,7 +120,3 @@ void HardwareSkinningTechnique::copyFrom(const HardwareSkinningTechnique* hardSk
 
 }
 }
-
-#endif
-
-

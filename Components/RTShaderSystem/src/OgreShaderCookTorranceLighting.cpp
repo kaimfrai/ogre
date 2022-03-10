@@ -28,7 +28,6 @@
 #include "OgreShaderScriptTranslator.h"
 #include "OgreShaderSubRenderState.h"
 #include "OgreVector.h"
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 namespace Ogre
 {
@@ -248,5 +247,3 @@ SubRenderState* CookTorranceLightingFactory::createInstanceImpl() { return OGRE_
 
 } // namespace RTShader
 } // namespace Ogre
-
-#endif

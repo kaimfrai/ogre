@@ -50,14 +50,13 @@ THE SOFTWARE.
 #include "OgreVector.h"
 
 namespace Ogre {
-class AutoParamDataSource;
-class Renderable;
+    class AutoParamDataSource;
+    class Renderable;
 
-namespace RTShader {
-class RenderState;
-}  // namespace RTShader
+    namespace RTShader {
+        class RenderState;
+    }  // namespace RTShader
 }  // namespace Ogre
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 #define SGX_FUNC_TRIPLANAR_TEXTURING "SGX_TriplanarTexturing"
 
@@ -308,5 +307,3 @@ namespace RTShader {
 
 }
 }
-
-#endif

@@ -74,9 +74,7 @@ THE SOFTWARE.
 #include "OgreDepthBuffer.h"
 #include "OgreComponents.h"
 
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
 #include "OgreRTShaderConfig.h"
-#endif
 
 namespace Ogre {
     class Camera;
@@ -1003,7 +1001,6 @@ namespace Ogre {
     //---------------------------------------------------------------------
     const String& RenderSystem::_getDefaultViewportMaterialScheme( void ) const
     {
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS   
         if ( !(getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION)) )
         {
             // I am returning the exact value for now - I don't want to add dependency for the RTSS just for one string  
@@ -1011,7 +1008,6 @@ namespace Ogre {
             return ShaderGeneratorDefaultScheme;
         }
         else
-#endif
         {
             return MaterialManager::DEFAULT_SCHEME_NAME;
         }

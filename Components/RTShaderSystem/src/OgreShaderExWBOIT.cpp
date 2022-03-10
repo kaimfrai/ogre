@@ -29,11 +29,10 @@
 #include "OgreShaderScriptTranslator.h"
 
 namespace Ogre {
-namespace RTShader {
-class RenderState;
-}  // namespace RTShader
+    namespace RTShader {
+        class RenderState;
+    }  // namespace RTShader
 }  // namespace Ogre
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
 
 namespace Ogre
 {
@@ -134,5 +133,3 @@ SubRenderState* WBOITFactory::createInstanceImpl() { return OGRE_NEW WBOIT; }
 
 } // namespace RTShader
 } // namespace Ogre
-
-#endif

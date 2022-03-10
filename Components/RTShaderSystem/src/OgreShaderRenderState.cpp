@@ -226,7 +226,6 @@ void TargetRenderState::releasePrograms(Pass* pass)
 /// we cannot resolve this at preAddToRenderState time as addition order is arbitrary
 static void fixupFFPLighting(TargetRenderState* renderState)
 {
-#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
     const SubRenderStateList& subRenderStateList = renderState->getSubRenderStates();
     auto it = std::find_if(subRenderStateList.begin(), subRenderStateList.end(),
                            [](const SubRenderState* e) { return e->getType() == FFPLighting::Type; });
@@ -246,7 +245,6 @@ static void fixupFFPLighting(TargetRenderState* renderState)
 
     if(ffpLighting->getSpecularEnable())
         ffpColour->addResolveStageMask(FFPColour::SF_VS_OUTPUT_SPECULAR);
-#endif
 }
 
 //-----------------------------------------------------------------------

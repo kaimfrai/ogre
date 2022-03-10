@@ -52,9 +52,8 @@ THE SOFTWARE.
 #include "OgreTextureUnitState.h"
 
 namespace Ogre {
-class LayerBlendModeEx;
+    class LayerBlendModeEx;
 }  // namespace Ogre
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 namespace Ogre {
 namespace RTShader {
@@ -545,6 +544,3 @@ LayeredBlending* LayeredBlendingFactory::createOrRetrieveSubRenderState(SGScript
 
 }
 }
-#endif
-
-

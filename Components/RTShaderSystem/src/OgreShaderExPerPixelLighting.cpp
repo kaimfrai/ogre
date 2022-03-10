@@ -55,9 +55,8 @@ THE SOFTWARE.
 #include "OgreStringConverter.h"
 
 namespace Ogre {
-class Pass;
+    class Pass;
 }  // namespace Ogre
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 
 namespace Ogre {
 namespace RTShader {
@@ -399,5 +398,3 @@ SubRenderState* PerPixelLightingFactory::createInstanceImpl()
 
 }
 }
-
-#endif

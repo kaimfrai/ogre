@@ -36,22 +36,21 @@ THE SOFTWARE.
 #include "OgreRTShaderConfig.h"
 #include "OgreRTShaderExports.h"
 #include "OgreShaderFunctionAtom.h"
-
-namespace Ogre {
-class LayerBlendModeEx;
-class MaterialSerializer;
-class PropertyAbstractNode;
-class ScriptCompiler;
-class TextureUnitState;
-namespace RTShader {
-class Function;
-class ProgramSet;
-class SGScriptTranslator;
-}  // namespace RTShader
-}  // namespace Ogre
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #include "OgreShaderFFPTexturing.h"
 #include "OgreShaderSubRenderState.h"
+
+namespace Ogre {
+    class LayerBlendModeEx;
+    class MaterialSerializer;
+    class PropertyAbstractNode;
+    class ScriptCompiler;
+    class TextureUnitState;
+    namespace RTShader {
+    class Function;
+    class ProgramSet;
+    class SGScriptTranslator;
+    }  // namespace RTShader
+}  // namespace Ogre
 
 namespace Ogre {
 namespace RTShader {
@@ -272,5 +271,4 @@ protected:
 } // namespace RTShader
 } // namespace Ogre
 
-#endif // RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #endif // _OgreShaderExLayeredBlending_

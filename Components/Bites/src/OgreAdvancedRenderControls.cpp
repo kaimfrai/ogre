@@ -54,14 +54,12 @@ AdvancedRenderControls::AdvancedRenderControls(TrayManager* trayMgr, Ogre::Camer
     items.push_back("Filtering");
     items.push_back("Poly Mode");
 
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
     mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
     items.push_back("RT Shaders");
     items.push_back("Lighting Model");
     items.push_back("Compact Policy");
     items.push_back("Generated VS");
     items.push_back("Generated FS");
-#endif
 
     mDetailsPanel = mTrayMgr->createParamsPanel(TL_NONE, "DetailsPanel", 200, items);
     mDetailsPanel->hide();
@@ -69,7 +67,6 @@ AdvancedRenderControls::AdvancedRenderControls(TrayManager* trayMgr, Ogre::Camer
     mDetailsPanel->setParamValue(9, "Bilinear");
     mDetailsPanel->setParamValue(10, "Solid");
 
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
     mDetailsPanel->setParamValue(11, "Off");
     if (!mRoot->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION)) {
         mDetailsPanel->setParamValue(11, "On");
@@ -79,7 +76,6 @@ AdvancedRenderControls::AdvancedRenderControls(TrayManager* trayMgr, Ogre::Camer
     mDetailsPanel->setParamValue(13, "Low");
     mDetailsPanel->setParamValue(14, "0");
     mDetailsPanel->setParamValue(15, "0");
-#endif
 }
 
 AdvancedRenderControls::~AdvancedRenderControls() {
@@ -175,7 +171,6 @@ bool AdvancedRenderControls::keyPressed(const KeyboardEvent& evt) {
         if (auto prof = Ogre::Profiler::getSingletonPtr())
             prof->setEnabled(!prof->getEnabled());
     }
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
     // Toggle schemes.
     else if (key == SDLK_F2) {
         if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION)) {
@@ -191,7 +186,6 @@ bool AdvancedRenderControls::keyPressed(const KeyboardEvent& evt) {
             }
         }
     }
-#   ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
     // Toggles per pixel per light model.
     else if (key == SDLK_F3) {
         static bool useFFPLighting = true;
@@ -232,7 +226,6 @@ bool AdvancedRenderControls::keyPressed(const KeyboardEvent& evt) {
             mDetailsPanel->setParamValue(12, "Vertex");
         useFFPLighting = !useFFPLighting;
     }
-#   endif
     // Switch vertex shader outputs compaction policy.
     else if (key == SDLK_F4) {
         switch (mShaderGenerator->getVertexShaderOutputsCompactPolicy()) {
@@ -256,7 +249,6 @@ bool AdvancedRenderControls::keyPressed(const KeyboardEvent& evt) {
         // scheme.
         mShaderGenerator->invalidateScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
     }
-#endif // INCLUDE_RTSHADER_SYSTEM
 
     return InputListener::keyPressed(evt);
 }
@@ -274,10 +266,8 @@ void AdvancedRenderControls::frameRendered(const Ogre::FrameEvent& evt) {
         mDetailsPanel->setParamValue(6, Ogre::StringConverter::toString(mCamera->getDerivedOrientation().y));
         mDetailsPanel->setParamValue(7, Ogre::StringConverter::toString(mCamera->getDerivedOrientation().z));
 
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
         mDetailsPanel->setParamValue(14, StringConverter::toString(mShaderGenerator->getShaderCount(GPT_VERTEX_PROGRAM)));
         mDetailsPanel->setParamValue(15, StringConverter::toString(mShaderGenerator->getShaderCount(GPT_FRAGMENT_PROGRAM)));
-#endif
     }
 }
 

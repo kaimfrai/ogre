@@ -37,7 +37,6 @@ class ProgramSet;
 }  // namespace RTShader
 }  // namespace Ogre
 
-#ifdef RTSHADER_SYSTEM_BUILD_EXT_SHADERS
 #include "OgreShaderExHardwareSkinningTechnique.h"
 
 namespace Ogre {
@@ -97,5 +96,4 @@ protected:
 }
 }
 
-#endif
 #endif

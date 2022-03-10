@@ -307,10 +307,8 @@ namespace OgreBites
         typedef std::set<std::pair<uint32_t, InputListener*> > InputListenerList;
         InputListenerList mInputListeners;
 
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
         Ogre::RTShader::ShaderGenerator*       mShaderGenerator; // The Shader generator instance.
         SGTechniqueResolverListener*       mMaterialMgrListener; // Shader generator material manager listener.
-#endif // INCLUDE_RTSHADER_SYSTEM
     };
 
     /** @} */

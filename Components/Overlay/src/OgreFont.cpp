@@ -54,15 +54,9 @@ THE SOFTWARE
 #include "OgreBillboardSet.h"
 #include "OgreBillboard.h"
 
-#ifdef HAVE_FREETYPE
 #define generic _generic    // keyword for C++/CX
 #include <freetype/freetype.h>
 #undef generic
-#else
-#define STBTT_STATIC
-#define STB_TRUETYPE_IMPLEMENTATION
-#include "stb_truetype.h"
-#endif
 
 namespace Ogre
 {
@@ -373,7 +367,7 @@ namespace Ogre
             mCodePointRangeList.push_back(CodePointRange(33, 126));
         }
         float vpScale = OverlayManager::getSingleton().getPixelRatio();
-#ifdef HAVE_FREETYPE
+
         // ManualResourceLoader implementation - load the texture
         FT_Library ftLibrary;
         // Init freetype
@@ -412,32 +406,7 @@ namespace Ogre
             }
 
         }
-#else
-        stbtt_fontinfo font;
-        stbtt_InitFont(&font, ttfchunk.getPtr(), 0);
-        // 64 gives the same texture resolution as freetype.
-        float scale = stbtt_ScaleForPixelHeight(&font, vpScale * mTtfSize * mTtfResolution / 64);
 
-        int max_width = 0, max_height = 0;
-        // Calculate maximum width, height and bearing
-        size_t glyphCount = 0;
-        for (const CodePointRange& range : mCodePointRangeList)
-        {
-            for(CodePoint cp = range.first; cp <= range.second; ++cp, ++glyphCount)
-            {
-                int idx = stbtt_FindGlyphIndex(&font, cp);
-                if (!idx)    // It is actually in the font?
-                    continue;
-                TRect<int> r;
-                stbtt_GetGlyphBitmapBox(&font, idx, scale, scale, &r.left, &r.top, &r.right, &r.bottom);
-                max_height = std::max(r.height(), max_height);
-                mTtfMaxBearingY = std::max(-r.top, mTtfMaxBearingY);
-                max_width = std::max(r.width(), max_width);
-            }
-        }
-
-        max_height *= 1.125;
-#endif
         uint char_spacer = 1;
 
         // Now work out how big our texture needs to be
@@ -472,7 +441,7 @@ namespace Ogre
             {
                 uchar* buffer;
                 int buffer_h = 0, buffer_pitch = 0;
-#ifdef HAVE_FREETYPE
+
                 // Load & render glyph
                 FT_Error ftResult = FT_Load_Char( face, cp, FT_LOAD_RENDER );
                 if (ftResult)
@@ -499,28 +468,7 @@ namespace Ogre
 
                 FT_Pos y_bearing = mTtfMaxBearingY - (face->glyph->metrics.horiBearingY >> 6);
                 FT_Pos x_bearing = face->glyph->metrics.horiBearingX >> 6;
-#else
-                int idx = stbtt_FindGlyphIndex(&font, cp);
-                if (!idx)
-                {
-                    LogManager::getSingleton().logWarning(
-                        StringUtil::format("Charcode %u is not in font %s", cp, mSource.c_str()));
-                    continue;
-                }
 
-                TRect<int> r;
-                stbtt_GetGlyphBitmapBox(&font, idx, scale, scale, &r.left, &r.top, &r.right, &r.bottom);
-
-                uint width = r.width();
-
-                int y_bearing = mTtfMaxBearingY + r.top;
-                int xoff = 0, yoff = 0;
-                buffer = stbtt_GetCodepointBitmap(&font, scale, scale, cp, &buffer_pitch, &buffer_h, &xoff, &yoff);
-
-                int advance = xoff + width, x_bearing = xoff;
-                // should be multiplied with scale, but still does not seem to do the right thing
-                // stbtt_GetGlyphHMetrics(&font, cp, &advance, &x_bearing);
-#endif
                 // If at end of row
                 if( finalWidth - 1 < l + width )
                 {
@@ -562,9 +510,9 @@ namespace Ogre
                 l += (width + char_spacer);
             }
         }
-#ifdef HAVE_FREETYPE
+
         FT_Done_FreeType(ftLibrary);
-#endif
+
         Texture* tex = static_cast<Texture*>(res);
         // Call internal _loadImages, not loadImage since that's external and 
         // will determine load status etc again, and this is a manual loader inside load()

@@ -63,12 +63,6 @@ THE SOFTWARE.
 
 #define OGRE_DEFAULT_LOCALE "C"
 
-//----------------------------------------------------------------------------
-// Library suffixes
-// "_d" for debug builds, nothing otherwise
-
-#define OGRE_BUILD_SUFFIX ""
-
 #define DECL_MALLOC __attribute__ ((malloc))
 
 #include <stdint.h>
