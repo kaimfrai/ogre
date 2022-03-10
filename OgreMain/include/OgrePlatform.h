@@ -34,12 +34,6 @@ THE SOFTWARE.
 /* Initial platform/compiler-related stuff to set.
 */
 
-#define OGRE_ENDIAN_LITTLE 1
-#define OGRE_ENDIAN_BIG 2
-
-#define OGRE_ARCHITECTURE_32 1
-#define OGRE_ARCHITECTURE_64 2
-
 #define OGRE_CPU_UNKNOWN    0
 #define OGRE_CPU_X86        1
 #define OGRE_CPU_PPC        2
@@ -70,13 +64,6 @@ THE SOFTWARE.
 
 /* define OGRE_NORETURN macro */
 #define OGRE_NORETURN __attribute__((noreturn))
-
-/* Find the arch type */
-#if defined(__LP64__) || defined(_WIN64)
-#   define OGRE_ARCH_TYPE OGRE_ARCHITECTURE_64
-#else
-#   define OGRE_ARCH_TYPE OGRE_ARCHITECTURE_32
-#endif
 
 /* Find how to declare aligned variable. */
 #define OGRE_ALIGNED_DECL(type, var, alignment)  type var __attribute__((__aligned__(alignment)))

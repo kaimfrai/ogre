@@ -64,85 +64,26 @@ namespace Ogre {
     // Detect whether CPU supports CPUID instruction, returns non-zero if supported.
     static int _isSupportCpuid(void)
     {
-        #if OGRE_ARCH_TYPE == OGRE_ARCHITECTURE_64
-           return true;
-       #else
-        unsigned oldFlags, newFlags;
-        __asm__
-        (
-            "pushfl         \n\t"
-            "pop    %0      \n\t"
-            "mov    %0, %1  \n\t"
-            "xor    %2, %0  \n\t"
-            "push   %0      \n\t"
-            "popfl          \n\t"
-            "pushfl         \n\t"
-            "pop    %0      \n\t"
-            "push   %1      \n\t"
-            "popfl          \n\t"
-            : "=r" (oldFlags), "=r" (newFlags)
-            : "n" (0x200000)
-        );
-        return oldFlags != newFlags;
-       #endif // 64
+        return true;
     }
 
     //---------------------------------------------------------------------
     // Performs CPUID instruction with 'query', fill the results, and return value of eax.
     static uint _performCpuid(int query, CpuidResult& result)
     {
-        #if OGRE_ARCH_TYPE == OGRE_ARCHITECTURE_64
         __asm__
         (
             "cpuid": "=a" (result._eax), "=b" (result._ebx), "=c" (result._ecx), "=d" (result._edx) : "a" (query)
         );
-        #else
-        __asm__
-        (
-            "pushl  %%ebx           \n\t"
-            "cpuid                  \n\t"
-            "movl   %%ebx, %%edi    \n\t"
-            "popl   %%ebx           \n\t"
-            : "=a" (result._eax), "=D" (result._ebx), "=c" (result._ecx), "=d" (result._edx)
-            : "a" (query)
-        );
-       #endif // OGRE_ARCHITECTURE_64
         return result._eax;
     }
 
     //---------------------------------------------------------------------
     // Detect whether or not os support Streaming SIMD Extension.
-    #if OGRE_ARCH_TYPE == OGRE_ARCHITECTURE_32 && OGRE_CPU == OGRE_CPU_X86
-    static jmp_buf sIllegalJmpBuf;
-    static void _illegalHandler(int x)
-    {
-        (void)(x); // Unused
-        longjmp(sIllegalJmpBuf, 1);
-    }
-    #endif
 
     static bool _checkOperatingSystemSupportSSE(void)
     {
-        #if OGRE_ARCH_TYPE == OGRE_ARCHITECTURE_64 
-            return true;
-        #else
-        // Does gcc have __try/__except similar mechanism?
-        // Use signal, setjmp/longjmp instead.
-        void (*oldHandler)(int);
-        oldHandler = signal(SIGILL, _illegalHandler);
-
-        if (setjmp(sIllegalJmpBuf))
-        {
-            signal(SIGILL, oldHandler);
-            return false;
-        }
-        else
-        {
-            __asm__ __volatile__ ("orps %xmm0, %xmm0");
-            signal(SIGILL, oldHandler);
-            return true;
-        }
-       #endif
+        return true;
     }
 
     //---------------------------------------------------------------------
