@@ -86,9 +86,7 @@ void ApplicationContextBase::closeApp()
         mRoot = NULL;
     }
 
-#ifdef OGRE_BITES_STATIC_PLUGINS
     mStaticPluginLoader.unload();
-#endif
 }
 
 bool ApplicationContextBase::initialiseRTShaderSystem()
