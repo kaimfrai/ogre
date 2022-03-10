@@ -10,22 +10,7 @@ namespace Ogre {
     class Plugin;
 }  // namespace Ogre
 
-#ifdef OGRE_BUILD_RENDERSYSTEM_GL
 #define OGRE_STATIC_GL
-#endif
-#ifdef OGRE_BUILD_RENDERSYSTEM_GL3PLUS
-#define OGRE_STATIC_GL3Plus
-#endif
-#ifdef OGRE_BUILD_RENDERSYSTEM_GLES2
-#define OGRE_STATIC_GLES2
-#endif
-#ifdef OGRE_BUILD_RENDERSYSTEM_D3D9
-#define OGRE_STATIC_Direct3D9
-#endif
-// dx11 will only work on vista and above, so be careful about statically linking
-#ifdef OGRE_BUILD_RENDERSYSTEM_D3D11
-#define OGRE_STATIC_Direct3D11
-#endif
 
 #ifdef OGRE_BUILD_PLUGIN_BSP
 #define OGRE_STATIC_BSPSceneManager
@@ -68,27 +53,9 @@ namespace Ogre {
 #ifdef OGRE_STATIC_BSPSceneManager
 #  include "OgreBspSceneManagerPlugin.h"
 #endif
-#ifdef OGRE_STATIC_GL
-#  include "OgreGLPlugin.h"
-#endif
-#ifdef OGRE_STATIC_GL3Plus
-#  include "OgreGL3PlusPlugin.h"
-#endif
-#ifdef OGRE_STATIC_GLES2
-#  include "OgreGLES2Plugin.h"
-#endif
-#ifdef OGRE_STATIC_Direct3D9
-#  include "OgreD3D9Plugin.h"
-#endif
-#ifdef OGRE_STATIC_Direct3D11
-#  include "OgreD3D11Plugin.h"
-#endif
-#ifdef OGRE_BUILD_RENDERSYSTEM_TINY
-#  include "OgreTinyPlugin.h"
-#endif
-#ifdef OGRE_BUILD_RENDERSYSTEM_VULKAN
-#  include "OgreVulkanPlugin.h"
-#endif
+
+#include "OgreGLPlugin.h"
+
 #ifdef OGRE_STATIC_PCZSceneManager
 #  include "OgrePCZPlugin.h"
 #endif
@@ -111,34 +78,10 @@ void OgreBites::StaticPluginLoader::load()
     using namespace Ogre;
 #ifdef OGRE_BITES_STATIC_PLUGINS
     Plugin* plugin = NULL;
-#ifdef OGRE_STATIC_GL
+
     plugin = OGRE_NEW GLPlugin();
     mPlugins.push_back(plugin);
-#endif
-#ifdef OGRE_STATIC_GL3Plus
-    plugin = OGRE_NEW GL3PlusPlugin();
-    mPlugins.push_back(plugin);
-#endif
-#ifdef OGRE_STATIC_GLES2
-    plugin = OGRE_NEW GLES2Plugin();
-    mPlugins.push_back(plugin);
-#endif
-#ifdef OGRE_STATIC_Direct3D9
-    plugin = OGRE_NEW D3D9Plugin();
-    mPlugins.push_back(plugin);
-#endif
-#ifdef OGRE_BUILD_RENDERSYSTEM_TINY
-    plugin = OGRE_NEW TinyPlugin();
-    mPlugins.push_back(plugin);
-#endif
-#ifdef OGRE_BUILD_RENDERSYSTEM_VULKAN
-    plugin = OGRE_NEW VulkanPlugin();
-    mPlugins.push_back(plugin);
-#endif
-#ifdef OGRE_STATIC_Direct3D11
-    plugin = OGRE_NEW D3D11Plugin();
-    mPlugins.push_back(plugin);
-#endif
+
 #ifdef OGRE_STATIC_CgProgramManager
     plugin = OGRE_NEW CgPlugin();
     mPlugins.push_back(plugin);
