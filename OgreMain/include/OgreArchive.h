@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreDataStream.h"
 #include "OgreStringVector.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
@@ -228,7 +227,5 @@ class Archive;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreBillboardChain.h"
 #include "OgreNode.h"
 #include "OgreControllerManager.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
@@ -246,7 +245,5 @@ template <typename T> class Controller;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "Threading/OgreThreadHeaders.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -421,8 +420,6 @@ class VertexDeclaration;
     /** @} */
     /** @} */
 } // namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif // __HardwareBufferManager__
 

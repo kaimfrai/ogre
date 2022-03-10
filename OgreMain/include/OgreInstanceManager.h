@@ -35,7 +35,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
@@ -318,7 +317,5 @@ class SceneManager;
         InstanceBatchIterator getInstanceBatchIterator( const String &materialName ) const;
     };
 } // namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif // __InstanceManager_H__

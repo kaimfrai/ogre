@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreMovableObject.h"
 #include "OgreRenderable.h"
 #include "OgreResourceGroupManager.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
@@ -738,8 +737,6 @@ class SubMesh;
     /** @} */
     /** @} */
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif
 

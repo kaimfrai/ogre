@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreIteratorWrapper.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
@@ -116,7 +115,5 @@ class ArchiveFactory;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

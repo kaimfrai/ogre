@@ -36,15 +36,14 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreVector.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
 namespace Ogre {
-class IndexData;
-class Log;
-class VertexData;
+    class IndexData;
+    class Log;
+    class VertexData;
 
     /** \addtogroup Core
     *  @{
@@ -282,8 +281,6 @@ class VertexData;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif
 

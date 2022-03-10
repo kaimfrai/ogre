@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgreInstanceBatch.h"
 #include "OgreTexture.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgreMesh.h"
@@ -239,7 +238,5 @@ class VertexData;
         size_t calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const;
     };
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

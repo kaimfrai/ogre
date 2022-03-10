@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <set>
 
 #include "OgrePrerequisites.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -146,7 +145,5 @@ class RenderTarget;
         void detachFromAllRenderTargets();
     };
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

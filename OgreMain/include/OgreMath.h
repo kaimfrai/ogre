@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgrePrerequisites.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgrePlatform.h"
 
@@ -824,7 +823,5 @@ class Sphere;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

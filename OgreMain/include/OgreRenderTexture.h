@@ -33,15 +33,14 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreRenderTarget.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 
 namespace Ogre
 {    
-class HardwarePixelBuffer;
-struct Box;
+    class HardwarePixelBuffer;
+    struct Box;
 
     /** \addtogroup Core
     *  @{
@@ -131,7 +130,5 @@ struct Box;
     /** @} */
     /** @} */
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

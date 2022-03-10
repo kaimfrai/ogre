@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreLight.h"
 #include "OgreTextureUnitState.h"
 #include "OgreUserObjectBindings.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreBlendMode.h"
 #include "OgreExports.h"
 #include "OgreGpuProgram.h"
@@ -1599,7 +1598,5 @@ class Technique;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

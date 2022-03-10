@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgrePlaneBoundedVolume.h"
 #include "OgreNode.h"
 #include "OgreCamera.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
@@ -642,8 +641,6 @@ class Sphere;
     };
     /** @} */
     /** @} */
-
-#include "OgreHeaderSuffix.h"
 
 } // namespace Ogre
 #endif // _LIGHT_H__

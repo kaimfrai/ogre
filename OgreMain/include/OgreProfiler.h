@@ -48,7 +48,6 @@ Ogre-dependent is in the visualization/logging routines and the use of the Timer
 
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreBuildSettings.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -484,7 +483,5 @@ class Timer;
     /** @} */
 
 } // end namespace
-
-#include "OgreHeaderSuffix.h"
 
 #endif

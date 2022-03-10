@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreStringInterface.h"
-#include "OgreHeaderPrefix.h"
 #include "Threading/OgreThreadHeaders.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -506,7 +505,5 @@ class ResourceManager;
     /** @} */
     /** @} */
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

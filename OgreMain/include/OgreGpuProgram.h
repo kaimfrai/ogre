@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreGpuProgramParams.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreVector.h"
 #include "OgreSharedPtr.h"
 #include "OgreExports.h"
@@ -371,7 +370,5 @@ struct GpuNamedConstants;
     /** @} */
     /** @} */
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

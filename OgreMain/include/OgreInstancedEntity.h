@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgreMovableObject.h"
 #include "OgreNode.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgrePlatform.h"
@@ -310,7 +309,5 @@ class SkeletonInstance;
         const Vector4& getCustomParam( unsigned char idx );
     };
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

@@ -46,7 +46,7 @@ THE SOFTWARE.
 #define __OGRE_SIMD_ALIGN_STACK()   _alloca(16)
 #define __OGRE_SIMD_ALIGN_ATTRIBUTE
 
-#elif OGRE_CPU == OGRE_CPU_X86 && (OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG) && (OGRE_ARCH_TYPE != OGRE_ARCHITECTURE_64)
+#elif OGRE_CPU == OGRE_CPU_X86 && (OGRE_ARCH_TYPE != OGRE_ARCHITECTURE_64)
 // mark functions with GCC attribute to force stack alignment to 16 bytes
 #define __OGRE_SIMD_ALIGN_ATTRIBUTE __attribute__((force_align_arg_pointer))
 

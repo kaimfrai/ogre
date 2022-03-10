@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgreVertexBoneAssignment.h"
 #include "OgreAnimation.h"
 #include "OgreAnimationTrack.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreSharedPtr.h"
 #include "OgreBuildSettings.h"
 #include "OgreCommon.h"
@@ -1025,7 +1024,5 @@ class VertexData;
 
 
 } // namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif // __Mesh_H__

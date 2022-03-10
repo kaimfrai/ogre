@@ -43,7 +43,6 @@ THE SOFTWARE.
 #include "OgreGpuProgram.h"
 #include "OgrePlane.h"
 #include "OgreHardwareVertexBuffer.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
 #include "OgreConfig.h"
@@ -1294,7 +1293,5 @@ class Viewport;
     /** @} */
     /** @} */
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

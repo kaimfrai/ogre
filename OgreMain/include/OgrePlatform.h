@@ -33,10 +33,6 @@ THE SOFTWARE.
 
 /* Initial platform/compiler-related stuff to set.
 */
-    
-#define OGRE_COMPILER_MSVC 1
-#define OGRE_COMPILER_GNUC 2
-#define OGRE_COMPILER_CLANG 3
 
 #define OGRE_ENDIAN_LITTLE 1
 #define OGRE_ENDIAN_BIG 2
@@ -72,62 +68,17 @@ THE SOFTWARE.
 #    define OGRE_ENDIAN OGRE_ENDIAN_LITTLE
 #endif
 
-
-/* Finds the compiler type and version.
-*/
-#if (defined( __WIN32__ ) || defined( _WIN32 )) && defined(__ANDROID__) // We are using NVTegra
-#   define OGRE_COMPILER OGRE_COMPILER_GNUC
-#   define OGRE_COMP_VER 470
-#elif defined( _MSC_VER )
-#   define OGRE_COMPILER OGRE_COMPILER_MSVC
-#   define OGRE_COMP_VER _MSC_VER
-#elif defined( __clang__ )
-#   define OGRE_COMPILER OGRE_COMPILER_CLANG
-#   define OGRE_COMP_VER (((__clang_major__)*100) + \
-        (__clang_minor__*10) + \
-        __clang_patchlevel__)
-#elif defined( __GNUC__ )
-#   define OGRE_COMPILER OGRE_COMPILER_GNUC
-#   define OGRE_COMP_VER (((__GNUC__)*100) + \
-        (__GNUC_MINOR__*10) + \
-        __GNUC_PATCHLEVEL__)
-#else
-#   pragma error "No known compiler. Abort! Abort!"
-
-#endif
-
-#define OGRE_COMPILER_MIN_VERSION(COMPILER, VERSION) (OGRE_COMPILER == (COMPILER) && OGRE_COMP_VER >= (VERSION))
-
 /* See if we can use __forceinline or if we need to use __inline instead */
-#if OGRE_COMPILER_MIN_VERSION(OGRE_COMPILER_MSVC, 1200)
-    #define OGRE_FORCE_INLINE __forceinline
-#elif OGRE_COMPILER_MIN_VERSION(OGRE_COMPILER_GNUC, 340)
-    #define OGRE_FORCE_INLINE inline __attribute__((always_inline))
-#else
-        #define OGRE_FORCE_INLINE __inline
-#endif
+
+#define OGRE_FORCE_INLINE inline __attribute__((always_inline))
 
 /* fallthrough attribute */
-#if OGRE_COMPILER_MIN_VERSION(OGRE_COMPILER_GNUC, 700)
 #define OGRE_FALLTHROUGH __attribute__((fallthrough))
-#else
-#define OGRE_FALLTHROUGH
-#endif
 
-#if OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG
 #define OGRE_NODISCARD __attribute__((__warn_unused_result__))
-#else
-#define OGRE_NODISCARD
-#endif
 
 /* define OGRE_NORETURN macro */
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-#	define OGRE_NORETURN __declspec(noreturn)
-#elif OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG
-#	define OGRE_NORETURN __attribute__((noreturn))
-#else
-#	define OGRE_NORETURN
-#endif
+#define OGRE_NORETURN __attribute__((noreturn))
 
 /* Find the arch type */
 #if defined(__LP64__) || defined(_WIN64)
@@ -137,13 +88,7 @@ THE SOFTWARE.
 #endif
 
 /* Find how to declare aligned variable. */
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-#   define OGRE_ALIGNED_DECL(type, var, alignment)  __declspec(align(alignment)) type var
-#elif (OGRE_COMPILER == OGRE_COMPILER_GNUC) || (OGRE_COMPILER == OGRE_COMPILER_CLANG)
-#   define OGRE_ALIGNED_DECL(type, var, alignment)  type var __attribute__((__aligned__(alignment)))
-#else
-#   define OGRE_ALIGNED_DECL(type, var, alignment)  type var
-#endif
+#define OGRE_ALIGNED_DECL(type, var, alignment)  type var __attribute__((__aligned__(alignment)))
 
 /** Find perfect alignment (should supports SIMD alignment if SIMD available) */
 #define OGRE_SIMD_ALIGNMENT 16
@@ -178,11 +123,7 @@ THE SOFTWARE.
 
 #define OGRE_BUILD_SUFFIX ""
 
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-#define DECL_MALLOC __declspec(restrict) __declspec(noalias)
-#else
 #define DECL_MALLOC __attribute__ ((malloc))
-#endif
 
 #include <stdint.h>
 

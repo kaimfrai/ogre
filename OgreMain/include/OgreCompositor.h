@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgrePrerequisites.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreResource.h"
@@ -188,7 +187,5 @@ class ResourceManager;
     /** @} */
     /** @} */
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

@@ -29,8 +29,6 @@ THE SOFTWARE.
 //using namespace Ogre;
 
 // NB VC6 can't handle these templates
-#if OGRE_COMPILER != OGRE_COMPILER_MSVC || OGRE_COMP_VER >= 1300
-
 #define FMTCONVERTERID(from,to) (((from)<<8)|(to))
 /** \addtogroup Core
 *  @{
@@ -486,5 +484,3 @@ inline int doOptimizedConversion(const Ogre::PixelBox &src, const Ogre::PixelBox
 #undef CASECONVERTER
 /** @} */
 /** @} */
-
-#endif // VC6 protection

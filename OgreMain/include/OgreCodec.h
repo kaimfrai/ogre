@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreIteratorWrapper.h"
 #include "OgreStringVector.h"
 #include "OgreException.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreAny.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -146,7 +145,5 @@ class Any;
     /** @} */
 
 } // namespace
-
-#include "OgreHeaderSuffix.h"
 
 #endif

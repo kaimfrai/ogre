@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreSharedPtr.h"
 #include "OgreCommon.h"
 #include "Threading/OgreThreadHeaders.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -597,7 +596,4 @@ namespace Ogre
 
 }
 
-#include "OgreHeaderSuffix.h"
-
 #endif
-

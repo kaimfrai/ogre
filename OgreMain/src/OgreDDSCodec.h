@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <stddef.h>
 
 #include "OgreImageCodec.h"
-#include "OgreHeaderPrefix.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
@@ -97,8 +96,6 @@ class ColourValue;
     /** @} */
 
 } // namespace
-
-#include "OgreHeaderSuffix.h"
 
 #endif
 

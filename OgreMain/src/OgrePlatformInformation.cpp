@@ -37,12 +37,6 @@ THE SOFTWARE.
 #include "OgreString.h"
 #include "OgreStringConverter.h"
 
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-#include <excpt.h>      // For SEH values
-#include <intrin.h>
-#elif OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG
-
-#endif
 
 // Yes, I know, this file looks very ugly, but there aren't other ways to do it better.
 
@@ -66,52 +60,10 @@ namespace Ogre {
     // Compiler-dependent routines
     //---------------------------------------------------------------------
 
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-#pragma warning(push)
-#pragma warning(disable: 4035)  // no return value
-#endif
-
     //---------------------------------------------------------------------
     // Detect whether CPU supports CPUID instruction, returns non-zero if supported.
     static int _isSupportCpuid(void)
     {
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-        // Visual Studio 2005 & 64-bit compilers always supports __cpuid intrinsic
-        // note that even though this is a build rather than runtime setting, all
-        // 64-bit CPUs support this so since binary is 64-bit only we're ok
-    #if _MSC_VER >= 1400 && defined(_M_X64)
-        return true;
-    #else
-        // If we can modify flag register bit 21, the cpu is supports CPUID instruction
-        __asm
-        {
-            // Read EFLAG
-            pushfd
-            pop     eax
-            mov     ecx, eax
-
-            // Modify bit 21
-            xor     eax, 0x200000
-            push    eax
-            popfd
-
-            // Read back EFLAG
-            pushfd
-            pop     eax
-
-            // Restore EFLAG
-            push    ecx
-            popfd
-
-            // Check bit 21 modifiable
-            xor     eax, ecx
-            neg     eax
-            sbb     eax, eax
-
-            // Return values in eax, no return statement requirement here for VC.
-        }
-    #endif
-#elif (OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG)
         #if OGRE_ARCH_TYPE == OGRE_ARCHITECTURE_64
            return true;
        #else
@@ -133,25 +85,12 @@ namespace Ogre {
         );
         return oldFlags != newFlags;
        #endif // 64
-#else
-        // TODO: Supports other compiler
-        return false;
-#endif
     }
 
     //---------------------------------------------------------------------
     // Performs CPUID instruction with 'query', fill the results, and return value of eax.
     static uint _performCpuid(int query, CpuidResult& result)
     {
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-        int CPUInfo[4];
-        __cpuid(CPUInfo, query);
-        result._eax = CPUInfo[0];
-        result._ebx = CPUInfo[1];
-        result._ecx = CPUInfo[2];
-        result._edx = CPUInfo[3];
-        return result._eax;
-#elif (OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG)
         #if OGRE_ARCH_TYPE == OGRE_ARCHITECTURE_64
         __asm__
         (
@@ -169,20 +108,10 @@ namespace Ogre {
         );
        #endif // OGRE_ARCHITECTURE_64
         return result._eax;
-
-#else
-        // TODO: Supports other compiler
-        return 0;
-#endif
     }
-
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-#pragma warning(pop)
-#endif
 
     //---------------------------------------------------------------------
     // Detect whether or not os support Streaming SIMD Extension.
-#if OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG
     #if OGRE_ARCH_TYPE == OGRE_ARCHITECTURE_32 && OGRE_CPU == OGRE_CPU_X86
     static jmp_buf sIllegalJmpBuf;
     static void _illegalHandler(int x)
@@ -191,41 +120,9 @@ namespace Ogre {
         longjmp(sIllegalJmpBuf, 1);
     }
     #endif
-#endif
+
     static bool _checkOperatingSystemSupportSSE(void)
     {
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-        /*
-            The FP part of SSE introduces a new architectural state and therefore
-            requires support from the operating system. So even if CPUID indicates
-            support for SSE FP, the application might not be able to use it. If
-            CPUID indicates support for SSE FP, check here whether it is also
-            supported by the OS, and turn off the SSE FP feature bit if there
-            is no OS support for SSE FP.
-
-            Operating systems that do not support SSE FP return an illegal
-            instruction exception if execution of an SSE FP instruction is performed.
-            Here, a sample SSE FP instruction is executed, and is checked for an
-            exception using the (non-standard) __try/__except mechanism
-            of Microsoft Visual C/C++.
-        */
-        // Visual Studio 2005, Both AMD and Intel x64 support SSE
-        // note that even though this is a build rather than runtime setting, all
-        // 64-bit CPUs support this so since binary is 64-bit only we're ok
-    #if _MSC_VER >= 1400 && defined(_M_X64)
-            return true;
-    #else
-        __try
-        {
-            __asm orps  xmm0, xmm0
-            return true;
-        }
-        __except(EXCEPTION_EXECUTE_HANDLER)
-        {
-            return false;
-        }
-    #endif
-#elif (OGRE_COMPILER == OGRE_COMPILER_GNUC || OGRE_COMPILER == OGRE_COMPILER_CLANG)
         #if OGRE_ARCH_TYPE == OGRE_ARCHITECTURE_64 
             return true;
         #else
@@ -246,10 +143,6 @@ namespace Ogre {
             return true;
         }
        #endif
-#else
-        // TODO: Supports other compiler, assumed is supported by default
-        return true;
-#endif
     }
 
     //---------------------------------------------------------------------

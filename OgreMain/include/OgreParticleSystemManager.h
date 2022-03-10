@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreScriptLoader.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
@@ -366,8 +365,6 @@ class ParticleSystemRenderer;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif
 

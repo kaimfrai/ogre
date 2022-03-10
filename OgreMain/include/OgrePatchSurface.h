@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
@@ -243,7 +242,5 @@ class VertexDeclaration;
     /** @} */
 
 } // namespace
-
-#include "OgreHeaderSuffix.h"
 
 #endif

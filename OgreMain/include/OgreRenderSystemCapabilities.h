@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreStringVector.h"
 #include "OgreStringConverter.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
@@ -807,8 +806,4 @@ namespace Ogre
     /** @} */
 } // namespace
 
-
-#include "OgreHeaderSuffix.h"
-
 #endif // __RenderSystemCapabilities__
-

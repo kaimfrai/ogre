@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgrePrerequisites.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCompositionPass.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -191,7 +190,5 @@ class CompositionTechnique;
     /** @} */
     /** @} */
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

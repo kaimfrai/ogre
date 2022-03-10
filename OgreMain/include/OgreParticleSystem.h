@@ -39,23 +39,21 @@ THE SOFTWARE.
 #include "OgreStringInterface.h"
 #include "OgreMovableObject.h"
 #include "OgreResourceGroupManager.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreExports.h"
 #include "OgrePlatform.h"
 #include "OgreRenderable.h"
 #include "OgreSharedPtr.h"
 
-
 namespace Ogre {
-class Camera;
-class Node;
-class Particle;
-class ParticleAffector;
-class ParticleEmitter;
-class ParticleSystemRenderer;
-class RenderQueue;
-template <typename T> class Controller;
+    class Camera;
+    class Node;
+    class Particle;
+    class ParticleAffector;
+    class ParticleEmitter;
+    class ParticleSystemRenderer;
+    class RenderQueue;
+    template <typename T> class Controller;
 
     /** \addtogroup Core
     *  @{
@@ -788,7 +786,5 @@ template <typename T> class Controller;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

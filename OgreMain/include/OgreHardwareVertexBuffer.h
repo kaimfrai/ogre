@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreHardwareBuffer.h"
 #include "OgreSharedPtr.h"
 #include "OgreColourValue.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -576,8 +575,6 @@ namespace Ogre {
 
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif
 

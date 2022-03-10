@@ -42,7 +42,6 @@ THE SOFTWARE.
 #include "OgreHardwareBufferManager.h"
 #include "OgreRenderable.h"
 #include "OgreResourceGroupManager.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreBuildSettings.h"
 #include "OgreExports.h"
@@ -900,7 +899,5 @@ class VertexData;
     /** @} */
 
 } // namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif // __Entity_H__

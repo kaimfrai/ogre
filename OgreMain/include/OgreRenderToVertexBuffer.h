@@ -32,15 +32,14 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {
-class Renderable;
-class SceneManager;
-class VertexData;
-class VertexDeclaration;
+   class Renderable;
+   class SceneManager;
+   class VertexData;
+   class VertexDeclaration;
 
     /** \addtogroup Core
      *  @{
@@ -154,7 +153,5 @@ class VertexDeclaration;
     /** @} */
     /** @} */
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

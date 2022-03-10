@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
@@ -93,7 +92,5 @@ class DynLib;
     /** @} */
     /** @} */
 } // namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif // __DynLibManager_H__

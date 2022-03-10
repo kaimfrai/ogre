@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreDataStream.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreBuildSettings.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -408,7 +407,4 @@ class Sphere;
     /** @} */
 }
 
-#include "OgreHeaderSuffix.h"
-
 #endif
-

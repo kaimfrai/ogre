@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreSphere.h"
 #include "OgreRay.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -559,7 +558,5 @@ class SceneManager;
     /** @} */
 
 }
-    
-#include "OgreHeaderSuffix.h"
 
 #endif

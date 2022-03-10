@@ -42,7 +42,6 @@ THE SOFTWARE.
 #include "OgreIteratorWrapper.h"
 #include "OgreCommon.h"
 #include "Threading/OgreThreadHeaders.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreBuildSettings.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -965,7 +964,5 @@ class ScriptLoader;
     /** @} */
     /** @} */
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

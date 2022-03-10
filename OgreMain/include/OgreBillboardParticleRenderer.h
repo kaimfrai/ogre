@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreParticleSystemRenderer.h"
 #include "OgreBillboardSet.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
@@ -177,8 +176,6 @@ class RenderQueue;
     /** @} */
 
 } // namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif // __BillboardParticleRenderer_H__
 

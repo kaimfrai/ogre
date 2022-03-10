@@ -36,17 +36,16 @@ THE SOFTWARE.
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgrePass.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
 namespace Ogre {
-class Camera;
-class RenderQueueGroup;
-class Renderable;
-class Technique;
+    class Camera;
+    class RenderQueueGroup;
+    class Renderable;
+    class Technique;
 
     /** \addtogroup Core
     *  @{
@@ -642,8 +641,5 @@ class Technique;
 
 }
 
-#include "OgreHeaderSuffix.h"
-
 #endif
-
 

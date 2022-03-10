@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgreRenderable.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreResourceGroupManager.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreBuildSettings.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
@@ -307,7 +306,5 @@ class VertexData;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

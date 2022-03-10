@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreHardwareBuffer.h"
 #include "OgreResource.h"
 #include "OgreImage.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreSharedPtr.h"
 #include "OgreExports.h"
 #include "OgrePixelFormat.h"
@@ -525,7 +524,5 @@ class ResourceManager;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

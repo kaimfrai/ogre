@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgrePrerequisites.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreSimpleSpline.h"
 #include "OgreRotationalSpline.h"
 #include "OgrePose.h"
@@ -588,7 +587,5 @@ class VertexMorphKeyFrame;
     /** @} */
     /** @} */
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

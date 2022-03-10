@@ -67,12 +67,6 @@ THE SOFTWARE.
 #include "OgreVector.h"
 #include "OgreVertexIndexData.h"
 
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-// Disable conversion warnings, we do a lot of them, intentionally
-#   pragma warning (disable : 4267)
-#endif
-
-
 namespace Ogre {
 
     /// stream overhead = ID + size

@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreResourceManager.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreTextureUnitState.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
@@ -298,7 +297,5 @@ class Technique;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

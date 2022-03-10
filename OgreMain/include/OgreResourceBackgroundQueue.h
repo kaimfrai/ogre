@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreSingleton.h"
 #include "OgreResource.h"
 #include "OgreWorkQueue.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -302,7 +301,4 @@ namespace Ogre {
 
 }
 
-#include "OgreHeaderSuffix.h"
-
 #endif
-

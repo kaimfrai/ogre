@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreHardwareBuffer.h"
 #include "OgreImage.h"
 #include "OgreSharedPtr.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgrePixelFormat.h"
@@ -204,8 +203,6 @@ class RenderTexture;
     /** @} */
     /** @} */
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif
 

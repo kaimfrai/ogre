@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreNode.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgrePlatform.h"
@@ -461,7 +460,5 @@ class SceneManager;
 
 
 }// namespace
-
-#include "OgreHeaderSuffix.h"
 
 #endif

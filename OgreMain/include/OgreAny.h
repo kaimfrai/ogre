@@ -38,7 +38,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include <typeinfo>
-#include "OgreHeaderPrefix.h"
 
 namespace Ogre
 {
@@ -382,11 +381,7 @@ namespace Ogre
     ValueType * any_cast(Any * operand)
     {
         return operand &&
-#if OGRE_COMPILER == OGRE_COMPILER_GNUC && OGRE_COMP_VER < 450
-                (std::strcmp(operand->type().name(), typeid(ValueType).name()) == 0)
-#else
                 (operand->type() == typeid(ValueType))
-#endif
                     ? &static_cast<Any::holder<ValueType> *>(operand->mContent)->held
                     : 0;
     }
@@ -412,8 +407,6 @@ namespace Ogre
 
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif
 

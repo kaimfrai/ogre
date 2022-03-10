@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgrePrerequisites.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreBuildSettings.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -135,7 +134,5 @@ namespace Ogre {
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

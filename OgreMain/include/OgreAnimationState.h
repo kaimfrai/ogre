@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgreController.h"
 #include "OgreControllerManager.h"
 #include "Threading/OgreThreadHeaders.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
@@ -331,8 +330,6 @@ class AnimationStateSet;
     /** @} */   
     /** @} */
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif
 

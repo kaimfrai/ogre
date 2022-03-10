@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreRenderable.h"
 #include "OgreMovableObject.h"
 #include "OgreMesh.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
@@ -379,7 +378,5 @@ class Technique;
         using Renderable::setUserAny;
     };
 } // namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif // __InstanceBatch_H__

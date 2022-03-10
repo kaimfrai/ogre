@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreMaterialManager.h"
 #include "OgreRenderQueue.h"
 #include "OgreCompositionTechnique.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -424,7 +423,5 @@ class SceneManager;
     /** @} */
 
 } // namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif // __CompositorInstance_H__

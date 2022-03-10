@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgrePass.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreUserObjectBindings.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
 #include "OgreExports.h"
@@ -722,7 +721,5 @@ class Material;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

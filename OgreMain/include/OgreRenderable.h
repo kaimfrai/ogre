@@ -41,18 +41,17 @@ THE SOFTWARE.
 #include "OgreVector.h"
 #include "OgreException.h"
 #include "OgreUserObjectBindings.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {
-class Any;
-class Camera;
-class Matrix4;
-class RenderOperation;
-class RenderSystem;
-class SceneManager;
-class Technique;
+    class Any;
+    class Camera;
+    class Matrix4;
+    class RenderOperation;
+    class RenderSystem;
+    class SceneManager;
+    class Technique;
 
     /** \addtogroup Core
     *  @{
@@ -377,5 +376,4 @@ class Technique;
 
 } // namespace Ogre
 
-#include "OgreHeaderSuffix.h"
 #endif //__Renderable_H__

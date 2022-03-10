@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreMath.h"
 #include "OgreVector.h"
 #include "OgreExports.h"
@@ -213,7 +212,5 @@ class BillboardSet;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreBlendMode.h"
 #include "OgreMatrix4.h"
 #include "OgreTexture.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreColourValue.h"
 #include "OgreExports.h"
 #include "OgreMath.h"
@@ -1162,7 +1161,5 @@ private:
     /** @} */
 
 } // namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif // __TextureUnitState_H__

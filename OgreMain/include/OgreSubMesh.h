@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreVertexBoneAssignment.h"
 #include "OgreAnimationTrack.h"
 #include "OgreResourceGroupManager.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
@@ -266,8 +265,4 @@ class VertexData;
 
 } // namespace
 
-#include "OgreHeaderSuffix.h"
-
 #endif
-
-

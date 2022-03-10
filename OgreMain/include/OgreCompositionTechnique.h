@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgrePixelFormat.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -41,8 +40,8 @@ THE SOFTWARE.
 
 namespace Ogre {
     template <typename T> class VectorIterator;
-class CompositionTargetPass;
-class Compositor;
+    class CompositionTargetPass;
+    class Compositor;
 
     /** \addtogroup Core
     *  @{
@@ -200,7 +199,5 @@ class Compositor;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

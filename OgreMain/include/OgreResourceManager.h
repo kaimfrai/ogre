@@ -42,7 +42,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreStringVector.h"
 #include "OgreScriptLoader.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -512,7 +511,5 @@ namespace Ogre {
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

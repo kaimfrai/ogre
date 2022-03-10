@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreSingleton.h"
 #include "OgreTextureUnitState.h"
 #include "OgreSharedPtr.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
@@ -275,7 +274,5 @@ template <typename T> class ControllerValue;
     /** @} */
 
 } // namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif // __ControllerManager_H__

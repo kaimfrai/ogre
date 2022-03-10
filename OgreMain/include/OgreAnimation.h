@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreIteratorWrapper.h"
 #include "OgreAnimationTrack.h"
 #include "OgreAnimationState.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -555,8 +554,6 @@ class VertexData;
     /** @} */
     /** @} */
 } // namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif // __Animation_H__
 

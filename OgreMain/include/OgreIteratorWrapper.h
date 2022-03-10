@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef __Ogre_Iterator_Wrapper_H__
 #define __Ogre_Iterator_Wrapper_H__
 
-#include "OgreHeaderPrefix.h"
 
 namespace Ogre{
 
@@ -375,7 +374,5 @@ class ConstMapIterator : public MapIteratorWrapper<T,  typename T::const_iterato
 
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

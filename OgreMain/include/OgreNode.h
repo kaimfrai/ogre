@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreMatrix4.h"
 #include "OgreUserObjectBindings.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
@@ -688,7 +687,5 @@ class Camera;
     /** @} */
 
 } // namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif // _Node_H__

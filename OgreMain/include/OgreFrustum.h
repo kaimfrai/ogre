@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include "OgreMovableObject.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreVertexIndexData.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
@@ -660,7 +659,5 @@ class Sphere;
     /** @} */
 
 } // namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif // __Frustum_H__

@@ -41,11 +41,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreException.h"
 
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-#   pragma warning (push)
-#   pragma warning ( disable: 4661)
-#endif
-
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -111,8 +106,5 @@ public:
     /** @} */
 
 }
-#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-#   pragma warning (pop)
-#endif
 
 #endif

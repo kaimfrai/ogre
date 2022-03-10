@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreArchive.h"
 #include "OgreArchiveFactory.h"
-#include "OgreHeaderPrefix.h"
 #include "Threading/OgreThreadHeaders.h"
 #include "OgreExports.h"
 #include "OgrePlatform.h"
@@ -104,7 +103,5 @@ class Archive;
     /** @} */
 
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif

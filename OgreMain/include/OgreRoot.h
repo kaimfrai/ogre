@@ -40,7 +40,6 @@ THE SOFTWARE.
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreSceneManagerEnumerator.h"
-#include "OgreHeaderPrefix.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
@@ -976,7 +975,5 @@ struct SceneManagerMetaData;
     /** @} */
     /** @} */
 } // Namespace Ogre
-
-#include "OgreHeaderSuffix.h"
 
 #endif

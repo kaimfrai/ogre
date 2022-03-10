@@ -30,7 +30,6 @@ THE SOFTWARE.
 
 #include "OgreString.h"
 #include <sstream>
-#include "OgreHeaderPrefix.h"
 
 #include "Threading/OgreThreadHeaders.h"
 
@@ -90,7 +89,5 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#include "OgreHeaderSuffix.h"
 
 #endif
