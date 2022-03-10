@@ -42,8 +42,6 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-#if OGRE_CPU == OGRE_CPU_X86
-
     //---------------------------------------------------------------------
     // Struct for store CPUID instruction result, compiler-independent
     //---------------------------------------------------------------------
@@ -323,62 +321,6 @@ namespace Ogre {
         return "X86";
     }
 
-#elif OGRE_CPU == OGRE_CPU_ARM  // OGRE_CPU == OGRE_CPU_ARM
-
-    //---------------------------------------------------------------------
-    static uint _detectCpuFeatures(void)
-    {
-        // Use preprocessor definitions to determine architecture and CPU features
-        uint features = 0;
-#if defined(__ARM_NEON__)
-            features |= PlatformInformation::CPU_FEATURE_NEON;
-#elif defined(__VFP_FP__)
-            features |= PlatformInformation::CPU_FEATURE_VFP;
-#endif
-        return features;
-    }
-    //---------------------------------------------------------------------
-    static String _detectCpuIdentifier(void)
-    {
-        String cpuID;
-        return cpuID;
-    }
-    
-#elif OGRE_CPU == OGRE_CPU_MIPS  // OGRE_CPU == OGRE_CPU_ARM
-
-    //---------------------------------------------------------------------
-    static uint _detectCpuFeatures(void)
-    {
-        // Use preprocessor definitions to determine architecture and CPU features
-        uint features = 0;
-#if defined(__mips_msa)
-        features |= PlatformInformation::CPU_FEATURE_MSA;
-#endif
-        return features;
-    }
-    //---------------------------------------------------------------------
-    static String _detectCpuIdentifier(void)
-    {
-        String cpuID = "MIPS";
-
-        return cpuID;
-    }
-
-#else   // OGRE_CPU == OGRE_CPU_MIPS
-
-    //---------------------------------------------------------------------
-    static uint _detectCpuFeatures(void)
-    {
-        return 0;
-    }
-    //---------------------------------------------------------------------
-    static String _detectCpuIdentifier(void)
-    {
-        return "Unknown";
-    }
-
-#endif  // OGRE_CPU
-
     //---------------------------------------------------------------------
     // Platform-independent routines, but the returns value are platform-dependent
     //---------------------------------------------------------------------
@@ -406,7 +348,7 @@ namespace Ogre {
         pLog->logMessage("-------------------------");
         pLog->logMessage(
             " *   CPU ID: " + getCpuIdentifier());
-#if OGRE_CPU == OGRE_CPU_X86
+
         if(_isSupportCpuid())
         {
             pLog->logMessage(
@@ -440,15 +382,7 @@ namespace Ogre {
             pLog->logMessage(
                 " *           HT: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_HTT), true));
         }
-#elif OGRE_CPU == OGRE_CPU_ARM
-        pLog->logMessage(
-                " *          VFP: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_VFP), true));
-        pLog->logMessage(
-                " *         NEON: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_NEON), true));
-#elif OGRE_CPU == OGRE_CPU_MIPS
-        pLog->logMessage(
-                " *          MSA: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_MSA), true));
-#endif
+
         pLog->logMessage("-------------------------");
 
     }

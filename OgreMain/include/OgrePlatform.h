@@ -31,28 +31,6 @@ THE SOFTWARE.
 #include "OgreConfig.h"
 #include "OgreExports.h"
 
-/* Initial platform/compiler-related stuff to set.
-*/
-
-#define OGRE_CPU_UNKNOWN    0
-#define OGRE_CPU_X86        1
-#define OGRE_CPU_PPC        2
-#define OGRE_CPU_ARM        3
-#define OGRE_CPU_MIPS       4
-
-/* Find CPU type */
-#if defined(__i386__) || defined(__x86_64__) || defined(_M_IX86) || defined(_M_X64) || defined(_M_AMD64)
-#   define OGRE_CPU OGRE_CPU_X86
-#elif defined(__ppc__) || defined(__ppc64__) || defined(_M_PPC)
-#   define OGRE_CPU OGRE_CPU_PPC
-#elif defined(__arm__) || defined(__arm64__) || defined(__aarch64__) || defined(_M_ARM) || defined(_M_ARM64)
-#   define OGRE_CPU OGRE_CPU_ARM
-#elif defined(__mips__) || defined(__mips64) || defined(__mips64_) || defined(_M_MIPS)
-#   define OGRE_CPU OGRE_CPU_MIPS
-#else
-#   define OGRE_CPU OGRE_CPU_UNKNOWN
-#endif
-
 /* See if we can use __forceinline or if we need to use __inline instead */
 
 #define OGRE_FORCE_INLINE inline __attribute__((always_inline))

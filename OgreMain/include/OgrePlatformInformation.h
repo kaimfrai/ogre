@@ -37,42 +37,12 @@ namespace Ogre {
     class Log;
 /* Define whether or not Ogre compiled with SSE support.
 */
-#if OGRE_DOUBLE_PRECISION == 0 && OGRE_CPU == OGRE_CPU_X86
+#if OGRE_DOUBLE_PRECISION == 0
 #   define __OGRE_HAVE_SSE  1
-#endif
-
-/* Define whether or not Ogre compiled with VFP support.
- */
-#if OGRE_DOUBLE_PRECISION == 0 && OGRE_CPU == OGRE_CPU_ARM && defined(__VFP_FP__)
-#   define __OGRE_HAVE_VFP  1
-#endif
-
-/* Define whether or not Ogre compiled with NEON support.
- */
-#if OGRE_DOUBLE_PRECISION == 0 && OGRE_CPU == OGRE_CPU_ARM && defined(__ARM_NEON__)
-#   define __OGRE_HAVE_NEON  1
-#endif
-
-/* Define whether or not Ogre compiled with MSA support.
- */
-#if OGRE_DOUBLE_PRECISION == 0 && OGRE_CPU == OGRE_CPU_MIPS && defined(__mips_msa)
-#   define __OGRE_HAVE_MSA  1
 #endif
 
 #ifndef __OGRE_HAVE_SSE
 #   define __OGRE_HAVE_SSE  0
-#endif
-
-#ifndef __OGRE_HAVE_VFP
-#   define __OGRE_HAVE_VFP  0
-#endif
-
-#ifndef __OGRE_HAVE_NEON
-#   define __OGRE_HAVE_NEON  0
-#endif
-
-#ifndef __OGRE_HAVE_MSA
-#   define __OGRE_HAVE_MSA  0
 #endif
 
     /** \addtogroup Core
@@ -103,7 +73,6 @@ namespace Ogre {
         /// Enum describing the different CPU features we want to check for, platform-dependent
         enum CpuFeatures
         {
-#if OGRE_CPU == OGRE_CPU_X86
             CPU_FEATURE_SSE             = 1 << 0,
             CPU_FEATURE_SSE2            = 1 << 1,
             CPU_FEATURE_SSE3            = 1 << 2,
@@ -119,12 +88,6 @@ namespace Ogre {
             CPU_FEATURE_FPU             = 1 << 12,
             CPU_FEATURE_PRO             = 1 << 13,
             CPU_FEATURE_HTT             = 1 << 14,
-#elif OGRE_CPU == OGRE_CPU_ARM          
-            CPU_FEATURE_VFP             = 1 << 15,
-            CPU_FEATURE_NEON            = 1 << 16,
-#elif OGRE_CPU == OGRE_CPU_MIPS         
-            CPU_FEATURE_MSA             = 1 << 17,
-#endif
 
             CPU_FEATURE_NONE            = 0
         };

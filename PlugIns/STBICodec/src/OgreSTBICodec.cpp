@@ -48,10 +48,6 @@ THE SOFTWARE.
 #include "OgreString.h"
 #include "OgreStringVector.h"
 
-#if __OGRE_HAVE_NEON
-#define STBI_NEON
-#endif
-
 #define STBI_NO_STDIO
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_STATIC

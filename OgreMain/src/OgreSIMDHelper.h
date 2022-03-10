@@ -63,34 +63,6 @@ THE SOFTWARE.
 
 #if __OGRE_HAVE_SSE
 #include <xmmintrin.h>
-#elif __OGRE_HAVE_NEON
-#include "SSE2NEON.h"
-
-// some conversions custom to OGRE
-#define _mm_cmpnle_ps _mm_cmpgt_ps
-
-// self written
-OGRE_FORCE_INLINE __m128 _mm_loadh_pi( __m128 a , __m64 const * p )
-{
-	return vcombine_f32(vget_low_f32(a), vld1_f32((float32_t const *)p));
-}
-// self written
-OGRE_FORCE_INLINE void _mm_storeh_pi( __m64 * p , __m128 a )
-{
-	vst1_f32((float32_t *)p, vget_high_f32((float32x4_t)a));
-}
-
-OGRE_FORCE_INLINE __m128 _mm_mul_ss(__m128 a, __m128 b)
-{
-    a[0] *= b[0];
-    return a;
-}
-
-OGRE_FORCE_INLINE __m128 _mm_sub_ss(__m128 a, __m128 b)
-{
-    a[0] -= b[0];
-    return a;
-}
 #endif
 
 
@@ -108,7 +80,7 @@ namespace Ogre {
     *  @{
     */
 
-#if __OGRE_HAVE_SSE || __OGRE_HAVE_NEON
+#if __OGRE_HAVE_SSE
 
 #define __MM_RSQRT_PS(x)    _mm_rsqrt_ps(x)
 
