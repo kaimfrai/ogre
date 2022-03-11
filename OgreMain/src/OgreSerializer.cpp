@@ -51,9 +51,6 @@ namespace Ogre {
     Serializer::Serializer() :
         mVersion("[Serializer_v1.00]"), // Version number
         mFlipEndian(false)
-#if OGRE_SERIALIZER_VALIDATE_CHUNKSIZE
-        , mReportChunkErrors(true)
-#endif
     {
     }
 
@@ -127,16 +124,6 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Serializer::writeChunkHeader(uint16 id, size_t size)
     {
-#if OGRE_SERIALIZER_VALIDATE_CHUNKSIZE
-        if (!mChunkSizeStack.empty()){
-            size_t pos = mStream->tell();
-            if (pos != static_cast<size_t>(mChunkSizeStack.back()) && mReportChunkErrors){
-                LogManager::getSingleton().logMessage("Corrupted chunk detected! Stream name: '" + mStream->getName()
-                    + "' Chunk id: " + StringConverter::toString(id));
-            }
-            mChunkSizeStack.back() = pos + size;
-        }
-#endif
         writeShorts(&id, 1);
         uint32 uint32size = static_cast<uint32>(size);
         writeInts(&uint32size, 1);
@@ -268,21 +255,11 @@ namespace Ogre {
     //---------------------------------------------------------------------
     unsigned short Serializer::readChunk(const DataStreamPtr& stream)
     {
-#if OGRE_SERIALIZER_VALIDATE_CHUNKSIZE
-        size_t pos = stream->tell();
-#endif
         unsigned short id;
         readShorts(stream, &id, 1);
         
         readInts(stream, &mCurrentstreamLen, 1);
-#if OGRE_SERIALIZER_VALIDATE_CHUNKSIZE
-        if (!mChunkSizeStack.empty() && !stream->eof()){
-            if (pos != static_cast<size_t>(mChunkSizeStack.back()) && mReportChunkErrors){
-                LogManager::getSingleton().logMessage("Corrupted chunk detected! Stream name: '" + stream->getName() + "' Chunk id: " + StringConverter::toString(id));
-            }
-            mChunkSizeStack.back() = pos + mCurrentstreamLen;
-        }
-#endif
+
         return id;
     }
     //---------------------------------------------------------------------
@@ -401,31 +378,18 @@ namespace Ogre {
 
     void Serializer::pushInnerChunk(const DataStreamPtr& stream)
     {
-#if OGRE_SERIALIZER_VALIDATE_CHUNKSIZE
-        mChunkSizeStack.push_back(stream->tell());
-#endif
+
     }
     void Serializer::backpedalChunkHeader(const DataStreamPtr& stream)
     {
         if (!stream->eof()){
             stream->skip(-(int)calcChunkHeaderSize());
         }
-#if OGRE_SERIALIZER_VALIDATE_CHUNKSIZE
-        mChunkSizeStack.back() = stream->tell();
-#endif
+
     }
     void Serializer::popInnerChunk(const DataStreamPtr& stream)
     {
-#if OGRE_SERIALIZER_VALIDATE_CHUNKSIZE
-        if (!mChunkSizeStack.empty()){
-            size_t pos = stream->tell();
-            if (pos != static_cast<size_t>(mChunkSizeStack.back()) && !stream->eof() && mReportChunkErrors){
-                LogManager::getSingleton().logMessage("Corrupted chunk detected! Stream name: " + stream->getName());
-            }
 
-            mChunkSizeStack.pop_back();
-        }
-#endif
     }
 
 }

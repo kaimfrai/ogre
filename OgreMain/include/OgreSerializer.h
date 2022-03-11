@@ -40,10 +40,6 @@ THE SOFTWARE.
 #include "OgreQuaternion.h"
 #include "OgreSharedPtr.h"
 
-#ifndef OGRE_SERIALIZER_VALIDATE_CHUNKSIZE
-#define OGRE_SERIALIZER_VALIDATE_CHUNKSIZE OGRE_DEBUG_MODE
-#endif
-
 namespace Ogre {
 
     /** \addtogroup Core
@@ -121,11 +117,6 @@ namespace Ogre {
         /// Determine the endianness to write with based on option
         void determineEndianness(Endian requestedEndian);
 
-#if OGRE_SERIALIZER_VALIDATE_CHUNKSIZE
-        typedef std::vector<size_t> ChunkSizeStack;
-        ChunkSizeStack mChunkSizeStack;
-        bool mReportChunkErrors;
-#endif
         void pushInnerChunk(const DataStreamPtr& stream);
         void popInnerChunk(const DataStreamPtr& stream);
         void backpedalChunkHeader(const DataStreamPtr& stream);
