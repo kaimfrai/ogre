@@ -56,13 +56,7 @@ THE SOFTWARE.
 #undef Status
 #endif
 
-#if OGRE_RESOURCEMANAGER_STRICT == 0
-#   define OGRE_RESOURCE_GROUP_INIT = RGN_AUTODETECT
-#elif OGRE_RESOURCEMANAGER_STRICT == 1
-#   define OGRE_RESOURCE_GROUP_INIT
-#else
-#   define OGRE_RESOURCE_GROUP_INIT = RGN_DEFAULT
-#endif
+#define OGRE_RESOURCE_GROUP_INIT = RGN_DEFAULT
 
 namespace Ogre {
 class ManualResourceLoader;
@@ -321,10 +315,7 @@ class ScriptLoader;
             LocationList locationList;
             /// Index of resource names to locations, built for speedy access (case sensitive archives)
             ResourceLocationIndex resourceIndexCaseSensitive;
-#if !OGRE_RESOURCEMANAGER_STRICT
-            /// Index of resource names to locations, built for speedy access (case insensitive archives)
-            ResourceLocationIndex resourceIndexCaseInsensitive;
-#endif
+
             /// Pre-declared resources, ready to be created
             ResourceDeclarationList resourceDeclarations;
             /// Created resources which are ready to be loaded / unloaded
@@ -427,7 +418,7 @@ class ScriptLoader;
             group was requested in the load method as a parameter.
         @see @ref Resource-Management
         */
-        void createResourceGroup(const String& name, bool inGlobalPool = !OGRE_RESOURCEMANAGER_STRICT);
+        void createResourceGroup(const String& name, bool inGlobalPool = false);
 
 
         /** Initialises a resource group.

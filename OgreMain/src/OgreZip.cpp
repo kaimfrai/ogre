@@ -69,7 +69,7 @@ namespace {
         ZipArchive(const String& name, const String& archType, const uint8* externBuf = 0, size_t externBufSz = 0);
         ~ZipArchive();
         /// @copydoc Archive::isCaseSensitive
-        bool isCaseSensitive(void) const { return OGRE_RESOURCEMANAGER_STRICT != 0; }
+        bool isCaseSensitive(void) const { return true; }
 
         /// @copydoc Archive::load
         void load();
@@ -153,12 +153,7 @@ namespace {
                     // the compressed size of a folder, and if he does, its useless anyway
                     info.compressedSize = size_t(-1);
                 }
-#if !OGRE_RESOURCEMANAGER_STRICT
-                else
-                {
-                    info.filename = info.basename;
-                }
-#endif
+
                 zip_entry_close(mZipFile);
                 mFileList.push_back(info);
             }
@@ -184,21 +179,7 @@ namespace {
         OGRE_LOCK_AUTO_MUTEX;
         String lookUpFileName = filename;
 
-        bool open = zip_entry_open(mZipFile, lookUpFileName.c_str(), OGRE_RESOURCEMANAGER_STRICT) == 0;
-#if !OGRE_RESOURCEMANAGER_STRICT
-        if (!open) // Try if we find the file
-        {
-            String basename, path;
-            StringUtil::splitFilename(lookUpFileName, basename, path);
-            const FileInfoListPtr fileNfo = findFileInfo(basename, true);
-            if (fileNfo->size() == 1) // If there are more files with the same do not open anyone
-            {
-                Ogre::FileInfo info = fileNfo->at(0);
-                lookUpFileName = info.path + info.basename;
-                open = zip_entry_open(mZipFile, lookUpFileName.c_str(), OGRE_RESOURCEMANAGER_STRICT) == 0;
-            }
-        }
-#endif
+        bool open = zip_entry_open(mZipFile, lookUpFileName.c_str(), true) == 0;
 
         if (!open)
         {
@@ -301,13 +282,6 @@ namespace {
     {       
         OGRE_LOCK_AUTO_MUTEX;
         String cleanName = filename;
-#if !OGRE_RESOURCEMANAGER_STRICT
-        if(filename.rfind('/') != String::npos)
-        {
-            StringVector tokens = StringUtil::split(filename, "/");
-            cleanName = tokens[tokens.size() - 1];
-        }
-#endif
 
         return std::find_if(mFileList.begin(), mFileList.end(), [&cleanName](const Ogre::FileInfo& fi) {
                    return fi.filename == cleanName;
