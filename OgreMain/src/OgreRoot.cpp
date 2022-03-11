@@ -1097,55 +1097,11 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Root::loadPlugin(const String& pluginName)
     {
-#ifndef OGRE_STATIC_LIB
-        // Load plugin library
-        DynLib* lib = DynLibManager::getSingleton().load( pluginName );
-        // Store for later unload
-        // Check for existence, because if called 2+ times DynLibManager returns existing entry
-        if (std::find(mPluginLibs.begin(), mPluginLibs.end(), lib) == mPluginLibs.end())
-        {
-            mPluginLibs.push_back(lib);
-
-            // Call startup function
-                        #ifdef __GNUC__
-                        __extension__
-                        #endif
-            DLL_START_PLUGIN pFunc = (DLL_START_PLUGIN)lib->getSymbol("dllStartPlugin");
-
-            if (!pFunc)
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot find symbol dllStartPlugin in library " + pluginName,
-                    "Root::loadPlugin");
-
-            // This must call installPlugin
-            pFunc();
-        }
-#endif
     }
     //-----------------------------------------------------------------------
     void Root::unloadPlugin(const String& pluginName)
     {
-#ifndef OGRE_STATIC_LIB
-        PluginLibList::iterator i;
 
-        for (i = mPluginLibs.begin(); i != mPluginLibs.end(); ++i)
-        {
-            if ((*i)->getName() == pluginName)
-            {
-                // Call plugin shutdown
-                                #ifdef __GNUC__
-                                __extension__
-                                #endif
-                DLL_STOP_PLUGIN pFunc = (DLL_STOP_PLUGIN)(*i)->getSymbol("dllStopPlugin");
-                // this must call uninstallPlugin
-                pFunc();
-                // Unload library (destroyed by DynLibManager)
-                DynLibManager::getSingleton().unload(*i);
-                mPluginLibs.erase(i);
-                return;
-            }
-
-        }
-#endif
     }
     //-----------------------------------------------------------------------
     Timer* Root::getTimer(void)

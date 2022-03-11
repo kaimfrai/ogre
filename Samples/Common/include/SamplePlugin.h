@@ -31,17 +31,6 @@
 #include "OgrePlugin.h"
 #include "Sample.h"
 
-// Export macro to export the sample's main dll functions.
-#if defined( OGRE_STATIC_LIB )
-#  define _OgreSampleExport
-#else
-#  if defined ( OGRE_GCC_VISIBILITY )
-#   define _OgreSampleExport  __attribute__ ((visibility("default")))
-#  else
-#   define _OgreSampleExport
-#  endif
-#endif
-
 #define _OgreSampleClassExport
 
 namespace OgreBites

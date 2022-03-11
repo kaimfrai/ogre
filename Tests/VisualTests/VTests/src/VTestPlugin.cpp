@@ -56,24 +56,3 @@ VTestPlugin::~VTestPlugin()
     mSamples.clear();
 }
 //---------------------------------------------------------------------
-
-#ifndef OGRE_STATIC_LIB
-
-static VTestPlugin* testPlugin = 0;
-
-extern "C" void _OgreSampleExport dllStartPlugin(void);
-extern "C" void _OgreSampleExport dllStopPlugin(void);
-
-extern "C" _OgreSampleExport void dllStartPlugin()
-{
-    testPlugin = OGRE_NEW VTestPlugin();
-    Ogre::Root::getSingleton().installPlugin(testPlugin);
-}
-
-extern "C" _OgreSampleExport void dllStopPlugin()
-{
-    Ogre::Root::getSingleton().uninstallPlugin(testPlugin);
-    OGRE_DELETE testPlugin;
-}
-
-#endif

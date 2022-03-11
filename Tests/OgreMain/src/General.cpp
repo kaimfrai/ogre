@@ -103,13 +103,10 @@ TEST_F(CameraTests,customProjectionMatrix)
 
 TEST(Root,shutdown)
 {
-#ifdef OGRE_STATIC_LIB
     Root root("");
     OgreBites::StaticPluginLoader mStaticPluginLoader;
     mStaticPluginLoader.load();
-#else
-    Root root;
-#endif
+
     root.shutdown();
 }
 
