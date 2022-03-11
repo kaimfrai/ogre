@@ -193,17 +193,14 @@ namespace Ogre {
                 LogManager::getSingleton().logMessage("Shared geometry bone assignments exported.");
             }
         }
-            
-#if !OGRE_NO_MESHLOD
+
         // Write LOD data if any
         if (pMesh->getNumLodLevels() > 1)
         {
             LogManager::getSingleton().logMessage("Exporting LOD information....");
                 writeLodLevel(pMesh);
             LogManager::getSingleton().logMessage("LOD information exported.");
-
         }
-#endif
         
         // Write bounds information
         LogManager::getSingleton().logMessage("Exporting bounds information....");
@@ -565,13 +562,11 @@ namespace Ogre {
             size += pMesh->mBoneAssignments.size() * calcBoneAssignmentSize();
         }
         
-#if !OGRE_NO_MESHLOD
         // Write LOD data if any
         if (pMesh->getNumLodLevels() > 1)
         {
             size += calcLodLevelSize(pMesh);
         }
-#endif
         
         size += calcBoundsInfoSize(pMesh);
 
@@ -1239,7 +1234,6 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-#if !OGRE_NO_MESHLOD
     void MeshSerializerImpl::writeLodLevel(const Mesh* pMesh)
     {
         const LodStrategy *strategy = pMesh->getLodStrategy();
@@ -1328,7 +1322,7 @@ namespace Ogre {
             writeLodUsageGeneratedSubmesh(submesh, lodNum);
         }
     }
-#endif
+
     size_t MeshSerializerImpl::calcLodLevelSize(const Mesh* pMesh)
     {
         exportedLodCount = pMesh->getNumLodLevels();
@@ -1447,67 +1441,6 @@ namespace Ogre {
 
     void MeshSerializerImpl::readMeshLodLevel(const DataStreamPtr& stream, Mesh* pMesh)
     {
-#if OGRE_NO_MESHLOD
-
-        /*
-        //Since the chunk sizes in old versions are messed up, we can't use this clean solution.
-        // We need to walk through the data to not rely on the chunk size!
-        stream->skip(mCurrentstreamLen);
-
-        // Since we got here, we have already read the chunk header.
-        backpedalChunkHeader(stream);
-        */
-        uint16 numSubs = pMesh->getNumSubMeshes();
-        String strategyName = readString(stream);
-        uint16 numLods;
-        readShorts(stream, &numLods, 1);
-        pushInnerChunk(stream);
-        for (int lodID = 1; lodID < numLods; lodID++){
-            unsigned short streamID = readChunk(stream);
-            Real usageValue;
-            readFloats(stream, &usageValue, 1);
-            switch (streamID){
-            case M_MESH_LOD_MANUAL:
-            {
-                                      String manualName = readString(stream);
-                                      break;
-            }
-            case M_MESH_LOD_GENERATED:
-                for (int i = 0; i < numSubs; ++i)
-                {
-                    unsigned int numIndexes;
-                    readInts(stream, &numIndexes, 1);
-
-                    unsigned int offset;
-                    readInts(stream, &offset, 1);
-
-                    // For merged buffers, you can pass the index of previous Lod.
-                    // To create buffer it should be -1.
-                    unsigned int bufferIndex;
-                    readInts(stream, &bufferIndex, 1);
-                    if (bufferIndex == (unsigned int)-1) {
-                        // generate buffers
-
-                        // bool indexes32Bit
-                        bool idx32Bit;
-                        readBools(stream, &idx32Bit, 1);
-
-                        unsigned int buffIndexCount;
-                        readInts(stream, &buffIndexCount, 1);
-
-                        size_t buffSize = buffIndexCount * (idx32Bit ? 4 : 2);
-                        stream->skip(buffSize);
-                    }
-                }
-                break;
-            default:
-                OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                    "Invalid Lod Usage type in " + pMesh->getName(),
-                    "MeshSerializerImpl::readMeshLodInfo");
-            }
-        }
-        popInnerChunk(stream);
-#else
         // Read the strategy to be used for this mesh
         String strategyName = readString(stream);
         LodStrategy *strategy = LodStrategyManager::getSingleton().getStrategy(strategyName);
@@ -1553,9 +1486,8 @@ namespace Ogre {
             usage.edgeData = NULL;
         }
         popInnerChunk(stream);
-#endif
     }
-#if !OGRE_NO_MESHLOD
+
     //---------------------------------------------------------------------
     void MeshSerializerImpl::readMeshLodUsageManual( const DataStreamPtr& stream, Mesh* pMesh, unsigned short lodNum, MeshLodUsage& usage )
     {
@@ -1628,7 +1560,7 @@ namespace Ogre {
             }
         }
     }
-#endif
+
     //---------------------------------------------------------------------
     void MeshSerializerImpl::flipFromLittleEndian(void* pData, size_t vertexCount,
         size_t vertexSize, const VertexDeclaration::VertexElementList& elems)
@@ -1911,15 +1843,8 @@ namespace Ogre {
                 bool isManual;
                 readBools(stream, &isManual, 1);
                 // Only load in non-manual levels; others will be connected up by Mesh on demand
-#if OGRE_NO_MESHLOD
-                // 
-                if (!isManual)
-                    if (lodIndex != 0) {
-                        readEdgeListLodInfo(stream, NULL);
-                    } else {
-#else
+
                 if (!isManual) {
-#endif
                     MeshLodUsage& usage = pMesh->mMeshLodUsageList[lodIndex];
 
                     usage.edgeData = OGRE_NEW EdgeData();
@@ -1976,39 +1901,6 @@ namespace Ogre {
     void MeshSerializerImpl::readEdgeListLodInfo(const DataStreamPtr& stream,
         EdgeData* edgeData)
     {
-#if OGRE_NO_MESHLOD
-        if (edgeData == NULL) { // skip it!
-            bool isClosed;
-            readBools(stream, &isClosed, 1);
-            // unsigned long numTriangles
-            uint32 numTriangles;
-            readInts(stream, &numTriangles, 1);
-            // unsigned long numEdgeGroups
-            uint32 numEdgeGroups;
-            readInts(stream, &numEdgeGroups, 1);
-            stream->skip(numTriangles * (8 * sizeof(uint32) + 4 * sizeof(float)));
-            pushInnerChunk(stream);
-            for (uint32 eg = 0; eg < numEdgeGroups; ++eg)
-            {
-                unsigned short streamID = readChunk(stream);
-                if (streamID != M_EDGE_GROUP)
-                {
-                    OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
-                        "Missing M_EDGE_GROUP stream",
-                        "MeshSerializerImpl::readEdgeListLodInfo");
-                }
-                uint32 tmp[3];
-                // unsigned long vertexSet
-                readInts(stream, &tmp[0], 3);
-                uint32 numEdges;
-                readInts(stream, &numEdges, 1);
-
-                stream->skip(numEdges * (6 * sizeof(uint32) + sizeof(bool)));
-            }
-            popInnerChunk(stream);
-            return;
-        }
-#endif
         // bool isClosed
         readBools(stream, &edgeData->isClosed, 1);
         // unsigned long numTriangles
@@ -2862,7 +2754,7 @@ namespace Ogre {
         size += !ibuf ? 0 : ibuf->getIndexSize() * indexData->indexCount; // faces
         return size;
     }
-#if !OGRE_NO_MESHLOD
+
     //--------------------------------------------------------------------
     void MeshSerializerImpl_v1_8::writeLodLevel(const Mesh* pMesh)
     {
@@ -3060,78 +2952,8 @@ namespace Ogre {
         popInnerChunk(stream);
     }
 
-#endif
     void MeshSerializerImpl_v1_8::readMeshLodLevel(const DataStreamPtr& stream, Mesh* pMesh)
     {
-#if OGRE_NO_MESHLOD
-
-        /*
-        //Since the chunk sizes in old versions are messed up, we can't use this clean solution.
-        // We need to walk through the data to not rely on the chunk size!
-        stream->skip(mCurrentstreamLen);
-
-        // Since we got here, we have already read the chunk header.
-        backpedalChunkHeader(stream);
-        */
-        uint16 numSubs = pMesh->getNumSubMeshes();
-        String strategyName = readString(stream);
-        uint16 numLods;
-        readShorts(stream, &numLods, 1);
-        bool manual;
-        readBools(stream, &manual, 1); // missing in v1_9
-        pushInnerChunk(stream);
-        for (uint16 i = 1; i < numLods; ++i)
-        {
-            uint16 streamID = readChunk(stream);
-            if (streamID != M_MESH_LOD_USAGE)
-            {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                    "Missing M_MESH_LOD_USAGE stream in " + pMesh->getName(),
-                    "MeshSerializerImpl::readMeshLodInfo");
-            }
-            float usageValue;
-            readFloats(stream, &usageValue, 1);
-
-            if (manual)
-            {
-                // Read detail stream
-                uint16  streamID = readChunk(stream);
-                if (streamID != M_MESH_LOD_MANUAL)
-                {
-                    OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                        "Missing M_MESH_LOD_MANUAL stream in " + pMesh->getName(),
-                        "MeshSerializerImpl::readMeshLodUsageManual");
-                }
-
-                String manualName = readString(stream);
-            }
-            else
-            {
-                pushInnerChunk(stream);
-                for (uint16 n = 0; n < numSubs; ++n)
-                {
-                    unsigned long streamID = readChunk(stream);
-                    if (streamID != M_MESH_LOD_GENERATED)
-                    {
-                        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                            "Missing M_MESH_LOD_GENERATED stream in " + pMesh->getName(),
-                            "MeshSerializerImpl::readMeshLodUsageGenerated");
-                    }
-
-                    unsigned int numIndexes;
-                    readInts(stream, &numIndexes, 1);
-
-                    bool idx32Bit;
-                    readBools(stream, &idx32Bit, 1);
-
-                    size_t buffSize = numIndexes * (idx32Bit ? 4 : 2);
-                    stream->skip(buffSize);
-                }
-                popInnerChunk(stream);
-            }
-        }
-        popInnerChunk(stream);
-#else
         unsigned short streamID, i;
 
         // Read the strategy to be used for this mesh
@@ -3192,7 +3014,6 @@ namespace Ogre {
             pMesh->mMeshLodUsageList.push_back(usage);
         }
         popInnerChunk(stream);
-#endif
     }
 
     void MeshSerializerImpl_v1_8::enableValidation()
@@ -3396,7 +3217,7 @@ namespace Ogre {
         }
         return size;
     }
-#if !OGRE_NO_MESHLOD
+
     //---------------------------------------------------------------------
     void MeshSerializerImpl_v1_4::writeLodLevel(const Mesh* pMesh)
     {
@@ -3452,79 +3273,10 @@ namespace Ogre {
         }
         popInnerChunk(mStream);
     }
-#endif
+
     //---------------------------------------------------------------------
     void MeshSerializerImpl_v1_4::readMeshLodLevel(const DataStreamPtr& stream, Mesh* pMesh)
     {
-#if OGRE_NO_MESHLOD
-
-        /*
-        //Since the chunk sizes in old versions are messed up, we can't use this clean solution.
-        // We need to walk through the data to not rely on the chunk size!
-        stream->skip(mCurrentstreamLen);
-
-        // Since we got here, we have already read the chunk header.
-        backpedalChunkHeader(stream);
-        */
-        uint16 numSubs = pMesh->getNumSubMeshes();
-        // String strategyName = readString(stream); // missing in v1_4
-        uint16 numLods;
-        readShorts(stream, &numLods, 1);
-        bool manual;
-        readBools(stream, &manual, 1); // missing in v1_9
-        pushInnerChunk(stream);
-        for (uint16 i = 1; i < numLods; ++i)
-        {
-            uint16 streamID = readChunk(stream);
-            if (streamID != M_MESH_LOD_USAGE)
-            {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                    "Missing M_MESH_LOD_USAGE stream in " + pMesh->getName(),
-                    "MeshSerializerImpl::readMeshLodInfo");
-            }
-            float usageValue;
-            readFloats(stream, &usageValue, 1);
-
-            if (manual)
-            {
-                // Read detail stream
-                uint16  streamID = readChunk(stream);
-                if (streamID != M_MESH_LOD_MANUAL)
-                {
-                    OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                        "Missing M_MESH_LOD_MANUAL stream in " + pMesh->getName(),
-                        "MeshSerializerImpl::readMeshLodUsageManual");
-                }
-
-                String manualName = readString(stream);
-            }
-            else
-            {
-                pushInnerChunk(stream);
-                for (uint16 n = 0; n < numSubs; ++n)
-                {
-                    unsigned long streamID = readChunk(stream);
-                    if (streamID != M_MESH_LOD_GENERATED)
-                    {
-                        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                            "Missing M_MESH_LOD_GENERATED stream in " + pMesh->getName(),
-                            "MeshSerializerImpl::readMeshLodUsageGenerated");
-                    }
-
-                    unsigned int numIndexes;
-                    readInts(stream, &numIndexes, 1);
-
-                    bool idx32Bit;
-                    readBools(stream, &idx32Bit, 1);
-
-                    size_t buffSize = numIndexes * (idx32Bit ? 4 : 2);
-                    stream->skip(buffSize);
-                }
-                popInnerChunk(stream);
-            }
-        }
-        popInnerChunk(stream);
-#else
         unsigned short streamID, i;
 
         // Use the old strategy for this mesh
@@ -3585,7 +3337,6 @@ namespace Ogre {
             pMesh->mMeshLodUsageList.push_back(usage);
         }
         popInnerChunk(stream);
-#endif
     }
 
     //---------------------------------------------------------------------
@@ -3604,40 +3355,6 @@ namespace Ogre {
     void MeshSerializerImpl_v1_3::readEdgeListLodInfo(const DataStreamPtr& stream,
         EdgeData* edgeData)
     {
-#if OGRE_NO_MESHLOD
-        if (edgeData == NULL) { // skip it!
-            // unsigned long numTriangles
-            uint32 numTriangles;
-            readInts(stream, &numTriangles, 1);
-            // unsigned long numEdgeGroups
-            uint32 numEdgeGroups;
-            readInts(stream, &numEdgeGroups, 1);
-            stream->skip(numTriangles * (8 * sizeof(uint32) + 4 * sizeof(float)));
-
-            pushInnerChunk(stream);
-            uint32 tmp[6];
-            for (uint32 eg = 0; eg < numEdgeGroups; ++eg)
-            {
-                unsigned short streamID = readChunk(stream);
-                if (streamID != M_EDGE_GROUP)
-                {
-                    OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
-                        "Missing M_EDGE_GROUP stream",
-                        "MeshSerializerImpl_v1_3::readEdgeListLodInfo");
-                }
-
-                // unsigned long vertexSet
-                readInts(stream, tmp, 1);
-                // unsigned long numEdges
-                uint32 numEdges;
-                readInts(stream, &numEdges, 1);
-                // Edge* edgeList
-                stream->skip(numEdges * (6 * sizeof(uint32) + sizeof(bool)));
-            }
-            popInnerChunk(stream);
-            return;
-        }
-#endif
         // unsigned long numTriangles
         uint32 numTriangles;
         readInts(stream, &numTriangles, 1);

@@ -252,8 +252,6 @@ class VertexData;
         /// Counter indicating number of requests for software blended normals.
         int mSoftwareAnimationNormalsRequests;
 
-
-#if !OGRE_NO_MESHLOD
         /// The LOD number of the mesh to use, calculated by _notifyCurrentCamera.
         ushort mMeshLodIndex;
 
@@ -280,16 +278,7 @@ class VertexData;
         */
         typedef std::vector<Entity*> LODEntityList;
         LODEntityList mLodEntityList;
-#else
-        const ushort mMeshLodIndex;
-        const Real mMeshLodFactorTransformed;
-        const ushort mMinMeshLodIndex;
-        const ushort mMaxMeshLodIndex;
-        const Real mMaterialLodFactor;
-        const Real mMaterialLodFactorTransformed;
-        const ushort mMinMaterialLodIndex;
-        const ushort mMaxMaterialLodIndex;
-#endif
+
         /** This Entity's personal copy of the skeleton, if skeletally animated.
         */
         SkeletonInstance* mSkeletonInstance;
@@ -489,7 +478,6 @@ class VertexData;
         */
         Entity* getManualLodLevel(size_t index) const;
 
-#if !OGRE_NO_MESHLOD
         /** Sets a level-of-detail bias for the mesh detail of this entity.
         @remarks
             Level of detail reduction is normally applied automatically based on the Mesh
@@ -551,7 +539,7 @@ class VertexData;
             LOD will be limited by the number of LOD indexes used in the Material).
         */
         void setMaterialLodBias(Real factor, ushort maxDetailIndex = 0, ushort minDetailIndex = 99);
-#endif
+
         /** Sets whether the polygon mode of this entire entity may be
             overridden by the camera detail settings.
         */

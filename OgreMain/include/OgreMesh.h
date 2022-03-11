@@ -173,17 +173,12 @@ class VertexData;
             unsigned short numBlendWeightsPerVertex, 
             IndexMap& blendIndexToBoneIndexMap,
             VertexData* targetVertexData);
-#if !OGRE_NO_MESHLOD
+
         const LodStrategy *mLodStrategy;
         bool mHasManualLodLevel;
         ushort mNumLods;
         MeshLodUsageList mMeshLodUsageList;
-#else
-        const LodStrategy *mLodStrategy;
-        const bool mHasManualLodLevel;
-        const ushort mNumLods;
-        MeshLodUsageList mMeshLodUsageList;
-#endif
+
         HardwareBufferManagerBase* mBufferManager;
         HardwareBuffer::Usage mVertexBufferUsage;
         HardwareBuffer::Usage mIndexBufferUsage;
@@ -521,7 +516,7 @@ class VertexData;
             meshes as provided by an artist.
         */
         bool hasManualLodLevel(void) const { return mHasManualLodLevel; }
-#if !OGRE_NO_MESHLOD
+
         /** Changes the alternate mesh to use as a manual LOD at the given index.
         @remarks
             Note that the index of a LOD may change if you insert other LODs. If in doubt,
@@ -539,7 +534,7 @@ class VertexData;
         void _setLodUsage(unsigned short level, const MeshLodUsage& usage);
         /** Internal methods for loading LOD, do not use. */
         void _setSubMeshLodFaceList(unsigned short subIdx, unsigned short level, IndexData* facedata);
-#endif
+
         /** Internal methods for loading LOD, do not use. */
         bool _isManualLodLevel(unsigned short level) const;
 
@@ -986,10 +981,9 @@ class VertexData;
 
         /** Get LOD strategy used by this mesh. */
         const LodStrategy *getLodStrategy() const;
-#if !OGRE_NO_MESHLOD
+
         /** Set the lod strategy used by this mesh. */
         void setLodStrategy(LodStrategy *lodStrategy);
-#endif
     };
 
     /** A way of recording the way each LODs is recorded this Mesh. */
