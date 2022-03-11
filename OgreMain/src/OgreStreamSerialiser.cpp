@@ -839,26 +839,17 @@ namespace Ogre
     }
     void StreamSerialiser::startDeflate(size_t avail_in)
     {
-#if OGRE_NO_ZIP_ARCHIVE == 0
         OgreAssert( !mOriginalStream , "Don't start (un)compressing twice!" );
         DataStreamPtr deflateStream(OGRE_NEW DeflateStream(mStream,"",avail_in));
         mOriginalStream = mStream;
         mStream = deflateStream;
-#else
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
-                    "Ogre was not built with Zip file support!", "StreamSerialiser::startDeflate");
-#endif
     }
+
     void StreamSerialiser::stopDeflate()
     {
-#if OGRE_NO_ZIP_ARCHIVE == 0
         OgreAssert( mOriginalStream , "Must start (un)compressing first!" );
         mStream = mOriginalStream;
         mOriginalStream.reset();
-#else
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
-                    "Ogre was not built with Zip file support!", "StreamSerialiser::stopDeflate");
-#endif
     }
 }
 

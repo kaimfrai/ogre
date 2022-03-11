@@ -34,7 +34,6 @@
 #include "OgreBuildSettings.h"
 #include "OgreExports.h"
 #include "OgreSharedPtr.h"
-#if OGRE_NO_ZIP_ARCHIVE == 0
 
 #include "OgrePrerequisites.h"
 #include "OgreDataStream.h"
@@ -278,7 +277,5 @@ namespace Ogre
         
     };
 }
-
-#endif
 
 #endif

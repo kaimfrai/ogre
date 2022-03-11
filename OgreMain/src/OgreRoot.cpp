@@ -210,12 +210,11 @@ namespace Ogre {
 
         mFileSystemArchiveFactory.reset(new FileSystemArchiveFactory());
         ArchiveManager::getSingleton().addArchiveFactory( mFileSystemArchiveFactory.get() );
-#   if OGRE_NO_ZIP_ARCHIVE == 0
+
         mZipArchiveFactory.reset(new ZipArchiveFactory());
         ArchiveManager::getSingleton().addArchiveFactory( mZipArchiveFactory.get() );
         mEmbeddedZipArchiveFactory.reset(new EmbeddedZipArchiveFactory());
         ArchiveManager::getSingleton().addArchiveFactory( mEmbeddedZipArchiveFactory.get() );
-#   endif
 
 #if OGRE_NO_DDS_CODEC == 0
         // Register image codecs

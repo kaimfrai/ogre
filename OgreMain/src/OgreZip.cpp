@@ -52,7 +52,6 @@ THE SOFTWARE.
 
 struct zip_t;
 
-#if OGRE_NO_ZIP_ARCHIVE == 0
 #include <zip.h>
 
 namespace Ogre {
@@ -428,5 +427,3 @@ namespace {
         gEmbeddedFileDataList->erase(name);
     }
 }
-
-#endif
