@@ -35,15 +35,6 @@ THE SOFTWARE.
 
 namespace Ogre {
     class Log;
-/* Define whether or not Ogre compiled with SSE support.
-*/
-#if OGRE_DOUBLE_PRECISION == 0
-#   define __OGRE_HAVE_SSE  1
-#endif
-
-#ifndef __OGRE_HAVE_SSE
-#   define __OGRE_HAVE_SSE  0
-#endif
 
     /** \addtogroup Core
     *  @{

@@ -600,17 +600,10 @@ namespace Ogre
     //---------------------------------------------------------------------
     void StreamSerialiser::write(const Real* val, size_t count)
     {
-#if OGRE_DOUBLE_PRECISION
-        if (mRealFormat == REAL_DOUBLE)
-            writeData(val, sizeof(double), count);
-        else
-            writeDoublesAsFloats(val, count);
-#else
         if (mRealFormat == REAL_FLOAT)
             writeData(val, sizeof(float), count);
         else
             writeFloatsAsDoubles(val, count);
-#endif
     }
     //---------------------------------------------------------------------
     void StreamSerialiser::readData(void* buf, size_t size, size_t count)
@@ -685,17 +678,10 @@ namespace Ogre
     //---------------------------------------------------------------------
     void StreamSerialiser::read(Real* val, size_t count)
     {
-#if OGRE_DOUBLE_PRECISION
-        if (mRealFormat == REAL_DOUBLE)
-            readData(val, sizeof(double), count);
-        else
-            readFloatsAsDoubles(val, count);
-#else
         if (mRealFormat == REAL_FLOAT)
             readData(val, sizeof(float), count);
         else
             readDoublesAsFloats(val, count);
-#endif
 
     }
     //---------------------------------------------------------------------
