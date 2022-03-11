@@ -631,10 +631,6 @@ namespace Ogre {
         // Check for dxt compression
         if(GLAD_GL_EXT_texture_compression_s3tc)
         {
-#if defined(__APPLE__) && defined(__PPC__)
-            // Apple on ATI & PPC has errors in DXT
-            if (mGLSupport->getGLVendor().find("ATI") == std::string::npos)
-#endif
                 rsc->setCapability(RSC_TEXTURE_COMPRESSION_DXT);
         }
         // Check for vtc compression
