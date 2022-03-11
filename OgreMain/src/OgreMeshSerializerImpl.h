@@ -105,12 +105,12 @@ class VertexData;
         virtual void writeSkeletonLink(const String& skelName);
         virtual void writeMeshBoneAssignment(const VertexBoneAssignment& assign);
         virtual void writeSubMeshBoneAssignment(const VertexBoneAssignment& assign);
-#if !OGRE_NO_MESHLOD
+
         virtual void writeLodLevel(const Mesh* pMesh);
         virtual void writeLodUsageManual(const MeshLodUsage& usage);
         virtual void writeLodUsageGenerated(const Mesh* pMesh, const MeshLodUsage& usage, unsigned short lodNum);
         virtual void writeLodUsageGeneratedSubmesh(const SubMesh* submesh, unsigned short lodNum);
-#endif
+
         virtual void writeBoundsInfo(const Mesh* pMesh);
         virtual void writeEdgeList(const Mesh* pMesh);
         virtual void writeAnimations(const Mesh* pMesh);
@@ -168,10 +168,10 @@ class VertexData;
         virtual void readSubMeshBoneAssignment(const DataStreamPtr& stream, Mesh* pMesh,
             SubMesh* sub);
         virtual void readMeshLodLevel(const DataStreamPtr& stream, Mesh* pMesh);
-#if !OGRE_NO_MESHLOD
+
         virtual void readMeshLodUsageManual(const DataStreamPtr& stream, Mesh* pMesh, unsigned short lodNum, MeshLodUsage& usage);
         virtual void readMeshLodUsageGenerated(const DataStreamPtr& stream, Mesh* pMesh, unsigned short lodNum, MeshLodUsage& usage);
-#endif
+
         virtual void readBoundsInfo(const DataStreamPtr& stream, Mesh* pMesh);
         virtual void readEdgeList(const DataStreamPtr& stream, Mesh* pMesh);
         virtual void readEdgeListLodInfo(const DataStreamPtr& stream, EdgeData* edgeData);
@@ -218,7 +218,7 @@ class VertexData;
         virtual size_t calcLodUsageManualSize(const MeshLodUsage& usage);
         virtual size_t calcLodUsageGeneratedSize(const Mesh* pMesh, const MeshLodUsage& usage, unsigned short lodNum);
         virtual size_t calcLodUsageGeneratedSubmeshSize(const SubMesh* submesh, unsigned short lodNum);
-#if !OGRE_NO_MESHLOD
+
         virtual void writeLodLevel(const Mesh* pMesh);
         virtual void writeLodUsageGenerated(const Mesh* pMesh, const MeshLodUsage& usage, unsigned short lodNum);
         virtual void writeLodUsageGeneratedSubmesh(const SubMesh* submesh, unsigned short lodNum);
@@ -227,7 +227,7 @@ class VertexData;
         virtual void readMeshLodUsageGenerated(const DataStreamPtr& stream, Mesh* pMesh,
             unsigned short lodNum, MeshLodUsage& usage);
         virtual void readMeshLodUsageManual(const DataStreamPtr& stream, Mesh* pMesh, unsigned short lodNum, MeshLodUsage& usage);
-#endif
+
         virtual void readMeshLodLevel(const DataStreamPtr& stream, Mesh* pMesh);
         virtual void enableValidation();
     };
@@ -262,10 +262,9 @@ class VertexData;
     protected:
         virtual size_t calcLodLevelSize(const Mesh* pMesh);
         virtual void readMeshLodLevel(const DataStreamPtr& stream, Mesh* pMesh);
-#if !OGRE_NO_MESHLOD
+
         virtual void writeLodLevel(const Mesh* pMesh);
         virtual void writeLodUsageGenerated(const Mesh* pMesh, const MeshLodUsage& usage, unsigned short lodNum);
-#endif
     };
 
     /** Class for providing backwards-compatibility for loading version 1.3 of the .mesh format. 

@@ -61,11 +61,7 @@ THE SOFTWARE.
 // NOTE: Should be sync with __OGRE_HAVE_SSE macro.
 //
 
-#if __OGRE_HAVE_SSE
 #include <xmmintrin.h>
-#endif
-
-
 
 //---------------------------------------------------------------------
 // SIMD macros and helpers
@@ -79,8 +75,6 @@ namespace Ogre {
     /** \addtogroup Math
     *  @{
     */
-
-#if __OGRE_HAVE_SSE
 
 #define __MM_RSQRT_PS(x)    _mm_rsqrt_ps(x)
 
@@ -267,8 +261,6 @@ namespace Ogre {
 
 #endif  // OGRE_DEBUG_MODE
 
-
-#endif  // __OGRE_HAVE_SSE
     /** @} */
     /** @} */
 

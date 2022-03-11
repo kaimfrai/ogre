@@ -248,18 +248,4 @@ namespace Ogre {
         static String name = "STB Image Codec";
         return name;
     }
-
-#ifndef OGRE_STATIC_LIB
-    extern "C" void _OgreSTBICodecExport dllStartPlugin();
-    extern "C" void _OgreSTBICodecExport dllStopPlugin();
-
-    extern "C" void _OgreSTBICodecExport dllStartPlugin()
-    {
-        STBIImageCodec::startup();
-    }
-    extern "C" void _OgreSTBICodecExport dllStopPlugin()
-    {
-        STBIImageCodec::shutdown();
-    }
-#endif
 }

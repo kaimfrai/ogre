@@ -599,17 +599,10 @@ namespace Ogre
     //---------------------------------------------------------------------
     void StreamSerialiser::write(const Real* val, size_t count)
     {
-#if OGRE_DOUBLE_PRECISION
-        if (mRealFormat == REAL_DOUBLE)
-            writeData(val, sizeof(double), count);
-        else
-            writeDoublesAsFloats(val, count);
-#else
         if (mRealFormat == REAL_FLOAT)
             writeData(val, sizeof(float), count);
         else
             writeFloatsAsDoubles(val, count);
-#endif
     }
     //---------------------------------------------------------------------
     void StreamSerialiser::readData(void* buf, size_t size, size_t count)
@@ -684,17 +677,10 @@ namespace Ogre
     //---------------------------------------------------------------------
     void StreamSerialiser::read(Real* val, size_t count)
     {
-#if OGRE_DOUBLE_PRECISION
-        if (mRealFormat == REAL_DOUBLE)
-            readData(val, sizeof(double), count);
-        else
-            readFloatsAsDoubles(val, count);
-#else
         if (mRealFormat == REAL_FLOAT)
             readData(val, sizeof(float), count);
         else
             readDoublesAsFloats(val, count);
-#endif
 
     }
     //---------------------------------------------------------------------
@@ -838,26 +824,17 @@ namespace Ogre
     }
     void StreamSerialiser::startDeflate(size_t avail_in)
     {
-#if OGRE_NO_ZIP_ARCHIVE == 0
         OgreAssert( !mOriginalStream , "Don't start (un)compressing twice!" );
         DataStreamPtr deflateStream(OGRE_NEW DeflateStream(mStream,"",avail_in));
         mOriginalStream = mStream;
         mStream = deflateStream;
-#else
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
-                    "Ogre was not built with Zip file support!", "StreamSerialiser::startDeflate");
-#endif
     }
+
     void StreamSerialiser::stopDeflate()
     {
-#if OGRE_NO_ZIP_ARCHIVE == 0
         OgreAssert( mOriginalStream , "Must start (un)compressing first!" );
         mStream = mOriginalStream;
         mOriginalStream.reset();
-#else
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
-                    "Ogre was not built with Zip file support!", "StreamSerialiser::stopDeflate");
-#endif
     }
 }
 

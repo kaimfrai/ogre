@@ -154,14 +154,8 @@ TEST_F(UseCustomCapabilitiesTests,CustomCapabilitiesGL)
 {
     using namespace Ogre;
 
-#ifdef OGRE_STATIC_LIB
     Root* root = OGRE_NEW Root(BLANKSTRING);        
     mStaticPluginLoader.load();
-#else
-
-    Root* root = OGRE_NEW Root("plugins.cfg");
-
-#endif
 
     RenderSystem* rs = root->getRenderSystemByName("OpenGL Rendering Subsystem");
     if(!rs)
@@ -208,12 +202,8 @@ static void setUpD3D9RenderSystemOptions(Ogre::RenderSystem* rs)
 //--------------------------------------------------------------------------
 TEST_F(UseCustomCapabilitiesTests,CustomCapabilitiesD3D9)
 {
-#ifdef OGRE_STATIC_LIB
     Root* root = OGRE_NEW Root(BLANKSTRING);        
     mStaticPluginLoader.load();
-#else
-    Root* root = OGRE_NEW Root("plugins.cfg");
-#endif
 
     RenderSystem* rs = root->getRenderSystemByName("Direct3D9 Rendering Subsystem");
     if(!rs)

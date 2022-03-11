@@ -35,9 +35,8 @@ namespace Ogre {
     //---------------------------------------------------------------------
     // External functions
     extern OptimisedUtil* _getOptimisedUtilGeneral(void);
-#if __OGRE_HAVE_SSE
+
     extern OptimisedUtil* _getOptimisedUtilSSE(void);
-#endif
 
 #ifdef __DO_PROFILE__
     //---------------------------------------------------------------------
@@ -48,9 +47,7 @@ namespace Ogre {
         enum
         {
             IMPL_DEFAULT,
-#if __OGRE_HAVE_SSE
             IMPL_SSE,
-#endif
             IMPL_COUNT
         };
 
@@ -92,12 +89,11 @@ namespace Ogre {
         OptimisedUtilProfiler(void)
         {
             mOptimisedUtils.push_back(_getOptimisedUtilGeneral());
-#if __OGRE_HAVE_SSE
+
             //if (PlatformInformation::getCpuFeatures() & PlatformInformation::CPU_FEATURE_SSE)
             {
                 mOptimisedUtils.push_back(_getOptimisedUtilSSE());
             }
-#endif
         }
 
         virtual void softwareVertexSkinning(
@@ -368,13 +364,11 @@ namespace Ogre {
 
 #else   // !__DO_PROFILE__
 
-#if __OGRE_HAVE_SSE
         if (PlatformInformation::getCpuFeatures() & PlatformInformation::CPU_FEATURE_SSE)
         {
             return _getOptimisedUtilSSE();
         }
         else
-#endif  // __OGRE_HAVE_SSE
         {
             return _getOptimisedUtilGeneral();
         }

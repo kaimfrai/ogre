@@ -227,10 +227,7 @@ namespace Ogre {
         unsigned short handle = pBone->getHandle();
         // char* name
         writeString(pBone->getName());
-#if OGRE_SERIALIZER_VALIDATE_CHUNKSIZE
-        // Hack to fix chunk size validation:
-        mChunkSizeStack.back() += calcStringSize(pBone->getName());
-#endif
+
         // unsigned short handle            : handle of the bone, should be contiguous & start at 0
         writeShorts(&handle, 1);
         // Vector3 position                 : position of this bone relative to parent 
@@ -481,10 +478,6 @@ namespace Ogre {
         readObject(stream, q);
         pBone->setOrientation(q);
 
-#if OGRE_SERIALIZER_VALIDATE_CHUNKSIZE
-        // Hack to fix chunk size validation:
-        mChunkSizeStack.back() += calcStringSize(name);
-#endif
         // TODO: don't depend on mCurrentstreamLen in next skeleton format!
         // Currently we use wrong chunk sizes, but we can't fix it, because we depend on mCurrentstreamLen
         // Do we have scale?

@@ -31,12 +31,6 @@ THE SOFTWARE.
 
 #include "Ogre.h"
 
-#if OGRE_DOUBLE_PRECISION == 1
-#define WITH_FLOAT_SUFFIX(x) x
-#else
-#define WITH_FLOAT_SUFFIX(x) x##f
-#endif
-
 /** Some functionality for comparing images */
 
 /* Results of comparing two test images */
@@ -189,8 +183,8 @@ protected:
         if(out.incorrectPixels != 0)
         {
             // average and clamp to [-1,1]
-            out.ssim = std::max(WITH_FLOAT_SUFFIX(-1.0),
-                                std::min(WITH_FLOAT_SUFFIX(1.0), ssim/(width*height/WITH_FLOAT_SUFFIX(64.))));
+            out.ssim = std::max(-1.0f,
+                                std::min(1.0f, ssim/(width*height/64.f)));
 
             // average the raw deviance value to get MSE
             out.mseChannels = disparity / (width*height);

@@ -40,9 +40,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreVector.h"
 
-
-#if __OGRE_HAVE_SSE
-
 // Should keep this includes at latest to avoid potential "xmmintrin.h" included by
 // other header file on some platform for some reason.
 #include "OgreSIMDHelper.h"
@@ -2159,5 +2156,3 @@ namespace Ogre {
     }
 
 }
-
-#endif // __OGRE_HAVE_SSE

@@ -34,8 +34,6 @@
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
-#if OGRE_NO_ZIP_ARCHIVE == 0
-
 #include "OgreDeflate.h"
 
 #define MINIZ_HEADER_FILE_ONLY
@@ -444,5 +442,3 @@ namespace Ogre
     
     
 }
-
-#endif

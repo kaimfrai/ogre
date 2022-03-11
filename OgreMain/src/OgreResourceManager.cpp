@@ -225,11 +225,9 @@ namespace Ogre {
     {
         ResourcePtr res = getResourceByName(name, group);
 
-#if OGRE_RESOURCEMANAGER_STRICT
         if (!res)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
                         "attempting to unload unknown resource: " + name + " in group " + group);
-#endif
 
         if (res)
         {
@@ -241,9 +239,7 @@ namespace Ogre {
     {
         ResourcePtr res = getByHandle(handle);
 
-#if OGRE_RESOURCEMANAGER_STRICT
         OgreAssert(res, "attempting to unload unknown resource");
-#endif
 
         if (res)
         {
@@ -308,11 +304,9 @@ namespace Ogre {
     {
         ResourcePtr res = getResourceByName(name, group);
 
-#if OGRE_RESOURCEMANAGER_STRICT
         if (!res)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
                         "attempting to remove unknown resource: " + name + " in group " + group);
-#endif
 
         if (res)
         {
@@ -324,9 +318,7 @@ namespace Ogre {
     {
         ResourcePtr res = getByHandle(handle);
 
-#if OGRE_RESOURCEMANAGER_STRICT
         OgreAssert(res, "attempting to remove unknown resource");
-#endif
 
         if (res)
         {
@@ -414,15 +406,6 @@ namespace Ogre {
                     return it->second;
                 }
             }
-
-#if !OGRE_RESOURCEMANAGER_STRICT
-            // fall back to global
-            auto it = mResources.find(name);
-            if( it != mResources.end())
-            {
-                return it->second;
-            }
-#endif
         }
     
         return ResourcePtr();

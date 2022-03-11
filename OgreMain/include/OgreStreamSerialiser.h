@@ -137,11 +137,7 @@ class Sphere;
         */
         StreamSerialiser(const DataStreamPtr& stream, Endian endianMode = ENDIAN_AUTO, 
             bool autoHeader = true, 
-#if OGRE_DOUBLE_PRECISION
-            RealStorageFormat realFormat = REAL_DOUBLE
-#else
             RealStorageFormat realFormat = REAL_FLOAT
-#endif
             );
         virtual ~StreamSerialiser();
 

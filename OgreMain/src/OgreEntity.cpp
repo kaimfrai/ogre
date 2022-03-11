@@ -169,7 +169,7 @@ class Sphere;
 
         // Build main subentity list
         buildSubEntityList(mMesh, &mSubEntityList);
-#if !OGRE_NO_MESHLOD
+
         // Check if mesh is using manual LOD
         if (mMesh->hasManualLodLevel())
         {
@@ -199,7 +199,6 @@ class Sphere;
                 mLodEntityList.push_back(lodEnt);
             }
         }
-#endif
 
         // Initialise the AnimationState, if Mesh has animation
         if (hasSkeleton())
@@ -245,7 +244,6 @@ class Sphere;
         }
         mSubEntityList.clear();
 
-#if !OGRE_NO_MESHLOD
         // Delete LOD entities
         LODEntityList::iterator li, liend;
         liend = mLodEntityList.end();
@@ -258,7 +256,7 @@ class Sphere;
             }
         }
         mLodEntityList.clear();
-#endif
+
         // Delete shadow renderables
         clearShadowRenderableList(mShadowRenderables);
 
@@ -394,7 +392,6 @@ class Sphere;
         // Calculate the LOD
         if (mParentNode)
         {
-#if !OGRE_NO_MESHLOD
             // Get mesh lod strategy
             const LodStrategy *meshStrategy = mMesh->getLodStrategy();
             // Get the appropriate LOD value
@@ -424,14 +421,12 @@ class Sphere;
 
             // Now do material LOD
             lodValue *= mMaterialLodFactorTransformed;
-#endif
 
 
             SubEntityList::iterator i, iend;
             iend = mSubEntityList.end();
             for (i = mSubEntityList.begin(); i != iend; ++i)
             {
-#if !OGRE_NO_MESHLOD
                 // Get sub-entity material
                 const MaterialPtr& material = (*i)->getMaterial();
                 
@@ -463,7 +458,7 @@ class Sphere;
 
                 // Change LOD index
                 (*i)->mMaterialLodIndex = subEntEvt.newLodIndex;
-#endif
+
                 // Also invalidate any camera distance cache
                 (*i)->_invalidateCameraCache ();
             }
@@ -634,7 +629,7 @@ class Sphere;
         }
 
         Entity* displayEntity = this;
-#if !OGRE_NO_MESHLOD
+
         // Check we're not using a manual LOD
         if (mMeshLodIndex > 0 && mMesh->hasManualLodLevel())
         {
@@ -656,7 +651,6 @@ class Sphere;
                 }
             }
         }
-#endif
 
         // Add each visible SubEntity to the queue
         SubEntityList::iterator i, iend;
@@ -692,7 +686,6 @@ class Sphere;
                 }
             }
         }
-#if !OGRE_NO_MESHLOD
         if (getAlwaysUpdateMainSkeleton() && hasSkeleton() && (mMeshLodIndex > 0))
         {
             //check if an update was made
@@ -705,7 +698,7 @@ class Sphere;
                 getSkeleton()->_notifyManualBonesDirty();
             }
         }
-#endif
+
         // Since we know we're going to be rendered, take this opportunity to
         // update the animation
         if (displayEntity->hasSkeleton() || displayEntity->hasVertexAnimation())
@@ -1423,26 +1416,17 @@ class Sphere;
     //-----------------------------------------------------------------------
     size_t Entity::getNumManualLodLevels(void) const
     {
-#if !OGRE_NO_MESHLOD
         return mLodEntityList.size();
-#else
-        return 0;
-#endif
     }
 
     //-----------------------------------------------------------------------
     Entity* Entity::getManualLodLevel(size_t index) const
     {
-#if !OGRE_NO_MESHLOD
         assert(index < mLodEntityList.size());
 
         return mLodEntityList[index];
-#else
-        OgreAssert(0, "This feature is disabled in ogre configuration!");
-        return NULL;
-#endif
     }
-#if !OGRE_NO_MESHLOD
+
     //-----------------------------------------------------------------------
     void Entity::setMeshLodBias(Real factor, ushort maxDetailIndex, ushort minDetailIndex)
     {
@@ -1458,7 +1442,6 @@ class Sphere;
         mMaxMaterialLodIndex = maxDetailIndex;
         mMinMaterialLodIndex = minDetailIndex;
     }
-#endif
     //-----------------------------------------------------------------------
     void Entity::buildSubEntityList(MeshPtr& mesh, SubEntityList* sublist)
     {
@@ -1727,9 +1710,6 @@ class Sphere;
     //-----------------------------------------------------------------------
     EdgeData* Entity::getEdgeList(void)
     {
-#if OGRE_NO_MESHLOD
-        unsigned short mMeshLodIndex = 0;
-#endif
         // Get from Mesh
         return mMesh->getEdgeList(mMeshLodIndex);
     }
@@ -1898,7 +1878,6 @@ class Sphere;
             _initialise(true);
         }
 
-#if !OGRE_NO_MESHLOD
         // Potentially delegate to LOD entity
         if (mMesh->hasManualLodLevel() && mMeshLodIndex > 0)
         {
@@ -1924,7 +1903,6 @@ class Sphere;
                     light, indexBuffer, indexBufferUsedSize, extrusionDistance, flags);
             }
         }
-#endif
 
         // Prepare temp buffers if required
         if (!mPreparedForShadowVolumes)
@@ -2130,7 +2108,7 @@ class Sphere;
     void Entity::_notifyAttached(Node* parent, bool isTagPoint)
     {
         MovableObject::_notifyAttached(parent, isTagPoint);
-#if !OGRE_NO_MESHLOD
+
         // Also notify LOD entities
         LODEntityList::iterator i, iend;
         iend = mLodEntityList.end();
@@ -2139,7 +2117,6 @@ class Sphere;
             if(*i != this)
                 (*i)->_notifyAttached(parent, isTagPoint);
         }
-#endif
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
@@ -2201,7 +2178,7 @@ class Sphere;
     void Entity::setRenderQueueGroup(uint8 queueID)
     {
         MovableObject::setRenderQueueGroup(queueID);
-#if !OGRE_NO_MESHLOD
+
         // Set render queue for all manual LOD entities
         if (mMesh->hasManualLodLevel())
         {
@@ -2213,13 +2190,12 @@ class Sphere;
                     (*li)->setRenderQueueGroup(queueID);
             }
         }
-#endif
     }
     //-----------------------------------------------------------------------
     void Entity::setRenderQueueGroupAndPriority(uint8 queueID, ushort priority)
     {
         MovableObject::setRenderQueueGroupAndPriority(queueID, priority);
-#if !OGRE_NO_MESHLOD
+
         // Set render queue for all manual LOD entities
         if (mMesh->hasManualLodLevel())
         {
@@ -2231,7 +2207,6 @@ class Sphere;
                     (*li)->setRenderQueueGroupAndPriority(queueID, priority);
             }
         }
-#endif
     }
     //-----------------------------------------------------------------------
     void Entity::shareSkeletonInstanceWith(Entity* entity)
@@ -2378,7 +2353,7 @@ class Sphere;
         {
             visitor->visit(*i, 0, false);
         }
-#if !OGRE_NO_MESHLOD
+
         // if manual LOD is in use, visit those too
         ushort lodi = 1;
         for (LODEntityList::iterator e = mLodEntityList.begin(); 
@@ -2392,7 +2367,6 @@ class Sphere;
                 }
             }
         }
-#endif
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------

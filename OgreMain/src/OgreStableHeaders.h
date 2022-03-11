@@ -111,9 +111,7 @@ extern "C" {
 #include "Threading/OgreThreadHeaders.h"
 #include "OgreUserObjectBindings.h"
 #include "OgreVector.h"
-#if OGRE_NO_ZIP_ARCHIVE == 0
-#   include "OgreZip.h"
-#endif
+#include "OgreZip.h"
 
 #define FOURCC(c0, c1, c2, c3) (c0 | (c1 << 8) | (c2 << 16) | (c3 << 24))
 

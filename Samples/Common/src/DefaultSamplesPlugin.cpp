@@ -50,22 +50,3 @@ DefaultSamplesPlugin::~DefaultSamplesPlugin()
         delete *i;
     }
 }
-
-#ifndef OGRE_STATIC_LIB
-static SamplePlugin* sp;
-
-extern "C" void _OgreSampleExport dllStartPlugin(void);
-extern "C" void _OgreSampleExport dllStopPlugin(void);
-
-extern "C" _OgreSampleExport void dllStartPlugin()
-{
-    sp = new DefaultSamplesPlugin();
-    Root::getSingleton().installPlugin(sp);
-}
-
-extern "C" _OgreSampleExport void dllStopPlugin()
-{
-    Root::getSingleton().uninstallPlugin(sp);
-    delete sp;
-}
-#endif

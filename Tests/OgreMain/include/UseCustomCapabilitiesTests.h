@@ -34,18 +34,15 @@ THE SOFTWARE.
 #include "OgreBuildSettings.h"
 #include "OgrePlatform.h"
 
-#ifdef OGRE_STATIC_LIB
 #include "OgreStaticPluginLoader.h"
-#endif
 
 using namespace Ogre;
 
 class UseCustomCapabilitiesTests : public ::testing::Test
 {
 public:
-#ifdef OGRE_STATIC_LIB
     OgreBites::StaticPluginLoader mStaticPluginLoader;
-#endif
+
     void SetUp();
     void TearDown();
 };

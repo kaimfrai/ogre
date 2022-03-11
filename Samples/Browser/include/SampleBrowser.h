@@ -42,12 +42,7 @@
 #define __OGRE_WINRT_PHONE 0
 #endif
 
-#ifdef OGRE_STATIC_LIB
 #include "DefaultSamplesPlugin.h"
-#   ifdef SAMPLES_INCLUDE_PLAYPEN
-#   include "PlayPenTestPlugin.h"
-#   endif
-#endif
 
 #define CAROUSEL_REDRAW_EPS 0.001
 
@@ -59,10 +54,8 @@ namespace OgreBites
       =============================================================================*/
     class SampleBrowser : public SampleContext, public TrayListener
     {
-#ifdef OGRE_STATIC_LIB
         typedef std::map<Ogre::String, SamplePlugin*> PluginMap;
         PluginMap mPluginNameMap;                      // A structure to map plugin names to class types
-#endif
     public:
 
     SampleBrowser(bool nograb = false, int startSampleIndex = -1)
@@ -717,12 +710,8 @@ namespace OgreBites
             addInputListener(this);
             if(mGrabInput) setWindowGrab();
             else mTrayMgr->hideCursor();
-#ifdef OGRE_STATIC_LIB
+
             mPluginNameMap["DefaultSamples"] = new DefaultSamplesPlugin();
-#   ifdef SAMPLES_INCLUDE_PLAYPEN
-            mPluginNameMap["PlaypenTests"] = new  PlaypenTestPlugin();
-#   endif
-#endif
 
             Sample* startupSample = loadSamples();
 
@@ -786,63 +775,18 @@ namespace OgreBites
 
             Ogre::String startupSampleTitle;
             Ogre::StringVector sampleList;
-#ifdef OGRE_STATIC_LIB
+
             for(auto it = mPluginNameMap.begin(); it != mPluginNameMap.end(); ++it)
             {
                 sampleList.push_back(it->first);
             }
-#else
-            Ogre::ConfigFile cfg;
-
-            cfg.load(mFSLayer->getConfigFilePath("samples.cfg"));
-
-            Ogre::String sampleDir = cfg.getSetting("SampleFolder");        // Mac OS X just uses Resources/ directory
-            sampleList = cfg.getMultiSetting("SamplePlugin");
-            startupSampleTitle = cfg.getSetting("StartupSample");
-
-            sampleDir = Ogre::FileSystemLayer::resolveBundlePath(sampleDir);
-
-            if (sampleDir.empty()) sampleDir = ".";   // user didn't specify plugins folder, try current one
-
-            // add slash or backslash based on platform
-            char lastChar = sampleDir[sampleDir.length() - 1];
-            if (lastChar != '/' && lastChar != '\\')
-            {
-                sampleDir += "/";
-            }
-#endif
 
             SampleSet newSamples;
 
             // loop through all sample plugins...
             for (Ogre::StringVector::iterator i = sampleList.begin(); i != sampleList.end(); i++)
             {
-#ifndef OGRE_STATIC_LIB
-                try   // try to load the plugin
-                {
-                    mRoot->loadPlugin(sampleDir + *i);
-                }
-                catch (Ogre::Exception& e)   // plugin couldn't be loaded
-                {
-                    Ogre::LogManager::getSingleton().logError(e.what());
-                    unloadedSamplePlugins.push_back(sampleDir + *i);
-                    continue;
-                }
-
-                Ogre::Plugin* p = mRoot->getInstalledPlugins().back();   // acquire plugin instance
-                SamplePlugin* sp = dynamic_cast<SamplePlugin*>(p);
-
-                if (!sp)  // this is not a SamplePlugin, so unload it
-                {
-                    unloadedSamplePlugins.push_back(sampleDir + *i);
-                    mRoot->unloadPlugin(sampleDir + *i);
-                    continue;
-                }
-
-                mLoadedSamplePlugins.push_back(sampleDir + *i);   // add to records
-#else
                 SamplePlugin* sp = mPluginNameMap[*i];
-#endif
 
                 // go through every sample in the plugin...
                 newSamples = sp->getSamples();
@@ -879,13 +823,6 @@ namespace OgreBites
           -----------------------------------------------------------------------------*/
         virtual void unloadSamples()
         {
-#ifndef OGRE_STATIC_LIB
-            for (unsigned int i = 0; i < mLoadedSamplePlugins.size(); i++)
-            {
-                mRoot->unloadPlugin(mLoadedSamplePlugins[i]);
-            }
-#endif
-
             mLoadedSamples.clear();
             mLoadedSamplePlugins.clear();
             mSampleCategories.clear();

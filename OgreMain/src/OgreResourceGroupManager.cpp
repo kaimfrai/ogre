@@ -572,8 +572,7 @@ namespace Ogre {
         Archive* pArch = resourceExists(grp, resourceName);
 
         if (pArch == NULL && (searchGroupsIfNotFound ||
-            groupName == AUTODETECT_RESOURCE_GROUP_NAME || grp->inGlobalPool ||
-            (!OGRE_RESOURCEMANAGER_STRICT && (groupName == DEFAULT_RESOURCE_GROUP_NAME))))
+            groupName == AUTODETECT_RESOURCE_GROUP_NAME || grp->inGlobalPool))
         {
             std::pair<Archive*, ResourceGroup*> ret = resourceExistsInAnyGroupImpl(resourceName);
 
@@ -1422,32 +1421,7 @@ namespace Ogre {
             return rit->second;
         }
 
-#if !OGRE_RESOURCEMANAGER_STRICT
-        // try case insensitive
-        String lcResourceName = resourceName;
-        StringUtil::toLowerCase(lcResourceName);
-        rit = grp->resourceIndexCaseInsensitive.find(lcResourceName);
-        if (rit != grp->resourceIndexCaseInsensitive.end())
-        {
-            // Found in the index
-            return rit->second;
-        }
-
-        // Search the hard way
-        LocationList::iterator li, liend;
-        liend = grp->locationList.end();
-        for (li = grp->locationList.begin(); li != liend; ++li)
-        {
-            Archive* arch = li->archive;
-            if (arch->exists(resourceName))
-            {
-                return arch;
-            }
-        }
-#endif
-
         return NULL;
-
     }
     //-----------------------------------------------------------------------
     time_t ResourceGroupManager::resourceModifiedTime(const String& groupName, const String& resourceName) const
@@ -1606,15 +1580,6 @@ namespace Ogre {
     {
         // internal, assumes mutex lock has already been obtained
         this->resourceIndexCaseSensitive.emplace(filename, arch);
-
-#if !OGRE_RESOURCEMANAGER_STRICT
-        if (!arch->isCaseSensitive())
-        {
-            String lcase = filename;
-            StringUtil::toLowerCase(lcase);
-            this->resourceIndexCaseInsensitive.emplace(lcase, arch);
-        }
-#endif
     }
     //---------------------------------------------------------------------
     void ResourceGroupManager::ResourceGroup::removeFromIndex(const String& filename, Archive* arch)
@@ -1623,38 +1588,13 @@ namespace Ogre {
         ResourceLocationIndex::iterator i = this->resourceIndexCaseSensitive.find(filename);
         if (i != this->resourceIndexCaseSensitive.end() && i->second == arch)
             this->resourceIndexCaseSensitive.erase(i);
-
-#if !OGRE_RESOURCEMANAGER_STRICT
-        if (!arch->isCaseSensitive())
-        {
-            String lcase = filename;
-            StringUtil::toLowerCase(lcase);
-            i = this->resourceIndexCaseInsensitive.find(lcase);
-            if (i != this->resourceIndexCaseInsensitive.end() && i->second == arch)
-                this->resourceIndexCaseInsensitive.erase(i);
-        }
-#endif
     }
     //---------------------------------------------------------------------
     void ResourceGroupManager::ResourceGroup::removeFromIndex(Archive* arch)
     {
         // Delete indexes
         ResourceLocationIndex::iterator rit, ritend;
-#if !OGRE_RESOURCEMANAGER_STRICT
-        ritend = this->resourceIndexCaseInsensitive.end();
-        for (rit = this->resourceIndexCaseInsensitive.begin(); rit != ritend;)
-        {
-            if (rit->second == arch)
-            {
-                ResourceLocationIndex::iterator del = rit++;
-                this->resourceIndexCaseInsensitive.erase(del);
-            }
-            else
-            {
-                ++rit;
-            }
-        }
-#endif
+
         ritend = this->resourceIndexCaseSensitive.end();
         for (rit = this->resourceIndexCaseSensitive.begin(); rit != ritend;)
         {

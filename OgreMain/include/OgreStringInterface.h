@@ -90,7 +90,6 @@ namespace Ogre {
     };
     typedef std::map<String, ParamCommand* > ParamCommandMap;
 
-#ifndef SWIG
     /** Generic ParamCommand implementation
      stores pointers to the class getter and setter functions */
     template <typename _Class, typename Param, Param (_Class::*getter)() const, void (_Class::*setter)(Param)>
@@ -119,7 +118,6 @@ namespace Ogre {
             (static_cast<_Class*>(target)->*setter)(val);
         }
     };
-#endif
 
     /** Class to hold a dictionary of parameters for a single class. */
     class _OgreExport ParamDictionary

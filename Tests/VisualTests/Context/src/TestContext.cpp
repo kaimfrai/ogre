@@ -328,16 +328,12 @@ void TestContext::createRoot()
     // note that we use a separate config file here
 
     Ogre::String pluginsPath = Ogre::BLANKSTRING;
-#ifndef OGRE_STATIC_LIB
-    pluginsPath = mFSLayer->getConfigFilePath("plugins.cfg");
-#endif
     // we use separate config and log files for the tests
     mRoot = OGRE_NEW Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogretests.cfg"),
                                 mFSLayer->getWritablePath("ogretests.log"));
 
-#ifdef OGRE_STATIC_LIB
     mStaticPluginLoader.load();
-#endif
+
     mOverlaySystem = OGRE_NEW Ogre::OverlaySystem();
 }
 //-----------------------------------------------------------------------

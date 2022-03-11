@@ -42,17 +42,11 @@ namespace Ogre {
 
     // define the real number values to be used
     // default to use 'float' unless precompiler option set
-    #if OGRE_DOUBLE_PRECISION == 1
-        /** Software floating point type.
-        @note Not valid as a pointer to GPU buffers / parameters
-        */
-        typedef double Real;
-    #else
-        /** Software floating point type.
-        @note Not valid as a pointer to GPU buffers / parameters
-        */
-        typedef float Real;
-    #endif
+
+    /** Software floating point type.
+    @note Not valid as a pointer to GPU buffers / parameters
+    */
+    typedef float Real;
 
     /** In order to avoid finger-aches :)
     */

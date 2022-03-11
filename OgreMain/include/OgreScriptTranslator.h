@@ -81,11 +81,7 @@ class Matrix4;
         /// Converts the node to a Real and returns true if successful
         static bool getReal(const AbstractNodePtr& node, Real* result)
         {
-#if OGRE_DOUBLE_PRECISION == 0
             return getFloat(node, result);
-#else
-            return getDouble(node, result);
-#endif
         }
         /// Converts the node to a float and returns true if successful
         static bool getFloat(const AbstractNodePtr &node, float *result);
