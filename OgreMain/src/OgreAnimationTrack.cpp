@@ -89,15 +89,6 @@ namespace Ogre {
             // Global keyframe index available, map to local keyframe index directly.
             assert(timeIndex.getKeyIndex() < mKeyFrameIndexMap.size());
             i = mKeyFrames.begin() + mKeyFrameIndexMap[timeIndex.getKeyIndex()];
-#if OGRE_DEBUG_MODE
-            KeyFrame timeKey(0, timePos);
-            if (i != std::lower_bound(mKeyFrames.begin(), mKeyFrames.end(), &timeKey, KeyFrameTimeLess()))
-            {
-                OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
-                    "Optimised key frame search failed",
-                    "AnimationTrack::getKeyFramesAtTime");
-            }
-#endif
         }
         else
         {

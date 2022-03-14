@@ -236,17 +236,7 @@ namespace Ogre {
     }
 
 // Macro to check the stack aligned for SSE
-#if OGRE_DEBUG_MODE
-#define __OGRE_CHECK_STACK_ALIGNED_FOR_SSE()        \
-    {                                               \
-        __m128 test = {};                           \
-        assert(_isAlignedForSSE(&test));            \
-    }
-
-#else   // !OGRE_DEBUG_MODE
 #define __OGRE_CHECK_STACK_ALIGNED_FOR_SSE()
-
-#endif  // OGRE_DEBUG_MODE
 
     /** @} */
     /** @} */

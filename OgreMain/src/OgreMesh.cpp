@@ -1752,16 +1752,6 @@ namespace Ogre {
                 if (atLeastOneIndexSet)
                 {
                     usage.edgeData = eb.build();
-
-                #if OGRE_DEBUG_MODE
-                    // Override default log
-                    Log* log = LogManager::getSingleton().createLog(
-                        mName + "_lod" + StringConverter::toString(lodIndex) +
-                        "_prepshadow.log", false, false);
-                    usage.edgeData->log(log);
-                    // clean up log & close file handle
-                    LogManager::getSingleton().destroyLog(log);
-                #endif
                 }
                 else
                 {
