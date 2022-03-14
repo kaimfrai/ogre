@@ -646,19 +646,6 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void FileStreamDataStream::skip(long count)
     {
-#if defined(STLPORT)
-        // Workaround for STLport issues: After reached eof of file stream,
-        // it's seems the stream was putted in intermediate state, and will be
-        // fail if try to repositioning relative to current position.
-        // Note: tellg() fail in this case too.
-        if (mInStream->eof())
-        {
-            mInStream->clear();
-            // Use seek relative to either begin or end to bring the stream
-            // back to normal state.
-            mInStream->seekg(0, std::ios::end);
-        }
-#endif      
         mInStream->clear(); //Clear fail status in case eof was set
         mInStream->seekg(static_cast<std::ifstream::pos_type>(count), std::ios::cur);
     }

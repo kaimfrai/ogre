@@ -26,10 +26,6 @@ THE SOFTWARE
 #ifndef __OgreThreadHeaders_H__
 #define __OgreThreadHeaders_H__
 
-#if !defined(NOMINMAX) && defined(_MSC_VER)
-#   define NOMINMAX // required to stop windows.h messing up std::min
-#endif
-
 #include "OgreThreadHeadersSTD.h"
 #include "OgreThreadDefines.h"
 

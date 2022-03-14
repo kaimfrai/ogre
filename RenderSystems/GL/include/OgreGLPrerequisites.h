@@ -70,10 +70,6 @@ namespace Ogre {
     }
 }
 
-#if defined ( OGRE_GCC_VISIBILITY )
-#    define _OgreGLExport  __attribute__ ((visibility("default")))
-#else
-#    define _OgreGLExport
-#endif
+#define _OgreGLExport
 
 #endif //#ifndef __GLPrerequisites_H__

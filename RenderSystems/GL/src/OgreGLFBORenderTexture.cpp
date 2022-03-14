@@ -451,15 +451,6 @@ static const uchar depthBits[] =
         bool requestDepthOnly = PixelUtil::isDepth(internalFormat);
         for(size_t mode=0; mode<props.modes.size(); mode++)
         {
-#if 0
-            /// Always prefer D24S8
-            if(stencilBits[props.modes[mode].stencil]==8 &&
-                depthBits[props.modes[mode].depth]==24)
-            {
-                bestmode = mode;
-                break;
-            }
-#endif
             int desirability = 0;
             /// Find most desirable mode
             /// desirability == 0            if no depth, no stencil

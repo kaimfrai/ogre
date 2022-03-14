@@ -40,20 +40,7 @@ THE SOFTWARE.
 // variables, so you need to wrap those alignment required functions
 // with extra function call.
 //
-#if defined(__INTEL_COMPILER)
-// For intel's compiler, simply calling alloca seems to do the right
-// thing. The size of the allocated block seems to be irrelevant.
-#define __OGRE_SIMD_ALIGN_STACK()   _alloca(16)
 #define __OGRE_SIMD_ALIGN_ATTRIBUTE
-
-#elif defined(_MSC_VER)
-// Fortunately, MSVC will align the stack automatically
-#define __OGRE_SIMD_ALIGN_ATTRIBUTE
-
-#else
-#define __OGRE_SIMD_ALIGN_ATTRIBUTE
-
-#endif
 
 
 // Additional platform-dependent header files and declares.
