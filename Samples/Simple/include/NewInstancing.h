@@ -31,7 +31,7 @@ using namespace OgreBites;
 
 #define NUM_TECHNIQUES (((int)InstanceManager::InstancingTechniquesCount) + 1)
 
-class _OgreSampleClassExport Sample_NewInstancing : public SdkSample
+class Sample_NewInstancing : public SdkSample
 {
 public:
 

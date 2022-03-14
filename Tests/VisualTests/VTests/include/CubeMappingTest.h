@@ -36,7 +36,7 @@ THE SOFTWARE.
 using namespace Ogre;
 
 /** Tests basic fixed-function cube mapping */
-class _OgreSampleClassExport CubeMappingTest : public VisualTest
+class CubeMappingTest : public VisualTest
 {
 public:
 
