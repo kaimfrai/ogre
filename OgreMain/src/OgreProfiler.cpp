@@ -177,7 +177,7 @@ namespace Ogre {
 
             mInitialized = true;
         }
-        else if (mInitialized)
+        else if (mInitialized && !enabled)
         {
             for( TProfileSessionListener::iterator i = mListeners.begin(); i != mListeners.end(); ++i )
                 (*i)->finializeSession();

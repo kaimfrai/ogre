@@ -121,7 +121,7 @@ class RenderQueue;
 
     }
     //---------------------------------------------------------------------
-    void OverlayContainer::removeChild(const String& name)
+    OverlayContainer::ChildMap::iterator OverlayContainer::removeChild(const String& name)
     {
         ChildMap::iterator i = mChildren.find(name);
         if (i == mChildren.end())
@@ -131,7 +131,7 @@ class RenderQueue;
         }
 
         OverlayElement* element = i->second;
-        mChildren.erase(i);
+        auto eraseIt = mChildren.erase(i);
 
         // Remove from container list (if found)
         ChildContainerMap::iterator j = mChildContainers.find(name);
@@ -139,6 +139,8 @@ class RenderQueue;
             mChildContainers.erase(j);
 
         element->_setParent(0);
+
+        return eraseIt;
     }
     //---------------------------------------------------------------------
     void OverlayContainer::_addChild(OverlayElement* elem)
@@ -153,7 +155,7 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    void OverlayContainer::_removeChild(const String& name)
+    OverlayContainer::ChildMap::iterator OverlayContainer::_removeChild(const String& name)
     {
         ChildMap::iterator i = mChildren.find(name);
         if (i == mChildren.end())
@@ -163,7 +165,7 @@ class RenderQueue;
         }
 
         OverlayElement* element = i->second;
-        mChildren.erase(i);
+        auto eraseIt = mChildren.erase(i);
 
         // Remove from container list (if found)
         ChildContainerMap::iterator j = mChildContainers.find(name);
@@ -171,6 +173,8 @@ class RenderQueue;
             mChildContainers.erase(j);
 
         element->_setParent(0);
+
+        return eraseIt;
     }
     //---------------------------------------------------------------------
     OverlayElement* OverlayContainer::getChild(const String& name)
