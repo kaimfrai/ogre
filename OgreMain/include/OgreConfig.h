@@ -34,11 +34,6 @@ THE SOFTWARE.
 // %BUILD_DIR%/include to your include search path to find OgreBuildSettings.h.
 #include "OgreBuildSettings.h"
 
-/** If set to >0, OGRE will always 'think' that the graphics card only has the
-    number of texture units specified. Very useful for testing multipass fallback.
-*/
-#define OGRE_PRETEND_TEXTURE_UNITS 0
-
 /** Define number of texture coordinate sets allowed per vertex.
 */
 #define OGRE_MAX_TEXTURE_COORD_SETS 8

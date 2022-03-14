@@ -47,20 +47,6 @@ THE SOFTWARE.
 #include "OgreStringVector.h"
 #include "OgreVector.h"
 
-
-#if OGRE_NO_LOCALE_STRCONVERT == 1
-#   define strtod_l(ptr, end, l) strtod(ptr, end)
-#   define strtoul_l(ptr, end, base, l) strtoul(ptr, end, base)
-#   define strtol_l(ptr, end, base, l) strtol(ptr, end, base)
-#   define strtoull_l(ptr, end, base, l) strtoull(ptr, end, base)
-#   define strtoll_l(ptr, end, base, l) strtoll(ptr, end, base)
-#endif
-
-#ifdef __MINGW32__
-#define _strtoull_l _strtoul_l
-#define _strtoll_l _strtol_l
-#endif
-
 namespace Ogre {
     locale_t StringConverter::_numLocale = newlocale(LC_NUMERIC_MASK, OGRE_DEFAULT_LOCALE, NULL);
 

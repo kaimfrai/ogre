@@ -162,15 +162,6 @@ namespace Ogre
             if ((opt = miscParams->find("externalGLControl")) != end)
                 mIsExternalGLControl = StringConverter::parseBool(opt->second);
             
-#if OGRE_NO_QUAD_BUFFER_STEREO == 0
-			if ((opt = miscParams->find("stereoMode")) != end)
-			{
-				StereoModeType stereoMode = StringConverter::parseStereoMode(opt->second);
-				if (SMT_NONE != stereoMode)
-					mStereoEnabled = true;
-			}
-#endif
-
             if ((opt = miscParams->find("parentWindowHandle")) != end ||
                 (opt = miscParams->find("externalWindowHandle")) != end)
             {
@@ -228,9 +219,6 @@ namespace Ogre
                 GLX_BLUE_SIZE,    minComponentSize,
                 GLX_GREEN_SIZE,  minComponentSize,
                 GLX_ALPHA_SIZE,  fourComponents ? minComponentSize : 0,
-#if OGRE_NO_QUAD_BUFFER_STEREO == 0
-				GLX_STEREO, mStereoEnabled ? True : False,
-#endif
                 GLX_FRAMEBUFFER_SRGB_CAPABLE_EXT, gamma,
                 None
             };

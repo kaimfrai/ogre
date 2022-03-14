@@ -38,10 +38,6 @@
 
 #define ENABLE_SHADERS_CACHE 1
 
-#ifndef __OGRE_WINRT_PHONE
-#define __OGRE_WINRT_PHONE 0
-#endif
-
 #include "DefaultSamplesPlugin.h"
 
 #define CAROUSEL_REDRAW_EPS 0.001
@@ -494,18 +490,6 @@ namespace OgreBites
 
             if (key == SDLK_ESCAPE)
             {
-#if __OGRE_WINRT_PHONE
-                // If there is a quit button, assume that we intended to press it via 'ESC'.
-                if (mTrayMgr->areTraysVisible())
-                {
-                    Widget *pWidget = mTrayMgr->getWidget("Quit");
-                    if (pWidget)
-                    {
-                        buttonHit((Button*)pWidget);  // on phone, quit entirely.
-                        return false;  // now act as if we didn't handle the button to get AppModel to exit.
-                    }
-                }
-#endif // __OGRE_WINRT_PHONE
                 if (mTitleLabel->getTrayLocation() != TL_NONE)
                 {
                     // if we're in the main screen and a sample's running, toggle sample pause state

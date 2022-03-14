@@ -1125,13 +1125,6 @@ namespace Ogre
                     pClosing->insertVertex( vFirst );
                     firstVertex     = vNext;
                     currentVertex   = vFirst;
-
-                #ifdef _DEBUG_INTERSECTION_LIST
-                    std::cout << "Plane: n=" << pl.normal << ", d=" << pl.d << std::endl;
-                    std::cout << "First inserted vertex: " << *next << std::endl;
-                    std::cout << "Second inserted vertex: " << *vSecond << std::endl;
-                    std::cout << "Third inserted vertex: " << *vFirst << std::endl;
-                #endif
                 }
                 // direction does not equal -> back side (walk cw)
                 else
@@ -1142,13 +1135,6 @@ namespace Ogre
                     pClosing->insertVertex( vNext );
                     firstVertex     = vFirst;
                     currentVertex   = vNext;
-
-                    #ifdef _DEBUG_INTERSECTION_LIST
-                        std::cout << "Plane: n=" << pl.normal << ", d=" << pl.d << std::endl;
-                        std::cout << "First inserted vertex: " << *vFirst << std::endl;
-                        std::cout << "Second inserted vertex: " << *vSecond << std::endl;
-                        std::cout << "Third inserted vertex: " << *next << std::endl;
-                    #endif
                 }
 
                 // search mating edges that have a point in common

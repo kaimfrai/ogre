@@ -53,7 +53,6 @@ THE SOFTWARE.
 #define STB_IMAGE_STATIC
 #include "stbi/stb_image.h"
 
-#ifdef HAVE_ZLIB
 #include <zlib.h>
 
 static Ogre::uchar* custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/)
@@ -71,7 +70,6 @@ static Ogre::uchar* custom_zlib_compress(Ogre::uchar* data, int data_len, int* o
     return dest;
 }
 #define STBIW_ZLIB_COMPRESS custom_zlib_compress
-#endif
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STBI_WRITE_NO_STDIO

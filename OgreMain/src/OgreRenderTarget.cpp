@@ -60,11 +60,7 @@ class Camera;
         , mAutoUpdate(true)
         , mHwGamma(false)
         , mFSAA(0)
-#if OGRE_NO_QUAD_BUFFER_STEREO == 0
-		, mStereoEnabled(true)
-#else
 		, mStereoEnabled(false)
-#endif
     {
         mTimer = Root::getSingleton().getTimer();
         resetStatistics();

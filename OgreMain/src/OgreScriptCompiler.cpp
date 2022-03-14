@@ -58,8 +58,6 @@ THE SOFTWARE.
 #include "OgreStringVector.h"
 #include "Threading/OgreThreadHeaders.h"
 
-#define DEBUG_AST 0
-
 namespace Ogre
 {
     // AbstractNode
@@ -295,60 +293,6 @@ namespace Ogre
         return compile(nodes, group);
     }
 
-#if DEBUG_AST
-    static void logAST(int tabs, const AbstractNodePtr &node)
-    {
-        String msg = "";
-        for(int i = 0; i < tabs; ++i)
-            msg += "\t";
-
-        switch(node->type)
-        {
-        case ANT_ATOM:
-            {
-                AtomAbstractNode *atom = static_cast<AtomAbstractNode*>(node.get());
-                msg = msg + atom->value;
-            }
-            break;
-        case ANT_PROPERTY:
-            {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>(node.get());
-                msg = msg + prop->name + " =";
-                for(AbstractNodeList::iterator i = prop->values.begin(); i != prop->values.end(); ++i)
-                {
-                    if((*i)->type == ANT_ATOM)
-                        msg = msg + " " + static_cast<AtomAbstractNode*>((*i).get())->value;
-                }
-            }
-            break;
-        case ANT_OBJECT:
-            {
-                ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
-                msg = msg + node->file + " - " + StringConverter::toString(node->line) + " - " + obj->cls + " \"" + obj->name + "\" =";
-                for(AbstractNodeList::iterator i = obj->values.begin(); i != obj->values.end(); ++i)
-                {
-                    if((*i)->type == ANT_ATOM)
-                        msg = msg + " " + static_cast<AtomAbstractNode*>((*i).get())->value;
-                }
-            }
-            break;
-        default:
-            msg = msg + "Unacceptable node type: " + StringConverter::toString(node->type);
-        }
-
-        LogManager::getSingleton().logMessage(msg);
-
-        if(node->type == ANT_OBJECT)
-        {
-            ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
-            for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
-            {
-                logAST(tabs + 1, *i);
-            }
-        }
-    }
-#endif
-
     bool ScriptCompiler::compile(const ConcreteNodeListPtr &nodes, const String &group)
     {
         // Set up the compilation context
@@ -379,9 +323,6 @@ namespace Ogre
         // Translate the nodes
         for(AbstractNodeList::iterator i = ast->begin(); i != ast->end(); ++i)
         {
-#if DEBUG_AST
-            logAST(0, *i);
-#endif
             if((*i)->type == ANT_OBJECT && static_cast<ObjectAbstractNode*>((*i).get())->abstract)
                 continue;
             //LogManager::getSingleton().logMessage(static_cast<ObjectAbstractNode*>((*i).get())->name);

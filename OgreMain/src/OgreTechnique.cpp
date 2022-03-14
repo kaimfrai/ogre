@@ -130,9 +130,6 @@ namespace Ogre {
             // Don't trust getNumTextureUnits for programmable
             if(!currPass->hasFragmentProgram())
             {
-#if defined(OGRE_PRETEND_TEXTURE_UNITS) && OGRE_PRETEND_TEXTURE_UNITS > 0
-                numTexUnits = std::min(numTexUnits, OGRE_PRETEND_TEXTURE_UNITS);
-#endif
                 if (numTexUnitsRequested > numTexUnits)
                 {
                     if (!autoManageTextureUnits)

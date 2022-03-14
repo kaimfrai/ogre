@@ -644,9 +644,6 @@ namespace Ogre {
     void Light::_setCameraRelative(Camera* cam)
     {
         mCameraToBeRelativeTo = cam;
-#ifdef OGRE_NODELESS_POSITONING
-        mDerivedCamRelativeDirty = true;
-#endif
     }
     //---------------------------------------------------------------------
     Real Light::_deriveShadowNearClipDistance(const Camera* maincam) const

@@ -269,10 +269,6 @@ namespace Ogre {
                 miscParams["monitorIndex"] = opt->second.currentValue.substr(start, len);
         }
 
-#if OGRE_NO_QUAD_BUFFER_STEREO == 0
-        if((opt = mOptions.find("Stereo Mode")) != end)
-            miscParams["stereoMode"] = opt->second.currentValue;
-#endif
         return ret;
     }
 
@@ -1091,17 +1087,6 @@ namespace Ogre {
         optSRGB.possibleValues.push_back("Yes");
         optSRGB.currentValue = optSRGB.possibleValues[0];
         mOptions[optSRGB.name] = optSRGB;
-
-#if OGRE_NO_QUAD_BUFFER_STEREO == 0
-        ConfigOption optStereoMode;
-        optStereoMode.name = "Stereo Mode";
-        optStereoMode.possibleValues.push_back(StringConverter::toString(SMT_NONE));
-        optStereoMode.possibleValues.push_back(StringConverter::toString(SMT_FRAME_SEQUENTIAL));
-        optStereoMode.currentValue = optStereoMode.possibleValues[0];
-        optStereoMode.immutable = false;
-
-        mOptions[optStereoMode.name] = optStereoMode;
-#endif
     }
 
     CompareFunction RenderSystem::reverseCompareFunction(CompareFunction func)

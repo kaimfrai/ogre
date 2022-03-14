@@ -145,11 +145,6 @@ struct GLGpuProgramBase;
         /// is fixed pipeline enabled
         bool mEnableFixedPipeline;
 
-#if OGRE_NO_QUAD_BUFFER_STEREO == 0
-		/// @copydoc RenderSystem::setDrawBuffer
-		virtual bool setDrawBuffer(ColourBufferType colourBuffer);
-#endif
-
     protected:
         void setClipPlanesImpl(const PlaneList& clipPlanes);
         void bindVertexElementToGpu(const VertexElement& elem,
