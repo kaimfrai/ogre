@@ -79,7 +79,7 @@ namespace Ogre {
         /** Add a nested container to this container. */
         virtual void addChildImpl(OverlayContainer* cont);
         /** Removes a named element from this container. */
-        virtual void removeChild(const String& name);
+        virtual ChildMap::iterator removeChild(const String& name);
         /** Gets the named child of this container. */
         virtual OverlayElement* getChild(const String& name);
 
@@ -87,8 +87,8 @@ namespace Ogre {
         void initialise(void);
 
         void _addChild(OverlayElement* elem);
-        void _removeChild(OverlayElement* elem) { _removeChild(elem->getName()); }
-        void _removeChild(const String& name);
+        ChildMap::iterator _removeChild(OverlayElement* elem) { return _removeChild(elem->getName()); }
+        ChildMap::iterator _removeChild(const String& name);
 
         /** Gets all the children of this object. */
         const ChildMap& getChildren() const { return mChildren; }
