@@ -102,24 +102,15 @@ THE SOFTWARE.
 #include "OgreZip.h"
 #include "Threading/OgreThreadHeaders.h"
 
-#if OGRE_NO_DDS_CODEC == 0
 #include "OgreDDSCodec.h"
-#endif
 
 #include "OgreHardwareBufferManager.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreExternalTextureSourceManager.h"
 #include "OgreCompositorManager.h"
 
-#if OGRE_NO_PVRTC_CODEC == 0
-#  include "OgrePVRTCCodec.h"
-#endif
-#if OGRE_NO_ETC_CODEC == 0
-#  include "OgreETCCodec.h"
-#endif
-#if OGRE_NO_ASTC_CODEC == 0
-#  include "OgreASTCCodec.h"
-#endif
+#include "OgreETCCodec.h"
+#include "OgreASTCCodec.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------
@@ -216,19 +207,10 @@ namespace Ogre {
         mEmbeddedZipArchiveFactory.reset(new EmbeddedZipArchiveFactory());
         ArchiveManager::getSingleton().addArchiveFactory( mEmbeddedZipArchiveFactory.get() );
 
-#if OGRE_NO_DDS_CODEC == 0
         // Register image codecs
         DDSCodec::startup();
-#endif
-#if OGRE_NO_PVRTC_CODEC == 0
-        PVRTCCodec::startup();
-#endif
-#if OGRE_NO_ETC_CODEC == 0
         ETCCodec::startup();
-#endif
-#if OGRE_NO_ASTC_CODEC == 0
         ASTCCodec::startup();
-#endif
 
         mGpuProgramManager.reset(new GpuProgramManager());
         mExternalTextureSourceManager.reset(new ExternalTextureSourceManager());
@@ -274,18 +256,10 @@ namespace Ogre {
     {
         shutdown();
 
-#if OGRE_NO_DDS_CODEC == 0
         DDSCodec::shutdown();
-#endif
-#if OGRE_NO_PVRTC_CODEC == 0
-        PVRTCCodec::shutdown();
-#endif
-#if OGRE_NO_ETC_CODEC == 0
         ETCCodec::shutdown();
-#endif
-#if OGRE_NO_ASTC_CODEC == 0
         ASTCCodec::shutdown();
-#endif
+
 		mCompositorManager.reset(); // needs rendersystem
         mParticleManager.reset(); // may use plugins
         mGpuProgramManager.reset(); // may use plugins
