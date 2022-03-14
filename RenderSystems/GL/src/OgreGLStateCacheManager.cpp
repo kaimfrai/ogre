@@ -111,10 +111,6 @@ namespace Ogre {
         mClearColour[0] = mClearColour[1] = mClearColour[2] = mClearColour[3] = 0.0f;
         mColourMask[0] = mColourMask[1] = mColourMask[2] = mColourMask[3] = GL_TRUE;
 
-#ifdef OGRE_ENABLE_STATE_CACHE
-        mEnableVector.reserve(25);
-        mEnableVector.clear();
-#endif
         mActiveBufferMap.clear();
         mTexUnitsMap.clear();
         mTextureCoordGen.clear();
@@ -154,32 +150,18 @@ namespace Ogre {
 
     void GLStateCacheManager::bindGLBuffer(GLenum target, GLuint buffer, bool force)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        auto ret = mActiveBufferMap.emplace(target, buffer);
-        if(ret.first->second != buffer || force) // Update the cached value if needed
+        if(target == GL_FRAMEBUFFER)
         {
-            ret.first->second = buffer;
-            ret.second = true;
+            OgreAssert(false, "not implemented");
         }
-
-        // Update GL
-        if(ret.second)
-#endif
+        else if(target == GL_RENDERBUFFER)
         {
-            if(target == GL_FRAMEBUFFER)
-            {
-                OgreAssert(false, "not implemented");
-            }
-            else if(target == GL_RENDERBUFFER)
-            {
-                glBindRenderbufferEXT(target, buffer);
-            }
-            else
-            {
-                glBindBuffer(target, buffer);
-            }
+            glBindRenderbufferEXT(target, buffer);
         }
-
+        else
+        {
+            glBindBuffer(target, buffer);
+        }
     }
 
     void GLStateCacheManager::deleteGLBuffer(GLenum target, GLuint buffer)
@@ -200,59 +182,16 @@ namespace Ogre {
         {
             glDeleteBuffers(1, &buffer);
         }
-
-#ifdef OGRE_ENABLE_STATE_CACHE
-        BindBufferMap::iterator i = mActiveBufferMap.find(target);
-        
-        if (i != mActiveBufferMap.end() && ((*i).second == buffer))
-        {
-            // Currently bound buffer is being deleted, update the cached value to 0,
-            // which it likely the buffer that will be bound by the driver.
-            // An update will be forced next time we try to bind on this target.
-            (*i).second = 0;
-        }
-#endif
     }
 
     void GLStateCacheManager::invalidateStateForTexture(GLuint texture)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        mTexUnitsMap.erase(texture);
-#endif
     }
 
     // TODO: Store as high/low bits of a GLuint, use vector instead of map for TexParameteriMap
     void GLStateCacheManager::setTexParameteri(GLenum target, GLenum pname, GLint param)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        // Check if we have a map entry for this texture id. If not, create a blank one and insert it.
-        TexUnitsMap::iterator it = mTexUnitsMap.find(mLastBoundTexID);
-        if (it == mTexUnitsMap.end())
-        {
-            TextureUnitParams unit;
-            mTexUnitsMap[mLastBoundTexID] = unit;
-            
-            // Update the iterator
-            it = mTexUnitsMap.find(mLastBoundTexID);
-        }
-        
-        // Get a local copy of the parameter map and search for this parameter
-        TexParameteriMap &myMap = (*it).second.mTexParameteriMap;
-
-        auto ret = myMap.emplace(pname, param);
-        TexParameteriMap::iterator i = ret.first;
-
-        // Update the cached value if needed
-        if((*i).second != param || ret.second)
-        {
-            (*i).second = param;
-            
-            // Update GL
-            glTexParameteri(target, pname, param);
-        }
-#else
         glTexParameteri(target, pname, param);
-#endif
     }
     
     void GLStateCacheManager::bindGLTexture(GLenum target, GLuint texture)
@@ -265,10 +204,6 @@ namespace Ogre {
     
     bool GLStateCacheManager::activateGLTextureUnit(size_t unit)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if (mActiveTextureUnit == unit)
-            return true;
-#endif
         if (unit >= Root::getSingleton().getRenderSystem()->getCapabilities()->getNumTextureUnits())
             return false;
 
@@ -279,121 +214,64 @@ namespace Ogre {
 
     void GLStateCacheManager::setBlendFunc(GLenum source, GLenum dest, GLenum sourceA, GLenum destA)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if(mBlendFuncSource != source || mBlendFuncDest != dest || sourceA != mBlendFuncSourceAlpha || destA != mBlendFuncDestAlpha )
-#endif
-        {
-            mBlendFuncSource = source;
-            mBlendFuncDest = dest;
-            mBlendFuncSourceAlpha = sourceA;
-            mBlendFuncDestAlpha = destA;
-            
-            glBlendFuncSeparate(source, dest, sourceA, destA);
-        }
+        mBlendFuncSource = source;
+        mBlendFuncDest = dest;
+        mBlendFuncSourceAlpha = sourceA;
+        mBlendFuncDestAlpha = destA;
+
+        glBlendFuncSeparate(source, dest, sourceA, destA);
     }
 
     void GLStateCacheManager::setDepthMask(GLboolean mask)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if(mDepthMask != mask)
-#endif
-        {
-            mDepthMask = mask;
-            
-            glDepthMask(mask);
-        }
+        mDepthMask = mask;
+
+        glDepthMask(mask);
     }
     
     void GLStateCacheManager::setDepthFunc(GLenum func)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if(mDepthFunc != func)
-#endif
-        {
-            mDepthFunc = func;
-            
-            glDepthFunc(func);
-        }
+        mDepthFunc = func;
+
+        glDepthFunc(func);
     }
     
     void GLStateCacheManager::setClearDepth(GLclampf depth)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if(mClearDepth != depth)
-#endif
-        {
-            mClearDepth = depth;
-            
-            glClearDepth(depth);
-        }
+        mClearDepth = depth;
+
+        glClearDepth(depth);
     }
     
     void GLStateCacheManager::setClearColour(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if((mClearColour[0] != red) ||
-           (mClearColour[1] != green) ||
-           (mClearColour[2] != blue) ||
-           (mClearColour[3] != alpha))
-#endif
-        {
-            mClearColour[0] = red;
-            mClearColour[1] = green;
-            mClearColour[2] = blue;
-            mClearColour[3] = alpha;
-            
-            glClearColor(mClearColour[0], mClearColour[1], mClearColour[2], mClearColour[3]);
-        }
+        mClearColour[0] = red;
+        mClearColour[1] = green;
+        mClearColour[2] = blue;
+        mClearColour[3] = alpha;
+
+        glClearColor(mClearColour[0], mClearColour[1], mClearColour[2], mClearColour[3]);
     }
     
     void GLStateCacheManager::setColourMask(GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if((mColourMask[0] != red) ||
-           (mColourMask[1] != green) ||
-           (mColourMask[2] != blue) ||
-           (mColourMask[3] != alpha))
-#endif
-        {
-            mColourMask[0] = red;
-            mColourMask[1] = green;
-            mColourMask[2] = blue;
-            mColourMask[3] = alpha;
-            
-            glColorMask(mColourMask[0], mColourMask[1], mColourMask[2], mColourMask[3]);
-        }
+        mColourMask[0] = red;
+        mColourMask[1] = green;
+        mColourMask[2] = blue;
+        mColourMask[3] = alpha;
+
+        glColorMask(mColourMask[0], mColourMask[1], mColourMask[2], mColourMask[3]);
     }
     
     void GLStateCacheManager::setStencilMask(GLuint mask)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if(mStencilMask != mask)
-#endif
-        {
-            mStencilMask = mask;
-            
-            glStencilMask(mask);
-        }
+        mStencilMask = mask;
+
+        glStencilMask(mask);
     }
     
     void GLStateCacheManager::setEnabled(GLenum flag, bool enabled)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        auto iter = std::find(mEnableVector.begin(), mEnableVector.end(), flag);
-        bool was_enabled = iter != mEnableVector.end();
-
-        if(was_enabled == enabled)
-            return; // no change
-
-        if(!enabled)
-        {
-            mEnableVector.erase(iter);
-        }
-        else
-        {
-            mEnableVector.push_back(flag);
-        }
-#endif
         if(!enabled)
         {
             glDisable(flag);
@@ -406,189 +284,112 @@ namespace Ogre {
 
     void GLStateCacheManager::setViewport(const Rect& r)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if(mViewport != r)
-#endif
-        {
-            mViewport = r;
-            glViewport(r.left, r.top, r.width(), r.height());
-        }
+        mViewport = r;
+        glViewport(r.left, r.top, r.width(), r.height());
     }
 
     void GLStateCacheManager::setCullFace(GLenum face)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if(mCullFace != face)
-#endif
-        {
-            mCullFace = face;
-            
-            glCullFace(face);
-        }
+        mCullFace = face;
+
+        glCullFace(face);
     }
 
     void GLStateCacheManager::setBlendEquation(GLenum eqRGB, GLenum eqAlpha)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if(mBlendEquationRGB != eqRGB || mBlendEquationAlpha != eqAlpha)
-#endif
-        {
-            mBlendEquationRGB = eqRGB;
-            mBlendEquationAlpha = eqAlpha;
+        mBlendEquationRGB = eqRGB;
+        mBlendEquationAlpha = eqAlpha;
 
-            if(GLAD_GL_VERSION_2_0)
-            {
-                glBlendEquationSeparate(eqRGB, eqAlpha);
-            }
-            else if(GLAD_GL_EXT_blend_equation_separate)
-            {
-                glBlendEquationSeparateEXT(eqRGB, eqAlpha);
-            }
-            else
-            {
-                glBlendEquation(eqRGB);
-            }
+        if(GLAD_GL_VERSION_2_0)
+        {
+            glBlendEquationSeparate(eqRGB, eqAlpha);
+        }
+        else if(GLAD_GL_EXT_blend_equation_separate)
+        {
+            glBlendEquationSeparateEXT(eqRGB, eqAlpha);
+        }
+        else
+        {
+            glBlendEquation(eqRGB);
         }
     }
 
     void GLStateCacheManager::setMaterialDiffuse(GLfloat r, GLfloat g, GLfloat b, GLfloat a)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if((mDiffuse[0] != r) ||
-           (mDiffuse[1] != g) ||
-           (mDiffuse[2] != b) ||
-           (mDiffuse[3] != a))
-#endif
-        {
-            mDiffuse[0] = r;
-            mDiffuse[1] = g;
-            mDiffuse[2] = b;
-            mDiffuse[3] = a;
+        mDiffuse[0] = r;
+        mDiffuse[1] = g;
+        mDiffuse[2] = b;
+        mDiffuse[3] = a;
 
-            glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, &mDiffuse[0]);
-        }
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, &mDiffuse[0]);
     }
 
     void GLStateCacheManager::setMaterialAmbient(GLfloat r, GLfloat g, GLfloat b, GLfloat a)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if((mAmbient[0] != r) ||
-           (mAmbient[1] != g) ||
-           (mAmbient[2] != b) ||
-           (mAmbient[3] != a))
-#endif
-        {
-            mAmbient[0] = r;
-            mAmbient[1] = g;
-            mAmbient[2] = b;
-            mAmbient[3] = a;
+        mAmbient[0] = r;
+        mAmbient[1] = g;
+        mAmbient[2] = b;
+        mAmbient[3] = a;
 
-            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, &mAmbient[0]);
-        }
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, &mAmbient[0]);
     }
 
     void GLStateCacheManager::setMaterialEmissive(GLfloat r, GLfloat g, GLfloat b, GLfloat a)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if((mEmissive[0] != r) ||
-           (mEmissive[1] != g) ||
-           (mEmissive[2] != b) ||
-           (mEmissive[3] != a))
-#endif
-        {
-            mEmissive[0] = r;
-            mEmissive[1] = g;
-            mEmissive[2] = b;
-            mEmissive[3] = a;
+        mEmissive[0] = r;
+        mEmissive[1] = g;
+        mEmissive[2] = b;
+        mEmissive[3] = a;
 
-            glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, &mEmissive[0]);
-        }
+        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, &mEmissive[0]);
     }
 
     void GLStateCacheManager::setMaterialSpecular(GLfloat r, GLfloat g, GLfloat b, GLfloat a)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if((mSpecular[0] != r) ||
-           (mSpecular[1] != g) ||
-           (mSpecular[2] != b) ||
-           (mSpecular[3] != a))
-#endif
-        {
-            mSpecular[0] = r;
-            mSpecular[1] = g;
-            mSpecular[2] = b;
-            mSpecular[3] = a;
+        mSpecular[0] = r;
+        mSpecular[1] = g;
+        mSpecular[2] = b;
+        mSpecular[3] = a;
 
-            glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, &mSpecular[0]);
-        }
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, &mSpecular[0]);
     }
 
     void GLStateCacheManager::setMaterialShininess(GLfloat shininess)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if (mShininess != shininess)
-#endif
-        {
-            mShininess = shininess;
-            glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
-        }
+        mShininess = shininess;
+        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
     }
 
     void GLStateCacheManager::setPolygonMode(GLenum mode)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if (mPolygonMode != mode)
-#endif
-        {
-            mPolygonMode = mode;
-            glPolygonMode(GL_FRONT_AND_BACK, mPolygonMode);
-        }
+        mPolygonMode = mode;
+        glPolygonMode(GL_FRONT_AND_BACK, mPolygonMode);
     }
 
     void GLStateCacheManager::setShadeModel(GLenum model)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if (mShadeModel != model)
-#endif
-        {
-            mShadeModel = model;
-            glShadeModel(model);
-        }
+        mShadeModel = model;
+        glShadeModel(model);
     }
 
     void GLStateCacheManager::setLightAmbient(GLfloat r, GLfloat g, GLfloat b)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if((mLightAmbient[0] != r) ||
-           (mLightAmbient[1] != g) ||
-           (mLightAmbient[2] != b))
-#endif
-        {
-            mLightAmbient[0] = r;
-            mLightAmbient[1] = g;
-            mLightAmbient[2] = b;
+        mLightAmbient[0] = r;
+        mLightAmbient[1] = g;
+        mLightAmbient[2] = b;
 
-            glLightModelfv(GL_LIGHT_MODEL_AMBIENT, &mLightAmbient[0]);
-        }
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, &mLightAmbient[0]);
     }
 
     void GLStateCacheManager::setPointSize(GLfloat size)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if (mPointSize != size)
-#endif
-        {
-            mPointSize = size;
-            glPointSize(mPointSize);
-        }
+        mPointSize = size;
+        glPointSize(mPointSize);
     }
 
     void GLStateCacheManager::setPointParameters(const GLfloat *attenuation, float minSize, float maxSize)
     {
         if(minSize > -1)
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if (minSize != mPointSizeMin)
-#endif
         {
             mPointSizeMin = minSize;
             const Ogre::RenderSystemCapabilities* caps = dynamic_cast<GLRenderSystem*>(Root::getSingleton().getRenderSystem())->getCapabilities();
@@ -597,9 +398,6 @@ namespace Ogre {
         }
 
         if(maxSize > -1)
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if (maxSize != mPointSizeMax)
-#endif
         {
             mPointSizeMax = maxSize;
             const Ogre::RenderSystemCapabilities* caps = dynamic_cast<GLRenderSystem*>(Root::getSingleton().getRenderSystem())->getCapabilities();
@@ -608,9 +406,6 @@ namespace Ogre {
         }
 
         if(attenuation)
-#ifdef OGRE_ENABLE_STATE_CACHE
-        if (attenuation[0] != mPointAttenuation[0] || attenuation[1] != mPointAttenuation[1] || attenuation[2] != mPointAttenuation[2])
-#endif
         {
             mPointAttenuation[0] = attenuation[0];
             mPointAttenuation[1] = attenuation[1];
@@ -623,41 +418,11 @@ namespace Ogre {
 
     void GLStateCacheManager::enableTextureCoordGen(GLenum type)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        std::unordered_map<GLenum, TexGenParams>::iterator it = mTextureCoordGen.find(mActiveTextureUnit);
-        if (it == mTextureCoordGen.end())
-        {
-            glEnable(type);
-            mTextureCoordGen[mActiveTextureUnit].mEnabled.insert(type);
-        }
-        else
-        {
-            if (it->second.mEnabled.find(type) == it->second.mEnabled.end())
-            {
-                glEnable(type);
-                it->second.mEnabled.insert(type);
-            }
-        }
-#else
         glEnable(type);
-#endif
     }
 
     void GLStateCacheManager::disableTextureCoordGen(GLenum type)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        std::unordered_map<GLenum, TexGenParams>::iterator it = mTextureCoordGen.find(mActiveTextureUnit);
-        if (it != mTextureCoordGen.end())
-        {
-            std::set<GLenum>::iterator found = it->second.mEnabled.find(type);
-            if (found != it->second.mEnabled.end())
-            {
-                glDisable(type);
-                it->second.mEnabled.erase(found);
-            }
-        }
-#else
         glDisable(type);
-#endif
     }
 }
