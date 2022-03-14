@@ -192,12 +192,9 @@ namespace Ogre {
         mTimer.reset(new Timer());
         mLodStrategyManager.reset(new LodStrategyManager());
 
-#if OGRE_PROFILING
         // Profiler
         mProfiler.reset(new Profiler());
         Profiler::getSingleton().setTimer(mTimer.get());
-#endif
-
 
         mFileSystemArchiveFactory.reset(new FileSystemArchiveFactory());
         ArchiveManager::getSingleton().addArchiveFactory( mFileSystemArchiveFactory.get() );

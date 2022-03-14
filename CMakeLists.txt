@@ -376,7 +376,7 @@ cmake_dependent_option(OGRE_INSTALL_SAMPLES "Install Ogre demos." TRUE "OGRE_BUI
 option(OGRE_INSTALL_TOOLS "Install Ogre tools." TRUE)
 option(OGRE_INSTALL_DOCS "Install documentation." TRUE)
 cmake_dependent_option(OGRE_INSTALL_PDB "Install debug pdb files" TRUE "MSVC" FALSE)
-option(OGRE_PROFILING "Enable internal instrumentation." FALSE)
+option(OGRE_PROFILING "Enable internal instrumentation." TRUE)
 set(OGRE_PROFILING_REMOTERY_PATH "" CACHE PATH "set this to Remotery/lib to use Remotery instead of the buildin profiler")
 cmake_dependent_option(OGRE_CONFIG_STATIC_LINK_CRT "Statically link the MS CRT dlls (msvcrt)" FALSE "MSVC" FALSE)
 set(OGRE_LIB_DIRECTORY "lib${LIB_SUFFIX}" CACHE STRING "Install path for libraries, e.g. 'lib64' on some 64-bit Linux distros.")
@@ -414,7 +414,6 @@ mark_as_advanced(
   OGRE_CONFIG_ENABLE_GLES2_CG_SUPPORT
   OGRE_CONFIG_ENABLE_GLES2_GLSL_OPTIMISER
   OGRE_CONFIG_ENABLE_TBB_SCHEDULER
-  OGRE_PROFILING
   OGRE_CONFIG_STATIC_LINK_CRT
   OGRE_LIB_DIRECTORY
   OGRE_BIN_DIRECTORY
