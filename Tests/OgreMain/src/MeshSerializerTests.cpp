@@ -74,17 +74,6 @@ THE SOFTWARE.
 #include "OgreString.h"
 #include "OgreVector.h"
 
-//#define I_HAVE_LOT_OF_FREE_TIME
-
-// To run XML test, you need to symlink all files (except main.cpp) from XMLConverter tool to the Test_Ogre component!
-// You also need to set TIXML_USE_STL macro globally.
-// #define OGRE_TEST_XMLSERIALIZER
-
-#ifdef OGRE_TEST_XMLSERIALIZER
-// #define TIXML_USE_STL
-#include "OgreXMLMeshSerializer.h"
-#endif
-
 // Register the test suite
 
 //--------------------------------------------------------------------------
@@ -236,69 +225,6 @@ TEST_F(MeshSerializerTests,Mesh_Version_1_3)
 {
     testMesh(MESH_VERSION_1_0);
 }
-//--------------------------------------------------------------------------
-#ifdef I_HAVE_LOT_OF_FREE_TIME
-TEST_F(MeshSerializerTests,Mesh_Version_1_2)
-{
-    // My sandboxing test. Takes a long time to complete!
-    // Runs on all meshes and exports all to every LoD version.
-    char* groups [] = { "Popular", "General", "Tests" };
-    for (int i = 0; i < 3; i++) {
-        StringVectorPtr meshes = ResourceGroupManager::getSingleton().findResourceNames(groups[i], "*.mesh");
-        StringVector::iterator it, itEnd;
-        it = meshes->begin();
-        itEnd = meshes->end();
-        for (; it != itEnd; it++) {
-            try {
-                mMesh = MeshManager::getSingleton().load(*it, groups[i]);
-            }
-            catch(std::exception e)
-            {
-                // OutputDebugStringA(e.what());
-            }
-            getResourceFullPath(mMesh, mMeshFullPath);
-            if (!copyFile(mMeshFullPath + ".bak", mMeshFullPath)) {
-                // If there is no backup, create one.
-                copyFile(mMeshFullPath, mMeshFullPath + ".bak");
-            }
-            mOrigMesh = mMesh->clone(mMesh->getName() + ".orig.mesh", mMesh->getGroup());
-            testMesh_XML();
-            testMesh(MESH_VERSION_1_10);
-            testMesh(MESH_VERSION_1_8);
-            testMesh(MESH_VERSION_1_7);
-            testMesh(MESH_VERSION_1_4);
-            testMesh(MESH_VERSION_1_0);
-        }
-        meshes = ResourceGroupManager::getSingleton().findResourceNames(groups[i], "*.skeleton");
-        it = meshes->begin();
-        itEnd = meshes->end();
-        for (; it != itEnd; it++) {
-            mSkeleton = SkeletonManager::getSingleton().load(*it, groups[i]);
-            getResourceFullPath(mSkeleton, mSkeletonFullPath);
-            if (!copyFile(mSkeletonFullPath + ".bak", mSkeletonFullPath)) {
-                // If there is no backup, create one.
-                copyFile(mSkeletonFullPath, mSkeletonFullPath + ".bak");
-            }
-            SkeletonSerializer skeletonSerializer;
-            skeletonSerializer.exportSkeleton(mSkeleton.get(), mSkeletonFullPath, SKELETON_VERSION_1_8);
-            mSkeleton->reload();
-            skeletonSerializer.exportSkeleton(mSkeleton.get(), mSkeletonFullPath, SKELETON_VERSION_1_0);
-            mSkeleton->reload();
-        }
-    }
-}
-#endif /* ifdef I_HAVE_LOT_OF_FREE_TIME */
-//--------------------------------------------------------------------------
-TEST_F(MeshSerializerTests,Mesh_XML)
-{
-#ifdef OGRE_TEST_XMLSERIALIZER
-    XMLMeshSerializer serializerXML;
-    serializerXML.exportMesh(mOrigMesh.get(), mMeshFullPath + ".xml");
-    mMesh = MeshManager::getSingleton().create(mMesh->getName() + ".test.mesh", mMesh->getGroup());
-    serializerXML.importMesh(mMeshFullPath + ".xml", VET_COLOUR_ABGR, mMesh.get());
-    assertMeshClone(mOrigMesh.get(), mMesh.get());
-#endif
-}
 
 namespace Ogre
 {
@@ -318,39 +244,10 @@ void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version 
     // EXPECT_TRUE(a->getGroup() == b->getGroup());
     // EXPECT_TRUE(a->getName() == b->getName());
 
-#ifndef OGRE_TEST_XMLSERIALIZER
     // XML serializer fails on these!
     EXPECT_TRUE(isEqual(a->getBoundingSphereRadius(), b->getBoundingSphereRadius()));
     EXPECT_TRUE(isEqual(a->getBounds().getMinimum(), b->getBounds().getMinimum()));
     EXPECT_TRUE(isEqual(a->getBounds().getMaximum(), b->getBounds().getMaximum()));
-#else
-    StringStream str;
-    Real val1 = a->getBoundingSphereRadius();
-    Real val2 = b->getBoundingSphereRadius();
-    Real diff = (val1 > val2) ? (val1 / val2) : (val2 / val1);
-    if (diff > 1.1) {
-        str << "bound sphere diff: " << diff << std::endl;
-    }
-    val1 = a->getBounds().getMinimum().length();
-    val2 = b->getBounds().getMinimum().length();
-    diff = (val1 > val2) ? (val1 / val2) : (val2 / val1);
-    if (diff > 1.1) {
-        str << "bound min diff: " << diff << std::endl;
-    }
-    val1 = a->getBounds().getMaximum().length();
-    val2 = b->getBounds().getMaximum().length();
-    diff = (val1 > val2) ? (val1 / val2) : (val2 / val1);
-    if (diff > 1.1) {
-        str << "bound max diff: " << diff << std::endl;
-    }
-    if (!str.str().empty()) {
-        StringStream str2;
-        str2 << std::endl << "Mesh name: " << b->getName() << std::endl;
-        str2 << str.str();
-        std::cout << str2.str();
-        // OutputDebugStringA(str2.str().c_str());
-    }
-#endif /* ifndef OGRE_TEST_XMLSERIALIZER */
 
     // AutobuildEdgeLists is not saved to mesh file. You need to set it after loading a mesh!
     // EXPECT_TRUE(a->getAutoBuildEdgeLists() == b->getAutoBuildEdgeLists());
@@ -364,9 +261,7 @@ void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version 
     EXPECT_TRUE(a->getVertexBufferUsage() == b->getVertexBufferUsage());
     EXPECT_TRUE(a->hasVertexAnimation() == b->hasVertexAnimation());
 
-#ifndef OGRE_TEST_XMLSERIALIZER
     EXPECT_TRUE(a->isEdgeListBuilt() == b->isEdgeListBuilt()); // <== OgreXMLSerializer is doing post processing to generate edgelists!
-#endif // !OGRE_TEST_XMLSERIALIZER
 
     if ((a->getNumLodLevels() > 1 || b->getNumLodLevels() > 1) &&
         ((version < MESH_VERSION_1_8 || (!isLodMixed(a) && !isLodMixed(b))) && // mixed lod only supported in v1.10+
@@ -506,7 +401,6 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
                 bIt = std::find(bElements.begin(), bElements.end(), *aIt);
                 EXPECT_TRUE(bIt != bElements.end());
 
-#ifndef OGRE_TEST_XMLSERIALIZER
                 const VertexElement& aElem = *aIt;
                 const VertexElement& bElem = *bIt;
                 HardwareVertexBufferSharedPtr abuf = a->vertexBufferBinding->getBuffer(aElem.getSource());
@@ -527,7 +421,6 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
                 abuf->unlock();
                 bbuf->unlock();
                 EXPECT_TRUE(!error && "Content of vertex buffer differs!");
-#endif /* ifndef OGRE_TEST_XMLSERIALIZER */
             }
         }
 
