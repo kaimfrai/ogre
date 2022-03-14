@@ -328,10 +328,10 @@ void ApplicationContextBase::_fireInputEvent(const Event& event, uint32_t window
             l.keyReleased(event.key);
             break;
         case MOUSEBUTTONDOWN:
-            l.mousePressed(event.button);
+            l.mousePressed(scaled.button);
             break;
         case MOUSEBUTTONUP:
-            l.mouseReleased(event.button);
+            l.mouseReleased(scaled.button);
             break;
         case MOUSEWHEEL:
             l.mouseWheelRolled(event.wheel);

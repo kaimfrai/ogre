@@ -182,7 +182,7 @@ bool NormalMapLighting::setParameter(const String& name, const String& value)
 
 	if(name == "texture")
 	{
-		setNormalMapTextureName(value);
+		mNormalMapTextureName = value;
 		return true;
 	}
 
@@ -194,7 +194,10 @@ bool NormalMapLighting::setParameter(const String& name, const String& value)
 
     if(name == "sampler")
     {
-        setNormalMapSampler(TextureManager::getSingleton().getSampler(value));
+        auto sampler = TextureManager::getSingleton().getSampler(value);
+        if(!sampler)
+            return false;
+        mNormalMapSampler = sampler;
         return true;
     }
 
@@ -239,7 +242,7 @@ SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compile
                 SubRenderState* subRenderState = createOrRetrieveInstance(translator);
                 NormalMapLighting* normalMapSubRenderState = static_cast<NormalMapLighting*>(subRenderState);
                 
-                normalMapSubRenderState->setNormalMapTextureName(strValue);
+                normalMapSubRenderState->setParameter("texture", strValue);
 
                 
                 // Read normal map space type.
@@ -282,7 +285,11 @@ SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compile
                     }
 
                     // sampler reference
-                    normalMapSubRenderState->setParameter("sampler", strValue);
+                    if(!normalMapSubRenderState->setParameter("sampler", strValue))
+                    {
+                        compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
+                        return NULL;
+                    }
                 }
                                 
                 return subRenderState;                              
