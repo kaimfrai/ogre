@@ -44,14 +44,14 @@ class Compositor;
 CompositionTechnique::CompositionTechnique(Compositor *parent):
     mParent(parent)
 {
-    mOutputTarget = OGRE_NEW CompositionTargetPass(this);
+    mOutputTarget = new CompositionTargetPass(this);
 }
 //-----------------------------------------------------------------------
 CompositionTechnique::~CompositionTechnique()
 {
     removeAllTextureDefinitions();
     removeAllTargetPasses();
-    OGRE_DELETE  mOutputTarget;
+    delete  mOutputTarget;
 }
 //-----------------------------------------------------------------------
 CompositionTechnique::TextureDefinition *CompositionTechnique::createTextureDefinition(const String &name)
@@ -59,7 +59,7 @@ CompositionTechnique::TextureDefinition *CompositionTechnique::createTextureDefi
     if(getTextureDefinition(name))
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "Texture '"+name+"' already exists");
 
-    TextureDefinition *t = OGRE_NEW TextureDefinition();
+    TextureDefinition *t = new TextureDefinition();
     t->name = name;
     mTextureDefinitions.push_back(t);
     return t;
@@ -70,7 +70,7 @@ void CompositionTechnique::removeTextureDefinition(size_t index)
 {
     assert (index < mTextureDefinitions.size() && "Index out of bounds.");
     TextureDefinitions::iterator i = mTextureDefinitions.begin() + index;
-    OGRE_DELETE (*i);
+    delete (*i);
     mTextureDefinitions.erase(i);
 }
 //---------------------------------------------------------------------
@@ -93,7 +93,7 @@ void CompositionTechnique::removeAllTextureDefinitions()
     iend = mTextureDefinitions.end();
     for (i = mTextureDefinitions.begin(); i != iend; ++i)
     {
-        OGRE_DELETE (*i);
+        delete (*i);
     }
     mTextureDefinitions.clear();
 }
@@ -106,7 +106,7 @@ CompositionTechnique::TextureDefinitionIterator CompositionTechnique::getTexture
 //-----------------------------------------------------------------------
 CompositionTargetPass *CompositionTechnique::createTargetPass()
 {
-    CompositionTargetPass *t = OGRE_NEW CompositionTargetPass(this);
+    CompositionTargetPass *t = new CompositionTargetPass(this);
     mTargetPasses.push_back(t);
     return t;
 }
@@ -116,7 +116,7 @@ void CompositionTechnique::removeTargetPass(size_t index)
 {
     assert (index < mTargetPasses.size() && "Index out of bounds.");
     TargetPasses::iterator i = mTargetPasses.begin() + index;
-    OGRE_DELETE (*i);
+    delete (*i);
     mTargetPasses.erase(i);
 }
 //-----------------------------------------------------------------------
@@ -126,7 +126,7 @@ void CompositionTechnique::removeAllTargetPasses()
     iend = mTargetPasses.end();
     for (i = mTargetPasses.begin(); i != iend; ++i)
     {
-        OGRE_DELETE (*i);
+        delete (*i);
     }
     mTargetPasses.clear();
 }

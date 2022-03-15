@@ -326,7 +326,7 @@ void NormalMapLightingFactory::writeInstance(MaterialSerializer* ser,
 //-----------------------------------------------------------------------
 SubRenderState* NormalMapLightingFactory::createInstanceImpl()
 {
-    return OGRE_NEW NormalMapLighting;
+    return new NormalMapLighting;
 }
 
 }

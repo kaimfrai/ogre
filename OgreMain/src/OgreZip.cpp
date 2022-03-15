@@ -207,7 +207,7 @@ namespace {
     //-----------------------------------------------------------------------
     StringVectorPtr ZipArchive::list(bool recursive, bool dirs) const
     {
-        StringVectorPtr ret = StringVectorPtr(OGRE_NEW_T(StringVector, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        StringVectorPtr ret = StringVectorPtr(new StringVector());
 
         FileInfoList::const_iterator i, iend;
         iend = mFileList.end();
@@ -221,7 +221,7 @@ namespace {
     //-----------------------------------------------------------------------
     FileInfoListPtr ZipArchive::listFileInfo(bool recursive, bool dirs) const
     {
-        FileInfoList* fil = OGRE_NEW_T(FileInfoList, MEMCATEGORY_GENERAL)();
+        FileInfoList* fil = new FileInfoList();
         FileInfoList::const_iterator i, iend;
         iend = mFileList.end();
         for (i = mFileList.begin(); i != iend; ++i)
@@ -229,12 +229,12 @@ namespace {
                 (recursive || i->path.empty()))
                 fil->push_back(*i);
 
-        return FileInfoListPtr(fil, SPFM_DELETE_T);
+        return FileInfoListPtr(fil);
     }
     //-----------------------------------------------------------------------
     StringVectorPtr ZipArchive::find(const String& pattern, bool recursive, bool dirs) const
     {
-        StringVectorPtr ret = StringVectorPtr(OGRE_NEW_T(StringVector, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        StringVectorPtr ret = StringVectorPtr(new StringVector());
         // If pattern contains a directory name, do a full match
         bool full_match = (pattern.find ('/') != String::npos) ||
                           (pattern.find ('\\') != String::npos);
@@ -255,7 +255,7 @@ namespace {
     FileInfoListPtr ZipArchive::findFileInfo(const String& pattern, 
         bool recursive, bool dirs) const
     {
-        FileInfoListPtr ret = FileInfoListPtr(OGRE_NEW_T(FileInfoList, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        FileInfoListPtr ret = FileInfoListPtr(new FileInfoList());
         // If pattern contains a directory name, do a full match
         bool full_match = (pattern.find ('/') != String::npos) ||
                           (pattern.find ('\\') != String::npos);
@@ -307,7 +307,7 @@ namespace {
         if(!readOnly)
             return NULL;
 
-        return OGRE_NEW ZipArchive(name, getType());
+        return new ZipArchive(name, getType());
     }
     //-----------------------------------------------------------------------
     const String& ZipArchiveFactory::getType(void) const

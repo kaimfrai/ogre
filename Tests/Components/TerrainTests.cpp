@@ -56,12 +56,12 @@ public:
 //--------------------------------------------------------------------------
 void TerrainTests::SetUp()
 {
-    mRoot = OGRE_NEW Root("");
+    mRoot = new Root("");
 
 
     STBIImageCodec::startup();
 
-    mTerrainOpts = OGRE_NEW TerrainGlobalOptions();
+    mTerrainOpts = new TerrainGlobalOptions();
 
     // Load resource paths from config file
     ConfigFile cf;
@@ -89,13 +89,13 @@ void TerrainTests::SetUp()
 void TerrainTests::TearDown()
 {
     STBIImageCodec::shutdown();
-    OGRE_DELETE mTerrainOpts;
-    OGRE_DELETE mRoot;
+    delete mTerrainOpts;
+    delete mRoot;
 }
 //--------------------------------------------------------------------------
 TEST_F(TerrainTests, create)
 {
-    Terrain* t = OGRE_NEW Terrain(mSceneMgr);
+    Terrain* t = new Terrain(mSceneMgr);
     Image img;
     img.load("terrain.png", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
@@ -111,16 +111,16 @@ TEST_F(TerrainTests, create)
         DefaultHardwareBufferManager hbm;
         StreamSerialiser ser(Root::createFileStream("TerrainTest.dat"));
         t->save(ser);
-        OGRE_DELETE t;
+        delete t;
     }
 
     // read-back from file
-    t = OGRE_NEW Terrain(mSceneMgr);
+    t = new Terrain(mSceneMgr);
     StreamSerialiser ser(Root::openFileStream("TerrainTest.dat"));
     ASSERT_TRUE(t->prepare(ser));
     ASSERT_EQ(t->getSize(), imp.terrainSize);
 
-    OGRE_DELETE t;
+    delete t;
 
     FileSystemLayer::removeFile("TerrainTest.dat");
 }

@@ -396,7 +396,7 @@ class SubMesh;
             RenderOperation* rop = mCurrentSection->getRenderOperation();
             if (!rop->indexData)
             {
-                rop->indexData = OGRE_NEW IndexData();
+                rop->indexData = new IndexData();
                 rop->indexData->indexCount = 0;
             }
             rop->useIndexes = true;

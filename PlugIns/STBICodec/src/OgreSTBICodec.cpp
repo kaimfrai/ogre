@@ -91,7 +91,7 @@ namespace Ogre {
         StringVector extsVector = StringUtil::split(exts, ",");
         for (StringVector::iterator v = extsVector.begin(); v != extsVector.end(); ++v)
         {
-            ImageCodec* codec = OGRE_NEW STBIImageCodec(*v);
+            ImageCodec* codec = new STBIImageCodec(*v);
             msCodecList.push_back(codec);
             Codec::registerCodec(codec);
         }
@@ -105,7 +105,7 @@ namespace Ogre {
             i != msCodecList.end(); ++i)
         {
             Codec::unregisterCodec(*i);
-            OGRE_DELETE *i;
+            delete *i;
         }
         msCodecList.clear();
     }
@@ -135,7 +135,7 @@ namespace Ogre {
         {   
             format = Ogre::PF_A8B8G8R8;
             size_t tempDataSize = pImgData->width * pImgData->height * pImgData->depth * Ogre::PixelUtil::getNumElemBytes(format);
-            tempData = OGRE_ALLOC_T(unsigned char, tempDataSize, Ogre::MEMCATEGORY_GENERAL);
+            tempData = new unsigned char[tempDataSize];
             Ogre::PixelBox pbIn(pImgData->width, pImgData->height, pImgData->depth, pImgData->format, inputData);
             Ogre::PixelBox pbOut(pImgData->width, pImgData->height, pImgData->depth, format, tempData);
             PixelUtil::bulkPixelConversion(pbIn, pbOut);
@@ -151,7 +151,7 @@ namespace Ogre {
 
         if(tempData)
         {
-            OGRE_FREE(tempData, MEMCATEGORY_GENERAL);
+            delete [] tempData;
         }
 
         if (!data) {
@@ -192,7 +192,7 @@ namespace Ogre {
                 "STBIImageCodec::decode");
         }
 
-        SharedPtr<ImageData> imgData(OGRE_NEW ImageData());
+        SharedPtr<ImageData> imgData(new ImageData());
 
         imgData->depth = 1; // only 2D formats handled by this codec
         imgData->width = width;
@@ -224,7 +224,7 @@ namespace Ogre {
         
         size_t dstPitch = imgData->width * PixelUtil::getNumElemBytes(imgData->format);
         imgData->size = dstPitch * imgData->height;
-        MemoryDataStreamPtr output(OGRE_NEW MemoryDataStream(pixelData, imgData->size, true));
+        MemoryDataStreamPtr output(new MemoryDataStream(pixelData, imgData->size, true));
         
         DecodeResult ret;
         ret.first = output;

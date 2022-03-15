@@ -81,17 +81,17 @@ void MeshSerializerTests::SetUp()
 {
     mErrorFactor = 0.05;
 
-    mFSLayer = OGRE_NEW_T(Ogre::FileSystemLayer, Ogre::MEMCATEGORY_GENERAL)(OGRE_VERSION_NAME);
+    mFSLayer = new Ogre::FileSystemLayer(OGRE_VERSION_NAME);
 
-    OGRE_NEW ResourceGroupManager();
-    OGRE_NEW LodStrategyManager();
-    OGRE_NEW DefaultHardwareBufferManager();
-    OGRE_NEW MeshManager();
-    OGRE_NEW SkeletonManager();
-    ArchiveManager* archiveMgr = OGRE_NEW ArchiveManager();
-    archiveMgr->addArchiveFactory(OGRE_NEW FileSystemArchiveFactory());
+    new ResourceGroupManager();
+    new LodStrategyManager();
+    new DefaultHardwareBufferManager();
+    new MeshManager();
+    new SkeletonManager();
+    ArchiveManager* archiveMgr = new ArchiveManager();
+    archiveMgr->addArchiveFactory(new FileSystemArchiveFactory());
 
-    MaterialManager* matMgr = OGRE_NEW MaterialManager();
+    MaterialManager* matMgr = new MaterialManager();
     matMgr->initialise();
 
     // Load resource paths from config file
@@ -159,14 +159,14 @@ void MeshSerializerTests::TearDown()
         mSkeleton.reset();
     }    
     
-    OGRE_DELETE MeshManager::getSingletonPtr();
-    OGRE_DELETE SkeletonManager::getSingletonPtr();
-    OGRE_DELETE DefaultHardwareBufferManager::getSingletonPtr();
-    OGRE_DELETE ArchiveManager::getSingletonPtr();    
-    OGRE_DELETE MaterialManager::getSingletonPtr();
-    OGRE_DELETE LodStrategyManager::getSingletonPtr();
-    OGRE_DELETE ResourceGroupManager::getSingletonPtr();
-    OGRE_DELETE_T(mFSLayer, FileSystemLayer, Ogre::MEMCATEGORY_GENERAL);
+    delete MeshManager::getSingletonPtr();
+    delete SkeletonManager::getSingletonPtr();
+    delete DefaultHardwareBufferManager::getSingletonPtr();
+    delete ArchiveManager::getSingletonPtr();    
+    delete MaterialManager::getSingletonPtr();
+    delete LodStrategyManager::getSingletonPtr();
+    delete ResourceGroupManager::getSingletonPtr();
+    delete mFSLayer;
 }
 //--------------------------------------------------------------------------
 TEST_F(MeshSerializerTests,Mesh_clone)

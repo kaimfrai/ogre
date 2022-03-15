@@ -449,7 +449,7 @@ class RenderQueue;
             }
         }
 
-        return OGRE_NEW InstancedEntity(this, static_cast<uint32>(num), sharedTransformEntity);
+        return new InstancedEntity(this, static_cast<uint32>(num), sharedTransformEntity);
     }
 
 
@@ -492,7 +492,7 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     void InstanceBatchVTF::setupVertices( const SubMesh* baseSubMesh )
     {
-        mRenderOperation.vertexData = OGRE_NEW VertexData();
+        mRenderOperation.vertexData = new VertexData();
         mRemoveOwnVertexData = true; //Raise flag to remove our own vertex data in the end (not always needed)
 
         VertexData *thisVertexData = mRenderOperation.vertexData;
@@ -575,7 +575,7 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     void InstanceBatchVTF::setupIndices( const SubMesh* baseSubMesh )
     {
-        mRenderOperation.indexData = OGRE_NEW IndexData();
+        mRenderOperation.indexData = new IndexData();
         mRemoveOwnIndexData = true; //Raise flag to remove our own index data in the end (not always needed)
 
         IndexData *thisIndexData = mRenderOperation.indexData;

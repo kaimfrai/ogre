@@ -230,7 +230,7 @@ void FFPColourFactory::writeInstance(MaterialSerializer* ser, SubRenderState* su
 //-----------------------------------------------------------------------
 SubRenderState* FFPColourFactory::createInstanceImpl()
 {
-    return OGRE_NEW FFPColour;
+    return new FFPColour;
 }
 
 

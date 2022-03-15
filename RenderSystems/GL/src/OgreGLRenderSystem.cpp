@@ -986,7 +986,7 @@ namespace Ogre {
         for (auto pCurContext : mBackgroundContextList)
         {
             pCurContext->releaseContext();
-            OGRE_DELETE pCurContext;
+            delete pCurContext;
         }
         mBackgroundContextList.clear();
 

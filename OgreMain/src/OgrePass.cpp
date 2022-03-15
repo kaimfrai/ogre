@@ -289,7 +289,7 @@ namespace Ogre {
         iend = mTextureUnitStates.end();
         for (i = mTextureUnitStates.begin(); i != iend; ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
 
         mTextureUnitStates.clear();
@@ -298,7 +298,7 @@ namespace Ogre {
         iend = oth.mTextureUnitStates.end();
         for (i = oth.mTextureUnitStates.begin(); i != iend; ++i)
         {
-            TextureUnitState* t = OGRE_NEW TextureUnitState(this, *(*i));
+            TextureUnitState* t = new TextureUnitState(this, *(*i));
             mTextureUnitStates.push_back(t);
         }
 
@@ -385,7 +385,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     TextureUnitState* Pass::createTextureUnitState(void)
     {
-        TextureUnitState *t = OGRE_NEW TextureUnitState(this);
+        TextureUnitState *t = new TextureUnitState(this);
         addTextureUnitState(t);
         mContentTypeLookupBuilt = false;
         return t;
@@ -394,7 +394,7 @@ namespace Ogre {
     TextureUnitState* Pass::createTextureUnitState(
         const String& textureName, unsigned short texCoordSet)
     {
-        TextureUnitState *t = OGRE_NEW TextureUnitState(this);
+        TextureUnitState *t = new TextureUnitState(this);
         t->setTextureName(textureName);
         t->setTextureCoordSet(texCoordSet);
         addTextureUnitState(t);
@@ -479,7 +479,7 @@ namespace Ogre {
         assert (index < mTextureUnitStates.size() && "Index out of bounds");
 
         TextureUnitStates::iterator i = mTextureUnitStates.begin() + index;
-        OGRE_DELETE *i;
+        delete *i;
         mTextureUnitStates.erase(i);
         _notifyNeedsRecompile();
         _dirtyHash();
@@ -492,7 +492,7 @@ namespace Ogre {
         iend = mTextureUnitStates.end();
         for (i = mTextureUnitStates.begin(); i != iend; ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
         mTextureUnitStates.clear();
         _notifyNeedsRecompile();
@@ -1061,7 +1061,7 @@ namespace Ogre {
         iend = msPassGraveyard.end();
         for (i = msPassGraveyard.begin(); i != iend; ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
         msPassGraveyard.clear();
 

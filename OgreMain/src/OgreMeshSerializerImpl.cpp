@@ -359,7 +359,7 @@ namespace Ogre {
 
         writeShorts(&idx, 1);
 
-        float *vertices = OGRE_ALLOC_T(float, s->extremityPoints.size() * 3, MEMCATEGORY_GEOMETRY);
+        float *vertices = new float[s->extremityPoints.size() * 3];
         float *pVert = vertices;
 
         for (std::vector<Vector3>::const_iterator i = s->extremityPoints.begin();
@@ -371,7 +371,7 @@ namespace Ogre {
         }
 
         writeFloats(vertices, s->extremityPoints.size () * 3);
-        OGRE_FREE(vertices, MEMCATEGORY_GEOMETRY);
+        delete[] vertices;
     }
 
     size_t MeshSerializerImpl::calcSubMeshExtremesSize(unsigned short idx, const SubMesh* s)
@@ -491,7 +491,7 @@ namespace Ogre {
             {
                 // endian conversion
                 // Copy data
-                unsigned char* tempData = OGRE_ALLOC_T(unsigned char, vbufSizeInBytes, MEMCATEGORY_GEOMETRY);
+                unsigned char* tempData = new unsigned char[vbufSizeInBytes];
                 memcpy(tempData, vbufLock.pData, vbufSizeInBytes);
                 flipToLittleEndian(
                     tempData,
@@ -499,7 +499,7 @@ namespace Ogre {
                     vbuf->getVertexSize(),
                     vertexData->vertexDeclaration->findElementsBySource(vbi->first));
                 writeData(tempData, vbuf->getVertexSize(), vertexData->vertexCount);
-                OGRE_FREE(tempData, MEMCATEGORY_GEOMETRY);
+                delete[] tempData;
             }
             else
             {
@@ -927,14 +927,14 @@ namespace Ogre {
                 switch(streamID)
                 {
                 case M_GEOMETRY:
-                    pMesh->sharedVertexData = OGRE_NEW VertexData();
+                    pMesh->sharedVertexData = new VertexData();
                     try {
                         readGeometry(stream, pMesh, pMesh->sharedVertexData);
                     }
                     catch (ItemIdentityException&)
                     {
                         // duff geometry data entry with 0 vertices
-                        OGRE_DELETE pMesh->sharedVertexData;
+                        delete pMesh->sharedVertexData;
                         pMesh->sharedVertexData = 0;
                         // Skip this stream (pointer will have been returned to just after header)
                         stream->skip(mCurrentstreamLen - MSTREAM_OVERHEAD_SIZE);
@@ -1059,7 +1059,7 @@ namespace Ogre {
                 OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Missing geometry data in mesh file",
                     "MeshSerializerImpl::readSubMesh");
             }
-            sm->vertexData = OGRE_NEW VertexData();
+            sm->vertexData = new VertexData();
             readGeometry(stream, pMesh, sm->vertexData);
         }
 
@@ -1498,7 +1498,7 @@ namespace Ogre {
         {
             
             SubMesh* sm = pMesh->getSubMesh(i);
-            sm->mLodFaceList[lodNum-1] = OGRE_NEW IndexData();
+            sm->mLodFaceList[lodNum-1] = new IndexData();
         }
     }
     //---------------------------------------------------------------------
@@ -1512,7 +1512,7 @@ namespace Ogre {
         for (i = 0; i < numSubs; ++i)
         {
             SubMesh* sm = pMesh->getSubMesh(i);
-            sm->mLodFaceList[lodNum-1] = OGRE_NEW IndexData();
+            sm->mLodFaceList[lodNum-1] = new IndexData();
             IndexData* indexData = sm->mLodFaceList[lodNum-1];
 
             unsigned int numIndexes;
@@ -1844,7 +1844,7 @@ namespace Ogre {
                 if (!isManual) {
                     MeshLodUsage& usage = pMesh->mMeshLodUsageList[lodIndex];
 
-                    usage.edgeData = OGRE_NEW EdgeData();
+                    usage.edgeData = new EdgeData();
 
                     // Read detail information of the edge list
                     readEdgeListLodInfo(stream, usage.edgeData);
@@ -2627,13 +2627,13 @@ namespace Ogre {
         
         assert ((n_floats % 3) == 0);
         
-        float *vert = OGRE_ALLOC_T(float, n_floats, MEMCATEGORY_GEOMETRY);
+        float *vert = new float[n_floats];
         readFloats(stream, vert, n_floats);
         
         for (int i = 0; i < n_floats; i += 3)
             sm->extremityPoints.push_back(Vector3(vert [i], vert [i + 1], vert [i + 2]));
         
-        OGRE_FREE(vert, MEMCATEGORY_GEOMETRY);
+        delete[] vert;
     }
 
     void MeshSerializerImpl::enableValidation()
@@ -2895,7 +2895,7 @@ namespace Ogre {
                 }
 
                 SubMesh* sm = pMesh->getSubMesh(i);
-                IndexData* indexData = OGRE_NEW IndexData();
+                IndexData* indexData = new IndexData();
                 sm->mLodFaceList[lodNum - 1] = indexData;
                 // unsigned int numIndexes
                 unsigned int numIndexes;

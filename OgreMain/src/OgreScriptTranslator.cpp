@@ -4265,40 +4265,7 @@ class LodStrategy;
                         }
                     }
                     break;
-                // case ID_COMPUTE_WORKGROUP_DIMENSIONS:
-                //     if (obj->id != ID_COMPUTE_PROGRAM)
-                //         break;
-                //     if (prop->values.size() == 3)
-                //     {
-                //         AbstractNodeList::const_iterator first_dimension = getNodeAt(prop->values, 0);
 
-                //         uint *vals = OGRE_ALLOC_T(uint, roundedCount, MEMCATEGORY_SCRIPTING);
-                //         if(getUInts(k, prop->values.end(), vals, 3))
-                //         {
-                //             try
-                //             {
-                //                 params->setNamedConstant(name, m);
-                //             }
-                //             catch(...)
-                //             {
-                //                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                //                                    "setting workgroup_dimensions parameter failed");
-                //             }
-                //         }
-                //         else
-                //         {
-                //             compiler->addError(ScriptCompiler::CE_NUMBEREXPECTED, prop->file, prop->line,
-                //                                "incorrect workgroup_dimensions declaration");
-                //         }
-                //     }
-                //     else
-                //     {
-                //         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                //                            "workgroup_dimensions property requires 3 arguments");
-                //     }
-
-                    
-                //     break;
                 default:
                     compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, prop->file, prop->line,
                                        "token \"" + prop->name + "\" is not recognized");

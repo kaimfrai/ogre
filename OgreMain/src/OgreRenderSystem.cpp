@@ -187,7 +187,7 @@ namespace Ogre {
     RenderSystem::~RenderSystem()
     {
         shutdown();
-        OGRE_DELETE mRealCapabilities;
+        delete mRealCapabilities;
         mRealCapabilities = 0;
         // Current capabilities managed externally
         mCurrentCapabilities = 0;
@@ -397,7 +397,7 @@ namespace Ogre {
     void RenderSystem::destroyRenderTarget(const String& name)
     {
         RenderTarget* rt = detachRenderTarget(name);
-        OGRE_DELETE rt;
+        delete rt;
     }
     //---------------------------------------------------------------------------------------------
     void RenderSystem::attachRenderTarget( RenderTarget &target )
@@ -656,7 +656,7 @@ namespace Ogre {
         for (HardwareOcclusionQueryList::iterator i = mHwOcclusionQueries.begin();
             i != mHwOcclusionQueries.end(); ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
         mHwOcclusionQueries.clear();
 
@@ -677,10 +677,10 @@ namespace Ogre {
             else
             {
                 it = mRenderTargets.erase(it);
-                OGRE_DELETE current;
+                delete current;
             }
         }
-        OGRE_DELETE primary;
+        delete primary;
         mRenderTargets.clear();
 
         mPrioritisedRenderTargets.clear();
@@ -895,7 +895,7 @@ namespace Ogre {
         if (i != mHwOcclusionQueries.end())
         {
             mHwOcclusionQueries.erase(i);
-            OGRE_DELETE hq;
+            delete hq;
         }
     }
     //-----------------------------------------------------------------------

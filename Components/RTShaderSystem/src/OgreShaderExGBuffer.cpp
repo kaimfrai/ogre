@@ -261,7 +261,7 @@ void GBufferFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subR
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* GBufferFactory::createInstanceImpl() { return OGRE_NEW GBuffer; }
+SubRenderState* GBufferFactory::createInstanceImpl() { return new GBuffer; }
 
 } // namespace RTShader
 } // namespace Ogre

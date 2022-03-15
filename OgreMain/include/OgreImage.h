@@ -174,10 +174,7 @@ namespace Ogre {
                 Pixel Format
             @param autoDelete
                 If memory associated with this buffer is to be destroyed
-                with the Image object. Note: it's important that if you set
-                this option to true, that you allocated the memory using OGRE_ALLOC_T
-                with a category of MEMCATEGORY_GENERAL to ensure the freeing of memory 
-                matches up.
+                with the Image object.
             @param numFaces
                 The number of faces the image data has inside (6 for cubemaps, 1 otherwise)
             @param numMipMaps

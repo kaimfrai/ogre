@@ -80,7 +80,7 @@ void ApplicationContextBase::closeApp()
     {
         mRoot->saveConfig();
 
-        OGRE_DELETE mRoot;
+        delete mRoot;
         mRoot = NULL;
     }
 
@@ -163,12 +163,12 @@ void ApplicationContextBase::createRoot()
 {
     Ogre::String pluginsPath;
 
-    mRoot = OGRE_NEW Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogre.cfg"),
+    mRoot = new Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogre.cfg"),
                                 mFSLayer->getWritablePath("ogre.log"));
 
     mStaticPluginLoader.load();
 
-    mOverlaySystem = OGRE_NEW Ogre::OverlaySystem();
+    mOverlaySystem = new Ogre::OverlaySystem();
 }
 
 bool ApplicationContextBase::oneTimeConfig()
@@ -482,7 +482,7 @@ void ApplicationContextBase::shutdown()
 
     if (mOverlaySystem)
     {
-        OGRE_DELETE mOverlaySystem;
+        delete mOverlaySystem;
     }
 
     mInputListeners.clear();

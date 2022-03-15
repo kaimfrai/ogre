@@ -90,7 +90,7 @@ class VertexData;
                 "Animation::createNodeTrack");
         }
 
-        NodeAnimationTrack* ret = OGRE_NEW NodeAnimationTrack(this, handle);
+        NodeAnimationTrack* ret = new NodeAnimationTrack(this, handle);
 
         mNodeTrackList[handle] = ret;
         return ret;
@@ -137,7 +137,7 @@ class VertexData;
 
         if (i != mNodeTrackList.end())
         {
-            OGRE_DELETE i->second;
+            delete i->second;
             mNodeTrackList.erase(i);
             _keyFrameListChanged();
         }
@@ -148,7 +148,7 @@ class VertexData;
         NodeTrackList::iterator i;
         for (i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
         {
-            OGRE_DELETE i->second;
+            delete i->second;
         }
         mNodeTrackList.clear();
         _keyFrameListChanged();
@@ -164,7 +164,7 @@ class VertexData;
                 "Animation::createNumericTrack");
         }
 
-        NumericAnimationTrack* ret = OGRE_NEW NumericAnimationTrack(this, handle);
+        NumericAnimationTrack* ret = new NumericAnimationTrack(this, handle);
 
         mNumericTrackList[handle] = ret;
         return ret;
@@ -212,7 +212,7 @@ class VertexData;
 
         if (i != mNumericTrackList.end())
         {
-            OGRE_DELETE i->second;
+            delete i->second;
             mNumericTrackList.erase(i);
             _keyFrameListChanged();
         }
@@ -223,7 +223,7 @@ class VertexData;
         NumericTrackList::iterator i;
         for (i = mNumericTrackList.begin(); i != mNumericTrackList.end(); ++i)
         {
-            OGRE_DELETE i->second;
+            delete i->second;
         }
         mNumericTrackList.clear();
         _keyFrameListChanged();
@@ -240,7 +240,7 @@ class VertexData;
                 "Animation::createVertexTrack");
         }
 
-        VertexAnimationTrack* ret = OGRE_NEW VertexAnimationTrack(this, handle, animType);
+        VertexAnimationTrack* ret = new VertexAnimationTrack(this, handle, animType);
 
         mVertexTrackList[handle] = ret;
         return ret;
@@ -289,7 +289,7 @@ class VertexData;
 
         if (i != mVertexTrackList.end())
         {
-            OGRE_DELETE  i->second;
+            delete  i->second;
             mVertexTrackList.erase(i);
             _keyFrameListChanged();
         }
@@ -300,7 +300,7 @@ class VertexData;
         VertexTrackList::iterator i;
         for (i = mVertexTrackList.begin(); i != mVertexTrackList.end(); ++i)
         {
-            OGRE_DELETE  i->second;
+            delete  i->second;
         }
         mVertexTrackList.clear();
         _keyFrameListChanged();
@@ -618,7 +618,7 @@ class VertexData;
     //-----------------------------------------------------------------------
     Animation* Animation::clone(const String& newName) const
     {
-        Animation* newAnim = OGRE_NEW Animation(newName, mLength);
+        Animation* newAnim = new Animation(newName, mLength);
         newAnim->mInterpolationMode = mInterpolationMode;
         newAnim->mRotationInterpolationMode = mRotationInterpolationMode;
         

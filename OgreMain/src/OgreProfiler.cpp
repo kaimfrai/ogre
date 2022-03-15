@@ -120,7 +120,7 @@ namespace Ogre {
         for(ProfileChildren::iterator it = children.begin(); it != children.end(); ++it)
         {
             ProfileInstance* instance = it->second;
-            OGRE_DELETE instance;
+            delete instance;
         }
         children.clear();
     }
@@ -238,7 +238,7 @@ namespace Ogre {
         }
         else
         {   // new child!
-            instance = OGRE_NEW ProfileInstance();
+            instance = new ProfileInstance();
             instance->name = profileName;
             instance->parent = mCurrent;
             instance->hierarchicalLvl = mCurrent->hierarchicalLvl + 1;
@@ -285,7 +285,7 @@ namespace Ogre {
 
                 for(auto& e : mRoot.children)
                 {
-                    OGRE_DELETE e.second;
+                    delete e.second;
                 }
                 mRoot.children.clear();
 

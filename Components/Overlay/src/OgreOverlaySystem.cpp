@@ -57,7 +57,7 @@ class OverlayElement;
     public:
         OverlayElement* createOverlayElement(const String& instanceName) override
         {
-            return OGRE_NEW PanelOverlayElement(instanceName);
+            return new PanelOverlayElement(instanceName);
         }
         const String& getTypeName(void) const override
         {
@@ -72,7 +72,7 @@ class OverlayElement;
     public:
         OverlayElement* createOverlayElement(const String& instanceName) override
         {
-            return OGRE_NEW BorderPanelOverlayElement(instanceName);
+            return new BorderPanelOverlayElement(instanceName);
         }
         const String& getTypeName(void) const override
         {
@@ -87,7 +87,7 @@ class OverlayElement;
     public:
         OverlayElement* createOverlayElement(const String& instanceName) override
         {
-            return OGRE_NEW TextAreaOverlayElement(instanceName);
+            return new TextAreaOverlayElement(instanceName);
         }
         const String& getTypeName(void) const override
         {
@@ -110,14 +110,14 @@ class OverlayElement;
     {
         RenderSystem::setSharedListener(this);
 
-        mOverlayManager = OGRE_NEW Ogre::OverlayManager();
-        mOverlayManager->addOverlayElementFactory(OGRE_NEW Ogre::PanelOverlayElementFactory());
+        mOverlayManager = new Ogre::OverlayManager();
+        mOverlayManager->addOverlayElementFactory(new Ogre::PanelOverlayElementFactory());
 
-        mOverlayManager->addOverlayElementFactory(OGRE_NEW Ogre::BorderPanelOverlayElementFactory());
+        mOverlayManager->addOverlayElementFactory(new Ogre::BorderPanelOverlayElementFactory());
 
-        mOverlayManager->addOverlayElementFactory(OGRE_NEW Ogre::TextAreaOverlayElementFactory());
+        mOverlayManager->addOverlayElementFactory(new Ogre::TextAreaOverlayElementFactory());
 
-        mFontManager = OGRE_NEW FontManager();
+        mFontManager = new FontManager();
         if (auto prof = Profiler::getSingletonPtr())
         {
             mProfileListener = new Ogre::OverlayProfileSessionListener();
@@ -136,8 +136,8 @@ class OverlayElement;
             delete mProfileListener;
         }
 
-        OGRE_DELETE mOverlayManager;
-        OGRE_DELETE mFontManager;
+        delete mOverlayManager;
+        delete mFontManager;
     }
     //---------------------------------------------------------------------
     void OverlaySystem::renderQueueStarted(uint8 queueGroupId, const String& invocation, 

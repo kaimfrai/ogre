@@ -73,14 +73,14 @@ namespace Ogre
         double **mat = NULL;
         double **backmat = NULL;
         {
-            mat = OGRE_ALLOC_T(double*, 11, MEMCATEGORY_SCENE_CONTROL);
+            mat = new double*[11];
             if(incrPrecision)
-                backmat = OGRE_ALLOC_T(double*, 11, MEMCATEGORY_SCENE_CONTROL);
+                backmat = new double*[11];
             for(i=0; i<11; i++) 
             {
-                mat[i] = OGRE_ALLOC_T(double, 11, MEMCATEGORY_SCENE_CONTROL);
+                mat[i] = new double[11];
                 if(incrPrecision)
-                    backmat[i] = OGRE_ALLOC_T(double, 11, MEMCATEGORY_SCENE_CONTROL);
+                    backmat[i] = new double[11];
             }
         }
 
@@ -273,16 +273,15 @@ namespace Ogre
         for (i=0; i<11; i++)
         {
             if (mat[i])
-                OGRE_FREE(mat[i], MEMCATEGORY_SCENE_CONTROL);
+                delete[] mat[i];
             if (incrPrecision)
-                OGRE_FREE(backmat[i], MEMCATEGORY_SCENE_CONTROL);
+                delete[] backmat[i];
         }
-        OGRE_FREE(mat, MEMCATEGORY_SCENE_CONTROL);
+        delete[] mat;
         if(incrPrecision)
-            OGRE_FREE(backmat, MEMCATEGORY_SCENE_CONTROL);
+            delete[] backmat;
 
         return ret;
-
     }
 
     // --------------------------------------------------------------------

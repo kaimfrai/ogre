@@ -212,7 +212,7 @@ public:
     }
 
     /** Delete a function atom instance from this function. 
-    @param atomInstance The atom instance to OGRE_DELETE.
+    @param atomInstance The atom instance to delete.
     */
     bool deleteAtomInstance(FunctionAtom* atomInstance);
 

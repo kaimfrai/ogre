@@ -100,7 +100,7 @@ class Renderable;
         const String& group, bool isManual, ManualResourceLoader* loader,
     const NameValuePairList* params)
     {
-        return OGRE_NEW Material(this, name, handle, group, isManual, loader);
+        return new Material(this, name, handle, group, isManual, loader);
     }
     //-----------------------------------------------------------------------
     MaterialPtr MaterialManager::create (const String& name, const String& group,

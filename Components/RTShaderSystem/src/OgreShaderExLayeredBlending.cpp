@@ -440,7 +440,7 @@ void LayeredBlendingFactory::writeInstance(MaterialSerializer* ser, SubRenderSta
 //-----------------------------------------------------------------------
 SubRenderState* LayeredBlendingFactory::createInstanceImpl()
 {
-    return OGRE_NEW LayeredBlending;
+    return new LayeredBlending;
 }
 
 //-----------------------------------------------------------------------

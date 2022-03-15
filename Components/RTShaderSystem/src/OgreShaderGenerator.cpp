@@ -174,10 +174,10 @@ bool ShaderGenerator::initialize()
 {
     if (msSingleton == NULL)
     {
-        msSingleton = OGRE_NEW ShaderGenerator;
+        msSingleton = new ShaderGenerator;
         if (false == msSingleton->_initialize())
         {
-            OGRE_DELETE msSingleton;
+            delete msSingleton;
             msSingleton = NULL;
             return false;
         }
@@ -222,27 +222,27 @@ void ShaderGenerator::createBuiltinSRSFactories()
 {
     SubRenderStateFactory* curFactory;
 
-    curFactory = OGRE_NEW FFPTransformFactory;
+    curFactory = new FFPTransformFactory;
     ShaderGenerator::getSingleton().addSubRenderStateFactory(curFactory);
     mBuiltinSRSFactories.push_back(curFactory);
 
-    curFactory = OGRE_NEW FFPColourFactory;
+    curFactory = new FFPColourFactory;
     ShaderGenerator::getSingleton().addSubRenderStateFactory(curFactory);
     mBuiltinSRSFactories.push_back(curFactory);
 
-    curFactory = OGRE_NEW FFPLightingFactory;
+    curFactory = new FFPLightingFactory;
     ShaderGenerator::getSingleton().addSubRenderStateFactory(curFactory);
     mBuiltinSRSFactories.push_back(curFactory);
 
-    curFactory = OGRE_NEW FFPTexturingFactory;
+    curFactory = new FFPTexturingFactory;
     ShaderGenerator::getSingleton().addSubRenderStateFactory(curFactory);
     mBuiltinSRSFactories.push_back(curFactory);
 
-    curFactory = OGRE_NEW FFPFogFactory;
+    curFactory = new FFPFogFactory;
     ShaderGenerator::getSingleton().addSubRenderStateFactory(curFactory);
     mBuiltinSRSFactories.push_back(curFactory);
 
-    curFactory = OGRE_NEW FFPAlphaTestFactory;
+    curFactory = new FFPAlphaTestFactory;
     ShaderGenerator::getSingleton().addSubRenderStateFactory(curFactory);
     mBuiltinSRSFactories.push_back(curFactory);
 
@@ -252,11 +252,11 @@ void ShaderGenerator::createBuiltinSRSFactories()
         && !GpuProgramManager::getSingleton().isSyntaxSupported("vs_4_0"));
     if(!d3d11AndLowProfile)
     {
-        curFactory = OGRE_NEW PerPixelLightingFactory;  
+        curFactory = new PerPixelLightingFactory;
         addSubRenderStateFactory(curFactory);
         mBuiltinSRSFactories.push_back(curFactory);
 
-        curFactory = OGRE_NEW NormalMapLightingFactory; 
+        curFactory = new NormalMapLightingFactory;
         addSubRenderStateFactory(curFactory);
         mBuiltinSRSFactories.push_back(curFactory);
 
@@ -264,28 +264,28 @@ void ShaderGenerator::createBuiltinSRSFactories()
         addSubRenderStateFactory(curFactory);
         mBuiltinSRSFactories.push_back(curFactory);
 
-        curFactory = OGRE_NEW IntegratedPSSM3Factory;   
+        curFactory = new IntegratedPSSM3Factory;
         addSubRenderStateFactory(curFactory);
         mBuiltinSRSFactories.push_back(curFactory);
 
-        curFactory = OGRE_NEW LayeredBlendingFactory;   
+        curFactory = new LayeredBlendingFactory;
         addSubRenderStateFactory(curFactory);
         mBuiltinSRSFactories.push_back(curFactory);
 
-        curFactory = OGRE_NEW HardwareSkinningFactory;  
+        curFactory = new HardwareSkinningFactory;
         addSubRenderStateFactory(curFactory);
         mBuiltinSRSFactories.push_back(curFactory);
     }
     
-    curFactory = OGRE_NEW TriplanarTexturingFactory;
+    curFactory = new TriplanarTexturingFactory;
     addSubRenderStateFactory(curFactory);
     mBuiltinSRSFactories.push_back(curFactory);
 
-    curFactory = OGRE_NEW GBufferFactory;
+    curFactory = new GBufferFactory;
     addSubRenderStateFactory(curFactory);
     mBuiltinSRSFactories.push_back(curFactory);
 
-    curFactory = OGRE_NEW WBOITFactory;
+    curFactory = new WBOITFactory;
     addSubRenderStateFactory(curFactory);
     mBuiltinSRSFactories.push_back(curFactory);
 }
@@ -297,7 +297,7 @@ void ShaderGenerator::destroy()
     {
         msSingleton->_destroy();
 
-        OGRE_DELETE msSingleton;
+        delete msSingleton;
         msSingleton = NULL;
     }
 }
@@ -310,21 +310,21 @@ void ShaderGenerator::_destroy()
     // Delete technique entries.
     for (SGTechniqueMapIterator itTech = mTechniqueEntriesMap.begin(); itTech != mTechniqueEntriesMap.end(); ++itTech)
     {           
-        OGRE_DELETE (itTech->second);
+        delete (itTech->second);
     }
     mTechniqueEntriesMap.clear();
 
     // Delete material entries.
     for (SGMaterialIterator itMat = mMaterialEntriesMap.begin(); itMat != mMaterialEntriesMap.end(); ++itMat)
     {       
-        OGRE_DELETE (itMat->second);
+        delete (itMat->second);
     }
     mMaterialEntriesMap.clear();
 
     // Delete scheme entries.
     for (SGSchemeIterator itScheme = mSchemeEntriesMap.begin(); itScheme != mSchemeEntriesMap.end(); ++itScheme)
     {       
-        OGRE_DELETE (itScheme->second);
+        delete (itScheme->second);
     }
     mSchemeEntriesMap.clear();
 
@@ -540,7 +540,7 @@ ShaderGenerator::SchemeCreateOrRetrieveResult ShaderGenerator::createOrRetrieveS
 
     if (itScheme == mSchemeEntriesMap.end())
     {
-        schemeEntry = OGRE_NEW SGScheme(schemeName);
+        schemeEntry = new SGScheme(schemeName);
         mSchemeEntriesMap.emplace(schemeName, schemeEntry);
         wasCreated = true;
     }
@@ -775,7 +775,7 @@ bool ShaderGenerator::createShaderBasedTechnique(const Technique* srcTechnique, 
 
     if (itMatEntry == mMaterialEntriesMap.end())
     {
-        matEntry = OGRE_NEW SGMaterial(materialName, trueGroupName);
+        matEntry = new SGMaterial(materialName, trueGroupName);
         mMaterialEntriesMap.emplace(MatGroupPair(materialName, trueGroupName), matEntry);
     }
     else
@@ -785,7 +785,7 @@ bool ShaderGenerator::createShaderBasedTechnique(const Technique* srcTechnique, 
 
     // Create the new technique entry.
     SGTechnique* techEntry =
-        OGRE_NEW SGTechnique(matEntry, srcTechnique, dstTechniqueSchemeName, overProgrammable);
+        new SGTechnique(matEntry, srcTechnique, dstTechniqueSchemeName, overProgrammable);
 
     // Add to material entry map.
     matEntry->getTechniqueList().push_back(techEntry);
@@ -847,7 +847,7 @@ bool ShaderGenerator::removeShaderBasedTechnique(const Technique* srcTech, const
     if (itTechMap != mTechniqueEntriesMap.end())
         mTechniqueEntriesMap.erase(itTechMap);
 
-    OGRE_DELETE dstTechnique;
+    delete dstTechnique;
 
     return true;
 }
@@ -874,7 +874,7 @@ bool ShaderGenerator::removeAllShaderBasedTechniques(const String& materialName,
                                    (*itTechEntry)->getDestinationTechniqueSchemeName());
     }
 
-    OGRE_DELETE itMatEntry->second;
+    delete itMatEntry->second;
     mMaterialEntriesMap.erase(itMatEntry);
     
     return true;
@@ -1441,7 +1441,7 @@ void ShaderGenerator::SGTechnique::createSGPasses()
         Pass* srcPass = mSrcTechnique->getPass(i);
         Pass* dstPass = mDstTechnique->getPass(i);
 
-		SGPass* passEntry = OGRE_NEW SGPass(this, srcPass, dstPass, IS_UNKNOWN);
+		SGPass* passEntry = new SGPass(this, srcPass, dstPass, IS_UNKNOWN);
 
         if (i < mCustomRenderStates.size())
             passEntry->setCustomRenderState(mCustomRenderStates[i]);
@@ -1462,7 +1462,7 @@ void ShaderGenerator::SGTechnique::createIlluminationSGPasses()
 		if(p->pass == p->originalPass)
 			continue;
 
-		SGPass* passEntry = OGRE_NEW SGPass(this, p->pass, p->pass, p->stage);
+		SGPass* passEntry = new SGPass(this, p->pass, p->pass, p->stage);
 
 		const Any& origPassUserData = p->originalPass->getUserObjectBindings().getUserAny(TargetRenderState::UserKey);
 		if(origPassUserData.has_value())
@@ -1488,7 +1488,7 @@ void ShaderGenerator::SGTechnique::destroyIlluminationSGPasses()
 	{
 		if((*itPass)->isIlluminationPass())
 		{
-			OGRE_DELETE(*itPass);
+			delete(*itPass);
 			itPass = mPassEntries.erase(itPass);
 		}
 		else
@@ -1538,7 +1538,7 @@ ShaderGenerator::SGTechnique::~SGTechnique()
     {
         if (mCustomRenderStates[i] != NULL)
         {
-            OGRE_DELETE mCustomRenderStates[i];
+            delete mCustomRenderStates[i];
             mCustomRenderStates[i] = NULL;
         }       
     }
@@ -1551,7 +1551,7 @@ void ShaderGenerator::SGTechnique::destroySGPasses()
 {
     for (SGPassIterator itPass = mPassEntries.begin(); itPass != mPassEntries.end(); ++itPass)
     {
-        OGRE_DELETE (*itPass);
+        delete (*itPass);
     }
     mPassEntries.clear();
 }
@@ -1646,7 +1646,7 @@ RenderState* ShaderGenerator::SGTechnique::getRenderState(unsigned short passInd
     renderState = mCustomRenderStates[passIndex];
     if (renderState == NULL)
     {
-        renderState = OGRE_NEW RenderState;
+        renderState = new RenderState;
         mCustomRenderStates[passIndex] = renderState;
     }
     

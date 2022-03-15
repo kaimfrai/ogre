@@ -171,7 +171,7 @@ namespace Ogre {
 
         i += index;
 
-        OGRE_DELETE *i;
+        delete *i;
 
         mKeyFrames.erase(i);
 
@@ -187,7 +187,7 @@ namespace Ogre {
 
         for (; i != mKeyFrames.end(); ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
 
         _keyFrameDataChanged();
@@ -267,7 +267,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     KeyFrame* NumericAnimationTrack::createKeyFrameImpl(Real time)
     {
-        return OGRE_NEW NumericKeyFrame(this, time);
+        return new NumericKeyFrame(this, time);
     }
     //---------------------------------------------------------------------
     void NumericAnimationTrack::getInterpolatedKeyFrame(const TimeIndex& timeIndex,
@@ -361,7 +361,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     NodeAnimationTrack::~NodeAnimationTrack()
     {
-        OGRE_DELETE_T(mSplines, Splines, MEMCATEGORY_ANIMATION);
+        delete mSplines;
     }
     //---------------------------------------------------------------------
     void NodeAnimationTrack::getInterpolatedKeyFrame(const TimeIndex& timeIndex, KeyFrame* kf) const
@@ -511,7 +511,7 @@ namespace Ogre {
         // Allocate splines if not exists
         if (!mSplines)
         {
-            mSplines = OGRE_NEW_T(Splines, MEMCATEGORY_ANIMATION);
+            mSplines = new Splines;
         }
 
         // Cache to register for optimisation
@@ -647,7 +647,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     KeyFrame* NodeAnimationTrack::createKeyFrameImpl(Real time)
     {
-        return OGRE_NEW TransformKeyFrame(this, time);
+        return new TransformKeyFrame(this, time);
     }
     //--------------------------------------------------------------------------
     TransformKeyFrame* NodeAnimationTrack::createNodeKeyFrame(Real timePos)
@@ -979,9 +979,9 @@ namespace Ogre {
         {
         default:
         case VAT_MORPH:
-            return OGRE_NEW VertexMorphKeyFrame(this, time);
+            return new VertexMorphKeyFrame(this, time);
         case VAT_POSE:
-            return OGRE_NEW VertexPoseKeyFrame(this, time);
+            return new VertexPoseKeyFrame(this, time);
         };
 
     }

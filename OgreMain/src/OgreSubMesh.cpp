@@ -66,14 +66,14 @@ class HardwareBufferManagerBase;
         , mVertexAnimationIncludesNormals(false)
         , mBuildEdgesEnabled(true)
     {
-        indexData = OGRE_NEW IndexData();
+        indexData = new IndexData();
     }
     //-----------------------------------------------------------------------
     SubMesh::~SubMesh()
     {
         removeLodLevels();
-        OGRE_DELETE vertexData;
-        OGRE_DELETE indexData;
+        delete vertexData;
+        delete indexData;
     }
 
     //-----------------------------------------------------------------------
@@ -161,7 +161,7 @@ class HardwareBufferManagerBase;
         lodend = mLodFaceList.end();
         for (lodi = mLodFaceList.begin(); lodi != lodend; ++lodi)
         {
-            OGRE_DELETE *lodi;
+            delete *lodi;
         }
 
         mLodFaceList.clear();
@@ -428,7 +428,7 @@ class HardwareBufferManagerBase;
         }
 
         // Copy index data
-        OGRE_DELETE newSub->indexData;
+        delete newSub->indexData;
         newSub->indexData = this->indexData->clone(true, bufferManager);
         // Copy any bone assignments
         newSub->mBoneAssignments = this->mBoneAssignments;

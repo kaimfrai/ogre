@@ -721,7 +721,7 @@ void FFPTexturingFactory::writeInstance(MaterialSerializer* ser, SubRenderState*
 //-----------------------------------------------------------------------
 SubRenderState* FFPTexturingFactory::createInstanceImpl()
 {
-    return OGRE_NEW FFPTexturing;
+    return new FFPTexturing;
 }
 
 

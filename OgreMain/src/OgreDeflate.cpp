@@ -45,11 +45,11 @@ namespace Ogre
     // memory implementations
     static void* OgreZalloc(void* opaque, size_t items, size_t size)
     {
-        return OGRE_MALLOC(items * size, MEMCATEGORY_GENERAL);
+        return (void*)new char[items * size];
     }
     static void OgreZfree(void* opaque, void* address)
     {
-        OGRE_FREE(address, MEMCATEGORY_GENERAL);
+        delete[] (char*)address;
     }
     #define OGRE_DEFLATE_TMP_SIZE 16384
     //---------------------------------------------------------------------
@@ -109,13 +109,13 @@ namespace Ogre
     //---------------------------------------------------------------------
     void DeflateStream::init()
     {
-        mZStream = OGRE_ALLOC_T(z_stream, 1, MEMCATEGORY_GENERAL);
+        mZStream = new z_stream[1];
         mZStream->zalloc = OgreZalloc;
         mZStream->zfree = OgreZfree;
         
         if (getAccessMode() == READ)
         {
-            mTmp = (unsigned char*)OGRE_MALLOC(OGRE_DEFLATE_TMP_SIZE, MEMCATEGORY_GENERAL);
+            mTmp = new unsigned char[OGRE_DEFLATE_TMP_SIZE];
             size_t restorePoint = mCompressedStream->tell();
             // read early chunk
             mZStream->next_in = mTmp;
@@ -176,9 +176,9 @@ namespace Ogre
         if (getAccessMode() == READ)
             inflateEnd(mZStream);
 
-        OGRE_FREE(mZStream, MEMCATEGORY_GENERAL);
+        delete[] mZStream;
         mZStream = 0;
-        OGRE_FREE(mTmp, MEMCATEGORY_GENERAL);
+        delete[] mTmp;
         mTmp = 0;
     }
     //---------------------------------------------------------------------

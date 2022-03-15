@@ -171,8 +171,8 @@ class VertexData;
             OptimisedSubMeshGeometry() :vertexData(0), indexData(0) {}
             ~OptimisedSubMeshGeometry() 
             {
-                OGRE_DELETE vertexData;
-                OGRE_DELETE indexData;
+                delete vertexData;
+                delete indexData;
             }
             VertexData *vertexData;
             IndexData *indexData;

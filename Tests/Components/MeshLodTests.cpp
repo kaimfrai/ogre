@@ -52,7 +52,7 @@ void MeshLodTests::TearDown()
         mMesh->unload();
         mMesh.reset();
     }
-    OGRE_DELETE MeshLodGenerator::getSingletonPtr();
+    delete MeshLodGenerator::getSingletonPtr();
     RootWithoutRenderSystemFixture::TearDown();
 }
 //--------------------------------------------------------------------------

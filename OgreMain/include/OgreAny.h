@@ -65,7 +65,7 @@ namespace Ogre
 
         template<typename ValueType>
         Any(const ValueType & value)
-          : mContent(OGRE_NEW_T(holder<ValueType>, MEMCATEGORY_GENERAL)(value))
+          : mContent(new holder<ValueType>(value))
         {
         }
 
@@ -129,7 +129,7 @@ namespace Ogre
 
         void reset()
         {
-            OGRE_DELETE_T(mContent, placeholder, MEMCATEGORY_GENERAL);
+            delete mContent;
             mContent = NULL;
         }
 
@@ -175,7 +175,7 @@ namespace Ogre
 
             virtual placeholder * clone() const
             {
-                return OGRE_NEW_T(holder, MEMCATEGORY_GENERAL)(held);
+                return new holder(held);
             }
 
             virtual void writeToStream(std::ostream& o)
@@ -232,7 +232,7 @@ namespace Ogre
         AnyNumeric(const ValueType & value)
             
         {
-            mContent = OGRE_NEW_T(numholder<ValueType>, MEMCATEGORY_GENERAL)(value);
+            mContent = new numholder<ValueType>(value);
         }
 
         AnyNumeric(const AnyNumeric & other)
@@ -275,28 +275,28 @@ namespace Ogre
 
             virtual placeholder * clone() const
             {
-                return OGRE_NEW_T(numholder, MEMCATEGORY_GENERAL)(held);
+                return new numholder(held);
             }
 
             virtual placeholder* add(placeholder* rhs)
             {
-                return OGRE_NEW_T(numholder, MEMCATEGORY_GENERAL)(held + static_cast<numholder*>(rhs)->held);
+                return new numholder(held + static_cast<numholder*>(rhs)->held);
             }
             virtual placeholder* subtract(placeholder* rhs)
             {
-                return OGRE_NEW_T(numholder, MEMCATEGORY_GENERAL)(held - static_cast<numholder*>(rhs)->held);
+                return new numholder(held - static_cast<numholder*>(rhs)->held);
             }
             virtual placeholder* multiply(placeholder* rhs)
             {
-                return OGRE_NEW_T(numholder, MEMCATEGORY_GENERAL)(held * static_cast<numholder*>(rhs)->held);
+                return new numholder(held * static_cast<numholder*>(rhs)->held);
             }
             virtual placeholder* multiply(Real factor)
             {
-                return OGRE_NEW_T(numholder, MEMCATEGORY_GENERAL)(held * factor);
+                return new numholder(held * factor);
             }
             virtual placeholder* divide(placeholder* rhs)
             {
-                return OGRE_NEW_T(numholder, MEMCATEGORY_GENERAL)(held / static_cast<numholder*>(rhs)->held);
+                return new numholder(held / static_cast<numholder*>(rhs)->held);
             }
             virtual void writeToStream(std::ostream& o)
             {

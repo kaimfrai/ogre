@@ -567,7 +567,7 @@ void FFPLightingFactory::writeInstance(MaterialSerializer* ser, SubRenderState* 
 //-----------------------------------------------------------------------
 SubRenderState*	FFPLightingFactory::createInstanceImpl()
 {
-	return OGRE_NEW FFPLighting;
+	return new FFPLighting;
 }
 
 }

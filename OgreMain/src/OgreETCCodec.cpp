@@ -104,13 +104,13 @@ namespace Ogre {
     {
         if (!msPKMInstance)
         {
-            msPKMInstance = OGRE_NEW ETCCodec("pkm");
+            msPKMInstance = new ETCCodec("pkm");
             Codec::registerCodec(msPKMInstance);
         }
 
         if (!msKTXInstance)
         {
-            msKTXInstance = OGRE_NEW ETCCodec("ktx");
+            msKTXInstance = new ETCCodec("ktx");
             Codec::registerCodec(msKTXInstance);
         }
 
@@ -123,14 +123,14 @@ namespace Ogre {
         if(msPKMInstance)
         {
             Codec::unregisterCodec(msPKMInstance);
-            OGRE_DELETE msPKMInstance;
+            delete msPKMInstance;
             msPKMInstance = 0;
         }
 
         if(msKTXInstance)
         {
             Codec::unregisterCodec(msKTXInstance);
-            OGRE_DELETE msKTXInstance;
+            delete msKTXInstance;
             msKTXInstance = 0;
         }
     }
@@ -193,7 +193,7 @@ namespace Ogre {
         uint16 paddedHeight = (header.iPaddedHeightMSB << 8) | header.iPaddedHeightLSB;
         uint16 type = (header.iTextureTypeMSB << 8) | header.iTextureTypeLSB;
 
-        ImageData *imgData = OGRE_NEW ImageData();
+        ImageData *imgData = new ImageData();
         imgData->depth = 1;
         imgData->width = width;
         imgData->height = height;
@@ -241,7 +241,7 @@ namespace Ogre {
         imgData->size = (paddedWidth * paddedHeight) >> 1;
 
         // Bind output buffer
-        MemoryDataStreamPtr output(OGRE_NEW MemoryDataStream(imgData->size));
+        MemoryDataStreamPtr output(new MemoryDataStream(imgData->size));
 
         // Now deal with the data
         void *destPtr = output->getPtr();
@@ -268,7 +268,7 @@ namespace Ogre {
         if (header.endianness == KTX_ENDIAN_REF_REV)
             flipEndian(&header.glType, sizeof(uint32));
 
-        ImageData *imgData = OGRE_NEW ImageData();
+        ImageData *imgData = new ImageData();
         imgData->depth = 1;
         imgData->width = header.pixelWidth;
         imgData->height = header.pixelHeight;
@@ -376,7 +376,7 @@ namespace Ogre {
         stream->skip(header.bytesOfKeyValueData);
 
         // Bind output buffer
-        MemoryDataStreamPtr output(OGRE_NEW MemoryDataStream(imgData->size));
+        MemoryDataStreamPtr output(new MemoryDataStream(imgData->size));
 
         // Now deal with the data
         uchar* destPtr = output->getPtr();

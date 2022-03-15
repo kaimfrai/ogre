@@ -444,7 +444,7 @@ namespace Ogre
 
         // Set up vertex data
         // Use a single shared buffer
-        pMesh->sharedVertexData = OGRE_NEW VertexData();
+        pMesh->sharedVertexData = new VertexData();
         VertexData* vertexData = pMesh->sharedVertexData;
         // Set up Vertex Declaration
         VertexDeclaration* vertexDecl = vertexData->vertexDeclaration;
@@ -575,7 +575,7 @@ namespace Ogre
         SubMesh *pSub = pMesh->createSubMesh();
 
         // Set options
-        pMesh->sharedVertexData = OGRE_NEW VertexData();
+        pMesh->sharedVertexData = new VertexData();
         pMesh->sharedVertexData->vertexStart = 0;
         VertexBufferBinding* bind = pMesh->sharedVertexData->vertexBufferBinding;
         VertexDeclaration* decl = pMesh->sharedVertexData->vertexDeclaration;
@@ -716,7 +716,7 @@ namespace Ogre
 
         // Set up vertex data
         // Use a single shared buffer
-        pMesh->sharedVertexData = OGRE_NEW VertexData();
+        pMesh->sharedVertexData = new VertexData();
         VertexData* vertexData = pMesh->sharedVertexData;
         // Set up Vertex Declaration
         VertexDeclaration* vertexDecl = vertexData->vertexDeclaration;
@@ -890,7 +890,7 @@ namespace Ogre
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "A mesh called " + name + 
                 " already exists!", "MeshManager::createBezierPatch");
         }
-        PatchMesh* pm = OGRE_NEW PatchMesh(this, name, getNextHandle(), groupName);
+        PatchMesh* pm = new PatchMesh(this, name, getNextHandle(), groupName);
         pm->define(controlPointBuffer, declaration, width, height,
             uMaxSubdivisionLevel, vMaxSubdivisionLevel, visibleSide, vbUsage, ibUsage,
             vbUseShadow, ibUseShadow);
@@ -946,7 +946,7 @@ namespace Ogre
         const NameValuePairList* createParams)
     {
         // no use for createParams here
-        return OGRE_NEW Mesh(this, name, handle, group, isManual, loader);
+        return new Mesh(this, name, handle, group, isManual, loader);
     }
     //-----------------------------------------------------------------------
 

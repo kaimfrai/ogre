@@ -180,7 +180,7 @@ class RenderQueue;
         }
 
         // Create billboard set
-        mBillboardSet = OGRE_NEW BillboardSet("", 0, true);
+        mBillboardSet = new BillboardSet("", 0, true);
         // World-relative axes
         mBillboardSet->setBillboardsInWorldSpace(true);
     }
@@ -191,7 +191,7 @@ class RenderQueue;
         // based on the particle system's attachment. So manually notify that it's
         // no longer attached.
         mBillboardSet->_notifyAttached(0);
-        OGRE_DELETE  mBillboardSet;
+        delete  mBillboardSet;
     }
     //-----------------------------------------------------------------------
     const String& BillboardParticleRenderer::getType(void) const
@@ -253,7 +253,7 @@ class RenderQueue;
     ParticleSystemRenderer* BillboardParticleRendererFactory::createInstance( 
         const String& name )
     {
-        return OGRE_NEW BillboardParticleRenderer();
+        return new BillboardParticleRenderer();
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------

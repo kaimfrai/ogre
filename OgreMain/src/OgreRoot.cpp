@@ -168,7 +168,7 @@ namespace Ogre {
         mResourceGroupManager.reset(new ResourceGroupManager());
 
         // WorkQueue (note: users can replace this if they want)
-        DefaultWorkQueue* defaultQ = OGRE_NEW DefaultWorkQueue("Root");
+        DefaultWorkQueue* defaultQ = new DefaultWorkQueue("Root");
         // never process responses in main thread for longer than 10ms by default
         defaultQ->setResponseProcessingTimeLimit(10);
         // match threads to hardware
@@ -1022,7 +1022,7 @@ namespace Ogre {
     void Root::destroyRenderTarget(RenderTarget* target)
     {
         detachRenderTarget(target);
-        OGRE_DELETE target;
+        delete target;
     }
     //-----------------------------------------------------------------------
     void Root::destroyRenderTarget(const String &name)

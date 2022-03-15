@@ -252,7 +252,7 @@ class RenderQueue;
         // Free pool items
         for (auto p : mParticlePool)
         {
-            OGRE_DELETE p;
+            delete p;
         }
 
         if (mRenderer)
@@ -719,7 +719,7 @@ class RenderQueue;
         // Create new particles
         for( size_t i = oldSize; i < size; i++ )
         {
-            mParticlePool[i] = OGRE_NEW Particle();
+            mParticlePool[i] = new Particle();
         }
     }
     //-----------------------------------------------------------------------
@@ -1026,7 +1026,7 @@ class RenderQueue;
 
             // Create time controller when attached
             ControllerManager& mgr = ControllerManager::getSingleton(); 
-            ControllerValueRealPtr updValue(OGRE_NEW ParticleSystemUpdateValue(this));
+            ControllerValueRealPtr updValue(new ParticleSystemUpdateValue(this));
             mTimeController = mgr.createFrameTimePassthroughController(updValue);
         }
         else if (!parent && mTimeController)
@@ -1580,7 +1580,7 @@ class RenderQueue;
         std::vector<ParticleAffector*>::iterator i;
         for (i = mAffectors.begin(); i != mAffectors.end(); ++i)
         {
-            OGRE_DELETE (*i);
+            delete (*i);
         }
             
         mAffectors.clear();
@@ -1595,7 +1595,7 @@ class RenderQueue;
             if ((*i) == e)
             {
                 mAffectors.erase(i);
-                OGRE_DELETE e;
+                delete e;
                 break;
             }
         }

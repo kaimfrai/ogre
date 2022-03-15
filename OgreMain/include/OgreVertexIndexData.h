@@ -310,12 +310,12 @@ class HardwareBufferManagerBase;
             VertexCacheProfiler(unsigned int cachesize = 16)
                 : size ( cachesize ), tail (0), buffersize (0), hit (0), miss (0)
             {
-                cache = OGRE_ALLOC_T(uint32, size, MEMCATEGORY_GEOMETRY);
+                cache = new uint32[size];
             }
 
             ~VertexCacheProfiler()
             {
-                OGRE_FREE(cache, MEMCATEGORY_GEOMETRY);
+                delete[] cache;
             }
 
             void profile(const HardwareIndexBufferSharedPtr& indexBuffer);

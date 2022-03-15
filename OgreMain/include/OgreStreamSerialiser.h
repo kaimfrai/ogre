@@ -373,7 +373,7 @@ class Sphere;
         template <typename T, typename U>
         void writeConverted(const T* src, U typeToWrite, size_t count)
         {
-            U* tmp = OGRE_ALLOC_T(U, count, MEMCATEGORY_GENERAL);
+            U* tmp = new U[count];
             U* pDst = tmp;
             const T* pSrc = src;
             for (size_t i = 0; i < count; ++i)
@@ -381,12 +381,12 @@ class Sphere;
             
             writeData(tmp, sizeof(U), count);
 
-            OGRE_FREE(tmp, MEMCATEGORY_GENERAL);
+            delete[] tmp;
         }
         template <typename T, typename U>
         void readConverted(T* dst, U typeToRead, size_t count)
         {
-            U* tmp = OGRE_ALLOC_T(U, count, MEMCATEGORY_GENERAL);
+            U* tmp = new U[count];
             readData(tmp, sizeof(U), count);
 
             T* pDst = dst;
@@ -395,7 +395,7 @@ class Sphere;
                 *pDst++ = static_cast<T>(*pSrc++);
 
 
-            OGRE_FREE(tmp, MEMCATEGORY_GENERAL);
+            delete[] tmp;
         }
 
     };

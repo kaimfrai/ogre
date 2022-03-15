@@ -67,14 +67,14 @@ namespace Ogre {
         LogList::iterator i;
         for (i = mLogs.begin(); i != mLogs.end(); ++i)
         {
-            OGRE_DELETE i->second;
+            delete i->second;
         }
     }
     //-----------------------------------------------------------------------
     Log* LogManager::createLog( const String& name, bool defaultLog, bool debuggerOutput, 
         bool suppressFileOutput)
     {
-        Log* newLog = OGRE_NEW Log(name, debuggerOutput, suppressFileOutput);
+        Log* newLog = new Log(name, debuggerOutput, suppressFileOutput);
 
         if( !mDefaultLog || defaultLog )
         {
@@ -114,7 +114,7 @@ namespace Ogre {
             {
                 mDefaultLog = 0;
             }
-            OGRE_DELETE i->second;
+            delete i->second;
             mLogs.erase(i);
         }
 

@@ -115,7 +115,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     PanelOverlayElement::~PanelOverlayElement()
     {
-        OGRE_DELETE mRenderOp.vertexData;
+        delete mRenderOp.vertexData;
     }
     //---------------------------------------------------------------------
     void PanelOverlayElement::initialise(void)
@@ -126,7 +126,7 @@ class RenderQueue;
         if (init)
         {
             // Setup render op in advance
-            mRenderOp.vertexData = OGRE_NEW VertexData();
+            mRenderOp.vertexData = new VertexData();
             // Vertex declaration: 1 position, add texcoords later depending on #layers
             // Create as separate buffers so we can lock & discard separately
             VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;

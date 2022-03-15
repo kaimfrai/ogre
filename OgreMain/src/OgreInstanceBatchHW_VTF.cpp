@@ -79,7 +79,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void InstanceBatchHW_VTF::setupVertices( const SubMesh* baseSubMesh )
     {
-        mRenderOperation.vertexData = OGRE_NEW VertexData();
+        mRenderOperation.vertexData = new VertexData();
         mRemoveOwnVertexData = true; //Raise flag to remove our own vertex data in the end (not always needed)
 
         VertexData *thisVertexData = mRenderOperation.vertexData;

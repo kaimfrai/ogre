@@ -50,7 +50,7 @@ namespace Ogre {
             @param instance The compositor instance that this operation will be performed in
             @remarks This call only happens once during creation. The RenderSystemOperation will
             get called each render.
-            @remarks The created operation must be instanciated using the OGRE_NEW macro.
+            @remarks The created operation must be instanciated using the new macro.
         */
         virtual CompositorInstance::RenderSystemOperation* createOperation(
             CompositorInstance* instance, const CompositionPass* pass) = 0;

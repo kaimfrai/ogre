@@ -46,12 +46,12 @@ THE SOFTWARE.
 //--------------------------------------------------------------------------
 void EdgeBuilderTests::SetUp()
 {   
-   mBufMgr = OGRE_NEW DefaultHardwareBufferManager();
+   mBufMgr = new DefaultHardwareBufferManager();
 }
 //--------------------------------------------------------------------------
 void EdgeBuilderTests::TearDown()
 {
-    OGRE_DELETE mBufMgr;
+    delete mBufMgr;
 }
 //--------------------------------------------------------------------------
 TEST_F(EdgeBuilderTests,SingleIndexBufSingleVertexBuf)

@@ -128,7 +128,7 @@ namespace Ogre {
         BillboardPool::iterator i;
         for (i = mBillboardPool.begin(); i != mBillboardPool.end(); ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
 
         // Delete shared buffers
@@ -785,7 +785,7 @@ namespace Ogre {
 
         // Create new billboards
         for( size_t i = oldSize; i < size; ++i )
-            mBillboardPool[i] = OGRE_NEW Billboard();
+            mBillboardPool[i] = new Billboard();
 
     }
     //-----------------------------------------------------------------------
@@ -1202,11 +1202,11 @@ namespace Ogre {
 
         if (poolSize > 0)
         {
-            return OGRE_NEW BillboardSet(name, poolSize, externalData);
+            return new BillboardSet(name, poolSize, externalData);
         }
         else
         {
-            return OGRE_NEW BillboardSet(name);
+            return new BillboardSet(name);
         }
 
     }

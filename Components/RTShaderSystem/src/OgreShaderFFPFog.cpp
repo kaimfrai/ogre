@@ -297,7 +297,7 @@ void FFPFogFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subRe
 //-----------------------------------------------------------------------
 SubRenderState* FFPFogFactory::createInstanceImpl()
 {
-    return OGRE_NEW FFPFog;
+    return new FFPFog;
 }
 
 }

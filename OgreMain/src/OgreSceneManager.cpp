@@ -194,7 +194,7 @@ SceneManager::~SceneManager()
     for (MovableObjectCollectionMap::iterator i = mMovableObjectCollectionMap.begin();
         i != mMovableObjectCollectionMap.end(); ++i)
     {
-        OGRE_DELETE_T(i->second, MovableObjectCollection, MEMCATEGORY_SCENE_CONTROL);
+        delete i->second;
     }
     mMovableObjectCollectionMap.clear();
 }
@@ -271,7 +271,7 @@ Camera* SceneManager::createCamera(const String& name)
             "SceneManager::createCamera" );
     }
 
-    Camera *c = OGRE_NEW Camera(name, this);
+    Camera *c = new Camera(name, this);
     mCameras.emplace(name, c);
 
     // create visible bounds aab map entry
@@ -328,7 +328,7 @@ void SceneManager::destroyCamera(const String& name)
         // Notify render system
         if(mDestRenderSystem)
             mDestRenderSystem->_notifyCameraRemoved(i->second);
-        OGRE_DELETE i->second;
+        delete i->second;
         mCameras.erase(i);
     }
 
@@ -741,7 +741,7 @@ void SceneManager::clearScene(void)
     for (SceneNodeList::iterator i = mSceneNodes.begin();
         i != mSceneNodes.end(); ++i)
     {
-        OGRE_DELETE *i;
+        delete *i;
     }
     mSceneNodes.clear();
     mNamedNodes.clear();
@@ -762,12 +762,12 @@ void SceneManager::clearScene(void)
 //-----------------------------------------------------------------------
 SceneNode* SceneManager::createSceneNodeImpl(void)
 {
-    return OGRE_NEW SceneNode(this);
+    return new SceneNode(this);
 }
 //-----------------------------------------------------------------------
 SceneNode* SceneManager::createSceneNodeImpl(const String& name)
 {
-    return OGRE_NEW SceneNode(this, name);
+    return new SceneNode(this, name);
 }//-----------------------------------------------------------------------
 SceneNode* SceneManager::createSceneNode(void)
 {
@@ -841,7 +841,7 @@ void SceneManager::_destroySceneNode(SceneNodeList::iterator i)
     }
     if(!(*i)->getName().empty())
         mNamedNodes.erase((*i)->getName());
-    OGRE_DELETE *i;
+    delete *i;
     if (std::next(i) != mSceneNodes.end())
     {
        std::swap(*i, mSceneNodes.back());
@@ -2181,7 +2181,7 @@ Animation* SceneManager::createAnimation(const String& name, Real length)
             "SceneManager::createAnimation" );
     }
 
-    Animation* pAnim = OGRE_NEW Animation(name, length);
+    Animation* pAnim = new Animation(name, length);
     mAnimationsList[name] = pAnim;
     return pAnim;
 }
@@ -2217,7 +2217,7 @@ void SceneManager::destroyAnimation(const String& name)
     }
 
     // Free memory
-    OGRE_DELETE i->second;
+    delete i->second;
 
     mAnimationsList.erase(i);
 
@@ -2232,7 +2232,7 @@ void SceneManager::destroyAllAnimations(void)
     for (i = mAnimationsList.begin(); i != mAnimationsList.end(); ++i)
     {
         // destroy
-        OGRE_DELETE i->second;
+        delete i->second;
     }
     mAnimationsList.clear();
 }
@@ -3150,7 +3150,7 @@ StaticGeometry* SceneManager::createStaticGeometry(const String& name)
             "StaticGeometry with name '" + name + "' already exists!", 
             "SceneManager::createStaticGeometry");
     }
-    StaticGeometry* ret = OGRE_NEW StaticGeometry(this, name);
+    StaticGeometry* ret = new StaticGeometry(this, name);
     mStaticGeometryList[name] = ret;
     return ret;
 }
@@ -3183,7 +3183,7 @@ void SceneManager::destroyStaticGeometry(const String& name)
     StaticGeometryList::iterator i = mStaticGeometryList.find(name);
     if (i != mStaticGeometryList.end())
     {
-        OGRE_DELETE i->second;
+        delete i->second;
         mStaticGeometryList.erase(i);
     }
 
@@ -3195,7 +3195,7 @@ void SceneManager::destroyAllStaticGeometry(void)
     iend = mStaticGeometryList.end();
     for (i = mStaticGeometryList.begin(); i != iend; ++i)
     {
-        OGRE_DELETE i->second;
+        delete i->second;
     }
     mStaticGeometryList.clear();
 }
@@ -3249,7 +3249,7 @@ void SceneManager::destroyInstanceManager( const String &name )
     InstanceManagerMap::iterator i = mInstanceManagerMap.find(name);
     if (i != mInstanceManagerMap.end())
     {
-        OGRE_DELETE i->second;
+        delete i->second;
         mInstanceManagerMap.erase(i);
     }
 }
@@ -3266,7 +3266,7 @@ void SceneManager::destroyAllInstanceManagers(void)
 
     while( itor != end )
     {
-        OGRE_DELETE itor->second;
+        delete itor->second;
         ++itor;
     }
 
@@ -3346,7 +3346,7 @@ void SceneManager::updateDirtyInstanceManagers(void)
 AxisAlignedBoxSceneQuery* 
 SceneManager::createAABBQuery(const AxisAlignedBox& box, uint32 mask)
 {
-    DefaultAxisAlignedBoxSceneQuery* q = OGRE_NEW DefaultAxisAlignedBoxSceneQuery(this);
+    DefaultAxisAlignedBoxSceneQuery* q = new DefaultAxisAlignedBoxSceneQuery(this);
     q->setBox(box);
     q->setQueryMask(mask);
     return q;
@@ -3355,7 +3355,7 @@ SceneManager::createAABBQuery(const AxisAlignedBox& box, uint32 mask)
 SphereSceneQuery* 
 SceneManager::createSphereQuery(const Sphere& sphere, uint32 mask)
 {
-    DefaultSphereSceneQuery* q = OGRE_NEW DefaultSphereSceneQuery(this);
+    DefaultSphereSceneQuery* q = new DefaultSphereSceneQuery(this);
     q->setSphere(sphere);
     q->setQueryMask(mask);
     return q;
@@ -3365,7 +3365,7 @@ PlaneBoundedVolumeListSceneQuery*
 SceneManager::createPlaneBoundedVolumeQuery(const PlaneBoundedVolumeList& volumes, 
                                             uint32 mask)
 {
-    DefaultPlaneBoundedVolumeListSceneQuery* q = OGRE_NEW DefaultPlaneBoundedVolumeListSceneQuery(this);
+    DefaultPlaneBoundedVolumeListSceneQuery* q = new DefaultPlaneBoundedVolumeListSceneQuery(this);
     q->setVolumes(volumes);
     q->setQueryMask(mask);
     return q;
@@ -3375,7 +3375,7 @@ SceneManager::createPlaneBoundedVolumeQuery(const PlaneBoundedVolumeList& volume
 RaySceneQuery* 
 SceneManager::createRayQuery(const Ray& ray, uint32 mask)
 {
-    DefaultRaySceneQuery* q = OGRE_NEW DefaultRaySceneQuery(this);
+    DefaultRaySceneQuery* q = new DefaultRaySceneQuery(this);
     q->setRay(ray);
     q->setQueryMask(mask);
     return q;
@@ -3385,14 +3385,14 @@ IntersectionSceneQuery*
 SceneManager::createIntersectionQuery(uint32 mask)
 {
 
-    DefaultIntersectionSceneQuery* q = OGRE_NEW DefaultIntersectionSceneQuery(this);
+    DefaultIntersectionSceneQuery* q = new DefaultIntersectionSceneQuery(this);
     q->setQueryMask(mask);
     return q;
 }
 //---------------------------------------------------------------------
 void SceneManager::destroyQuery(SceneQuery* query)
 {
-    OGRE_DELETE query;
+    delete query;
 }
 //---------------------------------------------------------------------
 SceneManager::MovableObjectCollection* 
@@ -3403,7 +3403,7 @@ SceneManager::getMovableObjectCollection(const String& typeName)
     if (i == mMovableObjectCollectionMap.end())
     {
         // create
-        MovableObjectCollection* newCollection = OGRE_NEW_T(MovableObjectCollection, MEMCATEGORY_SCENE_CONTROL)();
+        MovableObjectCollection* newCollection = new MovableObjectCollection();
         mMovableObjectCollectionMap[typeName] = newCollection;
         return newCollection;
     }

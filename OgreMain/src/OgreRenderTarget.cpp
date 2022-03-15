@@ -76,7 +76,7 @@ class Camera;
             i != vlist.end(); ++i)
         {
             fireViewportRemoved(i->second);
-            OGRE_DELETE (*i).second;
+            delete (*i).second;
         }
 
         //DepthBuffer keeps track of us, avoid a dangling pointer
@@ -247,7 +247,7 @@ class Camera;
         }
         // Add viewport to list
         // Order based on Z-order
-        Viewport* vp = OGRE_NEW Viewport(cam, this, left, top, width, height, ZOrder);
+        Viewport* vp = new Viewport(cam, this, left, top, width, height, ZOrder);
 
         mViewportList.emplace(ZOrder, vp);
 
@@ -263,7 +263,7 @@ class Camera;
         if (it != mViewportList.end())
         {
             fireViewportRemoved(it->second);
-            OGRE_DELETE (*it).second;
+            delete (*it).second;
             mViewportList.erase(ZOrder);
         }
     }
@@ -276,7 +276,7 @@ class Camera;
         for (ViewportList::iterator it = vlist.begin(); it != vlist.end(); ++it)
         {
             fireViewportRemoved(it->second);
-            OGRE_DELETE (*it).second;
+            delete (*it).second;
         }
 
         mViewportList.clear();

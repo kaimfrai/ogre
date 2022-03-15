@@ -134,7 +134,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     SubMesh* Mesh::createSubMesh()
     {
-        SubMesh* sub = OGRE_NEW SubMesh();
+        SubMesh* sub = new SubMesh();
         sub->parent = this;
 
         mSubMeshList.push_back(sub);
@@ -157,7 +157,7 @@ namespace Ogre {
         OgreAssert(index < mSubMeshList.size(), "");
         SubMeshList::iterator i = mSubMeshList.begin();
         std::advance(i, index);
-        OGRE_DELETE *i;
+        delete *i;
         mSubMeshList.erase(i);
         
         // Fix up any name/index entries
@@ -252,7 +252,7 @@ namespace Ogre {
                 mName, mGroup, this);
  
         // fully prebuffer into host RAM
-        mFreshFromDisk = DataStreamPtr(OGRE_NEW MemoryDataStream(mName,mFreshFromDisk));
+        mFreshFromDisk = DataStreamPtr(new MemoryDataStream(mName,mFreshFromDisk));
     }
     //-----------------------------------------------------------------------
     void Mesh::unprepareImpl()
@@ -288,11 +288,11 @@ namespace Ogre {
         for (SubMeshList::iterator i = mSubMeshList.begin();
             i != mSubMeshList.end(); ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
         if (sharedVertexData)
         {
-            OGRE_DELETE sharedVertexData;
+            delete sharedVertexData;
             sharedVertexData = NULL;
         }
         // Clear SubMesh lists
@@ -1185,7 +1185,7 @@ namespace Ogre {
 
         lod->manualName = meshName;
         lod->manualMesh.reset();
-        OGRE_DELETE lod->edgeData;
+        delete lod->edgeData;
         lod->edgeData = 0;
     }
     //---------------------------------------------------------------------
@@ -1756,7 +1756,7 @@ namespace Ogre {
                 else
                 {
                     // create empty edge data
-                    usage.edgeData = OGRE_NEW EdgeData();
+                    usage.edgeData = new EdgeData();
                 }
             }
         }
@@ -1781,7 +1781,7 @@ namespace Ogre {
             {
                 // Only delete if we own this data
                 // Manual LODs > 0 own their own
-                OGRE_DELETE usage.edgeData;
+                delete usage.edgeData;
             }
             usage.edgeData = NULL;
         }
@@ -2227,7 +2227,7 @@ namespace Ogre {
                 "Mesh::createAnimation");
         }
 
-        Animation* ret = OGRE_NEW Animation(name, length);
+        Animation* ret = new Animation(name, length);
         ret->_notifyContainer(this);
 
         // Add to list
@@ -2300,7 +2300,7 @@ namespace Ogre {
                 "Mesh::getAnimation");
         }
 
-        OGRE_DELETE i->second;
+        delete i->second;
 
         mAnimationsList.erase(i);
 
@@ -2312,7 +2312,7 @@ namespace Ogre {
         AnimationList::iterator i = mAnimationsList.begin();
         for (; i != mAnimationsList.end(); ++i)
         {
-            OGRE_DELETE i->second;
+            delete i->second;
         }
         mAnimationsList.clear();
         mAnimationTypesDirty = true;
@@ -2332,7 +2332,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     Pose* Mesh::createPose(ushort target, const String& name)
     {
-        Pose* retPose = OGRE_NEW Pose(target, name);
+        Pose* retPose = new Pose(target, name);
         mPoseList.push_back(retPose);
         return retPose;
     }
@@ -2357,7 +2357,7 @@ namespace Ogre {
         OgreAssert(index < mPoseList.size(), "");
         PoseList::iterator i = mPoseList.begin();
         std::advance(i, index);
-        OGRE_DELETE *i;
+        delete *i;
         mPoseList.erase(i);
 
     }
@@ -2368,7 +2368,7 @@ namespace Ogre {
         {
             if ((*i)->getName() == name)
             {
-                OGRE_DELETE *i;
+                delete *i;
                 mPoseList.erase(i);
                 return;
             }
@@ -2384,7 +2384,7 @@ namespace Ogre {
     {
         for (PoseList::iterator i = mPoseList.begin(); i != mPoseList.end(); ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
         mPoseList.clear();
     }

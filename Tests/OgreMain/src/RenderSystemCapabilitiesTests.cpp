@@ -56,12 +56,12 @@ void RenderSystemCapabilitiesTests::SetUp()
     using namespace Ogre;
 
     // We need to be able to create FileSystem archives to load .rendercaps
-    mFileSystemArchiveFactory = OGRE_NEW FileSystemArchiveFactory();
+    mFileSystemArchiveFactory = new FileSystemArchiveFactory();
 
-    mArchiveManager = OGRE_NEW ArchiveManager();
+    mArchiveManager = new ArchiveManager();
     ArchiveManager::getSingleton().addArchiveFactory(mFileSystemArchiveFactory);
 
-    mRenderSystemCapabilitiesManager = OGRE_NEW RenderSystemCapabilitiesManager();
+    mRenderSystemCapabilitiesManager = new RenderSystemCapabilitiesManager();
 
     Ogre::ConfigFile cf;
     cf.load(Ogre::FileSystemLayer(OGRE_VERSION_NAME).getConfigFilePath("resources.cfg"));
@@ -73,9 +73,9 @@ void RenderSystemCapabilitiesTests::SetUp()
 //--------------------------------------------------------------------------
 void RenderSystemCapabilitiesTests::TearDown()
 {
-    OGRE_DELETE mRenderSystemCapabilitiesManager;
-    OGRE_DELETE mArchiveManager;
-    OGRE_DELETE mFileSystemArchiveFactory;
+    delete mRenderSystemCapabilitiesManager;
+    delete mArchiveManager;
+    delete mFileSystemArchiveFactory;
 }
 //--------------------------------------------------------------------------
 TEST_F(RenderSystemCapabilitiesTests,IsShaderProfileSupported)
@@ -491,7 +491,7 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAndReadComplexCapabilities)
     serializer.writeScript(&caps, name, filename);
 
     FileStreamDataStream* fdatastream = new FileStreamDataStream(filename,
-            OGRE_NEW_T(ifstream, MEMCATEGORY_GENERAL)(filename.c_str()));
+            new ifstream(filename.c_str()));
 
     DataStreamPtr dataStreamPtr(fdatastream);
 

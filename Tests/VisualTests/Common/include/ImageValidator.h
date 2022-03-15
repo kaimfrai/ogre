@@ -80,9 +80,9 @@ public:
         std::ifstream file1(Ogre::String(mDirectory1 + "/" + image + ".png").c_str(), std::ios::in | std::ios::binary);
         std::ifstream file2(Ogre::String(mDirectory2 + "/" + image + ".png").c_str(), std::ios::in | std::ios::binary);
         Ogre::DataStreamPtr data1 = Ogre::DataStreamPtr(
-            OGRE_NEW Ogre::FileStreamDataStream(&file1, false));
+            new Ogre::FileStreamDataStream(&file1, false));
         Ogre::DataStreamPtr data2 = Ogre::DataStreamPtr(
-            OGRE_NEW Ogre::FileStreamDataStream(&file2, false));
+            new Ogre::FileStreamDataStream(&file2, false));
         Ogre::Image img1 = Ogre::Image();
         Ogre::Image img2 = Ogre::Image();
         img1.load(data1, "png");

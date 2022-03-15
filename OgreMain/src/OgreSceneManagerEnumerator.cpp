@@ -278,7 +278,7 @@ class RenderSystem;
     SceneManager* DefaultSceneManagerFactory::createInstance(
         const String& instanceName)
     {
-        return OGRE_NEW DefaultSceneManager(instanceName);
+        return new DefaultSceneManager(instanceName);
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------

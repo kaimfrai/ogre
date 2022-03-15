@@ -52,18 +52,18 @@ namespace Ogre {
     LodStrategyManager::LodStrategyManager()
     {
         // Add distance strategies for bounding box and bounding sphere
-        LodStrategy *strategy = OGRE_NEW DistanceLodBoxStrategy();
+        LodStrategy *strategy = new DistanceLodBoxStrategy();
         addStrategy(strategy);
-        strategy = OGRE_NEW DistanceLodSphereStrategy();
+        strategy = new DistanceLodSphereStrategy();
         addStrategy(strategy);
 
         // Set the default strategy to distance_sphere
         setDefaultStrategy(strategy);
 
         // Add pixel-count strategies (internally based on bounding sphere)
-        strategy = OGRE_NEW AbsolutePixelCountLodStrategy();
+        strategy = new AbsolutePixelCountLodStrategy();
         addStrategy(strategy);
-        strategy = OGRE_NEW ScreenRatioPixelCountLodStrategy();
+        strategy = new ScreenRatioPixelCountLodStrategy();
         addStrategy(strategy);
     }
     //-----------------------------------------------------------------------
@@ -106,7 +106,7 @@ namespace Ogre {
         // Get beginning iterator
         for (StrategyMap::iterator it = mStrategies.begin(); it != mStrategies.end(); ++it)
         {
-            OGRE_DELETE it->second;
+            delete it->second;
         }
         mStrategies.clear();
     }

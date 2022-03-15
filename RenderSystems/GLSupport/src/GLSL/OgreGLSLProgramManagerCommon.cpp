@@ -204,7 +204,7 @@ namespace Ogre {
             GLSLProgramCommon* prgm = currentProgram->second;
             if(prgm->isUsingShader(shader))
             {
-                OGRE_DELETE prgm;
+                delete prgm;
                 keysToErase.push_back(currentProgram->first);
             }
         }

@@ -131,7 +131,7 @@ bool CompositionTargetPass::getShadowsEnabled(void) const
 //-----------------------------------------------------------------------
 CompositionPass *CompositionTargetPass::createPass(CompositionPass::PassType type)
 {
-    CompositionPass *t = OGRE_NEW CompositionPass(this);
+    CompositionPass *t = new CompositionPass(this);
     t->setType(type);
     mPasses.push_back(t);
     return t;
@@ -142,7 +142,7 @@ void CompositionTargetPass::removePass(size_t index)
 {
     assert (index < mPasses.size() && "Index out of bounds.");
     Passes::iterator i = mPasses.begin() + index;
-    OGRE_DELETE (*i);
+    delete (*i);
     mPasses.erase(i);
 }
 //-----------------------------------------------------------------------
@@ -152,7 +152,7 @@ void CompositionTargetPass::removeAllPasses()
     iend = mPasses.end();
     for (i = mPasses.begin(); i != iend; ++i)
     {
-        OGRE_DELETE (*i);
+        delete (*i);
     }
     mPasses.clear();
 }

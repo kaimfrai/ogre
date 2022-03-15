@@ -77,7 +77,7 @@ class MovableObject;
 
         mBox.setInfinite(); // screenspace -> never culled
 
-        mRenderOp.vertexData = OGRE_NEW VertexData();
+        mRenderOp.vertexData = new VertexData();
 
         mRenderOp.indexData = 0;
         mRenderOp.vertexData->vertexCount = 4; 
@@ -130,7 +130,7 @@ class MovableObject;
 
     Rectangle2D::~Rectangle2D() 
     {
-        OGRE_DELETE mRenderOp.vertexData;
+        delete mRenderOp.vertexData;
     }
 
     void Rectangle2D::setCorners(float left, float top, float right, float bottom, bool updateAABB)

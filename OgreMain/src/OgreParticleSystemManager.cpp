@@ -77,7 +77,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     ParticleSystemManager::ParticleSystemManager()
     {
-        mFactory = OGRE_NEW ParticleSystemFactory();
+        mFactory = new ParticleSystemFactory();
         Root::getSingleton().addMovableObjectFactory(mFactory);
     }
     //-----------------------------------------------------------------------
@@ -88,7 +88,7 @@ namespace Ogre {
         // delete billboard factory
         if (mBillboardRendererFactory)
         {
-            OGRE_DELETE mBillboardRendererFactory;
+            delete mBillboardRendererFactory;
             mBillboardRendererFactory = 0;
         }
 
@@ -96,7 +96,7 @@ namespace Ogre {
         {
             // delete particle system factory
             Root::getSingleton().removeMovableObjectFactory(mFactory);
-            OGRE_DELETE mFactory;
+            delete mFactory;
             mFactory = 0;
         }
 
@@ -161,7 +161,7 @@ namespace Ogre {
                 "ParticleSystemManager::removeTemplate");
 
         if (deleteTemplate)
-            OGRE_DELETE itr->second;
+            delete itr->second;
 
         mSystemTemplates.erase(itr);
     }
@@ -172,7 +172,7 @@ namespace Ogre {
         {
             ParticleTemplateMap::iterator itr;
             for (itr = mSystemTemplates.begin(); itr != mSystemTemplates.end(); ++itr)
-                OGRE_DELETE itr->second;
+                delete itr->second;
         }
 
         mSystemTemplates.clear();
@@ -204,7 +204,7 @@ namespace Ogre {
                 "ParticleSystemManager::createTemplate");
         }
 
-        ParticleSystem* tpl = OGRE_NEW ParticleSystem(name, resourceGroup);
+        ParticleSystem* tpl = new ParticleSystem(name, resourceGroup);
         addTemplate(name, tpl);
         return tpl;
 
@@ -226,7 +226,7 @@ namespace Ogre {
     ParticleSystem* ParticleSystemManager::createSystemImpl(const String& name,
         size_t quota, const String& resourceGroup)
     {
-        ParticleSystem* sys = OGRE_NEW ParticleSystem(name, resourceGroup);
+        ParticleSystem* sys = new ParticleSystem(name, resourceGroup);
         sys->setParticleQuota(quota);
         return sys;
     }
@@ -346,7 +346,7 @@ namespace Ogre {
     void ParticleSystemManager::_initialise(void)
     {
         // Create Billboard renderer factory
-        mBillboardRendererFactory = OGRE_NEW BillboardParticleRendererFactory();
+        mBillboardRendererFactory = new BillboardParticleRendererFactory();
         addRendererFactory(mBillboardRendererFactory);
 
     }

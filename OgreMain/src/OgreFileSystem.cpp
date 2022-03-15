@@ -294,7 +294,7 @@ namespace {
 
         if (mode & std::ios::out)
         {
-            rwStream = OGRE_NEW_T(std::fstream, MEMCATEGORY_GENERAL)();
+            rwStream = new std::fstream();
 
             rwStream->open(full_path.c_str(), mode);
 
@@ -302,7 +302,7 @@ namespace {
         }
         else
         {
-            roStream = OGRE_NEW_T(std::ifstream, MEMCATEGORY_GENERAL)();
+            roStream = new std::ifstream();
 
             roStream->open(full_path.c_str(), mode);
 
@@ -313,8 +313,8 @@ namespace {
         // Should check ensure open succeeded, in case fail for some reason.
         if (baseStream->fail())
         {
-            OGRE_DELETE_T(roStream, basic_ifstream, MEMCATEGORY_GENERAL);
-            OGRE_DELETE_T(rwStream, basic_fstream, MEMCATEGORY_GENERAL);
+            delete roStream;
+            delete rwStream;
             OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, "Cannot open file: " + full_path);
         }
 
@@ -324,13 +324,13 @@ namespace {
         if (rwStream)
         {
             // use the writeable stream
-            stream = OGRE_NEW FileStreamDataStream(streamname, rwStream, st_size);
+            stream = new FileStreamDataStream(streamname, rwStream, st_size);
         }
         else
         {
             OgreAssertDbg(ret == 0, "Problem getting file size");
             // read-only stream
-            stream = OGRE_NEW FileStreamDataStream(streamname, roStream, st_size);
+            stream = new FileStreamDataStream(streamname, roStream, st_size);
         }
         return DataStreamPtr(stream);
     }
@@ -347,19 +347,19 @@ namespace {
         // Always open in binary mode
         // Also, always include reading
         std::ios::openmode mode = std::ios::out | std::ios::binary;
-        std::fstream* rwStream = OGRE_NEW_T(std::fstream, MEMCATEGORY_GENERAL)();
+        std::fstream* rwStream = new std::fstream();
 
         rwStream->open(full_path.c_str(), mode);
 
         // Should check ensure open succeeded, in case fail for some reason.
         if (rwStream->fail())
         {
-            OGRE_DELETE_T(rwStream, basic_fstream, MEMCATEGORY_GENERAL);
+            delete rwStream;
             OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, "Cannot open file: " + filename);
         }
 
         /// Construct return stream, tell it to delete on destroy
-        FileStreamDataStream* stream = OGRE_NEW FileStreamDataStream(filename,
+        FileStreamDataStream* stream = new FileStreamDataStream(filename,
                 rwStream, 0, true);
 
         return DataStreamPtr(stream);
@@ -379,8 +379,7 @@ namespace {
     StringVectorPtr FileSystemArchive::list(bool recursive, bool dirs) const
     {
         // directory change requires locking due to saved returns
-        // Note that we have to tell the SharedPtr to use OGRE_DELETE_T not OGRE_DELETE by passing category
-        StringVectorPtr ret(OGRE_NEW_T(StringVector, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        StringVectorPtr ret(new StringVector());
 
         findFiles("*", recursive, dirs, ret.get(), 0);
 
@@ -389,8 +388,7 @@ namespace {
     //-----------------------------------------------------------------------
     FileInfoListPtr FileSystemArchive::listFileInfo(bool recursive, bool dirs) const
     {
-        // Note that we have to tell the SharedPtr to use OGRE_DELETE_T not OGRE_DELETE by passing category
-        FileInfoListPtr ret(OGRE_NEW_T(FileInfoList, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        FileInfoListPtr ret(new FileInfoList());
 
         findFiles("*", recursive, dirs, 0, ret.get());
 
@@ -400,8 +398,7 @@ namespace {
     StringVectorPtr FileSystemArchive::find(const String& pattern,
                                             bool recursive, bool dirs) const
     {
-        // Note that we have to tell the SharedPtr to use OGRE_DELETE_T not OGRE_DELETE by passing category
-        StringVectorPtr ret(OGRE_NEW_T(StringVector, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        StringVectorPtr ret(new StringVector());
 
         findFiles(pattern, recursive, dirs, ret.get(), 0);
 
@@ -412,8 +409,7 @@ namespace {
     FileInfoListPtr FileSystemArchive::findFileInfo(const String& pattern, 
         bool recursive, bool dirs) const
     {
-        // Note that we have to tell the SharedPtr to use OGRE_DELETE_T not OGRE_DELETE by passing category
-        FileInfoListPtr ret(OGRE_NEW_T(FileInfoList, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        FileInfoListPtr ret(new FileInfoList());
 
         findFiles(pattern, recursive, dirs, 0, ret.get());
 
@@ -469,7 +465,7 @@ namespace {
 
     Archive *FileSystemArchiveFactory::createInstance( const String& name, bool readOnly )
     {
-        return OGRE_NEW FileSystemArchive(name, getType(), readOnly);
+        return new FileSystemArchive(name, getType(), readOnly);
     }
 
     void FileSystemArchiveFactory::setIgnoreHidden(bool ignore)

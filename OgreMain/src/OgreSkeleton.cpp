@@ -121,7 +121,7 @@ class Affine3;
         BoneList::iterator i;
         for (i = mBoneList.begin(); i != mBoneList.end(); ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
         mBoneList.clear();
         mBoneListByName.clear();
@@ -133,7 +133,7 @@ class Affine3;
         AnimationList::iterator ai;
         for (ai = mAnimationsList.begin(); ai != mAnimationsList.end(); ++ai)
         {
-            OGRE_DELETE ai->second;
+            delete ai->second;
         }
         mAnimationsList.clear();
 
@@ -163,7 +163,7 @@ class Affine3;
                 "A bone with the handle " + StringConverter::toString(handle) + " already exists",
                 "Skeleton::createBone" );
         }
-        Bone* ret = OGRE_NEW Bone(handle, this);
+        Bone* ret = new Bone(handle, this);
         assert(mBoneListByName.find(ret->getName()) == mBoneListByName.end());
         if (mBoneList.size() <= handle)
         {
@@ -194,7 +194,7 @@ class Affine3;
                 "A bone with the name " + name + " already exists",
                 "Skeleton::createBone" );
         }
-        Bone* ret = OGRE_NEW Bone(name, handle, this);
+        Bone* ret = new Bone(name, handle, this);
         if (mBoneList.size() <= handle)
         {
             mBoneList.resize(handle+1);
@@ -309,7 +309,7 @@ class Affine3;
                 "Skeleton::createAnimation");
         }
 
-        Animation* ret = OGRE_NEW Animation(name, length);
+        Animation* ret = new Animation(name, length);
         ret->_notifyContainer(this);
 
         // Add to list
@@ -387,7 +387,7 @@ class Affine3;
             "Skeleton::getAnimation");
         }
 
-        OGRE_DELETE i->second;
+        delete i->second;
 
         mAnimationsList.erase(i);
 

@@ -85,7 +85,7 @@ class RenderQueue;
 
         for(FactoryMap::iterator i = mFactories.begin(); i != mFactories.end(); ++i)
         {
-            OGRE_DELETE i->second;
+            delete i->second;
         }
 
         // Unregister with resource group manager
@@ -122,7 +122,7 @@ class RenderQueue;
 
         if (i == mOverlayMap.end())
         {
-            ret = OGRE_NEW Overlay(name);
+            ret = new Overlay(name);
             assert(ret && "Overlay creation failed");
             mOverlayMap[name] = ret;
         }
@@ -170,7 +170,7 @@ class RenderQueue;
         }
         else
         {
-            OGRE_DELETE i->second;
+            delete i->second;
             mOverlayMap.erase(i);
         }
     }
@@ -182,7 +182,7 @@ class RenderQueue;
         {
             if (i->second == overlay)
             {
-                OGRE_DELETE i->second;
+                delete i->second;
                 mOverlayMap.erase(i);
                 return;
             }
@@ -198,7 +198,7 @@ class RenderQueue;
         for (OverlayMap::iterator i = mOverlayMap.begin();
             i != mOverlayMap.end(); ++i)
         {
-            OGRE_DELETE i->second;
+            delete i->second;
         }
         mOverlayMap.clear();
     }

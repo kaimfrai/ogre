@@ -219,18 +219,18 @@ namespace Ogre
         {
             if(initialWeight >= 0)
             {
-                mBlendMask = OGRE_NEW_T(BoneBlendMask, MEMCATEGORY_ANIMATION)(blendMaskSizeHint, initialWeight);
+                mBlendMask = new BoneBlendMask(blendMaskSizeHint, initialWeight);
             }
             else
             {
-                mBlendMask = OGRE_NEW_T(BoneBlendMask, MEMCATEGORY_ANIMATION)(blendMaskSizeHint);
+                mBlendMask = new BoneBlendMask(blendMaskSizeHint);
             }
         }
     }
     //---------------------------------------------------------------------
     void AnimationState::destroyBlendMask()
     {
-        OGRE_DELETE_T(mBlendMask, BoneBlendMask, MEMCATEGORY_ANIMATION);
+        delete mBlendMask;
         mBlendMask = 0;
     }
     //---------------------------------------------------------------------
@@ -248,7 +248,7 @@ namespace Ogre
             i != rhs.mAnimationStates.end(); ++i)
         {
             AnimationState* src = i->second;
-            mAnimationStates[src->getAnimationName()] = OGRE_NEW AnimationState(this, *src);
+            mAnimationStates[src->getAnimationName()] = new AnimationState(this, *src);
         }
 
         // Clone enabled animation state list
@@ -273,7 +273,7 @@ namespace Ogre
         {
             mEnabledAnimationStates.remove(i->second);
 
-            OGRE_DELETE i->second;
+            delete i->second;
             mAnimationStates.erase(i);
         }
     }
@@ -283,7 +283,7 @@ namespace Ogre
         for (AnimationStateMap::iterator i = mAnimationStates.begin();
             i != mAnimationStates.end(); ++i)
         {
-            OGRE_DELETE i->second;
+            delete i->second;
         }
         mAnimationStates.clear();
         mEnabledAnimationStates.clear();
@@ -300,7 +300,7 @@ namespace Ogre
                 "AnimationStateSet::createAnimationState");
         }
 
-        AnimationState* newState = OGRE_NEW AnimationState(name, this, timePos, 
+        AnimationState* newState = new AnimationState(name, this, timePos, 
             length, weight, enabled);
         mAnimationStates[name] = newState;
         return newState;

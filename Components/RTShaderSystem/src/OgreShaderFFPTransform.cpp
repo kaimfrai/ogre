@@ -182,7 +182,7 @@ void FFPTransformFactory::writeInstance(MaterialSerializer* ser, SubRenderState*
 //-----------------------------------------------------------------------
 SubRenderState* FFPTransformFactory::createInstanceImpl()
 {
-    return OGRE_NEW FFPTransform;
+    return new FFPTransform;
 }
 
 

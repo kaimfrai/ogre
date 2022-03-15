@@ -64,7 +64,7 @@ void ZipArchiveTests::SetUp()
 //--------------------------------------------------------------------------
 void ZipArchiveTests::TearDown()
 {
-    OGRE_DELETE arch;
+    delete arch;
 }
 //--------------------------------------------------------------------------
 TEST_F(ZipArchiveTests,ListNonRecursive)

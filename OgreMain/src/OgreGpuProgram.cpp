@@ -286,13 +286,13 @@ class ResourceManager;
     void GpuProgram::createLogicalParameterMappingStructures(bool recreateIfExists)
     {
         if (recreateIfExists || !mLogicalToPhysical)
-            mLogicalToPhysical = GpuLogicalBufferStructPtr(OGRE_NEW GpuLogicalBufferStruct());
+            mLogicalToPhysical = GpuLogicalBufferStructPtr(new GpuLogicalBufferStruct());
     }
     //---------------------------------------------------------------------
     void GpuProgram::createNamedParameterMappingStructures(bool recreateIfExists)
     {
         if (recreateIfExists || !mConstantDefs)
-            mConstantDefs = GpuNamedConstantsPtr(OGRE_NEW GpuNamedConstants());
+            mConstantDefs = GpuNamedConstantsPtr(new GpuNamedConstants());
     }
     //---------------------------------------------------------------------
     void GpuProgram::setManualNamedConstantsFile(const String& paramDefFile)

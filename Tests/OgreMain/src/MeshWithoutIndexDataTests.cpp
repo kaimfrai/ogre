@@ -61,37 +61,37 @@ namespace Ogre {
 //--------------------------------------------------------------------------
 void MeshWithoutIndexDataTests::SetUp()
 {    
-    OGRE_NEW ResourceGroupManager();
-    OGRE_NEW LodStrategyManager();
-    mBufMgr = OGRE_NEW DefaultHardwareBufferManager();
-    mMeshMgr = OGRE_NEW MeshManager();
-    mArchiveMgr = OGRE_NEW ArchiveManager();
-    mArchiveMgr->addArchiveFactory(OGRE_NEW FileSystemArchiveFactory());
+    new ResourceGroupManager();
+    new LodStrategyManager();
+    mBufMgr = new DefaultHardwareBufferManager();
+    mMeshMgr = new MeshManager();
+    mArchiveMgr = new ArchiveManager();
+    mArchiveMgr->addArchiveFactory(new FileSystemArchiveFactory());
 
-    MaterialManager* matMgr = OGRE_NEW MaterialManager();
+    MaterialManager* matMgr = new MaterialManager();
     matMgr->initialise();
 }
 //--------------------------------------------------------------------------
 void MeshWithoutIndexDataTests::TearDown()
 {
-    OGRE_DELETE MaterialManager::getSingletonPtr();
-    OGRE_DELETE mArchiveMgr;
-    OGRE_DELETE mMeshMgr;
-    OGRE_DELETE mBufMgr;
-    OGRE_DELETE LodStrategyManager::getSingletonPtr();
-    OGRE_DELETE ResourceGroupManager::getSingletonPtr();
+    delete MaterialManager::getSingletonPtr();
+    delete mArchiveMgr;
+    delete mMeshMgr;
+    delete mBufMgr;
+    delete LodStrategyManager::getSingletonPtr();
+    delete ResourceGroupManager::getSingletonPtr();
 }
 //--------------------------------------------------------------------------
 TEST_F(MeshWithoutIndexDataTests,CreateSimpleLine)
 {
-    ManualObject* line = OGRE_NEW ManualObject("line");
+    ManualObject* line = new ManualObject("line");
     line->begin("BaseWhiteNoLighting", RenderOperation::OT_LINE_LIST);
     line->position(0, 50, 0);
     line->position(50, 100, 0);
     line->end();
     String fileName = "line.mesh";
     MeshPtr lineMesh = line->convertToMesh(fileName);
-    OGRE_DELETE line;
+    delete line;
 
     EXPECT_TRUE(lineMesh->getNumSubMeshes() == 1);
     EXPECT_TRUE(lineMesh->getSubMesh(0)->indexData->indexCount == 0);
@@ -121,7 +121,7 @@ TEST_F(MeshWithoutIndexDataTests,CreateSimpleLine)
 //--------------------------------------------------------------------------
 TEST_F(MeshWithoutIndexDataTests,CreateLineList)
 {
-    ManualObject* lineList = OGRE_NEW ManualObject("line");
+    ManualObject* lineList = new ManualObject("line");
     lineList->begin("BaseWhiteNoLighting", RenderOperation::OT_LINE_LIST);
     lineList->position(0, 50, 0);
     lineList->position(50, 100, 0);
@@ -132,7 +132,7 @@ TEST_F(MeshWithoutIndexDataTests,CreateLineList)
     lineList->end();
     String fileName = "lineList.mesh";
     MeshPtr lineListMesh = lineList->convertToMesh(fileName);
-    OGRE_DELETE lineList;
+    delete lineList;
 
     EXPECT_TRUE(lineListMesh->getNumSubMeshes() == 1);
     EXPECT_TRUE(lineListMesh->getSubMesh(0)->indexData->indexCount == 0);
@@ -162,7 +162,7 @@ TEST_F(MeshWithoutIndexDataTests,CreateLineList)
 //--------------------------------------------------------------------------
 TEST_F(MeshWithoutIndexDataTests,CreateLineStrip)
 {
-    ManualObject* lineStrip = OGRE_NEW ManualObject("line");
+    ManualObject* lineStrip = new ManualObject("line");
     lineStrip->begin("BaseWhiteNoLighting", RenderOperation::OT_LINE_STRIP);
     lineStrip->position(50, 100, 0);
     lineStrip->position(0, 50, 0);
@@ -171,7 +171,7 @@ TEST_F(MeshWithoutIndexDataTests,CreateLineStrip)
     lineStrip->end();
     String fileName = "lineStrip.mesh";
     MeshPtr lineStripMesh = lineStrip->convertToMesh(fileName);
-    OGRE_DELETE lineStrip;
+    delete lineStrip;
 
     EXPECT_TRUE(lineStripMesh->getNumSubMeshes() == 1);
     EXPECT_TRUE(lineStripMesh->getSubMesh(0)->indexData->indexCount == 0);
@@ -201,7 +201,7 @@ TEST_F(MeshWithoutIndexDataTests,CreateLineStrip)
 //--------------------------------------------------------------------------
 TEST_F(MeshWithoutIndexDataTests,CreatePointList)
 {
-    ManualObject* pointList = OGRE_NEW ManualObject("line");
+    ManualObject* pointList = new ManualObject("line");
     pointList->begin("BaseWhiteNoLighting", RenderOperation::OT_POINT_LIST);
     pointList->position(50, 100, 0);
     pointList->position(0, 50, 0);
@@ -210,7 +210,7 @@ TEST_F(MeshWithoutIndexDataTests,CreatePointList)
     pointList->end();
     String fileName = "pointList.mesh";
     MeshPtr pointListMesh = pointList->convertToMesh(fileName);
-    OGRE_DELETE pointList;
+    delete pointList;
 
     EXPECT_TRUE(pointListMesh->getNumSubMeshes() == 1);
     EXPECT_TRUE(pointListMesh->getSubMesh(0)->indexData->indexCount == 0);
@@ -245,14 +245,14 @@ TEST_F(MeshWithoutIndexDataTests,CreateLineWithMaterial)
     Pass* pass = matPtr->getTechnique(0)->getPass(0);
     pass->setDiffuse(1.0, 0.1, 0.1, 0);
 
-    ManualObject* line = OGRE_NEW ManualObject("line");
+    ManualObject* line = new ManualObject("line");
     line->begin(matName, RenderOperation::OT_LINE_LIST);
     line->position(0, 50, 0);
     line->position(50, 100, 0);
     line->end();
     String fileName = "lineWithMat.mesh";
     MeshPtr lineMesh = line->convertToMesh(fileName);
-    OGRE_DELETE line;
+    delete line;
 
     EXPECT_TRUE(lineMesh->getNumSubMeshes() == 1);
     EXPECT_TRUE(lineMesh->getSubMesh(0)->indexData->indexCount == 0);
@@ -312,7 +312,7 @@ static void createMeshWithMaterial(String fileName)
     pass = matPtr->getTechnique(0)->getPass(0);
     pass->setDiffuse(1.0, 1.0, 0.1, 0);
 
-    ManualObject* manObj = OGRE_NEW ManualObject("mesh");
+    ManualObject* manObj = new ManualObject("mesh");
     manObj->begin(matName1, RenderOperation::OT_TRIANGLE_LIST);
     manObj->position(0, 50, 0);
     manObj->position(50, 50, 0);
@@ -342,7 +342,7 @@ static void createMeshWithMaterial(String fileName)
     manObj->position(0, 0, 0);
     manObj->end();
     manObj->convertToMesh(fileName);
-    OGRE_DELETE manObj;
+    delete manObj;
 }
 //--------------------------------------------------------------------------
 TEST_F(MeshWithoutIndexDataTests,CreateMesh)
@@ -403,13 +403,13 @@ TEST_F(MeshWithoutIndexDataTests,CloneMesh)
 TEST_F(MeshWithoutIndexDataTests,EdgeList)
 {
     String fileName = "testEdgeList.mesh";
-    ManualObject* line = OGRE_NEW ManualObject("line");
+    ManualObject* line = new ManualObject("line");
     line->begin("BaseWhiteNoLighting", RenderOperation::OT_LINE_LIST);
     line->position(0, 50, 0);
     line->position(50, 100, 0);
     line->end();
     MeshPtr mesh = line->convertToMesh(fileName);
-    OGRE_DELETE line;
+    delete line;
 
     // whole mesh must not contain index data, for this test
     EXPECT_TRUE(mesh->getNumSubMeshes() == 1);

@@ -92,7 +92,7 @@ class InstancedEntity;
             InstanceBatchVec::const_iterator en = itor->second.end();
 
             while( it != en )
-                OGRE_DELETE *it++;
+                delete *it++;
 
             ++itor;
         }
@@ -133,22 +133,22 @@ class InstancedEntity;
         switch( mInstancingTechnique )
         {
         case ShaderBased:
-            batch = OGRE_NEW InstanceBatchShader( this, mMeshReference, mat, suggestedSize,
+            batch = new InstanceBatchShader( this, mMeshReference, mat, suggestedSize,
                                                     0, mName + "/TempBatch" );
             break;
         case TextureVTF:
-            batch = OGRE_NEW InstanceBatchVTF( this, mMeshReference, mat, suggestedSize,
+            batch = new InstanceBatchVTF( this, mMeshReference, mat, suggestedSize,
                                                     0, mName + "/TempBatch" );
             static_cast<InstanceBatchVTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
             static_cast<InstanceBatchVTF*>(batch)->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
             static_cast<InstanceBatchVTF*>(batch)->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
             break;
         case HWInstancingBasic:
-            batch = OGRE_NEW InstanceBatchHW( this, mMeshReference, mat, suggestedSize,
+            batch = new InstanceBatchHW( this, mMeshReference, mat, suggestedSize,
                                                     0, mName + "/TempBatch" );
             break;
         case HWInstancingVTF:
-            batch = OGRE_NEW InstanceBatchHW_VTF( this, mMeshReference, mat, suggestedSize,
+            batch = new InstanceBatchHW_VTF( this, mMeshReference, mat, suggestedSize,
                                                     0, mName + "/TempBatch" );
             static_cast<InstanceBatchHW_VTF*>(batch)->setBoneMatrixLookup((mInstancingFlags & IM_VTFBONEMATRIXLOOKUP) != 0, mMaxLookupTableInstances);
             static_cast<InstanceBatchHW_VTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
@@ -165,7 +165,7 @@ class InstancedEntity;
         const size_t retVal = batch->calculateMaxNumInstances( mMeshReference->getSubMesh(mSubMeshIdx),
                                                                 flags );
 
-        OGRE_DELETE batch;
+        delete batch;
 
         return retVal;
     }
@@ -219,12 +219,12 @@ class InstancedEntity;
         switch( mInstancingTechnique )
         {
         case ShaderBased:
-            batch = OGRE_NEW InstanceBatchShader( this, mMeshReference, mat, mInstancesPerBatch,
+            batch = new InstanceBatchShader( this, mMeshReference, mat, mInstancesPerBatch,
                                                     &idxMap, mName + "/InstanceBatch_" +
                                                     StringConverter::toString(mIdCount++) );
             break;
         case TextureVTF:
-            batch = OGRE_NEW InstanceBatchVTF( this, mMeshReference, mat, mInstancesPerBatch,
+            batch = new InstanceBatchVTF( this, mMeshReference, mat, mInstancesPerBatch,
                                                     &idxMap, mName + "/InstanceBatch_" +
                                                     StringConverter::toString(mIdCount++) );
             static_cast<InstanceBatchVTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
@@ -232,12 +232,12 @@ class InstancedEntity;
             static_cast<InstanceBatchVTF*>(batch)->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
             break;
         case HWInstancingBasic:
-            batch = OGRE_NEW InstanceBatchHW( this, mMeshReference, mat, mInstancesPerBatch,
+            batch = new InstanceBatchHW( this, mMeshReference, mat, mInstancesPerBatch,
                                                     &idxMap, mName + "/InstanceBatch_" +
                                                     StringConverter::toString(mIdCount++) );
             break;
         case HWInstancingVTF:
-            batch = OGRE_NEW InstanceBatchHW_VTF( this, mMeshReference, mat, mInstancesPerBatch,
+            batch = new InstanceBatchHW_VTF( this, mMeshReference, mat, mInstancesPerBatch,
                                                     &idxMap, mName + "/InstanceBatch_" +
                                                     StringConverter::toString(mIdCount++) );
             static_cast<InstanceBatchHW_VTF*>(batch)->setBoneMatrixLookup((mInstancingFlags & IM_VTFBONEMATRIXLOOKUP) != 0, mMaxLookupTableInstances);
@@ -307,7 +307,7 @@ class InstancedEntity;
             {
                 if( (*it)->isBatchUnused() )
                 {
-                    OGRE_DELETE *it;
+                    delete *it;
                     //Remove it from the list swapping with the last element and popping back
                     size_t idx = it - itor->second.begin();
                     *it = itor->second.back();
@@ -355,7 +355,7 @@ class InstancedEntity;
                 //Destroy them
                 //Call this to avoid freeing InstancedEntities that were just reparented
                 (*itor)->_defragmentBatchDiscard();
-                OGRE_DELETE *itor;
+                delete *itor;
             }
             else
             {

@@ -72,7 +72,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     WorkQueue::Response::~Response()
     {
-        OGRE_DELETE mRequest;
+        delete mRequest;
     }
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
@@ -123,13 +123,13 @@ namespace Ogre {
 
         for (RequestQueue::iterator i = mRequestQueue.begin(); i != mRequestQueue.end(); ++i)
         {
-            OGRE_DELETE (*i);
+            delete (*i);
         }
         mRequestQueue.clear();
 
         for (ResponseQueue::iterator i = mResponseQueue.begin(); i != mResponseQueue.end(); ++i)
         {
-            OGRE_DELETE (*i);
+            delete (*i);
         }
         mResponseQueue.clear();
     }
@@ -151,7 +151,7 @@ namespace Ogre {
             }
         }
         if (!duplicate)
-            handlers.push_back(RequestHandlerHolderPtr(OGRE_NEW RequestHandlerHolder(rh)));
+            handlers.push_back(RequestHandlerHolderPtr(new RequestHandlerHolder(rh)));
 
     }
     //---------------------------------------------------------------------
@@ -216,7 +216,7 @@ namespace Ogre {
                 return 0;
 
             rid = ++mRequestCount;
-            req = OGRE_NEW Request(channel, requestType, rData, retryCount, rid);
+            req = new Request(channel, requestType, rData, retryCount, rid);
 
             LogManager::getSingleton().stream(LML_TRIVIAL) << 
                 "DefaultWorkQueueBase('" << mName << "') - QUEUED(thread:" <<
@@ -253,7 +253,7 @@ namespace Ogre {
         if (mShuttingDown)
             return;
 
-        Request* req = OGRE_NEW Request(channel, requestType, rData, retryCount, rid);
+        Request* req = new Request(channel, requestType, rData, retryCount, rid);
 
         LogManager::getSingleton().stream(LML_TRIVIAL) << 
             "DefaultWorkQueueBase('" << mName << "') - REQUEUED(thread:" <<
@@ -555,14 +555,14 @@ namespace Ogre {
                     addRequestWithRID(req->getID(), req->getChannel(), req->getType(), req->getData(), 
                         req->getRetryCount() - 1);
                     // discard response (this also deletes request)
-                    OGRE_DELETE response;
+                    delete response;
                     return;
                 }
             }
             if (synchronous)
             {
                 processResponse(response);
-                OGRE_DELETE response;
+                delete response;
             }
             else
             {
@@ -588,7 +588,7 @@ namespace Ogre {
                 << r->getID() << ", channel " << r->getChannel()
                 << ", type " << r->getType();
             }
-            OGRE_DELETE r;
+            delete r;
         }
 
     }
@@ -618,7 +618,7 @@ namespace Ogre {
             {
                 processResponse(response);
 
-                OGRE_DELETE response;
+                delete response;
 
             }
 

@@ -425,7 +425,7 @@ namespace Ogre {
             PriorityMap::iterator i;
             for (i = mPriorityGroups.begin(); i != mPriorityGroups.end(); ++i)
             {
-                OGRE_DELETE i->second;
+                delete i->second;
             }
         }
 
@@ -440,7 +440,7 @@ namespace Ogre {
             if (i == mPriorityGroups.end())
             {
                 // Missing, create
-                pPriorityGrp = OGRE_NEW RenderPriorityGroup(this, 
+                pPriorityGrp = new RenderPriorityGroup(this, 
                     mSplitPassesByLightingType,
                     mSplitNoShadowPasses, 
                     mShadowCastersNotReceivers);
@@ -476,7 +476,7 @@ namespace Ogre {
             for (i = mPriorityGroups.begin(); i != iend; ++i)
             {
                 if (destroy)
-                    OGRE_DELETE i->second;
+                    delete i->second;
                 else
                     i->second->clear();
             }
@@ -612,7 +612,7 @@ namespace Ogre {
                 if (i == mPriorityGroups.end())
                 {
                     // Missing, create
-                    pDstPriorityGrp = OGRE_NEW RenderPriorityGroup(this, 
+                    pDstPriorityGrp = new RenderPriorityGroup(this, 
                         mSplitPassesByLightingType,
                         mSplitNoShadowPasses, 
                         mShadowCastersNotReceivers);

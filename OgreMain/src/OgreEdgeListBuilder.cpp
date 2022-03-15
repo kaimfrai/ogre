@@ -177,7 +177,7 @@ namespace Ogre {
         // triangles by vertex set easy.
         std::sort(mGeometryList.begin(), mGeometryList.end(), geometryLess());
         // Initialize edge data
-        mEdgeData = OGRE_NEW EdgeData();
+        mEdgeData = new EdgeData();
         // resize the edge group list to equal the number of vertex sets
         mEdgeData->edgeGroups.resize(mVertexDataList.size());
         // Initialise edge group data
@@ -448,7 +448,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     EdgeData* EdgeData::clone()
     {
-        EdgeData* newEdgeData = OGRE_NEW EdgeData();
+        EdgeData* newEdgeData = new EdgeData();
         newEdgeData->triangles = triangles;
         newEdgeData->triangleFaceNormals = triangleFaceNormals;
         newEdgeData->triangleLightFacings = triangleLightFacings;

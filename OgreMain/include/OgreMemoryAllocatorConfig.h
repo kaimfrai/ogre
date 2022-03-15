@@ -166,42 +166,4 @@ namespace Ogre
 
 }
 
-// define macros 
-
-/** \addtogroup Core
-*  @{
-*/
-/** \addtogroup General
-*  @{
-*/
-
-/// Allocate a block of raw memory, and indicate the category of usage
-#   define OGRE_MALLOC(bytes, category) (void*)new char[bytes]
-/// Allocate a block of memory for a primitive type, and indicate the category of usage
-#   define OGRE_ALLOC_T(T, count, category) (T*)new char[(count) * sizeof(T)]
-/// Free the memory allocated with OGRE_MALLOC or OGRE_ALLOC_T. Category is required to be restated to ensure the matching policy is used
-#   define OGRE_FREE(ptr, category) delete[] (char*)ptr
-
-/// Allocate space for one primitive type, external type or non-virtual type with constructor parameters
-#   define OGRE_NEW_T(T, category) new T
-/// Allocate a block of memory for 'count' primitive types - do not use for classes that inherit from AllocatedObject
-#   define OGRE_NEW_ARRAY_T(T, count, category) new T[count]
-/// Free the memory allocated with OGRE_NEW_T. Category is required to be restated to ensure the matching policy is used
-#   define OGRE_DELETE_T(ptr, T, category) delete ptr
-/// Free the memory allocated with OGRE_NEW_ARRAY_T. Category is required to be restated to ensure the matching policy is used, count and type to call destructor
-#   define OGRE_DELETE_ARRAY_T(ptr, T, count, category) delete[] ptr
-
-// aligned allocation
-/// Allocate a block of raw memory aligned to SIMD boundaries, and indicate the category of usage
-#   define OGRE_MALLOC_SIMD(bytes, category) ::Ogre::AlignedMemory::allocate(bytes)
-/// Free the memory allocated with either OGRE_MALLOC_SIMD or OGRE_ALLOC_T_SIMD. Category is required to be restated to ensure the matching policy is used
-#   define OGRE_FREE_SIMD(ptr, category) ::Ogre::AlignedMemory::deallocate((void*)ptr)
-
-// new / delete for classes deriving from AllocatedObject (alignment determined by per-class policy)
-#   define OGRE_NEW new 
-#   define OGRE_DELETE delete
-
-/** @} */
-/** @} */
-
 #endif

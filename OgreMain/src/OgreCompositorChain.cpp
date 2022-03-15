@@ -144,7 +144,7 @@ void CompositorChain::createOriginalScene()
         pass->setLastRenderQueue(RENDER_QUEUE_SKIES_LATE);
         scene->load();
     }
-    mOriginalScene = OGRE_NEW CompositorInstance(scene->getSupportedTechnique(), this);
+    mOriginalScene = new CompositorInstance(scene->getSupportedTechnique(), this);
 }
 //-----------------------------------------------------------------------
 void CompositorChain::destroyOriginalScene()
@@ -152,7 +152,7 @@ void CompositorChain::destroyOriginalScene()
     /// Destroy "original scene" compositor instance
     if (mOriginalScene)
     {
-        OGRE_DELETE mOriginalScene;
+        delete mOriginalScene;
         mOriginalScene = 0;
     }
 }
@@ -168,7 +168,7 @@ CompositorInstance* CompositorChain::addCompositor(CompositorPtr filter, size_t 
     {
         return 0;
     }
-    CompositorInstance *t = OGRE_NEW CompositorInstance(tech, this);
+    CompositorInstance *t = new CompositorInstance(tech, this);
     
     if(addPosition == LAST)
         addPosition = mInstances.size();
@@ -188,7 +188,7 @@ void CompositorChain::removeCompositor(size_t index)
 
     assert (index < mInstances.size() && "Index out of bounds.");
     Instances::iterator i = mInstances.begin() + index;
-    OGRE_DELETE *i;
+    delete *i;
     mInstances.erase(i);
     
     mDirty = true;
@@ -205,7 +205,7 @@ void CompositorChain::removeAllCompositors()
     iend = mInstances.end();
     for (i = mInstances.begin(); i != iend; ++i)
     {
-        OGRE_DELETE *i;
+        delete *i;
     }
     mInstances.clear();
     
@@ -219,7 +219,7 @@ void CompositorChain::_removeInstance(CompositorInstance *i)
     if(it != mInstances.end())
     {
         mInstances.erase(it);
-        OGRE_DELETE i;
+        delete i;
     }
 }
 //-----------------------------------------------------------------------
@@ -481,7 +481,7 @@ void CompositorChain::clearCompiledState()
     for (RenderSystemOperations::iterator i = mRenderSystemOperations.begin();
         i != mRenderSystemOperations.end(); ++i)
     {
-        OGRE_DELETE *i;
+        delete *i;
     }
     mRenderSystemOperations.clear();
 

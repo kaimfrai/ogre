@@ -329,12 +329,12 @@ void TestContext::createRoot()
 
     Ogre::String pluginsPath = Ogre::BLANKSTRING;
     // we use separate config and log files for the tests
-    mRoot = OGRE_NEW Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogretests.cfg"),
+    mRoot = new Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogretests.cfg"),
                                 mFSLayer->getWritablePath("ogretests.log"));
 
     mStaticPluginLoader.load();
 
-    mOverlaySystem = OGRE_NEW Ogre::OverlaySystem();
+    mOverlaySystem = new Ogre::OverlaySystem();
 }
 //-----------------------------------------------------------------------
 
@@ -484,7 +484,7 @@ void TestContext::finishedTests()
 
         if (foundReference)
         {
-            ref = OGRE_NEW TestBatch(info, mReferenceSetPath + mCompareWith);
+            ref = new TestBatch(info, mReferenceSetPath + mCompareWith);
             if (mBatch->canCompareWith(*ref))
                 compareTo = ref;
         }
@@ -520,7 +520,7 @@ void TestContext::finishedTests()
             }
         }
 
-        OGRE_DELETE ref;
+        delete ref;
     }
 
     // write this batch's config file

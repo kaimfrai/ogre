@@ -428,7 +428,7 @@ class ResourceManager;
         const String& name, ResourceHandle handle,
         const String& group, bool isManual, ManualResourceLoader* loader)
     {
-        return OGRE_NEW UnifiedHighLevelGpuProgram(creator, name, handle, group, isManual, loader);
+        return new UnifiedHighLevelGpuProgram(creator, name, handle, group, isManual, loader);
     }
 }
 

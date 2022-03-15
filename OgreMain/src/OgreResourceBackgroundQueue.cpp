@@ -175,7 +175,7 @@ namespace Ogre {
         req.isManual = isManual;
         req.loader = loader;
         // Make instance copy of loadParams for thread independence
-        req.loadParams = ( loadParams ? OGRE_NEW_T(NameValuePairList, MEMCATEGORY_GENERAL)( *loadParams ) : 0 );
+        req.loadParams = ( loadParams ? new NameValuePairList( *loadParams ) : 0 );
         req.listener = listener;
         return addRequest(req);
     }
@@ -196,7 +196,7 @@ namespace Ogre {
         req.isManual = isManual;
         req.loader = loader;
         // Make instance copy of loadParams for thread independence
-        req.loadParams = ( loadParams ? OGRE_NEW_T(NameValuePairList, MEMCATEGORY_GENERAL)( *loadParams ) : 0 );
+        req.loadParams = ( loadParams ? new NameValuePairList( *loadParams ) : 0 );
         req.listener = listener;
         return addRequest(req);
     }
@@ -278,12 +278,12 @@ namespace Ogre {
         {
             if( resreq.type == RT_PREPARE_RESOURCE || resreq.type == RT_LOAD_RESOURCE )
             {
-                OGRE_DELETE_T(resreq.loadParams, NameValuePairList, MEMCATEGORY_GENERAL);
+                delete resreq.loadParams;
                 resreq.loadParams = 0;
             }
             resreq.result.error = false;
             ResourceResponse resresp(ResourcePtr(), resreq);
-            return OGRE_NEW WorkQueue::Response(req, true, resresp);
+            return new WorkQueue::Response(req, true, resresp);
         }
 
         ResourceManager* rm = 0;
@@ -338,7 +338,7 @@ namespace Ogre {
         {
             if( resreq.type == RT_PREPARE_RESOURCE || resreq.type == RT_LOAD_RESOURCE )
             {
-                OGRE_DELETE_T(resreq.loadParams, NameValuePairList, MEMCATEGORY_GENERAL);
+                delete resreq.loadParams;
                 resreq.loadParams = 0;
             }
             resreq.result.error = true;
@@ -346,19 +346,19 @@ namespace Ogre {
 
             // return error response
             ResourceResponse resresp(resource, resreq);
-            return OGRE_NEW WorkQueue::Response(req, false, resresp, e.getFullDescription());
+            return new WorkQueue::Response(req, false, resresp, e.getFullDescription());
         }
 
 
         // success
         if( resreq.type == RT_PREPARE_RESOURCE || resreq.type == RT_LOAD_RESOURCE )
         {
-            OGRE_DELETE_T(resreq.loadParams, NameValuePairList, MEMCATEGORY_GENERAL);
+            delete resreq.loadParams;
             resreq.loadParams = 0;
         }
         resreq.result.error = false;
         ResourceResponse resresp(resource, resreq);
-        return OGRE_NEW WorkQueue::Response(req, true, resresp);
+        return new WorkQueue::Response(req, true, resresp);
 
     }
     //------------------------------------------------------------------------

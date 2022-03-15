@@ -56,7 +56,7 @@ namespace Ogre {
         mZOrder(100), mVisible(false), mInitialised(false)
 
     {
-        mRootNode = OGRE_NEW SceneNode(NULL);
+        mRootNode = new SceneNode(NULL);
 
     }
     //---------------------------------------------------------------------
@@ -64,7 +64,7 @@ namespace Ogre {
     {
         // remove children
 
-        OGRE_DELETE mRootNode;
+        delete mRootNode;
         
         for (OverlayContainerList::iterator i = m2DElements.begin(); 
              i != m2DElements.end(); ++i)

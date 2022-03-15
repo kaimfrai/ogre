@@ -121,7 +121,7 @@ namespace Ogre {
                 "Resource group with name '" + name + "' already exists!", 
                 "ResourceGroupManager::createResourceGroup");
         }
-        ResourceGroup* grp = OGRE_NEW_T(ResourceGroup, MEMCATEGORY_RESOURCE)();
+        ResourceGroup* grp = new ResourceGroup();
         grp->groupStatus = ResourceGroup::UNINITIALSED;
         grp->name = name;
         grp->inGlobalPool = inGlobalPool;
@@ -846,7 +846,7 @@ namespace Ogre {
 
                         if(fii->archive->getType() == "FileSystem" && stream->size() <= 1024 * 1024)
                         {
-                            DataStreamPtr cachedCopy(OGRE_NEW MemoryDataStream(stream->getName(), stream));
+                            DataStreamPtr cachedCopy(new MemoryDataStream(stream->getName(), stream));
                             su->parseScript(cachedCopy, grp->name);
                         }
                         else
@@ -1083,7 +1083,7 @@ namespace Ogre {
         grp->loadResourceOrderMap.clear();
 
         // delete ResourceGroup
-        OGRE_DELETE_T(grp, ResourceGroup, MEMCATEGORY_RESOURCE);
+        delete grp;
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireResourceGroupScriptingStarted(const String& groupName, size_t scriptCount) const
@@ -1246,7 +1246,7 @@ namespace Ogre {
     StringVectorPtr ResourceGroupManager::listResourceNames(const String& groupName, bool dirs) const
     {
         // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
-        StringVectorPtr vec(OGRE_NEW_T(StringVector, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        StringVectorPtr vec(new StringVector());
 
         // Try to find in resource index first
         ResourceGroup* grp = getResourceGroup(groupName, true);
@@ -1268,7 +1268,7 @@ namespace Ogre {
     FileInfoListPtr ResourceGroupManager::listResourceFileInfo(const String& groupName, bool dirs) const
     {
         // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
-        FileInfoListPtr vec(OGRE_NEW_T(FileInfoList, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        FileInfoListPtr vec(new FileInfoList());
 
         // Try to find in resource index first
         ResourceGroup* grp = getResourceGroup(groupName, true);
@@ -1290,7 +1290,7 @@ namespace Ogre {
         const String& pattern, bool dirs) const
     {
         // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
-        StringVectorPtr vec(OGRE_NEW_T(StringVector, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        StringVectorPtr vec(new StringVector());
 
         // Try to find in resource index first
         ResourceGroup* grp = getResourceGroup(groupName, true);
@@ -1311,7 +1311,7 @@ namespace Ogre {
         const String& pattern, bool dirs) const
     {
         // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
-        FileInfoListPtr vec(OGRE_NEW_T(FileInfoList, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        FileInfoListPtr vec(new FileInfoList());
 
         // Try to find in resource index first
         ResourceGroup* grp = getResourceGroup(groupName, true);
@@ -1404,7 +1404,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     StringVectorPtr ResourceGroupManager::listResourceLocations(const String& groupName) const
     {
-        StringVectorPtr vec(OGRE_NEW_T(StringVector, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        StringVectorPtr vec(new StringVector());
 
         // Try to find in resource index first
         ResourceGroup* grp = getResourceGroup(groupName, true);
@@ -1422,7 +1422,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     StringVectorPtr ResourceGroupManager::findResourceLocation(const String& groupName, const String& pattern) const
     {
-        StringVectorPtr vec(OGRE_NEW_T(StringVector, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        StringVectorPtr vec(new StringVector());
 
         // Try to find in resource index first
         ResourceGroup* grp = getResourceGroup(groupName, true);

@@ -452,7 +452,7 @@ namespace Ogre {
         if (i == mResourcePoolMap.end())
         {
             i = mResourcePoolMap.insert(ResourcePoolMap::value_type(name, 
-                OGRE_NEW ResourcePool(name))).first;
+                new ResourcePool(name))).first;
         }
         return i->second;
 
@@ -466,7 +466,7 @@ namespace Ogre {
         if (i != mResourcePoolMap.end())
             mResourcePoolMap.erase(i);
 
-        OGRE_DELETE pool;
+        delete pool;
         
     }
     //---------------------------------------------------------------------
@@ -475,7 +475,7 @@ namespace Ogre {
         ResourcePoolMap::iterator i = mResourcePoolMap.find(name);
         if (i != mResourcePoolMap.end())
         {
-            OGRE_DELETE i->second;
+            delete i->second;
             mResourcePoolMap.erase(i);
         }
 
@@ -485,7 +485,7 @@ namespace Ogre {
     {
         for (ResourcePoolMap::iterator i = mResourcePoolMap.begin();
             i != mResourcePoolMap.end(); ++i)
-            OGRE_DELETE i->second;
+            delete i->second;
 
         mResourcePoolMap.clear();
     }

@@ -49,7 +49,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void GLPlugin::install()
     {
-        mRenderSystem = OGRE_NEW GLRenderSystem();
+        mRenderSystem = new GLRenderSystem();
 
         Root::getSingleton().addRenderSystem(mRenderSystem);
     }
@@ -66,7 +66,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void GLPlugin::uninstall()
     {
-        OGRE_DELETE mRenderSystem;
+        delete mRenderSystem;
         mRenderSystem = 0;
     }
 }

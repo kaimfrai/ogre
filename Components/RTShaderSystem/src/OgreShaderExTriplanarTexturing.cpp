@@ -269,7 +269,7 @@ namespace RTShader {
     //-----------------------------------------------------------------------
     SubRenderState* TriplanarTexturingFactory::createInstanceImpl()
     {
-        return OGRE_NEW TriplanarTexturing;
+        return new TriplanarTexturing;
     }
 
 

@@ -216,7 +216,7 @@ namespace Ogre
 
         mStream->seek(c->offset);
 
-        OGRE_DELETE c;
+        delete c;
 
     }
     //---------------------------------------------------------------------
@@ -254,7 +254,7 @@ namespace Ogre
         if (mStream->tell() < (c->offset + CHUNK_HEADER_SIZE + c->length))
             mStream->seek(c->offset + CHUNK_HEADER_SIZE + c->length);
 
-        OGRE_DELETE c;
+        delete c;
     }
     //---------------------------------------------------------------------
     bool StreamSerialiser::isEndOfChunk(uint32 id)
@@ -392,7 +392,7 @@ namespace Ogre
         // seek back to previous position
         mStream->seek(currPos);
 
-        OGRE_DELETE c;
+        delete c;
 
     }
     //---------------------------------------------------------------------
@@ -419,7 +419,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     StreamSerialiser::Chunk* StreamSerialiser::readChunkImpl()
     {
-        Chunk *chunk = OGRE_NEW Chunk();
+        Chunk *chunk = new Chunk();
         chunk->offset = static_cast<uint32>(mStream->tell());
         read(&chunk->id);
         read(&chunk->version);
@@ -432,7 +432,7 @@ namespace Ogre
         {
             // no good, this is an invalid chunk
             uint32 off = chunk->offset;
-            OGRE_DELETE chunk;
+            delete chunk;
             OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
                 "Corrupt chunk detected in stream " + mStream->getName() + " at byte "
                 + StringConverter::toString(off), 
@@ -448,7 +448,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void StreamSerialiser::writeChunkImpl(uint32 id, uint16 version)
     {
-        Chunk* c = OGRE_NEW Chunk();
+        Chunk* c = new Chunk();
         c->id = id;
         c->version = version;
         c->offset = static_cast<uint32>(mStream->tell());
@@ -471,13 +471,13 @@ namespace Ogre
         size_t totSize = size * count;
         if (mFlipEndian)
         {
-            void* pToWrite = OGRE_MALLOC(totSize, MEMCATEGORY_GENERAL);
+            char* pToWrite = new char[totSize];
             memcpy(pToWrite, buf, totSize);
 
 			Bitwise::bswapChunks(pToWrite, size, count);
             mStream->write(pToWrite, totSize);
 
-            OGRE_FREE(pToWrite, MEMCATEGORY_GENERAL);
+            delete[] pToWrite;
         }
         else
         {
@@ -826,7 +826,7 @@ namespace Ogre
     void StreamSerialiser::startDeflate(size_t avail_in)
     {
         OgreAssert( !mOriginalStream , "Don't start (un)compressing twice!" );
-        DataStreamPtr deflateStream(OGRE_NEW DeflateStream(mStream,"",avail_in));
+        DataStreamPtr deflateStream(new DeflateStream(mStream,"",avail_in));
         mOriginalStream = mStream;
         mStream = deflateStream;
     }

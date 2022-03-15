@@ -107,7 +107,7 @@ public:
     {
         if (filename == "dummyArchiveTest")
         {
-            unsigned char* ptr = OGRE_ALLOC_T(unsigned char, 1, Ogre::MEMCATEGORY_GENERAL);
+            unsigned char* ptr = new unsigned char[1];
             *ptr = mContents;
             return std::make_shared<Ogre::MemoryDataStream>(ptr, 1, true, true);
         }
@@ -132,10 +132,10 @@ public:
 
     virtual Ogre::Archive* createInstance(const Ogre::String& name, bool)
     {
-        return OGRE_NEW DummyArchive(name, "DummyArchive");
+        return new DummyArchive(name, "DummyArchive");
     }
 
-    virtual void destroyInstance(Ogre::Archive* ptr) { OGRE_DELETE ptr; }
+    virtual void destroyInstance(Ogre::Archive* ptr) { delete ptr; }
 
     virtual const Ogre::String& getType() const
     {
