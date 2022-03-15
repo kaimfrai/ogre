@@ -70,7 +70,7 @@ class SubMesh;
         @version
             1.1
      */
-    class _OgreExport InstanceBatchHW : public InstanceBatch
+    class InstanceBatchHW : public InstanceBatch
     {
         bool    mKeepStatic;
 

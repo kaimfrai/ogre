@@ -101,7 +101,7 @@ class Technique;
     @version
         1.0
     */
-    class _OgreExport InstanceBatch : public Renderable, public MovableObject
+    class InstanceBatch : public Renderable, public MovableObject
     {
     public:
         typedef std::vector<InstancedEntity*>  InstancedEntityVec;

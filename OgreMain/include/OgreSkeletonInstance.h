@@ -60,7 +60,7 @@ class TagPoint;
         reflected in the master copy. The exception is animations; these are
         shared on the Skeleton itself and may not be modified here.
     */
-    class _OgreExport SkeletonInstance : public Skeleton
+    class SkeletonInstance : public Skeleton
     {
     public:
         /** Constructor, don't call directly, this will be created automatically

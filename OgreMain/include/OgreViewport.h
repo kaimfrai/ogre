@@ -61,11 +61,11 @@ class RenderTarget;
             viewport on a single render target and they overlap, one must
             obscure the other in some predetermined way.
     */
-    class _OgreExport Viewport : public ViewportAlloc
+    class Viewport : public ViewportAlloc
     {
     public:
         /** Listener interface so you can be notified of Viewport changes. */
-        class _OgreExport Listener
+        class Listener
         {
         public:
             virtual ~Listener() {}

@@ -60,7 +60,7 @@ namespace Ogre {
             transparency. In this case, 0.0 is completely transparent and 1.0 is
             fully opaque.
     */
-    class _OgreExport ColourValue
+    class ColourValue
     {
     public:
         static const ColourValue ZERO;

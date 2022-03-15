@@ -46,7 +46,7 @@ namespace Ogre {
      */
 
     /** Utility class for manipulating Strings.  */
-    class _OgreExport StringUtil
+    class StringUtil
     {
     public:
         OGRE_DEPRECATED static const String& BLANK; //!< @deprecated use Ogre::BLANKSTRING instead

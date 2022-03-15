@@ -65,7 +65,7 @@ class SceneManager;
     /** An instance of a Compositor object for one Viewport. It is part of the CompositorChain
         for a Viewport.
     */
-    class _OgreExport CompositorInstance : public CompositorInstAlloc
+    class CompositorInstance : public CompositorInstAlloc
     {
     public:
         CompositorInstance(CompositionTechnique *technique, CompositorChain *chain);
@@ -73,7 +73,7 @@ class SceneManager;
         /** Provides an interface to "listen in" to to render system operations executed by this 
             CompositorInstance.
         */
-        class _OgreExport Listener
+        class Listener
         {
         public:
             virtual ~Listener();
@@ -118,7 +118,7 @@ class SceneManager;
             between render queues like rendering a quad, clearing the frame buffer or 
             setting stencil state.
         */
-        class _OgreExport RenderSystemOperation : public CompositorInstAlloc
+        class RenderSystemOperation : public CompositorInstAlloc
         {
         public:
             virtual ~RenderSystemOperation();

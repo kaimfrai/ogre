@@ -72,7 +72,7 @@ namespace Ogre
         T* ptr() { return data; }
         const T* ptr() const { return data; }
     };
-    template <> struct _OgreExport VectorBase<2, Real>
+    template <> struct VectorBase<2, Real>
     {
         VectorBase() {}
         VectorBase(Real _x, Real _y) : x(_x), y(_y) {}
@@ -132,7 +132,7 @@ namespace Ogre
         static const Vector2 UNIT_SCALE;
     };
 
-    template <> struct _OgreExport VectorBase<3, Real>
+    template <> struct VectorBase<3, Real>
     {
         VectorBase() {}
         VectorBase(Real _x, Real _y, Real _z) : x(_x), y(_y), z(_z) {}
@@ -270,7 +270,7 @@ namespace Ogre
         static const Vector3 UNIT_SCALE;
     };
 
-    template <> struct _OgreExport VectorBase<4, Real>
+    template <> struct VectorBase<4, Real>
     {
         VectorBase() {}
         VectorBase(Real _x, Real _y, Real _z, Real _w) : x(_x), y(_y), z(_z), w(_w) {}

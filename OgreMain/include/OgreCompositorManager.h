@@ -80,7 +80,7 @@ class Viewport;
             Because this is a subclass of ResourceManager, any files loaded will be searched for in any path or
             archive added to the resource paths/archives. See ResourceManager for details.
     */
-    class _OgreExport CompositorManager : public ResourceManager, public Singleton<CompositorManager>
+    class CompositorManager : public ResourceManager, public Singleton<CompositorManager>
     {
     public:
         CompositorManager();

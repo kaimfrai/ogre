@@ -51,7 +51,7 @@ namespace Ogre {
             the creation of resources (in this case skeleton data),
             working within a fixed memory budget.
     */
-    class _OgreExport SkeletonManager: public ResourceManager, public Singleton<SkeletonManager>
+    class SkeletonManager: public ResourceManager, public Singleton<SkeletonManager>
     {
     public:
         /// Constructor

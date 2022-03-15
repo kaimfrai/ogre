@@ -56,7 +56,7 @@ class RenderQueue;
         own, which is useful if you're using the plane for some kind of calculation,
         e.g. reflection.
     */
-    class _OgreExport MovablePlane : public Plane, public MovableObject
+    class MovablePlane : public Plane, public MovableObject
     {
     private:
         mutable Plane mDerivedPlane;

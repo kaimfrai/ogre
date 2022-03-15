@@ -52,7 +52,7 @@ class VertexData;
     */
     /** Class for calculating a tangent space basis.
     */
-    class _OgreExport TangentSpaceCalc
+    class TangentSpaceCalc
     {
     public:
         TangentSpaceCalc();

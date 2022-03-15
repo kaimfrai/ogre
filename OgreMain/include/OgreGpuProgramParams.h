@@ -157,7 +157,7 @@ template <int dims, typename T> class Vector;
         @note Only available for high-level programs but is referenced generically
         by GpuProgramParameters.
     */
-    struct _OgreExport GpuConstantDefinition
+    struct GpuConstantDefinition
     {
         /// Physical byte offset in buffer
         size_t physicalIndex;
@@ -324,7 +324,7 @@ template <int dims, typename T> class Vector;
     typedef ConstMapIterator<GpuConstantDefinitionMap> GpuConstantDefinitionIterator;
 
     /// Struct collecting together the information for named constants.
-    struct _OgreExport GpuNamedConstants : public GpuParamsAlloc
+    struct GpuNamedConstants : public GpuParamsAlloc
     {
         /// Total size of the buffer required
         size_t bufferSize;
@@ -349,7 +349,7 @@ template <int dims, typename T> class Vector;
     };
 
     /// Simple class for loading / saving GpuNamedConstants
-    class _OgreExport GpuNamedConstantsSerializer : public Serializer
+    class GpuNamedConstantsSerializer : public Serializer
     {
     public:
         GpuNamedConstantsSerializer();
@@ -364,7 +364,7 @@ template <int dims, typename T> class Vector;
     /** Structure recording the use of a physical buffer by a logical parameter
         index. Only used for low-level programs.
     */
-    struct _OgreExport GpuLogicalIndexUse
+    struct GpuLogicalIndexUse
     {
         /// Physical buffer index
         size_t physicalIndex;
@@ -382,7 +382,7 @@ template <int dims, typename T> class Vector;
     };
     typedef std::map<size_t, GpuLogicalIndexUse> GpuLogicalIndexUseMap;
     /// Container struct to allow params to safely & update shared list of logical buffer assignments
-    struct _OgreExport GpuLogicalBufferStruct : public GpuParamsAlloc
+    struct GpuLogicalBufferStruct : public GpuParamsAlloc
     {
         /// Map from logical index to physical buffer location
         GpuLogicalIndexUseMap map;
@@ -413,7 +413,7 @@ template <int dims, typename T> class Vector;
         @note
         Shared parameter sets can be named, and looked up using the GpuProgramManager.
     */
-    class _OgreExport GpuSharedParameters : public GpuParamsAlloc
+    class GpuSharedParameters : public GpuParamsAlloc
     {
         /// Name of the shared parameter set.
         String mName;
@@ -554,7 +554,7 @@ template <int dims, typename T> class Vector;
     /** This class records the usage of a set of shared parameters in a concrete
         set of GpuProgramParameters.
     */
-    class _OgreExport GpuSharedParametersUsage : public GpuParamsAlloc
+    class GpuSharedParametersUsage : public GpuParamsAlloc
     {
     private:
         GpuSharedParametersPtr mSharedParams;
@@ -627,7 +627,7 @@ template <int dims, typename T> class Vector;
         any of this unless you intend to read parameters back from this structure
         rather than just setting them.
     */
-    class _OgreExport GpuProgramParameters : public GpuParamsAlloc
+    class GpuProgramParameters : public GpuParamsAlloc
     {
     public:
         /** Defines the types of automatically updated values that may be bound to GpuProgram

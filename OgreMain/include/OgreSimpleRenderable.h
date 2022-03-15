@@ -52,7 +52,7 @@ class SceneManager;
     /** Simple implementation of MovableObject and Renderable for single-part custom objects. 
     @see ManualObject for a simpler interface with more flexibility
     */
-    class _OgreExport SimpleRenderable : public MovableObject, public Renderable
+    class SimpleRenderable : public MovableObject, public Renderable
     {
         bool getCastsShadows(void) const override { return getCastShadows(); }
     protected:

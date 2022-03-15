@@ -59,7 +59,7 @@ class Plane;
             planar. Several operations may be applied, ranging from intersection
             to join where each result it itself a convex body.
     */
-    class _OgreExport ConvexBody
+    class ConvexBody
     {
     public:
         typedef std::vector< Polygon* >    PolygonList;
@@ -157,7 +157,7 @@ class Plane;
 
         /** Prints out the body with all its polygons.
         */
-        _OgreExport friend std::ostream& operator<< ( std::ostream& strm, const ConvexBody& body );
+        friend std::ostream& operator<< ( std::ostream& strm, const ConvexBody& body );
 
         /** Log details of this body */
         void logInfo() const;

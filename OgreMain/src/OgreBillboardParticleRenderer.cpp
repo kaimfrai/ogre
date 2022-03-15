@@ -43,49 +43,49 @@ class RenderQueue;
     static String rendererTypeName = "billboard";
 
     /** Command object for billboard type (see ParamCommand).*/
-    class _OgrePrivate CmdBillboardType : public ParamCommand
+    class CmdBillboardType : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for billboard origin (see ParamCommand).*/
-    class _OgrePrivate CmdBillboardOrigin : public ParamCommand
+    class CmdBillboardOrigin : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for billboard rotation type (see ParamCommand).*/
-    class _OgrePrivate CmdBillboardRotationType : public ParamCommand
+    class CmdBillboardRotationType : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for common direction (see ParamCommand).*/
-    class _OgrePrivate CmdCommonDirection : public ParamCommand
+    class CmdCommonDirection : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for common up-vector (see ParamCommand).*/
-    class _OgrePrivate CmdCommonUpVector : public ParamCommand
+    class CmdCommonUpVector : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for point rendering (see ParamCommand).*/
-    class _OgrePrivate CmdPointRendering : public ParamCommand
+    class CmdPointRendering : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for accurate facing(see ParamCommand).*/
-    class _OgrePrivate CmdAccurateFacing : public ParamCommand
+    class CmdAccurateFacing : public ParamCommand
     {
     public:
         String doGet(const void* target) const;

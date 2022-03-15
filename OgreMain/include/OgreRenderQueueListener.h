@@ -53,7 +53,7 @@ namespace Ogre {
         say, although options set by previous listeners will not be changed if the latest
         does not express a preference.
     */
-    class _OgreExport RenderQueueListener
+    class RenderQueueListener
     {
     public:
         virtual ~RenderQueueListener() {}

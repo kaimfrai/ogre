@@ -59,7 +59,7 @@ class ExternalTextureSource;
     /** 
     Singleton Class which handles the registering and control of texture plugins. The plugins
     will be mostly controlled via a string interface. */
-    class _OgreExport ExternalTextureSourceManager : public Singleton<ExternalTextureSourceManager>, public ResourceAlloc
+    class ExternalTextureSourceManager : public Singleton<ExternalTextureSourceManager>, public ResourceAlloc
     {
     public:
         /** Constructor */

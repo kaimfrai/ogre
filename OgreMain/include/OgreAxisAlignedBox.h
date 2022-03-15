@@ -58,7 +58,7 @@ class Sphere;
     for an axis-aligned bounding box (AABB) for collision and
     visibility determination.
     */
-    class _OgreExport AxisAlignedBox
+    class AxisAlignedBox
     {
     public:
         enum Extent

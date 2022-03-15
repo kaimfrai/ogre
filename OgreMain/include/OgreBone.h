@@ -53,7 +53,7 @@ class Skeleton;
         This class is a node in the joint hierarchy. Mesh vertices also have assignments
         to bones to define how they move in relation to the skeleton.
     */
-    class _OgreExport Bone : public Node
+    class Bone : public Node
     {
     public:
         /** Constructor, not to be used directly (use Bone::createChild or Skeleton::createBone) */

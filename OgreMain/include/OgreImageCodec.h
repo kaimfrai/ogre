@@ -45,7 +45,7 @@ namespace Ogre {
             The users implementing subclasses of ImageCodec are required to return
             a valid pointer to a ImageData class from the decode(...) function.
     */
-    class _OgreExport ImageCodec : public Codec
+    class ImageCodec : public Codec
     {
     protected:
         static void flipEndian(void* pData, size_t size, size_t count)
@@ -67,7 +67,7 @@ namespace Ogre {
         virtual ~ImageCodec();
         /** Codec return class for images. Has information about the size and the
             pixel format of the image. */
-        class _OgrePrivate ImageData
+        class ImageData
         {
         public:
             ImageData():

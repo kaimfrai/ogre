@@ -59,7 +59,7 @@ class AnimationTrack;
         animation sequence, with the exact state of the animation being an 
         interpolation between these key frames. 
     */
-    class _OgreExport KeyFrame : public AnimationAlloc
+    class KeyFrame : public AnimationAlloc
     {
     public:
 
@@ -83,7 +83,7 @@ class AnimationTrack;
 
     /** Specialised KeyFrame which stores any numeric value.
     */
-    class _OgreExport NumericKeyFrame : public KeyFrame
+    class NumericKeyFrame : public KeyFrame
     {
     public:
         /** Default constructor, you should not call this but use AnimationTrack::createKeyFrame instead. */
@@ -106,7 +106,7 @@ class AnimationTrack;
 
 
     /** Specialised KeyFrame which stores a full transform. */
-    class _OgreExport TransformKeyFrame : public KeyFrame
+    class TransformKeyFrame : public KeyFrame
     {
     public:
         /** Default constructor, you should not call this but use AnimationTrack::createKeyFrame instead. */
@@ -157,7 +157,7 @@ class AnimationTrack;
     /** Specialised KeyFrame which stores absolute vertex positions for a complete
         buffer, designed to be interpolated with other keys in the same track. 
     */
-    class _OgreExport VertexMorphKeyFrame : public KeyFrame
+    class VertexMorphKeyFrame : public KeyFrame
     {
     public:
         /** Default constructor, you should not call this but use AnimationTrack::createKeyFrame instead. */
@@ -187,7 +187,7 @@ class AnimationTrack;
         level, which stores offsets for a subset of the vertices 
         in a buffer to provide a blendable pose.
     */
-    class _OgreExport VertexPoseKeyFrame : public KeyFrame
+    class VertexPoseKeyFrame : public KeyFrame
     {
     public:
         /** Default constructor, you should not call this but use AnimationTrack::createKeyFrame instead. */

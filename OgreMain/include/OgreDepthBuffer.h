@@ -77,7 +77,7 @@ class RenderTarget;
         @remarks
             Design discussion http://www.ogre3d.org/forums/viewtopic.php?f=4&t=53534&p=365582
      */
-    class _OgreExport DepthBuffer : public RenderSysAlloc
+    class DepthBuffer : public RenderSysAlloc
     {
     public:
         enum PoolId

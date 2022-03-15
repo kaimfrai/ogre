@@ -57,7 +57,7 @@ class Matrix4;
      *  which perform the actual translation.
      */
 
-    class _OgreExport ScriptTranslator : public ScriptTranslatorAlloc
+    class ScriptTranslator : public ScriptTranslatorAlloc
     {
     public:
         /**
@@ -127,7 +127,7 @@ class Matrix4;
      *  ScriptCompilerManager tied to specific object types.
      *  Each manager may manage multiple types.
      */
-    class _OgreExport ScriptTranslatorManager : public ScriptTranslatorAlloc
+    class ScriptTranslatorManager : public ScriptTranslatorAlloc
     {
     public:
         // required - virtual destructor

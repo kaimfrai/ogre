@@ -62,7 +62,7 @@ namespace Ogre
         @version
             1.0
     */
-    class _OgreExport RenderWindow : public RenderTarget
+    class RenderWindow : public RenderTarget
     {
 
     public:

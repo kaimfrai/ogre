@@ -68,7 +68,7 @@ namespace Ogre
             you've created one yourself and won't create one of its own, thus
             using all your logging preferences from the first instance.
     */
-    class _OgreExport LogManager : public Singleton<LogManager>, public LogAlloc
+    class LogManager : public Singleton<LogManager>, public LogAlloc
     {
     private:
         typedef std::map<String, Log*> LogList;

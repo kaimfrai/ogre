@@ -68,7 +68,7 @@ class VertexData;
             their material differences on a per-object basis if required.
             See the SubEntity class for more information.
     */
-    class _OgreExport SubMesh : public SubMeshAlloc
+    class SubMesh : public SubMeshAlloc
     {
         friend class Mesh;
         friend class MeshSerializerImpl;

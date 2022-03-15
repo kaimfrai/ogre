@@ -76,7 +76,7 @@ namespace Ogre {
             Note that a frame event occurs once for all rendering targets,
             not once per target.
     */
-    class _OgreExport FrameListener
+    class FrameListener
     {
         /*
         Note that this could have been an abstract class, but I made

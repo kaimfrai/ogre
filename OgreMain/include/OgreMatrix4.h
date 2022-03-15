@@ -160,7 +160,7 @@ namespace Ogre
         }
     };
 
-    struct _OgreExport TransformBaseReal : public TransformBase<4, Real>
+    struct TransformBaseReal : public TransformBase<4, Real>
     {
         /// Do <b>NOT</b> initialize for efficiency.
         TransformBaseReal() {}
@@ -223,7 +223,7 @@ namespace Ogre
     };
 
     /// Transform specialization for projective - encapsulating a 4x4 Matrix
-    class _OgreExport Matrix4 : public TransformBaseReal
+    class Matrix4 : public TransformBaseReal
     {
     public:
         /// Do <b>NOT</b> initialize the matrix for efficiency.
@@ -321,7 +321,7 @@ namespace Ogre
     };
 
     /// Transform specialization for 3D Affine - encapsulating a 3x4 Matrix
-    class _OgreExport Affine3 : public TransformBaseReal
+    class Affine3 : public TransformBaseReal
     {
     public:
         /// Do <b>NOT</b> initialize the matrix for efficiency.

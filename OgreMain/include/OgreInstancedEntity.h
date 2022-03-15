@@ -93,7 +93,7 @@ class SkeletonInstance;
         @version
             1.0
      */
-    class _OgreExport InstancedEntity : public MovableObject
+    class InstancedEntity : public MovableObject
     {
         friend class InstanceBatch;
         friend class InstanceBatchShader;

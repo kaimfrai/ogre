@@ -69,12 +69,12 @@ class SceneNode;
             Instances of this class are discrete, relatively small, movable objects
             which are attached to SceneNode objects to define their position.
     */
-    class _OgreExport MovableObject : public ShadowCaster, public AnimableObject, public MovableAlloc
+    class MovableObject : public ShadowCaster, public AnimableObject, public MovableAlloc
     {
     public:
         /** Listener which gets called back on MovableObject events.
         */
-        class _OgreExport Listener
+        class Listener
         {
         public:
             Listener(void) {}
@@ -600,7 +600,7 @@ class SceneNode;
         to allow all clients to produce new instances of this object, integrated
         with the standard Ogre processing.
     */
-    class _OgreExport MovableObjectFactory : public MovableAlloc
+    class MovableObjectFactory : public MovableAlloc
     {
     private:
         /// Type flag, allocated if requested

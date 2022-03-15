@@ -106,7 +106,7 @@ namespace Ogre {
     /** Defines a generic resource handler.
     @see @ref Resource-Management
     */
-    class _OgreExport ResourceManager : public ScriptLoader, public ResourceAlloc
+    class ResourceManager : public ScriptLoader, public ResourceAlloc
     {
     public:
         ResourceManager();
@@ -404,7 +404,7 @@ namespace Ogre {
             This is a simple utility class which allows the reuse of resources
             between code which has a changing need for them. For example, 
         */
-        class _OgreExport ResourcePool : public Pool<ResourcePtr>, public ResourceAlloc
+        class ResourcePool : public Pool<ResourcePtr>, public ResourceAlloc
         {
             String mName;
         public:

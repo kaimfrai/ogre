@@ -51,7 +51,7 @@ class MovableObject;
         getIndex, sort, and isSorted.
         In addition, transformUserValue may be overridden.
     */
-    class _OgreExport LodStrategy : public LodAlloc
+    class LodStrategy : public LodAlloc
     {
     private:
         /** Name of this strategy. */

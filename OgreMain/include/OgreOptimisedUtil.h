@@ -48,7 +48,7 @@ class Affine3;
     @note
         This class are supposed used by internal engine only.
     */
-    class _OgreExport OptimisedUtil
+    class OptimisedUtil
     {
     private:
         /// Privated copy constructor, to prevent misuse

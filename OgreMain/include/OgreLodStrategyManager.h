@@ -47,7 +47,7 @@ class LodStrategy;
     *  @{
     */
     /** Manager for LOD strategies. */
-    class _OgreExport LodStrategyManager : public Singleton<LodStrategyManager>, public LodAlloc
+    class LodStrategyManager : public Singleton<LodStrategyManager>, public LodAlloc
     {
         /** Map of strategies. */
         typedef std::map<String, LodStrategy *> StrategyMap;

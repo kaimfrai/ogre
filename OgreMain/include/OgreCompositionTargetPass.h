@@ -50,7 +50,7 @@ class CompositionTechnique;
     /** Object representing one render to a RenderTarget or Viewport in the Ogre Composition
         framework.
      */
-    class _OgreExport CompositionTargetPass : public CompositorInstAlloc
+    class CompositionTargetPass : public CompositorInstAlloc
     {
     public:
         CompositionTargetPass(CompositionTechnique *parent);

@@ -220,7 +220,7 @@ class Sphere;
             <br>This is based on MgcMath.h from
             <a href="http://www.geometrictools.com/">Wild Magic</a>.
     */
-    class _OgreExport Math 
+    class Math
     {
     public:
        /** The angular units used by the API. This functionality is now deprecated in favor

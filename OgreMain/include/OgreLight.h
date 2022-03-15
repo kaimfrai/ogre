@@ -104,7 +104,7 @@ class Sphere;
         extended for certain scene types so an alternative to the standard dynamic lighting may be used, such
             as dynamic lightmaps.
     */
-    class _OgreExport Light : public MovableObject
+    class Light : public MovableObject
     {
     public:
         /// Temp tag used for sorting
@@ -566,7 +566,7 @@ class Sphere;
     };
 
     /** Factory object for creating Light instances. */
-    class _OgreExport LightFactory : public MovableObjectFactory
+    class LightFactory : public MovableObjectFactory
     {
     private:
         MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);

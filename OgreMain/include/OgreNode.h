@@ -64,7 +64,7 @@ class Camera;
         This is an abstract class - concrete classes are based on this for specific purposes,
         e.g. SceneNode, Bone
     */
-    class _OgreExport Node : public NodeAlloc
+    class Node : public NodeAlloc
     {
     public:
         /** Enumeration denoting the spaces which a transform can be relative to.
@@ -84,7 +84,7 @@ class Camera;
 
         /** Listener which gets called back on Node events.
         */
-        class _OgreExport Listener
+        class Listener
         {
         public:
             Listener() {}

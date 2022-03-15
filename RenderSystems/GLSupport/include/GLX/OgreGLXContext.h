@@ -36,7 +36,7 @@ THE SOFTWARE.
 namespace Ogre {
 class GLXGLSupport;
 
-    class _OgrePrivate GLXContext: public GLContext
+    class GLXContext: public GLContext
     {
     public:
         GLXContext(GLXGLSupport* glsupport, ::GLXFBConfig fbconfig, ::GLXDrawable drawable, ::GLXContext context = 0);

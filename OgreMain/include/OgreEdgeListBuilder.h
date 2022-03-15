@@ -59,7 +59,7 @@ namespace Ogre {
         This information is built using the EdgeListBuilder class. Note that for a given mesh,
         which can be made up of multiple submeshes, there are separate edge lists for when 
     */
-    class _OgreExport EdgeData : public EdgeDataAlloc
+    class EdgeData : public EdgeDataAlloc
     {
     public:
         
@@ -177,7 +177,7 @@ namespace Ogre {
         information. It's important to note that the indexes for the edge will be constrained
         to a single vertex buffer though (this is required in order to render the edge).
     */
-    class _OgreExport EdgeListBuilder 
+    class EdgeListBuilder 
     {
     public:
 

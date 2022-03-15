@@ -76,7 +76,7 @@ namespace Ogre {
         will only be considered for rendering once it has been attached to a 
         SceneNode. 
     */
-    class _OgreExport ParticleSystem : public StringInterface, public MovableObject
+    class ParticleSystem : public StringInterface, public MovableObject
     {
     public:
         /// Default constructor required for STL creation in manager

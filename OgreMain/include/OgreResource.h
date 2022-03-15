@@ -73,7 +73,7 @@ class ResourceManager;
             through a generic interface.</li>
         </ol>
     */
-    class _OgreExport Resource : public StringInterface, public ResourceAlloc
+    class Resource : public StringInterface, public ResourceAlloc
     {
     public:
         class Listener
@@ -483,7 +483,7 @@ class ResourceManager;
         so that if need be it can be called upon to re-load the resource
         at any time.
     */
-    class _OgreExport ManualResourceLoader
+    class ManualResourceLoader
     {
     public:
         ManualResourceLoader() {}

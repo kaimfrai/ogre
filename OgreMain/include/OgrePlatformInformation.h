@@ -57,7 +57,7 @@ namespace Ogre {
         @note
             This class is supposed to use by advanced user only.
     */
-    class _OgreExport PlatformInformation
+    class PlatformInformation
     {
     public:
 

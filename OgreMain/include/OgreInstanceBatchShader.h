@@ -74,7 +74,7 @@ class VertexData;
         @version
             1.0
      */
-    class _OgreExport InstanceBatchShader : public InstanceBatch
+    class InstanceBatchShader : public InstanceBatch
     {
         size_t  mNumWorldMatrices;
 

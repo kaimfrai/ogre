@@ -47,7 +47,7 @@ namespace Ogre
         This default implementation of a work queue starts a thread pool and 
         provides queues to process requests. 
     */
-    class _OgreExport DefaultWorkQueue : public DefaultWorkQueueBase
+    class DefaultWorkQueue : public DefaultWorkQueueBase
     {
     public:
 

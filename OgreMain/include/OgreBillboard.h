@@ -67,7 +67,7 @@ class BillboardSet;
             BillboardSet
     */
 
-    class _OgreExport Billboard : public FXAlloc
+    class Billboard : public FXAlloc
     {
         friend class BillboardSet;
         friend class BillboardParticleRenderer;

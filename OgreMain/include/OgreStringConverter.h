@@ -70,7 +70,7 @@ namespace Ogre {
         however custom types like Vector3, ColourValue and Matrix4 are also supported by this class
         using custom formats.
     */
-    class _OgreExport StringConverter
+    class StringConverter
     {
     public:
         static String toString(int32 val) { return std::to_string(val); };

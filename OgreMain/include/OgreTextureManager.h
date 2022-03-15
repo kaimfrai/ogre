@@ -69,7 +69,7 @@ class Image;
             created at least one window - this may be done at the
             same time as part a if you allow Ogre to autocreate one.
      */
-    class _OgreExport TextureManager : public ResourceManager, public Singleton<TextureManager>
+    class TextureManager : public ResourceManager, public Singleton<TextureManager>
     {
     public:
 
@@ -436,7 +436,7 @@ class Image;
     };
 
     /// Specialisation of TextureManager for offline processing. Cannot be used with an active RenderSystem.
-    class _OgreExport DefaultTextureManager : public TextureManager
+    class DefaultTextureManager : public TextureManager
     {
         /// noop implementation
         class NullTexture : public Texture

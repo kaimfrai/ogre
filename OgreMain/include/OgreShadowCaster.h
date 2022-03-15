@@ -64,7 +64,7 @@ class VertexData;
         vertex buffers (not necessarily one buffer, but the positions for the entire geometry 
         should come from one buffer if possible)
     */
-    class _OgreExport ShadowRenderable : public Renderable, public ShadowDataAlloc
+    class ShadowRenderable : public Renderable, public ShadowDataAlloc
     {
     protected:
         RenderOperation mRenderOp;
@@ -137,7 +137,7 @@ class VertexData;
 
     /** This class defines the interface that must be implemented by shadow casters.
     */
-    class _OgreExport ShadowCaster
+    class ShadowCaster
     {
     public:
         virtual ~ShadowCaster() { }

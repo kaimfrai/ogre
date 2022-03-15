@@ -78,7 +78,7 @@ namespace Ogre {
         since internal organisation of the collection depends on the 
         sorting method in use.
     */
-    class _OgreExport QueuedRenderableVisitor
+    class QueuedRenderableVisitor
     {
     public:
         QueuedRenderableVisitor() {}
@@ -110,7 +110,7 @@ namespace Ogre {
         causes a visit call at the Pass level, and a call for each
         Renderable underneath.
     */
-    class _OgreExport QueuedRenderableCollection : public RenderQueueAlloc
+    class QueuedRenderableCollection : public RenderQueueAlloc
     {
     public:
         /** Organisation modes required for this collection.
@@ -248,7 +248,7 @@ namespace Ogre {
         a class implementing QueuedRenderableVisitor.
     
     */
-    class _OgreExport RenderPriorityGroup : public RenderQueueAlloc
+    class RenderPriorityGroup : public RenderQueueAlloc
     {
     private:
 
@@ -390,7 +390,7 @@ namespace Ogre {
         which are the groupings of renderables by priority for fine control
         of ordering (not required for most instances).
     */
-    class _OgreExport RenderQueueGroup : public RenderQueueAlloc
+    class RenderQueueGroup : public RenderQueueAlloc
     {
     public:
         typedef std::map<ushort, RenderPriorityGroup*, std::less<ushort> > PriorityMap;

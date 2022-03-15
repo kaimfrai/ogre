@@ -57,7 +57,7 @@ class Technique;
     *  @{
     */
     /** Class for serializing Materials to a .material script.*/
-    class _OgreExport MaterialSerializer : public SerializerAlloc
+    class MaterialSerializer : public SerializerAlloc
     {   
     public:
 

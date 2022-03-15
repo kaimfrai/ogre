@@ -130,7 +130,7 @@ class Viewport;
     2. the stencil test succeeds but the depth buffer check fails
     3. both depth buffer check and stencil test pass
     */
-    struct _OgreExport StencilState
+    struct StencilState
     {
         /// Comparison operator for the stencil test
         CompareFunction compareOp;
@@ -185,7 +185,7 @@ class Viewport;
     @version
     1.0
     */
-    class _OgreExport RenderSystem : public RenderSysAlloc
+    class RenderSystem : public RenderSysAlloc
     {
     public:
         /** Default Constructor.
@@ -1037,7 +1037,7 @@ class Viewport;
         can raise.
         @see RenderSystem::addListener
         */
-        class _OgreExport Listener
+        class Listener
         {
         public:
             Listener() {}

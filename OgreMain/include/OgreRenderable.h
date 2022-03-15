@@ -70,7 +70,7 @@ namespace Ogre {
         classes e.g. entities. Only once it is decided that the specific class is to be rendered is the abstract version
         created (could be more than one per visible object) and pushed onto the rendering queue.
     */
-    class _OgreExport Renderable
+    class Renderable
     {
     public:
         enum

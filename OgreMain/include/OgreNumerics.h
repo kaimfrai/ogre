@@ -45,7 +45,7 @@ namespace Ogre {
         @remarks
             Handles linear algebra numerics.
     */
-    class _OgreExport NumericSolver
+    class NumericSolver
     {
     public:
         /** Solves a full rank NxN linear system of equations 

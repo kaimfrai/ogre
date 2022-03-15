@@ -75,11 +75,11 @@ class ScriptLoader;
     */
 
     /// Default resource group name
-    _OgreExport extern const char* const RGN_DEFAULT;
+    extern const char* const RGN_DEFAULT;
     /// Internal resource group name (should be used by OGRE internal only)
-    _OgreExport extern const char* const RGN_INTERNAL;
+    extern const char* const RGN_INTERNAL;
     /// Special resource group name which causes resource group to be automatically determined based on searching for the resource in all groups.
-    _OgreExport extern const char* const RGN_AUTODETECT;
+    extern const char* const RGN_AUTODETECT;
 
     /** This class defines an interface which is called back during
         resource group loading to indicate the progress of the load. 
@@ -109,7 +109,7 @@ class ScriptLoader;
         </ul>
 
     */
-    class _OgreExport ResourceGroupListener
+    class ResourceGroupListener
     {
     public:
         virtual ~ResourceGroupListener() {}
@@ -242,7 +242,7 @@ class ScriptLoader;
         
         @see @ref Resource-Management
     */
-    class _OgreExport ResourceGroupManager : public Singleton<ResourceGroupManager>, public ResourceAlloc
+    class ResourceGroupManager : public Singleton<ResourceGroupManager>, public ResourceAlloc
     {
     public:
         /// same as @ref RGN_DEFAULT

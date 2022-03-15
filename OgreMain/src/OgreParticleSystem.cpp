@@ -58,49 +58,49 @@ namespace Ogre {
 class RenderQueue;
 
     /** Command object for quota (see ParamCommand).*/
-    class _OgrePrivate CmdQuota : public ParamCommand
+    class CmdQuota : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for emittedEmitterQuota (see ParamCommand).*/
-    class _OgrePrivate CmdEmittedEmitterQuota : public ParamCommand
+    class CmdEmittedEmitterQuota : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for material (see ParamCommand).*/
-    class _OgrePrivate CmdMaterial : public ParamCommand
+    class CmdMaterial : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for cull_each (see ParamCommand).*/
-    class _OgrePrivate CmdCull : public ParamCommand
+    class CmdCull : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for particle_width (see ParamCommand).*/
-    class _OgrePrivate CmdWidth : public ParamCommand
+    class CmdWidth : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for particle_height (see ParamCommand).*/
-    class _OgrePrivate CmdHeight : public ParamCommand
+    class CmdHeight : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for renderer (see ParamCommand).*/
-    class _OgrePrivate CmdRenderer : public ParamCommand
+    class CmdRenderer : public ParamCommand
     {
     public:
         String doGet(const void* target) const;

@@ -53,7 +53,7 @@ namespace Ogre {
         This class provides a number of useful methods for exporting / importing data
         from stream-oriented binary files (e.g. .mesh and .skeleton).
     */
-    class _OgreExport Serializer : public SerializerAlloc
+    class Serializer : public SerializerAlloc
     {
     public:
         Serializer();

@@ -131,7 +131,7 @@ namespace Ogre {
     };
 
     /// Represents an individual profile call
-    class _OgreExport ProfileInstance : public ProfilerAlloc
+    class ProfileInstance : public ProfilerAlloc
     {
         friend class Profiler;
     public:
@@ -186,7 +186,7 @@ namespace Ogre {
         them you can also create a custom listener which sends the profile
         informtaion over a network.
     */
-    class _OgreExport ProfileSessionListener
+    class ProfileSessionListener
     {
     public:
         virtual ~ProfileSessionListener() {}
@@ -218,7 +218,7 @@ namespace Ogre {
         @todo resolve artificial cap on number of profiles displayed
         @todo fix display ordering of profiles not called every frame
     */
-    class _OgreExport Profiler : 
+    class Profiler :
         public Singleton<Profiler>,
         public ProfilerAlloc
     {

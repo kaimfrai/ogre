@@ -51,7 +51,7 @@ namespace Ogre {
     *  @{
     */
     /** Class for serializing RenderSystemCapabilities to / from a .rendercaps script.*/
-    class _OgreExport RenderSystemCapabilitiesSerializer : public RenderSysAlloc
+    class RenderSystemCapabilitiesSerializer : public RenderSysAlloc
     {
 
     public:

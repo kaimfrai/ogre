@@ -67,7 +67,7 @@ class SceneManager;
             Child nodes are contained within the bounds of the parent, and so on down the
             tree, allowing for fast culling.
     */
-    class _OgreExport SceneNode : public Node
+    class SceneNode : public Node
     {
         friend class SceneManager;
     public:

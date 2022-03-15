@@ -133,7 +133,7 @@ class ResourceManager;
             different in reality. Texture objects are created through
             the 'create' method of the TextureManager concrete subclass.
      */
-    class _OgreExport Texture : public Resource
+    class Texture : public Resource
     {
     public:
         Texture(ResourceManager* creator, const String& name, ResourceHandle handle,

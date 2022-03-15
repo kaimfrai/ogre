@@ -48,7 +48,7 @@ namespace Ogre
     {
         /** Controller value for pass frame time to RibbonTrail
         */
-        class _OgrePrivate TimeControllerValue : public ControllerValue<Real>
+        class TimeControllerValue : public ControllerValue<Real>
         {
         protected:
             RibbonTrail* mTrail;

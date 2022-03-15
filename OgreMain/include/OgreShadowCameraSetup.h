@@ -72,7 +72,7 @@ class Viewport;
         degrees of freedom.  This class is meant to allow custom methods for 
         handling optimization.
     */
-    class _OgreExport ShadowCameraSetup : public ShadowDataAlloc
+    class ShadowCameraSetup : public ShadowDataAlloc
     {
     public:
         /// Function to implement -- must set the shadow camera properties
@@ -90,7 +90,7 @@ class Viewport;
             This implements the default shadow camera setup algorithm.  This is what might
             be referred to as "normal" shadow mapping.  
     */
-    class _OgreExport DefaultShadowCameraSetup : public ShadowCameraSetup
+    class DefaultShadowCameraSetup : public ShadowCameraSetup
     {
     public:
         DefaultShadowCameraSetup();

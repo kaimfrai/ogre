@@ -12,7 +12,7 @@ namespace Ogre
 class GLContext;
 class GLFrameBufferObjectCommon;
 
-class _OgrePrivate GLRenderTarget
+class GLRenderTarget
 {
 public:
     virtual ~GLRenderTarget() {}

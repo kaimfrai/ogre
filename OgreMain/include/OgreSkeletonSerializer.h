@@ -74,7 +74,7 @@ class TransformKeyFrame;
         <LI>Call the exportSkeleton method</LI>
         </OL>
     */
-    class _OgreExport SkeletonSerializer : public Serializer
+    class SkeletonSerializer : public Serializer
     {
         
     public:

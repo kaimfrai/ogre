@@ -132,7 +132,7 @@ class VertexData;
         if you want them to call _updateBounds, but note this requires a
         potentially expensive examination of every billboard in the set.
     */
-    class _OgreExport BillboardSet : public MovableObject, public Renderable
+    class BillboardSet : public MovableObject, public Renderable
     {
     protected:
         /** Private constructor (instances cannot be created directly).
@@ -824,7 +824,7 @@ class VertexData;
     };
 
     /** Factory object for creating BillboardSet instances */
-    class _OgreExport BillboardSetFactory : public MovableObjectFactory
+    class BillboardSetFactory : public MovableObjectFactory
     {
     protected:
         MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);

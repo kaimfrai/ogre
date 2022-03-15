@@ -68,7 +68,7 @@ class VertexDeclaration;
         and must be implemented by any user of a temporary buffer if they 
         wish to be notified when the license is expired. 
     */
-    class _OgreExport HardwareBufferLicensee
+    class HardwareBufferLicensee
     {
     public:
         virtual ~HardwareBufferLicensee() { }
@@ -79,7 +79,7 @@ class VertexDeclaration;
     };
 
     /** Structure for recording the use of temporary blend buffers. */
-    class _OgreExport TempBlendedBufferInfo : public HardwareBufferLicensee, public BufferAlloc
+    class TempBlendedBufferInfo : public HardwareBufferLicensee, public BufferAlloc
     {
     private:
         // Pre-blended 
@@ -116,7 +116,7 @@ class VertexDeclaration;
         exist at once (notably DefaultHardwareBufferManagerBase).
         The Singleton is add via the inheritance in HardwareBufferManager below.
     */
-    class _OgreExport HardwareBufferManagerBase : public BufferAlloc
+    class HardwareBufferManagerBase : public BufferAlloc
     {
     protected:
         /** WARNING: The following member should place before all other members.
@@ -161,7 +161,7 @@ class VertexDeclaration;
 
     private:
         /** Struct holding details of a license to use a temporary shared buffer. */
-        class _OgrePrivate VertexBufferLicense
+        class VertexBufferLicense
         {
         public:
             HardwareVertexBuffer* originalBufferPtr;
@@ -399,7 +399,7 @@ class VertexDeclaration;
     };
 
     /** Singleton wrapper for hardware buffer manager. */
-    class _OgreExport HardwareBufferManager : public HardwareBufferManagerBase, public Singleton<HardwareBufferManager>
+    class HardwareBufferManager : public HardwareBufferManagerBase, public Singleton<HardwareBufferManager>
     {
     public:
         HardwareBufferManager();

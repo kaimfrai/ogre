@@ -66,7 +66,7 @@ class AnimationStateSet;
         Other classes can hold instances of this class to store the state of any animations
         they are using.
     */
-    class _OgreExport AnimationState : public AnimationAlloc
+    class AnimationState : public AnimationAlloc
     {
     public:
 
@@ -207,7 +207,7 @@ class AnimationStateSet;
 
     /** Class encapsulating a set of AnimationState objects.
     */
-    class _OgreExport AnimationStateSet : public AnimationAlloc
+    class AnimationStateSet : public AnimationAlloc
     {
     public:
         /// Create a blank animation state set
@@ -295,7 +295,7 @@ class AnimationStateSet;
         is deleted explicitly elsewhere so this causes double-free problems.
         This wrapper acts as a bridge and it is this which is destroyed automatically.
     */
-    class _OgreExport AnimationStateControllerValue : public ControllerValue<Real>
+    class AnimationStateControllerValue : public ControllerValue<Real>
     {
     private:
         AnimationState* mTargetAnimationState;

@@ -51,7 +51,7 @@ namespace Ogre {
     */
     /** Base composition technique, can be subclassed in plugins.
      */
-    class _OgreExport CompositionTechnique : public CompositorInstAlloc
+    class CompositionTechnique : public CompositorInstAlloc
     {
     public:
         CompositionTechnique(Compositor *parent);

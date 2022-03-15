@@ -52,7 +52,7 @@ namespace Ogre {
         @since
             27 January 2002
     */
-    class _OgreExport DynLib : public DynLibAlloc
+    class DynLib : public DynLibAlloc
     {
     private:
         String mName;

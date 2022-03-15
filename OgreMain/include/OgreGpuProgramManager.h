@@ -57,7 +57,7 @@ namespace Ogre {
     */
 
     /** Interface definition for factories of GpuProgram. */
-    class _OgreExport GpuProgramFactory : public FactoryAlloc
+    class GpuProgramFactory : public FactoryAlloc
     {
     public:
         virtual ~GpuProgramFactory() {}
@@ -77,7 +77,7 @@ namespace Ogre {
         factories and as such the engine can be extended to accept virtually any kind of
         program provided a plugin is written.
     */
-    class _OgreExport GpuProgramManager : public ResourceManager, public Singleton<GpuProgramManager>
+    class GpuProgramManager : public ResourceManager, public Singleton<GpuProgramManager>
     {
         // silence warnings
         using ResourceManager::load;

@@ -55,7 +55,7 @@ class SceneManager;
     */
     /** Chain of compositor effects applying to one viewport.
     */
-    class _OgreExport CompositorChain : public RenderTargetListener, public Viewport::Listener, public CompositorInstAlloc
+    class CompositorChain : public RenderTargetListener, public Viewport::Listener, public CompositorInstAlloc
     {
     public:
         CompositorChain(Viewport *vp);
@@ -216,7 +216,7 @@ class SceneManager;
         const String getCompositorName() const;
 
         /** Render queue listener used to set up rendering events. */
-        class _OgreExport RQListener: public RenderQueueListener
+        class RQListener: public RenderQueueListener
         {
         public:
             RQListener() : mOperation(0), mSceneManager(0), mRenderSystem(0), mViewport(0) {}

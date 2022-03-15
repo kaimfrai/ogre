@@ -66,7 +66,7 @@ class Exception;
             object unless it wishes to unify its error handling using the
             same object.
     */
-    class _OgreExport Exception : public std::exception
+    class Exception : public std::exception
     {
     protected:
         long line;
@@ -152,61 +152,61 @@ class Exception;
     for returning different exception types by value without ambiguity. 
     From 'Modern C++ Design' (Alexandrescu 2001).
     */
-    class _OgreExport UnimplementedException : public Exception 
+    class UnimplementedException : public Exception 
     {
     public:
         UnimplementedException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport FileNotFoundException : public Exception
+    class FileNotFoundException : public Exception
     {
     public:
         FileNotFoundException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport IOException : public Exception
+    class IOException : public Exception
     {
     public:
         IOException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport InvalidStateException : public Exception
+    class InvalidStateException : public Exception
     {
     public:
         InvalidStateException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport InvalidParametersException : public Exception
+    class InvalidParametersException : public Exception
     {
     public:
         InvalidParametersException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport ItemIdentityException : public Exception
+    class ItemIdentityException : public Exception
     {
     public:
         ItemIdentityException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport InternalErrorException : public Exception
+    class InternalErrorException : public Exception
     {
     public:
         InternalErrorException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport RenderingAPIException : public Exception
+    class RenderingAPIException : public Exception
     {
     public:
         RenderingAPIException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport RuntimeAssertionException : public Exception
+    class RuntimeAssertionException : public Exception
     {
     public:
         RuntimeAssertionException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport InvalidCallException : public Exception
+    class InvalidCallException : public Exception
     {
     public:
         InvalidCallException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)

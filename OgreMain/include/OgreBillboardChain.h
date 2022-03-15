@@ -92,14 +92,14 @@ class VertexData;
         Subclasses can however be used to provide this kind of behaviour 
         automatically. @see RibbonTrail
     */
-    class _OgreExport BillboardChain : public MovableObject, public Renderable
+    class BillboardChain : public MovableObject, public Renderable
     {
         bool getCastsShadows(void) const override { return getCastShadows(); }
     public:
 
         /** Contains the data of an element of the BillboardChain.
         */
-        class _OgreExport Element
+        class Element
         {
 
         public:
@@ -380,7 +380,7 @@ class VertexData;
 
 
     /** Factory object for creating BillboardChain instances */
-    class _OgreExport BillboardChainFactory : public MovableObjectFactory
+    class BillboardChainFactory : public MovableObjectFactory
     {
     private:
         MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);

@@ -62,7 +62,7 @@ class RenderQueue;
         which will be passed to it automatically when the particle system itself
         does not understand them.
     */
-    class _OgreExport BillboardParticleRenderer : public ParticleSystemRenderer
+    class BillboardParticleRenderer : public ParticleSystemRenderer
     {
         /// The billboard set that's doing the rendering
         BillboardSet* mBillboardSet;
@@ -164,7 +164,7 @@ class RenderQueue;
     };
 
     /** Factory class for BillboardParticleRenderer */
-    class _OgreExport BillboardParticleRendererFactory : public ParticleSystemRendererFactory
+    class BillboardParticleRendererFactory : public ParticleSystemRendererFactory
     {
     public:
         /// @copydoc FactoryObj::getType

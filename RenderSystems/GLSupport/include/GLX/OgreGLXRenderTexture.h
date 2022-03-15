@@ -40,7 +40,7 @@ class GLContext;
 class GLXContext;
 class GLXGLSupport;
 
-    class _OgrePrivate GLXPBuffer : public GLPBuffer
+    class GLXPBuffer : public GLPBuffer
     {
     public:
         GLXPBuffer(GLXGLSupport* glsupport, PixelComponentType format, size_t width, size_t height);

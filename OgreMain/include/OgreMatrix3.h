@@ -70,7 +70,7 @@ namespace Ogre
         @par
             The coordinate system is assumed to be <b>right-handed</b>.
     */
-    class _OgreExport Matrix3
+    class Matrix3
     {
     public:
         /** Default constructor.
@@ -154,14 +154,14 @@ namespace Ogre
         Matrix3 operator- () const;
 
         /// Vector * matrix [1x3 * 3x3 = 1x3]
-        _OgreExport friend Vector3 operator* (const Vector3& rkVector,
+        friend Vector3 operator* (const Vector3& rkVector,
             const Matrix3& rkMatrix);
 
         /// Matrix * scalar
         Matrix3 operator* (Real fScalar) const;
 
         /// Scalar * matrix
-        _OgreExport friend Matrix3 operator* (Real fScalar, const Matrix3& rkMatrix);
+        friend Matrix3 operator* (Real fScalar, const Matrix3& rkMatrix);
 
         // utilities
         Matrix3 Transpose () const;

@@ -136,7 +136,7 @@ namespace Ogre {
             you wish to make an object blend with others in the scene, e.g. to make
             transparent objects etc, use the Material::setSceneBlending method.
     */
-    class _OgreExport LayerBlendModeEx
+    class LayerBlendModeEx
     {
     public:
         /// The type of blending (colour or alpha)
@@ -263,7 +263,7 @@ namespace Ogre {
 
     By setting a different Ogre::SceneBlendOperation you can achieve a different effect.
     */
-    struct _OgreExport ColourBlendState
+    struct ColourBlendState
     {
         /** @name Write Mask
          * Whether writing is enabled for each of the 4 colour channels */

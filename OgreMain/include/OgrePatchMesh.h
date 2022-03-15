@@ -51,7 +51,7 @@ class VertexDeclaration;
     @remarks
         Instances of this class should be created by calling MeshManager::createBezierPatch.
     */
-    class _OgreExport PatchMesh : public Mesh
+    class PatchMesh : public Mesh
     {
     private:
         /// Internal surface definition

@@ -19,7 +19,7 @@ class Node;
 class SceneNode;
 class Viewport;
 
-class _OgreExport DefaultDebugDrawer : public DebugDrawer
+class DefaultDebugDrawer : public DebugDrawer
 {
     ManualObject mLines;
     ManualObject mAxes;

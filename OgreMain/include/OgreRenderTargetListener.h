@@ -74,7 +74,7 @@ namespace Ogre {
             multiple render targets if you like since the event contains details of the
             originating RenderTarget.
     */
-    class _OgreExport RenderTargetListener
+    class RenderTargetListener
     {
         /*
         Note that this could have been an abstract class, but I made

@@ -88,7 +88,7 @@ class ParticleSystemRenderer;
         templates. Instances of particle systems using these templates can
         then be created easily through the SceneManager::createParticleSystem method.
     */
-    class _OgreExport ParticleSystemManager: 
+    class ParticleSystemManager: 
         public Singleton<ParticleSystemManager>, public ScriptLoader, public FXAlloc
     {
         friend class ParticleSystemFactory;
@@ -350,7 +350,7 @@ class ParticleSystemRenderer;
     };
 
     /** Factory object for creating ParticleSystem instances */
-    class _OgreExport ParticleSystemFactory : public MovableObjectFactory
+    class ParticleSystemFactory : public MovableObjectFactory
     {
     private:
         MovableObject* createInstanceImpl(const String& name, const NameValuePairList* params);

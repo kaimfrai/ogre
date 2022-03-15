@@ -70,7 +70,7 @@ class Viewport;
         @version
             1.0
      */
-    class _OgreExport RenderTarget : public RenderSysAlloc
+    class RenderTarget : public RenderSysAlloc
     {
     public:
         struct FrameStats

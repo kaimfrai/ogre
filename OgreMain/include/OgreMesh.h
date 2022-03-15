@@ -104,7 +104,7 @@ class VertexData;
         also that mesh sub-sections (when used in an instantiated object)
         share the same scene node as the parent.
     */
-    class _OgreExport Mesh: public Resource, public AnimationContainer
+    class Mesh: public Resource, public AnimationContainer
     {
         friend class SubMesh;
         friend class MeshSerializerImpl;

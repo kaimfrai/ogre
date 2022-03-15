@@ -80,7 +80,7 @@ namespace Ogre {
     @note
         Don't use this class directly, use OptimisedUtil instead.
     */
-    class _OgrePrivate OptimisedUtilSSE : public OptimisedUtil
+    class OptimisedUtilSSE : public OptimisedUtil
     {
     protected:
         /// Do we prefer to use a general SSE version for position/normal shared buffers?

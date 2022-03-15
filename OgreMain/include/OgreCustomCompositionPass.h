@@ -42,7 +42,7 @@ namespace Ogre {
     *   the quad, scene and clear operations) in composition passes.
     *   @see CompositorManager::registerCustomCompositionPass
     */
-    class _OgreExport CustomCompositionPass
+    class CustomCompositionPass
     {
     public:
         /** Create a custom composition operation.

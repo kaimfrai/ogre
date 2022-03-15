@@ -41,7 +41,7 @@ namespace Ogre
 {
     class GLXGLSupport;
 
-    class _OgrePrivate GLXWindow : public GLWindow
+    class GLXWindow : public GLWindow
     {
     public:
         GLXWindow(GLXGLSupport* glsupport);

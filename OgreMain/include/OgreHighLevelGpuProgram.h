@@ -69,7 +69,7 @@ struct GpuNamedConstants;
         can query on the available custom parameters and get/set them without having to 
         link specifically with it.
     */
-    class _OgreExport HighLevelGpuProgram : public GpuProgram
+    class HighLevelGpuProgram : public GpuProgram
     {
     protected:
         /// Whether the high-level program (and it's parameter defs) is loaded

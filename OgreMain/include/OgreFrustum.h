@@ -95,7 +95,7 @@ class Sphere;
         used to represent either a visible area or a projection area. Can be used
         for a number of applications.
     */
-    class _OgreExport Frustum : public MovableObject
+    class Frustum : public MovableObject
     {
     protected:
         /// y-direction field-of-view (default 45)

@@ -54,7 +54,7 @@ class TextureUnitState;
     //-----------------------------------------------------------------------
     /** Predefined controller value for getting the latest frame time.
     */
-    class _OgreExport FrameTimeControllerValue : public ControllerValue<Real>, public FrameListener
+    class FrameTimeControllerValue : public ControllerValue<Real>, public FrameListener
     {
     private:
         Real mFrameTime;
@@ -83,7 +83,7 @@ class TextureUnitState;
     //-----------------------------------------------------------------------
     /** Predefined controller value for getting / setting the frame number of a texture layer
     */
-    class _OgreExport TextureFrameControllerValue : public ControllerValue<Real>
+    class TextureFrameControllerValue : public ControllerValue<Real>
     {
     private:
         TextureUnitState* mTextureLayer;
@@ -113,7 +113,7 @@ class TextureUnitState;
         @par
             Because of the nature of this value, it can accept values outside the 0..1 parametric range.
     */
-    class _OgreExport TexCoordModifierControllerValue : public ControllerValue<Real>
+    class TexCoordModifierControllerValue : public ControllerValue<Real>
     {
     private:
         bool mTransU, mTransV;
@@ -163,7 +163,7 @@ class TextureUnitState;
         supported, therefore do not use this controller value as a source,
         only as a target.
     */
-    class _OgreExport FloatGpuParameterControllerValue : public ControllerValue<Real>
+    class FloatGpuParameterControllerValue : public ControllerValue<Real>
     {
     private:
         /// The parameters to access
@@ -196,7 +196,7 @@ class TextureUnitState;
     /** Predefined controller function which just passes through the original source
     directly to dest.
     */
-    class _OgreExport PassthroughControllerFunction : public ControllerFunction<Real>
+    class PassthroughControllerFunction : public ControllerFunction<Real>
     {
     public:
         /// @deprecated use create()
@@ -213,7 +213,7 @@ class TextureUnitState;
 
     /** Predefined controller function for dealing with animation.
     */
-    class _OgreExport AnimationControllerFunction : public ControllerFunction<Real>
+    class AnimationControllerFunction : public ControllerFunction<Real>
     {
     private:
         Real mSeqTime;
@@ -244,7 +244,7 @@ class TextureUnitState;
     //-----------------------------------------------------------------------
     /** Predefined controller function which simply scales an input to an output value.
     */
-    class _OgreExport ScaleControllerFunction : public ControllerFunction<Real>
+    class ScaleControllerFunction : public ControllerFunction<Real>
     {
     private:
         Real mScale;
@@ -280,7 +280,7 @@ class TextureUnitState;
         @par
             Hence a wave output of -1 becomes 0, a wave output of 1 becomes 1, and a wave output of 0 becomes 0.5.
     */
-    class _OgreExport WaveformControllerFunction : public ControllerFunction<Real>
+    class WaveformControllerFunction : public ControllerFunction<Real>
     {
     private:
         WaveformType mWaveType;
@@ -320,7 +320,7 @@ class TextureUnitState;
     //-----------------------------------------------------------------------
     /** Predefined controller function based on linear function interpolation.
     */
-    class _OgreExport LinearControllerFunction : public ControllerFunction<Real> {
+    class LinearControllerFunction : public ControllerFunction<Real> {
         Real mFrequency;
         std::vector<Real> mKeys;
         std::vector<Real> mValues;

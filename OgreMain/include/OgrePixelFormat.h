@@ -341,7 +341,7 @@ namespace Ogre {
 
         @copydetails Ogre::Box
     */
-    class _OgreExport PixelBox: public Box, public ImageAlloc {
+    class PixelBox: public Box, public ImageAlloc {
     public:
         /// Parameter constructor for setting the members manually
         PixelBox() : data(NULL), format(PF_UNKNOWN) {}
@@ -456,7 +456,7 @@ namespace Ogre {
     /**
      * Some utility functions for packing and unpacking pixel data
      */
-    class _OgreExport PixelUtil {
+    class PixelUtil {
     public:
         /** Returns the size in bytes of an element of the given pixel format.
          @return

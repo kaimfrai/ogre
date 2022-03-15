@@ -50,7 +50,7 @@ namespace Ogre {
   * @author Lee Sandberg
   * Updated on 13/8/2005 by Tuan Kuranes email: tuan.kuranes@free.fr
   */
-    class _OgreExport HardwareOcclusionQuery : public RenderSysAlloc
+    class HardwareOcclusionQuery : public RenderSysAlloc
 {
 //----------------------------------------------------------------------
 // Public methods

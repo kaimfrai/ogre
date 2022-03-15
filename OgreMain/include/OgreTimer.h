@@ -40,7 +40,7 @@ THE SOFTWARE.
 namespace Ogre
 {
     /** Timer class */
-    class _OgreExport Timer : public TimerAlloc
+    class Timer : public TimerAlloc
     {
     private:
         std::chrono::steady_clock::time_point start;

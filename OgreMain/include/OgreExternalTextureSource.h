@@ -72,7 +72,7 @@ namespace Ogre
     before calling create defined texture... or it will fail, though, it 
     is up to the plugin to report errors to the log file, or raise an 
     exception if need be. */
-    class _OgreExport ExternalTextureSource : public StringInterface
+    class ExternalTextureSource : public StringInterface
     {
     public:
         /** Constructor */

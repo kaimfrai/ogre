@@ -52,7 +52,7 @@ namespace Ogre {
     *  @{
     */
     /** Specialisation of HardwareBuffer for a vertex buffer. */
-    class _OgreExport HardwareVertexBuffer : public HardwareBuffer
+    class HardwareVertexBuffer : public HardwareBuffer
     {
             bool mIsInstanceData;
             HardwareBufferManagerBase* mMgr;
@@ -179,7 +179,7 @@ namespace Ogre {
         define the semantics (position, normal etc), the VertexElement
         class does.
     */
-    class _OgreExport VertexElement : public VertexDataAlloc
+    class VertexElement : public VertexDataAlloc
     {
     private:
         /// The offset in the buffer that this element starts at
@@ -287,7 +287,7 @@ namespace Ogre {
     Like the other classes in this functional area, these declarations should be created and
     destroyed using the HardwareBufferManager.
     */
-    class _OgreExport VertexDeclaration : public VertexDataAlloc
+    class VertexDeclaration : public VertexDataAlloc
     {
     public:
         /// Defines the list of vertex elements that makes up this declaration
@@ -492,7 +492,7 @@ namespace Ogre {
         Like the other classes in this functional area, these binding maps should be created and
         destroyed using the HardwareBufferManager.
     */
-    class _OgreExport VertexBufferBinding : public VertexDataAlloc
+    class VertexBufferBinding : public VertexDataAlloc
     {
     public:
         /// Defines the vertex buffer bindings used as source for vertex declarations

@@ -80,7 +80,7 @@ namespace Ogre
         in their own subsystems. We also provide a default implementation in the
         form of DefaultWorkQueue.
     */
-    class _OgreExport WorkQueue : public UtilityAlloc
+    class WorkQueue : public UtilityAlloc
     {
     protected:
         typedef std::map<String, uint16> ChannelMap;
@@ -93,7 +93,7 @@ namespace Ogre
 
         /** General purpose request structure. 
         */
-        class _OgreExport Request : public UtilityAlloc
+        class Request : public UtilityAlloc
         {
             friend class WorkQueue;
         protected:
@@ -132,7 +132,7 @@ namespace Ogre
 
         /** General purpose response structure. 
         */
-        struct _OgreExport Response : public UtilityAlloc
+        struct Response : public UtilityAlloc
         {
             /// Pointer to the request that this response is in relation to
             const Request* mRequest;
@@ -171,7 +171,7 @@ namespace Ogre
         It is best to perform CPU-side work in these handlers and let the
         response handler transfer results to the GPU in the main render thread.
         */
-        class _OgreExport RequestHandler
+        class RequestHandler
         {
         public:
             RequestHandler() {}
@@ -206,7 +206,7 @@ namespace Ogre
         in the main render thread and thus all GPU resources will be
         available. 
         */
-        class _OgreExport ResponseHandler
+        class ResponseHandler
         {
         public:
             ResponseHandler() {}
@@ -379,7 +379,7 @@ namespace Ogre
 
     /** Base for a general purpose request / response style background work queue.
     */
-    class _OgreExport DefaultWorkQueueBase : public WorkQueue
+    class DefaultWorkQueueBase : public WorkQueue
     {
     public:
 
@@ -487,7 +487,7 @@ namespace Ogre
         ResponseQueue mResponseQueue; // Guarded by mResponseMutex
 
         /// Thread function
-        struct _OgreExport WorkerFunc
+        struct WorkerFunc
         {
             DefaultWorkQueueBase* mQueue;
 
@@ -506,7 +506,7 @@ namespace Ogre
             provides insurance against the handler itself being disconnected
             while the list remains unchanged.
         */
-        class _OgreExport RequestHandlerHolder : public UtilityAlloc
+        class RequestHandlerHolder : public UtilityAlloc
         {
         protected:
             mutable std::recursive_mutex mRWMutex;

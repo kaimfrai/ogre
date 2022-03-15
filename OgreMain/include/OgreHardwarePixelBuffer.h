@@ -57,7 +57,7 @@ class RenderTexture;
         or in main memory depending on its usage. One mipmap level of a
         texture is an example of a HardwarePixelBuffer.
     */
-    class _OgreExport HardwarePixelBuffer : public HardwareBuffer
+    class HardwarePixelBuffer : public HardwareBuffer
     {
     protected:
         LockOptions mCurrentLockOptions;

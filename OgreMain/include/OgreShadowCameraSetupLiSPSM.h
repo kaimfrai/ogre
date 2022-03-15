@@ -106,7 +106,7 @@ class Viewport;
     @note
     Original implementation by Matthias Fink <matthias.fink@web.de>, 2006.
     */
-    class _OgreExport LiSPSMShadowCameraSetup : public FocusedShadowCameraSetup
+    class LiSPSMShadowCameraSetup : public FocusedShadowCameraSetup
     {
         /// Warp factor adjustment
         Real mOptAdjustFactor;

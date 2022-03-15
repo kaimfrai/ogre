@@ -57,21 +57,21 @@ class RenderQueue;
     //---------------------------------------------------------------------
     String PanelOverlayElement::msTypeName = "Panel";
     /** Command object for specifying tiling (see ParamCommand).*/
-    class _OgrePrivate CmdTiling : public ParamCommand
+    class CmdTiling : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for specifying transparency (see ParamCommand).*/
-    class _OgrePrivate CmdTransparent : public ParamCommand
+    class CmdTransparent : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for specifying UV coordinates (see ParamCommand).*/
-    class _OgrePrivate CmdUVCoords : public ParamCommand
+    class CmdUVCoords : public ParamCommand
     {
     public:
         String doGet(const void* target) const;

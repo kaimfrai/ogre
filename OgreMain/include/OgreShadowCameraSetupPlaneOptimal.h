@@ -70,7 +70,7 @@ class Viewport;
             a finite position. Therefore you cannot use it for directional lights
             at this time.
     */
-    class _OgreExport PlaneOptimalShadowCameraSetup : public ShadowCameraSetup
+    class PlaneOptimalShadowCameraSetup : public ShadowCameraSetup
     {
     private:
         const MovablePlane* mPlane;   ///< pointer to plane of interest

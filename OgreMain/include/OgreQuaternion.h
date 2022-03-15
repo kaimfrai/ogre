@@ -61,7 +61,7 @@ class Matrix3;
         http://www.cprogramming.com/tutorial/3d/quaternions.html and
         http://www.gamedev.net/page/resources/_/reference/programming/math-and-physics/quaternions/quaternion-powers-r1095
     */
-    class _OgreExport Quaternion
+    class Quaternion
     {
     public:
         /// Default constructor, initializes to identity rotation (aka 0°)

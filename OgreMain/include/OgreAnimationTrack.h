@@ -60,7 +60,7 @@ class VertexMorphKeyFrame;
     */
     /** Time index object used to search keyframe at the given position.
     */
-    class _OgreExport TimeIndex
+    class TimeIndex
     {
     private:
         /** The time position (in relation to the whole animation sequence)
@@ -132,14 +132,14 @@ class VertexMorphKeyFrame;
         It is possible to change this behaviour using
         setUseShortestRotationPath() method.
     */
-    class _OgreExport AnimationTrack : public AnimationAlloc
+    class AnimationTrack : public AnimationAlloc
     {
     public:
 
         /** Listener allowing you to override certain behaviour of a track, 
             for example to drive animation procedurally.
         */
-        class _OgreExport Listener
+        class Listener
         {
         public:
             virtual ~Listener() {}
@@ -272,7 +272,7 @@ class VertexMorphKeyFrame;
 
     /** Specialised AnimationTrack for dealing with generic animable values.
     */
-    class _OgreExport NumericAnimationTrack : public AnimationTrack
+    class NumericAnimationTrack : public AnimationTrack
     {
     public:
         /// Constructor
@@ -333,7 +333,7 @@ class VertexMorphKeyFrame;
 
     /** Specialised AnimationTrack for dealing with node transforms.
     */
-    class _OgreExport NodeAnimationTrack : public AnimationTrack
+    class NodeAnimationTrack : public AnimationTrack
     {
     public:
         /// Constructor
@@ -487,7 +487,7 @@ class VertexMorphKeyFrame;
     /** Specialised AnimationTrack for dealing with changing vertex position information.
     @see VertexAnimationType
     */
-    class _OgreExport VertexAnimationTrack : public AnimationTrack
+    class VertexAnimationTrack : public AnimationTrack
     {
     public:
         /** The target animation mode */

@@ -72,7 +72,7 @@ class Viewport;
         matrices when they are requested more than once when the underlying information has
         not altered.
     */
-    class _OgreExport AutoParamDataSource : public SceneMgtAlloc
+    class AutoParamDataSource : public SceneMgtAlloc
     {
     private:
         const Light& getLight(size_t index) const;

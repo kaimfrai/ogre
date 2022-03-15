@@ -59,7 +59,7 @@ namespace Ogre {
             respectively), and a constant (D) which is the distance along
             the normal you have to go to move the plane back to the origin.
      */
-    class _OgreExport Plane
+    class Plane
     {
     public:
         Vector3 normal;

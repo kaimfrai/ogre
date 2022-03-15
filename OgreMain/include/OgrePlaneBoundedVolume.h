@@ -45,7 +45,7 @@ namespace Ogre {
     */
     /** Represents a convex volume bounded by planes.
     */
-    class _OgreExport PlaneBoundedVolume
+    class PlaneBoundedVolume
     {
     public:
         typedef std::vector<Plane> PlaneList;

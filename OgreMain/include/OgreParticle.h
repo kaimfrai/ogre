@@ -39,7 +39,7 @@ namespace Ogre {
     *  @{
     */
     /** Class representing a single particle instance. */
-    class _OgreExport Particle : public FXAlloc
+    class Particle : public FXAlloc
     {
     public:
         /// Type of particle

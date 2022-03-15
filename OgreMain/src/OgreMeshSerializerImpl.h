@@ -68,7 +68,7 @@ class VertexData;
         This mesh format was used from Ogre v1.10.
 
     */
-    class _OgrePrivate MeshSerializerImpl : public Serializer
+    class MeshSerializerImpl : public Serializer
     {
     public:
         MeshSerializerImpl();
@@ -204,7 +204,7 @@ class VertexData;
     /** Class for providing backwards-compatibility for loading version 1.8 of the .mesh format. 
      This mesh format was used from Ogre v1.8.
      */
-    class _OgrePrivate MeshSerializerImpl_v1_8 : public MeshSerializerImpl
+    class MeshSerializerImpl_v1_8 : public MeshSerializerImpl
     {
     public:
         MeshSerializerImpl_v1_8();
@@ -235,7 +235,7 @@ class VertexData;
     /** Class for providing backwards-compatibility for loading version 1.41 of the .mesh format. 
      This mesh format was used from Ogre v1.7.
      */
-    class _OgrePrivate MeshSerializerImpl_v1_41 : public MeshSerializerImpl_v1_8
+    class MeshSerializerImpl_v1_41 : public MeshSerializerImpl_v1_8
     {
     public:
         MeshSerializerImpl_v1_41();
@@ -254,7 +254,7 @@ class VertexData;
     /** Class for providing backwards-compatibility for loading version 1.4 of the .mesh format. 
      This mesh format was used from Ogre v1.4.
      */
-    class _OgrePrivate MeshSerializerImpl_v1_4 : public MeshSerializerImpl_v1_41
+    class MeshSerializerImpl_v1_4 : public MeshSerializerImpl_v1_41
     {
     public:
         MeshSerializerImpl_v1_4();
@@ -270,7 +270,7 @@ class VertexData;
     /** Class for providing backwards-compatibility for loading version 1.3 of the .mesh format. 
      This mesh format was used from Ogre v1.0 (and some pre-releases)
      */
-    class _OgrePrivate MeshSerializerImpl_v1_3 : public MeshSerializerImpl_v1_4
+    class MeshSerializerImpl_v1_3 : public MeshSerializerImpl_v1_4
     {
     public:
         MeshSerializerImpl_v1_3();
@@ -289,7 +289,7 @@ class VertexData;
     /** Class for providing backwards-compatibility for loading version 1.2 of the .mesh format. 
      This is a LEGACY FORMAT that pre-dates version Ogre 1.0
      */
-    class _OgrePrivate MeshSerializerImpl_v1_2 : public MeshSerializerImpl_v1_3
+    class MeshSerializerImpl_v1_2 : public MeshSerializerImpl_v1_3
     {
     public:
         MeshSerializerImpl_v1_2();
@@ -310,7 +310,7 @@ class VertexData;
     /** Class for providing backwards-compatibility for loading version 1.1 of the .mesh format. 
      This is a LEGACY FORMAT that pre-dates version Ogre 1.0
      */
-    class _OgrePrivate MeshSerializerImpl_v1_1 : public MeshSerializerImpl_v1_2
+    class MeshSerializerImpl_v1_1 : public MeshSerializerImpl_v1_2
     {
     public:
         MeshSerializerImpl_v1_1();

@@ -47,7 +47,7 @@ namespace Ogre {
     @note
         Don't use this class directly, use OptimisedUtil instead.
     */
-    class _OgrePrivate OptimisedUtilGeneral : public OptimisedUtil
+    class OptimisedUtilGeneral : public OptimisedUtil
     {
     public:
         /// @copydoc OptimisedUtil::softwareVertexSkinning

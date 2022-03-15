@@ -68,7 +68,7 @@ class VertexData;
         @version
             1.2
      */
-    class _OgreExport InstanceBatchHW_VTF : public BaseInstanceBatchVTF
+    class InstanceBatchHW_VTF : public BaseInstanceBatchVTF
     {
     protected:
         bool    mKeepStatic;

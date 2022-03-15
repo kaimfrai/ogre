@@ -64,7 +64,7 @@ class VertexData;
         instances within the same container, this class allows generic access to
         named animations within that container, whatever it may be.
     */
-    class _OgreExport AnimationContainer
+    class AnimationContainer
     {
     public:
         virtual ~AnimationContainer() {}
@@ -98,7 +98,7 @@ class VertexData;
         You should not create these animations directly. They will be created via a parent
         object which owns the animation, e.g. Skeleton.
     */
-    class _OgreExport Animation : public AnimationAlloc
+    class Animation : public AnimationAlloc
     {
 
     public:

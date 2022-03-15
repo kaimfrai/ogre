@@ -45,7 +45,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    class _OgrePrivate MeshVersionData : public SerializerAlloc
+    class MeshVersionData : public SerializerAlloc
     {
     public:
         MeshVersion version;

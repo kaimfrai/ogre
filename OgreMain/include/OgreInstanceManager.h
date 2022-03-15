@@ -68,7 +68,7 @@ class SceneManager;
         @see @ref InstancedEntity
         @see Design discussion thread: http://www.ogre3d.org/forums/viewtopic.php?f=4&t=59902
      */
-    class _OgreExport InstanceManager : public FactoryAlloc
+    class InstanceManager : public FactoryAlloc
     {
     public:
         enum InstancingTechnique

@@ -60,7 +60,7 @@ class Material;
         unless you specifically request a lower detail technique (say for distant
         rendering).
     */
-    class _OgreExport Technique : public TechniqueAlloc
+    class Technique : public TechniqueAlloc
     {
     public:
         typedef std::vector<Pass*> Passes;

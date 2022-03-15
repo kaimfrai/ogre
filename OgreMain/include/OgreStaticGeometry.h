@@ -150,7 +150,7 @@ class VertexData;
         Warning: this class only works with indexed triangle lists at the moment,
         do not pass it triangle strips, fans or lines / points, or unindexed geometry.
     */
-    class _OgreExport StaticGeometry : public BatchedGeometryAlloc
+    class StaticGeometry : public BatchedGeometryAlloc
     {
     public:
         /** Struct holding geometry optimised per SubMesh / LOD level, ready
@@ -165,7 +165,7 @@ class VertexData;
             a given LOD has wastage, we create an optimised version of it's
             geometry which is ready for copying with no wastage.
         */
-        class _OgrePrivate OptimisedSubMeshGeometry : public BatchedGeometryAlloc
+        class OptimisedSubMeshGeometry : public BatchedGeometryAlloc
         {
         public:
             OptimisedSubMeshGeometry() :vertexData(0), indexData(0) {}
@@ -220,7 +220,7 @@ class VertexData;
             the same vertex & index format is stored. It also acts as the 
             renderable.
         */
-        class _OgreExport GeometryBucket :  public Renderable,  public BatchedGeometryAlloc
+        class GeometryBucket :  public Renderable,  public BatchedGeometryAlloc
         {
             /// Geometry which has been queued up pre-build (not for deallocation)
             QueuedGeometryList mQueuedGeometry;
@@ -262,7 +262,7 @@ class VertexData;
         };
         /** A MaterialBucket is a collection of smaller buckets with the same 
             Material (and implicitly the same LOD). */
-        class _OgreExport MaterialBucket : public BatchedGeometryAlloc
+        class MaterialBucket : public BatchedGeometryAlloc
         {
         public:
             /// list of Geometry Buckets in this region
@@ -315,7 +315,7 @@ class VertexData;
             LOD refers to Mesh LOD here. Material LOD can change separately
             at the next bucket down from this.
         */
-        class _OgreExport LODBucket : public BatchedGeometryAlloc
+        class LODBucket : public BatchedGeometryAlloc
         {
         public:
             /// Lookup of Material Buckets in this region
@@ -375,7 +375,7 @@ class VertexData;
             attached to a node based on the local centre - in practice it
             won't actually move (although in theory it could).
         */
-        class _OgreExport Region : public MovableObject
+        class Region : public MovableObject
         {
             friend class MaterialBucket;
             friend class GeometryBucket;
@@ -757,7 +757,7 @@ class VertexData;
     };
 
     /** Dummy factory to let Regions adhere to MovableObject protocol */
-    class _OgreExport StaticGeometryFactory : public MovableObjectFactory
+    class StaticGeometryFactory : public MovableObjectFactory
     {
         MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) { return NULL; }
     public:

@@ -40,7 +40,7 @@ class GLContext;
 class PixelBox;
 struct Box;
 
-    class _OgrePrivate GLWindow : public RenderWindow, public GLRenderTarget
+    class GLWindow : public RenderWindow, public GLRenderTarget
     {
     public:
         GLWindow();

@@ -50,7 +50,7 @@ class RenderTarget;
 
     /** GL surface descriptor. Points to a 2D surface that can be rendered to.
      */
-    struct _OgrePrivate GLSurfaceDesc
+    struct GLSurfaceDesc
     {
     public:
         GLHardwarePixelBufferCommon *buffer;

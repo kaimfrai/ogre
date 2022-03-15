@@ -66,7 +66,7 @@ namespace Ogre {
         If you wish to access stream data asynchronously then you should
         organise your own mutexes to avoid race conditions. 
     */
-    class _OgreExport DataStream : public StreamAlloc
+    class DataStream : public StreamAlloc
     {
     public:
         enum AccessMode
@@ -201,7 +201,7 @@ namespace Ogre {
 
     /** Common subclass of DataStream for handling data from chunks of memory.
     */
-    class _OgreExport MemoryDataStream : public DataStream
+    class MemoryDataStream : public DataStream
     {
     private:
         /// Pointer to the start of the data area
@@ -362,7 +362,7 @@ namespace Ogre {
     /** Common subclass of DataStream for handling data from 
         std::basic_istream.
     */
-    class _OgreExport FileStreamDataStream : public DataStream
+    class FileStreamDataStream : public DataStream
     {
     private:
         /// Reference to source stream (read)
@@ -490,7 +490,7 @@ namespace Ogre {
         and libraries still wedded to the old FILE handle access, this stream
         wrapper provides some backwards compatibility.
     */
-    class _OgreExport FileHandleDataStream : public DataStream
+    class FileHandleDataStream : public DataStream
     {
     private:
         FILE* mFileHandle;

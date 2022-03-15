@@ -56,7 +56,7 @@ class MovableObject;
         @par
             If all your testers had varying resolutions or you just didn't care, then this feature is useless for you and should be disabled (default: disabled).
      */
-    class _OgreExport DistanceLodStrategyBase : public LodStrategy
+    class DistanceLodStrategyBase : public LodStrategy
     {
     protected:
         /// @copydoc LodStrategy::getValueImpl
@@ -132,7 +132,7 @@ class MovableObject;
         @par
             If all your testers had varying resolutions or you just didn't care, then this feature is useless for you and should be disabled (default: disabled).
      */
-    class _OgreExport DistanceLodSphereStrategy : public DistanceLodStrategyBase, public Singleton<DistanceLodSphereStrategy>
+    class DistanceLodSphereStrategy : public DistanceLodStrategyBase, public Singleton<DistanceLodSphereStrategy>
     {
     public:
         /** Default constructor. */
@@ -165,7 +165,7 @@ class MovableObject;
         @par
             If all your testers had varying resolutions or you just didn't care, then this feature is useless for you and should be disabled (default: disabled).
      */
-    class _OgreExport DistanceLodBoxStrategy : public DistanceLodStrategyBase, public Singleton<DistanceLodBoxStrategy>
+    class DistanceLodBoxStrategy : public DistanceLodStrategyBase, public Singleton<DistanceLodBoxStrategy>
     {
     public:
         /** Default constructor. */

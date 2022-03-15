@@ -51,7 +51,7 @@ class DynLib;
         libraries, opens them and returns references to already-open
         libraries.
     */
-    class _OgreExport DynLibManager: public Singleton<DynLibManager>, public DynLibAlloc
+    class DynLibManager: public Singleton<DynLibManager>, public DynLibAlloc
     {
     private:
         typedef std::map<String, DynLib*> DynLibList;

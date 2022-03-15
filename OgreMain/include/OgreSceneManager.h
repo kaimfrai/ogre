@@ -123,8 +123,8 @@ namespace Ogre {
     typedef std::vector<ShadowTextureConfig> ShadowTextureConfigList;
     typedef ConstVectorIterator<ShadowTextureConfigList> ConstShadowTextureConfigIterator;
 
-    _OgreExport bool operator== ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs );
-    _OgreExport bool operator!= ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs );
+    bool operator== ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs );
+    bool operator!= ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs );
 
     /** Structure for holding a position & orientation pair. */
     struct ViewPoint
@@ -145,7 +145,7 @@ namespace Ogre {
     /** Structure collecting together information about the visible objects
     that have been discovered in a scene.
     */
-    struct _OgreExport VisibleObjectsBoundsInfo
+    struct VisibleObjectsBoundsInfo
     {
         /// The axis-aligned bounds of the visible objects
         AxisAlignedBox aabb;
@@ -282,7 +282,7 @@ namespace Ogre {
         dependent on the Camera, which will always call back the SceneManager
         which created it to render the scene. 
      */
-    class _OgreExport SceneManager : public SceneMgtAlloc
+    class SceneManager : public SceneMgtAlloc
     {
     public:
         enum QueryTypeMask : uint32
@@ -306,12 +306,12 @@ namespace Ogre {
         */
         struct materialLess
         {
-            _OgreExport bool operator()(const Material* x, const Material* y) const;
+            bool operator()(const Material* x, const Material* y) const;
         };
         /// Comparator for sorting lights relative to a point
         struct lightLess
         {
-            _OgreExport bool operator()(const Light* a, const Light* b) const;
+            bool operator()(const Light* a, const Light* b) const;
         };
 
         /// Describes the stage of rendering when performing complex illumination
@@ -423,7 +423,7 @@ namespace Ogre {
         /** Inner helper class to implement the visitor pattern for rendering objects
             in a queue. 
         */
-        class _OgreExport SceneMgrQueuedRenderableVisitor : public QueuedRenderableVisitor
+        class SceneMgrQueuedRenderableVisitor : public QueuedRenderableVisitor
         {
         private:
             /// Pass that was actually used at the grouping level
@@ -516,7 +516,7 @@ namespace Ogre {
         AutoTrackingSceneNodes mAutoTrackingSceneNodes;
 
         // Sky params
-        class _OgreExport SkyRenderer : public Listener, public Node::Listener
+        class SkyRenderer : public Listener, public Node::Listener
         {
         protected:
             SceneManager* mSceneManager;
@@ -542,7 +542,7 @@ namespace Ogre {
             void postFindVisibleObjects(SceneManager* source, IlluminationRenderStage irs, Viewport* vp);
         };
 
-        class _OgreExport SkyPlaneRenderer : public SkyRenderer
+        class SkyPlaneRenderer : public SkyRenderer
         {
             Entity* mSkyPlaneEntity;
             Plane mSkyPlane;
@@ -555,7 +555,7 @@ namespace Ogre {
                              int ysegments, const String& groupName);
         } mSkyPlane;
 
-        class _OgreExport SkyBoxRenderer : public SkyRenderer
+        class SkyBoxRenderer : public SkyRenderer
         {
             std::unique_ptr<ManualObject> mSkyBoxObj;
 
@@ -569,7 +569,7 @@ namespace Ogre {
                            const String& groupName);
         } mSkyBox;
 
-        class _OgreExport SkyDomeRenderer : public SkyRenderer
+        class SkyDomeRenderer : public SkyRenderer
         {
             std::array<Entity*, 5> mSkyDomeEntity;
             Quaternion mSkyDomeOrientation;
@@ -623,7 +623,7 @@ namespace Ogre {
         CamVisibleObjectsMap mCamVisibleObjectsMap; 
 
         /// Cached light information, used to tracking light's changes
-        struct _OgreExport LightInfo
+        struct LightInfo
         {
             Light* light;       /// Just a pointer for comparison, the light might destroyed for some reason
             int type;           /// Use int instead of Light::LightTypes to avoid header file dependence
@@ -675,7 +675,7 @@ namespace Ogre {
         */
         virtual void initRenderQueue(void);
 
-        struct _OgreExport ShadowRenderer
+        struct ShadowRenderer
         {
             typedef std::vector<Camera*> CameraList;
             typedef std::map< const Camera*, const Light* > ShadowCamLightMapping;
@@ -850,7 +850,7 @@ namespace Ogre {
             ListenerList mListeners;
 
             /// Inner class to use as callback for shadow caster scene query
-            class _OgreExport ShadowCasterSceneQueryListener : public SceneQueryListener, public SceneMgtAlloc
+            class ShadowCasterSceneQueryListener : public SceneQueryListener, public SceneMgtAlloc
             {
             protected:
                 SceneManager* mSceneMgr;
@@ -1022,7 +1022,7 @@ namespace Ogre {
         */
         struct lightsForShadowTextureLess
         {
-            _OgreExport bool operator()(const Light* l1, const Light* l2) const;
+            bool operator()(const Light* l1, const Light* l2) const;
         };
 
 
@@ -3432,7 +3432,7 @@ namespace Ogre {
     };
 
     /// Interface for visualising debugging the SceneManager state
-    class _OgreExport DebugDrawer : public SceneManager::Listener
+    class DebugDrawer : public SceneManager::Listener
     {
     public:
         virtual ~DebugDrawer() {}
@@ -3442,7 +3442,7 @@ namespace Ogre {
     };
 
     /** Default implementation of IntersectionSceneQuery. */
-    class _OgreExport DefaultIntersectionSceneQuery : 
+    class DefaultIntersectionSceneQuery : 
         public IntersectionSceneQuery
     {
     public:
@@ -3453,7 +3453,7 @@ namespace Ogre {
     };
 
     /** Default implementation of RaySceneQuery. */
-    class _OgreExport DefaultRaySceneQuery : public RaySceneQuery
+    class DefaultRaySceneQuery : public RaySceneQuery
     {
     public:
         DefaultRaySceneQuery(SceneManager* creator);
@@ -3462,7 +3462,7 @@ namespace Ogre {
         void execute(RaySceneQueryListener* listener) override;
     };
     /** Default implementation of SphereSceneQuery. */
-    class _OgreExport DefaultSphereSceneQuery : public SphereSceneQuery
+    class DefaultSphereSceneQuery : public SphereSceneQuery
     {
     public:
         DefaultSphereSceneQuery(SceneManager* creator);
@@ -3471,7 +3471,7 @@ namespace Ogre {
         void execute(SceneQueryListener* listener) override;
     };
     /** Default implementation of PlaneBoundedVolumeListSceneQuery. */
-    class _OgreExport DefaultPlaneBoundedVolumeListSceneQuery : public PlaneBoundedVolumeListSceneQuery
+    class DefaultPlaneBoundedVolumeListSceneQuery : public PlaneBoundedVolumeListSceneQuery
     {
     public:
         DefaultPlaneBoundedVolumeListSceneQuery(SceneManager* creator);
@@ -3480,7 +3480,7 @@ namespace Ogre {
         void execute(SceneQueryListener* listener) override;
     };
     /** Default implementation of AxisAlignedBoxSceneQuery. */
-    class _OgreExport DefaultAxisAlignedBoxSceneQuery : public AxisAlignedBoxSceneQuery
+    class DefaultAxisAlignedBoxSceneQuery : public AxisAlignedBoxSceneQuery
     {
     public:
         DefaultAxisAlignedBoxSceneQuery(SceneManager* creator);
@@ -3501,7 +3501,7 @@ namespace Ogre {
 
 
     /** Class which will create instances of a given SceneManager. */
-    class _OgreExport SceneManagerFactory : public SceneMgtAlloc
+    class SceneManagerFactory : public SceneMgtAlloc
     {
     protected:
         mutable SceneManagerMetaData mMetaData;

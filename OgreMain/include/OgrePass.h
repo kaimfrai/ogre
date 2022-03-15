@@ -120,7 +120,7 @@ namespace Ogre {
         There are pros and cons to both, just remember that if you use a programmable
         pass to create some great effects, allow more time for definition and testing.
     */
-    class _OgreExport Pass : public PassAlloc
+    class Pass : public PassAlloc
     {
     public:
         /** Definition of a functor for calculating the hashcode of a Pass.

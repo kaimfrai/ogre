@@ -94,7 +94,7 @@ class ResourceManager;
         Skeleton definitions are loaded from datafiles, namely the .skeleton file format. They
         are loaded on demand, especially when referenced by a Mesh.
     */
-    class _OgreExport Skeleton : public Resource, public AnimationContainer
+    class Skeleton : public Resource, public AnimationContainer
     {
         friend class SkeletonInstance;
     private:

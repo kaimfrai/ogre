@@ -62,7 +62,7 @@ namespace Ogre {
     @note
         This class intended to use by advanced user only.
     */
-    class _OgreExport AlignedMemory
+    class AlignedMemory
     {
     public:
         /** Allocate memory with given alignment.

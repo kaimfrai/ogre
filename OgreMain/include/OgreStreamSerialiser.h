@@ -81,7 +81,7 @@ class Sphere;
         The 'Chunk data' section will contain chunk-specific data, which may include
         other nested chunks.
     */
-    class _OgreExport StreamSerialiser : public StreamAlloc
+    class StreamSerialiser : public StreamAlloc
     {
     public:
         /// The endianness of files

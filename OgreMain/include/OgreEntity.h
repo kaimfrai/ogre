@@ -102,7 +102,7 @@ class VertexData;
     @note
         No functions were declared virtual to improve performance.
     */
-    class _OgreExport Entity: public MovableObject, public Resource::Listener
+    class Entity: public MovableObject, public Resource::Listener
     {
         // Allow EntityFactory full access
         friend class EntityFactory;
@@ -871,7 +871,7 @@ class VertexData;
     };
 
     /** Factory object for creating Entity instances */
-    class _OgreExport EntityFactory : public MovableObjectFactory
+    class EntityFactory : public MovableObjectFactory
     {
     private:
         MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);

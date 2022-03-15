@@ -53,7 +53,7 @@ class Archive;
     /** Specialisation of the ArchiveFactory to allow reading of files from
         filesystem folders / directories.
     */
-    class _OgreExport FileSystemArchiveFactory : public ArchiveFactory
+    class FileSystemArchiveFactory : public ArchiveFactory
     {
     public:
         /// @copydoc FactoryObj::getType

@@ -52,7 +52,7 @@ class RenderSystem;
     *  @{
     */
     /// Factory for default scene manager
-    class _OgreExport DefaultSceneManagerFactory : public SceneManagerFactory
+    class DefaultSceneManagerFactory : public SceneManagerFactory
     {
     protected:
         void initMetaData(void) const;
@@ -65,7 +65,7 @@ class RenderSystem;
     };
 
     /// Default scene manager
-    class _OgreExport DefaultSceneManager : public SceneManager
+    class DefaultSceneManager : public SceneManager
     {
     public:
         DefaultSceneManager(const String& name);
@@ -93,7 +93,7 @@ class RenderSystem;
             using a factory, should you choose, it's just not as flexible that way.
             Just instantiate your own SceneManager manually and use it directly.
     */
-    class _OgreExport SceneManagerEnumerator : public Singleton<SceneManagerEnumerator>, public SceneMgtAlloc
+    class SceneManagerEnumerator : public Singleton<SceneManagerEnumerator>, public SceneMgtAlloc
     {
     public:
         /// Scene manager instances, indexed by instance name

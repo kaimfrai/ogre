@@ -101,7 +101,7 @@ namespace Ogre {
         Here, the value 1 corresponds to #LML_TRIVIAL etc.
         @note Should not be used directly, but trough the LogManager class.
     */
-    class _OgreExport Log : public LogAlloc
+    class Log : public LogAlloc
     {
     private:
         std::ofstream   mLog;
@@ -198,7 +198,7 @@ namespace Ogre {
             threads. Multiple threads can hold their own Stream instances pointing
             at the same Log though and that is threadsafe.
         */
-        class _OgrePrivate Stream
+        class Stream
         {
         private:
             Log* mTarget;

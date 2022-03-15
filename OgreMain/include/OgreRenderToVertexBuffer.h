@@ -56,7 +56,7 @@ namespace Ogre {
        that run on previous results of those shaders, creating stateful
        shaders.
     */
-    class _OgreExport RenderToVertexBuffer
+    class RenderToVertexBuffer
     {
     public:
         RenderToVertexBuffer();

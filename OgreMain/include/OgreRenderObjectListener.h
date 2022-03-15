@@ -40,7 +40,7 @@ namespace Ogre {
     /** Abstract interface which classes must implement if they wish to receive
         events from the scene manager when single object is about to be rendered. 
     */
-    class _OgreExport RenderObjectListener
+    class RenderObjectListener
     {
     public:
         virtual ~RenderObjectListener() {}

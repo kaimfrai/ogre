@@ -72,7 +72,7 @@ class SubMesh;
             control over pre-processed data (such as
             collision boxes, LOD reductions etc). 
     */
-    class _OgreExport MeshManager: public ResourceManager, public Singleton<MeshManager>
+    class MeshManager: public ResourceManager, public Singleton<MeshManager>
     {
     public:
         MeshManager();

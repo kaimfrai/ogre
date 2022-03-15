@@ -62,7 +62,7 @@ class Viewport;
         the number of shadow textures available (via SceneManager) to match the 
         number of shadow maps required (default is 3 per light). 
     */
-    class _OgreExport PSSMShadowCameraSetup : public LiSPSMShadowCameraSetup
+    class PSSMShadowCameraSetup : public LiSPSMShadowCameraSetup
     {
         using LiSPSMShadowCameraSetup::setOptimalAdjustFactor;
     public:

@@ -54,7 +54,7 @@ namespace Ogre
         It is made up of 3 or more vertices in a single plane, listed in 
         counter-clockwise order.
     */
-    class _OgreExport Polygon
+    class Polygon
     {
 
     public:
@@ -142,7 +142,7 @@ namespace Ogre
 
         /** Prints out the polygon data.
         */
-        _OgreExport friend std::ostream& operator<< ( std::ostream& strm, const Polygon& poly );
+        friend std::ostream& operator<< ( std::ostream& strm, const Polygon& poly );
 
     };
     /** @} */
