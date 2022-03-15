@@ -235,9 +235,6 @@ namespace Ogre {
         return (((size_t)p) & 15) == 0;
     }
 
-// Macro to check the stack aligned for SSE
-#define __OGRE_CHECK_STACK_ALIGNED_FOR_SSE()
-
     /** @} */
     /** @} */
 

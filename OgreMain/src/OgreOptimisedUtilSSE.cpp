@@ -939,9 +939,6 @@ namespace Ogre {
         size_t numWeightsPerVertex,
         size_t numVertices)
     {
-
-        __OGRE_CHECK_STACK_ALIGNED_FOR_SSE();
-
         // All position/normal pointers should be perfect aligned, but still check here
         // for avoid hardware buffer which allocated by potential buggy driver doesn't
         // support alignment properly.
@@ -1159,7 +1156,6 @@ namespace Ogre {
     {
         OgreAssert(pos1VSize == pos2VSize && pos2VSize == dstVSize && dstVSize == (morphNormals ? 24 : 12),
                    "stride not supported");
-        __OGRE_CHECK_STACK_ALIGNED_FOR_SSE();
 
         __m128 src01, src02, src11, src12, src21, src22;
         __m128 dst0, dst1, dst2;
@@ -1400,8 +1396,6 @@ namespace Ogre {
         Affine3* pDstMat,
         size_t numMatrices)
     {
-        __OGRE_CHECK_STACK_ALIGNED_FOR_SSE();
-
         assert(_isAlignedForSSE(pSrcMat));
         assert(_isAlignedForSSE(pDstMat));
 
@@ -1455,8 +1449,6 @@ namespace Ogre {
         Vector4 *faceNormals,
         size_t numTriangles)
     {
-        __OGRE_CHECK_STACK_ALIGNED_FOR_SSE();
-
         assert(_isAlignedForSSE(faceNormals));
 
 // Load Vector3 as: (x, 0, y, z)
@@ -1599,8 +1591,6 @@ namespace Ogre {
         char* lightFacings,
         size_t numFaces)
     {
-        __OGRE_CHECK_STACK_ALIGNED_FOR_SSE();
-
         assert(_isAlignedForSSE(faceNormals));
 
         // Map to convert 4-bits mask to 4 byte values
@@ -1944,8 +1934,6 @@ namespace Ogre {
         float* pDestPos,
         size_t numVertices)
     {
-        __OGRE_CHECK_STACK_ALIGNED_FOR_SSE();
-
         // Note: Since pDestPos is following tail of pSrcPos, we can't assume
         // it's aligned to SIMD alignment properly, so must check for it here.
         //
