@@ -1202,7 +1202,7 @@ void SceneManager::prepareRenderQueue(void)
 void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverlays)
 {
     assert(camera);
-    OgreProfileGroup(camera->getName(), OGREPROF_GENERAL);
+    Ogre::Profile _OgreProfileInstance1(camera->getName(), OGREPROF_GENERAL);
 
     auto prevSceneManager = Root::getSingleton()._getCurrentSceneManager();
     Root::getSingleton()._setCurrentSceneManager(this);
@@ -1259,7 +1259,7 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
 
     // Update scene graph for this camera (can happen multiple times per frame)
     {
-        OgreProfileGroup("_updateSceneGraph", OGREPROF_GENERAL);
+        Ogre::Profile _OgreProfileInstance2("_updateSceneGraph", OGREPROF_GENERAL);
         _updateSceneGraph(camera);
 
         // Auto-track nodes
@@ -1280,7 +1280,7 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
         // technique in use
         if (isShadowTechniqueTextureBased() && vp->getShadowsEnabled())
         {
-            OgreProfileGroup("prepareShadowTextures", OGREPROF_GENERAL);
+            Ogre::Profile _OgreProfileInstance3("prepareShadowTextures", OGREPROF_GENERAL);
 
             // *******
             // WARNING
@@ -1320,13 +1320,13 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
 
     // Prepare render queue for receiving new objects
     {
-        OgreProfileGroup("prepareRenderQueue", OGREPROF_GENERAL);
+        Ogre::Profile _OgreProfileInstance3("prepareRenderQueue", OGREPROF_GENERAL);
         prepareRenderQueue();
     }
 
     if (mFindVisibleObjects)
     {
-        OgreProfileGroup("_findVisibleObjects", OGREPROF_CULLING);
+        Ogre::Profile _OgreProfileInstance4("_findVisibleObjects", OGREPROF_CULLING);
 
         // Assemble an AAB on the fly which contains the scene elements visible
         // by the camera.
@@ -1364,7 +1364,7 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
 
     // Render scene content
     {
-        OgreProfileGroup("_renderVisibleObjects", OGREPROF_RENDERING);
+        Ogre::Profile _OgreProfileInstance5("_renderVisibleObjects", OGREPROF_RENDERING);
         _renderVisibleObjects();
     }
 
@@ -1616,7 +1616,7 @@ void SceneManager::SceneMgrQueuedRenderableVisitor::visit(const Pass* p, Rendera
     if (!targetSceneMgr->validatePassForRendering(p))
         return;
 
-    OgreProfileBeginGPUEvent(p->getParent()->getParent()->getName());
+    Ogre::Profiler::getSingleton().beginGPUEvent(p->getParent()->getParent()->getName());
     // Set pass, store the actual one used
     mUsedPass = targetSceneMgr->_setPass(p);
 
@@ -1630,7 +1630,7 @@ void SceneManager::SceneMgrQueuedRenderableVisitor::visit(const Pass* p, Rendera
         targetSceneMgr->renderSingleObject(r, mUsedPass, scissoring, autoLights, manualLightList);
     }
 
-    OgreProfileEndGPUEvent(p->getParent()->getParent()->getName());
+    Ogre::Profiler::getSingleton().endGPUEvent(p->getParent()->getParent()->getName());
 }
 //-----------------------------------------------------------------------
 void SceneManager::SceneMgrQueuedRenderableVisitor::visit(RenderablePass* rp)
@@ -1646,10 +1646,10 @@ void SceneManager::SceneMgrQueuedRenderableVisitor::visit(RenderablePass* rp)
     if (targetSceneMgr->validateRenderableForRendering(rp->pass, rp->renderable))
     {
         mUsedPass = targetSceneMgr->_setPass(rp->pass);
-        OgreProfileBeginGPUEvent(mUsedPass->getParent()->getParent()->getName());
+        Ogre::Profiler::getSingleton().beginGPUEvent(mUsedPass->getParent()->getParent()->getName());
         targetSceneMgr->renderSingleObject(rp->renderable, mUsedPass, scissoring, 
             autoLights, manualLightList);
-        OgreProfileEndGPUEvent(mUsedPass->getParent()->getParent()->getName());
+        Ogre::Profiler::getSingleton().endGPUEvent(mUsedPass->getParent()->getParent()->getName());
     }
 }
 //-----------------------------------------------------------------------

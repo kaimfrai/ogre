@@ -563,7 +563,7 @@ class Camera;
     //-----------------------------------------------------------------------
     void RenderTarget::update(bool swap)
     {
-        OgreProfileBeginGPUEvent(getName());
+        Ogre::Profiler::getSingleton().beginGPUEvent(getName());
         // call implementation
         updateImpl();
 
@@ -573,7 +573,7 @@ class Camera;
             // Swap buffers
             swapBuffers();
         }
-        OgreProfileEndGPUEvent(getName());
+        Ogre::Profiler::getSingleton().endGPUEvent(getName());
     }
     
 
