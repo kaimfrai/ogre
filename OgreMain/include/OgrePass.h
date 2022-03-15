@@ -32,6 +32,10 @@ THE SOFTWARE.
 #include <memory>
 #include <set>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreColourValue.h"
@@ -46,12 +50,11 @@ THE SOFTWARE.
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreVector.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
-class AutoParamDataSource;
-class GpuProgramUsage;
-class Technique;
+    class AutoParamDataSource;
+    class GpuProgramUsage;
+    class Technique;
 
     /** \addtogroup Core
      *  @{
@@ -273,10 +276,6 @@ class Technique;
         /// The Pass hash functor
         static HashFunc* msHashFunc;
     public:
-        OGRE_STATIC_MUTEX(msDirtyHashListMutex);
-        OGRE_STATIC_MUTEX(msPassGraveyardMutex);
-        OGRE_MUTEX(mTexUnitChangeMutex);
-        OGRE_MUTEX(mGpuProgramChangeMutex);
         /// Default constructor
         Pass(Technique* parent, unsigned short index);
         /// Copy constructor

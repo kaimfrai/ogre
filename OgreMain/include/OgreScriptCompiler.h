@@ -35,13 +35,16 @@ THE SOFTWARE.
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
 #include "OgreScriptLoader.h"
 #include "OgreGpuProgram.h"
 #include "OgreAny.h"
-#include "Threading/OgreThreadHeaders.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -411,8 +414,6 @@ class Material;
     class _OgreExport ScriptCompilerManager : public Singleton<ScriptCompilerManager>, public ScriptLoader, public ScriptCompilerAlloc
     {
     private:
-            OGRE_AUTO_MUTEX;
-
         // A list of patterns loaded by this compiler manager
         StringVector mScriptPatterns;
 

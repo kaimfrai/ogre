@@ -30,6 +30,10 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 #include <utility>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreParticleEmitterFactory.h"
@@ -53,10 +57,9 @@ THE SOFTWARE.
 #include "OgreSingleton.h"
 #include "OgreStringConverter.h"
 #include "OgreStringVector.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
-class MovableObject;
+    class MovableObject;
 
     //-----------------------------------------------------------------------
     // Shortcut to set up billboard particle renderer
@@ -74,7 +77,6 @@ class MovableObject;
     //-----------------------------------------------------------------------
     ParticleSystemManager::ParticleSystemManager()
     {
-        OGRE_LOCK_AUTO_MUTEX;
         mFactory = OGRE_NEW ParticleSystemFactory();
         Root::getSingleton().addMovableObjectFactory(mFactory);
     }
@@ -82,7 +84,6 @@ class MovableObject;
     ParticleSystemManager::~ParticleSystemManager()
     {
         removeAllTemplates(true); // Destroy all templates
-        OGRE_LOCK_AUTO_MUTEX;
         ResourceGroupManager::getSingleton()._unregisterScriptLoader(this);
         // delete billboard factory
         if (mBillboardRendererFactory)
@@ -119,7 +120,6 @@ class MovableObject;
     //-----------------------------------------------------------------------
     void ParticleSystemManager::addEmitterFactory(ParticleEmitterFactory* factory)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         String name = factory->getName();
         mEmitterFactories[name] = factory;
         LogManager::getSingleton().logMessage("Particle Emitter Type '" + name + "' registered");
@@ -127,7 +127,6 @@ class MovableObject;
     //-----------------------------------------------------------------------
     void ParticleSystemManager::addAffectorFactory(ParticleAffectorFactory* factory)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         String name = factory->getName();
         mAffectorFactories[name] = factory;
         LogManager::getSingleton().logMessage("Particle Affector Type '" + name + "' registered");
@@ -135,7 +134,6 @@ class MovableObject;
     //-----------------------------------------------------------------------
     void ParticleSystemManager::addRendererFactory(ParticleSystemRendererFactory* factory)
     {
-            OGRE_LOCK_AUTO_MUTEX ;
         String name = factory->getType();
         mRendererFactories[name] = factory;
         LogManager::getSingleton().logMessage("Particle Renderer Type '" + name + "' registered");
@@ -143,7 +141,6 @@ class MovableObject;
     //-----------------------------------------------------------------------
     void ParticleSystemManager::addTemplate(const String& name, ParticleSystem* sysTemplate)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         // check name
         if (mSystemTemplates.find(name) != mSystemTemplates.end())
         {
@@ -157,7 +154,6 @@ class MovableObject;
     //-----------------------------------------------------------------------
     void ParticleSystemManager::removeTemplate(const String& name, bool deleteTemplate)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         ParticleTemplateMap::iterator itr = mSystemTemplates.find(name);
         if (itr == mSystemTemplates.end())
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
@@ -172,7 +168,6 @@ class MovableObject;
     //-----------------------------------------------------------------------
     void ParticleSystemManager::removeAllTemplates(bool deleteTemplate)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         if (deleteTemplate)
         {
             ParticleTemplateMap::iterator itr;
@@ -185,8 +180,6 @@ class MovableObject;
     //-----------------------------------------------------------------------
     void ParticleSystemManager::removeTemplatesByResourceGroup(const String& resourceGroup)
     {
-        OGRE_LOCK_AUTO_MUTEX;
-        
         ParticleTemplateMap::iterator i = mSystemTemplates.begin();
         while (i != mSystemTemplates.end())
         {
@@ -203,7 +196,6 @@ class MovableObject;
     ParticleSystem* ParticleSystemManager::createTemplate(const String& name, 
         const String& resourceGroup)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         // check name
         if (mSystemTemplates.find(name) != mSystemTemplates.end())
         {
@@ -220,7 +212,6 @@ class MovableObject;
     //-----------------------------------------------------------------------
     ParticleSystem* ParticleSystemManager::getTemplate(const String& name)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         ParticleTemplateMap::iterator i = mSystemTemplates.find(name);
         if (i != mSystemTemplates.end())
         {
@@ -261,7 +252,6 @@ class MovableObject;
     ParticleEmitter* ParticleSystemManager::_createEmitter(
         const String& emitterType, ParticleSystem* psys)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         // Locate emitter type
         ParticleEmitterFactoryMap::iterator pFact = mEmitterFactories.find(emitterType);
 
@@ -278,7 +268,6 @@ class MovableObject;
         if(!emitter)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot destroy a null ParticleEmitter.", "ParticleSystemManager::_destroyEmitter");
 
-        OGRE_LOCK_AUTO_MUTEX;
         // Destroy using the factory which created it
         ParticleEmitterFactoryMap::iterator pFact = mEmitterFactories.find(emitter->getType());
 
@@ -294,7 +283,6 @@ class MovableObject;
     ParticleAffector* ParticleSystemManager::_createAffector(
         const String& affectorType, ParticleSystem* psys)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         // Locate affector type
         ParticleAffectorFactoryMap::iterator pFact = mAffectorFactories.find(affectorType);
 
@@ -312,7 +300,6 @@ class MovableObject;
         if(!affector)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot destroy a null ParticleAffector.", "ParticleSystemManager::_destroyAffector");
 
-        OGRE_LOCK_AUTO_MUTEX;
         // Destroy using the factory which created it
         ParticleAffectorFactoryMap::iterator pFact = mAffectorFactories.find(affector->getType());
 
@@ -327,7 +314,6 @@ class MovableObject;
     //-----------------------------------------------------------------------
     ParticleSystemRenderer* ParticleSystemManager::_createRenderer(const String& rendererType)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         // Locate affector type
         ParticleSystemRendererFactoryMap::iterator pFact = mRendererFactories.find(rendererType);
 
@@ -345,7 +331,6 @@ class MovableObject;
         if(!renderer)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot destroy a null ParticleSystemRenderer.", "ParticleSystemManager::_destroyRenderer");
 
-        OGRE_LOCK_AUTO_MUTEX;
         // Destroy using the factory which created it
         ParticleSystemRendererFactoryMap::iterator pFact = mRendererFactories.find(renderer->getType());
 
@@ -360,7 +345,6 @@ class MovableObject;
     //-----------------------------------------------------------------------
     void ParticleSystemManager::_initialise(void)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         // Create Billboard renderer factory
         mBillboardRendererFactory = OGRE_NEW BillboardParticleRendererFactory();
         addRendererFactory(mBillboardRendererFactory);

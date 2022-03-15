@@ -30,6 +30,10 @@ THE SOFTWARE.
 #include <atomic>
 #include <set>
 #include <string>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreException.h"
@@ -39,7 +43,6 @@ THE SOFTWARE.
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreResourceManager.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre 
 {
@@ -92,7 +95,6 @@ namespace Ogre
         {
             while( mLoadingState.load() == LOADSTATE_PREPARING )
             {
-                            OGRE_LOCK_AUTO_MUTEX;
             }
 
             LoadingState state = mLoadingState.load();
@@ -107,9 +109,6 @@ namespace Ogre
         // Scope lock for actual loading
         try
         {
-
-                    OGRE_LOCK_AUTO_MUTEX;
-
             if (mIsManual)
             {
                 if (mLoader)
@@ -142,7 +141,6 @@ namespace Ogre
         {
             mLoadingState.store(LOADSTATE_UNLOADED);
 
-            OGRE_LOCK_AUTO_MUTEX;
             unloadImpl();
 
             throw;
@@ -186,7 +184,6 @@ namespace Ogre
             {
                 while( mLoadingState.load() == LOADSTATE_PREPARING )
                 {
-                                    OGRE_LOCK_AUTO_MUTEX;
                 }
                 old = mLoadingState.load();
             }
@@ -199,7 +196,6 @@ namespace Ogre
             {
                 while( mLoadingState.load() == LOADSTATE_LOADING )
                 {
-                                    OGRE_LOCK_AUTO_MUTEX;
                 }
 
                 LoadingState state = mLoadingState.load();
@@ -221,11 +217,6 @@ namespace Ogre
         // Scope lock for actual loading
         try
         {
-
-                    OGRE_LOCK_AUTO_MUTEX;
-
-
-
             if (mIsManual)
             {
                 preLoadImpl();
@@ -278,7 +269,6 @@ namespace Ogre
             // any prepared data since it might be invalid.
             mLoadingState.store(LOADSTATE_UNLOADED);
 
-            OGRE_LOCK_AUTO_MUTEX;
             unloadImpl();
 
             // Re-throw
@@ -339,7 +329,6 @@ namespace Ogre
 
         // Scope lock for actual unload
         {
-                    OGRE_LOCK_AUTO_MUTEX;
             if (old==LOADSTATE_PREPARED) {
                 unprepareImpl();
             } else {
@@ -364,7 +353,6 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Resource::reload(LoadingFlags flags)
     { 
-            OGRE_LOCK_AUTO_MUTEX;
         if (mLoadingState.load() == LOADSTATE_LOADED)
         {
             unload();
@@ -383,21 +371,17 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Resource::addListener(Resource::Listener* lis)
     {
-            OGRE_LOCK_MUTEX(mListenerListMutex);
         mListenerList.insert(lis);
     }
     //-----------------------------------------------------------------------
     void Resource::removeListener(Resource::Listener* lis)
     {
         // O(n) but not called very often
-            OGRE_LOCK_MUTEX(mListenerListMutex);
         mListenerList.erase(lis);
     }
     //-----------------------------------------------------------------------
     void Resource::_fireLoadingComplete(bool wasBackgroundLoaded)
     {
-        // Lock the listener list
-            OGRE_LOCK_MUTEX(mListenerListMutex);
         for (ListenerList::iterator i = mListenerList.begin();
             i != mListenerList.end(); ++i)
         {
@@ -407,8 +391,6 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Resource::_firePreparingComplete(bool wasBackgroundLoaded)
     {
-        // Lock the listener list
-            OGRE_LOCK_MUTEX(mListenerListMutex);
         for (ListenerList::iterator i = mListenerList.begin();
             i != mListenerList.end(); ++i)
         {
@@ -418,15 +400,10 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Resource::_fireUnloadingComplete(void)
     {
-        // Lock the listener list
-            OGRE_LOCK_MUTEX(mListenerListMutex);
-            for (ListenerList::iterator i = mListenerList.begin();
-                i != mListenerList.end(); ++i)
-            {
-
-                (*i)->unloadingComplete(this);
-
-            }
+        for (ListenerList::iterator i = mListenerList.begin();
+            i != mListenerList.end(); ++i)
+        {
+            (*i)->unloadingComplete(this);
+        }
     }
-
 }

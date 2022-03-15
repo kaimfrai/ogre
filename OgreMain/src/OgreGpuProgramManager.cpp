@@ -27,6 +27,10 @@ THE SOFTWARE.
 */
 #include <assert.h>
 #include <utility>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreGpuProgramManager.h"
@@ -39,7 +43,6 @@ THE SOFTWARE.
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRoot.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
 namespace {
@@ -172,7 +175,6 @@ namespace {
     {
         GpuProgramPtr prg;
         {
-            OGRE_LOCK_AUTO_MUTEX;
             prg = getByName(name, groupName);
             if (!prg)
             {
@@ -190,7 +192,6 @@ namespace {
     {
         GpuProgramPtr prg;
         {
-                    OGRE_LOCK_AUTO_MUTEX;
             prg = getByName(name, groupName);
             if (!prg)
             {

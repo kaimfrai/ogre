@@ -31,13 +31,16 @@ THE SOFTWARE.
 
 #include <map>
 #include <string>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreLog.h"
 #include "OgreSingleton.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre
 {
@@ -77,8 +80,6 @@ namespace Ogre
         Log* mDefaultLog;
 
     public:
-        OGRE_AUTO_MUTEX; // public to allow external locking
-
         LogManager();
         ~LogManager();
 

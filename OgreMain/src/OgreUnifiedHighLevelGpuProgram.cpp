@@ -27,6 +27,10 @@ THE SOFTWARE.
 */
 #include <string>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreUnifiedHighLevelGpuProgram.h"
@@ -37,7 +41,6 @@ THE SOFTWARE.
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreStringInterface.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre
 {
@@ -81,8 +84,6 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     void UnifiedHighLevelGpuProgram::chooseDelegate() const
     {
-        OGRE_LOCK_AUTO_MUTEX;
-
         mChosenDelegate.reset();
 
         for (const String& dn : mDelegateNames)
@@ -120,22 +121,16 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     void UnifiedHighLevelGpuProgram::addDelegateProgram(const String& name)
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         mDelegateNames.push_back(name);
 
         // reset chosen delegate
         mChosenDelegate.reset();
-
     }
     //-----------------------------------------------------------------------
     void UnifiedHighLevelGpuProgram::clearDelegatePrograms()
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         mDelegateNames.clear();
         mChosenDelegate.reset();
-
     }
     //-----------------------------------------------------------------------------
     size_t UnifiedHighLevelGpuProgram::calculateSize(void) const

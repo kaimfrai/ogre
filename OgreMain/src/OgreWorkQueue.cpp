@@ -42,7 +42,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     uint16 WorkQueue::getChannel(const String& channelName)
     {
-            OGRE_WQ_LOCK_MUTEX(mChannelMapMutex);
+        std::unique_lock<std::recursive_mutex> ogrenameLock(mChannelMapMutex);
 
         ChannelMap::iterator i = mChannelMap.find(channelName);
         if (i == mChannelMap.end())
@@ -136,7 +136,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void DefaultWorkQueueBase::addRequestHandler(uint16 channel, RequestHandler* rh)
     {
-            OGRE_WQ_LOCK_RW_MUTEX_WRITE(mRequestHandlerMutex);
+        std::unique_lock<std::recursive_mutex> ogrenameLock(mRequestHandlerMutex);
 
         RequestHandlerListByChannel::iterator i = mRequestHandlers.emplace(channel, RequestHandlerList()).first;
 
@@ -157,7 +157,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void DefaultWorkQueueBase::removeRequestHandler(uint16 channel, RequestHandler* rh)
     {
-        OGRE_WQ_LOCK_RW_MUTEX_WRITE(mRequestHandlerMutex);
+        std::unique_lock<std::recursive_mutex> ogrenameLock(mRequestHandlerMutex);
 
         RequestHandlerListByChannel::iterator i = mRequestHandlers.find(channel);
         if (i != mRequestHandlers.end())
@@ -210,7 +210,7 @@ namespace Ogre {
 
         {
             // lock to acquire rid and push request to the queue
-                    OGRE_WQ_LOCK_MUTEX(mRequestMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock(mRequestMutex);
 
             if (!mAcceptRequests || mShuttingDown)
                 return 0;
@@ -220,7 +220,7 @@ namespace Ogre {
 
             LogManager::getSingleton().stream(LML_TRIVIAL) << 
                 "DefaultWorkQueueBase('" << mName << "') - QUEUED(thread:" <<
-                OGRE_THREAD_CURRENT_ID
+                std::this_thread::get_id()
                 << "): ID=" << rid
                 << " channel=" << channel << " requestType=" << requestType;
             if (!forceSynchronous&& !idleThread)
@@ -231,7 +231,7 @@ namespace Ogre {
             }
         }
         if(idleThread){
-            OGRE_WQ_LOCK_MUTEX(mIdleMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock(mIdleMutex);
             mIdleRequestQueue.push_back(req);
             if(!mIdleThreadRunning)
             {
@@ -248,7 +248,7 @@ namespace Ogre {
         uint16 requestType, const Any& rData, uint8 retryCount)
     {
         // lock to push request to the queue
-            OGRE_WQ_LOCK_MUTEX(mRequestMutex);
+        std::unique_lock<std::recursive_mutex> ogrenameLock(mRequestMutex);
 
         if (mShuttingDown)
             return;
@@ -257,7 +257,7 @@ namespace Ogre {
 
         LogManager::getSingleton().stream(LML_TRIVIAL) << 
             "DefaultWorkQueueBase('" << mName << "') - REQUEUED(thread:" <<
-            OGRE_THREAD_CURRENT_ID
+            std::this_thread::get_id()
             << "): ID=" << rid
                    << " channel=" << channel << " requestType=" << requestType;
         mRequestQueue.push_back(req);
@@ -266,7 +266,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void DefaultWorkQueueBase::abortRequest(RequestID id)
     {
-            OGRE_WQ_LOCK_MUTEX(mProcessMutex);
+        std::unique_lock<std::recursive_mutex> ogrenameLock1(mProcessMutex);
 
         // NOTE: Pending requests are exist any of RequestQueue, ProcessQueue and
         // ResponseQueue when keeping ProcessMutex, so we check all of these queues.
@@ -281,7 +281,7 @@ namespace Ogre {
         }
 
         {
-                    OGRE_WQ_LOCK_MUTEX(mRequestMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock2(mRequestMutex);
 
             for (RequestQueue::iterator i = mRequestQueue.begin(); i != mRequestQueue.end(); ++i)
             {
@@ -299,7 +299,7 @@ namespace Ogre {
                 mIdleProcessed->abortRequest();
             }
 
-            OGRE_WQ_LOCK_MUTEX(mIdleMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock3(mIdleMutex);
             for (RequestQueue::iterator i = mIdleRequestQueue.begin(); i != mIdleRequestQueue.end(); ++i)
             {
                 (*i)->abortRequest();
@@ -307,7 +307,7 @@ namespace Ogre {
         }
 
         {
-                    OGRE_WQ_LOCK_MUTEX(mResponseMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock4(mResponseMutex);
 
             for (ResponseQueue::iterator i = mResponseQueue.begin(); i != mResponseQueue.end(); ++i)
             {
@@ -324,7 +324,7 @@ namespace Ogre {
     {
         // Request should not exist in idle queue and request queue simultaneously.
         {
-            OGRE_WQ_LOCK_MUTEX(mRequestMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock1(mRequestMutex);
             for (RequestQueue::iterator i = mRequestQueue.begin(); i != mRequestQueue.end(); ++i)
             {
                 if ((*i)->getID() == id)
@@ -335,7 +335,7 @@ namespace Ogre {
             }
         }
         {
-            OGRE_WQ_LOCK_MUTEX(mIdleMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock2(mIdleMutex);
             for (RequestQueue::iterator i = mIdleRequestQueue.begin(); i != mIdleRequestQueue.end(); ++i)
             {
                 if ((*i)->getID() == id)
@@ -351,7 +351,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void DefaultWorkQueueBase::abortRequestsByChannel(uint16 channel)
     {
-            OGRE_WQ_LOCK_MUTEX(mProcessMutex);
+        std::unique_lock<std::recursive_mutex> ogrenameLock1(mProcessMutex);
 
         for (RequestQueue::iterator i = mProcessQueue.begin(); i != mProcessQueue.end(); ++i)
         {
@@ -362,7 +362,7 @@ namespace Ogre {
         }
 
         {
-                    OGRE_WQ_LOCK_MUTEX(mRequestMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock2(mRequestMutex);
 
             for (RequestQueue::iterator i = mRequestQueue.begin(); i != mRequestQueue.end(); ++i)
             {
@@ -378,7 +378,7 @@ namespace Ogre {
                 mIdleProcessed->abortRequest();
             }
 
-            OGRE_WQ_LOCK_MUTEX(mIdleMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock3(mIdleMutex);
 
             for (RequestQueue::iterator i = mIdleRequestQueue.begin(); i != mIdleRequestQueue.end(); ++i)
             {
@@ -390,7 +390,7 @@ namespace Ogre {
         }
 
         {
-                    OGRE_WQ_LOCK_MUTEX(mResponseMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock4(mResponseMutex);
 
             for (ResponseQueue::iterator i = mResponseQueue.begin(); i != mResponseQueue.end(); ++i)
             {
@@ -405,7 +405,7 @@ namespace Ogre {
     void DefaultWorkQueueBase::abortPendingRequestsByChannel(uint16 channel)
     {
         {
-                    OGRE_WQ_LOCK_MUTEX(mRequestMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock(mRequestMutex);
             for (RequestQueue::iterator i = mRequestQueue.begin(); i != mRequestQueue.end(); ++i)
             {
                 if ((*i)->getChannel() == channel)
@@ -415,21 +415,21 @@ namespace Ogre {
             }
         }
         {
-                    OGRE_WQ_LOCK_MUTEX(mIdleMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock(mIdleMutex);
 
-                for (RequestQueue::iterator i = mIdleRequestQueue.begin(); i != mIdleRequestQueue.end(); ++i)
+            for (RequestQueue::iterator i = mIdleRequestQueue.begin(); i != mIdleRequestQueue.end(); ++i)
+            {
+                if ((*i)->getChannel() == channel)
                 {
-                    if ((*i)->getChannel() == channel)
-                    {
-                        (*i)->abortRequest();
-                    }
+                    (*i)->abortRequest();
                 }
+            }
         }
     }
     //---------------------------------------------------------------------
     void DefaultWorkQueueBase::abortAllRequests()
     {
-            OGRE_WQ_LOCK_MUTEX(mProcessMutex);
+        std::unique_lock<std::recursive_mutex> ogrenameLock(mProcessMutex);
         {
             for (RequestQueue::iterator i = mProcessQueue.begin(); i != mProcessQueue.end(); ++i)
             {
@@ -439,7 +439,7 @@ namespace Ogre {
         
 
         {
-                    OGRE_WQ_LOCK_MUTEX(mRequestMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock1(mRequestMutex);
 
             for (RequestQueue::iterator i = mRequestQueue.begin(); i != mRequestQueue.end(); ++i)
             {
@@ -454,7 +454,7 @@ namespace Ogre {
                 mIdleProcessed->abortRequest();
             }
 
-            OGRE_WQ_LOCK_MUTEX(mIdleMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock2(mIdleMutex);
 
             for (RequestQueue::iterator i = mIdleRequestQueue.begin(); i != mIdleRequestQueue.end(); ++i)
             {
@@ -463,7 +463,7 @@ namespace Ogre {
         }
 
         {
-                    OGRE_WQ_LOCK_MUTEX(mResponseMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock3(mResponseMutex);
 
             for (ResponseQueue::iterator i = mResponseQueue.begin(); i != mResponseQueue.end(); ++i)
             {
@@ -475,7 +475,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void DefaultWorkQueueBase::setPaused(bool pause)
     {
-            OGRE_WQ_LOCK_MUTEX(mRequestMutex);
+        std::unique_lock<std::recursive_mutex> ogrenameLock(mRequestMutex);
 
         mPaused = pause;
     }
@@ -487,7 +487,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void DefaultWorkQueueBase::setRequestsAccepted(bool accept)
     {
-            OGRE_WQ_LOCK_MUTEX(mRequestMutex);
+        std::unique_lock<std::recursive_mutex> ogrenameLock(mRequestMutex);
 
         mAcceptRequests = accept;
     }
@@ -506,9 +506,9 @@ namespace Ogre {
         Request* request = 0;
         {
             // scoped to only lock while retrieving the next request
-                    OGRE_WQ_LOCK_MUTEX(mProcessMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock1(mProcessMutex);
             {
-                            OGRE_WQ_LOCK_MUTEX(mRequestMutex);
+                std::unique_lock<std::recursive_mutex> ogrenameLock2(mRequestMutex);
 
                 if (!mRequestQueue.empty())
                 {
@@ -523,15 +523,13 @@ namespace Ogre {
         {
             processRequestResponse(request, false);
         }
-
-
     }
     //---------------------------------------------------------------------
     void DefaultWorkQueueBase::processRequestResponse(Request* r, bool synchronous)
     {
         Response* response = processRequest(r);
 
-        OGRE_WQ_LOCK_MUTEX(mProcessMutex);
+        std::unique_lock<std::recursive_mutex> ogrenameLock1(mProcessMutex);
 
         RequestQueue::iterator it;
         for( it = mProcessQueue.begin(); it != mProcessQueue.end(); ++it )
@@ -574,7 +572,7 @@ namespace Ogre {
                     response->abortRequest();
                 }
                 // Queue response
-                OGRE_WQ_LOCK_MUTEX(mResponseMutex);
+                std::unique_lock<std::recursive_mutex> ogrenameLock2(mResponseMutex);
                 mResponseQueue.push_back(response);
                 // no need to wake thread, this is processed by the main thread
             }
@@ -605,7 +603,7 @@ namespace Ogre {
         {
             Response* response = 0;
             {
-                            OGRE_WQ_LOCK_MUTEX(mResponseMutex);
+                std::unique_lock<std::recursive_mutex> ogrenameLock(mResponseMutex);
 
                 if (mResponseQueue.empty())
                     break; // exit loop
@@ -639,10 +637,9 @@ namespace Ogre {
         RequestHandlerListByChannel handlerListCopy;
         {
             // lock the list only to make a copy of it, to maximise parallelism
-                    OGRE_WQ_LOCK_RW_MUTEX_READ(mRequestHandlerMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock(mRequestHandlerMutex);
             
             handlerListCopy = mRequestHandlers;
-            
         }
 
         Response* response = 0;
@@ -682,7 +679,7 @@ namespace Ogre {
     {
         StringStream dbgMsg;
         dbgMsg << "thread:" <<
-            OGRE_THREAD_CURRENT_ID
+            std::this_thread::get_id()
             << "): ID=" << r->getRequest()->getID()
             << " success=" << r->succeeded() << " messages=[" << r->getMessages() << "] channel=" 
             << r->getRequest()->getChannel() << " requestType=" << r->getRequest()->getType();
@@ -710,7 +707,7 @@ namespace Ogre {
     bool DefaultWorkQueueBase::processIdleRequests()
     {
         {
-                    OGRE_WQ_LOCK_MUTEX(mIdleMutex);
+            std::unique_lock<std::recursive_mutex> ogrenameLock1(mIdleMutex);
             if(mIdleRequestQueue.empty() || mIdleThreadRunning){
                 return false;
             } else {
@@ -720,9 +717,9 @@ namespace Ogre {
         try {
             while(1){
                 {
-                                    OGRE_WQ_LOCK_MUTEX(mProcessMutex); // mProcessMutex needs to be the top mutex to prevent livelocks
+                    std::unique_lock<std::recursive_mutex> ogrenameLock2(mProcessMutex); // mProcessMutex needs to be the top mutex to prevent livelocks
                     {
-                                            OGRE_WQ_LOCK_MUTEX(mIdleMutex);
+                        std::unique_lock<std::recursive_mutex> ogrenameLock3(mIdleMutex);
                         if(!mIdleRequestQueue.empty()){
                             mIdleProcessed = mIdleRequestQueue.front();
                             mIdleRequestQueue.pop_front();
@@ -738,9 +735,9 @@ namespace Ogre {
         } catch (...) { // Normally this should not happen.
             {
                 // It is very important to clean up or the idle thread will be locked forever!
-                            OGRE_WQ_LOCK_MUTEX(mProcessMutex);
+                std::unique_lock<std::recursive_mutex> ogrenameLock4(mProcessMutex);
                 {
-                                    OGRE_WQ_LOCK_MUTEX(mIdleMutex);
+                    std::unique_lock<std::recursive_mutex> ogrenameLock5(mIdleMutex);
                     if(mIdleProcessed){
                         mIdleProcessed->abortRequest();
                     }

@@ -37,6 +37,10 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreRenderWindow.h"
@@ -100,7 +104,6 @@ THE SOFTWARE.
 #include "OgreTextureManager.h"
 #include "OgreWorkQueue.h"
 #include "OgreZip.h"
-#include "Threading/OgreThreadHeaders.h"
 
 #include "OgreDDSCodec.h"
 
@@ -169,7 +172,7 @@ namespace Ogre {
         // never process responses in main thread for longer than 10ms by default
         defaultQ->setResponseProcessingTimeLimit(10);
         // match threads to hardware
-        int threadCount = OGRE_THREAD_HARDWARE_CONCURRENCY;
+        int threadCount = std::thread::hardware_concurrency();
         // but clamp it at 2 by default - we dont scale much beyond that currently
         // yet it helps on android where it needlessly burns CPU
         threadCount = Math::Clamp(threadCount, 1, 2);

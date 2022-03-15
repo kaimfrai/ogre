@@ -38,6 +38,10 @@ THE SOFTWARE.
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreScriptParser.h"
@@ -56,7 +60,6 @@ THE SOFTWARE.
 #include "OgreSingleton.h"
 #include "OgreString.h"
 #include "OgreStringVector.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre
 {
@@ -1478,7 +1481,6 @@ namespace Ogre
     //-----------------------------------------------------------------------
     ScriptCompilerManager::ScriptCompilerManager()
     {
-            OGRE_LOCK_AUTO_MUTEX;
         mScriptPatterns.push_back("*.program");
         mScriptPatterns.push_back("*.material");
         mScriptPatterns.push_back("*.particle");
@@ -1497,7 +1499,6 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ScriptCompilerManager::setListener(ScriptCompilerListener *listener)
     {
-            OGRE_LOCK_AUTO_MUTEX;
         mScriptCompiler.setListener(listener);
     }
     //-----------------------------------------------------------------------
@@ -1508,14 +1509,11 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ScriptCompilerManager::addTranslatorManager(Ogre::ScriptTranslatorManager *man)
     {
-            OGRE_LOCK_AUTO_MUTEX;
         mManagers.push_back(man);
     }
     //-----------------------------------------------------------------------
     void ScriptCompilerManager::removeTranslatorManager(Ogre::ScriptTranslatorManager *man)
     {
-            OGRE_LOCK_AUTO_MUTEX;
-        
         for(std::vector<ScriptTranslatorManager*>::iterator i = mManagers.begin(); i != mManagers.end(); ++i)
         {
             if(*i == man)
@@ -1535,8 +1533,6 @@ namespace Ogre
     {
         ScriptTranslator *translator = 0;
         {
-                    OGRE_LOCK_AUTO_MUTEX;
-            
             // Start looking from the back
             for(std::vector<ScriptTranslatorManager*>::reverse_iterator i = mManagers.rbegin(); i != mManagers.rend(); ++i)
             {
@@ -1575,7 +1571,6 @@ namespace Ogre
             ScriptParser::parse(ScriptLexer::tokenize(stream->getAsString(), stream->getName()), stream->getName());
         {
             // compile is not reentrant
-            OGRE_LOCK_AUTO_MUTEX;
             mScriptCompiler.compile(nodes, groupName);
         }
     }

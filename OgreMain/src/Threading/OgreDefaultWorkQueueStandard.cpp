@@ -31,6 +31,10 @@ THE SOFTWARE.
 #include <mutex>
 #include <thread>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreBuildSettings.h"
@@ -42,7 +46,6 @@ THE SOFTWARE.
 #include "OgreRenderSystem.h"
 #include "OgreRoot.h"
 #include "OgreWorkQueue.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre
 {
@@ -73,7 +76,7 @@ namespace Ogre
 
         LogManager::getSingleton().stream() <<
             "DefaultWorkQueue('" << mName << "') initialising on thread " <<
-            OGRE_THREAD_CURRENT_ID
+            std::this_thread::get_id()
             << ".";
 
         if (mWorkerRenderSystemAccess)
@@ -82,16 +85,16 @@ namespace Ogre
         mNumThreadsRegisteredWithRS = 0;
         for (size_t i = 0; i < mWorkerThreadCount; ++i)
         {
-            OGRE_THREAD_CREATE(t, *mWorkerFunc);
+            std::thread* t = OGRE_NEW_T(std::thread, MEMCATEGORY_GENERAL)(*mWorkerFunc);
             mWorkers.push_back(t);
         }
 
         if (mWorkerRenderSystemAccess)
         {
-                    OGRE_WQ_LOCK_MUTEX_NAMED(mInitMutex, initLock);
+            std::unique_lock<std::recursive_mutex> initLock(mInitMutex);
             // have to wait until all threads are registered with the render system
             while (mNumThreadsRegisteredWithRS < mWorkerThreadCount)
-                OGRE_THREAD_WAIT(mInitSync, mInitMutex, initLock);
+                mInitSync.wait(initLock);
 
             Root::getSingleton().getRenderSystem()->postExtraThreadsStarted();
 
@@ -102,13 +105,12 @@ namespace Ogre
     //---------------------------------------------------------------------
     void DefaultWorkQueue::notifyThreadRegistered()
     {
-            OGRE_WQ_LOCK_MUTEX(mInitMutex);
+        std::unique_lock<std::recursive_mutex> ogrenameLock(mInitMutex);
 
         ++mNumThreadsRegisteredWithRS;
 
         // wake up main thread
-        OGRE_THREAD_NOTIFY_ALL(mInitSync);
-
+        mInitSync.notify_all();
     }
     //---------------------------------------------------------------------
     void DefaultWorkQueue::shutdown()
@@ -118,19 +120,19 @@ namespace Ogre
 
         LogManager::getSingleton().stream() <<
             "DefaultWorkQueue('" << mName << "') shutting down on thread " <<
-            OGRE_THREAD_CURRENT_ID
+            std::this_thread::get_id()
             << ".";
 
         mShuttingDown = true;
         abortAllRequests();
         // wake all threads (they should check shutting down as first thing after wait)
-        OGRE_THREAD_NOTIFY_ALL(mRequestCondition);
+        mRequestCondition.notify_all();
 
         // all our threads should have been woken now, so join
         for (WorkerThreadList::iterator i = mWorkers.begin(); i != mWorkers.end(); ++i)
         {
             (*i)->join();
-            OGRE_THREAD_DESTROY(*i);
+            OGRE_DELETE_T(*i, thread, MEMCATEGORY_GENERAL);
         }
         mWorkers.clear();
 
@@ -143,18 +145,18 @@ namespace Ogre
     void DefaultWorkQueue::notifyWorkers()
     {
         // wake up waiting thread
-            OGRE_THREAD_NOTIFY_ONE(mRequestCondition);
+        mRequestCondition.notify_one();
     }
 
     //---------------------------------------------------------------------
     void DefaultWorkQueue::waitForNextRequest()
     {
-        // Lock; note that OGRE_THREAD_WAIT will free the lock
-            OGRE_WQ_LOCK_MUTEX_NAMED(mRequestMutex, queueLock);
+        // Lock; note that wait will free the lock
+        std::unique_lock<std::recursive_mutex> queueLock(mRequestMutex);
         if (mRequestQueue.empty())
         {
             // frees lock and suspends the thread
-            OGRE_THREAD_WAIT(mRequestCondition, mRequestMutex, queueLock);
+            mRequestCondition.wait(queueLock);
         }
         // When we get back here, it's because we've been notified 
         // and thus the thread has been woken up. Lock has also been
@@ -167,7 +169,7 @@ namespace Ogre
         // default worker thread
         LogManager::getSingleton().stream() << 
             "DefaultWorkQueue('" << getName() << "')::WorkerFunc - thread " 
-            << OGRE_THREAD_CURRENT_ID << " starting.";
+            << std::this_thread::get_id() << " starting.";
 
         // Initialise the thread for RS if necessary
         if (mWorkerRenderSystemAccess)
@@ -185,7 +187,7 @@ namespace Ogre
 
         LogManager::getSingleton().stream() << 
             "DefaultWorkQueue('" << getName() << "')::WorkerFunc - thread " 
-            << OGRE_THREAD_CURRENT_ID << " stopped.";
+            << std::this_thread::get_id() << " stopped.";
     }
 
 }

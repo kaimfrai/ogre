@@ -29,13 +29,16 @@ THE SOFTWARE
 #include <stddef.h>
 #include <thread>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "../OgreWorkQueue.h"
 #include "OgreBuildSettings.h"
 #include "OgreCommon.h"
 #include "OgreExports.h"
 #include "OgrePrerequisites.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre
 {
@@ -74,12 +77,12 @@ namespace Ogre
 
         size_t mNumThreadsRegisteredWithRS;
         /// Init notification mutex (must lock before waiting on initCondition)
-        OGRE_WQ_MUTEX(mInitMutex);
+        mutable std::recursive_mutex mInitMutex;
         /// Synchroniser token to wait / notify on thread init 
-        OGRE_WQ_THREAD_SYNCHRONISER(mInitSync);
+        std::condition_variable_any mInitSync;
 
-        OGRE_WQ_THREAD_SYNCHRONISER(mRequestCondition);
-        typedef std::vector<OGRE_THREAD_TYPE*> WorkerThreadList;
+        std::condition_variable_any mRequestCondition;
+        typedef std::vector<std::thread*> WorkerThreadList;
         WorkerThreadList mWorkers;
 
     };

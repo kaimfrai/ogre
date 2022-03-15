@@ -50,12 +50,9 @@ namespace Ogre
     // Statics
     //-----------------------------------------------------------------------
     ConvexBody::PolygonList ConvexBody::msFreePolygons;
-    OGRE_STATIC_MUTEX_INSTANCE(ConvexBody::msFreePolygonsMutex);
     //-----------------------------------------------------------------------
     void ConvexBody::_initialisePool()
     {
-            OGRE_LOCK_MUTEX(msFreePolygonsMutex);
-
         if (msFreePolygons.empty())
         {
             const size_t initialSize = 30;
@@ -71,8 +68,6 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ConvexBody::_destroyPool()
     {
-            OGRE_LOCK_MUTEX(msFreePolygonsMutex);
-        
         for (PolygonList::iterator i = msFreePolygons.begin(); 
             i != msFreePolygons.end(); ++i)
         {
@@ -83,8 +78,6 @@ namespace Ogre
     //-----------------------------------------------------------------------
     Polygon* ConvexBody::allocatePolygon()
     {
-            OGRE_LOCK_MUTEX(msFreePolygonsMutex);
-
         if (msFreePolygons.empty())
         {
             // if we ran out of polys to use, create a new one
@@ -105,7 +98,6 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ConvexBody::freePolygon(Polygon* poly)
     {
-            OGRE_LOCK_MUTEX(msFreePolygonsMutex);
         msFreePolygons.push_back(poly);
     }
     //-----------------------------------------------------------------------

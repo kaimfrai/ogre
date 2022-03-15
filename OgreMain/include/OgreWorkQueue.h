@@ -34,12 +34,15 @@ THE SOFTWARE.
 #include <list>
 #include <map>
 #include <string>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreAny.h"
 #include "OgreSharedPtr.h"
 #include "OgreCommon.h"
-#include "Threading/OgreThreadHeaders.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -83,7 +86,7 @@ namespace Ogre
         typedef std::map<String, uint16> ChannelMap;
         ChannelMap mChannelMap;
         uint16 mNextChannel;
-        OGRE_WQ_MUTEX(mChannelMapMutex);
+        mutable std::recursive_mutex mChannelMapMutex;
     public:
         /// Numeric identifier for a request
         typedef unsigned long long int RequestID;
@@ -484,7 +487,7 @@ namespace Ogre
         ResponseQueue mResponseQueue; // Guarded by mResponseMutex
 
         /// Thread function
-        struct _OgreExport WorkerFunc OGRE_THREAD_WORKER_INHERIT
+        struct _OgreExport WorkerFunc
         {
             DefaultWorkQueueBase* mQueue;
 
@@ -506,7 +509,7 @@ namespace Ogre
         class _OgreExport RequestHandlerHolder : public UtilityAlloc
         {
         protected:
-            OGRE_WQ_RW_MUTEX(mRWMutex);
+            mutable std::recursive_mutex mRWMutex;
             RequestHandler* mHandler;
         public:
             RequestHandlerHolder(RequestHandler* handler)
@@ -516,7 +519,7 @@ namespace Ogre
             void disconnectHandler()
             {
                 // write lock - must wait for all requests to finish
-                OGRE_WQ_LOCK_RW_MUTEX_WRITE(mRWMutex);
+                std::unique_lock<std::recursive_mutex> ogrenameLock(mRWMutex);
                 mHandler = 0;
             }
 
@@ -532,7 +535,7 @@ namespace Ogre
             {
                 // Read mutex so that multiple requests can be processed by the
                 // same handler in parallel if required
-                OGRE_WQ_LOCK_RW_MUTEX_READ(mRWMutex);
+                std::unique_lock<std::recursive_mutex> ogrenameLock(mRWMutex);
                 Response* response = 0;
                 if (mHandler)
                 {
@@ -564,11 +567,11 @@ namespace Ogre
         // For example if threadA locks mIdleMutex first then tries to lock mProcessMutex,
         // and threadB locks mProcessMutex first, then mIdleMutex. In this case you can get livelock and the system is dead!
         //RULE: Lock mProcessMutex before other mutex, to prevent livelocks
-        OGRE_WQ_MUTEX(mIdleMutex);
-        OGRE_WQ_MUTEX(mRequestMutex);
-        OGRE_WQ_MUTEX(mProcessMutex);
-        OGRE_WQ_MUTEX(mResponseMutex);
-        OGRE_WQ_RW_MUTEX(mRequestHandlerMutex);
+        mutable std::recursive_mutex mIdleMutex;
+        mutable std::recursive_mutex mRequestMutex;
+        mutable std::recursive_mutex mProcessMutex;
+        mutable std::recursive_mutex mResponseMutex;
+        mutable std::recursive_mutex mRequestHandlerMutex;
 
 
         void processRequestResponse(Request* r, bool synchronous);

@@ -27,6 +27,10 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <string>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreHighLevelGpuProgram.h"
@@ -40,7 +44,6 @@ THE SOFTWARE.
 #include "OgreRoot.h"
 #include "OgreString.h"
 #include "OgreStringInterface.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre
 {
@@ -127,10 +130,6 @@ namespace Ogre
     //---------------------------------------------------------------------------
     GpuProgramParametersSharedPtr HighLevelGpuProgram::createParameters(void)
     {
-        // Lock mutex before allowing this since this is a top-level method
-        // called outside of the load()
-        OGRE_LOCK_AUTO_MUTEX;
-
         // Make sure param defs are loaded
         GpuProgramParametersSharedPtr params = GpuProgramManager::getSingleton().createParameters();
         // Only populate named parameters if we can support this program

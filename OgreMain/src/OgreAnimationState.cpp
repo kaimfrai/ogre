@@ -244,9 +244,6 @@ namespace Ogre
     AnimationStateSet::AnimationStateSet(const AnimationStateSet& rhs)
         : mDirtyFrameNumber(std::numeric_limits<unsigned long>::max())
     {
-        // lock rhs
-            OGRE_LOCK_MUTEX(rhs.OGRE_AUTO_MUTEX_NAME);
-
         for (AnimationStateMap::const_iterator i = rhs.mAnimationStates.begin();
             i != rhs.mAnimationStates.end(); ++i)
         {
@@ -271,8 +268,6 @@ namespace Ogre
     //---------------------------------------------------------------------
     void AnimationStateSet::removeAnimationState(const String& name)
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         AnimationStateMap::iterator i = mAnimationStates.find(name);
         if (i != mAnimationStates.end())
         {
@@ -285,8 +280,6 @@ namespace Ogre
     //---------------------------------------------------------------------
     void AnimationStateSet::removeAllAnimationStates(void)
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         for (AnimationStateMap::iterator i = mAnimationStates.begin();
             i != mAnimationStates.end(); ++i)
         {
@@ -299,8 +292,6 @@ namespace Ogre
     AnimationState* AnimationStateSet::createAnimationState(const String& name,  
         Real timePos, Real length, Real weight, bool enabled)
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         AnimationStateMap::iterator i = mAnimationStates.find(name);
         if (i != mAnimationStates.end())
         {
@@ -318,8 +309,6 @@ namespace Ogre
     //---------------------------------------------------------------------
     AnimationState* AnimationStateSet::getAnimationState(const String& name) const
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         AnimationStateMap::const_iterator i = mAnimationStates.find(name);
         if (i == mAnimationStates.end())
         {
@@ -332,14 +321,11 @@ namespace Ogre
     //---------------------------------------------------------------------
     bool AnimationStateSet::hasAnimationState(const String& name) const
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         return mAnimationStates.find(name) != mAnimationStates.end();
     }
     //---------------------------------------------------------------------
     AnimationStateIterator AnimationStateSet::getAnimationStateIterator(void)
     {
-            OGRE_LOCK_AUTO_MUTEX;
         // returned iterator not threadsafe, noted in header
         return AnimationStateIterator(
             mAnimationStates.begin(), mAnimationStates.end());
@@ -347,7 +333,6 @@ namespace Ogre
     //---------------------------------------------------------------------
     ConstAnimationStateIterator AnimationStateSet::getAnimationStateIterator(void) const
     {
-            OGRE_LOCK_AUTO_MUTEX;
         // returned iterator not threadsafe, noted in header
         return ConstAnimationStateIterator(
             mAnimationStates.begin(), mAnimationStates.end());
@@ -355,11 +340,6 @@ namespace Ogre
     //---------------------------------------------------------------------
     void AnimationStateSet::copyMatchingState(AnimationStateSet* target) const
     {
-        // lock target
-            OGRE_LOCK_MUTEX(target->OGRE_AUTO_MUTEX_NAME);
-        // lock source
-            OGRE_LOCK_AUTO_MUTEX;
-
         AnimationStateMap::iterator i, iend;
         iend = target->mAnimationStates.end();
         for (i = target->mAnimationStates.begin(); i != iend; ++i) {
@@ -392,13 +372,11 @@ namespace Ogre
     //---------------------------------------------------------------------
     void AnimationStateSet::_notifyDirty(void)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         ++mDirtyFrameNumber;
     }
     //---------------------------------------------------------------------
     void AnimationStateSet::_notifyAnimationStateEnabled(AnimationState* target, bool enabled)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         // Remove from enabled animation state list first
         mEnabledAnimationStates.remove(target);
 
@@ -414,7 +392,6 @@ namespace Ogre
     //---------------------------------------------------------------------
     ConstEnabledAnimationStateIterator AnimationStateSet::getEnabledAnimationStateIterator(void) const
     {
-        OGRE_LOCK_AUTO_MUTEX;
         // returned iterator not threadsafe, noted in header
         return ConstEnabledAnimationStateIterator(
             mEnabledAnimationStates.begin(), mEnabledAnimationStates.end());

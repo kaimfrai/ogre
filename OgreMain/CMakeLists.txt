@@ -81,8 +81,6 @@ file(GLOB THREAD_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/Threading/*.h
 include_directories("include/Threading" "src/")
 
 list(APPEND THREAD_HEADER_FILES
-    include/Threading/OgreThreadDefinesSTD.h
-    include/Threading/OgreThreadHeadersSTD.h
     include/Threading/OgreDefaultWorkQueueStandard.h
 )
 list(APPEND THREAD_SOURCE_FILES

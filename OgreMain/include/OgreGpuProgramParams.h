@@ -35,13 +35,16 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include <map>
 #include <string>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreSerializer.h"
 #include "OgreAny.h"
-#include "Threading/OgreThreadHeaders.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -381,8 +384,6 @@ template <int dims, typename T> class Vector;
     /// Container struct to allow params to safely & update shared list of logical buffer assignments
     struct _OgreExport GpuLogicalBufferStruct : public GpuParamsAlloc
     {
-        OGRE_MUTEX(mutex);
-
         /// Map from logical index to physical buffer location
         GpuLogicalIndexUseMap map;
         /// Shortcut to know the buffer size needs

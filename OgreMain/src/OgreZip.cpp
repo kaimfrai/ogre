@@ -34,6 +34,10 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreArchive.h"
@@ -48,7 +52,6 @@ THE SOFTWARE.
 #include "OgreString.h"
 #include "OgreStringVector.h"
 #include "OgreZip.h"
-#include "Threading/OgreThreadHeaders.h"
 
 struct zip_t;
 
@@ -64,7 +67,6 @@ namespace {
         MemoryDataStreamPtr mBuffer;
         /// File list (since zziplib seems to only allow scanning of dir tree once)
         FileInfoList mFileList;
-        OGRE_AUTO_MUTEX;
     public:
         ZipArchive(const String& name, const String& archType, const uint8* externBuf = 0, size_t externBufSz = 0);
         ~ZipArchive();
@@ -121,7 +123,6 @@ namespace {
     //-----------------------------------------------------------------------
     void ZipArchive::load()
     {
-        OGRE_LOCK_AUTO_MUTEX;
         if (!mZipFile)
         {
             if(!mBuffer)
@@ -162,7 +163,6 @@ namespace {
     //-----------------------------------------------------------------------
     void ZipArchive::unload()
     {
-        OGRE_LOCK_AUTO_MUTEX;
         if (mZipFile)
         {
             zip_close(mZipFile);
@@ -176,7 +176,6 @@ namespace {
     DataStreamPtr ZipArchive::open(const String& filename, bool readOnly) const
     {
         // zip is not threadsafe
-        OGRE_LOCK_AUTO_MUTEX;
         String lookUpFileName = filename;
 
         bool open = zip_entry_open(mZipFile, lookUpFileName.c_str(), true) == 0;
@@ -208,7 +207,6 @@ namespace {
     //-----------------------------------------------------------------------
     StringVectorPtr ZipArchive::list(bool recursive, bool dirs) const
     {
-        OGRE_LOCK_AUTO_MUTEX;
         StringVectorPtr ret = StringVectorPtr(OGRE_NEW_T(StringVector, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
 
         FileInfoList::const_iterator i, iend;
@@ -223,7 +221,6 @@ namespace {
     //-----------------------------------------------------------------------
     FileInfoListPtr ZipArchive::listFileInfo(bool recursive, bool dirs) const
     {
-        OGRE_LOCK_AUTO_MUTEX;
         FileInfoList* fil = OGRE_NEW_T(FileInfoList, MEMCATEGORY_GENERAL)();
         FileInfoList::const_iterator i, iend;
         iend = mFileList.end();
@@ -237,7 +234,6 @@ namespace {
     //-----------------------------------------------------------------------
     StringVectorPtr ZipArchive::find(const String& pattern, bool recursive, bool dirs) const
     {
-        OGRE_LOCK_AUTO_MUTEX;
         StringVectorPtr ret = StringVectorPtr(OGRE_NEW_T(StringVector, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
         // If pattern contains a directory name, do a full match
         bool full_match = (pattern.find ('/') != String::npos) ||
@@ -259,7 +255,6 @@ namespace {
     FileInfoListPtr ZipArchive::findFileInfo(const String& pattern, 
         bool recursive, bool dirs) const
     {
-        OGRE_LOCK_AUTO_MUTEX;
         FileInfoListPtr ret = FileInfoListPtr(OGRE_NEW_T(FileInfoList, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
         // If pattern contains a directory name, do a full match
         bool full_match = (pattern.find ('/') != String::npos) ||
@@ -280,7 +275,6 @@ namespace {
     //-----------------------------------------------------------------------
     bool ZipArchive::exists(const String& filename) const
     {       
-        OGRE_LOCK_AUTO_MUTEX;
         String cleanName = filename;
 
         return std::find_if(mFileList.begin(), mFileList.end(), [&cleanName](const Ogre::FileInfo& fi) {

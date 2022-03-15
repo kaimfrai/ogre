@@ -33,6 +33,10 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreTextureUnitState.h"
@@ -64,7 +68,6 @@ THE SOFTWARE.
 #include "OgreTechnique.h"
 #include "OgreTexture.h"
 #include "OgreTextureManager.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre
 {
@@ -1566,8 +1569,6 @@ namespace Ogre
         GpuLogicalBufferStructPtr floatLogical = params->getLogicalBufferStruct();
         if( floatLogical )
         {
-            OGRE_LOCK_MUTEX(floatLogical->mutex);
-
             for(GpuLogicalIndexUseMap::const_iterator i = floatLogical->map.begin();
                 i != floatLogical->map.end(); ++i)
             {

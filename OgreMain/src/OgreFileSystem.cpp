@@ -30,6 +30,10 @@ THE SOFTWARE.
 #include <stdio.h>
 #include <ios>
 #include <string>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreArchive.h"
@@ -42,7 +46,6 @@ THE SOFTWARE.
 #include "OgreSharedPtr.h"
 #include "OgreString.h"
 #include "OgreStringVector.h"
-#include "Threading/OgreThreadHeaders.h"
 
 #include "OgreSearchOps.h"
 
@@ -70,7 +73,6 @@ namespace {
         void findFiles(const String& pattern, bool recursive, bool dirs,
             StringVector* simpleList, FileInfoList* detailList) const;
 
-        OGRE_AUTO_MUTEX;
     public:
         FileSystemArchive(const String& name, const String& archType, bool readOnly );
         ~FileSystemArchive();

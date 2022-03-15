@@ -29,6 +29,10 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <algorithm>
 #include <set>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreRenderQueueSortingGrouping.h"
@@ -38,7 +42,6 @@ THE SOFTWARE.
 #include "OgreRadixSort.h"
 #include "OgreRenderable.h"
 #include "OgreTechnique.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
 class Camera;
@@ -280,31 +283,25 @@ namespace {
         // Delete queue groups which are using passes which are to be
         // deleted, we won't need these any more and they clutter up 
         // the list and can cause problems with future clones
+
+        const Pass::PassSet& graveyardList = Pass::getPassGraveyard();
+        Pass::PassSet::const_iterator gi, giend;
+        giend = graveyardList.end();
+        for (gi = graveyardList.begin(); gi != giend; ++gi)
         {
-            // Hmm, a bit hacky but least obtrusive for now
-                    OGRE_LOCK_MUTEX(Pass::msPassGraveyardMutex);
-            const Pass::PassSet& graveyardList = Pass::getPassGraveyard();
-            Pass::PassSet::const_iterator gi, giend;
-            giend = graveyardList.end();
-            for (gi = graveyardList.begin(); gi != giend; ++gi)
-            {
-                removePassEntry(*gi);
-            }
+            removePassEntry(*gi);
         }
 
         // Now remove any dirty passes, these will have their hashes recalculated
         // by the parent queue after all groups have been processed
         // If we don't do this, the std::map will become inconsistent for new insterts
+
+        const Pass::PassSet& dirtyList = Pass::getDirtyHashList();
+        Pass::PassSet::const_iterator di, diend;
+        diend = dirtyList.end();
+        for (di = dirtyList.begin(); di != diend; ++di)
         {
-            // Hmm, a bit hacky but least obtrusive for now
-                    OGRE_LOCK_MUTEX(Pass::msDirtyHashListMutex);
-            const Pass::PassSet& dirtyList = Pass::getDirtyHashList();
-            Pass::PassSet::const_iterator di, diend;
-            diend = dirtyList.end();
-            for (di = dirtyList.begin(); di != diend; ++di)
-            {
-                removePassEntry(*di);
-            }
+            removePassEntry(*di);
         }
         // NB we do NOT clear the graveyard or the dirty list here, because 
         // it needs to be acted on for all groups, the parent queue takes 

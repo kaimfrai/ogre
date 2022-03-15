@@ -32,10 +32,13 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <iosfwd>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgrePolygon.h"
-#include "Threading/OgreThreadHeaders.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreExports.h"
 #include "OgreFrustum.h"
@@ -66,7 +69,6 @@ class Plane;
 
         // Static 'free list' of polygons to save reallocation, shared between all bodies
         static PolygonList msFreePolygons;
-        OGRE_STATIC_MUTEX(msFreePolygonsMutex);
 
     public:
         ConvexBody();

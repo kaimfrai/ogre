@@ -32,6 +32,10 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <map>
 #include <string>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
@@ -42,7 +46,6 @@ THE SOFTWARE.
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreMovableObject.h"
 #include "OgreStringVector.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
 
@@ -95,8 +98,6 @@ class ParticleSystemRenderer;
         typedef std::map<String, ParticleEmitterFactory*> ParticleEmitterFactoryMap;
         typedef std::map<String, ParticleSystemRendererFactory*> ParticleSystemRendererFactoryMap;
     private:
-        OGRE_AUTO_MUTEX;
-            
         /// Templates based on scripts
         ParticleTemplateMap mSystemTemplates;
         

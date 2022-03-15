@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRenderTarget.h"
-#include "Threading/OgreThreadDefines.h"
 
 namespace Ogre {
     class GLContext;
@@ -80,7 +79,6 @@ namespace Ogre {
         typedef std::list<GLContext*> GLContextList;
         /// List of background thread contexts
         GLContextList mBackgroundContextList;
-        OGRE_MUTEX(mThreadInitMutex);
 
         /** One time initialization for the RenderState of a context. Things that
             only need to be set once, like the LightingModel can be defined here.

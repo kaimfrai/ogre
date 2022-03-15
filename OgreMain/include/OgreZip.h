@@ -29,11 +29,14 @@ THE SOFTWARE.
 #define __Zip_H__
 
 #include <stddef.h>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreArchive.h"
 #include "OgreArchiveFactory.h"
-#include "Threading/OgreThreadHeaders.h"
 #include "OgreExports.h"
 #include "OgrePlatform.h"
 

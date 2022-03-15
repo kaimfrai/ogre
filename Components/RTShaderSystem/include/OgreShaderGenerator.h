@@ -593,8 +593,6 @@ private:
         void destroySGPasses();
         
     protected:
-        // Auto mutex.
-        OGRE_AUTO_MUTEX;
         // Parent material.     
         SGMaterial* mParent;
         // Source technique.
@@ -822,8 +820,6 @@ private:
     /** Internal method that creates list of SGPass instances composing the given material. */
     SGPassList createSGPassList(Material* mat) const;
 
-    // Auto mutex.
-    OGRE_AUTO_MUTEX;
     // The active scene manager.
     SceneManager* mActiveSceneMgr;
     // A map of all scene managers this generator is bound to.

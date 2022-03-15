@@ -33,10 +33,13 @@ THE SOFTWARE.
 #include <sstream>
 #include <string>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
-#include "Threading/OgreThreadHeaders.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
@@ -115,7 +118,6 @@ namespace Ogre {
 
         class Stream;
 
-        OGRE_AUTO_MUTEX; // public to allow external locking
         /**
         @remarks
             Usual constructor - called by LogManager.

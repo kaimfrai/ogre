@@ -34,6 +34,10 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
@@ -41,7 +45,6 @@ THE SOFTWARE.
 #include "OgreArchive.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreCommon.h"
-#include "Threading/OgreThreadHeaders.h"
 #include "OgreBuildSettings.h"
 #include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -242,7 +245,6 @@ class ScriptLoader;
     class _OgreExport ResourceGroupManager : public Singleton<ResourceGroupManager>, public ResourceAlloc
     {
     public:
-        OGRE_AUTO_MUTEX; // public to allow external locking
         /// same as @ref RGN_DEFAULT
         static const String DEFAULT_RESOURCE_GROUP_NAME;
         /// same as @ref RGN_INTERNAL
@@ -303,10 +305,6 @@ class ScriptLoader;
                 LOADING = 3,
                 LOADED = 4
             };
-            /// General mutex for dealing with group content
-                    OGRE_AUTO_MUTEX;
-            /// Status-specific mutex, separate from content-changing mutex
-                    OGRE_MUTEX(statusMutex);
             /// Group name
             String name;
             /// Group status
