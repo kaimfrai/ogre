@@ -381,7 +381,7 @@ class ResourceManager;
         void setDesiredBitDepths(ushort integerBits, ushort floatBits);
 
         /// @deprecated use setFormat(PF_A8)
-        OGRE_DEPRECATED void setTreatLuminanceAsAlpha(bool asAlpha);
+        void setTreatLuminanceAsAlpha(bool asAlpha);
 
         /** Return the number of faces this texture has. This will be 6 for a cubemap
             texture and 1 for a 1D, 2D or 3D one.

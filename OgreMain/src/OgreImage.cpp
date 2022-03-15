@@ -48,9 +48,7 @@ namespace Ogre {
 
     void ImageCodec::decode(const DataStreamPtr& input, const Any& output) const
     {
-        OGRE_IGNORE_DEPRECATED_BEGIN
         DecodeResult res = decode(input);
-        OGRE_IGNORE_DEPRECATED_END
 
         auto pData = static_cast<ImageCodec::ImageData*>(res.second.get());
 
@@ -82,9 +80,7 @@ namespace Ogre {
 
         // Wrap memory, be sure not to delete when stream destroyed
         auto wrapper = std::make_shared<MemoryDataStream>(src->getData(), src->getSize(), false);
-        OGRE_IGNORE_DEPRECATED_BEGIN
         return encode(wrapper, imgData);
-        OGRE_IGNORE_DEPRECATED_END
     }
     void ImageCodec::encodeToFile(const Any& input, const String& outFileName) const
     {
@@ -100,9 +96,7 @@ namespace Ogre {
 
         // Wrap memory, be sure not to delete when stream destroyed
         auto wrapper = std::make_shared<MemoryDataStream>(src->getData(), src->getSize(), false);
-        OGRE_IGNORE_DEPRECATED_BEGIN
         encodeToFile(wrapper, outFileName, imgData);
-        OGRE_IGNORE_DEPRECATED_END
     }
 
     //-----------------------------------------------------------------------------

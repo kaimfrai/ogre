@@ -514,7 +514,7 @@ template <typename T> class Controller;
         };
 
         /// @deprecated obsolete
-        OGRE_DEPRECATED void setBindingType(BindingType bt);
+        void setBindingType(BindingType bt);
 
         /// @deprecated obsolete
         OGRE_DEPRECATED BindingType getBindingType(void) const;
@@ -552,7 +552,7 @@ template <typename T> class Controller;
         int getNumMipmaps(void) const;
 
         /// @deprecated use setDesiredFormat(PF_A8)
-        OGRE_DEPRECATED void setIsAlpha(bool isAlpha);
+        void setIsAlpha(bool isAlpha);
 
         /// @copydoc Texture::getGamma
         float getGamma() const;
@@ -1059,7 +1059,7 @@ template <typename T> class Controller;
         /// @deprecated use setName()
         OGRE_DEPRECATED void setTextureNameAlias(const String& name) { setName(name); }
         /// @deprecated use getName()
-        OGRE_DEPRECATED const String& getTextureNameAlias(void) const { return getName();}
+        const String& getTextureNameAlias(void) const { return getName();}
 
         /** Notify this object that its parent has changed. */
         void _notifyParent(Pass* parent);

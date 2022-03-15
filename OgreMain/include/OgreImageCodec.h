@@ -88,14 +88,14 @@ namespace Ogre {
         typedef SharedPtr<ImageData> CodecDataPtr;
 
         /// @deprecated
-        OGRE_DEPRECATED virtual DataStreamPtr encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const { return encode(Any()); }
+        virtual DataStreamPtr encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const { return encode(Any()); }
         /// @deprecated
-        OGRE_DEPRECATED virtual void encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName, const CodecDataPtr& pData) const
+        virtual void encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName, const CodecDataPtr& pData) const
         { encodeToFile(Any(), ""); }
         /// Result of a decoding; both a decoded data stream and CodecData metadata
         typedef std::pair<MemoryDataStreamPtr, CodecDataPtr> DecodeResult;
         /// @deprecated
-        OGRE_DEPRECATED virtual DecodeResult decode(const DataStreamPtr& input) const
+        virtual DecodeResult decode(const DataStreamPtr& input) const
         {
             return DecodeResult();
         }

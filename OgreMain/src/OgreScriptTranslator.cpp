@@ -1274,14 +1274,12 @@ class LodStrategy;
             }
         }
 
-        OGRE_IGNORE_DEPRECATED_BEGIN
         // Apply the texture aliases
         if(compiler->getListener())
         {
             PreApplyTextureAliasesScriptCompilerEvent locEvt(mMaterial, &mTextureAliases);
             compiler->_fireEvent(&locEvt, 0);
         }
-        OGRE_IGNORE_DEPRECATED_END
         applyTextureAliases(mMaterial, mTextureAliases);
         mTextureAliases.clear();
     }
@@ -2798,9 +2796,7 @@ class LodStrategy;
 
                             mUnit->setTextureName(evt.mName, texType);
                             mUnit->setDesiredFormat(format);
-                            OGRE_IGNORE_DEPRECATED_BEGIN
                             mUnit->setIsAlpha(isAlpha);
-                            OGRE_IGNORE_DEPRECATED_END
                             mUnit->setNumMipmaps(mipmaps);
                             mUnit->setHardwareGammaEnabled(sRGBRead);
                         }
@@ -3398,9 +3394,7 @@ class LodStrategy;
                     {
                         compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, prop->file, prop->line,
                                            "binding_type. no longer needed");
-                        OGRE_IGNORE_DEPRECATED_BEGIN
                         mUnit->setBindingType(bt);
-                        OGRE_IGNORE_DEPRECATED_END
                     }
                     break;
                 case ID_CONTENT_TYPE:

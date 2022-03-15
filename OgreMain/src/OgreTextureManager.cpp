@@ -130,9 +130,7 @@ class ManualResourceLoader;
             tex->setNumMipmaps((numMipmaps == MIP_DEFAULT)? mDefaultNumMipmaps :
                 static_cast<uint32>(numMipmaps));
             tex->setGamma(gamma);
-            OGRE_IGNORE_DEPRECATED_BEGIN
             tex->setTreatLuminanceAsAlpha(isAlpha);
-            OGRE_IGNORE_DEPRECATED_END
             tex->setFormat(desiredFormat);
             tex->setHardwareGammaEnabled(hwGamma);
         }
@@ -180,9 +178,7 @@ class ManualResourceLoader;
         tex->setNumMipmaps((numMipmaps == MIP_DEFAULT)? mDefaultNumMipmaps :
             static_cast<uint32>(numMipmaps));
         tex->setGamma(gamma);
-        OGRE_IGNORE_DEPRECATED_BEGIN
         tex->setTreatLuminanceAsAlpha(isAlpha);
-        OGRE_IGNORE_DEPRECATED_END
         tex->setFormat(desiredFormat);
         tex->setHardwareGammaEnabled(hwGamma);
         tex->loadImage(img);

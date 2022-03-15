@@ -558,9 +558,7 @@ class ResourceManager;
         LogManager::getSingleton().logWarning("'uses_adjacency_information' is deprecated. "
         "Set the respective RenderOperation::OpertionType instead.");
         GpuProgram* t = static_cast<GpuProgram*>(target);
-        OGRE_IGNORE_DEPRECATED_BEGIN
         t->setAdjacencyInfoRequired(StringConverter::parseBool(val));
-        OGRE_IGNORE_DEPRECATED_END
     }
 }
 

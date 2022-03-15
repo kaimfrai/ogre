@@ -472,7 +472,7 @@ class Material;
     };
 
     /// @deprecated do not use
-    class OGRE_DEPRECATED PreApplyTextureAliasesScriptCompilerEvent : public ScriptCompilerEvent
+    class PreApplyTextureAliasesScriptCompilerEvent : public ScriptCompilerEvent
     {
     public:
         Material *mMaterial;

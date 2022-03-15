@@ -153,9 +153,7 @@ namespace Ogre {
     {
         if (mDefaultLog)
         {
-            OGRE_IGNORE_DEPRECATED_BEGIN
             mDefaultLog->setLogDetail(ll);
-            OGRE_IGNORE_DEPRECATED_END
         }
     }
     //-----------------------------------------------------------------------
