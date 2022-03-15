@@ -31,7 +31,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreNode.h"
-#include "OgreExports.h"
 #include "OgreQuaternion.h"
 #include "OgreVector.h"
 

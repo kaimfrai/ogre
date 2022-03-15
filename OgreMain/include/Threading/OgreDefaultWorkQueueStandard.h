@@ -37,7 +37,6 @@ THE SOFTWARE
 #include "../OgreWorkQueue.h"
 #include "OgreBuildSettings.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgrePrerequisites.h"
 
 namespace Ogre

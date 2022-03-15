@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <set>
 
 #include "OgrePrerequisites.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 

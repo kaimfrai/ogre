@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreSharedPtr.h"
-#include "OgreExports.h"
 #include "OgrePlatform.h"
 
 namespace Ogre {

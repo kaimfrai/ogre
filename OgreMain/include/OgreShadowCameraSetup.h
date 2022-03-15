@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <memory>
 
 #include "OgrePrerequisites.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
 

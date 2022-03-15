@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreArchive.h"
 #include "OgreArchiveFactory.h"
-#include "OgreExports.h"
 
 struct AAssetManager;
 

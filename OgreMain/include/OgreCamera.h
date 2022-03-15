@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreFrustum.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgrePlane.h"
 #include "OgrePlaneBoundedVolume.h"
 #include "OgreQuaternion.h"

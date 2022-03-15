@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreSkeleton.h"
-#include "OgreExports.h"
 #include "OgreQuaternion.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"

@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreColourValue.h"
 #include "OgreBlendMode.h"
 #include "OgreSharedPtr.h"
-#include "OgreExports.h"
 
 namespace Ogre {
 

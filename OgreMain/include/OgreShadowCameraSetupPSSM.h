@@ -35,7 +35,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreShadowCameraSetupLiSPSM.h"
-#include "OgreExports.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre

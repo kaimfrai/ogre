@@ -29,7 +29,6 @@ THE SOFTWARE.
 #define _DynLib_H__
 
 #include "OgrePrerequisites.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 

@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgreRenderSystem.h"
 #include "OgreCompositionTechnique.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"

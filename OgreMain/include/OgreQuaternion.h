@@ -44,7 +44,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreMath.h"
-#include "OgreExports.h"
 
 namespace Ogre {
 class Matrix3;

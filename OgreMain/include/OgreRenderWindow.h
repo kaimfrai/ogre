@@ -29,7 +29,6 @@ THE SOFTWARE
 #include "OgrePrerequisites.h"
 #include "OgreRenderTarget.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 

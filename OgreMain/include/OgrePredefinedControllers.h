@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreController.h"
 #include "OgreFrameListener.h"
 #include "OgreControllerManager.h"
-#include "OgreExports.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

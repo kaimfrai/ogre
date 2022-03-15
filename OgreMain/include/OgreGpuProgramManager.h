@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreGpuProgram.h"
 #include "OgreSingleton.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreResource.h"

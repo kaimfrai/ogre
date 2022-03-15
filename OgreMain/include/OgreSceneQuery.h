@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreSphere.h"
 #include "OgreRay.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlaneBoundedVolume.h"
 #include "OgrePlatform.h"

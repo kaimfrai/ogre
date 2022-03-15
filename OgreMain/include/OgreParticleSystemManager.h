@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgreSingleton.h"
 #include "OgreScriptLoader.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreMovableObject.h"

@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgreMeshSerializerImpl.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
-#include "OgreExports.h"
 #include "OgreFileSystem.h"
 #include "OgreLogManager.h"
 #include "OgreMemoryAllocatorConfig.h"

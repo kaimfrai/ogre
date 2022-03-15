@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgreCamera.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMath.h"
 #include "OgrePlatform.h"

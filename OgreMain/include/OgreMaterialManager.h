@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreResourceManager.h"
 #include "OgreTextureUnitState.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"

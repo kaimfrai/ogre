@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreException.h"
 #include "OgreRoot.h"
 #include "OgreRenderSystem.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreMaterial.h"

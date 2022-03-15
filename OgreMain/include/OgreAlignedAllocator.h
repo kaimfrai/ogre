@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <memory>
 
 #include "OgrePlatform.h"
-#include "OgreExports.h"
 
 namespace Ogre {
 

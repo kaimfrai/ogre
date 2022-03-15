@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgreGLWindow.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgrePixelFormat.h"
 #include "OgrePrerequisites.h"
 

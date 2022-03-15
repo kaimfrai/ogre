@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgreAxisAlignedBox.h"
 #include "OgreRenderOperation.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgreSharedPtr.h"
 

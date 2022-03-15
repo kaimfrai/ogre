@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreMatrix4.h"
 #include "OgreTexture.h"
 #include "OgreColourValue.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePixelFormat.h"

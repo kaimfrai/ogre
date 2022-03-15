@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreLodStrategy.h"
 #include "OgreSingleton.h"
-#include "OgreExports.h"
 #include "OgreMaterial.h"
 #include "OgreMath.h"
 #include "OgreMesh.h"

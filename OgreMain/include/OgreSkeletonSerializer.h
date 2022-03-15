@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreSerializer.h"
-#include "OgreExports.h"
 
 namespace Ogre {
 

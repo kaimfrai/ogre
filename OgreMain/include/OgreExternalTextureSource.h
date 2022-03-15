@@ -46,7 +46,6 @@ email                : pjcast@yahoo.com
 
 #include "OgreStringInterface.h"
 #include "OgreResourceGroupManager.h"
-#include "OgreExports.h"
 #include "OgrePrerequisites.h"
 
 namespace Ogre

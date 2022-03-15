@@ -32,7 +32,6 @@
 #include <string.h>
 
 #include "OgreBuildSettings.h"
-#include "OgreExports.h"
 #include "OgreSharedPtr.h"
 
 #include "OgrePrerequisites.h"

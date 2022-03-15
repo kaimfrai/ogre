@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreImage.h"
 #include "OgreSharedPtr.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 #include "OgreVector.h"

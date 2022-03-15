@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgreOptimisedUtil.h"
 #include "OgreEdgeListBuilder.h"
 #include "OgreException.h"
-#include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgrePlatform.h"
 #include "OgrePlatformInformation.h"

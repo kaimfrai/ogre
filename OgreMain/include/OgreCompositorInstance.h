@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreRenderQueue.h"
 #include "OgreCompositionTechnique.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreSharedPtr.h"

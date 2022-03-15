@@ -30,7 +30,6 @@ THE SOFTWARE.
 
 #include "OgreBitesPrerequisites.h"
 #include "OgrePlatform.h"
-#include "OgreExports.h"
 
 namespace Ogre {
     class RenderWindow;

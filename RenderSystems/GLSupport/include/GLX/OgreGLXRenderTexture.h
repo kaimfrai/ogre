@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <cstddef>
 
 #include "OgreGLPBuffer.h"
-#include "OgreExports.h"
 #include "OgrePixelFormat.h"
 
 namespace Ogre

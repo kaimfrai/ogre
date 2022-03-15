@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreMatrix4.h"
 #include "OgreUserObjectBindings.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
 #include "OgreMemoryAllocatorConfig.h"

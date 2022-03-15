@@ -32,7 +32,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
-#include "OgreExports.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

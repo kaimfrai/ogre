@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreBone.h"
 #include "OgreMatrix4.h"
-#include "OgreExports.h"
 
 namespace Ogre  {
 class Entity;

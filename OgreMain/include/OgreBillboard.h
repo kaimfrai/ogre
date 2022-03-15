@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreMath.h"
 #include "OgreVector.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 

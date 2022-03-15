@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include "OgrePlane.h"
 #include "OgreMovableObject.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgreQuaternion.h"
 #include "OgreRenderable.h"
 #include "OgreVector.h"

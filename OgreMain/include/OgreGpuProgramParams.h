@@ -45,7 +45,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include "OgreSharedPtr.h"
 #include "OgreSerializer.h"
 #include "OgreAny.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 

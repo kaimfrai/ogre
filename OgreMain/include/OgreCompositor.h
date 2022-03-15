@@ -35,7 +35,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
 

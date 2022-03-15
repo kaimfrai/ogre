@@ -44,7 +44,6 @@ THE SOFTWARE.
 #include "OgreSharedPtr.h"
 #include "OgreBuildSettings.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreIteratorWrapper.h"

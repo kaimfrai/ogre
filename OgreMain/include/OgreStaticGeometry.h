@@ -43,7 +43,6 @@ THE SOFTWARE.
 #include "OgreMesh.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMaterial.h"
 #include "OgreMemoryAllocatorConfig.h"

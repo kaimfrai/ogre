@@ -35,7 +35,6 @@ THE SOFTWARE.
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreMatrix4.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgreVector.h"
 

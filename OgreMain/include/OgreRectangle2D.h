@@ -30,7 +30,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreSimpleRenderable.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 
 namespace Ogre {

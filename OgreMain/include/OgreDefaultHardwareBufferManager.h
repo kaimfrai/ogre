@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreSharedPtr.h"
 

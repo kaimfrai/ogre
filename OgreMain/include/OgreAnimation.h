@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreAnimationTrack.h"
 #include "OgreAnimationState.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 

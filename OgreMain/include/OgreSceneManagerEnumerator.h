@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreSceneManager.h"
 #include "OgreSingleton.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"

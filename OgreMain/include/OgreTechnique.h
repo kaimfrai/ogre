@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreUserObjectBindings.h"
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"

@@ -36,7 +36,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreMath.h"
-#include "OgreExports.h"
 #include "OgreQuaternion.h"
 
 namespace Ogre {

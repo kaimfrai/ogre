@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreStringVector.h"
 #include "OgreBlendMode.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMemoryAllocatorConfig.h"
 

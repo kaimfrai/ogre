@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgreVertexIndexData.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgreMatrix4.h"
 #include "OgrePlane.h"

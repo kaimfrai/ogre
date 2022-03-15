@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreShadowCameraSetupFocused.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgreLight.h"
 #include "OgreMath.h"
 #include "OgreMatrix4.h"

@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgrePixelFormat.h"
 #include "OgreColourValue.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 

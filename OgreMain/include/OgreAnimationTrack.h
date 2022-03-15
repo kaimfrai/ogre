@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreSimpleSpline.h"
 #include "OgreRotationalSpline.h"
 #include "OgrePose.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreSharedPtr.h"

@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgrePolygon.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgreFrustum.h"
 
 namespace Ogre

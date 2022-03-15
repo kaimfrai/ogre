@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgreVector.h"
 #include "OgreException.h"
 #include "OgreUserObjectBindings.h"
-#include "OgreExports.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

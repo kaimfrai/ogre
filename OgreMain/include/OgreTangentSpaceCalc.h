@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreVector.h"
-#include "OgreExports.h"
 #include "OgreHardwareVertexBuffer.h"
 
 namespace Ogre

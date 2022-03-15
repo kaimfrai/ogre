@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreShadowCaster.h"
 #include "OgreAnimable.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreRenderable.h"

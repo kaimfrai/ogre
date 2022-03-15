@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgreMovableObject.h"
 #include "OgreNode.h"
-#include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"

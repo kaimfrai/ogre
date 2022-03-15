@@ -42,7 +42,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreConfig.h"
 #include "OgreException.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"

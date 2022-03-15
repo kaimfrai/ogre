@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreConvexBody.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreSceneNode.h"
-#include "OgreExports.h"
 #include "OgreLight.h"
 #include "OgreMatrix4.h"
 #include "OgreSceneManager.h"

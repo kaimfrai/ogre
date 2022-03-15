@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreMesh.h"
 #include "OgrePatchSurface.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreResource.h"
 

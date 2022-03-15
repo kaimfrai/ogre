@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreBillboardSet.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreFactoryObj.h"
 #include "OgrePlatform.h"
 #include "OgreRenderable.h"

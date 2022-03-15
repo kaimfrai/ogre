@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreLog.h"
 #include "OgreSingleton.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre

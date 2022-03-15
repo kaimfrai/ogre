@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgrePatchSurface.h"
 #include "OgrePlane.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreQuaternion.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"

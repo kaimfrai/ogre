@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreString.h"
 #include "OgreBuildSettings.h"
-#include "OgreExports.h"
 #include "OgrePlatform.h"
 
 // Check for OGRE assert mode

@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreStringVector.h"
 #include "OgreAnimation.h"
 #include "OgreSharedPtr.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgrePlatform.h"
 

@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreStringVector.h"
 #include "OgreException.h"
 #include "OgreAny.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {

@@ -38,7 +38,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include "OgreSingleton.h"
 #include "OgreGLRenderTarget.h"
 #include "OgreConfig.h"
-#include "OgreExports.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"

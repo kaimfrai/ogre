@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreControllerManager.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMovableObject.h"
 

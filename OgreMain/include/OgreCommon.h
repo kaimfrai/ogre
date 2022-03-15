@@ -38,7 +38,6 @@ THE SOFTWARE.
 
 #include "OgreVector.h"
 #include "OgreMurmurHash3.h"
-#include "OgreExports.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 

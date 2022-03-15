@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgrePrerequisites.h"
-#include "OgreExports.h"
 #include "OgrePlatform.h"
 
 namespace Ogre

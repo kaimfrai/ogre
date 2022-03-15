@@ -36,7 +36,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreRenderSystemCapabilities.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
 

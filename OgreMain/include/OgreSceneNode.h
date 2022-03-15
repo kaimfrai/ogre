@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreNode.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgrePlatform.h"
 #include "OgreQuaternion.h"

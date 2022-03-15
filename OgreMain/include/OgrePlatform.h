@@ -29,7 +29,6 @@ THE SOFTWARE.
 #define __Platform_H_
 
 #include "OgreConfig.h"
-#include "OgreExports.h"
 
 /* See if we can use __forceinline or if we need to use __inline instead */
 

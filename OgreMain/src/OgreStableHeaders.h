@@ -41,7 +41,6 @@ extern "C" {
 }
 
 #include "OgreConfig.h"
-#include "OgreExports.h"
 #include "OgrePrerequisites.h"
 #include "OgrePlatform.h"
 #include "OgreStdHeaders.h"

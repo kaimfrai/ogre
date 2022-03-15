@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgreRenderable.h"
 #include "OgreRenderOperation.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"

@@ -11,7 +11,6 @@
 #include <stdint.h>
 
 #include "OgreStableHeaders.h"
-#include "OgreExports.h"
 #include "OgreMurmurHash3.h"
 #include "OgrePlatform.h"
 

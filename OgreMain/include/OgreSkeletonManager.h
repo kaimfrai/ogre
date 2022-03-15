@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include "OgreResourceManager.h"
 #include "OgreSingleton.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
 

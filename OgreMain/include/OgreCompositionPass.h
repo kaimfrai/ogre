@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreConfig.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreRenderQueue.h"

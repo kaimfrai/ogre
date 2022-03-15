@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreGpuProgram.h"
-#include "OgreExports.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
 

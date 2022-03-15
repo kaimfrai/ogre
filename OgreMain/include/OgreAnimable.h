@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreColourValue.h"
 #include "OgreStringVector.h"
 #include "OgreException.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreQuaternion.h"

@@ -44,7 +44,6 @@ THE SOFTWARE.
 #include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreBuildSettings.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMatrix4.h"
 #include "OgrePlatform.h"

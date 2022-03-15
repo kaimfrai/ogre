@@ -31,7 +31,6 @@ THE SOFTWARE.
 
 #include <vector>
 
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"

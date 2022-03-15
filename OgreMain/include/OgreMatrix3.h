@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreVector.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 
 // NB All code adapted from Wild Magic 0.2 Matrix math (free source code)

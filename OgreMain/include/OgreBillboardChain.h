@@ -43,7 +43,6 @@ THE SOFTWARE.
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMaterial.h"
 #include "OgreQuaternion.h"
 #include "OgreSharedPtr.h"

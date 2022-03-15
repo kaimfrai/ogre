@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <GL/glx.h>
 
 #include "OgreGLContext.h"
-#include "OgreExports.h"
 
 namespace Ogre {
 class GLXGLSupport;

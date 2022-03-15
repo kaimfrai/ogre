@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <stddef.h>
 
 #include "OgreInstanceBatchVTF.h"
-#include "OgreExports.h"
 #include "OgreMesh.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"

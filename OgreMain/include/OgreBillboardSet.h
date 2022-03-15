@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
-#include "OgreExports.h"
 #include "OgreMaterial.h"
 #include "OgrePlatform.h"
 #include "OgreQuaternion.h"

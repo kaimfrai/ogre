@@ -31,7 +31,6 @@ THE SOFTWARE.
 
 #include "OgreRenderWindow.h"
 #include "OgreGLRenderTarget.h"
-#include "OgreExports.h"
 #include "OgreRenderTarget.h"
 
 namespace Ogre

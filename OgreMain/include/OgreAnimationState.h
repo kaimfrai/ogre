@@ -44,7 +44,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreController.h"
 #include "OgreControllerManager.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {

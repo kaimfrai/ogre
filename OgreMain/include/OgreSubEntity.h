@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreResourceGroupManager.h"
 #include "OgreBuildSettings.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"

@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgreInstanceBatch.h"
 #include "OgreTexture.h"
-#include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgreMesh.h"
 #include "OgrePlatform.h"

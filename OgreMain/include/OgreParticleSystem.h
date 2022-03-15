@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreMovableObject.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgrePlatform.h"
 #include "OgreRenderable.h"
 #include "OgreSharedPtr.h"

@@ -46,7 +46,6 @@ THE SOFTWARE.
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
 #include "OgreConfig.h"
-#include "OgreExports.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"

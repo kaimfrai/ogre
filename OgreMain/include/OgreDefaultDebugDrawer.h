@@ -8,7 +8,6 @@
 #include "OgreSceneManager.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
-#include "OgreExports.h"
 #include "OgreManualObject.h"
 
 namespace Ogre

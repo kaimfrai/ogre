@@ -60,7 +60,6 @@ Torus Knot Software Ltd.
 #include "OgreLodListener.h"
 #include "OgreNameGenerator.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreLight.h"
 #include "OgreMatrix4.h"

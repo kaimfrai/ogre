@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgreSingleton.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"

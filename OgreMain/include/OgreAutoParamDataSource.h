@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreSceneNode.h"
 #include "OgreColourValue.h"
 #include "OgreConfig.h"
-#include "OgreExports.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMatrix4.h"
 #include "OgreMemoryAllocatorConfig.h"

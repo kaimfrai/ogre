@@ -44,7 +44,6 @@ THE SOFTWARE.
 #include "OgreTextureUnitState.h"
 #include "OgreUserObjectBindings.h"
 #include "OgreBlendMode.h"
-#include "OgreExports.h"
 #include "OgreGpuProgram.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
