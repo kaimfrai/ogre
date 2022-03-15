@@ -583,14 +583,6 @@ namespace Ogre {
         */
         unsigned short getTextureUnitStateIndex(const TextureUnitState* state) const;
 
-        /** Get an iterator over the TextureUnitStates contained in this Pass.
-         * @deprecated use getTextureUnitStates() */
-        OGRE_DEPRECATED TextureUnitStateIterator getTextureUnitStateIterator(void);
-
-        /** Get an iterator over the TextureUnitStates contained in this Pass.
-         * @deprecated use getTextureUnitStates() */
-        OGRE_DEPRECATED ConstTextureUnitStateIterator getTextureUnitStateIterator(void) const;
-
         /** Get the TextureUnitStates contained in this Pass. */
         const TextureUnitStates& getTextureUnitStates() const { return mTextureUnitStates; }
 

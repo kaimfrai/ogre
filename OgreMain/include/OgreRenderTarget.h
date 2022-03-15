@@ -322,16 +322,7 @@ class Viewport;
         */
         virtual void copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer = FB_AUTO) = 0;
 
-        /** @overload
-        @deprecated This function is deprecated as behavior for dst.size < RenderTarget.size
-            was inconsistent in previous versions of Ogre. Sometimes the whole rect was used as a source,
-            sometimes the rect with the size equal to the size of destination rect but located
-            in the top left corner of the render target, sometimes the destination rect itself.
-            Use the overload with explicitly specified source and destination boxes instead.
-        */
-        OGRE_DEPRECATED void copyContentsToMemory(const PixelBox &dst, FrameBuffer buffer = FB_AUTO) { copyContentsToMemory(Box(0, 0, mWidth, mHeight), dst, buffer); }
-
-        /** Suggests a pixel format to use for extracting the data in this target, 
+        /** Suggests a pixel format to use for extracting the data in this target,
             when calling copyContentsToMemory.
         */
         virtual PixelFormat suggestPixelFormat() const { return PF_BYTE_RGBA; }

@@ -1125,12 +1125,7 @@ namespace Ogre {
     {
         mSkeleton = pSkel;
     }
-    //---------------------------------------------------------------------
-    Mesh::BoneAssignmentIterator Mesh::getBoneAssignmentIterator(void)
-    {
-        return BoneAssignmentIterator(mBoneAssignments.begin(),
-            mBoneAssignments.end());
-    }
+
     //---------------------------------------------------------------------
     const String& Mesh::getSkeletonName(void) const
     {
@@ -2388,16 +2383,7 @@ namespace Ogre {
         }
         mPoseList.clear();
     }
-    //---------------------------------------------------------------------
-    Mesh::PoseIterator Mesh::getPoseIterator(void)
-    {
-        return PoseIterator(mPoseList.begin(), mPoseList.end());
-    }
-    //---------------------------------------------------------------------
-    Mesh::ConstPoseIterator Mesh::getPoseIterator(void) const
-    {
-        return ConstPoseIterator(mPoseList.begin(), mPoseList.end());
-    }
+
     //-----------------------------------------------------------------------------
     const PoseList& Mesh::getPoseList(void) const
     {

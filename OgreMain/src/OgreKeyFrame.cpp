@@ -186,18 +186,7 @@ namespace Ogre
     {
         return mPoseRefs;
     }
-    //---------------------------------------------------------------------
-    VertexPoseKeyFrame::PoseRefIterator 
-    VertexPoseKeyFrame::getPoseReferenceIterator(void)
-    {
-        return PoseRefIterator(mPoseRefs.begin(), mPoseRefs.end());
-    }
-    //---------------------------------------------------------------------
-    VertexPoseKeyFrame::ConstPoseRefIterator 
-    VertexPoseKeyFrame::getPoseReferenceIterator(void) const
-    {
-        return ConstPoseRefIterator(mPoseRefs.begin(), mPoseRefs.end());
-    }
+
     //---------------------------------------------------------------------
     KeyFrame* VertexPoseKeyFrame::_clone(AnimationTrack* newParent) const
     {

@@ -122,9 +122,6 @@ namespace Ogre {
         
         /** Get the TextureDefinitions in this Technique. */
         const TextureDefinitions& getTextureDefinitions() const { return mTextureDefinitions; }
-
-        /// @deprecated use getTextureDefinitions()
-        OGRE_DEPRECATED TextureDefinitionIterator getTextureDefinitionIterator(void);
         
         /** Create a new target pass, and return a pointer to it.
         */
@@ -147,9 +144,6 @@ namespace Ogre {
         
         /** Get the TargetPasses in this Technique. */
         const TargetPasses& getTargetPasses() const { return mTargetPasses; }
-
-        /// @deprecated use getTargetPasses()
-        OGRE_DEPRECATED TargetPassIterator getTargetPassIterator(void);
         
         /** Get output (final) target pass
          */

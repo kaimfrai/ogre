@@ -239,10 +239,6 @@ class AnimationStateSet;
         @deprecated use getAnimationStates()
         */
         AnimationStateIterator getAnimationStateIterator(void);
-        /** Get an iterator over all the animation states in this set.
-        @deprecated use getAnimationStates()
-        */
-        OGRE_DEPRECATED ConstAnimationStateIterator getAnimationStateIterator(void) const;
 
         /** Get all the animation states in this set.
         @note
@@ -265,10 +261,6 @@ class AnimationStateSet;
         void _notifyAnimationStateEnabled(AnimationState* target, bool enabled);
         /// Tests if exists enabled animation state in this set
         bool hasEnabledAnimationState(void) const { return !mEnabledAnimationStates.empty(); }
-        /** Get an iterator over all the enabled animation states in this set
-        @deprecated use getEnabledAnimationStates()
-        */
-        OGRE_DEPRECATED ConstEnabledAnimationStateIterator getEnabledAnimationStateIterator(void) const;
 
         /** Get an iterator over all the enabled animation states in this set
         @note

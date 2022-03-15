@@ -156,11 +156,6 @@ void CompositionTargetPass::removeAllPasses()
     }
     mPasses.clear();
 }
-//-----------------------------------------------------------------------
-CompositionTargetPass::PassIterator CompositionTargetPass::getPassIterator(void)
-{
-    return PassIterator(mPasses.begin(), mPasses.end());
-}
 
 //-----------------------------------------------------------------------
 CompositionTechnique *CompositionTargetPass::getParent()

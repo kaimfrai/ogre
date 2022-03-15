@@ -372,10 +372,6 @@ class Technique;
 
         virtual void _updateRenderQueue(RenderQueue* queue);
         void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false );
-
-        // resolve ambiguity of get/setUserAny due to inheriting from Renderable and MovableObject
-        using Renderable::getUserAny;
-        using Renderable::setUserAny;
     };
 } // namespace Ogre
 

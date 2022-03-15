@@ -536,9 +536,6 @@ class Material;
         {}  
     };
 
-    /// @deprecated use CreateGpuProgramScriptCompilerEvent
-    typedef OGRE_DEPRECATED CreateGpuProgramScriptCompilerEvent CreateHighLevelGpuProgramScriptCompilerEvent;
-
     class CreateGpuSharedParametersScriptCompilerEvent : public ScriptCompilerEvent
     {
     public:

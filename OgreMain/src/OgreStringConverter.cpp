@@ -96,36 +96,7 @@ namespace Ogre {
         return stream.str();
     }
 
-    //-----------------------------------------------------------------------
-    String StringConverter::toString(int32 val,
-        unsigned short width, char fill, std::ios::fmtflags flags)
-    {
-        return _toString(val, width, fill, flags);
-    }
-    //-----------------------------------------------------------------------
-    String StringConverter::toString(uint32 val,
-        unsigned short width, char fill, std::ios::fmtflags flags)
-    {
-        return _toString(val, width, fill, flags);
-    }
-    //-----------------------------------------------------------------------
-    String StringConverter::toString(unsigned long val,
-        unsigned short width, char fill, std::ios::fmtflags flags)
-    {
-        return _toString(val, width, fill, flags);
-    }
-    //-----------------------------------------------------------------------
-    String StringConverter::toString(unsigned long long val,
-        unsigned short width, char fill, std::ios::fmtflags flags)
-    {
-        return _toString(val, width, fill, flags);
-    }
-    //-----------------------------------------------------------------------
-    String StringConverter::toString(long val,
-        unsigned short width, char fill, std::ios::fmtflags flags)
-    {
-        return _toString(val, width, fill, flags);
-    }
+
     //-----------------------------------------------------------------------
     String StringConverter::toString(const Vector2& val)
     {

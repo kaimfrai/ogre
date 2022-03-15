@@ -199,9 +199,6 @@ namespace Ogre
                            m[2][0], m[2][1], m[2][2]);
         }
 
-        OGRE_DEPRECATED void extract3x3Matrix(Matrix3& m3x3) const { m3x3 = linear(); }
-        OGRE_DEPRECATED Quaternion extractQuaternion() const { return Quaternion(linear()); }
-
         Real determinant() const;
 
         Matrix4 transpose() const;
@@ -272,8 +269,6 @@ namespace Ogre
             set3x3Matrix(mat3);
             return *this;
         }
-
-        OGRE_DEPRECATED Matrix4 concatenate(const Matrix4& m2) const { return *this * m2; }
 
         /** Tests 2 matrices for equality.
         */

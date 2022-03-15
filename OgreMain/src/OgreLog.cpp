@@ -150,12 +150,6 @@ namespace Ogre
         mDebugOut = debugOutput;
     }
 
-    //-----------------------------------------------------------------------
-    void Log::setLogDetail(LoggingLevel ll)
-    {
-        mLogLevel = LogMessageLevel(OGRE_LOG_THRESHOLD - ll);
-    }
-
     void Log::setMinLogLevel(LogMessageLevel lml)
     {
         mLogLevel = lml;

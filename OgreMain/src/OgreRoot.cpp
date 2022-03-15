@@ -545,12 +545,7 @@ namespace Ogre {
     {
         return mSceneManagerEnum->getMetaData(typeName);
     }
-    //-----------------------------------------------------------------------
-    SceneManagerEnumerator::MetaDataIterator
-    Root::getSceneManagerMetaDataIterator(void) const
-    {
-        return mSceneManagerEnum->getMetaDataIterator();
-    }
+
     //-----------------------------------------------------------------------
     const SceneManagerEnumerator::MetaDataList&
     Root::getSceneManagerMetaData(void) const
@@ -578,11 +573,7 @@ namespace Ogre {
     {
         return mSceneManagerEnum->hasSceneManager(instanceName);
     }
-    //-----------------------------------------------------------------------
-    SceneManagerEnumerator::SceneManagerIterator Root::getSceneManagerIterator(void)
-    {
-        return mSceneManagerEnum->getSceneManagerIterator();
-    }
+
     //-----------------------------------------------------------------------
     const SceneManagerEnumerator::Instances& Root::getSceneManagers(void) const
     {
@@ -1221,22 +1212,7 @@ namespace Ogre {
         }
 
     }
-    //---------------------------------------------------------------------
-    Root::MovableObjectFactoryIterator
-    Root::getMovableObjectFactoryIterator(void) const
-    {
-        return MovableObjectFactoryIterator(mMovableObjectFactoryMap.begin(),
-            mMovableObjectFactoryMap.end());
 
-    }
-    //---------------------------------------------------------------------
-    unsigned int Root::getDisplayMonitorCount() const
-    {
-        OgreAssert(mActiveRenderer,
-                   "Cannot get display monitor count - No render system has been selected");
-
-        return mActiveRenderer->getDisplayMonitorCount();
-    }
     //---------------------------------------------------------------------
     void Root::setWorkQueue(WorkQueue* queue)
     {
@@ -1248,7 +1224,4 @@ namespace Ogre {
 
         }
     }
-
-
-
 }

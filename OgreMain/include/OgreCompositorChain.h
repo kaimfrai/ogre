@@ -91,10 +91,7 @@ class SceneManager;
             Position in filter chain of filter to remove; defaults to the end (last applied filter)
         */
         void removeCompositor(size_t position=LAST);
-        
-        /// @deprecated use getCompositorInstances
-        OGRE_DEPRECATED size_t getNumCompositors();
-        
+
         /** Remove all compositors.
         */
         void removeAllCompositors();
@@ -116,9 +113,6 @@ class SceneManager;
         /** The compositor instances. The first compositor in this list is applied first, the last one is applied last.
         */
         const Instances& getCompositorInstances() const { return mInstances; }
-
-        /// @deprecated use getCompositorInstances
-        OGRE_DEPRECATED InstanceIterator getCompositors();
     
         /** Enable or disable a compositor, by position. Disabling a compositor stops it from rendering
             but does not free any resources. This can be more efficient than using removeCompositor and 

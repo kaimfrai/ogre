@@ -331,12 +331,6 @@ namespace Ogre {
         */
         void getHSB(float& hue, float& saturation, float& brightness) const;
 
-        /// @deprecated
-        OGRE_DEPRECATED void getHSB(float* hue, float* saturation, float* brightness) const
-        {
-            getHSB(*hue, *saturation, *brightness);
-        }
-
         /** Function for writing to a stream.
         */
         inline friend std::ostream& operator <<

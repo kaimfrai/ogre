@@ -147,17 +147,7 @@ class ManualResourceLoader;
         tex->prepare();
         return tex;
     }
-    //-----------------------------------------------------------------------
-    TexturePtr TextureManager::load(const String& name, const String& group, TextureType texType,
-                                    int numMipmaps, Real gamma, bool isAlpha, PixelFormat desiredFormat,
-                                    bool hwGamma)
-    {
-        auto res = createOrRetrieve(name, group, false, 0, 0, texType, numMipmaps, gamma, isAlpha,
-                                    desiredFormat, hwGamma);
-        TexturePtr tex = static_pointer_cast<Texture>(res.first);
-        tex->load();
-        return tex;
-    }
+
     TexturePtr TextureManager::load(const String& name, const String& group, TextureType texType,
                                     int numMipmaps, Real gamma, PixelFormat desiredFormat, bool hwGamma)
     {

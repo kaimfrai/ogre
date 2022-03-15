@@ -101,9 +101,6 @@ class RenderQueue;
         /** Gets all the children of this object. */
         const ChildMap& getChildren() const { return mChildren; }
 
-        /// @deprecated use getChildren(
-        OGRE_DEPRECATED virtual ChildIterator getChildIterator(void);
-
         /** Gets an iterator for just the container children of this object.
         @remarks
             Good for cascading updates without having to use RTTI

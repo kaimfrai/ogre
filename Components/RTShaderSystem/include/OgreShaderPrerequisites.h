@@ -69,7 +69,6 @@ class FunctionStageRef;
 class FFPRenderStateBuilder;
 class ShaderGenerator;
 class SGMaterialSerializerListener;
-class ProgramWriterFactory;
 class ProgramWriterManager;
 
 typedef shared_ptr<Parameter>        ParameterPtr;

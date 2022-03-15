@@ -331,13 +331,6 @@ class Sphere;
         /** Get the extents of the frustum in view space. */
         RealRect getFrustumExtents() const;
 
-        /** Gets the projection matrix for this frustum adjusted for the current
-            rendersystem specifics (may be right or left-handed, depth range
-            may vary).
-
-            @deprecated do not use
-        */
-        OGRE_DEPRECATED const Matrix4& getProjectionMatrixRS(void) const;
         /** Gets the depth-adjusted projection matrix for the current rendersystem
 
             This differs from the rendering-API independent @ref getProjectionMatrix

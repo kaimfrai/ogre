@@ -226,9 +226,6 @@ class Technique;
         void removeTechnique(unsigned short index);     
         /** Removes all the techniques in this Material. */
         void removeAllTechniques(void);
-        /** Get an iterator over the Techniques in this Material.
-         * @deprecated use getTechniques() */
-        OGRE_DEPRECATED TechniqueIterator getTechniqueIterator(void);
 
         /** Get the Techniques in this Material. */
         const Techniques& getTechniques(void) const {
@@ -244,9 +241,6 @@ class Technique;
         const Techniques& getSupportedTechniques(void) const {
             return mSupportedTechniques;
         }
-
-        /// @deprecated use getSupportedTechniques()
-        OGRE_DEPRECATED TechniqueIterator getSupportedTechniqueIterator(void);
         
         /** Gets the indexed supported technique. */
         Technique* getSupportedTechnique(size_t index) const { return mSupportedTechniques.at(index); }
@@ -284,13 +278,6 @@ class Technique;
 
         // needed because of deprecated variant below
         MaterialPtr clone(const String& newName, const char* newGroup) const { return clone(newName, String(newGroup)); }
-
-        /// @deprecated use clone(const String&, const String&)
-        OGRE_DEPRECATED MaterialPtr clone(const String& newName, bool changeGroup,
-                                          const String& newGroup = BLANKSTRING) const
-        {
-            return clone(newName, newGroup);
-        }
 
         /** Copies the details of this material into another, preserving the target's handle and name
         (unlike operator=) but copying everything else.
@@ -628,9 +615,6 @@ class Technique;
             return mLodValues;
         }
 
-        /// @deprecated use getLodValues()
-        OGRE_DEPRECATED LodValueIterator getLodValueIterator(void) const;
-
         /** Gets the user-defined list of values which are internally transfomed by the LodStrategy.
         @remarks
             Note that the iterator returned from this method is not totally analogous to 
@@ -641,9 +625,6 @@ class Technique;
         const LodValueList& getUserLodValues(void) const {
             return mUserLodValues;
         }
-
-        /// @deprecated use getUserLodValues()
-        OGRE_DEPRECATED LodValueIterator getUserLodValueIterator(void) const;
 
         /** Gets the LOD index to use at the given value. 
         @note The value passed in is the 'transformed' value. If you are dealing with

@@ -109,17 +109,9 @@ class VertexData;
         /** Clear all vertices. */
         void clearVertices(void);
 
-        /// @deprecated use getVertexOffsets
-        OGRE_DEPRECATED ConstVertexOffsetIterator getVertexOffsetIterator(void) const;
-        /// @deprecated use getVertexOffsets
-        OGRE_DEPRECATED VertexOffsetIterator getVertexOffsetIterator(void);
         /** Gets a const reference to the vertex offsets. */
         const VertexOffsetMap& getVertexOffsets(void) const { return mVertexOffsetMap; }
 
-        /// @deprecated use getNormals
-        OGRE_DEPRECATED ConstNormalsIterator getNormalsIterator(void) const;
-        /// @deprecated use getNormals
-        OGRE_DEPRECATED NormalsIterator getNormalsIterator(void);
         /** Gets a const reference to the vertex normals */
         const NormalsMap& getNormals(void) const { return mNormalsMap; }
 

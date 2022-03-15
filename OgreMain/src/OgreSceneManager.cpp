@@ -3041,13 +3041,7 @@ void SceneManager::setShadowIndexBufferSize(size_t size)
 {
     mShadowRenderer.setShadowIndexBufferSize(size);
 }
-//---------------------------------------------------------------------
-ConstShadowTextureConfigIterator SceneManager::getShadowTextureConfigIterator() const
-{
-    return ConstShadowTextureConfigIterator(
-        mShadowRenderer.mShadowTextureConfigList.begin(), mShadowRenderer.mShadowTextureConfigList.end());
 
-}
 //---------------------------------------------------------------------
 void SceneManager::setShadowTextureSelfShadow(bool selfShadow) 
 { 
@@ -3579,13 +3573,7 @@ SceneManager::getMovableObjects(const String& typeName)
     MovableObjectCollection* objectMap = getMovableObjectCollection(typeName);
     return objectMap->map;
 }
-SceneManager::MovableObjectIterator 
-SceneManager::getMovableObjectIterator(const String& typeName)
-{
-    MovableObjectCollection* objectMap = getMovableObjectCollection(typeName);
-    // Iterator not thread safe! Warned in header.
-    return MovableObjectIterator(objectMap->map.begin(), objectMap->map.end());
-}
+
 //---------------------------------------------------------------------
 void SceneManager::destroyMovableObject(MovableObject* m)
 {

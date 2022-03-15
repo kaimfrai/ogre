@@ -1223,12 +1223,6 @@ namespace Ogre {
         */
         bool getCameraRelativeRendering() const { return mCameraRelativeRendering; }
 
-        /** Returns a specialised MapIterator over all cameras in the scene.
-        @deprecated use getCameras()
-        */
-        OGRE_DEPRECATED CameraIterator getCameraIterator(void) {
-            return CameraIterator(mCameras.begin(), mCameras.end());
-        }
         /** Returns a const version of the camera list.
         */
         const CameraList& getCameras() const { return mCameras; }
@@ -2343,20 +2337,9 @@ namespace Ogre {
         /** Removes all animation states created using this SceneManager. */
         void destroyAllAnimationStates(void);
 
-        /** Returns a specialised MapIterator over all animations in the scene.
-         * @deprecated use getAnimations() */
-        OGRE_DEPRECATED AnimationIterator getAnimationIterator(void) {
-            return AnimationIterator(mAnimationsList.begin(), mAnimationsList.end());
-        }
         /** Returns a const version of the animation list.
         */
         const AnimationList& getAnimations() const { return mAnimationsList; }
-        /** Returns a specialised MapIterator over all animation states in the scene.
-         * @deprecated use getAnimationStates() */
-        OGRE_DEPRECATED AnimationStateIterator getAnimationStateIterator(void)
-        {
-            return mAnimationStates.getAnimationStateIterator();
-        }
 
         /** Returns a specialised Map over all animation states in the scene. */
         const AnimationStateMap& getAnimationStates() {
@@ -2833,9 +2816,6 @@ namespace Ogre {
         /** Get the current shadow texture settings. */
         const ShadowTextureConfigList& getShadowTextureConfigList() const { return mShadowRenderer.mShadowTextureConfigList; }
 
-        /// @deprecated use getShadowTextureConfigList
-        OGRE_DEPRECATED ConstShadowTextureConfigIterator getShadowTextureConfigIterator() const;
-
         /** Set the pixel format of the textures used for texture-based shadows.
         @remarks
             By default, a colour texture is used (PF_X8R8G8B8) for texture shadows,
@@ -2867,9 +2847,6 @@ namespace Ogre {
             make this more flexible, but be aware of the texture memory it will use.
         */
         void setShadowTextureCount(size_t count) { mShadowRenderer.setShadowTextureCount(count); }
-
-        /// @deprecated use getShadowTextureConfigList
-        OGRE_DEPRECATED size_t getShadowTextureCount(void) const {return mShadowRenderer.mShadowTextureConfigList.size(); }
 
         /** Set the number of shadow textures a light type uses.
         @remarks
@@ -3232,8 +3209,6 @@ namespace Ogre {
         */
         const MovableObjectMap& getMovableObjects(const String& typeName);
 
-        /// @deprecated use getMovableObjects
-        OGRE_DEPRECATED MovableObjectIterator getMovableObjectIterator(const String& typeName);
         /** Inject a MovableObject instance created externally.
         @remarks
             This method 'injects' a MovableObject instance created externally into

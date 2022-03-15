@@ -462,18 +462,6 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    Pass::TextureUnitStateIterator
-        Pass::getTextureUnitStateIterator(void)
-    {
-        return TextureUnitStateIterator(mTextureUnitStates.begin(), mTextureUnitStates.end());
-    }
-    //-----------------------------------------------------------------------
-    Pass::ConstTextureUnitStateIterator
-        Pass::getTextureUnitStateIterator(void) const
-    {
-        return ConstTextureUnitStateIterator(mTextureUnitStates.begin(), mTextureUnitStates.end());
-    }
-    //-----------------------------------------------------------------------
     void Pass::removeTextureUnitState(unsigned short index)
     {
         assert (index < mTextureUnitStates.size() && "Index out of bounds");

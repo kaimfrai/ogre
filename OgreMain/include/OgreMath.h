@@ -650,14 +650,6 @@ class Sphere;
             const Vector3& b, const Vector3& c,
             bool positiveSide = true, bool negativeSide = true);
 
-        /// @deprecated normal parameter is not used any more
-        OGRE_DEPRECATED static RayTestResult intersects(const Ray& ray, const Vector3& a, const Vector3& b,
-                                                        const Vector3& c, const Vector3& normal,
-                                                        bool positiveSide = true, bool negativeSide = true)
-        {
-            return intersects(ray, a, b, c, positiveSide, negativeSide);
-        }
-
         /** Sphere / box intersection test. */
         static bool intersects(const Sphere& sphere, const AxisAlignedBox& box);
 
@@ -670,9 +662,6 @@ class Sphere;
         @param normalIsOutside Does the normal point outside the volume
         */
         static RayTestResult intersects(const Ray& ray, const std::vector<Plane>& planeList, bool normalIsOutside);
-        /// @deprecated migrate to @ref PlaneList
-        OGRE_DEPRECATED static RayTestResult intersects(const Ray& ray, const std::list<Plane>& planeList,
-                                                             bool normalIsOutside);
 
         /** Sphere / plane intersection test. 
         @remarks NB just do a plane.getDistance(sphere.getCenter()) for more detail!

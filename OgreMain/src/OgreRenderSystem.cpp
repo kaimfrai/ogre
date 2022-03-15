@@ -532,15 +532,7 @@ namespace Ogre {
 
 
     }
-    //-----------------------------------------------------------------------
-    void RenderSystem::_setVertexTexture(size_t unit, const TexturePtr& tex)
-    {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, 
-            "This rendersystem does not support separate vertex texture samplers, "
-            "you should use the regular texture samplers which are shared between "
-            "the vertex and fragment units.", 
-            "RenderSystem::_setVertexTexture");
-    }
+
     //-----------------------------------------------------------------------
     void RenderSystem::_disableTextureUnit(size_t texUnit)
     {
@@ -558,14 +550,7 @@ namespace Ogre {
             _disableTextureUnit(i);
         }
     }
-    //-----------------------------------------------------------------------
-    void RenderSystem::_setTextureUnitFiltering(size_t unit, FilterOptions minFilter,
-            FilterOptions magFilter, FilterOptions mipFilter)
-    {
-        _setTextureUnitFiltering(unit, FT_MIN, minFilter);
-        _setTextureUnitFiltering(unit, FT_MAG, magFilter);
-        _setTextureUnitFiltering(unit, FT_MIP, mipFilter);
-    }
+
     //---------------------------------------------------------------------
     void RenderSystem::_cleanupDepthBuffers( bool bCleanManualBuffers )
     {
@@ -684,22 +669,6 @@ namespace Ogre {
         mPrioritisedRenderTargets.clear();
     }
 
-    void RenderSystem::_setProjectionMatrix(Matrix4 m)
-    {
-        if (!mFixedFunctionParams) return;
-
-        if (mActiveRenderTarget->requiresTextureFlipping())
-        {
-            // Invert transformed y
-            m[1][0] = -m[1][0];
-            m[1][1] = -m[1][1];
-            m[1][2] = -m[1][2];
-            m[1][3] = -m[1][3];
-        }
-
-        mFixedFunctionParams->setConstant(8, m);
-        applyFixedFunctionParams(mFixedFunctionParams, GPV_GLOBAL);
-    }
     //-----------------------------------------------------------------------
     void RenderSystem::_beginGeometryCount(void)
     {
@@ -1107,29 +1076,6 @@ namespace Ogre {
     bool RenderSystem::flipFrontFace() const
     {
         return mInvertVertexWinding != mActiveRenderTarget->requiresTextureFlipping();
-    }
-
-    void RenderSystem::setStencilCheckEnabled(bool enabled)
-    {
-        mStencilState.enabled = enabled;
-        if (!enabled)
-            setStencilState(mStencilState);
-    }
-    void RenderSystem::setStencilBufferParams(CompareFunction func, uint32 refValue, uint32 compareMask,
-                                              uint32 writeMask, StencilOperation stencilFailOp,
-                                              StencilOperation depthFailOp, StencilOperation passOp,
-                                              bool twoSidedOperation)
-    {
-        mStencilState.compareOp = func;
-        mStencilState.referenceValue = refValue;
-        mStencilState.compareMask = compareMask;
-        mStencilState.writeMask = writeMask;
-        mStencilState.stencilFailOp = stencilFailOp;
-        mStencilState.depthFailOp = depthFailOp;
-        mStencilState.depthStencilPassOp = passOp;
-        mStencilState.twoSidedOperation = twoSidedOperation;
-        if(mStencilState.enabled)
-            setStencilState(mStencilState);
     }
 }
 

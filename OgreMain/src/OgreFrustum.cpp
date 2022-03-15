@@ -186,14 +186,7 @@ class RenderQueue;
 
         return mProjMatrixRSDepth;
     }
-    //-----------------------------------------------------------------------
-    const Matrix4& Frustum::getProjectionMatrixRS(void) const
-    {
 
-        updateFrustum();
-
-        return mProjMatrixRS;
-    }
     //-----------------------------------------------------------------------
     const Affine3& Frustum::getViewMatrix(void) const
     {

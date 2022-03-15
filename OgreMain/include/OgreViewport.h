@@ -290,9 +290,6 @@ class RenderTarget;
         */
         Rect getActualDimensions() const;
 
-        /// @deprecated
-        OGRE_DEPRECATED void getActualDimensions(int& left, int& top, int& width, int& height) const;
-
         bool _isUpdated(void) const;
         void _clearUpdatedFlag(void);
 

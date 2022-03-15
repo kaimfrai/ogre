@@ -193,11 +193,7 @@ void CompositorChain::removeCompositor(size_t index)
     
     mDirty = true;
 }
-//-----------------------------------------------------------------------
-size_t CompositorChain::getNumCompositors()
-{
-    return mInstances.size();
-}
+
 //-----------------------------------------------------------------------
 void CompositorChain::removeAllCompositors()
 {
@@ -245,11 +241,7 @@ CompositorInstance *CompositorChain::getCompositor(const String& name) const
     size_t idx = getCompositorPosition(name);
     return idx == NPOS ? NULL : mInstances[idx];
 }
-//-----------------------------------------------------------------------
-CompositorChain::InstanceIterator CompositorChain::getCompositors()
-{
-    return InstanceIterator(mInstances.begin(), mInstances.end());
-}
+
 //-----------------------------------------------------------------------
 void CompositorChain::setCompositorEnabled(size_t position, bool state)
 {

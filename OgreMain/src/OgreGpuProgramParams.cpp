@@ -421,47 +421,7 @@ namespace Ogre
 
         ++mVersion;
     }
-    //---------------------------------------------------------------------
-    void GpuSharedParameters::removeConstantDefinition(const String& name)
-    {
-        GpuConstantDefinitionMap::iterator i = mNamedConstants.map.find(name);
-        if (i != mNamedConstants.map.end())
-        {
-            GpuConstantDefinition& def = i->second;
-            size_t numElems = def.elementSize * def.arraySize;
 
-            for (GpuConstantDefinitionMap::iterator j = mNamedConstants.map.begin();
-                 j != mNamedConstants.map.end(); ++j)
-            {
-                GpuConstantDefinition& otherDef = j->second;
-                // comes after in the buffer
-                if (otherDef.physicalIndex > def.physicalIndex)
-                {
-                    // adjust index
-                    otherDef.logicalIndex -= numElems;
-                    otherDef.physicalIndex -= numElems;
-                }
-            }
-
-            // remove and reduce buffer
-            if (def.isFloat() || def.isInt() || def.isUnsignedInt() || def.isBool())
-            {
-                mNamedConstants.bufferSize -= numElems;
-
-                ConstantList::iterator beg = mConstants.begin();
-                std::advance(beg, def.physicalIndex);
-                ConstantList::iterator en = beg;
-                std::advance(en, numElems*4);
-                mConstants.erase(beg, en);
-            }
-            else {
-                //TODO exception handling
-            }
-
-            ++mVersion;
-        }
-
-    }
 
     void GpuSharedParameters::_upload() const
     {
@@ -485,11 +445,7 @@ namespace Ogre
         mNamedConstants.bufferSize = 0;
         mConstants.clear();
     }
-    //---------------------------------------------------------------------
-    GpuConstantDefinitionIterator GpuSharedParameters::getConstantDefinitionIterator(void) const
-    {
-        return GpuConstantDefinitionIterator(mNamedConstants.map.begin(), mNamedConstants.map.end());
-    }
+
     //---------------------------------------------------------------------
     const GpuConstantDefinition& GpuSharedParameters::getConstantDefinition(const String& name) const
     {
@@ -1367,17 +1323,7 @@ namespace Ogre
         }
         return std::numeric_limits<size_t>::max();
     }
-    //-----------------------------------------------------------------------------
-    GpuConstantDefinitionIterator GpuProgramParameters::getConstantDefinitionIterator(void) const
-    {
-        if (!mNamedConstants)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        "Named constants have not been initialised, perhaps a compile error");
 
-        return GpuConstantDefinitionIterator(mNamedConstants->map.begin(),
-                                             mNamedConstants->map.end());
-
-    }
     //-----------------------------------------------------------------------------
     const GpuNamedConstants& GpuProgramParameters::getConstantDefinitions() const
     {

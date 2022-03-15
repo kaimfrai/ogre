@@ -103,28 +103,6 @@ namespace Ogre {
         {
             return toString(val.valueAngleUnits(), precision, width, fill, flags);
         }
-        /// @deprecated use StringUtil::format
-        OGRE_DEPRECATED static String toString(int32 val, unsigned short width,
-            char fill = ' ', 
-            std::ios::fmtflags flags = std::ios::fmtflags(0));
-        /// @deprecated use StringUtil::format
-        OGRE_DEPRECATED static String toString(uint32 val, unsigned short width,
-            char fill = ' ',
-            std::ios::fmtflags flags = std::ios::fmtflags(0));
-        // provide both long long and long to catch size_t on all platforms
-        /// @deprecated use StringUtil::format
-        OGRE_DEPRECATED static String toString(unsigned long val,
-            unsigned short width, char fill = ' ',
-            std::ios::fmtflags flags = std::ios::fmtflags(0));
-        /// @deprecated use StringUtil::format
-        OGRE_DEPRECATED static String toString(unsigned long long val,
-            unsigned short width, char fill = ' ',
-            std::ios::fmtflags flags = std::ios::fmtflags(0));
-
-        /// @deprecated use StringUtil::format
-        OGRE_DEPRECATED static String toString(long val,
-            unsigned short width, char fill = ' ',
-            std::ios::fmtflags flags = std::ios::fmtflags(0));
 
         /** Converts a boolean to a String.
         @param val
@@ -228,18 +206,7 @@ namespace Ogre {
             uint32 ret;
             return parse(val, ret) ? ret : defaultValue;
         }
-        /// @deprecated
-        OGRE_DEPRECATED static int64 parseLong(const String& val, int64 defaultValue = 0)
-        {
-            int64 ret;
-            return parse(val, ret) ? ret : defaultValue;
-        }
-        /// @deprecated
-        OGRE_DEPRECATED static uint64 parseUnsignedLong(const String& val, uint64 defaultValue = 0)
-        {
-            uint64 ret;
-            return parse(val, ret) ? ret : defaultValue;
-        }
+
         /** Converts a String to size_t. 
         @return
             defaultValue if the value could not be parsed, otherwise the numeric version of the String.
@@ -331,8 +298,6 @@ namespace Ogre {
             return parse(val, ret) ? ret : defaultValue;
         }
 
-        /// @deprecated use StringUtil::split
-        OGRE_DEPRECATED static StringVector parseStringVector(const String& val) { return StringUtil::split(val); }
         /** Checks the String is a valid number value. */
         static bool isNumber(const String& val);
 

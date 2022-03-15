@@ -107,13 +107,7 @@ class AnimationStateSet;
     {
         return mSkeleton->getLinkedSkeletonAnimationSources();
     }
-    Skeleton::LinkedSkeletonAnimSourceIterator 
-    SkeletonInstance::getLinkedSkeletonAnimationSourceIterator(void) const
-    {
-        return Skeleton::LinkedSkeletonAnimSourceIterator(
-            mSkeleton->getLinkedSkeletonAnimationSources().begin(),
-            mSkeleton->getLinkedSkeletonAnimationSources().end());
-    }
+
     //-------------------------------------------------------------------------
     void SkeletonInstance::_initAnimationState(AnimationStateSet* animSet)
     {

@@ -97,11 +97,6 @@ void CompositionTechnique::removeAllTextureDefinitions()
     }
     mTextureDefinitions.clear();
 }
-//-----------------------------------------------------------------------
-CompositionTechnique::TextureDefinitionIterator CompositionTechnique::getTextureDefinitionIterator(void)
-{
-    return TextureDefinitionIterator(mTextureDefinitions.begin(), mTextureDefinitions.end());
-}
 
 //-----------------------------------------------------------------------
 CompositionTargetPass *CompositionTechnique::createTargetPass()
@@ -130,11 +125,7 @@ void CompositionTechnique::removeAllTargetPasses()
     }
     mTargetPasses.clear();
 }
-//-----------------------------------------------------------------------
-CompositionTechnique::TargetPassIterator CompositionTechnique::getTargetPassIterator(void)
-{
-    return TargetPassIterator(mTargetPasses.begin(), mTargetPasses.end());
-}
+
 //-----------------------------------------------------------------------
 bool CompositionTechnique::isSupported(bool acceptTextureDegradation)
 {

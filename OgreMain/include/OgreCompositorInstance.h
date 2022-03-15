@@ -125,7 +125,6 @@ class SceneManager;
             /// Set state to SceneManager and RenderSystem
             virtual void execute(SceneManager *sm, RenderSystem *rs) = 0;
         };
-        typedef std::map<int, MaterialPtr> OGRE_DEPRECATED QuadMaterialMap;
         typedef std::pair<int, RenderSystemOperation*> RenderSystemOpPair;
         typedef std::vector<RenderSystemOpPair> RenderSystemOpPairs;
         /** Operation setup for a RenderTarget (collected).

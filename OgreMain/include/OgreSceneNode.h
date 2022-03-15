@@ -232,11 +232,6 @@ class SceneManager;
         */
         const AxisAlignedBox& _getWorldAABB(void) const { return mWorldAABB; }
 
-        /// @deprecated use getAttachedObjects()
-        OGRE_DEPRECATED ObjectIterator getAttachedObjectIterator(void);
-        /// @deprecated use getAttachedObjects()
-        OGRE_DEPRECATED ConstObjectIterator getAttachedObjectIterator(void) const;
-
         /** The MovableObjects attached to this node
          *
          * This is a much faster way to go through <B>all</B> the objects attached to the node than

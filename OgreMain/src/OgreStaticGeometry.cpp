@@ -694,11 +694,7 @@ namespace Ogre {
         }
 
     }
-    //--------------------------------------------------------------------------
-    StaticGeometry::RegionIterator StaticGeometry::getRegionIterator(void)
-    {
-        return RegionIterator(mRegionMap.begin(), mRegionMap.end());
-    }
+
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
     StaticGeometry::Region::Region(StaticGeometry* parent, const String& name,
@@ -889,12 +885,7 @@ namespace Ogre {
 
         return true;
     }
-    //--------------------------------------------------------------------------
-    StaticGeometry::Region::LODIterator
-    StaticGeometry::Region::getLODIterator(void)
-    {
-        return LODIterator(mLodBucketList.begin(), mLodBucketList.end());
-    }
+
     //---------------------------------------------------------------------
     const ShadowRenderableList& StaticGeometry::Region::getShadowVolumeRenderableList(
         const Light* light, const HardwareIndexBufferPtr& indexBuffer, size_t& indexBufferUsedSize,
@@ -1071,13 +1062,6 @@ namespace Ogre {
         {
             i->second->addRenderables(queue, group, lodValue);
         }
-    }
-    //--------------------------------------------------------------------------
-    StaticGeometry::LODBucket::MaterialIterator
-    StaticGeometry::LODBucket::getMaterialIterator(void)
-    {
-        return MaterialIterator(
-            mMaterialBucketMap.begin(), mMaterialBucketMap.end());
     }
     //--------------------------------------------------------------------------
     void StaticGeometry::LODBucket::dump(std::ofstream& of) const
@@ -1264,13 +1248,6 @@ namespace Ogre {
         OgreAssert(material, "NULL pointer");
         mMaterial = material;
         mMaterial->load();
-    }
-    //--------------------------------------------------------------------------
-    StaticGeometry::MaterialBucket::GeometryIterator
-    StaticGeometry::MaterialBucket::getGeometryIterator(void)
-    {
-        return GeometryIterator(
-            mGeometryBucketList.begin(), mGeometryBucketList.end());
     }
     //--------------------------------------------------------------------------
     void StaticGeometry::MaterialBucket::dump(std::ofstream& of) const

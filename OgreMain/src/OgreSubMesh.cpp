@@ -133,12 +133,6 @@ class HardwareBufferManagerBase;
         mBoneAssignmentsOutOfDate = false;
     }
     //---------------------------------------------------------------------
-    SubMesh::BoneAssignmentIterator SubMesh::getBoneAssignmentIterator(void)
-    {
-        return BoneAssignmentIterator(mBoneAssignments.begin(),
-            mBoneAssignments.end());
-    }
-    //---------------------------------------------------------------------
     SubMesh::AliasTextureIterator SubMesh::getAliasTextureIterator(void) const
     {
         return AliasTextureIterator(mTextureAliases.begin(),
@@ -149,11 +143,7 @@ class HardwareBufferManagerBase;
     {
         mTextureAliases[aliasName] = textureName;
     }
-    //---------------------------------------------------------------------
-    void SubMesh::removeAllTextureAliases(void)
-    {
-        mTextureAliases.clear();
-    }
+
     //---------------------------------------------------------------------
     void SubMesh::removeLodLevels(void)
     {

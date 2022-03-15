@@ -587,8 +587,7 @@ class VertexData;
         void detachAllObjectsFromBone(void);
 
         typedef VectorIterator<ChildObjectList> ChildObjectListIterator;
-        /// @deprecated use getAttachedObjects()
-        OGRE_DEPRECATED ChildObjectListIterator getAttachedObjectIterator(void);
+
         /** Gets an iterator to the list of objects attached to bones on this entity. */
         const ChildObjectList& getAttachedObjects() const { return mChildObjectList; }
 

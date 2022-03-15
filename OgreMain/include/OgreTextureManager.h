@@ -166,11 +166,6 @@ class Image;
         TexturePtr load(const String& name, const String& group, TextureType texType = TEX_TYPE_2D,
                         int numMipmaps = MIP_DEFAULT, Real gamma = 1.0f,
                         PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false);
-        /// @deprecated
-        OGRE_DEPRECATED TexturePtr load(const String& name, const String& group, TextureType texType,
-                                        int numMipmaps, Real gamma, bool isAlpha,
-                                        PixelFormat desiredFormat = PF_UNKNOWN,
-                                        bool hwGammaCorrection = false);
 
         /** Loads a texture from an Image object.
             @note

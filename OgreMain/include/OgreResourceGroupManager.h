@@ -646,19 +646,6 @@ class ScriptLoader;
                                     resourceBeingLoaded, throwOnFailure);
         }
 
-        /** 
-            @overload
-            if the resource is not found in the group specified, other groups will be searched.
-            @deprecated use AUTODETECT_RESOURCE_GROUP_NAME instead of searchGroupsIfNotFound
-        */
-        OGRE_DEPRECATED DataStreamPtr openResource(const String& resourceName,
-                                                   const String& groupName,
-                                                   bool searchGroupsIfNotFound,
-                                                   Resource* resourceBeingLoaded = 0) const
-        {
-            return openResourceImpl(resourceName, groupName, searchGroupsIfNotFound, resourceBeingLoaded);
-        }
-
         /** Open all resources matching a given pattern (which can contain
             the character '*' as a wildcard), and return a collection of 
             DataStream objects on them.
@@ -859,11 +846,6 @@ class ScriptLoader;
         /** Get the registered resource managers.
         */
         const ResourceManagerMap& getResourceManagers() const { return mResourceManagerMap; }
-
-        /// @deprecated use getResourceManagers()
-        OGRE_DEPRECATED ResourceManagerIterator getResourceManagerIterator()
-        { return ResourceManagerIterator(
-            mResourceManagerMap.begin(), mResourceManagerMap.end()); }
 
         /** Internal method for registering a ScriptLoader.
         @remarks ScriptLoaders parse scripts when resource groups are initialised.

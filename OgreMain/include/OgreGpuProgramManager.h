@@ -121,13 +121,6 @@ namespace Ogre {
         /// @see GpuProgramManager::getResourceByName
         GpuProgramPtr getByName(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT) const;
 
-        /// @deprecated preferHighLevelPrograms has no effect
-        OGRE_DEPRECATED GpuProgramPtr getByName(const String& name, const String& group,
-                                                bool preferHighLevelPrograms) const
-        {
-            return getByName(name, group);
-        }
-
         /** Loads a GPU program from a file
         @remarks
             This method creates a new program of the type specified as the second parameter.

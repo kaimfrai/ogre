@@ -227,9 +227,6 @@ class Viewport;
         */
         void _renderScene(Viewport *vp);
 
-        /// @deprecated do not use
-        OGRE_DEPRECATED void _renderScene(Viewport *vp, bool unused) { _renderScene(vp); }
-
         /** Function for outputting to a stream.
         */
         friend std::ostream& operator<<(std::ostream& o, const Camera& c);

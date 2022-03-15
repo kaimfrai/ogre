@@ -148,14 +148,7 @@ namespace Ogre {
     {
         stream(LML_WARNING, maskDebug) << "Warning: " << message;
     }
-    //-----------------------------------------------------------------------
-    void LogManager::setLogDetail(LoggingLevel ll)
-    {
-        if (mDefaultLog)
-        {
-            mDefaultLog->setLogDetail(ll);
-        }
-    }
+
     //-----------------------------------------------------------------------
     void LogManager::setMinLogLevel(LogMessageLevel lml)
     {

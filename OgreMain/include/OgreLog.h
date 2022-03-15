@@ -152,8 +152,7 @@ namespace Ogre {
             Enable or disable outputting log messages to the debugger.
         */
         void setDebugOutputEnabled(bool debugOutput);
-        /// @deprecated use setMinLogLevel()
-        OGRE_DEPRECATED void setLogDetail(LoggingLevel ll);
+
         /// set the minimal #LogMessageLevel for a message to be logged
         void setMinLogLevel(LogMessageLevel lml);
         /**

@@ -93,16 +93,10 @@ namespace Ogre {
         typedef std::map<String, SettingsMultiMap> SettingsBySection_;
         typedef MapIterator<SettingsBySection> SectionIterator;
 
-        /// @deprecated use getSettingsBySection()
-        OGRE_DEPRECATED SectionIterator getSectionIterator(void);
-
         /** Get all the available settings grouped by sections */
         const SettingsBySection_& getSettingsBySection() const {
             return mSettings;
         }
-
-        /// @deprecated use getSettings()
-        OGRE_DEPRECATED SettingsIterator getSettingsIterator(const String& section = BLANKSTRING);
 
         /** Get all the available settings in a section */
         const SettingsMultiMap& getSettings(const String& section = BLANKSTRING) const;

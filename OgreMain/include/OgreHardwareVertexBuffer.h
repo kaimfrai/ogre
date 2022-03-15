@@ -89,9 +89,6 @@ namespace Ogre {
 
     };
 
-    /// @deprecated use HardwareBufferLockGuard directly
-    OGRE_DEPRECATED typedef HardwareBufferLockGuard HardwareVertexBufferLockGuard;
-
     /// Vertex element semantics, used to identify the meaning of vertex buffer contents
     enum VertexElementSemantic {
         /// Position, typically VET_FLOAT3

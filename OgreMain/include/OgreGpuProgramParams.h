@@ -450,9 +450,6 @@ template <int dims, typename T> class Vector;
         */
         void addConstantDefinition(const String& name, GpuConstantType constType, uint32 arraySize = 1);
 
-        /// @deprecated removing a constant requires a full rebuild due to changed alignments
-        OGRE_DEPRECATED void removeConstantDefinition(const String& name);
-
         /** Remove a constant definition from this shared set of parameters.
          */
         void removeAllConstantDefinitions();
@@ -488,9 +485,6 @@ template <int dims, typename T> class Vector;
             et al are called.
         */
         void _markDirty();
-
-        /// @deprecated use getConstantDefinitions()
-        OGRE_DEPRECATED GpuConstantDefinitionIterator getConstantDefinitionIterator(void) const;
 
         /** Get a specific GpuConstantDefinition for a named parameter.
          */
@@ -1494,9 +1488,6 @@ template <int dims, typename T> class Vector;
         */
         void _readRawConstants(size_t physicalIndex, size_t count, int* dest);
 
-        /// @deprecated use getConstantDefinitions()
-        OGRE_DEPRECATED GpuConstantDefinitionIterator getConstantDefinitionIterator(void) const;
-
         /** Get a specific GpuConstantDefinition for a named parameter.
             @note
             Only available if this parameters object has named parameters.
@@ -1588,12 +1579,6 @@ template <int dims, typename T> class Vector;
 
         /** Unbind an auto constant so that the constant is manually controlled again. */
         void clearAutoConstant(size_t index);
-
-        /// @deprecated use ACT_TIME directly
-        OGRE_DEPRECATED void setConstantFromTime(size_t index, Real factor)
-        {
-            setAutoConstantReal(index, ACT_TIME, factor);
-        }
 
         /** Clears all the existing automatic constants. */
         void clearAutoConstants(void);
@@ -1806,12 +1791,6 @@ template <int dims, typename T> class Vector;
         /** increments the multipass number entry by 1 if it exists
          */
         void incPassIterationNumber(void);
-        /// @deprecated query by GPV_PASS_ITERATION_NUMBER instead
-        OGRE_DEPRECATED bool hasPassIterationNumber() const
-        { return mActivePassIterationIndex != (std::numeric_limits<size_t>::max)(); }
-        /// @deprecated query by GPV_PASS_ITERATION_NUMBER instead
-        OGRE_DEPRECATED size_t getPassIterationNumberIndex() const
-        { return mActivePassIterationIndex; }
 
         /// @name Shared Parameters
         /// @{

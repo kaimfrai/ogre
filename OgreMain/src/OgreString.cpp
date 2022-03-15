@@ -47,7 +47,6 @@ THE SOFTWARE.
 #define strnicmp strncasecmp
 
 namespace Ogre {
-    const String& StringUtil::BLANK = BLANKSTRING;
 
     //-----------------------------------------------------------------------
     void StringUtil::trim(String& str, bool left, bool right)

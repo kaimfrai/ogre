@@ -725,12 +725,6 @@ class VertexData;
         */
         void setTextureCoords(const std::vector<FloatRect>& coords);
 
-        /// @deprecated
-        OGRE_DEPRECATED void setTextureCoords(FloatRect const* coords, uint16 numCoords)
-        {
-            setTextureCoords(std::vector<FloatRect>(coords, coords + numCoords));
-        }
-
         /** Generate texture coordinate rects for a tiled texture sheet
 
             A texture sheet is a grid of images that can be used to create simple animations.
@@ -758,10 +752,6 @@ class VertexData;
             BillboardSet::setTextureCoords()
         */
         const std::vector<FloatRect>& getTextureCoords() const { return mTextureCoords; }
-
-        /// @deprecated
-        OGRE_DEPRECATED Ogre::FloatRect const * getTextureCoords( uint16 * oNumCoords );
-        /// @}
 
         /** Set whether or not the BillboardSet will use point rendering
             rather than manually generated quads.

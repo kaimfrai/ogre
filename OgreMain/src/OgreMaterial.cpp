@@ -398,16 +398,7 @@ class Renderable;
         mTechniques.clear();
         clearBestTechniqueList();
     }
-    //-----------------------------------------------------------------------
-    Material::TechniqueIterator Material::getTechniqueIterator(void) 
-    {
-        return TechniqueIterator(mTechniques.begin(), mTechniques.end());
-    }
-    //-----------------------------------------------------------------------
-    Material::TechniqueIterator Material::getSupportedTechniqueIterator(void)
-    {
-        return TechniqueIterator(mSupportedTechniques.begin(), mSupportedTechniques.end());
-    }
+
     //-----------------------------------------------------------------------
     bool Material::isTransparent(void) const
     {
@@ -592,16 +583,7 @@ class Renderable;
     {
         return mLodStrategy->getIndex(value, mLodValues);
     }
-    // --------------------------------------------------------------------
-    Material::LodValueIterator Material::getLodValueIterator(void) const
-    {
-        return LodValueIterator(mLodValues.begin(), mLodValues.end());
-    }
-    // --------------------------------------------------------------------
-    Material::LodValueIterator Material::getUserLodValueIterator(void) const
-    {
-        return LodValueIterator(mUserLodValues.begin(), mUserLodValues.end());
-    }
+
     //---------------------------------------------------------------------
     const LodStrategy *Material::getLodStrategy() const
     {

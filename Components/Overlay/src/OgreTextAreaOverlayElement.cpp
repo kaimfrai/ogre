@@ -447,10 +447,6 @@ namespace Ogre {
         mGeomPositionsOutOfDate = true;
         mGeomUVsOutOfDate = true;
     }
-    const String& TextAreaOverlayElement::getFontName() const
-    {
-        return mFont->getName();
-    }
 
     void TextAreaOverlayElement::setCharHeight( Real height )
     {

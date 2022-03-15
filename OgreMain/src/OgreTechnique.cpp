@@ -401,11 +401,6 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    const Technique::PassIterator Technique::getPassIterator(void)
-    {
-        return PassIterator(mPasses.begin(), mPasses.end());
-    }
-    //-----------------------------------------------------------------------------
     Technique& Technique::operator=(const Technique& rhs)
     {
         mName = rhs.mName;
@@ -1105,11 +1100,6 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Technique::GPUVendorRuleIterator Technique::getGPUVendorRuleIterator() const
-    {
-        return GPUVendorRuleIterator(mGPUVendorRules.begin(), mGPUVendorRules.end());
-    }
-    //---------------------------------------------------------------------
     void Technique::addGPUDeviceNameRule(const String& devicePattern, 
         Technique::IncludeOrExclude includeOrExclude, bool caseSensitive)
     {
@@ -1133,12 +1123,4 @@ namespace Ogre {
                 ++i;
         }
     }
-    //---------------------------------------------------------------------
-    Technique::GPUDeviceNameRuleIterator Technique::getGPUDeviceNameRuleIterator() const
-    {
-        return GPUDeviceNameRuleIterator(mGPUDeviceNameRules.begin(), mGPUDeviceNameRules.end());
-    }
-    //---------------------------------------------------------------------
-
-
 }

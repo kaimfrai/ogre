@@ -209,10 +209,6 @@ class Material;
         */
         bool movePass(const unsigned short sourceIndex, const unsigned short destinationIndex);
 
-        /** Gets an iterator over the passes in this Technique.
-         * @deprecated use getPasses() */
-        OGRE_DEPRECATED const PassIterator getPassIterator(void);
-
         /** Gets the passes in this Technique. */
         const Passes& getPasses(void) const {
             return mPasses;
@@ -666,8 +662,7 @@ class Material;
         @see addGPUVendorRule
         */
         void removeGPUVendorRule(GPUVendor vendor);
-        /// @deprecated use getGPUVendorRules()
-        OGRE_DEPRECATED GPUVendorRuleIterator getGPUVendorRuleIterator() const;
+
         /// Get the currently registered vendor rules.
         const GPUVendorRuleList& getGPUVendorRules() const {
             return mGPUVendorRules;
@@ -697,8 +692,7 @@ class Material;
         @see addGPUDeviceNameRule
         */
         void removeGPUDeviceNameRule(const String& devicePattern);
-        /// @deprecated use getGPUDeviceNameRules()
-        OGRE_DEPRECATED GPUDeviceNameRuleIterator getGPUDeviceNameRuleIterator() const;
+
         /// Get the currently registered device name rules.
         const GPUDeviceNameRuleList& getGPUDeviceNameRules() const { return mGPUDeviceNameRules; }
         /// @}

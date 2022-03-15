@@ -196,9 +196,6 @@ protected:
     */
     bool needsTextureMatrix(TextureUnitState* textureUnitState);
 
-    /// @deprecated do not use
-    OGRE_DEPRECATED bool isProcessingNeeded(TextureUnitState* texUnitState) { return true; }
-
     bool setParameter(const String& name, const String& value) override;
 
 // Attributes.

@@ -838,144 +838,17 @@ class LodStrategy;
         }
         return true;
     }
-    //-------------------------------------------------------------------------
-    bool ScriptTranslator::getInts(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, int *vals, int count)
-    {
-        bool success = true;
-        int n = 0;
-        while (n < count)
-        {
-            if (i != end)
-            {
-                int v = 0;
-                if (getInt(*i, &v))
-                    vals[n] = v;
-                else
-                    break;
-                ++i;
-            }
-            else
-                vals[n] = 0;
-            ++n;
-        }
 
-        if (n < count)
-            success = false;
-
-        return success;
-    }
     bool ScriptTranslator::getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<int>& vals, size_t count)
     {
         return _getVector(i, end, vals, count);
     }
-    //----------------------------------------------------------------------------
-    bool ScriptTranslator::getFloats(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, float *vals, int count)
-    {
-        bool success = true;
-        int n = 0;
-        while (n < count)
-        {
-            if (i != end)
-            {
-                float v = 0;
-                if (getFloat(*i, &v))
-                    vals[n] = v;
-                else
-                    break;
-                ++i;
-            }
-            else
-                vals[n] = 0;
-            ++n;
-        }
 
-        if (n < count)
-            success = false;
-
-        return success;
-    }
     bool ScriptTranslator::getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<float>& vals, size_t count)
     {
         return _getVector(i, end, vals, count);
     }
-    //----------------------------------------------------------------------------
-    bool ScriptTranslator::getDoubles(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, double *vals, int count)
-    {
-        bool success = true;
-        int n = 0;
-        while (n < count)
-        {
-            if (i != end)
-            {
-                double v = 0;
-                if (getDouble(*i, &v))
-                    vals[n] = v;
-                else
-                    break;
-                ++i;
-            }
-            else
-                vals[n] = 0;
-            ++n;
-        }
 
-        if (n < count)
-            success = false;
-
-        return success;
-    }
-    //----------------------------------------------------------------------------
-    bool ScriptTranslator::getUInts(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, uint *vals, int count)
-    {
-        bool success = true;
-        int n = 0;
-        while (n < count)
-        {
-            if (i != end)
-            {
-                uint v = 0;
-                if (getUInt(*i, &v))
-                    vals[n] = v;
-                else
-                    break;
-                ++i;
-            }
-            else
-                vals[n] = 0;
-            ++n;
-        }
-
-        if (n < count)
-            success = false;
-
-        return success;
-    }
-    //----------------------------------------------------------------------------
-    bool ScriptTranslator::getBooleans(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, uint *vals, int count)
-    {
-        bool success = true;
-        int n = 0;
-        while (n < count)
-        {
-            if (i != end)
-            {
-                bool v = false;
-                if (getBoolean(*i, &v))
-                    vals[n] = (v != 0);
-                else
-                    break;
-                ++i;
-            }
-            else
-                vals[n] = false;
-            ++n;
-        }
-
-        if (n < count)
-            success = false;
-
-        return success;
-    }
     //-------------------------------------------------------------------------
     bool ScriptTranslator::getStencilOp(const Ogre::AbstractNodePtr &node, Ogre::StencilOperation *op)
     {

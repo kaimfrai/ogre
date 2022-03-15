@@ -628,16 +628,7 @@ namespace Ogre {
 
 
     }
-    //-----------------------------------------------------------------------
-    Node::ChildNodeIterator Node::getChildIterator(void)
-    {
-        return ChildNodeIterator(mChildren.begin(), mChildren.end());
-    }
-    //-----------------------------------------------------------------------
-    Node::ConstChildNodeIterator Node::getChildIterator(void) const
-    {
-        return ConstChildNodeIterator(mChildren.begin(), mChildren.end());
-    }
+
     //-----------------------------------------------------------------------
     Real Node::getSquaredViewDepth(const Camera* cam) const
     {

@@ -147,11 +147,6 @@ class RenderSystem;
         const MetaDataList& getMetaData() const { return mMetaDataList; }
 
         typedef ConstVectorIterator<MetaDataList> MetaDataIterator;
-        /** Iterate over all types of SceneManager available for construction, 
-            providing some information about each one.
-            @deprecated use getMetaData()
-        */
-        OGRE_DEPRECATED MetaDataIterator getMetaDataIterator(void) const;
 
         /** Create a SceneManager instance of a given type.
         @remarks
@@ -166,11 +161,6 @@ class RenderSystem;
         */
         SceneManager* createSceneManager(const String& typeName, 
             const String& instanceName = BLANKSTRING);
-
-        /// @deprecated typeMask is obsolete
-        OGRE_DEPRECATED SceneManager* createSceneManager(uint16 typeMask,
-            const String& instanceName = BLANKSTRING)
-        { return createSceneManager(DefaultSceneManagerFactory::FACTORY_TYPE_NAME, instanceName); }
 
         /** Destroy an instance of a SceneManager. */
         void destroySceneManager(SceneManager* sm);
@@ -187,9 +177,6 @@ class RenderSystem;
         bool hasSceneManager(const String& instanceName) const;
 
         typedef MapIterator<Instances> SceneManagerIterator;
-        /** Get an iterator over all the existing SceneManager instances.
-        @deprecated use getSceneManagers() instead */
-        OGRE_DEPRECATED SceneManagerIterator getSceneManagerIterator(void);
 
         /// Get all the existing SceneManager instances.
         const Instances& getSceneManagers() const;

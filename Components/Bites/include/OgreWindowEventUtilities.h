@@ -156,11 +156,4 @@ namespace OgreBites
     /** @} */
 }
 
-namespace Ogre
-{
-    // backwards compatibility
-    typedef OGRE_DEPRECATED OgreBites::WindowEventListener WindowEventListener;
-    typedef OGRE_DEPRECATED OgreBites::WindowEventUtilities WindowEventUtilities;
-}
-
 #endif

@@ -151,10 +151,6 @@ class CompositionTechnique;
         /** Remove all passes
         */
         void removeAllPasses();
-    
-        /** Get an iterator over the Passes in this TargetPass.
-        @deprecated use getPasses() */
-        OGRE_DEPRECATED PassIterator getPassIterator(void);
         
         /** Get parent object */
         CompositionTechnique *getParent();

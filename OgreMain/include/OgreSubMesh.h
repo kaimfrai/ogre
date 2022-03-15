@@ -185,9 +185,6 @@ class VertexData;
         typedef std::multimap<size_t, VertexBoneAssignment> VertexBoneAssignmentList;
         typedef MapIterator<VertexBoneAssignmentList> BoneAssignmentIterator;
 
-        /// @deprecated use getBoneAssignments
-        OGRE_DEPRECATED BoneAssignmentIterator getBoneAssignmentIterator(void);
-
         /** Gets a const reference to the list of bone assignments
         */
         const VertexBoneAssignmentList& getBoneAssignments() const { return mBoneAssignments; }
@@ -201,8 +198,7 @@ class VertexData;
         AliasTextureIterator getAliasTextureIterator(void) const;
         /// @deprecated do not use
         void addTextureAlias(const String& aliasName, const String& textureName);
-        /// @deprecated do not use
-        OGRE_DEPRECATED void removeAllTextureAliases(void);
+
         /// @deprecated do not use
         bool hasTextureAliases(void) const { return !mTextureAliases.empty(); }
 

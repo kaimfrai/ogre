@@ -218,9 +218,6 @@ namespace Ogre
             return Q;
         }
 
-        /// @deprecated
-        OGRE_DEPRECATED void Orthonormalize() { *this = orthonormalised(); }
-
         /// Orthogonal Q, diagonal D, upper triangular U stored as (u01,u02,u12)
         void QDUDecomposition (Matrix3& rkQ, Vector3& rkD,
             Vector3& rkU) const;

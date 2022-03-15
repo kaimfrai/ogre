@@ -107,24 +107,9 @@ namespace Ogre
             return mContent != NULL;
         }
 
-        /// @deprecated use has_value() instead
-        OGRE_DEPRECATED bool isEmpty() const { return !has_value(); }
-
         const std::type_info& type() const
         {
             return mContent ? mContent->getType() : typeid(void);
-        }
-
-        /// @deprecated use type() instead
-        OGRE_DEPRECATED const std::type_info& getType() const { return type(); }
-
-        /// @deprecated no longer supported
-        OGRE_DEPRECATED friend std::ostream& operator <<
-            ( std::ostream& o, const Any& v )
-        {
-            if (v.mContent)
-                v.mContent->writeToStream(o);
-            return o;
         }
 
         void reset()
@@ -132,9 +117,6 @@ namespace Ogre
             delete mContent;
             mContent = NULL;
         }
-
-        /// @deprecated use reset() instead
-        OGRE_DEPRECATED void destroy() { reset(); }
 
     protected: // types
 
@@ -185,35 +167,14 @@ namespace Ogre
 
 
         public: // representation
-
             ValueType held;
-
         };
-
-
 
     protected: // representation
         placeholder * mContent;
 
         template<typename ValueType>
         friend ValueType * any_cast(Any *);
-
-
-    public: 
-        /// @deprecated use Ogre::any_cast instead
-        template<typename ValueType>
-        OGRE_DEPRECATED ValueType operator()() const
-        {
-            return any_cast<ValueType>(*this);
-        }
-
-        /// @deprecated use Ogre::any_cast instead
-        template <typename ValueType>
-        OGRE_DEPRECATED ValueType get(void) const
-        {
-            return any_cast<ValueType>(*this);
-        }
-
     };
 
 

@@ -632,20 +632,7 @@ class Affine3;
     {
         mBlendState = state;
     }
-    //---------------------------------------------------------------------
-    Skeleton::BoneIterator Skeleton::getRootBoneIterator(void)
-    {
-        if (mRootBones.empty())
-        {
-            deriveRootBone();
-        }
-        return BoneIterator(mRootBones.begin(), mRootBones.end());
-    }
-    //---------------------------------------------------------------------
-    Skeleton::BoneIterator Skeleton::getBoneIterator(void)
-    {
-        return BoneIterator(mBoneList.begin(), mBoneList.end());
-    }
+
     //---------------------------------------------------------------------
     void Skeleton::_updateTransforms(void)
     {
@@ -728,14 +715,7 @@ class Affine3;
     {
         mLinkedSkeletonAnimSourceList.clear();
     }
-    //---------------------------------------------------------------------
-    Skeleton::LinkedSkeletonAnimSourceIterator 
-    Skeleton::getLinkedSkeletonAnimationSourceIterator(void) const
-    {
-        return LinkedSkeletonAnimSourceIterator(
-            mLinkedSkeletonAnimSourceList.begin(), 
-            mLinkedSkeletonAnimSourceList.end());
-    }
+
     //---------------------------------------------------------------------
     struct DeltaTransform
     {

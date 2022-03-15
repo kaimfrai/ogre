@@ -91,9 +91,6 @@ namespace Ogre {
             mHeight = height;
         }
 
-        /// @deprecated do not use
-        OGRE_DEPRECATED bool hasOwnDimensions(void) const { return true; }
-
         /** Retrieves the particle's personal width, if hasOwnDimensions is true. */
         float getOwnWidth(void) const { return mWidth; }
 

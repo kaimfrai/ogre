@@ -330,13 +330,7 @@ namespace Ogre
         return AnimationStateIterator(
             mAnimationStates.begin(), mAnimationStates.end());
     }
-    //---------------------------------------------------------------------
-    ConstAnimationStateIterator AnimationStateSet::getAnimationStateIterator(void) const
-    {
-        // returned iterator not threadsafe, noted in header
-        return ConstAnimationStateIterator(
-            mAnimationStates.begin(), mAnimationStates.end());
-    }
+
     //---------------------------------------------------------------------
     void AnimationStateSet::copyMatchingState(AnimationStateSet* target) const
     {
@@ -388,18 +382,6 @@ namespace Ogre
 
         // Set the dirty frame number
         _notifyDirty();
-    }
-    //---------------------------------------------------------------------
-    ConstEnabledAnimationStateIterator AnimationStateSet::getEnabledAnimationStateIterator(void) const
-    {
-        // returned iterator not threadsafe, noted in header
-        return ConstEnabledAnimationStateIterator(
-            mEnabledAnimationStates.begin(), mEnabledAnimationStates.end());
-    }
-
-    ControllerValueRealPtr AnimationStateControllerValue::create(AnimationState* targetAnimationState, bool addTime)
-    {
-        return std::make_shared<AnimationStateControllerValue>(targetAnimationState, addTime);
     }
 }
 
