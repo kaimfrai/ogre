@@ -36,7 +36,6 @@ THE SOFTWARE.
 
 #include "OgreRenderWindow.h"
 #include "OgreCommon.h"
-#include "OgrePlatform.h"
 
 using namespace Ogre;
 
