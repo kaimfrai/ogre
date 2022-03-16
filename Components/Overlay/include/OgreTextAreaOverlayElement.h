@@ -33,7 +33,6 @@ THE SOFTWARE
 #include "OgreRenderOperation.h"
 #include "OgreFont.h"
 #include "OgreColourValue.h"
-#include "OgreOverlayPrerequisites.h"
 #include "OgrePrerequisites.h"
 
 namespace Ogre

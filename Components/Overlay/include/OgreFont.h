@@ -33,7 +33,6 @@ THE SOFTWARE
 #include <utility>
 #include <vector>
 
-#include "OgreOverlayPrerequisites.h"
 #include "OgreResource.h"
 #include "OgreCommon.h"
 #include "OgreSharedPtr.h"

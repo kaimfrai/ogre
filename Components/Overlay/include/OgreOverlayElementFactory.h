@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef __OverlayElementFactory_H__
 #define __OverlayElementFactory_H__
 
-#include "OgreOverlayPrerequisites.h"
 #include "OgreOverlayElement.h"
 #include "OgrePanelOverlayElement.h"
 #include "OgreBorderPanelOverlayElement.h"

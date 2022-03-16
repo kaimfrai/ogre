@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include <set>
 #include <string>
 
-#include "OgreOverlayPrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreStringVector.h"
 #include "OgreScriptLoader.h"

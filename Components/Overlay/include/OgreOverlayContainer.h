@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 
-#include "OgreOverlayPrerequisites.h"
 #include "OgreOverlayElement.h"
 #include "OgrePrerequisites.h"
 

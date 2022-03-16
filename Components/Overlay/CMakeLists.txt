@@ -14,7 +14,6 @@
 # define header and source files for the library
 file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
 list(APPEND HEADER_FILES 
-  ${PROJECT_BINARY_DIR}/include/OgreOverlayPrerequisites.h
   ${CMAKE_CURRENT_SOURCE_DIR}/include/OgreOverlay.i)
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
@@ -89,10 +88,6 @@ if(OGRE_BUILD_COMPONENT_OVERLAY_IMGUI)
     ${IMGUI_DIR}/imgui.h
     ${IMGUI_DIR}/imconfig.h)
 endif()
-
-generate_export_header(OgreOverlay 
-    EXPORT_MACRO_NAME _OgreOverlayExport
-    EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/include/OgreOverlayPrerequisites.h)
 
 # install 
 ogre_config_framework(OgreOverlay)

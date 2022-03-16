@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreOverlayElement.h"
-#include "OgreOverlayPrerequisites.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreRenderable.h"

@@ -31,7 +31,6 @@ THE SOFTWARE.
 
 #include <list>
 
-#include "OgreOverlayPrerequisites.h"
 #include "OgreProfiler.h"
 #include "OgrePrerequisites.h"
 

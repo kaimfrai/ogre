@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgreOverlayContainer.h"
 #include "OgreRenderOperation.h"
 #include "OgreConfig.h"
-#include "OgreOverlayPrerequisites.h"
 #include "OgrePrerequisites.h"
 
 namespace Ogre {

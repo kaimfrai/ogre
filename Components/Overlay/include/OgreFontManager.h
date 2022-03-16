@@ -27,7 +27,6 @@ THE SOFTWARE
 #ifndef _FontManager_H__
 #define _FontManager_H__
 
-#include "OgreOverlayPrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreResourceManager.h"
 #include "OgreFont.h"

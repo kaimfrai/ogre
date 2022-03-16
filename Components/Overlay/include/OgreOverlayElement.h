@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __OverlayElement_H__
 #define __OverlayElement_H__
 
-#include "OgreOverlayPrerequisites.h"
 #include "OgreRenderable.h"
 #include "OgreStringInterface.h"
 #include "OgreColourValue.h"

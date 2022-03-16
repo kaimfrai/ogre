@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __OverlaySystem_H__
 #define __OverlaySystem_H__
 
-#include "OgreOverlayPrerequisites.h"
 #include "OgreRenderQueueListener.h"
 #include "OgreRenderSystem.h"
 #include "OgreCommon.h"
