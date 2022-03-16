@@ -74,8 +74,6 @@ THE SOFTWARE.
 #include "OgreRenderTarget.h"
 #include "OgreDepthBuffer.h"
 
-#include "OgreRTShaderConfig.h"
-
 namespace Ogre {
     class Camera;
     class RenderWindow;
