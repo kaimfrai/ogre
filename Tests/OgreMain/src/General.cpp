@@ -254,7 +254,7 @@ TEST(Image, FlipV)
     ResourceGroupManager mgr;
     STBIImageCodec::startup();
     ConfigFile cf;
-    cf.load(FileSystemLayer(OGRE_VERSION_NAME).getConfigFilePath("resources.cfg"));
+    cf.load(FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
     auto testPath = cf.getSettings("Tests").begin()->second;
 
     Image ref;
@@ -275,7 +275,7 @@ TEST(Image, Resize)
     ResourceGroupManager mgr;
     STBIImageCodec::startup();
     ConfigFile cf;
-    cf.load(FileSystemLayer(OGRE_VERSION_NAME).getConfigFilePath("resources.cfg"));
+    cf.load(FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
     auto testPath = cf.getSettings("Tests").begin()->second;
 
     Image ref;
@@ -300,7 +300,7 @@ TEST(Image, Combine)
     amgr.addArchiveFactory(&fs);
     STBIImageCodec::startup();
     ConfigFile cf;
-    cf.load(FileSystemLayer(OGRE_VERSION_NAME).getConfigFilePath("resources.cfg"));
+    cf.load(FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
     mgr.addResourceLocation(cf.getSettings("General").begin()->second+"/../materials/textures", fs.getType());
     mgr.initialiseAllResourceGroups();
 

@@ -148,11 +148,11 @@ namespace Ogre {
 
         // Init
         mActiveRenderer = 0;
-        mVersion = StringConverter::toString(OGRE_VERSION_MAJOR) + "." +
-            StringConverter::toString(OGRE_VERSION_MINOR) + "." +
-            StringConverter::toString(OGRE_VERSION_PATCH) +
-            OGRE_VERSION_SUFFIX + " " +
-            "(" + OGRE_VERSION_NAME + ")";
+        mVersion = StringConverter::toString(/*OGRE_VERSION_MAJOR*/13) + "." +
+            StringConverter::toString(/*OGRE_VERSION_MINOR*/3) + "." +
+            StringConverter::toString(/*OGRE_VERSION_PATCH*/3) +
+            /*OGRE_VERSION_SUFFIX*/"Modernized " + " " +
+            "(" + /*OGRE_VERSION_NAME*/"Tsathoggua" + ")";
         mConfigFileName = configFileName;
 
         // Create log manager and default log file if there is no log manager yet

@@ -81,7 +81,7 @@ void MeshSerializerTests::SetUp()
 {
     mErrorFactor = 0.05;
 
-    mFSLayer = new Ogre::FileSystemLayer(OGRE_VERSION_NAME);
+    mFSLayer = new Ogre::FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua");
 
     new ResourceGroupManager();
     new LodStrategyManager();

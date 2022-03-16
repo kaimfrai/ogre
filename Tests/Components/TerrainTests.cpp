@@ -65,7 +65,7 @@ void TerrainTests::SetUp()
 
     // Load resource paths from config file
     ConfigFile cf;
-    cf.load(FileSystemLayer(OGRE_VERSION_NAME).getConfigFilePath("resources.cfg"));
+    cf.load(FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
 
     // Go through all sections & settings in the file
     String secName, typeName, archName;

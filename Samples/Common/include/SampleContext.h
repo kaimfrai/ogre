@@ -47,7 +47,7 @@ namespace OgreBites
     public:
         Ogre::RenderWindow* mWindow;
 
-        SampleContext(const Ogre::String& appName = OGRE_VERSION_NAME)
+        SampleContext(const Ogre::String& appName = /*OGRE_VERSION_NAME*/"Tsathoggua")
         : ApplicationContext(appName), mWindow(NULL)
         {
             mCurrentSample = 0;

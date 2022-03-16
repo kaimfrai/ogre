@@ -64,7 +64,7 @@ void RenderSystemCapabilitiesTests::SetUp()
     mRenderSystemCapabilitiesManager = new RenderSystemCapabilitiesManager();
 
     Ogre::ConfigFile cf;
-    cf.load(Ogre::FileSystemLayer(OGRE_VERSION_NAME).getConfigFilePath("resources.cfg"));
+    cf.load(Ogre::FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
     Ogre::String testPath = cf.getSettings("Tests").begin()->second+"/CustomCapabilities";
 
     // Actual parsing happens here. The following test methods confirm parse results only.

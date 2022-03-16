@@ -58,7 +58,7 @@ void FileSystemArchiveTests::SetUp()
     mFileSizeRoot2 = 150;
 
     Ogre::ConfigFile cf;
-    cf.load(Ogre::FileSystemLayer(OGRE_VERSION_NAME).getConfigFilePath("resources.cfg"));
+    cf.load(Ogre::FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
     mTestPath = cf.getSettings("Tests").begin()->second+"/misc/ArchiveTest";
 
     mArch = mFactory.createInstance(mTestPath, false);
