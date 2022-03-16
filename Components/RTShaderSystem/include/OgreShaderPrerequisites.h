@@ -93,8 +93,4 @@ enum SkinningType
 }
 }
 
-#include "OgreRTShaderExports.h"
-
-
 #endif
-
