@@ -55,7 +55,7 @@ TEST(Property, StringProp) {
         propertyDefs.emplace("name", PropertyDef("name", "The name of the object.", PROP_STRING)).first;
 
     props.addProperty(
-        OGRE_NEW Property<String>(&(defi->second),
+        new Property<String>(&(defi->second),
         bind(&Foo::getName, &foo),
         bind(&Foo::setName, &foo, placeholders::_1)));
 

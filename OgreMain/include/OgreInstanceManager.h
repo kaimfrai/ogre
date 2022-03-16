@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -69,7 +68,7 @@ class SceneManager;
         @see @ref InstancedEntity
         @see Design discussion thread: http://www.ogre3d.org/forums/viewtopic.php?f=4&t=59902
      */
-    class _OgreExport InstanceManager : public FactoryAlloc
+    class InstanceManager : public FactoryAlloc
     {
     public:
         enum InstancingTechnique

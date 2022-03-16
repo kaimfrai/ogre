@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreConfigFile.h"
 #include "OgreFileSystemLayer.h"
 #include "OgreArchive.h"
-#include "OgreBuildSettings.h"
 #include "OgreDataStream.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
@@ -55,7 +54,7 @@ static String fileId(const String& path) {
 void ZipArchiveTests::SetUp()
 {
     Ogre::ConfigFile cf;
-    cf.load(Ogre::FileSystemLayer(OGRE_VERSION_NAME).getConfigFilePath("resources.cfg"));
+    cf.load(Ogre::FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
     Ogre::String testPath = cf.getSettings("Tests").begin()->second+"/misc/ArchiveTest.zip";
 
     arch = Ogre::ZipArchiveFactory().createInstance(testPath, true);
@@ -64,7 +63,7 @@ void ZipArchiveTests::SetUp()
 //--------------------------------------------------------------------------
 void ZipArchiveTests::TearDown()
 {
-    OGRE_DELETE arch;
+    delete arch;
 }
 //--------------------------------------------------------------------------
 TEST_F(ZipArchiveTests,ListNonRecursive)

@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreMatrix4.h"
 #include "OgreTexture.h"
 #include "OgreColourValue.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePixelFormat.h"
@@ -63,7 +62,7 @@ template <typename T> class Controller;
         There are a number of parameters affecting how texture data is featched.
         Most notably @ref FilterOptions and @ref TextureAddressingMode.
      */
-    class _OgreExport Sampler {
+    class Sampler {
     public:
         /** Texture addressing mode for each texture coordinate. */
         struct UVWAddressingMode
@@ -252,7 +251,7 @@ template <typename T> class Controller;
         where you do not use vertex or fragment programs (shaders). Programmable 
         pipeline means that for this pass you are using vertex or fragment programs.
     */
-    class _OgreExport TextureUnitState : public TextureUnitStateAlloc
+    class TextureUnitState : public TextureUnitStateAlloc
     {
         friend class RenderSystem;
     public:
@@ -308,9 +307,6 @@ template <typename T> class Controller;
         static const Ogre::TextureAddressingMode TAM_CLAMP = Ogre::TAM_CLAMP;
         static const Ogre::TextureAddressingMode TAM_BORDER = Ogre::TAM_BORDER;
         static const Ogre::TextureAddressingMode TAM_UNKNOWN = Ogre::TAM_UNKNOWN;
-
-        OGRE_DEPRECATED typedef Ogre::TextureAddressingMode TextureAddressingMode;
-        OGRE_DEPRECATED typedef Sampler::UVWAddressingMode UVWAddressingMode;
 
         /** Enum identifying the frame indexes for faces of a cube map (not the composite 3D type.
         */
@@ -384,27 +380,6 @@ template <typename T> class Controller;
             pointer to the texture to use on this layer.
         */
         void setTexture( const TexturePtr& texPtr);
-
-        /**
-        @deprecated use setTextureName()
-        */
-        OGRE_DEPRECATED void setCubicTextureName( const String& name, bool forUVW = false )
-        {
-            setTextureName(name, TEX_TYPE_CUBE_MAP);
-        }
-
-        /**
-        @deprecated use setLayerArrayNames()
-         */
-        OGRE_DEPRECATED void setCubicTextureName( const String* const names, bool forUVW = false );
-
-        /**
-        @deprecated use setTexture()
-        */
-        OGRE_DEPRECATED void setCubicTexture( const TexturePtr* const texPtrs, bool forUVW = false )
-        {
-            setTexture(*texPtrs);
-        }
 
         /** Sets the names of the texture images for an animated texture.
 
@@ -514,10 +489,7 @@ template <typename T> class Controller;
         };
 
         /// @deprecated obsolete
-        OGRE_DEPRECATED void setBindingType(BindingType bt);
-
-        /// @deprecated obsolete
-        OGRE_DEPRECATED BindingType getBindingType(void) const;
+        void setBindingType(BindingType bt);
 
         /** Set the type of content this TextureUnitState references.
         @remarks
@@ -527,12 +499,6 @@ template <typename T> class Controller;
         void setContentType(ContentType ct);
         /** Get the type of content this TextureUnitState references. */
         ContentType getContentType(void) const;
-
-        /// @deprecated use getTextureType()
-        OGRE_DEPRECATED bool isCubic(void) const { return getTextureType() == TEX_TYPE_CUBE_MAP; }
-
-        /// @deprecated use getTextureType()
-        OGRE_DEPRECATED bool is3D(void) const { return getTextureType() == TEX_TYPE_CUBE_MAP; }
 
         /** Returns the type of this texture.
         */
@@ -552,7 +518,7 @@ template <typename T> class Controller;
         int getNumMipmaps(void) const;
 
         /// @deprecated use setDesiredFormat(PF_A8)
-        OGRE_DEPRECATED void setIsAlpha(bool isAlpha);
+        void setIsAlpha(bool isAlpha);
 
         /// @copydoc Texture::getGamma
         float getGamma() const;
@@ -1056,10 +1022,8 @@ template <typename T> class Controller;
         /// Get the name of the Texture Unit State.
         const String& getName(void) const { return mName; }
 
-        /// @deprecated use setName()
-        OGRE_DEPRECATED void setTextureNameAlias(const String& name) { setName(name); }
         /// @deprecated use getName()
-        OGRE_DEPRECATED const String& getTextureNameAlias(void) const { return getName();}
+        const String& getTextureNameAlias(void) const { return getName();}
 
         /** Notify this object that its parent has changed. */
         void _notifyParent(Pass* parent);

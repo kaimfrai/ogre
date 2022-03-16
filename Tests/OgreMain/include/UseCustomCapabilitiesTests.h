@@ -31,7 +31,6 @@ THE SOFTWARE.
 
 #include <gtest/gtest.h>
 
-#include "OgreBuildSettings.h"
 #include "OgrePlatform.h"
 
 #include "OgreStaticPluginLoader.h"

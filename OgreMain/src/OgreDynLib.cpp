@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <string>
 
 #include "OgreDynLib.h"
-#include "OgreBuildSettings.h"
 #include "OgreException.h"
 #include "OgreLogManager.h"
 #include "OgreString.h"
@@ -64,7 +63,7 @@ namespace Ogre {
         // dlopen() does not add .so to the filename, like windows does for .dll
         if (name.find(".so") == String::npos)
         {
-            name += StringUtil::format(".so.%d.%d", OGRE_VERSION_MAJOR, OGRE_VERSION_MINOR);
+            name += StringUtil::format(".so.%d.%d", /*OGRE_VERSION_MAJOR*/13, /*OGRE_VERSION_MINOR*/3);
         }
 
         // Log library load

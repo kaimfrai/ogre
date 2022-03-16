@@ -72,7 +72,7 @@ namespace RTShader {
 Meaning, this sub render states adds calculations which multiply
 the points and normals by their assigned bone matricies.
 */
-class _OgreRTSSExport HardwareSkinning : public SubRenderState
+class HardwareSkinning : public SubRenderState
 {
 public:
     struct SkinningData
@@ -193,7 +193,7 @@ protected:
 A factory that enables creation of HardwareSkinning instances.
 @remarks Sub class of SubRenderStateFactory
 */
-class _OgreRTSSExport HardwareSkinningFactory : public SubRenderStateFactory, 
+class HardwareSkinningFactory : public SubRenderStateFactory, 
     public Singleton<HardwareSkinningFactory>
 {
 public:

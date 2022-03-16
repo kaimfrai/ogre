@@ -46,7 +46,7 @@ namespace Ogre
     ConcreteNodeListPtr ScriptParser::parse(const ScriptTokenList &tokens, const String& file)
     {
         // MEMCATEGORY_GENERAL because SharedPtr can only free using that category
-        ConcreteNodeListPtr nodes(OGRE_NEW_T(ConcreteNodeList, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        ConcreteNodeListPtr nodes(new ConcreteNodeList());
 
         enum{READY, OBJECT};
         uint32 state = READY;
@@ -66,7 +66,7 @@ namespace Ogre
                 {
                     if(token->lexeme == "import")
                     {
-                        node = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                        node = ConcreteNodePtr(new ConcreteNode());
                         node->token = token->lexeme;
                         node->file = file;
                         node->line = token->line;
@@ -79,7 +79,7 @@ namespace Ogre
                                 Ogre::String("expected import target at line ") + 
                                     Ogre::StringConverter::toString(node->line),
                                 "ScriptParser::parse");
-                        ConcreteNodePtr temp(OGRE_NEW ConcreteNode());
+                        ConcreteNodePtr temp(new ConcreteNode());
                         temp->parent = node.get();
                         temp->file = file;
                         temp->line = i->line;
@@ -95,7 +95,7 @@ namespace Ogre
                                 Ogre::String("expected import source at line ") + 
                                     Ogre::StringConverter::toString(node->line),
                                 "ScriptParser::parse");
-                        temp = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                        temp = ConcreteNodePtr(new ConcreteNode());
                         temp->parent = node.get();
                         temp->file = file;
                         temp->line = i->line;
@@ -121,7 +121,7 @@ namespace Ogre
                     }
                     else if(token->lexeme == "set")
                     {
-                        node = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                        node = ConcreteNodePtr(new ConcreteNode());
                         node->token = token->lexeme;
                         node->file = file;
                         node->line = token->line;
@@ -134,7 +134,7 @@ namespace Ogre
                                 Ogre::String("expected variable name at line ") + 
                                     Ogre::StringConverter::toString(node->line),
                                 "ScriptParser::parse");
-                        ConcreteNodePtr temp(OGRE_NEW ConcreteNode());
+                        ConcreteNodePtr temp(new ConcreteNode());
                         temp->parent = node.get();
                         temp->file = file;
                         temp->line = i->line;
@@ -149,7 +149,7 @@ namespace Ogre
                                 Ogre::String("expected variable value at line ") + 
                                     Ogre::StringConverter::toString(node->line),
                                 "ScriptParser::parse");
-                        temp = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                        temp = ConcreteNodePtr(new ConcreteNode());
                         temp->parent = node.get();
                         temp->file = file;
                         temp->line = i->line;
@@ -175,7 +175,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                        node = ConcreteNodePtr(new ConcreteNode());
                         node->file = file;
                         node->line = token->line;
                         node->type = token->type == TID_WORD ? CNT_WORD : CNT_QUOTE;
@@ -208,7 +208,7 @@ namespace Ogre
                     if(parent)
                         parent = parent->parent;
 
-                    node = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                    node = ConcreteNodePtr(new ConcreteNode());
                     node->token = token->lexeme;
                     node->file = file;
                     node->line = token->line;
@@ -251,7 +251,7 @@ namespace Ogre
                 }
                 else if(token->type == TID_COLON)
                 {
-                    node = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                    node = ConcreteNodePtr(new ConcreteNode());
                     node->token = token->lexeme;
                     node->file = file;
                     node->line = token->line;
@@ -271,7 +271,7 @@ namespace Ogre
 
                     while(j != end && (j->type == TID_WORD || j->type == TID_QUOTE))
                     {
-                        ConcreteNodePtr tempNode = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                        ConcreteNodePtr tempNode = ConcreteNodePtr(new ConcreteNode());
                         tempNode->token = j->lexeme;
                         tempNode->file = file;
                         tempNode->line = j->line;
@@ -299,7 +299,7 @@ namespace Ogre
                 }
                 else if(token->type == TID_LBRACKET)
                 {
-                    node = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                    node = ConcreteNodePtr(new ConcreteNode());
                     node->token = token->lexeme;
                     node->file = file;
                     node->line = token->line;
@@ -338,7 +338,7 @@ namespace Ogre
                     if(parent && parent->type == CNT_LBRACE && parent->parent)
                         parent = parent->parent;
 
-                    node = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                    node = ConcreteNodePtr(new ConcreteNode());
                     node->token = token->lexeme;
                     node->file = file;
                     node->line = token->line;
@@ -368,7 +368,7 @@ namespace Ogre
                 }
                 else if(token->type == TID_VARIABLE)
                 {
-                    node = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                    node = ConcreteNodePtr(new ConcreteNode());
                     node->token = token->lexeme;
                     node->file = file;
                     node->line = token->line;
@@ -389,7 +389,7 @@ namespace Ogre
                 }
                 else if(token->type == TID_QUOTE)
                 {
-                    node = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                    node = ConcreteNodePtr(new ConcreteNode());
                     node->token = unquoted(token->lexeme);
                     node->file = file;
                     node->line = token->line;
@@ -410,7 +410,7 @@ namespace Ogre
                 }
                 else if(token->type == TID_WORD)
                 {
-                    node = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                    node = ConcreteNodePtr(new ConcreteNode());
                     node->token = token->lexeme;
                     node->file = file;
                     node->line = token->line;
@@ -441,7 +441,7 @@ namespace Ogre
     ConcreteNodeListPtr ScriptParser::parseChunk(const ScriptTokenList &tokens, const String& file)
     {
         // MEMCATEGORY_GENERAL because SharedPtr can only free using that category
-        ConcreteNodeListPtr nodes(OGRE_NEW_T(ConcreteNodeList, MEMCATEGORY_GENERAL)(), SPFM_DELETE_T);
+        ConcreteNodeListPtr nodes(new ConcreteNodeList());
 
         ConcreteNodePtr node;
         const ScriptToken *token = 0;
@@ -452,7 +452,7 @@ namespace Ogre
             switch(token->type)
             {
             case TID_VARIABLE:
-                node = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                node = ConcreteNodePtr(new ConcreteNode());
                 node->file = file;
                 node->line = token->line;
                 node->parent = 0;
@@ -460,7 +460,7 @@ namespace Ogre
                 node->type = CNT_VARIABLE;
                 break;
             case TID_WORD:
-                node = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                node = ConcreteNodePtr(new ConcreteNode());
                 node->file = file;
                 node->line = token->line;
                 node->parent = 0;
@@ -468,7 +468,7 @@ namespace Ogre
                 node->type = CNT_WORD;
                 break;
             case TID_QUOTE:
-                node = ConcreteNodePtr(OGRE_NEW ConcreteNode());
+                node = ConcreteNodePtr(new ConcreteNode());
                 node->file = file;
                 node->line = token->line;
                 node->parent = 0;

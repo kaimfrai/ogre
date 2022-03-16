@@ -41,7 +41,7 @@ namespace Ogre
 
     /** Defines the behaviour of an automatic renderer configuration dialog.
     */
-    class _OgreExport ConfigDialog : public UtilityAlloc
+    class ConfigDialog : public UtilityAlloc
     {
     public:
         virtual ~ConfigDialog() {}

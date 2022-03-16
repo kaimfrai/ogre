@@ -29,7 +29,7 @@ THE SOFTWARE.
 #ifndef __PrefabFactory_H__
 #define __PrefabFactory_H__
 
-#include "OgreExports.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 class Mesh;
@@ -45,7 +45,7 @@ class Mesh;
         This class is used by OgreMeshManager to offload the loading of various prefab types 
         to a central location.
     */
-    class _OgreExport PrefabFactory
+    class PrefabFactory
     {
     public:
         /** If the given mesh has a known prefab resource name (e.g "Prefab_Plane") 

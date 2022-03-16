@@ -48,7 +48,7 @@ class GLPBuffer;
 class RenderTarget;
 class RenderTexture;
 
-    class _OgreGLExport GLPBRenderTexture: public GLRenderTexture
+    class GLPBRenderTexture: public GLRenderTexture
     {
     public:
         GLPBRenderTexture(GLPBRTTManager *manager, const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
@@ -64,7 +64,7 @@ class RenderTexture;
         
     /** Manager for rendertextures and PBuffers (offscreen rendering contexts)
     */
-    class _OgreGLExport GLPBRTTManager: public GLRTTManager
+    class GLPBRTTManager: public GLRTTManager
     {
     public:
         GLPBRTTManager(GLNativeSupport *support, RenderTarget *mainwindow);

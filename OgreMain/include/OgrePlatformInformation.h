@@ -29,8 +29,6 @@ THE SOFTWARE.
 #define __PlatformInformation_H__
 
 #include "OgrePrerequisites.h"
-#include "OgreBuildSettings.h"
-#include "OgreExports.h"
 #include "OgrePlatform.h"
 
 namespace Ogre {
@@ -57,7 +55,7 @@ namespace Ogre {
         @note
             This class is supposed to use by advanced user only.
     */
-    class _OgreExport PlatformInformation
+    class PlatformInformation
     {
     public:
 

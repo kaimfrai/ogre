@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
@@ -50,7 +49,7 @@ namespace Ogre {
         @remarks This class behaves similarly to other ResourceManager, although .rendercaps are not resources.
                         It contains and abstract a .rendercaps Serializer
     */
-    class _OgreExport RenderSystemCapabilitiesManager :  public Singleton<RenderSystemCapabilitiesManager>, public RenderSysAlloc
+    class RenderSystemCapabilitiesManager :  public Singleton<RenderSystemCapabilitiesManager>, public RenderSysAlloc
     {
 
     public:

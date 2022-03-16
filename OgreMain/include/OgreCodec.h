@@ -34,7 +34,8 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreStringVector.h"
-#include "OgreExports.h"
+#include "OgreException.h"
+#include "OgreAny.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
@@ -55,7 +56,7 @@ class Any;
             The codec concept is a pretty generic one - you can easily understand
             how it can be used for images, sounds, archives, even compressed data.
     */
-    class _OgreExport Codec : public CodecAlloc
+    class Codec : public CodecAlloc
     {
     private:
         typedef std::map< String, Codec* > CodecList; 

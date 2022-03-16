@@ -186,7 +186,7 @@ namespace Ogre {
         // Read the entire buffer - ideally in one read, but if the size of
         // the buffer is unknown, do multiple fixed size reads.
         size_t bufSize = (mSize > 0 ? mSize : 4096);
-        char* pBuf = OGRE_ALLOC_T(char, bufSize, MEMCATEGORY_GENERAL);
+        char* pBuf = new char[bufSize];
         // Ensure read from begin of stream
         seek(0);
         String result;
@@ -195,7 +195,7 @@ namespace Ogre {
             size_t nr = read(pBuf, bufSize);
             result.append(pBuf, nr);
         }
-        OGRE_FREE(pBuf, MEMCATEGORY_GENERAL);
+        delete[] pBuf;
         return result;
     }
     //-----------------------------------------------------------------------
@@ -232,14 +232,14 @@ namespace Ogre {
             // size of source is unknown, read all of it into memory
             String contents = sourceStream.getAsString();
             mSize = contents.size();
-            mData = OGRE_ALLOC_T(uchar, mSize, MEMCATEGORY_GENERAL);
+            mData = new  uchar[mSize];
             mPos = mData;
             memcpy(mData, contents.data(), mSize);
             mEnd = mData + mSize;
         }
         else
         {
-            mData = OGRE_ALLOC_T(uchar, mSize, MEMCATEGORY_GENERAL);
+            mData = new uchar[mSize];
             mPos = mData;
             mEnd = mData + sourceStream.read(mData, mSize);
         }
@@ -258,14 +258,14 @@ namespace Ogre {
             // size of source is unknown, read all of it into memory
             String contents = sourceStream->getAsString();
             mSize = contents.size();
-            mData = OGRE_ALLOC_T(uchar, mSize, MEMCATEGORY_GENERAL);
+            mData = new  uchar[mSize];
             mPos = mData;
             memcpy(mData, contents.data(), mSize);
             mEnd = mData + mSize;
         }
         else
         {
-            mData = OGRE_ALLOC_T(uchar, mSize, MEMCATEGORY_GENERAL);
+            mData = new uchar[mSize];
             mPos = mData;
             mEnd = mData + sourceStream->read(mData, mSize);
         }
@@ -284,14 +284,14 @@ namespace Ogre {
             // size of source is unknown, read all of it into memory
             String contents = sourceStream.getAsString();
             mSize = contents.size();
-            mData = OGRE_ALLOC_T(uchar, mSize, MEMCATEGORY_GENERAL);
+            mData = new uchar[mSize];
             mPos = mData;
             memcpy(mData, contents.data(), mSize);
             mEnd = mData + mSize;
         }
         else
         {
-            mData = OGRE_ALLOC_T(uchar, mSize, MEMCATEGORY_GENERAL);
+            mData = new uchar[mSize];
             mPos = mData;
             mEnd = mData + sourceStream.read(mData, mSize);
         }
@@ -310,14 +310,14 @@ namespace Ogre {
             // size of source is unknown, read all of it into memory
             String contents = sourceStream->getAsString();
             mSize = contents.size();
-            mData = OGRE_ALLOC_T(uchar, mSize, MEMCATEGORY_GENERAL);
+            mData = new uchar[mSize];
             mPos = mData;
             memcpy(mData, contents.data(), mSize);
             mEnd = mData + mSize;
         }
         else
         {
-            mData = OGRE_ALLOC_T(uchar, mSize, MEMCATEGORY_GENERAL);
+            mData = new uchar[mSize];
             mPos = mData;
             mEnd = mData + sourceStream->read(mData, mSize);
         }
@@ -329,7 +329,7 @@ namespace Ogre {
         : DataStream(static_cast<uint16>(readOnly ? READ : (READ | WRITE)))
     {
         mSize = inSize;
-        mData = OGRE_ALLOC_T(uchar, mSize, MEMCATEGORY_GENERAL);
+        mData = new uchar[mSize];
         mPos = mData;
         mEnd = mData + mSize;
         mFreeOnClose = freeOnClose;
@@ -341,7 +341,7 @@ namespace Ogre {
         : DataStream(name, static_cast<uint16>(readOnly ? READ : (READ | WRITE)))
     {
         mSize = inSize;
-        mData = OGRE_ALLOC_T(uchar, mSize, MEMCATEGORY_GENERAL);
+        mData = new uchar[mSize];
         mPos = mData;
         mEnd = mData + mSize;
         mFreeOnClose = freeOnClose;
@@ -475,7 +475,7 @@ namespace Ogre {
         mAccess = 0;
         if (mFreeOnClose && mData)
         {
-            OGRE_FREE(mData, MEMCATEGORY_GENERAL);
+            delete[] mData;
             mData = 0;
         }
     }
@@ -645,19 +645,6 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void FileStreamDataStream::skip(long count)
     {
-#if defined(STLPORT)
-        // Workaround for STLport issues: After reached eof of file stream,
-        // it's seems the stream was putted in intermediate state, and will be
-        // fail if try to repositioning relative to current position.
-        // Note: tellg() fail in this case too.
-        if (mInStream->eof())
-        {
-            mInStream->clear();
-            // Use seek relative to either begin or end to bring the stream
-            // back to normal state.
-            mInStream->seekg(0, std::ios::end);
-        }
-#endif      
         mInStream->clear(); //Clear fail status in case eof was set
         mInStream->seekg(static_cast<std::ifstream::pos_type>(count), std::ios::cur);
     }
@@ -696,8 +683,8 @@ namespace Ogre {
             if (mFreeOnClose)
             {
                 // delete the stream too
-                OGRE_DELETE_T(mFStreamRO, basic_ifstream, MEMCATEGORY_GENERAL);
-                OGRE_DELETE_T(mFStream, basic_fstream, MEMCATEGORY_GENERAL);
+                delete mFStreamRO;
+                delete mFStream;
             }
 
             mInStream = 0;

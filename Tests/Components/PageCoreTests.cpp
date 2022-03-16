@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include "OgreRoot.h"
 #include "OgrePageManager.h"
 #include "OgreGrid2DPageStrategy.h"
-#include "OgreBuildSettings.h"
 
 
 #include "OgreStaticPluginLoader.h"
@@ -54,9 +53,9 @@ public:
 //--------------------------------------------------------------------------
 void PageCoreTests::SetUp()
 {    
-    mRoot = OGRE_NEW Root("");
+    mRoot = new Root("");
 
-    mPageManager = OGRE_NEW PageManager();
+    mPageManager = new PageManager();
 
     // make certain the resource location is NOT read-only
     ResourceGroupManager::getSingleton().addResourceLocation("./", "FileSystem",
@@ -67,8 +66,8 @@ void PageCoreTests::SetUp()
 //--------------------------------------------------------------------------
 void PageCoreTests::TearDown()
 {
-    OGRE_DELETE mPageManager;
-    OGRE_DELETE mRoot;
+    delete mPageManager;
+    delete mRoot;
 }
 //--------------------------------------------------------------------------
 TEST_F(PageCoreTests,SimpleCreateSaveLoadWorld)

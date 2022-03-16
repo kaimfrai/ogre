@@ -8,7 +8,6 @@
 
 #include <vector>
 
-#include "OgreBitesPrerequisites.h"
 
 namespace Ogre {
 class Plugin;
@@ -26,9 +25,9 @@ namespace OgreBites
 
         When loading plugins statically, you are limited to loading plugins
         that are known about at compile time. This class will load all built
-        plugins based on OgreBuildSettings.h
+        plugins.
     */
-    class _OgreBitesExport StaticPluginLoader {
+    class StaticPluginLoader {
         std::vector<Ogre::Plugin*> mPlugins;
 
     public:

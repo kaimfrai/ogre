@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef COMPONENTS_BITES_INCLUDE_OGREBITESCONFIGDIALOG_H_
 #define COMPONENTS_BITES_INCLUDE_OGREBITESCONFIGDIALOG_H_
 
-#include "OgreBitesPrerequisites.h"
 
 namespace Ogre {
     class ConfigDialog;
@@ -47,7 +46,7 @@ namespace OgreBites {
 
      * @return pointer to Ogre::ConfigDialog or NULL if not available on the current platform.
      */
-    _OgreBitesExport Ogre::ConfigDialog* getNativeConfigDialog();
+    Ogre::ConfigDialog* getNativeConfigDialog();
 
 } /* namespace OgreBites */
 

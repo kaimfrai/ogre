@@ -38,6 +38,10 @@ Torus Knot Software Ltd.
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 // Precompiler options
 #include "OgrePrerequisites.h"
@@ -57,7 +61,6 @@ Torus Knot Software Ltd.
 #include "OgreLodListener.h"
 #include "OgreNameGenerator.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreLight.h"
 #include "OgreMatrix4.h"
@@ -71,32 +74,31 @@ Torus Knot Software Ltd.
 #include "OgreStringVector.h"
 #include "OgreTextureUnitState.h"
 #include "OgreVector.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
-class Animation;
-class BillboardChain;
-class BillboardSet;
-class Camera;
-class DebugDrawer;
-class Entity;
-class Frustum;
-class GpuProgram;
-class InstancedEntity;
-class Material;
-class MovableObject;
-class ParticleSystem;
-class Pass;
-class Ray;
-class RenderObjectListener;
-class RenderOperation;
-class RenderQueueListener;
-class Renderable;
-class RibbonTrail;
-class SceneNode;
-class Sphere;
-class StaticGeometry;
-class Viewport;
+    class Animation;
+    class BillboardChain;
+    class BillboardSet;
+    class Camera;
+    class DebugDrawer;
+    class Entity;
+    class Frustum;
+    class GpuProgram;
+    class InstancedEntity;
+    class Material;
+    class MovableObject;
+    class ParticleSystem;
+    class Pass;
+    class Ray;
+    class RenderObjectListener;
+    class RenderOperation;
+    class RenderQueueListener;
+    class Renderable;
+    class RibbonTrail;
+    class SceneNode;
+    class Sphere;
+    class StaticGeometry;
+    class Viewport;
     /** \addtogroup Core
     *  @{
     */
@@ -121,8 +123,8 @@ class Viewport;
     typedef std::vector<ShadowTextureConfig> ShadowTextureConfigList;
     typedef ConstVectorIterator<ShadowTextureConfigList> ConstShadowTextureConfigIterator;
 
-    _OgreExport bool operator== ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs );
-    _OgreExport bool operator!= ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs );
+    bool operator== ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs );
+    bool operator!= ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs );
 
     /** Structure for holding a position & orientation pair. */
     struct ViewPoint
@@ -139,7 +141,7 @@ class Viewport;
     /** Structure collecting together information about the visible objects
     that have been discovered in a scene.
     */
-    struct _OgreExport VisibleObjectsBoundsInfo
+    struct VisibleObjectsBoundsInfo
     {
         /// The axis-aligned bounds of the visible objects
         AxisAlignedBox aabb;
@@ -276,7 +278,7 @@ class Viewport;
         dependent on the Camera, which will always call back the SceneManager
         which created it to render the scene. 
      */
-    class _OgreExport SceneManager : public SceneMgtAlloc
+    class SceneManager : public SceneMgtAlloc
     {
     public:
         enum QueryTypeMask : uint32
@@ -300,12 +302,12 @@ class Viewport;
         */
         struct materialLess
         {
-            _OgreExport bool operator()(const Material* x, const Material* y) const;
+            bool operator()(const Material* x, const Material* y) const;
         };
         /// Comparator for sorting lights relative to a point
         struct lightLess
         {
-            _OgreExport bool operator()(const Light* a, const Light* b) const;
+            bool operator()(const Light* a, const Light* b) const;
         };
 
         /// Describes the stage of rendering when performing complex illumination
@@ -417,7 +419,7 @@ class Viewport;
         /** Inner helper class to implement the visitor pattern for rendering objects
             in a queue. 
         */
-        class _OgreExport SceneMgrQueuedRenderableVisitor : public QueuedRenderableVisitor
+        class SceneMgrQueuedRenderableVisitor : public QueuedRenderableVisitor
         {
         private:
             /// Pass that was actually used at the grouping level
@@ -510,7 +512,7 @@ class Viewport;
         AutoTrackingSceneNodes mAutoTrackingSceneNodes;
 
         // Sky params
-        class _OgreExport SkyRenderer : public Listener, public Node::Listener
+        class SkyRenderer : public Listener, public Node::Listener
         {
         protected:
             SceneManager* mSceneManager;
@@ -536,7 +538,7 @@ class Viewport;
             void postFindVisibleObjects(SceneManager* source, IlluminationRenderStage irs, Viewport* vp);
         };
 
-        class _OgreExport SkyPlaneRenderer : public SkyRenderer
+        class SkyPlaneRenderer : public SkyRenderer
         {
             Entity* mSkyPlaneEntity;
             Plane mSkyPlane;
@@ -549,7 +551,7 @@ class Viewport;
                              int ysegments, const String& groupName);
         } mSkyPlane;
 
-        class _OgreExport SkyBoxRenderer : public SkyRenderer
+        class SkyBoxRenderer : public SkyRenderer
         {
             std::unique_ptr<ManualObject> mSkyBoxObj;
 
@@ -563,7 +565,7 @@ class Viewport;
                            const String& groupName);
         } mSkyBox;
 
-        class _OgreExport SkyDomeRenderer : public SkyRenderer
+        class SkyDomeRenderer : public SkyRenderer
         {
             std::array<Entity*, 5> mSkyDomeEntity;
             Quaternion mSkyDomeOrientation;
@@ -617,7 +619,7 @@ class Viewport;
         CamVisibleObjectsMap mCamVisibleObjectsMap; 
 
         /// Cached light information, used to tracking light's changes
-        struct _OgreExport LightInfo
+        struct LightInfo
         {
             Light* light;       /// Just a pointer for comparison, the light might destroyed for some reason
             int type;           /// Use int instead of Light::LightTypes to avoid header file dependence
@@ -648,7 +650,6 @@ class Viewport;
         struct MovableObjectCollection
         {
                     MovableObjectMap map;
-                    OGRE_MUTEX(mutex);
         };
         typedef std::map<String, MovableObjectCollection*> MovableObjectCollectionMap;
         MovableObjectCollectionMap mMovableObjectCollectionMap;
@@ -663,8 +664,6 @@ class Viewport;
             This method throw exception if the collection does not exist.
         */
         const MovableObjectCollection* getMovableObjectCollection(const String& typeName) const;
-        /// Mutex over the collection of MovableObject types
-        OGRE_MUTEX(mMovableObjectCollectionMapMutex);
 
         /** Internal method for initialising the render queue.
         @remarks
@@ -672,7 +671,7 @@ class Viewport;
         */
         virtual void initRenderQueue(void);
 
-        struct _OgreExport ShadowRenderer
+        struct ShadowRenderer
         {
             typedef std::vector<Camera*> CameraList;
             typedef std::map< const Camera*, const Light* > ShadowCamLightMapping;
@@ -847,7 +846,7 @@ class Viewport;
             ListenerList mListeners;
 
             /// Inner class to use as callback for shadow caster scene query
-            class _OgreExport ShadowCasterSceneQueryListener : public SceneQueryListener, public SceneMgtAlloc
+            class ShadowCasterSceneQueryListener : public SceneQueryListener, public SceneMgtAlloc
             {
             protected:
                 SceneManager* mSceneMgr;
@@ -914,7 +913,6 @@ class Viewport;
 
         /// Storage of animations, lookup by name
         AnimationList mAnimationsList;
-        OGRE_MUTEX(mAnimationsListMutex);
         AnimationStateSet mAnimationStates;
         
         /** Internal method used by _renderSingleObject to set the world transform */
@@ -983,7 +981,7 @@ class Viewport;
         /** Internal method for creating the AutoParamDataSource instance. */
         AutoParamDataSource* createAutoParamDataSource(void) const
         {
-            return OGRE_NEW AutoParamDataSource();
+            return new AutoParamDataSource();
         }
 
         /// Utility class for calculating automatic parameters for gpu programs
@@ -1020,7 +1018,7 @@ class Viewport;
         */
         struct lightsForShadowTextureLess
         {
-            _OgreExport bool operator()(const Light* l1, const Light* l2) const;
+            bool operator()(const Light* l1, const Light* l2) const;
         };
 
 
@@ -1141,34 +1139,6 @@ class Viewport;
         */
         virtual ~SceneManager();
 
-
-        /** Mutex to protect the scene graph from simultaneous access from
-            multiple threads.
-        @remarks
-            If you are updating the scene in a separate thread from the rendering
-            thread, then you should lock this mutex before making any changes to 
-            the scene graph - that means creating, modifying or deleting a
-            scene node, or attaching / detaching objects. It is <b>your</b> 
-            responsibility to take out this lock, the detail methods on the nodes
-            will not do it for you (for the reasons discussed below).
-        @par
-            Note that locking this mutex will prevent the scene being rendered until 
-            it is unlocked again. Therefore you should do this sparingly. Try
-            to create any objects you need separately and fully prepare them
-            before doing all your scene graph work in one go, thus keeping this
-            lock for the shortest time possible.
-        @note
-            A single global lock is used rather than a per-node lock since 
-            it keeps the number of locks required during rendering down to a 
-            minimum. Obtaining a lock, even if there is no contention, is not free
-            so for performance it is good to do it as little as possible. 
-            Since modifying the scene in a separate thread is a fairly
-            rare occurrence (relative to rendering), it is better to keep the 
-            locking required during rendering lower than to make update locks
-            more granular.
-        */
-        OGRE_MUTEX(sceneGraphMutex);
-
         /** Return the instance name of this SceneManager. */
         const String& getName(void) const { return mName; }
 
@@ -1249,12 +1219,6 @@ class Viewport;
         */
         bool getCameraRelativeRendering() const { return mCameraRelativeRendering; }
 
-        /** Returns a specialised MapIterator over all cameras in the scene.
-        @deprecated use getCameras()
-        */
-        OGRE_DEPRECATED CameraIterator getCameraIterator(void) {
-            return CameraIterator(mCameras.begin(), mCameras.end());
-        }
         /** Returns a const version of the camera list.
         */
         const CameraList& getCameras() const { return mCameras; }
@@ -2369,20 +2333,9 @@ class Viewport;
         /** Removes all animation states created using this SceneManager. */
         void destroyAllAnimationStates(void);
 
-        /** Returns a specialised MapIterator over all animations in the scene.
-         * @deprecated use getAnimations() */
-        OGRE_DEPRECATED AnimationIterator getAnimationIterator(void) {
-            return AnimationIterator(mAnimationsList.begin(), mAnimationsList.end());
-        }
         /** Returns a const version of the animation list.
         */
         const AnimationList& getAnimations() const { return mAnimationsList; }
-        /** Returns a specialised MapIterator over all animation states in the scene.
-         * @deprecated use getAnimationStates() */
-        OGRE_DEPRECATED AnimationStateIterator getAnimationStateIterator(void)
-        {
-            return mAnimationStates.getAnimationStateIterator();
-        }
 
         /** Returns a specialised Map over all animation states in the scene. */
         const AnimationStateMap& getAnimationStates() {
@@ -2859,9 +2812,6 @@ class Viewport;
         /** Get the current shadow texture settings. */
         const ShadowTextureConfigList& getShadowTextureConfigList() const { return mShadowRenderer.mShadowTextureConfigList; }
 
-        /// @deprecated use getShadowTextureConfigList
-        OGRE_DEPRECATED ConstShadowTextureConfigIterator getShadowTextureConfigIterator() const;
-
         /** Set the pixel format of the textures used for texture-based shadows.
         @remarks
             By default, a colour texture is used (PF_X8R8G8B8) for texture shadows,
@@ -2893,9 +2843,6 @@ class Viewport;
             make this more flexible, but be aware of the texture memory it will use.
         */
         void setShadowTextureCount(size_t count) { mShadowRenderer.setShadowTextureCount(count); }
-
-        /// @deprecated use getShadowTextureConfigList
-        OGRE_DEPRECATED size_t getShadowTextureCount(void) const {return mShadowRenderer.mShadowTextureConfigList.size(); }
 
         /** Set the number of shadow textures a light type uses.
         @remarks
@@ -3258,8 +3205,6 @@ class Viewport;
         */
         const MovableObjectMap& getMovableObjects(const String& typeName);
 
-        /// @deprecated use getMovableObjects
-        OGRE_DEPRECATED MovableObjectIterator getMovableObjectIterator(const String& typeName);
         /** Inject a MovableObject instance created externally.
         @remarks
             This method 'injects' a MovableObject instance created externally into
@@ -3458,7 +3403,7 @@ class Viewport;
     };
 
     /// Interface for visualising debugging the SceneManager state
-    class _OgreExport DebugDrawer : public SceneManager::Listener
+    class DebugDrawer : public SceneManager::Listener
     {
     public:
         virtual ~DebugDrawer() {}
@@ -3468,7 +3413,7 @@ class Viewport;
     };
 
     /** Default implementation of IntersectionSceneQuery. */
-    class _OgreExport DefaultIntersectionSceneQuery : 
+    class DefaultIntersectionSceneQuery : 
         public IntersectionSceneQuery
     {
     public:
@@ -3479,7 +3424,7 @@ class Viewport;
     };
 
     /** Default implementation of RaySceneQuery. */
-    class _OgreExport DefaultRaySceneQuery : public RaySceneQuery
+    class DefaultRaySceneQuery : public RaySceneQuery
     {
     public:
         DefaultRaySceneQuery(SceneManager* creator);
@@ -3488,7 +3433,7 @@ class Viewport;
         void execute(RaySceneQueryListener* listener) override;
     };
     /** Default implementation of SphereSceneQuery. */
-    class _OgreExport DefaultSphereSceneQuery : public SphereSceneQuery
+    class DefaultSphereSceneQuery : public SphereSceneQuery
     {
     public:
         DefaultSphereSceneQuery(SceneManager* creator);
@@ -3497,7 +3442,7 @@ class Viewport;
         void execute(SceneQueryListener* listener) override;
     };
     /** Default implementation of PlaneBoundedVolumeListSceneQuery. */
-    class _OgreExport DefaultPlaneBoundedVolumeListSceneQuery : public PlaneBoundedVolumeListSceneQuery
+    class DefaultPlaneBoundedVolumeListSceneQuery : public PlaneBoundedVolumeListSceneQuery
     {
     public:
         DefaultPlaneBoundedVolumeListSceneQuery(SceneManager* creator);
@@ -3506,7 +3451,7 @@ class Viewport;
         void execute(SceneQueryListener* listener) override;
     };
     /** Default implementation of AxisAlignedBoxSceneQuery. */
-    class _OgreExport DefaultAxisAlignedBoxSceneQuery : public AxisAlignedBoxSceneQuery
+    class DefaultAxisAlignedBoxSceneQuery : public AxisAlignedBoxSceneQuery
     {
     public:
         DefaultAxisAlignedBoxSceneQuery(SceneManager* creator);
@@ -3527,7 +3472,7 @@ class Viewport;
 
 
     /** Class which will create instances of a given SceneManager. */
-    class _OgreExport SceneManagerFactory : public SceneMgtAlloc
+    class SceneManagerFactory : public SceneMgtAlloc
     {
     protected:
         mutable SceneManagerMetaData mMetaData;

@@ -30,8 +30,6 @@ THE SOFTWARE.
 #define COMPONENTS_BITES_INCLUDE_OGREADVANCEDRENDERCONTROLS_H_
 
 #include "OgreInput.h"
-#include "OgreComponents.h"
-#include "OgreBitesPrerequisites.h"
 
 namespace Ogre {
     class Camera;
@@ -74,7 +72,7 @@ class ParamsPanel;
    - F5:       Reload all textures
    - F6:       Take a screenshot
  */
-class _OgreBitesExport AdvancedRenderControls : public InputListener {
+class AdvancedRenderControls : public InputListener {
 public:
     AdvancedRenderControls(TrayManager* trayMgr, Ogre::Camera* cam);
     ~AdvancedRenderControls();

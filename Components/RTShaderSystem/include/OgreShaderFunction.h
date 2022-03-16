@@ -54,7 +54,7 @@ class ProgramManager;
 */
 
 /// represents a @ref FFPShaderStage, part of a Function
-class _OgreRTSSExport FunctionStageRef
+class FunctionStageRef
 {
     friend class Function;
 public:
@@ -110,7 +110,7 @@ private:
 
 /** A class that represents a shader based program function.
 */
-class _OgreRTSSExport Function : public RTShaderSystemAlloc
+class Function : public RTShaderSystemAlloc
 {
     friend ProgramManager;
 // Interface.
@@ -224,7 +224,7 @@ public:
     }
 
     /** Delete a function atom instance from this function. 
-    @param atomInstance The atom instance to OGRE_DELETE.
+    @param atomInstance The atom instance to delete.
     */
     bool deleteAtomInstance(FunctionAtom* atomInstance);
 

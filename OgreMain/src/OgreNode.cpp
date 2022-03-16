@@ -34,7 +34,7 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreBuildSettings.h"
+#include "OgreStableHeaders.h"
 #include "OgreCamera.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
@@ -132,41 +132,12 @@ namespace Ogre {
     {
         if (mCachedTransformOutOfDate)
         {
-#if OGRE_NODE_INHERIT_TRANSFORM
-            Affine3 tr;
-            tr.makeTransform(mPosition, mScale, mOrientation);
-
-            if(mParent == NULL)
-            {
-                mCachedTransform = tr;
-            }
-            else if(mInheritOrientation && mInheritScale) // everything is inherited
-            {
-                mCachedTransform = mParent->_getFullTransform() * tr;
-            }
-            else if(!mInheritOrientation && !mInheritScale) // only position is inherited
-            {
-                mCachedTransform = tr;
-                mCachedTransform.setTrans(tr.getTrans() + mParent->_getFullTransform().getTrans());
-            }
-            else // shear is inherited together with orientation, controlled by mInheritOrientation
-            {
-                const Affine3& parentTr = mParent->_getFullTransform();
-                Vector3 parentScale(
-                    parentTr.transformDirection(Vector3::UNIT_X).length(),
-                    parentTr.transformDirection(Vector3::UNIT_Y).length(),
-                    parentTr.transformDirection(Vector3::UNIT_Z).length());
-
-                assert(mInheritOrientation ^ mInheritScale);
-                mCachedTransform = (mInheritOrientation ? Affine3::getScale(1.0f / parentScale)  * parentTr : Affine3::getScale(parentScale)) * tr;
-            }
-#else
             // Use derived values
             mCachedTransform.makeTransform(
                 _getDerivedPosition(),
                 _getDerivedScale(),
                 _getDerivedOrientation());
-#endif
+
             mCachedTransformOutOfDate = false;
         }
         return mCachedTransform;
@@ -231,10 +202,6 @@ namespace Ogre {
 
         if (mParent)
         {
-#if OGRE_NODE_INHERIT_TRANSFORM
-            // Decompose full transform to position, orientation and scale, shear is lost here.
-            _getFullTransform().decomposition(mDerivedPosition, mDerivedScale, mDerivedOrientation);
-#else
             // Update orientation
             const Quaternion& parentOrientation = mParent->_getDerivedOrientation();
             if (mInheritOrientation)
@@ -267,7 +234,6 @@ namespace Ogre {
 
             // Add altered position vector to parents
             mDerivedPosition += mParent->_getDerivedPosition();
-#endif
         }
         else
         {
@@ -501,11 +467,8 @@ namespace Ogre {
         {
             _updateFromParent();
         }
-#if OGRE_NODE_INHERIT_TRANSFORM
-        return _getFullTransform().inverse() * worldPos;
-#else
+
         return mDerivedOrientation.Inverse() * (worldPos - mDerivedPosition) / mDerivedScale;
-#endif
     }
     //-----------------------------------------------------------------------
     Vector3 Node::convertLocalToWorldPosition( const Vector3 &localPos )
@@ -525,13 +488,8 @@ namespace Ogre {
         }
 
         return useScale ? 
-#if OGRE_NODE_INHERIT_TRANSFORM
-            _getFullTransform().inverseAffine().transformDirectionAffine(worldDir) :
-            mDerivedOrientation.Inverse() * worldDir;
-#else
             mDerivedOrientation.Inverse() * worldDir / mDerivedScale :
             mDerivedOrientation.Inverse() * worldDir;
-#endif
     }
     //-----------------------------------------------------------------------
     Vector3 Node::convertLocalToWorldDirection( const Vector3 &localDir, bool useScale )
@@ -669,16 +627,7 @@ namespace Ogre {
 
 
     }
-    //-----------------------------------------------------------------------
-    Node::ChildNodeIterator Node::getChildIterator(void)
-    {
-        return ChildNodeIterator(mChildren.begin(), mChildren.end());
-    }
-    //-----------------------------------------------------------------------
-    Node::ConstChildNodeIterator Node::getChildIterator(void) const
-    {
-        return ConstChildNodeIterator(mChildren.begin(), mChildren.end());
-    }
+
     //-----------------------------------------------------------------------
     Real Node::getSquaredViewDepth(const Camera* cam) const
     {

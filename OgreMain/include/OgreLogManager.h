@@ -31,13 +31,15 @@ THE SOFTWARE.
 
 #include <map>
 #include <string>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreLog.h"
 #include "OgreSingleton.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre
 {
@@ -65,7 +67,7 @@ namespace Ogre
             you've created one yourself and won't create one of its own, thus
             using all your logging preferences from the first instance.
     */
-    class _OgreExport LogManager : public Singleton<LogManager>, public LogAlloc
+    class LogManager : public Singleton<LogManager>, public LogAlloc
     {
     private:
         typedef std::map<String, Log*> LogList;
@@ -77,8 +79,6 @@ namespace Ogre
         Log* mDefaultLog;
 
     public:
-        OGRE_AUTO_MUTEX; // public to allow external locking
-
         LogManager();
         ~LogManager();
 
@@ -138,8 +138,6 @@ namespace Ogre
         Log::Stream stream(LogMessageLevel lml = LML_NORMAL, 
             bool maskDebug = false);
 
-        /// @deprecated use setMinLogLevel()
-        OGRE_DEPRECATED void setLogDetail(LoggingLevel ll);
         /// sets the minimal #LogMessageLevel for the default log
         void setMinLogLevel(LogMessageLevel lml);
         /// @copydoc Singleton::getSingleton()

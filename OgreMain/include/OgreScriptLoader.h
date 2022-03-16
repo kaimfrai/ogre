@@ -55,7 +55,7 @@ namespace Ogre {
         point the parseScript method will be called with each file which matches a 
         the pattern returned from getScriptPatterns.
     */
-    class _OgreExport ScriptLoader
+    class ScriptLoader
     {
     public:
         virtual ~ScriptLoader() {}

@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreStringConverter.h"
-#include "OgreExports.h"
 
 namespace Ogre {
 
@@ -70,7 +69,7 @@ namespace Ogre {
     };
 
     /// @deprecated directly pass parameter name
-    class _OgreExport ParameterDef
+    class ParameterDef
     {
     public:
         String name;
@@ -80,7 +79,7 @@ namespace Ogre {
     typedef std::vector<String> ParameterList;
 
     /** Abstract class which is command object which gets/sets parameters.*/
-    class _OgreExport ParamCommand
+    class ParamCommand
     {
     public:
         virtual String doGet(const void* target) const = 0;
@@ -120,7 +119,7 @@ namespace Ogre {
     };
 
     /** Class to hold a dictionary of parameters for a single class. */
-    class _OgreExport ParamDictionary
+    class ParamDictionary
     {
         friend class StringInterface;
         /// Definitions of parameters
@@ -169,7 +168,7 @@ namespace Ogre {
         In order to use this class, each subclass must call createParamDictionary in their constructors
         which will create a parameter dictionary for the class if it does not exist yet.
     */
-    class _OgreExport StringInterface 
+    class StringInterface 
     {
     private:
         /// Class name for this instance to be used as a lookup (must be initialised by subclasses)

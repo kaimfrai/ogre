@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreShadowCameraSetup.h"
-#include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgreSharedPtr.h"
 
@@ -70,7 +69,7 @@ class Viewport;
             a finite position. Therefore you cannot use it for directional lights
             at this time.
     */
-    class _OgreExport PlaneOptimalShadowCameraSetup : public ShadowCameraSetup
+    class PlaneOptimalShadowCameraSetup : public ShadowCameraSetup
     {
     private:
         const MovablePlane* mPlane;   ///< pointer to plane of interest

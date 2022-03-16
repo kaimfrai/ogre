@@ -28,7 +28,6 @@
 #ifndef __SdkCameraMan_H__
 #define __SdkCameraMan_H__
 
-#include "OgreBitesPrerequisites.h"
 #include "OgreInput.h"
 #include "OgreMath.h"
 #include "OgreNode.h"
@@ -58,7 +57,7 @@ namespace OgreBites
     /**
     Utility class for controlling the camera in samples.
     */
-    class _OgreBitesExport CameraMan : public InputListener
+    class CameraMan : public InputListener
     {
     public:
         CameraMan(Ogre::SceneNode* cam);

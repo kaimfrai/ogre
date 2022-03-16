@@ -71,9 +71,9 @@ class Viewport;
     }
 
     FocusedShadowCameraSetup::FocusedShadowCameraSetup(bool useAggressiveRegion)
-        : mTempFrustum(OGRE_NEW Frustum())
+        : mTempFrustum(new Frustum())
         , mLightFrustumCameraNode(NULL)
-        , mLightFrustumCamera(OGRE_NEW Camera("TEMP LIGHT INTERSECT CAM", NULL))
+        , mLightFrustumCamera(new Camera("TEMP LIGHT INTERSECT CAM", NULL))
         , mUseAggressiveRegion(useAggressiveRegion)
         , mLightFrustumCameraCalculated(false)
     {

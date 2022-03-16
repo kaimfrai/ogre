@@ -8,7 +8,6 @@
 #include "OgreSceneManager.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
-#include "OgreExports.h"
 #include "OgreManualObject.h"
 
 namespace Ogre
@@ -19,7 +18,7 @@ class Node;
 class SceneNode;
 class Viewport;
 
-class _OgreExport DefaultDebugDrawer : public DebugDrawer
+class DefaultDebugDrawer : public DebugDrawer
 {
     ManualObject mLines;
     ManualObject mAxes;

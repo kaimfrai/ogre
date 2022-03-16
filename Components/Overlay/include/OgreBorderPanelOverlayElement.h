@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreOverlayElement.h"
-#include "OgreOverlayPrerequisites.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreRenderable.h"
@@ -65,7 +64,7 @@ class RenderQueue;
         a border width (which can either be constant all the way around, or specified
         per edge), and the texture coordinates for each of the border sections.
     */
-    class _OgreOverlayExport BorderPanelOverlayElement : public PanelOverlayElement
+    class BorderPanelOverlayElement : public PanelOverlayElement
     {
         friend class BorderRenderable;
     public:
@@ -236,7 +235,7 @@ class RenderQueue;
         We need this because we have to render twice, once with the inner panel's repeating
         material (handled by superclass) and once for the border's separate material. 
     */
-    class _OgreOverlayExport BorderRenderable : public Renderable, public OverlayAlloc
+    class BorderRenderable : public Renderable, public OverlayAlloc
     {
     private:
         BorderPanelOverlayElement* mParent;

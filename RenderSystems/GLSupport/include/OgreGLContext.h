@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef __OgreGLContext_H__
 #define __OgreGLContext_H__
 
-#include "OgreGLSupportPrerequisites.h"
 #include "OgreGLStateCacheManagerCommon.h"
 #include "OgreSharedPtr.h"
 
@@ -40,7 +39,7 @@ namespace Ogre {
      * This object can also be used to cache renderstate if we decide to do so
      * in the future.
      */
-    class _OgreGLExport GLContext
+    class GLContext
     {
     public:
         GLContext() : initialized(false) {}
@@ -76,7 +75,7 @@ namespace Ogre {
         template<class StateCacheManager>
         StateCacheManager* createOrRetrieveStateCacheManager() {
             if(!mStateCacheManager) {
-                StateCacheManager* stateCache = OGRE_NEW StateCacheManager;
+                StateCacheManager* stateCache = new StateCacheManager;
                 stateCache->initializeCache();
                 mStateCacheManager = SharedPtr<GLStateCacheManagerCommon>(stateCache);
             }

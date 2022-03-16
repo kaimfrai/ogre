@@ -35,7 +35,6 @@ THE SOFTWARE.
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreMatrix4.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgreVector.h"
 
@@ -58,7 +57,7 @@ class Sphere;
     for an axis-aligned bounding box (AABB) for collision and
     visibility determination.
     */
-    class _OgreExport AxisAlignedBox
+    class AxisAlignedBox
     {
     public:
         enum Extent

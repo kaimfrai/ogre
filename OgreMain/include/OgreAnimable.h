@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreColourValue.h"
 #include "OgreStringVector.h"
 #include "OgreException.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreQuaternion.h"
@@ -76,7 +75,7 @@ namespace Ogre {
         are often comprised of multiple properties it helps to be able to deal
         with all values through a single class.
     */
-    class _OgreExport AnimableValue : public AnimableAlloc
+    class AnimableValue : public AnimableAlloc
     {
     public:
         /// The type of the value being animated
@@ -243,7 +242,7 @@ namespace Ogre {
     /** Defines an interface to classes which have one or more AnimableValue
         instances to expose.
     */
-    class _OgreExport AnimableObject
+    class AnimableObject
     {
     protected:
         typedef std::map<String, StringVector> AnimableDictionaryMap;

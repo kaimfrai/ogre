@@ -20,7 +20,6 @@
 #include "OgreWindowEventUtilities.h"
 #include "OgreSceneNode.h"
 #include "OgreCamera.h"
-#include "OgreConfigPaths.h"
 #include "OgreFileSystemLayer.h"
 #include "OgreInput.h"
 #include "OgreLogManager.h"
@@ -80,7 +79,7 @@ void ApplicationContextBase::closeApp()
     {
         mRoot->saveConfig();
 
-        OGRE_DELETE mRoot;
+        delete mRoot;
         mRoot = NULL;
     }
 
@@ -163,12 +162,12 @@ void ApplicationContextBase::createRoot()
 {
     Ogre::String pluginsPath;
 
-    mRoot = OGRE_NEW Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogre.cfg"),
+    mRoot = new Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogre.cfg"),
                                 mFSLayer->getWritablePath("ogre.log"));
 
     mStaticPluginLoader.load();
 
-    mOverlaySystem = OGRE_NEW Ogre::OverlaySystem();
+    mOverlaySystem = new Ogre::OverlaySystem();
 }
 
 bool ApplicationContextBase::oneTimeConfig()
@@ -368,7 +367,7 @@ void ApplicationContextBase::_fireInputEvent(const Event& event, uint32_t window
 
 Ogre::String ApplicationContextBase::getDefaultMediaDir()
 {
-    return Ogre::FileSystemLayer::resolveBundlePath(OGRE_MEDIA_DIR);
+    return Ogre::FileSystemLayer::resolveBundlePath(getenv("OGRE_MEDIA_DIR"));
 }
 
 void ApplicationContextBase::locateResources()
@@ -482,7 +481,7 @@ void ApplicationContextBase::shutdown()
 
     if (mOverlaySystem)
     {
-        OGRE_DELETE mOverlaySystem;
+        delete mOverlaySystem;
     }
 
     mInputListeners.clear();

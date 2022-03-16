@@ -33,7 +33,6 @@ THE SOFTWARE
 #include <utility>
 #include <vector>
 
-#include "OgreOverlayPrerequisites.h"
 #include "OgreResource.h"
 #include "OgreCommon.h"
 #include "OgreSharedPtr.h"
@@ -56,7 +55,7 @@ class ResourceManager;
     */
 
     /// decode UTF8 encoded bytestream to uint32 codepoints
-    _OgreOverlayExport std::vector<uint32> utftoc32(String str);
+    std::vector<uint32> utftoc32(String str);
 
     /** Enumerates the types of Font usable in the engine. */
     enum FontType
@@ -94,7 +93,7 @@ class ResourceManager;
     both a resource in it's own right, but it also provides the manual load
     implementation for the Texture it creates.
     */
-    class _OgreOverlayExport Font : public Resource, public ManualResourceLoader
+    class Font : public Resource, public ManualResourceLoader
     {
     protected:
         /// The type of font

@@ -36,9 +36,7 @@ THE SOFTWARE.
 #include "OgreScriptCompiler.h"
 #include "OgreRenderSystem.h"
 #include "OgreBlendMode.h"
-#include "OgreBuildSettings.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -57,7 +55,7 @@ class Matrix4;
      *  which perform the actual translation.
      */
 
-    class _OgreExport ScriptTranslator : public ScriptTranslatorAlloc
+    class ScriptTranslator : public ScriptTranslatorAlloc
     {
     public:
         /**
@@ -99,16 +97,7 @@ class Matrix4;
         static bool getCompareFunction(const AbstractNodePtr &node, CompareFunction *func);
         /// Converts the range of nodes to a Matrix4 and returns true if successful
         static bool getMatrix4(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, Matrix4 *m);
-        /// @deprecated use getVector
-        OGRE_DEPRECATED static bool getInts(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, int *vals, int count);
-        /// @deprecated use getVector
-        OGRE_DEPRECATED static bool getFloats(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, float *vals, int count);
-        /// @deprecated
-        OGRE_DEPRECATED static bool getDoubles(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, double *vals, int count);
-        /// @deprecated
-        OGRE_DEPRECATED static bool getUInts(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, uint *vals, int count);
-        /// @deprecated
-        OGRE_DEPRECATED static bool getBooleans(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, uint *vals, int count);
+
         /// read count values from the AbstractNodeList into vals. Fill with default value if AbstractNodeList is shorter then count
         static bool getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<int>& vals, size_t count);
         /// @overload
@@ -127,7 +116,7 @@ class Matrix4;
      *  ScriptCompilerManager tied to specific object types.
      *  Each manager may manage multiple types.
      */
-    class _OgreExport ScriptTranslatorManager : public ScriptTranslatorAlloc
+    class ScriptTranslatorManager : public ScriptTranslatorAlloc
     {
     public:
         // required - virtual destructor

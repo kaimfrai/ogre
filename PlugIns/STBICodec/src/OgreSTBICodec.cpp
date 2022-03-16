@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreLogManager.h"
 #include "OgreDataStream.h"
 #include "OgrePlatformInformation.h"
-#include "OgreBuildSettings.h"
 #include "OgreCodec.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
@@ -53,7 +52,6 @@ THE SOFTWARE.
 #define STB_IMAGE_STATIC
 #include "stbi/stb_image.h"
 
-#ifdef HAVE_ZLIB
 #include <zlib.h>
 
 static Ogre::uchar* custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/)
@@ -71,7 +69,6 @@ static Ogre::uchar* custom_zlib_compress(Ogre::uchar* data, int data_len, int* o
     return dest;
 }
 #define STBIW_ZLIB_COMPRESS custom_zlib_compress
-#endif
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STBI_WRITE_NO_STDIO
@@ -93,7 +90,7 @@ namespace Ogre {
         StringVector extsVector = StringUtil::split(exts, ",");
         for (StringVector::iterator v = extsVector.begin(); v != extsVector.end(); ++v)
         {
-            ImageCodec* codec = OGRE_NEW STBIImageCodec(*v);
+            ImageCodec* codec = new STBIImageCodec(*v);
             msCodecList.push_back(codec);
             Codec::registerCodec(codec);
         }
@@ -107,7 +104,7 @@ namespace Ogre {
             i != msCodecList.end(); ++i)
         {
             Codec::unregisterCodec(*i);
-            OGRE_DELETE *i;
+            delete *i;
         }
         msCodecList.clear();
     }
@@ -137,7 +134,7 @@ namespace Ogre {
         {   
             format = Ogre::PF_A8B8G8R8;
             size_t tempDataSize = pImgData->width * pImgData->height * pImgData->depth * Ogre::PixelUtil::getNumElemBytes(format);
-            tempData = OGRE_ALLOC_T(unsigned char, tempDataSize, Ogre::MEMCATEGORY_GENERAL);
+            tempData = new unsigned char[tempDataSize];
             Ogre::PixelBox pbIn(pImgData->width, pImgData->height, pImgData->depth, pImgData->format, inputData);
             Ogre::PixelBox pbOut(pImgData->width, pImgData->height, pImgData->depth, format, tempData);
             PixelUtil::bulkPixelConversion(pbIn, pbOut);
@@ -153,7 +150,7 @@ namespace Ogre {
 
         if(tempData)
         {
-            OGRE_FREE(tempData, MEMCATEGORY_GENERAL);
+            delete [] tempData;
         }
 
         if (!data) {
@@ -194,7 +191,7 @@ namespace Ogre {
                 "STBIImageCodec::decode");
         }
 
-        SharedPtr<ImageData> imgData(OGRE_NEW ImageData());
+        SharedPtr<ImageData> imgData(new ImageData());
 
         imgData->depth = 1; // only 2D formats handled by this codec
         imgData->width = width;
@@ -226,7 +223,7 @@ namespace Ogre {
         
         size_t dstPitch = imgData->width * PixelUtil::getNumElemBytes(imgData->format);
         imgData->size = dstPitch * imgData->height;
-        MemoryDataStreamPtr output(OGRE_NEW MemoryDataStream(pixelData, imgData->size, true));
+        MemoryDataStreamPtr output(new MemoryDataStream(pixelData, imgData->size, true));
         
         DecodeResult ret;
         ret.first = output;

@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
@@ -66,7 +65,7 @@ namespace Ogre {
         If you wish to access stream data asynchronously then you should
         organise your own mutexes to avoid race conditions. 
     */
-    class _OgreExport DataStream : public StreamAlloc
+    class DataStream : public StreamAlloc
     {
     public:
         enum AccessMode
@@ -201,7 +200,7 @@ namespace Ogre {
 
     /** Common subclass of DataStream for handling data from chunks of memory.
     */
-    class _OgreExport MemoryDataStream : public DataStream
+    class MemoryDataStream : public DataStream
     {
     private:
         /// Pointer to the start of the data area
@@ -218,10 +217,7 @@ namespace Ogre {
         @param pMem Pointer to the existing memory
         @param size The size of the memory chunk in bytes
         @param freeOnClose If true, the memory associated will be destroyed
-            when the stream is closed. Note: it's important that if you set
-            this option to true, that you allocated the memory using OGRE_ALLOC_T
-            with a category of MEMCATEGORY_GENERAL to ensure the freeing of memory 
-            matches up.
+            when the stream is closed.
         @param readOnly Whether to make the stream on this memory read-only once created
         */
         MemoryDataStream(void* pMem, size_t size, bool freeOnClose = false, bool readOnly = false);
@@ -231,10 +227,7 @@ namespace Ogre {
         @param pMem Pointer to the existing memory
         @param size The size of the memory chunk in bytes
         @param freeOnClose If true, the memory associated will be destroyed
-            when the stream is destroyed. Note: it's important that if you set
-            this option to true, that you allocated the memory using OGRE_ALLOC_T
-            with a category of MEMCATEGORY_GENERAL ensure the freeing of memory 
-            matches up.
+            when the stream is destroyed.
         @param readOnly Whether to make the stream on this memory read-only once created
         */
         MemoryDataStream(const String& name, void* pMem, size_t size, 
@@ -368,7 +361,7 @@ namespace Ogre {
     /** Common subclass of DataStream for handling data from 
         std::basic_istream.
     */
-    class _OgreExport FileStreamDataStream : public DataStream
+    class FileStreamDataStream : public DataStream
     {
     private:
         /// Reference to source stream (read)
@@ -426,9 +419,7 @@ namespace Ogre {
         @param s Pointer to source stream
         @param size Size of the stream contents in bytes
         @param freeOnClose Whether to delete the underlying stream on 
-            destruction of this class. If you specify 'true' for this you
-            must ensure that the stream was allocated using OGRE_NEW_T with 
-            MEMCATEGRORY_GENERAL.
+            destruction of this class.
         */
         FileStreamDataStream(const String& name, 
             std::ifstream* s, 
@@ -445,9 +436,7 @@ namespace Ogre {
         @param s Pointer to source stream
         @param size Size of the stream contents in bytes
         @param freeOnClose Whether to delete the underlying stream on 
-        destruction of this class. If you specify 'true' for this you
-        must ensure that the stream was allocated using OGRE_NEW_T with 
-        MEMCATEGRORY_GENERAL.
+        destruction of this class.
         */
         FileStreamDataStream(const String& name, 
             std::fstream* s, 
@@ -500,7 +489,7 @@ namespace Ogre {
         and libraries still wedded to the old FILE handle access, this stream
         wrapper provides some backwards compatibility.
     */
-    class _OgreExport FileHandleDataStream : public DataStream
+    class FileHandleDataStream : public DataStream
     {
     private:
         FILE* mFileHandle;

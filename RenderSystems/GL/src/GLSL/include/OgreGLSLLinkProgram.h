@@ -47,7 +47,7 @@ class GLUniformCache;
 
     */
 
-    class _OgreGLExport GLSLLinkProgram : public GLSLProgramCommon
+    class GLSLLinkProgram : public GLSLProgramCommon
     {
     private:
         GLUniformCache *mUniformCache;

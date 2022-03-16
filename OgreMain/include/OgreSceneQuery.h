@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreSphere.h"
 #include "OgreRay.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlaneBoundedVolume.h"
 #include "OgrePlatform.h"
@@ -81,7 +80,7 @@ class SceneManager;
         using the SceneManager interfaces for the type of query required, e.g.
         @ref SceneManager::createSphereQuery.
     */
-    class _OgreExport SceneQuery : public SceneMgtAlloc
+    class SceneQuery : public SceneMgtAlloc
     {
     public:
         /** This type can be used by collaborating applications & SceneManagers to 
@@ -196,7 +195,7 @@ class SceneManager;
         You should override this with your own subclass. Note that certain query
         classes may refine this listener interface.
     */
-    class _OgreExport SceneQueryListener
+    class SceneQueryListener
     {
     public:
         virtual ~SceneQueryListener() { }
@@ -218,7 +217,7 @@ class SceneManager;
     typedef std::list<MovableObject*> SceneQueryResultMovableList;
     typedef std::list<SceneQuery::WorldFragment*> SceneQueryResultWorldFragmentList;
     /** Holds the results of a scene query. */
-    struct _OgreExport SceneQueryResult : public SceneMgtAlloc
+    struct SceneQueryResult : public SceneMgtAlloc
     {
         /// List of movable objects in the query (entities, particle systems etc)
         SceneQueryResultMovableList movables;
@@ -232,7 +231,7 @@ class SceneManager;
         a set of individual results in a region. See the SceneQuery class for abstract
         information, and subclasses for the detail of each query type.
     */
-    class _OgreExport RegionSceneQuery
+    class RegionSceneQuery
         : public SceneQuery, public SceneQueryListener
     {
         SceneQueryResult* mLastResult;
@@ -278,7 +277,7 @@ class SceneManager;
     };
 
     /** Specialises the SceneQuery class for querying within an axis aligned box. */
-    class _OgreExport AxisAlignedBoxSceneQuery : public RegionSceneQuery
+    class AxisAlignedBoxSceneQuery : public RegionSceneQuery
     {
     protected:
         AxisAlignedBox mAABB;
@@ -295,7 +294,7 @@ class SceneManager;
     };
 
     /** Specialises the SceneQuery class for querying within a sphere. */
-    class _OgreExport SphereSceneQuery : public RegionSceneQuery
+    class SphereSceneQuery : public RegionSceneQuery
     {
     protected:
         Sphere mSphere;
@@ -312,7 +311,7 @@ class SceneManager;
 
     /** Specialises the SceneQuery class for querying within a plane-bounded volume. 
     */
-    class _OgreExport PlaneBoundedVolumeListSceneQuery : public RegionSceneQuery
+    class PlaneBoundedVolumeListSceneQuery : public RegionSceneQuery
     {
     protected:
         PlaneBoundedVolumeList mVolumes;
@@ -332,7 +331,7 @@ class SceneManager;
         Because the RaySceneQuery returns results in an extra bit of information, namely
         distance, the listener interface must be customised from the standard SceneQueryListener.
     */
-    class _OgreExport RaySceneQueryListener 
+    class RaySceneQueryListener 
     {
     public:
         virtual ~RaySceneQueryListener() { }
@@ -355,7 +354,7 @@ class SceneManager;
     };
       
     /** This struct allows a single comparison of result data no matter what the type */
-    struct _OgreExport RaySceneQueryResultEntry
+    struct RaySceneQueryResultEntry
     {
         /// Distance along the ray
         Real distance;
@@ -373,7 +372,7 @@ class SceneManager;
     typedef std::vector<RaySceneQueryResultEntry> RaySceneQueryResult;
 
     /** Specialises the SceneQuery class for querying along a ray. */
-    class _OgreExport RaySceneQuery : public SceneQuery, public RaySceneQueryListener
+    class RaySceneQuery : public SceneQuery, public RaySceneQueryListener
     {
     protected:
         Ray mRay;
@@ -459,7 +458,7 @@ class SceneManager;
         Because the IntersectionSceneQuery returns results in pairs, rather than singularly,
         the listener interface must be customised from the standard SceneQueryListener.
     */
-    class _OgreExport IntersectionSceneQueryListener 
+    class IntersectionSceneQueryListener 
     {
     public:
         virtual ~IntersectionSceneQueryListener() { }
@@ -491,7 +490,7 @@ class SceneManager;
     typedef std::list<SceneQueryMovableObjectPair> SceneQueryMovableIntersectionList;
     typedef std::list<SceneQueryMovableObjectWorldFragmentPair> SceneQueryMovableWorldFragmentIntersectionList;
     /** Holds the results of an intersection scene query (pair values). */
-    struct _OgreExport IntersectionSceneQueryResult : public SceneMgtAlloc
+    struct IntersectionSceneQueryResult : public SceneMgtAlloc
     {
         /// List of movable / movable intersections (entities, particle systems etc)
         SceneQueryMovableIntersectionList movables2movables;
@@ -510,7 +509,7 @@ class SceneManager;
         this slightly different focus, the return types and listener interface are
         different for this class.
     */
-    class _OgreExport IntersectionSceneQuery
+    class IntersectionSceneQuery
         : public SceneQuery, public IntersectionSceneQueryListener 
     {
         IntersectionSceneQueryResult* mLastResult;

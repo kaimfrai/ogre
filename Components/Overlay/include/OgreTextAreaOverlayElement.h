@@ -33,8 +33,6 @@ THE SOFTWARE
 #include "OgreRenderOperation.h"
 #include "OgreFont.h"
 #include "OgreColourValue.h"
-#include "OgreExports.h"
-#include "OgreOverlayPrerequisites.h"
 #include "OgrePrerequisites.h"
 
 namespace Ogre
@@ -47,7 +45,7 @@ namespace Ogre
     */
     /** This class implements an overlay element which contains simple unformatted text.
     */
-    class _OgreOverlayExport TextAreaOverlayElement : public OverlayElement
+    class TextAreaOverlayElement : public OverlayElement
     {
     public:
         enum Alignment
@@ -78,8 +76,6 @@ namespace Ogre
         Real getSpaceWidth() const;
 
         void setFontName( const String& font, const String& group = DEFAULT_RESOURCE_GROUP );
-        /// @deprecated use getFont()
-        OGRE_DEPRECATED const String& getFontName() const;
 
         const FontPtr& getFont() const {
             return mFont;

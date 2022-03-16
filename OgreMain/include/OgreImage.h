@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgrePixelFormat.h"
 #include "OgreColourValue.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
@@ -65,7 +64,7 @@ namespace Ogre {
             when extra processing needs to be done on an image before it is
             loaded or when you want to blit to an existing texture.
     */
-    class _OgreExport Image : public ImageAlloc
+    class Image : public ImageAlloc
     {
     friend class ImageCodec;
     public:
@@ -174,10 +173,7 @@ namespace Ogre {
                 Pixel Format
             @param autoDelete
                 If memory associated with this buffer is to be destroyed
-                with the Image object. Note: it's important that if you set
-                this option to true, that you allocated the memory using OGRE_ALLOC_T
-                with a category of MEMCATEGORY_GENERAL to ensure the freeing of memory 
-                matches up.
+                with the Image object.
             @param numFaces
                 The number of faces the image data has inside (6 for cubemaps, 1 otherwise)
             @param numMipMaps

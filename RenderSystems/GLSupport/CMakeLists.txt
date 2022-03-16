@@ -85,7 +85,6 @@ elseif (UNIX)
 endif ()
 
 file(GLOB GLSUPPORT_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
-set(GLSUPPORT_HEADERS ${GLSUPPORT_HEADERS} ${PROJECT_BINARY_DIR}/include/OgreGLSupportPrerequisites.h PARENT_SCOPE)
 
 file(GLOB GLSL_SOURCES src/GLSL/*.cpp)
 
@@ -111,9 +110,6 @@ target_include_directories(OgreGLSupport PUBLIC
     PRIVATE "$<BUILD_INTERFACE:${NATIVE_INCLUDES}>")
 
 set_property(TARGET OgreGLSupport PROPERTY POSITION_INDEPENDENT_CODE ON)
-generate_export_header(OgreGLSupport 
-    EXPORT_MACRO_NAME _OgreGLExport
-    EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/include/OgreGLSupportPrerequisites.h)
 
 if(OGRE_STATIC)
   ogre_config_lib(OgreGLSupport TRUE)

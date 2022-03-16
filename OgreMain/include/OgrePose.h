@@ -34,7 +34,7 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
+#include "OgreHardwareVertexBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreSharedPtr.h"
@@ -61,7 +61,7 @@ class VertexData;
         Pose instances can be referred to by keyframes in VertexAnimationTrack in
         order to animate based on blending poses together.
     */
-    class _OgreExport Pose : public AnimationAlloc
+    class Pose : public AnimationAlloc
     {
     public:
         /** Constructor
@@ -108,17 +108,9 @@ class VertexData;
         /** Clear all vertices. */
         void clearVertices(void);
 
-        /// @deprecated use getVertexOffsets
-        OGRE_DEPRECATED ConstVertexOffsetIterator getVertexOffsetIterator(void) const;
-        /// @deprecated use getVertexOffsets
-        OGRE_DEPRECATED VertexOffsetIterator getVertexOffsetIterator(void);
         /** Gets a const reference to the vertex offsets. */
         const VertexOffsetMap& getVertexOffsets(void) const { return mVertexOffsetMap; }
 
-        /// @deprecated use getNormals
-        OGRE_DEPRECATED ConstNormalsIterator getNormalsIterator(void) const;
-        /// @deprecated use getNormals
-        OGRE_DEPRECATED NormalsIterator getNormalsIterator(void);
         /** Gets a const reference to the vertex normals */
         const NormalsMap& getNormals(void) const { return mNormalsMap; }
 

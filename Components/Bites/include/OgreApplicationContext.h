@@ -28,8 +28,6 @@
 #ifndef __ApplicationContext_H__
 #define __ApplicationContext_H__
 
-#include "OgreBitesPrerequisites.h"
-#include "OgreBuildSettings.h"
 #include "OgreApplicationContextBase.h"
 
 #include "OgreInput.h"
@@ -42,7 +40,7 @@ namespace OgreBites
     /** \addtogroup Bites
     *  @{
     */
-    class _OgreBitesExport ApplicationContextSDL : public ApplicationContextBase
+    class ApplicationContextSDL : public ApplicationContextBase
     {
     protected:
         void _destroyWindow(const NativeWindowPair& win);

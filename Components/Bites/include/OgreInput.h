@@ -6,7 +6,6 @@
 #ifndef SAMPLES_COMMON_INCLUDE_INPUT_H_
 #define SAMPLES_COMMON_INCLUDE_INPUT_H_
 
-#include "OgreBitesPrerequisites.h"
 #include <vector>
 
 namespace Ogre {
@@ -170,7 +169,7 @@ the return values of the callbacks are ignored by ApplicationContext
 however they can be used to control event propagation in a hierarchy.
 The convention is to return true if the event was handled and false if it should be further propagated.
 */
-struct _OgreBitesExport InputListener {
+struct InputListener {
     virtual ~InputListener() {}
     virtual void frameRendered(const Ogre::FrameEvent& evt) { }
     virtual bool keyPressed(const KeyboardEvent& evt) { return false;}
@@ -193,7 +192,7 @@ struct _OgreBitesExport InputListener {
  *
  * input events are propagated front to back until a listener returns true
  */
-class _OgreBitesExport InputListenerChain : public InputListener
+class InputListenerChain : public InputListener
 {
 protected:
     std::vector<InputListener*> mListenerChain;

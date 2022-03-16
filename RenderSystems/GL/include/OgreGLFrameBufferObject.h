@@ -38,7 +38,7 @@ namespace Ogre {
     
     /** Frame Buffer Object abstraction.
     */
-    class _OgreGLExport GLFrameBufferObject : public GLFrameBufferObjectCommon
+    class GLFrameBufferObject : public GLFrameBufferObjectCommon
     {
     public:
         GLFrameBufferObject(GLFBOManager *manager, uint fsaa);

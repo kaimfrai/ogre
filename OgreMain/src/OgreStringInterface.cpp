@@ -30,14 +30,17 @@ THE SOFTWARE.
 #include <type_traits>
 #include <utility>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
-#include "Threading/OgreThreadHeaders.h"
+#include "OgreStableHeaders.h"
 #include "OgreCommon.h"
 #include "OgrePrerequisites.h"
 #include "OgreStringInterface.h"
 
 namespace Ogre {
-    OGRE_STATIC_MUTEX( msDictionaryMutex );
     /// Dictionary of parameters
     static ParamDictionaryMap msDictionary;
 
@@ -78,8 +81,6 @@ namespace Ogre {
 
     bool StringInterface::createParamDictionary(const String& className)
     {
-        OGRE_LOCK_MUTEX( msDictionaryMutex );
-
         ParamDictionaryMap::iterator it = msDictionary.find(className);
 
         if ( it == msDictionary.end() )
@@ -173,8 +174,6 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void StringInterface::cleanupDictionary ()
     {
-            OGRE_LOCK_MUTEX( msDictionaryMutex );
-
         msDictionary.clear();
     }
 }

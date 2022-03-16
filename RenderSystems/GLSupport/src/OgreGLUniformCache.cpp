@@ -32,27 +32,10 @@ namespace Ogre {
 
     void GLUniformCache::clearCache()
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        mUniformValueMap.clear();
-#endif
     }
 
     bool GLUniformCache::updateUniform(int location, const void *value, int length)
     {
-#ifdef OGRE_ENABLE_STATE_CACHE
-        uint32 current = mUniformValueMap[location];
-        uint32 hash = Ogre::FastHash((const char *)value, length);
-        // First check if the uniform name is in the map. If not, this is new so insert it into the map.
-        if (!current || (current != hash))
-        {
-            // Haven't cached this state yet or the value has changed
-            mUniformValueMap[location] = hash;
-            return true;
-        }
-
-        return false;
-#else
         return true;
-#endif
     }
 }

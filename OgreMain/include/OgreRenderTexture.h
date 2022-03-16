@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreRenderTarget.h"
-#include "OgreExports.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 
@@ -53,7 +52,7 @@ namespace Ogre
         RenderTargets rendering to different mipmaps, faces (for cubemaps) or slices (for 3D textures)
         of the same Texture.
     */
-    class _OgreExport RenderTexture: public RenderTarget
+    class RenderTexture: public RenderTarget
     {
     public:
         RenderTexture(HardwarePixelBuffer *buffer, uint32 zoffset);
@@ -75,7 +74,7 @@ namespace Ogre
         - All bound surfaces have the same bit depth
         - Target 0 is bound
     */
-    class _OgreExport MultiRenderTarget: public RenderTarget
+    class MultiRenderTarget: public RenderTarget
     {
     public:
         MultiRenderTarget(const String &name);

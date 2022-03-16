@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <list>
 #include <set>
 
-#include "OgreGLSupportPrerequisites.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderWindow.h"
 #include "OgrePixelFormat.h"
@@ -40,7 +39,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRenderTarget.h"
-#include "Threading/OgreThreadDefines.h"
 
 namespace Ogre {
     class GLContext;
@@ -51,7 +49,7 @@ namespace Ogre {
     class Viewport;
     struct Box;
 
-    class _OgreGLExport GLRenderSystemCommon : public RenderSystem
+    class GLRenderSystemCommon : public RenderSystem
     {
     protected:
         /* The main GL context - main thread only */
@@ -80,7 +78,6 @@ namespace Ogre {
         typedef std::list<GLContext*> GLContextList;
         /// List of background thread contexts
         GLContextList mBackgroundContextList;
-        OGRE_MUTEX(mThreadInitMutex);
 
         /** One time initialization for the RenderState of a context. Things that
             only need to be set once, like the LightingModel can be defined here.

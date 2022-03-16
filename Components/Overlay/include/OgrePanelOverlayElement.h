@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgreOverlayContainer.h"
 #include "OgreRenderOperation.h"
 #include "OgreConfig.h"
-#include "OgreOverlayPrerequisites.h"
 #include "OgrePrerequisites.h"
 
 namespace Ogre {
@@ -61,7 +60,7 @@ class RenderQueue;
         layers, scrolling / animated textures etc. For multiple texture layers, you have to set 
         the tiling level for each layer.
     */
-    class _OgreOverlayExport PanelOverlayElement : public OverlayContainer
+    class PanelOverlayElement : public OverlayContainer
     {
     public:
         /** Constructor. */

@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"
@@ -53,7 +52,7 @@ class VertexDeclaration;
             subdivide it into a patch mesh. Currently only Bezier curves are supported for defining
             the surface, but other techniques such as NURBS would follow the same basic approach.
     */
-    class _OgreExport PatchSurface : public PatchAlloc
+    class PatchSurface : public PatchAlloc
     {
     public:
         PatchSurface();

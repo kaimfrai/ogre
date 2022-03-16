@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreGpuProgram.h"
 #include "OgreSingleton.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreResource.h"
@@ -57,7 +56,7 @@ namespace Ogre {
     */
 
     /** Interface definition for factories of GpuProgram. */
-    class _OgreExport GpuProgramFactory : public FactoryAlloc
+    class GpuProgramFactory : public FactoryAlloc
     {
     public:
         virtual ~GpuProgramFactory() {}
@@ -77,7 +76,7 @@ namespace Ogre {
         factories and as such the engine can be extended to accept virtually any kind of
         program provided a plugin is written.
     */
-    class _OgreExport GpuProgramManager : public ResourceManager, public Singleton<GpuProgramManager>
+    class GpuProgramManager : public ResourceManager, public Singleton<GpuProgramManager>
     {
         // silence warnings
         using ResourceManager::load;
@@ -120,13 +119,6 @@ namespace Ogre {
         /// Get a resource by name
         /// @see GpuProgramManager::getResourceByName
         GpuProgramPtr getByName(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT) const;
-
-        /// @deprecated preferHighLevelPrograms has no effect
-        OGRE_DEPRECATED GpuProgramPtr getByName(const String& name, const String& group,
-                                                bool preferHighLevelPrograms) const
-        {
-            return getByName(name, group);
-        }
 
         /** Loads a GPU program from a file
         @remarks

@@ -36,7 +36,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreMath.h"
-#include "OgreExports.h"
 #include "OgreQuaternion.h"
 
 namespace Ogre {
@@ -52,7 +51,7 @@ class Affine3;
         This implementation may note be appropriate as a general implementation, but is intended for use with
         dual quaternion skinning.
     */
-    class _OgreExport DualQuaternion
+    class DualQuaternion
     {
     public:
         /// Default constructor, initializes to identity rotation (aka 0°), and zero translation (0,0,0)
@@ -177,7 +176,7 @@ class Affine3;
         Function for writing to a stream. Outputs "DualQuaternion(w, x, y, z, dw, dx, dy, dz)" with w, x, y, z, dw, dx, dy, dz
         being the member values of the dual quaternion.
         */
-        inline _OgreExport friend std::ostream& operator <<
+        inline friend std::ostream& operator <<
         ( std::ostream& o, const DualQuaternion& q )
         {
             o << "DualQuaternion(" << q.w << ", " << q.x << ", " << q.y << ", " << q.z << ", " << q.dw << ", " << q.dx << ", " << q.dy << ", " << q.dz << ")";

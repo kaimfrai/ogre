@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef _HardwareOcclusionQuery__
 #define _HardwareOcclusionQuery__
 
-#include "OgreExports.h"
+#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
@@ -48,7 +48,7 @@ namespace Ogre {
   * @author Lee Sandberg
   * Updated on 13/8/2005 by Tuan Kuranes email: tuan.kuranes@free.fr
   */
-    class _OgreExport HardwareOcclusionQuery : public RenderSysAlloc
+    class HardwareOcclusionQuery : public RenderSysAlloc
 {
 //----------------------------------------------------------------------
 // Public methods

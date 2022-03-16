@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgreViewport.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreBuildSettings.h"
 #include "OgreCamera.h"
 #include "OgreCommon.h"
 #include "OgreFrustum.h"
@@ -170,7 +169,7 @@ class Sphere;
     //-----------------------------------------------------------------------
     void Camera::_renderScene(Viewport *vp)
     {
-        OgreProfileBeginGPUEvent(getName());
+        Ogre::Profiler::getSingleton().beginGPUEvent(getName());
 
         //update the pixel display ratio
         if (mProjType == Ogre::PT_PERSPECTIVE)
@@ -200,7 +199,7 @@ class Sphere;
         {
             (*i)->cameraPostRenderScene(this);
         }
-        OgreProfileEndGPUEvent(getName());
+        Ogre::Profiler::getSingleton().endGPUEvent(getName());
     }
     //---------------------------------------------------------------------
     void Camera::addListener(Listener* l)

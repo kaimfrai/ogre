@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgreRenderQueue.h"
 #include "OgreCompositionTechnique.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreSharedPtr.h"
@@ -66,7 +65,7 @@ class SceneManager;
     /** An instance of a Compositor object for one Viewport. It is part of the CompositorChain
         for a Viewport.
     */
-    class _OgreExport CompositorInstance : public CompositorInstAlloc
+    class CompositorInstance : public CompositorInstAlloc
     {
     public:
         CompositorInstance(CompositionTechnique *technique, CompositorChain *chain);
@@ -74,7 +73,7 @@ class SceneManager;
         /** Provides an interface to "listen in" to to render system operations executed by this 
             CompositorInstance.
         */
-        class _OgreExport Listener
+        class Listener
         {
         public:
             virtual ~Listener();
@@ -119,14 +118,13 @@ class SceneManager;
             between render queues like rendering a quad, clearing the frame buffer or 
             setting stencil state.
         */
-        class _OgreExport RenderSystemOperation : public CompositorInstAlloc
+        class RenderSystemOperation : public CompositorInstAlloc
         {
         public:
             virtual ~RenderSystemOperation();
             /// Set state to SceneManager and RenderSystem
             virtual void execute(SceneManager *sm, RenderSystem *rs) = 0;
         };
-        typedef std::map<int, MaterialPtr> OGRE_DEPRECATED QuadMaterialMap;
         typedef std::pair<int, RenderSystemOperation*> RenderSystemOpPair;
         typedef std::vector<RenderSystemOpPair> RenderSystemOpPairs;
         /** Operation setup for a RenderTarget (collected).

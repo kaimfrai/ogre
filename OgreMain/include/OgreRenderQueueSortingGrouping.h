@@ -37,7 +37,6 @@ THE SOFTWARE.
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgrePass.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -79,7 +78,7 @@ namespace Ogre {
         since internal organisation of the collection depends on the 
         sorting method in use.
     */
-    class _OgreExport QueuedRenderableVisitor
+    class QueuedRenderableVisitor
     {
     public:
         QueuedRenderableVisitor() {}
@@ -111,7 +110,7 @@ namespace Ogre {
         causes a visit call at the Pass level, and a call for each
         Renderable underneath.
     */
-    class _OgreExport QueuedRenderableCollection : public RenderQueueAlloc
+    class QueuedRenderableCollection : public RenderQueueAlloc
     {
     public:
         /** Organisation modes required for this collection.
@@ -249,7 +248,7 @@ namespace Ogre {
         a class implementing QueuedRenderableVisitor.
     
     */
-    class _OgreExport RenderPriorityGroup : public RenderQueueAlloc
+    class RenderPriorityGroup : public RenderQueueAlloc
     {
     private:
 
@@ -391,7 +390,7 @@ namespace Ogre {
         which are the groupings of renderables by priority for fine control
         of ordering (not required for most instances).
     */
-    class _OgreExport RenderQueueGroup : public RenderQueueAlloc
+    class RenderQueueGroup : public RenderQueueAlloc
     {
     public:
         typedef std::map<ushort, RenderPriorityGroup*, std::less<ushort> > PriorityMap;
@@ -426,7 +425,7 @@ namespace Ogre {
             PriorityMap::iterator i;
             for (i = mPriorityGroups.begin(); i != mPriorityGroups.end(); ++i)
             {
-                OGRE_DELETE i->second;
+                delete i->second;
             }
         }
 
@@ -441,7 +440,7 @@ namespace Ogre {
             if (i == mPriorityGroups.end())
             {
                 // Missing, create
-                pPriorityGrp = OGRE_NEW RenderPriorityGroup(this, 
+                pPriorityGrp = new RenderPriorityGroup(this, 
                     mSplitPassesByLightingType,
                     mSplitNoShadowPasses, 
                     mShadowCastersNotReceivers);
@@ -477,7 +476,7 @@ namespace Ogre {
             for (i = mPriorityGroups.begin(); i != iend; ++i)
             {
                 if (destroy)
-                    OGRE_DELETE i->second;
+                    delete i->second;
                 else
                     i->second->clear();
             }
@@ -613,7 +612,7 @@ namespace Ogre {
                 if (i == mPriorityGroups.end())
                 {
                     // Missing, create
-                    pDstPriorityGrp = OGRE_NEW RenderPriorityGroup(this, 
+                    pDstPriorityGrp = new RenderPriorityGroup(this, 
                         mSplitPassesByLightingType,
                         mSplitNoShadowPasses, 
                         mShadowCastersNotReceivers);

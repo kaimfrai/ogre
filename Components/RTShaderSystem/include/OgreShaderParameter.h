@@ -53,7 +53,7 @@ namespace RTShader {
 
 /** A class that represents a shader based program parameter.
 */
-class _OgreRTSSExport Parameter : public RTShaderSystemAlloc
+class Parameter : public RTShaderSystemAlloc
 {
 public:
     // Shader parameter semantic.
@@ -411,7 +411,7 @@ typedef ShaderParameterList::const_iterator     ShaderParameterConstIterator;
 
 /** Uniform parameter class. Allow fast access to GPU parameter updates.
 */
-class _OgreRTSSExport UniformParameter : public Parameter
+class UniformParameter : public Parameter
 {
 public:
 
@@ -670,7 +670,7 @@ protected:
 
 /** Helper utility class that creates common parameters.
 */
-class _OgreRTSSExport ParameterFactory
+class ParameterFactory
 {
 
     // Interface.

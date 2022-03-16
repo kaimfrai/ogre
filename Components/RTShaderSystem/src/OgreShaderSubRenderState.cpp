@@ -92,7 +92,7 @@ void SubRenderStateFactory::destroyInstance(SubRenderState* subRenderState)
 
     if (it != mSubRenderStateList.end())
     {
-        OGRE_DELETE *it;
+        delete *it;
         mSubRenderStateList.erase(it);
     }   
 }
@@ -104,7 +104,7 @@ void SubRenderStateFactory::destroyAllInstances()
 
     for (it = mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
     {       
-        OGRE_DELETE *it;            
+        delete *it;            
     }
     mSubRenderStateList.clear();
 
@@ -176,7 +176,7 @@ SubRenderStateAccessorPtr SubRenderState::getAccessor()
 {
     if (!mThisAccessor)
     {
-        mThisAccessor.reset(OGRE_NEW SubRenderStateAccessor(this));
+        mThisAccessor.reset(new SubRenderStateAccessor(this));
     }
 
     return mThisAccessor;
@@ -187,7 +187,7 @@ SubRenderStateAccessorPtr SubRenderState::getAccessor() const
 {
     if (!mThisAccessor)
     {
-        mThisAccessor.reset(OGRE_NEW SubRenderStateAccessor(this));
+        mThisAccessor.reset(new SubRenderStateAccessor(this));
     }
 
     return mThisAccessor;

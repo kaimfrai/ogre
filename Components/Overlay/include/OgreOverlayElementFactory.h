@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef __OverlayElementFactory_H__
 #define __OverlayElementFactory_H__
 
-#include "OgreOverlayPrerequisites.h"
 #include "OgreOverlayElement.h"
 #include "OgrePanelOverlayElement.h"
 #include "OgreBorderPanelOverlayElement.h"
@@ -54,7 +53,7 @@ namespace Ogre {
         Each OverlayElementFactory creates a single type of OverlayElement, 
         identified by a 'type name' which must be unique.
     */
-    class _OgreOverlayExport OverlayElementFactory : public OverlayAlloc
+    class OverlayElementFactory : public OverlayAlloc
     {
     public:
         /** Destroy the overlay element factory */

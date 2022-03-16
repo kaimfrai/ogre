@@ -46,7 +46,7 @@ namespace Ogre {
             The users implementing subclasses of ImageCodec are required to return
             a valid pointer to a ImageData class from the decode(...) function.
     */
-    class _OgreExport ImageCodec : public Codec
+    class ImageCodec : public Codec
     {
     protected:
         static void flipEndian(void* pData, size_t size, size_t count)
@@ -68,7 +68,7 @@ namespace Ogre {
         virtual ~ImageCodec();
         /** Codec return class for images. Has information about the size and the
             pixel format of the image. */
-        class _OgrePrivate ImageData
+        class ImageData
         {
         public:
             ImageData():
@@ -89,14 +89,14 @@ namespace Ogre {
         typedef SharedPtr<ImageData> CodecDataPtr;
 
         /// @deprecated
-        OGRE_DEPRECATED virtual DataStreamPtr encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const { return encode(Any()); }
+        virtual DataStreamPtr encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const { return encode(Any()); }
         /// @deprecated
-        OGRE_DEPRECATED virtual void encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName, const CodecDataPtr& pData) const
+        virtual void encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName, const CodecDataPtr& pData) const
         { encodeToFile(Any(), ""); }
         /// Result of a decoding; both a decoded data stream and CodecData metadata
         typedef std::pair<MemoryDataStreamPtr, CodecDataPtr> DecodeResult;
         /// @deprecated
-        OGRE_DEPRECATED virtual DecodeResult decode(const DataStreamPtr& input) const
+        virtual DecodeResult decode(const DataStreamPtr& input) const
         {
             return DecodeResult();
         }

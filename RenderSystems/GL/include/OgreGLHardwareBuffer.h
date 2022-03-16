@@ -38,7 +38,7 @@ namespace Ogre {
 class GLRenderSystem;
 
     /// Specialisation of HardwareVertexBuffer for OpenGL
-    class _OgreGLExport GLHardwareVertexBuffer : public HardwareBuffer
+    class GLHardwareVertexBuffer : public HardwareBuffer
     {
     private:
         GLenum mTarget;

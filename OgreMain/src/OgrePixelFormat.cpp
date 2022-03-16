@@ -829,7 +829,7 @@ namespace Ogre {
         uint8 *basesrcptr = box.data
             + (box.left + box.top * box.rowPitch + box.front * box.slicePitch) * pixelSize;
         uint8 *basedstptr = basesrcptr + (box.bottom - box.top - 1) * rowPitchBytes;
-        uint8* tmpptr = (uint8*)OGRE_MALLOC_SIMD(copySize, MEMCATEGORY_GENERAL);
+        uint8* tmpptr = (uint8*)::Ogre::AlignedMemory::allocate(copySize);
         
         // swap rows
         const size_t halfRowCount = (box.bottom - box.top) >> 1;
@@ -850,7 +850,7 @@ namespace Ogre {
             basedstptr += slicePitchBytes;
         }
         
-        OGRE_FREE_SIMD(tmpptr, MEMCATEGORY_GENERAL);
+        ::Ogre::AlignedMemory::deallocate(tmpptr);
     }
 
     ColourValue PixelBox::getColourAt(size_t x, size_t y, size_t z) const

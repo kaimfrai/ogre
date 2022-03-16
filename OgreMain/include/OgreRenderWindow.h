@@ -29,7 +29,6 @@ THE SOFTWARE
 #include "OgrePrerequisites.h"
 #include "OgreRenderTarget.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 
@@ -62,7 +61,7 @@ namespace Ogre
         @version
             1.0
     */
-    class _OgreExport RenderWindow : public RenderTarget
+    class RenderWindow : public RenderTarget
     {
 
     public:

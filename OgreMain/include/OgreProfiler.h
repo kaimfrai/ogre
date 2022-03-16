@@ -49,35 +49,11 @@ Ogre-dependent is in the visualization/logging routines and the use of the Timer
 
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
-#include "OgreBuildSettings.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
-#if OGRE_PROFILING == 1
-#   define OgreProfile( a ) Ogre::Profile _OgreProfileInstance( (a) )
-#   define OgreProfileBegin( a ) Ogre::Profiler::getSingleton().beginProfile( (a) )
-#   define OgreProfileEnd( a ) Ogre::Profiler::getSingleton().endProfile( (a) )
-#   define OgreProfileGroup( a, g ) Ogre::Profile OGRE_TOKEN_PASTE(_OgreProfileInstance, __LINE__) ( (a), (g) )
-#   define OgreProfileBeginGroup( a, g ) Ogre::Profiler::getSingleton().beginProfile( (a), (g) )
-#   define OgreProfileEndGroup( a, g ) Ogre::Profiler::getSingleton().endProfile( (a), (g) )
-#   define OgreProfileBeginGPUEvent( g ) Ogre::Profiler::getSingleton().beginGPUEvent(g)
-#   define OgreProfileEndGPUEvent( g ) Ogre::Profiler::getSingleton().endGPUEvent(g)
-#   define OgreProfileMarkGPUEvent( e ) Ogre::Profiler::getSingleton().markGPUEvent(e)
-#else
-#   define OgreProfile( a )
-#   define OgreProfileBegin( a )
-#   define OgreProfileEnd( a )
-#   define OgreProfileGroup( a, g ) 
-#   define OgreProfileBeginGroup( a, g ) 
-#   define OgreProfileEndGroup( a, g ) 
-#   define OgreProfileBeginGPUEvent( e )
-#   define OgreProfileEndGPUEvent( e )
-#   define OgreProfileMarkGPUEvent( e )
-#endif
-
 namespace Ogre {
-class Timer;
+    class Timer;
 
     /** \addtogroup Core
     *  @{
@@ -154,7 +130,7 @@ class Timer;
     };
 
     /// Represents an individual profile call
-    class _OgreExport ProfileInstance : public ProfilerAlloc
+    class ProfileInstance : public ProfilerAlloc
     {
         friend class Profiler;
     public:
@@ -209,7 +185,7 @@ class Timer;
         them you can also create a custom listener which sends the profile
         informtaion over a network.
     */
-    class _OgreExport ProfileSessionListener
+    class ProfileSessionListener
     {
     public:
         virtual ~ProfileSessionListener() {}
@@ -241,7 +217,7 @@ class Timer;
         @todo resolve artificial cap on number of profiles displayed
         @todo fix display ordering of profiles not called every frame
     */
-    class _OgreExport Profiler : 
+    class Profiler :
         public Singleton<Profiler>,
         public ProfilerAlloc
     {

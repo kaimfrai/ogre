@@ -33,13 +33,13 @@ THE SOFTWARE.
 #include <sys/types.h>
 #include <chrono>
 
-#include "OgreExports.h"
+#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre
 {
     /** Timer class */
-    class _OgreExport Timer : public TimerAlloc
+    class Timer : public TimerAlloc
     {
     private:
         std::chrono::steady_clock::time_point start;

@@ -30,7 +30,6 @@ THE SOFTWARE.
 
 #include "OgreOptimisedUtil.h"
 #include "OgreEdgeListBuilder.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgreMatrix4.h"
 #include "OgrePrerequisites.h"
@@ -46,7 +45,7 @@ namespace Ogre {
     @note
         Don't use this class directly, use OptimisedUtil instead.
     */
-    class _OgrePrivate OptimisedUtilGeneral : public OptimisedUtil
+    class OptimisedUtilGeneral : public OptimisedUtil
     {
     public:
         /// @copydoc OptimisedUtil::softwareVertexSkinning

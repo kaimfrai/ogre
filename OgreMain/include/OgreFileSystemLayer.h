@@ -47,7 +47,7 @@ namespace Ogre
         output and for the user to overwrite the default Ogre config files,
         this class tries to create a folder inside the user's home directory.
       */
-    class _OgreExport FileSystemLayer : public FileSystemLayerAlloc
+    class FileSystemLayer : public FileSystemLayerAlloc
     {
     public:
         /** Creates a concrete platform-dependent implementation of FileSystemLayer.

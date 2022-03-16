@@ -47,7 +47,6 @@ THE SOFTWARE.
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
 #include "OgreConfig.h"
-#include "OgreExports.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -131,7 +130,7 @@ namespace Ogre
     2. the stencil test succeeds but the depth buffer check fails
     3. both depth buffer check and stencil test pass
     */
-    struct _OgreExport StencilState
+    struct StencilState
     {
         /// Comparison operator for the stencil test
         CompareFunction compareOp;
@@ -186,7 +185,7 @@ namespace Ogre
     @version
     1.0
     */
-    class _OgreExport RenderSystem : public RenderSysAlloc
+    class RenderSystem : public RenderSysAlloc
     {
     public:
         /** Default Constructor.
@@ -316,45 +315,6 @@ namespace Ogre
                                                                       FogMode fog)
         {
             return mFixedFunctionParams;
-        }
-
-        /// @deprecated migrate to getFixedFunctionParams ASAP. this is very slow now.
-        OGRE_DEPRECATED void _setProjectionMatrix(Matrix4 m);
-
-        /// @deprecated migrate to getFixedFunctionParams ASAP. this is very slow now.
-        OGRE_DEPRECATED void _setViewMatrix(const Matrix4& m)
-        {
-            if (!mFixedFunctionParams) return;
-            mFixedFunctionParams->setConstant(4, m);
-            applyFixedFunctionParams(mFixedFunctionParams, GPV_GLOBAL);
-        }
-
-        /// @deprecated migrate to getFixedFunctionParams ASAP. this is very slow now.
-        OGRE_DEPRECATED void _setWorldMatrix(const Matrix4& m)
-        {
-            if (!mFixedFunctionParams) return;
-            mFixedFunctionParams->setConstant(0, m);
-            applyFixedFunctionParams(mFixedFunctionParams, GPV_PER_OBJECT);
-        }
-
-        /// @deprecated migrate to getFixedFunctionParams ASAP. this is very slow now.
-        OGRE_DEPRECATED void _setFog(FogMode f)
-        {
-            if (mFixedFunctionParams)
-                getFixedFunctionParams(TVC_NONE, f);
-        }
-
-        /// @deprecated use setColourBlendState
-        OGRE_DEPRECATED void _setSceneBlending(SceneBlendFactor sourceFactor, SceneBlendFactor destFactor,
-                                               SceneBlendOperation op = SBO_ADD)
-        {
-            mCurrentBlend.sourceFactor = sourceFactor;
-            mCurrentBlend.destFactor = destFactor;
-            mCurrentBlend.sourceFactorAlpha = sourceFactor;
-            mCurrentBlend.destFactorAlpha = destFactor;
-            mCurrentBlend.operation = op;
-            mCurrentBlend.alphaOperation = op;
-            setColourBlendState(mCurrentBlend);
         }
 
         virtual void applyFixedFunctionParams(const GpuProgramParametersPtr& params, uint16 variabilityMask) {}
@@ -566,9 +526,6 @@ namespace Ogre
         virtual void _setTexture(size_t unit, bool enabled, 
             const TexturePtr &texPtr) = 0;
 
-        /// @deprecated obsolete
-        OGRE_DEPRECATED virtual void _setVertexTexture(size_t unit, const TexturePtr& tex);
-
         /**
         Sets the texture coordinate set to use for a texture unit.
 
@@ -601,16 +558,6 @@ namespace Ogre
         */
         virtual void _setTextureBlendMode(size_t unit, const LayerBlendModeEx& bm) {}
 
-        /// @deprecated use _setSampler
-        OGRE_DEPRECATED virtual void _setTextureUnitFiltering(size_t unit, FilterType ftype, FilterOptions filter) {}
-
-        /// @deprecated use _setSampler
-        OGRE_DEPRECATED virtual void _setTextureUnitFiltering(size_t unit, FilterOptions minFilter,
-            FilterOptions magFilter, FilterOptions mipFilter);
-
-        /// @deprecated use _setSampler
-        OGRE_DEPRECATED virtual void _setTextureAddressingMode(size_t unit, const Sampler::UVWAddressingMode& uvw) {}
-
         /** Sets the texture coordinate transformation matrix for a texture unit.
         @param unit Texture unit to affect
         @param xform The 4x4 matrix
@@ -620,21 +567,6 @@ namespace Ogre
 
         /// Sets the global blending factors for combining subsequent renders with the existing frame contents.
         virtual void setColourBlendState(const ColourBlendState& state) = 0;
-
-        /// @deprecated use setColourBlendState
-        OGRE_DEPRECATED void
-        _setSeparateSceneBlending(SceneBlendFactor sourceFactor, SceneBlendFactor destFactor,
-                                  SceneBlendFactor sourceFactorAlpha, SceneBlendFactor destFactorAlpha,
-                                  SceneBlendOperation op = SBO_ADD, SceneBlendOperation alphaOp = SBO_ADD)
-        {
-            mCurrentBlend.sourceFactor = sourceFactor;
-            mCurrentBlend.destFactor = destFactor;
-            mCurrentBlend.sourceFactorAlpha = sourceFactorAlpha;
-            mCurrentBlend.destFactorAlpha = destFactorAlpha;
-            mCurrentBlend.operation = op;
-            mCurrentBlend.alphaOperation = alphaOp;
-            setColourBlendState(mCurrentBlend);
-        }
 
         /** Sets the global alpha rejection approach for future renders.
         By default images are rendered regardless of texture alpha. This method lets you change that.
@@ -735,21 +667,6 @@ namespace Ogre
         */
         virtual void _setDepthBufferParams(bool depthTest = true, bool depthWrite = true, CompareFunction depthFunction = CMPF_LESS_EQUAL) = 0;
 
-        /// @deprecated use _setDepthBufferParams
-        OGRE_DEPRECATED virtual void _setDepthBufferCheckEnabled(bool enabled = true) {}
-        /// @deprecated use _setDepthBufferParams
-        OGRE_DEPRECATED virtual void _setDepthBufferWriteEnabled(bool enabled = true) {}
-        /// @deprecated use _setDepthBufferParams
-        OGRE_DEPRECATED virtual void _setDepthBufferFunction(CompareFunction func = CMPF_LESS_EQUAL) {}
-        /// @deprecated use setColourBlendState
-        OGRE_DEPRECATED void _setColourBufferWriteEnabled(bool red, bool green, bool blue, bool alpha)
-        {
-            mCurrentBlend.writeR = red;
-            mCurrentBlend.writeG = green;
-            mCurrentBlend.writeB = blue;
-            mCurrentBlend.writeA = alpha;
-            setColourBlendState(mCurrentBlend);
-        }
         /** Sets the depth bias, NB you should use the Material version of this. 
         @remarks
         When polygons are coplanar, you can get problems with 'depth fighting' where
@@ -790,14 +707,6 @@ namespace Ogre
         /** Reports the number of vertices passed to the renderer since the last _beginGeometryCount call. */
         virtual unsigned int _getVertexCount(void) const;
 
-        /// @deprecated use ColourValue::getAsBYTE()
-        OGRE_DEPRECATED static void convertColourValue(const ColourValue& colour, uint32* pDest)
-        {
-            *pDest = colour.getAsBYTE();
-        }
-        /// @deprecated assume VET_UBYTE4_NORM
-        OGRE_DEPRECATED static VertexElementType getColourVertexElementType(void) { return VET_UBYTE4_NORM; }
-
         /** Converts a uniform projection matrix to suitable for this render system.
         @remarks
         Because different APIs have different requirements (some incompatible) for the
@@ -822,15 +731,6 @@ namespace Ogre
         @see RenderQueue
         */
         virtual void setStencilState(const StencilState& state) = 0;
-
-        /// @deprecated use setStencilState
-        OGRE_DEPRECATED void setStencilCheckEnabled(bool enabled);
-        /// @deprecated use setStencilState
-        OGRE_DEPRECATED void setStencilBufferParams(CompareFunction func = CMPF_ALWAYS_PASS, uint32 refValue = 0,
-                                    uint32 compareMask = 0xFFFFFFFF, uint32 writeMask = 0xFFFFFFFF,
-                                    StencilOperation stencilFailOp = SOP_KEEP,
-                                    StencilOperation depthFailOp = SOP_KEEP,
-                                    StencilOperation passOp = SOP_KEEP, bool twoSidedOperation = false);
 
         /** Sets whether or not normals are to be automatically normalised.
         @remarks
@@ -947,12 +847,6 @@ namespace Ogre
         <i>pixels</i>.
         */
         virtual void setScissorTest(bool enabled, const Rect& rect = Rect()) = 0;
-        /// @deprecated
-        OGRE_DEPRECATED void setScissorTest(bool enabled, uint32 left, uint32 top = 0,
-                                            uint32 right = 800, uint32 bottom = 600)
-        {
-            setScissorTest(enabled, Rect(left, top, right, bottom));
-        }
 
         /** Clears one or more frame buffers on the active render target. 
         @param buffers Combination of one or more elements of FrameBufferType
@@ -1038,7 +932,7 @@ namespace Ogre
         can raise.
         @see RenderSystem::addListener
         */
-        class _OgreExport Listener
+        class Listener
         {
         public:
             Listener() {}
@@ -1130,9 +1024,6 @@ namespace Ogre
         @see RenderSystem::registerThread
         */
         virtual void unregisterThread() {}
-
-        /// @deprecated do not use
-        OGRE_DEPRECATED virtual unsigned int getDisplayMonitorCount() const { return 1; }
 
         /**
         * This marks the beginning of an event for GPU profiling.

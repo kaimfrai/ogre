@@ -174,7 +174,7 @@ namespace Ogre {
 	{
 		if (!msInstance)
 		{
-			msInstance = OGRE_NEW ASTCCodec();
+			msInstance = new ASTCCodec();
 			Codec::registerCodec(msInstance);
 		}
 
@@ -187,7 +187,7 @@ namespace Ogre {
 		if(msInstance)
 		{
 			Codec::unregisterCodec(msInstance);
-			OGRE_DELETE msInstance;
+			delete msInstance;
 			msInstance = 0;
 		}
 	}
@@ -217,7 +217,7 @@ namespace Ogre {
         int ysize = header.ysize[0] + 256 * header.ysize[1] + 65536 * header.ysize[2];
         int zsize = header.zsize[0] + 256 * header.zsize[1] + 65536 * header.zsize[2];
 
-        ImageData *imgData = OGRE_NEW ImageData();
+        ImageData *imgData = new ImageData();
         imgData->width = xsize;
         imgData->height = ysize;
         imgData->depth = zsize;
@@ -284,7 +284,7 @@ namespace Ogre {
                                              imgData->width, imgData->height, imgData->depth, imgData->format);
 
 		// Bind output buffer
-		MemoryDataStreamPtr output(OGRE_NEW MemoryDataStream(imgData->size));
+		MemoryDataStreamPtr output(new MemoryDataStream(imgData->size));
 
 		// Now deal with the data
 		uchar* destPtr = output->getPtr();

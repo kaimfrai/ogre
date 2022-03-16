@@ -32,7 +32,6 @@
 #include <string>
 #include <vector>
 
-#include "OgreBitesPrerequisites.h"
 #include "OgreOverlay.h"
 #include "OgreBorderPanelOverlayElement.h"
 #include "OgreTextAreaOverlayElement.h"
@@ -100,7 +99,7 @@ namespace OgreBites
     /**
     Listener class for responding to tray events.
     */
-    class _OgreBitesExport TrayListener
+    class TrayListener
     {
     public:
 
@@ -117,7 +116,7 @@ namespace OgreBites
     /**
     Abstract base class for all widgets.
     */
-    class _OgreBitesExport Widget
+    class Widget
     {
     public:
             
@@ -208,7 +207,7 @@ namespace OgreBites
     /**
     Basic button class.
     */
-    class _OgreBitesExport Button : public Widget
+    class Button : public Widget
     {
     public:
 
@@ -247,7 +246,7 @@ namespace OgreBites
     /**
     Scrollable text box widget.
     */
-    class _OgreBitesExport TextBox : public Widget
+    class TextBox : public Widget
     {
     public:
 
@@ -360,7 +359,7 @@ namespace OgreBites
     /**
     Basic selection menu widget.
     */
-    class _OgreBitesExport SelectMenu : public Widget
+    class SelectMenu : public Widget
     {
     public:
 
@@ -472,7 +471,7 @@ namespace OgreBites
     /**
     Basic label widget.
     */
-    class _OgreBitesExport Label : public Widget
+    class Label : public Widget
     {
     public:
 
@@ -505,7 +504,7 @@ namespace OgreBites
     /**
     Basic separator widget.
     */
-    class _OgreBitesExport Separator : public Widget
+    class Separator : public Widget
     {
     public:
 
@@ -525,7 +524,7 @@ namespace OgreBites
     /**
     Basic slider widget.
     */
-    class _OgreBitesExport Slider : public Widget
+    class Slider : public Widget
     {
     public:
 
@@ -605,7 +604,7 @@ namespace OgreBites
     /**
     Basic parameters panel widget.
     */
-    class _OgreBitesExport ParamsPanel : public Widget
+    class ParamsPanel : public Widget
     {
     public:
 
@@ -650,7 +649,7 @@ namespace OgreBites
     /**
     Basic check box widget.
     */
-    class _OgreBitesExport CheckBox : public Widget
+    class CheckBox : public Widget
     {
     public:
 
@@ -691,7 +690,7 @@ namespace OgreBites
     /**
     Custom, decorative widget created from a template.
     */
-    class _OgreBitesExport DecorWidget : public Widget
+    class DecorWidget : public Widget
     {
     public:
 
@@ -702,7 +701,7 @@ namespace OgreBites
     /**
     Basic progress bar widget.
     */
-    class _OgreBitesExport ProgressBar : public Widget
+    class ProgressBar : public Widget
     {
     public:
 
@@ -755,7 +754,7 @@ namespace OgreBites
     /**
     Main class to manage a cursor, backdrop, trays and widgets.
     */
-    class _OgreBitesExport TrayManager : public TrayListener, public Ogre::ResourceGroupListener, public InputListener
+    class TrayManager : public TrayListener, public Ogre::ResourceGroupListener, public InputListener
     {
     public:
 

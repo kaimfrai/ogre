@@ -32,17 +32,19 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <map>
 #include <string>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreScriptLoader.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreMovableObject.h"
 #include "OgreStringVector.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
 
@@ -85,7 +87,7 @@ class ParticleSystemRenderer;
         templates. Instances of particle systems using these templates can
         then be created easily through the SceneManager::createParticleSystem method.
     */
-    class _OgreExport ParticleSystemManager: 
+    class ParticleSystemManager: 
         public Singleton<ParticleSystemManager>, public ScriptLoader, public FXAlloc
     {
         friend class ParticleSystemFactory;
@@ -95,8 +97,6 @@ class ParticleSystemRenderer;
         typedef std::map<String, ParticleEmitterFactory*> ParticleEmitterFactoryMap;
         typedef std::map<String, ParticleSystemRendererFactory*> ParticleSystemRendererFactoryMap;
     private:
-        OGRE_AUTO_MUTEX;
-            
         /// Templates based on scripts
         ParticleTemplateMap mSystemTemplates;
         
@@ -349,7 +349,7 @@ class ParticleSystemRenderer;
     };
 
     /** Factory object for creating ParticleSystem instances */
-    class _OgreExport ParticleSystemFactory : public MovableObjectFactory
+    class ParticleSystemFactory : public MovableObjectFactory
     {
     private:
         MovableObject* createInstanceImpl(const String& name, const NameValuePairList* params);

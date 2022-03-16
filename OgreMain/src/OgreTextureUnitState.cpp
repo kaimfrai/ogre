@@ -315,11 +315,7 @@ class Frustum;
         mBindingType = bt;
 
     }
-    //-----------------------------------------------------------------------
-    TextureUnitState::BindingType TextureUnitState::getBindingType(void) const
-    {
-        return mBindingType;
-    }
+
     //-----------------------------------------------------------------------
     void TextureUnitState::setContentType(TextureUnitState::ContentType ct)
     {
@@ -391,11 +387,6 @@ class Frustum;
         {
             mParent->_dirtyHash();
         }
-    }
-
-    void TextureUnitState::setCubicTextureName(const String* const names, bool forUVW)
-    {
-        setLayerArrayNames(TEX_TYPE_CUBE_MAP, std::vector<String>(names, names + 6));
     }
 
     //-----------------------------------------------------------------------
@@ -540,10 +531,8 @@ class Frustum;
     void TextureUnitState::setIsAlpha(bool isAlpha)
     {
         OgreAssert(mFramePtrs[0], "frame must not be blank");
-        OGRE_IGNORE_DEPRECATED_BEGIN
         for(auto& frame : mFramePtrs)
             frame->setTreatLuminanceAsAlpha(isAlpha);
-        OGRE_IGNORE_DEPRECATED_END
     }
     float TextureUnitState::getGamma() const
     {

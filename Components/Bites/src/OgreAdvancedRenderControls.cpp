@@ -17,7 +17,6 @@
 #include "OgrePrerequisites.h"
 #include "OgreProfiler.h"
 #include "OgreQuaternion.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRenderTarget.h"

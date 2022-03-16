@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreGLSLLinkProgramManager.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreGLSLProgramCommon.h"
-#include "OgreBuildSettings.h"
 #include "OgreDataStream.h"
 #include "OgreGLSLShaderCommon.h"
 #include "OgreGLUniformCache.h"
@@ -361,13 +360,6 @@ namespace Ogre {
                         break;
 
                     } // end switch
-    #if OGRE_DEBUG_MODE
-                    GLenum glErr = glGetError();
-                    if(glErr != GL_NO_ERROR)
-                    {
-                        reportGLSLError( glErr, "GLSLLinkProgram::updateUniforms", "Error updating uniform", 0 );
-                    }
-    #endif
                 } // variability & mask
             } // fromProgType == currentUniform->mSourceProgType
   

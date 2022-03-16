@@ -52,7 +52,7 @@ namespace Ogre {
         a name which identifies them, examples might be 'point', 'cone', or 'box', and these can be 
         also be used from particle system scripts.
     */
-    class _OgreExport ParticleEmitterFactory : public FXAlloc
+    class ParticleEmitterFactory : public FXAlloc
     {
     protected:
         std::vector<ParticleEmitter*> mEmitters;

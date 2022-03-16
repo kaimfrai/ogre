@@ -30,7 +30,6 @@ THE SOFTWARE.
 
 #include "OgreBone.h"
 #include "OgreMatrix4.h"
-#include "OgreExports.h"
 
 namespace Ogre  {
 class Entity;
@@ -59,7 +58,7 @@ class Skeleton;
         skeleton which has this tag point. Use the Entity::attachMovableObjectToBone method to attach
         the objects, which creates a new TagPoint on demand.
     */
-    class _OgreExport TagPoint : public Bone
+    class TagPoint : public Bone
     {
 
     public:

@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgreSceneManagerEnumerator.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -107,7 +106,7 @@ struct SceneManagerMetaData;
             throughout the life of that object by using Root::getSingleton
             (as a reference) or Root::getSingletonPtr (as a pointer).
     */
-    class _OgreExport Root : public Singleton<Root>, public RootAlloc
+    class Root : public Singleton<Root>, public RootAlloc
     {
         // To allow update of active renderer if
         // RenderSystem::initialise is used directly
@@ -407,9 +406,6 @@ struct SceneManagerMetaData;
         /// @copydoc SceneManagerEnumerator::getMetaData()const
         const SceneManagerEnumerator::MetaDataList& getSceneManagerMetaData() const;
 
-        /// @copydoc SceneManagerEnumerator::getMetaDataIterator
-        OGRE_DEPRECATED SceneManagerEnumerator::MetaDataIterator getSceneManagerMetaDataIterator(void) const;
-
         /// create a default scene manager
         SceneManager* createSceneManager()
         {
@@ -420,11 +416,6 @@ struct SceneManagerMetaData;
         SceneManager* createSceneManager(const String& typeName, 
             const String& instanceName = BLANKSTRING);
 
-        /// @copydoc SceneManagerEnumerator::createSceneManager(SceneTypeMask, const String&)
-        OGRE_DEPRECATED SceneManager* createSceneManager(uint16 typeMask,
-            const String& instanceName = BLANKSTRING)
-        { return createSceneManager(DefaultSceneManagerFactory::FACTORY_TYPE_NAME, instanceName); }
-
         /// @copydoc SceneManagerEnumerator::destroySceneManager
         void destroySceneManager(SceneManager* sm);
 
@@ -433,8 +424,6 @@ struct SceneManagerMetaData;
 
         /// @copydoc SceneManagerEnumerator::hasSceneManager
         bool hasSceneManager(const String& instanceName) const;
-        /// @copydoc SceneManagerEnumerator::getSceneManagerIterator
-        OGRE_DEPRECATED SceneManagerEnumerator::SceneManagerIterator getSceneManagerIterator(void);
 
         /// @copydoc SceneManagerEnumerator::getSceneManagers
         const SceneManagerEnumerator::Instances& getSceneManagers(void) const;
@@ -596,9 +585,6 @@ struct SceneManagerMetaData;
         */      
         static DataStreamPtr openFileStream(const String& filename,
                 const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-
-        /// @deprecated use ColourValue::getAsBYTE()
-        OGRE_DEPRECATED static void convertColourValue(const ColourValue& colour, uint32* pDest) { *pDest = colour.getAsBYTE(); }
 
         /** Retrieves a pointer to the window that was created automatically
             @remarks
@@ -911,12 +897,6 @@ struct SceneManagerMetaData;
         {
             return mMovableObjectFactoryMap;
         }
-
-        /// @deprecated use getMovableObjectFactories
-        OGRE_DEPRECATED MovableObjectFactoryIterator getMovableObjectFactoryIterator(void) const;
-
-        /// @deprecated do not use
-        OGRE_DEPRECATED unsigned int getDisplayMonitorCount() const;
 
         /** Get the WorkQueue for processing background tasks.
             You are free to add new requests and handlers to this queue to

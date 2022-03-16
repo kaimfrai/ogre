@@ -31,8 +31,6 @@
 #include <assert.h>
 #include <string.h>
 
-#include "OgreBuildSettings.h"
-#include "OgreExports.h"
 #include "OgreSharedPtr.h"
 
 #include "OgrePrerequisites.h"
@@ -166,7 +164,7 @@ namespace Ogre
         Also note that this cannot be used as a read / write stream, only a read-only
         or write-only stream.
     */
-    class _OgreExport DeflateStream : public DataStream
+    class DeflateStream : public DataStream
     {
     public:
         /** Requested stream type. All are essentially the same deflate stream with varying wrapping.

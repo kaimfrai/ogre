@@ -9,7 +9,6 @@
 #include <utility>
 
 #include "OgreDefaultHardwareBufferManager.h"
-#include "OgreBuildSettings.h"
 #include "OgreConfigFile.h"
 #include "OgreFileSystemLayer.h"
 #include "OgreHardwareBufferManager.h"
@@ -22,7 +21,7 @@ using namespace Ogre;
 
 void RootWithoutRenderSystemFixture::SetUp()
 {
-    mFSLayer = new FileSystemLayer(OGRE_VERSION_NAME);
+    mFSLayer = new FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua");
     mRoot = new Root("");
     mHBM = new DefaultHardwareBufferManager;
 

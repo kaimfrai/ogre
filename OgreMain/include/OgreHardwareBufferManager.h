@@ -31,13 +31,16 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <map>
 #include <set>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreHardwareIndexBuffer.h"
-#include "Threading/OgreThreadHeaders.h"
-#include "OgreExports.h"
+#include "OgreHardwareVertexBuffer.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
@@ -64,7 +67,7 @@ class VertexDeclaration;
         and must be implemented by any user of a temporary buffer if they 
         wish to be notified when the license is expired. 
     */
-    class _OgreExport HardwareBufferLicensee
+    class HardwareBufferLicensee
     {
     public:
         virtual ~HardwareBufferLicensee() { }
@@ -75,7 +78,7 @@ class VertexDeclaration;
     };
 
     /** Structure for recording the use of temporary blend buffers. */
-    class _OgreExport TempBlendedBufferInfo : public HardwareBufferLicensee, public BufferAlloc
+    class TempBlendedBufferInfo : public HardwareBufferLicensee, public BufferAlloc
     {
     private:
         // Pre-blended 
@@ -112,7 +115,7 @@ class VertexDeclaration;
         exist at once (notably DefaultHardwareBufferManagerBase).
         The Singleton is add via the inheritance in HardwareBufferManager below.
     */
-    class _OgreExport HardwareBufferManagerBase : public BufferAlloc
+    class HardwareBufferManagerBase : public BufferAlloc
     {
     protected:
         /** WARNING: The following member should place before all other members.
@@ -129,11 +132,6 @@ class VertexDeclaration;
         typedef std::set<VertexBufferBinding*> VertexBufferBindingList;
         VertexDeclarationList mVertexDeclarations;
         VertexBufferBindingList mVertexBufferBindings;
-
-        // Mutexes
-        OGRE_MUTEX(mVertexBuffersMutex);
-        OGRE_MUTEX(mVertexDeclarationsMutex);
-        OGRE_MUTEX(mVertexBufferBindingsMutex);
 
         /// Internal method for destroys all vertex declarations.
         virtual void destroyAllDeclarations(void);
@@ -162,7 +160,7 @@ class VertexDeclaration;
 
     private:
         /** Struct holding details of a license to use a temporary shared buffer. */
-        class _OgrePrivate VertexBufferLicense
+        class VertexBufferLicense
         {
         public:
             HardwareVertexBuffer* originalBufferPtr;
@@ -199,9 +197,6 @@ class VertexDeclaration;
         static const size_t UNDER_USED_FRAME_THRESHOLD;
         /// Frame delay for BLT_AUTOMATIC_RELEASE temporary buffers.
         static const size_t EXPIRED_DELAY_FRAME_THRESHOLD;
-        // Mutexes
-        OGRE_MUTEX(mTempBuffersMutex);
-
 
         /// Creates a new buffer as a copy of the source, does not copy data.
         virtual HardwareVertexBufferSharedPtr makeBufferCopy(
@@ -403,7 +398,7 @@ class VertexDeclaration;
     };
 
     /** Singleton wrapper for hardware buffer manager. */
-    class _OgreExport HardwareBufferManager : public HardwareBufferManagerBase, public Singleton<HardwareBufferManager>
+    class HardwareBufferManager : public HardwareBufferManagerBase, public Singleton<HardwareBufferManager>
     {
     public:
         HardwareBufferManager();

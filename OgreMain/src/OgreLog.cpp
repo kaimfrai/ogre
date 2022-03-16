@@ -32,13 +32,16 @@ THE SOFTWARE.
 #include <iomanip>
 #include <string>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
-#include "OgreBuildSettings.h"
+#include "OgreStableHeaders.h"
 #include "OgreLog.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreStringConverter.h"
-#include "Threading/OgreThreadHeaders.h"
 
 // LogMessageLevel + LoggingLevel > OGRE_LOG_THRESHOLD = message logged
 #define OGRE_LOG_THRESHOLD 4
@@ -75,7 +78,6 @@ namespace Ogre
     //-----------------------------------------------------------------------
     Log::~Log()
     {
-        OGRE_LOCK_AUTO_MUTEX;
         if (!mSuppressFile)
         {
             mLog.close();
@@ -85,7 +87,6 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Log::logMessage( const String& message, LogMessageLevel lml, bool maskDebug )
     {
-        OGRE_LOCK_AUTO_MUTEX;
         if (lml >= mLogLevel)
         {
             bool skipThisMessage = false;
@@ -139,34 +140,23 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Log::setTimeStampEnabled(bool timeStamp)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         mTimeStamp = timeStamp;
     }
 
     //-----------------------------------------------------------------------
     void Log::setDebugOutputEnabled(bool debugOutput)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         mDebugOut = debugOutput;
-    }
-
-    //-----------------------------------------------------------------------
-    void Log::setLogDetail(LoggingLevel ll)
-    {
-        OGRE_LOCK_AUTO_MUTEX;
-        mLogLevel = LogMessageLevel(OGRE_LOG_THRESHOLD - ll);
     }
 
     void Log::setMinLogLevel(LogMessageLevel lml)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         mLogLevel = lml;
     }
 
     //-----------------------------------------------------------------------
     void Log::addListener(LogListener* listener)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         if (std::find(mListeners.begin(), mListeners.end(), listener) == mListeners.end())
             mListeners.push_back(listener);
     }
@@ -174,7 +164,6 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Log::removeListener(LogListener* listener)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         mtLogListener::iterator i = std::find(mListeners.begin(), mListeners.end(), listener);
         if (i != mListeners.end())
             mListeners.erase(i);

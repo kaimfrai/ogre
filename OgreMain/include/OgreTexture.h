@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreResource.h"
 #include "OgreImage.h"
 #include "OgreSharedPtr.h"
-#include "OgreExports.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 
@@ -134,7 +133,7 @@ class ResourceManager;
             different in reality. Texture objects are created through
             the 'create' method of the TextureManager concrete subclass.
      */
-    class _OgreExport Texture : public Resource
+    class Texture : public Resource
     {
     public:
         Texture(ResourceManager* creator, const String& name, ResourceHandle handle,
@@ -382,7 +381,7 @@ class ResourceManager;
         void setDesiredBitDepths(ushort integerBits, ushort floatBits);
 
         /// @deprecated use setFormat(PF_A8)
-        OGRE_DEPRECATED void setTreatLuminanceAsAlpha(bool asAlpha);
+        void setTreatLuminanceAsAlpha(bool asAlpha);
 
         /** Return the number of faces this texture has. This will be 6 for a cubemap
             texture and 1 for a 1D, 2D or 3D one.

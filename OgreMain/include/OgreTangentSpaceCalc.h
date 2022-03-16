@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreVector.h"
-#include "OgreExports.h"
 #include "OgreHardwareVertexBuffer.h"
 
 namespace Ogre
@@ -52,7 +51,7 @@ class VertexData;
     */
     /** Class for calculating a tangent space basis.
     */
-    class _OgreExport TangentSpaceCalc
+    class TangentSpaceCalc
     {
     public:
         TangentSpaceCalc();

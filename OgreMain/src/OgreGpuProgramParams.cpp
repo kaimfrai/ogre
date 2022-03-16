@@ -35,7 +35,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include "OgreDualQuaternion.h"
 #include "OgreRenderTarget.h"
 #include "OgreAutoParamDataSource.h"
-#include "OgreBuildSettings.h"
 #include "OgreColourValue.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
@@ -420,47 +419,7 @@ namespace Ogre
 
         ++mVersion;
     }
-    //---------------------------------------------------------------------
-    void GpuSharedParameters::removeConstantDefinition(const String& name)
-    {
-        GpuConstantDefinitionMap::iterator i = mNamedConstants.map.find(name);
-        if (i != mNamedConstants.map.end())
-        {
-            GpuConstantDefinition& def = i->second;
-            size_t numElems = def.elementSize * def.arraySize;
 
-            for (GpuConstantDefinitionMap::iterator j = mNamedConstants.map.begin();
-                 j != mNamedConstants.map.end(); ++j)
-            {
-                GpuConstantDefinition& otherDef = j->second;
-                // comes after in the buffer
-                if (otherDef.physicalIndex > def.physicalIndex)
-                {
-                    // adjust index
-                    otherDef.logicalIndex -= numElems;
-                    otherDef.physicalIndex -= numElems;
-                }
-            }
-
-            // remove and reduce buffer
-            if (def.isFloat() || def.isInt() || def.isUnsignedInt() || def.isBool())
-            {
-                mNamedConstants.bufferSize -= numElems;
-
-                ConstantList::iterator beg = mConstants.begin();
-                std::advance(beg, def.physicalIndex);
-                ConstantList::iterator en = beg;
-                std::advance(en, numElems*4);
-                mConstants.erase(beg, en);
-            }
-            else {
-                //TODO exception handling
-            }
-
-            ++mVersion;
-        }
-
-    }
 
     void GpuSharedParameters::_upload() const
     {
@@ -484,11 +443,7 @@ namespace Ogre
         mNamedConstants.bufferSize = 0;
         mConstants.clear();
     }
-    //---------------------------------------------------------------------
-    GpuConstantDefinitionIterator GpuSharedParameters::getConstantDefinitionIterator(void) const
-    {
-        return GpuConstantDefinitionIterator(mNamedConstants.map.begin(), mNamedConstants.map.end());
-    }
+
     //---------------------------------------------------------------------
     const GpuConstantDefinition& GpuSharedParameters::getConstantDefinition(const String& name) const
     {
@@ -1255,7 +1210,6 @@ namespace Ogre
             return NULL;
 
         GpuLogicalIndexUse* indexUse = 0;
-        OGRE_LOCK_MUTEX(mLogicalToPhysical->mutex);
 
         auto logi = mLogicalToPhysical->map.find(logicalIndex);
         if (logi == mLogicalToPhysical->map.end())
@@ -1367,17 +1321,7 @@ namespace Ogre
         }
         return std::numeric_limits<size_t>::max();
     }
-    //-----------------------------------------------------------------------------
-    GpuConstantDefinitionIterator GpuProgramParameters::getConstantDefinitionIterator(void) const
-    {
-        if (!mNamedConstants)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        "Named constants have not been initialised, perhaps a compile error");
 
-        return GpuConstantDefinitionIterator(mNamedConstants->map.begin(),
-                                             mNamedConstants->map.end());
-
-    }
     //-----------------------------------------------------------------------------
     const GpuNamedConstants& GpuProgramParameters::getConstantDefinitions() const
     {
@@ -1423,12 +1367,6 @@ namespace Ogre
             if (throwExceptionIfNotFound)
 			{
 				String knownNames;
-#if OGRE_DEBUG_MODE
-				// make it easy to catch typo and/or unused shader parameter elimination made by some drivers
-				knownNames = "Known names are: ";
-				for (i = mNamedConstants->map.begin(); i != mNamedConstants->map.end(); ++i)
-					knownNames.append(i->first).append(" ");
-#endif
                 OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
 				"Parameter called " + name + " does not exist. " + knownNames,
                             "GpuProgramParameters::_findNamedConstantDefinition");

@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include "OgreMeshSerializerImpl.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
-#include "OgreExports.h"
 #include "OgreFileSystem.h"
 #include "OgreLogManager.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -44,7 +43,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    class _OgrePrivate MeshVersionData : public SerializerAlloc
+    class MeshVersionData : public SerializerAlloc
     {
     public:
         MeshVersion version;
@@ -54,7 +53,7 @@ namespace Ogre {
         MeshVersionData(MeshVersion _ver, const String& _string, MeshSerializerImpl* _impl)
         : version(_ver), versionString(_string), impl(_impl) {}
 
-        ~MeshVersionData() { OGRE_DELETE impl; }
+        ~MeshVersionData() { delete impl; }
 
     };
 
@@ -70,32 +69,32 @@ namespace Ogre {
 
         // This one is a little ugly, 1.10 is used for version 1.1 legacy meshes.
         // So bump up to 1.100
-        mVersionData.push_back(OGRE_NEW MeshVersionData(
+        mVersionData.push_back(new MeshVersionData(
             MESH_VERSION_1_10, "[MeshSerializer_v1.100]", 
-            OGRE_NEW MeshSerializerImpl()));
+            new MeshSerializerImpl()));
 
-        mVersionData.push_back(OGRE_NEW MeshVersionData(
+        mVersionData.push_back(new MeshVersionData(
             MESH_VERSION_1_8, "[MeshSerializer_v1.8]", 
-            OGRE_NEW MeshSerializerImpl_v1_8()));
+            new MeshSerializerImpl_v1_8()));
 
-        mVersionData.push_back(OGRE_NEW MeshVersionData(
+        mVersionData.push_back(new MeshVersionData(
             MESH_VERSION_1_7, "[MeshSerializer_v1.41]", 
-            OGRE_NEW MeshSerializerImpl_v1_41()));
+            new MeshSerializerImpl_v1_41()));
 
-        mVersionData.push_back(OGRE_NEW MeshVersionData(
+        mVersionData.push_back(new MeshVersionData(
             MESH_VERSION_1_4, "[MeshSerializer_v1.40]", 
-            OGRE_NEW MeshSerializerImpl_v1_4()));
+            new MeshSerializerImpl_v1_4()));
 
-        mVersionData.push_back(OGRE_NEW MeshVersionData(
+        mVersionData.push_back(new MeshVersionData(
             MESH_VERSION_1_0, "[MeshSerializer_v1.30]", 
-            OGRE_NEW MeshSerializerImpl_v1_3()));
-        mVersionData.push_back(OGRE_NEW MeshVersionData(
+            new MeshSerializerImpl_v1_3()));
+        mVersionData.push_back(new MeshVersionData(
             MESH_VERSION_LEGACY, "[MeshSerializer_v1.20]", 
-            OGRE_NEW MeshSerializerImpl_v1_2()));
+            new MeshSerializerImpl_v1_2()));
 
-        mVersionData.push_back(OGRE_NEW MeshVersionData(
+        mVersionData.push_back(new MeshVersionData(
             MESH_VERSION_LEGACY, "[MeshSerializer_v1.10]", 
-            OGRE_NEW MeshSerializerImpl_v1_1()));
+            new MeshSerializerImpl_v1_1()));
         
     }
     //---------------------------------------------------------------------
@@ -105,7 +104,7 @@ namespace Ogre {
         for (MeshVersionDataList::iterator i = mVersionData.begin();
             i != mVersionData.end(); ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
         mVersionData.clear();
 

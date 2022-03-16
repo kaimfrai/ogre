@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreAnimationTrack.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
@@ -69,7 +68,7 @@ class VertexData;
             their material differences on a per-object basis if required.
             See the SubEntity class for more information.
     */
-    class _OgreExport SubMesh : public SubMeshAlloc
+    class SubMesh : public SubMeshAlloc
     {
         friend class Mesh;
         friend class MeshSerializerImpl;
@@ -186,9 +185,6 @@ class VertexData;
         typedef std::multimap<size_t, VertexBoneAssignment> VertexBoneAssignmentList;
         typedef MapIterator<VertexBoneAssignmentList> BoneAssignmentIterator;
 
-        /// @deprecated use getBoneAssignments
-        OGRE_DEPRECATED BoneAssignmentIterator getBoneAssignmentIterator(void);
-
         /** Gets a const reference to the list of bone assignments
         */
         const VertexBoneAssignmentList& getBoneAssignments() const { return mBoneAssignments; }
@@ -202,8 +198,7 @@ class VertexData;
         AliasTextureIterator getAliasTextureIterator(void) const;
         /// @deprecated do not use
         void addTextureAlias(const String& aliasName, const String& textureName);
-        /// @deprecated do not use
-        OGRE_DEPRECATED void removeAllTextureAliases(void);
+
         /// @deprecated do not use
         bool hasTextureAliases(void) const { return !mTextureAliases.empty(); }
 

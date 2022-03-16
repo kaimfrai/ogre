@@ -47,7 +47,7 @@ namespace Ogre
     {
         /** Controller value for pass frame time to RibbonTrail
         */
-        class _OgrePrivate TimeControllerValue : public ControllerValue<Real>
+        class TimeControllerValue : public ControllerValue<Real>
         {
         protected:
             RibbonTrail* mTrail;
@@ -67,7 +67,7 @@ namespace Ogre
     {
         setTrailLength(100);
         setNumberOfChains(numberOfChains);
-        mTimeControllerValue = ControllerValueRealPtr(OGRE_NEW TimeControllerValue(this));
+        mTimeControllerValue = ControllerValueRealPtr(new TimeControllerValue(this));
 
         // use V as varying texture coord, so we can use 1D textures to 'smear'
         setTextureCoordDirection(TCD_V);
@@ -478,7 +478,7 @@ namespace Ogre
 
         }
 
-        return OGRE_NEW RibbonTrail(name, maxElements, numberOfChains, useTex, useCol);
+        return new RibbonTrail(name, maxElements, numberOfChains, useTex, useCol);
 
     }
 

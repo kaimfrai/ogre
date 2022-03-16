@@ -31,7 +31,6 @@ THE SOFTWARE.
 
 #include <vector>
 
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
@@ -74,7 +73,7 @@ namespace Ogre {
     };
     typedef std::vector<ScriptToken> ScriptTokenList;
 
-    class _OgrePrivate ScriptLexer : public ScriptCompilerAlloc
+    class ScriptLexer : public ScriptCompilerAlloc
     {
     public:
         /** Tokenizes the given input and returns the list of tokens found */

@@ -74,8 +74,8 @@ namespace Ogre
         mTrigTableSize = trigTableSize;
         mTrigTableFactor = mTrigTableSize / Math::TWO_PI;
 
-        mSinTable = OGRE_ALLOC_T(float, mTrigTableSize, MEMCATEGORY_GENERAL);
-        mTanTable = OGRE_ALLOC_T(float, mTrigTableSize, MEMCATEGORY_GENERAL);
+        mSinTable = new float[mTrigTableSize];
+        mTanTable = new float[mTrigTableSize];
 
         buildTrigTables();
     }
@@ -83,8 +83,8 @@ namespace Ogre
     //-----------------------------------------------------------------------
     Math::~Math()
     {
-        OGRE_FREE(mSinTable, MEMCATEGORY_GENERAL);
-        OGRE_FREE(mTanTable, MEMCATEGORY_GENERAL);
+        delete[] mSinTable;
+        delete[] mTanTable;
     }
 
     //-----------------------------------------------------------------------
@@ -311,18 +311,7 @@ namespace Ogre
 
         return true;
     }
-    //-----------------------------------------------------------------------
-    std::pair<bool, Real> Math::intersects(const Ray& ray, 
-        const std::list<Plane>& planes, bool normalIsOutside)
-    {
-        std::vector<Plane> planesVec;
-        planesVec.reserve(planes.size());
-        for (std::list<Plane>::const_iterator i = planes.begin(); i != planes.end(); ++i)
-        {
-            planesVec.push_back(*i);
-        }
-        return intersects(ray, planesVec, normalIsOutside);
-    }
+
     //-----------------------------------------------------------------------
     std::pair<bool, Real> Math::intersects(const Ray& ray, 
         const std::vector<Plane>& planes, bool normalIsOutside)

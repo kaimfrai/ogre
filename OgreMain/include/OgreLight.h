@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgreCamera.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMath.h"
 #include "OgrePlatform.h"
@@ -104,7 +103,7 @@ class Sphere;
         extended for certain scene types so an alternative to the standard dynamic lighting may be used, such
             as dynamic lightmaps.
     */
-    class _OgreExport Light : public MovableObject
+    class Light : public MovableObject
     {
     public:
         /// Temp tag used for sorting
@@ -452,11 +451,6 @@ class Sphere;
         /** Derive a shadow camera far distance
         */
         Real _deriveShadowFarClipDistance() const;
-        /// @deprecated use _deriveShadowFarClipDistance()
-        OGRE_DEPRECATED Real _deriveShadowFarClipDistance(const Camera*) const
-        {
-            return _deriveShadowFarClipDistance();
-        }
 
         /// Set the camera which this light should be relative to, for camera-relative rendering
         void _setCameraRelative(Camera* cam);
@@ -566,7 +560,7 @@ class Sphere;
     };
 
     /** Factory object for creating Light instances. */
-    class _OgreExport LightFactory : public MovableObjectFactory
+    class LightFactory : public MovableObjectFactory
     {
     private:
         MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);

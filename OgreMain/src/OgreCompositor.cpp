@@ -70,7 +70,7 @@ Compositor::~Compositor()
 //-----------------------------------------------------------------------
 CompositionTechnique *Compositor::createTechnique()
 {
-    CompositionTechnique *t = OGRE_NEW CompositionTechnique(this);
+    CompositionTechnique *t = new CompositionTechnique(this);
     mTechniques.push_back(t);
     mCompilationRequired = true;
     return t;
@@ -81,7 +81,7 @@ void Compositor::removeTechnique(size_t index)
 {
     assert (index < mTechniques.size() && "Index out of bounds.");
     Techniques::iterator i = mTechniques.begin() + index;
-    OGRE_DELETE (*i);
+    delete (*i);
     mTechniques.erase(i);
     mSupportedTechniques.clear();
     mCompilationRequired = true;
@@ -93,7 +93,7 @@ void Compositor::removeAllTechniques()
     iend = mTechniques.end();
     for (i = mTechniques.begin(); i != iend; ++i)
     {
-        OGRE_DELETE (*i);
+        delete (*i);
     }
     mTechniques.clear();
     mSupportedTechniques.clear();

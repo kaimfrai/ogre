@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreRenderTargetListener.h"
 #include "OgreDepthBuffer.h"
 #include "OgreTimer.h"
-#include "OgreBuildSettings.h"
 #include "OgreException.h"
 #include "OgreImage.h"
 #include "OgreLog.h"
@@ -59,11 +58,7 @@ class Camera;
         , mAutoUpdate(true)
         , mHwGamma(false)
         , mFSAA(0)
-#if OGRE_NO_QUAD_BUFFER_STEREO == 0
-		, mStereoEnabled(true)
-#else
 		, mStereoEnabled(false)
-#endif
     {
         mTimer = Root::getSingleton().getTimer();
         resetStatistics();
@@ -79,7 +74,7 @@ class Camera;
             i != vlist.end(); ++i)
         {
             fireViewportRemoved(i->second);
-            OGRE_DELETE (*i).second;
+            delete (*i).second;
         }
 
         //DepthBuffer keeps track of us, avoid a dangling pointer
@@ -250,7 +245,7 @@ class Camera;
         }
         // Add viewport to list
         // Order based on Z-order
-        Viewport* vp = OGRE_NEW Viewport(cam, this, left, top, width, height, ZOrder);
+        Viewport* vp = new Viewport(cam, this, left, top, width, height, ZOrder);
 
         mViewportList.emplace(ZOrder, vp);
 
@@ -266,7 +261,7 @@ class Camera;
         if (it != mViewportList.end())
         {
             fireViewportRemoved(it->second);
-            OGRE_DELETE (*it).second;
+            delete (*it).second;
             mViewportList.erase(ZOrder);
         }
     }
@@ -279,7 +274,7 @@ class Camera;
         for (ViewportList::iterator it = vlist.begin(); it != vlist.end(); ++it)
         {
             fireViewportRemoved(it->second);
-            OGRE_DELETE (*it).second;
+            delete (*it).second;
         }
 
         mViewportList.clear();
@@ -566,7 +561,7 @@ class Camera;
     //-----------------------------------------------------------------------
     void RenderTarget::update(bool swap)
     {
-        OgreProfileBeginGPUEvent(getName());
+        Ogre::Profiler::getSingleton().beginGPUEvent(getName());
         // call implementation
         updateImpl();
 
@@ -576,7 +571,7 @@ class Camera;
             // Swap buffers
             swapBuffers();
         }
-        OgreProfileEndGPUEvent(getName());
+        Ogre::Profiler::getSingleton().endGPUEvent(getName());
     }
     
 

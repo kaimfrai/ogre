@@ -58,7 +58,7 @@ class ProgramSet;
 The base class perform only the generic processing. In order to provide target language specific services and 
 optimization one should derive from this class and register its factory via the ProgramManager instance.
 */
-class _OgreRTSSExport ProgramProcessor : public RTShaderSystemAlloc
+class ProgramProcessor : public RTShaderSystemAlloc
 {
 
 // Interface.
@@ -70,9 +70,6 @@ public:
 
     /** Class destructor */
     virtual ~ProgramProcessor();
-
-    /// @deprecated
-    OGRE_DEPRECATED const String& getTargetLanguage() const { return BLANKSTRING; }
     
     /** Called before creation of the GPU programs.
     Do several preparation operation such as validation, register compaction and specific target language optimizations.
@@ -92,7 +89,7 @@ protected:
     
     //-----------------------------------------------------------------------------
     // Class that holds merge parameter information.
-    class _OgreRTSSExport MergeParameter 
+    class MergeParameter 
     {
     // Interface.
     public:
@@ -149,7 +146,7 @@ protected:
     
     //-----------------------------------------------------------------------------
     // A struct that defines merge parameters combination.
-    struct _OgreRTSSExport MergeCombination
+    struct MergeCombination
     {       
         // The count of each source type. I.E (1 FLOAT1, 0 FLOAT2, 1 FLOAT3, 0 FLOAT4).
         size_t srcParameterTypeCount[4];

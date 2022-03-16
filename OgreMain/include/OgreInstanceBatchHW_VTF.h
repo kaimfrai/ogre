@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <stddef.h>
 
 #include "OgreInstanceBatchVTF.h"
-#include "OgreExports.h"
 #include "OgreMesh.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
@@ -68,7 +67,7 @@ class VertexData;
         @version
             1.2
      */
-    class _OgreExport InstanceBatchHW_VTF : public BaseInstanceBatchVTF
+    class InstanceBatchHW_VTF : public BaseInstanceBatchVTF
     {
     protected:
         bool    mKeepStatic;

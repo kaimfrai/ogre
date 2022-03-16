@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLHARDWAREPIXELBUFFERCOMMON_H_
 #define RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLHARDWAREPIXELBUFFERCOMMON_H_
 
-#include "OgreGLSupportPrerequisites.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreHardwareBuffer.h"
 #include "OgrePixelFormat.h"
@@ -39,7 +38,7 @@ namespace Ogre
 {
 struct Box;
 
-class _OgreGLExport GLHardwarePixelBufferCommon : public HardwarePixelBuffer
+class GLHardwarePixelBufferCommon : public HardwarePixelBuffer
 {
 protected:
     /// Lock a box

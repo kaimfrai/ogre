@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringVector.h"
@@ -65,7 +64,7 @@ class ResourceManager;
         at another program name. The first one which has a supported syntax 
         will be used.
     */
-    class _OgreExport UnifiedHighLevelGpuProgram final : public GpuProgram
+    class UnifiedHighLevelGpuProgram final : public GpuProgram
     {
         /// Ordered list of potential delegates
         StringVector mDelegateNames;
@@ -159,7 +158,7 @@ class ResourceManager;
     };
 
     /** Factory class for Unified programs. */
-    class _OgreExport UnifiedHighLevelGpuProgramFactory : public GpuProgramFactory
+    class UnifiedHighLevelGpuProgramFactory : public GpuProgramFactory
     {
     public:
         UnifiedHighLevelGpuProgramFactory();

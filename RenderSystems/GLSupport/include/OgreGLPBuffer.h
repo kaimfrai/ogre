@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __GLPBUFFER_H__
 #define __GLPBUFFER_H__
 
-#include "OgreGLSupportPrerequisites.h"
 #include "OgreGLRenderTarget.h"
 #include "OgrePixelFormat.h"
 
@@ -37,7 +36,7 @@ namespace Ogre {
     /** An off-screen rendering context. These contexts are always RGBA for simplicity, speed and
         convience, but the component format is configurable.
     */
-    class _OgreGLExport GLPBuffer : public GLRenderTarget
+    class GLPBuffer : public GLRenderTarget
     {
     public:
         GLPBuffer(PixelComponentType format, uint32 width, uint32 height)

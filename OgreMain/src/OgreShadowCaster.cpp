@@ -62,13 +62,13 @@ namespace Ogre {
     : mLightCap(0), mParent(parent)
     {
         // Initialise render op
-        mRenderOp.indexData = OGRE_NEW IndexData();
+        mRenderOp.indexData = new IndexData();
         mRenderOp.indexData->indexBuffer = indexBuffer;
         mRenderOp.indexData->indexStart = 0;
         // index start and count are sorted out later
 
         // Create vertex data which just references position component (and 2 component)
-        mRenderOp.vertexData = OGRE_NEW VertexData();
+        mRenderOp.vertexData = new VertexData();
         // Map in position data
         mRenderOp.vertexData->vertexDeclaration->addElement(0,0,VET_FLOAT3, VES_POSITION);
         ushort origPosBind =
@@ -99,7 +99,7 @@ namespace Ogre {
             if (createSeparateLightCap)
             {
                 // Create child light cap
-                mLightCap = OGRE_NEW ShadowRenderable(parent, indexBuffer, vertexData, false, true);
+                mLightCap = new ShadowRenderable(parent, indexBuffer, vertexData, false, true);
             }
         }
     }
@@ -129,7 +129,7 @@ namespace Ogre {
     {
         for(ShadowRenderableList::iterator si = shadowRenderables.begin(), siend = shadowRenderables.end(); si != siend; ++si)
         {
-            OGRE_DELETE *si;
+            delete *si;
             *si = 0;
         }
         shadowRenderables.clear();

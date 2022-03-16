@@ -31,7 +31,6 @@ THE SOFTWARE.
 
 #include "OgreScriptLexer.h"
 #include "OgreScriptCompiler.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 
@@ -44,7 +43,7 @@ namespace Ogre {
     *  @{
     */
 
-    class _OgrePrivate ScriptParser : public ScriptCompilerAlloc
+    class ScriptParser : public ScriptCompilerAlloc
     {
     public:
         static ConcreteNodeListPtr parse(const ScriptTokenList &tokens, const String& file);

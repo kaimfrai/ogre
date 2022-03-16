@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
-#include "OgreExports.h"
 #include "OgreMaterial.h"
 #include "OgrePlatform.h"
 #include "OgreQuaternion.h"
@@ -133,7 +132,7 @@ class VertexData;
         if you want them to call _updateBounds, but note this requires a
         potentially expensive examination of every billboard in the set.
     */
-    class _OgreExport BillboardSet : public MovableObject, public Renderable
+    class BillboardSet : public MovableObject, public Renderable
     {
     protected:
         /** Private constructor (instances cannot be created directly).
@@ -726,12 +725,6 @@ class VertexData;
         */
         void setTextureCoords(const std::vector<FloatRect>& coords);
 
-        /// @deprecated
-        OGRE_DEPRECATED void setTextureCoords(FloatRect const* coords, uint16 numCoords)
-        {
-            setTextureCoords(std::vector<FloatRect>(coords, coords + numCoords));
-        }
-
         /** Generate texture coordinate rects for a tiled texture sheet
 
             A texture sheet is a grid of images that can be used to create simple animations.
@@ -759,10 +752,6 @@ class VertexData;
             BillboardSet::setTextureCoords()
         */
         const std::vector<FloatRect>& getTextureCoords() const { return mTextureCoords; }
-
-        /// @deprecated
-        OGRE_DEPRECATED Ogre::FloatRect const * getTextureCoords( uint16 * oNumCoords );
-        /// @}
 
         /** Set whether or not the BillboardSet will use point rendering
             rather than manually generated quads.
@@ -825,7 +814,7 @@ class VertexData;
     };
 
     /** Factory object for creating BillboardSet instances */
-    class _OgreExport BillboardSetFactory : public MovableObjectFactory
+    class BillboardSetFactory : public MovableObjectFactory
     {
     protected:
         MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);

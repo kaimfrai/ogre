@@ -75,7 +75,7 @@ Implements texture blending operation:
 @see http://msdn.microsoft.com/en-us/library/bb206241.aspx
 Derives from SubRenderState class.
 */
-class _OgreRTSSExport FFPTexturing : public SubRenderState
+class FFPTexturing : public SubRenderState
 {
 
 // Interface.
@@ -110,7 +110,7 @@ public:
 protected:
     
     // Per texture unit parameters.
-    struct _OgreRTSSExport TextureUnitParams
+    struct TextureUnitParams
     {
         // Texture unit state.
         TextureUnitState* mTextureUnitState;
@@ -222,9 +222,6 @@ protected:
     */
     bool needsTextureMatrix(TextureUnitState* textureUnitState);
 
-    /// @deprecated do not use
-    OGRE_DEPRECATED bool isProcessingNeeded(TextureUnitState* texUnitState) { return true; }
-
     bool setParameter(const String& name, const String& value) override;
 
 // Attributes.
@@ -257,7 +254,7 @@ protected:
 A factory that enables creation of FFPTexturing instances.
 @remarks Sub class of SubRenderStateFactory
 */
-class _OgreRTSSExport FFPTexturingFactory : public SubRenderStateFactory
+class FFPTexturingFactory : public SubRenderStateFactory
 {
 public:
 

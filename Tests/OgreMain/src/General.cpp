@@ -56,7 +56,6 @@ THE SOFTWARE.
 #include "OgreFileSystem.h"
 #include "OgreArchiveManager.h"
 #include "OgreHighLevelGpuProgram.h"
-#include "OgreBuildSettings.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreDataStream.h"
@@ -131,9 +130,9 @@ static void createRandomEntityClones(Entity* ent, size_t cloneCount, const Vecto
         SceneNode* node = mgr->createSceneNode();
         // Random translate.
         Vector3 nodePos = max - min;
-        nodePos.x *= float(rng())/rng.max();
-        nodePos.y *= float(rng())/rng.max();
-        nodePos.z *= float(rng())/rng.max();
+        nodePos.x *= double(rng()) / double(rng.max());
+        nodePos.y *= double(rng()) / double(rng.max());
+        nodePos.z *= double(rng()) / double(rng.max());
         nodePos += min;
         node->setPosition(nodePos);
         mgr->getRootSceneNode()->addChild(node);
@@ -254,7 +253,7 @@ TEST(Image, FlipV)
     ResourceGroupManager mgr;
     STBIImageCodec::startup();
     ConfigFile cf;
-    cf.load(FileSystemLayer(OGRE_VERSION_NAME).getConfigFilePath("resources.cfg"));
+    cf.load(FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
     auto testPath = cf.getSettings("Tests").begin()->second;
 
     Image ref;
@@ -275,7 +274,7 @@ TEST(Image, Resize)
     ResourceGroupManager mgr;
     STBIImageCodec::startup();
     ConfigFile cf;
-    cf.load(FileSystemLayer(OGRE_VERSION_NAME).getConfigFilePath("resources.cfg"));
+    cf.load(FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
     auto testPath = cf.getSettings("Tests").begin()->second;
 
     Image ref;
@@ -300,7 +299,7 @@ TEST(Image, Combine)
     amgr.addArchiveFactory(&fs);
     STBIImageCodec::startup();
     ConfigFile cf;
-    cf.load(FileSystemLayer(OGRE_VERSION_NAME).getConfigFilePath("resources.cfg"));
+    cf.load(FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
     mgr.addResourceLocation(cf.getSettings("General").begin()->second+"/../materials/textures", fs.getType());
     mgr.initialiseAllResourceGroups();
 

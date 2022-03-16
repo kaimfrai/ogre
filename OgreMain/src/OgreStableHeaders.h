@@ -41,11 +41,14 @@ extern "C" {
 }
 
 #include "OgreConfig.h"
-#include "OgreExports.h"
 #include "OgrePrerequisites.h"
 #include "OgrePlatform.h"
 #include "OgreStdHeaders.h"
 #include <iomanip>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreAny.h"
 #include "OgreArchive.h"
@@ -58,7 +61,7 @@ extern "C" {
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreDataStream.h"
-#include "OgreDefaultWorkQueue.h"
+#include "OgreDefaultWorkQueueStandard.h"
 #include "OgreException.h"
 #include "OgreFileSystem.h"
 #include "OgreFrustum.h"
@@ -108,15 +111,10 @@ extern "C" {
 #include "OgreSubMesh.h"
 #include "OgreTechnique.h"
 #include "OgreTextureManager.h"
-#include "Threading/OgreThreadHeaders.h"
 #include "OgreUserObjectBindings.h"
 #include "OgreVector.h"
 #include "OgreZip.h"
 
 #define FOURCC(c0, c1, c2, c3) (c0 | (c1 << 8) | (c2 << 16) | (c3 << 24))
-
-#define OGRE_IGNORE_DEPRECATED_BEGIN _Pragma("GCC diagnostic push") \
-    _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")
-#define OGRE_IGNORE_DEPRECATED_END _Pragma("GCC diagnostic pop")
 
 #endif 

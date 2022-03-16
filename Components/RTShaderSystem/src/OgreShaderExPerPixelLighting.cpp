@@ -393,7 +393,7 @@ void PerPixelLightingFactory::writeInstance(MaterialSerializer* ser, SubRenderSt
 //-----------------------------------------------------------------------
 SubRenderState* PerPixelLightingFactory::createInstanceImpl()
 {
-    return OGRE_NEW PerPixelLighting;
+    return new PerPixelLighting;
 }
 
 }

@@ -40,7 +40,7 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-    class _OgreGLExport GLStateCacheManager : public GLStateCacheManagerCommon
+    class GLStateCacheManager : public GLStateCacheManagerCommon
     {
     protected:
         struct TextureUnitParams

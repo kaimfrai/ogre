@@ -32,7 +32,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
-#include "OgreExports.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {
@@ -56,7 +55,7 @@ namespace Ogre {
        that run on previous results of those shaders, creating stateful
        shaders.
     */
-    class _OgreExport RenderToVertexBuffer
+    class RenderToVertexBuffer
     {
     public:
         RenderToVertexBuffer();

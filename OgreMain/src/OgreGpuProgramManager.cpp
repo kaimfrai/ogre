@@ -27,6 +27,10 @@ THE SOFTWARE.
 */
 #include <assert.h>
 #include <utility>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreGpuProgramManager.h"
 #include "OgreUnifiedHighLevelGpuProgram.h"
@@ -38,7 +42,6 @@ THE SOFTWARE.
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRoot.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
 namespace {
@@ -88,7 +91,7 @@ namespace {
             const String& name, ResourceHandle handle,
             const String& group, bool isManual, ManualResourceLoader* loader)
         {
-            return OGRE_NEW NullProgram(creator, name, handle, group, isManual, loader);
+            return new NullProgram(creator, name, handle, group, isManual, loader);
         }
     };
 }
@@ -171,7 +174,6 @@ namespace {
     {
         GpuProgramPtr prg;
         {
-            OGRE_LOCK_AUTO_MUTEX;
             prg = getByName(name, groupName);
             if (!prg)
             {
@@ -189,7 +191,6 @@ namespace {
     {
         GpuProgramPtr prg;
         {
-                    OGRE_LOCK_AUTO_MUTEX;
             prg = getByName(name, groupName);
             if (!prg)
             {
@@ -256,7 +257,7 @@ namespace {
     //-----------------------------------------------------------------------------
     GpuProgramParametersSharedPtr GpuProgramManager::createParameters(void)
     {
-        return GpuProgramParametersSharedPtr(OGRE_NEW GpuProgramParameters());
+        return GpuProgramParametersSharedPtr(new GpuProgramParameters());
     }
     //---------------------------------------------------------------------
     GpuSharedParametersPtr GpuProgramManager::createSharedParameters(const String& name)
@@ -267,7 +268,7 @@ namespace {
                 "The shared parameter set '" + name + "' already exists!", 
                 "GpuProgramManager::createSharedParameters");
         }
-        GpuSharedParametersPtr ret(OGRE_NEW GpuSharedParameters(name));
+        GpuSharedParametersPtr ret(new GpuSharedParameters(name));
         mSharedParametersMap[name] = ret;
         return ret;
     }
@@ -338,7 +339,7 @@ namespace {
     //---------------------------------------------------------------------
     GpuProgramManager::Microcode GpuProgramManager::createMicrocode( size_t size ) const
     {   
-        return Microcode(OGRE_NEW MemoryDataStream(size));  
+        return Microcode(new MemoryDataStream(size));  
     }
     //---------------------------------------------------------------------
     void GpuProgramManager::addMicrocodeToCache( uint32 id, const GpuProgramManager::Microcode & microcode )
@@ -441,7 +442,7 @@ namespace {
             uint32 microcodeLength = 0;
             serialiser.read(&microcodeLength);
 
-            Microcode microcodeOfShader(OGRE_NEW MemoryDataStream(microcodeLength));
+            Microcode microcodeOfShader(new MemoryDataStream(microcodeLength));
             microcodeOfShader->seek(0);
             serialiser.readData(microcodeOfShader->getPtr(), 1, microcodeLength);
 

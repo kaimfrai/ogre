@@ -564,32 +564,32 @@ namespace Ogre {
         if (valueName == "diffuseColour")
         {
             return AnimableValuePtr(
-                OGRE_NEW LightDiffuseColourValue(this));
+                new LightDiffuseColourValue(this));
         }
         else if(valueName == "specularColour")
         {
             return AnimableValuePtr(
-                OGRE_NEW LightSpecularColourValue(this));
+                new LightSpecularColourValue(this));
         }
         else if (valueName == "attenuation")
         {
             return AnimableValuePtr(
-                OGRE_NEW LightAttenuationValue(this));
+                new LightAttenuationValue(this));
         }
         else if (valueName == "spotlightInner")
         {
             return AnimableValuePtr(
-                OGRE_NEW LightSpotlightInnerValue(this));
+                new LightSpotlightInnerValue(this));
         }
         else if (valueName == "spotlightOuter")
         {
             return AnimableValuePtr(
-                OGRE_NEW LightSpotlightOuterValue(this));
+                new LightSpotlightOuterValue(this));
         }
         else if (valueName == "spotlightFalloff")
         {
             return AnimableValuePtr(
-                OGRE_NEW LightSpotlightFalloffValue(this));
+                new LightSpotlightFalloffValue(this));
         }
         else
         {
@@ -643,9 +643,6 @@ namespace Ogre {
     void Light::_setCameraRelative(Camera* cam)
     {
         mCameraToBeRelativeTo = cam;
-#ifdef OGRE_NODELESS_POSITONING
-        mDerivedCamRelativeDirty = true;
-#endif
     }
     //---------------------------------------------------------------------
     Real Light::_deriveShadowNearClipDistance(const Camera* maincam) const
@@ -788,7 +785,7 @@ namespace Ogre {
         const NameValuePairList* params)
     {
 
-        Light* light = OGRE_NEW Light(name);
+        Light* light = new Light(name);
  
         if(params)
         {

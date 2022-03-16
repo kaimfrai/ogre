@@ -691,7 +691,7 @@ namespace Ogre
         std::vector<ParticleEmitter*>::iterator i;
         for (i = mEmitters.begin(); i != mEmitters.end(); ++i)
         {
-            OGRE_DELETE (*i);
+            delete (*i);
         }
             
         mEmitters.clear();
@@ -706,7 +706,7 @@ namespace Ogre
             if ((*i) == e)
             {
                 mEmitters.erase(i);
-                OGRE_DELETE e;
+                delete e;
                 break;
             }
         }

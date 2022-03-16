@@ -51,7 +51,7 @@ namespace Ogre {
 
     /** RenderTexture for GL FBO
     */
-    class _OgreGLExport GLFBORenderTexture: public GLRenderTexture
+    class GLFBORenderTexture: public GLRenderTexture
     {
     public:
         GLFBORenderTexture(GLFBOManager *manager, const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
@@ -74,7 +74,7 @@ namespace Ogre {
     
     /** Factory for GL Frame Buffer Objects, and related things.
     */
-    class _OgreGLExport GLFBOManager: public GLRTTManager
+    class GLFBOManager: public GLRTTManager
     {
     public:
         GLFBOManager(bool atimode);

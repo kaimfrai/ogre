@@ -129,9 +129,6 @@ namespace Ogre {
             // Don't trust getNumTextureUnits for programmable
             if(!currPass->hasFragmentProgram())
             {
-#if defined(OGRE_PRETEND_TEXTURE_UNITS) && OGRE_PRETEND_TEXTURE_UNITS > 0
-                numTexUnits = std::min(numTexUnits, OGRE_PRETEND_TEXTURE_UNITS);
-#endif
                 if (numTexUnitsRequested > numTexUnits)
                 {
                     if (!autoManageTextureUnits)
@@ -311,7 +308,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     Pass* Technique::createPass(void)
     {
-        Pass* newPass = OGRE_NEW Pass(this, static_cast<unsigned short>(mPasses.size()));
+        Pass* newPass = new Pass(this, static_cast<unsigned short>(mPasses.size()));
         mPasses.push_back(newPass);
         return newPass;
     }
@@ -403,11 +400,6 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    const Technique::PassIterator Technique::getPassIterator(void)
-    {
-        return PassIterator(mPasses.begin(), mPasses.end());
-    }
-    //-----------------------------------------------------------------------------
     Technique& Technique::operator=(const Technique& rhs)
     {
         mName = rhs.mName;
@@ -427,7 +419,7 @@ namespace Ogre {
         iend = rhs.mPasses.end();
         for (i = rhs.mPasses.begin(); i != iend; ++i)
         {
-            Pass* p = OGRE_NEW Pass(this, (*i)->getIndex(), *(*i));
+            Pass* p = new Pass(this, (*i)->getIndex(), *(*i));
             mPasses.push_back(p);
         }
         // Compile for categorised illumination on demand
@@ -750,7 +742,7 @@ namespace Ogre {
         // ok, all manually controlled, so just use that
         for (i = ibegin; i != iend; ++i)
         {
-            IlluminationPass* iPass = OGRE_NEW IlluminationPass();
+            IlluminationPass* iPass = new IlluminationPass();
             iPass->destroyOnShutdown = false;
             iPass->originalPass = iPass->pass = *i;
             iPass->stage = (*i)->getIlluminationStage();
@@ -786,7 +778,7 @@ namespace Ogre {
                     if (p->isAmbientOnly())
                     {
                         // Add this pass wholesale
-                        iPass = OGRE_NEW IlluminationPass();
+                        iPass = new IlluminationPass();
                         iPass->destroyOnShutdown = false;
                         iPass->originalPass = iPass->pass = p;
                         iPass->stage = iStage;
@@ -803,7 +795,7 @@ namespace Ogre {
                             p->getAlphaRejectFunction() != CMPF_ALWAYS_PASS)
                         {
                             // Copy existing pass
-                            Pass* newPass = OGRE_NEW Pass(this, p->getIndex(), *p);
+                            Pass* newPass = new Pass(this, p->getIndex(), *p);
                             if (newPass->getAlphaRejectFunction() != CMPF_ALWAYS_PASS)
                             {
                                 // Alpha rejection passes must retain their transparency, so
@@ -834,7 +826,7 @@ namespace Ogre {
                             // before it add to render queue first time.
                             newPass->_recalculateHash();
 
-                            iPass = OGRE_NEW IlluminationPass();
+                            iPass = new IlluminationPass();
                             iPass->destroyOnShutdown = true;
                             iPass->originalPass = p;
                             iPass->pass = newPass;
@@ -848,7 +840,7 @@ namespace Ogre {
                         if (!haveAmbient)
                         {
                             // Make up a new basic pass
-                            Pass* newPass = OGRE_NEW Pass(this, p->getIndex());
+                            Pass* newPass = new Pass(this, p->getIndex());
                             newPass->setAmbient(ColourValue::Black);
                             newPass->setDiffuse(ColourValue::Black);
 
@@ -857,7 +849,7 @@ namespace Ogre {
                             // before it add to render queue first time.
                             newPass->_recalculateHash();
 
-                            iPass = OGRE_NEW IlluminationPass();
+                            iPass = new IlluminationPass();
                             iPass->destroyOnShutdown = true;
                             iPass->originalPass = p;
                             iPass->pass = newPass;
@@ -873,7 +865,7 @@ namespace Ogre {
                     if (p->getIteratePerLight())
                     {
                         // If this is per-light already, use it directly
-                        iPass = OGRE_NEW IlluminationPass();
+                        iPass = new IlluminationPass();
                         iPass->destroyOnShutdown = false;
                         iPass->originalPass = iPass->pass = p;
                         iPass->stage = iStage;
@@ -889,7 +881,7 @@ namespace Ogre {
                             p->getSpecular() != ColourValue::Black))
                         {
                             // Copy existing pass
-                            Pass* newPass = OGRE_NEW Pass(this, p->getIndex(), *p);
+                            Pass* newPass = new Pass(this, p->getIndex(), *p);
                             if (newPass->getAlphaRejectFunction() != CMPF_ALWAYS_PASS)
                             {
                                 // Alpha rejection passes must retain their transparency, so
@@ -921,7 +913,7 @@ namespace Ogre {
                             // before it add to render queue first time.
                             newPass->_recalculateHash();
 
-                            iPass = OGRE_NEW IlluminationPass();
+                            iPass = new IlluminationPass();
                             iPass->destroyOnShutdown = true;
                             iPass->originalPass = p;
                             iPass->pass = newPass;
@@ -942,7 +934,7 @@ namespace Ogre {
                         if (!p->getLightingEnabled())
                         {
                             // we assume this pass already combines as required with the scene
-                            iPass = OGRE_NEW IlluminationPass();
+                            iPass = new IlluminationPass();
                             iPass->destroyOnShutdown = false;
                             iPass->originalPass = iPass->pass = p;
                             iPass->stage = iStage;
@@ -951,7 +943,7 @@ namespace Ogre {
                         else
                         {
                             // Copy the pass and tweak away the lighting parts
-                            Pass* newPass = OGRE_NEW Pass(this, p->getIndex(), *p);
+                            Pass* newPass = new Pass(this, p->getIndex(), *p);
                             newPass->setAmbient(ColourValue::Black);
                             newPass->setDiffuse(0, 0, 0, newPass->getDiffuse().a);  // Preserving alpha
                             newPass->setSpecular(ColourValue::Black);
@@ -969,7 +961,7 @@ namespace Ogre {
                             // NB there is nothing we can do about vertex & fragment
                             // programs here, so people will just have to make their
                             // programs friendly-like if they want to use this technique
-                            iPass = OGRE_NEW IlluminationPass();
+                            iPass = new IlluminationPass();
                             iPass->destroyOnShutdown = true;
                             iPass->originalPass = p;
                             iPass->pass = newPass;
@@ -1002,7 +994,7 @@ namespace Ogre {
             {
                 (*i)->pass->queueForDeletion();
             }
-            OGRE_DELETE *i;
+            delete *i;
         }
         mIlluminationPasses.clear();
     }
@@ -1107,11 +1099,6 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Technique::GPUVendorRuleIterator Technique::getGPUVendorRuleIterator() const
-    {
-        return GPUVendorRuleIterator(mGPUVendorRules.begin(), mGPUVendorRules.end());
-    }
-    //---------------------------------------------------------------------
     void Technique::addGPUDeviceNameRule(const String& devicePattern, 
         Technique::IncludeOrExclude includeOrExclude, bool caseSensitive)
     {
@@ -1135,12 +1122,4 @@ namespace Ogre {
                 ++i;
         }
     }
-    //---------------------------------------------------------------------
-    Technique::GPUDeviceNameRuleIterator Technique::getGPUDeviceNameRuleIterator() const
-    {
-        return GPUDeviceNameRuleIterator(mGPUDeviceNameRules.begin(), mGPUDeviceNameRules.end());
-    }
-    //---------------------------------------------------------------------
-
-
 }

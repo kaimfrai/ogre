@@ -182,7 +182,7 @@ namespace Ogre {
             str << mName << ":" << index;
             // Calculate the region centre
             Vector3 centre = getRegionCentre(x, y, z);
-            ret = OGRE_NEW Region(this, str.str(), mOwner, index, centre);
+            ret = new Region(this, str.str(), mOwner, index, centre);
             mOwner->injectMovableObject(ret);
             ret->setVisible(mVisible);
             ret->setCastShadows(mCastShadows);
@@ -311,7 +311,7 @@ namespace Ogre {
         for (uint i = 0; i < ent->getNumSubEntities(); ++i)
         {
             SubEntity* se = ent->getSubEntity(i);
-            QueuedSubMesh* q = OGRE_NEW QueuedSubMesh();
+            QueuedSubMesh* q = new QueuedSubMesh();
 
             // Get the geometry for this SubMesh
             q->submesh = se->getSubMesh();
@@ -341,7 +341,7 @@ namespace Ogre {
             return i->second;
         }
         // Otherwise, we have to create a new one
-        SubMeshLodGeometryLinkList* lodList = OGRE_NEW_T(SubMeshLodGeometryLinkList, MEMCATEGORY_GEOMETRY)();
+        SubMeshLodGeometryLinkList* lodList = new SubMeshLodGeometryLinkList();
         mSubMeshGeometryLookup[sm] = lodList;
         ushort numLods = sm->parent->hasManualLodLevel() ? 1 :
             sm->parent->getNumLodLevels();
@@ -502,13 +502,13 @@ namespace Ogre {
         srcIndexLock.unlock();
         dstIndexLock.unlock();
 
-        targetGeomLink->indexData = OGRE_NEW IndexData();
+        targetGeomLink->indexData = new IndexData();
         targetGeomLink->indexData->indexStart = 0;
         targetGeomLink->indexData->indexCount = id->indexCount;
         targetGeomLink->indexData->indexBuffer = ibuf;
 
         // Store optimised geometry for deallocation later
-        OptimisedSubMeshGeometry *optGeom = OGRE_NEW OptimisedSubMeshGeometry();
+        OptimisedSubMeshGeometry *optGeom = new OptimisedSubMeshGeometry();
         optGeom->indexData = targetGeomLink->indexData;
         optGeom->vertexData = targetGeomLink->vertexData;
         mOptimisedSubMeshGeometryList.push_back(optGeom);
@@ -572,7 +572,7 @@ namespace Ogre {
             i != mRegionMap.end(); ++i)
         {
             mOwner->extractMovableObject(i->second);
-            OGRE_DELETE i->second;
+            delete i->second;
         }
         mRegionMap.clear();
     }
@@ -583,21 +583,21 @@ namespace Ogre {
         for (QueuedSubMeshList::iterator i = mQueuedSubMeshes.begin();
             i != mQueuedSubMeshes.end(); ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
         mQueuedSubMeshes.clear();
         // Delete precached geoemtry lists
         for (SubMeshGeometryLookup::iterator l = mSubMeshGeometryLookup.begin();
             l != mSubMeshGeometryLookup.end(); ++l)
         {
-            OGRE_DELETE_T(l->second, SubMeshLodGeometryLinkList, MEMCATEGORY_GEOMETRY);
+            delete l->second;
         }
         mSubMeshGeometryLookup.clear();
         // Delete optimised geometry
         for (OptimisedSubMeshGeometryList::iterator o = mOptimisedSubMeshGeometryList.begin();
             o != mOptimisedSubMeshGeometryList.end(); ++o)
         {
-            OGRE_DELETE *o;
+            delete *o;
         }
         mOptimisedSubMeshGeometryList.clear();
 
@@ -693,11 +693,7 @@ namespace Ogre {
         }
 
     }
-    //--------------------------------------------------------------------------
-    StaticGeometry::RegionIterator StaticGeometry::getRegionIterator(void)
-    {
-        return RegionIterator(mRegionMap.begin(), mRegionMap.end());
-    }
+
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
     StaticGeometry::Region::Region(StaticGeometry* parent, const String& name,
@@ -720,7 +716,7 @@ namespace Ogre {
         for (LODBucketList::iterator i = mLodBucketList.begin();
             i != mLodBucketList.end(); ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
         mLodBucketList.clear();
 
@@ -802,7 +798,7 @@ namespace Ogre {
         for (ushort lod = 0; lod < mLodValues.size(); ++lod)
         {
             LODBucket* lodBucket =
-                OGRE_NEW LODBucket(this, lod, mLodValues[lod]);
+                new LODBucket(this, lod, mLodValues[lod]);
             mLodBucketList.push_back(lodBucket);
             // Now iterate over the meshes and assign to LODs
             // LOD bucket will pick the right LOD to use
@@ -888,12 +884,7 @@ namespace Ogre {
 
         return true;
     }
-    //--------------------------------------------------------------------------
-    StaticGeometry::Region::LODIterator
-    StaticGeometry::Region::getLODIterator(void)
-    {
-        return LODIterator(mLodBucketList.begin(), mLodBucketList.end());
-    }
+
     //---------------------------------------------------------------------
     const ShadowRenderableList& StaticGeometry::Region::getShadowVolumeRenderableList(
         const Light* light, const HardwareIndexBufferPtr& indexBuffer, size_t& indexBufferUsedSize,
@@ -955,19 +946,19 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     StaticGeometry::LODBucket::~LODBucket()
     {
-        OGRE_DELETE mEdgeList;
+        delete mEdgeList;
         ShadowCaster::clearShadowRenderableList(mShadowRenderables);
         // delete
         for (MaterialBucketMap::iterator i = mMaterialBucketMap.begin();
             i != mMaterialBucketMap.end(); ++i)
         {
-            OGRE_DELETE i->second;
+            delete i->second;
         }
         mMaterialBucketMap.clear();
         for(QueuedGeometryList::iterator qi = mQueuedGeometryList.begin();
             qi != mQueuedGeometryList.end(); ++qi)
         {
-            OGRE_DELETE *qi;
+            delete *qi;
         }
         mQueuedGeometryList.clear();
 
@@ -976,7 +967,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     void StaticGeometry::LODBucket::assign(QueuedSubMesh* qmesh, ushort atLod)
     {
-        QueuedGeometry* q = OGRE_NEW QueuedGeometry();
+        QueuedGeometry* q = new QueuedGeometry();
         mQueuedGeometryList.push_back(q);
         q->position = qmesh->position;
         q->orientation = qmesh->orientation;
@@ -1002,7 +993,7 @@ namespace Ogre {
         }
         else
         {
-            mbucket = OGRE_NEW MaterialBucket(this, qmesh->material);
+            mbucket = new MaterialBucket(this, qmesh->material);
             mMaterialBucketMap[qmesh->material->getName()] = mbucket;
         }
         mbucket->assign(q);
@@ -1072,13 +1063,6 @@ namespace Ogre {
         }
     }
     //--------------------------------------------------------------------------
-    StaticGeometry::LODBucket::MaterialIterator
-    StaticGeometry::LODBucket::getMaterialIterator(void)
-    {
-        return MaterialIterator(
-            mMaterialBucketMap.begin(), mMaterialBucketMap.end());
-    }
-    //--------------------------------------------------------------------------
     void StaticGeometry::LODBucket::dump(std::ofstream& of) const
     {
         of << "LOD Bucket " << mLod << std::endl;
@@ -1135,7 +1119,7 @@ namespace Ogre {
                 // for extruding the shadow volume) since otherwise we can
                 // get depth-fighting on the light cap
 
-                *si = OGRE_NEW ShadowRenderable(mParent, indexBuffer, egi->vertexData,
+                *si = new ShadowRenderable(mParent, indexBuffer, egi->vertexData,
                                                 mVertexProgramInUse || !extrude);
             }
             // Extrude vertices in software if required
@@ -1162,7 +1146,7 @@ namespace Ogre {
         for (GeometryBucketList::iterator i = mGeometryBucketList.begin();
             i != mGeometryBucketList.end(); ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
         mGeometryBucketList.clear();
 
@@ -1208,7 +1192,7 @@ namespace Ogre {
         if (newBucket)
         {
             GeometryBucket* gbucket =
-                OGRE_NEW GeometryBucket(this, qgeom->geometry->vertexData, qgeom->geometry->indexData);
+                new GeometryBucket(this, qgeom->geometry->vertexData, qgeom->geometry->indexData);
             // Add to main list
             mGeometryBucketList.push_back(gbucket);
             // Also index in 'current' list
@@ -1263,13 +1247,6 @@ namespace Ogre {
         OgreAssert(material, "NULL pointer");
         mMaterial = material;
         mMaterial->load();
-    }
-    //--------------------------------------------------------------------------
-    StaticGeometry::MaterialBucket::GeometryIterator
-    StaticGeometry::MaterialBucket::getGeometryIterator(void)
-    {
-        return GeometryIterator(
-            mGeometryBucketList.begin(), mGeometryBucketList.end());
     }
     //--------------------------------------------------------------------------
     void StaticGeometry::MaterialBucket::dump(std::ofstream& of) const
@@ -1348,8 +1325,8 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     StaticGeometry::GeometryBucket::~GeometryBucket()
     {
-        OGRE_DELETE mVertexData;
-        OGRE_DELETE mIndexData;
+        delete mVertexData;
+        delete mIndexData;
     }
     //--------------------------------------------------------------------------
     const MaterialPtr& StaticGeometry::GeometryBucket::getMaterial(void) const

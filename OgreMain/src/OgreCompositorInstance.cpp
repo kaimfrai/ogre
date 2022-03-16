@@ -339,7 +339,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
         switch(pass->getType())
         {
         case CompositionPass::PT_CLEAR:
-            queueRenderSystemOp(finalState, OGRE_NEW RSClearOperation(
+            queueRenderSystemOp(finalState, new RSClearOperation(
                 pass->getClearBuffers(),
                 pass->getClearColour(),
                 pass->getClearDepth(),
@@ -348,7 +348,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
                 ));
             break;
         case CompositionPass::PT_STENCIL:
-            queueRenderSystemOp(finalState, OGRE_NEW RSStencilOperation(pass->getStencilState()));
+            queueRenderSystemOp(finalState, new RSStencilOperation(pass->getStencilState()));
             break;
         case CompositionPass::PT_RENDERSCENE: 
         {
@@ -367,7 +367,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
             {
                 //Add the triggers that will set the scheme and restore it each frame
                 finalState.currentQueueGroupID = pass->getFirstRenderQueue();
-                setSchemeOperation = OGRE_NEW RSSetSchemeOperation(pass->getMaterialScheme());
+                setSchemeOperation = new RSSetSchemeOperation(pass->getMaterialScheme());
                 queueRenderSystemOp(finalState, setSchemeOperation);
             }
             
@@ -383,7 +383,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
             {
                 //Restoring the scheme after the queues have been rendered
                 queueRenderSystemOp(finalState, 
-                    OGRE_NEW RSRestoreSchemeOperation(setSchemeOperation));
+                    new RSRestoreSchemeOperation(setSchemeOperation));
             }
 
             finalState.cameraOverride = pass->getCameraName();

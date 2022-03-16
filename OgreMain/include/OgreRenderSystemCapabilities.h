@@ -33,7 +33,8 @@ THE SOFTWARE.
 
 // Precompiler options
 #include "OgrePrerequisites.h"
-#include "OgreExports.h"
+#include "OgreStringVector.h"
+#include "OgreStringConverter.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
@@ -214,7 +215,7 @@ namespace Ogre
 
     /// DriverVersion is used by RenderSystemCapabilities and both GL and D3D9
     /// to store the version of the current GPU driver
-    struct _OgreExport DriverVersion 
+    struct DriverVersion 
     {
         int major;
         int minor;
@@ -254,7 +255,7 @@ namespace Ogre
     @remarks
     This information is set by the individual render systems.
     */
-    class _OgreExport RenderSystemCapabilities : public RenderSysAlloc
+    class RenderSystemCapabilities : public RenderSysAlloc
     {
 
     public:
@@ -592,16 +593,6 @@ namespace Ogre
         {
             return mNumVertexTextureUnits;
         }
-        /// @deprecated obsolete
-        OGRE_DEPRECATED void setVertexTextureUnitsShared(bool shared)
-        {
-            mVertexTextureUnitsShared = shared;
-        }
-        /// @deprecated obsolete
-        OGRE_DEPRECATED bool getVertexTextureUnitsShared(void) const
-        {
-            return mVertexTextureUnitsShared;
-        }
 
         /// Set the number of vertices a single geometry program run can emit
         void setGeometryProgramNumOutputVertices(int numOutputVertices)
@@ -672,129 +663,6 @@ namespace Ogre
         {
             mTessellationHullProgramConstantFloatCount = c;
         }
-
-
-        /// @deprecated use getVertexProgramConstantFloatCount instead
-        OGRE_DEPRECATED ushort getVertexProgramConstantIntCount(void) const
-        {
-            return mVertexProgramConstantFloatCount;
-        }
-        /// @deprecated use getVertexProgramConstantFloatCount instead
-        OGRE_DEPRECATED ushort getVertexProgramConstantBoolCount(void) const
-        {
-            return mVertexProgramConstantFloatCount;
-        }
-        /// @deprecated use getGeometryProgramConstantFloatCount instead
-        OGRE_DEPRECATED ushort getGeometryProgramConstantIntCount(void) const
-        {
-            return mGeometryProgramConstantFloatCount;
-        }
-        /// @deprecated use getGeometryProgramConstantFloatCount instead
-        OGRE_DEPRECATED ushort getGeometryProgramConstantBoolCount(void) const
-        {
-            return mGeometryProgramConstantFloatCount;
-        }
-        /// @deprecated use getFragmentProgramConstantFloatCount instead
-        OGRE_DEPRECATED ushort getFragmentProgramConstantIntCount(void) const
-        {
-            return mFragmentProgramConstantFloatCount;
-        }
-        /// @deprecated use getFragmentProgramConstantFloatCount instead
-        OGRE_DEPRECATED ushort getFragmentProgramConstantBoolCount(void) const
-        {
-            return mFragmentProgramConstantFloatCount;
-        }
-        /// @deprecated use setVertexProgramConstantFloatCount instead
-        OGRE_DEPRECATED void setVertexProgramConstantIntCount(ushort c)
-        {
-            mVertexProgramConstantFloatCount = c;
-        }
-        /// @deprecated use setVertexProgramConstantFloatCount instead
-        OGRE_DEPRECATED void setVertexProgramConstantBoolCount(ushort c)
-        {
-            mVertexProgramConstantFloatCount = c;
-        }
-        /// @deprecated use setGeometryProgramConstantFloatCount instead
-        OGRE_DEPRECATED void setGeometryProgramConstantIntCount(ushort c)
-        {
-            mGeometryProgramConstantFloatCount = c;
-        }
-        /// @deprecated use setGeometryProgramConstantFloatCount instead
-        OGRE_DEPRECATED void setGeometryProgramConstantBoolCount(ushort c)
-        {
-            mGeometryProgramConstantFloatCount = c;
-        }
-        /// @deprecated use setFragmentProgramConstantFloatCount instead
-        OGRE_DEPRECATED void setFragmentProgramConstantIntCount(ushort c)
-        {
-            mFragmentProgramConstantFloatCount = c;
-        }
-        /// @deprecated use setFragmentProgramConstantFloatCount instead
-        OGRE_DEPRECATED void setFragmentProgramConstantBoolCount(ushort c)
-        {
-            mFragmentProgramConstantFloatCount = c;
-        }
-        /// @deprecated use setTessellationHullProgramConstantFloatCount instead
-        OGRE_DEPRECATED void setTessellationHullProgramConstantIntCount(ushort c)
-        {
-            mTessellationHullProgramConstantFloatCount = c;
-        }
-        /// @deprecated use setTessellationHullProgramConstantFloatCount instead
-        OGRE_DEPRECATED void setTessellationHullProgramConstantBoolCount(ushort c)
-        {
-            mTessellationHullProgramConstantFloatCount = c;
-        }
-        /// @deprecated use getTessellationHullProgramConstantFloatCount instead
-        OGRE_DEPRECATED ushort getTessellationHullProgramConstantIntCount(void) const
-        {
-            return mTessellationHullProgramConstantFloatCount;
-        }
-        /// @deprecated use getTessellationHullProgramConstantFloatCount instead
-        OGRE_DEPRECATED ushort getTessellationHullProgramConstantBoolCount(void) const
-        {
-            return mTessellationHullProgramConstantFloatCount;
-        }
-        /// @deprecated use setTessellationDomainProgramConstantFloatCount instead
-        OGRE_DEPRECATED void setTessellationDomainProgramConstantIntCount(ushort c)
-        {
-            mTessellationDomainProgramConstantFloatCount = c;
-        }
-        /// @deprecated use setTessellationDomainProgramConstantFloatCount instead
-        OGRE_DEPRECATED void setTessellationDomainProgramConstantBoolCount(ushort c)
-        {
-            mTessellationDomainProgramConstantFloatCount = c;
-        }
-        /// @deprecated use getTessellationDomainProgramConstantFloatCount instead
-        OGRE_DEPRECATED ushort getTessellationDomainProgramConstantIntCount(void) const
-        {
-            return mTessellationDomainProgramConstantFloatCount;
-        }
-        /// @deprecated use getTessellationDomainProgramConstantFloatCount instead
-        OGRE_DEPRECATED ushort getTessellationDomainProgramConstantBoolCount(void) const
-        {
-            return mTessellationDomainProgramConstantFloatCount;
-        }
-        /// @deprecated use setComputeProgramConstantFloatCount instead
-        OGRE_DEPRECATED void setComputeProgramConstantIntCount(ushort c)
-        {
-            mComputeProgramConstantFloatCount = c;
-        }
-        /// @deprecated use setComputeProgramConstantFloatCount instead
-        OGRE_DEPRECATED void setComputeProgramConstantBoolCount(ushort c)
-        {
-            mComputeProgramConstantFloatCount = c;
-        }
-        /// @deprecated use getComputeProgramConstantFloatCount instead
-        OGRE_DEPRECATED ushort getComputeProgramConstantIntCount(void) const
-        {
-            return mComputeProgramConstantFloatCount;
-        }
-        /// @deprecated use getComputeProgramConstantFloatCount instead
-        OGRE_DEPRECATED ushort getComputeProgramConstantBoolCount(void) const
-        {
-            return mComputeProgramConstantFloatCount;
-        }
-
     };
 
     inline String to_string(GPUVendor v) { return RenderSystemCapabilities::vendorToString(v); }

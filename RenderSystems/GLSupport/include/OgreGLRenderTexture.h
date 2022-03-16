@@ -33,12 +33,10 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include <map>
 #include <vector>
 
-#include "OgreGLSupportPrerequisites.h"
 #include "OgreRenderTexture.h"
 #include "OgreSingleton.h"
 #include "OgreGLRenderTarget.h"
 #include "OgreConfig.h"
-#include "OgreExports.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
@@ -50,7 +48,7 @@ class RenderTarget;
 
     /** GL surface descriptor. Points to a 2D surface that can be rendered to.
      */
-    struct _OgrePrivate GLSurfaceDesc
+    struct GLSurfaceDesc
     {
     public:
         GLHardwarePixelBufferCommon *buffer;
@@ -61,7 +59,7 @@ class RenderTarget;
     };
 
     /// Frame Buffer Object abstraction
-    class _OgreGLExport GLFrameBufferObjectCommon
+    class GLFrameBufferObjectCommon
     {
     public:
         GLFrameBufferObjectCommon(int32 fsaa);
@@ -117,7 +115,7 @@ class RenderTarget;
 
     /** Base class for GL Render Textures
      */
-    class _OgreGLExport GLRenderTexture : public RenderTexture, public GLRenderTarget
+    class GLRenderTexture : public RenderTexture, public GLRenderTarget
     {
     public:
         GLRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
@@ -130,7 +128,7 @@ class RenderTarget;
 
     /** Manager/factory for RenderTextures.
      */
-    class _OgreGLExport GLRTTManager : public Singleton<GLRTTManager>
+    class GLRTTManager : public Singleton<GLRTTManager>
     {
     public:
         GLRTTManager();

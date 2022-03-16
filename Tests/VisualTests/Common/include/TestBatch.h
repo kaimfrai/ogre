@@ -94,8 +94,8 @@ public:
         ,mDirectory(directory)
     {
         StringStream ver;
-        ver<<OGRE_VERSION_MAJOR<<"."<<OGRE_VERSION_MINOR<<" ("<<
-            OGRE_VERSION_NAME<<") "<<OGRE_VERSION_SUFFIX;
+        ver<</*OGRE_VERSION_MAJOR*/13<<"."<</*OGRE_VERSION_MINOR*/3<<" ("<<
+            /*OGRE_VERSION_NAME*/"Tsathoggua"<<") "<</*OGRE_VERSION_SUFFIX*/"Modernized";
         version = ver.str();
     }
 

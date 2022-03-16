@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgrePrerequisites.h"
-#include "OgreExports.h"
 #include "OgrePlatform.h"
 
 #define OGRE_FORMAT_PRINTF(string_idx, first_to_check) __attribute__ ((format (printf, string_idx, first_to_check)))
@@ -46,12 +45,9 @@ namespace Ogre {
      */
 
     /** Utility class for manipulating Strings.  */
-    class _OgreExport StringUtil
+    class StringUtil
     {
     public:
-        OGRE_DEPRECATED static const String& BLANK; //!< @deprecated use Ogre::BLANKSTRING instead
-        OGRE_DEPRECATED typedef StringStream StrStreamType; //!< @deprecated use Ogre::StringStream instead
-
         /** Removes any whitespace characters, be it standard space or
             TABs and so on.
             @remarks

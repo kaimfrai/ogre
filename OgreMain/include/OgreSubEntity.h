@@ -35,9 +35,7 @@ THE SOFTWARE.
 #include "OgreRenderable.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreResourceGroupManager.h"
-#include "OgreBuildSettings.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -74,7 +72,7 @@ class VertexData;
             the same time as their parent Entity by the SceneManager method
             createEntity.
     */
-    class _OgreExport SubEntity: public Renderable, public SubEntityAlloc
+    class SubEntity: public Renderable, public SubEntityAlloc
     {
         // Note no virtual functions for efficiency
         friend class Entity;

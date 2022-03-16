@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreMatrix4.h"
 #include "OgreUserObjectBindings.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -65,7 +64,7 @@ class Camera;
         This is an abstract class - concrete classes are based on this for specific purposes,
         e.g. SceneNode, Bone
     */
-    class _OgreExport Node : public NodeAlloc
+    class Node : public NodeAlloc
     {
     public:
         /** Enumeration denoting the spaces which a transform can be relative to.
@@ -85,7 +84,7 @@ class Camera;
 
         /** Listener which gets called back on Node events.
         */
-        class _OgreExport Listener
+        class Listener
         {
         public:
             Listener() {}
@@ -484,12 +483,6 @@ class Camera;
         */
         Node* getChild(const String& name) const;
 
-        /// @deprecated use getChildren()
-        OGRE_DEPRECATED ChildNodeIterator getChildIterator(void);
-
-        /// @deprecated use getChildren()
-        OGRE_DEPRECATED ConstChildNodeIterator getChildIterator(void) const;
-
         /// List of sub-nodes of this Node
         const ChildNodeMap& getChildren() const { return mChildren; }
 
@@ -655,21 +648,6 @@ class Camera;
         static void queueNeedUpdate(Node* n);
         /** Process queued 'needUpdate' calls. */
         static void processQueuedUpdates(void);
-
-
-        /** @deprecated use UserObjectBindings::setUserAny via getUserObjectBindings() instead.
-            Sets any kind of user value on this object.
-        @remarks
-            This method allows you to associate any user value you like with 
-            this Node. This can be a pointer back to one of your own
-            classes for instance.
-        */
-        OGRE_DEPRECATED void setUserAny(const Any& anything) { getUserObjectBindings().setUserAny(anything); }
-
-        /** @deprecated use UserObjectBindings::getUserAny via getUserObjectBindings() instead.
-            Retrieves the custom user value associated with this object.
-        */
-        OGRE_DEPRECATED const Any& getUserAny(void) const { return getUserObjectBindings().getUserAny(); }
 
         /** Return an instance of user objects binding associated with this class.
             You can use it to associate one or more custom objects with this class instance.

@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreGpuProgram.h"
-#include "OgreExports.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
 
@@ -69,7 +68,7 @@ struct GpuNamedConstants;
         can query on the available custom parameters and get/set them without having to 
         link specifically with it.
     */
-    class _OgreExport HighLevelGpuProgram : public GpuProgram
+    class HighLevelGpuProgram : public GpuProgram
     {
     protected:
         /// Whether the high-level program (and it's parameter defs) is loaded

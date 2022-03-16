@@ -148,7 +148,7 @@ class InstanceManager;
     //-----------------------------------------------------------------------
     void InstanceBatchShader::setupVertices( const SubMesh* baseSubMesh )
     {
-        mRenderOperation.vertexData = OGRE_NEW VertexData();
+        mRenderOperation.vertexData = new VertexData();
         mRemoveOwnVertexData = true; //Raise flag to remove our own vertex data in the end (not always needed)
 
         VertexData *thisVertexData = mRenderOperation.vertexData;
@@ -229,7 +229,7 @@ class InstanceManager;
     //-----------------------------------------------------------------------
     void InstanceBatchShader::setupIndices( const SubMesh* baseSubMesh )
     {
-        mRenderOperation.indexData = OGRE_NEW IndexData();
+        mRenderOperation.indexData = new IndexData();
         mRemoveOwnIndexData = true; //Raise flag to remove our own index data in the end (not always needed)
 
         IndexData *thisIndexData = mRenderOperation.indexData;

@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreTextureUnitState.h"
 #include "OgreBlendMode.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMemoryAllocatorConfig.h"
 
@@ -56,7 +55,7 @@ class Technique;
     *  @{
     */
     /** Class for serializing Materials to a .material script.*/
-    class _OgreExport MaterialSerializer : public SerializerAlloc
+    class MaterialSerializer : public SerializerAlloc
     {   
     public:
 

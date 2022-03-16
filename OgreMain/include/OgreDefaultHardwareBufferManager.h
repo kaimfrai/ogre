@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreSharedPtr.h"
 
@@ -49,7 +48,7 @@ namespace Ogre {
     */
 
     /// Specialisation of HardwareBuffer for emulation
-    class _OgreExport DefaultHardwareBuffer : public HardwareBuffer
+    class DefaultHardwareBuffer : public HardwareBuffer
     {
     private:
         unsigned char* mData;
@@ -64,7 +63,7 @@ namespace Ogre {
 
     typedef DefaultHardwareBuffer DefaultHardwareUniformBuffer;
 
-    class _OgreExport DefaultHardwareVertexBuffer : public HardwareVertexBuffer
+    class DefaultHardwareVertexBuffer : public HardwareVertexBuffer
     {
     public:
         DefaultHardwareVertexBuffer(size_t vertexSize, size_t numVertices, Usage = HBU_CPU_ONLY)
@@ -74,7 +73,7 @@ namespace Ogre {
         }
     };
 
-    class _OgreExport DefaultHardwareIndexBuffer : public HardwareIndexBuffer
+    class DefaultHardwareIndexBuffer : public HardwareIndexBuffer
     {
     public:
         DefaultHardwareIndexBuffer(IndexType idxType, size_t numIndexes, Usage = HBU_CPU_ONLY)
@@ -91,7 +90,7 @@ namespace Ogre {
         rendering system (which is required to create a 'real' hardware
         buffer manager).
     */
-    class _OgreExport DefaultHardwareBufferManagerBase : public HardwareBufferManagerBase
+    class DefaultHardwareBufferManagerBase : public HardwareBufferManagerBase
     {
     public:
         DefaultHardwareBufferManagerBase();
@@ -113,7 +112,7 @@ namespace Ogre {
     };
 
     /// DefaultHardwareBufferManager as a Singleton
-    class _OgreExport DefaultHardwareBufferManager : public HardwareBufferManager
+    class DefaultHardwareBufferManager : public HardwareBufferManager
     {
         std::unique_ptr<HardwareBufferManagerBase> mImpl;
     public:

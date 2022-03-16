@@ -31,11 +31,13 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <atomic>
 #include <set>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreStringInterface.h"
-#include "Threading/OgreThreadHeaders.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
@@ -70,10 +72,9 @@ class ResourceManager;
             through a generic interface.</li>
         </ol>
     */
-    class _OgreExport Resource : public StringInterface, public ResourceAlloc
+    class Resource : public StringInterface, public ResourceAlloc
     {
     public:
-        OGRE_AUTO_MUTEX; // public to allow external locking
         class Listener
         {
         public:
@@ -163,7 +164,6 @@ class ResourceManager;
 
         typedef std::set<Listener*> ListenerList;
         ListenerList mListenerList;
-        OGRE_MUTEX(mListenerListMutex);
     protected:
         /** Protected unnamed constructor to prevent default construction. 
         */
@@ -482,7 +482,7 @@ class ResourceManager;
         so that if need be it can be called upon to re-load the resource
         at any time.
     */
-    class _OgreExport ManualResourceLoader
+    class ManualResourceLoader
     {
     public:
         ManualResourceLoader() {}

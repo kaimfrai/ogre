@@ -181,7 +181,7 @@ namespace {
                 LML_NORMAL,
                 "DDS codec registering");
 
-            msInstance = OGRE_NEW DDSCodec();
+            msInstance = new DDSCodec();
             Codec::registerCodec(msInstance);
         }
 
@@ -192,7 +192,7 @@ namespace {
         if(msInstance)
         {
             Codec::unregisterCodec(msInstance);
-            OGRE_DELETE msInstance;
+            delete msInstance;
             msInstance = 0;
         }
 
@@ -783,7 +783,7 @@ namespace {
                 "DDS header size mismatch!", "DDSCodec::decode");
         }
 
-        ImageData* imgData = OGRE_NEW ImageData();
+        ImageData* imgData = new ImageData();
         MemoryDataStreamPtr output;
 
         imgData->depth = 1; // (deal with volume later)
@@ -908,7 +908,7 @@ namespace {
             imgData->width, imgData->height, imgData->depth, imgData->format);
 
         // Bind output buffer
-        output.reset(OGRE_NEW MemoryDataStream(imgData->size));
+        output.reset(new MemoryDataStream(imgData->size));
 
 
         // Now deal with the data

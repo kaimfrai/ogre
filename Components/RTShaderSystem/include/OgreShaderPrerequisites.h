@@ -69,7 +69,6 @@ class FunctionStageRef;
 class FFPRenderStateBuilder;
 class ShaderGenerator;
 class SGMaterialSerializerListener;
-class ProgramWriterFactory;
 class ProgramWriterManager;
 
 typedef shared_ptr<Parameter>        ParameterPtr;
@@ -94,9 +93,4 @@ enum SkinningType
 }
 }
 
-#include "OgreRTShaderExports.h"
-#include "OgreRTShaderConfig.h"
-
-
 #endif
-

@@ -33,11 +33,13 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
-#include "Threading/OgreThreadHeaders.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
@@ -98,7 +100,7 @@ namespace Ogre {
         Here, the value 1 corresponds to #LML_TRIVIAL etc.
         @note Should not be used directly, but trough the LogManager class.
     */
-    class _OgreExport Log : public LogAlloc
+    class Log : public LogAlloc
     {
     private:
         std::ofstream   mLog;
@@ -115,7 +117,6 @@ namespace Ogre {
 
         class Stream;
 
-        OGRE_AUTO_MUTEX; // public to allow external locking
         /**
         @remarks
             Usual constructor - called by LogManager.
@@ -150,8 +151,7 @@ namespace Ogre {
             Enable or disable outputting log messages to the debugger.
         */
         void setDebugOutputEnabled(bool debugOutput);
-        /// @deprecated use setMinLogLevel()
-        OGRE_DEPRECATED void setLogDetail(LoggingLevel ll);
+
         /// set the minimal #LogMessageLevel for a message to be logged
         void setMinLogLevel(LogMessageLevel lml);
         /**
@@ -196,7 +196,7 @@ namespace Ogre {
             threads. Multiple threads can hold their own Stream instances pointing
             at the same Log though and that is threadsafe.
         */
-        class _OgrePrivate Stream
+        class Stream
         {
         private:
             Log* mTarget;

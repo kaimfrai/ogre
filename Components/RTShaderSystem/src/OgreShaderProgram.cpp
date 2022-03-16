@@ -160,7 +160,7 @@ UniformParameterPtr Program::resolveParameter(GpuProgramParameters::AutoConstant
     }
     
     // Create new parameter
-    param = UniformParameterPtr(OGRE_NEW UniformParameter(autoType, data, size));
+    param = UniformParameterPtr(new UniformParameter(autoType, data, size));
     addParameter(param);
 
     return param;
@@ -184,7 +184,7 @@ UniformParameterPtr Program::resolveAutoParameterReal(GpuProgramParameters::Auto
     }
     
     // Create new parameter.
-    param = UniformParameterPtr(OGRE_NEW UniformParameter(autoType, float(data), size));
+    param = UniformParameterPtr(new UniformParameter(autoType, float(data), size));
     addParameter(param);
 
     return param;
@@ -209,7 +209,7 @@ UniformParameterPtr Program::resolveAutoParameterReal(GpuProgramParameters::Auto
     }
     
     // Create new parameter.
-    param = UniformParameterPtr(OGRE_NEW UniformParameter(autoType, data, size, type));
+    param = UniformParameterPtr(new UniformParameter(autoType, data, size, type));
     addParameter(param);
 
     return param;
@@ -234,7 +234,7 @@ UniformParameterPtr Program::resolveAutoParameterInt(GpuProgramParameters::AutoC
     }
 
     // Create new parameter.
-    param = UniformParameterPtr(OGRE_NEW UniformParameter(autoType, data, size, type));
+    param = UniformParameterPtr(new UniformParameter(autoType, data, size, type));
     addParameter(param);
 
     return param;

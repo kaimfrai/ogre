@@ -52,7 +52,7 @@ void MeshLodTests::TearDown()
         mMesh->unload();
         mMesh.reset();
     }
-    OGRE_DELETE MeshLodGenerator::getSingletonPtr();
+    delete MeshLodGenerator::getSingletonPtr();
     RootWithoutRenderSystemFixture::TearDown();
 }
 //--------------------------------------------------------------------------
@@ -115,7 +115,6 @@ void MeshLodTests::blockedWaitForLodGeneration(const MeshPtr& mesh)
     WorkQueue* wq = Root::getSingleton().getWorkQueue();
     for (int i = 0; i < timeout; i++) 
     {
-        OGRE_THREAD_SLEEP(1);
         wq->processResponses(); // Injects the Lod if ready
         if (mesh->getNumLodLevels() != 1) {
             success = true;

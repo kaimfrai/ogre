@@ -89,7 +89,7 @@ class ResourceManager;
     void PatchMesh::loadImpl(void)
     {
         SubMesh* sm = this->createSubMesh();
-        sm->vertexData = OGRE_NEW VertexData();
+        sm->vertexData = new VertexData();
         sm->useSharedVertices = false;
 
         // Set up vertex buffer

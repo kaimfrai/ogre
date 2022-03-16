@@ -32,45 +32,15 @@ THE SOFTWARE.
 
 // Precompiler options
 #include "OgrePrerequisites.h"
-#include "OgreBuildSettings.h"
-#include "OgreExports.h"
+#include "OgreString.h"
 #include "OgrePlatform.h"
 
 // Check for OGRE assert mode
 
-// RELEASE_EXCEPTIONS mode
-#if OGRE_ASSERT_MODE == 1
-#   if OGRE_DEBUG_MODE
-#       define OgreAssert( a, b ) assert( (a) && (b) )
-#   else
-#       define OgreAssert( a, b ) if( !(a) ) OGRE_EXCEPT_2( Ogre::Exception::ERR_RT_ASSERTION_FAILED, (#a " failed. " b) )
-#   endif
+#define OgreAssert( a, b ) if( !(a) ) OGRE_EXCEPT_2( Ogre::Exception::ERR_RT_ASSERTION_FAILED, (#a " failed. " b) )
 
-// EXCEPTIONS mode
-#elif OGRE_ASSERT_MODE == 2
-#   define OgreAssert( a, b ) if( !(a) ) OGRE_EXCEPT_2( Ogre::Exception::ERR_RT_ASSERTION_FAILED, (#a " failed. " b) )
-// STANDARD mode
-#else
-/** Checks a condition at runtime and throws exception/ aborts if it fails.
- *
- * The macros OgreAssert (and OgreAssertDbg) evaluate the specified expression.
- * If it is 0, OgreAssert raises an error (see Ogre::RuntimeAssertionException) in Release configuration
- * and aborts in Debug configuration.
- * The macro OgreAssert checks the condition in both Debug and Release configurations
- * while OgreAssertDbg is only retained in the Debug configuration.
- *
- * To always abort instead of throwing an exception or disabling OgreAssert in Release configuration altogether,
- * set OGRE_ASSERT_MODE in CMake accordingly.
- */
-#   define OgreAssert( expr, mesg ) assert( (expr) && (mesg) )
-#endif
-
-#if OGRE_DEBUG_MODE
-#   define OgreAssertDbg( a, b ) OgreAssert( a, b )
-#else
 /// replaced with OgreAssert(expr, mesg) in Debug configuration
-#   define OgreAssertDbg( expr, mesg )
-#endif
+#define OgreAssertDbg( expr, mesg )
 
 namespace Ogre {
 
@@ -93,7 +63,7 @@ namespace Ogre {
             object unless it wishes to unify its error handling using the
             same object.
     */
-    class _OgreExport Exception : public std::exception
+    class Exception : public std::exception
     {
     protected:
         long line;
@@ -179,61 +149,61 @@ namespace Ogre {
     for returning different exception types by value without ambiguity. 
     From 'Modern C++ Design' (Alexandrescu 2001).
     */
-    class _OgreExport UnimplementedException : public Exception 
+    class UnimplementedException : public Exception 
     {
     public:
         UnimplementedException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport FileNotFoundException : public Exception
+    class FileNotFoundException : public Exception
     {
     public:
         FileNotFoundException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport IOException : public Exception
+    class IOException : public Exception
     {
     public:
         IOException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport InvalidStateException : public Exception
+    class InvalidStateException : public Exception
     {
     public:
         InvalidStateException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport InvalidParametersException : public Exception
+    class InvalidParametersException : public Exception
     {
     public:
         InvalidParametersException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport ItemIdentityException : public Exception
+    class ItemIdentityException : public Exception
     {
     public:
         ItemIdentityException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport InternalErrorException : public Exception
+    class InternalErrorException : public Exception
     {
     public:
         InternalErrorException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport RenderingAPIException : public Exception
+    class RenderingAPIException : public Exception
     {
     public:
         RenderingAPIException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport RuntimeAssertionException : public Exception
+    class RuntimeAssertionException : public Exception
     {
     public:
         RuntimeAssertionException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
-    class _OgreExport InvalidCallException : public Exception
+    class InvalidCallException : public Exception
     {
     public:
         InvalidCallException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)

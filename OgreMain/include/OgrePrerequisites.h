@@ -33,10 +33,8 @@ THE SOFTWARE
 #include <memory>
 
 namespace Ogre {
-    #define OGRE_TOKEN_PASTE_INNER(x, y) x ## y
-    #define OGRE_TOKEN_PASTE(x, y) OGRE_TOKEN_PASTE_INNER(x, y)
 
-    #define OGRE_VERSION    ((OGRE_VERSION_MAJOR << 16) | (OGRE_VERSION_MINOR << 8) | OGRE_VERSION_PATCH)
+    #define OGRE_VERSION    ((/*OGRE_VERSION_MAJOR*/13 << 16) | (/*OGRE_VERSION_MINOR*/3 << 8) | /*OGRE_VERSION_PATCH*/3)
 
     #define OGRE_MIN_VERSION(MAJOR, MINOR, PATCH) OGRE_VERSION >= ((MAJOR << 16) | (MINOR << 8) | PATCH)
 

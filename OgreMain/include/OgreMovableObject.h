@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreShadowCaster.h"
 #include "OgreAnimable.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreRenderable.h"
@@ -69,12 +68,12 @@ class SceneNode;
             Instances of this class are discrete, relatively small, movable objects
             which are attached to SceneNode objects to define their position.
     */
-    class _OgreExport MovableObject : public ShadowCaster, public AnimableObject, public MovableAlloc
+    class MovableObject : public ShadowCaster, public AnimableObject, public MovableAlloc
     {
     public:
         /** Listener which gets called back on MovableObject events.
         */
-        class _OgreExport Listener
+        class Listener
         {
         public:
             Listener(void) {}
@@ -347,20 +346,6 @@ class SceneNode;
             return mMinPixelSize; 
         }
 
-        /** @deprecated use UserObjectBindings::setUserAny via getUserObjectBindings() instead.
-            Sets any kind of user value on this object.
-        @remarks
-            This method allows you to associate any user value you like with 
-            this MovableObject. This can be a pointer back to one of your own
-            classes for instance.       
-        */
-        OGRE_DEPRECATED void setUserAny(const Any& anything) { getUserObjectBindings().setUserAny(anything); }
-
-        /** @deprecated use UserObjectBindings::getUserAny via getUserObjectBindings() instead.
-            Retrieves the custom user value associated with this object.
-        */
-        OGRE_DEPRECATED const Any& getUserAny(void) const { return getUserObjectBindings().getUserAny(); }
-
         /** Return an instance of user objects binding associated with this class.
         You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.        
@@ -600,7 +585,7 @@ class SceneNode;
         to allow all clients to produce new instances of this object, integrated
         with the standard Ogre processing.
     */
-    class _OgreExport MovableObjectFactory : public MovableAlloc
+    class MovableObjectFactory : public MovableAlloc
     {
     private:
         /// Type flag, allocated if requested

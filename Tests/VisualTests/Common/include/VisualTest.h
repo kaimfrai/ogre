@@ -29,8 +29,6 @@ THE SOFTWARE.
 #ifndef __VisualTest_H__
 #define __VisualTest_H__
 
-#include "OgreBuildSettings.h"
-
 #include "Sample.h"
 #include "Ogre.h"
 

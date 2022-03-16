@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreSingleton.h"
 #include "OgreTextureUnitState.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 #include "OgreResource.h"
@@ -69,7 +68,7 @@ class Image;
             created at least one window - this may be done at the
             same time as part a if you allow Ogre to autocreate one.
      */
-    class _OgreExport TextureManager : public ResourceManager, public Singleton<TextureManager>
+    class TextureManager : public ResourceManager, public Singleton<TextureManager>
     {
     public:
 
@@ -166,11 +165,6 @@ class Image;
         TexturePtr load(const String& name, const String& group, TextureType texType = TEX_TYPE_2D,
                         int numMipmaps = MIP_DEFAULT, Real gamma = 1.0f,
                         PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false);
-        /// @deprecated
-        OGRE_DEPRECATED TexturePtr load(const String& name, const String& group, TextureType texType,
-                                        int numMipmaps, Real gamma, bool isAlpha,
-                                        PixelFormat desiredFormat = PF_UNKNOWN,
-                                        bool hwGammaCorrection = false);
 
         /** Loads a texture from an Image object.
             @note
@@ -436,7 +430,7 @@ class Image;
     };
 
     /// Specialisation of TextureManager for offline processing. Cannot be used with an active RenderSystem.
-    class _OgreExport DefaultTextureManager : public TextureManager
+    class DefaultTextureManager : public TextureManager
     {
         /// noop implementation
         class NullTexture : public Texture

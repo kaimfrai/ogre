@@ -29,6 +29,10 @@ THE SOFTWARE.
 #include <algorithm>
 #include <atomic>
 #include <memory>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreImage.h"
@@ -45,7 +49,6 @@ THE SOFTWARE.
 #include "OgreRoot.h"
 #include "OgreString.h"
 #include "OgreTextureManager.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
     const char* Texture::CUBEMAP_SUFFIXES[] = {"_rt", "_lf", "_up", "_dn", "_fr", "_bk"};
@@ -112,7 +115,6 @@ namespace Ogre {
         // Scope lock for actual loading
         try
         {
-            OGRE_LOCK_AUTO_MUTEX;
             _loadImages({&img});
         }
         catch (...)

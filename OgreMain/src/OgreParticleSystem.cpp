@@ -57,49 +57,49 @@ namespace Ogre {
 class RenderQueue;
 
     /** Command object for quota (see ParamCommand).*/
-    class _OgrePrivate CmdQuota : public ParamCommand
+    class CmdQuota : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for emittedEmitterQuota (see ParamCommand).*/
-    class _OgrePrivate CmdEmittedEmitterQuota : public ParamCommand
+    class CmdEmittedEmitterQuota : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for material (see ParamCommand).*/
-    class _OgrePrivate CmdMaterial : public ParamCommand
+    class CmdMaterial : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for cull_each (see ParamCommand).*/
-    class _OgrePrivate CmdCull : public ParamCommand
+    class CmdCull : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for particle_width (see ParamCommand).*/
-    class _OgrePrivate CmdWidth : public ParamCommand
+    class CmdWidth : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for particle_height (see ParamCommand).*/
-    class _OgrePrivate CmdHeight : public ParamCommand
+    class CmdHeight : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for renderer (see ParamCommand).*/
-    class _OgrePrivate CmdRenderer : public ParamCommand
+    class CmdRenderer : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
@@ -251,7 +251,7 @@ class RenderQueue;
         // Free pool items
         for (auto p : mParticlePool)
         {
-            OGRE_DELETE p;
+            delete p;
         }
 
         if (mRenderer)
@@ -718,7 +718,7 @@ class RenderQueue;
         // Create new particles
         for( size_t i = oldSize; i < size; i++ )
         {
-            mParticlePool[i] = OGRE_NEW Particle();
+            mParticlePool[i] = new Particle();
         }
     }
     //-----------------------------------------------------------------------
@@ -1025,7 +1025,7 @@ class RenderQueue;
 
             // Create time controller when attached
             ControllerManager& mgr = ControllerManager::getSingleton(); 
-            ControllerValueRealPtr updValue(OGRE_NEW ParticleSystemUpdateValue(this));
+            ControllerValueRealPtr updValue(new ParticleSystemUpdateValue(this));
             mTimeController = mgr.createFrameTimePassthroughController(updValue);
         }
         else if (!parent && mTimeController)
@@ -1579,7 +1579,7 @@ class RenderQueue;
         std::vector<ParticleAffector*>::iterator i;
         for (i = mAffectors.begin(); i != mAffectors.end(); ++i)
         {
-            OGRE_DELETE (*i);
+            delete (*i);
         }
             
         mAffectors.clear();
@@ -1594,7 +1594,7 @@ class RenderQueue;
             if ((*i) == e)
             {
                 mAffectors.erase(i);
-                OGRE_DELETE e;
+                delete e;
                 break;
             }
         }

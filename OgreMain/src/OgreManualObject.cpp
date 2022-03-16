@@ -97,12 +97,12 @@ ManualObject::ManualObject(const String& name)
         resetTempAreas();
         for (SectionList::iterator i = mSectionList.begin(); i != mSectionList.end(); ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
         mSectionList.clear();
         mRadius = 0;
         mAABB.setNull();
-        OGRE_DELETE mEdgeList;
+        delete mEdgeList;
         mEdgeList = 0;
         mAnyIndexed = false;
 
@@ -111,8 +111,8 @@ ManualObject::ManualObject(const String& name)
     //-----------------------------------------------------------------------------
     void ManualObject::resetTempAreas(void)
     {
-        OGRE_FREE(mTempVertexBuffer, MEMCATEGORY_GEOMETRY);
-        OGRE_FREE(mTempIndexBuffer, MEMCATEGORY_GEOMETRY);
+        delete[] mTempVertexBuffer;
+        delete[] mTempIndexBuffer;
         mTempVertexBuffer = 0;
         mTempIndexBuffer = 0;
         mTempVertexSize = TEMP_INITIAL_VERTEX_SIZE;
@@ -134,12 +134,12 @@ ManualObject::ManualObject(const String& name)
 
         // copy old data
         char* tmp = mTempVertexBuffer;
-        mTempVertexBuffer = OGRE_ALLOC_T(char, newSize, MEMCATEGORY_GEOMETRY);
+        mTempVertexBuffer = new char[newSize];
         if (tmp)
         {
             memcpy(mTempVertexBuffer, tmp, mTempVertexSize);
             // delete old buffer
-            OGRE_FREE(tmp, MEMCATEGORY_GEOMETRY);
+            delete[] tmp;
         }
         mTempVertexSize = newSize;
     }
@@ -157,11 +157,11 @@ ManualObject::ManualObject(const String& name)
 
         numInds = newSize / sizeof(uint32);
         uint32* tmp = mTempIndexBuffer;
-        mTempIndexBuffer = OGRE_ALLOC_T(uint32, numInds, MEMCATEGORY_GEOMETRY);
+        mTempIndexBuffer = new uint32[numInds];
         if (tmp)
         {
             memcpy(mTempIndexBuffer, tmp, mTempIndexSize);
-            OGRE_FREE(tmp, MEMCATEGORY_GEOMETRY);
+            delete[] tmp;
         }
         mTempIndexSize = newSize;
     }
@@ -197,7 +197,7 @@ ManualObject::ManualObject(const String& name)
             material = MaterialManager::getSingleton().getDefaultMaterial();
         }
 
-        mCurrentSection = OGRE_NEW ManualObjectSection(this, material, opType);
+        mCurrentSection = new ManualObjectSection(this, material, opType);
         mCurrentUpdating = false;
         mCurrentSection->setUseIdentityProjection(mUseIdentityProjection);
         mCurrentSection->setUseIdentityView(mUseIdentityView);
@@ -213,13 +213,13 @@ ManualObject::ManualObject(const String& name)
 
       if (mat)
       {
-          mCurrentSection = OGRE_NEW ManualObjectSection(this, mat, opType);
+          mCurrentSection = new ManualObjectSection(this, mat, opType);
       }
       else
       {
           LogManager::getSingleton().logMessage("Can't assign null material", LML_CRITICAL);
           const MaterialPtr defaultMat = MaterialManager::getSingleton().getDefaultMaterial();
-          mCurrentSection = OGRE_NEW ManualObjectSection(this, defaultMat, opType);
+          mCurrentSection = new ManualObjectSection(this, defaultMat, opType);
       }
 
       mCurrentUpdating = false;
@@ -392,7 +392,7 @@ ManualObject::ManualObject(const String& name)
                 // First creation, can really undo
                 // Has already been added to section list end, so remove
                 mSectionList.pop_back();
-                OGRE_DELETE mCurrentSection;
+                delete mCurrentSection;
 
             }
         }
@@ -660,7 +660,7 @@ ManualObject::ManualObject(const String& name)
                         break;
                     }
                 }
-                *si = OGRE_NEW ShadowRenderable(this, indexBuffer, egi->vertexData,
+                *si = new ShadowRenderable(this, indexBuffer, egi->vertexData,
                                                 vertexProgram || !extrude);
             }
             // Extrude vertices in software if required
@@ -692,7 +692,7 @@ ManualObject::ManualObject(const String& name)
         // default to no indexes unless we're told
         mRenderOperation.useIndexes = false;
         mRenderOperation.useGlobalInstancingVertexBufferIsAvailable = false;
-        mRenderOperation.vertexData = OGRE_NEW VertexData();
+        mRenderOperation.vertexData = new VertexData();
         mRenderOperation.vertexData->vertexCount = 0;
     }
     ManualObject::ManualObjectSection::ManualObjectSection(ManualObject* parent,
@@ -706,14 +706,14 @@ ManualObject::ManualObject(const String& name)
         mRenderOperation.operationType = opType;
         mRenderOperation.useIndexes = false;
         mRenderOperation.useGlobalInstancingVertexBufferIsAvailable = false;
-        mRenderOperation.vertexData = OGRE_NEW VertexData();
+        mRenderOperation.vertexData = new VertexData();
         mRenderOperation.vertexData->vertexCount = 0;
     }
     //-----------------------------------------------------------------------------
     ManualObject::ManualObjectSection::~ManualObjectSection()
     {
-        OGRE_DELETE mRenderOperation.vertexData;
-        OGRE_DELETE mRenderOperation.indexData; // ok to delete 0
+        delete mRenderOperation.vertexData;
+        delete mRenderOperation.indexData; // ok to delete 0
     }
     //-----------------------------------------------------------------------------
     RenderOperation* ManualObject::ManualObjectSection::getRenderOperation(void)
@@ -784,7 +784,7 @@ ManualObject::ManualObject(const String& name)
         if (mRenderOperation.indexData)
         {
             // Copy index data; replicate buffers too; delete the default, old one to avoid memory leaks
-            OGRE_DELETE sm->indexData;
+            delete sm->indexData;
             sm->indexData = mRenderOperation.indexData->clone(true);
         }
     }
@@ -800,6 +800,6 @@ ManualObject::ManualObject(const String& name)
     MovableObject* ManualObjectFactory::createInstanceImpl(
         const String& name, const NameValuePairList* params)
     {
-        return OGRE_NEW ManualObject(name);
+        return new ManualObject(name);
     }
 }

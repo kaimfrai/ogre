@@ -44,8 +44,6 @@ THE SOFTWARE.
 #include "OgreRenderable.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreBuildSettings.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMatrix4.h"
 #include "OgrePlatform.h"
@@ -103,7 +101,7 @@ class VertexData;
     @note
         No functions were declared virtual to improve performance.
     */
-    class _OgreExport Entity: public MovableObject, public Resource::Listener
+    class Entity: public MovableObject, public Resource::Listener
     {
         // Allow EntityFactory full access
         friend class EntityFactory;
@@ -588,8 +586,7 @@ class VertexData;
         void detachAllObjectsFromBone(void);
 
         typedef VectorIterator<ChildObjectList> ChildObjectListIterator;
-        /// @deprecated use getAttachedObjects()
-        OGRE_DEPRECATED ChildObjectListIterator getAttachedObjectIterator(void);
+
         /** Gets an iterator to the list of objects attached to bones on this entity. */
         const ChildObjectList& getAttachedObjects() const { return mChildObjectList; }
 
@@ -872,7 +869,7 @@ class VertexData;
     };
 
     /** Factory object for creating Entity instances */
-    class _OgreExport EntityFactory : public MovableObjectFactory
+    class EntityFactory : public MovableObjectFactory
     {
     private:
         MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);

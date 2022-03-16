@@ -218,18 +218,18 @@ namespace Ogre
         {
             if(initialWeight >= 0)
             {
-                mBlendMask = OGRE_NEW_T(BoneBlendMask, MEMCATEGORY_ANIMATION)(blendMaskSizeHint, initialWeight);
+                mBlendMask = new BoneBlendMask(blendMaskSizeHint, initialWeight);
             }
             else
             {
-                mBlendMask = OGRE_NEW_T(BoneBlendMask, MEMCATEGORY_ANIMATION)(blendMaskSizeHint);
+                mBlendMask = new BoneBlendMask(blendMaskSizeHint);
             }
         }
     }
     //---------------------------------------------------------------------
     void AnimationState::destroyBlendMask()
     {
-        OGRE_DELETE_T(mBlendMask, BoneBlendMask, MEMCATEGORY_ANIMATION);
+        delete mBlendMask;
         mBlendMask = 0;
     }
     //---------------------------------------------------------------------
@@ -243,14 +243,11 @@ namespace Ogre
     AnimationStateSet::AnimationStateSet(const AnimationStateSet& rhs)
         : mDirtyFrameNumber(std::numeric_limits<unsigned long>::max())
     {
-        // lock rhs
-            OGRE_LOCK_MUTEX(rhs.OGRE_AUTO_MUTEX_NAME);
-
         for (AnimationStateMap::const_iterator i = rhs.mAnimationStates.begin();
             i != rhs.mAnimationStates.end(); ++i)
         {
             AnimationState* src = i->second;
-            mAnimationStates[src->getAnimationName()] = OGRE_NEW AnimationState(this, *src);
+            mAnimationStates[src->getAnimationName()] = new AnimationState(this, *src);
         }
 
         // Clone enabled animation state list
@@ -270,26 +267,22 @@ namespace Ogre
     //---------------------------------------------------------------------
     void AnimationStateSet::removeAnimationState(const String& name)
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         AnimationStateMap::iterator i = mAnimationStates.find(name);
         if (i != mAnimationStates.end())
         {
             mEnabledAnimationStates.remove(i->second);
 
-            OGRE_DELETE i->second;
+            delete i->second;
             mAnimationStates.erase(i);
         }
     }
     //---------------------------------------------------------------------
     void AnimationStateSet::removeAllAnimationStates(void)
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         for (AnimationStateMap::iterator i = mAnimationStates.begin();
             i != mAnimationStates.end(); ++i)
         {
-            OGRE_DELETE i->second;
+            delete i->second;
         }
         mAnimationStates.clear();
         mEnabledAnimationStates.clear();
@@ -298,8 +291,6 @@ namespace Ogre
     AnimationState* AnimationStateSet::createAnimationState(const String& name,  
         Real timePos, Real length, Real weight, bool enabled)
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         AnimationStateMap::iterator i = mAnimationStates.find(name);
         if (i != mAnimationStates.end())
         {
@@ -308,7 +299,7 @@ namespace Ogre
                 "AnimationStateSet::createAnimationState");
         }
 
-        AnimationState* newState = OGRE_NEW AnimationState(name, this, timePos, 
+        AnimationState* newState = new AnimationState(name, this, timePos, 
             length, weight, enabled);
         mAnimationStates[name] = newState;
         return newState;
@@ -317,8 +308,6 @@ namespace Ogre
     //---------------------------------------------------------------------
     AnimationState* AnimationStateSet::getAnimationState(const String& name) const
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         AnimationStateMap::const_iterator i = mAnimationStates.find(name);
         if (i == mAnimationStates.end())
         {
@@ -331,34 +320,19 @@ namespace Ogre
     //---------------------------------------------------------------------
     bool AnimationStateSet::hasAnimationState(const String& name) const
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         return mAnimationStates.find(name) != mAnimationStates.end();
     }
     //---------------------------------------------------------------------
     AnimationStateIterator AnimationStateSet::getAnimationStateIterator(void)
     {
-            OGRE_LOCK_AUTO_MUTEX;
         // returned iterator not threadsafe, noted in header
         return AnimationStateIterator(
             mAnimationStates.begin(), mAnimationStates.end());
     }
-    //---------------------------------------------------------------------
-    ConstAnimationStateIterator AnimationStateSet::getAnimationStateIterator(void) const
-    {
-            OGRE_LOCK_AUTO_MUTEX;
-        // returned iterator not threadsafe, noted in header
-        return ConstAnimationStateIterator(
-            mAnimationStates.begin(), mAnimationStates.end());
-    }
+
     //---------------------------------------------------------------------
     void AnimationStateSet::copyMatchingState(AnimationStateSet* target) const
     {
-        // lock target
-            OGRE_LOCK_MUTEX(target->OGRE_AUTO_MUTEX_NAME);
-        // lock source
-            OGRE_LOCK_AUTO_MUTEX;
-
         AnimationStateMap::iterator i, iend;
         iend = target->mAnimationStates.end();
         for (i = target->mAnimationStates.begin(); i != iend; ++i) {
@@ -391,13 +365,11 @@ namespace Ogre
     //---------------------------------------------------------------------
     void AnimationStateSet::_notifyDirty(void)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         ++mDirtyFrameNumber;
     }
     //---------------------------------------------------------------------
     void AnimationStateSet::_notifyAnimationStateEnabled(AnimationState* target, bool enabled)
     {
-        OGRE_LOCK_AUTO_MUTEX;
         // Remove from enabled animation state list first
         mEnabledAnimationStates.remove(target);
 
@@ -409,19 +381,6 @@ namespace Ogre
 
         // Set the dirty frame number
         _notifyDirty();
-    }
-    //---------------------------------------------------------------------
-    ConstEnabledAnimationStateIterator AnimationStateSet::getEnabledAnimationStateIterator(void) const
-    {
-        OGRE_LOCK_AUTO_MUTEX;
-        // returned iterator not threadsafe, noted in header
-        return ConstEnabledAnimationStateIterator(
-            mEnabledAnimationStates.begin(), mEnabledAnimationStates.end());
-    }
-
-    ControllerValueRealPtr AnimationStateControllerValue::create(AnimationState* targetAnimationState, bool addTime)
-    {
-        return std::make_shared<AnimationStateControllerValue>(targetAnimationState, addTime);
     }
 }
 

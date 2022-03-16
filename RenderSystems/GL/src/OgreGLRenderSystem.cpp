@@ -986,7 +986,7 @@ namespace Ogre {
         for (auto pCurContext : mBackgroundContextList)
         {
             pCurContext->releaseContext();
-            OGRE_DELETE pCurContext;
+            delete pCurContext;
         }
         mBackgroundContextList.clear();
 
@@ -1545,8 +1545,7 @@ namespace Ogre {
             break;
 
         case TEXCALC_ENVIRONMENT_MAP_PLANAR:
-            // XXX This doesn't seem right?!
-#ifdef GL_VERSION_1_3
+
             glTexGeni( GL_S, GL_TEXTURE_GEN_MODE, GL_REFLECTION_MAP );
             glTexGeni( GL_T, GL_TEXTURE_GEN_MODE, GL_REFLECTION_MAP );
             glTexGeni( GL_R, GL_TEXTURE_GEN_MODE, GL_REFLECTION_MAP );
@@ -1555,15 +1554,7 @@ namespace Ogre {
             mStateCacheManager->enableTextureCoordGen( GL_TEXTURE_GEN_T );
             mStateCacheManager->enableTextureCoordGen( GL_TEXTURE_GEN_R );
             mStateCacheManager->disableTextureCoordGen( GL_TEXTURE_GEN_Q );
-#else
-            glTexGeni( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-            glTexGeni( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
 
-            mStateCacheManager->enableTextureCoordGen( GL_TEXTURE_GEN_S );
-            mStateCacheManager->enableTextureCoordGen( GL_TEXTURE_GEN_T );
-            mStateCacheManager->disableTextureCoordGen( GL_TEXTURE_GEN_R );
-            mStateCacheManager->disableTextureCoordGen( GL_TEXTURE_GEN_Q );
-#endif
             break;
         case TEXCALC_ENVIRONMENT_MAP_REFLECTION:
 
@@ -3088,43 +3079,6 @@ namespace Ogre {
         } // isCustomAttrib
     }
 	
-	//---------------------------------------------------------------------
-#if OGRE_NO_QUAD_BUFFER_STEREO == 0
-	bool GLRenderSystem::setDrawBuffer(ColourBufferType colourBuffer)
-	{
-		bool result = true;
-
-		switch (colourBuffer)
-		{
-		case CBT_BACK:
-			glDrawBuffer(GL_BACK);
-			break;
-		case CBT_BACK_LEFT:
-			glDrawBuffer(GL_BACK_LEFT);
-			break;
-		case CBT_BACK_RIGHT:
-			glDrawBuffer(GL_BACK_RIGHT);
-			break;
-		default:
-			result = false;
-		}
-
-		// Check for any errors
-		GLenum error = glGetError();
-		if (result && GL_NO_ERROR != error)
-		{		
-			const char* errorCode = glErrorToString(error);
-			String errorString = "GLRenderSystem::setDrawBuffer(" 
-				+ Ogre::StringConverter::toString(colourBuffer) + "): " + errorCode;
-
-			Ogre::LogManager::getSingleton().logMessage(errorString);			
-			result = false;
-		}
-
-		return result;
-	}
-#endif
-
     void GLRenderSystem::_copyContentsToMemory(Viewport* vp, const Box& src, const PixelBox &dst, RenderWindow::FrameBuffer buffer)
     {
         GLenum format = GLPixelUtil::getGLOriginFormat(dst.format);

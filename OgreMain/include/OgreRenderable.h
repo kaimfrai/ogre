@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreMaterial.h"
 #include "OgreVector.h"
 #include "OgreUserObjectBindings.h"
-#include "OgreExports.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {
@@ -66,7 +65,7 @@ namespace Ogre {
         classes e.g. entities. Only once it is decided that the specific class is to be rendered is the abstract version
         created (could be more than one per visible object) and pushed onto the rendering queue.
     */
-    class _OgreExport Renderable
+    class Renderable
     {
     public:
         enum
@@ -299,20 +298,6 @@ namespace Ogre {
         {
             return mPolygonModeOverrideable;
         }
-
-        /** @deprecated use UserObjectBindings::setUserAny via getUserObjectBindings() instead.
-            Sets any kind of user value on this object.
-        @remarks
-            This method allows you to associate any user value you like with 
-            this Renderable. This can be a pointer back to one of your own
-            classes for instance.
-        */
-        OGRE_DEPRECATED void setUserAny(const Any& anything) { getUserObjectBindings().setUserAny(anything); }
-
-        /** @deprecated use UserObjectBindings::getUserAny via getUserObjectBindings() instead.
-            Retrieves the custom user value associated with this object.
-        */
-        OGRE_DEPRECATED const Any& getUserAny(void) const { return getUserObjectBindings().getUserAny(); }
 
         /** Return an instance of user objects binding associated with this class.
             You can use it to associate one or more custom objects with this class instance.

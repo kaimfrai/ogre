@@ -42,7 +42,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreConfig.h"
 #include "OgreException.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -128,7 +127,7 @@ class SubMesh;
         vertices, or using indexes too). That is to say that the front of the
         face is the one where the vertices are listed in anti-clockwise order.
     */
-    class _OgreExport ManualObject : public MovableObject
+    class ManualObject : public MovableObject
     {
     public:
         ManualObject(const String& name);
@@ -396,7 +395,7 @@ class SubMesh;
             RenderOperation* rop = mCurrentSection->getRenderOperation();
             if (!rop->indexData)
             {
-                rop->indexData = OGRE_NEW IndexData();
+                rop->indexData = new IndexData();
                 rop->indexData->indexCount = 0;
             }
             rop->useIndexes = true;
@@ -585,7 +584,7 @@ class SubMesh;
             size_t& indexBufferUsedSize, float extrusionDist, int flags = 0) override;
 
         /// Built, renderable section of geometry
-        class _OgreExport ManualObjectSection : public Renderable, public MovableAlloc
+        class ManualObjectSection : public Renderable, public MovableAlloc
         {
         protected:
             ManualObject* mParent;
@@ -722,7 +721,7 @@ class SubMesh;
 
 
     /** Factory object for creating ManualObject instances */
-    class _OgreExport ManualObjectFactory : public MovableObjectFactory
+    class ManualObjectFactory : public MovableObjectFactory
     {
     protected:
         MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);

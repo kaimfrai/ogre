@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreSerializer.h"
-#include "OgreExports.h"
 
 namespace Ogre {
     
@@ -91,7 +90,7 @@ class Mesh;
         example in Milkshape, it says 'Model' instead of 'Mesh' and 'Mesh' instead of 'SubMesh', 
         but the theory is the same.
     */
-    class _OgreExport MeshSerializer : public Serializer
+    class MeshSerializer : public Serializer
     {
     public:
         MeshSerializer();

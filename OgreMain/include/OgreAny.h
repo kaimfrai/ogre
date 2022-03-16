@@ -65,7 +65,7 @@ namespace Ogre
 
         template<typename ValueType>
         Any(const ValueType & value)
-          : mContent(OGRE_NEW_T(holder<ValueType>, MEMCATEGORY_GENERAL)(value))
+          : mContent(new holder<ValueType>(value))
         {
         }
 
@@ -107,34 +107,16 @@ namespace Ogre
             return mContent != NULL;
         }
 
-        /// @deprecated use has_value() instead
-        OGRE_DEPRECATED bool isEmpty() const { return !has_value(); }
-
         const std::type_info& type() const
         {
             return mContent ? mContent->getType() : typeid(void);
         }
 
-        /// @deprecated use type() instead
-        OGRE_DEPRECATED const std::type_info& getType() const { return type(); }
-
-        /// @deprecated no longer supported
-        OGRE_DEPRECATED friend std::ostream& operator <<
-            ( std::ostream& o, const Any& v )
-        {
-            if (v.mContent)
-                v.mContent->writeToStream(o);
-            return o;
-        }
-
         void reset()
         {
-            OGRE_DELETE_T(mContent, placeholder, MEMCATEGORY_GENERAL);
+            delete mContent;
             mContent = NULL;
         }
-
-        /// @deprecated use reset() instead
-        OGRE_DEPRECATED void destroy() { reset(); }
 
     protected: // types
 
@@ -175,7 +157,7 @@ namespace Ogre
 
             virtual placeholder * clone() const
             {
-                return OGRE_NEW_T(holder, MEMCATEGORY_GENERAL)(held);
+                return new holder(held);
             }
 
             virtual void writeToStream(std::ostream& o)
@@ -185,35 +167,14 @@ namespace Ogre
 
 
         public: // representation
-
             ValueType held;
-
         };
-
-
 
     protected: // representation
         placeholder * mContent;
 
         template<typename ValueType>
         friend ValueType * any_cast(Any *);
-
-
-    public: 
-        /// @deprecated use Ogre::any_cast instead
-        template<typename ValueType>
-        OGRE_DEPRECATED ValueType operator()() const
-        {
-            return any_cast<ValueType>(*this);
-        }
-
-        /// @deprecated use Ogre::any_cast instead
-        template <typename ValueType>
-        OGRE_DEPRECATED ValueType get(void) const
-        {
-            return any_cast<ValueType>(*this);
-        }
-
     };
 
 
@@ -232,7 +193,7 @@ namespace Ogre
         AnyNumeric(const ValueType & value)
             
         {
-            mContent = OGRE_NEW_T(numholder<ValueType>, MEMCATEGORY_GENERAL)(value);
+            mContent = new numholder<ValueType>(value);
         }
 
         AnyNumeric(const AnyNumeric & other)
@@ -275,28 +236,28 @@ namespace Ogre
 
             virtual placeholder * clone() const
             {
-                return OGRE_NEW_T(numholder, MEMCATEGORY_GENERAL)(held);
+                return new numholder(held);
             }
 
             virtual placeholder* add(placeholder* rhs)
             {
-                return OGRE_NEW_T(numholder, MEMCATEGORY_GENERAL)(held + static_cast<numholder*>(rhs)->held);
+                return new numholder(held + static_cast<numholder*>(rhs)->held);
             }
             virtual placeholder* subtract(placeholder* rhs)
             {
-                return OGRE_NEW_T(numholder, MEMCATEGORY_GENERAL)(held - static_cast<numholder*>(rhs)->held);
+                return new numholder(held - static_cast<numholder*>(rhs)->held);
             }
             virtual placeholder* multiply(placeholder* rhs)
             {
-                return OGRE_NEW_T(numholder, MEMCATEGORY_GENERAL)(held * static_cast<numholder*>(rhs)->held);
+                return new numholder(held * static_cast<numholder*>(rhs)->held);
             }
             virtual placeholder* multiply(Real factor)
             {
-                return OGRE_NEW_T(numholder, MEMCATEGORY_GENERAL)(held * factor);
+                return new numholder(held * factor);
             }
             virtual placeholder* divide(placeholder* rhs)
             {
-                return OGRE_NEW_T(numholder, MEMCATEGORY_GENERAL)(held / static_cast<numholder*>(rhs)->held);
+                return new numholder(held / static_cast<numholder*>(rhs)->held);
             }
             virtual void writeToStream(std::ostream& o)
             {

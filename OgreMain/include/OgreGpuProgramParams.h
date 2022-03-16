@@ -35,13 +35,16 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include <map>
 #include <string>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreSerializer.h"
-#include "Threading/OgreThreadHeaders.h"
-#include "OgreExports.h"
+#include "OgreAny.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
@@ -153,7 +156,7 @@ template <int dims, typename T> class Vector;
         @note Only available for high-level programs but is referenced generically
         by GpuProgramParameters.
     */
-    struct _OgreExport GpuConstantDefinition
+    struct GpuConstantDefinition
     {
         /// Physical byte offset in buffer
         size_t physicalIndex;
@@ -320,7 +323,7 @@ template <int dims, typename T> class Vector;
     typedef ConstMapIterator<GpuConstantDefinitionMap> GpuConstantDefinitionIterator;
 
     /// Struct collecting together the information for named constants.
-    struct _OgreExport GpuNamedConstants : public GpuParamsAlloc
+    struct GpuNamedConstants : public GpuParamsAlloc
     {
         /// Total size of the buffer required
         size_t bufferSize;
@@ -345,7 +348,7 @@ template <int dims, typename T> class Vector;
     };
 
     /// Simple class for loading / saving GpuNamedConstants
-    class _OgreExport GpuNamedConstantsSerializer : public Serializer
+    class GpuNamedConstantsSerializer : public Serializer
     {
     public:
         GpuNamedConstantsSerializer();
@@ -360,7 +363,7 @@ template <int dims, typename T> class Vector;
     /** Structure recording the use of a physical buffer by a logical parameter
         index. Only used for low-level programs.
     */
-    struct _OgreExport GpuLogicalIndexUse
+    struct GpuLogicalIndexUse
     {
         /// Physical buffer index
         size_t physicalIndex;
@@ -378,10 +381,8 @@ template <int dims, typename T> class Vector;
     };
     typedef std::map<size_t, GpuLogicalIndexUse> GpuLogicalIndexUseMap;
     /// Container struct to allow params to safely & update shared list of logical buffer assignments
-    struct _OgreExport GpuLogicalBufferStruct : public GpuParamsAlloc
+    struct GpuLogicalBufferStruct : public GpuParamsAlloc
     {
-        OGRE_MUTEX(mutex);
-
         /// Map from logical index to physical buffer location
         GpuLogicalIndexUseMap map;
         /// Shortcut to know the buffer size needs
@@ -411,7 +412,7 @@ template <int dims, typename T> class Vector;
         @note
         Shared parameter sets can be named, and looked up using the GpuProgramManager.
     */
-    class _OgreExport GpuSharedParameters : public GpuParamsAlloc
+    class GpuSharedParameters : public GpuParamsAlloc
     {
         /// Name of the shared parameter set.
         String mName;
@@ -448,9 +449,6 @@ template <int dims, typename T> class Vector;
         */
         void addConstantDefinition(const String& name, GpuConstantType constType, uint32 arraySize = 1);
 
-        /// @deprecated removing a constant requires a full rebuild due to changed alignments
-        OGRE_DEPRECATED void removeConstantDefinition(const String& name);
-
         /** Remove a constant definition from this shared set of parameters.
          */
         void removeAllConstantDefinitions();
@@ -486,9 +484,6 @@ template <int dims, typename T> class Vector;
             et al are called.
         */
         void _markDirty();
-
-        /// @deprecated use getConstantDefinitions()
-        OGRE_DEPRECATED GpuConstantDefinitionIterator getConstantDefinitionIterator(void) const;
 
         /** Get a specific GpuConstantDefinition for a named parameter.
          */
@@ -552,7 +547,7 @@ template <int dims, typename T> class Vector;
     /** This class records the usage of a set of shared parameters in a concrete
         set of GpuProgramParameters.
     */
-    class _OgreExport GpuSharedParametersUsage : public GpuParamsAlloc
+    class GpuSharedParametersUsage : public GpuParamsAlloc
     {
     private:
         GpuSharedParametersPtr mSharedParams;
@@ -625,7 +620,7 @@ template <int dims, typename T> class Vector;
         any of this unless you intend to read parameters back from this structure
         rather than just setting them.
     */
-    class _OgreExport GpuProgramParameters : public GpuParamsAlloc
+    class GpuProgramParameters : public GpuParamsAlloc
     {
     public:
         /** Defines the types of automatically updated values that may be bound to GpuProgram
@@ -1492,9 +1487,6 @@ template <int dims, typename T> class Vector;
         */
         void _readRawConstants(size_t physicalIndex, size_t count, int* dest);
 
-        /// @deprecated use getConstantDefinitions()
-        OGRE_DEPRECATED GpuConstantDefinitionIterator getConstantDefinitionIterator(void) const;
-
         /** Get a specific GpuConstantDefinition for a named parameter.
             @note
             Only available if this parameters object has named parameters.
@@ -1586,12 +1578,6 @@ template <int dims, typename T> class Vector;
 
         /** Unbind an auto constant so that the constant is manually controlled again. */
         void clearAutoConstant(size_t index);
-
-        /// @deprecated use ACT_TIME directly
-        OGRE_DEPRECATED void setConstantFromTime(size_t index, Real factor)
-        {
-            setAutoConstantReal(index, ACT_TIME, factor);
-        }
 
         /** Clears all the existing automatic constants. */
         void clearAutoConstants(void);
@@ -1804,12 +1790,6 @@ template <int dims, typename T> class Vector;
         /** increments the multipass number entry by 1 if it exists
          */
         void incPassIterationNumber(void);
-        /// @deprecated query by GPV_PASS_ITERATION_NUMBER instead
-        OGRE_DEPRECATED bool hasPassIterationNumber() const
-        { return mActivePassIterationIndex != (std::numeric_limits<size_t>::max)(); }
-        /// @deprecated query by GPV_PASS_ITERATION_NUMBER instead
-        OGRE_DEPRECATED size_t getPassIterationNumberIndex() const
-        { return mActivePassIterationIndex; }
 
         /// @name Shared Parameters
         /// @{

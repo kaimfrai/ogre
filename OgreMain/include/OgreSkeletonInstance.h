@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreSkeleton.h"
-#include "OgreExports.h"
 #include "OgreQuaternion.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
@@ -60,7 +59,7 @@ class TagPoint;
         reflected in the master copy. The exception is animations; these are
         shared on the Skeleton itself and may not be modified here.
     */
-    class _OgreExport SkeletonInstance : public Skeleton
+    class SkeletonInstance : public Skeleton
     {
     public:
         /** Constructor, don't call directly, this will be created automatically
@@ -112,8 +111,6 @@ class TagPoint;
         void removeAllLinkedSkeletonAnimationSources(void);
         const LinkedSkeletonAnimSourceList&
                     getLinkedSkeletonAnimationSources() const override;
-        OGRE_DEPRECATED LinkedSkeletonAnimSourceIterator
-            getLinkedSkeletonAnimationSourceIterator(void) const override;
 
         /// @copydoc Skeleton::_initAnimationState
         void _initAnimationState(AnimationStateSet* animSet);

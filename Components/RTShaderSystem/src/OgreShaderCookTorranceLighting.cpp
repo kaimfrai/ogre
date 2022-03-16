@@ -243,7 +243,7 @@ void CookTorranceLightingFactory::writeInstance(MaterialSerializer* ser, SubRend
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* CookTorranceLightingFactory::createInstanceImpl() { return OGRE_NEW CookTorranceLighting; }
+SubRenderState* CookTorranceLightingFactory::createInstanceImpl() { return new CookTorranceLighting; }
 
 } // namespace RTShader
 } // namespace Ogre

@@ -33,6 +33,10 @@ THE SOFTWARE.
 #include <set>
 #include <vector>
 #include <algorithm>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreColourValue.h"
@@ -41,18 +45,16 @@ THE SOFTWARE.
 #include "OgreTextureUnitState.h"
 #include "OgreUserObjectBindings.h"
 #include "OgreBlendMode.h"
-#include "OgreExports.h"
 #include "OgreGpuProgram.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreVector.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
-class AutoParamDataSource;
-class GpuProgramUsage;
-class Technique;
+    class AutoParamDataSource;
+    class GpuProgramUsage;
+    class Technique;
 
     /** \addtogroup Core
      *  @{
@@ -118,7 +120,7 @@ class Technique;
         There are pros and cons to both, just remember that if you use a programmable
         pass to create some great effects, allow more time for definition and testing.
     */
-    class _OgreExport Pass : public PassAlloc
+    class Pass : public PassAlloc
     {
     public:
         /** Definition of a functor for calculating the hashcode of a Pass.
@@ -274,10 +276,6 @@ class Technique;
         /// The Pass hash functor
         static HashFunc* msHashFunc;
     public:
-        OGRE_STATIC_MUTEX(msDirtyHashListMutex);
-        OGRE_STATIC_MUTEX(msPassGraveyardMutex);
-        OGRE_MUTEX(mTexUnitChangeMutex);
-        OGRE_MUTEX(mGpuProgramChangeMutex);
         /// Default constructor
         Pass(Technique* parent, unsigned short index);
         /// Copy constructor
@@ -584,14 +582,6 @@ class Technique;
              @deprecated use getTextureUnitStates()
         */
         unsigned short getTextureUnitStateIndex(const TextureUnitState* state) const;
-
-        /** Get an iterator over the TextureUnitStates contained in this Pass.
-         * @deprecated use getTextureUnitStates() */
-        OGRE_DEPRECATED TextureUnitStateIterator getTextureUnitStateIterator(void);
-
-        /** Get an iterator over the TextureUnitStates contained in this Pass.
-         * @deprecated use getTextureUnitStates() */
-        OGRE_DEPRECATED ConstTextureUnitStateIterator getTextureUnitStateIterator(void) const;
 
         /** Get the TextureUnitStates contained in this Pass. */
         const TextureUnitStates& getTextureUnitStates() const { return mTextureUnitStates; }

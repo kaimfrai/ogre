@@ -169,19 +169,7 @@ namespace Ogre {
 
 
     }
-    //-----------------------------------------------------------------------
-    ConfigFile::SettingsIterator ConfigFile::getSettingsIterator(const String& section)
-    {
-        SettingsBySection_::iterator seci = mSettings.find(section);
-        if (seci == mSettings.end())
-        {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "Cannot find section " + section, 
-                "ConfigFile::getSettingsIterator");
-        }
 
-        return SettingsIterator(seci->second.begin(), seci->second.end());
-    }
     //-----------------------------------------------------------------------
     const ConfigFile::SettingsMultiMap& ConfigFile::getSettings(const String& section) const
     {
@@ -195,10 +183,4 @@ namespace Ogre {
 
         return seci->second;
     }
-    //-----------------------------------------------------------------------
-    ConfigFile::SectionIterator ConfigFile::getSectionIterator(void)
-    {
-        return SectionIterator(mSettingsPtr.begin(), mSettingsPtr.end());
-    }
-
 }

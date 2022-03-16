@@ -37,6 +37,10 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreRenderWindow.h"
@@ -63,7 +67,6 @@ THE SOFTWARE.
 #include "OgreStaticGeometry.h"
 #include "OgreArchiveFactory.h"
 #include "OgreArchiveManager.h"
-#include "OgreBuildSettings.h"
 #include "OgreBuiltinMovableFactories.h"
 #include "OgreCommon.h"
 #include "OgreConfigOptionMap.h"
@@ -100,26 +103,16 @@ THE SOFTWARE.
 #include "OgreTextureManager.h"
 #include "OgreWorkQueue.h"
 #include "OgreZip.h"
-#include "Threading/OgreThreadHeaders.h"
 
-#if OGRE_NO_DDS_CODEC == 0
 #include "OgreDDSCodec.h"
-#endif
 
 #include "OgreHardwareBufferManager.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreExternalTextureSourceManager.h"
 #include "OgreCompositorManager.h"
 
-#if OGRE_NO_PVRTC_CODEC == 0
-#  include "OgrePVRTCCodec.h"
-#endif
-#if OGRE_NO_ETC_CODEC == 0
-#  include "OgreETCCodec.h"
-#endif
-#if OGRE_NO_ASTC_CODEC == 0
-#  include "OgreASTCCodec.h"
-#endif
+#include "OgreETCCodec.h"
+#include "OgreASTCCodec.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------
@@ -154,11 +147,11 @@ namespace Ogre {
 
         // Init
         mActiveRenderer = 0;
-        mVersion = StringConverter::toString(OGRE_VERSION_MAJOR) + "." +
-            StringConverter::toString(OGRE_VERSION_MINOR) + "." +
-            StringConverter::toString(OGRE_VERSION_PATCH) +
-            OGRE_VERSION_SUFFIX + " " +
-            "(" + OGRE_VERSION_NAME + ")";
+        mVersion = StringConverter::toString(/*OGRE_VERSION_MAJOR*/13) + "." +
+            StringConverter::toString(/*OGRE_VERSION_MINOR*/3) + "." +
+            StringConverter::toString(/*OGRE_VERSION_PATCH*/3) +
+            /*OGRE_VERSION_SUFFIX*/"Modernized " + " " +
+            "(" + /*OGRE_VERSION_NAME*/"Tsathoggua" + ")";
         mConfigFileName = configFileName;
 
         // Create log manager and default log file if there is no log manager yet
@@ -174,11 +167,11 @@ namespace Ogre {
         mResourceGroupManager.reset(new ResourceGroupManager());
 
         // WorkQueue (note: users can replace this if they want)
-        DefaultWorkQueue* defaultQ = OGRE_NEW DefaultWorkQueue("Root");
+        DefaultWorkQueue* defaultQ = new DefaultWorkQueue("Root");
         // never process responses in main thread for longer than 10ms by default
         defaultQ->setResponseProcessingTimeLimit(10);
         // match threads to hardware
-        int threadCount = OGRE_THREAD_HARDWARE_CONCURRENCY;
+        int threadCount = std::thread::hardware_concurrency();
         // but clamp it at 2 by default - we dont scale much beyond that currently
         // yet it helps on android where it needlessly burns CPU
         threadCount = Math::Clamp(threadCount, 1, 2);
@@ -201,12 +194,9 @@ namespace Ogre {
         mTimer.reset(new Timer());
         mLodStrategyManager.reset(new LodStrategyManager());
 
-#if OGRE_PROFILING
         // Profiler
         mProfiler.reset(new Profiler());
         Profiler::getSingleton().setTimer(mTimer.get());
-#endif
-
 
         mFileSystemArchiveFactory.reset(new FileSystemArchiveFactory());
         ArchiveManager::getSingleton().addArchiveFactory( mFileSystemArchiveFactory.get() );
@@ -216,19 +206,10 @@ namespace Ogre {
         mEmbeddedZipArchiveFactory.reset(new EmbeddedZipArchiveFactory());
         ArchiveManager::getSingleton().addArchiveFactory( mEmbeddedZipArchiveFactory.get() );
 
-#if OGRE_NO_DDS_CODEC == 0
         // Register image codecs
         DDSCodec::startup();
-#endif
-#if OGRE_NO_PVRTC_CODEC == 0
-        PVRTCCodec::startup();
-#endif
-#if OGRE_NO_ETC_CODEC == 0
         ETCCodec::startup();
-#endif
-#if OGRE_NO_ASTC_CODEC == 0
         ASTCCodec::startup();
-#endif
 
         mGpuProgramManager.reset(new GpuProgramManager());
         mExternalTextureSourceManager.reset(new ExternalTextureSourceManager());
@@ -274,18 +255,10 @@ namespace Ogre {
     {
         shutdown();
 
-#if OGRE_NO_DDS_CODEC == 0
         DDSCodec::shutdown();
-#endif
-#if OGRE_NO_PVRTC_CODEC == 0
-        PVRTCCodec::shutdown();
-#endif
-#if OGRE_NO_ETC_CODEC == 0
         ETCCodec::shutdown();
-#endif
-#if OGRE_NO_ASTC_CODEC == 0
         ASTCCodec::shutdown();
-#endif
+
 		mCompositorManager.reset(); // needs rendersystem
         mParticleManager.reset(); // may use plugins
         mGpuProgramManager.reset(); // may use plugins
@@ -571,14 +544,7 @@ namespace Ogre {
     {
         return mSceneManagerEnum->getMetaData(typeName);
     }
-    //-----------------------------------------------------------------------
-    SceneManagerEnumerator::MetaDataIterator
-    Root::getSceneManagerMetaDataIterator(void) const
-    {
-        OGRE_IGNORE_DEPRECATED_BEGIN
-        return mSceneManagerEnum->getMetaDataIterator();
-        OGRE_IGNORE_DEPRECATED_END
-    }
+
     //-----------------------------------------------------------------------
     const SceneManagerEnumerator::MetaDataList&
     Root::getSceneManagerMetaData(void) const
@@ -606,13 +572,7 @@ namespace Ogre {
     {
         return mSceneManagerEnum->hasSceneManager(instanceName);
     }
-    //-----------------------------------------------------------------------
-    SceneManagerEnumerator::SceneManagerIterator Root::getSceneManagerIterator(void)
-    {
-        OGRE_IGNORE_DEPRECATED_BEGIN
-        return mSceneManagerEnum->getSceneManagerIterator();
-        OGRE_IGNORE_DEPRECATED_END
-    }
+
     //-----------------------------------------------------------------------
     const SceneManagerEnumerator::Instances& Root::getSceneManagers(void) const
     {
@@ -654,7 +614,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     bool Root::_fireFrameStarted(FrameEvent& evt)
     {
-        OgreProfileBeginGroup("Frame", OGREPROF_GENERAL);
+        Ogre::Profiler::getSingleton().beginProfile("Frame", OGREPROF_GENERAL);
         _syncAddedRemovedFrameListeners();
 
         // Tell all listeners
@@ -714,7 +674,7 @@ namespace Ogre {
         // Tell the queue to process responses
         mWorkQueue->processResponses();
 
-        OgreProfileEndGroup("Frame", OGREPROF_GENERAL);
+        Ogre::Profiler::getSingleton().endProfile("Frame", OGREPROF_GENERAL);
 
         return ret;
     }
@@ -1048,7 +1008,7 @@ namespace Ogre {
     void Root::destroyRenderTarget(RenderTarget* target)
     {
         detachRenderTarget(target);
-        OGRE_DELETE target;
+        delete target;
     }
     //-----------------------------------------------------------------------
     void Root::destroyRenderTarget(const String &name)
@@ -1251,24 +1211,7 @@ namespace Ogre {
         }
 
     }
-    //---------------------------------------------------------------------
-    Root::MovableObjectFactoryIterator
-    Root::getMovableObjectFactoryIterator(void) const
-    {
-        return MovableObjectFactoryIterator(mMovableObjectFactoryMap.begin(),
-            mMovableObjectFactoryMap.end());
 
-    }
-    //---------------------------------------------------------------------
-    unsigned int Root::getDisplayMonitorCount() const
-    {
-        OgreAssert(mActiveRenderer,
-                   "Cannot get display monitor count - No render system has been selected");
-
-        OGRE_IGNORE_DEPRECATED_BEGIN
-        return mActiveRenderer->getDisplayMonitorCount();
-        OGRE_IGNORE_DEPRECATED_END
-    }
     //---------------------------------------------------------------------
     void Root::setWorkQueue(WorkQueue* queue)
     {
@@ -1280,7 +1223,4 @@ namespace Ogre {
 
         }
     }
-
-
-
 }

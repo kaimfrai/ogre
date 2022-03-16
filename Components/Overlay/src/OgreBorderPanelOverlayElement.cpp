@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreException.h"
 #include "OgreRoot.h"
 #include "OgreRenderSystem.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreMaterial.h"
@@ -51,70 +50,70 @@ namespace Ogre {
     //---------------------------------------------------------------------
     String BorderPanelOverlayElement::msTypeName = "BorderPanel";
         /** Command object for specifying border sizes (see ParamCommand).*/
-        class _OgrePrivate CmdBorderSize : public ParamCommand
+        class CmdBorderSize : public ParamCommand
         {
         public:
             String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying the Material for the border (see ParamCommand).*/
-        class _OgrePrivate CmdBorderMaterial : public ParamCommand
+        class CmdBorderMaterial : public ParamCommand
         {
         public:
             String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
-        class _OgrePrivate CmdBorderLeftUV : public ParamCommand
+        class CmdBorderLeftUV : public ParamCommand
         {
         public:
             String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
-        class _OgrePrivate CmdBorderTopUV : public ParamCommand
+        class CmdBorderTopUV : public ParamCommand
         {
         public:
             String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
-        class _OgrePrivate CmdBorderRightUV : public ParamCommand
+        class CmdBorderRightUV : public ParamCommand
         {
         public:
             String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
-        class _OgrePrivate CmdBorderBottomUV : public ParamCommand
+        class CmdBorderBottomUV : public ParamCommand
         {
         public:
             String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
-        class _OgrePrivate CmdBorderTopLeftUV : public ParamCommand
+        class CmdBorderTopLeftUV : public ParamCommand
         {
         public:
             String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
-        class _OgrePrivate CmdBorderBottomLeftUV : public ParamCommand
+        class CmdBorderBottomLeftUV : public ParamCommand
         {
         public:
             String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
-        class _OgrePrivate CmdBorderBottomRightUV : public ParamCommand
+        class CmdBorderBottomRightUV : public ParamCommand
         {
         public:
             String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
-        class _OgrePrivate CmdBorderTopRightUV : public ParamCommand
+        class CmdBorderTopRightUV : public ParamCommand
         {
         public:
             String doGet(const void* target) const;
@@ -159,9 +158,9 @@ namespace Ogre {
     //---------------------------------------------------------------------
     BorderPanelOverlayElement::~BorderPanelOverlayElement()
     {
-        OGRE_DELETE mRenderOp2.vertexData;
-        OGRE_DELETE mRenderOp2.indexData;
-        OGRE_DELETE mBorderRenderable;
+        delete mRenderOp2.vertexData;
+        delete mRenderOp2.indexData;
+        delete mBorderRenderable;
     }
     //---------------------------------------------------------------------
     void BorderPanelOverlayElement::initialise(void)
@@ -172,7 +171,7 @@ namespace Ogre {
         if (init)
         {
             // Setup render op in advance
-            mRenderOp2.vertexData = OGRE_NEW VertexData();
+            mRenderOp2.vertexData = new VertexData();
             mRenderOp2.vertexData->vertexCount = 4 * 8; // 8 cells, can't necessarily share vertices cos
                                                         // texcoords may differ
             mRenderOp2.vertexData->vertexStart = 0;
@@ -187,13 +186,13 @@ namespace Ogre {
             // Index data
             mRenderOp2.operationType = RenderOperation::OT_TRIANGLE_LIST;
             mRenderOp2.useIndexes = true;
-            mRenderOp2.indexData = OGRE_NEW IndexData();
+            mRenderOp2.indexData = new IndexData();
             mRenderOp2.indexData->indexCount = 8 * 6;
             mRenderOp2.indexData->indexStart = 0;
             mRenderOp2.useGlobalInstancingVertexBufferIsAvailable = false;
 
             // Create sub-object for rendering border
-            mBorderRenderable = OGRE_NEW BorderRenderable(this);
+            mBorderRenderable = new BorderRenderable(this);
         }
 
         // superclass will handle the interior panel area and call _restoreManualHardwareResources

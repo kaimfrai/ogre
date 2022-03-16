@@ -94,28 +94,7 @@ namespace Ogre {
         mNormalsMap.clear();
         mBuffer.reset();
     }
-    //---------------------------------------------------------------------
-    Pose::ConstVertexOffsetIterator 
-        Pose::getVertexOffsetIterator(void) const
-    {
-        return ConstVertexOffsetIterator(mVertexOffsetMap.begin(), mVertexOffsetMap.end());
-    }
-    //---------------------------------------------------------------------
-    Pose::VertexOffsetIterator 
-        Pose::getVertexOffsetIterator(void)
-    {
-        return VertexOffsetIterator(mVertexOffsetMap.begin(), mVertexOffsetMap.end());
-    }
-    //---------------------------------------------------------------------
-    Pose::ConstNormalsIterator Pose::getNormalsIterator(void) const
-    {
-        return ConstNormalsIterator(mNormalsMap.begin(), mNormalsMap.end());
-    }
-    //---------------------------------------------------------------------
-    Pose::NormalsIterator Pose::getNormalsIterator(void)
-    {
-        return NormalsIterator(mNormalsMap.begin(), mNormalsMap.end());
-    }
+
     //---------------------------------------------------------------------
     const HardwareVertexBufferSharedPtr& Pose::_getHardwareVertexBuffer(const VertexData* origData) const
     {
@@ -189,7 +168,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     Pose* Pose::clone(void) const
     {
-        Pose* newPose = OGRE_NEW Pose(mTarget, mName);
+        Pose* newPose = new Pose(mTarget, mName);
         newPose->mVertexOffsetMap = mVertexOffsetMap;
         newPose->mNormalsMap = mNormalsMap;
         // Allow buffer to recreate itself, contents may change anyway

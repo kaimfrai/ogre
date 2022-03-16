@@ -31,7 +31,6 @@ THE SOFTWARE.
 
 #include <list>
 
-#include "OgreOverlayPrerequisites.h"
 #include "OgreProfiler.h"
 #include "OgrePrerequisites.h"
 
@@ -50,7 +49,7 @@ namespace Ogre  {
     /** Concrete impl. of the ProfileSessionListener which visualizes
         the profling results using overlays.
     */
-    class _OgreOverlayExport OverlayProfileSessionListener : public ProfileSessionListener
+    class OverlayProfileSessionListener : public ProfileSessionListener
     {
     public:
         enum DisplayMode

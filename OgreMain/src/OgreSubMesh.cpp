@@ -65,14 +65,14 @@ class HardwareBufferManagerBase;
         , mVertexAnimationIncludesNormals(false)
         , mBuildEdgesEnabled(true)
     {
-        indexData = OGRE_NEW IndexData();
+        indexData = new IndexData();
     }
     //-----------------------------------------------------------------------
     SubMesh::~SubMesh()
     {
         removeLodLevels();
-        OGRE_DELETE vertexData;
-        OGRE_DELETE indexData;
+        delete vertexData;
+        delete indexData;
     }
 
     //-----------------------------------------------------------------------
@@ -132,12 +132,6 @@ class HardwareBufferManagerBase;
         mBoneAssignmentsOutOfDate = false;
     }
     //---------------------------------------------------------------------
-    SubMesh::BoneAssignmentIterator SubMesh::getBoneAssignmentIterator(void)
-    {
-        return BoneAssignmentIterator(mBoneAssignments.begin(),
-            mBoneAssignments.end());
-    }
-    //---------------------------------------------------------------------
     SubMesh::AliasTextureIterator SubMesh::getAliasTextureIterator(void) const
     {
         return AliasTextureIterator(mTextureAliases.begin(),
@@ -148,11 +142,7 @@ class HardwareBufferManagerBase;
     {
         mTextureAliases[aliasName] = textureName;
     }
-    //---------------------------------------------------------------------
-    void SubMesh::removeAllTextureAliases(void)
-    {
-        mTextureAliases.clear();
-    }
+
     //---------------------------------------------------------------------
     void SubMesh::removeLodLevels(void)
     {
@@ -160,7 +150,7 @@ class HardwareBufferManagerBase;
         lodend = mLodFaceList.end();
         for (lodi = mLodFaceList.begin(); lodi != lodend; ++lodi)
         {
-            OGRE_DELETE *lodi;
+            delete *lodi;
         }
 
         mLodFaceList.clear();
@@ -427,7 +417,7 @@ class HardwareBufferManagerBase;
         }
 
         // Copy index data
-        OGRE_DELETE newSub->indexData;
+        delete newSub->indexData;
         newSub->indexData = this->indexData->clone(true, bufferManager);
         // Copy any bone assignments
         newSub->mBoneAssignments = this->mBoneAssignments;

@@ -133,7 +133,7 @@ namespace Ogre {
 		//-----------------------------------------------------------------------
 		SubRenderState*	FFPAlphaTestFactory::createInstanceImpl()
 		{
-			return OGRE_NEW FFPAlphaTest;
+			return new FFPAlphaTest;
 		}
 	}
 }

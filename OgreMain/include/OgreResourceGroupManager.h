@@ -34,6 +34,10 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
@@ -41,9 +45,6 @@ THE SOFTWARE.
 #include "OgreArchive.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreCommon.h"
-#include "Threading/OgreThreadHeaders.h"
-#include "OgreBuildSettings.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreSharedPtr.h"
@@ -72,11 +73,11 @@ class ScriptLoader;
     */
 
     /// Default resource group name
-    _OgreExport extern const char* const RGN_DEFAULT;
+    extern const char* const RGN_DEFAULT;
     /// Internal resource group name (should be used by OGRE internal only)
-    _OgreExport extern const char* const RGN_INTERNAL;
+    extern const char* const RGN_INTERNAL;
     /// Special resource group name which causes resource group to be automatically determined based on searching for the resource in all groups.
-    _OgreExport extern const char* const RGN_AUTODETECT;
+    extern const char* const RGN_AUTODETECT;
 
     /** This class defines an interface which is called back during
         resource group loading to indicate the progress of the load. 
@@ -106,7 +107,7 @@ class ScriptLoader;
         </ul>
 
     */
-    class _OgreExport ResourceGroupListener
+    class ResourceGroupListener
     {
     public:
         virtual ~ResourceGroupListener() {}
@@ -239,10 +240,9 @@ class ScriptLoader;
         
         @see @ref Resource-Management
     */
-    class _OgreExport ResourceGroupManager : public Singleton<ResourceGroupManager>, public ResourceAlloc
+    class ResourceGroupManager : public Singleton<ResourceGroupManager>, public ResourceAlloc
     {
     public:
-        OGRE_AUTO_MUTEX; // public to allow external locking
         /// same as @ref RGN_DEFAULT
         static const String DEFAULT_RESOURCE_GROUP_NAME;
         /// same as @ref RGN_INTERNAL
@@ -303,10 +303,6 @@ class ScriptLoader;
                 LOADING = 3,
                 LOADED = 4
             };
-            /// General mutex for dealing with group content
-                    OGRE_AUTO_MUTEX;
-            /// Status-specific mutex, separate from content-changing mutex
-                    OGRE_MUTEX(statusMutex);
             /// Group name
             String name;
             /// Group status
@@ -648,19 +644,6 @@ class ScriptLoader;
                                     resourceBeingLoaded, throwOnFailure);
         }
 
-        /** 
-            @overload
-            if the resource is not found in the group specified, other groups will be searched.
-            @deprecated use AUTODETECT_RESOURCE_GROUP_NAME instead of searchGroupsIfNotFound
-        */
-        OGRE_DEPRECATED DataStreamPtr openResource(const String& resourceName,
-                                                   const String& groupName,
-                                                   bool searchGroupsIfNotFound,
-                                                   Resource* resourceBeingLoaded = 0) const
-        {
-            return openResourceImpl(resourceName, groupName, searchGroupsIfNotFound, resourceBeingLoaded);
-        }
-
         /** Open all resources matching a given pattern (which can contain
             the character '*' as a wildcard), and return a collection of 
             DataStream objects on them.
@@ -861,11 +844,6 @@ class ScriptLoader;
         /** Get the registered resource managers.
         */
         const ResourceManagerMap& getResourceManagers() const { return mResourceManagerMap; }
-
-        /// @deprecated use getResourceManagers()
-        OGRE_DEPRECATED ResourceManagerIterator getResourceManagerIterator()
-        { return ResourceManagerIterator(
-            mResourceManagerMap.begin(), mResourceManagerMap.end()); }
 
         /** Internal method for registering a ScriptLoader.
         @remarks ScriptLoaders parse scripts when resource groups are initialised.

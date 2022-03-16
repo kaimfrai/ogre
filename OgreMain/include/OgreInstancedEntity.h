@@ -35,7 +35,6 @@ THE SOFTWARE.
 
 #include "OgreMovableObject.h"
 #include "OgreNode.h"
-#include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
@@ -94,7 +93,7 @@ class SkeletonInstance;
         @version
             1.0
      */
-    class _OgreExport InstancedEntity : public MovableObject
+    class InstancedEntity : public MovableObject
     {
         friend class InstanceBatch;
         friend class InstanceBatchShader;

@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <stddef.h>
 
 #include "OgreInstanceBatch.h"
-#include "OgreExports.h"
 #include "OgreMesh.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
@@ -74,7 +73,7 @@ class VertexData;
         @version
             1.0
      */
-    class _OgreExport InstanceBatchShader : public InstanceBatch
+    class InstanceBatchShader : public InstanceBatch
     {
         size_t  mNumWorldMatrices;
 

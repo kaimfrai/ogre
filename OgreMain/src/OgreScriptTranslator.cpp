@@ -838,144 +838,17 @@ class LodStrategy;
         }
         return true;
     }
-    //-------------------------------------------------------------------------
-    bool ScriptTranslator::getInts(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, int *vals, int count)
-    {
-        bool success = true;
-        int n = 0;
-        while (n < count)
-        {
-            if (i != end)
-            {
-                int v = 0;
-                if (getInt(*i, &v))
-                    vals[n] = v;
-                else
-                    break;
-                ++i;
-            }
-            else
-                vals[n] = 0;
-            ++n;
-        }
 
-        if (n < count)
-            success = false;
-
-        return success;
-    }
     bool ScriptTranslator::getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<int>& vals, size_t count)
     {
         return _getVector(i, end, vals, count);
     }
-    //----------------------------------------------------------------------------
-    bool ScriptTranslator::getFloats(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, float *vals, int count)
-    {
-        bool success = true;
-        int n = 0;
-        while (n < count)
-        {
-            if (i != end)
-            {
-                float v = 0;
-                if (getFloat(*i, &v))
-                    vals[n] = v;
-                else
-                    break;
-                ++i;
-            }
-            else
-                vals[n] = 0;
-            ++n;
-        }
 
-        if (n < count)
-            success = false;
-
-        return success;
-    }
     bool ScriptTranslator::getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<float>& vals, size_t count)
     {
         return _getVector(i, end, vals, count);
     }
-    //----------------------------------------------------------------------------
-    bool ScriptTranslator::getDoubles(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, double *vals, int count)
-    {
-        bool success = true;
-        int n = 0;
-        while (n < count)
-        {
-            if (i != end)
-            {
-                double v = 0;
-                if (getDouble(*i, &v))
-                    vals[n] = v;
-                else
-                    break;
-                ++i;
-            }
-            else
-                vals[n] = 0;
-            ++n;
-        }
 
-        if (n < count)
-            success = false;
-
-        return success;
-    }
-    //----------------------------------------------------------------------------
-    bool ScriptTranslator::getUInts(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, uint *vals, int count)
-    {
-        bool success = true;
-        int n = 0;
-        while (n < count)
-        {
-            if (i != end)
-            {
-                uint v = 0;
-                if (getUInt(*i, &v))
-                    vals[n] = v;
-                else
-                    break;
-                ++i;
-            }
-            else
-                vals[n] = 0;
-            ++n;
-        }
-
-        if (n < count)
-            success = false;
-
-        return success;
-    }
-    //----------------------------------------------------------------------------
-    bool ScriptTranslator::getBooleans(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, uint *vals, int count)
-    {
-        bool success = true;
-        int n = 0;
-        while (n < count)
-        {
-            if (i != end)
-            {
-                bool v = false;
-                if (getBoolean(*i, &v))
-                    vals[n] = (v != 0);
-                else
-                    break;
-                ++i;
-            }
-            else
-                vals[n] = false;
-            ++n;
-        }
-
-        if (n < count)
-            success = false;
-
-        return success;
-    }
     //-------------------------------------------------------------------------
     bool ScriptTranslator::getStencilOp(const Ogre::AbstractNodePtr &node, Ogre::StencilOperation *op)
     {
@@ -1274,14 +1147,12 @@ class LodStrategy;
             }
         }
 
-        OGRE_IGNORE_DEPRECATED_BEGIN
         // Apply the texture aliases
         if(compiler->getListener())
         {
             PreApplyTextureAliasesScriptCompilerEvent locEvt(mMaterial, &mTextureAliases);
             compiler->_fireEvent(&locEvt, 0);
         }
-        OGRE_IGNORE_DEPRECATED_END
         applyTextureAliases(mMaterial, mTextureAliases);
         mTextureAliases.clear();
     }
@@ -2798,9 +2669,7 @@ class LodStrategy;
 
                             mUnit->setTextureName(evt.mName, texType);
                             mUnit->setDesiredFormat(format);
-                            OGRE_IGNORE_DEPRECATED_BEGIN
                             mUnit->setIsAlpha(isAlpha);
-                            OGRE_IGNORE_DEPRECATED_END
                             mUnit->setNumMipmaps(mipmaps);
                             mUnit->setHardwareGammaEnabled(sRGBRead);
                         }
@@ -3398,9 +3267,7 @@ class LodStrategy;
                     {
                         compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, prop->file, prop->line,
                                            "binding_type. no longer needed");
-                        OGRE_IGNORE_DEPRECATED_BEGIN
                         mUnit->setBindingType(bt);
-                        OGRE_IGNORE_DEPRECATED_END
                     }
                     break;
                 case ID_CONTENT_TYPE:
@@ -4265,40 +4132,7 @@ class LodStrategy;
                         }
                     }
                     break;
-                // case ID_COMPUTE_WORKGROUP_DIMENSIONS:
-                //     if (obj->id != ID_COMPUTE_PROGRAM)
-                //         break;
-                //     if (prop->values.size() == 3)
-                //     {
-                //         AbstractNodeList::const_iterator first_dimension = getNodeAt(prop->values, 0);
 
-                //         uint *vals = OGRE_ALLOC_T(uint, roundedCount, MEMCATEGORY_SCRIPTING);
-                //         if(getUInts(k, prop->values.end(), vals, 3))
-                //         {
-                //             try
-                //             {
-                //                 params->setNamedConstant(name, m);
-                //             }
-                //             catch(...)
-                //             {
-                //                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                //                                    "setting workgroup_dimensions parameter failed");
-                //             }
-                //         }
-                //         else
-                //         {
-                //             compiler->addError(ScriptCompiler::CE_NUMBEREXPECTED, prop->file, prop->line,
-                //                                "incorrect workgroup_dimensions declaration");
-                //         }
-                //     }
-                //     else
-                //     {
-                //         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                //                            "workgroup_dimensions property requires 3 arguments");
-                //     }
-
-                    
-                //     break;
                 default:
                     compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, prop->file, prop->line,
                                        "token \"" + prop->name + "\" is not recognized");

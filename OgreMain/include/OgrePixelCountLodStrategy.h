@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreLodStrategy.h"
 #include "OgreSingleton.h"
-#include "OgreExports.h"
 #include "OgreMaterial.h"
 #include "OgreMesh.h"
 
@@ -52,7 +51,7 @@ class MovableObject;
     typedef AbsolutePixelCountLodStrategy PixelCountLodStrategy;
 
     /** Abstract base class for level of detail strategy based on pixel count approximations from bounding sphere projection. */
-    class _OgreExport PixelCountLodStrategyBase : public LodStrategy
+    class PixelCountLodStrategyBase : public LodStrategy
     {
     protected:
         Real getValueImpl(const MovableObject *movableObject, const Camera *camera) const override;
@@ -80,7 +79,7 @@ class MovableObject;
         virtual bool isSorted(const Mesh::LodValueList& values) const;
     };
 
-    class _OgreExport AbsolutePixelCountLodStrategy : public PixelCountLodStrategyBase, public Singleton<AbsolutePixelCountLodStrategy>
+    class AbsolutePixelCountLodStrategy : public PixelCountLodStrategyBase, public Singleton<AbsolutePixelCountLodStrategy>
     {
     public:
         /** Default constructor. */
@@ -95,7 +94,7 @@ class MovableObject;
         static AbsolutePixelCountLodStrategy* getSingletonPtr(void);
     };
 
-    class _OgreExport ScreenRatioPixelCountLodStrategy : public PixelCountLodStrategyBase, public Singleton<ScreenRatioPixelCountLodStrategy>
+    class ScreenRatioPixelCountLodStrategy : public PixelCountLodStrategyBase, public Singleton<ScreenRatioPixelCountLodStrategy>
     {
     public:
         /** Default constructor. */

@@ -286,13 +286,13 @@ class ResourceManager;
     void GpuProgram::createLogicalParameterMappingStructures(bool recreateIfExists)
     {
         if (recreateIfExists || !mLogicalToPhysical)
-            mLogicalToPhysical = GpuLogicalBufferStructPtr(OGRE_NEW GpuLogicalBufferStruct());
+            mLogicalToPhysical = GpuLogicalBufferStructPtr(new GpuLogicalBufferStruct());
     }
     //---------------------------------------------------------------------
     void GpuProgram::createNamedParameterMappingStructures(bool recreateIfExists)
     {
         if (recreateIfExists || !mConstantDefs)
-            mConstantDefs = GpuNamedConstantsPtr(OGRE_NEW GpuNamedConstants());
+            mConstantDefs = GpuNamedConstantsPtr(new GpuNamedConstants());
     }
     //---------------------------------------------------------------------
     void GpuProgram::setManualNamedConstantsFile(const String& paramDefFile)
@@ -558,9 +558,7 @@ class ResourceManager;
         LogManager::getSingleton().logWarning("'uses_adjacency_information' is deprecated. "
         "Set the respective RenderOperation::OpertionType instead.");
         GpuProgram* t = static_cast<GpuProgram*>(target);
-        OGRE_IGNORE_DEPRECATED_BEGIN
         t->setAdjacencyInfoRequired(StringConverter::parseBool(val));
-        OGRE_IGNORE_DEPRECATED_END
     }
 }
 

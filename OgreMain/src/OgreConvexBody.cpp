@@ -49,12 +49,9 @@ namespace Ogre
     // Statics
     //-----------------------------------------------------------------------
     ConvexBody::PolygonList ConvexBody::msFreePolygons;
-    OGRE_STATIC_MUTEX_INSTANCE(ConvexBody::msFreePolygonsMutex);
     //-----------------------------------------------------------------------
     void ConvexBody::_initialisePool()
     {
-            OGRE_LOCK_MUTEX(msFreePolygonsMutex);
-
         if (msFreePolygons.empty())
         {
             const size_t initialSize = 30;
@@ -63,32 +60,28 @@ namespace Ogre
             msFreePolygons.resize(initialSize);
             for (size_t i = 0; i < initialSize; ++i)
             {
-                msFreePolygons[i] = OGRE_NEW_T(Polygon, MEMCATEGORY_SCENE_CONTROL)();
+                msFreePolygons[i] = new Polygon();
             }
         }
     }
     //-----------------------------------------------------------------------
     void ConvexBody::_destroyPool()
     {
-            OGRE_LOCK_MUTEX(msFreePolygonsMutex);
-        
         for (PolygonList::iterator i = msFreePolygons.begin(); 
             i != msFreePolygons.end(); ++i)
         {
-            OGRE_DELETE_T(*i, Polygon, MEMCATEGORY_SCENE_CONTROL);
+            delete *i;
         }
         msFreePolygons.clear();
     }
     //-----------------------------------------------------------------------
     Polygon* ConvexBody::allocatePolygon()
     {
-            OGRE_LOCK_MUTEX(msFreePolygonsMutex);
-
         if (msFreePolygons.empty())
         {
             // if we ran out of polys to use, create a new one
             // hopefully this one will return to the pool in due course
-            return OGRE_NEW_T(Polygon, MEMCATEGORY_SCENE_CONTROL)();
+            return new Polygon();
         }
         else
         {
@@ -104,7 +97,6 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ConvexBody::freePolygon(Polygon* poly)
     {
-            OGRE_LOCK_MUTEX(msFreePolygonsMutex);
         msFreePolygons.push_back(poly);
     }
     //-----------------------------------------------------------------------
@@ -659,7 +651,7 @@ namespace Ogre
 
         // Compare the polygons. They may not be in correct order.
         // A correct convex body does not have identical polygons in its body.
-        bool *bChecked = OGRE_ALLOC_T(bool, getPolygonCount(), MEMCATEGORY_SCENE_CONTROL);
+        bool *bChecked = new bool[getPolygonCount()];
         for ( size_t i=0; i<getPolygonCount(); ++i )
         {
             bChecked[ i ] = false;
@@ -684,7 +676,7 @@ namespace Ogre
 
             if ( bFound == false )
             {
-                OGRE_FREE(bChecked, MEMCATEGORY_SCENE_CONTROL);
+                delete[] bChecked;
                 bChecked = 0;
                 return false;
             }
@@ -694,13 +686,13 @@ namespace Ogre
         {
             if ( bChecked[ i ] != true )
             {
-                OGRE_FREE(bChecked, MEMCATEGORY_SCENE_CONTROL);
+                delete[] bChecked;
                 bChecked = 0;
                 return false;
             }
         }
 
-        OGRE_FREE(bChecked, MEMCATEGORY_SCENE_CONTROL);
+        delete[] bChecked;
         bChecked = 0;
         return true;
     }
@@ -953,7 +945,7 @@ namespace Ogre
             // - side is clipSide: vertex will be clipped
             // - side is !clipSide: vertex will be untouched
             // - side is NOSIDE:   vertex will be untouched
-            Plane::Side *side = OGRE_ALLOC_T(Plane::Side, vertexCount, MEMCATEGORY_SCENE_CONTROL);
+            Plane::Side *side = new Plane::Side[vertexCount];
             for ( size_t iVertex = 0; iVertex < vertexCount; ++iVertex )
             {
                 side[ iVertex ] = pl.getSide( p.getVertex( iVertex ) );
@@ -1078,7 +1070,7 @@ namespace Ogre
             pIntersect = 0;
 
             // delete side info
-            OGRE_FREE(side, MEMCATEGORY_SCENE_CONTROL);
+            delete[] side;
             side = 0;
         }
 
@@ -1124,13 +1116,6 @@ namespace Ogre
                     pClosing->insertVertex( vFirst );
                     firstVertex     = vNext;
                     currentVertex   = vFirst;
-
-                #ifdef _DEBUG_INTERSECTION_LIST
-                    std::cout << "Plane: n=" << pl.normal << ", d=" << pl.d << std::endl;
-                    std::cout << "First inserted vertex: " << *next << std::endl;
-                    std::cout << "Second inserted vertex: " << *vSecond << std::endl;
-                    std::cout << "Third inserted vertex: " << *vFirst << std::endl;
-                #endif
                 }
                 // direction does not equal -> back side (walk cw)
                 else
@@ -1141,13 +1126,6 @@ namespace Ogre
                     pClosing->insertVertex( vNext );
                     firstVertex     = vFirst;
                     currentVertex   = vNext;
-
-                    #ifdef _DEBUG_INTERSECTION_LIST
-                        std::cout << "Plane: n=" << pl.normal << ", d=" << pl.d << std::endl;
-                        std::cout << "First inserted vertex: " << *vFirst << std::endl;
-                        std::cout << "Second inserted vertex: " << *vSecond << std::endl;
-                        std::cout << "Third inserted vertex: " << *next << std::endl;
-                    #endif
                 }
 
                 // search mating edges that have a point in common

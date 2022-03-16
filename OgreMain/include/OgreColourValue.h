@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <ostream>
 
 #include "OgrePrerequisites.h"
-#include "OgreExports.h"
 #include "OgrePlatform.h"
 
 namespace Ogre {
@@ -60,7 +59,7 @@ namespace Ogre {
             transparency. In this case, 0.0 is completely transparent and 1.0 is
             fully opaque.
     */
-    class _OgreExport ColourValue
+    class ColourValue
     {
     public:
         static const ColourValue ZERO;
@@ -330,12 +329,6 @@ namespace Ogre {
         @param brightness Output brightness level, [0,1]
         */
         void getHSB(float& hue, float& saturation, float& brightness) const;
-
-        /// @deprecated
-        OGRE_DEPRECATED void getHSB(float* hue, float* saturation, float* brightness) const
-        {
-            getHSB(*hue, *saturation, *brightness);
-        }
 
         /** Function for writing to a stream.
         */

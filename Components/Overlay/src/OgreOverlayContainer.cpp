@@ -188,11 +188,7 @@ class RenderQueue;
 
         return i->second;
     }
-    //---------------------------------------------------------------------
-    OverlayContainer::ChildIterator OverlayContainer::getChildIterator(void)
-    {
-        return ChildIterator(mChildren.begin(), mChildren.end());
-    }
+
     //---------------------------------------------------------------------
     OverlayContainer::ChildContainerIterator OverlayContainer::getChildContainerIterator(void)
     {

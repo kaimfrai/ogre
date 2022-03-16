@@ -210,7 +210,7 @@ Function::~Function()
     for(jt = mAtomInstances.begin(); jt != mAtomInstances.end(); ++jt)
     {
         for (FunctionAtomInstanceIterator it=jt->second.begin(); it != jt->second.end(); ++it)
-            OGRE_DELETE (*it);
+            delete (*it);
     }
 
     mAtomInstances.clear();
@@ -617,7 +617,7 @@ bool Function::deleteAtomInstance(FunctionAtom* atomInstance)
     {
         if (*it == atomInstance)
         {
-            OGRE_DELETE atomInstance;
+            delete atomInstance;
             mAtomInstances[g].erase(it);
             mSortedAtomInstances.clear();
             return true;

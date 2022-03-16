@@ -28,7 +28,6 @@
 
 #pragma once
 
-#include "OgreBitesPrerequisites.h"
 #include "OgreMaterialManager.h"
 #include "OgrePrerequisites.h"
 #include "OgreTechnique.h"
@@ -53,7 +52,7 @@ namespace OgreBites {
     When a target scheme callback is invoked with the shader generator scheme it tries to create an equivalent shader
     based technique based on the default technique of the given material.
 */
-class _OgreBitesExport SGTechniqueResolverListener : public Ogre::MaterialManager::Listener {
+class SGTechniqueResolverListener : public Ogre::MaterialManager::Listener {
 public:
     explicit SGTechniqueResolverListener(Ogre::RTShader::ShaderGenerator* pShaderGenerator);
 

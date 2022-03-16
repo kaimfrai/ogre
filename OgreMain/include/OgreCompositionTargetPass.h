@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreCompositionPass.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
@@ -50,7 +49,7 @@ class CompositionTechnique;
     /** Object representing one render to a RenderTarget or Viewport in the Ogre Composition
         framework.
      */
-    class _OgreExport CompositionTargetPass : public CompositorInstAlloc
+    class CompositionTargetPass : public CompositorInstAlloc
     {
     public:
         CompositionTargetPass(CompositionTechnique *parent);
@@ -151,10 +150,6 @@ class CompositionTechnique;
         /** Remove all passes
         */
         void removeAllPasses();
-    
-        /** Get an iterator over the Passes in this TargetPass.
-        @deprecated use getPasses() */
-        OGRE_DEPRECATED PassIterator getPassIterator(void);
         
         /** Get parent object */
         CompositionTechnique *getParent();

@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreSerializer.h"
-#include "OgreExports.h"
 
 namespace Ogre {
 
@@ -74,7 +73,7 @@ class TransformKeyFrame;
         <LI>Call the exportSkeleton method</LI>
         </OL>
     */
-    class _OgreExport SkeletonSerializer : public Serializer
+    class SkeletonSerializer : public Serializer
     {
         
     public:

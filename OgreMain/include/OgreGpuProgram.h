@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
-#include "OgreExports.h"
 #include "OgrePlatform.h"
 
 namespace Ogre {
@@ -70,7 +69,7 @@ struct GpuNamedConstants;
         If you wish to use higher level shading languages like HLSL and Cg, you need to
         use the HighLevelGpuProgram class instead.
     */
-    class _OgreExport GpuProgram : public Resource
+    class GpuProgram : public Resource
     {
     protected:
     /// The name of the file to load source from (may be blank)
@@ -260,7 +259,7 @@ struct GpuNamedConstants;
     virtual bool isVertexTextureFetchRequired(void) const { return mVertexTextureFetch; }
 
     /// @deprecated use OT_DETAIL_ADJACENCY_BIT
-    OGRE_DEPRECATED virtual void setAdjacencyInfoRequired(bool r) { mNeedsAdjacencyInfo = r; }
+    virtual void setAdjacencyInfoRequired(bool r) { mNeedsAdjacencyInfo = r; }
     /// @deprecated use OT_DETAIL_ADJACENCY_BIT
     virtual bool isAdjacencyInfoRequired(void) const { return mNeedsAdjacencyInfo; }
 

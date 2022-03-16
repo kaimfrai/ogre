@@ -34,7 +34,7 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreHardwareVertexBuffer.h"
-#include "OgreExports.h"
+#include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -64,7 +64,7 @@ class HardwareBufferManagerBase;
      * you could maintain your vertex buffers and declarations in alternative structures if you like, so
      * long as you can convert them for rendering.
      */
-    class _OgreExport VertexData : public VertexDataAlloc
+    class VertexData : public VertexDataAlloc
     {
     private:
         /// Protected copy constructor, to prevent misuse
@@ -261,7 +261,7 @@ class HardwareBufferManagerBase;
     };
 
     /** Summary class collecting together index data source information. */
-    class _OgreExport IndexData : public IndexDataAlloc
+    class IndexData : public IndexDataAlloc
     {
     private:
         /// Protected copy constructor, to prevent misuse
@@ -304,18 +304,18 @@ class HardwareBufferManagerBase;
         Utility class for evaluating the effectiveness of the use of the vertex
         cache by a given index buffer.
     */
-    class _OgreExport VertexCacheProfiler : public BufferAlloc
+    class VertexCacheProfiler : public BufferAlloc
     {
         public:
             VertexCacheProfiler(unsigned int cachesize = 16)
                 : size ( cachesize ), tail (0), buffersize (0), hit (0), miss (0)
             {
-                cache = OGRE_ALLOC_T(uint32, size, MEMCATEGORY_GEOMETRY);
+                cache = new uint32[size];
             }
 
             ~VertexCacheProfiler()
             {
-                OGRE_FREE(cache, MEMCATEGORY_GEOMETRY);
+                delete[] cache;
             }
 
             void profile(const HardwareIndexBufferSharedPtr& indexBuffer);

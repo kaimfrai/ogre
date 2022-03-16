@@ -269,21 +269,19 @@ class AxisAlignedBox;
             mBatchOwner->_getMeshRef()->getSkeleton() &&
             mBatchOwner->_supportsSkeletalAnimation() )
         {
-            mSkeletonInstance = OGRE_NEW SkeletonInstance( mBatchOwner->_getMeshRef()->getSkeleton() );
+            mSkeletonInstance = new SkeletonInstance( mBatchOwner->_getMeshRef()->getSkeleton() );
             mSkeletonInstance->load();
 
-            mBoneMatrices       = static_cast<Affine3*>(OGRE_MALLOC_SIMD( sizeof(Affine3) *
-                                                                    mSkeletonInstance->getNumBones(),
-                                                                    MEMCATEGORY_ANIMATION));
+            mBoneMatrices       = static_cast<Affine3*>(::Ogre::AlignedMemory::allocate(sizeof(Affine3) *
+                                                                    mSkeletonInstance->getNumBones()));
             if (mBatchOwner->useBoneWorldMatrices())
             {
-                mBoneWorldMatrices  = static_cast<Affine3*>(OGRE_MALLOC_SIMD( sizeof(Affine3) *
-                                                                    mSkeletonInstance->getNumBones(),
-                                                                    MEMCATEGORY_ANIMATION));
+                mBoneWorldMatrices  = static_cast<Affine3*>(::Ogre::AlignedMemory::allocate(sizeof(Affine3) *
+                                                                    mSkeletonInstance->getNumBones()));
                 std::fill(mBoneWorldMatrices, mBoneWorldMatrices + mSkeletonInstance->getNumBones(), Affine3::IDENTITY);
             }
 
-            mAnimationState = OGRE_NEW AnimationStateSet();
+            mAnimationState = new AnimationStateSet();
             mBatchOwner->_getMeshRef()->_initAnimationState( mAnimationState );
         }
     }
@@ -300,10 +298,10 @@ class AxisAlignedBox;
             }
             mSharingPartners.clear();
 
-            OGRE_DELETE mSkeletonInstance;
-            OGRE_DELETE mAnimationState;
-            OGRE_FREE_SIMD( mBoneMatrices, MEMCATEGORY_ANIMATION );
-            OGRE_FREE_SIMD( mBoneWorldMatrices, MEMCATEGORY_ANIMATION );
+            delete mSkeletonInstance;
+            delete mAnimationState;
+            ::Ogre::AlignedMemory::deallocate(mBoneMatrices);
+            ::Ogre::AlignedMemory::deallocate(mBoneWorldMatrices);
 
             mSkeletonInstance   = 0;
             mAnimationState     = 0;

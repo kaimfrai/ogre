@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreAny.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
@@ -51,7 +50,7 @@ namespace Ogre {
     Any instance of Ogre class that will derive from this class could be associated with custom
     application object using this class interface.
     */
-    class _OgreExport UserObjectBindings : public GeneralAllocatedObject
+    class UserObjectBindings : public GeneralAllocatedObject
     {
     public:
         /** Sets any kind of user object on this class instance.

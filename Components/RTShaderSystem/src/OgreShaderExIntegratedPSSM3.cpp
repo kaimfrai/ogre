@@ -470,7 +470,7 @@ SubRenderState* IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler,
 //-----------------------------------------------------------------------
 SubRenderState* IntegratedPSSM3Factory::createInstanceImpl()
 {
-    return OGRE_NEW IntegratedPSSM3;
+    return new IntegratedPSSM3;
 }
 
 }

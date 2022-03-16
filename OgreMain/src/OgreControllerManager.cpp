@@ -45,8 +45,8 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     ControllerManager::ControllerManager()
-        : mFrameTimeController(OGRE_NEW FrameTimeControllerValue())
-        , mPassthroughFunction(OGRE_NEW PassthroughControllerFunction())
+        : mFrameTimeController(new FrameTimeControllerValue())
+        , mPassthroughFunction(new PassthroughControllerFunction())
         , mLastFrameNumber(0)
     {
 
@@ -61,7 +61,7 @@ namespace Ogre {
         const ControllerValueRealPtr& src, const ControllerValueRealPtr& dest,
         const ControllerFunctionRealPtr& func)
     {
-        Controller<Real>* c = OGRE_NEW Controller<Real>(src, dest, func);
+        Controller<Real>* c = new Controller<Real>(src, dest, func);
 
         mControllers.insert(c);
         return c;
@@ -93,7 +93,7 @@ namespace Ogre {
         ControllerList::iterator ci;
         for (ci = mControllers.begin(); ci != mControllers.end(); ++ci)
         {
-            OGRE_DELETE *ci;
+            delete *ci;
         }
         mControllers.clear();
     }
@@ -214,7 +214,7 @@ namespace Ogre {
         if (i != mControllers.end())
         {
             mControllers.erase(i);
-            OGRE_DELETE controller;
+            delete controller;
         }
     }
     //-----------------------------------------------------------------------

@@ -33,8 +33,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgrePrerequisites.h"
-#include "OgreBuildSettings.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreQuaternion.h"
@@ -53,7 +51,7 @@ namespace Ogre {
         This class provides a number of useful methods for exporting / importing data
         from stream-oriented binary files (e.g. .mesh and .skeleton).
     */
-    class _OgreExport Serializer : public SerializerAlloc
+    class Serializer : public SerializerAlloc
     {
     public:
         Serializer();

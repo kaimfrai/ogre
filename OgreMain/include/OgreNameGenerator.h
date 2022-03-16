@@ -29,9 +29,12 @@ THE SOFTWARE.
 #define __NameGenerator_H__
 
 #include "OgreString.h"
-#include <sstream>
 
-#include "Threading/OgreThreadHeaders.h"
+#include <sstream>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 namespace Ogre {
     /** \addtogroup Core
@@ -42,12 +45,11 @@ namespace Ogre {
     */
 
     /// Utility class to generate a sequentially numbered series of names
-    class _OgreExport NameGenerator
+    class NameGenerator
     {
     private:
         String mPrefix;
         unsigned long long int mNext;
-        OGRE_AUTO_MUTEX;
     public:
         NameGenerator(const NameGenerator& rhs)
             : mPrefix(rhs.mPrefix), mNext(rhs.mNext) {}
@@ -57,7 +59,6 @@ namespace Ogre {
         /// Generate a new name
         String generate()
         {
-            OGRE_LOCK_AUTO_MUTEX;
             StringStream s;
             s << mPrefix << mNext++;
             return s.str();
@@ -66,22 +67,18 @@ namespace Ogre {
         /// Reset the internal counter
         void reset()
         {
-            OGRE_LOCK_AUTO_MUTEX;
             mNext = 1ULL;
         }
 
         /// Manually set the internal counter (use caution)
         void setNext(unsigned long long int val)
         {
-            OGRE_LOCK_AUTO_MUTEX;
             mNext = val;
         }
 
         /// Get the internal counter
         unsigned long long int getNext() const
         {
-            // lock even on get because 64-bit may not be atomic read
-            OGRE_LOCK_AUTO_MUTEX;
             return mNext;
         }
     };

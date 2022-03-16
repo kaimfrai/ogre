@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgreMatrix4.h"
 #include "OgrePlane.h"
@@ -94,7 +93,7 @@ class Sphere;
         used to represent either a visible area or a projection area. Can be used
         for a number of applications.
     */
-    class _OgreExport Frustum : public MovableObject
+    class Frustum : public MovableObject
     {
     protected:
         /// y-direction field-of-view (default 45)
@@ -330,13 +329,6 @@ class Sphere;
         /** Get the extents of the frustum in view space. */
         RealRect getFrustumExtents() const;
 
-        /** Gets the projection matrix for this frustum adjusted for the current
-            rendersystem specifics (may be right or left-handed, depth range
-            may vary).
-
-            @deprecated do not use
-        */
-        OGRE_DEPRECATED const Matrix4& getProjectionMatrixRS(void) const;
         /** Gets the depth-adjusted projection matrix for the current rendersystem
 
             This differs from the rendering-API independent @ref getProjectionMatrix

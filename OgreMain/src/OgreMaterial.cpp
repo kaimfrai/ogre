@@ -254,7 +254,7 @@ class Renderable;
     //-----------------------------------------------------------------------
     Technique* Material::createTechnique(void)
     {
-        Technique *t = OGRE_NEW Technique(this);
+        Technique *t = new Technique(this);
         mTechniques.push_back(t);
         mCompilationRequired = true;
         return t;
@@ -381,7 +381,7 @@ class Renderable;
     {
         assert (index < mTechniques.size() && "Index out of bounds.");
         Techniques::iterator i = mTechniques.begin() + index;
-        OGRE_DELETE(*i);
+        delete(*i);
         mTechniques.erase(i);
         clearBestTechniqueList();
     }
@@ -392,21 +392,12 @@ class Renderable;
         iend = mTechniques.end();
         for (i = mTechniques.begin(); i != iend; ++i)
         {
-            OGRE_DELETE(*i);
+            delete(*i);
         }
         mTechniques.clear();
         clearBestTechniqueList();
     }
-    //-----------------------------------------------------------------------
-    Material::TechniqueIterator Material::getTechniqueIterator(void) 
-    {
-        return TechniqueIterator(mTechniques.begin(), mTechniques.end());
-    }
-    //-----------------------------------------------------------------------
-    Material::TechniqueIterator Material::getSupportedTechniqueIterator(void)
-    {
-        return TechniqueIterator(mSupportedTechniques.begin(), mSupportedTechniques.end());
-    }
+
     //-----------------------------------------------------------------------
     bool Material::isTransparent(void) const
     {
@@ -591,16 +582,7 @@ class Renderable;
     {
         return mLodStrategy->getIndex(value, mLodValues);
     }
-    // --------------------------------------------------------------------
-    Material::LodValueIterator Material::getLodValueIterator(void) const
-    {
-        return LodValueIterator(mLodValues.begin(), mLodValues.end());
-    }
-    // --------------------------------------------------------------------
-    Material::LodValueIterator Material::getUserLodValueIterator(void) const
-    {
-        return LodValueIterator(mUserLodValues.begin(), mUserLodValues.end());
-    }
+
     //---------------------------------------------------------------------
     const LodStrategy *Material::getLodStrategy() const
     {

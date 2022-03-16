@@ -38,7 +38,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     KeyFrame* KeyFrame::_clone(AnimationTrack* newParent) const
     {
-        return OGRE_NEW KeyFrame(newParent, mTime);
+        return new KeyFrame(newParent, mTime);
     }
     //---------------------------------------------------------------------
     NumericKeyFrame::NumericKeyFrame(const AnimationTrack* parent, Real time)
@@ -58,7 +58,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     KeyFrame* NumericKeyFrame::_clone(AnimationTrack* newParent) const
     {
-        NumericKeyFrame* newKf = OGRE_NEW NumericKeyFrame(newParent, mTime);
+        NumericKeyFrame* newKf = new NumericKeyFrame(newParent, mTime);
         newKf->mValue = mValue;
         return newKf;
     }
@@ -107,7 +107,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     KeyFrame* TransformKeyFrame::_clone(AnimationTrack* newParent) const
     {
-        TransformKeyFrame* newKf = OGRE_NEW TransformKeyFrame(newParent, mTime);
+        TransformKeyFrame* newKf = new TransformKeyFrame(newParent, mTime);
         newKf->mTranslate = mTranslate;
         newKf->mScale = mScale;
         newKf->mRotate = mRotate;
@@ -132,7 +132,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     KeyFrame* VertexMorphKeyFrame::_clone(AnimationTrack* newParent) const
     {
-        VertexMorphKeyFrame* newKf = OGRE_NEW VertexMorphKeyFrame(newParent, mTime);
+        VertexMorphKeyFrame* newKf = new VertexMorphKeyFrame(newParent, mTime);
         newKf->mBuffer = mBuffer;
         return newKf;
     }   
@@ -184,22 +184,11 @@ namespace Ogre
     {
         return mPoseRefs;
     }
-    //---------------------------------------------------------------------
-    VertexPoseKeyFrame::PoseRefIterator 
-    VertexPoseKeyFrame::getPoseReferenceIterator(void)
-    {
-        return PoseRefIterator(mPoseRefs.begin(), mPoseRefs.end());
-    }
-    //---------------------------------------------------------------------
-    VertexPoseKeyFrame::ConstPoseRefIterator 
-    VertexPoseKeyFrame::getPoseReferenceIterator(void) const
-    {
-        return ConstPoseRefIterator(mPoseRefs.begin(), mPoseRefs.end());
-    }
+
     //---------------------------------------------------------------------
     KeyFrame* VertexPoseKeyFrame::_clone(AnimationTrack* newParent) const
     {
-        VertexPoseKeyFrame* newKf = OGRE_NEW VertexPoseKeyFrame(newParent, mTime);
+        VertexPoseKeyFrame* newKf = new VertexPoseKeyFrame(newParent, mTime);
         // By-value copy ok
         newKf->mPoseRefs = mPoseRefs;
         return newKf;

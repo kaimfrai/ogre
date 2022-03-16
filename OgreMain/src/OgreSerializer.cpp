@@ -149,7 +149,7 @@ namespace Ogre {
     void Serializer::writeFloats(const double* const pDouble, size_t count)
     {
         // Convert to float, then write
-        float* tmp = OGRE_ALLOC_T(float, count, MEMCATEGORY_GENERAL);
+        float* tmp = new float[count];
         for (unsigned int i = 0; i < count; ++i)
         {
             tmp[i] = static_cast<float>(pDouble[i]);
@@ -163,7 +163,7 @@ namespace Ogre {
         {
             writeData(tmp, sizeof(float), count);
         }
-        OGRE_FREE(tmp, MEMCATEGORY_GENERAL);
+        delete[] tmp;
     }
     //---------------------------------------------------------------------
     void Serializer::writeShorts(const uint16* const pShort, size_t count = 1)
@@ -277,7 +277,7 @@ namespace Ogre {
     void Serializer::readFloats(const DataStreamPtr& stream, double* pDest, size_t count)
     {
         // Read from float, convert to double
-        float* tmp = OGRE_ALLOC_T(float, count, MEMCATEGORY_GENERAL);
+        float* tmp = new float[count];
         float* ptmp = tmp;
         stream->read(tmp, sizeof(float) * count);
         flipFromLittleEndian(tmp, sizeof(float), count);
@@ -286,7 +286,7 @@ namespace Ogre {
         {
             *pDest++ = *ptmp++;
         }
-        OGRE_FREE(tmp, MEMCATEGORY_GENERAL);
+        delete[] tmp;
     }
     //---------------------------------------------------------------------
     void Serializer::readShorts(const DataStreamPtr& stream, unsigned short* pDest, size_t count)

@@ -9,29 +9,12 @@
 
 #include <stdint.h>
 
-#include "OgreExports.h"
+#include "OgreStableHeaders.h"
 #include "OgreMurmurHash3.h"
 #include "OgrePlatform.h"
 
 //-----------------------------------------------------------------------------
 // Platform-specific functions and macros
-
-// Microsoft Visual Studio
-
-#if defined(_MSC_VER)
-
-#define FORCE_INLINE    __forceinline
-
-#include <stdlib.h>
-
-#define ROTL32(x,y) _rotl(x,y)
-#define ROTL64(x,y) _rotl64(x,y)
-
-#define BIG_CONSTANT(x) (x)
-
-// Other compilers
-
-#else   // defined(_MSC_VER)
 
 #define FORCE_INLINE inline __attribute__((always_inline))
 
@@ -49,8 +32,6 @@ inline uint64_t rotl64 ( uint64_t x, int8_t r )
 #define ROTL64(x,y) rotl64(x,y)
 
 #define BIG_CONSTANT(x) (x##LLU)
-
-#endif // !defined(_MSC_VER)
 
 namespace Ogre
 {
@@ -97,7 +78,7 @@ FORCE_INLINE uint64_t fmix64 ( uint64_t k )
 
 //-----------------------------------------------------------------------------
 
-void _OgreExport MurmurHash3_x86_32 ( const void * key, const size_t len,
+void MurmurHash3_x86_32 ( const void * key, const size_t len,
                           uint32_t seed, void * out )
 {
   const uint8_t * data = (const uint8_t*)key;
@@ -153,7 +134,7 @@ void _OgreExport MurmurHash3_x86_32 ( const void * key, const size_t len,
 
 //-----------------------------------------------------------------------------
 
-void _OgreExport MurmurHash3_x86_128 ( const void * key, const size_t len,
+void MurmurHash3_x86_128 ( const void * key, const size_t len,
                            uint32_t seed, void * out )
 {
   const uint8_t * data = (const uint8_t*)key;
@@ -258,7 +239,7 @@ void _OgreExport MurmurHash3_x86_128 ( const void * key, const size_t len,
 
 //-----------------------------------------------------------------------------
 
-void _OgreExport MurmurHash3_x64_128 ( const void * key, const size_t len,
+void MurmurHash3_x64_128 ( const void * key, const size_t len,
                            const uint32_t seed, void * out )
 {
   const uint8_t * data = (const uint8_t*)key;

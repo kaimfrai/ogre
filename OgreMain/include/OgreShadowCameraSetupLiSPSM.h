@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreShadowCameraSetupFocused.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgreLight.h"
 #include "OgreMath.h"
 #include "OgreMatrix4.h"
@@ -106,7 +105,7 @@ class Viewport;
     @note
     Original implementation by Matthias Fink <matthias.fink@web.de>, 2006.
     */
-    class _OgreExport LiSPSMShadowCameraSetup : public FocusedShadowCameraSetup
+    class LiSPSMShadowCameraSetup : public FocusedShadowCameraSetup
     {
         /// Warp factor adjustment
         Real mOptAdjustFactor;

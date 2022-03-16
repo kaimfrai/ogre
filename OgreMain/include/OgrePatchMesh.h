@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreMesh.h"
 #include "OgrePatchSurface.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreResource.h"
 
@@ -51,7 +50,7 @@ class VertexDeclaration;
     @remarks
         Instances of this class should be created by calling MeshManager::createBezierPatch.
     */
-    class _OgreExport PatchMesh : public Mesh
+    class PatchMesh : public Mesh
     {
     private:
         /// Internal surface definition

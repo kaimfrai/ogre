@@ -136,13 +136,7 @@ class RenderSystem;
             "SceneManagerEnumerator::createSceneManager");
 
     }
-    //-----------------------------------------------------------------------
-    SceneManagerEnumerator::MetaDataIterator 
-    SceneManagerEnumerator::getMetaDataIterator(void) const
-    {
-        return MetaDataIterator(mMetaDataList.begin(), mMetaDataList.end());
 
-    }
     //-----------------------------------------------------------------------
     SceneManager* SceneManagerEnumerator::createSceneManager(
         const String& typeName, const String& instanceName)
@@ -232,13 +226,7 @@ class RenderSystem;
     {
         return mInstances.find(instanceName) != mInstances.end();
     }
-    //-----------------------------------------------------------------------
-    SceneManagerEnumerator::SceneManagerIterator 
-    SceneManagerEnumerator::getSceneManagerIterator(void)
-    {
-        return SceneManagerIterator(mInstances.begin(), mInstances.end());
 
-    }
     //-----------------------------------------------------------------------
     const SceneManagerEnumerator::Instances& SceneManagerEnumerator::getSceneManagers(void) const
     {
@@ -277,7 +265,7 @@ class RenderSystem;
     SceneManager* DefaultSceneManagerFactory::createInstance(
         const String& instanceName)
     {
-        return OGRE_NEW DefaultSceneManager(instanceName);
+        return new DefaultSceneManager(instanceName);
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------

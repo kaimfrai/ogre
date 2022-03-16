@@ -87,8 +87,7 @@ if (OGRE_TEST_BIG_ENDIAN)
 else ()
   set(OGRE_CONFIG_LITTLE_ENDIAN 1)
 endif ()
-set(RTSHADER_SYSTEM_BUILD_CORE_SHADERS ${OGRE_BUILD_RTSHADERSYSTEM_SHADERS})
-set(RTSHADER_SYSTEM_BUILD_EXT_SHADERS ${OGRE_BUILD_RTSHADERSYSTEM_SHADERS})
+
 if (NOT OGRE_CONFIG_ENABLE_QUAD_BUFFER_STEREO)
   set(OGRE_NO_QUAD_BUFFER_STEREO 1)
 endif()
@@ -104,11 +103,6 @@ CHECK_FUNCTION_EXISTS(strtol_l HAVE_STRTOL_L)
 if (NOT HAVE_STRTOL_L)
   set(OGRE_NO_LOCALE_STRCONVERT 1)
 endif ()
-
-# generate OgreBuildSettings.h
-configure_file(${OGRE_TEMPLATES_DIR}/OgreComponents.h.in ${PROJECT_BINARY_DIR}/include/OgreComponents.h @ONLY)
-configure_file(${OGRE_TEMPLATES_DIR}/OgreBuildSettings.h.in ${PROJECT_BINARY_DIR}/include/OgreBuildSettings.h @ONLY)
-configure_file(${OGRE_TEMPLATES_DIR}/OgreRTShaderConfig.h.in ${PROJECT_BINARY_DIR}/include/OgreRTShaderConfig.h @ONLY)
 
 set(OGRE_LIB_SUFFIX "")
 

@@ -54,7 +54,7 @@ class ResourceManager;
     };
 
     /** Generalised low-level GL program, can be applied to multiple types (eg ARB and NV) */
-    class _OgreGLExport GLGpuProgram : public GpuProgram, public GLGpuProgramBase
+    class GLGpuProgram : public GpuProgram, public GLGpuProgramBase
     {
     public:
         GLGpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
@@ -66,7 +66,7 @@ class ResourceManager;
     };
 
     /** Specialisation of the GL low-level program for ARB programs. */
-    class _OgreGLExport GLArbGpuProgram : public GLGpuProgram
+    class GLArbGpuProgram : public GLGpuProgram
     {
     public:
         GLArbGpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,

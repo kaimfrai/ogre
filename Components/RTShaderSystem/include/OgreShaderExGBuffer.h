@@ -63,7 +63,7 @@ namespace RTShader
 
 /** Transform sub render state implementation of writing to GBuffers
  */
-class _OgreRTSSExport GBuffer : public SubRenderState
+class GBuffer : public SubRenderState
 {
 
     // Interface.
@@ -117,7 +117,7 @@ private:
 A factory that enables creation of GBuffer instances.
 @remarks Sub class of SubRenderStateFactory
 */
-class _OgreRTSSExport GBufferFactory : public SubRenderStateFactory
+class GBufferFactory : public SubRenderStateFactory
 {
 public:
     /**

@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgreStringVector.h"
 #include "OgreAnimation.h"
 #include "OgreSharedPtr.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgrePlatform.h"
 
@@ -95,7 +94,7 @@ class ResourceManager;
         Skeleton definitions are loaded from datafiles, namely the .skeleton file format. They
         are loaded on demand, especially when referenced by a Mesh.
     */
-    class _OgreExport Skeleton : public Resource, public AnimationContainer
+    class Skeleton : public Resource, public AnimationContainer
     {
         friend class SkeletonInstance;
     private:
@@ -175,9 +174,6 @@ class ResourceManager;
 
         typedef std::vector<Bone*> BoneList;
         typedef VectorIterator<BoneList> BoneIterator;
-        /// Get an iterator over the root bones in the skeleton, ie those with no parents
-        /// @deprecated use Skeleton::getRootBones
-        OGRE_DEPRECATED virtual BoneIterator getRootBoneIterator(void);
 
         /** Get the root bones in the skeleton, ie those with no parents
 
@@ -192,9 +188,6 @@ class ResourceManager;
         */
         const BoneList& getRootBones() const;
 
-        /// Get an iterator over all the bones in the skeleton
-        /// @deprecated use getBones()
-        OGRE_DEPRECATED virtual BoneIterator getBoneIterator(void);
         /// Get all the bones in the skeleton
         const BoneList& getBones() const {
             return mBoneList;
@@ -367,10 +360,6 @@ class ResourceManager;
         {
             return mLinkedSkeletonAnimSourceList;
         }
-
-        /// @deprecated use getLinkedSkeletonAnimationSources
-        OGRE_DEPRECATED virtual LinkedSkeletonAnimSourceIterator
-            getLinkedSkeletonAnimationSourceIterator(void) const;
 
         /// Internal method for marking the manual bones as dirty
         virtual void _notifyManualBonesDirty(void);

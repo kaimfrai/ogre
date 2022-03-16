@@ -44,7 +44,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreMath.h"
-#include "OgreExports.h"
 
 namespace Ogre {
 class Matrix3;
@@ -61,7 +60,7 @@ class Matrix3;
         http://www.cprogramming.com/tutorial/3d/quaternions.html and
         http://www.gamedev.net/page/resources/_/reference/programming/math-and-physics/quaternions/quaternion-powers-r1095
     */
-    class _OgreExport Quaternion
+    class Quaternion
     {
     public:
         /// Default constructor, initializes to identity rotation (aka 0°)

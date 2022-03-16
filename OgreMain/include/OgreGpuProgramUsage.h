@@ -32,7 +32,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreGpuProgram.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
@@ -75,7 +74,7 @@ namespace Ogre
         Just incase it wasn't clear from the above, this class provides linkage to both 
         GpuProgram and HighLevelGpuProgram, despite its name.
     */
-    class _OgreExport GpuProgramUsage : public Resource::Listener, public PassAlloc
+    class GpuProgramUsage : public Resource::Listener, public PassAlloc
     {
     private:
         Pass* mParent;

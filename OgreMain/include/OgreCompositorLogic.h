@@ -43,7 +43,7 @@ namespace Ogre {
     *   @remarks All methods have empty implementations to not force an implementer into
     *       extending all of them.
     */
-    class _OgreExport CompositorLogic
+    class CompositorLogic
     {
     public:
         /** Called when a compositor instance has been created.

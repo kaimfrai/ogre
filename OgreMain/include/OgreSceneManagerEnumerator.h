@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreSceneManager.h"
 #include "OgreSingleton.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
@@ -52,7 +51,7 @@ class RenderSystem;
     *  @{
     */
     /// Factory for default scene manager
-    class _OgreExport DefaultSceneManagerFactory : public SceneManagerFactory
+    class DefaultSceneManagerFactory : public SceneManagerFactory
     {
     protected:
         void initMetaData(void) const;
@@ -65,7 +64,7 @@ class RenderSystem;
     };
 
     /// Default scene manager
-    class _OgreExport DefaultSceneManager : public SceneManager
+    class DefaultSceneManager : public SceneManager
     {
     public:
         DefaultSceneManager(const String& name);
@@ -93,7 +92,7 @@ class RenderSystem;
             using a factory, should you choose, it's just not as flexible that way.
             Just instantiate your own SceneManager manually and use it directly.
     */
-    class _OgreExport SceneManagerEnumerator : public Singleton<SceneManagerEnumerator>, public SceneMgtAlloc
+    class SceneManagerEnumerator : public Singleton<SceneManagerEnumerator>, public SceneMgtAlloc
     {
     public:
         /// Scene manager instances, indexed by instance name
@@ -147,11 +146,6 @@ class RenderSystem;
         const MetaDataList& getMetaData() const { return mMetaDataList; }
 
         typedef ConstVectorIterator<MetaDataList> MetaDataIterator;
-        /** Iterate over all types of SceneManager available for construction, 
-            providing some information about each one.
-            @deprecated use getMetaData()
-        */
-        OGRE_DEPRECATED MetaDataIterator getMetaDataIterator(void) const;
 
         /** Create a SceneManager instance of a given type.
         @remarks
@@ -166,11 +160,6 @@ class RenderSystem;
         */
         SceneManager* createSceneManager(const String& typeName, 
             const String& instanceName = BLANKSTRING);
-
-        /// @deprecated typeMask is obsolete
-        OGRE_DEPRECATED SceneManager* createSceneManager(uint16 typeMask,
-            const String& instanceName = BLANKSTRING)
-        { return createSceneManager(DefaultSceneManagerFactory::FACTORY_TYPE_NAME, instanceName); }
 
         /** Destroy an instance of a SceneManager. */
         void destroySceneManager(SceneManager* sm);
@@ -187,9 +176,6 @@ class RenderSystem;
         bool hasSceneManager(const String& instanceName) const;
 
         typedef MapIterator<Instances> SceneManagerIterator;
-        /** Get an iterator over all the existing SceneManager instances.
-        @deprecated use getSceneManagers() instead */
-        OGRE_DEPRECATED SceneManagerIterator getSceneManagerIterator(void);
 
         /// Get all the existing SceneManager instances.
         const Instances& getSceneManagers() const;

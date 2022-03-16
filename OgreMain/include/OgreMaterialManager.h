@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreSingleton.h"
 #include "OgreResourceManager.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
@@ -75,7 +74,7 @@ class Technique;
         settings. All materials created from then on will be configured
         with the new defaults you have specified.
     */
-    class _OgreExport MaterialManager : public ResourceManager, public Singleton<MaterialManager>
+    class MaterialManager : public ResourceManager, public Singleton<MaterialManager>
     {
     public:
         /** Listener on any general material events.

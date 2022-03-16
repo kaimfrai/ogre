@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreMesh.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgrePlatform.h"
 #include "OgreSharedPtr.h"
@@ -101,7 +100,7 @@ class Technique;
     @version
         1.0
     */
-    class _OgreExport InstanceBatch : public Renderable, public MovableObject
+    class InstanceBatch : public Renderable, public MovableObject
     {
     public:
         typedef std::vector<InstancedEntity*>  InstancedEntityVec;
@@ -372,10 +371,6 @@ class Technique;
 
         virtual void _updateRenderQueue(RenderQueue* queue);
         void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false );
-
-        // resolve ambiguity of get/setUserAny due to inheriting from Renderable and MovableObject
-        using Renderable::getUserAny;
-        using Renderable::setUserAny;
     };
 } // namespace Ogre
 

@@ -109,9 +109,9 @@ class Technique;
         }
 
         if( mRemoveOwnVertexData )
-            OGRE_DELETE mRenderOperation.vertexData;
+            delete mRenderOperation.vertexData;
         if( mRemoveOwnIndexData )
-            OGRE_DELETE mRenderOperation.indexData;
+            delete mRenderOperation.indexData;
 
     }
 
@@ -208,7 +208,7 @@ class Technique;
     //-----------------------------------------------------------------------
     InstancedEntity* InstanceBatch::generateInstancedEntity(size_t num)
     {
-        return OGRE_NEW InstancedEntity(this, static_cast<uint32>(num));
+        return new InstancedEntity(this, static_cast<uint32>(num));
     }
     //-----------------------------------------------------------------------
     void InstanceBatch::deleteAllInstancedEntities()
@@ -221,7 +221,7 @@ class Technique;
             if( (*itor)->getParentSceneNode() )
                 (*itor)->getParentSceneNode()->detachObject( (*itor) );
 
-            OGRE_DELETE *itor++;
+            delete *itor++;
         }
     }
     //-----------------------------------------------------------------------
@@ -231,7 +231,7 @@ class Technique;
         InstancedEntityVec::const_iterator end  = mUnusedEntities.end();
 
         while( itor != end )
-            OGRE_DELETE *itor++;
+            delete *itor++;
 
         mUnusedEntities.clear();
     }

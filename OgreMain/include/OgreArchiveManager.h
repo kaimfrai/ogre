@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreIteratorWrapper.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
@@ -49,7 +48,7 @@ class ArchiveFactory;
     */
     /** This class manages the available ArchiveFactory plugins. 
     */
-    class _OgreExport ArchiveManager : public Singleton<ArchiveManager>, public ArchiveAlloc
+    class ArchiveManager : public Singleton<ArchiveManager>, public ArchiveAlloc
     {
     private:
         typedef std::map<String, ArchiveFactory*> ArchiveFactoryMap;

@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "StencilShadowTest.h"
 #include "CubeMappingTest.h"
 
-#include "OgreBuildSettings.h"
 #include "Sample.h"
 
 VTestPlugin::VTestPlugin()

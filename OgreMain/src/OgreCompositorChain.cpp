@@ -143,7 +143,7 @@ void CompositorChain::createOriginalScene()
         pass->setLastRenderQueue(RENDER_QUEUE_SKIES_LATE);
         scene->load();
     }
-    mOriginalScene = OGRE_NEW CompositorInstance(scene->getSupportedTechnique(), this);
+    mOriginalScene = new CompositorInstance(scene->getSupportedTechnique(), this);
 }
 //-----------------------------------------------------------------------
 void CompositorChain::destroyOriginalScene()
@@ -151,7 +151,7 @@ void CompositorChain::destroyOriginalScene()
     /// Destroy "original scene" compositor instance
     if (mOriginalScene)
     {
-        OGRE_DELETE mOriginalScene;
+        delete mOriginalScene;
         mOriginalScene = 0;
     }
 }
@@ -167,7 +167,7 @@ CompositorInstance* CompositorChain::addCompositor(CompositorPtr filter, size_t 
     {
         return 0;
     }
-    CompositorInstance *t = OGRE_NEW CompositorInstance(tech, this);
+    CompositorInstance *t = new CompositorInstance(tech, this);
     
     if(addPosition == LAST)
         addPosition = mInstances.size();
@@ -187,16 +187,12 @@ void CompositorChain::removeCompositor(size_t index)
 
     assert (index < mInstances.size() && "Index out of bounds.");
     Instances::iterator i = mInstances.begin() + index;
-    OGRE_DELETE *i;
+    delete *i;
     mInstances.erase(i);
     
     mDirty = true;
 }
-//-----------------------------------------------------------------------
-size_t CompositorChain::getNumCompositors()
-{
-    return mInstances.size();
-}
+
 //-----------------------------------------------------------------------
 void CompositorChain::removeAllCompositors()
 {
@@ -204,7 +200,7 @@ void CompositorChain::removeAllCompositors()
     iend = mInstances.end();
     for (i = mInstances.begin(); i != iend; ++i)
     {
-        OGRE_DELETE *i;
+        delete *i;
     }
     mInstances.clear();
     
@@ -218,7 +214,7 @@ void CompositorChain::_removeInstance(CompositorInstance *i)
     if(it != mInstances.end())
     {
         mInstances.erase(it);
-        OGRE_DELETE i;
+        delete i;
     }
 }
 //-----------------------------------------------------------------------
@@ -244,11 +240,7 @@ CompositorInstance *CompositorChain::getCompositor(const String& name) const
     size_t idx = getCompositorPosition(name);
     return idx == NPOS ? NULL : mInstances[idx];
 }
-//-----------------------------------------------------------------------
-CompositorChain::InstanceIterator CompositorChain::getCompositors()
-{
-    return InstanceIterator(mInstances.begin(), mInstances.end());
-}
+
 //-----------------------------------------------------------------------
 void CompositorChain::setCompositorEnabled(size_t position, bool state)
 {
@@ -480,7 +472,7 @@ void CompositorChain::clearCompiledState()
     for (RenderSystemOperations::iterator i = mRenderSystemOperations.begin();
         i != mRenderSystemOperations.end(); ++i)
     {
-        OGRE_DELETE *i;
+        delete *i;
     }
     mRenderSystemOperations.clear();
 

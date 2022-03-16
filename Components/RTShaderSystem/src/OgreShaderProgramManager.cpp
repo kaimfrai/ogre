@@ -161,12 +161,12 @@ void ProgramManager::flushGpuProgramsCache(GpuProgramsMap& gpuProgramsMap)
 void ProgramManager::createDefaultProgramProcessors()
 {
     // Add standard shader processors
-    mDefaultProgramProcessors.push_back(OGRE_NEW GLSLProgramProcessor);
+    mDefaultProgramProcessors.push_back(new GLSLProgramProcessor);
     addProgramProcessor("glsles", mDefaultProgramProcessors.back());
     addProgramProcessor("glslang", mDefaultProgramProcessors.back());
 
     addProgramProcessor("glsl", mDefaultProgramProcessors.back());
-    mDefaultProgramProcessors.push_back(OGRE_NEW HLSLProgramProcessor);
+    mDefaultProgramProcessors.push_back(new HLSLProgramProcessor);
     addProgramProcessor("hlsl", mDefaultProgramProcessors.back());
 }
 

@@ -33,6 +33,10 @@ THE SOFTWARE.
 #include <set>
 #include <string>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreGpuProgramUsage.h"
 #include "OgreTextureUnitState.h"
@@ -53,10 +57,9 @@ THE SOFTWARE.
 #include "OgreString.h"
 #include "OgreTechnique.h"
 #include "OgreVector.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre {
-class AutoParamDataSource;
+    class AutoParamDataSource;
 
     /** Default pass hash function.
     @remarks
@@ -66,7 +69,6 @@ class AutoParamDataSource;
     {
         uint32 operator()(const Pass* p) const
         {
-            OGRE_LOCK_MUTEX(p->mTexUnitChangeMutex);
             uint32 hash = 0;
             ushort c = p->getNumTextureUnitStates();
 
@@ -89,7 +91,6 @@ class AutoParamDataSource;
     {
         uint32 operator()(const Pass* p) const
         {
-            OGRE_LOCK_MUTEX(p->mGpuProgramChangeMutex);
             uint32 hash = 0;
 
             for(int i = 0; i < GPT_COUNT; i++)
@@ -107,8 +108,6 @@ class AutoParamDataSource;
     //-----------------------------------------------------------------------------
     Pass::PassSet Pass::msDirtyHashList;
     Pass::PassSet Pass::msPassGraveyard;
-    OGRE_STATIC_MUTEX_INSTANCE(Pass::msDirtyHashListMutex);
-    OGRE_STATIC_MUTEX_INSTANCE(Pass::msPassGraveyardMutex);
 
     Pass::HashFunc* Pass::msHashFunc = &sMinGpuProgramChangeHashFunc;
     //-----------------------------------------------------------------------------
@@ -289,7 +288,7 @@ class AutoParamDataSource;
         iend = mTextureUnitStates.end();
         for (i = mTextureUnitStates.begin(); i != iend; ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
 
         mTextureUnitStates.clear();
@@ -298,7 +297,7 @@ class AutoParamDataSource;
         iend = oth.mTextureUnitStates.end();
         for (i = oth.mTextureUnitStates.begin(); i != iend; ++i)
         {
-            TextureUnitState* t = OGRE_NEW TextureUnitState(this, *(*i));
+            TextureUnitState* t = new TextureUnitState(this, *(*i));
             mTextureUnitStates.push_back(t);
         }
 
@@ -385,7 +384,7 @@ class AutoParamDataSource;
     //-----------------------------------------------------------------------
     TextureUnitState* Pass::createTextureUnitState(void)
     {
-        TextureUnitState *t = OGRE_NEW TextureUnitState(this);
+        TextureUnitState *t = new TextureUnitState(this);
         addTextureUnitState(t);
         mContentTypeLookupBuilt = false;
         return t;
@@ -394,7 +393,7 @@ class AutoParamDataSource;
     TextureUnitState* Pass::createTextureUnitState(
         const String& textureName, unsigned short texCoordSet)
     {
-        TextureUnitState *t = OGRE_NEW TextureUnitState(this);
+        TextureUnitState *t = new TextureUnitState(this);
         t->setTextureName(textureName);
         t->setTextureCoordSet(texCoordSet);
         addTextureUnitState(t);
@@ -404,8 +403,6 @@ class AutoParamDataSource;
     //-----------------------------------------------------------------------
     void Pass::addTextureUnitState(TextureUnitState* state)
     {
-            OGRE_LOCK_MUTEX(mTexUnitChangeMutex);
-
         OgreAssert(state , "TextureUnitState is NULL");
 
         // only attach TUS to pass if TUS does not belong to another pass
@@ -432,7 +429,6 @@ class AutoParamDataSource;
     //-----------------------------------------------------------------------------
     TextureUnitState* Pass::getTextureUnitState(const String& name) const
     {
-            OGRE_LOCK_MUTEX(mTexUnitChangeMutex);
         TextureUnitStates::const_iterator i    = mTextureUnitStates.begin();
         TextureUnitStates::const_iterator iend = mTextureUnitStates.end();
         TextureUnitState* foundTUS = 0;
@@ -455,7 +451,6 @@ class AutoParamDataSource;
     //-----------------------------------------------------------------------
     unsigned short Pass::getTextureUnitStateIndex(const TextureUnitState* state) const
     {
-        OGRE_LOCK_MUTEX(mTexUnitChangeMutex);
         assert(state && "state is 0 in Pass::getTextureUnitStateIndex()");
 
         // only find index for state attached to this pass
@@ -466,25 +461,12 @@ class AutoParamDataSource;
     }
 
     //-----------------------------------------------------------------------
-    Pass::TextureUnitStateIterator
-        Pass::getTextureUnitStateIterator(void)
-    {
-        return TextureUnitStateIterator(mTextureUnitStates.begin(), mTextureUnitStates.end());
-    }
-    //-----------------------------------------------------------------------
-    Pass::ConstTextureUnitStateIterator
-        Pass::getTextureUnitStateIterator(void) const
-    {
-        return ConstTextureUnitStateIterator(mTextureUnitStates.begin(), mTextureUnitStates.end());
-    }
-    //-----------------------------------------------------------------------
     void Pass::removeTextureUnitState(unsigned short index)
     {
-        OGRE_LOCK_MUTEX(mTexUnitChangeMutex);
         assert (index < mTextureUnitStates.size() && "Index out of bounds");
 
         TextureUnitStates::iterator i = mTextureUnitStates.begin() + index;
-        OGRE_DELETE *i;
+        delete *i;
         mTextureUnitStates.erase(i);
         _notifyNeedsRecompile();
         _dirtyHash();
@@ -493,12 +475,11 @@ class AutoParamDataSource;
     //-----------------------------------------------------------------------
     void Pass::removeAllTextureUnitStates(void)
     {
-        OGRE_LOCK_MUTEX(mTexUnitChangeMutex);
         TextureUnitStates::iterator i, iend;
         iend = mTextureUnitStates.end();
         for (i = mTextureUnitStates.begin(); i != iend; ++i)
         {
-            OGRE_DELETE *i;
+            delete *i;
         }
         mTextureUnitStates.clear();
         _notifyNeedsRecompile();
@@ -810,8 +791,6 @@ class AutoParamDataSource;
     //-----------------------------------------------------------------------
     void Pass::setGpuProgramParameters(GpuProgramType type, const GpuProgramParametersSharedPtr& params)
     {
-        OGRE_LOCK_MUTEX(mGpuProgramChangeMutex);
-
         const auto& programUsage = getProgramUsage(type);
         if (!programUsage)
         {
@@ -827,8 +806,6 @@ class AutoParamDataSource;
     //-----------------------------------------------------------------------
     void Pass::setGpuProgram(GpuProgramType type, const GpuProgramPtr& program, bool resetParams)
     {
-        OGRE_LOCK_MUTEX(mGpuProgramChangeMutex);
-
         std::unique_ptr<GpuProgramUsage>& programUsage = getProgramUsage(type);
 
         // Turn off fragment program if name blank
@@ -917,7 +894,6 @@ class AutoParamDataSource;
     //-----------------------------------------------------------------------
     const GpuProgramParametersSharedPtr& Pass::getGpuProgramParameters(GpuProgramType type) const
     {
-        OGRE_LOCK_MUTEX(mGpuProgramChangeMutex);
         const auto& programUsage = getProgramUsage(type);
         if (!programUsage)
         {
@@ -946,15 +922,12 @@ class AutoParamDataSource;
     }
     const GpuProgramPtr& Pass::getGpuProgram(GpuProgramType programType) const
 	{
-        OGRE_LOCK_MUTEX(mGpuProgramChangeMutex);
         OgreAssert(mProgramUsage[programType], "check whether program is available using hasGpuProgram()");
         return mProgramUsage[programType]->getProgram();
 	}
     //-----------------------------------------------------------------------
     const String& Pass::getGpuProgramName(GpuProgramType type) const
     {
-        OGRE_LOCK_MUTEX(mGpuProgramChangeMutex);
-
         const std::unique_ptr<GpuProgramUsage>& programUsage = getProgramUsage(type);
         if (!programUsage)
             return BLANKSTRING;
@@ -1013,7 +986,6 @@ class AutoParamDataSource;
         Material* mat = mParent->getParent();
         if (mat->isLoading() || mat->isLoaded())
         {
-                    OGRE_LOCK_MUTEX(msDirtyHashListMutex);
             // Mark this hash as for follow up
             msDirtyHashList.insert(this);
             mHashDirtyQueued = false;
@@ -1026,7 +998,6 @@ class AutoParamDataSource;
     //---------------------------------------------------------------------
     void Pass::clearDirtyHashList(void) 
     { 
-            OGRE_LOCK_MUTEX(msDirtyHashListMutex);
         msDirtyHashList.clear(); 
     }
     //-----------------------------------------------------------------------
@@ -1038,8 +1009,6 @@ class AutoParamDataSource;
     //-----------------------------------------------------------------------
     void Pass::setTextureFiltering(TextureFilterOptions filterType)
     {
-        OGRE_LOCK_MUTEX(mTexUnitChangeMutex);
-
         TextureUnitStates::iterator i, iend;
         iend = mTextureUnitStates.end();
         for (i = mTextureUnitStates.begin(); i != iend; ++i)
@@ -1050,7 +1019,6 @@ class AutoParamDataSource;
     // --------------------------------------------------------------------
     void Pass::setTextureAnisotropy(unsigned int maxAniso)
     {
-        OGRE_LOCK_MUTEX(mTexUnitChangeMutex);
         TextureUnitStates::iterator i, iend;
         iend = mTextureUnitStates.end();
         for (i = mTextureUnitStates.begin(); i != iend; ++i)
@@ -1074,24 +1042,21 @@ class AutoParamDataSource;
     //-----------------------------------------------------------------------
     void Pass::processPendingPassUpdates(void)
     {
-        {
-                    OGRE_LOCK_MUTEX(msPassGraveyardMutex);
-            // Delete items in the graveyard
-            PassSet::iterator i, iend;
-            iend = msPassGraveyard.end();
-            for (i = msPassGraveyard.begin(); i != iend; ++i)
-            {
-                OGRE_DELETE *i;
-            }
-            msPassGraveyard.clear();
-        }
-        PassSet tempDirtyHashList;
-        {
-                    OGRE_LOCK_MUTEX(msDirtyHashListMutex);
-            // The dirty ones will have been removed from the groups above using the old hash now
-            tempDirtyHashList.swap(msDirtyHashList);
-        }
+
+        // Delete items in the graveyard
         PassSet::iterator i, iend;
+        iend = msPassGraveyard.end();
+        for (i = msPassGraveyard.begin(); i != iend; ++i)
+        {
+            delete *i;
+        }
+        msPassGraveyard.clear();
+
+        PassSet tempDirtyHashList;
+
+        // The dirty ones will have been removed from the groups above using the old hash now
+        tempDirtyHashList.swap(msDirtyHashList);
+
         iend = tempDirtyHashList.end();
         for (i = tempDirtyHashList.begin(); i != iend; ++i)
         {
@@ -1109,14 +1074,9 @@ class AutoParamDataSource;
             u.reset();
 
         // remove from dirty list, if there
-        {
-            OGRE_LOCK_MUTEX(msDirtyHashListMutex);
-            msDirtyHashList.erase(this);
-        }
-        {
-            OGRE_LOCK_MUTEX(msPassGraveyardMutex);
-            msPassGraveyard.insert(this);
-        }
+        msDirtyHashList.erase(this);
+
+        msPassGraveyard.insert(this);
     }
     //-----------------------------------------------------------------------
     bool Pass::isAmbientOnly(void) const

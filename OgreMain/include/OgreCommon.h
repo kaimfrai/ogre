@@ -38,7 +38,6 @@ THE SOFTWARE.
 
 #include "OgreVector.h"
 #include "OgreMurmurHash3.h"
-#include "OgreExports.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 
@@ -822,7 +821,7 @@ class RenderWindow;
         Should be pre-populated with, for example '-e' and the default setting. 
         Options which are found will have the value updated.
     */
-    int _OgreExport findCommandLineOpts(int numargs, char** argv, UnaryOptionList& unaryOptList, 
+    int findCommandLineOpts(int numargs, char** argv, UnaryOptionList& unaryOptList,
         BinaryOptionList& binOptList);
 
     /// Generic result of clipping

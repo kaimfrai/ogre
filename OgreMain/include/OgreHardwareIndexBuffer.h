@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include <stddef.h>
 
 #include "OgreHardwareBuffer.h"
-#include "OgreExports.h"
+#include "OgreSharedPtr.h"
 #include "OgrePlatform.h"
 
 namespace Ogre {
@@ -44,7 +44,7 @@ namespace Ogre {
     *  @{
     */
     /** Specialisation of HardwareBuffer for vertex index buffers, still abstract. */
-    class _OgreExport HardwareIndexBuffer : public HardwareBuffer
+    class HardwareIndexBuffer : public HardwareBuffer
     {
         public:
             enum IndexType : uint8 {
@@ -77,9 +77,6 @@ namespace Ogre {
 
             // NB subclasses should override lock, unlock, readData, writeData
     };
-    
-    /// @deprecated use HardwareBufferLockGuard directly
-    OGRE_DEPRECATED typedef HardwareBufferLockGuard HardwareIndexBufferLockGuard;
 
     /** @} */
     /** @} */

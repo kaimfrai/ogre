@@ -59,7 +59,7 @@ The user should use this interface to define global or per material custom behav
 I.E In order to apply per pixel to a specific material one should implement a sub class of SubRenderState that
 perform a per pixel lighting model, get the render state of the target material and add the custom sub class to it.
 */
-class _OgreRTSSExport RenderState : public RTShaderSystemAlloc
+class RenderState : public RTShaderSystemAlloc
 {
 
     // Interface.
@@ -141,7 +141,7 @@ private:
 It will be initially build from the FFP state of a given Pass by the FFP builder and then will be linked
 with the custom pass render state and the global scheme render state. See ShaderGenerator::SGPass::buildTargetRenderState().
 */
-class _OgreRTSSExport TargetRenderState : public RenderState
+class TargetRenderState : public RenderState
 {
 
 // Interface.

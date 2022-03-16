@@ -29,8 +29,7 @@ THE SOFTWARE.
 #ifndef __NumericSolvers_H__
 #define __NumericSolvers_H__
 
-#include "OgreExports.h"
-
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 
@@ -44,7 +43,7 @@ namespace Ogre {
         @remarks
             Handles linear algebra numerics.
     */
-    class _OgreExport NumericSolver
+    class NumericSolver
     {
     public:
         /** Solves a full rank NxN linear system of equations 

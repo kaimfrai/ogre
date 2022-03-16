@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreMatrix3.h"
 #include "OgreVector.h"
-#include "OgreExports.h"
 #include "OgreQuaternion.h"
 
 namespace Ogre
@@ -159,7 +158,7 @@ namespace Ogre
         }
     };
 
-    struct _OgreExport TransformBaseReal : public TransformBase<4, Real>
+    struct TransformBaseReal : public TransformBase<4, Real>
     {
         /// Do <b>NOT</b> initialize for efficiency.
         TransformBaseReal() {}
@@ -198,9 +197,6 @@ namespace Ogre
                            m[2][0], m[2][1], m[2][2]);
         }
 
-        OGRE_DEPRECATED void extract3x3Matrix(Matrix3& m3x3) const { m3x3 = linear(); }
-        OGRE_DEPRECATED Quaternion extractQuaternion() const { return Quaternion(linear()); }
-
         Real determinant() const;
 
         Matrix4 transpose() const;
@@ -222,7 +218,7 @@ namespace Ogre
     };
 
     /// Transform specialization for projective - encapsulating a 4x4 Matrix
-    class _OgreExport Matrix4 : public TransformBaseReal
+    class Matrix4 : public TransformBaseReal
     {
     public:
         /// Do <b>NOT</b> initialize the matrix for efficiency.
@@ -272,8 +268,6 @@ namespace Ogre
             return *this;
         }
 
-        OGRE_DEPRECATED Matrix4 concatenate(const Matrix4& m2) const { return *this * m2; }
-
         /** Tests 2 matrices for equality.
         */
         inline bool operator == ( const Matrix4& m2 ) const
@@ -320,7 +314,7 @@ namespace Ogre
     };
 
     /// Transform specialization for 3D Affine - encapsulating a 3x4 Matrix
-    class _OgreExport Affine3 : public TransformBaseReal
+    class Affine3 : public TransformBaseReal
     {
     public:
         /// Do <b>NOT</b> initialize the matrix for efficiency.

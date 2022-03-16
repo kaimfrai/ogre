@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreControllerManager.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMovableObject.h"
 
@@ -75,7 +74,7 @@ template <typename T> class Controller;
         The 'u' coordinates are by default (0.0, 1.0), but you can alter this 
         using setOtherTexCoordRange if you wish.
     */
-    class _OgreExport RibbonTrail : public BillboardChain, public Node::Listener
+    class RibbonTrail : public BillboardChain, public Node::Listener
     {
     public:
         /** Constructor (don't use directly, use factory) 
@@ -230,7 +229,7 @@ template <typename T> class Controller;
 
 
     /** Factory object for creating RibbonTrail instances */
-    class _OgreExport RibbonTrailFactory : public MovableObjectFactory
+    class RibbonTrailFactory : public MovableObjectFactory
     {
     protected:
         MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);

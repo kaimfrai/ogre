@@ -49,7 +49,7 @@ namespace RTShader {
 
 /** A class that represents a function operand (its the combination of a parameter the in/out semantic and the used fields)
 */
-class _OgreRTSSExport Operand : public RTShaderSystemAlloc
+class Operand : public RTShaderSystemAlloc
 {
 public:
 
@@ -156,7 +156,7 @@ protected:
     ushort mIndirectionLevel;
 };
 
-struct _OgreRTSSExport In : Operand 
+struct In : Operand 
 {
     In(const Operand& rhs) : Operand(rhs) { OgreAssert(mSemantic == OPS_IN, "invalid semantic"); }
     In(ParameterPtr p) : Operand(p, OPS_IN) {}
@@ -169,14 +169,14 @@ struct _OgreRTSSExport In : Operand
     In(const Vector4& v) : Operand(ParameterFactory::createConstParam(v), OPS_IN) {}
 };
 
-struct _OgreRTSSExport Out : Operand 
+struct Out : Operand 
 {
     Out(const Operand& rhs) : Operand(rhs) { OgreAssert(mSemantic == OPS_OUT, "invalid semantic"); }
     Out(ParameterPtr p) : Operand(p, OPS_OUT) {}
     Out(UniformParameterPtr p) : Operand(p, OPS_OUT) {}
 };
 
-struct _OgreRTSSExport InOut : Operand 
+struct InOut : Operand 
 {
     InOut(const Operand& rhs) : Operand(rhs) { OgreAssert(mSemantic == OPS_INOUT, "invalid semantic"); }
     InOut(ParameterPtr p) : Operand(p, OPS_INOUT) {}
@@ -184,14 +184,14 @@ struct _OgreRTSSExport InOut : Operand
 };
 
 /// shorthand for operator[]  on preceding operand. e.g. myArray[p]
-struct _OgreRTSSExport At : Operand
+struct At : Operand
 {
     At(ParameterPtr p) : Operand(p, OPS_IN, OPM_ALL, 1) {}
 };
 
 /** A class that represents an atomic code section of shader based program function.
 */
-class _OgreRTSSExport FunctionAtom : public RTShaderSystemAlloc
+class FunctionAtom : public RTShaderSystemAlloc
 {
 // Interface.
 public:
@@ -234,7 +234,7 @@ protected:
 
 /** A class that represents function invocation code from shader based program function.
 */
-class _OgreRTSSExport FunctionInvocation : public FunctionAtom
+class FunctionInvocation : public FunctionAtom
 {
     // Interface.
 public:
@@ -291,7 +291,7 @@ private:
 };
 
 /// shorthand for "lhs = rhs;" insted of using FFP_Assign(rhs, lhs)
-class _OgreRTSSExport AssignmentAtom : public FunctionAtom
+class AssignmentAtom : public FunctionAtom
 {
 public:
     explicit AssignmentAtom(int groupOrder) { mGroupExecutionOrder = groupOrder; }
@@ -301,7 +301,7 @@ public:
 };
 
 /// shorthand for "dst = texture(sampler, uv);" instead of using FFP_SampleTexture
-class _OgreRTSSExport SampleTextureAtom : public FunctionAtom
+class SampleTextureAtom : public FunctionAtom
 {
 public:
     explicit SampleTextureAtom(int groupOrder) { mGroupExecutionOrder = groupOrder; }
@@ -310,7 +310,7 @@ public:
 };
 
 /// shorthand for "dst = a OP b;"
-class _OgreRTSSExport BinaryOpAtom : public FunctionAtom
+class BinaryOpAtom : public FunctionAtom
 {
     char mOp;
 public:

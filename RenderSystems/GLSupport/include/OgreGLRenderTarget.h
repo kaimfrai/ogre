@@ -5,14 +5,13 @@
 #ifndef RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLRENDERTARGET_H_
 #define RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLRENDERTARGET_H_
 
-#include "OgreGLSupportPrerequisites.h"
 
 namespace Ogre
 {
 class GLContext;
 class GLFrameBufferObjectCommon;
 
-class _OgrePrivate GLRenderTarget
+class GLRenderTarget
 {
 public:
     virtual ~GLRenderTarget() {}

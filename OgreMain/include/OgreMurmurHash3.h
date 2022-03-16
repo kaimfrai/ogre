@@ -11,17 +11,16 @@
 //-----------------------------------------------------------------------------
 // Platform-specific functions and macros
 #include "OgrePlatform.h"
-#include "OgreExports.h"
 
 //-----------------------------------------------------------------------------
 
 namespace Ogre
 {
-    void _OgreExport MurmurHash3_x86_32  ( const void * key, size_t len, uint32_t seed, void * out );
+    void MurmurHash3_x86_32  ( const void * key, size_t len, uint32_t seed, void * out );
 
-    void _OgreExport MurmurHash3_x86_128 ( const void * key, size_t len, uint32_t seed, void * out );
+    void MurmurHash3_x86_128 ( const void * key, size_t len, uint32_t seed, void * out );
 
-    void _OgreExport MurmurHash3_x64_128 ( const void * key, size_t len, uint32_t seed, void * out );
+    void MurmurHash3_x64_128 ( const void * key, size_t len, uint32_t seed, void * out );
 
     inline void MurmurHash3_128( const void * key, size_t len, uint32_t seed, void * out ) {
         MurmurHash3_x64_128(key, len, seed, out);

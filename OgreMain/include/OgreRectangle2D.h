@@ -30,7 +30,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreSimpleRenderable.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 
 namespace Ogre {
@@ -49,7 +48,7 @@ class Matrix4;
     like RENDER_QUEUE_BACKGROUND and 'depth_write off' for backdrops, and 
     RENDER_QUEUE_OVERLAY and 'depth_check off' for fullscreen quads.
     */
-    class _OgreExport Rectangle2D : public SimpleRenderable
+    class Rectangle2D : public SimpleRenderable
     {
     protected:
         /** Override this method to prevent parent transforms (rotation,translation,scale)

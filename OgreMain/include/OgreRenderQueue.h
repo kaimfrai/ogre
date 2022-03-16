@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <memory>
 
 #include "OgrePrerequisites.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
@@ -97,7 +96,7 @@ class Technique;
             backgrounds and overlays, and also could be used in the future for more
             complex multipass routines like stenciling.
     */
-    class _OgreExport RenderQueue : public RenderQueueAlloc
+    class RenderQueue : public RenderQueueAlloc
     {
     public:
 
@@ -108,7 +107,7 @@ class Technique;
             Use RenderQueue::setRenderableListener to get callbacks when an item
             is added to the render queue.
         */
-        class _OgreExport RenderableListener
+        class RenderableListener
         {
         public:
             RenderableListener() {}

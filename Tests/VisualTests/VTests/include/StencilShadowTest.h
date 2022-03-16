@@ -40,7 +40,7 @@ class Entity;
 using namespace Ogre;
 
 /** Tests basic stencil shadow behavior */
-class _OgreSampleClassExport StencilShadowTest : public VisualTest
+class StencilShadowTest : public VisualTest
 {
 public:
 

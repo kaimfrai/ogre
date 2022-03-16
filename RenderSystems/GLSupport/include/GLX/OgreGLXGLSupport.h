@@ -30,7 +30,6 @@
 
 #include "OgreGLNativeSupport.h"
 #include "OgreCommon.h"
-#include "OgreGLSupportPrerequisites.h"
 #include "OgrePixelFormat.h"
 #include "OgrePrerequisites.h"
 
@@ -50,7 +49,7 @@ class RenderWindow;
 
 namespace Ogre {
 
-    class _OgreGLExport GLXGLSupport : public GLNativeSupport
+    class GLXGLSupport : public GLNativeSupport
     {
     public:
         GLXGLSupport(int profile);

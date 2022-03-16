@@ -36,15 +36,17 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 #include <algorithm>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
 #include "OgreScriptLoader.h"
 #include "OgreGpuProgram.h"
 #include "OgreAny.h"
-#include "Threading/OgreThreadHeaders.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
@@ -105,7 +107,7 @@ class Material;
     typedef std::list<AbstractNodePtr> AbstractNodeList;
     typedef SharedPtr<AbstractNodeList> AbstractNodeListPtr;
 
-    class _OgreExport AbstractNode : public AbstractNodeAlloc
+    class AbstractNode : public AbstractNodeAlloc
     {
     public:
         String file;
@@ -123,7 +125,7 @@ class Material;
     };
 
     /** This is an abstract node which cannot be broken down further */
-    class _OgreExport AtomAbstractNode : public AbstractNode
+    class AtomAbstractNode : public AbstractNode
     {
     public:
         String value;
@@ -135,7 +137,7 @@ class Material;
     };
 
     /** This specific abstract node represents a script object */
-    class _OgreExport ObjectAbstractNode : public AbstractNode
+    class ObjectAbstractNode : public AbstractNode
     {
     private:
         std::map<String,String> mEnv;
@@ -159,7 +161,7 @@ class Material;
     };
 
     /** This abstract node represents a script property */
-    class _OgreExport PropertyAbstractNode : public AbstractNode
+    class PropertyAbstractNode : public AbstractNode
     {
     public:
         String name;
@@ -172,7 +174,7 @@ class Material;
     };
 
     /** This abstract node represents an import statement */
-    class _OgreExport ImportAbstractNode : public AbstractNode
+    class ImportAbstractNode : public AbstractNode
     {
     public:
         String target, source;
@@ -183,7 +185,7 @@ class Material;
     };
 
     /** This abstract node represents a variable assignment */
-    class _OgreExport VariableAccessAbstractNode : public AbstractNode
+    class VariableAccessAbstractNode : public AbstractNode
     {
     public:
         String name;
@@ -200,7 +202,7 @@ class Material;
         and processes the CST into an AST and then uses translators
         to translate the AST into the final resources.
     */
-    class _OgreExport ScriptCompiler : public ScriptCompilerAlloc
+    class ScriptCompiler : public ScriptCompilerAlloc
     {
     public: // Externally accessible types
         //typedef std::map<String,uint32> IdMap;
@@ -370,7 +372,7 @@ class Material;
         this listener. It lets you listen in on events occurring during compilation,
         hook them, and change the behavior.
     */
-    class _OgreExport ScriptCompilerListener
+    class ScriptCompilerListener
     {
     public:
         ScriptCompilerListener();
@@ -409,11 +411,9 @@ class Material;
     /** Manages threaded compilation of scripts. This script loader forwards
         scripts compilations to a specific compiler instance.
     */
-    class _OgreExport ScriptCompilerManager : public Singleton<ScriptCompilerManager>, public ScriptLoader, public ScriptCompilerAlloc
+    class ScriptCompilerManager : public Singleton<ScriptCompilerManager>, public ScriptLoader, public ScriptCompilerAlloc
     {
     private:
-            OGRE_AUTO_MUTEX;
-
         // A list of patterns loaded by this compiler manager
         StringVector mScriptPatterns;
 
@@ -472,7 +472,7 @@ class Material;
     };
 
     /// @deprecated do not use
-    class OGRE_DEPRECATED _OgreExport PreApplyTextureAliasesScriptCompilerEvent : public ScriptCompilerEvent
+    class PreApplyTextureAliasesScriptCompilerEvent : public ScriptCompilerEvent
     {
     public:
         Material *mMaterial;
@@ -483,7 +483,7 @@ class Material;
             :ScriptCompilerEvent(eventType), mMaterial(material), mAliases(aliases){}
     };
 
-    class _OgreExport ProcessResourceNameScriptCompilerEvent : public ScriptCompilerEvent
+    class ProcessResourceNameScriptCompilerEvent : public ScriptCompilerEvent
     {
     public:
         enum ResourceType
@@ -501,7 +501,7 @@ class Material;
             :ScriptCompilerEvent(eventType), mResourceType(resourceType), mName(name){}     
     };
 
-    class _OgreExport ProcessNameExclusionScriptCompilerEvent : public ScriptCompilerEvent
+    class ProcessNameExclusionScriptCompilerEvent : public ScriptCompilerEvent
     {
     public:
         String mClass;
@@ -512,7 +512,7 @@ class Material;
             :ScriptCompilerEvent(eventType), mClass(cls), mParent(parent){}     
     };
 
-    class _OgreExport CreateMaterialScriptCompilerEvent : public ScriptCompilerEvent
+    class CreateMaterialScriptCompilerEvent : public ScriptCompilerEvent
     {
     public:
         String mFile, mName, mResourceGroup;
@@ -522,7 +522,7 @@ class Material;
             :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}  
     };
 
-    class _OgreExport CreateGpuProgramScriptCompilerEvent : public ScriptCompilerEvent
+    class CreateGpuProgramScriptCompilerEvent : public ScriptCompilerEvent
     {
     public:
         String mFile, mName, mResourceGroup, mSource, mSyntax;
@@ -536,10 +536,7 @@ class Material;
         {}  
     };
 
-    /// @deprecated use CreateGpuProgramScriptCompilerEvent
-    typedef OGRE_DEPRECATED CreateGpuProgramScriptCompilerEvent CreateHighLevelGpuProgramScriptCompilerEvent;
-
-    class _OgreExport CreateGpuSharedParametersScriptCompilerEvent : public ScriptCompilerEvent
+    class CreateGpuSharedParametersScriptCompilerEvent : public ScriptCompilerEvent
     {
     public:
         String mFile, mName, mResourceGroup;
@@ -549,7 +546,7 @@ class Material;
             :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}  
     };
 
-    class _OgreExport CreateParticleSystemScriptCompilerEvent : public ScriptCompilerEvent
+    class CreateParticleSystemScriptCompilerEvent : public ScriptCompilerEvent
     {
     public:
         String mFile, mName, mResourceGroup;
@@ -559,7 +556,7 @@ class Material;
             :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}  
     };
 
-    class _OgreExport CreateCompositorScriptCompilerEvent : public ScriptCompilerEvent
+    class CreateCompositorScriptCompilerEvent : public ScriptCompilerEvent
     {
     public:
         String mFile, mName, mResourceGroup;

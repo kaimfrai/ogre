@@ -106,7 +106,7 @@ class MovableObject;
     //-----------------------------------------------------------------------
     void RegionSceneQuery::clearResults(void)
     {
-        OGRE_DELETE mLastResult;
+        delete mLastResult;
         mLastResult = NULL;
     }
     //---------------------------------------------------------------------
@@ -114,7 +114,7 @@ class MovableObject;
     RegionSceneQuery::execute(void)
     {
         clearResults();
-        mLastResult = OGRE_NEW SceneQueryResult();
+        mLastResult = new SceneQueryResult();
         // Call callback version with self as listener
         execute(this);
         return *mLastResult;
@@ -311,7 +311,7 @@ class MovableObject;
     //-----------------------------------------------------------------------
     void IntersectionSceneQuery::clearResults(void)
     {
-        OGRE_DELETE mLastResult;
+        delete mLastResult;
         mLastResult = NULL;
     }
     //---------------------------------------------------------------------
@@ -319,7 +319,7 @@ class MovableObject;
     IntersectionSceneQuery::execute(void)
     {
         clearResults();
-        mLastResult = OGRE_NEW IntersectionSceneQueryResult();
+        mLastResult = new IntersectionSceneQueryResult();
         // Call callback version with self as listener
         execute(this);
         return *mLastResult;

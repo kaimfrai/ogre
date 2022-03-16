@@ -39,7 +39,7 @@ namespace Ogre {
     *  @{
     */
     /** Class representing a single particle instance. */
-    class _OgreExport Particle : public FXAlloc
+    class Particle : public FXAlloc
     {
     public:
         /// Type of particle
@@ -90,9 +90,6 @@ namespace Ogre {
             mWidth = width;
             mHeight = height;
         }
-
-        /// @deprecated do not use
-        OGRE_DEPRECATED bool hasOwnDimensions(void) const { return true; }
 
         /** Retrieves the particle's personal width, if hasOwnDimensions is true. */
         float getOwnWidth(void) const { return mWidth; }

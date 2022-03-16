@@ -27,6 +27,10 @@ THE SOFTWARE.
 */
 #include <string>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgreUnifiedHighLevelGpuProgram.h"
 #include "OgreGpuProgramManager.h"
@@ -36,7 +40,6 @@ THE SOFTWARE.
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreStringInterface.h"
-#include "Threading/OgreThreadHeaders.h"
 
 namespace Ogre
 {
@@ -80,8 +83,6 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     void UnifiedHighLevelGpuProgram::chooseDelegate() const
     {
-        OGRE_LOCK_AUTO_MUTEX;
-
         mChosenDelegate.reset();
 
         for (const String& dn : mDelegateNames)
@@ -119,22 +120,16 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     void UnifiedHighLevelGpuProgram::addDelegateProgram(const String& name)
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         mDelegateNames.push_back(name);
 
         // reset chosen delegate
         mChosenDelegate.reset();
-
     }
     //-----------------------------------------------------------------------
     void UnifiedHighLevelGpuProgram::clearDelegatePrograms()
     {
-            OGRE_LOCK_AUTO_MUTEX;
-
         mDelegateNames.clear();
         mChosenDelegate.reset();
-
     }
     //-----------------------------------------------------------------------------
     size_t UnifiedHighLevelGpuProgram::calculateSize(void) const
@@ -432,7 +427,7 @@ class ResourceManager;
         const String& name, ResourceHandle handle,
         const String& group, bool isManual, ManualResourceLoader* loader)
     {
-        return OGRE_NEW UnifiedHighLevelGpuProgram(creator, name, handle, group, isManual, loader);
+        return new UnifiedHighLevelGpuProgram(creator, name, handle, group, isManual, loader);
     }
 }
 

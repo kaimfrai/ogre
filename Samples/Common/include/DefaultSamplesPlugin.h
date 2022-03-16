@@ -32,7 +32,7 @@
 
 namespace OgreBites
 {
-    class _OgreSampleClassExport DefaultSamplesPlugin : public SamplePlugin
+    class DefaultSamplesPlugin : public SamplePlugin
     {
     public:
         DefaultSamplesPlugin();

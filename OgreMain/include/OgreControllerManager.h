@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreSingleton.h"
 #include "OgreTextureUnitState.h"
 #include "OgreSharedPtr.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
@@ -59,7 +58,7 @@ template <typename T> class ControllerValue;
         and updating them when requested. It also provides a number of convenience methods
         for creating commonly used controllers (such as texture animators).
     */
-    class _OgreExport ControllerManager : public Singleton<ControllerManager>, public ControllerAlloc
+    class ControllerManager : public Singleton<ControllerManager>, public ControllerAlloc
     {
     private:
         typedef std::set<Controller<Real>*> ControllerList;

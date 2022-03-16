@@ -29,10 +29,13 @@ THE SOFTWARE.
 #define __Zip_H__
 
 #include <stddef.h>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreArchiveFactory.h"
-#include "OgreExports.h"
 #include "OgrePlatform.h"
 
 namespace Ogre {
@@ -51,7 +54,7 @@ class Archive;
         This archive format supports all archives compressed in the standard
         zip format, including iD pk3 files.
     */
-    class _OgreExport ZipArchiveFactory : public ArchiveFactory
+    class ZipArchiveFactory : public ArchiveFactory
     {
     public:
         virtual ~ZipArchiveFactory() {}
@@ -64,7 +67,7 @@ class Archive;
     };
 
     /** Specialisation of ZipArchiveFactory for embedded Zip files. */
-    class _OgreExport EmbeddedZipArchiveFactory : public ZipArchiveFactory
+    class EmbeddedZipArchiveFactory : public ZipArchiveFactory
     {
     public:
         EmbeddedZipArchiveFactory();

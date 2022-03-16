@@ -40,7 +40,7 @@ namespace Ogre {
 class ResourceManager;
 
     /** Specialisation of the GL low-level program for ATI Fragment Shader programs. */
-    class _OgreGLExport ATI_FS_GLGpuProgram : public GLGpuProgram
+    class ATI_FS_GLGpuProgram : public GLGpuProgram
     {
     public:
         ATI_FS_GLGpuProgram(ResourceManager* creator, 

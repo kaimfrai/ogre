@@ -50,49 +50,49 @@ namespace Ogre {
     //---------------------------------------------------------------------
     String TextAreaOverlayElement::msTypeName = "TextArea";
     //-----------------------------------------------------------------------------------------
-    class _OgrePrivate CmdCaption : public ParamCommand
+    class CmdCaption : public ParamCommand
     {
     public:
         String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
-    class _OgrePrivate CmdCharHeight : public ParamCommand
+    class CmdCharHeight : public ParamCommand
     {
     public:
         String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
-    class _OgrePrivate CmdSpaceWidth : public ParamCommand
+    class CmdSpaceWidth : public ParamCommand
     {
     public:
         String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
-    class _OgrePrivate CmdFontName : public ParamCommand
+    class CmdFontName : public ParamCommand
     {
     public:
         String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
-    class _OgrePrivate CmdColourTop : public ParamCommand
+    class CmdColourTop : public ParamCommand
     {
     public:
         String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
-    class _OgrePrivate CmdColourBottom : public ParamCommand
+    class CmdColourBottom : public ParamCommand
     {
     public:
         String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
-    class _OgrePrivate CmdColour : public ParamCommand
+    class CmdColour : public ParamCommand
     {
     public:
         String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
-    class _OgrePrivate CmdAlignment : public ParamCommand
+    class CmdAlignment : public ParamCommand
     {
     public:
         String doGet( const void* target ) const;
@@ -144,7 +144,7 @@ namespace Ogre {
             // Set up the render op
             // Combine positions and texture coords since they tend to change together
             // since character sizes are different
-            mRenderOp.vertexData = OGRE_NEW VertexData();
+            mRenderOp.vertexData = new VertexData();
             VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
             size_t offset = 0;
             // Positions
@@ -447,10 +447,6 @@ namespace Ogre {
         mGeomPositionsOutOfDate = true;
         mGeomUVsOutOfDate = true;
     }
-    const String& TextAreaOverlayElement::getFontName() const
-    {
-        return mFont->getName();
-    }
 
     void TextAreaOverlayElement::setCharHeight( Real height )
     {
@@ -504,7 +500,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     TextAreaOverlayElement::~TextAreaOverlayElement()
     {
-        OGRE_DELETE mRenderOp.vertexData;
+        delete mRenderOp.vertexData;
     }
     //---------------------------------------------------------------------
     const String& TextAreaOverlayElement::getTypeName(void) const

@@ -128,7 +128,6 @@ THE SOFTWARE.
 #include "OgreUnifiedHighLevelGpuProgram.h"
 #include "OgreVector.h"
 #include "OgreViewport.h"
-#include "OgreComponents.h"
 // .... more to come
 
 #endif

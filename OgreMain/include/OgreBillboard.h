@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreMath.h"
 #include "OgreVector.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
@@ -67,7 +66,7 @@ class BillboardSet;
             BillboardSet
     */
 
-    class _OgreExport Billboard : public FXAlloc
+    class Billboard : public FXAlloc
     {
         friend class BillboardSet;
         friend class BillboardParticleRenderer;

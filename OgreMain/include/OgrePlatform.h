@@ -29,7 +29,6 @@ THE SOFTWARE.
 #define __Platform_H_
 
 #include "OgreConfig.h"
-#include "OgreExports.h"
 
 /* See if we can use __forceinline or if we need to use __inline instead */
 
@@ -51,15 +50,6 @@ THE SOFTWARE.
 
 /* Declare variable aligned to SIMD alignment. */
 #define OGRE_SIMD_ALIGNED_DECL(type, var)   OGRE_ALIGNED_DECL(type, var, OGRE_SIMD_ALIGNMENT)
-
-
-// For generating compiler warnings - should work on any compiler
-// As a side note, if you start your message with 'Warning: ', the MSVC
-// IDE actually does catch a warning :)
-#define OGRE_QUOTE_INPLACE(x) # x
-#define OGRE_QUOTE(x) OGRE_QUOTE_INPLACE(x)
-#define OGRE_WARN( x )  message( __FILE__ "(" QUOTE( __LINE__ ) ") : " x "\n" )
-
 
 #define OGRE_DEFAULT_LOCALE "C"
 

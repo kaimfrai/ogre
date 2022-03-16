@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreConvexBody.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreSceneNode.h"
-#include "OgreExports.h"
 #include "OgreLight.h"
 #include "OgreMatrix4.h"
 #include "OgreSceneManager.h"
@@ -64,7 +63,7 @@ class Viewport;
     @note
         Original implementation by Matthias Fink <matthias.fink@web.de>, 2006.
     */
-    class _OgreExport FocusedShadowCameraSetup : public ShadowCameraSetup
+    class FocusedShadowCameraSetup : public ShadowCameraSetup
     {
         /** Temporary preallocated frustum to set up a projection matrix in
             calculateShadowMappingMatrix().
@@ -93,7 +92,7 @@ class Viewport;
 
         /** Internal class holding a point list representation of a convex body.
         */
-        class _OgreExport PointListBody
+        class PointListBody
         {
             Polygon::VertexList mBodyPoints;
             AxisAlignedBox      mAAB;

@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgrePatchSurface.h"
 #include "OgrePlane.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreQuaternion.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
@@ -72,7 +71,7 @@ class SubMesh;
             control over pre-processed data (such as
             collision boxes, LOD reductions etc). 
     */
-    class _OgreExport MeshManager: public ResourceManager, public Singleton<MeshManager>
+    class MeshManager: public ResourceManager, public Singleton<MeshManager>
     {
     public:
         MeshManager();

@@ -32,12 +32,14 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <iosfwd>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgrePolygon.h"
-#include "Threading/OgreThreadHeaders.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgreFrustum.h"
 
 namespace Ogre
@@ -56,7 +58,7 @@ class Plane;
             planar. Several operations may be applied, ranging from intersection
             to join where each result it itself a convex body.
     */
-    class _OgreExport ConvexBody
+    class ConvexBody
     {
     public:
         typedef std::vector< Polygon* >    PolygonList;
@@ -66,7 +68,6 @@ class Plane;
 
         // Static 'free list' of polygons to save reallocation, shared between all bodies
         static PolygonList msFreePolygons;
-        OGRE_STATIC_MUTEX(msFreePolygonsMutex);
 
     public:
         ConvexBody();
@@ -155,7 +156,7 @@ class Plane;
 
         /** Prints out the body with all its polygons.
         */
-        _OgreExport friend std::ostream& operator<< ( std::ostream& strm, const ConvexBody& body );
+        friend std::ostream& operator<< ( std::ostream& strm, const ConvexBody& body );
 
         /** Log details of this body */
         void logInfo() const;

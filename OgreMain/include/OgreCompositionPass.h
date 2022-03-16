@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreConfig.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreRenderQueue.h"
@@ -55,7 +54,7 @@ class CompositionTargetPass;
     /** Object representing one pass or operation in a composition sequence. This provides a 
         method to conveniently interleave RenderSystem commands between Render Queues.
      */
-    class _OgreExport CompositionPass : public CompositorInstAlloc
+    class CompositionPass : public CompositorInstAlloc
     {
     public:
         CompositionPass(CompositionTargetPass *parent);

@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreRoot.h"
 #include "OgreRenderSystem.h"
 #include "OgreException.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreMaterial.h"
@@ -57,21 +56,21 @@ class RenderQueue;
     //---------------------------------------------------------------------
     String PanelOverlayElement::msTypeName = "Panel";
     /** Command object for specifying tiling (see ParamCommand).*/
-    class _OgrePrivate CmdTiling : public ParamCommand
+    class CmdTiling : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for specifying transparency (see ParamCommand).*/
-    class _OgrePrivate CmdTransparent : public ParamCommand
+    class CmdTransparent : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for specifying UV coordinates (see ParamCommand).*/
-    class _OgrePrivate CmdUVCoords : public ParamCommand
+    class CmdUVCoords : public ParamCommand
     {
     public:
         String doGet(const void* target) const;
@@ -115,7 +114,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     PanelOverlayElement::~PanelOverlayElement()
     {
-        OGRE_DELETE mRenderOp.vertexData;
+        delete mRenderOp.vertexData;
     }
     //---------------------------------------------------------------------
     void PanelOverlayElement::initialise(void)
@@ -126,7 +125,7 @@ class RenderQueue;
         if (init)
         {
             // Setup render op in advance
-            mRenderOp.vertexData = OGRE_NEW VertexData();
+            mRenderOp.vertexData = new VertexData();
             // Vertex declaration: 1 position, add texcoords later depending on #layers
             // Create as separate buffers so we can lock & discard separately
             VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;

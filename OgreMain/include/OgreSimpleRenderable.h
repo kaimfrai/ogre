@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgreAxisAlignedBox.h"
 #include "OgreRenderOperation.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgreSharedPtr.h"
 
@@ -52,7 +51,7 @@ class SceneManager;
     /** Simple implementation of MovableObject and Renderable for single-part custom objects. 
     @see ManualObject for a simpler interface with more flexibility
     */
-    class _OgreExport SimpleRenderable : public MovableObject, public Renderable
+    class SimpleRenderable : public MovableObject, public Renderable
     {
         bool getCastsShadows(void) const override { return getCastShadows(); }
     protected:

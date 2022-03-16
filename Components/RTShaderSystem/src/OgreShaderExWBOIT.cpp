@@ -129,7 +129,7 @@ void WBOITFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subRen
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* WBOITFactory::createInstanceImpl() { return OGRE_NEW WBOIT; }
+SubRenderState* WBOITFactory::createInstanceImpl() { return new WBOIT; }
 
 } // namespace RTShader
 } // namespace Ogre

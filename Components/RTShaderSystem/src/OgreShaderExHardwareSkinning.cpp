@@ -119,7 +119,7 @@ void HardwareSkinning::setHardwareSkinningParam(ushort boneCount, ushort weightC
     {
         if(!mDualQuat)
         {
-            mDualQuat.reset(OGRE_NEW DualQuaternionSkinning);
+            mDualQuat.reset(new DualQuaternionSkinning);
         }
 
         mActiveTechnique = mDualQuat;
@@ -128,7 +128,7 @@ void HardwareSkinning::setHardwareSkinningParam(ushort boneCount, ushort weightC
     {
         if(!mLinear)
         {
-            mLinear.reset(OGRE_NEW LinearSkinning);
+            mLinear.reset(new LinearSkinning);
         }
 
         mActiveTechnique = mLinear;
@@ -373,7 +373,7 @@ void HardwareSkinningFactory::writeInstance(MaterialSerializer* ser, SubRenderSt
 //-----------------------------------------------------------------------
 SubRenderState* HardwareSkinningFactory::createInstanceImpl()
 {
-    HardwareSkinning* pSkin = OGRE_NEW HardwareSkinning;
+    HardwareSkinning* pSkin = new HardwareSkinning;
     
     pSkin->_setCreator(this);
     return pSkin;

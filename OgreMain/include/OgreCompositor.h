@@ -36,7 +36,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
 
@@ -59,7 +58,7 @@ class ResourceManager;
         it possible to apply postfilter effects, HDRI postprocessing, and shadow 
         effects to a Viewport.
      */
-    class _OgreExport Compositor: public Resource
+    class Compositor: public Resource
     {
     public:
         Compositor(ResourceManager* creator, const String& name, ResourceHandle handle,

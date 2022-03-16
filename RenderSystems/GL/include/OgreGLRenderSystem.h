@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreRenderSystem.h"
 #include "OgreGLRenderSystemCommon.h"
 #include "OgreBlendMode.h"
-#include "OgreBuildSettings.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreConfig.h"
@@ -79,7 +78,7 @@ struct GLGpuProgramBase;
     /**
       Implementation of GL as a rendering system.
      */
-    class _OgreGLExport GLRenderSystem : public GLRenderSystemCommon
+    class GLRenderSystem : public GLRenderSystemCommon
     {
     private:
         /// View matrix to set world against
@@ -144,11 +143,6 @@ struct GLGpuProgramBase;
 
         /// is fixed pipeline enabled
         bool mEnableFixedPipeline;
-
-#if OGRE_NO_QUAD_BUFFER_STEREO == 0
-		/// @copydoc RenderSystem::setDrawBuffer
-		virtual bool setDrawBuffer(ColourBufferType colourBuffer);
-#endif
 
     protected:
         void setClipPlanesImpl(const PlaneList& clipPlanes);

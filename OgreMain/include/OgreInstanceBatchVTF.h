@@ -35,7 +35,6 @@ THE SOFTWARE.
 
 #include "OgreInstanceBatch.h"
 #include "OgreTexture.h"
-#include "OgreExports.h"
 #include "OgreMatrix4.h"
 #include "OgreMesh.h"
 #include "OgrePlatform.h"
@@ -88,7 +87,7 @@ class VertexData;
         @version
             1.0
      */
-    class _OgreExport BaseInstanceBatchVTF : public InstanceBatch
+    class BaseInstanceBatchVTF : public InstanceBatch
     {
     protected:
         typedef std::vector<uint8> HWBoneIdxVec;
@@ -218,7 +217,7 @@ class VertexData;
         
     };
 
-    class _OgreExport InstanceBatchVTF : public BaseInstanceBatchVTF
+    class InstanceBatchVTF : public BaseInstanceBatchVTF
     {
         
         void setupVertices( const SubMesh* baseSubMesh );

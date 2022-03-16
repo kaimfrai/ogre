@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreNode.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 #include "OgrePlatform.h"
 #include "OgreQuaternion.h"
@@ -68,7 +67,7 @@ class SceneManager;
             Child nodes are contained within the bounds of the parent, and so on down the
             tree, allowing for fast culling.
     */
-    class _OgreExport SceneNode : public Node
+    class SceneNode : public Node
     {
         friend class SceneManager;
     public:
@@ -232,11 +231,6 @@ class SceneManager;
             from this method is only up to date after the SceneManager has called _update.
         */
         const AxisAlignedBox& _getWorldAABB(void) const { return mWorldAABB; }
-
-        /// @deprecated use getAttachedObjects()
-        OGRE_DEPRECATED ObjectIterator getAttachedObjectIterator(void);
-        /// @deprecated use getAttachedObjects()
-        OGRE_DEPRECATED ConstObjectIterator getAttachedObjectIterator(void) const;
 
         /** The MovableObjects attached to this node
          *

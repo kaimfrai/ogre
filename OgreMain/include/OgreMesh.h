@@ -43,9 +43,7 @@ THE SOFTWARE.
 #include "OgreAnimation.h"
 #include "OgreAnimationTrack.h"
 #include "OgreSharedPtr.h"
-#include "OgreBuildSettings.h"
 #include "OgreCommon.h"
-#include "OgreExports.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreIteratorWrapper.h"
@@ -105,7 +103,7 @@ class VertexData;
         also that mesh sub-sections (when used in an instantiated object)
         share the same scene node as the parent.
     */
-    class _OgreExport Mesh: public Resource, public AnimationContainer
+    class Mesh: public Resource, public AnimationContainer
     {
         friend class SubMesh;
         friend class MeshSerializerImpl;
@@ -302,10 +300,6 @@ class VertexData;
         void destroySubMesh(const String& name);
         
         typedef VectorIterator<SubMeshList> SubMeshIterator;
-        /// Gets an iterator over the available submeshes
-        /// @deprecated use getSubMeshes() instead
-        OGRE_DEPRECATED SubMeshIterator getSubMeshIterator(void)
-        { return SubMeshIterator(mSubMeshList.begin(), mSubMeshList.end()); }
       
         /// Gets the available submeshes
         const SubMeshList& getSubMeshes() const {
@@ -486,10 +480,6 @@ class VertexData;
             really know what you're doing.
         */
         void _notifySkeleton(const SkeletonPtr& pSkel);
-
-
-        /// @deprecated use getBoneAssignments
-        OGRE_DEPRECATED BoneAssignmentIterator getBoneAssignmentIterator(void);
 
         /** Gets a const reference to the list of bone assignments
         */
@@ -971,12 +961,6 @@ class VertexData;
         typedef VectorIterator<PoseList> PoseIterator;
         typedef ConstVectorIterator<PoseList> ConstPoseIterator;
 
-        /** Get an iterator over all the poses defined.
-         * @deprecated use getPoseList() */
-        OGRE_DEPRECATED PoseIterator getPoseIterator(void);
-        /** Get an iterator over all the poses defined.
-         * @deprecated use getPoseList()  */
-        OGRE_DEPRECATED ConstPoseIterator getPoseIterator(void) const;
         /** Get pose list. */
         const PoseList& getPoseList(void) const;
 

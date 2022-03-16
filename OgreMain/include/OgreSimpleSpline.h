@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreMatrix4.h"
-#include "OgreExports.h"
 #include "OgreVector.h"
 
 namespace Ogre {
@@ -56,7 +55,7 @@ namespace Ogre {
         this by just asking you to define a series of points, and the tangents are 
         created for you. 
     */
-    class _OgreExport SimpleSpline
+    class SimpleSpline
     {
     public:
         SimpleSpline();

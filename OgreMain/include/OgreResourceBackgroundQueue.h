@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreSingleton.h"
 #include "OgreResource.h"
 #include "OgreWorkQueue.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
@@ -84,7 +83,7 @@ namespace Ogre {
         You can check the status of tickets by calling isProcessComplete() 
         from your queueing thread. 
     */
-    class _OgreExport ResourceBackgroundQueue : public Singleton<ResourceBackgroundQueue>, public ResourceAlloc, 
+    class ResourceBackgroundQueue : public Singleton<ResourceBackgroundQueue>, public ResourceAlloc, 
         public WorkQueue::RequestHandler, public WorkQueue::ResponseHandler
     {
     public:
@@ -96,7 +95,7 @@ namespace Ogre {
         loading thread, they are queued themselves to be sent from the main thread
         so that you don't have to be concerned about thread safety. 
         */
-        class _OgreExport Listener
+        class Listener
         {
         public:
             /** Called when a requested operation completes, queued into main thread. 

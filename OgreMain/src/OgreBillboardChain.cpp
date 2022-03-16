@@ -797,7 +797,7 @@ class RenderSystem;
 
         }
 
-        return OGRE_NEW BillboardChain(name, maxElements, numberOfChains, useTex, useCol, dynamic);
+        return new BillboardChain(name, maxElements, numberOfChains, useTex, useCol, dynamic);
 
     }
 }

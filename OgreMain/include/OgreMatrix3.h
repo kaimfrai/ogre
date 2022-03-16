@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreVector.h"
-#include "OgreExports.h"
 #include "OgreMath.h"
 
 // NB All code adapted from Wild Magic 0.2 Matrix math (free source code)
@@ -70,7 +69,7 @@ namespace Ogre
         @par
             The coordinate system is assumed to be <b>right-handed</b>.
     */
-    class _OgreExport Matrix3
+    class Matrix3
     {
     public:
         /** Default constructor.
@@ -154,14 +153,14 @@ namespace Ogre
         Matrix3 operator- () const;
 
         /// Vector * matrix [1x3 * 3x3 = 1x3]
-        _OgreExport friend Vector3 operator* (const Vector3& rkVector,
+        friend Vector3 operator* (const Vector3& rkVector,
             const Matrix3& rkMatrix);
 
         /// Matrix * scalar
         Matrix3 operator* (Real fScalar) const;
 
         /// Scalar * matrix
-        _OgreExport friend Matrix3 operator* (Real fScalar, const Matrix3& rkMatrix);
+        friend Matrix3 operator* (Real fScalar, const Matrix3& rkMatrix);
 
         // utilities
         Matrix3 Transpose () const;
@@ -217,9 +216,6 @@ namespace Ogre
 
             return Q;
         }
-
-        /// @deprecated
-        OGRE_DEPRECATED void Orthonormalize() { *this = orthonormalised(); }
 
         /// Orthogonal Q, diagonal D, upper triangular U stored as (u01,u02,u12)
         void QDUDecomposition (Matrix3& rkQ, Vector3& rkD,

@@ -2,7 +2,6 @@
 
 #include <cstddef>
 
-#include "OgreComponents.h"
 #include "OgreRoot.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreGLPlugin.h"
@@ -13,10 +12,10 @@ void OgreBites::StaticPluginLoader::load()
     using namespace Ogre;
     Plugin* plugin = NULL;
 
-    plugin = OGRE_NEW GLPlugin();
+    plugin = new GLPlugin();
     mPlugins.push_back(plugin);
 
-    plugin = OGRE_NEW STBIPlugin();
+    plugin = new STBIPlugin();
     mPlugins.push_back(plugin);
 
     Root& root  = Root::getSingleton();
@@ -29,7 +28,7 @@ void OgreBites::StaticPluginLoader::unload()
 {
     // don't unload plugins, since Root will have done that. Destroy here.
     for (size_t i = 0; i < mPlugins.size(); ++i) {
-        OGRE_DELETE mPlugins[i];
+        delete mPlugins[i];
     }
     mPlugins.clear();
 }

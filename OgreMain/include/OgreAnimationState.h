@@ -35,12 +35,14 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 #include <vector>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreController.h"
 #include "OgreControllerManager.h"
-#include "Threading/OgreThreadHeaders.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
@@ -62,7 +64,7 @@ class AnimationStateSet;
         Other classes can hold instances of this class to store the state of any animations
         they are using.
     */
-    class _OgreExport AnimationState : public AnimationAlloc
+    class AnimationState : public AnimationAlloc
     {
     public:
 
@@ -203,11 +205,9 @@ class AnimationStateSet;
 
     /** Class encapsulating a set of AnimationState objects.
     */
-    class _OgreExport AnimationStateSet : public AnimationAlloc
+    class AnimationStateSet : public AnimationAlloc
     {
     public:
-        /// Mutex, public for external locking if needed
-            OGRE_AUTO_MUTEX;
         /// Create a blank animation state set
         AnimationStateSet();
         /// Create an animation set by copying the contents of another
@@ -237,10 +237,6 @@ class AnimationStateSet;
         @deprecated use getAnimationStates()
         */
         AnimationStateIterator getAnimationStateIterator(void);
-        /** Get an iterator over all the animation states in this set.
-        @deprecated use getAnimationStates()
-        */
-        OGRE_DEPRECATED ConstAnimationStateIterator getAnimationStateIterator(void) const;
 
         /** Get all the animation states in this set.
         @note
@@ -263,10 +259,6 @@ class AnimationStateSet;
         void _notifyAnimationStateEnabled(AnimationState* target, bool enabled);
         /// Tests if exists enabled animation state in this set
         bool hasEnabledAnimationState(void) const { return !mEnabledAnimationStates.empty(); }
-        /** Get an iterator over all the enabled animation states in this set
-        @deprecated use getEnabledAnimationStates()
-        */
-        OGRE_DEPRECATED ConstEnabledAnimationStateIterator getEnabledAnimationStateIterator(void) const;
 
         /** Get an iterator over all the enabled animation states in this set
         @note
@@ -293,7 +285,7 @@ class AnimationStateSet;
         is deleted explicitly elsewhere so this causes double-free problems.
         This wrapper acts as a bridge and it is this which is destroyed automatically.
     */
-    class _OgreExport AnimationStateControllerValue : public ControllerValue<Real>
+    class AnimationStateControllerValue : public ControllerValue<Real>
     {
     private:
         AnimationState* mTargetAnimationState;

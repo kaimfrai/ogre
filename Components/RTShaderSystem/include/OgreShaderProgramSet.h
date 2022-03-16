@@ -49,7 +49,7 @@ class Program;
 /** Container class for shader based programs. 
 Holds both a CPU representation and GPU representation of vertex and fragment program.
 */
-class _OgreRTSSExport ProgramSet : public RTShaderSystemAlloc
+class ProgramSet : public RTShaderSystemAlloc
 {
 
     // Interface.

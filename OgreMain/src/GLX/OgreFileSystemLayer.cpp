@@ -51,11 +51,11 @@ namespace Ogre
             char* resolved = 0;
             do
             {
-                char* buf = OGRE_ALLOC_T(char, bufsize, Ogre::MEMCATEGORY_GENERAL);
+                char* buf = new char[bufsize];
                 ssize_t retval = readlink(symlink.c_str(), buf, bufsize);
                 if (retval == -1)
                 {
-                    OGRE_FREE(buf, Ogre::MEMCATEGORY_GENERAL);
+                    delete[] buf;
                     break;
                 }
 
@@ -69,7 +69,7 @@ namespace Ogre
                 else
                 {
                     // buffer was too small, grow buffer and try again
-                    OGRE_FREE(buf, Ogre::MEMCATEGORY_GENERAL);
+                    delete[] buf;
                     bufsize <<= 1;
                 }
             } while (!resolved);
@@ -77,7 +77,7 @@ namespace Ogre
             if (resolved)
             {
                 Ogre::String result (resolved);
-                OGRE_FREE(resolved, Ogre::MEMCATEGORY_GENERAL);
+                delete[] resolved;
                 return result;
             }
             else

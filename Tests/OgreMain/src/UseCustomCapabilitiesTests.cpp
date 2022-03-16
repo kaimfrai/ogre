@@ -53,15 +53,15 @@ void UseCustomCapabilitiesTests::SetUp()
     using namespace Ogre;
 
     if(Ogre::HighLevelGpuProgramManager::getSingletonPtr())
-        OGRE_DELETE Ogre::HighLevelGpuProgramManager::getSingletonPtr();
+        delete Ogre::HighLevelGpuProgramManager::getSingletonPtr();
     if(Ogre::GpuProgramManager::getSingletonPtr())
-        OGRE_DELETE Ogre::GpuProgramManager::getSingletonPtr();
+        delete Ogre::GpuProgramManager::getSingletonPtr();
     if(Ogre::CompositorManager::getSingletonPtr())
-        OGRE_DELETE Ogre::CompositorManager::getSingletonPtr();
+        delete Ogre::CompositorManager::getSingletonPtr();
     if(Ogre::MaterialManager::getSingletonPtr())
-        OGRE_DELETE Ogre::MaterialManager::getSingletonPtr();
+        delete Ogre::MaterialManager::getSingletonPtr();
     if(Ogre::ResourceGroupManager::getSingletonPtr())
-        OGRE_DELETE Ogre::ResourceGroupManager::getSingletonPtr();
+        delete Ogre::ResourceGroupManager::getSingletonPtr();
 }
 //--------------------------------------------------------------------------
 void UseCustomCapabilitiesTests::TearDown()
@@ -154,7 +154,7 @@ TEST_F(UseCustomCapabilitiesTests,CustomCapabilitiesGL)
 {
     using namespace Ogre;
 
-    Root* root = OGRE_NEW Root(BLANKSTRING);        
+    Root* root = new Root(BLANKSTRING);        
     mStaticPluginLoader.load();
 
     RenderSystem* rs = root->getRenderSystemByName("OpenGL Rendering Subsystem");
@@ -180,7 +180,7 @@ TEST_F(UseCustomCapabilitiesTests,CustomCapabilitiesGL)
         {
         }
     }
-    OGRE_DELETE root;
+    delete root;
 }
 //--------------------------------------------------------------------------
 static void setUpD3D9RenderSystemOptions(Ogre::RenderSystem* rs)
@@ -202,7 +202,7 @@ static void setUpD3D9RenderSystemOptions(Ogre::RenderSystem* rs)
 //--------------------------------------------------------------------------
 TEST_F(UseCustomCapabilitiesTests,CustomCapabilitiesD3D9)
 {
-    Root* root = OGRE_NEW Root(BLANKSTRING);        
+    Root* root = new Root(BLANKSTRING);        
     mStaticPluginLoader.load();
 
     RenderSystem* rs = root->getRenderSystemByName("Direct3D9 Rendering Subsystem");
@@ -228,7 +228,7 @@ TEST_F(UseCustomCapabilitiesTests,CustomCapabilitiesD3D9)
         }
     }
 
-    OGRE_DELETE root;
+    delete root;
 }
 //--------------------------------------------------------------------------
 

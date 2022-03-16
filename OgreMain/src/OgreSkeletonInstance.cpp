@@ -106,13 +106,7 @@ class AnimationStateSet;
     {
         return mSkeleton->getLinkedSkeletonAnimationSources();
     }
-    Skeleton::LinkedSkeletonAnimSourceIterator 
-    SkeletonInstance::getLinkedSkeletonAnimationSourceIterator(void) const
-    {
-        return Skeleton::LinkedSkeletonAnimSourceIterator(
-            mSkeleton->getLinkedSkeletonAnimationSources().begin(),
-            mSkeleton->getLinkedSkeletonAnimationSources().end());
-    }
+
     //-------------------------------------------------------------------------
     void SkeletonInstance::_initAnimationState(AnimationStateSet* animSet)
     {
@@ -183,13 +177,13 @@ class AnimationStateSet;
             // ignore it:
             //   1. The parent node of the tagPoint already deleted by Skeleton::unload(), nothing need to do now
             //   2. And the child object relationship already detached by Entity::~Entity()
-            OGRE_DELETE tagPoint;
+            delete tagPoint;
         }
         mActiveTagPoints.clear();
         for (TagPointList::const_iterator it2 = mFreeTagPoints.begin(); it2 != mFreeTagPoints.end(); ++it2)
         {
             TagPoint* tagPoint = *it2;
-            OGRE_DELETE tagPoint;
+            delete tagPoint;
         }
         mFreeTagPoints.clear();
     }
@@ -201,7 +195,7 @@ class AnimationStateSet;
     {
         TagPoint* ret;
         if (mFreeTagPoints.empty()) {
-            ret = OGRE_NEW TagPoint(mNextTagPointAutoHandle++, this);
+            ret = new TagPoint(mNextTagPointAutoHandle++, this);
             mActiveTagPoints.push_back(ret);
         } else {
             ret = mFreeTagPoints.front();

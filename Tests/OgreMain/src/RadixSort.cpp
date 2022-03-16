@@ -129,7 +129,7 @@ TEST_F(RadixSortTests,UnsignedIntList)
 
     for (int i = 0; i < 1000; ++i)
     {
-        container.push_back((unsigned int)Math::RangeRandom(0, UINT_MAX));
+        container.push_back((unsigned int)(UINT_MAX * double(Math::UnitRandom())));
     }
 
     sorter.sort(container, func);
@@ -151,7 +151,7 @@ TEST_F(RadixSortTests,IntList)
 
     for (int i = 0; i < 1000; ++i)
     {
-        container.push_back((int)Math::RangeRandom(INT_MIN, INT_MAX));
+        container.push_back((int)(UINT_MAX * double(Math::UnitRandom())) + INT_MIN);
     }
 
     sorter.sort(container, func);
@@ -173,7 +173,7 @@ TEST_F(RadixSortTests,UnsignedIntVector)
 
     for (int i = 0; i < 1000; ++i)
     {
-        container.push_back((unsigned int)Math::RangeRandom(0, UINT_MAX));
+        container.push_back((unsigned int)(UINT_MAX * double(Math::UnitRandom())));
     }
 
     sorter.sort(container, func);
@@ -195,7 +195,7 @@ TEST_F(RadixSortTests,IntVector)
 
     for (int i = 0; i < 1000; ++i)
     {
-        container.push_back((int)Math::RangeRandom(INT_MIN, INT_MAX));
+        container.push_back((int)(UINT_MAX * double(Math::UnitRandom())) + INT_MIN);
     }
 
     sorter.sort(container, func);

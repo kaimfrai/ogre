@@ -32,9 +32,7 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 
-#include "OgreOverlayPrerequisites.h"
 #include "OgreOverlayElement.h"
-#include "OgreExports.h"
 #include "OgrePrerequisites.h"
 
 
@@ -60,7 +58,7 @@ class RenderQueue;
         instantiating / deleting elements, and also for accepting new types of element
         from plugins etc.
     */
-    class _OgreOverlayExport OverlayContainer : public OverlayElement
+    class OverlayContainer : public OverlayElement
     {
     public:
         typedef std::map<String, OverlayElement*> ChildMap;
@@ -100,9 +98,6 @@ class RenderQueue;
 
         /** Gets all the children of this object. */
         const ChildMap& getChildren() const { return mChildren; }
-
-        /// @deprecated use getChildren(
-        OGRE_DEPRECATED virtual ChildIterator getChildIterator(void);
 
         /** Gets an iterator for just the container children of this object.
         @remarks

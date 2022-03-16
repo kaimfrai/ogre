@@ -33,7 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreStringVector.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
 
@@ -86,7 +85,7 @@ class Archive;
         to benefit from OGRE's automatic searching of multiple file locations 
         for the resources you are looking for.
     */
-    class _OgreExport Archive : public ArchiveAlloc
+    class Archive : public ArchiveAlloc
     {
     protected:
         /// Archive name

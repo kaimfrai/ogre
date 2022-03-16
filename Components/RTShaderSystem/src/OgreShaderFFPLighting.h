@@ -121,7 +121,7 @@ public:
 protected:
 
     // Per light parameters.
-    struct _OgreRTSSExport LightParams
+    struct LightParams
     {
         Light::LightTypes       mType;              // Light type.      
         // Light position.

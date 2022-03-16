@@ -29,7 +29,6 @@ THE SOFTWARE.
 #define _DynLib_H__
 
 #include "OgrePrerequisites.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
@@ -52,7 +51,7 @@ namespace Ogre {
         @since
             27 January 2002
     */
-    class _OgreExport DynLib : public DynLibAlloc
+    class DynLib : public DynLibAlloc
     {
     private:
         String mName;

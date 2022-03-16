@@ -74,7 +74,7 @@ struct HtmlElement : public HtmlNode
     {
         while (!children.empty())
         {
-            OGRE_DELETE children.back();
+            delete children.back();
             children.pop_back();
         }
     }
@@ -94,7 +94,7 @@ struct HtmlElement : public HtmlNode
 
     HtmlElement* appendElement(Ogre::String type)
     {
-        HtmlElement* newNode = OGRE_NEW HtmlElement(type);
+        HtmlElement* newNode = new HtmlElement(type);
         children.push_back(newNode);
         return newNode;
     }
@@ -102,7 +102,7 @@ struct HtmlElement : public HtmlNode
 
     HtmlTextNode* appendText(Ogre::String text)
     {
-        HtmlTextNode* newNode = OGRE_NEW HtmlTextNode(text);
+        HtmlTextNode* newNode = new HtmlTextNode(text);
         children.push_back(newNode);
         return newNode;
     }

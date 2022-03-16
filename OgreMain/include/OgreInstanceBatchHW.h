@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <stddef.h>
 
 #include "OgreInstanceBatch.h"
-#include "OgreExports.h"
 #include "OgreMesh.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
@@ -70,7 +69,7 @@ class SubMesh;
         @version
             1.1
      */
-    class _OgreExport InstanceBatchHW : public InstanceBatch
+    class InstanceBatchHW : public InstanceBatch
     {
         bool    mKeepStatic;
 

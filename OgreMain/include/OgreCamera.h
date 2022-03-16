@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreFrustum.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgrePlane.h"
 #include "OgrePlaneBoundedVolume.h"
 #include "OgreQuaternion.h"
@@ -93,12 +92,12 @@ class Viewport;
         co-ordinates. Obviously it is advisable that the viewport has the same
         aspect ratio as the camera to avoid distortion (unless you want it!).
     */
-    class _OgreExport Camera : public Frustum
+    class Camera : public Frustum
     {
     public:
         /** Listener interface so you can be notified of Camera events. 
         */
-        class _OgreExport Listener 
+        class Listener 
         {
         public:
             Listener() {}
@@ -227,12 +226,9 @@ class Viewport;
         */
         void _renderScene(Viewport *vp);
 
-        /// @deprecated do not use
-        OGRE_DEPRECATED void _renderScene(Viewport *vp, bool unused) { _renderScene(vp); }
-
         /** Function for outputting to a stream.
         */
-        _OgreExport friend std::ostream& operator<<(std::ostream& o, const Camera& c);
+        friend std::ostream& operator<<(std::ostream& o, const Camera& c);
 
         /** Internal method to notify camera of the visible faces in the last render.
         */

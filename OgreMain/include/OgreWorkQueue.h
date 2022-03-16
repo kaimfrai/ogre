@@ -34,13 +34,15 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 #include <algorithm>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreAny.h"
 #include "OgreSharedPtr.h"
 #include "OgreCommon.h"
-#include "Threading/OgreThreadHeaders.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
@@ -77,20 +79,20 @@ namespace Ogre
         in their own subsystems. We also provide a default implementation in the
         form of DefaultWorkQueue.
     */
-    class _OgreExport WorkQueue : public UtilityAlloc
+    class WorkQueue : public UtilityAlloc
     {
     protected:
         typedef std::map<String, uint16> ChannelMap;
         ChannelMap mChannelMap;
         uint16 mNextChannel;
-        OGRE_WQ_MUTEX(mChannelMapMutex);
+        mutable std::recursive_mutex mChannelMapMutex;
     public:
         /// Numeric identifier for a request
         typedef unsigned long long int RequestID;
 
         /** General purpose request structure. 
         */
-        class _OgreExport Request : public UtilityAlloc
+        class Request : public UtilityAlloc
         {
             friend class WorkQueue;
         protected:
@@ -129,7 +131,7 @@ namespace Ogre
 
         /** General purpose response structure. 
         */
-        struct _OgreExport Response : public UtilityAlloc
+        struct Response : public UtilityAlloc
         {
             /// Pointer to the request that this response is in relation to
             const Request* mRequest;
@@ -168,7 +170,7 @@ namespace Ogre
         It is best to perform CPU-side work in these handlers and let the
         response handler transfer results to the GPU in the main render thread.
         */
-        class _OgreExport RequestHandler
+        class RequestHandler
         {
         public:
             RequestHandler() {}
@@ -203,7 +205,7 @@ namespace Ogre
         in the main render thread and thus all GPU resources will be
         available. 
         */
-        class _OgreExport ResponseHandler
+        class ResponseHandler
         {
         public:
             ResponseHandler() {}
@@ -376,7 +378,7 @@ namespace Ogre
 
     /** Base for a general purpose request / response style background work queue.
     */
-    class _OgreExport DefaultWorkQueueBase : public WorkQueue
+    class DefaultWorkQueueBase : public WorkQueue
     {
     public:
 
@@ -484,7 +486,7 @@ namespace Ogre
         ResponseQueue mResponseQueue; // Guarded by mResponseMutex
 
         /// Thread function
-        struct _OgreExport WorkerFunc OGRE_THREAD_WORKER_INHERIT
+        struct WorkerFunc
         {
             DefaultWorkQueueBase* mQueue;
 
@@ -503,10 +505,10 @@ namespace Ogre
             provides insurance against the handler itself being disconnected
             while the list remains unchanged.
         */
-        class _OgreExport RequestHandlerHolder : public UtilityAlloc
+        class RequestHandlerHolder : public UtilityAlloc
         {
         protected:
-            OGRE_WQ_RW_MUTEX(mRWMutex);
+            mutable std::recursive_mutex mRWMutex;
             RequestHandler* mHandler;
         public:
             RequestHandlerHolder(RequestHandler* handler)
@@ -516,7 +518,7 @@ namespace Ogre
             void disconnectHandler()
             {
                 // write lock - must wait for all requests to finish
-                OGRE_WQ_LOCK_RW_MUTEX_WRITE(mRWMutex);
+                std::unique_lock<std::recursive_mutex> ogrenameLock(mRWMutex);
                 mHandler = 0;
             }
 
@@ -532,7 +534,7 @@ namespace Ogre
             {
                 // Read mutex so that multiple requests can be processed by the
                 // same handler in parallel if required
-                OGRE_WQ_LOCK_RW_MUTEX_READ(mRWMutex);
+                std::unique_lock<std::recursive_mutex> ogrenameLock(mRWMutex);
                 Response* response = 0;
                 if (mHandler)
                 {
@@ -564,11 +566,11 @@ namespace Ogre
         // For example if threadA locks mIdleMutex first then tries to lock mProcessMutex,
         // and threadB locks mProcessMutex first, then mIdleMutex. In this case you can get livelock and the system is dead!
         //RULE: Lock mProcessMutex before other mutex, to prevent livelocks
-        OGRE_WQ_MUTEX(mIdleMutex);
-        OGRE_WQ_MUTEX(mRequestMutex);
-        OGRE_WQ_MUTEX(mProcessMutex);
-        OGRE_WQ_MUTEX(mResponseMutex);
-        OGRE_WQ_RW_MUTEX(mRequestHandlerMutex);
+        mutable std::recursive_mutex mIdleMutex;
+        mutable std::recursive_mutex mRequestMutex;
+        mutable std::recursive_mutex mProcessMutex;
+        mutable std::recursive_mutex mResponseMutex;
+        mutable std::recursive_mutex mRequestHandlerMutex;
 
 
         void processRequestResponse(Request* r, bool synchronous);

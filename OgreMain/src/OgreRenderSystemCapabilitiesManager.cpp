@@ -56,7 +56,7 @@ class RenderSystemCapabilities;
     //-----------------------------------------------------------------------
     RenderSystemCapabilitiesManager::RenderSystemCapabilitiesManager() : mSerializer(0), mScriptPattern("*.rendercaps")
     {
-        mSerializer = OGRE_NEW RenderSystemCapabilitiesSerializer();
+        mSerializer = new RenderSystemCapabilitiesSerializer();
     }
     //-----------------------------------------------------------------------
     RenderSystemCapabilitiesManager::~RenderSystemCapabilitiesManager()
@@ -64,10 +64,10 @@ class RenderSystemCapabilities;
         for (CapabilitiesMap::iterator it = mCapabilitiesMap.begin(), end = mCapabilitiesMap.end(); it != end; ++it)
         {
         // free memory in RenderSystemCapabilities*
-            OGRE_DELETE it->second;
+            delete it->second;
         }
 
-        OGRE_DELETE mSerializer;
+        delete mSerializer;
     }
 
     //-----------------------------------------------------------------------

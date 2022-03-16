@@ -15,7 +15,6 @@
 #include <ostream>
 #include <utility>
 
-#include "OgreBuildSettings.h"
 #include "OgreCamera.h"
 #include "OgreException.h"
 #include "OgreFont.h"

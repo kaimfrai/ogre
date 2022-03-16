@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreFrustum.h"
 #include "OgreColourValue.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
@@ -62,11 +61,11 @@ class RenderTarget;
             viewport on a single render target and they overlap, one must
             obscure the other in some predetermined way.
     */
-    class _OgreExport Viewport : public ViewportAlloc
+    class Viewport : public ViewportAlloc
     {
     public:
         /** Listener interface so you can be notified of Viewport changes. */
-        class _OgreExport Listener
+        class Listener
         {
         public:
             virtual ~Listener() {}
@@ -290,9 +289,6 @@ class RenderTarget;
         /** Access to actual dimensions (based on target size).
         */
         Rect getActualDimensions() const;
-
-        /// @deprecated
-        OGRE_DEPRECATED void getActualDimensions(int& left, int& top, int& width, int& height) const;
 
         bool _isUpdated(void) const;
         void _clearUpdatedFlag(void);

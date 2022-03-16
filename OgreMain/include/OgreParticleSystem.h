@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgreMovableObject.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreExports.h"
 #include "OgrePlatform.h"
 #include "OgreRenderable.h"
 #include "OgreSharedPtr.h"
@@ -77,7 +76,7 @@ namespace Ogre {
         will only be considered for rendering once it has been attached to a 
         SceneNode. 
     */
-    class _OgreExport ParticleSystem : public StringInterface, public MovableObject
+    class ParticleSystem : public StringInterface, public MovableObject
     {
     public:
         /// Default constructor required for STL creation in manager
