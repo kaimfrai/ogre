@@ -28,7 +28,7 @@ namespace OgreBites
         that are known about at compile time. This class will load all built
         plugins based on OgreBuildSettings.h
     */
-    class _OgreBitesExport StaticPluginLoader {
+    class StaticPluginLoader {
         std::vector<Ogre::Plugin*> mPlugins;
 
     public:

@@ -46,7 +46,7 @@ namespace OgreBites
     /**
         Callback class used to send out window events to client app
     */
-    class _OgreBitesExport WindowEventListener
+    class WindowEventListener
     {
     public:
         virtual ~WindowEventListener() {}
@@ -104,7 +104,7 @@ namespace OgreBites
         @note For input handling and proper platform integration rather use SDL2/ Qt/ whatever.
         @see ApplicationContext
     */
-    class _OgreBitesExport WindowEventUtilities
+    class WindowEventUtilities
     {
     public:
         /**

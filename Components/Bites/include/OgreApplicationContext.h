@@ -42,7 +42,7 @@ namespace OgreBites
     /** \addtogroup Bites
     *  @{
     */
-    class _OgreBitesExport ApplicationContextSDL : public ApplicationContextBase
+    class ApplicationContextSDL : public ApplicationContextBase
     {
     protected:
         void _destroyWindow(const NativeWindowPair& win);

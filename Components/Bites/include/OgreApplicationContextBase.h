@@ -86,7 +86,7 @@ namespace OgreBites
     Base class responsible for setting up a common context for applications.
     Subclass to implement specific event callbacks.
     */
-    class _OgreBitesExport ApplicationContextBase : public Ogre::FrameListener
+    class ApplicationContextBase : public Ogre::FrameListener
     {
     public:
         explicit ApplicationContextBase(const Ogre::String& appName = "Ogre3D");
