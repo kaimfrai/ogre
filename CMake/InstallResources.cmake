@@ -67,9 +67,6 @@ elseif (UNIX)
   set(OGRE_SAMPLES_DIR_REL "${CMAKE_INSTALL_PREFIX}/${OGRE_LIB_DIRECTORY}/OGRE/Samples")
 endif ()
 
-# generate OgreConfigPaths.h
-configure_file(${OGRE_TEMPLATES_DIR}/OgreConfigPaths.h.in ${PROJECT_BINARY_DIR}/include/OgreConfigPaths.h @ONLY)
-
 if(WIN32)
   # we want relative paths inside the SDK
   set(OGRE_PLUGIN_DIR_REL ".")

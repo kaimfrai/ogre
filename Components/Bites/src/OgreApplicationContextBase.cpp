@@ -20,7 +20,6 @@
 #include "OgreWindowEventUtilities.h"
 #include "OgreSceneNode.h"
 #include "OgreCamera.h"
-#include "OgreConfigPaths.h"
 #include "OgreFileSystemLayer.h"
 #include "OgreInput.h"
 #include "OgreLogManager.h"
@@ -368,7 +367,7 @@ void ApplicationContextBase::_fireInputEvent(const Event& event, uint32_t window
 
 Ogre::String ApplicationContextBase::getDefaultMediaDir()
 {
-    return Ogre::FileSystemLayer::resolveBundlePath(OGRE_MEDIA_DIR);
+    return Ogre::FileSystemLayer::resolveBundlePath(getenv("OGRE_MEDIA_DIR"));
 }
 
 void ApplicationContextBase::locateResources()
