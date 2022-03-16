@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
 #include "OgreMaterialSerializer.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreMesh.h"
 #include "OgreMeshManager.h"
 #include "OgreMeshSerializer.h"
@@ -51,6 +50,7 @@ THE SOFTWARE.
 #include "OgreSubMesh.h"
 #include "OgreTechnique.h"
 #include "OgreVertexIndexData.h"
+#include "OgreHardwareBufferManager.h"
 
 namespace Ogre {
     class InvalidParametersException;

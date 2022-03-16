@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreConfigOptionMap.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreMaterialManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreRoot.h"

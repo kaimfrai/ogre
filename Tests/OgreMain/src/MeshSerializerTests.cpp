@@ -65,13 +65,13 @@ THE SOFTWARE.
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePose.h"
 #include "OgreRenderOperation.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreString.h"
 #include "OgreVector.h"
+#include "OgreHardwareBufferManager.h"
 
 // Register the test suite
 
