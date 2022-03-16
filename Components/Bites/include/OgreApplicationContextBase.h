@@ -39,7 +39,6 @@
 #include "OgreStaticPluginLoader.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
-#include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 
 // forward declarations
@@ -61,6 +60,7 @@ namespace OgreBites
     class SGTechniqueResolverListener;
     struct InputListener;
     union Event;
+
     typedef SDL_Window NativeWindowType;
 
     /** \addtogroup Optional Optional Components

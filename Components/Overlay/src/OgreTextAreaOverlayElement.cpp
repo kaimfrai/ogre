@@ -39,7 +39,6 @@ THE SOFTWARE
 #include "OgreOverlayElement.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreMaterial.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringInterface.h"
 #include "OgreVertexIndexData.h"

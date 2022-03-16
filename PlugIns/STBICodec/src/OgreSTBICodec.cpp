@@ -36,13 +36,10 @@ THE SOFTWARE.
 
 #include "OgreLogManager.h"
 #include "OgreDataStream.h"
-#include "OgrePlatformInformation.h"
 #include "OgreCodec.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
 #include "OgreSharedPtr.h"
 #include "OgreString.h"
 #include "OgreStringVector.h"
@@ -50,9 +47,9 @@ THE SOFTWARE.
 #define STBI_NO_STDIO
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_STATIC
-#include "stbi/stb_image.h"
-
 #include <zlib.h>
+
+#include "stbi/stb_image.h"
 
 static Ogre::uchar* custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/)
 {

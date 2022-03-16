@@ -28,8 +28,6 @@ THE SOFTWARE.
 #ifndef __OgreWindowEventUtils_H__
 #define __OgreWindowEventUtils_H__
 
-#include "OgrePlatform.h"
-
 namespace Ogre {
     class RenderWindow;
 }  // namespace Ogre

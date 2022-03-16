@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef __GLSLProgram_H__
 #define __GLSLProgram_H__
 
-#include "OgreGLPrerequisites.h"
 #include "OgreGLSLShaderCommon.h"
 #include "OgreRenderOperation.h"
 #include "OgreGLGpuProgram.h"

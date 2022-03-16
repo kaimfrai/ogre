@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef __OgreGLFBO_H__
 #define __OgreGLFBO_H__
 
-#include "OgreGLPrerequisites.h"
 #include "OgreGLRenderTexture.h"
 #include "OgrePrerequisites.h"
 

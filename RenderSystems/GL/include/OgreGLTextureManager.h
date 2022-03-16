@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __GLTextureManager_H__
 #define __GLTextureManager_H__
 
-#include "OgreGLPrerequisites.h"
 #include "OgreTextureManager.h"
 #include "OgreCommon.h"
 #include "OgrePixelFormat.h"

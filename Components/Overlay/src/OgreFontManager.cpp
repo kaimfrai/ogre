@@ -30,7 +30,6 @@ THE SOFTWARE
 #include <memory>
 
 #include "OgreResourceGroupManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringVector.h"
 

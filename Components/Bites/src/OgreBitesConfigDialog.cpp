@@ -5,8 +5,7 @@
 
 #include "OgreBitesConfigDialog.h"
 
-#include "OgreConfigDialogImp.h"
-#include "OgrePlatform.h"
+#include <stddef.h>
 
 namespace Ogre {
     class ConfigDialog;

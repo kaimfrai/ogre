@@ -29,7 +29,6 @@ THE SOFTWARE.
 #define __GLPlugin_H__
 
 #include "OgrePlugin.h"
-#include "OgreGLPrerequisites.h"
 #include "OgrePrerequisites.h"
 
 namespace Ogre

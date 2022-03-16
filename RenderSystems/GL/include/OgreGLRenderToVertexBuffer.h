@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <stddef.h>
 
 #include "OgreRenderToVertexBuffer.h"
-#include "OgreGLPrerequisites.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"

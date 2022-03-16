@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <stddef.h>
 
 #include "OgreGLFrameBufferObject.h"
-#include "OgreGLPrerequisites.h"
 #include "OgreGLRenderTarget.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderTexture.h"

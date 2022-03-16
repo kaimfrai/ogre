@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __GLGpuNvparseProgram_H__
 #define __GLGpuNvparseProgram_H__
 
-#include "OgreGLPrerequisites.h"
 #include "OgreGLGpuProgram.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"

@@ -36,8 +36,8 @@ THE SOFTWARE.
 #include "OgreHardwareBuffer.h"
 #include "OgreRoot.h"
 #include "OgreHardwareVertexBuffer.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
+#include "OgreAlignedAllocator.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------

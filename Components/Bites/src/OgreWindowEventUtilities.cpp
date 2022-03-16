@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include "OgreWindowEventUtilities.h"
 
 #include <X11/X.h>
+#include <X11/Xlib.h>
 #include <algorithm>
 #include <map>
 #include <utility>
@@ -35,8 +36,7 @@ THE SOFTWARE.
 
 #include "OgreRenderWindow.h"
 #include "OgreCommon.h"
-
-#include <X11/Xlib.h>
+#include "OgrePlatform.h"
 
 using namespace Ogre;
 

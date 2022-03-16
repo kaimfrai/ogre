@@ -31,7 +31,6 @@ THE SOFTWARE.
 
 #include <cstddef>
 
-#include "OgreGLPrerequisites.h"
 #include "OgreGLRenderTexture.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
