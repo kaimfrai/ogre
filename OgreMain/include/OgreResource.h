@@ -31,10 +31,6 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <atomic>
 #include <set>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreStringInterface.h"

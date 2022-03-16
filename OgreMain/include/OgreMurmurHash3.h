@@ -9,10 +9,6 @@
 #include <cstddef>
 
 //-----------------------------------------------------------------------------
-// Platform-specific functions and macros
-#include "OgrePlatform.h"
-
-//-----------------------------------------------------------------------------
 
 namespace Ogre
 {

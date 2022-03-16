@@ -44,7 +44,6 @@ THE SOFTWARE.
 #include "OgreMatrix3.h"
 #include "OgrePlatform.h"
 #include "OgreQuaternion.h"
-#include "OgreString.h"
 
 namespace Ogre {
 

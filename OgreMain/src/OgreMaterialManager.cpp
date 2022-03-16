@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreException.h"
 #include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePass.h"
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"

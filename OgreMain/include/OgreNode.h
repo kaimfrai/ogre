@@ -45,7 +45,6 @@ THE SOFTWARE.
 namespace Ogre {
     template <typename T> class VectorIterator;
     template <typename T> class ConstVectorIterator;
-class Any;
 class Camera;
 
     /** \addtogroup Core

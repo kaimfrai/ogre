@@ -47,7 +47,6 @@ THE SOFTWARE.
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
 #include "OgreMatrix4.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreMesh.h"
 #include "OgreMeshManager.h"
 #include "OgreMeshSerializer.h"

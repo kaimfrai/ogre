@@ -38,10 +38,6 @@ Torus Knot Software Ltd.
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 // Precompiler options
 #include "OgrePrerequisites.h"

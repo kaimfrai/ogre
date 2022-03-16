@@ -9,7 +9,6 @@
 
 #include <stdint.h>
 
-#include "OgreStableHeaders.h"
 #include "OgreMurmurHash3.h"
 #include "OgrePlatform.h"
 

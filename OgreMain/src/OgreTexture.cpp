@@ -29,10 +29,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <atomic>
 #include <memory>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreImage.h"

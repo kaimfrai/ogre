@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgreLogManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreProfiler.h"

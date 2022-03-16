@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreCommon.h"
 #include "OgreConfig.h"
 #include "OgreConfigOptionMap.h"
@@ -47,8 +46,6 @@ THE SOFTWARE.
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreLogManager.h"
 #include "OgreMaterialManager.h"
-#include "OgreMatrix4.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlane.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"

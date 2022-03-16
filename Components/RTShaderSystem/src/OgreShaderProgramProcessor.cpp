@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgreException.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreShaderFFPRenderState.h"
 #include "OgreShaderFunction.h"

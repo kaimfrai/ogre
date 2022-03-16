@@ -58,7 +58,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include "OgreMaterialManager.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreMesh.h"
 #include "OgreMeshManager.h"
 #include "OgreNode.h"
@@ -73,6 +72,7 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include "OgreSubMesh.h"
 #include "OgreTechnique.h"
 #include "OgreVertexIndexData.h"
+#include "OgreAlignedAllocator.h"
 
 
 namespace Ogre {

@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreGpuProgramManager.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMaterial.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePass.h"
 #include "OgrePixelFormat.h"
 #include "OgrePrerequisites.h"
@@ -62,9 +61,10 @@ THE SOFTWARE.
 #include "OgreTechnique.h"
 #include "OgreTextureUnitState.h"
 #include "OgreVector.h"
+#include "OgreAutoParamDataSource.h"
+#include "OgreMatrix4.h"
 
 namespace Ogre {
-    class AutoParamDataSource;
     class Renderable;
 }  // namespace Ogre
 

@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <string>
 
 #include "OgreGpuProgramParams.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreShaderParameter.h"

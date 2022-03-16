@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <string.h>
 #include <string>
 
-#include "OgreStableHeaders.h"
 #include "OgreTextureUnitState.h"
 #include "OgreControllerManager.h"
 #include "OgreTextureManager.h"

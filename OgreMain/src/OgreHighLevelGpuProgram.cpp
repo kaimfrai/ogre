@@ -27,10 +27,6 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <string>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreHighLevelGpuProgram.h"
 #include "OgreGpuProgramManager.h"

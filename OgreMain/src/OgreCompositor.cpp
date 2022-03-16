@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreException.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreLogManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePixelFormat.h"
 #include "OgreRenderSystem.h"
 #include "OgreResourceGroupManager.h"

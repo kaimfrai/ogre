@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreMeshSerializerImpl.h"
 #include "OgreMeshFileFormat.h"
 #include "OgreAnimation.h"
@@ -56,7 +55,6 @@ THE SOFTWARE.
 #include "OgreLogManager.h"
 #include "OgreMaterialManager.h"
 #include "OgreMath.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreMesh.h"
 #include "OgreMeshSerializer.h"
 #include "OgrePlatform.h"

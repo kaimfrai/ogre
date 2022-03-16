@@ -43,7 +43,6 @@ THE SOFTWARE.
 #include "OgreInstanceBatch.h"
 #include "OgreInstanceManager.h"
 #include "OgreMatrix4.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePixelFormat.h"
 #include "OgreRenderOperation.h"
 #include "OgreRenderQueue.h"

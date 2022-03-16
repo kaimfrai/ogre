@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreFrustum.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreNode.h"
 #include "OgrePlane.h"
 #include "OgreRay.h"

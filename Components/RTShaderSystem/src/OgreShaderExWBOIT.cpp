@@ -13,7 +13,6 @@
 #include "OgreGpuProgramManager.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMaterialSerializer.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePass.h"
 #include "OgrePrerequisites.h"
 #include "OgreScriptCompiler.h"

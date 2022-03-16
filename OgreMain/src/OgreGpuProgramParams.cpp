@@ -40,7 +40,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include "OgreException.h"
 #include "OgreFileSystem.h"
 #include "OgreHardwareBuffer.h"
-#include "OgreIteratorWrapper.h"
 #include "OgreLogManager.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"

@@ -31,9 +31,6 @@
 
 #include "OgreException.h"
 #include "OgreFileSystem.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
-
 #include "OgreDeflate.h"
 
 #define MINIZ_HEADER_FILE_ONLY

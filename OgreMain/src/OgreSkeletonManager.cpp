@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <memory>
 
 #include "OgreSkeletonManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
 #include "OgreSkeleton.h"
 

@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreCodec.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
-#include "OgreIteratorWrapper.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
 #include "OgreMovableObject.h"

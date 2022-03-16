@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <unordered_map>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgrePixelFormat.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"

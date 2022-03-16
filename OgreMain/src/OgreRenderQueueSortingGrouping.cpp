@@ -29,10 +29,6 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <algorithm>
 #include <set>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreRenderQueueSortingGrouping.h"
 #include "OgreException.h"

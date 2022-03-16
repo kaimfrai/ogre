@@ -65,7 +65,6 @@ THE SOFTWARE.
 #include "OgreLogManager.h"
 #include "OgreMath.h"
 #include "OgreMatrix4.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreMesh.h"
 #include "OgreMeshManager.h"
 #include "OgrePlatform.h"

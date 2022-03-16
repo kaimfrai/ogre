@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreRenderSystemCapabilities.h"
@@ -40,7 +39,6 @@ THE SOFTWARE.
 #include "OgreGpuProgramParams.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreRenderSystem.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreRoot.h"

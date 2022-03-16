@@ -40,12 +40,12 @@ THE SOFTWARE.
 #include "OgreFrustum.h"
 #include "OgreMaterial.h"
 #include "OgreMath.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreNode.h"
 #include "OgreRoot.h"
 #include "OgreSceneManager.h"
 #include "OgreSceneNode.h"
 #include "OgreSubMesh.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre
 {

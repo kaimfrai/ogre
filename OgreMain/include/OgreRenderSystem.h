@@ -37,17 +37,14 @@ THE SOFTWARE.
 
 // Precompiler options
 #include "OgrePrerequisites.h"
-#include "OgreTextureUnitState.h"
 #include "OgreCommon.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreConfigOptionMap.h"
 #include "OgreGpuProgram.h"
 #include "OgrePlane.h"
-#include "OgreHardwareVertexBuffer.h"
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
 #include "OgreConfig.h"
-#include "OgreGpuProgramParams.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreSharedPtr.h"
@@ -66,6 +63,9 @@ namespace Ogre
     class RenderWindow;
     class Viewport;
     class HardwareOcclusionQuery;
+class Sampler;
+class TextureUnitState;
+class VertexDeclaration;
     /** \addtogroup Core
     *  @{
     */

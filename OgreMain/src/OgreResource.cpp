@@ -30,10 +30,6 @@ THE SOFTWARE.
 #include <atomic>
 #include <set>
 #include <string>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreException.h"
 #include "OgreLog.h"

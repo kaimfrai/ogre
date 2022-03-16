@@ -30,6 +30,7 @@ THE SOFTWARE.
 #define __BUILTIN_SCRIPTTRANSLATORS_H_
 
 #include "OgreScriptTranslator.h"
+#include "OgreTextureUnitState.h"
 
 namespace Ogre{
     /**************************************************************************

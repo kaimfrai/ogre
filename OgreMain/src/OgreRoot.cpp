@@ -37,12 +37,8 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 #include <vector>
-#include <memory>
 #include <thread>
-#include <mutex>
-#include <condition_variable>
 
-#include "OgreStableHeaders.h"
 #include "OgreRenderWindow.h"
 #include "OgreControllerManager.h"
 #include "OgreDynLibManager.h"
@@ -77,7 +73,6 @@ THE SOFTWARE.
 #include "OgreManualObject.h"
 #include "OgreMaterialManager.h"
 #include "OgreMath.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreMeshManager.h"
 #include "OgreMovableObject.h"
 #include "OgreParticleSystemManager.h"
@@ -103,14 +98,11 @@ THE SOFTWARE.
 #include "OgreTextureManager.h"
 #include "OgreWorkQueue.h"
 #include "OgreZip.h"
-
 #include "OgreDDSCodec.h"
-
 #include "OgreHardwareBufferManager.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreExternalTextureSourceManager.h"
 #include "OgreCompositorManager.h"
-
 #include "OgreETCCodec.h"
 #include "OgreASTCCodec.h"
 

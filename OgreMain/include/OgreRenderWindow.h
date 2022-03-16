@@ -30,7 +30,6 @@ THE SOFTWARE
 #include "OgreRenderTarget.h"
 #include "OgreCommon.h"
 #include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
 
 namespace Ogre
 {

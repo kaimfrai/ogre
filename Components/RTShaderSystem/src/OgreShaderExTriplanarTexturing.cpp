@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePass.h"
 #include "OgrePrerequisites.h"
 #include "OgreScriptCompiler.h"

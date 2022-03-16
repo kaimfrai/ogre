@@ -36,7 +36,6 @@
 #include <stdlib.h>
 #include <string>
 
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreString.h"
 #include "OgreStringVector.h"

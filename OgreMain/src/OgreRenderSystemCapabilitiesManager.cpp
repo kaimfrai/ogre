@@ -36,11 +36,11 @@ THE SOFTWARE.
 #include "OgreDataStream.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringVector.h"
+#include "OgreRenderSystemCapabilities.h"
 
 
 
 namespace Ogre {
-class RenderSystemCapabilities;
 
     //-----------------------------------------------------------------------
     template<> RenderSystemCapabilitiesManager* Singleton<RenderSystemCapabilitiesManager>::msSingleton = 0;

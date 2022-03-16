@@ -31,16 +31,10 @@ THE SOFTWARE.
 #include <mutex>
 #include <thread>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
-#include "OgreStableHeaders.h"
 #include "OgreDefaultWorkQueueStandard.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderSystem.h"
 #include "OgreRoot.h"

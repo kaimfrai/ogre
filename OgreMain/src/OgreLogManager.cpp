@@ -30,16 +30,10 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 #include <utility>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
-#include "OgreStableHeaders.h"
 #include "OgreException.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 

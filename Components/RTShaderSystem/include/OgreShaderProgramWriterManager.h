@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgreShaderPrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreException.h"
-#include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 
 namespace Ogre {

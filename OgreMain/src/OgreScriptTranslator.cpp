@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreBuiltinScriptTranslators.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreParticleSystemRenderer.h"

@@ -34,10 +34,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreScriptLoader.h"
 #include "OgreArchive.h"
@@ -47,7 +43,6 @@ THE SOFTWARE.
 #include "OgreException.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"

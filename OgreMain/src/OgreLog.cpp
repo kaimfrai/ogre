@@ -32,14 +32,8 @@ THE SOFTWARE.
 #include <iomanip>
 #include <string>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
-#include "OgreStableHeaders.h"
 #include "OgreLog.h"
-#include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreStringConverter.h"
 

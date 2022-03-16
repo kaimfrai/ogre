@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreController.h"
 #include "OgreException.h"
 #include "OgreMath.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreSceneNode.h"
 #include "OgreStringConverter.h"
 #include "OgreVector.h"

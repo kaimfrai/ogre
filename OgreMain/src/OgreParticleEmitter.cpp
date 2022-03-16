@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgreParticleEmitterFactory.h"
 #include "OgreParticleEmitterCommands.h"
 #include "OgreCommon.h"
-#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre
 {

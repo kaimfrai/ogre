@@ -35,7 +35,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgrePixelFormat.h"
-#include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 
@@ -52,6 +51,7 @@ class DepthBuffer;
 class RenderTargetListener;
 class Timer;
 class Viewport;
+struct Box;
 
     /** \addtogroup Core
     *  @{

@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreGpuProgramParams.h"
 #include "OgreLight.h"
 #include "OgreMaterialSerializer.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreScriptCompiler.h"
 #include "OgreShaderExPerPixelLighting.h"

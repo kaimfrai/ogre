@@ -43,7 +43,6 @@ THE SOFTWARE.
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreLogManager.h"
 #include "OgreMatrix4.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreMovableObject.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"

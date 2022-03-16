@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderFunctionAtom.h"
 #include "OgreGpuProgram.h"
-#include "OgreCommon.h"
 #include "OgreGpuProgramParams.h"
 #include "OgrePrerequisites.h"
 

@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include "OgreBillboard.h"
 #include "OgreException.h"
 #include "OgreMath.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreStringConverter.h"
 #include "OgreStringInterface.h"
 

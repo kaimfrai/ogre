@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <sys/types.h>
 #include <chrono>
 
-#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre

@@ -67,7 +67,6 @@ THE SOFTWARE.
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
 #include "OgreMatrix4.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreMesh.h"
 #include "OgreMovableObject.h"
 #include "OgreNameGenerator.h"
@@ -114,10 +113,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 namespace Ogre {
 class Ray;

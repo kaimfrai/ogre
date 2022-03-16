@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "OgreCompositionTechnique.h"
 #include "OgreCompositionTargetPass.h"
 #include "OgreException.h"
-#include "OgreIteratorWrapper.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRoot.h"

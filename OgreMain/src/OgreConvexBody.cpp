@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreMath.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlane.h"
 #include "OgreRay.h"
 #include "OgreVector.h"

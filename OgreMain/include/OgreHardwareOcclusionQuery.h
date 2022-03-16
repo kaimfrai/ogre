@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef _HardwareOcclusionQuery__
 #define _HardwareOcclusionQuery__
 
-#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {

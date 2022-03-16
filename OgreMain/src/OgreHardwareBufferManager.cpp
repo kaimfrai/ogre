@@ -33,10 +33,6 @@ THE SOFTWARE.
 #include <ostream>
 #include <set>
 #include <utility>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreVertexIndexData.h"
 #include "OgreException.h"
@@ -45,7 +41,6 @@ THE SOFTWARE.
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"

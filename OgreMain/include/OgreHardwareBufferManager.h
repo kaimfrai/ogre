@@ -31,16 +31,11 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <map>
 #include <set>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"

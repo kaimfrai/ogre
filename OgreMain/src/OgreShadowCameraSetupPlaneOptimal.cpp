@@ -36,9 +36,7 @@ THE SOFTWARE.
 #include "OgreCamera.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlane.h"
-#include "OgrePlatform.h"
 #include "OgreVector.h"
 
 namespace Ogre 

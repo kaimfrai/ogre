@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgreDataStream.h"
 #include "OgreException.h"
 #include "OgreFileSystem.h"
-#include "OgreIteratorWrapper.h"
 #include "OgreSharedPtr.h"
 #include "OgreString.h"
 

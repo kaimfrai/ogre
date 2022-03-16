@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <stddef.h>
 #include <sys/stat.h>
+#include <zip.h>
 #include <algorithm>
 #include <iosfwd>
 #include <map>
@@ -34,16 +35,11 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreArchive.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
 #include "OgreFileSystem.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
@@ -52,8 +48,6 @@ THE SOFTWARE.
 #include "OgreZip.h"
 
 struct zip_t;
-
-#include <zip.h>
 
 namespace Ogre {
 namespace {

@@ -33,8 +33,6 @@ THE SOFTWARE.
 
 // Precompiler options
 #include "OgrePrerequisites.h"
-#include "OgreStringVector.h"
-#include "OgreStringConverter.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {

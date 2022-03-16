@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <cstdlib>
 #include <limits>
 #include <cmath>
-#include <list>
 #include <ostream>
 #include <utility>
 #include <vector>

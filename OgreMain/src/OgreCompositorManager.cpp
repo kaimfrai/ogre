@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreCompositorInstance.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreRenderSystem.h"
 #include "OgreRoot.h"
 #include "OgreTextureManager.h"

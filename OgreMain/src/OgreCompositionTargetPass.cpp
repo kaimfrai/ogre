@@ -29,7 +29,6 @@ THE SOFTWARE.
 
 #include "OgreCompositionTargetPass.h"
 #include "OgreCompositionPass.h"
-#include "OgreIteratorWrapper.h"
 #include "OgreMaterialManager.h"
 #include "OgreRenderSystem.h"
 #include "OgreRoot.h"

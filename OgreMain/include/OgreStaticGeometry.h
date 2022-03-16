@@ -52,12 +52,12 @@ THE SOFTWARE.
 #include "OgreShadowCaster.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 class Camera;
 class EdgeData;
 class Entity;
-class IndexData;
 class Light;
 class LodStrategy;
 class Matrix4;
@@ -67,7 +67,6 @@ class SceneManager;
 class SceneNode;
 class SubMesh;
 class Technique;
-class VertexData;
 
     /** \addtogroup Core
     *  @{

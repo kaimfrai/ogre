@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cmath>
 #include <limits>
-#include <list>
 #include <utility>
 #include <vector>
 
@@ -38,7 +37,6 @@ THE SOFTWARE.
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
 #include "OgreMatrix4.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlane.h"
 #include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"

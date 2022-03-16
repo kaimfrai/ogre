@@ -32,10 +32,6 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <iosfwd>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgrePolygon.h"

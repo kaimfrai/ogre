@@ -32,7 +32,6 @@ THE SOFTWARE.
 
 // Precompiler options
 #include "OgrePrerequisites.h"
-#include "OgreString.h"
 #include "OgrePlatform.h"
 
 // Check for OGRE assert mode

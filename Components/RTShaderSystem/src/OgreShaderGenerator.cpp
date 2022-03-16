@@ -47,7 +47,6 @@ THE SOFTWARE.
 #include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
 #include "OgreMaterialSerializer.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePass.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderObjectListener.h"

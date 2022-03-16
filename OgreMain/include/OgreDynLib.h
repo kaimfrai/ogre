@@ -30,7 +30,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
 
 namespace Ogre {
     /** \addtogroup Core

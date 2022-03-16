@@ -30,10 +30,6 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 #include <utility>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreParticleEmitterFactory.h"
 #include "OgreParticleAffectorFactory.h"
@@ -44,11 +40,9 @@ THE SOFTWARE.
 #include "OgreException.h"
 #include "OgreFactoryObj.h"
 #include "OgreLogManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreParticleAffector.h"
 #include "OgreParticleEmitter.h"
 #include "OgreParticleSystemManager.h"
-#include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreRoot.h"
@@ -58,7 +52,6 @@ THE SOFTWARE.
 #include "OgreStringVector.h"
 
 namespace Ogre {
-    class MovableObject;
 
     //-----------------------------------------------------------------------
     // Shortcut to set up billboard particle renderer

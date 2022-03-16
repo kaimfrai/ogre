@@ -36,11 +36,9 @@ THE SOFTWARE.
 #include "OgreLodStrategyManager.h"
 #include "OgreLodStrategy.h"
 #include "OgreException.h"
-#include "OgreIteratorWrapper.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreMaterialManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreResourceManager.h"
 #include "OgreTechnique.h"
 

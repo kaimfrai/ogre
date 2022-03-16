@@ -33,10 +33,6 @@ THE SOFTWARE.
 #include <set>
 #include <string>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreGpuProgramUsage.h"
 #include "OgreTextureUnitState.h"
@@ -49,7 +45,6 @@ THE SOFTWARE.
 #include "OgreGpuProgramParams.h"
 #include "OgreLight.h"
 #include "OgreMaterial.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePass.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"

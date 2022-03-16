@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
 #include "OgreMath.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreMesh.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"

@@ -30,22 +30,15 @@ THE SOFTWARE.
 #include <cstdio>
 #include <string>
 #include <fstream>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreArchive.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
 #include "OgreFileSystem.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreString.h"
 #include "OgreStringVector.h"
-
 #include "OgreSearchOps.h"
 
 namespace Ogre {

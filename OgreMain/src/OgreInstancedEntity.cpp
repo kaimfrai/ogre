@@ -40,11 +40,11 @@ THE SOFTWARE.
 #include "OgreCamera.h"
 #include "OgreException.h"
 #include "OgreMath.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreMesh.h"
 #include "OgreSharedPtr.h"
 #include "OgreSphere.h"
 #include "OgreStringConverter.h"
+#include "OgreAlignedAllocator.h"
 
 namespace Ogre
 {

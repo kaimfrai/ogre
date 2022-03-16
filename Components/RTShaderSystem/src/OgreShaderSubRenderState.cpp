@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <string>
 
 #include "OgreException.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreShaderScriptTranslator.h"
 #include "OgreShaderSubRenderState.h"

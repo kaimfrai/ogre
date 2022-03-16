@@ -33,10 +33,6 @@ THE SOFTWARE.
 #include <set>
 #include <vector>
 #include <algorithm>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreColourValue.h"

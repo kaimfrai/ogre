@@ -34,11 +34,9 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
 #include "OgreCamera.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
-#include "OgreIteratorWrapper.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
 #include "OgreMatrix4.h"

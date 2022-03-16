@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include "OgreCommon.h"
 #include "OgreGpuProgram.h"
 #include "OgreMaterialSerializer.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePass.h"
 #include "OgrePrerequisites.h"
 #include "OgreScriptCompiler.h"

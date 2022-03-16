@@ -47,7 +47,6 @@ namespace RTShader {
 class Program;
 class ProgramProcessor;
 class ProgramSet;
-class ProgramWriterFactory;
 
 /** \addtogroup Optional
 *  @{

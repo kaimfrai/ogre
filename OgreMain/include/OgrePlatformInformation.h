@@ -29,7 +29,6 @@ THE SOFTWARE.
 #define __PlatformInformation_H__
 
 #include "OgrePrerequisites.h"
-#include "OgrePlatform.h"
 
 namespace Ogre {
     class Log;

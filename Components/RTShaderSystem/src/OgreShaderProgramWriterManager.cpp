@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreShaderGLSLESProgramWriter.h"
 #include "OgreShaderGLSLProgramWriter.h"

@@ -28,9 +28,6 @@ THE SOFTWARE.
 #include <assert.h>
 #include <utility>
 #include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreGpuProgramManager.h"
 #include "OgreUnifiedHighLevelGpuProgram.h"

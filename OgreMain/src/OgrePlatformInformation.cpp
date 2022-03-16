@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <string>
 
 #include "OgreLog.h"
-#include "OgrePlatform.h"
 #include "OgrePlatformInformation.h"
 #include "OgrePrerequisites.h"
 #include "OgreString.h"

@@ -36,10 +36,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 #include <algorithm>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"

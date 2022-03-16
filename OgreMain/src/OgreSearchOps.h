@@ -32,10 +32,6 @@ THE SOFTWARE.
 
 #include <stdint.h>
 
-#include "OgrePlatform.h"
-
-#include <unistd.h>
-
 /* Our simplified data entry structure */
 struct _finddata_t
 {

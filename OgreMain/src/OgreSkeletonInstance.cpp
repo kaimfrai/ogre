@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgreSkeletonInstance.h"
 #include "OgreTagPoint.h"
 #include "OgreBone.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreNode.h"
 
 

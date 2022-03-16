@@ -46,7 +46,6 @@ THE SOFTWARE.
 #include "OgreLogManager.h"
 #include "OgreMaterial.h"
 #include "OgreMatrix4.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePass.h"
 #include "OgreSharedPtr.h"
 #include "OgreSubMesh.h"

@@ -29,8 +29,6 @@ THE SOFTWARE
 #include <stddef.h>
 #include <thread>
 #include <vector>
-#include <memory>
-#include <thread>
 #include <mutex>
 #include <condition_variable>
 

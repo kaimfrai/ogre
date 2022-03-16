@@ -35,10 +35,6 @@ THE SOFTWARE.
 #include <string>
 #include <unordered_map>
 #include <utility>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"

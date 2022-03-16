@@ -26,7 +26,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <utility>
 
 #include "OgreMovablePlane.h"
 #include "OgreAxisAlignedBox.h"

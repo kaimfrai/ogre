@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgreException.h"
 #include "OgreFrustum.h"
 #include "OgreMatrix4.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlane.h"
 #include "OgreSceneManager.h"
 #include "OgreSphere.h"

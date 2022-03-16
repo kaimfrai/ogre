@@ -35,10 +35,6 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgrePrerequisites.h"
 #include "OgreController.h"

@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <memory>
 
-#include "OgreStableHeaders.h"
 #include "OgreImage.h"
 #include "OgreImageCodec.h"
 #include "OgreImageResampler.h"

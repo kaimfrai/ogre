@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareVertexBuffer.h"
-#include "OgreIteratorWrapper.h"
 #include "OgreVertexIndexData.h"
 
 namespace Ogre {

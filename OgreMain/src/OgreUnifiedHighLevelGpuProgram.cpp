@@ -27,17 +27,12 @@ THE SOFTWARE.
 */
 #include <string>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreUnifiedHighLevelGpuProgram.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreException.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreLogManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreStringInterface.h"
 

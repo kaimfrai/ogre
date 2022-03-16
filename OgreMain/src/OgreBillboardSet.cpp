@@ -46,7 +46,6 @@ THE SOFTWARE.
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
 #include "OgreMatrix4.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreNode.h"
 #include "OgreRadixSort.h"
 #include "OgreRenderOperation.h"
