@@ -106,7 +106,7 @@ class RenderQueue;
     Because this class is designed to be extensible, it subclasses from StringInterface
     so its parameters can be set in a generic way.
     */
-    class _OgreOverlayExport OverlayElement : public StringInterface, public Renderable, public OverlayAlloc
+    class OverlayElement : public StringInterface, public Renderable, public OverlayAlloc
     {
     public:
         static const String& DEFAULT_RESOURCE_GROUP;

@@ -57,7 +57,7 @@ namespace Ogre {
         To make the overlays visible (= render into your viewports) you have to register this
         instance as a RenderQueueListener in your scenemanager(s).
     */
-    class _OgreOverlayExport OverlaySystem
+    class OverlaySystem
         : public Singleton<OverlaySystem>
         , public Ogre::RenderQueueListener
         , public Ogre::RenderSystem::Listener

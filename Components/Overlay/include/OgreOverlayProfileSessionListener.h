@@ -50,7 +50,7 @@ namespace Ogre  {
     /** Concrete impl. of the ProfileSessionListener which visualizes
         the profling results using overlays.
     */
-    class _OgreOverlayExport OverlayProfileSessionListener : public ProfileSessionListener
+    class OverlayProfileSessionListener : public ProfileSessionListener
     {
     public:
         enum DisplayMode

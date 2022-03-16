@@ -59,7 +59,7 @@ class RenderQueue;
         instantiating / deleting elements, and also for accepting new types of element
         from plugins etc.
     */
-    class _OgreOverlayExport OverlayContainer : public OverlayElement
+    class OverlayContainer : public OverlayElement
     {
     public:
         typedef std::map<String, OverlayElement*> ChildMap;

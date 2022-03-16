@@ -45,7 +45,7 @@ namespace Ogre
     *  @{
     */
     /** Manages Font resources, parsing .fontdef files and generally organising them.*/
-    class _OgreOverlayExport FontManager : public ResourceManager, public Singleton< FontManager >
+    class FontManager : public ResourceManager, public Singleton< FontManager >
     {
     public:
 
