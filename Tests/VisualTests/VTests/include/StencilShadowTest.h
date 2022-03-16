@@ -30,7 +30,6 @@ THE SOFTWARE.
 #define __StencilShadowTest_H__
 
 #include "VisualTest.h"
-#include "SamplePlugin.h"
 #include "OgrePlatform.h"
 
 namespace Ogre {
