@@ -44,7 +44,7 @@ class ResourceManager;
 class GLSLLinkProgramManager;
 
     /** Factory class for GLSL programs. */
-    class _OgreGLExport GLSLProgramFactory : public HighLevelGpuProgramFactory
+    class GLSLProgramFactory : public HighLevelGpuProgramFactory
     {
     protected:
         static String sLanguageName;

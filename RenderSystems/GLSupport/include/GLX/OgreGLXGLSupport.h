@@ -50,7 +50,7 @@ class RenderWindow;
 
 namespace Ogre {
 
-    class _OgreGLExport GLXGLSupport : public GLNativeSupport
+    class GLXGLSupport : public GLNativeSupport
     {
     public:
         GLXGLSupport(int profile);

@@ -53,7 +53,7 @@ namespace Ogre
      @warning caching does not work with multiple windows, sharing the same context.
      They will erroneously get different state caches.
      */
-    class _OgreGLExport GLStateCacheManagerCommon : public StateCacheAlloc
+    class GLStateCacheManagerCommon : public StateCacheAlloc
     {
     protected:
         typedef std::unordered_map<uint32, uint32> BindBufferMap;

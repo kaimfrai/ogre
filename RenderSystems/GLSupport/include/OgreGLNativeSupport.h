@@ -52,7 +52,7 @@ namespace Ogre
     /**
     * provides OpenGL Context creation using GLX, WGL, EGL, Cocoa
     */
-    class _OgreGLExport GLNativeSupport
+    class GLNativeSupport
     {
         public:
             typedef std::set<String> ExtensionList;

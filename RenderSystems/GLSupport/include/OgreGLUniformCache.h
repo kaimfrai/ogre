@@ -40,7 +40,7 @@ typedef Ogre::GeneralAllocatedObject UniformCacheAlloc;
 namespace Ogre
 {
     /** An in memory cache of the OpenGL uniforms. */
-    class _OgreGLExport GLUniformCache : public UniformCacheAlloc
+    class GLUniformCache : public UniformCacheAlloc
     {
     protected:
         typedef std::unordered_map<int, uint32> UniformMap;

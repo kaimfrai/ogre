@@ -50,7 +50,7 @@ namespace Ogre {
     class Viewport;
     struct Box;
 
-    class _OgreGLExport GLRenderSystemCommon : public RenderSystem
+    class GLRenderSystemCommon : public RenderSystem
     {
     protected:
         /* The main GL context - main thread only */

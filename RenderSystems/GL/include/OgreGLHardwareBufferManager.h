@@ -47,7 +47,7 @@ class GLRenderSystem;
 #   define OGRE_GL_DEFAULT_MAP_BUFFER_THRESHOLD (1024 * 32)
 
     /** Implementation of HardwareBufferManager for OpenGL. */
-    class _OgreGLExport GLHardwareBufferManager : public HardwareBufferManager
+    class GLHardwareBufferManager : public HardwareBufferManager
     {
     protected:
         GLRenderSystem* mRenderSystem;

@@ -44,7 +44,7 @@ class GLContext;
 class RenderTarget;
 class RenderTexture;
 
-    class _OgreGLExport GLCopyingRenderTexture: public GLRenderTexture
+    class GLCopyingRenderTexture: public GLRenderTexture
     {
     public:
         GLCopyingRenderTexture(GLCopyingRTTManager *manager, const String &name, const GLSurfaceDesc &target, 
@@ -58,7 +58,7 @@ class RenderTexture;
     /** Simple, copying manager/factory for RenderTextures. This is only used as the last fallback if
         both PBuffers and FBOs aren't supported.
     */
-    class _OgreGLExport GLCopyingRTTManager: public GLRTTManager
+    class GLCopyingRTTManager: public GLRTTManager
     {
     public:
         RenderTexture *createRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa) {

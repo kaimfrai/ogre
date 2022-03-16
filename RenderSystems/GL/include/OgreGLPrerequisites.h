@@ -70,6 +70,4 @@ namespace Ogre {
     }
 }
 
-#define _OgreGLExport
-
 #endif //#ifndef __GLPrerequisites_H__

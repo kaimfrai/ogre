@@ -39,7 +39,7 @@ namespace Ogre
 {
 struct Box;
 
-class _OgreGLExport GLHardwarePixelBufferCommon : public HardwarePixelBuffer
+class GLHardwarePixelBufferCommon : public HardwarePixelBuffer
 {
 protected:
     /// Lock a box

@@ -39,7 +39,7 @@ THE SOFTWARE.
 namespace Ogre {
 class ResourceManager;
 
-class _OgreGLExport GLGpuNvparseProgram : public GLGpuProgram
+class GLGpuNvparseProgram : public GLGpuProgram
 {
 public:
     GLGpuNvparseProgram(ResourceManager* creator, 

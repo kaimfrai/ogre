@@ -39,7 +39,7 @@ namespace Ogre {
 class GLRenderSystem;
 class ResourceManager;
 
-    class _OgreGLExport GLTexture : public GLTextureCommon
+    class GLTexture : public GLTextureCommon
     {
     public:
         // Constructor

@@ -42,7 +42,7 @@ namespace Ogre {
 class ResourceManager;
 
     namespace GLSL {
-    class _OgreGLExport GLSLProgram : public GLSLShaderCommon, public GLGpuProgramBase
+    class GLSLProgram : public GLSLShaderCommon, public GLGpuProgramBase
     {
     public:
         GLSLProgram(ResourceManager* creator, 

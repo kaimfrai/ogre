@@ -79,7 +79,7 @@ struct GLGpuProgramBase;
     /**
       Implementation of GL as a rendering system.
      */
-    class _OgreGLExport GLRenderSystem : public GLRenderSystemCommon
+    class GLRenderSystem : public GLRenderSystemCommon
     {
     private:
         /// View matrix to set world against

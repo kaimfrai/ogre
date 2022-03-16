@@ -41,7 +41,7 @@ namespace Ogre {
 class GLRenderSystem;
 
     /** GL-specific implementation of a TextureManager */
-    class _OgreGLExport GLTextureManager : public TextureManager
+    class GLTextureManager : public TextureManager
     {
     public:
         GLTextureManager(GLRenderSystem* renderSystem);

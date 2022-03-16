@@ -70,7 +70,7 @@ namespace Ogre {
   * Updated on 13/9/2005 by Tuan Kuranes email: tuan.kuranes@free.fr
   */
 
-class _OgreGLExport GLHardwareOcclusionQuery : public HardwareOcclusionQuery
+class GLHardwareOcclusionQuery : public HardwareOcclusionQuery
 {
 //----------------------------------------------------------------------
 // Public methods

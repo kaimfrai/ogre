@@ -37,7 +37,7 @@ namespace Ogre
     class GLRenderSystem;
 
     /** Plugin instance for GL Manager */
-    class _OgreGLExport GLPlugin : public Plugin
+    class GLPlugin : public Plugin
     {
     public:
         GLPlugin();

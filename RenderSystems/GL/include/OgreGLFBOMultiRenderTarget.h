@@ -45,7 +45,7 @@ class GLFrameBufferObjectCommon;
 
     /** MultiRenderTarget for GL. Requires the FBO extension.
     */
-    class _OgreGLExport GLFBOMultiRenderTarget : public MultiRenderTarget, public GLRenderTarget
+    class GLFBOMultiRenderTarget : public MultiRenderTarget, public GLRenderTarget
     {
     public:
         GLFBOMultiRenderTarget(GLFBOManager *manager, const String &name);

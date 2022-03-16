@@ -40,7 +40,7 @@ namespace Ogre {
      * This object can also be used to cache renderstate if we decide to do so
      * in the future.
      */
-    class _OgreGLExport GLContext
+    class GLContext
     {
     public:
         GLContext() : initialized(false) {}

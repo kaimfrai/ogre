@@ -60,7 +60,7 @@ class RenderTarget;
     };
 
     /// Frame Buffer Object abstraction
-    class _OgreGLExport GLFrameBufferObjectCommon
+    class GLFrameBufferObjectCommon
     {
     public:
         GLFrameBufferObjectCommon(int32 fsaa);
@@ -116,7 +116,7 @@ class RenderTarget;
 
     /** Base class for GL Render Textures
      */
-    class _OgreGLExport GLRenderTexture : public RenderTexture, public GLRenderTarget
+    class GLRenderTexture : public RenderTexture, public GLRenderTarget
     {
     public:
         GLRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
@@ -129,7 +129,7 @@ class RenderTarget;
 
     /** Manager/factory for RenderTextures.
      */
-    class _OgreGLExport GLRTTManager : public Singleton<GLRTTManager>
+    class GLRTTManager : public Singleton<GLRTTManager>
     {
     public:
         GLRTTManager();

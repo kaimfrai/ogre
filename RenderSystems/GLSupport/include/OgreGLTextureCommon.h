@@ -39,7 +39,7 @@ namespace Ogre
 {
 class ResourceManager;
 
-class _OgreGLExport GLTextureCommon  : public Texture
+class GLTextureCommon  : public Texture
 {
 public:
     GLTextureCommon(ResourceManager* creator, const String& name, ResourceHandle handle,
