@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <list>
 
-#include "OgreSTBICodecExports.h"
 #include "OgreImageCodec.h"
 #include "OgrePlugin.h"
 #include "OgrePrerequisites.h"
