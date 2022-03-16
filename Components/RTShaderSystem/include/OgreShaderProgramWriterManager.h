@@ -43,7 +43,7 @@ namespace RTShader {
 *  @{
 */
 
-class _OgreRTSSExport ProgramWriterManager 
+class ProgramWriterManager 
     : public Singleton<ProgramWriterManager>, public RTShaderSystemAlloc
 {
     std::map<String, ProgramWriter*> mProgramWriters;

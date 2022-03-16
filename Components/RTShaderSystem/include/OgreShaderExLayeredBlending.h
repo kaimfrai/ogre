@@ -38,7 +38,7 @@ namespace RTShader {
 /** Texturing sub render state implementation of layered blending.
 Derives from FFPTexturing class which derives from SubRenderState class.
 */
-class _OgreRTSSExport LayeredBlending : public FFPTexturing
+class LayeredBlending : public FFPTexturing
 {
 public:
     enum BlendMode
@@ -194,7 +194,7 @@ protected:
 A factory that enables creation of LayeredBlending instances.
 @remarks Sub class of SubRenderStateFactory
 */
-class _OgreRTSSExport LayeredBlendingFactory : public SubRenderStateFactory
+class LayeredBlendingFactory : public SubRenderStateFactory
 {
 public:
 

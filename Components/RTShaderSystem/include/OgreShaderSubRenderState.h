@@ -48,7 +48,7 @@ typedef SharedPtr<SubRenderStateAccessor>   SubRenderStateAccessorPtr;
 A simple example of sub class of this interface will be the transform sub state of the
 fixed pipeline.
 */
-class _OgreRTSSExport SubRenderState : public RTShaderSystemAlloc
+class SubRenderState : public RTShaderSystemAlloc
 {
 
 // Interface.
@@ -172,7 +172,7 @@ system this class enable accessing the used instances.
 A common usage will be add a SubRenderState to certain pass, obtain accessor and then call a method on the instanced SubRenderState
 that will trigger some GPU uniform parameter updates.
 */
-class _OgreRTSSExport SubRenderStateAccessor
+class SubRenderStateAccessor
 {
 public:
     /** Add SubRenderState instance to this accessor.
@@ -227,7 +227,7 @@ SubRenderStateFactory subclasses must allow the creation and destruction of SubR
 subclasses. They must also be registered with the ShaderGenerator::addSubRenderStateFactory. 
 All factories have a type which identifies them and the sub class of SubRenderState they creates.
 */
-class _OgreRTSSExport SubRenderStateFactory : public RTShaderSystemAlloc
+class SubRenderStateFactory : public RTShaderSystemAlloc
 {
 
 public:

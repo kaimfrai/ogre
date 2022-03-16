@@ -45,7 +45,7 @@ namespace RTShader {
 /** Integrated PSSM shadow receiver with 3 splits sub render state implementation.
 Derives from SubRenderState class.
 */
-class _OgreRTSSExport IntegratedPSSM3 : public SubRenderState
+class IntegratedPSSM3 : public SubRenderState
 {
 
     // Interface.
@@ -101,7 +101,7 @@ public:
 protected:
 
     // Shadow texture parameters.
-    struct _OgreRTSSExport ShadowTextureParams
+    struct ShadowTextureParams
     {                   
         // The max range of this shadow texture in terms of PSSM (far plane of viewing camera).
         Real mMaxRange;
@@ -195,7 +195,7 @@ protected:
 A factory that enables creation of IntegratedPSSM3 instances.
 @remarks Sub class of SubRenderStateFactory
 */
-class _OgreRTSSExport IntegratedPSSM3Factory : public SubRenderStateFactory
+class IntegratedPSSM3Factory : public SubRenderStateFactory
 {
 public:
 

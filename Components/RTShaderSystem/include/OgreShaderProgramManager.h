@@ -46,7 +46,7 @@ namespace RTShader {
 
 /** A singleton manager class that manages shader based programs.
 */
-class _OgreRTSSExport ProgramManager : public Singleton<ProgramManager>, public RTShaderSystemAlloc
+class ProgramManager : public Singleton<ProgramManager>, public RTShaderSystemAlloc
 {
 // Interface.
 public:

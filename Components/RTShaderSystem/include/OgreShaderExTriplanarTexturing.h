@@ -43,7 +43,7 @@ namespace RTShader {
 /** Triplanar Texturing.
 Derives from SubRenderState class.
 */
-class _OgreRTSSExport TriplanarTexturing : public SubRenderState
+class TriplanarTexturing : public SubRenderState
 {
 
 protected:
@@ -182,7 +182,7 @@ public:
 A factory that enables creation of TriplanarMapping instances.
 @remarks Sub class of SubRenderStateFactory
 */
-class _OgreRTSSExport TriplanarTexturingFactory : public SubRenderStateFactory
+class TriplanarTexturingFactory : public SubRenderStateFactory
 {
 public:
 

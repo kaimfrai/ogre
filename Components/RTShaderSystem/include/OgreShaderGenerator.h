@@ -58,7 +58,7 @@ class SGResourceGroupListener;
 /** Shader generator system main interface. This singleton based class
 enables automatic generation of shader code based on existing material techniques.
 */
-class _OgreRTSSExport ShaderGenerator : public Singleton<ShaderGenerator>, public RTShaderSystemAlloc
+class ShaderGenerator : public Singleton<ShaderGenerator>, public RTShaderSystemAlloc
 {
 // Interface.
 public:
@@ -486,7 +486,7 @@ private:
 
     
     /** Shader generator pass wrapper class. */
-    class _OgreRTSSExport SGPass : public RTShaderSystemAlloc
+    class SGPass : public RTShaderSystemAlloc
     {
     public:
 		SGPass(SGTechnique* parent, Pass* srcPass, Pass* dstPass, IlluminationStage stage);
@@ -529,7 +529,7 @@ private:
 
     
     /** Shader generator technique wrapper class. */
-    class _OgreRTSSExport SGTechnique : public RTShaderSystemAlloc
+    class SGTechnique : public RTShaderSystemAlloc
     {
     public:
         SGTechnique(SGMaterial* parent, const Technique* srcTechnique,
@@ -613,7 +613,7 @@ private:
 
     
     /** Shader generator material wrapper class. */
-    class _OgreRTSSExport SGMaterial : public RTShaderSystemAlloc
+    class SGMaterial : public RTShaderSystemAlloc
     {   
     
     public:
@@ -644,7 +644,7 @@ private:
 
     
     /** Shader generator scheme class. */
-    class _OgreRTSSExport SGScheme : public RTShaderSystemAlloc
+    class SGScheme : public RTShaderSystemAlloc
     {   
     public:
         SGScheme(const String& schemeName);
