@@ -86,7 +86,6 @@ endif ()
 # define header and source files for the library
 file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
 list(APPEND HEADER_FILES
-  ${PROJECT_BINARY_DIR}/include/OgreBitesPrerequisites.h
   ${CMAKE_CURRENT_SOURCE_DIR}/include/OgreBites.i)
 set(SOURCES 
   "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreAdvancedRenderControls.cpp"
@@ -170,10 +169,6 @@ if(SDL2_FOUND)
 elseif(NOT EMSCRIPTEN)
   message(WARNING "SDL2 not found - no input handling and reduced window creation capabilites")
 endif()
-
-generate_export_header(OgreBites 
-    EXPORT_MACRO_NAME _OgreBitesExport
-    EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/include/OgreBitesPrerequisites.h)
 
 #if(Qt6_FOUND OR Qt5_FOUND)
   #if(Qt6_FOUND)

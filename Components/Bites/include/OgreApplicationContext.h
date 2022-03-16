@@ -28,7 +28,6 @@
 #ifndef __ApplicationContext_H__
 #define __ApplicationContext_H__
 
-#include "OgreBitesPrerequisites.h"
 #include "OgreBuildSettings.h"
 #include "OgreApplicationContextBase.h"
 

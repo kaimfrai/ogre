@@ -32,7 +32,6 @@
 #include <string>
 #include <vector>
 
-#include "OgreBitesPrerequisites.h"
 #include "OgreOverlay.h"
 #include "OgreBorderPanelOverlayElement.h"
 #include "OgreTextAreaOverlayElement.h"

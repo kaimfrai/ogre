@@ -2,7 +2,6 @@
 
 #include <cstddef>
 
-#include "OgreComponents.h"
 #include "OgreRoot.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreGLPlugin.h"

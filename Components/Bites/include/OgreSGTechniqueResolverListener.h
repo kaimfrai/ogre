@@ -28,7 +28,6 @@
 
 #pragma once
 
-#include "OgreBitesPrerequisites.h"
 #include "OgreMaterialManager.h"
 #include "OgrePrerequisites.h"
 #include "OgreTechnique.h"

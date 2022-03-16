@@ -8,7 +8,6 @@
 
 #include <vector>
 
-#include "OgreBitesPrerequisites.h"
 
 namespace Ogre {
 class Plugin;

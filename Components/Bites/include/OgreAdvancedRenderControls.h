@@ -30,8 +30,6 @@ THE SOFTWARE.
 #define COMPONENTS_BITES_INCLUDE_OGREADVANCEDRENDERCONTROLS_H_
 
 #include "OgreInput.h"
-#include "OgreComponents.h"
-#include "OgreBitesPrerequisites.h"
 
 namespace Ogre {
     class Camera;

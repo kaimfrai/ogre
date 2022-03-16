@@ -6,7 +6,6 @@
 #ifndef SAMPLES_COMMON_INCLUDE_INPUT_H_
 #define SAMPLES_COMMON_INCLUDE_INPUT_H_
 
-#include "OgreBitesPrerequisites.h"
 #include <vector>
 
 namespace Ogre {

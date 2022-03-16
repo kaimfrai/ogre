@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef COMPONENTS_BITES_INCLUDE_OGREBITESCONFIGDIALOG_H_
 #define COMPONENTS_BITES_INCLUDE_OGREBITESCONFIGDIALOG_H_
 
-#include "OgreBitesPrerequisites.h"
 
 namespace Ogre {
     class ConfigDialog;

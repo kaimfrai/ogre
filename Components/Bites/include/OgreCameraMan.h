@@ -28,7 +28,6 @@
 #ifndef __SdkCameraMan_H__
 #define __SdkCameraMan_H__
 
-#include "OgreBitesPrerequisites.h"
 #include "OgreInput.h"
 #include "OgreMath.h"
 #include "OgreNode.h"

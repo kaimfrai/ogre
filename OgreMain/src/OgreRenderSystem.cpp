@@ -73,7 +73,6 @@ THE SOFTWARE.
 
 #include "OgreRenderTarget.h"
 #include "OgreDepthBuffer.h"
-#include "OgreComponents.h"
 
 #include "OgreRTShaderConfig.h"
 

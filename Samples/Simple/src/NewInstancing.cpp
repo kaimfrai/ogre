@@ -9,7 +9,6 @@
 #include "OgreAnimationState.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
-#include "OgreComponents.h"
 #include "OgreEntity.h"
 #include "OgreFrameListener.h"
 #include "OgreInstancedEntity.h"

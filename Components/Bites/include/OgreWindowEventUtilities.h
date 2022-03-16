@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef __OgreWindowEventUtils_H__
 #define __OgreWindowEventUtils_H__
 
-#include "OgreBitesPrerequisites.h"
 #include "OgrePlatform.h"
 
 namespace Ogre {

@@ -35,8 +35,6 @@
 #include <utility>
 #include <vector>
 
-#include "OgreBitesPrerequisites.h"
-#include "OgreComponents.h"
 #include "OgreFrameListener.h"
 #include "OgreStaticPluginLoader.h"
 #include "OgreCommon.h"
