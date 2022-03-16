@@ -44,7 +44,6 @@ THE SOFTWARE.
 #include "OgrePass.h"
 #include "OgrePixelFormat.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreSceneManager.h"
 #include "OgreScriptCompiler.h"
 #include "OgreShaderExIntegratedPSSM3.h"

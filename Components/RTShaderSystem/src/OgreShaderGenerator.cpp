@@ -50,7 +50,6 @@ THE SOFTWARE.
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePass.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreRenderObjectListener.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreSceneManager.h"
@@ -89,7 +88,6 @@ THE SOFTWARE.
 #include "OgreUserObjectBindings.h"
 #include "OgreVector.h"
 #include "OgreViewport.h"
-#include "Threading/OgreThreadDefinesNone.h"
 
 namespace Ogre {
 class AutoParamDataSource;

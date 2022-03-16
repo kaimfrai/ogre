@@ -28,7 +28,6 @@ THE SOFTWARE.
 #define _ShaderExNormalMapLighting_
 
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreShaderSubRenderState.h"
 #include "OgreTextureUnitState.h"
 #include "OgreShaderFFPRenderState.h"

@@ -42,7 +42,6 @@ THE SOFTWARE.
 #include "OgrePass.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRoot.h"

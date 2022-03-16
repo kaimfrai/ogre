@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePass.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreScriptCompiler.h"
 #include "OgreShaderFFPColour.h"
 #include "OgreShaderFFPRenderState.h"

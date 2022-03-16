@@ -35,10 +35,8 @@ THE SOFTWARE.
 #include "OgreShaderPrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreException.h"
-#include "OgreExports.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderExports.h"
 
 namespace Ogre {
 namespace RTShader {

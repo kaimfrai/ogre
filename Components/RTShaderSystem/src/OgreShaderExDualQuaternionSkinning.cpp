@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreShaderExDualQuaternionSkinning.h"
 #include "OgreShaderExHardwareSkinningTechnique.h"
 #include "OgreShaderFFPRenderState.h"

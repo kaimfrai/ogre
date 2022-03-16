@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "OgreShaderPrerequisites.h"
 #include "OgreCommon.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreShaderSubRenderState.h"
 
 namespace Ogre {

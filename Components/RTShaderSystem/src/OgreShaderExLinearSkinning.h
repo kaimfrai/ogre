@@ -28,7 +28,6 @@ THE SOFTWARE.
 #define _ShaderExLinearSkinning_
 
 #include "OgreShaderPrerequisites.h"
-#include "OgreRTShaderConfig.h"
 
 namespace Ogre {
 namespace RTShader {

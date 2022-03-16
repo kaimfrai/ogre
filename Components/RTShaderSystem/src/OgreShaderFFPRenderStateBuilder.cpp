@@ -24,7 +24,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreRTShaderConfig.h"
 #include "OgreShaderExPerPixelLighting.h"
 #include "OgreShaderFFPAlphaTest.h"
 #include "OgreShaderFFPColour.h"

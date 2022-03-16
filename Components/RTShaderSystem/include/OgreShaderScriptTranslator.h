@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include "OgreScriptTranslator.h"
 #include "OgreScriptCompiler.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderExports.h"
 
 namespace Ogre {
 namespace RTShader {

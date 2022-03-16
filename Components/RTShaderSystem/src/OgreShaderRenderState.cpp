@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreMaterial.h"
 #include "OgrePass.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreShaderFFPColour.h"
 #include "OgreShaderFFPLighting.h"
 #include "OgreShaderFFPRenderState.h"

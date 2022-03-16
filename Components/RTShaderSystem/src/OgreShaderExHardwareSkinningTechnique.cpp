@@ -29,7 +29,6 @@ THE SOFTWARE.
 
 #include "OgreException.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreShaderExHardwareSkinningTechnique.h"
 #include "OgreShaderFunctionAtom.h"
 

@@ -28,8 +28,6 @@ THE SOFTWARE.
 #define _ShaderFFPTransform_
 
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
-#include "OgreRTShaderExports.h"
 #include "OgreShaderSubRenderState.h"
 #include "OgreShaderParameter.h"
 

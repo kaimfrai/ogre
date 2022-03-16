@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePass.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreShaderFFPAlphaTest.h"
 #include "OgreShaderFFPRenderState.h"
 #include "OgreShaderFunction.h"

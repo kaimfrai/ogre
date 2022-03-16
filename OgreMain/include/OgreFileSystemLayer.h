@@ -33,7 +33,6 @@
 
 #include "OgrePrerequisites.h"
 #include "OgreStringVector.h"
-#include "OgreExports.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre

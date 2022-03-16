@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgreShaderParameter.h"
 #include "OgreException.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderExports.h"
 
 namespace Ogre {
 namespace RTShader {

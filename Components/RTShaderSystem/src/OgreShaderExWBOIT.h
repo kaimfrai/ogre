@@ -6,7 +6,6 @@
 #define _ShaderWBOIT_
 
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreShaderSubRenderState.h"
 
 namespace Ogre {

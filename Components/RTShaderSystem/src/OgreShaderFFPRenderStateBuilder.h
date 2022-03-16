@@ -27,7 +27,6 @@ THE SOFTWARE.
 #ifndef _ShaderFFPRenderStateBuilder_
 #define _ShaderFFPRenderStateBuilder_
 
-#include "OgreRTShaderConfig.h"
 #include "OgreShaderGenerator.h"
 
 namespace Ogre {

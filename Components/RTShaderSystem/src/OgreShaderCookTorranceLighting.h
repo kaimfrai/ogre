@@ -7,7 +7,6 @@
 
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreShaderSubRenderState.h"
 #include "OgreShaderFFPRenderState.h"
 

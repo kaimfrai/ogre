@@ -32,8 +32,6 @@ THE SOFTWARE.
 
 #include "OgreShaderPrerequisites.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
-#include "OgreRTShaderExports.h"
 #include "OgreShaderSubRenderState.h"
 #include "OgreLight.h"
 #include "OgreCommon.h"

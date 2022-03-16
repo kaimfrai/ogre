@@ -33,11 +33,8 @@ THE SOFTWARE.
 
 #include "OgreShaderPrerequisites.h"
 #include "OgreBlendMode.h"
-#include "OgreExports.h"
 #include "OgreGpuProgramParams.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
-#include "OgreRTShaderExports.h"
 #include "OgreShaderFunctionAtom.h"
 #include "OgreShaderSubRenderState.h"
 #include "OgreRenderSystem.h"

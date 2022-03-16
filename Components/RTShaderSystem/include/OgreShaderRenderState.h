@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgreShaderSubRenderState.h"
 #include "OgreCommon.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderExports.h"
 #include "OgreStringVector.h"
 #include "OgreVector.h"
 

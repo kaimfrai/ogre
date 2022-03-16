@@ -28,7 +28,6 @@ THE SOFTWARE.
 #define _ShaderExDualQuaternionSkinning_
 
 #include "OgreShaderPrerequisites.h"
-#include "OgreRTShaderConfig.h"
 
 namespace Ogre {
 namespace RTShader {

@@ -14,7 +14,6 @@
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePass.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderConfig.h"
 #include "OgreScriptCompiler.h"
 #include "OgreShaderCookTorranceLighting.h"
 #include "OgreShaderFFPRenderState.h"

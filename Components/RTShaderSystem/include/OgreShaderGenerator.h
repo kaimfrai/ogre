@@ -47,11 +47,8 @@ THE SOFTWARE.
 #include "OgrePass.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
-#include "OgreRTShaderExports.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreScriptCompiler.h"
-#include "Threading/OgreThreadDefinesNone.h"
-
 
 namespace Ogre {
 class AutoParamDataSource;
