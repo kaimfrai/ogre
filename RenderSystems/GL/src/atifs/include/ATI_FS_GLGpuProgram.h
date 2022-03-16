@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __ATI_FS_GLGpuProgram_H__
 #define __ATI_FS_GLGpuProgram_H__
 
-#include "OgreGLPrerequisites.h"
 #include "OgreGLGpuProgram.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"

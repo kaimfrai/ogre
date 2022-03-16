@@ -21,7 +21,6 @@
 #include "OgreMatrix4.h"
 #include "OgreOverlayManager.h"
 #include "OgrePanelOverlayElement.h"
-#include "OgrePlatform.h"
 #include "OgreRenderTarget.h"
 #include "OgreRenderWindow.h"
 #include "OgreRoot.h"

@@ -29,7 +29,6 @@ THE SOFTWARE.
 #define __OgreGLFBORTT_H__
 
 #include "OgreGLFrameBufferObject.h"
-#include "OgreGLPrerequisites.h"
 #include "OgreGLRenderTexture.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"

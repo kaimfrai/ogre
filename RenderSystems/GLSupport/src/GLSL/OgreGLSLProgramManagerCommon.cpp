@@ -37,7 +37,6 @@
 #include "OgreStringConverter.h"
 #include "OgreGLSLProgramCommon.h"
 #include "OgreLog.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreString.h"
 #include "OgreStringVector.h"
 

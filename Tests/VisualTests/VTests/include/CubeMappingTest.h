@@ -30,7 +30,6 @@ THE SOFTWARE.
 #define __CubeMappingTest_H__
 
 #include "VisualTest.h"
-#include "SamplePlugin.h"
 #include "OgrePlatform.h"
 
 using namespace Ogre;

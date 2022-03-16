@@ -30,7 +30,6 @@ THE SOFTWARE.
 #ifndef __GLSLProgramFactory_H__
 #define __GLSLProgramFactory_H__
 
-#include "OgreGLPrerequisites.h"
 #include "OgreGpuProgramManager.h"
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"

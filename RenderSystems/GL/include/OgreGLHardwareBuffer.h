@@ -30,7 +30,6 @@ THE SOFTWARE.
 
 #include <stddef.h>
 
-#include "OgreGLPrerequisites.h"
 #include "OgreHardwareBuffer.h"
 #include "glad/glad.h"
 

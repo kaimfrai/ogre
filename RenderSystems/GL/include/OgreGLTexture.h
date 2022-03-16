@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __GLTEXTURE_H__
 #define __GLTEXTURE_H__
 
-#include "OgreGLPrerequisites.h"
 #include "OgreGLTextureCommon.h"
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"

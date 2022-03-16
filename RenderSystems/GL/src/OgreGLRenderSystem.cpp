@@ -80,7 +80,6 @@ THE SOFTWARE.
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreMath.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePixelFormat.h"
 #include "OgreRenderOperation.h"
 #include "OgreRenderSystemCapabilities.h"
@@ -92,6 +91,7 @@ THE SOFTWARE.
 #include "OgreTextureManager.h"
 #include "OgreVector.h"
 #include "OgreVertexIndexData.h"
+#include "OgreGLPrerequisites.h"
 
 namespace Ogre {
 class HardwareOcclusionQuery;

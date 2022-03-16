@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreGLSLShaderCommon.h"
 #include "OgreGLSLPreprocessor.h"
 #include "OgreException.h"
-#include "OgrePlatform.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
 #include "OgreString.h"

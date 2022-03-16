@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreOverlayElementFactory.h"
 #include "OgreFontManager.h"
 #include "OgreBorderPanelOverlayElement.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreOverlayProfileSessionListener.h"
 #include "OgrePanelOverlayElement.h"
 #include "OgreProfiler.h"

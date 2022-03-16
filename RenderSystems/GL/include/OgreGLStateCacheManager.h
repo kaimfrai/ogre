@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <set>
 #include <unordered_map>
 
-#include "OgreGLPrerequisites.h"
 #include "OgreGLStateCacheManagerCommon.h"
 #include "OgreCommon.h"
 #include "glad/glad.h"

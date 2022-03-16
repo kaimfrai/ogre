@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef __GLPIXELFORMAT_H__
 #define __GLPIXELFORMAT_H__
 
-#include "OgreGLPrerequisites.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 #include "glad/glad.h"

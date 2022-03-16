@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreArchive.h"
 #include "OgreArchiveFactory.h"
 #include "OgreDataStream.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreString.h"

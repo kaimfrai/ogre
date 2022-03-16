@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __GLGpuProgram_H__
 #define __GLGpuProgram_H__
 
-#include "OgreGLPrerequisites.h"
 #include "OgreGpuProgram.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgrePlatform.h"

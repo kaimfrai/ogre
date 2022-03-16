@@ -24,7 +24,6 @@
 #include "OgreInput.h"
 #include "OgreLogManager.h"
 #include "OgreMaterialManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreRenderSystem.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreSGTechniqueResolverListener.h"
@@ -32,6 +31,7 @@
 #include "OgreShaderGenerator.h"
 #include "OgreSharedPtr.h"
 #include "OgreString.h"
+#include "OgrePlatform.h"
 
 namespace OgreBites {
 

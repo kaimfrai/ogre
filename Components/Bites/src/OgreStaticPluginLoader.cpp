@@ -3,9 +3,9 @@
 #include <cstddef>
 
 #include "OgreRoot.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreGLPlugin.h"
 #include "OgreSTBICodec.h"
+#include "OgrePlugin.h"
 
 void OgreBites::StaticPluginLoader::load()
 {

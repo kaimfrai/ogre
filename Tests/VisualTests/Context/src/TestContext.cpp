@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "HTMLWriter.h"
 #include "CppUnitResultWriter.h"
 #include "OgreConfigFile.h"
-#include "OgrePlatform.h"
 #include "OgreBitesConfigDialog.h"
 #include "ImageValidator.h"
 #include "OgreCommon.h"
@@ -49,7 +48,6 @@ THE SOFTWARE.
 #include "OgreFileSystemLayer.h"
 #include "OgreFrameListener.h"
 #include "OgreLogManager.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreOverlaySystem.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderWindow.h"
@@ -59,7 +57,6 @@ THE SOFTWARE.
 #include "OgreTextureManager.h"
 #include "Sample.h"
 #include "TestBatch.h"
-
 #include "VTestPlugin.h"
 #include "PlayPenTestPlugin.h"
 

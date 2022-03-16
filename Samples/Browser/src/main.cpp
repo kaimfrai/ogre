@@ -28,11 +28,9 @@
 #include <iostream>
 #include <string>
 
-#include "OgrePlatform.h"
 #include "OgreException.h"
 #include "OgrePrerequisites.h"
 #include "OgreStringConverter.h"
-
 #include "SampleBrowser.h"
 
 int main(int argc, char *argv[]) {

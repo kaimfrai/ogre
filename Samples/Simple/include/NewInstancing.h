@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "SdkSample.h"
-#include "SamplePlugin.h"
 #include "OgreInput.h"
 #include "OgreInstanceManager.h"
 #include "OgrePlatform.h"

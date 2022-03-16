@@ -55,6 +55,7 @@ THE SOFTWARE.
 #include "OgrePass.h"
 #include "OgreRenderOperation.h"
 #include "OgreVertexIndexData.h"
+#include "OgreGLPrerequisites.h"
 
 namespace Ogre {
 //-----------------------------------------------------------------------------
