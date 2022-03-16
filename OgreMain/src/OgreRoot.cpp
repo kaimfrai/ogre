@@ -67,7 +67,6 @@ THE SOFTWARE.
 #include "OgreStaticGeometry.h"
 #include "OgreArchiveFactory.h"
 #include "OgreArchiveManager.h"
-#include "OgreBuildSettings.h"
 #include "OgreBuiltinMovableFactories.h"
 #include "OgreCommon.h"
 #include "OgreConfigOptionMap.h"

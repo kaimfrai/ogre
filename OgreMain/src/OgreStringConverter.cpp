@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgreStableHeaders.h"
-#include "OgreBuildSettings.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreException.h"

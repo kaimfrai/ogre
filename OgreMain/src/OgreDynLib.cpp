@@ -30,7 +30,6 @@ THE SOFTWARE.
 
 #include "OgreStableHeaders.h"
 #include "OgreDynLib.h"
-#include "OgreBuildSettings.h"
 #include "OgreException.h"
 #include "OgreLogManager.h"
 #include "OgreString.h"

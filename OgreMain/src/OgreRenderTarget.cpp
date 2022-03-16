@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "OgreRenderTargetListener.h"
 #include "OgreDepthBuffer.h"
 #include "OgreTimer.h"
-#include "OgreBuildSettings.h"
 #include "OgreException.h"
 #include "OgreImage.h"
 #include "OgreLog.h"

@@ -45,7 +45,6 @@
 #include "OgreGLXContext.h"
 #include "OgreGLXGLSupport.h"
 #include "OgreX11.h"
-#include "OgreBuildSettings.h"
 #include "OgreGLContext.h"
 #include "OgreGLNativeSupport.h"
 #include "OgreRenderTarget.h"

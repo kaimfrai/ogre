@@ -42,7 +42,6 @@ THE SOFTWARE.
 #include "OgreAnimation.h"
 #include "OgreAnimationTrack.h"
 #include "OgreSharedPtr.h"
-#include "OgreBuildSettings.h"
 #include "OgreCommon.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareVertexBuffer.h"

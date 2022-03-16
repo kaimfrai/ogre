@@ -56,7 +56,6 @@ THE SOFTWARE.
 #include "OgreFileSystem.h"
 #include "OgreArchiveManager.h"
 #include "OgreHighLevelGpuProgram.h"
-#include "OgreBuildSettings.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreDataStream.h"

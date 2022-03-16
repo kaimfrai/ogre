@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreResourceGroupManager.h"
 #include "OgreOverlayElementFactory.h"
 #include "OgreOverlayTranslator.h"
-#include "OgreBuildSettings.h"
 #include "OgreDataStream.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreOverlayElement.h"

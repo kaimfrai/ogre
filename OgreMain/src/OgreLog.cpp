@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include <condition_variable>
 
 #include "OgreStableHeaders.h"
-#include "OgreBuildSettings.h"
 #include "OgreLog.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"

@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include "OgreStableHeaders.h"
 #include "OgreResourceBackgroundQueue.h"
 #include "OgreAny.h"
-#include "OgreBuildSettings.h"
 #include "OgreException.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreResourceManager.h"

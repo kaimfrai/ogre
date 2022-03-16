@@ -52,7 +52,6 @@ THE SOFTWARE.
 #include "OgreLodStrategyManager.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreBone.h"
-#include "OgreBuildSettings.h"
 #include "OgreCodec.h"
 #include "OgreCommon.h"
 #include "OgreConfig.h"

@@ -104,9 +104,6 @@ if (NOT HAVE_STRTOL_L)
   set(OGRE_NO_LOCALE_STRCONVERT 1)
 endif ()
 
-# generate OgreBuildSettings.h
-configure_file(${OGRE_TEMPLATES_DIR}/OgreBuildSettings.h.in ${PROJECT_BINARY_DIR}/include/OgreBuildSettings.h @ONLY)
-
 set(OGRE_LIB_SUFFIX "")
 
 if (OGRE_STATIC)

@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreScriptCompiler.h"
 #include "OgreRenderSystem.h"
 #include "OgreBlendMode.h"
-#include "OgreBuildSettings.h"
 #include "OgreCommon.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMemoryAllocatorConfig.h"

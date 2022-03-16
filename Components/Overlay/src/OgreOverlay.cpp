@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreSceneNode.h"
 #include "OgreRenderQueue.h"
 #include "OgreCamera.h"
-#include "OgreBuildSettings.h"
 #include "OgreMatrix3.h"
 #include "OgreOverlayElement.h"
 #include "OgrePlatform.h"

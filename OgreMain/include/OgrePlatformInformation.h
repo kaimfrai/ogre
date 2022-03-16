@@ -29,7 +29,6 @@ THE SOFTWARE.
 #define __PlatformInformation_H__
 
 #include "OgrePrerequisites.h"
-#include "OgreBuildSettings.h"
 #include "OgrePlatform.h"
 
 namespace Ogre {

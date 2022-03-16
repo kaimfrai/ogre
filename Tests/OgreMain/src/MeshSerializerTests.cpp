@@ -61,7 +61,6 @@ THE SOFTWARE.
 #include "OgreAnimation.h"
 #include "OgreAnimationTrack.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreBuildSettings.h"
 #include "OgreFileSystemLayer.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareIndexBuffer.h"

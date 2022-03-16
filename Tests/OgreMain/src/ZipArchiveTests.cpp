@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreConfigFile.h"
 #include "OgreFileSystemLayer.h"
 #include "OgreArchive.h"
-#include "OgreBuildSettings.h"
 #include "OgreDataStream.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"

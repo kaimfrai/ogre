@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgreStableHeaders.h"
-#include "OgreBuildSettings.h"
 #include "OgreCamera.h"
 #include "OgreCommon.h"
 #include "OgreException.h"

@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreKeyFrame.h"
 #include "OgreAnimable.h"
 #include "OgreAny.h"
-#include "OgreBuildSettings.h"
 #include "OgreException.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreMath.h"

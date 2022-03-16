@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreEdgeListBuilder.h"
 #include "OgreKeyFrame.h"
 #include "OgreVertexBoneAssignment.h"
-#include "OgreBuildSettings.h"
 #include "OgreHardwareVertexBuffer.h"
 
 namespace Ogre {

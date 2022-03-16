@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreRenderSystem.h"
 #include "OgreGLRenderSystemCommon.h"
 #include "OgreBlendMode.h"
-#include "OgreBuildSettings.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreConfig.h"

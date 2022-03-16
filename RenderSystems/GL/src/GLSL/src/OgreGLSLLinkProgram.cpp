@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "OgreGLSLLinkProgramManager.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreGLSLProgramCommon.h"
-#include "OgreBuildSettings.h"
 #include "OgreDataStream.h"
 #include "OgreGLSLShaderCommon.h"
 #include "OgreGLUniformCache.h"

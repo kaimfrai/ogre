@@ -28,12 +28,6 @@ THE SOFTWARE.
 #ifndef __Config_H_
 #define __Config_H_
 
-// Include the CMake-generated build settings.
-// If you get complaints that this file is missing, then you're probably
-// trying to link directly against your source dir. You must then add
-// %BUILD_DIR%/include to your include search path to find OgreBuildSettings.h.
-#include "OgreBuildSettings.h"
-
 /** Define number of texture coordinate sets allowed per vertex.
 */
 #define OGRE_MAX_TEXTURE_COORD_SETS 8

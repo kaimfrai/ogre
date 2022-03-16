@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "OgreStableHeaders.h"
 #include "OgreMovablePlane.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreBuildSettings.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
 #include "OgreFrustum.h"

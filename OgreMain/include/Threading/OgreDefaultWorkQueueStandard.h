@@ -35,7 +35,6 @@ THE SOFTWARE
 #include <condition_variable>
 
 #include "../OgreWorkQueue.h"
-#include "OgreBuildSettings.h"
 #include "OgreCommon.h"
 #include "OgrePrerequisites.h"
 

@@ -29,7 +29,6 @@ THE SOFTWARE.
 
 #include "OgreStableHeaders.h"
 #include "OgreResourceManager.h"
-#include "OgreBuildSettings.h"
 #include "OgreException.h"
 #include "OgreScriptCompiler.h"
 #include "OgreStringConverter.h"

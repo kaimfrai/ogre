@@ -42,7 +42,6 @@ THE SOFTWARE.
 #include "OgrePlatform.h"
 #include "OgreBitesConfigDialog.h"
 #include "ImageValidator.h"
-#include "OgreBuildSettings.h"
 #include "OgreCommon.h"
 #include "OgreConfigOptionMap.h"
 #include "OgreControllerManager.h"

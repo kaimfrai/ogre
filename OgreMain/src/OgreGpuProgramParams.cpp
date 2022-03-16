@@ -36,7 +36,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include "OgreDualQuaternion.h"
 #include "OgreRenderTarget.h"
 #include "OgreAutoParamDataSource.h"
-#include "OgreBuildSettings.h"
 #include "OgreColourValue.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"

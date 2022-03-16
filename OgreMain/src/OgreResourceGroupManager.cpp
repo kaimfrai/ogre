@@ -44,7 +44,6 @@ THE SOFTWARE.
 #include "OgreScriptLoader.h"
 #include "OgreArchive.h"
 #include "OgreArchiveManager.h"
-#include "OgreBuildSettings.h"
 #include "OgreCommon.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"

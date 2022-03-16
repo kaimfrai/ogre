@@ -30,7 +30,6 @@
 #include <set>
 
 #include "NewInstancing.h"
-#include "OgreBuildSettings.h"
 #include "OgreInput.h"
 #include "OgrePlatform.h"
 #include "Sample.h"

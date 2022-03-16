@@ -9,7 +9,6 @@
 #include <utility>
 
 #include "OgreDefaultHardwareBufferManager.h"
-#include "OgreBuildSettings.h"
 #include "OgreConfigFile.h"
 #include "OgreFileSystemLayer.h"
 #include "OgreHardwareBufferManager.h"

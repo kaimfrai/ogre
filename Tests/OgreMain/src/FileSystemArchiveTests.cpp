@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreConfigFile.h"
 #include "OgreFileSystemLayer.h"
 #include "OgreArchive.h"
-#include "OgreBuildSettings.h"
 #include "OgreDataStream.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringVector.h"

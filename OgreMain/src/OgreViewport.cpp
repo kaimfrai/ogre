@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "OgreStableHeaders.h"
 #include "OgreViewport.h"
 #include "OgreRenderTarget.h"
-#include "OgreBuildSettings.h"
 #include "OgreCamera.h"
 #include "OgreException.h"
 #include "OgreLog.h"

@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include "OgreStableHeaders.h"
 #include "OgreViewport.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreBuildSettings.h"
 #include "OgreCamera.h"
 #include "OgreCommon.h"
 #include "OgreFrustum.h"

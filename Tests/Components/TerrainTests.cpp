@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "OgreTerrain.h"
 #include "OgreFileSystemLayer.h"
 
-#include "OgreBuildSettings.h"
 #include "OgreStaticPluginLoader.h"
 #include "OgreConfigFile.h"
 #include "OgreResourceGroupManager.h"

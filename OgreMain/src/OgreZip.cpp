@@ -41,7 +41,6 @@ THE SOFTWARE.
 
 #include "OgreStableHeaders.h"
 #include "OgreArchive.h"
-#include "OgreBuildSettings.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
 #include "OgreFileSystem.h"

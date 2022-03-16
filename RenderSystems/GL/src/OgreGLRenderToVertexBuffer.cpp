@@ -43,7 +43,6 @@ THE SOFTWARE.
 #include "OgreStringConverter.h"
 #include "OgreLogManager.h"
 #include "OgreTechnique.h"
-#include "OgreBuildSettings.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
 #include "OgreGLSLLinkProgram.h"

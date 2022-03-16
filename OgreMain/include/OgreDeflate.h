@@ -31,7 +31,6 @@
 #include <assert.h>
 #include <string.h>
 
-#include "OgreBuildSettings.h"
 #include "OgreSharedPtr.h"
 
 #include "OgrePrerequisites.h"

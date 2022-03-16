@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgreStableHeaders.h"
-#include "OgreBuildSettings.h"
 #include "OgreCommon.h"
 #include "OgreConfig.h"
 #include "OgreConfigOptionMap.h"

@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreLogManager.h"
 #include "OgreDataStream.h"
 #include "OgrePlatformInformation.h"
-#include "OgreBuildSettings.h"
 #include "OgreCodec.h"
 #include "OgreCommon.h"
 #include "OgreException.h"

@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include "OgreRoot.h"
 #include "OgrePageManager.h"
 #include "OgreGrid2DPageStrategy.h"
-#include "OgreBuildSettings.h"
 
 
 #include "OgreStaticPluginLoader.h"
