@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef __OgreGLContext_H__
 #define __OgreGLContext_H__
 
-#include "OgreGLSupportPrerequisites.h"
 #include "OgreGLStateCacheManagerCommon.h"
 #include "OgreSharedPtr.h"
 

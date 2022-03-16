@@ -30,7 +30,6 @@ THE SOFTWARE.
 #define __GLStateCacheManagerCommon_H__
 
 #include "OgrePrerequisites.h"
-#include "OgreGLSupportPrerequisites.h"
 #include "OgreCommon.h"
 
 namespace Ogre

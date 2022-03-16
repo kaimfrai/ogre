@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLTEXTURECOMMON_H_
 #define RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLTEXTURECOMMON_H_
 
-#include "OgreGLSupportPrerequisites.h"
 #include "OgreTexture.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"

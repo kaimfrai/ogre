@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __GLNativeSupport_H__
 #define __GLNativeSupport_H__
 
-#include "OgreGLSupportPrerequisites.h"
 #include "OgreConfigOptionMap.h"
 #include "OgrePixelFormat.h"
 #include "OgreException.h"

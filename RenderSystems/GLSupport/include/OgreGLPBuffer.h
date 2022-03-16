@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __GLPBUFFER_H__
 #define __GLPBUFFER_H__
 
-#include "OgreGLSupportPrerequisites.h"
 #include "OgreGLRenderTarget.h"
 #include "OgrePixelFormat.h"
 

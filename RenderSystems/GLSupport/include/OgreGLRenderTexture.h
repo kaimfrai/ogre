@@ -33,7 +33,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include <map>
 #include <vector>
 
-#include "OgreGLSupportPrerequisites.h"
 #include "OgreRenderTexture.h"
 #include "OgreSingleton.h"
 #include "OgreGLRenderTarget.h"

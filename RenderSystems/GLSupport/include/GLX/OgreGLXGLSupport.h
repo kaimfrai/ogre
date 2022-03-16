@@ -30,7 +30,6 @@
 
 #include "OgreGLNativeSupport.h"
 #include "OgreCommon.h"
-#include "OgreGLSupportPrerequisites.h"
 #include "OgrePixelFormat.h"
 #include "OgrePrerequisites.h"
 

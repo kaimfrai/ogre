@@ -31,7 +31,6 @@ THE SOFTWARE.
 
 #include <unordered_map>
 
-#include "OgreGLSupportPrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 

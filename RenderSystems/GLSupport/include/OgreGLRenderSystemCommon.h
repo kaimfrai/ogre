@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include <list>
 #include <set>
 
-#include "OgreGLSupportPrerequisites.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderWindow.h"
 #include "OgrePixelFormat.h"
