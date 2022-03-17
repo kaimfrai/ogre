@@ -111,6 +111,7 @@ namespace Ogre {
         history.minTimeMicrosecs = 100000000;
         history.currentTimePercent = 0;
         history.currentTimeMicrosecs = 0;
+        history.sumOfSquareMicrosecs = 0;
 
         frame.frameTime = 0;
         frame.calls = 0;
@@ -375,37 +376,39 @@ namespace Ogre {
         // calculate what percentage of frame time this profile took
         const long double framePercentage = (long double) instance->frame.frameTime / (long double) mTotalFrameTime;
 
-        const ulong frameTimeMircosecs = instance->frame.frameTime;
+        const ulong frameTimeMicrosecs = instance->frame.frameTime;
 
         // update the profile stats
         instance->history.currentTimePercent = framePercentage;
-        instance->history.currentTimeMicrosecs = frameTimeMircosecs;
+        instance->history.currentTimeMicrosecs = frameTimeMicrosecs;
         if(mResetExtents)
         {
             instance->history.totalTimePercent = framePercentage;
-            instance->history.totalTimeMicrosecs = frameTimeMircosecs;
+            instance->history.totalTimeMicrosecs = frameTimeMicrosecs;
+            instance->history.sumOfSquareMicrosecs = frameTimeMicrosecs * frameTimeMicrosecs;
             instance->history.totalCalls = 1;
         }
         else
         {
             instance->history.totalTimePercent += framePercentage;
-            instance->history.totalTimeMicrosecs += frameTimeMircosecs;
+            instance->history.totalTimeMicrosecs += frameTimeMicrosecs;
+            instance->history.sumOfSquareMicrosecs += frameTimeMicrosecs * frameTimeMicrosecs;
             instance->history.totalCalls++;
         }
         instance->history.numCallsThisFrame = instance->frame.calls;
 
         // if we find a new minimum for this profile, update it
-        if (frameTimeMircosecs < instance->history.minTimeMicrosecs || mResetExtents)
+        if (frameTimeMicrosecs < instance->history.minTimeMicrosecs || mResetExtents)
         {
             instance->history.minTimePercent = framePercentage;
-            instance->history.minTimeMicrosecs = frameTimeMircosecs;
+            instance->history.minTimeMicrosecs = frameTimeMicrosecs;
         }
 
         // if we find a new maximum for this profile, update it
-        if (frameTimeMircosecs > instance->history.maxTimeMicrosecs || mResetExtents)
+        if (frameTimeMicrosecs > instance->history.maxTimeMicrosecs || mResetExtents)
         {
             instance->history.maxTimePercent = framePercentage;
-            instance->history.maxTimeMicrosecs = frameTimeMircosecs;
+            instance->history.maxTimeMicrosecs = frameTimeMicrosecs;
         }
 
         if(instance->frame.frameTime > maxFrameTime)
@@ -562,6 +565,14 @@ namespace Ogre {
         +   StringConverter::toString
             (   (long double)(history.totalTimeMicrosecs)
             /   (long double)(history.totalCalls)
+            )
+        +   " | StdDev "
+        +   StringConverter::toString
+            (   history.StandardDeviation()
+            )
+        +   " | Calls "
+        +   StringConverter::toString
+            (   history.totalCalls
             )
         );
 

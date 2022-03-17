@@ -45,6 +45,7 @@ Ogre-dependent is in the visualization/logging routines and the use of the Timer
 #include <set>
 #include <string>
 #include <vector>
+#include <cmath>
 
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
@@ -112,8 +113,11 @@ namespace Ogre {
         /// The minimum frame time this profile has taken in microseconds
         ulong    minTimeMicrosecs;
 
+
         /// The total frame time this profile has taken in microseconds
         ulong    totalTimeMicrosecs;
+        /// The total sum of all squares of the time taken in microseconds.
+        ulong    sumOfSquareMicrosecs;
 
         /// The total number of times this profile was called
         /// (used to calculate average)
@@ -124,6 +128,17 @@ namespace Ogre {
 
         /// The hierarchical level of this profile, 0 being the root profile
         uint    hierarchicalLvl;
+
+        long double StandardDeviation() const
+        {
+            if (totalCalls == 0ul)
+                return 0.0l;
+
+            ulong const sumSquare = totalTimeMicrosecs * totalTimeMicrosecs;
+            ulong const numerator = totalCalls * sumOfSquareMicrosecs - sumSquare;
+            ulong const denominator = totalCalls * (totalCalls - 1ul);
+            return ::std::sqrt((long double)numerator / (long double)denominator);
+        }
     };
 
     /// Represents an individual profile call
