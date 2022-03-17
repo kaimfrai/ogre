@@ -97,35 +97,33 @@ namespace Ogre {
     struct ProfileHistory 
     {
         /// The current percentage of frame time this profile has taken
-        Real    currentTimePercent; 
-        /// The current frame time this profile has taken in milliseconds
-        Real    currentTimeMillisecs;
-
+        long double currentTimePercent;
         /// The maximum percentage of frame time this profile has taken
-        Real    maxTimePercent; 
-        /// The maximum frame time this profile has taken in milliseconds
-        Real    maxTimeMillisecs; 
-
+        long double maxTimePercent;
         /// The minimum percentage of frame time this profile has taken
-        Real    minTimePercent; 
-        /// The minimum frame time this profile has taken in milliseconds
-        Real    minTimeMillisecs; 
+        long double minTimePercent;
+        /// The total percentage of frame time this profile has taken
+        long double totalTimePercent;
+
+        /// The current frame time this profile has taken in microseconds
+        ulong    currentTimeMicrosecs;
+        /// The maximum frame time this profile has taken in microseconds
+        ulong    maxTimeMicrosecs;
+        /// The minimum frame time this profile has taken in microseconds
+        ulong    minTimeMicrosecs;
+
+        /// The total frame time this profile has taken in microseconds
+        ulong    totalTimeMicrosecs;
+
+        /// The total number of times this profile was called
+        /// (used to calculate average)
+        ulong   totalCalls;
 
         /// The number of times this profile has been called each frame
         uint    numCallsThisFrame;
 
-        /// The total percentage of frame time this profile has taken
-        Real    totalTimePercent;
-        /// The total frame time this profile has taken in milliseconds
-        Real    totalTimeMillisecs;
-
-        /// The total number of times this profile was called
-        /// (used to calculate average)
-        ulong   totalCalls; 
-
         /// The hierarchical level of this profile, 0 being the root profile
         uint    hierarchicalLvl;
-
     };
 
     /// Represents an individual profile call
@@ -143,7 +141,7 @@ namespace Ogre {
 
         inline bool watchForMax(void) { return history.currentTimePercent == history.maxTimePercent; }
         inline bool watchForMin(void) { return history.currentTimePercent == history.minTimePercent; }
-        inline bool watchForLimit(Real limit, bool greaterThan = true)
+        inline bool watchForLimit(long double limit, bool greaterThan = true)
         {
             if (greaterThan)
                 return history.currentTimePercent > limit;
@@ -153,7 +151,7 @@ namespace Ogre {
 
         bool watchForMax(const String& profileName);
         bool watchForMin(const String& profileName);
-        bool watchForLimit(const String& profileName, Real limit, bool greaterThan = true);
+        bool watchForLimit(const String& profileName, long double limit, bool greaterThan = true);
                                 
         /// The name of the profile
         String          name;
@@ -327,7 +325,7 @@ namespace Ogre {
             @param greaterThan If true, this will return whether the limit is exceeded. Otherwise,
             it will return if the frame time has gone under this limit.
             */
-            bool watchForLimit(const String& profileName, Real limit, bool greaterThan = true);
+            bool watchForLimit(const String& profileName, long double limit, bool greaterThan = true);
 
             /** Outputs current profile statistics to the log */
             void logResults();
@@ -376,7 +374,7 @@ namespace Ogre {
             /** Processes frame stats for all of the mRoot's children */
             void processFrameStats(void);
             /** Processes specific ProfileInstance and it's children recursively.*/
-            void processFrameStats(ProfileInstance* instance, Real& maxFrameTime);
+            void processFrameStats(ProfileInstance* instance, long double& maxFrameTime);
 
             /** Handles a change of the profiler's enabled state*/
             void changeEnableState();
@@ -421,8 +419,8 @@ namespace Ogre {
             /// The max frame time recorded
             ulong mMaxTotalFrameTime;
 
-            /// Rolling average of millisecs
-            Real mAverageFrameTime;
+            /// Rolling average of microsecs
+            long double mAverageFrameTime;
             bool mResetExtents;
 
 

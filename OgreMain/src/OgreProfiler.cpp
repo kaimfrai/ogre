@@ -103,14 +103,14 @@ namespace Ogre {
     {
         history.numCallsThisFrame = 0;
         history.totalTimePercent = 0;
-        history.totalTimeMillisecs = 0;
+        history.totalTimeMicrosecs = 0;
         history.totalCalls = 0;
         history.maxTimePercent = 0;
-        history.maxTimeMillisecs = 0;
+        history.maxTimeMicrosecs = 0;
         history.minTimePercent = 1;
-        history.minTimeMillisecs = 100000;
+        history.minTimeMicrosecs = 100000000;
         history.currentTimePercent = 0;
-        history.currentTimeMillisecs = 0;
+        history.currentTimeMicrosecs = 0;
 
         frame.frameTime = 0;
         frame.calls = 0;
@@ -370,46 +370,46 @@ namespace Ogre {
         Root::getSingleton().getRenderSystem()->markProfileEvent(event);
     }
     //-----------------------------------------------------------------------
-    void Profiler::processFrameStats(ProfileInstance* instance, Real& maxFrameTime)
+    void Profiler::processFrameStats(ProfileInstance* instance, long double& maxFrameTime)
     {
         // calculate what percentage of frame time this profile took
-        const Real framePercentage = (Real) instance->frame.frameTime / (Real) mTotalFrameTime;
+        const long double framePercentage = (long double) instance->frame.frameTime / (long double) mTotalFrameTime;
 
-        const Real frameTimeMillisecs = (Real) instance->frame.frameTime / 1000.0f;
+        const ulong frameTimeMircosecs = instance->frame.frameTime;
 
         // update the profile stats
         instance->history.currentTimePercent = framePercentage;
-        instance->history.currentTimeMillisecs = frameTimeMillisecs;
+        instance->history.currentTimeMicrosecs = frameTimeMircosecs;
         if(mResetExtents)
         {
             instance->history.totalTimePercent = framePercentage;
-            instance->history.totalTimeMillisecs = frameTimeMillisecs;
+            instance->history.totalTimeMicrosecs = frameTimeMircosecs;
             instance->history.totalCalls = 1;
         }
         else
         {
             instance->history.totalTimePercent += framePercentage;
-            instance->history.totalTimeMillisecs += frameTimeMillisecs;
+            instance->history.totalTimeMicrosecs += frameTimeMircosecs;
             instance->history.totalCalls++;
         }
         instance->history.numCallsThisFrame = instance->frame.calls;
 
         // if we find a new minimum for this profile, update it
-        if (frameTimeMillisecs < instance->history.minTimeMillisecs || mResetExtents)
+        if (frameTimeMircosecs < instance->history.minTimeMicrosecs || mResetExtents)
         {
             instance->history.minTimePercent = framePercentage;
-            instance->history.minTimeMillisecs = frameTimeMillisecs;
+            instance->history.minTimeMicrosecs = frameTimeMircosecs;
         }
 
         // if we find a new maximum for this profile, update it
-        if (frameTimeMillisecs > instance->history.maxTimeMillisecs || mResetExtents)
+        if (frameTimeMircosecs > instance->history.maxTimeMicrosecs || mResetExtents)
         {
             instance->history.maxTimePercent = framePercentage;
-            instance->history.maxTimeMillisecs = frameTimeMillisecs;
+            instance->history.maxTimeMicrosecs = frameTimeMircosecs;
         }
 
         if(instance->frame.frameTime > maxFrameTime)
-            maxFrameTime = (Real)instance->frame.frameTime;
+            maxFrameTime = (long double)instance->frame.frameTime;
 
         ProfileChildren::iterator it = instance->children.begin(), endit = instance->children.end();
         for(;it != endit; ++it)
@@ -429,7 +429,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Profiler::processFrameStats(void) 
     {
-        Real maxFrameTime = 0;
+        long double maxFrameTime = 0;
 
         ProfileChildren::iterator it = mRoot.children.begin(), endit = mRoot.children.end();
         for(;it != endit; ++it)
@@ -452,7 +452,7 @@ namespace Ogre {
         else
             mAverageFrameTime = (mAverageFrameTime + maxFrameTime) * 0.5f;
 
-        if ((Real)mMaxTotalFrameTime > mAverageFrameTime * 4)
+        if ((long double)mMaxTotalFrameTime > mAverageFrameTime * 4)
         {
             mResetExtents = true;
             mMaxTotalFrameTime = (ulong)mAverageFrameTime;
@@ -512,13 +512,13 @@ namespace Ogre {
         return false;
     }
     //-----------------------------------------------------------------------
-    bool Profiler::watchForLimit(const String& profileName, Real limit, bool greaterThan) 
+    bool Profiler::watchForLimit(const String& profileName, long double limit, bool greaterThan)
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
         return mRoot.watchForLimit(profileName, limit, greaterThan);
     }
     //-----------------------------------------------------------------------
-    bool ProfileInstance::watchForLimit(const String& profileName, Real limit, bool greaterThan) 
+    bool ProfileInstance::watchForLimit(const String& profileName, long double limit, bool greaterThan)
     {
         ProfileChildren::iterator it = children.begin(), endit = children.end();
         for(;it != endit; ++it)
@@ -548,13 +548,22 @@ namespace Ogre {
         String indent = "";
         for (uint i = 0; i < hierarchicalLvl; ++i) 
         {
-            indent = indent + "\t";
+            indent = indent + "  ";
         }
 
-        LogManager::getSingleton().logMessage(indent + "Name " + name + 
-                        " | Min " + StringConverter::toString(history.minTimePercent) + 
-                        " | Max " + StringConverter::toString(history.maxTimePercent) + 
-                        " | Avg "+ StringConverter::toString(history.totalTimePercent / history.totalCalls));   
+        LogManager::getSingleton().logMessage
+        (   indent
+        +   name
+        +   " | Min "
+        +   StringConverter::toString(history.minTimeMicrosecs)
+        +   " | Max "
+        +   StringConverter::toString(history.maxTimeMicrosecs)
+        +   " | Avg "
+        +   StringConverter::toString
+            (   (long double)(history.totalTimeMicrosecs)
+            /   (long double)(history.totalCalls)
+            )
+        );
 
         for(ProfileChildren::iterator it = children.begin(); it != children.end(); ++it)
         {
@@ -571,11 +580,11 @@ namespace Ogre {
     void ProfileInstance::reset(void)
     {
         history.currentTimePercent = history.maxTimePercent = history.totalTimePercent = 0;
-        history.currentTimeMillisecs = history.maxTimeMillisecs = history.totalTimeMillisecs = 0;
+        history.currentTimeMicrosecs = history.maxTimeMicrosecs = history.totalTimeMicrosecs = 0;
         history.numCallsThisFrame = history.totalCalls = 0;
 
         history.minTimePercent = 1;
-        history.minTimeMillisecs = 100000;
+        history.minTimeMicrosecs = 100000000;
         for(ProfileChildren::iterator it = children.begin(); it != children.end(); ++it)
         {
             it->second->reset();

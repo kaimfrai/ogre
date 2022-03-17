@@ -481,6 +481,7 @@ void Sample_NewInstancing::cleanupContent()
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::animateUnits( float timeSinceLast )
 {
+    Ogre::Profile profile("Animate");
     //Iterates through all AnimationSets and updates the animation being played. Demonstrates the
     //animation is unique and independent to each instance
     std::set<AnimationState*>::const_iterator itor = mAnimations.begin();
@@ -496,6 +497,7 @@ void Sample_NewInstancing::animateUnits( float timeSinceLast )
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::moveUnits( float timeSinceLast )
 {
+    Ogre::Profile profile("Move");
     Real fMovSpeed = 1.0f;
 
     if( !mEntities.empty() )

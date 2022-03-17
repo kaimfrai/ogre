@@ -614,7 +614,6 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     bool Root::_fireFrameStarted(FrameEvent& evt)
     {
-        Ogre::Profiler::getSingleton().beginProfile("Frame", OGREPROF_GENERAL);
         _syncAddedRemovedFrameListeners();
 
         // Tell all listeners
@@ -673,8 +672,6 @@ namespace Ogre {
 
         // Tell the queue to process responses
         mWorkQueue->processResponses();
-
-        Ogre::Profiler::getSingleton().endProfile("Frame", OGREPROF_GENERAL);
 
         return ret;
     }
@@ -766,8 +763,11 @@ namespace Ogre {
 
         while( !mQueuedEnd )
         {
+            Ogre::Profile frameProfile("Frame", OGREPROF_GENERAL);
             if (!renderOneFrame())
+            {
                 break;
+            }
         }
     }
     //-----------------------------------------------------------------------

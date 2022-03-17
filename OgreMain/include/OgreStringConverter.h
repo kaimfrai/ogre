@@ -88,6 +88,11 @@ namespace Ogre {
                                unsigned short width = 0, char fill = ' ',
                                std::ios::fmtflags flags = std::ios::fmtflags(0));
 
+        /** Converts a long double to a String. */
+        static String toString(long double val, unsigned short precision = 6,
+                               unsigned short width = 0, char fill = ' ',
+                               std::ios::fmtflags flags = std::ios::fmtflags(0));
+
         /** Converts a Radian to a String. */
         static String toString(Radian val, unsigned short precision = 6, 
             unsigned short width = 0, char fill = ' ', 

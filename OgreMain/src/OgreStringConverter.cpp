@@ -95,6 +95,20 @@ namespace Ogre {
         return stream.str();
     }
 
+    //-----------------------------------------------------------------------
+    String StringConverter::toString(long double val, unsigned short precision,
+                                     unsigned short width, char fill, std::ios::fmtflags flags)
+    {
+        StringStream stream;
+        stream.precision(precision);
+        stream.width(width);
+        stream.fill(fill);
+        if (flags)
+            stream.setf(flags);
+        stream << val;
+        return stream.str();
+    }
+
 
     //-----------------------------------------------------------------------
     String StringConverter::toString(const Vector2& val)
