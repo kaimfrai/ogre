@@ -65,7 +65,6 @@ THE SOFTWARE.
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgreHighLevelGpuProgram.h"
-#include "OgreHighLevelGpuProgramManager.h"
 #include "OgreInstanceBatch.h"
 #include "OgreInstancedEntity.h"
 #include "OgreInstanceManager.h"
