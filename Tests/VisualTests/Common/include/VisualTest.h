@@ -30,7 +30,9 @@ THE SOFTWARE.
 #define __VisualTest_H__
 
 #include "Sample.h"
-#include "Ogre.h"
+#include "OgreRenderWindow.h"
+#include "OgreViewport.h"
+#include "OgreFrameListener.h"
 
 // resource group that will be automatically unloaded after the close of the sample
 #define TRANSIENT_RESOURCE_GROUP "VisualTestTransient"

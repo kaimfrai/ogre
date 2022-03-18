@@ -29,7 +29,9 @@
 #define __SdkSample_H__
 
 #include "Sample.h"
-#include "Ogre.h"
+#include "OgreViewport.h"
+#include "OgreRenderWindow.h"
+#include "OgreTechnique.h"
 #include "OgreAdvancedRenderControls.h"
 #include "OgreOverlayManager.h"
 

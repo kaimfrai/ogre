@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __HTMLWriter_H__
 #define __HTMLWriter_H__
 
-#include "Ogre.h"
 #include "TinyHTML.h"
 #include "TestResultWriter.h"
 

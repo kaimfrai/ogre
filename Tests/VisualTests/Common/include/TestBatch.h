@@ -29,7 +29,6 @@ THE SOFTWARE.
 #ifndef __TestBatch_H__
 #define __TestBatch_H__
 
-#include "Ogre.h"
 #include "ImageValidator.h"
 
 class TestBatch;

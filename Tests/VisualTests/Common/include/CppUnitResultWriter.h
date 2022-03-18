@@ -30,7 +30,6 @@ THE SOFTWARE.
 #ifndef __CppUnitResultWriter_H__
 #define __CppUnitResultWriter_H__
 
-#include "Ogre.h"
 #include "TinyHTML.h"
 #include "ImageValidator.h"
 #include "TestBatch.h"

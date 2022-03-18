@@ -29,7 +29,9 @@ THE SOFTWARE.
 #ifndef __ImageValidator_H__
 #define __ImageValidator_H__
 
-#include "Ogre.h"
+#include "OgreConfigFile.h"
+#include "OgreArchiveManager.h"
+#include <fstream>
 
 /** Some functionality for comparing images */
 
