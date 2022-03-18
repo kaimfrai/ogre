@@ -131,7 +131,6 @@ set (TARGET_LINK_FLAGS "")
 
 # setup OgreMain target
 
-get_native_precompiled_header(OgreMain)
 add_library(OgreMain ${OGRE_LIB_TYPE} ${OgreMain_pch} ${HEADER_FILES} ${SOURCE_FILES} ${PLATFORM_HEADERS} ${PLATFORM_SOURCE_FILES} ${THREAD_HEADER_FILES} ${THREAD_SOURCE_FILES})
 
 if (WINDOWS_STORE OR WINDOWS_PHONE)
@@ -185,9 +184,6 @@ if (APPLE)
   endif()
 endif ()
 target_link_libraries(OgreMain PUBLIC ${PLATFORM_LIBS} PRIVATE ${LIBRARIES} ${CMAKE_DL_LIBS})
-
-# specify a precompiled header to use
-add_native_precompiled_header(OgreMain "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/src/OgreStableHeaders.h>")
 
 # install OgreMain
 ogre_config_lib(OgreMain TRUE)
