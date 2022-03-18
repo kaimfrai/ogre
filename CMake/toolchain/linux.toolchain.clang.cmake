@@ -14,3 +14,5 @@ add_link_options(-fuse-ld=lld)
 # including miniz.c to ensure miniz uses the 64-bit variants
 add_compile_options(-D_LARGEFILE64_SOURCE=1)
 
+#Keep assembly files for comparison
+add_compile_options(-save-temps=obj)
