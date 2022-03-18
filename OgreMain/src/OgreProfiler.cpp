@@ -82,12 +82,12 @@ namespace Ogre {
         , mUpdateDisplayFrequency(10)
         , mCurrentFrame(0)
         , mTimer(0)
-        , mTotalFrameTime(0)
+        , mTotalFrameClocks(0)
         , mEnabled(false)
         , mNewEnableState(false)
         , mProfileMask(0xFFFFFFFF)
-        , mMaxTotalFrameTime(0)
-        , mAverageFrameTime(0)
+        , mMaxTotalFrameClocks(0)
+        , mAverageFrameClocks(0)
         , mResetExtents(false)
     {
         mRoot.hierarchicalLvl = 0 - 1;
@@ -96,21 +96,22 @@ namespace Ogre {
     ProfileInstance::ProfileInstance(void)
         : parent(NULL)
         , frameNumber(0)
-        , accum(0)
+        , accumClocks(0)
         , hierarchicalLvl(0)
     {
         history.numCallsThisFrame = 0;
-        history.totalTimePercent = 0;
-        history.totalTimeMillisecs = 0;
+        history.totalClocksPercent = 0;
+        history.totalClocks = 0;
         history.totalCalls = 0;
-        history.maxTimePercent = 0;
-        history.maxTimeMillisecs = 0;
-        history.minTimePercent = 1;
-        history.minTimeMillisecs = 100000;
-        history.currentTimePercent = 0;
-        history.currentTimeMillisecs = 0;
+        history.maxClocksPercent = 0;
+        history.maxClocks = 0;
+        history.minClocksPercent = 1;
+        history.minClocks = static_cast<ulong>(-1l);
+        history.currentClocksPercent = 0;
+        history.currentClocks = 0;
+        history.sumOfSquareClocks = 0;
 
-        frame.frameTime = 0;
+        frame.frameClocks = 0;
         frame.calls = 0;
     }
     ProfileInstance::~ProfileInstance(void)
@@ -192,7 +193,7 @@ namespace Ogre {
         mDisabledProfiles.erase(profileName);
     }
     //-----------------------------------------------------------------------
-    void Profiler::beginProfile(const String& profileName, uint32 groupID) 
+    void Profiler::beginProfile(const String& profileName, uint32 groupID)
     {
         // if the profiler is enabled
         if (!mEnabled)
@@ -230,7 +231,7 @@ namespace Ogre {
             if(instance->frameNumber != mCurrentFrame)
             {   // new frame, reset stats
                 instance->frame.calls = 0;
-                instance->frame.frameTime = 0;
+                instance->frame.frameClocks = 0;
                 instance->frameNumber = mCurrentFrame;
             }
         }
@@ -248,7 +249,7 @@ namespace Ogre {
 
         // we do this at the very end of the function to get the most
         // accurate timing results
-        mCurrent->currTime = mTimer->getMicroseconds();
+        mCurrent->currentClock = mTimer->getCPUClocks();
     }
     //-----------------------------------------------------------------------
     void Profiler::endProfile(const String& profileName, uint32 groupID) 
@@ -307,7 +308,7 @@ namespace Ogre {
         // get the end time of this profile
         // we do this as close the beginning of this function as possible
         // to get more accurate timing results
-        const ulong endTime = mTimer->getMicroseconds();
+        const ulong endClock = mTimer->getCPUClocks();
 
         // empty string is reserved for designating an empty parent
         assert ((profileName != "") && ("Profile name can't be an empty string"));
@@ -318,16 +319,16 @@ namespace Ogre {
             return;
 
         // calculate the elapsed time of this profile
-        const ulong timeElapsed = endTime - mCurrent->currTime;
+        const ulong clocksElapsed = endClock - mCurrent->currentClock;
 
         // update parent's accumulator if it isn't the root
         if (&mRoot != mCurrent->parent) 
         {
             // add this profile's time to the parent's accumlator
-            mCurrent->parent->accum += timeElapsed;
+            mCurrent->parent->accumClocks += clocksElapsed;
         }
 
-        mCurrent->frame.frameTime += timeElapsed;
+        mCurrent->frame.frameClocks += clocksElapsed;
         ++mCurrent->frame.calls;
 
         mLast = mCurrent;
@@ -339,10 +340,10 @@ namespace Ogre {
             // we have reached the end of the frame so process the frame statistics
 
             // we know that the time elapsed of the main loop is the total time the frame took
-            mTotalFrameTime = timeElapsed;
+            mTotalFrameClocks = clocksElapsed;
 
-            if(timeElapsed > mMaxTotalFrameTime)
-                mMaxTotalFrameTime = timeElapsed;
+            if(clocksElapsed > mMaxTotalFrameClocks)
+                mMaxTotalFrameClocks = clocksElapsed;
 
             // we got all the information we need, so process the profiles
             // for this frame
@@ -350,6 +351,18 @@ namespace Ogre {
 
             // we display everything to the screen
             displayResults();
+
+            if  (   mLast->history.totalCalls
+                //  fixed amount of calls,
+#ifdef NDEBUG   //  2% margin of error, 98% confidence level
+                >=  3394
+#else           //  5% margin of error, 98% confidence level
+                >=  543
+#endif
+                )
+            {
+                Ogre::Root::getSingleton().queueEndRendering();
+            }
         }
     }
     //-----------------------------------------------------------------------
@@ -368,46 +381,48 @@ namespace Ogre {
         Root::getSingleton().getRenderSystem()->markProfileEvent(event);
     }
     //-----------------------------------------------------------------------
-    void Profiler::processFrameStats(ProfileInstance* instance, Real& maxFrameTime)
+    void Profiler::processFrameStats(ProfileInstance* instance, ulong& maxFrameClocks)
     {
         // calculate what percentage of frame time this profile took
-        const Real framePercentage = (Real) instance->frame.frameTime / (Real) mTotalFrameTime;
+        const long double framePercentage = (long double) instance->frame.frameClocks / (long double) mTotalFrameClocks;
 
-        const Real frameTimeMillisecs = (Real) instance->frame.frameTime / 1000.0f;
+        const ulong frameClocks = instance->frame.frameClocks;
 
         // update the profile stats
-        instance->history.currentTimePercent = framePercentage;
-        instance->history.currentTimeMillisecs = frameTimeMillisecs;
+        instance->history.currentClocksPercent = framePercentage;
+        instance->history.currentClocks = frameClocks;
         if(mResetExtents)
         {
-            instance->history.totalTimePercent = framePercentage;
-            instance->history.totalTimeMillisecs = frameTimeMillisecs;
+            instance->history.totalClocksPercent = framePercentage;
+            instance->history.totalClocks = frameClocks;
+            instance->history.sumOfSquareClocks = frameClocks * frameClocks;
             instance->history.totalCalls = 1;
         }
         else
         {
-            instance->history.totalTimePercent += framePercentage;
-            instance->history.totalTimeMillisecs += frameTimeMillisecs;
+            instance->history.totalClocksPercent += framePercentage;
+            instance->history.totalClocks += frameClocks;
+            instance->history.sumOfSquareClocks += frameClocks * frameClocks;
             instance->history.totalCalls++;
         }
         instance->history.numCallsThisFrame = instance->frame.calls;
 
         // if we find a new minimum for this profile, update it
-        if (frameTimeMillisecs < instance->history.minTimeMillisecs || mResetExtents)
+        if (frameClocks < instance->history.minClocks || mResetExtents)
         {
-            instance->history.minTimePercent = framePercentage;
-            instance->history.minTimeMillisecs = frameTimeMillisecs;
+            instance->history.minClocksPercent = framePercentage;
+            instance->history.minClocks = frameClocks;
         }
 
         // if we find a new maximum for this profile, update it
-        if (frameTimeMillisecs > instance->history.maxTimeMillisecs || mResetExtents)
+        if (frameClocks > instance->history.maxClocks || mResetExtents)
         {
-            instance->history.maxTimePercent = framePercentage;
-            instance->history.maxTimeMillisecs = frameTimeMillisecs;
+            instance->history.maxClocksPercent = framePercentage;
+            instance->history.maxClocks = frameClocks;
         }
 
-        if(instance->frame.frameTime > maxFrameTime)
-            maxFrameTime = (Real)instance->frame.frameTime;
+        if(frameClocks > maxFrameClocks)
+            maxFrameClocks = frameClocks;
 
         ProfileChildren::iterator it = instance->children.begin(), endit = instance->children.end();
         for(;it != endit; ++it)
@@ -420,14 +435,14 @@ namespace Ogre {
 
             if(child->frame.calls > 0)
             {
-                processFrameStats(child, maxFrameTime);
+                processFrameStats(child, maxFrameClocks);
             }
         }
     }
     //-----------------------------------------------------------------------
     void Profiler::processFrameStats(void) 
     {
-        Real maxFrameTime = 0;
+        ulong maxFrameClocks = 0;
 
         ProfileChildren::iterator it = mRoot.children.begin(), endit = mRoot.children.end();
         for(;it != endit; ++it)
@@ -440,20 +455,20 @@ namespace Ogre {
 
             if(child->frame.calls > 0)
             {
-                processFrameStats(child, maxFrameTime);
+                processFrameStats(child, maxFrameClocks);
             }
         }
 
         // Calculate whether the extents are now so out of date they need regenerating
         if (mCurrentFrame == 0)
-            mAverageFrameTime = maxFrameTime;
+            mAverageFrameClocks = maxFrameClocks;
         else
-            mAverageFrameTime = (mAverageFrameTime + maxFrameTime) * 0.5f;
+            mAverageFrameClocks = (mAverageFrameClocks + maxFrameClocks) * 0.5l;
 
-        if ((Real)mMaxTotalFrameTime > mAverageFrameTime * 4)
+        if ((long double)mMaxTotalFrameClocks > mAverageFrameClocks * 4)
         {
             mResetExtents = true;
-            mMaxTotalFrameTime = (ulong)mAverageFrameTime;
+            mMaxTotalFrameClocks= (ulong)mAverageFrameClocks;
         }
         else
             mResetExtents = false;
@@ -468,7 +483,7 @@ namespace Ogre {
             mRoot.frame.calls = 1;
 
             for( TProfileSessionListener::iterator i = mListeners.begin(); i != mListeners.end(); ++i )
-                (*i)->displayResults(mRoot, mMaxTotalFrameTime);
+                (*i)->displayResults(mRoot, mMaxTotalFrameClocks);
         }
         ++mCurrentFrame;
     }
@@ -510,13 +525,13 @@ namespace Ogre {
         return false;
     }
     //-----------------------------------------------------------------------
-    bool Profiler::watchForLimit(const String& profileName, Real limit, bool greaterThan) 
+    bool Profiler::watchForLimit(const String& profileName, long double limit, bool greaterThan)
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
         return mRoot.watchForLimit(profileName, limit, greaterThan);
     }
     //-----------------------------------------------------------------------
-    bool ProfileInstance::watchForLimit(const String& profileName, Real limit, bool greaterThan) 
+    bool ProfileInstance::watchForLimit(const String& profileName, long double limit, bool greaterThan)
     {
         ProfileChildren::iterator it = children.begin(), endit = children.end();
         for(;it != endit; ++it)
@@ -539,6 +554,18 @@ namespace Ogre {
 
         LogManager::getSingleton().logMessage("------------------------------------------------------------");
     }
+
+    long double ProfileHistory::StandardDeviationMilliseconds() const
+    {
+        if (totalCalls == 0ul)
+            return 0.0l;
+
+        ulong const sumSquare = totalClocks * totalClocks;
+        ulong const numerator = totalCalls * sumOfSquareClocks - sumSquare;
+        ulong const denominator = totalCalls * (totalCalls - 1ul);
+        return Timer::clocksToMilliseconds(::std::sqrt((long double)numerator / (long double)denominator));
+    }
+
     //-----------------------------------------------------------------------
     void ProfileInstance::logResults() 
     {
@@ -546,13 +573,30 @@ namespace Ogre {
         String indent = "";
         for (uint i = 0; i < hierarchicalLvl; ++i) 
         {
-            indent = indent + "\t";
+            indent = indent + "  ";
         }
 
-        LogManager::getSingleton().logMessage(indent + "Name " + name + 
-                        " | Min " + StringConverter::toString(history.minTimePercent) + 
-                        " | Max " + StringConverter::toString(history.maxTimePercent) + 
-                        " | Avg "+ StringConverter::toString(history.totalTimePercent / history.totalCalls));   
+        LogManager::getSingleton().logMessage
+        (   indent
+        +   name
+        +   " | Min "
+        +   StringConverter::toString(Timer::clocksToMilliseconds(history.minClocks))
+        +   " | Max "
+        +   StringConverter::toString(Timer::clocksToMilliseconds(history.maxClocks))
+        +   " | Avg "
+        +   StringConverter::toString
+            (   Timer::clocksToMilliseconds(history.totalClocks)
+            /   (long double)(history.totalCalls)
+            )
+        +   " | StdDev "
+        +   StringConverter::toString
+            (   history.StandardDeviationMilliseconds()
+            )
+        +   " | Calls "
+        +   StringConverter::toString
+            (   history.totalCalls
+            )
+        );
 
         for(ProfileChildren::iterator it = children.begin(); it != children.end(); ++it)
         {
@@ -563,17 +607,17 @@ namespace Ogre {
     void Profiler::reset() 
     {
         mRoot.reset();
-        mMaxTotalFrameTime = 0;
+        mMaxTotalFrameClocks = 0;
     }
     //-----------------------------------------------------------------------
     void ProfileInstance::reset(void)
     {
-        history.currentTimePercent = history.maxTimePercent = history.totalTimePercent = 0;
-        history.currentTimeMillisecs = history.maxTimeMillisecs = history.totalTimeMillisecs = 0;
+        history.currentClocksPercent = history.maxClocksPercent = history.totalClocksPercent = 0;
+        history.currentClocks = history.maxClocks = history.totalClocks = 0;
         history.numCallsThisFrame = history.totalCalls = 0;
 
-        history.minTimePercent = 1;
-        history.minTimeMillisecs = 100000;
+        history.minClocksPercent = 1;
+        history.minClocks = static_cast<ulong>(-1l);
         for(ProfileChildren::iterator it = children.begin(); it != children.end(); ++it)
         {
             it->second->reset();

@@ -37,6 +37,7 @@ THE SOFTWARE.
 #include "OgreOverlayElement.h"
 #include "OgreOverlay.h"
 #include "OgreStringConverter.h"
+#include "OgreTimer.h"
 
 namespace Ogre
 {
@@ -54,7 +55,7 @@ namespace Ogre
         , mBarLineWidth(2)
         , mBarSpacing(3)
         , mMaxDisplayProfiles(50)
-        , mDisplayMode(DISPLAY_MILLISECONDS)
+        , mDisplayMode(DISPLAY_MICROSECONDS)
     {
     }
     //-----------------------------------------------------------------------
@@ -140,18 +141,17 @@ namespace Ogre
         mProfileBars.clear();
     }
     //-----------------------------------------------------------------------
-    void OverlayProfileSessionListener::displayResults(const ProfileInstance& root, ulong maxTotalFrameTime)
+    void OverlayProfileSessionListener::displayResults(const ProfileInstance& root, ulong maxTotalFrameClocks)
     {
         Real newGuiHeight = mGuiHeight;
         int profileCount = 0;
-        Real maxTimeMillisecs = (Real)maxTotalFrameTime / 1000.0f;
 
         ProfileBarList::const_iterator bIter = mProfileBars.begin();
         ProfileInstance::ProfileChildren::const_iterator it = root.children.begin(), endit = root.children.end();
         for(;it != endit; ++it)
         {
             ProfileInstance* child = it->second;
-            displayResults(child, bIter, maxTimeMillisecs, newGuiHeight, profileCount);
+            displayResults(child, bIter, maxTotalFrameClocks, newGuiHeight, profileCount);
         }
             
         // set the main display dimensions
@@ -168,7 +168,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    void OverlayProfileSessionListener::displayResults(ProfileInstance* instance, ProfileBarList::const_iterator& bIter, Real& maxTimeMillisecs, Real& newGuiHeight, int& profileCount)
+    void OverlayProfileSessionListener::displayResults(ProfileInstance* instance, ProfileBarList::const_iterator& bIter, ulong& maxClocks, Real& newGuiHeight, int& profileCount)
     {
         OverlayElement* g;
 
@@ -177,7 +177,7 @@ namespace Ogre
         ++bIter;
         g->show();
         g->setCaption(String(instance->name + " (" + StringConverter::toString(instance->history.numCallsThisFrame) + ")"));
-        g->setLeft(10 + instance->hierarchicalLvl * 15.0f);
+        g->setLeft(10 + instance->hierarchicalLvl * 10.0f);
 
 
         // display the main bar that show the percentage of the frame time that this
@@ -191,9 +191,9 @@ namespace Ogre
         g->setHeight(mBarHeight);
 
         if (mDisplayMode == DISPLAY_PERCENTAGE)
-            g->setWidth( (instance->history.currentTimePercent) * mGuiWidth);
+            g->setWidth( (instance->history.currentClocksPercent) * mGuiWidth);
         else
-            g->setWidth( (instance->history.currentTimeMillisecs / maxTimeMillisecs) * mGuiWidth);
+            g->setWidth( ((long double)instance->history.currentClocks / (long double)maxClocks) * mGuiWidth);
 
         g->setLeft(mGuiWidth);
         g->setTop(mGuiBorderWidth + profileCount * (mBarHeight + mBarSpacing));
@@ -205,18 +205,18 @@ namespace Ogre
         ++bIter;
         g->show();
         if(mDisplayMode == DISPLAY_PERCENTAGE)
-            g->setLeft(mBarIndent + instance->history.minTimePercent * mGuiWidth);
+            g->setLeft(mBarIndent + instance->history.minClocksPercent * mGuiWidth);
         else
-            g->setLeft(mBarIndent + (instance->history.minTimeMillisecs / maxTimeMillisecs) * mGuiWidth);
+            g->setLeft(mBarIndent + ((long double)instance->history.minClocks / (long double)maxClocks) * mGuiWidth);
 
         // display line to indicate the maximum frame time for this profile
         g = *bIter;
         ++bIter;
         g->show();
         if(mDisplayMode == DISPLAY_PERCENTAGE)
-            g->setLeft(mBarIndent + instance->history.maxTimePercent * mGuiWidth);
+            g->setLeft(mBarIndent + instance->history.maxClocksPercent * mGuiWidth);
         else
-            g->setLeft(mBarIndent + (instance->history.maxTimeMillisecs / maxTimeMillisecs) * mGuiWidth);
+            g->setLeft(mBarIndent + ((long double)instance->history.maxClocks / (long double)maxClocks) * mGuiWidth);
 
         // display line to indicate the average frame time for this profile
         g = *bIter;
@@ -225,9 +225,9 @@ namespace Ogre
         if(instance->history.totalCalls != 0)
         {
             if (mDisplayMode == DISPLAY_PERCENTAGE)
-                g->setLeft(mBarIndent + (instance->history.totalTimePercent / instance->history.totalCalls) * mGuiWidth);
+                g->setLeft(mBarIndent + (instance->history.totalClocksPercent / (long double)instance->history.totalCalls) * mGuiWidth);
             else
-                g->setLeft(mBarIndent + ((instance->history.totalTimeMillisecs / instance->history.totalCalls) / maxTimeMillisecs) * mGuiWidth);
+                g->setLeft(mBarIndent + (((long double)instance->history.totalClocks / (long double)instance->history.totalCalls) / (long double)maxClocks) * mGuiWidth);
         }
         else
             g->setLeft(mBarIndent);
@@ -238,13 +238,13 @@ namespace Ogre
         g->show();
         if (mDisplayMode == DISPLAY_PERCENTAGE)
         {
-            g->setLeft(mBarIndent + instance->history.currentTimePercent * mGuiWidth + 2);
-            g->setCaption(StringConverter::toString(instance->history.currentTimePercent * 100.0f, 3, 3) + "%");
+            g->setLeft(mBarIndent + instance->history.currentClocksPercent * mGuiWidth + 2);
+            g->setCaption(StringConverter::toString(instance->history.currentClocksPercent * 100.0l, 3, 3) + "%");
         }
         else
         {
-            g->setLeft(mBarIndent + (instance->history.currentTimeMillisecs / maxTimeMillisecs) * mGuiWidth + 2);
-            g->setCaption(StringConverter::toString(instance->history.currentTimeMillisecs, 3, 3) + "ms");
+            g->setLeft(mBarIndent + ((long double)instance->history.currentClocks / (long double)maxClocks) * mGuiWidth + 2);
+            g->setCaption(StringConverter::toString(Timer::clocksToMilliseconds(instance->history.currentClocks)) + "ms");
         }
 
         // we set the height of the display with respect to the number of profiles displayed
@@ -257,7 +257,7 @@ namespace Ogre
         for(;it != endit; ++it)
         {
             ProfileInstance* child = it->second;
-            displayResults(child, bIter, maxTimeMillisecs, newGuiHeight, profileCount);
+            displayResults(child, bIter, maxClocks, newGuiHeight, profileCount);
         }
     }
     //-----------------------------------------------------------------------

@@ -107,15 +107,16 @@ Sample_NewInstancing::Sample_NewInstancing() : NUM_INST_ROW(100), NUM_INST_COLUM
         "If performance is too slow, try defragmenting batches once in a while";
 }
 
-
 //------------------------------------------------------------------------------
 bool Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt)
 {
+    Ogre::Profile profile("New Instancing");
+
     if( mAnimateInstances->isChecked() )
-        animateUnits( evt.timeSinceLastEvent );
+        animateUnits( /*evt.timeSinceLastEvent*/ 1.0f/30.0f);
 
     if( mMoveInstances->isChecked() )
-        moveUnits( evt.timeSinceLastEvent );
+        moveUnits( /*evt.timeSinceLastEvent*/ 1.0f/30.0f);
 
     return SdkSample::frameRenderingQueued(evt);        // don't forget the parent class updates!
 }
@@ -481,6 +482,7 @@ void Sample_NewInstancing::cleanupContent()
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::animateUnits( float timeSinceLast )
 {
+    Ogre::Profile profile("Animate");
     //Iterates through all AnimationSets and updates the animation being played. Demonstrates the
     //animation is unique and independent to each instance
     std::set<AnimationState*>::const_iterator itor = mAnimations.begin();
@@ -496,6 +498,7 @@ void Sample_NewInstancing::animateUnits( float timeSinceLast )
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::moveUnits( float timeSinceLast )
 {
+    Ogre::Profile profile("Move");
     Real fMovSpeed = 1.0f;
 
     if( !mEntities.empty() )

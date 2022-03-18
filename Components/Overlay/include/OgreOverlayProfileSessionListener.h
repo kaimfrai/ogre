@@ -56,8 +56,8 @@ namespace Ogre  {
         {
             /// Display % frame usage on the overlay
             DISPLAY_PERCENTAGE,
-            /// Display milliseconds on the overlay
-            DISPLAY_MILLISECONDS
+            /// Display microseconds on the overlay
+            DISPLAY_MICROSECONDS
         };
 
         OverlayProfileSessionListener();
@@ -97,7 +97,7 @@ namespace Ogre  {
 
         /** Prints the profiling results of each frame 
         @remarks Recursive, for all the little children. */
-        void displayResults(ProfileInstance* instance, ProfileBarList::const_iterator& bIter, Real& maxTimeMillisecs, Real& newGuiHeight, int& profileCount);
+        void displayResults(ProfileInstance* instance, ProfileBarList::const_iterator& bIter, ulong& maxTimeClocks, Real& newGuiHeight, int& profileCount);
 
         /** An internal function to create the container which will hold our display elements*/
         OverlayContainer* createContainer();

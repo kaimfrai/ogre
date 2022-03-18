@@ -27,11 +27,26 @@ THE SOFTWARE.
 */
 #include "OgreTimer.h"
 
-#include <time.h>
+#include <ctime>
+#include <type_traits>
+
+static_assert(std::is_integral<std::clock_t>::value, "clock_t assumed to be an integral!");
+static_assert(sizeof(std::clock_t) == sizeof(ulong), "clock_t assumed to match ulong!");
+static_assert(alignof(std::clock_t) == alignof(ulong), "clock_t assumed to match ulong!");
 
 using namespace std::chrono;
 
 namespace Ogre {
+
+long double Timer::clocksToMilliseconds(long double clocks)
+{
+    return 1000.0l * (clocks / (long double)CLOCKS_PER_SEC);
+}
+
+long double Timer::clocksToMicroseconds(long double clocks)
+{
+    return clocksToMilliseconds(clocks * 1000.0l);
+}
 
 //--------------------------------------------------------------------------------//
 Timer::Timer()
@@ -60,18 +75,23 @@ uint64_t Timer::getMicroseconds()
     return duration_cast<microseconds>(now - start).count();
 }
 
+uint64_t Timer::getCPUClocks() const
+{
+    clock_t newClock = clock();
+    return static_cast<uint64_t>(newClock - zeroClock);
+}
+
 //-- Common Across All Timers ----------------------------------------------------//
 uint64_t Timer::getMillisecondsCPU()
 {
-    clock_t newClock = clock();
-    return (uint64_t)((float)(newClock-zeroClock) / ((float)CLOCKS_PER_SEC/1000.0)) ;
+    return clocksToMilliseconds(getCPUClocks());
 }
 
 //-- Common Across All Timers ----------------------------------------------------//
 uint64_t Timer::getMicrosecondsCPU()
 {
-    clock_t newClock = clock();
-    return (uint64_t)((float)(newClock-zeroClock) / ((float)CLOCKS_PER_SEC/1000000.0)) ;
+    return clocksToMicroseconds(getCPUClocks());
 }
 
 }
+

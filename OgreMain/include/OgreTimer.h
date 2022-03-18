@@ -44,6 +44,9 @@ namespace Ogre
         std::chrono::steady_clock::time_point start;
         clock_t zeroClock;
     public:
+        static long double clocksToMilliseconds(long double clocks);
+        static long double clocksToMicroseconds(long double clocks);
+
         Timer();
 
         /** Resets timer */
@@ -54,6 +57,8 @@ namespace Ogre
 
         /** Returns microseconds since initialisation or last reset */
         uint64_t getMicroseconds();
+
+        uint64_t getCPUClocks() const;
 
         /** Returns milliseconds since initialisation or last reset, only CPU time measured */  
         uint64_t getMillisecondsCPU();
