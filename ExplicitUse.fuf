@@ -1,9 +1,52 @@
 #Main files
 Samples/Browser/src/main.cpp
 
+#Tests are linked together
 Tests/src/main.cpp
+Tests/Components/RTShaderSystemTests.cpp
+Tests/RenderSystems/GLSupport/GLSLTests.cpp
+Tests/OgreMain/include/EdgeBuilderTests.h
+Tests/OgreMain/include/FileSystemArchiveTests.h
+Tests/OgreMain/include/MeshSerializerTests.h
+Tests/OgreMain/include/MeshWithoutIndexDataTests.h
+Tests/OgreMain/include/PixelFormatTests.h
+Tests/OgreMain/include/RadixSortTests.h
+Tests/OgreMain/include/RenderSystemCapabilitiesTests.h
+Tests/OgreMain/include/ResourceLocationPriorityTest.h
+Tests/OgreMain/include/RootWithoutRenderSystemFixture.h
+Tests/OgreMain/include/StringTests.h
+Tests/OgreMain/include/UseCustomCapabilitiesTests.h
+Tests/OgreMain/include/ZipArchiveTests.h
+Tests/OgreMain/src/BitwiseTests.cpp
+Tests/OgreMain/src/DualQuaternionTests.cpp
+Tests/OgreMain/src/EdgeBuilderTests.cpp
+Tests/OgreMain/src/FileSystemArchiveTests.cpp
+Tests/OgreMain/src/General.cpp
+Tests/OgreMain/src/InstancingTests.cpp
+Tests/OgreMain/src/MeshSerializerTests.cpp
+Tests/OgreMain/src/MeshWithoutIndexDataTests.cpp
+Tests/OgreMain/src/PixelFormatTests.cpp
+Tests/OgreMain/src/QuaternionTests.cpp
+Tests/OgreMain/src/RadixSort.cpp
+Tests/OgreMain/src/RenderSystemCapabilitiesTests.cpp
+Tests/OgreMain/src/ResourceLocationPriorityTest.cpp
+Tests/OgreMain/src/RootWithoutRenderSystemFixture.cpp
+Tests/OgreMain/src/StreamSerialiserTests.cpp
+Tests/OgreMain/src/StringTests.cpp
+Tests/OgreMain/src/UseCustomCapabilitiesTests.cpp
+Tests/OgreMain/src/VectorTests.cpp
+Tests/OgreMain/src/ZipArchiveTests.cpp
+
+#Main file for Visual Tests
 Tests/VisualTests/Context/src/TestContext.cpp
 Tests/VisualTests/Context/include/TestContext.h
+Tests/VisualTests/Common/include/HTMLWriter.h
+Tests/VisualTests/Common/include/TinyHTML.h
+Tests/VisualTests/Common/include/TestResultWriter.h
+Tests/VisualTests/Common/include/ImageValidator.h
+Tests/VisualTests/Common/include/TestBatch.h
+Tests/VisualTests/Common/include/CppUnitResultWriter.h
+Tests/VisualTests/Common/include/VisualTest.h
 
 #Split Implementation
 OgreMain/include/OgreOptimisedUtil.h
@@ -45,9 +88,6 @@ RenderSystems/GL/src/glad.c
 
 #Required for Shaders
 Media/Main/OgreUnifiedShader.h
-Samples/Media/CSMShadows/BasicShadowMapReceiver.h
-Samples/Media/CSMShadows/CsmShadows.h
-Samples/Media/CSMShadows/DepthShadowMapReceiverJitter.h
 
 #Header only
 OgreMain/include/OgrePrerequisites.h
@@ -76,7 +116,6 @@ OgreMain/include/OgreRenderQueueListener.h
 OgreMain/include/OgreScriptLoader.h
 OgreMain/include/OgrePlugin.h
 OgreMain/include/OgreRenderTargetListener.h
-OgreMain/include/OgreHighLevelGpuProgramManager.h
 OgreMain/include/OgreVertexBoneAssignment.h
 OgreMain/include/OgreParticleAffector.h
 OgreMain/include/OgreParticle.h
@@ -121,14 +160,6 @@ Components/RTShaderSystem/include/OgreShaderPrerequisites.h
 Components/RTShaderSystem/include/OgreShaderFFPRenderState.h
 Components/RTShaderSystem/src/OgreShaderPrecompiledHeaders.h
 
-Tests/VisualTests/Common/include/HTMLWriter.h
-Tests/VisualTests/Common/include/TinyHTML.h
-Tests/VisualTests/Common/include/TestResultWriter.h
-Tests/VisualTests/Common/include/ImageValidator.h
-Tests/VisualTests/Common/include/TestBatch.h
-Tests/VisualTests/Common/include/CppUnitResultWriter.h
-Tests/VisualTests/Common/include/VisualTest.h
-
 RenderSystems/GL/include/KHR/khrplatform.h
 RenderSystems/GL/include/OgreGLGpuProgramManager.h
 RenderSystems/GL/include/OgreGLPrerequisites.h
@@ -142,4 +173,3 @@ RenderSystems/GLSupport/include/OgreGLPBuffer.h
 
 PlugIns/STBICodec/src/stbi/stb_image.h
 PlugIns/STBICodec/src/stbi/stb_image_write.h
-
