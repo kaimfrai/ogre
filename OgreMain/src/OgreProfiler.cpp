@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <assert.h>
 #include <stddef.h>
 #include <algorithm>
+#include <cmath>
 #include <map>
 #include <set>
 #include <string>

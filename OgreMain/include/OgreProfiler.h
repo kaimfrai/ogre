@@ -46,7 +46,6 @@ Ogre-dependent is in the visualization/logging routines and the use of the Timer
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <cmath>
 
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
