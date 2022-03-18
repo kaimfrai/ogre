@@ -13,7 +13,6 @@ set(HEADER_FILES
 	../Common/include/TestBatch.h
 	../Common/include/CppUnitResultWriter.h
 	../Common/include/TestResultWriter.h
-	../Common/include/SimpleResultWriter.h
 	../Common/include/HTMLWriter.h
 	../Common/include/VisualTest.h
 	../Common/include/TinyHTML.h
