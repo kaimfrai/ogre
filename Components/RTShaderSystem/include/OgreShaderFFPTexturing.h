@@ -28,7 +28,6 @@ THE SOFTWARE.
 #define _ShaderFFPTextureStage_
 
 #include <stddef.h>
-#include <algorithm>
 #include <vector>
 
 #include "OgreShaderPrerequisites.h"

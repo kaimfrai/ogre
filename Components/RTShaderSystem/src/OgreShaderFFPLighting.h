@@ -27,7 +27,6 @@ THE SOFTWARE.
 #ifndef _ShaderFFPLighting_
 #define _ShaderFFPLighting_
 
-#include <algorithm>
 #include <vector>
 
 #include "OgreShaderPrerequisites.h"

@@ -27,7 +27,6 @@ THE SOFTWARE.
 #ifndef _ShaderGBuffer_
 #define _ShaderGBuffer_
 
-#include <algorithm>
 #include <vector>
 
 #include "OgreShaderPrerequisites.h"
