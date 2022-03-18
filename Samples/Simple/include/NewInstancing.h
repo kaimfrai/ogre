@@ -39,7 +39,6 @@ public:
     bool frameRenderingQueued(const FrameEvent& evt);
 
     bool keyPressed(const KeyboardEvent& evt);
-    
 
 protected:
     void setupContent();

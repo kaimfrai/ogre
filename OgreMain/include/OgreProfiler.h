@@ -83,8 +83,8 @@ namespace Ogre {
     struct ProfileFrame 
     {
 
-        /// The total time this profile has taken this frame
-        ulong   frameTime;
+        /// The total amout of CPU clocks this profile has taken this frame
+        ulong   frameClocks;
 
         /// The number of times this profile was called this frame
         uint    calls;
@@ -98,26 +98,26 @@ namespace Ogre {
     struct ProfileHistory 
     {
         /// The current percentage of frame time this profile has taken
-        long double currentTimePercent;
+        long double currentClocksPercent;
         /// The maximum percentage of frame time this profile has taken
-        long double maxTimePercent;
+        long double maxClocksPercent;
         /// The minimum percentage of frame time this profile has taken
-        long double minTimePercent;
+        long double minClocksPercent;
         /// The total percentage of frame time this profile has taken
-        long double totalTimePercent;
+        long double totalClocksPercent;
 
         /// The current frame time this profile has taken in microseconds
-        ulong    currentTimeMicrosecs;
+        ulong    currentClocks;
         /// The maximum frame time this profile has taken in microseconds
-        ulong    maxTimeMicrosecs;
+        ulong    maxClocks;
         /// The minimum frame time this profile has taken in microseconds
-        ulong    minTimeMicrosecs;
+        ulong    minClocks;
 
 
         /// The total frame time this profile has taken in microseconds
-        ulong    totalTimeMicrosecs;
+        ulong    totalClocks;
         /// The total sum of all squares of the time taken in microseconds.
-        ulong    sumOfSquareMicrosecs;
+        ulong    sumOfSquareClocks;
 
         /// The total number of times this profile was called
         /// (used to calculate average)
@@ -129,16 +129,7 @@ namespace Ogre {
         /// The hierarchical level of this profile, 0 being the root profile
         uint    hierarchicalLvl;
 
-        long double StandardDeviation() const
-        {
-            if (totalCalls == 0ul)
-                return 0.0l;
-
-            ulong const sumSquare = totalTimeMicrosecs * totalTimeMicrosecs;
-            ulong const numerator = totalCalls * sumOfSquareMicrosecs - sumSquare;
-            ulong const denominator = totalCalls * (totalCalls - 1ul);
-            return ::std::sqrt((long double)numerator / (long double)denominator);
-        }
+        long double StandardDeviationMilliseconds() const;
     };
 
     /// Represents an individual profile call
@@ -154,14 +145,14 @@ namespace Ogre {
         void logResults();
         void reset();
 
-        inline bool watchForMax(void) { return history.currentTimePercent == history.maxTimePercent; }
-        inline bool watchForMin(void) { return history.currentTimePercent == history.minTimePercent; }
+        inline bool watchForMax(void) { return history.currentClocksPercent == history.maxClocksPercent; }
+        inline bool watchForMin(void) { return history.currentClocksPercent == history.minClocksPercent; }
         inline bool watchForLimit(long double limit, bool greaterThan = true)
         {
             if (greaterThan)
-                return history.currentTimePercent > limit;
+                return history.currentClocksPercent > limit;
             else
-                return history.currentTimePercent < limit;
+                return history.currentClocksPercent < limit;
         }
 
         bool watchForMax(const String& profileName);
@@ -182,11 +173,11 @@ namespace Ogre {
         ProfileHistory history;
 
         /// The time this profile was started
-        ulong           currTime;
+        ulong           currentClock;
 
         /// Represents the total time of all child profiles to subtract
         /// from this profile
-        ulong           accum;
+        ulong           accumClocks;
 
         /// The hierarchical level of this profile, 0 being the root profile
         uint            hierarchicalLvl;
@@ -215,7 +206,7 @@ namespace Ogre {
         virtual void changeEnableState(bool enabled) {}; 
         
         /// Here we get the real profiling information which we can use 
-        virtual void displayResults(const ProfileInstance& instance, ulong maxTotalFrameTime) {};
+        virtual void displayResults(const ProfileInstance& instance, ulong maxTotalFrameClocks) {};
     };
 
     /** The profiler allows you to measure the performance of your code
@@ -375,6 +366,10 @@ namespace Ogre {
             /// @copydoc Singleton::getSingleton()
             static Profiler* getSingletonPtr(void);
 
+            uint getCurrentCalls() const
+            {
+                return mCurrent->history.totalCalls;
+            }
         private:
             friend class ProfileInstance;
 
@@ -389,7 +384,7 @@ namespace Ogre {
             /** Processes frame stats for all of the mRoot's children */
             void processFrameStats(void);
             /** Processes specific ProfileInstance and it's children recursively.*/
-            void processFrameStats(ProfileInstance* instance, long double& maxFrameTime);
+            void processFrameStats(ProfileInstance* instance, ulong& maxFrameClocks);
 
             /** Handles a change of the profiler's enabled state*/
             void changeEnableState();
@@ -419,7 +414,7 @@ namespace Ogre {
             Timer* mTimer;
 
             /// The total time each frame takes
-            ulong mTotalFrameTime;
+            ulong mTotalFrameClocks;
 
             /// Whether this profiler is enabled
             bool mEnabled;
@@ -432,10 +427,10 @@ namespace Ogre {
             uint32 mProfileMask;
 
             /// The max frame time recorded
-            ulong mMaxTotalFrameTime;
+            ulong mMaxTotalFrameClocks;
 
-            /// Rolling average of microsecs
-            long double mAverageFrameTime;
+            /// Rolling average of clocks
+            long double mAverageFrameClocks;
             bool mResetExtents;
 
 

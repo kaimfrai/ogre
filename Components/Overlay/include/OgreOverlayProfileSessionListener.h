@@ -97,7 +97,7 @@ namespace Ogre  {
 
         /** Prints the profiling results of each frame 
         @remarks Recursive, for all the little children. */
-        void displayResults(ProfileInstance* instance, ProfileBarList::const_iterator& bIter, ulong& maxTimeMicrosecs, Real& newGuiHeight, int& profileCount);
+        void displayResults(ProfileInstance* instance, ProfileBarList::const_iterator& bIter, ulong& maxTimeClocks, Real& newGuiHeight, int& profileCount);
 
         /** An internal function to create the container which will hold our display elements*/
         OverlayContainer* createContainer();

@@ -107,15 +107,16 @@ Sample_NewInstancing::Sample_NewInstancing() : NUM_INST_ROW(100), NUM_INST_COLUM
         "If performance is too slow, try defragmenting batches once in a while";
 }
 
-
 //------------------------------------------------------------------------------
 bool Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt)
 {
+    Ogre::Profile profile("New Instancing");
+
     if( mAnimateInstances->isChecked() )
-        animateUnits( evt.timeSinceLastEvent );
+        animateUnits( /*evt.timeSinceLastEvent*/ 1.0f/30.0f);
 
     if( mMoveInstances->isChecked() )
-        moveUnits( evt.timeSinceLastEvent );
+        moveUnits( /*evt.timeSinceLastEvent*/ 1.0f/30.0f);
 
     return SdkSample::frameRenderingQueued(evt);        // don't forget the parent class updates!
 }
