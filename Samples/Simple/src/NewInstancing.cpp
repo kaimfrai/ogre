@@ -10,7 +10,7 @@
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreEntity.h"
-#include "OgreFrameListener.h"
+#include "OgreProfiler.h"
 #include "OgreInstancedEntity.h"
 #include "OgreLight.h"
 #include "OgreMaterialManager.h"
