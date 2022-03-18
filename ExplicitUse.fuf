@@ -31,11 +31,16 @@ RenderSystems/GLSupport/src/X11/OgreX11.h
 RenderSystems/GLSupport/src/X11/OgreX11.cpp
 
 #Typo
+OgreMain/include/OgreRotationalSpline.h
 OgreMain/src/OgreRotationSpline.cpp
 
 #Platform dependent
+Components/Bites/include/OgreApplicationContext.h
+Components/Bites/src/SDLInputMapping.h
 Components/Bites/src/OgreApplicationContextSDL.cpp
+OgreMain/include/OgreFileSystemLayer.h
 OgreMain/src/GLX/OgreFileSystemLayer.cpp
+RenderSystems/GL/include/glad/glad.h
 RenderSystems/GL/src/glad.c
 
 #Required for Shaders
@@ -69,9 +74,7 @@ OgreMain/include/OgreLodListener.h
 OgreMain/include/OgreNameGenerator.h
 OgreMain/include/OgreRenderQueueListener.h
 OgreMain/include/OgreScriptLoader.h
-OgreMain/include/OgreFileSystemLayer.h
 OgreMain/include/OgrePlugin.h
-OgreMain/include/OgreRotationalSpline.h
 OgreMain/include/OgreRenderTargetListener.h
 OgreMain/include/OgreHighLevelGpuProgramManager.h
 OgreMain/include/OgreVertexBoneAssignment.h
@@ -108,9 +111,7 @@ Samples/Common/include/Sample.h
 Samples/Common/include/SamplePlugin.h
 Samples/Common/include/SdkSample.h
 
-Components/Bites/include/OgreApplicationContext.h
 Components/Bites/include/OgreInput.h
-Components/Bites/src/SDLInputMapping.h
 
 Components/Overlay/include/OgreOverlayElementFactory.h
 Components/Overlay/src/utf8.h
@@ -128,7 +129,6 @@ Tests/VisualTests/Common/include/TestBatch.h
 Tests/VisualTests/Common/include/CppUnitResultWriter.h
 Tests/VisualTests/Common/include/VisualTest.h
 
-RenderSystems/GL/include/glad/glad.h
 RenderSystems/GL/include/KHR/khrplatform.h
 RenderSystems/GL/include/OgreGLGpuProgramManager.h
 RenderSystems/GL/include/OgreGLPrerequisites.h
