@@ -108,8 +108,6 @@ THE SOFTWARE.
 #include "OgreShadowCameraSetup.h"
 #include "OgreShadowCameraSetupFocused.h"
 #include "OgreShadowCameraSetupLiSPSM.h"
-#include "OgreShadowCameraSetupPlaneOptimal.h"
-#include "OgreShadowCameraSetupPSSM.h"
 #include "OgreSimpleRenderable.h"
 #include "OgreSkeleton.h"
 #include "OgreSkeletonInstance.h"
