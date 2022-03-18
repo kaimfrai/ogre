@@ -10,8 +10,6 @@
 # Configure Ogre RTShader System build
 
 file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
-list(APPEND HEADER_FILES 
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/OgreRTShader.i)
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 get_native_precompiled_header(OgreRTShaderSystem)
