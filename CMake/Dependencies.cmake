@@ -165,8 +165,8 @@ endif()
 #######################################################################
 
 # Find FreeImage
-find_package(FreeImage)
-macro_log_feature(FreeImage_FOUND "freeimage" "Support for commonly used graphics image formats" "http://freeimage.sourceforge.net")
+#find_package(FreeImage)
+#macro_log_feature(FreeImage_FOUND "freeimage" "Support for commonly used graphics image formats" "http://freeimage.sourceforge.net")
 
 # Find FreeType
 find_package(Freetype)
@@ -190,8 +190,8 @@ if(NOT ANDROID AND NOT EMSCRIPTEN)
 endif()
 
 # Find OpenGL ES 2.x
-find_package(OpenGLES2)
-macro_log_feature(OPENGLES2_FOUND "OpenGL ES 2.x" "Support for the OpenGL ES 2.x render system" "http://www.khronos.org/opengles/")
+#find_package(OpenGLES2)
+#macro_log_feature(OPENGLES2_FOUND "OpenGL ES 2.x" "Support for the OpenGL ES 2.x render system" "http://www.khronos.org/opengles/")
 
 # Find DirectX
 if(WIN32)
@@ -217,38 +217,38 @@ endif()
 
 # Find Cg
 if (NOT (APPLE_IOS OR WINDOWS_STORE OR WINDOWS_PHONE OR ANDROID OR EMSCRIPTEN))
-  find_package(Cg)
-  macro_log_feature(Cg_FOUND "cg" "C for graphics shader language" "http://developer.nvidia.com/object/cg_toolkit.html")
+  #find_package(Cg)
+  #macro_log_feature(Cg_FOUND "cg" "C for graphics shader language" "http://developer.nvidia.com/object/cg_toolkit.html")
 endif ()
 
 # Find Vulkan SDK
-macro_log_feature(ENV{VULKAN_SDK} "Vulkan SDK" "Vulkan RenderSystem, glslang Plugin. Alternatively use system packages" "https://vulkan.lunarg.com/")
+#macro_log_feature(ENV{VULKAN_SDK} "Vulkan SDK" "Vulkan RenderSystem, glslang Plugin. Alternatively use system packages" "https://vulkan.lunarg.com/")
 
 # OpenEXR
-find_package(OpenEXR)
-macro_log_feature(OPENEXR_FOUND "OpenEXR" "Load High dynamic range images" "http://www.openexr.com/")
+#find_package(OpenEXR)
+#macro_log_feature(OPENEXR_FOUND "OpenEXR" "Load High dynamic range images" "http://www.openexr.com/")
 
 # Python
-set(Python_ADDITIONAL_VERSIONS 3.4) # allows using python3 on Ubuntu 14.04
-find_package(PythonInterp)
-find_package(PythonLibs)
-macro_log_feature(PYTHONLIBS_FOUND "Python" "Language bindings to use OGRE from Python" "http://www.python.org/")
+#set(Python_ADDITIONAL_VERSIONS 3.4) # allows using python3 on Ubuntu 14.04
+#find_package(PythonInterp)
+#find_package(PythonLibs)
+#macro_log_feature(PYTHONLIBS_FOUND "Python" "Language bindings to use OGRE from Python" "http://www.python.org/")
 
 # SWIG
-find_package(SWIG 3.0.8 QUIET)
-macro_log_feature(SWIG_FOUND "SWIG" "Language bindings (Python, Java, C#) for OGRE" "http://www.swig.org/")
+#find_package(SWIG 3.0.8 QUIET)
+#macro_log_feature(SWIG_FOUND "SWIG" "Language bindings (Python, Java, C#) for OGRE" "http://www.swig.org/")
 
 # pugixml
-find_package(pugixml QUIET)
-macro_log_feature(pugixml_FOUND "pugixml" "Needed for XMLConverter and DotScene Plugin" "https://pugixml.org/")
+#find_package(pugixml QUIET)
+#macro_log_feature(pugixml_FOUND "pugixml" "Needed for XMLConverter and DotScene Plugin" "https://pugixml.org/")
 
 # Find zlib
 find_package(ZLIB)
 macro_log_feature(ZLIB_FOUND "zlib" "Simple data compression library" "http://www.zlib.net")
 
 # Assimp
-find_package(assimp QUIET)
-macro_log_feature(assimp_FOUND "Assimp" "Needed for the AssimpLoader Plugin" "https://www.assimp.org/")
+#find_package(assimp QUIET)
+#macro_log_feature(assimp_FOUND "Assimp" "Needed for the AssimpLoader Plugin" "https://www.assimp.org/")
 
 if(assimp_FOUND)
   # workaround horribly broken assimp cmake, fixed with assimp 5.1
@@ -279,19 +279,19 @@ if(NOT ANDROID AND NOT EMSCRIPTEN)
     )
   endif()
 
-  find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui QUIET)
-  find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui QUIET)
+  #find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui QUIET)
+  #find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui QUIET)
 
-  macro_log_feature(QT_FOUND "Qt" "optional integration with the Qt Library for window creation and input" "http://www.qt.io/")
+  #macro_log_feature(QT_FOUND "Qt" "optional integration with the Qt Library for window creation and input" "http://www.qt.io/")
 endif()
 
 #######################################################################
 # Tools
 #######################################################################
 
-find_package(Doxygen QUIET)
-macro_log_feature(DOXYGEN_FOUND "Doxygen" "Tool for building API documentation" "http://doxygen.org")
+#find_package(Doxygen QUIET)
+#macro_log_feature(DOXYGEN_FOUND "Doxygen" "Tool for building API documentation" "http://doxygen.org")
 
 # Find Softimage SDK
-find_package(Softimage)
-macro_log_feature(Softimage_FOUND "Softimage" "Softimage SDK needed for building XSIExporter" "")
+#find_package(Softimage)
+#macro_log_feature(Softimage_FOUND "Softimage" "Softimage SDK needed for building XSIExporter" "")
