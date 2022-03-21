@@ -1,5 +1,17 @@
 #!/bin/bash
 
+TARGETS=(\
+	OgreMain\
+	Codec_STBI\
+	OgreGLSupport\
+	RenderSystem_GL\
+	OgreRTShaderSystem\
+	OgreOverlay\
+	OgreBites\
+	DefaultSamples\
+	SampleBrowser
+)
+
 if [[ $# < 1 ]]
 then
 	echo "Path to cmake source directory required as first argument!"
@@ -8,6 +20,32 @@ elif [[ $# < 2 ]]
 then
 	echo "CMake build type required as second argument. Must be Debug or Release!"
 	exit 1
+fi
+
+if [[ $# > 2 ]]
+then
+	LOOP_ITERATIONS=$3
+else
+	LOOP_ITERATIONS=1
+fi
+
+initialize_sum()
+{
+	local -n sum_ref="$1_SUM"
+	sum_ref=0
+}
+
+initialize_sums()
+{
+	for target in $@
+	do
+		initialize_sum $target
+	done
+}
+
+if [[ $LOOP_ITERATIONS > 1 ]]
+then
+	initialize_sums ${TARGETS[@]}
 fi
 
 CMAKE_SOURCE_DIR=$1
@@ -38,7 +76,7 @@ then
 	fi
 fi
 
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_INSTALL_PREFIX=$CMAKE_SOURCE_DIR/../ThirdParty/ -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE -G Ninja --toolchain $CMAKE_SOURCE_DIR/CMake/toolchain/linux.toolchain.clang.cmake -DOGRE_DEPENDENCIES_DIR=$CMAKE_SOURCE_DIR/../ThirdParty/ -S $CMAKE_SOURCE_DIR -B $CMAKE_BINARY_DIR
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_INSTALL_PREFIX=$CMAKE_SOURCE_DIR/../ThirdParty/ -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE -G Ninja --toolchain $CMAKE_SOURCE_DIR/CMake/toolchain/linux.toolchain.clang.cmake -DOGRE_DEPENDENCIES_DIR=$CMAKE_SOURCE_DIR/../ThirdParty/ -S $CMAKE_SOURCE_DIR -B $CMAKE_BINARY_DIR 1> /dev/null
 
 if [[ ! -d "$CMAKE_BINARY_DIR/CMakeFiles" ]]
 then
@@ -55,8 +93,8 @@ time_ninja_target()
 	echo -n "Time $1: "
 	local time=$(\time -f "%e" ninja -C $CMAKE_BINARY_DIR $1 2>&1 1>/dev/null)
 	echo $time
-	local -n sum_ref=$1
-	sum_ref=$(expr $sum_ref + $time)
+	local -n sum_ref="$1_SUM"
+	sum_ref=$(echo $sum_ref + $time | bc -l)
 }
 
 time_ninja_targets()
@@ -67,13 +105,29 @@ time_ninja_targets()
 	done
 }
 
-time_ninja_targets\
- OgreMain\
- Codec_STBI\
- OgreGLSupport\
- RenderSystem_GL\
- OgreRTShaderSystem\
- OgreOverlay\
- OgreBites\
- DefaultSamples\
- SampleBrowser
+for ((i = 1; i <= $LOOP_ITERATIONS; ++i))
+do
+	echo "Compilation run #$i"
+	time_ninja_targets ${TARGETS[@]}
+	echo ""
+done
+
+if [[ $LOOP_ITERATIONS > 1 ]]
+then
+	print_average()
+	{
+		local -n sum_ref="$1_SUM"
+		local average=$(echo "scale=2; $sum_ref / $LOOP_ITERATIONS" | bc -l)
+		echo "Avg. Time $1: $average"
+	}
+
+	print_averages()
+	{
+		for target in $@
+		do
+			print_average $target
+		done
+	}
+
+	print_averages ${TARGETS[@]}
+fi
