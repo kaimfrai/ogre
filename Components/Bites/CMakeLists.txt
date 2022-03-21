@@ -21,9 +21,9 @@ endif()
 
 # Find X11
 if (UNIX AND NOT APPLE AND NOT ANDROID AND NOT EMSCRIPTEN)
-  find_library(XAW_LIBRARY NAMES Xaw Xaw7 PATHS ${OGRE_DEP_SEARCH_PATH} ${DEP_LIB_SEARCH_DIR} ${X11_LIB_SEARCH_PATH})
-  macro_log_feature(XAW_LIBRARY "Xaw" "X11 Athena widget set for ConfigDialog" "http://www.x.org")
-  mark_as_advanced(XAW_LIBRARY)
+  #find_library(XAW_LIBRARY NAMES Xaw Xaw7 PATHS ${OGRE_DEP_SEARCH_PATH} ${DEP_LIB_SEARCH_DIR} ${X11_LIB_SEARCH_PATH})
+  #macro_log_feature(XAW_LIBRARY "Xaw" "X11 Athena widget set for ConfigDialog" "http://www.x.org")
+  #mark_as_advanced(XAW_LIBRARY)
 endif ()
 
 if (OGRE_STATIC OR OGRE_BITES_STATIC_PLUGINS)
