@@ -59,12 +59,21 @@ time_ninja_target()
 	sum_ref=$(expr $sum_ref + $time)
 }
 
-time_ninja_target OgreMain
-time_ninja_target Codec_STBI
-time_ninja_target OgreGLSupport
-time_ninja_target RenderSystem_GL
-time_ninja_target OgreRTShaderSystem
-time_ninja_target OgreOverlay
-time_ninja_target OgreBites
-time_ninja_target DefaultSamples
-time_ninja_target SampleBrowser
+time_ninja_targets()
+{
+	for target in $@
+	do
+		time_ninja_target $target
+	done
+}
+
+time_ninja_targets\
+ OgreMain\
+ Codec_STBI\
+ OgreGLSupport\
+ RenderSystem_GL\
+ OgreRTShaderSystem\
+ OgreOverlay\
+ OgreBites\
+ DefaultSamples\
+ SampleBrowser
