@@ -12,8 +12,9 @@ target_link_libraries(
 INTERFACE
   Core.Config.include
   Core.Math.include
+  Core.Scene.include
 )
-target_precompile_headers(Core.General.include INTERFACE ${HEADER_FILES})
+#target_precompile_headers(Core.General.include INTERFACE ${HEADER_FILES})
 
 ogre_config_lib(Core.General.include TRUE)
 

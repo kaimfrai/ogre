@@ -295,6 +295,9 @@ namespace Ogre {
 
     typedef std::string String;
     typedef std::stringstream StringStream;
+
+    /// Constant blank string, useful for returning by ref where local does not exist
+    const String BLANKSTRING;
 }
 
 #endif // __OgrePrerequisites_H__

@@ -49,7 +49,7 @@ namespace Ogre
     /** \addtogroup Core
     *  @{
     */
-    /** \addtogroup General
+    /** \addtogroup Config
     *  @{
     */
     /** Variant type that can hold Any other type.

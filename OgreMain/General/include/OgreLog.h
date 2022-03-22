@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include <condition_variable>
 
 #include "OgrePrerequisites.h"
-#include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {

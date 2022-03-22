@@ -16,7 +16,7 @@ INTERFACE
   Core.RenderSystem.include
   Core.Resources.include
 )
-target_precompile_headers(Core.Scene.include INTERFACE ${HEADER_FILES})
+#target_precompile_headers(Core.Scene.include INTERFACE ${HEADER_FILES})
 
 ogre_config_lib(Core.Scene.include TRUE)
 

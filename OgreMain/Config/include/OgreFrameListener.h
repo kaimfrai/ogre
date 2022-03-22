@@ -36,7 +36,7 @@ namespace Ogre {
     /** \addtogroup Core
     *  @{
     */
-    /** \addtogroup General
+    /** \addtogroup Config
     *  @{
     */
     /** Struct containing information about a frame event.

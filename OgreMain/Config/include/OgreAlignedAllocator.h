@@ -40,7 +40,7 @@ namespace Ogre {
     *  @{
     */
 
-    /** \addtogroup General
+    /** \addtogroup Config
     *  @{
     */
 

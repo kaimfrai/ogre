@@ -14,7 +14,7 @@ INTERFACE
   Core.General.include
 )
 
-target_precompile_headers(Core.Script.include INTERFACE ${HEADER_FILES})
+#target_precompile_headers(Core.Script.include INTERFACE ${HEADER_FILES})
 
 ogre_config_lib(Core.Script.include TRUE)
 

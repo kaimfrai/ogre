@@ -35,7 +35,7 @@ namespace Ogre
     /** \addtogroup Core
     *  @{
     */
-    /** \addtogroup General
+    /** \addtogroup Config
     *  @{
     */
     /** Class defining a generic OGRE plugin.

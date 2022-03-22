@@ -598,9 +598,6 @@ class RenderWindow;
     typedef HashedVector<Light*> LightList;
 
 
-    /// Constant blank string, useful for returning by ref where local does not exist
-    const String BLANKSTRING;
-
     typedef std::map<String, bool> UnaryOptionList;
     typedef std::map<String, String> BinaryOptionList;
 

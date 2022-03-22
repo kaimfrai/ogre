@@ -35,7 +35,7 @@ namespace Ogre {
     /** \addtogroup Core
     *  @{
     */
-    /** \addtogroup General
+    /** \addtogroup Config
     *  @{
     */
     /** Abstract factory class. Does nothing by itself, but derived classes can add

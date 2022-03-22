@@ -12,8 +12,10 @@ target_link_libraries(
 INTERFACE
   Core.Config.include
   Core.General.include
+  Core.Image.include
+  Core.Materials.include
 )
-target_precompile_headers(Core.RenderSystem.include INTERFACE ${HEADER_FILES})
+#target_precompile_headers(Core.RenderSystem.include INTERFACE ${HEADER_FILES})
 
 ogre_config_lib(Core.RenderSystem.include TRUE)
 

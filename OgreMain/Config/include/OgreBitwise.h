@@ -34,7 +34,7 @@ namespace Ogre {
     /** \addtogroup Core
     *  @{
     */
-    /** \addtogroup Math
+    /** \addtogroup Config
     *  @{
     */
 

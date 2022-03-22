@@ -30,6 +30,7 @@
 
 #include "OgrePrerequisites.h"
 #include "OgreStringVector.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre
 {

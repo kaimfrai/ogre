@@ -13,7 +13,7 @@ INTERFACE
   Core.Image.include
   Core.Script.include
 )
-target_precompile_headers(Core.Resources.include INTERFACE ${HEADER_FILES})
+#target_precompile_headers(Core.Resources.include INTERFACE ${HEADER_FILES})
 
 ogre_config_lib(Core.Resources.include TRUE)
 

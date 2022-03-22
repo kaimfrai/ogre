@@ -7,7 +7,7 @@ target_include_directories(Core.Config.include INTERFACE
   $<INSTALL_INTERFACE:include/OGRE/Core/Config/>
 )
 
-target_precompile_headers(Core.Config.include INTERFACE ${HEADER_FILES})
+#target_precompile_headers(Core.Config.include INTERFACE ${HEADER_FILES})
 
 ogre_config_lib(Core.Config.include TRUE)
 

@@ -25,64 +25,44 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __NameGenerator_H__
-#define __NameGenerator_H__
+#ifndef __CommonConfigDialog_H__
+#define __CommonConfigDialog_H__
 
-#include "OgreString.h"
+#include "OgrePrerequisites.h"
 
-#include <sstream>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
-
-namespace Ogre {
+namespace Ogre
+{
     /** \addtogroup Core
     *  @{
     */
-    /** \addtogroup General
+    /** \addtogroup Config
     *  @{
     */
 
-    /// Utility class to generate a sequentially numbered series of names
-    class NameGenerator
+    /** Defines the behaviour of an automatic renderer configuration dialog.
+    */
+    class ConfigDialog : public UtilityAlloc
     {
-    private:
-        String mPrefix;
-        unsigned long long int mNext;
     public:
-        NameGenerator(const NameGenerator& rhs)
-            : mPrefix(rhs.mPrefix), mNext(rhs.mNext) {}
-        
-        NameGenerator(const String& prefix) : mPrefix(prefix), mNext(1) {}
+        virtual ~ConfigDialog() {}
 
-        /// Generate a new name
-        String generate()
-        {
-            StringStream s;
-            s << mPrefix << mNext++;
-            return s.str();
-        }
-
-        /// Reset the internal counter
-        void reset()
-        {
-            mNext = 1ULL;
-        }
-
-        /// Manually set the internal counter (use caution)
-        void setNext(unsigned long long int val)
-        {
-            mNext = val;
-        }
-
-        /// Get the internal counter
-        unsigned long long int getNext() const
-        {
-            return mNext;
-        }
+        /** Displays the dialog.
+        @remarks
+            This method displays the dialog and from then on the dialog
+            interacts with the user independently. The dialog will be
+            calling the relevant OGRE rendering systems to query them for
+            options and to set the options the user selects. The method
+            returns when the user closes the dialog.
+        @returns
+            If the user accepted the dialog, <b>true</b> is returned.
+        @par
+            If the user cancelled the dialog (indicating the application
+            should probably terminate), <b>false</b> is returned.
+        @see
+            RenderSystem
+        */
+        virtual bool display() = 0;
     };
-
     /** @} */
     /** @} */
 }

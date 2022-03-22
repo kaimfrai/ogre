@@ -14,7 +14,7 @@ INTERFACE
   Core.General.include
 )
 
-target_precompile_headers(Core.Effects.include INTERFACE ${HEADER_FILES})
+#target_precompile_headers(Core.Effects.include INTERFACE ${HEADER_FILES})
 
 ogre_config_lib(Core.Effects.include TRUE)
 
