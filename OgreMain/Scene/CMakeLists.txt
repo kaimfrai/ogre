@@ -4,6 +4,11 @@ file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 
 add_library(Core.Scene STATIC ${SOURCE_FILES})
 set_target_properties(Core.Scene PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
-target_link_libraries(Core.Scene PUBLIC Core.Scene.include)
+target_link_libraries(
+	Core.Scene
+PUBLIC
+	Core.Scene.include
+	Core.Effects.include
+)
 
 ogre_config_lib(Core.Scene TRUE)
