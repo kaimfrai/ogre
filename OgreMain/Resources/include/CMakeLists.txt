@@ -11,6 +11,7 @@ target_link_libraries(
   Core.Resources.include
 INTERFACE
   Core.Image.include
+  Core.Script.include
 )
 target_precompile_headers(Core.Resources.include INTERFACE ${HEADER_FILES})
 

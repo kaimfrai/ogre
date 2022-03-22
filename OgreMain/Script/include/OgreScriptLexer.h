@@ -40,7 +40,7 @@ namespace Ogre {
     /** \addtogroup Core
     *  @{
     */
-    /** \addtogroup General
+    /** \addtogroup Script
     *  @{
     */
     /** These codes represent token IDs which are numerical translations of
