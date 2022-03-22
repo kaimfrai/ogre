@@ -33,7 +33,21 @@ target_include_directories(OgreMain INTERFACE
 
 set_target_properties(OgreMain PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
 
-target_link_libraries(OgreMain INTERFACE Core.Config)
+target_link_libraries(
+  OgreMain
+INTERFACE
+  Core.Animation
+  Core.Effects
+  Core.General
+  Core.Image
+  Core.LOD
+  Core.Math
+  Core.Materials
+  Core.RenderSystem
+  Core.Resources
+  Core.Scene
+  Core.Script
+)
 
 # install OgreMain
 ogre_config_lib(OgreMain TRUE)
