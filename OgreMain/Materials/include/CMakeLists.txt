@@ -7,6 +7,12 @@ target_include_directories(Core.Materials.include INTERFACE
   $<INSTALL_INTERFACE:include/OGRE/Core/Materials/>
 )
 
+target_link_libraries(
+  Core.Materials.include
+INTERFACE
+  Core.Config.include
+  Core.General.include
+)
 target_precompile_headers(Core.Materials.include INTERFACE ${HEADER_FILES})
 
 ogre_config_lib(Core.Materials.include TRUE)
