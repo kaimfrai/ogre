@@ -38,10 +38,8 @@ THE SOFTWARE.
 #include "OgreMath.h"
 #include "OgreString.h"
 #include "OgreVector.h"
-
-namespace {
+#include "OgreAlignedAllocator.h"
 #include "OgrePixelConversions.h"
-}
 
 namespace Ogre {
 

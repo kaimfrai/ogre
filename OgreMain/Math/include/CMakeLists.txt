@@ -12,6 +12,7 @@ target_link_libraries(
 INTERFACE
   Core.Config.include
   Core.RenderSystem.include
+  Core.Scene.include
 )
 #target_precompile_headers(Core.Math.include INTERFACE ${HEADER_FILES})
 

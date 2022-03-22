@@ -29,7 +29,7 @@ THE SOFTWARE.
 #define __Controller_H__
 
 #include "OgrePrerequisites.h"
-
+#include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

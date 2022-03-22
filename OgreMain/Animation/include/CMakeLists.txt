@@ -12,6 +12,9 @@ target_link_libraries(
 INTERFACE
   Core.Config.include
   Core.General.include
+  Core.Scene.include
+  Core.Math.include
+  Core.Resource.include
 )
 #target_precompile_headers(Core.Animation.include INTERFACE ${HEADER_FILES})
 

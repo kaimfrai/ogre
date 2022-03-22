@@ -8,7 +8,6 @@ target_link_libraries(
 	Core.Scene
 PUBLIC
 	Core.Scene.include
-	Core.Effects.include
 )
 
 ogre_config_lib(Core.Scene TRUE)

@@ -8,7 +8,6 @@ target_link_libraries(
   Core.Script
 PUBLIC
   Core.Script.include
-  Core.Effects.include
 )
 
 ogre_config_lib(Core.Script TRUE)

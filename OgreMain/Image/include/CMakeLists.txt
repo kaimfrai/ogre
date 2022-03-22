@@ -10,6 +10,7 @@ target_include_directories(Core.Image.include INTERFACE
 target_link_libraries(
   Core.Image.include
 INTERFACE
+  Core.Config.include
   Core.General.include
 )
 #target_precompile_headers(Core.Image.include INTERFACE ${HEADER_FILES})

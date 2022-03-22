@@ -11,9 +11,12 @@ target_link_libraries(
   Core.Effects.include
 INTERFACE
   Core.Config.include
+  Core.Scene.include
   Core.General.include
+  Core.Image.include
+  Core.RenderSystem.include
+  Core.Math.include
 )
-
 #target_precompile_headers(Core.Effects.include INTERFACE ${HEADER_FILES})
 
 ogre_config_lib(Core.Effects.include TRUE)

@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <ios>
 #include <string>
 #include <memory>
+#include <fstream>
 #include <thread>
 #include <mutex>
 #include <condition_variable>
