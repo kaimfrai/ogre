@@ -48,7 +48,7 @@ class Exception;
     /** \addtogroup Core
     *  @{
     */
-    /** \addtogroup General
+    /** \addtogroup Config
     *  @{
     */
     /** When thrown, provides information about an error that has occurred inside the engine.
