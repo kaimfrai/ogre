@@ -42,7 +42,7 @@ namespace Ogre {
     /** \addtogroup Core
     *  @{
     */
-    /** \addtogroup Resources
+    /** \addtogroup General
     *  @{
     */
 
