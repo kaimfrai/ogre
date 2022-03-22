@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 /** Internal include file -- do not use externally */
 //using namespace Ogre;
-
+#pragma once
 // NB VC6 can't handle these templates
 #define FMTCONVERTERID(from,to) (((from)<<8)|(to))
 /** \addtogroup Core
