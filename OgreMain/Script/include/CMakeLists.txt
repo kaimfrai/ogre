@@ -7,6 +7,13 @@ target_include_directories(Core.Script.include INTERFACE
   $<INSTALL_INTERFACE:include/OGRE/Core/Script/>
 )
 
+target_link_libraries(
+  Core.Script.include
+INTERFACE
+  Core.Config.include
+  Core.General.include
+)
+
 target_precompile_headers(Core.Script.include INTERFACE ${HEADER_FILES})
 
 ogre_config_lib(Core.Script.include TRUE)
