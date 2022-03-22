@@ -7,6 +7,11 @@ target_include_directories(Core.Math.include INTERFACE
   $<INSTALL_INTERFACE:include/OGRE/Core/Math/>
 )
 
+target_link_libraries(
+  Core.Math.include
+INTERFACE
+  Core.General.include
+)
 target_precompile_headers(Core.Math.include INTERFACE ${HEADER_FILES})
 
 ogre_config_lib(Core.Math.include TRUE)

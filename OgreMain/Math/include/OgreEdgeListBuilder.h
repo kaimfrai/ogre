@@ -38,6 +38,7 @@ THE SOFTWARE.
 #include "OgreVector.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgreAlignedAllocator.h"
 
 namespace Ogre {
     class IndexData;

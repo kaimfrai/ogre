@@ -7,6 +7,12 @@ target_include_directories(Core.LOD.include INTERFACE
   $<INSTALL_INTERFACE:include/OGRE/Core/LOD/>
 )
 
+target_link_libraries(
+  Core.LOD.include
+INTERFACE
+  Core.Config.include
+  Core.Resources.include
+)
 target_precompile_headers(Core.LOD.include INTERFACE ${HEADER_FILES})
 
 ogre_config_lib(Core.LOD.include TRUE)
