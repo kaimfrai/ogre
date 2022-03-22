@@ -31,6 +31,9 @@ THE SOFTWARE.
 // Precompiler options
 #include "OgrePrerequisites.h"
 #include "OgreException.h"
+#include "OgreMemoryAllocatorConfig.h"
+
+#include <cassert>
 
 namespace Ogre {
 

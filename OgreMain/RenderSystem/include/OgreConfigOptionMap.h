@@ -30,9 +30,9 @@ THE SOFTWARE.
 #define _ConfigOptionMap_H__
 
 #include "OgrePrerequisites.h"
-
 #include "OgreStringVector.h"
 
+#include <map>
 
 namespace Ogre {
     /** \addtogroup Core

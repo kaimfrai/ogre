@@ -41,6 +41,8 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreException.h"
 
+#include <cassert>
+
 namespace Ogre {
     /** \addtogroup Core
     *  @{

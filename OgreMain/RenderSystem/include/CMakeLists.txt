@@ -7,6 +7,12 @@ target_include_directories(Core.RenderSystem.include INTERFACE
   $<INSTALL_INTERFACE:include/OGRE/Core/RenderSystem/>
 )
 
+target_link_libraries(
+  Core.RenderSystem.include
+INTERFACE
+  Core.Config.include
+  Core.General.include
+)
 target_precompile_headers(Core.RenderSystem.include INTERFACE ${HEADER_FILES})
 
 ogre_config_lib(Core.RenderSystem.include TRUE)
