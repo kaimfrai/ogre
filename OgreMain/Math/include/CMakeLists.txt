@@ -10,7 +10,8 @@ target_include_directories(Core.Math.include INTERFACE
 target_link_libraries(
   Core.Math.include
 INTERFACE
-  Core.General.include
+  Core.Config.include
+  Core.Scene.include
 )
 target_precompile_headers(Core.Math.include INTERFACE ${HEADER_FILES})
 
