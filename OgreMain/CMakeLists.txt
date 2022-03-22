@@ -11,11 +11,18 @@
 # OgreMain core library
 ############################################################
 
+add_subdirectory(Animation)
 add_subdirectory(Config)
-add_subdirectory(RenderSystem)
-add_subdirectory(Math)
+add_subdirectory(Effects)
 add_subdirectory(General)
+add_subdirectory(Image)
+add_subdirectory(LOD)
+add_subdirectory(Math)
+add_subdirectory(Materials)
+add_subdirectory(RenderSystem)
+add_subdirectory(Resources)
 add_subdirectory(Scene)
+add_subdirectory(Script)
 
 # setup OgreMain target
 add_library(OgreMain INTERFACE include/Ogre.h)
