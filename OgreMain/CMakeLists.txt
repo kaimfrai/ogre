@@ -21,8 +21,11 @@ add_subdirectory(Math)
 add_subdirectory(Materials)
 add_subdirectory(RenderSystem)
 add_subdirectory(Resources)
+add_subdirectory(Root)
 add_subdirectory(Scene)
 add_subdirectory(Script)
+
+add_subdirectory(RootMaterials)
 
 # setup OgreMain target
 add_library(OgreMain INTERFACE include/Ogre.h)

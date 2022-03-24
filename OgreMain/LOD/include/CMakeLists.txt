@@ -11,8 +11,8 @@ target_link_libraries(
   Core.LOD.include
 INTERFACE
   Core.Config.include
-  Core.Rendersystem.include
-  Core.Resources.include
+  #Core.General.include
+  #Core.Resources.include
 )
 #target_precompile_headers(Core.LOD.include INTERFACE ${HEADER_FILES})
 

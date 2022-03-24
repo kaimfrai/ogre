@@ -11,7 +11,8 @@ target_link_libraries(
   Core.Image.include
 INTERFACE
   Core.Config.include
-  Core.General.include
+  #Core.General.include
+  #Core.Resources.include
 )
 #target_precompile_headers(Core.Image.include INTERFACE ${HEADER_FILES})
 

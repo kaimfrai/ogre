@@ -11,7 +11,7 @@ target_link_libraries(
   Core.Script.include
 INTERFACE
   Core.Config.include
-  Core.General.include
+  #Core.General.include
 )
 
 #target_precompile_headers(Core.Script.include INTERFACE ${HEADER_FILES})

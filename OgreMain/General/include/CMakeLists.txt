@@ -11,11 +11,8 @@ target_link_libraries(
   Core.General.include
 INTERFACE
   Core.Config.include
-  Core.Effects.include
-  Core.Math.include
-  Core.Resources.include
-  Core.RenderSystem.include
-  Core.Scene.include
+  #Core.Math.include
+  #Core.RenderSystem.include
 )
 #target_precompile_headers(Core.General.include INTERFACE ${HEADER_FILES})
 

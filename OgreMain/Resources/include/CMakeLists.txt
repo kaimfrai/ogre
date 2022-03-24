@@ -11,13 +11,10 @@ target_link_libraries(
   Core.Resources.include
 INTERFACE
   Core.Config.include
-  Core.Animation.include
-  Core.Math.include
-  Core.General.include
-  Core.LOD.include
-  Core.Script.include
-  Core.RenderSystem.include
-  Core.Image.include
+  #Core.Animation.include
+  #Core.Script.include
+  #Core.Math.include
+  #Core.General.include
 )
 #target_precompile_headers(Core.Resources.include INTERFACE ${HEADER_FILES})
 

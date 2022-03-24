@@ -42,7 +42,7 @@ namespace Ogre {
     /** \addtogroup Core
     *  @{
     */
-    /** \addtogroup General
+    /** \addtogroup Resources
     *  @{
     */
     /** Class for quickly loading settings from a text file.

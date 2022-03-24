@@ -29,6 +29,7 @@ THE SOFTWARE.
 #define __CommonConfigDialog_H__
 
 #include "OgrePrerequisites.h"
+#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre
 {

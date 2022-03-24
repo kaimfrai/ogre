@@ -1,9 +1,9 @@
 add_subdirectory(include)
 
-file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+#file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 
-add_library(Core.Animation STATIC ${SOURCE_FILES})
-set_target_properties(Core.Animation PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
-target_link_libraries(Core.Animation PUBLIC Core.Animation.include)
+#add_library(Core.Animation STATIC ${SOURCE_FILES})
+#set_target_properties(Core.Animation PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
+#target_link_libraries(Core.Animation PUBLIC Core.Animation.include)
 
-ogre_config_lib(Core.Animation TRUE)
+#ogre_config_lib(Core.Animation TRUE)
