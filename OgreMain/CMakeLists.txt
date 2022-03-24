@@ -15,176 +15,31 @@
 file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
-# Remove optional header files
-list(REMOVE_ITEM HEADER_FILES
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/OgreDDSCodec.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/OgrePVRTCCodec.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/OgreETCCodec.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/OgreZip.h"
-)
+set(PLATFORM_LIBS pthread)
 
-# Remove optional source files
-list(REMOVE_ITEM SOURCE_FILES
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreFileSystemLayerNoOp.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreDDSCodec.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/OgrePVRTCCodec.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreETCCodec.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreZip.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreSearchOps.cpp"
-)
+#include_directories(src/zip)
+add_library(OgreMain.miniz INTERFACE src/zip/miniz.h)
+target_include_directories(OgreMain.miniz INTERFACE src/zip)
 
-# Add platform specific files
-if (EMSCRIPTEN)
-  set(PLATFORM_SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreFileSystemLayerNoOp.cpp")
-elseif (WIN32)
-  file(GLOB PLATFORM_SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/WIN32/*.cpp")
-elseif (APPLE)
-  if (APPLE_IOS)
-    include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src/iOS")
-    file(GLOB PLATFORM_SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/iOS/*.cpp"
-      "${CMAKE_CURRENT_SOURCE_DIR}/src/iOS/*.mm")
-
-    set(PLATFORM_LIBS "")
-  else ()
-    include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src/OSX")
-    file(GLOB PLATFORM_SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/OSX/*.cpp"
-      "${CMAKE_CURRENT_SOURCE_DIR}/src/OSX/*.mm")
-    set(PLATFORM_LIBS "-framework CoreFoundation -framework Foundation")
-  endif ()
-elseif(ANDROID)
-  # required by OgrePlatformInformation.cpp
-  include_directories(${ANDROID_NDK}/sources/android/cpufeatures)
-
-  file(GLOB PLATFORM_SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/Android/*.cpp")
-  # Remove optional platform source files
-  list(REMOVE_ITEM PLATFORM_SOURCE_FILES
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/Android/OgreAPKZipArchive.cpp"
-  )
-elseif (UNIX)
-  file(GLOB PLATFORM_SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/GLX/*.cpp")
-
-  set(PLATFORM_LIBS pthread)
-endif()
-
-if(NOT WIN32)
-    list(APPEND PLATFORM_SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreSearchOps.cpp")
-endif()
-
-# Configure threading files
-file(GLOB THREAD_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/Threading/*.h")
-include_directories("include/Threading" "src/")
-
-list(APPEND THREAD_HEADER_FILES
-    include/Threading/OgreDefaultWorkQueueStandard.h
-)
-list(APPEND THREAD_SOURCE_FILES
-    src/Threading/OgreDefaultWorkQueueStandard.cpp
-)
-
-list(APPEND HEADER_FILES ${THREAD_HEADER_FILES})
-
-set(LIBRARIES)
-
-list(APPEND LIBRARIES ${OGRE_THREAD_LIBRARIES})
-
-if (OGRE_CONFIG_ENABLE_DDS)
-  list(APPEND SOURCE_FILES src/OgreDDSCodec.cpp src/OgreDDSCodec.h)
-endif ()
-
-if (OGRE_CONFIG_ENABLE_PVRTC)
-  list(APPEND HEADER_FILES )
-  list(APPEND SOURCE_FILES src/OgrePVRTCCodec.cpp src/OgrePVRTCCodec.h)
-endif ()
-
-if (OGRE_CONFIG_ENABLE_ETC)
-  list(APPEND SOURCE_FILES src/OgreETCCodec.cpp src/OgreETCCodec.h)
-endif ()
-
-if (OGRE_CONFIG_ENABLE_ASTC)
-  list(APPEND SOURCE_FILES src/OgreASTCCodec.cpp src/OgreASTCCodec.h)
-endif ()
-
-if (OGRE_CONFIG_ENABLE_ZIP)
-  include_directories(src/zip)
-  list(APPEND HEADER_FILES include/OgreZip.h)
-  list(APPEND SOURCE_FILES src/OgreZip.cpp src/zip/zip.c)
-
-  if(ANDROID)
-    list(APPEND PLATFORM_SOURCE_FILES src/Android/OgreAPKZipArchive.cpp)
-  endif()
-endif ()
-
-if(OGRE_CONFIG_FILESYSTEM_UNICODE)
-  set_source_files_properties(src/OgreFileSystem.cpp
-    PROPERTIES COMPILE_DEFINITIONS _OGRE_FILESYSTEM_ARCHIVE_UNICODE)
-  set_source_files_properties(src/OgreZip.cpp
-    PROPERTIES COMPILE_DEFINITIONS _OGRE_FILESYSTEM_ARCHIVE_UNICODE)
-endif()
-
-if(OGRE_PROFILING_REMOTERY_PATH)
-  list(APPEND SOURCE_FILES ${OGRE_PROFILING_REMOTERY_PATH}/Remotery.c)
-  set_source_files_properties(${OGRE_PROFILING_REMOTERY_PATH}/Remotery.c PROPERTIES LANGUAGE CXX)
-  set_source_files_properties(src/OgreProfiler.cpp PROPERTIES COMPILE_DEFINITIONS USE_REMOTERY)
-endif()
-
-set (TARGET_LINK_FLAGS "")
+add_library(OgreMain.zip OBJECT src/zip/zip.c)
+target_include_directories(OgreMain.zip PUBLIC src/zip)
+target_link_libraries(OgreMain.zip PUBLIC OgreMain.miniz)
 
 # setup OgreMain target
 
-get_native_precompiled_header(OgreMain)
-add_library(OgreMain ${OGRE_LIB_TYPE} ${OgreMain_pch} ${HEADER_FILES} ${SOURCE_FILES} ${PLATFORM_HEADERS} ${PLATFORM_SOURCE_FILES} ${THREAD_HEADER_FILES} ${THREAD_SOURCE_FILES})
-
-if (WINDOWS_STORE OR WINDOWS_PHONE)
-	set_target_properties(OgreMain PROPERTIES VS_WINRT_COMPONENT "true")
-endif ()
+add_library(OgreMain ${OGRE_LIB_TYPE} ${SOURCE_FILES} $<TARGET_OBJECTS:OgreMain.zip>)
 
 target_include_directories(OgreMain PUBLIC 
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>" 
   "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
   $<INSTALL_INTERFACE:include/OGRE>
-  PRIVATE "${OGRE_PROFILING_REMOTERY_PATH}")
+PRIVATE
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/zip>"
+)
 
-# In visual studio 2010 - 64 bit we get this error: "LINK : fatal error LNK1210: exceeded internal ILK size limit; link with /INCREMENTAL:NO"
-if(WIN32 AND MSVC10 AND CMAKE_CL_64)
-  set_target_properties(OgreMain PROPERTIES 
-                        VERSION ${OGRE_SOVERSION}
-                        LINK_FLAGS "/INCREMENTAL:NO"
-                      )
-else()
-  set_target_properties(OgreMain PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
-endif()
+set_target_properties(OgreMain PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
 
-if (APPLE)
-  if (APPLE_IOS)
-    set_target_properties(OgreMain PROPERTIES INSTALL_NAME_DIR "OGRE")
-  else()
-    if(OGRE_BUILD_LIBS_AS_FRAMEWORKS)
-      set(OGRE_OSX_BUILD_CONFIGURATION "${CMAKE_OSX_SYSROOT}/$(CONFIGURATION)")
-      add_custom_command(TARGET OgreMain POST_BUILD
-          COMMAND mkdir ARGS -p ${PROJECT_BINARY_DIR}/lib/${OGRE_OSX_BUILD_CONFIGURATION}/Ogre.framework/Headers/Threading
-          COMMAND ditto
-          ${PROJECT_SOURCE_DIR}/OgreMain/include/Threading/*.h ${PROJECT_BINARY_DIR}/lib/${OGRE_OSX_BUILD_CONFIGURATION}/Ogre.framework/Headers/Threading
-          COMMAND cd ${PROJECT_BINARY_DIR}/lib/${OGRE_OSX_BUILD_CONFIGURATION}/Ogre.framework/Headers
-          )
-
-      foreach(HEADER_PATH ${THREAD_HEADER_FILES})
-          get_filename_component(HEADER_FILE ${HEADER_PATH} NAME)
-          set(FWK_HEADER_PATH ${PROJECT_BINARY_DIR}/lib/${OGRE_OSX_BUILD_CONFIGURATION}/Ogre.framework/Headers/${HEADER_FILE})
-          add_custom_command(TARGET OgreMain POST_BUILD
-              COMMAND rm -f ${FWK_HEADER_PATH}
-              )
-      endforeach()
-    endif()
-
-    ogre_config_framework(OgreMain)
-  endif ()
-
-  if(OGRE_BUILD_LIBS_AS_FRAMEWORKS)
-    # Framework is called 'Ogre'
-    set_target_properties(OgreMain PROPERTIES	OUTPUT_NAME Ogre)
-  endif()
-endif ()
-target_link_libraries(OgreMain PUBLIC ${PLATFORM_LIBS} PRIVATE ${LIBRARIES} ${CMAKE_DL_LIBS})
+target_link_libraries(OgreMain PUBLIC pthread PRIVATE ${CMAKE_DL_LIBS})
 
 # specify a precompiled header to use
 add_native_precompiled_header(OgreMain "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/src/OgreStableHeaders.h>")
@@ -193,10 +48,4 @@ add_native_precompiled_header(OgreMain "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURREN
 ogre_config_lib(OgreMain TRUE)
 install(FILES ${HEADER_FILES}
   DESTINATION include/OGRE
-)
-install(FILES ${PLATFORM_HEADERS}
-  DESTINATION include/OGRE/${PLATFORM_HEADER_INSTALL}
-)
-install(FILES ${THREAD_HEADER_FILES}
-	DESTINATION include/OGRE/Threading
 )

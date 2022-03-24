@@ -34,7 +34,7 @@ THE SOFTWARE
 #include <mutex>
 #include <condition_variable>
 
-#include "../OgreWorkQueue.h"
+#include "OgreWorkQueue.h"
 #include "OgreCommon.h"
 #include "OgrePrerequisites.h"
 
