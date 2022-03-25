@@ -93,8 +93,11 @@ time_ninja_target()
 	echo -n "Time $1: "
 	local time=$(\time -f "%e" ninja -C $CMAKE_BINARY_DIR $1 2>&1 1>/dev/null)
 	echo $time
-	local -n sum_ref="$1_SUM"
-	sum_ref=$(echo $sum_ref + $time | bc -l)
+	if [[ $LOOP_ITERATIONS > 1 ]]
+	then
+		local -n sum_ref="$1_SUM"
+		sum_ref=$(echo $sum_ref + $time | bc -l)
+	fi
 }
 
 time_ninja_targets()
@@ -107,6 +110,7 @@ time_ninja_targets()
 
 for ((i = 1; i <= $LOOP_ITERATIONS; ++i))
 do
+	ninja -C $CMAKE_BINARY_DIR clean > /dev/null
 	echo "Compilation run #$i"
 	time_ninja_targets ${TARGETS[@]}
 	echo ""
