@@ -68,6 +68,7 @@ then
 fi
 
 CMAKE_BINARY_DIR=$CMAKE_SOURCE_DIR/build/Clang-$CMAKE_BUILD_TYPE
+THIRD_PARTY_DIR=$(realpath $CMAKE_SOURCE_DIR/../ThirdParty/)
 
 #ensure the directory is empty
 if	[[ -d $CMAKE_BINARY_DIR ]]
@@ -83,11 +84,11 @@ fi
 
 cmake\
 	-DCMAKE_EXPORT_COMPILE_COMMANDS=ON\
-	--install-prefix $(realpath $CMAKE_SOURCE_DIR/../ThirdParty/)\
+	--install-prefix $THIRD_PARTY_DIR\
 	-G Ninja\
 	--toolchain $CMAKE_SOURCE_DIR/CMake/toolchain/linux.toolchain.clang.cmake\
 	-DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE\
-	-DOGRE_DEPENDENCIES_DIR=$(realpath $CMAKE_SOURCE_DIR/../ThirdParty/)\
+	-DOGRE_DEPENDENCIES_DIR=$THIRD_PARTY_DIR\
 	-S $CMAKE_SOURCE_DIR\
 	-B $CMAKE_BINARY_DIR\
 	1> /dev/null
@@ -128,12 +129,32 @@ time_ninja_targets()
 	done
 }
 
+TRACE_DIR=$CMAKE_SOURCE_DIR/build/Evaluation
+if	[[ ! -d $TRACE_DIR ]]
+then
+	mkdir\
+		$TRACE_DIR
+fi
+
+loop_iteration()
+{
+	ninja -C $CMAKE_BINARY_DIR clean > /dev/null
+	rm $CMAKE_BINARY_DIR/.ninja_log
+
+	local time_stamp=$(date +"%Y-%m-%d_%H-%M-%S")
+	local trace_log="$TRACE_DIR/ninja_$time_stamp.log"
+
+	echo "Compilation run #$1 timestamp $time_stamp"
+	time_ninja_targets ${TARGETS[@]}
+
+	cp $CMAKE_BINARY_DIR/.ninja_log $trace_log
+	echo "Trace log created in $trace_log."
+	echo ""
+}
+
 for	((i = 1; i <= $LOOP_ITERATIONS; ++i))
 do
-	ninja -C $CMAKE_BINARY_DIR clean > /dev/null
-	echo "Compilation run #$i"
-	time_ninja_targets ${TARGETS[@]}
-	echo ""
+	loop_iteration $i
 done
 
 if	[[ $LOOP_ITERATIONS > 1 ]]
@@ -155,3 +176,7 @@ then
 
 	print_averages ${TARGETS[@]}
 fi
+
+echo "Trace logs can be opened with https://ui.perfetto.dev."
+echo "Data can be evaluated with SQL, e.g."
+echo "SELECT name AS Name, (dur / 1000000000.0) AS Seconds FROM slice ORDER BY dur DESC"

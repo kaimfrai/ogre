@@ -13,4 +13,3 @@ add_link_options(-fuse-ld=lld)
 # On platforms using glibc, Be sure to "#define _LARGEFILE64_SOURCE 1" before
 # including miniz.c to ensure miniz uses the 64-bit variants
 add_compile_options(-D_LARGEFILE64_SOURCE=1)
-
