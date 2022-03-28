@@ -8,6 +8,3 @@ find_program(CMAKE_CXX_COMPILER clang++-15 REQUIRED)
 add_compile_options($<$<COMPILE_LANGUAGE:CXX>:-stdlib=libc++>)
 add_link_options($<$<COMPILE_LANGUAGE:CXX>:-stdlib=libc++>)
 add_link_options(-fuse-ld=lld)
-
-#Keep assembly files for comparison
-add_compile_options(-save-temps=obj)
