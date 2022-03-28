@@ -9,10 +9,5 @@ add_compile_options($<$<COMPILE_LANGUAGE:CXX>:-stdlib=libc++>)
 add_link_options($<$<COMPILE_LANGUAGE:CXX>:-stdlib=libc++>)
 add_link_options(-fuse-ld=lld)
 
-#from miniz.h:
-# On platforms using glibc, Be sure to "#define _LARGEFILE64_SOURCE 1" before
-# including miniz.c to ensure miniz uses the 64-bit variants
-add_compile_options(-D_LARGEFILE64_SOURCE=1)
-
 #Keep assembly files for comparison
 add_compile_options(-save-temps=obj)
