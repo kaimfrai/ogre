@@ -15,21 +15,20 @@
 file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
-set(PLATFORM_LIBS pthread)
+add_library(miniz INTERFACE src/zip/miniz.h)
+target_include_directories(miniz INTERFACE src/zip)
 
-#include_directories(src/zip)
-add_library(OgreMain.miniz INTERFACE src/zip/miniz.h)
-target_include_directories(OgreMain.miniz INTERFACE src/zip)
-
-add_library(OgreMain.zip OBJECT src/zip/zip.c)
-target_include_directories(OgreMain.zip PUBLIC src/zip)
-target_link_libraries(OgreMain.zip PUBLIC OgreMain.miniz)
+add_library(zip OBJECT src/zip/zip.c)
+target_include_directories(zip PUBLIC src/zip)
+target_link_libraries(zip PUBLIC miniz)
 
 # setup OgreMain target
 
-add_library(OgreMain ${OGRE_LIB_TYPE} ${SOURCE_FILES} $<TARGET_OBJECTS:OgreMain.zip>)
+add_library(OgreMain ${OGRE_LIB_TYPE} ${SOURCE_FILES} $<TARGET_OBJECTS:zip>)
 
-target_include_directories(OgreMain PUBLIC 
+target_include_directories(
+  OgreMain
+PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>" 
   "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
   $<INSTALL_INTERFACE:include/OGRE>

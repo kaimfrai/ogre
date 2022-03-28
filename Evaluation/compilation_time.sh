@@ -1,6 +1,8 @@
 #!/bin/bash
 
 TARGETS=(\
+	miniz\
+	zip\
 	OgreMain\
 	Codec_STBI\
 	OgreGLSupport\
@@ -12,7 +14,7 @@ TARGETS=(\
 	SampleBrowser
 )
 
-if [[ $# < 1 ]]
+if	[[ $# < 1 ]]
 then
 	echo "Path to cmake source directory required as first argument!"
 	exit 1
@@ -22,7 +24,7 @@ then
 	exit 1
 fi
 
-if [[ $# > 2 ]]
+if	[[ $# > 2 ]]
 then
 	LOOP_ITERATIONS=$3
 else
@@ -43,20 +45,23 @@ initialize_sums()
 	done
 }
 
-if [[ $LOOP_ITERATIONS > 1 ]]
+if	[[ $LOOP_ITERATIONS > 1 ]]
 then
 	initialize_sums ${TARGETS[@]}
 fi
 
-CMAKE_SOURCE_DIR=$1
-if [[ ! -d $CMAKE_SOURCE_DIR ]]
+CMAKE_SOURCE_DIR=$(realpath $1)
+if	[[ ! -d $CMAKE_SOURCE_DIR ]]
 then
-    echo "$CMAKE_SOURCE_DIR is a not a directory!"
+	echo "$CMAKE_SOURCE_DIR is a not a directory!"
 	exit 1
 fi
 
 CMAKE_BUILD_TYPE=$2
-if [[ $CMAKE_BUILD_TYPE != "Debug" && $CMAKE_BUILD_TYPE != "Release" ]]
+if	[[	$CMAKE_BUILD_TYPE != "Debug"\
+	&&	$CMAKE_BUILD_TYPE != "Release"\
+	&&	$CMAKE_BUILD_TYPE != "RelWithDebInfo"\
+	]]
 then
 	echo "CMake build type $CMAKE_BUILD_TYPE not supported!"
 	exit 1
@@ -65,7 +70,7 @@ fi
 CMAKE_BINARY_DIR=$CMAKE_SOURCE_DIR/build/Clang-$CMAKE_BUILD_TYPE
 
 #ensure the directory is empty
-if [[ -d $CMAKE_BINARY_DIR ]]
+if	[[ -d $CMAKE_BINARY_DIR ]]
 then
 	if	[[ -d "$CMAKE_BINARY_DIR/CMakeFiles" ]]
 	then
@@ -76,24 +81,39 @@ then
 	fi
 fi
 
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_INSTALL_PREFIX=$CMAKE_SOURCE_DIR/../ThirdParty/ -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE -G Ninja --toolchain $CMAKE_SOURCE_DIR/CMake/toolchain/linux.toolchain.clang.cmake -DOGRE_DEPENDENCIES_DIR=$CMAKE_SOURCE_DIR/../ThirdParty/ -S $CMAKE_SOURCE_DIR -B $CMAKE_BINARY_DIR 1> /dev/null
+cmake\
+	-DCMAKE_EXPORT_COMPILE_COMMANDS=ON\
+	--install-prefix $(realpath $CMAKE_SOURCE_DIR/../ThirdParty/)\
+	-G Ninja\
+	--toolchain $CMAKE_SOURCE_DIR/CMake/toolchain/linux.toolchain.clang.cmake\
+	-DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE\
+	-DOGRE_DEPENDENCIES_DIR=$(realpath $CMAKE_SOURCE_DIR/../ThirdParty/)\
+	-S $CMAKE_SOURCE_DIR\
+	-B $CMAKE_BINARY_DIR\
+	1> /dev/null
 
-if [[ ! -d "$CMAKE_BINARY_DIR/CMakeFiles" ]]
+if	[[ ! -d "$CMAKE_BINARY_DIR/CMakeFiles" ]]
 then
-    echo "$CMAKE_BINARY_DIR does not appear to be a valid CMake binary directory!"
+	echo "$CMAKE_BINARY_DIR does not appear to be a valid CMake binary directory!"
 	exit 1
 elif [[ ! -f "$CMAKE_BINARY_DIR/build.ninja" ]]
 then
-    echo "$CMAKE_BINARY_DIR does not appear to be configured with Ninja!"
-    exit 1
+	echo "$CMAKE_BINARY_DIR does not appear to be configured with Ninja!"
+	exit 1
 fi
 
 time_ninja_target()
 {
 	echo -n "Time $1: "
-	local time=$(\time -f "%e" ninja -C $CMAKE_BINARY_DIR $1 2>&1 1>/dev/null)
+	local time=$(\time -f "%e"\
+		cmake\
+			--build $CMAKE_BINARY_DIR\
+			--target $1\
+			--config $CMAKE_BUILD_TYPE\
+			2>&1 1>/dev/null\
+		)
 	echo $time
-	if [[ $LOOP_ITERATIONS > 1 ]]
+	if	[[ $LOOP_ITERATIONS > 1 ]]
 	then
 		local -n sum_ref="$1_SUM"
 		sum_ref=$(echo $sum_ref + $time | bc -l)
@@ -102,13 +122,13 @@ time_ninja_target()
 
 time_ninja_targets()
 {
-	for target in $@
+	for	target in $@
 	do
 		time_ninja_target $target
 	done
 }
 
-for ((i = 1; i <= $LOOP_ITERATIONS; ++i))
+for	((i = 1; i <= $LOOP_ITERATIONS; ++i))
 do
 	ninja -C $CMAKE_BINARY_DIR clean > /dev/null
 	echo "Compilation run #$i"
@@ -116,7 +136,7 @@ do
 	echo ""
 done
 
-if [[ $LOOP_ITERATIONS > 1 ]]
+if	[[ $LOOP_ITERATIONS > 1 ]]
 then
 	print_average()
 	{
