@@ -14,9 +14,13 @@
 # and provide build configuration options.
 ######################################################################
 
-cmake_minimum_required(VERSION 3.10.0)
+cmake_minimum_required(VERSION 3.20)
 
-set(CMAKE_CXX_STANDARD 11)
+#CXX_STANDARD may be externally set
+if  (NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 11)
+endif()
+
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
