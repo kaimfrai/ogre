@@ -64,6 +64,7 @@ readarray -t OBJECT_FILE_LIST <<<"${OBJECT_FILE_STRING[0]}"
 disassemble()
 {
 	local obj=$1
+	echo -ne "\033[2K\rGenerating assembly for ${obj}"
 	local assembly=$(realpath $obj)
 	assembly=${assembly/$CMAKE_BINARY_DIR/$ASSEMBLY_DIR}
 
@@ -84,14 +85,14 @@ disassemble()
 		-M intel\
 		$obj\
 		> "${assembly}"
-
-	echo ${assembly/$CMAKE_SOURCE_DIR/"."}
 }
 
 for	obj in "${OBJECT_FILE_LIST[@]}"
 do
 	disassemble $obj
 done
+
+echo -e "\033[2K\rGenerated assembly files can be found in $ASSEMBLY_DIR/."
 
 #switch back from cmake binary dir
 popd > /dev/null
