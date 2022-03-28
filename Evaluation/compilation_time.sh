@@ -67,8 +67,11 @@ then
 	exit 1
 fi
 
-CMAKE_BINARY_DIR=$CMAKE_SOURCE_DIR/build/Clang-$CMAKE_BUILD_TYPE
+#do not overwrite configurations of different branches
+GIT_BRANCH_NAME=$(git -C $CMAKE_SOURCE_DIR branch --show-current)
+CMAKE_BINARY_DIR=$CMAKE_SOURCE_DIR/build/Compilation/Clang-$CMAKE_BUILD_TYPE-$GIT_BRANCH_NAME
 THIRD_PARTY_DIR=$(realpath $CMAKE_SOURCE_DIR/../ThirdParty/)
+TRACE_DIR=$CMAKE_SOURCE_DIR/build/Compilation/$CMAKE_BUILD_TYPE-$GIT_BRANCH_NAME
 
 #ensure the directory is empty
 if	[[ -d $CMAKE_BINARY_DIR ]]
@@ -129,7 +132,6 @@ time_ninja_targets()
 	done
 }
 
-TRACE_DIR=$CMAKE_SOURCE_DIR/build/Evaluation
 if	[[ ! -d $TRACE_DIR ]]
 then
 	mkdir\
