@@ -17,10 +17,14 @@ file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 add_library(miniz INTERFACE src/zip/miniz.h)
 target_include_directories(miniz INTERFACE src/zip)
+#from miniz.h:
+# On platforms using glibc, Be sure to "#define _LARGEFILE64_SOURCE 1" before
+# including miniz.c to ensure miniz uses the 64-bit variants
+target_compile_options(miniz INTERFACE -D_LARGEFILE64_SOURCE=1)
 
 add_library(zip OBJECT src/zip/zip.c)
 target_include_directories(zip PUBLIC src/zip)
-target_link_libraries(zip PUBLIC miniz)
+target_link_libraries(zip PRIVATE miniz)
 
 # setup OgreMain target
 
