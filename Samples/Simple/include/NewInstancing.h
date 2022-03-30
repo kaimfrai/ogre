@@ -4,12 +4,12 @@
 #include <set>
 #include <vector>
 
-#include "SdkSample.h"
 #include "OgreInput.h"
 #include "OgreInstanceManager.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
+#include "SdkSample.h"
 
 namespace Ogre {
 class AnimationState;

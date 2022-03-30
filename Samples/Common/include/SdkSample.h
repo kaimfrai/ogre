@@ -28,10 +28,10 @@
 #ifndef __SdkSample_H__
 #define __SdkSample_H__
 
-#include "Sample.h"
 #include "Ogre.h"
 #include "OgreAdvancedRenderControls.h"
 #include "OgreOverlayManager.h"
+#include "Sample.h"
 
 namespace OgreBites
 {

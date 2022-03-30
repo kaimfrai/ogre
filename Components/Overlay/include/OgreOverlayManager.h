@@ -28,18 +28,18 @@ THE SOFTWARE.
 #ifndef __OverlayManager_H__
 #define __OverlayManager_H__
 
-#include <stddef.h>
 #include <map>
 #include <memory>
 #include <set>
+#include <stddef.h>
 #include <string>
 
-#include "OgreSingleton.h"
-#include "OgreStringVector.h"
-#include "OgreScriptLoader.h"
 #include "OgreFrustum.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
+#include "OgreScriptLoader.h"
+#include "OgreSingleton.h"
+#include "OgreStringVector.h"
 
 namespace Ogre {
     class Overlay;
