@@ -30,8 +30,8 @@ THE SOFTWARE.
 
 #include <stddef.h>
 
-#include "OgreHardwareBufferManager.h"
 #include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"

@@ -26,14 +26,14 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 // Ogre includes
-#include <stddef.h>
 #include <atomic>
-#include <set>
-#include <string>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <memory>
+#include <mutex>
+#include <set>
+#include <stddef.h>
+#include <string>
+#include <thread>
 
 #include "OgreStableHeaders.h"
 #include "OgreException.h"

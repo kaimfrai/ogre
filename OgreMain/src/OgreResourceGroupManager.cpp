@@ -26,22 +26,19 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <assert.h>
-#include <time.h>
+#include <condition_variable>
 #include <iterator>
 #include <list>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <ostream>
 #include <string>
+#include <thread>
+#include <time.h>
 #include <utility>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
-#include "OgreStableHeaders.h"
-#include "OgreScriptLoader.h"
 #include "OgreArchive.h"
 #include "OgreArchiveManager.h"
 #include "OgreCommon.h"
@@ -55,8 +52,10 @@ THE SOFTWARE.
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreResourceManager.h"
+#include "OgreScriptLoader.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
+#include "OgreStableHeaders.h"
 #include "OgreString.h"
 #include "OgreStringVector.h"
 

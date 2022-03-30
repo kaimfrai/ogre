@@ -25,15 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
 #include <algorithm>
+#include <assert.h>
 #include <memory>
 #include <ostream>
 #include <string>
 #include <vector>
 
-#include "OgreStableHeaders.h"
-#include "OgreViewport.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCamera.h"
 #include "OgreCommon.h"
@@ -47,7 +45,9 @@ THE SOFTWARE.
 #include "OgreQuaternion.h"
 #include "OgreRay.h"
 #include "OgreSceneManager.h"
+#include "OgreStableHeaders.h"
 #include "OgreVector.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 class Sphere;

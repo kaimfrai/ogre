@@ -28,11 +28,11 @@ THE SOFTWARE.
 #include <assert.h>
 #include <memory>
 
-#include "OgreStableHeaders.h"
-#include "OgreSkeletonManager.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
 #include "OgreSkeleton.h"
+#include "OgreSkeletonManager.h"
+#include "OgreStableHeaders.h"
 
 namespace Ogre
 {

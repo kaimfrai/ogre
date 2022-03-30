@@ -28,14 +28,14 @@ THE SOFTWARE.
 #include <assert.h>
 #include <string>
 
-#include "OgreStableHeaders.h"
-#include "OgreCompositionTechnique.h"
 #include "OgreCompositionTargetPass.h"
+#include "OgreCompositionTechnique.h"
 #include "OgreException.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRoot.h"
+#include "OgreStableHeaders.h"
 #include "OgreTextureManager.h"
 
 namespace Ogre {

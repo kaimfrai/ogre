@@ -2,10 +2,10 @@
 
 #include <cstddef>
 
-#include "OgreRoot.h"
 #include "OgreGLPlugin.h"
-#include "OgreSTBICodec.h"
 #include "OgrePlugin.h"
+#include "OgreRoot.h"
+#include "OgreSTBICodec.h"
 
 void OgreBites::StaticPluginLoader::load()
 {

@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
 #include "OgreTagPoint.h"
 #include "OgreEntity.h"
 #include "OgreMovableObject.h"
 #include "OgreNode.h"
 #include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
+#include "OgreStableHeaders.h"
 #include "OgreVector.h"
 
 

@@ -25,23 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <stddef.h>
 #include <memory>
+#include <stddef.h>
 #include <string>
 #include <vector>
 
+#include "OgreGLSLExtSupport.h"
+#include "OgreGLSLLinkProgram.h"
+#include "OgreGLSLLinkProgramManager.h"
+#include "OgreGLSLProgram.h"
 #include "OgreGpuProgram.h"
-#include "OgreRoot.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
-#include "OgreStringConverter.h"
-#include "OgreLogManager.h"
-#include "OgreGLSLProgram.h"
-#include "OgreGLSLExtSupport.h"
-#include "OgreGLSLLinkProgramManager.h"
-#include "OgreGLSLLinkProgram.h"
-#include "OgreLog.h"
+#include "OgreRoot.h"
 #include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
 #include "OgreStringInterface.h"
 #include "glad/glad.h"
 

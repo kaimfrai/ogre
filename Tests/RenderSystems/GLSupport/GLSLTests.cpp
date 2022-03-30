@@ -30,8 +30,8 @@ THE SOFTWARE.
 #include <stdlib.h>
 
 #include "GLSL/OgreGLSLPreprocessor.h"
-#include "OgreString.h"
 #include "OgrePrerequisites.h"
+#include "OgreString.h"
 
 using namespace Ogre;
 

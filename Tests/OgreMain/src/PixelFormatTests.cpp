@@ -27,10 +27,10 @@ THE SOFTWARE.
 */
 #include "PixelFormatTests.h"
 
-#include <string.h>
 #include <cstdlib>
 #include <iomanip>
 #include <ostream>
+#include <string.h>
 #include <string>
 
 #include "OgrePrerequisites.h"

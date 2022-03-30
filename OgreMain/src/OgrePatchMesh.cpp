@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
 #include "OgrePatchMesh.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
 #include "OgreSubMesh.h"
 #include "OgreVertexIndexData.h"
 

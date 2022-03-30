@@ -25,26 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
 #include <algorithm>
+#include <assert.h>
 #include <set>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreCompositor.h"
 #include "OgreCompositionTechnique.h"
-#include "OgreRenderTexture.h"
-#include "OgreRenderTarget.h"
-#include "OgreHardwarePixelBuffer.h"
+#include "OgreCompositor.h"
 #include "OgreCompositorInstance.h"
 #include "OgreException.h"
+#include "OgreHardwarePixelBuffer.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreLogManager.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePixelFormat.h"
 #include "OgreRenderSystem.h"
+#include "OgreRenderTarget.h"
+#include "OgreRenderTexture.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreRoot.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 #include "OgreTexture.h"
 #include "OgreTextureManager.h"

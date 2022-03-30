@@ -30,9 +30,9 @@ THE SOFTWARE.
 
 #include <stddef.h>
 
-#include "OgrePrerequisites.h"
 #include "OgreGpuProgram.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
 

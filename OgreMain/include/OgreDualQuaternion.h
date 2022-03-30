@@ -30,12 +30,12 @@ THE SOFTWARE.
 #define __DualQuaternion_H__
 
 #include <assert.h>
-#include <string.h>
 #include <ostream>
+#include <string.h>
 #include <utility>
 
-#include "OgrePrerequisites.h"
 #include "OgreMath.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 
 namespace Ogre {

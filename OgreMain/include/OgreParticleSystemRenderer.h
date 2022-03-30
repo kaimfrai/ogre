@@ -28,12 +28,12 @@ THE SOFTWARE.
 #ifndef __ParticleSystemRenderer_H__
 #define __ParticleSystemRenderer_H__
 
-#include "OgrePrerequisites.h"
-#include "OgreStringInterface.h"
-#include "OgreFactoryObj.h"
-#include "OgreRenderQueue.h"
 #include "OgreCommon.h"
+#include "OgreFactoryObj.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderQueue.h"
 #include "OgreRenderable.h"
+#include "OgreStringInterface.h"
 
 namespace Ogre {
 

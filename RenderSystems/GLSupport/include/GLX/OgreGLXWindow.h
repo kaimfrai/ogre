@@ -31,8 +31,8 @@ THE SOFTWARE.
 
 #include <X11/X.h>
 
-#include "OgreGLWindow.h"
 #include "OgreCommon.h"
+#include "OgreGLWindow.h"
 #include "OgrePixelFormat.h"
 #include "OgrePrerequisites.h"
 

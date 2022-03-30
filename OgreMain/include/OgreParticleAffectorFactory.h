@@ -29,8 +29,8 @@ THE SOFTWARE.
 #define __ParticleAffectorFactory_H__
 
 
-#include "OgrePrerequisites.h"
 #include "OgreParticleAffector.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 

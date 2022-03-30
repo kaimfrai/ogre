@@ -30,9 +30,9 @@ THE SOFTWARE.
 #define __GLNativeSupport_H__
 
 #include "OgreConfigOptionMap.h"
-#include "OgrePixelFormat.h"
 #include "OgreException.h"
 #include "OgreGLRenderSystemCommon.h"
+#include "OgrePixelFormat.h"
 
 namespace Ogre
 {

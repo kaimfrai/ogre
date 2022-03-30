@@ -28,20 +28,18 @@ THE SOFTWARE.
 
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
 #include <memory>
 #include <set>
 #include <utility>
 #include <vector>
-#include <iostream>
 
-#include "TestContext.h"
-#include "SamplePlugin.h"
-#include "HTMLWriter.h"
 #include "CppUnitResultWriter.h"
-#include "OgreConfigFile.h"
-#include "OgreBitesConfigDialog.h"
+#include "HTMLWriter.h"
 #include "ImageValidator.h"
+#include "OgreBitesConfigDialog.h"
 #include "OgreCommon.h"
+#include "OgreConfigFile.h"
 #include "OgreConfigOptionMap.h"
 #include "OgreControllerManager.h"
 #include "OgreException.h"
@@ -55,10 +53,12 @@ THE SOFTWARE.
 #include "OgreStaticPluginLoader.h"
 #include "OgreStringConverter.h"
 #include "OgreTextureManager.h"
-#include "Sample.h"
-#include "TestBatch.h"
-#include "VTestPlugin.h"
 #include "PlayPenTestPlugin.h"
+#include "Sample.h"
+#include "SamplePlugin.h"
+#include "TestBatch.h"
+#include "TestContext.h"
+#include "VTestPlugin.h"
 
 TestContext::TestContext(int argc, char** argv) : OgreBites::SampleContext(), mSuccess(true), mTimestep(0.01f), mBatch(0)
 {

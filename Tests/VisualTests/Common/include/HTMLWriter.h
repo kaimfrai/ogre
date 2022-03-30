@@ -30,8 +30,8 @@ THE SOFTWARE.
 #define __HTMLWriter_H__
 
 #include "Ogre.h"
-#include "TinyHTML.h"
 #include "TestResultWriter.h"
+#include "TinyHTML.h"
 
 class HtmlWriter : public TestResultWriter
 {
@@ -44,7 +44,7 @@ protected:
 
     virtual Ogre::String getOutput()
     {
-        StringStream output;
+        Ogre::StringStream output;
 
         // just dump the doctype in beforehand, since it's formatted strangely
         output<<"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n\t"

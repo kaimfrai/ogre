@@ -26,23 +26,23 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <assert.h>
-#include <utility>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <memory>
+#include <mutex>
+#include <thread>
+#include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreUnifiedHighLevelGpuProgram.h"
-#include "OgreStreamSerialiser.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
+#include "OgreGpuProgramManager.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreLogManager.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRoot.h"
+#include "OgreStableHeaders.h"
+#include "OgreStreamSerialiser.h"
+#include "OgreUnifiedHighLevelGpuProgram.h"
 
 namespace Ogre {
 namespace {

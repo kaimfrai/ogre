@@ -25,23 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <stddef.h>
 #include <map>
+#include <stddef.h>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreRenderQueue.h"
-#include "OgreMaterial.h"
-#include "OgreRenderQueueSortingGrouping.h"
-#include "OgreSceneManagerEnumerator.h"
 #include "OgreHardwareVertexBuffer.h"
+#include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
 #include "OgreMovableObject.h"
 #include "OgrePass.h"
 #include "OgreRenderOperation.h"
+#include "OgreRenderQueue.h"
+#include "OgreRenderQueueSortingGrouping.h"
 #include "OgreRenderable.h"
 #include "OgreSceneManager.h"
+#include "OgreSceneManagerEnumerator.h"
 #include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
 #include "OgreTechnique.h"
 #include "OgreVertexIndexData.h"
 

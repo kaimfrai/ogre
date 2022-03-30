@@ -32,9 +32,9 @@ THE SOFTWARE.
 #include <array>
 #include <vector>
 
-#include "OgreHardwareVertexBuffer.h"
 #include "OgreGLSLShaderCommon.h"
 #include "OgreGpuProgram.h"
+#include "OgreHardwareVertexBuffer.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 

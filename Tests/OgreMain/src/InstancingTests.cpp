@@ -29,10 +29,9 @@ THE SOFTWARE.
 #include <gtest/gtest.h>
 #include <stddef.h>
 
-#include "OgreInstancedEntity.h"
-#include "OgreInstanceBatchShader.h"
-#include "RootWithoutRenderSystemFixture.h"
 #include "OgreEntity.h"
+#include "OgreInstanceBatchShader.h"
+#include "OgreInstancedEntity.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreRoot.h"
@@ -41,6 +40,7 @@ THE SOFTWARE.
 #include "OgreSharedPtr.h"
 #include "OgreSubEntity.h"
 #include "OgreVector.h"
+#include "RootWithoutRenderSystemFixture.h"
 
 using namespace Ogre;
 

@@ -30,9 +30,9 @@ THE SOFTWARE.
 
 #include <set>
 
+#include "OgreGLSLProgramCommon.h"
 #include "OgreGpuProgram.h"
 #include "OgreHardwareVertexBuffer.h"
-#include "OgreGLSLProgramCommon.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "glad/glad.h"

@@ -29,12 +29,12 @@ THE SOFTWARE.
 #include <cmath>
 #include <vector>
 
-#include "OgreStableHeaders.h"
-#include "OgreParticleEmitter.h"
-#include "OgreParticleEmitterFactory.h"
-#include "OgreParticleEmitterCommands.h"
 #include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgreParticleEmitter.h"
+#include "OgreParticleEmitterCommands.h"
+#include "OgreParticleEmitterFactory.h"
+#include "OgreStableHeaders.h"
 
 namespace Ogre
 {

@@ -28,13 +28,13 @@ THE SOFTWARE.
 
 #include <string>
 
-#include "OgreStableHeaders.h"
-#include "OgreShadowVolumeExtrudeProgram.h"
 #include "OgreException.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreShadowVolumeExtrudeProgram.h"
 #include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
 
 namespace {
     enum Programs

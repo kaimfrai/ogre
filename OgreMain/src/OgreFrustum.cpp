@@ -28,8 +28,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreMovablePlane.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
@@ -38,6 +36,7 @@ THE SOFTWARE.
 #include "OgreMatrix3.h"
 #include "OgreMatrix4.h"
 #include "OgreMovableObject.h"
+#include "OgreMovablePlane.h"
 #include "OgreNode.h"
 #include "OgrePlane.h"
 #include "OgrePlaneBoundedVolume.h"
@@ -49,6 +48,7 @@ THE SOFTWARE.
 #include "OgreRoot.h"
 #include "OgreSceneManager.h"
 #include "OgreSphere.h"
+#include "OgreStableHeaders.h"
 #include "OgreVector.h"
 
 namespace Ogre {

@@ -28,16 +28,16 @@ THE SOFTWARE.
 #ifndef __EdgeListBuilder_H__
 #define __EdgeListBuilder_H__
 
-#include <stddef.h>
 #include <map>
+#include <stddef.h>
 #include <utility>
 #include <vector>
 
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreVector.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
 
 namespace Ogre {
     class IndexData;

@@ -28,13 +28,13 @@ THE SOFTWARE.
 #include <assert.h>
 #include <memory>
 
-#include "OgreStableHeaders.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreRenderTexture.h"
 #include "OgreException.h"
+#include "OgreHardwarePixelBuffer.h"
 #include "OgreRenderSystem.h"
+#include "OgreRenderTexture.h"
 #include "OgreRoot.h"
 #include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
 #include "OgreTexture.h"
 
 namespace Ogre 

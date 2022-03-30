@@ -33,8 +33,8 @@ THE SOFTWARE.
 #include <set>
 #include <unordered_map>
 
-#include "OgreGLStateCacheManagerCommon.h"
 #include "OgreCommon.h"
+#include "OgreGLStateCacheManagerCommon.h"
 #include "glad/glad.h"
 
 namespace Ogre

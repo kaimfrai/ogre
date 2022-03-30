@@ -28,15 +28,15 @@ THE SOFTWARE.
 #ifndef __StreamSerialiser_H__
 #define __StreamSerialiser_H__
 
-#include <stddef.h>
-#include <deque>
 #include <algorithm>
+#include <deque>
+#include <stddef.h>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreDataStream.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre 

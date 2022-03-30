@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <stdlib.h>
-#include <iostream>
 #include <algorithm>
+#include <condition_variable>
 #include <ctime>
 #include <iomanip>
-#include <string>
-#include <vector>
+#include <iostream>
 #include <memory>
-#include <thread>
 #include <mutex>
-#include <condition_variable>
+#include <stdlib.h>
+#include <string>
+#include <thread>
+#include <vector>
 
 #include "OgreStableHeaders.h"
 #include "OgreLog.h"

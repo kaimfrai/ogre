@@ -26,16 +26,13 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <assert.h>
-#include <stddef.h>
 #include <cmath>
 #include <map>
 #include <memory>
+#include <stddef.h>
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgrePatchMesh.h"
-#include "OgrePrefabFactory.h"
 #include "OgreAny.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCodec.h"
@@ -52,8 +49,10 @@ THE SOFTWARE.
 #include "OgreMesh.h"
 #include "OgreMeshManager.h"
 #include "OgreMeshSerializer.h"
+#include "OgrePatchMesh.h"
 #include "OgrePatchSurface.h"
 #include "OgrePlane.h"
+#include "OgrePrefabFactory.h"
 #include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreResource.h"
@@ -61,6 +60,7 @@ THE SOFTWARE.
 #include "OgreResourceManager.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
+#include "OgreStableHeaders.h"
 #include "OgreSubMesh.h"
 #include "OgreVector.h"
 #include "OgreVertexIndexData.h"

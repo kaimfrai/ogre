@@ -44,9 +44,9 @@ date                 : Jan 1 2004
 email                : pjcast@yahoo.com
 ***************************************************************************/
 
-#include "OgreStringInterface.h"
-#include "OgreResourceGroupManager.h"
 #include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreStringInterface.h"
 
 namespace Ogre
 {

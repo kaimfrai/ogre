@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <assert.h>
-#include <stddef.h>
 #include <memory>
+#include <stddef.h>
 #include <vector>
 
 #include "OgreStableHeaders.h"

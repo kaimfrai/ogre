@@ -29,13 +29,13 @@ THE SOFTWARE.
 #include <assert.h>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreLodStrategyManager.h"
 #include "OgreDistanceLodStrategy.h"
-#include "OgrePixelCountLodStrategy.h"
 #include "OgreException.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreLodStrategy.h"
+#include "OgreLodStrategyManager.h"
+#include "OgrePixelCountLodStrategy.h"
+#include "OgreStableHeaders.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------

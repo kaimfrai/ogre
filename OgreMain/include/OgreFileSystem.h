@@ -30,9 +30,9 @@ THE SOFTWARE.
 
 #include <iosfwd>
 
-#include "OgrePrerequisites.h"
 #include "OgreArchive.h"
 #include "OgreArchiveFactory.h"
+#include "OgrePrerequisites.h"
 
 struct AAssetManager;
 

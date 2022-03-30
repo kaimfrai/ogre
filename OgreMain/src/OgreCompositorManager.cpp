@@ -28,21 +28,21 @@ THE SOFTWARE.
 #include <assert.h>
 #include <memory>
 
-#include "OgreStableHeaders.h"
-#include "OgreCompositor.h"
-#include "OgreCompositorManager.h"
-#include "OgreCompositorChain.h"
 #include "OgreCompositionPass.h"
 #include "OgreCompositionTargetPass.h"
 #include "OgreCompositionTechnique.h"
-#include "OgreRectangle2D.h"
-#include "OgreRenderTarget.h"
+#include "OgreCompositor.h"
+#include "OgreCompositorChain.h"
 #include "OgreCompositorInstance.h"
+#include "OgreCompositorManager.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgreRectangle2D.h"
 #include "OgreRenderSystem.h"
+#include "OgreRenderTarget.h"
 #include "OgreRoot.h"
+#include "OgreStableHeaders.h"
 #include "OgreTextureManager.h"
 #include "OgreViewport.h"
 

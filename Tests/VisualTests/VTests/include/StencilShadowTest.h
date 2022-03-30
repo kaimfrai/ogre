@@ -29,8 +29,8 @@ THE SOFTWARE.
 #ifndef __StencilShadowTest_H__
 #define __StencilShadowTest_H__
 
-#include "VisualTest.h"
 #include "OgrePlatform.h"
+#include "VisualTest.h"
 
 namespace Ogre {
 class Entity;

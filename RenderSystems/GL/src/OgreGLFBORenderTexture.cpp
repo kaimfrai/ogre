@@ -28,18 +28,18 @@ THE SOFTWARE.
 
 #include "OgreGLFBORenderTexture.h"
 
-#include <stddef.h>
 #include <map>
 #include <memory>
 #include <ostream>
+#include <stddef.h>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "OgreGLPixelFormat.h"
-#include "OgreLogManager.h"
 #include "OgreGLHardwarePixelBuffer.h"
+#include "OgreGLPixelFormat.h"
 #include "OgreGLRenderTarget.h"
+#include "OgreLogManager.h"
 #include "OgreRenderTarget.h"
 #include "OgreString.h"
 

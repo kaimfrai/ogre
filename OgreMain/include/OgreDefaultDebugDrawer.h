@@ -5,10 +5,10 @@
 #ifndef OGREMAIN_INCLUDE_OGREDEFAULTDEBUGDRAWER_H_
 #define OGREMAIN_INCLUDE_OGREDEFAULTDEBUGDRAWER_H_
 
-#include "OgreSceneManager.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
 #include "OgreManualObject.h"
+#include "OgreSceneManager.h"
 
 namespace Ogre
 {

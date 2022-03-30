@@ -25,26 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <string.h>
 #include <algorithm>
 #include <limits>
 #include <map>
+#include <string.h>
 #include <string>
 #include <type_traits>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreInstanceBatchVTF.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreInstancedEntity.h"
-#include "OgreMaterial.h"
-#include "OgreDualQuaternion.h"
 #include "OgreCommon.h"
+#include "OgreDualQuaternion.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwarePixelBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
+#include "OgreInstanceBatchVTF.h"
+#include "OgreInstancedEntity.h"
+#include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePass.h"
@@ -54,6 +53,7 @@ THE SOFTWARE.
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRoot.h"
 #include "OgreSceneManager.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 #include "OgreSubMesh.h"
 #include "OgreTechnique.h"

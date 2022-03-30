@@ -28,17 +28,17 @@ THE SOFTWARE.
 
 #include "OgreSTBICodec.h"
 
-#include <stdlib.h>
 #include <memory>
 #include <ostream>
+#include <stdlib.h>
 #include <string>
 #include <vector>
 
-#include "OgreLogManager.h"
-#include "OgreDataStream.h"
 #include "OgreCodec.h"
 #include "OgreCommon.h"
+#include "OgreDataStream.h"
 #include "OgreException.h"
+#include "OgreLogManager.h"
 #include "OgrePixelFormat.h"
 #include "OgreSharedPtr.h"
 #include "OgreString.h"

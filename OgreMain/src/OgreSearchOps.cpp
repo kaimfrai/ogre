@@ -29,12 +29,12 @@ THE SOFTWARE.
 // Emulate _findfirst, _findnext on non-Windows platforms
 #include "OgreSearchOps.h"
 
-#include <stdio.h>
 #include <dirent.h>
 #include <fnmatch.h>
-#include <sys/stat.h>
-#include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
 #include <unistd.h>
     
 struct _find_search_t

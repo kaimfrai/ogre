@@ -31,13 +31,13 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreParticleSystemRenderer.h"
-#include "OgreBillboardSet.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreBillboardSet.h"
 #include "OgreCommon.h"
 #include "OgreFactoryObj.h"
+#include "OgreParticleSystemRenderer.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreRenderable.h"
 #include "OgreVector.h"
 

@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __OverlayElementEmitterCommands_H__
 #define __OverlayElementEmitterCommands_H__
 
-#include "OgreStringInterface.h"
 #include "OgreOverlayElement.h"
 #include "OgrePrerequisites.h"
+#include "OgreStringInterface.h"
 
 namespace Ogre  {
 

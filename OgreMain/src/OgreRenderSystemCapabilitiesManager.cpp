@@ -29,13 +29,13 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
-#include "OgreRenderSystemCapabilitiesManager.h"
-#include "OgreRenderSystemCapabilitiesSerializer.h"
 #include "OgreArchive.h"
 #include "OgreArchiveManager.h"
 #include "OgreDataStream.h"
+#include "OgreRenderSystemCapabilitiesManager.h"
+#include "OgreRenderSystemCapabilitiesSerializer.h"
 #include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringVector.h"
 
 

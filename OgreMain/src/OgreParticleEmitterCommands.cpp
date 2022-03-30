@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
 #include "OgreParticleEmitterCommands.h"
 #include "OgreParticleEmitter.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 #include "OgreVector.h"
 

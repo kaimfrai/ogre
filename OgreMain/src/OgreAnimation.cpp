@@ -32,17 +32,17 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
 #include "OgreAnimation.h"
-#include "OgreKeyFrame.h"
-#include "OgreEntity.h"
-#include "OgreSubEntity.h"
 #include "OgreBone.h"
+#include "OgreEntity.h"
 #include "OgreException.h"
+#include "OgreKeyFrame.h"
 #include "OgreMesh.h"
 #include "OgreSharedPtr.h"
 #include "OgreSkeleton.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
+#include "OgreSubEntity.h"
 
 namespace Ogre {
 class Node;

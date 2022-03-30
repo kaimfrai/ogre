@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef _DynLib_H__
 #define _DynLib_H__
 
-#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     /** \addtogroup Core

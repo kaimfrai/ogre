@@ -27,9 +27,9 @@ THE SOFTWARE.
 */
 #include <ostream>
 
-#include "OgreStableHeaders.h"
-#include "OgreRenderSystemCapabilities.h"
 #include "OgreLog.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreStableHeaders.h"
 #include "OgreString.h"
 #include "OgreStringConverter.h"
 #include "OgreStringVector.h"

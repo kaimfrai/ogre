@@ -26,22 +26,22 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <string>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <thread>
 
-#include "OgreStableHeaders.h"
-#include "OgreHighLevelGpuProgram.h"
-#include "OgreGpuProgramManager.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
+#include "OgreGpuProgramManager.h"
 #include "OgreGpuProgramParams.h"
+#include "OgreHighLevelGpuProgram.h"
 #include "OgreRenderSystem.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreResourceManager.h"
 #include "OgreRoot.h"
+#include "OgreStableHeaders.h"
 #include "OgreString.h"
 #include "OgreStringInterface.h"
 

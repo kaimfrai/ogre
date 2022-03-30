@@ -29,17 +29,17 @@ THE SOFTWARE
 #include <string>
 #include <vector>
 
-#include "OgreOverlayManager.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareVertexBuffer.h"
 #include "OgreException.h"
-#include "OgreStringConverter.h"
 #include "OgreFont.h"
 #include "OgreFontManager.h"
-#include "OgreOverlayElement.h"
 #include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareVertexBuffer.h"
 #include "OgreMaterial.h"
+#include "OgreOverlayElement.h"
+#include "OgreOverlayManager.h"
 #include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
 #include "OgreStringInterface.h"
 #include "OgreVertexIndexData.h"
 

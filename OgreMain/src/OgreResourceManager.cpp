@@ -27,10 +27,10 @@ THE SOFTWARE.
 */
 #include <limits>
 
-#include "OgreStableHeaders.h"
-#include "OgreResourceManager.h"
 #include "OgreException.h"
+#include "OgreResourceManager.h"
 #include "OgreScriptCompiler.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 
 namespace Ogre {

@@ -211,10 +211,10 @@ STBIWDEF void stbi_flip_vertically_on_write(int flip_boolean);
 #include <stdio.h>
 #endif // STBI_WRITE_NO_STDIO
 
+#include <math.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 
 #if defined(STBIW_MALLOC) && defined(STBIW_FREE) && (defined(STBIW_REALLOC) || defined(STBIW_REALLOC_SIZED))
 // ok

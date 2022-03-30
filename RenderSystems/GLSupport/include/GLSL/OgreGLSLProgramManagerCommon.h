@@ -31,8 +31,8 @@
 #include <map>
 #include <string>
 
-#include "OgreGpuProgramParams.h"
 #include "OgreGLSLProgramCommon.h"
+#include "OgreGpuProgramParams.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 

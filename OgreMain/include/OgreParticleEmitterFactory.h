@@ -29,8 +29,8 @@ THE SOFTWARE.
 #define __ParticleEmitterFactory_H__
 
 
-#include "OgrePrerequisites.h"
 #include "OgreParticleEmitter.h"
+#include "OgrePrerequisites.h"
 #include "OgreString.h"
 
 namespace Ogre {

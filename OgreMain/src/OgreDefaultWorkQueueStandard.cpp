@@ -25,16 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cxxabi.h>
-#include <stddef.h>
 #include <condition_variable>
+#include <cxxabi.h>
+#include <memory>
 #include <mutex>
+#include <stddef.h>
 #include <thread>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreDefaultWorkQueueStandard.h"

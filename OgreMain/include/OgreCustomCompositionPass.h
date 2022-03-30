@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __CustomCompositionPass_H__
 #define __CustomCompositionPass_H__
 
-#include "OgrePrerequisites.h"
 #include "OgreCompositionPass.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     /** \addtogroup Core

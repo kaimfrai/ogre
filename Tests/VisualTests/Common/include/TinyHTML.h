@@ -111,7 +111,7 @@ struct HtmlElement : public HtmlNode
     virtual Ogre::String print(Ogre::String indent = "")
     {
         // stream we'll output to
-        StringStream out;
+        Ogre::StringStream out;
 
         out<<"\n"<<indent;
 

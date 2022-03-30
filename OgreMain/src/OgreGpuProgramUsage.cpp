@@ -28,13 +28,13 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreStableHeaders.h"
-#include "OgreGpuProgramUsage.h"
-#include "OgreGpuProgramManager.h"
 #include "OgreException.h"
+#include "OgreGpuProgramManager.h"
 #include "OgreGpuProgramParams.h"
+#include "OgreGpuProgramUsage.h"
 #include "OgrePass.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreStableHeaders.h"
 
 namespace Ogre
 {

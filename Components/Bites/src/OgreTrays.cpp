@@ -7,10 +7,10 @@
 
 #include "OgreTrays.h"
 
-#include <math.h>
 #include <algorithm>
 #include <iomanip>
 #include <map>
+#include <math.h>
 #include <memory>
 #include <ostream>
 #include <utility>

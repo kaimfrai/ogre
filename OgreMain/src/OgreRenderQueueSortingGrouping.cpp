@@ -25,22 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <stddef.h>
 #include <algorithm>
-#include <set>
-#include <memory>
-#include <thread>
-#include <mutex>
+#include <assert.h>
 #include <condition_variable>
+#include <memory>
+#include <mutex>
+#include <set>
+#include <stddef.h>
+#include <thread>
 
-#include "OgreStableHeaders.h"
-#include "OgreRenderQueueSortingGrouping.h"
 #include "OgreException.h"
 #include "OgreMaterial.h"
 #include "OgreMath.h"
 #include "OgreRadixSort.h"
+#include "OgreRenderQueueSortingGrouping.h"
 #include "OgreRenderable.h"
+#include "OgreStableHeaders.h"
 #include "OgreTechnique.h"
 
 namespace Ogre {

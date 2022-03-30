@@ -25,29 +25,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <string.h>
 #include <algorithm>
+#include <assert.h>
 #include <memory>
+#include <string.h>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreInstanceManager.h"
-#include "OgreInstanceBatchHW.h"
-#include "OgreInstanceBatchHW_VTF.h"
-#include "OgreInstanceBatchShader.h"
-#include "OgreInstanceBatchVTF.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreInstanceBatch.h"
+#include "OgreInstanceBatchHW.h"
+#include "OgreInstanceBatchHW_VTF.h"
+#include "OgreInstanceBatchShader.h"
+#include "OgreInstanceBatchVTF.h"
+#include "OgreInstanceManager.h"
 #include "OgreMaterialManager.h"
 #include "OgreMesh.h"
 #include "OgreMeshManager.h"
 #include "OgreSceneManager.h"
 #include "OgreSceneNode.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 #include "OgreSubMesh.h"
 #include "OgreVertexBoneAssignment.h"

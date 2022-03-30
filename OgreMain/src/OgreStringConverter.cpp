@@ -26,9 +26,9 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <locale.h>
-#include <stdlib.h>
 #include <locale>
 #include <ostream>
+#include <stdlib.h>
 #include <string>
 #include <vector>
 

@@ -29,9 +29,6 @@ THE SOFTWARE.
 #include <cstddef>
 #include <memory>
 
-#include "RootWithoutRenderSystemFixture.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderFunctionAtom.h"
 #include "OgreGpuProgram.h"
 #include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
@@ -39,12 +36,15 @@ THE SOFTWARE.
 #include "OgrePass.h"
 #include "OgrePrerequisites.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderGenerator.h"
 #include "OgreShaderParameter.h"
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderRenderState.h"
 #include "OgreSharedPtr.h"
 #include "OgreTechnique.h"
 #include "OgreVector.h"
+#include "RootWithoutRenderSystemFixture.h"
 
 using namespace Ogre;
 

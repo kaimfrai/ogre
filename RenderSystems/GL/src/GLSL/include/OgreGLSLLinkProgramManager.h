@@ -28,12 +28,12 @@ THE SOFTWARE.
 #ifndef __GLSLLinkProgramManager_H__
 #define __GLSLLinkProgramManager_H__
 
-#include "OgreSingleton.h"
-#include "OgreGLSLProgramManagerCommon.h"
 #include "OgreGLSLProgramCommon.h"
+#include "OgreGLSLProgramManagerCommon.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
 #include "OgrePrerequisites.h"
+#include "OgreSingleton.h"
 
 namespace Ogre {
 

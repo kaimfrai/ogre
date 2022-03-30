@@ -25,20 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <stddef.h>
 #include <algorithm>
+#include <assert.h>
 #include <cmath>
+#include <stddef.h>
 
-#include "OgreStableHeaders.h"
-#include "OgreTagPoint.h"
-#include "OgreLight.h"
-#include "OgreEntity.h"
-#include "OgreLodListener.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCamera.h"
 #include "OgreCommon.h"
+#include "OgreEntity.h"
 #include "OgreFrustum.h"
+#include "OgreLight.h"
+#include "OgreLodListener.h"
 #include "OgreMaterial.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
@@ -54,6 +52,8 @@ THE SOFTWARE.
 #include "OgreSceneNode.h"
 #include "OgreShadowCaster.h"
 #include "OgreSphere.h"
+#include "OgreStableHeaders.h"
+#include "OgreTagPoint.h"
 #include "OgreTechnique.h"
 #include "OgreVector.h"
 

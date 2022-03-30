@@ -25,28 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <algorithm>
 #include <assert.h>
+#include <condition_variable>
+#include <map>
+#include <memory>
+#include <mutex>
 #include <stdio.h>
 #include <string.h>
-#include <algorithm>
-#include <map>
 #include <string>
+#include <thread>
 #include <utility>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
-#include "OgreStableHeaders.h"
-#include "OgreTextureUnitState.h"
-#include "OgreGpuProgramManager.h"
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreConfig.h"
 #include "OgreException.h"
 #include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreLight.h"
 #include "OgreLog.h"
@@ -63,11 +61,13 @@ THE SOFTWARE.
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 #include "OgreStringInterface.h"
 #include "OgreTechnique.h"
 #include "OgreTexture.h"
 #include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
 
 namespace Ogre
 {

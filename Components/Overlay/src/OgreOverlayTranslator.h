@@ -27,10 +27,10 @@ THE SOFTWARE.
 #ifndef _OverlayScriptTranslator_
 #define _OverlayScriptTranslator_
 
-#include "OgreScriptTranslator.h"
 #include "OgreFont.h"
 #include "OgrePlatform.h"
 #include "OgreScriptCompiler.h"
+#include "OgreScriptTranslator.h"
 
 namespace Ogre
 {

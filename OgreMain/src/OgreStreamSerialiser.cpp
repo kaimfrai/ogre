@@ -29,12 +29,10 @@ THE SOFTWARE.
 #include <string.h>
 #include <string>
 
-#include "OgreStableHeaders.h"
-#include "OgreStreamSerialiser.h"
-#include "OgreDeflate.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreBitwise.h"
 #include "OgreDataStream.h"
+#include "OgreDeflate.h"
 #include "OgreException.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
@@ -46,6 +44,8 @@ THE SOFTWARE.
 #include "OgreQuaternion.h"
 #include "OgreRay.h"
 #include "OgreSphere.h"
+#include "OgreStableHeaders.h"
+#include "OgreStreamSerialiser.h"
 #include "OgreStringConverter.h"
 #include "OgreVector.h"
 

@@ -35,11 +35,11 @@
 #include <utility>
 #include <vector>
 
-#include "OgreFrameListener.h"
-#include "OgreStaticPluginLoader.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
+#include "OgreFrameListener.h"
 #include "OgrePrerequisites.h"
+#include "OgreStaticPluginLoader.h"
 
 // forward declarations
 extern "C" struct SDL_Window;

@@ -26,32 +26,32 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <assert.h>
-#include <stddef.h>
 #include <memory>
+#include <stddef.h>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
-#include "OgreLight.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreOptimisedUtil.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
+#include "OgreEdgeListBuilder.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
+#include "OgreLight.h"
 #include "OgreLogManager.h"
 #include "OgreMatrix4.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreMovableObject.h"
+#include "OgreOptimisedUtil.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreRoot.h"
 #include "OgreSceneManager.h"
 #include "OgreShadowCaster.h"
 #include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 #include "OgreVector.h"
 #include "OgreVertexIndexData.h"

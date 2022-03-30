@@ -30,9 +30,9 @@ THE SOFTWARE.
 
 #include <cstddef>
 
-#include "OgreGLPrerequisites.h" // IWYU pragma: keep
-#include "OgreGLHardwarePixelBufferCommon.h"
 #include "OgreException.h"
+#include "OgreGLHardwarePixelBufferCommon.h"
+#include "OgreGLPrerequisites.h" // IWYU pragma: keep
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "glad/glad.h"

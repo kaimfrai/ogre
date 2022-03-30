@@ -28,9 +28,9 @@ THE SOFTWARE.
 #include <assert.h>
 #include <string.h>
 
-#include "OgreStableHeaders.h"
-#include "OgreDefaultHardwareBufferManager.h"
 #include "OgreAlignedAllocator.h"
+#include "OgreDefaultHardwareBufferManager.h"
+#include "OgreStableHeaders.h"
 
 namespace Ogre {
 

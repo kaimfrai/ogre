@@ -27,14 +27,14 @@ THE SOFTWARE.
 */
 #include <assert.h>
 
-#include "OgreStableHeaders.h"
-#include "OgreResourceBackgroundQueue.h"
 #include "OgreAny.h"
 #include "OgreException.h"
+#include "OgreResourceBackgroundQueue.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreResourceManager.h"
 #include "OgreRoot.h"
 #include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
 
 namespace Ogre {
 

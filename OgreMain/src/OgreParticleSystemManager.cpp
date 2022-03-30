@@ -26,35 +26,35 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <assert.h>
-#include <stddef.h>
-#include <map>
-#include <string>
-#include <utility>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <stddef.h>
+#include <string>
+#include <thread>
+#include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreParticleEmitterFactory.h"
-#include "OgreParticleAffectorFactory.h"
-#include "OgreParticleSystemRenderer.h"
 #include "OgreBillboardParticleRenderer.h"
-#include "OgreParticleSystem.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
 #include "OgreFactoryObj.h"
 #include "OgreLogManager.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreParticleAffector.h"
+#include "OgreParticleAffectorFactory.h"
 #include "OgreParticleEmitter.h"
+#include "OgreParticleEmitterFactory.h"
+#include "OgreParticleSystem.h"
 #include "OgreParticleSystemManager.h"
+#include "OgreParticleSystemRenderer.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreRoot.h"
 #include "OgreScriptCompiler.h"
 #include "OgreSingleton.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 #include "OgreStringVector.h"
 

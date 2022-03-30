@@ -32,12 +32,11 @@ THE SOFTWARE.
 #include <unordered_map>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgrePixelFormat.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
 #include "OgreImage.h"
+#include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderSystem.h"
@@ -47,6 +46,7 @@ THE SOFTWARE.
 #include "OgreRoot.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
+#include "OgreStableHeaders.h"
 #include "OgreTexture.h"
 #include "OgreTextureManager.h"
 #include "OgreTextureUnitState.h"

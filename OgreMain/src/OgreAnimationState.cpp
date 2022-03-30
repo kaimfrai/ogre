@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <string.h>
 #include <algorithm>
 #include <cmath>
 #include <limits>
 #include <memory>
+#include <string.h>
 #include <utility>
 
 #include "OgreStableHeaders.h"

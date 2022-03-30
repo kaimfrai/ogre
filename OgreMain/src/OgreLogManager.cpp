@@ -26,14 +26,14 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <assert.h>
-#include <stddef.h>
-#include <map>
-#include <string>
-#include <utility>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <stddef.h>
+#include <string>
+#include <thread>
+#include <utility>
 
 #include "OgreStableHeaders.h"
 #include "OgreException.h"

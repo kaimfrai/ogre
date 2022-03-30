@@ -30,9 +30,9 @@ THE SOFTWARE.
 
 #include <cstddef>
 
-#include "OgrePrerequisites.h"
 #include "OgreEdgeListBuilder.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 class Affine3;

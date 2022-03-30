@@ -25,21 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
 #include <algorithm>
+#include <assert.h>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreParticleSystem.h"
-#include "OgreParticleEmitter.h"
-#include "OgreParticleAffector.h"
-#include "OgreParticle.h"
-#include "OgreParticleAffectorFactory.h"
-#include "OgreParticleSystemRenderer.h"
-#include "OgreControllerManager.h"
 #include "OgreCamera.h"
 #include "OgreCommon.h"
 #include "OgreController.h"
+#include "OgreControllerManager.h"
 #include "OgreException.h"
 #include "OgreLogManager.h"
 #include "OgreMaterial.h"
@@ -48,10 +41,17 @@ THE SOFTWARE.
 #include "OgreMatrix4.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreNode.h"
+#include "OgreParticle.h"
+#include "OgreParticleAffector.h"
+#include "OgreParticleAffectorFactory.h"
+#include "OgreParticleEmitter.h"
+#include "OgreParticleSystem.h"
 #include "OgreParticleSystemManager.h"
+#include "OgreParticleSystemRenderer.h"
 #include "OgreRadixSort.h"
 #include "OgreRoot.h"
 #include "OgreSceneManager.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 
 namespace Ogre {

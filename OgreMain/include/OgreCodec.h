@@ -28,16 +28,16 @@ THE SOFTWARE.
 #ifndef _Codec_H__
 #define _Codec_H__
 
-#include <stddef.h>
 #include <map>
+#include <stddef.h>
 #include <string>
 
-#include "OgrePrerequisites.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreStringVector.h"
-#include "OgreException.h"
 #include "OgreAny.h"
+#include "OgreException.h"
+#include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreStringVector.h"
 
 namespace Ogre {
 class Any;

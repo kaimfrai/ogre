@@ -30,14 +30,14 @@ THE SOFTWARE.
 #include <string.h>
 #include <xmmintrin.h>
 
-#include "OgreStableHeaders.h"
-#include "OgreOptimisedUtil.h"
 #include "OgreEdgeListBuilder.h"
 #include "OgreException.h"
 #include "OgreMatrix4.h"
+#include "OgreOptimisedUtil.h"
 #include "OgrePlatform.h"
 #include "OgrePlatformInformation.h"
 #include "OgrePrerequisites.h"
+#include "OgreStableHeaders.h"
 #include "OgreVector.h"
 
 // Should keep this includes at latest to avoid potential "xmmintrin.h" included by

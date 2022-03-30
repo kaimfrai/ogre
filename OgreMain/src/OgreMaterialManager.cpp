@@ -32,10 +32,9 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreLodStrategyManager.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
+#include "OgreLodStrategyManager.h"
 #include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -45,6 +44,7 @@ THE SOFTWARE.
 #include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
+#include "OgreStableHeaders.h"
 #include "OgreTechnique.h"
 #include "OgreTextureManager.h"
 #include "OgreTextureUnitState.h"

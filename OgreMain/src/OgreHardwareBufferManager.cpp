@@ -26,20 +26,17 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <assert.h>
-#include <stddef.h>
+#include <condition_variable>
 #include <list>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <ostream>
 #include <set>
-#include <utility>
-#include <memory>
+#include <stddef.h>
 #include <thread>
-#include <mutex>
-#include <condition_variable>
+#include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreVertexIndexData.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
@@ -50,6 +47,8 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
+#include "OgreStableHeaders.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 

@@ -25,15 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <condition_variable>
 #include <map>
+#include <memory>
+#include <mutex>
 #include <string>
+#include <thread>
 #include <type_traits>
 #include <utility>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 #include "OgreStableHeaders.h"
 #include "OgreCommon.h"

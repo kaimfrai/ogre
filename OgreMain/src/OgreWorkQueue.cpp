@@ -29,13 +29,12 @@ THE SOFTWARE.
 #include <thread>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreWorkQueue.h"
-#include "OgreTimer.h"
-#include "OgreWorkQueue.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreRoot.h"
+#include "OgreStableHeaders.h"
+#include "OgreTimer.h"
+#include "OgreWorkQueue.h"
 
 namespace Ogre {
     //---------------------------------------------------------------------

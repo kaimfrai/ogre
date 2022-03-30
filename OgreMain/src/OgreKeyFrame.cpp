@@ -27,8 +27,8 @@ THE SOFTWARE.
 */
 #include "OgreStableHeaders.h"
 
-#include "OgreKeyFrame.h"
 #include "OgreAnimationTrack.h"
+#include "OgreKeyFrame.h"
 
 namespace Ogre
 {

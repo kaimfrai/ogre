@@ -29,9 +29,9 @@ THE SOFTWARE.
 #ifndef __ResourceLocationPriorityTest_H__
 #define __ResourceLocationPriorityTest_H__
 
-#include <time.h>
 #include <memory>
 #include <string>
+#include <time.h>
 #include <vector>
 
 #include "OgreArchive.h"

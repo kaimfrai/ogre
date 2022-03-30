@@ -26,21 +26,21 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <string.h>
 #include <cmath>
+#include <string.h>
 
-#include "OgreStableHeaders.h"
 #include "OgreASTCCodec.h"
-#include "OgreImage.h"
 #include "OgreCodec.h"
 #include "OgreCommon.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
+#include "OgreImage.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
 
 namespace Ogre {
 

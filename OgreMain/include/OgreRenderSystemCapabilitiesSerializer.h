@@ -34,9 +34,9 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
+#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderSystemCapabilities.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
 
 

@@ -6,8 +6,8 @@
 #ifndef OGRE_X11_H__
 #define OGRE_X11_H__
 
-#include <OgrePrerequisites.h>
 #include <OgreGLNativeSupport.h>
+#include <OgrePrerequisites.h>
 #include <X11/X.h>
 
 #ifndef Status

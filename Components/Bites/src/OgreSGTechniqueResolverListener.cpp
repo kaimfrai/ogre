@@ -4,9 +4,9 @@
 #include <string>
 #include <vector>
 
-#include "OgreTechnique.h"
 #include "OgreMaterial.h"
 #include "OgreShaderGenerator.h"
+#include "OgreTechnique.h"
 
 namespace Ogre {
 class Renderable;

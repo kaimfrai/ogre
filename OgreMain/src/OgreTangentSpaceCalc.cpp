@@ -25,12 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <string.h>
 #include <map>
 #include <memory>
+#include <string.h>
 
-#include "OgreStableHeaders.h"
-#include "OgreTangentSpaceCalc.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
@@ -40,6 +38,8 @@ THE SOFTWARE.
 #include "OgreMath.h"
 #include "OgrePlatform.h"
 #include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
+#include "OgreTangentSpaceCalc.h"
 #include "OgreVertexIndexData.h"
 
 namespace Ogre

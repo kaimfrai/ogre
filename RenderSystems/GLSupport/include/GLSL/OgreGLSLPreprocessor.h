@@ -29,8 +29,8 @@
 #ifndef __OGRE_CPREPROCESSOR_H__
 #define __OGRE_CPREPROCESSOR_H__
 
-#include <cstring>
 #include <cstdlib>
+#include <cstring>
 #include <forward_list>
 #include <vector>
 

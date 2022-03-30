@@ -28,10 +28,10 @@ THE SOFTWARE.
 #ifndef __Lod_Strategy_H__
 #define __Lod_Strategy_H__
 
-#include "OgrePrerequisites.h"
-#include "OgreMesh.h"
 #include "OgreMaterial.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 class Camera;

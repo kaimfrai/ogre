@@ -26,53 +26,42 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 // Ogre includes
-#include <assert.h>
-#include <stdlib.h>
 #include <algorithm>
+#include <assert.h>
+#include <condition_variable>
 #include <deque>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <ostream>
 #include <set>
+#include <stdlib.h>
 #include <string>
+#include <thread>
 #include <utility>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
-#include "OgreStableHeaders.h"
-#include "OgreRenderWindow.h"
-#include "OgreControllerManager.h"
-#include "OgreDynLibManager.h"
-#include "OgreDynLib.h"
-#include "OgreConfigFile.h"
-#include "OgreRenderSystemCapabilitiesManager.h"
-#include "OgreSkeletonManager.h"
-#include "OgreConfigDialog.h"
-#include "OgrePlugin.h"
-#include "OgreShadowVolumeExtrudeProgram.h"
-#include "OgreResourceBackgroundQueue.h"
-#include "OgreEntity.h"
-#include "OgreBillboardSet.h"
-#include "OgreBillboardChain.h"
-#include "OgreRibbonTrail.h"
-#include "OgreLight.h"
-#include "OgreConvexBody.h"
-#include "OgreTimer.h"
-#include "OgreFrameListener.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreStaticGeometry.h"
 #include "OgreArchiveFactory.h"
 #include "OgreArchiveManager.h"
+#include "OgreBillboardChain.h"
+#include "OgreBillboardSet.h"
 #include "OgreBuiltinMovableFactories.h"
 #include "OgreCommon.h"
+#include "OgreConfigDialog.h"
+#include "OgreConfigFile.h"
 #include "OgreConfigOptionMap.h"
+#include "OgreControllerManager.h"
+#include "OgreConvexBody.h"
 #include "OgreDefaultWorkQueueStandard.h"
+#include "OgreDynLib.h"
+#include "OgreDynLibManager.h"
+#include "OgreEntity.h"
 #include "OgreException.h"
 #include "OgreFileSystem.h"
+#include "OgreFileSystemLayer.h"
+#include "OgreFrameListener.h"
+#include "OgreLight.h"
+#include "OgreLodStrategyManager.h"
 #include "OgreLogManager.h"
 #include "OgreManualObject.h"
 #include "OgreMaterialManager.h"
@@ -83,36 +72,46 @@ THE SOFTWARE.
 #include "OgreParticleSystemManager.h"
 #include "OgrePlatform.h"
 #include "OgrePlatformInformation.h"
+#include "OgrePlugin.h"
 #include "OgrePrerequisites.h"
 #include "OgreProfiler.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderSystemCapabilitiesManager.h"
 #include "OgreRenderTarget.h"
+#include "OgreRenderWindow.h"
+#include "OgreResourceBackgroundQueue.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreRibbonTrail.h"
 #include "OgreRoot.h"
 #include "OgreSceneManager.h"
 #include "OgreSceneManagerEnumerator.h"
 #include "OgreScriptCompiler.h"
 #include "OgreShadowTextureManager.h"
+#include "OgreShadowVolumeExtrudeProgram.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
+#include "OgreSkeletonManager.h"
+#include "OgreStableHeaders.h"
+#include "OgreStaticGeometry.h"
 #include "OgreString.h"
 #include "OgreStringConverter.h"
 #include "OgreStringInterface.h"
 #include "OgreStringVector.h"
 #include "OgreTextureManager.h"
+#include "OgreTimer.h"
 #include "OgreWorkQueue.h"
 #include "OgreZip.h"
 
 #include "OgreDDSCodec.h"
 
-#include "OgreHardwareBufferManager.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreExternalTextureSourceManager.h"
 #include "OgreCompositorManager.h"
+#include "OgreExternalTextureSourceManager.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreHardwareBufferManager.h"
 
-#include "OgreETCCodec.h"
 #include "OgreASTCCodec.h"
+#include "OgreETCCodec.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------

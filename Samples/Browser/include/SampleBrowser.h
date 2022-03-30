@@ -28,12 +28,12 @@
 #ifndef __SampleBrowser_H__
 #define __SampleBrowser_H__
 
-#include "SampleContext.h"
-#include "SamplePlugin.h"
-#include "OgreTrays.h"
+#include "OgreArchiveManager.h"
 #include "OgreConfigFile.h"
 #include "OgreTechnique.h"
-#include "OgreArchiveManager.h"
+#include "OgreTrays.h"
+#include "SampleContext.h"
+#include "SamplePlugin.h"
 #include "SdkSample.h"
 
 #define ENABLE_SHADERS_CACHE 1

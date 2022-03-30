@@ -25,17 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <string.h>
 #include <algorithm>
+#include <assert.h>
 #include <iterator>
 #include <map>
+#include <string.h>
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreBillboardSet.h"
 #include "OgreBillboard.h"
+#include "OgreBillboardSet.h"
 #include "OgreCamera.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
@@ -58,6 +57,7 @@ THE SOFTWARE.
 #include "OgreSceneManager.h"
 #include "OgreSceneNode.h"
 #include "OgreSphere.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 #include "OgreVertexIndexData.h"
 

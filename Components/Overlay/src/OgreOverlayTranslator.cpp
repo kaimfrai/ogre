@@ -26,20 +26,20 @@ THE SOFTWARE.
 */
 #include "OgreOverlayTranslator.h"
 
-#include <stddef.h>
-#include <sstream>
 #include <list>
+#include <sstream>
+#include <stddef.h>
 #include <string>
 #include <vector>
 
-#include "OgreFontManager.h"
-#include "OgreOverlayManager.h"
-#include "OgreOverlayContainer.h"
 #include "OgreAny.h"
 #include "OgreCommon.h"
+#include "OgreFontManager.h"
 #include "OgreMath.h"
 #include "OgreOverlay.h"
+#include "OgreOverlayContainer.h"
 #include "OgreOverlayElement.h"
+#include "OgreOverlayManager.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreString.h"

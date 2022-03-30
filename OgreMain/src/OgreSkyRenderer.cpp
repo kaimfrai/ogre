@@ -31,11 +31,9 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreStableHeaders.h"
-#include "OgreEntity.h"
-#include "OgreViewport.h"
 #include "OgreCamera.h"
 #include "OgreCommon.h"
+#include "OgreEntity.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreLogManager.h"
@@ -55,11 +53,13 @@ THE SOFTWARE.
 #include "OgreSceneManager.h"
 #include "OgreSceneNode.h"
 #include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 #include "OgreTechnique.h"
 #include "OgreTexture.h"
 #include "OgreTextureUnitState.h"
 #include "OgreVector.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 class Node;

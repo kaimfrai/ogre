@@ -25,10 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <stddef.h>
 #include <map>
 #include <memory>
 #include <set>
+#include <stddef.h>
 #include <vector>
 
 #include "OgreStableHeaders.h"

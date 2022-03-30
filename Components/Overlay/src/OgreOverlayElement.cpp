@@ -28,21 +28,21 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <string>
 
-#include "OgreRoot.h"
-#include "OgreRenderSystem.h"
-#include "OgreOverlayElement.h"
-#include "OgreOverlay.h"
-#include "OgreOverlayManager.h"
 #include "OgreException.h"
-#include "OgreMaterialManager.h"
-#include "OgreOverlayContainer.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreOverlayElementCommands.h"
-#include "OgreTechnique.h"
 #include "OgreLogManager.h"
 #include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreOverlay.h"
+#include "OgreOverlayContainer.h"
+#include "OgreOverlayElement.h"
+#include "OgreOverlayElementCommands.h"
+#include "OgreOverlayManager.h"
 #include "OgrePass.h"
 #include "OgreRenderQueue.h"
+#include "OgreRenderSystem.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreTechnique.h"
 
 namespace Ogre {
 

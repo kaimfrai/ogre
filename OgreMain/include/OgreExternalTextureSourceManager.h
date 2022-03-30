@@ -39,11 +39,11 @@ OgreExternalTextureSourceManager.h  -
 date                 : Jan 1 2004
 email                : pjcast@yahoo.com
 ***************************************************************************/
-#include "OgreSingleton.h"
-#include "OgreResourceGroupManager.h"
 #include "OgreExternalTextureSource.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSingleton.h"
 
 namespace Ogre
 {

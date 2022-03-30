@@ -8,8 +8,8 @@
 #include <map>
 #include <utility>
 
-#include "OgreDefaultHardwareBufferManager.h"
 #include "OgreConfigFile.h"
+#include "OgreDefaultHardwareBufferManager.h"
 #include "OgreFileSystemLayer.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreMaterialManager.h"

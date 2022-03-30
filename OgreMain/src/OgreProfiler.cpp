@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <stddef.h>
 #include <algorithm>
+#include <assert.h>
 #include <map>
 #include <set>
+#include <stddef.h>
 #include <string>
 #include <utility>
 #include <vector>

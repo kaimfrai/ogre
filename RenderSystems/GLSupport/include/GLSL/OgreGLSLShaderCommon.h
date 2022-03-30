@@ -30,8 +30,8 @@ THE SOFTWARE.
 
 #include <vector>
 
-#include "OgreHighLevelGpuProgram.h"
 #include "OgreGLUniformCache.h"
+#include "OgreHighLevelGpuProgram.h"
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreStringInterface.h"

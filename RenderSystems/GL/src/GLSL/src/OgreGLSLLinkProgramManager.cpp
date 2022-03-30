@@ -28,15 +28,15 @@ THE SOFTWARE.
 
 #include "OgreGLSLLinkProgramManager.h"
 
-#include <assert.h>
-#include <stddef.h>
 #include <array>
+#include <assert.h>
 #include <map>
+#include <stddef.h>
 #include <utility>
 
-#include "OgreGLSLProgram.h"
 #include "OgreCommon.h"
 #include "OgreGLSLLinkProgram.h"
+#include "OgreGLSLProgram.h"
 #include "OgreGLSLShaderCommon.h"
 #include "OgrePlatform.h"
 #include "glad/glad.h"

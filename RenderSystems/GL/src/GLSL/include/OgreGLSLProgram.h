@@ -28,13 +28,13 @@ THE SOFTWARE.
 #ifndef __GLSLProgram_H__
 #define __GLSLProgram_H__
 
-#include "OgreGLSLShaderCommon.h"
-#include "OgreRenderOperation.h"
-#include "OgreGLGpuProgram.h"
 #include "OgreException.h"
+#include "OgreGLGpuProgram.h"
+#include "OgreGLSLShaderCommon.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
 #include "OgreResource.h"
 
 namespace Ogre {

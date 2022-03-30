@@ -30,13 +30,13 @@ THE SOFTWARE.
 #include <locale.h>
 #include <stddef.h>
 
+#include "OgreColourValue.h"
+#include "OgreMatrix4.h"
+#include "OgrePlatform.h"
+#include "OgreQuaternion.h"
+#include "OgreString.h"
 #include "OgreStringConverter.h"
 #include "OgreVector.h"
-#include "OgreQuaternion.h"
-#include "OgreMatrix4.h"
-#include "OgreColourValue.h"
-#include "OgrePlatform.h"
-#include "OgreString.h"
 
 
 using namespace Ogre;

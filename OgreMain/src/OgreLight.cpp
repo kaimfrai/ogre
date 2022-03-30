@@ -28,16 +28,16 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreLight.h"
 #include "OgreAnimable.h"
 #include "OgreException.h"
 #include "OgreFrustum.h"
+#include "OgreLight.h"
 #include "OgreMatrix4.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlane.h"
 #include "OgreSceneManager.h"
 #include "OgreSphere.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 
 namespace Ogre {

@@ -30,10 +30,10 @@
 
 #include "OgreApplicationContext.h"
 
-#include "Sample.h"
-#include "OgreRenderWindow.h"
-#include "OgreProfiler.h"
 #include "OgrePlugin.h"
+#include "OgreProfiler.h"
+#include "OgreRenderWindow.h"
+#include "Sample.h"
 
 namespace OgreBites
 {

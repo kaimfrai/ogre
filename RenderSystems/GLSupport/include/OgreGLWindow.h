@@ -29,9 +29,9 @@ THE SOFTWARE.
 #ifndef __GLWindow_H__
 #define __GLWindow_H__
 
-#include "OgreRenderWindow.h"
 #include "OgreGLRenderTarget.h"
 #include "OgreRenderTarget.h"
+#include "OgreRenderWindow.h"
 
 namespace Ogre
 {

@@ -26,14 +26,15 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <stdio.h>
-#include <sys/types.h>
 #include <string>
+#include <sys/types.h>
 #include <vector>
 
+#include "MeshWithoutIndexDataTests.h"
+#include "OgreArchiveManager.h"
 #include "OgreDefaultHardwareBufferManager.h"
 #include "OgreFileSystem.h"
-#include "OgreArchiveManager.h"
-#include "MeshWithoutIndexDataTests.h"
+#include "OgreHardwareBufferManager.h"
 #include "OgreLodStrategyManager.h"
 #include "OgreManualObject.h"
 #include "OgreMaterial.h"
@@ -50,7 +51,6 @@ THE SOFTWARE.
 #include "OgreSubMesh.h"
 #include "OgreTechnique.h"
 #include "OgreVertexIndexData.h"
-#include "OgreHardwareBufferManager.h"
 
 namespace Ogre {
     class InvalidParametersException;

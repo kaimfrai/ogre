@@ -27,13 +27,13 @@ THE SOFTWARE.
 */
 #include <assert.h>
 
-#include "OgreStableHeaders.h"
-#include "OgreCompositionTargetPass.h"
 #include "OgreCompositionPass.h"
+#include "OgreCompositionTargetPass.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMaterialManager.h"
 #include "OgreRenderSystem.h"
 #include "OgreRoot.h"
+#include "OgreStableHeaders.h"
 
 namespace Ogre {
 class CompositionTechnique;

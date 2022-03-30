@@ -28,12 +28,12 @@ THE SOFTWARE.
 #ifndef __Distance_Lod_Strategy_H__
 #define __Distance_Lod_Strategy_H__
 
-#include "OgrePrerequisites.h"
 #include "OgreLodStrategy.h"
-#include "OgreSingleton.h"
 #include "OgreMaterial.h"
 #include "OgreMath.h"
 #include "OgreMesh.h"
+#include "OgrePrerequisites.h"
+#include "OgreSingleton.h"
 
 namespace Ogre {
 class Camera;

@@ -28,9 +28,9 @@ THE SOFTWARE.
 #include <assert.h>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreDynLibManager.h"
 #include "OgreDynLib.h"
+#include "OgreDynLibManager.h"
+#include "OgreStableHeaders.h"
 
 namespace Ogre
 {

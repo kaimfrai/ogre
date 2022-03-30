@@ -31,8 +31,8 @@ THE SOFTWARE.
 
 #include <list>
 
-#include "OgreProfiler.h"
 #include "OgrePrerequisites.h"
+#include "OgreProfiler.h"
 
 namespace Ogre  {
     class Overlay;

@@ -30,9 +30,9 @@ THE SOFTWARE.
 
 #include <set>
 
-#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre
 {

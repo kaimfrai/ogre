@@ -29,8 +29,8 @@ THE SOFTWARE.
 #ifndef RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLHARDWAREPIXELBUFFERCOMMON_H_
 #define RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLHARDWAREPIXELBUFFERCOMMON_H_
 
-#include "OgreHardwarePixelBuffer.h"
 #include "OgreHardwareBuffer.h"
+#include "OgreHardwarePixelBuffer.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 

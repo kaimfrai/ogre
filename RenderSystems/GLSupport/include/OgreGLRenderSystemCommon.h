@@ -28,17 +28,17 @@ THE SOFTWARE.
 #ifndef __OgreGLRenderSystemCommon_H__
 #define __OgreGLRenderSystemCommon_H__
 
-#include <stddef.h>
 #include <list>
 #include <set>
+#include <stddef.h>
 
-#include "OgreRenderSystem.h"
-#include "OgreRenderWindow.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRenderTarget.h"
+#include "OgreRenderWindow.h"
 
 namespace Ogre {
     class GLContext;

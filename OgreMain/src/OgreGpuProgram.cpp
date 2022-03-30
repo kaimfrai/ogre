@@ -30,20 +30,20 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreRenderSystemCapabilities.h"
 #include "OgreCommon.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreRoot.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 #include "OgreStringInterface.h"
 

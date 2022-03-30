@@ -30,9 +30,9 @@ THE SOFTWARE.
 
 #include <stddef.h>
 
-#include "OgreRenderToVertexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgrePrerequisites.h"
+#include "OgreRenderToVertexBuffer.h"
 #include "OgreSharedPtr.h"
 #include "glad/glad.h"
 

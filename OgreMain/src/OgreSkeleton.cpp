@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <stddef.h>
 #include <algorithm>
+#include <assert.h>
 #include <iterator>
 #include <list>
 #include <map>
 #include <memory>
 #include <ostream>
+#include <stddef.h>
 #include <string>
 #include <utility>
 #include <vector>
@@ -42,11 +42,11 @@ THE SOFTWARE.
 #include "OgreSkeletonManager.h"
 #include "OgreSkeletonSerializer.h"
 // Just for logging
-#include "OgreAnimationTrack.h"
-#include "OgreKeyFrame.h"
 #include "OgreAnimation.h"
+#include "OgreAnimationTrack.h"
 #include "OgreBone.h"
 #include "OgreException.h"
+#include "OgreKeyFrame.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreMath.h"

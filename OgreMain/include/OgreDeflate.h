@@ -33,8 +33,8 @@
 
 #include "OgreSharedPtr.h"
 
-#include "OgrePrerequisites.h"
 #include "OgreDataStream.h"
+#include "OgrePrerequisites.h"
 
 /// forward decls
 struct mz_stream_s;

@@ -28,14 +28,13 @@ the OGRE Unrestricted License provided you have obtained such a license from
 Torus Knot Software Ltd.
 -------------------------------------------------------------------------*/
 #include <assert.h>
-#include <stddef.h>
 #include <set>
+#include <stddef.h>
 #include <string>
 #include <vector>
 
-#include "OgreStableHeaders.h"
-#include "OgreHardwarePixelBuffer.h"
 #include "OgreHardwareBuffer.h"
+#include "OgreHardwarePixelBuffer.h"
 #include "OgrePixelFormat.h"
 #include "OgrePrerequisites.h"
 #include "OgreResourceGroupManager.h"
@@ -43,6 +42,7 @@ Torus Knot Software Ltd.
 #include "OgreShadowTextureManager.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 #include "OgreTexture.h"
 #include "OgreTextureManager.h"

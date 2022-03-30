@@ -29,12 +29,12 @@ THE SOFTWARE.
 #include <ostream>
 #include <set>
 
-#include "OgreStableHeaders.h"
-#include "OgreRenderSystemCapabilitiesSerializer.h"
-#include "OgreRenderSystemCapabilitiesManager.h"
-#include "OgreRenderSystemCapabilities.h"
 #include "OgreDataStream.h"
 #include "OgreLogManager.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderSystemCapabilitiesManager.h"
+#include "OgreRenderSystemCapabilitiesSerializer.h"
+#include "OgreStableHeaders.h"
 #include "OgreString.h"
 #include "OgreStringConverter.h"
 #include "OgreStringVector.h"

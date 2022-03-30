@@ -32,17 +32,17 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreMaterial.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreLodStrategy.h"
 #include "OgreException.h"
 #include "OgreIteratorWrapper.h"
+#include "OgreLodStrategy.h"
+#include "OgreLodStrategyManager.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
+#include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreResourceManager.h"
+#include "OgreStableHeaders.h"
 #include "OgreTechnique.h"
 
 namespace Ogre {

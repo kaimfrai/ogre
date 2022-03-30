@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <algorithm>
 #include <assert.h>
 #include <string.h>
-#include <algorithm>
 #include <string>
 
-#include "OgreStableHeaders.h"
-#include "OgrePixelFormat.h"
-#include "OgrePixelFormatDescriptions.h"
 #include "OgreBitwise.h"
 #include "OgreException.h"
 #include "OgreMath.h"
+#include "OgrePixelFormat.h"
+#include "OgrePixelFormatDescriptions.h"
+#include "OgreStableHeaders.h"
 #include "OgreString.h"
 #include "OgreVector.h"
 

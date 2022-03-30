@@ -26,14 +26,14 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <gtest/gtest.h>
-#include <stddef.h>
 #include <ostream>
+#include <stddef.h>
 
-#include "OgreQuaternion.h"
-#include "OgreVector.h"
 #include "OgreMath.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreVector.h"
 
 using namespace Ogre;
 

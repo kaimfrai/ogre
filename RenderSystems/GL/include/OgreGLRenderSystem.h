@@ -31,17 +31,17 @@ THE SOFTWARE.
 #include <cstddef>
 #include <vector>
 
-#include "OgrePlatform.h"
-#include "OgreRenderSystem.h"
-#include "OgreGLRenderSystemCommon.h"
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreConfig.h"
+#include "OgreGLRenderSystemCommon.h"
 #include "OgreGpuProgram.h"
 #include "OgreMatrix4.h"
 #include "OgrePlane.h"
+#include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
 #include "OgreRenderTarget.h"
 #include "OgreRenderWindow.h"
 #include "OgreTextureUnitState.h"

@@ -30,18 +30,18 @@ THE SOFTWARE.
 #include <algorithm>
 #include <vector>
 
-#include "OgreStableHeaders.h"
-#include "OgreShadowCameraSetupFocused.h"
-#include "OgreLight.h"
 #include "OgreCamera.h"
 #include "OgreException.h"
 #include "OgreFrustum.h"
+#include "OgreLight.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreNode.h"
 #include "OgrePlane.h"
 #include "OgreRay.h"
+#include "OgreShadowCameraSetupFocused.h"
+#include "OgreStableHeaders.h"
 #include "OgreVector.h"
 
 namespace Ogre

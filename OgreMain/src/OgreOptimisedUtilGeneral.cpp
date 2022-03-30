@@ -28,12 +28,12 @@ THE SOFTWARE.
 #include <assert.h>
 #include <stddef.h>
 
-#include "OgreStableHeaders.h"
-#include "OgreOptimisedUtil.h"
 #include "OgreEdgeListBuilder.h"
 #include "OgreMath.h"
 #include "OgreMatrix4.h"
+#include "OgreOptimisedUtil.h"
 #include "OgrePrerequisites.h"
+#include "OgreStableHeaders.h"
 #include "OgreVector.h"
 
 namespace Ogre {

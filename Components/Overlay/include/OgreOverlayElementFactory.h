@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __OverlayElementFactory_H__
 #define __OverlayElementFactory_H__
 
+#include "OgreBorderPanelOverlayElement.h"
 #include "OgreOverlayElement.h"
 #include "OgrePanelOverlayElement.h"
-#include "OgreBorderPanelOverlayElement.h"
 #include "OgreTextAreaOverlayElement.h"
 
 namespace Ogre {

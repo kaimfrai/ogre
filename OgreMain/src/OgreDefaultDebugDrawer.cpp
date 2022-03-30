@@ -4,9 +4,9 @@
 
 #include "OgreDefaultDebugDrawer.h"
 
-#include <stddef.h>
 #include <algorithm>
 #include <array>
+#include <stddef.h>
 #include <vector>
 
 #include "OgreBlendMode.h"

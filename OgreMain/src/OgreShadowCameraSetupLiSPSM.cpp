@@ -29,14 +29,14 @@ THE SOFTWARE.
 
 #include <utility>
 
-#include "OgreStableHeaders.h"
-#include "OgreShadowCameraSetupLiSPSM.h"
-#include "OgreLight.h"
 #include "OgreCamera.h"
 #include "OgreException.h"
+#include "OgreLight.h"
 #include "OgreMatrix3.h"
 #include "OgrePlane.h"
 #include "OgreRay.h"
+#include "OgreShadowCameraSetupLiSPSM.h"
+#include "OgreStableHeaders.h"
 #include "OgreVector.h"
 
 namespace Ogre

@@ -25,22 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
 #include <algorithm>
+#include <assert.h>
 #include <atomic>
-#include <memory>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <memory>
+#include <mutex>
+#include <thread>
 
-#include "OgreStableHeaders.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreImage.h"
-#include "OgreTexture.h"
 #include "OgreBitwise.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
+#include "OgreHardwarePixelBuffer.h"
+#include "OgreImage.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreRenderSystem.h"
@@ -48,7 +45,9 @@ THE SOFTWARE.
 #include "OgreResourceGroupManager.h"
 #include "OgreResourceManager.h"
 #include "OgreRoot.h"
+#include "OgreStableHeaders.h"
 #include "OgreString.h"
+#include "OgreTexture.h"
 #include "OgreTextureManager.h"
 
 namespace Ogre {

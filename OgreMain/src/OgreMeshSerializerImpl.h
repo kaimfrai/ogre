@@ -31,12 +31,12 @@ THE SOFTWARE.
 
 #include <stddef.h>
 
+#include "OgreEdgeListBuilder.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreKeyFrame.h"
 #include "OgrePrerequisites.h"
 #include "OgreSerializer.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreKeyFrame.h"
 #include "OgreVertexBoneAssignment.h"
-#include "OgreHardwareVertexBuffer.h"
 
 namespace Ogre {
     

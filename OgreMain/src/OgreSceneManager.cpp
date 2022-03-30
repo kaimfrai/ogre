@@ -25,35 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreStableHeaders.h"
-#include "OgreEntity.h"
-#include "OgreLight.h"
-#include "OgreControllerManager.h"
-#include "OgreAnimation.h"
-#include "OgreRenderObjectListener.h"
-#include "OgreBillboardSet.h"
-#include "OgreStaticGeometry.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreBillboardChain.h"
-#include "OgreRibbonTrail.h"
-#include "OgreParticleSystem.h"
-#include "OgreCompositorChain.h"
-#include "OgreInstanceBatch.h"
-#include "OgreInstancedEntity.h"
-#include "OgreRenderTexture.h"
-#include "OgreLodListener.h"
-#include "OgreDefaultDebugDrawer.h"
+#include "OgreSceneManager.h"
 #include "OgreAnimable.h"
+#include "OgreAnimation.h"
 #include "OgreAnimationState.h"
 #include "OgreAnimationTrack.h"
 #include "OgreAutoParamDataSource.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreBillboardChain.h"
+#include "OgreBillboardSet.h"
 #include "OgreBuiltinMovableFactories.h"
 #include "OgreCamera.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
+#include "OgreCompositorChain.h"
 #include "OgreCompositorInstance.h"
 #include "OgreConfig.h"
+#include "OgreControllerManager.h"
+#include "OgreDefaultDebugDrawer.h"
+#include "OgreEntity.h"
 #include "OgreException.h"
 #include "OgreFrustum.h"
 #include "OgreGpuProgram.h"
@@ -61,7 +51,12 @@ THE SOFTWARE.
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwarePixelBuffer.h"
+#include "OgreInstanceBatch.h"
 #include "OgreInstanceManager.h"
+#include "OgreInstancedEntity.h"
+#include "OgreLight.h"
+#include "OgreLodListener.h"
 #include "OgreManualObject.h"
 #include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
@@ -73,6 +68,7 @@ THE SOFTWARE.
 #include "OgreMovableObject.h"
 #include "OgreNameGenerator.h"
 #include "OgreNode.h"
+#include "OgreParticleSystem.h"
 #include "OgreParticleSystemManager.h"
 #include "OgrePass.h"
 #include "OgrePlane.h"
@@ -82,19 +78,23 @@ THE SOFTWARE.
 #include "OgreProfiler.h"
 #include "OgreQuaternion.h"
 #include "OgreRectangle2D.h"
+#include "OgreRenderObjectListener.h"
 #include "OgreRenderOperation.h"
 #include "OgreRenderQueue.h"
 #include "OgreRenderQueueListener.h"
 #include "OgreRenderQueueSortingGrouping.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderTexture.h"
 #include "OgreRenderable.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreRibbonTrail.h"
 #include "OgreRoot.h"
-#include "OgreSceneManager.h"
 #include "OgreSceneNode.h"
 #include "OgreSharedPtr.h"
 #include "OgreSphere.h"
+#include "OgreStableHeaders.h"
+#include "OgreStaticGeometry.h"
 #include "OgreStringConverter.h"
 #include "OgreTechnique.h"
 #include "OgreTexture.h"
@@ -104,22 +104,21 @@ THE SOFTWARE.
 
 // This class implements the most basic scene manager
 
-#include <assert.h>
-#include <cstdio>
 #include <algorithm>
+#include <assert.h>
+#include <condition_variable>
+#include <cstdio>
 #include <iterator>
 #include <limits>
 #include <list>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <set>
 #include <string>
+#include <thread>
 #include <utility>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
 namespace Ogre {
 class AxisAlignedBoxSceneQuery;

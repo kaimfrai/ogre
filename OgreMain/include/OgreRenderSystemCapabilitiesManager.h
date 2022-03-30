@@ -31,9 +31,9 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 
+#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
-#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
     class RenderSystemCapabilities;

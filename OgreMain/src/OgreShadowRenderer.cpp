@@ -26,22 +26,15 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <assert.h>
-#include <stddef.h>
 #include <algorithm>
+#include <assert.h>
 #include <map>
 #include <memory>
+#include <stddef.h>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "OgreStableHeaders.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreRenderTexture.h"
-#include "OgreViewport.h"
-#include "OgreRectangle2D.h"
-#include "OgreShadowCameraSetup.h"
-#include "OgreShadowVolumeExtrudeProgram.h"
 #include "OgreAutoParamDataSource.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreBlendMode.h"
@@ -53,6 +46,7 @@ THE SOFTWARE.
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwarePixelBuffer.h"
 #include "OgreLight.h"
 #include "OgreLogManager.h"
 #include "OgreMaterial.h"
@@ -65,23 +59,29 @@ THE SOFTWARE.
 #include "OgrePlaneBoundedVolume.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreRectangle2D.h"
 #include "OgreRenderQueueSortingGrouping.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRenderTarget.h"
+#include "OgreRenderTexture.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreSceneManager.h"
 #include "OgreSceneNode.h"
 #include "OgreSceneQuery.h"
+#include "OgreShadowCameraSetup.h"
 #include "OgreShadowCaster.h"
 #include "OgreShadowTextureManager.h"
+#include "OgreShadowVolumeExtrudeProgram.h"
 #include "OgreSharedPtr.h"
 #include "OgreSphere.h"
+#include "OgreStableHeaders.h"
 #include "OgreTechnique.h"
 #include "OgreTexture.h"
 #include "OgreTextureManager.h"
 #include "OgreTextureUnitState.h"
 #include "OgreVector.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 class Frustum;

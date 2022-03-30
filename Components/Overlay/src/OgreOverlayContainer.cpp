@@ -32,10 +32,10 @@ THE SOFTWARE.
 #include <utility>
 
 #include "OgreException.h"
-#include "OgreOverlayManager.h"
-#include "OgreOverlay.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMath.h"
+#include "OgreOverlay.h"
+#include "OgreOverlayManager.h"
 
 namespace Ogre {
 class Matrix4;

@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef _ArchiveFactory_H__
 #define _ArchiveFactory_H__
 
-#include "OgrePrerequisites.h"
 #include "OgreFactoryObj.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 

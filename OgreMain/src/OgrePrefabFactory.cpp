@@ -30,8 +30,6 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <string>
 
-#include "OgreStableHeaders.h"
-#include "OgrePrefabFactory.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
@@ -41,8 +39,10 @@ THE SOFTWARE.
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreMesh.h"
 #include "OgrePlatform.h"
+#include "OgrePrefabFactory.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
 #include "OgreSubMesh.h"
 #include "OgreVector.h"
 #include "OgreVertexIndexData.h"

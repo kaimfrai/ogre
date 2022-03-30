@@ -28,16 +28,16 @@ THE SOFTWARE.
 #ifndef __Zip_H__
 #define __Zip_H__
 
-#include <stddef.h>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <memory>
+#include <mutex>
+#include <stddef.h>
+#include <thread>
 
-#include "OgrePrerequisites.h"
 #include "OgreArchive.h"
 #include "OgreArchiveFactory.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 struct AAssetManager;
 struct AAsset;

@@ -27,13 +27,13 @@ THE SOFTWARE.
 */
 #include <memory>
 
-#include "OgreStableHeaders.h"
-#include "OgreHardwareIndexBuffer.h"
 #include "OgreDefaultHardwareBufferManager.h"
 #include "OgreException.h"
+#include "OgreHardwareIndexBuffer.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRoot.h"
+#include "OgreStableHeaders.h"
 
 
 namespace Ogre {

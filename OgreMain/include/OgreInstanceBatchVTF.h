@@ -33,12 +33,12 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgreInstanceBatch.h"
-#include "OgreTexture.h"
 #include "OgreMatrix4.h"
 #include "OgreMesh.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
+#include "OgreTexture.h"
 
 namespace Ogre
 {

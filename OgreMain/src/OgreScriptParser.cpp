@@ -30,11 +30,11 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreStableHeaders.h"
-#include "OgreScriptParser.h"
 #include "OgreException.h"
 #include "OgrePlatform.h"
+#include "OgreScriptParser.h"
 #include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
 #include "OgreStringConverter.h"
 
 namespace Ogre

@@ -30,11 +30,11 @@ THE SOFTWARE.
 #ifndef __CppUnitResultWriter_H__
 #define __CppUnitResultWriter_H__
 
-#include "Ogre.h"
-#include "TinyHTML.h"
 #include "ImageValidator.h"
+#include "Ogre.h"
 #include "TestBatch.h"
 #include "TestResultWriter.h"
+#include "TinyHTML.h"
 
 /** Writes a simple plain text file with pass/fail result for each test */
 class CppUnitResultWriter : public TestResultWriter
@@ -48,7 +48,7 @@ protected:
 
     virtual Ogre::String getOutput()
     {
-        StringStream out;
+        Ogre::StringStream out;
         int numFailed = 0;
         out << "<?xml version=\"1.0\" encoding='ISO-8859-1' standalone='yes' ?>" << std::endl;
         out << "<TestRun>" << std::endl;

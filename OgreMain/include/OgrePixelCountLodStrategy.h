@@ -28,11 +28,11 @@ THE SOFTWARE.
 #ifndef __Pixel_Count_Lod_Strategy_H__
 #define __Pixel_Count_Lod_Strategy_H__
 
-#include "OgrePrerequisites.h"
 #include "OgreLodStrategy.h"
-#include "OgreSingleton.h"
 #include "OgreMaterial.h"
 #include "OgreMesh.h"
+#include "OgrePrerequisites.h"
+#include "OgreSingleton.h"
 
 namespace Ogre {
 

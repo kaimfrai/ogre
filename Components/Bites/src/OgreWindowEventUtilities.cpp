@@ -34,8 +34,8 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreRenderWindow.h"
 #include "OgreCommon.h"
+#include "OgreRenderWindow.h"
 
 using namespace Ogre;
 
