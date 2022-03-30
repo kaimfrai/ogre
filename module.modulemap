@@ -1,0 +1,112 @@
+module Internal {
+	header "OgreMain/src/OgreASTCCodec.h"
+	header "OgreMain/src/OgreBuiltinMovableFactories.h"
+	header "OgreMain/src/OgreBuiltinScriptTranslators.h"
+	header "OgreMain/src/OgreDDSCodec.h"
+	header "OgreMain/src/OgreETCCodec.h"
+	header "OgreMain/src/OgreImageResampler.h"
+	header "OgreMain/src/OgreMeshFileFormat.h"
+	header "OgreMain/src/OgreMeshSerializerImpl.h"
+	header "OgreMain/src/OgreParticleEmitterCommands.h"
+	header "OgreMain/src/OgrePixelConversions.h"
+	header "OgreMain/src/OgrePixelFormatDescriptions.h"
+	header "OgreMain/src/OgrePrefabFactory.h"
+	header "OgreMain/src/OgreRadixSort.h"
+	header "OgreMain/src/OgreSIMDHelper.h"
+	header "OgreMain/src/OgreScriptLexer.h"
+	header "OgreMain/src/OgreScriptParser.h"
+	header "OgreMain/src/OgreSearchOps.h"
+	header "OgreMain/src/OgreShadowTextureManager.h"
+	header "OgreMain/src/OgreShadowVolumeExtrudeProgram.h"
+	header "OgreMain/src/OgreStableHeaders.h"
+	export *
+}
+
+module Core {
+	umbrella "OgreMain/include/"
+	export *
+}
+
+module STBICodec {
+	header "PlugIns/STBICodec/include/OgreSTBICodec.h"
+	export *
+}
+
+module SystemGL [system] {
+	header "/usr/include/GL/gl.h"
+	header "/usr/include/GL/glx.h"
+	header "/usr/include/GL/glxext.h"
+	export *
+	config_macros GLX_GLXEXT_PROTOTYPES
+}
+
+module SystemX11 [system] {
+	header "/usr/include/X11/Xlib.h"
+	header "/usr/include/X11/X.h"
+	header "/usr/include/X11/Xutil.h"
+	header "/usr/include/X11/extensions/Xrandr.h"
+	header "/usr/include/X11/extensions/randr.h"
+	export *
+}
+
+module glad {
+	header "RenderSystems/GL/include/glad/glad.h"
+	export *
+}
+
+module GLSupport {
+	umbrella "RenderSystems/GLSupport/include"
+	export *
+}
+
+module GL {
+	header "RenderSystems/GL/include/OgreGLCopyingRenderTexture.h"
+	header "RenderSystems/GL/include/OgreGLFBOMultiRenderTarget.h"
+	header "RenderSystems/GL/include/OgreGLFBORenderTexture.h"
+	header "RenderSystems/GL/include/OgreGLFrameBufferObject.h"
+	header "RenderSystems/GL/include/OgreGLGpuNvparseProgram.h"
+	header "RenderSystems/GL/include/OgreGLGpuProgram.h"
+	header "RenderSystems/GL/include/OgreGLGpuProgramManager.h"
+	header "RenderSystems/GL/include/OgreGLHardwareBuffer.h"
+	header "RenderSystems/GL/include/OgreGLHardwareBufferManager.h"
+	header "RenderSystems/GL/include/OgreGLHardwareOcclusionQuery.h"
+	header "RenderSystems/GL/include/OgreGLHardwarePixelBuffer.h"
+	header "RenderSystems/GL/include/OgreGLPBRenderTexture.h"
+	header "RenderSystems/GL/include/OgreGLPixelFormat.h"
+	header "RenderSystems/GL/include/OgreGLPlugin.h"
+	header "RenderSystems/GL/include/OgreGLPrerequisites.h"
+	header "RenderSystems/GL/include/OgreGLRenderSystem.h"
+	header "RenderSystems/GL/include/OgreGLRenderToVertexBuffer.h"
+	header "RenderSystems/GL/include/OgreGLStateCacheManager.h"
+	header "RenderSystems/GL/include/OgreGLTexture.h"
+	header "RenderSystems/GL/include/OgreGLTextureManager.h"
+
+	export *
+}
+
+module RTShaderSystem {
+	umbrella "Components/RTShaderSystem/include"
+	export *
+}
+
+module Overlay {
+	umbrella "Components/Overlay/include"
+	export *
+}
+
+module Bites {
+	umbrella "Components/Bites/include"
+	export *
+}
+
+module SampleBrowser {
+	header "Samples/Common/include/DefaultSamplesPlugin.h"
+	header "Samples/Simple/include/NewInstancing.h"
+	header "Samples/Common/include/Sample.h"
+	header "Samples/Browser/include/SampleBrowser.h"
+	header "Samples/Common/include/SampleContext.h"
+	header "Samples/Common/include/SamplePlugin.h"
+	header "Samples/Common/include/SdkSample.h"
+
+	export *
+}
