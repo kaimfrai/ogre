@@ -115,7 +115,7 @@ namespace Ogre {
             Attributes() = default;
 
             /** Copy ctor. Copies the attribute storage. */
-            Attributes(const Attributes& other) :
+            inline Attributes(const Attributes& other) :
                 mKeylessAny(other.mKeylessAny)
             {
                 if (other.mUserObjectsMap)

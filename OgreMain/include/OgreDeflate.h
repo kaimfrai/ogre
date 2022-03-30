@@ -36,7 +36,7 @@
 #include "OgrePrerequisites.h"
 #include "OgreDataStream.h"
 
-typedef struct mz_stream_s z_stream;
+struct mz_stream_s;
 
 namespace Ogre
 {
@@ -181,7 +181,7 @@ namespace Ogre
         DataStreamPtr mCompressedStream;
         DataStreamPtr mTmpWriteStream;
         String mTempFileName;
-        z_stream* mZStream;
+        mz_stream_s* mZStream;
         int mStatus;
         size_t mCurrentPos;
         size_t mAvailIn;

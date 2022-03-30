@@ -30,6 +30,9 @@ THE SOFTWARE.
 
 #include <cstdlib>
 #include <memory>
+#include <map>
+#include <string>
+#include <vector>
 
 #include "OgrePlatform.h"
 

@@ -109,8 +109,6 @@ target_include_directories(OgreGLSupport PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/GLSL>"
     PRIVATE "$<BUILD_INTERFACE:${NATIVE_INCLUDES}>")
 
-set_property(TARGET OgreGLSupport PROPERTY POSITION_INDEPENDENT_CODE ON)
-
 if(OGRE_STATIC)
   ogre_config_lib(OgreGLSupport TRUE)
 endif()

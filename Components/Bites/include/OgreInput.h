@@ -7,6 +7,7 @@
 #define SAMPLES_COMMON_INCLUDE_INPUT_H_
 
 #include <vector>
+#include <string>
 
 namespace Ogre {
     struct FrameEvent;

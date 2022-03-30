@@ -27,6 +27,8 @@ THE SOFTWARE.
 */
 #include "OgreBillboard.h"
 
+#include <map>
+
 namespace Ogre {
 class BillboardSet;
 

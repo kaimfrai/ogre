@@ -33,6 +33,9 @@ THE SOFTWARE.
 #include "OgreBitwise.h"
 #include "OgreAny.h" // IWYU pragma: keep
 
+#include <utility>
+#include <string>
+
 namespace Ogre {
 
     /** \addtogroup Core

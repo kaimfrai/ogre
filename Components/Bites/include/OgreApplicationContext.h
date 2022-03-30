@@ -31,6 +31,7 @@
 #include "OgreApplicationContextBase.h"
 
 #include "OgreInput.h"
+#include "OgrePrerequisites.h"
 
 namespace OgreBites
 {

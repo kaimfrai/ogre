@@ -89,6 +89,7 @@ set(CMAKE_MODULE_PATH
   "${PROJECT_SOURCE_DIR}/CMake/Packages"
 )
 
+include(CXX20Modules)
 include(CMakeDependentOption)
 include(MacroLogFeature)
 include(OgreConfigTargets)

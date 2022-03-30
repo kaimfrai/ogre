@@ -36,7 +36,7 @@
 #include <unistd.h>
 #endif
 
-#include "miniz.h"
+#include "miniz.c"
 #include "zip.h"
 
 #ifdef _MSC_VER

@@ -28,11 +28,13 @@ THE SOFTWARE.
 #ifndef __OgreASTCCodec_H__
 #define __OgreASTCCodec_H__
 
-#include <stddef.h>
 
 #include "OgreImageCodec.h"
 #include "OgrePixelFormat.h"
 #include "OgrePrerequisites.h"
+
+#include <cstddef>
+#include <string>
 
 namespace Ogre {
 	/** \addtogroup Core

@@ -33,7 +33,6 @@
 #include "OgreFileSystem.h"
 #include "OgreDeflate.h"
 
-#define MINIZ_HEADER_FILE_ONLY
 #include <miniz.h>
 
 namespace Ogre
@@ -105,7 +104,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void DeflateStream::init()
     {
-        mZStream = new z_stream[1];
+        mZStream = new mz_stream_s[1];
         mZStream->zalloc = OgreZalloc;
         mZStream->zfree = OgreZfree;
         

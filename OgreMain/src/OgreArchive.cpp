@@ -31,6 +31,8 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 
+#include <map>
+
 namespace Ogre {
     //---------------------------------------------------------------------
     DataStreamPtr Archive::create(const String&)
