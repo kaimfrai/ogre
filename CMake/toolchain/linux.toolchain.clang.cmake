@@ -10,4 +10,7 @@ file(REAL_PATH ${CMAKE_CXX_COMPILER} CMAKE_CXX_COMPILER EXPAND_TILDE)
 #do not use libc++ for C objects
 add_compile_options($<$<COMPILE_LANGUAGE:CXX>:-stdlib=libc++>)
 add_link_options($<$<COMPILE_LANGUAGE:CXX>:-stdlib=libc++>)
+add_link_options($<$<COMPILE_LANGUAGE:CXX>:-lm>)
+add_link_options($<$<COMPILE_LANGUAGE:CXX>:-lc++>)
+add_link_options($<$<COMPILE_LANGUAGE:CXX>:-lc++abi>)
 add_link_options(-fuse-ld=lld)
