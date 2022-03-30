@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include <map>
 #include <memory>
 #include <string>
-#include <string.h>
+#include <cstring>
 #include <unordered_map>
 #include <utility>
 #include <vector>

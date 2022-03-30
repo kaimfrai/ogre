@@ -27,12 +27,12 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <cassert>
+#include <cstddef>
 #include <iterator>
 #include <list>
 #include <map>
 #include <memory>
 #include <ostream>
-#include <cstddef>
 #include <string>
 #include <utility>
 #include <vector>

@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <cassert>
-#include <memory>
 #include <cstddef>
+#include <memory>
 #include <vector>
 
 #include "OgreStableHeaders.h"

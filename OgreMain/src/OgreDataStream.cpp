@@ -27,10 +27,10 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <cassert>
-#include <fstream>
 #include <cstdio>
+#include <fstream>
 #include <string>
-#include <string.h>
+#include <cstring>
 
 #include "OgreStableHeaders.h"
 #include "OgreDataStream.h"

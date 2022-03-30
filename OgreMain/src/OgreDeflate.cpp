@@ -25,9 +25,9 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#include <istream>
 #include <cstdio>
 #include <cstdlib>
+#include <istream>
 
 #include "OgreStableHeaders.h"
 #include "OgreException.h"

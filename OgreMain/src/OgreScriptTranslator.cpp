@@ -27,11 +27,11 @@ THE SOFTWARE.
 */
 
 #include <cassert>
+#include <cstddef>
 #include <iterator>
 #include <list>
 #include <map>
 #include <memory>
-#include <cstddef>
 #include <string>
 #include <unordered_map>
 #include <utility>

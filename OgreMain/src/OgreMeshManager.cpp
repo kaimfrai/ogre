@@ -27,9 +27,9 @@ THE SOFTWARE.
 */
 #include <cassert>
 #include <cmath>
+#include <cstddef>
 #include <map>
 #include <memory>
-#include <cstddef>
 #include <string>
 #include <utility>
 

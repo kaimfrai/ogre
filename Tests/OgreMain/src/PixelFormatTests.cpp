@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include <iomanip>
 #include <ostream>
 #include <string>
-#include <string.h>
+#include <cstring>
 
 #include "OgrePrerequisites.h"
 

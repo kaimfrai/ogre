@@ -29,9 +29,9 @@ THE SOFTWARE.
 #define __Zip_H__
 
 #include <condition_variable>
+#include <cstddef>
 #include <memory>
 #include <mutex>
-#include <cstddef>
 #include <thread>
 
 #include "OgreArchive.h"

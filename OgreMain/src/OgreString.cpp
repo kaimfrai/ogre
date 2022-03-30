@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include <cstdarg>
 #include <cstdio>
 #include <string>
-#include <string.h>
+#include <cstring>
 #include <strings.h>
 #include <vector>
 

@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <cassert>
-#include <mmintrin.h>
 #include <cstring>
+#include <mmintrin.h>
 #include <xmmintrin.h>
 
 #include "OgreEdgeListBuilder.h"

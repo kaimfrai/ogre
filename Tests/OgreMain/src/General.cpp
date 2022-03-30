@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include <memory>
 #include <random>
 #include <string>
-#include <string.h>
+#include <cstring>
 #include <utility>
 #include <vector>
 

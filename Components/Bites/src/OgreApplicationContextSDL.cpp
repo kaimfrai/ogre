@@ -10,8 +10,8 @@
 #include <SDL_syswm.h>
 #include <SDL_version.h>
 #include <SDL_video.h>
-#include <map>
 #include <cstddef>
+#include <map>
 #include <string>
 #include <utility>
 #include <vector>

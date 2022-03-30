@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include <list>
 #include <memory>
 #include <string>
-#include <string.h>
+#include <cstring>
 #include <vector>
 
 #include "OgreAxisAlignedBox.h"

@@ -28,12 +28,12 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <condition_variable>
+#include <cstdio>
 #include <map>
 #include <memory>
 #include <mutex>
-#include <cstdio>
 #include <string>
-#include <string.h>
+#include <cstring>
 #include <thread>
 #include <utility>
 #include <vector>

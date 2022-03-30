@@ -27,10 +27,10 @@ THE SOFTWARE.
 */
 #include <cassert>
 #include <condition_variable>
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <mutex>
-#include <cstddef>
 #include <string>
 #include <thread>
 #include <utility>

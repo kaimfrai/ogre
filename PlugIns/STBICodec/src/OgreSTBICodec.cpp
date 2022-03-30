@@ -28,9 +28,9 @@ THE SOFTWARE.
 
 #include "OgreSTBICodec.h"
 
+#include <cstdlib>
 #include <memory>
 #include <ostream>
-#include <cstdlib>
 #include <string>
 #include <vector>
 

@@ -31,7 +31,7 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include <list>
 #include <map>
 #include <string>
-#include <string.h>
+#include <cstring>
 
 #include "OgreAnimation.h"
 #include "OgreAnimationState.h"

@@ -26,9 +26,9 @@ THE SOFTWARE.
 */
 #include "OgreOverlayTranslator.h"
 
+#include <cstddef>
 #include <list>
 #include <sstream>
-#include <cstddef>
 #include <string>
 #include <vector>
 

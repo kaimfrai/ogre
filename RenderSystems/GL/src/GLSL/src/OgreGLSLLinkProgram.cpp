@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 
 #include <string>
-#include <string.h>
+#include <cstring>
 #include <vector>
 
 #include "OgreDataStream.h"

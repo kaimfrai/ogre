@@ -27,12 +27,12 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <cassert>
+#include <cstring>
 #include <iterator>
 #include <list>
 #include <map>
 #include <memory>
 #include <set>
-#include <cstring>
 #include <utility>
 
 #include "OgreConfig.h"

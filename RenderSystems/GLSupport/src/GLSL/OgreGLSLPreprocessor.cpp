@@ -30,9 +30,9 @@
 
 #include <cassert>
 #include <cctype>
+#include <cstdio>
 #include <iterator>
 #include <memory>
-#include <cstdio>
 #include <utility>
 
 #include "OgreLog.h"

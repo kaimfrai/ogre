@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <cstring>
 #include <map>
 #include <memory>
-#include <cstring>
 
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"

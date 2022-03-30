@@ -28,9 +28,9 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <cassert>
+#include <cstddef>
 #include <map>
 #include <memory>
-#include <cstddef>
 #include <string>
 #include <utility>
 #include <vector>

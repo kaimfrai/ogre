@@ -28,10 +28,10 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <condition_variable>
+#include <cstddef>
 #include <memory>
 #include <mutex>
 #include <set>
-#include <cstddef>
 #include <thread>
 
 #include "OgreException.h"

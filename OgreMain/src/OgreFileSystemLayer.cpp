@@ -27,11 +27,11 @@
  */
 #include "OgreFileSystemLayer.h"
 
-#include <dlfcn.h>
 #include <cerrno>
-#include <pwd.h>
 #include <cstdio>
 #include <cstdlib>
+#include <dlfcn.h>
+#include <pwd.h>
 #include <string>
 #include <sys/stat.h>
 #include <unistd.h>

@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <limits>
 #include <cstddef>
+#include <limits>
 
 #include "OgreStableHeaders.h"
 #include "OgreMath.h"

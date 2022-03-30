@@ -26,11 +26,11 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <condition_variable>
+#include <cstdint>
+#include <cstdio>
 #include <ios>
 #include <memory>
 #include <mutex>
-#include <cstdint>
-#include <cstdio>
 #include <string>
 #include <sys/stat.h>
 #include <thread>

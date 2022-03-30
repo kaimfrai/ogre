@@ -26,10 +26,10 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <condition_variable>
+#include <cstddef>
 #include <cxxabi.h>
 #include <memory>
 #include <mutex>
-#include <cstddef>
 #include <thread>
 #include <vector>
 

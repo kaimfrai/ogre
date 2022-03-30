@@ -28,11 +28,11 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <condition_variable>
+#include <cstddef>
 #include <iterator>
 #include <memory>
 #include <mutex>
 #include <set>
-#include <cstddef>
 #include <string>
 #include <thread>
 #include <vector>

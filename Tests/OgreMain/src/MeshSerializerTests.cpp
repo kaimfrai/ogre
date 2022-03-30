@@ -29,13 +29,13 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <cmath>
+#include <cstdlib>
 #include <fstream>
 #include <list>
 #include <map>
 #include <memory>
-#include <cstdlib>
 #include <string>
-#include <string.h>
+#include <cstring>
 #include <utility>
 #include <vector>
 

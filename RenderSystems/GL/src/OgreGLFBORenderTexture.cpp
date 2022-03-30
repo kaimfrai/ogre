@@ -28,10 +28,10 @@ THE SOFTWARE.
 
 #include "OgreGLFBORenderTexture.h"
 
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <ostream>
-#include <cstddef>
 #include <string>
 #include <utility>
 #include <vector>

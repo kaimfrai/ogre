@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <cassert>
 #include <condition_variable>
+#include <ctime>
 #include <iterator>
 #include <list>
 #include <map>
@@ -35,7 +36,6 @@ THE SOFTWARE.
 #include <ostream>
 #include <string>
 #include <thread>
-#include <ctime>
 #include <utility>
 #include <vector>
 

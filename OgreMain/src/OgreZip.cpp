@@ -27,11 +27,11 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <condition_variable>
+#include <cstddef>
 #include <iosfwd>
 #include <map>
 #include <memory>
 #include <mutex>
-#include <cstddef>
 #include <string>
 #include <sys/stat.h>
 #include <thread>

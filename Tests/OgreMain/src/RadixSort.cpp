@@ -27,8 +27,8 @@ THE SOFTWARE.
 */
 #include <gtest/gtest.h>
 #include <climits>
-#include <list>
 #include <cstdlib>
+#include <list>
 #include <vector>
 
 #include "../../../OgreMain/src/OgreRadixSort.h"

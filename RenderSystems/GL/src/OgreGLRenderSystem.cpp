@@ -32,14 +32,14 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include <cstdint>
 #include <istream>
 #include <list>
 #include <map>
 #include <memory>
 #include <set>
-#include <cstdint>
 #include <string>
-#include <string.h>
+#include <cstring>
 #include <utility>
 
 #include "ATI_FS_GLGpuProgram.h"

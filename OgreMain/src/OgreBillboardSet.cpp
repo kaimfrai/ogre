@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include <iterator>
 #include <map>
 #include <string>
-#include <string.h>
+#include <cstring>
 #include <utility>
 
 #include "OgreBillboard.h"

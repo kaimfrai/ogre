@@ -28,10 +28,10 @@ THE SOFTWARE.
 // Ogre includes
 #include <atomic>
 #include <condition_variable>
+#include <cstddef>
 #include <memory>
 #include <mutex>
 #include <set>
-#include <cstddef>
 #include <string>
 #include <thread>
 

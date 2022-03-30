@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include <limits>
 #include <map>
 #include <string>
-#include <string.h>
+#include <cstring>
 #include <type_traits>
 #include <utility>
 

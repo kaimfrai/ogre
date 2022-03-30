@@ -29,12 +29,12 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <condition_variable>
+#include <cstddef>
 #include <list>
 #include <map>
 #include <memory>
 #include <mutex>
 #include <ostream>
-#include <cstddef>
 #include <string>
 #include <thread>
 #include <type_traits>

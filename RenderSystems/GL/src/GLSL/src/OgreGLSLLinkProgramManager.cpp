@@ -30,8 +30,8 @@ THE SOFTWARE.
 
 #include <array>
 #include <cassert>
-#include <map>
 #include <cstddef>
+#include <map>
 #include <utility>
 
 #include "OgreCommon.h"

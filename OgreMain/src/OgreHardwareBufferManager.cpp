@@ -27,13 +27,13 @@ THE SOFTWARE.
 */
 #include <cassert>
 #include <condition_variable>
+#include <cstddef>
 #include <list>
 #include <map>
 #include <memory>
 #include <mutex>
 #include <ostream>
 #include <set>
-#include <cstddef>
 #include <thread>
 #include <utility>
 

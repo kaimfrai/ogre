@@ -27,9 +27,9 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <cmath>
+#include <cstring>
 #include <limits>
 #include <memory>
-#include <cstring>
 #include <utility>
 
 #include "OgreStableHeaders.h"

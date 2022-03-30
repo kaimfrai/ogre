@@ -28,8 +28,8 @@ the OGRE Unrestricted License provided you have obtained such a license from
 Torus Knot Software Ltd.
 -------------------------------------------------------------------------*/
 #include <cassert>
-#include <set>
 #include <cstddef>
+#include <set>
 #include <string>
 #include <vector>
 

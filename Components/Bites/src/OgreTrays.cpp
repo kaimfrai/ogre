@@ -8,9 +8,9 @@
 #include "OgreTrays.h"
 
 #include <algorithm>
+#include <cmath>
 #include <iomanip>
 #include <map>
-#include <cmath>
 #include <memory>
 #include <ostream>
 #include <utility>

@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 #include <cassert>
 #include <string>
-#include <string.h>
+#include <cstring>
 
 #include "OgreControllerManager.h"
 #include "OgreException.h"

@@ -27,11 +27,11 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <cassert>
+#include <ctime>
 #include <cxxabi.h>
 #include <iomanip>
 #include <ostream>
 #include <string>
-#include <ctime>
 #include <utility>
 
 #include "OgreDepthBuffer.h"
