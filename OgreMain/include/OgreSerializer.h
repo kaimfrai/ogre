@@ -29,7 +29,7 @@ THE SOFTWARE.
 #ifndef __Serializer_H__
 #define __Serializer_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreMemoryAllocatorConfig.h"

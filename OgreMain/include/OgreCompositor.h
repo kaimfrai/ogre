@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __Compositor_H__
 #define __Compositor_H__
 
+#include <cstddef>
 #include <map>
-#include <stddef.h>
 #include <string>
 #include <vector>
 

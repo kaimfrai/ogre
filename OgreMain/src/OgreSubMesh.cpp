@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include <map>
 #include <memory>
 #include <set>
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreStableHeaders.h"

@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <memory>
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreStableHeaders.h"

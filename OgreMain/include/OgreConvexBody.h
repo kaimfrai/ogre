@@ -30,10 +30,10 @@ THE SOFTWARE.
 #define __ConvexBody_H__
 
 #include <condition_variable>
+#include <cstddef>
 #include <iosfwd>
 #include <memory>
 #include <mutex>
-#include <stddef.h>
 #include <thread>
 #include <vector>
 

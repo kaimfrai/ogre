@@ -30,9 +30,9 @@ THE SOFTWARE.
 
 
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
+#include <cstddef>
 #include <ostream>
-#include <stddef.h>
 #include <type_traits>
 
 #include "OgreMath.h"

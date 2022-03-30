@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <map>
-#include <stddef.h>
+#include <cstddef>
 #include <utility>
 
 #include "OgreHardwareVertexBuffer.h"

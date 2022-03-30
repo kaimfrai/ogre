@@ -6,7 +6,7 @@
 
 #include <algorithm>
 #include <array>
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreBlendMode.h"

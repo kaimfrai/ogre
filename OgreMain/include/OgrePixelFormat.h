@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef _PixelFormat_H__
 #define _PixelFormat_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreColourValue.h"

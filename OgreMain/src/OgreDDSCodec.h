@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __OgreDDSCodec_H__
 #define __OgreDDSCodec_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreImageCodec.h"
 #include "OgrePixelFormat.h"

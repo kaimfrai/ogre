@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef _Codec_H__
 #define _Codec_H__
 
+#include <cstddef>
 #include <map>
-#include <stddef.h>
 #include <string>
 
 #include "OgreAny.h"

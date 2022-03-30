@@ -32,11 +32,11 @@ Torus Knot Software Ltd.
 
 #include <array>
 #include <condition_variable>
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <mutex>
 #include <set>
-#include <stddef.h>
 #include <string>
 #include <thread>
 #include <vector>

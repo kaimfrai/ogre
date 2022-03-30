@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <condition_variable>
 #include <list>
 #include <map>
@@ -33,7 +33,7 @@ THE SOFTWARE.
 #include <mutex>
 #include <ostream>
 #include <set>
-#include <stddef.h>
+#include <cstddef>
 #include <thread>
 #include <utility>
 

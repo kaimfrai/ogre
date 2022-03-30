@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 #include "OgreGLHardwareBufferManager.h"
 
-#include <assert.h>
+#include <cassert>
 #include <memory>
 
 #include "OgreAlignedAllocator.h"

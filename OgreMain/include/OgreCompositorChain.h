@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __CompositorChain_H__
 #define __CompositorChain_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreCommon.h"

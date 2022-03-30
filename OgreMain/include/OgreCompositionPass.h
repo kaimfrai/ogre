@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __CompositionPass_H__
 #define __CompositionPass_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 
 #include "OgreColourValue.h"

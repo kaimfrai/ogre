@@ -29,8 +29,8 @@ THE SOFTWARE.
 #ifndef __RibbonTrail_H__
 #define __RibbonTrail_H__
 
+#include <cstddef>
 #include <map>
-#include <stddef.h>
 #include <vector>
 
 #include "OgreBillboardChain.h"

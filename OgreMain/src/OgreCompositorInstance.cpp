@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 
 #include "OgreCamera.h"
 #include "OgreColourValue.h"

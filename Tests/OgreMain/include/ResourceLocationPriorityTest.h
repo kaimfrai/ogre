@@ -31,7 +31,7 @@ THE SOFTWARE.
 
 #include <memory>
 #include <string>
-#include <time.h>
+#include <ctime>
 #include <vector>
 
 #include "OgreArchive.h"

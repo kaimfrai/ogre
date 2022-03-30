@@ -26,12 +26,12 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <limits>
 #include <list>
 #include <map>
-#include <string.h>
 #include <string>
+#include <string.h>
 
 #include "OgreAnimation.h"
 #include "OgreAnimationState.h"

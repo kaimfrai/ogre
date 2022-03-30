@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
 #include <string>
+#include <string.h>
 #include <utility>
 
 #include "OgreException.h"

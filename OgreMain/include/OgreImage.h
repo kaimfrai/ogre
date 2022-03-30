@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef _Image_H__
 #define _Image_H__
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <vector>
 
 #include "OgreColourValue.h"

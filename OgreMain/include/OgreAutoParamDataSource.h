@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __AutoParamDataSource_H_
 #define __AutoParamDataSource_H_
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreColourValue.h"
 #include "OgreCommon.h"

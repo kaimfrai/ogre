@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __STBICodec_H__
 #define __STBICodec_H__
 
+#include <cstddef>
 #include <list>
-#include <stddef.h>
 
 #include "OgreImageCodec.h"
 #include "OgrePlugin.h"

@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <cmath>
 #include <iterator>
 #include <limits>
@@ -35,8 +35,8 @@ THE SOFTWARE.
 #include <memory>
 #include <ostream>
 #include <set>
-#include <string.h>
 #include <string>
+#include <string.h>
 #include <unordered_map>
 #include <utility>
 #include <vector>

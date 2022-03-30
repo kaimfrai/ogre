@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __VertexIndexData_H__
 #define __VertexIndexData_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreHardwareBuffer.h"

@@ -28,8 +28,8 @@
 #ifndef __OGRE_DEFLATE_H__
 #define __OGRE_DEFLATE_H__
 
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "OgreSharedPtr.h"
 

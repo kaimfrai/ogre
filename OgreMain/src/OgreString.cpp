@@ -26,11 +26,11 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <ctype.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
+#include <cctype>
+#include <cstdarg>
+#include <cstdio>
 #include <string>
+#include <string.h>
 #include <strings.h>
 #include <vector>
 

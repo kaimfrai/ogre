@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __Technique_H__
 #define __Technique_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <vector>
 

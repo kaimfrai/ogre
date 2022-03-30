@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __PredefinedControllers_H__
 #define __PredefinedControllers_H__
 
+#include <cstddef>
 #include <memory>
-#include <stddef.h>
 #include <vector>
 
 #include "OgreCommon.h"

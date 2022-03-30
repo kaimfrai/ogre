@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 
 #include <cmath>
-#include <string.h>
+#include <cstring>
 
 #include "OgreASTCCodec.h"
 #include "OgreCodec.h"

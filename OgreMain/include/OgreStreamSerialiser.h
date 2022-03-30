@@ -29,8 +29,8 @@ THE SOFTWARE.
 #define __StreamSerialiser_H__
 
 #include <algorithm>
+#include <cstddef>
 #include <deque>
-#include <stddef.h>
 
 #include "OgreCommon.h"
 #include "OgreDataStream.h"

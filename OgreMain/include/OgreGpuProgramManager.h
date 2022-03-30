@@ -28,10 +28,10 @@ THE SOFTWARE.
 #ifndef __GpuProgramManager_H_
 #define __GpuProgramManager_H_
 
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <set>
-#include <stddef.h>
 #include <string>
 
 // Precompiler options

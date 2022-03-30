@@ -29,7 +29,7 @@ THE SOFTWARE.
 #ifndef __SCRIPTTRANSLATOR_H_
 #define __SCRIPTTRANSLATOR_H_
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreBlendMode.h"

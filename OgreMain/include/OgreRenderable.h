@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __Renderable_H__
 #define __Renderable_H__
 
+#include <cstddef>
 #include <map>
-#include <stddef.h>
 
 #include "OgreCommon.h"
 #include "OgreException.h"

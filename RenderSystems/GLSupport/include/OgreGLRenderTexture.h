@@ -29,8 +29,8 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #ifndef __GLRENDERTEXTURE_H__
 #define __GLRENDERTEXTURE_H__
 
+#include <cstddef>
 #include <map>
-#include <stddef.h>
 #include <vector>
 
 #include "OgreConfig.h"

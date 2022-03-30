@@ -29,7 +29,7 @@ THE SOFTWARE.
 #ifndef __MeshSerializerImpl_H__
 #define __MeshSerializerImpl_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreEdgeListBuilder.h"
 #include "OgreHardwareVertexBuffer.h"

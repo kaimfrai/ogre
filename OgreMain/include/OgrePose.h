@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __OGRE_POSE_H
 #define __OGRE_POSE_H
 
+#include <cstddef>
 #include <map>
-#include <stddef.h>
 #include <vector>
 
 #include "OgreCommon.h"

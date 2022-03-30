@@ -28,10 +28,10 @@ THE SOFTWARE.
 #ifndef __OverlayManager_H__
 #define __OverlayManager_H__
 
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <set>
-#include <stddef.h>
 #include <string>
 
 #include "OgreFrustum.h"

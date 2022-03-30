@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __PatchMesh_H__
 #define __PatchMesh_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreHardwareBuffer.h"
 #include "OgreMesh.h"

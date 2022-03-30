@@ -29,13 +29,13 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #define __GpuProgramParams_H_
 
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <condition_variable>
+#include <cstring>
 #include <limits>
 #include <map>
 #include <memory>
 #include <mutex>
-#include <string.h>
 #include <string>
 #include <thread>
 #include <vector>

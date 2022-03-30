@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include <memory>
 #include <mutex>
 #include <set>
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <thread>
 

@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __InstanceBatchHW_VTF_H__
 #define __InstanceBatchHW_VTF_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreInstanceBatchVTF.h"
 #include "OgreMesh.h"

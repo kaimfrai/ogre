@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __Matrix4__
 #define __Matrix4__
 
-#include <assert.h>
+#include <cassert>
+#include <cstring>
 #include <ostream>
-#include <string.h>
 
 // Precompiler options
 #include "OgreMatrix3.h"

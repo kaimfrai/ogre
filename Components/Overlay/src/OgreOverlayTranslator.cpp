@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 #include <list>
 #include <sstream>
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <vector>
 

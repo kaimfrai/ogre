@@ -30,7 +30,7 @@ THE SOFTWARE.
 
 #include <memory>
 #include <ostream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <string>
 #include <vector>
 

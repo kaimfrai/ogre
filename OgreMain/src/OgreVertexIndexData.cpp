@@ -26,13 +26,13 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <iterator>
 #include <list>
 #include <map>
 #include <memory>
 #include <set>
-#include <string.h>
+#include <cstring>
 #include <utility>
 
 #include "OgreConfig.h"

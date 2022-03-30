@@ -29,7 +29,7 @@ THE SOFTWARE.
 #ifndef __GLCOPYINGRENDERTEXTURE_H__
 #define __GLCOPYINGRENDERTEXTURE_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreGLRenderTexture.h"
 #include "OgrePixelFormat.h"

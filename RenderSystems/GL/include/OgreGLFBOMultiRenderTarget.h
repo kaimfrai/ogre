@@ -29,7 +29,7 @@ THE SOFTWARE.
 #ifndef __GLMULTIRENDERTARGET_H__
 #define __GLMULTIRENDERTARGET_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreGLFrameBufferObject.h"
 #include "OgreGLRenderTarget.h"

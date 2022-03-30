@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __BillboardParticleRenderer_H__
 #define __BillboardParticleRenderer_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreAxisAlignedBox.h"

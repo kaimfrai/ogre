@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <string.h>
+#include <cstring>
 
 #include "OgreCodec.h"
 #include "OgreCommon.h"

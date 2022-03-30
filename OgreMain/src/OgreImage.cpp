@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <memory>
-#include <string.h>
+#include <cstring>
 
 #include "OgreAny.h"
 #include "OgreCodec.h"

@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __ShadowCameraSetup_H__
 #define __ShadowCameraSetup_H__
 
+#include <cstddef>
 #include <memory>
-#include <stddef.h>
 
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"

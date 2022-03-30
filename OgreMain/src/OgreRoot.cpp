@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 // Ogre includes
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <condition_variable>
 #include <deque>
 #include <map>
@@ -35,7 +35,7 @@ THE SOFTWARE.
 #include <mutex>
 #include <ostream>
 #include <set>
-#include <stdlib.h>
+#include <cstdlib>
 #include <string>
 #include <thread>
 #include <utility>

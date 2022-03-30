@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include "ZipArchiveTests.h"
 
 #include <map>
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <utility>
 #include <vector>

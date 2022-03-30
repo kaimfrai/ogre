@@ -29,8 +29,8 @@ THE SOFTWARE.
 #ifndef __ShadowCameraSetupFocused_H__
 #define __ShadowCameraSetupFocused_H__
 
+#include <cstddef>
 #include <memory>
-#include <stddef.h>
 
 #include "OgreAxisAlignedBox.h"
 #include "OgreConvexBody.h"

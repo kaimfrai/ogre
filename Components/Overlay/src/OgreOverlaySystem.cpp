@@ -28,8 +28,8 @@ THE SOFTWARE.
 
 #include "OgreOverlaySystem.h"
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <string>
 
 #include "OgreBorderPanelOverlayElement.h"

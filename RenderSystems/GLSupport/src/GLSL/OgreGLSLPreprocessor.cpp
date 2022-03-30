@@ -28,11 +28,11 @@
 
 #include "OgreGLSLPreprocessor.h"
 
-#include <assert.h>
-#include <ctype.h>
+#include <cassert>
+#include <cctype>
 #include <iterator>
 #include <memory>
-#include <stdio.h>
+#include <cstdio>
 #include <utility>
 
 #include "OgreLog.h"

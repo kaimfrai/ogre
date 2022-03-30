@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <memory>
 #include <ostream>
-#include <string.h>
+#include <cstring>
 
 #include "OgreCamera.h"
 #include "OgreEdgeListBuilder.h"

@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include <condition_variable>
 #include <memory>
 #include <mutex>
-#include <stddef.h>
+#include <cstddef>
 #include <thread>
 
 #include "OgreArchive.h"

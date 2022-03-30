@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <assert.h>
+#include <cassert>
 #include <utility>
 
 #include "OgreDistanceLodStrategy.h"

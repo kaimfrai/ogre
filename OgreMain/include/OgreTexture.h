@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef _Texture_H__
 #define _Texture_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <vector>
 

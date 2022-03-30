@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 #include "OgreOverlayManager.h"
 
-#include <assert.h>
+#include <cassert>
 #include <utility>
 
 #include "OgreDataStream.h"

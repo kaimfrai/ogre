@@ -29,9 +29,9 @@ THE SOFTWARE.
 #include "OgreGLSLLinkProgramManager.h"
 
 #include <array>
-#include <assert.h>
+#include <cassert>
 #include <map>
-#include <stddef.h>
+#include <cstddef>
 #include <utility>
 
 #include "OgreCommon.h"

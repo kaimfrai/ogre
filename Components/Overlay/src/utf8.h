@@ -5,7 +5,7 @@
 #ifndef UTF8_H
 #define UTF8_H
 
-#include <stdint.h>
+#include <cstdint>
 
 /* Decode the next character, C, from BUF, reporting errors in E.
  *

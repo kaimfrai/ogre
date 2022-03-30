@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef _OgreTangentSpaceCalc_H_
 #define _OgreTangentSpaceCalc_H_
 
+#include <cstddef>
 #include <list>
-#include <stddef.h>
 #include <utility>
 #include <vector>
 

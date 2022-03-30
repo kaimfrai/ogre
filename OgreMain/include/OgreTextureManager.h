@@ -29,9 +29,9 @@ THE SOFTWARE.
 #define _TextureManager_H__
 
 
+#include <cstddef>
 #include <map>
 #include <memory>
-#include <stddef.h>
 #include <string>
 
 #include "OgreCommon.h"

@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __SubMesh_H_
 #define __SubMesh_H_
 
+#include <cstddef>
 #include <map>
-#include <stddef.h>
 #include <vector>
 
 #include "OgreAnimationTrack.h"

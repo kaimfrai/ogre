@@ -30,12 +30,12 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <condition_variable>
+#include <cstddef>
 #include <deque>
 #include <list>
 #include <map>
 #include <memory>
 #include <mutex>
-#include <stddef.h>
 #include <string>
 #include <thread>
 

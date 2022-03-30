@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __MeshManager_H__
 #define __MeshManager_H__
 
+#include <cstddef>
 #include <map>
 #include <memory>
-#include <stddef.h>
 
 #include "OgreCommon.h"
 #include "OgreHardwareBuffer.h"

@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <condition_variable>
 #include <map>
 #include <memory>
 #include <mutex>
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <thread>
 #include <utility>

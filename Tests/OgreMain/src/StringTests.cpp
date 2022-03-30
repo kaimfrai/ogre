@@ -27,8 +27,8 @@ THE SOFTWARE.
 */
 #include "StringTests.h"
 
-#include <locale.h>
-#include <stddef.h>
+#include <clocale>
+#include <cstddef>
 
 #include "OgreColourValue.h"
 #include "OgreMatrix4.h"

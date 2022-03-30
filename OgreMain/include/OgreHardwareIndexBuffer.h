@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __HardwareIndexBuffer__
 #define __HardwareIndexBuffer__
 
-#include <stddef.h>
+#include <cstddef>
 
 // Precompiler options
 #include "OgreHardwareBuffer.h"

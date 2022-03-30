@@ -6,7 +6,7 @@
 #include "OgreGLSLProgramCommon.h"
 
 #include <sstream>
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 
 #include "OgreException.h"

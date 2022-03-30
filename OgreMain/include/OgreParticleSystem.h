@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __ParticleSystem_H__
 #define __ParticleSystem_H__
 
+#include <cstddef>
 #include <list>
 #include <map>
-#include <stddef.h>
 #include <string>
 #include <vector>
 

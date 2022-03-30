@@ -29,7 +29,7 @@ THE SOFTWARE.
 #ifndef __SkeletonSerializer_H__
 #define __SkeletonSerializer_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgrePrerequisites.h"
 #include "OgreSerializer.h"

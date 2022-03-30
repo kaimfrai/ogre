@@ -26,9 +26,9 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <cmath>
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreAxisAlignedBox.h"
 #include "OgreCamera.h"

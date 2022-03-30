@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __GLHARWAREBUFFERMANAGER_H__
 #define __GLHARWAREBUFFERMANAGER_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"

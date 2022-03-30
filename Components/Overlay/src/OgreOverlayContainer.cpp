@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 #include "OgreOverlayContainer.h"
 
-#include <stddef.h>
+#include <cstddef>
 #include <utility>
 
 #include "OgreException.h"

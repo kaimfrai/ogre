@@ -30,11 +30,11 @@ THE SOFTWARE.
 
 #include <atomic>
 #include <condition_variable>
+#include <cstddef>
 #include <list>
 #include <map>
 #include <memory>
 #include <mutex>
-#include <stddef.h>
 #include <string>
 #include <thread>
 #include <unordered_map>

@@ -26,12 +26,12 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <condition_variable>
 #include <memory>
 #include <mutex>
 #include <set>
-#include <stddef.h>
+#include <cstddef>
 #include <thread>
 
 #include "OgreException.h"

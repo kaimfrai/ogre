@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include <map>
 #include <memory>
 #include <mutex>
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <sys/stat.h>
 #include <thread>

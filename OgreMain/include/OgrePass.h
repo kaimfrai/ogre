@@ -29,10 +29,10 @@ THE SOFTWARE.
 #define __Pass_H__
 
 #include <condition_variable>
+#include <cstddef>
 #include <memory>
 #include <mutex>
 #include <set>
-#include <stddef.h>
 #include <thread>
 #include <vector>
 

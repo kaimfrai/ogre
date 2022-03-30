@@ -32,8 +32,8 @@ THE SOFTWARE.
 #ifndef _BillboardChain_H__
 #define _BillboardChain_H__
 
+#include <cstddef>
 #include <memory>
-#include <stddef.h>
 #include <vector>
 
 #include "OgreAxisAlignedBox.h"

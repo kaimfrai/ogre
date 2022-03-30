@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 #include "OgreGLPBRenderTexture.h"
 
-#include <assert.h>
+#include <cassert>
 #include <string>
 
 #include "OgreGLHardwarePixelBuffer.h"

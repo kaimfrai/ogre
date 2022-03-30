@@ -26,9 +26,9 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <memory>
-#include <string.h>
+#include <cstring>
 #include <utility>
 
 #include "OgreException.h"

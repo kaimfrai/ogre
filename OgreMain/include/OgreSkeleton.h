@@ -29,9 +29,9 @@ THE SOFTWARE.
 #ifndef __Skeleton_H__
 #define __Skeleton_H__
 
+#include <cstddef>
 #include <map>
 #include <set>
-#include <stddef.h>
 #include <string>
 #include <vector>
 

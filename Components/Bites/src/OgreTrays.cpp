@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <map>
-#include <math.h>
+#include <cmath>
 #include <memory>
 #include <ostream>
 #include <utility>

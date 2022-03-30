@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include <cmath>
 #include <limits>
 #include <list>
-#include <stdlib.h>
+#include <cstdlib>
 #include <utility>
 #include <vector>
 

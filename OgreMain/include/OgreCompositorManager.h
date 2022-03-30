@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __CompositorManager_H__
 #define __CompositorManager_H__
 
+#include <cstddef>
 #include <map>
 #include <set>
-#include <stddef.h>
 #include <string>
 #include <tuple>
 #include <utility>

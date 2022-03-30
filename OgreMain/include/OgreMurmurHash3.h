@@ -6,7 +6,7 @@
 #define _MURMURHASH3_H_
 
 #include <cstddef>
-#include <stdint.h>
+#include <cstdint>
 
 //-----------------------------------------------------------------------------
 // Platform-specific functions and macros

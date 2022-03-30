@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __SubEntity_H__
 #define __SubEntity_H__
 
+#include <cstddef>
 #include <memory>
-#include <stddef.h>
 
 #include "OgreCommon.h"
 #include "OgreGpuProgramParams.h"

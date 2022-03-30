@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __ANIMABLE_H__
 #define __ANIMABLE_H__
 
+#include <cstring>
 #include <map>
-#include <string.h>
 #include <string>
 
 #include "OgreColourValue.h"

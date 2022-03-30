@@ -30,10 +30,10 @@ THE SOFTWARE.
 
 #include <atomic>
 #include <condition_variable>
+#include <cstddef>
 #include <memory>
 #include <mutex>
 #include <set>
-#include <stddef.h>
 #include <thread>
 
 #include "OgreMemoryAllocatorConfig.h"

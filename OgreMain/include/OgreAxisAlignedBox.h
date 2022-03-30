@@ -29,7 +29,7 @@ THE SOFTWARE.
 #define __AxisAlignedBox_H_
 
 #include <array>
-#include <assert.h>
+#include <cassert>
 #include <ostream>
 
 // Precompiler options

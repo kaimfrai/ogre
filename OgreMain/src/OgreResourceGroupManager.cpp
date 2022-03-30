@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <condition_variable>
 #include <iterator>
 #include <list>
@@ -35,7 +35,7 @@ THE SOFTWARE.
 #include <ostream>
 #include <string>
 #include <thread>
-#include <time.h>
+#include <ctime>
 #include <utility>
 #include <vector>
 

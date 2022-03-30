@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <gtest/gtest.h>
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreArchive.h"
 #include "OgreFileSystem.h"

@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 
 #include <gtest/gtest.h>
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreEntity.h"
 #include "OgreInstanceBatchShader.h"

@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __OgreGLRenderSystemCommon_H__
 #define __OgreGLRenderSystemCommon_H__
 
+#include <cstddef>
 #include <list>
 #include <set>
-#include <stddef.h>
 
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"

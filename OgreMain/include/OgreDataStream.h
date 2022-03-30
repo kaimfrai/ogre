@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __DataStream_H__
 #define __DataStream_H__
 
+#include <cstdio>
 #include <istream>
 #include <list>
-#include <stdio.h>
 
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"

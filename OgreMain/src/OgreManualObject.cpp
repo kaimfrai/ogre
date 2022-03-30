@@ -26,11 +26,11 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <list>
 #include <memory>
-#include <string.h>
 #include <string>
+#include <string.h>
 #include <vector>
 
 #include "OgreAxisAlignedBox.h"

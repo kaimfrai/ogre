@@ -26,9 +26,9 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <assert.h>
-#include <string.h>
+#include <cassert>
 #include <string>
+#include <string.h>
 
 #include "OgreBitwise.h"
 #include "OgreException.h"

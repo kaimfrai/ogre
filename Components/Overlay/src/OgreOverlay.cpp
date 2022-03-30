@@ -28,8 +28,8 @@ THE SOFTWARE.
 
 #include "OgreOverlay.h"
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <string>
 
 #include "OgreCamera.h"

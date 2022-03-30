@@ -30,7 +30,7 @@ THE SOFTWARE.
 #define __OGRE_TIMER_H__
 
 #include <chrono>
-#include <stdint.h>
+#include <cstdint>
 #include <sys/types.h>
 
 #include "OgreMemoryAllocatorConfig.h"

@@ -45,7 +45,7 @@ class RenderWindow;
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-#include <stddef.h>
+#include <cstddef>
 
 namespace Ogre {
 

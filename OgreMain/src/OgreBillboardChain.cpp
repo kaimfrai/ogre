@@ -30,11 +30,11 @@ THE SOFTWARE.
 // class, although it has now been mostly rewritten
 
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <limits>
 #include <map>
-#include <string.h>
 #include <string>
+#include <string.h>
 #include <utility>
 
 #include "OgreBillboardChain.h"

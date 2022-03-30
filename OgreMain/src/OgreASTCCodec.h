@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __OgreASTCCodec_H__
 #define __OgreASTCCodec_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreImageCodec.h"
 #include "OgrePixelFormat.h"

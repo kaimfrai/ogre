@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __CompositionTechnique_H__
 #define __CompositionTechnique_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreMemoryAllocatorConfig.h"

@@ -29,9 +29,9 @@ THE SOFTWARE.
 #ifndef __DualQuaternion_H__
 #define __DualQuaternion_H__
 
-#include <assert.h>
+#include <cassert>
+#include <cstring>
 #include <ostream>
-#include <string.h>
 #include <utility>
 
 #include "OgreMath.h"

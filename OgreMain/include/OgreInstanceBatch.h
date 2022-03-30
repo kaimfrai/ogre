@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __InstanceBatch_H__
 #define __InstanceBatch_H__
 
+#include <cstddef>
 #include <ostream>
-#include <stddef.h>
 #include <vector>
 
 #include "OgreAxisAlignedBox.h"

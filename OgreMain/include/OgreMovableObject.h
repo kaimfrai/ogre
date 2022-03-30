@@ -29,7 +29,7 @@ THE SOFTWARE.
 #ifndef __MovableObject_H__
 #define __MovableObject_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 // Precompiler options
 #include "OgreAnimable.h"

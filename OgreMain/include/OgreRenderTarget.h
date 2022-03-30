@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __RenderTarget_H__
 #define __RenderTarget_H__
 
+#include <cstddef>
 #include <map>
-#include <stddef.h>
 #include <vector>
 
 #include "OgreCommon.h"

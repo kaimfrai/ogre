@@ -30,10 +30,10 @@ THE SOFTWARE.
 
 
 #include <condition_variable>
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <mutex>
-#include <stddef.h>
 #include <string>
 #include <thread>
 

@@ -29,8 +29,8 @@ THE SOFTWARE.
 #include <ios>
 #include <memory>
 #include <mutex>
-#include <stdint.h>
-#include <stdio.h>
+#include <cstdint>
+#include <cstdio>
 #include <string>
 #include <sys/stat.h>
 #include <thread>

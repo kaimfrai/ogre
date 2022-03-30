@@ -29,9 +29,9 @@ THE SOFTWARE.
 #ifndef __StringConverter_H__
 #define __StringConverter_H__
 
+#include <cstddef>
 #include <iosfwd>
 #include <locale>
-#include <stddef.h>
 #include <string>
 
 #include "OgreColourValue.h"

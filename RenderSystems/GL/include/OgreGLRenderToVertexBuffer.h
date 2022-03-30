@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __GLRenderToVertexBuffer_H__
 #define __GLRenderToVertexBuffer_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreHardwareVertexBuffer.h"
 #include "OgrePrerequisites.h"

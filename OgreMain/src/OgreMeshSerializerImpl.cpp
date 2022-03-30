@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <list>
 #include <map>
 #include <memory>
-#include <string.h>
 #include <string>
+#include <string.h>
 #include <unordered_map>
 #include <utility>
 #include <vector>

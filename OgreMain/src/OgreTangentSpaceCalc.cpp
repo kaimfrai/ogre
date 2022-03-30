@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 #include <map>
 #include <memory>
-#include <string.h>
+#include <cstring>
 
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"

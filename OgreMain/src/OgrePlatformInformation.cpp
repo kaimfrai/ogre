@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <ostream>
-#include <string.h>
 #include <string>
+#include <string.h>
 
 #include "OgreStableHeaders.h"
 #include "OgreLog.h"

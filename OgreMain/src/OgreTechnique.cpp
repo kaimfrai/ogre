@@ -26,9 +26,9 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <ostream>
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <vector>
 

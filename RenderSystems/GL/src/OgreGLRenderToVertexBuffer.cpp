@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 #include "OgreGLRenderToVertexBuffer.h"
 
-#include <assert.h>
+#include <cassert>
 #include <memory>
 #include <string>
 #include <vector>

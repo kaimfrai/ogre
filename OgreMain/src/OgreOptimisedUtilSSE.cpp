@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <mmintrin.h>
-#include <string.h>
+#include <cstring>
 #include <xmmintrin.h>
 
 #include "OgreEdgeListBuilder.h"

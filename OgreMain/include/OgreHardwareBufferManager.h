@@ -29,11 +29,11 @@ THE SOFTWARE.
 #define __HardwareBufferManager__
 
 #include <condition_variable>
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <mutex>
 #include <set>
-#include <stddef.h>
 #include <thread>
 
 // Precompiler options

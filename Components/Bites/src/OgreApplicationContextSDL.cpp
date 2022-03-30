@@ -11,7 +11,7 @@
 #include <SDL_version.h>
 #include <SDL_video.h>
 #include <map>
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <utility>
 #include <vector>

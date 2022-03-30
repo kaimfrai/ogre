@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __GLHARDWAREVERTEXBUFFER_H__
 #define __GLHARDWAREVERTEXBUFFER_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreHardwareBuffer.h"
 #include "glad/glad.h"

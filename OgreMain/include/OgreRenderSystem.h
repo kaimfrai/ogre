@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __RenderSystem_H_
 #define __RenderSystem_H_
 
+#include <cstddef>
 #include <list>
 #include <map>
-#include <stddef.h>
 #include <string>
 #include <vector>
 

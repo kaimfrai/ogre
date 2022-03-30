@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __MaterialSerializer_H__
 #define __MaterialSerializer_H__
 
+#include <cstddef>
 #include <map>
 #include <set>
-#include <stddef.h>
 #include <string>
 #include <vector>
 

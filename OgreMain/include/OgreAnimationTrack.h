@@ -29,7 +29,7 @@ THE SOFTWARE.
 #ifndef __AnimationTrack_H__
 #define __AnimationTrack_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreMemoryAllocatorConfig.h"

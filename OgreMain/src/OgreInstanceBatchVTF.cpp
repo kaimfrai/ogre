@@ -28,8 +28,8 @@ THE SOFTWARE.
 #include <algorithm>
 #include <limits>
 #include <map>
-#include <string.h>
 #include <string>
+#include <string.h>
 #include <type_traits>
 #include <utility>
 

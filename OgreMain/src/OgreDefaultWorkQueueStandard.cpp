@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include <cxxabi.h>
 #include <memory>
 #include <mutex>
-#include <stddef.h>
+#include <cstddef>
 #include <thread>
 #include <vector>
 

@@ -28,8 +28,8 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <ostream>
-#include <string.h>
 #include <string>
+#include <string.h>
 #include <utility>
 
 #include "OgreCodec.h"

@@ -3,7 +3,7 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 
 #include <map>
-#include <stddef.h>
+#include <cstddef>
 #include <utility>
 
 #include "OgreStableHeaders.h"

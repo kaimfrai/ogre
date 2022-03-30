@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 #include "OgreGLFBOMultiRenderTarget.h"
 
-#include <assert.h>
+#include <cassert>
 #include <string>
 
 #include "OgreGLRenderTexture.h"

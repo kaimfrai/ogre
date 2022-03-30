@@ -29,8 +29,8 @@ THE SOFTWARE.
 #ifndef __BillboardSet_H__
 #define __BillboardSet_H__
 
+#include <cstddef>
 #include <memory>
-#include <stddef.h>
 #include <vector>
 
 #include "OgreAxisAlignedBox.h"

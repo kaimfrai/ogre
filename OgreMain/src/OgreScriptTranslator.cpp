@@ -26,12 +26,12 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <assert.h>
+#include <cassert>
 #include <iterator>
 #include <list>
 #include <map>
 #include <memory>
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <unordered_map>
 #include <utility>

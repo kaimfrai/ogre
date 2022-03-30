@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __EdgeListBuilder_H__
 #define __EdgeListBuilder_H__
 
+#include <cstddef>
 #include <map>
-#include <stddef.h>
 #include <utility>
 #include <vector>
 

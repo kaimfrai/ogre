@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include <map>
 #include <memory>
 #include <ostream>
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <utility>
 #include <vector>

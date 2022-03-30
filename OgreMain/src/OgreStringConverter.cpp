@@ -25,10 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <locale.h>
 #include <locale>
+#include <locale.h>
 #include <ostream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <string>
 #include <vector>
 

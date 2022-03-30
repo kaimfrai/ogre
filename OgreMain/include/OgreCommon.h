@@ -29,10 +29,10 @@ THE SOFTWARE.
 #define __Common_H__
 // Common stuff
 
-#include <assert.h>
+#include <cassert>
+#include <cstddef>
 #include <map>
 #include <ostream>
-#include <stddef.h>
 #include <string>
 #include <vector>
 

@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 #include "OgreGLHardwarePixelBuffer.h"
 
-#include <assert.h>
+#include <cassert>
 #include <memory>
 #include <string>
 

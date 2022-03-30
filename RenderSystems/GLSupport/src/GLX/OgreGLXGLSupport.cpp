@@ -28,7 +28,7 @@
 
 #include <X11/extensions/Xrandr.h>
 #include <X11/extensions/randr.h>
-#include <assert.h>
+#include <cassert>
 #include <istream>
 #include <map>
 #include <string>

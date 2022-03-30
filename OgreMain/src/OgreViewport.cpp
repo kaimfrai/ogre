@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <iomanip>
 #include <iosfwd>
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreCamera.h"
 #include "OgreException.h"

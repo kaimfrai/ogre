@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef _LIGHT_H__
 #define _LIGHT_H__
 
-#include <assert.h>
+#include <cassert>
+#include <cstddef>
 #include <map>
-#include <stddef.h>
 
 #include "OgreAxisAlignedBox.h"
 #include "OgreCamera.h"

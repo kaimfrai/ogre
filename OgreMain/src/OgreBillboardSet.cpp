@@ -26,11 +26,11 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <iterator>
 #include <map>
-#include <string.h>
 #include <string>
+#include <string.h>
 #include <utility>
 
 #include "OgreBillboard.h"

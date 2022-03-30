@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __CompositionTargetPass_H__
 #define __CompositionTargetPass_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreCompositionPass.h"

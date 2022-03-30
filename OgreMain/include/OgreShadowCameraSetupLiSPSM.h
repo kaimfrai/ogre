@@ -29,8 +29,8 @@ THE SOFTWARE.
 #ifndef __ShadowCameraSetupLiSPSM_H__
 #define __ShadowCameraSetupLiSPSM_H__
 
+#include <cstddef>
 #include <memory>
-#include <stddef.h>
 
 #include "OgreAxisAlignedBox.h"
 #include "OgreLight.h"

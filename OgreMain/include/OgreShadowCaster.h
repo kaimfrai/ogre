@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __ShadowCaster_H__
 #define __ShadowCaster_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreCommon.h"

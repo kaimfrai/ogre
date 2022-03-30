@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include "OgreGLGpuProgram.h"
 
 #include <map>
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <utility>
 

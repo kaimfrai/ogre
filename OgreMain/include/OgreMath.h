@@ -28,13 +28,13 @@ THE SOFTWARE.
 #ifndef __Math_H__
 #define __Math_H__
 
-#include <assert.h>
+#include <cassert>
 #include <cmath>
+#include <cstddef>
+#include <cstdint>
 #include <limits>
 #include <list>
 #include <ostream>
-#include <stddef.h>
-#include <stdint.h>
 #include <utility>
 #include <vector>
 

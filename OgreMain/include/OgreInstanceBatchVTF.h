@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __BaseInstanceBatchVTF_H__
 #define __BaseInstanceBatchVTF_H__
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <vector>
 
 #include "OgreInstanceBatch.h"

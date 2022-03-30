@@ -29,13 +29,13 @@ THE SOFTWARE.
 #ifndef __AnimationState_H__
 #define __AnimationState_H__
 
-#include <assert.h>
+#include <cassert>
 #include <condition_variable>
+#include <cstddef>
 #include <list>
 #include <map>
 #include <memory>
 #include <mutex>
-#include <stddef.h>
 #include <string>
 #include <thread>
 #include <vector>

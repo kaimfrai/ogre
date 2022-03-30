@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __Matrix3_H__
 #define __Matrix3_H__
 
-#include <assert.h>
+#include <cassert>
+#include <cstring>
 #include <ostream>
-#include <string.h>
 
 #include "OgreMath.h"
 #include "OgrePrerequisites.h"

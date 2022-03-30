@@ -28,10 +28,10 @@
 #include "OgreFileSystemLayer.h"
 
 #include <dlfcn.h>
-#include <errno.h>
+#include <cerrno>
 #include <pwd.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <string>
 #include <sys/stat.h>
 #include <unistd.h>

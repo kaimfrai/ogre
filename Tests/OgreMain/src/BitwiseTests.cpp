@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 #include <gtest/gtest.h>
 #include <initializer_list>
-#include <math.h>
+#include <cmath>
 
 #include "OgreBitwise.h"
 #include "OgrePlatform.h"

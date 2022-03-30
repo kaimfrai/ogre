@@ -29,8 +29,8 @@ THE SOFTWARE.
 #ifndef __DefaultHardwareBufferManager_H__
 #define __DefaultHardwareBufferManager_H__
 
+#include <cstddef>
 #include <memory>
-#include <stddef.h>
 
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"

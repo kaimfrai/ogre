@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __HardwareVertexBuffer__
 #define __HardwareVertexBuffer__
 
+#include <cstddef>
 #include <list>
 #include <map>
-#include <stddef.h>
 #include <utility>
 
 // Precompiler options

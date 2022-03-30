@@ -26,13 +26,13 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <condition_variable>
 #include <iterator>
 #include <memory>
 #include <mutex>
 #include <set>
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <thread>
 #include <vector>

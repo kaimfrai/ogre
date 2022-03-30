@@ -29,8 +29,8 @@ THE SOFTWARE.
 #ifndef __StringInterface_H__
 #define __StringInterface_H__
 
+#include <cstddef>
 #include <map>
-#include <stddef.h>
 #include <string>
 #include <type_traits>
 #include <vector>

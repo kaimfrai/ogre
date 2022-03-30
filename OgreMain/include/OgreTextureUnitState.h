@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __TextureUnitState_H__
 #define __TextureUnitState_H__
 
+#include <cstddef>
 #include <map>
 #include <memory>
-#include <stddef.h>
 #include <utility>
 #include <vector>
 

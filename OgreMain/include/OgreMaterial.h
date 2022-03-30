@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef _Material_H__
 #define _Material_H__
 
+#include <cstddef>
 #include <map>
-#include <stddef.h>
 #include <vector>
 
 #include "OgreBlendMode.h"

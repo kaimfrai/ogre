@@ -32,7 +32,7 @@ THE SOFTWARE.
 #include <iostream>
 #include <memory>
 #include <mutex>
-#include <stdlib.h>
+#include <cstdlib>
 #include <string>
 #include <thread>
 #include <vector>

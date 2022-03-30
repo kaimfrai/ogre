@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __InstancedEntity_H__
 #define __InstancedEntity_H__
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <vector>
 
 #include "OgreMatrix4.h"

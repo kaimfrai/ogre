@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 
 #include <gtest/gtest.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "GLSL/OgreGLSLPreprocessor.h"
 #include "OgrePrerequisites.h"

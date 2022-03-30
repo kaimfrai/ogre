@@ -28,11 +28,11 @@ THE SOFTWARE.
 #ifndef __StaticGeometry_H__
 #define __StaticGeometry_H__
 
-#include <assert.h>
+#include <cassert>
+#include <cstddef>
 #include <iosfwd>
 #include <list>
 #include <map>
-#include <stddef.h>
 #include <string>
 #include <utility>
 #include <vector>

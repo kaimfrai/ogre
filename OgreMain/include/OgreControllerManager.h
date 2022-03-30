@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __ControllerManager_H__
 #define __ControllerManager_H__
 
+#include <cstddef>
 #include <set>
-#include <stddef.h>
 
 #include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"

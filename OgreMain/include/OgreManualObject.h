@@ -30,7 +30,7 @@ THE SOFTWARE.
 #define __OgreManualObject_H__
 
 #include <algorithm>
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreAxisAlignedBox.h"

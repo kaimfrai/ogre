@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __HardwarePixelBuffer__
 #define __HardwarePixelBuffer__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 // Precompiler options

@@ -36,10 +36,10 @@ THE SOFTWARE.
 #ifndef __Quaternion_H__
 #define __Quaternion_H__
 
-#include <assert.h>
+#include <cassert>
 #include <cmath>
+#include <cstring>
 #include <ostream>
-#include <string.h>
 #include <utility>
 
 #include "OgreMath.h"

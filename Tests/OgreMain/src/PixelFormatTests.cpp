@@ -30,8 +30,8 @@ THE SOFTWARE.
 #include <cstdlib>
 #include <iomanip>
 #include <ostream>
-#include <string.h>
 #include <string>
+#include <string.h>
 
 #include "OgrePrerequisites.h"
 

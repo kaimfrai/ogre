@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <ostream>
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"

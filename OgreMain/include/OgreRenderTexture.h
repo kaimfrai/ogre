@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __RenderTexture_H__
 #define __RenderTexture_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgrePixelFormat.h"

@@ -105,7 +105,7 @@ THE SOFTWARE.
 // This class implements the most basic scene manager
 
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <condition_variable>
 #include <cstdio>
 #include <iterator>

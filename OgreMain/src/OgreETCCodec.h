@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __OgreETCCodec_H__
 #define __OgreETCCodec_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreImageCodec.h"
 #include "OgrePrerequisites.h"

@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __Entity_H__
 #define __Entity_H__
 
+#include <cstddef>
 #include <memory>
 #include <set>
-#include <stddef.h>
 #include <utility>
 #include <vector>
 

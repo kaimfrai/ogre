@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 #include <gtest/gtest.h>
 #include <ostream>
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreMath.h"
 #include "OgrePlatform.h"

@@ -35,7 +35,7 @@ date                 : Jan 1 2004
 email                : pjcast@yahoo.com
 ***************************************************************************/
 
-#include <assert.h>
+#include <cassert>
 #include <utility>
 
 #include "OgreExternalTextureSource.h"

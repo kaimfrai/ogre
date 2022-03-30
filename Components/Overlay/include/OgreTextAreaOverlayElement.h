@@ -27,7 +27,7 @@ THE SOFTWARE
 #ifndef _TextAreaOverlayElement_H__
 #define _TextAreaOverlayElement_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreColourValue.h"
 #include "OgreFont.h"

@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include <cmath>
 #include <limits>
 #include <memory>
-#include <string.h>
+#include <cstring>
 #include <utility>
 
 #include "OgreStableHeaders.h"

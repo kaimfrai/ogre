@@ -29,8 +29,8 @@ THE SOFTWARE.
 #define __CompositorInstance_H__
 
 #include <bitset>
+#include <cstddef>
 #include <map>
-#include <stddef.h>
 #include <string>
 #include <utility>
 #include <vector>

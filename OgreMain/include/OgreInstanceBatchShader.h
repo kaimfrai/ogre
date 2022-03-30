@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __InstanceBatchShader_H__
 #define __InstanceBatchShader_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreInstanceBatch.h"
 #include "OgreMesh.h"

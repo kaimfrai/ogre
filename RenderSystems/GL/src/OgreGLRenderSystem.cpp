@@ -30,16 +30,16 @@ THE SOFTWARE.
 #include "OgreGLRenderSystem.h"
 
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <cmath>
 #include <istream>
 #include <list>
 #include <map>
 #include <memory>
 #include <set>
-#include <stdint.h>
-#include <string.h>
+#include <cstdint>
 #include <string>
+#include <string.h>
 #include <utility>
 
 #include "ATI_FS_GLGpuProgram.h"

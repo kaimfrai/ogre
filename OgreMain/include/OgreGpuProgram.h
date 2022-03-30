@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __GpuProgram_H_
 #define __GpuProgram_H_
 
-#include <stddef.h>
+#include <cstddef>
 
 // Precompiler options
 #include "OgreGpuProgramParams.h"

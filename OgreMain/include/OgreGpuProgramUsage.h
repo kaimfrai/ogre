@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __GpuProgramUsage_H__
 #define __GpuProgramUsage_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreGpuProgram.h"
 #include "OgreMemoryAllocatorConfig.h"

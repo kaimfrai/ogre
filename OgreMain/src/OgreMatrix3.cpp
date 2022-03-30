@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <limits>
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreStableHeaders.h"
 #include "OgreMath.h"

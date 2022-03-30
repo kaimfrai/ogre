@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __UnifiedHighLevelGpuProgram_H__
 #define __UnifiedHighLevelGpuProgram_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreCommon.h"
 #include "OgreGpuProgram.h"

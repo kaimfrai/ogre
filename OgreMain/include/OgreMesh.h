@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __Mesh_H__
 #define __Mesh_H__
 
+#include <cstddef>
 #include <map>
 #include <memory>
-#include <stddef.h>
 #include <string>
 #include <unordered_map>
 #include <vector>

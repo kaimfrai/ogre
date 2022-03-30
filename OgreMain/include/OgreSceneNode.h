@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef _SceneNode_H__
 #define _SceneNode_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreAxisAlignedBox.h"

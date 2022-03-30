@@ -55,7 +55,7 @@ THE SOFTWARE.
 
 #define DECL_MALLOC __attribute__ ((malloc))
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace Ogre {
 typedef uint32_t uint32;

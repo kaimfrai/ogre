@@ -6,7 +6,7 @@
 
 #include <ios>
 #include <map>
-#include <stdlib.h>
+#include <cstdlib>
 #include <string>
 #include <type_traits>
 

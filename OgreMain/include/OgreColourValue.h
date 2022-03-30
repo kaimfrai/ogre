@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef _COLOURVALUE_H__
 #define _COLOURVALUE_H__
 
-#include <assert.h>
+#include <cassert>
+#include <cstddef>
 #include <ostream>
-#include <stddef.h>
 
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"

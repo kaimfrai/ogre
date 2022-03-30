@@ -28,7 +28,7 @@ THE SOFTWARE.
 #ifndef __PatchSurface_H__
 #define __PatchSurface_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "OgreAxisAlignedBox.h"
