@@ -27,9 +27,9 @@ THE SOFTWARE.
 #ifndef _ShaderScriptTranslator_
 #define _ShaderScriptTranslator_
 
-#include "OgreShaderPrerequisites.h"
-#include "OgreScriptTranslator.h"
 #include "OgreScriptCompiler.h"
+#include "OgreScriptTranslator.h"
+#include "OgreShaderPrerequisites.h"
 
 namespace Ogre {
 namespace RTShader {

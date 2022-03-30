@@ -34,11 +34,11 @@ THE SOFTWARE.
 #include <vector>
 
 // Precompiler options
-#include "OgrePrerequisites.h"
-#include "OgrePass.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePass.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     class Camera;

@@ -29,8 +29,8 @@ THE SOFTWARE.
 #define _HardwareOcclusionQuery__
 
 // Precompiler options
-#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 

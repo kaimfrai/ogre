@@ -28,13 +28,13 @@ THE SOFTWARE.
 #ifndef __Compositor_H__
 #define __Compositor_H__
 
-#include <stddef.h>
 #include <map>
+#include <stddef.h>
 #include <string>
 #include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
 

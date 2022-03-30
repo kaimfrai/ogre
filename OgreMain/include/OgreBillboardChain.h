@@ -32,19 +32,19 @@ THE SOFTWARE.
 #ifndef _BillboardChain_H__
 #define _BillboardChain_H__
 
-#include <stddef.h>
 #include <memory>
+#include <stddef.h>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreMovableObject.h"
-#include "OgreRenderable.h"
-#include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreMaterial.h"
+#include "OgreMovableObject.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
+#include "OgreRenderable.h"
+#include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"
 

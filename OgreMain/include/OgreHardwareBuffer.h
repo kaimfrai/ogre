@@ -29,8 +29,8 @@ THE SOFTWARE.
 #define __HardwareBuffer__
 
 // Precompiler options
-#include "OgrePrerequisites.h"
 #include "OgreException.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 

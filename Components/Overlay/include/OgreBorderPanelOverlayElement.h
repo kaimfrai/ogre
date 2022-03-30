@@ -29,10 +29,10 @@ THE SOFTWARE.
 #ifndef __BorderPanelOverlayElement_H__
 #define __BorderPanelOverlayElement_H__
 
-#include "OgrePanelOverlayElement.h"
 #include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreOverlayElement.h"
+#include "OgrePanelOverlayElement.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreRenderable.h"

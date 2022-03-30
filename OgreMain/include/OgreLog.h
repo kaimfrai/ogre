@@ -29,18 +29,18 @@ THE SOFTWARE.
 #ifndef __Log_H__
 #define __Log_H__
 
+#include <condition_variable>
 #include <fstream>
+#include <memory>
+#include <mutex>
 #include <sstream>
 #include <string>
-#include <vector>
-#include <memory>
 #include <thread>
-#include <mutex>
-#include <condition_variable>
+#include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 

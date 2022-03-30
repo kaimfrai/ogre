@@ -31,8 +31,8 @@ THE SOFTWARE.
 
 #include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgreMatrix4.h"
+#include "OgrePrerequisites.h"
 #include "OgreVector.h"
 
 namespace Ogre {

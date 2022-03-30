@@ -32,9 +32,9 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgrePrerequisites.h"
 #include "OgreAny.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 

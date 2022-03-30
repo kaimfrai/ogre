@@ -28,21 +28,21 @@ THE SOFTWARE.
 #ifndef __ParticleSystem_H__
 #define __ParticleSystem_H__
 
-#include <stddef.h>
 #include <list>
 #include <map>
+#include <stddef.h>
 #include <string>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreVector.h"
-#include "OgreStringInterface.h"
-#include "OgreMovableObject.h"
-#include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreMovableObject.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreRenderable.h"
+#include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
+#include "OgreStringInterface.h"
+#include "OgreVector.h"
 
 namespace Ogre {
     class Camera;

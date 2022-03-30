@@ -31,10 +31,10 @@ THE SOFTWARE.
 
 #include <stddef.h>
 
-#include "OgreOverlayContainer.h"
-#include "OgreRenderOperation.h"
 #include "OgreConfig.h"
+#include "OgreOverlayContainer.h"
 #include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
 
 namespace Ogre {
 class RenderQueue;

@@ -29,24 +29,24 @@ THE SOFTWARE.
 #define _LIGHT_H__
 
 #include <assert.h>
-#include <stddef.h>
 #include <map>
+#include <stddef.h>
 
-#include "OgrePrerequisites.h"
-#include "OgreColourValue.h"
-#include "OgreVector.h"
-#include "OgreMovableObject.h"
-#include "OgrePlaneBoundedVolume.h"
-#include "OgreNode.h"
-#include "OgreCamera.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreCamera.h"
+#include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMath.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePlaneBoundedVolume.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreRenderable.h"
 #include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 class RenderQueue;

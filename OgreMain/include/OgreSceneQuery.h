@@ -33,13 +33,13 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreSphere.h"
-#include "OgreRay.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlaneBoundedVolume.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRay.h"
+#include "OgreSphere.h"
 #include "OgreVector.h"
 
 namespace Ogre {

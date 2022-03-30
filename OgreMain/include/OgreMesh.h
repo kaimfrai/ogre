@@ -28,25 +28,25 @@ THE SOFTWARE.
 #ifndef __Mesh_H__
 #define __Mesh_H__
 
-#include <stddef.h>
 #include <map>
 #include <memory>
+#include <stddef.h>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreAxisAlignedBox.h"
-#include "OgreVertexBoneAssignment.h"
 #include "OgreAnimation.h"
 #include "OgreAnimationTrack.h"
-#include "OgreSharedPtr.h"
+#include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreIteratorWrapper.h"
 #include "OgrePose.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreSharedPtr.h"
+#include "OgreVertexBoneAssignment.h"
 
 
 namespace Ogre {

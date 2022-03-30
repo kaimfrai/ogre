@@ -27,10 +27,10 @@ THE SOFTWARE.
 #ifndef _ShaderParameter_
 #define _ShaderParameter_
 
+#include "OgreGpuProgramParams.h"
+#include "OgreMatrix4.h"
 #include "OgreShaderPrerequisites.h"
 #include "OgreVector.h"
-#include "OgreMatrix4.h"
-#include "OgreGpuProgramParams.h"
 
 namespace Ogre {
 namespace RTShader {

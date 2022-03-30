@@ -30,21 +30,21 @@ THE SOFTWARE.
 #define __AnimationState_H__
 
 #include <assert.h>
-#include <stddef.h>
+#include <condition_variable>
 #include <list>
 #include <map>
-#include <string>
-#include <vector>
 #include <memory>
-#include <thread>
 #include <mutex>
-#include <condition_variable>
+#include <stddef.h>
+#include <string>
+#include <thread>
+#include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreController.h"
 #include "OgreControllerManager.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 

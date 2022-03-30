@@ -31,12 +31,12 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreRenderable.h"
-#include "OgreRenderOperation.h"
 #include "OgreCommon.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderable.h"
 #include "OgreSharedPtr.h"
 
 

@@ -28,17 +28,17 @@ THE SOFTWARE.
 #ifndef __InstanceManager_H__
 #define __InstanceManager_H__
 
-#include <stddef.h>
 #include <map>
+#include <stddef.h>
 #include <string>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
 #include "OgreCommon.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre

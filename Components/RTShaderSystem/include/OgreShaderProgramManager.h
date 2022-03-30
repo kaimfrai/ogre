@@ -27,9 +27,9 @@ THE SOFTWARE.
 #ifndef _ShaderProgramManager_
 #define _ShaderProgramManager_
 
+#include "OgreGpuProgram.h"
 #include "OgreShaderPrerequisites.h"
 #include "OgreSingleton.h"
-#include "OgreGpuProgram.h"
 #include "OgreStringVector.h"
 
 namespace Ogre {

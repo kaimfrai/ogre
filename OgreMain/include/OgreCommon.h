@@ -30,16 +30,16 @@ THE SOFTWARE.
 // Common stuff
 
 #include <assert.h>
-#include <stddef.h>
 #include <map>
 #include <ostream>
+#include <stddef.h>
 #include <string>
 #include <vector>
 
-#include "OgreVector.h"
 #include "OgreMurmurHash3.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 class RenderWindow;

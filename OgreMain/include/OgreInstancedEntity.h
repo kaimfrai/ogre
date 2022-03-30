@@ -32,9 +32,9 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <vector>
 
+#include "OgreMatrix4.h"
 #include "OgreMovableObject.h"
 #include "OgreNode.h"
-#include "OgreMatrix4.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"

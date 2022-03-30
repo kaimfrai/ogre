@@ -28,20 +28,20 @@ THE SOFTWARE.
 #ifndef __CompositorInstance_H__
 #define __CompositorInstance_H__
 
-#include <stddef.h>
 #include <bitset>
 #include <map>
+#include <stddef.h>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreMaterialManager.h"
-#include "OgreRenderQueue.h"
-#include "OgreCompositionTechnique.h"
 #include "OgreCommon.h"
+#include "OgreCompositionTechnique.h"
+#include "OgreMaterialManager.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderQueue.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

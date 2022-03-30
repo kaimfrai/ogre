@@ -28,25 +28,25 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #ifndef __GpuProgramParams_H_
 #define __GpuProgramParams_H_
 
-#include <assert.h>
-#include <string.h>
-#include <limits>
 #include <algorithm>
-#include <map>
-#include <string>
-#include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
+#include <assert.h>
 #include <condition_variable>
+#include <limits>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <string.h>
+#include <string>
+#include <thread>
+#include <vector>
 
 // Precompiler options
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
-#include "OgreSerializer.h"
 #include "OgreAny.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSerializer.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
     struct TransformBaseReal;

@@ -28,24 +28,24 @@ THE SOFTWARE.
 #ifndef __CompositorManager_H__
 #define __CompositorManager_H__
 
-#include <stddef.h>
 #include <map>
 #include <set>
+#include <stddef.h>
 #include <string>
 #include <tuple>
 #include <utility>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreResourceManager.h"
-#include "OgreRenderSystem.h"
-#include "OgreCompositionTechnique.h"
 #include "OgreCommon.h"
+#include "OgreCompositionTechnique.h"
 #include "OgreIteratorWrapper.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
 #include "OgreTexture.h"

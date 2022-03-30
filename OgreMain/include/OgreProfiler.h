@@ -41,16 +41,16 @@ Ogre-dependent is in the visualization/logging routines and the use of the Timer
 #ifndef __Profiler_H__
 #define __Profiler_H__
 
+#include <cmath>
 #include <map>
 #include <set>
 #include <string>
 #include <vector>
-#include <cmath>
 
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSingleton.h"
 
 namespace Ogre {
     class Timer;

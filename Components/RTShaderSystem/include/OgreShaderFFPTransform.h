@@ -27,9 +27,9 @@ THE SOFTWARE.
 #ifndef _ShaderFFPTransform_
 #define _ShaderFFPTransform_
 
+#include "OgreShaderParameter.h"
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderSubRenderState.h"
-#include "OgreShaderParameter.h"
 
 namespace Ogre {
 namespace RTShader {

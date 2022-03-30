@@ -29,17 +29,17 @@ THE SOFTWARE.
 #define __Math_H__
 
 #include <assert.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <limits>
 #include <cmath>
+#include <limits>
 #include <list>
 #include <ostream>
+#include <stddef.h>
+#include <stdint.h>
 #include <utility>
 #include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre
 {

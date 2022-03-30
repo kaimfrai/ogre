@@ -32,13 +32,13 @@ THE SOFTWARE.
 #include <vector>
 
 // Precompiler options
-#include "OgrePrerequisites.h"
+#include "OgreCommon.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreImage.h"
-#include "OgreSharedPtr.h"
-#include "OgreCommon.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
 #include "OgreVector.h"
 
 namespace Ogre {

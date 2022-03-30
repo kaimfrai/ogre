@@ -28,26 +28,26 @@ THE SOFTWARE.
 #ifndef _ResourceGroupManager_H__
 #define _ResourceGroupManager_H__
 
+#include <condition_variable>
 #include <ctime>
 #include <list>
 #include <map>
+#include <memory>
+#include <mutex>
 #include <string>
+#include <thread>
 #include <utility>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
-#include "OgreDataStream.h"
 #include "OgreArchive.h"
-#include "OgreIteratorWrapper.h"
 #include "OgreCommon.h"
+#include "OgreDataStream.h"
+#include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
 #include "OgreStringVector.h"
 
 // If X11/Xlib.h gets included before this header (for example it happens when

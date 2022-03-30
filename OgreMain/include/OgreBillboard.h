@@ -29,13 +29,13 @@ THE SOFTWARE.
 #ifndef __Billboard_H__
 #define __Billboard_H__
 
-#include "OgrePrerequisites.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreMath.h"
-#include "OgreVector.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 class BillboardSet;

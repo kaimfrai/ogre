@@ -32,17 +32,17 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreCommon.h"
-#include "OgrePass.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreUserObjectBindings.h"
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
+#include "OgreCommon.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePass.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystemCapabilities.h"
 #include "OgreSharedPtr.h"
+#include "OgreUserObjectBindings.h"
 
 namespace Ogre {
 class Material;

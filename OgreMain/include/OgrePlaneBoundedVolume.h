@@ -29,11 +29,11 @@ THE SOFTWARE.
 #define __PlaneBoundedVolume_H_
 
 // Precompiler options
-#include "OgrePrerequisites.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreSphere.h"
 #include "OgreMath.h"
 #include "OgrePlane.h"
+#include "OgrePrerequisites.h"
+#include "OgreSphere.h"
 
 namespace Ogre {
 

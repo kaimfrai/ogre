@@ -29,14 +29,10 @@ THE SOFTWARE.
 #ifndef __OgreManualObject_H__
 #define __OgreManualObject_H__
 
-#include <stddef.h>
 #include <algorithm>
+#include <stddef.h>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreMovableObject.h"
-#include "OgreRenderable.h"
-#include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
@@ -45,8 +41,12 @@ THE SOFTWARE.
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgreMovableObject.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
+#include "OgreRenderable.h"
+#include "OgreResourceGroupManager.h"
 #include "OgreShadowCaster.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"

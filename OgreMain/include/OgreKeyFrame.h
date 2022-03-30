@@ -31,15 +31,15 @@ THE SOFTWARE.
 
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreVector.h"
-#include "OgreQuaternion.h"
 #include "OgreAny.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
 #include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
 namespace Ogre 
 {

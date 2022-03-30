@@ -30,12 +30,12 @@ THE SOFTWARE.
 
 #include <vector>
 
-#include "OgrePrerequisites.h"
+#include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreFrustum.h"
-#include "OgreColourValue.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 class Camera;

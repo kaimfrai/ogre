@@ -29,11 +29,11 @@ THE SOFTWARE.
 #ifndef __OverlaySystem_H__
 #define __OverlaySystem_H__
 
-#include "OgreRenderQueueListener.h"
-#include "OgreRenderSystem.h"
 #include "OgreCommon.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreRenderQueueListener.h"
+#include "OgreRenderSystem.h"
 #include "OgreSingleton.h"
 
 namespace Ogre {

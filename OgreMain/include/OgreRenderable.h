@@ -28,20 +28,20 @@ THE SOFTWARE.
 #ifndef __Renderable_H__
 #define __Renderable_H__
 
-#include <stddef.h>
 #include <map>
+#include <stddef.h>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
+#include "OgreException.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
-#include "OgreMatrix4.h"
 #include "OgreMaterial.h"
+#include "OgreMatrix4.h"
 #include "OgrePlane.h"
-#include "OgreVector.h"
-#include "OgreException.h"
-#include "OgreUserObjectBindings.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
+#include "OgreUserObjectBindings.h"
+#include "OgreVector.h"
 
 namespace Ogre {
     class Any;

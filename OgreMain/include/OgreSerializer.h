@@ -32,9 +32,9 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreSharedPtr.h"
 

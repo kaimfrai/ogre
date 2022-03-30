@@ -32,10 +32,10 @@ THE SOFTWARE.
 #include <list>
 
 #include "OgrePrerequisites.h"
-#include "OgreSkeleton.h"
 #include "OgreQuaternion.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
+#include "OgreSkeleton.h"
 #include "OgreVector.h"
 
 namespace Ogre {

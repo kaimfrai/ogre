@@ -31,8 +31,8 @@ THE SOFTWARE.
 
 #include <list>
 
-#include "OgreMatrix4.h"
 #include "OgreMath.h"
+#include "OgreMatrix4.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 

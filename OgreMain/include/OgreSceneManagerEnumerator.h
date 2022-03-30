@@ -33,13 +33,13 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreSceneManager.h"
-#include "OgreSingleton.h"
 #include "OgreCommon.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSceneManager.h"
+#include "OgreSingleton.h"
 
 namespace Ogre {
 class RenderSystem;

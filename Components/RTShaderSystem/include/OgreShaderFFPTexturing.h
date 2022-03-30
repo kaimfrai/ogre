@@ -27,9 +27,10 @@ THE SOFTWARE.
 #ifndef _ShaderFFPTextureStage_
 #define _ShaderFFPTextureStage_
 
+#include "OgreRenderSystem.h"
+#include "OgreShaderFunctionAtom.h"
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderSubRenderState.h"
-#include "OgreRenderSystem.h"
 
 namespace Ogre {
 namespace RTShader {

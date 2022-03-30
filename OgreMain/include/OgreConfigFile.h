@@ -31,10 +31,10 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
-#include "OgreStringVector.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreStringVector.h"
 
 namespace Ogre {
     template <typename T> class MapIterator;

@@ -28,15 +28,15 @@ THE SOFTWARE.
 #ifndef __OGRE_POSE_H
 #define __OGRE_POSE_H
 
-#include <stddef.h>
 #include <map>
+#include <stddef.h>
 #include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"
 

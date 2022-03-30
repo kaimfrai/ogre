@@ -29,25 +29,25 @@ THE SOFTWARE.
 #define __StaticGeometry_H__
 
 #include <assert.h>
-#include <stddef.h>
 #include <iosfwd>
 #include <list>
 #include <map>
+#include <stddef.h>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreMovableObject.h"
-#include "OgreRenderable.h"
-#include "OgreMesh.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMaterial.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgreMovableObject.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
+#include "OgreRenderable.h"
 #include "OgreShadowCaster.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"

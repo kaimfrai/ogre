@@ -31,10 +31,10 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreSingleton.h"
 
 namespace Ogre {
 class Archive;

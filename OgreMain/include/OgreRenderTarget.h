@@ -28,15 +28,15 @@ THE SOFTWARE.
 #ifndef __RenderTarget_H__
 #define __RenderTarget_H__
 
-#include <stddef.h>
 #include <map>
+#include <stddef.h>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgrePixelFormat.h"
 #include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 /* Define the number of priority groups for the render system's render targets. */
 #ifndef OGRE_NUM_RENDERTARGET_GROUPS

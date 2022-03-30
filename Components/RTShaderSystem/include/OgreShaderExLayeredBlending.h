@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef _OgreShaderExLayeredBlending_
 #define _OgreShaderExLayeredBlending_
 
-#include "OgreShaderPrerequisites.h"
 #include "OgreShaderFFPTexturing.h"
+#include "OgreShaderPrerequisites.h"
 #include "OgreShaderSubRenderState.h"
 
 namespace Ogre {

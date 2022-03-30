@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef _ShaderExIntegratedPSSM3_
 #define _ShaderExIntegratedPSSM3_
 
-#include "OgreShaderPrerequisites.h"
 #include "OgreCommon.h"
+#include "OgreShaderPrerequisites.h"
 #include "OgreShaderSubRenderState.h"
 
 namespace Ogre {

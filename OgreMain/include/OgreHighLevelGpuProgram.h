@@ -32,8 +32,8 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgreGpuProgram.h"
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
 

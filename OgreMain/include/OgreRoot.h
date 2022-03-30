@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __ROOT__
 #define __ROOT__
 
-#include <exception>
-#include <deque>
 #include <algorithm>
+#include <deque>
+#include <exception>
 #include <map>
 #include <memory>
 #include <set>
@@ -38,14 +38,14 @@ THE SOFTWARE.
 #include <vector>
 
 // Precompiler options
-#include "OgrePrerequisites.h"
-#include "OgreSceneManagerEnumerator.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreSceneManagerEnumerator.h"
 #include "OgreSingleton.h"
 
 namespace Ogre

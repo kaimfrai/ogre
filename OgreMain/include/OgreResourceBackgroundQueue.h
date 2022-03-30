@@ -31,13 +31,13 @@ THE SOFTWARE.
 
 #include <set>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
-#include "OgreSingleton.h"
-#include "OgreResource.h"
-#include "OgreWorkQueue.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreSingleton.h"
+#include "OgreWorkQueue.h"
 
 namespace Ogre {
     /** \addtogroup Core

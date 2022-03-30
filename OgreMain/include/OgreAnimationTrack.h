@@ -32,13 +32,13 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreSimpleSpline.h"
-#include "OgreRotationalSpline.h"
-#include "OgrePose.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePose.h"
+#include "OgrePrerequisites.h"
+#include "OgreRotationalSpline.h"
 #include "OgreSharedPtr.h"
+#include "OgreSimpleSpline.h"
 
 namespace Ogre 
 {

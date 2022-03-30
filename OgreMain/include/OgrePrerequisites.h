@@ -29,8 +29,8 @@ THE SOFTWARE
 // Platform-specific stuff
 #include "OgrePlatform.h"
 
-#include <string>
 #include <memory>
+#include <string>
 
 namespace Ogre {
 
@@ -296,8 +296,8 @@ namespace Ogre {
 /* Include all the standard header *after* all the configuration
 settings have been made.
 */
-#include "OgreStdHeaders.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgreStdHeaders.h"
 
 
 namespace Ogre

@@ -29,14 +29,14 @@ THE SOFTWARE.
 #ifndef __OverlayElement_H__
 #define __OverlayElement_H__
 
-#include "OgreRenderable.h"
-#include "OgreStringInterface.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreMatrix4.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
+#include "OgreRenderable.h"
 #include "OgreSharedPtr.h"
+#include "OgreStringInterface.h"
 
 namespace Ogre {
     class Overlay;

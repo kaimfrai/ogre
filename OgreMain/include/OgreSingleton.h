@@ -38,8 +38,8 @@ THE SOFTWARE.
 #define _SINGLETON_H__
 
 // Added by Steve Streeting for Ogre
-#include "OgrePrerequisites.h"
 #include "OgreException.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     /** \addtogroup Core

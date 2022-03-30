@@ -28,26 +28,25 @@ THE SOFTWARE.
 #ifndef __Pass_H__
 #define __Pass_H__
 
-#include <stddef.h>
-#include <memory>
-#include <set>
-#include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <memory>
+#include <mutex>
+#include <set>
+#include <stddef.h>
+#include <thread>
+#include <vector>
 
-#include "OgrePrerequisites.h"
+#include "OgreBlendMode.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
-#include "OgreLight.h"
-#include "OgreTextureUnitState.h"
-#include "OgreUserObjectBindings.h"
-#include "OgreBlendMode.h"
 #include "OgreGpuProgram.h"
 #include "OgreIteratorWrapper.h"
+#include "OgreLight.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreTextureUnitState.h"
+#include "OgreUserObjectBindings.h"
 #include "OgreVector.h"
 
 namespace Ogre {

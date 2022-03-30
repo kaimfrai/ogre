@@ -29,16 +29,16 @@ THE SOFTWARE.
 #ifndef __ShadowCameraSetupLiSPSM_H__
 #define __ShadowCameraSetupLiSPSM_H__
 
-#include <stddef.h>
 #include <memory>
+#include <stddef.h>
 
-#include "OgrePrerequisites.h"
-#include "OgreShadowCameraSetupFocused.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreLight.h"
 #include "OgreMath.h"
 #include "OgreMatrix4.h"
+#include "OgrePrerequisites.h"
 #include "OgreSceneManager.h"
+#include "OgreShadowCameraSetupFocused.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre 

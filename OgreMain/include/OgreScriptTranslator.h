@@ -32,14 +32,14 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreScriptCompiler.h"
-#include "OgreRenderSystem.h"
 #include "OgreBlendMode.h"
 #include "OgreCommon.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreScriptCompiler.h"
 
 namespace Ogre{
 class ColourValue;

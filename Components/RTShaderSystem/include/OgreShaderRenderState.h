@@ -28,8 +28,8 @@ THE SOFTWARE.
 #define _ShaderRenderState_
 
 #include "OgreShaderPrerequisites.h"
-#include "OgreShaderSubRenderState.h"
 #include "OgreShaderProgramSet.h"
+#include "OgreShaderSubRenderState.h"
 
 namespace Ogre {
 namespace RTShader {

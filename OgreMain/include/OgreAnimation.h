@@ -33,13 +33,13 @@ THE SOFTWARE.
 #include <set>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreAnimationTrack.h"
 #include "OgreAnimationState.h"
+#include "OgreAnimationTrack.h"
 #include "OgreCommon.h"
+#include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     /** \addtogroup Core

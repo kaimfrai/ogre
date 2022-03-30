@@ -32,10 +32,10 @@ THE SOFTWARE.
 #include <string>
 
 // Precompiler options
-#include "OgrePrerequisites.h"
-#include "OgreStringVector.h"
-#include "OgreStringConverter.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreStringConverter.h"
+#include "OgreStringVector.h"
 
 namespace Ogre {
 class Log;

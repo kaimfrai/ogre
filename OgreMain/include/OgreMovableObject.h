@@ -32,15 +32,15 @@ THE SOFTWARE.
 #include <stddef.h>
 
 // Precompiler options
-#include "OgrePrerequisites.h"
-#include "OgreAxisAlignedBox.h"
-#include "OgreSphere.h"
-#include "OgreShadowCaster.h"
 #include "OgreAnimable.h"
+#include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreRenderable.h"
+#include "OgreShadowCaster.h"
+#include "OgreSphere.h"
 #include "OgreUserObjectBindings.h"
 
 namespace Ogre {

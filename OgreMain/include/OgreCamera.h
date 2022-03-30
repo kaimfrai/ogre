@@ -34,9 +34,9 @@ THE SOFTWARE.
 // Default options
 #include "OgrePrerequisites.h"
 // Matrices & Vectors
+#include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreFrustum.h"
-#include "OgreAxisAlignedBox.h"
 #include "OgrePlane.h"
 #include "OgrePlaneBoundedVolume.h"
 #include "OgreQuaternion.h"

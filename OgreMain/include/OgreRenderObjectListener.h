@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef __RenderObjectListener_H__
 #define __RenderObjectListener_H__
 
+#include "OgrePass.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderable.h"
-#include "OgrePass.h"
 
 namespace Ogre {
 

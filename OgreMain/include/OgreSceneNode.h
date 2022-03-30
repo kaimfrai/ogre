@@ -31,12 +31,12 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreCommon.h"
-#include "OgreNode.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreCommon.h"
 #include "OgreMath.h"
+#include "OgreNode.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreVector.h"
 

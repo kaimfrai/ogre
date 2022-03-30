@@ -29,22 +29,22 @@ THE SOFTWARE.
 #ifndef __StringConverter_H__
 #define __StringConverter_H__
 
-#include <stddef.h>
 #include <iosfwd>
 #include <locale>
+#include <stddef.h>
 #include <string>
 
-#include "OgreCommon.h"
-#include "OgrePrerequisites.h"
-#include "OgreStringVector.h"
 #include "OgreColourValue.h"
-#include "OgreMatrix4.h"
-#include "OgreVector.h"
+#include "OgreCommon.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreString.h"
+#include "OgreStringVector.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 

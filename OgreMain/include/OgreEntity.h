@@ -28,27 +28,27 @@ THE SOFTWARE.
 #ifndef __Entity_H__
 #define __Entity_H__
 
-#include <stddef.h>
 #include <memory>
 #include <set>
+#include <stddef.h>
 #include <utility>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreCommon.h"
-#include "OgreMovableObject.h"
-#include "OgreQuaternion.h"
-#include "OgreVector.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreRenderable.h"
-#include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreCommon.h"
+#include "OgreHardwareBufferManager.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMatrix4.h"
+#include "OgreMovableObject.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderable.h"
 #include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
 #include "OgreShadowCaster.h"
 #include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 class AnimationState;

@@ -28,14 +28,14 @@ THE SOFTWARE.
 #ifndef __AxisAlignedBox_H_
 #define __AxisAlignedBox_H_
 
-#include <assert.h>
 #include <array>
+#include <assert.h>
 #include <ostream>
 
 // Precompiler options
-#include "OgrePrerequisites.h"
-#include "OgreMatrix4.h"
 #include "OgreMath.h"
+#include "OgreMatrix4.h"
+#include "OgrePrerequisites.h"
 #include "OgreVector.h"
 
 namespace Ogre {

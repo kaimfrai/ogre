@@ -29,17 +29,17 @@ THE SOFTWARE.
 #ifndef __LogManager_H__
 #define __LogManager_H__
 
-#include <map>
-#include <string>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <thread>
 
-#include "OgrePrerequisites.h"
 #include "OgreLog.h"
-#include "OgreSingleton.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreSingleton.h"
 
 namespace Ogre
 {

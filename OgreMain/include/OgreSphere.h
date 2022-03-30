@@ -31,8 +31,8 @@ THE SOFTWARE.
 // Precompiler options
 #include "OgrePrerequisites.h"
 
-#include "OgreVector.h"
 #include "OgrePlane.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 

@@ -29,9 +29,9 @@ THE SOFTWARE.
 #ifndef __Polygon_H__
 #define __Polygon_H__
 
-#include <stddef.h>
 #include <iosfwd>
 #include <map>
+#include <stddef.h>
 #include <utility>
 #include <vector>
 

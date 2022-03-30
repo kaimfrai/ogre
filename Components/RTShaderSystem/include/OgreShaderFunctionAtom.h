@@ -27,10 +27,10 @@ THE SOFTWARE.
 #ifndef _ShaderFunctionAtom_
 #define _ShaderFunctionAtom_
 
-#include "OgreShaderPrerequisites.h"
-#include "OgreStringVector.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreShaderParameter.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreStringVector.h"
 
 namespace Ogre {
 namespace RTShader {

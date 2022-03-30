@@ -32,13 +32,13 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgreHardwareBuffer.h"
-#include "OgreResource.h"
 #include "OgreImage.h"
-#include "OgreSharedPtr.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
 class ResourceManager;

@@ -28,17 +28,17 @@ THE SOFTWARE.
 #ifndef _Resource_H__
 #define _Resource_H__
 
-#include <stddef.h>
 #include <atomic>
-#include <set>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <memory>
+#include <mutex>
+#include <set>
+#include <stddef.h>
+#include <thread>
 
+#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreStringInterface.h"
-#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
 class ResourceManager;

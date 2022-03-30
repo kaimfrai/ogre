@@ -29,14 +29,14 @@ THE SOFTWARE.
 #define __Vector_H__
 
 
-#include <assert.h>
-#include <stddef.h>
 #include <algorithm>
+#include <assert.h>
 #include <ostream>
+#include <stddef.h>
 #include <type_traits>
 
-#include "OgrePrerequisites.h"
 #include "OgreMath.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 
 namespace Ogre

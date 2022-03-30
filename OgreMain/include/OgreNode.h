@@ -31,14 +31,14 @@ THE SOFTWARE.
 #include <set>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreMatrix4.h"
-#include "OgreUserObjectBindings.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
+#include "OgreUserObjectBindings.h"
 #include "OgreVector.h"
 
 namespace Ogre {

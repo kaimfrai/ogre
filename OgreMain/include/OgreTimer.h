@@ -29,12 +29,12 @@ THE SOFTWARE.
 #ifndef __OGRE_TIMER_H__
 #define __OGRE_TIMER_H__
 
+#include <chrono>
 #include <stdint.h>
 #include <sys/types.h>
-#include <chrono>
 
-#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre
 {

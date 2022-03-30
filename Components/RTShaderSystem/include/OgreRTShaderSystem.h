@@ -27,15 +27,15 @@ THE SOFTWARE.
 #ifndef _RTShaderSystem_
 #define _RTShaderSystem_
 
-#include "OgreShaderProgramManager.h"
-#include "OgreShaderProgramWriter.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFFPTransform.h"
+#include "OgreShaderExHardwareSkinning.h"
 #include "OgreShaderExIntegratedPSSM3.h"
 #include "OgreShaderExLayeredBlending.h"
-#include "OgreShaderExHardwareSkinning.h"
+#include "OgreShaderFFPTransform.h"
+#include "OgreShaderFunction.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderProgramManager.h"
+#include "OgreShaderProgramWriter.h"
+#include "OgreShaderRenderState.h"
 
 /** \addtogroup Optional
 *  @{

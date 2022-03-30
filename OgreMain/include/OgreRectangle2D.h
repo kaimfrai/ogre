@@ -28,9 +28,9 @@ THE SOFTWARE.
 #ifndef _Rectangle2D_H__
 #define _Rectangle2D_H__
 
+#include "OgreHardwareBuffer.h"
 #include "OgrePrerequisites.h"
 #include "OgreSimpleRenderable.h"
-#include "OgreHardwareBuffer.h"
 
 namespace Ogre {
 class Camera;

@@ -31,8 +31,8 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 #define OGRE_FORMAT_PRINTF(string_idx, first_to_check) __attribute__ ((format (printf, string_idx, first_to_check)))
 

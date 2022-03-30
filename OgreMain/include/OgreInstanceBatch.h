@@ -28,19 +28,19 @@ THE SOFTWARE.
 #ifndef __InstanceBatch_H__
 #define __InstanceBatch_H__
 
-#include <stddef.h>
 #include <ostream>
+#include <stddef.h>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderable.h"
-#include "OgreMovableObject.h"
-#include "OgreMesh.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreMatrix4.h"
+#include "OgreMesh.h"
+#include "OgreMovableObject.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderable.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"
 

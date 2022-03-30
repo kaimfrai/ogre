@@ -28,17 +28,17 @@ THE SOFTWARE.
 #ifndef __SubEntity_H__
 #define __SubEntity_H__
 
-#include <stddef.h>
 #include <memory>
+#include <stddef.h>
 
-#include "OgrePrerequisites.h"
-#include "OgreRenderable.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreResourceGroupManager.h"
 #include "OgreCommon.h"
 #include "OgreGpuProgramParams.h"
+#include "OgreHardwareBufferManager.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderable.h"
+#include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

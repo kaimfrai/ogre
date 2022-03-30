@@ -28,23 +28,23 @@ THE SOFTWARE.
 #ifndef __OgreWorkQueue_H__
 #define __OgreWorkQueue_H__
 
-#include <stddef.h>
-#include <deque>
 #include <algorithm>
+#include <condition_variable>
+#include <deque>
 #include <list>
 #include <map>
-#include <string>
 #include <memory>
-#include <thread>
 #include <mutex>
-#include <condition_variable>
+#include <stddef.h>
+#include <string>
+#include <thread>
 
-#include "OgrePrerequisites.h"
 #include "OgreAny.h"
-#include "OgreSharedPtr.h"
 #include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre
 {

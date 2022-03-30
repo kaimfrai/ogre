@@ -29,8 +29,8 @@ THE SOFTWARE.
 #ifndef __Bone_H__
 #define __Bone_H__
 
-#include "OgrePrerequisites.h"
 #include "OgreNode.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreVector.h"
 

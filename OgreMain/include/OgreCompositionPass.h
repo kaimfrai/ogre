@@ -31,14 +31,14 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <string>
 
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreConfig.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreRenderQueue.h"
+#include "OgreRenderSystem.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"
 

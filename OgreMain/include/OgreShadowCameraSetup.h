@@ -28,11 +28,11 @@ THE SOFTWARE.
 #ifndef __ShadowCameraSetup_H__
 #define __ShadowCameraSetup_H__
 
-#include <stddef.h>
 #include <memory>
+#include <stddef.h>
 
-#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

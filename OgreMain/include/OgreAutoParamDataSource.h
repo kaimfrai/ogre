@@ -30,15 +30,15 @@ THE SOFTWARE.
 
 #include <stddef.h>
 
-#include "OgrePrerequisites.h"
-#include "OgreCommon.h"
-#include "OgreLight.h"
-#include "OgreSceneNode.h"
 #include "OgreColourValue.h"
+#include "OgreCommon.h"
 #include "OgreConfig.h"
 #include "OgreGpuProgramParams.h"
+#include "OgreLight.h"
 #include "OgreMatrix4.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreSceneNode.h"
 #include "OgreVector.h"
 
 namespace Ogre {

@@ -29,18 +29,18 @@ THE SOFTWARE.
 #ifndef __ShadowCameraSetupFocused_H__
 #define __ShadowCameraSetupFocused_H__
 
-#include <stddef.h>
 #include <memory>
+#include <stddef.h>
 
-#include "OgrePrerequisites.h"
-#include "OgreShadowCameraSetup.h"
-#include "OgrePolygon.h"
-#include "OgreConvexBody.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreSceneNode.h"
+#include "OgreConvexBody.h"
 #include "OgreLight.h"
 #include "OgreMatrix4.h"
+#include "OgrePolygon.h"
+#include "OgrePrerequisites.h"
 #include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreShadowCameraSetup.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

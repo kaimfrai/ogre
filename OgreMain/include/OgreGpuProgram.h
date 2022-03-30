@@ -31,12 +31,12 @@ THE SOFTWARE.
 #include <stddef.h>
 
 // Precompiler options
+#include "OgreGpuProgramParams.h"
+#include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreVector.h"
 #include "OgreSharedPtr.h"
-#include "OgrePlatform.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 class ResourceManager;

@@ -29,8 +29,8 @@ THE SOFTWARE.
 #ifndef __CubeMappingTest_H__
 #define __CubeMappingTest_H__
 
-#include "VisualTest.h"
 #include "OgrePlatform.h"
+#include "VisualTest.h"
 
 using namespace Ogre;
 

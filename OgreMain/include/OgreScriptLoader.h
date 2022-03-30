@@ -28,8 +28,8 @@ THE SOFTWARE.
 #ifndef __ScriptLoader_H__
 #define __ScriptLoader_H__
 
-#include "OgrePrerequisites.h"
 #include "OgreDataStream.h"
+#include "OgrePrerequisites.h"
 #include "OgreStringVector.h"
 
 namespace Ogre {

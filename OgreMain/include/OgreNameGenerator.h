@@ -30,11 +30,11 @@ THE SOFTWARE.
 
 #include "OgreString.h"
 
-#include <sstream>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <memory>
+#include <mutex>
+#include <sstream>
+#include <thread>
 
 namespace Ogre {
     /** \addtogroup Core

@@ -28,10 +28,10 @@ THE SOFTWARE.
 #ifndef __MovablePlane_H__
 #define __MovablePlane_H__
 
-#include "OgrePrerequisites.h"
-#include "OgrePlane.h"
-#include "OgreMovableObject.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreMovableObject.h"
+#include "OgrePlane.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreRenderable.h"
 #include "OgreVector.h"

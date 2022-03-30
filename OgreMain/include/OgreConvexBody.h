@@ -29,18 +29,18 @@ THE SOFTWARE.
 #ifndef __ConvexBody_H__
 #define __ConvexBody_H__
 
-#include <stddef.h>
-#include <iosfwd>
-#include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <iosfwd>
+#include <memory>
+#include <mutex>
+#include <stddef.h>
+#include <thread>
+#include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgrePolygon.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreFrustum.h"
+#include "OgrePolygon.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre
 {

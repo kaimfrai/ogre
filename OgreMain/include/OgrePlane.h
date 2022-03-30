@@ -38,8 +38,8 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 
-#include "OgreVector.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 

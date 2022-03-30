@@ -28,29 +28,29 @@ THE SOFTWARE.
 #ifndef __RenderSystem_H_
 #define __RenderSystem_H_
 
-#include <stddef.h>
 #include <list>
 #include <map>
+#include <stddef.h>
 #include <string>
 #include <vector>
 
 // Precompiler options
-#include "OgrePrerequisites.h"
-#include "OgreTextureUnitState.h"
-#include "OgreCommon.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreConfigOptionMap.h"
-#include "OgreGpuProgram.h"
-#include "OgrePlane.h"
-#include "OgreHardwareVertexBuffer.h"
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
+#include "OgreCommon.h"
 #include "OgreConfig.h"
+#include "OgreConfigOptionMap.h"
+#include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
+#include "OgreHardwareVertexBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlane.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystemCapabilities.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringVector.h"
+#include "OgreTextureUnitState.h"
 #include "OgreVector.h"
 
 namespace Ogre

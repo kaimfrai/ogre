@@ -30,10 +30,10 @@ THE SOFTWARE.
 
 #include <stddef.h>
 
-#include "OgrePrerequisites.h"
+#include "OgreHardwareBuffer.h"
 #include "OgreMesh.h"
 #include "OgrePatchSurface.h"
-#include "OgreHardwareBuffer.h"
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 
 namespace Ogre {

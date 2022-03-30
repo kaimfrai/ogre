@@ -29,14 +29,14 @@ THE SOFTWARE.
 #define __Matrix4__
 
 #include <assert.h>
-#include <string.h>
 #include <ostream>
+#include <string.h>
 
 // Precompiler options
-#include "OgrePrerequisites.h"
 #include "OgreMatrix3.h"
-#include "OgreVector.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {

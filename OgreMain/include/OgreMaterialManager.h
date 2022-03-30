@@ -32,14 +32,14 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
-#include "OgreResourceManager.h"
-#include "OgreTextureUnitState.h"
 #include "OgreCommon.h"
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
 #include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreTextureUnitState.h"
 
 namespace Ogre {
 

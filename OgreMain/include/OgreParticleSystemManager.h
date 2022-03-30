@@ -29,21 +29,21 @@ THE SOFTWARE.
 #define __ParticleSystemManager_H__
 
 
-#include <stddef.h>
-#include <map>
-#include <string>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <stddef.h>
+#include <string>
+#include <thread>
 
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
-#include "OgreScriptLoader.h"
 #include "OgreCommon.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreMovableObject.h"
+#include "OgrePrerequisites.h"
+#include "OgreScriptLoader.h"
+#include "OgreSingleton.h"
 #include "OgreStringVector.h"
 
 namespace Ogre {

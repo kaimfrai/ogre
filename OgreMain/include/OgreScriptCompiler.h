@@ -29,26 +29,26 @@ THE SOFTWARE.
 #ifndef __SCRIPTCOMPILER_H_
 #define __SCRIPTCOMPILER_H_
 
+#include <condition_variable>
 #include <list>
 #include <map>
+#include <memory>
+#include <mutex>
 #include <string>
+#include <thread>
 #include <unordered_map>
 #include <utility>
 #include <vector>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreScriptLoader.h"
-#include "OgreGpuProgram.h"
 #include "OgreAny.h"
 #include "OgreCommon.h"
+#include "OgreGpuProgram.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreScriptLoader.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
 #include "OgreStringVector.h"
 
 namespace Ogre

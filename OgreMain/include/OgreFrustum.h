@@ -28,20 +28,20 @@ THE SOFTWARE.
 #ifndef __Frustum_H__
 #define __Frustum_H__
 
-#include "OgrePrerequisites.h"
-#include "OgreMovableObject.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreVertexIndexData.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreMath.h"
 #include "OgreMatrix4.h"
+#include "OgreMovableObject.h"
 #include "OgrePlane.h"
 #include "OgrePlaneBoundedVolume.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreRenderable.h"
 #include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre
 {

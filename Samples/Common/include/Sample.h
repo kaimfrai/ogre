@@ -28,18 +28,18 @@
 #ifndef __Sample_H__
 #define __Sample_H__
 
-#include "OgreRoot.h"
 #include "OgreOverlaySystem.h"
 #include "OgreResourceManager.h"
+#include "OgreRoot.h"
 
 #include "OgreFileSystemLayer.h"
 
 #include "OgreRTShaderSystem.h"
 
-#include "OgreInput.h"
-#include "OgreTrays.h"
 #include "OgreCameraMan.h"
+#include "OgreInput.h"
 #include "OgreMaterialManager.h"
+#include "OgreTrays.h"
 
 namespace OgreBites
 {

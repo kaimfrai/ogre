@@ -5,8 +5,8 @@
 #ifndef _MURMURHASH3_H_
 #define _MURMURHASH3_H_
 
-#include <stdint.h>
 #include <cstddef>
+#include <stdint.h>
 
 //-----------------------------------------------------------------------------
 // Platform-specific functions and macros

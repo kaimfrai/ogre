@@ -31,15 +31,15 @@ THE SOFTWARE.
 #include <stddef.h>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreRenderTargetListener.h"
-#include "OgreRenderQueueListener.h"
-#include "OgreCompositorInstance.h"
-#include "OgreViewport.h"
 #include "OgreCommon.h"
+#include "OgreCompositorInstance.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderQueueListener.h"
+#include "OgreRenderTargetListener.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 class Camera;
