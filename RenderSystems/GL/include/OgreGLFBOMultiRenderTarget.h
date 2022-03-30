@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLMULTIRENDERTARGET_H__
-#define __GLMULTIRENDERTARGET_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_FBOMULTIRENDERTARGET_H
+#define OGRE_RENDERSYSTEMS_GL_FBOMULTIRENDERTARGET_H
 
 #include <cstddef>
 
@@ -68,4 +68,4 @@ class GLFrameBufferObjectCommon;
 
 }
 
-#endif // __GLMULTIRENDERTARGET_H__
+#endif // OGRE_RENDERSYSTEMS_GL_FBOMULTIRENDERTARGET_H

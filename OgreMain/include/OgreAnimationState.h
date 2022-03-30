@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __AnimationState_H__
-#define __AnimationState_H__
+#ifndef OGRE_CORE_ANIMATIONSTATE_H
+#define OGRE_CORE_ANIMATIONSTATE_H
 
 #include <cassert>
 #include <condition_variable>

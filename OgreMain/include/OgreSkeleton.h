@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __Skeleton_H__
-#define __Skeleton_H__
+#ifndef OGRE_CORE_SKELETON_H
+#define OGRE_CORE_SKELETON_H
 
 #include <cstddef>
 #include <map>

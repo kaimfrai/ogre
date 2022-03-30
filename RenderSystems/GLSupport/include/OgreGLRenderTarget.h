@@ -2,8 +2,8 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 
-#ifndef RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLRENDERTARGET_H_
-#define RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLRENDERTARGET_H_
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_RENDERTARGET_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_RENDERTARGET_H
 
 
 namespace Ogre
@@ -23,4 +23,4 @@ public:
 };
 } // namespace Ogre
 
-#endif /* RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLRENDERTARGET_H_ */
+#endif // OGREGLRENDERTARGET_H

@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderFFPColur_
-#define _ShaderFFPColur_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FFPCOLOUR_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_FFPCOLOUR_H
 
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderSubRenderState.h"

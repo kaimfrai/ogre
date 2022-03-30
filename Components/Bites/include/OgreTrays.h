@@ -25,8 +25,8 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __SdkTrays_H__
-#define __SdkTrays_H__
+#ifndef OGRE_COMPONENTS_BITES_TRAYS_H
+#define OGRE_COMPONENTS_BITES_TRAYS_H
 
 #include <cstddef>
 #include <string>

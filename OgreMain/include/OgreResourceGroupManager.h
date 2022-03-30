@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ResourceGroupManager_H__
-#define _ResourceGroupManager_H__
+#ifndef OGRE_CORE_RESOURCEGROUPMANAGER_H
+#define OGRE_CORE_RESOURCEGROUPMANAGER_H
 
 #include <condition_variable>
 #include <ctime>

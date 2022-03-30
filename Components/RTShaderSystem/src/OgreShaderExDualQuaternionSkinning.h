@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderExDualQuaternionSkinning_
-#define _ShaderExDualQuaternionSkinning_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXDUALQUATERNIONSKINNING_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXDUALQUATERNIONSKINNING_H
 
 #include "OgreShaderPrerequisites.h"
 
@@ -107,5 +107,5 @@ protected:
 } // namespace RTShader
 } // namespace Ogre
 
-#endif // _ShaderExDualQuaternionSkinning_
+#endif // _ExDualQuaternionSkinning_
 

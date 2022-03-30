@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __OgreManualObject_H__
-#define __OgreManualObject_H__
+#ifndef OGRE_CORE_MANUALOBJECT_H
+#define OGRE_CORE_MANUALOBJECT_H
 
 #include <algorithm>
 #include <cstddef>

@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __CustomCompositionPass_H__
-#define __CustomCompositionPass_H__
+#ifndef OGRE_CORE_CUSTOMCOMPOSITIONPASS_H
+#define OGRE_CORE_CUSTOMCOMPOSITIONPASS_H
 
 #include "OgreCompositionPass.h"
 #include "OgrePrerequisites.h"

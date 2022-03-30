@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __KeyFrame_H__
-#define __KeyFrame_H__
+#ifndef OGRE_CORE_KEYFRAME_H
+#define OGRE_CORE_KEYFRAME_H
 
 #include <vector>
 

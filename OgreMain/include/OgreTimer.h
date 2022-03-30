@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __OGRE_TIMER_H__
-#define __OGRE_TIMER_H__
+#ifndef OGRE_CORE_TIMER_H
+#define OGRE_CORE_TIMER_H
 
 #include <chrono>
 #include <cstdint>

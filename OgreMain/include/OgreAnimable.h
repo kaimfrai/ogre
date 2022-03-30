@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ANIMABLE_H__
-#define __ANIMABLE_H__
+#ifndef OGRE_CORE_ANIMABLE_H
+#define OGRE_CORE_ANIMABLE_H
 
 #include <cstring>
 #include <map>

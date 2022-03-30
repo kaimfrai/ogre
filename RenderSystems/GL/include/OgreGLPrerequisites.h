@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __GLPrerequisites_H__
-#define __GLPrerequisites_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_PREREQUISITES_H
+#define OGRE_RENDERSYSTEMS_GL_PREREQUISITES_H
 
 #include "OgrePrerequisites.h"
 
@@ -70,4 +70,4 @@ namespace Ogre {
     }
 }
 
-#endif //#ifndef __GLPrerequisites_H__
+#endif // OGRE_RENDERSYSTEMS_GL_PREREQUISITES_H

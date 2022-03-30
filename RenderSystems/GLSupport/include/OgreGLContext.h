@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __OgreGLContext_H__
-#define __OgreGLContext_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_CONTEXT_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_CONTEXT_H
 
 #include "OgreGLStateCacheManagerCommon.h"
 #include "OgreSharedPtr.h"

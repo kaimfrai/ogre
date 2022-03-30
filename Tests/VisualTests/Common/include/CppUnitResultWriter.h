@@ -27,8 +27,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __CppUnitResultWriter_H__
-#define __CppUnitResultWriter_H__
+#ifndef OGRE_TESTS_VISUALTESTS_CPPUNITRESULTWRITER_H
+#define OGRE_TESTS_VISUALTESTS_CPPUNITRESULTWRITER_H
 
 #include "ImageValidator.h"
 #include "Ogre.h"

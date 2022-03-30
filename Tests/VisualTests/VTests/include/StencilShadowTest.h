@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __StencilShadowTest_H__
-#define __StencilShadowTest_H__
+#ifndef OGRE_TESTS_VISUALTESTS_STENCILSHADOWTEST_H
+#define OGRE_TESTS_VISUALTESTS_STENCILSHADOWTEST_H
 
 #include "OgrePlatform.h"
 #include "VisualTest.h"

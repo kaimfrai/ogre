@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __RadixSortTests_H__
-#define __RadixSortTests_H__
+#ifndef OGRE_TESTS_CORE_RADIXSORTTESTS_H
+#define OGRE_TESTS_CORE_RADIXSORTTESTS_H
 
 #include <gtest/gtest.h>
 

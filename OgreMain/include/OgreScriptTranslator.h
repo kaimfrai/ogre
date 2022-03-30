@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __SCRIPTTRANSLATOR_H_
-#define __SCRIPTTRANSLATOR_H_
+#ifndef OGRE_CORE_SCRIPTTRANSLATOR_H
+#define OGRE_CORE_SCRIPTTRANSLATOR_H
 
 #include <cstddef>
 #include <vector>

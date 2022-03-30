@@ -32,8 +32,8 @@ THE SOFTWARE.
    so don't add things to this lightly.
 */
 
-#ifndef __OgreStableHeaders__
-#define __OgreStableHeaders__
+#ifndef OGRE_CORE_STABLE_HEADERS_H
+#define OGRE_CORE_STABLE_HEADERS_H
 
 extern "C" {
 #   include <sys/types.h>

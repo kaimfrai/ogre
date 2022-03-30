@@ -25,8 +25,8 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-#ifndef _RenderOperation_H__
-#define _RenderOperation_H__
+#ifndef OGRE_CORE_RENDEROPERATION_H
+#define OGRE_CORE_RENDEROPERATION_H
 
 #include "OgrePrerequisites.h"
 #include "OgreVertexIndexData.h"

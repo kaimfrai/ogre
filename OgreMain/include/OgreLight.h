@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _LIGHT_H__
-#define _LIGHT_H__
+#ifndef OGRE_CORE_LIGHT_H
+#define OGRE_CORE_LIGHT_H
 
 #include <cassert>
 #include <cstddef>
@@ -576,4 +576,4 @@ class Sphere;
     /** @} */
 
 } // namespace Ogre
-#endif // _LIGHT_H__
+#endif // OGRE_CORE_LIGHT_H

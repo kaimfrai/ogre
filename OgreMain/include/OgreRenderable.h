@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Renderable_H__
-#define __Renderable_H__
+#ifndef OGRE_CORE_RENDERABLE_H
+#define OGRE_CORE_RENDERABLE_H
 
 #include <cstddef>
 #include <map>
@@ -361,4 +361,4 @@ namespace Ogre {
 
 } // namespace Ogre
 
-#endif //__Renderable_H__
+#endif // OGRE_CORE_RENDERABLE_H

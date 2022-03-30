@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Compositor_H__
-#define __Compositor_H__
+#ifndef OGRE_CORE_COMPOSITOR_H
+#define OGRE_CORE_COMPOSITOR_H
 
 #include <cstddef>
 #include <map>

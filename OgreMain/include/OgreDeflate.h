@@ -25,8 +25,8 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __OGRE_DEFLATE_H__
-#define __OGRE_DEFLATE_H__
+#ifndef OGRE_CORE_DEFLATE_H
+#define OGRE_CORE_DEFLATE_H
 
 #include <cassert>
 #include <cstring>

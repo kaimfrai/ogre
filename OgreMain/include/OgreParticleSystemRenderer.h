@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ParticleSystemRenderer_H__
-#define __ParticleSystemRenderer_H__
+#ifndef OGRE_CORE_PARTICLESYSTEMRENDERER_H
+#define OGRE_CORE_PARTICLESYSTEMRENDERER_H
 
 #include "OgreCommon.h"
 #include "OgreFactoryObj.h"

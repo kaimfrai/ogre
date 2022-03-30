@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _OgreTangentSpaceCalc_H_
-#define _OgreTangentSpaceCalc_H_
+#ifndef OGRE_CORE_TANGENTSPACECALC_H
+#define OGRE_CORE_TANGENTSPACECALC_H
 
 #include <cstddef>
 #include <list>

@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __MeshFileFormat_H__
-#define __MeshFileFormat_H__
+#ifndef OGRE_CORE_MESHFILEFORMAT_H
+#define OGRE_CORE_MESHFILEFORMAT_H
 
 #include "OgrePrerequisites.h"
 

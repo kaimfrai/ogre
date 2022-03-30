@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __EdgeBuilderTests_H__
-#define __EdgeBuilderTests_H__
+#ifndef OGRE_TESTS_CORE_EDGEBUILDERTESTS_H
+#define OGRE_TESTS_CORE_EDGEBUILDERTESTS_H
 
 #include <gtest/gtest.h>
 

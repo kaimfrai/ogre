@@ -38,8 +38,8 @@ Ogre-dependent is in the visualization/logging routines and the use of the Timer
 
 */
 
-#ifndef __Profiler_H__
-#define __Profiler_H__
+#ifndef OGRE_CORE_PROFILER_H
+#define OGRE_CORE_PROFILER_H
 
 #include <cmath>
 #include <map>

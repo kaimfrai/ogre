@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __MeshSerializerTests_H__
-#define __MeshSerializerTests_H__
+#ifndef OGRE_TESTS_CORE_MESHSERIALIZERTESTS_H
+#define OGRE_TESTS_CORE_MESHSERIALIZERTESTS_H
 
 #include <gtest/gtest.h>
 #include <unordered_map>

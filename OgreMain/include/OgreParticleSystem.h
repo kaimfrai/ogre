@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ParticleSystem_H__
-#define __ParticleSystem_H__
+#ifndef OGRE_CORE_PARTICLESYSTEM_H
+#define OGRE_CORE_PARTICLESYSTEM_H
 
 #include <cstddef>
 #include <list>

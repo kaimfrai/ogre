@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __Log_H__
-#define __Log_H__
+#ifndef OGRE_CORE_LOG_H
+#define OGRE_CORE_LOG_H
 
 #include <condition_variable>
 #include <fstream>

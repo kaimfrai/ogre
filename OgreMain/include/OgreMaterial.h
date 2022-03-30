@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _Material_H__
-#define _Material_H__
+#ifndef OGRE_CORE_MATERIAL_H
+#define OGRE_CORE_MATERIAL_H
 
 #include <cstddef>
 #include <map>

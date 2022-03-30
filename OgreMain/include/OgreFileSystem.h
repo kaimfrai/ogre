@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __FileSystem_H__
-#define __FileSystem_H__
+#ifndef OGRE_CORE_FILESYSTEM_H
+#define OGRE_CORE_FILESYSTEM_H
 
 #include <iosfwd>
 
@@ -89,4 +89,4 @@ class Archive;
 
 } // namespace Ogre
 
-#endif // __FileSystem_H__
+#endif // OGRE_CORE_FILESYSTEM_H

@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __AxisAlignedBox_H_
-#define __AxisAlignedBox_H_
+#ifndef OGRE_CORE_AXISALIGNEDBOX_H
+#define OGRE_CORE_AXISALIGNEDBOX_H
 
 #include <array>
 #include <cassert>

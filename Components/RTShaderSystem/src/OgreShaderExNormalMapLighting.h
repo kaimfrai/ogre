@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderExNormalMapLighting_
-#define _ShaderExNormalMapLighting_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXNORMALMAPLIGHTING_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXNORMALMAPLIGHTING_H
 
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderExPerPixelLighting.h"

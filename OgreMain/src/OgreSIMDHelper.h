@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __SIMDHelper_H__
-#define __SIMDHelper_H__
+#ifndef OGRE_CORE_SIMDHELPER_H
+#define OGRE_CORE_SIMDHELPER_H
 
 // Stack-alignment hackery.
 //
@@ -240,4 +240,4 @@ namespace Ogre {
 
 }
 
-#endif // __SIMDHelper_H__
+#endif // OGRE_CORE_SIMDHELPER_H

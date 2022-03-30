@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __GLSLShaderCommon_H__
-#define __GLSLShaderCommon_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_SHADERCOMMON_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_SHADERCOMMON_H
 
 #include <vector>
 
@@ -155,4 +155,4 @@ class ResourceManager;
     };
 }
 
-#endif // __GLSLProgramCommon_H__
+#endif // OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_SHADERCOMMON_H

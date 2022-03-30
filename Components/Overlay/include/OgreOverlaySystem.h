@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __OverlaySystem_H__
-#define __OverlaySystem_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_SYSTEM_H
+#define OGRE_COMPONENTS_OVERLAY_SYSTEM_H
 
 #include "OgreCommon.h"
 #include "OgrePlatform.h"

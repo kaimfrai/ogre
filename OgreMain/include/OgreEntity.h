@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Entity_H__
-#define __Entity_H__
+#ifndef OGRE_CORE_ENTITY_H
+#define OGRE_CORE_ENTITY_H
 
 #include <cstddef>
 #include <memory>
@@ -885,4 +885,4 @@ class VertexData;
 
 } // namespace Ogre
 
-#endif // __Entity_H__
+#endif // OGRE_CORE_ENTITY_H

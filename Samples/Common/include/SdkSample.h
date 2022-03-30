@@ -25,8 +25,8 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __SdkSample_H__
-#define __SdkSample_H__
+#ifndef OGRE_SAMPLES_SDKSAMPLE_H
+#define OGRE_SAMPLES_SDKSAMPLE_H
 
 #include "Ogre.h"
 #include "OgreAdvancedRenderControls.h"

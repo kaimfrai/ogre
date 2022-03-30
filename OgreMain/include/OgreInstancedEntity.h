@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __InstancedEntity_H__
-#define __InstancedEntity_H__
+#ifndef OGRE_CORE_INSTANCEDENTITY_H
+#define OGRE_CORE_INSTANCEDENTITY_H
 
 #include <cassert>
 #include <cstddef>

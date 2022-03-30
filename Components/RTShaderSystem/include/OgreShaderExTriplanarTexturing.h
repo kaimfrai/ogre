@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderExTriplanarTexturing_
-#define _ShaderExTriplanarTexturing_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXTRIPLANARTEXTURING_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXTRIPLANARTEXTURING_H
 
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderSubRenderState.h"

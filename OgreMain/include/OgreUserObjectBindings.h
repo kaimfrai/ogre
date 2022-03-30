@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _UserObjectsBinding_H__
-#define _UserObjectsBinding_H__
+#ifndef OGRE_CORE_USEROBJECTBINDINGS_H
+#define OGRE_CORE_USEROBJECTBINDINGS_H
 
 #include <map>
 #include <memory>

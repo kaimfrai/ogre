@@ -26,8 +26,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ShadowCameraSetupFocused_H__
-#define __ShadowCameraSetupFocused_H__
+#ifndef OGRE_CORE_SHADOWCAMERASETUPFOCUSED_H
+#define OGRE_CORE_SHADOWCAMERASETUPFOCUSED_H
 
 #include <cstddef>
 #include <memory>
@@ -312,4 +312,4 @@ class Viewport;
 
 } // namespace Ogre
 
-#endif // __ShadowCameraSetupFocused_H__
+#endif // OGRE_CORE_SHADOWCAMERASETUPFOCUSED_H

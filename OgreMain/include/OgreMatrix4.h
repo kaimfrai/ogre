@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Matrix4__
-#define __Matrix4__
+#ifndef OGRE_CORE_MATRIX4_H
+#define OGRE_CORE_MATRIX4_H
 
 #include <cassert>
 #include <cstring>

@@ -27,8 +27,8 @@ You may alternatively use this source under the terms of a specific version of
 the OGRE Unrestricted License provided you have obtained such a license from
 Torus Knot Software Ltd.
 -------------------------------------------------------------------------*/
-#ifndef __ShadowTextureManager_H__
-#define __ShadowTextureManager_H__
+#ifndef OGRE_CORE_SHADOWTEXTUREMANAGER_H
+#define OGRE_CORE_SHADOWTEXTUREMANAGER_H
 
 #include <stddef.h>
 

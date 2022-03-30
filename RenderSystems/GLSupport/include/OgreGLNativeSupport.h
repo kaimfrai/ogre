@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLNativeSupport_H__
-#define __GLNativeSupport_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_NATIVESUPPORT_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_NATIVESUPPORT_H
 
 #include "OgreConfigOptionMap.h"
 #include "OgreException.h"

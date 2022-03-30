@@ -26,8 +26,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ConvexBody_H__
-#define __ConvexBody_H__
+#ifndef OGRE_CORE_CONVEXBODY_H
+#define OGRE_CORE_CONVEXBODY_H
 
 #include <condition_variable>
 #include <cstddef>

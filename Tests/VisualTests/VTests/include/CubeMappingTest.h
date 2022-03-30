@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __CubeMappingTest_H__
-#define __CubeMappingTest_H__
+#ifndef OGRE_TESTS_VISUALTESTS_CUBEMAPPINGTEST_H
+#define OGRE_TESTS_VISUALTESTS_CUBEMAPPINGTEST_H
 
 #include "OgrePlatform.h"
 #include "VisualTest.h"

@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __BillboardSet_H__
-#define __BillboardSet_H__
+#ifndef OGRE_CORE_BILLBOARDSET_H
+#define OGRE_CORE_BILLBOARDSET_H
 
 #include <cstddef>
 #include <memory>
@@ -830,4 +830,4 @@ class VertexData;
 
 } // namespace Ogre
 
-#endif // __BillboardSet_H__
+#endif // OGRE_CORE_BILLBOARDSET_H

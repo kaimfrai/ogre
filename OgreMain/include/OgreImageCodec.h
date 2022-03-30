@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ImageCodec_H__
-#define _ImageCodec_H__
+#ifndef OGRE_CORE_IMAGECODEC_H
+#define OGRE_CORE_IMAGECODEC_H
 
 #include "OgreBitwise.h"
 #include "OgreCodec.h"

@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _Ogre_H__
-#define _Ogre_H__
+#ifndef OGRE_H
+#define OGRE_H
 // This file includes all the other files which you will need to build a client application
 #include "OgrePrerequisites.h"
 

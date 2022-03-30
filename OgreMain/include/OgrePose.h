@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __OGRE_POSE_H
-#define __OGRE_POSE_H
+#ifndef OGRE_CORE_POSE_H
+#define OGRE_CORE_POSE_H
 
 #include <cstddef>
 #include <map>

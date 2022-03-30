@@ -2,8 +2,8 @@
  *
  * This is free and unencumbered software released into the public domain.
  */
-#ifndef UTF8_H
-#define UTF8_H
+#ifndef OGRE_COMPONENTS_OVERLAY_UTF8_H
+#define OGRE_COMPONENTS_OVERLAY_UTF8_H
 
 #include <cstdint>
 

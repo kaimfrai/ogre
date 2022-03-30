@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __OverlayElementEmitterCommands_H__
-#define __OverlayElementEmitterCommands_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_ELEMENTCOMMANDS_H
+#define OGRE_COMPONENTS_OVERLAY_ELEMENTCOMMANDS_H
 
 #include "OgreOverlayElement.h"
 #include "OgrePrerequisites.h"

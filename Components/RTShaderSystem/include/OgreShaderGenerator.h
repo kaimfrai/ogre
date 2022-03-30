@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderGenerator_
-#define _ShaderGenerator_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_GENERATOR_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_GENERATOR_H
 
 #include "OgreFileSystemLayer.h"
 #include "OgreMaterialSerializer.h"

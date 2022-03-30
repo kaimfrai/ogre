@@ -25,8 +25,8 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __Sample_H__
-#define __Sample_H__
+#ifndef OGRE_SAMPLES_SAMPLE_H
+#define OGRE_SAMPLES_SAMPLE_H
 
 #include "OgreOverlaySystem.h"
 #include "OgreResourceManager.h"

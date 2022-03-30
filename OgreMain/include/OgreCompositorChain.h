@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __CompositorChain_H__
-#define __CompositorChain_H__
+#ifndef OGRE_CORE_COMPOSITORCHAIN_H
+#define OGRE_CORE_COMPOSITORCHAIN_H
 
 #include <cstddef>
 #include <vector>
@@ -251,4 +251,4 @@ class SceneManager;
     /** @} */
 } // namespace Ogre
 
-#endif // __CompositorChain_H__
+#endif // OGRE_CORE_COMPOSITORCHAIN_H

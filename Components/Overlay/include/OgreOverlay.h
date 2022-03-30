@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __Overlay_H__
-#define __Overlay_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_H
+#define OGRE_COMPONENTS_OVERLAY_H
 
 #include <list>
 

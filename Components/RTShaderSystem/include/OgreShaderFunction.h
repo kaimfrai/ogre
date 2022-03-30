@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderProgramFunction_
-#define _ShaderProgramFunction_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FUNCTION_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_FUNCTION_H
 
 #include "OgreShaderFunctionAtom.h"
 #include "OgreShaderParameter.h"

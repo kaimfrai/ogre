@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Lod_Strategy_Manager_H__
-#define __Lod_Strategy_Manager_H__
+#ifndef OGRE_CORE_LODSTRATEGYMANAGER_H
+#define OGRE_CORE_LODSTRATEGYMANAGER_H
 
 #include <map>
 #include <string>

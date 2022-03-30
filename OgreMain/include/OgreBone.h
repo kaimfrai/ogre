@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __Bone_H__
-#define __Bone_H__
+#ifndef OGRE_CORE_BONE_H
+#define OGRE_CORE_BONE_H
 
 #include "OgreNode.h"
 #include "OgrePrerequisites.h"

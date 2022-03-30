@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __DataStream_H__
-#define __DataStream_H__
+#ifndef OGRE_CORE_DATASTREAM_H
+#define OGRE_CORE_DATASTREAM_H
 
 #include <cstdio>
 #include <istream>

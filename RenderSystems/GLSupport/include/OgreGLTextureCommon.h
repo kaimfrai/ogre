@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLTEXTURECOMMON_H_
-#define RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLTEXTURECOMMON_H_
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_TEXTURECOMMON_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_TEXTURECOMMON_H
 
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
@@ -64,4 +64,4 @@ protected:
 
 } /* namespace Ogre */
 
-#endif /* RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLTEXTURECOMMON_H_ */
+#endif // OGREGLTEXTURECOMMON_H

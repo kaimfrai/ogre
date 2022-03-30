@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __TextureUnitState_H__
-#define __TextureUnitState_H__
+#ifndef OGRE_CORE_TEXTUREUNITSTATE_H
+#define OGRE_CORE_TEXTUREUNITSTATE_H
 
 #include <cstddef>
 #include <map>
@@ -1126,4 +1126,4 @@ private:
 
 } // namespace Ogre
 
-#endif // __TextureUnitState_H__
+#endif // OGRE_CORE_TEXTUREUNITSTATE_H

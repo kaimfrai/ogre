@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ResourceBackgroundQueue_H__
-#define __ResourceBackgroundQueue_H__
+#ifndef OGRE_CORE_RESOURCEBACKGROUNDQUEUE_H
+#define OGRE_CORE_RESOURCEBACKGROUNDQUEUE_H
 
 
 #include <set>

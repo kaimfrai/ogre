@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Platform_H_
-#define __Platform_H_
+#ifndef OGRE_CORE_PLATFORM_H
+#define OGRE_CORE_PLATFORM_H
 
 #include "OgreConfig.h"
 

@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderGLSLProgramProcessor_
-#define _ShaderGLSLProgramProcessor_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_GLSLPROGRAMPROCESSOR_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_GLSLPROGRAMPROCESSOR_H
 
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderProgramProcessor.h"

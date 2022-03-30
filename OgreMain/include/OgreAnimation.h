@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __Animation_H__
-#define __Animation_H__
+#ifndef OGRE_CORE_ANIMATION_H
+#define OGRE_CORE_ANIMATION_H
 
 #include <map>
 #include <set>
@@ -542,5 +542,5 @@ class VertexData;
     /** @} */
 } // namespace Ogre
 
-#endif // __Animation_H__
+#endif // OGRE_CORE_ANIMATION_H
 

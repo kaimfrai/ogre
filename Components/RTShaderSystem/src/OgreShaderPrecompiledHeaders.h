@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __OgreShaderPrecompiledHeaders__
-#define __OgreShaderPrecompiledHeaders__
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PRECOMPILEDHEADERS_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_PRECOMPILEDHEADERS_H
 
 #include <algorithm> // for std::sort
 

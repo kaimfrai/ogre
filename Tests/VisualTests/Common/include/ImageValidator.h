@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __ImageValidator_H__
-#define __ImageValidator_H__
+#ifndef OGRE_TESTS_VISUALTESTS_IMAGEVALIDATOR_H
+#define OGRE_TESTS_VISUALTESTS_IMAGEVALIDATOR_H
 
 #include "Ogre.h"
 

@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __GpuProgramManager_H_
-#define __GpuProgramManager_H_
+#ifndef OGRE_CORE_GPUPROGRAMMANAGER_H
+#define OGRE_CORE_GPUPROGRAMMANAGER_H
 
 #include <cstddef>
 #include <map>

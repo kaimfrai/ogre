@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __TinyHTML_H__
-#define __TinyHTML_H__
+#ifndef OGRE_TESTS_VISUALTESTS_TINYHTML_H
+#define OGRE_TESTS_VISUALTESTS_TINYHTML_H
 
 /** The following is a very simple representation of the HTML DOM.
  *    It's sole purpose is outputting formatted html documents, there

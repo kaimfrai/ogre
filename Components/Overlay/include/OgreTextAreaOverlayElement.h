@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
 
-#ifndef _TextAreaOverlayElement_H__
-#define _TextAreaOverlayElement_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_TEXTAREAOVERLAYELEMENT_H
+#define OGRE_COMPONENTS_OVERLAY_TEXTAREAOVERLAYELEMENT_H
 
 #include <cstddef>
 

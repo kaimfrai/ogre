@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __VertexIndexData_H__
-#define __VertexIndexData_H__
+#ifndef OGRE_CORE_VERTEXINDEXDATA_H
+#define OGRE_CORE_VERTEXINDEXDATA_H
 
 #include <cstddef>
 #include <vector>

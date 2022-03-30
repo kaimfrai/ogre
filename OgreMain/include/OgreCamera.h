@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Camera_H__
-#define __Camera_H__
+#ifndef OGRE_CORE_CAMERA_H
+#define OGRE_CORE_CAMERA_H
 
 #include <iosfwd>
 #include <vector>
@@ -500,4 +500,4 @@ class Viewport;
 
 } // namespace Ogre
 
-#endif // __Camera_H__
+#endif // OGRE_CORE_CAMERA_H

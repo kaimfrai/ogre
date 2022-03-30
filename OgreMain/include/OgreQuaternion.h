@@ -33,8 +33,8 @@ THE SOFTWARE.
 // http://www.geometrictools.com/License/Boost/LICENSE_1_0.txt
 
 
-#ifndef __Quaternion_H__
-#define __Quaternion_H__
+#ifndef OGRE_CORE_QUATERNION_H
+#define OGRE_CORE_QUATERNION_H
 
 #include <cassert>
 #include <cmath>

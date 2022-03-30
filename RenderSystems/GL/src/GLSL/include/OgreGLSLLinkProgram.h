@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __GLSLLinkProgram_H__
-#define __GLSLLinkProgram_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAM_H
+#define OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAM_H
 
 #include <set>
 
@@ -88,4 +88,4 @@ class GLUniformCache;
     }
 }
 
-#endif // __GLSLLinkProgram_H__
+#endif // OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAM_H

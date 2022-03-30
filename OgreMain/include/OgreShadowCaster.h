@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ShadowCaster_H__
-#define __ShadowCaster_H__
+#ifndef OGRE_CORE_SHADOWCASTER_H
+#define OGRE_CORE_SHADOWCASTER_H
 
 #include <cstddef>
 #include <vector>
@@ -267,4 +267,4 @@ class VertexData;
     /** @} */
 } // namespace Ogre
 
-#endif // __ShadowCaster_H__
+#endif // OGRE_CORE_SHADOWCASTER_H

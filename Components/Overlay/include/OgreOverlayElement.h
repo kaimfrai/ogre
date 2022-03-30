@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __OverlayElement_H__
-#define __OverlayElement_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_ELEMENT_H
+#define OGRE_COMPONENTS_OVERLAY_ELEMENT_H
 
 #include "OgreColourValue.h"
 #include "OgreCommon.h"

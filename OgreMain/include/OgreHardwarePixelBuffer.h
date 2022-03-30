@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __HardwarePixelBuffer__
-#define __HardwarePixelBuffer__
+#ifndef OGRE_CORE_HARDWAREPIXELBUFFER_H
+#define OGRE_CORE_HARDWAREPIXELBUFFER_H
 
 #include <cstddef>
 #include <vector>

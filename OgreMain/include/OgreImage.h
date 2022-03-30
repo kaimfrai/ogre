@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _Image_H__
-#define _Image_H__
+#ifndef OGRE_CORE_IMAGE_H
+#define OGRE_CORE_IMAGE_H
 
 #include <cassert>
 #include <cstddef>

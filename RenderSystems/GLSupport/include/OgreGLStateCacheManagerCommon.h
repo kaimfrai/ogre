@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLStateCacheManagerCommon_H__
-#define __GLStateCacheManagerCommon_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_STATECACHEMANAGERCOMMON_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_STATECACHEMANAGERCOMMON_H
 
 #include "OgreCommon.h"
 #include "OgrePrerequisites.h"

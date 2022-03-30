@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _HardwareOcclusionQuery__
-#define _HardwareOcclusionQuery__
+#ifndef OGRE_CORE_HARDWAREOCCLUSIONQUERY_H
+#define OGRE_CORE_HARDWAREOCCLUSIONQUERY_H
 
 // Precompiler options
 #include "OgreMemoryAllocatorConfig.h"

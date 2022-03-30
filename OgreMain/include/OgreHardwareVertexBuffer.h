@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __HardwareVertexBuffer__
-#define __HardwareVertexBuffer__
+#ifndef OGRE_CORE_HARDWAREVERTEXBUFFER_H
+#define OGRE_CORE_HARDWAREVERTEXBUFFER_H
 
 #include <cstddef>
 #include <list>

@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
 
-#ifndef _Font_H__
-#define _Font_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_FONT_H
+#define OGRE_COMPONENTS_OVERLAY_FONT_H
 
 #include <algorithm>
 #include <cstddef>

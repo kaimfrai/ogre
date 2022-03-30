@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __ResourceLocationPriorityTest_H__
-#define __ResourceLocationPriorityTest_H__
+#ifndef OGRE_TESTS_CORE_RESOURCELOCATIONPRIORITYTEST_H
+#define OGRE_TESTS_CORE_RESOURCELOCATIONPRIORITYTEST_H
 
 #include <ctime>
 #include <memory>

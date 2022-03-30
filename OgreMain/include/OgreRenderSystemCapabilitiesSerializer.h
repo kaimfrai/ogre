@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __RenderSystemCapabilitiesSerializer_H__
-#define __RenderSystemCapabilitiesSerializer_H__
+#ifndef OGRE_CORE_RENDERSYSTEMCAPABILITIESSERIALIZER_H
+#define OGRE_CORE_RENDERSYSTEMCAPABILITIESSERIALIZER_H
 
 #include <iosfwd>
 #include <map>

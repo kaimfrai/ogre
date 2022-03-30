@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __StreamSerialiser_H__
-#define __StreamSerialiser_H__
+#ifndef OGRE_CORE_STREAMSERIALISER_H
+#define OGRE_CORE_STREAMSERIALISER_H
 
 #include <algorithm>
 #include <cstddef>

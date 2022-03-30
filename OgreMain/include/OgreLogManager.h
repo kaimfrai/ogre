@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __LogManager_H__
-#define __LogManager_H__
+#ifndef OGRE_CORE_LOGMANAGER_H
+#define OGRE_CORE_LOGMANAGER_H
 
 #include <condition_variable>
 #include <map>

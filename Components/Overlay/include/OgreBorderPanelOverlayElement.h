@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __BorderPanelOverlayElement_H__
-#define __BorderPanelOverlayElement_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_BORDERPANELOVERLAYELEMENT_H
+#define OGRE_COMPONENTS_OVERLAY_BORDERPANELOVERLAYELEMENT_H
 
 #include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
@@ -264,4 +264,4 @@ class RenderQueue;
 
 } // namespace Ogre
 
-#endif // __BorderPanelOverlayElement_H__
+#endif // OGRE_COMPONENTS_OVERLAY_BORDERPANELOVERLAYELEMENT_H

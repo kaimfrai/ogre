@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __MovableObject_H__
-#define __MovableObject_H__
+#ifndef OGRE_CORE_MOVABLEOBJECT_H
+#define OGRE_CORE_MOVABLEOBJECT_H
 
 #include <cstddef>
 

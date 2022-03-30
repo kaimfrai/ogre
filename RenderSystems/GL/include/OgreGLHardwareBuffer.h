@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __GLHARDWAREVERTEXBUFFER_H__
-#define __GLHARDWAREVERTEXBUFFER_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_HARDWAREBUFFER_H
+#define OGRE_RENDERSYSTEMS_GL_HARDWAREBUFFER_H
 
 #include <cstddef>
 
@@ -71,4 +71,4 @@ class GLRenderSystem;
     typedef GLHardwareVertexBuffer GLHardwareBuffer;
 
 }
-#endif // __GLHARDWAREVERTEXBUFFER_H__
+#endif // OGRE_RENDERSYSTEMS_GL_HARDWAREBUFFER_H

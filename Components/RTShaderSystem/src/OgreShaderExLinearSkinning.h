@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderExLinearSkinning_
-#define _ShaderExLinearSkinning_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXLINEARSKINNING_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXLINEARSKINNING_H
 
 #include "OgreShaderPrerequisites.h"
 

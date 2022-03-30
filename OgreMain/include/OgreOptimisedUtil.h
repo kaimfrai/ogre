@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __OptimisedUtil_H__
-#define __OptimisedUtil_H__
+#ifndef OGRE_CORE_OPTIMISEDUTIL_H
+#define OGRE_CORE_OPTIMISEDUTIL_H
 
 #include <cstddef>
 
@@ -245,4 +245,4 @@ class Affine3;
 
 }
 
-#endif  // __OptimisedUtil_H__
+#endif // OGRE_CORE_OPTIMISEDUTIL_H

@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __PlaneBoundedVolume_H_
-#define __PlaneBoundedVolume_H_
+#ifndef OGRE_CORE_PLANEBOUNDEDVOLUME_H
+#define OGRE_CORE_PLANEBOUNDEDVOLUME_H
 
 // Precompiler options
 #include "OgreAxisAlignedBox.h"

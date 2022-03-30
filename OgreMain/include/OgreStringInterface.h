@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __StringInterface_H__
-#define __StringInterface_H__
+#ifndef OGRE_CORE_STRINGINTERFACE_H
+#define OGRE_CORE_STRINGINTERFACE_H
 
 #include <cstddef>
 #include <map>

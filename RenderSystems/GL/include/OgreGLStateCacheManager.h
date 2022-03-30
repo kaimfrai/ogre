@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLStateCacheManager_H__
-#define __GLStateCacheManager_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_STATECACHEMANAGER_H
+#define OGRE_RENDERSYSTEMS_GL_STATECACHEMANAGER_H
 
 #include <cstddef>
 #include <set>

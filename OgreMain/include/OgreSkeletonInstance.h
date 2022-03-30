@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __SkeletonInstance_H__
-#define __SkeletonInstance_H__
+#ifndef OGRE_CORE_SKELETONINSTANCE_H
+#define OGRE_CORE_SKELETONINSTANCE_H
 
 #include <list>
 

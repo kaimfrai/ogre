@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _OgreShaderExLayeredBlending_
-#define _OgreShaderExLayeredBlending_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXLAYEREDBLENDING_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXLAYEREDBLENDING_H
 
 #include "OgreShaderFFPTexturing.h"
 #include "OgreShaderPrerequisites.h"
@@ -251,4 +251,4 @@ protected:
 } // namespace RTShader
 } // namespace Ogre
 
-#endif // _OgreShaderExLayeredBlending_
+#endif // OGRESHADEREXLAYEREDBLENDING_H

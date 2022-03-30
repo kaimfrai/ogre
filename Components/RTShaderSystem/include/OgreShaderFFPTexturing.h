@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderFFPTextureStage_
-#define _ShaderFFPTextureStage_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FFPTEXTURING_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_FFPTEXTURING_H
 
 #include "OgreRenderSystem.h"
 #include "OgreShaderFunctionAtom.h"

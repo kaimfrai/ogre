@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __HardwareBuffer__
-#define __HardwareBuffer__
+#ifndef OGRE_CORE_HARDWAREBUFFER_H
+#define OGRE_CORE_HARDWAREBUFFER_H
 
 // Precompiler options
 #include "OgreException.h"

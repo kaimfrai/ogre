@@ -1,3 +1,6 @@
+#ifndef OGRE_PLUGINS_STBICODEC_STBI_STB_IMAGE_H
+#define OGRE_PLUGINS_STBICODEC_STBI_STB_IMAGE_H
+
 /* stb_image - v2.27 - public domain image loader - http://nothings.org/stb
                                   no warranty implied; use at your own risk
 
@@ -123,8 +126,8 @@ RECENT REVISION HISTORY:
   of the credits.
 */
 
-#ifndef STBI_INCLUDE_STB_IMAGE_H
-#define STBI_INCLUDE_STB_IMAGE_H
+#ifndef STBI_STB_IMAGE_H
+#define STBI_STB_IMAGE_H
 
 // DOCUMENTATION
 //
@@ -536,7 +539,7 @@ STBIDEF int   stbi_zlib_decode_noheader_buffer(char *obuffer, int olen, const ch
 //
 //
 ////   end header file   /////////////////////////////////////////////////////
-#endif // STBI_INCLUDE_STB_IMAGE_H
+#endif // STBI_STB_IMAGE_H
 
 #ifdef STB_IMAGE_IMPLEMENTATION
 
@@ -7577,3 +7580,5 @@ ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ------------------------------------------------------------------------------
 */
+
+#endif

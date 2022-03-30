@@ -1,3 +1,6 @@
+#ifndef OGRE_COMPONENTS_BITES_SGTECHNIQUERESOLVERLISTENER_H
+#define OGRE_COMPONENTS_BITES_SGTECHNIQUERESOLVERLISTENER_H
+
 /*
  -----------------------------------------------------------------------------
  This source file is part of OGRE
@@ -76,3 +79,5 @@ protected:
 /** @} */
 /** @} */
 }
+
+#endif

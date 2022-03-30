@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _SceneNode_H__
-#define _SceneNode_H__
+#ifndef OGRE_CORE_SCENENODE_H
+#define OGRE_CORE_SCENENODE_H
 
 #include <cstddef>
 #include <vector>

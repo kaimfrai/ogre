@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __DefaultHardwareBufferManager_H__
-#define __DefaultHardwareBufferManager_H__
+#ifndef OGRE_CORE_DEFAULTHARDWAREBUFFERMANAGER_H
+#define OGRE_CORE_DEFAULTHARDWAREBUFFERMANAGER_H
 
 #include <cstddef>
 #include <memory>

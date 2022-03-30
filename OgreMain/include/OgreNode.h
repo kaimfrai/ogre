@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _Node_H__
-#define _Node_H__
+#ifndef OGRE_CORE_NODE_H
+#define OGRE_CORE_NODE_H
 
 #include <set>
 #include <vector>
@@ -666,4 +666,4 @@ class Camera;
 
 } // namespace Ogre
 
-#endif // _Node_H__
+#endif // OGRE_CORE_NODE_H

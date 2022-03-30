@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __HTMLWriter_H__
-#define __HTMLWriter_H__
+#ifndef OGRE_TESTS_VISUALTESTS_HTMLWRITER_H
+#define OGRE_TESTS_VISUALTESTS_HTMLWRITER_H
 
 #include "Ogre.h"
 #include "TestResultWriter.h"

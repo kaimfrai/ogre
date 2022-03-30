@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ConfigFile_H__
-#define __ConfigFile_H__
+#ifndef OGRE_CORE_CONFIGFILE_H
+#define OGRE_CORE_CONFIGFILE_H
 
 #include <map>
 #include <string>

@@ -26,8 +26,8 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   -----------------------------------------------------------------------------
 */
 
-#ifndef __TestContext_H__
-#define __TestContext_H__
+#ifndef OGRE_TESTS_VISUALTESTS_TESTCONTEXT_H
+#define OGRE_TESTS_VISUALTESTS_TESTCONTEXT_H
 
 #include <deque>
 #include <map>

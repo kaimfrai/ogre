@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Math_H__
-#define __Math_H__
+#ifndef OGRE_CORE_MATH_H
+#define OGRE_CORE_MATH_H
 
 #include <cassert>
 #include <cmath>

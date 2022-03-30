@@ -25,8 +25,8 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-#ifndef __GpuProgramParams_H_
-#define __GpuProgramParams_H_
+#ifndef OGRE_CORE_GPUPROGRAMPARAMS_H
+#define OGRE_CORE_GPUPROGRAMPARAMS_H
 
 #include <algorithm>
 #include <cassert>

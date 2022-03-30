@@ -26,8 +26,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ShadowCameraSetupLiSPSM_H__
-#define __ShadowCameraSetupLiSPSM_H__
+#ifndef OGRE_CORE_SHADOWCAMERASETUPLISPSM_H
+#define OGRE_CORE_SHADOWCAMERASETUPLISPSM_H
 
 #include <cstddef>
 #include <memory>

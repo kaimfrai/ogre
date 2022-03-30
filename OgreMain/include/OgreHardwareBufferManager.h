@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __HardwareBufferManager__
-#define __HardwareBufferManager__
+#ifndef OGRE_CORE_HARDWAREBUFFERMANAGER_H
+#define OGRE_CORE_HARDWAREBUFFERMANAGER_H
 
 #include <condition_variable>
 #include <cstddef>
@@ -415,5 +415,5 @@ class VertexDeclaration;
     /** @} */
 } // namespace Ogre
 
-#endif // __HardwareBufferManager__
+#endif // OGRE_CORE_HARDWAREBUFFERMANAGER_H
 

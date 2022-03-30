@@ -1,5 +1,5 @@
-#ifndef __StdHeaders_H__
-#define __StdHeaders_H__
+#ifndef OGRE_CORE_STDHEADERS_H
+#define OGRE_CORE_STDHEADERS_H
 
 #include <cassert>
 #include <cmath>

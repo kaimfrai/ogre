@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __SCRIPTCOMPILER_H_
-#define __SCRIPTCOMPILER_H_
+#ifndef OGRE_CORE_SCRIPTCOMPILER_H
+#define OGRE_CORE_SCRIPTCOMPILER_H
 
 #include <condition_variable>
 #include <list>

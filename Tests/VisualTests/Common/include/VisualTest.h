@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __VisualTest_H__
-#define __VisualTest_H__
+#ifndef OGRE_TESTS_VISUALTESTS_VISUALTEST_H
+#define OGRE_TESTS_VISUALTESTS_VISUALTEST_H
 
 #include "Ogre.h"
 #include "Sample.h"

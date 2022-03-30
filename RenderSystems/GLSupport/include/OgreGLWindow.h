@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLWindow_H__
-#define __GLWindow_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_WINDOW_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_WINDOW_H
 
 #include "OgreGLRenderTarget.h"
 #include "OgreRenderTarget.h"

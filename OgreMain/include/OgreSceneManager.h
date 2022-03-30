@@ -27,8 +27,8 @@ You may alternatively use this source under the terms of a specific version of
 the OGRE Unrestricted License provided you have obtained such a license from
 Torus Knot Software Ltd.
 -------------------------------------------------------------------------*/
-#ifndef __SceneManager_H__
-#define __SceneManager_H__
+#ifndef OGRE_CORE_SCENEMANAGER_H
+#define OGRE_CORE_SCENEMANAGER_H
 
 #include <array>
 #include <condition_variable>

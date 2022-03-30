@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __RenderObjectListener_H__
-#define __RenderObjectListener_H__
+#ifndef OGRE_CORE_RENDEROBJECTLISTENER_H
+#define OGRE_CORE_RENDEROBJECTLISTENER_H
 
 #include "OgrePass.h"
 #include "OgrePrerequisites.h"
@@ -64,5 +64,5 @@ namespace Ogre {
 
 } // namespace Ogre
 
-#endif // __RenderObjectListener_H__
+#endif // OGRE_CORE_RENDEROBJECTLISTENER_H
 

@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _TextureManager_H__
-#define _TextureManager_H__
+#ifndef OGRE_CORE_TEXTUREMANAGER_H
+#define OGRE_CORE_TEXTUREMANAGER_H
 
 
 #include <cstddef>

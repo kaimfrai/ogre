@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ROOT__
-#define __ROOT__
+#ifndef OGRE_CORE_ROOT_H
+#define OGRE_CORE_ROOT_H
 
 #include <algorithm>
 #include <deque>

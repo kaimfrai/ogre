@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __BLENDMODE_H__
-#define __BLENDMODE_H__
+#ifndef OGRE_CORE_BLENDMODE_H
+#define OGRE_CORE_BLENDMODE_H
 
 #include "OgreColourValue.h"
 #include "OgrePrerequisites.h"

@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __SimpleRenderable_H__
-#define __SimpleRenderable_H__
+#ifndef OGRE_CORE_SIMPLERENDERABLE_H
+#define OGRE_CORE_SIMPLERENDERABLE_H
 
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"

@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __StringConverter_H__
-#define __StringConverter_H__
+#ifndef OGRE_CORE_STRINGCONVERTER_H
+#define OGRE_CORE_STRINGCONVERTER_H
 
 #include <cstddef>
 #include <iosfwd>

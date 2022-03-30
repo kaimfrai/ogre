@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __CompositionTargetPass_H__
-#define __CompositionTargetPass_H__
+#ifndef OGRE_CORE_COMPOSITIONTARGETPASS_H
+#define OGRE_CORE_COMPOSITIONTARGETPASS_H
 
 #include <cstddef>
 #include <vector>

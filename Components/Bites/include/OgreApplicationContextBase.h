@@ -25,8 +25,8 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __ApplicationContextBase_H__
-#define __ApplicationContextBase_H__
+#ifndef OGRE_COMPONENTS_BITES_APPLICATIONCONTEXTBASE_H
+#define OGRE_COMPONENTS_BITES_APPLICATIONCONTEXTBASE_H
 
 #include <cstddef>
 #include <cstdint>

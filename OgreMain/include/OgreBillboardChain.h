@@ -29,8 +29,8 @@ THE SOFTWARE.
 // Thanks to Vincent Cantin (karmaGfa) for the original implementation of this
 // class, although it has now been mostly rewritten
 
-#ifndef _BillboardChain_H__
-#define _BillboardChain_H__
+#ifndef OGRE_CORE_BILLBOARDCHAIN_H
+#define OGRE_CORE_BILLBOARDCHAIN_H
 
 #include <cstddef>
 #include <memory>

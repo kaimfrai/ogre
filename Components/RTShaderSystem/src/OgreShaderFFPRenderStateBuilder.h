@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderFFPRenderStateBuilder_
-#define _ShaderFFPRenderStateBuilder_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FFPRENDERSTATEBUILDER_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_FFPRENDERSTATEBUILDER_H
 
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderGenerator.h"

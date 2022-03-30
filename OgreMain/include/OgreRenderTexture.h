@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __RenderTexture_H__
-#define __RenderTexture_H__
+#ifndef OGRE_CORE_RENDERTEXTURE_H
+#define OGRE_CORE_RENDERTEXTURE_H
 
 #include <cstddef>
 #include <vector>

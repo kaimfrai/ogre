@@ -26,8 +26,8 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   -----------------------------------------------------------------------------
 */
 
-#ifndef __GLRENDERTEXTURE_H__
-#define __GLRENDERTEXTURE_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_RENDERTEXTURE_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_RENDERTEXTURE_H
 
 #include <cstddef>
 #include <map>

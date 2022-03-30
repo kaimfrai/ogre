@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderExIntegratedPSSM3_
-#define _ShaderExIntegratedPSSM3_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXINTEGRATEDPSSM3_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXINTEGRATEDPSSM3_H
 
 #include "OgreCommon.h"
 #include "OgreShaderPrerequisites.h"

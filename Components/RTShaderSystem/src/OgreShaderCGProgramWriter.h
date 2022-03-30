@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ShaderProgramWriterCG_H__
-#define __ShaderProgramWriterCG_H__
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERCG_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERCG_H
 
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderProgramWriterManager.h"

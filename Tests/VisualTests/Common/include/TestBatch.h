@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __TestBatch_H__
-#define __TestBatch_H__
+#ifndef OGRE_TESTS_VISUALTESTS_TESTBATCH_H
+#define OGRE_TESTS_VISUALTESTS_TESTBATCH_H
 
 #include "ImageValidator.h"
 #include "Ogre.h"

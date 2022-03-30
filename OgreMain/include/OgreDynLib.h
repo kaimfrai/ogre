@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _DynLib_H__
-#define _DynLib_H__
+#ifndef OGRE_CORE_DYNLIB_H
+#define OGRE_CORE_DYNLIB_H
 
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"

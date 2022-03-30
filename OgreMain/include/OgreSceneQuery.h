@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __SceneQuery_H__
-#define __SceneQuery_H__
+#ifndef OGRE_CORE_SCENEQUERY_H
+#define OGRE_CORE_SCENEQUERY_H
 
 #include <list>
 #include <set>

@@ -25,8 +25,8 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-#ifndef OGRE_GLXGLSupport_H
-#define OGRE_GLXGLSupport_H
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_GLSUPPORT_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_GLSUPPORT_H
 
 #include "OgreCommon.h"
 #include "OgreGLNativeSupport.h"
@@ -197,4 +197,4 @@ namespace Ogre {
     };
 }
 
-#endif // OGRE_GLXGLSupport_H
+#endif // OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_GLSUPPORT_H

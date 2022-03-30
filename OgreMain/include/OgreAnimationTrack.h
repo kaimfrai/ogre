@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __AnimationTrack_H__
-#define __AnimationTrack_H__
+#ifndef OGRE_CORE_ANIMATIONTRACK_H
+#define OGRE_CORE_ANIMATIONTRACK_H
 
 #include <cstddef>
 #include <vector>

@@ -33,8 +33,8 @@ THE SOFTWARE.
 // http://www.boost.org/LICENSE_1_0.txt)
 // -- End original copyright --
 
-#ifndef __OGRE_ANY_H__
-#define __OGRE_ANY_H__
+#ifndef OGRE_CORE_ANY_H
+#define OGRE_CORE_ANY_H
 
 #include "OgrePrerequisites.h"
 #include <typeinfo>

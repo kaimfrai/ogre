@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __Billboard_H__
-#define __Billboard_H__
+#ifndef OGRE_CORE_BILLBOARD_H
+#define OGRE_CORE_BILLBOARD_H
 
 #include "OgreColourValue.h"
 #include "OgreCommon.h"

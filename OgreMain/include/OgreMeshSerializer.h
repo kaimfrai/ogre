@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __MeshSerializer_H__
-#define __MeshSerializer_H__
+#ifndef OGRE_CORE_MESHSERIALIZER_H
+#define OGRE_CORE_MESHSERIALIZER_H
 
 #include <vector>
 

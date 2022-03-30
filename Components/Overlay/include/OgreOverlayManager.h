@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __OverlayManager_H__
-#define __OverlayManager_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_MANAGER_H
+#define OGRE_COMPONENTS_OVERLAY_MANAGER_H
 
 #include <cstddef>
 #include <map>

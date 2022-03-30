@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __AlignedAllocator_H__
-#define __AlignedAllocator_H__
+#ifndef OGRE_CORE_ALIGNEDALLOCATOR_H
+#define OGRE_CORE_ALIGNEDALLOCATOR_H
 
 #include <cstdlib>
 #include <memory>
@@ -128,4 +128,4 @@ namespace Ogre {
 
 }
 
-#endif  // __AlignedAllocator_H__
+#endif // OGRE_CORE_ALIGNEDALLOCATOR_H

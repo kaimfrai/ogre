@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ControllerManager_H__
-#define __ControllerManager_H__
+#ifndef OGRE_CORE_CONTROLLERMANAGER_H
+#define OGRE_CORE_CONTROLLERMANAGER_H
 
 #include <cstddef>
 #include <set>
@@ -274,4 +274,4 @@ template <typename T> class ControllerValue;
 
 } // namespace Ogre
 
-#endif // __ControllerManager_H__
+#endif // OGRE_CORE_CONTROLLERMANAGER_H

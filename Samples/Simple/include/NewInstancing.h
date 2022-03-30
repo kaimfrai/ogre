@@ -1,5 +1,5 @@
-#ifndef __NewInstancing_H__
-#define __NewInstancing_H__
+#ifndef OGRE_SAMPLES_NEWINSTANCING_H
+#define OGRE_SAMPLES_NEWINSTANCING_H
 
 #include <set>
 #include <vector>

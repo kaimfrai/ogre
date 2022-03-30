@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __RenderSystemCapabilitiesTests_H__
-#define __RenderSystemCapabilitiesTests_H__
+#ifndef OGRE_TESTS_CORE_RENDERSYSTEMCAPABILITIESTESTS_H
+#define OGRE_TESTS_CORE_RENDERSYSTEMCAPABILITIESTESTS_H
 
 #include <gtest/gtest.h>
 

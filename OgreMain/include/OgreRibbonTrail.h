@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __RibbonTrail_H__
-#define __RibbonTrail_H__
+#ifndef OGRE_CORE_RIBBONTRAIL_H
+#define OGRE_CORE_RIBBONTRAIL_H
 
 #include <cstddef>
 #include <map>

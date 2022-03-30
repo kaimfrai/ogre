@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Pass_H__
-#define __Pass_H__
+#ifndef OGRE_CORE_PASS_H
+#define OGRE_CORE_PASS_H
 
 #include <condition_variable>
 #include <cstddef>

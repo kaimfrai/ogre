@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _RTShaderSystem_
-#define _RTShaderSystem_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_H
 
 #include "OgreShaderExHardwareSkinning.h"
 #include "OgreShaderExIntegratedPSSM3.h"

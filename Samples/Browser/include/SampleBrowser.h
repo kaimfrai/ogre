@@ -25,8 +25,8 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __SampleBrowser_H__
-#define __SampleBrowser_H__
+#ifndef OGRE_SAMPLES_BROWSER_H
+#define OGRE_SAMPLES_BROWSER_H
 
 #include "OgreArchiveManager.h"
 #include "OgreConfigFile.h"

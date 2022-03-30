@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
 
-#ifndef _FontManager_H__
-#define _FontManager_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_FONTMANAGER_H
+#define OGRE_COMPONENTS_OVERLAY_FONTMANAGER_H
 
 #include "OgreCommon.h"
 #include "OgreFont.h"

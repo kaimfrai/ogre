@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Technique_H__
-#define __Technique_H__
+#ifndef OGRE_CORE_TECHNIQUE_H
+#define OGRE_CORE_TECHNIQUE_H
 
 #include <cstddef>
 #include <string>

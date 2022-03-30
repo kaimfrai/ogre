@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __InstanceManager_H__
-#define __InstanceManager_H__
+#ifndef OGRE_CORE_INSTANCEMANAGER_H
+#define OGRE_CORE_INSTANCEMANAGER_H
 
 #include <cstddef>
 #include <map>
@@ -317,4 +317,4 @@ class SceneManager;
     };
 } // namespace Ogre
 
-#endif // __InstanceManager_H__
+#endif // OGRE_CORE_INSTANCEMANAGER_H

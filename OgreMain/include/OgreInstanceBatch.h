@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __InstanceBatch_H__
-#define __InstanceBatch_H__
+#ifndef OGRE_CORE_INSTANCEBATCH_H
+#define OGRE_CORE_INSTANCEBATCH_H
 
 #include <cstddef>
 #include <ostream>
@@ -374,4 +374,4 @@ class Technique;
     };
 } // namespace Ogre
 
-#endif // __InstanceBatch_H__
+#endif // OGRE_CORE_INSTANCEBATCH_H
