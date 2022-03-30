@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <cstring>
 #include <ostream>
 #include <string>
-#include <cstring>
 
 #include "OgreStableHeaders.h"
 #include "OgreLog.h"

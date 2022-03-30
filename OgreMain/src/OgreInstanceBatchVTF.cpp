@@ -26,10 +26,10 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
+#include <cstring>
 #include <limits>
 #include <map>
 #include <string>
-#include <cstring>
 #include <type_traits>
 #include <utility>
 

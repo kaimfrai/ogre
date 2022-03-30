@@ -26,12 +26,12 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <gtest/gtest.h>
+#include <cstring>
 #include <list>
 #include <map>
 #include <memory>
 #include <random>
 #include <string>
-#include <cstring>
 #include <utility>
 #include <vector>
 

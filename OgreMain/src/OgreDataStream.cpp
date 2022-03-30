@@ -28,9 +28,9 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <cstdio>
+#include <cstring>
 #include <fstream>
 #include <string>
-#include <cstring>
 
 #include "OgreStableHeaders.h"
 #include "OgreDataStream.h"

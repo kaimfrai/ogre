@@ -26,11 +26,11 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <cassert>
+#include <cstring>
 #include <list>
 #include <map>
 #include <memory>
 #include <string>
-#include <cstring>
 #include <unordered_map>
 #include <utility>
 #include <vector>

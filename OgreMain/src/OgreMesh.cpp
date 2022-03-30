@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include <cstring>
 #include <iterator>
 #include <limits>
 #include <list>
@@ -36,7 +37,6 @@ THE SOFTWARE.
 #include <ostream>
 #include <set>
 #include <string>
-#include <cstring>
 #include <unordered_map>
 #include <utility>
 #include <vector>

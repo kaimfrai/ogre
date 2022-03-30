@@ -30,12 +30,12 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
+#include <cstring>
 #include <fstream>
 #include <list>
 #include <map>
 #include <memory>
 #include <string>
-#include <cstring>
 #include <utility>
 #include <vector>
 

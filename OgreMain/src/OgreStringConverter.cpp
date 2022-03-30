@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 #include <cstdlib>
 #include <locale>
-#include <locale.h>
+#include <clocale>
 #include <ostream>
 #include <string>
 #include <vector>

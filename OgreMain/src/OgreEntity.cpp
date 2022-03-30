@@ -27,11 +27,11 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 */
 #include <algorithm>
 #include <cassert>
+#include <cstring>
 #include <limits>
 #include <list>
 #include <map>
 #include <string>
-#include <cstring>
 
 #include "OgreAnimation.h"
 #include "OgreAnimationState.h"

@@ -27,10 +27,10 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <cassert>
+#include <cstring>
 #include <iterator>
 #include <map>
 #include <string>
-#include <cstring>
 #include <utility>
 
 #include "OgreBillboard.h"

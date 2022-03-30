@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <cassert>
-#include <string>
 #include <cstring>
+#include <string>
 
 #include "OgreAxisAlignedBox.h"
 #include "OgreBitwise.h"

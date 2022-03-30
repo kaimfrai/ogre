@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <cstdlib>
-#include <string>
 #include <cstring>
+#include <string>
 
 #include "OgreStableHeaders.h"
 #include "OgreBitwise.h"

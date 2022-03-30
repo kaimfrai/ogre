@@ -29,11 +29,11 @@ THE SOFTWARE.
 #include <cassert>
 #include <condition_variable>
 #include <cstdio>
+#include <cstring>
 #include <map>
 #include <memory>
 #include <mutex>
 #include <string>
-#include <cstring>
 #include <thread>
 #include <utility>
 #include <vector>

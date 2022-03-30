@@ -29,8 +29,8 @@ THE SOFTWARE.
 #include <cctype>
 #include <cstdarg>
 #include <cstdio>
-#include <string>
 #include <cstring>
+#include <string>
 #include <strings.h>
 #include <vector>
 

@@ -31,10 +31,10 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <cassert>
+#include <cstring>
 #include <limits>
 #include <map>
 #include <string>
-#include <cstring>
 #include <utility>
 
 #include "OgreBillboardChain.h"
