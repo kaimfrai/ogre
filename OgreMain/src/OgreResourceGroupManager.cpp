@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <iterator>
 #include <list>
 #include <map>
@@ -35,7 +35,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreScriptLoader.h"
 #include "OgreArchive.h"
 #include "OgreArchiveManager.h"
 #include "OgreCommon.h"
@@ -48,6 +47,7 @@ THE SOFTWARE.
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreResourceManager.h"
+#include "OgreScriptLoader.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
 #include "OgreString.h"

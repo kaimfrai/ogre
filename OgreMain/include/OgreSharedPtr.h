@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __SharedPtr_H__
-#define __SharedPtr_H__
+#ifndef OGRE_CORE_SHAREDPTR_H
+#define OGRE_CORE_SHAREDPTR_H
 
-#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 #include <memory>
 
 namespace Ogre {

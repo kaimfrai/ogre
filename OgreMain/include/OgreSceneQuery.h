@@ -25,22 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __SceneQuery_H__
-#define __SceneQuery_H__
+#ifndef OGRE_CORE_SCENEQUERY_H
+#define OGRE_CORE_SCENEQUERY_H
 
+#include <algorithm>
 #include <list>
 #include <set>
 #include <utility>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
-#include "OgreSphere.h"
-#include "OgreRay.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlaneBoundedVolume.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRay.h"
+#include "OgreSphere.h"
 #include "OgreVector.h"
 
 namespace Ogre {

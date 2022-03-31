@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __TagPoint_H_
-#define __TagPoint_H_
+#ifndef OGRE_CORE_TAGPOINT_H
+#define OGRE_CORE_TAGPOINT_H
 
 #include "OgreBone.h"
 #include "OgreMatrix4.h"
@@ -115,4 +115,4 @@ class Skeleton;
 } //namespace
 
 
-#endif//__TagPoint_H_
+#endif // OGRE_CORE_TAGPOINT_H

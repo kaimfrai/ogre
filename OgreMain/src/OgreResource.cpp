@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 // Ogre includes
-#include <stddef.h>
 #include <atomic>
+#include <cstddef>
 #include <set>
 #include <string>
 

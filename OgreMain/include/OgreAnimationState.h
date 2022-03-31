@@ -26,20 +26,20 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __AnimationState_H__
-#define __AnimationState_H__
+#ifndef OGRE_CORE_ANIMATIONSTATE_H
+#define OGRE_CORE_ANIMATIONSTATE_H
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <list>
 #include <map>
 #include <string>
 #include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgreController.h"
 #include "OgreControllerManager.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 

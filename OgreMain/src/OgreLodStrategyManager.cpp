@@ -26,15 +26,15 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <assert.h>
+#include <cassert>
 #include <utility>
 
-#include "OgreLodStrategyManager.h"
 #include "OgreDistanceLodStrategy.h"
-#include "OgrePixelCountLodStrategy.h"
 #include "OgreException.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreLodStrategy.h"
+#include "OgreLodStrategyManager.h"
+#include "OgrePixelCountLodStrategy.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------

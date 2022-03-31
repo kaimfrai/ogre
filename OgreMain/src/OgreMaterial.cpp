@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <iterator>
 #include <memory>
 #include <ostream>
 #include <string>
 #include <utility>
 
-#include "OgreMaterial.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreLodStrategy.h"
 #include "OgreException.h"
+#include "OgreLodStrategy.h"
+#include "OgreLodStrategyManager.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
+#include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
 #include "OgreResourceManager.h"
 #include "OgreTechnique.h"

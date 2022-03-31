@@ -30,9 +30,9 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreScriptParser.h"
 #include "OgreException.h"
 #include "OgrePlatform.h"
+#include "OgreScriptParser.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringConverter.h"
 

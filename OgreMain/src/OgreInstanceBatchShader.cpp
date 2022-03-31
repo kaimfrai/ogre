@@ -25,17 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <string.h>
 #include <algorithm>
+#include <cstring>
 #include <list>
 #include <map>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "OgreInstanceBatchShader.h"
-#include "OgreRenderOperation.h"
-#include "OgreInstancedEntity.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
 #include "OgreGpuProgramParams.h"
@@ -43,10 +40,13 @@ THE SOFTWARE.
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
+#include "OgreInstanceBatchShader.h"
+#include "OgreInstancedEntity.h"
 #include "OgreLogManager.h"
 #include "OgreMaterial.h"
 #include "OgreMatrix4.h"
 #include "OgrePass.h"
+#include "OgreRenderOperation.h"
 #include "OgreSharedPtr.h"
 #include "OgreSubMesh.h"
 #include "OgreTechnique.h"

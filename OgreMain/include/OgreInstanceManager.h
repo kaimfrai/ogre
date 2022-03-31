@@ -25,21 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __InstanceManager_H__
-#define __InstanceManager_H__
+#ifndef OGRE_CORE_INSTANCEMANAGER_H
+#define OGRE_CORE_INSTANCEMANAGER_H
 
-#include <stddef.h>
+#include <algorithm>
+#include <cstddef>
 #include <map>
 #include <string>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
 #include "OgreCommon.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre
@@ -318,4 +318,4 @@ class SceneManager;
     };
 } // namespace Ogre
 
-#endif // __InstanceManager_H__
+#endif // OGRE_CORE_INSTANCEMANAGER_H

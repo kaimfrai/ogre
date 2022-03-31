@@ -25,14 +25,14 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-#ifndef __GLSLProgramManagerCommon_H__
-#define __GLSLProgramManagerCommon_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_PROGRAMMANAGERCOMMON_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_PROGRAMMANAGERCOMMON_H
 
 #include <map>
 #include <string>
 
-#include "OgreGpuProgramParams.h"
 #include "OgreGLSLProgramCommon.h"
+#include "OgreGpuProgramParams.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 
@@ -90,4 +90,4 @@ namespace Ogre {
 
 }
 
-#endif // __GLSLProgramManagerCommon_H__
+#endif // OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_PROGRAMMANAGERCOMMON_H

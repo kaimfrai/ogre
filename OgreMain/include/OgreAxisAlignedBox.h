@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __AxisAlignedBox_H_
-#define __AxisAlignedBox_H_
+#ifndef OGRE_CORE_AXISALIGNEDBOX_H
+#define OGRE_CORE_AXISALIGNEDBOX_H
 
-#include <assert.h>
 #include <array>
+#include <cassert>
 #include <ostream>
 
 // Precompiler options
-#include "OgrePrerequisites.h"
-#include "OgreMatrix4.h"
 #include "OgreMath.h"
+#include "OgreMatrix4.h"
+#include "OgrePrerequisites.h"
 #include "OgreVector.h"
 
 namespace Ogre {

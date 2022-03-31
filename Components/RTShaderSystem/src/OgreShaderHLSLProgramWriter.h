@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ShaderProgramWriterHLSL_H__
-#define __ShaderProgramWriterHLSL_H__
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERHLSL_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERHLSL_H
 
-#include "OgreShaderCGProgramWriter.h"
 #include "OgrePrerequisites.h"
+#include "OgreShaderCGProgramWriter.h"
 
 namespace Ogre {
     namespace RTShader {

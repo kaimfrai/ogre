@@ -25,8 +25,8 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-#ifndef __RenderToVertexBuffer_H__
-#define __RenderToVertexBuffer_H__
+#ifndef OGRE_CORE_RENDERTOVERTEXBUFFER_H
+#define OGRE_CORE_RENDERTOVERTEXBUFFER_H
 
 #include <memory>
 

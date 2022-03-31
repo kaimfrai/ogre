@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __MemoryAllocatorConfig_H__
-#define __MemoryAllocatorConfig_H__
+#ifndef OGRE_CORE_MEMORYALLOCATORCONFIG_H
+#define OGRE_CORE_MEMORYALLOCATORCONFIG_H
 
 #include "OgreAlignedAllocator.h"
 

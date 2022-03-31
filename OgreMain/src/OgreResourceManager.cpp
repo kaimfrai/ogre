@@ -27,8 +27,8 @@ THE SOFTWARE.
 */
 #include <limits>
 
-#include "OgreResourceManager.h"
 #include "OgreException.h"
+#include "OgreResourceManager.h"
 #include "OgreScriptCompiler.h"
 #include "OgreStringConverter.h"
 

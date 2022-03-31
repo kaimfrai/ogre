@@ -25,8 +25,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <stddef.h>
 #include <algorithm>
+#include <cstddef>
 #include <memory>
 #include <ostream>
 #include <string>

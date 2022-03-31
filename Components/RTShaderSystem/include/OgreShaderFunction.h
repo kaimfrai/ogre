@@ -24,21 +24,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderProgramFunction_
-#define _ShaderProgramFunction_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FUNCTION_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_FUNCTION_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <vector>
 
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderFunctionAtom.h"
 #include "OgreException.h"
 #include "OgreGpuProgramParams.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrerequisites.h"
 
 namespace Ogre {
 namespace RTShader {

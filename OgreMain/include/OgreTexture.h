@@ -25,21 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _Texture_H__
-#define _Texture_H__
+#ifndef OGRE_CORE_TEXTURE_H
+#define OGRE_CORE_TEXTURE_H
 
-#include <stddef.h>
+#include <algorithm>
+#include <cstddef>
 #include <string>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
 #include "OgreHardwareBuffer.h"
-#include "OgreResource.h"
 #include "OgreImage.h"
-#include "OgreSharedPtr.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
 class ResourceManager;

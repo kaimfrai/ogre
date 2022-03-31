@@ -25,7 +25,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <stddef.h>
+#include <cstddef>
 #include <memory>
 #include <utility>
 

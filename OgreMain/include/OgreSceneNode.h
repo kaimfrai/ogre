@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _SceneNode_H__
-#define _SceneNode_H__
+#ifndef OGRE_CORE_SCENENODE_H
+#define OGRE_CORE_SCENENODE_H
 
-#include <stddef.h>
-#include <vector>
 #include <algorithm>
+#include <cstddef>
+#include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreCommon.h"
-#include "OgreNode.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreCommon.h"
 #include "OgreMath.h"
+#include "OgreNode.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreVector.h"
 

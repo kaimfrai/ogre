@@ -25,25 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Technique_H__
-#define __Technique_H__
+#ifndef OGRE_CORE_TECHNIQUE_H
+#define OGRE_CORE_TECHNIQUE_H
 
-#include <stddef.h>
+#include <algorithm>
+#include <cstddef>
 #include <string>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
-#include "OgreCommon.h"
-#include "OgrePass.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreUserObjectBindings.h"
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
+#include "OgreCommon.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePass.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystemCapabilities.h"
 #include "OgreSharedPtr.h"
+#include "OgreUserObjectBindings.h"
 
 namespace Ogre {
 class Material;

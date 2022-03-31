@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _OgreTangentSpaceCalc_H_
-#define _OgreTangentSpaceCalc_H_
+#ifndef OGRE_CORE_TANGENTSPACECALC_H
+#define OGRE_CORE_TANGENTSPACECALC_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <list>
 #include <utility>
 #include <vector>
 
+#include "OgreHardwareVertexBuffer.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreVector.h"
-#include "OgreHardwareVertexBuffer.h"
 
 namespace Ogre
 {

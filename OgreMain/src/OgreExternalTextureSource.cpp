@@ -37,8 +37,8 @@ email                : pjcast@yahoo.com
 
 #include <string>
 
-#include "OgreExternalTextureSource.h"
 #include "OgreException.h"
+#include "OgreExternalTextureSource.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreString.h"

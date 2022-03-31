@@ -25,16 +25,16 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <algorithm>
 #include <cassert>
 #include <cstdint>
-#include <algorithm>
+#include <fstream> // IWYU pragma: keep
 #include <initializer_list>
 #include <map>
 #include <memory>
 #include <string>
 #include <utility>
 #include <vector>
-#include <fstream> // IWYU pragma: keep
 // IWYU pragma: no_include <sstream>
 
 #include "OgreCommon.h"

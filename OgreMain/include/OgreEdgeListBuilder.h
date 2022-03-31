@@ -25,20 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __EdgeListBuilder_H__
-#define __EdgeListBuilder_H__
+#ifndef OGRE_CORE_EDGELISTBUILDER_H
+#define OGRE_CORE_EDGELISTBUILDER_H
 
-#include <stddef.h>
+#include <algorithm>
+#include <cstddef>
 #include <map>
 #include <utility>
 #include <vector>
-#include <algorithm>
 
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreVector.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
 
 namespace Ogre {
     class IndexData;

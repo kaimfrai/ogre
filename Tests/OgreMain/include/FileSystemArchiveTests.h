@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __FileSystemArchiveTests_H__
-#define __FileSystemArchiveTests_H__
+#ifndef OGRE_TESTS_CORE_FILESYSTEMARCHIVETESTS_H
+#define OGRE_TESTS_CORE_FILESYSTEMARCHIVETESTS_H
 
 #include <gtest/gtest.h>
 #include <cstddef>

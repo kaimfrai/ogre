@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLGpuProgram_H__
-#define __GLGpuProgram_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_GPUPROGRAM_H
+#define OGRE_RENDERSYSTEMS_GL_GPUPROGRAM_H
 
 #include "OgreGpuProgram.h"
 #include "OgreHardwareVertexBuffer.h"
@@ -93,4 +93,4 @@ class ResourceManager;
 
 } // namespace Ogre
 
-#endif // __GLGpuProgram_H__
+#endif // OGRE_RENDERSYSTEMS_GL_GPUPROGRAM_H

@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __OgreStableHeaders__
-#define __OgreStableHeaders__
+#ifndef OGRE_CORE_STABLE_HEADERS_H
+#define OGRE_CORE_STABLE_HEADERS_H
 
 #define FOURCC(c0, c1, c2, c3) (c0 | (c1 << 8) | (c2 << 16) | (c3 << 24))
 

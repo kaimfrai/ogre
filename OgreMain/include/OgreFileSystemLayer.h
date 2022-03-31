@@ -25,15 +25,15 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __FileSystemLayer_H__
-#define __FileSystemLayer_H__
+#ifndef OGRE_CORE_FILESYSTEMLAYER_H
+#define OGRE_CORE_FILESYSTEMLAYER_H
 
 #include <string>
 #include <vector>
 
+#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreStringVector.h"
-#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre
 {

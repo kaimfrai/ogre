@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 
+#include "OgreController.h"
 #include "OgreControllerManager.h"
 #include "OgrePredefinedControllers.h"
-#include "OgreController.h"
 #include "OgreRoot.h"
 
 namespace Ogre {

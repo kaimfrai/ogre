@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLGpuNvparseProgram_H__
-#define __GLGpuNvparseProgram_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_GPUNVPARSEPROGRAM_H
+#define OGRE_RENDERSYSTEMS_GL_GPUNVPARSEPROGRAM_H
 
 #include "OgreGLGpuProgram.h"
 #include "OgrePlatform.h"
@@ -69,4 +69,4 @@ private:
 
 } // namespace Ogre
 
-#endif // __GLGpuNvparseProgram_H__
+#endif // OGRE_RENDERSYSTEMS_GL_GPUNVPARSEPROGRAM_H

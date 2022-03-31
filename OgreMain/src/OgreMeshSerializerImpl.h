@@ -26,17 +26,17 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __MeshSerializerImpl_H__
-#define __MeshSerializerImpl_H__
+#ifndef OGRE_CORE_MESHSERIALIZERIMPL_H
+#define OGRE_CORE_MESHSERIALIZERIMPL_H
 
-#include <stddef.h>
+#include <cstddef>
 
+#include "OgreEdgeListBuilder.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreKeyFrame.h"
 #include "OgrePrerequisites.h"
 #include "OgreSerializer.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreKeyFrame.h"
 #include "OgreVertexBoneAssignment.h"
-#include "OgreHardwareVertexBuffer.h"
 
 namespace Ogre {
     

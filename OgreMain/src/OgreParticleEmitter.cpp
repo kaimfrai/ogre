@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <cmath>
 #include <vector>
 
-#include "OgreParticleEmitter.h"
-#include "OgreParticleEmitterFactory.h"
-#include "OgreParticleEmitterCommands.h"
 #include "OgreCommon.h"
+#include "OgreParticleEmitter.h"
+#include "OgreParticleEmitterCommands.h"
+#include "OgreParticleEmitterFactory.h"
 
 namespace Ogre
 {

@@ -3,8 +3,8 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
 
-#ifndef BITES_SDL_INPUTMAPPING
-#define BITES_SDL_INPUTMAPPING
+#ifndef OGRE_COMPONENTS_BITES_SDLINPUTMAPPING_H
+#define OGRE_COMPONENTS_BITES_SDLINPUTMAPPING_H
 
 namespace {
     OgreBites::Event convert(const SDL_Event& in)

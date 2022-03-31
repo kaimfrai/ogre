@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLTEXTURE_H__
-#define __GLTEXTURE_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_TEXTURE_H
+#define OGRE_RENDERSYSTEMS_GL_TEXTURE_H
 
 #include "OgreGLTextureCommon.h"
 #include "OgrePrerequisites.h"
@@ -69,4 +69,4 @@ class ResourceManager;
     };
 }
 
-#endif // __GLTEXTURE_H__
+#endif // OGRE_RENDERSYSTEMS_GL_TEXTURE_H

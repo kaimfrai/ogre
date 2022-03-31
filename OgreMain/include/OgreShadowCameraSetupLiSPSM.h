@@ -26,19 +26,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ShadowCameraSetupLiSPSM_H__
-#define __ShadowCameraSetupLiSPSM_H__
+#ifndef OGRE_CORE_SHADOWCAMERASETUPLISPSM_H
+#define OGRE_CORE_SHADOWCAMERASETUPLISPSM_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <memory>
 
-#include "OgrePrerequisites.h"
-#include "OgreShadowCameraSetupFocused.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreLight.h"
 #include "OgreMath.h"
 #include "OgreMatrix4.h"
+#include "OgrePrerequisites.h"
 #include "OgreSceneManager.h"
+#include "OgreShadowCameraSetupFocused.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre 

@@ -25,15 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __GLSLLinkProgramManager_H__
-#define __GLSLLinkProgramManager_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAMMANAGER_H
+#define OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAMMANAGER_H
 
-#include "OgreSingleton.h"
-#include "OgreGLSLProgramManagerCommon.h"
 #include "OgreGLSLProgramCommon.h"
+#include "OgreGLSLProgramManagerCommon.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
 #include "OgrePrerequisites.h"
+#include "OgreSingleton.h"
 
 namespace Ogre {
 
@@ -99,4 +99,4 @@ class GLSLProgram;
     }
 }
 
-#endif // __GLSLLinkProgramManager_H__
+#endif // OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAMMANAGER_H

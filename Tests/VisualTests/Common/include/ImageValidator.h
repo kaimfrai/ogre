@@ -26,11 +26,15 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __ImageValidator_H__
-#define __ImageValidator_H__
+#ifndef OGRE_TESTS_VISUALTESTS_IMAGEVALIDATOR_H
+#define OGRE_TESTS_VISUALTESTS_IMAGEVALIDATOR_H
 
-#include "OgreConfigFile.h"
 #include "OgreArchiveManager.h"
+#include "OgreColourValue.h"
+#include "OgreConfigFile.h"
+#include "OgreDataStream.h"
+#include "OgreImage.h"
+
 #include <fstream>
 
 /** Some functionality for comparing images */

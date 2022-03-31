@@ -25,16 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
 #include <cmath>
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <string>
 #include <utility>
 
-#include "OgrePatchMesh.h"
-#include "OgrePrefabFactory.h"
 #include "OgreAny.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCodec.h"
@@ -50,8 +48,10 @@ THE SOFTWARE.
 #include "OgreMesh.h"
 #include "OgreMeshManager.h"
 #include "OgreMeshSerializer.h"
+#include "OgrePatchMesh.h"
 #include "OgrePatchSurface.h"
 #include "OgrePlane.h"
+#include "OgrePrefabFactory.h"
 #include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreResource.h"

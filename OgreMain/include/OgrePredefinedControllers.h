@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __PredefinedControllers_H__
-#define __PredefinedControllers_H__
+#ifndef OGRE_CORE_PREDEFINEDCONTROLLERS_H
+#define OGRE_CORE_PREDEFINEDCONTROLLERS_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <memory>
 #include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreController.h"
-#include "OgreFrameListener.h"
 #include "OgreControllerManager.h"
+#include "OgreFrameListener.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

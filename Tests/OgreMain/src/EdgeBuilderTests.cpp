@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <memory>
 
 #include "OgreDefaultHardwareBufferManager.h"
-#include "OgreVertexIndexData.h"
 #include "OgreEdgeListBuilder.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
@@ -38,6 +37,7 @@ THE SOFTWARE.
 #include "OgreHardwareVertexBuffer.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
+#include "OgreVertexIndexData.h"
 
 
 // Register the test suite

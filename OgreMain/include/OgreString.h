@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _String_H__
-#define _String_H__
+#ifndef OGRE_CORE_STRING_H
+#define OGRE_CORE_STRING_H
 
 #include <string>
 #include <vector>
@@ -183,4 +183,4 @@ namespace Ogre {
 
 } // namespace Ogre
 
-#endif // _String_H__
+#endif // OGRE_CORE_STRING_H

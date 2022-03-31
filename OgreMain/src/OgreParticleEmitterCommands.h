@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ParticleEmitterCommands_H__
-#define __ParticleEmitterCommands_H__
+#ifndef OGRE_CORE_PARTICLEEMITTERCOMMANDS_H
+#define OGRE_CORE_PARTICLEEMITTERCOMMANDS_H
 
 #include "OgrePrerequisites.h"
 #include "OgreStringInterface.h"

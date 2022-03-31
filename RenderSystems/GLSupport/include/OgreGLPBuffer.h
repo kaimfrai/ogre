@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLPBUFFER_H__
-#define __GLPBUFFER_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_PBUFFER_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_PBUFFER_H
 
 #include "OgreGLRenderTarget.h"
 #include "OgrePixelFormat.h"
@@ -54,4 +54,4 @@ namespace Ogre {
     
 }
 
-#endif // __GLPBRENDERTEXTURE_H__
+#endif // OGREGLPBUFFER_H

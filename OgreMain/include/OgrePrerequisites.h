@@ -23,14 +23,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
-#ifndef __OgrePrerequisites_H__
-#define __OgrePrerequisites_H__
+#ifndef OGRE_CORE_PREREQUISITES_H
+#define OGRE_CORE_PREREQUISITES_H
 
 // Platform-specific stuff
 #include "OgrePlatform.h"
 
-#include <string>
 #include <memory>
+#include <string>
 
 namespace Ogre {
 
@@ -295,8 +295,8 @@ namespace Ogre {
 /* Include all the standard header *after* all the configuration
 settings have been made.
 */
-#include "OgreStdHeaders.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgreStdHeaders.h"
 
 
 namespace Ogre
@@ -308,6 +308,6 @@ namespace Ogre
     using aligned_vector = std::vector<T, AlignedAllocator<T, Alignment>>;
 }
 
-#endif // __OgrePrerequisites_H__
+#endif // OGRE_CORE_PREREQUISITES_H
 
 

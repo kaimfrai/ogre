@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <memory>
 #include <vector>
 
-#include "OgreRotationalSpline.h"
 #include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
+#include "OgreRotationalSpline.h"
 
 
 

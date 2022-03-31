@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <string.h>
 #include <algorithm>
+#include <cassert>
+#include <cstring>
 #include <iterator>
 #include <list>
 #include <map>
@@ -35,13 +35,13 @@ THE SOFTWARE.
 #include <set>
 #include <utility>
 
-#include "OgreVertexIndexData.h"
-#include "OgreHardwareVertexBuffer.h"
 #include "OgreConfig.h"
 #include "OgreException.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
 #include "OgreRoot.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 class RenderSystem;

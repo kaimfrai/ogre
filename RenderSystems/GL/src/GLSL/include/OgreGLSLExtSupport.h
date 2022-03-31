@@ -28,8 +28,8 @@ THE SOFTWARE.
 
 
 
-#ifndef __GLSLExtSupport_H__
-#define __GLSLExtSupport_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_GLSL_EXTSUPPORT_H
+#define OGRE_RENDERSYSTEMS_GL_GLSL_EXTSUPPORT_H
 
 #include "OgrePrerequisites.h"
 #include "glad/glad.h"
@@ -57,4 +57,4 @@ namespace Ogre
     }
 } // namespace Ogre
 
-#endif // __GLSLExtSupport_H__
+#endif // OGRE_RENDERSYSTEMS_GL_GLSL_EXTSUPPORT_H

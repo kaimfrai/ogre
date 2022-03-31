@@ -27,11 +27,11 @@
  */
 #include <cstdio>
 #include <cstdlib>
-#include <fstream>
+#include <fstream> // IWYU pragma: keep
 
+#include "OgreDeflate.h"
 #include "OgreException.h"
 #include "OgreFileSystem.h"
-#include "OgreDeflate.h"
 
 #define MINIZ_HEADER_FILE_ONLY
 #include <miniz.h>

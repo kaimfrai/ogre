@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __BUILTIN_SCRIPTTRANSLATORS_H_
-#define __BUILTIN_SCRIPTTRANSLATORS_H_
+#ifndef OGRE_CORE_BUILTINSCRIPTTRANSLATORS_H
+#define OGRE_CORE_BUILTINSCRIPTTRANSLATORS_H
 
 #include "OgreScriptTranslator.h"
 #include "OgreTextureUnitState.h"

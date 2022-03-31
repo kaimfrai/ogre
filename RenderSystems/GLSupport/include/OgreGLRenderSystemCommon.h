@@ -25,20 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __OgreGLRenderSystemCommon_H__
-#define __OgreGLRenderSystemCommon_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_RENDERSYSTEMCOMMON_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_RENDERSYSTEMCOMMON_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <list>
 #include <set>
 
-#include "OgreRenderSystem.h"
-#include "OgreRenderWindow.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRenderTarget.h"
+#include "OgreRenderWindow.h"
 
 namespace Ogre {
     class GLContext;

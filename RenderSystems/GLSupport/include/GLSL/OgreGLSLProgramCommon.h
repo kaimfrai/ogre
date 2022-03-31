@@ -26,15 +26,15 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef RENDERSYSTEMS_GLSUPPORT_INCLUDE_GLSL_OGREGLSLPROGRAMCOMMON_H_
-#define RENDERSYSTEMS_GLSUPPORT_INCLUDE_GLSL_OGREGLSLPROGRAMCOMMON_H_
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_PROGRAMCOMMON_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_PROGRAMCOMMON_H
 
 #include <array>
 #include <vector>
 
-#include "OgreHardwareVertexBuffer.h"
 #include "OgreGLSLShaderCommon.h"
 #include "OgreGpuProgram.h"
+#include "OgreHardwareVertexBuffer.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 
@@ -119,4 +119,4 @@ protected:
 
 } /* namespace Ogre */
 
-#endif /* RENDERSYSTEMS_GLSUPPORT_INCLUDE_GLSL_OGREGLSLPROGRAMCOMMON_H_ */
+#endif // OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_PROGRAMCOMMON_H

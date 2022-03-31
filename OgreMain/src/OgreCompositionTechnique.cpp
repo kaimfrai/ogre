@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <string>
 
-#include "OgreCompositionTechnique.h"
 #include "OgreCompositionTargetPass.h"
+#include "OgreCompositionTechnique.h"
 #include "OgreException.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"

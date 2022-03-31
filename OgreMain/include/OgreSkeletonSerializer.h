@@ -26,10 +26,10 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __SkeletonSerializer_H__
-#define __SkeletonSerializer_H__
+#ifndef OGRE_CORE_SKELETONSERIALIZER_H
+#define OGRE_CORE_SKELETONSERIALIZER_H
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgrePrerequisites.h"
 #include "OgreSerializer.h"

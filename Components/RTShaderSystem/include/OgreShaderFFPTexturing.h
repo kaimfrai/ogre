@@ -24,19 +24,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderFFPTextureStage_
-#define _ShaderFFPTextureStage_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FFPTEXTURING_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_FFPTEXTURING_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
-#include "OgreShaderPrerequisites.h"
 #include "OgreBlendMode.h"
 #include "OgreGpuProgramParams.h"
 #include "OgrePrerequisites.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderSubRenderState.h"
 #include "OgreRenderSystem.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderSubRenderState.h"
 
 namespace Ogre {
     class ColourValue;

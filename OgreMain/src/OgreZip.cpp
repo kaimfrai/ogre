@@ -25,10 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <stddef.h>
 #include <sys/stat.h>
+
 #include <zip.h>
+
 #include <algorithm>
+#include <cstddef>
 #include <iosfwd>
 #include <map>
 #include <memory>

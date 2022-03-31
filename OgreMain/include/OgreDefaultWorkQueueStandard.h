@@ -23,18 +23,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
-#ifndef __OgreDefaultWorkQueueStandard_H__
-#define __OgreDefaultWorkQueueStandard_H__
+#ifndef OGRE_CORE_DEFAULTWORKQUEUESTANDARD_H
+#define OGRE_CORE_DEFAULTWORKQUEUESTANDARD_H
 
-#include <stddef.h>
+#include <condition_variable>
+#include <cstddef>
+#include <mutex>
 #include <thread>
 #include <vector>
-#include <mutex>
-#include <condition_variable>
 
-#include "OgreWorkQueue.h"
 #include "OgreCommon.h"
 #include "OgrePrerequisites.h"
+#include "OgreWorkQueue.h"
 
 namespace Ogre
 {

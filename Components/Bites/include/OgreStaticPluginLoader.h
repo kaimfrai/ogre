@@ -3,8 +3,8 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
 
-#ifndef __StaticPluginLoader_H__
-#define __StaticPluginLoader_H__
+#ifndef OGRE_COMPONENTS_BITES_STATICPLUGINLOADER_H
+#define OGRE_COMPONENTS_BITES_STATICPLUGINLOADER_H
 
 #include <vector>
 

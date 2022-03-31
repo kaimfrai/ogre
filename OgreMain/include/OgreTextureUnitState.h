@@ -25,26 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __TextureUnitState_H__
-#define __TextureUnitState_H__
+#ifndef OGRE_CORE_TEXTUREUNITSTATE_H
+#define OGRE_CORE_TEXTUREUNITSTATE_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <utility>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreCommon.h"
 #include "OgreBlendMode.h"
-#include "OgreMatrix4.h"
-#include "OgreTexture.h"
 #include "OgreColourValue.h"
+#include "OgreCommon.h"
 #include "OgreMath.h"
+#include "OgreMatrix4.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
+#include "OgreTexture.h"
 
 namespace Ogre {
 class Frustum;
@@ -1126,4 +1126,4 @@ private:
 
 } // namespace Ogre
 
-#endif // __TextureUnitState_H__
+#endif // OGRE_CORE_TEXTUREUNITSTATE_H

@@ -25,28 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __RenderSystem_H_
-#define __RenderSystem_H_
+#ifndef OGRE_CORE_RENDERSYSTEM_H
+#define OGRE_CORE_RENDERSYSTEM_H
 
+#include <algorithm>
 #include <cstddef>
 #include <list>
 #include <map>
 #include <string>
 #include <vector>
-#include <algorithm>
 
-// Precompiler options
-#include "OgrePrerequisites.h"
-#include "OgreCommon.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreConfigOptionMap.h"
-#include "OgreGpuProgram.h"
-#include "OgrePlane.h"
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
+#include "OgreCommon.h"
 #include "OgreConfig.h"
+#include "OgreConfigOptionMap.h"
+#include "OgreGpuProgram.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlane.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystemCapabilities.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringVector.h"
 #include "OgreVector.h"

@@ -3,7 +3,7 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
 
-#include <stddef.h>
+#include <cstddef>
 #include <list>
 #include <memory>
 #include <string>

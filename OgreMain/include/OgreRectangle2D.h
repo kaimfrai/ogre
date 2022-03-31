@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _Rectangle2D_H__
-#define _Rectangle2D_H__
+#ifndef OGRE_CORE_RECTANGLE2D_H
+#define OGRE_CORE_RECTANGLE2D_H
 
+#include "OgreHardwareBuffer.h"
 #include "OgrePrerequisites.h"
 #include "OgreSimpleRenderable.h"
-#include "OgreHardwareBuffer.h"
 
 namespace Ogre {
 class Camera;

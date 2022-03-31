@@ -1,8 +1,8 @@
+#include <OgreLogManager.h>
 #include <OgreX11.h>
 #include <X11/extensions/Xrandr.h>
-#include <OgreLogManager.h>
 #include <X11/extensions/randr.h>
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreException.h"
 #include "OgreGLNativeSupport.h"

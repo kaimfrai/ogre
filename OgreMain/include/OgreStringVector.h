@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _StringVector_H__
-#define _StringVector_H__
+#ifndef OGRE_CORE_STRINGVECTOR_H
+#define OGRE_CORE_STRINGVECTOR_H
 
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"

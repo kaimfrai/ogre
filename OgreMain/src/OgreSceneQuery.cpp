@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <stddef.h>
 #include <algorithm>
+#include <cassert>
+#include <cstddef>
 
-#include "OgreSceneQuery.h"
 #include "OgreException.h"
 #include "OgreSceneManager.h"
+#include "OgreSceneQuery.h"
 
 namespace Ogre {
 class MovableObject;

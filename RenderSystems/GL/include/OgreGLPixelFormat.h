@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __GLPIXELFORMAT_H__
-#define __GLPIXELFORMAT_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_PIXELFORMAT_H
+#define OGRE_RENDERSYSTEMS_GL_PIXELFORMAT_H
 
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"

@@ -33,12 +33,12 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreFileSystem.h"
+#include "OgreArchive.h"
 #include "OgreCommon.h"
 #include "OgreConfigFile.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreArchive.h"
 #include "OgreDataStream.h"
+#include "OgreFileSystem.h"
+#include "OgreFileSystemLayer.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringVector.h"
 

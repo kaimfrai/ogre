@@ -26,9 +26,10 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __ScriptLexer_H_
-#define __ScriptLexer_H_
+#ifndef OGRE_CORE_SCRIPTLEXER_H
+#define OGRE_CORE_SCRIPTLEXER_H
 
+#include <algorithm>
 #include <vector>
 
 #include "OgreMemoryAllocatorConfig.h"

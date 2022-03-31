@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __SearchOps_H_
-#define __SearchOps_H_
+#ifndef OGRE_CORE_SEARCHOPS_H
+#define OGRE_CORE_SEARCHOPS_H
 
 // Emulate _findfirst, _findnext on non-Windows platforms
 
-#include <stdint.h>
+#include <cstdint>
 
 /* Our simplified data entry structure */
 struct _finddata_t

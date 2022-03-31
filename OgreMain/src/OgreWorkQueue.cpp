@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <algorithm>
 #include <ostream>
 #include <thread>
 #include <utility>
-#include <algorithm>
 
-#include "OgreTimer.h"
-#include "OgreWorkQueue.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreRoot.h"
+#include "OgreTimer.h"
+#include "OgreWorkQueue.h"
 
 namespace Ogre {
     //---------------------------------------------------------------------

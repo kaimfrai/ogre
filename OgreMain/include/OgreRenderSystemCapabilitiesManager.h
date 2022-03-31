@@ -25,15 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __RENDERSYSTEMCAPABILITIESMANAGER_H__
-#define __RENDERSYSTEMCAPABILITIESMANAGER_H__
+#ifndef OGRE_CORE_RENDERSYSTEMCAPABILITIESMANAGER_H
+#define OGRE_CORE_RENDERSYSTEMCAPABILITIESMANAGER_H
 
 #include <map>
 #include <string>
 
+#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
-#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
     class RenderSystemCapabilities;

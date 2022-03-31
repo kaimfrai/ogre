@@ -28,10 +28,10 @@ THE SOFTWARE.
 
 #include <gtest/gtest.h>
 
-#include "ResourceLocationPriorityTest.h"
 #include "OgreArchiveManager.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreRoot.h"
+#include "ResourceLocationPriorityTest.h"
 
 TEST(ResourceGroupLocationTest, ResourceLocationPriority)
 {
