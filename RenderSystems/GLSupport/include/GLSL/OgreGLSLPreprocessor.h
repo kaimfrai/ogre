@@ -26,11 +26,11 @@
    -----------------------------------------------------------------------------
 */
 
-#ifndef __OGRE_CPREPROCESSOR_H__
-#define __OGRE_CPREPROCESSOR_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_GLSLPREPROCESSOR_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_GLSLPREPROCESSOR_H
 
-#include <cstring>
 #include <cstdlib>
+#include <cstring>
 #include <forward_list>
 #include <vector>
 
@@ -506,4 +506,4 @@ namespace Ogre {
 
 } // namespace Ogre
 
-#endif // __OGRE_CPREPROCESSOR_H__
+#endif // OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_GLSLPREPROCESSOR_H

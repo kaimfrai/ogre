@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef COMPONENTS_BITES_INCLUDE_OGREBITESCONFIGDIALOG_H_
-#define COMPONENTS_BITES_INCLUDE_OGREBITESCONFIGDIALOG_H_
+#ifndef OGRE_COMPONENTS_BITES_BITESCONFIGDIALOG_H
+#define OGRE_COMPONENTS_BITES_BITESCONFIGDIALOG_H
 
 
 namespace Ogre {
@@ -50,4 +50,4 @@ namespace OgreBites {
 
 } /* namespace OgreBites */
 
-#endif /* COMPONENTS_BITES_INCLUDE_OGREBITESCONFIGDIALOG_H_ */
+#endif // OGRE_COMPONENTS_BITES_BITESCONFIGDIALOG_H

@@ -25,20 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __MATERIALMANAGER_H__
-#define __MATERIALMANAGER_H__
+#ifndef OGRE_CORE_MATERIALMANAGER_H
+#define OGRE_CORE_MATERIALMANAGER_H
 
 #include <list>
 #include <map>
 #include <string>
 
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
-#include "OgreResourceManager.h"
 #include "OgreCommon.h"
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
 #include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
 
 namespace Ogre {
 

@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __OverlayElementFactory_H__
-#define __OverlayElementFactory_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_ELEMENTFACTORY_H
+#define OGRE_COMPONENTS_OVERLAY_ELEMENTFACTORY_H
 
+#include "OgreBorderPanelOverlayElement.h"
 #include "OgreOverlayElement.h"
 #include "OgrePanelOverlayElement.h"
-#include "OgreBorderPanelOverlayElement.h"
 #include "OgreTextAreaOverlayElement.h"
 
 namespace Ogre {

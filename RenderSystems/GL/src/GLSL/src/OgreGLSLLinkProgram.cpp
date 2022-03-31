@@ -26,19 +26,19 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <string.h>
+#include <cstring>
 #include <string>
 #include <vector>
 
+#include "OgreDataStream.h"
 #include "OgreGLSLExtSupport.h"
 #include "OgreGLSLLinkProgram.h"
-#include "OgreGLSLProgram.h"
 #include "OgreGLSLLinkProgramManager.h"
-#include "OgreGpuProgramManager.h"
+#include "OgreGLSLProgram.h"
 #include "OgreGLSLProgramCommon.h"
-#include "OgreDataStream.h"
 #include "OgreGLSLShaderCommon.h"
 #include "OgreGLUniformCache.h"
+#include "OgreGpuProgramManager.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreRenderOperation.h"
 #include "OgreSharedPtr.h"

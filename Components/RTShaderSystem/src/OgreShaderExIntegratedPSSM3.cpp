@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <stddef.h>
 #include <algorithm>
+#include <cstddef>
 #include <list>
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "OgreShaderPrecompiledHeaders.h"
+#include "OgreAutoParamDataSource.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
@@ -40,6 +40,7 @@ THE SOFTWARE.
 #include "OgreGpuProgramManager.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMaterial.h"
+#include "OgreMatrix4.h"
 #include "OgrePass.h"
 #include "OgrePixelFormat.h"
 #include "OgrePrerequisites.h"
@@ -51,6 +52,7 @@ THE SOFTWARE.
 #include "OgreShaderFunctionAtom.h"
 #include "OgreShaderGenerator.h"
 #include "OgreShaderParameter.h"
+#include "OgreShaderPrecompiledHeaders.h"
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderProgram.h"
 #include "OgreShaderProgramSet.h"
@@ -61,8 +63,6 @@ THE SOFTWARE.
 #include "OgreTechnique.h"
 #include "OgreTextureUnitState.h"
 #include "OgreVector.h"
-#include "OgreAutoParamDataSource.h"
-#include "OgreMatrix4.h"
 
 namespace Ogre {
     class Renderable;

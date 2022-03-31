@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __CommonConfigDialog_H__
-#define __CommonConfigDialog_H__
+#ifndef OGRE_CORE_CONFIGDIALOG_H
+#define OGRE_CORE_CONFIGDIALOG_H
 
 #include "OgrePrerequisites.h"
 

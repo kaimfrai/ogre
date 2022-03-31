@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 #include <string>
 
-#include "OgreTextureUnitState.h"
 #include "OgreControllerManager.h"
-#include "OgreTextureManager.h"
 #include "OgreException.h"
 #include "OgreLogManager.h"
 #include "OgrePass.h"
 #include "OgreResourceManager.h"
 #include "OgreString.h"
 #include "OgreStringConverter.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
 
 namespace Ogre {
 class Frustum;

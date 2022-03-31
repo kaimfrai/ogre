@@ -24,16 +24,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
 
-#ifndef _TextAreaOverlayElement_H__
-#define _TextAreaOverlayElement_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_TEXTAREAOVERLAYELEMENT_H
+#define OGRE_COMPONENTS_OVERLAY_TEXTAREAOVERLAYELEMENT_H
 
-#include <stddef.h>
+#include <cstddef>
 
-#include "OgreOverlayElement.h"
-#include "OgreRenderOperation.h"
-#include "OgreFont.h"
 #include "OgreColourValue.h"
+#include "OgreFont.h"
+#include "OgreOverlayElement.h"
 #include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
 
 namespace Ogre
 {

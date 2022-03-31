@@ -26,15 +26,15 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <gtest/gtest.h>
-#include <stdlib.h>
 #include <climits>
+#include <cstdlib>
 #include <list>
 #include <vector>
 
-#include "RadixSortTests.h"
-#include "OgreMath.h"
 #include "../../../OgreMain/src/OgreRadixSort.h"
+#include "OgreMath.h"
 #include "OgrePlatform.h"
+#include "RadixSortTests.h"
 
 using namespace Ogre;
 

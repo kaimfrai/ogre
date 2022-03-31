@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <list>
 #include <map>
 #include <memory>
 #include <string>
 #include <utility>
 
-#include "OgreLodStrategyManager.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
+#include "OgreLodStrategyManager.h"
 #include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
 #include "OgrePass.h"

@@ -25,28 +25,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <cmath>
 #include <limits>
 
 #include "OgreAutoParamDataSource.h"
-#include "OgreRenderable.h"
-#include "OgreRenderTarget.h"
-#include "OgreControllerManager.h"
-#include "OgreViewport.h"
 #include "OgreCamera.h"
 #include "OgreController.h"
+#include "OgreControllerManager.h"
 #include "OgreFrustum.h"
 #include "OgreMath.h"
 #include "OgrePass.h"
 #include "OgrePlatform.h"
 #include "OgreQuaternion.h"
 #include "OgreRenderSystem.h"
+#include "OgreRenderTarget.h"
+#include "OgreRenderable.h"
 #include "OgreRoot.h"
 #include "OgreSceneManager.h"
 #include "OgreSharedPtr.h"
 #include "OgreTexture.h"
 #include "OgreTextureUnitState.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------------

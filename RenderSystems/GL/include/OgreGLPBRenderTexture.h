@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLPBRENDERTEXTURE_H__
-#define __GLPBRENDERTEXTURE_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_PBRENDERTEXTURE_H
+#define OGRE_RENDERSYSTEMS_GL_PBRENDERTEXTURE_H
 
 #include <cstddef>
 
@@ -116,4 +116,4 @@ class RenderTexture;
     };
 }
 
-#endif // __GLPBRENDERTEXTURE_H__
+#endif // OGRE_RENDERSYSTEMS_GL_PBRENDERTEXTURE_H

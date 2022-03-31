@@ -24,11 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderGenerator_
-#define _ShaderGenerator_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_GENERATOR_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_GENERATOR_H
 
-#include <string.h>
 #include <algorithm>
+#include <cstring>
 #include <map>
 #include <memory>
 #include <set>
@@ -36,19 +36,19 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreShaderPrerequisites.h"
-#include "OgreSingleton.h"
-#include "OgreSceneManager.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreMaterialSerializer.h"
 #include "OgreCommon.h"
 #include "OgreGpuProgram.h"
 #include "OgreMaterial.h"
+#include "OgreMaterialSerializer.h"
 #include "OgrePass.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreSceneManager.h"
 #include "OgreScriptCompiler.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderScriptTranslator.h"
+#include "OgreSingleton.h"
 
 namespace Ogre {
 class AutoParamDataSource;

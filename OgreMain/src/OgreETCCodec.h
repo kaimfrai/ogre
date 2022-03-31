@@ -25,10 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __OgreETCCodec_H__
-#define __OgreETCCodec_H__
+#ifndef OGRE_CORE_ETCCODEC_H
+#define OGRE_CORE_ETCCODEC_H
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreImageCodec.h"
 #include "OgrePrerequisites.h"

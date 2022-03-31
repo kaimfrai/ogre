@@ -24,13 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderExHardwareSkinning_
-#define _ShaderExHardwareSkinning_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXHARDWARESKINNING_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXHARDWARESKINNING_H
 
-#include <stddef.h>
+#include <cstddef>
 
-#include "OgreShaderPrerequisites.h"
 #include "OgrePrerequisites.h"
+#include "OgreShaderPrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
 

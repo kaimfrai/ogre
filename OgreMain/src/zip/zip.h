@@ -12,8 +12,8 @@
 #ifndef ZIP_H
 #define ZIP_H
 
-#include <stdint.h>
-#include <string.h>
+#include <stdint.h> // NOLINT
+#include <string.h> // NOLINT
 #include <sys/types.h>
 
 #ifndef ZIP_SHARED

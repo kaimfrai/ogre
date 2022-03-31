@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Vector_H__
-#define __Vector_H__
+#ifndef OGRE_CORE_VECTOR_H
+#define OGRE_CORE_VECTOR_H
 
 
-#include <assert.h>
-#include <stddef.h>
 #include <algorithm>
+#include <cassert>
+#include <cstddef>
 #include <ostream>
 #include <type_traits>
 
-#include "OgrePrerequisites.h"
 #include "OgreMath.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 
 namespace Ogre

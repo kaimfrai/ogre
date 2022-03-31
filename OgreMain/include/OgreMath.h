@@ -25,20 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Math_H__
-#define __Math_H__
+#ifndef OGRE_CORE_MATH_H
+#define OGRE_CORE_MATH_H
 
 #include <cassert>
+#include <cmath>
 #include <cstdint>
 #include <cstdlib>
 #include <limits>
-#include <cmath>
 #include <ostream>
 #include <utility>
 #include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre
 {

@@ -25,15 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __RenderSystemCapabilities__
-#define __RenderSystemCapabilities__
+#ifndef OGRE_CORE_RENDERSYSTEMCAPABILITIES_H
+#define OGRE_CORE_RENDERSYSTEMCAPABILITIES_H
 
 #include <set>
 #include <string>
 
-// Precompiler options
-#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 class Log;
@@ -670,4 +669,4 @@ namespace Ogre
     /** @} */
 } // namespace
 
-#endif // __RenderSystemCapabilities__
+#endif // OGRE_CORE_RENDERSYSTEMCAPABILITIES_H

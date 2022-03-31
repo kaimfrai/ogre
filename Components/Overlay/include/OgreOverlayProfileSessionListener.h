@@ -26,13 +26,13 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __OverlayProfileSessionListener_H__
-#define __OverlayProfileSessionListener_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_PROFILESESSIONLISTENER_H
+#define OGRE_COMPONENTS_OVERLAY_PROFILESESSIONLISTENER_H
 
 #include <list>
 
-#include "OgreProfiler.h"
 #include "OgrePrerequisites.h"
+#include "OgreProfiler.h"
 
 namespace Ogre  {
     class Overlay;

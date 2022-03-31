@@ -26,13 +26,13 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <assert.h>
 #include <algorithm>
+#include <cassert>
 #include <functional>
 #include <vector>
 
-#include "OgreLodStrategy.h"
 #include "OgreCamera.h"
+#include "OgreLodStrategy.h"
 
 namespace Ogre {
 class MovableObject;

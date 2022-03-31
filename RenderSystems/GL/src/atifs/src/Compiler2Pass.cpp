@@ -25,11 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "Compiler2Pass.h"
+
+#include <sys/types.h>
+
+#include <cassert>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 Compiler2Pass::Compiler2Pass()
 {

@@ -34,12 +34,12 @@ THE SOFTWARE.
  * below is included in the resulting source code, for example:
  * "Portions Copyright (C) Scott Bilas, 2000"
  */
-#ifndef _SINGLETON_H__
-#define _SINGLETON_H__
+#ifndef OGRE_CORE_SINGLETON_H
+#define OGRE_CORE_SINGLETON_H
 
 // Added by Steve Streeting for Ogre
-#include "OgrePrerequisites.h"
 #include "OgreException.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     /** \addtogroup Core

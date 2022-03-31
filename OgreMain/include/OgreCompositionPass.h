@@ -25,20 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __CompositionPass_H__
-#define __CompositionPass_H__
+#ifndef OGRE_CORE_COMPOSITIONPASS_H
+#define OGRE_CORE_COMPOSITIONPASS_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreConfig.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreRenderQueue.h"
+#include "OgreRenderSystem.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"
 

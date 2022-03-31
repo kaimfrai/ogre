@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __BillboardParticleRenderer_H__
-#define __BillboardParticleRenderer_H__
+#ifndef OGRE_CORE_BILLBOARDPARTICLERENDERER_H
+#define OGRE_CORE_BILLBOARDPARTICLERENDERER_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreParticleSystemRenderer.h"
-#include "OgreBillboardSet.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreBillboardSet.h"
 #include "OgreCommon.h"
 #include "OgreFactoryObj.h"
+#include "OgreParticleSystemRenderer.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreRenderable.h"
 #include "OgreVector.h"
 
@@ -176,4 +176,4 @@ class RenderQueue;
 
 } // namespace Ogre
 
-#endif // __BillboardParticleRenderer_H__
+#endif // OGRE_CORE_BILLBOARDPARTICLERENDERER_H

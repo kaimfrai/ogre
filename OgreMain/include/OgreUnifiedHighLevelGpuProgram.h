@@ -25,15 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __UnifiedHighLevelGpuProgram_H__
-#define __UnifiedHighLevelGpuProgram_H__
+#ifndef OGRE_CORE_UNIFIEDHIGHLEVELGPUPROGRAM_H
+#define OGRE_CORE_UNIFIEDHIGHLEVELGPUPROGRAM_H
 
-#include <stddef.h>
+#include <cstddef>
 
-#include "OgrePrerequisites.h"
+#include "OgreCommon.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramManager.h"
-#include "OgreCommon.h"
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringVector.h"

@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Pixel_Count_Lod_Strategy_H__
-#define __Pixel_Count_Lod_Strategy_H__
+#ifndef OGRE_CORE_PIXELCOUNTLODSTRATEGY_H
+#define OGRE_CORE_PIXELCOUNTLODSTRATEGY_H
 
-#include "OgrePrerequisites.h"
 #include "OgreLodStrategy.h"
-#include "OgreSingleton.h"
 #include "OgreMaterial.h"
 #include "OgreMesh.h"
+#include "OgrePrerequisites.h"
+#include "OgreSingleton.h"
 
 namespace Ogre {
 

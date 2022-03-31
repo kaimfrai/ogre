@@ -26,10 +26,10 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLCOPYINGRENDERTEXTURE_H__
-#define __GLCOPYINGRENDERTEXTURE_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_COPYINGRENDERTEXTURE_H
+#define OGRE_RENDERSYSTEMS_GL_COPYINGRENDERTEXTURE_H
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreGLRenderTexture.h"
 #include "OgrePixelFormat.h"
@@ -76,4 +76,4 @@ class RenderTexture;
     };
 }
 
-#endif // __GLTEXTURE_H__
+#endif // OGRE_RENDERSYSTEMS_GL_COPYINGRENDERTEXTURE_H

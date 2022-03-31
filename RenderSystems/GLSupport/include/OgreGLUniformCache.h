@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLUniformCache_H__
-#define __GLUniformCache_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_UNIFORMCACHE_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_UNIFORMCACHE_H
 
 #include <unordered_map>
 

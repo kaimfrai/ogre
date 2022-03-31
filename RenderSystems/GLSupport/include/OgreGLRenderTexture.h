@@ -26,20 +26,20 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   -----------------------------------------------------------------------------
 */
 
-#ifndef __GLRENDERTEXTURE_H__
-#define __GLRENDERTEXTURE_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_RENDERTEXTURE_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_RENDERTEXTURE_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <vector>
 
-#include "OgreRenderTexture.h"
-#include "OgreSingleton.h"
-#include "OgreGLRenderTarget.h"
 #include "OgreConfig.h"
+#include "OgreGLRenderTarget.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreRenderTexture.h"
+#include "OgreSingleton.h"
 
 namespace Ogre {
     class GLHardwarePixelBufferCommon;

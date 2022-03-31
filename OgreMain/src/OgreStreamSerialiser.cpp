@@ -25,15 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 #include <string>
 
-#include "OgreStreamSerialiser.h"
-#include "OgreDeflate.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreBitwise.h"
 #include "OgreDataStream.h"
+#include "OgreDeflate.h"
 #include "OgreException.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
@@ -45,6 +44,7 @@ THE SOFTWARE.
 #include "OgreQuaternion.h"
 #include "OgreRay.h"
 #include "OgreSphere.h"
+#include "OgreStreamSerialiser.h"
 #include "OgreStringConverter.h"
 #include "OgreVector.h"
 

@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <stddef.h>
 #include <algorithm>
+#include <cassert>
+#include <cstddef>
 #include <ostream>
 #include <string>
 #include <vector>
 
-#include "OgreMaterial.h"
 #include "OgreBlendMode.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreGpuProgram.h"
+#include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
 #include "OgrePass.h"
 #include "OgrePrerequisites.h"

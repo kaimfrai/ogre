@@ -24,16 +24,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderFFPLighting_
-#define _ShaderFFPLighting_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FFPLIGHTING_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_FFPLIGHTING_H
 
 #include <vector>
 
-#include "OgreShaderPrerequisites.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderSubRenderState.h"
-#include "OgreLight.h"
 #include "OgreCommon.h"
+#include "OgreLight.h"
+#include "OgrePrerequisites.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderSubRenderState.h"
 
 namespace Ogre {
     class AutoParamDataSource;

@@ -24,17 +24,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderProgramWriterGLSL_
-#define _ShaderProgramWriterGLSL_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERGLSL_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERGLSL_H
 
 #include <iosfwd>
 #include <map>
 #include <set>
 
-#include "OgreShaderProgramWriter.h"
-#include "OgreShaderParameter.h"
 #include "OgreGpuProgram.h"
 #include "OgrePrerequisites.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderProgramWriter.h"
 
 namespace Ogre {
 namespace RTShader {

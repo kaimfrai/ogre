@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <list>
 #include <map>
 #include <memory>
@@ -34,7 +34,6 @@ THE SOFTWARE.
 #include <set>
 #include <utility>
 
-#include "OgreVertexIndexData.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
@@ -44,6 +43,7 @@ THE SOFTWARE.
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 

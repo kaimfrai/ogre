@@ -25,10 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __InstanceBatchHW_VTF_H__
-#define __InstanceBatchHW_VTF_H__
+#ifndef OGRE_CORE_INSTANCEBATCHHW_VTF_H
+#define OGRE_CORE_INSTANCEBATCHHW_VTF_H
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreInstanceBatchVTF.h"
 #include "OgreMesh.h"

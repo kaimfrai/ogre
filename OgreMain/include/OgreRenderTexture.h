@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __RenderTexture_H__
-#define __RenderTexture_H__
+#ifndef OGRE_CORE_RENDERTEXTURE_H
+#define OGRE_CORE_RENDERTEXTURE_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreRenderTarget.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderTarget.h"
 
 namespace Ogre
 {    

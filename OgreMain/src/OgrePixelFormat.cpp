@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <string.h>
 #include <algorithm>
+#include <cassert>
+#include <cstring>
 #include <string>
 
-#include "OgrePixelFormat.h"
-#include "OgrePixelFormatDescriptions.h"
+#include "OgreAlignedAllocator.h"
 #include "OgreBitwise.h"
 #include "OgreException.h"
 #include "OgreMath.h"
+#include "OgrePixelFormat.h"
+#include "OgrePixelFormatDescriptions.h"
 #include "OgreString.h"
 #include "OgreVector.h"
-#include "OgreAlignedAllocator.h"
 
 namespace {
 #include "OgrePixelConversions.h"

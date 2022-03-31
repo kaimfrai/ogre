@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Zip_H__
-#define __Zip_H__
+#ifndef OGRE_CORE_ZIP_H
+#define OGRE_CORE_ZIP_H
 
-#include <stddef.h>
+#include <cstddef>
 
-#include "OgrePrerequisites.h"
 #include "OgreArchiveFactory.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 class Archive;

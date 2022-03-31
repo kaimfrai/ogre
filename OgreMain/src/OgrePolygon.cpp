@@ -31,9 +31,9 @@ THE SOFTWARE.
 #include <memory>
 #include <ostream>
 
-#include "OgrePolygon.h"
 #include "OgreException.h"
 #include "OgreMath.h"
+#include "OgrePolygon.h"
 
 namespace Ogre
 {

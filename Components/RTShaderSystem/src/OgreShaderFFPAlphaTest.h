@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _OgreShaderExAlphaTest_
-#define _OgreShaderExAlphaTest_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXALPHATEST_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXALPHATEST_H
 
-#include "OgreShaderPrerequisites.h"
 #include "OgreCommon.h"
 #include "OgrePrerequisites.h"
+#include "OgreShaderPrerequisites.h"
 #include "OgreShaderSubRenderState.h"
 
 namespace Ogre {

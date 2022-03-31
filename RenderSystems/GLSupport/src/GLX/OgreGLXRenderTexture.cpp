@@ -33,12 +33,12 @@ THE SOFTWARE.
 #include <string>
 
 #include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgreStringConverter.h"
-#include "OgreGLXRenderTexture.h"
 #include "OgreGLXContext.h"
 #include "OgreGLXGLSupport.h"
+#include "OgreGLXRenderTexture.h"
 #include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreStringConverter.h"
 
 namespace Ogre {
 class GLContext;

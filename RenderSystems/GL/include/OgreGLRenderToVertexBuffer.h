@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __GLRenderToVertexBuffer_H__
-#define __GLRenderToVertexBuffer_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_RENDERTOVERTEXBUFFER_H
+#define OGRE_RENDERSYSTEMS_GL_RENDERTOVERTEXBUFFER_H
 
-#include <stddef.h>
+#include <cstddef>
 
-#include "OgreRenderToVertexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgrePrerequisites.h"
+#include "OgreRenderToVertexBuffer.h"
 #include "OgreSharedPtr.h"
 #include "glad/glad.h"
 

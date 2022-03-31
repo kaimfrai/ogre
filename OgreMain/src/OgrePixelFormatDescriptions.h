@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __PixelFormatDescriptions_H__
-#define __PixelFormatDescriptions_H__
+#ifndef OGRE_CORE_PIXELFORMATDESCRIPTIONS_H
+#define OGRE_CORE_PIXELFORMATDESCRIPTIONS_H
 
 namespace Ogre {
     //-----------------------------------------------------------------------

@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderFFPState_
-#define _ShaderFFPState_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FFPSTATE_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_FFPSTATE_H
 
 #include "OgreShaderPrerequisites.h"
 

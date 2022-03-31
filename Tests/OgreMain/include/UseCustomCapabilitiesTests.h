@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __UseCustomCapabilitiesTests_H__
-#define __UseCustomCapabilitiesTests_H__
+#ifndef OGRE_TESTS_CORE_USECUSTOMCAPABILITIESTESTS_H
+#define OGRE_TESTS_CORE_USECUSTOMCAPABILITIESTESTS_H
 
 #include <gtest/gtest.h>
 

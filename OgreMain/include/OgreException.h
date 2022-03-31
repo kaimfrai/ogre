@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Exception_H_
-#define __Exception_H_
+#ifndef OGRE_CORE_EXCEPTION_H
+#define OGRE_CORE_EXCEPTION_H
 
 #include <exception>
 
 // Precompiler options
-#include "OgrePrerequisites.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 // Check for OGRE assert mode
 

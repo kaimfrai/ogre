@@ -25,22 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
 #include <algorithm>
+#include <cassert>
 #include <limits>
 #include <memory>
 
-#include "OgreInstanceManager.h"
-#include "OgreInstanceBatch.h"
-#include "OgreInstancedEntity.h"
-#include "OgreRenderQueue.h"
-#include "OgreLodListener.h"
 #include "OgreCamera.h"
 #include "OgreException.h"
 #include "OgreFrustum.h"
+#include "OgreInstanceBatch.h"
+#include "OgreInstanceManager.h"
+#include "OgreInstancedEntity.h"
+#include "OgreLodListener.h"
 #include "OgreMaterial.h"
 #include "OgreMath.h"
 #include "OgreNode.h"
+#include "OgreRenderQueue.h"
 #include "OgreRoot.h"
 #include "OgreSceneManager.h"
 #include "OgreSceneNode.h"

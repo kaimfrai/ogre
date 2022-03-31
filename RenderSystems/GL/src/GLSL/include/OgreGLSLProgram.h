@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __GLSLProgram_H__
-#define __GLSLProgram_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAM_H
+#define OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAM_H
 
-#include "OgreGLSLShaderCommon.h"
-#include "OgreRenderOperation.h"
-#include "OgreGLGpuProgram.h"
 #include "OgreException.h"
+#include "OgreGLGpuProgram.h"
+#include "OgreGLSLShaderCommon.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
 #include "OgreResource.h"
 
 namespace Ogre {
@@ -128,4 +128,4 @@ class ResourceManager;
     }
 }
 
-#endif // __GLSLProgram_H__
+#endif // OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAM_H

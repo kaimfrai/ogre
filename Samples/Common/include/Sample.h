@@ -25,21 +25,21 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __Sample_H__
-#define __Sample_H__
+#ifndef OGRE_SAMPLES_SAMPLE_H
+#define OGRE_SAMPLES_SAMPLE_H
 
-#include "OgreRoot.h"
 #include "OgreOverlaySystem.h"
 #include "OgreResourceManager.h"
+#include "OgreRoot.h"
 
 #include "OgreFileSystemLayer.h"
 
 #include "OgreRTShaderSystem.h"
 
-#include "OgreInput.h"
-#include "OgreTrays.h"
 #include "OgreCameraMan.h"
+#include "OgreInput.h"
 #include "OgreMaterialManager.h"
+#include "OgreTrays.h"
 
 namespace OgreBites
 {

@@ -29,16 +29,15 @@ THE SOFTWARE.
 // Thanks to Vincent Cantin (karmaGfa) for the original implementation of this
 // class, although it has now been mostly rewritten
 
-#include <assert.h>
-#include <string.h>
-#include <limits>
 #include <algorithm>
+#include <cassert>
+#include <cstring>
+#include <limits>
 #include <map>
 #include <string>
 #include <utility>
 
 #include "OgreBillboardChain.h"
-#include "OgreViewport.h"
 #include "OgreCamera.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
@@ -56,6 +55,7 @@ THE SOFTWARE.
 #include "OgreSceneManager.h"
 #include "OgreStringConverter.h"
 #include "OgreVertexIndexData.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 class RenderSystem;

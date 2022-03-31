@@ -25,10 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __STBICodec_H__
-#define __STBICodec_H__
+#ifndef OGRE_PLUGINS_STBICODEC_H
+#define OGRE_PLUGINS_STBICODEC_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <list>
 
 #include "OgreImageCodec.h"

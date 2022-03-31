@@ -25,21 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __OverlayManager_H__
-#define __OverlayManager_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_MANAGER_H
+#define OGRE_COMPONENTS_OVERLAY_MANAGER_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <set>
 #include <string>
 
-#include "OgreSingleton.h"
-#include "OgreStringVector.h"
-#include "OgreScriptLoader.h"
 #include "OgreFrustum.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
+#include "OgreScriptLoader.h"
+#include "OgreSingleton.h"
+#include "OgreStringVector.h"
 
 namespace Ogre {
     class Overlay;

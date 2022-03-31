@@ -24,13 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderExPerPixelLighting_
-#define _ShaderExPerPixelLighting_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXPERPIXELLIGHTING_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXPERPIXELLIGHTING_H
 
-#include "OgreShaderPrerequisites.h"
 #include "OgrePrerequisites.h"
-#include "OgreShaderSubRenderState.h"
 #include "OgreShaderFFPLighting.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderSubRenderState.h"
 
 namespace Ogre {
     class MaterialSerializer;

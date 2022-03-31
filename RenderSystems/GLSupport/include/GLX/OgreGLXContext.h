@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __OgreGLXContext_H__
-#define __OgreGLXContext_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_CONTEXT_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_CONTEXT_H
 
 #include <GL/glx.h>
 

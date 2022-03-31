@@ -25,23 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ANIMABLE_H__
-#define __ANIMABLE_H__
+#ifndef OGRE_CORE_ANIMABLE_H
+#define OGRE_CORE_ANIMABLE_H
 
-#include <string.h>
+#include <cstring>
 #include <map>
 #include <string>
 
-#include "OgrePrerequisites.h"
-#include "OgreCommon.h"
-#include "OgreVector.h"
 #include "OgreColourValue.h"
-#include "OgreStringVector.h"
+#include "OgreCommon.h"
 #include "OgreException.h"
 #include "OgreMath.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 

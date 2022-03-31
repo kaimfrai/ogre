@@ -29,23 +29,23 @@ THE SOFTWARE.
 // Thanks to Vincent Cantin (karmaGfa) for the original implementation of this
 // class, although it has now been mostly rewritten
 
-#ifndef _BillboardChain_H__
-#define _BillboardChain_H__
+#ifndef OGRE_CORE_BILLBOARDCHAIN_H
+#define OGRE_CORE_BILLBOARDCHAIN_H
 
-#include <stddef.h>
+#include <algorithm>
+#include <cstddef>
 #include <memory>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
-#include "OgreMovableObject.h"
-#include "OgreRenderable.h"
-#include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreMaterial.h"
+#include "OgreMovableObject.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
+#include "OgreRenderable.h"
+#include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"
 

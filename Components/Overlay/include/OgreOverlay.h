@@ -26,13 +26,13 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __Overlay_H__
-#define __Overlay_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_H
+#define OGRE_COMPONENTS_OVERLAY_H
 
 #include <list>
 
-#include "OgreMatrix4.h"
 #include "OgreMath.h"
+#include "OgreMatrix4.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 

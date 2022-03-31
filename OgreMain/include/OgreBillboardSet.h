@@ -26,24 +26,24 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __BillboardSet_H__
-#define __BillboardSet_H__
+#ifndef OGRE_CORE_BILLBOARDSET_H
+#define OGRE_CORE_BILLBOARDSET_H
 
-#include <stddef.h>
+#include <algorithm>
+#include <cstddef>
 #include <memory>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
-#include "OgreMovableObject.h"
-#include "OgreRenderable.h"
-#include "OgreCommon.h"
-#include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
+#include "OgreCommon.h"
 #include "OgreMaterial.h"
+#include "OgreMovableObject.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
+#include "OgreRenderable.h"
+#include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"
 
@@ -831,4 +831,4 @@ class VertexData;
 
 } // namespace Ogre
 
-#endif // __BillboardSet_H__
+#endif // OGRE_CORE_BILLBOARDSET_H

@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __VertexIndexData_H__
-#define __VertexIndexData_H__
+#ifndef OGRE_CORE_VERTEXINDEXDATA_H
+#define OGRE_CORE_VERTEXINDEXDATA_H
 
-#include <stddef.h>
-#include <vector>
 #include <algorithm>
+#include <cstddef>
+#include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreHardwareVertexBuffer.h"
 #include "OgreHardwareBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {
