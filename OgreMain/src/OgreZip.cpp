@@ -51,9 +51,9 @@ THE SOFTWARE.
 #include "OgreStringVector.h"
 #include "OgreZip.h"
 
-struct zip_t;
-
+// NOLINTBEGIN
 #include <zip.h>
+// NOLINTEND
 
 namespace Ogre {
 namespace {
