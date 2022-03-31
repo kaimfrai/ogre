@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include <list>
 #include <vector>
 
-#include "../../../OgreMain/src/OgreRadixSort.h"
+#include "../../Core/src/OgreRadixSort.h"
 #include "OgreMath.h"
 #include "OgrePlatform.h"
 #include "RadixSortTests.h"
