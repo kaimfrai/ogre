@@ -37,7 +37,7 @@ if(DOXYGEN_FOUND)
     file(GLOB PLUGINS ${PROJECT_SOURCE_DIR}/PlugIns/*/include)
 
     set(CMAKE_DOXYGEN_INPUT_LIST
-        ${PROJECT_SOURCE_DIR}/OgreMain/include
+        ${PROJECT_SOURCE_DIR}/Core/include
         ${COMPONENTS}
         ${PLUGINS}
         ${PROJECT_SOURCE_DIR}/PlugIns/PCZSceneManager/docs/readme.md
