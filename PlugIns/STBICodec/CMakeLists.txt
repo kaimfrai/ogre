@@ -16,7 +16,7 @@ if(UNIX)
 endif()
 
 add_library(Codec_STBI ${OGRE_LIB_TYPE} ${HEADER_FILES} ${SOURCES})
-target_link_libraries(Codec_STBI PUBLIC OgreMain)
+target_link_libraries(Codec_STBI PUBLIC OgreCore)
 
 target_include_directories(Codec_STBI PUBLIC 
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
