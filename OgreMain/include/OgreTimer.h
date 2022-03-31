@@ -26,12 +26,13 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __OGRE_TIMER_H__
-#define __OGRE_TIMER_H__
+#ifndef OGRE_CORE_TIMER_H
+#define OGRE_CORE_TIMER_H
 
-#include <stdint.h>
 #include <sys/types.h>
+
 #include <chrono>
+#include <cstdint>
 
 #include "OgreMemoryAllocatorConfig.h"
 

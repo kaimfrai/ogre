@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ParticleEmitter_H__
-#define __ParticleEmitter_H__
+#ifndef OGRE_CORE_PARTICLEEMITTER_H
+#define OGRE_CORE_PARTICLEEMITTER_H
 
-#include "OgrePrerequisites.h"
-#include "OgreVector.h"
 #include "OgreColourValue.h"
-#include "OgreStringInterface.h"
+#include "OgreMath.h"
 #include "OgreParticle.h"
 #include "OgreParticleSystem.h"
-#include "OgreMath.h"
+#include "OgrePrerequisites.h"
+#include "OgreStringInterface.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 

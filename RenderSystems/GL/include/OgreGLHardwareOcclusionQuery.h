@@ -44,8 +44,8 @@ initialised and used in glRenderSystem and copy what is done there.
 
 //GL_ActiveTextureARB_Func* glActiveTextureARB_ptr = (GL_ActiveTextureARB_Func)mGLSupport->getProcAddress("glActiveTextureARB");
 
-#ifndef __GLHARDWAREOCCLUSIONQUERY_H__
-#define __GLHARDWAREOCCLUSIONQUERY_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_HARDWAREOCCLUSIONQUERY_H
+#define OGRE_RENDERSYSTEMS_GL_HARDWAREOCCLUSIONQUERY_H
 
 #include "OgreHardwareOcclusionQuery.h"
 #include "glad/glad.h"

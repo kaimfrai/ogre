@@ -26,20 +26,21 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <sys/stat.h>
+
 #include <cstdint>
 #include <cstdio>
+#include <fstream> // IWYU pragma: keep
 #include <string>
-#include <fstream>
 
 #include "OgreArchive.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
 #include "OgreFileSystem.h"
 #include "OgrePrerequisites.h"
+#include "OgreSearchOps.h"
 #include "OgreSharedPtr.h"
 #include "OgreString.h"
 #include "OgreStringVector.h"
-#include "OgreSearchOps.h"
 
 namespace Ogre {
 

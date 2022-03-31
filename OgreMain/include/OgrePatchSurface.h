@@ -25,15 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __PatchSurface_H__
-#define __PatchSurface_H__
+#ifndef OGRE_CORE_PATCHSURFACE_H
+#define OGRE_CORE_PATCHSURFACE_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"
 

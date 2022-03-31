@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cxxabi.h>
-#include <stddef.h>
+// IWYU pragma: no_include <cxxabi.h>
 #include <condition_variable>
+#include <cstddef>
 #include <mutex>
 #include <thread>
 #include <vector>

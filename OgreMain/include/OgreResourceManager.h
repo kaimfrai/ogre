@@ -25,26 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ResourceManager_H__
-#define _ResourceManager_H__
+#ifndef OGRE_CORE_RESOURCEMANAGER_H
+#define OGRE_CORE_RESOURCEMANAGER_H
 
-#include <stddef.h>
 #include <atomic>
+#include <cstddef>
 #include <list>
 #include <map>
 #include <string>
 #include <unordered_map>
 #include <utility>
 
+#include "OgreCommon.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
-#include "OgreCommon.h"
-#include "OgreStringVector.h"
 #include "OgreScriptLoader.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreMemoryAllocatorConfig.h"
 #include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
 
 namespace Ogre {
 

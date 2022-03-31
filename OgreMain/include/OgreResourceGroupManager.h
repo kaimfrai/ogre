@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ResourceGroupManager_H__
-#define _ResourceGroupManager_H__
+#ifndef OGRE_CORE_RESOURCEGROUPMANAGER_H
+#define OGRE_CORE_RESOURCEGROUPMANAGER_H
 
 #include <ctime>
 #include <list>
@@ -35,15 +35,15 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
-#include "OgreDataStream.h"
 #include "OgreArchive.h"
-#include "OgreIteratorWrapper.h"
 #include "OgreCommon.h"
+#include "OgreDataStream.h"
+#include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
 #include "OgreStringVector.h"
 
 // If X11/Xlib.h gets included before this header (for example it happens when

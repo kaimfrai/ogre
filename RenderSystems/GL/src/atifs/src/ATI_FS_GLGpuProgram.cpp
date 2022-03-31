@@ -26,17 +26,17 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <stdio.h>
+#include <cstdio>
 #include <map>
 #include <string>
 #include <utility>
 
-#include "ps_1_4.h"
-#include "OgreException.h"
-#include "OgreLogManager.h"
 #include "ATI_FS_GLGpuProgram.h"
+#include "OgreException.h"
 #include "OgreGpuProgramParams.h"
+#include "OgreLogManager.h"
 #include "OgreSharedPtr.h"
+#include "ps_1_4.h"
 
 
 namespace Ogre {

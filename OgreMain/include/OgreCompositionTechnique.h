@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __CompositionTechnique_H__
-#define __CompositionTechnique_H__
+#ifndef OGRE_CORE_COMPOSITIONTECHNIQUE_H
+#define OGRE_CORE_COMPOSITIONTECHNIQUE_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgrePixelFormat.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreTexture.h"
 
 namespace Ogre {

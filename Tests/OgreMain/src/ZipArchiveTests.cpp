@@ -27,17 +27,17 @@ THE SOFTWARE.
 */
 #include "ZipArchiveTests.h"
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <string>
 #include <utility>
 #include <vector>
 
+#include "OgreArchive.h"
 #include "OgreCommon.h"
 #include "OgreConfigFile.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreArchive.h"
 #include "OgreDataStream.h"
+#include "OgreFileSystemLayer.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringVector.h"

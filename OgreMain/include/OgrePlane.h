@@ -33,13 +33,13 @@ THE SOFTWARE.
 // http://www.geometrictools.com/License/Boost/LICENSE_1_0.txt
 
 
-#ifndef __Plane_H__
-#define __Plane_H__
+#ifndef OGRE_CORE_PLANE_H
+#define OGRE_CORE_PLANE_H
 
 #include "OgrePrerequisites.h"
 
-#include "OgreVector.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 

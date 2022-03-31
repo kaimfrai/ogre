@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreParticleEmitterCommands.h"
+
 #include "OgreParticleEmitter.h"
 #include "OgreStringConverter.h"
 #include "OgreVector.h"

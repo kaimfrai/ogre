@@ -25,16 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
 #include <algorithm>
+#include <cassert>
 #include <limits>
 #include <string>
 #include <vector>
 
-#include "OgreEntity.h"
-#include "OgreSubEntity.h"
 #include "OgreAnimationTrack.h"
 #include "OgreCamera.h"
+#include "OgreEntity.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreLogManager.h"
 #include "OgreMaterial.h"
@@ -44,6 +43,7 @@ THE SOFTWARE.
 #include "OgreMesh.h"
 #include "OgreNode.h"
 #include "OgreRenderOperation.h"
+#include "OgreSubEntity.h"
 #include "OgreSubMesh.h"
 #include "OgreVector.h"
 #include "OgreVertexIndexData.h"

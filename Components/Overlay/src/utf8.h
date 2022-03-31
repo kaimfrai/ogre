@@ -2,10 +2,10 @@
  *
  * This is free and unencumbered software released into the public domain.
  */
-#ifndef UTF8_H
-#define UTF8_H
+#ifndef OGRE_COMPONENTS_OVERLAY_UTF8_H
+#define OGRE_COMPONENTS_OVERLAY_UTF8_H
 
-#include <stdint.h>
+#include <cstdint>
 
 /* Decode the next character, C, from BUF, reporting errors in E.
  *

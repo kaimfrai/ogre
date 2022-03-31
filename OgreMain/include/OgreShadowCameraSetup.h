@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ShadowCameraSetup_H__
-#define __ShadowCameraSetup_H__
+#ifndef OGRE_CORE_SHADOWCAMERASETUP_H
+#define OGRE_CORE_SHADOWCAMERASETUP_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <memory>
 
-#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

@@ -26,16 +26,16 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __SkeletonInstance_H__
-#define __SkeletonInstance_H__
+#ifndef OGRE_CORE_SKELETONINSTANCE_H
+#define OGRE_CORE_SKELETONINSTANCE_H
 
 #include <list>
 
 #include "OgrePrerequisites.h"
-#include "OgreSkeleton.h"
 #include "OgreQuaternion.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
+#include "OgreSkeleton.h"
 #include "OgreVector.h"
 
 namespace Ogre {

@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <utility>
 #include <vector>
 
-#include "OgreRenderSystemCapabilitiesManager.h"
-#include "OgreRenderSystemCapabilitiesSerializer.h"
 #include "OgreArchive.h"
 #include "OgreArchiveManager.h"
 #include "OgreDataStream.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderSystemCapabilitiesManager.h"
+#include "OgreRenderSystemCapabilitiesSerializer.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringVector.h"
-#include "OgreRenderSystemCapabilities.h"
 
 
 

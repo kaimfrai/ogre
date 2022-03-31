@@ -29,10 +29,10 @@ THE SOFTWARE.
 #include <string>
 
 #include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgreGLSLExtSupport.h"
 #include "OgreGLPrerequisites.h"
+#include "OgreGLSLExtSupport.h"
 #include "OgreLog.h"
+#include "OgreLogManager.h"
 
 namespace Ogre
 {

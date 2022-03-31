@@ -26,7 +26,7 @@ THE SOFTWARE
 
 #include "OgreFontManager.h"
 
-#include <assert.h>
+#include <cassert>
 #include <memory>
 
 #include "OgreResourceGroupManager.h"

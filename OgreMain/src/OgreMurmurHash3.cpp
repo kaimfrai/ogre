@@ -7,7 +7,8 @@
 // compile and run any of them on any platform, but your performance with the
 // non-native version will be less than optimal.
 
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 
 #include "OgreMurmurHash3.h"
 #include "OgrePlatform.h"

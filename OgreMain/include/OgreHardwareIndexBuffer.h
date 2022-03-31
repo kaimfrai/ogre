@@ -25,10 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __HardwareIndexBuffer__
-#define __HardwareIndexBuffer__
+#ifndef OGRE_CORE_HARDWAREINDEXBUFFER_H
+#define OGRE_CORE_HARDWAREINDEXBUFFER_H
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreHardwareBuffer.h"
 #include "OgrePlatform.h"

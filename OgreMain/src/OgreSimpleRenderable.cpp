@@ -25,10 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <stddef.h>
+#include <cstddef>
 #include <ostream>
 
-#include "OgreRenderQueue.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreMaterial.h"
@@ -38,6 +37,7 @@ THE SOFTWARE.
 #include "OgreNode.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
+#include "OgreRenderQueue.h"
 #include "OgreRenderable.h"
 #include "OgreSharedPtr.h"
 #include "OgreSimpleRenderable.h"

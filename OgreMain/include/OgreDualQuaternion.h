@@ -26,16 +26,16 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __DualQuaternion_H__
-#define __DualQuaternion_H__
+#ifndef OGRE_CORE_DUALQUATERNION_H
+#define OGRE_CORE_DUALQUATERNION_H
 
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 #include <ostream>
 #include <utility>
 
-#include "OgrePrerequisites.h"
 #include "OgreMath.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 
 namespace Ogre {

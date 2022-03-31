@@ -25,8 +25,8 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __ApplicationContextBase_H__
-#define __ApplicationContextBase_H__
+#ifndef OGRE_COMPONENTS_BITES_APPLICATIONCONTEXTBASE_H
+#define OGRE_COMPONENTS_BITES_APPLICATIONCONTEXTBASE_H
 
 #include <cstddef>
 #include <cstdint>
@@ -35,11 +35,11 @@
 #include <utility>
 #include <vector>
 
-#include "OgreFrameListener.h"
-#include "OgreStaticPluginLoader.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
+#include "OgreFrameListener.h"
 #include "OgrePrerequisites.h"
+#include "OgreStaticPluginLoader.h"
 
 // forward declarations
 extern "C" struct SDL_Window;

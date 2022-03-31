@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __GLPlugin_H__
-#define __GLPlugin_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_PLUGIN_H
+#define OGRE_RENDERSYSTEMS_GL_PLUGIN_H
 
 #include "OgrePlugin.h"
 #include "OgrePrerequisites.h"

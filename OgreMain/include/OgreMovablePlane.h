@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __MovablePlane_H__
-#define __MovablePlane_H__
+#ifndef OGRE_CORE_MOVABLEPLANE_H
+#define OGRE_CORE_MOVABLEPLANE_H
 
-#include "OgrePrerequisites.h"
-#include "OgrePlane.h"
-#include "OgreMovableObject.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreMovableObject.h"
+#include "OgrePlane.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreRenderable.h"
 #include "OgreVector.h"

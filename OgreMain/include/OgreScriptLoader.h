@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ScriptLoader_H__
-#define __ScriptLoader_H__
+#ifndef OGRE_CORE_SCRIPTLOADER_H
+#define OGRE_CORE_SCRIPTLOADER_H
 
-#include "OgrePrerequisites.h"
 #include "OgreDataStream.h"
+#include "OgrePrerequisites.h"
 #include "OgreStringVector.h"
 
 namespace Ogre {

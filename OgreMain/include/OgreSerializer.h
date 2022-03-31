@@ -26,14 +26,14 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __Serializer_H__
-#define __Serializer_H__
+#ifndef OGRE_CORE_SERIALIZER_H
+#define OGRE_CORE_SERIALIZER_H
 
-#include <stddef.h>
+#include <cstddef>
 
-#include "OgrePrerequisites.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreSharedPtr.h"
 

@@ -25,15 +25,15 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __SampleBrowser_H__
-#define __SampleBrowser_H__
+#ifndef OGRE_SAMPLES_BROWSER_H
+#define OGRE_SAMPLES_BROWSER_H
 
-#include "SampleContext.h"
-#include "SamplePlugin.h"
-#include "OgreTrays.h"
+#include "OgreArchiveManager.h"
 #include "OgreConfigFile.h"
 #include "OgreTechnique.h"
-#include "OgreArchiveManager.h"
+#include "OgreTrays.h"
+#include "SampleContext.h"
+#include "SamplePlugin.h"
 #include "SdkSample.h"
 
 #define ENABLE_SHADERS_CACHE 1

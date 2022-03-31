@@ -24,12 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <stddef.h>
+#include <cstddef>
 #include <list>
 #include <memory>
 #include <string>
 
-#include "OgreShaderPrecompiledHeaders.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMaterialSerializer.h"
@@ -41,6 +40,7 @@ THE SOFTWARE.
 #include "OgreShaderFunction.h"
 #include "OgreShaderFunctionAtom.h"
 #include "OgreShaderParameter.h"
+#include "OgreShaderPrecompiledHeaders.h"
 #include "OgreShaderProgram.h"
 #include "OgreShaderProgramSet.h"
 #include "OgreShaderScriptTranslator.h"

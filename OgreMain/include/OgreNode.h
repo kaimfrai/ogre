@@ -25,21 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _Node_H__
-#define _Node_H__
+#ifndef OGRE_CORE_NODE_H
+#define OGRE_CORE_NODE_H
 
+#include <algorithm>
 #include <set>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
-#include "OgreMatrix4.h"
-#include "OgreUserObjectBindings.h"
 #include "OgreMath.h"
 #include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
+#include "OgreUserObjectBindings.h"
 #include "OgreVector.h"
 
 namespace Ogre {
@@ -666,4 +666,4 @@ class Camera;
 
 } // namespace Ogre
 
-#endif // _Node_H__
+#endif // OGRE_CORE_NODE_H

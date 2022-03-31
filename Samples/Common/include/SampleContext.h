@@ -25,15 +25,15 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __SampleContext_H__
-#define __SampleContext_H__
+#ifndef OGRE_SAMPLES_SAMPLECONTEXT_H
+#define OGRE_SAMPLES_SAMPLECONTEXT_H
 
 #include "OgreApplicationContext.h"
 
-#include "Sample.h"
-#include "OgreRenderWindow.h"
-#include "OgreProfiler.h"
 #include "OgrePlugin.h"
+#include "OgreProfiler.h"
+#include "OgreRenderWindow.h"
+#include "Sample.h"
 
 namespace OgreBites
 {

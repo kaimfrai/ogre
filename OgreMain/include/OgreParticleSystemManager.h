@@ -25,21 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ParticleSystemManager_H__
-#define __ParticleSystemManager_H__
+#ifndef OGRE_CORE_PARTICLESYSTEMMANAGER_H
+#define OGRE_CORE_PARTICLESYSTEMMANAGER_H
 
-
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <string>
 
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
-#include "OgreScriptLoader.h"
 #include "OgreCommon.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreMovableObject.h"
+#include "OgrePrerequisites.h"
+#include "OgreScriptLoader.h"
+#include "OgreSingleton.h"
 #include "OgreStringVector.h"
 
 namespace Ogre {

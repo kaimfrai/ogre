@@ -26,11 +26,11 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __Bone_H__
-#define __Bone_H__
+#ifndef OGRE_CORE_BONE_H
+#define OGRE_CORE_BONE_H
 
-#include "OgrePrerequisites.h"
 #include "OgreNode.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreVector.h"
 

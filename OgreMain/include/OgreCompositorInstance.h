@@ -25,24 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __CompositorInstance_H__
-#define __CompositorInstance_H__
+#ifndef OGRE_CORE_COMPOSITORINSTANCE_H
+#define OGRE_CORE_COMPOSITORINSTANCE_H
 
-#include <stddef.h>
+#include <algorithm>
 #include <bitset>
+#include <cstddef>
 #include <map>
 #include <string>
 #include <utility>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
-#include "OgreMaterialManager.h"
-#include "OgreRenderQueue.h"
-#include "OgreCompositionTechnique.h"
 #include "OgreCommon.h"
+#include "OgreCompositionTechnique.h"
+#include "OgreMaterialManager.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderQueue.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {
@@ -423,4 +423,4 @@ class SceneManager;
 
 } // namespace Ogre
 
-#endif // __CompositorInstance_H__
+#endif // OGRE_CORE_COMPOSITORINSTANCE_H

@@ -28,24 +28,24 @@ THE SOFTWARE.
 
 #include "OgreOverlayManager.h"
 
-#include <assert.h>
+#include <cassert>
 #include <utility>
 
-#include "OgreOverlayContainer.h"
-#include "OgreLogManager.h"
+#include "OgreDataStream.h"
 #include "OgreException.h"
-#include "OgreViewport.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreLogManager.h"
 #include "OgreOverlay.h"
-#include "OgreResourceGroupManager.h"
+#include "OgreOverlayContainer.h"
+#include "OgreOverlayElement.h"
 #include "OgreOverlayElementFactory.h"
 #include "OgreOverlayTranslator.h"
-#include "OgreDataStream.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreOverlayElement.h"
+#include "OgreResourceGroupManager.h"
 #include "OgreScriptCompiler.h"
 #include "OgreScriptTranslator.h"
 #include "OgreSharedPtr.h"
 #include "OgreString.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 class Camera;

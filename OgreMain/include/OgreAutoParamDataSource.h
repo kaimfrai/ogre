@@ -25,20 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __AutoParamDataSource_H_
-#define __AutoParamDataSource_H_
+#ifndef OGRE_CORE_AUTOPARAMDATASOURCE_H
+#define OGRE_CORE_AUTOPARAMDATASOURCE_H
 
-#include <stddef.h>
+#include <cstddef>
 
-#include "OgrePrerequisites.h"
-#include "OgreCommon.h"
-#include "OgreLight.h"
-#include "OgreSceneNode.h"
 #include "OgreColourValue.h"
+#include "OgreCommon.h"
 #include "OgreConfig.h"
 #include "OgreGpuProgramParams.h"
+#include "OgreLight.h"
 #include "OgreMatrix4.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreSceneNode.h"
 #include "OgreVector.h"
 
 namespace Ogre {

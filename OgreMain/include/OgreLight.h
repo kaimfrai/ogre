@@ -25,28 +25,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _LIGHT_H__
-#define _LIGHT_H__
+#ifndef OGRE_CORE_LIGHT_H
+#define OGRE_CORE_LIGHT_H
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <map>
 
-#include "OgrePrerequisites.h"
-#include "OgreColourValue.h"
-#include "OgreVector.h"
-#include "OgreMovableObject.h"
-#include "OgrePlaneBoundedVolume.h"
-#include "OgreNode.h"
-#include "OgreCamera.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreCamera.h"
+#include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMath.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePlaneBoundedVolume.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreRenderable.h"
 #include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 class RenderQueue;
@@ -576,4 +576,4 @@ class Sphere;
     /** @} */
 
 } // namespace Ogre
-#endif // _LIGHT_H__
+#endif // OGRE_CORE_LIGHT_H

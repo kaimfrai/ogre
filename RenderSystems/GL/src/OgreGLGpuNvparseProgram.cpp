@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 #include "OgreGLGpuNvparseProgram.h"
 
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 
 #include "OgreLogManager.h"

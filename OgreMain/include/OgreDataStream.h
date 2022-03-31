@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __DataStream_H__
-#define __DataStream_H__
+#ifndef OGRE_CORE_DATASTREAM_H
+#define OGRE_CORE_DATASTREAM_H
 
-#include <stdio.h>
+#include <cstdio>
 #include <istream>
 #include <list>
 
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
     

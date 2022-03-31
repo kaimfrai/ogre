@@ -25,21 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __RenderQueueSortingGrouping_H__
-#define __RenderQueueSortingGrouping_H__
+#ifndef OGRE_CORE_RENDERQUEUESORTINGGROUPING_H
+#define OGRE_CORE_RENDERQUEUESORTINGGROUPING_H
 
+#include <algorithm>
 #include <functional>
 #include <map>
 #include <utility>
 #include <vector>
-#include <algorithm>
 
 // Precompiler options
-#include "OgrePrerequisites.h"
-#include "OgrePass.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePass.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     class Camera;

@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Renderable_H__
-#define __Renderable_H__
+#ifndef OGRE_CORE_RENDERABLE_H
+#define OGRE_CORE_RENDERABLE_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMaterial.h"
-#include "OgreVector.h"
-#include "OgreUserObjectBindings.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
+#include "OgreUserObjectBindings.h"
+#include "OgreVector.h"
 
 namespace Ogre {
     class Any;
@@ -357,4 +357,4 @@ namespace Ogre {
 
 } // namespace Ogre
 
-#endif //__Renderable_H__
+#endif // OGRE_CORE_RENDERABLE_H

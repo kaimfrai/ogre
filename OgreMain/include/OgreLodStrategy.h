@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Lod_Strategy_H__
-#define __Lod_Strategy_H__
+#ifndef OGRE_CORE_LODSTRATEGY_H
+#define OGRE_CORE_LODSTRATEGY_H
 
-#include "OgrePrerequisites.h"
-#include "OgreMesh.h"
 #include "OgreMaterial.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 class Camera;

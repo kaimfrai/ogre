@@ -25,10 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
 #include <mmintrin.h>
-#include <string.h>
 #include <xmmintrin.h>
+
+#include <cassert>
+#include <cstring>
 
 #include "OgreOptimisedUtil.h"
 #include "OgreEdgeListBuilder.h"
@@ -38,7 +39,6 @@ THE SOFTWARE.
 #include "OgrePlatformInformation.h"
 #include "OgrePrerequisites.h"
 #include "OgreVector.h"
-
 // Should keep this includes at latest to avoid potential "xmmintrin.h" included by
 // other header file on some platform for some reason.
 #include "OgreSIMDHelper.h"

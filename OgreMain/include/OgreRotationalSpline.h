@@ -25,8 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __RotationalSpline_H__
-#define __RotationalSpline_H__
+#ifndef OGRE_CORE_ROTATIONALSPLINE_H
+#define OGRE_CORE_ROTATIONALSPLINE_H
+
+#include <vector>
 
 #include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"

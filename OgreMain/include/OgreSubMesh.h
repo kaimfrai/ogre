@@ -25,24 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __SubMesh_H_
-#define __SubMesh_H_
+#ifndef OGRE_CORE_SUBMESH_H
+#define OGRE_CORE_SUBMESH_H
 
-#include <stddef.h>
+#include <algorithm>
+#include <cstddef>
 #include <map>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreVertexBoneAssignment.h"
 #include "OgreAnimationTrack.h"
-#include "OgreResourceGroupManager.h"
 #include "OgreCommon.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"
+#include "OgreVertexBoneAssignment.h"
 
 namespace Ogre {
 class IndexData;

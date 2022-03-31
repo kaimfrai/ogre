@@ -26,11 +26,10 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <math.h>
-#include <stddef.h>
+#include <cmath>
+#include <cstddef>
 #include <string>
 
-#include "OgrePrefabFactory.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
@@ -39,6 +38,7 @@ THE SOFTWARE.
 #include "OgreMath.h"
 #include "OgreMesh.h"
 #include "OgrePlatform.h"
+#include "OgrePrefabFactory.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 #include "OgreSubMesh.h"

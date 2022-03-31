@@ -5,7 +5,7 @@
 
 #include "OgreGLSLProgramCommon.h"
 
-#include <stddef.h>
+#include <cstddef>
 #include <sstream>
 #include <string>
 

@@ -39,16 +39,16 @@
 #include <vector>
 
 #include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgreStringConverter.h"
-#include "OgreViewport.h"
-#include "OgreGLXContext.h"
-#include "OgreGLXGLSupport.h"
-#include "OgreX11.h"
 #include "OgreGLContext.h"
 #include "OgreGLNativeSupport.h"
+#include "OgreGLXContext.h"
+#include "OgreGLXGLSupport.h"
+#include "OgreLogManager.h"
 #include "OgreRenderTarget.h"
 #include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreViewport.h"
+#include "OgreX11.h"
 
 namespace Ogre
 {

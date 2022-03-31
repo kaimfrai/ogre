@@ -31,16 +31,16 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreMaterialManager.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareVertexBuffer.h"
 #include "OgreException.h"
-#include "OgreRoot.h"
-#include "OgreRenderSystem.h"
 #include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
 #include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
 #include "OgreRenderQueue.h"
+#include "OgreRenderSystem.h"
+#include "OgreRoot.h"
 #include "OgreString.h"
 #include "OgreStringConverter.h"
 #include "OgreStringInterface.h"

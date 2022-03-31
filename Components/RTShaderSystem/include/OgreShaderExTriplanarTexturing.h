@@ -24,14 +24,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderExTriplanarTexturing_
-#define _ShaderExTriplanarTexturing_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXTRIPLANARTEXTURING_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXTRIPLANARTEXTURING_H
 
-#include "OgreShaderPrerequisites.h"
 #include "OgreCommon.h"
 #include "OgrePrerequisites.h"
-#include "OgreVector.h"
+#include "OgreShaderPrerequisites.h"
 #include "OgreShaderSubRenderState.h"
+#include "OgreVector.h"
 
 namespace Ogre {
     class AutoParamDataSource;

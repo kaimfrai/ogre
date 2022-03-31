@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _Codec_H__
-#define _Codec_H__
+#ifndef OGRE_CORE_CODEC_H
+#define OGRE_CORE_CODEC_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <string>
 
+#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreStringVector.h"
-#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
 class Any;

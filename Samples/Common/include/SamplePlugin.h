@@ -25,8 +25,8 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __SamplePlugin_H__
-#define __SamplePlugin_H__
+#ifndef OGRE_SAMPLES_SAMPLEPLUGIN_H
+#define OGRE_SAMPLES_SAMPLEPLUGIN_H
 
 #include "OgrePlugin.h"
 #include "Sample.h"

@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __VertexBoneAssignment_H__
-#define __VertexBoneAssignment_H__
+#ifndef OGRE_CORE_VERTEXBONEASSIGNMENT_H
+#define OGRE_CORE_VERTEXBONEASSIGNMENT_H
 
 #include "OgrePrerequisites.h"
 

@@ -26,17 +26,17 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __DefaultHardwareBufferManager_H__
-#define __DefaultHardwareBufferManager_H__
+#ifndef OGRE_CORE_DEFAULTHARDWAREBUFFERMANAGER_H
+#define OGRE_CORE_DEFAULTHARDWAREBUFFERMANAGER_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <memory>
 
-#include "OgrePrerequisites.h"
+#include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
-#include "OgreHardwareBuffer.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

@@ -26,13 +26,13 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __SimpleSpline_H__
-#define __SimpleSpline_H__
+#ifndef OGRE_CORE_SIMPLESPLINE_H
+#define OGRE_CORE_SIMPLESPLINE_H
 
 #include <vector>
 
-#include "OgrePrerequisites.h"
 #include "OgreMatrix4.h"
+#include "OgrePrerequisites.h"
 #include "OgreVector.h"
 
 namespace Ogre {

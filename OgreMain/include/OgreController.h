@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Controller_H__
-#define __Controller_H__
+#ifndef OGRE_CORE_CONTROLLER_H
+#define OGRE_CORE_CONTROLLER_H
 
 #include "OgrePrerequisites.h"
 

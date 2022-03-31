@@ -26,26 +26,26 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __SCRIPTCOMPILER_H_
-#define __SCRIPTCOMPILER_H_
+#ifndef OGRE_CORE_SCRIPTCOMPILER_H
+#define OGRE_CORE_SCRIPTCOMPILER_H
 
+#include <algorithm>
 #include <list>
 #include <map>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
-#include <algorithm>
 
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreScriptLoader.h"
-#include "OgreGpuProgram.h"
 #include "OgreAny.h"
 #include "OgreCommon.h"
+#include "OgreGpuProgram.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreScriptLoader.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
 #include "OgreStringVector.h"
 
 namespace Ogre

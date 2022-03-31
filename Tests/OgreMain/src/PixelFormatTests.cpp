@@ -27,8 +27,8 @@ THE SOFTWARE.
 */
 #include "PixelFormatTests.h"
 
-#include <string.h>
 #include <cstdlib>
+#include <cstring>
 #include <iomanip>
 #include <ostream>
 #include <string>

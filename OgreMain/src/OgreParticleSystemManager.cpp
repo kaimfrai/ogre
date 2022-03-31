@@ -25,24 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <map>
 #include <string>
 #include <utility>
 
-#include "OgreParticleEmitterFactory.h"
-#include "OgreParticleAffectorFactory.h"
-#include "OgreParticleSystemRenderer.h"
 #include "OgreBillboardParticleRenderer.h"
-#include "OgreParticleSystem.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
 #include "OgreFactoryObj.h"
 #include "OgreLogManager.h"
 #include "OgreParticleAffector.h"
+#include "OgreParticleAffectorFactory.h"
 #include "OgreParticleEmitter.h"
+#include "OgreParticleEmitterFactory.h"
+#include "OgreParticleSystem.h"
 #include "OgreParticleSystemManager.h"
+#include "OgreParticleSystemRenderer.h"
 #include "OgrePrerequisites.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreRoot.h"

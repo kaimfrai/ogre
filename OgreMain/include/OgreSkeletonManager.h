@@ -25,15 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __SkeletonManager_H__
-#define __SkeletonManager_H__
+#ifndef OGRE_CORE_SKELETONMANAGER_H
+#define OGRE_CORE_SKELETONMANAGER_H
 
-#include "OgrePrerequisites.h"
-#include "OgreResourceManager.h"
-#include "OgreSingleton.h"
 #include "OgreCommon.h"
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreSingleton.h"
 
 namespace Ogre {
 

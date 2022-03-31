@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 #include <list>
 #include <map>
 #include <memory>
@@ -35,28 +35,28 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreMeshSerializerImpl.h"
-#include "OgreMeshFileFormat.h"
 #include "OgreAnimation.h"
 #include "OgreAnimationTrack.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreDistanceLodStrategy.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreBitwise.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreDataStream.h"
+#include "OgreDistanceLodStrategy.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreLodStrategy.h"
+#include "OgreLodStrategyManager.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreMaterialManager.h"
 #include "OgreMath.h"
 #include "OgreMesh.h"
+#include "OgreMeshFileFormat.h"
 #include "OgreMeshSerializer.h"
+#include "OgreMeshSerializerImpl.h"
 #include "OgrePlatform.h"
 #include "OgrePose.h"
 #include "OgreRenderOperation.h"
