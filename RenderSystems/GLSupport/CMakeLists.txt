@@ -60,7 +60,7 @@ elseif (APPLE)
 
   set(NATIVE_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/include/OSX 
-    ${PROJECT_SOURCE_DIR}/OgreMain/include/OSX)
+    ${PROJECT_SOURCE_DIR}/Core/include/OSX)
   set(PLATFORM_LIBS "-framework AppKit" ${OPENGL_gl_LIBRARY})
 elseif (UNIX)
   if(OGRE_GLSUPPORT_USE_EGL)
@@ -103,7 +103,7 @@ add_library(OgreGLSupport STATIC
     src/OgreGLUniformCache.cpp
     src/OgreGLWindow.cpp
 )
-target_link_libraries(OgreGLSupport PUBLIC OgreMain PRIVATE ${PLATFORM_LIBS})
+target_link_libraries(OgreGLSupport PUBLIC OgreCore PRIVATE ${PLATFORM_LIBS})
 target_include_directories(OgreGLSupport PUBLIC 
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/GLSL>"
