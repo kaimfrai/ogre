@@ -26,17 +26,17 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __Log_H__
-#define __Log_H__
+#ifndef OGRE_CORE_LOG_H
+#define OGRE_CORE_LOG_H
 
+#include <algorithm>
 #include <fstream>
 #include <string>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 

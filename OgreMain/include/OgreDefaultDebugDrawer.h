@@ -2,13 +2,13 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 
-#ifndef OGREMAIN_INCLUDE_OGREDEFAULTDEBUGDRAWER_H_
-#define OGREMAIN_INCLUDE_OGREDEFAULTDEBUGDRAWER_H_
+#ifndef OGRE_CORE_DEFAULTDEBUGDRAWER_H
+#define OGRE_CORE_DEFAULTDEBUGDRAWER_H
 
-#include "OgreSceneManager.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreColourValue.h"
 #include "OgreManualObject.h"
+#include "OgreSceneManager.h"
 
 namespace Ogre
 {
@@ -50,4 +50,4 @@ public:
 
 } /* namespace Ogre */
 
-#endif /* OGREMAIN_INCLUDE_OGREDEFAULTDEBUGDRAWER_H_ */
+#endif // OGRE_CORE_DEFAULTDEBUGDRAWER_H

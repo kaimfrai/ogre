@@ -26,9 +26,9 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <assert.h>
-#include <stddef.h>
 #include <algorithm>
+#include <cassert>
+#include <cstddef>
 #include <list>
 #include <map>
 #include <memory>
@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreScriptParser.h"
 #include "OgreBuiltinScriptTranslators.h"
 #include "OgreDataStream.h"
 #include "OgreLogManager.h"
@@ -48,6 +47,7 @@ THE SOFTWARE.
 #include "OgreResourceGroupManager.h"
 #include "OgreScriptCompiler.h"
 #include "OgreScriptLexer.h"
+#include "OgreScriptParser.h"
 #include "OgreScriptTranslator.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"

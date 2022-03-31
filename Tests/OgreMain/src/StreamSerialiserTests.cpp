@@ -26,15 +26,15 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <gtest/gtest.h>
-#include <stddef.h>
+#include <cstddef>
 
-#include "OgreStreamSerialiser.h"
-#include "OgreFileSystem.h"
-#include "OgreVector.h"
 #include "OgreArchive.h"
+#include "OgreFileSystem.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
+#include "OgreStreamSerialiser.h"
+#include "OgreVector.h"
 
 
 using namespace Ogre;

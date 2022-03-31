@@ -28,7 +28,7 @@
 
 #include <X11/extensions/Xrandr.h>
 #include <X11/extensions/randr.h>
-#include <assert.h>
+#include <cassert>
 #include <istream>
 #include <map>
 #include <string>
@@ -36,14 +36,14 @@
 #include <vector>
 
 #include "OgreException.h"
+#include "OgreGLUtil.h"
+#include "OgreGLXGLSupport.h"
+#include "OgreGLXRenderTexture.h"
+#include "OgreGLXWindow.h"
+#include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreStringConverter.h"
-#include "OgreGLXGLSupport.h"
-#include "OgreGLXWindow.h"
-#include "OgreGLXRenderTexture.h"
-#include "OgreGLUtil.h"
 #include "OgreX11.h"
-#include "OgreLog.h"
 
 namespace Ogre {
 class GLPBuffer;

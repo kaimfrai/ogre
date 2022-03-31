@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <stdlib.h>
-#include <iostream>
 #include <algorithm>
+#include <cstdlib>
 #include <ctime>
 #include <iomanip>
+#include <iostream>
 #include <string>
 #include <vector>
 

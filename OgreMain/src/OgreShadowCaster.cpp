@@ -25,25 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <memory>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "OgreLight.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreOptimisedUtil.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
+#include "OgreEdgeListBuilder.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
+#include "OgreLight.h"
 #include "OgreLogManager.h"
 #include "OgreMatrix4.h"
 #include "OgreMovableObject.h"
+#include "OgreOptimisedUtil.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderOperation.h"
 #include "OgreRoot.h"

@@ -26,18 +26,17 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __StringInterface_H__
-#define __StringInterface_H__
+#ifndef OGRE_CORE_STRINGINTERFACE_H
+#define OGRE_CORE_STRINGINTERFACE_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <string>
 #include <type_traits>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
+#include "OgrePrerequisites.h"
 #include "OgreStringConverter.h"
 
 namespace Ogre {

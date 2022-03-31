@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <iterator>
 #include <list>
 #include <map>
@@ -37,36 +37,36 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreBuiltinScriptTranslators.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreParticleSystemRenderer.h"
-#include "OgreParticleEmitter.h"
-#include "OgreParticleAffector.h"
-#include "OgreCompositor.h"
-#include "OgreCompositorManager.h"
-#include "OgreCompositionTechnique.h"
-#include "OgreCompositionTargetPass.h"
-#include "OgreCompositionPass.h"
-#include "OgreExternalTextureSourceManager.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreDistanceLodStrategy.h"
-#include "OgreDepthBuffer.h"
-#include "OgreParticleSystem.h"
-#include "OgreGpuProgramUsage.h"
 #include "OgreAny.h"
 #include "OgreBlendMode.h"
+#include "OgreBuiltinScriptTranslators.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
+#include "OgreCompositionPass.h"
+#include "OgreCompositionTargetPass.h"
+#include "OgreCompositionTechnique.h"
+#include "OgreCompositor.h"
+#include "OgreCompositorManager.h"
+#include "OgreDepthBuffer.h"
+#include "OgreDistanceLodStrategy.h"
 #include "OgreException.h"
 #include "OgreExternalTextureSource.h"
+#include "OgreExternalTextureSourceManager.h"
 #include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
 #include "OgreGpuProgramParams.h"
+#include "OgreGpuProgramUsage.h"
 #include "OgreLight.h"
+#include "OgreLodStrategyManager.h"
 #include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
 #include "OgreMath.h"
 #include "OgreMatrix4.h"
+#include "OgreParticleAffector.h"
+#include "OgreParticleEmitter.h"
+#include "OgreParticleSystem.h"
 #include "OgreParticleSystemManager.h"
+#include "OgreParticleSystemRenderer.h"
 #include "OgrePass.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"

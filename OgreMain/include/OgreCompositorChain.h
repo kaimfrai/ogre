@@ -25,22 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __CompositorChain_H__
-#define __CompositorChain_H__
+#ifndef OGRE_CORE_COMPOSITORCHAIN_H
+#define OGRE_CORE_COMPOSITORCHAIN_H
 
-#include <stddef.h>
-#include <vector>
 #include <algorithm>
+#include <cstddef>
+#include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreRenderTargetListener.h"
-#include "OgreRenderQueueListener.h"
-#include "OgreCompositorInstance.h"
-#include "OgreViewport.h"
 #include "OgreCommon.h"
+#include "OgreCompositorInstance.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderQueueListener.h"
+#include "OgreRenderTargetListener.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 class Camera;
@@ -252,4 +252,4 @@ class SceneManager;
     /** @} */
 } // namespace Ogre
 
-#endif // __CompositorChain_H__
+#endif // OGRE_CORE_COMPOSITORCHAIN_H

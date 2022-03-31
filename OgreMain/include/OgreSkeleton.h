@@ -26,23 +26,23 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __Skeleton_H__
-#define __Skeleton_H__
+#ifndef OGRE_CORE_SKELETON_H
+#define OGRE_CORE_SKELETON_H
 
-#include <stddef.h>
+#include <algorithm>
+#include <cstddef>
 #include <map>
 #include <set>
 #include <string>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreStringVector.h"
 #include "OgreAnimation.h"
-#include "OgreSharedPtr.h"
 #include "OgreIteratorWrapper.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
 
 namespace Ogre {
 class Affine3;

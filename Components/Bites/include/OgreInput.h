@@ -3,8 +3,8 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
 
-#ifndef SAMPLES_COMMON_INCLUDE_INPUT_H_
-#define SAMPLES_COMMON_INCLUDE_INPUT_H_
+#ifndef OGRE_COMPONENTS_BITES_INPUT_H
+#define OGRE_COMPONENTS_BITES_INPUT_H
 
 #include <vector>
 
@@ -303,4 +303,4 @@ public:
 /** @} */
 }
 
-#endif /* SAMPLES_COMMON_INCLUDE_INPUT_H_ */
+#endif // OGRE_COMPONENTS_BITES_INPUT_H

@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include "OgreTagPoint.h"
+
 #include "OgreEntity.h"
 #include "OgreMovableObject.h"
 #include "OgreNode.h"

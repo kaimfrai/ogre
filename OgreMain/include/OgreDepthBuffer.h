@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __DepthBuffer_H__
-#define __DepthBuffer_H__
+#ifndef OGRE_CORE_DEPTHBUFFER_H
+#define OGRE_CORE_DEPTHBUFFER_H
 
 #include <set>
 

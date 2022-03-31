@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <map>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <utility>
 
-#include "OgrePixelFormat.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
 #include "OgreImage.h"
+#include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreRenderSystem.h"

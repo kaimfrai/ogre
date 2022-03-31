@@ -27,7 +27,6 @@ THE SOFTWARE.
 */
 #include <algorithm>
 
-#include "OgreMovablePlane.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
@@ -36,6 +35,7 @@ THE SOFTWARE.
 #include "OgreMatrix3.h"
 #include "OgreMatrix4.h"
 #include "OgreMovableObject.h"
+#include "OgreMovablePlane.h"
 #include "OgreNode.h"
 #include "OgrePlane.h"
 #include "OgrePlaneBoundedVolume.h"

@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef INCL_OGRE_GLUTIL_H
-#define INCL_OGRE_GLUTIL_H
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_UTIL_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_UTIL_H
 
 #include "OgreGLNativeSupport.h"
 
@@ -35,4 +35,4 @@ namespace Ogre {
 	GLNativeSupport* getGLSupport(int profile = GLNativeSupport::CONTEXT_CORE);
 }
 
-#endif // INCL_OGRE_GLUTIL_H
+#endif // OGREGLUTIL_H

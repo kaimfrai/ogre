@@ -25,9 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <cstdint>
 #include <algorithm>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
 #include <istream>
 #include <list>
 #include <map>
@@ -66,8 +67,8 @@ THE SOFTWARE.
 //  being aware of the 3D API. However there are a few
 //  simple functions which can have a base implementation
 
-#include "OgreRenderTarget.h"
 #include "OgreDepthBuffer.h"
+#include "OgreRenderTarget.h"
 
 namespace Ogre {
     class Camera;

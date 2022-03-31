@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _Bitwise_H__
-#define _Bitwise_H__
+#ifndef OGRE_CORE_BITWISE_H
+#define OGRE_CORE_BITWISE_H
 
 #include "OgrePrerequisites.h"
 

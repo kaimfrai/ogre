@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __RenderTargetListener_H__
-#define __RenderTargetListener_H__
+#ifndef OGRE_CORE_RENDERTARGETLISTENER_H
+#define OGRE_CORE_RENDERTARGETLISTENER_H
 
 
 #include "OgrePrerequisites.h"

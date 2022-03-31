@@ -25,26 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _TextureManager_H__
-#define _TextureManager_H__
+#ifndef OGRE_CORE_TEXTUREMANAGER_H
+#define OGRE_CORE_TEXTUREMANAGER_H
 
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <string>
 
-#include "OgrePrerequisites.h"
-#include "OgreResourceManager.h"
-#include "OgreTexture.h"
-#include "OgreSingleton.h"
-#include "OgreTextureUnitState.h"
 #include "OgreCommon.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
 #include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreTexture.h"
+#include "OgreTextureUnitState.h"
 
 namespace Ogre {
 class Image;

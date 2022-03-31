@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __OverlayContainer_H__
-#define __OverlayContainer_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_CONTAINER_H
+#define OGRE_COMPONENTS_OVERLAY_CONTAINER_H
 
 #include <map>
 #include <string>

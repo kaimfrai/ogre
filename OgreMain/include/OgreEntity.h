@@ -25,31 +25,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Entity_H__
-#define __Entity_H__
+#ifndef OGRE_CORE_ENTITY_H
+#define OGRE_CORE_ENTITY_H
 
-#include <stddef.h>
+#include <algorithm>
+#include <cstddef>
 #include <memory>
 #include <set>
 #include <utility>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
-#include "OgreCommon.h"
-#include "OgreMovableObject.h"
-#include "OgreQuaternion.h"
-#include "OgreVector.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreRenderable.h"
-#include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreCommon.h"
+#include "OgreHardwareBufferManager.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMatrix4.h"
+#include "OgreMovableObject.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderable.h"
 #include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
 #include "OgreShadowCaster.h"
 #include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 class AnimationState;
@@ -886,4 +886,4 @@ class VertexData;
 
 } // namespace Ogre
 
-#endif // __Entity_H__
+#endif // OGRE_CORE_ENTITY_H

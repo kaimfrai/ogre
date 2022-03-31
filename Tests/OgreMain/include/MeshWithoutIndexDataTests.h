@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __MeshWithoutIndexDataTests_H__
-#define __MeshWithoutIndexDataTests_H__
+#ifndef OGRE_TESTS_CORE_MESHWITHOUTINDEXDATATESTS_H
+#define OGRE_TESTS_CORE_MESHWITHOUTINDEXDATATESTS_H
 
 #include <gtest/gtest.h>
 

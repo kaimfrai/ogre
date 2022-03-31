@@ -26,11 +26,11 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLHARDWAREPIXELBUFFERCOMMON_H_
-#define RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLHARDWAREPIXELBUFFERCOMMON_H_
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_HARDWAREPIXELBUFFERCOMMON_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_HARDWAREPIXELBUFFERCOMMON_H
 
-#include "OgreHardwarePixelBuffer.h"
 #include "OgreHardwareBuffer.h"
+#include "OgreHardwarePixelBuffer.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 
@@ -79,4 +79,4 @@ public:
 
 } /* namespace Ogre */
 
-#endif /* RENDERSYSTEMS_GLSUPPORT_INCLUDE_OGREGLHARDWAREPIXELBUFFERCOMMON_H_ */
+#endif // OGREGLHARDWAREPIXELBUFFERCOMMON_H

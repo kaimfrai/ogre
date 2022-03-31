@@ -31,17 +31,17 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreInstanceBatchHW_VTF.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreInstancedEntity.h"
 #include "OgreCamera.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
+#include "OgreHardwarePixelBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreInstanceBatch.h"
+#include "OgreInstanceBatchHW_VTF.h"
 #include "OgreInstanceManager.h"
+#include "OgreInstancedEntity.h"
 #include "OgreMatrix4.h"
 #include "OgrePixelFormat.h"
 #include "OgreRenderOperation.h"

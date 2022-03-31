@@ -26,21 +26,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ShadowCameraSetupFocused_H__
-#define __ShadowCameraSetupFocused_H__
+#ifndef OGRE_CORE_SHADOWCAMERASETUPFOCUSED_H
+#define OGRE_CORE_SHADOWCAMERASETUPFOCUSED_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <memory>
 
-#include "OgrePrerequisites.h"
-#include "OgreShadowCameraSetup.h"
-#include "OgrePolygon.h"
-#include "OgreConvexBody.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreSceneNode.h"
+#include "OgreConvexBody.h"
 #include "OgreLight.h"
 #include "OgreMatrix4.h"
+#include "OgrePolygon.h"
+#include "OgrePrerequisites.h"
 #include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreShadowCameraSetup.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {
@@ -312,4 +312,4 @@ class Viewport;
 
 } // namespace Ogre
 
-#endif // __ShadowCameraSetupFocused_H__
+#endif // OGRE_CORE_SHADOWCAMERASETUPFOCUSED_H

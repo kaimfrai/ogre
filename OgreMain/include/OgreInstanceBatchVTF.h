@@ -25,21 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __BaseInstanceBatchVTF_H__
-#define __BaseInstanceBatchVTF_H__
+#ifndef OGRE_CORE_INSTANCEBATCHVTF_H
+#define OGRE_CORE_INSTANCEBATCHVTF_H
 
-#include <assert.h>
-#include <stddef.h>
-#include <vector>
 #include <algorithm>
+#include <cassert>
+#include <cstddef>
+#include <vector>
 
 #include "OgreInstanceBatch.h"
-#include "OgreTexture.h"
 #include "OgreMatrix4.h"
 #include "OgreMesh.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
+#include "OgreTexture.h"
 
 namespace Ogre
 {

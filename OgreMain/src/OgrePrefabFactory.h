@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __PrefabFactory_H__
-#define __PrefabFactory_H__
+#ifndef OGRE_CORE_PREFABFACTORY_H
+#define OGRE_CORE_PREFABFACTORY_H
 
 namespace Ogre {
 class Mesh;

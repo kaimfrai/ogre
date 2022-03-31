@@ -26,20 +26,20 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __AnimationTrack_H__
-#define __AnimationTrack_H__
+#ifndef OGRE_CORE_ANIMATIONTRACK_H
+#define OGRE_CORE_ANIMATIONTRACK_H
 
-#include <stddef.h>
-#include <vector>
 #include <algorithm>
+#include <cstddef>
+#include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreSimpleSpline.h"
-#include "OgreRotationalSpline.h"
-#include "OgrePose.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePose.h"
+#include "OgrePrerequisites.h"
+#include "OgreRotationalSpline.h"
 #include "OgreSharedPtr.h"
+#include "OgreSimpleSpline.h"
 
 namespace Ogre 
 {

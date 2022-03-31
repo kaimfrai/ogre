@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
 #include <algorithm>
+#include <cassert>
 #include <iterator>
 #include <memory>
 #include <string>
 #include <utility>
 
-#include "OgreRibbonTrail.h"
 #include "OgreController.h"
 #include "OgreException.h"
 #include "OgreMath.h"
+#include "OgreRibbonTrail.h"
 #include "OgreSceneNode.h"
 #include "OgreStringConverter.h"
 #include "OgreVector.h"

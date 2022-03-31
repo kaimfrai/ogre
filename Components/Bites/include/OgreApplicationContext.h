@@ -25,8 +25,8 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __ApplicationContext_H__
-#define __ApplicationContext_H__
+#ifndef OGRE_COMPONENTS_BITES_APPLICATIONCONTEXT_H
+#define OGRE_COMPONENTS_BITES_APPLICATIONCONTEXT_H
 
 #include "OgreApplicationContextBase.h"
 

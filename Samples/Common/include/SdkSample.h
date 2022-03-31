@@ -25,15 +25,15 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __SdkSample_H__
-#define __SdkSample_H__
+#ifndef OGRE_SAMPLES_SDKSAMPLE_H
+#define OGRE_SAMPLES_SDKSAMPLE_H
 
-#include "Sample.h"
-#include "OgreViewport.h"
-#include "OgreRenderWindow.h"
-#include "OgreTechnique.h"
 #include "OgreAdvancedRenderControls.h"
 #include "OgreOverlayManager.h"
+#include "OgreRenderWindow.h"
+#include "OgreTechnique.h"
+#include "OgreViewport.h"
+#include "Sample.h"
 
 namespace OgreBites
 {

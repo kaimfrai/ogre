@@ -32,14 +32,14 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
 #include "OgreCommon.h"
 #include "OgreCompositorManager.h"
 #include "OgreConfigOptionMap.h"
 #include "OgreGpuProgramManager.h"
 #include "OgreMaterialManager.h"
 #include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreRoot.h"
 #include "OgreStringVector.h"

@@ -25,30 +25,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __StaticGeometry_H__
-#define __StaticGeometry_H__
+#ifndef OGRE_CORE_STATICGEOMETRY_H
+#define OGRE_CORE_STATICGEOMETRY_H
 
-#include <assert.h>
-#include <stddef.h>
+#include <algorithm>
+#include <cassert>
+#include <cstddef>
 #include <iosfwd>
 #include <list>
 #include <map>
 #include <string>
 #include <utility>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
-#include "OgreMovableObject.h"
-#include "OgreRenderable.h"
-#include "OgreMesh.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMaterial.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgreMovableObject.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
+#include "OgreRenderable.h"
 #include "OgreShadowCaster.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"

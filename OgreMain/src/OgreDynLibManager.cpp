@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <utility>
 
-#include "OgreDynLibManager.h"
 #include "OgreDynLib.h"
+#include "OgreDynLibManager.h"
 
 namespace Ogre
 {

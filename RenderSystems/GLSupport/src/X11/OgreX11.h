@@ -3,11 +3,11 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
 
-#ifndef OGRE_X11_H__
-#define OGRE_X11_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_X11_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_X11_H
 
-#include <OgrePrerequisites.h>
 #include <OgreGLNativeSupport.h>
+#include <OgrePrerequisites.h>
 #include <X11/X.h>
 
 #ifndef Status

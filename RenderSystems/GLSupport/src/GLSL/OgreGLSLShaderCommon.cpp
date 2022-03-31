@@ -25,20 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <string>
 #include <utility>
 
-#include "OgreGpuProgram.h"
-#include "OgreStringConverter.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGLSLShaderCommon.h"
-#include "OgreGLSLPreprocessor.h"
 #include "OgreException.h"
+#include "OgreGLSLPreprocessor.h"
+#include "OgreGLSLShaderCommon.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
 #include "OgreString.h"
+#include "OgreStringConverter.h"
 #include "OgreStringVector.h"
 
 namespace Ogre {

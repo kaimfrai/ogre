@@ -27,12 +27,12 @@ THE SOFTWARE.
 */
 #include "OgreGLPBRenderTexture.h"
 
-#include <assert.h>
+#include <cassert>
 #include <string>
 
 #include "OgreGLHardwarePixelBuffer.h"
-#include "OgreGLNativeSupport.h"
 #include "OgreGLHardwarePixelBufferCommon.h"
+#include "OgreGLNativeSupport.h"
 #include "OgreGLPBuffer.h"
 #include "OgreGLRenderTarget.h"
 #include "OgreRenderTarget.h"

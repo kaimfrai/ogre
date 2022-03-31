@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __GLHARWAREBUFFERMANAGER_H__
-#define __GLHARWAREBUFFERMANAGER_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_HARDWAREBUFFERMANAGER_H
+#define OGRE_RENDERSYSTEMS_GL_HARDWAREBUFFERMANAGER_H
 
-#include <stddef.h>
+#include <cstddef>
 
-#include "OgreHardwareBufferManager.h"
 #include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
@@ -92,4 +92,4 @@ class GLRenderSystem;
     };
 }
 
-#endif // __GLHARWAREBUFFERMANAGER_H__
+#endif // OGRE_RENDERSYSTEMS_GL_HARDWAREBUFFERMANAGER_H

@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __ZipArchiveTests_H__
-#define __ZipArchiveTests_H__
+#ifndef OGRE_TESTS_CORE_ZIPARCHIVETESTS_H
+#define OGRE_TESTS_CORE_ZIPARCHIVETESTS_H
 
 #include <gtest/gtest.h>
 

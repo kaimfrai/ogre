@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __GLPIXELBUFFER_H__
-#define __GLPIXELBUFFER_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_HARDWAREPIXELBUFFER_H
+#define OGRE_RENDERSYSTEMS_GL_HARDWAREPIXELBUFFER_H
 
 #include <cstddef>
 
-#include "OgreGLPrerequisites.h" // IWYU pragma: keep
-#include "OgreGLHardwarePixelBufferCommon.h"
 #include "OgreException.h"
+#include "OgreGLHardwarePixelBufferCommon.h"
+#include "OgreGLPrerequisites.h" // IWYU pragma: keep
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "glad/glad.h"

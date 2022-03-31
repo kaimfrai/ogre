@@ -25,15 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __PatchMesh_H__
-#define __PatchMesh_H__
+#ifndef OGRE_CORE_PATCHMESH_H
+#define OGRE_CORE_PATCHMESH_H
 
-#include <stddef.h>
+#include <cstddef>
 
-#include "OgrePrerequisites.h"
+#include "OgreHardwareBuffer.h"
 #include "OgreMesh.h"
 #include "OgrePatchSurface.h"
-#include "OgreHardwareBuffer.h"
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 
 namespace Ogre {

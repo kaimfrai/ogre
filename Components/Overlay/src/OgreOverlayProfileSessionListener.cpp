@@ -32,10 +32,10 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreOverlayManager.h"
+#include "OgreOverlay.h"
 #include "OgreOverlayContainer.h"
 #include "OgreOverlayElement.h"
-#include "OgreOverlay.h"
+#include "OgreOverlayManager.h"
 #include "OgreStringConverter.h"
 #include "OgreTimer.h"
 

@@ -33,20 +33,20 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreTechnique.h"
-#include "OgreStringConverter.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreRoot.h"
-#include "OgreRenderSystem.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreMaterial.h"
 #include "OgreOverlayElement.h"
 #include "OgrePass.h"
+#include "OgreRenderSystem.h"
+#include "OgreRoot.h"
 #include "OgreSharedPtr.h"
 #include "OgreString.h"
+#include "OgreStringConverter.h"
 #include "OgreStringInterface.h"
+#include "OgreTechnique.h"
 #include "OgreVertexIndexData.h"
 
 namespace Ogre {

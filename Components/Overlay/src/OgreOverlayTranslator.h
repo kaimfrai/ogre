@@ -24,13 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _OverlayScriptTranslator_
-#define _OverlayScriptTranslator_
+#ifndef OGRE_COMPONENTS_OVERLAY_TRANSLATOR_H
+#define OGRE_COMPONENTS_OVERLAY_TRANSLATOR_H
 
-#include "OgreScriptTranslator.h"
 #include "OgreFont.h"
 #include "OgrePlatform.h"
 #include "OgreScriptCompiler.h"
+#include "OgreScriptTranslator.h"
 
 namespace Ogre
 {

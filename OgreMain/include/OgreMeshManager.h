@@ -25,25 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __MeshManager_H__
-#define __MeshManager_H__
+#ifndef OGRE_CORE_MESHMANAGER_H
+#define OGRE_CORE_MESHMANAGER_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <memory>
 
-#include "OgrePrerequisites.h"
-#include "OgreResourceManager.h"
-#include "OgreSingleton.h"
-#include "OgreVector.h"
+#include "OgreCommon.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgrePatchSurface.h"
 #include "OgrePlane.h"
-#include "OgreCommon.h"
+#include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreSingleton.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 

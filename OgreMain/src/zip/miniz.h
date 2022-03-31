@@ -183,10 +183,10 @@
 #define MINIZ_NO_TIME
 #endif
 
-#include <stddef.h>
+#include <stddef.h> // NOLINT
 
 #if !defined(MINIZ_NO_TIME) && !defined(MINIZ_NO_ARCHIVE_APIS)
-#include <time.h>
+#include <time.h> // NOLINT
 #endif
 
 #if defined(_M_IX86) || defined(_M_X64) || defined(__i386__) ||                \
@@ -573,10 +573,10 @@ typedef void *const voidpc;
 #endif
 
 #pragma once
-#include <assert.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
+#include <assert.h> // NOLINT
+#include <stdint.h> // NOLINT
+#include <stdlib.h> // NOLINT
+#include <string.h> // NOLINT
 
 /* ------------------- Types and macros */
 typedef unsigned char mz_uint8;
@@ -602,7 +602,7 @@ typedef int mz_bool;
 #ifdef MINIZ_NO_STDIO
 #define MZ_FILE void *
 #else
-#include <stdio.h>
+#include <stdio.h> // NOLINT
 #define MZ_FILE FILE
 #endif /* #ifdef MINIZ_NO_STDIO */
 

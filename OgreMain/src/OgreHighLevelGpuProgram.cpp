@@ -28,11 +28,11 @@ THE SOFTWARE.
 #include <algorithm>
 #include <string>
 
-#include "OgreHighLevelGpuProgram.h"
-#include "OgreGpuProgramManager.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
+#include "OgreGpuProgramManager.h"
 #include "OgreGpuProgramParams.h"
+#include "OgreHighLevelGpuProgram.h"
 #include "OgreRenderSystem.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreResourceManager.h"

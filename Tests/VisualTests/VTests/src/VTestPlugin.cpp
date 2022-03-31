@@ -30,8 +30,8 @@ THE SOFTWARE.
 
 #include <set>
 
-#include "StencilShadowTest.h"
 #include "CubeMappingTest.h"
+#include "StencilShadowTest.h"
 
 #include "Sample.h"
 

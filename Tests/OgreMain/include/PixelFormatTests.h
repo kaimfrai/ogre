@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __PixelFormatTests_H__
-#define __PixelFormatTests_H__
+#ifndef OGRE_TESTS_CORE_PIXELFORMATTESTS_H
+#define OGRE_TESTS_CORE_PIXELFORMATTESTS_H
 
 #include <gtest/gtest.h>
 

@@ -33,17 +33,17 @@ THE SOFTWARE.
 // http://www.geometrictools.com/License/Boost/LICENSE_1_0.txt
 
 
-#ifndef __Quaternion_H__
-#define __Quaternion_H__
+#ifndef OGRE_CORE_QUATERNION_H
+#define OGRE_CORE_QUATERNION_H
 
-#include <assert.h>
-#include <string.h>
+#include <cassert>
 #include <cmath>
+#include <cstring>
 #include <ostream>
 #include <utility>
 
-#include "OgrePrerequisites.h"
 #include "OgreMath.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
 class Matrix3;

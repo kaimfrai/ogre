@@ -25,16 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __GpuProgram_H_
-#define __GpuProgram_H_
+#ifndef OGRE_CORE_GPUPROGRAM_H
+#define OGRE_CORE_GPUPROGRAM_H
 
-#include <stddef.h>
+#include <cstddef>
 
-// Precompiler options
+#include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
-#include "OgrePlatform.h"
 
 namespace Ogre {
 class ResourceManager;

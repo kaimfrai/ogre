@@ -26,16 +26,16 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __LogManager_H__
-#define __LogManager_H__
+#ifndef OGRE_CORE_LOGMANAGER_H
+#define OGRE_CORE_LOGMANAGER_H
 
 #include <map>
 #include <string>
 
-#include "OgrePrerequisites.h"
 #include "OgreLog.h"
-#include "OgreSingleton.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreSingleton.h"
 
 namespace Ogre
 {

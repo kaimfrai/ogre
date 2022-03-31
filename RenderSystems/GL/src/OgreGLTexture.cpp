@@ -31,17 +31,17 @@ THE SOFTWARE.
 #include <memory>
 #include <vector>
 
-#include "OgreGLRenderSystem.h"
-#include "OgreGLPixelFormat.h"
-#include "OgreGLHardwarePixelBuffer.h"
-#include "OgreTextureManager.h"
 #include "OgreException.h"
+#include "OgreGLHardwarePixelBuffer.h"
+#include "OgreGLPixelFormat.h"
+#include "OgreGLRenderSystem.h"
 #include "OgreGLStateCacheManager.h"
 #include "OgreHardwarePixelBuffer.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 #include "OgreSharedPtr.h"
 #include "OgreTexture.h"
+#include "OgreTextureManager.h"
 
 namespace Ogre {
 class ResourceManager;

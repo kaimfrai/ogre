@@ -25,15 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __DynLibManager_H__
-#define __DynLibManager_H__
+#ifndef OGRE_CORE_DYNLIBMANAGER_H
+#define OGRE_CORE_DYNLIBMANAGER_H
 
 #include <map>
 #include <string>
 
+#include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
-#include "OgreMemoryAllocatorConfig.h"
 
 namespace Ogre {
 class DynLib;
@@ -92,4 +92,4 @@ class DynLib;
     /** @} */
 } // namespace Ogre
 
-#endif // __DynLibManager_H__
+#endif // OGRE_CORE_DYNLIBMANAGER_H

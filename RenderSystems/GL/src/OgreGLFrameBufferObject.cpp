@@ -31,16 +31,16 @@ THE SOFTWARE.
 #include <algorithm>
 #include <ostream>
 
-#include "OgreRoot.h"
-#include "OgreGLFBORenderTexture.h"
-#include "OgreGLDepthBufferCommon.h"
 #include "OgreConfig.h"
 #include "OgreException.h"
+#include "OgreGLDepthBufferCommon.h"
+#include "OgreGLFBORenderTexture.h"
 #include "OgreGLHardwarePixelBufferCommon.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
+#include "OgreRoot.h"
 #include "glad/glad.h"
 
 namespace Ogre {

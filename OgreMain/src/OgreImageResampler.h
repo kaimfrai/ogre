@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGREIMAGERESAMPLER_H
-#define OGREIMAGERESAMPLER_H
+#ifndef OGRE_CORE_IMAGERESAMPLER_H
+#define OGRE_CORE_IMAGERESAMPLER_H
 
 #include <algorithm>
 

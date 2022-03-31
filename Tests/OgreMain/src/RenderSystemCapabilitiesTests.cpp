@@ -28,22 +28,22 @@ THE SOFTWARE.
 
 #include "RenderSystemCapabilitiesTests.h"
 
-#include <fstream>
 #include <algorithm>
+#include <fstream>
 #include <map>
 #include <string>
 #include <utility>
 #include <vector>
 
+#include "OgreArchiveManager.h"
+#include "OgreConfigFile.h"
+#include "OgreDataStream.h"
+#include "OgreFileSystem.h"
+#include "OgreFileSystemLayer.h"
+#include "OgrePrerequisites.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRenderSystemCapabilitiesManager.h"
 #include "OgreRenderSystemCapabilitiesSerializer.h"
-#include "OgreArchiveManager.h"
-#include "OgreConfigFile.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreDataStream.h"
-#include "OgreFileSystem.h"
-#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
 
 // Register the test suite

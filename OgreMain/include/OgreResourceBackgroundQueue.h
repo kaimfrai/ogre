@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ResourceBackgroundQueue_H__
-#define __ResourceBackgroundQueue_H__
+#ifndef OGRE_CORE_RESOURCEBACKGROUNDQUEUE_H
+#define OGRE_CORE_RESOURCEBACKGROUNDQUEUE_H
 
 
 #include <set>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
-#include "OgreSingleton.h"
-#include "OgreResource.h"
-#include "OgreWorkQueue.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreSingleton.h"
+#include "OgreWorkQueue.h"
 
 namespace Ogre {
     /** \addtogroup Core

@@ -26,15 +26,15 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLTextureManager_H__
-#define __GLTextureManager_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_TEXTUREMANAGER_H
+#define OGRE_RENDERSYSTEMS_GL_TEXTUREMANAGER_H
 
-#include "OgreTextureManager.h"
 #include "OgreCommon.h"
 #include "OgrePixelFormat.h"
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreTexture.h"
+#include "OgreTextureManager.h"
 
 namespace Ogre {
 class GLRenderSystem;

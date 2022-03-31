@@ -25,21 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <memory>
 
-#include "OgreCompositor.h"
-#include "OgreCompositorManager.h"
-#include "OgreCompositorChain.h"
 #include "OgreCompositionPass.h"
 #include "OgreCompositionTargetPass.h"
 #include "OgreCompositionTechnique.h"
-#include "OgreRectangle2D.h"
-#include "OgreRenderTarget.h"
+#include "OgreCompositor.h"
+#include "OgreCompositorChain.h"
 #include "OgreCompositorInstance.h"
+#include "OgreCompositorManager.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
+#include "OgreRectangle2D.h"
 #include "OgreRenderSystem.h"
+#include "OgreRenderTarget.h"
 #include "OgreRoot.h"
 #include "OgreTextureManager.h"
 #include "OgreViewport.h"

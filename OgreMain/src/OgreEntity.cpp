@@ -25,33 +25,30 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <string.h>
 #include <algorithm>
+#include <cassert>
+#include <cstring>
 #include <limits>
 #include <list>
 #include <map>
 #include <string>
 
-#include "OgreEntity.h"
-#include "OgreSubEntity.h"
-#include "OgreTagPoint.h"
-#include "OgreSkeletonInstance.h"
-#include "OgreOptimisedUtil.h"
-#include "OgreLodStrategy.h"
-#include "OgreLodListener.h"
+#include "OgreAlignedAllocator.h"
 #include "OgreAnimation.h"
 #include "OgreAnimationState.h"
 #include "OgreAnimationTrack.h"
 #include "OgreBone.h"
 #include "OgreCamera.h"
 #include "OgreEdgeListBuilder.h"
+#include "OgreEntity.h"
 #include "OgreException.h"
 #include "OgreGpuProgram.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreLight.h"
+#include "OgreLodListener.h"
+#include "OgreLodStrategy.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreMaterial.h"
@@ -61,6 +58,7 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include "OgreMesh.h"
 #include "OgreMeshManager.h"
 #include "OgreNode.h"
+#include "OgreOptimisedUtil.h"
 #include "OgrePass.h"
 #include "OgreRenderOperation.h"
 #include "OgreRenderQueue.h"
@@ -68,11 +66,13 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include "OgreSceneManager.h"
 #include "OgreSceneNode.h"
 #include "OgreSkeleton.h"
+#include "OgreSkeletonInstance.h"
 #include "OgreStringConverter.h"
+#include "OgreSubEntity.h"
 #include "OgreSubMesh.h"
+#include "OgreTagPoint.h"
 #include "OgreTechnique.h"
 #include "OgreVertexIndexData.h"
-#include "OgreAlignedAllocator.h"
 
 
 namespace Ogre {

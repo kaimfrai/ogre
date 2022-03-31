@@ -25,22 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __MaterialSerializer_H__
-#define __MaterialSerializer_H__
+#ifndef OGRE_CORE_MATERIALSERIALIZER_H
+#define OGRE_CORE_MATERIALSERIALIZER_H
 
-#include <stddef.h>
+#include <algorithm>
+#include <cstddef>
 #include <map>
 #include <set>
 #include <string>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
-#include "OgreTextureUnitState.h"
 #include "OgreBlendMode.h"
 #include "OgreCommon.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreTextureUnitState.h"
 
 namespace Ogre {
 class ColourValue;

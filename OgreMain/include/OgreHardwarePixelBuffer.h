@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __HardwarePixelBuffer__
-#define __HardwarePixelBuffer__
+#ifndef OGRE_CORE_HARDWAREPIXELBUFFER_H
+#define OGRE_CORE_HARDWAREPIXELBUFFER_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 // Precompiler options
-#include "OgrePrerequisites.h"
-#include "OgreHardwareBuffer.h"
 #include "OgreCommon.h"
+#include "OgreHardwareBuffer.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreVector.h"
 
 namespace Ogre {

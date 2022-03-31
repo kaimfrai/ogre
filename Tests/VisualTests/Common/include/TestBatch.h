@@ -26,10 +26,11 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __TestBatch_H__
-#define __TestBatch_H__
+#ifndef OGRE_TESTS_VISUALTESTS_TESTBATCH_H
+#define OGRE_TESTS_VISUALTESTS_TESTBATCH_H
 
 #include "ImageValidator.h"
+#include "Ogre.h"
 
 class TestBatch;
 typedef std::set<TestBatch,std::greater<TestBatch> > TestBatchSet;
@@ -92,7 +93,7 @@ public:
         ,resolutionY(resy)
         ,mDirectory(directory)
     {
-        StringStream ver;
+        Ogre::StringStream ver;
         ver<</*OGRE_VERSION_MAJOR*/13<<"."<</*OGRE_VERSION_MINOR*/3<<" ("<<
             /*OGRE_VERSION_NAME*/"Tsathoggua"<<") "<</*OGRE_VERSION_SUFFIX*/"Modernized";
         version = ver.str();

@@ -27,14 +27,14 @@ You may alternatively use this source under the terms of a specific version of
 the OGRE Unrestricted License provided you have obtained such a license from
 Torus Knot Software Ltd.
 -------------------------------------------------------------------------*/
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <set>
 #include <string>
 #include <vector>
 
-#include "OgreHardwarePixelBuffer.h"
 #include "OgreHardwareBuffer.h"
+#include "OgreHardwarePixelBuffer.h"
 #include "OgrePixelFormat.h"
 #include "OgrePrerequisites.h"
 #include "OgreResourceGroupManager.h"

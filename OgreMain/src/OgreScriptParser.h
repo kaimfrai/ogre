@@ -26,13 +26,13 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __SCRIPTPARSER_H_
-#define __SCRIPTPARSER_H_
+#ifndef OGRE_CORE_SCRIPTPARSER_H
+#define OGRE_CORE_SCRIPTPARSER_H
 
-#include "OgreScriptLexer.h"
-#include "OgreScriptCompiler.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
+#include "OgreScriptCompiler.h"
+#include "OgreScriptLexer.h"
 
 namespace Ogre {
 

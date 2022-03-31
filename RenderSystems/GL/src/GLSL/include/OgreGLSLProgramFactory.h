@@ -27,8 +27,8 @@ THE SOFTWARE.
 */
 
 
-#ifndef __GLSLProgramFactory_H__
-#define __GLSLProgramFactory_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAMFACTORY_H
+#define OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAMFACTORY_H
 
 #include "OgreGpuProgramManager.h"
 #include "OgrePrerequisites.h"
@@ -64,4 +64,4 @@ class GLSLLinkProgramManager;
     }
 }
 
-#endif // __GLSLProgramFactory_H__
+#endif // OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAMFACTORY_H

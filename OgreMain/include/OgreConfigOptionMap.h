@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef _ConfigOptionMap_H__
-#define _ConfigOptionMap_H__
+#ifndef OGRE_CORE_CONFIGOPTIONMAP_H
+#define OGRE_CORE_CONFIGOPTIONMAP_H
 
 #include "OgrePrerequisites.h"
 

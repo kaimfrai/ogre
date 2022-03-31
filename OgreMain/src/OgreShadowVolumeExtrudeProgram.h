@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __SHADOWVOLUMEEXTRUDEPROGRAM_H__
-#define __SHADOWVOLUMEEXTRUDEPROGRAM_H__
+#ifndef OGRE_CORE_SHADOWVOLUMEEXTRUDEPROGRAM_H
+#define OGRE_CORE_SHADOWVOLUMEEXTRUDEPROGRAM_H
 
 #include <vector>
 

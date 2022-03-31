@@ -1,3 +1,6 @@
+#ifndef OGRE_CORE_PIXELCONVERSIONS_H
+#define OGRE_CORE_PIXELCONVERSIONS_H
+
  /*
 -----------------------------------------------------------------------------
 This source file is part of OGRE
@@ -480,3 +483,5 @@ inline int doOptimizedConversion(const Ogre::PixelBox &src, const Ogre::PixelBox
 #undef CASECONVERTER
 /** @} */
 /** @} */
+
+#endif

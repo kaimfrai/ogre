@@ -1,15 +1,15 @@
-#ifndef __NewInstancing_H__
-#define __NewInstancing_H__
+#ifndef OGRE_SAMPLES_NEWINSTANCING_H
+#define OGRE_SAMPLES_NEWINSTANCING_H
 
 #include <set>
 #include <vector>
 
-#include "SdkSample.h"
 #include "OgreInput.h"
 #include "OgreInstanceManager.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
+#include "SdkSample.h"
 
 namespace Ogre {
 class AnimationState;

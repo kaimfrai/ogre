@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _Material_H__
-#define _Material_H__
+#ifndef OGRE_CORE_MATERIAL_H
+#define OGRE_CORE_MATERIAL_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <vector>
 
+#include "OgreBlendMode.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"
-#include "OgreCommon.h"
-#include "OgreColourValue.h"
-#include "OgreBlendMode.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

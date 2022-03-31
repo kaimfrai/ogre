@@ -27,7 +27,6 @@ THE SOFTWARE.
 */
 #include <memory>
 
-#include "OgreShaderPrecompiledHeaders.h"
 #include "OgreCommon.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
@@ -38,6 +37,7 @@ THE SOFTWARE.
 #include "OgreShaderFunction.h"
 #include "OgreShaderFunctionAtom.h"
 #include "OgreShaderParameter.h"
+#include "OgreShaderPrecompiledHeaders.h"
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderProgram.h"
 #include "OgreShaderProgramSet.h"

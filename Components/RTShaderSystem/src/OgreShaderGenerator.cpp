@@ -25,9 +25,9 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <assert.h>
-#include <stdio.h>
 #include <algorithm>
+#include <cassert>
+#include <cstdio>
 #include <ios>
 #include <map>
 #include <memory>
