@@ -8,7 +8,7 @@
 #-------------------------------------------------------------------
 
 ############################################################
-# OgreMain core library
+# Ogre core library
 ############################################################
 
 # define header and source files for the library
@@ -26,12 +26,12 @@ add_library(zip OBJECT src/zip/zip.c)
 target_include_directories(zip PUBLIC src/zip)
 target_link_libraries(zip PRIVATE miniz)
 
-# setup OgreMain target
+# setup OgreCore target
 
-add_library(OgreMain ${OGRE_LIB_TYPE} ${SOURCE_FILES} $<TARGET_OBJECTS:zip>)
+add_library(OgreCore ${OGRE_LIB_TYPE} ${SOURCE_FILES} $<TARGET_OBJECTS:zip>)
 
 target_include_directories(
-  OgreMain
+  OgreCore
 PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>" 
   "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
@@ -40,15 +40,15 @@ PRIVATE
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/zip>"
 )
 
-set_target_properties(OgreMain PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
+set_target_properties(OgreCore PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
 
-target_link_libraries(OgreMain PUBLIC pthread PRIVATE ${CMAKE_DL_LIBS})
+target_link_libraries(OgreCore PUBLIC pthread PRIVATE ${CMAKE_DL_LIBS})
 
 # specify a precompiled header to use
-add_native_precompiled_header(OgreMain "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/src/OgreStableHeaders.h>")
+add_native_precompiled_header(OgreCore "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/src/OgreStableHeaders.h>")
 
-# install OgreMain
-ogre_config_lib(OgreMain TRUE)
+# install OgreCore
+ogre_config_lib(OgreCore TRUE)
 install(FILES ${HEADER_FILES}
   DESTINATION include/OGRE
 )

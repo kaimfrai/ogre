@@ -220,7 +220,7 @@ else()
 endif()
 
 # definitions for samples
-set(OGRE_LIBRARIES OgreMain)
+set(OGRE_LIBRARIES OgreCore)
 
 # Specify build paths
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
@@ -448,8 +448,8 @@ include(InstallResources)
 # enable PCH support
 include(PrecompiledHeader)
 
-# Setup OgreMain project
-add_subdirectory(OgreMain)
+# Setup OgreCore project
+add_subdirectory(Core)
 
 # Setup RenderSystems
 add_subdirectory(RenderSystems)
