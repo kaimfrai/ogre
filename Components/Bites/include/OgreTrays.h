@@ -25,19 +25,18 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __SdkTrays_H__
-#define __SdkTrays_H__
+#ifndef OGRE_COMPONENTS_BITES_TRAYS_H
+#define OGRE_COMPONENTS_BITES_TRAYS_H
 
 #include <cstddef>
 #include <string>
 #include <vector>
 
-#include "OgreOverlay.h"
 #include "OgreBorderPanelOverlayElement.h"
-#include "OgreTextAreaOverlayElement.h"
-#include "OgreInput.h"
 #include "OgreCommon.h"
+#include "OgreInput.h"
 #include "OgreMath.h"
+#include "OgreOverlay.h"
 #include "OgreOverlayContainer.h"
 #include "OgreOverlayElement.h"
 #include "OgrePrerequisites.h"
@@ -46,6 +45,7 @@
 #include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
 #include "OgreStringVector.h"
+#include "OgreTextAreaOverlayElement.h"
 #include "OgreVector.h"
 
 namespace Ogre {

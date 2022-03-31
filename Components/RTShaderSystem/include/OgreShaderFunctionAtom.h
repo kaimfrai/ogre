@@ -24,17 +24,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderFunctionAtom_
-#define _ShaderFunctionAtom_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FUNCTIONATOM_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_FUNCTIONATOM_H
 
 #include <algorithm>
 #include <iosfwd>
 #include <vector>
 
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderParameter.h"
 #include "OgreException.h"
 #include "OgrePrerequisites.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrerequisites.h"
 
 namespace Ogre {
 namespace RTShader {

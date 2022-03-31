@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Config_H_
-#define __Config_H_
+#ifndef OGRE_CORE_CONFIG_H
+#define OGRE_CORE_CONFIG_H
 
 /** Define number of texture coordinate sets allowed per vertex.
 */

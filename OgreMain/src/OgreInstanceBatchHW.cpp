@@ -29,15 +29,15 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreInstanceBatchHW.h"
-#include "OgreRenderOperation.h"
-#include "OgreInstancedEntity.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareVertexBuffer.h"
+#include "OgreInstanceBatchHW.h"
 #include "OgreInstanceManager.h"
+#include "OgreInstancedEntity.h"
 #include "OgreMatrix4.h"
+#include "OgreRenderOperation.h"
 #include "OgreRenderQueue.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"

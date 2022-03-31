@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __OgreGLFBO_H__
-#define __OgreGLFBO_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_FRAMEBUFFEROBJECT_H
+#define OGRE_RENDERSYSTEMS_GL_FRAMEBUFFEROBJECT_H
 
 #include "OgreGLRenderTexture.h"
 #include "OgrePrerequisites.h"

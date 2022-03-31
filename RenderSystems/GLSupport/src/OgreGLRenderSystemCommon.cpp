@@ -33,11 +33,11 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
+#include "OgreConfigOptionMap.h"
+#include "OgreException.h"
 #include "OgreGLContext.h"
 #include "OgreGLNativeSupport.h"
 #include "OgreGLRenderTexture.h"
-#include "OgreConfigOptionMap.h"
-#include "OgreException.h"
 #include "OgreMatrix4.h"
 #include "OgreString.h"
 #include "OgreStringConverter.h"

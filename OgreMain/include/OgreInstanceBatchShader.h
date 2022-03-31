@@ -25,10 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __InstanceBatchShader_H__
-#define __InstanceBatchShader_H__
+#ifndef OGRE_CORE_INSTANCEBATCHSHADER_H
+#define OGRE_CORE_INSTANCEBATCHSHADER_H
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "OgreInstanceBatch.h"
 #include "OgreMesh.h"

@@ -25,25 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ParticleSystem_H__
-#define __ParticleSystem_H__
+#ifndef OGRE_CORE_PARTICLESYSTEM_H
+#define OGRE_CORE_PARTICLESYSTEM_H
 
-#include <stddef.h>
+#include <algorithm>
+#include <cstddef>
 #include <list>
 #include <map>
 #include <string>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
-#include "OgreVector.h"
-#include "OgreStringInterface.h"
-#include "OgreMovableObject.h"
-#include "OgreResourceGroupManager.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreMovableObject.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 #include "OgreRenderable.h"
+#include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
+#include "OgreStringInterface.h"
+#include "OgreVector.h"
 
 namespace Ogre {
     class Camera;

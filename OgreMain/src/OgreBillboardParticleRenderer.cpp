@@ -27,11 +27,11 @@ THE SOFTWARE.
 */
 #include <string>
 
-#include "OgreBillboardParticleRenderer.h"
-#include "OgreParticle.h"
 #include "OgreBillboard.h"
+#include "OgreBillboardParticleRenderer.h"
 #include "OgreException.h"
 #include "OgreMath.h"
+#include "OgreParticle.h"
 #include "OgreStringConverter.h"
 #include "OgreStringInterface.h"
 

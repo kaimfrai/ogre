@@ -2,11 +2,11 @@
 
 #include <limits>
 
-#include "OgreSceneManager.h"
 #include "OgreException.h"
 #include "OgreFrameListener.h"
 #include "OgreMatrix3.h"
 #include "OgreQuaternion.h"
+#include "OgreSceneManager.h"
 #include "OgreSceneNode.h"
 
 namespace OgreBites {

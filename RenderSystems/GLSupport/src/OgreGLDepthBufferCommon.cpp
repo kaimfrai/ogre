@@ -6,8 +6,8 @@
 
 #include "OgreGLHardwarePixelBufferCommon.h"
 #include "OgreGLRenderSystemCommon.h"
-#include "OgreGLRenderTexture.h"
 #include "OgreGLRenderTarget.h"
+#include "OgreGLRenderTexture.h"
 #include "OgrePixelFormat.h"
 #include "OgreRenderSystemCapabilities.h"
 #include "OgreRenderTarget.h"

@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __RadixSort_H__
-#define __RadixSort_H__
+#ifndef OGRE_CORE_RADIXSORT_H
+#define OGRE_CORE_RADIXSORT_H
 
 #include "OgrePrerequisites.h"
 

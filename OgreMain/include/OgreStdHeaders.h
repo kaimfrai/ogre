@@ -1,29 +1,29 @@
-#ifndef __StdHeaders_H__
-#define __StdHeaders_H__
+#ifndef OGRE_CORE_STDHEADERS_H
+#define OGRE_CORE_STDHEADERS_H
 
 #include <cassert>
+#include <cmath>
+#include <cstdarg>
 #include <cstdio>
 #include <cstdlib>
-#include <ctime>
 #include <cstring>
-#include <cstdarg>
-#include <cmath>
+#include <ctime>
 
 // STL containers
-#include <vector>
-#include <map>
-#include <string>
-#include <set>
 #include <list>
+#include <map>
+#include <set>
+#include <string>
 #include <unordered_map>
+#include <vector>
 
 // STL algorithms & functions
 #include <algorithm>
 
 // C++ Stream stuff
+#include <iosfwd>
 #include <ostream>
 #include <sstream>
-#include <iosfwd>
 
 #include <atomic>
 

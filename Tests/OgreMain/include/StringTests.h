@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __StringTests_H__
-#define __StringTests_H__
+#ifndef OGRE_TESTS_CORE_STRINGTESTS_H
+#define OGRE_TESTS_CORE_STRINGTESTS_H
 
 #include <gtest/gtest.h>
 

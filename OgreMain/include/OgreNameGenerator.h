@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __NameGenerator_H__
-#define __NameGenerator_H__
+#ifndef OGRE_CORE_NAMEGENERATOR_H
+#define OGRE_CORE_NAMEGENERATOR_H
 
 #include "OgreString.h"
 
-#include <sstream>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <memory>
+#include <mutex>
+#include <sstream>
+#include <thread>
 
 namespace Ogre {
     /** \addtogroup Core

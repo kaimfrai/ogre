@@ -25,8 +25,8 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef __SdkCameraMan_H__
-#define __SdkCameraMan_H__
+#ifndef OGRE_COMPONENTS_BITES_CAMERAMAN_H
+#define OGRE_COMPONENTS_BITES_CAMERAMAN_H
 
 #include "OgreInput.h"
 #include "OgreMath.h"

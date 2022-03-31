@@ -1,7 +1,7 @@
-#include <stddef.h>
-#include <random>
+#include <cstddef>
 #include <map>
 #include <memory>
+#include <random>
 #include <string>
 #include <utility>
 
@@ -10,7 +10,6 @@
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
 #include "OgreEntity.h"
-#include "OgreProfiler.h"
 #include "OgreInstancedEntity.h"
 #include "OgreLight.h"
 #include "OgreMaterialManager.h"
@@ -21,6 +20,7 @@
 #include "OgreNode.h"
 #include "OgrePixelFormat.h"
 #include "OgrePlane.h"
+#include "OgreProfiler.h"
 #include "OgreRenderSystem.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreRoot.h"

@@ -24,17 +24,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderSubRenderState_
-#define _ShaderSubRenderState_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_SUBRENDERSTATE_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_SUBRENDERSTATE_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <set>
 #include <vector>
 
-#include "OgreShaderPrerequisites.h"
 #include "OgreCommon.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreShaderPrerequisites.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

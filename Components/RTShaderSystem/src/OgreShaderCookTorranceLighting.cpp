@@ -2,12 +2,11 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
-#include <stddef.h>
+#include <cstddef>
 #include <list>
 #include <memory>
 #include <string>
 
-#include "OgreShaderPrecompiledHeaders.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreMaterialSerializer.h"
@@ -19,6 +18,7 @@
 #include "OgreShaderFunction.h"
 #include "OgreShaderFunctionAtom.h"
 #include "OgreShaderParameter.h"
+#include "OgreShaderPrecompiledHeaders.h"
 #include "OgreShaderPrerequisites.h"
 #include "OgreShaderProgram.h"
 #include "OgreShaderProgramSet.h"

@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <memory>
 
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreRenderTexture.h"
 #include "OgreException.h"
+#include "OgreHardwarePixelBuffer.h"
 #include "OgreRenderSystem.h"
+#include "OgreRenderTexture.h"
 #include "OgreRoot.h"
 #include "OgreSharedPtr.h"
 #include "OgreTexture.h"

@@ -27,11 +27,11 @@ THE SOFTWARE.
 */
 #include "MeshSerializerTests.h"
 
-#include <stdlib.h>
-#include <string.h>
-#include <fstream>
 #include <algorithm>
 #include <cmath>
+#include <cstdlib>
+#include <cstring>
+#include <fstream>
 #include <list>
 #include <map>
 #include <memory>
@@ -39,39 +39,39 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreDefaultHardwareBufferManager.h"
-#include "OgreVertexIndexData.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreMesh.h"
-#include "OgreMeshManager.h"
-#include "OgreSubMesh.h"
-#include "OgreMeshSerializer.h"
-#include "OgreException.h"
-#include "OgreArchive.h"
-#include "OgreArchiveManager.h"
-#include "OgreFileSystem.h"
-#include "OgreConfigFile.h"
-#include "OgreSkeletonManager.h"
-#include "OgreSkeletonSerializer.h"
-#include "OgreDistanceLodStrategy.h"
-#include "OgreMaterialManager.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreSkeleton.h"
-#include "OgreKeyFrame.h"
 #include "OgreAnimation.h"
 #include "OgreAnimationTrack.h"
+#include "OgreArchive.h"
+#include "OgreArchiveManager.h"
 #include "OgreAxisAlignedBox.h"
+#include "OgreConfigFile.h"
+#include "OgreDefaultHardwareBufferManager.h"
+#include "OgreDistanceLodStrategy.h"
+#include "OgreEdgeListBuilder.h"
+#include "OgreException.h"
+#include "OgreFileSystem.h"
 #include "OgreFileSystemLayer.h"
 #include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
+#include "OgreKeyFrame.h"
+#include "OgreLodStrategyManager.h"
+#include "OgreMaterialManager.h"
+#include "OgreMesh.h"
+#include "OgreMeshManager.h"
+#include "OgreMeshSerializer.h"
 #include "OgrePose.h"
 #include "OgreRenderOperation.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreSkeleton.h"
+#include "OgreSkeletonManager.h"
+#include "OgreSkeletonSerializer.h"
 #include "OgreString.h"
+#include "OgreSubMesh.h"
 #include "OgreVector.h"
-#include "OgreHardwareBufferManager.h"
+#include "OgreVertexIndexData.h"
 
 // Register the test suite
 

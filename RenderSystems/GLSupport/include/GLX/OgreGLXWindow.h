@@ -26,13 +26,13 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLXWindow_H__
-#define __GLXWindow_H__
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_WINDOW_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_WINDOW_H
 
 #include <X11/X.h>
 
-#include "OgreGLWindow.h"
 #include "OgreCommon.h"
+#include "OgreGLWindow.h"
 #include "OgrePixelFormat.h"
 #include "OgrePrerequisites.h"
 

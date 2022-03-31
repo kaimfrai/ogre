@@ -26,15 +26,15 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <string.h>
 #include <cmath>
+#include <cstring>
 
 #include "OgreASTCCodec.h"
-#include "OgreImage.h"
 #include "OgreCodec.h"
 #include "OgreCommon.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
+#include "OgreImage.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgrePlatform.h"

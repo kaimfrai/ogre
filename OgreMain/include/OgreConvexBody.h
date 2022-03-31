@@ -26,17 +26,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ConvexBody_H__
-#define __ConvexBody_H__
+#ifndef OGRE_CORE_CONVEXBODY_H
+#define OGRE_CORE_CONVEXBODY_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <iosfwd>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgrePolygon.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreFrustum.h"
+#include "OgrePolygon.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre
 {

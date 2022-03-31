@@ -27,14 +27,14 @@
  */
 #include "OgreFileSystemLayer.h"
 
-#include <errno.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <pwd.h>
+#include <cerrno>
+#include <cstdio>
+#include <cstdlib>
 #include <dlfcn.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <pwd.h>
 #include <string>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "OgrePrerequisites.h"
 #include "OgreString.h"

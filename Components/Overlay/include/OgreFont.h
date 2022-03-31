@@ -24,22 +24,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
 
-#ifndef _Font_H__
-#define _Font_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_FONT_H
+#define OGRE_COMPONENTS_OVERLAY_FONT_H
 
-#include <cstddef>
 #include <algorithm>
+#include <cstddef>
 #include <map>
 #include <utility>
 #include <vector>
 
-#include "OgreResource.h"
-#include "OgreCommon.h"
-#include "OgreSharedPtr.h"
 #include "OgreColourValue.h"
+#include "OgreCommon.h"
 #include "OgreException.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreSharedPtr.h"
 #include "OgreString.h"
 
 namespace Ogre

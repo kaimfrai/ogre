@@ -25,22 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __InstanceBatch_H__
-#define __InstanceBatch_H__
+#ifndef OGRE_CORE_INSTANCEBATCH_H
+#define OGRE_CORE_INSTANCEBATCH_H
 
-#include <stddef.h>
-#include <vector>
 #include <algorithm>
+#include <cstddef>
+#include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderable.h"
-#include "OgreMovableObject.h"
-#include "OgreMesh.h"
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreMatrix4.h"
+#include "OgreMesh.h"
+#include "OgreMovableObject.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderable.h"
 #include "OgreSharedPtr.h"
 #include "OgreVector.h"
 
@@ -374,4 +374,4 @@ class Technique;
     };
 } // namespace Ogre
 
-#endif // __InstanceBatch_H__
+#endif // OGRE_CORE_INSTANCEBATCH_H

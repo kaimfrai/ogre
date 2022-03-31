@@ -25,15 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __PlaneBoundedVolume_H_
-#define __PlaneBoundedVolume_H_
+#ifndef OGRE_CORE_PLANEBOUNDEDVOLUME_H
+#define OGRE_CORE_PLANEBOUNDEDVOLUME_H
 
 // Precompiler options
-#include "OgrePrerequisites.h"
 #include "OgreAxisAlignedBox.h"
-#include "OgreSphere.h"
 #include "OgreMath.h"
 #include "OgrePlane.h"
+#include "OgrePrerequisites.h"
+#include "OgreSphere.h"
 
 namespace Ogre {
 

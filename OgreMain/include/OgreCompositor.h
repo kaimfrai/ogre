@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Compositor_H__
-#define __Compositor_H__
+#ifndef OGRE_CORE_COMPOSITOR_H
+#define OGRE_CORE_COMPOSITOR_H
 
-#include <stddef.h>
+#include <algorithm>
+#include <cstddef>
 #include <map>
 #include <string>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
 #include "OgreCommon.h"
+#include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreSharedPtr.h"
 

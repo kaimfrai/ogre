@@ -28,10 +28,10 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreGpuProgramUsage.h"
-#include "OgreGpuProgramManager.h"
 #include "OgreException.h"
+#include "OgreGpuProgramManager.h"
 #include "OgreGpuProgramParams.h"
+#include "OgreGpuProgramUsage.h"
 #include "OgrePass.h"
 #include "OgreResourceGroupManager.h"
 

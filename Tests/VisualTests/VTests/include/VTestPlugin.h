@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __VTestPlugin_H__
-#define __VTestPlugin_H__
+#ifndef OGRE_TESTS_VISUALTESTS_VTESTPLUGIN_H
+#define OGRE_TESTS_VISUALTESTS_VTESTPLUGIN_H
 
 #include "SamplePlugin.h"
 

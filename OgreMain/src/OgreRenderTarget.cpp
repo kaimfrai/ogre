@@ -25,27 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <cxxabi.h>
-#include <time.h>
+// IWYU pragma: no_include <cxxabi.h>
 #include <algorithm>
+#include <cassert>
+#include <ctime>
 #include <iomanip>
 #include <ostream>
 #include <string>
 #include <utility>
 
-#include "OgreRenderTarget.h"
-#include "OgreViewport.h"
-#include "OgreRenderTargetListener.h"
 #include "OgreDepthBuffer.h"
-#include "OgreTimer.h"
 #include "OgreException.h"
 #include "OgreImage.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgreProfiler.h"
+#include "OgreRenderTarget.h"
+#include "OgreRenderTargetListener.h"
 #include "OgreRoot.h"
 #include "OgreStringConverter.h"
+#include "OgreTimer.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 class Camera;

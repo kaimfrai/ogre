@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _OgreExternalTextureSource_H
-#define _OgreExternalTextureSource_H
+#ifndef OGRE_CORE_EXTERNALTEXTURESOURCE_H
+#define OGRE_CORE_EXTERNALTEXTURESOURCE_H
  
 /***************************************************************************
 OgreExternalTextureSource.h  -  
@@ -44,9 +44,9 @@ date                 : Jan 1 2004
 email                : pjcast@yahoo.com
 ***************************************************************************/
 
-#include "OgreStringInterface.h"
-#include "OgreResourceGroupManager.h"
 #include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreStringInterface.h"
 
 namespace Ogre
 {

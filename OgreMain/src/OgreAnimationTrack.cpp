@@ -25,20 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
 #include <algorithm>
+#include <cassert>
 #include <cmath>
 #include <iterator>
 #include <list>
 #include <memory>
 
-#include "OgreAnimationTrack.h"
-#include "OgreAnimation.h"
-#include "OgreKeyFrame.h"
 #include "OgreAnimable.h"
+#include "OgreAnimation.h"
+#include "OgreAnimationTrack.h"
 #include "OgreAny.h"
 #include "OgreException.h"
 #include "OgreHardwareVertexBuffer.h"
+#include "OgreKeyFrame.h"
 #include "OgreMath.h"
 #include "OgreMesh.h"
 #include "OgreNode.h"

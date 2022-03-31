@@ -25,26 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Pass_H__
-#define __Pass_H__
+#ifndef OGRE_CORE_PASS_H
+#define OGRE_CORE_PASS_H
 
-#include <stddef.h>
+#include <algorithm>
+#include <cstddef>
 #include <memory>
 #include <set>
 #include <vector>
-#include <algorithm>
 
-#include "OgrePrerequisites.h"
+#include "OgreBlendMode.h"
 #include "OgreColourValue.h"
 #include "OgreCommon.h"
-#include "OgreLight.h"
-#include "OgreTextureUnitState.h"
-#include "OgreUserObjectBindings.h"
-#include "OgreBlendMode.h"
 #include "OgreGpuProgram.h"
 #include "OgreIteratorWrapper.h"
+#include "OgreLight.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreTextureUnitState.h"
+#include "OgreUserObjectBindings.h"
 #include "OgreVector.h"
 
 namespace Ogre {

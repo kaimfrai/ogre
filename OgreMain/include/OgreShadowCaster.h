@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ShadowCaster_H__
-#define __ShadowCaster_H__
+#ifndef OGRE_CORE_SHADOWCASTER_H
+#define OGRE_CORE_SHADOWCASTER_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreRenderable.h"
-#include "OgreRenderOperation.h"
 #include "OgreCommon.h"
 #include "OgreIteratorWrapper.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderable.h"
 #include "OgreSharedPtr.h"
 
 
@@ -267,4 +267,4 @@ class VertexData;
     /** @} */
 } // namespace Ogre
 
-#endif // __ShadowCaster_H__
+#endif // OGRE_CORE_SHADOWCASTER_H

@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _PixelFormat_H__
-#define _PixelFormat_H__
+#ifndef OGRE_CORE_PIXELFORMAT_H
+#define OGRE_CORE_PIXELFORMAT_H
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreCommon.h"
 #include "OgreColourValue.h"
+#include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
 namespace Ogre {
     /** \addtogroup Core

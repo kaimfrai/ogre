@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
+#include <cassert>
 #include <ostream>
 #include <utility>
 
-#include "OgreSceneManagerEnumerator.h"
 #include "OgreException.h"
 #include "OgreLogManager.h"
+#include "OgreSceneManagerEnumerator.h"
 
 
 namespace Ogre {

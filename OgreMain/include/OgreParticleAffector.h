@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __ParticleAffector_H__
-#define __ParticleAffector_H__
+#ifndef OGRE_CORE_PARTICLEAFFECTOR_H
+#define OGRE_CORE_PARTICLEAFFECTOR_H
 
 #include "OgrePrerequisites.h"
 #include "OgreString.h"

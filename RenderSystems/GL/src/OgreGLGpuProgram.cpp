@@ -28,15 +28,15 @@ THE SOFTWARE.
 
 #include "OgreGLGpuProgram.h"
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <string>
 #include <utility>
 
 #include "OgreException.h"
-#include "OgreLogManager.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreLog.h"
+#include "OgreLogManager.h"
 #include "OgreSharedPtr.h"
 
 namespace Ogre {

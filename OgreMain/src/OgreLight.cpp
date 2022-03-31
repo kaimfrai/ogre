@@ -28,10 +28,10 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreLight.h"
 #include "OgreAnimable.h"
 #include "OgreException.h"
 #include "OgreFrustum.h"
+#include "OgreLight.h"
 #include "OgreMatrix4.h"
 #include "OgrePlane.h"
 #include "OgreSceneManager.h"

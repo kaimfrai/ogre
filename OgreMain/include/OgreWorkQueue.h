@@ -25,23 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __OgreWorkQueue_H__
-#define __OgreWorkQueue_H__
+#ifndef OGRE_CORE_WORKQUEUE_H
+#define OGRE_CORE_WORKQUEUE_H
 
+#include <algorithm>
 #include <cstddef>
 #include <deque>
 #include <list>
 #include <map>
-#include <string>
-#include <algorithm>
 #include <mutex>
+#include <string>
 
-#include "OgrePrerequisites.h"
 #include "OgreAny.h"
-#include "OgreSharedPtr.h"
 #include "OgreCommon.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre
 {

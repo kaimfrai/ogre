@@ -24,16 +24,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
 
-#ifndef _FontManager_H__
-#define _FontManager_H__
+#ifndef OGRE_COMPONENTS_OVERLAY_FONTMANAGER_H
+#define OGRE_COMPONENTS_OVERLAY_FONTMANAGER_H
 
-#include "OgreSingleton.h"
-#include "OgreResourceManager.h"
-#include "OgreFont.h"
 #include "OgreCommon.h"
+#include "OgreFont.h"
 #include "OgrePrerequisites.h"
 #include "OgreResource.h"
 #include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreSingleton.h"
 
 namespace Ogre
 {

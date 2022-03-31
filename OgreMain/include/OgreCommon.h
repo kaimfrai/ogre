@@ -25,21 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Common_H__
-#define __Common_H__
+#ifndef OGRE_CORE_COMMON_H
+#define OGRE_CORE_COMMON_H
 // Common stuff
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <map>
 #include <ostream>
 #include <string>
 #include <vector>
 
-#include "OgreVector.h"
 #include "OgreMurmurHash3.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 class RenderWindow;

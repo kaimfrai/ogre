@@ -26,8 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#ifndef __GLGpuProgramManager_H__
-#define __GLGpuProgramManager_H__
+#ifndef OGRE_RENDERSYSTEMS_GL_GPUPROGRAMMANAGER_H
+#define OGRE_RENDERSYSTEMS_GL_GPUPROGRAMMANAGER_H
 
 #include "OgreGLPrerequisites.h"
 #include "OgreGpuProgramManager.h"
@@ -66,4 +66,4 @@ public:
 
 } //namespace Ogre
 
-#endif //__GLGpuProgramManager_H__
+#endif // OGRE_RENDERSYSTEMS_GL_GPUPROGRAMMANAGER_H

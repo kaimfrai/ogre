@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Sphere_H_
-#define __Sphere_H_
+#ifndef OGRE_CORE_SPHERE_H
+#define OGRE_CORE_SPHERE_H
 
 // Precompiler options
 #include "OgrePrerequisites.h"
 
-#include "OgreVector.h"
 #include "OgrePlane.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 

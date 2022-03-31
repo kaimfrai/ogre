@@ -25,23 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <assert.h>
-#include <string.h>
 #include <algorithm>
+#include <cassert>
+#include <cstring>
 #include <memory>
 #include <utility>
 
-#include "OgreInstanceManager.h"
-#include "OgreInstanceBatchHW.h"
-#include "OgreInstanceBatchHW_VTF.h"
-#include "OgreInstanceBatchShader.h"
-#include "OgreInstanceBatchVTF.h"
 #include "OgreException.h"
 #include "OgreHardwareBuffer.h"
 #include "OgreHardwareBufferManager.h"
 #include "OgreHardwareIndexBuffer.h"
 #include "OgreHardwareVertexBuffer.h"
 #include "OgreInstanceBatch.h"
+#include "OgreInstanceBatchHW.h"
+#include "OgreInstanceBatchHW_VTF.h"
+#include "OgreInstanceBatchShader.h"
+#include "OgreInstanceBatchVTF.h"
+#include "OgreInstanceManager.h"
 #include "OgreMaterialManager.h"
 #include "OgreMesh.h"
 #include "OgreMeshManager.h"

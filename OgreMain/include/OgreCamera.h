@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __Camera_H__
-#define __Camera_H__
+#ifndef OGRE_CORE_CAMERA_H
+#define OGRE_CORE_CAMERA_H
 
+#include <algorithm>
 #include <iosfwd>
 #include <vector>
-#include <algorithm>
 
 // Default options
 #include "OgrePrerequisites.h"
 // Matrices & Vectors
+#include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
 #include "OgreFrustum.h"
-#include "OgreAxisAlignedBox.h"
 #include "OgrePlane.h"
 #include "OgrePlaneBoundedVolume.h"
 #include "OgreQuaternion.h"
@@ -500,4 +500,4 @@ class Viewport;
 
 } // namespace Ogre
 
-#endif // __Camera_H__
+#endif // OGRE_CORE_CAMERA_H

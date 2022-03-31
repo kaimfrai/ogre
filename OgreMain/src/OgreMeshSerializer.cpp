@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreMeshSerializerImpl.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
 #include "OgreFileSystem.h"
@@ -37,6 +36,7 @@ THE SOFTWARE.
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgreMesh.h"
 #include "OgreMeshSerializer.h"
+#include "OgreMeshSerializerImpl.h"
 #include "OgrePrerequisites.h"
 #include "OgreSerializer.h"
 #include "OgreSharedPtr.h"

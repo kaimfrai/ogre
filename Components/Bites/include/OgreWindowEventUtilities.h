@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef __OgreWindowEventUtils_H__
-#define __OgreWindowEventUtils_H__
+#ifndef OGRE_COMPONENTS_BITES_WINDOWEVENTUTILITIES_H
+#define OGRE_COMPONENTS_BITES_WINDOWEVENTUTILITIES_H
 
 namespace Ogre {
     class RenderWindow;

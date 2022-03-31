@@ -24,12 +24,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderScriptTranslator_
-#define _ShaderScriptTranslator_
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_SCRIPTTRANSLATOR_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_SCRIPTTRANSLATOR_H
 
-#include "OgreScriptTranslator.h"
-#include "OgreScriptCompiler.h"
 #include "OgrePrerequisites.h"
+#include "OgreScriptCompiler.h"
+#include "OgreScriptTranslator.h"
 
 namespace Ogre {
 namespace RTShader {

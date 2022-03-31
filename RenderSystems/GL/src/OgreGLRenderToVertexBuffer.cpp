@@ -28,34 +28,34 @@ THE SOFTWARE.
 
 #include "OgreGLRenderToVertexBuffer.h"
 
-#include <assert.h>
+#include <cassert>
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "OgreHardwareBufferManager.h"
-#include "OgreGLHardwareBuffer.h"
-#include "OgreRenderable.h"
-#include "OgreSceneManager.h"
-#include "OgreRoot.h"
-#include "OgreGLRenderSystem.h"
-#include "OgreGLSLLinkProgramManager.h"
-#include "OgreStringConverter.h"
-#include "OgreLogManager.h"
-#include "OgreTechnique.h"
 #include "OgreCommon.h"
 #include "OgreException.h"
+#include "OgreGLHardwareBuffer.h"
+#include "OgreGLPrerequisites.h"
+#include "OgreGLRenderSystem.h"
 #include "OgreGLSLLinkProgram.h"
+#include "OgreGLSLLinkProgramManager.h"
 #include "OgreGpuProgram.h"
 #include "OgreGpuProgramParams.h"
 #include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
 #include "OgreLog.h"
+#include "OgreLogManager.h"
 #include "OgreMaterial.h"
 #include "OgreMatrix4.h"
 #include "OgrePass.h"
 #include "OgreRenderOperation.h"
+#include "OgreRenderable.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreStringConverter.h"
+#include "OgreTechnique.h"
 #include "OgreVertexIndexData.h"
-#include "OgreGLPrerequisites.h"
 
 namespace Ogre {
 //-----------------------------------------------------------------------------

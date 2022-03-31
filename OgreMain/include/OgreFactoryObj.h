@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _FactoryObj_H__
-#define _FactoryObj_H__
+#ifndef OGRE_CORE_FACTORYOBJ_H
+#define OGRE_CORE_FACTORYOBJ_H
 
 #include "OgrePrerequisites.h"
 
@@ -69,4 +69,4 @@ namespace Ogre {
     /** @} */
 } // namespace Ogre
 
-#endif // _FactoryObj_H__
+#endif // OGRE_CORE_FACTORYOBJ_H

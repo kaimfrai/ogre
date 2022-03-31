@@ -1,3 +1,6 @@
+#ifndef OGRE_PLUGINS_STBICODEC_STBI_STB_IMAGE_WRITE_H
+#define OGRE_PLUGINS_STBICODEC_STBI_STB_IMAGE_WRITE_H
+
 /* stb_image_write - v1.16 - public domain - http://nothings.org/stb
    writes out PNG/BMP/TGA/JPEG/HDR images to C stdio - Sean Barrett 2010-2015
                                      no warranty implied; use at your own risk
@@ -151,7 +154,7 @@ LICENSE
 #ifndef INCLUDE_STB_IMAGE_WRITE_H
 #define INCLUDE_STB_IMAGE_WRITE_H
 
-#include <stdlib.h>
+#include <cstdlib>
 
 // if STB_IMAGE_WRITE_STATIC causes problems, try defining STBIWDEF to 'inline' or 'static inline'
 #ifndef STBIWDEF
@@ -211,10 +214,10 @@ STBIWDEF void stbi_flip_vertically_on_write(int flip_boolean);
 #include <stdio.h>
 #endif // STBI_WRITE_NO_STDIO
 
-#include <stdarg.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
+#include <cmath>
+#include <cstdarg>
+#include <cstdlib>
+#include <cstring>
 
 #if defined(STBIW_MALLOC) && defined(STBIW_FREE) && (defined(STBIW_REALLOC) || defined(STBIW_REALLOC_SIZED))
 // ok
@@ -241,7 +244,7 @@ STBIWDEF void stbi_flip_vertically_on_write(int flip_boolean);
 
 
 #ifndef STBIW_ASSERT
-#include <assert.h>
+#include <cassert>
 #define STBIW_ASSERT(x) assert(x)
 #endif
 
@@ -1722,3 +1725,5 @@ ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ------------------------------------------------------------------------------
 */
+
+#endif

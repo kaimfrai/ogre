@@ -31,21 +31,21 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreSkeletonFileFormat.h"
-#include "OgreSkeletonSerializer.h"
 #include "OgreAnimation.h"
 #include "OgreAnimationTrack.h"
-#include "OgreKeyFrame.h"
 #include "OgreBone.h"
 #include "OgreDataStream.h"
 #include "OgreException.h"
 #include "OgreFileSystem.h"
+#include "OgreKeyFrame.h"
 #include "OgreLog.h"
 #include "OgreLogManager.h"
 #include "OgrePlatform.h"
 #include "OgreQuaternion.h"
 #include "OgreSharedPtr.h"
 #include "OgreSkeleton.h"
+#include "OgreSkeletonFileFormat.h"
+#include "OgreSkeletonSerializer.h"
 #include "OgreVector.h"
 
 namespace Ogre {

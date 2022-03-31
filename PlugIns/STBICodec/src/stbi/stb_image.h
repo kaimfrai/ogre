@@ -1,3 +1,6 @@
+#ifndef OGRE_PLUGINS_STBICODEC_STBI_STB_IMAGE_H
+#define OGRE_PLUGINS_STBICODEC_STBI_STB_IMAGE_H
+
 /* stb_image - v2.27 - public domain image loader - http://nothings.org/stb
                                   no warranty implied; use at your own risk
 
@@ -123,8 +126,8 @@ RECENT REVISION HISTORY:
   of the credits.
 */
 
-#ifndef STBI_INCLUDE_STB_IMAGE_H
-#define STBI_INCLUDE_STB_IMAGE_H
+#ifndef STBI_STB_IMAGE_H
+#define STBI_STB_IMAGE_H
 
 // DOCUMENTATION
 //
@@ -377,7 +380,7 @@ enum
    STBI_rgb_alpha  = 4
 };
 
-#include <stdlib.h>
+#include <cstdlib>
 typedef unsigned char stbi_uc;
 typedef unsigned short stbi_us;
 
@@ -536,7 +539,7 @@ STBIDEF int   stbi_zlib_decode_noheader_buffer(char *obuffer, int olen, const ch
 //
 //
 ////   end header file   /////////////////////////////////////////////////////
-#endif // STBI_INCLUDE_STB_IMAGE_H
+#endif // STBI_STB_IMAGE_H
 
 #ifdef STB_IMAGE_IMPLEMENTATION
 
@@ -578,14 +581,14 @@ STBIDEF int   stbi_zlib_decode_noheader_buffer(char *obuffer, int olen, const ch
 #endif
 
 
-#include <stdarg.h>
-#include <stddef.h> // ptrdiff_t on osx
-#include <stdlib.h>
-#include <string.h>
-#include <limits.h>
+#include <climits>
+#include <cstdarg>
+#include <cstddef> // ptrdiff_t on osx
+#include <cstdlib>
+#include <cstring>
 
 #if !defined(STBI_NO_LINEAR) || !defined(STBI_NO_HDR)
-#include <math.h>  // ldexp, pow
+#include <cmath>  // ldexp, pow
 #endif
 
 #ifndef STBI_NO_STDIO
@@ -593,7 +596,7 @@ STBIDEF int   stbi_zlib_decode_noheader_buffer(char *obuffer, int olen, const ch
 #endif
 
 #ifndef STBI_ASSERT
-#include <assert.h>
+#include <cassert>
 #define STBI_ASSERT(x) assert(x)
 #endif
 
@@ -638,7 +641,7 @@ typedef   signed short stbi__int16;
 typedef unsigned int   stbi__uint32;
 typedef   signed int   stbi__int32;
 #else
-#include <stdint.h>
+#include <cstdint>
 typedef uint16_t stbi__uint16;
 typedef int16_t  stbi__int16;
 typedef uint32_t stbi__uint32;
@@ -7577,3 +7580,5 @@ ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ------------------------------------------------------------------------------
 */
+
+#endif

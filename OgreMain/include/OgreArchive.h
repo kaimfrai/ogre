@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _Archive_H__
-#define _Archive_H__
+#ifndef OGRE_CORE_ARCHIVE_H
+#define OGRE_CORE_ARCHIVE_H
 
 #include <ctime>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreStringVector.h"
 #include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 #include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
 
 namespace Ogre {
 class Archive;

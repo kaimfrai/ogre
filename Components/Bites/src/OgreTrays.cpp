@@ -7,8 +7,8 @@
 
 #include "OgreTrays.h"
 
-#include <math.h>
 #include <algorithm>
+#include <cmath>
 #include <iomanip>
 #include <map>
 #include <memory>

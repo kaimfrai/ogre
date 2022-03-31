@@ -1,12 +1,12 @@
 #include "OgreSGTechniqueResolverListener.h"
 
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <vector>
 
-#include "OgreTechnique.h"
 #include "OgreMaterial.h"
 #include "OgreShaderGenerator.h"
+#include "OgreTechnique.h"
 
 namespace Ogre {
 class Renderable;
