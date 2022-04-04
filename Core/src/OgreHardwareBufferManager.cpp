@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cassert>
 #include <cstddef>
 #include <list>
@@ -34,16 +36,17 @@ THE SOFTWARE.
 #include <set>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreVertexIndexData.h"
+module Ogre.Core:HardwareBufferManager;
+
+import :Exception;
+import :HardwareBuffer;
+import :HardwareVertexBuffer;
+import :Log;
+import :LogManager;
+import :Prerequisites;
+import :SharedPtr;
+import :Singleton;
+import :VertexIndexData;
 
 namespace Ogre {
 

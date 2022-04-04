@@ -25,13 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_IMAGERESAMPLER_H
-#define OGRE_CORE_IMAGERESAMPLER_H
+module;
 
 #include <algorithm>
 
+export module Ogre.Core:ImageResampler;
+
 // this file is inlined into OgreImage.cpp!
 // do not include anywhere else.
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -341,5 +343,3 @@ template<unsigned int channels> struct LinearResampler_Byte {
 /** @} */
 
 }
-
-#endif

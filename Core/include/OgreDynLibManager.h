@@ -25,16 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_DYNLIBMANAGER_H
-#define OGRE_CORE_DYNLIBMANAGER_H
+module;
 
 #include <map>
 #include <string>
 
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
+export module Ogre.Core:DynLibManager;
 
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :Singleton;
+
+export
 namespace Ogre {
 class DynLib;
 
@@ -91,5 +93,3 @@ class DynLib;
     /** @} */
     /** @} */
 } // namespace Ogre
-
-#endif // OGRE_CORE_DYNLIBMANAGER_H

@@ -24,33 +24,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cstddef>
 #include <list>
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLight.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderExPerPixelLighting.h"
-#include "OgreShaderFFPLighting.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreShaderSubRenderState.h"
-#include "OgreStringConverter.h"
+module Ogre.Components.RTShaderSystem:ShaderExPerPixelLighting;
+
+import :ShaderFFPLighting;
+import :ShaderFFPRenderState;
+import :ShaderFunction;
+import :ShaderFunctionAtom;
+import :ShaderParameter;
+import :ShaderPrecompiledHeaders;
+import :ShaderPrerequisites;
+import :ShaderProgram;
+import :ShaderProgramSet;
+import :ShaderScriptTranslator;
+import :ShaderSubRenderState;
+
+import Ogre.Core;
 
 namespace Ogre {
     class Pass;

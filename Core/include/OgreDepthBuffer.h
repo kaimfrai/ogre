@@ -25,14 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_DEPTHBUFFER_H
-#define OGRE_CORE_DEPTHBUFFER_H
+module;
 
 #include <set>
 
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
+export module Ogre.Core:DepthBuffer;
 
+import :MemoryAllocatorConfig;
+import :Platform;
+
+export
 namespace Ogre
 {
 class RenderTarget;
@@ -143,5 +145,3 @@ class RenderTarget;
         void detachFromAllRenderTargets();
     };
 }
-
-#endif

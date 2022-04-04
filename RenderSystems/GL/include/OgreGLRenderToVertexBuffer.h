@@ -25,17 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GL_RENDERTOVERTEXBUFFER_H
-#define OGRE_RENDERSYSTEMS_GL_RENDERTOVERTEXBUFFER_H
+module;
 
 #include <cstddef>
 
-#include "OgreHardwareVertexBuffer.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderToVertexBuffer.h"
-#include "OgreSharedPtr.h"
-#include "glad/glad.h"
+export module Ogre.RenderSystems.GL:RenderToVertexBuffer;
 
+import Ogre.Core;
+import Ogre.RenderSystems.GL.glad;
+
+export
 namespace Ogre {
 class Pass;
 class RenderOperation;
@@ -77,5 +76,3 @@ class SceneManager;
         GLuint mPrimitivesDrawnQuery;
     };
 }
-
-#endif

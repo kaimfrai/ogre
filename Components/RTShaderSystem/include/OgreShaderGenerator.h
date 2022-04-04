@@ -24,8 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_GENERATOR_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_GENERATOR_H
+module;
 
 #include <algorithm>
 #include <cstring>
@@ -36,20 +35,14 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePass.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSceneManager.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreSingleton.h"
+export module Ogre.Components.RTShaderSystem:ShaderGenerator;
 
+import :ShaderPrerequisites;
+import :ShaderScriptTranslator;
+
+import Ogre.Core;
+
+export
 namespace Ogre {
 class AutoParamDataSource;
 class FileSystemLayer;
@@ -914,6 +907,3 @@ private:
 
 }
 }
-
-#endif
-

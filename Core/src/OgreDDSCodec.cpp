@@ -25,6 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <algorithm>
 #include <cstring>
@@ -32,20 +33,21 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreCodec.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreDDSCodec.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreImage.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreStableHeaders.h"
+module Ogre.Core:DDSCodec;
+
+import :Codec;
+import :ColourValue;
+import :Common;
+import :DataStream;
+import :Exception;
+import :Image;
+import :Log;
+import :LogManager;
+import :RenderSystem;
+import :RenderSystemCapabilities;
+import :Root;
+import :SharedPtr;
+import :StableHeaders;
 
 namespace Ogre {
     // Internal DDS structure definitions
@@ -1080,4 +1082,3 @@ namespace {
     }
     
 }
-

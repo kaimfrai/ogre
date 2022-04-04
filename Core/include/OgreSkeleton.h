@@ -25,9 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_CORE_SKELETON_H
-#define OGRE_CORE_SKELETON_H
+module;
 
 #include <algorithm>
 #include <cstddef>
@@ -36,14 +34,17 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreAnimation.h"
-#include "OgreIteratorWrapper.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringVector.h"
+export module Ogre.Core:Skeleton;
 
+import :Animation;
+import :IteratorWrapper;
+import :Platform;
+import :Prerequisites;
+import :Resource;
+import :SharedPtr;
+import :StringVector;
+
+export
 namespace Ogre {
 class Affine3;
 class AnimationStateSet;
@@ -487,5 +488,3 @@ class ResourceManager;
     /** @} */
 
 }
-
-#endif

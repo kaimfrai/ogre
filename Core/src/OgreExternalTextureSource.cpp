@@ -25,7 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
 /***************************************************************************
 OgreExternalTextureSource.cpp  -  
     Implementation of texture controller class
@@ -34,16 +33,18 @@ OgreExternalTextureSource.cpp  -
 date                 : Jan 1 2004
 email                : pjcast@yahoo.com
 ***************************************************************************/
+module;
 
 #include <string>
 
-#include "OgreException.h"
-#include "OgreExternalTextureSource.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
+module Ogre.Core:ExternalTextureSource;
+
+import :Exception;
+import :Log;
+import :LogManager;
+import :String;
+import :StringConverter;
+import :StringVector;
 
 namespace Ogre
 {
@@ -218,4 +219,3 @@ namespace Ogre
         static_cast<ExternalTextureSource*>(target)->setTextureTecPassStateLevel(t,p,s);
     }
 }
-

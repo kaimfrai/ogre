@@ -1,32 +1,33 @@
 // This file is part of the OGRE project.
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
-
-#include "OgreDefaultDebugDrawer.h"
+module;
 
 #include <algorithm>
 #include <array>
 #include <cstddef>
 #include <vector>
 
-#include "OgreBlendMode.h"
-#include "OgreCommon.h"
-#include "OgreFrustum.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgreNode.h"
-#include "OgrePass.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSceneNode.h"
-#include "OgreSharedPtr.h"
-#include "OgreTechnique.h"
-#include "OgreVector.h"
+module Ogre.Core:DefaultDebugDrawer;
+
+import :BlendMode;
+import :Common;
+import :Frustum;
+import :HardwareBuffer;
+import :Material;
+import :MaterialManager;
+import :Matrix3;
+import :Matrix4;
+import :Node;
+import :Pass;
+import :Platform;
+import :Prerequisites;
+import :RenderOperation;
+import :ResourceGroupManager;
+import :SceneNode;
+import :SharedPtr;
+import :Technique;
+import :Vector;
 
 namespace Ogre
 {

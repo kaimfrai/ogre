@@ -25,12 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_CONTEXT_H
-#define OGRE_RENDERSYSTEMS_GLSUPPORT_CONTEXT_H
+export module Ogre.RenderSystems.GLSupport:GLContext;
 
-#include "OgreGLStateCacheManagerCommon.h"
-#include "OgreSharedPtr.h"
+import :GLStateCacheManagerCommon;
 
+import Ogre.Core;
+
+export
 namespace Ogre {
 
     /**
@@ -94,5 +95,3 @@ namespace Ogre {
         std::vector<uint32> mFboDeferredForDestruction;
     };
 }
-
-#endif

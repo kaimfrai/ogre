@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreBillboard.h"
+module Ogre.Core:Billboard;
 
 namespace Ogre {
 class BillboardSet;
@@ -76,4 +76,3 @@ class BillboardSet;
         mUseTexcoordRect = true;
     }
 }
-

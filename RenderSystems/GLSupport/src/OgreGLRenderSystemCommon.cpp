@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLRenderSystemCommon.h"
+module;
 
 #include <algorithm>
 #include <map>
@@ -33,15 +33,13 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreConfigOptionMap.h"
-#include "OgreException.h"
-#include "OgreGLContext.h"
-#include "OgreGLNativeSupport.h"
-#include "OgreGLRenderTexture.h"
-#include "OgreMatrix4.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
+module Ogre.RenderSystems.GLSupport:GLRenderSystemCommon;
+
+import :GLContext;
+import :GLNativeSupport;
+import :GLRenderTexture;
+
+import Ogre.Core;
 
 namespace Ogre {
     static void removeDuplicates(std::vector<String>& c)

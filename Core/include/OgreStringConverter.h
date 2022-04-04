@@ -25,26 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_CORE_STRINGCONVERTER_H
-#define OGRE_CORE_STRINGCONVERTER_H
+module;
 
 #include <cstddef>
 #include <iosfwd>
 #include <locale>
 #include <string>
 
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreStringVector.h"
-#include "OgreVector.h"
+export module Ogre.Core:StringConverter;
 
+import :ColourValue;
+import :Common;
+import :Math;
+import :Matrix3;
+import :Matrix4;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :StringVector;
+import :Vector;
+
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -332,8 +333,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-
-
-#endif
-

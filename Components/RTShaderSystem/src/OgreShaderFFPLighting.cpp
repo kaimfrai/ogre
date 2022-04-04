@@ -24,36 +24,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cstddef>
 #include <list>
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLight.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePass.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderFFPLighting.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderRenderState.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreStringConverter.h"
-#include "OgreVector.h"
+module Ogre.Components.RTShaderSystem:ShaderFFPLighting;
+
+import :ShaderFFPRenderState;
+import :ShaderFunction;
+import :ShaderFunctionAtom;
+import :ShaderParameter;
+import :ShaderPrecompiledHeaders;
+import :ShaderPrerequisites;
+import :ShaderProgram;
+import :ShaderProgramSet;
+import :ShaderRenderState;
+import :ShaderScriptTranslator;
+
+import Ogre.Core;
 
 namespace Ogre {
 	class AutoParamDataSource;

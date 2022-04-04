@@ -23,18 +23,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
+export module Ogre.Components.Overlay:FontManager;
 
-#ifndef OGRE_COMPONENTS_OVERLAY_FONTMANAGER_H
-#define OGRE_COMPONENTS_OVERLAY_FONTMANAGER_H
+import :Font;
 
-#include "OgreCommon.h"
-#include "OgreFont.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreResourceManager.h"
-#include "OgreSingleton.h"
+import Ogre.Core;
 
+export
 namespace Ogre
 {
     /** \addtogroup Optional
@@ -95,5 +90,3 @@ namespace Ogre
     /** @} */
     /** @} */
 }
-
-#endif

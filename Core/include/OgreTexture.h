@@ -25,22 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_TEXTURE_H
-#define OGRE_CORE_TEXTURE_H
+module;
 
 #include <algorithm>
 #include <cstddef>
 #include <string>
 #include <vector>
 
-#include "OgreHardwareBuffer.h"
-#include "OgreImage.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreSharedPtr.h"
+export module Ogre.Core:Texture;
 
+import :HardwareBuffer;
+import :Image;
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
+import :Resource;
+import :SharedPtr;
+
+export
 namespace Ogre {
 class ResourceManager;
 
@@ -524,5 +526,3 @@ class ResourceManager;
     /** @} */
 
 }
-
-#endif

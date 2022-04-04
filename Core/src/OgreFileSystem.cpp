@@ -25,22 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <sys/stat.h>
+module;
 
+#include <sys/stat.h>
 #include <cstdint>
 #include <cstdio>
 #include <fstream> // IWYU pragma: keep
 #include <string>
 
-#include "OgreArchive.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreFileSystem.h"
-#include "OgrePrerequisites.h"
-#include "OgreSearchOps.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
+module Ogre.Core:FileSystem;
+
+import :Archive;
+import :DataStream;
+import :Exception;
+import :Prerequisites;
+import :SearchOps;
+import :SharedPtr;
+import :String;
+import :StringVector;
 
 namespace Ogre {
 

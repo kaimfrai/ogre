@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <cmath>
 #include <iterator>
@@ -32,16 +34,17 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreAnimation.h"
-#include "OgreBone.h"
-#include "OgreEntity.h"
-#include "OgreException.h"
-#include "OgreKeyFrame.h"
-#include "OgreMesh.h"
-#include "OgreSharedPtr.h"
-#include "OgreSkeleton.h"
-#include "OgreStringConverter.h"
-#include "OgreSubEntity.h"
+module Ogre.Core:Animation;
+
+import :Bone;
+import :Entity;
+import :Exception;
+import :KeyFrame;
+import :Mesh;
+import :SharedPtr;
+import :Skeleton;
+import :StringConverter;
+import :SubEntity;
 
 namespace Ogre {
 class Node;
@@ -799,5 +802,3 @@ class VertexData;
     
 
 }
-
-

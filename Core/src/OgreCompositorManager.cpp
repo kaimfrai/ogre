@@ -25,24 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cassert>
 #include <memory>
 
-#include "OgreCompositionPass.h"
-#include "OgreCompositionTargetPass.h"
-#include "OgreCompositionTechnique.h"
-#include "OgreCompositor.h"
-#include "OgreCompositorChain.h"
-#include "OgreCompositorInstance.h"
-#include "OgreCompositorManager.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreRectangle2D.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderTarget.h"
-#include "OgreRoot.h"
-#include "OgreTextureManager.h"
-#include "OgreViewport.h"
+module Ogre.Core:CompositorManager;
+
+import :CompositionPass;
+import :CompositionTargetPass;
+import :CompositionTechnique;
+import :Compositor;
+import :CompositorChain;
+import :CompositorInstance;
+import :Exception;
+import :HardwareBuffer;
+import :Rectangle2D;
+import :RenderSystem;
+import :RenderTarget;
+import :Root;
+import :TextureManager;
+import :Viewport;
 
 namespace Ogre {
 class CompositorLogic;

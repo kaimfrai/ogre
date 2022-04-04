@@ -25,17 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_COMPONENTS_OVERLAY_CONTAINER_H
-#define OGRE_COMPONENTS_OVERLAY_CONTAINER_H
+module;
 
 #include <map>
 #include <string>
 
-#include "OgreOverlayElement.h"
-#include "OgrePrerequisites.h"
+export module Ogre.Components.Overlay:Container;
 
+import :Element;
 
+import Ogre.Core;
+
+export
 namespace Ogre {
     template <typename T> class MapIterator;
 class Matrix4;
@@ -151,7 +152,3 @@ class RenderQueue;
     /** @} */
 
 }
-
-
-#endif
-

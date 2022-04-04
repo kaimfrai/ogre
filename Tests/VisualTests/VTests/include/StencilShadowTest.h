@@ -25,20 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Tests.VisualTests.VTests:StencilShadowTest;
 
-#ifndef OGRE_TESTS_VISUALTESTS_STENCILSHADOWTEST_H
-#define OGRE_TESTS_VISUALTESTS_STENCILSHADOWTEST_H
+import Ogre.Core;
+import Ogre.Tests.VisualTests.Common;
 
-#include "OgrePlatform.h"
-#include "VisualTest.h"
-
+export
 namespace Ogre {
 class Entity;
 }  // namespace Ogre
-
 using namespace Ogre;
-
 /** Tests basic stencil shadow behavior */
+
+export
 class StencilShadowTest : public VisualTest
 {
 public:
@@ -51,5 +50,3 @@ protected:
     Ogre::Entity* mGroundPlane;
 
 };
-
-#endif

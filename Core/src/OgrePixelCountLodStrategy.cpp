@@ -25,18 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <cassert>
 #include <limits>
 
-#include "OgreCamera.h"
-#include "OgreFrustum.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgrePixelCountLodStrategy.h"
-#include "OgreViewport.h"
+module Ogre.Core:PixelCountLodStrategy;
+
+import :Camera;
+import :Frustum;
+import :Math;
+import :Matrix4;
+import :MovableObject;
+import :Node;
+import :Viewport;
 
 namespace Ogre {
     //-----------------------------------------------------------------------

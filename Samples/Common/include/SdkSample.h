@@ -25,16 +25,15 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef OGRE_SAMPLES_SDKSAMPLE_H
-#define OGRE_SAMPLES_SDKSAMPLE_H
+export module Ogre.Samples.Common:SdkSample;
 
-#include "OgreAdvancedRenderControls.h"
-#include "OgreOverlayManager.h"
-#include "OgreRenderWindow.h"
-#include "OgreTechnique.h"
-#include "OgreViewport.h"
-#include "Sample.h"
+import :Sample;
 
+import Ogre.Components.Bites;
+import Ogre.Components.Overlay;
+import Ogre.Core;
+
+export
 namespace OgreBites
 {
     /*=============================================================================
@@ -287,5 +286,3 @@ namespace OgreBites
         bool mDragLook;                     // click and drag to free-look
     };
 }
-
-#endif

@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
@@ -32,23 +34,23 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreBlendMode.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreTechnique.h"
-#include "OgreTexture.h"
-#include "OgreTextureUnitState.h"
+module Ogre.Core:Technique;
 
+import :BlendMode;
+import :ColourValue;
+import :Common;
+import :GpuProgram;
+import :Material;
+import :MaterialManager;
+import :Pass;
+import :Prerequisites;
+import :RenderSystem;
+import :RenderSystemCapabilities;
+import :Root;
+import :SharedPtr;
+import :String;
+import :Texture;
+import :TextureUnitState;
 
 namespace Ogre {
     //-----------------------------------------------------------------------------

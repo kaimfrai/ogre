@@ -25,14 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#include "OgreOverlayElementCommands.h"
+module;
 
 #include <string>
 
-#include "OgreOverlayElement.h"
-#include "OgreStringConverter.h"
+module Ogre.Components.Overlay:ElementCommands;
 
+import :Element;
+
+import Ogre.Core;
 
 namespace Ogre {
 
@@ -186,4 +187,3 @@ namespace Ogre {
         //-----------------------------------------------------------------------
     }
 }
-

@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Core:Archive;
 
-#include "OgreArchive.h"
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
+import :Exception;
+import :Prerequisites;
+import :SharedPtr;
 
 namespace Ogre {
     //---------------------------------------------------------------------

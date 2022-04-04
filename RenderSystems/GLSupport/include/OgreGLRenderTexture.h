@@ -25,22 +25,19 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_RENDERTEXTURE_H
-#define OGRE_RENDERSYSTEMS_GLSUPPORT_RENDERTEXTURE_H
+module;
 
 #include <cstddef>
 #include <map>
 #include <vector>
 
-#include "OgreConfig.h"
-#include "OgreGLRenderTarget.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderTexture.h"
-#include "OgreSingleton.h"
+export module Ogre.RenderSystems.GLSupport:GLRenderTexture;
 
+import :GLRenderTarget;
+
+import Ogre.Core;
+
+export
 namespace Ogre {
     class GLHardwarePixelBufferCommon;
 class GLContext;
@@ -247,5 +244,3 @@ class RenderTarget;
     };
 
 }
-
-#endif

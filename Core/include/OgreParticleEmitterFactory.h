@@ -25,14 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PARTICLEEMITTERFACTORY_H
-#define OGRE_CORE_PARTICLEEMITTERFACTORY_H
+export module Ogre.Core:ParticleEmitterFactory;
 
+import :ParticleEmitter;
+import :Prerequisites;
+import :String;
 
-#include "OgreParticleEmitter.h"
-#include "OgrePrerequisites.h"
-#include "OgreString.h"
-
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -78,6 +77,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif
-

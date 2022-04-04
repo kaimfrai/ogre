@@ -25,22 +25,14 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef OGRE_SAMPLES_SAMPLE_H
-#define OGRE_SAMPLES_SAMPLE_H
+export module Ogre.Samples.Common:Sample;
 
-#include "OgreOverlaySystem.h"
-#include "OgreResourceManager.h"
-#include "OgreRoot.h"
+import Ogre.Components.Bites;
+import Ogre.Components.Overlay;
+import Ogre.Components.RTShaderSystem;
+import Ogre.Core;
 
-#include "OgreFileSystemLayer.h"
-
-#include "OgreRTShaderSystem.h"
-
-#include "OgreCameraMan.h"
-#include "OgreInput.h"
-#include "OgreMaterialManager.h"
-#include "OgreTrays.h"
-
+export
 namespace OgreBites
 {
 
@@ -336,5 +328,3 @@ namespace OgreBites
 
     typedef std::set<Sample*, Sample::Comparer> SampleSet;
 }
-
-#endif

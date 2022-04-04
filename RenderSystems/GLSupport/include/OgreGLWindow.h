@@ -25,14 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.RenderSystems.GLSupport:GLWindow;
 
-#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_WINDOW_H
-#define OGRE_RENDERSYSTEMS_GLSUPPORT_WINDOW_H
+import :GLRenderTarget;
 
-#include "OgreGLRenderTarget.h"
-#include "OgreRenderTarget.h"
-#include "OgreRenderWindow.h"
+import Ogre.Core;
 
+export
 namespace Ogre
 {
 class GLContext;
@@ -66,5 +65,3 @@ struct Box;
         GLContext*   mContext;
     };
 }
-
-#endif

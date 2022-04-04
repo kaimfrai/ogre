@@ -25,9 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_CORE_STRINGINTERFACE_H
-#define OGRE_CORE_STRINGINTERFACE_H
+module;
 
 #include <cstddef>
 #include <map>
@@ -35,10 +33,13 @@ THE SOFTWARE.
 #include <type_traits>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgrePrerequisites.h"
-#include "OgreStringConverter.h"
+export module Ogre.Core:StringInterface;
 
+import :Common;
+import :Prerequisites;
+import :StringConverter;
+
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -279,5 +280,3 @@ namespace Ogre {
 
 
 }
-
-#endif

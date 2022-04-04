@@ -25,17 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_INSTANCEBATCHHW_VTF_H
-#define OGRE_CORE_INSTANCEBATCHHW_VTF_H
+module;
 
 #include <cstddef>
 
-#include "OgreInstanceBatchVTF.h"
-#include "OgreMesh.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
+export module Ogre.Core:InstanceBatchHW_VTF;
 
+import :InstanceBatchVTF;
+import :Mesh;
+import :Platform;
+import :Prerequisites;
+import :SharedPtr;
+
+export
 namespace Ogre
 {
 class Camera;
@@ -119,5 +121,3 @@ class VertexData;
     };
 
 }
-
-#endif

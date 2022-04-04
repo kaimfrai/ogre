@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_HARDWAREBUFFER_H
-#define OGRE_CORE_HARDWAREBUFFER_H
+export module Ogre.Core:HardwareBuffer;
 
 // Precompiler options
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
+import :Exception;
+import :Prerequisites;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -454,6 +454,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-#endif
-
-

@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -35,14 +37,8 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreProfiler.h"
-#include "OgreRenderSystem.h"
-#include "OgreRoot.h"
-#include "OgreSingleton.h"
-#include "OgreStringConverter.h"
+module Ogre.Core:Profiler;
+
 /*
 
     Although the code is original, many of the ideas for the profiler were borrowed from 
@@ -55,8 +51,14 @@ Ogre-dependent is in the visualization/logging routines and the use of the Timer
     Enjoy!
 
 */
-
-#include "OgreTimer.h"
+import :LogManager;
+import :Platform;
+import :Prerequisites;
+import :RenderSystem;
+import :Root;
+import :Singleton;
+import :StringConverter;
+import :Timer;
 
 namespace Ogre {
     //-----------------------------------------------------------------------

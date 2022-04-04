@@ -25,10 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLHardwarePixelBufferCommon.h"
+module Ogre.RenderSystems.GLSupport:GLHardwarePixelBufferCommon;
 
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
+import Ogre.Core;
 
 namespace Ogre
 {

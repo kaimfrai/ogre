@@ -25,18 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RENDERTARGET_H
-#define OGRE_CORE_RENDERTARGET_H
+module;
 
 #include <algorithm>
 #include <cstddef>
 #include <map>
 #include <vector>
 
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
+export module Ogre.Core:RenderTarget;
+
+import :MemoryAllocatorConfig;
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
 
 /* Define the number of priority groups for the render system's render targets. */
 #ifndef OGRE_NUM_RENDERTARGET_GROUPS
@@ -45,6 +46,7 @@ THE SOFTWARE.
     #define OGRE_REND_TO_TEX_RT_GROUP 2
 #endif
 
+export
 namespace Ogre {
 class Camera;
 class DepthBuffer;
@@ -498,5 +500,3 @@ struct Box;
     /** @} */
 
 } // Namespace
-
-#endif

@@ -25,22 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cstddef>
 #include <ostream>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreCommon.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMatrix4.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderable.h"
-#include "OgreSharedPtr.h"
-#include "OgreSimpleRenderable.h"
+module Ogre.Core:SimpleRenderable;
+
+import :AxisAlignedBox;
+import :Common;
+import :Material;
+import :MaterialManager;
+import :Matrix4;
+import :MovableObject;
+import :Node;
+import :Prerequisites;
+import :RenderOperation;
+import :RenderQueue;
+import :Renderable;
+import :SharedPtr;
 
 namespace Ogre {
 class Camera;

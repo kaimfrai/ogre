@@ -25,22 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_SUBENTITY_H
-#define OGRE_CORE_SUBENTITY_H
+module;
 
 #include <cstddef>
 #include <memory>
 
-#include "OgreCommon.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderable.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSharedPtr.h"
+export module Ogre.Core:SubEntity;
 
+import :Common;
+import :GpuProgramParams;
+import :HardwareBufferManager;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :Renderable;
+import :ResourceGroupManager;
+import :SharedPtr;
+
+export
 namespace Ogre {
 class Camera;
 class Entity;
@@ -302,5 +304,3 @@ class VertexData;
     /** @} */
 
 }
-
-#endif

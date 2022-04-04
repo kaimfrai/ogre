@@ -25,14 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RAY_H
-#define OGRE_CORE_RAY_H
+export module Ogre.Core:Ray;
 
 // Precompiler options
-#include "OgrePrerequisites.h"
+import :PlaneBoundedVolume;
+import :Prerequisites;
 
-#include "OgrePlaneBoundedVolume.h"
-
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -152,4 +151,3 @@ namespace Ogre {
     /** @} */
 
 }
-#endif

@@ -25,27 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#include "OgreOverlayManager.h"
+module;
 
 #include <cassert>
 #include <utility>
 
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreLogManager.h"
-#include "OgreOverlay.h"
-#include "OgreOverlayContainer.h"
-#include "OgreOverlayElement.h"
-#include "OgreOverlayElementFactory.h"
-#include "OgreOverlayTranslator.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreScriptCompiler.h"
-#include "OgreScriptTranslator.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreViewport.h"
+module Ogre.Components.Overlay:Manager;
+
+import :Container;
+import :Element;
+import :ElementFactory;
+import :Translator;
+
+import Ogre.Components.Overlay;
+import Ogre.Core;
 
 namespace Ogre {
 class Camera;
@@ -433,4 +426,3 @@ class RenderQueue;
             + " registered.");
     }
 }
-

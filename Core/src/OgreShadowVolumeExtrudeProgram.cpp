@@ -25,15 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <string>
 
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreShadowVolumeExtrudeProgram.h"
-#include "OgreSharedPtr.h"
+module Ogre.Core:ShadowVolumeExtrudeProgram;
+
+import :Exception;
+import :GpuProgram;
+import :GpuProgramManager;
+import :ResourceGroupManager;
+import :SharedPtr;
 
 namespace {
     enum Programs

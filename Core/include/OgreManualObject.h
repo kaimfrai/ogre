@@ -25,33 +25,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_CORE_MANUALOBJECT_H
-#define OGRE_CORE_MANUALOBJECT_H
+module;
 
 #include <algorithm>
 #include <cstddef>
 #include <vector>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreConfig.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgreMovableObject.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderable.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreShadowCaster.h"
-#include "OgreSharedPtr.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
+export module Ogre.Core:ManualObject;
 
+import :AxisAlignedBox;
+import :ColourValue;
+import :Common;
+import :Config;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareVertexBuffer;
+import :MemoryAllocatorConfig;
+import :MovableObject;
+import :Platform;
+import :Prerequisites;
+import :RenderOperation;
+import :Renderable;
+import :ResourceGroupManager;
+import :ShadowCaster;
+import :SharedPtr;
+import :Vector;
+import :VertexIndexData;
+
+export
 namespace Ogre
 {
 class Camera;
@@ -736,5 +737,3 @@ class SubMesh;
     /** @} */
     /** @} */
 }
-
-#endif

@@ -24,15 +24,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_MATERIALSERIALIZERLISTENER_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_MATERIALSERIALIZERLISTENER_H
+module;
 
 #include <vector>
 
-#include "OgreMaterialSerializer.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderPrerequisites.h"
+export module Ogre.Components.RTShaderSystem:ShaderMaterialSerializerListener;
 
+import :ShaderGenerator;
+import :ShaderPrerequisites;
+
+import Ogre.Core;
+
+export
 namespace Ogre {
 class Material;
 class Pass;
@@ -110,5 +113,3 @@ private:
 
 }
 }
-
-#endif

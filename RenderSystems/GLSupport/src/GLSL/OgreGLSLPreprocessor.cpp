@@ -25,8 +25,7 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-
-#include "OgreGLSLPreprocessor.h"
+module;
 
 #include <algorithm>
 #include <cassert>
@@ -36,11 +35,9 @@
 #include <memory>
 #include <utility>
 
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreString.h"
+module Ogre.RenderSystems.GLSupport.GLSL:Preprocessor;
+
+import Ogre.Core;
 
 namespace Ogre {
 

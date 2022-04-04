@@ -25,19 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_PROGRAMCOMMON_H
-#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_PROGRAMCOMMON_H
+module;
 
 #include <array>
 #include <vector>
 
-#include "OgreGLSLShaderCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
+export module Ogre.RenderSystems.GLSupport.GLSL:ProgramCommon;
 
+import :ShaderCommon;
+
+import Ogre.Core;
+
+export
 namespace Ogre
 {
 struct GpuConstantDefinition;
@@ -118,5 +117,3 @@ protected:
 };
 
 } /* namespace Ogre */
-
-#endif // OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_PROGRAMCOMMON_H

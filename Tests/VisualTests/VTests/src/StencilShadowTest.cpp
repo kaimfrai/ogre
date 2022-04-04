@@ -25,24 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#include "StencilShadowTest.h"
+module;
 
 #include <map>
 
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreEntity.h"
-#include "OgreLight.h"
-#include "OgreMath.h"
-#include "OgreMeshManager.h"
-#include "OgreMovablePlane.h"
-#include "OgrePlane.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreVector.h"
+module Ogre.Tests.VisualTests.VTests:StencilShadowTest;
+
+import Ogre.Core;
 
 StencilShadowTest::StencilShadowTest()
 {
@@ -52,8 +41,8 @@ StencilShadowTest::StencilShadowTest()
     // take screenshot almost immediately, since the scene is static
     addScreenshotFrame(10);
 }
-//---------------------------------------------------------------------------
 
+//---------------------------------------------------------------------------
 void StencilShadowTest::setupContent()
 {
     // turn ambient light off
@@ -114,5 +103,3 @@ void StencilShadowTest::setupContent()
     mCameraNode->pitch(Ogre::Degree(-20.f));
 }
 //-----------------------------------------------------------------------
-
-

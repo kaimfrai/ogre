@@ -24,16 +24,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMSET_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMSET_H
+module;
 
 #include <memory>
 
-#include "OgreGpuProgram.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreSharedPtr.h"
+export module Ogre.Components.RTShaderSystem:ShaderProgramSet;
 
+import :ShaderPrerequisites;
+
+import Ogre.Core;
+
+export
 namespace Ogre {
 namespace RTShader {
 class Program;
@@ -89,6 +90,3 @@ private:
 
 }
 }
-
-#endif
-

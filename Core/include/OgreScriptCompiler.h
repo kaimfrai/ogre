@@ -25,9 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_CORE_SCRIPTCOMPILER_H
-#define OGRE_CORE_SCRIPTCOMPILER_H
+module;
 
 #include <algorithm>
 #include <list>
@@ -37,17 +35,20 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreAny.h"
-#include "OgreCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptLoader.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreStringVector.h"
+export module Ogre.Core:ScriptCompiler;
 
+import :Any;
+import :Common;
+import :GpuProgram;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :ScriptLoader;
+import :SharedPtr;
+import :Singleton;
+import :StringVector;
+
+export
 namespace Ogre
 {
 class Material;
@@ -866,5 +867,3 @@ class Material;
     /** @} */
     /** @} */
 }
-
-#endif

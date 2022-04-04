@@ -25,9 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_CORE_ANIMATIONSTATE_H
-#define OGRE_CORE_ANIMATIONSTATE_H
+module;
 
 #include <cassert>
 #include <cstddef>
@@ -36,11 +34,14 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreController.h"
-#include "OgreControllerManager.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePrerequisites.h"
+export module Ogre.Core:AnimationState;
 
+import :Controller;
+import :ControllerManager;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+
+export
 namespace Ogre {
 
     template <typename T> class MapIterator;
@@ -317,5 +318,3 @@ class AnimationStateSet;
     /** @} */   
     /** @} */
 }
-
-#endif

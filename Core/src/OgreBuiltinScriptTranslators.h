@@ -25,13 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:BuiltinScriptTranslators;
 
-#ifndef OGRE_CORE_BUILTINSCRIPTTRANSLATORS_H
-#define OGRE_CORE_BUILTINSCRIPTTRANSLATORS_H
+import :ScriptTranslator;
+import :TextureUnitState;
 
-#include "OgreScriptTranslator.h"
-#include "OgreTextureUnitState.h"
-
+export
 namespace Ogre{
     /**************************************************************************
      * Material compilation section
@@ -200,6 +199,3 @@ namespace Ogre{
         virtual ScriptTranslator *getTranslator(const AbstractNodePtr &node);
     };
 }
-
-#endif
-

@@ -25,28 +25,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_CORE_BILLBOARDSET_H
-#define OGRE_CORE_BILLBOARDSET_H
+module;
 
 #include <algorithm>
 #include <cstddef>
 #include <memory>
 #include <vector>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreMaterial.h"
-#include "OgreMovableObject.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreRenderable.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreVector.h"
+export module Ogre.Core:BillboardSet;
 
+import :AxisAlignedBox;
+import :ColourValue;
+import :Common;
+import :Material;
+import :MovableObject;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :Renderable;
+import :ResourceGroupManager;
+import :SharedPtr;
+import :Vector;
+
+export
 namespace Ogre {
 class Billboard;
 class Camera;
@@ -830,5 +831,3 @@ class VertexData;
     /** @} */
 
 } // namespace Ogre
-
-#endif // OGRE_CORE_BILLBOARDSET_H

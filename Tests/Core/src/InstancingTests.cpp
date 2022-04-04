@@ -25,27 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <gtest/gtest.h>
 #include <cstddef>
 
-#include "OgreEntity.h"
-#include "OgreInstanceBatchShader.h"
-#include "OgreInstancedEntity.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreSharedPtr.h"
-#include "OgreSubEntity.h"
-#include "OgreVector.h"
-#include "RootWithoutRenderSystemFixture.h"
+module Ogre.Tests.Core;
+
+import :RootWithoutRenderSystemFixture;
+
+import Ogre.Core;
 
 using namespace Ogre;
 
 typedef RootWithoutRenderSystemFixture Instancing;
-
 TEST_F(Instancing, Bounds) {
     SceneManager* sceneMgr = mRoot->createSceneManager();
     Entity* entity = sceneMgr->createEntity("robot.mesh");
@@ -63,6 +56,3 @@ TEST_F(Instancing, Bounds) {
     EXPECT_EQ(instanced_entity.getBoundingBox(), entity->getBoundingBox());
     EXPECT_EQ(instanced_entity.getBoundingRadius(), entity->getBoundingRadius());
 }
-
-
-

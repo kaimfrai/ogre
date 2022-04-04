@@ -25,17 +25,18 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_PROGRAMMANAGERCOMMON_H
-#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_PROGRAMMANAGERCOMMON_H
+module;
 
 #include <map>
 #include <string>
 
-#include "OgreGLSLProgramCommon.h"
-#include "OgreGpuProgramParams.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
+export module Ogre.RenderSystems.GLSupport.GLSL:ProgramManagerCommon;
 
+import :ProgramCommon;
+
+import Ogre.Core;
+
+export
 namespace Ogre {
     class GLSLShaderCommon;
 
@@ -89,5 +90,3 @@ namespace Ogre {
     };
 
 }
-
-#endif // OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_PROGRAMMANAGERCOMMON_H

@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GL_FRAMEBUFFEROBJECT_H
-#define OGRE_RENDERSYSTEMS_GL_FRAMEBUFFEROBJECT_H
+export module Ogre.RenderSystems.GL:FrameBufferObject;
 
-#include "OgreGLRenderTexture.h"
-#include "OgrePrerequisites.h"
+import Ogre.Core;
+import Ogre.RenderSystems.GLSupport;
 
+export
 namespace Ogre {
     class DepthBuffer;
     class GLFBOManager;
@@ -66,5 +66,3 @@ namespace Ogre {
     };
 
 }
-
-#endif

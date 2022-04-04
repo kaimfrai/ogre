@@ -24,29 +24,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cstddef>
 #include <list>
 #include <string>
 
-#include "OgreCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreSceneManager.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderFFPFog.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderScriptTranslator.h"
+module Ogre.Components.RTShaderSystem:ShaderFFPFog;
+
+import :ShaderFFPRenderState;
+import :ShaderFunction;
+import :ShaderFunctionAtom;
+import :ShaderGenerator;
+import :ShaderParameter;
+import :ShaderPrecompiledHeaders;
+import :ShaderPrerequisites;
+import :ShaderProgram;
+import :ShaderProgramSet;
+import :ShaderScriptTranslator;
+
+import Ogre.Core;
 
 namespace Ogre {
     namespace RTShader {

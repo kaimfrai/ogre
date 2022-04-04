@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "MeshSerializerTests.h"
+module;
 
 #include <algorithm>
 #include <cmath>
@@ -39,42 +39,11 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreAnimation.h"
-#include "OgreAnimationTrack.h"
-#include "OgreArchive.h"
-#include "OgreArchiveManager.h"
-#include "OgreAxisAlignedBox.h"
-#include "OgreConfigFile.h"
-#include "OgreDefaultHardwareBufferManager.h"
-#include "OgreDistanceLodStrategy.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreException.h"
-#include "OgreFileSystem.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreKeyFrame.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreMaterialManager.h"
-#include "OgreMesh.h"
-#include "OgreMeshManager.h"
-#include "OgreMeshSerializer.h"
-#include "OgrePose.h"
-#include "OgreRenderOperation.h"
-#include "OgreResource.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSkeleton.h"
-#include "OgreSkeletonManager.h"
-#include "OgreSkeletonSerializer.h"
-#include "OgreString.h"
-#include "OgreSubMesh.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
+module Ogre.Tests.Core:MeshSerializerTests;
+
+import Ogre.Core;
 
 // Register the test suite
-
 //--------------------------------------------------------------------------
 void MeshSerializerTests::SetUp()
 {
@@ -135,6 +104,7 @@ void MeshSerializerTests::SetUp()
 
     mOrigMesh = mMesh->clone(mMesh->getName() + ".orig.mesh", mMesh->getGroup());
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::TearDown()
 {
@@ -173,6 +143,7 @@ TEST_F(MeshSerializerTests,Mesh_clone)
     MeshPtr cloneMesh = mMesh->clone(mMesh->getName() + ".clone.mesh", mMesh->getGroup());
     assertMeshClone(mMesh.get(), cloneMesh.get());
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::testMesh(MeshVersion version)
 {
@@ -364,6 +335,7 @@ bool MeshSerializerTests::isLodMixed(const Mesh* pMesh)
 
     return false;
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, MeshVersion version /*= MESH_VERSION_LATEST*/)
 {
@@ -443,12 +415,14 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
         }
     }
 }
+
 //--------------------------------------------------------------------------
 template<typename T>
 bool MeshSerializerTests::isContainerClone(T& a, T& b)
 {
     return a.size() == b.size() && std::equal(a.begin(), a.end(), b.begin());
 }
+
 //--------------------------------------------------------------------------
 template<typename K, typename V>
 bool MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V>& a, const std::unordered_map<K, V>& b)
@@ -469,6 +443,7 @@ bool MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V>& a, cons
     }
     return true;
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertIndexDataClone(IndexData* a, IndexData* b, MeshVersion version /*= MESH_VERSION_LATEST*/)
 {
@@ -494,6 +469,7 @@ void MeshSerializerTests::assertIndexDataClone(IndexData* a, IndexData* b, MeshV
         }
     }
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertEdgeDataClone(EdgeData* a, EdgeData* b, MeshVersion version /*= MESH_VERSION_LATEST*/)
 {
@@ -507,6 +483,7 @@ void MeshSerializerTests::assertEdgeDataClone(EdgeData* a, EdgeData* b, MeshVers
         EXPECT_TRUE(a->edgeGroups.size() == b->edgeGroups.size());
     }
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertLodUsageClone(const MeshLodUsage& a, const MeshLodUsage& b, MeshVersion version /*= MESH_VERSION_LATEST*/)
 {
@@ -514,6 +491,7 @@ void MeshSerializerTests::assertLodUsageClone(const MeshLodUsage& a, const MeshL
     EXPECT_TRUE(isEqual(a.userValue, b.userValue));
     EXPECT_TRUE(isEqual(a.value, b.value));
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, String& outPath)
 {

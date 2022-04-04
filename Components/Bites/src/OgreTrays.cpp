@@ -4,8 +4,7 @@
  *  Created on: 01.07.2016
  *      Author: parojtbe
  */
-
-#include "OgreTrays.h"
+module;
 
 #include <algorithm>
 #include <cmath>
@@ -15,17 +14,10 @@
 #include <ostream>
 #include <utility>
 
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreFont.h"
-#include "OgreMatrix4.h"
-#include "OgreOverlayManager.h"
-#include "OgrePanelOverlayElement.h"
-#include "OgreRenderTarget.h"
-#include "OgreRenderWindow.h"
-#include "OgreRoot.h"
-#include "OgreStringConverter.h"
-#include "OgreTimer.h"
+module Ogre.Components.Bites:Trays;
+
+import Ogre.Components.Overlay;
+import Ogre.Core;
 
 namespace Ogre {
 struct FrameEvent;
@@ -2208,4 +2200,3 @@ void TrayManager::setExpandedMenu(SelectMenu *m)
 }
 
 }
-

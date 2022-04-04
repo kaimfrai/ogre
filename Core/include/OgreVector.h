@@ -25,9 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_VECTOR_H
-#define OGRE_CORE_VECTOR_H
-
+module;
 
 #include <algorithm>
 #include <cassert>
@@ -35,10 +33,13 @@ THE SOFTWARE.
 #include <ostream>
 #include <type_traits>
 
-#include "OgreMath.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
+export module Ogre.Core:Vector;
 
+import :Math;
+import :Prerequisites;
+import :Quaternion;
+
+export
 namespace Ogre
 {
 
@@ -916,4 +917,3 @@ namespace Ogre
     /** @} */
 
 }
-#endif

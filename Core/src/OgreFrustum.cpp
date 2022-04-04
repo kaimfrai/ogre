@@ -25,29 +25,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreFrustum.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgreMovableObject.h"
-#include "OgreMovablePlane.h"
-#include "OgreNode.h"
-#include "OgrePlane.h"
-#include "OgrePlaneBoundedVolume.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderable.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSphere.h"
-#include "OgreVector.h"
+module Ogre.Core:Frustum;
+
+import :AxisAlignedBox;
+import :Common;
+import :Exception;
+import :Math;
+import :Matrix3;
+import :Matrix4;
+import :MovableObject;
+import :MovablePlane;
+import :Node;
+import :Plane;
+import :PlaneBoundedVolume;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :RenderSystem;
+import :Renderable;
+import :Root;
+import :SceneManager;
+import :Sphere;
+import :Vector;
 
 namespace Ogre {
 class Camera;

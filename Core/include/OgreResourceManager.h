@@ -25,8 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RESOURCEMANAGER_H
-#define OGRE_CORE_RESOURCEMANAGER_H
+module;
 
 #include <atomic>
 #include <cstddef>
@@ -36,16 +35,19 @@ THE SOFTWARE.
 #include <unordered_map>
 #include <utility>
 
-#include "OgreCommon.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreScriptLoader.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringVector.h"
+export module Ogre.Core:ResourceManager;
 
+import :Common;
+import :IteratorWrapper;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :Resource;
+import :ResourceGroupManager;
+import :ScriptLoader;
+import :SharedPtr;
+import :StringVector;
+
+export
 namespace Ogre {
 
     /** Template class describing a simple pool of items.
@@ -504,5 +506,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

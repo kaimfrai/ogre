@@ -25,18 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GL_HARDWAREBUFFERMANAGER_H
-#define OGRE_RENDERSYSTEMS_GL_HARDWAREBUFFERMANAGER_H
+module;
 
 #include <cstddef>
 
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "glad/glad.h"
+export module Ogre.RenderSystems.GL:HardwareBufferManager;
 
+import Ogre.Core;
+import Ogre.RenderSystems.GL.glad;
+
+export
 namespace Ogre {
 
     class GLStateCacheManager;
@@ -91,5 +89,3 @@ class GLRenderSystem;
         void setGLMapBufferThreshold( const size_t value );
     };
 }
-
-#endif // OGRE_RENDERSYSTEMS_GL_HARDWAREBUFFERMANAGER_H

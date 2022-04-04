@@ -25,19 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_TANGENTSPACECALC_H
-#define OGRE_CORE_TANGENTSPACECALC_H
+module;
 
 #include <cstddef>
 #include <list>
 #include <utility>
 #include <vector>
 
-#include "OgreHardwareVertexBuffer.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreVector.h"
+export module Ogre.Core:TangentSpaceCalc;
 
+import :HardwareVertexBuffer;
+import :Prerequisites;
+import :RenderOperation;
+import :Vector;
+
+export
 namespace Ogre
 {
 class IndexData;
@@ -268,5 +270,3 @@ class VertexData;
     /** @} */
 
 }
-
-#endif

@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_OVERLAY_ELEMENTFACTORY_H
-#define OGRE_COMPONENTS_OVERLAY_ELEMENTFACTORY_H
+export module Ogre.Components.Overlay:ElementFactory;
 
-#include "OgreBorderPanelOverlayElement.h"
-#include "OgreOverlayElement.h"
-#include "OgrePanelOverlayElement.h"
-#include "OgreTextAreaOverlayElement.h"
+import :BorderPanelOverlayElement;
+import :Element;
+import :PanelOverlayElement;
+import :TextAreaOverlayElement;
 
+export
 namespace Ogre {
 
     /** \addtogroup Optional
@@ -69,7 +69,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-
-
-#endif

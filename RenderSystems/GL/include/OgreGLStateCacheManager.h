@@ -25,18 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_RENDERSYSTEMS_GL_STATECACHEMANAGER_H
-#define OGRE_RENDERSYSTEMS_GL_STATECACHEMANAGER_H
+module;
 
 #include <cstddef>
 #include <set>
 #include <unordered_map>
 
-#include "OgreCommon.h"
-#include "OgreGLStateCacheManagerCommon.h"
-#include "glad/glad.h"
+export module Ogre.RenderSystems.GL:StateCacheManager;
 
+import Ogre.Core;
+import Ogre.RenderSystems.GL.glad;
+import Ogre.RenderSystems.GLSupport;
+
+export
 namespace Ogre
 {
     class GLStateCacheManager : public GLStateCacheManagerCommon
@@ -230,5 +231,3 @@ namespace Ogre
 
     };
 }
-
-#endif

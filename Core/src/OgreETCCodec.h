@@ -25,14 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_ETCCODEC_H
-#define OGRE_CORE_ETCCODEC_H
+module;
 
 #include <cstddef>
 
-#include "OgreImageCodec.h"
-#include "OgrePrerequisites.h"
+export module Ogre.Core:ETCCodec;
 
+import :ImageCodec;
+import :Prerequisites;
+
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -77,6 +79,3 @@ namespace Ogre {
     /** @} */
 
 } // namespace
-
-#endif
-

@@ -25,20 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Tests.VisualTests.Common:VisualTest;
 
-#ifndef OGRE_TESTS_VISUALTESTS_VISUALTEST_H
-#define OGRE_TESTS_VISUALTESTS_VISUALTEST_H
-
-#include "OgreFrameListener.h"
-#include "OgreRenderWindow.h"
-#include "OgreViewport.h"
-#include "Sample.h"
+import Ogre.Core;
+import Ogre.Samples.Common;
 
 // resource group that will be automatically unloaded after the close of the sample
 #define TRANSIENT_RESOURCE_GROUP "VisualTestTransient"
 #define ASSETS_RESOURCE_GROUP "General"
-
 /** The base class for a visual test scene */
+
+export
 class VisualTest : public OgreBites::Sample
 {
  public:
@@ -89,5 +86,3 @@ class VisualTest : public OgreBites::Sample
     // a list of animation states to automatically update
     std::vector<Ogre::AnimationState*> mAnimStateList;
 };
-
-#endif

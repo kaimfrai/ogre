@@ -25,10 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:PrefabFactory;
 
-#ifndef OGRE_CORE_PREFABFACTORY_H
-#define OGRE_CORE_PREFABFACTORY_H
-
+export
 namespace Ogre {
 class Mesh;
 
@@ -68,5 +67,3 @@ class Mesh;
     /** @} */
 
 } // namespace Ogre
-
-#endif

@@ -25,38 +25,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PLATFORM_H
-#define OGRE_CORE_PLATFORM_H
+module;
 
-#include "OgreConfig.h"
-
-/* See if we can use __forceinline or if we need to use __inline instead */
-
-#define OGRE_FORCE_INLINE inline __attribute__((always_inline))
-
-/* fallthrough attribute */
-#define OGRE_FALLTHROUGH __attribute__((fallthrough))
-
-#define OGRE_NODISCARD __attribute__((__warn_unused_result__))
-
-/* define OGRE_NORETURN macro */
-#define OGRE_NORETURN __attribute__((noreturn))
-
-/* Find how to declare aligned variable. */
-#define OGRE_ALIGNED_DECL(type, var, alignment)  type var __attribute__((__aligned__(alignment)))
-
-/** Find perfect alignment (should supports SIMD alignment if SIMD available) */
-#define OGRE_SIMD_ALIGNMENT 16
-
-/* Declare variable aligned to SIMD alignment. */
 #define OGRE_SIMD_ALIGNED_DECL(type, var)   OGRE_ALIGNED_DECL(type, var, OGRE_SIMD_ALIGNMENT)
-
 #define OGRE_DEFAULT_LOCALE "C"
-
 #define DECL_MALLOC __attribute__ ((malloc))
-
 #include <cstdint>
 
+export module Ogre.Core:Platform;
+
+import :Config;
+
+/* See if we can use __forceinline or if we need to use __inline instead */
+#define OGRE_FORCE_INLINE inline __attribute__((always_inline))
+/* fallthrough attribute */
+#define OGRE_FALLTHROUGH __attribute__((fallthrough))
+#define OGRE_NODISCARD __attribute__((__warn_unused_result__))
+/* define OGRE_NORETURN macro */
+#define OGRE_NORETURN __attribute__((noreturn))
+/* Find how to declare aligned variable. */
+#define OGRE_ALIGNED_DECL(type, var, alignment)  type var __attribute__((__aligned__(alignment)))
+/** Find perfect alignment (should supports SIMD alignment if SIMD available) */
+#define OGRE_SIMD_ALIGNMENT 16
+/* Declare variable aligned to SIMD alignment. */
+
+export
 namespace Ogre {
 typedef uint32_t uint32;
 typedef uint16_t uint16;
@@ -67,5 +60,3 @@ typedef int16_t int16;
 typedef int8_t int8;
 typedef int64_t int64;
 }
-
-#endif

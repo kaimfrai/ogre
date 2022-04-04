@@ -25,22 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_EXCEPTION_H
-#define OGRE_CORE_EXCEPTION_H
+module;
 
 #include <exception>
 
+export module Ogre.Core:Exception;
+
 // Precompiler options
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
+import :Platform;
+import :Prerequisites;
 
 // Check for OGRE assert mode
-
 #define OgreAssert( a, b ) if( !(a) ) OGRE_EXCEPT_2( Ogre::Exception::ERR_RT_ASSERTION_FAILED, (#a " failed. " b) )
-
 /// replaced with OgreAssert(expr, mesg) in Debug configuration
 #define OgreAssertDbg( expr, mesg )
-
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -266,5 +265,3 @@ namespace Ogre {
     /** @} */
 
 } // Namespace Ogre
-
-#endif

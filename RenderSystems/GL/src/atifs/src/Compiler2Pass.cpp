@@ -25,15 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "Compiler2Pass.h"
+module;
 
 #include <sys/types.h>
-
 #include <cassert>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-
 Compiler2Pass::Compiler2Pass()
 {
     // reserve some memory space in the containers being used
@@ -45,7 +43,7 @@ Compiler2Pass::Compiler2Pass()
 
 }
 
-
+module Ogre.RenderSystems.GL.atifs:Compiler2Pass;
 
 void Compiler2Pass::InitSymbolTypeLib()
 {
@@ -75,8 +73,6 @@ void Compiler2Pass::InitSymbolTypeLib()
     }
 
 }
-
-
 bool Compiler2Pass::compile(const char* source)
 {
     bool Passed = false;
@@ -92,8 +88,6 @@ bool Compiler2Pass::compile(const char* source)
     }
     return Passed;
 }
-
-
 bool Compiler2Pass::doPass1()
 {
     // scan through Source string and build a token list using TokenInstructions
@@ -117,8 +111,6 @@ bool Compiler2Pass::doPass1()
     return passed;
 
 }
-
-
 bool Compiler2Pass::processRulePath( uint rulepathIDX)
 {
     // rule path determines what tokens and therefore what symbols are acceptable from the source
@@ -214,8 +206,6 @@ bool Compiler2Pass::processRulePath( uint rulepathIDX)
     return Passed;
 
 }
-
-
 bool Compiler2Pass::ValidateToken(const uint rulepathIDX, const uint activeRuleID)
 {
     int tokenlength = 0;
@@ -275,13 +265,10 @@ bool Compiler2Pass::ValidateToken(const uint rulepathIDX, const uint activeRuleI
 
 }
 
-
 const char* Compiler2Pass::getTypeDefText(const uint sid)
 {
     return mRootRulePath[mSymbolTypeLib[sid].mDefTextID].mSymbol;
 }
-
-
 bool Compiler2Pass::isFloatValue(float& fvalue, int& charsize)
 {
     // check to see if it is a numeric float value
@@ -302,8 +289,6 @@ bool Compiler2Pass::isFloatValue(float& fvalue, int& charsize)
 
     return valuefound;
 }
-
-
 bool Compiler2Pass::isSymbol(const char* symbol, int& symbolsize)
 {
     // compare text at source+charpos with the symbol : limit testing to symbolsize
@@ -315,8 +300,6 @@ bool Compiler2Pass::isSymbol(const char* symbol, int& symbolsize)
 
     return symbolfound;
 }
-
-
 bool Compiler2Pass::positionToNextSymbol()
 {
     bool validsymbolfound = false;
@@ -336,8 +319,6 @@ bool Compiler2Pass::positionToNextSymbol()
     return validsymbolfound;
 }
 
-
-
 void Compiler2Pass::skipComments()
 {
   // if current char and next are // then search for EOL
@@ -347,7 +328,6 @@ void Compiler2Pass::skipComments()
             (mSource[mCharPos] == '#') ) findEOL();
     }
 }
-
 
 void Compiler2Pass::findEOL()
 {
@@ -361,7 +341,6 @@ void Compiler2Pass::findEOL()
 
 }
 
-
 void Compiler2Pass::skipEOL()
 {
     if ((mSource[mCharPos] == '\n') || (mSource[mCharPos] == '\r')) {
@@ -373,10 +352,8 @@ void Compiler2Pass::skipEOL()
     }
 }
 
-
 void Compiler2Pass::skipWhiteSpace()
 {
     // FIX - this method kinda slow
     while((mSource[mCharPos] == ' ') || (mSource[mCharPos] == '\t')) mCharPos++; // find first non white space character
 }
-

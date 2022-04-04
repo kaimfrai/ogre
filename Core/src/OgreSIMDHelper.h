@@ -25,8 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_SIMDHELPER_H
-#define OGRE_CORE_SIMDHELPER_H
+module;
 
 // Stack-alignment hackery.
 //
@@ -41,20 +40,18 @@ THE SOFTWARE.
 // with extra function call.
 //
 #define __OGRE_SIMD_ALIGN_ATTRIBUTE
-
-
 // Additional platform-dependent header files and declares.
 //
 // NOTE: Should be sync with __OGRE_HAVE_SSE macro.
 //
-
 #include <xmmintrin.h>
+
+export module Ogre.Core:SIMDHelper;
 
 //---------------------------------------------------------------------
 // SIMD macros and helpers
 //---------------------------------------------------------------------
-
-
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -239,5 +236,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif // OGRE_CORE_SIMDHELPER_H

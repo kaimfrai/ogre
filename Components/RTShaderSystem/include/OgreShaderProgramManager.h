@@ -24,8 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMMANAGER_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMMANAGER_H
+module;
 
 #include <algorithm>
 #include <cstddef>
@@ -34,12 +33,13 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreGpuProgram.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
+export module Ogre.Components.RTShaderSystem:ShaderProgramManager;
 
+import :ShaderPrerequisites;
+
+import Ogre.Core;
+
+export
 namespace Ogre {
 namespace RTShader {
 
@@ -208,6 +208,3 @@ private:
 
 }
 }
-
-#endif
-

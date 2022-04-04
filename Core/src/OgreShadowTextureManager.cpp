@@ -27,24 +27,27 @@ You may alternatively use this source under the terms of a specific version of
 the OGRE Unrestricted License provided you have obtained such a license from
 Torus Knot Software Ltd.
 -------------------------------------------------------------------------*/
+module;
+
 #include <cassert>
 #include <cstddef>
 #include <set>
 #include <string>
 #include <vector>
 
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgrePixelFormat.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSceneManager.h"
-#include "OgreShadowTextureManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreStringConverter.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
+module Ogre.Core:ShadowTextureManager;
+
+import :HardwareBuffer;
+import :HardwarePixelBuffer;
+import :PixelFormat;
+import :Prerequisites;
+import :ResourceGroupManager;
+import :SceneManager;
+import :SharedPtr;
+import :Singleton;
+import :StringConverter;
+import :Texture;
+import :TextureManager;
 
 namespace Ogre
 {
@@ -221,4 +224,3 @@ namespace Ogre
     //---------------------------------------------------------------------
 
 }
-

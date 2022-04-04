@@ -25,21 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cstring>
 #include <map>
 #include <memory>
 
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreMath.h"
-#include "OgrePlatform.h"
-#include "OgreSharedPtr.h"
-#include "OgreTangentSpaceCalc.h"
-#include "OgreVertexIndexData.h"
+module Ogre.Core:TangentSpaceCalc;
+
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :Log;
+import :LogManager;
+import :Math;
+import :Platform;
+import :SharedPtr;
+import :VertexIndexData;
 
 namespace Ogre
 {

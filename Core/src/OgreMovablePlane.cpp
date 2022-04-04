@@ -25,8 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreMovablePlane.h"
-#include "OgreNode.h"
+module Ogre.Core:MovablePlane;
+
+import :Node;
 
 namespace Ogre {
 

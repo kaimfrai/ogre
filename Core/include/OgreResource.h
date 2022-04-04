@@ -25,17 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RESOURCE_H
-#define OGRE_CORE_RESOURCE_H
+module;
 
 #include <atomic>
 #include <cstddef>
 #include <set>
 
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePrerequisites.h"
-#include "OgreStringInterface.h"
+export module Ogre.Core:Resource;
 
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :StringInterface;
+
+export
 namespace Ogre {
 class ResourceManager;
 
@@ -501,5 +503,3 @@ class ResourceManager;
     /** @} */
     /** @} */
 }
-
-#endif

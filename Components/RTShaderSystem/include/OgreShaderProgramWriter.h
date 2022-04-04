@@ -24,17 +24,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITER_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITER_H
+module;
 
 #include <iosfwd>
 #include <map>
 
-#include "OgreGpuProgramParams.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrerequisites.h"
+export module Ogre.Components.RTShaderSystem:ShaderProgramWriter;
 
+import :ShaderParameter;
+import :ShaderPrerequisites;
+
+import Ogre.Core;
+
+export
 namespace Ogre {
 namespace RTShader {
 class Function;
@@ -103,7 +105,3 @@ protected:
 
 }
 }
-
-
-
-#endif

@@ -25,19 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Components.Overlay:Element;
 
-#ifndef OGRE_COMPONENTS_OVERLAY_ELEMENT_H
-#define OGRE_COMPONENTS_OVERLAY_ELEMENT_H
+import Ogre.Core;
 
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreMatrix4.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderable.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringInterface.h"
-
+export
 namespace Ogre {
     class Overlay;
     class OverlayContainer;
@@ -473,7 +465,3 @@ class RenderQueue;
     /** @} */
 
 }
-
-
-#endif
-

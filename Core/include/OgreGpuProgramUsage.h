@@ -25,17 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_GPUPROGRAMUSAGE_H
-#define OGRE_CORE_GPUPROGRAMUSAGE_H
+module;
 
 #include <cstddef>
 
-#include "OgreGpuProgram.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreSharedPtr.h"
+export module Ogre.Core:GpuProgramUsage;
 
+import :GpuProgram;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :Resource;
+import :SharedPtr;
+
+export
 namespace Ogre 
 {
     class Pass;
@@ -155,5 +157,3 @@ namespace Ogre
     /** @} */
     /** @} */
 }
-
-#endif

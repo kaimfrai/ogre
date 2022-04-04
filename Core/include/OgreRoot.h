@@ -25,8 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_ROOT_H
-#define OGRE_CORE_ROOT_H
+module;
 
 #include <algorithm>
 #include <deque>
@@ -36,15 +35,18 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSceneManagerEnumerator.h"
-#include "OgreSingleton.h"
+export module Ogre.Core:Root;
 
+import :Common;
+import :IteratorWrapper;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :ResourceGroupManager;
+import :SceneManagerEnumerator;
+import :Singleton;
+
+export
 namespace Ogre
 {
     /** \addtogroup Core
@@ -951,5 +953,3 @@ struct SceneManagerMetaData;
     /** @} */
     /** @} */
 } // Namespace Ogre
-
-#endif

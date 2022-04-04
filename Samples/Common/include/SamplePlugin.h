@@ -25,12 +25,13 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef OGRE_SAMPLES_SAMPLEPLUGIN_H
-#define OGRE_SAMPLES_SAMPLEPLUGIN_H
+export module Ogre.Samples.Common:SamplePlugin;
 
-#include "OgrePlugin.h"
-#include "Sample.h"
+import :Sample;
 
+import Ogre.Core;
+
+export
 namespace OgreBites
 {
     /*=============================================================================
@@ -77,5 +78,3 @@ namespace OgreBites
         SampleSet mSamples;
     };
 }
-
-#endif

@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
@@ -34,16 +36,17 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreCamera.h"
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgreNode.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreVector.h"
+module Ogre.Core:Node;
+
+import :Camera;
+import :Common;
+import :Exception;
+import :Math;
+import :Matrix3;
+import :Matrix4;
+import :Prerequisites;
+import :Quaternion;
+import :Vector;
 
 namespace Ogre {
 
@@ -708,4 +711,3 @@ namespace Ogre {
         msQueuedUpdates.clear();
     }
 }
-

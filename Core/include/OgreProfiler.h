@@ -37,9 +37,7 @@ Ogre-dependent is in the visualization/logging routines and the use of the Timer
     Enjoy!
 
 */
-
-#ifndef OGRE_CORE_PROFILER_H
-#define OGRE_CORE_PROFILER_H
+module;
 
 #include <algorithm>
 #include <map>
@@ -47,11 +45,14 @@ Ogre-dependent is in the visualization/logging routines and the use of the Timer
 #include <string>
 #include <vector>
 
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
+export module Ogre.Core:Profiler;
 
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :Singleton;
+
+export
 namespace Ogre {
     class Timer;
 
@@ -467,5 +468,3 @@ namespace Ogre {
     /** @} */
 
 } // end namespace
-
-#endif

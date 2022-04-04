@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_STRINGVECTOR_H
-#define OGRE_CORE_STRINGVECTOR_H
+export module Ogre.Core:StringVector;
 
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
+import :Prerequisites;
+import :SharedPtr;
+import :String;
 
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -47,5 +47,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

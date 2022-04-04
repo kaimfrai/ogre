@@ -25,8 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_MATH_H
-#define OGRE_CORE_MATH_H
+module;
 
 #include <cassert>
 #include <cmath>
@@ -37,9 +36,12 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
+export module Ogre.Core:Math;
 
+import :Platform;
+import :Prerequisites;
+
+export
 namespace Ogre
 {
 class Affine3;
@@ -810,5 +812,3 @@ class Sphere;
     /** @} */
 
 }
-
-#endif

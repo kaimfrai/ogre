@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <cassert>
 #include <cstring>
@@ -33,31 +35,32 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreBillboard.h"
-#include "OgreBillboardSet.h"
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLogManager.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgreNode.h"
-#include "OgreRadixSort.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreSphere.h"
-#include "OgreStringConverter.h"
-#include "OgreVertexIndexData.h"
+module Ogre.Core:BillboardSet;
+
+import :Billboard;
+import :Camera;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :LogManager;
+import :MaterialManager;
+import :Math;
+import :Matrix3;
+import :Matrix4;
+import :Node;
+import :RadixSort;
+import :RenderOperation;
+import :RenderQueue;
+import :RenderSystem;
+import :RenderSystemCapabilities;
+import :Root;
+import :SceneManager;
+import :SceneNode;
+import :Sphere;
+import :StringConverter;
+import :VertexIndexData;
 
 namespace Ogre {
     //-----------------------------------------------------------------------

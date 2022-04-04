@@ -25,22 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_AUTOPARAMDATASOURCE_H
-#define OGRE_CORE_AUTOPARAMDATASOURCE_H
+module;
 
 #include <cstddef>
 
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreConfig.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLight.h"
-#include "OgreMatrix4.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePrerequisites.h"
-#include "OgreSceneNode.h"
-#include "OgreVector.h"
+export module Ogre.Core:AutoParamDataSource;
 
+import :ColourValue;
+import :Common;
+import :Config;
+import :GpuProgramParams;
+import :Light;
+import :Matrix4;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :SceneNode;
+import :Vector;
+
+export
 namespace Ogre {
 
     // forward decls
@@ -284,5 +286,3 @@ class Viewport;
     /** @} */
     /** @} */
 }
-
-#endif

@@ -25,20 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RESOURCEBACKGROUNDQUEUE_H
-#define OGRE_CORE_RESOURCEBACKGROUNDQUEUE_H
-
+module;
 
 #include <set>
 
-#include "OgreCommon.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreSingleton.h"
-#include "OgreWorkQueue.h"
+export module Ogre.Core:ResourceBackgroundQueue;
 
+import :Common;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :Resource;
+import :Singleton;
+import :WorkQueue;
+
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -299,5 +300,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

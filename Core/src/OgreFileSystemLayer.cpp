@@ -25,7 +25,7 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#include "OgreFileSystemLayer.h"
+module;
 
 #include <cerrno>
 #include <cstdio>
@@ -36,9 +36,11 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "OgrePrerequisites.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
+module Ogre.Core:FileSystemLayer;
+
+import :Prerequisites;
+import :String;
+import :StringVector;
 
 namespace Ogre
 {

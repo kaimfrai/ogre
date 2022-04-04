@@ -25,36 +25,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <cassert>
 #include <cmath>
 #include <cstddef>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreCamera.h"
-#include "OgreCommon.h"
-#include "OgreEntity.h"
-#include "OgreFrustum.h"
-#include "OgreLight.h"
-#include "OgreLodListener.h"
-#include "OgreMaterial.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderable.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreShadowCaster.h"
-#include "OgreSphere.h"
-#include "OgreTagPoint.h"
-#include "OgreTechnique.h"
-#include "OgreVector.h"
+module Ogre.Core:MovableObject;
+
+import :AxisAlignedBox;
+import :Camera;
+import :Common;
+import :Entity;
+import :Frustum;
+import :Light;
+import :LodListener;
+import :Material;
+import :Math;
+import :Matrix3;
+import :Matrix4;
+import :Node;
+import :Platform;
+import :Prerequisites;
+import :RenderQueue;
+import :Renderable;
+import :Root;
+import :SceneManager;
+import :SceneNode;
+import :ShadowCaster;
+import :Sphere;
+import :TagPoint;
+import :Technique;
+import :Vector;
 
 namespace Ogre {
 class Any;
@@ -495,4 +498,3 @@ class Any;
 
 
 }
-

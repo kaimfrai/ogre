@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_DISTANCELODSTRATEGY_H
-#define OGRE_CORE_DISTANCELODSTRATEGY_H
+export module Ogre.Core:DistanceLodStrategy;
 
-#include "OgreLodStrategy.h"
-#include "OgreMaterial.h"
-#include "OgreMath.h"
-#include "OgreMesh.h"
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
+import :LodStrategy;
+import :Material;
+import :Math;
+import :Mesh;
+import :Prerequisites;
+import :Singleton;
 
+export
 namespace Ogre {
 class Camera;
 class MovableObject;
@@ -182,5 +182,3 @@ class MovableObject;
     /** @} */
 
 } // namespace
-
-#endif

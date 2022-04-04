@@ -1,16 +1,15 @@
-#ifndef OGRE_SAMPLES_NEWINSTANCING_H
-#define OGRE_SAMPLES_NEWINSTANCING_H
+module;
 
 #include <set>
 #include <vector>
 
-#include "OgreInput.h"
-#include "OgreInstanceManager.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "SdkSample.h"
+export module Ogre.Samples.Simple:NewInstancing;
 
+import Ogre.Components.Bites;
+import Ogre.Core;
+import Ogre.Samples.Common;
+
+export
 namespace Ogre {
 class AnimationState;
 class InstancedEntity;
@@ -18,18 +17,19 @@ class MovableObject;
 class SceneNode;
 struct FrameEvent;
 }  // namespace Ogre
+
+export
 namespace OgreBites {
 class Button;
 class CheckBox;
 class SelectMenu;
 class Slider;
 }  // namespace OgreBites
-
 using namespace Ogre;
 using namespace OgreBites;
 
 #define NUM_TECHNIQUES (((int)InstanceManager::InstancingTechniquesCount) + 1)
-
+export
 class Sample_NewInstancing : public SdkSample
 {
 public:
@@ -116,5 +116,3 @@ protected:
     CheckBox                        *mDefragmentOptimumCull;
     Slider                          *mInstancesSlider;
 };
-
-#endif

@@ -24,6 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <algorithm>
 #include <cassert>
@@ -35,33 +36,23 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 #include <vector>
-// IWYU pragma: no_include <sstream>
 
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreMurmurHash3.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderGLSLProgramProcessor.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderHLSLProgramProcessor.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramManager.h"
-#include "OgreShaderProgramProcessor.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderProgramWriter.h"
-#include "OgreShaderProgramWriterManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
+module Ogre.Components.RTShaderSystem:ShaderProgramManager;
+
+import :ShaderFunction;
+import :ShaderGLSLProgramProcessor;
+import :ShaderGenerator;
+import :ShaderHLSLProgramProcessor;
+import :ShaderParameter;
+import :ShaderPrerequisites;
+import :ShaderProgram;
+import :ShaderProgramProcessor;
+import :ShaderProgramSet;
+import :ShaderProgramWriter;
+import :ShaderProgramWriterManager;
+
+// IWYU pragma: no_include <sstream>
+import Ogre.Core;
 
 namespace Ogre {
 

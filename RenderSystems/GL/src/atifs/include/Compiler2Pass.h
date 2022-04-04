@@ -25,19 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-
-#ifndef COMPILER2PASS_H
-#define COMPILER2PASS_H
+module;
 
 #include <vector>
 
+export module Ogre.RenderSystems.GL.atifs:Compiler2Pass;
+
 // FIX ME - should not be hard coded
 #define BAD_TOKEN 999
-
+export
 typedef unsigned int uint;
-
-
 
 /** Compiler2Pass is a generic compiler/assembler
 @remarks
@@ -55,6 +52,7 @@ typedef unsigned int uint;
     is responsible for setting up the token libraries along with defining the language syntax.
 
 */
+export
 class Compiler2Pass {
 
 protected:
@@ -267,6 +265,3 @@ public:
     void InitSymbolTypeLib();
 
 };
-
-#endif
-

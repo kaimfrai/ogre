@@ -25,24 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cstddef>
 #include <map>
 #include <utility>
 
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMovableObject.h"
-#include "OgrePass.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderQueueSortingGrouping.h"
-#include "OgreRenderable.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneManagerEnumerator.h"
-#include "OgreSharedPtr.h"
-#include "OgreTechnique.h"
-#include "OgreVertexIndexData.h"
+module Ogre.Core:RenderQueue;
+
+import :HardwareVertexBuffer;
+import :Material;
+import :MaterialManager;
+import :MovableObject;
+import :Pass;
+import :RenderOperation;
+import :RenderQueueSortingGrouping;
+import :Renderable;
+import :SceneManager;
+import :SceneManagerEnumerator;
+import :SharedPtr;
+import :Technique;
+import :VertexIndexData;
 
 namespace Ogre {
 
@@ -276,4 +279,3 @@ namespace Ogre {
     }
 
 }
-

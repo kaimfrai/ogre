@@ -25,16 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <string>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLogManager.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreStringInterface.h"
-#include "OgreUnifiedHighLevelGpuProgram.h"
+module Ogre.Core:UnifiedHighLevelGpuProgram;
+
+import :Exception;
+import :GpuProgramManager;
+import :GpuProgramParams;
+import :LogManager;
+import :ResourceGroupManager;
+import :StringInterface;
 
 namespace Ogre
 {
@@ -425,4 +428,3 @@ class ResourceManager;
         return new UnifiedHighLevelGpuProgram(creator, name, handle, group, isManual, loader);
     }
 }
-

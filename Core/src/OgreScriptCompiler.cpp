@@ -25,6 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <algorithm>
 #include <cassert>
@@ -39,20 +40,21 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreBuiltinScriptTranslators.h"
-#include "OgreDataStream.h"
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreScriptCompiler.h"
-#include "OgreScriptLexer.h"
-#include "OgreScriptParser.h"
-#include "OgreScriptTranslator.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
+module Ogre.Core:ScriptCompiler;
+
+import :BuiltinScriptTranslators;
+import :DataStream;
+import :LogManager;
+import :Platform;
+import :Prerequisites;
+import :ResourceGroupManager;
+import :ScriptLexer;
+import :ScriptParser;
+import :ScriptTranslator;
+import :SharedPtr;
+import :Singleton;
+import :String;
+import :StringVector;
 
 namespace Ogre
 {
@@ -1585,5 +1587,3 @@ namespace Ogre
     //-------------------------------------------------------------------------
     String CreateCompositorScriptCompilerEvent::eventType = "createCompositor";
 }
-
-

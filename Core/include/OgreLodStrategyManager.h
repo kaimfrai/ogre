@@ -25,16 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_LODSTRATEGYMANAGER_H
-#define OGRE_CORE_LODSTRATEGYMANAGER_H
+module;
 
 #include <map>
 #include <string>
 
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
+export module Ogre.Core:LodStrategyManager;
 
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :Singleton;
+
+export
 namespace Ogre {
     template <typename T> class MapIterator;
 class LodStrategy;
@@ -104,5 +106,3 @@ class LodStrategy;
     /** @} */
     /** @} */
 }
-
-#endif

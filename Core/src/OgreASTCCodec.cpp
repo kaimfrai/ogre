@@ -25,20 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <cmath>
 #include <cstring>
 
-#include "OgreASTCCodec.h"
-#include "OgreCodec.h"
-#include "OgreCommon.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreImage.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgreSharedPtr.h"
+module Ogre.Core:ASTCCodec;
+
+import :Codec;
+import :Common;
+import :DataStream;
+import :Exception;
+import :Image;
+import :Log;
+import :LogManager;
+import :Platform;
+import :SharedPtr;
 
 namespace Ogre {
 

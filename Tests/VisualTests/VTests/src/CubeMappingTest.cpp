@@ -25,15 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#include "CubeMappingTest.h"
+module;
 
 #include <map>
 
-#include "OgreCommon.h"
-#include "OgreEntity.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
+module Ogre.Tests.VisualTests.VTests:CubeMappingTest;
+
+import Ogre.Core;
 
 CubeMappingTest::CubeMappingTest()
 {
@@ -41,8 +39,8 @@ CubeMappingTest::CubeMappingTest()
     mInfo["Description"] = "Tests basic fixed-function cube mapping.";
     addScreenshotFrame(10);
 }
-//---------------------------------------------------------------------------
 
+//---------------------------------------------------------------------------
 void CubeMappingTest::setupContent()
 {
     mSceneMgr->setSkyBox(true, "Examples/MorningSkyBox");
@@ -53,5 +51,3 @@ void CubeMappingTest::setupContent()
     mCameraNode->setPosition(0,0,100);
 }
 //-----------------------------------------------------------------------
-
-

@@ -25,25 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_SUBMESH_H
-#define OGRE_CORE_SUBMESH_H
+module;
 
 #include <algorithm>
 #include <cstddef>
 #include <map>
 #include <vector>
 
-#include "OgreAnimationTrack.h"
-#include "OgreCommon.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreVector.h"
-#include "OgreVertexBoneAssignment.h"
+export module Ogre.Core:SubMesh;
 
+import :AnimationTrack;
+import :Common;
+import :IteratorWrapper;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :RenderOperation;
+import :ResourceGroupManager;
+import :SharedPtr;
+import :Vector;
+import :VertexBoneAssignment;
+
+export
 namespace Ogre {
 class IndexData;
 class Mesh;
@@ -260,5 +262,3 @@ class VertexData;
     /** @} */
 
 } // namespace
-
-#endif

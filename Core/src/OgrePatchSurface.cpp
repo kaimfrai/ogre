@@ -25,19 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <cassert>
 
-#include "OgreColourValue.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMath.h"
-#include "OgrePatchSurface.h"
+module Ogre.Core:PatchSurface;
+
+import :ColourValue;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :Math;
 
 #define LEVEL_WIDTH(lvl) ((1 << (lvl+1)) + 1)
-
 namespace Ogre {
 
     // TODO: make this deal with specular colours and more than 2 texture coords
@@ -691,4 +693,3 @@ namespace Ogre {
     }
 
 }
-

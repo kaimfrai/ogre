@@ -26,18 +26,21 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 // Ogre includes
+module;
+
 #include <atomic>
 #include <cstddef>
 #include <set>
 #include <string>
 
-#include "OgreException.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreResourceManager.h"
+module Ogre.Core:Resource;
+
+import :Exception;
+import :Log;
+import :LogManager;
+import :Prerequisites;
+import :ResourceGroupManager;
+import :ResourceManager;
 
 namespace Ogre 
 {

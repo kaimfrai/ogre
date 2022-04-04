@@ -25,10 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_NAMEGENERATOR_H
-#define OGRE_CORE_NAMEGENERATOR_H
-
-#include "OgreString.h"
+module;
 
 #include <condition_variable>
 #include <memory>
@@ -36,6 +33,11 @@ THE SOFTWARE.
 #include <sstream>
 #include <thread>
 
+export module Ogre.Core:NameGenerator;
+
+import :String;
+
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -86,5 +88,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#endif

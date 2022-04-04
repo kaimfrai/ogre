@@ -25,17 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_ARCHIVEMANAGER_H
-#define OGRE_CORE_ARCHIVEMANAGER_H
+module;
 
 #include <map>
 #include <string>
 
-#include "OgreIteratorWrapper.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
+export module Ogre.Core:ArchiveManager;
 
+import :IteratorWrapper;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :Singleton;
+
+export
 namespace Ogre {
 class Archive;
 class ArchiveFactory;
@@ -114,5 +116,3 @@ class ArchiveFactory;
     /** @} */
 
 }
-
-#endif

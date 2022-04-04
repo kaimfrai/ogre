@@ -25,20 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_HARDWAREPIXELBUFFER_H
-#define OGRE_CORE_HARDWAREPIXELBUFFER_H
+module;
 
 #include <cstddef>
 #include <vector>
 
-// Precompiler options
-#include "OgreCommon.h"
-#include "OgreHardwareBuffer.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreVector.h"
+export module Ogre.Core:HardwarePixelBuffer;
 
+// Precompiler options
+import :Common;
+import :HardwareBuffer;
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
+import :Vector;
+
+export
 namespace Ogre {
 class RenderTexture;
 
@@ -200,5 +202,3 @@ class RenderTexture;
     /** @} */
     /** @} */
 }
-
-#endif

@@ -2,14 +2,15 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
-
-#include "OgreGLSLProgramCommon.h"
+module;
 
 #include <cstddef>
 #include <sstream>
 #include <string>
 
-#include "OgreException.h"
+module Ogre.RenderSystems.GLSupport.GLSL:ProgramCommon;
+
+import Ogre.Core;
 
 namespace Ogre
 {

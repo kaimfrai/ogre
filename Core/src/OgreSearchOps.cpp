@@ -25,9 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
 // Emulate _findfirst, _findnext on non-Windows platforms
-#include "OgreSearchOps.h"
+module;
 
 #include <cstdio>
 #include <cstdlib>
@@ -36,6 +35,9 @@ THE SOFTWARE.
 #include <fnmatch.h>
 #include <sys/stat.h>
     
+
+module Ogre.Core:SearchOps;
+
 struct _find_search_t
 {
     char *pattern;
@@ -89,7 +91,6 @@ intptr_t _findfirst(const char *pattern, struct _finddata_t *data)
 
     return (intptr_t)fs;
 }
-
 int _findnext(intptr_t id, struct _finddata_t *data)
 {
     _find_search_t *fs = reinterpret_cast<_find_search_t *>(id);
@@ -141,7 +142,6 @@ int _findnext(intptr_t id, struct _finddata_t *data)
 
     return 0;
 }
-
 int _findclose(intptr_t id)
 {
     int ret;

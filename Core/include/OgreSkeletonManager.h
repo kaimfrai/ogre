@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_SKELETONMANAGER_H
-#define OGRE_CORE_SKELETONMANAGER_H
+export module Ogre.Core:SkeletonManager;
 
-#include "OgreCommon.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreResourceManager.h"
-#include "OgreSingleton.h"
+import :Common;
+import :Prerequisites;
+import :Resource;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :Singleton;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -84,6 +84,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-
-#endif

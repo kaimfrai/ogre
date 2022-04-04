@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreRenderTexture.h"
+module Ogre.Core:RenderTexture;
 
-#include "OgreDepthBuffer.h"
-#include "OgreException.h"
-#include "OgreHardwarePixelBuffer.h"
+import :DepthBuffer;
+import :Exception;
+import :HardwarePixelBuffer;
 
 namespace Ogre
 {

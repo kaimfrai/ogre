@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreWindowEventUtilities.h"
+module;
 
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -34,8 +34,9 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreRenderWindow.h"
+module Ogre.Components.Bites:WindowEventUtilities;
+
+import Ogre.Core;
 
 using namespace Ogre;
 

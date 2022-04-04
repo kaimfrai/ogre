@@ -25,26 +25,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <limits>
 #include <memory>
 #include <string>
 #include <utility>
 
-#include "OgreAlignedAllocator.h"
-#include "OgreAnimationState.h"
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreInstanceBatch.h"
-#include "OgreInstancedEntity.h"
-#include "OgreMath.h"
-#include "OgreMesh.h"
-#include "OgreNameGenerator.h"
-#include "OgreOptimisedUtil.h"
-#include "OgreSharedPtr.h"
-#include "OgreSkeletonInstance.h"
-#include "OgreSphere.h"
-#include "OgreStringConverter.h"
+module Ogre.Core:InstancedEntity;
+
+import :AlignedAllocator;
+import :AnimationState;
+import :Camera;
+import :Exception;
+import :InstanceBatch;
+import :Math;
+import :Mesh;
+import :NameGenerator;
+import :OptimisedUtil;
+import :SharedPtr;
+import :SkeletonInstance;
+import :Sphere;
+import :StringConverter;
 
 namespace Ogre
 {

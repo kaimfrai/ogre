@@ -25,6 +25,7 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
+module;
 
 #include <X11/extensions/Xrandr.h>
 #include <X11/extensions/randr.h>
@@ -35,21 +36,19 @@
 #include <utility>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreGLUtil.h"
-#include "OgreGLXGLSupport.h"
-#include "OgreGLXRenderTexture.h"
-#include "OgreGLXWindow.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreStringConverter.h"
-#include "OgreX11.h"
+module Ogre.RenderSystems.GLSupport.GLX:GLSupport;
+
+import :RenderTexture;
+import :Window;
+
+import Ogre.Core;
+import Ogre.RenderSystems.GLSupport;
+import Ogre.RenderSystems.GLSupport.X11;
 
 namespace Ogre {
 class GLPBuffer;
 class RenderWindow;
 }  // namespace Ogre
-
 static bool ctxErrorOccurred = false;
 static Ogre::String ctxErrorMessage;
 static int ctxErrorHandler( Display *dpy, XErrorEvent *ev )

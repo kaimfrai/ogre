@@ -24,14 +24,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXPERPIXELLIGHTING_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXPERPIXELLIGHTING_H
+export module Ogre.Components.RTShaderSystem:ShaderExPerPixelLighting;
 
-#include "OgrePrerequisites.h"
-#include "OgreShaderFFPLighting.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderSubRenderState.h"
+import :ShaderFFPLighting;
+import :ShaderPrerequisites;
+import :ShaderSubRenderState;
 
+import Ogre.Core;
+
+export
 namespace Ogre {
     class MaterialSerializer;
     class Pass;
@@ -44,6 +45,7 @@ namespace Ogre {
     }  // namespace RTShader
 }  // namespace Ogre
 
+export
 namespace Ogre {
 namespace RTShader {
 
@@ -156,5 +158,3 @@ protected:
 
 }
 }
-
-#endif

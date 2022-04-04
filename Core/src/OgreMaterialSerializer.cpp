@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <cassert>
 #include <cstdio>
@@ -34,35 +36,36 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreBlendMode.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreConfig.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLight.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMaterialSerializer.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgrePass.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
-#include "OgreStringInterface.h"
-#include "OgreTechnique.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
+module Ogre.Core:MaterialSerializer;
+
+import :BlendMode;
+import :ColourValue;
+import :Common;
+import :Config;
+import :Exception;
+import :GpuProgram;
+import :GpuProgramManager;
+import :GpuProgramParams;
+import :Light;
+import :Log;
+import :LogManager;
+import :Material;
+import :MaterialManager;
+import :Math;
+import :Matrix4;
+import :Pass;
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
+import :RenderSystemCapabilities;
+import :ResourceGroupManager;
+import :SharedPtr;
+import :StringConverter;
+import :StringInterface;
+import :Technique;
+import :Texture;
+import :TextureManager;
+import :TextureUnitState;
 
 namespace Ogre
 {

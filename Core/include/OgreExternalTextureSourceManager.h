@@ -25,11 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_EXTERNALTEXTURESOURCEMANAGER_H
-#define OGRE_CORE_EXTERNALTEXTURESOURCEMANAGER_H
+module;
 
 #include <map>
 #include <string>
+
+export module Ogre.Core:ExternalTextureSourceManager;
 
 /***************************************************************************
 OgreExternalTextureSourceManager.h  -
@@ -39,11 +40,12 @@ OgreExternalTextureSourceManager.h  -
 date                 : Jan 1 2004
 email                : pjcast@yahoo.com
 ***************************************************************************/
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSingleton.h"
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :ResourceGroupManager;
+import :Singleton;
 
+export
 namespace Ogre
 {
 class ExternalTextureSource;
@@ -98,5 +100,3 @@ class ExternalTextureSource;
     /** @} */
     /** @} */
 } 
-
-#endif

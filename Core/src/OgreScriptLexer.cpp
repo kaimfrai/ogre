@@ -25,12 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <memory>
 #include <string>
 
-#include "OgreLogManager.h"
-#include "OgreScriptLexer.h"
-#include "OgreString.h"
+module Ogre.Core:ScriptLexer;
+
+import :LogManager;
+import :String;
 
 namespace Ogre {
     ScriptTokenList ScriptLexer::tokenize(const String &str, const String& source)
@@ -329,4 +332,3 @@ namespace Ogre {
     }
 
 }
-

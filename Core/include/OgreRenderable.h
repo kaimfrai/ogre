@@ -25,20 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RENDERABLE_H
-#define OGRE_CORE_RENDERABLE_H
+module;
 
 #include <cstddef>
 #include <map>
 
-#include "OgreCommon.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreMaterial.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
-#include "OgreUserObjectBindings.h"
-#include "OgreVector.h"
+export module Ogre.Core:Renderable;
 
+import :Common;
+import :GpuProgramParams;
+import :Material;
+import :Prerequisites;
+import :SharedPtr;
+import :UserObjectBindings;
+import :Vector;
+
+export
 namespace Ogre {
     class Any;
     class Camera;
@@ -356,5 +358,3 @@ namespace Ogre {
     /** @} */
 
 } // namespace Ogre
-
-#endif // OGRE_CORE_RENDERABLE_H

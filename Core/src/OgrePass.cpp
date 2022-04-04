@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
@@ -34,24 +36,25 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreBlendMode.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreConfig.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreGpuProgramUsage.h"
-#include "OgreLight.h"
-#include "OgreMaterial.h"
-#include "OgrePass.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreTechnique.h"
-#include "OgreTextureUnitState.h"
-#include "OgreVector.h"
+module Ogre.Core:Pass;
+
+import :BlendMode;
+import :ColourValue;
+import :Common;
+import :Config;
+import :Exception;
+import :GpuProgram;
+import :GpuProgramParams;
+import :GpuProgramUsage;
+import :Light;
+import :Material;
+import :Platform;
+import :Prerequisites;
+import :SharedPtr;
+import :String;
+import :Technique;
+import :TextureUnitState;
+import :Vector;
 
 namespace Ogre {
     class AutoParamDataSource;

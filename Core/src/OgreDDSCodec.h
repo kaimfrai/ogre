@@ -25,16 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_DDSCODEC_H
-#define OGRE_CORE_DDSCODEC_H
+module;
 
 #include <cstddef>
 
-#include "OgreImageCodec.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
+export module Ogre.Core:DDSCodec;
 
+import :ImageCodec;
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
+
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -96,5 +98,3 @@ class ColourValue;
     /** @} */
 
 } // namespace
-
-#endif

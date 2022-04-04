@@ -25,9 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-
-#include "OgreGLRenderSystem.h"
+module;
 
 #include <algorithm>
 #include <cassert>
@@ -42,56 +40,30 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "ATI_FS_GLGpuProgram.h"
-#include "OgreConfig.h"
-#include "OgreConfigOptionMap.h"
-#include "OgreDepthBuffer.h"
-#include "OgreException.h"
-#include "OgreFrustum.h"
-#include "OgreGLContext.h"
-#include "OgreGLCopyingRenderTexture.h"
-#include "OgreGLDepthBufferCommon.h"
-#include "OgreGLFBOMultiRenderTarget.h"
-#include "OgreGLFBORenderTexture.h"
-#include "OgreGLGpuNvparseProgram.h"
-#include "OgreGLGpuProgram.h"
-#include "OgreGLGpuProgramManager.h"
-#include "OgreGLHardwareBuffer.h"
-#include "OgreGLHardwareBufferManager.h"
-#include "OgreGLHardwareOcclusionQuery.h"
-#include "OgreGLHardwarePixelBuffer.h"
-#include "OgreGLNativeSupport.h"
-#include "OgreGLPBRenderTexture.h"
-#include "OgreGLPixelFormat.h"
-#include "OgreGLPrerequisites.h"
-#include "OgreGLRenderTarget.h"
-#include "OgreGLRenderTexture.h"
-#include "OgreGLSLProgramCommon.h"
-#include "OgreGLSLProgramFactory.h"
-#include "OgreGLStateCacheManager.h"
-#include "OgreGLTexture.h"
-#include "OgreGLTextureManager.h"
-#include "OgreGLUtil.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLogManager.h"
-#include "OgreMath.h"
-#include "OgrePixelFormat.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRenderTexture.h"
-#include "OgreResource.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
-#include "OgreTextureManager.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
-#include "OgreViewport.h"
+module Ogre.RenderSystems.GL:RenderSystem;
+
+import :CopyingRenderTexture;
+import :FBOMultiRenderTarget;
+import :FBORenderTexture;
+import :GpuNvparseProgram;
+import :GpuProgram;
+import :GpuProgramManager;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareOcclusionQuery;
+import :HardwarePixelBuffer;
+import :PBRenderTexture;
+import :PixelFormat;
+import :Prerequisites;
+import :StateCacheManager;
+import :Texture;
+import :TextureManager;
+
+import Ogre.Core;
+import Ogre.RenderSystems.GL.GLSL;
+import Ogre.RenderSystems.GL.atifs;
+import Ogre.RenderSystems.GLSupport;
+import Ogre.RenderSystems.GLSupport.GLSL;
 
 namespace Ogre {
 class HardwareOcclusionQuery;
@@ -100,7 +72,6 @@ class ResourceManager;
 
 // Convenience macro from ARB_vertex_buffer_object spec
 #define VBO_BUFFER_OFFSET(i) ((char *)(i))
-
 namespace Ogre {
 
     static GLNativeSupport* glsupport;

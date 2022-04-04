@@ -25,14 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_RENDERTEXTURE_H
-#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_RENDERTEXTURE_H
+module;
 
 #include <cstddef>
 
-#include "OgreGLPBuffer.h"
-#include "OgrePixelFormat.h"
+export module Ogre.RenderSystems.GLSupport.GLX:RenderTexture;
 
+import Ogre.Core;
+import Ogre.RenderSystems.GLSupport;
+
+export
 namespace Ogre
 {
 class GLContext;
@@ -52,4 +54,3 @@ class GLXGLSupport;
         GLXGLSupport* mGLSupport;
     };
 }
-#endif

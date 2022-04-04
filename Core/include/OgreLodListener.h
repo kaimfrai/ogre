@@ -25,13 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:LodListener;
 
-#ifndef OGRE_CORE_LODLISTENER_H
-#define OGRE_CORE_LODLISTENER_H
+import :Prerequisites;
 
-
-#include "OgrePrerequisites.h"
-
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -203,5 +201,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#endif

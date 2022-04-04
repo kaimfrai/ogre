@@ -25,18 +25,7 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_GLSUPPORT_H
-#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_GLSUPPORT_H
-
-#include "OgreCommon.h"
-#include "OgreGLNativeSupport.h"
-#include "OgrePixelFormat.h"
-#include "OgrePrerequisites.h"
-
-namespace Ogre {
-class GLPBuffer;
-class RenderWindow;
-}  // namespace Ogre
+module;
 
 #define GLX_GLXEXT_PROTOTYPES
 #include <GL/gl.h>
@@ -47,6 +36,18 @@ class RenderWindow;
 #include <X11/Xutil.h>
 #include <cstddef>
 
+export module Ogre.RenderSystems.GLSupport.GLX:GLSupport;
+
+import Ogre.Core;
+import Ogre.RenderSystems.GLSupport;
+
+export
+namespace Ogre {
+class GLPBuffer;
+class RenderWindow;
+}  // namespace Ogre
+
+export
 namespace Ogre {
 
     class GLXGLSupport : public GLNativeSupport
@@ -196,5 +197,3 @@ namespace Ogre {
         int mGLXVerMajor, mGLXVerMinor;
     };
 }
-
-#endif // OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_GLSUPPORT_H

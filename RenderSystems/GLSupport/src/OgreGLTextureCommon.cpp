@@ -25,13 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#include "OgreGLTextureCommon.h"
+module;
 
 #include <algorithm>
 #include <string>
 
-#include "OgreBitwise.h"
+module Ogre.RenderSystems.GLSupport:GLTextureCommon;
+
+import Ogre.Core;
 
 namespace Ogre
 {

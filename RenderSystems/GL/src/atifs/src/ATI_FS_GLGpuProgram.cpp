@@ -25,19 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <cstdio>
 #include <map>
 #include <string>
 #include <utility>
 
-#include "ATI_FS_GLGpuProgram.h"
-#include "OgreException.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLogManager.h"
-#include "OgreSharedPtr.h"
-#include "ps_1_4.h"
+module Ogre.RenderSystems.GL.atifs:ATI_FS_GLGpuProgram;
 
+import :ps_1_4;
+
+import Ogre.Core;
 
 namespace Ogre {
 class ResourceManager;

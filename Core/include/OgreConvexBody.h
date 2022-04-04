@@ -26,18 +26,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_CONVEXBODY_H
-#define OGRE_CORE_CONVEXBODY_H
+module;
 
 #include <cstddef>
 #include <iosfwd>
 #include <vector>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreFrustum.h"
-#include "OgrePolygon.h"
-#include "OgrePrerequisites.h"
+export module Ogre.Core:ConvexBody;
 
+import :AxisAlignedBox;
+import :Frustum;
+import :Polygon;
+import :Prerequisites;
+
+export
 namespace Ogre
 {
 class Plane;
@@ -258,6 +260,3 @@ class Plane;
     /** @} */
 
 }
-
-#endif 
-

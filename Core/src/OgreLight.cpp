@@ -25,18 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <string>
 #include <utility>
 
-#include "OgreAnimable.h"
-#include "OgreException.h"
-#include "OgreFrustum.h"
-#include "OgreLight.h"
-#include "OgreMatrix4.h"
-#include "OgrePlane.h"
-#include "OgreSceneManager.h"
-#include "OgreSphere.h"
-#include "OgreStringConverter.h"
+module Ogre.Core:Light;
+
+import :Animable;
+import :Exception;
+import :Frustum;
+import :Matrix4;
+import :Plane;
+import :SceneManager;
+import :Sphere;
+import :StringConverter;
 
 namespace Ogre {
     //-----------------------------------------------------------------------

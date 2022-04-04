@@ -25,24 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
  
- //---------------------------------------------------------------------------
-#include "ps_1_4.h"
+module Ogre.RenderSystems.GL.atifs:ps_1_4;
 
 //---------------------------------------------------------------------------
-
 /* ********************* START OF PS_1_4 CLASS STATIC DATA ********************************* */
-
-
 // library of built in symbol types
-
 bool PS_1_4::LibInitialized = false;
-
 #define SYMSTART {
 #define SYMDEF  ,0,0,0,0},{
 #define SYMEND  ,0,0,0,0}
-
 PS_1_4::SymbolDef PS_1_4::PS_1_4_SymbolTypeLib[] = {
     // pixel shader versions supported
     { sid_PS_1_4, GL_NONE, ckp_PS_BASE, ckp_PS_1_4, 0, 0, 0 },
@@ -236,10 +228,7 @@ PS_1_4::SymbolDef PS_1_4::PS_1_4_SymbolTypeLib[] = {
     SYMDEF sid_TEXCISCOP_PS1_1_3, GL_NONE, ckp_PS_1_1
     SYMEND
 };
-
-
 // Rule Path Database for ps.1.x code based on extended Backus Naur Form notation
-
 // <>   - non-terminal token
 #define _rule_      {otRULE,        // ::=  - rule definition
 #define _is_        ,0},{otAND,
@@ -250,7 +239,6 @@ PS_1_4::SymbolDef PS_1_4::PS_1_4_SymbolTypeLib[] = {
 #define _end_       ,0},{otEND,0,0,0},
 #define _nt_        ,0
 // " "  - terminal token string
-
 PS_1_4::TokenRule PS_1_4::PS_1_x_RulePath[] = {
 
     _rule_ sid_PROGRAM, "Program"
@@ -646,9 +634,7 @@ PS_1_4::TokenRule PS_1_4::PS_1_x_RulePath[] = {
         _end_
 
 };
-
 //***************************** MACROs for PS1_1 , PS1_2, PS1_3 CISC instructions **************************************
-
 // macro to make the macro text data easier to read
 #define _token_ ,0,0},{
 #define _token_end_ ,0,0}
@@ -677,7 +663,6 @@ PS_1_4::TokenInst PS_1_4::texreg2ar[] = {
     _token_ sid_REG_PS1_4,  sid_R1
     _token_end_
 };
-
 PS_1_4::RegModOffset PS_1_4::texreg2xx_RegMods[] = {
     {1, R_BASE, 0},
     {7, R_BASE, 0},
@@ -687,12 +672,10 @@ PS_1_4::RegModOffset PS_1_4::texreg2xx_RegMods[] = {
     {10, R_BASE, 1},
 
 };
-
 PS_1_4::MacroRegModify PS_1_4::texreg2ar_MacroMods = {
     texreg2ar, ARRAYSIZE(texreg2ar),
     texreg2xx_RegMods, ARRAYSIZE(texreg2xx_RegMods)
 };
-
 // macro token expansion for ps_1_2 instruction: texreg2gb
 PS_1_4::TokenInst PS_1_4::texreg2gb[] = {
     // mov r(x).r, r(y).g

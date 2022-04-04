@@ -25,23 +25,24 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#include "DefaultSamplesPlugin.h"
+module;
 
 #include <set>
 
-#include "NewInstancing.h"
-#include "OgreInput.h"
-#include "OgrePlatform.h"
-#include "Sample.h"
+module Ogre.Samples.Common:DefaultSamplesPlugin;
+
+import :Sample;
+
+import Ogre.Components.Bites;
+import Ogre.Core;
+import Ogre.Samples.Simple;
 
 using namespace Ogre;
 using namespace OgreBites;
-
 DefaultSamplesPlugin::DefaultSamplesPlugin() : SamplePlugin("DefaultSamplesPlugin")
 {
     addSample(new Sample_NewInstancing);
 }
-
 DefaultSamplesPlugin::~DefaultSamplesPlugin()
 {
     for (SampleSet::iterator i = mSamples.begin(); i != mSamples.end(); ++i)

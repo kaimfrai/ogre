@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "ZipArchiveTests.h"
+module;
 
 #include <cstddef>
 #include <map>
@@ -33,18 +33,11 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreArchive.h"
-#include "OgreCommon.h"
-#include "OgreConfigFile.h"
-#include "OgreDataStream.h"
-#include "OgreFileSystemLayer.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringVector.h"
-#include "OgreZip.h"
+module Ogre.Tests.Core:ZipArchiveTests;
+
+import Ogre.Core;
 
 using namespace Ogre;
-
 static String fileId(const String& path) {
     return path;
 }
@@ -59,6 +52,7 @@ void ZipArchiveTests::SetUp()
     arch = Ogre::ZipArchiveFactory().createInstance(testPath, true);
     arch->load();
 }
+
 //--------------------------------------------------------------------------
 void ZipArchiveTests::TearDown()
 {

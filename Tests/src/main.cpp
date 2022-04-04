@@ -1,7 +1,10 @@
+module;
+
 #include <gtest/gtest.h>
 
-#include "OgreLog.h"
-#include "OgreLogManager.h"
+module Ogre.Tests;
+
+import Ogre.Core;
 
 int main(int argc, char *argv[])
 {

@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
 // Thanks to Vincent Cantin (karmaGfa) for the original implementation of this
 // class, although it has now been mostly rewritten
+module;
 
 #include <algorithm>
 #include <cassert>
@@ -37,25 +37,26 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreBillboardChain.h"
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLogManager.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgreNode.h"
-#include "OgrePlatform.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreSceneManager.h"
-#include "OgreStringConverter.h"
-#include "OgreVertexIndexData.h"
-#include "OgreViewport.h"
+module Ogre.Core:BillboardChain;
+
+import :Camera;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :LogManager;
+import :MaterialManager;
+import :Math;
+import :Matrix4;
+import :Node;
+import :Platform;
+import :RenderOperation;
+import :RenderQueue;
+import :SceneManager;
+import :StringConverter;
+import :VertexIndexData;
+import :Viewport;
 
 namespace Ogre {
 class RenderSystem;
@@ -800,5 +801,3 @@ class RenderSystem;
 
     }
 }
-
-

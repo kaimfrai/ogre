@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cassert>
 #include <iterator>
 #include <list>
@@ -35,23 +37,24 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreArchive.h"
-#include "OgreArchiveManager.h"
-#include "OgreCommon.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreResourceManager.h"
-#include "OgreScriptLoader.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
+module Ogre.Core:ResourceGroupManager;
+
+import :Archive;
+import :ArchiveManager;
+import :Common;
+import :DataStream;
+import :Exception;
+import :Log;
+import :LogManager;
+import :Platform;
+import :Prerequisites;
+import :Resource;
+import :ResourceManager;
+import :ScriptLoader;
+import :SharedPtr;
+import :Singleton;
+import :String;
+import :StringVector;
 
 namespace Ogre {
 

@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_SCRIPTLOADER_H
-#define OGRE_CORE_SCRIPTLOADER_H
+export module Ogre.Core:ScriptLoader;
 
-#include "OgreDataStream.h"
-#include "OgrePrerequisites.h"
-#include "OgreStringVector.h"
+import :DataStream;
+import :Prerequisites;
+import :StringVector;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -90,5 +90,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

@@ -25,28 +25,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <mmintrin.h>
 #include <xmmintrin.h>
-
 #include <cassert>
 #include <cstring>
 
-#include "OgreOptimisedUtil.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreException.h"
-#include "OgreMatrix4.h"
-#include "OgrePlatform.h"
-#include "OgrePlatformInformation.h"
-#include "OgrePrerequisites.h"
-#include "OgreVector.h"
+module Ogre.Core;
+
 // Should keep this includes at latest to avoid potential "xmmintrin.h" included by
 // other header file on some platform for some reason.
-#include "OgreSIMDHelper.h"
+import :EdgeListBuilder;
+import :Exception;
+import :Matrix4;
+import :OptimisedUtil;
+import :Platform;
+import :PlatformInformation;
+import :Prerequisites;
+import :SIMDHelper;
+import :Vector;
 
 // I'd like to merge this file with OgreOptimisedUtil.cpp, but it's
 // impossible when compile with gcc, due SSE instructions can only
 // enable/disable at file level.
-
 //-------------------------------------------------------------------------
 //
 // The routines implemented in this file are performance oriented,
@@ -64,10 +66,8 @@ THE SOFTWARE.
 // The last, anything recommended by Intel Optimization Reference Manual.
 //
 //-------------------------------------------------------------------------
-
 // Use unrolled SSE version when vertices exceeds this limit
 #define OGRE_SSE_SKINNING_UNROLL_VERTICES  16
-
 namespace Ogre {
 
 //-------------------------------------------------------------------------

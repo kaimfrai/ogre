@@ -25,8 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_MATERIALSERIALIZER_H
-#define OGRE_CORE_MATERIALSERIALIZER_H
+module;
 
 #include <algorithm>
 #include <cstddef>
@@ -35,13 +34,16 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreBlendMode.h"
-#include "OgreCommon.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePrerequisites.h"
-#include "OgreTextureUnitState.h"
+export module Ogre.Core:MaterialSerializer;
 
+import :BlendMode;
+import :Common;
+import :GpuProgramParams;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :TextureUnitState;
+
+export
 namespace Ogre {
 class ColourValue;
 class Material;
@@ -368,5 +370,3 @@ class Technique;
     /** @} */
     /** @} */
 }
-
-#endif

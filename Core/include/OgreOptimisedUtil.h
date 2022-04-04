@@ -25,15 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_OPTIMISEDUTIL_H
-#define OGRE_CORE_OPTIMISEDUTIL_H
+module;
 
 #include <cstddef>
 
-#include "OgreEdgeListBuilder.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
+export module Ogre.Core:OptimisedUtil;
 
+import :EdgeListBuilder;
+import :Platform;
+import :Prerequisites;
+
+export
 namespace Ogre {
 class Affine3;
 
@@ -244,5 +246,3 @@ class Affine3;
     /** @} */
 
 }
-
-#endif // OGRE_CORE_OPTIMISEDUTIL_H

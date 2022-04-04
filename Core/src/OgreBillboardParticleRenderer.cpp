@@ -25,15 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <string>
 
-#include "OgreBillboard.h"
-#include "OgreBillboardParticleRenderer.h"
-#include "OgreException.h"
-#include "OgreMath.h"
-#include "OgreParticle.h"
-#include "OgreStringConverter.h"
-#include "OgreStringInterface.h"
+module Ogre.Core:BillboardParticleRenderer;
+
+import :Billboard;
+import :Exception;
+import :Math;
+import :Particle;
+import :StringConverter;
+import :StringInterface;
 
 namespace Ogre {
 class RenderQueue;
@@ -443,5 +446,3 @@ class RenderQueue;
     }
 
 }
-
-

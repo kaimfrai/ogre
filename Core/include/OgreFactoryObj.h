@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_FACTORYOBJ_H
-#define OGRE_CORE_FACTORYOBJ_H
+export module Ogre.Core:FactoryObj;
 
-#include "OgrePrerequisites.h"
+import :Prerequisites;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -68,5 +68,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 } // namespace Ogre
-
-#endif // OGRE_CORE_FACTORYOBJ_H

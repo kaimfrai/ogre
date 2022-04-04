@@ -26,6 +26,8 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 // IWYU pragma: no_include <cxxabi.h>
+module;
+
 #include <algorithm>
 #include <cassert>
 #include <ctime>
@@ -34,18 +36,19 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreDepthBuffer.h"
-#include "OgreException.h"
-#include "OgreImage.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreProfiler.h"
-#include "OgreRenderTarget.h"
-#include "OgreRenderTargetListener.h"
-#include "OgreRoot.h"
-#include "OgreStringConverter.h"
-#include "OgreTimer.h"
-#include "OgreViewport.h"
+module Ogre.Core:RenderTarget;
+
+import :DepthBuffer;
+import :Exception;
+import :Image;
+import :Log;
+import :LogManager;
+import :Profiler;
+import :RenderTargetListener;
+import :Root;
+import :StringConverter;
+import :Timer;
+import :Viewport;
 
 namespace Ogre {
 class Camera;

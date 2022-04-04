@@ -2,10 +2,9 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
+export module Ogre.Components.Bites:SDLInputMapping;
 
-#ifndef OGRE_COMPONENTS_BITES_SDLINPUTMAPPING_H
-#define OGRE_COMPONENTS_BITES_SDLINPUTMAPPING_H
-
+export
 namespace {
     OgreBites::Event convert(const SDL_Event& in)
     {
@@ -88,5 +87,3 @@ namespace {
         return out;
     }
 }
-
-#endif

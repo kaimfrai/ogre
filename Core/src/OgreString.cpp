@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <cctype>
 #include <cstdarg>
@@ -34,15 +36,14 @@ THE SOFTWARE.
 #include <strings.h>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
+module Ogre.Core:String;
+
+import :Exception;
+import :Prerequisites;
+import :StringVector;
 
 // A quick define to overcome different names for the same function
-
 #define strnicmp strncasecmp
-
 namespace Ogre {
 
     //-----------------------------------------------------------------------

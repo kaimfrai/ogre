@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PLANEBOUNDEDVOLUME_H
-#define OGRE_CORE_PLANEBOUNDEDVOLUME_H
+export module Ogre.Core:PlaneBoundedVolume;
 
 // Precompiler options
-#include "OgreAxisAlignedBox.h"
-#include "OgreMath.h"
-#include "OgrePlane.h"
-#include "OgrePrerequisites.h"
-#include "OgreSphere.h"
+import :AxisAlignedBox;
+import :Math;
+import :Plane;
+import :Prerequisites;
+import :Sphere;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -130,6 +130,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif
-

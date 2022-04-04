@@ -1,4 +1,3 @@
-
 /*
 -----------------------------------------------------------------------------
 This source file is part of OGRE
@@ -26,17 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Tests.VisualTests.Common:CppUnitResultWriter;
 
-#ifndef OGRE_TESTS_VISUALTESTS_CPPUNITRESULTWRITER_H
-#define OGRE_TESTS_VISUALTESTS_CPPUNITRESULTWRITER_H
+import :ImageValidator;
+import :TestBatch;
+import :TestResultWriter;
+import :TinyHTML;
 
-#include "ImageValidator.h"
-#include "Ogre.h"
-#include "TestBatch.h"
-#include "TestResultWriter.h"
-#include "TinyHTML.h"
+import Ogre.Core;
 
 /** Writes a simple plain text file with pass/fail result for each test */
+
+export
 class CppUnitResultWriter : public TestResultWriter
 {
 public:
@@ -112,5 +112,3 @@ protected:
         return out.str();
     }
 };
-
-#endif

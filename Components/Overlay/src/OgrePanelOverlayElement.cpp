@@ -25,29 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#include "OgrePanelOverlayElement.h"
+module;
 
 #include <map>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMaterial.h"
-#include "OgreOverlayElement.h"
-#include "OgrePass.h"
-#include "OgreRenderSystem.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringInterface.h"
-#include "OgreTechnique.h"
-#include "OgreVertexIndexData.h"
+module Ogre.Components.Overlay:PanelOverlayElement;
+
+import :Element;
+
+import Ogre.Core;
 
 namespace Ogre {
 class RenderQueue;
@@ -487,6 +476,3 @@ class RenderQueue;
     }
 
 }
-
-
-

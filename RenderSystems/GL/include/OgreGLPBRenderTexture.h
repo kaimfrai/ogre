@@ -25,17 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_RENDERSYSTEMS_GL_PBRENDERTEXTURE_H
-#define OGRE_RENDERSYSTEMS_GL_PBRENDERTEXTURE_H
+module;
 
 #include <cstddef>
 
-#include "OgreGLRenderTexture.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
+export module Ogre.RenderSystems.GL:PBRenderTexture;
 
+import Ogre.Core;
+import Ogre.RenderSystems.GLSupport;
+
+export
 namespace Ogre {
     
     /** RenderTexture that uses a PBuffer (offscreen rendering context) for rendering.
@@ -115,5 +114,3 @@ class RenderTexture;
         PBRef mPBuffers[PCT_COUNT];
     };
 }
-
-#endif // OGRE_RENDERSYSTEMS_GL_PBRENDERTEXTURE_H

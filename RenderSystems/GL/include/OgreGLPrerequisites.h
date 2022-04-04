@@ -25,11 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GL_PREREQUISITES_H
-#define OGRE_RENDERSYSTEMS_GL_PREREQUISITES_H
+export module Ogre.RenderSystems.GL:Prerequisites;
 
-#include "OgrePrerequisites.h"
+import Ogre.Core;
+import Ogre.RenderSystems.GL.glad;
 
+export
 namespace Ogre {
     // Forward declarations
     class GLNativeSupport;
@@ -48,8 +49,7 @@ namespace Ogre {
     typedef shared_ptr<GLTexture> GLTexturePtr;
 }
 
-#include <glad/glad.h>
-
+export
 namespace Ogre {
     inline const char* glErrorToString(GLenum glErr) {
         switch(glErr)
@@ -69,5 +69,3 @@ namespace Ogre {
         }
     }
 }
-
-#endif // OGRE_RENDERSYSTEMS_GL_PREREQUISITES_H

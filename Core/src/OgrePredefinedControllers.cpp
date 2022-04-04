@@ -25,17 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <cassert>
 #include <cmath>
 
-#include "OgreGpuProgramParams.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgrePredefinedControllers.h"
-#include "OgreRoot.h"
-#include "OgreTextureUnitState.h"
-#include "OgreVector.h"
+module Ogre.Core:PredefinedControllers;
+
+import :GpuProgramParams;
+import :Math;
+import :Matrix4;
+import :Root;
+import :TextureUnitState;
+import :Vector;
 
 namespace Ogre
 {
@@ -369,4 +372,3 @@ namespace Ogre
         return mValues[idx] + alpha * (mValues[idx + 1] - mValues[idx]);
     }
 }
-

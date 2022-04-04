@@ -26,19 +26,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <iterator>
 #include <map>
 #include <ostream>
 #include <utility>
 
-#include "OgreConvexBody.h"
-#include "OgreException.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreMath.h"
-#include "OgrePlane.h"
-#include "OgreRay.h"
-#include "OgreVector.h"
+module Ogre.Core:ConvexBody;
+
+import :Exception;
+import :Log;
+import :LogManager;
+import :Math;
+import :Plane;
+import :Ray;
+import :Vector;
 
 namespace Ogre
 {
@@ -1199,4 +1202,3 @@ namespace Ogre
         Ogre::LogManager::getSingleton().logMessage( Ogre::LML_NORMAL, ssOut.str()  );
     }
 }
-

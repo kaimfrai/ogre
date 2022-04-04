@@ -25,11 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreAxisAlignedBox.h"
+module Ogre.Core:AxisAlignedBox;
 
 namespace Ogre
 {
     const AxisAlignedBox AxisAlignedBox::BOX_NULL;
     const AxisAlignedBox AxisAlignedBox::BOX_INFINITE(AxisAlignedBox::EXTENT_INFINITE);
 }
-

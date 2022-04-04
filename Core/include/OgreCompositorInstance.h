@@ -25,8 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_COMPOSITORINSTANCE_H
-#define OGRE_CORE_COMPOSITORINSTANCE_H
+module;
 
 #include <algorithm>
 #include <bitset>
@@ -36,15 +35,18 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreCompositionTechnique.h"
-#include "OgreMaterialManager.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderQueue.h"
-#include "OgreSharedPtr.h"
+export module Ogre.Core:CompositorInstance;
 
+import :Common;
+import :CompositionTechnique;
+import :MaterialManager;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :RenderQueue;
+import :SharedPtr;
+
+export
 namespace Ogre {
 class Camera;
 class CompositionTargetPass;
@@ -422,5 +424,3 @@ class SceneManager;
     /** @} */
 
 } // namespace Ogre
-
-#endif // OGRE_CORE_COMPOSITORINSTANCE_H

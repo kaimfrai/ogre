@@ -25,8 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_INSTANCEMANAGER_H
-#define OGRE_CORE_INSTANCEMANAGER_H
+module;
 
 #include <algorithm>
 #include <cstddef>
@@ -34,14 +33,17 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreSharedPtr.h"
+export module Ogre.Core:InstanceManager;
 
+import :Common;
+import :IteratorWrapper;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :RenderOperation;
+import :SharedPtr;
+
+export
 namespace Ogre
 {
 class InstanceBatch;
@@ -317,5 +319,3 @@ class SceneManager;
         InstanceBatchIterator getInstanceBatchIterator( const String &materialName ) const;
     };
 } // namespace Ogre
-
-#endif // OGRE_CORE_INSTANCEMANAGER_H

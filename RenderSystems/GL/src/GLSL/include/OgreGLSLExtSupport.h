@@ -25,18 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.RenderSystems.GL.GLSL:SLExtSupport;
 
-
-
-#ifndef OGRE_RENDERSYSTEMS_GL_GLSL_EXTSUPPORT_H
-#define OGRE_RENDERSYSTEMS_GL_GLSL_EXTSUPPORT_H
-
-#include "OgrePrerequisites.h"
-#include "glad/glad.h"
+import Ogre.Core;
+import Ogre.RenderSystems.GL.glad;
 
 //
 // OpenGL Shading Language entry points
 //
+export
 namespace Ogre
 {
     namespace GLSL {
@@ -56,5 +53,3 @@ namespace Ogre
 
     }
 } // namespace Ogre
-
-#endif // OGRE_RENDERSYSTEMS_GL_GLSL_EXTSUPPORT_H

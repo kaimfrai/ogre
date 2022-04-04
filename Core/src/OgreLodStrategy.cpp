@@ -25,14 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <algorithm>
 #include <cassert>
 #include <functional>
 #include <vector>
 
-#include "OgreCamera.h"
-#include "OgreLodStrategy.h"
+module Ogre.Core:LodStrategy;
+
+import :Camera;
 
 namespace Ogre {
 class MovableObject;

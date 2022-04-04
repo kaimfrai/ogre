@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreParticleEmitterCommands.h"
+module Ogre.Core:ParticleEmitterCommands;
 
-#include "OgreParticleEmitter.h"
-#include "OgreStringConverter.h"
-#include "OgreVector.h"
+import :ParticleEmitter;
+import :StringConverter;
+import :Vector;
 
 namespace Ogre {
 
@@ -273,4 +273,3 @@ namespace Ogre {
     
     }
 }
-

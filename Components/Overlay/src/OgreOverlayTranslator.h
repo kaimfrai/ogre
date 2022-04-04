@@ -24,14 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_OVERLAY_TRANSLATOR_H
-#define OGRE_COMPONENTS_OVERLAY_TRANSLATOR_H
+export module Ogre.Components.Overlay:Translator;
 
-#include "OgreFont.h"
-#include "OgrePlatform.h"
-#include "OgreScriptCompiler.h"
-#include "OgreScriptTranslator.h"
+import :Font;
 
+import Ogre.Core;
+
+export
 namespace Ogre
 {
 //! [font_translator]
@@ -69,5 +68,3 @@ public:
     ScriptTranslator* getTranslator(const AbstractNodePtr& node);
 };
 }
-
-#endif

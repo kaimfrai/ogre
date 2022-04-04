@@ -2,20 +2,14 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
-
-#include "RootWithoutRenderSystemFixture.h"
+module;
 
 #include <map>
 #include <utility>
 
-#include "OgreConfigFile.h"
-#include "OgreDefaultHardwareBufferManager.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreMaterialManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
+module Ogre.Tests.Core:RootWithoutRenderSystemFixture;
+
+import Ogre.Core;
 
 using namespace Ogre;
 

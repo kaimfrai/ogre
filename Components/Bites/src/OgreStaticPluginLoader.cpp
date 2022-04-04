@@ -1,11 +1,12 @@
-#include "OgreStaticPluginLoader.h"
+module;
 
 #include <cstddef>
 
-#include "OgreGLPlugin.h"
-#include "OgrePlugin.h"
-#include "OgreRoot.h"
-#include "OgreSTBICodec.h"
+module Ogre.Components.Bites:StaticPluginLoader;
+
+import Ogre.Core;
+import Ogre.PlugIns.STBICodec;
+import Ogre.RenderSystems.GL;
 
 void OgreBites::StaticPluginLoader::load()
 {

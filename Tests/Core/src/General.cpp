@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <gtest/gtest.h>
 #include <cstring>
 #include <list>
@@ -35,56 +37,15 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreArchiveManager.h"
-#include "OgreCamera.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreCompositorManager.h"
-#include "OgreConfigFile.h"
-#include "OgreDataStream.h"
-#include "OgreEntity.h"
-#include "OgreFileSystem.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreHighLevelGpuProgram.h"
-#include "OgreImage.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMaterialSerializer.h"
-#include "OgreMath.h"
-#include "OgreMesh.h"
-#include "OgreMeshManager.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgrePass.h"
-#include "OgrePixelFormat.h"
-#include "OgrePrerequisites.h"
-#include "OgreRay.h"
-#include "OgreResource.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreResourceManager.h"
-#include "OgreRoot.h"
-#include "OgreSTBICodec.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreSceneQuery.h"
-#include "OgreSharedPtr.h"
-#include "OgreSkeletonInstance.h"
-#include "OgreSkeletonManager.h"
-#include "OgreStaticPluginLoader.h"
-#include "OgreStringConverter.h"
-#include "OgreTechnique.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
-#include "OgreVector.h"
-#include "RootWithoutRenderSystemFixture.h"
+module Ogre.Tests.Core;
+
+import :RootWithoutRenderSystemFixture;
+
+import Ogre.Components.Bites;
+import Ogre.Core;
+import Ogre.PlugIns.STBICodec;
 
 using std::minstd_rand;
-
 using namespace Ogre;
 
 typedef RootWithoutRenderSystemFixture CameraTests;
@@ -99,7 +60,6 @@ TEST_F(CameraTests,customProjectionMatrix)
 
     EXPECT_EQ(extents, cam.getFrustumExtents());
 }
-
 TEST(Root,shutdown)
 {
     Root root("");
@@ -108,7 +68,6 @@ TEST(Root,shutdown)
 
     root.shutdown();
 }
-
 TEST(SceneManager,removeAndDestroyAllChildren)
 {
     Root root("");
@@ -117,8 +76,8 @@ TEST(SceneManager,removeAndDestroyAllChildren)
     sm->getRootSceneNode()->createChildSceneNode();
     sm->getRootSceneNode()->removeAndDestroyAllChildren();
 }
-
 static void createRandomEntityClones(Entity* ent, size_t cloneCount, const Vector3& min,
+
                                      const Vector3& max, SceneManager* mgr)
 {
     // we want cross platform consistent sequence
@@ -167,7 +126,6 @@ struct SceneQueryTest : public RootWithoutRenderSystemFixture {
         mSceneMgr->_updateSceneGraph(mCamera);
     }
 };
-
 TEST_F(SceneQueryTest,Intersection)
 {
     IntersectionSceneQuery* intersectionQuery = mSceneMgr->createIntersectionQuery();
@@ -198,7 +156,6 @@ TEST_F(SceneQueryTest,Intersection)
     }
     // printf("\n");
 }
-
 TEST_F(SceneQueryTest, Ray) {
     RaySceneQuery* rayQuery = mSceneMgr->createRayQuery(mCamera->getCameraToViewportRay(0.5, 0.5));
     rayQuery->setSortByDistance(true, 2);
@@ -208,7 +165,6 @@ TEST_F(SceneQueryTest, Ray) {
     ASSERT_EQ("501", results[0].movable->getName());
     ASSERT_EQ("397", results[1].movable->getName());
 }
-
 TEST(MaterialSerializer, Basic)
 {
     Root root;
@@ -247,7 +203,6 @@ TEST(MaterialSerializer, Basic)
     EXPECT_EQ(mat2->getTechniques()[0]->getPasses()[0]->getTextureUnitState(1)->getTextureName(),
               "TextureName");
 }
-
 TEST(Image, FlipV)
 {
     ResourceGroupManager mgr;
@@ -268,7 +223,6 @@ TEST(Image, FlipV)
     STBIImageCodec::shutdown();
     ASSERT_TRUE(!memcmp(img.getData(), ref.getData(), ref.getSize()));
 }
-
 TEST(Image, Resize)
 {
     ResourceGroupManager mgr;
@@ -289,8 +243,6 @@ TEST(Image, Resize)
     STBIImageCodec::shutdown();
     ASSERT_TRUE(!memcmp(img.getData(), ref.getData(), ref.getSize()));
 }
-
-
 TEST(Image, Combine)
 {
     ResourceGroupManager mgr;
@@ -357,7 +309,6 @@ struct DeletePreviousResourceLoadingListener : public ResourceLoadingListener
         return true;
     }
 };
-
 TEST_F(ResourceLoading, CollsionDeleteExisting)
 {
     DeletePreviousResourceLoadingListener listener;
@@ -385,7 +336,6 @@ TEST_F(TextureTests, Blank)
     EXPECT_EQ(tus->getGamma(), 1.0f);
     EXPECT_EQ(tus->isHardwareGammaEnabled(), false);
 }
-
 TEST(GpuSharedParameters, align)
 {
     Root root("");
@@ -435,7 +385,6 @@ TEST_F(HighLevelGpuProgramTest, resolveIncludes)
 
     ASSERT_EQ(res.substr(0, ref.size()), ref);
 }
-
 TEST(Math, TriangleRayIntersection)
 {
     Vector3 tri[3] = {{-1, 0, 0}, {1, 0, 0}, {0, 1, 0}};

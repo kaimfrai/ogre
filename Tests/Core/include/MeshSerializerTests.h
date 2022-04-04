@@ -25,18 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_TESTS_CORE_MESHSERIALIZERTESTS_H
-#define OGRE_TESTS_CORE_MESHSERIALIZERTESTS_H
+module;
 
 #include <gtest/gtest.h>
 #include <unordered_map>
 
-#include "OgreMeshSerializer.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
+export module Ogre.Tests.Core:MeshSerializerTests;
 
+import Ogre.Core;
+
+export
 namespace Ogre {
     class EdgeData;
     class FileSystemLayer;
@@ -45,9 +43,9 @@ namespace Ogre {
     class VertexData;
     struct MeshLodUsage;
 }  // namespace Ogre
-
 using namespace Ogre;
 
+export
 class MeshSerializerTests : public ::testing::Test
 {
 
@@ -81,5 +79,3 @@ public:
     bool isEqual(Real a, Real b);
     bool isEqual(const Vector3& a, const Vector3& b);
 };
-
-#endif

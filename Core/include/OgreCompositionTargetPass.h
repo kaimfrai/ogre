@@ -25,17 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_COMPOSITIONTARGETPASS_H
-#define OGRE_CORE_COMPOSITIONTARGETPASS_H
+module;
 
 #include <cstddef>
 #include <vector>
 
-#include "OgreCompositionPass.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
+export module Ogre.Core:CompositionTargetPass;
 
+import :CompositionPass;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+
+export
 namespace Ogre {
     template <typename T> class VectorIterator;
 class CompositionTechnique;
@@ -185,5 +187,3 @@ class CompositionTechnique;
     /** @} */
     /** @} */
 }
-
-#endif

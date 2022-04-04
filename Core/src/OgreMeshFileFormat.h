@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_MESHFILEFORMAT_H
-#define OGRE_CORE_MESHFILEFORMAT_H
+export module Ogre.Core:MeshFileFormat;
 
-#include "OgrePrerequisites.h"
+import :Prerequisites;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -290,6 +290,3 @@ namespace Ogre {
     /** @} */
 
 } // namespace
-
-
-#endif

@@ -25,22 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <memory>
 #include <ostream>
 #include <string>
 #include <vector>
 
-#include "OgreGpuProgramParams.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreShaderCGProgramWriter.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramWriter.h"
+module Ogre.Components.RTShaderSystem:ShaderCGProgramWriter;
+
+import :ShaderFunction;
+import :ShaderFunctionAtom;
+import :ShaderParameter;
+import :ShaderPrerequisites;
+import :ShaderProgram;
+import :ShaderProgramWriter;
+
+import Ogre.Core;
 
 namespace Ogre {
 namespace RTShader {

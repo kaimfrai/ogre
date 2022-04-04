@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <cstring>
 #include <list>
@@ -33,24 +35,25 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreInstanceBatchShader.h"
-#include "OgreInstancedEntity.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMatrix4.h"
-#include "OgrePass.h"
-#include "OgreRenderOperation.h"
-#include "OgreSharedPtr.h"
-#include "OgreSubMesh.h"
-#include "OgreTechnique.h"
-#include "OgreVertexIndexData.h"
+module Ogre.Core:InstanceBatchShader;
+
+import :Common;
+import :Exception;
+import :GpuProgramParams;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :InstancedEntity;
+import :LogManager;
+import :Material;
+import :Matrix4;
+import :Pass;
+import :RenderOperation;
+import :SharedPtr;
+import :SubMesh;
+import :Technique;
+import :VertexIndexData;
 
 namespace Ogre
 {

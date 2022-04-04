@@ -25,20 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_MATERIAL_H
-#define OGRE_CORE_MATERIAL_H
+module;
 
 #include <cstddef>
 #include <map>
 #include <vector>
 
-#include "OgreBlendMode.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreSharedPtr.h"
+export module Ogre.Core:Material;
 
+import :BlendMode;
+import :ColourValue;
+import :Common;
+import :Prerequisites;
+import :Resource;
+import :SharedPtr;
+
+export
 namespace Ogre {
 
     // Forward declaration
@@ -662,5 +664,3 @@ class Technique;
     /** @} */
 
 } //namespace 
-
-#endif

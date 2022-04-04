@@ -25,22 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PARTICLESYSTEMMANAGER_H
-#define OGRE_CORE_PARTICLESYSTEMMANAGER_H
+module;
 
 #include <cstddef>
 #include <map>
 #include <string>
 
-#include "OgreCommon.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgreMovableObject.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptLoader.h"
-#include "OgreSingleton.h"
-#include "OgreStringVector.h"
+export module Ogre.Core:ParticleSystemManager;
 
+import :Common;
+import :IteratorWrapper;
+import :MemoryAllocatorConfig;
+import :MovableObject;
+import :Prerequisites;
+import :ScriptLoader;
+import :Singleton;
+import :StringVector;
+
+export
 namespace Ogre {
 
     // Forward decl
@@ -360,5 +362,3 @@ class ParticleSystemRenderer;
     /** @} */
 
 }
-
-#endif

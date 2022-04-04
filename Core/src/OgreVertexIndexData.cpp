@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <algorithm>
 #include <cassert>
 #include <cstring>
@@ -35,13 +37,14 @@ THE SOFTWARE.
 #include <set>
 #include <utility>
 
-#include "OgreConfig.h"
-#include "OgreException.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreRoot.h"
-#include "OgreVertexIndexData.h"
+module Ogre.Core:VertexIndexData;
+
+import :Config;
+import :Exception;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :Root;
 
 namespace Ogre {
 class RenderSystem;
