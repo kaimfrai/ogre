@@ -31,9 +31,9 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgrePrerequisites.h"
-#include "OgreStringInterface.h"
+#include "OgreCommon.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreStringInterface.hpp"
 
 namespace Ogre {
     /// Dictionary of parameters

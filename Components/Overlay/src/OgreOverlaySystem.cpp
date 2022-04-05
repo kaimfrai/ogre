@@ -26,24 +26,24 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreOverlaySystem.h"
+#include "OgreOverlaySystem.hpp"
 
 #include <cassert>
 #include <cstddef>
 #include <string>
 
-#include "OgreBorderPanelOverlayElement.h"
-#include "OgreCamera.h"
-#include "OgreFontManager.h"
-#include "OgreOverlayElementFactory.h"
-#include "OgreOverlayManager.h"
-#include "OgrePanelOverlayElement.h"
-#include "OgreProfiler.h"
-#include "OgreRenderQueue.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreTextAreaOverlayElement.h"
-#include "OgreViewport.h"
+#include "OgreBorderPanelOverlayElement.hpp"
+#include "OgreCamera.hpp"
+#include "OgreFontManager.hpp"
+#include "OgreOverlayElementFactory.hpp"
+#include "OgreOverlayManager.hpp"
+#include "OgrePanelOverlayElement.hpp"
+#include "OgreProfiler.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreTextAreaOverlayElement.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 class OverlayElement;

@@ -30,13 +30,13 @@ THE SOFTWARE.
 #include <cstddef>
 #include <set>
 
-#include "OgreException.h"
-#include "OgreMaterial.h"
-#include "OgreMath.h"
-#include "OgreRadixSort.h"
-#include "OgreRenderQueueSortingGrouping.h"
-#include "OgreRenderable.h"
-#include "OgreTechnique.h"
+#include "OgreException.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMath.hpp"
+#include "OgreRadixSort.hpp"
+#include "OgreRenderQueueSortingGrouping.hpp"
+#include "OgreRenderable.hpp"
+#include "OgreTechnique.hpp"
 
 namespace Ogre {
 class Camera;

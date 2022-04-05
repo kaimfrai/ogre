@@ -29,11 +29,11 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreCommon.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreString.h"
+#include "OgreCommon.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreString.hpp"
 
 namespace Ogre 
 {

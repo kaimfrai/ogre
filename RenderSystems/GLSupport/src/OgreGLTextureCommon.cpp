@@ -26,12 +26,12 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLTextureCommon.h"
+#include "OgreGLTextureCommon.hpp"
 
 #include <algorithm>
 #include <string>
 
-#include "OgreBitwise.h"
+#include "OgreBitwise.hpp"
 
 namespace Ogre
 {

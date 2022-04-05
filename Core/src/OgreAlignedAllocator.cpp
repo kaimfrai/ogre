@@ -27,9 +27,9 @@ THE SOFTWARE.
 */
 #include <cassert>
 
-#include "OgreAlignedAllocator.h"
-#include "OgreBitwise.h"
-#include "OgrePlatform.h"
+#include "OgreAlignedAllocator.hpp"
+#include "OgreBitwise.hpp"
+#include "OgrePlatform.hpp"
 
 /**
 *

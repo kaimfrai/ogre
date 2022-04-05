@@ -31,17 +31,17 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstring>
 
-#include "OgreOptimisedUtil.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreException.h"
-#include "OgreMatrix4.h"
-#include "OgrePlatform.h"
-#include "OgrePlatformInformation.h"
-#include "OgrePrerequisites.h"
-#include "OgreVector.h"
+#include "OgreOptimisedUtil.hpp"
+#include "OgreEdgeListBuilder.hpp"
+#include "OgreException.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePlatformInformation.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreVector.hpp"
 // Should keep this includes at latest to avoid potential "xmmintrin.h" included by
 // other header file on some platform for some reason.
-#include "OgreSIMDHelper.h"
+#include "OgreSIMDHelper.hpp"
 
 // I'd like to merge this file with OgreOptimisedUtil.cpp, but it's
 // impossible when compile with gcc, due SSE instructions can only

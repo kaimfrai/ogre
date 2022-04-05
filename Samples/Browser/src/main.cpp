@@ -50,10 +50,10 @@ namespace
 #include <iostream>
 #include <string>
 
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
-#include "OgreStringConverter.h"
-#include "SampleBrowser.h"
+#include "OgreException.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreStringConverter.hpp"
+#include "SampleBrowser.hpp"
 
 #if defined(OGRE_TRACK_MEMORY) && OGRE_TRACK_MEMORY != 0
 void* operator new  ( std::size_t count )

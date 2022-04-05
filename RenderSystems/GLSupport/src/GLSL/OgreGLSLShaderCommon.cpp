@@ -30,16 +30,16 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreGLSLPreprocessor.h"
-#include "OgreGLSLShaderCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
+#include "OgreException.hpp"
+#include "OgreGLSLPreprocessor.hpp"
+#include "OgreGLSLShaderCommon.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre {
 class ResourceManager;

@@ -10,8 +10,8 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "OgreMurmurHash3.h"
-#include "OgrePlatform.h"
+#include "OgreMurmurHash3.hpp"
+#include "OgrePlatform.hpp"
 
 //-----------------------------------------------------------------------------
 // Platform-specific functions and macros

@@ -31,13 +31,13 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgrePrerequisites.h"
-#include "OgreShaderGLSLESProgramWriter.h"
-#include "OgreShaderGLSLProgramWriter.h"
-#include "OgreShaderHLSLProgramWriter.h"
-#include "OgreShaderProgramWriter.h"
-#include "OgreShaderProgramWriterManager.h"
-#include "OgreSingleton.h"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderGLSLESProgramWriter.hpp"
+#include "OgreShaderGLSLProgramWriter.hpp"
+#include "OgreShaderHLSLProgramWriter.hpp"
+#include "OgreShaderProgramWriter.hpp"
+#include "OgreShaderProgramWriterManager.hpp"
+#include "OgreSingleton.hpp"
 
 namespace Ogre {
 

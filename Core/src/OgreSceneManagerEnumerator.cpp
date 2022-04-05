@@ -29,9 +29,9 @@ THE SOFTWARE.
 #include <ostream>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgreSceneManagerEnumerator.h"
+#include "OgreException.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreSceneManagerEnumerator.hpp"
 
 
 namespace Ogre {

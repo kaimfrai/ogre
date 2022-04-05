@@ -26,7 +26,7 @@
   -----------------------------------------------------------------------------
 */
 
-#include "OgreGLXWindow.h"
+#include "OgreGLXWindow.hpp"
 
 #include <GL/gl.h>
 #include <GL/glx.h>
@@ -38,17 +38,17 @@
 #include <utility>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreGLContext.h"
-#include "OgreGLNativeSupport.h"
-#include "OgreGLXContext.h"
-#include "OgreGLXGLSupport.h"
-#include "OgreLogManager.h"
-#include "OgreRenderTarget.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreViewport.h"
-#include "OgreX11.h"
+#include "OgreException.hpp"
+#include "OgreGLContext.hpp"
+#include "OgreGLNativeSupport.hpp"
+#include "OgreGLXContext.hpp"
+#include "OgreGLXGLSupport.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreViewport.hpp"
+#include "OgreX11.hpp"
 
 namespace Ogre
 {

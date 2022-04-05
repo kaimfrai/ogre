@@ -32,20 +32,20 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreCamera.h"
-#include "OgreCommon.h"
-#include "OgreFrustum.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgrePlane.h"
-#include "OgrePlaneBoundedVolume.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreRay.h"
-#include "OgreSceneManager.h"
-#include "OgreVector.h"
-#include "OgreViewport.h"
+#include "OgreAxisAlignedBox.hpp"
+#include "OgreCamera.hpp"
+#include "OgreCommon.hpp"
+#include "OgreFrustum.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePlane.hpp"
+#include "OgrePlaneBoundedVolume.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreRay.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreVector.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 class Sphere;

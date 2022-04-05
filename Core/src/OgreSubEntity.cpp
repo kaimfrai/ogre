@@ -31,22 +31,22 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreAnimationTrack.h"
-#include "OgreCamera.h"
-#include "OgreEntity.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgreMesh.h"
-#include "OgreNode.h"
-#include "OgreRenderOperation.h"
-#include "OgreSubEntity.h"
-#include "OgreSubMesh.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
+#include "OgreAnimationTrack.hpp"
+#include "OgreCamera.hpp"
+#include "OgreEntity.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreMesh.hpp"
+#include "OgreNode.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreSubEntity.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreVector.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 class Technique;

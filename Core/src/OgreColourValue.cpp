@@ -28,9 +28,9 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cmath>
 
-#include "OgreColourValue.h"
-#include "OgreMath.h"
-#include "OgrePlatform.h"
+#include "OgreColourValue.hpp"
+#include "OgreMath.hpp"
+#include "OgrePlatform.hpp"
 
 namespace Ogre {
 

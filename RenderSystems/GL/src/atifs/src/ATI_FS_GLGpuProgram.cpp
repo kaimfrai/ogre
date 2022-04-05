@@ -31,12 +31,12 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "ATI_FS_GLGpuProgram.h"
-#include "OgreException.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLogManager.h"
-#include "OgreSharedPtr.h"
-#include "ps_1_4.h"
+#include "ATI_FS_GLGpuProgram.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "ps_1_4.hpp"
 
 
 namespace Ogre {

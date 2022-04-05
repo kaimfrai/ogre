@@ -28,13 +28,13 @@ THE SOFTWARE.
 #include <cassert>
 #include <string>
 
-#include "OgreCompositionTargetPass.h"
-#include "OgreCompositionTechnique.h"
-#include "OgreException.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreTextureManager.h"
+#include "OgreCompositionTargetPass.hpp"
+#include "OgreCompositionTechnique.hpp"
+#include "OgreException.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
+#include "OgreTextureManager.hpp"
 
 namespace Ogre {
 class Compositor;

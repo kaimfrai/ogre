@@ -29,15 +29,15 @@ THE SOFTWARE.
 #include <cstring>
 #include <string>
 
-#include "OgreBitwise.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreSerializer.h"
-#include "OgreSharedPtr.h"
-#include "OgreVector.h"
+#include "OgreBitwise.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreSerializer.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
 

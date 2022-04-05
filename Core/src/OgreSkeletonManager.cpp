@@ -28,9 +28,9 @@ THE SOFTWARE.
 #include <cassert>
 #include <memory>
 
-#include "OgreSharedPtr.h"
-#include "OgreSkeleton.h"
-#include "OgreSkeletonManager.h"
+#include "OgreSharedPtr.hpp"
+#include "OgreSkeleton.hpp"
+#include "OgreSkeletonManager.hpp"
 
 namespace Ogre
 {

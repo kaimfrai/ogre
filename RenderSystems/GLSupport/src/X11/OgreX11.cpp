@@ -1,12 +1,12 @@
-#include <OgreLogManager.h>
-#include <OgreX11.h>
+#include <OgreLogManager.hpp>
+#include <OgreX11.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <X11/extensions/randr.h>
 #include <cstddef>
 
-#include "OgreException.h"
-#include "OgreGLNativeSupport.h"
-#include "OgrePrerequisites.h"
+#include "OgreException.hpp"
+#include "OgreGLNativeSupport.hpp"
+#include "OgrePrerequisites.hpp"
 
 namespace {
     int safeXErrorHandler (Display *display, XErrorEvent *event)

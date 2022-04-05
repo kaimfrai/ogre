@@ -28,10 +28,10 @@ THE SOFTWARE.
 #include <cstddef>
 #include <string>
 
-#include "OgreDynLib.h"
-#include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgreString.h"
+#include "OgreDynLib.hpp"
+#include "OgreException.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreString.hpp"
 
 #define DYNLIB_LOAD( a ) dlopen( a, RTLD_LAZY | RTLD_GLOBAL)
 #define DYNLIB_GETSYM( a, b ) dlsym( a, b )

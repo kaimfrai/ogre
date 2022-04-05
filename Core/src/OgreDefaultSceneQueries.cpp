@@ -30,15 +30,15 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreMovableObject.h"
-#include "OgrePlaneBoundedVolume.h"
-#include "OgrePrerequisites.h"
-#include "OgreRay.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneQuery.h"
-#include "OgreSphere.h"
+#include "OgreAxisAlignedBox.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgrePlaneBoundedVolume.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRay.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneQuery.hpp"
+#include "OgreSphere.hpp"
 
 namespace Ogre {
     //---------------------------------------------------------------------

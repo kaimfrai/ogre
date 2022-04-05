@@ -13,11 +13,11 @@ if (OGRE_TRACK_MEMORY)
 endif()
 
 set (HEADER_FILES
-	${PROJECT_SOURCE_DIR}/Samples/Browser/include/SampleBrowser.h
-	${PROJECT_SOURCE_DIR}/Samples/Common/include/Sample.h
-	${PROJECT_SOURCE_DIR}/Samples/Common/include/SampleContext.h
-	${PROJECT_SOURCE_DIR}/Samples/Common/include/SamplePlugin.h
-	${PROJECT_SOURCE_DIR}/Samples/Common/include/SdkSample.h
+	${PROJECT_SOURCE_DIR}/Samples/Browser/include/SampleBrowser.hpp
+	${PROJECT_SOURCE_DIR}/Samples/Common/include/Sample.hpp
+	${PROJECT_SOURCE_DIR}/Samples/Common/include/SampleContext.hpp
+	${PROJECT_SOURCE_DIR}/Samples/Common/include/SamplePlugin.hpp
+	${PROJECT_SOURCE_DIR}/Samples/Common/include/SdkSample.hpp
 )
 
 # Get the list of configured samples
@@ -25,7 +25,7 @@ get_property(OGRE_SAMPLES_LIST GLOBAL PROPERTY "OGRE_SAMPLES_LIST")
 
 if (APPLE AND APPLE_IOS)
   set(HEADER_FILES ${HEADER_FILES}
-    ${PROJECT_SOURCE_DIR}/Samples/Browser/include/SampleBrowser_iOS.h
+    ${PROJECT_SOURCE_DIR}/Samples/Browser/include/SampleBrowser_iOS.hpp
   )
 elseif (APPLE)
   set(HEADER_FILES ${HEADER_FILES}

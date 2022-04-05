@@ -32,15 +32,15 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreLodStrategy.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreResourceManager.h"
-#include "OgreTechnique.h"
+#include "OgreException.hpp"
+#include "OgreLodStrategy.hpp"
+#include "OgreLodStrategyManager.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreResourceManager.hpp"
+#include "OgreTechnique.hpp"
 
 namespace Ogre {
 class Renderable;

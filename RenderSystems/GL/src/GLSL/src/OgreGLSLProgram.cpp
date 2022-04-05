@@ -30,19 +30,19 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreGLSLExtSupport.h"
-#include "OgreGLSLLinkProgram.h"
-#include "OgreGLSLLinkProgramManager.h"
-#include "OgreGLSLProgram.h"
-#include "OgreGpuProgram.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
-#include "OgreStringInterface.h"
+#include "OgreGLSLExtSupport.hpp"
+#include "OgreGLSLLinkProgram.hpp"
+#include "OgreGLSLLinkProgramManager.hpp"
+#include "OgreGLSLProgram.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringInterface.hpp"
 #include "glad/glad.h"
 
 namespace Ogre {

@@ -28,21 +28,21 @@ THE SOFTWARE.
 #include <cassert>
 #include <memory>
 
-#include "OgreCompositionPass.h"
-#include "OgreCompositionTargetPass.h"
-#include "OgreCompositionTechnique.h"
-#include "OgreCompositor.h"
-#include "OgreCompositorChain.h"
-#include "OgreCompositorInstance.h"
-#include "OgreCompositorManager.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreRectangle2D.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderTarget.h"
-#include "OgreRoot.h"
-#include "OgreTextureManager.h"
-#include "OgreViewport.h"
+#include "OgreCompositionPass.hpp"
+#include "OgreCompositionTargetPass.hpp"
+#include "OgreCompositionTechnique.hpp"
+#include "OgreCompositor.hpp"
+#include "OgreCompositorChain.hpp"
+#include "OgreCompositorInstance.hpp"
+#include "OgreCompositorManager.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreRectangle2D.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreRoot.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 class CompositorLogic;

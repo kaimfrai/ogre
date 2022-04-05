@@ -2,7 +2,7 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 
-#include "OgreApplicationContextBase.h"
+#include "OgreApplicationContextBase.hpp"
 
 #include <cstdlib>
 #include <ios>
@@ -10,28 +10,28 @@
 #include <string>
 #include <type_traits>
 
-#include "OgreBitesConfigDialog.h"
-#include "OgreCamera.h"
-#include "OgreConfigFile.h"
-#include "OgreDataStream.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreInput.h"
-#include "OgreLogManager.h"
-#include "OgreMaterialManager.h"
-#include "OgreOverlaySystem.h"
-#include "OgrePlatform.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderWindow.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
-#include "OgreSGTechniqueResolverListener.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreShaderGenerator.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreWindowEventUtilities.h"
+#include "OgreBitesConfigDialog.hpp"
+#include "OgreCamera.hpp"
+#include "OgreConfigFile.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreFileSystemLayer.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreInput.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreOverlaySystem.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderWindow.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSGTechniqueResolverListener.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreWindowEventUtilities.hpp"
 
 namespace OgreBites {
 

@@ -29,12 +29,12 @@ THE SOFTWARE.
 #include <memory>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreSharedPtr.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace Ogre {
 namespace RTShader {

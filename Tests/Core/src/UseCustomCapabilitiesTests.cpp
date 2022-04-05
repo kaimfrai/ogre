@@ -26,23 +26,23 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "UseCustomCapabilitiesTests.h"
+#include "UseCustomCapabilitiesTests.hpp"
 
 #include <algorithm>
 #include <string>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreCompositorManager.h"
-#include "OgreConfigOptionMap.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreMaterialManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
-#include "OgreStringVector.h"
+#include "OgreCommon.hpp"
+#include "OgreCompositorManager.hpp"
+#include "OgreConfigOptionMap.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreStringVector.hpp"
 
 // Register the test suite
 

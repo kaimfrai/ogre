@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreSTBICodec.h"
+#include "OgreSTBICodec.hpp"
 
 #include <cstdlib>
 #include <memory>
@@ -34,15 +34,15 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreCodec.h"
-#include "OgreCommon.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgrePixelFormat.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
+#include "OgreCodec.hpp"
+#include "OgreCommon.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringVector.hpp"
 
 #define STBI_NO_STDIO
 #define STB_IMAGE_IMPLEMENTATION

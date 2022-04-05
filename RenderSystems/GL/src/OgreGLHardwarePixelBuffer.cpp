@@ -25,33 +25,33 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLHardwarePixelBuffer.h"
+#include "OgreGLHardwarePixelBuffer.hpp"
 
 #include <cassert>
 #include <memory>
 #include <string>
 
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGLFBORenderTexture.h"
-#include "OgreGLPixelFormat.h"
-#include "OgreGLRenderSystem.h"
-#include "OgreGLRenderTexture.h"
-#include "OgreGLStateCacheManager.h"
-#include "OgreGLTexture.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreImage.h"
-#include "OgrePixelFormat.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderTexture.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
-#include "OgreVector.h"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreGLFBORenderTexture.hpp"
+#include "OgreGLPixelFormat.hpp"
+#include "OgreGLRenderSystem.hpp"
+#include "OgreGLRenderTexture.hpp"
+#include "OgreGLStateCacheManager.hpp"
+#include "OgreGLTexture.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwarePixelBuffer.hpp"
+#include "OgreImage.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderTexture.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
 //-----------------------------------------------------------------------------  

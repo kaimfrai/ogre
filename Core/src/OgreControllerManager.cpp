@@ -27,10 +27,10 @@ THE SOFTWARE.
 */
 #include <cassert>
 
-#include "OgreController.h"
-#include "OgreControllerManager.h"
-#include "OgrePredefinedControllers.h"
-#include "OgreRoot.h"
+#include "OgreController.hpp"
+#include "OgreControllerManager.hpp"
+#include "OgrePredefinedControllers.hpp"
+#include "OgreRoot.hpp"
 
 namespace Ogre {
     //-----------------------------------------------------------------------

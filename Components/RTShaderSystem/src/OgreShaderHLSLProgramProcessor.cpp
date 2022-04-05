@@ -27,12 +27,12 @@ THE SOFTWARE.
 
 #include <initializer_list>
 
-#include "OgreGpuProgram.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderHLSLProgramProcessor.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramProcessor.h"
-#include "OgreShaderProgramSet.h"
+#include "OgreGpuProgram.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderHLSLProgramProcessor.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramProcessor.hpp"
+#include "OgreShaderProgramSet.hpp"
 
 namespace Ogre {
 namespace RTShader {

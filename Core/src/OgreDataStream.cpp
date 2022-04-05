@@ -32,13 +32,13 @@ THE SOFTWARE.
 #include <fstream>
 #include <string>
 
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
 
 namespace Ogre {
 

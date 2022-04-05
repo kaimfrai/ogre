@@ -24,24 +24,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
 
-#include "OgreTextAreaOverlayElement.h"
+#include "OgreTextAreaOverlayElement.hpp"
 
 #include <string>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreFont.h"
-#include "OgreFontManager.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMaterial.h"
-#include "OgreOverlayElement.h"
-#include "OgreOverlayManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
-#include "OgreStringInterface.h"
-#include "OgreVertexIndexData.h"
+#include "OgreException.hpp"
+#include "OgreFont.hpp"
+#include "OgreFontManager.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreOverlayElement.hpp"
+#include "OgreOverlayManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringInterface.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 

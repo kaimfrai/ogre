@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 
 // Emulate _findfirst, _findnext on non-Windows platforms
-#include "OgreSearchOps.h"
+#include "OgreSearchOps.hpp"
 
 #include <cstdio>
 #include <cstdlib>

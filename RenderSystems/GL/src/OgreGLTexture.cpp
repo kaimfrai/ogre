@@ -26,22 +26,22 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLTexture.h"
+#include "OgreGLTexture.hpp"
 
 #include <memory>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreGLHardwarePixelBuffer.h"
-#include "OgreGLPixelFormat.h"
-#include "OgreGLRenderSystem.h"
-#include "OgreGLStateCacheManager.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgreSharedPtr.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
+#include "OgreException.hpp"
+#include "OgreGLHardwarePixelBuffer.hpp"
+#include "OgreGLPixelFormat.hpp"
+#include "OgreGLRenderSystem.hpp"
+#include "OgreGLStateCacheManager.hpp"
+#include "OgreHardwarePixelBuffer.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
 
 namespace Ogre {
 class ResourceManager;

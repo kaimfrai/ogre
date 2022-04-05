@@ -32,13 +32,13 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreController.h"
-#include "OgreException.h"
-#include "OgreMath.h"
-#include "OgreRibbonTrail.h"
-#include "OgreSceneNode.h"
-#include "OgreStringConverter.h"
-#include "OgreVector.h"
+#include "OgreController.hpp"
+#include "OgreException.hpp"
+#include "OgreMath.hpp"
+#include "OgreRibbonTrail.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre
 {

@@ -31,20 +31,20 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreAlignedAllocator.h"
-#include "OgreAnimationState.h"
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreInstanceBatch.h"
-#include "OgreInstancedEntity.h"
-#include "OgreMath.h"
-#include "OgreMesh.h"
-#include "OgreNameGenerator.h"
-#include "OgreOptimisedUtil.h"
-#include "OgreSharedPtr.h"
-#include "OgreSkeletonInstance.h"
-#include "OgreSphere.h"
-#include "OgreStringConverter.h"
+#include "OgreAlignedAllocator.hpp"
+#include "OgreAnimationState.hpp"
+#include "OgreCamera.hpp"
+#include "OgreException.hpp"
+#include "OgreInstanceBatch.hpp"
+#include "OgreInstancedEntity.hpp"
+#include "OgreMath.hpp"
+#include "OgreMesh.hpp"
+#include "OgreNameGenerator.hpp"
+#include "OgreOptimisedUtil.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSkeletonInstance.hpp"
+#include "OgreSphere.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre
 {

@@ -26,28 +26,28 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgrePanelOverlayElement.h"
+#include "OgrePanelOverlayElement.hpp"
 
 #include <map>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMaterial.h"
-#include "OgreOverlayElement.h"
-#include "OgrePass.h"
-#include "OgreRenderSystem.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringInterface.h"
-#include "OgreTechnique.h"
-#include "OgreVertexIndexData.h"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreOverlayElement.hpp"
+#include "OgrePass.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringInterface.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 class RenderQueue;

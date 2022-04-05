@@ -31,11 +31,11 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
+#include "OgreException.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSingleton.hpp"
 
 namespace Ogre {
 

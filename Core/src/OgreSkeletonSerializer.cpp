@@ -31,22 +31,22 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreAnimation.h"
-#include "OgreAnimationTrack.h"
-#include "OgreBone.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreFileSystem.h"
-#include "OgreKeyFrame.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgreQuaternion.h"
-#include "OgreSharedPtr.h"
-#include "OgreSkeleton.h"
-#include "OgreSkeletonFileFormat.h"
-#include "OgreSkeletonSerializer.h"
-#include "OgreVector.h"
+#include "OgreAnimation.hpp"
+#include "OgreAnimationTrack.hpp"
+#include "OgreBone.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreFileSystem.hpp"
+#include "OgreKeyFrame.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSkeleton.hpp"
+#include "OgreSkeletonFileFormat.hpp"
+#include "OgreSkeletonSerializer.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
     /// stream overhead = ID + size

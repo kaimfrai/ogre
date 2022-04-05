@@ -34,10 +34,10 @@ THE SOFTWARE.
 #include <strings.h>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
+#include "OgreException.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreString.hpp"
+#include "OgreStringVector.hpp"
 
 // A quick define to overcome different names for the same function
 

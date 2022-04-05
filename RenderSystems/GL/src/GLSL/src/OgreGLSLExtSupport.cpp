@@ -28,11 +28,11 @@ THE SOFTWARE.
 
 #include <string>
 
-#include "OgreException.h"
-#include "OgreGLPrerequisites.h"
-#include "OgreGLSLExtSupport.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
+#include "OgreException.hpp"
+#include "OgreGLPrerequisites.hpp"
+#include "OgreGLSLExtSupport.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
 
 namespace Ogre
 {

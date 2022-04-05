@@ -28,8 +28,8 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstring>
 
-#include "OgreDefaultHardwareBufferManager.h"
-#include "OgreAlignedAllocator.h"
+#include "OgreDefaultHardwareBufferManager.hpp"
+#include "OgreAlignedAllocator.hpp"
 
 namespace Ogre {
 

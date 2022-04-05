@@ -76,12 +76,12 @@ if (OGRE_BUILD_TESTS)
     # unit tests are go!
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Core/include)
 
-    file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/Core/include/*.h")
+    file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/Core/include/*.hpp")
     file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/Core/src/*.cpp"
       "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")
 
     if (OGRE_CONFIG_ENABLE_ZIP)
-      list(APPEND HEADER_FILES Core/include/ZipArchiveTests.h)
+      list(APPEND HEADER_FILES Core/include/ZipArchiveTests.hpp)
       list(APPEND SOURCE_FILES Core/src/ZipArchiveTests.cpp)
     endif ()
 

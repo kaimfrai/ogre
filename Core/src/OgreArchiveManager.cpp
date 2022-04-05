@@ -30,13 +30,13 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreArchive.h"
-#include "OgreArchiveFactory.h"
-#include "OgreArchiveManager.h"
-#include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
+#include "OgreArchive.hpp"
+#include "OgreArchiveFactory.hpp"
+#include "OgreArchiveManager.hpp"
+#include "OgreException.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSingleton.hpp"
 
 namespace Ogre {
     typedef void (*createFunc)( Archive**, const String& );

@@ -28,8 +28,8 @@ THE SOFTWARE.
 #include <ostream>
 #include <string>
 
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
+#include "OgreException.hpp"
+#include "OgrePrerequisites.hpp"
 
 #ifdef __BORLANDC__
     #include <stdio.h>

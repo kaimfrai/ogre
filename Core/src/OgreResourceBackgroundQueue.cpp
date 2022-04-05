@@ -27,13 +27,13 @@ THE SOFTWARE.
 */
 #include <cassert>
 
-#include "OgreResourceBackgroundQueue.h"
-#include "OgreAny.h"
-#include "OgreException.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreResourceManager.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
+#include "OgreResourceBackgroundQueue.hpp"
+#include "OgreAny.hpp"
+#include "OgreException.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreResourceManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace Ogre {
 

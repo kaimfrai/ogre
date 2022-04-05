@@ -29,9 +29,9 @@ THE SOFTWARE.
 #include <gtest/gtest.h>
 #include <cstdlib>
 
-#include "GLSL/OgreGLSLPreprocessor.h"
-#include "OgrePrerequisites.h"
-#include "OgreString.h"
+#include "GLSL/OgreGLSLPreprocessor.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreString.hpp"
 
 using namespace Ogre;
 

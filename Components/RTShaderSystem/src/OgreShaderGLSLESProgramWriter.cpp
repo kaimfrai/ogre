@@ -29,14 +29,14 @@ THE SOFTWARE.
 #include <ostream>
 #include <vector>
 
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreRoot.h"
-#include "OgreShaderGLSLESProgramWriter.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderProgram.h"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRoot.hpp"
+#include "OgreShaderGLSLESProgramWriter.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderProgram.hpp"
 
 namespace Ogre {
     namespace RTShader {

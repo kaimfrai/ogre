@@ -27,9 +27,9 @@ THE SOFTWARE.
 */
 #include <cassert>
 
-#include "OgreCompositionPass.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
+#include "OgreCompositionPass.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
 
 namespace Ogre {
 class CompositionTargetPass;

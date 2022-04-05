@@ -28,12 +28,12 @@ THE SOFTWARE.
 
 #include <string>
 
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreShadowVolumeExtrudeProgram.h"
-#include "OgreSharedPtr.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreShadowVolumeExtrudeProgram.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace {
     enum Programs

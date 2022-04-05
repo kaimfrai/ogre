@@ -1,13 +1,13 @@
-#include "OgreCameraMan.h"
+#include "OgreCameraMan.hpp"
 
 #include <limits>
 
-#include "OgreException.h"
-#include "OgreFrameListener.h"
-#include "OgreMatrix3.h"
-#include "OgreQuaternion.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
+#include "OgreException.hpp"
+#include "OgreFrameListener.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
 
 namespace OgreBites {
 

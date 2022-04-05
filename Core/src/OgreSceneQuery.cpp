@@ -29,9 +29,9 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstddef>
 
-#include "OgreException.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneQuery.h"
+#include "OgreException.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneQuery.hpp"
 
 namespace Ogre {
 class MovableObject;

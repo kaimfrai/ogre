@@ -26,10 +26,10 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLSLProgramFactory.h"
+#include "OgreGLSLProgramFactory.hpp"
 
-#include "OgreGLSLLinkProgramManager.h"
-#include "OgreGLSLProgram.h"
+#include "OgreGLSLLinkProgramManager.hpp"
+#include "OgreGLSLProgram.hpp"
 
 namespace Ogre {
 class GpuProgram;

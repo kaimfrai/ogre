@@ -27,11 +27,11 @@ THE SOFTWARE.
 */
 #include <ostream>
 
-#include "OgreLog.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
+#include "OgreLog.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre {
 

@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "Compiler2Pass.h"
+#include "Compiler2Pass.hpp"
 
 #include <sys/types.h>
 

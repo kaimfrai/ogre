@@ -5,7 +5,7 @@
  *      Author: parojtbe
  */
 
-#include "OgreTrays.h"
+#include "OgreTrays.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -15,17 +15,17 @@
 #include <ostream>
 #include <utility>
 
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreFont.h"
-#include "OgreMatrix4.h"
-#include "OgreOverlayManager.h"
-#include "OgrePanelOverlayElement.h"
-#include "OgreRenderTarget.h"
-#include "OgreRenderWindow.h"
-#include "OgreRoot.h"
-#include "OgreStringConverter.h"
-#include "OgreTimer.h"
+#include "OgreCamera.hpp"
+#include "OgreException.hpp"
+#include "OgreFont.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreOverlayManager.hpp"
+#include "OgrePanelOverlayElement.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreRenderWindow.hpp"
+#include "OgreRoot.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTimer.hpp"
 
 namespace Ogre {
 struct FrameEvent;

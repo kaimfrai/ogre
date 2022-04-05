@@ -27,8 +27,8 @@ THE SOFTWARE.
 */
 #include <utility>
 
-#include "OgreAnimable.h"
-#include "OgreAny.h"
+#include "OgreAnimable.hpp"
+#include "OgreAny.hpp"
 
 namespace Ogre {
     //--------------------------------------------------------------------------

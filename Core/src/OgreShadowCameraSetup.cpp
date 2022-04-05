@@ -28,17 +28,17 @@ THE SOFTWARE.
 
 #include <cmath>
 
-#include "OgreCamera.h"
-#include "OgreFrustum.h"
-#include "OgreLight.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreNode.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreShadowCameraSetup.h"
-#include "OgreVector.h"
-#include "OgreViewport.h"
+#include "OgreCamera.hpp"
+#include "OgreFrustum.hpp"
+#include "OgreLight.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgreNode.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreShadowCameraSetup.hpp"
+#include "OgreVector.hpp"
+#include "OgreViewport.hpp"
 
 
 namespace Ogre 

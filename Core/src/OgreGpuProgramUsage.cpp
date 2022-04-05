@@ -28,12 +28,12 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreException.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreGpuProgramUsage.h"
-#include "OgrePass.h"
-#include "OgreResourceGroupManager.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreGpuProgramUsage.hpp"
+#include "OgrePass.hpp"
+#include "OgreResourceGroupManager.hpp"
 
 namespace Ogre
 {
