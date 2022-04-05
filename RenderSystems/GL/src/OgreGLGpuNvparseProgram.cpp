@@ -54,7 +54,7 @@ GLGpuNvparseProgram::~GLGpuNvparseProgram()
     unload(); 
 }
 
-void GLGpuNvparseProgram::bindProgram(void)
+void GLGpuNvparseProgram::bindProgram()
 {
      glCallList(mProgramID);
      glEnable(GL_TEXTURE_SHADER_NV);
@@ -62,7 +62,7 @@ void GLGpuNvparseProgram::bindProgram(void)
      glEnable(GL_PER_STAGE_CONSTANTS_NV);
 }
 
-void GLGpuNvparseProgram::unbindProgram(void)
+void GLGpuNvparseProgram::unbindProgram()
 {
 
     glDisable(GL_TEXTURE_SHADER_NV);
@@ -83,12 +83,12 @@ void GLGpuNvparseProgram::bindProgramParameters(GpuProgramParametersSharedPtr pa
         glCombinerStageParameterfvNV(combinerStage, pname, floatList + i);
     }
 }
-void GLGpuNvparseProgram::unloadImpl(void)
+void GLGpuNvparseProgram::unloadImpl()
 {
     glDeleteLists(mProgramID,1);
 }
 
-void GLGpuNvparseProgram::loadFromSource(void)
+void GLGpuNvparseProgram::loadFromSource()
 {
     glNewList(mProgramID, GL_COMPILE);
 

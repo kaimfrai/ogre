@@ -441,7 +441,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    Display* GLXGLSupport::getGLDisplay(void)
+    Display* GLXGLSupport::getGLDisplay()
     {
         if (! mGLDisplay)
         {
@@ -466,7 +466,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    Display* GLXGLSupport::getXDisplay(void)
+    Display* GLXGLSupport::getXDisplay()
     {
         if (! mXDisplay)
         {
@@ -488,7 +488,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    String GLXGLSupport::getDisplayName(void)
+    String GLXGLSupport::getDisplayName()
     {
         return String((const char*)XDisplayName(DisplayString(mGLDisplay)));
     }
@@ -662,7 +662,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    void GLXGLSupport::switchMode(void)
+    void GLXGLSupport::switchMode()
     {
         return switchMode(mOriginalMode.width, mOriginalMode.height, mOriginalMode.refreshRate);
     }

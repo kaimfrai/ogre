@@ -53,7 +53,7 @@ namespace Ogre
         public:
             TimeControllerValue(RibbonTrail* r) { mTrail = r; }
 
-            Real getValue(void) const { return 0; }// not a source 
+            Real getValue() const { return 0; }// not a source 
             void setValue(Real value) { mTrail->_timeUpdate(value); }
         };
     }
@@ -152,7 +152,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     RibbonTrail::NodeIterator 
-    RibbonTrail::getNodeIterator(void) const
+    RibbonTrail::getNodeIterator() const
     {
         return NodeIterator(mNodeList.begin(), mNodeList.end());
     }
@@ -252,7 +252,7 @@ namespace Ogre
         manageController();
     }
     //-----------------------------------------------------------------------
-    void RibbonTrail::manageController(void)
+    void RibbonTrail::manageController()
     {
         bool needController = false;
         for (size_t i = 0; i < mChainCount; ++i)
@@ -423,7 +423,7 @@ namespace Ogre
         addChainElement(index, e);
     }
     //-----------------------------------------------------------------------
-    void RibbonTrail::resetAllTrails(void)
+    void RibbonTrail::resetAllTrails()
     {
         for (size_t i = 0; i < mNodeList.size(); ++i)
         {
@@ -431,7 +431,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    const String& RibbonTrail::getMovableType(void) const
+    const String& RibbonTrail::getMovableType() const
     {
         return RibbonTrailFactory::FACTORY_TYPE_NAME;
     }
@@ -439,7 +439,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     String RibbonTrailFactory::FACTORY_TYPE_NAME = "RibbonTrail";
     //-----------------------------------------------------------------------
-    const String& RibbonTrailFactory::getType(void) const
+    const String& RibbonTrailFactory::getType() const
     {
         return FACTORY_TYPE_NAME;
     }

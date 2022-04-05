@@ -79,7 +79,7 @@ PixelBox GLHardwarePixelBufferCommon::lockImpl(const Box& lockBox, LockOptions o
     return mBuffer.getSubVolume(lockBox);
 }
 
-void GLHardwarePixelBufferCommon::unlockImpl(void)
+void GLHardwarePixelBufferCommon::unlockImpl()
 {
     if (mCurrentLockOptions != HBL_READ_ONLY)
     {

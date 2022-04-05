@@ -163,7 +163,7 @@ class AxisAlignedBox;
         }
     }
     //-----------------------------------------------------------------------
-    const String& InstancedEntity::getMovableType(void) const
+    const String& InstancedEntity::getMovableType() const
     {
         static String sType = "InstancedEntity";
         return sType;
@@ -351,14 +351,14 @@ class AxisAlignedBox;
         }
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& InstancedEntity::getBoundingBox(void) const
+    const AxisAlignedBox& InstancedEntity::getBoundingBox() const
     {
         //TODO: Add attached objects (TagPoints) to the bbox
         return mBatchOwner->_getMeshReference()->getBounds();
     }
 
     //-----------------------------------------------------------------------
-    Real InstancedEntity::getBoundingRadius(void) const
+    Real InstancedEntity::getBoundingRadius() const
     {
         return mBatchOwner->_getMeshReference()->getBoundingSphereRadius();
     }
@@ -368,7 +368,7 @@ class AxisAlignedBox;
         return _getDerivedPosition().squaredDistance(cam->getDerivedPosition());
     }
     //-----------------------------------------------------------------------
-    void InstancedEntity::_notifyMoved(void)
+    void InstancedEntity::_notifyMoved()
     {
         markTransformDirty();
         MovableObject::_notifyMoved();
@@ -394,12 +394,12 @@ class AxisAlignedBox;
         return mAnimationState->getAnimationState(name);
     }
     //-----------------------------------------------------------------------
-    AnimationStateSet* InstancedEntity::getAllAnimationStates(void) const
+    AnimationStateSet* InstancedEntity::getAllAnimationStates() const
     {
         return mAnimationState;
     }
     //-----------------------------------------------------------------------
-    bool InstancedEntity::_updateAnimation(void)
+    bool InstancedEntity::_updateAnimation()
     {
         if (mSharedTransformEntity)
         {

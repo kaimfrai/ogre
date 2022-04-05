@@ -58,7 +58,7 @@ namespace Ogre {
 
     //---------------------------------------------------------------------
     // Detect whether CPU supports CPUID instruction, returns non-zero if supported.
-    static int _isSupportCpuid(void)
+    static int _isSupportCpuid()
     {
         return true;
     }
@@ -77,7 +77,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     // Detect whether or not os support Streaming SIMD Extension.
 
-    static bool _checkOperatingSystemSupportSSE(void)
+    static bool _checkOperatingSystemSupportSSE()
     {
         return true;
     }
@@ -86,7 +86,7 @@ namespace Ogre {
     // Compiler-independent routines
     //---------------------------------------------------------------------
 
-    static uint queryCpuFeatures(void)
+    static uint queryCpuFeatures()
     {
 
 #define CPUID_FUNC_VENDOR_ID                 0x0
@@ -228,7 +228,7 @@ namespace Ogre {
         return features;
     }
     //---------------------------------------------------------------------
-    static uint _detectCpuFeatures(void)
+    static uint _detectCpuFeatures()
     {
         uint features = queryCpuFeatures();
 
@@ -247,7 +247,7 @@ namespace Ogre {
         return features;
     }
     //---------------------------------------------------------------------
-    static String _detectCpuIdentifier(void)
+    static String _detectCpuIdentifier()
     {
         // Supports CPUID instruction ?
         if (_isSupportCpuid())
@@ -323,13 +323,13 @@ namespace Ogre {
     // Platform-independent routines, but the returns value are platform-dependent
     //---------------------------------------------------------------------
 
-    const String& PlatformInformation::getCpuIdentifier(void)
+    const String& PlatformInformation::getCpuIdentifier()
     {
         static const String sIdentifier = _detectCpuIdentifier();
         return sIdentifier;
     }
     //---------------------------------------------------------------------
-    uint PlatformInformation::getCpuFeatures(void)
+    uint PlatformInformation::getCpuFeatures()
     {
         static const uint sFeatures = _detectCpuFeatures();
         return sFeatures;

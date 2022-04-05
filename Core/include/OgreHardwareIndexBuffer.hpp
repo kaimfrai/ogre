@@ -66,11 +66,11 @@ namespace Ogre {
             /// Return the manager of this buffer, if any
             HardwareBufferManagerBase* getManager() const { return mMgr; }
             /// Get the type of indexes used in this buffer
-            IndexType getType(void) const { return mIndexType; }
+            IndexType getType() const { return mIndexType; }
             /// Get the number of indexes in this buffer
-            size_t getNumIndexes(void) const { return mNumIndexes; }
+            size_t getNumIndexes() const { return mNumIndexes; }
             /// Get the size in bytes of each index
-            uint8 getIndexSize(void) const { return mIndexSize; }
+            uint8 getIndexSize() const { return mIndexSize; }
 
             static size_t indexSize(IndexType type) { return type == IT_16BIT ? sizeof(uint16) : sizeof(uint32); }
 

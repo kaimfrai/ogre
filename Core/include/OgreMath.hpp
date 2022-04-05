@@ -537,7 +537,7 @@ class Sphere;
        */
        static void setAngleUnit(AngleUnit unit);
        /** Get the unit being used for angles. */
-       static AngleUnit getAngleUnit(void);
+       static AngleUnit getAngleUnit();
 
        /** Convert from the current AngleUnit to radians. */
        static float AngleUnitsToRadians(float units);

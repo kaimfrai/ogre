@@ -301,7 +301,7 @@ namespace Ogre {
         return *this;
     }
     //-----------------------------------------------------------------------------
-    size_t Pass::calculateSize(void) const
+    size_t Pass::calculateSize() const
     {
         size_t memSize = 0;
 
@@ -331,7 +331,7 @@ namespace Ogre {
         mPointMinSize = min;
     }
     //-----------------------------------------------------------------------
-    Real Pass::getPointMinSize(void) const
+    Real Pass::getPointMinSize() const
     {
         return mPointMinSize;
     }
@@ -341,7 +341,7 @@ namespace Ogre {
         mPointMaxSize = max;
     }
     //-----------------------------------------------------------------------
-    Real Pass::getPointMaxSize(void) const
+    Real Pass::getPointMaxSize() const
     {
         return mPointMaxSize;
     }
@@ -377,7 +377,7 @@ namespace Ogre {
         mEmissive.b = blue;
     }
     //-----------------------------------------------------------------------
-    TextureUnitState* Pass::createTextureUnitState(void)
+    TextureUnitState* Pass::createTextureUnitState()
     {
         TextureUnitState *t = new TextureUnitState(this);
         addTextureUnitState(t);
@@ -468,7 +468,7 @@ namespace Ogre {
         mContentTypeLookupBuilt = false;
     }
     //-----------------------------------------------------------------------
-    void Pass::removeAllTextureUnitStates(void)
+    void Pass::removeAllTextureUnitStates()
     {
         TextureUnitStates::iterator i, iend;
         iend = mTextureUnitStates.end();
@@ -573,7 +573,7 @@ namespace Ogre {
         mBlendState.alphaOperation = alphaOp;
     }
     //-----------------------------------------------------------------------
-    bool Pass::isTransparent(void) const
+    bool Pass::isTransparent() const
     {
         // Transparent if any of the destination colour is taken into account
         if (mBlendState.destFactor == SBF_ZERO &&
@@ -641,7 +641,7 @@ namespace Ogre {
         mManualCullMode = mode;
     }
     //-----------------------------------------------------------------------
-    ManualCullingMode Pass::getManualCullingMode(void) const
+    ManualCullingMode Pass::getManualCullingMode() const
     {
         return mManualCullMode;
     }
@@ -715,7 +715,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void Pass::_prepare(void)
+    void Pass::_prepare()
     {
         // We assume the Technique only calls this when the material is being
         // prepared
@@ -730,7 +730,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    void Pass::_unprepare(void)
+    void Pass::_unprepare()
     {
         // unprepare each TextureUnitState
         TextureUnitStates::iterator i, iend;
@@ -742,7 +742,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    void Pass::_load(void)
+    void Pass::_load()
     {
         // We assume the Technique only calls this when the material is being
         // loaded
@@ -766,7 +766,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    void Pass::_unload(void)
+    void Pass::_unload()
     {
         // Unload each TextureUnitState
         TextureUnitStates::iterator i, iend;
@@ -898,7 +898,7 @@ namespace Ogre {
         return programUsage->getParameters();
     }
 
-    GpuProgramParametersSharedPtr Pass::getVertexProgramParameters(void) const
+    GpuProgramParametersSharedPtr Pass::getVertexProgramParameters() const
     {
         return getGpuProgramParameters(GPT_VERTEX_PROGRAM);
     }
@@ -930,37 +930,37 @@ namespace Ogre {
             return programUsage->getProgramName();
     }
     //-----------------------------------------------------------------------
-    GpuProgramParametersSharedPtr Pass::getFragmentProgramParameters(void) const
+    GpuProgramParametersSharedPtr Pass::getFragmentProgramParameters() const
     {
         return getGpuProgramParameters(GPT_FRAGMENT_PROGRAM);
     }
     //-----------------------------------------------------------------------
-    GpuProgramParametersSharedPtr Pass::getGeometryProgramParameters(void) const
+    GpuProgramParametersSharedPtr Pass::getGeometryProgramParameters() const
     {
         return getGpuProgramParameters(GPT_GEOMETRY_PROGRAM);
     }
     //-----------------------------------------------------------------------
-    GpuProgramParametersSharedPtr Pass::getTessellationHullProgramParameters(void) const
+    GpuProgramParametersSharedPtr Pass::getTessellationHullProgramParameters() const
     {
         return getGpuProgramParameters(GPT_HULL_PROGRAM);
     }
     //-----------------------------------------------------------------------
-    GpuProgramParametersSharedPtr Pass::getTessellationDomainProgramParameters(void) const
+    GpuProgramParametersSharedPtr Pass::getTessellationDomainProgramParameters() const
     {
         return getGpuProgramParameters(GPT_DOMAIN_PROGRAM);
     }
     //-----------------------------------------------------------------------
-    GpuProgramParametersSharedPtr Pass::getComputeProgramParameters(void) const
+    GpuProgramParametersSharedPtr Pass::getComputeProgramParameters() const
     {
         return getGpuProgramParameters(GPT_COMPUTE_PROGRAM);
     }
     //-----------------------------------------------------------------------
-    bool Pass::isLoaded(void) const
+    bool Pass::isLoaded() const
     {
         return mParent->isLoaded();
     }
     //-----------------------------------------------------------------------
-    void Pass::_recalculateHash(void)
+    void Pass::_recalculateHash()
     {
         /* Hash format is 32-bit, divided as follows (high to low bits)
            bits   purpose
@@ -973,7 +973,7 @@ namespace Ogre {
         mHash = (uint32(mIndex) << 28) | (mHash >> 4);
     }
     //-----------------------------------------------------------------------
-    void Pass::_dirtyHash(void)
+    void Pass::_dirtyHash()
     {
         if (mQueuedForDeletion)
             return;
@@ -991,12 +991,12 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void Pass::clearDirtyHashList(void) 
+    void Pass::clearDirtyHashList() 
     { 
         msDirtyHashList.clear(); 
     }
     //-----------------------------------------------------------------------
-    void Pass::_notifyNeedsRecompile(void)
+    void Pass::_notifyNeedsRecompile()
     {
         if (!mQueuedForDeletion)
             mParent->_notifyNeedsRecompile();
@@ -1035,7 +1035,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void Pass::processPendingPassUpdates(void)
+    void Pass::processPendingPassUpdates()
     {
 
         // Delete items in the graveyard
@@ -1060,7 +1060,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void Pass::queueForDeletion(void)
+    void Pass::queueForDeletion()
     {
         mQueuedForDeletion = true;
 
@@ -1074,7 +1074,7 @@ namespace Ogre {
         msPassGraveyard.insert(this);
     }
     //-----------------------------------------------------------------------
-    bool Pass::isAmbientOnly(void) const
+    bool Pass::isAmbientOnly() const
     {
         // treat as ambient if lighting is off, or colour write is off,
         // or all non-ambient (& emissive) colours are black
@@ -1087,7 +1087,7 @@ namespace Ogre {
              mSpecular == ColourValue::Black));
     }
     //-----------------------------------------------------------------------
-    const String& Pass::getResourceGroup(void) const
+    const String& Pass::getResourceGroup() const
     {
         return mParent->getResourceGroup();
     }

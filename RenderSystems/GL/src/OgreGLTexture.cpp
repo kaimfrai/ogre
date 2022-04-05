@@ -71,7 +71,7 @@ class ResourceManager;
         }
     }
 
-    GLenum GLTexture::getGLTextureTarget(void) const
+    GLenum GLTexture::getGLTextureTarget() const
     {
         switch(mTextureType)
         {
@@ -91,7 +91,7 @@ class ResourceManager;
     }
 
     //* Creation / loading methods ********************************************
-    void GLTexture::createInternalResourcesImpl(void)
+    void GLTexture::createInternalResourcesImpl()
     {
         OgreAssert(mTextureType != TEX_TYPE_EXTERNAL_OES,
                    "TEX_TYPE_EXTERNAL_OES is not available for openGL");

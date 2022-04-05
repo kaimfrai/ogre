@@ -181,7 +181,7 @@ class Technique;
 
         /** Initialises the material manager, which also triggers it to 
          * parse all available .program and .material scripts. */
-        void initialise(void);
+        void initialise();
 
         /** Sets the default texture filtering to be used for loaded textures, for when textures are
             loaded automatically (e.g. by Material class) or when 'load' is called with the default
@@ -236,7 +236,7 @@ class Technique;
             - Gourad shading mode
             - Bilinear texture filtering
         */
-        virtual MaterialPtr getDefaultSettings(void) const { return mDefaultSettings; }
+        virtual MaterialPtr getDefaultSettings() const { return mDefaultSettings; }
 
         /** Internal method - returns index for a given material scheme name.
         @see Technique::setSchemeName
@@ -249,12 +249,12 @@ class Technique;
         /** Internal method - returns the active scheme index.
         @see Technique::setSchemeName
         */
-        unsigned short _getActiveSchemeIndex(void) const { return mActiveSchemeIndex; }
+        unsigned short _getActiveSchemeIndex() const { return mActiveSchemeIndex; }
 
         /** Returns the name of the active material scheme. 
         @see Technique::setSchemeName
         */
-        const String& getActiveScheme(void) const { return mActiveSchemeName; }
+        const String& getActiveScheme() const { return mActiveSchemeName; }
         
         /** Sets the name of the active material scheme. 
         @see Technique::setSchemeName
@@ -285,9 +285,9 @@ class Technique;
 
 
 		/// @copydoc Singleton::getSingleton()
-        static MaterialManager& getSingleton(void);
+        static MaterialManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static MaterialManager* getSingletonPtr(void);
+        static MaterialManager* getSingletonPtr();
 
     };
     /** @} */

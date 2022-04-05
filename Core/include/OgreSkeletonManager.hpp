@@ -68,9 +68,9 @@ namespace Ogre {
         SkeletonPtr getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const;
 
         /// @copydoc Singleton::getSingleton()
-        static SkeletonManager& getSingleton(void);
+        static SkeletonManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static SkeletonManager* getSingletonPtr(void);
+        static SkeletonManager* getSingletonPtr();
     private:
 
         /// @copydoc ResourceManager::createImpl

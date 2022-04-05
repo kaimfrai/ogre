@@ -92,16 +92,16 @@ namespace Ogre {
         /// @{
 
         /// value packed as #PF_R8G8B8A8
-        RGBA getAsRGBA(void) const;
+        RGBA getAsRGBA() const;
 
         /// value packed as #PF_A8R8G8B8
-        ARGB getAsARGB(void) const;
+        ARGB getAsARGB() const;
 
         /// value packed as #PF_B8G8R8A8
-        BGRA getAsBGRA(void) const;
+        BGRA getAsBGRA() const;
 
         /// value packed as #PF_A8B8G8R8
-        ABGR getAsABGR(void) const;
+        ABGR getAsABGR() const;
 
         /// value packed as #PF_BYTE_RGBA
         RGBA getAsBYTE() const
@@ -124,7 +124,7 @@ namespace Ogre {
 
         /** Clamps colour value to the range [0, 1].
         */
-        void saturate(void)
+        void saturate()
         {
             if (r < 0)
                 r = 0;
@@ -149,7 +149,7 @@ namespace Ogre {
 
         /** As saturate, except that this colour value is unaffected and
             the saturated colour value is returned as a copy. */
-        ColourValue saturateCopy(void) const
+        ColourValue saturateCopy() const
         {
             ColourValue ret = *this;
             ret.saturate();

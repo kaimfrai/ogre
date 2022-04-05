@@ -81,13 +81,13 @@ namespace Ogre {
             Note that the Renderable also has the option to override the getTechnique method
             to specify a particular Technique to use instead of the best one available.
         */
-        virtual const MaterialPtr& getMaterial(void) const = 0;
+        virtual const MaterialPtr& getMaterial() const = 0;
         /** Retrieves a pointer to the Material Technique this renderable object uses.
         @remarks
             This is to allow Renderables to use a chosen Technique if they wish, otherwise
             they will use the best Technique available for the Material they are using.
         */
-        virtual Technique* getTechnique(void) const { return getMaterial()->getBestTechnique(0, this); }
+        virtual Technique* getTechnique() const { return getMaterial()->getBestTechnique(0, this); }
         /** Gets the render operation required to send this object to the frame buffer.
         */
         virtual void getRenderOperation(RenderOperation& op) = 0;
@@ -146,7 +146,7 @@ namespace Ogre {
             If a renderable does not use vertex blending this method returns 1, which is the default for 
             simplicity.
         */
-        virtual unsigned short getNumWorldTransforms(void) const { return 1; }
+        virtual unsigned short getNumWorldTransforms() const { return 1; }
 
         /** Sets whether or not to use an 'identity' projection.
         @remarks
@@ -171,7 +171,7 @@ namespace Ogre {
             need not change this.
         @see Renderable::setUseIdentityProjection
         */
-        bool getUseIdentityProjection(void) const { return mUseIdentityProjection; }
+        bool getUseIdentityProjection() const { return mUseIdentityProjection; }
 
         /** Sets whether or not to use an 'identity' view.
         @remarks
@@ -196,7 +196,7 @@ namespace Ogre {
             Normal renderables need not change this.
         @see Renderable::setUseIdentityView
         */
-        bool getUseIdentityView(void) const { return mUseIdentityView; }
+        bool getUseIdentityView() const { return mUseIdentityView; }
 
         /** Returns the squared distance between the camera and this renderable.
 
@@ -209,7 +209,7 @@ namespace Ogre {
         @remarks
             Directional lights, which have no position, will always be first on this list.
         */
-        virtual const LightList& getLights(void) const = 0;
+        virtual const LightList& getLights() const = 0;
 
         /** Method which reports whether this renderable would normally cast a
             shadow. 
@@ -217,7 +217,7 @@ namespace Ogre {
             Subclasses should override this if they could have been used to 
             generate a shadow.
         */
-        virtual bool getCastsShadows(void) const { return false; }
+        virtual bool getCastsShadows() const { return false; }
 
         /** Sets a custom parameter for this Renderable, which may be used to 
             drive calculations for this specific Renderable, like GPU program parameters.
@@ -294,7 +294,7 @@ namespace Ogre {
         /** Gets whether this renderable's chosen detail level can be
             overridden (downgraded) by the camera setting. 
         */
-        bool getPolygonModeOverrideable(void) const
+        bool getPolygonModeOverrideable() const
         {
             return mPolygonModeOverrideable;
         }

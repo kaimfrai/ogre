@@ -120,7 +120,7 @@ namespace Ogre
         
         /** Destroys the window.
         */
-        virtual void destroy(void) = 0;
+        virtual void destroy() = 0;
 
         /** Alter the size of the window.
         */
@@ -139,7 +139,7 @@ namespace Ogre
 
         /** Indicates whether the window is visible (not minimized or obscured)
         */
-        virtual bool isVisible(void) const { return true; }
+        virtual bool isVisible() const { return true; }
 
         /** Set the visibility state
         */
@@ -148,7 +148,7 @@ namespace Ogre
 
         /** Indicates whether the window was set to hidden (not displayed)
         */
-        virtual bool isHidden(void) const { return false; }
+        virtual bool isHidden() const { return false; }
 
         /** Hide (or show) the window. If called with hidden=true, this
             will make the window completely invisible to the user.
@@ -183,11 +183,11 @@ namespace Ogre
 
         /** Overridden from RenderTarget, flags invisible windows as inactive
         */
-        virtual bool isActive(void) const { return mActive && isVisible(); }
+        virtual bool isActive() const { return mActive && isVisible(); }
 
         /** Indicates whether the window has been closed by the user.
         */
-        virtual bool isClosed(void) const { return mClosed; }
+        virtual bool isClosed() const { return mClosed; }
         
         /** Indicates whether the window is the primary window. The
             primary window is special in that it is destroyed when 
@@ -195,11 +195,11 @@ namespace Ogre
             This is the case because it holds the context for vertex,
             index buffers and textures.
         */
-        virtual bool isPrimary(void) const;
+        virtual bool isPrimary() const;
 
         /** Returns true if window is running in fullscreen mode.
         */
-        virtual bool isFullScreen(void) const;
+        virtual bool isFullScreen() const;
 
         /** Overloaded version of getMetrics from RenderTarget, including extra details
             specific to windowing systems. Result is in pixels.

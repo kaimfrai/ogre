@@ -345,7 +345,7 @@ class RenderQueue;
     }
     
     //-----------------------------------------------------------------------
-    void BaseInstanceBatchVTF::updateVertexTexture(void)
+    void BaseInstanceBatchVTF::updateVertexTexture()
     {
         //Now lock the texture and copy the 4x3 matrices!
         HardwareBufferLockGuard matTexLock(mMatrixTexture->getBuffer(), HardwareBuffer::HBL_DISCARD);
@@ -458,7 +458,7 @@ class RenderQueue;
         *xform = Matrix4::IDENTITY;
     }
     //-----------------------------------------------------------------------
-    unsigned short BaseInstanceBatchVTF::getNumWorldTransforms(void) const
+    unsigned short BaseInstanceBatchVTF::getNumWorldTransforms() const
     {
         return 1;
     }

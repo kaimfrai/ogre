@@ -74,7 +74,7 @@ namespace Ogre
         return mAnimationName;
     }
     //---------------------------------------------------------------------
-    Real AnimationState::getTimePosition(void) const
+    Real AnimationState::getTimePosition() const
     {
         return mTimePos;
     }
@@ -112,7 +112,7 @@ namespace Ogre
         mLength = len;
     }
     //---------------------------------------------------------------------
-    Real AnimationState::getWeight(void) const
+    Real AnimationState::getWeight() const
     {
         return mWeight;
     }
@@ -130,12 +130,12 @@ namespace Ogre
         setTimePosition(mTimePos + offset);
     }
     //---------------------------------------------------------------------
-    bool AnimationState::hasEnded(void) const
+    bool AnimationState::hasEnded() const
     {
         return (mTimePos >= mLength && !mLoop);
     }
     //---------------------------------------------------------------------
-    bool AnimationState::getEnabled(void) const
+    bool AnimationState::getEnabled() const
     {
         return mEnabled;
     }
@@ -276,7 +276,7 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    void AnimationStateSet::removeAllAnimationStates(void)
+    void AnimationStateSet::removeAllAnimationStates()
     {
         for (AnimationStateMap::iterator i = mAnimationStates.begin();
             i != mAnimationStates.end(); ++i)
@@ -322,7 +322,7 @@ namespace Ogre
         return mAnimationStates.find(name) != mAnimationStates.end();
     }
     //---------------------------------------------------------------------
-    AnimationStateIterator AnimationStateSet::getAnimationStateIterator(void)
+    AnimationStateIterator AnimationStateSet::getAnimationStateIterator()
     {
         // returned iterator not threadsafe, noted in header
         return AnimationStateIterator(
@@ -362,7 +362,7 @@ namespace Ogre
         target->mDirtyFrameNumber = mDirtyFrameNumber;
     }
     //---------------------------------------------------------------------
-    void AnimationStateSet::_notifyDirty(void)
+    void AnimationStateSet::_notifyDirty()
     {
         ++mDirtyFrameNumber;
     }

@@ -49,11 +49,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> HardwareBufferManager* Singleton<HardwareBufferManager>::msSingleton = 0;
-    HardwareBufferManager* HardwareBufferManager::getSingletonPtr(void)
+    HardwareBufferManager* HardwareBufferManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    HardwareBufferManager& HardwareBufferManager::getSingleton(void)
+    HardwareBufferManager& HardwareBufferManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -86,7 +86,7 @@ namespace Ogre {
         // No need to destroy temp buffers - they will be destroyed automatically.
     }
     //-----------------------------------------------------------------------
-    VertexDeclaration* HardwareBufferManagerBase::createVertexDeclaration(void)
+    VertexDeclaration* HardwareBufferManagerBase::createVertexDeclaration()
     {
         VertexDeclaration* decl = createVertexDeclarationImpl();
         mVertexDeclarations.insert(decl);
@@ -100,7 +100,7 @@ namespace Ogre {
         destroyVertexDeclarationImpl(decl);
     }
     //-----------------------------------------------------------------------
-    VertexBufferBinding* HardwareBufferManagerBase::createVertexBufferBinding(void)
+    VertexBufferBinding* HardwareBufferManagerBase::createVertexBufferBinding()
     {
         VertexBufferBinding* ret = createVertexBufferBindingImpl();
         mVertexBufferBindings.insert(ret);
@@ -115,7 +115,7 @@ namespace Ogre {
         destroyVertexBufferBindingImpl(binding);
     }
     //-----------------------------------------------------------------------
-    VertexDeclaration* HardwareBufferManagerBase::createVertexDeclarationImpl(void)
+    VertexDeclaration* HardwareBufferManagerBase::createVertexDeclarationImpl()
     {
         return new VertexDeclaration();
     }
@@ -125,7 +125,7 @@ namespace Ogre {
         delete decl;
     }
     //-----------------------------------------------------------------------
-    VertexBufferBinding* HardwareBufferManagerBase::createVertexBufferBindingImpl(void)
+    VertexBufferBinding* HardwareBufferManagerBase::createVertexBufferBindingImpl()
     {
         return new VertexBufferBinding();
     }
@@ -135,7 +135,7 @@ namespace Ogre {
         delete binding;
     }
     //-----------------------------------------------------------------------
-    void HardwareBufferManagerBase::destroyAllDeclarations(void)
+    void HardwareBufferManagerBase::destroyAllDeclarations()
     {
         VertexDeclarationList::iterator decl;
         for (decl = mVertexDeclarations.begin(); decl != mVertexDeclarations.end(); ++decl)
@@ -145,7 +145,7 @@ namespace Ogre {
         mVertexDeclarations.clear();
     }
     //-----------------------------------------------------------------------
-    void HardwareBufferManagerBase::destroyAllBindings(void)
+    void HardwareBufferManagerBase::destroyAllBindings()
     {
         VertexBufferBindingList::iterator bind;
         for (bind = mVertexBufferBindings.begin(); bind != mVertexBufferBindings.end(); ++bind)
@@ -232,7 +232,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void HardwareBufferManagerBase::_freeUnusedBufferCopies(void)
+    void HardwareBufferManagerBase::_freeUnusedBufferCopies()
     {
         size_t numFreed = 0;
 
@@ -406,7 +406,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     //-----------------------------------------------------------------------------
     //-----------------------------------------------------------------------------
-    TempBlendedBufferInfo::~TempBlendedBufferInfo(void)
+    TempBlendedBufferInfo::~TempBlendedBufferInfo()
     {
         // check that temp buffers have been released
         if (destPositionBuffer)

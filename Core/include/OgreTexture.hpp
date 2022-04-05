@@ -147,11 +147,11 @@ class ResourceManager;
 
         /** Gets the type of texture 
         */
-        TextureType getTextureType(void) const { return mTextureType; }
+        TextureType getTextureType() const { return mTextureType; }
 
         /** Gets the number of mipmaps to be used for this texture.
         */
-        uint32 getNumMipmaps(void) const {return mNumMipmaps;}
+        uint32 getNumMipmaps() const {return mNumMipmaps;}
 
         /** Sets the number of mipmaps to be used for this texture.
             @note
@@ -168,11 +168,11 @@ class ResourceManager;
         @remarks
             Will only be accurate after texture load, or createInternalResources
         */
-        bool getMipmapsHardwareGenerated(void) const { return mMipmapsHardwareGenerated; }
+        bool getMipmapsHardwareGenerated() const { return mMipmapsHardwareGenerated; }
 
         /** Returns the gamma adjustment factor applied to this texture on loading.
         */
-        float getGamma(void) const { return mGamma; }
+        float getGamma() const { return mGamma; }
 
         /** Sets the gamma adjustment factor applied to this texture on loading the
             data.
@@ -229,27 +229,27 @@ class ResourceManager;
 
         /** Returns the height of the texture.
         */
-        uint32 getHeight(void) const { return mHeight; }
+        uint32 getHeight() const { return mHeight; }
 
         /** Returns the width of the texture.
         */
-        uint32 getWidth(void) const { return mWidth; }
+        uint32 getWidth() const { return mWidth; }
 
         /** Returns the depth of the texture (only applicable for 3D textures).
         */
-        uint32 getDepth(void) const { return mDepth; }
+        uint32 getDepth() const { return mDepth; }
 
         /** Returns the height of the original input texture (may differ due to hardware requirements).
         */
-        uint32 getSrcHeight(void) const { return mSrcHeight; }
+        uint32 getSrcHeight() const { return mSrcHeight; }
 
         /** Returns the width of the original input texture (may differ due to hardware requirements).
         */
-        uint32 getSrcWidth(void) const { return mSrcWidth; }
+        uint32 getSrcWidth() const { return mSrcWidth; }
 
         /** Returns the original depth of the input texture (only applicable for 3D textures).
         */
-        uint32 getSrcDepth(void) const { return mSrcDepth; }
+        uint32 getSrcDepth() const { return mSrcDepth; }
 
         /** Set the height of the texture; can only do this before load();
         */
@@ -291,10 +291,10 @@ class ResourceManager;
             or if you use one of the self-contained load...() methods, then it will be
             called for you.
         */
-        void createInternalResources(void);
+        void createInternalResources();
 
         /// @deprecated use unload() instead
-        void freeInternalResources(void);
+        void freeInternalResources();
         
         /** Copies (and maybe scales to fit) the contents of this texture to
             another texture. */
@@ -335,7 +335,7 @@ class ResourceManager;
         }
 
         /** Returns the desired pixel format for the texture surface. */
-        PixelFormat getDesiredFormat(void) const
+        PixelFormat getDesiredFormat() const
         {
             return mDesiredFormat;
         }
@@ -343,7 +343,7 @@ class ResourceManager;
         /** Returns the pixel format of the original input texture (may differ due to
             hardware requirements and pixel format conversion).
         */
-        PixelFormat getSrcFormat(void) const
+        PixelFormat getSrcFormat() const
         {
             return mSrcFormat;
         }
@@ -352,7 +352,7 @@ class ResourceManager;
         void setFormat(PixelFormat pf);
 
         /** Returns true if the texture has an alpha layer. */
-        bool hasAlpha(void) const;
+        bool hasAlpha() const;
 
         /** Sets desired bit depth for integer pixel format textures.
 
@@ -363,7 +363,7 @@ class ResourceManager;
 
         /** gets desired bit depth for integer pixel format textures.
         */
-        ushort getDesiredIntegerBitDepth(void) const;
+        ushort getDesiredIntegerBitDepth() const;
 
         /** Sets desired bit depth for float pixel format textures.
 
@@ -374,7 +374,7 @@ class ResourceManager;
 
         /** gets desired bit depth for float pixel format textures.
         */
-        ushort getDesiredFloatBitDepth(void) const;
+        ushort getDesiredFloatBitDepth() const;
 
         /** Sets desired bit depth for integer and float pixel format.
         */
@@ -499,19 +499,19 @@ class ResourceManager;
         void loadImpl();
 
         /// @copydoc Resource::calculateSize
-        size_t calculateSize(void) const;
+        size_t calculateSize() const;
         
 
         /** Implementation of creating internal texture resources 
         */
-        virtual void createInternalResourcesImpl(void) = 0;
+        virtual void createInternalResourcesImpl() = 0;
 
         /** Implementation of freeing internal texture resources 
         */
-        virtual void freeInternalResourcesImpl(void) = 0;
+        virtual void freeInternalResourcesImpl() = 0;
 
         /** Default implementation of unload which calls freeInternalResources */
-        void unloadImpl(void);
+        void unloadImpl();
 
         /** Identify the source file type as a string, either from the extension
             or from a magic number.

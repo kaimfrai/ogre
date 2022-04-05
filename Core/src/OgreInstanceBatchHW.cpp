@@ -244,7 +244,7 @@ class Camera;
         return retVal;
     }
     //-----------------------------------------------------------------------
-    void InstanceBatchHW::_boundsDirty(void)
+    void InstanceBatchHW::_boundsDirty()
     {
         //Don't update if we're static, but still mark we're dirty
         if( !mBoundsDirty && !mKeepStatic )
@@ -274,7 +274,7 @@ class Camera;
         *xform = Matrix4::IDENTITY;
     }
     //-----------------------------------------------------------------------
-    unsigned short InstanceBatchHW::getNumWorldTransforms(void) const
+    unsigned short InstanceBatchHW::getNumWorldTransforms() const
     {
         return 1;
     }

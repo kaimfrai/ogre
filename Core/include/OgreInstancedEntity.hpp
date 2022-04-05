@@ -209,17 +209,17 @@ class SkeletonInstance;
 
         InstanceBatch* _getOwner() const { return mBatchOwner; }
 
-        const String& getMovableType(void) const;
+        const String& getMovableType() const;
 
-        const AxisAlignedBox& getBoundingBox(void) const;
-        Real getBoundingRadius(void) const;
+        const AxisAlignedBox& getBoundingBox() const;
+        Real getBoundingRadius() const;
 
         /** This is used by our batch owner to get the closest entity's depth, returns infinity
             when not attached to a scene node */
         Real getSquaredViewDepth( const Camera* cam ) const;
 
         /// Overridden so we can tell the InstanceBatch it needs to update it's bounds
-        void _notifyMoved(void);
+        void _notifyMoved();
         void _notifyAttached( Node* parent, bool isTagPoint = false );
 
         /// Do nothing, InstanceBatch takes care of this.
@@ -227,21 +227,21 @@ class SkeletonInstance;
         void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false ) {}
 
         /** @see Entity::hasSkeleton */
-        bool hasSkeleton(void) const { return mSkeletonInstance != 0; }
+        bool hasSkeleton() const { return mSkeletonInstance != 0; }
         /** @see Entity::getSkeleton */
-        SkeletonInstance* getSkeleton(void) const { return mSkeletonInstance; }
+        SkeletonInstance* getSkeleton() const { return mSkeletonInstance; }
 
         /** @see Entity::getAnimationState */
         AnimationState* getAnimationState(const String& name) const;
         /** @see Entity::getAllAnimationStates */
-        AnimationStateSet* getAllAnimationStates(void) const;
+        AnimationStateSet* getAllAnimationStates() const;
 
         /** Called by InstanceBatch in <i>his</i> _updateRenderQueue to tell us we need
             to calculate our bone matrices.
             @remarks Assumes it has a skeleton (mSkeletonInstance != 0)
             @return true if something was actually updated
         */
-        virtual bool _updateAnimation(void);
+        virtual bool _updateAnimation();
 
         /** Sets the transformation look up number */
         void setTransformLookupNumber(uint16 num) { mTransformLookupNumber = num;}
@@ -273,7 +273,7 @@ class SkeletonInstance;
         void setInUse(bool used);
 
         /** Returns the world transform of the instanced entity including local transform */
-        virtual const Affine3& _getParentNodeFullTransform(void) const {
+        virtual const Affine3& _getParentNodeFullTransform() const {
             assert((!mNeedTransformUpdate || !mUseLocalTransform) && "Transform data should be updated at this point");
             return mUseLocalTransform ? mFullLocalTransform :
                 mParentNode ? mParentNode->_getFullTransform() : Affine3::IDENTITY;
@@ -287,7 +287,7 @@ class SkeletonInstance;
         }
 
         /** @copydoc MovableObject::isInScene */
-        virtual bool isInScene(void) const
+        virtual bool isInScene() const
         {
             //We assume that the instanced entity is in the scene if it is in use
             //It is in the scene whether it has a parent node or not

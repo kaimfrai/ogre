@@ -43,9 +43,9 @@ class ResourceManager;
     {
         virtual ~GLGpuProgramBase() {}
         /// Execute the binding functions for this program
-        virtual void bindProgram(void) = 0;
+        virtual void bindProgram() = 0;
         /// Execute the binding functions for this program
-        virtual void unbindProgram(void) = 0;
+        virtual void unbindProgram() = 0;
         /// Execute the param binding functions for this program
         virtual void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask) = 0;
         /// Test whether attribute index for a given semantic is valid
@@ -73,19 +73,19 @@ class ResourceManager;
         virtual ~GLArbGpuProgram();
 
         /// Execute the binding functions for this program
-        void bindProgram(void);
+        void bindProgram();
         /// Execute the unbinding functions for this program
-        void unbindProgram(void);
+        void unbindProgram();
         /// Execute the param binding functions for this program
         void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask);
 
         /// Get the GL type for the program
-        GLenum getProgramType(void) const;
+        GLenum getProgramType() const;
 
     protected:
-        void loadFromSource(void);
+        void loadFromSource();
         /// @copydoc Resource::unloadImpl
-        void unloadImpl(void);
+        void unloadImpl();
 
     };
 

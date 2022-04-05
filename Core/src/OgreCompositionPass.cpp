@@ -170,7 +170,7 @@ void CompositionPass::setMaterialScheme(const String& schemeName)
     mRenderScene.materialScheme = schemeName;
 }
 //-----------------------------------------------------------------------
-const String& CompositionPass::getMaterialScheme(void) const
+const String& CompositionPass::getMaterialScheme() const
 {
     return mRenderScene.materialScheme;
 }
@@ -280,7 +280,7 @@ const String& CompositionPass::getCustomType() const
     return mCustomType;
 }
 //-----------------------------------------------------------------------
-bool CompositionPass::_isSupported(void)
+bool CompositionPass::_isSupported()
 {
     // A pass is supported if material referenced have a supported technique
 

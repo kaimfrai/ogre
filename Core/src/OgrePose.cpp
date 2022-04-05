@@ -87,7 +87,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void Pose::clearVertices(void)
+    void Pose::clearVertices()
     {
         mVertexOffsetMap.clear();
         mNormalsMap.clear();
@@ -165,7 +165,7 @@ namespace Ogre {
         return mBuffer;
     }
     //---------------------------------------------------------------------
-    Pose* Pose::clone(void) const
+    Pose* Pose::clone() const
     {
         Pose* newPose = new Pose(mTarget, mName);
         newPose->mVertexOffsetMap = mVertexOffsetMap;

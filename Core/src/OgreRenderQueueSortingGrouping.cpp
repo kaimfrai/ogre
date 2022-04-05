@@ -126,7 +126,7 @@ namespace {
         
     }
     //-----------------------------------------------------------------------
-    void RenderPriorityGroup::resetOrganisationModes(void)
+    void RenderPriorityGroup::resetOrganisationModes()
     {
         mSolidsBasic.resetOrganisationModes();
         mSolidsDiffuseSpecular.resetOrganisationModes();
@@ -144,7 +144,7 @@ namespace {
         mTransparentsUnsorted.addOrganisationMode(om);
     }
     //-----------------------------------------------------------------------
-    void RenderPriorityGroup::defaultOrganisationMode(void)
+    void RenderPriorityGroup::defaultOrganisationMode()
     {
         resetOrganisationModes();
         addOrganisationMode(QueuedRenderableCollection::OM_PASS_GROUP);
@@ -273,7 +273,7 @@ namespace {
         mTransparents.removePassGroup(p); // shouldn't be any, but for completeness
     }   
     //-----------------------------------------------------------------------
-    void RenderPriorityGroup::clear(void)
+    void RenderPriorityGroup::clear()
     {
         // Delete queue groups which are using passes which are to be
         // deleted, we won't need these any more and they clutter up 
@@ -335,13 +335,13 @@ namespace {
         mTransparents.merge( rhs->mTransparents );
     }
     //-----------------------------------------------------------------------
-    QueuedRenderableCollection::QueuedRenderableCollection(void)
+    QueuedRenderableCollection::QueuedRenderableCollection()
         :mOrganisationMode(0)
     {
     }
 
     //-----------------------------------------------------------------------
-    void QueuedRenderableCollection::clear(void)
+    void QueuedRenderableCollection::clear()
     {
         PassGroupRenderableMap::iterator i, iend;
         iend = mGrouped.end();

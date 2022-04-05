@@ -93,7 +93,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgram::~GLSLLinkProgram(void)
+    GLSLLinkProgram::~GLSLLinkProgram()
     {
         glDeleteObjectARB((GLhandleARB)mGLProgramHandle);
 
@@ -102,7 +102,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void GLSLLinkProgram::activate(void)
+    void GLSLLinkProgram::activate()
     {
         if (!mLinked)
         {           
@@ -171,7 +171,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void GLSLLinkProgram::extractAttributes(void)
+    void GLSLLinkProgram::extractAttributes()
     {
         size_t numAttribs = sizeof(msCustomAttributes)/sizeof(CustomAttribute);
 
@@ -200,7 +200,7 @@ namespace Ogre {
         return mValidAttributes.find(getFixedAttributeIndex(semantic, index)) != mValidAttributes.end();
     }
     //-----------------------------------------------------------------------
-    void GLSLLinkProgram::buildGLUniformReferences(void)
+    void GLSLLinkProgram::buildGLUniformReferences()
     {
         if (!mUniformRefsBuilt)
         {

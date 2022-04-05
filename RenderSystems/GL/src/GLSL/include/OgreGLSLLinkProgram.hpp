@@ -52,9 +52,9 @@ class GLUniformCache;
         GLUniformCache *mUniformCache;
 
         /// Build uniform references from active named uniforms
-        void buildGLUniformReferences(void);
+        void buildGLUniformReferences();
         /// Extract attributes
-        void extractAttributes(void);
+        void extractAttributes();
 
         typedef std::set<GLuint> AttributeSet;
         /// Custom attribute bindings
@@ -67,12 +67,12 @@ class GLUniformCache;
     public:
         /// Constructor should only be used by GLSLLinkProgramManager
         explicit GLSLLinkProgram(const GLShaderList& shaders);
-        ~GLSLLinkProgram(void);
+        ~GLSLLinkProgram();
 
         /** Makes a program object active by making sure it is linked and then putting it in use.
 
         */
-        void activate(void);
+        void activate();
 
         bool isAttributeValid(VertexElementSemantic semantic, uint index);
         
@@ -82,7 +82,7 @@ class GLUniformCache;
         void updateUniforms(GpuProgramParametersSharedPtr params, uint16 mask, GpuProgramType fromProgType);
 
         /// Get the GL Handle for the program object
-        uint getGLHandle(void) const { return mGLProgramHandle; }
+        uint getGLHandle() const { return mGLProgramHandle; }
     };
 
     }

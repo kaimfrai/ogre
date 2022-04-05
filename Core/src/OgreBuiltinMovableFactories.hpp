@@ -17,7 +17,7 @@ class Rectangle2DFactory : public MovableObjectFactory
 
 public:
     static const String FACTORY_TYPE_NAME;
-    const String& getType(void) const override { return FACTORY_TYPE_NAME; }
+    const String& getType() const override { return FACTORY_TYPE_NAME; }
 };
 } // namespace Ogre
 

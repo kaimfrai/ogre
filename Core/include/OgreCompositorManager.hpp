@@ -86,7 +86,7 @@ class Viewport;
 
         /** Initialises the Compositor manager, which also triggers it to
             parse all available .compositor scripts. */
-        void initialise(void);
+        void initialise();
 
         /**
          * Create a new compositor
@@ -140,7 +140,7 @@ class Viewport;
         Renderable *_getTexturedRectangle2D();
 
         /** Overridden from ResourceManager since we have to clean up chains too. */
-        void removeAll(void);
+        void removeAll();
 
         /** Internal method for forcing all active compositors to recreate their resources. */
         void _reconstructAllCompositorResources();
@@ -203,10 +203,10 @@ class Viewport;
         void _relocateChain(Viewport* sourceVP, Viewport* destVP);
 
         /// @copydoc Singleton::getSingleton()
-        static CompositorManager& getSingleton(void);
+        static CompositorManager& getSingleton();
 
         /// @copydoc Singleton::getSingleton()
-        static CompositorManager* getSingletonPtr(void);
+        static CompositorManager* getSingletonPtr();
     
     private:
         Resource* createImpl(const String& name, ResourceHandle handle,

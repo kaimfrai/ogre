@@ -64,11 +64,11 @@ public:
     virtual ~GLSLProgramCommon() {}
 
     /// Get the GL Handle for the program object
-    uint getGLProgramHandle(void) const { return mGLProgramHandle; }
+    uint getGLProgramHandle() const { return mGLProgramHandle; }
 
     /** Makes a program object active by making sure it is linked and then putting it in use.
      */
-    virtual void activate(void) = 0;
+    virtual void activate() = 0;
 
     /// query if the program is using the given shader
     bool isUsingShader(GLSLShaderCommon* shader) const { return mShaders[shader->getType()] == shader; }
@@ -102,7 +102,7 @@ protected:
     int mLinked;
 
     /// Compiles and links the vertex and fragment programs
-    virtual void compileAndLink(void) = 0;
+    virtual void compileAndLink() = 0;
 
     uint32 getCombinedHash();
     String getCombinedName();

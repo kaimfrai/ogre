@@ -197,7 +197,7 @@ class VertexDeclaration;
 
         /** Returns the name of the rendering system.
         */
-        virtual const String& getName(void) const = 0;
+        virtual const String& getName() const = 0;
 
         /** Returns the details of this API's configuration options
         @remarks
@@ -263,7 +263,7 @@ class VertexDeclaration;
 
         /** Create an object for performing hardware occlusion queries. 
         */
-        virtual HardwareOcclusionQuery* createHardwareOcclusionQuery(void) = 0;
+        virtual HardwareOcclusionQuery* createHardwareOcclusionQuery() = 0;
 
         /** Destroy a hardware occlusion query object. 
         */
@@ -273,7 +273,7 @@ class VertexDeclaration;
         @note
         If the returned string is empty, there are no problems.
         */
-        virtual String validateConfigOptions(void) { return BLANKSTRING; }
+        virtual String validateConfigOptions() { return BLANKSTRING; }
 
         /** Start up the renderer using the settings selected (Or the defaults if none have been selected).
 
@@ -304,11 +304,11 @@ class VertexDeclaration;
 
         /** Restart the renderer (normally following a change in settings).
         */
-        void reinitialise(void);
+        void reinitialise();
 
         /** Shutdown the renderer and cleanup resources.
         */
-        virtual void shutdown(void);
+        virtual void shutdown();
 
         virtual const GpuProgramParametersPtr& getFixedFunctionParams(TrackVertexColourType tracking,
                                                                       FogMode fog)
@@ -612,7 +612,7 @@ class VertexDeclaration;
         * Will usually be called by the SceneManager, don't use this manually unless you know what
         * you are doing.
         */
-        virtual RenderSystemContext* _pauseFrame(void);
+        virtual RenderSystemContext* _pauseFrame();
         /**
         * Resume rendering for a frame. This has to be called after a _pauseFrame call
         * Will usually be called by the SceneManager, don't use this manually unless you know what
@@ -624,7 +624,7 @@ class VertexDeclaration;
         /**
         * Ends rendering of a frame to the current viewport.
         */
-        virtual void _endFrame(void) = 0;
+        virtual void _endFrame() = 0;
         /**
         Sets the provided viewport as the active one for future
         rendering operations. This viewport is aware of it's own
@@ -634,7 +634,7 @@ class VertexDeclaration;
         */
         virtual void _setViewport(Viewport *vp) = 0;
         /** Get the current active viewport for rendering. */
-        virtual Viewport* _getViewport(void);
+        virtual Viewport* _getViewport();
 
         /** Sets the culling mode for the render system based on the 'vertex winding'.
         A typical way for the rendering engine to cull triangles is based on the
@@ -649,7 +649,7 @@ class VertexDeclaration;
         */
         virtual void _setCullingMode(CullingMode mode) = 0;
 
-        virtual CullingMode _getCullingMode(void) const;
+        virtual CullingMode _getCullingMode() const;
 
         /** Sets the mode of operation for depth buffer tests from this point onwards.
         Sometimes you may wish to alter the behaviour of the depth buffer to achieve
@@ -698,13 +698,13 @@ class VertexDeclaration;
         virtual void _setDepthClamp(bool enable) {}
 
         /** The RenderSystem will keep a count of tris rendered, this resets the count. */
-        virtual void _beginGeometryCount(void);
+        virtual void _beginGeometryCount();
         /** Reports the number of tris rendered since the last _beginGeometryCount call. */
-        virtual unsigned int _getFaceCount(void) const;
+        virtual unsigned int _getFaceCount() const;
         /** Reports the number of batches rendered since the last _beginGeometryCount call. */
-        virtual unsigned int _getBatchCount(void) const;
+        virtual unsigned int _getBatchCount() const;
         /** Reports the number of vertices passed to the renderer since the last _beginGeometryCount call. */
-        virtual unsigned int _getVertexCount(void) const;
+        virtual unsigned int _getVertexCount() const;
 
         /** Converts a uniform projection matrix to suitable for this render system.
         @remarks
@@ -761,12 +761,12 @@ class VertexDeclaration;
         virtual void _dispatchCompute(const Vector3i& workgroupDim) {}
 
         /** Gets the capabilities of the render system. */
-        const RenderSystemCapabilities* getCapabilities(void) const { return mCurrentCapabilities; }
+        const RenderSystemCapabilities* getCapabilities() const { return mCurrentCapabilities; }
 
 
         /** Returns the driver version.
         */
-        const DriverVersion& getDriverVersion(void) const { return mDriverVersion; }
+        const DriverVersion& getDriverVersion() const { return mDriverVersion; }
 
         /** Returns the default material scheme used by the render system.
             Systems that use the RTSS to emulate a fixed function pipeline 
@@ -777,7 +777,7 @@ class VertexDeclaration;
             viewports.  It is a necessary step on these render systems for
             render textures to be rendered into properly.
         */
-        const String& _getDefaultViewportMaterialScheme(void) const;
+        const String& _getDefaultViewportMaterialScheme() const;
 
         /** Binds a given GpuProgram (but not the parameters). 
         @remarks Only one GpuProgram of each type can be bound at once, binding another
@@ -815,7 +815,7 @@ class VertexDeclaration;
         virtual void setClipPlanes(const PlaneList& clipPlanes);
 
         /** Utility method for initialising all render targets attached to this rendering system. */
-        void _initRenderTargets(void);
+        void _initRenderTargets();
 
         /** Utility method to notify all render targets that a camera has been removed, 
         in case they were referring to it as their viewer. 
@@ -835,7 +835,7 @@ class VertexDeclaration;
         /** Indicates whether or not the vertex windings set will be inverted for the current render (e.g. reflections)
         @see RenderSystem::setInvertVertexWinding
         */
-        bool getInvertVertexWinding(void) const;
+        bool getInvertVertexWinding() const;
 
         /** Sets the 'scissor region' i.e. the region of the target in which rendering can take place.
         @remarks
@@ -866,7 +866,7 @@ class VertexDeclaration;
         the horizontal direction.
         @note only non-zero with D3D9
         */
-        virtual Real getHorizontalTexelOffset(void) { return 0.0f; }
+        virtual Real getHorizontalTexelOffset() { return 0.0f; }
         /** Returns the vertical texel offset value required for mapping 
         texel origins to pixel origins in this rendersystem.
         @remarks
@@ -877,7 +877,7 @@ class VertexDeclaration;
         the vertical direction.
         @note only non-zero with D3D9
         */
-        virtual Real getVerticalTexelOffset(void) { return 0.0f; }
+        virtual Real getVerticalTexelOffset() { return 0.0f; }
 
         /** Gets the minimum (closest) depth value to be used when rendering
         using identity transforms.
@@ -887,7 +887,7 @@ class VertexDeclaration;
         rendersystem. This method lets you retrieve the correct value.
         @see Renderable::getUseIdentityView, Renderable::getUseIdentityProjection
         */
-        virtual Real getMinimumDepthInputValue(void) = 0;
+        virtual Real getMinimumDepthInputValue() = 0;
         /** Gets the maximum (farthest) depth value to be used when rendering
         using identity transforms.
         @remarks
@@ -896,7 +896,7 @@ class VertexDeclaration;
         rendersystem. This method lets you retrieve the correct value.
         @see Renderable::getUseIdentityView, Renderable::getUseIdentityProjection
         */
-        virtual Real getMaximumDepthInputValue(void) = 0;
+        virtual Real getMaximumDepthInputValue() = 0;
         /** set the current multi pass count value.  This must be set prior to 
         calling _render() if multiple renderings of the same pass state are 
         required.
@@ -953,7 +953,7 @@ class VertexDeclaration;
         */
         static void setSharedListener(Listener* listener);
         /** Retrieve a pointer to the current shared render system listener. */
-        static Listener* getSharedListener(void);
+        static Listener* getSharedListener();
 
         /** Adds a listener to the custom events that this render system can raise.
         @remarks
@@ -977,7 +977,7 @@ class VertexDeclaration;
         can raise.
         @see RenderSystem::addListener
         */
-        const StringVector& getRenderSystemEvents(void) const { return mEventNames; }
+        const StringVector& getRenderSystemEvents() const { return mEventNames; }
 
         /** Tell the rendersystem to perform any prep tasks it needs to directly
         before other threads which might access the rendering API are registered.
@@ -1032,7 +1032,7 @@ class VertexDeclaration;
         /**
         * Ends the currently active GPU profiling event.
         */
-        virtual void endProfileEvent( void ) = 0;
+        virtual void endProfileEvent( ) = 0;
 
         /**
         * Marks an instantaneous event for graphics profilers.  
@@ -1121,7 +1121,7 @@ class VertexDeclaration;
         pass iteration auto constant entry
         @return True if more iterations are required
         */
-        bool updatePassIterationRenderState(void);
+        bool updatePassIterationRenderState();
 
         /// List of names of events this rendersystem may raise
         StringVector mEventNames;

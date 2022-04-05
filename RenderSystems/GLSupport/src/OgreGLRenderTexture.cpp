@@ -93,11 +93,11 @@ namespace Ogre {
         return mColour[0].buffer->getFormat();
     }
 
-    GLRTTManager* GLRTTManager::getSingletonPtr(void)
+    GLRTTManager* GLRTTManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    GLRTTManager& GLRTTManager::getSingleton(void)
+    GLRTTManager& GLRTTManager::getSingleton()
     {
         assert( msSingleton );  return ( *msSingleton );
     }

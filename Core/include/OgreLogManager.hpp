@@ -137,9 +137,9 @@ namespace Ogre
         /// sets the minimal #LogMessageLevel for the default log
         void setMinLogLevel(LogMessageLevel lml);
         /// @copydoc Singleton::getSingleton()
-        static LogManager& getSingleton(void);
+        static LogManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static LogManager* getSingletonPtr(void);
+        static LogManager* getSingletonPtr();
 
     };
 

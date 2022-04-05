@@ -216,7 +216,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    void SceneNode::detachAllObjects(void)
+    void SceneNode::detachAllObjects()
     {
         for (ObjectMap::iterator itr = mObjectsByName.begin(); itr != mObjectsByName.end(); ++itr )
         {
@@ -227,7 +227,7 @@ namespace Ogre {
         needUpdate();
     }
     //-----------------------------------------------------------------------
-    void SceneNode::_updateBounds(void)
+    void SceneNode::_updateBounds()
     {
         // Reset bounds first
         mWorldAABB.setNull();
@@ -284,7 +284,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void SceneNode::updateFromParentImpl(void) const
+    void SceneNode::updateFromParentImpl() const
     {
         Node::updateFromParentImpl();
 
@@ -295,7 +295,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    Node* SceneNode::createChildImpl(void)
+    Node* SceneNode::createChildImpl()
     {
         assert(mCreator);
         return mCreator->createSceneNode();
@@ -332,7 +332,7 @@ namespace Ogre {
                               getChildren().begin());
     }
     //-----------------------------------------------------------------------
-    void SceneNode::removeAndDestroyAllChildren(void)
+    void SceneNode::removeAndDestroyAllChildren()
     {
         // do not store iterators (invalidated by
         // SceneManager::destroySceneNode because it causes removal from parent)
@@ -549,7 +549,7 @@ namespace Ogre {
         setDirection(targetPoint - origin, relativeTo, localDirectionVector);
     }
     //-----------------------------------------------------------------------
-    void SceneNode::_autoTrack(void)
+    void SceneNode::_autoTrack()
     {
         // NB assumes that all scene nodes have been updated
         if (mAutoTrackTarget)
@@ -561,7 +561,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    SceneNode* SceneNode::getParentSceneNode(void) const
+    SceneNode* SceneNode::getParentSceneNode() const
     {
         return static_cast<SceneNode*>(getParent());
     }

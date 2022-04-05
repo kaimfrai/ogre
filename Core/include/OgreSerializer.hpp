@@ -76,7 +76,7 @@ namespace Ogre {
         bool mFlipEndian; /// Default to native endian, derive from header
 
         // Internal methods
-        void writeFileHeader(void);
+        void writeFileHeader();
         void writeChunkHeader(uint16 id, size_t size);
         size_t calcChunkHeaderSize();
         size_t calcStringSize(const String& string);

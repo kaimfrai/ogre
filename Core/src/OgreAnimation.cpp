@@ -69,7 +69,7 @@ class VertexData;
         destroyAllTracks();
     }
     //---------------------------------------------------------------------
-    Real Animation::getLength(void) const
+    Real Animation::getLength() const
     {
         return mLength;
     }
@@ -104,7 +104,7 @@ class VertexData;
         return ret;
     }
     //---------------------------------------------------------------------
-    unsigned short Animation::getNumNodeTracks(void) const
+    unsigned short Animation::getNumNodeTracks() const
     {
         return (unsigned short)mNodeTrackList.size();
     }
@@ -142,7 +142,7 @@ class VertexData;
         }
     }
     //---------------------------------------------------------------------
-    void Animation::destroyAllNodeTracks(void)
+    void Animation::destroyAllNodeTracks()
     {
         NodeTrackList::iterator i;
         for (i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
@@ -179,7 +179,7 @@ class VertexData;
         return ret;
     }
     //---------------------------------------------------------------------
-    unsigned short Animation::getNumNumericTracks(void) const
+    unsigned short Animation::getNumNumericTracks() const
     {
         return (unsigned short)mNumericTrackList.size();
     }
@@ -217,7 +217,7 @@ class VertexData;
         }
     }
     //---------------------------------------------------------------------
-    void Animation::destroyAllNumericTracks(void)
+    void Animation::destroyAllNumericTracks()
     {
         NumericTrackList::iterator i;
         for (i = mNumericTrackList.begin(); i != mNumericTrackList.end(); ++i)
@@ -256,7 +256,7 @@ class VertexData;
         return ret;
     }
     //---------------------------------------------------------------------
-    unsigned short Animation::getNumVertexTracks(void) const
+    unsigned short Animation::getNumVertexTracks() const
     {
         return (unsigned short)mVertexTrackList.size();
     }
@@ -294,7 +294,7 @@ class VertexData;
         }
     }
     //---------------------------------------------------------------------
-    void Animation::destroyAllVertexTracks(void)
+    void Animation::destroyAllVertexTracks()
     {
         VertexTrackList::iterator i;
         for (i = mVertexTrackList.begin(); i != mVertexTrackList.end(); ++i)
@@ -305,14 +305,14 @@ class VertexData;
         _keyFrameListChanged();
     }
     //---------------------------------------------------------------------
-    void Animation::destroyAllTracks(void)
+    void Animation::destroyAllTracks()
     {
         destroyAllNodeTracks();
         destroyAllNumericTracks();
         destroyAllVertexTracks();
     }
     //---------------------------------------------------------------------
-    const String& Animation::getName(void) const
+    const String& Animation::getName() const
     {
         return mName;
     }
@@ -476,7 +476,7 @@ class VertexData;
         mInterpolationMode = im;
     }
     //---------------------------------------------------------------------
-    Animation::InterpolationMode Animation::getInterpolationMode(void) const
+    Animation::InterpolationMode Animation::getInterpolationMode() const
     {
         return mInterpolationMode;
     }
@@ -486,23 +486,23 @@ class VertexData;
         msDefaultInterpolationMode = im;
     }
     //---------------------------------------------------------------------
-    Animation::InterpolationMode Animation::getDefaultInterpolationMode(void)
+    Animation::InterpolationMode Animation::getDefaultInterpolationMode()
     {
         return msDefaultInterpolationMode;
     }
     //---------------------------------------------------------------------
-    const Animation::NodeTrackList& Animation::_getNodeTrackList(void) const
+    const Animation::NodeTrackList& Animation::_getNodeTrackList() const
     {
         return mNodeTrackList;
 
     }
     //---------------------------------------------------------------------
-    const Animation::NumericTrackList& Animation::_getNumericTrackList(void) const
+    const Animation::NumericTrackList& Animation::_getNumericTrackList() const
     {
         return mNumericTrackList;
     }
     //---------------------------------------------------------------------
-    const Animation::VertexTrackList& Animation::_getVertexTrackList(void) const
+    const Animation::VertexTrackList& Animation::_getVertexTrackList() const
     {
         return mVertexTrackList;
     }
@@ -512,7 +512,7 @@ class VertexData;
         mRotationInterpolationMode = im;
     }
     //---------------------------------------------------------------------
-    Animation::RotationInterpolationMode Animation::getRotationInterpolationMode(void) const
+    Animation::RotationInterpolationMode Animation::getRotationInterpolationMode() const
     {
         return mRotationInterpolationMode;
     }
@@ -522,7 +522,7 @@ class VertexData;
         msDefaultRotationInterpolationMode = im;
     }
     //---------------------------------------------------------------------
-    Animation::RotationInterpolationMode Animation::getDefaultRotationInterpolationMode(void)
+    Animation::RotationInterpolationMode Animation::getDefaultRotationInterpolationMode()
     {
         return msDefaultRotationInterpolationMode;
     }
@@ -586,7 +586,7 @@ class VertexData;
         }
     }
     //-----------------------------------------------------------------------
-    void Animation::optimiseVertexTracks(void)
+    void Animation::optimiseVertexTracks()
     {
         // Iterate over the node tracks and identify those with no useful keyframes
         std::list<unsigned short> tracksToDestroy;
@@ -667,7 +667,7 @@ class VertexData;
         return TimeIndex(timePos, static_cast<uint>(std::distance(mKeyFrameTimes.begin(), it)));
     }
     //-----------------------------------------------------------------------
-    void Animation::buildKeyFrameTimeList(void) const
+    void Animation::buildKeyFrameTimeList() const
     {
         NodeTrackList::const_iterator i;
         NumericTrackList::const_iterator j;

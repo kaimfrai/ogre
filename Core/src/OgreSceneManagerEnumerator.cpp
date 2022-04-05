@@ -39,11 +39,11 @@ class RenderSystem;
 
     //-----------------------------------------------------------------------
     template<> SceneManagerEnumerator* Singleton<SceneManagerEnumerator>::msSingleton = 0;
-    SceneManagerEnumerator* SceneManagerEnumerator::getSingletonPtr(void)
+    SceneManagerEnumerator* SceneManagerEnumerator::getSingletonPtr()
     {
         return msSingleton;
     }
-    SceneManagerEnumerator& SceneManagerEnumerator::getSingleton(void)
+    SceneManagerEnumerator& SceneManagerEnumerator::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -228,7 +228,7 @@ class RenderSystem;
     }
 
     //-----------------------------------------------------------------------
-    const SceneManagerEnumerator::Instances& SceneManagerEnumerator::getSceneManagers(void) const
+    const SceneManagerEnumerator::Instances& SceneManagerEnumerator::getSceneManagers() const
     {
         return mInstances;
     }
@@ -244,7 +244,7 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    void SceneManagerEnumerator::shutdownAll(void)
+    void SceneManagerEnumerator::shutdownAll()
     {
         for (Instances::iterator i = mInstances.begin(); i != mInstances.end(); ++i)
         {
@@ -256,7 +256,7 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     const String DefaultSceneManagerFactory::FACTORY_TYPE_NAME = "DefaultSceneManager";
     //-----------------------------------------------------------------------
-    void DefaultSceneManagerFactory::initMetaData(void) const
+    void DefaultSceneManagerFactory::initMetaData() const
     {
         mMetaData.typeName = FACTORY_TYPE_NAME;
         mMetaData.worldGeometrySupported = false;
@@ -278,7 +278,7 @@ class RenderSystem;
     {
     }
     //-----------------------------------------------------------------------
-    const String& DefaultSceneManager::getTypeName(void) const
+    const String& DefaultSceneManager::getTypeName() const
     {
         return DefaultSceneManagerFactory::FACTORY_TYPE_NAME;
     }

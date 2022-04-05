@@ -534,7 +534,7 @@ namespace Ogre {
         }
     }
     //--------------------------------------------------------------------------
-    void StaticGeometry::build(void)
+    void StaticGeometry::build()
     {
         // Make sure there's nothing from previous builds
         destroy();
@@ -565,7 +565,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    void StaticGeometry::destroy(void)
+    void StaticGeometry::destroy()
     {
         // delete the regions
         for (RegionMap::iterator i = mRegionMap.begin();
@@ -577,7 +577,7 @@ namespace Ogre {
         mRegionMap.clear();
     }
     //--------------------------------------------------------------------------
-    void StaticGeometry::reset(void)
+    void StaticGeometry::reset()
     {
         destroy();
         for (QueuedSubMeshList::iterator i = mQueuedSubMeshes.begin();
@@ -639,7 +639,7 @@ namespace Ogre {
         }
     }
     //--------------------------------------------------------------------------
-    uint8 StaticGeometry::getRenderQueueGroup(void) const
+    uint8 StaticGeometry::getRenderQueueGroup() const
     {
         return mRenderQueueID;
     }
@@ -737,7 +737,7 @@ namespace Ogre {
         // shadow renderables are lazy initialized
     }
     //--------------------------------------------------------------------------
-    uint32 StaticGeometry::Region::getTypeFlags(void) const
+    uint32 StaticGeometry::Region::getTypeFlags() const
     {
         return SceneManager::STATICGEOMETRY_TYPE_MASK;
     }
@@ -816,7 +816,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    const String& StaticGeometry::Region::getMovableType(void) const
+    const String& StaticGeometry::Region::getMovableType() const
     {
         static String sType = "StaticGeometry";
         return sType;
@@ -847,12 +847,12 @@ namespace Ogre {
         mCurrentLod = mLodStrategy->getIndex(lodValue, mLodValues);
     }
     //--------------------------------------------------------------------------
-    const AxisAlignedBox& StaticGeometry::Region::getBoundingBox(void) const
+    const AxisAlignedBox& StaticGeometry::Region::getBoundingBox() const
     {
         return mAABB;
     }
     //--------------------------------------------------------------------------
-    Real StaticGeometry::Region::getBoundingRadius(void) const
+    Real StaticGeometry::Region::getBoundingRadius() const
     {
         return mBoundingRadius;
     }
@@ -873,7 +873,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    bool StaticGeometry::Region::isVisible(void) const
+    bool StaticGeometry::Region::isVisible() const
     {
         if(!mVisible || mBeyondFarDistance)
             return false;
@@ -914,7 +914,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    EdgeData* StaticGeometry::Region::getEdgeList(void)
+    EdgeData* StaticGeometry::Region::getEdgeList()
     {
         return mLodBucketList[mCurrentLod]->getEdgeList();
     }
@@ -1329,12 +1329,12 @@ namespace Ogre {
         delete mIndexData;
     }
     //--------------------------------------------------------------------------
-    const MaterialPtr& StaticGeometry::GeometryBucket::getMaterial(void) const
+    const MaterialPtr& StaticGeometry::GeometryBucket::getMaterial() const
     {
         return mParent->getMaterial();
     }
     //--------------------------------------------------------------------------
-    Technique* StaticGeometry::GeometryBucket::getTechnique(void) const
+    Technique* StaticGeometry::GeometryBucket::getTechnique() const
     {
         return mParent->getCurrentTechnique();
     }
@@ -1364,12 +1364,12 @@ namespace Ogre {
             return region->getParentNode()->getSquaredViewDepth(cam->getLodCamera());
     }
     //--------------------------------------------------------------------------
-    const LightList& StaticGeometry::GeometryBucket::getLights(void) const
+    const LightList& StaticGeometry::GeometryBucket::getLights() const
     {
         return mParent->getParent()->getParent()->queryLights();
     }
     //--------------------------------------------------------------------------
-    bool StaticGeometry::GeometryBucket::getCastsShadows(void) const
+    bool StaticGeometry::GeometryBucket::getCastsShadows() const
     {
         return mParent->getParent()->getParent()->getCastShadows();
     }

@@ -521,7 +521,7 @@ namespace Ogre
         return renderedInstances;
     }
     //-----------------------------------------------------------------------
-    void InstanceBatchHW_VTF::_boundsDirty(void)
+    void InstanceBatchHW_VTF::_boundsDirty()
     {
         //Don't update if we're static, but still mark we're dirty
         if( !mBoundsDirty && !mKeepStatic && mCreator)

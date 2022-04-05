@@ -429,7 +429,7 @@ namespace Ogre {
         return mHeight;
     }
     //-----------------------------------------------------------------------------
-    uint32 Image::getNumFaces(void) const
+    uint32 Image::getNumFaces() const
     {
         if(hasFlag(IF_CUBEMAP))
             return 6;
@@ -454,7 +454,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    bool Image::getHasAlpha(void) const
+    bool Image::getHasAlpha() const
     {
         return PixelUtil::getFlags(mFormat) & PFF_HASALPHA;
     }

@@ -39,18 +39,18 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     String GLSLProgramFactory::sLanguageName = "glsl";
     //-----------------------------------------------------------------------
-    GLSLProgramFactory::GLSLProgramFactory(void)
+    GLSLProgramFactory::GLSLProgramFactory()
     {
         mLinkProgramManager = new GLSLLinkProgramManager();
     }
     //-----------------------------------------------------------------------
-    GLSLProgramFactory::~GLSLProgramFactory(void)
+    GLSLProgramFactory::~GLSLProgramFactory()
     {
         if (mLinkProgramManager)
             delete mLinkProgramManager;
     }
     //-----------------------------------------------------------------------
-    const String& GLSLProgramFactory::getLanguage(void) const
+    const String& GLSLProgramFactory::getLanguage() const
     {
         return sLanguageName;
     }

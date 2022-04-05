@@ -236,19 +236,19 @@ class Technique;
         public:
             GeometryBucket(MaterialBucket* parent, const VertexData* vData, const IndexData* iData);
             virtual ~GeometryBucket();
-            MaterialBucket* getParent(void) { return mParent; }
+            MaterialBucket* getParent() { return mParent; }
             /// Get the vertex data for this geometry 
-            const VertexData* getVertexData(void) const { return mVertexData; }
+            const VertexData* getVertexData() const { return mVertexData; }
             /// Get the index data for this geometry 
-            const IndexData* getIndexData(void) const { return mIndexData; }
+            const IndexData* getIndexData() const { return mIndexData; }
             /// @copydoc Renderable::getMaterial
-            const MaterialPtr& getMaterial(void) const;
-            Technique* getTechnique(void) const;
+            const MaterialPtr& getMaterial() const;
+            Technique* getTechnique() const;
             void getRenderOperation(RenderOperation& op);
             void getWorldTransforms(Matrix4* xform) const;
             Real getSquaredViewDepth(const Camera* cam) const;
-            const LightList& getLights(void) const;
-            bool getCastsShadows(void) const;
+            const LightList& getLights() const;
+            bool getCastsShadows() const;
             
             /** Try to assign geometry to this bucket.
             @return false if there is no room left in this bucket
@@ -283,9 +283,9 @@ class Technique;
         public:
             MaterialBucket(LODBucket* parent, const MaterialPtr& material);
             virtual ~MaterialBucket();
-            LODBucket* getParent(void) { return mParent; }
+            LODBucket* getParent() { return mParent; }
             /// Get the material name
-            const String& getMaterialName(void) const { return mMaterial->getName(); }
+            const String& getMaterialName() const { return mMaterial->getName(); }
             /// Assign geometry to this bucket
             void assign(QueuedGeometry* qsm);
             /// Build
@@ -294,7 +294,7 @@ class Technique;
             void addRenderables(RenderQueue* queue, uint8 group, 
                 Real lodValue);
             /// Get the material for this bucket
-            const MaterialPtr& getMaterial(void) const { return mMaterial; }
+            const MaterialPtr& getMaterial() const { return mMaterial; }
             /// Override Material without changing the partitioning. For advanced use only.
             void _setMaterial(const MaterialPtr& material);
             /// Iterator over geometry
@@ -303,7 +303,7 @@ class Technique;
             const GeometryBucketList& getGeometryList() const { return mGeometryBucketList; }
 
             /// Get the current Technique
-            Technique* getCurrentTechnique(void) const { return mTechnique; }
+            Technique* getCurrentTechnique() const { return mTechnique; }
             /// Dump contents for diagnostics
             void dump(std::ofstream& of) const;
             void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables);
@@ -338,11 +338,11 @@ class Technique;
         public:
             LODBucket(Region* parent, unsigned short lod, Real lodValue);
             virtual ~LODBucket();
-            Region* getParent(void) { return mParent; }
+            Region* getParent() { return mParent; }
             /// Get the LOD index
-            ushort getLod(void) const { return mLod; }
+            ushort getLod() const { return mLod; }
             /// Get the LOD value
-            Real getLodValue(void) const { return mLodValue; }
+            Real getLodValue() const { return mLodValue; }
             /// Assign a queued submesh to this bucket, using specified mesh LOD
             void assign(QueuedSubMesh* qsm, ushort atLod);
             /// Build
@@ -414,25 +414,25 @@ class Technique;
                 uint32 regionID, const Vector3& centre);
             virtual ~Region();
             // more fields can be added in subclasses
-            StaticGeometry* getParent(void) const { return mParent;}
+            StaticGeometry* getParent() const { return mParent;}
             /// Assign a queued mesh to this region, read for final build
             void assign(QueuedSubMesh* qmesh);
             /// Build this region
             void build(bool stencilShadows);
             /// Get the region ID of this region
-            uint32 getID(void) const { return mRegionID; }
+            uint32 getID() const { return mRegionID; }
             /// Get the centre point of the region
-            const Vector3& getCentre(void) const { return mCentre; }
-            const String& getMovableType(void) const;
+            const Vector3& getCentre() const { return mCentre; }
+            const String& getMovableType() const;
             void _notifyCurrentCamera(Camera* cam);
-            const AxisAlignedBox& getBoundingBox(void) const;
-            Real getBoundingRadius(void) const;
+            const AxisAlignedBox& getBoundingBox() const;
+            Real getBoundingRadius() const;
             void _updateRenderQueue(RenderQueue* queue);
             /// @copydoc MovableObject::visitRenderables
             void visitRenderables(Renderable::Visitor* visitor, 
                 bool debugRenderables = false);
-            bool isVisible(void) const;
-            uint32 getTypeFlags(void) const;
+            bool isVisible() const;
+            uint32 getTypeFlags() const;
 
             typedef VectorIterator<LODBucketList> LODIterator;
 
@@ -442,7 +442,7 @@ class Technique;
             getShadowVolumeRenderableList(const Light* light, const HardwareIndexBufferPtr& indexBuffer,
                                           size_t& indexBufferUsedSize, float extrusionDistance,
                                           int flags = 0) override;
-            EdgeData* getEdgeList(void) override;
+            EdgeData* getEdgeList() override;
 
             void _releaseManualHardwareResources() override;
             void _restoreManualHardwareResources() override;
@@ -567,7 +567,7 @@ class Technique;
         virtual ~StaticGeometry();
 
         /// Get the name of this object
-        const String& getName(void) const { return mName; }
+        const String& getName() const { return mName; }
         /** Adds an Entity to the static geometry.
         @remarks
             This method takes an existing Entity and adds its details to the 
@@ -620,19 +620,19 @@ class Technique;
             Once you have called this method, you can no longer add any more 
             entities.
         */
-        virtual void build(void);
+        virtual void build();
 
         /** Destroys all the built geometry state (reverse of build). 
         @remarks
             You can call build() again after this and it will pick up all the
             same entities / nodes you queued last time.
         */
-        virtual void destroy(void);
+        virtual void destroy();
 
         /** Clears any of the entities / nodes added to this geometry and 
             destroys anything which has already been built.
         */
-        virtual void reset(void);
+        virtual void reset();
 
         /** Sets the distance at which batches are no longer rendered.
         @remarks
@@ -649,17 +649,17 @@ class Technique;
         }
 
         /** Gets the distance at which batches are no longer rendered. */
-        virtual Real getRenderingDistance(void) const { return mUpperDistance; }
+        virtual Real getRenderingDistance() const { return mUpperDistance; }
 
         /** Gets the squared distance at which batches are no longer rendered. */
-        virtual Real getSquaredRenderingDistance(void) const 
+        virtual Real getSquaredRenderingDistance() const 
         { return mSquaredUpperDistance; }
 
         /** Hides or shows all the batches. */
         virtual void setVisible(bool visible);
 
         /** Are the batches visible? */
-        virtual bool isVisible(void) const { return mVisible; }
+        virtual bool isVisible() const { return mVisible; }
 
         /** Sets whether this geometry should cast shadows.
         @remarks
@@ -680,7 +680,7 @@ class Technique;
         */
         virtual void setCastShadows(bool castShadows);
         /// Will the geometry from this object cast shadows?
-        virtual bool getCastShadows(void) { return mCastShadows; }
+        virtual bool getCastShadows() { return mCastShadows; }
 
         /** Sets the size of a single region of geometry.
         @remarks
@@ -697,7 +697,7 @@ class Technique;
             mHalfRegionDimensions = size * 0.5;
         }
         /** Gets the size of a single batch of geometry. */
-        virtual const Vector3& getRegionDimensions(void) const { return mRegionDimensions; }
+        virtual const Vector3& getRegionDimensions() const { return mRegionDimensions; }
         /** Sets the origin of the geometry.
         @remarks
             This method allows you to configure the world centre of the geometry,
@@ -711,7 +711,7 @@ class Technique;
         */
         virtual void setOrigin(const Vector3& origin) { mOrigin = origin; }
         /** Gets the origin of this geometry. */
-        virtual const Vector3& getOrigin(void) const { return mOrigin; }
+        virtual const Vector3& getOrigin() const { return mOrigin; }
 
         /// Sets the visibility flags of all the regions at once
         void setVisibilityFlags(uint32 flags);
@@ -732,7 +732,7 @@ class Technique;
         virtual void setRenderQueueGroup(uint8 queueID);
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        virtual uint8 getRenderQueueGroup(void) const;
+        virtual uint8 getRenderQueueGroup() const;
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
             bool debugRenderables = false);
@@ -760,7 +760,7 @@ class Technique;
 
         static String FACTORY_TYPE_NAME;
 
-        const String& getType(void) const { return FACTORY_TYPE_NAME; }
+        const String& getType() const { return FACTORY_TYPE_NAME; }
     };
     /** @} */
     /** @} */

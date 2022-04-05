@@ -603,7 +603,7 @@ class Viewport;
         } // for: polygon iteration
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& FocusedShadowCameraSetup::PointListBody::getAAB(void) const
+    const AxisAlignedBox& FocusedShadowCameraSetup::PointListBody::getAAB() const
     {
         return mAAB;
     }
@@ -663,12 +663,12 @@ class Viewport;
         return mBodyPoints[ cnt ];
     }
     //-----------------------------------------------------------------------   
-    size_t FocusedShadowCameraSetup::PointListBody::getPointCount(void) const
+    size_t FocusedShadowCameraSetup::PointListBody::getPointCount() const
     {
         return mBodyPoints.size();
     }
     //-----------------------------------------------------------------------   
-    void FocusedShadowCameraSetup::PointListBody::reset(void)
+    void FocusedShadowCameraSetup::PointListBody::reset()
     {
         mBodyPoints.clear();
         mAAB.setNull();

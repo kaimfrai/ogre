@@ -101,7 +101,7 @@ namespace Ogre {
         const SettingsMultiMap& getSettings(const String& section = BLANKSTRING) const;
         
         /** Clear the settings */
-        void clear(void);
+        void clear();
     protected:
         SettingsBySection_ mSettings;
         SettingsBySection mSettingsPtr; // for backwards compatibility

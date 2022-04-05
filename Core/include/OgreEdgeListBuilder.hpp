@@ -205,7 +205,7 @@ namespace Ogre {
         @remarks
             The caller takes responsibility for deleting the returned structure.
         */
-        EdgeData* build(void);
+        EdgeData* build();
 
         /// Debugging method
         void log(Log* l);

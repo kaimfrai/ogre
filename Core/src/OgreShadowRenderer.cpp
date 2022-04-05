@@ -763,7 +763,7 @@ void SceneManager::ShadowRenderer::ensureShadowTexturesCreated()
 
 }
 //---------------------------------------------------------------------
-void SceneManager::ShadowRenderer::destroyShadowTextures(void)
+void SceneManager::ShadowRenderer::destroyShadowTextures()
 {
 
     ShadowTextureList::iterator i, iend;

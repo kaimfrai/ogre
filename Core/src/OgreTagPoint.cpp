@@ -48,12 +48,12 @@ class Skeleton;
     {
     }
     //-----------------------------------------------------------------------------
-    Entity *TagPoint::getParentEntity(void) const
+    Entity *TagPoint::getParentEntity() const
     {
         return mParentEntity;
     }
     //-----------------------------------------------------------------------------
-    MovableObject* TagPoint::getChildObject(void) const
+    MovableObject* TagPoint::getChildObject() const
     {
         return mChildObject;
     }
@@ -74,7 +74,7 @@ class Skeleton;
         needUpdate();
     }
     //-----------------------------------------------------------------------------
-    bool TagPoint::getInheritParentEntityOrientation(void) const
+    bool TagPoint::getInheritParentEntityOrientation() const
     {
         return mInheritParentEntityOrientation;
     }
@@ -85,17 +85,17 @@ class Skeleton;
         needUpdate();
     }
     //-----------------------------------------------------------------------------
-    bool TagPoint::getInheritParentEntityScale(void) const
+    bool TagPoint::getInheritParentEntityScale() const
     {
         return mInheritParentEntityScale;
     }
     //-----------------------------------------------------------------------------
-    const Affine3& TagPoint::_getFullLocalTransform(void) const
+    const Affine3& TagPoint::_getFullLocalTransform() const
     {
         return mFullLocalTransform;
     }
     //-----------------------------------------------------------------------------
-    const Affine3& TagPoint::getParentEntityTransform(void) const
+    const Affine3& TagPoint::getParentEntityTransform() const
     {
 
         return mParentEntity->_getParentNodeFullTransform();
@@ -118,7 +118,7 @@ class Skeleton;
 
     }
     //-----------------------------------------------------------------------------
-    void TagPoint::updateFromParentImpl(void) const
+    void TagPoint::updateFromParentImpl() const
     {
         // Call superclass
         Bone::updateFromParentImpl();

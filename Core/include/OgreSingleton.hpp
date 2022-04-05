@@ -83,24 +83,24 @@ public:
     __attribute__((no_sanitize("vptr")))
 #  endif
 #endif
-    Singleton(void)
+    Singleton()
     {
         OgreAssert(!msSingleton, "There can be only one singleton");
         msSingleton = static_cast<T*>(this);
     }
-    ~Singleton(void)
+    ~Singleton()
     {
         assert(msSingleton);
         msSingleton = 0;
     }
     /// Get the singleton instance
-    static T& getSingleton(void)
+    static T& getSingleton()
     {
         assert(msSingleton);
         return (*msSingleton);
     }
     /// @copydoc getSingleton
-    static T* getSingletonPtr(void) { return msSingleton; }
+    static T* getSingletonPtr() { return msSingleton; }
     };
     /** @} */
     /** @} */

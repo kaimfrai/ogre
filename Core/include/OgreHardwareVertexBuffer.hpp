@@ -71,9 +71,9 @@ namespace Ogre {
             /// Return the manager of this buffer, if any
             HardwareBufferManagerBase* getManager() const { return mMgr; }
             /// Gets the size in bytes of a single vertex in this buffer
-            size_t getVertexSize(void) const { return mVertexSize; }
+            size_t getVertexSize() const { return mVertexSize; }
             /// Get the number of vertices in this buffer
-            size_t getNumVertices(void) const { return mNumVertices; }
+            size_t getNumVertices() const { return mNumVertices; }
             /// Get if this vertex buffer is an "instance data" buffer (per instance)
             bool isInstanceData() const { return mIsInstanceData; }
             /// Set if this vertex buffer is an "instance data" buffer (per instance)
@@ -195,17 +195,17 @@ namespace Ogre {
         VertexElement(unsigned short source, size_t offset, VertexElementType theType,
             VertexElementSemantic semantic, unsigned short index = 0);
         /// Gets the vertex buffer index from where this element draws it's values
-        unsigned short getSource(void) const { return mSource; }
+        unsigned short getSource() const { return mSource; }
         /// Gets the offset into the buffer where this element starts
-        size_t getOffset(void) const { return mOffset; }
+        size_t getOffset() const { return mOffset; }
         /// Gets the data format of this element
-        VertexElementType getType(void) const { return mType; }
+        VertexElementType getType() const { return mType; }
         /// Gets the meaning of this element
-        VertexElementSemantic getSemantic(void) const { return mSemantic; }
+        VertexElementSemantic getSemantic() const { return mSemantic; }
         /// Gets the index of this element, only applicable for repeating elements
-        unsigned short getIndex(void) const { return mIndex; }
+        unsigned short getIndex() const { return mIndex; }
         /// Gets the size of this element in bytes
-        size_t getSize(void) const;
+        size_t getSize() const;
         /// Utility method for helping to calculate offsets
         static size_t getTypeSize(VertexElementType etype);
         /// Utility method which returns the count of values in a given type (result for colors may be counter-intuitive)
@@ -242,7 +242,7 @@ namespace Ogre {
         }
 
         /** Utility method to get the most appropriate packed colour vertex element format. */
-        static VertexElementType getBestColourVertexElementType(void);
+        static VertexElementType getBestColourVertexElementType();
 
         inline bool operator== (const VertexElement& rhs) const
         {
@@ -301,9 +301,9 @@ namespace Ogre {
         virtual ~VertexDeclaration();
 
         /** Get the number of elements in the declaration. */
-        size_t getElementCount(void) const { return mElementList.size(); }
+        size_t getElementCount() const { return mElementList.size(); }
         /** Gets read-only access to the list of vertex elements. */
-        const VertexElementList& getElements(void) const;
+        const VertexElementList& getElements() const;
         /** Get a single element. */
         const VertexElement* getElement(unsigned short index) const;
 
@@ -312,7 +312,7 @@ namespace Ogre {
            the order is as follows: position, blending weights, normals, diffuse colours, specular colours,
            texture coordinates
         */
-        void sort(void);
+        void sort();
 
         /** Remove any gaps in the source buffer list used by this declaration.
 
@@ -344,7 +344,7 @@ namespace Ogre {
         @note
             This will also call sort()
         */
-        void closeGapsInSource(void);
+        void closeGapsInSource();
 
         /** Generates a new VertexDeclaration for optimal usage based on the current
             vertex declaration, which can be used with VertexData::reorganiseBuffers later
@@ -361,7 +361,7 @@ namespace Ogre {
             bool vertexAnimation, bool vertexAnimationNormals) const;
 
         /** Gets the index of the highest source value referenced by this declaration. */
-        unsigned short getMaxSource(void) const;
+        unsigned short getMaxSource() const;
 
 
 
@@ -410,7 +410,7 @@ namespace Ogre {
         void removeElement(VertexElementSemantic semantic, unsigned short index = 0);
 
         /** Remove all elements. */
-        void removeAllElements(void);
+        void removeAllElements();
 
         /** Modify an element in-place, params as addElement.
        @remarks
@@ -513,34 +513,34 @@ namespace Ogre {
         void unsetBinding(unsigned short index);
 
         /** Removes all the bindings. */
-        void unsetAllBindings(void);
+        void unsetAllBindings();
 
         /// Gets a read-only version of the buffer bindings
-        const VertexBufferBindingMap& getBindings(void) const;
+        const VertexBufferBindingMap& getBindings() const;
 
         /// Gets the buffer bound to the given source index
         const HardwareVertexBufferSharedPtr& getBuffer(unsigned short index) const;
         /// Gets whether a buffer is bound to the given source index
         bool isBufferBound(unsigned short index) const;
 
-        size_t getBufferCount(void) const { return mBindingMap.size(); }
+        size_t getBufferCount() const { return mBindingMap.size(); }
 
         /** Gets the highest index which has already been set, plus 1.
         @remarks
             This is to assist in binding the vertex buffers such that there are
             not gaps in the list.
         */
-        unsigned short getNextIndex(void) const { return mHighIndex++; }
+        unsigned short getNextIndex() const { return mHighIndex++; }
 
         /** Gets the last bound index.
         */
-        unsigned short getLastBoundIndex(void) const;
+        unsigned short getLastBoundIndex() const;
 
         typedef std::map<ushort, ushort> BindingIndexMap;
 
         /** Check whether any gaps in the bindings.
         */
-        bool hasGaps(void) const;
+        bool hasGaps() const;
 
         /** Remove any gaps in the bindings.
         @remarks

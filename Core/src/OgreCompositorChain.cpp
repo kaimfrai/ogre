@@ -74,7 +74,7 @@ CompositorChain::~CompositorChain()
     destroyResources();
 }
 //-----------------------------------------------------------------------
-void CompositorChain::destroyResources(void)
+void CompositorChain::destroyResources()
 {
     clearCompiledState();
 

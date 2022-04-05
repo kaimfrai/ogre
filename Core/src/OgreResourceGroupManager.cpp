@@ -57,11 +57,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> ResourceGroupManager* Singleton<ResourceGroupManager>::msSingleton = 0;
-    ResourceGroupManager* ResourceGroupManager::getSingletonPtr(void)
+    ResourceGroupManager* ResourceGroupManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    ResourceGroupManager& ResourceGroupManager::getSingleton(void)
+    ResourceGroupManager& ResourceGroupManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -143,7 +143,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::initialiseAllResourceGroups(void)
+    void ResourceGroupManager::initialiseAllResourceGroups()
     {
         // Intialise all declared resource groups
         ResourceGroupMap::iterator i, iend;
@@ -1135,7 +1135,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::fireResourceLoadEnded(void) const
+    void ResourceGroupManager::fireResourceLoadEnded() const
     {
             for (ResourceGroupListenerList::const_iterator l = mResourceGroupListenerList.begin();
                 l != mResourceGroupListenerList.end(); ++l)
@@ -1153,7 +1153,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::_notifyCustomStageEnded(void) const
+    void ResourceGroupManager::_notifyCustomStageEnded() const
     {
             for (ResourceGroupListenerList::const_iterator l = mResourceGroupListenerList.begin();
                 l != mResourceGroupListenerList.end(); ++l)
@@ -1189,7 +1189,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::fireResourcePrepareEnded(void) const
+    void ResourceGroupManager::fireResourcePrepareEnded() const
     {
             for (ResourceGroupListenerList::const_iterator l = mResourceGroupListenerList.begin();
                 l != mResourceGroupListenerList.end(); ++l)
@@ -1225,7 +1225,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::shutdownAll(void)
+    void ResourceGroupManager::shutdownAll()
     {
         ResourceManagerMap::iterator i, iend;
         iend = mResourceManagerMap.end();
@@ -1452,7 +1452,7 @@ namespace Ogre {
         return getResourceGroup(name, true)->inGlobalPool;
     }
     //-----------------------------------------------------------------------
-    StringVector ResourceGroupManager::getResourceGroups(void) const
+    StringVector ResourceGroupManager::getResourceGroups() const
     {
         StringVector vec;
         for (ResourceGroupMap::const_iterator i = mResourceGroupMap.begin();

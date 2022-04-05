@@ -288,7 +288,7 @@ namespace Ogre
         return batch;
     }
     //-----------------------------------------------------------------------
-    void InstanceManager::cleanupEmptyBatches(void)
+    void InstanceManager::cleanupEmptyBatches()
     {
         //Do this now to avoid any dangling pointer inside mDirtyBatches
         _updateDirtyBatches();
@@ -499,7 +499,7 @@ namespace Ogre
         mDirtyBatches.push_back( dirtyBatch );
     }
     //-----------------------------------------------------------------------
-    void InstanceManager::_updateDirtyBatches(void)
+    void InstanceManager::_updateDirtyBatches()
     {
         InstanceBatchVec::const_iterator itor = mDirtyBatches.begin();
         InstanceBatchVec::const_iterator end  = mDirtyBatches.end();

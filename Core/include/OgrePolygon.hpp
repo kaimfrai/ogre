@@ -68,7 +68,7 @@ namespace Ogre
         mutable bool    mIsNormalSet;
         /** Updates the normal.
         */
-        void updateNormal(void) const;
+        void updateNormal() const;
 
 
     public:
@@ -96,15 +96,15 @@ namespace Ogre
 
         /** Removes duplicate vertices from a polygon.
         */
-        void removeDuplicates(void);
+        void removeDuplicates();
 
         /** Vertex count.
         */
-        size_t getVertexCount(void) const;
+        size_t getVertexCount() const;
 
         /** Returns the polygon normal.
         */
-        const Vector3& getNormal(void) const;
+        const Vector3& getNormal() const;
 
         /** Deletes a specific vertex.
         */
@@ -126,7 +126,7 @@ namespace Ogre
 
         /** Resets the object.
         */
-        void reset(void);
+        void reset();
 
         /** Determines if the current object is equal to the compared one.
         */

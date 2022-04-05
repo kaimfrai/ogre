@@ -243,7 +243,7 @@ class ResourceManager;
             LogManager::getSingleton().stream(LML_WARNING) << getResourceLogName() << " " << compileInfo;
     }
     //-----------------------------------------------------------------------
-    void GLSLProgram::unloadHighLevelImpl(void)
+    void GLSLProgram::unloadHighLevelImpl()
     {
         if (isSupported())
         {
@@ -363,20 +363,20 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------
-    const String& GLSLProgram::getLanguage(void) const
+    const String& GLSLProgram::getLanguage() const
     {
         static const String language = "glsl";
 
         return language;
     }
     //-----------------------------------------------------------------------------
-    void GLSLProgram::bindProgram(void)
+    void GLSLProgram::bindProgram()
     {
         // Tell the Link Program Manager what shader is to become active
         GLSLLinkProgramManager::getSingleton().setActiveShader( mType, this );
     }
     //-----------------------------------------------------------------------------
-    void GLSLProgram::unbindProgram(void)
+    void GLSLProgram::unbindProgram()
     {
         // Tell the Link Program Manager what shader is to become inactive
         GLSLLinkProgramManager::getSingleton().setActiveShader( mType, NULL );

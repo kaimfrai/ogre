@@ -102,7 +102,7 @@ namespace Ogre {
         return (void*)DYNLIB_GETSYM( mInst, strName.c_str() );
     }
     //-----------------------------------------------------------------------
-    String DynLib::dynlibError( void ) 
+    String DynLib::dynlibError( ) 
     {
         return String(dlerror());
     }

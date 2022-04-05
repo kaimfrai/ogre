@@ -149,7 +149,7 @@ class HardwareBufferManagerBase;
             index buffer space is allocated by this method, a shared index buffer allocated by the
             shadow rendering algorithm is used for addressing this extended vertex buffer.
         */
-        void prepareForShadowVolume(void);
+        void prepareForShadowVolume();
 
         /** Additional shadow volume vertex buffer storage. 
         @remarks
@@ -216,7 +216,7 @@ class HardwareBufferManagerBase;
             This will cause binding index of the elements in the vertex declaration
             to be altered to new binding index.
         */
-        void closeGapsInBindings(void);
+        void closeGapsInBindings();
 
         /** Remove all vertex buffers that never used by the vertex declaration.
         @remarks
@@ -226,7 +226,7 @@ class HardwareBufferManagerBase;
         @note
             This also remove any gaps in the vertex buffer bindings.
         */
-        void removeUnusedBuffers(void);
+        void removeUnusedBuffers();
 
         /** Convert all packed colour values (VET_COLOUR_*) in buffers used to
             another type.
@@ -294,7 +294,7 @@ class HardwareBufferManagerBase;
             It would in fact be pointless to use it on triangle strips or fans
             in any case.
         */
-        void optimiseVertexCacheTriList(void);
+        void optimiseVertexCacheTriList();
     
     };
 

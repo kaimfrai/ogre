@@ -186,7 +186,7 @@ SceneManager::~SceneManager()
     mMovableObjectCollectionMap.clear();
 }
 //-----------------------------------------------------------------------
-RenderQueue* SceneManager::getRenderQueue(void)
+RenderQueue* SceneManager::getRenderQueue()
 {
     if (!mRenderQueue)
     {
@@ -195,7 +195,7 @@ RenderQueue* SceneManager::getRenderQueue(void)
     return mRenderQueue.get();
 }
 //-----------------------------------------------------------------------
-void SceneManager::initRenderQueue(void)
+void SceneManager::initRenderQueue()
 {
     mRenderQueue.reset(new RenderQueue());
     // init render queues that do not need shadows
@@ -215,7 +215,7 @@ void SceneManager::removeSpecialCaseRenderQueue(uint8 qid)
     mSpecialCaseQueueList.erase(qid);
 }
 //-----------------------------------------------------------------------
-void SceneManager::clearSpecialCaseRenderQueues(void)
+void SceneManager::clearSpecialCaseRenderQueues()
 {
     mSpecialCaseQueueList.clear();
 }
@@ -225,7 +225,7 @@ void SceneManager::setSpecialCaseRenderQueueMode(SceneManager::SpecialCaseRender
     mSpecialCaseQueueMode = mode;
 }
 //-----------------------------------------------------------------------
-SceneManager::SpecialCaseRenderQueueMode SceneManager::getSpecialCaseRenderQueueMode(void)
+SceneManager::SpecialCaseRenderQueueMode SceneManager::getSpecialCaseRenderQueueMode()
 {
     return mSpecialCaseQueueMode;
 }
@@ -242,7 +242,7 @@ void SceneManager::setWorldGeometryRenderQueue(uint8 qid)
     mWorldGeometryRenderQueue = qid;
 }
 //-----------------------------------------------------------------------
-uint8 SceneManager::getWorldGeometryRenderQueue(void)
+uint8 SceneManager::getWorldGeometryRenderQueue()
 {
     return mWorldGeometryRenderQueue;
 }
@@ -322,7 +322,7 @@ void SceneManager::destroyCamera(const String& name)
 }
 
 //-----------------------------------------------------------------------
-void SceneManager::destroyAllCameras(void)
+void SceneManager::destroyAllCameras()
 {
     CameraList::iterator camIt = mCameras.begin();
     while( camIt != mCameras.end() )
@@ -377,12 +377,12 @@ void SceneManager::destroyLight(const String& name)
     destroyMovableObject(name, LightFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyAllLights(void)
+void SceneManager::destroyAllLights()
 {
     destroyAllMovableObjectsByType(LightFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-const LightList& SceneManager::_getLightsAffectingFrustum(void) const
+const LightList& SceneManager::_getLightsAffectingFrustum() const
 {
     return mLightsAffectingFrustum;
 }
@@ -526,14 +526,14 @@ void SceneManager::destroyEntity(const String& name)
 }
 
 //-----------------------------------------------------------------------
-void SceneManager::destroyAllEntities(void)
+void SceneManager::destroyAllEntities()
 {
 
     destroyAllMovableObjectsByType(EntityFactory::FACTORY_TYPE_NAME);
 }
 
 //-----------------------------------------------------------------------
-void SceneManager::destroyAllBillboardSets(void)
+void SceneManager::destroyAllBillboardSets()
 {
     destroyAllMovableObjectsByType(BillboardSetFactory::FACTORY_TYPE_NAME);
 }
@@ -568,7 +568,7 @@ void SceneManager::destroyManualObject(const String& name)
     destroyMovableObject(name, ManualObjectFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyAllManualObjects(void)
+void SceneManager::destroyAllManualObjects()
 {
     destroyAllMovableObjectsByType(ManualObjectFactory::FACTORY_TYPE_NAME);
 }
@@ -622,7 +622,7 @@ void SceneManager::destroyBillboardChain(const String& name)
     destroyMovableObject(name, BillboardChainFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyAllBillboardChains(void)
+void SceneManager::destroyAllBillboardChains()
 {
     destroyAllMovableObjectsByType(BillboardChainFactory::FACTORY_TYPE_NAME);
 }
@@ -656,7 +656,7 @@ void SceneManager::destroyRibbonTrail(const String& name)
     destroyMovableObject(name, RibbonTrailFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyAllRibbonTrails(void)
+void SceneManager::destroyAllRibbonTrails()
 {
     destroyAllMovableObjectsByType(RibbonTrailFactory::FACTORY_TYPE_NAME);
 }
@@ -708,12 +708,12 @@ void SceneManager::destroyParticleSystem(const String& name)
     destroyMovableObject(name, ParticleSystemFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyAllParticleSystems(void)
+void SceneManager::destroyAllParticleSystems()
 {
     destroyAllMovableObjectsByType(ParticleSystemFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-void SceneManager::clearScene(void)
+void SceneManager::clearScene()
 {
     mShadowRenderer.destroyShadowTextures();
     destroyAllStaticGeometry();
@@ -747,7 +747,7 @@ void SceneManager::clearScene(void)
     mAutoParamDataSource.reset(createAutoParamDataSource());
 }
 //-----------------------------------------------------------------------
-SceneNode* SceneManager::createSceneNodeImpl(void)
+SceneNode* SceneManager::createSceneNodeImpl()
 {
     return new SceneNode(this);
 }
@@ -756,7 +756,7 @@ SceneNode* SceneManager::createSceneNodeImpl(const String& name)
 {
     return new SceneNode(this, name);
 }//-----------------------------------------------------------------------
-SceneNode* SceneManager::createSceneNode(void)
+SceneNode* SceneManager::createSceneNode()
 {
     SceneNode* sn = createSceneNodeImpl();
     mSceneNodes.push_back(sn);
@@ -849,7 +849,7 @@ void SceneManager::destroySceneNode(SceneNode* sn)
     _destroySceneNode(pos);
 }
 //-----------------------------------------------------------------------
-SceneNode* SceneManager::getRootSceneNode(void)
+SceneNode* SceneManager::getRootSceneNode()
 {
     if (!mSceneRoot)
     {
@@ -1160,7 +1160,7 @@ const Pass* SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed,
     return pass;
 }
 //-----------------------------------------------------------------------
-void SceneManager::prepareRenderQueue(void)
+void SceneManager::prepareRenderQueue()
 {
     RenderQueue* q = getRenderQueue();
     // Clear the render queue
@@ -1538,7 +1538,7 @@ void SceneManager::_findVisibleObjects(
 
 }
 //-----------------------------------------------------------------------
-void SceneManager::renderVisibleObjectsDefaultSequence(void)
+void SceneManager::renderVisibleObjectsDefaultSequence()
 {
     firePreRenderQueues();
 
@@ -2061,7 +2061,7 @@ void SceneManager::setAmbientLight(const ColourValue& colour)
     mAutoParamDataSource->setAmbientLightColour(colour);
 }
 //-----------------------------------------------------------------------
-const ColourValue& SceneManager::getAmbientLight(void) const
+const ColourValue& SceneManager::getAmbientLight() const
 {
     return mAutoParamDataSource->getAmbientLightColour();
 }
@@ -2084,27 +2084,27 @@ void SceneManager::setFog(FogMode mode, const ColourValue& colour, Real density,
     mFogDensity = density;
 }
 //-----------------------------------------------------------------------
-FogMode SceneManager::getFogMode(void) const
+FogMode SceneManager::getFogMode() const
 {
     return mFogMode;
 }
 //-----------------------------------------------------------------------
-const ColourValue& SceneManager::getFogColour(void) const
+const ColourValue& SceneManager::getFogColour() const
 {
     return mFogColour;
 }
 //-----------------------------------------------------------------------
-Real SceneManager::getFogStart(void) const
+Real SceneManager::getFogStart() const
 {
     return mFogStart;
 }
 //-----------------------------------------------------------------------
-Real SceneManager::getFogEnd(void) const
+Real SceneManager::getFogEnd() const
 {
     return mFogEnd;
 }
 //-----------------------------------------------------------------------
-Real SceneManager::getFogDensity(void) const
+Real SceneManager::getFogDensity() const
 {
     return mFogDensity;
 }
@@ -2197,7 +2197,7 @@ void SceneManager::destroyAnimation(const String& name)
 
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyAllAnimations(void)
+void SceneManager::destroyAllAnimations()
 {
     // Destroy all states too, since they cannot reference destroyed animations
     destroyAllAnimationStates();
@@ -2237,12 +2237,12 @@ void SceneManager::destroyAnimationState(const String& name)
     mAnimationStates.removeAnimationState(name);
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyAllAnimationStates(void)
+void SceneManager::destroyAllAnimationStates()
 {
     mAnimationStates.removeAllAnimationStates();
 }
 //-----------------------------------------------------------------------
-void SceneManager::_applySceneAnimations(void)
+void SceneManager::_applySceneAnimations()
 {
     // Iterate twice, once to reset, once to apply, to allow blending
     EnabledAnimationStateList::const_iterator animIt;
@@ -2584,7 +2584,7 @@ void SceneManager::setShadowTechnique(ShadowTechnique technique)
     mShadowRenderer.setShadowTechnique(technique);
 }
 //---------------------------------------------------------------------
-void SceneManager::updateRenderQueueSplitOptions(void)
+void SceneManager::updateRenderQueueSplitOptions()
 {
     if (isShadowTechniqueStencilBased())
     {
@@ -2659,7 +2659,7 @@ void SceneManager::updateRenderQueueGroupSplitOptions(RenderQueueGroup* group,
 
 }
 //-----------------------------------------------------------------------
-void SceneManager::_notifyLightsDirty(void)
+void SceneManager::_notifyLightsDirty()
 {
     ++mLightsDirtyCounter;
 }
@@ -2991,7 +2991,7 @@ void SceneManager::resetLightClip()
     mDestRenderSystem->setClipPlanes(PlaneList());
 }
 //---------------------------------------------------------------------
-const ColourValue& SceneManager::getShadowColour(void) const
+const ColourValue& SceneManager::getShadowColour() const
 {
     return mShadowRenderer.mShadowColour;
 }
@@ -3007,7 +3007,7 @@ void SceneManager::setShadowDirectionalLightExtrusionDistance(Real dist)
     mShadowRenderer.mShadowDirLightExtrudeDist = dist;
 }
 //---------------------------------------------------------------------
-Real SceneManager::getShadowDirectionalLightExtrusionDistance(void) const
+Real SceneManager::getShadowDirectionalLightExtrusionDistance() const
 {
     return mShadowRenderer.mShadowDirLightExtrudeDist;
 }
@@ -3038,7 +3038,7 @@ void SceneManager::ensureShadowTexturesCreated()
 {
     mShadowRenderer.ensureShadowTexturesCreated();
 }
-void SceneManager::destroyShadowTextures(void)
+void SceneManager::destroyShadowTextures()
 {
     mShadowRenderer.destroyShadowTextures();
 }
@@ -3157,7 +3157,7 @@ void SceneManager::destroyStaticGeometry(const String& name)
 
 }
 //---------------------------------------------------------------------
-void SceneManager::destroyAllStaticGeometry(void)
+void SceneManager::destroyAllStaticGeometry()
 {
     StaticGeometryList::iterator i, iend;
     iend = mStaticGeometryList.end();
@@ -3227,7 +3227,7 @@ void SceneManager::destroyInstanceManager( InstanceManager *instanceManager )
     destroyInstanceManager( instanceManager->getName() );
 }
 //---------------------------------------------------------------------
-void SceneManager::destroyAllInstanceManagers(void)
+void SceneManager::destroyAllInstanceManagers()
 {
     InstanceManagerMap::iterator itor = mInstanceManagerMap.begin();
     InstanceManagerMap::iterator end  = mInstanceManagerMap.end();
@@ -3278,7 +3278,7 @@ void SceneManager::_addDirtyInstanceManager( InstanceManager *dirtyManager )
     mDirtyInstanceManagers.push_back( dirtyManager );
 }
 //---------------------------------------------------------------------
-void SceneManager::updateDirtyInstanceManagers(void)
+void SceneManager::updateDirtyInstanceManagers()
 {
     //Copy all dirty mgrs to a temporary buffer to iterate through them. We need this because
     //if two InstancedEntities from different managers belong to the same SceneNode, one of the
@@ -3474,7 +3474,7 @@ void SceneManager::destroyAllMovableObjectsByType(const String& typeName)
     objectMap->map.clear();
 }
 //---------------------------------------------------------------------
-void SceneManager::destroyAllMovableObjects(void)
+void SceneManager::destroyAllMovableObjects()
 {
     MovableObjectCollectionMap::iterator ci = mMovableObjectCollectionMap.begin();
 
@@ -3597,7 +3597,7 @@ RenderSystem *SceneManager::getDestinationRenderSystem()
     return mDestRenderSystem;
 }
 //---------------------------------------------------------------------
-uint32 SceneManager::_getCombinedVisibilityMask(void) const
+uint32 SceneManager::_getCombinedVisibilityMask() const
 {
     return mCurrentViewport ?
         mCurrentViewport->getVisibilityMask() & mVisibilityMask : mVisibilityMask;

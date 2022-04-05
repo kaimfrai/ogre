@@ -78,7 +78,7 @@ class SubMesh;
         ~MeshManager();
 
         /** Initialises the manager, only to be called by OGRE internally. */
-        void _initialise(void);
+        void _initialise();
 
         /// @copydoc ResourceManager::getResourceByName
         MeshPtr getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const;
@@ -371,12 +371,12 @@ class SubMesh;
         */
         void setPrepareAllMeshesForShadowVolumes(bool enable);
         /** Retrieves whether all Meshes should prepare themselves for shadow volumes. */
-        bool getPrepareAllMeshesForShadowVolumes(void);
+        bool getPrepareAllMeshesForShadowVolumes();
 
         /// @copydoc Singleton::getSingleton()
-        static MeshManager& getSingleton(void);
+        static MeshManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static MeshManager* getSingletonPtr(void);
+        static MeshManager* getSingletonPtr();
 
         /** Gets the base element type used for blend weights in vertex buffers.
         @remarks
@@ -397,7 +397,7 @@ class SubMesh;
         /** Gets the factor by which the bounding box of an entity is padded.
             Default is 0.01
         */
-        Real getBoundsPaddingFactor(void);
+        Real getBoundsPaddingFactor();
     
         /** Sets the factor by which the bounding box of an entity is padded
         */

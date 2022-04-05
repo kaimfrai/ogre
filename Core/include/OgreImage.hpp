@@ -366,24 +366,24 @@ namespace Ogre {
 
         /** Gets the width of the image in pixels.
         */
-        uint32 getWidth(void) const;
+        uint32 getWidth() const;
 
         /** Gets the height of the image in pixels.
         */
-        uint32 getHeight(void) const;
+        uint32 getHeight() const;
 
         /** Gets the depth of the image.
         */
-        uint32 getDepth(void) const;
+        uint32 getDepth() const;
         
         /** Get the number of faces of the image. This is usually 6 for a cubemap, and
             1 for a normal image.
         */
-        uint32 getNumFaces(void) const;
+        uint32 getNumFaces() const;
 
         /** Gets the physical width in bytes of each row of pixels.
         */
-        size_t getRowSpan(void) const;
+        size_t getRowSpan() const;
 
         /** Returns the image format.
         */

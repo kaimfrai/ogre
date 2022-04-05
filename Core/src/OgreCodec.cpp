@@ -52,7 +52,7 @@ class Any;
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, getType() + " - encoding to file not supported");
     }
 
-    StringVector Codec::getExtensions(void)
+    StringVector Codec::getExtensions()
     {
         StringVector result;
         result.reserve(msMapCodecs.size());

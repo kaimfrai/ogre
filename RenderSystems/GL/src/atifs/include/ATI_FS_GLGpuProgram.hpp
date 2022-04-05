@@ -49,20 +49,20 @@ class ResourceManager;
 
 
         /// Execute the binding functions for this program
-        void bindProgram(void);
+        void bindProgram();
         /// Execute the unbinding functions for this program
-        void unbindProgram(void);
+        void unbindProgram();
         /// Execute the param binding functions for this program
         void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask);
 
         /// Get the assigned GL program id
-        GLuint getProgramID(void) const
+        GLuint getProgramID() const
         { return mProgramID; }
 
     protected:
         /// @copydoc Resource::unload
-        void unloadImpl(void);
-        void loadFromSource(void);
+        void unloadImpl();
+        void loadFromSource();
         GLenum mProgramType;
 
     }; // class ATI_FS_GLGpuProgram

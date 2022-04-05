@@ -157,7 +157,7 @@ class RenderQueue;
     public:
         ParticleSystemUpdateValue(ParticleSystem* target) : mTarget(target) {}
 
-        Real getValue(void) const { return 0; } // N/A
+        Real getValue() const { return 0; } // N/A
 
         void setValue(Real value) { mTarget->_update(value); }
 
@@ -275,7 +275,7 @@ class RenderQueue;
         return mEmitters[index];
     }
     //-----------------------------------------------------------------------
-    unsigned short ParticleSystem::getNumEmitters(void) const
+    unsigned short ParticleSystem::getNumEmitters() const
     {
         return static_cast< unsigned short >( mEmitters.size() );
     }
@@ -296,7 +296,7 @@ class RenderQueue;
         mEmitters.erase(ei);
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::removeAllEmitters(void)
+    void ParticleSystem::removeAllEmitters()
     {
         // DON'T delete directly, we don't know what heap these have been created on
         for (auto e : mEmitters)
@@ -320,7 +320,7 @@ class RenderQueue;
         return mAffectors[index];
     }
     //-----------------------------------------------------------------------
-    unsigned short ParticleSystem::getNumAffectors(void) const
+    unsigned short ParticleSystem::getNumAffectors() const
     {
         return static_cast< unsigned short >( mAffectors.size() );
     }
@@ -333,7 +333,7 @@ class RenderQueue;
         mAffectors.erase(ai);
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::removeAllAffectors(void)
+    void ParticleSystem::removeAllAffectors()
     {
         // DON'T delete directly, we don't know what heap these have been created on
         for (auto a : mAffectors)
@@ -388,12 +388,12 @@ class RenderQueue;
 
     }
     //-----------------------------------------------------------------------
-    size_t ParticleSystem::getNumParticles(void) const
+    size_t ParticleSystem::getNumParticles() const
     {
         return mActiveParticles.size();
     }
     //-----------------------------------------------------------------------
-    size_t ParticleSystem::getParticleQuota(void) const
+    size_t ParticleSystem::getParticleQuota() const
     {
         return mPoolSize;
     }
@@ -411,7 +411,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    size_t ParticleSystem::getEmittedEmitterQuota(void) const
+    size_t ParticleSystem::getEmittedEmitterQuota() const
     {
         return mEmittedEmitterPoolSize;
     }
@@ -727,7 +727,7 @@ class RenderQueue;
         return mActiveParticles[index];
     }
     //-----------------------------------------------------------------------
-    Particle* ParticleSystem::createParticle(void)
+    Particle* ParticleSystem::createParticle()
     {
         Particle* p = 0;
         if (!mFreeParticles.empty())
@@ -781,7 +781,7 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    void ParticleSystem::initParameters(void)
+    void ParticleSystem::initParameters()
     {
         if (createParamDictionary("ParticleSystem"))
         {
@@ -937,7 +937,7 @@ class RenderQueue;
         return mIsEmitting;
     }
     //-----------------------------------------------------------------------
-    const String& ParticleSystem::getMovableType(void) const
+    const String& ParticleSystem::getMovableType() const
     {
         return ParticleSystemFactory::FACTORY_TYPE_NAME;
     }
@@ -963,7 +963,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    Real ParticleSystem::getDefaultWidth(void) const
+    Real ParticleSystem::getDefaultWidth() const
     {
         return mDefaultWidth;
     }
@@ -978,7 +978,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    Real ParticleSystem::getDefaultHeight(void) const
+    Real ParticleSystem::getDefaultHeight() const
     {
         return mDefaultHeight;
     }
@@ -1053,7 +1053,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    const String& ParticleSystem::getMaterialName(void) const
+    const String& ParticleSystem::getMaterialName() const
     {
         return mMaterial->getName();
     }
@@ -1097,7 +1097,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::configureRenderer(void)
+    void ParticleSystem::configureRenderer()
     {
         // Actual allocate particles
         size_t currSize = mParticlePool.size();
@@ -1131,12 +1131,12 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    ParticleSystemRenderer* ParticleSystem::getRenderer(void) const
+    ParticleSystemRenderer* ParticleSystem::getRenderer() const
     {
         return mRenderer;
     }
     //-----------------------------------------------------------------------
-    const String& ParticleSystem::getRendererName(void) const
+    const String& ParticleSystem::getRendererName() const
     {
         if (mRenderer)
         {
@@ -1148,7 +1148,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    bool ParticleSystem::getCullIndividually(void) const
+    bool ParticleSystem::getCullIndividually() const
     {
         return mCullIndividual;
     }
@@ -1246,12 +1246,12 @@ class RenderQueue;
         return - (sortPos - p->mPosition).squaredLength();
     }
     //-----------------------------------------------------------------------
-    uint32 ParticleSystem::getTypeFlags(void) const
+    uint32 ParticleSystem::getTypeFlags() const
     {
         return SceneManager::FX_TYPE_MASK;
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::initialiseEmittedEmitters(void)
+    void ParticleSystem::initialiseEmittedEmitters()
     {
         // Initialise the pool if needed
         size_t currSize = 0;
@@ -1287,7 +1287,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    void ParticleSystem::initialiseEmittedEmitterPool(void)
+    void ParticleSystem::initialiseEmittedEmitterPool()
     {
         if (mEmittedEmitterPoolInitialised)
             return;
@@ -1355,7 +1355,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::addFreeEmittedEmitters(void)
+    void ParticleSystem::addFreeEmittedEmitters()
     {
         // Don't proceed if the EmittedEmitterPool is empty
         if (mEmittedEmitterPool.empty())
@@ -1390,7 +1390,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::removeAllEmittedEmitters(void)
+    void ParticleSystem::removeAllEmittedEmitters()
     {
         for (auto& kv : mEmittedEmitterPool)
         {
@@ -1434,7 +1434,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::addActiveEmittedEmittersToFreeList (void)
+    void ParticleSystem::addActiveEmittedEmittersToFreeList ()
     {
         ActiveEmittedEmitterList::iterator itActiveEmit;
         for (itActiveEmit = mActiveEmittedEmitters.begin(); itActiveEmit != mActiveEmittedEmitters.end(); ++itActiveEmit)
@@ -1445,7 +1445,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::_notifyReorganiseEmittedEmitterData (void)
+    void ParticleSystem::_notifyReorganiseEmittedEmitterData ()
     {
         removeAllEmittedEmitters();
         mEmittedEmitterPoolInitialised = false; // Don't rearrange immediately; it will be performed in the regular flow

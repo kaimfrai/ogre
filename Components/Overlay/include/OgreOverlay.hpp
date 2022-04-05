@@ -106,11 +106,11 @@ namespace Ogre {
         bool mInitialised;
         String mOrigin;
         /** Internal lazy update method. */
-        void updateTransform(void) const;
+        void updateTransform() const;
         /** Internal method for initialising an overlay */
-        virtual void initialise(void);
+        virtual void initialise();
         /** Internal method for updating container elements' Z-ordering */
-        void assignZOrders(void);
+        void assignZOrders();
 
     public:
         /// Constructor: do not call direct, use OverlayManager::create
@@ -121,7 +121,7 @@ namespace Ogre {
         OverlayContainer* getChild(const String& name);
 
         /** Gets the name of this overlay. */
-        const String& getName(void) const;
+        const String& getName() const;
         
         /** Alters the Z-order of this overlay. 
         @remarks
@@ -129,19 +129,19 @@ namespace Ogre {
         */
         void setZOrder(ushort zorder);
         /** Gets the Z-order of this overlay. */
-        ushort getZOrder(void) const;
+        ushort getZOrder() const;
 
         /** Gets whether the overlay is displayed or not. */
-        bool isVisible(void) const;
+        bool isVisible() const;
 
         /** Gets whether the overlay is initialised or not. */
-        bool isInitialised(void) const { return mInitialised; }
+        bool isInitialised() const { return mInitialised; }
 
         /** Shows the overlay if it was hidden. */
-        void show(void);
+        void show();
 
         /** Hides the overlay if it was visible. */
-        void hide(void);
+        void hide();
 
         /** Shows or hides this overlay. */
         void setVisible(bool visible);
@@ -217,10 +217,10 @@ namespace Ogre {
         void setScroll(Real x, Real y);
 
         /** Gets the current X scroll value */
-        Real getScrollX(void) const;
+        Real getScrollX() const;
 
         /** Gets the current Y scroll value */
-        Real getScrollY(void) const;
+        Real getScrollY() const;
 
         /** Scrolls the overlay by the offsets provided.
         @remarks
@@ -234,7 +234,7 @@ namespace Ogre {
         void setRotate(const Radian& angle);
 
         /** Gets the rotation applied to this overlay, in degrees.*/
-        const Radian &getRotate(void) const { return mRotate; }
+        const Radian &getRotate() const { return mRotate; }
 
         /** Adds the passed in angle to the rotation applied to this overlay. */
         void rotate(const Radian& angle);
@@ -249,10 +249,10 @@ namespace Ogre {
         void setScale(Real x, Real y);
 
         /** Gets the current X scale value */
-        Real getScaleX(void) const;
+        Real getScaleX() const;
 
         /** Gets the current Y scale value */
-        Real getScaleY(void) const;
+        Real getScaleY() const;
 
         /** Used to transform the overlay when scrolling, scaling etc. */
         void _getWorldTransforms(Matrix4* xform) const;
@@ -275,7 +275,7 @@ namespace Ogre {
             this overlay chose to populate it. Script loaders are advised
             to populate it.
         */
-        const String& getOrigin(void) const { return mOrigin; }
+        const String& getOrigin() const { return mOrigin; }
         /// Notify this overlay of it's origin
         void _notifyOrigin(const String& origin) { mOrigin = origin; }
 

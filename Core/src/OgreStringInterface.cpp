@@ -92,7 +92,7 @@ namespace Ogre {
         }
     }
 
-    const ParameterList& StringInterface::getParameters(void) const
+    const ParameterList& StringInterface::getParameters() const
     {
         static ParameterList emptyList;
 

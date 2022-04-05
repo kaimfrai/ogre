@@ -48,10 +48,10 @@ class GLSLLinkProgramManager;
     protected:
         static String sLanguageName;
     public:
-        GLSLProgramFactory(void);
-        ~GLSLProgramFactory(void);
+        GLSLProgramFactory();
+        ~GLSLProgramFactory();
         /// Get the name of the language this factory creates programs for
-        const String& getLanguage(void) const;
+        const String& getLanguage() const;
         /// Create an instance of GLSLProgram
         GpuProgram* create(ResourceManager* creator,
             const String& name, ResourceHandle handle,

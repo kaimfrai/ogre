@@ -101,7 +101,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    SceneManager* Camera::getSceneManager(void) const
+    SceneManager* Camera::getSceneManager() const
     {
         return mManager;
     }
@@ -114,13 +114,13 @@ class Sphere;
     }
 
     //-----------------------------------------------------------------------
-    PolygonMode Camera::getPolygonMode(void) const
+    PolygonMode Camera::getPolygonMode() const
     {
         return mSceneDetail;
     }
 
     //-----------------------------------------------------------------------
-    bool Camera::isViewOutOfDate(void) const
+    bool Camera::isViewOutOfDate() const
     {
         if(Frustum::isViewOutOfDate())
             mRecalcWindow = true;
@@ -160,7 +160,7 @@ class Sphere;
         Frustum::invalidateView();
     }
     // -------------------------------------------------------------------
-    void Camera::invalidateFrustum(void) const
+    void Camera::invalidateFrustum() const
     {
         mRecalcWindow = true;
         Frustum::invalidateFrustum();
@@ -245,79 +245,79 @@ class Sphere;
     }
 
     //-----------------------------------------------------------------------
-    unsigned int Camera::_getNumRenderedFaces(void) const
+    unsigned int Camera::_getNumRenderedFaces() const
     {
         return mVisFacesLastRender;
     }
     //-----------------------------------------------------------------------
-    unsigned int Camera::_getNumRenderedBatches(void) const
+    unsigned int Camera::_getNumRenderedBatches() const
     {
         return mVisBatchesLastRender;
     }
     //-----------------------------------------------------------------------
-    const Quaternion& Camera::getDerivedOrientation(void) const
+    const Quaternion& Camera::getDerivedOrientation() const
     {
         updateView();
         return mDerivedOrientation;
     }
     //-----------------------------------------------------------------------
-    const Vector3& Camera::getDerivedPosition(void) const
+    const Vector3& Camera::getDerivedPosition() const
     {
         updateView();
         return mDerivedPosition;
     }
     //-----------------------------------------------------------------------
-    Vector3 Camera::getDerivedDirection(void) const
+    Vector3 Camera::getDerivedDirection() const
     {
         // Direction points down -Z
         updateView();
         return -mDerivedOrientation.zAxis();
     }
     //-----------------------------------------------------------------------
-    Vector3 Camera::getDerivedUp(void) const
+    Vector3 Camera::getDerivedUp() const
     {
         updateView();
         return mDerivedOrientation.yAxis();
     }
     //-----------------------------------------------------------------------
-    Vector3 Camera::getDerivedRight(void) const
+    Vector3 Camera::getDerivedRight() const
     {
         updateView();
         return mDerivedOrientation.xAxis();
     }
     //-----------------------------------------------------------------------
-    const Quaternion& Camera::getRealOrientation(void) const
+    const Quaternion& Camera::getRealOrientation() const
     {
         updateView();
         return mLastParentOrientation;
     }
     //-----------------------------------------------------------------------
-    const Vector3& Camera::getRealPosition(void) const
+    const Vector3& Camera::getRealPosition() const
     {
         updateView();
         return mLastParentPosition;
     }
     //-----------------------------------------------------------------------
-    Vector3 Camera::getRealDirection(void) const
+    Vector3 Camera::getRealDirection() const
     {
         // Direction points down -Z
         updateView();
         return -mLastParentOrientation.zAxis();
     }
     //-----------------------------------------------------------------------
-    Vector3 Camera::getRealUp(void) const
+    Vector3 Camera::getRealUp() const
     {
         updateView();
         return mLastParentOrientation.yAxis();
     }
     //-----------------------------------------------------------------------
-    Vector3 Camera::getRealRight(void) const
+    Vector3 Camera::getRealRight() const
     {
         updateView();
         return mLastParentOrientation.xAxis();
     }
     //-----------------------------------------------------------------------
-    const String& Camera::getMovableType(void) const
+    const String& Camera::getMovableType() const
     {
         return msMovableType;
     }
@@ -329,12 +329,12 @@ class Sphere;
         mSceneLodFactorInv = 1.0f / factor;
     }
     //-----------------------------------------------------------------------
-    Real Camera::getLodBias(void) const
+    Real Camera::getLodBias() const
     {
         return mSceneLodFactor;
     }
     //-----------------------------------------------------------------------
-    Real Camera::_getLodBiasInverse(void) const
+    Real Camera::_getLodBiasInverse() const
     {
         return mSceneLodFactorInv;
     }
@@ -529,14 +529,14 @@ class Sphere;
 
     }
     // -------------------------------------------------------------------
-    const std::vector<Plane>& Camera::getWindowPlanes(void) const
+    const std::vector<Plane>& Camera::getWindowPlanes() const
     {
         updateView();
         setWindowImpl();
         return mWindowClipPlanes;
     }
     // -------------------------------------------------------------------
-    Real Camera::getBoundingRadius(void) const
+    Real Camera::getBoundingRadius() const
     {
         // return a little bigger than the near distance
         // just to keep things just outside
@@ -544,7 +544,7 @@ class Sphere;
 
     }
     //-----------------------------------------------------------------------
-    bool Camera::getAutoAspectRatio(void) const
+    bool Camera::getAutoAspectRatio() const
     {
         return mAutoAspectRatio;
     }
@@ -590,7 +590,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    const Frustum::Corners& Camera::getWorldSpaceCorners(void) const
+    const Frustum::Corners& Camera::getWorldSpaceCorners() const
     {
         if (mCullFrustum)
         {
@@ -627,7 +627,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    Real Camera::getNearClipDistance(void) const
+    Real Camera::getNearClipDistance() const
     {
         if (mCullFrustum)
         {
@@ -639,7 +639,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    Real Camera::getFarClipDistance(void) const
+    Real Camera::getFarClipDistance() const
     {
         if (mCullFrustum)
         {
@@ -651,7 +651,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    const Affine3& Camera::getViewMatrix(void) const
+    const Affine3& Camera::getViewMatrix() const
     {
         if (mCullFrustum)
         {

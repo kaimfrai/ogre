@@ -84,7 +84,7 @@ namespace Ogre {
         }
 
         /** Gets the file extension list for the registered codecs. */
-        static StringVector getExtensions(void);
+        static StringVector getExtensions();
 
         /** Gets the codec registered for the passed in file extension. */
         static Codec* getCodec(const String& extension);

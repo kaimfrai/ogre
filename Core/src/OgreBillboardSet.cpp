@@ -248,7 +248,7 @@ namespace Ogre {
         return - (sortPos - bill->getPosition()).squaredLength();
     }
     //-----------------------------------------------------------------------
-    SortMode BillboardSet::_getSortMode(void) const
+    SortMode BillboardSet::_getSortMode() const
     {
         // Need to sort by distance if we're using accurate facing, or perpendicular billboard type.
         if (mAccurateFacing ||
@@ -411,7 +411,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void BillboardSet::endBillboards(void)
+    void BillboardSet::endBillboards()
     {
         mMainBuf->unlock();
     }
@@ -422,7 +422,7 @@ namespace Ogre {
         mBoundingRadius = radius;
     }
     //-----------------------------------------------------------------------
-    void BillboardSet::_updateBounds(void)
+    void BillboardSet::_updateBounds()
     {
         if (mActiveBillboards == 0)
         {
@@ -566,7 +566,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void BillboardSet::_createBuffers(void)
+    void BillboardSet::_createBuffers()
     {
         /* Allocate / reallocate vertex data
            Note that we allocate enough space for ALL the billboards in the pool, but only issue
@@ -668,7 +668,7 @@ namespace Ogre {
         mBuffersCreated = true;
     }
     //-----------------------------------------------------------------------
-    void BillboardSet::_destroyBuffers(void)
+    void BillboardSet::_destroyBuffers()
     {
         mVertexData.reset();
         mIndexData.reset();
@@ -856,7 +856,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    uint32 BillboardSet::getTypeFlags(void) const
+    uint32 BillboardSet::getTypeFlags() const
     {
         return SceneManager::FX_TYPE_MASK;
     }
@@ -1069,7 +1069,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    const String& BillboardSet::getMovableType(void) const
+    const String& BillboardSet::getMovableType() const
     {
         return BillboardSetFactory::FACTORY_TYPE_NAME;
     }
@@ -1080,7 +1080,7 @@ namespace Ogre {
         return mParentNode->getSquaredViewDepth(cam);
     }
     //-----------------------------------------------------------------------
-    const LightList& BillboardSet::getLights(void) const
+    const LightList& BillboardSet::getLights() const
     {
         // It's actually quite unlikely that this will be called,
         // because most billboards are unlit, but here we go anyway
@@ -1165,7 +1165,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String BillboardSetFactory::FACTORY_TYPE_NAME = "BillboardSet";
     //-----------------------------------------------------------------------
-    const String& BillboardSetFactory::getType(void) const
+    const String& BillboardSetFactory::getType() const
     {
         return FACTORY_TYPE_NAME;
     }

@@ -143,7 +143,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    SceneNode* MovableObject::getParentSceneNode(void) const
+    SceneNode* MovableObject::getParentSceneNode() const
     {
         if (mParentIsTagPoint)
         {
@@ -156,7 +156,7 @@ class Any;
         }
     }
     //---------------------------------------------------------------------
-    void MovableObject::detachFromParent(void)
+    void MovableObject::detachFromParent()
     {
         if (isAttached())
         {
@@ -173,7 +173,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    bool MovableObject::isInScene(void) const
+    bool MovableObject::isInScene() const
     {
         if (mParentNode != 0)
         {
@@ -194,7 +194,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    void MovableObject::_notifyMoved(void)
+    void MovableObject::_notifyMoved()
     {
         // Mark light list being dirty, simply decrease
         // counter by one for minimise overhead
@@ -207,7 +207,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    bool MovableObject::isVisible(void) const
+    bool MovableObject::isVisible() const
     {
         if (!mVisible || mBeyondFarDistance || mRenderingDisabled)
             return false;
@@ -304,7 +304,7 @@ class Any;
     }
 
     //-----------------------------------------------------------------------
-    const Affine3& MovableObject::_getParentNodeFullTransform(void) const
+    const Affine3& MovableObject::_getParentNodeFullTransform() const
     {
         
         if(mParentNode)
@@ -346,7 +346,7 @@ class Any;
         return mWorldBoundingSphere;
     }
     //-----------------------------------------------------------------------
-    const LightList& MovableObject::queryLights(void) const
+    const LightList& MovableObject::queryLights() const
     {
         // Try listener first
         if (mListener)
@@ -395,7 +395,7 @@ class Any;
         return dummyList;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& MovableObject::getLightCapBounds(void) const
+    const AxisAlignedBox& MovableObject::getLightCapBounds() const
     {
         // Same as original bounds
         return getWorldBoundingBox();
@@ -437,7 +437,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    uint32 MovableObject::getTypeFlags(void) const
+    uint32 MovableObject::getTypeFlags() const
     {
         if (mCreator)
         {

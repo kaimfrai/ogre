@@ -161,8 +161,8 @@ class Technique;
 
         virtual void setupVertices( const SubMesh* baseSubMesh ) = 0;
         virtual void setupIndices( const SubMesh* baseSubMesh ) = 0;
-        virtual void createAllInstancedEntities(void);
-        virtual void deleteAllInstancedEntities(void);
+        virtual void createAllInstancedEntities();
+        virtual void deleteAllInstancedEntities();
         /// Creates a new InstancedEntity instance
         virtual InstancedEntity* generateInstancedEntity(size_t num);
 
@@ -175,7 +175,7 @@ class Technique;
         /// Returns false on errors that would prevent building this batch from the given submesh
         virtual bool checkSubMeshCompatibility( const SubMesh* baseSubMesh );
 
-        void updateVisibility(void);
+        void updateVisibility();
 
         /** @see _defragmentBatch */
         void defragmentBatchNoCull( InstancedEntityVec &usedEntities, CustomParamsVec &usedParams );
@@ -210,7 +210,7 @@ class Technique;
         bool _supportsSkeletalAnimation() const { return mTechnSupportsSkeletal; }
 
         /** @see InstanceManager::updateDirtyBatches */
-        void _updateBounds(void);
+        void _updateBounds();
 
         /** Some techniques have a limit on how many instances can be done.
             Sometimes even depends on the material being used.
@@ -254,16 +254,16 @@ class Technique;
         */
         virtual void buildFrom( const SubMesh *baseSubMesh, const RenderOperation &renderOperation );
 
-        const Ogre::MeshPtr& _getMeshReference(void) const { return mMeshReference; }
+        const Ogre::MeshPtr& _getMeshReference() const { return mMeshReference; }
 
         /** @return true if it can not create more InstancedEntities
             (Num InstancedEntities == mInstancesPerBatch)
         */
-        bool isBatchFull(void) const { return mUnusedEntities.empty(); }
+        bool isBatchFull() const { return mUnusedEntities.empty(); }
 
         /** Returns true if it no instanced entity has been requested or all of them have been removed
         */
-        bool isBatchUnused(void) const { return mUnusedEntities.size() == mInstancedEntities.size(); }
+        bool isBatchUnused() const { return mUnusedEntities.size() == mInstancedEntities.size(); }
 
         auto inline getUsedEntityCount() const noexcept -> size_t { return mInstancedEntities.size() - mUnusedEntities.size();  }
 
@@ -292,7 +292,7 @@ class Technique;
         /** Called by InstancedEntity(s) to tell us we need to update the bounds
             (we touch the SceneNode so the SceneManager aknowledges such change)
         */
-        virtual void _boundsDirty(void);
+        virtual void _boundsDirty();
 
         /** Tells this batch to stop updating animations, positions, rotations, and display
             all it's active instances. Currently only InstanceBatchHW & InstanceBatchHW_VTF support it.
@@ -345,25 +345,25 @@ class Technique;
 
         //Renderable overloads
         /** @copydoc Renderable::getMaterial */
-        const MaterialPtr& getMaterial(void) const      { return mMaterial; }
+        const MaterialPtr& getMaterial() const      { return mMaterial; }
         /** @copydoc Renderable::getRenderOperation */
         void getRenderOperation( RenderOperation& op )  { op = mRenderOperation; }
 
         /** @copydoc Renderable::getSquaredViewDepth */
         Real getSquaredViewDepth( const Camera* cam ) const;
         /** @copydoc Renderable::getLights */
-        const LightList& getLights( void ) const;
+        const LightList& getLights( ) const;
         /** @copydoc Renderable::getTechnique */
-        Technique* getTechnique(void) const;
+        Technique* getTechnique() const;
 
         /** @copydoc MovableObject::getMovableType */
-        const String& getMovableType(void) const;
+        const String& getMovableType() const;
         /** @copydoc MovableObject::_notifyCurrentCamera */
         void _notifyCurrentCamera( Camera* cam );
         /** @copydoc MovableObject::getBoundingBox */
-        const AxisAlignedBox& getBoundingBox(void) const;
+        const AxisAlignedBox& getBoundingBox() const;
         /** @copydoc MovableObject::getBoundingRadius */
-        Real getBoundingRadius(void) const;
+        Real getBoundingRadius() const;
 
         virtual void _updateRenderQueue(RenderQueue* queue);
         void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false );

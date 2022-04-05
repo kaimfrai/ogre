@@ -101,7 +101,7 @@ template <typename T> class Controller;
         /** Remove tracking on a given node. */
         virtual void removeNode(const Node* n);
         /** Get an iterator over the nodes which are being tracked. */
-        virtual NodeIterator getNodeIterator(void) const;
+        virtual NodeIterator getNodeIterator() const;
         /** Get the chain index for a given Node being tracked. */
         virtual size_t getChainIndexForNode(const Node* n);
 
@@ -113,7 +113,7 @@ template <typename T> class Controller;
         */
         virtual void setTrailLength(Real len);
         /** Get the length of the trail. */
-        virtual Real getTrailLength(void) const { return mTrailLength; }
+        virtual Real getTrailLength() const { return mTrailLength; }
 
         /** @copydoc BillboardChain::setMaxChainElements */
         void setMaxChainElements(size_t maxElements);
@@ -178,7 +178,7 @@ template <typename T> class Controller;
         /// Perform any fading / width delta required; internal method
         virtual void _timeUpdate(Real time);
 
-        const String& getMovableType(void) const override;
+        const String& getMovableType() const override;
 
     private:
         /// List of nodes being trailed
@@ -217,13 +217,13 @@ template <typename T> class Controller;
         ControllerValueRealPtr mTimeControllerValue;
 
         /// Manage updates to the time controller
-        virtual void manageController(void);
+        virtual void manageController();
         /// Node has changed position, update
         virtual void updateTrail(size_t index, const Node* node);
         /// Reset the tracked chain to initial state
         virtual void resetTrail(size_t index, const Node* node);
         /// Reset all tracked chains to initial state
-        virtual void resetAllTrails(void);
+        virtual void resetAllTrails();
 
     };
 
@@ -239,7 +239,7 @@ template <typename T> class Controller;
 
         static String FACTORY_TYPE_NAME;
 
-        const String& getType(void) const;
+        const String& getType() const;
     };
     /** @} */
     /** @} */

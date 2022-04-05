@@ -142,7 +142,7 @@ class Technique;
         return true;
     }
     //-----------------------------------------------------------------------
-    void InstanceBatch::_updateBounds(void)
+    void InstanceBatch::_updateBounds()
     {
         mFullBoundingBox.setNull();
 
@@ -171,7 +171,7 @@ class Technique;
     }
 
     //-----------------------------------------------------------------------
-    void InstanceBatch::updateVisibility(void)
+    void InstanceBatch::updateVisibility()
     {
         mVisible = false;
 
@@ -433,14 +433,14 @@ class Technique;
             _boundsDirty();
     }
     //-----------------------------------------------------------------------
-    void InstanceBatch::_boundsDirty(void)
+    void InstanceBatch::_boundsDirty()
     {
         if( mCreator && !mBoundsDirty ) 
             mCreator->_addDirtyBatch( this );
         mBoundsDirty = true;
     }
     //-----------------------------------------------------------------------
-    const String& InstanceBatch::getMovableType(void) const
+    const String& InstanceBatch::getMovableType() const
     {
         static String sType = "InstanceBatch";
         return sType;
@@ -528,12 +528,12 @@ class Technique;
         // MovableObject::_notifyCurrentCamera( cam ); // it does not suit
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& InstanceBatch::getBoundingBox(void) const
+    const AxisAlignedBox& InstanceBatch::getBoundingBox() const
     {
         return mFullBoundingBox;
     }
     //-----------------------------------------------------------------------
-    Real InstanceBatch::getBoundingRadius(void) const
+    Real InstanceBatch::getBoundingRadius() const
     {
         return mBoundingRadius;
     }
@@ -554,12 +554,12 @@ class Technique;
         return mCachedCameraDist;
     }
     //-----------------------------------------------------------------------
-    const LightList& InstanceBatch::getLights( void ) const
+    const LightList& InstanceBatch::getLights( ) const
     {
         return queryLights();
     }
     //-----------------------------------------------------------------------
-    Technique* InstanceBatch::getTechnique( void ) const
+    Technique* InstanceBatch::getTechnique( ) const
     {
         return mMaterial->getBestTechnique( mMaterialLodIndex, this );
     }

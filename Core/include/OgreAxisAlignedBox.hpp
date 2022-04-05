@@ -121,7 +121,7 @@ class Sphere;
 
         /** Gets the minimum corner of the box.
         */
-        inline const Vector3& getMinimum(void) const
+        inline const Vector3& getMinimum() const
         { 
             return mMinimum; 
         }
@@ -129,14 +129,14 @@ class Sphere;
         /** Gets a modifiable version of the minimum
         corner of the box.
         */
-        inline Vector3& getMinimum(void)
+        inline Vector3& getMinimum()
         { 
             return mMinimum; 
         }
 
         /** Gets the maximum corner of the box.
         */
-        inline const Vector3& getMaximum(void) const
+        inline const Vector3& getMaximum() const
         { 
             return mMaximum;
         }
@@ -144,7 +144,7 @@ class Sphere;
         /** Gets a modifiable version of the maximum
         corner of the box.
         */
-        inline Vector3& getMaximum(void)
+        inline Vector3& getMaximum()
         { 
             return mMaximum;
         }
@@ -272,7 +272,7 @@ class Sphere;
         6-------7
         </pre>
         */
-        inline Corners getAllCorners(void) const
+        inline Corners getAllCorners() const
         {
             assert( (mExtent == EXTENT_FINITE) && "Can't get corners of a null or infinite AAB" );
 
@@ -502,14 +502,14 @@ class Sphere;
 
         /** Returns true if the box is null i.e. empty.
         */
-        inline bool isNull(void) const
+        inline bool isNull() const
         {
             return (mExtent == EXTENT_NULL);
         }
 
         /** Returns true if the box is finite.
         */
-        bool isFinite(void) const
+        bool isFinite() const
         {
             return (mExtent == EXTENT_FINITE);
         }
@@ -523,7 +523,7 @@ class Sphere;
 
         /** Returns true if the box is infinite.
         */
-        bool isInfinite(void) const
+        bool isInfinite() const
         {
             return (mExtent == EXTENT_INFINITE);
         }
@@ -593,7 +593,7 @@ class Sphere;
         }
 
         /// Calculate the volume of this box
-        Real volume(void) const
+        Real volume() const
         {
             switch (mExtent)
             {
@@ -660,7 +660,7 @@ class Sphere;
             }
         }
         /// Gets the centre of the box
-        Vector3 getCenter(void) const
+        Vector3 getCenter() const
         {
             assert( (mExtent == EXTENT_FINITE) && "Can't get center of a null or infinite AAB" );
 
@@ -670,7 +670,7 @@ class Sphere;
                 (mMaximum.z + mMinimum.z) * 0.5f);
         }
         /// Gets the size of the box
-        Vector3 getSize(void) const
+        Vector3 getSize() const
         {
             switch (mExtent)
             {
@@ -692,7 +692,7 @@ class Sphere;
             }
         }
         /// Gets the half-size of the box
-        Vector3 getHalfSize(void) const
+        Vector3 getHalfSize() const
         {
             switch (mExtent)
             {

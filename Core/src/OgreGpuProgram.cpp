@@ -156,7 +156,7 @@ class ResourceManager;
         return FastHash(mSource.c_str(), mSource.size(), hash);
     }
 
-    size_t GpuProgram::calculateSize(void) const
+    size_t GpuProgram::calculateSize() const
     {
         size_t memSize = sizeof(*this);
         memSize += mManualNamedConstantsFile.size() * sizeof(char);
@@ -201,7 +201,7 @@ class ResourceManager;
         }
     }
 
-    void GpuProgram::loadImpl(void)
+    void GpuProgram::loadImpl()
     {
         if(mCompileError)
             return;
@@ -243,7 +243,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------------
-    bool GpuProgram::isRequiredCapabilitiesSupported(void) const
+    bool GpuProgram::isRequiredCapabilitiesSupported() const
     {
         const RenderSystemCapabilities* caps = 
             Root::getSingleton().getRenderSystem()->getCapabilities();
@@ -267,7 +267,7 @@ class ResourceManager;
         return true;
     }
     //-----------------------------------------------------------------------------
-    bool GpuProgram::isSupported(void) const
+    bool GpuProgram::isSupported() const
     {
         if (mCompileError || !isRequiredCapabilitiesSupported())
             return false;
@@ -326,7 +326,7 @@ class ResourceManager;
 
     }
     //-----------------------------------------------------------------------------
-    GpuProgramParametersSharedPtr GpuProgram::createParameters(void)
+    GpuProgramParametersSharedPtr GpuProgram::createParameters()
     {
         // Default implementation simply returns standard parameters.
         GpuProgramParametersSharedPtr ret = 
@@ -370,7 +370,7 @@ class ResourceManager;
         return ret;
     }
     //-----------------------------------------------------------------------------
-    const GpuProgramParametersPtr& GpuProgram::getDefaultParameters(void)
+    const GpuProgramParametersPtr& GpuProgram::getDefaultParameters()
     {
         if (!mDefaultParams)
         {
@@ -402,7 +402,7 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------------
-    void GpuProgram::setupBaseParamDictionary(void)
+    void GpuProgram::setupBaseParamDictionary()
     {
         ParamDictionary* dict = getParamDictionary();
 
@@ -438,7 +438,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------
-    const String& GpuProgram::getLanguage(void) const
+    const String& GpuProgram::getLanguage() const
     {
         static const String language = "asm";
 

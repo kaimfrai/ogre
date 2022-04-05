@@ -61,7 +61,7 @@ namespace Ogre {
     public:
         virtual ~GpuProgramFactory() {}
         /// Get the name of the language this factory creates programs for
-        virtual const String& getLanguage(void) const = 0;
+        virtual const String& getLanguage() const = 0;
         virtual GpuProgram* create(ResourceManager* creator, const String& name, ResourceHandle handle,
                                    const String& group, bool isManual, ManualResourceLoader* loader) = 0;
         virtual void destroy(GpuProgram* prog) { delete prog; }
@@ -151,7 +151,7 @@ namespace Ogre {
             const String& syntaxCode);
 
         /** Returns the syntaxes that the RenderSystem supports. */
-        static const SyntaxCodes& getSupportedSyntax(void);
+        static const SyntaxCodes& getSupportedSyntax();
 
         /** Returns whether a given syntax code (e.g. "glsl330", "vs_4_0", "arbvp1") is supported. */
         static bool isSyntaxSupported(const String& syntaxCode);
@@ -164,7 +164,7 @@ namespace Ogre {
         @remarks
             Program parameters can be shared between multiple programs if you wish.
         */
-        virtual GpuProgramParametersSharedPtr createParameters(void);
+        virtual GpuProgramParametersSharedPtr createParameters();
         
         /** Create a new, unloaded GpuProgram from a file of assembly. 
         @remarks    
@@ -251,7 +251,7 @@ namespace Ogre {
 
         /** Returns true if the microcodecache changed during the run.
         */
-        bool isCacheDirty(void) const;
+        bool isCacheDirty() const;
 
         static bool canGetCompiledShaderBuffer();
         /** Check if a microcode is available for a program in the microcode cache.
@@ -295,9 +295,9 @@ namespace Ogre {
         void removeFactory(GpuProgramFactory* factory);
 
         /// @copydoc Singleton::getSingleton()
-        static GpuProgramManager& getSingleton(void);
+        static GpuProgramManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static GpuProgramManager* getSingletonPtr(void);
+        static GpuProgramManager* getSingletonPtr();
     
 
 

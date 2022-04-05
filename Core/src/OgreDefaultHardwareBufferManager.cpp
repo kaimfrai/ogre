@@ -52,7 +52,7 @@ namespace Ogre {
         return mData + offset;
     }
     //-----------------------------------------------------------------------
-    void DefaultHardwareBuffer::unlockImpl(void)
+    void DefaultHardwareBuffer::unlockImpl()
     {
         // Nothing to do
     }

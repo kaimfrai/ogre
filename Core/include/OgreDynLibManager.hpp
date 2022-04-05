@@ -84,9 +84,9 @@ class DynLib;
         void unload(DynLib* lib);
 
         /// @copydoc Singleton::getSingleton()
-        static DynLibManager& getSingleton(void);
+        static DynLibManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static DynLibManager* getSingletonPtr(void);
+        static DynLibManager* getSingletonPtr();
     };
     /** @} */
     /** @} */

@@ -125,7 +125,7 @@ class ResourceManager;
             handle, use the alternate form of this method which takes a handle as a parameter,
             although you should note the restrictions.
         */
-        virtual Bone* createBone(void);
+        virtual Bone* createBone();
 
         /** Creates a brand new Bone owned by this Skeleton. 
         @remarks
@@ -170,7 +170,7 @@ class ResourceManager;
         virtual Bone* createBone(const String& name, unsigned short handle);
 
         /** Returns the number of bones in this skeleton. */
-        virtual unsigned short getNumBones(void) const;
+        virtual unsigned short getNumBones() const;
 
         typedef std::vector<Bone*> BoneList;
         typedef VectorIterator<BoneList> BoneIterator;
@@ -205,7 +205,7 @@ class ResourceManager;
         /** Sets the current position / orientation to be the 'binding pose' i.e. the layout in which 
             bones were originally bound to a mesh.
         */
-        virtual void setBindingPose(void);
+        virtual void setBindingPose();
 
         /** Resets the position and orientation of all bones in this skeleton to their original binding position.
         @remarks
@@ -288,7 +288,7 @@ class ResourceManager;
         virtual void _getBoneMatrices(Affine3* pMatrices);
 
         /** Gets the number of animations on this skeleton. */
-        virtual unsigned short getNumAnimations(void) const;
+        virtual unsigned short getNumAnimations() const;
 
         /** Gets a single animation by index. 
         @remarks
@@ -304,7 +304,7 @@ class ResourceManager;
         virtual void setBlendMode(SkeletonAnimationBlendMode state);
 
         /// Updates all the derived transforms in the skeleton
-        virtual void _updateTransforms(void);
+        virtual void _updateTransforms();
 
         /** Optimise all of this skeleton's animations.
         @see Animation::optimise
@@ -349,7 +349,7 @@ class ResourceManager;
         virtual void addLinkedSkeletonAnimationSource(const String& skelName, 
             Real scale = 1.0f);
         /// Remove all links to other skeletons for the purposes of sharing animation
-        virtual void removeAllLinkedSkeletonAnimationSources(void);
+        virtual void removeAllLinkedSkeletonAnimationSources();
         
         typedef std::vector<LinkedSkeletonAnimationSource> 
             LinkedSkeletonAnimSourceList;
@@ -362,14 +362,14 @@ class ResourceManager;
         }
 
         /// Internal method for marking the manual bones as dirty
-        virtual void _notifyManualBonesDirty(void);
+        virtual void _notifyManualBonesDirty();
         /// Internal method for notifying that a bone is manual
         virtual void _notifyManualBoneStateChange(Bone* bone);
 
         /// Have manual bones been modified since the skeleton was last updated?
-        virtual bool getManualBonesDirty(void) const { return mManualBonesDirty; }
+        virtual bool getManualBonesDirty() const { return mManualBonesDirty; }
         /// Are there any manually controlled bones?
-        virtual bool hasManualBones(void) const { return !mManualBones.empty(); }
+        virtual bool hasManualBones() const { return !mManualBones.empty(); }
 
         /// Map to translate bone handle from one skeleton to another skeleton.
         typedef std::vector<ushort> BoneHandleMap;
@@ -456,7 +456,7 @@ class ResourceManager;
             Must be const because called in getRootBone but mRootBone is mutable
             since lazy-updated.
         */
-        void deriveRootBone(void) const;
+        void deriveRootBone() const;
 
         /// Debugging method
         void _dumpContents(const String& filename);
@@ -464,10 +464,10 @@ class ResourceManager;
         void loadImpl() {}
         void unloadImpl() { unprepareImpl(); }
 
-        void prepareImpl(void);
-        void unprepareImpl(void);
+        void prepareImpl();
+        void unprepareImpl();
         /// @copydoc Resource::calculateSize
-        size_t calculateSize(void) const;
+        size_t calculateSize() const;
 
     };
 

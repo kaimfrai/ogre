@@ -91,7 +91,7 @@ namespace Ogre
         mVertexList[ vertex ] = vdata;
     }
     //-----------------------------------------------------------------------
-    void Polygon::removeDuplicates( void )
+    void Polygon::removeDuplicates( )
     {
         for ( size_t i = 0; i < getVertexCount(); ++i )
         {
@@ -106,19 +106,19 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    size_t Polygon::getVertexCount( void ) const
+    size_t Polygon::getVertexCount( ) const
     {
         return mVertexList.size();
     }
     //-----------------------------------------------------------------------
-    const Vector3& Polygon::getNormal( void ) const
+    const Vector3& Polygon::getNormal( ) const
     {
         updateNormal();
 
         return mNormal;
     }
     //-----------------------------------------------------------------------
-    void Polygon::updateNormal( void ) const
+    void Polygon::updateNormal( ) const
     {
         OgreAssertDbg( getVertexCount() >= 3, "Insufficient vertex count!" );
 
@@ -171,7 +171,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    void Polygon::reset( void )
+    void Polygon::reset( )
     {
         // could use swap() to free memory here, but assume most may be reused so avoid realloc
         mVertexList.clear();

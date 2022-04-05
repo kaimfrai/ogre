@@ -58,13 +58,13 @@ ATI_FS_GLGpuProgram::~ATI_FS_GLGpuProgram()
     unload(); 
 }
 
-void ATI_FS_GLGpuProgram::bindProgram(void)
+void ATI_FS_GLGpuProgram::bindProgram()
 {
     glEnable(mProgramType);
     glBindFragmentShaderATI(mProgramID);
 }
 
-void ATI_FS_GLGpuProgram::unbindProgram(void)
+void ATI_FS_GLGpuProgram::unbindProgram()
 {
     glDisable(mProgramType);
 }
@@ -94,13 +94,13 @@ void ATI_FS_GLGpuProgram::bindProgramParameters(GpuProgramParametersSharedPtr pa
 
 }
 
-void ATI_FS_GLGpuProgram::unloadImpl(void)
+void ATI_FS_GLGpuProgram::unloadImpl()
 {
     glDeleteFragmentShaderATI(mProgramID);
 }
 
 
-void ATI_FS_GLGpuProgram::loadFromSource(void)
+void ATI_FS_GLGpuProgram::loadFromSource()
 {
 
     PS_1_4 PS1_4Assembler;

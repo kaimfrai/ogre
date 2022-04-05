@@ -37,7 +37,7 @@
 
 namespace Ogre {
     
-    GLStateCacheManager::GLStateCacheManager(void)
+    GLStateCacheManager::GLStateCacheManager()
     {
         clearCache();
     }

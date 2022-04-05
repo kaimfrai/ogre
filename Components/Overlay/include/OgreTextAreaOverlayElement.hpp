@@ -60,7 +60,7 @@ namespace Ogre
         TextAreaOverlayElement(const String& name);
         virtual ~TextAreaOverlayElement();
 
-        virtual void initialise(void);
+        virtual void initialise();
 
         /** @copydoc OverlayElement::_releaseManualHardwareResources */
         virtual void _releaseManualHardwareResources();
@@ -81,8 +81,8 @@ namespace Ogre
             return mFont;
         }
 
-        virtual const String& getTypeName(void) const override;
-        const MaterialPtr& getMaterial(void) const override;
+        virtual const String& getTypeName() const override;
+        const MaterialPtr& getMaterial() const override;
         void getRenderOperation(RenderOperation& op) override;
 
         /** Sets the colour of the text. 
@@ -94,7 +94,7 @@ namespace Ogre
         void setColour(const ColourValue& col);
 
         /** Gets the colour of the text. */
-        const ColourValue& getColour(void) const;
+        const ColourValue& getColour() const;
         /** Sets the colour of the bottom of the letters.
         @remarks
             By setting a separate top and bottom colour, you
@@ -103,7 +103,7 @@ namespace Ogre
         */
         void setColourBottom(const ColourValue& col);
         /** Gets the colour of the bottom of the letters. */
-        const ColourValue& getColourBottom(void) const;
+        const ColourValue& getColourBottom() const;
         /** Sets the colour of the top of the letters.
         @remarks
             By setting a separate top and bottom colour, you
@@ -112,7 +112,7 @@ namespace Ogre
         */
         void setColourTop(const ColourValue& col);
         /** Gets the colour of the top of the letters. */
-        const ColourValue& getColourTop(void) const;
+        const ColourValue& getColourTop() const;
 
         inline void setAlignment( Alignment a )
         {
@@ -128,7 +128,7 @@ namespace Ogre
         void setMetricsMode(GuiMetricsMode gmm);
 
         /** Overridden from OverlayElement */
-        void _update(void);
+        void _update();
     private:
         /// The text alignment
         Alignment mAlignment;
@@ -140,7 +140,7 @@ namespace Ogre
         RenderOperation mRenderOp;
 
         /// Method for setting up base parameters for this class
-        void addBaseParameters(void);
+        void addBaseParameters();
 
         static String msTypeName;
 
@@ -165,7 +165,7 @@ namespace Ogre
         /// Inherited function
         virtual void updateTextureGeometry();
         /// Updates vertex colours
-        virtual void updateColours(void);
+        virtual void updateColours();
     };
     /** @} */
     /** @} */

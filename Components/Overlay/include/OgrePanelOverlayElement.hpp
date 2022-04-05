@@ -68,7 +68,7 @@ class RenderQueue;
         virtual ~PanelOverlayElement();
 
         /** Initialise */
-        virtual void initialise(void);
+        virtual void initialise();
 
         /** @copydoc OverlayElement::_releaseManualHardwareResources */
         virtual void _releaseManualHardwareResources();
@@ -102,9 +102,9 @@ class RenderQueue;
         void setTransparent(bool isTransparent);
 
         /** Returns whether this panel is transparent. */
-        bool isTransparent(void) const;
+        bool isTransparent() const;
 
-        const String& getTypeName(void) const override;
+        const String& getTypeName() const override;
         void getRenderOperation(RenderOperation& op) override;
         /** Overridden from OverlayContainer */
         void _updateRenderQueue(RenderQueue* queue);
@@ -121,13 +121,13 @@ class RenderQueue;
         RenderOperation mRenderOp;
 
         /// Internal method for setting up geometry, called by OverlayElement::update
-        virtual void updatePositionGeometry(void);
+        virtual void updatePositionGeometry();
 
         /// Called to update the texture coords when layers change
-        virtual void updateTextureGeometry(void);
+        virtual void updateTextureGeometry();
 
         /// Method for setting up base parameters for this class
-        void addBaseParameters(void);
+        void addBaseParameters();
 
         static String msTypeName;
     };

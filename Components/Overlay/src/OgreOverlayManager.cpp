@@ -53,11 +53,11 @@ class RenderQueue;
 
     //---------------------------------------------------------------------
     template<> OverlayManager *Singleton<OverlayManager>::msSingleton = 0;
-    OverlayManager* OverlayManager::getSingletonPtr(void)
+    OverlayManager* OverlayManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    OverlayManager& OverlayManager::getSingleton(void)
+    OverlayManager& OverlayManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -103,12 +103,12 @@ class RenderQueue;
             i->second->_restoreManualHardwareResources();
     }
     //---------------------------------------------------------------------
-    const StringVector& OverlayManager::getScriptPatterns(void) const
+    const StringVector& OverlayManager::getScriptPatterns() const
     {
         return mScriptPatterns;
     }
     //---------------------------------------------------------------------
-    Real OverlayManager::getLoadingOrder(void) const
+    Real OverlayManager::getLoadingOrder() const
     {
         // Load late
         return 1100.0f;
@@ -192,7 +192,7 @@ class RenderQueue;
             "OverlayManager::destroy");
     }
     //---------------------------------------------------------------------
-    void OverlayManager::destroyAll(void)
+    void OverlayManager::destroyAll()
     {
         for (OverlayMap::iterator i = mOverlayMap.begin();
             i != mOverlayMap.end(); ++i)
@@ -202,7 +202,7 @@ class RenderQueue;
         mOverlayMap.clear();
     }
     //---------------------------------------------------------------------
-    OverlayManager::OverlayMapIterator OverlayManager::getOverlayIterator(void)
+    OverlayManager::OverlayMapIterator OverlayManager::getOverlayIterator()
     {
         return OverlayMapIterator(mOverlayMap.begin(), mOverlayMap.end());
     }
@@ -241,28 +241,28 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    int OverlayManager::getViewportHeight(void) const
+    int OverlayManager::getViewportHeight() const
     {
         return mLastViewportHeight;
     }
     //---------------------------------------------------------------------
-    int OverlayManager::getViewportWidth(void) const
+    int OverlayManager::getViewportWidth() const
     {
         return mLastViewportWidth;
     }
     //---------------------------------------------------------------------
-    Real OverlayManager::getViewportAspectRatio(void) const
+    Real OverlayManager::getViewportAspectRatio() const
     {
         return (Real)mLastViewportWidth / (Real)mLastViewportHeight;
     }
     //---------------------------------------------------------------------
-    OrientationMode OverlayManager::getViewportOrientationMode(void) const
+    OrientationMode OverlayManager::getViewportOrientationMode() const
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Getting ViewPort orientation mode is not supported");
     }
     //---------------------------------------------------------------------
-    float OverlayManager::getPixelRatio(void) const
+    float OverlayManager::getPixelRatio() const
     {
         return mPixelRatio;
     }

@@ -51,7 +51,7 @@ class Viewport;
         setCameraLightDirectionThreshold(angle);
     }
     //-----------------------------------------------------------------------
-    LiSPSMShadowCameraSetup::~LiSPSMShadowCameraSetup(void)
+    LiSPSMShadowCameraSetup::~LiSPSMShadowCameraSetup()
     {
     }
     //-----------------------------------------------------------------------

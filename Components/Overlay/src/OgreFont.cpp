@@ -172,7 +172,7 @@ namespace Ogre
         mType = ftype;
     }
     //---------------------------------------------------------------------
-    FontType Font::getType(void) const
+    FontType Font::getType() const
     {
         return mType;
     }
@@ -192,17 +192,17 @@ namespace Ogre
         mTtfResolution = ttfResolution;
     }
     //---------------------------------------------------------------------
-    const String& Font::getSource(void) const
+    const String& Font::getSource() const
     {
         return mSource;
     }
     //---------------------------------------------------------------------
-    Real Font::getTrueTypeSize(void) const
+    Real Font::getTrueTypeSize() const
     {
         return mTtfSize;
     }
     //---------------------------------------------------------------------
-    uint Font::getTrueTypeResolution(void) const
+    uint Font::getTrueTypeResolution() const
     {
         return mTtfResolution;
     }
@@ -342,7 +342,7 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    void Font::createTextureFromFont(void)
+    void Font::createTextureFromFont()
     {
         // Just create the texture here, and point it at ourselves for when
         // it wants to (re)load for real

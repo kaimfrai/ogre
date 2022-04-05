@@ -53,7 +53,7 @@ namespace Ogre {
     private:
         unsigned char* mData;
         void* lockImpl(size_t offset, size_t length, LockOptions options) override;
-        void unlockImpl(void) override;
+        void unlockImpl() override;
     public:
         DefaultHardwareBuffer(size_t sizeInBytes);
         ~DefaultHardwareBuffer();

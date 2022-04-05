@@ -140,7 +140,7 @@ class Sphere;
 
         /** Returns the light type.
         */
-        LightTypes getType(void) const;
+        LightTypes getType() const;
 
         /** Sets the colour of the diffuse light given off by this source.
         @remarks
@@ -158,7 +158,7 @@ class Sphere;
 
         /** Returns the colour of the diffuse light given off by this light source (see setDiffuseColour for more info).
         */
-        const ColourValue& getDiffuseColour(void) const;
+        const ColourValue& getDiffuseColour() const;
 
         /** Sets the colour of the specular light given off by this source.
         @remarks
@@ -176,7 +176,7 @@ class Sphere;
 
         /** Returns the colour of specular light given off by this light source.
         */
-        const ColourValue& getSpecularColour(void) const;
+        const ColourValue& getSpecularColour() const;
 
         /** Sets the attenuation parameters of the light source i.e. how it diminishes with distance.
         @remarks
@@ -204,19 +204,19 @@ class Sphere;
 
         /** Returns the absolute upper range of the light.
         */
-        float getAttenuationRange(void) const { return mAttenuation[0]; }
+        float getAttenuationRange() const { return mAttenuation[0]; }
 
         /** Returns the constant factor in the attenuation formula.
         */
-        float getAttenuationConstant(void) const { return mAttenuation[1]; }
+        float getAttenuationConstant() const { return mAttenuation[1]; }
 
         /** Returns the linear factor in the attenuation formula.
         */
-        float getAttenuationLinear(void) const { return mAttenuation[2]; }
+        float getAttenuationLinear() const { return mAttenuation[2]; }
 
         /** Returns the quadric factor in the attenuation formula.
         */
-        float getAttenuationQuadric(void) const { return mAttenuation[3]; }
+        float getAttenuationQuadric() const { return mAttenuation[3]; }
 
         /// Returns all the attenuation params as (range, constant, linear, quadratic)
         const Vector4f& getAttenuation() const { return mAttenuation; }
@@ -237,15 +237,15 @@ class Sphere;
 
         /** Returns the angle covered by the spotlights inner cone.
         */
-        const Radian& getSpotlightInnerAngle(void) const;
+        const Radian& getSpotlightInnerAngle() const;
 
         /** Returns the angle covered by the spotlights outer cone.
         */
-        const Radian& getSpotlightOuterAngle(void) const;
+        const Radian& getSpotlightOuterAngle() const;
 
         /** Returns the falloff between the inner and outer cones of the spotlight.
         */
-        Real getSpotlightFalloff(void) const;
+        Real getSpotlightFalloff() const;
 
         /** Sets the angle covered by the spotlights inner cone.
         */
@@ -285,15 +285,15 @@ class Sphere;
         /** Returns the scaling factor which indicates the relative power of a
             light.
         */
-        Real getPowerScale(void) const;
+        Real getPowerScale() const;
 
-        Real getBoundingRadius(void) const override { return 0; }
-        const AxisAlignedBox& getBoundingBox(void) const override;
+        Real getBoundingRadius() const override { return 0; }
+        const AxisAlignedBox& getBoundingBox() const override;
 
         void _updateRenderQueue(RenderQueue* queue) override {} // No rendering
 
         /** @copydoc MovableObject::getMovableType */
-        const String& getMovableType(void) const;
+        const String& getMovableType() const;
 
         /** Retrieves the position of the light including any transform from nodes it is attached to. 
         @param cameraRelativeIfSet If set to true, returns data in camera-relative units if that's been set up (render use)
@@ -308,7 +308,7 @@ class Sphere;
         }
 
         /** Retrieves the direction of the light including any transform from nodes it is attached to. */
-        Vector3 getDerivedDirection(void) const
+        Vector3 getDerivedDirection() const
         {
             assert(mParentNode && "Light must be attached to a SceneNode");
             return -mParentNode->_getDerivedOrientation().zAxis();
@@ -355,7 +355,7 @@ class Sphere;
         virtual const PlaneBoundedVolumeList& _getFrustumClipVolumes(const Camera* const cam) const;
 
         /// Override to return specific type flag
-        uint32 getTypeFlags(void) const;
+        uint32 getTypeFlags() const;
 
         /// @copydoc AnimableObject::createAnimableValue
         AnimableValuePtr createAnimableValue(const String& valueName);
@@ -371,10 +371,10 @@ class Sphere;
         /** Reset the shadow camera setup to the default. 
         @see ShadowCameraSetup
         */
-        void resetCustomShadowCameraSetup(void);
+        void resetCustomShadowCameraSetup();
 
         /** Return a pointer to the custom shadow camera setup (null means use SceneManager global version). */
-        const ShadowCameraSetupPtr& getCustomShadowCameraSetup(void) const;
+        const ShadowCameraSetupPtr& getCustomShadowCameraSetup() const;
 
         void visitRenderables(Renderable::Visitor* visitor, 
             bool debugRenderables = false) override;
@@ -402,12 +402,12 @@ class Sphere;
         void setShadowFarDistance(Real distance);
         /** Tells the light to use the shadow far distance of the SceneManager
         */
-        void resetShadowFarDistance(void);
+        void resetShadowFarDistance();
         /** Returns the maximum distance away from the camera that shadows
             by this light will be visible.
         */
-        Real getShadowFarDistance(void) const;
-        Real getShadowFarDistanceSquared(void) const;
+        Real getShadowFarDistance() const;
+        Real getShadowFarDistanceSquared() const;
 
         /** Set the near clip plane distance to be used by the shadow camera, if
             this light casts texture shadows.
@@ -570,7 +570,7 @@ class Sphere;
 
         static String FACTORY_TYPE_NAME;
 
-        const String& getType(void) const;
+        const String& getType() const;
     };
     /** @} */
     /** @} */

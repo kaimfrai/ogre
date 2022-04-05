@@ -106,7 +106,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    const Radian& Frustum::getFOVy(void) const
+    const Radian& Frustum::getFOVy() const
     {
         return mFOVy;
     }
@@ -120,7 +120,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    Real Frustum::getFarClipDistance(void) const
+    Real Frustum::getFarClipDistance() const
     {
         return mFarDist;
     }
@@ -134,7 +134,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    Real Frustum::getNearClipDistance(void) const
+    Real Frustum::getNearClipDistance() const
     {
         return mNearDist;
     }
@@ -168,7 +168,7 @@ class RenderQueue;
         return mFocalLength;
     }
     //-----------------------------------------------------------------------
-    const Matrix4& Frustum::getProjectionMatrix(void) const
+    const Matrix4& Frustum::getProjectionMatrix() const
     {
 
         updateFrustum();
@@ -176,7 +176,7 @@ class RenderQueue;
         return mProjMatrix;
     }
     //-----------------------------------------------------------------------
-    const Matrix4& Frustum::getProjectionMatrixWithRSDepth(void) const
+    const Matrix4& Frustum::getProjectionMatrixWithRSDepth() const
     {
 
         updateFrustum();
@@ -185,7 +185,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    const Affine3& Frustum::getViewMatrix(void) const
+    const Affine3& Frustum::getViewMatrix() const
     {
         updateView();
 
@@ -194,7 +194,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    const Plane* Frustum::getFrustumPlanes(void) const
+    const Plane* Frustum::getFrustumPlanes() const
     {
         // Make any pending updates to the calculated frustum planes
         updateFrustumPlanes();
@@ -306,7 +306,7 @@ class RenderQueue;
         return true;
     }
     //---------------------------------------------------------------------
-    uint32 Frustum::getTypeFlags(void) const
+    uint32 Frustum::getTypeFlags() const
     {
         return SceneManager::FRUSTUM_TYPE_MASK;
     }
@@ -363,7 +363,7 @@ class RenderQueue;
         return mExtents;
     }
     //-----------------------------------------------------------------------
-    void Frustum::updateFrustumImpl(void) const
+    void Frustum::updateFrustumImpl() const
     {
         // Common calcs
         RealRect rect = calcProjectionParameters();
@@ -517,7 +517,7 @@ class RenderQueue;
         mRecalcFrustumPlanes = true;
     }
     //-----------------------------------------------------------------------
-    void Frustum::updateFrustum(void) const
+    void Frustum::updateFrustum() const
     {
         if (isFrustumOutOfDate())
         {
@@ -525,7 +525,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    bool Frustum::isViewOutOfDate(void) const
+    bool Frustum::isViewOutOfDate() const
     {
         // Attached to node?
         if (mParentNode)
@@ -554,7 +554,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    bool Frustum::isFrustumOutOfDate(void) const
+    bool Frustum::isFrustumOutOfDate() const
     {
         // Deriving custom near plane from linked plane?
         if (mObliqueDepthProjection)
@@ -578,7 +578,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    void Frustum::updateViewImpl(void) const
+    void Frustum::updateViewImpl() const
     {
         // ----------------------
         // Update the view matrix
@@ -617,7 +617,7 @@ class RenderQueue;
 
     }
     //-----------------------------------------------------------------------
-    void Frustum::updateView(void) const
+    void Frustum::updateView() const
     {
         if (isViewOutOfDate())
         {
@@ -626,7 +626,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    void Frustum::updateFrustumPlanesImpl(void) const
+    void Frustum::updateFrustumPlanesImpl() const
     {
         // -------------------------
         // Update the frustum planes
@@ -673,7 +673,7 @@ class RenderQueue;
         mRecalcFrustumPlanes = false;
     }
     //-----------------------------------------------------------------------
-    void Frustum::updateFrustumPlanes(void) const
+    void Frustum::updateFrustumPlanes() const
     {
         updateView();
         updateFrustum();
@@ -684,7 +684,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void Frustum::updateWorldSpaceCornersImpl(void) const
+    void Frustum::updateWorldSpaceCornersImpl() const
     {
         Affine3 eyeToWorld = mViewMatrix.inverse();
 
@@ -720,7 +720,7 @@ class RenderQueue;
         mRecalcWorldSpaceCorners = false;
     }
     //-----------------------------------------------------------------------
-    void Frustum::updateWorldSpaceCorners(void) const
+    void Frustum::updateWorldSpaceCorners() const
     {
         updateView();
 
@@ -732,7 +732,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    Real Frustum::getAspectRatio(void) const
+    Real Frustum::getAspectRatio() const
     {
         return mAspect;
     }
@@ -745,7 +745,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& Frustum::getBoundingBox(void) const
+    const AxisAlignedBox& Frustum::getBoundingBox() const
     {
         return mBoundingBox;
     }
@@ -759,12 +759,12 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    const String& Frustum::getMovableType(void) const
+    const String& Frustum::getMovableType() const
     {
         return msMovableType;
     }
     //-----------------------------------------------------------------------
-    Real Frustum::getBoundingRadius(void) const
+    Real Frustum::getBoundingRadius() const
     {
         return (mFarDist == 0)? 100000 : mFarDist;
     }
@@ -792,7 +792,7 @@ class RenderQueue;
         mRecalcWorldSpaceCorners = true;
     }
     // -------------------------------------------------------------------
-    const Frustum::Corners& Frustum::getWorldSpaceCorners(void) const
+    const Frustum::Corners& Frustum::getWorldSpaceCorners() const
     {
         updateWorldSpaceCorners();
 
@@ -806,17 +806,17 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    ProjectionType Frustum::getProjectionType(void) const
+    ProjectionType Frustum::getProjectionType() const
     {
         return mProjType;
     }
     //-----------------------------------------------------------------------
-    const Vector3& Frustum::getPositionForViewUpdate(void) const
+    const Vector3& Frustum::getPositionForViewUpdate() const
     {
         return mLastParentPosition;
     }
     //-----------------------------------------------------------------------
-    const Quaternion& Frustum::getOrientationForViewUpdate(void) const
+    const Quaternion& Frustum::getOrientationForViewUpdate() const
     {
         return mLastParentOrientation;
     }
@@ -841,7 +841,7 @@ class RenderQueue;
         invalidateView();
     }
     //-----------------------------------------------------------------------
-    void Frustum::disableReflection(void)
+    void Frustum::disableReflection()
     {
         mReflect = false;
         mLinkedReflectPlane = 0;
@@ -1033,7 +1033,7 @@ class RenderQueue;
         invalidateFrustum();
     }
     //---------------------------------------------------------------------
-    void Frustum::disableCustomNearClipPlane(void)
+    void Frustum::disableCustomNearClipPlane()
     {
         mObliqueDepthProjection = false;
         mLinkedObliqueProjPlane = 0;

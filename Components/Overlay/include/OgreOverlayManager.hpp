@@ -99,11 +99,11 @@ namespace Ogre {
         void _restoreManualHardwareResources();
 
         /// @copydoc ScriptLoader::getScriptPatterns
-        const StringVector& getScriptPatterns(void) const;
+        const StringVector& getScriptPatterns() const;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName);
         /// @copydoc ScriptLoader::getLoadingOrder
-        Real getLoadingOrder(void) const;
+        Real getLoadingOrder() const;
 
         void addOverlay(Overlay* overlay);
 
@@ -118,22 +118,22 @@ namespace Ogre {
         /** Destroys an existing overlay */
         void destroy(Overlay* overlay);
         /** Destroys all existing overlays */
-        void destroyAll(void);
+        void destroyAll();
         typedef MapIterator<OverlayMap> OverlayMapIterator;
-        OverlayMapIterator getOverlayIterator(void);
+        OverlayMapIterator getOverlayIterator();
 
         /** Internal method for queueing the visible overlays for rendering. */
         void _queueOverlaysForRendering(Camera* cam, RenderQueue* pQueue, Viewport *vp);
 
         /** Gets the height of the destination viewport in pixels. */
-        int getViewportHeight(void) const;
+        int getViewportHeight() const;
         
         /** Gets the width of the destination viewport in pixels. */
-        int getViewportWidth(void) const;
-        Real getViewportAspectRatio(void) const;
+        int getViewportWidth() const;
+        Real getViewportAspectRatio() const;
 
         /** Gets the orientation mode of the destination viewport. */
-        OrientationMode getViewportOrientationMode(void) const;
+        OrientationMode getViewportOrientationMode() const;
 
        /** Sets the pixel ratio: how many viewport pixels represent a single overlay pixel (in one dimension).
 
@@ -215,9 +215,9 @@ namespace Ogre {
         but the implementation stays in this single compilation unit,
         preventing link errors.
         */
-        static OverlayManager& getSingleton(void);
+        static OverlayManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static OverlayManager* getSingletonPtr(void);
+        static OverlayManager* getSingletonPtr();
     };
 
 

@@ -1213,7 +1213,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    size_t MeshSerializerImpl::calcBoneAssignmentSize(void)
+    size_t MeshSerializerImpl::calcBoneAssignmentSize()
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 
@@ -2065,7 +2065,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    size_t MeshSerializerImpl::calcPoseKeyframePoseRefSize(void)
+    size_t MeshSerializerImpl::calcPoseKeyframePoseRefSize()
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
         // unsigned short poseIndex
@@ -3145,7 +3145,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    size_t MeshSerializerImpl_v1_41::calcPoseVertexSize(void)
+    size_t MeshSerializerImpl_v1_41::calcPoseVertexSize()
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
         // unsigned long vertexIndex

@@ -68,9 +68,9 @@ namespace Ogre {
         String magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const override;
 
         /// Static method to startup and register the codecs
-        static void startup(void);
+        static void startup();
         /// Static method to shutdown and unregister the codecs
-        static void shutdown(void);
+        static void shutdown();
     };
 
     class STBIPlugin : public Plugin

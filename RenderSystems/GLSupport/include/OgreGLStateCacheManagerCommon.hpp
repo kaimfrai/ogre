@@ -109,7 +109,7 @@ namespace Ogre
         /** Gets the current stencil mask.
          @return The stencil mask.
          */
-        uint32 getStencilMask(void) const { return mStencilMask; }
+        uint32 getStencilMask() const { return mStencilMask; }
     };
 }
 

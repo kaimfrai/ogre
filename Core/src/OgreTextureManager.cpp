@@ -54,16 +54,16 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> TextureManager* Singleton<TextureManager>::msSingleton = 0;
-    TextureManager* TextureManager::getSingletonPtr(void)
+    TextureManager* TextureManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    TextureManager& TextureManager::getSingleton(void)
+    TextureManager& TextureManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
     //-----------------------------------------------------------------------
-    TextureManager::TextureManager(void)
+    TextureManager::TextureManager()
          : mPreferredIntegerBitDepth(0)
          , mPreferredFloatBitDepth(0)
          , mDefaultNumMipmaps(MIP_UNLIMITED)
@@ -250,7 +250,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    ushort TextureManager::getPreferredIntegerBitDepth(void) const
+    ushort TextureManager::getPreferredIntegerBitDepth() const
     {
         return mPreferredIntegerBitDepth;
     }
@@ -280,7 +280,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    ushort TextureManager::getPreferredFloatBitDepth(void) const
+    ushort TextureManager::getPreferredFloatBitDepth() const
     {
         return mPreferredFloatBitDepth;
     }

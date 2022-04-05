@@ -147,7 +147,7 @@ class VertexData;
         size_t convert3x4MatricesToDualQuaternions(Matrix3x4f* matrices, size_t numOfMatrices, float* outDualQuaternions);
                                     
         /** Keeps filling the VTF with world matrix data */
-        void updateVertexTexture(void);
+        void updateVertexTexture();
 
         /** Affects VTF texture's width dimension */
         virtual bool matricesTogetherPerRow() const = 0;
@@ -169,7 +169,7 @@ class VertexData;
 
         //Renderable overloads
         void getWorldTransforms( Matrix4* xform ) const;
-        unsigned short getNumWorldTransforms(void) const;
+        unsigned short getNumWorldTransforms() const;
 
         /** Overloaded to be able to updated the vertex texture */
         void _updateRenderQueue(RenderQueue* queue);

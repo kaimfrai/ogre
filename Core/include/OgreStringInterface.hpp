@@ -151,7 +151,7 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
-        const ParameterList& getParameters(void) const
+        const ParameterList& getParameters() const
         {
             return mParamDefs;
         }
@@ -200,12 +200,12 @@ namespace Ogre {
             Pointer to ParamDictionary shared by all instances of this class
             which you can add parameters to, retrieve parameters etc.
         */
-        ParamDictionary* getParamDictionary(void)
+        ParamDictionary* getParamDictionary()
         {
             return mParamDict;
         }
 
-        const ParamDictionary* getParamDictionary(void) const
+        const ParamDictionary* getParamDictionary() const
         {
             return mParamDict;
         }
@@ -215,7 +215,7 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
-        const ParameterList& getParameters(void) const;
+        const ParameterList& getParameters() const;
 
         /** Generic parameter setting method.
         @remarks

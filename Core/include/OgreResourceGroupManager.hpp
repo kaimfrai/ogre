@@ -149,7 +149,7 @@ class ScriptLoader;
 
         /** This event is fired when the resource has been prepared. 
         */
-        virtual void resourcePrepareEnded(void) {}
+        virtual void resourcePrepareEnded() {}
         /** This event is fired when a resource group finished preparing. */
         virtual void resourceGroupPrepareEnded(const String& groupName)
         { (void)groupName; }
@@ -166,7 +166,7 @@ class ScriptLoader;
         virtual void resourceLoadStarted(const ResourcePtr& resource) {}
         /** This event is fired when the resource has been loaded. 
         */
-        virtual void resourceLoadEnded(void) {}
+        virtual void resourceLoadEnded() {}
         /** This event is fired when a custom loading stage
             is about to start. The number of stages required will have been 
             included in the resourceCount passed in resourceGroupLoadStarted.
@@ -177,7 +177,7 @@ class ScriptLoader;
             has been completed. The number of stages required will have been 
             included in the resourceCount passed in resourceGroupLoadStarted.
         */
-        virtual void customStageEnded(void) {}
+        virtual void customStageEnded() {}
         /** This event is fired when a resource group finished loading. */
         virtual void resourceGroupLoadEnded(const String& groupName) {}
         /** This event is fired when a resource was just created.
@@ -366,7 +366,7 @@ class ScriptLoader;
         /// Internal event firing method
         void fireResourceLoadStarted(const ResourcePtr& resource) const;
         /// Internal event firing method
-        void fireResourceLoadEnded(void) const;
+        void fireResourceLoadEnded() const;
         /// Internal event firing method
         void fireResourceGroupLoadEnded(const String& groupName) const;
         /// Internal event firing method
@@ -374,7 +374,7 @@ class ScriptLoader;
         /// Internal event firing method
         void fireResourcePrepareStarted(const ResourcePtr& resource) const;
         /// Internal event firing method
-        void fireResourcePrepareEnded(void) const;
+        void fireResourcePrepareEnded() const;
         /// Internal event firing method
         void fireResourceGroupPrepareEnded(const String& groupName) const;
         /// Internal event firing method
@@ -431,7 +431,7 @@ class ScriptLoader;
         /** Initialise all resource groups which are yet to be initialised.
         @see #initialiseResourceGroup
         */
-        void initialiseAllResourceGroups(void);
+        void initialiseAllResourceGroups();
 
         /** Prepares a resource group.
 
@@ -790,7 +790,7 @@ class ScriptLoader;
         void setWorldResourceGroupName(const String& groupName) {mWorldGroupName = groupName;}
 
         /// Gets the resource group that 'world' resources will use.
-        const String& getWorldResourceGroupName(void) const { return mWorldGroupName; }
+        const String& getWorldResourceGroupName() const { return mWorldGroupName; }
 
         /** Declare the number custom loading stages for a resource group
 
@@ -815,7 +815,7 @@ class ScriptLoader;
         bool isResourceGroupInGlobalPool(const String& name) const;
 
         /** Shutdown all ResourceManagers, performed as part of clean-up. */
-        void shutdownAll(void);
+        void shutdownAll();
 
 
         /** Internal method for registering a ResourceManager (which should be
@@ -893,14 +893,14 @@ class ScriptLoader;
         User code should call this method the number of times equal to the value declared
         #setCustomStagesForResourceGroup.
         */
-        void _notifyCustomStageEnded(void) const;
+        void _notifyCustomStageEnded() const;
 
         /** Get a list of the currently defined resource groups. 
         @note This method intentionally returns a copy rather than a reference in
             order to avoid any contention issues in multithreaded applications.
         @return A copy of list of currently defined groups.
         */
-        StringVector getResourceGroups(void) const;
+        StringVector getResourceGroups() const;
         /** Get the list of resource declarations for the specified group name. 
         @note This method intentionally returns a copy rather than a reference in
             order to avoid any contention issues in multithreaded applications.
@@ -921,9 +921,9 @@ class ScriptLoader;
         ResourceLoadingListener *getLoadingListener() const;
 
         /// @copydoc Singleton::getSingleton()
-        static ResourceGroupManager& getSingleton(void);
+        static ResourceGroupManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static ResourceGroupManager* getSingletonPtr(void);
+        static ResourceGroupManager* getSingletonPtr();
 
     };
     /** @} */

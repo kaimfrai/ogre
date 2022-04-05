@@ -134,7 +134,7 @@ namespace Ogre {
         mDesiredFormat = pf;
     }
     //--------------------------------------------------------------------------
-    bool Texture::hasAlpha(void) const
+    bool Texture::hasAlpha() const
     {
         return PixelUtil::hasAlpha(mFormat);
     }
@@ -144,7 +144,7 @@ namespace Ogre {
         mDesiredIntegerBitDepth = bits;
     }
     //--------------------------------------------------------------------------
-    ushort Texture::getDesiredIntegerBitDepth(void) const
+    ushort Texture::getDesiredIntegerBitDepth() const
     {
         return mDesiredIntegerBitDepth;
     }
@@ -154,7 +154,7 @@ namespace Ogre {
         mDesiredFloatBitDepth = bits;
     }
     //--------------------------------------------------------------------------
-    ushort Texture::getDesiredFloatBitDepth(void) const
+    ushort Texture::getDesiredFloatBitDepth() const
     {
         return mDesiredFloatBitDepth;
     }
@@ -170,12 +170,12 @@ namespace Ogre {
         mTreatLuminanceAsAlpha = asAlpha;
     }
     //--------------------------------------------------------------------------
-    size_t Texture::calculateSize(void) const
+    size_t Texture::calculateSize() const
     {
         return getNumFaces() * PixelUtil::getMemorySize(mWidth, mHeight, mDepth, mFormat);
     }
     //--------------------------------------------------------------------------
-    uint32 Texture::getNumFaces(void) const
+    uint32 Texture::getNumFaces() const
     {
         return getTextureType() == TEX_TYPE_CUBE_MAP ? 6 : 1;
     }
@@ -328,7 +328,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
-    void Texture::createInternalResources(void)
+    void Texture::createInternalResources()
     {
         if (!mInternalResourcesCreated)
         {
@@ -347,7 +347,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    void Texture::freeInternalResources(void)
+    void Texture::freeInternalResources()
     {
         if (mInternalResourcesCreated)
         {
@@ -364,7 +364,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    void Texture::unloadImpl(void)
+    void Texture::unloadImpl()
     {
         freeInternalResources();
     }
@@ -458,7 +458,7 @@ namespace Ogre {
             img.resize(w, h);
     }
 
-    void Texture::prepareImpl(void)
+    void Texture::prepareImpl()
     {
         if (mUsage & TU_RENDERTARGET)
             return;

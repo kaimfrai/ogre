@@ -179,7 +179,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    void AnimationTrack::removeAllKeyFrames(void)
+    void AnimationTrack::removeAllKeyFrames()
     {
         KeyFrameList::iterator i = mKeyFrames.begin();
 
@@ -253,7 +253,7 @@ namespace Ogre {
     {
     }
     //---------------------------------------------------------------------
-    const AnimableValuePtr& NumericAnimationTrack::getAssociatedAnimable(void) const
+    const AnimableValuePtr& NumericAnimationTrack::getAssociatedAnimable() const
     {
         return mTargetAnim;
     }
@@ -452,7 +452,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    Node* NodeAnimationTrack::getAssociatedNode(void) const
+    Node* NodeAnimationTrack::getAssociatedNode() const
     {
         return mTargetNode;
     }
@@ -504,7 +504,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    void NodeAnimationTrack::buildInterpolationSplines(void) const
+    void NodeAnimationTrack::buildInterpolationSplines() const
     {
         // Allocate splines if not exists
         if (!mSplines)
@@ -554,12 +554,12 @@ namespace Ogre {
         return mUseShortestRotationPath ;
     }
     //---------------------------------------------------------------------
-    void NodeAnimationTrack::_keyFrameDataChanged(void) const
+    void NodeAnimationTrack::_keyFrameDataChanged() const
     {
         mSplineBuildNeeded = true;
     }
     //---------------------------------------------------------------------
-    bool NodeAnimationTrack::hasNonZeroKeyFrames(void) const
+    bool NodeAnimationTrack::hasNonZeroKeyFrames() const
     {
         KeyFrameList::const_iterator i = mKeyFrames.begin();
         for (; i != mKeyFrames.end(); ++i)
@@ -586,7 +586,7 @@ namespace Ogre {
         return false;
     }
     //---------------------------------------------------------------------
-    void NodeAnimationTrack::optimise(void)
+    void NodeAnimationTrack::optimise()
     {
         // Eliminate duplicate keyframes from 2nd to penultimate keyframe
         // NB only eliminate middle keys from sequences of 5+ identical keyframes
@@ -984,7 +984,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    bool VertexAnimationTrack::hasNonZeroKeyFrames(void) const
+    bool VertexAnimationTrack::hasNonZeroKeyFrames() const
     {
         if (mAnimationType == VAT_MORPH)
         {
@@ -1013,7 +1013,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void VertexAnimationTrack::optimise(void)
+    void VertexAnimationTrack::optimise()
     {
         // TODO - remove sequences of duplicate pose references?
 

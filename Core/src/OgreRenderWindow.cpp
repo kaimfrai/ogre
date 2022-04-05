@@ -45,12 +45,12 @@ namespace Ogre {
         top = mTop;
     }
     //-----------------------------------------------------------------------
-    bool RenderWindow::isFullScreen(void) const
+    bool RenderWindow::isFullScreen() const
     {
         return mIsFullScreen;
     }
     //-----------------------------------------------------------------------
-    bool RenderWindow::isPrimary(void) const
+    bool RenderWindow::isPrimary() const
     {
         return mIsPrimary;
     }

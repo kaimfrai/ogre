@@ -93,7 +93,7 @@ class ResourceManager;
         /** Sets whether matrix packing in column-major order. */ 
         void setColumnMajorMatrices(bool columnMajor) { mColumnMajorMatrices = columnMajor; }
         /** Gets whether matrix packed in column-major order. */
-        bool getColumnMajorMatrices(void) const { return mColumnMajorMatrices; }
+        bool getColumnMajorMatrices() const { return mColumnMajorMatrices; }
 
         /// Only used for separable programs.
         virtual bool linkSeparable() { return false; }
@@ -102,7 +102,7 @@ class ResourceManager;
         void resetLinked() { mLinked = 0; }
 
         /// Get the OGRE assigned shader ID.
-        uint getShaderID(void) const { return mShaderID; }
+        uint getShaderID() const { return mShaderID; }
 
         /// If we are using program pipelines, the OpenGL program handle
         uint getGLProgramHandle() const { return mGLProgramHandle; }
@@ -111,7 +111,7 @@ class ResourceManager;
         GLUniformCache*    getUniformCache(){return &mUniformCache;}
 
         /// GLSL does not provide access to the low level code of the shader, so use this shader for binding as well
-        GpuProgram* _getBindingDelegate(void) { return this; }
+        GpuProgram* _getBindingDelegate() { return this; }
     protected:
         /// GLSL does not provide access to the low level implementation of the shader, so this method s a no-op
         void createLowLevelImpl() {}
@@ -121,7 +121,7 @@ class ResourceManager;
 
         String getResourceLogName() const;
 
-        void prepareImpl(void);
+        void prepareImpl();
 
         /// Attached Shader names
         String mAttachedShaderNames;

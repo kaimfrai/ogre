@@ -110,14 +110,14 @@ class HardwareBufferManagerBase;
         mBoneAssignmentsOutOfDate = true;
     }
     //-----------------------------------------------------------------------
-    void SubMesh::clearBoneAssignments(void)
+    void SubMesh::clearBoneAssignments()
     {
         mBoneAssignments.clear();
         mBoneAssignmentsOutOfDate = true;
     }
 
     //-----------------------------------------------------------------------
-    void SubMesh::_compileBoneAssignments(void)
+    void SubMesh::_compileBoneAssignments()
     {
         unsigned short maxBones =
             parent->_rationaliseBoneAssignments(vertexData->vertexCount, mBoneAssignments);
@@ -131,7 +131,7 @@ class HardwareBufferManagerBase;
         mBoneAssignmentsOutOfDate = false;
     }
     //---------------------------------------------------------------------
-    SubMesh::AliasTextureIterator SubMesh::getAliasTextureIterator(void) const
+    SubMesh::AliasTextureIterator SubMesh::getAliasTextureIterator() const
     {
         return AliasTextureIterator(mTextureAliases.begin(),
             mTextureAliases.end());
@@ -143,7 +143,7 @@ class HardwareBufferManagerBase;
     }
 
     //---------------------------------------------------------------------
-    void SubMesh::removeLodLevels(void)
+    void SubMesh::removeLodLevels()
     {
         LODFaceList::iterator lodi, lodend;
         lodend = mLodFaceList.end();
@@ -156,7 +156,7 @@ class HardwareBufferManagerBase;
 
     }
     //---------------------------------------------------------------------
-    VertexAnimationType SubMesh::getVertexAnimationType(void) const
+    VertexAnimationType SubMesh::getVertexAnimationType() const
     {
         if(parent->_getAnimationTypesDirty())
         {

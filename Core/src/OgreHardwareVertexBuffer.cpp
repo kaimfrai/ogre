@@ -129,7 +129,7 @@ namespace Ogre {
     {
     }
     //-----------------------------------------------------------------------------
-    size_t VertexElement::getSize(void) const
+    size_t VertexElement::getSize() const
     {
         return getTypeSize(mType);
     }
@@ -295,7 +295,7 @@ namespace Ogre {
             "VertexElement::multiplyTypeCount");
     }
     //--------------------------------------------------------------------------
-    VertexElementType VertexElement::getBestColourVertexElementType(void)
+    VertexElementType VertexElement::getBestColourVertexElementType()
     {
         return VET_UBYTE4_NORM;
     }
@@ -373,7 +373,7 @@ namespace Ogre {
     {
     }
     //-----------------------------------------------------------------------------
-    const VertexDeclaration::VertexElementList& VertexDeclaration::getElements(void) const
+    const VertexDeclaration::VertexElementList& VertexDeclaration::getElements() const
     {
         return mElementList;
     }
@@ -451,7 +451,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    void VertexDeclaration::removeAllElements(void)
+    void VertexDeclaration::removeAllElements()
     {
         mElementList.clear();
         notifyChanged();
@@ -561,12 +561,12 @@ namespace Ogre {
         }
         return false;
     }
-    void VertexDeclaration::sort(void)
+    void VertexDeclaration::sort()
     {
         mElementList.sort(VertexDeclaration::vertexElementLess);
     }
     //-----------------------------------------------------------------------------
-    void VertexDeclaration::closeGapsInSource(void)
+    void VertexDeclaration::closeGapsInSource()
     {
         if (mElementList.empty())
             return;
@@ -683,7 +683,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
-    unsigned short VertexDeclaration::getMaxSource(void) const
+    unsigned short VertexDeclaration::getMaxSource() const
     {
         VertexElementList::const_iterator i, iend;
         iend = mElementList.end();
@@ -743,14 +743,14 @@ namespace Ogre {
         mBindingMap.erase(i);
     }
     //-----------------------------------------------------------------------------
-    void VertexBufferBinding::unsetAllBindings(void)
+    void VertexBufferBinding::unsetAllBindings()
     {
         mBindingMap.clear();
         mHighIndex = 0;
     }
     //-----------------------------------------------------------------------------
     const VertexBufferBinding::VertexBufferBindingMap& 
-    VertexBufferBinding::getBindings(void) const
+    VertexBufferBinding::getBindings() const
     {
         return mBindingMap;
     }
@@ -771,12 +771,12 @@ namespace Ogre {
         return mBindingMap.find(index) != mBindingMap.end();
     }
     //-----------------------------------------------------------------------------
-    unsigned short VertexBufferBinding::getLastBoundIndex(void) const
+    unsigned short VertexBufferBinding::getLastBoundIndex() const
     {
         return mBindingMap.empty() ? 0 : mBindingMap.rbegin()->first + 1;
     }
     //-----------------------------------------------------------------------------
-    bool VertexBufferBinding::hasGaps(void) const
+    bool VertexBufferBinding::hasGaps() const
     {
         if (mBindingMap.empty())
             return false;

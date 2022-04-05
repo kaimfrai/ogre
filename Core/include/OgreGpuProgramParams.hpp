@@ -338,7 +338,7 @@ template <int dims, typename T> class Vector;
          */
         void load(DataStreamPtr& stream);
 
-        size_t calculateSize(void) const;
+        size_t calculateSize() const;
     };
 
     /// Simple class for loading / saving GpuNamedConstants
@@ -455,7 +455,7 @@ template <int dims, typename T> class Vector;
         /** Calculate the expected size of the shared parameter buffer based
             on constant definition data types.
         */
-        size_t calculateSize(void) const;
+        size_t calculateSize() const;
 
         /** True if this parameter set is dirty (values have been modified,
             but the render system has not updated them yet).
@@ -1574,7 +1574,7 @@ template <int dims, typename T> class Vector;
         void clearAutoConstant(size_t index);
 
         /** Clears all the existing automatic constants. */
-        void clearAutoConstants(void);
+        void clearAutoConstants();
 
         /** Gets the automatic constant bindings currently in place. */
         const AutoConstantList& getAutoConstants() const {
@@ -1582,14 +1582,14 @@ template <int dims, typename T> class Vector;
         }
 
         /// Gets the number of int constants that have been set
-        size_t getAutoConstantCount(void) const { return mAutoConstants.size(); }
+        size_t getAutoConstantCount() const { return mAutoConstants.size(); }
         /** Gets a specific Auto Constant entry if index is in valid range
             otherwise returns a NULL
             @param index which entry is to be retrieved
         */
         AutoConstantEntry* getAutoConstantEntry(const size_t index);
         /** Returns true if this instance has any automatic constants. */
-        bool hasAutoConstants(void) const { return !(mAutoConstants.empty()); }
+        bool hasAutoConstants() const { return !(mAutoConstants.empty()); }
         /** Finds an auto constant that's affecting a given logical parameter
             index for floating-point values.
             @note Only applicable for low-level programs.
@@ -1747,7 +1747,7 @@ template <int dims, typename T> class Vector;
         */
         void setTransposeMatrices(bool val) { mTransposeMatrices = val; }
         /// Gets whether or not matrices are to be transposed when set
-        bool getTransposeMatrices(void) const { return mTransposeMatrices; }
+        bool getTransposeMatrices() const { return mTransposeMatrices; }
 
         /** Copies the values of all constants (including auto constants) from another
             GpuProgramParameters object.
@@ -1778,12 +1778,12 @@ template <int dims, typename T> class Vector;
         static const AutoConstantDefinition* getAutoConstantDefinition(const size_t idx);
         /** Returns the number of auto constant definitions
          */
-        static size_t getNumAutoConstantDefinitions(void);
+        static size_t getNumAutoConstantDefinitions();
 
 
         /** increments the multipass number entry by 1 if it exists
          */
-        void incPassIterationNumber(void);
+        void incPassIterationNumber();
 
         /// @name Shared Parameters
         /// @{
@@ -1831,7 +1831,7 @@ template <int dims, typename T> class Vector;
         void _updateSharedParams();
         /// @}
 
-        size_t calculateSize(void) const;
+        size_t calculateSize() const;
     };
 
     /** @} */

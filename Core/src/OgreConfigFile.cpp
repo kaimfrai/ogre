@@ -43,7 +43,7 @@ namespace Ogre {
     {
     }
     //-----------------------------------------------------------------------
-    void ConfigFile::clear(void)
+    void ConfigFile::clear()
     {
         mSettings.clear();
         mSettingsPtr.clear();

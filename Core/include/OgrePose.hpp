@@ -70,9 +70,9 @@ class VertexData;
         */
         Pose(ushort target, const String& name = BLANKSTRING);
         /// Return the name of the pose (may be blank)
-        const String& getName(void) const { return mName; }
+        const String& getName() const { return mName; }
         /// Return the target geometry index of the pose
-        ushort getTarget(void) const { return mTarget; }
+        ushort getTarget() const { return mTarget; }
         /// A collection of vertex offsets based on the vertex index
         typedef std::map<size_t, Vector3> VertexOffsetMap;
         /// An iterator over the vertex offsets
@@ -105,13 +105,13 @@ class VertexData;
         void removeVertex(size_t index);
 
         /** Clear all vertices. */
-        void clearVertices(void);
+        void clearVertices();
 
         /** Gets a const reference to the vertex offsets. */
-        const VertexOffsetMap& getVertexOffsets(void) const { return mVertexOffsetMap; }
+        const VertexOffsetMap& getVertexOffsets() const { return mVertexOffsetMap; }
 
         /** Gets a const reference to the vertex normals */
-        const NormalsMap& getNormals(void) const { return mNormalsMap; }
+        const NormalsMap& getNormals() const { return mNormalsMap; }
 
         /** writable access to the vertex offsets for offline processing
          *
@@ -131,7 +131,7 @@ class VertexData;
         /** Clone this pose and create another one configured exactly the same
             way (only really useful for cloning holders of this class).
         */
-        Pose* clone(void) const OGRE_NODISCARD;
+        Pose* clone() const OGRE_NODISCARD;
     private:
         /// Target geometry index
         ushort mTarget;

@@ -80,9 +80,9 @@ class VertexDeclaration;
             subdivision). */
         void setSubdivision(Real factor);
     private:
-        void loadImpl(void) override;
+        void loadImpl() override;
         /// Overridden from Resource - do nothing (no disk caching)
-        void prepareImpl(void) override {}
+        void prepareImpl() override {}
 
     };
     /** @} */

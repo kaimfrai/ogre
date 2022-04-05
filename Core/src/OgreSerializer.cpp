@@ -108,7 +108,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void Serializer::writeFileHeader(void)
+    void Serializer::writeFileHeader()
     {
         
         uint16 val = HEADER_STREAM_ID;

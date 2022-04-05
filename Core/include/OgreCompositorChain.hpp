@@ -108,7 +108,7 @@ class SceneManager;
 
         /** Get the original scene compositor instance for this chain (internal use). 
         */
-        CompositorInstance* _getOriginalSceneCompositor(void) { return mOriginalScene; }
+        CompositorInstance* _getOriginalSceneCompositor() { return mOriginalScene; }
 
         /** The compositor instances. The first compositor in this list is applied first, the last one is applied last.
         */
@@ -203,7 +203,7 @@ class SceneManager;
         void destroyOriginalScene();
 
         /// destroy internal resources
-        void destroyResources(void);
+        void destroyResources();
         
         /** Internal method to get a unique name of a compositor
         */

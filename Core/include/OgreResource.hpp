@@ -178,44 +178,44 @@ class ResourceManager;
             Also, this call will occur even when using a ManualResourceLoader 
             (when loadImpl is not actually called)
         */
-        virtual void preLoadImpl(void) {}
+        virtual void preLoadImpl() {}
         /** Internal hook to perform actions after the load process, but
             before the resource has been marked as fully loaded.
         @note Mutex will have already been acquired by the loading thread.
             Also, this call will occur even when using a ManualResourceLoader 
             (when loadImpl is not actually called)
         */
-        virtual void postLoadImpl(void) {}
+        virtual void postLoadImpl() {}
 
         /** Internal hook to perform actions before the unload process.
         @note Mutex will have already been acquired by the unloading thread.
         */
-        virtual void preUnloadImpl(void) {}
+        virtual void preUnloadImpl() {}
         /** Internal hook to perform actions after the unload process, but
         before the resource has been marked as fully unloaded.
         @note Mutex will have already been acquired by the unloading thread.
         */
-        virtual void postUnloadImpl(void) {}
+        virtual void postUnloadImpl() {}
 
         /** Internal implementation of the meat of the 'prepare' action, only called if this
             resource is not being loaded from a ManualResourceLoader.
         */
-        virtual void prepareImpl(void) {}
+        virtual void prepareImpl() {}
         /** Internal function for undoing the 'prepare' action. Only called during
             unload if this resource is prepared but not yet loaded.
         */
-        virtual void unprepareImpl(void) {}
+        virtual void unprepareImpl() {}
         /** Internal implementation of the meat of the 'load' action, only called if this 
             resource is not being loaded from a ManualResourceLoader. 
         */
-        virtual void loadImpl(void) = 0;
+        virtual void loadImpl() = 0;
         /** Internal implementation of the 'unload' action; called regardless of
             whether this resource is being loaded from a ManualResourceLoader. 
         */
-        virtual void unloadImpl(void) = 0;
+        virtual void unloadImpl() = 0;
 
         /** Calculate the size of a resource; this will only be called after 'load' */
-        virtual size_t calculateSize(void) const;
+        virtual size_t calculateSize() const;
     public:
         /** Standard constructor.
         @param creator Pointer to the ResourceManager that is creating this resource
@@ -277,14 +277,14 @@ class ResourceManager;
 
         /** Returns true if the Resource is reloadable, false otherwise.
         */
-        bool isReloadable(void) const
+        bool isReloadable() const
         {
             return !mIsManual || mLoader;
         }
 
         /** Is this resource manually loaded?
         */
-        bool isManuallyLoaded(void) const
+        bool isManuallyLoaded() const
         {
             return mIsManual;
         }
@@ -292,28 +292,28 @@ class ResourceManager;
         /** Unloads the resource; this is not permanent, the resource can be
             reloaded later if required.
         */
-        virtual void unload(void);
+        virtual void unload();
 
         /** Retrieves info about the size of the resource.
         */
-        size_t getSize(void) const
+        size_t getSize() const
         { 
             return mSize; 
         }
 
         /** 'Touches' the resource to indicate it has been used.
         */
-        virtual void touch(void);
+        virtual void touch();
 
         /** Gets resource name.
         */
-        const String& getName(void) const { return mName; }
+        const String& getName() const { return mName; }
 
-        ResourceHandle getHandle(void) const { return mHandle; }
+        ResourceHandle getHandle() const { return mHandle; }
 
         /** Returns true if the Resource has been prepared, false otherwise.
         */
-        bool isPrepared(void) const
+        bool isPrepared() const
         { 
             // No lock required to read this state since no modify
             return (mLoadingState.load() == LOADSTATE_PREPARED);
@@ -321,7 +321,7 @@ class ResourceManager;
 
         /** Returns true if the Resource has been loaded, false otherwise.
         */
-        bool isLoaded(void) const
+        bool isLoaded() const
         { 
             // No lock required to read this state since no modify
             return (mLoadingState.load() == LOADSTATE_LOADED);
@@ -353,7 +353,7 @@ class ResourceManager;
             other users of this resource should check isLoaded(), and if that
             returns false, don't use the resource and come back later.
         */
-        bool isBackgroundLoaded(void) const { return mIsBackgroundLoaded; }
+        bool isBackgroundLoaded() const { return mIsBackgroundLoaded; }
 
         /** Tells the resource whether it is background loaded or not.
 
@@ -387,7 +387,7 @@ class ResourceManager;
         virtual void removeListener(Listener* lis);
 
         /// Gets the group which this resource is a member of
-        const String& getGroup(void) const { return mGroup; }
+        const String& getGroup() const { return mGroup; }
 
         /** Change the resource group ownership of a Resource.
         @remarks
@@ -399,14 +399,14 @@ class ResourceManager;
         virtual void changeGroupOwnership(const String& newGroup);
 
         /// Gets the manager which created this resource
-        ResourceManager* getCreator(void) { return mCreator; }
+        ResourceManager* getCreator() { return mCreator; }
         /** Get the origin of this resource, e.g. a script file name.
         @remarks
             This property will only contain something if the creator of
             this resource chose to populate it. Script loaders are advised
             to populate it.
         */
-        const String& getOrigin(void) const { return mOrigin; }
+        const String& getOrigin() const { return mOrigin; }
         /// Notify this resource of it's origin
         void _notifyOrigin(const String& origin) { mOrigin = origin; }
 
@@ -454,7 +454,7 @@ class ResourceManager;
         If you use Ogre's built in frame loop you don't need to call this
         yourself.
         */
-        void _fireUnloadingComplete(void);
+        void _fireUnloadingComplete();
     };
 
     /** Interface describing a manual resource loader.

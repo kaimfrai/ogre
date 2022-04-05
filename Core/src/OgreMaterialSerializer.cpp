@@ -1775,7 +1775,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    void MaterialSerializer::writeGpuPrograms(void)
+    void MaterialSerializer::writeGpuPrograms()
     {
         // iterate through gpu program names in container
         GpuProgramDefIterator currentDef = mGpuProgramDefinitionContainer.begin();

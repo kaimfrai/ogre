@@ -45,7 +45,7 @@ protected:
     PixelBox lockImpl(const Box &lockBox,  LockOptions options);
 
     /// Unlock a box
-    void unlockImpl(void);
+    void unlockImpl();
 
     // Internal buffer; either on-card or in system memory, freed/allocated on demand
     // depending on buffer usage

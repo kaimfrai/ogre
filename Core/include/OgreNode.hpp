@@ -175,7 +175,7 @@ class Camera;
             to update it's complete transformation based on it's parents
             derived transform.
         */
-        void _updateFromParent(void) const;
+        void _updateFromParent() const;
 
         /** Class-specific implementation of _updateFromParent.
         @remarks
@@ -183,7 +183,7 @@ class Camera;
             itself allows the detail to be overridden without disrupting the 
             general sequence of updateFromParent (e.g. raising events)
         */
-        virtual void updateFromParentImpl(void) const;
+        virtual void updateFromParentImpl() const;
     private:
         /// The position to use as a base for keyframe animation
         Vector3 mInitialPosition;
@@ -199,7 +199,7 @@ class Camera;
         static QueuedUpdates msQueuedUpdates;
 
         /** Internal method for creating a new child node - must be overridden per subclass. */
-        virtual Node* createChildImpl(void) = 0;
+        virtual Node* createChildImpl() = 0;
 
         /** Internal method for creating a new child node - must be overridden per subclass. */
         virtual Node* createChildImpl(const String& name) = 0;
@@ -215,11 +215,11 @@ class Camera;
         virtual ~Node();  
 
         /** Returns the name of the node. */
-        const String& getName(void) const { return mName; }
+        const String& getName() const { return mName; }
 
         /** Gets this node's parent (NULL if this is the root).
         */
-        Node* getParent(void) const { return mParent; }
+        Node* getParent() const { return mParent; }
 
         /** Returns a quaternion representing the nodes orientation.
         */
@@ -256,7 +256,7 @@ class Camera;
         @par
             Note that rotations are oriented around the node's origin.
         */
-        void resetOrientation(void);
+        void resetOrientation();
 
         /** Sets the position of the node relative to it's parent.
         */
@@ -267,7 +267,7 @@ class Camera;
 
         /** Gets the position of the node relative to it's parent.
         */
-        const Vector3 & getPosition(void) const { return mPosition; }
+        const Vector3 & getPosition() const { return mPosition; }
 
         /** Sets the scaling factor applied to this node.
         @remarks
@@ -288,7 +288,7 @@ class Camera;
 
         /** Gets the scaling factor of this node.
         */
-        const Vector3& getScale(void) const { return mScale; }
+        const Vector3& getScale() const { return mScale; }
 
         /** Tells the node whether it should inherit orientation from it's parent node.
         @remarks
@@ -318,7 +318,7 @@ class Camera;
         @remarks
             See setInheritOrientation for more info.
         */
-        bool getInheritOrientation(void) const { return mInheritOrientation; }
+        bool getInheritOrientation() const { return mInheritOrientation; }
 
         /** Tells the node whether it should inherit scaling factors from it's parent node.
         @remarks
@@ -338,7 +338,7 @@ class Camera;
         @remarks
             See setInheritScale for more info.
         */
-        bool getInheritScale(void) const { return mInheritScale; }
+        bool getInheritScale() const { return mInheritScale; }
 
         /** Scales the node, combining it's current scale with the passed in scaling factor. 
         @remarks
@@ -432,7 +432,7 @@ class Camera;
 
         /** Gets a matrix whose columns are the local axes based on
             the nodes orientation relative to it's parent. */
-        Matrix3 getLocalAxes(void) const;
+        Matrix3 getLocalAxes() const;
 
         /** Creates an unnamed new Node as a child of this node.
         @param translate
@@ -465,7 +465,7 @@ class Camera;
         /** Reports the number of child nodes under this one.
         @deprecated use getChildren()
         */
-        uint16 numChildren(void) const { return static_cast< uint16 >( mChildren.size() ); }
+        uint16 numChildren() const { return static_cast< uint16 >( mChildren.size() ); }
 
         /** Gets a pointer to a child node.
         @remarks
@@ -501,7 +501,7 @@ class Camera;
         /** Removes all child Nodes attached to this node. Does not delete the nodes, just detaches them from
             this parent, potentially to be reattached elsewhere.
         */
-        virtual void removeAllChildren(void);
+        virtual void removeAllChildren();
         
         /** Sets the final world position of the node directly.
         @remarks 
@@ -518,15 +518,15 @@ class Camera;
 
         /** Gets the orientation of the node as derived from all parents.
         */
-        const Quaternion & _getDerivedOrientation(void) const;
+        const Quaternion & _getDerivedOrientation() const;
 
         /** Gets the position of the node as derived from all parents.
         */
-        const Vector3 & _getDerivedPosition(void) const;
+        const Vector3 & _getDerivedPosition() const;
 
         /** Gets the scaling factor of the node as derived from all parents.
         */
-        const Vector3 & _getDerivedScale(void) const;
+        const Vector3 & _getDerivedScale() const;
 
         /** Gets the full transformation matrix for this node.
         @remarks
@@ -537,7 +537,7 @@ class Camera;
             derived transforms have been updated before calling this method.
             Applications using Ogre should just use the relative transforms.
         */
-        const Affine3& _getFullTransform(void) const;
+        const Affine3& _getFullTransform() const;
 
         /** Internal method to update the Node.
         @note
@@ -562,7 +562,7 @@ class Camera;
         
         /** Gets the current listener for this Node.
         */
-        Listener* getListener(void) const { return mListener; }
+        Listener* getListener() const { return mListener; }
         
 
         /** Sets the current transform of this node to be the 'initial state' ie that
@@ -575,16 +575,16 @@ class Camera;
         @par
             If you never call this method, the initial state is the identity transform, ie do nothing.
         */
-        void setInitialState(void);
+        void setInitialState();
 
         /** Resets the position / orientation / scale of this node to it's initial state, see setInitialState for more info. */
-        void resetToInitialState(void);
+        void resetToInitialState();
 
         /** Gets the initial position of this node, see setInitialState for more info. 
         @remarks
             Also resets the cumulative animation weight used for blending.
         */
-        const Vector3& getInitialPosition(void) const { return mInitialPosition; }
+        const Vector3& getInitialPosition() const { return mInitialPosition; }
         
         /** Gets the local position, relative to this node, of the given world-space position */
         Vector3 convertWorldToLocalPosition( const Vector3 &worldPos );
@@ -608,10 +608,10 @@ class Camera;
         Quaternion convertLocalToWorldOrientation( const Quaternion &localOrientation );
 
         /** Gets the initial orientation of this node, see setInitialState for more info. */
-        const Quaternion& getInitialOrientation(void) const { return mInitialOrientation; }
+        const Quaternion& getInitialOrientation() const { return mInitialOrientation; }
 
         /** Gets the initial position of this node, see setInitialState for more info. */
-        const Vector3& getInitialScale(void) const { return mInitialScale; }
+        const Vector3& getInitialScale() const { return mInitialScale; }
 
         /** Helper function, get the squared view depth.  */
         Real getSquaredViewDepth(const Camera* cam) const;
@@ -642,7 +642,7 @@ class Camera;
         */
         static void queueNeedUpdate(Node* n);
         /** Process queued 'needUpdate' calls. */
-        static void processQueuedUpdates(void);
+        static void processQueuedUpdates();
     };
     /** @} */
     /** @} */

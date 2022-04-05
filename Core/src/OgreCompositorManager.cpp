@@ -50,11 +50,11 @@ class CustomCompositionPass;
 class Renderable;
 
 template<> CompositorManager* Singleton<CompositorManager>::msSingleton = 0;
-CompositorManager* CompositorManager::getSingletonPtr(void)
+CompositorManager* CompositorManager::getSingletonPtr()
 {
     return msSingleton;
 }
-CompositorManager& CompositorManager::getSingleton(void)
+CompositorManager& CompositorManager::getSingleton()
 {  
     assert( msSingleton );  return ( *msSingleton );  
 }//-----------------------------------------------------------------------
@@ -105,7 +105,7 @@ CompositorPtr CompositorManager::getByName(const String& name, const String& gro
     return static_pointer_cast<Compositor>(getResourceByName(name, groupName));
 }
 //-----------------------------------------------------------------------
-void CompositorManager::initialise(void)
+void CompositorManager::initialise()
 {
 }
 //-----------------------------------------------------------------------
@@ -139,7 +139,7 @@ void CompositorManager::removeCompositorChain(const Viewport *vp)
     }
 }
 //-----------------------------------------------------------------------
-void CompositorManager::removeAll(void)
+void CompositorManager::removeAll()
 {
     freeChains();
     ResourceManager::removeAll();

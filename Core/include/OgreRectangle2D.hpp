@@ -91,7 +91,7 @@ class Matrix4;
         Real getSquaredViewDepth(const Camera* cam) const
         { (void)cam; return 0; }
 
-        Real getBoundingRadius(void) const { return 0; }
+        Real getBoundingRadius() const { return 0; }
 
         const String& getMovableType() const override;
     };

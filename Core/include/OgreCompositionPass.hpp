@@ -124,7 +124,7 @@ class CompositionTargetPass;
             Only applicable to passes that render the scene.
             @see Technique::setScheme.
         */
-        const String& getMaterialScheme(void) const;
+        const String& getMaterialScheme() const;
 
         /** Would be nice to have for RENDERSCENE:
             flags to:
@@ -284,7 +284,7 @@ class CompositionTargetPass;
 
         /** Determine if this target pass is supported on the current rendering device. 
          */
-        bool _isSupported(void);
+        bool _isSupported();
 
         /** Set quad normalised positions [-1;1]x[-1;1]
             @note applies when PassType is RENDERQUAD
