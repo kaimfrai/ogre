@@ -344,7 +344,7 @@ class InstanceManager;
         }
     }
     //-----------------------------------------------------------------------
-    unsigned short InstanceBatchShader::getNumWorldTransforms(void) const
+    unsigned short InstanceBatchShader::getNumWorldTransforms() const
     {
         return uint16(mNumWorldMatrices);
     }

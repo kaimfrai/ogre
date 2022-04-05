@@ -137,16 +137,16 @@ namespace Ogre {
     {
         friend class Profiler;
     public:
-        ProfileInstance(void);
-        virtual ~ProfileInstance(void);
+        ProfileInstance();
+        virtual ~ProfileInstance();
 
         typedef std::map<String,ProfileInstance*> ProfileChildren;
 
         void logResults();
         void reset();
 
-        inline bool watchForMax(void) { return history.currentClocksPercent == history.maxClocksPercent; }
-        inline bool watchForMin(void) { return history.currentClocksPercent == history.minClocksPercent; }
+        inline bool watchForMax() { return history.currentClocksPercent == history.maxClocksPercent; }
+        inline bool watchForMin() { return history.currentClocksPercent == history.minClocksPercent; }
         inline bool watchForLimit(long double limit, bool greaterThan = true)
         {
             if (greaterThan)
@@ -362,9 +362,9 @@ namespace Ogre {
             void removeListener(ProfileSessionListener* listener);
 
             /// @copydoc Singleton::getSingleton()
-            static Profiler& getSingleton(void);
+            static Profiler& getSingleton();
             /// @copydoc Singleton::getSingleton()
-            static Profiler* getSingletonPtr(void);
+            static Profiler* getSingletonPtr();
 
             uint getCurrentCalls() const
             {
@@ -382,7 +382,7 @@ namespace Ogre {
             void displayResults();
 
             /** Processes frame stats for all of the mRoot's children */
-            void processFrameStats(void);
+            void processFrameStats();
             /** Processes specific ProfileInstance and it's children recursively.*/
             void processFrameStats(ProfileInstance* instance, ulong& maxFrameClocks);
 

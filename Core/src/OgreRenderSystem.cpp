@@ -266,7 +266,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void RenderSystem::_initRenderTargets(void)
+    void RenderSystem::_initRenderTargets()
     {
 
         // Init stats
@@ -445,7 +445,7 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    Viewport* RenderSystem::_getViewport(void)
+    Viewport* RenderSystem::_getViewport()
     {
         return mActiveViewport;
     }
@@ -569,13 +569,13 @@ namespace Ogre {
 
         mDepthBufferPool.clear();
     }
-    void RenderSystem::_beginFrame(void)
+    void RenderSystem::_beginFrame()
     {
         if (!mActiveViewport)
             OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "Cannot begin frame - no viewport selected.");
     }
     //-----------------------------------------------------------------------
-    CullingMode RenderSystem::_getCullingMode(void) const
+    CullingMode RenderSystem::_getCullingMode() const
     {
         return mCullingMode;
     }
@@ -626,7 +626,7 @@ namespace Ogre {
         _initialise();
     }
 
-    void RenderSystem::shutdown(void)
+    void RenderSystem::shutdown()
     {
         // Remove occlusion queries
         for (HardwareOcclusionQueryList::iterator i = mHwOcclusionQueries.begin();
@@ -663,23 +663,23 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void RenderSystem::_beginGeometryCount(void)
+    void RenderSystem::_beginGeometryCount()
     {
         mBatchCount = mFaceCount = mVertexCount = 0;
 
     }
     //-----------------------------------------------------------------------
-    unsigned int RenderSystem::_getFaceCount(void) const
+    unsigned int RenderSystem::_getFaceCount() const
     {
         return static_cast< unsigned int >( mFaceCount );
     }
     //-----------------------------------------------------------------------
-    unsigned int RenderSystem::_getBatchCount(void) const
+    unsigned int RenderSystem::_getBatchCount() const
     {
         return static_cast< unsigned int >( mBatchCount );
     }
     //-----------------------------------------------------------------------
-    unsigned int RenderSystem::_getVertexCount(void) const
+    unsigned int RenderSystem::_getVertexCount() const
     {
         return static_cast< unsigned int >( mVertexCount );
     }
@@ -738,7 +738,7 @@ namespace Ogre {
         mInvertVertexWinding = invert;
     }
     //-----------------------------------------------------------------------
-    bool RenderSystem::getInvertVertexWinding(void) const
+    bool RenderSystem::getInvertVertexWinding() const
     {
         return mInvertVertexWinding;
     }
@@ -764,7 +764,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    bool RenderSystem::updatePassIterationRenderState(void)
+    bool RenderSystem::updatePassIterationRenderState()
     {
         if (mCurrentPassIterationCount <= 1)
             return false;
@@ -821,7 +821,7 @@ namespace Ogre {
         msSharedEventListener = listener;
     }
     //-----------------------------------------------------------------------
-    RenderSystem::Listener* RenderSystem::getSharedListener(void)
+    RenderSystem::Listener* RenderSystem::getSharedListener()
     {
         return msSharedEventListener;
     }
@@ -944,7 +944,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    RenderSystem::RenderSystemContext* RenderSystem::_pauseFrame(void)
+    RenderSystem::RenderSystemContext* RenderSystem::_pauseFrame()
     {
         _endFrame();
         return new RenderSystem::RenderSystemContext;
@@ -956,7 +956,7 @@ namespace Ogre {
         delete context;
     }
     //---------------------------------------------------------------------
-    const String& RenderSystem::_getDefaultViewportMaterialScheme( void ) const
+    const String& RenderSystem::_getDefaultViewportMaterialScheme( ) const
     {
         if ( !(getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION)) )
         {

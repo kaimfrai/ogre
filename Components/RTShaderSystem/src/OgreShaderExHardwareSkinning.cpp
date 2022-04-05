@@ -76,11 +76,11 @@ template<> RTShader::HardwareSkinningFactory* Singleton<RTShader::HardwareSkinni
 
 namespace RTShader {
 
-HardwareSkinningFactory* HardwareSkinningFactory::getSingletonPtr(void)
+HardwareSkinningFactory* HardwareSkinningFactory::getSingletonPtr()
 {
     return msSingleton;
 }
-HardwareSkinningFactory& HardwareSkinningFactory::getSingleton(void)
+HardwareSkinningFactory& HardwareSkinningFactory::getSingleton()
 {  
     assert( msSingleton );  return ( *msSingleton );
 }

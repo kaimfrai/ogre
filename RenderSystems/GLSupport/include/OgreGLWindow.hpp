@@ -44,9 +44,9 @@ struct Box;
     public:
         GLWindow();
 
-        bool isVisible(void) const { return mVisible; }
+        bool isVisible() const { return mVisible; }
         void setVisible(bool visible) { mVisible = visible; }
-        bool isHidden(void) const { return mHidden; }
+        bool isHidden() const { return mHidden; }
 
         bool isVSyncEnabled() const { return mVSync; }
         void setVSyncInterval(unsigned int interval);

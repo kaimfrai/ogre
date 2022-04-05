@@ -90,7 +90,7 @@ class RenderQueue;
         virtual OverlayElement* getChild(const String& name);
 
         /** @copydoc OverlayElement::initialise */
-        void initialise(void);
+        void initialise();
 
         void _addChild(OverlayElement* elem);
         ChildMap::iterator _removeChild(OverlayElement* elem) { return _removeChild(elem->getName()); }
@@ -103,13 +103,13 @@ class RenderQueue;
         @remarks
             Good for cascading updates without having to use RTTI
         */
-        virtual ChildContainerIterator getChildContainerIterator(void);
+        virtual ChildContainerIterator getChildContainerIterator();
 
         /** Tell the object and its children to recalculate */
-        virtual void _positionsOutOfDate(void);
+        virtual void _positionsOutOfDate();
 
         /** Overridden from OverlayElement. */
-        virtual void _update(void);
+        virtual void _update();
 
         /** Overridden from OverlayElement. */
         virtual ushort _notifyZOrder(ushort newZOrder);

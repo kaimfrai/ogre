@@ -63,11 +63,11 @@ namespace Ogre {
     // PROFILE DEFINITIONS
     //-----------------------------------------------------------------------
     template<> Profiler* Singleton<Profiler>::msSingleton = 0;
-    Profiler* Profiler::getSingletonPtr(void)
+    Profiler* Profiler::getSingletonPtr()
     {
         return msSingleton;
     }
-    Profiler& Profiler::getSingleton(void)
+    Profiler& Profiler::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -94,7 +94,7 @@ namespace Ogre {
         mRoot.hierarchicalLvl = 0 - 1;
     }
     //-----------------------------------------------------------------------
-    ProfileInstance::ProfileInstance(void)
+    ProfileInstance::ProfileInstance()
         : parent(NULL)
         , frameNumber(0)
         , accumClocks(0)
@@ -115,7 +115,7 @@ namespace Ogre {
         frame.frameClocks = 0;
         frame.calls = 0;
     }
-    ProfileInstance::~ProfileInstance(void)
+    ProfileInstance::~ProfileInstance()
     {                                        
         for(ProfileChildren::iterator it = children.begin(); it != children.end(); ++it)
         {
@@ -441,7 +441,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void Profiler::processFrameStats(void) 
+    void Profiler::processFrameStats() 
     {
         ulong maxFrameClocks = 0;
 
@@ -611,7 +611,7 @@ namespace Ogre {
         mMaxTotalFrameClocks = 0;
     }
     //-----------------------------------------------------------------------
-    void ProfileInstance::reset(void)
+    void ProfileInstance::reset()
     {
         history.currentClocksPercent = history.maxClocksPercent = history.totalClocksPercent = 0;
         history.currentClocks = history.maxClocks = history.totalClocks = 0;

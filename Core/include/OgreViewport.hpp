@@ -113,11 +113,11 @@ class RenderTarget;
             @note
                 Internal use by Ogre only.
         */
-        void _updateDimensions(void);
+        void _updateDimensions();
 
         /** Instructs the viewport to updates its contents.
         */
-        void update(void);
+        void update();
         
         /** Instructs the viewport to clear itself, without performing an update.
          @remarks
@@ -136,56 +136,56 @@ class RenderTarget;
 
         /** Retrieves a pointer to the render target for this viewport.
         */
-        RenderTarget* getTarget(void) const;
+        RenderTarget* getTarget() const;
 
         /** Retrieves a pointer to the camera for this viewport.
         */
-        Camera* getCamera(void) const;
+        Camera* getCamera() const;
 
         /** Sets the camera to use for rendering to this viewport. */
         void setCamera(Camera* cam);
 
         /** Gets the Z-Order of this viewport. */
-        int getZOrder(void) const;
+        int getZOrder() const;
         /** Gets one of the relative dimensions of the viewport,
             a value between 0.0 and 1.0.
         */
-        Real getLeft(void) const;
+        Real getLeft() const;
 
         /** Gets one of the relative dimensions of the viewport, a value
             between 0.0 and 1.0.
         */
-        Real getTop(void) const;
+        Real getTop() const;
 
         /** Gets one of the relative dimensions of the viewport, a value
             between 0.0 and 1.0.
         */
 
-        Real getWidth(void) const;
+        Real getWidth() const;
         /** Gets one of the relative dimensions of the viewport, a value
             between 0.0 and 1.0.
         */
 
-        Real getHeight(void) const;
+        Real getHeight() const;
         /** Gets one of the actual dimensions of the viewport, a value in
             pixels.
         */
 
-        int getActualLeft(void) const;
+        int getActualLeft() const;
         /** Gets one of the actual dimensions of the viewport, a value in
             pixels.
         */
 
-        int getActualTop(void) const;
+        int getActualTop() const;
         /** Gets one of the actual dimensions of the viewport, a value in
             pixels.
         */
-        int getActualWidth(void) const;
+        int getActualWidth() const;
         /** Gets one of the actual dimensions of the viewport, a value in
             pixels.
         */
 
-        int getActualHeight(void) const;
+        int getActualHeight() const;
 
         /** Sets the dimensions (after creation).
             @param
@@ -225,7 +225,7 @@ class RenderTarget;
 
         /** Gets the background colour.
         */
-        const ColourValue& getBackgroundColour(void) const;
+        const ColourValue& getBackgroundColour() const;
 
         /** Sets the initial depth buffer value of the viewport (before
             rendering). Default is 1
@@ -234,7 +234,7 @@ class RenderTarget;
 
         /** Gets the default depth buffer value to which the viewport is cleared.
         */
-        float getDepthClear(void) const;
+        float getDepthClear() const;
 
         /** Determines whether to clear the viewport before rendering.
         @remarks
@@ -249,10 +249,10 @@ class RenderTarget;
 
         /** Determines if the viewport is cleared before every frame.
         */
-        bool getClearEveryFrame(void) const;
+        bool getClearEveryFrame() const;
 
         /** Gets which buffers are to be cleared each frame. */
-        unsigned int getClearBuffers(void) const;
+        unsigned int getClearBuffers() const;
 
         /** Sets whether this viewport should be automatically updated 
             if Ogre's rendering loop or RenderTarget::update is being used.
@@ -283,23 +283,23 @@ class RenderTarget;
         
         /** Get the material scheme which the viewport should use.
         */
-        const String& getMaterialScheme(void) const
+        const String& getMaterialScheme() const
         { return mMaterialSchemeName; }
 
         /** Access to actual dimensions (based on target size).
         */
         Rect getActualDimensions() const;
 
-        bool _isUpdated(void) const;
-        void _clearUpdatedFlag(void);
+        bool _isUpdated() const;
+        void _clearUpdatedFlag();
 
         /** Gets the number of rendered faces in the last update.
         */
-        unsigned int _getNumRenderedFaces(void) const;
+        unsigned int _getNumRenderedFaces() const;
 
         /** Gets the number of rendered batches in the last update.
         */
-        unsigned int _getNumRenderedBatches(void) const;
+        unsigned int _getNumRenderedBatches() const;
 
         /** Tells this viewport whether it should display Overlay objects.
         @remarks
@@ -315,7 +315,7 @@ class RenderTarget;
 
         /** Returns whether or not Overlay objects (created in the SceneManager) are displayed in this
             viewport. */
-        bool getOverlaysEnabled(void) const;
+        bool getOverlaysEnabled() const;
 
         /** Tells this viewport whether it should display skies.
         @remarks
@@ -331,7 +331,7 @@ class RenderTarget;
 
         /** Returns whether or not skies (created in the SceneManager) are displayed in this
             viewport. */
-        bool getSkiesEnabled(void) const;
+        bool getSkiesEnabled() const;
 
         /** Tells this viewport whether it should display shadows.
         @remarks
@@ -345,7 +345,7 @@ class RenderTarget;
 
         /** Returns whether or not shadows (defined in the SceneManager) are displayed in this
             viewport. */
-        bool getShadowsEnabled(void) const;
+        bool getShadowsEnabled() const;
 
 
         /** Sets a per-viewport visibility mask.
@@ -361,7 +361,7 @@ class RenderTarget;
         /** Gets a per-viewport visibility mask.
         @see Viewport::setVisibilityMask
         */
-        uint getVisibilityMask(void) const { return mVisibilityMask; }
+        uint getVisibilityMask() const { return mVisibilityMask; }
 
         /** Convert oriented input point coordinates to screen coordinates. */
         void pointOrientedToScreen(const Vector2 &v, int orientationMode, Vector2 &outv);

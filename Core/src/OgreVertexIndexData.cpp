@@ -144,7 +144,7 @@ class RenderSystem;
         return dest;
     }
     //-----------------------------------------------------------------------
-    void VertexData::prepareForShadowVolume(void)
+    void VertexData::prepareForShadowVolume()
     {
         /* NOTE
         I would dearly, dearly love to just use a 4D position buffer in order to 
@@ -508,7 +508,7 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    void VertexData::closeGapsInBindings(void)
+    void VertexData::closeGapsInBindings()
     {
         if (!vertexBufferBinding->hasGaps())
             return;
@@ -550,7 +550,7 @@ class RenderSystem;
         }
     }
     //-----------------------------------------------------------------------
-    void VertexData::removeUnusedBuffers(void)
+    void VertexData::removeUnusedBuffers()
     {
         std::set<ushort> usedBuffers;
 
@@ -810,7 +810,7 @@ class RenderSystem;
     };
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    void IndexData::optimiseVertexCacheTriList(void)
+    void IndexData::optimiseVertexCacheTriList()
     {
         if (indexBuffer->isLocked()) return;
 

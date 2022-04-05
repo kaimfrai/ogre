@@ -158,7 +158,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    void SimpleSpline::recalcTangents(void)
+    void SimpleSpline::recalcTangents()
     {
         // Catmull-Rom approach
         // 
@@ -236,12 +236,12 @@ namespace Ogre {
         return mPoints[index];
     }
     //---------------------------------------------------------------------
-    unsigned short SimpleSpline::getNumPoints(void) const
+    unsigned short SimpleSpline::getNumPoints() const
     {
         return (unsigned short)mPoints.size();
     }
     //---------------------------------------------------------------------
-    void SimpleSpline::clear(void)
+    void SimpleSpline::clear()
     {
         mPoints.clear();
         mTangents.clear();

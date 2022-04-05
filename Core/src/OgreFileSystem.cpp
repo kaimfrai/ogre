@@ -71,7 +71,7 @@ namespace {
         ~FileSystemArchive();
 
         /// @copydoc Archive::isCaseSensitive
-        bool isCaseSensitive(void) const;
+        bool isCaseSensitive() const;
 
         /// @copydoc Archive::load
         void load();
@@ -121,7 +121,7 @@ namespace {
         mReadOnly = readOnly;
     }
     //-----------------------------------------------------------------------
-    bool FileSystemArchive::isCaseSensitive(void) const
+    bool FileSystemArchive::isCaseSensitive() const
     {
         return true;
     }
@@ -450,7 +450,7 @@ namespace {
 
     }
     //-----------------------------------------------------------------------
-    const String& FileSystemArchiveFactory::getType(void) const
+    const String& FileSystemArchiveFactory::getType() const
     {
         static String name = "FileSystem";
         return name;

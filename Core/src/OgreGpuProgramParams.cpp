@@ -227,7 +227,7 @@ namespace Ogre
         ser.importNamedConstants(stream, this);
     }
     //-----------------------------------------------------------------------------
-    size_t GpuNamedConstants::calculateSize(void) const
+    size_t GpuNamedConstants::calculateSize() const
     {
         size_t memSize = sizeof(*this);
         // Tally up constant defs
@@ -345,7 +345,7 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------------
-    size_t GpuSharedParameters::calculateSize(void) const
+    size_t GpuSharedParameters::calculateSize() const
     {
         size_t memSize = sizeof(*this);
 
@@ -794,7 +794,7 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------------
-    size_t GpuProgramParameters::calculateSize(void) const
+    size_t GpuProgramParameters::calculateSize() const
     {
         size_t memSize = sizeof(*this);
 
@@ -1494,7 +1494,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------------
-    void GpuProgramParameters::clearAutoConstants(void)
+    void GpuProgramParameters::clearAutoConstants()
     {
         mAutoConstants.clear();
         mCombinedVariability = GPV_GLOBAL;
@@ -2551,13 +2551,13 @@ namespace Ogre
             return 0;
     }
     //-----------------------------------------------------------------------
-    size_t GpuProgramParameters::getNumAutoConstantDefinitions(void)
+    size_t GpuProgramParameters::getNumAutoConstantDefinitions()
     {
         return sizeof(AutoConstantDictionary)/sizeof(AutoConstantDefinition);
     }
 
     //-----------------------------------------------------------------------
-    void GpuProgramParameters::incPassIterationNumber(void)
+    void GpuProgramParameters::incPassIterationNumber()
     {
         if (mActivePassIterationIndex != std::numeric_limits<size_t>::max())
         {

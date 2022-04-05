@@ -284,7 +284,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    size_t Resource::calculateSize(void) const
+    size_t Resource::calculateSize() const
     {
         size_t memSize = 0; // sizeof(*this) should be called by deriving classes
         memSize += mName.size() * sizeof(char);
@@ -313,7 +313,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    void Resource::unload(void) 
+    void Resource::unload() 
     { 
         // Early-out without lock (mitigate perf cost of ensuring unloaded)
         LoadingState old = mLoadingState.load();
@@ -355,7 +355,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    void Resource::touch(void) 
+    void Resource::touch() 
     {
         // make sure loaded
         load();
@@ -393,7 +393,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    void Resource::_fireUnloadingComplete(void)
+    void Resource::_fireUnloadingComplete()
     {
         for (ListenerList::iterator i = mListenerList.begin();
             i != mListenerList.end(); ++i)

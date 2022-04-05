@@ -53,31 +53,31 @@ class ResourceManager;
         void detachFromProgramObject( const uint programObject );
 
         /// Overridden from GpuProgram
-        const String& getLanguage(void) const;
+        const String& getLanguage() const;
 
-        bool getPassTransformStates(void) const {
+        bool getPassTransformStates() const {
             return mPassFFPStates;
         }
-        bool getPassSurfaceAndLightStates(void) const {
+        bool getPassSurfaceAndLightStates() const {
             return mPassFFPStates;
         }
-        bool getPassFogStates(void) const {
+        bool getPassFogStates() const {
             return mPassFFPStates;
         }
 
         /** Returns the operation type that this geometry program expects to
             receive as input
         */
-        RenderOperation::OperationType getInputOperationType(void) const
+        RenderOperation::OperationType getInputOperationType() const
         { return mInputOperationType; }
         /** Returns the operation type that this geometry program will emit
         */
-        RenderOperation::OperationType getOutputOperationType(void) const
+        RenderOperation::OperationType getOutputOperationType() const
         { return mOutputOperationType; }
         /** Returns the maximum number of vertices that this geometry program can
             output in a single run
         */
-        int getMaxOutputVertices(void) const { return mMaxOutputVertices; }
+        int getMaxOutputVertices() const { return mMaxOutputVertices; }
 
         /** Sets the operation type that this geometry program expects to receive
         */
@@ -114,7 +114,7 @@ class ResourceManager;
     protected:
         void loadFromSource();
         /// Internal unload implementation, must be implemented by subclasses
-        void unloadHighLevelImpl(void);
+        void unloadHighLevelImpl();
 
         /// Populate the passed parameters with name->index map, must be overridden
         void buildConstantDefinitions() override;

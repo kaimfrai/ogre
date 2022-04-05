@@ -90,7 +90,7 @@ class ResourceManager;
         void removeAllTechniques();
         
         /** Get an iterator over the Techniques in this compositor. */
-        TechniqueIterator getTechniqueIterator(void);
+        TechniqueIterator getTechniqueIterator();
         
         /** Get a supported technique.
         @remarks
@@ -114,7 +114,7 @@ class ResourceManager;
             which typically happens on loading it. Therefore, if this method returns
             an empty list, try calling Compositor::load.
         */
-        TechniqueIterator getSupportedTechniqueIterator(void);
+        TechniqueIterator getSupportedTechniqueIterator();
 
         /** Get a pointer to a supported technique for a given scheme. 
         @remarks
@@ -149,12 +149,12 @@ class ResourceManager;
 
     protected:
         /// @copydoc Resource::loadImpl
-        void loadImpl(void);
+        void loadImpl();
 
         /// @copydoc Resource::unloadImpl
-        void unloadImpl(void);
+        void unloadImpl();
         /// @copydoc Resource::calculateSize
-        size_t calculateSize(void) const;
+        size_t calculateSize() const;
         
         /** Check supportedness of techniques.
          */

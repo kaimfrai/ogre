@@ -99,18 +99,18 @@ void Compositor::removeAllTechniques()
     mCompilationRequired = true;
 }
 //-----------------------------------------------------------------------
-Compositor::TechniqueIterator Compositor::getTechniqueIterator(void)
+Compositor::TechniqueIterator Compositor::getTechniqueIterator()
 {
     return TechniqueIterator(mTechniques.begin(), mTechniques.end());
 }
 //-----------------------------------------------------------------------
 
-Compositor::TechniqueIterator Compositor::getSupportedTechniqueIterator(void)
+Compositor::TechniqueIterator Compositor::getSupportedTechniqueIterator()
 {
     return TechniqueIterator(mSupportedTechniques.begin(), mSupportedTechniques.end());
 }
 //-----------------------------------------------------------------------
-void Compositor::loadImpl(void)
+void Compositor::loadImpl()
 {
     // compile if required
     if (mCompilationRequired)
@@ -119,12 +119,12 @@ void Compositor::loadImpl(void)
     createGlobalTextures();
 }
 //-----------------------------------------------------------------------
-void Compositor::unloadImpl(void)
+void Compositor::unloadImpl()
 {
     freeGlobalTextures();
 }
 //-----------------------------------------------------------------------
-size_t Compositor::calculateSize(void) const
+size_t Compositor::calculateSize() const
 {
     return 0;
 }

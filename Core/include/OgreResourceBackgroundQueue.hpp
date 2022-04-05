@@ -126,12 +126,12 @@ namespace Ogre {
         /** Initialise the background queue system. 
         @note Called automatically by Root::initialise.
         */
-        virtual void initialise(void);
+        virtual void initialise();
 
         /** Shut down the background queue system. 
         @note Called automatically by Root::shutdown.
         */
-        virtual void shutdown(void);
+        virtual void shutdown();
 
         /** Initialise a resource group in the background.
         @see ResourceGroupManager::initialiseResourceGroup
@@ -289,9 +289,9 @@ namespace Ogre {
         void handleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ);
 
         /// @copydoc Singleton::getSingleton()
-        static ResourceBackgroundQueue& getSingleton(void);
+        static ResourceBackgroundQueue& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static ResourceBackgroundQueue* getSingletonPtr(void);
+        static ResourceBackgroundQueue* getSingletonPtr();
 
     };
 

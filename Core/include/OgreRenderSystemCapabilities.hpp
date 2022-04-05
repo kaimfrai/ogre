@@ -400,7 +400,7 @@ namespace Ogre
             mNumVertexAttributes = num;
         }
 
-        ushort getNumVertexAttributes(void) const
+        ushort getNumVertexAttributes() const
         {
             return mNumVertexAttributes;
         }
@@ -417,19 +417,19 @@ namespace Ogre
         to the fixed-function pipeline, the number available to the 
         programmable pipeline depends on the shader model in use.
         */
-        ushort getNumTextureUnits(void) const
+        ushort getNumTextureUnits() const
         {
             return mNumTextureUnits;
         }
 
         /// @deprecated assume 8-bit stencil buffer
-        ushort getStencilBufferBitDepth(void) const
+        ushort getStencilBufferBitDepth() const
         {
             return mStencilBufferBitDepth;
         }
 
         /// The number of simultaneous render targets supported
-        ushort getNumMultiRenderTargets(void) const
+        ushort getNumMultiRenderTargets() const
         {
             return mNumMultiRenderTargets;
         }
@@ -499,17 +499,17 @@ namespace Ogre
 
 
         /// The number of floating-point 4-vector constants vertex programs support
-        ushort getVertexProgramConstantFloatCount(void) const
+        ushort getVertexProgramConstantFloatCount() const
         {
             return mVertexProgramConstantFloatCount;
         }
         /// The number of floating-point 4-vector constants geometry programs support
-        ushort getGeometryProgramConstantFloatCount(void) const
+        ushort getGeometryProgramConstantFloatCount() const
         {
             return mGeometryProgramConstantFloatCount;
         }
         /// The number of floating-point 4-vector constants fragment programs support
-        ushort getFragmentProgramConstantFloatCount(void) const
+        ushort getFragmentProgramConstantFloatCount() const
         {
             return mFragmentProgramConstantFloatCount;
         }
@@ -548,7 +548,7 @@ namespace Ogre
             mMaxPointSize = s;
         }
         /// Maximum point screen size in pixels
-        Real getMaxPointSize(void) const
+        Real getMaxPointSize() const
         {
             return mMaxPointSize;
         }
@@ -565,7 +565,7 @@ namespace Ogre
         <li>You don't use DXT texture compression</li>
         <li>You use clamp texture addressing</li></ul>
         */
-        bool getNonPOW2TexturesLimited(void) const
+        bool getNonPOW2TexturesLimited() const
         {
             return mNonPOW2TexturesLimited;
         }
@@ -586,7 +586,7 @@ namespace Ogre
             mNumVertexTextureUnits = n;
         }
         /// Get the number of vertex texture units supported
-        ushort getNumVertexTextureUnits(void) const
+        ushort getNumVertexTextureUnits() const
         {
             return mNumVertexTextureUnits;
         }
@@ -597,13 +597,13 @@ namespace Ogre
             mGeometryProgramNumOutputVertices = numOutputVertices;
         }
         /// Get the number of vertices a single geometry program run can emit
-        int getGeometryProgramNumOutputVertices(void) const
+        int getGeometryProgramNumOutputVertices() const
         {
             return mGeometryProgramNumOutputVertices;
         }
 
         /// Get the identifier of the rendersystem from which these capabilities were generated
-        const String& getRenderSystemName(void) const
+        const String& getRenderSystemName() const
         {
             return mRenderSystemName;
         }
@@ -636,12 +636,12 @@ namespace Ogre
             mComputeProgramConstantFloatCount = c;
         }
         /// The number of floating-point 4-vector constants fragment programs support
-        ushort getComputeProgramConstantFloatCount(void) const
+        ushort getComputeProgramConstantFloatCount() const
         {
             return mComputeProgramConstantFloatCount;
         }
         /// The number of floating-point 4-vector constants fragment programs support
-        ushort getTessellationDomainProgramConstantFloatCount(void) const
+        ushort getTessellationDomainProgramConstantFloatCount() const
         {
             return mTessellationDomainProgramConstantFloatCount;
         }
@@ -651,7 +651,7 @@ namespace Ogre
             mTessellationDomainProgramConstantFloatCount = c;
         }
         /// The number of floating-point 4-vector constants fragment programs support
-        ushort getTessellationHullProgramConstantFloatCount(void) const
+        ushort getTessellationHullProgramConstantFloatCount() const
         {
             return mTessellationHullProgramConstantFloatCount;
         }

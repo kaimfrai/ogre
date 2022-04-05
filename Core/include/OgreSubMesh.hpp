@@ -147,7 +147,7 @@ class VertexData;
 
         /// Sets the name of the Material which this SubMesh will use
         void setMaterialName(const String& matName, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
-        const String& getMaterialName(void) const;
+        const String& getMaterialName() const;
 
         void setMaterial(const MaterialPtr& mat) { mMaterial = mat; }
         const MaterialPtr& getMaterial() const { return mMaterial; }
@@ -179,7 +179,7 @@ class VertexData;
             This method is for assigning weights to the dedicated geometry of the SubMesh. To assign
             weights to the shared Mesh geometry, see the equivalent methods on Mesh.
         */
-        void clearBoneAssignments(void);
+        void clearBoneAssignments();
 
         /// Multimap of verex bone assignments (orders by vertex index)
         typedef std::multimap<size_t, VertexBoneAssignment> VertexBoneAssignmentList;
@@ -191,20 +191,20 @@ class VertexData;
 
 
         /** Must be called once to compile bone assignments into geometry buffer. */
-        void _compileBoneAssignments(void);
+        void _compileBoneAssignments();
 
         typedef ConstMapIterator<AliasTextureNamePairList> AliasTextureIterator;
         /// @deprecated do not use
-        AliasTextureIterator getAliasTextureIterator(void) const;
+        AliasTextureIterator getAliasTextureIterator() const;
         /// @deprecated do not use
         void addTextureAlias(const String& aliasName, const String& textureName);
 
         /// @deprecated do not use
-        bool hasTextureAliases(void) const { return !mTextureAliases.empty(); }
+        bool hasTextureAliases() const { return !mTextureAliases.empty(); }
 
         /** Get the type of any vertex animation used by dedicated geometry.
         */
-        VertexAnimationType getVertexAnimationType(void) const;
+        VertexAnimationType getVertexAnimationType() const;
         
         /// Returns whether animation on dedicated vertex data includes normals
         bool getVertexAnimationIncludesNormals() const { return mVertexAnimationIncludesNormals; }
@@ -218,7 +218,7 @@ class VertexData;
 
         /** Returns true(by default) if the submesh should be included in the mesh EdgeList, otherwise returns false.
         */      
-        bool isBuildEdgesEnabled(void) const { return mBuildEdgesEnabled; }
+        bool isBuildEdgesEnabled() const { return mBuildEdgesEnabled; }
         void setBuildEdgesEnabled(bool b);
         /** Makes a copy of this submesh object and gives it a new name.
          @param newName
@@ -252,7 +252,7 @@ class VertexData;
         VertexBoneAssignmentList mBoneAssignments;
 
         /// Internal method for removing LOD data
-        void removeLodLevels(void);
+        void removeLodLevels();
 
 
     };

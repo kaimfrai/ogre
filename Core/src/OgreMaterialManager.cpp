@@ -53,11 +53,11 @@ class Renderable;
 
     //-----------------------------------------------------------------------
     template<> MaterialManager* Singleton<MaterialManager>::msSingleton = 0;
-    MaterialManager* MaterialManager::getSingletonPtr(void)
+    MaterialManager* MaterialManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    MaterialManager& MaterialManager::getSingleton(void)
+    MaterialManager& MaterialManager::getSingleton()
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -124,7 +124,7 @@ class Renderable;
     }
 
     //-----------------------------------------------------------------------
-    void MaterialManager::initialise(void)
+    void MaterialManager::initialise()
     {
         // Set up default material - don't use name constructor as we want to avoid applying defaults
         mDefaultSettings = create("DefaultSettings", ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);

@@ -141,22 +141,22 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& PatchSurface::getBounds(void) const
+    const AxisAlignedBox& PatchSurface::getBounds() const
     {
         return mAABB;
     }
     //-----------------------------------------------------------------------
-    Real PatchSurface::getBoundingSphereRadius(void) const
+    Real PatchSurface::getBoundingSphereRadius() const
     {
         return mBoundingSphere;
     }
     //-----------------------------------------------------------------------
-    size_t PatchSurface::getRequiredVertexCount(void) const
+    size_t PatchSurface::getRequiredVertexCount() const
     {
         return mRequiredVertexCount;
     }
     //-----------------------------------------------------------------------
-    size_t PatchSurface::getRequiredIndexCount(void) const
+    size_t PatchSurface::getRequiredIndexCount() const
     {
         return mRequiredIndexCount;
     }
@@ -275,12 +275,12 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    Real PatchSurface::getSubdivisionFactor(void) const
+    Real PatchSurface::getSubdivisionFactor() const
     {
         return mSubdivisionFactor;
     }
     //-----------------------------------------------------------------------
-    size_t PatchSurface::getCurrentIndexCount(void) const
+    size_t PatchSurface::getCurrentIndexCount() const
     {
         return mCurrIndexCount;
     }
@@ -499,7 +499,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void PatchSurface::makeTriangles(void)
+    void PatchSurface::makeTriangles()
     {
         // Our vertex buffer is subdivided to the highest level, we need to generate tris
         // which step over the vertices we don't need for this level of detail.

@@ -112,7 +112,7 @@ void CompositionTargetPass::setMaterialScheme(const String& schemeName)
     mMaterialScheme = schemeName;
 }
 //-----------------------------------------------------------------------
-const String& CompositionTargetPass::getMaterialScheme(void) const
+const String& CompositionTargetPass::getMaterialScheme() const
 {
     return mMaterialScheme;
 }
@@ -122,7 +122,7 @@ void CompositionTargetPass::setShadowsEnabled(bool enabled)
     mShadowsEnabled = enabled;
 }
 //-----------------------------------------------------------------------
-bool CompositionTargetPass::getShadowsEnabled(void) const
+bool CompositionTargetPass::getShadowsEnabled() const
 {
     return mShadowsEnabled;
 }
@@ -162,7 +162,7 @@ CompositionTechnique *CompositionTargetPass::getParent()
 }
 
 //-----------------------------------------------------------------------
-bool CompositionTargetPass::_isSupported(void)
+bool CompositionTargetPass::_isSupported()
 {
     // A target pass is supported if all passes are supported
 

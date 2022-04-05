@@ -169,9 +169,9 @@ class RenderTarget;
         PixelFormat getSupportedAlternative(PixelFormat format);
 
         /// @copydoc Singleton::getSingleton()
-        static GLRTTManager& getSingleton(void);
+        static GLRTTManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static GLRTTManager* getSingletonPtr(void);
+        static GLRTTManager* getSingletonPtr();
     protected:
         /** Frame Buffer Object properties for a certain texture format.
          */

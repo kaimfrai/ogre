@@ -54,7 +54,7 @@ class GLRenderSystem;
         /** See HardwareBuffer. */
         void* lockImpl(size_t offset, size_t length, LockOptions options);
         /** See HardwareBuffer. */
-        void unlockImpl(void);
+        void unlockImpl();
     public:
         GLHardwareVertexBuffer(GLenum target, size_t sizeInBytes, Usage usage, bool useShadowBuffer);
         ~GLHardwareVertexBuffer();
@@ -64,9 +64,9 @@ class GLRenderSystem;
         void writeData(size_t offset, size_t length, 
             const void* pSource, bool discardWholeBuffer = false);
         /** See HardwareBuffer. */
-        void _updateFromShadow(void);
+        void _updateFromShadow();
 
-        GLuint getGLBufferId(void) const { return mBufferId; }
+        GLuint getGLBufferId() const { return mBufferId; }
     };
     typedef GLHardwareVertexBuffer GLHardwareBuffer;
 

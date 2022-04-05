@@ -126,7 +126,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const Affine3& Node::_getFullTransform(void) const
+    const Affine3& Node::_getFullTransform() const
     {
         if (mCachedTransformOutOfDate)
         {
@@ -183,7 +183,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void Node::_updateFromParent(void) const
+    void Node::_updateFromParent() const
     {
         updateFromParentImpl();
 
@@ -194,7 +194,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void Node::updateFromParentImpl(void) const
+    void Node::updateFromParentImpl() const
     {
         mCachedTransformOutOfDate = true;
 
@@ -340,7 +340,7 @@ namespace Ogre {
         setOrientation(Quaternion(w, x, y, z));
     }
     //-----------------------------------------------------------------------
-    void Node::resetOrientation(void)
+    void Node::resetOrientation()
     {
         mOrientation = Quaternion::IDENTITY;
         needUpdate();
@@ -355,7 +355,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    Matrix3 Node::getLocalAxes(void) const
+    Matrix3 Node::getLocalAxes() const
     {
         Matrix3 ret;
         mOrientation.ToRotationMatrix(ret);
@@ -432,7 +432,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const Quaternion & Node::_getDerivedOrientation(void) const
+    const Quaternion & Node::_getDerivedOrientation() const
     {
         if (mNeedParentUpdate)
         {
@@ -441,7 +441,7 @@ namespace Ogre {
         return mDerivedOrientation;
     }
     //-----------------------------------------------------------------------
-    const Vector3 & Node::_getDerivedPosition(void) const
+    const Vector3 & Node::_getDerivedPosition() const
     {
         if (mNeedParentUpdate)
         {
@@ -450,7 +450,7 @@ namespace Ogre {
         return mDerivedPosition;
     }
     //-----------------------------------------------------------------------
-    const Vector3 & Node::_getDerivedScale(void) const
+    const Vector3 & Node::_getDerivedScale() const
     {
         if (mNeedParentUpdate)
         {
@@ -518,7 +518,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    void Node::removeAllChildren(void)
+    void Node::removeAllChildren()
     {
         ChildNodeMap::iterator i, iend;
         iend = mChildren.end();
@@ -565,14 +565,14 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    void Node::setInitialState(void)
+    void Node::setInitialState()
     {
         mInitialPosition = mPosition;
         mInitialOrientation = mOrientation;
         mInitialScale = mScale;
     }
     //-----------------------------------------------------------------------
-    void Node::resetToInitialState(void)
+    void Node::resetToInitialState()
     {
         mPosition = mInitialPosition;
         mOrientation = mInitialOrientation;
@@ -694,7 +694,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void Node::processQueuedUpdates(void)
+    void Node::processQueuedUpdates()
     {
         for (QueuedUpdates::iterator i = msQueuedUpdates.begin();
             i != msQueuedUpdates.end(); ++i)

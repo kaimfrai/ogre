@@ -208,7 +208,7 @@ namespace Ogre {
         checkUsage();
     }
     //-----------------------------------------------------------------------
-    size_t ResourceManager::getMemoryBudget(void) const
+    size_t ResourceManager::getMemoryBudget() const
     {
         return mMemoryBudget;
     }
@@ -314,7 +314,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ResourceManager::removeAll(void)
+    void ResourceManager::removeAll()
     {
         mResources.clear();
         mResourcesWithGroup.clear();
@@ -399,13 +399,13 @@ namespace Ogre {
         return it == mResourcesByHandle.end() ? ResourcePtr() : it->second;
     }
     //-----------------------------------------------------------------------
-    ResourceHandle ResourceManager::getNextHandle(void)
+    ResourceHandle ResourceManager::getNextHandle()
     {
         // This is an atomic operation and hence needs no locking
         return mNextHandle++;
     }
     //-----------------------------------------------------------------------
-    void ResourceManager::checkUsage(void)
+    void ResourceManager::checkUsage()
     {
         if (getMemoryUsage() > mMemoryBudget)
         {

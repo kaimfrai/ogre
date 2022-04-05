@@ -212,7 +212,7 @@ namespace Ogre {
         return getSubMesh(index);
     }
     //-----------------------------------------------------------------------
-    void Mesh::postLoadImpl(void)
+    void Mesh::postLoadImpl()
     {
         // Prepare for shadow volumes?
         if (MeshManager::getSingleton().getPrepareAllMeshesForShadowVolumes())
@@ -425,7 +425,7 @@ namespace Ogre {
         return newMesh;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& Mesh::getBounds(void) const
+    const AxisAlignedBox& Mesh::getBounds() const
     {
         return mAABB;
     }
@@ -560,7 +560,7 @@ namespace Ogre {
         mBoneAssignmentsOutOfDate = true;
     }
     //-----------------------------------------------------------------------
-    void Mesh::clearBoneAssignments(void)
+    void Mesh::clearBoneAssignments()
     {
         mBoneAssignments.clear();
         mBoneAssignmentsOutOfDate = true;
@@ -626,7 +626,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    void Mesh::_updateCompiledBoneAssignments(void)
+    void Mesh::_updateCompiledBoneAssignments()
     {
         if (mBoneAssignmentsOutOfDate)
             _compileBoneAssignments();
@@ -737,7 +737,7 @@ namespace Ogre {
         return maxBones;
     }
     //-----------------------------------------------------------------------
-    void  Mesh::_compileBoneAssignments(void)
+    void  Mesh::_compileBoneAssignments()
     {
         if (sharedVertexData)
         {
@@ -1124,7 +1124,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    const String& Mesh::getSkeletonName(void) const
+    const String& Mesh::getSkeletonName() const
     {
         return mSkeleton ? mSkeleton->getName() : BLANKSTRING;
     }
@@ -1242,7 +1242,7 @@ namespace Ogre {
         return i->second;
     }
     //--------------------------------------------------------------------
-    void Mesh::removeLodLevels(void)
+    void Mesh::removeLodLevels()
     {
         // Remove data from SubMeshes
         SubMeshList::iterator isub, isubend;
@@ -1265,12 +1265,12 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    Real Mesh::getBoundingSphereRadius(void) const
+    Real Mesh::getBoundingSphereRadius() const
     {
         return mBoundRadius;
     }
     //---------------------------------------------------------------------
-    Real Mesh::getBoneBoundingRadius(void) const
+    Real Mesh::getBoneBoundingRadius() const
     {
         return mBoneBoundingRadius;
     }
@@ -1662,7 +1662,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    void Mesh::buildEdgeList(void)
+    void Mesh::buildEdgeList()
     {
         if (mEdgeListsBuilt)
             return;
@@ -1756,7 +1756,7 @@ namespace Ogre {
         mEdgeListsBuilt = true;
     }
     //---------------------------------------------------------------------
-    void Mesh::freeEdgeList(void)
+    void Mesh::freeEdgeList()
     {
         if (!mEdgeListsBuilt)
             return;
@@ -1781,7 +1781,7 @@ namespace Ogre {
         mEdgeListsBuilt = false;
     }
     //---------------------------------------------------------------------
-    void Mesh::prepareForShadowVolume(void)
+    void Mesh::prepareForShadowVolume()
     {
         if (mPreparedForShadowVolumes)
             return;
@@ -2071,7 +2071,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    size_t Mesh::calculateSize(void) const
+    size_t Mesh::calculateSize() const
     {
         // calculate GPU size
         size_t ret = 0;
@@ -2112,12 +2112,12 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------------
-    bool Mesh::hasVertexAnimation(void) const
+    bool Mesh::hasVertexAnimation() const
     {
         return !mAnimationsList.empty();
     }
     //---------------------------------------------------------------------
-    VertexAnimationType Mesh::getSharedVertexDataAnimationType(void) const
+    VertexAnimationType Mesh::getSharedVertexDataAnimationType() const
     {
         if (mAnimationTypesDirty)
         {
@@ -2127,7 +2127,7 @@ namespace Ogre {
         return mSharedVertexDataAnimationType;
     }
     //---------------------------------------------------------------------
-    void Mesh::_determineAnimationTypes(void) const
+    void Mesh::_determineAnimationTypes() const
     {
         // Don't check flag here; since detail checks on track changes are not
         // done, allow caller to force if they need to
@@ -2258,7 +2258,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    unsigned short Mesh::getNumAnimations(void) const
+    unsigned short Mesh::getNumAnimations() const
     {
         return static_cast<unsigned short>(mAnimationsList.size());
     }
@@ -2299,7 +2299,7 @@ namespace Ogre {
         mAnimationTypesDirty = true;
     }
     //---------------------------------------------------------------------
-    void Mesh::removeAllAnimations(void)
+    void Mesh::removeAllAnimations()
     {
         AnimationList::iterator i = mAnimationsList.begin();
         for (; i != mAnimationsList.end(); ++i)
@@ -2372,7 +2372,7 @@ namespace Ogre {
             "Mesh::removePose");
     }
     //---------------------------------------------------------------------
-    void Mesh::removeAllPoses(void)
+    void Mesh::removeAllPoses()
     {
         for (PoseList::iterator i = mPoseList.begin(); i != mPoseList.end(); ++i)
         {
@@ -2382,7 +2382,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    const PoseList& Mesh::getPoseList(void) const
+    const PoseList& Mesh::getPoseList() const
     {
         return mPoseList;
     }

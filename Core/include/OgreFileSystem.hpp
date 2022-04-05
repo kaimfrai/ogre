@@ -55,7 +55,7 @@ class Archive;
     {
     public:
         /// @copydoc FactoryObj::getType
-        const String& getType(void) const;
+        const String& getType() const;
 
         using ArchiveFactory::createInstance;
 
@@ -76,7 +76,7 @@ class Archive;
         APKFileSystemArchiveFactory(AAssetManager* assetMgr) : mAssetMgr(assetMgr) {}
         virtual ~APKFileSystemArchiveFactory() {}
         /// @copydoc FactoryObj::getType
-        const String& getType(void) const;
+        const String& getType() const;
         /// @copydoc ArchiveFactory::createInstance
         Archive *createInstance( const String& name, bool readOnly );
     private:

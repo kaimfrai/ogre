@@ -56,14 +56,14 @@ class GLSLProgram;
 
     public:
 
-        GLSLLinkProgramManager(void);
-        ~GLSLLinkProgramManager(void);
+        GLSLLinkProgramManager();
+        ~GLSLLinkProgramManager();
 
         /**
             Get the program object that links the two active shader objects together
             if a program object was not already created and linked a new one is created and linked
         */
-        GLSLLinkProgram* getActiveLinkProgram(void);
+        GLSLLinkProgram* getActiveLinkProgram();
 
         /** Set the active fragment shader for the next rendering state.
             The active program object will be cleared.
@@ -91,8 +91,8 @@ class GLSLProgram;
             const GpuConstantDefinitionMap* fragmentConstantDefs,
             GLUniformReferenceList& list);
 
-        static GLSLLinkProgramManager& getSingleton(void);
-        static GLSLLinkProgramManager* getSingletonPtr(void);
+        static GLSLLinkProgramManager& getSingleton();
+        static GLSLLinkProgramManager* getSingletonPtr();
 
     };
 

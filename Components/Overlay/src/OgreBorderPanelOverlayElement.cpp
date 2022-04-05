@@ -163,7 +163,7 @@ namespace Ogre {
         delete mBorderRenderable;
     }
     //---------------------------------------------------------------------
-    void BorderPanelOverlayElement::initialise(void)
+    void BorderPanelOverlayElement::initialise()
     {
         bool init = !mInitialised;
 
@@ -274,7 +274,7 @@ namespace Ogre {
         PanelOverlayElement::_releaseManualHardwareResources();
     }
     //---------------------------------------------------------------------
-    void BorderPanelOverlayElement::addBaseParameters(void)
+    void BorderPanelOverlayElement::addBaseParameters()
     {
         PanelOverlayElement::addBaseParameters();
         ParamDictionary* dict = getParamDictionary();
@@ -382,7 +382,7 @@ namespace Ogre {
         mGeomPositionsOutOfDate = true;
     }
     //---------------------------------------------------------------------
-    Real BorderPanelOverlayElement::getLeftBorderSize(void) const
+    Real BorderPanelOverlayElement::getLeftBorderSize() const
     {
         if (mMetricsMode == GMM_PIXELS)
         {
@@ -394,7 +394,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Real BorderPanelOverlayElement::getRightBorderSize(void) const
+    Real BorderPanelOverlayElement::getRightBorderSize() const
     {
         if (mMetricsMode == GMM_PIXELS)
         {
@@ -406,7 +406,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Real BorderPanelOverlayElement::getTopBorderSize(void) const
+    Real BorderPanelOverlayElement::getTopBorderSize() const
     {
         if (mMetricsMode == GMM_PIXELS)
         {
@@ -418,7 +418,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Real BorderPanelOverlayElement::getBottomBorderSize(void) const
+    Real BorderPanelOverlayElement::getBottomBorderSize() const
     {
         if (mMetricsMode == GMM_PIXELS)
         {
@@ -598,12 +598,12 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    const String& BorderPanelOverlayElement::getBorderMaterialName(void) const
+    const String& BorderPanelOverlayElement::getBorderMaterialName() const
     {
         return mBorderMaterial ? mBorderMaterial->getName() : BLANKSTRING;
     }
     //---------------------------------------------------------------------
-    void BorderPanelOverlayElement::updatePositionGeometry(void)
+    void BorderPanelOverlayElement::updatePositionGeometry()
     {
         /*
         Grid is like this:
@@ -728,7 +728,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void BorderPanelOverlayElement::_update(void)
+    void BorderPanelOverlayElement::_update()
     {
         if (mMetricsMode != GMM_RELATIVE && 
             mGeomPositionsOutOfDate)
@@ -916,7 +916,7 @@ namespace Ogre {
             );
     }
     //---------------------------------------------------------------------
-    const String& BorderPanelOverlayElement::getTypeName(void) const
+    const String& BorderPanelOverlayElement::getTypeName() const
     {
         return msTypeName;
     }

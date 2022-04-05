@@ -184,7 +184,7 @@ namespace Ogre {
                 return mDelegate->lock(offset, length, options);
             }
             /// Internal implementation of unlock()
-            virtual void unlockImpl(void) { mDelegate->unlock(); }
+            virtual void unlockImpl() { mDelegate->unlock(); }
 
         public:
             /// Constructor, to be called by HardwareBufferManager only
@@ -251,7 +251,7 @@ namespace Ogre {
                 suffer from this problem, so if you want to be 100% sure your
                 data will not be lost, use the 'read' and 'write' forms instead.
             */
-            void unlock(void)
+            void unlock()
             {
                 OgreAssert(isLocked(), "Cannot unlock this buffer: it is not locked");
 
@@ -343,7 +343,7 @@ namespace Ogre {
             }
             
             /// Updates the real buffer from the shadow buffer, if required
-            virtual void _updateFromShadow(void)
+            virtual void _updateFromShadow()
             {
                 if (mShadowBuffer && mShadowUpdated && !mSuppressHardwareUpdate)
                 {
@@ -362,15 +362,15 @@ namespace Ogre {
             }
 
             /// Returns the size of this buffer in bytes
-            size_t getSizeInBytes(void) const { return mSizeInBytes; }
+            size_t getSizeInBytes() const { return mSizeInBytes; }
             /// Returns the Usage flags with which this buffer was created
-            Usage getUsage(void) const { return mUsage; }
+            Usage getUsage() const { return mUsage; }
             /// Returns whether this buffer is held in system memory
-            bool isSystemMemory(void) const { return mSystemMemory; }
+            bool isSystemMemory() const { return mSystemMemory; }
             /// Returns whether this buffer has a system memory shadow for quicker reading
-            bool hasShadowBuffer(void) const { return mShadowBuffer || (mDelegate && mDelegate->hasShadowBuffer()); }
+            bool hasShadowBuffer() const { return mShadowBuffer || (mDelegate && mDelegate->hasShadowBuffer()); }
             /// Returns whether or not this buffer is currently locked.
-            bool isLocked(void) const { 
+            bool isLocked() const { 
                 return mIsLocked || (mShadowBuffer && mShadowBuffer->isLocked());
             }
             /// Pass true to suppress hardware upload of shadow buffer changes

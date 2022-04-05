@@ -373,7 +373,7 @@ namespace Ogre {
         glPopMatrix();
     }
 
-    const String& GLRenderSystem::getName(void) const
+    const String& GLRenderSystem::getName() const
     {
         static String strName("OpenGL Rendering Subsystem");
         return strName;
@@ -968,7 +968,7 @@ namespace Ogre {
         mGLInitialised = true;
     }
 
-    void GLRenderSystem::shutdown(void)
+    void GLRenderSystem::shutdown()
     {
         RenderSystem::shutdown();
 
@@ -1764,7 +1764,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    void GLRenderSystem::_endFrame(void)
+    void GLRenderSystem::_endFrame()
     {
         // unbind GPU programs at end of frame
         // this is mostly to avoid holding bound programs that might get deleted
@@ -2760,7 +2760,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    HardwareOcclusionQuery* GLRenderSystem::createHardwareOcclusionQuery(void)
+    HardwareOcclusionQuery* GLRenderSystem::createHardwareOcclusionQuery()
     {
         GLHardwareOcclusionQuery* ret = new GLHardwareOcclusionQuery();
         mHwOcclusionQueries.push_back(ret);
@@ -2919,7 +2919,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    void GLRenderSystem::endProfileEvent( void )
+    void GLRenderSystem::endProfileEvent( )
     {
         markProfileEvent("End Event");
     }
@@ -3112,7 +3112,7 @@ namespace Ogre {
         PixelUtil::bulkPixelVerticalFlip(dst);
     }
 	//---------------------------------------------------------------------
-    void GLRenderSystem::initialiseExtensions(void)
+    void GLRenderSystem::initialiseExtensions()
     {
         // Set version string
         const GLubyte* pcVer = glGetString(GL_VERSION);

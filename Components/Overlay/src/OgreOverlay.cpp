@@ -72,7 +72,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    const String& Overlay::getName(void) const
+    const String& Overlay::getName() const
     {
         return mName;
     }
@@ -100,17 +100,17 @@ namespace Ogre {
         assignZOrders();
     }
     //---------------------------------------------------------------------
-    ushort Overlay::getZOrder(void) const
+    ushort Overlay::getZOrder() const
     {
         return (ushort)mZOrder;
     }
     //---------------------------------------------------------------------
-    bool Overlay::isVisible(void) const
+    bool Overlay::isVisible() const
     {
         return mVisible;
     }
     //---------------------------------------------------------------------
-    void Overlay::show(void)
+    void Overlay::show()
     {
         mVisible = true;
         if (!mInitialised)
@@ -119,7 +119,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void Overlay::hide(void)
+    void Overlay::hide()
     {
         mVisible = false;
     }
@@ -129,7 +129,7 @@ namespace Ogre {
         mVisible = visible;
     }
     //---------------------------------------------------------------------
-    void Overlay::initialise(void)
+    void Overlay::initialise()
     {
         OverlayContainerList::iterator i, iend;
         iend = m2DElements.end();
@@ -170,7 +170,7 @@ namespace Ogre {
         mRootNode->removeChild(node);
     }
     //---------------------------------------------------------------------
-    void Overlay::clear(void)
+    void Overlay::clear()
     {
         mRootNode->removeAllChildren();
         m2DElements.clear();
@@ -185,12 +185,12 @@ namespace Ogre {
         mTransformUpdated = true;
     }
     //---------------------------------------------------------------------
-    Real Overlay::getScrollX(void) const
+    Real Overlay::getScrollX() const
     {
         return mScrollX;
     }
     //---------------------------------------------------------------------
-    Real Overlay::getScrollY(void) const
+    Real Overlay::getScrollY() const
     {
         return mScrollY;
     }
@@ -239,12 +239,12 @@ namespace Ogre {
         mTransformUpdated = true;
     }
     //---------------------------------------------------------------------
-    Real Overlay::getScaleX(void) const
+    Real Overlay::getScaleX() const
     {
         return mScaleX;
     }
     //---------------------------------------------------------------------
-    Real Overlay::getScaleY(void) const
+    Real Overlay::getScaleY() const
     {
         return mScaleY;
     }
@@ -323,7 +323,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void Overlay::updateTransform(void) const
+    void Overlay::updateTransform() const
     {
         // Ordering:
         //    1. Scale

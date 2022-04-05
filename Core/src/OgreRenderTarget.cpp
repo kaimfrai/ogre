@@ -90,7 +90,7 @@ class Camera;
 
     }
 
-    const String& RenderTarget::getName(void) const
+    const String& RenderTarget::getName() const
     {
         return mName;
     }
@@ -102,11 +102,11 @@ class Camera;
         height = mHeight;
     }
 
-    unsigned int RenderTarget::getWidth(void) const
+    unsigned int RenderTarget::getWidth() const
     {
         return mWidth;
     }
-    unsigned int RenderTarget::getHeight(void) const
+    unsigned int RenderTarget::getHeight() const
     {
         return mHeight;
     }
@@ -158,7 +158,7 @@ class Camera;
         mDepthBuffer = 0;
     }
 
-    void RenderTarget::updateImpl(void)
+    void RenderTarget::updateImpl()
     {
         _beginUpdate();
         _updateAutoUpdatedViewports(true);
@@ -266,7 +266,7 @@ class Camera;
         }
     }
 
-    void RenderTarget::removeAllViewports(void)
+    void RenderTarget::removeAllViewports()
     {
         // make a copy of the list to avoid crashes, the viewport destructor change the list
         ViewportList vlist = mViewportList;
@@ -281,7 +281,7 @@ class Camera;
 
     }
 
-    void RenderTarget::resetStatistics(void)
+    void RenderTarget::resetStatistics()
     {
         mStats.avgFPS = 0.0;
         mStats.bestFPS = 0.0;
@@ -298,7 +298,7 @@ class Camera;
         mFrameCount = 0;
     }
 
-    void RenderTarget::updateStats(void)
+    void RenderTarget::updateStats()
     {
         ++mFrameCount;
         unsigned long thisTime = mTimer->getMilliseconds();
@@ -358,12 +358,12 @@ class Camera;
             mListeners.erase(i);
     }
     //-----------------------------------------------------------------------
-    void RenderTarget::removeAllListeners(void)
+    void RenderTarget::removeAllListeners()
     {
         mListeners.clear();
     }
     //-----------------------------------------------------------------------
-    void RenderTarget::firePreUpdate(void)
+    void RenderTarget::firePreUpdate()
     {
         RenderTargetEvent evt;
         evt.source = this;
@@ -379,7 +379,7 @@ class Camera;
 
     }
     //-----------------------------------------------------------------------
-    void RenderTarget::firePostUpdate(void)
+    void RenderTarget::firePostUpdate()
     {
         RenderTargetEvent evt;
         evt.source = this;
@@ -393,7 +393,7 @@ class Camera;
         }
     }
     //-----------------------------------------------------------------------
-    unsigned short RenderTarget::getNumViewports(void) const
+    unsigned short RenderTarget::getNumViewports() const
     {
         return (unsigned short)mViewportList.size();
 
@@ -543,18 +543,18 @@ class Camera;
         mAutoUpdate = autoup;
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::isAutoUpdated(void) const
+    bool RenderTarget::isAutoUpdated() const
     {
         return mAutoUpdate;
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::isPrimary(void) const
+    bool RenderTarget::isPrimary() const
     {
         // RenderWindow will override and return true for the primary window
         return false;
     }  
 	//-----------------------------------------------------------------------
-    bool RenderTarget::isStereoEnabled(void) const
+    bool RenderTarget::isStereoEnabled() const
     {
         return mStereoEnabled;
     }

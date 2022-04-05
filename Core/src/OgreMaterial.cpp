@@ -118,7 +118,7 @@ class Renderable;
 
 
     //-----------------------------------------------------------------------
-    void Material::prepareImpl(void)
+    void Material::prepareImpl()
     {
         // compile if required
         if (mCompilationRequired)
@@ -133,7 +133,7 @@ class Renderable;
         }
     }
     //-----------------------------------------------------------------------
-    void Material::unprepareImpl(void)
+    void Material::unprepareImpl()
     {
         // Load all supported techniques
         Techniques::iterator i, iend;
@@ -144,7 +144,7 @@ class Renderable;
         }
     }
     //-----------------------------------------------------------------------
-    void Material::loadImpl(void)
+    void Material::loadImpl()
     {
 
         // Load all supported techniques
@@ -157,7 +157,7 @@ class Renderable;
 
     }
     //-----------------------------------------------------------------------
-    void Material::unloadImpl(void)
+    void Material::unloadImpl()
     {
         // Unload all supported techniques
         Techniques::iterator i, iend;
@@ -168,7 +168,7 @@ class Renderable;
         }
     }
     //-----------------------------------------------------------------------
-    size_t Material::calculateSize(void) const
+    size_t Material::calculateSize() const
     {
         size_t memSize = sizeof(*this) + Resource::calculateSize();
 
@@ -230,7 +230,7 @@ class Renderable;
         mat->mGroup = savedGroup;
     }
     //-----------------------------------------------------------------------
-    void Material::applyDefaults(void)
+    void Material::applyDefaults()
     {
         MaterialPtr defaults = MaterialManager::getSingleton().getDefaultSettings();
 
@@ -250,7 +250,7 @@ class Renderable;
 
     }
     //-----------------------------------------------------------------------
-    Technique* Material::createTechnique(void)
+    Technique* Material::createTechnique()
     {
         Technique *t = new Technique(this);
         mTechniques.push_back(t);
@@ -384,7 +384,7 @@ class Renderable;
         clearBestTechniqueList();
     }
     //-----------------------------------------------------------------------
-    void Material::removeAllTechniques(void)
+    void Material::removeAllTechniques()
     {
         Techniques::iterator i, iend;
         iend = mTechniques.end();
@@ -397,7 +397,7 @@ class Renderable;
     }
 
     //-----------------------------------------------------------------------
-    bool Material::isTransparent(void) const
+    bool Material::isTransparent() const
     {
         // Check each technique
         Techniques::const_iterator i, iend;
@@ -451,7 +451,7 @@ class Renderable;
         }
     }
     //-----------------------------------------------------------------------
-    void Material::clearBestTechniqueList(void)
+    void Material::clearBestTechniqueList()
     {
         mSupportedTechniques.clear();
         mBestTechniquesBySchemeList.clear();
@@ -548,7 +548,7 @@ class Renderable;
     }
     #undef ALL_TECHNIQUES
     // --------------------------------------------------------------------
-    void Material::_notifyNeedsRecompile(void)
+    void Material::_notifyNeedsRecompile()
     {
         mCompilationRequired = true;
         // Also need to unload to ensure we loaded any new items

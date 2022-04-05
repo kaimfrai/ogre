@@ -150,10 +150,10 @@ namespace Ogre {
         virtual ~AnimableValue() {}
 
         /// Gets the value type of this animable value
-        ValueType getType(void) const { return mType; }
+        ValueType getType() const { return mType; }
 
         /// Sets the current state as the 'base' value; used for delta animation
-        virtual void setCurrentStateAsBaseValue(void) = 0;
+        virtual void setCurrentStateAsBaseValue() = 0;
 
         /// Set value 
         virtual void setValue(int) {
@@ -195,7 +195,7 @@ namespace Ogre {
         virtual void setValue(const Any& val);
 
         // reset to base value
-        virtual void resetToBaseValue(void);
+        virtual void resetToBaseValue();
 
         /// Apply delta value
         virtual void applyDeltaValue(int) {
@@ -253,15 +253,15 @@ namespace Ogre {
             Subclasses must override this if they want to support animation of
             their values.
         */
-        virtual const String& getAnimableDictionaryName(void) const 
+        virtual const String& getAnimableDictionaryName() const 
         { return BLANKSTRING; }
         /** Internal method for creating a dictionary of animable value names 
             for the class, if it does not already exist.
         */
-        void createAnimableDictionary(void) const;
+        void createAnimableDictionary() const;
     
         /// Get an updateable reference to animable value list
-        StringVector& _getAnimableValueNames(void);
+        StringVector& _getAnimableValueNames();
 
         /** Internal method for initialising dictionary; should be implemented by 
             subclasses wanting to expose animable parameters.
@@ -274,7 +274,7 @@ namespace Ogre {
         virtual ~AnimableObject() {}
 
         /** Gets a list of animable value names for this object. */
-        const StringVector& getAnimableValueNames(void) const;
+        const StringVector& getAnimableValueNames() const;
 
         /** Create a reference-counted AnimableValuePtr for the named value.
         @remarks

@@ -324,7 +324,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    void GLXWindow::destroy(void)
+    void GLXWindow::destroy()
     {
         if (mClosed)
             return;

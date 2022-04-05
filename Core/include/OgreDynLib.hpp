@@ -55,7 +55,7 @@ namespace Ogre {
     private:
         String mName;
         /// Gets the last loading error
-        String dynlibError(void);
+        String dynlibError();
     public:
         /** Default constructor - used by DynLibManager.
             @warning
@@ -74,7 +74,7 @@ namespace Ogre {
         */
         void unload();
         /// Get the name of the library
-        const String& getName(void) const { return mName; }
+        const String& getName() const { return mName; }
 
         /**
             Returns the address of the given symbol from the loaded library.

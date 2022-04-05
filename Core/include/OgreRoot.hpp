@@ -207,7 +207,7 @@ struct SceneManagerMetaData;
         void unloadPlugins();
 
         /// Internal method for one-time tasks after first window creation
-        void oneTimePostWindowInit(void);
+        void oneTimePostWindowInit();
 
         /** Set of registered frame listeners */
         std::set<FrameListener*> mFrameListeners;
@@ -259,7 +259,7 @@ struct SceneManagerMetaData;
                 Stores details of the current configuration so it may be
                 restored later on.
         */
-        void saveConfig(void);
+        void saveConfig();
 
         /** Checks for saved video/sound/etc settings
             @remarks
@@ -273,7 +273,7 @@ struct SceneManagerMetaData;
                 If there is no saved configuration, or if the system failed
                 with the last config settings, <b>false</b> is returned.
         */
-        bool restoreConfig(void);
+        bool restoreConfig();
 
         /** Displays a dialog asking the user to choose system settings.
             @remarks
@@ -315,7 +315,7 @@ struct SceneManagerMetaData;
                 list of RenderSystem subclasses. Can be used to build a
                 custom settings dialog.
         */
-        const RenderSystemList& getAvailableRenderers(void);
+        const RenderSystemList& getAvailableRenderers();
 
         /** Retrieve a pointer to the render system by the given name
             @param
@@ -346,7 +346,7 @@ struct SceneManagerMetaData;
 
         /** Retrieve a pointer to the currently selected render system.
         */
-        RenderSystem* getRenderSystem(void);
+        RenderSystem* getRenderSystem();
 
         /** Initialises the renderer.
             @remarks
@@ -369,7 +369,7 @@ struct SceneManagerMetaData;
                                     const String& customCapabilitiesConfig = BLANKSTRING);
 
         /** Returns whether the system is initialised or not. */
-        bool isInitialised(void) const { return mIsInitialised; }
+        bool isInitialised() const { return mIsInitialised; }
 
         /** Requests active RenderSystem to use custom RenderSystemCapabilities
         @remarks
@@ -424,7 +424,7 @@ struct SceneManagerMetaData;
         bool hasSceneManager(const String& instanceName) const;
 
         /// @copydoc SceneManagerEnumerator::getSceneManagers
-        const SceneManagerEnumerator::Instances& getSceneManagers(void) const;
+        const SceneManagerEnumerator::Instances& getSceneManagers() const;
 
         /** Retrieves a reference to the current TextureManager.
             @remarks
@@ -441,14 +441,14 @@ struct SceneManagerMetaData;
                 selected, and these typically require a window upon which to
                 base texture format decisions.
         */
-        TextureManager* getTextureManager(void);
+        TextureManager* getTextureManager();
 
         /** Retrieves a reference to the current MeshManager.
             @remarks
                 This performs the same function as MeshManager::getSingleton
                 and is provided for convenience to scripting engines.
         */
-        MeshManager* getMeshManager(void);
+        MeshManager* getMeshManager();
 
         /** Registers a FrameListener which will be called back every frame.
             @remarks
@@ -490,7 +490,7 @@ struct SceneManagerMetaData;
             @see
                 Root, Root::queueEndRendering, Root::startRendering
         */
-        bool endRenderingQueued(void);
+        bool endRenderingQueued();
 
         /** Starts / restarts the automatic rendering cycle.
             @remarks
@@ -519,7 +519,7 @@ struct SceneManagerMetaData;
                 This method can only be called after Root::initialise has
                 been called.
         */
-        void startRendering(void);
+        void startRendering();
 
         /** Updates all the render targets automatically
 
@@ -528,7 +528,7 @@ struct SceneManagerMetaData;
             Overview of the render cycle
             ![](renderOneFrame.svg)
         */
-        bool renderOneFrame(void);
+        bool renderOneFrame();
 
         /** Updates all the render targets with custom frame time information
         @remarks
@@ -545,7 +545,7 @@ struct SceneManagerMetaData;
                 convenience, especially for dealing with unexpected errors or
                 for systems which need to shut down Ogre on demand.
         */
-        void shutdown(void);
+        void shutdown();
 
         /** Helper method to assist you in creating writeable file streams.
         @remarks
@@ -592,7 +592,7 @@ struct SceneManagerMetaData;
                 returns a null pointer when Root has not been initialised with
                 the option of creating a window.
         */
-        RenderWindow* getAutoCreatedWindow(void);
+        RenderWindow* getAutoCreatedWindow();
 
         /** @copydoc RenderSystem::_createRenderWindow
         */
@@ -681,7 +681,7 @@ struct SceneManagerMetaData;
         const PluginInstanceList& getInstalledPlugins() const { return mPlugins; }
 
         /** Gets a pointer to the central timer used for all OGRE timings */
-        Timer* getTimer(void);
+        Timer* getTimer();
 
         /** Method for raising frame started events. 
         @remarks
@@ -784,14 +784,14 @@ struct SceneManagerMetaData;
             the current frame have been queued, thus reflecting that if you 
             start performing changes then, you will actually see them in the 
             next frame. */
-        unsigned long getNextFrameNumber(void) const { return mNextFrame; }
+        unsigned long getNextFrameNumber() const { return mNextFrame; }
 
         /** Returns the scene manager currently being used to render a frame.
         @remarks
             This is only intended for internal use; it is only valid during the
             rendering of a frame.
         */
-        SceneManager* _getCurrentSceneManager(void) const { return mCurrentSceneManager; }
+        SceneManager* _getCurrentSceneManager() const { return mCurrentSceneManager; }
         /** Sets the scene manager currently being used to render.
         @remarks
             This is only intended for internal use.
@@ -808,7 +808,7 @@ struct SceneManagerMetaData;
             individual RenderTarget instances using their own update() method.
         @return false if a FrameListener indicated it wishes to exit the render loop
         */
-        bool _updateAllRenderTargets(void);
+        bool _updateAllRenderTargets();
 
         /** Internal method used for updating all RenderTarget objects (windows, 
             renderable textures etc) which are set to auto-update, with a custom time
@@ -824,9 +824,9 @@ struct SceneManagerMetaData;
         bool _updateAllRenderTargets(FrameEvent& evt);
 
         /// @copydoc Singleton::getSingleton()
-        static Root& getSingleton(void);
+        static Root& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static Root* getSingletonPtr(void);
+        static Root* getSingletonPtr();
 
         /** Clears the history of all event times. 
         @remarks
@@ -836,7 +836,7 @@ struct SceneManagerMetaData;
             if you're resuming rendering after a break, call this method to reset
             the stored times
         */
-        void clearEventTimes(void);
+        void clearEventTimes();
 
         /** Sets the period over which OGRE smooths out fluctuations in frame times.
         @remarks
@@ -852,7 +852,7 @@ struct SceneManagerMetaData;
         */
         void setFrameSmoothingPeriod(Real period) { mFrameSmoothingTime = period; }
         /** Gets the period over which OGRE smooths out fluctuations in frame times. */
-        Real getFrameSmoothingPeriod(void) const { return mFrameSmoothingTime; }
+        Real getFrameSmoothingPeriod() const { return mFrameSmoothingTime; }
 
         /** Register a new MovableObjectFactory which will create new MovableObject
             instances of a particular type, as identified by the getType() method.
@@ -885,7 +885,7 @@ struct SceneManagerMetaData;
             This is done automatically if MovableObjectFactory::requestTypeFlags
             returns true; don't call this manually unless you're sure you need to.
         */
-        uint32 _allocateNextMovableObjectTypeFlag(void);
+        uint32 _allocateNextMovableObjectTypeFlag();
 
         typedef ConstMapIterator<MovableObjectFactoryMap> MovableObjectFactoryIterator;
         /** Return an iterator over all the MovableObjectFactory instances currently

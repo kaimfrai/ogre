@@ -57,7 +57,7 @@ class AnimationStateSet;
         unload();
     }
     //-------------------------------------------------------------------------
-    unsigned short SkeletonInstance::getNumAnimations(void) const
+    unsigned short SkeletonInstance::getNumAnimations() const
     {
         return mSkeleton->getNumAnimations();
     }
@@ -95,7 +95,7 @@ class AnimationStateSet;
         mSkeleton->addLinkedSkeletonAnimationSource(skelName, scale);
     }
     //-------------------------------------------------------------------------
-    void SkeletonInstance::removeAllLinkedSkeletonAnimationSources(void)
+    void SkeletonInstance::removeAllLinkedSkeletonAnimationSources()
     {
         mSkeleton->removeAllLinkedSkeletonAnimationSources();
     }
@@ -147,7 +147,7 @@ class AnimationStateSet;
         }
     }
     //-------------------------------------------------------------------------
-    void SkeletonInstance::prepareImpl(void)
+    void SkeletonInstance::prepareImpl()
     {
         mNextAutoHandle = mSkeleton->mNextAutoHandle;
         mNextTagPointAutoHandle = 0;
@@ -164,7 +164,7 @@ class AnimationStateSet;
         setBindingPose();
     }
     //-------------------------------------------------------------------------
-    void SkeletonInstance::unprepareImpl(void)
+    void SkeletonInstance::unprepareImpl()
     {
         Skeleton::unprepareImpl();
 
@@ -232,19 +232,19 @@ class AnimationStateSet;
         }
     }
     //-------------------------------------------------------------------------
-    const String& SkeletonInstance::getName(void) const
+    const String& SkeletonInstance::getName() const
     {
         // delegate
         return mSkeleton->getName();
     }
     //-------------------------------------------------------------------------
-    ResourceHandle SkeletonInstance::getHandle(void) const
+    ResourceHandle SkeletonInstance::getHandle() const
     {
         // delegate
         return mSkeleton->getHandle();
     }
     //-------------------------------------------------------------------------
-    const String& SkeletonInstance::getGroup(void) const
+    const String& SkeletonInstance::getGroup() const
     {
         // delegate
         return mSkeleton->getGroup();

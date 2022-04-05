@@ -116,7 +116,7 @@ class RenderQueue;
         delete mRenderOp.vertexData;
     }
     //---------------------------------------------------------------------
-    void PanelOverlayElement::initialise(void)
+    void PanelOverlayElement::initialise()
     {
         bool init = !mInitialised;
 
@@ -217,7 +217,7 @@ class RenderQueue;
         mTransparent = inTransparent;
     }
     //---------------------------------------------------------------------
-    bool PanelOverlayElement::isTransparent(void) const
+    bool PanelOverlayElement::isTransparent() const
     {
         return mTransparent;
     }
@@ -238,7 +238,7 @@ class RenderQueue;
         v2 = mV2;
     }
     //---------------------------------------------------------------------
-    const String& PanelOverlayElement::getTypeName(void) const
+    const String& PanelOverlayElement::getTypeName() const
     {
         return msTypeName;
     }
@@ -267,7 +267,7 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    void PanelOverlayElement::updatePositionGeometry(void)
+    void PanelOverlayElement::updatePositionGeometry()
     {
         /*
             0-----2
@@ -315,7 +315,7 @@ class RenderQueue;
         *pPos++ = zValue;
     }
     //---------------------------------------------------------------------
-    void PanelOverlayElement::updateTextureGeometry(void)
+    void PanelOverlayElement::updateTextureGeometry()
     {
         // Generate for as many texture layers as there are in material
         if (mMaterial && mInitialised)
@@ -407,7 +407,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void PanelOverlayElement::addBaseParameters(void)
+    void PanelOverlayElement::addBaseParameters()
     {
         OverlayContainer::addBaseParameters();
         ParamDictionary* dict = getParamDictionary();

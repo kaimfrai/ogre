@@ -116,7 +116,7 @@ namespace Ogre {
                 the place in which OGRE found the problem, and a text
                 description from the 3D rendering library, if available.
         */
-        const String& getFullDescription(void) const { return fullDesc; }
+        const String& getFullDescription() const { return fullDesc; }
 
         /** Gets the source function.
         */
@@ -134,7 +134,7 @@ namespace Ogre {
             getFullDescriptionto get a full description of the error including line number,
             error number and what function threw the exception.
         */
-        const String &getDescription(void) const { return description; }
+        const String &getDescription() const { return description; }
 
         /// Override std::exception::what
         const char* what() const throw() { return fullDesc.c_str(); }

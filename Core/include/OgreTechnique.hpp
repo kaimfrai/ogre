@@ -92,7 +92,7 @@ class Material;
         /// Optional name for the technique
         String mName;
         /// Internal method for clearing illumination pass list
-        void clearIlluminationPasses(void);
+        void clearIlluminationPasses();
         /// Internal method - check for manually assigned illumination passes
         bool checkManuallyOrganisedIlluminationPasses();
 
@@ -168,14 +168,14 @@ class Material;
             This will only be correct after the Technique has been compiled, which is
             usually done from Material::compile.
         */
-        bool isSupported(void) const;
+        bool isSupported() const;
         /** Internal compilation method; see Material::compile. 
         @return Any information explaining problems with the compile.
         */
         String _compile(bool autoManageTextureUnits);
         /// Internal method for checking hardware support
         bool checkHardwareSupport(bool autoManageTextureUnits, StringStream& compileErrors);
-        size_t calculateSize(void) const;
+        size_t calculateSize() const;
 
         typedef VectorIterator<Passes> PassIterator;
         typedef VectorIterator<IlluminationPassList> IlluminationPassIterator;
@@ -191,7 +191,7 @@ class Material;
             that you create an alternative fallback Technique for if a card does not have 
             enough facilities for what you're asking for.
         */
-        Pass* createPass(void);
+        Pass* createPass();
         /** Retrieves the Pass with the given index.*/
         Pass* getPass(size_t index) const { return mPasses.at(index); }
         /** Retrieves the Pass matching name.
@@ -199,18 +199,18 @@ class Material;
         */
         Pass* getPass(const String& name) const;
         /** Retrieves the number of passes. */
-        size_t getNumPasses(void) const { return mPasses.size(); }
+        size_t getNumPasses() const { return mPasses.size(); }
         /** Removes the Pass with the given index. */
         void removePass(unsigned short index);
         /** Removes all Passes from this Technique. */
-        void removeAllPasses(void);
+        void removeAllPasses();
         /** Move a pass from source index to destination index.
             If successful then returns true.
         */
         bool movePass(const unsigned short sourceIndex, const unsigned short destinationIndex);
 
         /** Gets the passes in this Technique. */
-        const Passes& getPasses(void) const {
+        const Passes& getPasses() const {
             return mPasses;
         }
 
@@ -219,17 +219,17 @@ class Material;
         const IlluminationPassList& getIlluminationPasses();
 
         /** Internal method for splitting the passes into illumination passes. */
-        void _compileIlluminationPasses(void);
+        void _compileIlluminationPasses();
         /// @}
 
         /// Gets the parent Material
-        Material* getParent(void) const { return mParent; }
+        Material* getParent() const { return mParent; }
 
         /** Overloaded operator to copy on Technique to another. */
         Technique& operator=(const Technique& rhs);
 
         /// Gets the resource group of the ultimate parent Material
-        const String& getResourceGroup(void) const;
+        const String& getResourceGroup() const;
 
         /** Returns true if this Technique involves transparency. 
         @remarks
@@ -239,36 +239,36 @@ class Material;
             scene, may be used for blending, therefore we have to treat
             the whole Technique as transparent.
         */
-        bool isTransparent(void) const;
+        bool isTransparent() const;
 
         /** Returns true if this Technique has transparent sorting enabled. 
         @remarks
             This basically boils down to whether the first pass
             has transparent sorting enabled or not
         */
-        bool isTransparentSortingEnabled(void) const;
+        bool isTransparentSortingEnabled() const;
 
         /** Returns true if this Technique has transparent sorting forced. 
         @remarks
             This basically boils down to whether the first pass
             has transparent sorting forced or not
         */
-        bool isTransparentSortingForced(void) const;
+        bool isTransparentSortingForced() const;
 
         /** Internal prepare method, derived from call to Material::prepare. */
-        void _prepare(void);
+        void _prepare();
         /** Internal unprepare method, derived from call to Material::unprepare. */
-        void _unprepare(void);
+        void _unprepare();
         /** Internal load method, derived from call to Material::load. */
-        void _load(void);
+        void _load();
         /** Internal unload method, derived from call to Material::unload. */
-        void _unload(void);
+        void _unload();
 
         /// Is this loaded?
-        bool isLoaded(void) const;
+        bool isLoaded() const;
 
         /** Tells the technique that it needs recompilation. */
-        void _notifyNeedsRecompile(void);
+        void _notifyNeedsRecompile();
 
         /// @name Shadow Materials
         /// @{
@@ -575,7 +575,7 @@ class Material;
         */
         void setLodIndex(unsigned short index);
         /** Gets the level-of-detail index assigned to this Technique. */
-        unsigned short getLodIndex(void) const { return mLodIndex; }
+        unsigned short getLodIndex() const { return mLodIndex; }
 
         /** Set the 'scheme name' for this technique. 
         @remarks
@@ -598,19 +598,19 @@ class Material;
         /** Returns the scheme to which this technique is assigned.
             @see Technique::setSchemeName
         */
-        const String& getSchemeName(void) const;
+        const String& getSchemeName() const;
         
         /// Internal method for getting the scheme index
-        unsigned short _getSchemeIndex(void) const;
+        unsigned short _getSchemeIndex() const;
             
         /** Is depth writing going to occur on this technique? */
-        bool isDepthWriteEnabled(void) const;
+        bool isDepthWriteEnabled() const;
 
         /** Is depth checking going to occur on this technique? */
-        bool isDepthCheckEnabled(void) const;
+        bool isDepthCheckEnabled() const;
 
         /** Exists colour writing disabled pass on this technique? */
-        bool hasColourWriteDisabled(void) const;
+        bool hasColourWriteDisabled() const;
 
         /** Set the name of the technique.
         @remarks
@@ -619,7 +619,7 @@ class Material;
         */
         void setName(const String& name);
         /// Gets the name of the technique
-        const String& getName(void) const { return mName; }
+        const String& getName() const { return mName; }
 
         typedef ConstVectorIterator<GPUVendorRuleList> GPUVendorRuleIterator;
         typedef ConstVectorIterator<GPUDeviceNameRuleList> GPUDeviceNameRuleIterator;

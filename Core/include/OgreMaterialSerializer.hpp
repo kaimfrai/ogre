@@ -156,7 +156,7 @@ class Technique;
         /** Internal method for saving a program definition which has been
             built up.
         */
-        void finishProgramDefinition(void);
+        void finishProgramDefinition();
 
         /// Listeners list of this Serializer.
         typedef std::vector<Listener*>         ListenerList;
@@ -174,7 +174,7 @@ class Technique;
         void writeGeometryProgramRef(const Pass* pPass);
         void writeFragmentProgramRef(const Pass* pPass);
         void writeGpuProgramRef(const String& attrib, const GpuProgramPtr& program, const GpuProgramParametersSharedPtr& params);
-        void writeGpuPrograms(void);
+        void writeGpuPrograms();
         void writeGPUProgramParameters(const GpuProgramParametersSharedPtr& params, GpuProgramParameters* defaultParams,
                                        const unsigned short level = 4, const bool useMainBuffer = true);
         void writeNamedGpuProgramParameters(const GpuProgramParametersSharedPtr& params, GpuProgramParameters* defaultParams,

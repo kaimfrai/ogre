@@ -93,7 +93,7 @@ namespace Ogre {
         mLightType = type;
     }
     //-----------------------------------------------------------------------
-    Light::LightTypes Light::getType(void) const
+    Light::LightTypes Light::getType() const
     {
         return mLightType;
     }
@@ -121,17 +121,17 @@ namespace Ogre {
         mSpotFalloff = val;
     }
     //-----------------------------------------------------------------------
-    const Radian& Light::getSpotlightInnerAngle(void) const
+    const Radian& Light::getSpotlightInnerAngle() const
     {
         return mSpotInner;
     }
     //-----------------------------------------------------------------------
-    const Radian& Light::getSpotlightOuterAngle(void) const
+    const Radian& Light::getSpotlightOuterAngle() const
     {
         return mSpotOuter;
     }
     //-----------------------------------------------------------------------
-    Real Light::getSpotlightFalloff(void) const
+    Real Light::getSpotlightFalloff() const
     {
         return mSpotFalloff;
     }
@@ -148,7 +148,7 @@ namespace Ogre {
         mDiffuse = colour;
     }
     //-----------------------------------------------------------------------
-    const ColourValue& Light::getDiffuseColour(void) const
+    const ColourValue& Light::getDiffuseColour() const
     {
         return mDiffuse;
     }
@@ -165,7 +165,7 @@ namespace Ogre {
         mSpecular = colour;
     }
     //-----------------------------------------------------------------------
-    const ColourValue& Light::getSpecularColour(void) const
+    const ColourValue& Light::getSpecularColour() const
     {
         return mSpecular;
     }
@@ -175,13 +175,13 @@ namespace Ogre {
         mPowerScale = power;
     }
     //-----------------------------------------------------------------------
-    Real Light::getPowerScale(void) const
+    Real Light::getPowerScale() const
     {
         return mPowerScale;
     }
 
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& Light::getBoundingBox(void) const
+    const AxisAlignedBox& Light::getBoundingBox() const
     {
         // zero extent to still allow SceneQueries to work
         static AxisAlignedBox box(Vector3(0, 0, 0), Vector3(0, 0, 0));
@@ -194,7 +194,7 @@ namespace Ogre {
         // nothing to render
     }
     //-----------------------------------------------------------------------
-    const String& Light::getMovableType(void) const
+    const String& Light::getMovableType() const
     {
         return LightFactory::FACTORY_TYPE_NAME;
     }
@@ -404,7 +404,7 @@ namespace Ogre {
         return mFrustumClipVolumes;
     }
     //-----------------------------------------------------------------------
-    uint32 Light::getTypeFlags(void) const
+    uint32 Light::getTypeFlags() const
     {
         return SceneManager::LIGHT_TYPE_MASK;
     }
@@ -441,7 +441,7 @@ namespace Ogre {
         {
             setValue(mLight->getDiffuseColour() + val);
         }
-        void setCurrentStateAsBaseValue(void)
+        void setCurrentStateAsBaseValue()
         {
             setAsBaseValue(mLight->getDiffuseColour());
         }
@@ -463,7 +463,7 @@ namespace Ogre {
         {
             setValue(mLight->getSpecularColour() + val);
         }
-        void setCurrentStateAsBaseValue(void)
+        void setCurrentStateAsBaseValue()
         {
             setAsBaseValue(mLight->getSpecularColour());
         }
@@ -485,7 +485,7 @@ namespace Ogre {
         {
             setValue(mLight->getAs4DVector() + val);
         }
-        void setCurrentStateAsBaseValue(void)
+        void setCurrentStateAsBaseValue()
         {
             setAsBaseValue(mLight->getAs4DVector());
         }
@@ -507,7 +507,7 @@ namespace Ogre {
         {
             setValue(mLight->getSpotlightInnerAngle().valueRadians() + val);
         }
-        void setCurrentStateAsBaseValue(void)
+        void setCurrentStateAsBaseValue()
         {
             setAsBaseValue(mLight->getSpotlightInnerAngle().valueRadians());
         }
@@ -529,7 +529,7 @@ namespace Ogre {
         {
             setValue(mLight->getSpotlightOuterAngle().valueRadians() + val);
         }
-        void setCurrentStateAsBaseValue(void)
+        void setCurrentStateAsBaseValue()
         {
             setAsBaseValue(mLight->getSpotlightOuterAngle().valueRadians());
         }
@@ -551,7 +551,7 @@ namespace Ogre {
         {
             setValue(mLight->getSpotlightFalloff() + val);
         }
-        void setCurrentStateAsBaseValue(void)
+        void setCurrentStateAsBaseValue()
         {
             setAsBaseValue(mLight->getSpotlightFalloff());
         }
@@ -618,12 +618,12 @@ namespace Ogre {
         mShadowFarDistSquared = distance * distance;
     }
     //-----------------------------------------------------------------------
-    void Light::resetShadowFarDistance(void)
+    void Light::resetShadowFarDistance()
     {
         mOwnShadowFarDist = false;
     }
     //-----------------------------------------------------------------------
-    Real Light::getShadowFarDistance(void) const
+    Real Light::getShadowFarDistance() const
     {
         if (mOwnShadowFarDist)
             return mShadowFarDist;
@@ -631,7 +631,7 @@ namespace Ogre {
             return mManager->getShadowFarDistance ();
     }
     //-----------------------------------------------------------------------
-    Real Light::getShadowFarDistanceSquared(void) const
+    Real Light::getShadowFarDistanceSquared() const
     {
         if (mOwnShadowFarDist)
             return mShadowFarDistSquared;
@@ -775,7 +775,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String LightFactory::FACTORY_TYPE_NAME = "Light";
     //-----------------------------------------------------------------------
-    const String& LightFactory::getType(void) const
+    const String& LightFactory::getType() const
     {
         return FACTORY_TYPE_NAME;
     }

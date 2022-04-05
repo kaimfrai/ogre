@@ -72,7 +72,7 @@ class Image;
     {
     public:
 
-        TextureManager(void);
+        TextureManager();
         virtual ~TextureManager();
 
         /// create a new sampler
@@ -291,7 +291,7 @@ class Image;
 
         /** Gets preferred bit depth for integer pixel format textures.
         */
-        virtual ushort getPreferredIntegerBitDepth(void) const;
+        virtual ushort getPreferredIntegerBitDepth() const;
 
         /** Sets preferred bit depth for float pixel format textures.
         @param
@@ -304,7 +304,7 @@ class Image;
 
         /** Gets preferred bit depth for float pixel format textures.
         */
-        virtual ushort getPreferredFloatBitDepth(void) const;
+        virtual ushort getPreferredFloatBitDepth() const;
 
         /** Sets preferred bit depth for integer and float pixel format.
         @param
@@ -413,9 +413,9 @@ class Image;
         const SamplerPtr& getDefaultSampler();
 
         /// @copydoc Singleton::getSingleton()
-        static TextureManager& getSingleton(void);
+        static TextureManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static TextureManager* getSingletonPtr(void);
+        static TextureManager* getSingletonPtr();
 
     protected:
 

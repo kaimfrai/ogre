@@ -102,9 +102,9 @@ namespace Ogre {
         void setRenderer(const String& typeName);
 
         /** Gets the ParticleRenderer to be used to render this particle system. */
-        ParticleSystemRenderer* getRenderer(void) const;
+        ParticleSystemRenderer* getRenderer() const;
         /** Gets the name of the ParticleRenderer to be used to render this particle system. */
-        const String& getRendererName(void) const;
+        const String& getRendererName() const;
 
         /** Adds an emitter to this particle system.
         @remarks
@@ -129,7 +129,7 @@ namespace Ogre {
         ParticleEmitter* getEmitter(unsigned short index) const;
 
         /** Returns the number of emitters for this particle system. */
-        unsigned short getNumEmitters(void) const;
+        unsigned short getNumEmitters() const;
 
         /** Removes an emitter from the system.
         @remarks
@@ -142,7 +142,7 @@ namespace Ogre {
         void removeEmitter(unsigned short index);
 
         /** Removes all the emitters from this system. */
-        void removeAllEmitters(void);
+        void removeAllEmitters();
 
         /** Removes an emitter from the system.
         @remarks
@@ -175,7 +175,7 @@ namespace Ogre {
         ParticleAffector* getAffector(unsigned short index) const;
 
         /** Returns the number of affectors for this particle system. */
-        unsigned short getNumAffectors(void) const;
+        unsigned short getNumAffectors() const;
 
         /** Removes an affector from the system.
         @remarks
@@ -188,7 +188,7 @@ namespace Ogre {
         void removeAffector(unsigned short index);
 
         /** Removes all the affectors from this system. */
-        void removeAllAffectors(void);
+        void removeAllAffectors();
 
         /** Empties this set of all particles.
         */
@@ -201,7 +201,7 @@ namespace Ogre {
             given on emission (and whether any affectors modify that TTL) and the maximum
             number of particles allowed in this system at once (particle quota).
         */
-        size_t getNumParticles(void) const;
+        size_t getNumParticles() const;
 
         /** Manually add a particle to the system. 
         @remarks
@@ -214,7 +214,7 @@ namespace Ogre {
             you should use getParticle() and modify it's timeToLive to zero, meaning that it will
             get cleaned up in the next update.
         */
-        Particle* createParticle(void);
+        Particle* createParticle();
 
         /** Manually add an emitter particle to the system. 
         @remarks
@@ -239,7 +239,7 @@ namespace Ogre {
         @remarks
             See ParticleSystem::setParticleQuota for more info.
         */
-        size_t getParticleQuota(void) const;
+        size_t getParticleQuota() const;
 
         /** Sets the maximum number of particles this system is allowed to have active at once.
         @remarks
@@ -258,7 +258,7 @@ namespace Ogre {
         @remarks
             See ParticleSystem::setEmittedEmitterQuota for more info.
         */
-        size_t getEmittedEmitterQuota(void) const;
+        size_t getEmittedEmitterQuota() const;
 
         /** Sets the maximum number of emitted emitters this system is allowed to have active at once.
         @remarks
@@ -297,12 +297,12 @@ namespace Ogre {
         /** Sets the name of the material to be used for this billboard set.
             @return The name of the material that is used for this set.
         */
-        virtual const String& getMaterialName(void) const;
+        virtual const String& getMaterialName() const;
 
         virtual void _notifyCurrentCamera(Camera* cam) override;
         void _notifyAttached(Node* parent, bool isTagPoint = false) override;
-        virtual const AxisAlignedBox& getBoundingBox(void) const override { return mAABB; }
-        virtual Real getBoundingRadius(void) const override { return mBoundingRadius; }
+        virtual const AxisAlignedBox& getBoundingBox() const override { return mAABB; }
+        virtual Real getBoundingRadius() const override { return mBoundingRadius; }
         virtual void _updateRenderQueue(RenderQueue* queue) override;
 
         /// @copydoc MovableObject::visitRenderables
@@ -335,7 +335,7 @@ namespace Ogre {
 
         /** Gets the 'speed factor' on this particle system.
         */
-        Real getSpeedFactor(void) const { return mSpeedFactor; }
+        Real getSpeedFactor() const { return mSpeedFactor; }
 
         /** Sets a 'iteration interval' on this particle system.
         @remarks
@@ -356,7 +356,7 @@ namespace Ogre {
 
         /** Gets a 'iteration interval' on this particle system.
         */
-        Real getIterationInterval(void) const { return mIterationInterval; }
+        Real getIterationInterval() const { return mIterationInterval; }
 
         /** Set the default iteration interval for all ParticleSystem instances.
         */
@@ -364,7 +364,7 @@ namespace Ogre {
 
         /** Get the default iteration interval for all ParticleSystem instances.
         */
-        static Real getDefaultIterationInterval(void) { return msDefaultIterationInterval; }
+        static Real getDefaultIterationInterval() { return msDefaultIterationInterval; }
 
         /** Sets when the particle system should stop updating after it hasn't been
             visible for a while.
@@ -384,7 +384,7 @@ namespace Ogre {
         /** Gets when the particle system should stop updating after it hasn't been
             visible for a while.
         */
-        Real getNonVisibleUpdateTimeout(void) const { return mNonvisibleTimeout; }
+        Real getNonVisibleUpdateTimeout() const { return mNonvisibleTimeout; }
 
         /** Set the default nonvisible timeout for all ParticleSystem instances.
         */
@@ -393,9 +393,9 @@ namespace Ogre {
 
         /** Get the default nonvisible timeout for all ParticleSystem instances.
         */
-        static Real getDefaultNonVisibleUpdateTimeout(void) { return msDefaultNonvisibleTimeout; }
+        static Real getDefaultNonVisibleUpdateTimeout() { return msDefaultNonvisibleTimeout; }
 
-        const String& getMovableType(void) const override;
+        const String& getMovableType() const override;
 
         /** Sets the default dimensions of the particles in this set.
             @remarks
@@ -412,13 +412,13 @@ namespace Ogre {
         /** See setDefaultDimensions - this sets 1 component individually. */
         virtual void setDefaultWidth(Real width);
         /** See setDefaultDimensions - this gets 1 component individually. */
-        virtual Real getDefaultWidth(void) const;
+        virtual Real getDefaultWidth() const;
         /** See setDefaultDimensions - this sets 1 component individually. */
         virtual void setDefaultHeight(Real height);
         /** See setDefaultDimensions - this gets 1 component individually. */
-        virtual Real getDefaultHeight(void) const;
+        virtual Real getDefaultHeight() const;
         /** Returns whether or not particles in this are tested individually for culling. */
-        virtual bool getCullIndividually(void) const;
+        virtual bool getCullIndividually() const;
         /** Sets whether culling tests particles in this individually as well as in a group.
         @remarks
             Particle sets are always culled as a whole group, based on a bounding box which 
@@ -441,14 +441,14 @@ namespace Ogre {
         */
         virtual void setCullIndividually(bool cullIndividual);
         /// Return the resource group to be used to load dependent resources
-        virtual const String& getResourceGroupName(void) const { return mResourceGroupName; }
+        virtual const String& getResourceGroupName() const { return mResourceGroupName; }
         /** Get the origin of this particle system, e.g. a script file name.
         @remarks
             This property will only contain something if the creator of
             this particle system chose to populate it. Script loaders are advised
             to populate it.
         */
-        const String& getOrigin(void) const { return mOrigin; }
+        const String& getOrigin() const { return mOrigin; }
         /// Notify this particle system of it's origin
         void _notifyOrigin(const String& origin) { mOrigin = origin; }
 
@@ -465,7 +465,7 @@ namespace Ogre {
         */
         void setSortingEnabled(bool enabled) { mSorted = enabled; }
         /// Gets whether particles are sorted relative to the camera.
-        bool getSortingEnabled(void) const { return mSorted; }
+        bool getSortingEnabled() const { return mSorted; }
 
         /** Set the (initial) bounds of the particle system manually. 
         @remarks
@@ -510,7 +510,7 @@ namespace Ogre {
         /** Gets whether particles (and any affector effects) remain relative 
             to the node the particle system is attached to.
         */
-        bool getKeepParticlesInLocalSpace(void) const { return mLocalSpace; }
+        bool getKeepParticlesInLocalSpace() const { return mLocalSpace; }
 
         /** Internal method for updating the bounds of the particle system.
         @remarks
@@ -525,7 +525,7 @@ namespace Ogre {
             You can also call this method manually if you need to update the 
             bounds on an ad-hoc basis.
         */
-        void _updateBounds(void);
+        void _updateBounds();
 
         /** This is used to turn on or off particle emission for this system.
         @remarks
@@ -546,7 +546,7 @@ namespace Ogre {
         bool getEmitting() const;
 
         /// Override to return specific type flag
-        uint32 getTypeFlags(void) const;
+        uint32 getTypeFlags() const;
     private:
         AxisAlignedBox mAABB;
         Real mBoundingRadius;
@@ -731,28 +731,28 @@ namespace Ogre {
         void increaseEmittedEmitterPool(size_t size);
 
         /** Internal method for initialising string interface. */
-        void initParameters(void);
+        void initParameters();
 
         /** Internal method to configure the renderer. */
-        void configureRenderer(void);
+        void configureRenderer();
 
         /** Create a pool of emitted emitters and assign them to the free emitter list.
             @remarks
                 The emitters in the pool are grouped by name. This name is the name of the base emitter in the
                 main list with particle emitters, which forms the template of the created emitted emitters.
         */
-        void initialiseEmittedEmitters(void);
+        void initialiseEmittedEmitters();
 
         /** Determine which emitters in the Particle Systems main emitter become a template for creating an
             pool of emitters that can be emitted.
         */
-        void initialiseEmittedEmitterPool(void);
+        void initialiseEmittedEmitterPool();
 
         /** Add  emitters from the pool to the free emitted emitter queue. */
-        void addFreeEmittedEmitters(void);
+        void addFreeEmittedEmitters();
 
         /** Removes all emitted emitters from this system.  */
-        void removeAllEmittedEmitters(void);
+        void removeAllEmittedEmitters();
 
         /** Find the list with free emitted emitters.
             @param name The name that identifies the list with free emitted emitters.
@@ -770,7 +770,7 @@ namespace Ogre {
             @remarks
                 The active emitted emitter list will not be cleared and still keeps references to the emitters!
         */
-        void addActiveEmittedEmittersToFreeList (void);
+        void addActiveEmittedEmittersToFreeList ();
 
         /** This function clears all data structures that are used in combination with emitted emitters and
             sets the flag to indicate that the emitted emitter pool must be initialised again.
@@ -780,7 +780,7 @@ namespace Ogre {
                 again. The data structures are not reorganised in this function, but by setting a flag, 
                 they are rebuild in the regular process flow.
         */
-        void _notifyReorganiseEmittedEmitterData (void);
+        void _notifyReorganiseEmittedEmitterData ();
     };
     /** @} */
     /** @} */

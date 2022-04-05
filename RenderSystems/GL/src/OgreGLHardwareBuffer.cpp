@@ -130,7 +130,7 @@ namespace Ogre {
         return retPtr;
     }
     //---------------------------------------------------------------------
-    void GLHardwareVertexBuffer::unlockImpl(void)
+    void GLHardwareVertexBuffer::unlockImpl()
     {
         if (mLockedToScratch)
         {
@@ -203,7 +203,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void GLHardwareVertexBuffer::_updateFromShadow(void)
+    void GLHardwareVertexBuffer::_updateFromShadow()
     {
         if (mShadowBuffer && mShadowUpdated && !mSuppressHardwareUpdate)
         {

@@ -171,7 +171,7 @@ namespace {
     //---------------------------------------------------------------------
     DDSCodec* DDSCodec::msInstance = 0;
     //---------------------------------------------------------------------
-    void DDSCodec::startup(void)
+    void DDSCodec::startup()
     {
         if (!msInstance)
         {
@@ -186,7 +186,7 @@ namespace {
 
     }
     //---------------------------------------------------------------------
-    void DDSCodec::shutdown(void)
+    void DDSCodec::shutdown()
     {
         if(msInstance)
         {

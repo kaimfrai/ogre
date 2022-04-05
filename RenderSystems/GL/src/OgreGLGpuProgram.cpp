@@ -110,13 +110,13 @@ GLArbGpuProgram::~GLArbGpuProgram()
     unload(); 
 }
 
-void GLArbGpuProgram::bindProgram(void)
+void GLArbGpuProgram::bindProgram()
 {
     glEnable(getProgramType());
     glBindProgramARB(getProgramType(), mProgramID);
 }
 
-void GLArbGpuProgram::unbindProgram(void)
+void GLArbGpuProgram::unbindProgram()
 {
     glBindProgramARB(getProgramType(), 0);
     glDisable(getProgramType());
@@ -147,12 +147,12 @@ void GLArbGpuProgram::bindProgramParameters(GpuProgramParametersSharedPtr params
     }
 }
 
-void GLArbGpuProgram::unloadImpl(void)
+void GLArbGpuProgram::unloadImpl()
 {
     glDeleteProgramsARB(1, &mProgramID);
 }
 
-void GLArbGpuProgram::loadFromSource(void)
+void GLArbGpuProgram::loadFromSource()
 {
     if (GL_INVALID_OPERATION == glGetError()) {
         LogManager::getSingleton().logMessage("Invalid Operation before loading program "+mName, LML_CRITICAL);

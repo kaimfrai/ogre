@@ -53,7 +53,7 @@ namespace Ogre
         void setFullscreen (bool fullscreen, uint width, uint height);
         
         /** @copydoc see RenderWindow::destroy */
-        void destroy(void);
+        void destroy();
         
         /** @copydoc see RenderWindow::setHidden */
         void setHidden(bool hidden);

@@ -130,8 +130,8 @@ namespace Ogre {
                                             const HardwareVertexBufferSharedPtr& vertexBuffer,
                                             const size_t vertexStart) = 0;
 
-        Real getMinimumDepthInputValue(void) { return -1.0f; }            // Range [-1.0f, 1.0f]
-        Real getMaximumDepthInputValue(void) { return 1.0f; }             // Range [-1.0f, 1.0f]
+        Real getMinimumDepthInputValue() { return -1.0f; }            // Range [-1.0f, 1.0f]
+        Real getMaximumDepthInputValue() { return 1.0f; }             // Range [-1.0f, 1.0f]
 
         void _convertProjectionMatrix(const Matrix4& matrix, Matrix4& dest, bool);
 

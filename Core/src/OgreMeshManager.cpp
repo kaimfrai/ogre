@@ -80,11 +80,11 @@ namespace Ogre
 
     //-----------------------------------------------------------------------
     template<> MeshManager* Singleton<MeshManager>::msSingleton = 0;
-    MeshManager* MeshManager::getSingletonPtr(void)
+    MeshManager* MeshManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    MeshManager& MeshManager::getSingleton(void)
+    MeshManager& MeshManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -116,7 +116,7 @@ namespace Ogre
         return static_pointer_cast<Mesh>(getResourceByName(name, groupName));
     }
     //-----------------------------------------------------------------------
-    void MeshManager::_initialise(void)
+    void MeshManager::_initialise()
     {
         // Create prefab objects
         createManual("Prefab_Sphere", RGN_INTERNAL, &mPrefabLoader);
@@ -904,7 +904,7 @@ namespace Ogre
         mPrepAllMeshesForShadowVolumes = enable;
     }
     //-----------------------------------------------------------------------
-    bool MeshManager::getPrepareAllMeshesForShadowVolumes(void)
+    bool MeshManager::getPrepareAllMeshesForShadowVolumes()
     {
         return mPrepAllMeshesForShadowVolumes;
     }
@@ -929,7 +929,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    Real MeshManager::getBoundsPaddingFactor( void )
+    Real MeshManager::getBoundsPaddingFactor( )
     {
         return mBoundsPaddingFactor;
     }

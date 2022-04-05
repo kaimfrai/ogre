@@ -305,41 +305,41 @@ class ParticleSystemRenderer;
             Due to dependencies between various objects certain initialisation tasks cannot be done
             on construction. OGRE will call this method when the rendering subsystem is initialised.
         */
-        void _initialise(void);
+        void _initialise();
 
         /// @copydoc ScriptLoader::getScriptPatterns
-        const StringVector& getScriptPatterns(void) const;
+        const StringVector& getScriptPatterns() const;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName);
         /// @copydoc ScriptLoader::getLoadingOrder
-        Real getLoadingOrder(void) const;
+        Real getLoadingOrder() const;
 
         typedef MapIterator<ParticleAffectorFactoryMap> ParticleAffectorFactoryIterator;
         typedef MapIterator<ParticleEmitterFactoryMap> ParticleEmitterFactoryIterator;
         typedef MapIterator<ParticleSystemRendererFactoryMap> ParticleRendererFactoryIterator;
         /** Return an iterator over the affector factories currently registered */
-        ParticleAffectorFactoryIterator getAffectorFactoryIterator(void);
+        ParticleAffectorFactoryIterator getAffectorFactoryIterator();
         /** Return an iterator over the emitter factories currently registered */
-        ParticleEmitterFactoryIterator getEmitterFactoryIterator(void);
+        ParticleEmitterFactoryIterator getEmitterFactoryIterator();
         /** Return an iterator over the renderer factories currently registered */
-        ParticleRendererFactoryIterator getRendererFactoryIterator(void);
+        ParticleRendererFactoryIterator getRendererFactoryIterator();
 
 
         typedef MapIterator<ParticleTemplateMap> ParticleSystemTemplateIterator;
         /** Gets an iterator over the list of particle system templates. */
-        ParticleSystemTemplateIterator getTemplateIterator(void)
+        ParticleSystemTemplateIterator getTemplateIterator()
         {
             return ParticleSystemTemplateIterator(
                 mSystemTemplates.begin(), mSystemTemplates.end());
         } 
 
         /** Get an instance of ParticleSystemFactory (internal use). */
-        ParticleSystemFactory* _getFactory(void) { return mFactory; }
+        ParticleSystemFactory* _getFactory() { return mFactory; }
         
         /// @copydoc Singleton::getSingleton()
-        static ParticleSystemManager& getSingleton(void);
+        static ParticleSystemManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static ParticleSystemManager* getSingletonPtr(void);
+        static ParticleSystemManager* getSingletonPtr();
 
     };
 
@@ -354,7 +354,7 @@ class ParticleSystemRenderer;
         
         static String FACTORY_TYPE_NAME;
 
-        const String& getType(void) const;
+        const String& getType() const;
     };
     /** @} */
     /** @} */

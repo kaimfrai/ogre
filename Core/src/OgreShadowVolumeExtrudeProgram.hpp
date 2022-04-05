@@ -42,9 +42,9 @@ namespace Ogre {
         static std::vector<GpuProgramPtr> mPrograms;
     public:
         /// Initialise the these vertex programs
-        static void initialise(void);
+        static void initialise();
         /// Shutdown & destroy the vertex programs
-        static void shutdown(void);
+        static void shutdown();
 
         static const GpuProgramPtr& get(Light::LightTypes lightType, bool finite);
     };

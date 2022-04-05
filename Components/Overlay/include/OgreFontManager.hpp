@@ -76,9 +76,9 @@ namespace Ogre
         but the implementation stays in this single compilation unit,
         preventing link errors.
         */
-        static FontManager& getSingleton(void);
+        static FontManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static FontManager* getSingletonPtr(void);
+        static FontManager* getSingletonPtr();
 
     private:
 

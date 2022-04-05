@@ -99,7 +99,7 @@ namespace Ogre
                 method will guarantee to generate one of them. If you need more
                 control you should use the Quaternion class.
         */
-        Vector2 perpendicular(void) const;
+        Vector2 perpendicular() const;
 
         /** Generates a new random vector which deviates from this vector by a
             given angle in a random direction.
@@ -176,7 +176,7 @@ namespace Ogre
                 method will guarantee to generate one of them. If you need more
                 control you should use the Quaternion class.
         */
-        Vector3 perpendicular(void) const;
+        Vector3 perpendicular() const;
 
         Vector3& operator = ( const Real fScaler )
         {
@@ -771,7 +771,7 @@ namespace Ogre
         return angle;
     }
 
-    inline Vector2 VectorBase<2, Real>::perpendicular(void) const
+    inline Vector2 VectorBase<2, Real>::perpendicular() const
     {
         return Vector2(-y, x);
     }

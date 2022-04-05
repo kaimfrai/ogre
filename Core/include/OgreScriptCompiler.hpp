@@ -455,16 +455,16 @@ class Material;
         /// Adds a script extension that can be handled (e.g. *.material, *.pu, etc.)
         void addScriptPattern(const String &pattern);
         /// @copydoc ScriptLoader::getScriptPatterns
-        const StringVector& getScriptPatterns(void) const;
+        const StringVector& getScriptPatterns() const;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName);
         /// @copydoc ScriptLoader::getLoadingOrder
-        Real getLoadingOrder(void) const;
+        Real getLoadingOrder() const;
 
         /// @copydoc Singleton::getSingleton()
-        static ScriptCompilerManager& getSingleton(void);
+        static ScriptCompilerManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static ScriptCompilerManager* getSingletonPtr(void);
+        static ScriptCompilerManager* getSingletonPtr();
     };
 
     /// @deprecated do not use

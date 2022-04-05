@@ -65,9 +65,9 @@ namespace Ogre {
         String getType() const override;
 
         /// Static method to startup and register the ETC codec
-        static void startup(void);
+        static void startup();
         /// Static method to shutdown and unregister the ETC codec
-        static void shutdown(void);
+        static void shutdown();
     private:
         bool decodePKM(const DataStreamPtr& input, DecodeResult& result) const;
         bool decodeKTX(const DataStreamPtr& input, DecodeResult& result) const;

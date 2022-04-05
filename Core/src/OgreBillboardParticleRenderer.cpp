@@ -192,7 +192,7 @@ class RenderQueue;
         delete  mBillboardSet;
     }
     //-----------------------------------------------------------------------
-    const String& BillboardParticleRenderer::getType(void) const
+    const String& BillboardParticleRenderer::getType() const
     {
         return rendererTypeName;
     }

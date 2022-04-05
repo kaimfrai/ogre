@@ -154,7 +154,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::getWidth(void) const
+    Real OverlayElement::getWidth() const
     {
         if (mMetricsMode != GMM_RELATIVE)
         {
@@ -180,7 +180,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::getHeight(void) const
+    Real OverlayElement::getHeight() const
     {
         if (mMetricsMode != GMM_RELATIVE)
         {
@@ -206,7 +206,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::getLeft(void) const
+    Real OverlayElement::getLeft() const
     {
         if (mMetricsMode != GMM_RELATIVE)
         {
@@ -233,7 +233,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::getTop(void) const
+    Real OverlayElement::getTop() const
     {
         if (mMetricsMode != GMM_RELATIVE)
         {
@@ -303,7 +303,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    const String& OverlayElement::getMaterialName(void) const
+    const String& OverlayElement::getMaterialName() const
     {
         return mMaterial ? mMaterial->getName() : BLANKSTRING;
     }
@@ -348,7 +348,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    const MaterialPtr& OverlayElement::getMaterial(void) const
+    const MaterialPtr& OverlayElement::getMaterial() const
     {
         return mMaterial;
     }
@@ -358,12 +358,12 @@ namespace Ogre {
         mOverlay->_getWorldTransforms(xform);
     }
     //---------------------------------------------------------------------
-    void OverlayElement::_positionsOutOfDate(void)
+    void OverlayElement::_positionsOutOfDate()
     {
         mGeomPositionsOutOfDate = true;
     }
     //---------------------------------------------------------------------
-    void OverlayElement::_update(void)
+    void OverlayElement::_update()
     {
         Real vpWidth, vpHeight;
         OverlayManager& oMgr = OverlayManager::getSingleton();
@@ -434,7 +434,7 @@ namespace Ogre {
         } 
     }
     //---------------------------------------------------------------------
-    void OverlayElement::_updateFromParent(void)
+    void OverlayElement::_updateFromParent()
     {
         Real parentLeft = 0, parentTop = 0, parentBottom = 0, parentRight = 0;
 
@@ -533,7 +533,7 @@ namespace Ogre {
         mDerivedOutOfDate = true;
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::_getDerivedLeft(void)
+    Real OverlayElement::_getDerivedLeft()
     {
         if (mDerivedOutOfDate)
         {
@@ -542,7 +542,7 @@ namespace Ogre {
         return mDerivedLeft;
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::_getDerivedTop(void)
+    Real OverlayElement::_getDerivedTop()
     {
         if (mDerivedOutOfDate)
         {
@@ -551,12 +551,12 @@ namespace Ogre {
         return mDerivedTop;
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::_getRelativeWidth(void)
+    Real OverlayElement::_getRelativeWidth()
     {
         return mWidth;
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::_getRelativeHeight(void)
+    Real OverlayElement::_getRelativeHeight()
     {
         return mHeight;
     }
@@ -642,7 +642,7 @@ namespace Ogre {
         visitor->visit(this, 0, false);
     }
     //-----------------------------------------------------------------------
-    void OverlayElement::addBaseParameters(void)    
+    void OverlayElement::addBaseParameters()    
     {
         ParamDictionary* dict = getParamDictionary();
 
@@ -699,7 +699,7 @@ namespace Ogre {
         mColour = col;
     }
     //-----------------------------------------------------------------------
-    const ColourValue& OverlayElement::getColour(void) const
+    const ColourValue& OverlayElement::getColour() const
     {
         return mColour;
     }

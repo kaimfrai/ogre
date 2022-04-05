@@ -93,7 +93,7 @@ namespace Ogre {
          *
          * @returns              Display name.
          */
-        String getDisplayName (void);
+        String getDisplayName ();
 
         /**
          * Get the Display connection used for rendering
@@ -102,14 +102,14 @@ namespace Ogre {
          *
          * @returns              Display connection
          */
-        Display* getGLDisplay(void);
+        Display* getGLDisplay();
 
         /**
          * Get the Display connection used for window management & events
          *
          * @returns              Display connection
          */
-        Display* getXDisplay(void);
+        Display* getXDisplay();
 
         /**
          * Switch video modes
@@ -123,7 +123,7 @@ namespace Ogre {
         /**
          * Switch back to original video mode
          */
-        void switchMode (void);
+        void switchMode ();
 
         /**
          * Get the GLXFBConfig used to create a ::GLXContext

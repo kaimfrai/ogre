@@ -86,7 +86,7 @@ class ResourceManager;
         
     }
     //-----------------------------------------------------------------------
-    void PatchMesh::loadImpl(void)
+    void PatchMesh::loadImpl()
     {
         SubMesh* sm = this->createSubMesh();
         sm->vertexData = new VertexData();

@@ -86,7 +86,7 @@ namespace Ogre {
 
     public:
         /// Constructor
-        OptimisedUtilSSE(void);
+        OptimisedUtilSSE();
 
         /// @copydoc OptimisedUtil::softwareVertexSkinning
         virtual void __OGRE_SIMD_ALIGN_ATTRIBUTE softwareVertexSkinning(
@@ -904,7 +904,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    OptimisedUtilSSE::OptimisedUtilSSE(void)
+    OptimisedUtilSSE::OptimisedUtilSSE()
         : mPreferGeneralVersionForSharedBuffers(false)
     {
         // For AMD Athlon XP (but not that for Althon 64), it's prefer to never use
@@ -1990,8 +1990,8 @@ namespace Ogre {
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    extern OptimisedUtil* _getOptimisedUtilSSE(void);
-    extern OptimisedUtil* _getOptimisedUtilSSE(void)
+    extern OptimisedUtil* _getOptimisedUtilSSE();
+    extern OptimisedUtil* _getOptimisedUtilSSE()
     {
         static OptimisedUtilSSE msOptimisedUtilSSE;
         return &msOptimisedUtilSSE;

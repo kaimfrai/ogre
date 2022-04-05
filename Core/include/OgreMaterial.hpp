@@ -107,7 +107,7 @@ class Technique;
 
         /** Internal method which sets the material up from the default settings.
         */
-        void applyDefaults(void);
+        void applyDefaults();
 
         /// All techniques, supported and unsupported
         Techniques mTechniques;
@@ -136,19 +136,19 @@ class Technique;
 
         /** Clear the best technique list.
         */
-        void clearBestTechniqueList(void);
+        void clearBestTechniqueList();
 
-        void prepareImpl(void) override;
-        void unprepareImpl(void) override;
-        void loadImpl(void) override;
+        void prepareImpl() override;
+        void unprepareImpl() override;
+        void loadImpl() override;
 
         /** Unloads the material, frees resources etc.
         @see
         Resource
         */
-        void unloadImpl(void);
+        void unloadImpl();
         /// @copydoc Resource::calculateSize
-        size_t calculateSize(void) const;
+        size_t calculateSize() const;
     public:
 
         /** Constructor - use resource manager's create method rather than this.
@@ -164,7 +164,7 @@ class Technique;
         /** Determines if the material has any transparency with the rest of the scene (derived from 
             whether any Techniques say they involve transparency).
         */
-        bool isTransparent(void) const;
+        bool isTransparent() const;
 
         /** Sets whether objects using this material will receive shadows.
         @remarks
@@ -181,7 +181,7 @@ class Technique;
         */
         void setReceiveShadows(bool enabled) { mReceiveShadows = enabled; }
         /** Returns whether or not objects using this material will receive shadows. */
-        bool getReceiveShadows(void) const { return mReceiveShadows; }
+        bool getReceiveShadows() const { return mReceiveShadows; }
 
         /** Sets whether objects using this material be classified as opaque to the shadow caster system.
         @remarks
@@ -193,7 +193,7 @@ class Technique;
         */
         void setTransparencyCastsShadows(bool enabled) { mTransparencyCastsShadows = enabled; }
         /** Returns whether or not objects using this material be classified as opaque to the shadow caster system. */
-        bool getTransparencyCastsShadows(void) const { return mTransparencyCastsShadows; }
+        bool getTransparencyCastsShadows() const { return mTransparencyCastsShadows; }
 
         typedef VectorIterator<Techniques> TechniqueIterator;
         /// @name Techniques
@@ -212,7 +212,7 @@ class Technique;
             to higher-indexed Techniques, ie when asked for the 'best' technique it will
             return the first one in the technique list which is supported by the hardware.
         */
-        Technique* createTechnique(void);
+        Technique* createTechnique();
         /** Gets the indexed technique. */
         Technique* getTechnique(size_t index) const { return mTechniques.at(index); }
         /** searches for the named technique.
@@ -220,14 +220,14 @@ class Technique;
         */
         Technique* getTechnique(const String& name) const;
         /** Retrieves the number of techniques.  */
-        size_t getNumTechniques(void) const { return mTechniques.size(); }
+        size_t getNumTechniques() const { return mTechniques.size(); }
         /** Removes the technique at the given index. */        
         void removeTechnique(unsigned short index);     
         /** Removes all the techniques in this Material. */
-        void removeAllTechniques(void);
+        void removeAllTechniques();
 
         /** Get the Techniques in this Material. */
-        const Techniques& getTechniques(void) const {
+        const Techniques& getTechniques() const {
             return mTechniques;
         }
 
@@ -237,14 +237,14 @@ class Technique;
             which typically happens on loading the material. Therefore, if this method returns
             an empty list, try calling Material::load.
         */
-        const Techniques& getSupportedTechniques(void) const {
+        const Techniques& getSupportedTechniques() const {
             return mSupportedTechniques;
         }
         
         /** Gets the indexed supported technique. */
         Technique* getSupportedTechnique(size_t index) const { return mSupportedTechniques.at(index); }
         /** Retrieves the number of supported techniques. */
-        size_t getNumSupportedTechniques(void) const { return mSupportedTechniques.size(); }
+        size_t getNumSupportedTechniques() const { return mSupportedTechniques.size(); }
         /** Gets a string explaining why any techniques are not supported. */
         const String& getUnsupportedTechniquesExplanation() const { return mUnsupportedReasons; }
 
@@ -571,7 +571,7 @@ class Technique;
         /// @}
 
         /** Tells the material that it needs recompilation. */
-        void _notifyNeedsRecompile(void);
+        void _notifyNeedsRecompile();
 
         /// @name Level of Detail
         /// @{
@@ -610,7 +610,7 @@ class Technique;
             entry at the start (since the highest LOD starts at value 0). Also, the
             values returned are after being transformed by LodStrategy::transformUserValue.
         */
-        const LodValueList& getLodValues(void) const {
+        const LodValueList& getLodValues() const {
             return mLodValues;
         }
 
@@ -621,7 +621,7 @@ class Technique;
             entry at the start (since the highest LOD starts at value 0). Also, the
             values returned are after being transformed by LodStrategy::transformUserValue.
         */
-        const LodValueList& getUserLodValues(void) const {
+        const LodValueList& getUserLodValues() const {
             return mUserLodValues;
         }
 
@@ -640,7 +640,7 @@ class Technique;
 
         /** @copydoc Resource::touch
         */
-        void touch(void) 
+        void touch() 
         { 
             if (mCompilationRequired) 
                 compile();

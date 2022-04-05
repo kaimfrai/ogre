@@ -140,9 +140,9 @@ class MovableObject;
         Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const;
 
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodSphereStrategy& getSingleton(void);
+        static DistanceLodSphereStrategy& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodSphereStrategy* getSingletonPtr(void);
+        static DistanceLodSphereStrategy* getSingletonPtr();
     };
     /** @} */
     /** @} */
@@ -173,9 +173,9 @@ class MovableObject;
         Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const;
 
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodBoxStrategy& getSingleton(void);
+        static DistanceLodBoxStrategy& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodBoxStrategy* getSingletonPtr(void);
+        static DistanceLodBoxStrategy* getSingletonPtr();
     };
 
     /** @} */

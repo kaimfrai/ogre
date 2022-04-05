@@ -103,13 +103,13 @@ struct Box;
         virtual ~RenderTarget();
 
         /// Retrieve target's name.
-        virtual const String& getName(void) const;
+        virtual const String& getName() const;
 
         /// Retrieve information about the render target.
         void getMetrics(unsigned int& width, unsigned int& height);
 
-        virtual uint32 getWidth(void) const;
-        virtual uint32 getHeight(void) const;
+        virtual uint32 getWidth() const;
+        virtual uint32 getHeight() const;
 
         /**
          * Sets the pool ID this RenderTarget should query from. Default value is POOL_DEFAULT.
@@ -196,7 +196,7 @@ struct Box;
             float width = 1.0f, float height = 1.0f);
 
         /** Returns the number of viewports attached to this target.*/
-        virtual unsigned short getNumViewports(void) const;
+        virtual unsigned short getNumViewports() const;
 
         /** Retrieves a pointer to the viewport with the given index. */
         virtual Viewport* getViewport(unsigned short index);
@@ -215,16 +215,16 @@ struct Box;
 
         /** Removes all viewports on this target.
         */
-        virtual void removeAllViewports(void);
+        virtual void removeAllViewports();
 
         /** Retieves details of current rendering performance. */
-        const FrameStats& getStatistics(void) const {
+        const FrameStats& getStatistics() const {
             return mStats;
         }
 
         /** Resets saved frame-rate statistices.
         */
-        void resetStatistics(void);
+        void resetStatistics();
 
         /** Retrieve a platform or API-specific piece of information
 
@@ -277,7 +277,7 @@ struct Box;
         /** Removes a RenderTargetListener previously registered using addListener. */
         virtual void removeListener(RenderTargetListener* listener);
         /** Removes all listeners from this instance. */
-        virtual void removeAllListeners(void);
+        virtual void removeAllListeners();
 
         /** Sets the priority of this render target in relation to the others. 
         @remarks
@@ -313,7 +313,7 @@ struct Box;
         /** Gets whether this target is automatically updated if Ogre's rendering
             loop or Root::_updateAllRenderTargets is being used.
         */
-        virtual bool isAutoUpdated(void) const;
+        virtual bool isAutoUpdated() const;
 
         /** Copies the current contents of the render target to a pixelbox. 
         @remarks See suggestPixelFormat for a tip as to the best pixel format to
@@ -347,10 +347,10 @@ struct Box;
             This is the case because it holds the context for vertex,
             index buffers and textures.
         */
-        virtual bool isPrimary(void) const;
+        virtual bool isPrimary() const;
 
 		/** Indicates whether stereo is currently enabled for this target. Default is false. */
-		virtual bool isStereoEnabled(void) const;
+		virtual bool isStereoEnabled() const;
 		
         /** Indicates whether on rendering, linear colour space is converted to 
             sRGB gamma colour space. This is the exact opposite conversion of
@@ -468,7 +468,7 @@ struct Box;
         String mFSAAHint;
 		bool mStereoEnabled;
 
-        virtual void updateStats(void);
+        virtual void updateStats();
 
         typedef std::map<int, Viewport*> ViewportList;
         /// List of viewports, map on Z-order
@@ -479,9 +479,9 @@ struct Box;
     
 
         /// internal method for firing events
-        virtual void firePreUpdate(void);
+        virtual void firePreUpdate();
         /// internal method for firing events
-        virtual void firePostUpdate(void);
+        virtual void firePostUpdate();
         /// internal method for firing events
         virtual void fireViewportPreUpdate(Viewport* vp);
         /// internal method for firing events

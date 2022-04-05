@@ -50,7 +50,7 @@ namespace {
     protected:
         /** Internal load implementation, must be implemented by subclasses.
         */
-        void loadFromSource(void) {}
+        void loadFromSource() {}
         void unloadImpl() {}
 
     public:
@@ -60,10 +60,10 @@ namespace {
             : GpuProgram(creator, name, handle, group, isManual, loader){}
         ~NullProgram() {}
         /// Overridden from GpuProgram - never supported
-        bool isSupported(void) const { return false; }
+        bool isSupported() const { return false; }
         /// Overridden from GpuProgram
-        const String& getLanguage(void) const { return sNullLang; }
-        size_t calculateSize(void) const { return 0; }
+        const String& getLanguage() const { return sNullLang; }
+        size_t calculateSize() const { return 0; }
 
         /// Overridden from StringInterface
         bool setParameter(const String& name, const String& value)
@@ -80,7 +80,7 @@ namespace {
         NullProgramFactory() {}
         ~NullProgramFactory() {}
         /// Get the name of the language this factory creates programs for
-        const String& getLanguage(void) const
+        const String& getLanguage() const
         {
             return sNullLang;
         }
@@ -129,11 +129,11 @@ namespace {
 
     //-----------------------------------------------------------------------
     template<> GpuProgramManager* Singleton<GpuProgramManager>::msSingleton = 0;
-    GpuProgramManager* GpuProgramManager::getSingletonPtr(void)
+    GpuProgramManager* GpuProgramManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    GpuProgramManager& GpuProgramManager::getSingleton(void)
+    GpuProgramManager& GpuProgramManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -233,7 +233,7 @@ namespace {
         return prg;
     }
     //---------------------------------------------------------------------------
-    const GpuProgramManager::SyntaxCodes& GpuProgramManager::getSupportedSyntax(void)
+    const GpuProgramManager::SyntaxCodes& GpuProgramManager::getSupportedSyntax()
     {
         // Use the current render system
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
@@ -252,7 +252,7 @@ namespace {
         return rs && rs->getCapabilities()->isShaderProfileSupported(syntaxCode);
     }
     //-----------------------------------------------------------------------------
-    GpuProgramParametersSharedPtr GpuProgramManager::createParameters(void)
+    GpuProgramParametersSharedPtr GpuProgramManager::createParameters()
     {
         return GpuProgramParametersSharedPtr(new GpuProgramParameters());
     }
@@ -311,7 +311,7 @@ namespace {
             mSaveMicrocodesToCache = val;
     }
     //---------------------------------------------------------------------
-    bool GpuProgramManager::isCacheDirty( void ) const
+    bool GpuProgramManager::isCacheDirty( ) const
     {
         return mCacheDirty;     
     }

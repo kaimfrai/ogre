@@ -96,7 +96,7 @@ class ArchiveFactory;
         void unload(const String& filename);
         typedef MapIterator<ArchiveMap> ArchiveMapIterator;
         /** Get an iterator over the Archives in this Manager. */
-        ArchiveMapIterator getArchiveIterator(void);
+        ArchiveMapIterator getArchiveIterator();
 
         /** Adds a new ArchiveFactory to the list of available factories.
             @remarks
@@ -106,9 +106,9 @@ class ArchiveFactory;
         */
         void addArchiveFactory(ArchiveFactory* factory);
         /// @copydoc Singleton::getSingleton()
-        static ArchiveManager& getSingleton(void);
+        static ArchiveManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static ArchiveManager* getSingletonPtr(void);
+        static ArchiveManager* getSingletonPtr();
     };
     /** @} */
     /** @} */

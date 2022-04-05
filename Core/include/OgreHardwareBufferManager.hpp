@@ -89,7 +89,7 @@ class VertexDeclaration;
         bool bindNormals;
 
     public:
-        ~TempBlendedBufferInfo(void);
+        ~TempBlendedBufferInfo();
         /// Utility method, extract info from the given VertexData.
         void extractFrom(const VertexData* sourceData);
         /// Utility method, checks out temporary copies of src into dest.
@@ -128,17 +128,17 @@ class VertexDeclaration;
         VertexBufferBindingList mVertexBufferBindings;
 
         /// Internal method for destroys all vertex declarations.
-        virtual void destroyAllDeclarations(void);
+        virtual void destroyAllDeclarations();
         /// Internal method for destroys all vertex buffer bindings.
-        virtual void destroyAllBindings(void);
+        virtual void destroyAllBindings();
 
         /// Internal method for creates a new vertex declaration, may be overridden by certain rendering APIs.
-        virtual VertexDeclaration* createVertexDeclarationImpl(void);
+        virtual VertexDeclaration* createVertexDeclarationImpl();
         /// Internal method for destroys a vertex declaration, may be overridden by certain rendering APIs.
         virtual void destroyVertexDeclarationImpl(VertexDeclaration* decl);
 
         /// Internal method for creates a new VertexBufferBinding, may be overridden by certain rendering APIs.
-        virtual VertexBufferBinding* createVertexBufferBindingImpl(void);
+        virtual VertexBufferBinding* createVertexBufferBindingImpl();
         /// Internal method for destroys a VertexBufferBinding, may be overridden by certain rendering APIs.
         virtual void destroyVertexBufferBindingImpl(VertexBufferBinding* binding);
 
@@ -275,12 +275,12 @@ class VertexDeclaration;
                                                       bool useShadowBuffer = false);
 
         /** Creates a new vertex declaration. */
-        VertexDeclaration* createVertexDeclaration(void);
+        VertexDeclaration* createVertexDeclaration();
         /** Destroys a vertex declaration. */
         void destroyVertexDeclaration(VertexDeclaration* decl);
 
         /** Creates a new VertexBufferBinding. */
-        VertexBufferBinding* createVertexBufferBinding(void);
+        VertexBufferBinding* createVertexBufferBinding();
         /** Destroys a VertexBufferBinding. */
         void destroyVertexBufferBinding(VertexBufferBinding* binding);
 
@@ -352,7 +352,7 @@ class VertexDeclaration;
             to save hardware memory (e.g. application was runs in a long time, you
             might free temporary buffers periodically to avoid memory overload).
         */
-        void _freeUnusedBufferCopies(void);
+        void _freeUnusedBufferCopies();
 
         /** Internal method for releasing all temporary buffers which have been 
            allocated using BLT_AUTOMATIC_RELEASE; is called by OGRE.
@@ -399,9 +399,9 @@ class VertexDeclaration;
         ~HardwareBufferManager();
 
         /// @copydoc Singleton::getSingleton()
-        static HardwareBufferManager& getSingleton(void);
+        static HardwareBufferManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static HardwareBufferManager* getSingletonPtr(void);
+        static HardwareBufferManager* getSingletonPtr();
 
     };
 

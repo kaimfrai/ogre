@@ -238,7 +238,7 @@ class SceneManager;
             destroyed, or this function is called. This function removes those batches which are completely
             unused (only wasting memory).
         */
-        void cleanupEmptyBatches(void);
+        void cleanupEmptyBatches();
 
         /** After creating many entities (which turns in many batches) and then removing entities that
             are in the middle of these batches, there might be many batches with many free entities.
@@ -299,13 +299,13 @@ class SceneManager;
         void _addDirtyBatch( InstanceBatch *dirtyBatch );
 
         /** Called by SceneManager when we told it we have at least one dirty batch */
-        void _updateDirtyBatches(void);
+        void _updateDirtyBatches();
 
         typedef ConstMapIterator<InstanceBatchMap> InstanceBatchMapIterator;
         typedef ConstVectorIterator<InstanceBatchVec> InstanceBatchIterator;
 
         /// Get non-updateable iterator over instance batches per material
-        InstanceBatchMapIterator getInstanceBatchMapIterator(void) const
+        InstanceBatchMapIterator getInstanceBatchMapIterator() const
         { return InstanceBatchMapIterator( mInstanceBatches.begin(), mInstanceBatches.end() ); }
 
         /** Get non-updateable iterator over instance batches for given material

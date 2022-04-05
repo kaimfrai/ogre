@@ -118,7 +118,7 @@ namespace Ogre {
         mGeometryList.push_back(geometry);
     }
     //---------------------------------------------------------------------
-    EdgeData* EdgeListBuilder::build(void)
+    EdgeData* EdgeListBuilder::build()
     {
         /* Ok, here's the algorithm:
         For each set of indices in turn

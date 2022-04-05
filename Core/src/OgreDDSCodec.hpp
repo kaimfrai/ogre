@@ -87,9 +87,9 @@ class ColourValue;
         String getType() const override;
 
         /// Static method to startup and register the DDS codec
-        static void startup(void);
+        static void startup();
         /// Static method to shutdown and unregister the DDS codec
-        static void shutdown(void);
+        static void shutdown();
 
     };
     /** @} */

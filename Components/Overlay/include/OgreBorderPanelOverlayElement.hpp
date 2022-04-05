@@ -72,14 +72,14 @@ class RenderQueue;
         BorderPanelOverlayElement(const String& name);
         virtual ~BorderPanelOverlayElement();
 
-        virtual void initialise(void);
+        virtual void initialise();
 
         /** @copydoc OverlayElement::_releaseManualHardwareResources */
         virtual void _releaseManualHardwareResources();
         /** @copydoc OverlayElement::_restoreManualHardwareResources */
         virtual void _restoreManualHardwareResources();
 
-        const String& getTypeName(void) const;
+        const String& getTypeName() const;
         /** @name Border Size
             Remember that the dimensions specified here are in relation to the size of
             the screen, so 0.1 is 1/10th of the screen width or height. Also note that because
@@ -116,13 +116,13 @@ class RenderQueue;
         void setBorderSize(Real left, Real right, Real top, Real bottom);
 
         /** Gets the size of the left border. */
-        Real getLeftBorderSize(void) const;
+        Real getLeftBorderSize() const;
         /** Gets the size of the right border. */
-        Real getRightBorderSize(void) const;
+        Real getRightBorderSize() const;
         /** Gets the size of the top border. */
-        Real getTopBorderSize(void) const;
+        Real getTopBorderSize() const;
         /** Gets the size of the bottom border. */
-        Real getBottomBorderSize(void) const;
+        Real getBottomBorderSize() const;
         /// @}
 
         /** @name Border UV Coordinates
@@ -173,7 +173,7 @@ class RenderQueue;
         /** Sets the name of the material to use for the borders. */
         void setBorderMaterialName(const String& name, const String& group = DEFAULT_RESOURCE_GROUP );
         /** Gets the name of the material to use for the borders. */
-        const String& getBorderMaterialName(void) const;
+        const String& getBorderMaterialName() const;
 
         /** @copydoc OverlayContainer::_updateRenderQueue */
         void _updateRenderQueue(RenderQueue* queue);
@@ -185,7 +185,7 @@ class RenderQueue;
         void setMetricsMode(GuiMetricsMode gmm);
 
         /** @copydoc OverlayElement::_update */
-        void _update(void);
+        void _update();
     private:
         Real mLeftBorderSize;
         Real mRightBorderSize;
@@ -209,11 +209,11 @@ class RenderQueue;
         static String msTypeName;
 
         /// Internal method for setting up geometry, called by OverlayElement::update
-        void updatePositionGeometry(void);
+        void updatePositionGeometry();
         /// Internal method for setting up geometry, called by OverlayElement::update
-        void updateTextureGeometry(void);
+        void updateTextureGeometry();
         /// Internal method for setting up parameters
-        void addBaseParameters(void);
+        void addBaseParameters();
 
         enum BorderCellIndex {
             BCELL_TOP_LEFT = 0,
@@ -247,12 +247,12 @@ class RenderQueue;
             mUseIdentityView = true;
             mPolygonModeOverrideable = parent->getPolygonModeOverrideable();
         }
-        const MaterialPtr& getMaterial(void) const { return mParent->mBorderMaterial; }
+        const MaterialPtr& getMaterial() const { return mParent->mBorderMaterial; }
         void getRenderOperation(RenderOperation& op) { op = mParent->mRenderOp2; }
         void getWorldTransforms(Matrix4* xform) const { mParent->getWorldTransforms(xform); }
-        unsigned short getNumWorldTransforms(void) const { return 1; }
+        unsigned short getNumWorldTransforms() const { return 1; }
         Real getSquaredViewDepth(const Camera* cam) const { return mParent->getSquaredViewDepth(cam); }
-        const LightList& getLights(void) const
+        const LightList& getLights() const
         {
             // N/A, panels are not lit
             static LightList ll;

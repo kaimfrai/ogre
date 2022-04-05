@@ -65,9 +65,9 @@ namespace Ogre {
         String getType() const override;
 
 		/// Static method to startup and register the ASTC codec
-		static void startup(void);
+		static void startup();
 		/// Static method to shutdown and unregister the ASTC codec
-		static void shutdown(void);
+		static void shutdown();
 
     private:
         void getClosestBlockDim2d(float targetBitrate, int *x, int *y) const;

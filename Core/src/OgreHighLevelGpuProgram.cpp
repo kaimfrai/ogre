@@ -123,7 +123,7 @@ namespace Ogre
         // superclasses will trigger unload
     }
     //---------------------------------------------------------------------------
-    GpuProgramParametersSharedPtr HighLevelGpuProgram::createParameters(void)
+    GpuProgramParametersSharedPtr HighLevelGpuProgram::createParameters()
     {
         // Make sure param defs are loaded
         GpuProgramParametersSharedPtr params = GpuProgramManager::getSingleton().createParameters();
@@ -143,7 +143,7 @@ namespace Ogre
             params->copyConstantsFrom(*(mDefaultParams.get()));
         return params;
     }
-    size_t HighLevelGpuProgram::calculateSize(void) const
+    size_t HighLevelGpuProgram::calculateSize() const
     {
         size_t memSize = GpuProgram::calculateSize();
         if(mAssemblerProgram)
@@ -237,7 +237,7 @@ namespace Ogre
     }
 
     //---------------------------------------------------------------------------
-    void HighLevelGpuProgram::loadHighLevel(void)
+    void HighLevelGpuProgram::loadHighLevel()
     {
         if (!mHighLevelLoaded)
         {
@@ -246,7 +246,7 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------------
-    void HighLevelGpuProgram::unloadHighLevel(void)
+    void HighLevelGpuProgram::unloadHighLevel()
     {
         if (mHighLevelLoaded)
         {

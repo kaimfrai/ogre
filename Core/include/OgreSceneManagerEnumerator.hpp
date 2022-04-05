@@ -53,7 +53,7 @@ class RenderSystem;
     class DefaultSceneManagerFactory : public SceneManagerFactory
     {
     protected:
-        void initMetaData(void) const;
+        void initMetaData() const;
     public:
         DefaultSceneManagerFactory() {}
         ~DefaultSceneManagerFactory() {}
@@ -68,7 +68,7 @@ class RenderSystem;
     public:
         DefaultSceneManager(const String& name);
         ~DefaultSceneManager();
-        const String& getTypeName(void) const;
+        const String& getTypeName() const;
     };
 
     /** Enumerates the SceneManager classes available to applications.
@@ -184,11 +184,11 @@ class RenderSystem;
         void setRenderSystem(RenderSystem* rs);
 
         /// Utility method to control shutdown of the managers
-        void shutdownAll(void);
+        void shutdownAll();
         /// @copydoc Singleton::getSingleton()
-        static SceneManagerEnumerator& getSingleton(void);
+        static SceneManagerEnumerator& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static SceneManagerEnumerator* getSingletonPtr(void);
+        static SceneManagerEnumerator* getSingletonPtr();
 
     };
 

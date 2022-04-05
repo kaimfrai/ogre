@@ -79,9 +79,9 @@ namespace Ogre {
         void _addRenderSystemCapabilities(const String& name, RenderSystemCapabilities* caps);
 
         /// @copydoc Singleton::getSingleton()
-        static RenderSystemCapabilitiesManager& getSingleton(void);
+        static RenderSystemCapabilitiesManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static RenderSystemCapabilitiesManager* getSingletonPtr(void);
+        static RenderSystemCapabilitiesManager* getSingletonPtr();
 
     private:
 

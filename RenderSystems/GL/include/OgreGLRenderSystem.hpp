@@ -166,7 +166,7 @@ struct GLGpuProgramBase;
 
         void applyFixedFunctionParams(const GpuProgramParametersPtr& params, uint16 variabilityMask);
 
-        const String& getName(void) const;
+        const String& getName() const;
 
         void _initialise() override;
 
@@ -176,7 +176,7 @@ struct GLGpuProgramBase;
 
         void initialiseFromRenderSystemCapabilities(RenderSystemCapabilities* caps, RenderTarget* primary);
 
-        void shutdown(void);
+        void shutdown();
 
         void setShadingType(ShadeOptions so);
 
@@ -236,7 +236,7 @@ struct GLGpuProgramBase;
 
         void _setViewport(Viewport *vp);
 
-        void _endFrame(void);
+        void _endFrame();
 
         void _setCullingMode(CullingMode mode);
 
@@ -277,7 +277,7 @@ struct GLGpuProgramBase;
         void clearFrameBuffer(unsigned int buffers, 
                               const ColourValue& colour = ColourValue::Black, 
                               float depth = 1.0f, unsigned short stencil = 0);
-        HardwareOcclusionQuery* createHardwareOcclusionQuery(void);
+        HardwareOcclusionQuery* createHardwareOcclusionQuery();
 
         // ----------------------------------
         // GLRenderSystem specific members
@@ -305,7 +305,7 @@ struct GLGpuProgramBase;
         virtual void beginProfileEvent( const String &eventName );
 
         /// @copydoc RenderSystem::endProfileEvent
-        virtual void endProfileEvent( void );
+        virtual void endProfileEvent( );
 
         /// @copydoc RenderSystem::markProfileEvent
         virtual void markProfileEvent( const String &eventName );

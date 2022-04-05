@@ -116,7 +116,7 @@ class RenderSystem;
     BillboardChain::~BillboardChain() = default; // ensure unique_ptr destructors are in cpp
 
     //-----------------------------------------------------------------------
-    void BillboardChain::setupChainContainers(void)
+    void BillboardChain::setupChainContainers()
     {
         // Allocate enough space for everything
         mChainElementList.resize(mChainCount * mMaxElementsPerChain);
@@ -135,7 +135,7 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    void BillboardChain::setupVertexDeclaration(void)
+    void BillboardChain::setupVertexDeclaration()
     {
         if (mVertexDeclDirty)
         {
@@ -168,7 +168,7 @@ class RenderSystem;
         }
     }
     //-----------------------------------------------------------------------
-    void BillboardChain::setupBuffers(void)
+    void BillboardChain::setupBuffers()
     {
         setupVertexDeclaration();
         if (mBuffersNeedRecreating)
@@ -337,7 +337,7 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    void BillboardChain::clearAllChains(void)
+    void BillboardChain::clearAllChains()
     {
         for (size_t i = 0; i < mChainCount; ++i)
         {
@@ -405,7 +405,7 @@ class RenderSystem;
         }
     }
     //-----------------------------------------------------------------------
-    void BillboardChain::updateBoundingBox(void) const
+    void BillboardChain::updateBoundingBox() const
     {
         if (mBoundsDirty)
         {
@@ -597,7 +597,7 @@ class RenderSystem;
         mVertexContentDirty = false;
     }
     //-----------------------------------------------------------------------
-    void BillboardChain::updateIndexBuffer(void)
+    void BillboardChain::updateIndexBuffer()
     {
 
         setupBuffers();
@@ -658,18 +658,18 @@ class RenderSystem;
         return (cam->getDerivedPosition() - mAABB.getCenter()).squaredLength();
     }
     //-----------------------------------------------------------------------
-    Real BillboardChain::getBoundingRadius(void) const
+    Real BillboardChain::getBoundingRadius() const
     {
         return mRadius;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& BillboardChain::getBoundingBox(void) const
+    const AxisAlignedBox& BillboardChain::getBoundingBox() const
     {
         updateBoundingBox();
         return mAABB;
     }
     //-----------------------------------------------------------------------
-    const MaterialPtr& BillboardChain::getMaterial(void) const
+    const MaterialPtr& BillboardChain::getMaterial() const
     {
         return mMaterial;
     }
@@ -690,7 +690,7 @@ class RenderSystem;
         mMaterial->load();
     }
     //-----------------------------------------------------------------------
-    const String& BillboardChain::getMovableType(void) const
+    const String& BillboardChain::getMovableType() const
     {
         return BillboardChainFactory::FACTORY_TYPE_NAME;
     }
@@ -737,7 +737,7 @@ class RenderSystem;
         *xform = _getParentNodeFullTransform();
     }
     //-----------------------------------------------------------------------
-    const LightList& BillboardChain::getLights(void) const
+    const LightList& BillboardChain::getLights() const
     {
         return queryLights();
     }
@@ -752,7 +752,7 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     String BillboardChainFactory::FACTORY_TYPE_NAME = "BillboardChain";
     //-----------------------------------------------------------------------
-    const String& BillboardChainFactory::getType(void) const
+    const String& BillboardChainFactory::getType() const
     {
         return FACTORY_TYPE_NAME;
     }

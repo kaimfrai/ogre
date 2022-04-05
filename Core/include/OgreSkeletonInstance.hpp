@@ -69,7 +69,7 @@ class TagPoint;
         ~SkeletonInstance();
 
         /** Gets the number of animations on this skeleton. */
-        unsigned short getNumAnimations(void) const;
+        unsigned short getNumAnimations() const;
 
         /** Gets a single animation by index. */
         Animation* getAnimation(unsigned short index) const;
@@ -108,7 +108,7 @@ class TagPoint;
         void addLinkedSkeletonAnimationSource(const String& skelName, 
             Real scale = 1.0f);
         /// @copydoc Skeleton::removeAllLinkedSkeletonAnimationSources
-        void removeAllLinkedSkeletonAnimationSources(void);
+        void removeAllLinkedSkeletonAnimationSources();
         const LinkedSkeletonAnimSourceList&
                     getLinkedSkeletonAnimationSources() const override;
 
@@ -119,11 +119,11 @@ class TagPoint;
         void _refreshAnimationState(AnimationStateSet* animSet);
 
         /// @copydoc Resource::getName
-        const String& getName(void) const;
+        const String& getName() const;
         /// @copydoc Resource::getHandle
-        ResourceHandle getHandle(void) const;
+        ResourceHandle getHandle() const;
         /// @copydoc Resource::getGroup
-        const String& getGroup(void) const;
+        const String& getGroup() const;
 
     private:
         /// Pointer back to master Skeleton
@@ -154,8 +154,8 @@ class TagPoint;
         unsigned short mNextTagPointAutoHandle;
 
         void cloneBoneAndChildren(Bone* source, Bone* parent);
-        void prepareImpl(void) override;
-        void unprepareImpl(void) override;
+        void prepareImpl() override;
+        void unprepareImpl() override;
 
     };
     /** @} */

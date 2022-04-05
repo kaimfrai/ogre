@@ -88,14 +88,14 @@ struct GpuNamedConstants;
         String appendBuiltinDefines(String defines);
 
         /// Internal load high-level portion if not loaded
-        virtual void loadHighLevel(void);
+        virtual void loadHighLevel();
         /// Internal unload high-level portion if loaded
-        virtual void unloadHighLevel(void);
+        virtual void unloadHighLevel();
         /** Internal method for creating an appropriate low-level program from this
         high-level program, must be implemented by subclasses. */
-        virtual void createLowLevelImpl(void) = 0;
+        virtual void createLowLevelImpl() = 0;
         /// Internal unload implementation, must be implemented by subclasses
-        virtual void unloadHighLevelImpl(void) = 0;
+        virtual void unloadHighLevelImpl() = 0;
         /// Populate the passed parameters with name->index map
         void populateParameterNames(GpuProgramParametersSharedPtr params);
         /** Build the constant definition map, must be overridden.
@@ -126,9 +126,9 @@ struct GpuNamedConstants;
             HighLevelGpuProgramManager. This method creates a new instance of a parameters
             object containing the definition of the parameters this program understands.
         */
-        GpuProgramParametersSharedPtr createParameters(void);
+        GpuProgramParametersSharedPtr createParameters();
         /** @copydoc GpuProgram::_getBindingDelegate */
-        GpuProgram* _getBindingDelegate(void) { return mAssemblerProgram.get(); }
+        GpuProgram* _getBindingDelegate() { return mAssemblerProgram.get(); }
 
         /** Get the full list of GpuConstantDefinition instances.
         @note
@@ -136,17 +136,17 @@ struct GpuNamedConstants;
         */
         const GpuNamedConstants& getConstantDefinitions() override;
 
-        virtual size_t calculateSize(void) const;
+        virtual size_t calculateSize() const;
 
         /** Sets the preprocessor defines used to compile the program. */
         void setPreprocessorDefines(const String& defines) { mPreprocessorDefines = defines; }
         /** Gets the preprocessor defines used to compile the program. */
-        const String& getPreprocessorDefines(void) const { return mPreprocessorDefines; }
+        const String& getPreprocessorDefines() const { return mPreprocessorDefines; }
 
         /** Sets the entry point for this program i.e, the first method called. */
         void setEntryPoint(const String& entryPoint) { mEntryPoint = entryPoint; }
         /** Gets the entry point defined for this program. */
-        const String& getEntryPoint(void) const { return mEntryPoint; }
+        const String& getEntryPoint() const { return mEntryPoint; }
 
         /// Scan the source for \#include and replace with contents from OGRE resources
         static String _resolveIncludes(const String& source, Resource* resourceBeingLoaded, const String& fileName, bool supportsFilename = false);

@@ -97,7 +97,7 @@ class SubMesh;
             could cause glitches with shadow mapping (since Ogre thinks we're small/bigger than we
             really are when displaying, or that we're somewhere else)
         */
-        void _boundsDirty(void);
+        void _boundsDirty();
 
         /** @see InstanceBatch::setStaticAndUpdate. While this flag is true, no individual per-entity
             cull check is made. This means if the camera is looking at only one instance, all instances
@@ -110,7 +110,7 @@ class SubMesh;
 
         //Renderable overloads
         void getWorldTransforms( Matrix4* xform ) const;
-        unsigned short getNumWorldTransforms(void) const;
+        unsigned short getNumWorldTransforms() const;
 
         /** Overloaded to avoid updating skeletons (which we don't support), check visibility on a
             per unit basis and finally updated the vertex buffer */

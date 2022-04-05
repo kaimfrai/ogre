@@ -148,7 +148,7 @@ class SubMesh;
             of clear() begin(). However if you do want to modify the structure 
             from time to time you can do so by clearing and re-specifying the data.
         */
-        virtual void clear(void);
+        virtual void clear();
         
         /** Estimate the number of vertices ahead of time.
         @remarks
@@ -447,7 +447,7 @@ class SubMesh;
         @note
             Will return a pointer to the finished section or NULL if the section was discarded (i.e. has zero vertices/indices).
         */
-        virtual ManualObjectSection* end(void);
+        virtual ManualObjectSection* end();
 
         /** Alter the material for a subsection of this object after it has been
             specified.
@@ -508,7 +508,7 @@ class SubMesh;
             need to change this.
         @see ManualObject::setUseIdentityProjection
         */
-        bool getUseIdentityProjection(void) const { return mUseIdentityProjection; }
+        bool getUseIdentityProjection() const { return mUseIdentityProjection; }
 
         /** Sets whether or not to use an 'identity' view.
         @remarks
@@ -530,7 +530,7 @@ class SubMesh;
             Normally you don't need to change this.
         @see ManualObject::setUseIdentityView
         */
-        bool getUseIdentityView(void) const { return mUseIdentityView; }
+        bool getUseIdentityView() const { return mUseIdentityView; }
 
         /** Sets the bounding box.
             @remarks Call this after having finished creating sections to modify the
@@ -547,7 +547,7 @@ class SubMesh;
 
         ManualObjectSection* getSection(size_t index) const { return mSectionList.at(index); }
 
-        size_t getNumSections(void) const { return mSectionList.size(); }
+        size_t getNumSections() const { return mSectionList.size(); }
 
 
         /** Sets whether or not to keep the original declaration order when 
@@ -569,15 +569,15 @@ class SubMesh;
         // MovableObject overrides
 
         /** @copydoc MovableObject::getMovableType */
-        const String& getMovableType(void) const;
+        const String& getMovableType() const;
         /** @copydoc MovableObject::getBoundingBox */
-        const AxisAlignedBox& getBoundingBox(void) const override { return mAABB; }
+        const AxisAlignedBox& getBoundingBox() const override { return mAABB; }
         /** @copydoc MovableObject::getBoundingRadius */
-        Real getBoundingRadius(void) const override { return mRadius; }
+        Real getBoundingRadius() const override { return mRadius; }
         /** @copydoc MovableObject::_updateRenderQueue */
         void _updateRenderQueue(RenderQueue* queue);
         /** Implement this method to enable stencil shadows */
-        EdgeData* getEdgeList(void) override;
+        EdgeData* getEdgeList() override;
         /** Implement this method to enable stencil shadows. */
         const ShadowRenderableList& getShadowVolumeRenderableList(
             const Light* light, const HardwareIndexBufferPtr& indexBuffer,
@@ -605,11 +605,11 @@ class SubMesh;
             virtual ~ManualObjectSection();
 
             /// Retrieve render operation for manipulation
-            RenderOperation* getRenderOperation(void);
+            RenderOperation* getRenderOperation();
             /// Retrieve the material name in use
-            const String& getMaterialName(void) const { return mMaterialName; }
+            const String& getMaterialName() const { return mMaterialName; }
             /// Retrieve the material group in use
-            const String& getMaterialGroup(void) const { return mGroupName; }
+            const String& getMaterialGroup() const { return mGroupName; }
             /// update the material name in use
             void setMaterialName(const String& name,
                 const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
@@ -624,7 +624,7 @@ class SubMesh;
             
             // Renderable overrides
             /** @copydoc Renderable::getMaterial */
-            const MaterialPtr& getMaterial(void) const;
+            const MaterialPtr& getMaterial() const;
             /** @copydoc Renderable::getRenderOperation */
             void getRenderOperation(RenderOperation& op);
             /** @copydoc Renderable::getWorldTransforms */
@@ -632,7 +632,7 @@ class SubMesh;
             /** @copydoc Renderable::getSquaredViewDepth */
             Real getSquaredViewDepth(const Ogre::Camera *) const;
             /** @copydoc Renderable::getLights */
-            const LightList &getLights(void) const;
+            const LightList &getLights() const;
 
             /// convert this section to a SubMesh
             void convertToSubMesh(SubMesh* sm) const;
@@ -706,14 +706,14 @@ class SubMesh;
 
 
         /// Delete temp buffers and reset init counts
-        virtual void resetTempAreas(void);
+        virtual void resetTempAreas();
         /// Resize the temp vertex buffer?
         virtual void resizeTempVertexBufferIfNeeded(size_t numVerts);
         /// Resize the temp index buffer?
         virtual void resizeTempIndexBufferIfNeeded(size_t numInds);
 
         /// Copy current temp vertex into buffer
-        virtual void copyTempVertexToBuffer(void);
+        virtual void copyTempVertexToBuffer();
 
     private:
         void declareElement(VertexElementType t, VertexElementSemantic s);
@@ -731,7 +731,7 @@ class SubMesh;
 
         static String FACTORY_TYPE_NAME;
 
-        const String& getType(void) const;
+        const String& getType() const;
     };
     /** @} */
     /** @} */

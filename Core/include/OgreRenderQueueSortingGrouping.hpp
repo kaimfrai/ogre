@@ -179,7 +179,7 @@ namespace Ogre {
         QueuedRenderableCollection();
 
         /// Empty the collection
-        void clear(void);
+        void clear();
 
         /** Remove the group entry (if any) for a given Pass.
         @remarks
@@ -193,7 +193,7 @@ namespace Ogre {
             You can only do this when the collection is empty.
         @see OrganisationMode
         */
-        void resetOrganisationModes(void) 
+        void resetOrganisationModes() 
         { 
             mOrganisationMode = 0; 
         }
@@ -294,25 +294,25 @@ namespace Ogre {
             all solids when there are no shadows, or all solids which have shadow
             receiving enabled when using modulative shadows, or all ambient passes
             of solids which have shadow receive enabled for additive shadows. */
-        const QueuedRenderableCollection& getSolidsBasic(void) const
+        const QueuedRenderableCollection& getSolidsBasic() const
         { return mSolidsBasic; }
         /** Get the collection of solids currently queued per light (only applicable in 
             additive shadow modes). */
-        const QueuedRenderableCollection& getSolidsDiffuseSpecular(void) const
+        const QueuedRenderableCollection& getSolidsDiffuseSpecular() const
         { return mSolidsDiffuseSpecular; }
         /** Get the collection of solids currently queued for decal passes (only 
             applicable in additive shadow modes). */
-        const QueuedRenderableCollection& getSolidsDecal(void) const
+        const QueuedRenderableCollection& getSolidsDecal() const
         { return mSolidsDecal; }
         /** Get the collection of solids for which shadow receipt is disabled (only
             applicable when shadows are enabled). */
-        const QueuedRenderableCollection& getSolidsNoShadowReceive(void) const
+        const QueuedRenderableCollection& getSolidsNoShadowReceive() const
         { return mSolidsNoShadowReceive; }
         /** Get the collection of transparent objects currently queued */
-        const QueuedRenderableCollection& getTransparentsUnsorted(void) const
+        const QueuedRenderableCollection& getTransparentsUnsorted() const
         { return mTransparentsUnsorted; }
         /** Get the collection of transparent objects currently queued */
-        const QueuedRenderableCollection& getTransparents(void) const
+        const QueuedRenderableCollection& getTransparents() const
         { return mTransparents; }
 
 
@@ -322,7 +322,7 @@ namespace Ogre {
             queue.
         @see QueuedRenderableCollection::OrganisationMode
         */
-        void resetOrganisationModes(void);
+        void resetOrganisationModes();
         
         /** Add a required sorting / grouping mode for the solids in this group.
         @remarks
@@ -338,7 +338,7 @@ namespace Ogre {
             queue.
         @see QueuedRenderableCollection::OrganisationMode
         */
-        void defaultOrganisationMode(void); 
+        void defaultOrganisationMode(); 
 
         /** Add a renderable to this group. */
         void addRenderable(Renderable* pRend, Technique* pTech);
@@ -349,7 +349,7 @@ namespace Ogre {
 
         /** Clears this group of renderables. 
         */
-        void clear(void);
+        void clear();
 
         /** Sets whether or not the queue will split passes by their lighting type,
         ie ambient, per-light and decal. 
@@ -501,7 +501,7 @@ namespace Ogre {
         void setShadowsEnabled(bool enabled) { mShadowsEnabled = enabled; }
 
         /** Are shadows enabled for this queue? */
-        bool getShadowsEnabled(void) const { return mShadowsEnabled; }
+        bool getShadowsEnabled() const { return mShadowsEnabled; }
 
         /** Sets whether or not the queue will split passes by their lighting type,
         ie ambient, per-light and decal. 
@@ -549,7 +549,7 @@ namespace Ogre {
             queue.
         @see QueuedRenderableCollection::OrganisationMode
         */
-        void resetOrganisationModes(void)
+        void resetOrganisationModes()
         {
             mOrganisationMode = 0;
 
@@ -585,7 +585,7 @@ namespace Ogre {
             queue.
         @see QueuedRenderableCollection::OrganisationMode
         */
-        void defaultOrganisationMode(void)
+        void defaultOrganisationMode()
         {
             mOrganisationMode = 0;
 

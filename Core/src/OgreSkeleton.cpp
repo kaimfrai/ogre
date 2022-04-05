@@ -92,7 +92,7 @@ class Affine3;
         unload(); 
     }
     //---------------------------------------------------------------------
-    void Skeleton::prepareImpl(void)
+    void Skeleton::prepareImpl()
     {
         SkeletonSerializer serializer;
 
@@ -113,7 +113,7 @@ class Affine3;
         }
     }
     //---------------------------------------------------------------------
-    void Skeleton::unprepareImpl(void)
+    void Skeleton::unprepareImpl()
     {
         // destroy bones
         BoneList::iterator i;
@@ -139,7 +139,7 @@ class Affine3;
         mLinkedSkeletonAnimSourceList.clear();
     }
     //---------------------------------------------------------------------
-    Bone* Skeleton::createBone(void)
+    Bone* Skeleton::createBone()
     {
         // use autohandle
         return createBone(mNextAutoHandle++);
@@ -273,7 +273,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    void Skeleton::setBindingPose(void)
+    void Skeleton::setBindingPose()
     {
         // Update the derived transforms
         _updateTransforms();
@@ -450,7 +450,7 @@ class Affine3;
         }
     }
     //-----------------------------------------------------------------------
-    void Skeleton::_notifyManualBonesDirty(void)
+    void Skeleton::_notifyManualBonesDirty()
     {
         mManualBonesDirty = true;
     }
@@ -463,7 +463,7 @@ class Affine3;
             mManualBones.erase(bone);
     }
     //-----------------------------------------------------------------------
-    unsigned short Skeleton::getNumBones(void) const
+    unsigned short Skeleton::getNumBones() const
     {
         return (unsigned short)mBoneList.size();
     }
@@ -495,7 +495,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    unsigned short Skeleton::getNumAnimations(void) const
+    unsigned short Skeleton::getNumAnimations() const
     {
         return (unsigned short)mAnimationsList.size();
     }
@@ -537,7 +537,7 @@ class Affine3;
         return mBoneListByName.find(name) != mBoneListByName.end();
     }
     //---------------------------------------------------------------------
-    void Skeleton::deriveRootBone(void) const
+    void Skeleton::deriveRootBone() const
     {
         // Start at the first bone and work up
         OgreAssert(!mBoneList.empty(), "Cannot derive root bone as this skeleton has no bones");
@@ -632,7 +632,7 @@ class Affine3;
     }
 
     //---------------------------------------------------------------------
-    void Skeleton::_updateTransforms(void)
+    void Skeleton::_updateTransforms()
     {
         BoneList::iterator i, iend;
         iend = mRootBones.end();
@@ -709,7 +709,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    void Skeleton::removeAllLinkedSkeletonAnimationSources(void)
+    void Skeleton::removeAllLinkedSkeletonAnimationSources()
     {
         mLinkedSkeletonAnimSourceList.clear();
     }
@@ -1003,7 +1003,7 @@ class Affine3;
         }
     }
 
-    size_t Skeleton::calculateSize(void) const
+    size_t Skeleton::calculateSize() const
     {
         size_t memSize = sizeof(*this);
         memSize += mBoneList.size() * sizeof(Bone);

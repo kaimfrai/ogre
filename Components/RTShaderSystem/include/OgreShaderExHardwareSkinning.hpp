@@ -288,10 +288,10 @@ public:
         but the implementation stays in this single compilation unit,
         preventing link errors.
     */
-    static HardwareSkinningFactory& getSingleton(void);
+    static HardwareSkinningFactory& getSingleton();
     
     /// @copydoc Singleton::getSingleton()
-    static HardwareSkinningFactory* getSingletonPtr(void);
+    static HardwareSkinningFactory* getSingletonPtr();
 
 protected:
     /** 

@@ -60,7 +60,7 @@ namespace Ogre {
         return retBone;
     }
     //---------------------------------------------------------------------
-    Node* Bone::createChildImpl(void)
+    Node* Bone::createChildImpl()
     {
         return mCreator->createBone();
     }
@@ -70,7 +70,7 @@ namespace Ogre {
         return mCreator->createBone(name);
     }
     //---------------------------------------------------------------------
-    void Bone::setBindingPose(void)
+    void Bone::setBindingPose()
     {
         setInitialState();
 
@@ -80,7 +80,7 @@ namespace Ogre {
         mBindDerivedInverseOrientation = _getDerivedOrientation().Inverse();
     }
     //---------------------------------------------------------------------
-    void Bone::reset(void)
+    void Bone::reset()
     {
         resetToInitialState();
     }
@@ -114,7 +114,7 @@ namespace Ogre {
         m.makeTransform(locTranslate, locScale, locRotate);
     }
     //---------------------------------------------------------------------
-    unsigned short Bone::getHandle(void) const
+    unsigned short Bone::getHandle() const
     {
         return mHandle;
     }

@@ -108,7 +108,7 @@ class CompositionTechnique;
             one of their passes.
             @see Technique::setScheme.
         */
-        const String& getMaterialScheme(void) const;
+        const String& getMaterialScheme() const;
         
         /** Set whether shadows are enabled in this target pass.
         @remarks
@@ -121,7 +121,7 @@ class CompositionTechnique;
             Only applicable to targets that render the scene as
             one of their passes.
         */
-        bool getShadowsEnabled(void) const;
+        bool getShadowsEnabled() const;
         /** Set the scene LOD bias used by this pass. The default is 1.0,
             everything below that means lower quality, higher means higher quality.
         */
@@ -156,7 +156,7 @@ class CompositionTechnique;
 
         /** Determine if this target pass is supported on the current rendering device. 
          */
-        bool _isSupported(void);
+        bool _isSupported();
 
     private:
         /// Parent technique

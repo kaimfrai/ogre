@@ -134,14 +134,14 @@ class ResourceManager;
         CodePointRangeList mCodePointRangeList;
 
         /// Internal method for loading from ttf
-        void createTextureFromFont(void);
+        void createTextureFromFont();
 
         /// @copydoc Resource::loadImpl
         virtual void loadImpl();
         /// @copydoc Resource::unloadImpl
         virtual void unloadImpl();
         /// @copydoc Resource::calculateSize
-        size_t calculateSize(void) const { return 0; } // permanent resource is in the texture 
+        size_t calculateSize() const { return 0; } // permanent resource is in the texture 
     public:
 
         /** Constructor.
@@ -155,7 +155,7 @@ class ResourceManager;
         void setType(FontType ftype);
 
         /** Gets the type of font. */
-        FontType getType(void) const;
+        FontType getType() const;
 
         /** Sets the source of the font.
         @remarks
@@ -176,7 +176,7 @@ class ResourceManager;
 
         /** Gets the source this font (either an image or a truetype font).
         */
-        const String& getSource(void) const;
+        const String& getSource() const;
 
         /** Sets the size of a truetype font (only required for FT_TRUETYPE). 
         @param ttfSize The size of the font in points. Note that the
@@ -196,12 +196,12 @@ class ResourceManager;
             Note that the size of the font does not affect how big it is on the screen, 
             just how large it is in the texture and thus how detailed it is.            
         */
-        Real getTrueTypeSize(void) const;
+        Real getTrueTypeSize() const;
         /** Gets the resolution (dpi) of the font used to generate the texture.
         @remarks
             Only applicable for FT_TRUETYPE Font objects.
         */
-        uint getTrueTypeResolution(void) const;
+        uint getTrueTypeResolution() const;
         /** Gets the maximum baseline distance of all glyphs used in the texture.
         @remarks
             Only applicable for FT_TRUETYPE Font objects.
@@ -332,7 +332,7 @@ class ResourceManager;
         /** Gets whether or not the colour of this font is antialiased as it is generated
         from a true type font.
         */
-        inline bool getAntialiasColour(void) const
+        inline bool getAntialiasColour() const
         {
             return mAntialiasColour;
         }

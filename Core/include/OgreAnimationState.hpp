@@ -89,7 +89,7 @@ class AnimationStateSet;
         /// Gets the name of the animation to which this state applies
         const String& getAnimationName() const;
         /// Gets the time position for this animation
-        Real getTimePosition(void) const;
+        Real getTimePosition() const;
         /// Sets the time position for this animation
         void setTimePosition(Real timePos);
         /// Gets the total length of this animation (may be shorter than whole animation)
@@ -97,7 +97,7 @@ class AnimationStateSet;
         /// Sets the total length of this animation (may be shorter than whole animation)
         void setLength(Real len);
         /// Gets the weight (influence) of this animation
-        Real getWeight(void) const;
+        Real getWeight() const;
         /// Sets the weight (influence) of this animation
         void setWeight(Real weight);
         /** Modifies the time position, adjusting for animation length
@@ -108,10 +108,10 @@ class AnimationStateSet;
         void addTime(Real offset);
 
         /// Returns true if the animation has reached the end and is not looping
-        bool hasEnded(void) const;
+        bool hasEnded() const;
 
         /// Returns true if this animation is currently enabled
-        bool getEnabled(void) const;
+        bool getEnabled() const;
         /// Sets whether this animation is enabled
         void setEnabled(bool enabled);
 
@@ -125,7 +125,7 @@ class AnimationStateSet;
         */
         void setLoop(bool loop) { mLoop = loop; }
         /// Gets whether or not this animation loops            
-        bool getLoop(void) const { return mLoop; }
+        bool getLoop() const { return mLoop; }
      
         /** Copies the states from another animation state, preserving the animation name
         (unlike operator=) but copying everything else.
@@ -134,7 +134,7 @@ class AnimationStateSet;
         void copyStateFrom(const AnimationState& animState);
 
         /// Get the parent animation state set
-        AnimationStateSet* getParent(void) const { return mParent; }
+        AnimationStateSet* getParent() const { return mParent; }
 
       /** @brief Create a new blend mask with the given number of entries
        *
@@ -227,12 +227,12 @@ class AnimationStateSet;
         /// Remove animation state with the given name
         void removeAnimationState(const String& name);
         /// Remove all animation states
-        void removeAllAnimationStates(void);
+        void removeAllAnimationStates();
 
         /** Get an iterator over all the animation states in this set.
         @deprecated use getAnimationStates()
         */
-        AnimationStateIterator getAnimationStateIterator(void);
+        AnimationStateIterator getAnimationStateIterator();
 
         /** Get all the animation states in this set.
         @note
@@ -247,14 +247,14 @@ class AnimationStateSet;
         /// Copy the state of any matching animation states from this to another
         void copyMatchingState(AnimationStateSet* target) const;
         /// Set the dirty flag and dirty frame number on this state set
-        void _notifyDirty(void);
+        void _notifyDirty();
         /// Get the latest animation state been altered frame number
-        unsigned long getDirtyFrameNumber(void) const { return mDirtyFrameNumber; }
+        unsigned long getDirtyFrameNumber() const { return mDirtyFrameNumber; }
 
         /// Internal method respond to enable/disable an animation state
         void _notifyAnimationStateEnabled(AnimationState* target, bool enabled);
         /// Tests if exists enabled animation state in this set
-        bool hasEnabledAnimationState(void) const { return !mEnabledAnimationStates.empty(); }
+        bool hasEnabledAnimationState() const { return !mEnabledAnimationStates.empty(); }
 
         /** Get an iterator over all the enabled animation states in this set
         @note
@@ -299,7 +299,7 @@ class AnimationStateSet;
         static ControllerValueRealPtr create(AnimationState* targetAnimationState, bool addTime = false);
 
         /** ControllerValue implementation. */
-        Real getValue(void) const
+        Real getValue() const
         {
             return mTargetAnimationState->getTimePosition() / mTargetAnimationState->getLength();
         }

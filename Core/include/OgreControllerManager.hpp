@@ -89,11 +89,11 @@ template <typename T> class ControllerValue;
 
         /** Destroys all the controllers in existence.
         */
-        void clearControllers(void);
+        void clearControllers();
 
         /** Updates all the registered controllers.
         */
-        void updateAllControllers(void);
+        void updateAllControllers();
 
 
         /** Returns a ControllerValue which provides the time since the last frame as a control value source.
@@ -105,10 +105,10 @@ template <typename T> class ControllerValue;
         @see
             RenderSystem::beginFrame
         */
-        const ControllerValueRealPtr& getFrameTimeSource(void) const;
+        const ControllerValueRealPtr& getFrameTimeSource() const;
 
         /** Retrieve a simple passthrough controller function. */
-        const ControllerFunctionRealPtr& getPassthroughControllerFunction(void) const;
+        const ControllerFunctionRealPtr& getPassthroughControllerFunction() const;
 
         /** Creates a texture layer animator controller.
         @remarks
@@ -214,7 +214,7 @@ template <typename T> class ControllerValue;
         @remarks
             See setTimeFactor for full information on the meaning of this value.
         */
-        Real getTimeFactor(void) const;
+        Real getTimeFactor() const;
 
         /** Set the relative speed to update frame time based controllers.
         @remarks
@@ -231,7 +231,7 @@ template <typename T> class ControllerValue;
         @remarks
             See setFrameDelay for full information on the meaning of this value.
         */
-        Real getFrameDelay(void) const;
+        Real getFrameDelay() const;
 
         /** Sets a constant frame rate.
         @remarks
@@ -251,7 +251,7 @@ template <typename T> class ControllerValue;
         @remarks
             See setElapsedTime for full information on the meaning of this value.
         */
-        Real getElapsedTime(void) const;
+        Real getElapsedTime() const;
 
         /** Set the elapsed time.
         @remarks
@@ -264,9 +264,9 @@ template <typename T> class ControllerValue;
         void setElapsedTime(Real elapsedTime);
 
         /// @copydoc Singleton::getSingleton()
-        static ControllerManager& getSingleton(void);
+        static ControllerManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static ControllerManager* getSingletonPtr(void);
+        static ControllerManager* getSingletonPtr();
     };
 
     /** @} */
