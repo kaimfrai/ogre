@@ -35,13 +35,13 @@ THE SOFTWARE.
 #include <set>
 #include <utility>
 
-#include "OgreConfig.h"
-#include "OgreException.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreRoot.h"
-#include "OgreVertexIndexData.h"
+#include "OgreConfig.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreRoot.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 class RenderSystem;

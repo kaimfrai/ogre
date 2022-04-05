@@ -3,19 +3,19 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
 
-#include "RootWithoutRenderSystemFixture.h"
+#include "RootWithoutRenderSystemFixture.hpp"
 
 #include <map>
 #include <utility>
 
-#include "OgreConfigFile.h"
-#include "OgreDefaultHardwareBufferManager.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreMaterialManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
+#include "OgreConfigFile.hpp"
+#include "OgreDefaultHardwareBufferManager.hpp"
+#include "OgreFileSystemLayer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRoot.hpp"
 
 using namespace Ogre;
 

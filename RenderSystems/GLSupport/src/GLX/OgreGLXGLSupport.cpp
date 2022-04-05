@@ -35,15 +35,15 @@
 #include <utility>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreGLUtil.h"
-#include "OgreGLXGLSupport.h"
-#include "OgreGLXRenderTexture.h"
-#include "OgreGLXWindow.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreStringConverter.h"
-#include "OgreX11.h"
+#include "OgreException.hpp"
+#include "OgreGLUtil.hpp"
+#include "OgreGLXGLSupport.hpp"
+#include "OgreGLXRenderTexture.hpp"
+#include "OgreGLXWindow.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreX11.hpp"
 
 namespace Ogre {
 class GLPBuffer;

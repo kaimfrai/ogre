@@ -27,13 +27,13 @@ THE SOFTWARE.
 */
 #include <string>
 
-#include "OgreBillboard.h"
-#include "OgreBillboardParticleRenderer.h"
-#include "OgreException.h"
-#include "OgreMath.h"
-#include "OgreParticle.h"
-#include "OgreStringConverter.h"
-#include "OgreStringInterface.h"
+#include "OgreBillboard.hpp"
+#include "OgreBillboardParticleRenderer.hpp"
+#include "OgreException.hpp"
+#include "OgreMath.hpp"
+#include "OgreParticle.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringInterface.hpp"
 
 namespace Ogre {
 class RenderQueue;

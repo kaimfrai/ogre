@@ -31,14 +31,14 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreDefaultHardwareBufferManager.h"
-#include "OgreException.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreStringConverter.h"
+#include "OgreDefaultHardwareBufferManager.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre {
 

@@ -30,17 +30,17 @@ THE SOFTWARE.
 #include <cstring>
 #include <string>
 
-#include "OgreAlignedAllocator.h"
-#include "OgreBitwise.h"
-#include "OgreException.h"
-#include "OgreMath.h"
-#include "OgrePixelFormat.h"
-#include "OgrePixelFormatDescriptions.h"
-#include "OgreString.h"
-#include "OgreVector.h"
+#include "OgreAlignedAllocator.hpp"
+#include "OgreBitwise.hpp"
+#include "OgreException.hpp"
+#include "OgreMath.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePixelFormatDescriptions.hpp"
+#include "OgreString.hpp"
+#include "OgreVector.hpp"
 
 namespace {
-#include "OgrePixelConversions.h"
+#include "OgrePixelConversions.hpp"
 }
 
 namespace Ogre {

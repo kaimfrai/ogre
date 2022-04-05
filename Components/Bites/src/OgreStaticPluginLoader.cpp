@@ -1,11 +1,11 @@
-#include "OgreStaticPluginLoader.h"
+#include "OgreStaticPluginLoader.hpp"
 
 #include <cstddef>
 
-#include "OgreGLPlugin.h"
-#include "OgrePlugin.h"
-#include "OgreRoot.h"
-#include "OgreSTBICodec.h"
+#include "OgreGLPlugin.hpp"
+#include "OgrePlugin.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSTBICodec.hpp"
 
 void OgreBites::StaticPluginLoader::load()
 {

@@ -30,22 +30,22 @@ THE SOFTWARE.
 #include <limits>
 #include <memory>
 
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreFrustum.h"
-#include "OgreInstanceBatch.h"
-#include "OgreInstanceManager.h"
-#include "OgreInstancedEntity.h"
-#include "OgreLodListener.h"
-#include "OgreMaterial.h"
-#include "OgreMath.h"
-#include "OgreNode.h"
-#include "OgreRenderQueue.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreSubMesh.h"
-#include "OgreVertexIndexData.h"
+#include "OgreCamera.hpp"
+#include "OgreException.hpp"
+#include "OgreFrustum.hpp"
+#include "OgreInstanceBatch.hpp"
+#include "OgreInstanceManager.hpp"
+#include "OgreInstancedEntity.hpp"
+#include "OgreLodListener.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMath.hpp"
+#include "OgreNode.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre
 {

@@ -27,11 +27,11 @@ THE SOFTWARE.
 */
 #include <cassert>
 
-#include "OgreCompositionTargetPass.h"
-#include "OgreCompositionPass.h"
-#include "OgreMaterialManager.h"
-#include "OgreRenderSystem.h"
-#include "OgreRoot.h"
+#include "OgreCompositionTargetPass.hpp"
+#include "OgreCompositionPass.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRoot.hpp"
 
 namespace Ogre {
 class CompositionTechnique;

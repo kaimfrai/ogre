@@ -29,20 +29,20 @@ THE SOFTWARE.
 #include <map>
 #include <utility>
 
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMovableObject.h"
-#include "OgrePass.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderQueueSortingGrouping.h"
-#include "OgreRenderable.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneManagerEnumerator.h"
-#include "OgreSharedPtr.h"
-#include "OgreTechnique.h"
-#include "OgreVertexIndexData.h"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgrePass.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRenderQueueSortingGrouping.hpp"
+#include "OgreRenderable.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneManagerEnumerator.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 

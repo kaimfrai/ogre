@@ -29,13 +29,13 @@ THE SOFTWARE.
 #include <cassert>
 #include <cmath>
 
-#include "OgreGpuProgramParams.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgrePredefinedControllers.h"
-#include "OgreRoot.h"
-#include "OgreTextureUnitState.h"
-#include "OgreVector.h"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePredefinedControllers.hpp"
+#include "OgreRoot.hpp"
+#include "OgreTextureUnitState.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre
 {

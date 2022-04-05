@@ -26,26 +26,26 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreOverlayManager.h"
+#include "OgreOverlayManager.hpp"
 
 #include <cassert>
 #include <utility>
 
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreLogManager.h"
-#include "OgreOverlay.h"
-#include "OgreOverlayContainer.h"
-#include "OgreOverlayElement.h"
-#include "OgreOverlayElementFactory.h"
-#include "OgreOverlayTranslator.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreScriptCompiler.h"
-#include "OgreScriptTranslator.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreViewport.h"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreIteratorWrapper.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreOverlay.hpp"
+#include "OgreOverlayContainer.hpp"
+#include "OgreOverlayElement.hpp"
+#include "OgreOverlayElementFactory.hpp"
+#include "OgreOverlayTranslator.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreScriptTranslator.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 class Camera;

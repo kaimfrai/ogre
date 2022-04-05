@@ -33,9 +33,9 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreLog.h"
-#include "OgrePrerequisites.h"
-#include "OgreStringConverter.h"
+#include "OgreLog.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreStringConverter.hpp"
 
 // LogMessageLevel + LoggingLevel > OGRE_LOG_THRESHOLD = message logged
 #define OGRE_LOG_THRESHOLD 4

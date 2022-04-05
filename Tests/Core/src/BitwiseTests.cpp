@@ -29,8 +29,8 @@ THE SOFTWARE.
 #include <cmath>
 #include <initializer_list>
 
-#include "OgreBitwise.h"
-#include "OgrePlatform.h"
+#include "OgreBitwise.hpp"
+#include "OgrePlatform.hpp"
 
 using namespace Ogre;
 

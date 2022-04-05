@@ -30,10 +30,10 @@ THE SOFTWARE.
 #include <memory>
 #include <vector>
 
-#include "OgreMatrix4.h"
-#include "OgrePrerequisites.h"
-#include "OgreSimpleSpline.h"
-#include "OgreVector.h"
+#include "OgreMatrix4.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSimpleSpline.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
 

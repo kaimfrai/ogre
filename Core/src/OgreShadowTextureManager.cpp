@@ -33,18 +33,18 @@ Torus Knot Software Ltd.
 #include <string>
 #include <vector>
 
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgrePixelFormat.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSceneManager.h"
-#include "OgreShadowTextureManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreStringConverter.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwarePixelBuffer.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreShadowTextureManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSingleton.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
 
 namespace Ogre
 {

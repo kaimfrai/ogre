@@ -27,10 +27,10 @@ THE SOFTWARE.
 */
 #include <limits>
 
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgrePrerequisites.h"
-#include "OgreVector.h"
+#include "OgreMath.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreVector.hpp"
 
 // Adapted from Matrix math by Wild Magic http://www.geometrictools.com/
 

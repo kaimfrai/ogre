@@ -27,20 +27,20 @@ THE SOFTWARE.
 */
 #include <memory>
 
-#include "OgreCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderFFPAlphaTest.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
+#include "OgreCommon.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderFFPAlphaTest.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrecompiledHeaders.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
 
 namespace Ogre {
 	class AutoParamDataSource;

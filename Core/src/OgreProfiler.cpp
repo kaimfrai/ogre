@@ -35,14 +35,14 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreProfiler.h"
-#include "OgreRenderSystem.h"
-#include "OgreRoot.h"
-#include "OgreSingleton.h"
-#include "OgreStringConverter.h"
+#include "OgreLogManager.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreProfiler.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSingleton.hpp"
+#include "OgreStringConverter.hpp"
 /*
 
     Although the code is original, many of the ideas for the profiler were borrowed from 
@@ -56,7 +56,7 @@ Ogre-dependent is in the visualization/logging routines and the use of the Timer
 
 */
 
-#include "OgreTimer.h"
+#include "OgreTimer.hpp"
 
 namespace Ogre {
     //-----------------------------------------------------------------------

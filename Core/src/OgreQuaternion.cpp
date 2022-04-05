@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreVector.h"
+#include "OgreMath.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreVector.hpp"
 // NOTE THAT THIS FILE IS BASED ON MATERIAL FROM:
 
 // Geometric Tools, LLC

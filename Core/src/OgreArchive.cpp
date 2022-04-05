@@ -26,10 +26,10 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreArchive.h"
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
+#include "OgreArchive.hpp"
+#include "OgreException.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace Ogre {
     //---------------------------------------------------------------------

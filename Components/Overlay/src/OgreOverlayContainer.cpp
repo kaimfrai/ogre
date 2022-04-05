@@ -26,16 +26,16 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreOverlayContainer.h"
+#include "OgreOverlayContainer.hpp"
 
 #include <cstddef>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreMath.h"
-#include "OgreOverlay.h"
-#include "OgreOverlayManager.h"
+#include "OgreException.hpp"
+#include "OgreIteratorWrapper.hpp"
+#include "OgreMath.hpp"
+#include "OgreOverlay.hpp"
+#include "OgreOverlayManager.hpp"
 
 namespace Ogre {
 class Matrix4;

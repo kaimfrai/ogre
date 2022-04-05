@@ -29,17 +29,17 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreFileSystem.h"
-#include "OgreLogManager.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgreMesh.h"
-#include "OgreMeshSerializer.h"
-#include "OgreMeshSerializerImpl.h"
-#include "OgrePrerequisites.h"
-#include "OgreSerializer.h"
-#include "OgreSharedPtr.h"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreFileSystem.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMemoryAllocatorConfig.hpp"
+#include "OgreMesh.hpp"
+#include "OgreMeshSerializer.hpp"
+#include "OgreMeshSerializerImpl.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSerializer.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace Ogre {
 

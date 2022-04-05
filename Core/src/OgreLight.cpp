@@ -28,15 +28,15 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreAnimable.h"
-#include "OgreException.h"
-#include "OgreFrustum.h"
-#include "OgreLight.h"
-#include "OgreMatrix4.h"
-#include "OgrePlane.h"
-#include "OgreSceneManager.h"
-#include "OgreSphere.h"
-#include "OgreStringConverter.h"
+#include "OgreAnimable.hpp"
+#include "OgreException.hpp"
+#include "OgreFrustum.hpp"
+#include "OgreLight.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePlane.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSphere.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre {
     //-----------------------------------------------------------------------

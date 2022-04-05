@@ -38,16 +38,16 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreArchive.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreFileSystem.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
-#include "OgreZip.h"
+#include "OgreArchive.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreFileSystem.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringVector.hpp"
+#include "OgreZip.hpp"
 
 // NOLINTBEGIN
 #include <zip.h>

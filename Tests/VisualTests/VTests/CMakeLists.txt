@@ -8,8 +8,8 @@
 #-------------------------------------------------------------------
 
 set(HEADER_FILES
-    include/StencilShadowTest.h
-    include/VTestPlugin.h)
+    include/StencilShadowTest.hpp
+    include/VTestPlugin.hpp)
 
 set(SOURCE_FILES
     src/StencilShadowTest.cpp

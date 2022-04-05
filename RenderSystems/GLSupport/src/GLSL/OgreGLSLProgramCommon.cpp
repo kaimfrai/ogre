@@ -3,13 +3,13 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
 
-#include "OgreGLSLProgramCommon.h"
+#include "OgreGLSLProgramCommon.hpp"
 
 #include <cstddef>
 #include <sstream>
 #include <string>
 
-#include "OgreException.h"
+#include "OgreException.hpp"
 
 namespace Ogre
 {

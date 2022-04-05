@@ -32,20 +32,20 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreTechnique.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreLodStrategyManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreResource.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSingleton.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTextureUnitState.hpp"
 
 
 namespace Ogre {

@@ -29,14 +29,14 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreCamera.h"
-#include "OgreDistanceLodStrategy.h"
-#include "OgreFrustum.h"
-#include "OgreMatrix4.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgreViewport.h"
+#include "OgreAxisAlignedBox.hpp"
+#include "OgreCamera.hpp"
+#include "OgreDistanceLodStrategy.hpp"
+#include "OgreFrustum.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgreNode.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
     DistanceLodStrategyBase::DistanceLodStrategyBase(const String& name)

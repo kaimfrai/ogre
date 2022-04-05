@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreHardwareOcclusionQuery.h"
+#include "OgreHardwareOcclusionQuery.hpp"
 
 namespace Ogre {
 

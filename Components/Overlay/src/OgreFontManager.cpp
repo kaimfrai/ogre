@@ -24,14 +24,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
 
-#include "OgreFontManager.h"
+#include "OgreFontManager.hpp"
 
 #include <cassert>
 #include <memory>
 
-#include "OgreResourceGroupManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringVector.h"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre
 {

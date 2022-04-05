@@ -6,10 +6,10 @@
 #include <map>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreGpuProgramParams.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderable.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderable.hpp"
 
 namespace Ogre
 {

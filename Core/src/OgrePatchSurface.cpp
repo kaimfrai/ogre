@@ -28,13 +28,13 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 
-#include "OgreColourValue.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMath.h"
-#include "OgrePatchSurface.h"
+#include "OgreColourValue.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreMath.hpp"
+#include "OgrePatchSurface.hpp"
 
 #define LEVEL_WIDTH(lvl) ((1 << (lvl+1)) + 1)
 

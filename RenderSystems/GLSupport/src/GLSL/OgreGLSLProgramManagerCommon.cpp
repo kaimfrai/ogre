@@ -26,18 +26,18 @@
   -----------------------------------------------------------------------------
 */
 
-#include "OgreGLSLProgramManagerCommon.h"
+#include "OgreGLSLProgramManagerCommon.hpp"
 
 #include <cstddef>
 #include <utility>
 #include <vector>
 
-#include "OgreGLSLProgramCommon.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
+#include "OgreGLSLProgramCommon.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre {
 

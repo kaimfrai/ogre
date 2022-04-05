@@ -16,19 +16,19 @@
 #include <utility>
 #include <vector>
 
-#include "OgreApplicationContext.h"
-#include "OgreApplicationContextBase.h"
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderWindow.h"
-#include "OgreRoot.h"
-#include "OgreStringConverter.h"
-#include "SDLInputMapping.h"
+#include "OgreApplicationContext.hpp"
+#include "OgreApplicationContextBase.hpp"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderWindow.hpp"
+#include "OgreRoot.hpp"
+#include "OgreStringConverter.hpp"
+#include "SDLInputMapping.hpp"
 
 namespace OgreBites {
 struct InputListener;

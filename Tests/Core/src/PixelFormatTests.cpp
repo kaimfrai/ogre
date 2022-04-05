@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "PixelFormatTests.h"
+#include "PixelFormatTests.hpp"
 
 #include <cstdlib>
 #include <cstring>
@@ -33,7 +33,7 @@ THE SOFTWARE.
 #include <ostream>
 #include <string>
 
-#include "OgrePrerequisites.h"
+#include "OgrePrerequisites.hpp"
 
 
 // Register the test suite

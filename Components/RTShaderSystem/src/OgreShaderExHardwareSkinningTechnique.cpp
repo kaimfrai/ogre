@@ -27,10 +27,10 @@ THE SOFTWARE.
 
 #include <algorithm>
 
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderExHardwareSkinningTechnique.h"
-#include "OgreShaderFunctionAtom.h"
+#include "OgreException.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderExHardwareSkinningTechnique.hpp"
+#include "OgreShaderFunctionAtom.hpp"
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 

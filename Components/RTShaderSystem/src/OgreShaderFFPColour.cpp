@@ -27,22 +27,22 @@ THE SOFTWARE.
 #include <cstddef>
 #include <string>
 
-#include "OgreCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderFFPColour.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreVector.h"
+#include "OgreCommon.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShaderFFPColour.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreShaderScriptTranslator.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
     namespace RTShader {

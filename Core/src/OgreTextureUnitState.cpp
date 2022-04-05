@@ -29,15 +29,15 @@ THE SOFTWARE.
 #include <cstring>
 #include <string>
 
-#include "OgreControllerManager.h"
-#include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgrePass.h"
-#include "OgreResourceManager.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
+#include "OgreControllerManager.hpp"
+#include "OgreException.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePass.hpp"
+#include "OgreResourceManager.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTextureUnitState.hpp"
 
 namespace Ogre {
 class Frustum;

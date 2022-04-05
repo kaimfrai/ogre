@@ -34,16 +34,16 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreCamera.h"
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgreNode.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreVector.h"
+#include "OgreCamera.hpp"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreNode.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
 

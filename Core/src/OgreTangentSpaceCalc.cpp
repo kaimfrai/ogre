@@ -29,17 +29,17 @@ THE SOFTWARE.
 #include <map>
 #include <memory>
 
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreMath.h"
-#include "OgrePlatform.h"
-#include "OgreSharedPtr.h"
-#include "OgreTangentSpaceCalc.h"
-#include "OgreVertexIndexData.h"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMath.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreTangentSpaceCalc.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre
 {

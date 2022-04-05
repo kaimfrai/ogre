@@ -29,11 +29,11 @@ THE SOFTWARE.
 #include <ostream>
 #include <string>
 
-#include "OgreLog.h"
-#include "OgrePlatformInformation.h"
-#include "OgrePrerequisites.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
+#include "OgreLog.hpp"
+#include "OgrePlatformInformation.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
 
 
 // Yes, I know, this file looks very ugly, but there aren't other ways to do it better.

@@ -32,22 +32,22 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreBlendMode.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreTechnique.h"
-#include "OgreTexture.h"
-#include "OgreTextureUnitState.h"
+#include "OgreBlendMode.hpp"
+#include "OgreColourValue.hpp"
+#include "OgreCommon.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureUnitState.hpp"
 
 
 namespace Ogre {

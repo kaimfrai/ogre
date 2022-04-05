@@ -28,11 +28,11 @@ THE SOFTWARE.
 #include <cstddef>
 #include <string>
 
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreShaderSubRenderState.h"
-#include "OgreSharedPtr.h"
+#include "OgreException.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderScriptTranslator.hpp"
+#include "OgreShaderSubRenderState.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace Ogre {
 namespace RTShader {

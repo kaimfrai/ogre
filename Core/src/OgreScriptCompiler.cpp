@@ -39,20 +39,20 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreBuiltinScriptTranslators.h"
-#include "OgreDataStream.h"
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreScriptCompiler.h"
-#include "OgreScriptLexer.h"
-#include "OgreScriptParser.h"
-#include "OgreScriptTranslator.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
+#include "OgreBuiltinScriptTranslators.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreScriptLexer.hpp"
+#include "OgreScriptParser.hpp"
+#include "OgreScriptTranslator.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSingleton.hpp"
+#include "OgreString.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre
 {

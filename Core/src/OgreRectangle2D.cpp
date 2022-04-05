@@ -25,28 +25,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <OgreRectangle2D.h>
+#include <OgreRectangle2D.hpp>
 #include <algorithm>
 #include <map>
 #include <utility>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreBuiltinMovableFactories.h"
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMatrix4.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreSharedPtr.h"
-#include "OgreSimpleRenderable.h"
-#include "OgreStringConverter.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
+#include "OgreAxisAlignedBox.hpp"
+#include "OgreBuiltinMovableFactories.hpp"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSimpleRenderable.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreVector.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 class MovableObject;

@@ -31,19 +31,19 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreAny.h"
-#include "OgreMaterial.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderRenderState.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreShaderSubRenderState.h"
-#include "OgreSharedPtr.h"
-#include "OgreTechnique.h"
-#include "OgreTextureUnitState.h"
-#include "OgreVector.h"
+#include "OgreAny.hpp"
+#include "OgreMaterial.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderRenderState.hpp"
+#include "OgreShaderScriptTranslator.hpp"
+#include "OgreShaderSubRenderState.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTextureUnitState.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
 namespace RTShader {

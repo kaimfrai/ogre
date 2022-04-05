@@ -29,9 +29,9 @@ THE SOFTWARE.
 #include <memory>
 #include <utility>
 
-#include "OgreAny.h"
-#include "OgrePrerequisites.h"
-#include "OgreUserObjectBindings.h"
+#include "OgreAny.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreUserObjectBindings.hpp"
 
 namespace Ogre {
     static Any emptyAny;

@@ -28,10 +28,10 @@
 #include <iostream>
 #include <string>
 
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
-#include "OgreStringConverter.h"
-#include "SampleBrowser.h"
+#include "OgreException.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreStringConverter.hpp"
+#include "SampleBrowser.hpp"
 
 int main(int argc, char *argv[]) {
 

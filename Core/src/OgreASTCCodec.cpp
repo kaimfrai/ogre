@@ -29,16 +29,16 @@ THE SOFTWARE.
 #include <cmath>
 #include <cstring>
 
-#include "OgreASTCCodec.h"
-#include "OgreCodec.h"
-#include "OgreCommon.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreImage.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgreSharedPtr.h"
+#include "OgreASTCCodec.hpp"
+#include "OgreCodec.hpp"
+#include "OgreCommon.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreImage.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace Ogre {
 

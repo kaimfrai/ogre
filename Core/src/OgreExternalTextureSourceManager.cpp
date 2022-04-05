@@ -38,9 +38,9 @@ email                : pjcast@yahoo.com
 #include <cassert>
 #include <utility>
 
-#include "OgreExternalTextureSource.h"
-#include "OgreExternalTextureSourceManager.h"
-#include "OgreLogManager.h"
+#include "OgreExternalTextureSource.hpp"
+#include "OgreExternalTextureSourceManager.hpp"
+#include "OgreLogManager.hpp"
 
 
 namespace Ogre 

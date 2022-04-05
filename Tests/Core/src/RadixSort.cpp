@@ -31,10 +31,10 @@ THE SOFTWARE.
 #include <list>
 #include <vector>
 
-#include "../../Core/src/OgreRadixSort.h"
-#include "OgreMath.h"
-#include "OgrePlatform.h"
-#include "RadixSortTests.h"
+#include "../../Core/src/OgreRadixSort.hpp"
+#include "OgreMath.hpp"
+#include "OgrePlatform.hpp"
+#include "RadixSortTests.hpp"
 
 using namespace Ogre;
 

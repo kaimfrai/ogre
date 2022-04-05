@@ -27,11 +27,11 @@ THE SOFTWARE.
 */
 #include <gtest/gtest.h>
 
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreVector.h"
+#include "OgreMatrix3.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreVector.hpp"
 
 using namespace Ogre;
 

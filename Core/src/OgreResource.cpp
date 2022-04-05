@@ -31,13 +31,13 @@ THE SOFTWARE.
 #include <set>
 #include <string>
 
-#include "OgreException.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreResourceManager.h"
+#include "OgreException.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreResource.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreResourceManager.hpp"
 
 namespace Ogre 
 {

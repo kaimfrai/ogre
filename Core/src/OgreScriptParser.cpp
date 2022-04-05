@@ -30,11 +30,11 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgrePlatform.h"
-#include "OgreScriptParser.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
+#include "OgreException.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreScriptParser.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre
 {

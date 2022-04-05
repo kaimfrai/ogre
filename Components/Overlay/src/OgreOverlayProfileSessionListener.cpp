@@ -26,18 +26,18 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreOverlayProfileSessionListener.h"
+#include "OgreOverlayProfileSessionListener.hpp"
 
 #include <map>
 #include <string>
 #include <utility>
 
-#include "OgreOverlay.h"
-#include "OgreOverlayContainer.h"
-#include "OgreOverlayElement.h"
-#include "OgreOverlayManager.h"
-#include "OgreStringConverter.h"
-#include "OgreTimer.h"
+#include "OgreOverlay.hpp"
+#include "OgreOverlayContainer.hpp"
+#include "OgreOverlayElement.hpp"
+#include "OgreOverlayManager.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTimer.hpp"
 
 namespace Ogre
 {

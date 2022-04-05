@@ -32,13 +32,13 @@ THE SOFTWARE.
 #include <thread>
 #include <vector>
 
-#include "OgreDefaultWorkQueueStandard.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreRoot.h"
-#include "OgreWorkQueue.h"
+#include "OgreDefaultWorkQueueStandard.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRoot.hpp"
+#include "OgreWorkQueue.hpp"
 
 namespace Ogre
 {

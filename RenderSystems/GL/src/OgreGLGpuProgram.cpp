@@ -26,18 +26,18 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLGpuProgram.h"
+#include "OgreGLGpuProgram.hpp"
 
 #include <cstddef>
 #include <map>
 #include <string>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreSharedPtr.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace Ogre {
 class ResourceManager;

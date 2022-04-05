@@ -32,19 +32,19 @@ THE SOFTWARE.
 #include <list>
 #include <memory>
 
-#include "OgreAnimable.h"
-#include "OgreAnimation.h"
-#include "OgreAnimationTrack.h"
-#include "OgreAny.h"
-#include "OgreException.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreKeyFrame.h"
-#include "OgreMath.h"
-#include "OgreMesh.h"
-#include "OgreNode.h"
-#include "OgreQuaternion.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
+#include "OgreAnimable.hpp"
+#include "OgreAnimation.hpp"
+#include "OgreAnimationTrack.hpp"
+#include "OgreAny.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreKeyFrame.hpp"
+#include "OgreMath.hpp"
+#include "OgreMesh.hpp"
+#include "OgreNode.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreVector.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 

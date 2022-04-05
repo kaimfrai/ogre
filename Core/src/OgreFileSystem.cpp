@@ -32,15 +32,15 @@ THE SOFTWARE.
 #include <fstream> // IWYU pragma: keep
 #include <string>
 
-#include "OgreArchive.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreFileSystem.h"
-#include "OgrePrerequisites.h"
-#include "OgreSearchOps.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
+#include "OgreArchive.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreFileSystem.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSearchOps.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre {
 

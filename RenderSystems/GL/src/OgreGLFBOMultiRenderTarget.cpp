@@ -26,12 +26,12 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLFBOMultiRenderTarget.h"
+#include "OgreGLFBOMultiRenderTarget.hpp"
 
 #include <cassert>
 #include <string>
 
-#include "OgreGLRenderTexture.h"
+#include "OgreGLRenderTexture.hpp"
 
 namespace Ogre {
 class DepthBuffer;

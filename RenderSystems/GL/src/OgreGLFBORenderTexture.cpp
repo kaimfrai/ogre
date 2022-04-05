@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLFBORenderTexture.h"
+#include "OgreGLFBORenderTexture.hpp"
 
 #include <cstddef>
 #include <map>
@@ -36,12 +36,12 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreGLHardwarePixelBuffer.h"
-#include "OgreGLPixelFormat.h"
-#include "OgreGLRenderTarget.h"
-#include "OgreLogManager.h"
-#include "OgreRenderTarget.h"
-#include "OgreString.h"
+#include "OgreGLHardwarePixelBuffer.hpp"
+#include "OgreGLPixelFormat.hpp"
+#include "OgreGLRenderTarget.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreString.hpp"
 
 namespace Ogre {
 class DepthBuffer;

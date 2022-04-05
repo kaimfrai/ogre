@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "EdgeBuilderTests.h"
+#include "EdgeBuilderTests.hpp"
 
 #include <memory>
 
-#include "OgreDefaultHardwareBufferManager.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
-#include "OgreVertexIndexData.h"
+#include "OgreDefaultHardwareBufferManager.hpp"
+#include "OgreEdgeListBuilder.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreVertexIndexData.hpp"
 
 
 // Register the test suite

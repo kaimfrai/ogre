@@ -28,17 +28,17 @@ THE SOFTWARE.
 #include <cstddef>
 #include <vector>
 
-#include "OgreAny.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderMaterialSerializerListener.h"
-#include "OgreSharedPtr.h"
-#include "OgreTechnique.h"
-#include "OgreTextureUnitState.h"
-#include "OgreUserObjectBindings.h"
+#include "OgreAny.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderMaterialSerializerListener.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTextureUnitState.hpp"
+#include "OgreUserObjectBindings.hpp"
 
 namespace Ogre {
 class Pass;

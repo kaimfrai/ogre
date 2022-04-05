@@ -25,10 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLHardwarePixelBufferCommon.h"
+#include "OgreGLHardwarePixelBufferCommon.hpp"
 
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
+#include "OgreException.hpp"
+#include "OgrePrerequisites.hpp"
 
 namespace Ogre
 {

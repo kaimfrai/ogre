@@ -29,16 +29,16 @@ THE SOFTWARE.
 #include <memory>
 #include <utility>
 
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLogManager.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreStreamSerialiser.h"
-#include "OgreUnifiedHighLevelGpuProgram.h"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
+#include "OgreStreamSerialiser.hpp"
+#include "OgreUnifiedHighLevelGpuProgram.hpp"
 
 namespace Ogre {
 namespace {

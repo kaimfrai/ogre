@@ -28,19 +28,19 @@ THE SOFTWARE.
 #include <cstddef>
 #include <ostream>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreCommon.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMatrix4.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderable.h"
-#include "OgreSharedPtr.h"
-#include "OgreSimpleRenderable.h"
+#include "OgreAxisAlignedBox.hpp"
+#include "OgreCommon.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgreNode.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRenderable.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSimpleRenderable.hpp"
 
 namespace Ogre {
 class Camera;

@@ -26,7 +26,7 @@
   -----------------------------------------------------------------------------
 */
 
-#include "OgreGLSLPreprocessor.h"
+#include "OgreGLSLPreprocessor.hpp"
 
 #include <algorithm>
 #include <cassert>
@@ -36,11 +36,11 @@
 #include <memory>
 #include <utility>
 
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreString.h"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreString.hpp"
 
 namespace Ogre {
 

@@ -32,22 +32,22 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderExLayeredBlending.h"
-#include "OgreShaderFFPTexturing.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreStringConverter.h"
-#include "OgreTextureUnitState.h"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShaderExLayeredBlending.hpp"
+#include "OgreShaderFFPTexturing.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreShaderScriptTranslator.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTextureUnitState.hpp"
 
 namespace Ogre {
     class LayerBlendModeEx;

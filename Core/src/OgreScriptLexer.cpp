@@ -28,9 +28,9 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreLogManager.h"
-#include "OgreScriptLexer.h"
-#include "OgreString.h"
+#include "OgreLogManager.hpp"
+#include "OgreScriptLexer.hpp"
+#include "OgreString.hpp"
 
 namespace Ogre {
     ScriptTokenList ScriptLexer::tokenize(const String &str, const String& source)

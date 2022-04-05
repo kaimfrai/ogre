@@ -25,14 +25,14 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#include "DefaultSamplesPlugin.h"
+#include "DefaultSamplesPlugin.hpp"
 
 #include <set>
 
-#include "NewInstancing.h"
-#include "OgreInput.h"
-#include "OgrePlatform.h"
-#include "Sample.h"
+#include "NewInstancing.hpp"
+#include "OgreInput.hpp"
+#include "OgrePlatform.hpp"
+#include "Sample.hpp"
 
 using namespace Ogre;
 using namespace OgreBites;

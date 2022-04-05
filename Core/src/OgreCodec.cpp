@@ -27,11 +27,11 @@ THE SOFTWARE.
 */
 #include <utility>
 
-#include "OgreCodec.h"
-#include "OgreException.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
+#include "OgreCodec.hpp"
+#include "OgreException.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre {
 class Any;

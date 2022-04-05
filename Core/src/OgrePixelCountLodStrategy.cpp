@@ -29,14 +29,14 @@ THE SOFTWARE.
 #include <cassert>
 #include <limits>
 
-#include "OgreCamera.h"
-#include "OgreFrustum.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgrePixelCountLodStrategy.h"
-#include "OgreViewport.h"
+#include "OgreCamera.hpp"
+#include "OgreFrustum.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgreNode.hpp"
+#include "OgrePixelCountLodStrategy.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
     //-----------------------------------------------------------------------

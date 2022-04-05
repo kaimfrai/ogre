@@ -31,8 +31,8 @@ THE SOFTWARE.
 #include <functional>
 #include <vector>
 
-#include "OgreCamera.h"
-#include "OgreLodStrategy.h"
+#include "OgreCamera.hpp"
+#include "OgreLodStrategy.hpp"
 
 namespace Ogre {
 class MovableObject;

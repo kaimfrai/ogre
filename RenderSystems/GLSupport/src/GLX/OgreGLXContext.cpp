@@ -29,11 +29,11 @@
 #include <GL/gl.h>
 #include <X11/X.h>
 
-#include "OgreException.h"
-#include "OgreGLRenderSystemCommon.h"
-#include "OgreGLXContext.h"
-#include "OgreGLXGLSupport.h"
-#include "OgreRoot.h"
+#include "OgreException.hpp"
+#include "OgreGLRenderSystemCommon.hpp"
+#include "OgreGLXContext.hpp"
+#include "OgreGLXGLSupport.hpp"
+#include "OgreRoot.hpp"
 
 namespace Ogre
 {

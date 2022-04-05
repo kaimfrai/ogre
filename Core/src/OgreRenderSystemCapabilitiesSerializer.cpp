@@ -29,14 +29,14 @@ THE SOFTWARE.
 #include <ostream>
 #include <set>
 
-#include "OgreDataStream.h"
-#include "OgreLogManager.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRenderSystemCapabilitiesManager.h"
-#include "OgreRenderSystemCapabilitiesSerializer.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
+#include "OgreDataStream.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRenderSystemCapabilitiesManager.hpp"
+#include "OgreRenderSystemCapabilitiesSerializer.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre
 {

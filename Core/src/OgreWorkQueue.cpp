@@ -30,11 +30,11 @@ THE SOFTWARE.
 #include <thread>
 #include <utility>
 
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreRoot.h"
-#include "OgreTimer.h"
-#include "OgreWorkQueue.h"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreTimer.hpp"
+#include "OgreWorkQueue.hpp"
 
 namespace Ogre {
     //---------------------------------------------------------------------

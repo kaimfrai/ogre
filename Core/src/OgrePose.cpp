@@ -29,12 +29,12 @@ THE SOFTWARE.
 #include <cstring>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgrePose.h"
-#include "OgreVertexIndexData.h"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgrePose.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
     //---------------------------------------------------------------------

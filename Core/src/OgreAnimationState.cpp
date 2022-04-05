@@ -31,10 +31,10 @@ THE SOFTWARE.
 #include <limits>
 #include <utility>
 
-#include "OgreAnimationState.h"
-#include "OgreException.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreMath.h"
+#include "OgreAnimationState.hpp"
+#include "OgreException.hpp"
+#include "OgreIteratorWrapper.hpp"
+#include "OgreMath.hpp"
 
 
 namespace Ogre 

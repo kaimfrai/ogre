@@ -28,8 +28,8 @@ THE SOFTWARE.
 #include <cassert>
 #include <utility>
 
-#include "OgreDynLib.h"
-#include "OgreDynLibManager.h"
+#include "OgreDynLib.hpp"
+#include "OgreDynLibManager.hpp"
 
 namespace Ogre
 {

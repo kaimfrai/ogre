@@ -27,8 +27,8 @@ THE SOFTWARE.
 */
 #include <cassert>
 
-#include "OgreDepthBuffer.h"
-#include "OgreRenderTarget.h"
+#include "OgreDepthBuffer.hpp"
+#include "OgreRenderTarget.hpp"
 
 namespace Ogre
 {

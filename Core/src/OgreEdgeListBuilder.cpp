@@ -30,17 +30,17 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreEdgeListBuilder.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLog.h"
-#include "OgreMath.h"
-#include "OgreOptimisedUtil.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
-#include "OgreVertexIndexData.h"
+#include "OgreEdgeListBuilder.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreLog.hpp"
+#include "OgreMath.hpp"
+#include "OgreOptimisedUtil.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 

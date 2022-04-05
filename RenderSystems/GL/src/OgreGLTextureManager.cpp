@@ -26,16 +26,16 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLTextureManager.h"
+#include "OgreGLTextureManager.hpp"
 
-#include "OgreGLPixelFormat.h"
-#include "OgreGLRenderSystem.h"
-#include "OgreGLRenderTexture.h"
-#include "OgreGLTexture.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
+#include "OgreGLPixelFormat.hpp"
+#include "OgreGLRenderSystem.hpp"
+#include "OgreGLRenderTexture.hpp"
+#include "OgreGLTexture.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRoot.hpp"
 #include "glad/glad.h"
 
 namespace Ogre {

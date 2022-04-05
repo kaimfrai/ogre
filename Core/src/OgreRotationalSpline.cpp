@@ -29,9 +29,9 @@ THE SOFTWARE.
 #include <memory>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreRotationalSpline.h"
+#include "OgrePrerequisites.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreRotationalSpline.hpp"
 
 
 

@@ -37,13 +37,13 @@ email                : pjcast@yahoo.com
 
 #include <string>
 
-#include "OgreException.h"
-#include "OgreExternalTextureSource.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
+#include "OgreException.hpp"
+#include "OgreExternalTextureSource.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre
 {

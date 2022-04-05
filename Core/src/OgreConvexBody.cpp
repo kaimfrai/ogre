@@ -31,14 +31,14 @@ THE SOFTWARE.
 #include <ostream>
 #include <utility>
 
-#include "OgreConvexBody.h"
-#include "OgreException.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreMath.h"
-#include "OgrePlane.h"
-#include "OgreRay.h"
-#include "OgreVector.h"
+#include "OgreConvexBody.hpp"
+#include "OgreException.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMath.hpp"
+#include "OgrePlane.hpp"
+#include "OgreRay.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre
 {

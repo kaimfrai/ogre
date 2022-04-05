@@ -26,14 +26,14 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "VTestPlugin.h"
+#include "VTestPlugin.hpp"
 
 #include <set>
 
-#include "CubeMappingTest.h"
-#include "StencilShadowTest.h"
+#include "CubeMappingTest.hpp"
+#include "StencilShadowTest.hpp"
 
-#include "Sample.h"
+#include "Sample.hpp"
 
 VTestPlugin::VTestPlugin()
     :SamplePlugin("VTestPlugin")

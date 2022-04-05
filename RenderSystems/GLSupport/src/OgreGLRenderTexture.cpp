@@ -26,14 +26,14 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   -----------------------------------------------------------------------------
 */
 
-#include "OgreGLRenderTexture.h"
+#include "OgreGLRenderTexture.hpp"
 
 #include <cassert>
 #include <utility>
 
-#include "OgreGLHardwarePixelBufferCommon.h"
-#include "OgreGLRenderSystemCommon.h"
-#include "OgreRoot.h"
+#include "OgreGLHardwarePixelBufferCommon.hpp"
+#include "OgreGLRenderSystemCommon.hpp"
+#include "OgreRoot.hpp"
 
 namespace Ogre {
 

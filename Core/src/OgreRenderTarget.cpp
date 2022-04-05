@@ -34,18 +34,18 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreDepthBuffer.h"
-#include "OgreException.h"
-#include "OgreImage.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreProfiler.h"
-#include "OgreRenderTarget.h"
-#include "OgreRenderTargetListener.h"
-#include "OgreRoot.h"
-#include "OgreStringConverter.h"
-#include "OgreTimer.h"
-#include "OgreViewport.h"
+#include "OgreDepthBuffer.hpp"
+#include "OgreException.hpp"
+#include "OgreImage.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreProfiler.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreRenderTargetListener.hpp"
+#include "OgreRoot.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTimer.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 class Camera;

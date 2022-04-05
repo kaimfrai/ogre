@@ -28,18 +28,18 @@ THE SOFTWARE.
 
 #include <cstring>
 
-#include "OgreCodec.h"
-#include "OgreCommon.h"
-#include "OgreDataStream.h"
-#include "OgreETCCodec.h"
-#include "OgreException.h"
-#include "OgreImage.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgreSharedPtr.h"
-#include "OgreStableHeaders.h"
+#include "OgreCodec.hpp"
+#include "OgreCommon.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreETCCodec.hpp"
+#include "OgreException.hpp"
+#include "OgreImage.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStableHeaders.hpp"
 
 #define KTX_ENDIAN_REF      (0x04030201)
 #define KTX_ENDIAN_REF_REV  (0x01020304)

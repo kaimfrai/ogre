@@ -26,12 +26,12 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLPixelFormat.h"
+#include "OgreGLPixelFormat.hpp"
 
-#include "OgreBitwise.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
+#include "OgreBitwise.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
 
 #ifndef GL_HALF_FLOAT
 #define GL_HALF_FLOAT                     0x140B

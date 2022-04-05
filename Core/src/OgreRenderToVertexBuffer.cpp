@@ -28,11 +28,11 @@ THE SOFTWARE.
 
 #include <string>
 
-#include "OgreException.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreRenderToVertexBuffer.h"
-#include "OgreVertexIndexData.h"
+#include "OgreException.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreRenderToVertexBuffer.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 class VertexDeclaration;

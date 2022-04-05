@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreOptimisedUtil.h"
-#include "OgrePlatformInformation.h"
+#include "OgreOptimisedUtil.hpp"
+#include "OgrePlatformInformation.hpp"
 
 //#define __DO_PROFILE__
 

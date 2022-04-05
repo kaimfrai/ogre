@@ -30,10 +30,10 @@ THE SOFTWARE.
 #include <cstddef>
 #include <vector>
 
-#include "OgreBone.h"
-#include "OgreNode.h"
-#include "OgreSkeletonInstance.h"
-#include "OgreTagPoint.h"
+#include "OgreBone.hpp"
+#include "OgreNode.hpp"
+#include "OgreSkeletonInstance.hpp"
+#include "OgreTagPoint.hpp"
 
 
 namespace Ogre {

@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "FileSystemArchiveTests.h"
+#include "FileSystemArchiveTests.hpp"
 
 #include <algorithm>
 #include <map>
@@ -33,14 +33,14 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreArchive.h"
-#include "OgreCommon.h"
-#include "OgreConfigFile.h"
-#include "OgreDataStream.h"
-#include "OgreFileSystem.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringVector.h"
+#include "OgreArchive.hpp"
+#include "OgreCommon.hpp"
+#include "OgreConfigFile.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreFileSystem.hpp"
+#include "OgreFileSystemLayer.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringVector.hpp"
 
 
 namespace Ogre {
