@@ -35,7 +35,7 @@ include_directories(${PROJECT_SOURCE_DIR}/Tests/VisualTests/PlayPen/include)
 set(SAMPLE_LIBRARIES VTests PlayPenTests)
 
 add_executable(TestContext ${HEADER_FILES} ${SOURCE_FILES})
-target_link_libraries(TestContext OgreCore ${SAMPLE_LIBRARIES} OgreOverlay OgreRTShaderSystem OgreBites)
+target_link_libraries(TestContext Ogre.Core ${SAMPLE_LIBRARIES} OgreOverlay OgreRTShaderSystem OgreBites)
 ogre_config_common(TestContext)
 
 # Make sure all plugins are built

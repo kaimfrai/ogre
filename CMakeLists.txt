@@ -89,6 +89,7 @@ set(CMAKE_MODULE_PATH
   "${PROJECT_SOURCE_DIR}/CMake/Packages"
 )
 
+include(CXX20Modules)
 include(CMakeDependentOption)
 include(MacroLogFeature)
 include(OgreConfigTargets)
@@ -130,7 +131,9 @@ if (NOT ANDROID AND NOT EMSCRIPTEN AND UNIX OR MINGW)
   include(CheckCXXCompilerFlag)
   check_cxx_compiler_flag(-msse OGRE_GCC_HAS_SSE)
   if (OGRE_GCC_HAS_SSE)
+    add_compile_options(-msse)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse")
+    set(ADDITIONAL_COMPILE_OPTIONS ${ADDITIONAL_COMPILE_OPTIONS} -msse)
   endif ()
 endif()
 
@@ -200,9 +203,9 @@ if (MINGW)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error=cast-qual -Wno-unused-local-typedefs")
 endif ()
 
-include(GenerateExportHeader)
-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-set(CMAKE_VISIBILITY_INLINES_HIDDEN TRUE)
+#include(GenerateExportHeader)
+#set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+#set(CMAKE_VISIBILITY_INLINES_HIDDEN TRUE)
 
 if((CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU") AND NOT OGRE_STATIC)
   set(OGRE_VISIBILITY_FLAGS "-DOGRE_GCC_VISIBILITY") # for legacy headers
@@ -220,7 +223,7 @@ else()
 endif()
 
 # definitions for samples
-set(OGRE_LIBRARIES OgreCore)
+set(OGRE_LIBRARIES Ogre.Core)
 
 # Specify build paths
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")

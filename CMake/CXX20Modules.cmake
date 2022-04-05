@@ -4,30 +4,37 @@ set(REGEX_WHITESPACE "[ \t]+")
 set(REGEX_ID "[a-zA-Z_][a-zA-Z0-9_.]*")
 set(REGEX_FILE "[a-zA-Z0-9_./\:]*")
 set(REGEX_HEADER "(<${REGEX_FILE}>|\"${REGEX_FILE}\")")
-set(REGEX_MODULE "${REGEX_ID}(:${REGEX_ID})?")
-set(REGEX_EXPORT "(^|[\n\r])export${REGEX_WHITESPACE}module${REGEX_WHITESPACE}")
+set(REGEX_NAME "${REGEX_ID}(:${REGEX_ID})?")
+set(REGEX_MODULE "(^|[\n\r])(export${REGEX_WHITESPACE})?module${REGEX_WHITESPACE}")
 set(REGEX_IMPORT "(^|[\n\r])(export${REGEX_WHITESPACE})?import${REGEX_WHITESPACE}")
 
 function(invoke_preprocessor
 	file_name
 	out_preprocessed_file
 )
+	file(REAL_PATH
+		${file_name}
+		file_path
+		EXPAND_TILDE
+	)
+
 	file(READ
-		${CMAKE_CURRENT_SOURCE_DIR}/${file_name}
+		${file_path}
 		file_content
 	)
+
 	#pseudo-preprocessor which only ignores comments
-	string(REGEX REPLACE
-		"(//[^\n]*\n)|(/[*].*[*]/)"
-		""
-		file_content
-		${file_content}
-	)
+	#string(REGEX REPLACE
+		#"(//[^\n]*\n)"
+		#"REPLACE"
+		#file_content
+		#${file_content}
+	#)
 
 	#module declarations and imports
 	string(
 	REGEX MATCHALL
-		"(${REGEX_EXPORT}${REGEX_MODULE}|${REGEX_IMPORT}(:?${REGEX_ID}|${REGEX_HEADER}))"
+		"(${REGEX_MODULE}${REGEX_NAME}|${REGEX_IMPORT}(:?${REGEX_ID}|${REGEX_HEADER}))"
 		file_content
 		${file_content}
 	)
@@ -45,13 +52,14 @@ function(read_module_name
 )
 	string(
 	REGEX MATCH
-		"${REGEX_EXPORT}${REGEX_MODULE}"
+		"${REGEX_MODULE}${REGEX_NAME}"
 		module_name
 		"${preprocessed_file}"
 	)
-	list(TRANSFORM module_name REPLACE "${REGEX_EXPORT}" "")
+	list(TRANSFORM module_name REPLACE "${REGEX_MODULE}" "")
 
 	if	(NOT module_name)
+		message("${preprocessed_file}")
 		message(FATAL_ERROR "File '${module_source_file}' did not specify a valid module name!")
 	endif()
 
@@ -242,6 +250,10 @@ function(add_module
 		module_binary
 	)
 
+	set(module_file_options
+		-fmodule-file=${module_binary}
+	)
+
 	foreach(partition_file IN LISTS MODULE_PARTITION)
 		invoke_preprocessor(
 			${partition_file}
@@ -253,6 +265,11 @@ function(add_module
 			partition_name
 			partition_target_name
 			partition_binary
+		)
+
+		set(module_file_options
+			${module_file_options}
+			-fmodule-file=${partition_binary}
 		)
 
 		add_module_partition(
@@ -285,7 +302,11 @@ function(add_module
 		target_compile_options(
 			"${module_target_name}-Obj"
 		PRIVATE
-			-fmodule-file=${module_binary}
+			-fmodules
+			-fprebuilt-module-path=${PREBUILT_MODULE_PATH}
+			-fmodules-cache-path=${MODULE_CACHE_PATH}
+			-Xclang -fdisable-module-hash
+			${module_file_options}
 		)
 
 		add_dependencies(

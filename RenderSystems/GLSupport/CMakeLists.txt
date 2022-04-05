@@ -103,7 +103,7 @@ add_library(OgreGLSupport STATIC
     src/OgreGLUniformCache.cpp
     src/OgreGLWindow.cpp
 )
-target_link_libraries(OgreGLSupport PUBLIC OgreCore PRIVATE ${PLATFORM_LIBS})
+target_link_libraries(OgreGLSupport PUBLIC Ogre.Core PRIVATE ${PLATFORM_LIBS})
 target_include_directories(OgreGLSupport PUBLIC 
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/GLSL>"

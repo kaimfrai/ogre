@@ -6,6 +6,11 @@ find_program(CMAKE_C_COMPILER clang-15 REQUIRED)
 file(REAL_PATH ${CMAKE_C_COMPILER} CMAKE_C_COMPILER EXPAND_TILDE)
 find_program(CMAKE_CXX_COMPILER clang++-15 REQUIRED)
 file(REAL_PATH ${CMAKE_CXX_COMPILER} CMAKE_CXX_COMPILER EXPAND_TILDE)
+#add ++ to real path
+set(CMAKE_CXX_COMPILER "${CMAKE_CXX_COMPILER}++")
+
+set(CXX_STANDARD_VERSION_FLAG "-std=c++2b")
+set(CXX_STANDARD_LIBRARY_FLAG "-stdlib=libc++")
 
 #do not use libc++ for C objects
 add_compile_options($<$<COMPILE_LANGUAGE:CXX>:-stdlib=libc++>)

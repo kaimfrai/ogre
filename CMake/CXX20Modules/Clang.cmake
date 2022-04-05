@@ -1,3 +1,19 @@
+if	(NOT CXX_STANDARD_VERSION_FLAG)
+	message(FATAL_ERROR "Cannot compile modules without CXX_STANDARD_VERSION_FLAG")
+endif()
+
+if	(NOT CXX_STANDARD_LIBRARY_FLAG)
+	message(WARNING "Compiling modules without CXX_STANDARD_LIBRARY_FLAG")
+endif()
+
+if	(NOT WARNING_FLAGS)
+	message(WARNING "Compiling modules without WARNING_FLAGS")
+endif()
+
+if	(NOT ADDITIONAL_COMPILE_OPTIONS)
+	message(WARNING "Compiling modules without ADDITIONAL_COMPILE_OPTIONS")
+endif()
+
 set(PREBUILT_MODULE_PATH
 	${CMAKE_BINARY_DIR}/modules
 CACHE STRING
@@ -67,6 +83,12 @@ function(
 		endforeach()
 	endif()
 
+	file(REAL_PATH
+		${module_interface_file}
+		real_module_interface_file
+		EXPAND_TILDE
+	)
+
 	set(
 	command
 		${CMAKE_CXX_COMPILER}
@@ -76,7 +98,7 @@ function(
 		${MODULE_FLAGS}
 		${ADDITIONAL_COMPILE_OPTIONS}
 		${absolute_include_dirs}
-		--compile ${CMAKE_CURRENT_SOURCE_DIR}/${module_interface_file}
+		--compile ${real_module_interface_file}
 		-Xclang -emit-module-interface
 		--output ${module_binary}
 	)

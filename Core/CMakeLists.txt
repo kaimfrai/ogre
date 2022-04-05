@@ -13,6 +13,7 @@
 
 # define header and source files for the library
 file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
+file(GLOB PRIVATE_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h")
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 add_library(miniz INTERFACE src/zip/miniz.h)
@@ -28,24 +29,37 @@ target_link_libraries(zip PRIVATE miniz)
 
 # setup OgreCore target
 
-add_library(OgreCore ${OGRE_LIB_TYPE} ${SOURCE_FILES} $<TARGET_OBJECTS:zip>)
-
-target_include_directories(
-  OgreCore
-PUBLIC
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>" 
-  "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
-  $<INSTALL_INTERFACE:include/OGRE>
-PRIVATE
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/zip>"
+add_module(
+  ${CMAKE_CURRENT_SOURCE_DIR}/Ogre.h
+PARTITION
+  ${HEADER_FILES}
+  ${PRIVATE_HEADER_FILES}
+IMPLEMENTATION
+  ${SOURCE_FILES}
 )
 
-set_target_properties(OgreCore PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
+target_sources(
+  Ogre.Core
+PRIVATE
+  $<TARGET_OBJECTS:zip>
+)
 
-target_link_libraries(OgreCore PUBLIC pthread PRIVATE ${CMAKE_DL_LIBS})
+#target_include_directories(
+  #Ogre.Core
+#PUBLIC
+  #"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+  #"$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
+  #$<INSTALL_INTERFACE:include/OGRE>
+#PRIVATE
+  #"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/zip>"
+#)
+
+set_target_properties(Ogre.Core PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
+
+#target_link_libraries(Ogre.Core PUBLIC pthread PRIVATE ${CMAKE_DL_LIBS})
 
 # install OgreCore
-ogre_config_lib(OgreCore TRUE)
+ogre_config_lib(Ogre.Core TRUE)
 
 install(FILES ${HEADER_FILES}
   DESTINATION include/OGRE
