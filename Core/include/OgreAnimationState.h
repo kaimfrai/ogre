@@ -36,10 +36,10 @@ module;
 
 export module Ogre.Core:AnimationState;
 
-import :Controller;
-import :ControllerManager;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
+export import :Controller;
+export import :ControllerManager;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
 
 export
 namespace Ogre {

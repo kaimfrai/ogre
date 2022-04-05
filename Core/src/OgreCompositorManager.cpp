@@ -30,7 +30,7 @@ module;
 #include <cassert>
 #include <memory>
 
-module Ogre.Core:CompositorManager;
+module Ogre.Core;
 
 import :CompositionPass;
 import :CompositionTargetPass;
@@ -240,7 +240,7 @@ TexturePtr CompositorManager::getPooledTexture(const String& name,
     CompositorManager::UniqueTextureSet& texturesAssigned, 
     CompositorInstance* inst, CompositionTechnique::TextureScope scope, TextureType type)
 {
-    OgreAssert(scope != CompositionTechnique::TS_GLOBAL, "Global scope texture can not be pooled");
+    // OgreAssert(scope != CompositionTechnique::TS_GLOBAL, "Global scope texture can not be pooled");
 
     TextureDef def(w, h, type, f, aa, aaHint, srgb);
 
@@ -456,7 +456,7 @@ void CompositorManager::freePooledTextures(bool onlyIfUnreferenced)
 //---------------------------------------------------------------------
 void CompositorManager::registerCompositorLogic(const String& name, CompositorLogic* logic)
 {   
-    OgreAssert(!name.empty(), "Compositor logic name must not be empty");
+    // OgreAssert(!name.empty(), "Compositor logic name must not be empty");
     if (mCompositorLogics.find(name) != mCompositorLogics.end())
     {
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
@@ -498,7 +498,7 @@ bool CompositorManager::hasCompositorLogic(const String& name)
 //---------------------------------------------------------------------
 void CompositorManager::registerCustomCompositionPass(const String& name, CustomCompositionPass* logic)
 {   
-    OgreAssert(!name.empty(), "Compositor pass name must not be empty");
+    // OgreAssert(!name.empty(), "Compositor pass name must not be empty");
     if (mCustomCompositionPasses.find(name) != mCustomCompositionPasses.end())
     {
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,

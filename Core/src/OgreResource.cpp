@@ -33,7 +33,7 @@ module;
 #include <set>
 #include <string>
 
-module Ogre.Core:Resource;
+module Ogre.Core;
 
 import :Exception;
 import :Log;

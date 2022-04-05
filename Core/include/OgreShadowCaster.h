@@ -32,13 +32,13 @@ module;
 
 export module Ogre.Core:ShadowCaster;
 
-import :Common;
-import :IteratorWrapper;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :RenderOperation;
-import :Renderable;
-import :SharedPtr;
+export import :Common;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :RenderOperation;
+export import :Renderable;
+export import :SharedPtr;
 
 export
 namespace Ogre {

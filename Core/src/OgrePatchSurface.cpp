@@ -30,7 +30,7 @@ module;
 #include <algorithm>
 #include <cassert>
 
-module Ogre.Core:PatchSurface;
+module Ogre.Core;
 
 import :ColourValue;
 import :Exception;

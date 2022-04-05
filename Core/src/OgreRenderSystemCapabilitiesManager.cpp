@@ -31,7 +31,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:RenderSystemCapabilitiesManager;
+module Ogre.Core;
 
 import :Archive;
 import :ArchiveManager;

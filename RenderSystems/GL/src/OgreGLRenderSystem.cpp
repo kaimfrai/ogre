@@ -307,7 +307,7 @@ namespace Ogre {
                     updateLightPos = true;
                     break;
                 default:
-                    OgreAssert(false, "unknown autoconstant");
+                    // OgreAssert(false, "unknown autoconstant");
                     break;
                 }
             }
@@ -1136,7 +1136,7 @@ namespace Ogre {
     {
         // Find it to remove from list.
         RenderTarget* pWin = detachRenderTarget(name);
-        OgreAssert(pWin, "unknown RenderWindow name");
+        // OgreAssert(pWin, "unknown RenderWindow name");
 
         GLContext *windowContext = dynamic_cast<GLRenderTarget*>(pWin)->getContext();
     

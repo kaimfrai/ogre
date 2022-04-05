@@ -36,20 +36,20 @@ module;
 
 export module Ogre.Core:RenderSystem;
 
-import :BlendMode;
-import :ColourValue;
-import :Common;
-import :Config;
-import :ConfigOptionMap;
-import :GpuProgram;
-import :MemoryAllocatorConfig;
-import :Plane;
-import :Platform;
-import :Prerequisites;
-import :RenderSystemCapabilities;
-import :SharedPtr;
-import :StringVector;
-import :Vector;
+export import :BlendMode;
+export import :ColourValue;
+export import :Common;
+export import :Config;
+export import :ConfigOptionMap;
+export import :GpuProgram;
+export import :MemoryAllocatorConfig;
+export import :Plane;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderSystemCapabilities;
+export import :SharedPtr;
+export import :StringVector;
+export import :Vector;
 
 export
 namespace Ogre

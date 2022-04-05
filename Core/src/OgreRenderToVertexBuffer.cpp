@@ -29,7 +29,7 @@ module;
 
 #include <string>
 
-module Ogre.Core:RenderToVertexBuffer;
+module Ogre.Core;
 
 import :Exception;
 import :Material;

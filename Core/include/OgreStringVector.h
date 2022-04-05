@@ -25,11 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <string>
+#include <vector>
+
 export module Ogre.Core:StringVector;
 
-import :Prerequisites;
-import :SharedPtr;
-import :String;
+export import :Prerequisites;
+export import :SharedPtr;
+export import :String;
 
 export
 namespace Ogre {

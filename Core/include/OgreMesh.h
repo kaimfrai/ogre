@@ -37,18 +37,18 @@ module;
 
 export module Ogre.Core:Mesh;
 
-import :Animation;
-import :AnimationTrack;
-import :AxisAlignedBox;
-import :Common;
-import :HardwareBuffer;
-import :HardwareVertexBuffer;
-import :IteratorWrapper;
-import :Pose;
-import :Prerequisites;
-import :Resource;
-import :SharedPtr;
-import :VertexBoneAssignment;
+export import :Animation;
+export import :AnimationTrack;
+export import :AxisAlignedBox;
+export import :Common;
+export import :HardwareBuffer;
+export import :HardwareVertexBuffer;
+export import :IteratorWrapper;
+export import :Pose;
+export import :Prerequisites;
+export import :Resource;
+export import :SharedPtr;
+export import :VertexBoneAssignment;
 
 export
 namespace Ogre {

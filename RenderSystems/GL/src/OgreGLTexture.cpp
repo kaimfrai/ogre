@@ -89,7 +89,7 @@ class ResourceManager;
     //* Creation / loading methods ********************************************
     void GLTexture::createInternalResourcesImpl(void)
     {
-        OgreAssert(mTextureType != TEX_TYPE_EXTERNAL_OES,
+        // OgreAssert(mTextureType != TEX_TYPE_EXTERNAL_OES,
                    "TEX_TYPE_EXTERNAL_OES is not available for openGL");
 
         // Convert to nearest power-of-two size if required

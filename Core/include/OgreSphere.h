@@ -27,10 +27,10 @@ THE SOFTWARE.
 */
 export module Ogre.Core:Sphere;
 
-// Precompiler options
-import :Plane;
-import :Prerequisites;
-import :Vector;
+export import :Math;
+export import :Plane;
+export import :Prerequisites;
+export import :Vector;
 
 export
 namespace Ogre {

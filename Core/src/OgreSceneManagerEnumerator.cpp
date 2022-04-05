@@ -31,7 +31,7 @@ module;
 #include <ostream>
 #include <utility>
 
-module Ogre.Core:SceneManagerEnumerator;
+module Ogre.Core;
 
 import :Exception;
 import :LogManager;
@@ -93,7 +93,7 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     void SceneManagerEnumerator::removeFactory(SceneManagerFactory* fact)
     {
-        OgreAssert(fact, "Cannot remove a null SceneManagerFactory");
+        // OgreAssert(fact, "Cannot remove a null SceneManagerFactory");
 
         // destroy all instances for this factory
         for (Instances::iterator i = mInstances.begin(); i != mInstances.end(); )
@@ -191,7 +191,7 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     void SceneManagerEnumerator::destroySceneManager(SceneManager* sm)
     {
-        OgreAssert(sm, "Cannot destroy a null SceneManager");
+        // OgreAssert(sm, "Cannot destroy a null SceneManager");
 
         // Erase instance from map
         mInstances.erase(sm->getName());

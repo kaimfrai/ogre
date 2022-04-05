@@ -31,7 +31,7 @@ module;
 #include <ostream>
 #include <string>
 
-module Ogre.Core:PlatformInformation;
+module Ogre.Core;
 
 import :Log;
 import :Prerequisites;

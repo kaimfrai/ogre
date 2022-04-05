@@ -29,19 +29,20 @@ module;
 
 #include <algorithm>
 #include <cstddef>
+#include <string>
 #include <vector>
 
 export module Ogre.Core:CompositorChain;
 
-import :Common;
-import :CompositorInstance;
-import :IteratorWrapper;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :RenderQueueListener;
-import :RenderTargetListener;
-import :Viewport;
+export import :Common;
+export import :CompositorInstance;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderQueueListener;
+export import :RenderTargetListener;
+export import :Viewport;
 
 export
 namespace Ogre {

@@ -34,10 +34,10 @@ module;
 
 export module Ogre.Core:TangentSpaceCalc;
 
-import :HardwareVertexBuffer;
-import :Prerequisites;
-import :RenderOperation;
-import :Vector;
+export import :HardwareVertexBuffer;
+export import :Prerequisites;
+export import :RenderOperation;
+export import :Vector;
 
 export
 namespace Ogre

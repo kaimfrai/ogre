@@ -34,9 +34,9 @@ export module Ogre.Core:Prerequisites;
 /* Include all the standard header *after* all the configuration
 settings have been made.
 */
-import :MemoryAllocatorConfig;
-import :Platform;
-import :StdHeaders;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :StdHeaders;
 
 export
 namespace Ogre {
@@ -304,6 +304,9 @@ namespace Ogre
 {
     typedef std::string String;
     typedef std::stringstream StringStream;
+
+    template<typename T, size_t Alignment>
+    struct AlignedAllocator;
 
     template <typename T, size_t Alignment = OGRE_SIMD_ALIGNMENT>
     using aligned_vector = std::vector<T, AlignedAllocator<T, Alignment>>;

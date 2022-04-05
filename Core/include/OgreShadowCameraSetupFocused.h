@@ -30,19 +30,20 @@ module;
 
 #include <cstddef>
 #include <memory>
+#include <vector>
 
 export module Ogre.Core:ShadowCameraSetupFocused;
 
-import :AxisAlignedBox;
-import :ConvexBody;
-import :Light;
-import :Matrix4;
-import :Polygon;
-import :Prerequisites;
-import :SceneManager;
-import :SceneNode;
-import :ShadowCameraSetup;
-import :SharedPtr;
+export import :AxisAlignedBox;
+export import :ConvexBody;
+export import :Light;
+export import :Matrix4;
+export import :Polygon;
+export import :Prerequisites;
+export import :SceneManager;
+export import :SceneNode;
+export import :ShadowCameraSetup;
+export import :SharedPtr;
 
 export
 namespace Ogre {

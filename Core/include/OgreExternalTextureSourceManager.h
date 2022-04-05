@@ -40,10 +40,10 @@ OgreExternalTextureSourceManager.h  -
 date                 : Jan 1 2004
 email                : pjcast@yahoo.com
 ***************************************************************************/
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :ResourceGroupManager;
-import :Singleton;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :ResourceGroupManager;
+export import :Singleton;
 
 export
 namespace Ogre

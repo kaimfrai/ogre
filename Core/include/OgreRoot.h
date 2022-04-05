@@ -37,14 +37,14 @@ module;
 
 export module Ogre.Core:Root;
 
-import :Common;
-import :IteratorWrapper;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :ResourceGroupManager;
-import :SceneManagerEnumerator;
-import :Singleton;
+export import :Common;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :ResourceGroupManager;
+export import :SceneManagerEnumerator;
+export import :Singleton;
 
 export
 namespace Ogre

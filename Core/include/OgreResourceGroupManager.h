@@ -36,25 +36,17 @@ module;
 
 export module Ogre.Core:ResourceGroupManager;
 
-import :Archive;
-import :Common;
-import :DataStream;
-import :IteratorWrapper;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :SharedPtr;
-import :Singleton;
-import :StringVector;
+export import :Archive;
+export import :Common;
+export import :DataStream;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :SharedPtr;
+export import :Singleton;
+export import :StringVector;
 
-// If X11/Xlib.h gets included before this header (for example it happens when
-// including wxWidgets and FLTK), Status is defined as an int which we don't
-// want as we have an enum named Status.
-#ifdef Status
-#undef Status
-#endif
-
-#define OGRE_RESOURCE_GROUP_INIT = RGN_DEFAULT
 export
 namespace Ogre {
 class ManualResourceLoader;

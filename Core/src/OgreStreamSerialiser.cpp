@@ -31,7 +31,7 @@ module;
 #include <cstring>
 #include <string>
 
-module Ogre.Core:StreamSerialiser;
+module Ogre.Core;
 
 import :AxisAlignedBox;
 import :Bitwise;
@@ -133,7 +133,7 @@ namespace Ogre
                 mFlipEndian = true;
         }
 
-        OgreAssert(mStream, "Stream is null");
+        // OgreAssert(mStream, "Stream is null");
     }
     //---------------------------------------------------------------------
     StreamSerialiser::~StreamSerialiser()
@@ -176,7 +176,7 @@ namespace Ogre
         if (mReadWriteHeader)
             readHeader();
 
-        OgreAssert(mEndian != ENDIAN_AUTO,
+        // OgreAssert(mEndian != ENDIAN_AUTO,
                    "Endian mode has not been determined, did you disable header without setting?");
 
         Chunk* chunk = readChunkImpl();
@@ -214,7 +214,7 @@ namespace Ogre
     {
         Chunk* c = popChunk(id);
 
-        OgreAssert(mStream, "Stream is null");
+        // OgreAssert(mStream, "Stream is null");
 
         mStream->seek(c->offset);
 
@@ -224,7 +224,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     uint32 StreamSerialiser::peekNextChunkID()
     {
-        OgreAssert(mStream, "Stream is null");
+        // OgreAssert(mStream, "Stream is null");
 
         if (eof())
             return 0;
@@ -233,7 +233,7 @@ namespace Ogre
         if (mReadWriteHeader)
             readHeader();
 
-        OgreAssert(mEndian != ENDIAN_AUTO,
+        // OgreAssert(mEndian != ENDIAN_AUTO,
                    "Endian mode has not been determined, did you disable header without setting?");
 
         size_t homePos = mStream->tell();
@@ -248,7 +248,7 @@ namespace Ogre
     {
         Chunk* c = popChunk(id);
 
-        OgreAssert(mStream, "Stream is null");
+        // OgreAssert(mStream, "Stream is null");
 
         // skip to the end of the chunk if we were not there already
         // this lets us quite reading a chunk anywhere and have the read marker
@@ -324,13 +324,13 @@ namespace Ogre
     //---------------------------------------------------------------------
     bool StreamSerialiser::eof() const
     {
-        OgreAssert(mStream, "Stream is null");
+        // OgreAssert(mStream, "Stream is null");
         return mStream->eof(); 
     }
     //---------------------------------------------------------------------
     void StreamSerialiser::checkStream(bool failOnEof, bool validateReadable, bool validateWriteable) const
     {
-        OgreAssert(mStream, "Stream is null");
+        // OgreAssert(mStream, "Stream is null");
 
         if (failOnEof && mStream->eof())
             OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "Invalid operation, end of file on stream");
@@ -366,7 +366,7 @@ namespace Ogre
         if (mReadWriteHeader)
             writeHeader();
 
-        OgreAssert(mEndian != ENDIAN_AUTO,
+        // OgreAssert(mEndian != ENDIAN_AUTO,
                    "Endian mode has not been determined, did you disable header without setting?");
 
         writeChunkImpl(id, version);
@@ -400,7 +400,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     size_t StreamSerialiser::getOffsetFromChunkStart() const
     {
-        OgreAssert(mStream, "Stream is null");
+        // OgreAssert(mStream, "Stream is null");
 
         if (mChunkStack.empty())
         {
@@ -815,10 +815,10 @@ namespace Ogre
     //---------------------------------------------------------------------
     StreamSerialiser::Chunk* StreamSerialiser::popChunk(uint id)
     {
-        OgreAssert(!mChunkStack.empty(), "No active chunk!");
+        // OgreAssert(!mChunkStack.empty(), "No active chunk!");
 
         const Chunk* chunk = mChunkStack.back();
-        OgreAssert(chunk->id == id, "Incorrect chunk id!");
+        // OgreAssert(chunk->id == id, "Incorrect chunk id!");
 
         Chunk* c = mChunkStack.back();
         mChunkStack.pop_back();
@@ -827,7 +827,7 @@ namespace Ogre
     }
     void StreamSerialiser::startDeflate(size_t avail_in)
     {
-        OgreAssert( !mOriginalStream , "Don't start (un)compressing twice!" );
+        // OgreAssert( !mOriginalStream , "Don't start (un)compressing twice!" );
         DataStreamPtr deflateStream(new DeflateStream(mStream,"",avail_in));
         mOriginalStream = mStream;
         mStream = deflateStream;
@@ -835,7 +835,7 @@ namespace Ogre
 
     void StreamSerialiser::stopDeflate()
     {
-        OgreAssert( mOriginalStream , "Must start (un)compressing first!" );
+        // OgreAssert( mOriginalStream , "Must start (un)compressing first!" );
         mStream = mOriginalStream;
         mOriginalStream.reset();
     }

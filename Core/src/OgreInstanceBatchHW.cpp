@@ -31,7 +31,7 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core:InstanceBatchHW;
+module Ogre.Core;
 
 import :Exception;
 import :HardwareBuffer;
@@ -293,7 +293,7 @@ class Camera;
         }
         else
         {
-            OgreAssert(!mManager->getCameraRelativeRendering(),
+            // OgreAssert(!mManager->getCameraRelativeRendering(),
                        "Camera-relative rendering is incompatible with Instancing's static batches. "
                        "Disable at least one of them");
 

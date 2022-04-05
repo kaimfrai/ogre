@@ -25,11 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <limits>
+#include <utility>
+
 export module Ogre.Core:Ray;
 
-// Precompiler options
-import :PlaneBoundedVolume;
-import :Prerequisites;
+export import :Math;
+export import :Plane;
+export import :PlaneBoundedVolume;
+export import :Prerequisites;
+export import :Sphere;
+export import :Vector;
 
 export
 namespace Ogre {

@@ -32,7 +32,7 @@ module;
 
 export module Ogre.Core:String;
 
-import :Prerequisites;
+export import :Prerequisites;
 
 #define OGRE_FORMAT_PRINTF(string_idx, first_to_check) __attribute__ ((format (printf, string_idx, first_to_check)))
 export

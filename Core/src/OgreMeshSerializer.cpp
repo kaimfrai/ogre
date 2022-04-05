@@ -31,7 +31,7 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core:MeshSerializer;
+module Ogre.Core;
 
 import :DataStream;
 import :Exception;

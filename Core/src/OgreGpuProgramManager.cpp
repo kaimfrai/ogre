@@ -31,7 +31,7 @@ module;
 #include <memory>
 #include <utility>
 
-module Ogre.Core:GpuProgramManager;
+module Ogre.Core;
 
 import :DataStream;
 import :Exception;

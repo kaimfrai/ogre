@@ -33,7 +33,7 @@ module;
 #include <memory>
 #include <utility>
 
-module Ogre.Core:InstanceManager;
+module Ogre.Core;
 
 import :Exception;
 import :HardwareBuffer;
@@ -102,21 +102,21 @@ class InstancedEntity;
     //----------------------------------------------------------------------
     void InstanceManager::setInstancesPerBatch( size_t instancesPerBatch )
     {
-        OgreAssert(mInstanceBatches.empty(), "can only be changed before building the batch");
+        // OgreAssert(mInstanceBatches.empty(), "can only be changed before building the batch");
         mInstancesPerBatch = instancesPerBatch;
     }
 
     //----------------------------------------------------------------------
     void InstanceManager::setMaxLookupTableInstances( size_t maxLookupTableInstances )
     {
-        OgreAssert(mInstanceBatches.empty(), "can only be changed before building the batch");
+        // OgreAssert(mInstanceBatches.empty(), "can only be changed before building the batch");
         mMaxLookupTableInstances = maxLookupTableInstances;
     }
     
     //----------------------------------------------------------------------
     void InstanceManager::setNumCustomParams( unsigned char numCustomParams )
     {
-        OgreAssert(mInstanceBatches.empty(), "can only be changed before building the batch");
+        // OgreAssert(mInstanceBatches.empty(), "can only be changed before building the batch");
         mNumCustomParams = numCustomParams;
     }
     //----------------------------------------------------------------------
@@ -271,7 +271,7 @@ class InstancedEntity;
             mInstancesPerBatch = std::min( maxInstPerBatch, mInstancesPerBatch );
             batch->_setInstancesPerBatch( mInstancesPerBatch );
 
-            OgreAssert(mInstancesPerBatch, "unsupported instancing technique");
+            // OgreAssert(mInstancesPerBatch, "unsupported instancing technique");
             //TODO: Create a "merge" function that merges all submeshes into one big submesh
             //instead of just sending submesh #0
 

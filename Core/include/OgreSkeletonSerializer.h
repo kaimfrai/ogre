@@ -31,8 +31,8 @@ module;
 
 export module Ogre.Core:SkeletonSerializer;
 
-import :Prerequisites;
-import :Serializer;
+export import :Prerequisites;
+export import :Serializer;
 
 export
 namespace Ogre {

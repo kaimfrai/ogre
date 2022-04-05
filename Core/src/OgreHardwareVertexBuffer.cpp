@@ -33,7 +33,7 @@ module;
 #include <memory>
 #include <string>
 
-module Ogre.Core:HardwareVertexBuffer;
+module Ogre.Core;
 
 import :DefaultHardwareBufferManager;
 import :Exception;
@@ -244,7 +244,7 @@ namespace Ogre {
     VertexElementType VertexElement::multiplyTypeCount(VertexElementType baseType, 
         unsigned short count)
     {
-        OgreAssert(count > 0 && count < 5, "Count out of range");
+        // OgreAssert(count > 0 && count < 5, "Count out of range");
 
         switch (baseType)
         {

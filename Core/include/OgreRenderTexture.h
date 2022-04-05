@@ -32,10 +32,10 @@ module;
 
 export module Ogre.Core:RenderTexture;
 
-import :PixelFormat;
-import :Platform;
-import :Prerequisites;
-import :RenderTarget;
+export import :PixelFormat;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderTarget;
 
 export
 namespace Ogre

@@ -34,13 +34,12 @@ module;
 
 export module Ogre.Core:HardwareVertexBuffer;
 
-// Precompiler options
-import :ColourValue;
-import :HardwareBuffer;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :SharedPtr;
+export import :ColourValue;
+export import :HardwareBuffer;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :SharedPtr;
 
 export
 namespace Ogre {
@@ -451,7 +450,7 @@ namespace Ogre {
         @param mgr Optional HardwareBufferManager to use for creating the clone
             (if null, use the current default).
         */
-        VertexDeclaration* clone(HardwareBufferManagerBase* mgr = 0) const OGRE_NODISCARD;
+        [[nodiscard]] VertexDeclaration* clone(HardwareBufferManagerBase* mgr = 0) const;
 
         inline bool operator== (const VertexDeclaration& rhs) const
         {

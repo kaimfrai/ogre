@@ -31,7 +31,7 @@ module;
 #include <cstdlib>
 #include <fstream> // IWYU pragma: keep
 
-module Ogre.Core:Deflate;
+module Ogre.Core;
 
 import :Exception;
 import :FileSystem;

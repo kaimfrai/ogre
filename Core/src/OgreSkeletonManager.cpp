@@ -30,7 +30,7 @@ module;
 #include <cassert>
 #include <memory>
 
-module Ogre.Core:SkeletonManager;
+module Ogre.Core;
 
 import :SharedPtr;
 import :Skeleton;

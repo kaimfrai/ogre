@@ -31,7 +31,7 @@ module;
 #include <memory>
 #include <vector>
 
-module Ogre.Core:RotationalSpline;
+module Ogre.Core;
 
 import :Prerequisites;
 import :Quaternion;

@@ -33,7 +33,7 @@ module;
 
 export module Ogre.Core:Timer;
 
-import :MemoryAllocatorConfig;
+export import :MemoryAllocatorConfig;
 
 export
 namespace Ogre

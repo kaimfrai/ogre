@@ -36,7 +36,7 @@ module;
 #include <strings.h>
 #include <vector>
 
-module Ogre.Core:String;
+module Ogre.Core;
 
 import :Exception;
 import :Prerequisites;
@@ -508,7 +508,7 @@ namespace Ogre {
             int len = vsnprintf(pbuf, bsize, fmt, va);
             va_end(va);
 
-            OgreAssert(len >= 0, "Check format string for errors");
+            // OgreAssert(len >= 0, "Check format string for errors");
             if (size_t(len) >= bsize)
             {
                 hbuf.resize(len + 1);

@@ -25,7 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Core:Billboard;
+module Ogre.Core;
+
+import :Math;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :Vector;
 
 namespace Ogre {
 class BillboardSet;

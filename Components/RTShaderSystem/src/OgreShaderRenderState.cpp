@@ -229,7 +229,7 @@ static void fixupFFPLighting(TargetRenderState* renderState)
     it = std::find_if(subRenderStateList.begin(), subRenderStateList.end(),
                       [](const SubRenderState* e) { return e->getType() == FFPColour::Type; });
 
-    OgreAssert(it != subRenderStateList.end(), "FFPColour required");
+    // OgreAssert(it != subRenderStateList.end(), "FFPColour required");
 
     auto ffpColour = static_cast<FFPColour*>(*it);
     ffpColour->addResolveStageMask(FFPColour::SF_VS_OUTPUT_DIFFUSE);

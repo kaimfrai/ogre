@@ -29,7 +29,7 @@ module;
 
 #include <algorithm>
 
-module Ogre.Core:Frustum;
+module Ogre.Core;
 
 import :AxisAlignedBox;
 import :Common;
@@ -131,7 +131,7 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     void Frustum::setNearClipDistance(Real nearPlane)
     {
-        OgreAssert(nearPlane > 0, "Invalid clip distance");
+        // OgreAssert(nearPlane > 0, "Invalid clip distance");
         mNearDist = nearPlane;
         invalidateFrustum();
     }
@@ -161,7 +161,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void Frustum::setFocalLength(Real focalLength)
     {
-        OgreAssert(focalLength > 0, "Invalid focal length");
+        // OgreAssert(focalLength > 0, "Invalid focal length");
         mFocalLength = focalLength;
         invalidateFrustum();
     }

@@ -25,14 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+#include <vector>
+
 export module Ogre.Core:ParticleSystemRenderer;
 
-import :Common;
-import :FactoryObj;
-import :Prerequisites;
-import :RenderQueue;
-import :Renderable;
-import :StringInterface;
+export import :Common;
+export import :FactoryObj;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderQueue;
+export import :Renderable;
+export import :StringInterface;
 
 export
 namespace Ogre {

@@ -34,14 +34,14 @@ module;
 
 export module Ogre.Core:InstancedEntity;
 
-import :Matrix4;
-import :MovableObject;
-import :Node;
-import :Platform;
-import :Prerequisites;
-import :Quaternion;
-import :Renderable;
-import :Vector;
+export import :Matrix4;
+export import :MovableObject;
+export import :Node;
+export import :Platform;
+export import :Prerequisites;
+export import :Quaternion;
+export import :Renderable;
+export import :Vector;
 
 export
 namespace Ogre

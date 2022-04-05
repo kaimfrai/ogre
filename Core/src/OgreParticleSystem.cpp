@@ -31,7 +31,7 @@ module;
 #include <cassert>
 #include <utility>
 
-module Ogre.Core:ParticleSystem;
+module Ogre.Core;
 
 import :Camera;
 import :Common;
@@ -294,7 +294,7 @@ class RenderQueue;
     void ParticleSystem::removeEmitter(ParticleEmitter* emitter)
     {
         auto ei = std::find(mEmitters.begin(), mEmitters.end(), emitter);
-        OgreAssert(ei != mEmitters.end(), "Emitter is not a part of ParticleSystem!");
+        // OgreAssert(ei != mEmitters.end(), "Emitter is not a part of ParticleSystem!");
         ParticleSystemManager::getSingleton()._destroyEmitter(*ei);
         mEmitters.erase(ei);
     }

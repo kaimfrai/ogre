@@ -28,14 +28,15 @@ THE SOFTWARE.
 module;
 
 #include <cstddef>
+#include <string>
 #include <vector>
 
 export module Ogre.Core:CompositionTargetPass;
 
-import :CompositionPass;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
+export import :CompositionPass;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
 
 export
 namespace Ogre {

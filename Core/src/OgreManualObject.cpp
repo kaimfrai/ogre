@@ -35,7 +35,7 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core:ManualObject;
+module Ogre.Core;
 
 import :AxisAlignedBox;
 import :ColourValue;
@@ -183,7 +183,7 @@ ManualObject::ManualObject(const String& name)
     void ManualObject::begin(const String& materialName,
         RenderOperation::OperationType opType, const String& groupName)
     {
-        OgreAssert(!mCurrentSection, "You cannot call begin() again until after you call end()");
+        // OgreAssert(!mCurrentSection, "You cannot call begin() again until after you call end()");
 
         // Check that a valid material was provided
         MaterialPtr material = MaterialManager::getSingleton().getByName(materialName, groupName);
@@ -211,7 +211,7 @@ ManualObject::ManualObject(const String& name)
     //-----------------------------------------------------------------------------
     void ManualObject::begin(const MaterialPtr& mat, RenderOperation::OperationType opType)
     {
-      OgreAssert(!mCurrentSection, "You cannot call begin() again until after you call end()");
+      // OgreAssert(!mCurrentSection, "You cannot call begin() again until after you call end()");
 
       if (mat)
       {
@@ -235,7 +235,7 @@ ManualObject::ManualObject(const String& name)
     //-----------------------------------------------------------------------------
     void ManualObject::beginUpdate(size_t sectionIndex)
     {
-        OgreAssert(!mCurrentSection, "You cannot call begin() again until after you call end()");
+        // OgreAssert(!mCurrentSection, "You cannot call begin() again until after you call end()");
         mCurrentSection = mSectionList.at(sectionIndex);
         mCurrentUpdating = true;
         mFirstVertex = true;
@@ -316,15 +316,15 @@ ManualObject::ManualObject(const String& name)
             case VET_FLOAT2:
             case VET_FLOAT3:
             case VET_FLOAT4:
-                OgreAssert(elem.getSemantic() != VES_DIFFUSE, "must use VET_COLOUR");
+                // OgreAssert(elem.getSemantic() != VES_DIFFUSE, "must use VET_COLOUR");
                 elem.baseVertexPointerToElement(pBase, &pFloat);
                 break;
             case VET_UBYTE4_NORM:
-                OgreAssert(elem.getSemantic() == VES_DIFFUSE, "must use VES_DIFFUSE");
+                // OgreAssert(elem.getSemantic() == VES_DIFFUSE, "must use VES_DIFFUSE");
                 elem.baseVertexPointerToElement(pBase, &pRGBA);
                 break;
             default:
-                OgreAssert(false, "invalid element type");
+                // OgreAssert(false, "invalid element type");
                 break;
             };
 
@@ -355,7 +355,7 @@ ManualObject::ManualObject(const String& name)
                 *pRGBA++ = mTempVertex.colour.getAsABGR();
                 break;
             default:
-                OgreAssert(false, "invalid semantic");
+                // OgreAssert(false, "invalid semantic");
                 break;
             };
 
@@ -365,7 +365,7 @@ ManualObject::ManualObject(const String& name)
     //-----------------------------------------------------------------------------
     ManualObject::ManualObjectSection* ManualObject::end(void)
     {
-        OgreAssert(mCurrentSection, "You cannot call end() until after you call begin()");
+        // OgreAssert(mCurrentSection, "You cannot call end() until after you call begin()");
         if (mTempVertexPending)
         {
             // bake current vertex
@@ -491,9 +491,9 @@ ManualObject::ManualObject(const String& name)
     //-----------------------------------------------------------------------------
     MeshPtr ManualObject::convertToMesh(const String& meshName, const String& groupName)
     {
-        OgreAssert(!mCurrentSection, "You cannot call convertToMesh() whilst you are in the middle of "
+        // OgreAssert(!mCurrentSection, "You cannot call convertToMesh() whilst you are in the middle of "
                                      "defining the object; call end() first.");
-        OgreAssert(!mSectionList.empty(), "No data defined to convert to a mesh.");
+        // OgreAssert(!mSectionList.empty(), "No data defined to convert to a mesh.");
 
         MeshPtr m = MeshManager::getSingleton().createManual(meshName, groupName);
 

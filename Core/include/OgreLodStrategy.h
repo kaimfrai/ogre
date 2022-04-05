@@ -25,12 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <string>
+
 export module Ogre.Core:LodStrategy;
 
-import :Material;
-import :MemoryAllocatorConfig;
-import :Mesh;
-import :Prerequisites;
+export import :Material;
+export import :MemoryAllocatorConfig;
+export import :Mesh;
+export import :Prerequisites;
 
 export
 namespace Ogre {

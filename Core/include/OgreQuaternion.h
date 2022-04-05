@@ -41,8 +41,8 @@ module;
 
 export module Ogre.Core:Quaternion;
 
-import :Math;
-import :Prerequisites;
+export import :Math;
+export import :Prerequisites;
 
 export
 namespace Ogre {

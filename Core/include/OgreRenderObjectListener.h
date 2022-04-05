@@ -27,9 +27,10 @@ THE SOFTWARE.
 */
 export module Ogre.Core:RenderObjectListener;
 
-import :Pass;
-import :Prerequisites;
-import :Renderable;
+export import :Common;
+export import :Pass;
+export import :Prerequisites;
+export import :Renderable;
 
 export
 namespace Ogre {

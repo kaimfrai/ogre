@@ -27,9 +27,11 @@ THE SOFTWARE.
 */
 module;
 
+#include <map>
+#include <string>
 #include <utility>
 
-module Ogre.Core:Animable;
+module Ogre.Core;
 
 import :Any;
 

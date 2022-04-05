@@ -28,10 +28,12 @@ THE SOFTWARE.
 module;
 
 #include <string>
+#include <vector>
 
-module Ogre.Core:BillboardParticleRenderer;
+module Ogre.Core;
 
 import :Billboard;
+import :BillboardParticleRenderer;
 import :Exception;
 import :Math;
 import :Particle;

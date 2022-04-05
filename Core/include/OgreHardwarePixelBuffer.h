@@ -32,13 +32,12 @@ module;
 
 export module Ogre.Core:HardwarePixelBuffer;
 
-// Precompiler options
-import :Common;
-import :HardwareBuffer;
-import :PixelFormat;
-import :Platform;
-import :Prerequisites;
-import :Vector;
+export import :Common;
+export import :HardwareBuffer;
+export import :PixelFormat;
+export import :Platform;
+export import :Prerequisites;
+export import :Vector;
 
 export
 namespace Ogre {

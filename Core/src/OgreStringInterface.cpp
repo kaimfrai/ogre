@@ -33,7 +33,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:StringInterface;
+module Ogre.Core;
 
 import :Common;
 import :Prerequisites;

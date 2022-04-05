@@ -25,10 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <vector>
+
 export module Ogre.Core:ParticleAffectorFactory;
 
-import :ParticleAffector;
-import :Prerequisites;
+export import :MemoryAllocatorConfig;
+export import :ParticleAffector;
+export import :Prerequisites;
 
 export
 namespace Ogre {

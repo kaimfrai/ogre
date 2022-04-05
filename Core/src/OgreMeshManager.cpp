@@ -33,9 +33,10 @@ module;
 #include <map>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <utility>
 
-module Ogre.Core:MeshManager;
+module Ogre.Core;
 
 import :Any;
 import :AxisAlignedBox;
@@ -71,7 +72,7 @@ namespace Ogre
     struct MeshCodec : public Codec
     {
         String magicNumberToFileExt(const char* magicNumberPtr, size_t maxbytes) const { return ""; }
-        String getType() const { return "mesh"; }
+        ::std::string_view getType() const { return "mesh"; }
         void decode(const DataStreamPtr& input, const Any& output) const override
         {
             Mesh* dst = any_cast<Mesh*>(output);
@@ -927,7 +928,7 @@ namespace Ogre
                 mBlendWeightsBaseElementType = vet;
                 break;
             default:
-                OgreAssert(false, "Unsupported BlendWeightsBaseElementType");
+                // OgreAssert(false, "Unsupported BlendWeightsBaseElementType");
                 break;
         }
     }

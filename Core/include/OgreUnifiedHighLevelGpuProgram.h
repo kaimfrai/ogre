@@ -28,16 +28,17 @@ THE SOFTWARE.
 module;
 
 #include <cstddef>
+#include <vector>
 
 export module Ogre.Core:UnifiedHighLevelGpuProgram;
 
-import :Common;
-import :GpuProgram;
-import :GpuProgramManager;
-import :Prerequisites;
-import :Resource;
-import :SharedPtr;
-import :StringVector;
+export import :Common;
+export import :GpuProgram;
+export import :GpuProgramManager;
+export import :Prerequisites;
+export import :Resource;
+export import :SharedPtr;
+export import :StringVector;
 
 export
 namespace Ogre {

@@ -34,7 +34,7 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core:StringConverter;
+module Ogre.Core;
 
 import :ColourValue;
 import :Common;

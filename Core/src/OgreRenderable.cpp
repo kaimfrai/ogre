@@ -7,7 +7,7 @@ module;
 #include <map>
 #include <utility>
 
-module Ogre.Core:Renderable;
+module Ogre.Core;
 
 import :Exception;
 import :GpuProgramParams;

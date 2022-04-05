@@ -33,7 +33,7 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core:LogManager;
+module Ogre.Core;
 
 import :Exception;
 import :Log;
@@ -98,7 +98,7 @@ namespace Ogre {
     Log* LogManager::getLog( const String& name)
     {
         LogList::iterator i = mLogs.find(name);
-        OgreAssert(i != mLogs.end(), "Log not found");
+        // OgreAssert(i != mLogs.end(), "Log not found");
         return i->second;
     }
     //-----------------------------------------------------------------------
@@ -124,7 +124,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void LogManager::destroyLog(Log* log)
     {
-        OgreAssert(log, "Cannot destroy a null log");
+        // OgreAssert(log, "Cannot destroy a null log");
         destroyLog(log->getName());
     }
     //-----------------------------------------------------------------------
@@ -157,7 +157,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     Log::Stream LogManager::stream(LogMessageLevel lml, bool maskDebug)
     {
-        OgreAssert(mDefaultLog, "Default log not found");
+        // OgreAssert(mDefaultLog, "Default log not found");
         return mDefaultLog->stream(lml, maskDebug);
     }
 }

@@ -27,8 +27,9 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 */
 export module Ogre.Core:RenderOperation;
 
-import :Prerequisites;
-import :VertexIndexData;
+export import :Platform;
+export import :Prerequisites;
+export import :VertexIndexData;
 
 export
 namespace Ogre {

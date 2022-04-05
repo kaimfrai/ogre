@@ -32,10 +32,10 @@ module;
 
 export module Ogre.Core:LogManager;
 
-import :Log;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :Singleton;
+export import :Log;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :Singleton;
 
 export
 namespace Ogre

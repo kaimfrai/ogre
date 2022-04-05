@@ -34,7 +34,7 @@ module;
 #include <list>
 #include <memory>
 
-module Ogre.Core:AnimationTrack;
+module Ogre.Core;
 
 import :Animable;
 import :Animation;
@@ -95,7 +95,7 @@ namespace Ogre {
         {
             // Wrap time
             Real totalAnimationLength = mParent->getLength();
-            OgreAssertDbg(totalAnimationLength > 0.0f, "Invalid animation length!");
+            // OgreAssertDbg(totalAnimationLength > 0.0f, "Invalid animation length!");
 
             if( timePos > totalAnimationLength && totalAnimationLength > 0.0f )
                 timePos = std::fmod( timePos, totalAnimationLength );
@@ -702,13 +702,13 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     VertexMorphKeyFrame* VertexAnimationTrack::createVertexMorphKeyFrame(Real timePos)
     {
-        OgreAssert(mAnimationType == VAT_MORPH, "Type mismatch");
+        // OgreAssert(mAnimationType == VAT_MORPH, "Type mismatch");
         return static_cast<VertexMorphKeyFrame*>(createKeyFrame(timePos));
     }
     //--------------------------------------------------------------------------
     VertexPoseKeyFrame* VertexAnimationTrack::createVertexPoseKeyFrame(Real timePos)
     {
-        OgreAssert(mAnimationType == VAT_POSE, "Type mismatch");
+        // OgreAssert(mAnimationType == VAT_POSE, "Type mismatch");
         return static_cast<VertexPoseKeyFrame*>(createKeyFrame(timePos));
     }
     //--------------------------------------------------------------------------
@@ -964,13 +964,13 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     VertexMorphKeyFrame* VertexAnimationTrack::getVertexMorphKeyFrame(unsigned short index) const
     {
-        OgreAssert(mAnimationType == VAT_MORPH, "Type mismatch");
+        // OgreAssert(mAnimationType == VAT_MORPH, "Type mismatch");
         return static_cast<VertexMorphKeyFrame*>(getKeyFrame(index));
     }
     //--------------------------------------------------------------------------
     VertexPoseKeyFrame* VertexAnimationTrack::getVertexPoseKeyFrame(unsigned short index) const
     {
-        OgreAssert(mAnimationType == VAT_POSE, "Type mismatch");
+        // OgreAssert(mAnimationType == VAT_POSE, "Type mismatch");
         return static_cast<VertexPoseKeyFrame*>(getKeyFrame(index));
     }
     //--------------------------------------------------------------------------

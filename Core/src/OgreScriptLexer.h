@@ -28,9 +28,10 @@ THE SOFTWARE.
 module;
 
 #include <algorithm>
+#include <string>
 #include <vector>
 
-export module Ogre.Core:ScriptLexer;
+module Ogre.Core:ScriptLexer;
 
 import :MemoryAllocatorConfig;
 import :Platform;

@@ -159,7 +159,7 @@ protected:
 
 struct In : Operand 
 {
-    In(const Operand& rhs) : Operand(rhs) { OgreAssert(mSemantic == OPS_IN, "invalid semantic"); }
+    In(const Operand& rhs) : Operand(rhs) { /*OgreAssert(mSemantic == OPS_IN, "invalid semantic");*/ }
     In(ParameterPtr p) : Operand(p, OPS_IN) {}
     In(UniformParameterPtr p) : Operand(p, OPS_IN) {}
 
@@ -172,14 +172,14 @@ struct In : Operand
 
 struct Out : Operand 
 {
-    Out(const Operand& rhs) : Operand(rhs) { OgreAssert(mSemantic == OPS_OUT, "invalid semantic"); }
+    Out(const Operand& rhs) : Operand(rhs) { /*OgreAssert(mSemantic == OPS_OUT, "invalid semantic");*/ }
     Out(ParameterPtr p) : Operand(p, OPS_OUT) {}
     Out(UniformParameterPtr p) : Operand(p, OPS_OUT) {}
 };
 
 struct InOut : Operand 
 {
-    InOut(const Operand& rhs) : Operand(rhs) { OgreAssert(mSemantic == OPS_INOUT, "invalid semantic"); }
+    InOut(const Operand& rhs) : Operand(rhs) { /*OgreAssert(mSemantic == OPS_INOUT, "invalid semantic");*/ }
     InOut(ParameterPtr p) : Operand(p, OPS_INOUT) {}
     InOut(UniformParameterPtr p) : Operand(p, OPS_INOUT) {}
 };

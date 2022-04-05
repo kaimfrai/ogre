@@ -31,8 +31,8 @@ module;
 
 export module Ogre.Core:HardwareIndexBuffer;
 
-import :HardwareBuffer;
-import :Platform;
+export import :HardwareBuffer;
+export import :Platform;
 
 export
 namespace Ogre {

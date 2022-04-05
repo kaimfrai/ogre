@@ -33,7 +33,7 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core:ParticleSystemManager;
+module Ogre.Core;
 
 import :BillboardParticleRenderer;
 import :Common;

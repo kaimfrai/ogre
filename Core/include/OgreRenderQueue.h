@@ -31,9 +31,9 @@ module;
 
 export module Ogre.Core:RenderQueue;
 
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
 
 export
 namespace Ogre {

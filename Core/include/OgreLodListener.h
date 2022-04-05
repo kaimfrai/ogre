@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 export module Ogre.Core:LodListener;
 
-import :Prerequisites;
+export import :Prerequisites;
 
 export
 namespace Ogre {

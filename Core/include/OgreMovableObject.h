@@ -28,20 +28,21 @@ THE SOFTWARE.
 module;
 
 #include <cstddef>
+#include <string>
+#include <vector>
 
 export module Ogre.Core:MovableObject;
 
-// Precompiler options
-import :Animable;
-import :AxisAlignedBox;
-import :Common;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :Renderable;
-import :ShadowCaster;
-import :Sphere;
-import :UserObjectBindings;
+export import :Animable;
+export import :AxisAlignedBox;
+export import :Common;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :Renderable;
+export import :ShadowCaster;
+export import :Sphere;
+export import :UserObjectBindings;
 
 export
 namespace Ogre {

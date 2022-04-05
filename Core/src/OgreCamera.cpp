@@ -34,7 +34,7 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core:Camera;
+module Ogre.Core;
 
 import :AxisAlignedBox;
 import :Common;

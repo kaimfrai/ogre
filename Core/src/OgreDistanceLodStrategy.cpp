@@ -30,7 +30,7 @@ module;
 #include <algorithm>
 #include <cassert>
 
-module Ogre.Core:DistanceLodStrategy;
+module Ogre.Core;
 
 import :AxisAlignedBox;
 import :Camera;

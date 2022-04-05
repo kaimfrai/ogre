@@ -34,13 +34,13 @@ module;
 
 export module Ogre.Core:InstanceBatchVTF;
 
-import :InstanceBatch;
-import :Matrix4;
-import :Mesh;
-import :Platform;
-import :Prerequisites;
-import :SharedPtr;
-import :Texture;
+export import :InstanceBatch;
+export import :Matrix4;
+export import :Mesh;
+export import :Platform;
+export import :Prerequisites;
+export import :SharedPtr;
+export import :Texture;
 
 export
 namespace Ogre

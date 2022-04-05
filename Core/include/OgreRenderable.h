@@ -32,13 +32,13 @@ module;
 
 export module Ogre.Core:Renderable;
 
-import :Common;
-import :GpuProgramParams;
-import :Material;
-import :Prerequisites;
-import :SharedPtr;
-import :UserObjectBindings;
-import :Vector;
+export import :Common;
+export import :GpuProgramParams;
+export import :Material;
+export import :Prerequisites;
+export import :SharedPtr;
+export import :UserObjectBindings;
+export import :Vector;
 
 export
 namespace Ogre {

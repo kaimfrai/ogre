@@ -35,12 +35,11 @@ module;
 
 export module Ogre.Core:RenderQueueSortingGrouping;
 
-// Precompiler options
-import :IteratorWrapper;
-import :MemoryAllocatorConfig;
-import :Pass;
-import :Platform;
-import :Prerequisites;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Pass;
+export import :Platform;
+export import :Prerequisites;
 
 export
 namespace Ogre {

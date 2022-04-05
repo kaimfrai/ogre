@@ -33,10 +33,10 @@ module;
 
 export module Ogre.Core:DataStream;
 
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :SharedPtr;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :SharedPtr;
 
 export
 namespace Ogre {
@@ -48,6 +48,7 @@ namespace Ogre {
     *  @{
     */
 
+    auto constexpr inline OGRE_STREAM_TEMP_SIZE = 128;
     /** General purpose class used for encapsulating the reading and writing of data.
     @remarks
         This class performs basically the same tasks as std::basic_istream, 
@@ -83,7 +84,6 @@ namespace Ogre {
         /// What type of access is allowed (AccessMode)
         uint16 mAccess;
 
-        #define OGRE_STREAM_TEMP_SIZE 128
     public:
         /// Constructor for creating unnamed streams
         DataStream(uint16 accessMode = READ) : mSize(0), mAccess(accessMode) {}

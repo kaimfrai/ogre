@@ -30,21 +30,22 @@ module;
 #include <cstddef>
 #include <map>
 #include <memory>
+#include <string_view>
 
 export module Ogre.Core:MeshManager;
 
-import :Common;
-import :HardwareBuffer;
-import :HardwareVertexBuffer;
-import :PatchSurface;
-import :Plane;
-import :Prerequisites;
-import :Quaternion;
-import :Resource;
-import :ResourceGroupManager;
-import :ResourceManager;
-import :Singleton;
-import :Vector;
+export import :Common;
+export import :HardwareBuffer;
+export import :HardwareVertexBuffer;
+export import :PatchSurface;
+export import :Plane;
+export import :Prerequisites;
+export import :Quaternion;
+export import :Resource;
+export import :ResourceGroupManager;
+export import :ResourceManager;
+export import :Singleton;
+export import :Vector;
 
 export
 namespace Ogre {
@@ -83,7 +84,7 @@ class SubMesh;
         void _initialise(void);
 
         /// @copydoc ResourceManager::getResourceByName
-        MeshPtr getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const;
+        MeshPtr getByName(const String& name, ::std::string_view groupName = RGN_DEFAULT) const;
 
         /// Create a new mesh
         /// @copydetails ResourceManager::createResource

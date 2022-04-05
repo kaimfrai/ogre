@@ -38,8 +38,8 @@ module;
 
 export module Ogre.Core:Math;
 
-import :Platform;
-import :Prerequisites;
+export import :Platform;
+export import :Prerequisites;
 
 export
 namespace Ogre

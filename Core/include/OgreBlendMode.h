@@ -27,8 +27,8 @@ THE SOFTWARE.
 */
 export module Ogre.Core:BlendMode;
 
-import :ColourValue;
-import :Prerequisites;
+export import :ColourValue;
+export import :Prerequisites;
 
 export
 namespace Ogre {

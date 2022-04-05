@@ -30,12 +30,13 @@ module;
 #include <atomic>
 #include <cstddef>
 #include <set>
+#include <string>
 
 export module Ogre.Core:Resource;
 
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :StringInterface;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :StringInterface;
 
 export
 namespace Ogre {

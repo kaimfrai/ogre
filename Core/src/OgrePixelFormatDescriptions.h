@@ -25,7 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:PixelFormatDescriptions;
+module;
+
+#include <string>
+
+module Ogre.Core:PixelFormatDescriptions;
+
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
 
 export
 namespace Ogre {

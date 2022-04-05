@@ -32,7 +32,7 @@ module;
 #include <iomanip>
 #include <iosfwd>
 
-module Ogre.Core:Viewport;
+module Ogre.Core;
 
 import :Camera;
 import :Exception;

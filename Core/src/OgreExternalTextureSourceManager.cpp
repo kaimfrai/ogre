@@ -38,7 +38,7 @@ module;
 #include <cassert>
 #include <utility>
 
-module Ogre.Core:ExternalTextureSourceManager;
+module Ogre.Core;
 
 import :ExternalTextureSource;
 import :LogManager;

@@ -43,7 +43,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:Mesh;
+module Ogre.Core;
 
 import :Animation;
 import :AnimationState;
@@ -154,7 +154,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Mesh::destroySubMesh(unsigned short index)
     {
-        OgreAssert(index < mSubMeshList.size(), "");
+        // OgreAssert(index < mSubMeshList.size(), "");
         SubMeshList::iterator i = mSubMeshList.begin();
         std::advance(i, index);
         delete *i;
@@ -874,7 +874,7 @@ namespace Ogre {
         switch ( weightsBaseType )
         {
             default:
-            	OgreAssert(false, "Invalid BlendWeightsBaseElementType");
+            	// OgreAssert(false, "Invalid BlendWeightsBaseElementType");
             	break;
             case VET_FLOAT1:
                 break;
@@ -1864,7 +1864,7 @@ namespace Ogre {
             sourceVertexData->vertexDeclaration->findElementBySemantic(VES_BLEND_INDICES);
         const VertexElement* srcElemBlendWeights =
             sourceVertexData->vertexDeclaration->findElementBySemantic(VES_BLEND_WEIGHTS);
-        OgreAssert(srcElemPos && srcElemBlendIndices && srcElemBlendWeights,
+        // OgreAssert(srcElemPos && srcElemBlendIndices && srcElemBlendWeights,
             "You must supply at least positions, blend indices and blend weights");
         // Get elements for target
         const VertexElement* destElemPos =
@@ -2349,7 +2349,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Mesh::removePose(ushort index)
     {
-        OgreAssert(index < mPoseList.size(), "");
+        // OgreAssert(index < mPoseList.size(), "");
         PoseList::iterator i = mPoseList.begin();
         std::advance(i, index);
         delete *i;

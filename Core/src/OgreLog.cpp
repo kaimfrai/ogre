@@ -35,7 +35,7 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core:Log;
+module Ogre.Core;
 
 import :Prerequisites;
 import :StringConverter;

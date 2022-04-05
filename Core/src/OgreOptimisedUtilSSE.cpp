@@ -595,7 +595,7 @@ namespace Ogre {
             }
         }
     };
-    static OGRE_FORCE_INLINE void softwareVertexSkinning_SSE_PosNorm_Shared_Packed(
+    static inline __attribute__((always_inline)) void softwareVertexSkinning_SSE_PosNorm_Shared_Packed(
             const float* pSrcPos, float* pDestPos,
             const float* pBlendWeight, const unsigned char* pBlendIndex,
             const Affine3* const* blendMatrices,
@@ -750,7 +750,7 @@ namespace Ogre {
             }
         }
     };
-    static OGRE_FORCE_INLINE void softwareVertexSkinning_SSE_PosNorm_Separated_Packed(
+    static inline __attribute__((always_inline)) void softwareVertexSkinning_SSE_PosNorm_Separated_Packed(
         const float* pSrcPos, float* pDestPos,
         const float* pSrcNorm, float* pDestNorm,
         const float* pBlendWeight, const unsigned char* pBlendIndex,
@@ -869,7 +869,7 @@ namespace Ogre {
             }
         }
     };
-    static OGRE_FORCE_INLINE void softwareVertexSkinning_SSE_PosOnly_Packed(
+    static inline __attribute__((always_inline)) void softwareVertexSkinning_SSE_PosOnly_Packed(
         const float* pSrcPos, float* pDestPos,
         const float* pBlendWeight, const unsigned char* pBlendIndex,
         const Affine3* const* blendMatrices,
@@ -1152,7 +1152,7 @@ namespace Ogre {
         size_t numVertices,
         bool morphNormals)
     {
-        OgreAssert(pos1VSize == pos2VSize && pos2VSize == dstVSize && dstVSize == (morphNormals ? 24 : 12),
+        // OgreAssert(pos1VSize == pos2VSize && pos2VSize == dstVSize && dstVSize == (morphNormals ? 24 : 12),
                    "stride not supported");
 
         __m128 src01, src02, src11, src12, src21, src22;
@@ -1453,7 +1453,7 @@ namespace Ogre {
 #define __LOAD_VECTOR3(p)   _mm_loadh_pi(_mm_load_ss(p), (const __m64*)((p)+1))
 
         // Mask used to changes sign of single precision floating point values.
-        OGRE_SIMD_ALIGNED_DECL(static const uint32, msSignMask[4]) =
+        alignas(OGRE_SIMD_ALIGNMENT) static const uint32 msSignMask[4] =
         {
             0x80000000, 0x80000000, 0x80000000, 0x80000000,
         };

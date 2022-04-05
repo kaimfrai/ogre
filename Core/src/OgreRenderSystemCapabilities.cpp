@@ -29,7 +29,7 @@ module;
 
 #include <ostream>
 
-module Ogre.Core:RenderSystemCapabilities;
+module Ogre.Core;
 
 import :Log;
 import :String;

@@ -32,8 +32,9 @@ module;
 #include <cstring>
 #include <limits>
 #include <utility>
+#include <vector>
 
-module Ogre.Core:AnimationState;
+module Ogre.Core;
 
 import :Exception;
 import :IteratorWrapper;

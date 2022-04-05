@@ -29,7 +29,7 @@ module;
 
 #include <string>
 
-module Ogre.Core:ShadowVolumeExtrudeProgram;
+module Ogre.Core;
 
 import :Exception;
 import :GpuProgram;

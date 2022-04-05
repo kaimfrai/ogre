@@ -32,10 +32,10 @@ module;
 
 export module Ogre.Core:ConfigFile;
 
-import :Common;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :StringVector;
+export import :Common;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :StringVector;
 
 export
 namespace Ogre {

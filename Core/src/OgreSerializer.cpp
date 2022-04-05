@@ -31,7 +31,7 @@ module;
 #include <cstring>
 #include <string>
 
-module Ogre.Core:Serializer;
+module Ogre.Core;
 
 import :Bitwise;
 import :DataStream;
@@ -303,7 +303,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     String Serializer::readString(const DataStreamPtr& stream, size_t numChars)
     {
-        OgreAssert(numChars <= 255, "");
+        // OgreAssert(numChars <= 255, "");
         char str[255];
         stream->read(str, numChars);
         str[numChars] = '\0';

@@ -28,18 +28,19 @@ THE SOFTWARE.
 module;
 
 #include <cstddef>
+#include <list>
 #include <vector>
 
 export module Ogre.Core:ScriptTranslator;
 
-import :BlendMode;
-import :Common;
-import :GpuProgramParams;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :RenderSystem;
-import :ScriptCompiler;
+export import :BlendMode;
+export import :Common;
+export import :GpuProgramParams;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderSystem;
+export import :ScriptCompiler;
 
 export
 namespace Ogre{

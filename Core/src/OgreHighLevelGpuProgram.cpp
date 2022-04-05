@@ -30,7 +30,7 @@ module;
 #include <algorithm>
 #include <string>
 
-module Ogre.Core:HighLevelGpuProgram;
+module Ogre.Core;
 
 import :DataStream;
 import :Exception;

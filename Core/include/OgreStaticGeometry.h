@@ -39,21 +39,22 @@ module;
 
 export module Ogre.Core:StaticGeometry;
 
-import :AxisAlignedBox;
-import :Common;
-import :IteratorWrapper;
-import :Material;
-import :MemoryAllocatorConfig;
-import :Mesh;
-import :MovableObject;
-import :Platform;
-import :Prerequisites;
-import :Quaternion;
-import :Renderable;
-import :ShadowCaster;
-import :SharedPtr;
-import :Vector;
-import :VertexIndexData;
+export import :AxisAlignedBox;
+export import :Common;
+export import :IteratorWrapper;
+export import :Material;
+export import :MemoryAllocatorConfig;
+export import :Mesh;
+export import :MovableObject;
+export import :Platform;
+export import :Prerequisites;
+export import :Quaternion;
+export import :Renderable;
+export import :Resource;
+export import :ShadowCaster;
+export import :SharedPtr;
+export import :Vector;
+export import :VertexIndexData;
 
 export
 namespace Ogre {

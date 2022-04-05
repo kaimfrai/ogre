@@ -37,7 +37,7 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core:BillboardChain;
+module Ogre.Core;
 
 import :Camera;
 import :Exception;
@@ -358,7 +358,7 @@ class RenderSystem;
         const BillboardChain::Element& dtls)
     {
         ChainSegment& seg = mChainSegmentList.at(chainIndex);
-        OgreAssert(seg.head != SEGMENT_EMPTY, "Chain segment is empty");
+        // OgreAssert(seg.head != SEGMENT_EMPTY, "Chain segment is empty");
 
         size_t idx = seg.head + elementIndex;
         // adjust for the edge and start
@@ -379,7 +379,7 @@ class RenderSystem;
     BillboardChain::getChainElement(size_t chainIndex, size_t elementIndex) const
     {
         const ChainSegment& seg = mChainSegmentList.at(chainIndex);
-        OgreAssert(seg.head != SEGMENT_EMPTY, "Chain segment is empty");
+        // OgreAssert(seg.head != SEGMENT_EMPTY, "Chain segment is empty");
 
         size_t idx = seg.head + elementIndex;
         // adjust for the edge and start

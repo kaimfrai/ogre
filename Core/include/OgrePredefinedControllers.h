@@ -33,12 +33,12 @@ module;
 
 export module Ogre.Core:PredefinedControllers;
 
-import :Common;
-import :Controller;
-import :ControllerManager;
-import :FrameListener;
-import :Prerequisites;
-import :SharedPtr;
+export import :Common;
+export import :Controller;
+export import :ControllerManager;
+export import :FrameListener;
+export import :Prerequisites;
+export import :SharedPtr;
 
 export
 namespace Ogre {

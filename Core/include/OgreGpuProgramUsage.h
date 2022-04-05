@@ -28,14 +28,15 @@ THE SOFTWARE.
 module;
 
 #include <cstddef>
+#include <memory>
 
 export module Ogre.Core:GpuProgramUsage;
 
-import :GpuProgram;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :Resource;
-import :SharedPtr;
+export import :GpuProgram;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :Resource;
+export import :SharedPtr;
 
 export
 namespace Ogre 

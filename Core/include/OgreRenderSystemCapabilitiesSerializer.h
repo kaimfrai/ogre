@@ -35,10 +35,10 @@ module;
 
 export module Ogre.Core:RenderSystemCapabilitiesSerializer;
 
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :RenderSystemCapabilities;
-import :SharedPtr;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :RenderSystemCapabilities;
+export import :SharedPtr;
 
 export
 namespace Ogre {

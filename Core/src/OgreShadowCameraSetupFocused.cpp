@@ -31,7 +31,7 @@ module;
 #include <algorithm>
 #include <vector>
 
-module Ogre.Core:ShadowCameraSetupFocused;
+module Ogre.Core;
 
 import :Camera;
 import :Exception;
@@ -217,7 +217,7 @@ class Viewport;
         const Light& light, const AxisAlignedBox& sceneBB, const AxisAlignedBox& receiverBB, 
         PointListBody *out_bodyB) const
     {
-        OgreAssert(out_bodyB != NULL, "bodyB vertex list is NULL");
+        // OgreAssert(out_bodyB != NULL, "bodyB vertex list is NULL");
 
         /// perform convex intersection of the form B = ((V \cap S) + l) \cap S \cap L
 
@@ -414,10 +414,10 @@ class Viewport;
         const Viewport *vp, const Light *light, Camera *texCam, size_t iteration) const
     {
         // check availability - viewport not needed
-        OgreAssert(sm != NULL, "SceneManager is NULL");
-        OgreAssert(cam != NULL, "Camera (viewer) is NULL");
-        OgreAssert(light != NULL, "Light is NULL");
-        OgreAssert(texCam != NULL, "Camera (texture) is NULL");
+        // OgreAssert(sm != NULL, "SceneManager is NULL");
+        // OgreAssert(cam != NULL, "Camera (viewer) is NULL");
+        // OgreAssert(light != NULL, "Light is NULL");
+        // OgreAssert(texCam != NULL, "Camera (texture) is NULL");
         mLightFrustumCameraCalculated = false;
 
         texCam->setNearClipDistance(light->_deriveShadowNearClipDistance(cam));
@@ -660,7 +660,7 @@ class Viewport;
     //-----------------------------------------------------------------------   
     const Vector3& FocusedShadowCameraSetup::PointListBody::getPoint(size_t cnt) const
     {
-        OgreAssertDbg(cnt < getPointCount(), "Search position out of range");
+        // OgreAssertDbg(cnt < getPointCount(), "Search position out of range");
 
         return mBodyPoints[ cnt ];
     }

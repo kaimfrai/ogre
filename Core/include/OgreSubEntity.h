@@ -32,15 +32,15 @@ module;
 
 export module Ogre.Core:SubEntity;
 
-import :Common;
-import :GpuProgramParams;
-import :HardwareBufferManager;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :Renderable;
-import :ResourceGroupManager;
-import :SharedPtr;
+export import :Common;
+export import :GpuProgramParams;
+export import :HardwareBufferManager;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :Renderable;
+export import :ResourceGroupManager;
+export import :SharedPtr;
 
 export
 namespace Ogre {

@@ -30,7 +30,7 @@ module;
 #include <cassert>
 #include <utility>
 
-module Ogre.Core:DynLibManager;
+module Ogre.Core;
 
 import :DynLib;
 

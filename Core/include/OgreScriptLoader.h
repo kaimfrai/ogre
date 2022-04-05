@@ -27,9 +27,9 @@ THE SOFTWARE.
 */
 export module Ogre.Core:ScriptLoader;
 
-import :DataStream;
-import :Prerequisites;
-import :StringVector;
+export import :DataStream;
+export import :Prerequisites;
+export import :StringVector;
 
 export
 namespace Ogre {

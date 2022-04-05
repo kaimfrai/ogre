@@ -32,7 +32,7 @@ module;
 #include <functional>
 #include <vector>
 
-module Ogre.Core:LodStrategy;
+module Ogre.Core;
 
 import :Camera;
 

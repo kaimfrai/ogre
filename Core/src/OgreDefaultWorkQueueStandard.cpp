@@ -34,7 +34,7 @@ module;
 #include <thread>
 #include <vector>
 
-module Ogre.Core:DefaultWorkQueueStandard;
+module Ogre.Core;
 
 import :Log;
 import :LogManager;

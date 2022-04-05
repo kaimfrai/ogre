@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 export module Ogre.Core:MemoryAllocatorConfig;
 
-import :AlignedAllocator;
+export import :AlignedAllocator;
 
 export
 namespace Ogre

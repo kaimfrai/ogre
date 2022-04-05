@@ -31,9 +31,9 @@ module;
 
 export module Ogre.Core:SimpleSpline;
 
-import :Matrix4;
-import :Prerequisites;
-import :Vector;
+export import :Matrix4;
+export import :Prerequisites;
+export import :Vector;
 
 export
 namespace Ogre {

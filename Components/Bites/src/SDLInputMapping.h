@@ -16,7 +16,7 @@ namespace {
         {
         case SDL_KEYDOWN:
             out.type = OgreBites::KEYDOWN;
-            OGRE_FALLTHROUGH;
+            [[fallthrough]];
         case SDL_KEYUP:
             if(!out.type)
                 out.type = OgreBites::KEYUP;
@@ -26,7 +26,7 @@ namespace {
             break;
         case SDL_MOUSEBUTTONUP:
             out.type = OgreBites::MOUSEBUTTONUP;
-            OGRE_FALLTHROUGH;
+            [[fallthrough]];
         case SDL_MOUSEBUTTONDOWN:
             if(!out.type)
                 out.type = OgreBites::MOUSEBUTTONDOWN;
@@ -49,11 +49,11 @@ namespace {
             break;
         case SDL_FINGERDOWN:
             out.type = OgreBites::FINGERDOWN;
-            OGRE_FALLTHROUGH;
+            [[fallthrough]];
         case SDL_FINGERUP:
             if(!out.type)
                 out.type = OgreBites::FINGERUP;
-            OGRE_FALLTHROUGH;
+            [[fallthrough]];
         case SDL_FINGERMOTION:
             if(!out.type)
                 out.type = OgreBites::FINGERMOTION;
@@ -75,7 +75,7 @@ namespace {
             break;
         case SDL_CONTROLLERBUTTONDOWN:
             out.type = OgreBites::CONTROLLERBUTTONDOWN;
-            OGRE_FALLTHROUGH;
+            [[fallthrough]];
         case SDL_CONTROLLERBUTTONUP:
             if(!out.type)
                 out.type = OgreBites::CONTROLLERBUTTONUP;

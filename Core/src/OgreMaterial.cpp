@@ -34,7 +34,7 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core:Material;
+module Ogre.Core;
 
 import :Exception;
 import :LodStrategy;
@@ -337,7 +337,7 @@ class Renderable;
                 if (ret)
                     return ret;
 
-                OgreAssert(!mBestTechniquesBySchemeList.empty(), "handleSchemeNotFound() must not remove techniques");
+                // OgreAssert(!mBestTechniquesBySchemeList.empty(), "handleSchemeNotFound() must not remove techniques");
                 // Nope, use default
                 // get the first item, will be 0 (the default) if default
                 // scheme techniques exist, otherwise the earliest defined

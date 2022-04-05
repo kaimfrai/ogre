@@ -32,7 +32,7 @@ module;
 #include <memory>
 #include <utility>
 
-module Ogre.Core:GpuProgramParams;
+module Ogre.Core;
 
 import :AutoParamDataSource;
 import :ColourValue;
@@ -425,7 +425,7 @@ namespace Ogre
 
     void GpuSharedParameters::_upload() const
     {
-        OgreAssert(mHardwareBuffer, "not backed by a HardwareBuffer");
+        // OgreAssert(mHardwareBuffer, "not backed by a HardwareBuffer");
 
         if (!mDirty)
             return;
@@ -434,7 +434,7 @@ namespace Ogre
     }
     void GpuSharedParameters::download()
     {
-        OgreAssert(mHardwareBuffer, "not backed by a HardwareBuffer");
+        // OgreAssert(mHardwareBuffer, "not backed by a HardwareBuffer");
         mHardwareBuffer->readData(0, mConstants.size(), mConstants.data());
     }
     //---------------------------------------------------------------------
@@ -1207,7 +1207,7 @@ namespace Ogre
     GpuLogicalIndexUse* GpuProgramParameters::getConstantLogicalIndexUse(
         size_t logicalIndex, size_t requestedSize, uint16 variability, BaseConstantType type)
     {
-        OgreAssert(type != BCT_SAMPLER, "");
+        // OgreAssert(type != BCT_SAMPLER, "");
         if (!mLogicalToPhysical)
             return NULL;
 
@@ -1944,7 +1944,7 @@ namespace Ogre
                         _writeRawConstant(i->physicalIndex, source->getInverseTransposeWorldViewMatrix().linear(),i->elementCount);
                         break;
                     }
-                    OGRE_FALLTHROUGH; // fallthrough to padded 4x4 matrix
+                    [[fallthrough]]; // fallthrough to padded 4x4 matrix
                 case ACT_INVERSE_TRANSPOSE_WORLDVIEW_MATRIX:
                     _writeRawConstant(i->physicalIndex, source->getInverseTransposeWorldViewMatrix(),i->elementCount);
                     break;
@@ -2456,7 +2456,7 @@ namespace Ogre
                     size_t sz = std::min(srcsz, destsz);
                     if (newdef->isFloat() || newdef->isInt() || newdef->isUnsignedInt() || newdef->isBool())
                     {
-                        OgreAssertDbg(mConstants.size() >= (newdef->physicalIndex + sz * 4), "Invalid physical index");
+                        // OgreAssertDbg(mConstants.size() >= (newdef->physicalIndex + sz * 4), "Invalid physical index");
                         memcpy(getFloatPointer(newdef->physicalIndex),
                                source.getFloatPointer(olddef.physicalIndex),
                                sz * 4);

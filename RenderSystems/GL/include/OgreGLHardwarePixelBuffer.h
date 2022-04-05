@@ -89,8 +89,8 @@ namespace Ogre {
      */
     class GLRenderBuffer: public GLHardwarePixelBufferCommon
     {
-        void blitFromMemory(const PixelBox& src, const Box& dstBox) override { OgreAssertDbg(false, "Not supported"); }
-        void blitToMemory(const Box& srcBox, const PixelBox& dst) override { OgreAssertDbg(false, "Not supported"); }
+        void blitFromMemory(const PixelBox& src, const Box& dstBox) override { /*OgreAssertDbg(false, "Not supported");*/ }
+        void blitToMemory(const Box& srcBox, const PixelBox& dst) override { /*OgreAssertDbg(false, "Not supported");*/ }
     public:
         GLRenderBuffer(GLenum format, uint32 width, uint32 height, GLsizei numSamples);
         ~GLRenderBuffer();

@@ -25,6 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:StableHeaders;
+module Ogre.Core:StableHeaders;
 
-#define FOURCC(c0, c1, c2, c3) (c0 | (c1 << 8) | (c2 << 16) | (c3 << 24))
+export auto inline FOURCC(auto c0, auto c1, auto c2, auto c3)
+{
+   return (c0 | (c1 << 8) | (c2 << 16) | (c3 << 24));
+}

@@ -31,16 +31,16 @@ module;
 
 export module Ogre.Core:AutoParamDataSource;
 
-import :ColourValue;
-import :Common;
-import :Config;
-import :GpuProgramParams;
-import :Light;
-import :Matrix4;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :SceneNode;
-import :Vector;
+export import :ColourValue;
+export import :Common;
+export import :Config;
+export import :GpuProgramParams;
+export import :Light;
+export import :Matrix4;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :SceneNode;
+export import :Vector;
 
 export
 namespace Ogre {

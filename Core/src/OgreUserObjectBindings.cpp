@@ -31,7 +31,7 @@ module;
 #include <memory>
 #include <utility>
 
-module Ogre.Core:UserObjectBindings;
+module Ogre.Core;
 
 import :Any;
 import :Prerequisites;

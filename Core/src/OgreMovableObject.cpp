@@ -32,7 +32,7 @@ module;
 #include <cmath>
 #include <cstddef>
 
-module Ogre.Core:MovableObject;
+module Ogre.Core;
 
 import :AxisAlignedBox;
 import :Camera;

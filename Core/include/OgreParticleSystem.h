@@ -36,15 +36,15 @@ module;
 
 export module Ogre.Core:ParticleSystem;
 
-import :AxisAlignedBox;
-import :MovableObject;
-import :Platform;
-import :Prerequisites;
-import :Renderable;
-import :ResourceGroupManager;
-import :SharedPtr;
-import :StringInterface;
-import :Vector;
+export import :AxisAlignedBox;
+export import :MovableObject;
+export import :Platform;
+export import :Prerequisites;
+export import :Renderable;
+export import :ResourceGroupManager;
+export import :SharedPtr;
+export import :StringInterface;
+export import :Vector;
 
 export
 namespace Ogre {

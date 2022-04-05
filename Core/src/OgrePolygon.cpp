@@ -33,7 +33,7 @@ module;
 #include <memory>
 #include <ostream>
 
-module Ogre.Core:Polygon;
+module Ogre.Core;
 
 import :Exception;
 import :Math;
@@ -64,7 +64,7 @@ namespace Ogre
     void Polygon::insertVertex(const Vector3& vdata, size_t vertex )
     {
         // TODO: optional: check planarity
-        OgreAssertDbg(vertex <= getVertexCount(), "Insert position out of range" );
+        // OgreAssertDbg(vertex <= getVertexCount(), "Insert position out of range" );
 
         VertexList::iterator it = mVertexList.begin();
 
@@ -80,7 +80,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     const Vector3& Polygon::getVertex( size_t vertex ) const
     {
-        OgreAssertDbg(vertex < getVertexCount(), "Search position out of range");
+        // OgreAssertDbg(vertex < getVertexCount(), "Search position out of range");
 
         return mVertexList[vertex];
     }
@@ -88,7 +88,7 @@ namespace Ogre
     void Polygon::setVertex(const Vector3& vdata, size_t vertex )
     {
         // TODO: optional: check planarity
-        OgreAssertDbg(vertex < getVertexCount(), "Search position out of range" );
+        // OgreAssertDbg(vertex < getVertexCount(), "Search position out of range" );
 
         // set new vertex
         mVertexList[ vertex ] = vdata;
@@ -123,7 +123,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Polygon::updateNormal( void ) const
     {
-        OgreAssertDbg( getVertexCount() >= 3, "Insufficient vertex count!" );
+        // OgreAssertDbg( getVertexCount() >= 3, "Insufficient vertex count!" );
 
         if (mIsNormalSet)
             return;
@@ -154,7 +154,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Polygon::deleteVertex( size_t vertex )
     {
-        OgreAssertDbg( vertex < getVertexCount(), "Search position out of range" );
+        // OgreAssertDbg( vertex < getVertexCount(), "Search position out of range" );
 
         VertexList::iterator it = mVertexList.begin();
         std::advance(it, vertex);
@@ -164,7 +164,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Polygon::storeEdges( Polygon::EdgeMap *edgeMap ) const
     {
-        OgreAssert( edgeMap != NULL, "EdgeMap ptr is NULL" );
+        // OgreAssert( edgeMap != NULL, "EdgeMap ptr is NULL" );
 
         size_t vertexCount = getVertexCount();
 

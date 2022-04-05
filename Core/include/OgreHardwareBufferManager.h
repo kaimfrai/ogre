@@ -33,12 +33,12 @@ module;
 
 export module Ogre.Core:HardwareBufferManager;
 
-import :HardwareBuffer;
-import :HardwareIndexBuffer;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :SharedPtr;
-import :Singleton;
+export import :HardwareBuffer;
+export import :HardwareIndexBuffer;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :SharedPtr;
+export import :Singleton;
 
 export
 namespace Ogre {

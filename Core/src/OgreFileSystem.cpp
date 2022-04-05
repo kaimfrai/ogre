@@ -33,7 +33,7 @@ module;
 #include <fstream> // IWYU pragma: keep
 #include <string>
 
-module Ogre.Core:FileSystem;
+module Ogre.Core;
 
 import :Archive;
 import :DataStream;
@@ -323,7 +323,7 @@ namespace {
         }
         else
         {
-            OgreAssertDbg(ret == 0, "Problem getting file size");
+            // OgreAssertDbg(ret == 0, "Problem getting file size");
             // read-only stream
             stream = new FileStreamDataStream(streamname, roStream, st_size);
         }

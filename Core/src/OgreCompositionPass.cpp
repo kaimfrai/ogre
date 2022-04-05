@@ -28,11 +28,14 @@ THE SOFTWARE.
 module;
 
 #include <cassert>
+#include <string>
+#include <vector>
 
-module Ogre.Core:CompositionPass;
+module Ogre.Core;
 
 import :Material;
 import :MaterialManager;
+import :Vector;
 
 namespace Ogre {
 class CompositionTargetPass;

@@ -37,7 +37,7 @@ module;
 
 #include <string>
 
-module Ogre.Core:ExternalTextureSource;
+module Ogre.Core;
 
 import :Exception;
 import :Log;

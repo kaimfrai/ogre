@@ -30,7 +30,7 @@ module;
 #include <cstddef>
 #include <ostream>
 
-module Ogre.Core:SimpleRenderable;
+module Ogre.Core;
 
 import :AxisAlignedBox;
 import :Common;

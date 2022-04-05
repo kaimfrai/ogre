@@ -3,10 +3,10 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 export module Ogre.Core:DefaultDebugDrawer;
 
-import :AxisAlignedBox;
-import :ColourValue;
-import :ManualObject;
-import :SceneManager;
+export import :AxisAlignedBox;
+export import :ColourValue;
+export import :ManualObject;
+export import :SceneManager;
 
 export
 namespace Ogre

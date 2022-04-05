@@ -34,7 +34,7 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core:MaterialManager;
+module Ogre.Core;
 
 import :Common;
 import :Exception;
@@ -119,7 +119,7 @@ class Renderable;
         MaterialPtr ret = getByName(useLighting ? "BaseWhite" : "BaseWhiteNoLighting",
                                     ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
 
-        OgreAssert(ret,
+        // OgreAssert(ret,
                    "Can't find default material Did you forget to call MaterialManager::initialise()?");
 
         return ret;

@@ -32,9 +32,9 @@ module;
 
 export module Ogre.Core:FileSystemLayer;
 
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :StringVector;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :StringVector;
 
 export
 namespace Ogre

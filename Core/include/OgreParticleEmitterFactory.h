@@ -25,11 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <vector>
+
 export module Ogre.Core:ParticleEmitterFactory;
 
-import :ParticleEmitter;
-import :Prerequisites;
-import :String;
+export import :MemoryAllocatorConfig;
+export import :ParticleEmitter;
+export import :Prerequisites;
+export import :String;
 
 export
 namespace Ogre {

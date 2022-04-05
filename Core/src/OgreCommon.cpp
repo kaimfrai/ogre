@@ -31,7 +31,7 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core:Common;
+module Ogre.Core;
 
 import :Log;
 import :LogManager;

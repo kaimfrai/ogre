@@ -34,8 +34,9 @@ module;
 #include <map>
 #include <string>
 #include <utility>
+#include <vector>
 
-module Ogre.Core:BillboardSet;
+module Ogre.Core;
 
 import :Billboard;
 import :Camera;
@@ -502,7 +503,7 @@ namespace Ogre {
 
     void BillboardSet::setMaterial( const MaterialPtr& material )
     {
-        OgreAssert(material, "material is NULL");
+        // OgreAssert(material, "material is NULL");
         mMaterial = material;
 
         // Ensure new material loaded (will not load again if already loaded)

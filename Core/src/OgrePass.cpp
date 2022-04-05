@@ -36,7 +36,7 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core:Pass;
+module Ogre.Core;
 
 import :BlendMode;
 import :ColourValue;
@@ -401,10 +401,10 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Pass::addTextureUnitState(TextureUnitState* state)
     {
-        OgreAssert(state , "TextureUnitState is NULL");
+        // OgreAssert(state , "TextureUnitState is NULL");
 
         // only attach TUS to pass if TUS does not belong to another pass
-        OgreAssert(!state->getParent() || (state->getParent() == this), "TextureUnitState already attached to another pass");
+        // OgreAssert(!state->getParent() || (state->getParent() == this), "TextureUnitState already attached to another pass");
 
         mTextureUnitStates.push_back(state);
         // Notify state
@@ -452,7 +452,7 @@ namespace Ogre {
         assert(state && "state is 0 in Pass::getTextureUnitStateIndex()");
 
         // only find index for state attached to this pass
-        OgreAssert(state->getParent() == this, "TextureUnitState is not attached to this pass");
+        // OgreAssert(state->getParent() == this, "TextureUnitState is not attached to this pass");
         auto i = std::find(mTextureUnitStates.begin(), mTextureUnitStates.end(), state);
         assert(i != mTextureUnitStates.end() && "state is supposed to attached to this pass");
         return static_cast<unsigned short>(std::distance(mTextureUnitStates.begin(), i));
@@ -670,7 +670,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Pass* Pass::_split(unsigned short numUnits)
     {
-        OgreAssert(
+        // OgreAssert(
             !isProgrammable(),
             "Programmable passes cannot be automatically split, define a fallback technique instead");
 
@@ -920,7 +920,7 @@ namespace Ogre {
     }
     const GpuProgramPtr& Pass::getGpuProgram(GpuProgramType programType) const
 	{
-        OgreAssert(mProgramUsage[programType], "check whether program is available using hasGpuProgram()");
+        // OgreAssert(mProgramUsage[programType], "check whether program is available using hasGpuProgram()");
         return mProgramUsage[programType]->getProgram();
 	}
     //-----------------------------------------------------------------------

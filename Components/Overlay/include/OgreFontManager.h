@@ -54,7 +54,7 @@ namespace Ogre
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName
-        FontPtr getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const;
+        FontPtr getByName(const String& name, ::std::string_view groupName = RGN_DEFAULT) const;
 
         /** Override standard Singleton retrieval.
         @remarks

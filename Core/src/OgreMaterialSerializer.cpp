@@ -36,7 +36,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:MaterialSerializer;
+module Ogre.Core;
 
 import :BlendMode;
 import :ColourValue;

@@ -30,7 +30,7 @@ module;
 #include <iostream>
 #include <utility>
 
-module Ogre.Core:ConfigFile;
+module Ogre.Core;
 
 import :DataStream;
 import :Exception;

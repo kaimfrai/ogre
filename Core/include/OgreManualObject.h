@@ -29,28 +29,29 @@ module;
 
 #include <algorithm>
 #include <cstddef>
+#include <string>
 #include <vector>
 
 export module Ogre.Core:ManualObject;
 
-import :AxisAlignedBox;
-import :ColourValue;
-import :Common;
-import :Config;
-import :Exception;
-import :HardwareBuffer;
-import :HardwareVertexBuffer;
-import :MemoryAllocatorConfig;
-import :MovableObject;
-import :Platform;
-import :Prerequisites;
-import :RenderOperation;
-import :Renderable;
-import :ResourceGroupManager;
-import :ShadowCaster;
-import :SharedPtr;
-import :Vector;
-import :VertexIndexData;
+export import :AxisAlignedBox;
+export import :ColourValue;
+export import :Common;
+export import :Config;
+export import :Exception;
+export import :HardwareBuffer;
+export import :HardwareVertexBuffer;
+export import :MemoryAllocatorConfig;
+export import :MovableObject;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderOperation;
+export import :Renderable;
+export import :ResourceGroupManager;
+export import :ShadowCaster;
+export import :SharedPtr;
+export import :Vector;
+export import :VertexIndexData;
 
 export
 namespace Ogre
@@ -227,7 +228,7 @@ class SubMesh;
         */
         void position(const Vector3& pos)
         {
-            OgreAssert(mCurrentSection, "You must call begin() before this method");
+            // OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mTempVertexPending)
             {
                 // bake current vertex
@@ -261,7 +262,7 @@ class SubMesh;
         */
         void normal(const Vector3& norm)
         {
-            OgreAssert(mCurrentSection, "You must call begin() before this method");
+            // OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
                 declareElement(VET_FLOAT3, VES_NORMAL);
@@ -280,7 +281,7 @@ class SubMesh;
         */
         void tangent(const Vector3& tan)
         {
-            OgreAssert(mCurrentSection, "You must call begin() before this method");
+            // OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
                 declareElement(VET_FLOAT3, VES_TANGENT);
@@ -301,7 +302,7 @@ class SubMesh;
         */
         void textureCoord(float u)
         {
-            OgreAssert(mCurrentSection, "You must call begin() before this method");
+            // OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
                 declareElement(VET_FLOAT1, VES_TEXTURE_COORDINATES);
@@ -314,7 +315,7 @@ class SubMesh;
         /// @overload
         void textureCoord(float u, float v)
         {
-            OgreAssert(mCurrentSection, "You must call begin() before this method");
+            // OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
                 declareElement(VET_FLOAT2, VES_TEXTURE_COORDINATES);
@@ -328,7 +329,7 @@ class SubMesh;
         /// @overload
         void textureCoord(float u, float v, float w)
         {
-            OgreAssert(mCurrentSection, "You must call begin() before this method");
+            // OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
                 declareElement(VET_FLOAT3, VES_TEXTURE_COORDINATES);
@@ -349,7 +350,7 @@ class SubMesh;
         /// @@overload
         void textureCoord(const Vector4& xyzw)
         {
-            OgreAssert(mCurrentSection, "You must call begin() before this method");
+            // OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
                 declareElement(VET_FLOAT4, VES_TEXTURE_COORDINATES);
@@ -364,7 +365,7 @@ class SubMesh;
         */
         void colour(const ColourValue& col)
         {
-            OgreAssert(mCurrentSection, "You must call begin() before this method");
+            // OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
                 declareElement(VET_COLOUR, VES_DIFFUSE);
@@ -387,7 +388,7 @@ class SubMesh;
         */
         void index(uint32 idx)
         {
-            OgreAssert(mCurrentSection, "You must call begin() before this method");
+            // OgreAssert(mCurrentSection, "You must call begin() before this method");
             mAnyIndexed = true;
             if (idx >= 65536)
                 mCurrentSection->set32BitIndices(true);
@@ -414,10 +415,10 @@ class SubMesh;
         */
         void triangle(uint32 i1, uint32 i2, uint32 i3)
         {
-            OgreAssert(mCurrentSection, "You must call begin() before this method");
-            OgreAssert(mCurrentSection->getRenderOperation()->operationType ==
-                           RenderOperation::OT_TRIANGLE_LIST,
-                       "This method is only valid on triangle lists");
+            // OgreAssert(mCurrentSection, "You must call begin() before this method");
+            // OgreAssert(mCurrentSection->getRenderOperation()->operationType ==
+//                            RenderOperation::OT_TRIANGLE_LIST,
+//                        "This method is only valid on triangle lists");
             index(i1);
             index(i2);
             index(i3);

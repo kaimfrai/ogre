@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 export module Ogre.Core:RenderTargetListener;
 
-import :Prerequisites;
+export import :Prerequisites;
 
 export
 namespace Ogre {

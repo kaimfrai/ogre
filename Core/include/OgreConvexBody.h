@@ -34,10 +34,10 @@ module;
 
 export module Ogre.Core:ConvexBody;
 
-import :AxisAlignedBox;
-import :Frustum;
-import :Polygon;
-import :Prerequisites;
+export import :AxisAlignedBox;
+export import :Frustum;
+export import :Polygon;
+export import :Prerequisites;
 
 export
 namespace Ogre

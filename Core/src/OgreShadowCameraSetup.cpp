@@ -29,7 +29,7 @@ module;
 
 #include <cmath>
 
-module Ogre.Core:ShadowCameraSetup;
+module Ogre.Core;
 
 import :Camera;
 import :Frustum;

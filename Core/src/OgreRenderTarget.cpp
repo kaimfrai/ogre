@@ -36,7 +36,7 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core:RenderTarget;
+module Ogre.Core;
 
 import :DepthBuffer;
 import :Exception;

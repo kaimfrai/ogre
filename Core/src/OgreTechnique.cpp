@@ -34,7 +34,7 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core:Technique;
+module Ogre.Core;
 
 import :BlendMode;
 import :ColourValue;

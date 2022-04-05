@@ -33,13 +33,13 @@ module;
 
 export module Ogre.Core:AnimationTrack;
 
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Pose;
-import :Prerequisites;
-import :RotationalSpline;
-import :SharedPtr;
-import :SimpleSpline;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Pose;
+export import :Prerequisites;
+export import :RotationalSpline;
+export import :SharedPtr;
+export import :SimpleSpline;
 
 export
 namespace Ogre 

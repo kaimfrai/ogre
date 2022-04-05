@@ -27,9 +27,10 @@ THE SOFTWARE.
 */
 export module Ogre.Core:ArchiveFactory;
 
-import :Archive;
-import :FactoryObj;
-import :Prerequisites;
+export import :Archive;
+export import :FactoryObj;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
 
 export
 namespace Ogre {
@@ -67,9 +68,9 @@ namespace Ogre {
             An object created by the factory. The type of the object depends on
             the factory.
         */
-        virtual Archive* createInstance(const String& name, bool readOnly) OGRE_NODISCARD = 0;
+        [[nodiscard]] virtual Archive* createInstance(const String& name, bool readOnly) = 0;
 
-        virtual Archive* createInstance(const String& name) OGRE_NODISCARD { return createInstance(name, true); }
+        [[nodiscard]] virtual Archive* createInstance(const String& name) { return createInstance(name, true); }
     };
     /** @} */
     /** @} */

@@ -34,16 +34,16 @@ module;
 
 export module Ogre.Core:SubMesh;
 
-import :AnimationTrack;
-import :Common;
-import :IteratorWrapper;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :RenderOperation;
-import :ResourceGroupManager;
-import :SharedPtr;
-import :Vector;
-import :VertexBoneAssignment;
+export import :AnimationTrack;
+export import :Common;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :RenderOperation;
+export import :ResourceGroupManager;
+export import :SharedPtr;
+export import :Vector;
+export import :VertexBoneAssignment;
 
 export
 namespace Ogre {

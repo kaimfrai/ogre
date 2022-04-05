@@ -34,17 +34,17 @@ module;
 
 export module Ogre.Core:Technique;
 
-import :BlendMode;
-import :ColourValue;
-import :Common;
-import :IteratorWrapper;
-import :MemoryAllocatorConfig;
-import :Pass;
-import :Platform;
-import :Prerequisites;
-import :RenderSystemCapabilities;
-import :SharedPtr;
-import :UserObjectBindings;
+export import :BlendMode;
+export import :ColourValue;
+export import :Common;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Pass;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderSystemCapabilities;
+export import :SharedPtr;
+export import :UserObjectBindings;
 
 export
 namespace Ogre {

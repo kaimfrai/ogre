@@ -32,11 +32,11 @@ module;
 
 export module Ogre.Core:PixelFormat;
 
-import :ColourValue;
-import :Common;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
+export import :ColourValue;
+export import :Common;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
 
 export
 namespace Ogre {

@@ -33,9 +33,9 @@ module;
 
 export module Ogre.Core:DefaultWorkQueueStandard;
 
-import :Common;
-import :Prerequisites;
-import :WorkQueue;
+export import :Common;
+export import :Prerequisites;
+export import :WorkQueue;
 
 export
 namespace Ogre

@@ -37,10 +37,10 @@ module;
 
 export module Ogre.Core:Common;
 
-import :MurmurHash3;
-import :Platform;
-import :Prerequisites;
-import :Vector;
+export import :MurmurHash3;
+export import :Platform;
+export import :Prerequisites;
+export import :Vector;
 
 export
 namespace Ogre {

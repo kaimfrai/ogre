@@ -33,9 +33,9 @@ module;
 
 export module Ogre.Core:UserObjectBindings;
 
-import :Any;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
+export import :Any;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
 
 export
 namespace Ogre {

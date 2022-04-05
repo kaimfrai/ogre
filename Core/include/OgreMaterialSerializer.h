@@ -36,12 +36,12 @@ module;
 
 export module Ogre.Core:MaterialSerializer;
 
-import :BlendMode;
-import :Common;
-import :GpuProgramParams;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :TextureUnitState;
+export import :BlendMode;
+export import :Common;
+export import :GpuProgramParams;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :TextureUnitState;
 
 export
 namespace Ogre {

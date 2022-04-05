@@ -28,16 +28,17 @@ THE SOFTWARE.
 module;
 
 #include <algorithm>
+#include <string>
 #include <vector>
 
 export module Ogre.Core:Viewport;
 
-import :ColourValue;
-import :Common;
-import :Frustum;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
+export import :ColourValue;
+export import :Common;
+export import :Frustum;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
 
 export
 namespace Ogre {

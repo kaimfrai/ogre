@@ -31,7 +31,7 @@ module;
 #include <cstring>
 #include <utility>
 
-module Ogre.Core:Pose;
+module Ogre.Core;
 
 import :Exception;
 import :HardwareBuffer;
@@ -48,7 +48,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Pose::addVertex(size_t index, const Vector3& offset)
     {
-        OgreAssert(mNormalsMap.empty(),
+        // OgreAssert(mNormalsMap.empty(),
                    "Inconsistent calls to addVertex, must include normals always or never");
 
         if(offset.squaredLength() < 1e-6f)
@@ -62,7 +62,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Pose::addVertex(size_t index, const Vector3& offset, const Vector3& normal)
     {
-        OgreAssert(mVertexOffsetMap.empty() || !mNormalsMap.empty(),
+        // OgreAssert(mVertexOffsetMap.empty() || !mNormalsMap.empty(),
                    "Inconsistent calls to addVertex, must include normals always or never");
 
         if(offset.squaredLength() < 1e-6f && normal.squaredLength() < 1e-6f)

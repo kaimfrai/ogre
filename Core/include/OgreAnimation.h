@@ -29,17 +29,18 @@ module;
 
 #include <map>
 #include <set>
+#include <string>
 #include <vector>
 
 export module Ogre.Core:Animation;
 
-import :AnimationState;
-import :AnimationTrack;
-import :Common;
-import :IteratorWrapper;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
+export import :AnimationState;
+export import :AnimationTrack;
+export import :Common;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
 
 export
 namespace Ogre {
@@ -444,7 +445,7 @@ class VertexData;
             thus it is up to the caller to arrange for the deletion of this
             object.
         */
-        Animation* clone(const String& newName) const OGRE_NODISCARD;
+        [[nodiscard]] Animation* clone(const String& newName) const;
         
         /** Internal method used to tell the animation that keyframe list has been
             changed, which may cause it to rebuild some internal data */

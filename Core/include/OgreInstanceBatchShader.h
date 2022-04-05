@@ -31,10 +31,10 @@ module;
 
 export module Ogre.Core:InstanceBatchShader;
 
-import :InstanceBatch;
-import :Mesh;
-import :Platform;
-import :Prerequisites;
+export import :InstanceBatch;
+export import :Mesh;
+export import :Platform;
+export import :Prerequisites;
 
 export
 namespace Ogre

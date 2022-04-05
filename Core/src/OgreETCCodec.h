@@ -28,8 +28,9 @@ THE SOFTWARE.
 module;
 
 #include <cstddef>
+#include <string>
 
-export module Ogre.Core:ETCCodec;
+module Ogre.Core:ETCCodec;
 
 import :ImageCodec;
 import :Prerequisites;
@@ -64,7 +65,7 @@ namespace Ogre {
         using ImageCodec::decode;
         DecodeResult decode(const DataStreamPtr& input) const override;
         String magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const override;
-        String getType() const override;
+        ::std::string_view getType() const override;
 
         /// Static method to startup and register the ETC codec
         static void startup(void);

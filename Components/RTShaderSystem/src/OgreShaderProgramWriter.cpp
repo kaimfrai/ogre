@@ -125,7 +125,7 @@ void ProgramWriter::writeSamplerParameter(std::ostream& os, const UniformParamet
 
 void ProgramWriter::writeParameterSemantic(std::ostream& os, const ParameterPtr& parameter)
 {
-    OgreAssertDbg(parameter->getSemantic() != Parameter::SPS_UNKNOWN, "invalid semantic");
+    // OgreAssertDbg(parameter->getSemantic() != Parameter::SPS_UNKNOWN, "invalid semantic");
     os << mParamSemanticMap[parameter->getSemantic()];
 
     if (parameter->getSemantic() == Parameter::SPS_TEXTURE_COORDINATES ||

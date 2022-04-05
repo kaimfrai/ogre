@@ -31,22 +31,23 @@ module;
 #include <cstddef>
 #include <memory>
 #include <set>
+#include <string>
 #include <vector>
 
 export module Ogre.Core:Pass;
 
-import :BlendMode;
-import :ColourValue;
-import :Common;
-import :GpuProgram;
-import :IteratorWrapper;
-import :Light;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :TextureUnitState;
-import :UserObjectBindings;
-import :Vector;
+export import :BlendMode;
+export import :ColourValue;
+export import :Common;
+export import :GpuProgram;
+export import :IteratorWrapper;
+export import :Light;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :TextureUnitState;
+export import :UserObjectBindings;
+export import :Vector;
 
 export
 namespace Ogre {

@@ -31,7 +31,7 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core:ScriptParser;
+module Ogre.Core;
 
 import :Exception;
 import :Platform;

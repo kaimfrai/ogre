@@ -27,7 +27,8 @@ THE SOFTWARE.
 */
 export module Ogre.Core:Plugin;
 
-import :Prerequisites;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
 
 export
 namespace Ogre

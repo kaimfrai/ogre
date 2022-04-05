@@ -30,7 +30,7 @@ module;
 #include <memory>
 #include <string>
 
-module Ogre.Core:ScriptLexer;
+module Ogre.Core;
 
 import :LogManager;
 import :String;
@@ -162,7 +162,7 @@ namespace Ogre {
                 else
                 {
                     state = WORD;
-                    OGRE_FALLTHROUGH;
+                    [[fallthrough]];
                 }
             case WORD:
                 if(isNewline(c))

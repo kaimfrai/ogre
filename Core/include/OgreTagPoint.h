@@ -27,8 +27,8 @@ THE SOFTWARE.
 */
 export module Ogre.Core:TagPoint;
 
-import :Bone;
-import :Matrix4;
+export import :Bone;
+export import :Matrix4;
 
 export
 namespace Ogre  {

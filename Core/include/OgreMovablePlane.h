@@ -27,13 +27,13 @@ THE SOFTWARE.
 */
 export module Ogre.Core:MovablePlane;
 
-import :AxisAlignedBox;
-import :MovableObject;
-import :Plane;
-import :Prerequisites;
-import :Quaternion;
-import :Renderable;
-import :Vector;
+export import :AxisAlignedBox;
+export import :MovableObject;
+export import :Plane;
+export import :Prerequisites;
+export import :Quaternion;
+export import :Renderable;
+export import :Vector;
 
 export
 namespace Ogre {

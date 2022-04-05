@@ -25,10 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cmath>
+
 export module Ogre.Core:Controller;
 
-import :Prerequisites;
-import :SharedPtr;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :SharedPtr;
 
 export
 namespace Ogre {

@@ -31,11 +31,18 @@ THE SOFTWARE.
 // Distributed under the Boost Software License, Version 1.0.
 // http://www.boost.org/LICENSE_1_0.txt
 // http://www.geometrictools.com/License/Boost/LICENSE_1_0.txt
+module;
+
+#include <ostream>
+
 export module Ogre.Core:Plane;
 
-import :AxisAlignedBox;
-import :Prerequisites;
-import :Vector;
+export import :AxisAlignedBox;
+export import :Matrix3;
+export import :Matrix4;
+export import :Math;
+export import :Prerequisites;
+export import :Vector;
 
 export
 namespace Ogre {

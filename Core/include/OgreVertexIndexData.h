@@ -33,12 +33,12 @@ module;
 
 export module Ogre.Core:VertexIndexData;
 
-import :HardwareBuffer;
-import :HardwareVertexBuffer;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :SharedPtr;
+export import :HardwareBuffer;
+export import :HardwareVertexBuffer;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :SharedPtr;
 
 export
 namespace Ogre {
@@ -126,7 +126,7 @@ class HardwareBufferManagerBase;
         @param mgr If supplied, the buffer manager through which copies should be made
         @remarks The caller is expected to delete the returned pointer when ready
         */
-        VertexData* clone(bool copyData = true, HardwareBufferManagerBase* mgr = 0) const OGRE_NODISCARD;
+        [[nodiscard]] VertexData* clone(bool copyData = true, HardwareBufferManagerBase* mgr = 0) const;
 
         /** Modifies the vertex data to be suitable for use for rendering shadow geometry as in @cite mcguire2003fast
 

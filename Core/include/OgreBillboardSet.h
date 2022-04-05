@@ -34,18 +34,19 @@ module;
 
 export module Ogre.Core:BillboardSet;
 
-import :AxisAlignedBox;
-import :ColourValue;
-import :Common;
-import :Material;
-import :MovableObject;
-import :Platform;
-import :Prerequisites;
-import :Quaternion;
-import :Renderable;
-import :ResourceGroupManager;
-import :SharedPtr;
-import :Vector;
+export import :AxisAlignedBox;
+export import :ColourValue;
+export import :Common;
+export import :Material;
+export import :MovableObject;
+export import :Platform;
+export import :Prerequisites;
+export import :Quaternion;
+export import :Renderable;
+export import :Resource;
+export import :ResourceGroupManager;
+export import :SharedPtr;
+export import :Vector;
 
 export
 namespace Ogre {

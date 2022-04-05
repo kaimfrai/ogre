@@ -30,17 +30,18 @@ module;
 #include <cstddef>
 #include <map>
 #include <string>
+#include <vector>
 
 export module Ogre.Core:ParticleSystemManager;
 
-import :Common;
-import :IteratorWrapper;
-import :MemoryAllocatorConfig;
-import :MovableObject;
-import :Prerequisites;
-import :ScriptLoader;
-import :Singleton;
-import :StringVector;
+export import :Common;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :MovableObject;
+export import :Prerequisites;
+export import :ScriptLoader;
+export import :Singleton;
+export import :StringVector;
 
 export
 namespace Ogre {

@@ -32,12 +32,12 @@ module;
 
 export module Ogre.Core:ControllerManager;
 
-import :Common;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :SharedPtr;
-import :Singleton;
-import :TextureUnitState;
+export import :Common;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :SharedPtr;
+export import :Singleton;
+export import :TextureUnitState;
 
 export
 namespace Ogre {

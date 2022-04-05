@@ -31,7 +31,7 @@ module;
 #include <cstring>
 #include <memory>
 
-module Ogre.Core:Image;
+module Ogre.Core;
 
 import :Any;
 import :Codec;
@@ -187,7 +187,7 @@ namespace Ogre {
 
     void Image::setTo(const ColourValue& col)
     {
-        OgreAssert(mBuffer, "No image data loaded");
+        // OgreAssert(mBuffer, "No image data loaded");
         if(col == ColourValue::ZERO)
         {
             memset(mBuffer, 0, getSize());
@@ -205,7 +205,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     Image & Image::flipAroundY()
     {
-        OgreAssert(mBuffer, "No image data loaded");
+        // OgreAssert(mBuffer, "No image data loaded");
         mNumMipmaps = 0; // Image operations lose precomputed mipmaps
 
         ushort y;
@@ -255,7 +255,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     Image & Image::flipAroundX()
     {
-        OgreAssert(mBuffer, "No image data loaded");
+        // OgreAssert(mBuffer, "No image data loaded");
         
         mNumMipmaps = 0; // Image operations lose precomputed mipmaps
         PixelUtil::bulkPixelVerticalFlip(getPixelBox());
@@ -284,7 +284,7 @@ namespace Ogre {
             mFlags |= IF_3D_TEXTURE;
         if(numFaces == 6)
             mFlags |= IF_CUBEMAP;
-        OgreAssert(numFaces == 6 || numFaces == 1, "Invalid number of faces");
+        // OgreAssert(numFaces == 6 || numFaces == 1, "Invalid number of faces");
 
         mBufSize = calculateSize(numMipMaps, numFaces, uWidth, uHeight, depth, eFormat);
         mBuffer = pData;
@@ -299,7 +299,7 @@ namespace Ogre {
     {
 
         size_t size = calculateSize(numMipMaps, numFaces, uWidth, uHeight, uDepth, eFormat);
-        OgreAssert(size == stream->size(), "Wrong stream size");
+        // OgreAssert(size == stream->size(), "Wrong stream size");
 
         uchar *buffer = new uchar[size];
         stream->read(buffer, size);
@@ -328,7 +328,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     void Image::save(const String& filename)
     {
-        OgreAssert(mBuffer, "No image data loaded");
+        // OgreAssert(mBuffer, "No image data loaded");
 
         String base, ext;
         StringUtil::splitBaseFilename(filename, base, ext);
@@ -339,7 +339,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     DataStreamPtr Image::encode(const String& formatextension)
     {
-        OgreAssert(mBuffer, "No image data loaded");
+        // OgreAssert(mBuffer, "No image data loaded");
         // getCodec throws when no codec is found
         return Codec::getCodec(formatextension)->encode(this);
     }
@@ -467,7 +467,7 @@ namespace Ogre {
         if( gamma == 1.0f )
             return;
 
-        OgreAssert( bpp == 24 || bpp == 32, "");
+        // OgreAssert( bpp == 24 || bpp == 32, "");
 
         uint stride = bpp >> 3;
         
@@ -487,8 +487,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     void Image::resize(ushort width, ushort height, Filter filter)
     {
-        OgreAssert(mAutoDelete, "resizing dynamic images is not supported");
-        OgreAssert(mDepth == 1, "only 2D formats supported");
+        // OgreAssert(mAutoDelete, "resizing dynamic images is not supported");
+        // OgreAssert(mDepth == 1, "only 2D formats supported");
 
         // reassign buffer to temp image, make sure auto-delete is true
         Image temp(mFormat, mWidth, mHeight, 1, mBuffer, true);
@@ -618,8 +618,8 @@ namespace Ogre {
         // face 1, mip 1
         // face 1, mip 2
         // etc
-        OgreAssert(mipmap <= getNumMipmaps(), "out of range");
-        OgreAssert(face < getNumFaces(), "out of range");
+        // OgreAssert(mipmap <= getNumMipmaps(), "out of range");
+        // OgreAssert(face < getNumFaces(), "out of range");
         // Calculate mipmap offset and size
         uint8 *offset = mBuffer;
         // Base offset is number of full faces
@@ -696,16 +696,16 @@ namespace Ogre {
     Image & Image::combineTwoImagesAsRGBA(const Image& rgb, const Image& alpha, PixelFormat fmt)
     {
         // the images should be the same size, have the same number of mipmaps
-        OgreAssert(rgb.getWidth() == alpha.getWidth() && rgb.getHeight() == alpha.getHeight() &&
+        // OgreAssert(rgb.getWidth() == alpha.getWidth() && rgb.getHeight() == alpha.getHeight() &&
                        rgb.getDepth() == alpha.getDepth(),
                    "Images must be the same dimensions");
-        OgreAssert(rgb.getNumMipmaps() == alpha.getNumMipmaps() && rgb.getNumFaces() == alpha.getNumFaces(),
+        // OgreAssert(rgb.getNumMipmaps() == alpha.getNumMipmaps() && rgb.getNumFaces() == alpha.getNumFaces(),
                    "Images must have the same number of surfaces");
 
         // Format check
-        OgreAssert(PixelUtil::getComponentCount(fmt) == 4, "Target format must have 4 components");
+        // OgreAssert(PixelUtil::getComponentCount(fmt) == 4, "Target format must have 4 components");
 
-        OgreAssert(!(PixelUtil::isCompressed(fmt) || PixelUtil::isCompressed(rgb.getFormat()) ||
+        // OgreAssert(!(PixelUtil::isCompressed(fmt) || PixelUtil::isCompressed(rgb.getFormat()) ||
                      PixelUtil::isCompressed(alpha.getFormat())),
                    "Compressed formats are not supported in this method");
 

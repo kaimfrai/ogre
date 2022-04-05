@@ -32,7 +32,7 @@ module;
 #include <memory>
 #include <string>
 
-module Ogre.Core:EdgeListBuilder;
+module Ogre.Core;
 
 import :Exception;
 import :HardwareBuffer;
@@ -96,7 +96,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void EdgeListBuilder::addVertexData(const VertexData* vertexData)
     {
-        OgreAssert(vertexData->vertexStart == 0,
+        // OgreAssert(vertexData->vertexStart == 0,
                    "The base vertex index of the vertex data must be zero for build edge list");
         mVertexDataList.push_back(vertexData);
     }

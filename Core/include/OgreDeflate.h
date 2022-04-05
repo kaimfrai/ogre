@@ -29,12 +29,13 @@ module;
 
 #include <cassert>
 #include <cstring>
+#include <string>
 
 export module Ogre.Core:Deflate;
 
-import :DataStream;
-import :Prerequisites;
-import :SharedPtr;
+export import :DataStream;
+export import :Prerequisites;
+export import :SharedPtr;
 
 export
 typedef struct mz_stream_s z_stream;

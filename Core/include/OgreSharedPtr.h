@@ -31,8 +31,8 @@ module;
 
 export module Ogre.Core:SharedPtr;
 
-import :MemoryAllocatorConfig;
-import :Prerequisites;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
 
 export
 namespace Ogre {

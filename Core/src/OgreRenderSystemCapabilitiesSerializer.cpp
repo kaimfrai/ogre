@@ -31,7 +31,7 @@ module;
 #include <ostream>
 #include <set>
 
-module Ogre.Core:RenderSystemCapabilitiesSerializer;
+module Ogre.Core;
 
 import :DataStream;
 import :LogManager;

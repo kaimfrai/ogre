@@ -37,7 +37,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:Profiler;
+module Ogre.Core;
 
 /*
 

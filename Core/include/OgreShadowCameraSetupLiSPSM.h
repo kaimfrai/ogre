@@ -33,14 +33,14 @@ module;
 
 export module Ogre.Core:ShadowCameraSetupLiSPSM;
 
-import :AxisAlignedBox;
-import :Light;
-import :Math;
-import :Matrix4;
-import :Prerequisites;
-import :SceneManager;
-import :ShadowCameraSetupFocused;
-import :SharedPtr;
+export import :AxisAlignedBox;
+export import :Light;
+export import :Math;
+export import :Matrix4;
+export import :Prerequisites;
+export import :SceneManager;
+export import :ShadowCameraSetupFocused;
+export import :SharedPtr;
 
 export
 namespace Ogre 

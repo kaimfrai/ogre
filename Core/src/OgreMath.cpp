@@ -34,7 +34,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:Math;
+module Ogre.Core;
 
 import :AxisAlignedBox;
 import :Frustum;

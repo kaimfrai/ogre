@@ -30,7 +30,7 @@ module;
 #include <cassert>
 #include <limits>
 
-module Ogre.Core:PixelCountLodStrategy;
+module Ogre.Core;
 
 import :Camera;
 import :Frustum;

@@ -41,7 +41,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:Root;
+module Ogre.Core;
 
 import :ASTCCodec;
 import :ArchiveFactory;
@@ -458,7 +458,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     RenderWindow* Root::initialise(bool autoCreateWindow, const String& windowTitle, const String& customCapabilitiesConfig)
     {
-        OgreAssert(mActiveRenderer, "Cannot initialise");
+        // OgreAssert(mActiveRenderer, "Cannot initialise");
 
         if (!mControllerManager)
             mControllerManager.reset(new ControllerManager());
@@ -745,7 +745,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Root::startRendering(void)
     {
-        OgreAssert(mActiveRenderer, "no RenderSystem");
+        // OgreAssert(mActiveRenderer, "no RenderSystem");
 
         mActiveRenderer->_initRenderTargets();
 
@@ -970,9 +970,9 @@ namespace Ogre {
     RenderWindow* Root::createRenderWindow(const String &name, unsigned int width, unsigned int height,
             bool fullScreen, const NameValuePairList *miscParams)
     {
-        OgreAssert(mIsInitialised,
+        // OgreAssert(mIsInitialised,
                    "Cannot create window! Make sure to call Root::initialise before creating a window");
-        OgreAssert(mActiveRenderer, "Cannot create window");
+        // OgreAssert(mActiveRenderer, "Cannot create window");
 
         RenderWindow* ret;
         ret = mActiveRenderer->_createRenderWindow(name, width, height, fullScreen, miscParams);
@@ -990,13 +990,13 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     RenderTarget* Root::detachRenderTarget(RenderTarget* target)
     {
-        OgreAssert(mActiveRenderer, "Cannot detach target");
+        // OgreAssert(mActiveRenderer, "Cannot detach target");
         return mActiveRenderer->detachRenderTarget( target->getName() );
     }
     //-----------------------------------------------------------------------
     RenderTarget* Root::detachRenderTarget(const String &name)
     {
-        OgreAssert(mActiveRenderer, "Cannot detach target");
+        // OgreAssert(mActiveRenderer, "Cannot detach target");
         return mActiveRenderer->detachRenderTarget( name );
     }
     //-----------------------------------------------------------------------
@@ -1014,7 +1014,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     RenderTarget* Root::getRenderTarget(const String &name)
     {
-        OgreAssert(mActiveRenderer, "Cannot get target");
+        // OgreAssert(mActiveRenderer, "Cannot get target");
         return mActiveRenderer->getRenderTarget(name);
     }
     //---------------------------------------------------------------------

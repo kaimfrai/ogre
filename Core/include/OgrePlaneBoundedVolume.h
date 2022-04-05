@@ -25,14 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <vector>
+
 export module Ogre.Core:PlaneBoundedVolume;
 
-// Precompiler options
-import :AxisAlignedBox;
-import :Math;
-import :Plane;
-import :Prerequisites;
-import :Sphere;
+export import :AxisAlignedBox;
+export import :Math;
+export import :Plane;
+export import :Prerequisites;
+export import :Sphere;
+export import :Vector;
 
 export
 namespace Ogre {

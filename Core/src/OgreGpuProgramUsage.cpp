@@ -30,7 +30,7 @@ module;
 #include <memory>
 #include <string>
 
-module Ogre.Core:GpuProgramUsage;
+module Ogre.Core;
 
 import :Exception;
 import :GpuProgramManager;

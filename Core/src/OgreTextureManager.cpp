@@ -34,7 +34,7 @@ module;
 #include <unordered_map>
 #include <utility>
 
-module Ogre.Core:TextureManager;
+module Ogre.Core;
 
 import :ColourValue;
 import :Common;
@@ -201,7 +201,7 @@ namespace Ogre {
     {
         TexturePtr ret;
 
-        OgreAssert(width && height && depth, "total size of texture must not be zero");
+        // OgreAssert(width && height && depth, "total size of texture must not be zero");
 
         // Check for texture support
         const auto caps = Root::getSingleton().getRenderSystem()->getCapabilities();

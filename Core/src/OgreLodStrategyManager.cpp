@@ -30,7 +30,7 @@ module;
 #include <cassert>
 #include <utility>
 
-module Ogre.Core:LodStrategyManager;
+module Ogre.Core;
 
 import :DistanceLodStrategy;
 import :Exception;

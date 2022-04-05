@@ -33,7 +33,7 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core:InstancedEntity;
+module Ogre.Core;
 
 import :AlignedAllocator;
 import :AnimationState;
