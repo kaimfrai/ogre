@@ -138,6 +138,7 @@ class Matrix3;
         }
 
         /// Pointer accessor for direct copying
+        [[nodiscard]]
         inline auto ptr() const -> const float*
         {
             return &w;
@@ -167,16 +168,19 @@ class Matrix3;
         /** Returns the X orthonormal axis defining the quaternion. Same as doing
             xAxis = Vector3::UNIT_X * this. Also called the local X-axis
         */
+        [[nodiscard]]
         auto xAxis() const -> Vector3;
 
         /** Returns the Y orthonormal axis defining the quaternion. Same as doing
             yAxis = Vector3::UNIT_Y * this. Also called the local Y-axis
         */
+        [[nodiscard]]
         auto yAxis() const -> Vector3;
 
         /** Returns the Z orthonormal axis defining the quaternion. Same as doing
             zAxis = Vector3::UNIT_Z * this. Also called the local Z-axis
         */
+        [[nodiscard]]
         auto zAxis() const -> Vector3;
 
         inline auto operator= (const Quaternion& rkQ) -> Quaternion&
@@ -210,11 +214,13 @@ class Matrix3;
         }
         // functions of a quaternion
         /// Returns the dot product of the quaternion
+        [[nodiscard]]
         auto Dot(const Quaternion& rkQ) const -> float
         {
             return w * rkQ.w + x * rkQ.x + y * rkQ.y + z * rkQ.z;
         }
         /// Returns the normal length of this quaternion.
+        [[nodiscard]]
         auto Norm() const -> float { return std::sqrt(w * w + x * x + y * y + z * z); }
         /// Normalises this quaternion, and returns the previous length
         auto normalise() -> float
@@ -223,9 +229,13 @@ class Matrix3;
             *this = 1.0f / len * *this;
             return len;
         }
+        [[nodiscard]]
         auto Inverse () const -> Quaternion;  /// Apply to non-zero quaternion
+        [[nodiscard]]
         auto UnitInverse () const -> Quaternion;  /// Apply to unit-length quaternion
+        [[nodiscard]]
         auto Exp () const -> Quaternion;
+        [[nodiscard]]
         auto Log () const -> Quaternion;
 
         /// Rotation of a vector by a quaternion
@@ -241,6 +251,7 @@ class Matrix3;
             backward compatibility, to decompose quaternion into yaw, pitch and roll use
             q.ToRotationMatrix().ToEulerAnglesYXZ(yaw, pitch, roll) instead.
         */
+        [[nodiscard]]
         auto getRoll(bool reprojectAxis = true) const -> Radian;
         /** Calculate the local pitch element of this quaternion
         @param reprojectAxis By default the method returns the 'intuitive' result
@@ -252,6 +263,7 @@ class Matrix3;
             backward compatibility, to decompose quaternion into yaw, pitch and roll use
             q.ToRotationMatrix().ToEulerAnglesYXZ(yaw, pitch, roll) instead.
         */
+        [[nodiscard]]
         auto getPitch(bool reprojectAxis = true) const -> Radian;
         /** Calculate the local yaw element of this quaternion
         @param reprojectAxis By default the method returns the 'intuitive' result
@@ -263,12 +275,14 @@ class Matrix3;
             backward compatibility, to decompose quaternion into yaw, pitch and roll use
             q.ToRotationMatrix().ToEulerAnglesYXZ(yaw, pitch, roll) instead.
         */
+        [[nodiscard]]
         auto getYaw(bool reprojectAxis = true) const -> Radian;
         
         /** Equality with tolerance (tolerance is max angle difference)
         @remark Both equals() and orientationEquals() measure the exact same thing.
                 One measures the difference by angle, the other by a different, non-linear metric.
         */
+        [[nodiscard]]
         auto equals(const Quaternion& rhs, const Radian& tolerance) const -> bool
         {
             float d = Dot(rhs);
@@ -285,6 +299,7 @@ class Matrix3;
             therefore be careful if your code relies in the order of the operands.
             This is specially important in IK animation.
         */
+        [[nodiscard]]
         inline auto orientationEquals( const Quaternion& other, float tolerance = 1e-3f ) const -> bool
         {
             float d = this->Dot(other);
@@ -351,6 +366,7 @@ class Matrix3;
         float w, x, y, z;
 
         /// Check whether this quaternion contains valid values
+        [[nodiscard]]
         inline auto isNaN() const -> bool
         {
             return Math::isNaN(x) || Math::isNaN(y) || Math::isNaN(z) || Math::isNaN(w);

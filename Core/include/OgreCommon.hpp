@@ -630,14 +630,17 @@ class RenderWindow;
             bottom = o.bottom;
             return *this;
           }
+          [[nodiscard]]
           auto width() const -> T
           {
             return right - left;
           }
+          [[nodiscard]]
           auto height() const -> T
           {
             return bottom - top;
           }
+          [[nodiscard]]
           auto isNull() const -> bool
           {
               return width() == 0 || height() == 0;
@@ -674,6 +677,7 @@ class RenderWindow;
            * @param rhs Another rectangle.
            * @return The intersection of the two rectangles. Zero size if they don't intersect.
            */
+          [[nodiscard]]
           auto intersect(const TRect& rhs) const -> TRect
           {
               assert(right >= left && bottom >= top);
@@ -789,6 +793,7 @@ class RenderWindow;
             }
 
             /// Return true if the other box is a part of this one
+            [[nodiscard]]
             auto contains(const Box &def) const -> bool
             {
                 return (def.left >= left && def.top >= top && def.front >= front &&
@@ -796,15 +801,20 @@ class RenderWindow;
             }
             
             /// Get the width of this box
+            [[nodiscard]]
             auto getWidth() const -> uint32 { return right-left; }
             /// Get the height of this box
+            [[nodiscard]]
             auto getHeight() const -> uint32 { return bottom-top; }
             /// Get the depth of this box
+            [[nodiscard]]
             auto getDepth() const -> uint32 { return back-front; }
 
             /// origin (top, left, front) of the box
+            [[nodiscard]]
             auto getOrigin() const -> Vector<3, uint32> { return {left, top, front}; }
             /// size (width, height, depth) of the box
+            [[nodiscard]]
             auto getSize() const -> Vector<3, uint32> { return {getWidth(), getHeight(), getDepth()}; }
         };
 

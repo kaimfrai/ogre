@@ -58,6 +58,7 @@ public:
     virtual ~HLSLProgramProcessor();
 
     /** Return the target language of this processor. */
+    [[nodiscard]]
     virtual auto getTargetLanguage() const -> const String& { return TargetLanguage; }
 
     /** 

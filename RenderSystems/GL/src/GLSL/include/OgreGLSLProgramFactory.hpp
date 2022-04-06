@@ -51,6 +51,7 @@ class GLSLLinkProgramManager;
         GLSLProgramFactory();
         ~GLSLProgramFactory();
         /// Get the name of the language this factory creates programs for
+        [[nodiscard]]
         auto getLanguage() const -> const String&;
         /// Create an instance of GLSLProgram
         auto create(ResourceManager* creator,

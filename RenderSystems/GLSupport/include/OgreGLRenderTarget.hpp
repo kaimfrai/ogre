@@ -18,6 +18,7 @@ public:
 
     /** Get the GL context that needs to be active to render to this target
      */
+    [[nodiscard]]
     virtual auto getContext() const -> GLContext* = 0;
     virtual auto getFBO() -> GLFrameBufferObjectCommon* { return nullptr; }
 };

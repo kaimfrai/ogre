@@ -66,9 +66,11 @@ namespace Ogre {
         void addPoint(const Quaternion& p);
 
         /** Gets the detail of one of the control points of the spline. */
+        [[nodiscard]]
         auto getPoint(unsigned short index) const -> const Quaternion&;
 
         /** Gets the number of control points in the spline. */
+        [[nodiscard]]
         auto getNumPoints() const -> unsigned short;
 
         /** Clears all the points in the spline. */

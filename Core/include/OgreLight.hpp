@@ -570,6 +570,7 @@ class Sphere;
 
         static String FACTORY_TYPE_NAME;
 
+        [[nodiscard]]
         auto getType() const -> const String&;
     };
     /** @} */

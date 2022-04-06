@@ -66,6 +66,7 @@ namespace Ogre {
 
         /** Retrieves the custom key less user object associated with this class.
         */
+        [[nodiscard]]
         auto getUserAny() const -> const Any&;
 
         /** Sets any kind of user object on this class instance.
@@ -83,6 +84,7 @@ namespace Ogre {
         @remarks
         In case no object associated with this key the returned Any object will be empty.
         */
+        [[nodiscard]]
         auto getUserAny(const String& key) const -> const Any&;
 
         /** Erase the custom user object associated with this class and key from this binding.
@@ -127,6 +129,7 @@ namespace Ogre {
         };
 
         /** \brief Protected getter for the attributes map, to allow derived classes to inspect its elements. */
+        [[nodiscard]]
         auto getAttributes() const -> const Attributes* { return mAttributes.get(); }
         auto getAttributes() -> Attributes* { return mAttributes.get(); }
 

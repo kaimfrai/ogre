@@ -149,6 +149,7 @@ namespace Ogre
         /** Gets the current depth test function.
          @return The current depth test function.
          */
+        [[nodiscard]]
         auto getDepthFunc() const -> GLenum { return mDepthFunc; }
 
         /** Sets the current depth test function.
@@ -159,6 +160,7 @@ namespace Ogre
         /** Gets the clear depth in the range from [0..1].
          @return The current clearing depth.
          */
+        [[nodiscard]]
         auto getClearDepth() const -> GLclampf { return mClearDepth; }
 
         /** Sets the clear depth in the range from [0..1].
@@ -195,6 +197,7 @@ namespace Ogre
         /** Gets the current polygon rendering mode, fill, wireframe, points, etc.
          @return The current polygon rendering mode.
          */
+        [[nodiscard]]
         auto getPolygonMode() const -> GLenum { return mPolygonMode; }
 
         /** Sets the current polygon rendering mode.
@@ -205,6 +208,7 @@ namespace Ogre
         /** Sets the face culling mode.
          @return The current face culling mode
          */
+        [[nodiscard]]
         auto getCullFace() const -> GLenum { return mCullFace; }
 
         /** Sets the face culling setting.

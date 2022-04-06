@@ -122,6 +122,7 @@ namespace Ogre
             m[2][3] = v[2];
         }
         /// Extracts the translation transformation part of the matrix.
+        [[nodiscard]]
         auto getTrans() const -> Vector<3, T>
         {
             assert(rows > 2);
@@ -190,6 +191,7 @@ namespace Ogre
 
         /** Extracts the rotation / scaling part of the Matrix as a 3x3 matrix.
         */
+        [[nodiscard]]
         auto linear() const -> Matrix3
         {
             return {m[0][0], m[0][1], m[0][2],
@@ -197,8 +199,10 @@ namespace Ogre
                            m[2][0], m[2][1], m[2][2]};
         }
 
+        [[nodiscard]]
         auto determinant() const -> Real;
 
+        [[nodiscard]]
         auto transpose() const -> Matrix4;
 
         /** Building a Affine3 from orientation / scale / position.
@@ -309,7 +313,9 @@ namespace Ogre
                 scalar*m[3][0], scalar*m[3][1], scalar*m[3][2], scalar*m[3][3]};
         }
         
+        [[nodiscard]]
         auto adjoint() const -> Matrix4;
+        [[nodiscard]]
         auto inverse() const -> Matrix4;
     };
 
@@ -380,6 +386,7 @@ namespace Ogre
 
         auto operator!=(const Affine3& m2) const -> bool { return !(*this == m2); }
 
+        [[nodiscard]]
         auto inverse() const -> Affine3;
 
         /** Decompose to orientation / scale / position.

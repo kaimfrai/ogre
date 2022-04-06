@@ -84,6 +84,7 @@ public:
     void removeSubRenderState(SubRenderState* subRenderState);
 
     /** Get the list of the sub render states composing this render state. */
+    [[nodiscard]]
     auto getSubRenderStates() const -> const SubRenderStateList& { return mSubRenderStateList; }
 
     /** 
@@ -103,6 +104,7 @@ public:
     lightCount[1] defines the directional light count.
     lightCount[2] defines the spot light count.
     */
+    [[nodiscard]]
     auto getLightCount() const -> const Vector3i&;
 
     /** 
@@ -117,6 +119,7 @@ public:
     Return true if this render state override the light count. 
     If light count is not overridden it will be updated from the shader generator based on current scene lights.
     */
+    [[nodiscard]]
     auto getLightCountAutoUpdate() const -> bool { return mLightCountAutoUpdate; }
 
     

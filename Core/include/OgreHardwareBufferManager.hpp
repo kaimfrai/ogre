@@ -99,6 +99,7 @@ class VertexDeclaration;
         /** Overridden member from HardwareBufferLicensee. */
         void licenseExpired(HardwareBuffer* buffer);
         /** Detect currently have buffer copies checked out and touch it. */
+        [[nodiscard]]
         auto buffersCheckedOut(bool positions = true, bool normals = true) const -> bool;
     };
 

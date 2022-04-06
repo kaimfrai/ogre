@@ -103,6 +103,7 @@ namespace Ogre
         ~GpuProgramUsage();
 
         /** Gets the type of program we're trying to link to. */
+        [[nodiscard]]
         auto getType() const -> GpuProgramType { return mType; }
 
         /** Sets the name of the program to use. 
@@ -124,8 +125,10 @@ namespace Ogre
         */
         void setProgram(const GpuProgramPtr& prog, bool resetParams = true);
         /** Gets the program being used. */
+        [[nodiscard]]
         auto getProgram() const -> const GpuProgramPtr& { return mProgram; }
         /** Gets the program being used. */
+        [[nodiscard]]
         auto getProgramName() const -> const String& { return mProgram->getName(); }
 
         /** Sets the program parameters that should be used; because parameters can be
@@ -136,6 +139,7 @@ namespace Ogre
         void setParameters(const GpuProgramParametersSharedPtr& params);
         /** Gets the parameters being used here. 
         */
+        [[nodiscard]]
         auto getParameters() const -> const GpuProgramParametersSharedPtr&;
 
         /// Load this usage (and ensure program is loaded)
@@ -143,6 +147,7 @@ namespace Ogre
         /// Unload this usage 
         void _unload();
 
+        [[nodiscard]]
         auto calculateSize() const -> size_t;
 
         // Resource Listener

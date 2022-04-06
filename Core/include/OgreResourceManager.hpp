@@ -406,6 +406,7 @@ namespace Ogre {
             ResourcePool(const String& name);
             ~ResourcePool();
             /// Get the name of the pool
+            [[nodiscard]]
             auto getName() const -> const String&;
             void clear();
         };

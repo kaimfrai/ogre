@@ -81,12 +81,14 @@ namespace Ogre {
             Note that the Renderable also has the option to override the getTechnique method
             to specify a particular Technique to use instead of the best one available.
         */
+        [[nodiscard]]
         virtual auto getMaterial() const -> const MaterialPtr& = 0;
         /** Retrieves a pointer to the Material Technique this renderable object uses.
         @remarks
             This is to allow Renderables to use a chosen Technique if they wish, otherwise
             they will use the best Technique available for the Material they are using.
         */
+        [[nodiscard]]
         virtual auto getTechnique() const -> Technique* { return getMaterial()->getBestTechnique(0, this); }
         /** Gets the render operation required to send this object to the frame buffer.
         */
@@ -146,6 +148,7 @@ namespace Ogre {
             If a renderable does not use vertex blending this method returns 1, which is the default for 
             simplicity.
         */
+        [[nodiscard]]
         virtual auto getNumWorldTransforms() const -> unsigned short { return 1; }
 
         /** Sets whether or not to use an 'identity' projection.
@@ -171,6 +174,7 @@ namespace Ogre {
             need not change this.
         @see Renderable::setUseIdentityProjection
         */
+        [[nodiscard]]
         auto getUseIdentityProjection() const -> bool { return mUseIdentityProjection; }
 
         /** Sets whether or not to use an 'identity' view.
@@ -196,6 +200,7 @@ namespace Ogre {
             Normal renderables need not change this.
         @see Renderable::setUseIdentityView
         */
+        [[nodiscard]]
         auto getUseIdentityView() const -> bool { return mUseIdentityView; }
 
         /** Returns the squared distance between the camera and this renderable.
@@ -209,6 +214,7 @@ namespace Ogre {
         @remarks
             Directional lights, which have no position, will always be first on this list.
         */
+        [[nodiscard]]
         virtual auto getLights() const -> const LightList& = 0;
 
         /** Method which reports whether this renderable would normally cast a
@@ -217,6 +223,7 @@ namespace Ogre {
             Subclasses should override this if they could have been used to 
             generate a shadow.
         */
+        [[nodiscard]]
         virtual auto getCastsShadows() const -> bool { return false; }
 
         /** Sets a custom parameter for this Renderable, which may be used to 
@@ -246,12 +253,14 @@ namespace Ogre {
         @param index Index of the parameter to check for existence.
             @see setCustomParameter for full details.
         */
+        [[nodiscard]]
         auto hasCustomParameter(size_t index) const -> bool;
 
         /** Gets the custom value associated with this Renderable at the given index.
         @param index Index of the parameter to retrieve.
             @see setCustomParameter for full details.
         */
+        [[nodiscard]]
         auto getCustomParameter(size_t index) const -> const Vector4&;
 
         /** Update a custom GpuProgramParameters constant which is derived from 
@@ -294,6 +303,7 @@ namespace Ogre {
         /** Gets whether this renderable's chosen detail level can be
             overridden (downgraded) by the camera setting. 
         */
+        [[nodiscard]]
         auto getPolygonModeOverrideable() const -> bool
         {
             return mPolygonModeOverrideable;
@@ -309,6 +319,7 @@ namespace Ogre {
             You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.
         */
+        [[nodiscard]]
         auto getUserObjectBindings() const -> const UserObjectBindings& { return mUserObjectBindings; }
 
 

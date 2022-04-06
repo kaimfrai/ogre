@@ -66,24 +66,30 @@ class MovableObject;
         DistanceLodStrategyBase(const String& name);
 
         /// @copydoc LodStrategy::getBaseValue
+        [[nodiscard]]
         virtual auto getBaseValue() const -> Real;
 
         /// @copydoc LodStrategy::transformBias
+        [[nodiscard]]
         virtual auto transformBias(Real factor) const -> Real;
 
         /// @copydoc LodStrategy::transformUserValue
+        [[nodiscard]]
         virtual auto transformUserValue(Real userValue) const -> Real;
 
         /// @copydoc LodStrategy::getIndex
+        [[nodiscard]]
         virtual auto getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const -> ushort;
 
         /// @copydoc LodStrategy::getIndex
+        [[nodiscard]]
         virtual auto getIndex(Real value, const Material::LodValueList& materialLodValueList) const -> ushort;
 
         /// @copydoc LodStrategy::sort
         virtual void sort(Mesh::MeshLodUsageList& meshLodUsageList) const;
 
         /// @copydoc LodStrategy::isSorted
+        [[nodiscard]]
         virtual auto isSorted(const Mesh::LodValueList& values) const -> bool;
 
         /** Get the squared distance between the camera and the LOD object */
@@ -104,6 +110,7 @@ class MovableObject;
         void setReferenceViewEnabled(bool value);
 
         /** Determine if use of the reference view is enabled */
+        [[nodiscard]]
         auto isReferenceViewEnabled() const -> bool;
 
     private:

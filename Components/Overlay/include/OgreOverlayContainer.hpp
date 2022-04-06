@@ -97,6 +97,7 @@ class RenderQueue;
         auto _removeChild(const String& name) -> ChildMap::iterator;
 
         /** Gets all the children of this object. */
+        [[nodiscard]]
         auto getChildren() const -> const ChildMap& { return mChildren; }
 
         /** Gets an iterator for just the container children of this object.
@@ -127,10 +128,12 @@ class RenderQueue;
         virtual void _updateRenderQueue(RenderQueue* queue);
 
         /** Overridden from OverlayElement. */
+        [[nodiscard]]
         inline auto isContainer() const -> bool
         { return true; }
 
         /** Should this container pass events to their children */
+        [[nodiscard]]
         virtual inline auto isChildrenProcessEvents() const -> bool
         { return true; }
 

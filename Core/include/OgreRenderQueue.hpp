@@ -224,6 +224,7 @@ class Technique;
         /** Gets the current default queue group, which will be used for all renderable which do not
             specify which group they wish to be on.
         */
+        [[nodiscard]]
         auto getDefaultQueueGroup() const -> uint8;
 
         /** Sets the current default renderable priority, 
@@ -235,6 +236,7 @@ class Technique;
         /** Gets the current default renderable priority, which will be used for all renderables which do not
             specify which priority they wish to use.
         */
+        [[nodiscard]]
         auto getDefaultRenderablePriority() const -> ushort;
 
         /** Sets the current default queue group, which will be used for all renderable which do not
@@ -244,6 +246,7 @@ class Technique;
         void setDefaultQueueGroup(uint8 grp);
         
         /** Internal method, returns the queue groups. */
+        [[nodiscard]]
         auto _getQueueGroups() const -> const RenderQueueGroupMap& {
             return mGroups;
         }
@@ -256,6 +259,7 @@ class Technique;
         /** Gets whether or not the queue will split passes by their lighting type,
             ie ambient, per-light and decal. 
         */
+        [[nodiscard]]
         auto getSplitPassesByLightingType() const -> bool;
 
         /** Sets whether or not the queue will split passes which have shadow receive
@@ -268,6 +272,7 @@ class Technique;
         turned off (in their parent material), which is needed when certain shadow
         techniques are used.
         */
+        [[nodiscard]]
         auto getSplitNoShadowPasses() const -> bool;
 
         /** Sets whether or not objects which cast shadows should be treated as
@@ -278,6 +283,7 @@ class Technique;
         /** Gets whether or not objects which cast shadows should be treated as
         never receiving shadows. 
         */
+        [[nodiscard]]
         auto getShadowCastersCannotBeReceivers() const -> bool;
 
         /** Set a renderable listener on the queue.
@@ -288,6 +294,7 @@ class Technique;
         void setRenderableListener(RenderableListener* listener)
         { mRenderableListener = listener; }
 
+        [[nodiscard]]
         auto getRenderableListener() const -> RenderableListener*
         { return mRenderableListener; }
 

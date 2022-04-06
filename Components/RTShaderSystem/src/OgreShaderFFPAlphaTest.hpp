@@ -117,7 +117,8 @@ static String Type;
 	/**
 	@see SubRenderStateFactory::getType.
 	*/
-	virtual auto getType() const -> const String&;
+	[[nodiscard]]
+virtual auto getType() const -> const String&;
 
 protected:
 

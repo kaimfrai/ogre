@@ -67,6 +67,7 @@ class AnimationTrack;
         virtual ~KeyFrame() {}
 
         /** Gets the time of this keyframe in the animation sequence. */
+        [[nodiscard]]
         auto getTime() const -> Real { return mTime; }
 
         /** Clone a keyframe (internal use only) */
@@ -89,6 +90,7 @@ class AnimationTrack;
         ~NumericKeyFrame() {}
 
         /** Get the value at this keyframe. */
+        [[nodiscard]]
         virtual auto getValue() const -> const AnyNumeric&;
         /** Set the value at this keyframe.
         @remarks
@@ -119,6 +121,7 @@ class AnimationTrack;
         virtual void setTranslate(const Vector3& trans);
 
         /** Gets the translation applied by this keyframe. */
+        [[nodiscard]]
         auto getTranslate() const -> const Vector3&;
 
         /** Sets the scaling factor applied by this keyframe to the animable
@@ -129,6 +132,7 @@ class AnimationTrack;
         virtual void setScale(const Vector3& scale);
 
         /** Gets the scaling factor applied by this keyframe. */
+        [[nodiscard]]
         virtual auto getScale() const -> const Vector3&;
 
         /** Sets the rotation applied by this keyframe.
@@ -138,6 +142,7 @@ class AnimationTrack;
         virtual void setRotation(const Quaternion& rot);
 
         /** Gets the rotation applied by this keyframe. */
+        [[nodiscard]]
         virtual auto getRotation() const -> const Quaternion&;
 
         /** Clone a keyframe (internal use only) */
@@ -171,6 +176,7 @@ class AnimationTrack;
         void setVertexBuffer(const HardwareVertexBufferSharedPtr& buf);
 
         /** Gets the vertex buffer containing positions for this keyframe. */
+        [[nodiscard]]
         auto getVertexBuffer() const -> const HardwareVertexBufferSharedPtr&;
 
         /** Clone a keyframe (internal use only) */
@@ -232,6 +238,7 @@ class AnimationTrack;
 
 
         /** Get a const reference to the list of pose references. */
+        [[nodiscard]]
         auto getPoseReferences() const -> const PoseRefList&;
 
         typedef VectorIterator<PoseRefList> PoseRefIterator;

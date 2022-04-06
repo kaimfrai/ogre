@@ -150,6 +150,7 @@ namespace Ogre {
         virtual ~AnimableValue() {}
 
         /// Gets the value type of this animable value
+        [[nodiscard]]
         auto getType() const -> ValueType { return mType; }
 
         /// Sets the current state as the 'base' value; used for delta animation
@@ -253,7 +254,8 @@ namespace Ogre {
             Subclasses must override this if they want to support animation of
             their values.
         */
-        virtual auto getAnimableDictionaryName() const -> const String& 
+        [[nodiscard]]
+        virtual auto getAnimableDictionaryName() const -> const String&
         { return BLANKSTRING; }
         /** Internal method for creating a dictionary of animable value names 
             for the class, if it does not already exist.
@@ -274,6 +276,7 @@ namespace Ogre {
         virtual ~AnimableObject() {}
 
         /** Gets a list of animable value names for this object. */
+        [[nodiscard]]
         auto getAnimableValueNames() const -> const StringVector&;
 
         /** Create a reference-counted AnimableValuePtr for the named value.

@@ -345,12 +345,14 @@ class ScriptLoader;
         /** Adds a created resource to a group. */
         void addCreatedResource(ResourcePtr& res, ResourceGroup& group) const;
         /** Get resource group */
+        [[nodiscard]]
         auto getResourceGroup(const String& name, bool throwOnFailure = false) const -> ResourceGroup*;
         /** Drops contents of a group, leave group there, notify ResourceManagers. */
         void dropGroupContents(ResourceGroup* grp);
         /** Delete a group for shutdown - don't notify ResourceManagers. */
         void deleteGroup(ResourceGroup* grp);
         /// Internal find method for auto groups
+        [[nodiscard]]
         auto
         resourceExistsInAnyGroupImpl(const String& filename) const -> std::pair<Archive*, ResourceGroup*>;
         /// Internal event firing method
@@ -517,6 +519,7 @@ class ScriptLoader;
             group return true, otherwise return false.
         @param name The name to of the resource group to access.
         */
+        [[nodiscard]]
         auto isResourceGroupInitialised(const String& name) const -> bool;
 
         /** Checks the status of a resource group.
@@ -526,11 +529,13 @@ class ScriptLoader;
             group return true, otherwise return false.
         @param name The name to of the resource group to access.
         */
+        [[nodiscard]]
         auto isResourceGroupLoaded(const String& name) const -> bool;
 
         /*** Verify if a resource group exists
         @param name The name of the resource group to look for
         */
+        [[nodiscard]]
         auto resourceGroupExists(const String& name) const -> bool;
 
         /** Adds a location to the list of searchable locations for a
@@ -563,6 +568,7 @@ class ScriptLoader;
         void removeResourceLocation(const String& name, 
             const String& resGroup = DEFAULT_RESOURCE_GROUP_NAME);
         /** Verify if a resource location exists for the given group. */ 
+        [[nodiscard]]
         auto resourceLocationExists(const String& name, 
             const String& resGroup = DEFAULT_RESOURCE_GROUP_NAME) const -> bool;
 
@@ -651,6 +657,7 @@ class ScriptLoader;
         @return Shared pointer to a data stream list , will be
             destroyed automatically when no longer referenced
         */
+        [[nodiscard]]
         auto openResources(const String& pattern,
             const String& groupName = DEFAULT_RESOURCE_GROUP_NAME) const -> DataStreamList;
         
@@ -662,6 +669,7 @@ class ScriptLoader;
         @param dirs If true, directory names will be returned instead of file names
         @return A list of filenames matching the criteria, all are fully qualified
         */
+        [[nodiscard]]
         auto listResourceNames(const String& groupName, bool dirs = false) const -> StringVectorPtr;
 
         /** List all files in a resource group with accompanying information.
@@ -670,6 +678,7 @@ class ScriptLoader;
         @return A list of structures detailing quite a lot of information about
         all the files in the archive.
         */
+        [[nodiscard]]
         auto listResourceFileInfo(const String& groupName, bool dirs = false) const -> FileInfoListPtr;
 
         /** Find all file or directory names matching a given pattern in a
@@ -683,6 +692,7 @@ class ScriptLoader;
             instead of files
         @return A list of filenames matching the criteria, all are fully qualified
         */
+        [[nodiscard]]
         auto findResourceNames(const String& groupName, const String& pattern,
             bool dirs = false) const -> StringVectorPtr;
 
@@ -690,11 +700,13 @@ class ScriptLoader;
         @param group The name of the resource group
         @param filename Fully qualified name of the file to test for
         */
+        [[nodiscard]]
         auto resourceExists(const String& group, const String& filename) const -> bool;
         
         /** Find out if the named file exists in any group. 
         @param filename Fully qualified name of the file to test for
         */
+        [[nodiscard]]
         auto resourceExistsInAnyGroup(const String& filename) const -> bool;
 
         /** Find the group in which a resource exists.
@@ -703,6 +715,7 @@ class ScriptLoader;
         @return Name of the resource group the resource was found in. An
             exception is thrown if the group could not be determined.
         */
+        [[nodiscard]]
         auto findGroupContainingResource(const String& filename) const -> const String&;
 
         /** Find all files or directories matching a given pattern in a group
@@ -714,15 +727,18 @@ class ScriptLoader;
         @return A list of file information structures for all files matching 
         the criteria.
         */
+        [[nodiscard]]
         auto findResourceFileInfo(const String& group, const String& pattern,
             bool dirs = false) const -> FileInfoListPtr;
 
         /** Retrieve the modification time of a given file */
+        [[nodiscard]]
         auto resourceModifiedTime(const String& group, const String& filename) const -> time_t;
         /** List all resource locations in a resource group.
         @param groupName The name of the group
         @return A list of resource locations matching the criteria
         */
+        [[nodiscard]]
         auto listResourceLocations(const String& groupName) const -> StringVectorPtr;
 
         /** Find all resource location names matching a given pattern in a
@@ -731,6 +747,7 @@ class ScriptLoader;
         @param pattern The pattern to search for; wildcards (*) are allowed
         @return A list of resource locations matching the criteria
         */
+        [[nodiscard]]
         auto findResourceLocation(const String& groupName, const String& pattern) const -> StringVectorPtr;
 
         /** Create a new resource file in a given group.
@@ -790,6 +807,7 @@ class ScriptLoader;
         void setWorldResourceGroupName(const String& groupName) {mWorldGroupName = groupName;}
 
         /// Gets the resource group that 'world' resources will use.
+        [[nodiscard]]
         auto getWorldResourceGroupName() const -> const String& { return mWorldGroupName; }
 
         /** Declare the number custom loading stages for a resource group
@@ -812,6 +830,7 @@ class ScriptLoader;
             group return true, otherwise return false.
         @param name The name to of the resource group to access.
         */
+        [[nodiscard]]
         auto isResourceGroupInGlobalPool(const String& name) const -> bool;
 
         /** Shutdown all ResourceManagers, performed as part of clean-up. */
@@ -839,6 +858,7 @@ class ScriptLoader;
 
         /** Get the registered resource managers.
         */
+        [[nodiscard]]
         auto getResourceManagers() const -> const ResourceManagerMap& { return mResourceManagerMap; }
 
         /** Internal method for registering a ScriptLoader.
@@ -855,11 +875,13 @@ class ScriptLoader;
         /** Method used to directly query for registered script loaders.
         @param pattern The specific script pattern (e.g. *.material) the script loader handles
         */
+        [[nodiscard]]
         auto _findScriptLoader(const String &pattern) const -> ScriptLoader *;
 
         /** Internal method for getting a registered ResourceManager.
         @param resourceType String identifying the resource type.
         */
+        [[nodiscard]]
         auto _getResourceManager(const String& resourceType) const -> ResourceManager*;
 
         /** Internal method called by ResourceManager when a resource is created.
@@ -900,6 +922,7 @@ class ScriptLoader;
             order to avoid any contention issues in multithreaded applications.
         @return A copy of list of currently defined groups.
         */
+        [[nodiscard]]
         auto getResourceGroups() const -> StringVector;
         /** Get the list of resource declarations for the specified group name. 
         @note This method intentionally returns a copy rather than a reference in
@@ -907,17 +930,20 @@ class ScriptLoader;
         @param groupName The name of the group
         @return A copy of list of currently defined resources.
         */
+        [[nodiscard]]
         auto getResourceDeclarationList(const String& groupName) const -> ResourceDeclarationList;
 
         /** Get the list of resource locations for the specified group name.
         @param groupName The name of the group
         @return The list of resource locations associated with the given group.
         */      
+        [[nodiscard]]
         auto getResourceLocationList(const String& groupName) const -> const LocationList&;
 
         /// Sets a new loading listener
         void setLoadingListener(ResourceLoadingListener *listener);
         /// Returns the current loading listener
+        [[nodiscard]]
         auto getLoadingListener() const -> ResourceLoadingListener *;
 
         /// @copydoc Singleton::getSingleton()

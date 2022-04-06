@@ -105,12 +105,15 @@ public:
     ~Operand();
 
     /** Returns the parameter object as weak reference */
+    [[nodiscard]]
     auto getParameter()  const -> const ParameterPtr& { return mParameter; }
 
     /** Returns true if not all fields used. (usage is described through semantic)*/
+    [[nodiscard]]
     auto hasFreeFields()    const -> bool { return mMask != OPM_ALL; }
     
     /** Returns the mask bitfield. */
+    [[nodiscard]]
     auto getMask()   const -> OpMask { return mMask; }
 
     auto x() -> Operand& { return mask(OPM_X); }
@@ -130,6 +133,7 @@ public:
     void setMaskToParamType();
 
     /** Returns the operand semantic (do we read/write or both with the parameter). */
+    [[nodiscard]]
     auto getSemantic()    const -> OpSemantic { return mSemantic; }
 
     /** Returns the level of indirection. 
@@ -137,6 +141,7 @@ public:
     For example given 4 parameters x1...x4 with the indirections levels 0,1,1,2 
     respectively. The parameters should form the following string: x1[x2][x3[x4]].
     */
+    [[nodiscard]]
     auto getIndirectionLevel()    const -> ushort { return mIndirectionLevel; }
 
     /** write the parameter name and the usage mask like this 'color.xyz' */
@@ -200,6 +205,7 @@ public:
     virtual ~FunctionAtom() {}
 
     /** Get the group execution order of this function atom. */
+    [[nodiscard]]
     auto getGroupExecutionOrder() const -> int;
 
     /** Get a list of parameters this function invocation will use in the function call as arguments. */
@@ -253,9 +259,11 @@ public:
     virtual void writeSourceCode(std::ostream& os, const String& targetLanguage) const;
 
     /** Return the function name */
+    [[nodiscard]]
     auto getFunctionName() const -> const String& { return mFunctionName; }
 
     /** Return the return type */
+    [[nodiscard]]
     auto getReturnType() const -> const String& { return mReturnType; }
 
     /** Determines if the current object is equal to the compared one. */

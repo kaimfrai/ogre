@@ -100,6 +100,7 @@ namespace Ogre {
             BOTH_SIDE
         };
 
+        [[nodiscard]]
         auto getSide(const Vector3& rkPoint) const -> Side
         {
             Real fDistance = getDistance(rkPoint);
@@ -117,6 +118,7 @@ namespace Ogre {
         Returns the side where the alignedBox is. The flag BOTH_SIDE indicates an intersecting box.
         One corner ON the plane is sufficient to consider the box and the plane intersecting.
         */
+        [[nodiscard]]
         auto getSide(const AxisAlignedBox& box) const -> Side
         {
             if (box.isNull())
@@ -136,6 +138,7 @@ namespace Ogre {
             NEGATIVE_SIDE if the box complete lies on the "negative side" of the plane,
             and BOTH_SIDE if the box intersects the plane.
         */
+        [[nodiscard]]
         auto getSide(const Vector3& centre, const Vector3& halfSize) const -> Side
         {
             // Calculate the distance between box centre and the plane
@@ -162,6 +165,7 @@ namespace Ogre {
             The absolute value of the return value is the true distance only
             when the plane normal is a unit length vector.
         */
+        [[nodiscard]]
         auto getDistance(const Vector3& rkPoint) const -> Real
         {
             return normal.dotProduct(rkPoint) + d;
@@ -188,6 +192,7 @@ namespace Ogre {
             from the original vector, since parallel + perpendicular = original.
         @param v The input vector
         */
+        [[nodiscard]]
         auto projectVector(const Vector3& v) const -> Vector3
         {
             // We know plane normal is unit length, so use simple method

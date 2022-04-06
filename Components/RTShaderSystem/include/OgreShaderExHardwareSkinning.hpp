@@ -201,6 +201,7 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
+    [[nodiscard]]
     virtual auto getType() const -> const String&;
 
     /** 
@@ -228,11 +229,13 @@ public:
     /** 
     Returns the name of a custom shadow caster material for a given number of weights
     */
+    [[nodiscard]]
     auto getCustomShadowCasterMaterial(const SkinningType skinningType, ushort index) const -> const MaterialPtr&;
 
     /** 
     Returns the name of a custom shadow receiver material for a given number of weights
     */
+    [[nodiscard]]
     auto getCustomShadowReceiverMaterial(const SkinningType skinningType, ushort index) const -> const MaterialPtr&;
 
     /**
@@ -262,6 +265,7 @@ public:
 
         The default value for this property is 70 which correspond to pixel shader model 3 limitations
     */
+    [[nodiscard]]
     auto getMaxCalculableBoneCount() const -> ushort {
         return mMaxCalculableBoneCount; }
     /** 

@@ -158,6 +158,7 @@ public:
     /** 
     Return the target shader language currently in use.     
     */
+    [[nodiscard]]
     auto getTargetLanguage() const -> const String& { return mShaderLanguage; }
 
     /** 
@@ -170,6 +171,7 @@ public:
     /** 
     Get the output shader target profiles.
     */
+    [[nodiscard]]
     auto getShaderProfiles(GpuProgramType type) const -> const String&;
 
     /** 
@@ -183,6 +185,7 @@ public:
     /** 
     Get the output shader cache path.
     */
+    [[nodiscard]]
     auto getShaderCachePath() const -> const String& { return mShaderCachePath; }
 
     /** 
@@ -214,6 +217,7 @@ public:
     Tells if a given render state exists
     @param schemeName The scheme name to check.
     */
+    [[nodiscard]]
     auto hasRenderState(const String& schemeName) const -> bool;
     
     /**
@@ -243,6 +247,7 @@ public:
     /** 
     Returns the number of existing factories
     */
+    [[nodiscard]]
     auto getNumSubRenderStateFactories() const -> size_t;
 
     /** 
@@ -289,9 +294,11 @@ public:
      @param srcTechniqueSchemeName The source technique scheme name.
      @param dstTechniqueSchemeName The destination shader based technique scheme name.
      */
+    [[nodiscard]]
     auto hasShaderBasedTechnique(const String& materialName, const String& groupName, const String& srcTechniqueSchemeName, const String& dstTechniqueSchemeName) const -> bool;
 
     /// @overload
+    [[nodiscard]]
     auto hasShaderBasedTechnique(const Material& mat, const String& srcTechniqueSchemeName, const String& dstTechniqueSchemeName) const -> bool
     {
         return hasShaderBasedTechnique(mat.getName(), mat.getGroup(), srcTechniqueSchemeName, dstTechniqueSchemeName);
@@ -431,6 +438,7 @@ public:
     auto getMaterialSerializerListener() -> MaterialSerializer::Listener*;
 
     /** Return the current number of generated shaders. */
+    [[nodiscard]]
     auto getShaderCount(GpuProgramType type) const -> size_t;
 
     /** Set the vertex shader outputs compaction policy. 
@@ -442,6 +450,7 @@ public:
     /** Get the vertex shader outputs compaction policy. 
     @see VSOutputCompactPolicy. 
     */
+    [[nodiscard]]
     auto getVertexShaderOutputsCompactPolicy() const -> VSOutputCompactPolicy { return mVSOutputCompactPolicy; }
 
 
@@ -455,15 +464,18 @@ public:
     /** Returns whether shaders are created for passes with shaders.
     @see setCreateShaderOverProgrammablePass(). 
     */
+    [[nodiscard]]
     auto getCreateShaderOverProgrammablePass() const -> bool { return mCreateShaderOverProgrammablePass; }
 
 
     /** Returns the amount of schemes used in the for RT shader generation
     */
+    [[nodiscard]]
     auto getRTShaderSchemeCount() const -> size_t;
 
     /** Returns the scheme name used in the for RT shader generation by index
     */
+    [[nodiscard]]
     auto getRTShaderScheme(size_t index) const -> const String&;
 
     /// Default material scheme of the shader generator.
@@ -539,6 +551,7 @@ private:
         /** Set the custom render state of this pass. */
         void setCustomRenderState(RenderState* customRenderState) { mCustomRenderState = customRenderState; }
 
+        [[nodiscard]]
         auto getParent() const -> const SGTechnique* { return mParent; }
     protected:
         // Parent technique.
@@ -563,6 +576,7 @@ private:
         ~SGTechnique();
         
         /** Get the parent SGMaterial */
+        [[nodiscard]]
         auto getParent() const -> const SGMaterial* { return mParent; }
         
         /** Get the source technique. */
@@ -572,6 +586,7 @@ private:
         auto getDestinationTechnique() -> Technique* { return mDstTechnique; }
 
         /** Get the destination technique scheme name. */
+        [[nodiscard]]
         auto getDestinationTechniqueSchemeName() const -> const String& { return mDstTechniqueSchemeName; }
         
         /** Build the render state. */
@@ -590,6 +605,7 @@ private:
         void setBuildDestinationTechnique(bool buildTechnique)  { mBuildDstTechnique = buildTechnique; }        
 
         /** Tells if the destination technique should be build. */
+        [[nodiscard]]
         auto getBuildDestinationTechnique() const -> bool               { return mBuildDstTechnique; }
 
         /** Get render state of specific pass.
@@ -602,6 +618,7 @@ private:
         /// whether shaders are created for passes with shaders
         auto overProgrammablePass() -> bool { return mOverProgrammable; }
 
+        [[nodiscard]]
         auto getPassList() const -> const SGPassList&  { return mPassEntries; }
 
         // Key name for associating with a Technique instance.
@@ -648,12 +665,15 @@ private:
         {}
 
         /** Get the material name. */
+        [[nodiscard]]
         auto getMaterialName() const -> const String&   { return mName; }
         
         /** Get the group name. */
+        [[nodiscard]]
         auto getGroupName() const -> const String&  { return mGroup; }
 
         /** Get the const techniques list of this material. */
+        [[nodiscard]]
         auto getTechniqueList() const -> const SGTechniqueList&  { return mTechniqueEntries; }
 
         /** Get the techniques list of this material. */
@@ -679,6 +699,7 @@ private:
 
         /** Return true if this scheme dose not contains any techniques.
         */
+        [[nodiscard]]
         auto empty() const -> bool  { return mTechniqueEntries.empty(); }
         
         /** Invalidate the whole scheme.
@@ -830,6 +851,7 @@ private:
     AUTODETECT_RESOURCE_GROUP_NAME 
     */
     auto findMaterialEntryIt(const String& materialName, const String& groupName) -> SGMaterialIterator;
+    [[nodiscard]]
     auto findMaterialEntryIt(const String& materialName, const String& groupName) const -> SGMaterialConstIterator;
 
 
@@ -841,6 +863,7 @@ private:
     auto createOrRetrieveScheme(const String& schemeName) -> SchemeCreateOrRetrieveResult;
 
     /** Used to check if finalizing */
+    [[nodiscard]]
     auto getIsFinalizing() const -> bool;
 
     /** Internal method that creates list of SGPass instances composing the given material. */

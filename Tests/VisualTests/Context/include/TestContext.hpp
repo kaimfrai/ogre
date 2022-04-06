@@ -106,6 +106,7 @@ class TestContext : public OgreBites::SampleContext
     auto getTimestep() -> Real;
 
     /// Returns whether the entire test was successful or not.
+    [[nodiscard]]
     auto wasSuccessful() const -> bool {
         return mSuccess;
     }

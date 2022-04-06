@@ -64,6 +64,7 @@ public:
     /** Returns whether a given high-level language is supported. */
     auto isLanguageSupported(const String& lang) -> bool;
 
+    [[nodiscard]]
     auto getProgramWriter(const String& language) const -> ProgramWriter*
     {
         auto it = mProgramWriters.find(language);

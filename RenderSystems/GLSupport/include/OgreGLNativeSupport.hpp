@@ -44,6 +44,7 @@ namespace Ogre
         int16 refreshRate;
         uint8  bpp;
 
+        [[nodiscard]]
         auto getDescription() const -> String;
     };
     typedef std::vector<VideoMode>    VideoModes;
@@ -80,11 +81,13 @@ namespace Ogre
             */
             virtual auto getProcAddress(const char* procname) const -> void * = 0;
 
+            [[nodiscard]]
             auto checkExtension(const String& ext) const -> bool {
                 return extensionList.find(ext) != extensionList.end();
             }
 
             /// @copydoc RenderSystem::getDisplayMonitorCount
+            [[nodiscard]]
             virtual auto getDisplayMonitorCount() const -> unsigned int
             {
                 return 1;
@@ -104,9 +107,12 @@ namespace Ogre
             */
             virtual auto getConfigOptions() -> ConfigOptionMap { return {}; }
 
+            [[nodiscard]]
             auto getFSAALevels() const -> const std::vector<int>& { return mFSAALevels; }
+            [[nodiscard]]
             auto getVideoModes() const -> const VideoModes& { return mVideoModes; }
 
+            [[nodiscard]]
             auto getContextProfile() const -> ContextProfile { return mContextProfile; }
         protected:
             // Allowed video modes

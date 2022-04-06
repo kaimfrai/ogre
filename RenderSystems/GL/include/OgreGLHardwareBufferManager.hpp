@@ -87,6 +87,7 @@ class GLRenderSystem;
 
         /** Threshold after which glMapBuffer is used and not glBufferSubData
         */
+        [[nodiscard]]
         auto getGLMapBufferThreshold() const -> size_t;
         void setGLMapBufferThreshold( const size_t value );
     };

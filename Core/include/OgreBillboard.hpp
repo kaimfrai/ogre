@@ -102,6 +102,7 @@ class BillboardSet;
             @remarks
                 This rotation is relative to the center of the billboard.
         */
+        [[nodiscard]]
         auto getRotation() const -> const Radian& { return mRotation; }
 
         /** Set the rotation of the billboard.
@@ -125,6 +126,7 @@ class BillboardSet;
                 This position is relative to a point on the quad which is the billboard. Depending on the BillboardSet,
                 this may be the center of the quad, the top-left etc. See BillboardSet::setBillboardOrigin for more info.
         */
+        [[nodiscard]]
         auto getPosition() const -> const Vector3& { return mPosition; }
 
         /** Sets the width and height for this billboard.
@@ -148,6 +150,7 @@ class BillboardSet;
 
         /** Gets the colour of this billboard.
         */
+        [[nodiscard]]
         auto getColour() const -> ColourValue { return ColourValue((const uchar*)&mColour); }
 
         /** Returns true if this billboard deviates from the BillboardSet's default dimensions (i.e. if the
@@ -155,12 +158,15 @@ class BillboardSet;
             @see
                 Billboard::setDimensions
         */
+        [[nodiscard]]
         auto hasOwnDimensions() const -> bool { return mOwnDimensions; }
 
         /** Retrieves the billboard's personal width, if hasOwnDimensions is true. */
+        [[nodiscard]]
         auto getOwnWidth() const -> float { return mWidth; }
 
         /** Retrieves the billboard's personal height, if hasOwnDimensions is true. */
+        [[nodiscard]]
         auto getOwnHeight() const -> float { return mHeight; }
 
         /** Returns true if this billboard use individual texture coordinate rect (i.e. if the 
@@ -172,6 +178,7 @@ class BillboardSet;
                 Billboard::setTexcoordIndex()
                 Billboard::setTexcoordRect()
         */
+        [[nodiscard]]
         auto isUseTexcoordRect() const -> bool { return mUseTexcoordRect; }
 
         /** setTexcoordIndex() sets which texture coordinate rect this billboard will use 
@@ -188,6 +195,7 @@ class BillboardSet;
             @remarks
                 This value is useful only when isUseTexcoordRect return false.
           */
+        [[nodiscard]]
         auto getTexcoordIndex() const -> uint16 { return mTexcoordIndex; }
 
         /** sets the individual texture coordinate rect of this billboard will use when rendering.
@@ -204,6 +212,7 @@ class BillboardSet;
             @remarks
                 This value is useful only when isUseTexcoordRect returns true.
         */
+        [[nodiscard]]
         auto getTexcoordRect() const -> const FloatRect& { return mTexcoordRect; }
     };
 

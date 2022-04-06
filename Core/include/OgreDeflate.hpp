@@ -137,6 +137,7 @@ namespace Ogre
         }
 
         /** Returns number of bytes available for reading in cache after rewinding. */
+        [[nodiscard]]
         auto avail() const -> size_t
         {
             return mValidBytes - mPos;
@@ -240,6 +241,7 @@ namespace Ogre
             deflate algorithm, this method returns false and all read commands
             will actually be executed as passthroughs as a fallback. 
         */
+        [[nodiscard]]
         auto isCompressedStreamValid() const -> bool { return mStreamType != Invalid; }
         
         /** @copydoc DataStream::read
@@ -260,10 +262,12 @@ namespace Ogre
         
         /** @copydoc DataStream::tell
          */
+        [[nodiscard]]
         auto tell() const -> size_t;
         
         /** @copydoc DataStream::eof
          */
+        [[nodiscard]]
         auto eof() const -> bool;
         
         /** @copydoc DataStream::close

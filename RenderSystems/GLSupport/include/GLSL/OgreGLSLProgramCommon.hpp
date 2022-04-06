@@ -64,6 +64,7 @@ public:
     virtual ~GLSLProgramCommon() {}
 
     /// Get the GL Handle for the program object
+    [[nodiscard]]
     auto getGLProgramHandle() const -> uint { return mGLProgramHandle; }
 
     /** Makes a program object active by making sure it is linked and then putting it in use.

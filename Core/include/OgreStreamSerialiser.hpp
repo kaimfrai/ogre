@@ -145,6 +145,7 @@ class Sphere;
             If the result is ENDIAN_AUTO, this mode will change when the first piece of
             data is read / written. 
         */
+        [[nodiscard]]
         virtual auto getEndian() const -> Endian { return mEndian; }
 
         /** Pack a 4-character code into a 32-bit identifier.
@@ -161,12 +162,14 @@ class Sphere;
             either writing or reading. In order to tidily finish, you must call
             read/writeChunkEnd this many times.
         */
+        [[nodiscard]]
         auto getCurrentChunkDepth() const -> size_t { return mChunkStack.size(); }
 
         /** Get the ID of the chunk that's currently being read/written, if any.
         @return The id of the current chunk being read / written (at the tightest
             level of nesting), or zero if no chunk is being processed.
         */
+        [[nodiscard]]
         auto getCurrentChunkID() const -> uint32;
 
         /** Get the current byte position relative to the start of the data section
@@ -176,6 +179,7 @@ class Sphere;
             header), or that no chunk is currently active. Use getCurrentChunkID
             or getCurrentChunkDepth to determine if a chunk is active.
         */
+        [[nodiscard]]
         auto getOffsetFromChunkStart() const -> size_t;
 
         /** Reads the start of the next chunk in the file.
@@ -235,9 +239,11 @@ class Sphere;
         virtual auto isEndOfChunk(uint32 id) -> bool;
 
         /// Reports whether the stream is at the end of file
+        [[nodiscard]]
         virtual auto eof() const -> bool;
 
         /** Get the definition of the current chunk being read (if any). */
+        [[nodiscard]]
         virtual auto getCurrentChunk() const -> const Chunk*;
 
         /** Begin writing a new chunk.

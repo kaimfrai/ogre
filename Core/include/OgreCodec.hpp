@@ -100,6 +100,7 @@ class Any;
         /** Codes the input and saves the result in the output
             stream.
         */
+        [[nodiscard]]
         virtual auto encode(const Any& input) const -> DataStreamPtr;
 
         /** Codes the data in the input chunk and saves the result in the output
@@ -118,6 +119,7 @@ class Any;
 
         /** Returns the type of the codec as a String
         */
+        [[nodiscard]]
         virtual auto getType() const -> String = 0;
 
         /** Returns whether a magic number header matches this codec.

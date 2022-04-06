@@ -55,6 +55,7 @@ class RenderTexture;
         
         virtual void getCustomAttribute(const String& name, void* pData);
 
+        [[nodiscard]]
         auto getContext() const -> GLContext*;
     protected:
         GLPBRTTManager *mManager;

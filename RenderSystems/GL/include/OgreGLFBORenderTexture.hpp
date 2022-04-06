@@ -65,6 +65,7 @@ namespace Ogre {
         virtual void detachDepthBuffer();
         virtual void _detachDepthBuffer();
 
+        [[nodiscard]]
         auto getContext() const -> GLContext* { return mFB.getContext(); }
         auto getFBO() -> GLFrameBufferObjectCommon* { return &mFB; }
     protected:

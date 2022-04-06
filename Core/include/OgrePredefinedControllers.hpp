@@ -69,12 +69,16 @@ class TextureUnitState;
 
         auto frameEnded(const FrameEvent &evt) -> bool;
         auto frameStarted(const FrameEvent &evt) -> bool;
+        [[nodiscard]]
         auto getValue() const -> Real;
         void setValue(Real value);
+        [[nodiscard]]
         auto getTimeFactor() const -> Real;
         void setTimeFactor(Real tf);
+        [[nodiscard]]
         auto getFrameDelay() const -> Real;
         void setFrameDelay(Real fd);
+        [[nodiscard]]
         auto getElapsedTime() const -> Real;
         void setElapsedTime(Real elapsedTime);
     };
@@ -97,6 +101,7 @@ class TextureUnitState;
 
         /** Gets the frame number as a parametric value in the range [0,1]
         */
+        [[nodiscard]]
         auto getValue() const -> Real;
         /** Sets the frame number as a parametric value in the range [0,1]; the actual frame number is (value * numFrames) % numFrames).
         */
@@ -144,6 +149,7 @@ class TextureUnitState;
             return std::make_shared<TexCoordModifierControllerValue>(t, translateU, translateV, scaleU, scaleV, rotate);
         }
 
+        [[nodiscard]]
         auto getValue() const -> Real;
         void setValue(Real value);
 
@@ -184,6 +190,7 @@ class TextureUnitState;
             return std::make_shared<FloatGpuParameterControllerValue>(params, index);
         }
 
+        [[nodiscard]]
         auto getValue() const -> Real;
         void setValue(Real value);
 

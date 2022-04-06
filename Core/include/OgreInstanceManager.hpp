@@ -168,8 +168,10 @@ class SceneManager;
                          size_t instancesPerBatch, unsigned short subMeshIdx, bool useBoneMatrixLookup = false);
         ~InstanceManager();
 
+        [[nodiscard]]
         auto getName() const -> const String& { return mName; }
 
+        [[nodiscard]]
         auto getSceneManager() const -> SceneManager* { return mSceneManager; }
 
         /** Raises an exception if trying to change it after creating the first InstancedEntity
@@ -209,10 +211,12 @@ class SceneManager;
         */
         void setNumCustomParams( unsigned char numCustomParams );
 
+        [[nodiscard]]
         auto getNumCustomParams() const -> unsigned char
         { return mNumCustomParams; }
 
         /** @return Instancing technique this manager was created for. Can't be changed after creation */
+        [[nodiscard]]
         auto getInstancingTechnique() const -> InstancingTechnique
         { return mInstancingTechnique; }
 
@@ -283,11 +287,13 @@ class SceneManager;
         void setSetting( BatchSettingId id, bool enabled, const String &materialName = BLANKSTRING );
 
         /// If settings for the given material didn't exist, default value is returned
+        [[nodiscard]]
         auto getSetting( BatchSettingId id, const String &materialName ) const -> bool;
 
         /** Returns true if settings were already created for the given material name.
             If false is returned, it means getSetting will return default settings.
         */
+        [[nodiscard]]
         auto hasSettings( const String &materialName ) const -> bool;
 
         /** @copydoc InstanceBatch::setStaticAndUpdate */
@@ -305,6 +311,7 @@ class SceneManager;
         typedef ConstVectorIterator<InstanceBatchVec> InstanceBatchIterator;
 
         /// Get non-updateable iterator over instance batches per material
+        [[nodiscard]]
         auto getInstanceBatchMapIterator() const -> InstanceBatchMapIterator
         { return { mInstanceBatches.begin(), mInstanceBatches.end() }; }
 
@@ -314,6 +321,7 @@ class SceneManager;
             setCustomParameter), but there's no synchronization mechanism when
             multithreading or creating more instances, that's up to the user.
         */
+        [[nodiscard]]
         auto getInstanceBatchIterator( const String &materialName ) const -> InstanceBatchIterator;
     };
 } // namespace Ogre

@@ -115,8 +115,10 @@ class Material;
         AbstractNode(AbstractNode *ptr);
         virtual ~AbstractNode(){}
         /// Returns a new AbstractNode which is a replica of this one.
+        [[nodiscard]]
         virtual auto clone() const -> AbstractNode * = 0;
         /// Returns a string value depending on the type of the AbstractNode.
+        [[nodiscard]]
         virtual auto getValue() const -> const String& = 0;
     };
 
@@ -128,7 +130,9 @@ class Material;
         uint32 id;
     public:
         AtomAbstractNode(AbstractNode *ptr);
+        [[nodiscard]]
         auto clone() const -> AbstractNode *;
+        [[nodiscard]]
         auto getValue() const -> const String& { return value; }
     };
 
@@ -147,12 +151,16 @@ class Material;
         AbstractNodeList overrides; // For use when processing object inheritance and overriding
     public:
         ObjectAbstractNode(AbstractNode *ptr);
+        [[nodiscard]]
         auto clone() const -> AbstractNode *;
+        [[nodiscard]]
         auto getValue() const -> const String& { return cls; }
 
         void addVariable(const String &name);
         void setVariable(const String &name, const String &value);
+        [[nodiscard]]
         auto getVariable(const String &name) const -> std::pair<bool,String>;
+        [[nodiscard]]
         auto getVariables() const -> const std::map<String,String> &;
     };
 
@@ -165,7 +173,9 @@ class Material;
         AbstractNodeList values;
     public:
         PropertyAbstractNode(AbstractNode *ptr);
+        [[nodiscard]]
         auto clone() const -> AbstractNode *;
+        [[nodiscard]]
         auto getValue() const -> const String& { return name; }
     };
 
@@ -176,7 +186,9 @@ class Material;
         String target, source;
     public:
         ImportAbstractNode();
+        [[nodiscard]]
         auto clone() const -> AbstractNode *;
+        [[nodiscard]]
         auto getValue() const -> const String& { return target; }
     };
 
@@ -187,7 +199,9 @@ class Material;
         String name;
     public:
         VariableAccessAbstractNode(AbstractNode *ptr);
+        [[nodiscard]]
         auto clone() const -> AbstractNode *;
+        [[nodiscard]]
         auto getValue() const -> const String& { return name; }
     };
 
@@ -241,6 +255,7 @@ class Material;
         /// Returns the currently set listener
         auto getListener() -> ScriptCompilerListener *;
         /// Returns the resource group currently set for this compiler
+        [[nodiscard]]
         auto getResourceGroup() const -> const String &;
         /// Adds a name exclusion to the map
         /**
@@ -329,6 +344,7 @@ class Material;
             ScriptCompiler *mCompiler;
         public:
             AbstractTreeBuilder(ScriptCompiler *compiler);
+            [[nodiscard]]
             auto getResult() const -> const AbstractNodeListPtr &;
             void visit(ConcreteNode *node);
             static void visit(AbstractTreeBuilder *visitor, const ConcreteNodeList &nodes);
@@ -455,10 +471,12 @@ class Material;
         /// Adds a script extension that can be handled (e.g. *.material, *.pu, etc.)
         void addScriptPattern(const String &pattern);
         /// @copydoc ScriptLoader::getScriptPatterns
+        [[nodiscard]]
         auto getScriptPatterns() const -> const StringVector&;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName);
         /// @copydoc ScriptLoader::getLoadingOrder
+        [[nodiscard]]
         auto getLoadingOrder() const -> Real;
 
         /// @copydoc Singleton::getSingleton()

@@ -83,11 +83,13 @@ class RenderQueue;
         */
         void setTiling(Real x, Real y, ushort layer = 0);
 
+        [[nodiscard]]
         auto getTileX(ushort layer = 0) const -> Real;
         /** Gets the number of times the texture should repeat vertically. 
         @param layer The texture layer to specify (only needs to be altered if 
             you're using a multi-texture layer material)
         */
+        [[nodiscard]]
         auto getTileY(ushort layer = 0) const -> Real;
 
         /** Sets the texture coordinates for the panel. */
@@ -102,8 +104,10 @@ class RenderQueue;
         void setTransparent(bool isTransparent);
 
         /** Returns whether this panel is transparent. */
+        [[nodiscard]]
         auto isTransparent() const -> bool;
 
+        [[nodiscard]]
         auto getTypeName() const -> const String& override;
         void getRenderOperation(RenderOperation& op) override;
         /** Overridden from OverlayContainer */

@@ -139,6 +139,7 @@ namespace Ogre
 
         /** Indicates whether the window is visible (not minimized or obscured)
         */
+        [[nodiscard]]
         virtual auto isVisible() const -> bool { return true; }
 
         /** Set the visibility state
@@ -148,6 +149,7 @@ namespace Ogre
 
         /** Indicates whether the window was set to hidden (not displayed)
         */
+        [[nodiscard]]
         virtual auto isHidden() const -> bool { return false; }
 
         /** Hide (or show) the window. If called with hidden=true, this
@@ -168,6 +170,7 @@ namespace Ogre
 
         /** Indicates whether vertical sync is activated for the window.
         */
+        [[nodiscard]]
         virtual auto isVSyncEnabled() const -> bool { return false; }
 
         /** Set the vertical sync interval. This indicates the number of vertical retraces to wait for
@@ -178,15 +181,18 @@ namespace Ogre
 
         /** Returns the vertical sync interval. 
         */
+        [[nodiscard]]
         auto getVSyncInterval() const -> unsigned int { return mVSyncInterval; }
         
 
         /** Overridden from RenderTarget, flags invisible windows as inactive
         */
+        [[nodiscard]]
         virtual auto isActive() const -> bool { return mActive && isVisible(); }
 
         /** Indicates whether the window has been closed by the user.
         */
+        [[nodiscard]]
         virtual auto isClosed() const -> bool { return mClosed; }
         
         /** Indicates whether the window is the primary window. The
@@ -195,10 +201,12 @@ namespace Ogre
             This is the case because it holds the context for vertex,
             index buffers and textures.
         */
+        [[nodiscard]]
         virtual auto isPrimary() const -> bool;
 
         /** Returns true if window is running in fullscreen mode.
         */
+        [[nodiscard]]
         virtual auto isFullScreen() const -> bool;
 
         /** Overloaded version of getMetrics from RenderTarget, including extra details
@@ -207,10 +215,12 @@ namespace Ogre
         void getMetrics(unsigned int& width, unsigned int& height, int& left, int& top) const;
 
         /// Override since windows don't usually have alpha
+        [[nodiscard]]
         auto suggestPixelFormat() const -> PixelFormat { return PF_BYTE_RGB; }
 
         /** Returns true if the window will automatically de-activate itself when it loses focus.
         */
+        [[nodiscard]]
         auto isDeactivatedOnFocusChange() const -> bool;
 
         /** Indicates whether the window will automatically deactivate itself when it loses focus.

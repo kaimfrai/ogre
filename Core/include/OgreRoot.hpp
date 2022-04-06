@@ -369,6 +369,7 @@ struct SceneManagerMetaData;
                                     const String& customCapabilitiesConfig = BLANKSTRING) -> RenderWindow*;
 
         /** Returns whether the system is initialised or not. */
+        [[nodiscard]]
         auto isInitialised() const -> bool { return mIsInitialised; }
 
         /** Requests active RenderSystem to use custom RenderSystemCapabilities
@@ -381,6 +382,7 @@ struct SceneManagerMetaData;
         /** Get whether the entire render queue structure should be emptied on clearing, 
             or whether just the objects themselves should be cleared.
         */
+        [[nodiscard]]
         auto getRemoveRenderQueueStructuresOnClear() const -> bool { return mRemoveQueueStructuresOnClear; }
 
         /** Set whether the entire render queue structure should be emptied on clearing, 
@@ -399,9 +401,11 @@ struct SceneManagerMetaData;
         void removeSceneManagerFactory(SceneManagerFactory* fact);
 
         /// @copydoc SceneManagerEnumerator::getMetaData(const String& )const
+        [[nodiscard]]
         auto getSceneManagerMetaData(const String& typeName) const -> const SceneManagerMetaData*;
 
         /// @copydoc SceneManagerEnumerator::getMetaData()const
+        [[nodiscard]]
         auto getSceneManagerMetaData() const -> const SceneManagerEnumerator::MetaDataList&;
 
         /// create a default scene manager
@@ -418,12 +422,15 @@ struct SceneManagerMetaData;
         void destroySceneManager(SceneManager* sm);
 
         /// @copydoc SceneManagerEnumerator::getSceneManager
+        [[nodiscard]]
         auto getSceneManager(const String& instanceName) const -> SceneManager*;
 
         /// @copydoc SceneManagerEnumerator::hasSceneManager
+        [[nodiscard]]
         auto hasSceneManager(const String& instanceName) const -> bool;
 
         /// @copydoc SceneManagerEnumerator::getSceneManagers
+        [[nodiscard]]
         auto getSceneManagers() const -> const SceneManagerEnumerator::Instances&;
 
         /** Retrieves a reference to the current TextureManager.
@@ -678,6 +685,7 @@ struct SceneManagerMetaData;
         void uninstallPlugin(Plugin* plugin);
 
         /** Gets a read-only list of the currently installed plugins. */
+        [[nodiscard]]
         auto getInstalledPlugins() const -> const PluginInstanceList& { return mPlugins; }
 
         /** Gets a pointer to the central timer used for all OGRE timings */
@@ -784,6 +792,7 @@ struct SceneManagerMetaData;
             the current frame have been queued, thus reflecting that if you 
             start performing changes then, you will actually see them in the 
             next frame. */
+        [[nodiscard]]
         auto getNextFrameNumber() const -> unsigned long { return mNextFrame; }
 
         /** Returns the scene manager currently being used to render a frame.
@@ -791,6 +800,7 @@ struct SceneManagerMetaData;
             This is only intended for internal use; it is only valid during the
             rendering of a frame.
         */
+        [[nodiscard]]
         auto _getCurrentSceneManager() const -> SceneManager* { return mCurrentSceneManager; }
         /** Sets the scene manager currently being used to render.
         @remarks
@@ -852,6 +862,7 @@ struct SceneManagerMetaData;
         */
         void setFrameSmoothingPeriod(Real period) { mFrameSmoothingTime = period; }
         /** Gets the period over which OGRE smooths out fluctuations in frame times. */
+        [[nodiscard]]
         auto getFrameSmoothingPeriod() const -> Real { return mFrameSmoothingTime; }
 
         /** Register a new MovableObjectFactory which will create new MovableObject
@@ -877,6 +888,7 @@ struct SceneManagerMetaData;
         */
         void removeMovableObjectFactory(MovableObjectFactory* fact);
         /// Checks whether a factory is registered for a given MovableObject type
+        [[nodiscard]]
         auto hasMovableObjectFactory(const String& typeName) const -> bool;
         /// Get a MovableObjectFactory for the given type
         auto getMovableObjectFactory(const String& typeName) -> MovableObjectFactory*;
@@ -891,6 +903,7 @@ struct SceneManagerMetaData;
         /** Return an iterator over all the MovableObjectFactory instances currently
             registered.
         */
+        [[nodiscard]]
         auto getMovableObjectFactories() const -> const MovableObjectFactoryMap&
         {
             return mMovableObjectFactoryMap;
@@ -902,6 +915,7 @@ struct SceneManagerMetaData;
             However, you must remember to assign yourself a new channel through 
             which to process your tasks.
         */
+        [[nodiscard]]
         auto getWorkQueue() const -> WorkQueue* { return mWorkQueue.get(); }
 
         /** Replace the current work queue with an alternative. 
@@ -924,6 +938,7 @@ struct SceneManagerMetaData;
         /** Returns whether blend indices information needs to be passed to the GPU
         see setBlendIndicesGpuRedundant() for more information
         */
+        [[nodiscard]]
         auto isBlendIndicesGpuRedundant() const -> bool { return mIsBlendIndicesGpuRedundant; }
 
         /** Sets whether blend weights information needs to be passed to the GPU.
@@ -936,6 +951,7 @@ struct SceneManagerMetaData;
         /** Returns whether blend weights information needs to be passed to the GPU
         see setBlendWeightsGpuRedundant() for more information
         */
+        [[nodiscard]]
         auto isBlendWeightsGpuRedundant() const -> bool { return mIsBlendWeightsGpuRedundant; }
     
         /** Set the default minimum pixel size for object to be rendered by

@@ -116,26 +116,33 @@ class VertexDeclaration;
             @remarks This is useful when you wish to build the patch into external vertex / index buffers.
 
         */
+        [[nodiscard]]
         auto getRequiredVertexCount() const -> size_t;
         /** Based on a previous call to defineSurface, establishes the number of indexes required
             to hold this patch at the maximum detail level. 
             @remarks This is useful when you wish to build the patch into external vertex / index buffers.
 
         */
+        [[nodiscard]]
         auto getRequiredIndexCount() const -> size_t;
 
         /** Gets the current index count based on the current subdivision level. */
+        [[nodiscard]]
         auto getCurrentIndexCount() const -> size_t;
         /// Returns the index offset used by this buffer to write data into the buffer
+        [[nodiscard]]
         auto getIndexOffset() const -> size_t { return mIndexOffset; }
         /// Returns the vertex offset used by this buffer to write data into the buffer
+        [[nodiscard]]
         auto getVertexOffset() const -> size_t { return mVertexOffset; }
 
 
         /** Gets the bounds of this patch, only valid after calling defineSurface. */
+        [[nodiscard]]
         auto getBounds() const -> const AxisAlignedBox&;
         /** Gets the radius of the bounding sphere for this patch, only valid after defineSurface 
         has been called. */
+        [[nodiscard]]
         auto getBoundingSphereRadius() const -> Real;
         /** Tells the system to build the mesh relating to the surface into externally created
             buffers.
@@ -166,8 +173,10 @@ class VertexDeclaration;
         void setSubdivisionFactor(Real factor);
 
         /** Gets the current level of subdivision. */
+        [[nodiscard]]
         auto getSubdivisionFactor() const -> Real;
 
+        [[nodiscard]]
         auto getControlPointBuffer() const -> void*
         {
             return mControlPointBuffer;

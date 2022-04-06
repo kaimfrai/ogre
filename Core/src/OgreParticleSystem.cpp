@@ -157,6 +157,7 @@ class RenderQueue;
     public:
         ParticleSystemUpdateValue(ParticleSystem* target) : mTarget(target) {}
 
+        [[nodiscard]]
         auto getValue() const -> Real { return 0; } // N/A
 
         void setValue(Real value) { mTarget->_update(value); }

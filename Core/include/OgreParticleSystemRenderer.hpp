@@ -55,6 +55,7 @@ namespace Ogre {
         virtual ~ParticleSystemRenderer() {}
 
         /** Gets the type of this renderer - must be implemented by subclasses */
+        [[nodiscard]]
         virtual auto getType() const -> const String& = 0;
 
         /** Delegated to by ParticleSystem::_updateRenderQueue
@@ -114,6 +115,7 @@ namespace Ogre {
         virtual void setKeepParticlesInLocalSpace(bool keepLocal) = 0;
 
         /** Gets the desired particles sort mode of this renderer */
+        [[nodiscard]]
         virtual auto _getSortMode() const -> SortMode = 0;
 
         /** Required method to allow the renderer to communicate the Renderables

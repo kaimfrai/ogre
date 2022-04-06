@@ -67,6 +67,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
+        [[nodiscard]]
         virtual auto toString () const -> String
         {
             StringStream str;
@@ -92,6 +93,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
+        [[nodiscard]]
         virtual auto toString () const -> String
         {
             StringStream str;
@@ -117,6 +119,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
+        [[nodiscard]]
         virtual auto toString () const -> String
         {
             StringStream str;
@@ -143,6 +146,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
+        [[nodiscard]]
         virtual auto toString () const -> String
         {
             return StringConverter::toString(mValue, 6, 0, ' ', std::ios::showpoint);
@@ -166,6 +170,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
+        [[nodiscard]]
         virtual auto toString () const -> String
         {
             return Ogre::StringConverter::toString(mValue);

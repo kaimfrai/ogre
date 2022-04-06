@@ -143,12 +143,16 @@ namespace Ogre
             Response(const Request* rq, bool success, const Any& data, const String& msg = BLANKSTRING);
             ~Response();
             /// Get the request that this is a response to (NB destruction destroys this)
+            [[nodiscard]]
             auto getRequest() const -> const Request* { return mRequest; }
             /// Return whether this is a successful response
+            [[nodiscard]]
             auto succeeded() const -> bool { return mSuccess; }
             /// Get any diagnostic messages about the process
+            [[nodiscard]]
             auto getMessages() const -> const String& { return mMessages; }
             /// Return the response data (user defined, only valid on success)
+            [[nodiscard]]
             auto getData() const -> const Any& { return mData; }
             /// Abort the request
             void abortRequest() { mRequest->abortRequest(); mData.reset(); }

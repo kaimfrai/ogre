@@ -45,6 +45,7 @@ namespace OgreBites
         {
         }
 
+        [[nodiscard]]
         auto getName() const -> const Ogre::String&
         {
             return mName;

@@ -69,16 +69,21 @@ namespace Ogre {
                                  HardwareBuffer* delegate);
             ~HardwareVertexBuffer();
             /// Return the manager of this buffer, if any
+            [[nodiscard]]
             auto getManager() const -> HardwareBufferManagerBase* { return mMgr; }
             /// Gets the size in bytes of a single vertex in this buffer
+            [[nodiscard]]
             auto getVertexSize() const -> size_t { return mVertexSize; }
             /// Get the number of vertices in this buffer
+            [[nodiscard]]
             auto getNumVertices() const -> size_t { return mNumVertices; }
             /// Get if this vertex buffer is an "instance data" buffer (per instance)
+            [[nodiscard]]
             auto isInstanceData() const -> bool { return mIsInstanceData; }
             /// Set if this vertex buffer is an "instance data" buffer (per instance)
             void setIsInstanceData(const bool val);
             /// Get the number of instances to draw using the same per-instance data before advancing in the buffer by one element.
+            [[nodiscard]]
             auto getInstanceDataStepRate() const -> size_t;
             /// Set the number of instances to draw using the same per-instance data before advancing in the buffer by one element.
             void setInstanceDataStepRate(const size_t val);
@@ -195,16 +200,22 @@ namespace Ogre {
         VertexElement(unsigned short source, size_t offset, VertexElementType theType,
             VertexElementSemantic semantic, unsigned short index = 0);
         /// Gets the vertex buffer index from where this element draws it's values
+        [[nodiscard]]
         auto getSource() const -> unsigned short { return mSource; }
         /// Gets the offset into the buffer where this element starts
+        [[nodiscard]]
         auto getOffset() const -> size_t { return mOffset; }
         /// Gets the data format of this element
+        [[nodiscard]]
         auto getType() const -> VertexElementType { return mType; }
         /// Gets the meaning of this element
+        [[nodiscard]]
         auto getSemantic() const -> VertexElementSemantic { return mSemantic; }
         /// Gets the index of this element, only applicable for repeating elements
+        [[nodiscard]]
         auto getIndex() const -> unsigned short { return mIndex; }
         /// Gets the size of this element in bytes
+        [[nodiscard]]
         auto getSize() const -> size_t;
         /// Utility method for helping to calculate offsets
         static auto getTypeSize(VertexElementType etype) -> size_t;
@@ -301,10 +312,13 @@ namespace Ogre {
         virtual ~VertexDeclaration();
 
         /** Get the number of elements in the declaration. */
+        [[nodiscard]]
         auto getElementCount() const -> size_t { return mElementList.size(); }
         /** Gets read-only access to the list of vertex elements. */
+        [[nodiscard]]
         auto getElements() const -> const VertexElementList&;
         /** Get a single element. */
+        [[nodiscard]]
         auto getElement(unsigned short index) const -> const VertexElement*;
 
         /** Sorts the elements in this list to be compatible with D3D7 graphics cards
@@ -357,10 +371,12 @@ namespace Ogre {
         @param vertexAnimation Whether this vertex data is going to be vertex animated
         @param vertexAnimationNormals Whether vertex data animation is going to include normals animation
         */
+        [[nodiscard]]
         auto getAutoOrganisedDeclaration(bool skeletalAnimation,
             bool vertexAnimation, bool vertexAnimationNormals) const -> VertexDeclaration*;
 
         /** Gets the index of the highest source value referenced by this declaration. */
+        [[nodiscard]]
         auto getMaxSource() const -> unsigned short;
 
 
@@ -425,6 +441,7 @@ namespace Ogre {
         @remarks
             If the element is not found, this method returns null.
         */
+        [[nodiscard]]
         auto findElementBySemantic(VertexElementSemantic sem, unsigned short index = 0) const -> const VertexElement*;
         /** Based on the current elements, gets the size of the vertex for a given buffer source.
         @param source The buffer binding index for which to get the vertex size.
@@ -435,14 +452,17 @@ namespace Ogre {
             Note that the list of elements is returned by value therefore is separate from
             the declaration as soon as this method returns.
         */
+        [[nodiscard]]
         auto findElementsBySource(unsigned short source) const -> VertexElementList;
 
         /** Gets the vertex size defined by this declaration for a given source. */
+        [[nodiscard]]
         auto getVertexSize(unsigned short source) const -> size_t;
         
         /** Return the index of the next free texture coordinate set which may be added
             to this declaration.
         */
+        [[nodiscard]]
         auto getNextFreeTextureCoordinate() const -> unsigned short;
 
         /** Clones this declaration. 

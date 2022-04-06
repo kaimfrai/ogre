@@ -333,6 +333,7 @@ namespace Ogre {
         }
 
         /// @overload
+        [[nodiscard]]
         auto getData(uint32 x = 0, uint32 y = 0, uint32 z = 0) const -> const uchar*
         {
             assert(mBuffer);
@@ -354,47 +355,58 @@ namespace Ogre {
 
         /** Returns the size of the data buffer in bytes
         */
+        [[nodiscard]]
         auto getSize() const -> size_t;
 
         /** Returns the number of mipmaps contained in the image.
         */
+        [[nodiscard]]
         auto getNumMipmaps() const -> uint32;
 
         /** Returns true if the image has the appropriate flag set.
         */
+        [[nodiscard]]
         auto hasFlag(const ImageFlags imgFlag) const -> bool;
 
         /** Gets the width of the image in pixels.
         */
+        [[nodiscard]]
         auto getWidth() const -> uint32;
 
         /** Gets the height of the image in pixels.
         */
+        [[nodiscard]]
         auto getHeight() const -> uint32;
 
         /** Gets the depth of the image.
         */
+        [[nodiscard]]
         auto getDepth() const -> uint32;
         
         /** Get the number of faces of the image. This is usually 6 for a cubemap, and
             1 for a normal image.
         */
+        [[nodiscard]]
         auto getNumFaces() const -> uint32;
 
         /** Gets the physical width in bytes of each row of pixels.
         */
+        [[nodiscard]]
         auto getRowSpan() const -> size_t;
 
         /** Returns the image format.
         */
+        [[nodiscard]]
         auto getFormat() const -> PixelFormat;
 
         /** Returns the number of bits per pixel.
         */
+        [[nodiscard]]
         auto getBPP() const -> uchar;
 
         /** Returns true if the image has an alpha component.
         */
+        [[nodiscard]]
         auto getHasAlpha() const -> bool;
         
         /** Does gamma adjustment.
@@ -409,6 +421,7 @@ namespace Ogre {
          * is only valid for cubemaps and volume textures. This uses the first (largest)
          * mipmap.
          */
+        [[nodiscard]]
         auto getColourAt(uint32 x, uint32 y, uint32 z) const -> ColourValue;
         
         /**
@@ -421,6 +434,7 @@ namespace Ogre {
         /**
          * Get a PixelBox encapsulating the image data of a mipmap
          */
+        [[nodiscard]]
         auto getPixelBox(uint32 face = 0, uint32 mipmap = 0) const -> PixelBox;
 
         /// Delete all the memory held by this image, if owned by this image (not dynamic)

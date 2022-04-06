@@ -238,16 +238,22 @@ class Technique;
             virtual ~GeometryBucket();
             auto getParent() -> MaterialBucket* { return mParent; }
             /// Get the vertex data for this geometry 
+            [[nodiscard]]
             auto getVertexData() const -> const VertexData* { return mVertexData; }
             /// Get the index data for this geometry 
+            [[nodiscard]]
             auto getIndexData() const -> const IndexData* { return mIndexData; }
             /// @copydoc Renderable::getMaterial
+            [[nodiscard]]
             auto getMaterial() const -> const MaterialPtr&;
+            [[nodiscard]]
             auto getTechnique() const -> Technique*;
             void getRenderOperation(RenderOperation& op);
             void getWorldTransforms(Matrix4* xform) const;
             auto getSquaredViewDepth(const Camera* cam) const -> Real;
+            [[nodiscard]]
             auto getLights() const -> const LightList&;
+            [[nodiscard]]
             auto getCastsShadows() const -> bool;
             
             /** Try to assign geometry to this bucket.
@@ -285,6 +291,7 @@ class Technique;
             virtual ~MaterialBucket();
             auto getParent() -> LODBucket* { return mParent; }
             /// Get the material name
+            [[nodiscard]]
             auto getMaterialName() const -> const String& { return mMaterial->getName(); }
             /// Assign geometry to this bucket
             void assign(QueuedGeometry* qsm);
@@ -294,15 +301,18 @@ class Technique;
             void addRenderables(RenderQueue* queue, uint8 group, 
                 Real lodValue);
             /// Get the material for this bucket
+            [[nodiscard]]
             auto getMaterial() const -> const MaterialPtr& { return mMaterial; }
             /// Override Material without changing the partitioning. For advanced use only.
             void _setMaterial(const MaterialPtr& material);
             /// Iterator over geometry
             typedef VectorIterator<GeometryBucketList> GeometryIterator;
             /// Get a list of the contained geometry
+            [[nodiscard]]
             auto getGeometryList() const -> const GeometryBucketList& { return mGeometryBucketList; }
 
             /// Get the current Technique
+            [[nodiscard]]
             auto getCurrentTechnique() const -> Technique* { return mTechnique; }
             /// Dump contents for diagnostics
             void dump(std::ofstream& of) const;
@@ -340,8 +350,10 @@ class Technique;
             virtual ~LODBucket();
             auto getParent() -> Region* { return mParent; }
             /// Get the LOD index
+            [[nodiscard]]
             auto getLod() const -> ushort { return mLod; }
             /// Get the LOD value
+            [[nodiscard]]
             auto getLodValue() const -> Real { return mLodValue; }
             /// Assign a queued submesh to this bucket, using specified mesh LOD
             void assign(QueuedSubMesh* qsm, ushort atLod);
@@ -353,13 +365,16 @@ class Technique;
             /// Iterator over the materials in this LOD
             typedef MapIterator<MaterialBucketMap> MaterialIterator;
             /// Get an iterator over the materials in this LOD
+            [[nodiscard]]
             auto getMaterialBuckets() const -> const MaterialBucketMap& { return mMaterialBucketMap; }
 
             /// Dump contents for diagnostics
             void dump(std::ofstream& of) const;
             void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables);
+            [[nodiscard]]
             auto getEdgeList() const -> EdgeData* { return mEdgeList; }
             auto getShadowRenderableList() -> ShadowCaster::ShadowRenderableList& { return mShadowRenderables; }
+            [[nodiscard]]
             auto isVertexProgramInUse() const -> bool { return mVertexProgramInUse; }
             void updateShadowRenderables(const Vector4& lightPos, const HardwareIndexBufferPtr& indexBuffer,
                                          Real extrusionDistance, int flags = 0);
@@ -567,6 +582,7 @@ class Technique;
         virtual ~StaticGeometry();
 
         /// Get the name of this object
+        [[nodiscard]]
         auto getName() const -> const String& { return mName; }
         /** Adds an Entity to the static geometry.
         @remarks
@@ -649,9 +665,11 @@ class Technique;
         }
 
         /** Gets the distance at which batches are no longer rendered. */
+        [[nodiscard]]
         virtual auto getRenderingDistance() const -> Real { return mUpperDistance; }
 
         /** Gets the squared distance at which batches are no longer rendered. */
+        [[nodiscard]]
         virtual auto getSquaredRenderingDistance() const -> Real 
         { return mSquaredUpperDistance; }
 
@@ -659,6 +677,7 @@ class Technique;
         virtual void setVisible(bool visible);
 
         /** Are the batches visible? */
+        [[nodiscard]]
         virtual auto isVisible() const -> bool { return mVisible; }
 
         /** Sets whether this geometry should cast shadows.
@@ -697,6 +716,7 @@ class Technique;
             mHalfRegionDimensions = size * 0.5;
         }
         /** Gets the size of a single batch of geometry. */
+        [[nodiscard]]
         virtual auto getRegionDimensions() const -> const Vector3& { return mRegionDimensions; }
         /** Sets the origin of the geometry.
         @remarks
@@ -711,11 +731,13 @@ class Technique;
         */
         virtual void setOrigin(const Vector3& origin) { mOrigin = origin; }
         /** Gets the origin of this geometry. */
+        [[nodiscard]]
         virtual auto getOrigin() const -> const Vector3& { return mOrigin; }
 
         /// Sets the visibility flags of all the regions at once
         void setVisibilityFlags(uint32 flags);
         /// Returns the visibility flags of the regions
+        [[nodiscard]]
         auto getVisibilityFlags() const -> uint32;
 
         /** Sets the render queue group this object will be rendered through.
@@ -732,6 +754,7 @@ class Technique;
         virtual void setRenderQueueGroup(uint8 queueID);
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
+        [[nodiscard]]
         virtual auto getRenderQueueGroup() const -> uint8;
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
@@ -740,6 +763,7 @@ class Technique;
         /// Iterator for iterating over contained regions
         typedef MapIterator<RegionMap> RegionIterator;
         /// Get an list of the regions in this geometry
+        [[nodiscard]]
         auto getRegions() const -> const RegionMap& { return mRegionMap; }
 
         /** Dump the contents of this StaticGeometry to a file for diagnostic
@@ -760,6 +784,7 @@ class Technique;
 
         static String FACTORY_TYPE_NAME;
 
+        [[nodiscard]]
         auto getType() const -> const String& { return FACTORY_TYPE_NAME; }
     };
     /** @} */

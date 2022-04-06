@@ -848,8 +848,11 @@ namespace OgreBites
         void setWidgetSpacing(Ogre::Real spacing);
         void setTrayPadding(Ogre::Real padding);
 
+        [[nodiscard]]
         virtual auto getWidgetPadding() const -> Ogre::Real { return mWidgetPadding; }
+        [[nodiscard]]
         virtual auto getWidgetSpacing() const -> Ogre::Real { return mWidgetSpacing; }
+        [[nodiscard]]
         virtual auto getTrayPadding() const -> Ogre::Real { return mTrayPadding; }
 
         /**
@@ -991,6 +994,7 @@ namespace OgreBites
         /**
         Gets all the widgets of a specific tray.
         */
+        [[nodiscard]]
         auto getWidgets(TrayLocation trayLoc) const -> const WidgetList& {
             return mWidgets[trayLoc];
         }

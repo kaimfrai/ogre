@@ -91,10 +91,13 @@ namespace Ogre {
         /// Returns the name of the stream, if it has one.
         auto getName() -> const String& { return mName; }
         /// Gets the access mode of the stream
+        [[nodiscard]]
         auto getAccessMode() const -> uint16 { return mAccess; }
         /** Reports whether this stream is readable. */
+        [[nodiscard]]
         virtual auto isReadable() const -> bool { return (mAccess & READ) != 0; }
         /** Reports whether this stream is writeable. */
+        [[nodiscard]]
         virtual auto isWriteable() const -> bool { return (mAccess & WRITE) != 0; }
         virtual ~DataStream() {}
         // Streaming operators
@@ -178,15 +181,18 @@ namespace Ogre {
         virtual void seek( size_t pos ) = 0;
         
         /** Returns the current byte offset from beginning */
+        [[nodiscard]]
         virtual auto tell() const -> size_t = 0;
 
         /** Returns true if the stream has reached the end.
         */
+        [[nodiscard]]
         virtual auto eof() const -> bool = 0;
 
         /** Returns the total size of the data to be read from the stream, 
             or 0 if this is indeterminate for this stream. 
         */
+        [[nodiscard]]
         auto size() const -> size_t { return mSize; }
 
         /** Close the stream; this makes further operations invalid. */
@@ -344,10 +350,12 @@ namespace Ogre {
         
         /** @copydoc DataStream::tell
         */
+        [[nodiscard]]
         auto tell() const -> size_t;
 
         /** @copydoc DataStream::eof
         */
+        [[nodiscard]]
         auto eof() const -> bool;
 
         /** @copydoc DataStream::close
@@ -467,10 +475,12 @@ namespace Ogre {
 
         /** @copydoc DataStream::tell
         */
+        [[nodiscard]]
         auto tell() const -> size_t;
 
         /** @copydoc DataStream::eof
         */
+        [[nodiscard]]
         auto eof() const -> bool;
 
         /** @copydoc DataStream::close
@@ -518,10 +528,12 @@ namespace Ogre {
 
         /** @copydoc DataStream::tell
         */
+        [[nodiscard]]
         auto tell() const -> size_t;
 
         /** @copydoc DataStream::eof
         */
+        [[nodiscard]]
         auto eof() const -> bool;
 
         /** @copydoc DataStream::close

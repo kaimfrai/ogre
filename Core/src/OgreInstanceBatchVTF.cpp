@@ -647,7 +647,7 @@ class RenderQueue;
         if(mWeightCount > 1)
         {
             thisVertexData->vertexDeclaration->addElement(newSource, offset, VET_FLOAT4, VES_BLEND_WEIGHTS,
-                                        thisVertexData->vertexDeclaration->getNextFreeTextureCoordinate() ).getSize();
+                                        thisVertexData->vertexDeclaration->getNextFreeTextureCoordinate() );
         }
 
         //Create our own vertex buffer

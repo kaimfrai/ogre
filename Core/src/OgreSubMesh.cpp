@@ -180,6 +180,7 @@ class HardwareBufferManagerBase;
         Cluster ()
         { }
 
+        [[nodiscard]]
         auto empty () const -> bool
         {
             if (mIndices.empty ())
@@ -189,6 +190,7 @@ class HardwareBufferManagerBase;
             return false;
         }
 
+        [[nodiscard]]
         auto volume () const -> float
         {
             return (mMax.x - mMin.x) * (mMax.y - mMin.y) * (mMax.z - mMin.z);

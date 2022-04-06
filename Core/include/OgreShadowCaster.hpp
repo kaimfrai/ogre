@@ -84,12 +84,14 @@ class VertexData;
             before adding to a render queue
         */
         void setMaterial(const MaterialPtr& mat) { mMaterial = mat; }
+        [[nodiscard]]
         auto getMaterial() const -> const MaterialPtr& override { return mMaterial; }
         void getRenderOperation(RenderOperation& op) override { op = mRenderOp; }
         /// Get the internal render operation for set up.
         auto getRenderOperationForUpdate() -> RenderOperation* {return &mRenderOp;}
         void getWorldTransforms(Matrix4* xform) const override;
         auto getSquaredViewDepth(const Camera*) const -> Real override { return 0; /* not used */}
+        [[nodiscard]]
         auto getLights() const -> const LightList& override;
         /** Does this renderable require a separate light cap?
         @remarks
@@ -101,11 +103,13 @@ class VertexData;
             inaccuracies caused by calculating the shadow geometry separately from
             the real geometry. 
         */
+        [[nodiscard]]
         auto isLightCapSeparate() const -> bool { return mLightCap != 0; }
 
         /// Get the light cap version of this renderable.
         auto getLightCapRenderable() -> ShadowRenderable* { return mLightCap; }
         /// Should this ShadowRenderable be treated as visible?
+        [[nodiscard]]
         virtual auto isVisible() const -> bool { return true; }
 
         /** This function informs the shadow renderable that the global index buffer
@@ -116,6 +120,7 @@ class VertexData;
         */
         void rebindIndexBuffer(const HardwareIndexBufferSharedPtr& indexBuffer);
 
+        [[nodiscard]]
         auto getPositionBuffer() const -> const HardwareVertexBufferSharedPtr& { return mPositionBuffer; }
     };
 
@@ -141,6 +146,7 @@ class VertexData;
     public:
         virtual ~ShadowCaster() { }
         /** Returns whether or not this object currently casts a shadow. */
+        [[nodiscard]]
         virtual auto getCastShadows() const -> bool = 0;
 
         /** Returns details of the edges which might be used to determine a silhouette. */
@@ -149,10 +155,13 @@ class VertexData;
         auto hasEdgeList() -> bool { return getEdgeList() != NULL; }
 
         /** Get the world bounding box of the caster. */
+        [[nodiscard]]
         virtual auto getWorldBoundingBox(bool derive = false) const -> const AxisAlignedBox& = 0;
         /** Gets the world space bounding box of the light cap. */
+        [[nodiscard]]
         virtual auto getLightCapBounds() const -> const AxisAlignedBox& = 0;
         /** Gets the world space bounding box of the dark cap, as extruded using the light provided. */
+        [[nodiscard]]
         virtual auto getDarkCapBounds(const Light& light, Real dirLightExtrusionDist) const -> const AxisAlignedBox& = 0;
 
         typedef Ogre::ShadowRenderableList ShadowRenderableList;

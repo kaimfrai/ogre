@@ -108,6 +108,7 @@ namespace Ogre
             return m[iRow];
         }
 
+        [[nodiscard]]
         auto GetColumn(size_t iCol) const -> Vector3
         {
             assert(iCol < 3);
@@ -163,13 +164,19 @@ namespace Ogre
         friend auto operator* (Real fScalar, const Matrix3& rkMatrix) -> Matrix3;
 
         // utilities
+        [[nodiscard]]
         auto Transpose () const -> Matrix3;
         auto Inverse (Matrix3& rkInverse, Real fTolerance = 1e-06f) const -> bool;
+        [[nodiscard]]
         auto Inverse (Real fTolerance = 1e-06f) const -> Matrix3;
+        [[nodiscard]]
         auto Determinant() const -> Real { return determinant(); }
 
+        [[nodiscard]]
         auto transpose() const -> Matrix3 { return Transpose(); }
+        [[nodiscard]]
         auto inverse() const -> Matrix3 { return Inverse(); }
+        [[nodiscard]]
         auto determinant() const -> Real
         {
             Real fCofactor00 = m[1][1] * m[2][2] - m[1][2] * m[2][1];
@@ -180,6 +187,7 @@ namespace Ogre
         }
 
         /** Determines if this matrix involves a negative scaling. */
+        [[nodiscard]]
         auto hasNegativeScale() const -> bool { return determinant() < 0; }
 
         /// Singular value decomposition
@@ -189,6 +197,7 @@ namespace Ogre
             const Vector3& rkS, const Matrix3& rkR);
 
         /// Gram-Schmidt orthogonalisation (applied to columns of rotation matrix)
+        [[nodiscard]]
         auto orthonormalised() const -> Matrix3
         {
             // Algorithm uses Gram-Schmidt orthogonalisation.  If 'this' matrix is
@@ -221,6 +230,7 @@ namespace Ogre
         void QDUDecomposition (Matrix3& rkQ, Vector3& rkD,
             Vector3& rkU) const;
 
+        [[nodiscard]]
         auto SpectralNorm () const -> Real;
 
         /// Note: Matrix must be orthonormal
@@ -266,6 +276,7 @@ namespace Ogre
             Matrix3& rkProduct);
 
         /** Determines if this matrix involves a scaling. */
+        [[nodiscard]]
         auto hasScale() const -> bool
         {
             // check magnitude of column vectors (==local axes)

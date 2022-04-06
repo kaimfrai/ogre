@@ -103,12 +103,15 @@ struct Box;
         virtual ~RenderTarget();
 
         /// Retrieve target's name.
+        [[nodiscard]]
         virtual auto getName() const -> const String&;
 
         /// Retrieve information about the render target.
         void getMetrics(unsigned int& width, unsigned int& height);
 
+        [[nodiscard]]
         virtual auto getWidth() const -> uint32;
+        [[nodiscard]]
         virtual auto getHeight() const -> uint32;
 
         /**
@@ -121,8 +124,10 @@ struct Box;
         void setDepthBufferPool( uint16 poolId );
 
         //Returns the pool ID this RenderTarget should query from. @see DepthBuffer
+        [[nodiscard]]
         auto getDepthBufferPool() const -> uint16;
 
+        [[nodiscard]]
         auto getDepthBuffer() const -> DepthBuffer*;
 
         //Returns false if couldn't attach
@@ -196,6 +201,7 @@ struct Box;
             float width = 1.0f, float height = 1.0f) -> Viewport*;
 
         /** Returns the number of viewports attached to this target.*/
+        [[nodiscard]]
         virtual auto getNumViewports() const -> unsigned short;
 
         /** Retrieves a pointer to the viewport with the given index. */
@@ -218,6 +224,7 @@ struct Box;
         virtual void removeAllViewports();
 
         /** Retieves details of current rendering performance. */
+        [[nodiscard]]
         auto getStatistics() const -> const FrameStats& {
             return mStats;
         }
@@ -288,10 +295,12 @@ struct Box;
         */
         virtual void setPriority( uchar priority ) { mPriority = priority; }
         /** Gets the priority of a render target. */
+        [[nodiscard]]
         virtual auto getPriority() const -> uchar { return mPriority; }
 
         /** Used to retrieve or set the active state of the render target.
         */
+        [[nodiscard]]
         virtual auto isActive() const -> bool;
 
         /** Used to set the active state of the render target.
@@ -313,6 +322,7 @@ struct Box;
         /** Gets whether this target is automatically updated if Ogre's rendering
             loop or Root::_updateAllRenderTargets is being used.
         */
+        [[nodiscard]]
         virtual auto isAutoUpdated() const -> bool;
 
         /** Copies the current contents of the render target to a pixelbox. 
@@ -325,6 +335,7 @@ struct Box;
         /** Suggests a pixel format to use for extracting the data in this target,
             when calling copyContentsToMemory.
         */
+        [[nodiscard]]
         virtual auto suggestPixelFormat() const -> PixelFormat { return PF_BYTE_RGBA; }
         
         /** Writes the current contents of the render target to the named file. */
@@ -334,6 +345,7 @@ struct Box;
             @return the name of the file used.*/
         virtual auto writeContentsToTimestampedFile(const String& filenamePrefix, const String& filenameSuffix) -> String;
 
+        [[nodiscard]]
         virtual auto requiresTextureFlipping() const -> bool = 0;
 
         /** Utility method to notify a render target that a camera has been removed,
@@ -347,10 +359,12 @@ struct Box;
             This is the case because it holds the context for vertex,
             index buffers and textures.
         */
+        [[nodiscard]]
         virtual auto isPrimary() const -> bool;
 
 		/** Indicates whether stereo is currently enabled for this target. Default is false. */
-		virtual auto isStereoEnabled() const -> bool;
+		[[nodiscard]]
+virtual auto isStereoEnabled() const -> bool;
 		
         /** Indicates whether on rendering, linear colour space is converted to 
             sRGB gamma colour space. This is the exact opposite conversion of
@@ -359,13 +373,16 @@ struct Box;
             enabled through the 'gamma' creation misc parameter. For textures, 
             it is enabled through the hwGamma parameter to the create call.
         */
+        [[nodiscard]]
         virtual auto isHardwareGammaEnabled() const -> bool { return mHwGamma; }
 
         /** Indicates whether multisampling is performed on rendering and at what level.
         */
+        [[nodiscard]]
         virtual auto getFSAA() const -> uint { return mFSAA; }
 
         /// RenderSystem specific FSAA option. See @ref RenderSystem::_createRenderWindow for details.
+        [[nodiscard]]
         virtual auto getFSAAHint() const -> const String& { return mFSAAHint; }
 
         /** Set the level of multisample AA to be used if hardware support it.

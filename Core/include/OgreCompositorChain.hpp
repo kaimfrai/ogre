@@ -98,12 +98,15 @@ class SceneManager;
         
         /** Get compositor instance by name. Returns null if not found.
         */
+        [[nodiscard]]
         auto getCompositor(const String& name) const -> CompositorInstance*;
 
         /// @overload
+        [[nodiscard]]
         auto getCompositor(size_t index) const -> CompositorInstance * { return mInstances.at(index); }
 
         /// Get compositor position by name. Returns #NPOS if not found.
+        [[nodiscard]]
         auto getCompositorPosition(const String& name) const -> size_t;
 
         /** Get the original scene compositor instance for this chain (internal use). 
@@ -112,6 +115,7 @@ class SceneManager;
 
         /** The compositor instances. The first compositor in this list is applied first, the last one is applied last.
         */
+        [[nodiscard]]
         auto getCompositorInstances() const -> const Instances& { return mInstances; }
     
         /** Enable or disable a compositor, by position. Disabling a compositor stops it from rendering
@@ -207,6 +211,7 @@ class SceneManager;
         
         /** Internal method to get a unique name of a compositor
         */
+        [[nodiscard]]
         auto getCompositorName() const -> const String;
 
         /** Render queue listener used to set up rendering events. */

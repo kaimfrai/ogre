@@ -121,6 +121,7 @@ class Sphere;
 
         /** Gets the minimum corner of the box.
         */
+        [[nodiscard]]
         inline auto getMinimum() const -> const Vector3&
         { 
             return mMinimum; 
@@ -136,6 +137,7 @@ class Sphere;
 
         /** Gets the maximum corner of the box.
         */
+        [[nodiscard]]
         inline auto getMaximum() const -> const Vector3&
         { 
             return mMaximum;
@@ -272,6 +274,7 @@ class Sphere;
         6-------7
         </pre>
         */
+        [[nodiscard]]
         inline auto getAllCorners() const -> Corners
         {
             assert( (mExtent == EXTENT_FINITE) && "Can't get corners of a null or infinite AAB" );
@@ -299,6 +302,7 @@ class Sphere;
 
         /** Gets the position of one of the corners
         */
+        [[nodiscard]]
         auto getCorner(CornerEnum cornerToGet) const -> Vector3
         {
             switch(cornerToGet)
@@ -502,6 +506,7 @@ class Sphere;
 
         /** Returns true if the box is null i.e. empty.
         */
+        [[nodiscard]]
         inline auto isNull() const -> bool
         {
             return (mExtent == EXTENT_NULL);
@@ -509,6 +514,7 @@ class Sphere;
 
         /** Returns true if the box is finite.
         */
+        [[nodiscard]]
         auto isFinite() const -> bool
         {
             return (mExtent == EXTENT_FINITE);
@@ -523,12 +529,14 @@ class Sphere;
 
         /** Returns true if the box is infinite.
         */
+        [[nodiscard]]
         auto isInfinite() const -> bool
         {
             return (mExtent == EXTENT_INFINITE);
         }
 
         /** Returns whether or not this box intersects another. */
+        [[nodiscard]]
         inline auto intersects(const AxisAlignedBox& b2) const -> bool
         {
             // Early-fail for nulls
@@ -560,6 +568,7 @@ class Sphere;
         }
 
         /// Calculate the area of intersection of this box and another
+        [[nodiscard]]
         inline auto intersection(const AxisAlignedBox& b2) const -> AxisAlignedBox
         {
             if (this->isNull() || b2.isNull())
@@ -593,6 +602,7 @@ class Sphere;
         }
 
         /// Calculate the volume of this box
+        [[nodiscard]]
         auto volume() const -> Real
         {
             switch (mExtent)
@@ -629,16 +639,19 @@ class Sphere;
         }
 
         /** Tests whether this box intersects a sphere. */
+        [[nodiscard]]
         auto intersects(const Sphere& s) const -> bool
         {
             return Math::intersects(s, *this); 
         }
         /** Tests whether this box intersects a plane. */
+        [[nodiscard]]
         auto intersects(const Plane& p) const -> bool
         {
             return Math::intersects(p, *this);
         }
         /** Tests whether the vector point is within this box. */
+        [[nodiscard]]
         auto intersects(const Vector3& v) const -> bool
         {
             switch (mExtent)
@@ -660,6 +673,7 @@ class Sphere;
             }
         }
         /// Gets the centre of the box
+        [[nodiscard]]
         auto getCenter() const -> Vector3
         {
             assert( (mExtent == EXTENT_FINITE) && "Can't get center of a null or infinite AAB" );
@@ -670,6 +684,7 @@ class Sphere;
                 (mMaximum.z + mMinimum.z) * 0.5f};
         }
         /// Gets the size of the box
+        [[nodiscard]]
         auto getSize() const -> Vector3
         {
             switch (mExtent)
@@ -692,6 +707,7 @@ class Sphere;
             }
         }
         /// Gets the half-size of the box
+        [[nodiscard]]
         auto getHalfSize() const -> Vector3
         {
             switch (mExtent)
@@ -716,6 +732,7 @@ class Sphere;
 
         /** Tests whether the given point contained by this box.
         */
+        [[nodiscard]]
         auto contains(const Vector3& v) const -> bool
         {
             if (isNull())
@@ -730,6 +747,7 @@ class Sphere;
         
         /** Returns the squared minimum distance between a given point and any part of the box.
          *  This is faster than distance since avoiding a squareroot, so use if you can. */
+        [[nodiscard]]
         auto squaredDistance(const Vector3& v) const -> Real
         {
 
@@ -759,6 +777,7 @@ class Sphere;
         }
         
         /** Returns the minimum distance between a given point and any part of the box. */
+        [[nodiscard]]
         auto distance (const Vector3& v) const -> Real
         {
             return Ogre::Math::Sqrt(squaredDistance(v));
@@ -766,6 +785,7 @@ class Sphere;
 
         /** Tests whether another box contained by this box.
         */
+        [[nodiscard]]
         auto contains(const AxisAlignedBox& other) const -> bool
         {
             if (other.isNull() || this->isInfinite())

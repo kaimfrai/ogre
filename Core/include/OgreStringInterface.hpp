@@ -129,6 +129,7 @@ namespace Ogre {
 
         /** Retrieves the parameter command object for a named parameter. */
         auto getParamCommand(const String& name) -> ParamCommand*;
+        [[nodiscard]]
         auto getParamCommand(const String& name) const -> const ParamCommand*;
     public:
         ParamDictionary();
@@ -151,6 +152,7 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
+        [[nodiscard]]
         auto getParameters() const -> const ParameterList&
         {
             return mParamDefs;
@@ -205,6 +207,7 @@ namespace Ogre {
             return mParamDict;
         }
 
+        [[nodiscard]]
         auto getParamDictionary() const -> const ParamDictionary*
         {
             return mParamDict;
@@ -215,6 +218,7 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
+        [[nodiscard]]
         auto getParameters() const -> const ParameterList&;
 
         /** Generic parameter setting method.
@@ -253,6 +257,7 @@ namespace Ogre {
         @return
             String value of parameter, blank if not found
         */
+        [[nodiscard]]
         auto getParameter(const String& name) const -> String;
         /** Method for copying this object's parameters to another object.
         @remarks

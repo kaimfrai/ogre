@@ -74,6 +74,7 @@ namespace Ogre {
         */
         void unload();
         /// Get the name of the library
+        [[nodiscard]]
         auto getName() const -> const String& { return mName; }
 
         /**
@@ -87,6 +88,7 @@ namespace Ogre {
                 If the function fails, the returned value is <b>NULL</b>.
 
         */
+        [[nodiscard]]
         auto getSymbol( const String& strName ) const throw() -> void*;
 
     private:

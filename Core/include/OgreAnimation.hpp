@@ -69,18 +69,22 @@ class VertexData;
         virtual ~AnimationContainer() {}
 
         /** Gets the number of animations in this container. */
+        [[nodiscard]]
         virtual auto getNumAnimations() const -> unsigned short = 0;
         
         /** Retrieve an animation by index.  */
+        [[nodiscard]]
         virtual auto getAnimation(unsigned short index) const -> Animation* = 0;
         
         /** Retrieve an animation by name. */
+        [[nodiscard]]
         virtual auto getAnimation(const String& name) const -> Animation* = 0;
         
         /** Create a new animation with a given length owned by this container. */
         virtual auto createAnimation(const String& name, Real length) -> Animation* = 0;
         
         /** Returns whether this object contains the named animation. */
+        [[nodiscard]]
         virtual auto hasAnimation(const String& name) const -> bool = 0;
         
         /** Removes an Animation from this container. */

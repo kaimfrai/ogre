@@ -60,8 +60,10 @@ namespace Ogre {
         virtual ~ETCCodec() { }
 
         using ImageCodec::decode;
+        [[nodiscard]]
         auto decode(const DataStreamPtr& input) const -> DecodeResult override;
         auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String override;
+        [[nodiscard]]
         auto getType() const -> String override;
 
         /// Static method to startup and register the ETC codec

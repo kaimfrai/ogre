@@ -67,6 +67,7 @@ namespace Ogre {
         @return
             A list of file patterns, in the order they should be searched in.
         */
+        [[nodiscard]]
         virtual auto getScriptPatterns() const -> const StringVector& = 0;
 
         /** Parse a script file.
@@ -82,6 +83,7 @@ namespace Ogre {
             Higher values load later during bulk loading tasks.
         @return The loading order
         */
+        [[nodiscard]]
         virtual auto getLoadingOrder() const -> Real  = 0;
 
     };

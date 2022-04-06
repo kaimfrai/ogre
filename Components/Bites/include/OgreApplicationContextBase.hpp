@@ -95,15 +95,18 @@ namespace OgreBites
          * get the main RenderWindow
          * owns the context on OpenGL
          */
+        [[nodiscard]]
         auto getRenderWindow() const -> Ogre::RenderWindow*
         {
             return mWindows.empty() ? NULL : mWindows[0].render;
         }
 
+        [[nodiscard]]
         auto getRoot() const -> Ogre::Root* {
             return mRoot;
         }
 
+        [[nodiscard]]
         auto getOverlaySystem() const -> Ogre::OverlaySystem* {
             return mOverlaySystem;
         }
@@ -181,6 +184,7 @@ namespace OgreBites
         virtual void setWindowGrab(NativeWindowType* win, bool grab = true) {}
 
         /// get the vertical DPI of the display
+        [[nodiscard]]
         virtual auto getDisplayDPI() const -> float { return 96.0f; }
 
         /// @overload

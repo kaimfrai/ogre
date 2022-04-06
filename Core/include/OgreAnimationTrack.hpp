@@ -97,16 +97,19 @@ class VertexMorphKeyFrame;
         {
         }
 
+        [[nodiscard]]
         auto hasKeyIndex() const -> bool
         {
             return mKeyIndex != INVALID_KEY_INDEX;
         }
 
+        [[nodiscard]]
         auto getTimePos() const -> Real
         {
             return mTimePos;
         }
 
+        [[nodiscard]]
         auto getKeyIndex() const -> uint
         {
             return mKeyIndex;
@@ -156,12 +159,15 @@ class VertexMorphKeyFrame;
         virtual ~AnimationTrack();
 
         /** Get the handle associated with this track. */
+        [[nodiscard]]
         auto getHandle() const -> unsigned short { return mHandle; }
 
         /** Returns the number of keyframes in this animation. */
+        [[nodiscard]]
         auto getNumKeyFrames() const -> size_t { return mKeyFrames.size(); }
 
         /** Returns the KeyFrame at the specified index. */
+        [[nodiscard]]
         auto getKeyFrame(size_t index) const -> KeyFrame* { return mKeyFrames.at(index); }
 
         /** Gets the 2 KeyFrame objects which are active at the time given, and the blend value between them.
@@ -232,6 +238,7 @@ class VertexMorphKeyFrame;
         doing anything useful - can be used to determine if this track
         can be optimised out.
         */
+        [[nodiscard]]
         virtual auto hasNonZeroKeyFrames() const -> bool { return true; }
 
         /** Optimise the current track by removing any duplicate keyframes. */
@@ -251,6 +258,7 @@ class VertexMorphKeyFrame;
         virtual void setListener(Listener* l) { mListener = l; }
 
         /** Returns the parent Animation object for this track. */
+        [[nodiscard]]
         auto getParent() const -> Animation * { return mParent; }
     private:
         /// Map used to translate global keyframe time lower bound index to local lower bound index
@@ -308,6 +316,7 @@ class VertexMorphKeyFrame;
             Real weight = 1.0, Real scale = 1.0f);
 
         /** Returns a pointer to the associated animable object (if any). */
+        [[nodiscard]]
         virtual auto getAssociatedAnimable() const -> const AnimableValuePtr&;
 
         /** Sets the associated animable object which will be automatically 
@@ -315,6 +324,7 @@ class VertexMorphKeyFrame;
         virtual void setAssociatedAnimable(const AnimableValuePtr& val);
 
         /** Returns the KeyFrame at the specified index. */
+        [[nodiscard]]
         auto getNumericKeyFrame(unsigned short index) const -> NumericKeyFrame*;
 
         /** Clone this track (internal use only) */
@@ -506,9 +516,11 @@ class VertexMorphKeyFrame;
             VertexData* targetData, TargetMode target = TM_SOFTWARE);
 
         /** Get the type of vertex animation we're performing. */
+        [[nodiscard]]
         auto getAnimationType() const -> VertexAnimationType { return mAnimationType; }
         
         /** Whether the vertex animation (if present) includes normals */
+        [[nodiscard]]
         auto getVertexAnimationIncludesNormals() const -> bool;
 
         /** Creates a new morph KeyFrame and adds it to this animation at the given time index.
@@ -539,25 +551,30 @@ class VertexMorphKeyFrame;
 
 
         /** Returns the morph KeyFrame at the specified index. */
+        [[nodiscard]]
         auto getVertexMorphKeyFrame(unsigned short index) const -> VertexMorphKeyFrame*;
 
         /** Returns the pose KeyFrame at the specified index. */
+        [[nodiscard]]
         auto getVertexPoseKeyFrame(unsigned short index) const -> VertexPoseKeyFrame*;
 
         /** Sets the associated VertexData which this track will update. */
         void setAssociatedVertexData(VertexData* data) { mTargetVertexData = data; }
         /** Gets the associated VertexData which this track will update. */
+        [[nodiscard]]
         auto getAssociatedVertexData() const -> VertexData* { return mTargetVertexData; }
 
         /// Set the target mode
         void setTargetMode(TargetMode m) { mTargetMode = m; }
         /// Get the target mode
+        [[nodiscard]]
         auto getTargetMode() const -> TargetMode { return mTargetMode; }
 
         /** Method to determine if this track has any KeyFrames which are
         doing anything useful - can be used to determine if this track
         can be optimised out.
         */
+        [[nodiscard]]
         virtual auto hasNonZeroKeyFrames() const -> bool;
 
         /** Optimise the current track by removing any duplicate keyframes. */

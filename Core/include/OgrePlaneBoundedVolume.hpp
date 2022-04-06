@@ -61,6 +61,7 @@ namespace Ogre {
         /** Intersection test with AABB
         @remarks May return false positives but will never miss an intersection.
         */
+        [[nodiscard]]
         inline auto intersects(const AxisAlignedBox& box) const -> bool
         {
             if (box.isNull()) return false;
@@ -92,6 +93,7 @@ namespace Ogre {
         /** Intersection test with Sphere
         @remarks May return false positives but will never miss an intersection.
         */
+        [[nodiscard]]
         inline auto intersects(const Sphere& sphere) const -> bool
         {
             PlaneList::const_iterator i, iend;

@@ -67,9 +67,11 @@ class MovableObject;
         virtual ~LodStrategy();
 
         /** Get the value of the first (highest) level of detail. */
+        [[nodiscard]]
         virtual auto getBaseValue() const -> Real = 0;
 
         /** Transform LOD bias so it only needs to be multiplied by the LOD value. */
+        [[nodiscard]]
         virtual auto transformBias(Real factor) const -> Real = 0;
 
         /** Transform user supplied value to internal value.
@@ -79,27 +81,32 @@ class MovableObject;
             Do not throw exceptions for invalid values here, as the LOD strategy
             may be changed such that the values become valid.
         */
+        [[nodiscard]]
         virtual auto transformUserValue(Real userValue) const -> Real;
 
         /** Compute the LOD value for a given movable object relative to a given camera. */
         auto getValue(const MovableObject *movableObject, const Camera *camera) const -> Real;
 
         /** Get the index of the LOD usage which applies to a given value. */
+        [[nodiscard]]
         virtual auto getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const -> ushort = 0;
 
         /** Get the index of the LOD usage which applies to a given value. */
+        [[nodiscard]]
         virtual auto getIndex(Real value, const Material::LodValueList& materialLodValueList) const -> ushort = 0;
 
         /** Sort mesh LOD usage list from greatest to least detail */
         virtual void sort(Mesh::MeshLodUsageList& meshLodUsageList) const = 0;
 
         /** Determine if the LOD values are sorted from greatest detail to least detail. */
+        [[nodiscard]]
         virtual auto isSorted(const Mesh::LodValueList& values) const -> bool = 0;
 
         /** Assert that the LOD values are sorted from greatest detail to least detail. */
         void assertSorted(const Mesh::LodValueList& values) const;
 
         /** Get the name of this strategy. */
+        [[nodiscard]]
         auto getName() const -> const String& { return mName; }
 
     protected:

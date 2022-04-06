@@ -184,6 +184,7 @@ private:
     void flushGpuProgramsCache(GpuProgramsMap& gpuProgramsMap);
     
     /** Return the number of created shaders. */
+    [[nodiscard]]
     auto getShaderCount(GpuProgramType type) const -> size_t;
 
     /** Fix the input of the pixel shader to be the same as the output of the vertex shader */

@@ -50,6 +50,7 @@ namespace Ogre {
         @return
             The factory type.
         */
+        [[nodiscard]]
         virtual auto getType() const -> const String& = 0;
 
         /** Creates a new object.

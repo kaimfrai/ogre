@@ -71,6 +71,7 @@ namespace {
         ~FileSystemArchive();
 
         /// @copydoc Archive::isCaseSensitive
+        [[nodiscard]]
         auto isCaseSensitive() const -> bool;
 
         /// @copydoc Archive::load
@@ -79,6 +80,7 @@ namespace {
         void unload();
 
         /// @copydoc Archive::open
+        [[nodiscard]]
         auto open(const String& filename, bool readOnly = true) const -> DataStreamPtr;
 
         /// @copydoc Archive::create
@@ -88,23 +90,29 @@ namespace {
         void remove(const String& filename);
 
         /// @copydoc Archive::list
+        [[nodiscard]]
         auto list(bool recursive = true, bool dirs = false) const -> StringVectorPtr;
 
         /// @copydoc Archive::listFileInfo
+        [[nodiscard]]
         auto listFileInfo(bool recursive = true, bool dirs = false) const -> FileInfoListPtr;
 
         /// @copydoc Archive::find
+        [[nodiscard]]
         auto find(const String& pattern, bool recursive = true,
             bool dirs = false) const -> StringVectorPtr;
 
         /// @copydoc Archive::findFileInfo
+        [[nodiscard]]
         auto findFileInfo(const String& pattern, bool recursive = true,
             bool dirs = false) const -> FileInfoListPtr;
 
         /// @copydoc Archive::exists
+        [[nodiscard]]
         auto exists(const String& filename) const -> bool;
 
         /// @copydoc Archive::getModifiedTime
+        [[nodiscard]]
         auto getModifiedTime(const String& filename) const -> time_t;
     };
 

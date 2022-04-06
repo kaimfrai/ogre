@@ -56,6 +56,7 @@ class Program : public RTShaderSystemAlloc
 // Interface.
 public: 
     /** Get the type of this program. */
+    [[nodiscard]]
     auto getType() const -> GpuProgramType;
 
     /** Resolve uniform auto constant parameter with associated real data of this program.
@@ -129,6 +130,7 @@ public:
 
     /** Get the list of uniform parameters of this program.
     */
+    [[nodiscard]]
     auto getParameters() const -> const UniformParameterList& { return mParameters; };
 
     /// @deprecated use getMain()
@@ -144,11 +146,13 @@ public:
     void addDependency(const String& libFileName);
 
     /** Get the number of external libs this program depends on */
+    [[nodiscard]]
     auto getDependencyCount() const -> size_t;
 
     /** Get the library name of the given index dependency.
     @param index The index of the dependecy.
     */
+    [[nodiscard]]
     auto getDependency(unsigned int index) const -> const String&;
     
 
@@ -160,6 +164,7 @@ public:
     /** Returns whether a vertex program includes the required instructions
         to perform skeletal animation. 
     */
+    [[nodiscard]]
     auto getSkeletalAnimationIncluded() const -> bool { return mSkeletalAnimation; }
 
     /** Tells Ogre whether auto-bound matrices should be sent in column or row-major order.
@@ -179,10 +184,12 @@ public:
     @return
     true, when the matrices will be passed in column-major order, false, when they will be passed as row-major.
     */
+    [[nodiscard]]
     auto getUseColumnMajorMatrices() const -> bool { return mColumnMajorMatrices; }
 
     void addPreprocessorDefines(const String& defines);
 
+    [[nodiscard]]
     auto getPreprocessorDefines() const -> const String& { return mPreprocessorDefines; }
 
     /** Class destructor */

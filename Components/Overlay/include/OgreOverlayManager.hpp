@@ -99,10 +99,12 @@ namespace Ogre {
         void _restoreManualHardwareResources();
 
         /// @copydoc ScriptLoader::getScriptPatterns
+        [[nodiscard]]
         auto getScriptPatterns() const -> const StringVector&;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName);
         /// @copydoc ScriptLoader::getLoadingOrder
+        [[nodiscard]]
         auto getLoadingOrder() const -> Real;
 
         void addOverlay(Overlay* overlay);
@@ -126,13 +128,17 @@ namespace Ogre {
         void _queueOverlaysForRendering(Camera* cam, RenderQueue* pQueue, Viewport *vp);
 
         /** Gets the height of the destination viewport in pixels. */
+        [[nodiscard]]
         auto getViewportHeight() const -> int;
         
         /** Gets the width of the destination viewport in pixels. */
+        [[nodiscard]]
         auto getViewportWidth() const -> int;
+        [[nodiscard]]
         auto getViewportAspectRatio() const -> Real;
 
         /** Gets the orientation mode of the destination viewport. */
+        [[nodiscard]]
         auto getViewportOrientationMode() const -> OrientationMode;
 
        /** Sets the pixel ratio: how many viewport pixels represent a single overlay pixel (in one dimension).
@@ -140,6 +146,7 @@ namespace Ogre {
        By default this is an 1:1 mapping. However on HiDPI screens you want to increase that to scale up your Overlay.
        @see RenderWindow::getViewPointToPixelScale */
        void setPixelRatio(float ratio);
+       [[nodiscard]]
        auto getPixelRatio() const -> float;
 
         /** Creates a new OverlayElement of the type requested.
@@ -186,6 +193,7 @@ namespace Ogre {
         void addOverlayElementFactory(OverlayElementFactory* elemFactory);
         
         /** Get const access to the list of registered OverlayElement factories. */
+        [[nodiscard]]
         auto getOverlayElementFactoryMap() const -> const FactoryMap& {
             return mFactories;
         }

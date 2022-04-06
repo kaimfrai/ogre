@@ -80,6 +80,7 @@ namespace {
         NullProgramFactory() {}
         ~NullProgramFactory() {}
         /// Get the name of the language this factory creates programs for
+        [[nodiscard]]
         auto getLanguage() const -> const String&
         {
             return sNullLang;

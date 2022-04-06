@@ -59,8 +59,11 @@ class ColourValue;
     private:
         String mType;
 
+        [[nodiscard]]
         auto convertFourCCFormat(uint32 fourcc) const -> PixelFormat;
+        [[nodiscard]]
         auto convertDXToOgreFormat(uint32 fourcc) const -> PixelFormat;
+        [[nodiscard]]
         auto convertPixelFormat(uint32 rgbBits, uint32 rMask,
             uint32 gMask, uint32 bMask, uint32 aMask) const -> PixelFormat;
 
@@ -82,8 +85,10 @@ class ColourValue;
         using ImageCodec::encodeToFile;
 
         void encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName, const CodecDataPtr& pData) const override;
+        [[nodiscard]]
         auto decode(const DataStreamPtr& input) const -> DecodeResult override;
         auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String override;
+        [[nodiscard]]
         auto getType() const -> String override;
 
         /// Static method to startup and register the DDS codec

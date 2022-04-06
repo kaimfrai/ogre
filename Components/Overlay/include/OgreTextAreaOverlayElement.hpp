@@ -70,18 +70,23 @@ namespace Ogre
         virtual void setCaption(const DisplayString& text);
 
         void setCharHeight( Real height );
+        [[nodiscard]]
         auto getCharHeight() const -> Real;
 
         void setSpaceWidth( Real width );
+        [[nodiscard]]
         auto getSpaceWidth() const -> Real;
 
         void setFontName( const String& font, const String& group = DEFAULT_RESOURCE_GROUP );
 
+        [[nodiscard]]
         auto getFont() const -> const FontPtr& {
             return mFont;
         }
 
+        [[nodiscard]]
         virtual auto getTypeName() const -> const String& override;
+        [[nodiscard]]
         auto getMaterial() const -> const MaterialPtr& override;
         void getRenderOperation(RenderOperation& op) override;
 
@@ -94,6 +99,7 @@ namespace Ogre
         void setColour(const ColourValue& col);
 
         /** Gets the colour of the text. */
+        [[nodiscard]]
         auto getColour() const -> const ColourValue&;
         /** Sets the colour of the bottom of the letters.
         @remarks
@@ -103,6 +109,7 @@ namespace Ogre
         */
         void setColourBottom(const ColourValue& col);
         /** Gets the colour of the bottom of the letters. */
+        [[nodiscard]]
         auto getColourBottom() const -> const ColourValue&;
         /** Sets the colour of the top of the letters.
         @remarks
@@ -112,6 +119,7 @@ namespace Ogre
         */
         void setColourTop(const ColourValue& col);
         /** Gets the colour of the top of the letters. */
+        [[nodiscard]]
         auto getColourTop() const -> const ColourValue&;
 
         inline void setAlignment( Alignment a )
@@ -119,6 +127,7 @@ namespace Ogre
             mAlignment = a;
             mGeomPositionsOutOfDate = true;
         }
+        [[nodiscard]]
         inline auto getAlignment() const -> Alignment
         {
             return mAlignment;

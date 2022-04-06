@@ -102,6 +102,7 @@ public:
     /** Returns whether or not the passed in set is comparable
         this means they must have the same resolution and image (test)
         names. */
+    [[nodiscard]]
     auto canCompareWith(const TestBatch& other) const -> bool
     {
         if (resolutionX != other.resolutionX ||
@@ -117,12 +118,14 @@ public:
     }
 
     /** Gets the full path to the image at the specificied index */
+    [[nodiscard]]
     auto getImagePath(size_t index) const -> Ogre::String
     {
         return mDirectory + "/" + images[index] + ".png";
     }
 
     /** Does image comparison on all images between these two sets */
+    [[nodiscard]]
     auto compare(const TestBatch& other) const -> ComparisonResultVector
     {
         ComparisonResultVector out;

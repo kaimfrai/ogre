@@ -258,6 +258,7 @@ public:
     The type string should be the same as the type of the SubRenderState sub class it is going to create.   
     @see SubRenderState::getType.
     */
+    [[nodiscard]]
     virtual auto getType() const -> const String& = 0;
     
     /** Create an instance of the SubRenderState sub class it suppose to create.    

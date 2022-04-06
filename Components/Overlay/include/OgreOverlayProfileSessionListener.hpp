@@ -81,15 +81,20 @@ namespace Ogre  {
         /** Set the position of the profiler overlay, in pixels. */
         void setOverlayPosition(Real left, Real top);
 
+        [[nodiscard]]
         auto getOverlayWidth() const -> Real;
+        [[nodiscard]]
         auto getOverlayHeight() const -> Real;
+        [[nodiscard]]
         auto getOverlayLeft() const -> Real;
+        [[nodiscard]]
         auto getOverlayTop() const -> Real;
 
         /// Set the display mode for the overlay.
         void setDisplayMode(DisplayMode d) { mDisplayMode = d; }
 
         /// Get the display mode for the overlay.
+        [[nodiscard]]
         auto getDisplayMode() const -> DisplayMode { return mDisplayMode; }
 
     private:

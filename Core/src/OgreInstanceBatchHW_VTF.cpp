@@ -185,7 +185,7 @@ namespace Ogre
         if(mWeightCount > 1)
         {
             thisVertexData->vertexDeclaration->addElement(newSource, offset, VET_FLOAT4, VES_BLEND_WEIGHTS,
-                                        0 ).getSize();
+                                        0 );
         }
         
         //Create our own vertex buffer
@@ -263,7 +263,7 @@ namespace Ogre
             offset += thisVertexData->vertexDeclaration->addElement( newSource, offset, VET_FLOAT4, VES_TEXTURE_COORDINATES,
                 thisVertexData->vertexDeclaration->getNextFreeTextureCoordinate() ).getSize();
             thisVertexData->vertexDeclaration->addElement( newSource, offset, VET_FLOAT4, VES_TEXTURE_COORDINATES,
-                thisVertexData->vertexDeclaration->getNextFreeTextureCoordinate() ).getSize();
+                thisVertexData->vertexDeclaration->getNextFreeTextureCoordinate() );
             //Add two floats of padding here? or earlier?
             //If not using bone matrix lookup, is it ok that it is 8 bytes since divides evenly into 16
 

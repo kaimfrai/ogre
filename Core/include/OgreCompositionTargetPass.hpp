@@ -69,15 +69,18 @@ class CompositionTechnique;
         */
         void setInputMode(InputMode mode);
         /** Get input mode */
+        [[nodiscard]]
         auto getInputMode() const -> InputMode;
         
         /** Set output local texture name */
         void setOutputName(const String &out);
         /** Get output local texture name */
+        [[nodiscard]]
         auto getOutputName() const -> const String &;
 
         /// sets the slice of output texture
         void setOutputSlice(int slice) { mOutputSlice = slice; }
+        [[nodiscard]]
         auto getOutputSlice() const -> int { return mOutputSlice; }
 
         /** Set "only initial" flag. This makes that this target pass is only executed initially 
@@ -108,6 +111,7 @@ class CompositionTechnique;
             one of their passes.
             @see Technique::setScheme.
         */
+        [[nodiscard]]
         auto getMaterialScheme() const -> const String&;
         
         /** Set whether shadows are enabled in this target pass.
@@ -121,6 +125,7 @@ class CompositionTechnique;
             Only applicable to targets that render the scene as
             one of their passes.
         */
+        [[nodiscard]]
         auto getShadowsEnabled() const -> bool;
         /** Set the scene LOD bias used by this pass. The default is 1.0,
             everything below that means lower quality, higher means higher quality.
@@ -137,12 +142,15 @@ class CompositionTechnique;
         */
         void removePass(size_t idx);
         /** Get a pass.*/
+        [[nodiscard]]
         auto getPass(size_t idx) const -> CompositionPass * { return mPasses.at(idx); }
         /** Get the number of passes.
         */
+        [[nodiscard]]
         auto getNumPasses() const -> size_t { return mPasses.size(); }
         
         /// Get the Passes in this TargetPass
+        [[nodiscard]]
         auto getPasses() const -> const Passes& {
             return mPasses;
         }

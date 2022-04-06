@@ -68,6 +68,7 @@ private:
 class CookTorranceLightingFactory : public SubRenderStateFactory
 {
 public:
+    [[nodiscard]]
     auto getType() const -> const String& override;
 
     auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,

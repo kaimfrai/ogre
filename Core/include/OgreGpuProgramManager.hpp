@@ -61,6 +61,7 @@ namespace Ogre {
     public:
         virtual ~GpuProgramFactory() {}
         /// Get the name of the language this factory creates programs for
+        [[nodiscard]]
         virtual auto getLanguage() const -> const String& = 0;
         virtual auto create(ResourceManager* creator, const String& name, ResourceHandle handle,
                                    const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* = 0;

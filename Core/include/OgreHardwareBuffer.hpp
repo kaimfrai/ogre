@@ -362,14 +362,19 @@ namespace Ogre {
             }
 
             /// Returns the size of this buffer in bytes
+            [[nodiscard]]
             auto getSizeInBytes() const -> size_t { return mSizeInBytes; }
             /// Returns the Usage flags with which this buffer was created
+            [[nodiscard]]
             auto getUsage() const -> Usage { return mUsage; }
             /// Returns whether this buffer is held in system memory
+            [[nodiscard]]
             auto isSystemMemory() const -> bool { return mSystemMemory; }
             /// Returns whether this buffer has a system memory shadow for quicker reading
+            [[nodiscard]]
             auto hasShadowBuffer() const -> bool { return mShadowBuffer || (mDelegate && mDelegate->hasShadowBuffer()); }
             /// Returns whether or not this buffer is currently locked.
+            [[nodiscard]]
             auto isLocked() const -> bool { 
                 return mIsLocked || (mShadowBuffer && mShadowBuffer->isLocked());
             }

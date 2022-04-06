@@ -78,17 +78,25 @@ class RenderTarget;
         void unbindSurface(size_t attachment);
 
         /// Accessors
+        [[nodiscard]]
         auto getFSAA() const -> int32 { return mNumSamples; }
+        [[nodiscard]]
         auto getWidth() const -> uint32;
+        [[nodiscard]]
         auto getHeight() const -> uint32;
+        [[nodiscard]]
         auto getFormat() const -> PixelFormat;
 
+        [[nodiscard]]
         auto getContext() const -> GLContext* { return mContext; }
         /// Get the GL id for the FBO
+        [[nodiscard]]
         auto getGLFBOID() const -> uint32 { return mFB; }
         /// Get the GL id for the multisample FBO
+        [[nodiscard]]
         auto getGLMultisampleFBOID() const -> uint32 { return mMultisampleFB; }
 
+        [[nodiscard]]
         auto getSurface(size_t attachment) const -> const GLSurfaceDesc & { return mColour[attachment]; }
 
         void notifyContextDestroyed(GLContext* context) { if(mContext == context) { mContext = 0; mFB = 0; mMultisampleFB = 0; } }
@@ -119,6 +127,7 @@ class RenderTarget;
     {
     public:
         GLRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
+        [[nodiscard]]
         auto requiresTextureFlipping() const -> bool { return true; }
 
         static const String CustomAttributeString_FBO;

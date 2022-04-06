@@ -110,18 +110,22 @@ class Plane;
 
         /** Returns the current number of polygons.
         */
+        [[nodiscard]]
         auto getPolygonCount( ) const -> size_t;
 
         /** Returns the number of vertices for a polygon
         */
+        [[nodiscard]]
         auto getVertexCount( size_t poly ) const -> size_t;
 
         /** Returns a polygon.
         */
+        [[nodiscard]]
         auto getPolygon( size_t poly ) const -> const Polygon&;
 
         /** Returns a specific vertex of a polygon.
         */
+        [[nodiscard]]
         auto getVertex( size_t poly, size_t vertex ) const -> const Vector3&;
 
         /** Returns the normal of a specified polygon.
@@ -130,10 +134,12 @@ class Plane;
 
         /** Returns an AABB representation.
         */
+        [[nodiscard]]
         auto getAABB( ) const -> AxisAlignedBox;
 
         /** Checks if the body has a closed hull.
         */
+        [[nodiscard]]
         auto hasClosedHull( ) const -> bool;
 
         /** Merges all neighboring polygons into one single polygon if they are
@@ -229,6 +235,7 @@ class Plane;
         /** Returns the single edges in an EdgeMap (= edges where one side is a vertex and the
             other is empty space (a hole in the body)).
         */
+        [[nodiscard]]
         auto getSingleEdges() const -> Polygon::EdgeMap;
 
         /** Stores the edges of a specific polygon in a passed in structure.

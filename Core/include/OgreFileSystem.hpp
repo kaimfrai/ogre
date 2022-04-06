@@ -55,6 +55,7 @@ class Archive;
     {
     public:
         /// @copydoc FactoryObj::getType
+        [[nodiscard]]
         auto getType() const -> const String&;
 
         using ArchiveFactory::createInstance;
@@ -76,6 +77,7 @@ class Archive;
         APKFileSystemArchiveFactory(AAssetManager* assetMgr) : mAssetMgr(assetMgr) {}
         virtual ~APKFileSystemArchiveFactory() {}
         /// @copydoc FactoryObj::getType
+        [[nodiscard]]
         auto getType() const -> const String&;
         /// @copydoc ArchiveFactory::createInstance
         auto createInstance( const String& name, bool readOnly ) -> Archive *;

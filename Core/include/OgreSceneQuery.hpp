@@ -153,6 +153,7 @@ class SceneManager;
         */
         virtual void setQueryMask(uint32 mask);
         /** Returns the current mask for this query. */
+        [[nodiscard]]
         virtual auto getQueryMask() const -> uint32;
 
         /** Sets the type mask for results of this query.
@@ -165,6 +166,7 @@ class SceneManager;
         */
         virtual void setQueryTypeMask(uint32 mask);
         /** Returns the current mask for this query. */
+        [[nodiscard]]
         virtual auto getQueryTypeMask() const -> uint32;
 
         /** Tells the query what kind of world geometry to return from queries;
@@ -180,9 +182,11 @@ class SceneManager;
         virtual void setWorldFragmentType(enum WorldFragmentType wft);
 
         /** Gets the current world fragment types to be returned from the query. */
+        [[nodiscard]]
         virtual auto getWorldFragmentType() const -> WorldFragmentType;
 
         /** Returns the types of world fragments this query supports. */
+        [[nodiscard]]
         virtual auto getSupportedWorldFragmentTypes() const -> const std::set<WorldFragmentType>*
             {return &mSupportedWorldFragments;}
 
@@ -261,6 +265,7 @@ class SceneManager;
         /** Gets the results of the last query that was run using this object, provided
             the query was executed using the collection-returning version of execute. 
         */
+        [[nodiscard]]
         virtual auto getLastResults() const -> SceneQueryResult&;
         /** Clears the results of the last query execution.
         @remarks
@@ -289,6 +294,7 @@ class SceneManager;
         void setBox(const AxisAlignedBox& box);
 
         /** Gets the box which is being used for this query. */
+        [[nodiscard]]
         auto getBox() const -> const AxisAlignedBox&;
 
     };
@@ -305,6 +311,7 @@ class SceneManager;
         void setSphere(const Sphere& sphere);
 
         /** Gets the sphere which is being used for this query. */
+        [[nodiscard]]
         auto getSphere() const -> const Sphere&;
 
     };
@@ -322,6 +329,7 @@ class SceneManager;
         void setVolumes(const PlaneBoundedVolumeList& volumes);
 
         /** Gets the volume which is being used for this query. */
+        [[nodiscard]]
         auto getVolumes() const -> const PlaneBoundedVolumeList&;
 
     };
@@ -387,6 +395,7 @@ class SceneManager;
         /** Sets the ray which is to be used for this query. */
         virtual void setRay(const Ray& ray);
         /** Gets the ray which is to be used for this query. */
+        [[nodiscard]]
         virtual auto getRay() const -> const Ray&;
         /** Sets whether the results of this query will be sorted by distance along the ray.
         @remarks
@@ -408,9 +417,11 @@ class SceneManager;
         */
         virtual void setSortByDistance(bool sort, ushort maxresults = 0);
         /** Gets whether the results are sorted by distance. */
+        [[nodiscard]]
         virtual auto getSortByDistance() const -> bool;
         /** Gets the maximum number of results returned from the query (only relevant if 
         results are being sorted) */
+        [[nodiscard]]
         virtual auto getMaxResults() const -> ushort;
         /** Executes the query, returning the results back in one list.
         @remarks
@@ -539,6 +550,7 @@ class SceneManager;
         /** Gets the results of the last query that was run using this object, provided
             the query was executed using the collection-returning version of execute. 
         */
+        [[nodiscard]]
         virtual auto getLastResults() const -> IntersectionSceneQueryResult&;
         /** Clears the results of the last query execution.
         @remarks

@@ -61,21 +61,26 @@ class MovableObject;
         PixelCountLodStrategyBase(const String& name);
 
         /// @copydoc LodStrategy::getBaseValue
+        [[nodiscard]]
         virtual auto getBaseValue() const -> Real;
 
         /// @copydoc LodStrategy::transformBias
+        [[nodiscard]]
         virtual auto transformBias(Real factor) const -> Real;
 
         /// @copydoc LodStrategy::getIndex
+        [[nodiscard]]
         virtual auto getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const -> ushort;
 
         /// @copydoc LodStrategy::getIndex
+        [[nodiscard]]
         virtual auto getIndex(Real value, const Material::LodValueList& materialLodValueList) const -> ushort;
 
         /// @copydoc LodStrategy::sort
         virtual void sort(Mesh::MeshLodUsageList& meshLodUsageList) const;
 
         /// @copydoc LodStrategy::isSorted
+        [[nodiscard]]
         virtual auto isSorted(const Mesh::LodValueList& values) const -> bool;
     };
 

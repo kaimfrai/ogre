@@ -400,16 +400,19 @@ namespace Ogre {
             one row and the leftmost pixel of the next row. (IE this is zero if rows
             are consecutive).
         */
+        [[nodiscard]]
         auto getRowSkip() const -> size_t { return rowPitch - getWidth(); }
         /** Get the number of elements between one past the right bottom pixel of
             one slice and the left top pixel of the next slice. (IE this is zero if slices
             are consecutive).
         */
+        [[nodiscard]]
         auto getSliceSkip() const -> size_t { return slicePitch - (getHeight() * rowPitch); }
 
         /** Return whether this buffer is laid out consecutive in memory (ie the pitches
             are equal to the dimensions)
         */        
+        [[nodiscard]]
         auto isConsecutive() const -> bool 
         { 
             return rowPitch == getWidth() && slicePitch == getWidth()*getHeight(); 
@@ -417,6 +420,7 @@ namespace Ogre {
         /** Return the size (in bytes) this image would take if it was
             laid out consecutive in memory
         */
+        [[nodiscard]]
         auto getConsecutiveSize() const -> size_t;
         /** Return a subvolume of this PixelBox.
             @param def  Defines the bounds of the subregion to return
@@ -429,11 +433,13 @@ namespace Ogre {
                 the data of object.
             @throws Exception(ERR_INVALIDPARAMS) if def is not fully contained
         */
+        [[nodiscard]]
         auto getSubVolume(const Box &def, bool resetOrigin = true) const -> PixelBox;
         
         /** Return a data pointer pointing to top left front pixel of the pixel box.
             @remarks Non consecutive pixel boxes are supported.
          */
+        [[nodiscard]]
         auto getTopLeftFrontPixelPtr() const -> uchar*;
         
         /**
@@ -441,6 +447,7 @@ namespace Ogre {
          * is only valid for cubemaps and volume textures. This uses the first (largest)
          * mipmap.
          */
+        [[nodiscard]]
         auto getColourAt(size_t x, size_t y, size_t z) const -> ColourValue;
 
         /**

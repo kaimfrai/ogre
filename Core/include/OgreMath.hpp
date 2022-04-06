@@ -84,8 +84,11 @@ class Sphere;
         auto operator = ( const Radian& r ) -> Radian& { mRad = r.mRad; return *this; }
         auto operator = ( const Degree& d ) -> Radian&;
 
+        [[nodiscard]]
         auto valueDegrees() const -> float; // see bottom of this file
+        [[nodiscard]]
         auto valueRadians() const -> float { return mRad; }
+        [[nodiscard]]
         auto valueAngleUnits() const -> float;
 
         auto operator + () const -> const Radian& { return *this; }
@@ -136,8 +139,11 @@ class Sphere;
         auto operator = ( const Degree& d ) -> Degree& { mDeg = d.mDeg; return *this; }
         auto operator = ( const Radian& r ) -> Degree& { mDeg = r.valueDegrees(); return *this; }
 
+        [[nodiscard]]
         auto valueDegrees() const -> float { return mDeg; }
+        [[nodiscard]]
         auto valueRadians() const -> float; // see bottom of this file
+        [[nodiscard]]
         auto valueAngleUnits() const -> float;
 
         auto operator + () const -> const Degree& { return *this; }

@@ -274,7 +274,9 @@ public:
         sm->setLateMaterialResolving(true);
     }
 
+    [[nodiscard]]
     auto getPreviousScheme() const -> const String& { return mPreviousScheme; }
+    [[nodiscard]]
     auto getPreviousLateResolving() const -> bool { return mPreviousLateResolving; }
 };
 

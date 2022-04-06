@@ -105,6 +105,7 @@ public:
       * @return The last fragment count from the last test.
       * Remarks This function won't give you new values, just the old value.
       */
+    [[nodiscard]]
     auto getLastQuerysPixelcount() const -> unsigned int { return mPixelCount; }
 
     /**

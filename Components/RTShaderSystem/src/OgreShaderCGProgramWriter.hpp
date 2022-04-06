@@ -72,6 +72,7 @@ public:
     /** 
     @see ProgramWriter::getTargetLanguage.
     */
+    [[nodiscard]]
     virtual auto getTargetLanguage() const -> const String& { return TargetLanguage; }
 
     static String TargetLanguage;

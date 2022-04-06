@@ -164,6 +164,7 @@ class ResourceManager;
         UnifiedHighLevelGpuProgramFactory();
         ~UnifiedHighLevelGpuProgramFactory();
         /// Get the name of the language this factory creates programs for
+        [[nodiscard]]
         auto getLanguage() const -> const String&;
         auto create(ResourceManager* creator,
             const String& name, ResourceHandle handle,

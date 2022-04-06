@@ -106,13 +106,16 @@ namespace Ogre {
         
         /** Get a local texture definition.
         */
+        [[nodiscard]]
         auto getTextureDefinition(size_t idx) const -> TextureDefinition * { return mTextureDefinitions.at(idx); }
         
         /** Get a local texture definition with a specific name.
         */
+        [[nodiscard]]
         auto getTextureDefinition(const String& name) const -> TextureDefinition *;
 
         /** Get the number of local texture definitions.*/
+        [[nodiscard]]
         auto getNumTextureDefinitions() const -> size_t { return mTextureDefinitions.size(); }
         
         /** Remove all Texture Definitions
@@ -120,6 +123,7 @@ namespace Ogre {
         void removeAllTextureDefinitions();
         
         /** Get the TextureDefinitions in this Technique. */
+        [[nodiscard]]
         auto getTextureDefinitions() const -> const TextureDefinitions& { return mTextureDefinitions; }
         
         /** Create a new target pass, and return a pointer to it.
@@ -132,9 +136,11 @@ namespace Ogre {
         
         /** Get a target pass.
         */
+        [[nodiscard]]
         auto getTargetPass(size_t idx) const -> CompositionTargetPass* { return mTargetPasses.at(idx); }
         
         /** Get the number of target passes. */
+        [[nodiscard]]
         auto getNumTargetPasses() const -> size_t { return mTargetPasses.size(); }
         
         /** Remove all target passes.
@@ -142,10 +148,12 @@ namespace Ogre {
         void removeAllTargetPasses();
         
         /** Get the TargetPasses in this Technique. */
+        [[nodiscard]]
         auto getTargetPasses() const -> const TargetPasses& { return mTargetPasses; }
         
         /** Get output (final) target pass
          */
+        [[nodiscard]]
         auto getOutputTargetPass() const -> CompositionTargetPass * { return mOutputTarget; }
         
         /** Determine if this technique is supported on the current rendering device. 
@@ -158,6 +166,7 @@ namespace Ogre {
         */
         virtual void setSchemeName(const String& schemeName);
         /** Get the scheme name assigned to this technique. */
+        [[nodiscard]]
         auto getSchemeName() const -> const String& { return mSchemeName; }
         
         /** Set the name of the compositor logic assigned to this technique.
@@ -166,6 +175,7 @@ namespace Ogre {
         void setCompositorLogicName(const String& compositorLogicName) 
             { mCompositorLogicName = compositorLogicName; }
         /** Get the compositor logic name assigned to this technique */
+        [[nodiscard]]
         auto getCompositorLogicName() const -> const String& { return mCompositorLogicName; }
 
         /** Get parent object */

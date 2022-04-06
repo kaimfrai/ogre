@@ -104,11 +104,13 @@ namespace Ogre
         /** Gets the current depth mask setting.
          @return The current depth mask.
          */
+        [[nodiscard]]
         auto getDepthMask() const -> uchar { return mDepthMask; }
 
         /** Gets the current stencil mask.
          @return The stencil mask.
          */
+        [[nodiscard]]
         auto getStencilMask() const -> uint32 { return mStencilMask; }
     };
 }

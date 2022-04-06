@@ -120,6 +120,7 @@ public:
     /**
     @see SubRenderStateFactory::getType.
     */
+    [[nodiscard]]
     virtual auto getType() const -> const String&;
 
     /**

@@ -186,14 +186,19 @@ class RenderTexture;
         auto getRenderTarget(size_t slice=0) -> RenderTexture *;
         
         /// Gets the width of this buffer
+        [[nodiscard]]
         auto getWidth() const -> uint32 { return mWidth; }
         /// Gets the height of this buffer
+        [[nodiscard]]
         auto getHeight() const -> uint32 { return mHeight; }
         /// Gets the depth of this buffer
+        [[nodiscard]]
         auto getDepth() const -> uint32 { return mDepth; }
         /// size (width, height, depth) of the pixel buffer
+        [[nodiscard]]
         auto getSize() const -> Vector<3, uint32> { return {getWidth(), getHeight(), getDepth()}; }
         /// Gets the native pixel format of this buffer
+        [[nodiscard]]
         auto getFormat() const -> PixelFormat { return mFormat; }
     };
 

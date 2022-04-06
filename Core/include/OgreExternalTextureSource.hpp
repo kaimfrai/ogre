@@ -86,14 +86,17 @@ namespace Ogre
         /// Sets an input file name - if needed by plugin
         void setInputName( const String &sIN ) { mInputFileName = sIN; }
         /// Gets currently set input file name
+        [[nodiscard]]
         auto getInputName( ) const -> const String& { return mInputFileName; }
         /// Sets the frames per second - plugin may or may not use this
         void setFPS( int iFPS ) { mFramesPerSecond = iFPS; }
         /// Gets currently set frames per second
+        [[nodiscard]]
         auto getFPS( ) const -> int { return mFramesPerSecond; }
         /// Sets a play mode
         void setPlayMode( eTexturePlayMode eMode )  { mMode = eMode; }
         /// Gets currently set play mode
+        [[nodiscard]]
         auto getPlayMode() const -> eTexturePlayMode { return mMode; }
 
         /// Used for attaching texture to Technique, State, and texture unit layer
@@ -107,8 +110,10 @@ namespace Ogre
         void addBaseParams();
 
         /** Returns the string name of this Plugin (as set by the Plugin)*/
+        [[nodiscard]]
         auto getPluginStringName( ) const -> const String& { return mPluginName; }
         /** Returns dictionary name */
+        [[nodiscard]]
         auto getDictionaryStringName( ) const -> const String& { return mDictionaryName; }
 
         //Pure virtual functions that plugins must Override

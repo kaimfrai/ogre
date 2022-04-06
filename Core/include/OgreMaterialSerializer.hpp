@@ -282,6 +282,7 @@ class Technique;
             const bool includeProgDef = false, const String& programFilename = "", 
             const String& materialName = "");
         /** Returns a string representing the parsed material(s) */
+        [[nodiscard]]
         auto getQueuedAsString() const -> const String &;
         /** Clears the internal buffer */
         void clearQueue();

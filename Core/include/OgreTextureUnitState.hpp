@@ -103,6 +103,7 @@ template <typename T> class Controller;
         */
         void setFiltering(FilterOptions minFilter, FilterOptions magFilter, FilterOptions mipFilter);
         /// Get the texture filtering for the given type.
+        [[nodiscard]]
         auto getFiltering(FilterType ftype) const -> FilterOptions;
 
         /** Gets the texture addressing mode for a given coordinate,
@@ -110,6 +111,7 @@ template <typename T> class Controller;
         @note
             The default is TAM_WRAP i.e. the texture repeats over values of 1.0.
         */
+        [[nodiscard]]
         auto getAddressingMode() const -> const UVWAddressingMode& { return mAddressMode; }
 
         /** Sets the texture addressing mode, i.e. what happens at uv values above 1.0.
@@ -158,6 +160,7 @@ template <typename T> class Controller;
             mDirty = true;
         }
         /// Get this layer texture anisotropy level.
+        [[nodiscard]]
         auto getAnisotropy() const -> unsigned int { return mMaxAniso; }
 
         /** Sets the bias value applied to the mipmap calculation.
@@ -183,6 +186,7 @@ template <typename T> class Controller;
         /** Gets the bias value applied to the mipmap calculation.
         @see TextureUnitState::setTextureMipmapBias
         */
+        [[nodiscard]]
         auto getMipmapBias() const -> float { return mMipmapBias; }
 
         /** Enables or disables the comparison test for depth textures.
@@ -196,6 +200,7 @@ template <typename T> class Controller;
             mCompareEnabled = enabled;
             mDirty = true;
         }
+        [[nodiscard]]
         auto getCompareEnabled() const -> bool { return mCompareEnabled; }
 
         void setCompareFunction(CompareFunction function)
@@ -203,6 +208,7 @@ template <typename T> class Controller;
             mCompareFunc = function;
             mDirty = true;
         }
+        [[nodiscard]]
         auto getCompareFunction() const -> CompareFunction { return mCompareFunc; }
 
         /** Sets the texture border colour.
@@ -215,6 +221,7 @@ template <typename T> class Controller;
             mBorderColour = colour;
             mDirty = true;
         }
+        [[nodiscard]]
         auto getBorderColour() const -> const ColourValue& { return mBorderColour; }
 
     protected:
