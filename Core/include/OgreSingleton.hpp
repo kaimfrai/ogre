@@ -75,14 +75,6 @@ protected:
     static T* msSingleton;
 
 public:
-#if defined(__has_attribute)
-#  if __has_attribute(no_sanitize)
-    // The `static_cast` happens so early in the construction of the inheriting
-    // classes that the `this` pointer is still detected as the super class
-    // pointer. Therefore, disabling vptr checks.
-    __attribute__((no_sanitize("vptr")))
-#  endif
-#endif
     Singleton()
     {
         OgreAssert(!msSingleton, "There can be only one singleton");
