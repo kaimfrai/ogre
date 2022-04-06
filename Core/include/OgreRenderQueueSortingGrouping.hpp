@@ -393,7 +393,7 @@ namespace Ogre {
     class RenderQueueGroup : public RenderQueueAlloc
     {
     public:
-        typedef std::map<ushort, RenderPriorityGroup*, std::less<ushort> > PriorityMap;
+        typedef std::map<ushort, RenderPriorityGroup*, std::less<> > PriorityMap;
         typedef MapIterator<PriorityMap> PriorityMapIterator;
         typedef ConstMapIterator<PriorityMap> ConstPriorityMapIterator;
     private:
