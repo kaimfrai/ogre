@@ -141,7 +141,7 @@ namespace Ogre {
         ProfileInstance();
         virtual ~ProfileInstance();
 
-        typedef std::map<String,ProfileInstance*> ProfileChildren;
+        using ProfileChildren = std::map<String, ProfileInstance *>;
 
         void logResults();
         void reset();
@@ -378,7 +378,7 @@ namespace Ogre {
         private:
             friend class ProfileInstance;
 
-            typedef std::vector<ProfileSessionListener*> TProfileSessionListener;
+            using TProfileSessionListener = std::vector<ProfileSessionListener *>;
             TProfileSessionListener mListeners;
 
             /** Initializes the profiler's GUI elements */
@@ -395,8 +395,8 @@ namespace Ogre {
             void changeEnableState();
 
             // lol. Uses typedef; put's original container type in name.
-            typedef std::set<String> DisabledProfileMap;
-            typedef ProfileInstance::ProfileChildren ProfileChildren;
+            using DisabledProfileMap = std::set<String>;
+            using ProfileChildren = ProfileInstance::ProfileChildren;
 
             ProfileInstance* mCurrent;
             ProfileInstance* mLast;

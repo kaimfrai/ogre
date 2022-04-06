@@ -451,7 +451,7 @@ class SubMesh;
         struct PrefabLoader : public ManualResourceLoader
         {
             /** Map from resource pointer to parameter set */
-            typedef std::map<Resource*, MeshBuildParams> MeshBuildParamsMap;
+            using MeshBuildParamsMap = std::map<Resource *, MeshBuildParams>;
             MeshBuildParamsMap mMeshBuildParams;
 
             /** Utility method for tessellating 2D meshes.

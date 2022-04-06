@@ -44,7 +44,7 @@ namespace Ogre {
 
     const uint32 ASTC_MAGIC = 0x5CA1AB13;
 
-    typedef struct
+    using ASTCHeader = struct
     {
         uint8 magic[4];
         uint8 blockdim_x;
@@ -53,7 +53,7 @@ namespace Ogre {
         uint8 xsize[3];			// x-size = xsize[0] + xsize[1] + xsize[2]
         uint8 ysize[3];			// x-size, y-size and z-size are given in texels;
         uint8 zsize[3];			// block count is inferred
-    } ASTCHeader;
+    };
 
     auto ASTCCodec::getBitrateForPixelFormat(PixelFormat fmt) -> float
     {

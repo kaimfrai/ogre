@@ -164,7 +164,7 @@ class Viewport;
         /// Camera to use for LOD calculation
         const Camera* mLodCamera;
 
-        typedef std::vector<Listener*> ListenerList;
+        using ListenerList = std::vector<Listener *>;
         ListenerList mListeners;
         /// @see Camera::getPixelDisplayRatio
         Real mPixelDisplayRatio;

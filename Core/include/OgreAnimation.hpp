@@ -386,14 +386,14 @@ class VertexData;
         /** Gets the default rotation interpolation mode for all animations. */
         static auto getDefaultRotationInterpolationMode() -> RotationInterpolationMode;
 
-        typedef std::map<unsigned short, NodeAnimationTrack*> NodeTrackList;
-        typedef ConstMapIterator<NodeTrackList> NodeTrackIterator;
+        using NodeTrackList = std::map<unsigned short, NodeAnimationTrack *>;
+        using NodeTrackIterator = ConstMapIterator<NodeTrackList>;
 
-        typedef std::map<unsigned short, NumericAnimationTrack*> NumericTrackList;
-        typedef ConstMapIterator<NumericTrackList> NumericTrackIterator;
+        using NumericTrackList = std::map<unsigned short, NumericAnimationTrack *>;
+        using NumericTrackIterator = ConstMapIterator<NumericTrackList>;
 
-        typedef std::map<unsigned short, VertexAnimationTrack*> VertexTrackList;
-        typedef ConstMapIterator<VertexTrackList> VertexTrackIterator;
+        using VertexTrackList = std::map<unsigned short, VertexAnimationTrack *>;
+        using VertexTrackIterator = ConstMapIterator<VertexTrackList>;
 
         /// Fast access to NON-UPDATEABLE node track list
         auto _getNodeTrackList() const -> const NodeTrackList&;
@@ -426,7 +426,7 @@ class VertexData;
         void optimise(bool discardIdentityNodeTracks = true);
 
         /// A list of track handles
-        typedef std::set<ushort> TrackHandleList;
+        using TrackHandleList = std::set<ushort>;
 
         /** Internal method for collecting identity node tracks.
         @remarks
@@ -530,7 +530,7 @@ class VertexData;
         static RotationInterpolationMode msDefaultRotationInterpolationMode;
 
         /// Global keyframe time list used to search global keyframe index.
-        typedef std::vector<Real> KeyFrameTimeList;
+        using KeyFrameTimeList = std::vector<Real>;
         mutable KeyFrameTimeList mKeyFrameTimes;
         Real mBaseKeyFrameTime;
         String mBaseKeyFrameAnimationName;

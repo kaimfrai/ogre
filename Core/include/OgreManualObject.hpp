@@ -639,7 +639,7 @@ class SubMesh;
                     
         };
 
-        typedef std::vector<ManualObjectSection*> SectionList;
+        using SectionList = std::vector<ManualObjectSection *>;
 
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 

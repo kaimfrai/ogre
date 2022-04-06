@@ -487,11 +487,11 @@ virtual auto isStereoEnabled() const -> bool;
 
         virtual void updateStats();
 
-        typedef std::map<int, Viewport*> ViewportList;
+        using ViewportList = std::map<int, Viewport *>;
         /// List of viewports, map on Z-order
         ViewportList mViewportList;
 
-        typedef std::vector<RenderTargetListener*> RenderTargetListenerList;
+        using RenderTargetListenerList = std::vector<RenderTargetListener *>;
         RenderTargetListenerList mListeners;
     
 

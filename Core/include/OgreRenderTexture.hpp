@@ -111,7 +111,7 @@ namespace Ogre
         [[nodiscard]]
         auto suggestPixelFormat() const -> PixelFormat override { return PF_UNKNOWN; }
 
-        typedef std::vector<RenderTexture*> BoundSufaceList;
+        using BoundSufaceList = std::vector<RenderTexture *>;
         /// Get a list of the surfaces which have been bound
         [[nodiscard]]
         auto getBoundSurfaceList() const -> const BoundSufaceList& { return mBoundSurfaces; }

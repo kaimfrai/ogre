@@ -61,7 +61,7 @@ namespace OgreBites
     struct InputListener;
     union Event;
 
-    typedef SDL_Window NativeWindowType;
+    using NativeWindowType = SDL_Window;
 
     /** \addtogroup Optional Optional Components
     *  @{
@@ -303,10 +303,10 @@ namespace OgreBites
         Ogre::String mNextRenderer;     // name of renderer used for next run
         Ogre::String mAppName;
 
-        typedef std::vector<NativeWindowPair> WindowList;
+        using WindowList = std::vector<NativeWindowPair>;
         WindowList mWindows; // all windows
 
-        typedef std::set<std::pair<uint32_t, InputListener*> > InputListenerList;
+        using InputListenerList = std::set<std::pair<uint32_t, InputListener *>>;
         InputListenerList mInputListeners;
 
         Ogre::RTShader::ShaderGenerator*       mShaderGenerator; // The Shader generator instance.

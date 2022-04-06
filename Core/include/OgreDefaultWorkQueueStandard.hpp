@@ -78,7 +78,7 @@ namespace Ogre
         std::condition_variable_any mInitSync;
 
         std::condition_variable_any mRequestCondition;
-        typedef std::vector<std::thread*> WorkerThreadList;
+        using WorkerThreadList = std::vector<std::thread *>;
         WorkerThreadList mWorkers;
 
     };

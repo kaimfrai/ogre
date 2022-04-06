@@ -48,7 +48,7 @@ class Camera;
 class MovableObject;
 
     /// Backward compatible name for Distance_Box strategy.
-    typedef AbsolutePixelCountLodStrategy PixelCountLodStrategy;
+    using PixelCountLodStrategy = AbsolutePixelCountLodStrategy;
 
     /** Abstract base class for level of detail strategy based on pixel count approximations from bounding sphere projection. */
     class PixelCountLodStrategyBase : public LodStrategy

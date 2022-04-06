@@ -202,7 +202,7 @@ namespace OgreBites
         TrayListener* mListener;
     };
 
-    typedef std::vector<Widget*> WidgetList;
+    using WidgetList = std::vector<Widget *>;
 
     /**
     Basic button class.

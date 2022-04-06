@@ -43,10 +43,10 @@ namespace Ogre {
     *  @{
     */
 
-    typedef uint32 RGBA;
-    typedef uint32 ARGB;
-    typedef uint32 ABGR;
-    typedef uint32 BGRA;
+    using RGBA = uint32;
+    using ARGB = uint32;
+    using ABGR = uint32;
+    using BGRA = uint32;
 
     /** Class representing colour.
         @remarks

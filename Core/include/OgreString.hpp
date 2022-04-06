@@ -175,7 +175,7 @@ namespace Ogre {
         static auto format(const char* fmt, ...) -> String;
     };
 
-    typedef ::std::hash< String > _StringHash;
+    using _StringHash = ::std::hash<String>;
     /** @} */
     /** @} */
 

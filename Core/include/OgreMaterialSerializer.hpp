@@ -159,9 +159,9 @@ class Technique;
         void finishProgramDefinition();
 
         /// Listeners list of this Serializer.
-        typedef std::vector<Listener*>         ListenerList;
-        typedef ListenerList::iterator          ListenerListIterator;
-        typedef ListenerList::const_iterator    ListenerListConstIterator;
+        using ListenerList = std::vector<Listener *>;
+        using ListenerListIterator = ListenerList::iterator;
+        using ListenerListConstIterator = ListenerList::const_iterator;
         ListenerList mListeners;
 
 
@@ -199,7 +199,7 @@ class Technique;
         void writeLayerBlendOperationEx(const LayerBlendOperationEx op);
         void writeLayerBlendSource(const LayerBlendSource lbs);
         
-        typedef std::multimap<TextureUnitState::TextureEffectType, TextureUnitState::TextureEffect> EffectMap;
+        using EffectMap = std::multimap<TextureUnitState::TextureEffectType, TextureUnitState::TextureEffect>;
 
         void writeRotationEffect(const TextureUnitState::TextureEffect& effect, const TextureUnitState *pTex);
         void writeTransformEffect(const TextureUnitState::TextureEffect& effect, const TextureUnitState *pTex);
@@ -300,8 +300,8 @@ class Technique;
     private:
         String mBuffer;
         String mGpuProgramBuffer;
-        typedef std::set<String> GpuProgramDefinitionContainer;
-        typedef GpuProgramDefinitionContainer::iterator GpuProgramDefIterator;
+        using GpuProgramDefinitionContainer = std::set<String>;
+        using GpuProgramDefIterator = GpuProgramDefinitionContainer::iterator;
         GpuProgramDefinitionContainer mGpuProgramDefinitionContainer;
         bool mDefaults;
         

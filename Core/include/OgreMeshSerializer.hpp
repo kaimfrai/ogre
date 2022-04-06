@@ -164,7 +164,7 @@ class Mesh;
         auto getListener() -> MeshSerializerListener *;
         
     private:
-        typedef std::vector<MeshVersionData*> MeshVersionDataList;
+        using MeshVersionDataList = std::vector<MeshVersionData *>;
         MeshVersionDataList mVersionData;
 
         MeshSerializerListener *mListener;

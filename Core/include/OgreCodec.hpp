@@ -57,7 +57,7 @@ class Any;
     class Codec : public CodecAlloc
     {
     private:
-        typedef std::map< String, Codec* > CodecList; 
+        using CodecList = std::map<String, Codec *>; 
         /** A map that contains all the registered codecs.
         */
         static CodecList msMapCodecs;

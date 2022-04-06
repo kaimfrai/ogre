@@ -118,13 +118,13 @@ class VertexDeclaration;
             members will cause notify back to this class, and then will access to this
             two members.
         */
-        typedef std::set<HardwareVertexBuffer*> VertexBufferList;
-        typedef std::set<HardwareIndexBuffer*> IndexBufferList;
+        using VertexBufferList = std::set<HardwareVertexBuffer *>;
+        using IndexBufferList = std::set<HardwareIndexBuffer *>;
         VertexBufferList mVertexBuffers;
 
 
-        typedef std::set<VertexDeclaration*> VertexDeclarationList;
-        typedef std::set<VertexBufferBinding*> VertexBufferBindingList;
+        using VertexDeclarationList = std::set<VertexDeclaration *>;
+        using VertexBufferBindingList = std::set<VertexBufferBinding *>;
         VertexDeclarationList mVertexDeclarations;
         VertexBufferBindingList mVertexBufferBindings;
 
@@ -179,11 +179,11 @@ class VertexDeclaration;
         };
 
         /// Map from original buffer to temporary buffers.
-        typedef std::multimap<HardwareVertexBuffer*, HardwareVertexBufferSharedPtr> FreeTemporaryVertexBufferMap;
+        using FreeTemporaryVertexBufferMap = std::multimap<HardwareVertexBuffer *, HardwareVertexBufferSharedPtr>;
         /// Map of current available temp buffers.
         FreeTemporaryVertexBufferMap mFreeTempVertexBufferMap;
         /// Map from temporary buffer to details of a license.
-        typedef std::map<HardwareVertexBuffer*, VertexBufferLicense> TemporaryVertexBufferLicenseMap;
+        using TemporaryVertexBufferLicenseMap = std::map<HardwareVertexBuffer *, VertexBufferLicense>;
         /// Map of currently licensed temporary buffers.
         TemporaryVertexBufferLicenseMap mTempVertexBufferLicenses;
         /// Number of frames elapsed since temporary buffers utilization was above half the available.

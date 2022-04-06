@@ -40,8 +40,8 @@ namespace Ogre {
     *  @{
     */
 
-    typedef std::vector<String> StringVector;
-    typedef SharedPtr<StringVector> StringVectorPtr;
+    using StringVector = std::vector<String>;
+    using StringVectorPtr = SharedPtr<StringVector>;
 
     /** @} */
     /** @} */

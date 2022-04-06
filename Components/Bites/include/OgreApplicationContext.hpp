@@ -63,7 +63,7 @@ namespace OgreBites
         using ApplicationContextBase::removeInputListener;
     };
 
-    typedef ApplicationContextSDL ApplicationContext;
+    using ApplicationContext = ApplicationContextSDL;
 
     /** @} */
     /** @} */

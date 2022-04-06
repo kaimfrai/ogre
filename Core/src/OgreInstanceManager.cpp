@@ -518,7 +518,7 @@ class InstancedEntity;
     //-----------------------------------------------------------------------
     // Helper functions to unshare the vertices
     //-----------------------------------------------------------------------
-    typedef std::map<uint32, uint32> IndicesMap;
+    using IndicesMap = std::map<uint32, uint32>;
 
     template< typename TIndexType >
     void collectUsedIndices(IndicesMap& indicesMap, IndexData* idxData)

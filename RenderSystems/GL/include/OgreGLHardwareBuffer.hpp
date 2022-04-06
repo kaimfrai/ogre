@@ -69,7 +69,7 @@ class GLRenderSystem;
         [[nodiscard]]
         auto getGLBufferId() const -> GLuint { return mBufferId; }
     };
-    typedef GLHardwareVertexBuffer GLHardwareBuffer;
+    using GLHardwareBuffer = GLHardwareVertexBuffer;
 
 }
 #endif // OGRE_RENDERSYSTEMS_GL_HARDWAREBUFFER_H

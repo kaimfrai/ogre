@@ -93,7 +93,7 @@ class Sphere;
             NEAR_LEFT_TOP = 5,
             NEAR_RIGHT_TOP = 4
         };
-        typedef std::array<Vector3, 8> Corners;
+        using Corners = std::array<Vector3, 8>;
 
         AxisAlignedBox()
         {

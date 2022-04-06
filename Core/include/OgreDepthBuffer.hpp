@@ -135,7 +135,7 @@ class RenderTarget;
         virtual void _notifyRenderTargetDetached( RenderTarget *renderTarget );
 
     protected:
-        typedef std::set<RenderTarget*> RenderTargetSet;
+        using RenderTargetSet = std::set<RenderTarget *>;
 
         uint16                      mPoolId;
         uint32                      mWidth;

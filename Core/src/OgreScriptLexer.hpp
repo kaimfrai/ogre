@@ -72,7 +72,7 @@ namespace Ogre {
         /// This holds the line number of the input stream where the token was found.
         uint32 line;
     };
-    typedef std::vector<ScriptToken> ScriptTokenList;
+    using ScriptTokenList = std::vector<ScriptToken>;
 
     class ScriptLexer : public ScriptCompilerAlloc
     {

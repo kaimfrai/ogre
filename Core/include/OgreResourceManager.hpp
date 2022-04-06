@@ -54,7 +54,7 @@ namespace Ogre {
     class Pool
     {
     protected:
-        typedef typename std::list<T> ItemList;
+        using ItemList = typename std::list<T>;
         ItemList mItems;
     public:
         Pool() {}
@@ -126,7 +126,7 @@ namespace Ogre {
             bool isManual = false, ManualResourceLoader* loader = nullptr, 
             const NameValuePairList* createParams = nullptr) -> ResourcePtr;
 
-        typedef std::pair<ResourcePtr, bool> ResourceCreateOrRetrieveResult;
+        using ResourceCreateOrRetrieveResult = std::pair<ResourcePtr, bool>;
         /** Create a new resource, or retrieve an existing one with the same
             name if it already exists.
         @remarks
@@ -463,9 +463,9 @@ namespace Ogre {
 
 
     public:
-        typedef std::unordered_map< String, ResourcePtr > ResourceMap;
-        typedef std::unordered_map< String, ResourceMap > ResourceWithGroupMap;
-        typedef std::map<ResourceHandle, ResourcePtr> ResourceHandleMap;
+        using ResourceMap = std::unordered_map<String, ResourcePtr>;
+        using ResourceWithGroupMap = std::unordered_map<String, ResourceMap>;
+        using ResourceHandleMap = std::map<ResourceHandle, ResourcePtr>;
     protected:
         ResourceHandleMap mResourcesByHandle;
         ResourceMap mResources;
@@ -486,7 +486,7 @@ namespace Ogre {
         String mResourceType; 
 
     public:
-        typedef MapIterator<ResourceHandleMap> ResourceMapIterator;
+        using ResourceMapIterator = MapIterator<ResourceHandleMap>;
         /** Returns an iterator over all resources in this manager. 
         @note
             Use of this iterator is NOT thread safe!
@@ -497,7 +497,7 @@ namespace Ogre {
         }
 
     protected:
-        typedef std::map<String, ResourcePool*> ResourcePoolMap;
+        using ResourcePoolMap = std::map<String, ResourcePool *>;
         ResourcePoolMap mResourcePoolMap;
     };
 

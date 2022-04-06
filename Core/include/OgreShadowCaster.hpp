@@ -137,7 +137,7 @@ class VertexData;
         SRF_EXTRUDE_IN_SOFTWARE  = 0x00000008,
     };
 
-    typedef std::vector<ShadowRenderable*> ShadowRenderableList;
+    using ShadowRenderableList = std::vector<ShadowRenderable *>;
 
     /** This class defines the interface that must be implemented by shadow casters.
     */
@@ -164,8 +164,8 @@ class VertexData;
         [[nodiscard]]
         virtual auto getDarkCapBounds(const Light& light, Real dirLightExtrusionDist) const -> const AxisAlignedBox& = 0;
 
-        typedef Ogre::ShadowRenderableList ShadowRenderableList;
-        typedef VectorIterator<ShadowRenderableList> ShadowRenderableListIterator;
+        using ShadowRenderableList = Ogre::ShadowRenderableList;
+        using ShadowRenderableListIterator = VectorIterator<ShadowRenderableList>;
 
         /** Gets an list of the renderables required to render the shadow volume.
         @remarks

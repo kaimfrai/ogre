@@ -144,9 +144,9 @@ protected:
         ParameterPtr mVSOutDirection;
     };
 
-    typedef std::vector<LightParams>               LightParamsList;
-    typedef LightParamsList::iterator               LightParamsIterator;
-    typedef LightParamsList::const_iterator         LightParamsConstIterator;
+    using LightParamsList = std::vector<LightParams>;
+    using LightParamsIterator = LightParamsList::iterator;
+    using LightParamsConstIterator = LightParamsList::const_iterator;
 
 // Protected methods
 protected:

@@ -63,7 +63,7 @@ namespace Ogre {
     const uint32 PKM_MAGIC = FOURCC('P', 'K', 'M', ' ');
     const uint32 KTX_MAGIC = FOURCC(0xAB, 0x4B, 0x54, 0x58);
 
-    typedef struct {
+    using PKMHeader = struct {
         uint8  name[4];
         uint8  version[2];
         uint8  iTextureTypeMSB;
@@ -76,9 +76,9 @@ namespace Ogre {
         uint8  iWidthLSB;
         uint8  iHeightMSB;
         uint8  iHeightLSB;
-    } PKMHeader;
+    };
 
-    typedef struct {
+    using KTXHeader = struct {
         uint8     identifier[12];
         uint32    endianness;
         uint32    glType;
@@ -93,7 +93,7 @@ namespace Ogre {
         uint32    numberOfFaces;
         uint32    numberOfMipmapLevels;
         uint32    bytesOfKeyValueData;
-    } KTXHeader;
+    };
 
     //---------------------------------------------------------------------
     ETCCodec* ETCCodec::msPKMInstance = nullptr;

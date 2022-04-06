@@ -47,7 +47,7 @@ namespace Ogre
         [[nodiscard]]
         auto getDescription() const -> String;
     };
-    typedef std::vector<VideoMode>    VideoModes;
+    using VideoModes = std::vector<VideoMode>;
 
     /**
     * provides OpenGL Context creation using GLX, WGL, EGL, Cocoa
@@ -55,7 +55,7 @@ namespace Ogre
     class GLNativeSupport
     {
         public:
-            typedef std::set<String> ExtensionList;
+            using ExtensionList = std::set<String>;
 
             enum ContextProfile {
                 CONTEXT_CORE = 1,

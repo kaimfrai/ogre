@@ -482,8 +482,8 @@ namespace Ogre {
             size_t numWeightsPerVertex,
             size_t numIterations)
         {
-            typedef SSEMemoryAccessor<srcAligned> SrcAccessor;
-            typedef SSEMemoryAccessor<destAligned> DestAccessor;
+            using SrcAccessor = SSEMemoryAccessor<srcAligned>;
+            using DestAccessor = SSEMemoryAccessor<destAligned>;
 
             // Blending 4 vertices per-iteration
             for (size_t i = 0; i < numIterations; ++i)
@@ -642,10 +642,10 @@ namespace Ogre {
             size_t numWeightsPerVertex,
             size_t numIterations)
         {
-            typedef SSEMemoryAccessor<srcPosAligned> SrcPosAccessor;
-            typedef SSEMemoryAccessor<destPosAligned> DestPosAccessor;
-            typedef SSEMemoryAccessor<srcNormAligned> SrcNormAccessor;
-            typedef SSEMemoryAccessor<destNormAligned> DestNormAccessor;
+            using SrcPosAccessor = SSEMemoryAccessor<srcPosAligned>;
+            using DestPosAccessor = SSEMemoryAccessor<destPosAligned>;
+            using SrcNormAccessor = SSEMemoryAccessor<srcNormAligned>;
+            using DestNormAccessor = SSEMemoryAccessor<destNormAligned>;
 
             // Blending 4 vertices per-iteration
             for (size_t i = 0; i < numIterations; ++i)
@@ -799,8 +799,8 @@ namespace Ogre {
             size_t numWeightsPerVertex,
             size_t numIterations)
         {
-            typedef SSEMemoryAccessor<srcPosAligned> SrcPosAccessor;
-            typedef SSEMemoryAccessor<destPosAligned> DestPosAccessor;
+            using SrcPosAccessor = SSEMemoryAccessor<srcPosAligned>;
+            using DestPosAccessor = SSEMemoryAccessor<destPosAligned>;
 
             // Blending 4 vertices per-iteration
             for (size_t i = 0; i < numIterations; ++i)
@@ -1738,8 +1738,8 @@ namespace Ogre {
             float* pDestPos,
             size_t numVertices)
         {
-            typedef SSEMemoryAccessor<srcAligned> SrcAccessor;
-            typedef SSEMemoryAccessor<destAligned> DestAccessor;
+            using SrcAccessor = SSEMemoryAccessor<srcAligned>;
+            using DestAccessor = SSEMemoryAccessor<destAligned>;
 
             // Directional light, extrusion is along light direction
 
@@ -1844,8 +1844,8 @@ namespace Ogre {
             float* pDestPos,
             size_t numVertices)
         {
-            typedef SSEMemoryAccessor<srcAligned> SrcAccessor;
-            typedef SSEMemoryAccessor<destAligned> DestAccessor;
+            using SrcAccessor = SSEMemoryAccessor<srcAligned>;
+            using DestAccessor = SSEMemoryAccessor<destAligned>;
 
             // Point light, will calculate extrusion direction for every vertex
 

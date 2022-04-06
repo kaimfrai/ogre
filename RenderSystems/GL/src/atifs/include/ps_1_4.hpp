@@ -176,7 +176,7 @@ private:
       GLuint Mod;       // argument modifier
     };
 
-    typedef std::vector<uint> MachineInstContainer;
+    using MachineInstContainer = std::vector<uint>;
     //typedef MachineInstContainer::iterator MachineInstIterator;
 
 

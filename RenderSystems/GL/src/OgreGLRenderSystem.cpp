@@ -108,7 +108,7 @@ namespace Ogre {
         return glsupport->getProcAddress(proc);
     }
 
-    typedef TransformBase<4, float> Matrix4f;
+    using Matrix4f = TransformBase<4, float>;
 
     // Callback function used when registering GLGpuPrograms
     static auto createGLArbGpuProgram(ResourceManager* creator,

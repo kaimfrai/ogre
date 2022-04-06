@@ -83,7 +83,7 @@ namespace Ogre {
         using ResourceManager::load;
 
         /// Factories capable of creating GpuProgram instances
-        typedef std::map<String, GpuProgramFactory*> FactoryMap;
+        using FactoryMap = std::map<String, GpuProgramFactory *>;
         FactoryMap mFactories;
 
         /// Factory for dealing with programs for languages we can't create
@@ -95,10 +95,10 @@ namespace Ogre {
 
     public:
 
-        typedef std::set<String> SyntaxCodes;
-        typedef std::map<String, GpuSharedParametersPtr> SharedParametersMap;
+        using SyntaxCodes = std::set<String>;
+        using SharedParametersMap = std::map<String, GpuSharedParametersPtr>;
 
-        typedef MemoryDataStreamPtr Microcode;
+        using Microcode = MemoryDataStreamPtr;
 
     protected:
 

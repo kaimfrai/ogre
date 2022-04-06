@@ -56,8 +56,8 @@ struct ComparisonResult
     float ssim;                     // structural similarity index
 };
 
-typedef std::vector<ComparisonResult> ComparisonResultVector;
-typedef Ogre::SharedPtr<ComparisonResultVector> ComparisonResultVectorPtr;
+using ComparisonResultVector = std::vector<ComparisonResult>;
+using ComparisonResultVectorPtr = Ogre::SharedPtr<ComparisonResultVector>;
 
 /** Simple object for doing image comparison between two image sets */
 class ImageValidator

@@ -205,7 +205,7 @@ void CompositorManager::_reconstructAllCompositorResources()
 {
     // In order to deal with shared resources, we have to disable *all* compositors
     // first, that way shared resources will get freed
-    typedef std::vector<CompositorInstance*> InstVec;
+    using InstVec = std::vector<CompositorInstance *>;
     InstVec instancesToReenable;
     for (Chains::iterator i = mChains.begin(); i != mChains.end(); ++i)
     {

@@ -108,9 +108,9 @@ class VertexData;
         friend class SubEntity;
     public:
         
-        typedef std::set<Entity*> EntitySet;
-        typedef std::vector<std::pair<unsigned short, bool>> SchemeHardwareAnimMap;
-        typedef std::vector<SubEntity*> SubEntityList;
+        using EntitySet = std::set<Entity *>;
+        using SchemeHardwareAnimMap = std::vector<std::pair<unsigned short, bool>>;
+        using SubEntityList = std::vector<SubEntity *>;
     private:
 
         /** Private constructor (instances cannot be created directly).
@@ -275,7 +275,7 @@ class VertexData;
             same number of SubMeshes, therefore we have to allow a separate Entity list
             with each alternate one.
         */
-        typedef std::vector<Entity*> LODEntityList;
+        using LODEntityList = std::vector<Entity *>;
         LODEntityList mLodEntityList;
 
         /** This Entity's personal copy of the skeleton, if skeletally animated.
@@ -322,7 +322,7 @@ class VertexData;
 
     public:
         /// Contains the child objects (attached to bones) indexed by name.
-        typedef std::vector<MovableObject*> ChildObjectList;
+        using ChildObjectList = std::vector<MovableObject *>;
     private:
         ChildObjectList mChildObjectList;
 
@@ -586,7 +586,7 @@ class VertexData;
         /// Detach all MovableObjects previously attached using attachObjectToBone
         void detachAllObjectsFromBone();
 
-        typedef VectorIterator<ChildObjectList> ChildObjectListIterator;
+        using ChildObjectListIterator = VectorIterator<ChildObjectList>;
 
         /** Gets an iterator to the list of objects attached to bones on this entity. */
         auto getAttachedObjects() const -> const ChildObjectList& { return mChildObjectList; }

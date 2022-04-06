@@ -573,7 +573,7 @@ namespace Ogre
         }
 
         // Create a vector storing each pairing of override between source and destination
-        typedef SharedPtr<ObjectAbstractNode> ObjectAbstractNodePtr;
+        using ObjectAbstractNodePtr = SharedPtr<ObjectAbstractNode>;
         std::vector<std::pair<ObjectAbstractNodePtr,AbstractNodeList::iterator> > overrides;
         // A list of indices for each destination node tracks the minimum
         // source node they can index-match against

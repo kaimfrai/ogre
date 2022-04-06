@@ -91,8 +91,8 @@ protected:
     /** Write a function parameter. */
     void writeParameterSemantic(std::ostream& os, const ParameterPtr& parameter);
 
-    typedef std::map<GpuConstantType, const char*> GpuConstTypeToStringMap;
-    typedef std::map<Parameter::Semantic, const char*> ParamSemanticToStringMap;
+    using GpuConstTypeToStringMap = std::map<GpuConstantType, const char *>;
+    using ParamSemanticToStringMap = std::map<Parameter::Semantic, const char *>;
     // Map between GPU constant type to string value.
     GpuConstTypeToStringMap mGpuConstTypeMap;
     // Map between parameter semantic to string value.

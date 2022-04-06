@@ -49,7 +49,7 @@ namespace Ogre {
     private:
         String mType;
 
-        typedef std::list<ImageCodec*> RegisteredCodecList;
+        using RegisteredCodecList = std::list<ImageCodec *>;
         static RegisteredCodecList msCodecList;
 
     public:

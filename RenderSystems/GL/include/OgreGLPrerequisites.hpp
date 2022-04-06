@@ -44,8 +44,8 @@ namespace Ogre {
     class GLHardwarePixelBuffer;
     class GLRenderBuffer;
 
-    typedef shared_ptr<GLGpuProgram> GLGpuProgramPtr;
-    typedef shared_ptr<GLTexture> GLTexturePtr;
+    using GLGpuProgramPtr = shared_ptr<GLGpuProgram>;
+    using GLTexturePtr = shared_ptr<GLTexture>;
 }
 
 #include <glad/glad.h>

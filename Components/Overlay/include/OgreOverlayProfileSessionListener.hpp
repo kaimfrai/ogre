@@ -98,7 +98,7 @@ namespace Ogre  {
         auto getDisplayMode() const -> DisplayMode { return mDisplayMode; }
 
     private:
-        typedef std::list<OverlayElement*> ProfileBarList;
+        using ProfileBarList = std::list<OverlayElement *>;
 
         /** Prints the profiling results of each frame 
         @remarks Recursive, for all the little children. */

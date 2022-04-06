@@ -72,10 +72,10 @@ class VertexDeclaration;
     *  @{
     */
 
-    typedef std::vector<DepthBuffer*> DepthBufferVec;
-    typedef std::map< uint16, DepthBufferVec > DepthBufferMap;
-    typedef std::map< String, RenderTarget * > RenderTargetMap;
-    typedef std::multimap<uchar, RenderTarget * > RenderTargetPriorityMap;
+    using DepthBufferVec = std::vector<DepthBuffer *>;
+    using DepthBufferMap = std::map<uint16, DepthBufferVec>;
+    using RenderTargetMap = std::map<String, RenderTarget *>;
+    using RenderTargetPriorityMap = std::multimap<uchar, RenderTarget *>;
 
     class TextureManager;
 
@@ -1147,11 +1147,11 @@ class VertexDeclaration;
         /// Internal method for firing a rendersystem event
         void fireEvent(const String& name, const NameValuePairList* params = nullptr);
 
-        typedef std::list<Listener*> ListenerList;
+        using ListenerList = std::list<Listener *>;
         ListenerList mEventListeners;
         static Listener* msSharedEventListener;
 
-        typedef std::list<HardwareOcclusionQuery*> HardwareOcclusionQueryList;
+        using HardwareOcclusionQueryList = std::list<HardwareOcclusionQuery *>;
         HardwareOcclusionQueryList mHwOcclusionQueries;
 
         bool mVertexProgramBound;

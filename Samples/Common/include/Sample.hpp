@@ -335,7 +335,7 @@ namespace OgreBites
         std::set<int> mScreenshotFrames;
     };
 
-    typedef std::set<Sample*, Sample::Comparer> SampleSet;
+    using SampleSet = std::set<Sample *, Sample::Comparer>;
 }
 
 #endif

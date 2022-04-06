@@ -133,7 +133,7 @@ class RenderQueue;
     void BaseInstanceBatchVTF::cloneMaterial( const MaterialPtr &material )
     {
         //Used to track down shadow casters, so the same material caster doesn't get cloned twice
-        typedef std::map<String, MaterialPtr> MatMap;
+        using MatMap = std::map<String, MaterialPtr>;
         MatMap clonedMaterials;
 
         //We need to clone the material so we can have different textures for each batch.
@@ -401,7 +401,7 @@ class RenderQueue;
                 // 1. All entities sharing the same transformation will share the same unique number
                 // 2. "transform lookup number" will be numbered from 0 up to getMaxLookupTableInstances
                 uint16 lookupCounter = 0;
-                typedef std::map<Affine3*,uint16> MapTransformId;
+                using MapTransformId = std::map<Affine3 *, uint16>;
                 MapTransformId transformToId;
                 InstancedEntityVec::const_iterator itEnt = mInstancedEntities.begin(),
                     itEntEnd = mInstancedEntities.end();

@@ -91,8 +91,8 @@ template <typename T> class Controller;
         /// destructor
         ~RibbonTrail() override;
 
-        typedef std::vector<Node*> NodeList;
-        typedef ConstVectorIterator<NodeList> NodeIterator;
+        using NodeList = std::vector<Node *>;
+        using NodeIterator = ConstVectorIterator<NodeList>;
 
         /** Add a node to be tracked.
         @param n The node that will be tracked.
@@ -184,7 +184,7 @@ template <typename T> class Controller;
         /// List of nodes being trailed
         NodeList mNodeList;
         /// Mapping of nodes to chain segments
-        typedef std::vector<size_t> IndexVector;
+        using IndexVector = std::vector<size_t>;
         /// Ordered like mNodeList, contains chain index
         IndexVector mNodeToChainSegment;
         // chains not in use
@@ -192,7 +192,7 @@ template <typename T> class Controller;
 
         // fast lookup node->chain index
         // we use positional map too because that can be useful
-        typedef std::map<const Node*, size_t> NodeToChainSegmentMap;
+        using NodeToChainSegmentMap = std::map<const Node *, size_t>;
         NodeToChainSegmentMap mNodeToSegMap;
 
         /// Total length of trail in world units
@@ -201,8 +201,8 @@ template <typename T> class Controller;
         Real mElemLength;
         /// Squared length of each element
         Real mSquaredElemLength;
-        typedef std::vector<ColourValue> ColourValueList;
-        typedef std::vector<Real> RealList;
+        using ColourValueList = std::vector<ColourValue>;
+        using RealList = std::vector<Real>;
         /// Initial colour of the ribbon
         ColourValueList mInitialColour;
         /// fade amount per second

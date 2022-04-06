@@ -220,7 +220,7 @@ private:
     friend class FFPRenderStateBuilder;
 };
 
-typedef std::shared_ptr<TargetRenderState> TargetRenderStatePtr;
+using TargetRenderStatePtr = std::shared_ptr<TargetRenderState>;
 
 /** @} */
 /** @} */

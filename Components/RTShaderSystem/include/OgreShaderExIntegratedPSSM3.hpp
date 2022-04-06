@@ -69,7 +69,7 @@ class IntegratedPSSM3 : public SubRenderState
 
     // Interface.
 public:
-    typedef std::vector<Real> SplitPointList;
+    using SplitPointList = std::vector<Real>;
 
     /** Class default constructor */    
     IntegratedPSSM3();
@@ -139,9 +139,9 @@ protected:
 
     };
 
-    typedef std::vector<ShadowTextureParams>           ShadowTextureParamsList;
-    typedef ShadowTextureParamsList::iterator           ShadowTextureParamsIterator;
-    typedef ShadowTextureParamsList::const_iterator     ShadowTextureParamsConstIterator;
+    using ShadowTextureParamsList = std::vector<ShadowTextureParams>;
+    using ShadowTextureParamsIterator = ShadowTextureParamsList::iterator;
+    using ShadowTextureParamsConstIterator = ShadowTextureParamsList::const_iterator;
 
     // Protected methods
 protected:
