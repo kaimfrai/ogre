@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <cstddef>
 #include <map>
 #include <memory>
+#include <ranges>
 #include <string>
 #include <utility>
 #include <vector>
@@ -1648,12 +1649,11 @@ void SceneManager::ShadowRenderer::setShadowTextureConfig(size_t shadowIndex,
 void SceneManager::ShadowRenderer::setShadowTextureSize(unsigned short size)
 {
     // default all current
-    for (auto i = mShadowTextureConfigList.begin();
-        i != mShadowTextureConfigList.end(); ++i)
+    for (auto & i : mShadowTextureConfigList)
     {
-        if (i->width != size || i->height != size)
+        if (i.width != size || i.height != size)
         {
-            i->width = i->height = size;
+            i.width = i.height = size;
             mShadowTextureConfigDirty = true;
         }
     }
@@ -1681,24 +1681,22 @@ void SceneManager::ShadowRenderer::setShadowTextureCount(size_t count)
 //---------------------------------------------------------------------
 void SceneManager::ShadowRenderer::setShadowTexturePixelFormat(PixelFormat fmt)
 {
-    for (auto i = mShadowTextureConfigList.begin();
-        i != mShadowTextureConfigList.end(); ++i)
+    for (auto & i : mShadowTextureConfigList)
     {
-        if (i->format != fmt)
+        if (i.format != fmt)
         {
-            i->format = fmt;
+            i.format = fmt;
             mShadowTextureConfigDirty = true;
         }
     }
 }
 void SceneManager::ShadowRenderer::setShadowTextureFSAA(unsigned short fsaa)
 {
-    for (auto i = mShadowTextureConfigList.begin();
-                i != mShadowTextureConfigList.end(); ++i)
+    for (auto & i : mShadowTextureConfigList)
     {
-        if (i->fsaa != fsaa)
+        if (i.fsaa != fsaa)
         {
-            i->fsaa = fsaa;
+            i.fsaa = fsaa;
             mShadowTextureConfigDirty = true;
         }
     }
@@ -1708,15 +1706,14 @@ void SceneManager::ShadowRenderer::setShadowTextureSettings(unsigned short size,
     unsigned short count, PixelFormat fmt, unsigned short fsaa, uint16 depthBufferPoolId)
 {
     setShadowTextureCount(count);
-    for (auto i = mShadowTextureConfigList.begin();
-        i != mShadowTextureConfigList.end(); ++i)
+    for (auto & i : mShadowTextureConfigList)
     {
-        if (i->width != size || i->height != size || i->format != fmt || i->fsaa != fsaa)
+        if (i.width != size || i.height != size || i.format != fmt || i.fsaa != fsaa)
         {
-            i->width = i->height = size;
-            i->format = fmt;
-            i->fsaa = fsaa;
-            i->depthBufferPoolId = depthBufferPoolId;
+            i.width = i.height = size;
+            i.format = fmt;
+            i.fsaa = fsaa;
+            i.depthBufferPoolId = depthBufferPoolId;
             mShadowTextureConfigDirty = true;
         }
     }
@@ -1936,10 +1933,9 @@ void SceneManager::ShadowRenderer::sortLightsAffectingFrustum(LightList& lightLi
     // Reverse iterate so last takes precedence
     bool overridden = false;
     ListenerList listenersCopy = mListeners;
-    for (auto ri = listenersCopy.rbegin();
-        ri != listenersCopy.rend(); ++ri)
+    for (auto & ri : std::ranges::reverse_view(listenersCopy))
     {
-        overridden = (*ri)->sortLightsAffectingFrustum(lightList);
+        overridden = ri->sortLightsAffectingFrustum(lightList);
         if (overridden)
             break;
     }

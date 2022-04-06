@@ -53,9 +53,9 @@ namespace Ogre {
         // Initialise state
         mDepth.buffer = nullptr;
         mStencil.buffer = nullptr;
-        for(size_t x = 0; x < OGRE_MAX_MULTIPLE_RENDER_TARGETS; ++x)
+        for(auto & x : mColour)
         {
-            mColour[x].buffer=nullptr;
+            x.buffer=nullptr;
         }
     }
 

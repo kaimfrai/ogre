@@ -61,9 +61,9 @@ void Widget::nukeOverlayElement(Ogre::OverlayElement *element)
             toDelete.push_back(p.second);
         }
 
-        for (unsigned int i = 0; i < toDelete.size(); i++)
+        for (auto & i : toDelete)
         {
-            nukeOverlayElement(toDelete[i]);
+            nukeOverlayElement(i);
         }
     }
     if (element)
@@ -99,17 +99,17 @@ auto Widget::getCaptionWidth(const Ogre::DisplayString &caption, Ogre::TextAreaO
     font->load(); // ensure glyph info is there
     Ogre::Real lineWidth = 0;
 
-    for (unsigned int i = 0; i < caption.length(); i++)
+    for (char i : caption)
     {
         // be sure to provide a line width in the text area
-        if (caption[i] == ' ')
+        if (i == ' ')
         {
             if (area->getSpaceWidth() != 0) lineWidth += area->getSpaceWidth();
             else lineWidth += font->getGlyphInfo(' ').advance * area->getCharHeight();
         }
-        else if (caption[i] == '\n') break;
+        else if (i == '\n') break;
         // use glyph information to calculate line width
-        else lineWidth += font->getGlyphInfo(caption[i]).advance * area->getCharHeight();
+        else lineWidth += font->getGlyphInfo(i).advance * area->getCharHeight();
     }
 
     return (unsigned int)lineWidth;
@@ -461,9 +461,9 @@ void SelectMenu::setItems(const Ogre::StringVector &items)
     mItems = items;
     mSelectionIndex = -1;
 
-    for (unsigned int i = 0; i < mItemElements.size(); i++)   // destroy all the item elements
+    for (auto & mItemElement : mItemElements)   // destroy all the item elements
     {
-        nukeOverlayElement(mItemElements[i]);
+        nukeOverlayElement(mItemElement);
     }
     mItemElements.clear();
 
@@ -552,9 +552,9 @@ void SelectMenu::selectItem(size_t index, bool notifyListener)
 auto SelectMenu::containsItem(const Ogre::DisplayString &item) -> bool
 {
     bool res = false;
-    for (unsigned int i = 0; i < mItems.size(); i++)
+    for (auto & mItem : mItems)
     {
-        if (item == mItems[i])
+        if (item == mItem)
         {
             res = true;
             break;
@@ -1188,9 +1188,9 @@ TrayManager::~TrayManager()
 
     destroyAllWidgets();
 
-    for (unsigned int i = 0; i < mWidgetDeathRow.size(); i++)   // delete widgets queued for destruction
+    for (auto & i : mWidgetDeathRow)   // delete widgets queued for destruction
     {
-        delete mWidgetDeathRow[i];
+        delete i;
     }
     mWidgetDeathRow.clear();
 
@@ -1206,9 +1206,9 @@ TrayManager::~TrayManager()
     Widget::nukeOverlayElement(mCursor);
     Widget::nukeOverlayElement(mDialogShade);
 
-    for (unsigned int i = 0; i < 10; i++)
+    for (auto & mTray : mTrays)
     {
-        Widget::nukeOverlayElement(mTrays[i]);
+        Widget::nukeOverlayElement(mTray);
     }
 }
 
@@ -1259,11 +1259,11 @@ void TrayManager::hideCursor()
     mCursorLayer->hide();
 
     // give widgets a chance to reset in case they're in the middle of something
-    for (unsigned int i = 0; i < 10; i++)
+    for (auto & mWidget : mWidgets)
     {
-        for (unsigned int j = 0; j < mWidgets[i].size(); j++)
+        for (unsigned int j = 0; j < mWidget.size(); j++)
         {
-            mWidgets[i][j]->_focusLost();
+            mWidget[j]->_focusLost();
         }
     }
 
@@ -1287,11 +1287,11 @@ void TrayManager::hideTrays()
     mPriorityLayer->hide();
 
     // give widgets a chance to reset in case they're in the middle of something
-    for (unsigned int i = 0; i < 10; i++)
+    for (auto & mWidget : mWidgets)
     {
-        for (unsigned int j = 0; j < mWidgets[i].size(); j++)
+        for (unsigned int j = 0; j < mWidget.size(); j++)
         {
-            mWidgets[i][j]->_focusLost();
+            mWidget[j]->_focusLost();
         }
     }
 
@@ -1302,9 +1302,9 @@ void TrayManager::setTrayWidgetAlignment(TrayLocation trayLoc, Ogre::GuiHorizont
 {
     mTrayWidgetAlign[trayLoc] = gha;
 
-    for (unsigned int i = 0; i < mWidgets[trayLoc].size(); i++)
+    for (auto & i : mWidgets[trayLoc])
     {
-        mWidgets[trayLoc][i]->getOverlayElement()->setHorizontalAlignment(gha);
+        i->getOverlayElement()->setHorizontalAlignment(gha);
     }
 }
 
@@ -1389,10 +1389,10 @@ void TrayManager::adjustTrays()
         mTrays[i]->setWidth(trayWidth + 2 * mWidgetPadding);
         mTrays[i]->setHeight(trayHeight + mWidgetPadding);
 
-        for (unsigned int j = 0; j < labelsAndSeps.size(); j++)
+        for (auto & labelsAndSep : labelsAndSeps)
         {
-            labelsAndSeps[j]->setWidth((int)trayWidth);
-            labelsAndSeps[j]->setLeft(-(int)(trayWidth / 2));
+            labelsAndSep->setWidth((int)trayWidth);
+            labelsAndSep->setLeft(-(int)(trayWidth / 2));
         }
     }
 
@@ -1662,11 +1662,11 @@ void TrayManager::showOkDialog(const Ogre::DisplayString &caption, const Ogre::D
     else
     {
         // give widgets a chance to reset in case they're in the middle of something
-        for (unsigned int i = 0; i < 10; i++)
+        for (auto & mWidget : mWidgets)
         {
-            for (unsigned int j = 0; j < mWidgets[i].size(); j++)
+            for (unsigned int j = 0; j < mWidget.size(); j++)
             {
-                mWidgets[i][j]->_focusLost();
+                mWidget[j]->_focusLost();
             }
         }
 
@@ -1715,11 +1715,11 @@ void TrayManager::showYesNoDialog(const Ogre::DisplayString &caption, const Ogre
     else
     {
         // give widgets a chance to reset in case they're in the middle of something
-        for (unsigned int i = 0; i < 10; i++)
+        for (auto & mWidget : mWidgets)
         {
-            for (unsigned int j = 0; j < mWidgets[i].size(); j++)
+            for (unsigned int j = 0; j < mWidget.size(); j++)
             {
-                mWidgets[i][j]->_focusLost();
+                mWidget[j]->_focusLost();
             }
         }
 
@@ -1790,20 +1790,20 @@ auto TrayManager::isDialogVisible() -> bool
 
 auto TrayManager::getWidget(TrayLocation trayLoc, const Ogre::String &name) -> Widget *
 {
-    for (unsigned int i = 0; i < mWidgets[trayLoc].size(); i++)
+    for (auto & i : mWidgets[trayLoc])
     {
-        if (mWidgets[trayLoc][i]->getName() == name) return mWidgets[trayLoc][i];
+        if (i->getName() == name) return i;
     }
     return nullptr;
 }
 
 auto TrayManager::getWidget(const Ogre::String &name) -> Widget *
 {
-    for (unsigned int i = 0; i < 10; i++)
+    for (auto & mWidget : mWidgets)
     {
-        for (unsigned int j = 0; j < mWidgets[i].size(); j++)
+        for (unsigned int j = 0; j < mWidget.size(); j++)
         {
-            if (mWidgets[i][j]->getName() == name) return mWidgets[i][j];
+            if (mWidget[j]->getName() == name) return mWidget[j];
         }
     }
     return nullptr;
@@ -1813,9 +1813,9 @@ auto TrayManager::getNumWidgets() -> unsigned int
 {
     unsigned int total = 0;
 
-    for (unsigned int i = 0; i < 10; i++)
+    for (auto & mWidget : mWidgets)
     {
-        total += mWidgets[i].size();
+        total += mWidget.size();
     }
 
     return total;
@@ -1914,9 +1914,9 @@ void TrayManager::clearAllTrays()
 
 void TrayManager::frameRendered(const Ogre::FrameEvent &evt)
 {
-    for (unsigned int i = 0; i < mWidgetDeathRow.size(); i++)
+    for (auto & i : mWidgetDeathRow)
     {
-        delete mWidgetDeathRow[i];
+        delete i;
     }
     mWidgetDeathRow.clear();
 

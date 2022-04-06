@@ -81,9 +81,9 @@ class RenderQueue;
         destroyAllOverlayElements(false);
         destroyAllOverlayElements(true);
 
-        for(auto i = mFactories.begin(); i != mFactories.end(); ++i)
+        for(auto & mFactorie : mFactories)
         {
-            delete i->second;
+            delete mFactorie.second;
         }
 
         // Unregister with resource group manager
@@ -92,14 +92,14 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayManager::_releaseManualHardwareResources()
     {
-        for(auto i = mElements.begin(), i_end = mElements.end(); i != i_end; ++i)
-            i->second->_releaseManualHardwareResources();
+        for(auto & mElement : mElements)
+            mElement.second->_releaseManualHardwareResources();
     }
     //---------------------------------------------------------------------
     void OverlayManager::_restoreManualHardwareResources()
     {
-        for(auto i = mElements.begin(), i_end = mElements.end(); i != i_end; ++i)
-            i->second->_restoreManualHardwareResources();
+        for(auto & mElement : mElements)
+            mElement.second->_restoreManualHardwareResources();
     }
     //---------------------------------------------------------------------
     auto OverlayManager::getScriptPatterns() const -> const StringVector&
@@ -193,10 +193,9 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayManager::destroyAll()
     {
-        for (auto i = mOverlayMap.begin();
-            i != mOverlayMap.end(); ++i)
+        for (auto & i : mOverlayMap)
         {
-            delete i->second;
+            delete i.second;
         }
         mOverlayMap.clear();
     }

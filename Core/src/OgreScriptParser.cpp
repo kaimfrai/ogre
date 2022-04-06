@@ -445,9 +445,9 @@ namespace Ogre
 
         ConcreteNodePtr node;
         const ScriptToken *token = nullptr;
-        for(auto i = tokens.begin(); i != tokens.end(); ++i)
+        for(const auto & i : tokens)
         {
-            token = &*i;
+            token = &i;
 
             switch(token->type)
             {

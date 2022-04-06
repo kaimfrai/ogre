@@ -481,9 +481,8 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void ResourceManager::destroyAllResourcePools()
     {
-        for (auto i = mResourcePoolMap.begin();
-            i != mResourcePoolMap.end(); ++i)
-            delete i->second;
+        for (auto & i : mResourcePoolMap)
+            delete i.second;
 
         mResourcePoolMap.clear();
     }
@@ -507,9 +506,9 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void ResourceManager::ResourcePool::clear()
     {
-        for (auto i = mItems.begin(); i != mItems.end(); ++i)
+        for (auto & mItem : mItems)
         {
-            (*i)->getCreator()->remove((*i)->getHandle());
+            mItem->getCreator()->remove(mItem->getHandle());
         }
         mItems.clear();
     }

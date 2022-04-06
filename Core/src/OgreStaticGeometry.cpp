@@ -536,10 +536,8 @@ namespace Ogre {
         destroy();
 
         // Firstly allocate meshes to regions
-        for (auto qi = mQueuedSubMeshes.begin();
-            qi != mQueuedSubMeshes.end(); ++qi)
+        for (auto qsm : mQueuedSubMeshes)
         {
-            QueuedSubMesh* qsm = *qi;
             Region* region = getRegion(qsm->worldBounds, true);
             region->assign(qsm);
         }
@@ -550,13 +548,12 @@ namespace Ogre {
         }
 
         // Now tell each region to build itself
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->build(stencilShadows);
+            ri.second->build(stencilShadows);
             
             // Set the visibility flags on these regions
-            ri->second->setVisibilityFlags(mVisibilityFlags);
+            ri.second->setVisibilityFlags(mVisibilityFlags);
         }
 
     }
@@ -564,11 +561,10 @@ namespace Ogre {
     void StaticGeometry::destroy()
     {
         // delete the regions
-        for (auto i = mRegionMap.begin();
-            i != mRegionMap.end(); ++i)
+        for (auto & i : mRegionMap)
         {
-            mOwner->extractMovableObject(i->second);
-            delete i->second;
+            mOwner->extractMovableObject(i.second);
+            delete i.second;
         }
         mRegionMap.clear();
     }
@@ -576,24 +572,21 @@ namespace Ogre {
     void StaticGeometry::reset()
     {
         destroy();
-        for (auto i = mQueuedSubMeshes.begin();
-            i != mQueuedSubMeshes.end(); ++i)
+        for (auto & mQueuedSubMeshe : mQueuedSubMeshes)
         {
-            delete *i;
+            delete mQueuedSubMeshe;
         }
         mQueuedSubMeshes.clear();
         // Delete precached geoemtry lists
-        for (auto l = mSubMeshGeometryLookup.begin();
-            l != mSubMeshGeometryLookup.end(); ++l)
+        for (auto & l : mSubMeshGeometryLookup)
         {
-            delete l->second;
+            delete l.second;
         }
         mSubMeshGeometryLookup.clear();
         // Delete optimised geometry
-        for (auto o = mOptimisedSubMeshGeometryList.begin();
-            o != mOptimisedSubMeshGeometryList.end(); ++o)
+        for (auto & o : mOptimisedSubMeshGeometryList)
         {
-            delete *o;
+            delete o;
         }
         mOptimisedSubMeshGeometryList.clear();
 
@@ -603,10 +596,9 @@ namespace Ogre {
     {
         mVisible = visible;
         // tell any existing regions
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->setVisible(visible);
+            ri.second->setVisible(visible);
         }
     }
     //--------------------------------------------------------------------------
@@ -614,10 +606,9 @@ namespace Ogre {
     {
         mCastShadows = castShadows;
         // tell any existing regions
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->setCastShadows(castShadows);
+            ri.second->setCastShadows(castShadows);
         }
 
     }
@@ -628,10 +619,9 @@ namespace Ogre {
         mRenderQueueIDSet = true;
         mRenderQueueID = queueID;
         // tell any existing regions
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->setRenderQueueGroup(queueID);
+            ri.second->setRenderQueueGroup(queueID);
         }
     }
     //--------------------------------------------------------------------------
@@ -643,10 +633,9 @@ namespace Ogre {
     void StaticGeometry::setVisibilityFlags(uint32 flags)
     {
         mVisibilityFlags = flags;
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->setVisibilityFlags(flags);
+            ri.second->setVisibilityFlags(flags);
         }
     }
     //--------------------------------------------------------------------------
@@ -671,10 +660,9 @@ namespace Ogre {
         of << "Max distance: " << mUpperDistance << std::endl;
         of << "Casts shadows?: " << mCastShadows << std::endl;
         of << std::endl;
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto ri : mRegionMap)
         {
-            ri->second->dump(of);
+            ri.second->dump(of);
         }
         of << "-------------------------------------------------" << std::endl;
     }
@@ -682,10 +670,9 @@ namespace Ogre {
     void StaticGeometry::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->visitRenderables(visitor, debugRenderables);
+            ri.second->visitRenderables(visitor, debugRenderables);
         }
 
     }
@@ -708,10 +695,9 @@ namespace Ogre {
             mParentNode = nullptr;
         }
         // delete
-        for (auto i = mLodBucketList.begin();
-            i != mLodBucketList.end(); ++i)
+        for (auto & i : mLodBucketList)
         {
-            delete *i;
+            delete i;
         }
         mLodBucketList.clear();
 
@@ -721,9 +707,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void StaticGeometry::Region::_releaseManualHardwareResources()
     {
-        for (auto i = mLodBucketList.begin(); i != mLodBucketList.end(); ++i)
+        for (auto & i : mLodBucketList)
         {
-            clearShadowRenderableList((*i)->getShadowRenderableList());
+            clearShadowRenderableList(i->getShadowRenderableList());
         }
     }
     //-----------------------------------------------------------------------
@@ -861,9 +847,9 @@ namespace Ogre {
     void StaticGeometry::Region::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (auto i = mLodBucketList.begin(); i != mLodBucketList.end(); ++i)
+        for (auto & i : mLodBucketList)
         {
-            (*i)->visitRenderables(visitor, debugRenderables);
+            i->visitRenderables(visitor, debugRenderables);
         }
 
     }
@@ -923,10 +909,9 @@ namespace Ogre {
         of << "Bounding radius: " << mBoundingRadius << std::endl;
         of << "Number of LODs: " << mLodBucketList.size() << std::endl;
 
-        for (auto i = mLodBucketList.begin();
-            i != mLodBucketList.end(); ++i)
+        for (auto i : mLodBucketList)
         {
-            (*i)->dump(of);
+            i->dump(of);
         }
         of << "--------------------------" << std::endl;
     }
@@ -943,16 +928,14 @@ namespace Ogre {
         delete mEdgeList;
         ShadowCaster::clearShadowRenderableList(mShadowRenderables);
         // delete
-        for (auto i = mMaterialBucketMap.begin();
-            i != mMaterialBucketMap.end(); ++i)
+        for (auto & i : mMaterialBucketMap)
         {
-            delete i->second;
+            delete i.second;
         }
         mMaterialBucketMap.clear();
-        for(auto qi = mQueuedGeometryList.begin();
-            qi != mQueuedGeometryList.end(); ++qi)
+        for(auto & qi : mQueuedGeometryList)
         {
-            delete *qi;
+            delete qi;
         }
         mQueuedGeometryList.clear();
 
@@ -1000,10 +983,9 @@ namespace Ogre {
         size_t vertexSet = 0;
 
         // Just pass this on to child buckets
-        for (auto i = mMaterialBucketMap.begin();
-            i != mMaterialBucketMap.end(); ++i)
+        for (auto & i : mMaterialBucketMap)
         {
-            MaterialBucket* mat = i->second;
+            MaterialBucket* mat = i.second;
 
             mat->build(stencilShadows);
 
@@ -1063,10 +1045,9 @@ namespace Ogre {
         of << "------------------" << std::endl;
         of << "LOD Value: " << mLodValue << std::endl;
         of << "Number of Materials: " << mMaterialBucketMap.size() << std::endl;
-        for (auto i = mMaterialBucketMap.begin();
-            i != mMaterialBucketMap.end(); ++i)
+        for (const auto & i : mMaterialBucketMap)
         {
-            i->second->dump(of);
+            i.second->dump(of);
         }
         of << "------------------" << std::endl;
 
@@ -1075,10 +1056,9 @@ namespace Ogre {
     void StaticGeometry::LODBucket::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (auto i = mMaterialBucketMap.begin();
-            i != mMaterialBucketMap.end(); ++i)
+        for (auto & i : mMaterialBucketMap)
         {
-            i->second->visitRenderables(visitor, debugRenderables);
+            i.second->visitRenderables(visitor, debugRenderables);
         }
 
     }
@@ -1137,10 +1117,9 @@ namespace Ogre {
     StaticGeometry::MaterialBucket::~MaterialBucket()
     {
         // delete
-        for (auto i = mGeometryBucketList.begin();
-            i != mGeometryBucketList.end(); ++i)
+        for (auto & i : mGeometryBucketList)
         {
-            delete *i;
+            delete i;
         }
         mGeometryBucketList.clear();
 
@@ -1248,10 +1227,9 @@ namespace Ogre {
         of << "Material Bucket " << getMaterialName() << std::endl;
         of << "--------------------------------------------------" << std::endl;
         of << "Geometry buckets: " << mGeometryBucketList.size() << std::endl;
-        for (auto i = mGeometryBucketList.begin();
-            i != mGeometryBucketList.end(); ++i)
+        for (auto i : mGeometryBucketList)
         {
-            (*i)->dump(of);
+            i->dump(of);
         }
         of << "--------------------------------------------------" << std::endl;
 
@@ -1260,10 +1238,9 @@ namespace Ogre {
     void StaticGeometry::MaterialBucket::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (auto i = mGeometryBucketList.begin();
-            i != mGeometryBucketList.end(); ++i)
+        for (auto & i : mGeometryBucketList)
         {
-            visitor->visit(*i, mParent->getLod(), false);
+            visitor->visit(i, mParent->getLod(), false);
         }
 
     }

@@ -359,12 +359,11 @@ namespace Ogre {
         auto *vertices = new float[s->extremityPoints.size() * 3];
         float *pVert = vertices;
 
-        for (auto i = s->extremityPoints.begin();
-             i != s->extremityPoints.end(); ++i)
+        for (auto extremityPoint : s->extremityPoints)
         {
-            *pVert++ = i->x;
-            *pVert++ = i->y;
-            *pVert++ = i->z;
+            *pVert++ = extremityPoint.x;
+            *pVert++ = extremityPoint.y;
+            *pVert++ = extremityPoint.z;
         }
 
         writeFloats(vertices, s->extremityPoints.size () * 3);
@@ -1672,10 +1671,8 @@ namespace Ogre {
 
             size += triSize * edgeData->triangles.size();
             // Write the groups
-            for (auto gi = edgeData->edgeGroups.begin();
-                gi != edgeData->edgeGroups.end(); ++gi)
+            for (const auto & edgeGroup : edgeData->edgeGroups)
             {
-                const EdgeData::EdgeGroup& edgeGroup = *gi;
                 size += calcEdgeGroupSize(edgeGroup);
             }
 
@@ -1765,10 +1762,8 @@ namespace Ogre {
                     pushInnerChunk(mStream);
                     {
                 // Write the groups
-                for (auto gi = edgeData->edgeGroups.begin();
-                    gi != edgeData->edgeGroups.end(); ++gi)
+                for (const auto & edgeGroup : edgeData->edgeGroups)
                 {
-                    const EdgeData::EdgeGroup& edgeGroup = *gi;
                     writeChunkHeader(M_EDGE_GROUP, calcEdgeGroupSize(edgeGroup));
                     // unsigned long vertexSet
                     auto vertexSet = static_cast<uint32>(edgeGroup.vertexSet);
@@ -1784,10 +1779,8 @@ namespace Ogre {
                     writeInts(&count, 1);
                     // Edge* edgeList
                     // Iterate rather than writing en-masse to allow endian conversion
-                    for (auto ei = edgeGroup.edges.begin();
-                        ei != edgeGroup.edges.end(); ++ei)
+                    for (const auto & edge : edgeGroup.edges)
                     {
-                        const EdgeData::Edge& edge = *ei;
                         uint32 tmp[2];
                         // unsigned long  triIndex[2]
                         tmp[0] = static_cast<uint32>(edge.triIndex[0]);
@@ -3586,10 +3579,8 @@ namespace Ogre {
 
             size += triSize * edgeData->triangles.size();
             // Write the groups
-            for (auto gi = edgeData->edgeGroups.begin();
-                gi != edgeData->edgeGroups.end(); ++gi)
+            for (const auto & edgeGroup : edgeData->edgeGroups)
             {
-                const EdgeData::EdgeGroup& edgeGroup = *gi;
                 size += calcEdgeGroupSize(edgeGroup);
             }
 
@@ -3676,10 +3667,8 @@ namespace Ogre {
                 }
                 pushInnerChunk(mStream);
                 // Write the groups
-                for (auto gi = edgeData->edgeGroups.begin();
-                     gi != edgeData->edgeGroups.end(); ++gi)
+                for (const auto & edgeGroup : edgeData->edgeGroups)
                 {
-                    const EdgeData::EdgeGroup& edgeGroup = *gi;
                     writeChunkHeader(M_EDGE_GROUP, calcEdgeGroupSize(edgeGroup));
                     // unsigned long vertexSet
                     auto vertexSet = static_cast<uint32>(edgeGroup.vertexSet);
@@ -3689,10 +3678,8 @@ namespace Ogre {
                     writeInts(&count, 1);
                     // Edge* edgeList
                     // Iterate rather than writing en-masse to allow endian conversion
-                    for (auto ei = edgeGroup.edges.begin();
-                         ei != edgeGroup.edges.end(); ++ei)
+                    for (const auto & edge : edgeGroup.edges)
                     {
-                        const EdgeData::Edge& edge = *ei;
                         uint32 tmp[2];
                         // unsigned long  triIndex[2]
                         tmp[0] = static_cast<uint32>(edge.triIndex[0]);

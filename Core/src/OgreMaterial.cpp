@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <iterator>
 #include <memory>
 #include <ostream>
+#include <ranges>
 #include <string>
 #include <utility>
 
@@ -345,11 +346,11 @@ class Renderable;
             if (li == si->second.end())
             {
                 // Use the next LOD level up
-                for (auto rli = si->second.rbegin(); rli != si->second.rend(); ++rli)
+                for (auto & rli : std::ranges::reverse_view(si->second))
                 {
-                    if (rli->second->getLodIndex() < lodIndex)
+                    if (rli.second->getLodIndex() < lodIndex)
                     {
-                        ret = rli->second;
+                        ret = rli.second;
                         break;
                     }
 

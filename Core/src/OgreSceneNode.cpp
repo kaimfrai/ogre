@@ -74,9 +74,9 @@ namespace Ogre {
     {
         // Detach all objects, do this manually to avoid needUpdate() call 
         // which can fail because of deleted items
-        for (auto itr = mObjectsByName.begin(); itr != mObjectsByName.end(); ++itr )
+        for (auto & itr : mObjectsByName)
         {
-            (*itr)->_notifyAttached((SceneNode*)nullptr);
+            itr->_notifyAttached((SceneNode*)nullptr);
         }
         mObjectsByName.clear();
     }
@@ -218,9 +218,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void SceneNode::detachAllObjects()
     {
-        for (auto itr = mObjectsByName.begin(); itr != mObjectsByName.end(); ++itr )
+        for (auto & itr : mObjectsByName)
         {
-            (*itr)->_notifyAttached((SceneNode*)nullptr);
+            itr->_notifyAttached((SceneNode*)nullptr);
         }
         mObjectsByName.clear();
         // Make sure bounds get updated (must go right to the top)

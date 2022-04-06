@@ -212,11 +212,11 @@ void LayeredBlending::addPSBlendInvocations(Function* psMain,
     {
         //find the function name for the blend mode
         const char* funcName = nullptr;
-        for(int i = 0 ; i < (int)LayeredBlending::LB_MaxBlendModes ; ++i)
+        for(const auto & _blendMode : _blendModes)
         {
-            if (_blendModes[i].type == mode)
+            if (_blendMode.type == mode)
             {
-                funcName = _blendModes[i].funcName;
+                funcName = _blendMode.funcName;
                 break;
             }
         }
@@ -470,11 +470,11 @@ auto LayeredBlendingFactory::createInstanceImpl() -> SubRenderState*
 //-----------------------------------------------------------------------
 auto LayeredBlendingFactory::stringToBlendMode(const String &strValue) -> LayeredBlending::BlendMode
 {
-    for(int i = 0 ; i < (int)LayeredBlending::LB_MaxBlendModes ; ++i)
+    for(const auto & _blendMode : _blendModes)
     {
-        if (_blendModes[i].name == strValue)
+        if (_blendMode.name == strValue)
         {
-            return _blendModes[i].type;
+            return _blendMode.type;
         }
     }
     return LayeredBlending::LB_Invalid;
@@ -483,11 +483,11 @@ auto LayeredBlendingFactory::stringToBlendMode(const String &strValue) -> Layere
 //-----------------------------------------------------------------------
 auto LayeredBlendingFactory::blendModeToString(LayeredBlending::BlendMode blendMode) -> String
 {
-    for(int i = 0 ; i < (int)LayeredBlending::LB_MaxBlendModes ; ++i)
+    for(const auto & _blendMode : _blendModes)
     {
-        if (_blendModes[i].type == blendMode)
+        if (_blendMode.type == blendMode)
         {
-            return _blendModes[i].name;
+            return _blendMode.name;
         }
     }
     return "";
@@ -496,11 +496,11 @@ auto LayeredBlendingFactory::blendModeToString(LayeredBlending::BlendMode blendM
 //-----------------------------------------------------------------------
 auto LayeredBlendingFactory::stringToSourceModifier(const String &strValue) -> LayeredBlending::SourceModifier
 {
-    for(int i = 0 ; i < (int)LayeredBlending::SM_MaxSourceModifiers ; ++i)
+    for(const auto & _sourceModifier : _sourceModifiers)
     {
-        if (_sourceModifiers[i].name == strValue)
+        if (_sourceModifier.name == strValue)
         {
-            return _sourceModifiers[i].type;
+            return _sourceModifier.type;
         }
     }
     return LayeredBlending::SM_Invalid;
@@ -509,11 +509,11 @@ auto LayeredBlendingFactory::stringToSourceModifier(const String &strValue) -> L
 //-----------------------------------------------------------------------
 auto LayeredBlendingFactory::sourceModifierToString(LayeredBlending::SourceModifier modifier) -> String
 {
-    for(int i = 0 ; i < (int)LayeredBlending::SM_MaxSourceModifiers ; ++i)
+    for(const auto & _sourceModifier : _sourceModifiers)
     {
-        if (_sourceModifiers[i].type == modifier)
+        if (_sourceModifier.type == modifier)
         {
-            return _sourceModifiers[i].name;
+            return _sourceModifier.name;
         }
     }
     return "";

@@ -85,9 +85,9 @@ class Sphere;
     Camera::~Camera()
     {
         ListenerList listenersCopy = mListeners;
-        for (auto i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
+        for (auto & i : listenersCopy)
         {
-            (*i)->cameraDestroyed(this);
+            i->cameraDestroyed(this);
         }
     }
     //-----------------------------------------------------------------------
@@ -172,9 +172,9 @@ class Sphere;
 
         //notify prerender scene
         ListenerList listenersCopy = mListeners;
-        for (auto i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
+        for (auto & i : listenersCopy)
         {
-            (*i)->cameraPreRenderScene(this);
+            i->cameraPreRenderScene(this);
         }
 
         //render scene
@@ -184,9 +184,9 @@ class Sphere;
         listenersCopy = mListeners;
 
         //notify postrender scene
-        for (auto i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
+        for (auto & i : listenersCopy)
         {
-            (*i)->cameraPostRenderScene(this);
+            i->cameraPostRenderScene(this);
         }
         Ogre::Profiler::getSingleton().endGPUEvent(getName());
     }
@@ -798,10 +798,10 @@ class Sphere;
         {
             Quaternion planeRot = invPlaneRot.Inverse();
             (*intersect3d).clear();
-            for(unsigned int i=0; i<iPnt.size(); i++)
+            for(auto & i : iPnt)
             {
-                Vector3 intersection = planeRot * Vector3(iPnt[i].x, iPnt[i].y, iPnt[i].z);
-                (*intersect3d).emplace_back(intersection.x, intersection.y, intersection.z, iPnt[i].w);
+                Vector3 intersection = planeRot * Vector3(i.x, i.y, i.z);
+                (*intersect3d).emplace_back(intersection.x, intersection.y, intersection.z, i.w);
             }
         }
     }

@@ -467,8 +467,8 @@ namespace Ogre
             mWidth = width;
             mHeight = height;
 
-            for (auto it = mViewportList.begin(); it != mViewportList.end(); ++it)
-                (*it).second->_updateDimensions();
+            for (auto & it : mViewportList)
+                it.second->_updateDimensions();
         }
     }
 

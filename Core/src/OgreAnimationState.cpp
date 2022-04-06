@@ -242,18 +242,15 @@ namespace Ogre
     AnimationStateSet::AnimationStateSet(const AnimationStateSet& rhs)
         : mDirtyFrameNumber(std::numeric_limits<unsigned long>::max())
     {
-        for (auto i = rhs.mAnimationStates.begin();
-            i != rhs.mAnimationStates.end(); ++i)
+        for (const auto & mAnimationState : rhs.mAnimationStates)
         {
-            AnimationState* src = i->second;
+            AnimationState* src = mAnimationState.second;
             mAnimationStates[src->getAnimationName()] = new AnimationState(this, *src);
         }
 
         // Clone enabled animation state list
-        for (auto it = rhs.mEnabledAnimationStates.begin();
-            it != rhs.mEnabledAnimationStates.end(); ++it)
+        for (auto src : rhs.mEnabledAnimationStates)
         {
-            const AnimationState* src = *it;
             mEnabledAnimationStates.push_back(getAnimationState(src->getAnimationName()));
         }
     }
@@ -278,10 +275,9 @@ namespace Ogre
     //---------------------------------------------------------------------
     void AnimationStateSet::removeAllAnimationStates()
     {
-        for (auto i = mAnimationStates.begin();
-            i != mAnimationStates.end(); ++i)
+        for (auto & mAnimationState : mAnimationStates)
         {
-            delete i->second;
+            delete mAnimationState.second;
         }
         mAnimationStates.clear();
         mEnabledAnimationStates.clear();

@@ -269,11 +269,8 @@ class ResourceManager;
             mSource, *mConstantDefs, getResourceLogName());
 
         // Also parse any attached sources
-        for (auto i = mAttachedGLSLPrograms.begin();
-            i != mAttachedGLSLPrograms.end(); ++i)
+        for (auto childShader : mAttachedGLSLPrograms)
         {
-            GLSLShaderCommon* childShader = *i;
-
             GLSLLinkProgramManager::getSingleton().extractUniformsFromGLSL(
                 childShader->getSource(), *mConstantDefs, childShader->getName());
 

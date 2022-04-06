@@ -309,10 +309,9 @@ namespace Ogre {
         // unload in reverse order
         for (oi = grp->loadResourceOrderMap.rbegin(); oi != grp->loadResourceOrderMap.rend(); ++oi)
         {
-            for (auto l = oi->second.begin();
-                l != oi->second.end(); ++l)
+            for (auto & l : oi->second)
             {
-                Resource* resource = l->get();
+                Resource* resource = l.get();
                 if (!reloadableOnly || resource->isReloadable())
                 {
                     resource->unload();
@@ -340,14 +339,13 @@ namespace Ogre {
         // unload in reverse order
         for (oi = grp->loadResourceOrderMap.rbegin(); oi != grp->loadResourceOrderMap.rend(); ++oi)
         {
-            for (auto l = oi->second.begin();
-                l != oi->second.end(); ++l)
+            for (auto & l : oi->second)
             {
                 // A use count of 3 means that only RGM and RM have references
                 // RGM has one (this one) and RM has 2 (by name and by handle)
-                if (l->use_count() == RESOURCE_SYSTEM_NUM_REFERENCE_COUNTS)
+                if (l.use_count() == RESOURCE_SYSTEM_NUM_REFERENCE_COUNTS)
                 {
-                    Resource* resource = l->get();
+                    Resource* resource = l.get();
                     if (!reloadableOnly || resource->isReloadable())
                     {
                         resource->unload();
@@ -448,8 +446,8 @@ namespace Ogre {
         grp->locationList.push_back(loc);
 
         // Index resources
-        for( auto it = vec->begin(); it != vec->end(); ++it )
-            grp->addToIndex(*it, pArch);
+        for(auto & it : *vec)
+            grp->addToIndex(it, pArch);
         
         StringStream msg;
         msg << "Added resource location '" << name << "' of type '" << locType
@@ -595,9 +593,9 @@ namespace Ogre {
             StringVectorPtr names = arch->find(pattern, li->recursive);
 
             // Iterate over the names and load a stream for each
-            for (auto ni = names->begin(); ni != names->end(); ++ni)
+            for (auto & ni : *names)
             {
-                DataStreamPtr ptr = arch->open(*ni);
+                DataStreamPtr ptr = arch->open(ni);
                 if (ptr)
                 {
                     ret.push_back(ptr);
@@ -681,10 +679,10 @@ namespace Ogre {
                 (locationPattern.empty() || StringUtil::match(arch->getName(), locationPattern, false)))
             {
                 StringVectorPtr matchingFiles = arch->find(filePattern);
-                for (auto f = matchingFiles->begin(); f != matchingFiles->end(); ++f)
+                for (auto & f : *matchingFiles)
                 {
-                    arch->remove(*f);
-                    grp->removeFromIndex(*f, arch);
+                    arch->remove(f);
+                    grp->removeFromIndex(f, arch);
 
                 }
             }
@@ -766,9 +764,9 @@ namespace Ogre {
             const StringVector& patterns = su->getScriptPatterns();
 
             // Search for matches in the patterns
-            for (auto p = patterns.begin(); p != patterns.end(); ++p)
+            for (const auto & p : patterns)
             {
-                if(*p == pattern)
+                if(p == pattern)
                     return su;
             }
         }
@@ -798,9 +796,9 @@ namespace Ogre {
 
             // Get all the patterns and search them
             const StringVector& patterns = su->getScriptPatterns();
-            for (auto p = patterns.begin(); p != patterns.end(); ++p)
+            for (const auto & pattern : patterns)
             {
-                FileInfoListPtr fileList = findResourceFileInfo(grp->name, *p);
+                FileInfoListPtr fileList = findResourceFileInfo(grp->name, pattern);
                 FileInfoList& lst = scriptLoaderFileList.back().second;
                 lst.insert(lst.end(), fileList->begin(), fileList->end());
             }
@@ -812,12 +810,11 @@ namespace Ogre {
 
         // Iterate over scripts and parse
         // Note we respect original ordering
-        for (auto slfli = scriptLoaderFileList.begin();
-            slfli != scriptLoaderFileList.end(); ++slfli)
+        for (auto & slfli : scriptLoaderFileList)
         {
-            ScriptLoader* su = slfli->first;
+            ScriptLoader* su = slfli.first;
             // Iterate over each item in the list
-            for (auto fii = slfli->second.begin(); fii != slfli->second.end(); ++fii)
+            for (auto fii = slfli.second.begin(); fii != slfli.second.end(); ++fii)
             {
                 bool skipScript = false;
                 fireScriptStarted(fii->filename, skipScript);
@@ -973,12 +970,11 @@ namespace Ogre {
     void ResourceGroupManager::_notifyAllResourcesRemoved(ResourceManager* manager) const
     {
         // Iterate over all groups
-        for (auto grpi = mResourceGroupMap.begin();
-            grpi != mResourceGroupMap.end(); ++grpi)
+        for (const auto & grpi : mResourceGroupMap)
         {
             // Iterate over all priorities
-            for (auto oi = grpi->second->loadResourceOrderMap.begin();
-                oi != grpi->second->loadResourceOrderMap.end(); ++oi)
+            for (auto oi = grpi.second->loadResourceOrderMap.begin();
+                oi != grpi.second->loadResourceOrderMap.end(); ++oi)
             {
                 // Iterate over all resources
                 for (auto l = oi->second.begin();
@@ -1055,10 +1051,9 @@ namespace Ogre {
         for (j = grp->loadResourceOrderMap.begin(); j != jend; ++j)
         {
             // Iterate over resources
-            for (auto k = j->second.begin();
-                k != j->second.end(); ++k)
+            for (auto & k : j->second)
             {
-                (*k)->getCreator()->remove((*k));
+                k->getCreator()->remove(k);
             }
         }
         grp->loadResourceOrderMap.clear();
@@ -1080,20 +1075,18 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireResourceGroupScriptingStarted(const String& groupName, size_t scriptCount) const
     {
-        for (auto l = mResourceGroupListenerList.begin();
-            l != mResourceGroupListenerList.end(); ++l)
+        for (auto l : mResourceGroupListenerList)
         {
-            (*l)->resourceGroupScriptingStarted(groupName, scriptCount);
+            l->resourceGroupScriptingStarted(groupName, scriptCount);
         }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireScriptStarted(const String& scriptName, bool &skipScript) const
     {
-        for (auto l = mResourceGroupListenerList.begin();
-            l != mResourceGroupListenerList.end(); ++l)
+        for (auto l : mResourceGroupListenerList)
         {
             bool temp = false;
-            (*l)->scriptParseStarted(scriptName, temp);
+            l->scriptParseStarted(scriptName, temp);
             if(temp)
                 skipScript = true;
         }
@@ -1101,127 +1094,113 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireScriptEnded(const String& scriptName, bool skipped) const
     {
-            for (auto l = mResourceGroupListenerList.begin();
-                l != mResourceGroupListenerList.end(); ++l)
+            for (auto l : mResourceGroupListenerList)
             {
-                (*l)->scriptParseEnded(scriptName, skipped);
+                l->scriptParseEnded(scriptName, skipped);
             }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireResourceGroupScriptingEnded(const String& groupName) const
     {
-        for (auto l = mResourceGroupListenerList.begin();
-            l != mResourceGroupListenerList.end(); ++l)
+        for (auto l : mResourceGroupListenerList)
         {
-            (*l)->resourceGroupScriptingEnded(groupName);
+            l->resourceGroupScriptingEnded(groupName);
         }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireResourceGroupLoadStarted(const String& groupName, size_t resourceCount) const
     {
-        for (auto l = mResourceGroupListenerList.begin();
-            l != mResourceGroupListenerList.end(); ++l)
+        for (auto l : mResourceGroupListenerList)
         {
-            (*l)->resourceGroupLoadStarted(groupName, resourceCount);
+            l->resourceGroupLoadStarted(groupName, resourceCount);
         }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireResourceLoadStarted(const ResourcePtr& resource) const
     {
-        for (auto l = mResourceGroupListenerList.begin();
-            l != mResourceGroupListenerList.end(); ++l)
+        for (auto l : mResourceGroupListenerList)
         {
-            (*l)->resourceLoadStarted(resource);
+            l->resourceLoadStarted(resource);
         }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireResourceLoadEnded() const
     {
-            for (auto l = mResourceGroupListenerList.begin();
-                l != mResourceGroupListenerList.end(); ++l)
+            for (auto l : mResourceGroupListenerList)
             {
-                (*l)->resourceLoadEnded();
+                l->resourceLoadEnded();
             }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::_notifyCustomStageStarted(const String& desc) const
     {
-        for (auto l = mResourceGroupListenerList.begin();
-            l != mResourceGroupListenerList.end(); ++l)
+        for (auto l : mResourceGroupListenerList)
         {
-            (*l)->customStageStarted(desc);
+            l->customStageStarted(desc);
         }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::_notifyCustomStageEnded() const
     {
-            for (auto l = mResourceGroupListenerList.begin();
-                l != mResourceGroupListenerList.end(); ++l)
+            for (auto l : mResourceGroupListenerList)
             {
-                (*l)->customStageEnded();
+                l->customStageEnded();
             }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireResourceGroupLoadEnded(const String& groupName) const
     {
-        for (auto l = mResourceGroupListenerList.begin();
-            l != mResourceGroupListenerList.end(); ++l)
+        for (auto l : mResourceGroupListenerList)
         {
-            (*l)->resourceGroupLoadEnded(groupName);
+            l->resourceGroupLoadEnded(groupName);
         }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireResourceGroupPrepareStarted(const String& groupName, size_t resourceCount) const
     {
-        for (auto l = mResourceGroupListenerList.begin();
-            l != mResourceGroupListenerList.end(); ++l)
+        for (auto l : mResourceGroupListenerList)
         {
-            (*l)->resourceGroupPrepareStarted(groupName, resourceCount);
+            l->resourceGroupPrepareStarted(groupName, resourceCount);
         }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireResourcePrepareStarted(const ResourcePtr& resource) const
     {
-        for (auto l = mResourceGroupListenerList.begin();
-            l != mResourceGroupListenerList.end(); ++l)
+        for (auto l : mResourceGroupListenerList)
         {
-            (*l)->resourcePrepareStarted(resource);
+            l->resourcePrepareStarted(resource);
         }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireResourcePrepareEnded() const
     {
-            for (auto l = mResourceGroupListenerList.begin();
-                l != mResourceGroupListenerList.end(); ++l)
+            for (auto l : mResourceGroupListenerList)
             {
-                (*l)->resourcePrepareEnded();
+                l->resourcePrepareEnded();
             }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireResourceGroupPrepareEnded(const String& groupName) const
     {
-        for (auto l = mResourceGroupListenerList.begin();
-            l != mResourceGroupListenerList.end(); ++l)
+        for (auto l : mResourceGroupListenerList)
         {
-            (*l)->resourceGroupPrepareEnded(groupName);
+            l->resourceGroupPrepareEnded(groupName);
         }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireResourceCreated(const ResourcePtr& resource) const
     {
-        for (auto l = mResourceGroupListenerList.begin();
-            l != mResourceGroupListenerList.end(); ++l)
+        for (auto l : mResourceGroupListenerList)
         {
-            (*l)->resourceCreated(resource);
+            l->resourceCreated(resource);
         }
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::fireResourceRemove(const ResourcePtr& resource) const
     {
-        for (auto l = mResourceGroupListenerList.begin();
-            l != mResourceGroupListenerList.end(); ++l)
+        for (auto l : mResourceGroupListenerList)
         {
-            (*l)->resourceRemove(resource);
+            l->resourceRemove(resource);
         }
     }
     //-----------------------------------------------------------------------
@@ -1364,12 +1343,11 @@ namespace Ogre {
         OgreAssert(!filename.empty(), "resourceName is empty string");
 
             // Iterate over resource groups and find
-        for (auto i = mResourceGroupMap.begin();
-            i != mResourceGroupMap.end(); ++i)
+        for (const auto & i : mResourceGroupMap)
         {
-            Archive* arch = resourceExists(i->second, filename);
+            Archive* arch = resourceExists(i.second, filename);
             if (arch)
-                return std::make_pair(arch, i->second);
+                return std::make_pair(arch, i.second);
         }
         // Not found
         return {};
@@ -1455,10 +1433,9 @@ namespace Ogre {
     auto ResourceGroupManager::getResourceGroups() const -> StringVector
     {
         StringVector vec;
-        for (auto i = mResourceGroupMap.begin();
-            i != mResourceGroupMap.end(); ++i)
+        for (const auto & i : mResourceGroupMap)
         {
-            vec.push_back(i->second->name);
+            vec.push_back(i.second->name);
         }
         return vec;
     }

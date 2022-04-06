@@ -696,12 +696,10 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Node::processQueuedUpdates()
     {
-        for (auto i = msQueuedUpdates.begin();
-            i != msQueuedUpdates.end(); ++i)
+        for (auto n : msQueuedUpdates)
         {
             // Update, and force parent update since chances are we've ended
             // up with some mixed state in there due to re-entrancy
-            Node* n = *i;
             n->mQueuedForUpdate = false;
             n->needUpdate(true);
         }

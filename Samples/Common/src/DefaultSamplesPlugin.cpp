@@ -44,8 +44,8 @@ DefaultSamplesPlugin::DefaultSamplesPlugin() : SamplePlugin("DefaultSamplesPlugi
 
 DefaultSamplesPlugin::~DefaultSamplesPlugin()
 {
-    for (auto i = mSamples.begin(); i != mSamples.end(); ++i)
+    for (auto mSample : mSamples)
     {
-        delete *i;
+        delete mSample;
     }
 }

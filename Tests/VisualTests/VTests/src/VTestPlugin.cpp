@@ -48,9 +48,9 @@ VTestPlugin::VTestPlugin()
 
 VTestPlugin::~VTestPlugin()
 {
-    for (auto i = mSamples.begin(); i != mSamples.end(); ++i)
+    for (auto mSample : mSamples)
     {
-        delete *i;
+        delete mSample;
     }
     mSamples.clear();
 }

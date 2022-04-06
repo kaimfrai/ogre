@@ -104,9 +104,9 @@ namespace Ogre {
     }
     ProfileInstance::~ProfileInstance()
     {                                        
-        for(auto it = children.begin(); it != children.end(); ++it)
+        for(auto & it : children)
         {
-            ProfileInstance* instance = it->second;
+            ProfileInstance* instance = it.second;
             delete instance;
         }
         children.clear();
@@ -139,15 +139,15 @@ namespace Ogre {
     {
         if (!mInitialized && enabled) 
         {
-            for( auto i = mListeners.begin(); i != mListeners.end(); ++i )
-                (*i)->initializeSession();
+            for(auto & mListener : mListeners)
+                mListener->initializeSession();
 
             mInitialized = true;
         }
         else if (mInitialized && !enabled)
         {
-            for( auto i = mListeners.begin(); i != mListeners.end(); ++i )
-                (*i)->finializeSession();
+            for(auto & mListener : mListeners)
+                mListener->finializeSession();
 
             mInitialized = false;
             mEnabled = false;
@@ -164,8 +164,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Profiler::changeEnableState() 
     {
-        for( auto i = mListeners.begin(); i != mListeners.end(); ++i )
-            (*i)->changeEnableState(mNewEnableState);
+        for(auto & mListener : mListeners)
+            mListener->changeEnableState(mNewEnableState);
 
         mEnabled = mNewEnableState;
     }
@@ -470,8 +470,8 @@ namespace Ogre {
             // ensure the root won't be culled
             mRoot.frame.calls = 1;
 
-            for( auto i = mListeners.begin(); i != mListeners.end(); ++i )
-                (*i)->displayResults(mRoot, mMaxTotalFrameClocks);
+            for(auto & mListener : mListeners)
+                mListener->displayResults(mRoot, mMaxTotalFrameClocks);
         }
         ++mCurrentFrame;
     }
@@ -535,9 +535,9 @@ namespace Ogre {
     {
         LogManager::getSingleton().logMessage("----------------------Profiler Results----------------------");
 
-        for(auto it = mRoot.children.begin(); it != mRoot.children.end(); ++it)
+        for(auto & it : mRoot.children)
         {
-            it->second->logResults();
+            it.second->logResults();
         }
 
         LogManager::getSingleton().logMessage("------------------------------------------------------------");
@@ -586,9 +586,9 @@ namespace Ogre {
             )
         );
 
-        for(auto it = children.begin(); it != children.end(); ++it)
+        for(auto & it : children)
         {
-            it->second->logResults();
+            it.second->logResults();
         }
     }
     //-----------------------------------------------------------------------
@@ -606,9 +606,9 @@ namespace Ogre {
 
         history.minClocksPercent = 1;
         history.minClocks = static_cast<ulong>(-1l);
-        for(auto it = children.begin(); it != children.end(); ++it)
+        for(auto & it : children)
         {
-            it->second->reset();
+            it.second->reset();
         }
     }
     //-----------------------------------------------------------------------

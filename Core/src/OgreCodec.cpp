@@ -93,18 +93,17 @@ class Any;
 
     auto Codec::getCodec(char *magicNumberPtr, size_t maxbytes) -> Codec*
     {
-        for (auto i = msMapCodecs. begin(); 
-            i != msMapCodecs.end(); ++i)
+        for (auto & msMapCodec : msMapCodecs)
         {
-            String ext = i->second->magicNumberToFileExt(magicNumberPtr, maxbytes);
+            String ext = msMapCodec.second->magicNumberToFileExt(magicNumberPtr, maxbytes);
             if (!ext.empty())
             {
                 // check codec type matches
                 // if we have a single codec class that can handle many types, 
                 // and register many instances of it against different types, we
                 // can end up matching the wrong one here, so grab the right one
-                if (ext == i->second->getType())
-                    return i->second;
+                if (ext == msMapCodec.second->getType())
+                    return msMapCodec.second;
                 else
                     return getCodec(ext);
             }

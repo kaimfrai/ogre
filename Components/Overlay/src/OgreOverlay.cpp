@@ -60,10 +60,9 @@ namespace Ogre {
 
         delete mRootNode;
         
-        for (auto i = m2DElements.begin(); 
-             i != m2DElements.end(); ++i)
+        for (auto & m2DElement : m2DElements)
         {
-            (*i)->_notifyParent(nullptr, nullptr);
+            m2DElement->_notifyParent(nullptr, nullptr);
         }
     }
     //---------------------------------------------------------------------

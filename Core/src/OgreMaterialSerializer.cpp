@@ -1562,11 +1562,10 @@ namespace Ogre
         GpuLogicalBufferStructPtr floatLogical = params->getLogicalBufferStruct();
         if( floatLogical )
         {
-            for(auto i = floatLogical->map.begin();
-                i != floatLogical->map.end(); ++i)
+            for(auto & i : floatLogical->map)
             {
-                size_t logicalIndex = i->first;
-                const GpuLogicalIndexUse& logicalUse = i->second;
+                size_t logicalIndex = i.first;
+                const GpuLogicalIndexUse& logicalUse = i.second;
 
                 const GpuProgramParameters::AutoConstantEntry* autoEntry = 
                     params->findFloatAutoConstantEntry(logicalIndex);

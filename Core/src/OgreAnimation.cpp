@@ -577,10 +577,9 @@ class VertexData;
         }
 
         // Now destroy the tracks we marked for death
-        for(auto h = tracksToDestroy.begin();
-            h != tracksToDestroy.end(); ++h)
+        for(unsigned short & h : tracksToDestroy)
         {
-            destroyNodeTrack(*h);
+            destroyNodeTrack(h);
         }
     }
     //-----------------------------------------------------------------------
@@ -605,10 +604,9 @@ class VertexData;
         }
 
         // Now destroy the tracks we marked for death
-        for(auto h = tracksToDestroy.begin();
-            h != tracksToDestroy.end(); ++h)
+        for(unsigned short & h : tracksToDestroy)
         {
-            destroyVertexTrack(*h);
+            destroyVertexTrack(h);
         }
 
     }
@@ -620,20 +618,17 @@ class VertexData;
         newAnim->mRotationInterpolationMode = mRotationInterpolationMode;
         
         // Clone all tracks
-        for (auto i = mNodeTrackList.begin();
-            i != mNodeTrackList.end(); ++i)
+        for (auto i : mNodeTrackList)
         {
-            i->second->_clone(newAnim);
+            i.second->_clone(newAnim);
         }
-        for (auto i = mNumericTrackList.begin();
-            i != mNumericTrackList.end(); ++i)
+        for (auto i : mNumericTrackList)
         {
-            i->second->_clone(newAnim);
+            i.second->_clone(newAnim);
         }
-        for (auto i = mVertexTrackList.begin();
-            i != mVertexTrackList.end(); ++i)
+        for (auto i : mVertexTrackList)
         {
-            i->second->_clone(newAnim);
+            i.second->_clone(newAnim);
         }
 
         newAnim->_keyFrameListChanged();
@@ -743,9 +738,9 @@ class VertexData;
             
             if (baseAnim)
             {
-                for (auto i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
+                for (auto & i : mNodeTrackList)
                 {
-                    NodeAnimationTrack* track = i->second;
+                    NodeAnimationTrack* track = i.second;
                     
                     NodeAnimationTrack* baseTrack;
                     if (baseAnim == this)
@@ -758,9 +753,9 @@ class VertexData;
                     track->_applyBaseKeyFrame(&kf);
                 }
                 
-                for (auto i = mVertexTrackList.begin(); i != mVertexTrackList.end(); ++i)
+                for (auto & i : mVertexTrackList)
                 {
-                    VertexAnimationTrack* track = i->second;
+                    VertexAnimationTrack* track = i.second;
                     
                     if (track->getAnimationType() == VAT_POSE)
                     {

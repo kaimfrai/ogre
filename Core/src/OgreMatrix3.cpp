@@ -706,10 +706,10 @@ namespace Ogre
             for (iCol = 0; iCol < 3; iCol++)
             {
                 kP[iRow][iCol] = 0.0;
-                for (int iMid = 0; iMid < 3; iMid++)
+                for (auto iMid : m)
                 {
                     kP[iRow][iCol] +=
-                        m[iMid][iRow]*m[iMid][iCol];
+                        iMid[iRow]*iMid[iCol];
                 }
                 if ( kP[iRow][iCol] > fPmax )
                     fPmax = kP[iRow][iCol];
@@ -1305,12 +1305,12 @@ namespace Ogre
                     afDiag[i2+1] = fTmp0+fTmp2;
                     fTmp0 = fCos*fTmp1-fTmp4;
 
-                    for (int iRow = 0; iRow < 3; iRow++)
+                    for (auto & iRow : m)
                     {
-                        fTmp3 = m[iRow][i2+1];
-                        m[iRow][i2+1] = fSin*m[iRow][i2] +
+                        fTmp3 = iRow[i2+1];
+                        iRow[i2+1] = fSin*iRow[i2] +
                             fCos*fTmp3;
-                        m[iRow][i2] = fCos*m[iRow][i2] -
+                        iRow[i2] = fCos*iRow[i2] -
                             fSin*fTmp3;
                     }
                 }

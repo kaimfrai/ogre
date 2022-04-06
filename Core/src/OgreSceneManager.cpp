@@ -159,10 +159,9 @@ SceneManager::~SceneManager()
     clearScene();
     destroyAllCameras();
 
-    for (auto i = mMovableObjectCollectionMap.begin();
-        i != mMovableObjectCollectionMap.end(); ++i)
+    for (auto & i : mMovableObjectCollectionMap)
     {
-        delete i->second;
+        delete i.second;
     }
     mMovableObjectCollectionMap.clear();
 }
@@ -706,10 +705,9 @@ void SceneManager::clearScene()
     getRootSceneNode()->detachAllObjects();
 
     // Delete all SceneNodes, except root that is
-    for (auto i = mSceneNodes.begin();
-        i != mSceneNodes.end(); ++i)
+    for (auto & mSceneNode : mSceneNodes)
     {
-        delete *i;
+        delete mSceneNode;
     }
     mSceneNodes.clear();
     mNamedNodes.clear();
@@ -1361,12 +1359,11 @@ void SceneManager::_releaseManualHardwareResources()
     mShadowRenderer.mShadowIndexBuffer.reset();
 
     // release hardware resources inside all movable objects
-    for(auto ci = mMovableObjectCollectionMap.begin(),
-        ci_end = mMovableObjectCollectionMap.end(); ci != ci_end; ++ci)
+    for(auto & ci : mMovableObjectCollectionMap)
     {
-        MovableObjectCollection* coll = ci->second;
-        for(auto i = coll->map.begin(), i_end = coll->map.end(); i != i_end; ++i)
-            i->second->_releaseManualHardwareResources();
+        MovableObjectCollection* coll = ci.second;
+        for(auto & i : coll->map)
+            i.second->_releaseManualHardwareResources();
     }
 }
 //-----------------------------------------------------------------------
@@ -1383,12 +1380,11 @@ void SceneManager::_restoreManualHardwareResources()
     }
 
     // restore hardware resources inside all movable objects
-    for(auto ci = mMovableObjectCollectionMap.begin(),
-        ci_end = mMovableObjectCollectionMap.end(); ci != ci_end; ++ci)
+    for(auto & ci : mMovableObjectCollectionMap)
     {
-        MovableObjectCollection* coll = ci->second;
-        for(auto i = coll->map.begin(), i_end = coll->map.end(); i != i_end; ++i)
-            i->second->_restoreManualHardwareResources();
+        MovableObjectCollection* coll = ci.second;
+        for(auto & i : coll->map)
+            i.second->_restoreManualHardwareResources();
     }
 }
 //-----------------------------------------------------------------------
@@ -2423,19 +2419,17 @@ void SceneManager::removeShadowTextureListener(ShadowTextureListener* delListene
 //---------------------------------------------------------------------
 void SceneManager::firePreRenderQueues()
 {
-    for (auto i = mRenderQueueListeners.begin(); 
-        i != mRenderQueueListeners.end(); ++i)
+    for (auto & mRenderQueueListener : mRenderQueueListeners)
     {
-        (*i)->preRenderQueues();
+        mRenderQueueListener->preRenderQueues();
     }
 }
 //---------------------------------------------------------------------
 void SceneManager::firePostRenderQueues()
 {
-    for (auto i = mRenderQueueListeners.begin(); 
-        i != mRenderQueueListeners.end(); ++i)
+    for (auto & mRenderQueueListener : mRenderQueueListeners)
     {
-        (*i)->postRenderQueues();
+        mRenderQueueListener->postRenderQueues();
     }
 }
 //---------------------------------------------------------------------
@@ -2783,9 +2777,8 @@ auto SceneManager::buildAndSetScissor(const LightList& ll, const Camera* cam) ->
     finalRect.left = finalRect.bottom = 1.0f;
     finalRect.right = finalRect.top = -1.0f;
 
-    for (auto i = ll.begin(); i != ll.end(); ++i)
+    for (auto l : ll)
     {
-        Light* l = *i;
         // a directional light is being used, no scissoring can be done, period.
         if (l->getType() == Light::LT_DIRECTIONAL)
             return CLIPPED_NONE;
@@ -2856,8 +2849,8 @@ void SceneManager::checkCachedLightClippingInfo(bool forceScissorRectsInvalidati
     }
     else if(forceScissorRectsInvalidation)
     {
-        for(auto ci = mLightClippingInfoMap.begin(), ci_end = mLightClippingInfoMap.end(); ci != ci_end; ++ci)
-            ci->second.scissorValid = false;
+        for(auto & ci : mLightClippingInfoMap)
+            ci.second.scissorValid = false;
     }
 }
 //---------------------------------------------------------------------
@@ -2883,10 +2876,10 @@ auto SceneManager::buildAndSetLightClip(const LightList& ll) -> ClipResult
         return CLIPPED_NONE;
 
     Light* clipBase = nullptr;
-    for (auto i = ll.begin(); i != ll.end(); ++i)
+    for (auto i : ll)
     {
         // a directional light is being used, no clipping can be done, period.
-        if ((*i)->getType() == Light::LT_DIRECTIONAL)
+        if (i->getType() == Light::LT_DIRECTIONAL)
             return CLIPPED_NONE;
 
         if (clipBase)
@@ -2895,7 +2888,7 @@ auto SceneManager::buildAndSetLightClip(const LightList& ll) -> ClipResult
             // in this list we could clip by, so clip none
             return CLIPPED_NONE;
         }
-        clipBase = *i;
+        clipBase = i;
     }
 
     if (clipBase)
@@ -3643,9 +3636,9 @@ void SceneManager::_notifyMovableObjectLodChanged(MovableObjectLodChangedEvent& 
 {
     // Notify listeners and determine if event needs to be queued
     bool queueEvent = false;
-    for (auto it = mLodListeners.begin(); it != mLodListeners.end(); ++it)
+    for (auto mLodListener : mLodListeners)
     {
-        if ((*it)->prequeueMovableObjectLodChanged(evt))
+        if (mLodListener->prequeueMovableObjectLodChanged(evt))
             queueEvent = true;
     }
 
@@ -3658,9 +3651,9 @@ void SceneManager::_notifyEntityMeshLodChanged(EntityMeshLodChangedEvent& evt)
 {
     // Notify listeners and determine if event needs to be queued
     bool queueEvent = false;
-    for (auto it = mLodListeners.begin(); it != mLodListeners.end(); ++it)
+    for (auto mLodListener : mLodListeners)
     {
-        if ((*it)->prequeueEntityMeshLodChanged(evt))
+        if (mLodListener->prequeueEntityMeshLodChanged(evt))
             queueEvent = true;
     }
 
@@ -3673,9 +3666,9 @@ void SceneManager::_notifyEntityMaterialLodChanged(EntityMaterialLodChangedEvent
 {
     // Notify listeners and determine if event needs to be queued
     bool queueEvent = false;
-    for (auto it = mLodListeners.begin(); it != mLodListeners.end(); ++it)
+    for (auto mLodListener : mLodListeners)
     {
-        if ((*it)->prequeueEntityMaterialLodChanged(evt))
+        if (mLodListener->prequeueEntityMaterialLodChanged(evt))
             queueEvent = true;
     }
 
@@ -3687,16 +3680,16 @@ void SceneManager::_notifyEntityMaterialLodChanged(EntityMaterialLodChangedEvent
 void SceneManager::_handleLodEvents()
 {
     // Handle events with each listener
-    for (auto it = mLodListeners.begin(); it != mLodListeners.end(); ++it)
+    for (auto mLodListener : mLodListeners)
     {
-        for (auto jt = mMovableObjectLodChangedEvents.begin(); jt != mMovableObjectLodChangedEvents.end(); ++jt)
-            (*it)->postqueueMovableObjectLodChanged(*jt);
+        for (auto & mMovableObjectLodChangedEvent : mMovableObjectLodChangedEvents)
+            mLodListener->postqueueMovableObjectLodChanged(mMovableObjectLodChangedEvent);
 
-        for (auto jt = mEntityMeshLodChangedEvents.begin(); jt != mEntityMeshLodChangedEvents.end(); ++jt)
-            (*it)->postqueueEntityMeshLodChanged(*jt);
+        for (auto & mEntityMeshLodChangedEvent : mEntityMeshLodChangedEvents)
+            mLodListener->postqueueEntityMeshLodChanged(mEntityMeshLodChangedEvent);
 
-        for (auto jt = mEntityMaterialLodChangedEvents.begin(); jt != mEntityMaterialLodChangedEvents.end(); ++jt)
-            (*it)->postqueueEntityMaterialLodChanged(*jt);
+        for (auto & mEntityMaterialLodChangedEvent : mEntityMaterialLodChangedEvents)
+            mLodListener->postqueueEntityMaterialLodChanged(mEntityMaterialLodChangedEvent);
     }
 
     // Clear event queues

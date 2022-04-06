@@ -133,11 +133,11 @@ void SGScriptTranslator::translateTextureUnit(ScriptCompiler* compiler, const Ab
             shaderGenerator->getRenderState(dstTechniqueSchemeName, *material, pass->getIndex());
 
         // Go over all the render state properties.
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 SubRenderState* subRenderState = ShaderGenerator::getSingleton().createSubRenderState(compiler, prop, texState, this);
                 
                 if (subRenderState)
@@ -152,7 +152,7 @@ void SGScriptTranslator::translateTextureUnit(ScriptCompiler* compiler, const Ab
             }
             else
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
 
@@ -187,11 +187,11 @@ void SGScriptTranslator::translatePass(ScriptCompiler* compiler, const AbstractN
     if (techniqueCreated)
     {
         // Go over all the render state properties.
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
 
                 // Handle light count property.
                 if (prop->name == "light_count")
@@ -235,7 +235,7 @@ void SGScriptTranslator::translatePass(ScriptCompiler* compiler, const AbstractN
             }
             else
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
 

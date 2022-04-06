@@ -97,9 +97,9 @@ auto FFPTexturing::getExecutionOrder() const -> int
 //-----------------------------------------------------------------------
 auto FFPTexturing::resolveParameters(ProgramSet* programSet) -> bool
 {
-    for (unsigned int i=0; i < mTextureUnitParamsList.size(); ++i)
+    for (auto & i : mTextureUnitParamsList)
     {
-        TextureUnitParams* curParams = &mTextureUnitParamsList[i];
+        TextureUnitParams* curParams = &i;
 
         if (false == resolveUniformParams(curParams, programSet))
             return false;
@@ -272,9 +272,9 @@ auto FFPTexturing::addFunctionInvocations(ProgramSet* programSet) -> bool
     Function* vsMain   = vsProgram->getEntryPointFunction();
     Function* psMain   = psProgram->getEntryPointFunction();
 
-    for (unsigned int i=0; i < mTextureUnitParamsList.size(); ++i)
+    for (auto & i : mTextureUnitParamsList)
     {
-        TextureUnitParams* curParams = &mTextureUnitParamsList[i];
+        TextureUnitParams* curParams = &i;
 
         if (false == addVSFunctionInvocations(curParams, vsMain))
             return false;

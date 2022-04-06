@@ -700,10 +700,8 @@ namespace Ogre {
     auto VertexDeclaration::getNextFreeTextureCoordinate() const -> unsigned short
     {
         unsigned short texCoord = 0;
-        for (auto i = mElementList.begin(); 
-             i != mElementList.end(); ++i)
+        for (const auto & el : mElementList)
         {
-            const VertexElement& el = *i;
             if (el.getSemantic() == VES_TEXTURE_COORDINATES)
             {
                 ++texCoord;

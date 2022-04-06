@@ -499,10 +499,9 @@ class Sphere;
                     boneHasVerts[ iBone ] = false;
                 }
                 // for each bone that has vertices weighted to it,
-                for (size_t iBlend = 0; iBlend < mMesh->sharedBlendIndexToBoneIndexMap.size(); ++iBlend)
+                for (unsigned long iBone : mMesh->sharedBlendIndexToBoneIndexMap)
                 {
                     // record which bones have vertices assigned
-                    size_t iBone = mMesh->sharedBlendIndexToBoneIndexMap[ iBlend ];
                     boneHasVerts[ iBone ] = true;
                 }
                 // for each submesh,
@@ -513,9 +512,8 @@ class Sphere;
                     if ( ! submesh->useSharedVertices )
                     {
                         // record which bones have vertices assigned
-                        for (size_t iBlend = 0; iBlend < submesh->blendIndexToBoneIndexMap.size(); ++iBlend)
+                        for (unsigned long iBone : submesh->blendIndexToBoneIndexMap)
                         {
-                            size_t iBone = submesh->blendIndexToBoneIndexMap[ iBlend ];
                             boneHasVerts[ iBone ] = true;
                         }
                     }
@@ -769,10 +767,8 @@ class Sphere;
         {
             ret = ret && mTempVertexAnimInfo.buffersCheckedOut(true, mMesh->getSharedVertexDataAnimationIncludesNormals());
         }
-        for (auto i = mSubEntityList.begin();
-             i != mSubEntityList.end(); ++i)
+        for (auto sub : mSubEntityList)
         {
-            SubEntity* sub = *i;
             if (!sub->getSubMesh()->useSharedVertices
                 && sub->getSubMesh()->getVertexAnimationType() != VAT_NONE)
             {
@@ -791,10 +787,8 @@ class Sphere;
             if (!mTempSkelAnimInfo.buffersCheckedOut(true, requestNormals))
                 return false;
         }
-        for (auto i = mSubEntityList.begin();
-             i != mSubEntityList.end(); ++i)
+        for (auto sub : mSubEntityList)
         {
-            SubEntity* sub = *i;
             if (sub->isVisible() && sub->mSkelAnimVertexData)
             {
                 if (!sub->mTempSkelAnimInfo.buffersCheckedOut(true, requestNormals))
@@ -986,9 +980,9 @@ class Sphere;
                 vdata->allocateHardwareAnimationElements(numberOfElements, animateNormals);
         }
         // Initialise parametrics in case we don't use all of them
-        for (size_t i = 0; i < vdata->hwAnimationDataList.size(); ++i)
+        for (auto & i : vdata->hwAnimationDataList)
         {
-            vdata->hwAnimationDataList[i].parametric = 0.0f;
+            i.parametric = 0.0f;
         }
         // reset used count
         vdata->hwAnimDataItemsUsed = 0;
@@ -1026,10 +1020,8 @@ class Sphere;
                 }
                     
 }
-            for (auto si = mSubEntityList.begin();
-                si != mSubEntityList.end(); ++si)
+            for (auto sub : mSubEntityList)
             {
-                SubEntity* sub = *si;
                 if (sub->getSubMesh()->getVertexAnimationType() != VAT_NONE &&
                     !sub->getSubMesh()->useSharedVertices)
                 {
@@ -1071,10 +1063,8 @@ class Sphere;
                 initialisePoseVertexData(mMesh->sharedVertexData, mSoftwareVertexAnimVertexData.get(),
                     mMesh->getSharedVertexDataAnimationIncludesNormals());
             }
-            for (auto si = mSubEntityList.begin();
-                si != mSubEntityList.end(); ++si)
+            for (auto sub : mSubEntityList)
             {
-                SubEntity* sub = *si;
                 if (!sub->getSubMesh()->useSharedVertices &&
                     sub->getSubMesh()->getVertexAnimationType() == VAT_POSE)
                 {
@@ -1126,10 +1116,8 @@ class Sphere;
                     ->vertexBufferBinding->getBuffer(elem->getSource());
                 buf->suppressHardwareUpdate(false);
             }
-            for (auto si = mSubEntityList.begin();
-                si != mSubEntityList.end(); ++si)
+            for (auto sub : mSubEntityList)
             {
-                SubEntity* sub = *si;
                 if (!sub->getSubMesh()->useSharedVertices &&
                     sub->getSubMesh()->getVertexAnimationType() == VAT_POSE)
                 {
@@ -1152,10 +1140,9 @@ class Sphere;
     void Entity::markBuffersUnusedForAnimation()
     {
         mVertexAnimationAppliedThisFrame = false;
-        for (auto i = mSubEntityList.begin();
-            i != mSubEntityList.end(); ++i)
+        for (auto & i : mSubEntityList)
         {
-            (*i)->_markBuffersUnusedForAnimation();
+            i->_markBuffersUnusedForAnimation();
         }
     }
     //-----------------------------------------------------------------------------
@@ -1201,10 +1188,9 @@ class Sphere;
         }
 
 
-        for (auto i = mSubEntityList.begin();
-            i != mSubEntityList.end(); ++i)
+        for (auto & i : mSubEntityList)
         {
-            (*i)->_restoreBuffersForUnusedAnimation(hardwareAnimation);
+            i->_restoreBuffersForUnusedAnimation(hardwareAnimation);
         }
 
     }
@@ -2343,9 +2329,9 @@ class Sphere;
         bool debugRenderables)
     {
         // Visit each SubEntity
-        for (auto i = mSubEntityList.begin(); i != mSubEntityList.end(); ++i)
+        for (auto & i : mSubEntityList)
         {
-            visitor->visit(*i, 0, false);
+            visitor->visit(i, 0, false);
         }
 
         // if manual LOD is in use, visit those too

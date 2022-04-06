@@ -169,9 +169,8 @@ class AnimationStateSet;
         Skeleton::unprepareImpl();
 
         // destroy TagPoints
-        for (auto it = mActiveTagPoints.begin(); it != mActiveTagPoints.end(); ++it)
+        for (auto tagPoint : mActiveTagPoints)
         {
-            TagPoint* tagPoint = *it;
             // Woohoo! The child object all the same attaching this skeleton instance, but is ok we can just
             // ignore it:
             //   1. The parent node of the tagPoint already deleted by Skeleton::unload(), nothing need to do now
@@ -179,9 +178,8 @@ class AnimationStateSet;
             delete tagPoint;
         }
         mActiveTagPoints.clear();
-        for (auto it2 = mFreeTagPoints.begin(); it2 != mFreeTagPoints.end(); ++it2)
+        for (auto tagPoint : mFreeTagPoints)
         {
-            TagPoint* tagPoint = *it2;
             delete tagPoint;
         }
         mFreeTagPoints.clear();

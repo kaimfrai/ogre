@@ -85,9 +85,9 @@ namespace Ogre {
     {
         ListenerList listenersCopy;
         std::swap(mListeners, listenersCopy);
-        for (auto i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
+        for (auto & i : listenersCopy)
         {
-            (*i)->viewportDestroyed(this);
+            i->viewportDestroyed(this);
         }
 
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
@@ -136,9 +136,9 @@ namespace Ogre {
 
          mUpdated = true;
 
-        for (auto i = mListeners.begin(); i != mListeners.end(); ++i)
+        for (auto & mListener : mListeners)
         {
-            (*i)->viewportDimensionsChanged(this);
+            mListener->viewportDimensionsChanged(this);
         }
     }
     //---------------------------------------------------------------------
@@ -330,9 +330,9 @@ namespace Ogre {
             cam->_notifyViewport(this);
         }
 
-        for (auto i = mListeners.begin(); i != mListeners.end(); ++i)
+        for (auto & mListener : mListeners)
         {
-            (*i)->viewportCameraChanged(this);
+            mListener->viewportCameraChanged(this);
         }
     }
     //---------------------------------------------------------------------

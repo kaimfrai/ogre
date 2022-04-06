@@ -63,11 +63,10 @@ class Camera;
         ViewportList vlist = mViewportList;
         
         // Delete viewports
-        for (auto i = vlist.begin();
-            i != vlist.end(); ++i)
+        for (auto & i : vlist)
         {
-            fireViewportRemoved(i->second);
-            delete (*i).second;
+            fireViewportRemoved(i.second);
+            delete i.second;
         }
 
         //DepthBuffer keeps track of us, avoid a dangling pointer
@@ -264,10 +263,10 @@ class Camera;
         // make a copy of the list to avoid crashes, the viewport destructor change the list
         ViewportList vlist = mViewportList;
 
-        for (auto it = vlist.begin(); it != vlist.end(); ++it)
+        for (auto & it : vlist)
         {
-            fireViewportRemoved(it->second);
-            delete (*it).second;
+            fireViewportRemoved(it.second);
+            delete it.second;
         }
 
         mViewportList.clear();

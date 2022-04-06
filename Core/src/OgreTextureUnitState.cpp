@@ -221,9 +221,9 @@ class Frustum;
         mCompositorRefName = oth.mCompositorRefName;
         mCompositorRefTexName = oth.mCompositorRefTexName;
         // Can't sharing controllers with other TUS, reset to null to avoid potential bug.
-        for (auto j = mEffects.begin(); j != mEffects.end(); ++j)
+        for (auto & mEffect : mEffects)
         {
-            j->second.controller = nullptr;
+            mEffect.second.controller = nullptr;
         }
 
         // Load immediately if Material loaded
@@ -963,9 +963,9 @@ class Frustum;
             createAnimController();
         }
         // Effect controllers
-        for (auto it = mEffects.begin(); it != mEffects.end(); ++it)
+        for (auto & mEffect : mEffects)
         {
-            createEffectController(it->second);
+            createEffectController(mEffect.second);
         }
 
     }
@@ -1149,12 +1149,12 @@ class Frustum;
         }
 
         // Destroy effect controllers
-        for (auto i = mEffects.begin(); i != mEffects.end(); ++i)
+        for (auto & mEffect : mEffects)
         {
-            if (i->second.controller)
+            if (mEffect.second.controller)
             {
-                ControllerManager::getSingleton().destroyController(i->second.controller);
-                i->second.controller = nullptr;
+                ControllerManager::getSingleton().destroyController(mEffect.second.controller);
+                mEffect.second.controller = nullptr;
             }
         }
 

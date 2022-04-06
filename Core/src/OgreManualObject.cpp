@@ -91,9 +91,9 @@ ManualObject::ManualObject(const String& name)
     void ManualObject::clear()
     {
         resetTempAreas();
-        for (auto i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto & i : mSectionList)
         {
-            delete *i;
+            delete i;
         }
         mSectionList.clear();
         mRadius = 0;
@@ -298,12 +298,10 @@ ManualObject::ManualObject(const String& name)
         char* pBase = mTempVertexBuffer + (mDeclSize * (rop->vertexData->vertexCount-1));
         const VertexDeclaration::VertexElementList& elemList =
             rop->vertexData->vertexDeclaration->getElements();
-        for (auto i = elemList.begin();
-            i != elemList.end(); ++i)
+        for (const auto & elem : elemList)
         {
             float* pFloat = nullptr;
             RGBA* pRGBA = nullptr;
-            const VertexElement& elem = *i;
             switch(elem.getType())
             {
             case VET_FLOAT1:
@@ -509,9 +507,9 @@ ManualObject::ManualObject(const String& name)
     void ManualObject::setUseIdentityProjection(bool useIdentityProjection)
     {
         // Set existing
-        for (auto i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto & i : mSectionList)
         {
-            (*i)->setUseIdentityProjection(useIdentityProjection);
+            i->setUseIdentityProjection(useIdentityProjection);
         }
         
         // Save setting for future sections
@@ -521,9 +519,9 @@ ManualObject::ManualObject(const String& name)
     void ManualObject::setUseIdentityView(bool useIdentityView)
     {
         // Set existing
-        for (auto i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto & i : mSectionList)
         {
-            (*i)->setUseIdentityView(useIdentityView);
+            i->setUseIdentityView(useIdentityView);
         }
 
         // Save setting for future sections
@@ -540,10 +538,10 @@ ManualObject::ManualObject(const String& name)
         // To be used when order of creation must be kept while rendering
         unsigned short priority = queue->getDefaultRenderablePriority();
 
-        for (auto i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto & i : mSectionList)
         {
             // Skip empty sections (only happens if non-empty first, then updated)
-            RenderOperation* rop = (*i)->getRenderOperation();
+            RenderOperation* rop = i->getRenderOperation();
             if (rop->vertexData->vertexCount == 0 ||
                 (rop->useIndexes && rop->indexData->indexCount == 0))
                 continue;
@@ -551,21 +549,21 @@ ManualObject::ManualObject(const String& name)
             if (mRenderQueuePrioritySet)
             {
                 assert(mRenderQueueIDSet == true);
-                queue->addRenderable(*i, mRenderQueueID, mRenderQueuePriority);
+                queue->addRenderable(i, mRenderQueueID, mRenderQueuePriority);
             }
             else if (mRenderQueueIDSet)
-                queue->addRenderable(*i, mRenderQueueID, mKeepDeclarationOrder ? priority++ : queue->getDefaultRenderablePriority());
+                queue->addRenderable(i, mRenderQueueID, mKeepDeclarationOrder ? priority++ : queue->getDefaultRenderablePriority());
             else
-                queue->addRenderable(*i, queue->getDefaultQueueGroup(), mKeepDeclarationOrder ? priority++ : queue->getDefaultRenderablePriority());
+                queue->addRenderable(i, queue->getDefaultQueueGroup(), mKeepDeclarationOrder ? priority++ : queue->getDefaultRenderablePriority());
         }
     }
     //-----------------------------------------------------------------------------
     void ManualObject::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (auto i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto & i : mSectionList)
         {
-            visitor->visit(*i, 0, false);
+            visitor->visit(i, 0, false);
         }
 
     }
@@ -578,9 +576,9 @@ ManualObject::ManualObject(const String& name)
             EdgeListBuilder eb;
             size_t vertexSet = 0;
             bool anyBuilt = false;
-            for (auto i = mSectionList.begin(); i != mSectionList.end(); ++i)
+            for (auto & i : mSectionList)
             {
-                RenderOperation* rop = (*i)->getRenderOperation();
+                RenderOperation* rop = i->getRenderOperation();
                 // Only indexed triangle geometry supported for stencil shadows
                 if (rop->useIndexes && rop->indexData->indexCount != 0 && 
                     (rop->operationType == RenderOperation::OT_TRIANGLE_FAN ||

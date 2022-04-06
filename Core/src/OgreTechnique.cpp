@@ -237,21 +237,20 @@ namespace Ogre {
         bool includeRuleMatched = false;
 
         // Check vendors first
-        for (auto i = mGPUVendorRules.begin();
-            i != mGPUVendorRules.end(); ++i)
+        for (auto & mGPUVendorRule : mGPUVendorRules)
         {
-            if (i->includeOrExclude == INCLUDE)
+            if (mGPUVendorRule.includeOrExclude == INCLUDE)
             {
                 includeRulesPresent = true;
-                includeRules << caps->vendorToString(i->vendor) << " ";
-                if (i->vendor == caps->getVendor())
+                includeRules << caps->vendorToString(mGPUVendorRule.vendor) << " ";
+                if (mGPUVendorRule.vendor == caps->getVendor())
                     includeRuleMatched = true;
             }
             else // EXCLUDE
             {
-                if (i->vendor == caps->getVendor())
+                if (mGPUVendorRule.vendor == caps->getVendor())
                 {
-                    errors << "Excluded GPU vendor: " << caps->vendorToString(i->vendor)
+                    errors << "Excluded GPU vendor: " << caps->vendorToString(mGPUVendorRule.vendor)
                         << std::endl;
                     return false;
                 }
@@ -271,21 +270,20 @@ namespace Ogre {
         includeRulesPresent = false;
         includeRuleMatched = false;
 
-        for (auto i = mGPUDeviceNameRules.begin();
-            i != mGPUDeviceNameRules.end(); ++i)
+        for (auto & mGPUDeviceNameRule : mGPUDeviceNameRules)
         {
-            if (i->includeOrExclude == INCLUDE)
+            if (mGPUDeviceNameRule.includeOrExclude == INCLUDE)
             {
                 includeRulesPresent = true;
-                includeRules << i->devicePattern << " ";
-                if (StringUtil::match(caps->getDeviceName(), i->devicePattern, i->caseSensitive))
+                includeRules << mGPUDeviceNameRule.devicePattern << " ";
+                if (StringUtil::match(caps->getDeviceName(), mGPUDeviceNameRule.devicePattern, mGPUDeviceNameRule.caseSensitive))
                     includeRuleMatched = true;
             }
             else // EXCLUDE
             {
-                if (StringUtil::match(caps->getDeviceName(), i->devicePattern, i->caseSensitive))
+                if (StringUtil::match(caps->getDeviceName(), mGPUDeviceNameRule.devicePattern, mGPUDeviceNameRule.caseSensitive))
                 {
-                    errors << "Excluded GPU device: " << i->devicePattern
+                    errors << "Excluded GPU device: " << mGPUDeviceNameRule.devicePattern
                         << std::endl;
                     return false;
                 }

@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <iterator>
+#include <ranges>
 #include <string>
 #include <utility>
 
@@ -466,10 +467,9 @@ void CompositorChain::viewportDestroyed(Viewport* viewport)
 //-----------------------------------------------------------------------
 void CompositorChain::clearCompiledState()
 {
-    for (auto i = mRenderSystemOperations.begin();
-        i != mRenderSystemOperations.end(); ++i)
+    for (auto & mRenderSystemOperation : mRenderSystemOperations)
     {
-        delete *i;
+        delete mRenderSystemOperation;
     }
     mRenderSystemOperations.clear();
 
@@ -500,13 +500,13 @@ void CompositorChain::_compile()
     /// Set previous CompositorInstance for each compositor in the list
     CompositorInstance *lastComposition = mOriginalScene;
     mOriginalScene->mPreviousInstance = nullptr;
-    for(auto i=mInstances.begin(); i!=mInstances.end(); ++i)
+    for(auto & mInstance : mInstances)
     {
-        if((*i)->getEnabled())
+        if(mInstance->getEnabled())
         {
             compositorsEnabled = true;
-            (*i)->mPreviousInstance = lastComposition;
-            lastComposition = (*i);
+            mInstance->mPreviousInstance = lastComposition;
+            lastComposition = mInstance;
         }
     }
     
@@ -623,14 +623,14 @@ void CompositorChain::RQListener::flushUpTo(uint8 id)
 auto CompositorChain::getPreviousInstance(CompositorInstance* curr, bool activeOnly) -> CompositorInstance*
 {
     bool found = false;
-    for(auto i=mInstances.rbegin(); i!=mInstances.rend(); ++i)
+    for(auto & mInstance : std::ranges::reverse_view(mInstances))
     {
         if (found)
         {
-            if ((*i)->getEnabled() || !activeOnly)
-                return *i;
+            if (mInstance->getEnabled() || !activeOnly)
+                return mInstance;
         }
-        else if(*i == curr)
+        else if(mInstance == curr)
         {
             found = true;
         }
@@ -642,14 +642,14 @@ auto CompositorChain::getPreviousInstance(CompositorInstance* curr, bool activeO
 auto CompositorChain::getNextInstance(CompositorInstance* curr, bool activeOnly) -> CompositorInstance*
 {
     bool found = false;
-    for(auto i=mInstances.begin(); i!=mInstances.end(); ++i)
+    for(auto & mInstance : mInstances)
     {
         if (found)
         {
-            if ((*i)->getEnabled() || !activeOnly)
-                return *i;
+            if (mInstance->getEnabled() || !activeOnly)
+                return mInstance;
         }
-        else if(*i == curr)
+        else if(mInstance == curr)
         {
             found = true;
         }

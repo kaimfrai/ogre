@@ -152,20 +152,20 @@ void Compositor::compile()
 //---------------------------------------------------------------------
 auto Compositor::getSupportedTechnique(const String& schemeName) -> CompositionTechnique*
 {
-    for(auto i = mSupportedTechniques.begin(); i != mSupportedTechniques.end(); ++i)
+    for(auto & mSupportedTechnique : mSupportedTechniques)
     {
-        if ((*i)->getSchemeName() == schemeName)
+        if (mSupportedTechnique->getSchemeName() == schemeName)
         {
-            return *i;
+            return mSupportedTechnique;
         }
     }
 
     // didn't find a matching one
-    for(auto i = mSupportedTechniques.begin(); i != mSupportedTechniques.end(); ++i)
+    for(auto & mSupportedTechnique : mSupportedTechniques)
     {
-        if ((*i)->getSchemeName().empty())
+        if (mSupportedTechnique->getSchemeName().empty())
         {
-            return *i;
+            return mSupportedTechnique;
         }
     }
 

@@ -1029,11 +1029,11 @@ class LodStrategy;
 
         bool bval;
 
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_LOD_VALUES:
@@ -1139,9 +1139,9 @@ class LodStrategy;
                                        "token \"" + prop->name + "\" is not recognized");
                 }
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
 
@@ -1179,11 +1179,11 @@ class LodStrategy;
         String sval;
 
         // Set the properties for the material
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_SCHEME:
@@ -1325,9 +1325,9 @@ class LodStrategy;
                                        "token \"" + prop->name + "\" is not recognized");
                 }
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
     }
@@ -1356,11 +1356,11 @@ class LodStrategy;
         uint32 uival;
 
         // Set the properties for the material
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_AMBIENT:
@@ -2196,9 +2196,9 @@ class LodStrategy;
                                        "token \"" + prop->name + "\" is not recognized");
                 }
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                auto *child = static_cast<ObjectAbstractNode*>((*i).get());
+                auto *child = static_cast<ObjectAbstractNode*>(i.get());
                 switch(child->id)
                 {
                 case ID_FRAGMENT_PROGRAM_REF:
@@ -2222,7 +2222,7 @@ class LodStrategy;
                     translateShadowReceiverProgramRef(GPT_FRAGMENT_PROGRAM, compiler, child);
                     break;
                 default:
-                    processNode(compiler, *i);
+                    processNode(compiler, i);
                     break;
                 case ID_FRAGMENT_PROGRAM:
                 case ID_VERTEX_PROGRAM:
@@ -2232,7 +2232,7 @@ class LodStrategy;
                 case ID_COMPUTE_PROGRAM:
                 {
                     // auto assign inline defined programs
-                    processNode(compiler, *i);
+                    processNode(compiler, i);
                     GpuProgramType type = getProgramType(child->id);
                     mPass->setGpuProgram(type, GpuProgramUsage::_getProgramByName(child->name, mPass->getResourceGroup(), type));
                 }
@@ -2500,11 +2500,11 @@ class LodStrategy;
         SamplerPtr sampler = TextureManager::getSingleton().createSampler(obj->name);
 
         // Set the properties for the material
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_TEX_ADDRESS_MODE:
@@ -2521,9 +2521,9 @@ class LodStrategy;
                                        "token \"" + prop->name + "\" is not recognized");
                 }
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
     }
@@ -2545,11 +2545,11 @@ class LodStrategy;
         String sval;
 
         // Set the properties for the material
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_TEX_ADDRESS_MODE:
@@ -3332,9 +3332,9 @@ class LodStrategy;
                                        "token \"" + prop->name + "\" is not recognized");
                 }
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
     }
@@ -3406,11 +3406,11 @@ class LodStrategy;
 
         ExternalTextureSourceManager::getSingleton().getCurrentPlugIn()->setParameter( "set_T_P_S", tps );
 
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                auto *prop = (PropertyAbstractNode*)(*i).get();
+                auto *prop = (PropertyAbstractNode*)i.get();
                 // Glob the property values all together
                 String str = "";
                 for(auto j = prop->values.begin(); j != prop->values.end(); ++j)
@@ -3421,9 +3421,9 @@ class LodStrategy;
                 }
                 ExternalTextureSourceManager::getSingleton().getCurrentPlugIn()->setParameter(prop->name, str);
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
 
@@ -3485,11 +3485,11 @@ class LodStrategy;
         std::vector<std::pair<PropertyAbstractNode*, String> > customParameters;
         String source, profiles, target;
         AbstractNodePtr params;
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                auto *prop = (PropertyAbstractNode*)(*i).get();
+                auto *prop = (PropertyAbstractNode*)i.get();
                 if(prop->id == ID_SOURCE)
                 {
                     if(!getValue(prop, compiler, source))
@@ -3545,12 +3545,12 @@ class LodStrategy;
                         customParameters.emplace_back(prop, value);
                 }
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                if(((ObjectAbstractNode*)(*i).get())->id == ID_DEFAULT_PARAMS)
-                    params = *i;
+                if(((ObjectAbstractNode*)i.get())->id == ID_DEFAULT_PARAMS)
+                    params = i;
                 else
-                    processNode(compiler, *i);
+                    processNode(compiler, i);
             }
         }
 
@@ -3679,11 +3679,11 @@ class LodStrategy;
         uint32 animParametricsCount = 0;
 
         String value;
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_SHARED_PARAMS_REF:
@@ -4166,12 +4166,12 @@ class LodStrategy;
             return;
         }
 
-        for (auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for (auto & i : obj->children)
         {
-            if ((*i)->type != ANT_PROPERTY)
+            if (i->type != ANT_PROPERTY)
                 continue;
 
-            auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+            auto *prop = static_cast<PropertyAbstractNode*>(i.get());
             if (prop->id != ID_SHARED_PARAM_NAMED)
             {
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
@@ -4333,11 +4333,11 @@ class LodStrategy;
 
         obj->context = mSystem;
 
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_MATERIAL:
@@ -4407,7 +4407,7 @@ class LodStrategy;
             }
             else
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
     }
@@ -4449,11 +4449,11 @@ class LodStrategy;
             return;
         }
 
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 String value;
 
                 // Glob the values together
@@ -4480,7 +4480,7 @@ class LodStrategy;
             }
             else
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
     }
@@ -4521,11 +4521,11 @@ class LodStrategy;
             return;
         }
 
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 String value;
 
                 // Glob the values together
@@ -4552,7 +4552,7 @@ class LodStrategy;
             }
             else
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
     }
@@ -4593,15 +4593,15 @@ class LodStrategy;
         mCompositor->_notifyOrigin(obj->file);
         obj->context = mCompositor;
 
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_OBJECT)
+            if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
             else
             {
-                compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, (*i)->file, (*i)->line,
+                compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, i->file, i->line,
                                    "token not recognized");
             }
         }
@@ -4624,15 +4624,15 @@ class LodStrategy;
 
         String sval;
 
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_OBJECT)
+            if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
-            else if((*i)->type == ANT_PROPERTY)
+            else if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_TEXTURE:
@@ -4906,15 +4906,15 @@ class LodStrategy;
         uint32 uival;
         String sval;
 
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_OBJECT)
+            if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
-            else if((*i)->type == ANT_PROPERTY)
+            else if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_INPUT:
@@ -5018,15 +5018,15 @@ class LodStrategy;
         String sval;
         StencilOperation sop;
 
-        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_OBJECT)
+            if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
-            else if((*i)->type == ANT_PROPERTY)
+            else if(i->type == ANT_PROPERTY)
             {
-                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_CHECK:

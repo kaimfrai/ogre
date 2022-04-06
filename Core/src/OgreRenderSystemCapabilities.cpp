@@ -61,9 +61,9 @@ namespace Ogre {
     RenderSystemCapabilities::RenderSystemCapabilities()
          
     {
-        for(int i = 0; i < CAPS_CATEGORY_COUNT; i++)
+        for(int & mCapabilitie : mCapabilities)
         {
-            mCapabilities[i] = 0;
+            mCapabilitie = 0;
         }
         mCategoryRelevant[CAPS_CATEGORY_COMMON] = true;
         mCategoryRelevant[CAPS_CATEGORY_COMMON_2] = true;

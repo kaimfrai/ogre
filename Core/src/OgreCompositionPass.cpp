@@ -133,9 +133,9 @@ auto CompositionPass::getNumInputs() const -> size_t
 //-----------------------------------------------------------------------
 void CompositionPass::clearAllInputs()
 {
-    for(size_t x=0; x<OGRE_MAX_TEXTURE_LAYERS; ++x)
+    for(auto & input : mMaterial.inputs)
     {
-        mMaterial.inputs[x].name.clear();
+        input.name.clear();
     }
 }
 //-----------------------------------------------------------------------

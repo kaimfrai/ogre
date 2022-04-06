@@ -101,10 +101,9 @@ namespace Ogre {
     MeshSerializer::~MeshSerializer()
     {
         // delete map
-        for (auto i = mVersionData.begin();
-            i != mVersionData.end(); ++i)
+        for (auto & i : mVersionData)
         {
-            delete *i;
+            delete i;
         }
         mVersionData.clear();
 
@@ -149,12 +148,11 @@ namespace Ogre {
             impl = mVersionData[0]->impl;
         else 
         {
-            for (auto i = mVersionData.begin(); 
-                 i != mVersionData.end(); ++i)
+            for (auto & i : mVersionData)
             {
-                if (version == (*i)->version)
+                if (version == i->version)
                 {
-                    impl = (*i)->impl;
+                    impl = i->impl;
                     break;
                 }
             }
@@ -190,12 +188,11 @@ namespace Ogre {
 
         // Find the implementation to use
         MeshSerializerImpl* impl = nullptr;
-        for (auto i = mVersionData.begin(); 
-             i != mVersionData.end(); ++i)
+        for (auto & i : mVersionData)
         {
-            if ((*i)->versionString == ver)
+            if (i->versionString == ver)
             {
-                impl = (*i)->impl;
+                impl = i->impl;
                 break;
             }
         }           

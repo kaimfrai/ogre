@@ -19,16 +19,16 @@ void OgreBites::StaticPluginLoader::load()
     mPlugins.push_back(plugin);
 
     Root& root  = Root::getSingleton();
-    for (size_t i = 0; i < mPlugins.size(); ++i) {
-        root.installPlugin(mPlugins[i]);
+    for (auto & mPlugin : mPlugins) {
+        root.installPlugin(mPlugin);
     }
 }
 
 void OgreBites::StaticPluginLoader::unload()
 {
     // don't unload plugins, since Root will have done that. Destroy here.
-    for (size_t i = 0; i < mPlugins.size(); ++i) {
-        delete mPlugins[i];
+    for (auto & mPlugin : mPlugins) {
+        delete mPlugin;
     }
     mPlugins.clear();
 }

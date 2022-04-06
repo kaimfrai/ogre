@@ -120,11 +120,10 @@ struct HtmlElement : public HtmlNode
         out<<"<"<<tagname;
 
         // attributes
-        for (auto it = attributes.begin();
-            it != attributes.end(); ++it)
+        for (auto & attribute : attributes)
         {
             // name="value"
-            out<<" "<<(*it).first<<"=\""<<(*it).second<<"\"";
+            out<<" "<<attribute.first<<"=\""<<attribute.second<<"\"";
         }
 
         // self-closing is done here
@@ -137,10 +136,9 @@ struct HtmlElement : public HtmlNode
         out<<">";
 
         // print children
-        for (auto it = children.begin();
-            it != children.end(); ++it)
+        for (auto & it : children)
         {
-            out<<(*it)->print(indent + "\t");
+            out<<it->print(indent + "\t");
         }
 
         // if the last child was an actual element start a newline (otherwise, if text, we'll close on the same line)

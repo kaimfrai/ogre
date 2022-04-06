@@ -239,12 +239,9 @@ namespace Ogre {
     {
 
         // Init stats
-        for(
-            auto it = mRenderTargets.begin();
-            it != mRenderTargets.end();
-            ++it )
+        for(auto & mRenderTarget : mRenderTargets)
         {
-            it->second->resetStatistics();
+            mRenderTarget.second->resetStatistics();
         }
 
     }
@@ -598,10 +595,9 @@ namespace Ogre {
     void RenderSystem::shutdown()
     {
         // Remove occlusion queries
-        for (auto i = mHwOcclusionQueries.begin();
-            i != mHwOcclusionQueries.end(); ++i)
+        for (auto & mHwOcclusionQuerie : mHwOcclusionQueries)
         {
-            delete *i;
+            delete mHwOcclusionQuerie;
         }
         mHwOcclusionQueries.clear();
 
@@ -807,10 +803,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::fireEvent(const String& name, const NameValuePairList* params)
     {
-        for(auto i = mEventListeners.begin(); 
-            i != mEventListeners.end(); ++i)
+        for(auto & mEventListener : mEventListeners)
         {
-            (*i)->eventOccurred(name, params);
+            mEventListener->eventOccurred(name, params);
         }
 
         if(msSharedEventListener)

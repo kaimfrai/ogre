@@ -61,15 +61,15 @@ class RenderSystem;
         // Destroy all remaining instances
         // Really should have shutdown and unregistered by now, but catch here in case
         Instances instancesCopy = mInstances;
-        for (auto i = instancesCopy.begin(); i != instancesCopy.end(); ++i)
+        for (auto & i : instancesCopy)
         {
             // destroy instances
-            for(auto f = mFactories.begin(); f != mFactories.end(); ++f)
+            for(auto & mFactorie : mFactories)
             {
-                if ((*f)->getMetaData().typeName == i->second->getTypeName())
+                if (mFactorie->getMetaData().typeName == i.second->getTypeName())
                 {
-                    (*f)->destroyInstance(i->second);
-                    mInstances.erase(i->first);
+                    mFactorie->destroyInstance(i.second);
+                    mInstances.erase(i.first);
                     break;
                 }
             }
@@ -122,12 +122,11 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     auto SceneManagerEnumerator::getMetaData(const String& typeName) const -> const SceneManagerMetaData*
     {
-        for (auto i = mMetaDataList.begin(); 
-            i != mMetaDataList.end(); ++i)
+        for (auto i : mMetaDataList)
         {
-            if (typeName == (*i)->typeName)
+            if (typeName == i->typeName)
             {
-                return *i;
+                return i;
             }
         }
 
@@ -149,20 +148,20 @@ class RenderSystem;
         }
 
         SceneManager* inst = nullptr;
-        for(auto i = mFactories.begin(); i != mFactories.end(); ++i)
+        for(auto & mFactorie : mFactories)
         {
-            if ((*i)->getMetaData().typeName == typeName)
+            if (mFactorie->getMetaData().typeName == typeName)
             {
                 if (instanceName.empty())
                 {
                     // generate a name
                     StringStream s;
                     s << "SceneManagerInstance" << ++mInstanceCreateCount;
-                    inst = (*i)->createInstance(s.str());
+                    inst = mFactorie->createInstance(s.str());
                 }
                 else
                 {
-                    inst = (*i)->createInstance(instanceName);
+                    inst = mFactorie->createInstance(instanceName);
                 }
                 break;
             }
@@ -195,11 +194,11 @@ class RenderSystem;
         mInstances.erase(sm->getName());
 
         // Find factory to destroy
-        for(auto i = mFactories.begin(); i != mFactories.end(); ++i)
+        for(auto & mFactorie : mFactories)
         {
-            if ((*i)->getMetaData().typeName == sm->getTypeName())
+            if (mFactorie->getMetaData().typeName == sm->getTypeName())
             {
-                (*i)->destroyInstance(sm);
+                mFactorie->destroyInstance(sm);
                 break;
             }
         }
@@ -237,19 +236,19 @@ class RenderSystem;
     {
         mCurrentRenderSystem = rs;
 
-        for (auto i = mInstances.begin(); i != mInstances.end(); ++i)
+        for (auto & mInstance : mInstances)
         {
-            i->second->_setDestinationRenderSystem(rs);
+            mInstance.second->_setDestinationRenderSystem(rs);
         }
 
     }
     //-----------------------------------------------------------------------
     void SceneManagerEnumerator::shutdownAll()
     {
-        for (auto i = mInstances.begin(); i != mInstances.end(); ++i)
+        for (auto & mInstance : mInstances)
         {
             // shutdown instances (clear scene)
-            i->second->clearScene();            
+            mInstance.second->clearScene();            
         }
 
     }
