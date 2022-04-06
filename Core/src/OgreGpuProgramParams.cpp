@@ -1533,7 +1533,6 @@ namespace Ogre
         const Affine3* pMatrix;
         size_t m;
         Vector3 vec3;
-        Vector4 vec4;
         Matrix3 m3;
         Matrix4 scaleM;
         DualQuaternion dQuat;

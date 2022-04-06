@@ -570,7 +570,6 @@ class RenderQueue;
 
         if (!mCustomViewMatrix)
         {
-            Matrix3 rot;
             const Quaternion& orientation = getOrientationForViewUpdate();
             const Vector3& position = getPositionForViewUpdate();
 
