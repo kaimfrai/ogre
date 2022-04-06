@@ -129,7 +129,7 @@ namespace Ogre {
         for(auto & shadowRenderable : shadowRenderables)
         {
             delete shadowRenderable;
-            shadowRenderable = 0;
+            shadowRenderable = nullptr;
         }
         shadowRenderables.clear();
     }
