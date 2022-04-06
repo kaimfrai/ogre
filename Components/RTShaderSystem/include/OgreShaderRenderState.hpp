@@ -151,7 +151,7 @@ public:
     
     /** Class default constructor. */
     TargetRenderState();
-    ~TargetRenderState();
+    ~TargetRenderState() override;
 
     /** Add the SubRenderStates of the given render state as templates to this render state.
     @note Only sub render states with non FFP execution order will be added.

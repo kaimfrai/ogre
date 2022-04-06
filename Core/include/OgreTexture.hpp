@@ -139,7 +139,7 @@ class ResourceManager;
         Texture(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
 
-        virtual ~Texture() {}
+        ~Texture() override {}
         
         /** Sets the type of texture; can only be changed before load() 
         */
@@ -494,12 +494,12 @@ class ResourceManager;
 
         void readImage(LoadedImages& imgs, const String& name, const String& ext, bool haveNPOT);
 
-        void prepareImpl();
-        void unprepareImpl();
-        void loadImpl();
+        void prepareImpl() override;
+        void unprepareImpl() override;
+        void loadImpl() override;
 
         /// @copydoc Resource::calculateSize
-        auto calculateSize() const -> size_t;
+        auto calculateSize() const -> size_t override;
         
 
         /** Implementation of creating internal texture resources 
@@ -511,7 +511,7 @@ class ResourceManager;
         virtual void freeInternalResourcesImpl() = 0;
 
         /** Default implementation of unload which calls freeInternalResources */
-        void unloadImpl();
+        void unloadImpl() override;
 
         /** Identify the source file type as a string, either from the extension
             or from a magic number.

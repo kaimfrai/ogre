@@ -82,7 +82,7 @@ class Viewport;
     {
     public:
         CompositorManager();
-        virtual ~CompositorManager();
+        ~CompositorManager() override;
 
         /** Initialises the Compositor manager, which also triggers it to
             parse all available .compositor scripts. */
@@ -140,7 +140,7 @@ class Viewport;
         auto _getTexturedRectangle2D() -> Renderable *;
 
         /** Overridden from ResourceManager since we have to clean up chains too. */
-        void removeAll();
+        void removeAll() override;
 
         /** Internal method for forcing all active compositors to recreate their resources. */
         void _reconstructAllCompositorResources();

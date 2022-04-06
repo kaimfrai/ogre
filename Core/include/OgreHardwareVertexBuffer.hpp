@@ -67,7 +67,7 @@ namespace Ogre {
                                  Usage usage, bool useSystemMemory, bool useShadowBuffer);
             HardwareVertexBuffer(HardwareBufferManagerBase* mgr, size_t vertexSize, size_t numVertices,
                                  HardwareBuffer* delegate);
-            ~HardwareVertexBuffer();
+            ~HardwareVertexBuffer() override;
             /// Return the manager of this buffer, if any
             [[nodiscard]]
             auto getManager() const -> HardwareBufferManagerBase* { return mMgr; }

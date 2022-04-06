@@ -107,16 +107,16 @@ struct GpuNamedConstants;
         virtual void buildConstantDefinitions() = 0;
 
         /** @copydoc Resource::loadImpl */
-        void loadImpl();
+        void loadImpl() override;
         /** @copydoc Resource::unloadImpl */
-        void unloadImpl();
+        void unloadImpl() override;
 
-        void setupBaseParamDictionary();
+        void setupBaseParamDictionary() override;
     public:
         /** Constructor, should be used only by factory classes. */
         HighLevelGpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
-        ~HighLevelGpuProgram();
+        ~HighLevelGpuProgram() override;
 
 
         /** Creates a new parameters object compatible with this program definition. 
@@ -126,9 +126,9 @@ struct GpuNamedConstants;
             HighLevelGpuProgramManager. This method creates a new instance of a parameters
             object containing the definition of the parameters this program understands.
         */
-        auto createParameters() -> GpuProgramParametersSharedPtr;
+        auto createParameters() -> GpuProgramParametersSharedPtr override;
         /** @copydoc GpuProgram::_getBindingDelegate */
-        auto _getBindingDelegate() -> GpuProgram* { return mAssemblerProgram.get(); }
+        auto _getBindingDelegate() -> GpuProgram* override { return mAssemblerProgram.get(); }
 
         /** Get the full list of GpuConstantDefinition instances.
         @note
@@ -136,7 +136,7 @@ struct GpuNamedConstants;
         */
         auto getConstantDefinitions() -> const GpuNamedConstants& override;
 
-        virtual auto calculateSize() const -> size_t;
+        auto calculateSize() const -> size_t override;
 
         /** Sets the preprocessor defines used to compile the program. */
         void setPreprocessorDefines(const String& defines) { mPreprocessorDefines = defines; }

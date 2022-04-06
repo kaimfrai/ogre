@@ -203,7 +203,7 @@ class Sphere;
         /// Named constructor
         Frustum(const String& name = BLANKSTRING);
 
-        virtual ~Frustum();
+        ~Frustum() override;
         /** Sets the Y-dimension Field Of View (FOV) of the frustum.
         @remarks
             Field Of View (FOV) is the angle made between the frustum's position, and the edges
@@ -617,7 +617,7 @@ class Sphere;
 
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
-            bool debugRenderables = false);
+            bool debugRenderables = false) override;
 
         /// Small constant used to reduce far plane projection to avoid inaccuracies
         static const Real INFINITE_FAR_PLANE_ADJUST;

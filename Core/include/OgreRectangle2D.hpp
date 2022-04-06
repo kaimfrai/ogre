@@ -53,7 +53,7 @@ class Matrix4;
     protected:
         /** Override this method to prevent parent transforms (rotation,translation,scale)
         */
-        void getWorldTransforms( Matrix4* xform ) const;
+        void getWorldTransforms( Matrix4* xform ) const override;
 
         void _initRectangle2D(bool includeTextureCoords, HardwareBuffer::Usage vBufUsage);
 
@@ -61,7 +61,7 @@ class Matrix4;
 
         Rectangle2D(bool includeTextureCoordinates = false, HardwareBuffer::Usage vBufUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY);
         Rectangle2D(const String& name, bool includeTextureCoordinates = false, HardwareBuffer::Usage vBufUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY);
-        ~Rectangle2D();
+        ~Rectangle2D() override;
 
         /** Sets the corners of the rectangle, in relative coordinates.
         @param
@@ -88,10 +88,10 @@ class Matrix4;
 
         void setDefaultUVs();
 
-        auto getSquaredViewDepth(const Camera* cam) const -> Real
+        auto getSquaredViewDepth(const Camera* cam) const -> Real override
         { (void)cam; return 0; }
 
-        auto getBoundingRadius() const -> Real { return 0; }
+        auto getBoundingRadius() const -> Real override { return 0; }
 
         auto getMovableType() const -> const String& override;
     };

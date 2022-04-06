@@ -56,11 +56,11 @@ class Archive;
     public:
         /// @copydoc FactoryObj::getType
         [[nodiscard]]
-        auto getType() const -> const String&;
+        auto getType() const -> const String& override;
 
         using ArchiveFactory::createInstance;
 
-        auto createInstance( const String& name, bool readOnly ) -> Archive *;
+        auto createInstance( const String& name, bool readOnly ) -> Archive * override;
 
         /// Set whether filesystem enumeration will include hidden files or not.
         /// This should be called prior to declaring and/or initializing filesystem
@@ -75,12 +75,12 @@ class Archive;
     {
     public:
         APKFileSystemArchiveFactory(AAssetManager* assetMgr) : mAssetMgr(assetMgr) {}
-        virtual ~APKFileSystemArchiveFactory() {}
+        ~APKFileSystemArchiveFactory() override {}
         /// @copydoc FactoryObj::getType
         [[nodiscard]]
-        auto getType() const -> const String&;
+        auto getType() const -> const String& override;
         /// @copydoc ArchiveFactory::createInstance
-        auto createInstance( const String& name, bool readOnly ) -> Archive *;
+        auto createInstance( const String& name, bool readOnly ) -> Archive * override;
     private:
         AAssetManager* mAssetMgr;
     };

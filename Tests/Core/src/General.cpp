@@ -147,7 +147,7 @@ struct SceneQueryTest : public RootWithoutRenderSystemFixture {
     Camera* mCamera;
     SceneNode* mCameraNode;
 
-    void SetUp() {
+    void SetUp() override {
         RootWithoutRenderSystemFixture::SetUp();
 
         mSceneMgr = mRoot->createSceneManager();
@@ -318,7 +318,7 @@ TEST(Image, Combine)
 
 struct UsePreviousResourceLoadingListener : public ResourceLoadingListener
 {
-    auto resourceCollision(Resource *resource, ResourceManager *resourceManager) -> bool { return false; }
+    auto resourceCollision(Resource *resource, ResourceManager *resourceManager) -> bool override { return false; }
 };
 
 typedef RootWithoutRenderSystemFixture ResourceLoading;
@@ -351,7 +351,7 @@ TEST_F(ResourceLoading, CollsionUseExisting)
 
 struct DeletePreviousResourceLoadingListener : public ResourceLoadingListener
 {
-    auto resourceCollision(Resource* resource, ResourceManager* resourceManager) -> bool
+    auto resourceCollision(Resource* resource, ResourceManager* resourceManager) -> bool override
     {
         resourceManager->remove(resource->getName(), resource->getGroup());
         return true;

@@ -89,7 +89,7 @@ namespace OgreBites
     public:
         explicit ApplicationContextBase(const Ogre::String& appName = "Ogre3D");
 
-        virtual ~ApplicationContextBase();
+        ~ApplicationContextBase() override;
 
         /**
          * get the main RenderWindow
@@ -123,12 +123,12 @@ namespace OgreBites
         void closeApp();
 
         // callback interface copied from various listeners to be used by ApplicationContext
-        virtual auto frameStarted(const Ogre::FrameEvent& evt) -> bool {
+        auto frameStarted(const Ogre::FrameEvent& evt) -> bool override {
             pollEvents();
             return true;
         }
-        virtual auto frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool;
-        virtual auto frameEnded(const Ogre::FrameEvent& evt) -> bool { return true; }
+        auto frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool override;
+        auto frameEnded(const Ogre::FrameEvent& evt) -> bool override { return true; }
         virtual void windowMoved(Ogre::RenderWindow* rw) {}
         virtual void windowResized(Ogre::RenderWindow* rw) {}
         virtual auto windowClosing(Ogre::RenderWindow* rw) -> bool { return true; }

@@ -53,7 +53,7 @@ namespace Ogre {
     {
     public:
         GLXGLSupport(int profile);
-        ~GLXGLSupport();
+        ~GLXGLSupport() override;
 
         Atom mAtomDeleteWindow;
         Atom mAtomFullScreen;
@@ -61,22 +61,22 @@ namespace Ogre {
 
         /// @copydoc RenderSystem::createRenderWindow
         auto newWindow(const String &name, unsigned int width, unsigned int height,
-                                bool fullScreen, const NameValuePairList *miscParams = nullptr) -> RenderWindow*;
+                                bool fullScreen, const NameValuePairList *miscParams = nullptr) -> RenderWindow* override;
 
         /// @copydoc GLNativeSupport::createPBuffer
-        auto createPBuffer(PixelComponentType format, size_t width, size_t height) -> GLPBuffer*;
+        auto createPBuffer(PixelComponentType format, size_t width, size_t height) -> GLPBuffer* override;
 
         /** @copydoc see GLNativeSupport::start */
-        void start();
+        void start() override;
 
         /** @copydoc see GLNativeSupport::stop */
-        void stop();
+        void stop() override;
 
         /** @copydoc see GLNativeSupport::initialiseExtensions */
         void initialiseExtensions();
 
         /** @copydoc see GLNativeSupport::getProcAddress */
-        auto getProcAddress(const char* procname) const -> void*;
+        auto getProcAddress(const char* procname) const -> void* override;
 
         // The remaining functions are internal to the GLX Rendersystem:
 

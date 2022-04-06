@@ -61,19 +61,19 @@ namespace Ogre  {
         };
 
         OverlayProfileSessionListener();
-        virtual ~OverlayProfileSessionListener();
+        ~OverlayProfileSessionListener() override;
 
         /// @see ProfileSessionListener::initializeSession
-        virtual void initializeSession();
+        void initializeSession() override;
 
         /// @see ProfileSessionListener::finializeSession
-        virtual void finializeSession();
+        void finializeSession() override;
 
         /// @see ProfileSessionListener::displayResults
-        virtual void displayResults(const ProfileInstance& instance, ulong maxTotalFrameTime);
+        void displayResults(const ProfileInstance& instance, ulong maxTotalFrameTime) override;
 
         /// @see ProfileSessionListener::changeEnableState
-        virtual void changeEnableState(bool enabled);
+        void changeEnableState(bool enabled) override;
 
         /** Set the size of the profiler overlay, in pixels. */
         void setOverlayDimensions(Real width, Real height);

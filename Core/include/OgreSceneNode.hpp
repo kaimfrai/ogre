@@ -94,10 +94,10 @@ class SceneManager;
         /// World-Axis aligned bounding box, updated only through _update
         AxisAlignedBox mWorldAABB;
 
-        void updateFromParentImpl() const;
+        void updateFromParentImpl() const override;
 
         /** See Node */
-        void setParent(Node* parent);
+        void setParent(Node* parent) override;
 
         /// Tracking offset for fine tuning
         Vector3 mAutoTrackOffset;
@@ -119,10 +119,10 @@ class SceneManager;
         */
         virtual void setInSceneGraph(bool inGraph);
         /** See Node. */
-        auto createChildImpl() -> Node*;
+        auto createChildImpl() -> Node* override;
 
         /** See Node. */
-        auto createChildImpl(const String& name) -> Node*;
+        auto createChildImpl(const String& name) -> Node* override;
     public:
         /** Constructor, only to be called by the creator SceneManager.
         @remarks
@@ -134,7 +134,7 @@ class SceneManager;
             Creates a node with a specified name.
         */
         SceneNode(SceneManager* creator, const String& name);
-        ~SceneNode();
+        ~SceneNode() override;
 
         /** Adds an instance of a scene object to this node.
         @remarks
@@ -196,7 +196,7 @@ class SceneManager;
                     so the child should retrieve the parent's transform and combine it with its own
                     even if it hasn't changed itself.
         */
-        void _update(bool updateChildren, bool parentHasChanged);
+        void _update(bool updateChildren, bool parentHasChanged) override;
 
         /** Tells the SceneNode to update the world bound info it stores.
         */
@@ -364,7 +364,7 @@ class SceneManager;
 
         /** Rotate the node around the Y-axis.
         */
-        void yaw(const Radian& angle, TransformSpace relativeTo = TS_LOCAL);
+        void yaw(const Radian& angle, TransformSpace relativeTo = TS_LOCAL) override;
         /** Sets the node's direction vector ie it's local -z.
         @remarks
         Note that the 'up' vector for the orientation will automatically be 

@@ -45,15 +45,15 @@ class ResourceManager;
         ATI_FS_GLGpuProgram(ResourceManager* creator, 
             const String& name, ResourceHandle handle, 
             const String& group, bool isManual, ManualResourceLoader* loader);
-        virtual ~ATI_FS_GLGpuProgram();
+        ~ATI_FS_GLGpuProgram() override;
 
 
         /// Execute the binding functions for this program
-        void bindProgram();
+        void bindProgram() override;
         /// Execute the unbinding functions for this program
-        void unbindProgram();
+        void unbindProgram() override;
         /// Execute the param binding functions for this program
-        void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask);
+        void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask) override;
 
         /// Get the assigned GL program id
         auto getProgramID() const -> GLuint
@@ -61,8 +61,8 @@ class ResourceManager;
 
     protected:
         /// @copydoc Resource::unload
-        void unloadImpl();
-        void loadFromSource();
+        void unloadImpl() override;
+        void loadFromSource() override;
         GLenum mProgramType;
 
     }; // class ATI_FS_GLGpuProgram

@@ -256,7 +256,7 @@ public:
     /** 
     @see FunctionAtom::writeSourceCode
     */
-    virtual void writeSourceCode(std::ostream& os, const String& targetLanguage) const;
+    void writeSourceCode(std::ostream& os, const String& targetLanguage) const override;
 
     /** Return the function name */
     [[nodiscard]]
@@ -304,7 +304,7 @@ public:
     explicit AssignmentAtom(int groupOrder) { mGroupExecutionOrder = groupOrder; }
     /// @note the argument order is reversed comered to all other function invocations
     AssignmentAtom(const Out& lhs, const In& rhs, int groupOrder);
-    void writeSourceCode(std::ostream& os, const String& targetLanguage) const;
+    void writeSourceCode(std::ostream& os, const String& targetLanguage) const override;
 };
 
 /// shorthand for "dst = texture(sampler, uv);" instead of using FFP_SampleTexture
@@ -313,7 +313,7 @@ class SampleTextureAtom : public FunctionAtom
 public:
     explicit SampleTextureAtom(int groupOrder) { mGroupExecutionOrder = groupOrder; }
     SampleTextureAtom(const In& sampler, const In& texcoord, const Out& dst, int groupOrder);
-    void writeSourceCode(std::ostream& os, const String& targetLanguage) const;
+    void writeSourceCode(std::ostream& os, const String& targetLanguage) const override;
 };
 
 /// shorthand for "dst = a OP b;"
@@ -323,7 +323,7 @@ class BinaryOpAtom : public FunctionAtom
 public:
     explicit BinaryOpAtom(char op, int groupOrder) : mOp(op) { mGroupExecutionOrder = groupOrder; }
     BinaryOpAtom(char op, const In& a, const In& b, const Out& dst, int groupOrder);
-    void writeSourceCode(std::ostream& os, const String& targetLanguage) const;
+    void writeSourceCode(std::ostream& os, const String& targetLanguage) const override;
 };
 
 typedef std::vector<FunctionAtom*>                 FunctionAtomInstanceList;

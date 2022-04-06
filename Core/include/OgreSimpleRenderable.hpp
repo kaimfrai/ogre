@@ -79,25 +79,25 @@ class SceneManager;
         SimpleRenderable(const String& name);
 
         virtual void setMaterial(const MaterialPtr& mat);
-        virtual auto getMaterial() const -> const MaterialPtr&;
+        auto getMaterial() const -> const MaterialPtr& override;
 
         virtual void setRenderOperation( const RenderOperation& rend );
-        virtual void getRenderOperation(RenderOperation& op);
+        void getRenderOperation(RenderOperation& op) override;
 
         void setTransform( const Affine3& xform );
-        virtual void getWorldTransforms( Matrix4* xform ) const;
+        void getWorldTransforms( Matrix4* xform ) const override;
 
 
-        virtual void _notifyCurrentCamera(Camera* cam);
+        void _notifyCurrentCamera(Camera* cam) override;
 
         void setBoundingBox( const AxisAlignedBox& box );
-        virtual auto getBoundingBox() const -> const AxisAlignedBox&;
+        auto getBoundingBox() const -> const AxisAlignedBox& override;
 
-        virtual void _updateRenderQueue(RenderQueue* queue);
+        void _updateRenderQueue(RenderQueue* queue) override;
 
         void visitRenderables(Renderable::Visitor* visitor,
             bool debugRenderables = false) override;
-        virtual auto getMovableType() const -> const String& override;
+        auto getMovableType() const -> const String& override;
         auto getLights() const -> const LightList& override;
 
     };

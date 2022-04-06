@@ -83,15 +83,15 @@ public:
     /**
       * Object destructor
       */
-    ~GLHardwareOcclusionQuery();
+    ~GLHardwareOcclusionQuery() override;
 
     //------------------------------------------------------------------
     // Occlusion query functions (see base class documentation for this)
     //--
-    void beginOcclusionQuery();
-    void endOcclusionQuery();
-    auto pullOcclusionQuery( unsigned int* NumOfFragments) -> bool; 
-    auto isStillOutstanding() -> bool;
+    void beginOcclusionQuery() override;
+    void endOcclusionQuery() override;
+    auto pullOcclusionQuery( unsigned int* NumOfFragments) -> bool override; 
+    auto isStillOutstanding() -> bool override;
 
 
     //----------------------------------------------------------------------

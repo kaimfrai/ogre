@@ -299,10 +299,10 @@ class VertexMorphKeyFrame;
         virtual auto createNumericKeyFrame(Real timePos) -> NumericKeyFrame*;
 
         /// @copydoc AnimationTrack::getInterpolatedKeyFrame
-        virtual void getInterpolatedKeyFrame(const TimeIndex& timeIndex, KeyFrame* kf) const;
+        void getInterpolatedKeyFrame(const TimeIndex& timeIndex, KeyFrame* kf) const override;
 
         /// @copydoc AnimationTrack::apply
-        virtual void apply(const TimeIndex& timeIndex, Real weight = 1.0, Real scale = 1.0f);
+        void apply(const TimeIndex& timeIndex, Real weight = 1.0, Real scale = 1.0f) override;
 
         /** Applies an animation track to a given animable value.
         @param anim The AnimableValue to which to apply the animation
@@ -336,7 +336,7 @@ class VertexMorphKeyFrame;
         AnimableValuePtr mTargetAnim;
 
         /// @copydoc AnimationTrack::createKeyFrameImpl
-        auto createKeyFrameImpl(Real time) -> KeyFrame*;
+        auto createKeyFrameImpl(Real time) -> KeyFrame* override;
 
 
     };
@@ -352,7 +352,7 @@ class VertexMorphKeyFrame;
         NodeAnimationTrack(Animation* parent, unsigned short handle, 
             Node* targetNode);
         /// Destructor
-        virtual ~NodeAnimationTrack();
+        ~NodeAnimationTrack() override;
         /** Creates a new KeyFrame and adds it to this animation at the given time index.
         @remarks
             It is better to create KeyFrames in time order. Creating them out of order can result 
@@ -378,13 +378,13 @@ class VertexMorphKeyFrame;
         virtual auto getUseShortestRotationPath() const -> bool;
 
         /// @copydoc AnimationTrack::getInterpolatedKeyFrame
-        virtual void getInterpolatedKeyFrame(const TimeIndex& timeIndex, KeyFrame* kf) const;
+        void getInterpolatedKeyFrame(const TimeIndex& timeIndex, KeyFrame* kf) const override;
 
         /// @copydoc AnimationTrack::apply
-        virtual void apply(const TimeIndex& timeIndex, Real weight = 1.0, Real scale = 1.0f);
+        void apply(const TimeIndex& timeIndex, Real weight = 1.0, Real scale = 1.0f) override;
 
         /// @copydoc AnimationTrack::_keyFrameDataChanged
-        void _keyFrameDataChanged() const;
+        void _keyFrameDataChanged() const override;
 
         /** Returns the KeyFrame at the specified index. */
         virtual auto getNodeKeyFrame(unsigned short index) const -> TransformKeyFrame*;
@@ -394,19 +394,19 @@ class VertexMorphKeyFrame;
             doing anything useful - can be used to determine if this track
             can be optimised out.
         */
-        virtual auto hasNonZeroKeyFrames() const -> bool;
+        auto hasNonZeroKeyFrames() const -> bool override;
 
         /** Optimise the current track by removing any duplicate keyframes. */
-        virtual void optimise();
+        void optimise() override;
 
         /** Clone this track (internal use only) */
         auto _clone(Animation* newParent) const -> NodeAnimationTrack*;
         
-        void _applyBaseKeyFrame(const KeyFrame* base);
+        void _applyBaseKeyFrame(const KeyFrame* base) override;
         
     private:
         /// Specialised keyframe creation
-        auto createKeyFrameImpl(Real time) -> KeyFrame*;
+        auto createKeyFrameImpl(Real time) -> KeyFrame* override;
         // Flag indicating we need to rebuild the splines next time
         virtual void buildInterpolationSplines() const;
 
@@ -538,10 +538,10 @@ class VertexMorphKeyFrame;
 
         /** @copydoc AnimationTrack::getInterpolatedKeyFrame
         */
-        virtual void getInterpolatedKeyFrame(const TimeIndex& timeIndex, KeyFrame* kf) const;
+        void getInterpolatedKeyFrame(const TimeIndex& timeIndex, KeyFrame* kf) const override;
 
         /// @copydoc AnimationTrack::apply
-        virtual void apply(const TimeIndex& timeIndex, Real weight = 1.0, Real scale = 1.0f);
+        void apply(const TimeIndex& timeIndex, Real weight = 1.0, Real scale = 1.0f) override;
 
         /** As the 'apply' method but applies to specified VertexData instead of 
             associated data. */
@@ -575,15 +575,15 @@ class VertexMorphKeyFrame;
         can be optimised out.
         */
         [[nodiscard]]
-        virtual auto hasNonZeroKeyFrames() const -> bool;
+        auto hasNonZeroKeyFrames() const -> bool override;
 
         /** Optimise the current track by removing any duplicate keyframes. */
-        virtual void optimise();
+        void optimise() override;
 
         /** Clone this track (internal use only) */
         auto _clone(Animation* newParent) const -> VertexAnimationTrack*;
         
-        void _applyBaseKeyFrame(const KeyFrame* base);
+        void _applyBaseKeyFrame(const KeyFrame* base) override;
 
     private:
         /// Animation type
@@ -594,7 +594,7 @@ class VertexMorphKeyFrame;
         VertexData* mTargetVertexData;
 
         /// @copydoc AnimationTrack::createKeyFrameImpl
-        auto createKeyFrameImpl(Real time) -> KeyFrame*;
+        auto createKeyFrameImpl(Real time) -> KeyFrame* override;
 
         /// Utility method for applying pose animation
         void applyPoseToVertexData(const Pose* pose, VertexData* data, Real influence);

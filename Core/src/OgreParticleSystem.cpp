@@ -59,78 +59,78 @@ class RenderQueue;
     class CmdQuota : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for emittedEmitterQuota (see ParamCommand).*/
     class CmdEmittedEmitterQuota : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for material (see ParamCommand).*/
     class CmdMaterial : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for cull_each (see ParamCommand).*/
     class CmdCull : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for particle_width (see ParamCommand).*/
     class CmdWidth : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for particle_height (see ParamCommand).*/
     class CmdHeight : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for renderer (see ParamCommand).*/
     class CmdRenderer : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for sorting (see ParamCommand).*/
     class CmdSorted : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for local space (see ParamCommand).*/
     class CmdLocalSpace : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for iteration interval(see ParamCommand).*/
     class CmdIterationInterval : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for nonvisible timeout (see ParamCommand).*/
     class CmdNonvisibleTimeout : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /// Command objects
     static CmdCull msCullCmd;
@@ -158,9 +158,9 @@ class RenderQueue;
         ParticleSystemUpdateValue(ParticleSystem* target) : mTarget(target) {}
 
         [[nodiscard]]
-        auto getValue() const -> Real { return 0; } // N/A
+        auto getValue() const -> Real override { return 0; } // N/A
 
-        void setValue(Real value) { mTarget->_update(value); }
+        void setValue(Real value) override { mTarget->_update(value); }
 
     };
     //-----------------------------------------------------------------------

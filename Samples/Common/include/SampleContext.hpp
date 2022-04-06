@@ -171,7 +171,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Processes frame started events.
         -----------------------------------------------------------------------------*/
-        virtual auto frameStarted(const Ogre::FrameEvent& evt) -> bool
+        auto frameStarted(const Ogre::FrameEvent& evt) -> bool override
         {
             pollEvents();
 
@@ -182,7 +182,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Processes rendering queued events.
         -----------------------------------------------------------------------------*/
-        virtual auto frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool
+        auto frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool override
         {
             // manually call sample callback to ensure correct order
             return !isCurrentSamplePaused() ? mCurrentSample->frameRenderingQueued(evt) : true;
@@ -191,7 +191,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Processes frame ended events.
         -----------------------------------------------------------------------------*/
-        virtual auto frameEnded(const Ogre::FrameEvent& evt) -> bool
+        auto frameEnded(const Ogre::FrameEvent& evt) -> bool override
         {
             // manually call sample callback to ensure correct order
             if (mCurrentSample && !mSamplePaused && !mCurrentSample->frameEnded(evt)) return false;
@@ -207,7 +207,7 @@ namespace OgreBites
         | Processes window size change event. Adjusts mouse's region to match that
         | of the window. You could also override this method to prevent resizing.
         -----------------------------------------------------------------------------*/
-        virtual void windowResized(Ogre::RenderWindow* rw)
+        void windowResized(Ogre::RenderWindow* rw) override
         {
             // manually call sample callback to ensure correct order
             if (!isCurrentSamplePaused()) mCurrentSample->windowResized(rw);
@@ -215,30 +215,30 @@ namespace OgreBites
 
         // window event callbacks which manually call their respective sample callbacks to ensure correct order
 
-        virtual void windowMoved(Ogre::RenderWindow* rw)
+        void windowMoved(Ogre::RenderWindow* rw) override
         {
             if (!isCurrentSamplePaused()) mCurrentSample->windowMoved(rw);
         }
 
-        virtual auto windowClosing(Ogre::RenderWindow* rw) -> bool
+        auto windowClosing(Ogre::RenderWindow* rw) -> bool override
         {
             if (!isCurrentSamplePaused()) return mCurrentSample->windowClosing(rw);
             return true;
         }
 
-        virtual void windowClosed(Ogre::RenderWindow* rw)
+        void windowClosed(Ogre::RenderWindow* rw) override
         {
             if (!isCurrentSamplePaused()) mCurrentSample->windowClosed(rw);
         }
 
-        virtual void windowFocusChange(Ogre::RenderWindow* rw)
+        void windowFocusChange(Ogre::RenderWindow* rw) override
         {
             if (!isCurrentSamplePaused()) mCurrentSample->windowFocusChange(rw);
         }
 
         // keyboard and mouse callbacks which manually call their respective sample callbacks to ensure correct order
 
-        virtual auto keyPressed(const KeyboardEvent& evt) -> bool
+        auto keyPressed(const KeyboardEvent& evt) -> bool override
         {
             // Ignore repeated signals from key being held down.
             if (evt.repeat) return true;
@@ -247,62 +247,62 @@ namespace OgreBites
             return true;
         }
 
-        virtual auto keyReleased(const KeyboardEvent& evt) -> bool
+        auto keyReleased(const KeyboardEvent& evt) -> bool override
         {
             if (!isCurrentSamplePaused()) return mCurrentSample->keyReleased(evt);
             return true;
         }
 
-        virtual auto touchMoved(const TouchFingerEvent& evt) -> bool
+        auto touchMoved(const TouchFingerEvent& evt) -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchMoved(evt);
             return true;
         }
 
-        virtual auto mouseMoved(const MouseMotionEvent& evt) -> bool
+        auto mouseMoved(const MouseMotionEvent& evt) -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mouseMoved(evt);
             return true;
         }
 
-        virtual auto touchPressed(const TouchFingerEvent& evt) -> bool
+        auto touchPressed(const TouchFingerEvent& evt) -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchPressed(evt);
             return true;
         }
 
-        virtual auto mousePressed(const MouseButtonEvent& evt) -> bool
+        auto mousePressed(const MouseButtonEvent& evt) -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mousePressed(evt);
             return true;
         }
 
-        virtual auto touchReleased(const TouchFingerEvent& evt) -> bool
+        auto touchReleased(const TouchFingerEvent& evt) -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchReleased(evt);
             return true;
         }
 
-        virtual auto mouseReleased(const MouseButtonEvent& evt) -> bool
+        auto mouseReleased(const MouseButtonEvent& evt) -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mouseReleased(evt);
             return true;
         }
 
-        virtual auto mouseWheelRolled(const MouseWheelEvent& evt) -> bool
+        auto mouseWheelRolled(const MouseWheelEvent& evt) -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mouseWheelRolled(evt);
             return true;
         }
 
-        virtual auto textInput (const TextInputEvent& evt) -> bool
+        auto textInput (const TextInputEvent& evt) -> bool override
         {
             if (!isCurrentSamplePaused ())
                 return mCurrentSample->textInput (evt);
@@ -317,7 +317,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Reconfigures the context. Attempts to preserve the current sample state.
         -----------------------------------------------------------------------------*/
-        virtual void reconfigure(const Ogre::String& renderer, Ogre::NameValuePairList& options)
+        void reconfigure(const Ogre::String& renderer, Ogre::NameValuePairList& options) override
         {
             // save current sample state
             mLastSample = mCurrentSample;
@@ -343,7 +343,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Cleans up and shuts down the context.
         -----------------------------------------------------------------------------*/
-        virtual void shutdown()
+        void shutdown() override
         {
             if (mCurrentSample)
             {

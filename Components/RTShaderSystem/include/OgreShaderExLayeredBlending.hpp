@@ -126,7 +126,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    virtual auto getType                 () const -> const Ogre::String&;
+    auto getType                 () const -> const Ogre::String& override;
 
 
     /** 
@@ -163,7 +163,7 @@ public:
     /** 
     @see SubRenderState::copyFrom.
     */
-    virtual void copyFrom(const SubRenderState& rhs);
+    void copyFrom(const SubRenderState& rhs) override;
 
     static String Type;
 
@@ -173,22 +173,22 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
+    auto resolveParameters(ProgramSet* programSet) -> bool override;
 
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    virtual auto resolveDependencies(Ogre::RTShader::ProgramSet* programSet) -> bool;
+    auto resolveDependencies(Ogre::RTShader::ProgramSet* programSet) -> bool override;
 
 
-    virtual void addPSBlendInvocations(Function* psMain, 
+    void addPSBlendInvocations(Function* psMain, 
                                        ParameterPtr arg1,
                                        ParameterPtr arg2,
                                        ParameterPtr texel,
                                        int samplerIndex,
                                        const LayerBlendModeEx& blendMode,
                                        const int groupOrder, 
-                                       Operand::OpMask targetChannels);
+                                       Operand::OpMask targetChannels) override;
     /** 
     Adds the function invocation to the pixel shader which will modify
     the blend sources according to the source modification parameters.
@@ -220,17 +220,17 @@ public:
     @see SubRenderStateFactory::getType.
     */
     [[nodiscard]]
-    virtual auto getType() const -> const String&;
+    auto getType() const -> const String& override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator) -> SubRenderState*;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator) -> SubRenderState* override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
     */
-    virtual void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, const TextureUnitState* srcTextureUnit, const TextureUnitState* dstTextureUnit);
+    void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, const TextureUnitState* srcTextureUnit, const TextureUnitState* dstTextureUnit) override;
 
     
 protected:
@@ -238,7 +238,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual auto createInstanceImpl() -> SubRenderState*;
+    auto createInstanceImpl() -> SubRenderState* override;
 
     /** 
     @Converts string to Enum

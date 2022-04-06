@@ -340,7 +340,7 @@ class VertexData;
         BillboardSet( const String& name, unsigned int poolSize = 20, 
             bool externalDataSource = false);
 
-        virtual ~BillboardSet();
+        ~BillboardSet() override;
 
         /** Creates a new billboard and adds it to this set.
         @remarks
@@ -524,7 +524,7 @@ class VertexData;
         */
         auto getMaterialName() const -> const String& { return mMaterial->getName(); }
 
-        virtual void _notifyCurrentCamera(Camera* cam) override;
+        void _notifyCurrentCamera(Camera* cam) override;
 
         /** Begin injection of billboard data; applicable when 
             constructing the BillboardSet for external data use.
@@ -545,7 +545,7 @@ class VertexData;
 
         auto getBoundingBox() const -> const AxisAlignedBox& override { return mAABB; }
         auto getBoundingRadius() const -> Real override { return mBoundingRadius; }
-        virtual void _updateRenderQueue(RenderQueue* queue) override;
+        void _updateRenderQueue(RenderQueue* queue) override;
         auto getMaterial() const -> const MaterialPtr& override { return mMaterial; }
 
         /** Sets the name of the material to be used for this billboard set.
@@ -555,8 +555,8 @@ class VertexData;
         virtual void setMaterial( const MaterialPtr& material );
 
 
-        virtual void getRenderOperation(RenderOperation& op) override;
-        virtual void getWorldTransforms(Matrix4* xform) const override;
+        void getRenderOperation(RenderOperation& op) override;
+        void getWorldTransforms(Matrix4* xform) const override;
 
         /** Returns whether or not billboards in this are tested individually for culling. */
         auto getCullIndividually() const -> bool { return mCullIndividual; }
@@ -667,17 +667,17 @@ class VertexData;
         auto getUseAccurateFacing() const -> bool { return mAccurateFacing; }
         /// @}
 
-        virtual auto getMovableType() const -> const String& override;
+        auto getMovableType() const -> const String& override;
         auto getSquaredViewDepth(const Camera* cam) const -> Real override;
 
         /** Update the bounds of the billboardset */
         virtual void _updateBounds();
         /** @copydoc Renderable::getLights */
-        auto getLights() const -> const LightList&;
+        auto getLights() const -> const LightList& override;
 
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
-            bool debugRenderables = false);
+            bool debugRenderables = false) override;
 
         /** Sort the billboard set. Only called when enabled via setSortingEnabled */
         virtual void _sortBillboards( Camera* cam);
@@ -786,7 +786,7 @@ class VertexData;
         auto isPointRenderingEnabled() const -> bool { return mPointRendering; }
 
         /// Override to return specific type flag
-        auto getTypeFlags() const -> uint32;
+        auto getTypeFlags() const -> uint32 override;
 
         /** Set the auto update state of this billboard set.
         @remarks
@@ -809,7 +809,7 @@ class VertexData;
         void notifyBillboardDataChanged() { mBillboardDataChanged = true; }
 
         /** @copydoc MovableObject::_releaseManualHardwareResources */
-        void _releaseManualHardwareResources() { _destroyBuffers(); }
+        void _releaseManualHardwareResources() override { _destroyBuffers(); }
 
     };
 
@@ -817,15 +817,15 @@ class VertexData;
     class BillboardSetFactory : public MovableObjectFactory
     {
     protected:
-        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject*;
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
     public:
         BillboardSetFactory() {}
-        ~BillboardSetFactory() {}
+        ~BillboardSetFactory() override {}
 
         static String FACTORY_TYPE_NAME;
 
         [[nodiscard]]
-        auto getType() const -> const String&;
+        auto getType() const -> const String& override;
     };
     /** @} */
     /** @} */

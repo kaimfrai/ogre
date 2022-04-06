@@ -42,10 +42,10 @@ class GLHardwarePixelBufferCommon : public HardwarePixelBuffer
 {
 protected:
     /// Lock a box
-    auto lockImpl(const Box &lockBox,  LockOptions options) -> PixelBox;
+    auto lockImpl(const Box &lockBox,  LockOptions options) -> PixelBox override;
 
     /// Unlock a box
-    void unlockImpl();
+    void unlockImpl() override;
 
     // Internal buffer; either on-card or in system memory, freed/allocated on demand
     // depending on buffer usage
@@ -68,7 +68,7 @@ public:
                                PixelFormat mFormat,
                                HardwareBuffer::Usage usage);
 
-    virtual ~GLHardwarePixelBufferCommon();
+    ~GLHardwarePixelBufferCommon() override;
 
     /** Bind surface to frame buffer. Needs FBO extension.
      */

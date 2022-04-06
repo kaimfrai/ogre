@@ -148,10 +148,10 @@ struct GLGpuProgramBase;
         bool mEnableFixedPipeline;
 
     protected:
-        void setClipPlanesImpl(const PlaneList& clipPlanes);
+        void setClipPlanesImpl(const PlaneList& clipPlanes) override;
         void bindVertexElementToGpu(const VertexElement& elem,
                                     const HardwareVertexBufferSharedPtr& vertexBuffer,
-                                    const size_t vertexStart);
+                                    const size_t vertexStart) override;
 
         /** Initialises GL extensions, must be done AFTER the GL context has been
             established.
@@ -160,54 +160,54 @@ struct GLGpuProgramBase;
     public:
         // Default constructor / destructor
         GLRenderSystem();
-        ~GLRenderSystem();
+        ~GLRenderSystem() override;
 
         // ----------------------------------
         // Overridden RenderSystem functions
         // ----------------------------------
 
-        auto getFixedFunctionParams(TrackVertexColourType tracking, FogMode fog) -> const GpuProgramParametersPtr&;
+        auto getFixedFunctionParams(TrackVertexColourType tracking, FogMode fog) -> const GpuProgramParametersPtr& override;
 
-        void applyFixedFunctionParams(const GpuProgramParametersPtr& params, uint16 variabilityMask);
+        void applyFixedFunctionParams(const GpuProgramParametersPtr& params, uint16 variabilityMask) override;
 
         [[nodiscard]]
-        auto getName() const -> const String&;
+        auto getName() const -> const String& override;
 
         void _initialise() override;
 
         void initConfigOptions() override;
 
         [[nodiscard]]
-        virtual auto createRenderSystemCapabilities() const -> RenderSystemCapabilities*;
+        auto createRenderSystemCapabilities() const -> RenderSystemCapabilities* override;
 
-        void initialiseFromRenderSystemCapabilities(RenderSystemCapabilities* caps, RenderTarget* primary);
+        void initialiseFromRenderSystemCapabilities(RenderSystemCapabilities* caps, RenderTarget* primary) override;
 
-        void shutdown();
+        void shutdown() override;
 
-        void setShadingType(ShadeOptions so);
+        void setShadingType(ShadeOptions so) override;
 
-        void setLightingEnabled(bool enabled);
+        void setLightingEnabled(bool enabled) override;
         
         /// @copydoc RenderSystem::_createRenderWindow
         auto _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
-                                          bool fullScreen, const NameValuePairList *miscParams = nullptr) -> RenderWindow*;
+                                          bool fullScreen, const NameValuePairList *miscParams = nullptr) -> RenderWindow* override;
 
         /// @copydoc RenderSystem::_createDepthBufferFor
-        auto _createDepthBufferFor( RenderTarget *renderTarget ) -> DepthBuffer*;
+        auto _createDepthBufferFor( RenderTarget *renderTarget ) -> DepthBuffer* override;
         
         /// @copydoc RenderSystem::createMultiRenderTarget
-        virtual auto createMultiRenderTarget(const String & name) -> MultiRenderTarget *; 
+        auto createMultiRenderTarget(const String & name) -> MultiRenderTarget * override; 
         
 
-        void destroyRenderWindow(const String& name);
+        void destroyRenderWindow(const String& name) override;
 
-        void setNormaliseNormals(bool normalise);
+        void setNormaliseNormals(bool normalise) override;
 
         // -----------------------------
         // Low-level overridden members
         // -----------------------------
 
-        void _useLights(unsigned short limit);
+        void _useLights(unsigned short limit) override;
 
         void setWorldMatrix(const Matrix4 &m);
 
@@ -217,36 +217,36 @@ struct GLGpuProgramBase;
 
         void _setSurfaceTracking(TrackVertexColourType tracking);
 
-        void _setPointParameters(bool attenuationEnabled, Real minSize, Real maxSize);
+        void _setPointParameters(bool attenuationEnabled, Real minSize, Real maxSize) override;
 
-        void _setLineWidth(float width);
+        void _setLineWidth(float width) override;
 
-        void _setPointSpritesEnabled(bool enabled);
+        void _setPointSpritesEnabled(bool enabled) override;
 
-        void _setTexture(size_t unit, bool enabled, const TexturePtr &tex);
+        void _setTexture(size_t unit, bool enabled, const TexturePtr &tex) override;
 
-        void _setSampler(size_t unit, Sampler& sampler);
+        void _setSampler(size_t unit, Sampler& sampler) override;
 
-        void _setTextureCoordSet(size_t stage, size_t index);
+        void _setTextureCoordSet(size_t stage, size_t index) override;
 
         void _setTextureCoordCalculation(size_t stage, TexCoordCalcMethod m, 
-            const Frustum* frustum = nullptr);
+            const Frustum* frustum = nullptr) override;
 
-        void _setTextureBlendMode(size_t stage, const LayerBlendModeEx& bm);
+        void _setTextureBlendMode(size_t stage, const LayerBlendModeEx& bm) override;
 
         void _setTextureAddressingMode(size_t stage, const Sampler::UVWAddressingMode& uvw);
 
-        void _setTextureMatrix(size_t stage, const Matrix4& xform);
+        void _setTextureMatrix(size_t stage, const Matrix4& xform) override;
 
-        void _setAlphaRejectSettings(CompareFunction func, unsigned char value, bool alphaToCoverage);
+        void _setAlphaRejectSettings(CompareFunction func, unsigned char value, bool alphaToCoverage) override;
 
-        void _setViewport(Viewport *vp);
+        void _setViewport(Viewport *vp) override;
 
-        void _endFrame();
+        void _endFrame() override;
 
-        void _setCullingMode(CullingMode mode);
+        void _setCullingMode(CullingMode mode) override;
 
-        void _setDepthBufferParams(bool depthTest = true, bool depthWrite = true, CompareFunction depthFunction = CMPF_LESS_EQUAL);
+        void _setDepthBufferParams(bool depthTest = true, bool depthWrite = true, CompareFunction depthFunction = CMPF_LESS_EQUAL) override;
 
         void _setDepthBufferCheckEnabled(bool enabled = true);
 
@@ -254,9 +254,9 @@ struct GLGpuProgramBase;
 
         void _setDepthBufferFunction(CompareFunction func = CMPF_LESS_EQUAL);
 
-        void _setDepthBias(float constantBias, float slopeScaleBias);
+        void _setDepthBias(float constantBias, float slopeScaleBias) override;
 
-        void setColourBlendState(const ColourBlendState& state);
+        void setColourBlendState(const ColourBlendState& state) override;
 
         void _setFog(FogMode mode);
 
@@ -264,38 +264,38 @@ struct GLGpuProgramBase;
 
         void enableClipPlane (ushort index, bool enable);
 
-        void _setPolygonMode(PolygonMode level);
+        void _setPolygonMode(PolygonMode level) override;
 
         void setStencilState(const StencilState& state) override;
 
         void _setTextureUnitFiltering(size_t unit, FilterType ftype, FilterOptions filter);
 
-        void _render(const RenderOperation& op);
+        void _render(const RenderOperation& op) override;
 
-        void bindGpuProgram(GpuProgram* prg);
+        void bindGpuProgram(GpuProgram* prg) override;
 
-        void unbindGpuProgram(GpuProgramType gptype);
+        void unbindGpuProgram(GpuProgramType gptype) override;
 
         void bindGpuProgramParameters(GpuProgramType gptype, 
-                                      const GpuProgramParametersPtr& params, uint16 variabilityMask);
+                                      const GpuProgramParametersPtr& params, uint16 variabilityMask) override;
 
-        void setScissorTest(bool enabled, const Rect& rect = Rect()) ;
+        void setScissorTest(bool enabled, const Rect& rect = Rect()) override ;
         void clearFrameBuffer(unsigned int buffers, 
                               const ColourValue& colour = ColourValue::Black, 
-                              float depth = 1.0f, unsigned short stencil = 0);
-        auto createHardwareOcclusionQuery() -> HardwareOcclusionQuery*;
+                              float depth = 1.0f, unsigned short stencil = 0) override;
+        auto createHardwareOcclusionQuery() -> HardwareOcclusionQuery* override;
 
         // ----------------------------------
         // GLRenderSystem specific members
         // ----------------------------------
-        void _oneTimeContextInitialization();
+        void _oneTimeContextInitialization() override;
         /** Switch GL context, dealing with involved internal cached states too
         */
         void _switchContext(GLContext *context);
         /**
          * Set current render target to target, enabling its GL context if needed
          */
-        void _setRenderTarget(RenderTarget *target);
+        void _setRenderTarget(RenderTarget *target) override;
         /** Unregister a render target->context mapping. If the context of target 
             is the current context, change the context to the main context so it
             can be destroyed safely. 
@@ -303,21 +303,21 @@ struct GLGpuProgramBase;
             @note This is automatically called by the destructor of 
             GLContext.
          */
-        void _unregisterContext(GLContext *context);
+        void _unregisterContext(GLContext *context) override;
 
         auto _getStateCacheManager() -> GLStateCacheManager * { return mStateCacheManager; }
         
         /// @copydoc RenderSystem::beginProfileEvent
-        virtual void beginProfileEvent( const String &eventName );
+        void beginProfileEvent( const String &eventName ) override;
 
         /// @copydoc RenderSystem::endProfileEvent
-        virtual void endProfileEvent( );
+        void endProfileEvent( ) override;
 
         /// @copydoc RenderSystem::markProfileEvent
-        virtual void markProfileEvent( const String &eventName );
+        void markProfileEvent( const String &eventName ) override;
 
         /** @copydoc RenderTarget::copyContentsToMemory */
-        void _copyContentsToMemory(Viewport* vp, const Box& src, const PixelBox &dst, RenderWindow::FrameBuffer buffer);
+        void _copyContentsToMemory(Viewport* vp, const Box& src, const PixelBox &dst, RenderWindow::FrameBuffer buffer) override;
     };
     /** @} */
     /** @} */

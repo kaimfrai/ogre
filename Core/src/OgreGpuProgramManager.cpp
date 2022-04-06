@@ -50,20 +50,20 @@ namespace {
     protected:
         /** Internal load implementation, must be implemented by subclasses.
         */
-        void loadFromSource() {}
-        void unloadImpl() {}
+        void loadFromSource() override {}
+        void unloadImpl() override {}
 
     public:
         NullProgram(ResourceManager* creator,
             const String& name, ResourceHandle handle, const String& group,
             bool isManual, ManualResourceLoader* loader)
             : GpuProgram(creator, name, handle, group, isManual, loader){}
-        ~NullProgram() {}
+        ~NullProgram() override {}
         /// Overridden from GpuProgram - never supported
-        auto isSupported() const -> bool { return false; }
+        auto isSupported() const -> bool override { return false; }
         /// Overridden from GpuProgram
-        auto getLanguage() const -> const String& { return sNullLang; }
-        auto calculateSize() const -> size_t { return 0; }
+        auto getLanguage() const -> const String& override { return sNullLang; }
+        auto calculateSize() const -> size_t override { return 0; }
 
         /// Overridden from StringInterface
         auto setParameter(const String& name, const String& value) -> bool
@@ -78,16 +78,16 @@ namespace {
     {
     public:
         NullProgramFactory() {}
-        ~NullProgramFactory() {}
+        ~NullProgramFactory() override {}
         /// Get the name of the language this factory creates programs for
         [[nodiscard]]
-        auto getLanguage() const -> const String&
+        auto getLanguage() const -> const String& override
         {
             return sNullLang;
         }
         auto create(ResourceManager* creator,
             const String& name, ResourceHandle handle,
-            const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram*
+            const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override
         {
             return new NullProgram(creator, name, handle, group, isManual, loader);
         }

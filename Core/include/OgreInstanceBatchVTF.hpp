@@ -156,23 +156,23 @@ class VertexData;
         virtual void updateSharedLookupIndexes();
 
         /** @see InstanceBatch::generateInstancedEntity() */
-        virtual auto generateInstancedEntity(size_t num) -> InstancedEntity*;
+        auto generateInstancedEntity(size_t num) -> InstancedEntity* override;
 
     public:
         BaseInstanceBatchVTF( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                             size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
                             const String &batchName);
-        virtual ~BaseInstanceBatchVTF();
+        ~BaseInstanceBatchVTF() override;
 
         /** @see InstanceBatch::buildFrom */
-        void buildFrom( const SubMesh *baseSubMesh, const RenderOperation &renderOperation );
+        void buildFrom( const SubMesh *baseSubMesh, const RenderOperation &renderOperation ) override;
 
         //Renderable overloads
-        void getWorldTransforms( Matrix4* xform ) const;
-        auto getNumWorldTransforms() const -> unsigned short;
+        void getWorldTransforms( Matrix4* xform ) const override;
+        auto getNumWorldTransforms() const -> unsigned short override;
 
         /** Overloaded to be able to updated the vertex texture */
-        void _updateRenderQueue(RenderQueue* queue);
+        void _updateRenderQueue(RenderQueue* queue) override;
 
         /** Sets the state of the usage of bone matrix lookup
         
@@ -210,7 +210,7 @@ class VertexData;
         auto useOneWeight() const -> bool { return mUseOneWeight; }
 
         /** @see InstanceBatch::useBoneWorldMatrices()  */
-        virtual auto useBoneWorldMatrices() const -> bool { return !mUseBoneMatrixLookup; }
+        auto useBoneWorldMatrices() const -> bool override { return !mUseBoneMatrixLookup; }
 
         /** @return the maximum amount of shared transform entities when using lookup table*/
         virtual auto getMaxLookupTableInstances() const -> size_t { return mMaxLookupTableInstances; }
@@ -220,22 +220,22 @@ class VertexData;
     class InstanceBatchVTF : public BaseInstanceBatchVTF
     {
         
-        void setupVertices( const SubMesh* baseSubMesh );
-        void setupIndices( const SubMesh* baseSubMesh );
+        void setupVertices( const SubMesh* baseSubMesh ) override;
+        void setupIndices( const SubMesh* baseSubMesh ) override;
 
         /** Creates 2 TEXCOORD semantics that will be used to sample the vertex texture */
         void createVertexSemantics( VertexData *thisVertexData, VertexData *baseVertexData,
-            const HWBoneIdxVec &hwBoneIdx, const HWBoneWgtVec &hwBoneWgt );
+            const HWBoneIdxVec &hwBoneIdx, const HWBoneWgtVec &hwBoneWgt ) override;
 
-        virtual auto matricesTogetherPerRow() const -> bool { return false; }
+        auto matricesTogetherPerRow() const -> bool override { return false; }
     public:
         InstanceBatchVTF( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                             size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
                             const String &batchName);
-        virtual ~InstanceBatchVTF();
+        ~InstanceBatchVTF() override;
 
         /** @see InstanceBatch::calculateMaxNumInstances */
-        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t;
+        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t override;
     };
 }
 

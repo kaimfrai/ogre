@@ -666,7 +666,7 @@ public:
         mValue = val;
     }
 
-    virtual             ~ConstParameter     () {}
+                ~ConstParameter     () override {}
 
     /** Returns the native value of this parameter. (for example a Vector3) */
     [[nodiscard]]
@@ -676,13 +676,13 @@ public:
     @see Parameter::isConstParameter.
     */
     [[nodiscard]]
-    virtual auto isConstParameter() const -> bool { return true; }
+    auto isConstParameter() const -> bool override { return true; }
 
     /** 
     @see Parameter::toString.
     */
     [[nodiscard]]
-    virtual auto toString() const -> String = 0;
+    auto toString() const -> String override = 0;
 
 protected:
     valueType mValue;

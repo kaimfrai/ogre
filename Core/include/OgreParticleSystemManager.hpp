@@ -118,7 +118,7 @@ class ParticleSystemRenderer;
     public:
 
         ParticleSystemManager();
-        virtual ~ParticleSystemManager();
+        ~ParticleSystemManager() override;
 
         /** Adds a new 'factory' object for emitters to the list of available emitter types.
         @remarks
@@ -309,12 +309,12 @@ class ParticleSystemRenderer;
 
         /// @copydoc ScriptLoader::getScriptPatterns
         [[nodiscard]]
-        auto getScriptPatterns() const -> const StringVector&;
+        auto getScriptPatterns() const -> const StringVector& override;
         /// @copydoc ScriptLoader::parseScript
-        void parseScript(DataStreamPtr& stream, const String& groupName);
+        void parseScript(DataStreamPtr& stream, const String& groupName) override;
         /// @copydoc ScriptLoader::getLoadingOrder
         [[nodiscard]]
-        auto getLoadingOrder() const -> Real;
+        auto getLoadingOrder() const -> Real override;
 
         typedef MapIterator<ParticleAffectorFactoryMap> ParticleAffectorFactoryIterator;
         typedef MapIterator<ParticleEmitterFactoryMap> ParticleEmitterFactoryIterator;
@@ -349,15 +349,15 @@ class ParticleSystemRenderer;
     class ParticleSystemFactory : public MovableObjectFactory
     {
     private:
-        auto createInstanceImpl(const String& name, const NameValuePairList* params) -> MovableObject*;
+        auto createInstanceImpl(const String& name, const NameValuePairList* params) -> MovableObject* override;
     public:
         ParticleSystemFactory() {}
-        ~ParticleSystemFactory() {}
+        ~ParticleSystemFactory() override {}
         
         static String FACTORY_TYPE_NAME;
 
         [[nodiscard]]
-        auto getType() const -> const String&;
+        auto getType() const -> const String& override;
     };
     /** @} */
     /** @} */

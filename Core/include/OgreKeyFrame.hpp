@@ -87,7 +87,7 @@ class AnimationTrack;
     public:
         /** Default constructor, you should not call this but use AnimationTrack::createKeyFrame instead. */
         NumericKeyFrame(const AnimationTrack* parent, Real time);
-        ~NumericKeyFrame() {}
+        ~NumericKeyFrame() override {}
 
         /** Get the value at this keyframe. */
         [[nodiscard]]
@@ -99,7 +99,7 @@ class AnimationTrack;
         virtual void setValue(const AnyNumeric& val);
 
         /** Clone a keyframe (internal use only) */
-        auto _clone(AnimationTrack* newParent) const -> KeyFrame*;
+        auto _clone(AnimationTrack* newParent) const -> KeyFrame* override;
     private:
         AnyNumeric mValue;
     };
@@ -111,7 +111,7 @@ class AnimationTrack;
     public:
         /** Default constructor, you should not call this but use AnimationTrack::createKeyFrame instead. */
         TransformKeyFrame(const AnimationTrack* parent, Real time);
-        ~TransformKeyFrame() {}
+        ~TransformKeyFrame() override {}
         /** Sets the translation associated with this keyframe. 
         @remarks    
         The translation factor affects how much the keyframe translates (moves) it's animable
@@ -146,7 +146,7 @@ class AnimationTrack;
         virtual auto getRotation() const -> const Quaternion&;
 
         /** Clone a keyframe (internal use only) */
-        auto _clone(AnimationTrack* newParent) const -> KeyFrame*;
+        auto _clone(AnimationTrack* newParent) const -> KeyFrame* override;
     private:
         Vector3 mTranslate;
         Vector3 mScale;
@@ -165,7 +165,7 @@ class AnimationTrack;
     public:
         /** Default constructor, you should not call this but use AnimationTrack::createKeyFrame instead. */
         VertexMorphKeyFrame(const AnimationTrack* parent, Real time);
-        ~VertexMorphKeyFrame() {}
+        ~VertexMorphKeyFrame() override {}
         /** Sets the vertex buffer containing the source positions for this keyframe. 
         @remarks    
             We assume that positions are the first 3 float elements in this buffer,
@@ -180,7 +180,7 @@ class AnimationTrack;
         auto getVertexBuffer() const -> const HardwareVertexBufferSharedPtr&;
 
         /** Clone a keyframe (internal use only) */
-        auto _clone(AnimationTrack* newParent) const -> KeyFrame*;      
+        auto _clone(AnimationTrack* newParent) const -> KeyFrame* override;      
 
     private:
         HardwareVertexBufferSharedPtr mBuffer;
@@ -196,7 +196,7 @@ class AnimationTrack;
     public:
         /** Default constructor, you should not call this but use AnimationTrack::createKeyFrame instead. */
         VertexPoseKeyFrame(const AnimationTrack* parent, Real time);
-        ~VertexPoseKeyFrame() {}
+        ~VertexPoseKeyFrame() override {}
 
         /** Reference to a pose at a given influence level 
         @remarks
@@ -244,7 +244,7 @@ class AnimationTrack;
         typedef VectorIterator<PoseRefList> PoseRefIterator;
         typedef ConstVectorIterator<PoseRefList> ConstPoseRefIterator;
         /** Clone a keyframe (internal use only) */
-        auto _clone(AnimationTrack* newParent) const -> KeyFrame*;
+        auto _clone(AnimationTrack* newParent) const -> KeyFrame* override;
         
         void _applyBaseKeyFrame(const VertexPoseKeyFrame* base);
         

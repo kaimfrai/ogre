@@ -91,7 +91,7 @@ namespace Ogre {
 
     public:
         OverlayManager();
-        virtual ~OverlayManager();
+        ~OverlayManager() override;
 
         /** Notifies that hardware resources were lost */
         void _releaseManualHardwareResources();
@@ -100,12 +100,12 @@ namespace Ogre {
 
         /// @copydoc ScriptLoader::getScriptPatterns
         [[nodiscard]]
-        auto getScriptPatterns() const -> const StringVector&;
+        auto getScriptPatterns() const -> const StringVector& override;
         /// @copydoc ScriptLoader::parseScript
-        void parseScript(DataStreamPtr& stream, const String& groupName);
+        void parseScript(DataStreamPtr& stream, const String& groupName) override;
         /// @copydoc ScriptLoader::getLoadingOrder
         [[nodiscard]]
-        auto getLoadingOrder() const -> Real;
+        auto getLoadingOrder() const -> Real override;
 
         void addOverlay(Overlay* overlay);
 

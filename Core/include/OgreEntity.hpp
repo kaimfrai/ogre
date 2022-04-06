@@ -357,7 +357,7 @@ class VertexData;
     public:
         /** Default destructor.
         */
-        ~Entity();
+        ~Entity() override;
 
         /** Gets the Mesh that this Entity is based on.
         */
@@ -762,7 +762,7 @@ class VertexData;
         */
         auto _getVertexAnimTempBufferInfo() -> TempBlendedBufferInfo*;
         /// Override to return specific type flag.
-        auto getTypeFlags() const -> uint32;
+        auto getTypeFlags() const -> uint32 override;
         /// Retrieve the VertexData which should be used for GPU binding.
         auto getVertexDataForBinding() -> VertexData*;
 
@@ -811,7 +811,7 @@ class VertexData;
         /** Resource::Listener hook to notify Entity that a delay-loaded Mesh is
             complete.
         */
-        void loadingComplete(Resource* res);
+        void loadingComplete(Resource* res) override;
 
         void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables = false) override;
 
@@ -873,15 +873,15 @@ class VertexData;
     class EntityFactory : public MovableObjectFactory
     {
     private:
-        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject*;
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
     public:
         EntityFactory() {}
-        ~EntityFactory() {}
+        ~EntityFactory() override {}
 
         static String FACTORY_TYPE_NAME;
 
         [[nodiscard]]
-        auto getType() const -> const String&;
+        auto getType() const -> const String& override;
     };
     /** @} */
     /** @} */

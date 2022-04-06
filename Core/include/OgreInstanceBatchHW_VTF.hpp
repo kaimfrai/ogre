@@ -75,12 +75,12 @@ class VertexData;
         //Pointer to the buffer containing the per instance vertex data
         HardwareVertexBufferSharedPtr mInstanceVertexBuffer;
 
-        void setupVertices( const SubMesh* baseSubMesh );
-        void setupIndices( const SubMesh* baseSubMesh );
+        void setupVertices( const SubMesh* baseSubMesh ) override;
+        void setupIndices( const SubMesh* baseSubMesh ) override;
 
         /** Creates 2 TEXCOORD semantics that will be used to sample the vertex texture */
         void createVertexSemantics( VertexData *thisVertexData, VertexData *baseVertexData,
-            const HWBoneIdxVec &hwBoneIdx, const HWBoneWgtVec& hwBoneWgt );
+            const HWBoneIdxVec &hwBoneIdx, const HWBoneWgtVec& hwBoneWgt ) override;
 
         /** updates the vertex buffer containing the per instance data 
         @param[in] isFirstTime Tells if this is the first time the buffer is being updated
@@ -90,32 +90,32 @@ class VertexData;
         virtual auto updateInstanceDataBuffer(bool isFirstTime, Camera* currentCamera) -> size_t;
 
 
-        virtual auto checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool;
+        auto checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool override;
 
         /** Keeps filling the VTF with world matrix data. Overloaded to avoid culled objects
             and update visible instances' animation
         */
         auto updateVertexTexture( Camera *currentCamera ) -> size_t;
 
-        virtual auto matricesTogetherPerRow() const -> bool { return true; }
+        auto matricesTogetherPerRow() const -> bool override { return true; }
     public:
         InstanceBatchHW_VTF( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                             size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
                             const String &batchName );
-        virtual ~InstanceBatchHW_VTF();
+        ~InstanceBatchHW_VTF() override;
         /** @see InstanceBatch::calculateMaxNumInstances */
-        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t;
+        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t override;
 
         /** @copydoc InstanceBatchHW::_boundsDirty */
-        void _boundsDirty();
+        void _boundsDirty() override;
 
         /** @copydoc InstanceBatchHW::setStaticAndUpdate */
-        void setStaticAndUpdate( bool bStatic );
+        void setStaticAndUpdate( bool bStatic ) override;
 
-        auto isStatic() const -> bool { return mKeepStatic; }
+        auto isStatic() const -> bool override { return mKeepStatic; }
 
         /** Overloaded to visibility on a per unit basis and finally updated the vertex texture */
-        virtual void _updateRenderQueue( RenderQueue* queue );
+        void _updateRenderQueue( RenderQueue* queue ) override;
     };
 
 }

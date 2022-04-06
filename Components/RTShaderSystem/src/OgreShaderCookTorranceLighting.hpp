@@ -41,7 +41,7 @@ public:
 
     auto getType() const -> const String& override;
 
-    auto getExecutionOrder() const -> int { return FFP_LIGHTING; }
+    auto getExecutionOrder() const -> int override { return FFP_LIGHTING; }
 
     void copyFrom(const SubRenderState& rhs) override;
 

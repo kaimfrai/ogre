@@ -58,16 +58,16 @@ namespace Ogre
     public:
         /** Constructor. */
         TextAreaOverlayElement(const String& name);
-        virtual ~TextAreaOverlayElement();
+        ~TextAreaOverlayElement() override;
 
-        virtual void initialise();
+        void initialise() override;
 
         /** @copydoc OverlayElement::_releaseManualHardwareResources */
-        virtual void _releaseManualHardwareResources();
+        void _releaseManualHardwareResources() override;
         /** @copydoc OverlayElement::_restoreManualHardwareResources */
-        virtual void _restoreManualHardwareResources();
+        void _restoreManualHardwareResources() override;
 
-        virtual void setCaption(const DisplayString& text);
+        void setCaption(const DisplayString& text) override;
 
         void setCharHeight( Real height );
         [[nodiscard]]
@@ -85,7 +85,7 @@ namespace Ogre
         }
 
         [[nodiscard]]
-        virtual auto getTypeName() const -> const String& override;
+        auto getTypeName() const -> const String& override;
         [[nodiscard]]
         auto getMaterial() const -> const MaterialPtr& override;
         void getRenderOperation(RenderOperation& op) override;
@@ -96,11 +96,11 @@ namespace Ogre
             the entire text. Also see setColourBottom and 
             setColourTop which allow you to set a colour gradient.
         */
-        void setColour(const ColourValue& col);
+        void setColour(const ColourValue& col) override;
 
         /** Gets the colour of the text. */
         [[nodiscard]]
-        auto getColour() const -> const ColourValue&;
+        auto getColour() const -> const ColourValue& override;
         /** Sets the colour of the bottom of the letters.
         @remarks
             By setting a separate top and bottom colour, you
@@ -134,10 +134,10 @@ namespace Ogre
         }
 
         /** Overridden from OverlayElement */
-        void setMetricsMode(GuiMetricsMode gmm);
+        void setMetricsMode(GuiMetricsMode gmm) override;
 
         /** Overridden from OverlayElement */
-        void _update();
+        void _update() override;
     private:
         /// The text alignment
         Alignment mAlignment;
@@ -149,7 +149,7 @@ namespace Ogre
         RenderOperation mRenderOp;
 
         /// Method for setting up base parameters for this class
-        void addBaseParameters();
+        void addBaseParameters() override;
 
         static String msTypeName;
 
@@ -170,9 +170,9 @@ namespace Ogre
         /// Internal method to allocate memory, only reallocates when necessary
         void checkMemoryAllocation( size_t numChars );
         /// Inherited function
-        virtual void updatePositionGeometry();
+        void updatePositionGeometry() override;
         /// Inherited function
-        virtual void updateTextureGeometry();
+        void updateTextureGeometry() override;
         /// Updates vertex colours
         virtual void updateColours();
     };

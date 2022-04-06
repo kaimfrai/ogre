@@ -52,7 +52,7 @@ namespace Ogre {
         /// Constructor
         ParticleSystemRenderer() {}
         /// Destructor
-        virtual ~ParticleSystemRenderer() {}
+        ~ParticleSystemRenderer() override {}
 
         /** Gets the type of this renderer - must be implemented by subclasses */
         [[nodiscard]]

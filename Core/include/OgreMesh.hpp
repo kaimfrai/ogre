@@ -209,18 +209,18 @@ class VertexData;
             It also does not set up submeshes, etc.  You have to call load()
             to do that.
          */
-        void prepareImpl();
+        void prepareImpl() override;
         /** Destroys data cached by prepareImpl.
          */
-        void unprepareImpl();
+        void unprepareImpl() override;
         /// @copydoc Resource::loadImpl
-        void loadImpl();
+        void loadImpl() override;
         /// @copydoc Resource::postLoadImpl
-        void postLoadImpl();
+        void postLoadImpl() override;
         /// @copydoc Resource::unloadImpl
-        void unloadImpl();
+        void unloadImpl() override;
         /// @copydoc Resource::calculateSize
-        auto calculateSize() const -> size_t;
+        auto calculateSize() const -> size_t override;
 
         void mergeAdjacentTexcoords( unsigned short finalTexCoordSet,
                                      unsigned short texCoordSetToDestroy, VertexData *vertexData );
@@ -233,7 +233,7 @@ class VertexData;
         */
         Mesh(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
-        ~Mesh();
+        ~Mesh() override;
 
         // NB All methods below are non-virtual since they will be
         // called in the rendering loop - speed is of the essence.
@@ -352,7 +352,7 @@ class VertexData;
         auto clone(const String& newName, const String& newGroup = BLANKSTRING) -> MeshPtr;
 
         /** @copydoc Resource::reload */
-        void reload(LoadingFlags flags = LF_DEFAULT);
+        void reload(LoadingFlags flags = LF_DEFAULT) override;
 
         /** Get the axis-aligned bounding box for this mesh.
         */
@@ -884,13 +884,13 @@ class VertexData;
         @param length
             The length of the animation in seconds.
         */
-        virtual auto createAnimation(const String& name, Real length) -> Animation*;
+        auto createAnimation(const String& name, Real length) -> Animation* override;
 
         /** Returns the named vertex Animation object. 
         @param name
             The name of the animation.
         */
-        virtual auto getAnimation(const String& name) const -> Animation*;
+        auto getAnimation(const String& name) const -> Animation* override;
 
         /** Internal access to the named vertex Animation object - returns null 
             if it does not exist. 
@@ -900,17 +900,17 @@ class VertexData;
         virtual auto _getAnimationImpl(const String& name) const -> Animation*;
 
         /** Returns whether this mesh contains the named vertex animation. */
-        virtual auto hasAnimation(const String& name) const -> bool;
+        auto hasAnimation(const String& name) const -> bool override;
 
         /** Removes vertex Animation from this mesh. */
-        virtual void removeAnimation(const String& name);
+        void removeAnimation(const String& name) override;
 
         /** Gets the number of morph animations in this mesh. */
-        virtual auto getNumAnimations() const -> unsigned short;
+        auto getNumAnimations() const -> unsigned short override;
 
         /** Gets a single morph animation by index. 
         */
-        virtual auto getAnimation(unsigned short index) const -> Animation*;
+        auto getAnimation(unsigned short index) const -> Animation* override;
 
         /** Removes all morph Animations from this mesh. */
         virtual void removeAllAnimations();

@@ -68,20 +68,20 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    virtual auto getType() const -> const String&;
+    auto getType() const -> const String& override;
 
-    auto getExecutionOrder() const -> int { return FFP_LIGHTING - 1; }
+    auto getExecutionOrder() const -> int override { return FFP_LIGHTING - 1; }
 
     /** 
     @see SubRenderState::copyFrom.
     */
-    virtual void copyFrom(const SubRenderState& rhs);
+    void copyFrom(const SubRenderState& rhs) override;
 
 
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    virtual auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool;
+    auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool override;
 
     /** 
     Set the index of the input vertex shader texture coordinate set 
@@ -150,17 +150,17 @@ public:
     @see SubRenderStateFactory::getType.
     */
     [[nodiscard]]
-    virtual auto getType() const -> const String&;
+    auto getType() const -> const String& override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState* override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
     */
-    virtual void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, Pass* srcPass, Pass* dstPass);
+    void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, Pass* srcPass, Pass* dstPass) override;
 
     
 protected:
@@ -168,7 +168,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual auto createInstanceImpl() -> SubRenderState*;
+    auto createInstanceImpl() -> SubRenderState* override;
 
 
 };

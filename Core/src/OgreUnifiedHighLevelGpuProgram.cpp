@@ -45,8 +45,8 @@ class ResourceManager;
     class CmdDelegate : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     static CmdDelegate msCmdDelegate;
     static const String sLanguage = "unified";

@@ -134,7 +134,7 @@ class VertexData;
         BillboardChain(const String& name, size_t maxElements = 20, size_t numberOfChains = 1, 
             bool useTextureCoords = true, bool useColours = true, bool dynamic = true);
 
-        ~BillboardChain();
+        ~BillboardChain() override;
 
         /** Set the maximum number of chain elements per chain 
         */
@@ -278,19 +278,19 @@ class VertexData;
 
 
         // Overridden members follow
-        auto getSquaredViewDepth(const Camera* cam) const -> Real;
-        auto getBoundingRadius() const -> Real;
-        auto getBoundingBox() const -> const AxisAlignedBox&;
-        auto getMaterial() const -> const MaterialPtr&;
-        auto getMovableType() const -> const String&;
-        void _updateRenderQueue(RenderQueue *);
-        void getRenderOperation(RenderOperation &);
-        virtual auto preRender(SceneManager* sm, RenderSystem* rsys) -> bool;
-        void getWorldTransforms(Matrix4 *) const;
-        auto getLights() const -> const LightList&;
+        auto getSquaredViewDepth(const Camera* cam) const -> Real override;
+        auto getBoundingRadius() const -> Real override;
+        auto getBoundingBox() const -> const AxisAlignedBox& override;
+        auto getMaterial() const -> const MaterialPtr& override;
+        auto getMovableType() const -> const String& override;
+        void _updateRenderQueue(RenderQueue *) override;
+        void getRenderOperation(RenderOperation &) override;
+        auto preRender(SceneManager* sm, RenderSystem* rsys) -> bool override;
+        void getWorldTransforms(Matrix4 *) const override;
+        auto getLights() const -> const LightList& override;
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
-            bool debugRenderables = false);
+            bool debugRenderables = false) override;
 
 
 
@@ -383,15 +383,15 @@ class VertexData;
     class BillboardChainFactory : public MovableObjectFactory
     {
     private:
-        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject*;
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
     public:
         BillboardChainFactory() {}
-        ~BillboardChainFactory() {}
+        ~BillboardChainFactory() override {}
 
         static String FACTORY_TYPE_NAME;
 
         [[nodiscard]]
-        auto getType() const -> const String&;
+        auto getType() const -> const String& override;
     };
 
     /** @} */

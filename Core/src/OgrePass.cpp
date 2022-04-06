@@ -62,7 +62,7 @@ namespace Ogre {
     */
     struct MinTextureStateChangeHashFunc : public Pass::HashFunc
     {
-        auto operator()(const Pass* p) const -> uint32
+        auto operator()(const Pass* p) const -> uint32 override
         {
             uint32 hash = 0;
             ushort c = p->getNumTextureUnitStates();
@@ -84,7 +84,7 @@ namespace Ogre {
     */
     struct MinGpuProgramChangeHashFunc : public Pass::HashFunc
     {
-        auto operator()(const Pass* p) const -> uint32
+        auto operator()(const Pass* p) const -> uint32 override
         {
             uint32 hash = 0;
 

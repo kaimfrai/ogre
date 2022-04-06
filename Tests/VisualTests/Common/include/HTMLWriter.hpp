@@ -41,7 +41,7 @@ public:
 
 protected:
 
-    virtual auto getOutput() -> Ogre::String
+    auto getOutput() -> Ogre::String override
     {
         Ogre::StringStream output;
 

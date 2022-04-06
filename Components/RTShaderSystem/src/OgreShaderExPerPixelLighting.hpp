@@ -65,7 +65,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    virtual auto getType() const -> const String&;
+    auto getType() const -> const String& override;
 
     auto setParameter(const String& name, const String& value) -> bool override;
 
@@ -76,7 +76,7 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
+    auto resolveParameters(ProgramSet* programSet) -> bool override;
 
     /** Resolve global lighting parameters */
     virtual auto resolveGlobalParameters(ProgramSet* programSet) -> bool;
@@ -87,12 +87,12 @@ protected:
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
+    auto resolveDependencies(ProgramSet* programSet) -> bool override;
 
     /** 
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
+    auto addFunctionInvocations(ProgramSet* programSet) -> bool override;
     
 
     /** 
@@ -129,17 +129,17 @@ public:
     @see SubRenderStateFactory::getType.
     */
     [[nodiscard]]
-    virtual auto getType() const -> const String&;
+    auto getType() const -> const String& override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState* override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
     */
-    virtual void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, Pass* srcPass, Pass* dstPass);
+    void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, Pass* srcPass, Pass* dstPass) override;
 
     
 protected:
@@ -147,7 +147,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual auto createInstanceImpl() -> SubRenderState*;
+    auto createInstanceImpl() -> SubRenderState* override;
 
 
 };

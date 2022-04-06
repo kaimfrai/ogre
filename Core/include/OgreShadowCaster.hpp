@@ -79,7 +79,7 @@ class VertexData;
         ShadowRenderable(MovableObject* parent, const HardwareIndexBufferSharedPtr& indexBuffer,
                          const VertexData* vertexData, bool createSeparateLightCap,
                          bool isLightCap = false);
-        virtual ~ShadowRenderable();
+        ~ShadowRenderable() override;
         /** Set the material to be used by the shadow, should be set by the caller 
             before adding to a render queue
         */

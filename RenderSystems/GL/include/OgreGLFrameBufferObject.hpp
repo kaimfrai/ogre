@@ -41,9 +41,9 @@ namespace Ogre {
     {
     public:
         GLFrameBufferObject(GLFBOManager *manager, uint fsaa);
-        ~GLFrameBufferObject();
+        ~GLFrameBufferObject() override;
 
-        auto bind(bool recreateIfNeeded) -> bool;
+        auto bind(bool recreateIfNeeded) -> bool override;
 
         /** Swap buffers - only useful when using multisample buffers.
         */
@@ -62,7 +62,7 @@ namespace Ogre {
         GLFBOManager *mManager;
         GLSurfaceDesc mMultisampleColourBuffer;
 
-        void initialise();
+        void initialise() override;
     };
 
 }

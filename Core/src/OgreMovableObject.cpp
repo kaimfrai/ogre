@@ -465,7 +465,7 @@ class Any;
 
         }
         void visit(Renderable* rend, ushort lodIndex, bool isDebug, 
-            Any* pAny = nullptr)
+            Any* pAny = nullptr) override
         {
             Technique* tech = rend->getTechnique();
             bool techReceivesShadows = tech && tech->getParent()->getReceiveShadows();

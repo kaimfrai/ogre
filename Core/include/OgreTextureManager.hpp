@@ -73,7 +73,7 @@ class Image;
     public:
 
         TextureManager();
-        virtual ~TextureManager();
+        ~TextureManager() override;
 
         /// create a new sampler
         auto createSampler(const String& name = BLANKSTRING) -> SamplerPtr;

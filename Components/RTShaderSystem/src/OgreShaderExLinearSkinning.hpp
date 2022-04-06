@@ -62,17 +62,17 @@ public:
     /**
     @see SubRenderState::resolveParameters.
     */
-    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
+    auto resolveParameters(ProgramSet* programSet) -> bool override;
 
     /**
     @see SubRenderState::resolveDependencies.
     */
-    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
+    auto resolveDependencies(ProgramSet* programSet) -> bool override;
 
     /**
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
+    auto addFunctionInvocations(ProgramSet* programSet) -> bool override;
 
 protected:
     /** Adds functions to calculate position data in world, object and projective space */

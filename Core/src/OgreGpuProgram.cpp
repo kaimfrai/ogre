@@ -55,50 +55,50 @@ class ResourceManager;
     class CmdType : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdSyntax : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdSkeletal : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdMorph : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdPose : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdVTF : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdManualNamedConstsFile : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdAdjacency : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     // Command object for setting / getting parameters
     static CmdType msTypeCmd;

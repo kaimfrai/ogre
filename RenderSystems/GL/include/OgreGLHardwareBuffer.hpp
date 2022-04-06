@@ -52,19 +52,19 @@ class GLRenderSystem;
 
     protected:
         /** See HardwareBuffer. */
-        auto lockImpl(size_t offset, size_t length, LockOptions options) -> void*;
+        auto lockImpl(size_t offset, size_t length, LockOptions options) -> void* override;
         /** See HardwareBuffer. */
-        void unlockImpl();
+        void unlockImpl() override;
     public:
         GLHardwareVertexBuffer(GLenum target, size_t sizeInBytes, Usage usage, bool useShadowBuffer);
-        ~GLHardwareVertexBuffer();
+        ~GLHardwareVertexBuffer() override;
         /** See HardwareBuffer. */
-        void readData(size_t offset, size_t length, void* pDest);
+        void readData(size_t offset, size_t length, void* pDest) override;
         /** See HardwareBuffer. */
         void writeData(size_t offset, size_t length, 
-            const void* pSource, bool discardWholeBuffer = false);
+            const void* pSource, bool discardWholeBuffer = false) override;
         /** See HardwareBuffer. */
-        void _updateFromShadow();
+        void _updateFromShadow() override;
 
         [[nodiscard]]
         auto getGLBufferId() const -> GLuint { return mBufferId; }

@@ -62,18 +62,18 @@ public:
     CGProgramWriter();
 
     /** Class destructor */
-    virtual ~CGProgramWriter();
+    ~CGProgramWriter() override;
 
     /** 
     @see ProgramWriter::writeSourceCode.
     */
-    virtual void writeSourceCode(std::ostream& os, Program* program);
+    void writeSourceCode(std::ostream& os, Program* program) override;
 
     /** 
     @see ProgramWriter::getTargetLanguage.
     */
     [[nodiscard]]
-    virtual auto getTargetLanguage() const -> const String& { return TargetLanguage; }
+    auto getTargetLanguage() const -> const String& override { return TargetLanguage; }
 
     static String TargetLanguage;
 

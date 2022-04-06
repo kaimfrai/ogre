@@ -115,36 +115,36 @@ namespace OgreBites
         */
         void manualStop();
 
-        void frameRendered(const Ogre::FrameEvent& evt);
+        void frameRendered(const Ogre::FrameEvent& evt) override;
 
         /**
         Processes key presses for free-look style movement.
         */
-        auto keyPressed(const KeyboardEvent& evt) -> bool;
+        auto keyPressed(const KeyboardEvent& evt) -> bool override;
 
         /**
         Processes key releases for free-look style movement.
         */
-        auto keyReleased(const KeyboardEvent& evt) -> bool;
+        auto keyReleased(const KeyboardEvent& evt) -> bool override;
 
         /**
         Processes mouse movement differently for each style.
         */
-        auto mouseMoved(const MouseMotionEvent& evt) -> bool;
+        auto mouseMoved(const MouseMotionEvent& evt) -> bool override;
 
-        auto mouseWheelRolled(const MouseWheelEvent& evt) -> bool;
+        auto mouseWheelRolled(const MouseWheelEvent& evt) -> bool override;
 
         /**
         Processes mouse presses. Only applies for orbit style.
         Left button is for orbiting, and right button is for zooming.
         */
-        auto mousePressed(const MouseButtonEvent& evt) -> bool;
+        auto mousePressed(const MouseButtonEvent& evt) -> bool override;
 
         /**
         Processes mouse releases. Only applies for orbit style.
         Left button is for orbiting, and right button is for zooming.
         */
-        auto mouseReleased(const MouseButtonEvent& evt) -> bool;
+        auto mouseReleased(const MouseButtonEvent& evt) -> bool override;
 
         /**
          * fix the yaw axis to be Vector3::UNIT_Y of the parent node (tabletop mode)

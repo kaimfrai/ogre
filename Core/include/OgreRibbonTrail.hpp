@@ -89,7 +89,7 @@ template <typename T> class Controller;
         RibbonTrail(const String& name, size_t maxElements = 20, size_t numberOfChains = 1, 
             bool useTextureCoords = true, bool useVertexColours = true);
         /// destructor
-        virtual ~RibbonTrail();
+        ~RibbonTrail() override;
 
         typedef std::vector<Node*> NodeList;
         typedef ConstVectorIterator<NodeList> NodeIterator;
@@ -116,11 +116,11 @@ template <typename T> class Controller;
         virtual auto getTrailLength() const -> Real { return mTrailLength; }
 
         /** @copydoc BillboardChain::setMaxChainElements */
-        void setMaxChainElements(size_t maxElements);
+        void setMaxChainElements(size_t maxElements) override;
         /** @copydoc BillboardChain::setNumberOfChains */
-        void setNumberOfChains(size_t numChains);
+        void setNumberOfChains(size_t numChains) override;
         /** @copydoc BillboardChain::clearChain */
-        void clearChain(size_t chainIndex);
+        void clearChain(size_t chainIndex) override;
 
         /** Set the starting ribbon colour for a given segment. 
         @param chainIndex The index of the chain
@@ -171,9 +171,9 @@ template <typename T> class Controller;
         auto getColourChange(size_t chainIndex) const -> const ColourValue& { return mDeltaColour.at(chainIndex); }
 
         /// @see Node::Listener::nodeUpdated
-        void nodeUpdated(const Node* node);
+        void nodeUpdated(const Node* node) override;
         /// @see Node::Listener::nodeDestroyed
-        void nodeDestroyed(const Node* node);
+        void nodeDestroyed(const Node* node) override;
 
         /// Perform any fading / width delta required; internal method
         virtual void _timeUpdate(Real time);
@@ -232,15 +232,15 @@ template <typename T> class Controller;
     class RibbonTrailFactory : public MovableObjectFactory
     {
     protected:
-        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject*;
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
     public:
         RibbonTrailFactory() {}
-        ~RibbonTrailFactory() {}
+        ~RibbonTrailFactory() override {}
 
         static String FACTORY_TYPE_NAME;
 
         [[nodiscard]]
-        auto getType() const -> const String&;
+        auto getType() const -> const String& override;
     };
     /** @} */
     /** @} */

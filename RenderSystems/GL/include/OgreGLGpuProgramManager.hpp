@@ -46,7 +46,7 @@ struct CreateCallbackWrapper : public GpuProgramFactory
     [[nodiscard]]
     auto getLanguage() const -> const String& override { return language; };
     auto create(ResourceManager* creator, const String& name, ResourceHandle handle,
-                       const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram*
+                       const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override
     {
         // type and syntax code will be corrected by GpuProgramManager
         return callback(creator, name, handle, group, isManual, loader, GPT_VERTEX_PROGRAM, "");

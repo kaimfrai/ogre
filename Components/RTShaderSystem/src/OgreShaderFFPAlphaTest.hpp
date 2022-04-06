@@ -65,17 +65,17 @@ A factory that enables creation of LayeredBlending instances.
     /**
     @see SubRenderState::resolveParameters.
     */
-    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
+    auto resolveParameters(ProgramSet* programSet) -> bool override;
 
     /**
     @see SubRenderState::resolveDependencies.
     */
-    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
+    auto resolveDependencies(ProgramSet* programSet) -> bool override;
 
     /**
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
+    auto addFunctionInvocations(ProgramSet* programSet) -> bool override;
 
 public:
 
@@ -84,27 +84,27 @@ public:
     /**
     @see SubRenderState::getType.
     */
-    virtual auto getType() const -> const String&;
+    auto getType() const -> const String& override;
 
     /**
     @see SubRenderState::getExecutionOrder.
     */
-    virtual auto getExecutionOrder() const -> int;
+    auto getExecutionOrder() const -> int override;
 
     /**
     @see SubRenderState::preAddToRenderState.
     */
-    virtual auto preAddToRenderState (const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool;
+    auto preAddToRenderState (const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool override;
 
     /**
     @see SubRenderState::copyFrom.
     */
-    virtual void copyFrom(const SubRenderState& rhs);
+    void copyFrom(const SubRenderState& rhs) override;
 
     /**
     @see SubRenderState::updateGpuProgramsParams.
     */
-    virtual void updateGpuProgramsParams(Renderable* rend, const Pass* pass, const AutoParamDataSource* source, const LightList* pLightList);
+    void updateGpuProgramsParams(Renderable* rend, const Pass* pass, const AutoParamDataSource* source, const LightList* pLightList) override;
 
 	};
 
@@ -118,14 +118,14 @@ static String Type;
 	@see SubRenderStateFactory::getType.
 	*/
 	[[nodiscard]]
-virtual auto getType() const -> const String&;
+auto getType() const -> const String& override;
 
 protected:
 
 	/**
 	@see SubRenderStateFactory::createInstanceImpl.
 	*/
-	virtual auto createInstanceImpl() -> SubRenderState*;
+	auto createInstanceImpl() -> SubRenderState* override;
 };
 
 } // namespace RTShader

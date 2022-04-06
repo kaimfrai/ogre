@@ -105,7 +105,7 @@ namespace Ogre {
     {
     public:
         ResourceManager();
-        virtual ~ResourceManager();
+        ~ResourceManager() override;
 
         /** Creates a new blank resource, but does not immediately load it.
         @param name The unique name of the %Resource
@@ -404,11 +404,11 @@ namespace Ogre {
             String mName;
         public:
             ResourcePool(const String& name);
-            ~ResourcePool();
+            ~ResourcePool() override;
             /// Get the name of the pool
             [[nodiscard]]
             auto getName() const -> const String&;
-            void clear();
+            void clear() override;
         };
         
         /// Create a resource pool, or reuse one that already exists

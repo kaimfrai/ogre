@@ -49,14 +49,14 @@ class GLSLLinkProgramManager;
         static String sLanguageName;
     public:
         GLSLProgramFactory();
-        ~GLSLProgramFactory();
+        ~GLSLProgramFactory() override;
         /// Get the name of the language this factory creates programs for
         [[nodiscard]]
-        auto getLanguage() const -> const String&;
+        auto getLanguage() const -> const String& override;
         /// Create an instance of GLSLProgram
         auto create(ResourceManager* creator,
             const String& name, ResourceHandle handle,
-            const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram*;
+            const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override;
 
     private:
         GLSLLinkProgramManager* mLinkProgramManager;

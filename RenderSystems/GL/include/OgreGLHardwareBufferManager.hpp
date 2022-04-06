@@ -55,16 +55,16 @@ class GLRenderSystem;
 
     public:
         GLHardwareBufferManager();
-        ~GLHardwareBufferManager();
+        ~GLHardwareBufferManager() override;
         /// Creates a vertex buffer
         auto createVertexBuffer(size_t vertexSize, 
-            size_t numVerts, HardwareBuffer::Usage usage, bool useShadowBuffer = false) -> HardwareVertexBufferSharedPtr;
+            size_t numVerts, HardwareBuffer::Usage usage, bool useShadowBuffer = false) -> HardwareVertexBufferSharedPtr override;
         /// Create a hardware vertex buffer
         auto createIndexBuffer(
             HardwareIndexBuffer::IndexType itype, size_t numIndexes, 
-            HardwareBuffer::Usage usage, bool useShadowBuffer = false) -> HardwareIndexBufferSharedPtr;
+            HardwareBuffer::Usage usage, bool useShadowBuffer = false) -> HardwareIndexBufferSharedPtr override;
         /// Create a render to vertex buffer
-        auto createRenderToVertexBuffer() -> RenderToVertexBufferSharedPtr;
+        auto createRenderToVertexBuffer() -> RenderToVertexBufferSharedPtr override;
         /// Utility function to get the correct GL usage based on HBU's
         static auto getGLUsage(unsigned int usage) -> GLenum;
 

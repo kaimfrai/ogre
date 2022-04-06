@@ -191,7 +191,7 @@ class Technique;
         InstanceBatch( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                        size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
                        const String &batchName );
-        virtual ~InstanceBatch();
+        ~InstanceBatch() override;
 
         auto _getMeshRef() -> MeshPtr& { return mMeshReference; }
 
@@ -349,28 +349,28 @@ class Technique;
 
         //Renderable overloads
         /** @copydoc Renderable::getMaterial */
-        auto getMaterial() const -> const MaterialPtr&      { return mMaterial; }
+        auto getMaterial() const -> const MaterialPtr& override      { return mMaterial; }
         /** @copydoc Renderable::getRenderOperation */
-        void getRenderOperation( RenderOperation& op )  { op = mRenderOperation; }
+        void getRenderOperation( RenderOperation& op ) override  { op = mRenderOperation; }
 
         /** @copydoc Renderable::getSquaredViewDepth */
-        auto getSquaredViewDepth( const Camera* cam ) const -> Real;
+        auto getSquaredViewDepth( const Camera* cam ) const -> Real override;
         /** @copydoc Renderable::getLights */
-        auto getLights( ) const -> const LightList&;
+        auto getLights( ) const -> const LightList& override;
         /** @copydoc Renderable::getTechnique */
-        auto getTechnique() const -> Technique*;
+        auto getTechnique() const -> Technique* override;
 
         /** @copydoc MovableObject::getMovableType */
-        auto getMovableType() const -> const String&;
+        auto getMovableType() const -> const String& override;
         /** @copydoc MovableObject::_notifyCurrentCamera */
-        void _notifyCurrentCamera( Camera* cam );
+        void _notifyCurrentCamera( Camera* cam ) override;
         /** @copydoc MovableObject::getBoundingBox */
-        auto getBoundingBox() const -> const AxisAlignedBox&;
+        auto getBoundingBox() const -> const AxisAlignedBox& override;
         /** @copydoc MovableObject::getBoundingRadius */
-        auto getBoundingRadius() const -> Real;
+        auto getBoundingRadius() const -> Real override;
 
-        virtual void _updateRenderQueue(RenderQueue* queue);
-        void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false );
+        void _updateRenderQueue(RenderQueue* queue) override;
+        void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false ) override;
     };
 } // namespace Ogre
 

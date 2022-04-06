@@ -46,16 +46,16 @@ class ResourceManager;
             const String& group, bool isManual, ManualResourceLoader* loader, 
             GLRenderSystem* renderSystem);
 
-        virtual ~GLTexture();      
+        ~GLTexture() override;      
 
         /// Takes the OGRE texture type (1d/2d/3d/cube) and returns the appropriate GL one
         auto getGLTextureTarget() const -> GLenum;
 
     protected:
         /// @copydoc Texture::createInternalResourcesImpl
-        void createInternalResourcesImpl();
+        void createInternalResourcesImpl() override;
         /// @copydoc Texture::freeInternalResourcesImpl
-        void freeInternalResourcesImpl();
+        void freeInternalResourcesImpl() override;
 
         /** internal method, create GLHardwarePixelBuffers for every face and
              mipmap level. This method must be called after the GL texture object was created,

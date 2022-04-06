@@ -55,7 +55,7 @@ public:
     HLSLProgramProcessor();
 
     /** Class destructor */
-    virtual ~HLSLProgramProcessor();
+    ~HLSLProgramProcessor() override;
 
     /** Return the target language of this processor. */
     [[nodiscard]]
@@ -64,11 +64,11 @@ public:
     /** 
     @see ProgramProcessor::preCreateGpuPrograms
     */
-    virtual auto preCreateGpuPrograms(ProgramSet* programSet) -> bool;
+    auto preCreateGpuPrograms(ProgramSet* programSet) -> bool override;
     /** 
     @see ProgramProcessor::postCreateGpuPrograms
     */
-    virtual auto postCreateGpuPrograms(ProgramSet* programSet) -> bool;
+    auto postCreateGpuPrograms(ProgramSet* programSet) -> bool override;
 
     static String TargetLanguage;
 

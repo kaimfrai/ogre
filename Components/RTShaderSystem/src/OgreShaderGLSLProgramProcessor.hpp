@@ -55,17 +55,17 @@ public:
     GLSLProgramProcessor();
 
     /** Class destructor */
-    virtual ~GLSLProgramProcessor();
+    ~GLSLProgramProcessor() override;
 
     /** 
     @see ProgramProcessor::preCreateGpuPrograms
     */
-    virtual auto preCreateGpuPrograms(ProgramSet* programSet) -> bool;
+    auto preCreateGpuPrograms(ProgramSet* programSet) -> bool override;
 
     /** 
     @see ProgramProcessor::postCreateGpuPrograms
     */
-    virtual auto postCreateGpuPrograms(ProgramSet* programSet) -> bool;
+    auto postCreateGpuPrograms(ProgramSet* programSet) -> bool override;
 
 
 private:

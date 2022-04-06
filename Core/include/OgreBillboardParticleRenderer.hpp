@@ -68,7 +68,7 @@ class RenderQueue;
         Vector2 mStacksSlices;
     public:
         BillboardParticleRenderer();
-        ~BillboardParticleRenderer();
+        ~BillboardParticleRenderer() override;
 
         /// @copydoc BillboardSet::setTextureStacksAndSlices
         void setTextureStacksAndSlices(uchar stacks, uchar slices)
@@ -124,45 +124,45 @@ class RenderQueue;
 
         /// @copydoc ParticleSystemRenderer::getType
         [[nodiscard]]
-        auto getType() const -> const String&;
+        auto getType() const -> const String& override;
         /// @copydoc ParticleSystemRenderer::_updateRenderQueue
         void _updateRenderQueue(RenderQueue* queue, 
-            std::vector<Particle*>& currentParticles, bool cullIndividually);
+            std::vector<Particle*>& currentParticles, bool cullIndividually) override;
         /// @copydoc ParticleSystemRenderer::visitRenderables
-        void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables = false)
+        void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables = false) override
         {
             mBillboardSet->visitRenderables(visitor, debugRenderables);
         }
-        void _setMaterial(MaterialPtr& mat) { mBillboardSet->setMaterial(mat); }
+        void _setMaterial(MaterialPtr& mat) override { mBillboardSet->setMaterial(mat); }
         /// @copydoc ParticleSystemRenderer::_notifyCurrentCamera
-        void _notifyCurrentCamera(Camera* cam) { mBillboardSet->_notifyCurrentCamera(cam); }
+        void _notifyCurrentCamera(Camera* cam) override { mBillboardSet->_notifyCurrentCamera(cam); }
         /// @copydoc ParticleSystemRenderer::_notifyParticleQuota
-        void _notifyParticleQuota(size_t quota) { mBillboardSet->setPoolSize(quota); }
+        void _notifyParticleQuota(size_t quota) override { mBillboardSet->setPoolSize(quota); }
         /// @copydoc ParticleSystemRenderer::_notifyAttached
-        void _notifyAttached(Node* parent, bool isTagPoint = false)
+        void _notifyAttached(Node* parent, bool isTagPoint = false) override
         {
             mBillboardSet->_notifyAttached(parent, isTagPoint);
         }
         /// @copydoc ParticleSystemRenderer::_notifyDefaultDimensions
-        void _notifyDefaultDimensions(Real width, Real height)
+        void _notifyDefaultDimensions(Real width, Real height) override
         {
             mBillboardSet->setDefaultDimensions(width, height);
         }
         /// @copydoc ParticleSystemRenderer::setRenderQueueGroup
-        void setRenderQueueGroup(uint8 queueID) { mBillboardSet->setRenderQueueGroup(queueID); }
+        void setRenderQueueGroup(uint8 queueID) override { mBillboardSet->setRenderQueueGroup(queueID); }
         /// @copydoc MovableObject::setRenderQueueGroupAndPriority
-        void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority)
+        void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority) override
         {
             mBillboardSet->setRenderQueueGroupAndPriority(queueID, priority);
         }
         /// @copydoc ParticleSystemRenderer::setKeepParticlesInLocalSpace
-        void setKeepParticlesInLocalSpace(bool keepLocal)
+        void setKeepParticlesInLocalSpace(bool keepLocal) override
         {
             mBillboardSet->setBillboardsInWorldSpace(!keepLocal);
         }
         /// @copydoc ParticleSystemRenderer::_getSortMode
         [[nodiscard]]
-        auto _getSortMode() const -> SortMode { return mBillboardSet->_getSortMode(); }
+        auto _getSortMode() const -> SortMode override { return mBillboardSet->_getSortMode(); }
 
         /// Access BillboardSet in use
         [[nodiscard]]
@@ -179,9 +179,9 @@ class RenderQueue;
     public:
         /// @copydoc FactoryObj::getType
         [[nodiscard]]
-        auto getType() const -> const String&;
+        auto getType() const -> const String& override;
         /// @copydoc FactoryObj::createInstance
-        auto createInstance( const String& name ) -> ParticleSystemRenderer*;
+        auto createInstance( const String& name ) -> ParticleSystemRenderer* override;
     };
     /** @} */
     /** @} */

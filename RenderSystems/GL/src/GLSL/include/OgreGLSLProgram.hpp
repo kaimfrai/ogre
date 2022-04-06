@@ -47,21 +47,21 @@ class ResourceManager;
         GLSLProgram(ResourceManager* creator, 
             const String& name, ResourceHandle handle,
             const String& group, bool isManual, ManualResourceLoader* loader);
-        ~GLSLProgram();
+        ~GLSLProgram() override;
 
-        void attachToProgramObject( const uint programObject );
-        void detachFromProgramObject( const uint programObject );
+        void attachToProgramObject( const uint programObject ) override;
+        void detachFromProgramObject( const uint programObject ) override;
 
         /// Overridden from GpuProgram
-        auto getLanguage() const -> const String&;
+        auto getLanguage() const -> const String& override;
 
-        auto getPassTransformStates() const -> bool {
+        auto getPassTransformStates() const -> bool override {
             return mPassFFPStates;
         }
-        auto getPassSurfaceAndLightStates() const -> bool {
+        auto getPassSurfaceAndLightStates() const -> bool override {
             return mPassFFPStates;
         }
-        auto getPassFogStates() const -> bool {
+        auto getPassFogStates() const -> bool override {
             return mPassFFPStates;
         }
 
@@ -107,14 +107,14 @@ class ResourceManager;
         void setMaxOutputVertices(int maxOutputVertices)
         { mMaxOutputVertices = maxOutputVertices; }
 
-        void bindProgram();
-        void unbindProgram();
-        void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask);
-        auto isAttributeValid(VertexElementSemantic semantic, uint index) -> bool;
+        void bindProgram() override;
+        void unbindProgram() override;
+        void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask) override;
+        auto isAttributeValid(VertexElementSemantic semantic, uint index) -> bool override;
     protected:
-        void loadFromSource();
+        void loadFromSource() override;
         /// Internal unload implementation, must be implemented by subclasses
-        void unloadHighLevelImpl();
+        void unloadHighLevelImpl() override;
 
         /// Populate the passed parameters with name->index map, must be overridden
         void buildConstantDefinitions() override;

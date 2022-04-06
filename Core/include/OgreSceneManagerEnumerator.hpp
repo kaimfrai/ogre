@@ -53,13 +53,13 @@ class RenderSystem;
     class DefaultSceneManagerFactory : public SceneManagerFactory
     {
     protected:
-        void initMetaData() const;
+        void initMetaData() const override;
     public:
         DefaultSceneManagerFactory() {}
-        ~DefaultSceneManagerFactory() {}
+        ~DefaultSceneManagerFactory() override {}
         /// Factory type name
         static const String FACTORY_TYPE_NAME;
-        auto createInstance(const String& instanceName) -> SceneManager*;
+        auto createInstance(const String& instanceName) -> SceneManager* override;
     };
 
     /// Default scene manager
@@ -67,8 +67,8 @@ class RenderSystem;
     {
     public:
         DefaultSceneManager(const String& name);
-        ~DefaultSceneManager();
-        auto getTypeName() const -> const String&;
+        ~DefaultSceneManager() override;
+        auto getTypeName() const -> const String& override;
     };
 
     /** Enumerates the SceneManager classes available to applications.

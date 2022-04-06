@@ -186,7 +186,7 @@ class RenderQueue;
     public:
         /// Constructor: do not call direct, use OverlayManager::createElement
         OverlayElement(const String& name);
-        virtual ~OverlayElement();
+        ~OverlayElement() override;
 
         /** Initialise gui element */
         virtual void initialise() = 0;
@@ -474,7 +474,7 @@ class RenderQueue;
         auto getZOrder() const -> ushort { return mZOrder; }
 
         /** Overridden from Renderable */
-        auto getSquaredViewDepth(const Camera* cam) const -> Real 
+        auto getSquaredViewDepth(const Camera* cam) const -> Real override 
         { 
             (void)cam;
             return 10000.0f - (Real)getZOrder(); 
@@ -482,7 +482,7 @@ class RenderQueue;
 
         /** @copydoc Renderable::getLights */
         [[nodiscard]]
-        auto getLights() const -> const LightList&
+        auto getLights() const -> const LightList& override
         {
             // Overlayelements should not be lit by the scene, this will not get called
             static LightList ll;

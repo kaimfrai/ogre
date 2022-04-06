@@ -66,7 +66,7 @@ namespace Ogre {
         auto encode(const Any& input) const -> DataStreamPtr override;
         void encodeToFile(const Any& input, const String& outFileName) const override;
 
-        virtual ~ImageCodec();
+        ~ImageCodec() override;
         /** Codec return class for images. Has information about the size and the
             pixel format of the image. */
         class ImageData

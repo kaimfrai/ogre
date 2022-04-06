@@ -112,10 +112,10 @@ namespace Ogre {
         /// Generic create method
         auto createImpl(const String& name, ResourceHandle handle,
             const String& group, bool isManual, ManualResourceLoader* loader,
-            const NameValuePairList* createParams) -> Resource*;
+            const NameValuePairList* createParams) -> Resource* override;
     public:
         GpuProgramManager();
-        virtual ~GpuProgramManager();
+        ~GpuProgramManager() override;
 
         /// Get a resource by name
         /// @see GpuProgramManager::getResourceByName

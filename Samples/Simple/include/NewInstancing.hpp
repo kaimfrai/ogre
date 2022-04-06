@@ -36,12 +36,12 @@ public:
 
     Sample_NewInstancing();
 
-    auto frameRenderingQueued(const FrameEvent& evt) -> bool;
+    auto frameRenderingQueued(const FrameEvent& evt) -> bool override;
 
-    auto keyPressed(const KeyboardEvent& evt) -> bool;
+    auto keyPressed(const KeyboardEvent& evt) -> bool override;
 
 protected:
-    void setupContent();
+    void setupContent() override;
 
     void setupLighting();
     
@@ -59,7 +59,7 @@ protected:
 
     void destroyManagers();
 
-    void cleanupContent();
+    void cleanupContent() override;
 
     void animateUnits( float timeSinceLast );
 
@@ -72,13 +72,13 @@ protected:
 
     void setupGUI();
 
-    void itemSelected(SelectMenu* menu);
+    void itemSelected(SelectMenu* menu) override;
 
-    void buttonHit( OgreBites::Button* button );
+    void buttonHit( OgreBites::Button* button ) override;
 
-    void checkBoxToggled(CheckBox* box);
+    void checkBoxToggled(CheckBox* box) override;
 
-    void sliderMoved(Slider* slider);
+    void sliderMoved(Slider* slider) override;
 
     //The difference between testCapabilities() is that features checked here aren't fatal errors.
     //which means the sample can run (with limited functionality) on those computers

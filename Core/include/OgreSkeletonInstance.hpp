@@ -66,16 +66,16 @@ class TagPoint;
         when you create an Entity based on a skeletally animated Mesh.
         */
         SkeletonInstance(const SkeletonPtr& masterCopy);
-        ~SkeletonInstance();
+        ~SkeletonInstance() override;
 
         /** Gets the number of animations on this skeleton. */
-        auto getNumAnimations() const -> unsigned short;
+        auto getNumAnimations() const -> unsigned short override;
 
         /** Gets a single animation by index. */
-        auto getAnimation(unsigned short index) const -> Animation*;
+        auto getAnimation(unsigned short index) const -> Animation* override;
         /// Internal accessor for animations (returns null if animation does not exist)
         auto _getAnimationImpl(const String& name, 
-            const LinkedSkeletonAnimationSource** linker = nullptr) const -> Animation*;
+            const LinkedSkeletonAnimationSource** linker = nullptr) const -> Animation* override;
 
         /** Creates a new Animation object for animating this skeleton. 
         @remarks
@@ -83,17 +83,17 @@ class TagPoint;
         @param name The name of this animation
         @param length The length of the animation in seconds
         */
-        auto createAnimation(const String& name, Real length) -> Animation*;
+        auto createAnimation(const String& name, Real length) -> Animation* override;
 
         /** Returns the named Animation object. */
         auto getAnimation(const String& name, 
-            const LinkedSkeletonAnimationSource** linker = nullptr) const -> Animation*;
+            const LinkedSkeletonAnimationSource** linker = nullptr) const -> Animation* override;
 
         /** Removes an Animation from this skeleton. 
         @remarks
             This method updates the reference skeleton, not just this instance!
         */
-        void removeAnimation(const String& name);
+        void removeAnimation(const String& name) override;
 
 
         /** Creates a TagPoint ready to be attached to a bone */
@@ -106,17 +106,17 @@ class TagPoint;
 
         /// @copydoc Skeleton::addLinkedSkeletonAnimationSource
         void addLinkedSkeletonAnimationSource(const String& skelName, 
-            Real scale = 1.0f);
+            Real scale = 1.0f) override;
         /// @copydoc Skeleton::removeAllLinkedSkeletonAnimationSources
-        void removeAllLinkedSkeletonAnimationSources();
+        void removeAllLinkedSkeletonAnimationSources() override;
         auto
                     getLinkedSkeletonAnimationSources() const -> const LinkedSkeletonAnimSourceList& override;
 
         /// @copydoc Skeleton::_initAnimationState
-        void _initAnimationState(AnimationStateSet* animSet);
+        void _initAnimationState(AnimationStateSet* animSet) override;
 
         /// @copydoc Skeleton::_refreshAnimationState
-        void _refreshAnimationState(AnimationStateSet* animSet);
+        void _refreshAnimationState(AnimationStateSet* animSet) override;
 
         /// @copydoc Resource::getName
         auto getName() const -> const String&;

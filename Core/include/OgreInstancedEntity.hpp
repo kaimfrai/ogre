@@ -176,7 +176,7 @@ class SkeletonInstance;
 
     public:
         InstancedEntity( InstanceBatch *batchOwner, uint32 instanceID, InstancedEntity* sharedTransformEntity = nullptr);
-        virtual ~InstancedEntity();
+        ~InstancedEntity() override;
 
         /** Shares the entire transformation with another InstancedEntity. This is useful when a mesh
             has more than one submeshes, therefore creating multiple InstanceManagers (one for each
@@ -209,22 +209,22 @@ class SkeletonInstance;
 
         auto _getOwner() const -> InstanceBatch* { return mBatchOwner; }
 
-        auto getMovableType() const -> const String&;
+        auto getMovableType() const -> const String& override;
 
-        auto getBoundingBox() const -> const AxisAlignedBox&;
-        auto getBoundingRadius() const -> Real;
+        auto getBoundingBox() const -> const AxisAlignedBox& override;
+        auto getBoundingRadius() const -> Real override;
 
         /** This is used by our batch owner to get the closest entity's depth, returns infinity
             when not attached to a scene node */
         auto getSquaredViewDepth( const Camera* cam ) const -> Real;
 
         /// Overridden so we can tell the InstanceBatch it needs to update it's bounds
-        void _notifyMoved();
-        void _notifyAttached( Node* parent, bool isTagPoint = false );
+        void _notifyMoved() override;
+        void _notifyAttached( Node* parent, bool isTagPoint = false ) override;
 
         /// Do nothing, InstanceBatch takes care of this.
-        void _updateRenderQueue( RenderQueue* queue )   {}
-        void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false ) {}
+        void _updateRenderQueue( RenderQueue* queue ) override   {}
+        void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false ) override {}
 
         /** @see Entity::hasSkeleton */
         auto hasSkeleton() const -> bool { return mSkeletonInstance != nullptr; }
@@ -273,7 +273,7 @@ class SkeletonInstance;
         void setInUse(bool used);
 
         /** Returns the world transform of the instanced entity including local transform */
-        virtual auto _getParentNodeFullTransform() const -> const Affine3& {
+        auto _getParentNodeFullTransform() const -> const Affine3& override {
             assert((!mNeedTransformUpdate || !mUseLocalTransform) && "Transform data should be updated at this point");
             return mUseLocalTransform ? mFullLocalTransform :
                 mParentNode ? mParentNode->_getFullTransform() : Affine3::IDENTITY;
@@ -287,7 +287,7 @@ class SkeletonInstance;
         }
 
         /** @copydoc MovableObject::isInScene */
-        virtual auto isInScene() const -> bool
+        auto isInScene() const -> bool override
         {
             //We assume that the instanced entity is in the scene if it is in use
             //It is in the scene whether it has a parent node or not

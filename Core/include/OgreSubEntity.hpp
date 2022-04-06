@@ -81,7 +81,7 @@ class VertexData;
         /** Private constructor - don't allow creation by anybody else.
         */
         SubEntity(Entity* parent, SubMesh* subMeshBasis);
-        ~SubEntity();
+        ~SubEntity() override;
 
         /// Pointer to parent.
         Entity* mParentEntity;

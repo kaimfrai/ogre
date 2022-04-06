@@ -49,7 +49,7 @@ public:
 
     auto getGLID() const -> uint { return mTextureID; }
 
-    void getCustomAttribute(const String& name, void* pData);
+    void getCustomAttribute(const String& name, void* pData) override;
 
 protected:
     /** Returns the maximum number of Mipmaps that can be generated until we reach

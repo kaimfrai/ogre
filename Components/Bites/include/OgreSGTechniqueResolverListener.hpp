@@ -67,11 +67,11 @@ public:
     auto handleSchemeNotFound(unsigned short schemeIndex,
                                           const Ogre::String& schemeName,
                                           Ogre::Material* originalMaterial, unsigned short lodIndex,
-                                          const Ogre::Renderable* rend) -> Ogre::Technique*;
+                                          const Ogre::Renderable* rend) -> Ogre::Technique* override;
 
-    auto afterIlluminationPassesCreated(Ogre::Technique* tech) -> bool;
+    auto afterIlluminationPassesCreated(Ogre::Technique* tech) -> bool override;
 
-    auto beforeIlluminationPassesCleared(Ogre::Technique* tech) -> bool;
+    auto beforeIlluminationPassesCleared(Ogre::Technique* tech) -> bool override;
 
 protected:
     Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The shader generator instance.

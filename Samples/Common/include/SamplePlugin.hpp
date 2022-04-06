@@ -46,15 +46,15 @@ namespace OgreBites
         }
 
         [[nodiscard]]
-        auto getName() const -> const Ogre::String&
+        auto getName() const -> const Ogre::String& override
         {
             return mName;
         }
         
-        void install() {}
-        void uninstall() {}
-        void initialise() {}
-        void shutdown() {}
+        void install() override {}
+        void uninstall() override {}
+        void initialise() override {}
+        void shutdown() override {}
 
         /*-----------------------------------------------------------------------------
         | Adds a sample to the queue.

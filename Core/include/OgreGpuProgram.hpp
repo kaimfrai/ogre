@@ -126,11 +126,11 @@ struct GpuNamedConstants;
     // catches errors during prepare
     void safePrepare();
 
-    void prepareImpl();
+    void prepareImpl() override;
 
-    void loadImpl();
+    void loadImpl() override;
 
-    void postLoadImpl();
+    void postLoadImpl() override;
 
     /// Create the internal params logical & named mapping structures
     void createParameterMappingStructures(bool recreateIfExists = true);
@@ -146,7 +146,7 @@ struct GpuNamedConstants;
 
     static auto getProgramTypeName(GpuProgramType programType) -> const String;
 
-    virtual ~GpuProgram() {}
+    ~GpuProgram() override {}
 
     /** Sets the filename of the source assembly for this program.
         @remarks

@@ -65,51 +65,51 @@ namespace {
         FileInfoList mFileList;
     public:
         ZipArchive(const String& name, const String& archType, const uint8* externBuf = nullptr, size_t externBufSz = 0);
-        ~ZipArchive();
+        ~ZipArchive() override;
         /// @copydoc Archive::isCaseSensitive
         [[nodiscard]]
-        auto isCaseSensitive() const -> bool { return true; }
+        auto isCaseSensitive() const -> bool override { return true; }
 
         /// @copydoc Archive::load
-        void load();
+        void load() override;
         /// @copydoc Archive::unload
-        void unload();
+        void unload() override;
 
         /// @copydoc Archive::open
         [[nodiscard]]
-        auto open(const String& filename, bool readOnly = true) const -> DataStreamPtr;
+        auto open(const String& filename, bool readOnly = true) const -> DataStreamPtr override;
 
         /// @copydoc Archive::create
-        auto create(const String& filename) -> DataStreamPtr;
+        auto create(const String& filename) -> DataStreamPtr override;
 
         /// @copydoc Archive::remove
-        void remove(const String& filename);
+        void remove(const String& filename) override;
 
         /// @copydoc Archive::list
         [[nodiscard]]
-        auto list(bool recursive = true, bool dirs = false) const -> StringVectorPtr;
+        auto list(bool recursive = true, bool dirs = false) const -> StringVectorPtr override;
 
         /// @copydoc Archive::listFileInfo
         [[nodiscard]]
-        auto listFileInfo(bool recursive = true, bool dirs = false) const -> FileInfoListPtr;
+        auto listFileInfo(bool recursive = true, bool dirs = false) const -> FileInfoListPtr override;
 
         /// @copydoc Archive::find
         [[nodiscard]]
         auto find(const String& pattern, bool recursive = true,
-            bool dirs = false) const -> StringVectorPtr;
+            bool dirs = false) const -> StringVectorPtr override;
 
         /// @copydoc Archive::findFileInfo
         [[nodiscard]]
         auto findFileInfo(const String& pattern, bool recursive = true,
-            bool dirs = false) const -> FileInfoListPtr;
+            bool dirs = false) const -> FileInfoListPtr override;
 
         /// @copydoc Archive::exists
         [[nodiscard]]
-        auto exists(const String& filename) const -> bool;
+        auto exists(const String& filename) const -> bool override;
 
         /// @copydoc Archive::getModifiedTime
         [[nodiscard]]
-        auto getModifiedTime(const String& filename) const -> time_t;
+        auto getModifiedTime(const String& filename) const -> time_t override;
     };
 }
     //-----------------------------------------------------------------------

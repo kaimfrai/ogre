@@ -55,19 +55,19 @@ namespace Ogre {
     public:
         GLFBORenderTexture(GLFBOManager *manager, const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
 
-        virtual void getCustomAttribute(const String& name, void* pData);
+        void getCustomAttribute(const String& name, void* pData) override;
 
         /// Override needed to deal with multisample buffers
-        virtual void swapBuffers();
+        void swapBuffers() override;
 
         /// Override so we can attach the depth buffer to the FBO
-        virtual auto attachDepthBuffer( DepthBuffer *depthBuffer ) -> bool;
-        virtual void detachDepthBuffer();
-        virtual void _detachDepthBuffer();
+        auto attachDepthBuffer( DepthBuffer *depthBuffer ) -> bool override;
+        void detachDepthBuffer() override;
+        void _detachDepthBuffer() override;
 
         [[nodiscard]]
-        auto getContext() const -> GLContext* { return mFB.getContext(); }
-        auto getFBO() -> GLFrameBufferObjectCommon* { return &mFB; }
+        auto getContext() const -> GLContext* override { return mFB.getContext(); }
+        auto getFBO() -> GLFrameBufferObjectCommon* override { return &mFB; }
     protected:
         GLFrameBufferObject mFB;
     };
@@ -78,25 +78,25 @@ namespace Ogre {
     {
     public:
         GLFBOManager(bool atimode);
-        ~GLFBOManager();
+        ~GLFBOManager() override;
         
         /** Bind a certain render target if it is a FBO. If it is not a FBO, bind the
             main frame buffer.
         */
-        void bind(RenderTarget *target);
+        void bind(RenderTarget *target) override;
         
         /** Unbind a certain render target. No-op for FBOs.
         */
-        void unbind(RenderTarget *target) {};
+        void unbind(RenderTarget *target) override {};
         
         /** Get best depth and stencil supported for given internalFormat
         */
-        void getBestDepthStencil(PixelFormat internalFormat, GLenum *depthFormat, GLenum *stencilFormat);
+        void getBestDepthStencil(PixelFormat internalFormat, GLenum *depthFormat, GLenum *stencilFormat) override;
         
         /** Create a texture rendertarget object
         */
-        virtual auto createRenderTexture(const String &name, 
-            const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> GLFBORenderTexture *;
+        auto createRenderTexture(const String &name, 
+            const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> GLFBORenderTexture * override;
         
         /** Request a render buffer. If format is GL_NONE, return a zero buffer.
         */

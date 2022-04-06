@@ -95,17 +95,17 @@ public:
     /**
     @see SubRenderState::getType.
     */
-    virtual auto getType() const -> const String&;
+    auto getType() const -> const String& override;
 
     /**
     @see SubRenderState::getType.
     */
-    virtual auto getExecutionOrder() const -> int;
+    auto getExecutionOrder() const -> int override;
 
     /**
     @see SubRenderState::copyFrom.
     */
-    virtual void copyFrom(const SubRenderState& rhs);
+    void copyFrom(const SubRenderState& rhs) override;
 
     /**
     Set the hardware skinning parameters.
@@ -152,7 +152,7 @@ public:
     /**
     @see SubRenderState::preAddToRenderState.
     */
-    virtual auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool;
+    auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool override;
 
     /**
     Set the factory which created this sub render state
@@ -166,17 +166,17 @@ protected:
     /**
     @see SubRenderState::resolveParameters.
     */
-    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
+    auto resolveParameters(ProgramSet* programSet) -> bool override;
 
     /**
     @see SubRenderState::resolveDependencies.
     */
-    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
+    auto resolveDependencies(ProgramSet* programSet) -> bool override;
 
     /**
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
+    auto addFunctionInvocations(ProgramSet* programSet) -> bool override;
 
     SharedPtr<LinearSkinning> mLinear;
     SharedPtr<DualQuaternionSkinning> mDualQuat;
@@ -196,23 +196,23 @@ class HardwareSkinningFactory : public SubRenderStateFactory,
 {
 public:
     HardwareSkinningFactory();
-    ~HardwareSkinningFactory();
+    ~HardwareSkinningFactory() override;
     
     /** 
     @see SubRenderStateFactory::getType.
     */
     [[nodiscard]]
-    virtual auto getType() const -> const String&;
+    auto getType() const -> const String& override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState* override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
     */
-    virtual void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, Pass* srcPass, Pass* dstPass);
+    void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, Pass* srcPass, Pass* dstPass) override;
 
     /** 
     Sets the list of custom shadow caster materials
@@ -329,7 +329,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual auto createInstanceImpl() -> SubRenderState*;
+    auto createInstanceImpl() -> SubRenderState* override;
 
     /// A set of custom shadow caster materials
     MaterialPtr mCustomShadowCasterMaterialsLinear[HS_MAX_WEIGHT_COUNT];

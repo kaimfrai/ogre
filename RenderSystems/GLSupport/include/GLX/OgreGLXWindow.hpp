@@ -44,34 +44,34 @@ namespace Ogre
     {
     public:
         GLXWindow(GLXGLSupport* glsupport);
-        ~GLXWindow();
+        ~GLXWindow() override;
         
         void create(const String& name, unsigned int width, unsigned int height,
-                    bool fullScreen, const NameValuePairList *miscParams);
+                    bool fullScreen, const NameValuePairList *miscParams) override;
         
         /** @copydoc see RenderWindow::setFullscreen */
-        void setFullscreen (bool fullscreen, uint width, uint height);
+        void setFullscreen (bool fullscreen, uint width, uint height) override;
         
         /** @copydoc see RenderWindow::destroy */
-        void destroy();
+        void destroy() override;
         
         /** @copydoc see RenderWindow::setHidden */
-        void setHidden(bool hidden);
+        void setHidden(bool hidden) override;
 
         /** @copydoc see RenderWindow::setVSyncEnabled */
-        void setVSyncEnabled(bool vsync);
+        void setVSyncEnabled(bool vsync) override;
         
         /** @copydoc see RenderWindow::reposition */
-        void reposition(int left, int top);
+        void reposition(int left, int top) override;
         
         /** @copydoc see RenderWindow::resize */
-        void resize(unsigned int width, unsigned int height);
+        void resize(unsigned int width, unsigned int height) override;
 
         /** @copydoc see RenderWindow::windowMovedOrResized */
-        void windowMovedOrResized();
+        void windowMovedOrResized() override;
         
         /** @copydoc see RenderWindow::swapBuffers */
-        void swapBuffers();
+        void swapBuffers() override;
         
         /**
            @remarks
@@ -82,10 +82,10 @@ namespace Ogre
            * DISPLAYNAME    The X Server name for the connected display.
            * ATOM          The X Atom used in client delete events.
            */
-        void getCustomAttribute(const String& name, void* pData);
+        void getCustomAttribute(const String& name, void* pData) override;
         
         [[nodiscard]]
-        auto suggestPixelFormat() const -> PixelFormat;
+        auto suggestPixelFormat() const -> PixelFormat override;
 
     private:
         GLXGLSupport* mGLSupport;

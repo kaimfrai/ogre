@@ -47,7 +47,7 @@ public:
 
 protected:
 
-    void setupContent();
+    void setupContent() override;
     Ogre::Entity* mGroundPlane;
 
 };

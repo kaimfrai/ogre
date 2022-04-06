@@ -62,26 +62,26 @@ class MovableObject;
 
         /// @copydoc LodStrategy::getBaseValue
         [[nodiscard]]
-        virtual auto getBaseValue() const -> Real;
+        auto getBaseValue() const -> Real override;
 
         /// @copydoc LodStrategy::transformBias
         [[nodiscard]]
-        virtual auto transformBias(Real factor) const -> Real;
+        auto transformBias(Real factor) const -> Real override;
 
         /// @copydoc LodStrategy::getIndex
         [[nodiscard]]
-        virtual auto getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const -> ushort;
+        auto getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const -> ushort override;
 
         /// @copydoc LodStrategy::getIndex
         [[nodiscard]]
-        virtual auto getIndex(Real value, const Material::LodValueList& materialLodValueList) const -> ushort;
+        auto getIndex(Real value, const Material::LodValueList& materialLodValueList) const -> ushort override;
 
         /// @copydoc LodStrategy::sort
-        virtual void sort(Mesh::MeshLodUsageList& meshLodUsageList) const;
+        void sort(Mesh::MeshLodUsageList& meshLodUsageList) const override;
 
         /// @copydoc LodStrategy::isSorted
         [[nodiscard]]
-        virtual auto isSorted(const Mesh::LodValueList& values) const -> bool;
+        auto isSorted(const Mesh::LodValueList& values) const -> bool override;
     };
 
     class AbsolutePixelCountLodStrategy : public PixelCountLodStrategyBase, public Singleton<AbsolutePixelCountLodStrategy>
@@ -89,7 +89,7 @@ class MovableObject;
     public:
         /** Default constructor. */
         AbsolutePixelCountLodStrategy();
-        ~AbsolutePixelCountLodStrategy();
+        ~AbsolutePixelCountLodStrategy() override;
 
         auto getValueImpl(const MovableObject *movableObject, const Camera *camera) const -> Real override;
 
@@ -104,7 +104,7 @@ class MovableObject;
     public:
         /** Default constructor. */
         ScreenRatioPixelCountLodStrategy();
-        ~ScreenRatioPixelCountLodStrategy();
+        ~ScreenRatioPixelCountLodStrategy() override;
 
         /// @copydoc Singleton::getSingleton()
         static auto getSingleton() -> ScreenRatioPixelCountLodStrategy&;

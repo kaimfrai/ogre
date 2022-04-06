@@ -88,7 +88,7 @@ namespace Ogre {
         */
         ParticleSystem(const String& name, const String& resourceGroupName);
 
-        virtual ~ParticleSystem();
+        ~ParticleSystem() override;
 
         /** Sets the ParticleRenderer to be used to render this particle system.
         @remarks
@@ -299,15 +299,15 @@ namespace Ogre {
         */
         virtual auto getMaterialName() const -> const String&;
 
-        virtual void _notifyCurrentCamera(Camera* cam) override;
+        void _notifyCurrentCamera(Camera* cam) override;
         void _notifyAttached(Node* parent, bool isTagPoint = false) override;
-        virtual auto getBoundingBox() const -> const AxisAlignedBox& override { return mAABB; }
-        virtual auto getBoundingRadius() const -> Real override { return mBoundingRadius; }
-        virtual void _updateRenderQueue(RenderQueue* queue) override;
+        auto getBoundingBox() const -> const AxisAlignedBox& override { return mAABB; }
+        auto getBoundingRadius() const -> Real override { return mBoundingRadius; }
+        void _updateRenderQueue(RenderQueue* queue) override;
 
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
-            bool debugRenderables = false);
+            bool debugRenderables = false) override;
 
         /** Fast-forwards this system by the required number of seconds.
         @remarks
@@ -453,9 +453,9 @@ namespace Ogre {
         void _notifyOrigin(const String& origin) { mOrigin = origin; }
 
         /** @copydoc MovableObject::setRenderQueueGroup */
-        void setRenderQueueGroup(uint8 queueID);
+        void setRenderQueueGroup(uint8 queueID) override;
         /** @copydoc MovableObject::setRenderQueueGroupAndPriority */
-        void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority);
+        void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority) override;
 
         /** Set whether or not particles are sorted according to the camera.
         @remarks
@@ -546,7 +546,7 @@ namespace Ogre {
         auto getEmitting() const -> bool;
 
         /// Override to return specific type flag
-        auto getTypeFlags() const -> uint32;
+        auto getTypeFlags() const -> uint32 override;
     private:
         AxisAlignedBox mAABB;
         Real mBoundingRadius;

@@ -55,7 +55,7 @@ namespace Ogre {
     public:
         /// Constructor
         SkeletonManager();
-        ~SkeletonManager();
+        ~SkeletonManager() override;
 
         /// Create a new skeleton
         /// @see ResourceManager::createResource
@@ -76,7 +76,7 @@ namespace Ogre {
         /// @copydoc ResourceManager::createImpl
         auto createImpl(const String& name, ResourceHandle handle, 
             const String& group, bool isManual, ManualResourceLoader* loader, 
-            const NameValuePairList* createParams) -> Resource*;
+            const NameValuePairList* createParams) -> Resource* override;
 
     };
 

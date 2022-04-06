@@ -53,71 +53,71 @@ namespace Ogre {
         class CmdBorderSize : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
-            void doSet(void* target, const String& val);
+            auto doGet(const void* target) const -> String override;
+            void doSet(void* target, const String& val) override;
         };
         /** Command object for specifying the Material for the border (see ParamCommand).*/
         class CmdBorderMaterial : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
-            void doSet(void* target, const String& val);
+            auto doGet(const void* target) const -> String override;
+            void doSet(void* target, const String& val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderLeftUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
-            void doSet(void* target, const String& val);
+            auto doGet(const void* target) const -> String override;
+            void doSet(void* target, const String& val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderTopUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
-            void doSet(void* target, const String& val);
+            auto doGet(const void* target) const -> String override;
+            void doSet(void* target, const String& val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderRightUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
-            void doSet(void* target, const String& val);
+            auto doGet(const void* target) const -> String override;
+            void doSet(void* target, const String& val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderBottomUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
-            void doSet(void* target, const String& val);
+            auto doGet(const void* target) const -> String override;
+            void doSet(void* target, const String& val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderTopLeftUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
-            void doSet(void* target, const String& val);
+            auto doGet(const void* target) const -> String override;
+            void doSet(void* target, const String& val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderBottomLeftUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
-            void doSet(void* target, const String& val);
+            auto doGet(const void* target) const -> String override;
+            void doSet(void* target, const String& val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderBottomRightUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
-            void doSet(void* target, const String& val);
+            auto doGet(const void* target) const -> String override;
+            void doSet(void* target, const String& val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderTopRightUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
-            void doSet(void* target, const String& val);
+            auto doGet(const void* target) const -> String override;
+            void doSet(void* target, const String& val) override;
         };
         // Command objects
         static CmdBorderSize msCmdBorderSize;

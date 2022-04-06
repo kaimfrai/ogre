@@ -317,13 +317,13 @@ class AnimationStateSet;
 
         /** ControllerValue implementation. */
         [[nodiscard]]
-        auto getValue() const -> Real
+        auto getValue() const -> Real override
         {
             return mTargetAnimationState->getTimePosition() / mTargetAnimationState->getLength();
         }
 
         /** ControllerValue implementation. */
-        void setValue(Real value)
+        void setValue(Real value) override
         {
             if(mAddTime)
                 mTargetAnimationState->addTime(value);

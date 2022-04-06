@@ -422,9 +422,9 @@ namespace Ogre {
         public:
             SceneMgrQueuedRenderableVisitor() 
                 :transparentShadowCastersMode(false) {}
-            ~SceneMgrQueuedRenderableVisitor() {}
-            void visit(const Pass* p, RenderableList& rs);
-            void visit(RenderablePass* rp);
+            ~SceneMgrQueuedRenderableVisitor() override {}
+            void visit(const Pass* p, RenderableList& rs) override;
+            void visit(RenderablePass* rp) override;
 
             /// Target SM to send renderables to
             SceneManager* targetSceneMgr;
@@ -512,7 +512,7 @@ namespace Ogre {
         protected:
             SceneManager* mSceneManager;
             virtual void _updateRenderQueue(RenderQueue* queue) = 0;
-            void nodeDestroyed(const Node*);
+            void nodeDestroyed(const Node*) override;
         public:
             enum BoxPlane
             {
@@ -530,14 +530,14 @@ namespace Ogre {
             bool mEnabled;
 
             void setEnabled(bool enable);
-            void postFindVisibleObjects(SceneManager* source, IlluminationRenderStage irs, Viewport* vp);
+            void postFindVisibleObjects(SceneManager* source, IlluminationRenderStage irs, Viewport* vp) override;
         };
 
         class SkyPlaneRenderer : public SkyRenderer
         {
             Entity* mSkyPlaneEntity;
             Plane mSkyPlane;
-            void _updateRenderQueue(RenderQueue* queue);
+            void _updateRenderQueue(RenderQueue* queue) override;
         public:
             SkyPlaneRenderer(SceneManager* owner) : SkyRenderer(owner), mSkyPlaneEntity(nullptr) {}
             SkyPlaneGenParameters mSkyPlaneGenParameters;
@@ -551,7 +551,7 @@ namespace Ogre {
             std::unique_ptr<ManualObject> mSkyBoxObj;
 
             Quaternion mSkyBoxOrientation;
-            void _updateRenderQueue(RenderQueue* queue);
+            void _updateRenderQueue(RenderQueue* queue) override;
         public:
             SkyBoxRenderer(SceneManager* owner) : SkyRenderer(owner) {}
             SkyBoxGenParameters mSkyBoxGenParameters;
@@ -571,7 +571,7 @@ namespace Ogre {
                 const Quaternion& orientation,
                 int xsegments, int ysegments, int ySegmentsToKeep,
                 const String& groupName) -> MeshPtr;
-            void _updateRenderQueue(RenderQueue* queue);
+            void _updateRenderQueue(RenderQueue* queue) override;
         public:
             SkyDomeRenderer(SceneManager* owner)  : SkyRenderer(owner) {}
             SkyDomeGenParameters mSkyDomeGenParameters;
@@ -867,8 +867,8 @@ namespace Ogre {
                     mLight = light;
                     mFarDistSquared = farDistSquared;
                 }
-                auto queryResult(MovableObject* object) -> bool;
-                auto queryResult(SceneQuery::WorldFragment* fragment) -> bool;
+                auto queryResult(MovableObject* object) -> bool override;
+                auto queryResult(SceneQuery::WorldFragment* fragment) -> bool override;
             };
 
             std::unique_ptr<ShadowCasterSceneQueryListener> mShadowCasterQueryListener;
@@ -3401,7 +3401,7 @@ namespace Ogre {
     class DebugDrawer : public SceneManager::Listener
     {
     public:
-        virtual ~DebugDrawer() {}
+        ~DebugDrawer() override {}
         virtual void drawSceneNode(const SceneNode* node) = 0;
         virtual void drawBone(const Node* node) = 0;
         virtual void drawFrustum(const Frustum* frust) = 0;
@@ -3413,7 +3413,7 @@ namespace Ogre {
     {
     public:
         DefaultIntersectionSceneQuery(SceneManager* creator);
-        ~DefaultIntersectionSceneQuery();
+        ~DefaultIntersectionSceneQuery() override;
 
         void execute(IntersectionSceneQueryListener* listener) override;
     };
@@ -3423,7 +3423,7 @@ namespace Ogre {
     {
     public:
         DefaultRaySceneQuery(SceneManager* creator);
-        ~DefaultRaySceneQuery();
+        ~DefaultRaySceneQuery() override;
 
         void execute(RaySceneQueryListener* listener) override;
     };
@@ -3432,7 +3432,7 @@ namespace Ogre {
     {
     public:
         DefaultSphereSceneQuery(SceneManager* creator);
-        ~DefaultSphereSceneQuery();
+        ~DefaultSphereSceneQuery() override;
 
         void execute(SceneQueryListener* listener) override;
     };
@@ -3441,7 +3441,7 @@ namespace Ogre {
     {
     public:
         DefaultPlaneBoundedVolumeListSceneQuery(SceneManager* creator);
-        ~DefaultPlaneBoundedVolumeListSceneQuery();
+        ~DefaultPlaneBoundedVolumeListSceneQuery() override;
 
         void execute(SceneQueryListener* listener) override;
     };
@@ -3450,7 +3450,7 @@ namespace Ogre {
     {
     public:
         DefaultAxisAlignedBoxSceneQuery(SceneManager* creator);
-        ~DefaultAxisAlignedBoxSceneQuery();
+        ~DefaultAxisAlignedBoxSceneQuery() override;
 
         void execute(SceneQueryListener* listener) override;
     };

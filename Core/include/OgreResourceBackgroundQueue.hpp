@@ -121,7 +121,7 @@ namespace Ogre {
 
     public:
         ResourceBackgroundQueue();
-        virtual ~ResourceBackgroundQueue();
+        ~ResourceBackgroundQueue() override;
 
         /** Initialise the background queue system. 
         @note Called automatically by Root::initialise.
@@ -280,13 +280,13 @@ namespace Ogre {
         void abortRequest( BackgroundProcessTicket ticket );
 
         /// Implementation for WorkQueue::RequestHandler
-        auto canHandleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ) -> bool;
+        auto canHandleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ) -> bool override;
         /// Implementation for WorkQueue::RequestHandler
-        auto handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ) -> WorkQueue::Response*;
+        auto handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ) -> WorkQueue::Response* override;
         /// Implementation for WorkQueue::ResponseHandler
-        auto canHandleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ) -> bool;
+        auto canHandleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ) -> bool override;
         /// Implementation for WorkQueue::ResponseHandler
-        void handleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ);
+        void handleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ) override;
 
         /// @copydoc Singleton::getSingleton()
         static auto getSingleton() -> ResourceBackgroundQueue&;
