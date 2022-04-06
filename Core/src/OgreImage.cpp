@@ -134,8 +134,8 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------------
     Image::Image( const Image &img )
-        : mBuffer( nullptr ),
-        mAutoDelete( true )
+        
+        
     {
         // call assignment operator
         *this = img;
