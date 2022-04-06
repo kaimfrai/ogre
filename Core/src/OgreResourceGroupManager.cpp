@@ -814,26 +814,26 @@ namespace Ogre {
         {
             ScriptLoader* su = slfli.first;
             // Iterate over each item in the list
-            for (auto fii = slfli.second.begin(); fii != slfli.second.end(); ++fii)
+            for (auto & fii : slfli.second)
             {
                 bool skipScript = false;
-                fireScriptStarted(fii->filename, skipScript);
+                fireScriptStarted(fii.filename, skipScript);
                 if(skipScript)
                 {
                     LogManager::getSingleton().logMessage(
-                        "Skipping script " + fii->filename);
+                        "Skipping script " + fii.filename);
                 }
                 else
                 {
                     LogManager::getSingleton().logMessage(
-                        "Parsing script " + fii->filename);
-                    DataStreamPtr stream = fii->archive->open(fii->filename);
+                        "Parsing script " + fii.filename);
+                    DataStreamPtr stream = fii.archive->open(fii.filename);
                     if (stream)
                     {
                         if (mLoadingListener)
-                            mLoadingListener->resourceStreamOpened(fii->filename, grp->name, nullptr, stream);
+                            mLoadingListener->resourceStreamOpened(fii.filename, grp->name, nullptr, stream);
 
-                        if(fii->archive->getType() == "FileSystem" && stream->size() <= 1024 * 1024)
+                        if(fii.archive->getType() == "FileSystem" && stream->size() <= 1024 * 1024)
                         {
                             DataStreamPtr cachedCopy(new MemoryDataStream(stream->getName(), stream));
                             su->parseScript(cachedCopy, grp->name);
@@ -842,7 +842,7 @@ namespace Ogre {
                             su->parseScript(stream, grp->name);
                     }
                 }
-                fireScriptEnded(fii->filename, skipScript);
+                fireScriptEnded(fii.filename, skipScript);
             }
         }
 
@@ -973,18 +973,17 @@ namespace Ogre {
         for (const auto & grpi : mResourceGroupMap)
         {
             // Iterate over all priorities
-            for (auto oi = grpi.second->loadResourceOrderMap.begin();
-                oi != grpi.second->loadResourceOrderMap.end(); ++oi)
+            for (auto & oi : grpi.second->loadResourceOrderMap)
             {
                 // Iterate over all resources
-                for (auto l = oi->second.begin();
-                    l != oi->second.end(); )
+                for (auto l = oi.second.begin();
+                    l != oi.second.end(); )
                 {
                     if ((*l)->getCreator() == manager)
                     {
                         // Increment first since iterator will be invalidated
                         auto del = l++;
-                        oi->second.erase(del);
+                        oi.second.erase(del);
                     }
                     else
                     {

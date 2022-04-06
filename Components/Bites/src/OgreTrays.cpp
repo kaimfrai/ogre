@@ -1261,9 +1261,9 @@ void TrayManager::hideCursor()
     // give widgets a chance to reset in case they're in the middle of something
     for (auto & mWidget : mWidgets)
     {
-        for (unsigned int j = 0; j < mWidget.size(); j++)
+        for (auto & j : mWidget)
         {
-            mWidget[j]->_focusLost();
+            j->_focusLost();
         }
     }
 
@@ -1289,9 +1289,9 @@ void TrayManager::hideTrays()
     // give widgets a chance to reset in case they're in the middle of something
     for (auto & mWidget : mWidgets)
     {
-        for (unsigned int j = 0; j < mWidget.size(); j++)
+        for (auto & j : mWidget)
         {
-            mWidget[j]->_focusLost();
+            j->_focusLost();
         }
     }
 
@@ -1664,9 +1664,9 @@ void TrayManager::showOkDialog(const Ogre::DisplayString &caption, const Ogre::D
         // give widgets a chance to reset in case they're in the middle of something
         for (auto & mWidget : mWidgets)
         {
-            for (unsigned int j = 0; j < mWidget.size(); j++)
+            for (auto & j : mWidget)
             {
-                mWidget[j]->_focusLost();
+                j->_focusLost();
             }
         }
 
@@ -1717,9 +1717,9 @@ void TrayManager::showYesNoDialog(const Ogre::DisplayString &caption, const Ogre
         // give widgets a chance to reset in case they're in the middle of something
         for (auto & mWidget : mWidgets)
         {
-            for (unsigned int j = 0; j < mWidget.size(); j++)
+            for (auto & j : mWidget)
             {
-                mWidget[j]->_focusLost();
+                j->_focusLost();
             }
         }
 
@@ -1801,9 +1801,9 @@ auto TrayManager::getWidget(const Ogre::String &name) -> Widget *
 {
     for (auto & mWidget : mWidgets)
     {
-        for (unsigned int j = 0; j < mWidget.size(); j++)
+        for (auto & j : mWidget)
         {
-            if (mWidget[j]->getName() == name) return mWidget[j];
+            if (j->getName() == name) return j;
         }
     }
     return nullptr;

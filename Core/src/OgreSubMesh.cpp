@@ -347,11 +347,10 @@ class HardwareBufferManagerBase;
             Real rating = 0;
             Vector3 best_vertex;
 
-            for (auto i = boxe.mIndices.begin ();
-                 i != boxe.mIndices.end (); ++i)
+            for (unsigned int mIndice : boxe.mIndices)
             {
                 float *v;
-                poselem->baseVertexPointerToElement (vdata + *i * vsz, &v);
+                poselem->baseVertexPointerToElement (vdata + mIndice * vsz, &v);
 
                 Vector3 vv (v [0], v [1], v [2]);
                 Real r = (vv - center).squaredLength ();
