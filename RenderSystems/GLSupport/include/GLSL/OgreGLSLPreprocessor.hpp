@@ -160,7 +160,7 @@ namespace Ogre {
             void SetValue (long iValue);
 
             /// Test two tokens for equality
-            auto operator == (const Token &iOther) -> bool
+            auto operator == (const Token &iOther) const -> bool
             {
                 if (iOther.Length != Length)
                     return false;
