@@ -62,7 +62,8 @@ namespace Ogre {
             context - mostly useful for additional threads.
         @note The caller is responsible for deleting the returned context.
         */
-        virtual GLContext* clone() const OGRE_NODISCARD = 0;
+        [[nodiscard]]
+        virtual GLContext* clone() const = 0;
 
         /**
         * Release the render context.
