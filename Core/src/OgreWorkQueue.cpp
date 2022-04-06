@@ -713,7 +713,7 @@ namespace Ogre {
             }
         }
         try {
-            while(1){
+            for(;;){
                 {
                     std::unique_lock<std::recursive_mutex> ogrenameLock2(mProcessMutex); // mProcessMutex needs to be the top mutex to prevent livelocks
                     {

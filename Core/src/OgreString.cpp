@@ -482,7 +482,7 @@ namespace Ogre {
     {
         String result = source;
         String::size_type pos = 0;
-        while(1)
+        for(;;)
         {
             pos = result.find(replaceWhat,pos);
             if (pos == String::npos) break;

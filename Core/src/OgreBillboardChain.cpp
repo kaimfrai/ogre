@@ -617,7 +617,7 @@ class RenderSystem;
                 {
                     // Start from head + 1 since it's only useful in pairs
                     size_t laste = seg.head;
-                    while(1) // until break
+                    for(;;) // until break
                     {
                         size_t e = laste + 1;
                         // Wrap forwards

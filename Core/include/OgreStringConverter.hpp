@@ -225,7 +225,7 @@ namespace Ogre {
             matches "true", "yes", "1", or "on", false if "false", "no", "0" 
             or "off".
         */
-        static auto parseBool(const String& val, bool defaultValue = 0) -> bool
+        static auto parseBool(const String& val, bool defaultValue = false) -> bool
         {
             bool ret;
             return parse(val, ret) ? ret : defaultValue;
