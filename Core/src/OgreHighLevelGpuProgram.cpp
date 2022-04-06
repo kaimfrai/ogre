@@ -118,10 +118,8 @@ namespace Ogre
         resetCompileError();
     }
     //---------------------------------------------------------------------------
-    HighLevelGpuProgram::~HighLevelGpuProgram()
-    {
-        // superclasses will trigger unload
-    }
+    HighLevelGpuProgram::~HighLevelGpuProgram() = default;
+
     //---------------------------------------------------------------------------
     auto HighLevelGpuProgram::createParameters() -> GpuProgramParametersSharedPtr
     {

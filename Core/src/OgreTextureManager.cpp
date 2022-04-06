@@ -72,11 +72,8 @@ namespace Ogre {
         // Subclasses should register (when this is fully constructed)
     }
     //-----------------------------------------------------------------------
-    TextureManager::~TextureManager()
-    {
-        // subclasses should unregister with resource group manager
+    TextureManager::~TextureManager() = default;
 
-    }
     auto TextureManager::createSampler(const String& name) -> SamplerPtr
     {
         SamplerPtr ret = _createSamplerImpl();

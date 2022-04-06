@@ -67,10 +67,7 @@ auto Operand::operator= (const Operand & other) -> Operand&
     return *this;
 }
 //-----------------------------------------------------------------------------
-Operand::~Operand()
-{
-    // nothing to do
-}
+Operand::~Operand() = default;
 
 void Operand::setMaskToParamType()
 {

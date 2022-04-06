@@ -78,10 +78,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    Frustum::~Frustum()
-    {
-        // Do nothing
-    }
+    Frustum::~Frustum() = default;
 
     //-----------------------------------------------------------------------
     void Frustum::setFOVy(const Radian& fov)
