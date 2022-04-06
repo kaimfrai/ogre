@@ -192,7 +192,8 @@ namespace Ogre
             @return Pointer to a Response object - the caller is responsible
             for deleting the object.
             */
-            virtual Response* handleRequest(const Request* req, const WorkQueue* srcQ) OGRE_NODISCARD = 0;
+            [[nodiscard]]
+            virtual Response* handleRequest(const Request* req, const WorkQueue* srcQ) = 0;
         };
 
         /** Interface definition for a handler of responses. 

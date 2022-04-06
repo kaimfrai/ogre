@@ -28,8 +28,6 @@ THE SOFTWARE.
 #include "OgreOptimisedUtil.hpp"
 #include "OgrePlatformInformation.hpp"
 
-//#define __DO_PROFILE__
-
 namespace Ogre {
 
     //---------------------------------------------------------------------
