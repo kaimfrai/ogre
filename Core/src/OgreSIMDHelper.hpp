@@ -28,26 +28,7 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_SIMDHELPER_H
 #define OGRE_CORE_SIMDHELPER_H
 
-// Stack-alignment hackery.
-//
-// If macro __OGRE_SIMD_ALIGN_STACK defined, means there requests
-// special code to ensure stack align to a 16-bytes boundary.
-//
-// Note:
-//   This macro can only guarantee callee stack pointer (esp) align
-// to a 16-bytes boundary, but not that for frame pointer (ebp).
-// Because most compiler might use frame pointer to access to stack
-// variables, so you need to wrap those alignment required functions
-// with extra function call.
-//
-#define __OGRE_SIMD_ALIGN_ATTRIBUTE
-
-
 // Additional platform-dependent header files and declares.
-//
-// NOTE: Should be sync with __OGRE_HAVE_SSE macro.
-//
-
 #include <xmmintrin.h>
 
 //---------------------------------------------------------------------
