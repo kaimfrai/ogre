@@ -65,7 +65,7 @@ namespace Ogre {
         , mNumMultiRenderTargets(1)
         , mNonPOW2TexturesLimited(false)
         , mMaxSupportedAnisotropy(0)
-        , mVertexTextureUnitsShared(0)
+        , mVertexTextureUnitsShared(false)
         , mGeometryProgramNumOutputVertices(0)
         , mNumVertexAttributes(1)
     {

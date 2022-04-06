@@ -1008,7 +1008,7 @@ namespace Ogre {
         // There will be a new initial window and so forth, thus any call to test
         //  some params will access an invalid pointer, so it is best to reset
         //  the whole state.
-        mGLInitialised = 0;
+        mGLInitialised = false;
     }
 
     void GLRenderSystem::setShadingType(ShadeOptions so)

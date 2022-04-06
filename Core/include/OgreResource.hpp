@@ -165,7 +165,7 @@ class ResourceManager;
         */
         Resource() 
             : mCreator(0), mHandle(0), mLoadingState(LOADSTATE_UNLOADED), 
-              mIsBackgroundLoaded(0), mIsManual(0), mSize(0), mLoader(0), mStateCount(0)
+              mIsBackgroundLoaded(false), mIsManual(false), mSize(0), mLoader(0), mStateCount(0)
         { 
         }
 
