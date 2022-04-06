@@ -223,7 +223,8 @@ namespace Ogre {
     private:
         /// Private constructor, no construction
         ExceptionFactory() {}
-        static OGRE_NORETURN void _throwException(
+        [[noreturn]]
+        static void _throwException(
             Exception::ExceptionCodes code, int number,
             const String& desc, 
             const String& src, const char* file, long line)
@@ -244,7 +245,8 @@ namespace Ogre {
             }
         }
     public:
-        static OGRE_NORETURN void throwException(
+        [[noreturn]]
+        static void throwException(
             Exception::ExceptionCodes code,
             const String& desc,
             const String& src, const char* file, long line)

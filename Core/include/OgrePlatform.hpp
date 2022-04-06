@@ -37,9 +37,6 @@ THE SOFTWARE.
 /* fallthrough attribute */
 #define OGRE_FALLTHROUGH __attribute__((fallthrough))
 
-/* define OGRE_NORETURN macro */
-#define OGRE_NORETURN __attribute__((noreturn))
-
 /* Find how to declare aligned variable. */
 #define OGRE_ALIGNED_DECL(type, var, alignment)  type var __attribute__((__aligned__(alignment)))
 
