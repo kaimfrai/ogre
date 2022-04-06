@@ -85,7 +85,7 @@ namespace Ogre {
             res = createResource(name, group, isManual, loader, params);
         }
 
-        return ResourceCreateOrRetrieveResult(res, created);
+        return { res, created };
     }
     //-----------------------------------------------------------------------
     ResourcePtr ResourceManager::prepare(const String& name, 

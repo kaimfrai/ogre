@@ -586,7 +586,7 @@ class Sphere;
                 intMin.y < intMax.y &&
                 intMin.z < intMax.z)
             {
-                return AxisAlignedBox(intMin, intMax);
+                return { intMin, intMax };
             }
 
             return {};

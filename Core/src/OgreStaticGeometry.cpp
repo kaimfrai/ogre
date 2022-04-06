@@ -155,7 +155,7 @@ namespace Ogre {
             ((Real)z - REGION_HALF_RANGE) * mRegionDimensions.z + mOrigin.z
             );
         Vector3 max = min + mRegionDimensions;
-        return AxisAlignedBox(min, max);
+        return { min, max };
     }
     //--------------------------------------------------------------------------
     Vector3 StaticGeometry::getRegionCentre(ushort x, ushort y, ushort z)
@@ -290,7 +290,7 @@ namespace Ogre {
             }
 
         }
-        return AxisAlignedBox(min, max);
+        return { min, max };
     }
     //--------------------------------------------------------------------------
     void StaticGeometry::addEntity(Entity* ent, const Vector3& position,

@@ -303,7 +303,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     Rect Viewport::getActualDimensions() const
     {
-        return Rect(mActLeft, mActTop, mActLeft + mActWidth, mActTop + mActHeight);
+        return { mActLeft, mActTop, mActLeft + mActWidth, mActTop + mActHeight };
     }
 
     //---------------------------------------------------------------------

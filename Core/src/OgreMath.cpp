@@ -396,8 +396,8 @@ namespace Ogre
     //-----------------------------------------------------------------------
     std::pair<bool, Real> Math::intersects(const Ray& ray, const AxisAlignedBox& box)
     {
-        if (box.isNull()) return std::pair<bool, Real>(false, (Real)0);
-        if (box.isInfinite()) return std::pair<bool, Real>(true, (Real)0);
+        if (box.isNull()) return { false, (Real)0 };
+        if (box.isInfinite()) return { true, (Real)0 };
 
         Real lowt = 0.0f;
         Real t;
@@ -411,7 +411,7 @@ namespace Ogre
         // Check origin inside first
         if ( rayorig > min && rayorig < max )
         {
-            return std::pair<bool, Real>(true, (Real)0);
+            return { true, (Real)0 };
         }
 
         // Check each face in turn, only check closest 3
@@ -506,7 +506,7 @@ namespace Ogre
             }
         }
 
-        return std::pair<bool, Real>(hit, (Real)lowt);
+        return { hit, (Real)lowt };
 
     } 
     //-----------------------------------------------------------------------

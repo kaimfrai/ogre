@@ -79,13 +79,13 @@ namespace Ogre {
             if (Math::Abs(denom) < std::numeric_limits<Real>::epsilon())
             {
                 // Parallel
-                return RayTestResult(false, (Real)0);
+                return { false, (Real)0 };
             }
             else
             {
                 Real nom = p.normal.dotProduct(mOrigin) + p.d;
                 Real t = -(nom / denom);
-                return RayTestResult(t >= 0, (Real)t);
+                return { t >= 0, (Real)t };
             }
         }
         /** Tests whether this ray intersects the given plane bounded volume. */
@@ -103,7 +103,7 @@ namespace Ogre {
             // Check origin inside first
             if (rayorig.squaredLength() <= radius*radius && discardInside)
             {
-                return RayTestResult(true, (Real)0);
+                return { true, (Real)0 };
             }
 
             // Mmm, quadratics
@@ -118,7 +118,7 @@ namespace Ogre {
             if (d < 0)
             {
                 // No intersection
-                return RayTestResult(false, (Real)0);
+                return { false, (Real)0 };
             }
             else
             {
@@ -128,7 +128,7 @@ namespace Ogre {
                 Real t = ( -b - Math::Sqrt(d) ) / (2 * a);
                 if (t < 0)
                     t = ( -b + Math::Sqrt(d) ) / (2 * a);
-                return RayTestResult(true, t);
+                return { true, t };
             }
         }
         /** Tests whether this ray intersects the given box. */
