@@ -591,7 +591,7 @@ class LodStrategy;
         {
         default:
             assert(false);
-            OGRE_FALLTHROUGH;
+            [[fallthrough]];
         case ID_VERTEX_PROGRAM:
         case ID_VERTEX_PROGRAM_REF:
             return GPT_VERTEX_PROGRAM;
@@ -2475,7 +2475,7 @@ class LodStrategy;
             compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, prop->file,
                 prop->line,
                 "compare_func. Use comp_func.");
-            OGRE_FALLTHROUGH;
+            [[fallthrough]];
         case ID_COMP_FUNC:
             CompareFunction func;
             if(getValue(prop, compiler, func))

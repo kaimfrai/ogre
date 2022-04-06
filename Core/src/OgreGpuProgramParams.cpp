@@ -1941,7 +1941,7 @@ namespace Ogre
                         _writeRawConstant(i->physicalIndex, source->getInverseTransposeWorldViewMatrix().linear(),i->elementCount);
                         break;
                     }
-                    OGRE_FALLTHROUGH; // fallthrough to padded 4x4 matrix
+                    [[fallthrough]]; // fallthrough to padded 4x4 matrix
                 case ACT_INVERSE_TRANSPOSE_WORLDVIEW_MATRIX:
                     _writeRawConstant(i->physicalIndex, source->getInverseTransposeWorldViewMatrix(),i->elementCount);
                     break;
