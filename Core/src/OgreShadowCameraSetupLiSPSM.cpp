@@ -302,7 +302,7 @@ class Viewport;
     //---------------------------------------------------------------------
     Degree LiSPSMShadowCameraSetup::getCameraLightDirectionThreshold() const
     {
-        return Degree(Math::ACos(mCosCamLightDirThreshold));
+        return { Math::ACos(mCosCamLightDirThreshold) };
     }
 
 

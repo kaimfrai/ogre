@@ -592,7 +592,7 @@ bool ShaderGenerator::hasRenderState(const String& schemeName) const
 ShaderGenerator::RenderStateCreateOrRetrieveResult ShaderGenerator::createOrRetrieveRenderState(const String& schemeName)
 {
     SchemeCreateOrRetrieveResult res = createOrRetrieveScheme(schemeName);
-    return RenderStateCreateOrRetrieveResult(res.first->getRenderState(),res.second);
+    return { res.first->getRenderState(),res.second };
 }
 
 //-----------------------------------------------------------------------------
@@ -613,7 +613,7 @@ ShaderGenerator::SchemeCreateOrRetrieveResult ShaderGenerator::createOrRetrieveS
         schemeEntry = itScheme->second;
     }
 
-    return SchemeCreateOrRetrieveResult(schemeEntry, wasCreated);
+    return { schemeEntry, wasCreated };
 }
 //-----------------------------------------------------------------------------
 RenderState* ShaderGenerator::getRenderState(const String& schemeName, 
