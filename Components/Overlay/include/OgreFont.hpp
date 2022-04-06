@@ -148,7 +148,7 @@ class ResourceManager;
         @see Resource
         */
         Font(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual = false, ManualResourceLoader* loader = 0);
+            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         virtual ~Font();
 
         /** Sets the type of font. Must be set before loading. */

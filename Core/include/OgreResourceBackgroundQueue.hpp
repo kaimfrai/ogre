@@ -142,7 +142,7 @@ namespace Ogre {
             determine if completed if not using listener
         */
         virtual auto initialiseResourceGroup(
-            const String& name, Listener* listener = 0) -> BackgroundProcessTicket;
+            const String& name, Listener* listener = nullptr) -> BackgroundProcessTicket;
 
         /** Initialise all resource groups which are yet to be initialised in 
             the background.
@@ -153,7 +153,7 @@ namespace Ogre {
             determine if completed if not using listener
         */
         virtual auto initialiseAllResourceGroups( 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+            Listener* listener = nullptr) -> BackgroundProcessTicket;
         /** Prepares a resource group in the background.
         @see ResourceGroupManager::prepareResourceGroup
         @param name The name of the resource group to prepare
@@ -163,7 +163,7 @@ namespace Ogre {
             determine if completed if not using listener
         */
         virtual auto prepareResourceGroup(const String& name, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+            Listener* listener = nullptr) -> BackgroundProcessTicket;
 
         /** Loads a resource group in the background.
         @see ResourceGroupManager::loadResourceGroup
@@ -174,7 +174,7 @@ namespace Ogre {
             determine if completed if not using listener
         */
         virtual auto loadResourceGroup(const String& name, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+            Listener* listener = nullptr) -> BackgroundProcessTicket;
 
 
         /** Unload a single resource in the background. 
@@ -187,7 +187,7 @@ namespace Ogre {
         */
         virtual auto unload(
             const String& resType, const String& name, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+            Listener* listener = nullptr) -> BackgroundProcessTicket;
 
         /** Unload a single resource in the background. 
         @see ResourceManager::unload
@@ -199,7 +199,7 @@ namespace Ogre {
         */
         virtual auto unload(
             const String& resType, ResourceHandle handle, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+            Listener* listener = nullptr) -> BackgroundProcessTicket;
 
         /** Unloads a resource group in the background.
         @see ResourceGroupManager::unloadResourceGroup
@@ -210,7 +210,7 @@ namespace Ogre {
             determine if completed if not using listener
         */
         virtual auto unloadResourceGroup(const String& name, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+            Listener* listener = nullptr) -> BackgroundProcessTicket;
 
 
         /** Prepare a single resource in the background. 
@@ -233,9 +233,9 @@ namespace Ogre {
         virtual auto prepare(
             const String& resType, const String& name, 
             const String& group, bool isManual = false, 
-            ManualResourceLoader* loader = 0, 
-            const NameValuePairList* loadParams = 0, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+            ManualResourceLoader* loader = nullptr, 
+            const NameValuePairList* loadParams = nullptr, 
+            Listener* listener = nullptr) -> BackgroundProcessTicket;
 
         /** Load a single resource in the background. 
         @see ResourceManager::load
@@ -257,9 +257,9 @@ namespace Ogre {
         virtual auto load(
             const String& resType, const String& name, 
             const String& group, bool isManual = false, 
-            ManualResourceLoader* loader = 0, 
-            const NameValuePairList* loadParams = 0, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+            ManualResourceLoader* loader = nullptr, 
+            const NameValuePairList* loadParams = nullptr, 
+            Listener* listener = nullptr) -> BackgroundProcessTicket;
         /** Returns whether a previously queued process has completed or not. 
         @remarks
             This method of checking that a background process has completed is

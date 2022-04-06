@@ -204,7 +204,7 @@ class ScriptLoader;
         virtual ~ResourceLoadingListener() {}
 
         /** This event is called when a resource beings loading. */
-        virtual auto resourceLoading(const String &name, const String &group, Resource *resource) -> DataStreamPtr { return NULL; }
+        virtual auto resourceLoading(const String &name, const String &group, Resource *resource) -> DataStreamPtr { return nullptr; }
 
         /** This event is called when a resource stream has been opened, but not processed yet. 
 
@@ -639,7 +639,7 @@ class ScriptLoader;
         */
         auto openResource(const String& resourceName,
                                    const String& groupName = DEFAULT_RESOURCE_GROUP_NAME,
-                                   Resource* resourceBeingLoaded = NULL,
+                                   Resource* resourceBeingLoaded = nullptr,
                                    bool throwOnFailure = true) const -> DataStreamPtr
         {
             return openResourceImpl(resourceName, groupName, false,

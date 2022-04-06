@@ -108,7 +108,7 @@ class ResourceManager;
             them together appropriately. 
         */
         Skeleton(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual = false, ManualResourceLoader* loader = 0);
+            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         virtual ~Skeleton();
 
 
@@ -245,7 +245,7 @@ class ResourceManager;
 
         /// Internal accessor for animations (returns null if animation does not exist)
         virtual auto _getAnimationImpl(const String& name, 
-            const LinkedSkeletonAnimationSource** linker = 0) const -> Animation*;
+            const LinkedSkeletonAnimationSource** linker = nullptr) const -> Animation*;
 
 
         /** Returns whether this skeleton contains the named animation. */

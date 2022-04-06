@@ -94,7 +94,7 @@ class RenderSystem;
         mVertexContentDirty(true),
         mRadius(0.0f),
         mTexCoordDir(TCD_U),
-        mVertexCameraUsed(0),
+        mVertexCameraUsed(nullptr),
         mFaceCamera(true),
         mNormalBase(Vector3::UNIT_X)
     {
@@ -766,7 +766,7 @@ class RenderSystem;
         bool useCol = true;
         bool dynamic = true;
         // optional params
-        if (params != 0)
+        if (params != nullptr)
         {
             NameValuePairList::const_iterator ni = params->find("maxElements");
             if (ni != params->end())

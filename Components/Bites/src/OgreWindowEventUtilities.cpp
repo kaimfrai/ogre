@@ -53,7 +53,7 @@ void WindowEventUtilities::messagePump()
     Ogre::RenderWindowList::iterator win = _msWindows.begin();
     Ogre::RenderWindowList::iterator end = _msWindows.end();
 
-    Display* xDisplay = 0; // same for all windows
+    Display* xDisplay = nullptr; // same for all windows
 
     for (; win != end; win++)
     {

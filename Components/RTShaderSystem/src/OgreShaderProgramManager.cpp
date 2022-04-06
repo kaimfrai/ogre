@@ -67,7 +67,7 @@ namespace Ogre {
 
 //-----------------------------------------------------------------------
 template<> 
-RTShader::ProgramManager* Singleton<RTShader::ProgramManager>::msSingleton = 0;
+RTShader::ProgramManager* Singleton<RTShader::ProgramManager>::msSingleton = nullptr;
 
 namespace RTShader {
 
@@ -197,7 +197,7 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
     auto programWriter = ProgramWriterManager::getSingleton().getProgramWriter(language);
 
     ProgramProcessorIterator itProcessor = mProgramProcessorsMap.find(language);
-    ProgramProcessor* programProcessor = NULL;
+    ProgramProcessor* programProcessor = nullptr;
 
     if (itProcessor == mProgramProcessorsMap.end())
     {

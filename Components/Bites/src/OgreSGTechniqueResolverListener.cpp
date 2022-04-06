@@ -22,7 +22,7 @@ SGTechniqueResolverListener::SGTechniqueResolverListener(Ogre::RTShader::ShaderG
 auto SGTechniqueResolverListener::handleSchemeNotFound(unsigned short schemeIndex, const Ogre::String &schemeName, Ogre::Material *originalMaterial, unsigned short lodIndex, const Ogre::Renderable *rend) -> Ogre::Technique * {
     if (!mShaderGenerator->hasRenderState(schemeName))
     {
-        return NULL;
+        return nullptr;
     }
     // Case this is the default shader generator scheme.
 
@@ -34,7 +34,7 @@ auto SGTechniqueResolverListener::handleSchemeNotFound(unsigned short schemeInde
 
     if (!techniqueCreated)
     {
-        return NULL;
+        return nullptr;
     }
     // Case technique registration succeeded.
 
@@ -53,7 +53,7 @@ auto SGTechniqueResolverListener::handleSchemeNotFound(unsigned short schemeInde
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 auto SGTechniqueResolverListener::afterIlluminationPassesCreated(Ogre::Technique *tech) -> bool

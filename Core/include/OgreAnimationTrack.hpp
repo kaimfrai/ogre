@@ -192,7 +192,7 @@ class VertexMorphKeyFrame;
             value is:  0.0 <= returnValue < 1.0 .
         */
         virtual auto getKeyFramesAtTime(const TimeIndex& timeIndex, KeyFrame** keyFrame1, KeyFrame** keyFrame2,
-            unsigned short* firstKeyIndex = 0) const -> Real;
+            unsigned short* firstKeyIndex = nullptr) const -> Real;
 
         /** Creates a new KeyFrame and adds it to this animation at the given time index.
         @remarks
@@ -547,7 +547,7 @@ class VertexMorphKeyFrame;
             associated data. */
         virtual void applyToVertexData(VertexData* data, 
             const TimeIndex& timeIndex, Real weight = 1.0, 
-            const PoseList* poseList = 0);
+            const PoseList* poseList = nullptr);
 
 
         /** Returns the morph KeyFrame at the specified index. */

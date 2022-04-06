@@ -87,7 +87,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    GLXGLSupport::GLXGLSupport(int profile) : GLNativeSupport(profile), mGLDisplay(0), mXDisplay(0)
+    GLXGLSupport::GLXGLSupport(int profile) : GLNativeSupport(profile), mGLDisplay(nullptr), mXDisplay(nullptr)
     {
         // A connection that might be shared with the application for GL rendering:
         mGLDisplay = getGLDisplay();
@@ -111,7 +111,7 @@ namespace Ogre
         GLXFBConfig *fbConfigs;
         int config, nConfigs = 0;
 
-        fbConfigs = chooseFBConfig(NULL, &nConfigs);
+        fbConfigs = chooseFBConfig(nullptr, &nConfigs);
 
         for (config = 0; config < nConfigs; config++)
         {
@@ -213,7 +213,7 @@ namespace Ogre
 
     auto GLXGLSupport::getFBConfigFromContext(::GLXContext context) -> GLXFBConfig
     {
-        GLXFBConfig fbConfig = 0;
+        GLXFBConfig fbConfig = nullptr;
 
         int fbConfigAttrib[] = {
             GLX_FBCONFIG_ID, 0,
@@ -241,7 +241,7 @@ namespace Ogre
 
     auto GLXGLSupport::getFBConfigFromDrawable(GLXDrawable drawable, unsigned int *width, unsigned int *height) -> GLXFBConfig
     {
-        GLXFBConfig fbConfig = 0;
+        GLXFBConfig fbConfig = nullptr;
 
         int fbConfigAttrib[] = {
             GLX_FBCONFIG_ID, 0,
@@ -289,7 +289,7 @@ namespace Ogre
         PFNGLXGETFBCONFIGFROMVISUALSGIXPROC glXGetFBConfigFromVisualSGIX = 
             (PFNGLXGETFBCONFIGFROMVISUALSGIXPROC)getProcAddress("glXGetFBConfigFromVisualSGIX");
 
-        GLXFBConfig fbConfig = 0;
+        GLXFBConfig fbConfig = nullptr;
 
         XVisualInfo visualInfo;
 
@@ -394,7 +394,7 @@ namespace Ogre
     auto GLXGLSupport::selectFBConfig (const int* minAttribs, const int *maxAttribs) -> GLXFBConfig
     {
         GLXFBConfig *fbConfigs;
-        GLXFBConfig fbConfig = 0;
+        GLXFBConfig fbConfig = nullptr;
         int config, nConfigs = 0;
 
         fbConfigs = chooseFBConfig(minAttribs, &nConfigs);
@@ -408,7 +408,7 @@ namespace Ogre
         }
 
         if (! nConfigs)
-            return 0;
+            return nullptr;
 
         fbConfig = fbConfigs[0];
 
@@ -452,13 +452,13 @@ namespace Ogre
 
             if (! mGLDisplay)
             {
-                mGLDisplay = XOpenDisplay(0);
+                mGLDisplay = XOpenDisplay(nullptr);
                 mIsExternalDisplay = false;
             }
 
             if(! mGLDisplay)
             {
-                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Couldn`t open X display " + String((const char*)XDisplayName (0)), "GLXGLSupport::getGLDisplay");
+                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Couldn`t open X display " + String((const char*)XDisplayName (nullptr)), "GLXGLSupport::getGLDisplay");
             }
         }
 
@@ -470,7 +470,7 @@ namespace Ogre
     {
         if (! mXDisplay)
         {
-            char* displayString = mGLDisplay ? DisplayString(mGLDisplay) : 0;
+            char* displayString = mGLDisplay ? DisplayString(mGLDisplay) : nullptr;
 
             mXDisplay = XOpenDisplay(displayString);
 
@@ -506,7 +506,7 @@ namespace Ogre
     //-------------------------------------------------------------------------------------------------//
     auto GLXGLSupport::createNewContext(GLXFBConfig fbConfig, GLint renderType, ::GLXContext shareList, GLboolean direct) const -> ::GLXContext
     {
-        ::GLXContext glxContext = NULL;
+        ::GLXContext glxContext = nullptr;
 
         int profile;
         int majorVersion;
@@ -613,7 +613,7 @@ namespace Ogre
 
         GLXVideoModes::iterator mode;
         GLXVideoModes::iterator end = glxVideoModes.end();
-        GLXVideoMode *newMode = 0;
+        GLXVideoMode *newMode = nullptr;
 
         for(mode = glxVideoModes.begin(); mode != end; size++)
         {

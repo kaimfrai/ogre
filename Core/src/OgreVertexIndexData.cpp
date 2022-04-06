@@ -204,7 +204,7 @@ class RenderSystem;
 
             // Precalculate any dimensions of vertex areas outside the position
             size_t prePosVertexSize = 0;
-            unsigned char *pBaseDestRem = 0;
+            unsigned char *pBaseDestRem = nullptr;
             if (wasSharedBuffer)
             {
                 size_t postPosVertexSize, postPosVertexOffset;
@@ -826,7 +826,7 @@ class RenderSystem;
         size_t nIndexes = indexCount;
         size_t nTriangles = nIndexes / 3;
         size_t i, j;
-        uint16 *source = 0;
+        uint16 *source = nullptr;
 
         if (indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT)
         {

@@ -169,7 +169,7 @@ auto Compositor::getSupportedTechnique(const String& schemeName) -> CompositionT
         }
     }
 
-    return 0;
+    return nullptr;
 
 }
 //-----------------------------------------------------------------------
@@ -228,7 +228,7 @@ void Compositor::createGlobalTextures()
                     tex = TextureManager::getSingleton().createManual(
                             texname, 
                             ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-                            (uint)def->width, (uint)def->height, 0, *p, TU_RENDERTARGET, 0, 
+                            (uint)def->width, (uint)def->height, 0, *p, TU_RENDERTARGET, nullptr, 
                             def->hwGammaWrite && !PixelUtil::isFloatingPoint(*p), def->fsaa); 
                     
                     RenderTexture* rt = tex->getBuffer()->getRenderTarget();
@@ -256,7 +256,7 @@ void Compositor::createGlobalTextures()
                 tex = TextureManager::getSingleton().createManual(
                     texName, 
                     ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-                    (uint)def->width, (uint)def->height, 0, def->formatList[0], TU_RENDERTARGET, 0,
+                    (uint)def->width, (uint)def->height, 0, def->formatList[0], TU_RENDERTARGET, nullptr,
                     def->hwGammaWrite && !PixelUtil::isFloatingPoint(def->formatList[0]), def->fsaa); 
                 
 

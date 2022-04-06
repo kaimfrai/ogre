@@ -59,7 +59,7 @@ namespace Ogre
     public: // constructors
 
         Any()
-          : mContent(0)
+          : mContent(nullptr)
         {
         }
 
@@ -70,7 +70,7 @@ namespace Ogre
         }
 
         Any(const Any & other)
-          : mContent(other.mContent ? other.mContent->clone() : 0)
+          : mContent(other.mContent ? other.mContent->clone() : nullptr)
         {
         }
 
@@ -105,7 +105,7 @@ namespace Ogre
         [[nodiscard]]
         auto has_value() const -> bool
         {
-            return mContent != NULL;
+            return mContent != nullptr;
         }
 
         [[nodiscard]]
@@ -117,7 +117,7 @@ namespace Ogre
         void reset()
         {
             delete mContent;
-            mContent = NULL;
+            mContent = nullptr;
         }
 
     protected: // types
@@ -205,7 +205,7 @@ namespace Ogre
         AnyNumeric(const AnyNumeric & other)
             : Any()
         {
-            mContent = other.mContent ? other.mContent->clone() : 0; 
+            mContent = other.mContent ? other.mContent->clone() : nullptr; 
         }
 
     protected:
@@ -352,7 +352,7 @@ namespace Ogre
         return operand &&
                 (operand->type() == typeid(ValueType))
                     ? &static_cast<Any::holder<ValueType> *>(operand->mContent)->held
-                    : 0;
+                    : nullptr;
     }
 
     template<typename ValueType>

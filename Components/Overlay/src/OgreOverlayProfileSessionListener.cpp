@@ -43,8 +43,8 @@ namespace Ogre
 {
     //-----------------------------------------------------------------------
     OverlayProfileSessionListener::OverlayProfileSessionListener() 
-        : mOverlay(0)
-        , mProfileGui(0)
+        : mOverlay(nullptr)
+        , mProfileGui(nullptr)
         , mBarHeight(10)
         , mGuiHeight(25)
         , mGuiWidth(250)

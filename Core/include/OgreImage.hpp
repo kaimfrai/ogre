@@ -73,7 +73,7 @@ namespace Ogre {
          * allocates a buffer of given size if buffer pointer is NULL.
          */
         Image(PixelFormat format = PF_UNKNOWN, uint32 width = 0, uint32 height = 0, uint32 depth = 1,
-              uchar* buffer = NULL, bool autoDelete = true);
+              uchar* buffer = nullptr, bool autoDelete = true);
         /** Copy-constructor - copies all the data from the target image.
          */
         Image( const Image &img );

@@ -160,8 +160,8 @@ class Technique;
         /// Create a new material
         /// @see ResourceManager::createResource
         auto create (const String& name, const String& group,
-                            bool isManual = false, ManualResourceLoader* loader = 0,
-                            const NameValuePairList* createParams = 0) -> MaterialPtr;
+                            bool isManual = false, ManualResourceLoader* loader = nullptr,
+                            const NameValuePairList* createParams = nullptr) -> MaterialPtr;
         
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName

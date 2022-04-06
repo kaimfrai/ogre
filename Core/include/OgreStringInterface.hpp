@@ -190,7 +190,7 @@ namespace Ogre {
         auto createParamDictionary(const String& className) -> bool;
 
     public:
-        StringInterface() : mParamDict(NULL) { }
+        StringInterface() : mParamDict(nullptr) { }
 
         /** Virtual destructor, see Effective C++ */
         virtual ~StringInterface() {}

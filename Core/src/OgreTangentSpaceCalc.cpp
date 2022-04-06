@@ -45,7 +45,7 @@ namespace Ogre
 {
     //---------------------------------------------------------------------
     TangentSpaceCalc::TangentSpaceCalc()
-        : mVData(0)
+        : mVData(nullptr)
         , mSplitMirrored(false)
         , mSplitRotated(false)
         , mStoreParityInW(false)
@@ -57,7 +57,7 @@ namespace Ogre
     {
         mIDataList.clear();
         mOpTypes.clear();
-        mVData = 0;
+        mVData = nullptr;
     }
     //---------------------------------------------------------------------
     void TangentSpaceCalc::setVertexData(VertexData* v_in)
@@ -677,7 +677,7 @@ namespace Ogre
         }
 
         HardwareVertexBufferSharedPtr targetBuffer, origBuffer;
-        unsigned char* pSrc = NULL;
+        unsigned char* pSrc = nullptr;
 
         if (needsToBeCreated)
         {

@@ -61,7 +61,7 @@ THE SOFTWARE.
 #include "TestContext.hpp"
 #include "VTestPlugin.hpp"
 
-TestContext::TestContext(int argc, char** argv) : OgreBites::SampleContext(), mSuccess(true), mTimestep(0.01f), mBatch(0)
+TestContext::TestContext(int argc, char** argv) : OgreBites::SampleContext(), mSuccess(true), mTimestep(0.01f), mBatch(nullptr)
 {
     Ogre::UnaryOptionList unOpt;
     Ogre::BinaryOptionList binOpt;
@@ -146,7 +146,7 @@ void TestContext::setup()
     mPluginNameMap["PlayPenTests"] = new PlaypenTestPlugin();
 
     Ogre::String batchName = BLANKSTRING;
-    time_t raw = time(0);
+    time_t raw = time(nullptr);
 
     // timestamp for the filename
     char temp[25];
@@ -184,7 +184,7 @@ void TestContext::setup()
 
 auto TestContext::loadTests() -> OgreBites::Sample*
 {
-    OgreBites::Sample* startSample = 0;
+    OgreBites::Sample* startSample = nullptr;
 
     // load all of the plugins in the set
     for(auto it : mPluginNameMap)
@@ -213,7 +213,7 @@ auto TestContext::loadTests() -> OgreBites::Sample*
         return startSample;
     }
     else
-        return 0;    
+        return nullptr;    
 }
 //-----------------------------------------------------------------------
 
@@ -277,7 +277,7 @@ auto TestContext::frameEnded(const Ogre::FrameEvent& evt) -> bool
         if (mCurrentSample->isDone())
         {
             // continue onto the next test
-            runSample(0);
+            runSample(nullptr);
 
             return true;
         }
@@ -370,7 +370,7 @@ auto TestContext::oneTimeConfig() -> bool
     {
         bool temp = mRoot->showConfigDialog(OgreBites::getNativeConfigDialog());
         if(!temp)
-            mRoot->setRenderSystem(NULL);
+            mRoot->setRenderSystem(nullptr);
         return temp;
     }
 
@@ -382,7 +382,7 @@ auto TestContext::oneTimeConfig() -> bool
         mRoot->setRenderSystem(mRoot->getRenderSystemByName(mRenderSystemName));
     }
     else if(!restore) {
-        RenderSystem* rs = NULL;
+        RenderSystem* rs = nullptr;
 
         const auto& allRS = Root::getSingleton().getAvailableRenderers();
 
@@ -409,7 +409,7 @@ auto TestContext::oneTimeConfig() -> bool
 
     mRenderSystemName = mRoot->getRenderSystem() ? mRoot->getRenderSystem()->getName() : "";
 
-    return mRoot->getRenderSystem() != NULL;
+    return mRoot->getRenderSystem() != nullptr;
 }
 //-----------------------------------------------------------------------
 
@@ -450,12 +450,12 @@ void TestContext::finishedTests()
 {
     if ((mGenerateHtml || mSummaryOutputDir != "NONE") && !mReferenceSet)
     {
-        const TestBatch* compareTo = 0;
+        const TestBatch* compareTo = nullptr;
         TestBatchSet batches;
 
         Ogre::ConfigFile info;
         bool foundReference = true;
-        TestBatch* ref = 0;
+        TestBatch* ref = nullptr;
 
         // look for a reference set first (either "Reference" or a user-specified image set)
         try

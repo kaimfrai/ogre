@@ -470,7 +470,7 @@ namespace Ogre {
             (if null, use the current default).
         */
         [[nodiscard]]
-        auto clone(HardwareBufferManagerBase* mgr = 0) const -> VertexDeclaration*;
+        auto clone(HardwareBufferManagerBase* mgr = nullptr) const -> VertexDeclaration*;
 
         inline auto operator== (const VertexDeclaration& rhs) const -> bool
         {

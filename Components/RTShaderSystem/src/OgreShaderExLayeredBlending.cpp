@@ -151,7 +151,7 @@ auto LayeredBlending::resolveParameters(ProgramSet* programSet) -> bool
                 
                 texBlend.modControlParam = psProgram->resolveParameter(
                     GpuProgramParameters::ACT_CUSTOM, texBlend.customNum);
-                if (texBlend.modControlParam.get() == NULL)
+                if (texBlend.modControlParam.get() == nullptr)
                 {   
                     isSuccess = false;
                     break;
@@ -213,7 +213,7 @@ void LayeredBlending::addPSBlendInvocations(Function* psMain,
     else 
     {
         //find the function name for the blend mode
-        const char* funcName = NULL;
+        const char* funcName = nullptr;
         for(int i = 0 ; i < (int)LayeredBlending::LB_MaxBlendModes ; ++i)
         {
             if (_blendModes[i].type == mode)
@@ -245,7 +245,7 @@ void LayeredBlending::addPSModifierInvocation(Function* psMain,
     if (getSourceModifier(samplerIndex, modType, customNum) == true)
     {
         ParameterPtr modifiedParam;
-        const char* funcName = NULL;
+        const char* funcName = nullptr;
         switch (modType)
         {
         case SM_Source1Modulate: 
@@ -343,7 +343,7 @@ auto LayeredBlendingFactory::createInstance(ScriptCompiler* compiler,
         if(false == SGScriptTranslator::getString(prop->values.front(), &blendType))
         {
             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-            return NULL;
+            return nullptr;
         }
 
         LayeredBlending::BlendMode blendMode = stringToBlendMode(blendType);
@@ -357,7 +357,7 @@ auto LayeredBlendingFactory::createInstance(ScriptCompiler* compiler,
                 "color_dodge, color_burn, linear_dodge, linear_burn, " \
                 "linear_light, vivid_light, pin_light, hard_mix, " \
                 "reflect, glow, phoenix, saturation, color and luminosity");
-            return NULL;
+            return nullptr;
         }
 
         
@@ -377,7 +377,7 @@ auto LayeredBlendingFactory::createInstance(ScriptCompiler* compiler,
         {
             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line, 
                 "Expected three or more parameters.");
-            return NULL;
+            return nullptr;
         }
 
         // Read light model type.
@@ -395,7 +395,7 @@ auto LayeredBlendingFactory::createInstance(ScriptCompiler* compiler,
             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line, 
                 "Expected one of the following modifier type as first parameter: " \
                 "src1_modulate, src2_modulate, src1_inverse_modulate, src2_inverse_modulate.");
-            return NULL;
+            return nullptr;
         }
 
         ++itValue;
@@ -405,7 +405,7 @@ auto LayeredBlendingFactory::createInstance(ScriptCompiler* compiler,
         {
             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line, 
                 "Expected reserved word custom as second parameter.");
-            return NULL;
+            return nullptr;
         }
         ++itValue;
         isParseSuccess = SGScriptTranslator::getInt(*itValue, &customNum); 
@@ -413,7 +413,7 @@ auto LayeredBlendingFactory::createInstance(ScriptCompiler* compiler,
         {
             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line, 
                 "Expected number of custom parameter as third parameter.");
-            return NULL;
+            return nullptr;
         }
 
         //get the layer blend sub-render state to work on
@@ -428,7 +428,7 @@ auto LayeredBlendingFactory::createInstance(ScriptCompiler* compiler,
             
     }
     
-    return NULL;
+    return nullptr;
         
 }
 
@@ -527,7 +527,7 @@ auto LayeredBlendingFactory::createOrRetrieveSubRenderState(SGScriptTranslator* 
     LayeredBlending* layeredBlendState;
     //check if we already create a blend srs
     SubRenderState* subState = translator->getGeneratedSubRenderState(getType());
-    if (subState != NULL)
+    if (subState != nullptr)
     {
         layeredBlendState = static_cast<LayeredBlending*>(subState);
     }

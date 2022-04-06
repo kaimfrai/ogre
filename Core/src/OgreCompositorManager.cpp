@@ -49,7 +49,7 @@ class CompositorLogic;
 class CustomCompositionPass;
 class Renderable;
 
-template<> CompositorManager* Singleton<CompositorManager>::msSingleton = 0;
+template<> CompositorManager* Singleton<CompositorManager>::msSingleton = nullptr;
 auto CompositorManager::getSingletonPtr() -> CompositorManager*
 {
     return msSingleton;
@@ -59,7 +59,7 @@ auto CompositorManager::getSingleton() -> CompositorManager&
     assert( msSingleton );  return ( *msSingleton );  
 }//-----------------------------------------------------------------------
 CompositorManager::CompositorManager():
-    mRectangle(0)
+    mRectangle(nullptr)
 {
     initialise();
 
@@ -254,7 +254,7 @@ auto CompositorManager::getPooledTexture(const String& name,
         TexturePtr newTex = TextureManager::getSingleton().createManual(
             name, 
             ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-            (uint)w, (uint)h, 0, f, TU_RENDERTARGET, 0,
+            (uint)w, (uint)h, 0, f, TU_RENDERTARGET, nullptr,
             srgb, aa, aaHint);
         defMap.emplace(def, newTex);
         return newTex;
@@ -312,7 +312,7 @@ auto CompositorManager::getPooledTexture(const String& name,
         ret = TextureManager::getSingleton().createManual(
             name, 
             ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-            w, h, 0, f, TU_RENDERTARGET, 0,
+            w, h, 0, f, TU_RENDERTARGET, nullptr,
             srgb, aa, aaHint); 
 
         texList.push_back(ret);

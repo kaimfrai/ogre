@@ -246,7 +246,7 @@ class VertexData;
         @remarks
             Optional parameter pBill is only present for type BBT_ORIENTED_SELF and BBT_PERPENDICULAR_SELF
         */
-        void genBillboardAxes(Vector3* pX, Vector3 *pY, const Billboard* pBill = 0);
+        void genBillboardAxes(Vector3* pX, Vector3 *pY, const Billboard* pBill = nullptr);
 
         /** Internal method, generates parametric offsets based on origin.
         */

@@ -52,7 +52,7 @@ class Camera;
 class RenderQueue;
 
     //---------------------------------------------------------------------
-    template<> OverlayManager *Singleton<OverlayManager>::msSingleton = 0;
+    template<> OverlayManager *Singleton<OverlayManager>::msSingleton = nullptr;
     auto OverlayManager::getSingletonPtr() -> OverlayManager*
     {
         return msSingleton;
@@ -116,7 +116,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     auto OverlayManager::create(const String& name) -> Overlay*
     {
-        Overlay* ret = 0;
+        Overlay* ret = nullptr;
         OverlayMap::iterator i = mOverlayMap.find(name);
 
         if (i == mOverlayMap.end())
@@ -141,7 +141,7 @@ class RenderQueue;
         OverlayMap::iterator i = mOverlayMap.find(name);
         if (i == mOverlayMap.end())
         {
-            return 0;
+            return nullptr;
         }
         else
         {
@@ -275,7 +275,7 @@ class RenderQueue;
     auto OverlayManager::createOverlayElementFromTemplate(const String& templateName, const String& typeName, const String& instanceName, bool) -> OverlayElement*
     {
 
-        OverlayElement* newObj  = NULL;
+        OverlayElement* newObj  = nullptr;
 
         if (templateName.empty())
         {
@@ -412,7 +412,7 @@ class RenderQueue;
 
             // remove from parent, if any
             OverlayContainer* parent;
-            if ((parent = element->getParent()) != 0)
+            if ((parent = element->getParent()) != nullptr)
             {
                 parent->_removeChild(element->getName());
             }

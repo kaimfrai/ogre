@@ -188,7 +188,7 @@ class RenderQueue;
         // mBillboardSet is never actually attached to a node, we just passthrough
         // based on the particle system's attachment. So manually notify that it's
         // no longer attached.
-        mBillboardSet->_notifyAttached(0);
+        mBillboardSet->_notifyAttached(nullptr);
         delete  mBillboardSet;
     }
     //-----------------------------------------------------------------------

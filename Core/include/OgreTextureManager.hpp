@@ -88,8 +88,8 @@ class Image;
         /// Create a new texture
         /// @copydetails ResourceManager::createResource
         auto create (const String& name, const String& group,
-                            bool isManual = false, ManualResourceLoader* loader = 0,
-                            const NameValuePairList* createParams = 0) -> TexturePtr;
+                            bool isManual = false, ManualResourceLoader* loader = nullptr,
+                            const NameValuePairList* createParams = nullptr) -> TexturePtr;
         /// @copydoc ResourceManager::getResourceByName
         auto getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const -> TexturePtr;
 
@@ -266,14 +266,14 @@ class Image;
         */
         virtual auto createManual(const String & name, const String& group,
             TextureType texType, uint width, uint height, uint depth, 
-            int numMipmaps, PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = 0,
+            int numMipmaps, PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = nullptr,
             bool hwGammaCorrection = false, uint fsaa = 0, const String& fsaaHint = BLANKSTRING) -> TexturePtr;
             
         /** @overload
         */
         auto createManual(const String & name, const String& group,
             TextureType texType, uint width, uint height, int numMipmaps,
-            PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = 0,
+            PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = nullptr,
             bool hwGammaCorrection = false, uint fsaa = 0, const String& fsaaHint = BLANKSTRING) -> TexturePtr
         {
             return createManual(name, group, texType, width, height, 1, 

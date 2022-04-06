@@ -98,7 +98,7 @@ namespace Ogre {
         glDeleteObjectARB((GLhandleARB)mGLProgramHandle);
 
         delete mUniformCache;
-        mUniformCache = 0;
+        mUniformCache = nullptr;
     }
 
     //-----------------------------------------------------------------------
@@ -204,9 +204,9 @@ namespace Ogre {
     {
         if (!mUniformRefsBuilt)
         {
-            const GpuConstantDefinitionMap* vertParams = 0;
-            const GpuConstantDefinitionMap* fragParams = 0;
-            const GpuConstantDefinitionMap* geomParams = 0;
+            const GpuConstantDefinitionMap* vertParams = nullptr;
+            const GpuConstantDefinitionMap* fragParams = nullptr;
+            const GpuConstantDefinitionMap* geomParams = nullptr;
             if (mShaders[GPT_VERTEX_PROGRAM])
             {
                 vertParams = &(mShaders[GPT_VERTEX_PROGRAM]->getConstantDefinitions().map);
@@ -487,7 +487,7 @@ namespace Ogre {
 
                 // get binary
                 uint8 * programBuffer = newMicrocode->getPtr() + sizeof(GLenum);
-                glGetProgramBinary(mGLProgramHandle, binaryLength, NULL, &binaryFormat, programBuffer);
+                glGetProgramBinary(mGLProgramHandle, binaryLength, nullptr, &binaryFormat, programBuffer);
 
                 // save binary format
                 memcpy(newMicrocode->getPtr(), &binaryFormat, sizeof(GLenum));

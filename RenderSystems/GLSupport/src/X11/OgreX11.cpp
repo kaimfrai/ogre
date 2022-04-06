@@ -21,7 +21,7 @@ namespace Ogre
 {
 auto getXDisplay(Display* glDisplay, Atom& deleteWindow, Atom& fullScreen, Atom& state) -> Display*
 {
-    char* displayString = glDisplay ? DisplayString(glDisplay) : NULL;
+    char* displayString = glDisplay ? DisplayString(glDisplay) : nullptr;
 
     auto xDisplay = XOpenDisplay(displayString);
 
@@ -130,7 +130,7 @@ void finaliseTopLevel(Display* display, Window window, int& left, int& top, uint
     XSizeHints* sizeHints;
 
     // Is this really necessary ? Which broken WM might need it?
-    if ((wmHints = XAllocWMHints()) != NULL)
+    if ((wmHints = XAllocWMHints()) != nullptr)
     {
         wmHints->initial_state = NormalState;
         wmHints->input = True;
@@ -138,7 +138,7 @@ void finaliseTopLevel(Display* display, Window window, int& left, int& top, uint
     }
 
     // Is this really necessary ? Which broken WM might need it?
-    if ((sizeHints = XAllocSizeHints()) != NULL)
+    if ((sizeHints = XAllocSizeHints()) != nullptr)
     {
         sizeHints->flags = USPosition;
     }
@@ -146,7 +146,7 @@ void finaliseTopLevel(Display* display, Window window, int& left, int& top, uint
     XTextProperty titleprop;
     char* lst = const_cast<char*>(title.c_str());
     XStringListToTextProperty(&lst, 1, &titleprop);
-    XSetWMProperties(display, window, &titleprop, NULL, NULL, 0, sizeHints, wmHints, NULL);
+    XSetWMProperties(display, window, &titleprop, nullptr, nullptr, 0, sizeHints, wmHints, nullptr);
 
     XFree(titleprop.value);
     XFree(wmHints);

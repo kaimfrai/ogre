@@ -53,10 +53,10 @@ namespace Ogre
     : DataStream(compressedStream->getAccessMode())
     , mCompressedStream(compressedStream)
     , mTempFileName(tmpFileName)
-    , mZStream(0)
+    , mZStream(nullptr)
     , mCurrentPos(0)
     , mAvailIn(avail_in)
-    , mTmp(0)
+    , mTmp(nullptr)
     , mStreamType(ZLib)
     {
         init();
@@ -66,10 +66,10 @@ namespace Ogre
     : DataStream(name, compressedStream->getAccessMode())
     , mCompressedStream(compressedStream)
     , mTempFileName(tmpFileName)
-    , mZStream(0)
+    , mZStream(nullptr)
     , mCurrentPos(0)
     , mAvailIn(avail_in)
-    , mTmp(0)
+    , mTmp(nullptr)
     , mStreamType(ZLib)
     {
         init();
@@ -79,10 +79,10 @@ namespace Ogre
     : DataStream(name, compressedStream->getAccessMode())
     , mCompressedStream(compressedStream)
     , mTempFileName(tmpFileName)
-    , mZStream(0)
+    , mZStream(nullptr)
     , mCurrentPos(0)
     , mAvailIn(avail_in)
-    , mTmp(0)
+    , mTmp(nullptr)
     , mStreamType(streamType)
     {
         init();
@@ -173,9 +173,9 @@ namespace Ogre
             inflateEnd(mZStream);
 
         delete[] mZStream;
-        mZStream = 0;
+        mZStream = nullptr;
         delete[] mTmp;
-        mTmp = 0;
+        mTmp = nullptr;
     }
     //---------------------------------------------------------------------
     DeflateStream::~DeflateStream()

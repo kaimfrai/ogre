@@ -225,7 +225,7 @@ class ResourceManager;
         if (!mSource.empty())
         {
             const char *source = mSource.c_str();
-            glShaderSourceARB((GLhandleARB)mGLShaderHandle, 1, &source, NULL);
+            glShaderSourceARB((GLhandleARB)mGLShaderHandle, 1, &source, nullptr);
         }
 
         glCompileShaderARB((GLhandleARB)mGLShaderHandle);
@@ -379,7 +379,7 @@ class ResourceManager;
     void GLSLProgram::unbindProgram()
     {
         // Tell the Link Program Manager what shader is to become inactive
-        GLSLLinkProgramManager::getSingleton().setActiveShader( mType, NULL );
+        GLSLLinkProgramManager::getSingleton().setActiveShader( mType, nullptr );
     }
 
     //-----------------------------------------------------------------------------

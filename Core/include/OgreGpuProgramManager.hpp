@@ -208,7 +208,7 @@ namespace Ogre {
         */
         auto create(const String& name, const String& group,
             GpuProgramType gptype, const String& language, bool isManual = false,
-            ManualResourceLoader* loader = 0) -> GpuProgramPtr;
+            ManualResourceLoader* loader = nullptr) -> GpuProgramPtr;
 
         /** Create a new, unloaded GpuProgram.
         @par

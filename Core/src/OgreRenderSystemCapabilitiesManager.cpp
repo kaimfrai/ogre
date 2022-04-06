@@ -43,7 +43,7 @@ THE SOFTWARE.
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> RenderSystemCapabilitiesManager* Singleton<RenderSystemCapabilitiesManager>::msSingleton = 0;
+    template<> RenderSystemCapabilitiesManager* Singleton<RenderSystemCapabilitiesManager>::msSingleton = nullptr;
     auto RenderSystemCapabilitiesManager::getSingletonPtr() -> RenderSystemCapabilitiesManager*
     {
         return msSingleton;
@@ -54,7 +54,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    RenderSystemCapabilitiesManager::RenderSystemCapabilitiesManager() : mSerializer(0), mScriptPattern("*.rendercaps")
+    RenderSystemCapabilitiesManager::RenderSystemCapabilitiesManager() : mSerializer(nullptr), mScriptPattern("*.rendercaps")
     {
         mSerializer = new RenderSystemCapabilitiesSerializer();
     }

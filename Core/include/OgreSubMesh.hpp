@@ -227,7 +227,7 @@ class VertexData;
          Optional mesh to make the parent of the newly created clone.
          If you leave this blank, the clone will be parented to the same Mesh as the original.
          */
-        auto clone(const String& newName, Mesh *parentMesh = 0) -> SubMesh *;
+        auto clone(const String& newName, Mesh *parentMesh = nullptr) -> SubMesh *;
 
     private:
 

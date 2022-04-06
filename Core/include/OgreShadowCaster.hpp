@@ -75,7 +75,7 @@ class VertexData;
         /// Shared link to w-coord buffer (optional).
         HardwareVertexBufferSharedPtr mWBuffer;
     public:
-        ShadowRenderable() : mLightCap(0) {}
+        ShadowRenderable() : mLightCap(nullptr) {}
         ShadowRenderable(MovableObject* parent, const HardwareIndexBufferSharedPtr& indexBuffer,
                          const VertexData* vertexData, bool createSeparateLightCap,
                          bool isLightCap = false);
@@ -104,7 +104,7 @@ class VertexData;
             the real geometry. 
         */
         [[nodiscard]]
-        auto isLightCapSeparate() const -> bool { return mLightCap != 0; }
+        auto isLightCapSeparate() const -> bool { return mLightCap != nullptr; }
 
         /// Get the light cap version of this renderable.
         auto getLightCapRenderable() -> ShadowRenderable* { return mLightCap; }
@@ -152,7 +152,7 @@ class VertexData;
         /** Returns details of the edges which might be used to determine a silhouette. */
         virtual auto getEdgeList() -> EdgeData* = 0;
         /** Returns whether the object has a valid edge list. */
-        auto hasEdgeList() -> bool { return getEdgeList() != NULL; }
+        auto hasEdgeList() -> bool { return getEdgeList() != nullptr; }
 
         /** Get the world bounding box of the caster. */
         [[nodiscard]]

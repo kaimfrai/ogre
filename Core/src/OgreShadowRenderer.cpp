@@ -92,16 +92,16 @@ SceneManager::ShadowRenderer::ShadowRenderer(SceneManager* owner) :
 mSceneManager(owner),
 mShadowTechnique(SHADOWTYPE_NONE),
 mShadowColour(ColourValue(0.25, 0.25, 0.25)),
-mShadowCasterPlainBlackPass(0),
-mShadowReceiverPass(0),
-mShadowModulativePass(0),
-mShadowDebugPass(0),
-mShadowStencilPass(0),
+mShadowCasterPlainBlackPass(nullptr),
+mShadowReceiverPass(nullptr),
+mShadowModulativePass(nullptr),
+mShadowDebugPass(nullptr),
+mShadowStencilPass(nullptr),
 mShadowIndexBufferSize(51200),
 mShadowIndexBufferUsedSize(0),
-mShadowTextureCustomCasterPass(0),
-mShadowTextureCustomReceiverPass(0),
-mFullScreenQuad(0),
+mShadowTextureCustomCasterPass(nullptr),
+mShadowTextureCustomReceiverPass(nullptr),
+mFullScreenQuad(nullptr),
 mShadowAdditiveLightClip(false),
 mDebugShadows(false),
 mShadowMaterialInitDone(false),
@@ -444,7 +444,7 @@ void SceneManager::ShadowRenderer::renderModulativeTextureShadowedQueueGroupObje
                 while(targetPass->getNumTextureUnitStates() > 2)
                     targetPass->removeTextureUnitState(2);
 
-                TextureUnitState* t = NULL;
+                TextureUnitState* t = nullptr;
                 // Add spot fader if not present already
                 if (targetPass->getNumTextureUnitStates() == 2 &&
                     targetPass->getTextureUnitState(1)->_getTexturePtr() == mSpotFadeTexture)
@@ -743,7 +743,7 @@ void SceneManager::ShadowRenderer::ensureShadowTexturesCreated()
             }
 
             // insert dummy camera-light combination
-            mShadowCamLightMapping[cam] = 0;
+            mShadowCamLightMapping[cam] = nullptr;
 
             // Get null shadow texture
             if (mShadowTextureConfigList.empty())
@@ -794,7 +794,7 @@ void SceneManager::ShadowRenderer::destroyShadowTextures()
     mShadowTextureCameras.clear();
 
     // set by render*TextureShadowedQueueGroupObjects
-    mSceneManager->mAutoParamDataSource->setTextureProjector(NULL, 0);
+    mSceneManager->mAutoParamDataSource->setTextureProjector(nullptr, 0);
 
     // Will destroy if no other scene managers referencing
     ShadowTextureManager::getSingleton().clearUnused();
@@ -1262,7 +1262,7 @@ void SceneManager::ShadowRenderer::setShadowVolumeStencilState(bool secondpass, 
 void SceneManager::ShadowRenderer::setShadowTextureCasterMaterial(const MaterialPtr& mat)
 {
     if(!mat) {
-        mShadowTextureCustomCasterPass = 0;
+        mShadowTextureCustomCasterPass = nullptr;
         return;
     }
 
@@ -1270,7 +1270,7 @@ void SceneManager::ShadowRenderer::setShadowTextureCasterMaterial(const Material
     if (!mat->getBestTechnique())
     {
         // unsupported
-        mShadowTextureCustomCasterPass = 0;
+        mShadowTextureCustomCasterPass = nullptr;
     }
     else
     {
@@ -1282,7 +1282,7 @@ void SceneManager::ShadowRenderer::setShadowTextureCasterMaterial(const Material
 void SceneManager::ShadowRenderer::setShadowTextureReceiverMaterial(const MaterialPtr& mat)
 {
     if(!mat) {
-        mShadowTextureCustomReceiverPass = 0;
+        mShadowTextureCustomReceiverPass = nullptr;
         return;
     }
 
@@ -1290,7 +1290,7 @@ void SceneManager::ShadowRenderer::setShadowTextureReceiverMaterial(const Materi
     if (!mat->getBestTechnique())
     {
         // unsupported
-        mShadowTextureCustomReceiverPass = 0;
+        mShadowTextureCustomReceiverPass = nullptr;
     }
     else
     {
@@ -1404,7 +1404,7 @@ void SceneManager::ShadowRenderer::initShadowVolumeMaterials()
             mShadowReceiverPass = matShadRec->getTechnique(0)->getPass(0);
             // Don't set lighting and blending modes here, depends on additive / modulative
             TextureUnitState* t = mShadowReceiverPass->createTextureUnitState();
-            t->setProjectiveTexturing(true, NULL); // will be set later, but the RTSS needs to know about this
+            t->setProjectiveTexturing(true, nullptr); // will be set later, but the RTSS needs to know about this
         }
         else
         {
@@ -1759,7 +1759,7 @@ auto SceneManager::ShadowRenderer::getShadowTexture(size_t shadowIndex) -> const
 
 void SceneManager::ShadowRenderer::resolveShadowTexture(TextureUnitState* tu, size_t shadowIndex, size_t shadowTexUnitIndex) const
 {
-    Camera* cam = NULL;
+    Camera* cam = nullptr;
     TexturePtr shadowTex;
     if (shadowIndex < mShadowTextures.size())
     {
@@ -1894,7 +1894,7 @@ SceneManager::ShadowRenderer::findShadowCastersForLight(const Light* light, cons
 
             // Determine if light is inside or outside the frustum
             bool lightInFrustum = camera->isVisible(light->getDerivedPosition());
-            const PlaneBoundedVolumeList* volList = 0;
+            const PlaneBoundedVolumeList* volList = nullptr;
             if (!lightInFrustum)
             {
                 // Only worth building an external volume list if

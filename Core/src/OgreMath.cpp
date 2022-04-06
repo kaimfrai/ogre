@@ -60,10 +60,10 @@ namespace Ogre
     Math::AngleUnit Math::msAngleUnit;
 
     float  Math::mTrigTableFactor;
-    float *Math::mSinTable = NULL;
-    float *Math::mTanTable = NULL;
+    float *Math::mSinTable = nullptr;
+    float *Math::mTanTable = nullptr;
 
-    Math::RandomValueProvider* Math::mRandProvider = NULL;
+    Math::RandomValueProvider* Math::mRandProvider = nullptr;
 
     //-----------------------------------------------------------------------
     Math::Math( unsigned int trigTableSize )

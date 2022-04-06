@@ -42,7 +42,7 @@ namespace Ogre {
     typedef void (*createFunc)( Archive**, const String& );
 
     //-----------------------------------------------------------------------
-    template<> ArchiveManager* Singleton<ArchiveManager>::msSingleton = 0;
+    template<> ArchiveManager* Singleton<ArchiveManager>::msSingleton = nullptr;
     auto ArchiveManager::getSingletonPtr() -> ArchiveManager*
     {
         return msSingleton;
@@ -59,7 +59,7 @@ namespace Ogre {
     auto ArchiveManager::load( const String& filename, const String& archiveType, bool readOnly) -> Archive*
     {
         ArchiveMap::iterator i = mArchives.find(filename);
-        Archive* pArch = 0;
+        Archive* pArch = nullptr;
 
         if (i == mArchives.end())
         {

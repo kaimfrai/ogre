@@ -43,7 +43,7 @@ THE SOFTWARE.
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> GLSL::GLSLLinkProgramManager* Singleton<GLSL::GLSLLinkProgramManager>::msSingleton = 0;
+    template<> GLSL::GLSLLinkProgramManager* Singleton<GLSL::GLSLLinkProgramManager>::msSingleton = nullptr;
 
     namespace GLSL {
 
@@ -60,7 +60,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgramManager::GLSLLinkProgramManager() : mActiveLinkProgram(NULL) {}
+    GLSLLinkProgramManager::GLSLLinkProgramManager() : mActiveLinkProgram(nullptr) {}
 
     //-----------------------------------------------------------------------
     GLSLLinkProgramManager::~GLSLLinkProgramManager() {}
@@ -113,7 +113,7 @@ namespace Ogre {
         {
             mActiveShader[type] = gpuProgram;
             // ActiveLinkProgram is no longer valid
-            mActiveLinkProgram = NULL;
+            mActiveLinkProgram = nullptr;
             // change back to fixed pipeline
             glUseProgramObjectARB(0);
         }
@@ -190,7 +190,7 @@ namespace Ogre {
         {
             GLint arraySize = 0;
             GLenum glType;
-            glGetActiveUniformARB((GLhandleARB)programObject, index, BUFFERSIZE, NULL,
+            glGetActiveUniformARB((GLhandleARB)programObject, index, BUFFERSIZE, nullptr,
                 &arraySize, &glType, uniformName);
             // don't add built in uniforms
             newGLUniformReference.mLocation = glGetUniformLocationARB((GLhandleARB)programObject, uniformName);

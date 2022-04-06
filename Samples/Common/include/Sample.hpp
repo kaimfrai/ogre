@@ -63,21 +63,21 @@ namespace OgreBites
             }
         };
 
-        Sample() : mShaderGenerator(0)
+        Sample() : mShaderGenerator(nullptr)
         {
             mRoot = Ogre::Root::getSingletonPtr();
-            mWindow = 0;
-            mSceneMgr = 0;
+            mWindow = nullptr;
+            mSceneMgr = nullptr;
             mDone = true;
             mResourcesLoaded = false;
             mContentSetup = false;
 
-            mCamera = 0;
-            mCameraNode = 0;
-            mViewport = 0;
+            mCamera = nullptr;
+            mCameraNode = nullptr;
+            mViewport = nullptr;
 
-            mFSLayer = 0;
-            mOverlaySystem = 0;
+            mFSLayer = nullptr;
+            mOverlaySystem = nullptr;
 
             // so we don't have to worry about checking if these keys exist later
             mInfo["Title"] = "Untitled";
@@ -209,7 +209,7 @@ namespace OgreBites
                 mSceneMgr->removeRenderQueueListener(mOverlaySystem);
                 mRoot->destroySceneManager(mSceneMgr);              
             }
-            mSceneMgr = 0;
+            mSceneMgr = nullptr;
 
             mDone = true;
         }

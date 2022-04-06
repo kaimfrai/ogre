@@ -79,7 +79,7 @@ auto Program::getType() const -> GpuProgramType
 //-----------------------------------------------------------------------------
 void Program::addParameter(UniformParameterPtr parameter)
 {
-    if (getParameterByName(parameter->getName()).get() != NULL)
+    if (getParameterByName(parameter->getName()).get() != nullptr)
     {
         OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
             "Parameter <" + parameter->getName() + "> already declared in program.", 
@@ -172,7 +172,7 @@ auto Program::resolveAutoParameterReal(GpuProgramParameters::AutoConstantType au
 
     // Check if parameter already exists.
     param = getParameterByAutoType(autoType);
-    if (param.get() != NULL)
+    if (param.get() != nullptr)
     {
         if (param->isAutoConstantRealParameter() &&
             param->getAutoConstantRealData() == data)
@@ -197,7 +197,7 @@ auto Program::resolveAutoParameterReal(GpuProgramParameters::AutoConstantType au
 
     // Check if parameter already exists.
     param = getParameterByAutoType(autoType);
-    if (param.get() != NULL)
+    if (param.get() != nullptr)
     {
         if (param->isAutoConstantRealParameter() &&
             param->getAutoConstantRealData() == data)
@@ -222,7 +222,7 @@ auto Program::resolveAutoParameterInt(GpuProgramParameters::AutoConstantType aut
 
     // Check if parameter already exists.
     param = getParameterByAutoType(autoType);
-    if (param.get() != NULL)
+    if (param.get() != nullptr)
     {
         if (param->isAutoConstantIntParameter() &&
             param->getAutoConstantIntData() == data)
@@ -267,7 +267,7 @@ auto Program::resolveParameter(GpuConstantType type,
     {
         // Check if parameter already exists.
         param = getParameterByType(type, index);
-        if (param.get() != NULL)
+        if (param.get() != nullptr)
         {       
             return param;       
         }

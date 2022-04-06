@@ -159,7 +159,7 @@ auto FFPFog::addFunctionInvocations(ProgramSet* programSet) -> bool
     Function* vsMain = vsProgram->getEntryPointFunction();
     Function* psMain = psProgram->getEntryPointFunction();
 
-    const char* fogfunc = NULL;
+    const char* fogfunc = nullptr;
     
     // Per pixel fog.
     if (mCalcMode == CM_PER_PIXEL)
@@ -273,7 +273,7 @@ auto FFPFogFactory::createInstance(ScriptCompiler* compiler,
             if(false == SGScriptTranslator::getString(prop->values.front(), &strValue))
             {
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                return NULL;
+                return nullptr;
             }
 
             if (strValue == "ffp")
@@ -288,7 +288,7 @@ auto FFPFogFactory::createInstance(ScriptCompiler* compiler,
                     if (false == SGScriptTranslator::getString(*it, &strValue))
                     {
                         compiler->addError(ScriptCompiler::CE_STRINGEXPECTED, prop->file, prop->line);
-                        return NULL;
+                        return nullptr;
                     }
 
                     fogSubRenderState->setParameter("calc_mode", strValue);
@@ -299,7 +299,7 @@ auto FFPFogFactory::createInstance(ScriptCompiler* compiler,
         }       
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------

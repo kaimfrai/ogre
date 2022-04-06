@@ -60,7 +60,7 @@ class VertexData;
         , mUseBaseKeyFrame(false)
         , mBaseKeyFrameTime(0.0f)
         , mBaseKeyFrameAnimationName(BLANKSTRING)
-        , mContainer(0)
+        , mContainer(nullptr)
     {
     }
     //---------------------------------------------------------------------

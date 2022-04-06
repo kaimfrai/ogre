@@ -129,7 +129,7 @@ namespace {
     }
 
     //-----------------------------------------------------------------------
-    template<> GpuProgramManager* Singleton<GpuProgramManager>::msSingleton = 0;
+    template<> GpuProgramManager* Singleton<GpuProgramManager>::msSingleton = nullptr;
     auto GpuProgramManager::getSingletonPtr() -> GpuProgramManager*
     {
         return msSingleton;

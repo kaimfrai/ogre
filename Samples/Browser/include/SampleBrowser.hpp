@@ -58,17 +58,17 @@ namespace OgreBites
     : SampleContext("OGRE Sample Browser"), mGrabInput(!nograb)
         {
             mIsShuttingDown = false;
-            mTrayMgr = 0;
+            mTrayMgr = nullptr;
             mLastViewCategory = 0;
             mLastViewTitle = 0;
             mLastSampleIndex = -1;
             mStartSampleIndex = startSampleIndex;
-            mCategoryMenu = 0;
-            mSampleMenu = 0;
-            mSampleSlider = 0;
-            mTitleLabel = 0;
-            mDescBox = 0;
-            mRendererMenu = 0;
+            mCategoryMenu = nullptr;
+            mSampleMenu = nullptr;
+            mSampleSlider = nullptr;
+            mTitleLabel = nullptr;
+            mDescBox = nullptr;
+            mRendererMenu = nullptr;
             mCarouselPlace = 0.0f;
         }
 
@@ -94,7 +94,7 @@ namespace OgreBites
             if (mCurrentSample)  // sample quitting
             {
                 mCurrentSample->_shutdown();
-                mCurrentSample = 0;
+                mCurrentSample = nullptr;
                 mSamplePaused = false;     // don't pause next sample
 
                 // create dummy scene and modify controls
@@ -143,7 +143,7 @@ namespace OgreBites
             }
             catch (Ogre::Exception& e)   // show error and fall back to menu
             {
-                runSample(0);
+                runSample(nullptr);
                 mTrayMgr->showOkDialog("Error!", e.getDescription() + "\nSource: " + e.getSource());
             }
 
@@ -207,7 +207,7 @@ namespace OgreBites
         {
             if (question.substr(0, 14) == "This will stop" && yesHit)   // confirm unloading of samples
             {
-                runSample(0);
+                runSample(nullptr);
                 buttonHit((Button*)mTrayMgr->getWidget("UnloadReload"));
             }
         }
@@ -229,7 +229,7 @@ namespace OgreBites
                         runSample(Ogre::any_cast<Sample*>(r->getUserObjectBindings().getUserAny()));
                     }
                 } else
-                    runSample(0);
+                    runSample(nullptr);
             }
             else if (b->getName() == "UnloadReload")   // unload or reload sample plugins and update controls
             {
@@ -517,11 +517,11 @@ namespace OgreBites
             }
             else if (key == SDLK_RETURN)   // start or stop sample
             {
-                if (!mLoadedSamples.empty() && (mSamplePaused || mCurrentSample == 0))
+                if (!mLoadedSamples.empty() && (mSamplePaused || mCurrentSample == nullptr))
                 {
                     Ogre::Renderable* r = mThumbs[mSampleMenu->getSelectionIndex()];
                     Sample* newSample = Ogre::any_cast<Sample*>(r->getUserObjectBindings().getUserAny());
-                    runSample(newSample == mCurrentSample ? 0 : newSample);
+                    runSample(newSample == mCurrentSample ? nullptr : newSample);
                 }
             }
             else if(key == SDLK_F9)   // toggle full screen
@@ -753,7 +753,7 @@ namespace OgreBites
           -----------------------------------------------------------------------------*/
         virtual auto loadSamples() -> Sample*
         {
-            Sample* startupSample = 0;
+            Sample* startupSample = nullptr;
             Ogre::StringVector unloadedSamplePlugins;
 
             Ogre::String startupSampleTitle;
@@ -900,7 +900,7 @@ namespace OgreBites
                     {
                         runSample(*i);
                         (*i)->restoreState(mLastSampleState);
-                        mLastSample = 0;
+                        mLastSample = nullptr;
                         mLastSampleIndex = -1;
                         mLastSampleState.clear();
                     }
@@ -944,23 +944,23 @@ namespace OgreBites
             if (mTrayMgr)
             {
                 delete mTrayMgr;
-                mTrayMgr = 0;
+                mTrayMgr = nullptr;
             }
 
-            if (!mCurrentSample && mRoot->getRenderSystem() != NULL) destroyDummyScene();
+            if (!mCurrentSample && mRoot->getRenderSystem() != nullptr) destroyDummyScene();
 
             SampleContext::shutdown();
 
-            mCategoryMenu = 0;
-            mSampleMenu = 0;
-            mSampleSlider = 0;
-            mTitleLabel = 0;
-            mDescBox = 0;
-            mRendererMenu = 0;
+            mCategoryMenu = nullptr;
+            mSampleMenu = nullptr;
+            mSampleSlider = nullptr;
+            mTitleLabel = nullptr;
+            mDescBox = nullptr;
+            mRendererMenu = nullptr;
             mHiddenOverlays.clear();
             mThumbs.clear();
             mCarouselPlace = 0;
-            mWindow = 0;
+            mWindow = nullptr;
 
             unloadSamples();
         }

@@ -98,7 +98,7 @@ namespace OgreBites
         [[nodiscard]]
         auto getRenderWindow() const -> Ogre::RenderWindow*
         {
-            return mWindows.empty() ? NULL : mWindows[0].render;
+            return mWindows.empty() ? nullptr : mWindows[0].render;
         }
 
         [[nodiscard]]

@@ -999,7 +999,7 @@ class LodStrategy;
      * MaterialTranslator
      *************************************************************************/
     MaterialTranslator::MaterialTranslator()
-        :mMaterial(0)
+        :mMaterial(nullptr)
     {
     }
     //-------------------------------------------------------------------------
@@ -1097,7 +1097,7 @@ class LodStrategy;
 
                             LodStrategy *strategy = LodStrategyManager::getSingleton().getStrategy(strategyName);
 
-                            result = (strategy != 0);
+                            result = (strategy != nullptr);
 
                             if (result)
                                 mMaterial->setLodStrategy(strategy);
@@ -1150,7 +1150,7 @@ class LodStrategy;
         if(compiler->getListener())
         {
             PreApplyTextureAliasesScriptCompilerEvent locEvt(mMaterial, &mTextureAliases);
-            compiler->_fireEvent(&locEvt, 0);
+            compiler->_fireEvent(&locEvt, nullptr);
         }
         applyTextureAliases(mMaterial, mTextureAliases);
         mTextureAliases.clear();
@@ -1160,7 +1160,7 @@ class LodStrategy;
      * TechniqueTranslator
      *************************************************************************/
     TechniqueTranslator::TechniqueTranslator()
-        :mTechnique(0)
+        :mTechnique(nullptr)
     {
     }
     //-------------------------------------------------------------------------
@@ -1200,7 +1200,7 @@ class LodStrategy;
                     if(getValue(prop, compiler, sval))
                     {
                         ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::MATERIAL, sval);
-                        compiler->_fireEvent(&evt, 0);
+                        compiler->_fireEvent(&evt, nullptr);
                         mTechnique->setShadowCasterMaterial(evt.mName); // Use the processed name
                     }
                     break;
@@ -1208,7 +1208,7 @@ class LodStrategy;
                     if(getValue(prop, compiler, sval))
                     {
                         ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::MATERIAL, sval);
-                        compiler->_fireEvent(&evt, 0);
+                        compiler->_fireEvent(&evt, nullptr);
                         mTechnique->setShadowReceiverMaterial(evt.mName); // Use the processed name
                     }
                     break;
@@ -1338,7 +1338,7 @@ class LodStrategy;
      * PassTranslator
      *************************************************************************/
     PassTranslator::PassTranslator()
-        :mPass(0)
+        :mPass(nullptr)
     {
     }
     //-------------------------------------------------------------------------
@@ -2253,7 +2253,7 @@ class LodStrategy;
         }
 
         ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::GPU_PROGRAM, node->name);
-        compiler->_fireEvent(&evt, 0);
+        compiler->_fireEvent(&evt, nullptr);
 
         auto& mgr = GpuProgramManager::getSingleton();
         if (auto ret = mgr.getByName(evt.mName, compiler->getResourceGroup()))
@@ -2340,7 +2340,7 @@ class LodStrategy;
      * TextureUnitTranslator
      *************************************************************************/
     TextureUnitTranslator::TextureUnitTranslator()
-        :mUnit(0)
+        :mUnit(nullptr)
     {
     }
     //-------------------------------------------------------------------------
@@ -2657,7 +2657,7 @@ class LodStrategy;
                             }
 
                             ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, val);
-                            compiler->_fireEvent(&evt, 0);
+                            compiler->_fireEvent(&evt, nullptr);
 
                             if(isAlpha)
                             {
@@ -2697,7 +2697,7 @@ class LodStrategy;
                                 if(getString(*i0, &val0) && getUInt(*i1, &val1) && getReal(*i2, &val2))
                                 {
                                     ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, val0);
-                                    compiler->_fireEvent(&evt, 0);
+                                    compiler->_fireEvent(&evt, nullptr);
 
                                     mUnit->setAnimatedTextureName(evt.mName, val1, val2);
                                 }
@@ -2732,7 +2732,7 @@ class LodStrategy;
                                         if(compiler->getListener())
                                         {
                                             ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, name);
-                                            compiler->_fireEvent(&evt, 0);
+                                            compiler->_fireEvent(&evt, nullptr);
                                             names.push_back(evt.mName);
                                         }
                                         else
@@ -2770,7 +2770,7 @@ class LodStrategy;
                             AtomAbstractNode *atom0 = (AtomAbstractNode*)(*i0).get();
 
                             ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, atom0->value);
-                            compiler->_fireEvent(&evt, 0);
+                            compiler->_fireEvent(&evt, nullptr);
 
                             mUnit->setTextureName(evt.mName, TEX_TYPE_CUBE_MAP);
 
@@ -2813,7 +2813,7 @@ class LodStrategy;
                                 for(int j = 0; j < 6; ++j)
                                 {
                                     ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, names[j]);
-                                    compiler->_fireEvent(&evt, 0);
+                                    compiler->_fireEvent(&evt, nullptr);
                                     names[j] = evt.mName;
                                 }
                             }
@@ -3508,7 +3508,7 @@ class LodStrategy;
                         return;
 
                     ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::GPU_PROGRAM, value);
-                    compiler->_fireEvent(&evt, 0);
+                    compiler->_fireEvent(&evt, nullptr);
                     delegates.push_back(evt.mName);
                 }
                 else
@@ -3527,7 +3527,7 @@ class LodStrategy;
                             if(prop->name == "attach")
                             {
                                 ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::GPU_PROGRAM, ((AtomAbstractNode*)(*it).get())->value);
-                                compiler->_fireEvent(&evt, 0);
+                                compiler->_fireEvent(&evt, nullptr);
                                 value += evt.mName;
 
                                 compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, prop->file,
@@ -3562,7 +3562,7 @@ class LodStrategy;
 
         // Allocate the program
         GpuProgramType gpt = translateIDToGpuProgramType(obj->id);
-        GpuProgram *prog = 0;
+        GpuProgram *prog = nullptr;
 
         if(language == "asm")
             language = syntax;
@@ -4158,7 +4158,7 @@ class LodStrategy;
             return;
         }
 
-        GpuSharedParameters* sharedParams = 0;
+        GpuSharedParameters* sharedParams = nullptr;
         CreateGpuSharedParametersScriptCompilerEvent evt(obj->file, obj->name, compiler->getResourceGroup());
         bool processed = compiler->_fireEvent(&evt, (void*)&sharedParams);
 
@@ -4305,7 +4305,7 @@ class LodStrategy;
      * ParticleSystemTranslator
      *************************************************************************/
     ParticleSystemTranslator::ParticleSystemTranslator()
-        :mSystem(0)
+        :mSystem(nullptr)
     {
     }
 
@@ -4361,7 +4361,7 @@ class LodStrategy;
                             String name = ((AtomAbstractNode*)prop->values.front().get())->value;
 
                             ProcessResourceNameScriptCompilerEvent locEvt(ProcessResourceNameScriptCompilerEvent::MATERIAL, name);
-                            compiler->_fireEvent(&locEvt, 0);
+                            compiler->_fireEvent(&locEvt, nullptr);
 
                             if(!mSystem->setParameter("material", locEvt.mName))
                             {
@@ -4424,7 +4424,7 @@ class LodStrategy;
      * ParticleEmitterTranslator
      *************************************************************************/
     ParticleEmitterTranslator::ParticleEmitterTranslator()
-        :mEmitter(0)
+        :mEmitter(nullptr)
     {
     }
     //-------------------------------------------------------------------------
@@ -4498,7 +4498,7 @@ class LodStrategy;
      * ParticleAffectorTranslator
      *************************************************************************/
     ParticleAffectorTranslator::ParticleAffectorTranslator()
-        :mAffector(0)
+        :mAffector(nullptr)
     {
     }
     //-------------------------------------------------------------------------
@@ -4571,7 +4571,7 @@ class LodStrategy;
      * CompositorTranslator
      *************************************************************************/
     CompositorTranslator::CompositorTranslator()
-        :mCompositor(0)
+        :mCompositor(nullptr)
     {
     }
 
@@ -4622,7 +4622,7 @@ class LodStrategy;
      * CompositionTechniqueTranslator
      *************************************************************************/
     CompositionTechniqueTranslator::CompositionTechniqueTranslator()
-        :mTechnique(0)
+        :mTechnique(nullptr)
     {
     }
     //-------------------------------------------------------------------------
@@ -4882,7 +4882,7 @@ class LodStrategy;
      * CompositionTargetPass
      *************************************************************************/
     CompositionTargetPassTranslator::CompositionTargetPassTranslator()
-        :mTarget(0)
+        :mTarget(nullptr)
     {
     }
     //-------------------------------------------------------------------------
@@ -4967,7 +4967,7 @@ class LodStrategy;
      * CompositionPassTranslator
      *************************************************************************/
     CompositionPassTranslator::CompositionPassTranslator()
-        :mPass(0)
+        :mPass(nullptr)
     {
     }
 
@@ -5133,7 +5133,7 @@ class LodStrategy;
                     if(getValue(prop, compiler, sval))
                     {
                         ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::MATERIAL, sval);
-                        compiler->_fireEvent(&evt, 0);
+                        compiler->_fireEvent(&evt, nullptr);
                         auto mat = MaterialManager::getSingleton().getByName(evt.mName, compiler->getResourceGroup());
                         if (mat)
                             mPass->setMaterial(mat);
@@ -5271,12 +5271,12 @@ class LodStrategy;
     //-------------------------------------------------------------------------
     auto BuiltinScriptTranslatorManager::getTranslator(const AbstractNodePtr &node) -> ScriptTranslator *
     {
-        ScriptTranslator *translator = 0;
+        ScriptTranslator *translator = nullptr;
 
         if(node->type == ANT_OBJECT)
         {
             ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
-            ObjectAbstractNode *parent = obj->parent ? static_cast<ObjectAbstractNode*>(obj->parent) : 0;
+            ObjectAbstractNode *parent = obj->parent ? static_cast<ObjectAbstractNode*>(obj->parent) : nullptr;
             if(obj->id == ID_MATERIAL)
                 translator = &mMaterialTranslator;
             else if(obj->id == ID_TECHNIQUE && parent && parent->id == ID_MATERIAL)

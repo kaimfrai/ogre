@@ -81,7 +81,7 @@ auto CompositionTechnique::getTextureDefinition(const String& name) const -> Com
             return *i;
     }
 
-    return 0;
+    return nullptr;
 
 }
 //-----------------------------------------------------------------------

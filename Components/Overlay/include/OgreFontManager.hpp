@@ -54,8 +54,8 @@ namespace Ogre
         /// Create a new font
         /// @see ResourceManager::createResource
         auto create (const String& name, const String& group,
-                            bool isManual = false, ManualResourceLoader* loader = 0,
-                            const NameValuePairList* createParams = 0) -> FontPtr;
+                            bool isManual = false, ManualResourceLoader* loader = nullptr,
+                            const NameValuePairList* createParams = nullptr) -> FontPtr;
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName

@@ -52,7 +52,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     AutoParamDataSource::AutoParamDataSource()
         : mWorldMatrixCount(0),
-         mWorldMatrixArray(0),
+         mWorldMatrixArray(nullptr),
          mWorldMatrixDirty(true),
          mViewMatrixDirty(true),
          mProjMatrixDirty(true),
@@ -71,16 +71,16 @@ namespace Ogre {
          mSceneDepthRangeDirty(true),
          mLodCameraPositionDirty(true),
          mLodCameraPositionObjectSpaceDirty(true),
-         mCurrentRenderable(0),
-         mCurrentCamera(0), 
+         mCurrentRenderable(nullptr),
+         mCurrentCamera(nullptr), 
          mCameraRelativeRendering(false),
-         mCurrentLightList(0),
-         mCurrentRenderTarget(0),
-         mCurrentViewport(0), 
-         mCurrentSceneManager(0),
-         mMainCamBoundsInfo(0),
-         mCurrentPass(0),
-         mDummyNode(NULL)
+         mCurrentLightList(nullptr),
+         mCurrentRenderTarget(nullptr),
+         mCurrentViewport(nullptr), 
+         mCurrentSceneManager(nullptr),
+         mMainCamBoundsInfo(nullptr),
+         mCurrentPass(nullptr),
+         mDummyNode(nullptr)
     {
         mBlankLight.setDiffuseColour(ColourValue::Black);
         mBlankLight.setSpecularColour(ColourValue::Black);
@@ -92,7 +92,7 @@ namespace Ogre {
             mTextureWorldViewProjMatrixDirty[i] = true;
             mSpotlightViewProjMatrixDirty[i] = true;
             mSpotlightWorldViewProjMatrixDirty[i] = true;
-            mCurrentTextureProjector[i] = 0;
+            mCurrentTextureProjector[i] = nullptr;
             mShadowCamDepthRangesDirty[i] = false;
         }
 
@@ -730,7 +730,7 @@ namespace Ogre {
                 mSpotlightViewProjMatrixDirty[index])
             {
                 Frustum frust;
-                SceneNode dummyNode(0);
+                SceneNode dummyNode(nullptr);
                 dummyNode.attachObject(&frust);
 
                 frust.setProjectionType(PT_PERSPECTIVE);

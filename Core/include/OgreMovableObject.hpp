@@ -112,7 +112,7 @@ class SceneNode;
                 A pointer to a light list if you populated the light list yourself, or
                 NULL to fall back on the default finding process.
             */
-            virtual auto objectQueryLights(const MovableObject*) -> const LightList* { return 0; }
+            virtual auto objectQueryLights(const MovableObject*) -> const LightList* { return nullptr; }
         };
 
     protected:
@@ -243,7 +243,7 @@ class SceneNode;
         virtual void _notifyAttached(Node* parent, bool isTagPoint = false);
 
         /** Returns true if this object is attached to a SceneNode or TagPoint. */
-        auto isAttached() const -> bool { return (mParentNode != NULL); }
+        auto isAttached() const -> bool { return (mParentNode != nullptr); }
 
         /** Detaches an object from a parent SceneNode or TagPoint, if attached. */
         void detachFromParent();
@@ -505,7 +505,7 @@ class SceneNode;
         auto _getLightList() -> LightList* { return &mLightList; }
 
         /// Returns details of the edges which might be used to determine a silhouette
-        auto getEdgeList() -> EdgeData* { return NULL; }
+        auto getEdgeList() -> EdgeData* { return nullptr; }
         /// Define a default implementation of method from ShadowCaster which implements no shadows
         auto getShadowVolumeRenderableList(
             const Light* light, const HardwareIndexBufferPtr& indexBuffer,
@@ -592,7 +592,7 @@ class SceneNode;
 
         /// Internal implementation of create method - must be overridden
         virtual auto createInstanceImpl(
-            const String& name, const NameValuePairList* params = 0) -> MovableObject* = 0;
+            const String& name, const NameValuePairList* params = nullptr) -> MovableObject* = 0;
     public:
         MovableObjectFactory() : mTypeFlag(0xFFFFFFFF) {}
         virtual ~MovableObjectFactory() {}
@@ -609,7 +609,7 @@ class SceneNode;
         */
         auto createInstance(
             const String& name, SceneManager* manager, 
-            const NameValuePairList* params = 0) -> MovableObject*;
+            const NameValuePairList* params = nullptr) -> MovableObject*;
         /** Destroy an instance of the object */
         virtual void destroyInstance(MovableObject* obj) { delete obj; }
 

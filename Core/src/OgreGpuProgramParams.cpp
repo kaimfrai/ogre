@@ -1206,9 +1206,9 @@ namespace Ogre
     {
         OgreAssert(type != BCT_SAMPLER, "");
         if (!mLogicalToPhysical)
-            return NULL;
+            return nullptr;
 
-        GpuLogicalIndexUse* indexUse = 0;
+        GpuLogicalIndexUse* indexUse = nullptr;
 
         auto logi = mLogicalToPhysical->map.find(logicalIndex);
         if (logi == mLogicalToPhysical->map.end())
@@ -1249,7 +1249,7 @@ namespace Ogre
             else
             {
                 // no match & ignore
-                return 0;
+                return nullptr;
             }
 
         }
@@ -1355,7 +1355,7 @@ namespace Ogre
             if (throwExceptionIfNotFound)
                 OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
                             "Named constants have not been initialised, perhaps a compile error");
-            return 0;
+            return nullptr;
         }
 
         // strip array extension
@@ -1370,7 +1370,7 @@ namespace Ogre
 				"Parameter called " + name + " does not exist. " + knownNames,
                             "GpuProgramParameters::_findNamedConstantDefinition");
 			}
-            return 0;
+            return nullptr;
         }
         else
         {
@@ -2375,7 +2375,7 @@ namespace Ogre
         }
         else
         {
-            return NULL;
+            return nullptr;
         }
     }
     //---------------------------------------------------------------------------
@@ -2402,7 +2402,7 @@ namespace Ogre
 
         const GpuConstantDefinition& def = getConstantDefinition(paramName);
         if(def.isSampler())
-            return NULL;
+            return nullptr;
         return _findRawAutoConstantEntryFloat(def.physicalIndex);
     }
     //---------------------------------------------------------------------------
@@ -2420,7 +2420,7 @@ namespace Ogre
                 return &ac;
         }
 
-        return 0;
+        return nullptr;
 
     }
     //---------------------------------------------------------------------------
@@ -2532,7 +2532,7 @@ namespace Ogre
         if (nameFound)
             return &AutoConstantDictionary[i];
         else
-            return 0;
+            return nullptr;
     }
 
     //-----------------------------------------------------------------------
@@ -2548,7 +2548,7 @@ namespace Ogre
             return &AutoConstantDictionary[idx];
         }
         else
-            return 0;
+            return nullptr;
     }
     //-----------------------------------------------------------------------
     auto GpuProgramParameters::getNumAutoConstantDefinitions() -> size_t

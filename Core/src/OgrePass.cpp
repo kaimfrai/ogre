@@ -69,7 +69,7 @@ namespace Ogre {
 
             for (ushort i = 0; i < c; ++i)
             {
-                const TextureUnitState* tus = 0;
+                const TextureUnitState* tus = nullptr;
                 tus = p->getTextureUnitState(i);
                 hash = FastHash(tus->getTextureName().c_str(), tus->getTextureName().size(), hash);
             }
@@ -108,7 +108,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto Pass::getBuiltinHashFunction(BuiltinHashFunction builtin) -> Pass::HashFunc*
     {
-        Pass::HashFunc* hashFunc = NULL;
+        Pass::HashFunc* hashFunc = nullptr;
 
         switch(builtin)
         {
@@ -426,7 +426,7 @@ namespace Ogre {
     {
         TextureUnitStates::const_iterator i    = mTextureUnitStates.begin();
         TextureUnitStates::const_iterator iend = mTextureUnitStates.end();
-        TextureUnitState* foundTUS = 0;
+        TextureUnitState* foundTUS = nullptr;
 
         // iterate through TUS Container to find a match
         while (i != iend)
@@ -693,7 +693,7 @@ namespace Ogre {
             for (; i != iend; ++i)
             {
                 // detach from parent first
-                (*i)->_notifyParent(0);
+                (*i)->_notifyParent(nullptr);
                 newPass->addTextureUnitState(*i);
             }
             // Now remove texture units from this Pass, we don't need to delete since they've
@@ -703,7 +703,7 @@ namespace Ogre {
             mContentTypeLookupBuilt = false;
             return newPass;
         }
-        return NULL;
+        return nullptr;
     }
     //-----------------------------------------------------------------------------
     void Pass::_notifyIndex(unsigned short index)
@@ -913,7 +913,7 @@ namespace Ogre {
     }
 
     auto Pass::hasGpuProgram(GpuProgramType programType) const -> bool {
-        return getProgramUsage(programType) != NULL;
+        return getProgramUsage(programType) != nullptr;
     }
     auto Pass::getGpuProgram(GpuProgramType programType) const -> const GpuProgramPtr&
 	{

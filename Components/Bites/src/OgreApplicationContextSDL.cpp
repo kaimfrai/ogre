@@ -50,7 +50,7 @@ void ApplicationContextSDL::removeInputListener(NativeWindowType* win, InputList
 
 auto ApplicationContextSDL::createWindow(const Ogre::String& name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams) -> NativeWindowPair
 {
-    NativeWindowPair ret = {NULL, NULL};
+    NativeWindowPair ret = {nullptr, nullptr};
 
     if(!SDL_WasInit(SDL_INIT_VIDEO)) {
         if(SDL_GameControllerAddMappingsFromFile("gamecontrollerdb.txt"))
@@ -116,7 +116,7 @@ auto ApplicationContextSDL::getDisplayDPI() const -> float
 {
     OgreAssert(!mWindows.empty(), "create a window first");
     float vdpi = -1;
-    if(SDL_GetDisplayDPI(0, NULL, NULL, &vdpi) == 0 && vdpi > 0)
+    if(SDL_GetDisplayDPI(0, nullptr, nullptr, &vdpi) == 0 && vdpi > 0)
         return vdpi;
 
     return ApplicationContextBase::getDisplayDPI();

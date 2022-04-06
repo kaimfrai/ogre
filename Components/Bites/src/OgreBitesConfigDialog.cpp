@@ -13,6 +13,6 @@ namespace Ogre {
 
 namespace OgreBites {
     auto getNativeConfigDialog() -> Ogre::ConfigDialog* {
-        return NULL;
+        return nullptr;
     }
 } /* namespace OgreBites */

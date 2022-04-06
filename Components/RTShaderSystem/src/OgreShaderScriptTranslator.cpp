@@ -50,7 +50,7 @@ namespace RTShader {
 
 //-----------------------------------------------------------------------------
 SGScriptTranslator::SGScriptTranslator() :
-    mGeneratedRenderState(NULL)
+    mGeneratedRenderState(nullptr)
 {
 }
 
@@ -88,7 +88,7 @@ auto SGScriptTranslator::getGeneratedSubRenderState(const String& typeName) -> S
                 return *it;
         }
     }
-    return NULL;
+    return nullptr;
 }
     
 //-----------------------------------------------------------------------------
@@ -157,7 +157,7 @@ void SGScriptTranslator::translateTextureUnit(ScriptCompiler* compiler, const Ab
             }
         }
 
-        mGeneratedRenderState = NULL;
+        mGeneratedRenderState = nullptr;
     }   
 }
 
@@ -240,7 +240,7 @@ void SGScriptTranslator::translatePass(ScriptCompiler* compiler, const AbstractN
             }
         }
 
-        mGeneratedRenderState = NULL;
+        mGeneratedRenderState = nullptr;
     }
 
 }

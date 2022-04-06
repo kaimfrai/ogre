@@ -93,8 +93,8 @@ class Viewport;
          * @see ResourceManager::createResource
          */
         auto create (const String& name, const String& group,
-                            bool isManual = false, ManualResourceLoader* loader = 0,
-                            const NameValuePairList* createParams = 0) -> CompositorPtr;
+                            bool isManual = false, ManualResourceLoader* loader = nullptr,
+                            const NameValuePairList* createParams = nullptr) -> CompositorPtr;
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName

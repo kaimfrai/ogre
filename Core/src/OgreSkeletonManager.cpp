@@ -35,7 +35,7 @@ THE SOFTWARE.
 namespace Ogre
 {
     //-----------------------------------------------------------------------
-    template<> SkeletonManager* Singleton<SkeletonManager>::msSingleton = 0;
+    template<> SkeletonManager* Singleton<SkeletonManager>::msSingleton = nullptr;
     auto SkeletonManager::getSingletonPtr() -> SkeletonManager*
     {
         return msSingleton;

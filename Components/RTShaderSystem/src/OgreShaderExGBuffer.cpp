@@ -244,7 +244,7 @@ auto GBufferFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNo
                                                SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name != "lighting_stage" || prop->values.size() < 2)
-        return NULL;
+        return nullptr;
 
     auto it = prop->values.begin();
     String val;
@@ -252,18 +252,18 @@ auto GBufferFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNo
     if(!SGScriptTranslator::getString(*it++, &val))
     {
         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-        return NULL;
+        return nullptr;
     }
 
     if (val != "gbuffer")
-        return NULL;
+        return nullptr;
 
     GBuffer::TargetBuffers targets;
 
     if(!SGScriptTranslator::getString(*it++, &val))
     {
         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-        return NULL;
+        return nullptr;
     }
     targets.push_back(translate(val));
 
@@ -272,7 +272,7 @@ auto GBufferFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNo
         if(!SGScriptTranslator::getString(*it++, &val))
         {
             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-            return NULL;
+            return nullptr;
         }
 
         targets.push_back(translate(val));

@@ -296,7 +296,7 @@ class VertexData;
 
         /** Invalidate the camera distance cache */
         void _invalidateCameraCache ()
-        { mCachedCamera = 0; }
+        { mCachedCamera = nullptr; }
     };
     /** @} */
     /** @} */

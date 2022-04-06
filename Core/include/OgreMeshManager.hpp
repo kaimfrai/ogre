@@ -86,8 +86,8 @@ class SubMesh;
         /// Create a new mesh
         /// @copydetails ResourceManager::createResource
         auto create (const String& name, const String& group,
-                            bool isManual = false, ManualResourceLoader* loader = 0,
-                            const NameValuePairList* createParams = 0) -> MeshPtr;
+                            bool isManual = false, ManualResourceLoader* loader = nullptr,
+                            const NameValuePairList* createParams = nullptr) -> MeshPtr;
 
         using ResourceManager::createOrRetrieve;
 
@@ -155,7 +155,7 @@ class SubMesh;
             in order that the mesh can be rebuilt should the need arise
         */
         auto createManual( const String& name, const String& groupName, 
-            ManualResourceLoader* loader = 0) -> MeshPtr;
+            ManualResourceLoader* loader = nullptr) -> MeshPtr;
 
         /** Creates a basic plane, by default majoring on the x/y axes facing positive Z.
             @param

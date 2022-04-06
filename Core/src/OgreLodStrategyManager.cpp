@@ -38,7 +38,7 @@ THE SOFTWARE.
 
 namespace Ogre {
     //-----------------------------------------------------------------------
-    template<> LodStrategyManager* Singleton<LodStrategyManager>::msSingleton = 0;
+    template<> LodStrategyManager* Singleton<LodStrategyManager>::msSingleton = nullptr;
     auto LodStrategyManager::getSingletonPtr() -> LodStrategyManager*
     {
         return msSingleton;
@@ -89,7 +89,7 @@ namespace Ogre {
 
         // If not found, return null
         if (it == mStrategies.end())
-            return 0;
+            return nullptr;
 
         LodStrategy *strat = it->second;
 
@@ -125,7 +125,7 @@ namespace Ogre {
 
         // If not found, return null
         if (it == mStrategies.end())
-            return 0;
+            return nullptr;
 
         // Otherwise, return the strategy
         return it->second;

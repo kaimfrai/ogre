@@ -125,7 +125,7 @@ namespace Ogre {
         uchar* inputData = input->getPtr();
 
         // Convert image data to ABGR format for STBI (unless it's already compatible)
-        uchar* tempData = 0;
+        uchar* tempData = nullptr;
         if(format != Ogre::PF_A8B8G8R8 && format != PF_B8G8R8 && format != PF_BYTE_LA && 
             format != PF_L8 && format != PF_R8)
         {   

@@ -56,7 +56,7 @@ THE SOFTWARE.
 namespace Ogre {
 CompositorChain::CompositorChain(Viewport *vp):
     mViewport(vp),
-    mOriginalScene(0),
+    mOriginalScene(nullptr),
     mDirty(true),
     mAnyCompositorsEnabled(false),
     mOldLodBias(1.0f)
@@ -88,7 +88,7 @@ void CompositorChain::destroyResources()
         // destory base "original scene" compositor
         CompositorManager::getSingleton().remove(getCompositorName(), ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
 
-        mViewport = 0;
+        mViewport = nullptr;
     }
 }
 //-----------------------------------------------------------------------
@@ -152,7 +152,7 @@ void CompositorChain::destroyOriginalScene()
     if (mOriginalScene)
     {
         delete mOriginalScene;
-        mOriginalScene = 0;
+        mOriginalScene = nullptr;
     }
 }
 
@@ -165,7 +165,7 @@ auto CompositorChain::addCompositor(CompositorPtr filter, size_t addPosition, co
     CompositionTechnique *tech = filter->getSupportedTechnique(scheme);
     if(!tech)
     {
-        return 0;
+        return nullptr;
     }
     CompositorInstance *t = new CompositorInstance(tech, this);
     
@@ -238,7 +238,7 @@ auto CompositorChain::getCompositorPosition(const String& name) const -> size_t
 auto CompositorChain::getCompositor(const String& name) const -> CompositorInstance *
 {
     size_t idx = getCompositorPosition(name);
-    return idx == NPOS ? NULL : mInstances[idx];
+    return idx == NPOS ? nullptr : mInstances[idx];
 }
 
 //-----------------------------------------------------------------------
@@ -346,7 +346,7 @@ void CompositorChain::postRenderTargetUpdate(const RenderTargetEvent& evt)
     Camera *cam = mViewport->getCamera();
     if (cam)
     {
-        cam->getSceneManager()->_setActiveCompositorChain(0);
+        cam->getSceneManager()->_setActiveCompositorChain(nullptr);
     }
 }
 //-----------------------------------------------------------------------
@@ -478,7 +478,7 @@ void CompositorChain::clearCompiledState()
 
     /// Clear compiled state
     mCompiledState.clear();
-    mOutputOperation = CompositorInstance::TargetOperation(0);
+    mOutputOperation = CompositorInstance::TargetOperation(nullptr);
 
 }
 //-----------------------------------------------------------------------
@@ -502,7 +502,7 @@ void CompositorChain::_compile()
     
     /// Set previous CompositorInstance for each compositor in the list
     CompositorInstance *lastComposition = mOriginalScene;
-    mOriginalScene->mPreviousInstance = 0;
+    mOriginalScene->mPreviousInstance = nullptr;
     for(Instances::iterator i=mInstances.begin(); i!=mInstances.end(); ++i)
     {
         if((*i)->getEnabled())
@@ -561,10 +561,10 @@ void CompositorChain::_notifyViewport(Viewport* vp)
 {
     if (vp != mViewport)
     {
-        if (mViewport != NULL) 
+        if (mViewport != nullptr) 
             mViewport->removeListener(this);
 
-        if (vp != NULL) 
+        if (vp != nullptr) 
             vp->addListener(this);
         
         if (!vp || !mViewport || vp->getTarget() != mViewport->getTarget())
@@ -639,7 +639,7 @@ auto CompositorChain::getPreviousInstance(CompositorInstance* curr, bool activeO
         }
     }
 
-    return 0;
+    return nullptr;
 }
 //---------------------------------------------------------------------
 auto CompositorChain::getNextInstance(CompositorInstance* curr, bool activeOnly) -> CompositorInstance*
@@ -658,7 +658,7 @@ auto CompositorChain::getNextInstance(CompositorInstance* curr, bool activeOnly)
         }
     }
 
-    return 0;
+    return nullptr;
 }
 //---------------------------------------------------------------------
 }

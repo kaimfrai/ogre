@@ -41,7 +41,7 @@ namespace Ogre {
     const String GLRenderTexture::CustomAttributeString_TARGET = "TARGET";
     const String GLRenderTexture::CustomAttributeString_GLCONTEXT = "GLCONTEXT";
 
-    template<> GLRTTManager* Singleton<GLRTTManager>::msSingleton = NULL;
+    template<> GLRTTManager* Singleton<GLRTTManager>::msSingleton = nullptr;
 
     GLFrameBufferObjectCommon::GLFrameBufferObjectCommon(int32 fsaa)
         : mFB(0), mMultisampleFB(0), mNumSamples(fsaa)
@@ -51,11 +51,11 @@ namespace Ogre {
         mContext = rs->_getCurrentContext();
 
         // Initialise state
-        mDepth.buffer = 0;
-        mStencil.buffer = 0;
+        mDepth.buffer = nullptr;
+        mStencil.buffer = nullptr;
         for(size_t x = 0; x < OGRE_MAX_MULTIPLE_RENDER_TARGETS; ++x)
         {
-            mColour[x].buffer=0;
+            mColour[x].buffer=nullptr;
         }
     }
 
@@ -71,7 +71,7 @@ namespace Ogre {
     void GLFrameBufferObjectCommon::unbindSurface(size_t attachment)
     {
         assert(attachment < OGRE_MAX_MULTIPLE_RENDER_TARGETS);
-        mColour[attachment].buffer = 0;
+        mColour[attachment].buffer = nullptr;
         // Re-initialise if buffer 0 still bound
         if(mColour[0].buffer)
             initialise();
@@ -159,7 +159,7 @@ namespace Ogre {
 
     void GLRTTManager::releaseRenderBuffer(const GLSurfaceDesc &surface)
     {
-        if(surface.buffer == 0)
+        if(surface.buffer == nullptr)
             return;
         RBFormat key(surface.buffer->getGLFormat(), surface.buffer->getWidth(), surface.buffer->getHeight(), surface.numSamples);
         RenderBufferMap::iterator it = mRenderBufferMap.find(key);

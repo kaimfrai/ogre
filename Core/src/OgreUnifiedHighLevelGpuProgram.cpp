@@ -166,7 +166,7 @@ class ResourceManager;
         if (_getDelegate())
             return _getDelegate()->_getBindingDelegate();
         else
-            return 0;
+            return nullptr;
     }
     //-----------------------------------------------------------------------
     auto UnifiedHighLevelGpuProgram::isSupported() const -> bool

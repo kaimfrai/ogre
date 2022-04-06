@@ -10,7 +10,7 @@
 void OgreBites::StaticPluginLoader::load()
 {
     using namespace Ogre;
-    Plugin* plugin = NULL;
+    Plugin* plugin = nullptr;
 
     plugin = new GLPlugin();
     mPlugins.push_back(plugin);

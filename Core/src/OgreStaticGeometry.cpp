@@ -90,7 +90,7 @@ namespace Ogre {
         bool autoCreate) -> StaticGeometry::Region*
     {
         if (bounds.isNull())
-            return 0;
+            return nullptr;
 
         // Get the region which has the largest overlapping volume
         const Vector3 min = bounds.getMinimum();
@@ -204,7 +204,7 @@ namespace Ogre {
         }
         else
         {
-            return 0;
+            return nullptr;
         }
 
     }
@@ -700,7 +700,7 @@ namespace Ogre {
         SceneManager* mgr, uint32 regionID, const Vector3& centre)
         : MovableObject(name), mParent(parent),
         mRegionID(regionID), mCentre(centre), mBoundingRadius(0.0f),
-        mCurrentLod(0), mLodStrategy(0), mCamera(0), mSquaredViewDepth(0)
+        mCurrentLod(0), mLodStrategy(nullptr), mCamera(nullptr), mSquaredViewDepth(0)
     {
         mManager = mgr;
     }
@@ -710,7 +710,7 @@ namespace Ogre {
         if (mParentNode)
         {
             mManager->destroySceneNode(static_cast<SceneNode*>(mParentNode));
-            mParentNode = 0;
+            mParentNode = nullptr;
         }
         // delete
         for (LODBucketList::iterator i = mLodBucketList.begin();
@@ -748,7 +748,7 @@ namespace Ogre {
 
         // Set/check LOD strategy
         const LodStrategy *lodStrategy = qmesh->submesh->parent->getLodStrategy();
-        if (mLodStrategy == 0)
+        if (mLodStrategy == nullptr)
         {
             mLodStrategy = lodStrategy;
 
@@ -831,7 +831,7 @@ namespace Ogre {
         mSquaredViewDepth = mParentNode->getSquaredViewDepth(cam->getLodCamera());
 
         // No LOD strategy set yet, skip (this indicates that there are no submeshes)
-        if (mLodStrategy == 0)
+        if (mLodStrategy == nullptr)
             return;
 
         // Sanity check
@@ -939,7 +939,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     StaticGeometry::LODBucket::LODBucket(Region* parent, unsigned short lod,
         Real lodValue)
-        : mParent(parent), mLod(lod), mLodValue(lodValue), mEdgeList(0)
+        : mParent(parent), mLod(lod), mLodValue(lodValue), mEdgeList(nullptr)
         , mVertexProgramInUse(false)
     {
     }
@@ -984,7 +984,7 @@ namespace Ogre {
                 &(*qmesh->geometryLodList)[qmesh->geometryLodList->size() - 1];
         }
         // Locate a material bucket
-        MaterialBucket* mbucket = 0;
+        MaterialBucket* mbucket = nullptr;
         MaterialBucketMap::iterator m =
             mMaterialBucketMap.find(qmesh->material->getName());
         if (m != mMaterialBucketMap.end())
@@ -1136,7 +1136,7 @@ namespace Ogre {
         const MaterialPtr& material)
         : mParent(parent)
         , mMaterial(material)
-        , mTechnique(0)
+        , mTechnique(nullptr)
     {
     }
     //--------------------------------------------------------------------------
@@ -1209,7 +1209,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     void StaticGeometry::MaterialBucket::build(bool stencilShadows)
     {
-        mTechnique = 0;
+        mTechnique = nullptr;
         mMaterial->load();
         // tell the geometry buckets to build
         for (auto gb : mGeometryBucketList)

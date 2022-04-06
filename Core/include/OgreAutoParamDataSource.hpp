@@ -190,7 +190,7 @@ class Viewport;
         auto  getCameraRelativePosition() const -> const Vector4;
         auto getLodCameraPosition() const -> const Vector4&;
         auto getLodCameraPositionObjectSpace() const -> const Vector4&;
-        auto hasLightList() const -> bool { return mCurrentLightList != 0; }
+        auto hasLightList() const -> bool { return mCurrentLightList != nullptr; }
         /** Get the light which is 'index'th closest to the current object */        
         auto getLightNumber(size_t index) const -> float;
         auto getLightCount() const -> float;

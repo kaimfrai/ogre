@@ -942,7 +942,7 @@ template <typename T> class Controller;
             The Frustum which will be used to derive the 
             projection parameters.
         */
-        void setProjectiveTexturing(bool enabled, const Frustum* projectionSettings = 0);
+        void setProjectiveTexturing(bool enabled, const Frustum* projectionSettings = nullptr);
 
         /** Removes all effects applied to this texture layer.
         */

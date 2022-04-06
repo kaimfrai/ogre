@@ -408,7 +408,7 @@ class SceneManager;
         @param offset If supplied, this is the target point in local space of the target node
         instead of the origin of the target node. Good for fine tuning the look at point.
         */
-        void setAutoTracking(bool enabled, SceneNode* const target = 0,
+        void setAutoTracking(bool enabled, SceneNode* const target = nullptr,
             const Vector3& localDirectionVector = Vector3::NEGATIVE_UNIT_Z,
             const Vector3& offset = Vector3::ZERO);
         /** Get the auto tracking target for this node, if any. */

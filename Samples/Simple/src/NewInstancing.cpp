@@ -92,7 +92,7 @@ static const char *c_meshNames[] =
 };
 
 //------------------------------------------------------------------------------
-Sample_NewInstancing::Sample_NewInstancing() : NUM_INST_ROW(100), NUM_INST_COLUMN(100), mCurrentManager(0), mCurrentMaterialSet(c_materialsTechniques), mCurrentFlags(0), mSkinningTechniques(NULL)
+Sample_NewInstancing::Sample_NewInstancing() : NUM_INST_ROW(100), NUM_INST_COLUMN(100), mCurrentManager(nullptr), mCurrentMaterialSet(c_materialsTechniques), mCurrentFlags(0), mSkinningTechniques(nullptr)
 {
     mInfo["Title"] = "New Instancing";
     mInfo["Description"] = "Demonstrates how to use the new InstancedManager to setup many dynamic"
@@ -167,7 +167,7 @@ void Sample_NewInstancing::setupContent()
     //Initialize the techniques and current mesh variables
     mInstancingTechnique    = 0;
     mCurrentMesh            = 0;
-    mCurrentManager         = 0;
+    mCurrentManager         = nullptr;
 
     checkHardwareSupport();
 
@@ -240,7 +240,7 @@ void Sample_NewInstancing::switchInstancingTechnique()
     if( !mSupportedTechniques[mInstancingTechnique] )
     {
         //Hide GUI features available only to instancing
-        mCurrentManager = 0;
+        mCurrentManager = nullptr;
         mDefragmentBatches->hide();
         mDefragmentOptimumCull->hide();
         return;
@@ -295,7 +295,7 @@ void Sample_NewInstancing::switchInstancingTechnique()
         createEntities();
 
         //Hide GUI features available only to instancing
-        mCurrentManager = 0;
+        mCurrentManager = nullptr;
         mDefragmentBatches->hide();
         mDefragmentOptimumCull->hide();
     }

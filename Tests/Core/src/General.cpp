@@ -90,7 +90,7 @@ using namespace Ogre;
 typedef RootWithoutRenderSystemFixture CameraTests;
 TEST_F(CameraTests,customProjectionMatrix)
 {
-    Camera cam("", NULL);
+    Camera cam("", nullptr);
     std::vector<Vector3> corners(cam.getWorldSpaceCorners(), cam.getWorldSpaceCorners() + 8);
     RealRect extents = cam.getFrustumExtents();
     cam.setCustomProjectionMatrix(true, cam.getProjectionMatrix());

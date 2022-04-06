@@ -265,7 +265,7 @@ class Camera;
             //(except further calls to this function). Pass NULL because
             //we want to include only those who were added to the scene
             //but we don't want to perform culling
-            mRenderOperation.numberOfInstances = updateVertexBuffer( 0 );
+            mRenderOperation.numberOfInstances = updateVertexBuffer( nullptr );
         }
     }
     //-----------------------------------------------------------------------

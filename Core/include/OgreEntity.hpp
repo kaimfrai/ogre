@@ -605,7 +605,7 @@ class VertexData;
         /** Internal method for retrieving bone matrix information. */
         auto _getNumBoneMatrices() const -> unsigned short { return mNumBoneMatrices; }
         /** Returns whether or not this entity is skeletally animated. */
-        auto hasSkeleton() const -> bool { return mSkeletonInstance != 0; }
+        auto hasSkeleton() const -> bool { return mSkeletonInstance != nullptr; }
         /** Get this Entity's personal skeleton instance. */
         auto getSkeleton() const -> SkeletonInstance* { return mSkeletonInstance; }
         /** Returns whether or not hardware animation is enabled.
@@ -690,7 +690,7 @@ class VertexData;
 
         /** Returns whether this entity shares it's SkeltonInstance with other entity instances.
         */
-        inline auto sharesSkeletonInstance() const -> bool { return mSharedSkeletonEntities != NULL; }
+        inline auto sharesSkeletonInstance() const -> bool { return mSharedSkeletonEntities != nullptr; }
 
         /** Returns a pointer to the set of entities which share a SkeletonInstance.
             If this instance does not share it's SkeletonInstance with other instances @c NULL will be returned

@@ -34,7 +34,7 @@ THE SOFTWARE.
 namespace Ogre
 {
     //-----------------------------------------------------------------------
-    template<> DynLibManager* Singleton<DynLibManager>::msSingleton = 0;
+    template<> DynLibManager* Singleton<DynLibManager>::msSingleton = nullptr;
     auto DynLibManager::getSingletonPtr() -> DynLibManager*
     {
         return msSingleton;

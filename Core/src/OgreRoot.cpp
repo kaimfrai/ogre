@@ -108,7 +108,7 @@ THE SOFTWARE.
 
 namespace Ogre {
     //-----------------------------------------------------------------------
-    template<> Root* Singleton<Root>::msSingleton = 0;
+    template<> Root* Singleton<Root>::msSingleton = nullptr;
     auto Root::getSingletonPtr() -> Root*
     {
         return msSingleton;
@@ -125,7 +125,7 @@ namespace Ogre {
     Root::Root(const String& pluginFileName, const String& configFileName,
         const String& logFileName)
       : mQueuedEnd(false)
-      , mCurrentSceneManager(NULL)
+      , mCurrentSceneManager(nullptr)
       , mNextFrame(0)
       , mFrameSmoothingTime(0.0f)
       , mRemoveQueueStructuresOnClear(false)
@@ -138,7 +138,7 @@ namespace Ogre {
         // superclass will do singleton checking
 
         // Init
-        mActiveRenderer = 0;
+        mActiveRenderer = nullptr;
         mVersion = StringConverter::toString(/*OGRE_VERSION_MAJOR*/13) + "." +
             StringConverter::toString(/*OGRE_VERSION_MINOR*/3) + "." +
             StringConverter::toString(/*OGRE_VERSION_PATCH*/3) +
@@ -209,7 +209,7 @@ namespace Ogre {
         mCompilerManager.reset(new ScriptCompilerManager());
 
         // Auto window
-        mAutoWindow = 0;
+        mAutoWindow = nullptr;
 
         // instantiate and register base movable factories
         mEntityFactory.reset(new EntityFactory());
@@ -237,7 +237,7 @@ namespace Ogre {
         LogManager::getSingleton().logMessage("*-*-* Version " + mVersion);
 
         // Can't create managers until initialised
-        mControllerManager = 0;
+        mControllerManager = nullptr;
 
         mFirstTimePostWindowInit = false;
     }
@@ -256,7 +256,7 @@ namespace Ogre {
         mGpuProgramManager.reset(); // may use plugins
         unloadPlugins();
 
-        mAutoWindow = 0;
+        mAutoWindow = nullptr;
 
         StringInterface::cleanupDictionary();
     }
@@ -402,7 +402,7 @@ namespace Ogre {
         if (name.empty())
         {
             // No render system
-            return NULL;
+            return nullptr;
         }
 
         RenderSystemList::const_iterator pRend;
@@ -414,7 +414,7 @@ namespace Ogre {
         }
 
         // Unrecognised render system
-        return NULL;
+        return nullptr;
     }
 
     //-----------------------------------------------------------------------
@@ -483,7 +483,7 @@ namespace Ogre {
             String capsName = cfg.getSetting("Custom Capabilities");
             // The custom capabilities have been parsed, let's retrieve them
             RenderSystemCapabilities* rsc = rscManager.loadParsedCapabilities(capsName);
-            if(rsc == 0)
+            if(rsc == nullptr)
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
                     String("Cannot load a RenderSystemCapability named ") + capsName,
@@ -797,7 +797,7 @@ namespace Ogre {
     void Root::shutdown()
     {
         if(mActiveRenderer)
-            mActiveRenderer->_setViewport(NULL);
+            mActiveRenderer->_setViewport(nullptr);
 
         // Since background thread might be access resources,
         // ensure shutdown before destroying resource manager.
@@ -952,7 +952,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto Root::openFileStream(const String& filename, const String& groupName) -> DataStreamPtr
     {
-        auto ret = ResourceGroupManager::getSingleton().openResource(filename, groupName, NULL, false);
+        auto ret = ResourceGroupManager::getSingleton().openResource(filename, groupName, nullptr, false);
         if(ret)
             return ret;
 

@@ -67,7 +67,7 @@ namespace Ogre {
     {
     public:
         DefaultHardwareVertexBuffer(size_t vertexSize, size_t numVertices, Usage = HBU_CPU_ONLY)
-            : HardwareVertexBuffer(NULL, vertexSize, numVertices,
+            : HardwareVertexBuffer(nullptr, vertexSize, numVertices,
                                    new DefaultHardwareBuffer(vertexSize * numVertices))
         {
         }
@@ -77,7 +77,7 @@ namespace Ogre {
     {
     public:
         DefaultHardwareIndexBuffer(IndexType idxType, size_t numIndexes, Usage = HBU_CPU_ONLY)
-            : HardwareIndexBuffer(NULL, idxType, numIndexes,
+            : HardwareIndexBuffer(nullptr, idxType, numIndexes,
                                   new DefaultHardwareBuffer(indexSize(idxType) * numIndexes))
         {
         }

@@ -66,7 +66,7 @@ namespace Ogre
         return !( lhs == rhs );
     }
     //-----------------------------------------------------------------------
-    template<> ShadowTextureManager* Singleton<ShadowTextureManager>::msSingleton = 0;
+    template<> ShadowTextureManager* Singleton<ShadowTextureManager>::msSingleton = nullptr;
     auto ShadowTextureManager::getSingletonPtr() -> ShadowTextureManager*
     {
         return msSingleton;
@@ -123,7 +123,7 @@ namespace Ogre
                     targName, 
                     ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, 
                     TEX_TYPE_2D, config.width, config.height, 0, config.format, 
-                    TU_RENDERTARGET, NULL, false, config.fsaa);
+                    TU_RENDERTARGET, nullptr, false, config.fsaa);
                 // Ensure texture loaded
                 shadowTex->load();
 

@@ -36,7 +36,7 @@
 
 namespace Ogre
 {
-GLWindow::GLWindow() : mContext(0)
+GLWindow::GLWindow() : mContext(nullptr)
 {
     mIsTopLevel = false;
     mIsFullScreen = false;

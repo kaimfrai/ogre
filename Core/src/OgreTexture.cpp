@@ -399,12 +399,12 @@ namespace Ogre {
 
         // No extension
         auto dstream = ResourceGroupManager::getSingleton().openResource(
-            mName, mGroup, NULL, false);
+            mName, mGroup, nullptr, false);
 
         if (!dstream && getTextureType() == TEX_TYPE_CUBE_MAP)
         {
             // try again with one of the faces (non-dds)
-            dstream = ResourceGroupManager::getSingleton().openResource(mName + "_rt", mGroup, NULL, false);
+            dstream = ResourceGroupManager::getSingleton().openResource(mName + "_rt", mGroup, nullptr, false);
         }
 
         return dstream ? Image::getFileExtFromMagic(dstream) : BLANKSTRING;

@@ -61,7 +61,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
     AnimationTrack::AnimationTrack(Animation* parent, unsigned short handle) :
-        mParent(parent), mListener(0), mHandle(handle)
+        mParent(parent), mListener(nullptr), mHandle(handle)
     {
     }
     //---------------------------------------------------------------------
@@ -98,7 +98,7 @@ namespace Ogre {
                 timePos = std::fmod( timePos, totalAnimationLength );
 
             // No global keyframe index, need to search with local keyframes.
-            KeyFrame timeKey(0, timePos);
+            KeyFrame timeKey(nullptr, timePos);
             i = std::lower_bound(mKeyFrames.begin(), mKeyFrames.end(), &timeKey, KeyFrameTimeLess());
         }
 
@@ -313,7 +313,7 @@ namespace Ogre {
         if (mKeyFrames.empty() || !weight || !scale)
             return;
 
-        NumericKeyFrame kf(0, timeIndex.getTimePos());
+        NumericKeyFrame kf(nullptr, timeIndex.getTimePos());
         getInterpolatedKeyFrame(timeIndex, &kf);
         // add to existing. Weights are not relative, but treated as
         // absolute multipliers for the animation
@@ -346,13 +346,13 @@ namespace Ogre {
     // Node specialisations
     //---------------------------------------------------------------------
     NodeAnimationTrack::NodeAnimationTrack(Animation* parent, unsigned short handle)
-        : NodeAnimationTrack(parent, handle, 0)
+        : NodeAnimationTrack(parent, handle, nullptr)
     {
     }
     //---------------------------------------------------------------------
     NodeAnimationTrack::NodeAnimationTrack(Animation* parent, unsigned short handle, Node* targetNode)
         : AnimationTrack(parent, handle), mSplineBuildNeeded(false), mUseShortestRotationPath(true),
-          mTargetNode(targetNode), mSplines(0)
+          mTargetNode(targetNode), mSplines(nullptr)
 
     {
     }
@@ -469,7 +469,7 @@ namespace Ogre {
         if (mKeyFrames.empty() || !weight || !node)
             return;
 
-        TransformKeyFrame kf(0, timeIndex.getTimePos());
+        TransformKeyFrame kf(nullptr, timeIndex.getTimePos());
         getInterpolatedKeyFrame(timeIndex, &kf);
 
         // add to existing. Weights are not relative, but treated as absolute multipliers for the animation

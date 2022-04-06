@@ -203,25 +203,25 @@ class ResourceManager;
                     case TEX_TYPE_1D:
                         glTexImage1D(GL_TEXTURE_1D, mip, internalformat,
                             width, 0, 
-                            format, datatype, 0);
+                            format, datatype, nullptr);
     
                         break;
                     case TEX_TYPE_2D:
                         glTexImage2D(GL_TEXTURE_2D, mip, internalformat,
                             width, height, 0, 
-                            format, datatype, 0);
+                            format, datatype, nullptr);
                         break;
                     case TEX_TYPE_2D_ARRAY:
                     case TEX_TYPE_3D:
                         glTexImage3D(getGLTextureTarget(), mip, internalformat,
                             width, height, depth, 0, 
-                            format, datatype, 0);
+                            format, datatype, nullptr);
                         break;
                     case TEX_TYPE_CUBE_MAP:
                         for(int face=0; face<6; face++) {
                             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, mip, internalformat,
                                 width, height, 0, 
-                                format, datatype, 0);
+                                format, datatype, nullptr);
                         }
                         break;
                     case TEX_TYPE_EXTERNAL_OES:

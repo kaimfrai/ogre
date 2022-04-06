@@ -61,9 +61,9 @@ class Sphere;
         mUseMinPixelSize(false),
         mSceneLodFactor(1.0f),
         mSceneLodFactorInv(1.0f),
-        mLastViewport(0),
-        mCullFrustum(0),
-        mLodCamera(0),
+        mLastViewport(nullptr),
+        mCullFrustum(nullptr),
+        mLodCamera(nullptr),
         mPixelDisplayRatio(0),
         mSortMode(SM_DISTANCE),
         mSceneDetail(PM_SOLID)
@@ -83,7 +83,7 @@ class Sphere;
         mViewMatrix = Affine3::ZERO;
         mProjMatrixRS = Matrix4::ZERO;
 
-        mParentNode = 0;
+        mParentNode = nullptr;
 
         // no reflection
         mReflect = false;
@@ -346,7 +346,7 @@ class Sphere;
     void Camera::setLodCamera(const Camera* lodCam)
     {
         if (lodCam == this)
-            mLodCamera = 0;
+            mLodCamera = nullptr;
         else
             mLodCamera = lodCam;
     }

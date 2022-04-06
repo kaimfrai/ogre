@@ -179,7 +179,7 @@ auto FFPTexturing::resolveFunctionsParams(TextureUnitParams* textureUnitParams, 
             if(mIsPointSprite)
                 break;
 
-            if (textureUnitParams->mTextureMatrix.get() == NULL)
+            if (textureUnitParams->mTextureMatrix.get() == nullptr)
                 texCoordContent = Parameter::Content(Parameter::SPC_TEXTURE_COORDINATE0 + textureUnitParams->mTextureUnitState->getTextureCoordSet());
 
             // assume already resolved
@@ -229,13 +229,13 @@ auto FFPTexturing::resolveFunctionsParams(TextureUnitParams* textureUnitParams, 
     }
 
     mPSDiffuse = psMain->getInputParameter(Parameter::SPC_COLOR_DIFFUSE);
-    if (mPSDiffuse.get() == NULL)
+    if (mPSDiffuse.get() == nullptr)
     {
         mPSDiffuse = psMain->getLocalParameter(Parameter::SPC_COLOR_DIFFUSE);
     }
 
     mPSSpecular = psMain->getInputParameter(Parameter::SPC_COLOR_SPECULAR);
-    if (mPSSpecular.get() == NULL)
+    if (mPSSpecular.get() == nullptr)
     {
         mPSSpecular = psMain->getLocalParameter(Parameter::SPC_COLOR_SPECULAR);
     }
@@ -648,7 +648,7 @@ void FFPTexturing::setTextureUnitCount(size_t count)
     {
         TextureUnitParams& curParams = mTextureUnitParamsList[i];
 
-        curParams.mTextureUnitState             = NULL;
+        curParams.mTextureUnitState             = nullptr;
         curParams.mTextureSamplerIndex          = 0;              
         curParams.mTextureSamplerType           = GCT_SAMPLER2D;        
         curParams.mVSInTextureCoordinateType    = GCT_FLOAT2;   
@@ -733,7 +733,7 @@ auto FFPTexturingFactory::createInstance(ScriptCompiler* compiler,
             if(false == SGScriptTranslator::getString(prop->values.front(), &value))
             {
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                return NULL;
+                return nullptr;
             }
 
             auto inst = createOrRetrieveInstance(translator);
@@ -748,7 +748,7 @@ auto FFPTexturingFactory::createInstance(ScriptCompiler* compiler,
         }       
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------

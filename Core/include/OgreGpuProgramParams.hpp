@@ -1308,14 +1308,14 @@ template <int dims, typename T> class Vector;
 
         /// Does this parameter set include named parameters?
         [[nodiscard]]
-        auto hasNamedParameters() const -> bool { return mNamedConstants.get() != 0; }
+        auto hasNamedParameters() const -> bool { return mNamedConstants.get() != nullptr; }
         /** Does this parameter set include logically indexed parameters?
             @note Not mutually exclusive with hasNamedParameters since some high-level
             programs still use logical indexes to set the parameters on the
             rendersystem.
         */
         [[nodiscard]]
-        auto hasLogicalIndexedParameters() const -> bool { return mLogicalToPhysical.get() != 0; }
+        auto hasLogicalIndexedParameters() const -> bool { return mLogicalToPhysical.get() != nullptr; }
 
         /// @name Set constant by logical index
         /// @{

@@ -140,7 +140,7 @@ auto PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet) -> bool
     }
 
     mInDiffuse = psMain->getInputParameter(Parameter::SPC_COLOR_DIFFUSE);
-    if (mInDiffuse.get() == NULL)
+    if (mInDiffuse.get() == nullptr)
     {
         mInDiffuse = psMain->getLocalParameter(Parameter::SPC_COLOR_DIFFUSE);
     }
@@ -352,7 +352,7 @@ auto PerPixelLightingFactory::createInstance(ScriptCompiler* compiler,
                                                         PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name != "lighting_stage" || prop->values.empty())
-        return NULL;
+        return nullptr;
 
     auto it = prop->values.begin();
     String val;
@@ -360,11 +360,11 @@ auto PerPixelLightingFactory::createInstance(ScriptCompiler* compiler,
     if(!SGScriptTranslator::getString(*it++, &val))
     {
         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-        return NULL;
+        return nullptr;
     }
 
     if (val != "per_pixel")
-        return NULL;
+        return nullptr;
 
     auto ret = createOrRetrieveInstance(translator);
 

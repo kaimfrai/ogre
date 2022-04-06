@@ -214,7 +214,7 @@ namespace Ogre {
                 OgreAssert(!isLocked(), "Cannot lock this buffer: it is already locked");
                 OgreAssert((length + offset) <= mSizeInBytes, "Lock request out of bounds");
 
-                void* ret = NULL;
+                void* ret = nullptr;
                 if (mShadowBuffer)
                 {
                     // we have to assume a read / write lock so we use the shadow buffer
@@ -400,21 +400,21 @@ namespace Ogre {
     /** Locking helper. Guaranteed unlocking even in case of exception. */
     struct HardwareBufferLockGuard
     {
-        HardwareBufferLockGuard() : pBuf(0), pData(0) {}
+        HardwareBufferLockGuard() : pBuf(nullptr), pData(nullptr) {}
         
         HardwareBufferLockGuard(HardwareBuffer* p, HardwareBuffer::LockOptions options)
-            : pBuf(0), pData(0) { lock(p, options); }
+            : pBuf(nullptr), pData(nullptr) { lock(p, options); }
         
         HardwareBufferLockGuard(HardwareBuffer* p, size_t offset, size_t length, HardwareBuffer::LockOptions options)
-            : pBuf(0), pData(0) { lock(p, offset, length, options); }
+            : pBuf(nullptr), pData(nullptr) { lock(p, offset, length, options); }
         
         template <typename T>
         HardwareBufferLockGuard(const SharedPtr<T>& p, HardwareBuffer::LockOptions options)
-            : pBuf(0), pData(0) { lock(p.get(), options); }
+            : pBuf(nullptr), pData(nullptr) { lock(p.get(), options); }
         
         template <typename T>
         HardwareBufferLockGuard(const SharedPtr<T>& p, size_t offset, size_t length, HardwareBuffer::LockOptions options)
-            : pBuf(0), pData(0) { lock(p.get(), offset, length, options); }
+            : pBuf(nullptr), pData(nullptr) { lock(p.get(), offset, length, options); }
         
         ~HardwareBufferLockGuard() { unlock(); }
         
@@ -423,8 +423,8 @@ namespace Ogre {
             if(pBuf)
             {
                 pBuf->unlock();
-                pBuf = 0;
-                pData = 0;
+                pBuf = nullptr;
+                pData = nullptr;
             }   
         }
 

@@ -43,8 +43,8 @@ class Skeleton;
         : Bone(handle, creator)
         , mInheritParentEntityOrientation(true)
         , mInheritParentEntityScale(true)
-        , mParentEntity(0)
-        , mChildObject(0)
+        , mParentEntity(nullptr)
+        , mChildObject(nullptr)
     {
     }
     //-----------------------------------------------------------------------------

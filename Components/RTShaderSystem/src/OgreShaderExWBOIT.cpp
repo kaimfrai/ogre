@@ -101,18 +101,18 @@ auto WBOITFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode
                                                SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name != "weighted_blended_oit" || prop->values.empty())
-        return NULL;
+        return nullptr;
 
     auto it = prop->values.begin();
     bool val;
     if(!SGScriptTranslator::getBoolean(*it++, &val))
     {
         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-        return NULL;
+        return nullptr;
     }
 
     if (!val)
-        return NULL;
+        return nullptr;
 
     auto ret = static_cast<WBOIT*>(createOrRetrieveInstance(translator));
     return ret;

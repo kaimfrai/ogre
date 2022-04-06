@@ -107,7 +107,7 @@ namespace Ogre {
         mBufSize(0),
         mFlags(0),
         mFormat(format),
-        mBuffer( NULL ),
+        mBuffer( nullptr ),
         mAutoDelete( true )
     {
         if (format == PF_UNKNOWN)
@@ -140,7 +140,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------------
     Image::Image( const Image &img )
-        : mBuffer( NULL ),
+        : mBuffer( nullptr ),
         mAutoDelete( true )
     {
         // call assignment operator
@@ -159,7 +159,7 @@ namespace Ogre {
         if( mBuffer && mAutoDelete )
         {
             delete[] mBuffer;
-            mBuffer = NULL;
+            mBuffer = nullptr;
         }
 
     }
@@ -345,7 +345,7 @@ namespace Ogre {
     {
         freeMemory();
 
-        Codec * pCodec = 0;
+        Codec * pCodec = nullptr;
         if (!type.empty())
         {
             // use named codec
@@ -491,7 +491,7 @@ namespace Ogre {
         Image temp(mFormat, mWidth, mHeight, 1, mBuffer, true);
 
         // do not delete[] mBuffer!  temp will destroy it
-        mBuffer = 0;
+        mBuffer = nullptr;
 
         // set new dimensions, allocate new buffer
         create(mFormat, width, height); // Loses precomputed mipmaps

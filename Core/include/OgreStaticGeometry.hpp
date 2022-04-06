@@ -167,7 +167,7 @@ class Technique;
         class OptimisedSubMeshGeometry : public BatchedGeometryAlloc
         {
         public:
-            OptimisedSubMeshGeometry() :vertexData(0), indexData(0) {}
+            OptimisedSubMeshGeometry() :vertexData(nullptr), indexData(nullptr) {}
             ~OptimisedSubMeshGeometry() 
             {
                 delete vertexData;
@@ -777,7 +777,7 @@ class Technique;
     /** Dummy factory to let Regions adhere to MovableObject protocol */
     class StaticGeometryFactory : public MovableObjectFactory
     {
-        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* { return NULL; }
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* { return nullptr; }
     public:
         StaticGeometryFactory() {}
         ~StaticGeometryFactory() {}

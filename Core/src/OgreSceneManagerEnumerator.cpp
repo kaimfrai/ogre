@@ -38,7 +38,7 @@ namespace Ogre {
 class RenderSystem;
 
     //-----------------------------------------------------------------------
-    template<> SceneManagerEnumerator* Singleton<SceneManagerEnumerator>::msSingleton = 0;
+    template<> SceneManagerEnumerator* Singleton<SceneManagerEnumerator>::msSingleton = nullptr;
     auto SceneManagerEnumerator::getSingletonPtr() -> SceneManagerEnumerator*
     {
         return msSingleton;
@@ -50,7 +50,7 @@ class RenderSystem;
 
     //-----------------------------------------------------------------------
     SceneManagerEnumerator::SceneManagerEnumerator()
-        : mInstanceCreateCount(0), mCurrentRenderSystem(0)
+        : mInstanceCreateCount(0), mCurrentRenderSystem(nullptr)
     {
         addFactory(&mDefaultFactory);
 
@@ -148,7 +148,7 @@ class RenderSystem;
                 "SceneManagerEnumerator::createSceneManager");
         }
 
-        SceneManager* inst = 0;
+        SceneManager* inst = nullptr;
         for(Factories::iterator i = mFactories.begin(); i != mFactories.end(); ++i)
         {
             if ((*i)->getMetaData().typeName == typeName)

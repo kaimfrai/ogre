@@ -111,7 +111,7 @@ class Any;
             }
         }
 
-        return 0;
+        return nullptr;
 
     }
 

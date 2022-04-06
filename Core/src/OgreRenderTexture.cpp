@@ -78,7 +78,7 @@ struct Box;
 
         for (size_t i = mBoundSurfaces.size(); i <= attachment; ++i)
         {
-            mBoundSurfaces.push_back(0);
+            mBoundSurfaces.push_back(nullptr);
         }
         mBoundSurfaces[attachment] = target;
 

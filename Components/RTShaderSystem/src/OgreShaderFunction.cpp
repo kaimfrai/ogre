@@ -280,7 +280,7 @@ auto Function::resolveInputParameter(Parameter::Semantic semantic,
 
     // Check if desired parameter already defined.
     param = _getParameterByContent(mInputParameters, content, type);
-    if (param.get() != NULL)
+    if (param.get() != nullptr)
         return param;
 
     if(semantic == Parameter::SPS_UNKNOWN)
@@ -309,7 +309,7 @@ auto Function::resolveInputParameter(Parameter::Semantic semantic,
     {
         // Check if desired parameter already defined.
         param = _getParameterBySemantic(mInputParameters, semantic, index);
-        if (param.get() != NULL && param->getContent() == content)
+        if (param.get() != nullptr && param->getContent() == content)
         {
             if (param->getType() == type)
             {
@@ -344,7 +344,7 @@ auto Function::resolveOutputParameter(Parameter::Semantic semantic,
 
     // Check if desired parameter already defined.
     param = _getParameterByContent(mOutputParameters, content, type);
-    if (param.get() != NULL)
+    if (param.get() != nullptr)
         return param;
 
     if(semantic == Parameter::SPS_UNKNOWN)
@@ -373,7 +373,7 @@ auto Function::resolveOutputParameter(Parameter::Semantic semantic,
     {
         // Check if desired parameter already defined.
         param = _getParameterBySemantic(mOutputParameters, semantic, index);
-        if (param.get() != NULL && param->getContent() == content)
+        if (param.get() != nullptr && param->getContent() == content)
         {
             if (param->getType() == type)
             {
@@ -413,7 +413,7 @@ auto Function::resolveLocalParameter(GpuConstantType type, const String& name) -
     ParameterPtr param;
 
     param = _getParameterByName(mLocalParameters, name);
-    if (param.get() != NULL)
+    if (param.get() != nullptr)
     {
         if (param->getType() == type)
         {
@@ -440,7 +440,7 @@ auto Function::resolveLocalParameter(const Parameter::Content content, GpuConsta
     if(type == GCT_UNKNOWN) type = typeFromContent(content);
 
     param = _getParameterByContent(mLocalParameters, content, type);
-    if (param.get() != NULL)    
+    if (param.get() != nullptr)    
         return param;
 
     param = std::make_shared<Parameter>(
@@ -456,7 +456,7 @@ void Function::addInputParameter(ParameterPtr parameter)
 {
 
     // Check that parameter with the same semantic and index in input parameters list.
-    if (_getParameterBySemantic(mInputParameters, parameter->getSemantic(), parameter->getIndex()).get() != NULL)
+    if (_getParameterBySemantic(mInputParameters, parameter->getSemantic(), parameter->getIndex()).get() != nullptr)
     {
         OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
             "Parameter <" + parameter->getName() + "> has equal semantic parameter");
@@ -469,7 +469,7 @@ void Function::addInputParameter(ParameterPtr parameter)
 void Function::addOutputParameter(ParameterPtr parameter)
 {
     // Check that parameter with the same semantic and index in output parameters list.
-    if (_getParameterBySemantic(mOutputParameters, parameter->getSemantic(), parameter->getIndex()).get() != NULL)
+    if (_getParameterBySemantic(mOutputParameters, parameter->getSemantic(), parameter->getIndex()).get() != nullptr)
     {
         OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
             "Parameter <" + parameter->getName() + "> has equal semantic parameter");
@@ -506,14 +506,14 @@ void Function::addParameter(ShaderParameterList& parameterList, ParameterPtr par
                                         
 {
     // Check that parameter with the same name doest exist in input parameters list.
-    if (_getParameterByName(mInputParameters, parameter->getName()).get() != NULL)
+    if (_getParameterByName(mInputParameters, parameter->getName()).get() != nullptr)
     {
         OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
             "Parameter <" + parameter->getName() + "> already declared");
     }
 
     // Check that parameter with the same name doest exist in output parameters list.
-    if (_getParameterByName(mOutputParameters, parameter->getName()).get() != NULL)
+    if (_getParameterByName(mOutputParameters, parameter->getName()).get() != nullptr)
     {
         OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
             "Parameter <" + parameter->getName() + "> already declared");

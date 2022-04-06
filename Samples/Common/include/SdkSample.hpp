@@ -45,7 +45,7 @@ namespace OgreBites
     public:
         SdkSample()
         {
-            mCameraMan = 0;
+            mCameraMan = nullptr;
             mCursorWasVisible = false;
             mDragLook = false;
         }

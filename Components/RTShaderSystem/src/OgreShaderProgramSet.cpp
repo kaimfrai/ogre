@@ -72,7 +72,7 @@ auto ProgramSet::getCpuProgram(GpuProgramType type) const -> Program*
     case GPT_FRAGMENT_PROGRAM:
         return mPSCpuProgram.get();
     default:
-        return NULL;
+        return nullptr;
     }
 }
 //-----------------------------------------------------------------------------

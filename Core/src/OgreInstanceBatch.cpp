@@ -64,12 +64,12 @@ class Technique;
                 mBoundingRadius( 0 ),
                 mBoundsDirty( false ),
                 mBoundsUpdated( false ),
-                mCurrentCamera( 0 ),
+                mCurrentCamera( nullptr ),
                 mMaterialLodIndex( 0 ),
                 mDirtyAnimation(true),
                 mTechnSupportsSkeletal( true ),
                 mCameraDistLastUpdateFrameNumber( std::numeric_limits<unsigned long>::max() ),
-                mCachedCamera( 0 ),
+                mCachedCamera( nullptr ),
                 mTransformSharingDirty(true),
                 mRemoveOwnVertexData(false),
                 mRemoveOwnIndexData(false)
@@ -89,7 +89,7 @@ class Technique;
         mFullBoundingBox.setExtents( -Vector3::ZERO, Vector3::ZERO );
 
         mName = batchName;
-		if (mCreator != NULL)
+		if (mCreator != nullptr)
 		{
 		    mCustomParams.resize( mCreator->getNumCustomParams() * mInstancesPerBatch, Ogre::Vector4::ZERO );
 	    }
@@ -271,7 +271,7 @@ class Technique;
     //-----------------------------------------------------------------------
     auto InstanceBatch::createInstancedEntity() -> InstancedEntity*
     {
-        InstancedEntity *retVal = 0;
+        InstancedEntity *retVal = nullptr;
 
         if( !mUnusedEntities.empty() )
         {
@@ -344,7 +344,7 @@ class Technique;
         InstancedEntityVec::const_iterator end   = usedEntities.end();
 
         Vector3 vMinPos = Vector3::ZERO, firstPos = Vector3::ZERO;
-        InstancedEntity *first = 0;
+        InstancedEntity *first = nullptr;
 
         if( !usedEntities.empty() )
         {

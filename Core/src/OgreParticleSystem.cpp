@@ -181,10 +181,10 @@ class RenderQueue;
         mNonvisibleTimeoutSet(false),
         mTimeSinceLastVisible(0),
         mLastVisibleFrame(0),
-        mTimeController(0),
+        mTimeController(nullptr),
         mEmittedEmitterPoolInitialised(false),
         mIsEmitting(true),
-        mRenderer(0),
+        mRenderer(nullptr),
         mCullIndividual(false),
         mPoolSize(0),
         mEmittedEmitterPoolSize(0)
@@ -214,10 +214,10 @@ class RenderQueue;
         mNonvisibleTimeoutSet(false),
         mTimeSinceLastVisible(0),
         mLastVisibleFrame(Root::getSingleton().getNextFrameNumber()),
-        mTimeController(0),
+        mTimeController(nullptr),
         mEmittedEmitterPoolInitialised(false),
         mIsEmitting(true),
-        mRenderer(0), 
+        mRenderer(nullptr), 
         mCullIndividual(false),
         mPoolSize(0),
         mEmittedEmitterPoolSize(0)
@@ -240,7 +240,7 @@ class RenderQueue;
         {
             // Destroy controller
             ControllerManager::getSingleton().destroyController(mTimeController);
-            mTimeController = 0;
+            mTimeController = nullptr;
         }
 
         // Arrange for the deletion of emitters & affectors
@@ -257,7 +257,7 @@ class RenderQueue;
         if (mRenderer)
         {
             ParticleSystemManager::getSingleton()._destroyRenderer(mRenderer);
-            mRenderer = 0;
+            mRenderer = nullptr;
         }
 
     }
@@ -654,7 +654,7 @@ class RenderQueue;
         {
             // Create a new particle & init using emitter
             // The particle is a visual particle if the emit_emitter property of the emitter isn't set 
-            Particle* p = 0;
+            Particle* p = nullptr;
             String  emitterName = emitter->getEmittedEmitter();
             if (emitterName.empty())
                 p = createParticle();
@@ -730,7 +730,7 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     auto ParticleSystem::createParticle() -> Particle*
     {
-        Particle* p = 0;
+        Particle* p = nullptr;
         if (!mFreeParticles.empty())
         {
             // Fast creation (don't use superclass since emitter will init)
@@ -746,7 +746,7 @@ class RenderQueue;
     auto ParticleSystem::createEmitterParticle(const String& emitterName) -> Particle*
     {
         // Get the appropriate list and retrieve an emitter 
-        ParticleEmitter* p = 0;
+        ParticleEmitter* p = nullptr;
         std::list<ParticleEmitter*>* fee = findFreeEmittedEmitter(emitterName);
         if (fee && !fee->empty())
         {
@@ -1032,7 +1032,7 @@ class RenderQueue;
         {
             // Destroy controller
             ControllerManager::getSingleton().destroyController(mTimeController);
-            mTimeController = 0;
+            mTimeController = nullptr;
         }
     }
     //-----------------------------------------------------------------------
@@ -1088,7 +1088,7 @@ class RenderQueue;
         {
             // Destroy existing
             ParticleSystemManager::getSingleton()._destroyRenderer(mRenderer);
-            mRenderer = 0;
+            mRenderer = nullptr;
         }
 
         if (!rendererName.empty())
@@ -1322,7 +1322,7 @@ class RenderQueue;
         if (mEmittedEmitterPool.empty())
             return;
 
-        ParticleEmitter* clonedEmitter = 0;
+        ParticleEmitter* clonedEmitter = nullptr;
         size_t maxNumberOfEmitters = size / mEmittedEmitterPool.size(); // equally distribute the number for each emitted emitter list
     
         // Run through mEmittedEmitterPool and search for every key (=name) its corresponding emitter in mEmitters
@@ -1363,7 +1363,7 @@ class RenderQueue;
             return;
 
         // Copy all pooled emitters to the free list
-        std::list<ParticleEmitter*>* fee = 0;
+        std::list<ParticleEmitter*>* fee = nullptr;
 
         // Run through the emittedEmitterPool map
         for (auto& kv : mEmittedEmitterPool)
@@ -1418,7 +1418,7 @@ class RenderQueue;
             return &it->second;
         }
 
-        return 0;
+        return nullptr;
     }
     //-----------------------------------------------------------------------
     void ParticleSystem::removeFromActiveEmittedEmitters (ParticleEmitter* emitter)

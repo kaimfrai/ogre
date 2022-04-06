@@ -52,7 +52,7 @@ class RenderTexture;
         virtual void getCustomAttribute(const String& name, void* pData);
 
         [[nodiscard]]
-        auto getContext() const -> GLContext* { return NULL; }
+        auto getContext() const -> GLContext* { return nullptr; }
     };
     
     /** Simple, copying manager/factory for RenderTextures. This is only used as the last fallback if

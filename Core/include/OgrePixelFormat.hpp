@@ -343,7 +343,7 @@ namespace Ogre {
     class PixelBox: public Box, public ImageAlloc {
     public:
         /// Parameter constructor for setting the members manually
-        PixelBox() : data(NULL), format(PF_UNKNOWN) {}
+        PixelBox() : data(nullptr), format(PF_UNKNOWN) {}
         ~PixelBox() {}
         /** Constructor providing extents in the form of a Box object. This constructor
             assumes the pixel data is laid out consecutively in memory. (this
@@ -352,7 +352,7 @@ namespace Ogre {
             @param pixelFormat  Format of this buffer
             @param pixelData    Pointer to the actual data
         */
-        PixelBox(const Box &extents, PixelFormat pixelFormat, void *pixelData=0):
+        PixelBox(const Box &extents, PixelFormat pixelFormat, void *pixelData=nullptr):
             Box(extents), data((uchar*)pixelData), format(pixelFormat)
         {
             setConsecutive();
@@ -366,7 +366,7 @@ namespace Ogre {
             @param pixelFormat  Format of this buffer
             @param pixelData    Pointer to the actual data
         */
-        PixelBox(uint32 width, uint32 height, uint32 depth, PixelFormat pixelFormat, void *pixelData=0):
+        PixelBox(uint32 width, uint32 height, uint32 depth, PixelFormat pixelFormat, void *pixelData=nullptr):
             Box(0, 0, 0, width, height, depth),
             data((uchar*)pixelData), format(pixelFormat)
         {

@@ -179,7 +179,7 @@ static const uchar depthBits[] =
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-            glTexImage2D(GL_TEXTURE_2D, 0, internalfmt, PROBE_SIZE, PROBE_SIZE, 0, fmt, type, 0);
+            glTexImage2D(GL_TEXTURE_2D, 0, internalfmt, PROBE_SIZE, PROBE_SIZE, 0, fmt, type, nullptr);
             glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT,
                                       fmt == GL_DEPTH_COMPONENT ? GL_DEPTH_ATTACHMENT_EXT
                                                                 : GL_COLOR_ATTACHMENT0_EXT,
@@ -498,7 +498,7 @@ static const uchar depthBits[] =
     auto GLFBOManager::requestRenderBuffer(GLenum format, uint32 width, uint32 height, uint fsaa) -> GLSurfaceDesc
     {
         GLSurfaceDesc retval;
-        retval.buffer = 0; // Return 0 buffer if GL_NONE is requested
+        retval.buffer = nullptr; // Return 0 buffer if GL_NONE is requested
         if(format != GL_NONE)
         {
             RBFormat key(format, width, height, fsaa);

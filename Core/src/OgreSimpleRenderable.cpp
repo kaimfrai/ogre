@@ -51,8 +51,8 @@ class Camera;
     : MovableObject()
     , mTransform(Affine3::IDENTITY)
     , mMaterial(MaterialManager::getSingleton().getDefaultMaterial())
-    , mParentSceneManager(NULL)
-    , mCamera(NULL)
+    , mParentSceneManager(nullptr)
+    , mCamera(nullptr)
 
     {
         // Generate name
@@ -65,8 +65,8 @@ class Camera;
     : MovableObject(name)
     , mTransform(Affine3::IDENTITY)
     , mMaterial(MaterialManager::getSingleton().getDefaultMaterial())
-    , mParentSceneManager(NULL)
-    , mCamera(NULL)
+    , mParentSceneManager(nullptr)
+    , mCamera(nullptr)
     {
     }
 

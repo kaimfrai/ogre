@@ -105,7 +105,7 @@ auto CookTorranceLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
     }
 
     // add the lighting computation
-    In mrparams(ParameterPtr(NULL));
+    In mrparams(ParameterPtr(nullptr));
     if(!mMetalRoughnessMapName.empty())
     {
         auto metalRoughnessSampler =
@@ -196,11 +196,11 @@ auto CookTorranceLightingFactory::createInstance(ScriptCompiler* compiler, Prope
         if (!SGScriptTranslator::getString(*it++, &strValue))
         {
             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-            return NULL;
+            return nullptr;
         }
 
         if(strValue != "metal_roughness")
-            return NULL;
+            return nullptr;
 
         auto subRenderState = createOrRetrieveInstance(translator);
 
@@ -223,7 +223,7 @@ auto CookTorranceLightingFactory::createInstance(ScriptCompiler* compiler, Prope
         return subRenderState;
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------

@@ -42,7 +42,7 @@ namespace Ogre
 
     //---------------------------------------------------------------------
     AnimationState::AnimationState(AnimationStateSet* parent, const AnimationState &rhs)
-        : mBlendMask(0)
+        : mBlendMask(nullptr)
         , mAnimationName(rhs.mAnimationName)
         , mParent(parent)
         , mTimePos(rhs.mTimePos)
@@ -57,7 +57,7 @@ namespace Ogre
     AnimationState::AnimationState(const String& animName, 
         AnimationStateSet *parent, Real timePos, Real length, Real weight, 
         bool enabled)
-        : mBlendMask(0)
+        : mBlendMask(nullptr)
         , mAnimationName(animName)
         , mParent(parent)
         , mTimePos(timePos)
@@ -229,7 +229,7 @@ namespace Ogre
     void AnimationState::destroyBlendMask()
     {
         delete mBlendMask;
-        mBlendMask = 0;
+        mBlendMask = nullptr;
     }
     //---------------------------------------------------------------------
 

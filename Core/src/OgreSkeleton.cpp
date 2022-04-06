@@ -154,7 +154,7 @@ class Affine3;
     {
         OgreAssert(handle < OGRE_MAX_NUM_BONES, "Exceeded the maximum number of bones per skeleton");
         // Check handle not used
-        if (handle < mBoneList.size() && mBoneList[handle] != NULL)
+        if (handle < mBoneList.size() && mBoneList[handle] != nullptr)
         {
             OGRE_EXCEPT(
                 Exception::ERR_DUPLICATE_ITEM,
@@ -177,7 +177,7 @@ class Affine3;
     {
         OgreAssert(handle < OGRE_MAX_NUM_BONES, "Exceeded the maximum number of bones per skeleton");
         // Check handle not used
-        if (handle < mBoneList.size() && mBoneList[handle] != NULL)
+        if (handle < mBoneList.size() && mBoneList[handle] != nullptr)
         {
             OGRE_EXCEPT(
                 Exception::ERR_DUPLICATE_ITEM,
@@ -233,7 +233,7 @@ class Affine3;
             {
                 const AnimationState* animState = *animIt;
                 // Make sure we have an anim to match implementation
-                const LinkedSkeletonAnimationSource* linked = 0;
+                const LinkedSkeletonAnimationSource* linked = nullptr;
                 if (_getAnimationImpl(animState->getAnimationName(), &linked))
                 {
                     totalWeights += animState->getWeight();
@@ -252,7 +252,7 @@ class Affine3;
         for(animIt = animSet.getEnabledAnimationStates().begin(); animIt != animSet.getEnabledAnimationStates().end(); ++animIt)
         {
             const AnimationState* animState = *animIt;
-            const LinkedSkeletonAnimationSource* linked = 0;
+            const LinkedSkeletonAnimationSource* linked = nullptr;
             Animation* anim = _getAnimationImpl(animState->getAnimationName(), &linked);
             // tolerate state entries for animations we're not aware of
             if (anim)
@@ -332,18 +332,18 @@ class Affine3;
     //---------------------------------------------------------------------
     auto Skeleton::getAnimation(const String& name) const -> Animation*
     {
-        return getAnimation(name, 0);
+        return getAnimation(name, nullptr);
     }
     //---------------------------------------------------------------------
     auto Skeleton::hasAnimation(const String& name) const -> bool
     {
-        return _getAnimationImpl(name) != 0;
+        return _getAnimationImpl(name) != nullptr;
     }
     //---------------------------------------------------------------------
     auto Skeleton::_getAnimationImpl(const String& name, 
         const LinkedSkeletonAnimationSource** linker) const -> Animation*
     {
-        Animation* ret = 0;
+        Animation* ret = nullptr;
         AnimationList::const_iterator i = mAnimationsList.find(name);
 
         if (i == mAnimationsList.end())
@@ -367,7 +367,7 @@ class Affine3;
         else
         {
             if (linker)
-                *linker = 0;
+                *linker = nullptr;
             ret = i->second;
         }
 
@@ -549,7 +549,7 @@ class Affine3;
         for (i = mBoneList.begin(); i != iend; ++i)
         {
             Bone* currentBone = *i;
-            if (currentBone->getParent() == 0)
+            if (currentBone->getParent() == nullptr)
             {
                 // This is a root
                 mRootBones.push_back(currentBone);

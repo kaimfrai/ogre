@@ -194,7 +194,7 @@ namespace Ogre
     void HardwarePixelBuffer::_clearSliceRTT(size_t zoffset)
     {
         if(zoffset < mSliceTRT.size())
-            mSliceTRT[zoffset] = NULL;
+            mSliceTRT[zoffset] = nullptr;
     }
 
 }

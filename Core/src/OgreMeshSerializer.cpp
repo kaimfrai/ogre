@@ -60,7 +60,7 @@ namespace Ogre {
     const unsigned short HEADER_CHUNK_ID = 0x1000;
     //---------------------------------------------------------------------
     MeshSerializer::MeshSerializer()
-        :mListener(0)
+        :mListener(nullptr)
     {
         // Init implementations
         // String identifiers have not always been 100% unified with OGRE version
@@ -144,7 +144,7 @@ namespace Ogre {
                         "You may not supply a legacy version number (pre v1.0) for writing meshes.",
                         "MeshSerializer::exportMesh");
         
-        MeshSerializerImpl* impl = 0;
+        MeshSerializerImpl* impl = nullptr;
         if (version == MESH_VERSION_LATEST)
             impl = mVersionData[0]->impl;
         else 
@@ -189,7 +189,7 @@ namespace Ogre {
         stream->seek(0);
 
         // Find the implementation to use
-        MeshSerializerImpl* impl = 0;
+        MeshSerializerImpl* impl = nullptr;
         for (MeshVersionDataList::iterator i = mVersionData.begin(); 
              i != mVersionData.end(); ++i)
         {

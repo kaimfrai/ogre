@@ -51,7 +51,7 @@ TEST_F(Instancing, Bounds) {
     Entity* entity = sceneMgr->createEntity("robot.mesh");
 
     MeshPtr mesh = entity->getMesh();
-    InstanceBatchShader batch(NULL, mesh, entity->getSubEntity(0)->getMaterial(), 1, NULL, "");
+    InstanceBatchShader batch(nullptr, mesh, entity->getSubEntity(0)->getMaterial(), 1, nullptr, "");
     InstancedEntity instanced_entity(&batch, 0);
 
     SceneNode* node = sceneMgr->createSceneNode();

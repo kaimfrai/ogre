@@ -422,11 +422,11 @@ class Viewport;
         virtual void forwardIntersect(const Plane& worldPlane, std::vector<Vector4>* intersect3d) const;
 
         /// @copydoc Frustum::isVisible(const AxisAlignedBox&, FrustumPlane*) const
-        auto isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy = 0) const -> bool;
+        auto isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy = nullptr) const -> bool;
         /// @copydoc Frustum::isVisible(const Sphere&, FrustumPlane*) const
-        auto isVisible(const Sphere& bound, FrustumPlane* culledBy = 0) const -> bool;
+        auto isVisible(const Sphere& bound, FrustumPlane* culledBy = nullptr) const -> bool;
         /// @copydoc Frustum::isVisible(const Vector3&, FrustumPlane*) const
-        auto isVisible(const Vector3& vert, FrustumPlane* culledBy = 0) const -> bool;
+        auto isVisible(const Vector3& vert, FrustumPlane* culledBy = nullptr) const -> bool;
         /// @copydoc Frustum::getWorldSpaceCorners
         auto getWorldSpaceCorners() const -> const Corners&;
         /// @copydoc Frustum::getFrustumPlane

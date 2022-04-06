@@ -61,7 +61,7 @@ namespace Ogre {
 
         /// @copydoc RenderSystem::createRenderWindow
         auto newWindow(const String &name, unsigned int width, unsigned int height,
-                                bool fullScreen, const NameValuePairList *miscParams = 0) -> RenderWindow*;
+                                bool fullScreen, const NameValuePairList *miscParams = nullptr) -> RenderWindow*;
 
         /// @copydoc GLNativeSupport::createPBuffer
         auto createPBuffer(PixelComponentType format, size_t width, size_t height) -> GLPBuffer*;

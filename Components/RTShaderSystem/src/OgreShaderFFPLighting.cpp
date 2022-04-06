@@ -256,7 +256,7 @@ auto FFPLighting::resolveParameters(ProgramSet* programSet) -> bool
 				mLightParamsList[i].mSpecularColour = vsProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_SPECULAR_COLOUR_POWER_SCALED, i);
 			}
 
-			if (mOutSpecular.get() == NULL)
+			if (mOutSpecular.get() == nullptr)
 			{
 				mOutSpecular = vsMain->resolveOutputParameter(Parameter::SPC_COLOR_SPECULAR);
 			}
@@ -560,7 +560,7 @@ auto	FFPLightingFactory::createInstance(ScriptCompiler* compiler,
 												PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name != "lighting_stage" || prop->values.empty())
-        return NULL;
+        return nullptr;
 
     auto it = prop->values.begin();
     String val;
@@ -568,10 +568,10 @@ auto	FFPLightingFactory::createInstance(ScriptCompiler* compiler,
     if(!SGScriptTranslator::getString(*it, &val))
     {
         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-        return NULL;
+        return nullptr;
     }
 
-    SubRenderState* ret = NULL;
+    SubRenderState* ret = nullptr;
     if (val == "ffp")
     {
         ret = createOrRetrieveInstance(translator);
@@ -582,7 +582,7 @@ auto	FFPLightingFactory::createInstance(ScriptCompiler* compiler,
         if(!SGScriptTranslator::getString(*it, &val))
         {
             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-            return NULL;
+            return nullptr;
         }
 
         static_cast<FFPLighting*>(ret)->setNormaliseEnabled(val == "normalised");

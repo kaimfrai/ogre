@@ -96,7 +96,7 @@ namespace Ogre
         virtual void unbindSurface(size_t attachment)
         {
             if (attachment < mBoundSurfaces.size())
-                mBoundSurfaces[attachment] = 0;
+                mBoundSurfaces[attachment] = nullptr;
             unbindSurfaceImpl(attachment);
         }
 

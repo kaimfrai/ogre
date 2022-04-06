@@ -80,8 +80,8 @@ namespace Ogre {
       , mPixelHeight(1.0)
       , mPixelScaleX(1.0)
       , mPixelScaleY(1.0)
-      , mParent(0)
-      , mOverlay(0)
+      , mParent(nullptr)
+      , mOverlay(nullptr)
       , mDerivedLeft(0)
       , mDerivedTop(0)
       , mDerivedOutOfDate(true)
@@ -104,7 +104,7 @@ namespace Ogre {
         if (mParent)
         {
             mParent->removeChild(mName);
-            mParent = 0;
+            mParent = nullptr;
         }
     }
     //---------------------------------------------------------------------
@@ -497,7 +497,7 @@ namespace Ogre {
 
         mDerivedOutOfDate = false;
 
-        if (mParent != 0)
+        if (mParent != nullptr)
         {
             RealRect parent;
             RealRect child;
@@ -792,7 +792,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto OverlayElement::findElementAt(Real x, Real y) -> OverlayElement*       // relative to parent
     {
-        OverlayElement* ret = NULL;
+        OverlayElement* ret = nullptr;
         if (contains(x , y ))
         {
             ret = this;

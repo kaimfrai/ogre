@@ -164,8 +164,8 @@ class ResourceManager;
         /** Protected unnamed constructor to prevent default construction. 
         */
         Resource() 
-            : mCreator(0), mHandle(0), mLoadingState(LOADSTATE_UNLOADED), 
-              mIsBackgroundLoaded(false), mIsManual(false), mSize(0), mLoader(0), mStateCount(0)
+            : mCreator(nullptr), mHandle(0), mLoadingState(LOADSTATE_UNLOADED), 
+              mIsBackgroundLoaded(false), mIsManual(false), mSize(0), mLoader(nullptr), mStateCount(0)
         { 
         }
 
@@ -233,7 +233,7 @@ class ResourceManager;
             ManualResourceLoader instance is strongly recommended.
         */
         Resource(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual = false, ManualResourceLoader* loader = 0);
+            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
 
         /** Virtual destructor. Shouldn't need to be overloaded, as the resource
             deallocation code should reside in unload()

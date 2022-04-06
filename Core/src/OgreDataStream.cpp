@@ -62,7 +62,7 @@ namespace Ogre {
             tmpBuf[readCount] = '\0';
 
             char* p = strchr(tmpBuf, '\n');
-            if (p != 0)
+            if (p != nullptr)
             {
                 // Reposition backwards
                 skip((long)(p + 1 - tmpBuf - readCount));
@@ -71,7 +71,7 @@ namespace Ogre {
 
             retString += tmpBuf;
 
-            if (p != 0)
+            if (p != nullptr)
             {
                 // Trim off trailing CR if this was a CR/LF entry
                 if (retString.length() && retString[retString.length()-1] == '\r')
@@ -475,13 +475,13 @@ namespace Ogre {
         if (mFreeOnClose && mData)
         {
             delete[] mData;
-            mData = 0;
+            mData = nullptr;
         }
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     FileStreamDataStream::FileStreamDataStream(std::ifstream* s, bool freeOnClose)
-        : DataStream(), mInStream(s), mFStreamRO(s), mFStream(0), mFreeOnClose(freeOnClose)
+        : DataStream(), mInStream(s), mFStreamRO(s), mFStream(nullptr), mFreeOnClose(freeOnClose)
     {
         // calculate the size
         mInStream->seekg(0, std::ios_base::end);
@@ -492,7 +492,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     FileStreamDataStream::FileStreamDataStream(const String& name, 
         std::ifstream* s, bool freeOnClose)
-        : DataStream(name), mInStream(s), mFStreamRO(s), mFStream(0), mFreeOnClose(freeOnClose)
+        : DataStream(name), mInStream(s), mFStreamRO(s), mFStream(nullptr), mFreeOnClose(freeOnClose)
     {
         // calculate the size
         mInStream->seekg(0, std::ios_base::end);
@@ -503,7 +503,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     FileStreamDataStream::FileStreamDataStream(const String& name, 
         std::ifstream* s, size_t inSize, bool freeOnClose)
-        : DataStream(name), mInStream(s), mFStreamRO(s), mFStream(0), mFreeOnClose(freeOnClose)
+        : DataStream(name), mInStream(s), mFStreamRO(s), mFStream(nullptr), mFreeOnClose(freeOnClose)
     {
         // Size is passed in
         mSize = inSize;
@@ -511,7 +511,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     FileStreamDataStream::FileStreamDataStream(std::fstream* s, bool freeOnClose)
-        : DataStream(false), mInStream(s), mFStreamRO(0), mFStream(s), mFreeOnClose(freeOnClose)
+        : DataStream(false), mInStream(s), mFStreamRO(nullptr), mFStream(s), mFreeOnClose(freeOnClose)
     {
         // writeable!
         // calculate the size
@@ -524,7 +524,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     FileStreamDataStream::FileStreamDataStream(const String& name, 
         std::fstream* s, bool freeOnClose)
-        : DataStream(name, false), mInStream(s), mFStreamRO(0), mFStream(s), mFreeOnClose(freeOnClose)
+        : DataStream(name, false), mInStream(s), mFStreamRO(nullptr), mFStream(s), mFreeOnClose(freeOnClose)
     {
         // writeable!
         // calculate the size
@@ -536,7 +536,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     FileStreamDataStream::FileStreamDataStream(const String& name, 
         std::fstream* s, size_t inSize, bool freeOnClose)
-        : DataStream(name, false), mInStream(s), mFStreamRO(0), mFStream(s), mFreeOnClose(freeOnClose)
+        : DataStream(name, false), mInStream(s), mFStreamRO(nullptr), mFStream(s), mFreeOnClose(freeOnClose)
     {
         // writeable!
         // Size is passed in
@@ -686,9 +686,9 @@ namespace Ogre {
                 delete mFStream;
             }
 
-            mInStream = 0;
-            mFStreamRO = 0; 
-            mFStream = 0; 
+            mInStream = nullptr;
+            mFStreamRO = nullptr; 
+            mFStream = nullptr; 
         }
     }
     //-----------------------------------------------------------------------
@@ -753,10 +753,10 @@ namespace Ogre {
     void FileHandleDataStream::close()
     {
         mAccess = 0;
-        if (mFileHandle != 0)
+        if (mFileHandle != nullptr)
         {
             fclose(mFileHandle);
-            mFileHandle = 0;
+            mFileHandle = nullptr;
         }
     }
     //-----------------------------------------------------------------------

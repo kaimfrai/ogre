@@ -76,7 +76,7 @@ namespace Ogre
             delete mContext;
         }
 
-        mContext = 0;
+        mContext = nullptr;
         mWindow = 0;
     }
 
@@ -92,7 +92,7 @@ namespace Ogre
         bool hidden = false;
         unsigned int vsyncInterval = 1;
         bool gamma = false;
-        ::GLXContext glxContext = 0;
+        ::GLXContext glxContext = nullptr;
         ::GLXDrawable glxDrawable = 0;
         Window parentWindow = DefaultRootWindow(xDisplay);
         int left = DisplayWidth(xDisplay, DefaultScreen(xDisplay))/2 - width/2;
@@ -186,7 +186,7 @@ namespace Ogre
         validateParentWindow(xDisplay, parentWindow);
 
         // Derive fbConfig
-        ::GLXFBConfig fbConfig = 0;
+        ::GLXFBConfig fbConfig = nullptr;
 
         if (glxDrawable)
         {
