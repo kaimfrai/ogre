@@ -39,8 +39,6 @@ THE SOFTWARE.
 /* Declare variable aligned to SIMD alignment. */
 #define OGRE_SIMD_ALIGNED_DECL(type, var)   OGRE_ALIGNED_DECL(type, var, OGRE_SIMD_ALIGNMENT)
 
-#define OGRE_DEFAULT_LOCALE "C"
-
 #include <cstdint>
 
 namespace Ogre {

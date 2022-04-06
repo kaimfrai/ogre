@@ -46,7 +46,7 @@ THE SOFTWARE.
 #include "OgreVector.hpp"
 
 namespace Ogre {
-    locale_t StringConverter::_numLocale = newlocale(LC_NUMERIC_MASK, OGRE_DEFAULT_LOCALE, NULL);
+    locale_t StringConverter::_numLocale = newlocale(LC_NUMERIC_MASK, "C", NULL);
 
     template<typename T>
     String StringConverter::_toString(T val, uint16 width, char fill, std::ios::fmtflags flags)
