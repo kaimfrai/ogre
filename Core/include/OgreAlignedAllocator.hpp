@@ -75,7 +75,7 @@ namespace Ogre {
             @par
                 On failure, exception will be throw.
         */
-        static DECL_MALLOC auto allocate(size_t size, size_t alignment) -> void*;
+        static auto allocate(size_t size, size_t alignment) -> void*;
 
         /** Allocate memory with default platform dependent alignment.
             @remarks
@@ -89,7 +89,7 @@ namespace Ogre {
             @par
                 On failure, exception will be throw.
         */
-        static DECL_MALLOC auto allocate(size_t size) -> void*;
+        static auto allocate(size_t size) -> void*;
 
         /** Deallocate memory that allocated by this class.
             @param

@@ -41,8 +41,6 @@ THE SOFTWARE.
 
 #define OGRE_DEFAULT_LOCALE "C"
 
-#define DECL_MALLOC __attribute__ ((malloc))
-
 #include <cstdint>
 
 namespace Ogre {
