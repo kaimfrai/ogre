@@ -198,7 +198,7 @@ namespace Ogre {
         Real fTyy = fTy*y;
         Real fTzz = fTz*z;
 
-        return Vector3(1.0f-(fTyy+fTzz), fTxy+fTwz, fTxz-fTwy);
+        return {1.0f-(fTyy+fTzz), fTxy+fTwz, fTxz-fTwy};
     }
     //-----------------------------------------------------------------------
     Vector3 Quaternion::yAxis() const
@@ -213,7 +213,7 @@ namespace Ogre {
         Real fTyz = fTz*y;
         Real fTzz = fTz*z;
 
-        return Vector3(fTxy-fTwz, 1.0f-(fTxx+fTzz), fTyz+fTwx);
+        return {fTxy-fTwz, 1.0f-(fTxx+fTzz), fTyz+fTwx};
     }
     //-----------------------------------------------------------------------
     Vector3 Quaternion::zAxis() const
@@ -228,7 +228,7 @@ namespace Ogre {
         Real fTyy = fTy*y;
         Real fTyz = fTz*y;
 
-        return Vector3(fTxz+fTwy, fTyz-fTwx, 1.0f-(fTxx+fTyy));
+        return {fTxz+fTwy, fTyz-fTwx, 1.0f-(fTxx+fTyy)};
     }
     //-----------------------------------------------------------------------
     void Quaternion::ToAxes (Vector3& xaxis, Vector3& yaxis, Vector3& zaxis) const
@@ -253,12 +253,12 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Quaternion Quaternion::operator+ (const Quaternion& rkQ) const
     {
-        return Quaternion(w+rkQ.w,x+rkQ.x,y+rkQ.y,z+rkQ.z);
+        return {w+rkQ.w,x+rkQ.x,y+rkQ.y,z+rkQ.z};
     }
     //-----------------------------------------------------------------------
     Quaternion Quaternion::operator- (const Quaternion& rkQ) const
     {
-        return Quaternion(w-rkQ.w,x-rkQ.x,y-rkQ.y,z-rkQ.z);
+        return {w-rkQ.w,x-rkQ.x,y-rkQ.y,z-rkQ.z};
     }
     //-----------------------------------------------------------------------
     Quaternion Quaternion::operator* (const Quaternion& rkQ) const
@@ -266,13 +266,12 @@ namespace Ogre {
         // NOTE:  Multiplication is not generally commutative, so in most
         // cases p*q != q*p.
 
-        return Quaternion
-        (
+        return {
             w * rkQ.w - x * rkQ.x - y * rkQ.y - z * rkQ.z,
             w * rkQ.x + x * rkQ.w + y * rkQ.z - z * rkQ.y,
             w * rkQ.y + y * rkQ.w + z * rkQ.x - x * rkQ.z,
             w * rkQ.z + z * rkQ.w + x * rkQ.y - y * rkQ.x
-        );
+        };
     }
     //-----------------------------------------------------------------------
     Quaternion Quaternion::Inverse () const
@@ -281,7 +280,7 @@ namespace Ogre {
         if ( fNorm > 0.0 )
         {
             Real fInvNorm = 1.0f/fNorm;
-            return Quaternion(w*fInvNorm,-x*fInvNorm,-y*fInvNorm,-z*fInvNorm);
+            return {w*fInvNorm,-x*fInvNorm,-y*fInvNorm,-z*fInvNorm};
         }
         else
         {
@@ -293,7 +292,7 @@ namespace Ogre {
     Quaternion Quaternion::UnitInverse () const
     {
         // assert:  'this' is unit length
-        return Quaternion(w,-x,-y,-z);
+        return {w,-x,-y,-z};
     }
     //-----------------------------------------------------------------------
     Quaternion Quaternion::Exp () const

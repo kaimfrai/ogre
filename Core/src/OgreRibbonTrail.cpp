@@ -154,7 +154,7 @@ namespace Ogre
     RibbonTrail::NodeIterator 
     RibbonTrail::getNodeIterator() const
     {
-        return NodeIterator(mNodeList.begin(), mNodeList.end());
+        return {mNodeList.begin(), mNodeList.end()};
     }
     //-----------------------------------------------------------------------
     void RibbonTrail::setTrailLength(Real len)

@@ -306,21 +306,21 @@ class Sphere;
             case FAR_LEFT_BOTTOM:
                 return mMinimum;
             case FAR_LEFT_TOP:
-                return Vector3(mMinimum.x, mMaximum.y, mMinimum.z);
+                return {mMinimum.x, mMaximum.y, mMinimum.z};
             case FAR_RIGHT_TOP:
-                return Vector3(mMaximum.x, mMaximum.y, mMinimum.z);
+                return {mMaximum.x, mMaximum.y, mMinimum.z};
             case FAR_RIGHT_BOTTOM:
-                return Vector3(mMaximum.x, mMinimum.y, mMinimum.z);
+                return {mMaximum.x, mMinimum.y, mMinimum.z};
             case NEAR_RIGHT_BOTTOM:
-                return Vector3(mMaximum.x, mMinimum.y, mMaximum.z);
+                return {mMaximum.x, mMinimum.y, mMaximum.z};
             case NEAR_LEFT_BOTTOM:
-                return Vector3(mMinimum.x, mMinimum.y, mMaximum.z);
+                return {mMinimum.x, mMinimum.y, mMaximum.z};
             case NEAR_LEFT_TOP:
-                return Vector3(mMinimum.x, mMaximum.y, mMaximum.z);
+                return {mMinimum.x, mMaximum.y, mMaximum.z};
             case NEAR_RIGHT_TOP:
                 return mMaximum;
             default:
-                return Vector3();
+                return {};
             }
         }
 
@@ -564,7 +564,7 @@ class Sphere;
         {
             if (this->isNull() || b2.isNull())
             {
-                return AxisAlignedBox();
+                return {};
             }
             else if (this->isInfinite())
             {
@@ -589,7 +589,7 @@ class Sphere;
                 return AxisAlignedBox(intMin, intMax);
             }
 
-            return AxisAlignedBox();
+            return {};
         }
 
         /// Calculate the volume of this box
@@ -664,10 +664,10 @@ class Sphere;
         {
             assert( (mExtent == EXTENT_FINITE) && "Can't get center of a null or infinite AAB" );
 
-            return Vector3(
+            return {
                 (mMaximum.x + mMinimum.x) * 0.5f,
                 (mMaximum.y + mMinimum.y) * 0.5f,
-                (mMaximum.z + mMinimum.z) * 0.5f);
+                (mMaximum.z + mMinimum.z) * 0.5f};
         }
         /// Gets the size of the box
         Vector3 getSize() const
@@ -681,10 +681,10 @@ class Sphere;
                 return mMaximum - mMinimum;
 
             case EXTENT_INFINITE:
-                return Vector3(
+                return {
                     Math::POS_INFINITY,
                     Math::POS_INFINITY,
-                    Math::POS_INFINITY);
+                    Math::POS_INFINITY};
 
             default: // shut up compiler
                 assert( false && "Never reached" );
@@ -703,10 +703,10 @@ class Sphere;
                 return (mMaximum - mMinimum) * 0.5;
 
             case EXTENT_INFINITE:
-                return Vector3(
+                return {
                     Math::POS_INFINITY,
                     Math::POS_INFINITY,
-                    Math::POS_INFINITY);
+                    Math::POS_INFINITY};
 
             default: // shut up compiler
                 assert( false && "Never reached" );

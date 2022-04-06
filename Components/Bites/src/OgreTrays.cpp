@@ -89,8 +89,8 @@ bool Widget::isCursorOver(Ogre::OverlayElement *element, const Ogre::Vector2 &cu
 Ogre::Vector2 Widget::cursorOffset(Ogre::OverlayElement *element, const Ogre::Vector2 &cursorPos)
 {
     Ogre::OverlayManager& om = Ogre::OverlayManager::getSingleton();
-    return Ogre::Vector2(cursorPos.x - (element->_getDerivedLeft() * om.getViewportWidth() + element->getWidth() / 2),
-                         cursorPos.y - (element->_getDerivedTop() * om.getViewportHeight() + element->getHeight() / 2));
+    return {cursorPos.x - (element->_getDerivedLeft() * om.getViewportWidth() + element->getWidth() / 2),
+                         cursorPos.y - (element->_getDerivedTop() * om.getViewportHeight() + element->getHeight() / 2)};
 }
 
 Ogre::Real Widget::getCaptionWidth(const Ogre::DisplayString &caption, Ogre::TextAreaOverlayElement *area)
@@ -1228,7 +1228,7 @@ Ogre::Ray TrayManager::screenToScene(Ogre::Camera *cam, const Ogre::Vector2 &pt)
 Ogre::Vector2 TrayManager::sceneToScreen(Ogre::Camera *cam, const Ogre::Vector3 &pt)
 {
     Ogre::Vector3 result = cam->getProjectionMatrix() * cam->getViewMatrix() * pt;
-    return Ogre::Vector2((result.x + 1) / 2, (-result.y + 1) / 2);
+    return {(result.x + 1) / 2, (-result.y + 1) / 2};
 }
 
 void TrayManager::showAll()

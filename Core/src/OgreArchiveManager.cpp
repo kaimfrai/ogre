@@ -109,7 +109,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     ArchiveManager::ArchiveMapIterator ArchiveManager::getArchiveIterator()
     {
-        return ArchiveMapIterator(mArchives.begin(), mArchives.end());
+        return {mArchives.begin(), mArchives.end()};
     }
     //-----------------------------------------------------------------------
     ArchiveManager::~ArchiveManager()

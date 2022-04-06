@@ -102,7 +102,7 @@ namespace Ogre
             /**
             * Add any special config values to the system.
             */
-            virtual ConfigOptionMap getConfigOptions() { return ConfigOptionMap(); }
+            virtual ConfigOptionMap getConfigOptions() { return {}; }
 
             const std::vector<int>& getFSAALevels() const { return mFSAALevels; }
             const VideoModes& getVideoModes() const { return mVideoModes; }

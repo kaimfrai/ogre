@@ -325,8 +325,8 @@ namespace Ogre
     AnimationStateIterator AnimationStateSet::getAnimationStateIterator()
     {
         // returned iterator not threadsafe, noted in header
-        return AnimationStateIterator(
-            mAnimationStates.begin(), mAnimationStates.end());
+        return {
+            mAnimationStates.begin(), mAnimationStates.end()};
     }
 
     //---------------------------------------------------------------------

@@ -664,7 +664,7 @@ class VertexData;
         KeyFrameTimeList::iterator it =
             std::lower_bound(mKeyFrameTimes.begin(), mKeyFrameTimes.end(), timePos);
 
-        return TimeIndex(timePos, static_cast<uint>(std::distance(mKeyFrameTimes.begin(), it)));
+        return {timePos, static_cast<uint>(std::distance(mKeyFrameTimes.begin(), it))};
     }
     //-----------------------------------------------------------------------
     void Animation::buildKeyFrameTimeList() const

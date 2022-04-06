@@ -74,7 +74,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     Matrix4 Matrix4::adjoint() const
     {
-        return Matrix4( MINOR(*this, 1, 2, 3, 1, 2, 3),
+        return { MINOR(*this, 1, 2, 3, 1, 2, 3),
             -MINOR(*this, 0, 2, 3, 1, 2, 3),
             MINOR(*this, 0, 1, 3, 1, 2, 3),
             -MINOR(*this, 0, 1, 2, 1, 2, 3),
@@ -92,7 +92,7 @@ namespace Ogre
             -MINOR(*this, 1, 2, 3, 0, 1, 2),
             MINOR(*this, 0, 2, 3, 0, 1, 2),
             -MINOR(*this, 0, 1, 3, 0, 1, 2),
-            MINOR(*this, 0, 1, 2, 0, 1, 2));
+            MINOR(*this, 0, 1, 2, 0, 1, 2)};
     }
     //-----------------------------------------------------------------------
     Real TransformBaseReal::determinant() const
@@ -158,11 +158,11 @@ namespace Ogre
         Real d23 = - (v4 * m00 - v2 * m01 + v0 * m03) * invDet;
         Real d33 = + (v3 * m00 - v1 * m01 + v0 * m02) * invDet;
 
-        return Matrix4(
+        return {
             d00, d01, d02, d03,
             d10, d11, d12, d13,
             d20, d21, d22, d23,
-            d30, d31, d32, d33);
+            d30, d31, d32, d33};
     }
     //-----------------------------------------------------------------------
     Affine3 Affine3::inverse() const
@@ -200,10 +200,10 @@ namespace Ogre
         Real r13 = - (r10 * m03 + r11 * m13 + r12 * m23);
         Real r23 = - (r20 * m03 + r21 * m13 + r22 * m23);
 
-        return Affine3(
+        return {
             r00, r01, r02, r03,
             r10, r11, r12, r13,
-            r20, r21, r22, r23);
+            r20, r21, r22, r23};
     }
     //-----------------------------------------------------------------------
     void TransformBaseReal::makeTransform(const Vector3& position, const Vector3& scale, const Quaternion& orientation)

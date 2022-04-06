@@ -192,7 +192,7 @@ class RenderTexture;
         /// Gets the depth of this buffer
         uint32 getDepth() const { return mDepth; }
         /// size (width, height, depth) of the pixel buffer
-        Vector3i getSize() const { return Vector3i(getWidth(), getHeight(), getDepth()); }
+        Vector<3, uint32> getSize() const { return {getWidth(), getHeight(), getDepth()}; }
         /// Gets the native pixel format of this buffer
         PixelFormat getFormat() const { return mFormat; }
     };

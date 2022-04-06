@@ -104,7 +104,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String DynLib::dynlibError( ) 
     {
-        return String(dlerror());
+        return {dlerror()};
     }
 
 }

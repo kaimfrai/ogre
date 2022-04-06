@@ -346,22 +346,22 @@ namespace Ogre {
     ParticleSystemManager::ParticleAffectorFactoryIterator 
     ParticleSystemManager::getAffectorFactoryIterator()
     {
-        return ParticleAffectorFactoryIterator(
-            mAffectorFactories.begin(), mAffectorFactories.end());
+        return {
+            mAffectorFactories.begin(), mAffectorFactories.end()};
     }
     //-----------------------------------------------------------------------
     ParticleSystemManager::ParticleEmitterFactoryIterator 
     ParticleSystemManager::getEmitterFactoryIterator()
     {
-        return ParticleEmitterFactoryIterator(
-            mEmitterFactories.begin(), mEmitterFactories.end());
+        return {
+            mEmitterFactories.begin(), mEmitterFactories.end()};
     }
     //-----------------------------------------------------------------------
     ParticleSystemManager::ParticleRendererFactoryIterator 
     ParticleSystemManager::getRendererFactoryIterator()
     {
-        return ParticleRendererFactoryIterator(
-            mRendererFactories.begin(), mRendererFactories.end());
+        return {
+            mRendererFactories.begin(), mRendererFactories.end()};
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------

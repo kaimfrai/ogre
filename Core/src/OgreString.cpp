@@ -504,11 +504,11 @@ namespace Ogre {
         {
             va_list va;
             va_start(va, fmt);
-            int len = vsnprintf(pbuf, bsize, fmt, va);
+            size_t const len = vsnprintf(pbuf, bsize, fmt, va);
             va_end(va);
 
             OgreAssert(len >= 0, "Check format string for errors");
-            if (size_t(len) >= bsize)
+            if (len >= bsize)
             {
                 hbuf.resize(len + 1);
                 pbuf = hbuf.data();
@@ -516,7 +516,7 @@ namespace Ogre {
                 continue;
             }
             pbuf[bsize - 1] = 0;
-            return String(pbuf, len);
+            return {pbuf, len};
         }
     }
 }

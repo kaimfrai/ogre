@@ -329,8 +329,8 @@ class ParticleSystemRenderer;
         /** Gets an iterator over the list of particle system templates. */
         ParticleSystemTemplateIterator getTemplateIterator()
         {
-            return ParticleSystemTemplateIterator(
-                mSystemTemplates.begin(), mSystemTemplates.end());
+            return {
+                mSystemTemplates.begin(), mSystemTemplates.end()};
         } 
 
         /** Get an instance of ParticleSystemFactory (internal use). */

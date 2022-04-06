@@ -210,7 +210,7 @@ namespace Ogre
 
     ConcreteNodeListPtr ScriptCompilerListener::importFile(ScriptCompiler *compiler, const String &name)
     {
-        return ConcreteNodeListPtr();
+        return {};
     }
 
     void ScriptCompilerListener::preConversion(ScriptCompiler *compiler, ConcreteNodeListPtr nodes)

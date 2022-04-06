@@ -354,7 +354,7 @@ class Viewport;
         const PointListBody& bodyLVS) const
     {
         if (bodyLVS.getPointCount() == 0)
-            return Vector3(0,0,0);
+            return {0,0,0};
 
         Vector3 nearEye = viewMatrix * bodyLVS.getPoint(0), // for comparison
             nearWorld = bodyLVS.getPoint(0);                // represents the final point

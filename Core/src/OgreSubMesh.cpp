@@ -133,8 +133,8 @@ class HardwareBufferManagerBase;
     //---------------------------------------------------------------------
     SubMesh::AliasTextureIterator SubMesh::getAliasTextureIterator() const
     {
-        return AliasTextureIterator(mTextureAliases.begin(),
-            mTextureAliases.end());
+        return {mTextureAliases.begin(),
+            mTextureAliases.end()};
     }
     //---------------------------------------------------------------------
     void SubMesh::addTextureAlias(const String& aliasName, const String& textureName)

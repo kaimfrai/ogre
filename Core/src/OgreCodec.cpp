@@ -44,7 +44,7 @@ class Any;
     DataStreamPtr Codec::encode(const Any& input) const
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, getType() + " - encoding to memory not supported");
-        return DataStreamPtr();
+        return {};
     }
 
     void Codec::encodeToFile(const Any& input, const String& outFileName) const

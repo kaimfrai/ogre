@@ -543,7 +543,7 @@ namespace Ogre {
         if (!grp)
         {
             // we only get here if throwOnFailure is false
-            return DataStreamPtr();
+            return {};
         }
 
         Archive* pArch = resourceExists(grp, resourceName);
@@ -569,7 +569,7 @@ namespace Ogre {
         }
 
         if(!throwOnFailure)
-            return DataStreamPtr();
+            return {};
 
         OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, "Cannot locate resource " + 
             resourceName + " in resource group " + groupName + ".", 
@@ -1372,7 +1372,7 @@ namespace Ogre {
                 return std::make_pair(arch, i->second);
         }
         // Not found
-        return std::pair<Archive*, ResourceGroup*>();
+        return {};
     }
     //-----------------------------------------------------------------------
     bool ResourceGroupManager::resourceExistsInAnyGroup(const String& filename) const

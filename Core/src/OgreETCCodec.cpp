@@ -167,10 +167,10 @@ namespace Ogre {
             flipEndian(&fileType, sizeof(uint32));
 
             if (PKM_MAGIC == fileType)
-                return String("pkm");
+                return {"pkm"};
 
             if (KTX_MAGIC == fileType)
-                return String("ktx");
+                return {"ktx"};
         }
 
         return BLANKSTRING;

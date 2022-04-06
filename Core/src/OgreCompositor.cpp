@@ -101,13 +101,13 @@ void Compositor::removeAllTechniques()
 //-----------------------------------------------------------------------
 Compositor::TechniqueIterator Compositor::getTechniqueIterator()
 {
-    return TechniqueIterator(mTechniques.begin(), mTechniques.end());
+    return {mTechniques.begin(), mTechniques.end()};
 }
 //-----------------------------------------------------------------------
 
 Compositor::TechniqueIterator Compositor::getSupportedTechniqueIterator()
 {
-    return TechniqueIterator(mSupportedTechniques.begin(), mSupportedTechniques.end());
+    return {mSupportedTechniques.begin(), mSupportedTechniques.end()};
 }
 //-----------------------------------------------------------------------
 void Compositor::loadImpl()
