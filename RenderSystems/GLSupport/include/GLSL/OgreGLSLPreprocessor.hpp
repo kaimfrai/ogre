@@ -181,11 +181,11 @@ namespace Ogre {
             /// Unparsed macro body (keeps the whole raw unparsed macro body)
             Token Body;
             /// A pointer to function implementation (if macro is really a func)
-            Token (*ExpandFunc) (CPreprocessor *iParent, const std::vector<Token>& iArgs);
+            Token (*ExpandFunc) (CPreprocessor *iParent, const std::vector<Token>& iArgs){nullptr};
             /// true if macro expansion is in progress
-            bool Expanding;
+            bool Expanding{false};
 
-            Macro(const Token& iName) : Name(iName), ExpandFunc(nullptr), Expanding(false) {}
+            Macro(const Token& iName) : Name(iName) {}
 
             // Macro(Macro&&) = default; // TODO unsupported by VS2013
 

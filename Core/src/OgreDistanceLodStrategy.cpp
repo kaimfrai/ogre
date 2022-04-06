@@ -41,8 +41,7 @@ THE SOFTWARE.
 namespace Ogre {
     DistanceLodStrategyBase::DistanceLodStrategyBase(const String& name)
         : LodStrategy(name)
-        , mReferenceViewEnabled(false)
-        , mReferenceViewValue(-1)
+         
     { }
     //-----------------------------------------------------------------------
     auto DistanceLodStrategyBase::getValueImpl(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real

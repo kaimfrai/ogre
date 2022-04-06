@@ -32,7 +32,7 @@ namespace Ogre
 {
 class Viewport;
 
-DefaultDebugDrawer::DefaultDebugDrawer() : mLines(""), mAxes(""), mDrawType(0), mStatic(false) {}
+DefaultDebugDrawer::DefaultDebugDrawer() : mLines(""), mAxes("") {}
 
 void DefaultDebugDrawer::preFindVisibleObjects(SceneManager* source,
                                                SceneManager::IlluminationRenderStage irs, Viewport* v)

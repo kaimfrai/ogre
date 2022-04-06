@@ -88,7 +88,7 @@ namespace Ogre {
         ResourceRequest request;
     };
     //------------------------------------------------------------------------
-    ResourceBackgroundQueue::ResourceBackgroundQueue() : mWorkQueueChannel(0)
+    ResourceBackgroundQueue::ResourceBackgroundQueue()  
     {
     }
     //------------------------------------------------------------------------

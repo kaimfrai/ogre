@@ -167,15 +167,15 @@ namespace Ogre {
 
             };
         protected:
-            size_t mSizeInBytes;
-            size_t mLockStart;
-            size_t mLockSize;
+            size_t mSizeInBytes{0};
+            size_t mLockStart{0};
+            size_t mLockSize{0};
             std::unique_ptr<HardwareBuffer> mDelegate;
             std::unique_ptr<HardwareBuffer> mShadowBuffer;
             bool mSystemMemory;
-            bool mShadowUpdated;
-            bool mSuppressHardwareUpdate;
-            bool mIsLocked;
+            bool mShadowUpdated{false};
+            bool mSuppressHardwareUpdate{false};
+            bool mIsLocked{false};
             Usage mUsage;
             
             /// Internal implementation of lock()
@@ -189,8 +189,8 @@ namespace Ogre {
         public:
             /// Constructor, to be called by HardwareBufferManager only
             HardwareBuffer(Usage usage, bool systemMemory, bool useShadowBuffer)
-                : mSizeInBytes(0), mLockStart(0), mLockSize(0), mSystemMemory(systemMemory),
-                  mShadowUpdated(false), mSuppressHardwareUpdate(false), mIsLocked(false), mUsage(usage)
+                :  mSystemMemory(systemMemory),
+                   mUsage(usage)
             {
                 // If use shadow buffer, upgrade to WRITE_ONLY on hardware side
                 if (useShadowBuffer && usage == HBU_CPU_ONLY)

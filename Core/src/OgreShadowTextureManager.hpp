@@ -63,7 +63,7 @@ namespace Ogre
     protected:
         ShadowTextureList mTextureList;
         ShadowTextureList mNullTextureList;
-        size_t mCount;
+        size_t mCount{0};
 
     public:
         ShadowTextureManager();

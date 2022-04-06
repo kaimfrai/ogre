@@ -61,14 +61,13 @@ class InstancedEntity;
                                         InstancingTechnique instancingTechnique, uint16 instancingFlags,
                                         size_t instancesPerBatch, unsigned short subMeshIdx, bool useBoneMatrixLookup ) :
                 mName( customName ),
-                mIdCount( 0 ),
+                
                 mInstancesPerBatch( instancesPerBatch ),
                 mInstancingTechnique( instancingTechnique ),
                 mInstancingFlags( instancingFlags ),
                 mSubMeshIdx( subMeshIdx ),
-                mSceneManager( sceneManager ),
-                mMaxLookupTableInstances(16),
-                mNumCustomParams( 0 )
+                mSceneManager( sceneManager )
+                
     {
         mMeshReference = MeshManager::getSingleton().load( meshName, groupName );
 

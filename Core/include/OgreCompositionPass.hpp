@@ -363,39 +363,39 @@ class CompositionTargetPass;
         /// Parent technique
         CompositionTargetPass *mParent;
         /// Type of composition pass
-        PassType mType;
+        PassType mType{PT_RENDERQUAD};
 
         // in case of PT_RENDERQUAD, PT_COMPUTE, PT_CUSTOM
         struct MaterialData
         {
             /// Identifier for this pass
-            uint32 identifier;
+            uint32 identifier{0};
             /// Material used for rendering
             MaterialPtr material;
             /** Inputs (for material used for rendering the quad).
                 An empty string signifies that no input is used */
             InputTex inputs[OGRE_MAX_TEXTURE_LAYERS];
 
-            MaterialData() : identifier(0) {}
+            MaterialData()  {}
         } mMaterial;
 
         // in case of PT_RENDERSCENE
         struct RenderSceneData
         {
             /// [first,last] render queue to render this pass (in case of PT_RENDERSCENE)
-            uint8 firstRenderQueue;
-            uint8 lastRenderQueue;
+            uint8 firstRenderQueue{RENDER_QUEUE_BACKGROUND};
+            uint8 lastRenderQueue{RENDER_QUEUE_SKIES_LATE};
 
             /// Material scheme name
             String materialScheme;
 
             /// name of camera to use instead of default
             String cameraName;
-            bool alignCameraToFace;
+            bool alignCameraToFace{false};
 
             RenderSceneData()
-                : firstRenderQueue(RENDER_QUEUE_BACKGROUND), lastRenderQueue(RENDER_QUEUE_SKIES_LATE),
-                  alignCameraToFace(false)
+                
+                  
             {
             }
         } mRenderScene;
@@ -408,15 +408,14 @@ class CompositionTargetPass;
             /// Clear colour
             ColourValue colour;
             /// Clear colour with the colour of the original viewport. Overrides mClearColour
-            bool automaticColour;
+            bool automaticColour{false};
             /// Clear depth
-            float depth;
+            float depth{1.0f};
             /// Clear stencil value
-            uint16 stencil;
+            uint16 stencil{0};
 
             ClearData()
-                : buffers(FBT_COLOUR | FBT_DEPTH), colour(ColourValue::ZERO), automaticColour(false),
-                  depth(1.0f), stencil(0)
+                : buffers(FBT_COLOUR | FBT_DEPTH), colour(ColourValue::ZERO) 
             {
             }
         } mClear;
@@ -431,13 +430,13 @@ class CompositionTargetPass;
         struct QuadData
         {
             /// True if quad should not cover whole screen
-            bool cornerModified;
+            bool cornerModified{false};
             /// quad positions in normalised coordinates [-1;1]x[-1;1]
             FloatRect rect;
-            bool farCorners, farCornersViewSpace;
+            bool farCorners{false}, farCornersViewSpace{false};
 
             QuadData()
-                : cornerModified(false), rect(-1, 1, 1, -1), farCorners(false), farCornersViewSpace(false)
+                :  rect(-1, 1, 1, -1) 
             {
             }
         } mQuad;

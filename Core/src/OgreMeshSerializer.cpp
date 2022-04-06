@@ -60,7 +60,7 @@ namespace Ogre {
     const unsigned short HEADER_CHUNK_ID = 0x1000;
     //---------------------------------------------------------------------
     MeshSerializer::MeshSerializer()
-        :mListener(nullptr)
+        
     {
         // Init implementations
         // String identifiers have not always been 100% unified with OGRE version

@@ -161,7 +161,7 @@ namespace Ogre {
         using PassGroupRenderableMap = std::map<Pass *, RenderableList, PassGroupLess>;
 
         /// Bitmask of the organisation modes requested
-        uint8 mOrganisationMode;
+        uint8 mOrganisationMode{0};
 
         /// Grouped 
         PassGroupRenderableMap mGrouped;
@@ -409,9 +409,9 @@ namespace Ogre {
         /// Map of RenderPriorityGroup objects
         PriorityMap mPriorityGroups;
         /// Whether shadows are enabled for this queue
-        bool mShadowsEnabled;
+        bool mShadowsEnabled{true};
         /// Bitmask of the organisation modes requested (for new priority groups)
-        uint8 mOrganisationMode;
+        uint8 mOrganisationMode{0};
 
 
     public:
@@ -421,8 +421,7 @@ namespace Ogre {
             : mSplitPassesByLightingType(splitPassesByLightingType)
             , mSplitNoShadowPasses(splitNoShadowPasses)
             , mShadowCastersNotReceivers(shadowCastersNotReceivers)
-            , mShadowsEnabled(true)
-            , mOrganisationMode(0)
+             
         {
         }
 

@@ -72,7 +72,7 @@ namespace Ogre {
     const size_t HardwareBufferManagerBase::EXPIRED_DELAY_FRAME_THRESHOLD = 5;
     //-----------------------------------------------------------------------
     HardwareBufferManagerBase::HardwareBufferManagerBase()
-        : mUnderUsedFrameCount(0)
+         
     {
     }
     //-----------------------------------------------------------------------

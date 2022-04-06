@@ -49,12 +49,12 @@ namespace Ogre {
     {
     private:
         String mPrefix;
-        unsigned long long int mNext;
+        unsigned long long int mNext{1};
     public:
         NameGenerator(const NameGenerator& rhs)
             : mPrefix(rhs.mPrefix), mNext(rhs.mNext) {}
         
-        NameGenerator(const String& prefix) : mPrefix(prefix), mNext(1) {}
+        NameGenerator(const String& prefix) : mPrefix(prefix) {}
 
         /// Generate a new name
         auto generate() -> String

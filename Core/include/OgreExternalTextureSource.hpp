@@ -146,9 +146,9 @@ namespace Ogre
         bool mUpdateEveryFrame;
         
         int mFramesPerSecond,
-            mTechniqueLevel,
-            mPassLevel, 
-            mStateLevel;
+            mTechniqueLevel{0},
+            mPassLevel{0}, 
+            mStateLevel{0};
         //------------------------------------------------------------------//
 
     protected:

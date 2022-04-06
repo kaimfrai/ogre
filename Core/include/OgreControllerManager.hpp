@@ -71,7 +71,7 @@ template <typename T> class ControllerValue;
         ControllerFunctionRealPtr mPassthroughFunction;
 
         /// Last frame number updated
-        unsigned long mLastFrameNumber;
+        unsigned long mLastFrameNumber{0};
 
     public:
         ControllerManager();

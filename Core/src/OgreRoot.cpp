@@ -124,16 +124,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Root::Root(const String& pluginFileName, const String& configFileName,
         const String& logFileName)
-      : mQueuedEnd(false)
-      , mCurrentSceneManager(nullptr)
-      , mNextFrame(0)
-      , mFrameSmoothingTime(0.0f)
-      , mRemoveQueueStructuresOnClear(false)
-      , mDefaultMinPixelSize(0)
-      , mNextMovableObjectTypeFlag(1)
-      , mIsInitialised(false)
-      , mIsBlendIndicesGpuRedundant(true)
-      , mIsBlendWeightsGpuRedundant(true)
+       
     {
         // superclass will do singleton checking
 

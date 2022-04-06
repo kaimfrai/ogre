@@ -96,11 +96,11 @@ protected:
     GLShaderList mShaders;
 
     /// Flag to indicate that uniform references have already been built
-    bool mUniformRefsBuilt;
+    bool mUniformRefsBuilt{false};
     /// GL handle for the program object
-    uint mGLProgramHandle;
+    uint mGLProgramHandle{0};
     /// Flag indicating that the program or pipeline object has been successfully linked
-    int mLinked;
+    int mLinked{false};
 
     /// Compiles and links the vertex and fragment programs
     virtual void compileAndLink() = 0;

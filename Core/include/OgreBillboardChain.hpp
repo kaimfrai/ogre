@@ -311,29 +311,29 @@ class VertexData;
         /// Index data (to allow multiple unconnected chains)
         std::unique_ptr<IndexData> mIndexData;
         /// Is the vertex declaration dirty?
-        bool mVertexDeclDirty;
+        bool mVertexDeclDirty{true};
         /// Do the buffers need recreating?
-        bool mBuffersNeedRecreating;
+        bool mBuffersNeedRecreating{true};
         /// Do the bounds need redefining?
-        mutable bool mBoundsDirty;
+        mutable bool mBoundsDirty{true};
         /// Is the index buffer dirty?
-        bool mIndexContentDirty;
+        bool mIndexContentDirty{true};
         /// Is the vertex buffer dirty?
-        bool mVertexContentDirty;
+        bool mVertexContentDirty{true};
         /// AABB
         mutable AxisAlignedBox mAABB;
         /// Bounding radius
-        mutable Real mRadius;
+        mutable Real mRadius{0.0f};
         /// Material 
         MaterialPtr mMaterial;
         /// Texture coord direction
-        TexCoordDirection mTexCoordDir;
+        TexCoordDirection mTexCoordDir{TCD_U};
         /// Other texture coord range
         Real mOtherTexCoordRange[2];
         /// Camera last used to build the vertex buffer
-        Camera *mVertexCameraUsed;
+        Camera *mVertexCameraUsed{nullptr};
         /// When true, the billboards always face the camera
-        bool mFaceCamera;
+        bool mFaceCamera{true};
         /// Used when mFaceCamera == false; determines the billboard's "normal". i.e.
         /// when the orientation is identity, the billboard is perpendicular to this
         /// vector

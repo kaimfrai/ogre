@@ -38,12 +38,8 @@ namespace Ogre {
 class VertexDeclaration;
 
     //-----------------------------------------------------------------------
-    RenderToVertexBuffer::RenderToVertexBuffer() :
-        mOperationType(RenderOperation::OT_TRIANGLE_LIST),
-        mResetsEveryUpdate(false),
-        mResetRequested(true),
-        mSourceRenderable(nullptr),
-        mMaxVertexCount(1000)
+    RenderToVertexBuffer::RenderToVertexBuffer() 
+        
     {
         mVertexData.reset(new VertexData);
     }

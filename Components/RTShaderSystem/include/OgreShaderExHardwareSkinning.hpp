@@ -75,16 +75,15 @@ class HardwareSkinning : public SubRenderState
 public:
     struct SkinningData
     {
-        SkinningData() :
-            isValid(true), maxBoneCount(0), maxWeightCount(0), skinningType(ST_LINEAR), correctAntipodalityHandling(false), scalingShearingSupport(false)
+        SkinningData()  
         {}
 
-        bool isValid;
-        ushort maxBoneCount;
-        ushort maxWeightCount;
-        SkinningType skinningType;
-        bool correctAntipodalityHandling;
-        bool scalingShearingSupport;
+        bool isValid{true};
+        ushort maxBoneCount{0};
+        ushort maxWeightCount{0};
+        SkinningType skinningType{ST_LINEAR};
+        bool correctAntipodalityHandling{false};
+        bool scalingShearingSupport{false};
     };
 
 // Interface.
@@ -183,8 +182,8 @@ protected:
     SharedPtr<HardwareSkinningTechnique> mActiveTechnique;
     
     ///The factory which created this sub render state
-    const HardwareSkinningFactory* mCreator;
-    SkinningType mSkinningType;
+    const HardwareSkinningFactory* mCreator{nullptr};
+    SkinningType mSkinningType{ST_LINEAR};
 };
 
 /** 
@@ -341,7 +340,7 @@ protected:
 
     ///The maximum number of bones for which hardware skinning is performed.
     ///@see getMaxCalculableBoneCount()
-    ushort mMaxCalculableBoneCount;
+    ushort mMaxCalculableBoneCount{70};
 };
 
 /** @} */

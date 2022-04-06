@@ -65,15 +65,9 @@ namespace Ogre
     //-----------------------------------------------------------------------
     ParticleEmitter::ParticleEmitter(ParticleSystem* psys)
       : mParent(psys),
-        mUseDirPositionRef(false),
-        mDirPositionRef(Vector3::ZERO),
-        mStartTime(0),
-        mDurationMin(0),
-        mDurationMax(0),
-        mDurationRemain(0),
-        mRepeatDelayMin(0),
-        mRepeatDelayMax(0),
-        mRepeatDelayRemain(0)
+        
+        mDirPositionRef(Vector3::ZERO)
+        
     {
 
         // Reasonable defaults

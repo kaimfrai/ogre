@@ -151,7 +151,7 @@ class TagPoint;
         TagPointList mFreeTagPoints;
 
         /// TagPoint automatic handles
-        unsigned short mNextTagPointAutoHandle;
+        unsigned short mNextTagPointAutoHandle{0};
 
         void cloneBoneAndChildren(Bone* source, Bone* parent);
         void prepareImpl() override;

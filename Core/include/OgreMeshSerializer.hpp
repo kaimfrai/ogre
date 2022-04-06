@@ -167,7 +167,7 @@ class Mesh;
         using MeshVersionDataList = std::vector<MeshVersionData *>;
         MeshVersionDataList mVersionData;
 
-        MeshSerializerListener *mListener;
+        MeshSerializerListener *mListener{nullptr};
 
     };
 

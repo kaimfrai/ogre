@@ -97,17 +97,17 @@ class ResourceManager;
     {
     protected:
         /// The type of font
-        FontType mType;
+        FontType mType{FT_TRUETYPE};
 
         /// Source of the font (either an image name or a truetype font)
         String mSource;
 
         /// Size of the truetype font, in points
-        Real mTtfSize;
+        Real mTtfSize{0};
         /// Resolution (dpi) of truetype font
-        uint mTtfResolution;
+        uint mTtfResolution{0};
         /// Max distance to baseline of this (truetype) font
-        int mTtfMaxBearingY;
+        int mTtfMaxBearingY{0};
 
 
     public:
@@ -128,7 +128,7 @@ class ResourceManager;
         TexturePtr mTexture;
 
         /// For TRUE_TYPE font only
-        bool mAntialiasColour;
+        bool mAntialiasColour{false};
 
         /// Range of code points to generate glyphs for (truetype only)
         CodePointRangeList mCodePointRangeList;

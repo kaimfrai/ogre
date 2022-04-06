@@ -92,7 +92,7 @@ static const char *c_meshNames[] =
 };
 
 //------------------------------------------------------------------------------
-Sample_NewInstancing::Sample_NewInstancing() : NUM_INST_ROW(100), NUM_INST_COLUMN(100), mCurrentManager(nullptr), mCurrentMaterialSet(c_materialsTechniques), mCurrentFlags(0), mSkinningTechniques(nullptr)
+Sample_NewInstancing::Sample_NewInstancing() :  mCurrentMaterialSet(c_materialsTechniques) 
 {
     mInfo["Title"] = "New Instancing";
     mInfo["Description"] = "Demonstrates how to use the new InstancedManager to setup many dynamic"

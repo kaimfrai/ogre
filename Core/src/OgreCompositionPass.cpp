@@ -35,8 +35,8 @@ namespace Ogre {
 class CompositionTargetPass;
 
 CompositionPass::CompositionPass(CompositionTargetPass *parent):
-    mParent(parent),
-    mType(PT_RENDERQUAD)
+    mParent(parent)
+    
 {
 }
 //-----------------------------------------------------------------------

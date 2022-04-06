@@ -132,31 +132,29 @@ class VertexDeclaration;
     struct StencilState
     {
         /// Comparison operator for the stencil test
-        CompareFunction compareOp;
+        CompareFunction compareOp{CMPF_LESS_EQUAL};
         /// The action to perform when the stencil check fails
-        StencilOperation stencilFailOp;
+        StencilOperation stencilFailOp{SOP_KEEP};
         /// The action to perform when the stencil check passes, but the depth buffer check fails
-        StencilOperation depthFailOp;
+        StencilOperation depthFailOp{SOP_KEEP};
         /// The action to take when both the stencil and depth check pass
-        StencilOperation depthStencilPassOp;
+        StencilOperation depthStencilPassOp{SOP_KEEP};
 
         /// The reference value used in the stencil comparison
-        uint32 referenceValue;
+        uint32 referenceValue{0};
         ///  The bitmask applied to both the stencil value and the reference value before comparison
-        uint32 compareMask;
+        uint32 compareMask{0xFFFFFFFF};
         /** The bitmask the controls which bits from stencilRefValue will be written to stencil buffer
         (valid for operations such as #SOP_REPLACE) */
-        uint32 writeMask;
+        uint32 writeMask{0xFFFFFFFF};
 
         /// Turns stencil buffer checking on or off
-        bool enabled : 1;
+        bool enabled : 1{false};
         /// Toggles two-sided stencil operation, which swaps increment and decrement for back-facing polygons.
-        bool twoSidedOperation : 1;
+        bool twoSidedOperation : 1{false};
 
         StencilState()
-            : compareOp(CMPF_LESS_EQUAL), stencilFailOp(SOP_KEEP), depthFailOp(SOP_KEEP),
-              depthStencilPassOp(SOP_KEEP), referenceValue(0), compareMask(0xFFFFFFFF),
-              writeMask(0xFFFFFFFF), enabled(false), twoSidedOperation(false)
+             
         {
         }
     };
@@ -1085,7 +1083,7 @@ class VertexDeclaration;
         /** The render targets, ordered by priority. */
         RenderTargetPriorityMap mPrioritisedRenderTargets;
         /** The Active render target. */
-        RenderTarget * mActiveRenderTarget;
+        RenderTarget * mActiveRenderTarget{nullptr};
 
         /** The Active GPU programs and gpu program parameters*/
         GpuProgramParametersSharedPtr mActiveVertexGpuProgramParameters;
@@ -1099,41 +1097,41 @@ class VertexDeclaration;
         // A concrete class of this will be created and
         // made available under the TextureManager singleton,
         // managed by the RenderSystem
-        TextureManager* mTextureManager;
+        TextureManager* mTextureManager{nullptr};
 
         // Active viewport (dest for future rendering operations)
-        Viewport* mActiveViewport;
+        Viewport* mActiveViewport{nullptr};
 
-        CullingMode mCullingMode;
+        CullingMode mCullingMode{CULL_CLOCKWISE};
 
-        size_t mBatchCount;
-        size_t mFaceCount;
-        size_t mVertexCount;
+        size_t mBatchCount{0};
+        size_t mFaceCount{0};
+        size_t mVertexCount{0};
 
         /// Saved manual colour blends
         ColourValue mManualBlendColours[OGRE_MAX_TEXTURE_LAYERS][2];
 
-        bool mInvertVertexWinding;
-        bool mIsReverseDepthBufferEnabled;
+        bool mInvertVertexWinding{false};
+        bool mIsReverseDepthBufferEnabled{false};
 
         /// Texture units from this upwards are disabled
-        size_t mDisabledTexUnitsFrom;
+        size_t mDisabledTexUnitsFrom{0};
 
         /// number of times to render the current state
-        size_t mCurrentPassIterationCount;
-        size_t mCurrentPassIterationNum;
+        size_t mCurrentPassIterationCount{0};
+        size_t mCurrentPassIterationNum{0};
         /// Whether to update the depth bias per render call
-        bool mDerivedDepthBias;
-        float mDerivedDepthBiasBase;
-        float mDerivedDepthBiasMultiplier;
-        float mDerivedDepthBiasSlopeScale;
+        bool mDerivedDepthBias{false};
+        float mDerivedDepthBiasBase{0.0f};
+        float mDerivedDepthBiasMultiplier{0.0f};
+        float mDerivedDepthBiasSlopeScale{0.0f};
 
         /// a global vertex buffer for global instancing
         HardwareVertexBufferSharedPtr mGlobalInstanceVertexBuffer;
         /// a vertex declaration for the global vertex buffer for the global instancing
-        VertexDeclaration* mGlobalInstanceVertexBufferVertexDeclaration;
+        VertexDeclaration* mGlobalInstanceVertexBufferVertexDeclaration{nullptr};
         /// the number of global instances (this number will be multiply by the render op instance number) 
-        size_t mGlobalNumberOfInstances;
+        size_t mGlobalNumberOfInstances{1};
 
         /** updates pass iteration rendering state including bound gpu program parameter
         pass iteration auto constant entry
@@ -1154,22 +1152,22 @@ class VertexDeclaration;
         using HardwareOcclusionQueryList = std::list<HardwareOcclusionQuery *>;
         HardwareOcclusionQueryList mHwOcclusionQueries;
 
-        bool mVertexProgramBound;
-        bool mGeometryProgramBound;
-        bool mFragmentProgramBound;
-        bool mTessellationHullProgramBound;
-        bool mTessellationDomainProgramBound;
-        bool mComputeProgramBound;
+        bool mVertexProgramBound{false};
+        bool mGeometryProgramBound{false};
+        bool mFragmentProgramBound{false};
+        bool mTessellationHullProgramBound{false};
+        bool mTessellationDomainProgramBound{false};
+        bool mComputeProgramBound{false};
 
         // Recording user clip planes
         PlaneList mClipPlanes;
         // Indicator that we need to re-set the clip planes on next render call
-        bool mClipPlanesDirty;
+        bool mClipPlanesDirty{true};
 
         /// Used to store the capabilities of the graphics card
-        RenderSystemCapabilities* mRealCapabilities;
-        RenderSystemCapabilities* mCurrentCapabilities;
-        bool mUseCustomCapabilities;
+        RenderSystemCapabilities* mRealCapabilities{nullptr};
+        RenderSystemCapabilities* mCurrentCapabilities{nullptr};
+        bool mUseCustomCapabilities{false};
 
         /// @deprecated only needed for fixed function APIs
         virtual void setClipPlanesImpl(const PlaneList& clipPlanes) {}
@@ -1179,9 +1177,9 @@ class VertexDeclaration;
 
 
         DriverVersion mDriverVersion;
-        uint16 mNativeShadingLanguageVersion;
+        uint16 mNativeShadingLanguageVersion{0};
 
-        bool mTexProjRelative;
+        bool mTexProjRelative{false};
         Vector3 mTexProjRelativeOrigin;
 
         // Stored options

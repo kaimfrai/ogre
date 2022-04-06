@@ -170,24 +170,24 @@ class CompositionTechnique;
         /// Parent technique
         CompositionTechnique *mParent;
         /// Input mode
-        InputMode mInputMode;
+        InputMode mInputMode{IM_NONE};
         /// (local) output texture
         String mOutputName;
         /// Passes
         Passes mPasses;
         /// This target pass is only executed initially after the effect
         /// has been enabled.
-        bool mOnlyInitial;
+        bool mOnlyInitial{false};
         /// Visibility mask for this render
-        uint32 mVisibilityMask;
+        uint32 mVisibilityMask{0xFFFFFFFF};
         /// LOD bias of this render
-        float mLodBias;
+        float mLodBias{1.0f};
         /// Material scheme name
         String mMaterialScheme;
         /// Shadows option
-        bool mShadowsEnabled;
+        bool mShadowsEnabled{true};
         /// Output Slice
-        int mOutputSlice;
+        int mOutputSlice{0};
     };
 
     /** @} */

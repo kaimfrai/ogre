@@ -87,7 +87,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    GLXGLSupport::GLXGLSupport(int profile) : GLNativeSupport(profile), mGLDisplay(nullptr), mXDisplay(nullptr)
+    GLXGLSupport::GLXGLSupport(int profile) : GLNativeSupport(profile) 
     {
         // A connection that might be shared with the application for GL rendering:
         mGLDisplay = getGLDisplay();

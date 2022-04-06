@@ -142,11 +142,11 @@ class Technique;
         /// The default priority
         ushort mDefaultRenderablePriority;
 
-        bool mSplitPassesByLightingType;
-        bool mSplitNoShadowPasses;
-        bool mShadowCastersCannotBeReceivers;
+        bool mSplitPassesByLightingType{false};
+        bool mSplitNoShadowPasses{false};
+        bool mShadowCastersCannotBeReceivers{false};
 
-        RenderableListener* mRenderableListener;
+        RenderableListener* mRenderableListener{nullptr};
     public:
         RenderQueue();
         virtual ~RenderQueue();

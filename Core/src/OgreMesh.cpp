@@ -88,25 +88,9 @@ namespace Ogre {
     Mesh::Mesh(ResourceManager* creator, const String& name, ResourceHandle handle,
         const String& group, bool isManual, ManualResourceLoader* loader)
         : Resource(creator, name, handle, group, isManual, loader),
-        mBoundRadius(0.0f),
-        mBoneBoundingRadius(0.0f),
-        mBoneAssignmentsOutOfDate(false),
-        mLodStrategy(LodStrategyManager::getSingleton().getDefaultStrategy()),
-        mHasManualLodLevel(false),
-        mNumLods(1),
-        mBufferManager(nullptr),
-        mVertexBufferUsage(HardwareBuffer::HBU_STATIC_WRITE_ONLY),
-        mIndexBufferUsage(HardwareBuffer::HBU_STATIC_WRITE_ONLY),
-        mVertexBufferShadowBuffer(false),
-        mIndexBufferShadowBuffer(false),
-        mPreparedForShadowVolumes(false),
-        mEdgeListsBuilt(false),
-        mAutoBuildEdgeLists(true), // will be set to false by serializers of 1.30 and above
-        mSharedVertexDataAnimationType(VAT_NONE),
-        mSharedVertexDataAnimationIncludesNormals(false),
-        mAnimationTypesDirty(true),
-        mPosesIncludeNormals(false),
-        sharedVertexData(nullptr)
+        
+        mLodStrategy(LodStrategyManager::getSingleton().getDefaultStrategy())
+        
     {
         // Init first (manual) lod
         MeshLodUsage lod;

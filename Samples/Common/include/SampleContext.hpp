@@ -45,10 +45,10 @@ namespace OgreBites
     class SampleContext : public ApplicationContext, public InputListener
     {
     public:
-        Ogre::RenderWindow* mWindow;
+        Ogre::RenderWindow* mWindow{nullptr};
 
         SampleContext(const Ogre::String& appName = /*OGRE_VERSION_NAME*/"Tsathoggua")
-        : ApplicationContext(appName), mWindow(nullptr)
+        : ApplicationContext(appName) 
         {
             mCurrentSample = nullptr;
             mSamplePaused = false;

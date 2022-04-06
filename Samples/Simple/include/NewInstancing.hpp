@@ -92,23 +92,23 @@ protected:
         InstancedEntity instancedEntity;
     };
     */
-    int NUM_INST_ROW;
-    int NUM_INST_COLUMN;
+    int NUM_INST_ROW{100};
+    int NUM_INST_COLUMN{100};
     int                             mInstancingTechnique;
     int                             mCurrentMesh;
     std::vector<MovableObject*>     mEntities;
     std::vector<InstancedEntity*>   mMovedInstances;
     std::vector<SceneNode*>         mSceneNodes;
     std::set<AnimationState*>       mAnimations;
-    InstanceManager                 *mCurrentManager;
+    InstanceManager                 *mCurrentManager{nullptr};
     bool                            mSupportedTechniques[NUM_TECHNIQUES+1];
     const char**                        mCurrentMaterialSet;
-    uint16                          mCurrentFlags;
+    uint16                          mCurrentFlags{0};
 
     SelectMenu                      *mTechniqueMenu;
     CheckBox                        *mMoveInstances;
     CheckBox                        *mAnimateInstances;
-    SelectMenu                      *mSkinningTechniques;
+    SelectMenu                      *mSkinningTechniques{nullptr};
     CheckBox                        *mEnableShadows;
     CheckBox                        *mSetStatic;
     CheckBox                        *mUseSceneNodes;

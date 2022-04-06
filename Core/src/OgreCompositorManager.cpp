@@ -58,8 +58,8 @@ auto CompositorManager::getSingleton() -> CompositorManager&
 {  
     assert( msSingleton );  return ( *msSingleton );  
 }//-----------------------------------------------------------------------
-CompositorManager::CompositorManager():
-    mRectangle(nullptr)
+CompositorManager::CompositorManager()
+    
 {
     initialise();
 

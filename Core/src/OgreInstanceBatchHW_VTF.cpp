@@ -66,8 +66,8 @@ namespace Ogre
         const MaterialPtr &material, size_t instancesPerBatch, 
         const Mesh::IndexMap *indexToBoneMap, const String &batchName )
             : BaseInstanceBatchVTF( creator, meshReference, material, 
-                                    instancesPerBatch, indexToBoneMap, batchName),
-              mKeepStatic( false )
+                                    instancesPerBatch, indexToBoneMap, batchName)
+              
     {
     }
     //-----------------------------------------------------------------------

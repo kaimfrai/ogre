@@ -81,7 +81,7 @@ namespace Ogre
     protected:
         using ChannelMap = std::map<String, uint16>;
         ChannelMap mChannelMap;
-        uint16 mNextChannel;
+        uint16 mNextChannel{0};
         mutable std::recursive_mutex mChannelMapMutex;
     public:
         /// Numeric identifier for a request
@@ -104,7 +104,7 @@ namespace Ogre
             /// Identifier (assigned by the system)
             RequestID mID;
             /// Abort Flag
-            mutable bool mAborted;
+            mutable bool mAborted{false};
 
         public:
             /// Constructor 
@@ -232,7 +232,7 @@ namespace Ogre
             virtual void handleResponse(const Response* res, const WorkQueue* srcQ) = 0;
         };
 
-        WorkQueue() : mNextChannel(0) {}
+        WorkQueue()  {}
         virtual ~WorkQueue() {}
 
         /** Start up the queue with the options that have been set.
@@ -476,10 +476,10 @@ namespace Ogre
         void setResponseProcessingTimeLimit(unsigned long ms) override { mResposeTimeLimitMS = ms; }
     protected:
         String mName;
-        size_t mWorkerThreadCount;
-        bool mWorkerRenderSystemAccess;
-        bool mIsRunning;
-        unsigned long mResposeTimeLimitMS;
+        size_t mWorkerThreadCount{1};
+        bool mWorkerRenderSystemAccess{false};
+        bool mIsRunning{false};
+        unsigned long mResposeTimeLimitMS{8};
 
         using RequestQueue = std::deque<Request *>;
         using ResponseQueue = std::deque<Response *>;
@@ -501,7 +501,7 @@ namespace Ogre
 
             void run();
         };
-        WorkerFunc* mWorkerFunc;
+        WorkerFunc* mWorkerFunc{nullptr};
 
         /** Intermediate structure to hold a pointer to a request handler which 
             provides insurance against the handler itself being disconnected
@@ -559,10 +559,10 @@ namespace Ogre
 
         RequestHandlerListByChannel mRequestHandlers;
         ResponseHandlerListByChannel mResponseHandlers;
-        RequestID mRequestCount; // Guarded by mRequestMutex
-        bool mPaused;
-        bool mAcceptRequests;
-        bool mShuttingDown;
+        RequestID mRequestCount{0}; // Guarded by mRequestMutex
+        bool mPaused{false};
+        bool mAcceptRequests{true};
+        bool mShuttingDown{false};
 
         //NOTE: If you lock multiple mutexes at the same time, the order is important!
         // For example if threadA locks mIdleMutex first then tries to lock mProcessMutex,
@@ -584,8 +584,8 @@ namespace Ogre
         void addRequestWithRID(RequestID rid, uint16 channel, uint16 requestType, const Any& rData, uint8 retryCount);
         
         RequestQueue mIdleRequestQueue; // Guarded by mIdleMutex
-        bool mIdleThreadRunning; // Guarded by mIdleMutex
-        Request* mIdleProcessed; // Guarded by mProcessMutex
+        bool mIdleThreadRunning{false}; // Guarded by mIdleMutex
+        Request* mIdleProcessed{nullptr}; // Guarded by mProcessMutex
         
 
         auto processIdleRequests() -> bool;

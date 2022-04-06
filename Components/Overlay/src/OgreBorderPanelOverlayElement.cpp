@@ -137,16 +137,9 @@ namespace Ogre {
     //---------------------------------------------------------------------
     BorderPanelOverlayElement::BorderPanelOverlayElement(const String& name)
       : PanelOverlayElement(name), 
-        mLeftBorderSize(0),
-        mRightBorderSize(0),
-        mTopBorderSize(0),
-        mBottomBorderSize(0),
-        mPixelLeftBorderSize(0),
-        mPixelRightBorderSize(0),
-        mPixelTopBorderSize(0),
-        mPixelBottomBorderSize(0),
-        mBorderMaterial(),
-        mBorderRenderable(nullptr)        
+        
+        mBorderMaterial()
+               
     {   
         mBorderUV->u1 = mBorderUV->u2 = mBorderUV->v1 = mBorderUV->v2 = 0;
 

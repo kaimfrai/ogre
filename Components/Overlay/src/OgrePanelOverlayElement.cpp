@@ -87,13 +87,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     PanelOverlayElement::PanelOverlayElement(const String& name)
         : OverlayContainer(name)
-        , mTransparent(false)
-        // Defer creation of texcoord buffer until we know how big it needs to be
-        , mNumTexCoordsInBuffer(0)
-        , mU1(0.0)
-        , mV1(0.0)
-        , mU2(1.0)
-        , mV2(1.0)
+         
 
     {
         // Init tiling

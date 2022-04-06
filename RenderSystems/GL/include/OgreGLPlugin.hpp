@@ -58,7 +58,7 @@ namespace Ogre
         /// @copydoc Plugin::uninstall
         void uninstall() override;
     protected:
-        GLRenderSystem* mRenderSystem;
+        GLRenderSystem* mRenderSystem{nullptr};
     };
 }
 

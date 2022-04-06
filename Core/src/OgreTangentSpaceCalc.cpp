@@ -45,10 +45,7 @@ namespace Ogre
 {
     //---------------------------------------------------------------------
     TangentSpaceCalc::TangentSpaceCalc()
-        : mVData(nullptr)
-        , mSplitMirrored(false)
-        , mSplitRotated(false)
-        , mStoreParityInW(false)
+         
     {
     }
 

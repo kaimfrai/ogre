@@ -999,7 +999,7 @@ class LodStrategy;
      * MaterialTranslator
      *************************************************************************/
     MaterialTranslator::MaterialTranslator()
-        :mMaterial(nullptr)
+        
     {
     }
     //-------------------------------------------------------------------------
@@ -1160,7 +1160,7 @@ class LodStrategy;
      * TechniqueTranslator
      *************************************************************************/
     TechniqueTranslator::TechniqueTranslator()
-        :mTechnique(nullptr)
+        
     {
     }
     //-------------------------------------------------------------------------
@@ -1338,7 +1338,7 @@ class LodStrategy;
      * PassTranslator
      *************************************************************************/
     PassTranslator::PassTranslator()
-        :mPass(nullptr)
+        
     {
     }
     //-------------------------------------------------------------------------
@@ -2340,7 +2340,7 @@ class LodStrategy;
      * TextureUnitTranslator
      *************************************************************************/
     TextureUnitTranslator::TextureUnitTranslator()
-        :mUnit(nullptr)
+        
     {
     }
     //-------------------------------------------------------------------------
@@ -4305,7 +4305,7 @@ class LodStrategy;
      * ParticleSystemTranslator
      *************************************************************************/
     ParticleSystemTranslator::ParticleSystemTranslator()
-        :mSystem(nullptr)
+        
     {
     }
 
@@ -4424,7 +4424,7 @@ class LodStrategy;
      * ParticleEmitterTranslator
      *************************************************************************/
     ParticleEmitterTranslator::ParticleEmitterTranslator()
-        :mEmitter(nullptr)
+        
     {
     }
     //-------------------------------------------------------------------------
@@ -4498,7 +4498,7 @@ class LodStrategy;
      * ParticleAffectorTranslator
      *************************************************************************/
     ParticleAffectorTranslator::ParticleAffectorTranslator()
-        :mAffector(nullptr)
+        
     {
     }
     //-------------------------------------------------------------------------
@@ -4571,7 +4571,7 @@ class LodStrategy;
      * CompositorTranslator
      *************************************************************************/
     CompositorTranslator::CompositorTranslator()
-        :mCompositor(nullptr)
+        
     {
     }
 
@@ -4622,7 +4622,7 @@ class LodStrategy;
      * CompositionTechniqueTranslator
      *************************************************************************/
     CompositionTechniqueTranslator::CompositionTechniqueTranslator()
-        :mTechnique(nullptr)
+        
     {
     }
     //-------------------------------------------------------------------------
@@ -4882,7 +4882,7 @@ class LodStrategy;
      * CompositionTargetPass
      *************************************************************************/
     CompositionTargetPassTranslator::CompositionTargetPassTranslator()
-        :mTarget(nullptr)
+        
     {
     }
     //-------------------------------------------------------------------------
@@ -4967,7 +4967,7 @@ class LodStrategy;
      * CompositionPassTranslator
      *************************************************************************/
     CompositionPassTranslator::CompositionPassTranslator()
-        :mPass(nullptr)
+        
     {
     }
 

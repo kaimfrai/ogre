@@ -78,20 +78,20 @@ struct GpuNamedConstants;
     /// Syntax code e.g. arbvp1, vs_2_0 etc
     String mSyntaxCode;
     /// The type of the program
-    GpuProgramType mType;
+    GpuProgramType mType{GPT_VERTEX_PROGRAM};
     /// Whether we need to load source from file or not
-    bool mLoadFromFile;
+    bool mLoadFromFile{true};
     /// Does this (vertex) program include skeletal animation?
-    bool mSkeletalAnimation;
+    bool mSkeletalAnimation{false};
     /// Does this (vertex) program include morph animation?
-    bool mMorphAnimation;
+    bool mMorphAnimation{false};
     /// Does this (vertex) program require support for vertex texture fetch?
-    bool mVertexTextureFetch;
+    bool mVertexTextureFetch{false};
     /// Does this (geometry) program require adjacency information?
-    bool mNeedsAdjacencyInfo;
+    bool mNeedsAdjacencyInfo{false};
     /// Did we encounter a compilation error?
-    bool mCompileError;
-    bool mLoadedManualNamedConstants;
+    bool mCompileError{false};
+    bool mLoadedManualNamedConstants{false};
     /// The default parameters for use with this object
     GpuProgramParametersSharedPtr mDefaultParams;
     /** Record of logical to physical buffer maps. Mandatory for low-level
@@ -107,7 +107,7 @@ struct GpuNamedConstants;
     /// File from which to load named constants manually
     String mManualNamedConstantsFile;
     /// Does this (vertex) program include pose animation (count of number of poses supported)
-    ushort mPoseAnimation;
+    ushort mPoseAnimation{0};
 
     /** Internal method for setting up the basic parameter definitions for a subclass.
         @remarks

@@ -38,7 +38,7 @@
 namespace Ogre
 {
     GLXContext::GLXContext(GLXGLSupport* glsupport, ::GLXFBConfig fbconfig, ::GLXDrawable drawable, ::GLXContext context) :
-        mDrawable(drawable), mContext(nullptr), mFBConfig(fbconfig), mGLSupport(glsupport), mExternalContext(false)
+        mDrawable(drawable),  mFBConfig(fbconfig), mGLSupport(glsupport) 
     {
         GLRenderSystemCommon *renderSystem = static_cast<GLRenderSystemCommon*>(Root::getSingleton().getRenderSystem());
         GLXContext* mainContext = static_cast<GLXContext*>(renderSystem->_getMainContext());

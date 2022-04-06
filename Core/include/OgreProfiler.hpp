@@ -164,12 +164,12 @@ namespace Ogre {
         String          name;
 
         /// The name of the parent, null if root
-        ProfileInstance* parent;
+        ProfileInstance* parent{nullptr};
 
         ProfileChildren children;
 
         ProfileFrame frame;
-        ulong frameNumber;
+        ulong frameNumber{0};
 
         ProfileHistory history;
 
@@ -178,10 +178,10 @@ namespace Ogre {
 
         /// Represents the total time of all child profiles to subtract
         /// from this profile
-        ulong           accumClocks;
+        ulong           accumClocks{0};
 
         /// The hierarchical level of this profile, 0 being the root profile
-        uint            hierarchicalLvl;
+        uint            hierarchicalLvl{0};
     };
 
     /** ProfileSessionListener should be used to visualize profile results.
@@ -399,44 +399,44 @@ namespace Ogre {
             using ProfileChildren = ProfileInstance::ProfileChildren;
 
             ProfileInstance* mCurrent;
-            ProfileInstance* mLast;
+            ProfileInstance* mLast{nullptr};
             ProfileInstance mRoot;
 
             /// Holds the names of disabled profiles
             DisabledProfileMap mDisabledProfiles;
 
             /// Whether the GUI elements have been initialized
-            bool mInitialized;
+            bool mInitialized{false};
 
             /// The number of frames that must elapse before the current
             /// frame display is updated
-            uint mUpdateDisplayFrequency;
+            uint mUpdateDisplayFrequency{10};
 
             /// The number of elapsed frame, used with mUpdateDisplayFrequency
-            uint mCurrentFrame;
+            uint mCurrentFrame{0};
 
             /// The timer used for profiling
-            Timer* mTimer;
+            Timer* mTimer{nullptr};
 
             /// The total time each frame takes
-            ulong mTotalFrameClocks;
+            ulong mTotalFrameClocks{0};
 
             /// Whether this profiler is enabled
-            bool mEnabled;
+            bool mEnabled{false};
 
             /// Keeps track of the new enabled/disabled state that the user has requested
             /// which will be applied after the frame ends
-            bool mNewEnableState;
+            bool mNewEnableState{false};
 
             /// Mask to decide whether a type of profile is enabled or not
-            uint32 mProfileMask;
+            uint32 mProfileMask{0xFFFFFFFF};
 
             /// The max frame time recorded
-            ulong mMaxTotalFrameClocks;
+            ulong mMaxTotalFrameClocks{0};
 
             /// Rolling average of clocks
-            long double mAverageFrameClocks;
-            bool mResetExtents;
+            long double mAverageFrameClocks{0};
+            bool mResetExtents{false};
 
 
     }; // end class

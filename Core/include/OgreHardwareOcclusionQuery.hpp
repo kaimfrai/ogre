@@ -120,9 +120,9 @@ public:
     //--
     protected :
         /// Number of visible pixels determined by last query
-        unsigned int mPixelCount;
+        unsigned int mPixelCount{0};
         /// Has the query returned a result yet?
-        bool         mIsQueryResultStillOutstanding;
+        bool         mIsQueryResultStillOutstanding{false};
 };
 
     /** @} */

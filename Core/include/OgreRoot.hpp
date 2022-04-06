@@ -118,7 +118,7 @@ struct SceneManagerMetaData;
         RenderSystem* mActiveRenderer;
         String mVersion;
         String mConfigFileName;
-        bool mQueuedEnd;
+        bool mQueuedEnd{false};
         // In case multiple render windows are created, only once are the resources loaded.
         bool mFirstTimePostWindowInit;
 
@@ -161,16 +161,16 @@ struct SceneManagerMetaData;
         std::unique_ptr<RenderSystemCapabilitiesManager> mRenderSystemCapabilitiesManager;
 
         std::unique_ptr<SceneManagerEnumerator> mSceneManagerEnum;
-        SceneManager* mCurrentSceneManager;
+        SceneManager* mCurrentSceneManager{nullptr};
 
         std::unique_ptr<ShadowTextureManager> mShadowTextureManager;
 
         RenderWindow* mAutoWindow;
 
-        unsigned long mNextFrame;
-        Real mFrameSmoothingTime;
-        bool mRemoveQueueStructuresOnClear;
-        Real mDefaultMinPixelSize;
+        unsigned long mNextFrame{0};
+        Real mFrameSmoothingTime{0.0f};
+        bool mRemoveQueueStructuresOnClear{false};
+        Real mDefaultMinPixelSize{0};
 
     private:
         /// List of plugin DLLs loaded
@@ -178,14 +178,14 @@ struct SceneManagerMetaData;
         /// List of Plugin instances registered
         PluginInstanceList mPlugins;
 
-        uint32 mNextMovableObjectTypeFlag;
+        uint32 mNextMovableObjectTypeFlag{1};
 
         /// Are we initialised yet?
-        bool mIsInitialised;
+        bool mIsInitialised{false};
         ///Tells whether blend indices information needs to be passed to the GPU
-        bool mIsBlendIndicesGpuRedundant;
+        bool mIsBlendIndicesGpuRedundant{true};
         ///Tells whether blend weights information needs to be passed to the GPU
-        bool mIsBlendWeightsGpuRedundant;
+        bool mIsBlendWeightsGpuRedundant{true};
 
         /** Method reads a plugins configuration file and instantiates all
             plugins.

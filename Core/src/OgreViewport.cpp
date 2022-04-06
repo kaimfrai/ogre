@@ -54,17 +54,11 @@ namespace Ogre {
         // Actual dimensions will update later
         , mZOrder(ZOrder)
         , mBackColour(ColourValue::Black)
-        , mDepthClearValue(1)
-        , mClearEveryFrame(true)
-        , mClearBuffers(FBT_COLOUR | FBT_DEPTH)
-        , mUpdated(false)
-        , mShowOverlays(true)
-        , mShowSkies(true)
-        , mShowShadows(true)
-        , mVisibilityMask(0xFFFFFFFF)
-        , mMaterialSchemeName(MaterialManager::DEFAULT_SCHEME_NAME)
-        , mIsAutoUpdated(true)
-		, mColourBuffer(CBT_BACK)
+        , 
+         mClearBuffers(FBT_COLOUR | FBT_DEPTH)
+        , 
+         mMaterialSchemeName(MaterialManager::DEFAULT_SCHEME_NAME)
+         
     {           
         LogManager::getSingleton().stream(LML_TRIVIAL)
             << "Creating viewport on target '" << target->getName() << "'"

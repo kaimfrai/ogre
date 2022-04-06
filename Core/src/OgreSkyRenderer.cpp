@@ -65,7 +65,7 @@ class Node;
 class RenderQueue;
 
 SceneManager::SkyRenderer::SkyRenderer(SceneManager* owner)
-    : mSceneManager(owner), mSceneNode(nullptr), mEnabled(false)
+    : mSceneManager(owner) 
 {
 }
 

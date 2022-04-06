@@ -212,7 +212,7 @@ template <typename T> class Controller;
         /// Delta width of the ribbon
         RealList mDeltaWidth;
         /// controller used to hook up frame time to fader
-        Controller<Real>* mFadeController;
+        Controller<Real>* mFadeController{nullptr};
         /// controller value for hooking up frame time to fader
         ControllerValueRealPtr mTimeControllerValue;
 

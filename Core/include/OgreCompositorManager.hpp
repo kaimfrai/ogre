@@ -220,7 +220,7 @@ class Viewport;
          */
         void freeChains();
 
-        Rectangle2D *mRectangle;
+        Rectangle2D *mRectangle{nullptr};
 
         /// List of instances
         using Instances = std::vector<CompositorInstance *>;

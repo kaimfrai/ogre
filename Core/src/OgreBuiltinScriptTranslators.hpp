@@ -39,7 +39,7 @@ namespace Ogre{
     class MaterialTranslator : public ScriptTranslator
     {
     protected:
-        Material *mMaterial;
+        Material *mMaterial{nullptr};
         Ogre::AliasTextureNamePairList mTextureAliases;
     public:
         MaterialTranslator();
@@ -49,7 +49,7 @@ namespace Ogre{
     class TechniqueTranslator : public ScriptTranslator
     {
     protected:
-        Technique *mTechnique;
+        Technique *mTechnique{nullptr};
     public:
         TechniqueTranslator();
         void translate(ScriptCompiler *compiler, const AbstractNodePtr &node) override;
@@ -58,7 +58,7 @@ namespace Ogre{
     class PassTranslator : public ScriptTranslator
     {
     protected:
-        Pass *mPass;
+        Pass *mPass{nullptr};
     public:
         PassTranslator();
         void translate(ScriptCompiler *compiler, const AbstractNodePtr &node) override;
@@ -71,7 +71,7 @@ namespace Ogre{
     class TextureUnitTranslator : public ScriptTranslator
     {
     protected:
-        TextureUnitState *mUnit;
+        TextureUnitState *mUnit{nullptr};
     public:
         TextureUnitTranslator();
         void translate(ScriptCompiler *compiler, const AbstractNodePtr &node) override;
@@ -115,7 +115,7 @@ namespace Ogre{
     class ParticleSystemTranslator : public ScriptTranslator
     {
     protected:
-        Ogre::ParticleSystem *mSystem;
+        Ogre::ParticleSystem *mSystem{nullptr};
     public:
         ParticleSystemTranslator();
         void translate(ScriptCompiler *compiler, const AbstractNodePtr &node) override;
@@ -123,7 +123,7 @@ namespace Ogre{
     class ParticleEmitterTranslator : public ScriptTranslator
     {
     protected:
-        Ogre::ParticleEmitter *mEmitter;
+        Ogre::ParticleEmitter *mEmitter{nullptr};
     public:
         ParticleEmitterTranslator();
         void translate(ScriptCompiler *compiler, const AbstractNodePtr &node) override;
@@ -131,7 +131,7 @@ namespace Ogre{
     class ParticleAffectorTranslator : public ScriptTranslator
     {
     protected:
-        Ogre::ParticleAffector *mAffector;
+        Ogre::ParticleAffector *mAffector{nullptr};
     public:
         ParticleAffectorTranslator();
         void translate(ScriptCompiler *compiler, const AbstractNodePtr &node) override;
@@ -143,7 +143,7 @@ namespace Ogre{
     class CompositorTranslator : public ScriptTranslator
     {
     protected:
-        Compositor *mCompositor;
+        Compositor *mCompositor{nullptr};
     public:
         CompositorTranslator();
         void translate(ScriptCompiler *compiler, const AbstractNodePtr &node) override;
@@ -151,7 +151,7 @@ namespace Ogre{
     class CompositionTechniqueTranslator : public ScriptTranslator
     {
     protected:
-        CompositionTechnique *mTechnique;
+        CompositionTechnique *mTechnique{nullptr};
     public:
         CompositionTechniqueTranslator();
         void translate(ScriptCompiler *compiler, const AbstractNodePtr &node) override;
@@ -159,7 +159,7 @@ namespace Ogre{
     class CompositionTargetPassTranslator : public ScriptTranslator
     {
     protected:
-        CompositionTargetPass *mTarget;
+        CompositionTargetPass *mTarget{nullptr};
     public:
         CompositionTargetPassTranslator();
         void translate(ScriptCompiler *compiler, const AbstractNodePtr &node) override;
@@ -167,7 +167,7 @@ namespace Ogre{
     class CompositionPassTranslator : public ScriptTranslator
     {
     protected:
-        CompositionPass *mPass;
+        CompositionPass *mPass{nullptr};
     public:
         CompositionPassTranslator();
         void translate(ScriptCompiler *compiler, const AbstractNodePtr &node) override;

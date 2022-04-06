@@ -132,10 +132,10 @@ class SceneManager;
         };
     protected:
         SceneManager* mParentSceneMgr;
-        uint32 mQueryMask;
+        uint32 mQueryMask{0xFFFFFFFF};
         uint32 mQueryTypeMask;
         std::set<WorldFragmentType> mSupportedWorldFragments;
-        WorldFragmentType mWorldFragmentType;
+        WorldFragmentType mWorldFragmentType{SceneQuery::WFT_NONE};
     
     public:
         /** Standard constructor, should be called by SceneManager. */
@@ -238,7 +238,7 @@ class SceneManager;
     class RegionSceneQuery
         : public SceneQuery, public SceneQueryListener
     {
-        SceneQueryResult* mLastResult;
+        SceneQueryResult* mLastResult{nullptr};
     public:
         /** Standard constructor, should be called by SceneManager. */
         RegionSceneQuery(SceneManager* mgr);
@@ -523,7 +523,7 @@ class SceneManager;
     class IntersectionSceneQuery
         : public SceneQuery, public IntersectionSceneQueryListener 
     {
-        IntersectionSceneQueryResult* mLastResult;
+        IntersectionSceneQueryResult* mLastResult{nullptr};
     public:
         IntersectionSceneQuery(SceneManager* mgr);
         ~IntersectionSceneQuery() override;

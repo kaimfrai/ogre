@@ -144,13 +144,13 @@ namespace Ogre {
         void setRenderToBufferMaterialName(const String& materialName);
 
     protected:
-        RenderOperation::OperationType mOperationType;
-        bool mResetsEveryUpdate;
-        bool mResetRequested;
+        RenderOperation::OperationType mOperationType{RenderOperation::OT_TRIANGLE_LIST};
+        bool mResetsEveryUpdate{false};
+        bool mResetRequested{true};
         MaterialPtr mMaterial;
-        Renderable* mSourceRenderable;
+        Renderable* mSourceRenderable{nullptr};
         std::unique_ptr<VertexData> mVertexData;
-        unsigned int mMaxVertexCount;
+        unsigned int mMaxVertexCount{1000};
     };
 
     /** @} */

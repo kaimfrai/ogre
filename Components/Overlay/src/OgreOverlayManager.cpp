@@ -63,10 +63,8 @@ class RenderQueue;
     }
     //---------------------------------------------------------------------
     OverlayManager::OverlayManager() 
-      : mLastViewportWidth(0), 
-        mLastViewportHeight(0), 
-        mLastViewportOrientationMode(OR_DEGREE_0),
-        mPixelRatio(1)
+      
+        
     {
 
         // Scripting is supported by this manager

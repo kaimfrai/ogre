@@ -77,7 +77,7 @@ namespace Ogre
     }
     //---------------------------------------------------------------------
     ShadowTextureManager::ShadowTextureManager()
-        : mCount(0)
+         
     {
 
     }

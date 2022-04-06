@@ -111,7 +111,7 @@ class VertexData;
         ushort mRenderQueuePriority;
 
         /// The LOD number of the material to use, calculated by Entity::_notifyCurrentCamera
-        unsigned short mMaterialLodIndex;
+        unsigned short mMaterialLodIndex{0};
 
         /// Blend buffer details for dedicated geometry
         std::unique_ptr<VertexData> mSkelAnimVertexData;
@@ -132,7 +132,7 @@ class VertexData;
         /// Have we applied any vertex animation to geometry?
         bool mVertexAnimationAppliedThisFrame;
         /// The camera for which the cached distance is valid
-        mutable const Camera *mCachedCamera;
+        mutable const Camera *mCachedCamera{nullptr};
 
         /** Internal method for preparing this Entity for use in animation. */
         void prepareTempBlendBuffers();

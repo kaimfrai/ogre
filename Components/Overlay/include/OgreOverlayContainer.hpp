@@ -71,7 +71,7 @@ class RenderQueue;
         /// Map of container children (subset of mChildren)
         ChildContainerMap mChildContainers;
 
-        bool mChildrenProcessEvents;
+        bool mChildrenProcessEvents{true};
  
     public:
         /// Constructor: do not call direct, use OverlayManager::createOverlayElement

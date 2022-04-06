@@ -115,12 +115,12 @@ class RenderQueue;
 
     protected:
         /// Flag indicating if this panel should be visual or just group things
-        bool mTransparent;
+        bool mTransparent{false};
         // Texture tiling
         Real mTileX[OGRE_MAX_TEXTURE_LAYERS];
         Real mTileY[OGRE_MAX_TEXTURE_LAYERS];
-        size_t mNumTexCoordsInBuffer;
-        Real mU1, mV1, mU2, mV2;
+        size_t mNumTexCoordsInBuffer{0};
+        Real mU1{0.0}, mV1{0.0}, mU2{1.0}, mV2{1.0};
 
         RenderOperation mRenderOp;
 

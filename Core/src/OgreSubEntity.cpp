@@ -54,7 +54,7 @@ class Technique;
     //-----------------------------------------------------------------------
     SubEntity::SubEntity (Entity* parent, SubMesh* subMeshBasis)
         : Renderable(), mParentEntity(parent),
-        mSubMesh(subMeshBasis), mMaterialLodIndex(0), mCachedCamera(nullptr)
+        mSubMesh(subMeshBasis) 
     {
         mVisible = true;
         mRenderQueueID = 0;

@@ -227,19 +227,19 @@ template <typename T> class Controller;
     protected:
         ColourValue mBorderColour;
         /// Texture anisotropy.
-        unsigned int mMaxAniso;
+        unsigned int mMaxAniso{1};
         /// Mipmap bias (always float, not Real).
-        float mMipmapBias;
+        float mMipmapBias{0};
         UVWAddressingMode mAddressMode;
         /// Texture filtering - minification.
-        FilterOptions mMinFilter;
+        FilterOptions mMinFilter{FO_LINEAR};
         /// Texture filtering - magnification.
-        FilterOptions mMagFilter;
+        FilterOptions mMagFilter{FO_LINEAR};
         /// Texture filtering - mipmapping.
-        FilterOptions mMipFilter;
-        CompareFunction mCompareFunc;
-        bool mCompareEnabled : 1;
-        bool mDirty : 1; // flag for derived classes to sync with implementation
+        FilterOptions mMipFilter{FO_POINT};
+        CompareFunction mCompareFunc{CMPF_GREATER_EQUAL};
+        bool mCompareEnabled : 1{false};
+        bool mDirty : 1{true}; // flag for derived classes to sync with implementation
     };
     using SamplerPtr = std::shared_ptr<Sampler>;
 

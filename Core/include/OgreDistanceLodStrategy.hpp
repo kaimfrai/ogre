@@ -114,8 +114,8 @@ class MovableObject;
         auto isReferenceViewEnabled() const -> bool;
 
     private:
-        bool mReferenceViewEnabled;
-        Real mReferenceViewValue;
+        bool mReferenceViewEnabled{false};
+        Real mReferenceViewValue{-1};
 
     };
     /** @} */

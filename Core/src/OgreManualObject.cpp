@@ -77,12 +77,9 @@ class Camera;
 #define TEMP_INITIAL_INDEX_SIZE sizeof(uint32) * TEMP_INITIAL_SIZE
     //-----------------------------------------------------------------------------
 ManualObject::ManualObject(const String& name)
-    : MovableObject(name), mBufferUsage(HardwareBuffer::HBU_STATIC_WRITE_ONLY), mCurrentSection(nullptr),
-      mCurrentUpdating(false), mFirstVertex(true), mTempVertexPending(false), mTempVertexBuffer(nullptr),
-      mTempVertexSize(TEMP_INITIAL_VERTEX_SIZE), mTempIndexBuffer(nullptr),
-      mTempIndexSize(TEMP_INITIAL_INDEX_SIZE), mDeclSize(0), mEstVertexCount(0), mEstIndexCount(0),
-      mTexCoordIndex(0), mRadius(0), mAnyIndexed(false), mEdgeList(nullptr), mUseIdentityProjection(false),
-      mUseIdentityView(false), mKeepDeclarationOrder(false)
+    : MovableObject(name), 
+      mTempVertexSize(TEMP_INITIAL_VERTEX_SIZE), 
+      mTempIndexSize(TEMP_INITIAL_INDEX_SIZE) 
 {
     }
     //-----------------------------------------------------------------------------

@@ -88,7 +88,7 @@ class Viewport;
         static const Matrix4 msNormalToLightSpace;
         static const Matrix4 msLightSpaceToNormal;
 
-        mutable bool mLightFrustumCameraCalculated;
+        mutable bool mLightFrustumCameraCalculated{false};
 
         /** Internal class holding a point list representation of a convex body.
         */

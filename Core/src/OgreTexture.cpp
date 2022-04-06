@@ -52,29 +52,8 @@ namespace Ogre {
     Texture::Texture(ResourceManager* creator, const String& name, 
         ResourceHandle handle, const String& group, bool isManual, 
         ManualResourceLoader* loader)
-        : Resource(creator, name, handle, group, isManual, loader),
-            // init defaults; can be overridden before load()
-            mHeight(512),
-            mWidth(512),
-            mDepth(1),
-            mNumRequestedMipmaps(0),
-            mNumMipmaps(0),
-            mGamma(1.0f),
-            mFSAA(0),
-            mFormat(PF_UNKNOWN),
-            mUsage(TU_DEFAULT),
-            mSrcFormat(PF_UNKNOWN),
-            mSrcWidth(0),
-            mSrcHeight(0), 
-            mSrcDepth(0),
-            mDesiredFormat(PF_UNKNOWN),
-            mDesiredIntegerBitDepth(0),
-            mDesiredFloatBitDepth(0),
-            mTreatLuminanceAsAlpha(false),
-            mInternalResourcesCreated(false),
-            mMipmapsHardwareGenerated(false),
-            mHwGamma(false),
-            mTextureType(TEX_TYPE_2D)
+        : Resource(creator, name, handle, group, isManual, loader)
+            
     {
         if (createParamDictionary("Texture"))
         {

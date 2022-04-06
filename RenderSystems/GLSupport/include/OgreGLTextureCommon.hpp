@@ -43,7 +43,7 @@ class GLTextureCommon  : public Texture
 public:
     GLTextureCommon(ResourceManager* creator, const String& name, ResourceHandle handle,
                     const String& group, bool isManual, ManualResourceLoader* loader)
-        : Texture(creator, name, handle, group, isManual, loader), mTextureID(0)
+        : Texture(creator, name, handle, group, isManual, loader) 
     {
     }
 
@@ -59,7 +59,7 @@ protected:
     */
     auto getMaxMipmaps() -> uint32;
 
-    uint mTextureID;
+    uint mTextureID{0};
 };
 
 } /* namespace Ogre */

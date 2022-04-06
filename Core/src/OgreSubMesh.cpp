@@ -55,14 +55,7 @@ class HardwareBufferManagerBase;
 
     //-----------------------------------------------------------------------
     SubMesh::SubMesh()
-        : vertexData(nullptr)
-        , parent(nullptr)
-        , useSharedVertices(true)
-        , operationType(RenderOperation::OT_TRIANGLE_LIST)
-        , mBoneAssignmentsOutOfDate(false)
-        , mVertexAnimationType(VAT_NONE)
-        , mVertexAnimationIncludesNormals(false)
-        , mBuildEdgesEnabled(true)
+         
     {
         indexData = new IndexData();
     }

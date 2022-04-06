@@ -44,7 +44,7 @@ namespace Ogre {
     template<> GLRTTManager* Singleton<GLRTTManager>::msSingleton = nullptr;
 
     GLFrameBufferObjectCommon::GLFrameBufferObjectCommon(int32 fsaa)
-        : mFB(0), mMultisampleFB(0), mNumSamples(fsaa)
+        :  mNumSamples(fsaa)
     {
         auto* rs = static_cast<GLRenderSystemCommon*>(
             Root::getSingleton().getRenderSystem());

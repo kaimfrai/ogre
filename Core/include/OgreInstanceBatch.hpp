@@ -131,32 +131,32 @@ class Technique;
 
         /// This bbox contains all (visible) instanced entities
         AxisAlignedBox      mFullBoundingBox;
-        Real                mBoundingRadius;
-        bool                mBoundsDirty;
-        bool                mBoundsUpdated; //Set to false by derived classes that need it
-        Camera              *mCurrentCamera;
+        Real                mBoundingRadius{ 0 };
+        bool                mBoundsDirty{ false };
+        bool                mBoundsUpdated{ false }; //Set to false by derived classes that need it
+        Camera              *mCurrentCamera{ nullptr };
 
-        unsigned short      mMaterialLodIndex;
+        unsigned short      mMaterialLodIndex{ 0 };
 
-        bool                mDirtyAnimation; //Set to false at start of each _updateRenderQueue
+        bool                mDirtyAnimation{true}; //Set to false at start of each _updateRenderQueue
 
         /// False if a technique doesn't support skeletal animation
-        bool                mTechnSupportsSkeletal;
+        bool                mTechnSupportsSkeletal{ true };
 
         /// Last update camera distance frame number
         mutable unsigned long mCameraDistLastUpdateFrameNumber;
         /// Cached distance to last camera for getSquaredViewDepth
         mutable Real mCachedCameraDist;
         /// The camera for which the cached distance is valid
-        mutable const Camera *mCachedCamera;
+        mutable const Camera *mCachedCamera{ nullptr };
 
         /// Tells that the list of entity instances with shared transforms has changed
-        bool mTransformSharingDirty;
+        bool mTransformSharingDirty{true};
 
         /// When true remove the memory of the VertexData we've created because no one else will
-        bool mRemoveOwnVertexData;
+        bool mRemoveOwnVertexData{false};
         /// When true remove the memory of the IndexData we've created because no one else will
-        bool mRemoveOwnIndexData;
+        bool mRemoveOwnIndexData{false};
 
         virtual void setupVertices( const SubMesh* baseSubMesh ) = 0;
         virtual void setupIndices( const SubMesh* baseSubMesh ) = 0;

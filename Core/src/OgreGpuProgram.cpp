@@ -114,9 +114,7 @@ class ResourceManager;
     //-----------------------------------------------------------------------------
     GpuProgram::GpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle, const String& group,
                            bool isManual, ManualResourceLoader* loader)
-        : Resource(creator, name, handle, group, isManual, loader), mType(GPT_VERTEX_PROGRAM), mLoadFromFile(true),
-          mSkeletalAnimation(false), mMorphAnimation(false), mVertexTextureFetch(false), mNeedsAdjacencyInfo(false),
-          mCompileError(false), mLoadedManualNamedConstants(false), mPoseAnimation(0)
+        : Resource(creator, name, handle, group, isManual, loader) 
     {
         createParameterMappingStructures();
     }

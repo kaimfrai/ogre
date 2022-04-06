@@ -73,9 +73,9 @@ namespace Ogre {
         OverlayMap mOverlayMap;
         StringVector mScriptPatterns;
 
-        int mLastViewportWidth, mLastViewportHeight;
-        OrientationMode mLastViewportOrientationMode;
-        float mPixelRatio;
+        int mLastViewportWidth{0}, mLastViewportHeight{0};
+        OrientationMode mLastViewportOrientationMode{OR_DEGREE_0};
+        float mPixelRatio{1};
 
         auto parseChildren( DataStreamPtr& chunk, const String& line, int& l,
             Overlay* pOverlay, bool isTemplate, OverlayContainer* parent = nullptr) -> bool;

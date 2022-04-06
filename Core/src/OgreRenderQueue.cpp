@@ -48,10 +48,7 @@ namespace Ogre {
 
     //---------------------------------------------------------------------
     RenderQueue::RenderQueue()
-        : mSplitPassesByLightingType(false)
-        , mSplitNoShadowPasses(false)
-        , mShadowCastersCannotBeReceivers(false)
-        , mRenderableListener(nullptr)
+         
     {
         // Create the 'main' queue up-front since we'll always need that
         mGroups[RENDER_QUEUE_MAIN].reset(new RenderQueueGroup(

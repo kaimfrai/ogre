@@ -119,43 +119,43 @@ namespace Ogre  {
         ProfileBarList mProfileBars;
 
         /// The overlay which contains our profiler results display
-        Overlay* mOverlay;
+        Overlay* mOverlay{nullptr};
 
         /// The window that displays the profiler results
-        OverlayContainer* mProfileGui;
+        OverlayContainer* mProfileGui{nullptr};
 
         /// The height of each bar
-        Real mBarHeight;
+        Real mBarHeight{10};
 
         /// The height of the stats window
-        Real mGuiHeight;
+        Real mGuiHeight{25};
 
         /// The width of the stats window
-        Real mGuiWidth;
+        Real mGuiWidth{250};
 
         /// The horz position of the stats window
-        Real mGuiLeft;
+        Real mGuiLeft{0};
 
         /// The vertical position of the stats window
-        Real mGuiTop;
+        Real mGuiTop{0};
 
         /// The size of the indent for each profile display bar
-        Real mBarIndent;
+        Real mBarIndent{250};
 
         /// The width of the border between the profile window and each bar
-        Real mGuiBorderWidth;
+        Real mGuiBorderWidth{10};
 
         /// The width of the min, avg, and max lines in a profile display
-        Real mBarLineWidth;
+        Real mBarLineWidth{2};
 
         /// The distance between bars
-        Real mBarSpacing;
+        Real mBarSpacing{3};
 
         /// The max number of profiles we can display
-        uint mMaxDisplayProfiles;
+        uint mMaxDisplayProfiles{50};
 
         /// How to display the overlay
-        DisplayMode mDisplayMode;
+        DisplayMode mDisplayMode{DISPLAY_MICROSECONDS};
     };
 }
 #endif

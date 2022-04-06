@@ -87,7 +87,7 @@ namespace Ogre {
         /// Notional up vector, used to speed up generation of variant directions, and also to orient some emitters.
         Vector3 mUp;
         /// When true, mDirPositionRef is used instead of mDirection to generate particles
-        bool mUseDirPositionRef;
+        bool mUseDirPositionRef{false};
         /* Center position to tell in which direction will particles be emitted according to their position,
             useful for explosions & implosions, some emitters (i.e. point emitter) may not need it. */
         Vector3 mDirPositionRef;
@@ -110,19 +110,19 @@ namespace Ogre {
         bool mEnabled;
 
         /// Start time (in seconds from start of first call to ParticleSystem to update)
-        Real mStartTime;
+        Real mStartTime{0};
         /// Minimum length of time emitter will run for (0 = forever)
-        Real mDurationMin;
+        Real mDurationMin{0};
         /// Maximum length of time the emitter will run for (0 = forever)
-        Real mDurationMax;
+        Real mDurationMax{0};
         /// Current duration remainder
-        Real mDurationRemain;
+        Real mDurationRemain{0};
 
         /// Time between each repeat
-        Real mRepeatDelayMin;
-        Real mRepeatDelayMax;
+        Real mRepeatDelayMin{0};
+        Real mRepeatDelayMax{0};
         /// Repeat delay left
-        Real mRepeatDelayRemain;
+        Real mRepeatDelayRemain{0};
 
         // Fractions of particles wanted to be emitted last time
         float mRemainder;

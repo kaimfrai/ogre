@@ -86,7 +86,7 @@ namespace Ogre {
 
     private:
 
-        RenderSystemCapabilitiesSerializer* mSerializer;
+        RenderSystemCapabilitiesSerializer* mSerializer{nullptr};
 
         using CapabilitiesMap = std::map<String, RenderSystemCapabilities *>;
         CapabilitiesMap mCapabilitiesMap;

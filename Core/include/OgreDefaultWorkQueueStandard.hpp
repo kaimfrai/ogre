@@ -71,7 +71,7 @@ namespace Ogre
 
         void notifyWorkers() override;
 
-        size_t mNumThreadsRegisteredWithRS;
+        size_t mNumThreadsRegisteredWithRS{0};
         /// Init notification mutex (must lock before waiting on initCondition)
         mutable std::recursive_mutex mInitMutex;
         /// Synchroniser token to wait / notify on thread init 

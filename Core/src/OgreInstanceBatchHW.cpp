@@ -56,8 +56,8 @@ class Camera;
                                         const MaterialPtr &material, size_t instancesPerBatch,
                                         const Mesh::IndexMap *indexToBoneMap, const String &batchName ) :
                 InstanceBatch( creator, meshReference, material, instancesPerBatch,
-                                indexToBoneMap, batchName ),
-                mKeepStatic( false )
+                                indexToBoneMap, batchName )
+                
     {
         //Override defaults, so that InstancedEntities don't create a skeleton instance
         mTechnSupportsSkeletal = false;

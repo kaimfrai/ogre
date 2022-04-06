@@ -64,9 +64,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     TextureManager::TextureManager()
-         : mPreferredIntegerBitDepth(0)
-         , mPreferredFloatBitDepth(0)
-         , mDefaultNumMipmaps(MIP_UNLIMITED)
+          
     {
         mResourceType = "Texture";
         mLoadOrder = 75.0f;

@@ -49,7 +49,7 @@ class GLXGLSupport;
         auto getContext() const -> GLContext * override;
 
     protected:
-        GLXContext*   mContext;
+        GLXContext*   mContext{nullptr};
         GLXGLSupport* mGLSupport;
     };
 }

@@ -648,13 +648,13 @@ class SubMesh;
         
     private:
         /// Dynamic?
-        HardwareBuffer::Usage mBufferUsage;
+        HardwareBuffer::Usage mBufferUsage{HardwareBuffer::HBU_STATIC_WRITE_ONLY};
         /// List of subsections
         SectionList mSectionList;
         /// Current section
-        ManualObjectSection* mCurrentSection;
+        ManualObjectSection* mCurrentSection{nullptr};
         /// Are we updating?
-        bool mCurrentUpdating;
+        bool mCurrentUpdating{false};
         /// Temporary vertex structure
         struct TempVertex
         {
@@ -668,41 +668,41 @@ class SubMesh;
         /// Temp storage
         TempVertex mTempVertex;
         /// First vertex indicator
-        bool mFirstVertex;
+        bool mFirstVertex{true};
         /// Temp vertex data to copy?
-        bool mTempVertexPending;
+        bool mTempVertexPending{false};
         /// System-memory buffer whilst we establish the size required
-        char* mTempVertexBuffer;
+        char* mTempVertexBuffer{nullptr};
         /// System memory allocation size, in bytes
         size_t mTempVertexSize;
         /// System-memory buffer whilst we establish the size required
-        uint32* mTempIndexBuffer;
+        uint32* mTempIndexBuffer{nullptr};
         /// System memory allocation size, in bytes
         size_t mTempIndexSize;
         /// Current declaration vertex size
-        size_t mDeclSize;
+        size_t mDeclSize{0};
         /// Estimated vertex count
-        size_t mEstVertexCount;
+        size_t mEstVertexCount{0};
         /// Estimated index count
-        size_t mEstIndexCount;
+        size_t mEstIndexCount{0};
         /// Current texture coordinate
-        ushort mTexCoordIndex;
+        ushort mTexCoordIndex{0};
         /// Bounding box
         AxisAlignedBox mAABB;
         /// Bounding sphere
-        Real mRadius;
+        Real mRadius{0};
         /// Any indexed geometry on any sections?
-        bool mAnyIndexed;
+        bool mAnyIndexed{false};
         /// Edge list, used if stencil shadow casting is enabled 
-        EdgeData* mEdgeList;
+        EdgeData* mEdgeList{nullptr};
         /// List of shadow renderables
         ShadowRenderableList mShadowRenderables;
         /// Whether to use identity projection for sections
-        bool mUseIdentityProjection;
+        bool mUseIdentityProjection{false};
         /// Whether to use identity view for sections
-        bool mUseIdentityView;
+        bool mUseIdentityView{false};
         /// Keep declaration order or let the queue optimize it
-        bool mKeepDeclarationOrder;
+        bool mKeepDeclarationOrder{false};
 
 
         /// Delete temp buffers and reset init counts

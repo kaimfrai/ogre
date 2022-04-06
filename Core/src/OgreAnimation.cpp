@@ -56,11 +56,9 @@ class VertexData;
         , mLength(length)
         , mInterpolationMode(msDefaultInterpolationMode)
         , mRotationInterpolationMode(msDefaultRotationInterpolationMode)
-        , mKeyFrameTimesDirty(false)
-        , mUseBaseKeyFrame(false)
-        , mBaseKeyFrameTime(0.0f)
-        , mBaseKeyFrameAnimationName(BLANKSTRING)
-        , mContainer(nullptr)
+        , 
+         mBaseKeyFrameAnimationName(BLANKSTRING)
+         
     {
     }
     //---------------------------------------------------------------------

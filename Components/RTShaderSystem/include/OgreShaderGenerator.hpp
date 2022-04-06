@@ -641,14 +641,14 @@ private:
         // Source technique.
         const Technique* mSrcTechnique;
         // Destination technique.
-        Technique* mDstTechnique;
+        Technique* mDstTechnique{nullptr};
 		// All passes entries, both normal and illumination.
         SGPassList mPassEntries;
         // The custom render states of all passes.
         using RenderStateList = std::vector<RenderState *>;
         RenderStateList mCustomRenderStates;
         // Flag that tells if destination technique should be build.        
-        bool mBuildDstTechnique;
+        bool mBuildDstTechnique{true};
         // Scheme name of destination technique.
         String mDstTechniqueSchemeName;
         bool mOverProgrammable;
@@ -763,11 +763,11 @@ private:
         // Technique entries.
         SGTechniqueList mTechniqueEntries;
         // Tells if this scheme is out of date.
-        bool mOutOfDate;
+        bool mOutOfDate{true};
         // The global render state of this scheme.
         std::unique_ptr<RenderState> mRenderState;
         // Current fog mode.
-        FogMode mFogMode;
+        FogMode mFogMode{FOG_NONE};
     };
 
     //-----------------------------------------------------------------------------
@@ -870,7 +870,7 @@ private:
     auto createSGPassList(Material* mat) const -> SGPassList;
 
     // The active scene manager.
-    SceneManager* mActiveSceneMgr;
+    SceneManager* mActiveSceneMgr{nullptr};
     // A map of all scene managers this generator is bound to.
     SceneManagerMap mSceneManagerMap;
     // Render object listener.
@@ -898,7 +898,7 @@ private:
     // Shader program writer manager.
     std::unique_ptr<ProgramWriterManager> mProgramWriterManager;
     // File system layer manager.
-    FileSystemLayer* mFSLayer;
+    FileSystemLayer* mFSLayer{nullptr};
     // Fixed Function Render state builder.
     std::unique_ptr<FFPRenderStateBuilder> mFFPRenderStateBuilder;
     // Material entries map.
@@ -912,15 +912,15 @@ private:
     // Sub render state core extension factories.
     std::vector<SubRenderStateFactory*> mBuiltinSRSFactories;
     // True if active view port use a valid SGScheme.
-    bool mActiveViewportValid;
+    bool mActiveViewportValid{false};
     // Light count per light type.
     int mLightCount[3];
     // Vertex shader outputs compact policy.
-    VSOutputCompactPolicy mVSOutputCompactPolicy;
+    VSOutputCompactPolicy mVSOutputCompactPolicy{VSOCP_LOW};
     // Tells whether shaders are created for passes with shaders
-    bool mCreateShaderOverProgrammablePass;
+    bool mCreateShaderOverProgrammablePass{false};
     // A flag to indicate finalizing
-    bool mIsFinalizing;
+    bool mIsFinalizing{false};
 
     uint32 ID_RT_SHADER_SYSTEM;
 

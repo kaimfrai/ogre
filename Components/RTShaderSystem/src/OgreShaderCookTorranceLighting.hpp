@@ -61,8 +61,8 @@ public:
 
 private:
     String mMetalRoughnessMapName;
-    int mLightCount;
-    uint8 mMRMapSamplerIndex;
+    int mLightCount{0};
+    uint8 mMRMapSamplerIndex{0};
 };
 
 class CookTorranceLightingFactory : public SubRenderStateFactory

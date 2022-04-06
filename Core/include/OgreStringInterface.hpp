@@ -174,7 +174,7 @@ namespace Ogre {
     private:
         /// Class name for this instance to be used as a lookup (must be initialised by subclasses)
         String mParamDictName;
-        ParamDictionary* mParamDict;
+        ParamDictionary* mParamDict{nullptr};
 
     protected:
         /** Internal method for creating a parameter dictionary for the class, if it does not already exist.
@@ -190,7 +190,7 @@ namespace Ogre {
         auto createParamDictionary(const String& className) -> bool;
 
     public:
-        StringInterface() : mParamDict(nullptr) { }
+        StringInterface()  { }
 
         /** Virtual destructor, see Effective C++ */
         virtual ~StringInterface() {}

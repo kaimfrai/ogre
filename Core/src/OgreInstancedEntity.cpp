@@ -55,23 +55,17 @@ class AxisAlignedBox;
     InstancedEntity::InstancedEntity( InstanceBatch *batchOwner, uint32 instanceID, InstancedEntity* sharedTransformEntity ) :
                 MovableObject(),
                 mInstanceId( instanceID ),
-                mInUse( false ),
+                
                 mBatchOwner( batchOwner ),
-                mAnimationState( nullptr ),
-                mSkeletonInstance( nullptr ),
-                mBoneMatrices(nullptr),
-                mBoneWorldMatrices(nullptr),
+                
                 mFrameAnimationLastUpdated(std::numeric_limits<unsigned long>::max() - 1),
-                mSharedTransformEntity( nullptr ),
+                
                 mTransformLookupNumber(instanceID),
                 mPosition(Vector3::ZERO),
                 mDerivedLocalPosition(Vector3::ZERO),
                 mOrientation(Quaternion::IDENTITY),
-                mScale(Vector3::UNIT_SCALE),
-                mMaxScaleLocal(1),
-                mNeedTransformUpdate(true),
-                mNeedAnimTransformUpdate(true),
-                mUseLocalTransform(false)
+                mScale(Vector3::UNIT_SCALE)
+                
 
     
     {

@@ -74,7 +74,7 @@ class Viewport;
         , mLightFrustumCameraNode(nullptr)
         , mLightFrustumCamera(new Camera("TEMP LIGHT INTERSECT CAM", nullptr))
         , mUseAggressiveRegion(useAggressiveRegion)
-        , mLightFrustumCameraCalculated(false)
+         
     {
         mLightFrustumCamera->_notifyAttached(&mLightFrustumCameraNode);
         mTempFrustum->setProjectionType(PT_PERSPECTIVE);

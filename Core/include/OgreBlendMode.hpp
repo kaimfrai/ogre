@@ -268,32 +268,30 @@ namespace Ogre {
         /** @name Write Mask
          * Whether writing is enabled for each of the 4 colour channels */
         /// @{
-        bool writeR : 1;
-        bool writeG : 1;
-        bool writeB : 1;
-        bool writeA : 1;
+        bool writeR : 1{true};
+        bool writeG : 1{true};
+        bool writeB : 1{true};
+        bool writeA : 1{true};
         /// @}
 
         /** @name Blending factors
          * used to weight the render colour components and the frame colour components */
         /// @{
-        SceneBlendFactor sourceFactor;
-        SceneBlendFactor destFactor;
-        SceneBlendFactor sourceFactorAlpha;
-        SceneBlendFactor destFactorAlpha;
+        SceneBlendFactor sourceFactor{SBF_ONE};
+        SceneBlendFactor destFactor{SBF_ZERO};
+        SceneBlendFactor sourceFactorAlpha{SBF_ONE};
+        SceneBlendFactor destFactorAlpha{SBF_ZERO};
         /// @}
 
         /** @name Blending operations
          * The blend operation mode for combining colour values */
         /// @{
-        SceneBlendOperation operation;
-        SceneBlendOperation alphaOperation;
+        SceneBlendOperation operation{SBO_ADD};
+        SceneBlendOperation alphaOperation{SBO_ADD};
         /// @}
 
         ColourBlendState()
-            : writeR(true), writeG(true), writeB(true), writeA(true), sourceFactor(SBF_ONE),
-              destFactor(SBF_ZERO), sourceFactorAlpha(SBF_ONE), destFactorAlpha(SBF_ZERO),
-              operation(SBO_ADD), alphaOperation(SBO_ADD)
+             
         {
         }
 

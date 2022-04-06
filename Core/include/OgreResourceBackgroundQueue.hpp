@@ -54,11 +54,11 @@ namespace Ogre {
     struct BackgroundProcessResult
     {
         /// Whether an error occurred
-        bool error;
+        bool error{false};
         /// Any messages from the process
         String message;
 
-        BackgroundProcessResult() : error(false) {}
+        BackgroundProcessResult()  {}
     };
 
 
@@ -112,7 +112,7 @@ namespace Ogre {
 
     private:
 
-        uint16 mWorkQueueChannel;
+        uint16 mWorkQueueChannel{0};
 
         using OutstandingRequestSet = std::set<BackgroundProcessTicket>;   
         OutstandingRequestSet mOutstandingRequestSet;

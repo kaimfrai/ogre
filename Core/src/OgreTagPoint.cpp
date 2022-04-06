@@ -41,10 +41,7 @@ class Skeleton;
     //-----------------------------------------------------------------------------
     TagPoint::TagPoint(unsigned short handle, Skeleton* creator)
         : Bone(handle, creator)
-        , mInheritParentEntityOrientation(true)
-        , mInheritParentEntityScale(true)
-        , mParentEntity(nullptr)
-        , mChildObject(nullptr)
+         
     {
     }
     //-----------------------------------------------------------------------------

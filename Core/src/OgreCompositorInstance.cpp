@@ -67,9 +67,8 @@ THE SOFTWARE.
 namespace Ogre {
 CompositorInstance::CompositorInstance(CompositionTechnique *technique,
     CompositorChain *chain):
-    mCompositor(technique->getParent()), mTechnique(technique), mChain(chain),
-        mEnabled(false),
-        mAlive(false)
+    mCompositor(technique->getParent()), mTechnique(technique), mChain(chain)
+        
 {
     OgreAssert(mChain, "Undefined compositor chain");
     mEnabled = false;
@@ -180,9 +179,7 @@ class RSQuadOperation: public CompositorInstance::RenderSystemOperation
 public:
     RSQuadOperation(CompositorInstance *inInstance, uint32 inPass_id, MaterialPtr inMat):
       mat(inMat), instance(inInstance), pass_id(inPass_id),
-      mQuadCornerModified(false),
-      mQuadFarCorners(false),
-      mQuadFarCornersViewSpace(false),
+      
       mQuad(-1, 1, 1, -1)
     {
         instance->_fireNotifyMaterialSetup(pass_id, mat);
@@ -194,7 +191,7 @@ public:
     CompositorInstance *instance;
     uint32 pass_id;
 
-    bool mQuadCornerModified, mQuadFarCorners, mQuadFarCornersViewSpace;
+    bool mQuadCornerModified{false}, mQuadFarCorners{false}, mQuadFarCornersViewSpace{false};
     FloatRect mQuad;
 
     void setQuadCorners(const FloatRect& quad)
@@ -257,10 +254,10 @@ public:
 class RSSetSchemeOperation: public CompositorInstance::RenderSystemOperation
 {
 public:
-    RSSetSchemeOperation(const String& schemeName) : mPreviousLateResolving(false), mSchemeName(schemeName) {}
+    RSSetSchemeOperation(const String& schemeName) :  mSchemeName(schemeName) {}
     
     String mPreviousScheme;
-    bool mPreviousLateResolving;
+    bool mPreviousLateResolving{false};
 
     String mSchemeName;
 

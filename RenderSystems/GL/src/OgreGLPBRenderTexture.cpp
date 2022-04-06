@@ -79,8 +79,8 @@ class RenderTexture;
 //-----------------------------------------------------------------------------  
     GLPBRTTManager::GLPBRTTManager(GLNativeSupport *support, RenderTarget *mainwindow):
         mSupport(support),
-        mMainWindow(mainwindow),
-        mMainContext(nullptr)
+        mMainWindow(mainwindow)
+        
     {
         mMainContext = dynamic_cast<GLRenderTarget*>(mMainWindow)->getContext();
     }  

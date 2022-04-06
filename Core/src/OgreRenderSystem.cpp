@@ -81,39 +81,8 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     RenderSystem::RenderSystem()
-        : mActiveRenderTarget(nullptr)
-        , mTextureManager(nullptr)
-        , mActiveViewport(nullptr)
-        // This means CULL clockwise vertices, i.e. front of poly is counter-clockwise
-        // This makes it the same as OpenGL and other right-handed systems
-        , mCullingMode(CULL_CLOCKWISE)
-        , mBatchCount(0)
-        , mFaceCount(0)
-        , mVertexCount(0)
-        , mInvertVertexWinding(false)
-        , mIsReverseDepthBufferEnabled(false)
-        , mDisabledTexUnitsFrom(0)
-        , mCurrentPassIterationCount(0)
-        , mCurrentPassIterationNum(0)
-        , mDerivedDepthBias(false)
-        , mDerivedDepthBiasBase(0.0f)
-        , mDerivedDepthBiasMultiplier(0.0f)
-        , mDerivedDepthBiasSlopeScale(0.0f)
-        , mGlobalInstanceVertexBufferVertexDeclaration(nullptr)
-        , mGlobalNumberOfInstances(1)
-        , mVertexProgramBound(false)
-        , mGeometryProgramBound(false)
-        , mFragmentProgramBound(false)
-        , mTessellationHullProgramBound(false)
-        , mTessellationDomainProgramBound(false)
-        , mComputeProgramBound(false)
-        , mClipPlanesDirty(true)
-        , mRealCapabilities(nullptr)
-        , mCurrentCapabilities(nullptr)
-        , mUseCustomCapabilities(false)
-        , mNativeShadingLanguageVersion(0)
-        , mTexProjRelative(false)
-        , mTexProjRelativeOrigin(Vector3::ZERO)
+        : 
+         mTexProjRelativeOrigin(Vector3::ZERO)
     {
         mEventNames.push_back("RenderSystemCapabilitiesCreated");
     }

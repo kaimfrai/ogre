@@ -52,7 +52,7 @@ namespace Ogre {
     #define SCRATCH_POOL_SIZE 1 * 1024 * 1024
     //---------------------------------------------------------------------
     GLHardwareBufferManager::GLHardwareBufferManager()
-        : mScratchBufferPool(nullptr), mMapBufferThreshold(OGRE_GL_DEFAULT_MAP_BUFFER_THRESHOLD)
+        :  mMapBufferThreshold(OGRE_GL_DEFAULT_MAP_BUFFER_THRESHOLD)
     {
         mRenderSystem = static_cast<GLRenderSystem*>(Root::getSingleton().getRenderSystem());
 

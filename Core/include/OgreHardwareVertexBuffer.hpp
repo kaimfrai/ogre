@@ -516,7 +516,7 @@ namespace Ogre {
         using VertexBufferBindingMap = std::map<unsigned short, HardwareVertexBufferSharedPtr>;
     private:
         VertexBufferBindingMap mBindingMap;
-        mutable unsigned short mHighIndex;
+        mutable unsigned short mHighIndex{0};
     public:
         /// Constructor, should not be called direct, use HardwareBufferManager::createVertexBufferBinding
         VertexBufferBinding();

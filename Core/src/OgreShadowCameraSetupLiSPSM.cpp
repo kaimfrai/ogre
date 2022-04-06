@@ -46,7 +46,7 @@ class Viewport;
     LiSPSMShadowCameraSetup::LiSPSMShadowCameraSetup(Real n, bool useSimpleNOpt, Degree angle)
         : mOptAdjustFactor(n)
         , mUseSimpleNOpt(useSimpleNOpt)
-        , mOptAdjustFactorTweak(1.0)
+         
     {
         setCameraLightDirectionThreshold(angle);
     }

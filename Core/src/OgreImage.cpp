@@ -100,15 +100,9 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------------
     Image::Image(PixelFormat format, uint32 width, uint32 height, uint32 depth, uchar* buffer, bool autoDelete)
-        : mWidth(0),
-        mHeight(0),
-        mDepth(0),
-        mNumMipmaps(0),
-        mBufSize(0),
-        mFlags(0),
-        mFormat(format),
-        mBuffer( nullptr ),
-        mAutoDelete( true )
+        : 
+        mFormat(format)
+        
     {
         if (format == PF_UNKNOWN)
             return;

@@ -110,7 +110,7 @@ protected:
 private:
 
     //Render state created as a result of the current node being parsed
-    RenderState* mGeneratedRenderState;
+    RenderState* mGeneratedRenderState{nullptr};
 
 };
 

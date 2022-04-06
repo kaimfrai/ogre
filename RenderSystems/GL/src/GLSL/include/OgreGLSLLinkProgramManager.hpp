@@ -45,7 +45,7 @@ class GLSLProgram;
     {
 
     private:
-        GLSLLinkProgram* mActiveLinkProgram;
+        GLSLLinkProgram* mActiveLinkProgram{nullptr};
 
         /// Find where the data for a specific uniform should come from, populate
         static auto completeParamSource(const String& paramName,

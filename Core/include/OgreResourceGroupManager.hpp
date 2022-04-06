@@ -281,7 +281,7 @@ class ScriptLoader;
         using ResourceGroupListenerList = std::vector<ResourceGroupListener *>;
         ResourceGroupListenerList mResourceGroupListenerList;
 
-        ResourceLoadingListener *mLoadingListener;
+        ResourceLoadingListener *mLoadingListener{nullptr};
 
         /// Resource index entry, resourcename->location 
         using ResourceLocationIndex = std::map<String, Archive *>;
@@ -400,7 +400,7 @@ class ScriptLoader;
             bool throwOnFailure = true) const -> DataStreamPtr;
 
         /// Stored current group - optimisation for when bulk loading a group
-        ResourceGroup* mCurrentGroup;
+        ResourceGroup* mCurrentGroup{nullptr};
     public:
         ResourceGroupManager();
         virtual ~ResourceGroupManager();

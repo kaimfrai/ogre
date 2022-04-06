@@ -120,8 +120,8 @@ namespace Ogre
         bool autoHeader, RealStorageFormat realFormat)
         : mStream(stream)
         , mEndian(endianMode)
-        , mFlipEndian(false)
-        , mReadWriteHeader(autoHeader)
+        , 
+         mReadWriteHeader(autoHeader)
         , mRealFormat(realFormat)
     {
         if (mEndian != ENDIAN_AUTO)

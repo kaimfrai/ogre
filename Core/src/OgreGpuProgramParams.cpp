@@ -206,10 +206,10 @@ namespace Ogre
         AutoConstantDefinition(ACT_POINT_PARAMS,                    "point_params",                   4, ET_REAL, ACDT_NONE),
     };
 
-    GpuNamedConstants::GpuNamedConstants() : bufferSize(0), registerCount(0) {}
+    GpuNamedConstants::GpuNamedConstants()  {}
     GpuNamedConstants::~GpuNamedConstants() {}
 
-    GpuLogicalBufferStruct::GpuLogicalBufferStruct() : bufferSize(0) {}
+    GpuLogicalBufferStruct::GpuLogicalBufferStruct()  {}
     GpuLogicalBufferStruct::~GpuLogicalBufferStruct() {}
 
     //---------------------------------------------------------------------
@@ -340,7 +340,7 @@ namespace Ogre
     //-----------------------------------------------------------------------------
     GpuSharedParameters::GpuSharedParameters(const String& name)
         :mName(name)
-        , mVersion(0), mOffset(0), mDirty(false)
+         
     {
 
     }
@@ -749,10 +749,8 @@ namespace Ogre
     //      GpuProgramParameters Methods
     //-----------------------------------------------------------------------------
     GpuProgramParameters::GpuProgramParameters() :
-        mCombinedVariability(GPV_GLOBAL)
-        , mTransposeMatrices(false)
-        , mIgnoreMissingParams(false)
-        , mActivePassIterationIndex(std::numeric_limits<size_t>::max())
+        
+         mActivePassIterationIndex(std::numeric_limits<size_t>::max())
     {
     }
     GpuProgramParameters::~GpuProgramParameters() {}

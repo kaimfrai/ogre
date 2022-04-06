@@ -73,18 +73,11 @@ class RenderQueue;
                                         const Mesh::IndexMap *indexToBoneMap, const String &batchName) :
                 InstanceBatch( creator, meshReference, material, instancesPerBatch,
                                 indexToBoneMap, batchName ),
-                mMatricesPerInstance(0),
+                
                 mNumWorldMatrices( instancesPerBatch ),
-                mWidthFloatsPadding( 0 ),
-                mMaxFloatsPerLine( std::numeric_limits<size_t>::max() ),
-                mRowLength(3),
-                mWeightCount(1),
-                mTempTransformsArray3x4(nullptr),
-                mUseBoneMatrixLookup(false),
-                mMaxLookupTableInstances(16),
-                mUseBoneDualQuaternions(false),
-                mForceOneWeight(false),
-                mUseOneWeight(false)
+                
+                mMaxFloatsPerLine( std::numeric_limits<size_t>::max() )
+                
     {
         cloneMaterial( mMaterial );
     }

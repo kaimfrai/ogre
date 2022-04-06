@@ -47,12 +47,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     Overlay::Overlay(const String& name) :
         mName(name),
-        mRotate(0.0f), 
-        mScrollX(0.0f), mScrollY(0.0f),
-        mScaleX(1.0f), mScaleY(1.0f),
-        mLastViewportWidth(0), mLastViewportHeight(0),
-        mTransformOutOfDate(true), mTransformUpdated(true), 
-        mZOrder(100), mVisible(false), mInitialised(false)
+        mRotate(0.0f) 
 
     {
         mRootNode = new SceneNode(nullptr);

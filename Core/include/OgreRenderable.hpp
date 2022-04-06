@@ -73,7 +73,7 @@ namespace Ogre {
             DEFAULT_PRIORITY = 100
         };
 
-        Renderable() : mPolygonModeOverrideable(true), mUseIdentityProjection(false), mUseIdentityView(false){}
+        Renderable()  {}
         /** Virtual destructor needed as class has virtual methods. */
         virtual ~Renderable() {}
         /** Retrieves a weak reference to the material this renderable object uses.
@@ -358,9 +358,9 @@ namespace Ogre {
         using CustomParameterMap = std::map<size_t, Vector4>;
         CustomParameterMap mCustomParameters;
         UserObjectBindings mUserObjectBindings;      /// User objects binding.
-        bool mPolygonModeOverrideable;
-        bool mUseIdentityProjection;
-        bool mUseIdentityView;
+        bool mPolygonModeOverrideable{true};
+        bool mUseIdentityProjection{false};
+        bool mUseIdentityView{false};
     };
 
     /** @} */

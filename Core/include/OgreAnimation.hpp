@@ -523,8 +523,8 @@ class VertexData;
         RotationInterpolationMode mRotationInterpolationMode;
 
         /// Dirty flag indicate that keyframe time list need to rebuild
-        mutable bool mKeyFrameTimesDirty;
-        bool mUseBaseKeyFrame;
+        mutable bool mKeyFrameTimesDirty{false};
+        bool mUseBaseKeyFrame{false};
 
         static InterpolationMode msDefaultInterpolationMode;
         static RotationInterpolationMode msDefaultRotationInterpolationMode;
@@ -532,9 +532,9 @@ class VertexData;
         /// Global keyframe time list used to search global keyframe index.
         using KeyFrameTimeList = std::vector<Real>;
         mutable KeyFrameTimeList mKeyFrameTimes;
-        Real mBaseKeyFrameTime;
+        Real mBaseKeyFrameTime{0.0f};
         String mBaseKeyFrameAnimationName;
-        AnimationContainer* mContainer;
+        AnimationContainer* mContainer{nullptr};
 
         void optimiseNodeTracks(bool discardIdentityTracks);
         void optimiseVertexTracks();

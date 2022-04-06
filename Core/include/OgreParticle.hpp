@@ -51,9 +51,9 @@ namespace Ogre {
         };
 
         /// Particle width
-        float mWidth;
+        float mWidth{0};
         /// Particle height
-        float mHeight;
+        float mHeight{0};
         /// Current rotation value
         Radian mRotation;
         // Note the intentional public access to internal variables
@@ -63,24 +63,24 @@ namespace Ogre {
         /// Direction (and speed) 
         Vector3 mDirection;
         /// Current colour
-        RGBA mColour;
+        RGBA mColour{0xFFFFFFFF};
         /// Time to live, number of seconds left of particles natural life
-        float mTimeToLive;
+        float mTimeToLive{10};
         /// Total Time to live, number of seconds of particles natural life
-        float mTotalTimeToLive;
+        float mTotalTimeToLive{10};
         /// Speed of rotation in radians/sec
         Radian mRotationSpeed;
         /// Determines the type of particle.
-        ParticleType mParticleType;
+        ParticleType mParticleType{Visual};
         /// Index into the array of texture coordinates @see BillboardSet::setTextureStacksAndSlices()
-        uint8 mTexcoordIndex;
-        uint8 mRandomTexcoordOffset;
+        uint8 mTexcoordIndex{0};
+        uint8 mRandomTexcoordOffset{0};
 
         Particle()
-            : mWidth(0), mHeight(0),
+            : 
             mRotation(0), mPosition(Vector3::ZERO), mDirection(Vector3::ZERO),
-            mColour(0xFFFFFFFF), mTimeToLive(10), mTotalTimeToLive(10),
-            mRotationSpeed(0), mParticleType(Visual), mTexcoordIndex(0), mRandomTexcoordOffset(0)
+            
+            mRotationSpeed(0) 
         {
         }
 

@@ -59,15 +59,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     RenderSystemCapabilities::RenderSystemCapabilities()
-        : mVendor(GPU_UNKNOWN)
-        , mNumTextureUnits(0)
-        , mStencilBufferBitDepth(8)
-        , mNumMultiRenderTargets(1)
-        , mNonPOW2TexturesLimited(false)
-        , mMaxSupportedAnisotropy(0)
-        , mVertexTextureUnitsShared(false)
-        , mGeometryProgramNumOutputVertices(0)
-        , mNumVertexAttributes(1)
+         
     {
         for(int i = 0; i < CAPS_CATEGORY_COUNT; i++)
         {

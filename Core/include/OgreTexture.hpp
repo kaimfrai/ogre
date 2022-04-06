@@ -450,30 +450,30 @@ class ResourceManager;
         }
 
     protected:
-        uint32 mHeight;
-        uint32 mWidth;
-        uint32 mDepth;
+        uint32 mHeight{512};
+        uint32 mWidth{512};
+        uint32 mDepth{1};
 
-        uint32 mNumRequestedMipmaps;
-        uint32 mNumMipmaps;
+        uint32 mNumRequestedMipmaps{0};
+        uint32 mNumMipmaps{0};
 
-        float mGamma;
-        uint mFSAA;
+        float mGamma{1.0f};
+        uint mFSAA{0};
 
-        PixelFormat mFormat;
-        int mUsage; /// Bit field, so this can't be TextureUsage
+        PixelFormat mFormat{PF_UNKNOWN};
+        int mUsage{TU_DEFAULT}; /// Bit field, so this can't be TextureUsage
 
-        PixelFormat mSrcFormat;
-        uint32 mSrcWidth, mSrcHeight, mSrcDepth;
+        PixelFormat mSrcFormat{PF_UNKNOWN};
+        uint32 mSrcWidth{0}, mSrcHeight{0}, mSrcDepth{0};
 
-        PixelFormat mDesiredFormat;
-        unsigned short mDesiredIntegerBitDepth;
-        unsigned short mDesiredFloatBitDepth;
+        PixelFormat mDesiredFormat{PF_UNKNOWN};
+        unsigned short mDesiredIntegerBitDepth{0};
+        unsigned short mDesiredFloatBitDepth{0};
 
-        bool mTreatLuminanceAsAlpha;
-        bool mInternalResourcesCreated;
-        bool mMipmapsHardwareGenerated;
-        bool mHwGamma;
+        bool mTreatLuminanceAsAlpha{false};
+        bool mInternalResourcesCreated{false};
+        bool mMipmapsHardwareGenerated{false};
+        bool mHwGamma{false};
 
         /// vector of images that should be loaded (cubemap/ texture array)
         std::vector<String> mLayerNames;
@@ -490,7 +490,7 @@ class ResourceManager;
         using SurfaceList = std::vector<HardwarePixelBufferSharedPtr>;
         SurfaceList mSurfaceList;
 
-        TextureType mTextureType;
+        TextureType mTextureType{TEX_TYPE_2D};
 
         void readImage(LoadedImages& imgs, const String& name, const String& ext, bool haveNPOT);
 

@@ -103,16 +103,16 @@ class SkeletonInstance;
     private:
         using Matrix3x4f = TransformBase<3, float>;
         uint16 mInstanceId; //Note it may change after defragmenting!
-        bool mInUse;
+        bool mInUse{ false };
         InstanceBatch *mBatchOwner;
 
-        AnimationStateSet *mAnimationState;
-        SkeletonInstance *mSkeletonInstance;
-        Affine3 *mBoneMatrices;  //Local space
-        Affine3 *mBoneWorldMatrices; //World space
+        AnimationStateSet *mAnimationState{ nullptr };
+        SkeletonInstance *mSkeletonInstance{ nullptr };
+        Affine3 *mBoneMatrices{nullptr};  //Local space
+        Affine3 *mBoneWorldMatrices{nullptr}; //World space
         unsigned long mFrameAnimationLastUpdated;
 
-        InstancedEntity* mSharedTransformEntity;    //When not null, another InstancedEntity controls the skeleton
+        InstancedEntity* mSharedTransformEntity{ nullptr };    //When not null, another InstancedEntity controls the skeleton
                                                 
         /** Used in conjunction with bone matrix lookup. Tells the number of the transform for
             as arranged in the vertex texture */
@@ -135,15 +135,15 @@ class SkeletonInstance;
         /// Object scale
         Vector3 mScale;
         /// The maximum absolute scale for all dimension
-        Real mMaxScaleLocal;
+        Real mMaxScaleLocal{1};
         /// Full world transform
         Affine3 mFullLocalTransform;
         /// Tells if mFullTransform needs an updated
-        bool mNeedTransformUpdate;
+        bool mNeedTransformUpdate{true};
         /// Tells if the animation world transform needs an update
-        bool mNeedAnimTransformUpdate;
+        bool mNeedAnimTransformUpdate{true};
         /// Tells whether to use the local transform parameters
-        bool mUseLocalTransform;
+        bool mUseLocalTransform{false};
 
 
         /// Returns number of matrices written to transform, assumes transform has enough space

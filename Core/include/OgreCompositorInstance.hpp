@@ -345,9 +345,9 @@ class SceneManager;
         /// Composition chain of which this instance is part.
         CompositorChain *mChain;
         /// Is this instance enabled?
-        bool mEnabled;
+        bool mEnabled{false};
         /// Is this instance allocating resources?
-        bool mAlive;
+        bool mAlive{false};
         /// Map from name->local texture.
         using LocalTextureMap = std::map<String, TexturePtr>;
         LocalTextureMap mLocalTextures;
