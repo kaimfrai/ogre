@@ -46,26 +46,26 @@ namespace Ogre {
     public:
         /** Returns value with reversed bytes order.
         */
-        static inline uint16 bswap16(uint16 arg)
+        static inline auto bswap16(uint16 arg) -> uint16
         {
             return ::std::byteswap<uint16>(arg);
         }
         /** Returns value with reversed bytes order.
         */
-        static inline uint32 bswap32(uint32 arg)
+        static inline auto bswap32(uint32 arg) -> uint32
         {
             return  ::std::byteswap<uint32>(arg);
         }
         /** Returns value with reversed bytes order.
         */
-        static inline uint64 bswap64(uint64 arg)
+        static inline auto bswap64(uint64 arg) -> uint64
         {
             return ::std::byteswap<uint64>(arg);
         }
 
         /** Reverses byte order of buffer. Use bswap16/32/64 instead if possible.
         */
-        static inline void bswapBuffer(void * pData, size_t size)
+        static inline auto bswapBuffer(void * pData, size_t size) -> void
         {
             char swapByte;
             for(char *p0 = (char*)pData, *p1 = p0 + size - 1; p0 < p1; ++p0, --p1)
@@ -77,7 +77,7 @@ namespace Ogre {
         }
         /** Reverses byte order of chunks in buffer, where 'size' is size of one chunk.
         */
-        static inline void bswapChunks(void * pData, size_t size, size_t count)
+        static inline auto bswapChunks(void * pData, size_t size, size_t count) -> void
         {
             for(size_t c = 0; c < count; ++c)
             {
@@ -93,7 +93,7 @@ namespace Ogre {
 
         /** Returns the most significant bit set in a value.
         */
-        static inline unsigned int mostSignificantBitSet(unsigned int value)
+        static inline auto mostSignificantBitSet(unsigned int value) -> unsigned int
         {
             //                                     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F
             static const unsigned char msb[16] = { 0, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4 };
@@ -109,7 +109,7 @@ namespace Ogre {
             @note 0 and 1 are powers of two, so 
                 firstPO2From(0)==0 and firstPO2From(1)==1.
         */
-        static inline uint32 firstPO2From(uint32 n)
+        static inline auto firstPO2From(uint32 n) -> uint32
         {
             --n;            
             n |= n >> 16;
@@ -124,7 +124,7 @@ namespace Ogre {
             @note 0 and 1 are tread as power of two.
         */
         template<typename T>
-        static inline bool isPO2(T n)
+        static inline auto isPO2(T n) -> bool
         {
             return (n & (n-1)) == 0;
         }
@@ -132,7 +132,7 @@ namespace Ogre {
             remove right-hand zeros.
         */
         template<typename T>
-        static inline unsigned int getBitShift(T mask)
+        static inline auto getBitShift(T mask) -> unsigned int
         {
             if (mask == 0)
                 return 0;
