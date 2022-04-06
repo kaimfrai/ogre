@@ -304,7 +304,7 @@ namespace Ogre
     typedef std::string String;
     typedef std::stringstream StringStream;
 
-    template <typename T, size_t Alignment = OGRE_SIMD_ALIGNMENT>
+    template <typename T, size_t Alignment = SIMD_ALIGNMENT>
     using aligned_vector = std::vector<T, AlignedAllocator<T, Alignment>>;
 }
 

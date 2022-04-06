@@ -1453,7 +1453,7 @@ namespace Ogre {
 #define __LOAD_VECTOR3(p)   _mm_loadh_pi(_mm_load_ss(p), (const __m64*)((p)+1))
 
         // Mask used to changes sign of single precision floating point values.
-        OGRE_SIMD_ALIGNED_DECL(static const uint32, msSignMask[4]) =
+        alignas(SIMD_ALIGNMENT) static const uint32 msSignMask[4] =
         {
             0x80000000, 0x80000000, 0x80000000, 0x80000000,
         };
