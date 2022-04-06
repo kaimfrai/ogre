@@ -339,7 +339,7 @@ public:
         const Content& content, size_t size = 0);
 
     /** Class destructor */
-    virtual ~Parameter() {};
+    virtual ~Parameter() = default;;
 
     /** Get the name of this parameter. */
     [[nodiscard]]
@@ -666,7 +666,7 @@ public:
         mValue = val;
     }
 
-                ~ConstParameter     () override {}
+                ~ConstParameter     () override = default;
 
     /** Returns the native value of this parameter. (for example a Vector3) */
     [[nodiscard]]

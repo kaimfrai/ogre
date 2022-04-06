@@ -195,7 +195,7 @@ namespace Ogre {
         VertexElementSemantic mSemantic;
     public:
         /// Constructor, should not be called directly, only needed because of list
-        VertexElement() {}
+        VertexElement() = default;
         /// Constructor, should not be called directly, call VertexDeclaration::addElement
         VertexElement(unsigned short source, size_t offset, VertexElementType theType,
             VertexElementSemantic semantic, unsigned short index = 0);

@@ -112,7 +112,7 @@ namespace Ogre {
         unsigned int fsaa{0};
         uint16      depthBufferPoolId{1};
 
-        ShadowTextureConfig()  {}
+        ShadowTextureConfig()  = default;
     };
 
     using ShadowTextureConfigList = std::vector<ShadowTextureConfig>;
@@ -166,8 +166,8 @@ namespace Ogre {
 
     struct ShadowTextureListener
     {
-        ShadowTextureListener() {}
-        virtual ~ShadowTextureListener() {}
+        ShadowTextureListener() = default;
+        virtual ~ShadowTextureListener() = default;
         /** Event raised after all shadow textures have been rendered into for
             all queues / targets but before any other geometry has been rendered
             (including main scene geometry and any additional shadow receiver
@@ -358,8 +358,8 @@ namespace Ogre {
         class Listener
         {
         public:
-            Listener() {}
-            virtual ~Listener() {}
+            Listener() = default;
+            virtual ~Listener() = default;
 
             /** Called prior to updating the scene graph in this SceneManager.
             @remarks
@@ -421,8 +421,8 @@ namespace Ogre {
             const Pass* mUsedPass;
         public:
             SceneMgrQueuedRenderableVisitor() 
-                 {}
-            ~SceneMgrQueuedRenderableVisitor() override {}
+                 = default;
+            ~SceneMgrQueuedRenderableVisitor() override = default;
             void visit(const Pass* p, RenderableList& rs) override;
             void visit(RenderablePass* rp) override;
 
@@ -994,7 +994,7 @@ namespace Ogre {
             PlaneList clipPlanes;
             bool scissorValid{false};
             unsigned long clipPlanesValid{false};
-            LightClippingInfo()  {}
+            LightClippingInfo()  = default;
 
         };
         using LightClippingInfoMap = std::map<Light *, LightClippingInfo>;
@@ -3399,7 +3399,7 @@ namespace Ogre {
     class DebugDrawer : public SceneManager::Listener
     {
     public:
-        ~DebugDrawer() override {}
+        ~DebugDrawer() override = default;
         virtual void drawSceneNode(const SceneNode* node) = 0;
         virtual void drawBone(const Node* node) = 0;
         virtual void drawFrustum(const Frustum* frust) = 0;
@@ -3473,8 +3473,8 @@ namespace Ogre {
         /// Internal method to initialise the metadata, must be implemented
         virtual void initMetaData() const = 0;
     public:
-        SceneManagerFactory()  {}
-        virtual ~SceneManagerFactory() {}
+        SceneManagerFactory()  = default;
+        virtual ~SceneManagerFactory() = default;
         /** Get information about the SceneManager type created by this factory. */
         virtual auto getMetaData() const -> const SceneManagerMetaData& 
         {

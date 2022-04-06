@@ -275,8 +275,7 @@ class RenderSystem;
     }
     //-----------------------------------------------------------------------
     DefaultSceneManager::~DefaultSceneManager()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     auto DefaultSceneManager::getTypeName() const -> const String&
     {

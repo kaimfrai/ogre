@@ -243,7 +243,7 @@ public:
 
     /// constructor
     Compiler2Pass();
-    virtual ~Compiler2Pass() {}
+    virtual ~Compiler2Pass() = default;
     /** compile the source - performs 2 passes
         first pass is to tokinize, check semantics and context
         second pass is performed by subclass and converts tokens to application specific instructions

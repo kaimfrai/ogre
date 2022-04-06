@@ -79,9 +79,9 @@ class Sphere;
     public:
         explicit Radian ( float r=0 ) : mRad(r) {}
         Radian ( const Degree& d );
-        Radian (const Ogre::Radian& rhs) : mRad(rhs.mRad) {}
+        Radian (const Ogre::Radian& rhs)  = default;
         auto operator = ( const float& f ) -> Radian& { mRad = f; return *this; }
-        auto operator = ( const Radian& r ) -> Radian& { mRad = r.mRad; return *this; }
+        auto operator = ( const Radian& r ) -> Radian& = default;
         auto operator = ( const Degree& d ) -> Radian&;
 
         [[nodiscard]]
@@ -134,9 +134,9 @@ class Sphere;
     public:
         explicit Degree ( float d=0 ) : mDeg(d) {}
         Degree ( const Radian& r ) : mDeg(r.valueDegrees()) {}
-        Degree (const Ogre::Degree& rhs) : mDeg(rhs.mDeg) {}
+        Degree (const Ogre::Degree& rhs)  = default;
         auto operator = ( const float& f ) -> Degree& { mDeg = f; return *this; }
-        auto operator = ( const Degree& d ) -> Degree& { mDeg = d.mDeg; return *this; }
+        auto operator = ( const Degree& d ) -> Degree& = default;
         auto operator = ( const Radian& r ) -> Degree& { mDeg = r.valueDegrees(); return *this; }
 
         [[nodiscard]]
@@ -244,7 +244,7 @@ class Sphere;
        class RandomValueProvider
        {
        public:
-            virtual ~RandomValueProvider() {}
+            virtual ~RandomValueProvider() = default;
             /** When called should return a random values in the range of [0,1] */
             virtual auto getRandomUnit() -> Real = 0;
        };

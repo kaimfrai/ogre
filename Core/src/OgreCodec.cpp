@@ -38,8 +38,7 @@ class Any;
 
     std::map< String, Codec * > Codec::msMapCodecs;
 
-    Codec::~Codec() {
-    }
+    Codec::~Codec() = default;
 
     auto Codec::encode(const Any& input) const -> DataStreamPtr
     {

@@ -44,8 +44,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     OverlayProfileSessionListener::OverlayProfileSessionListener() 
          
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     OverlayProfileSessionListener::~OverlayProfileSessionListener()
     {

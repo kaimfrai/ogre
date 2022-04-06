@@ -43,7 +43,7 @@ class MovableObject;
     { }
     //-----------------------------------------------------------------------
     LodStrategy::~LodStrategy()
-    { }
+    = default;
     //-----------------------------------------------------------------------
     auto LodStrategy::transformUserValue(Real userValue) const -> Real
     {

@@ -47,8 +47,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     Bone::~Bone()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     auto Bone::createChild(unsigned short handle, const Vector3& inTranslate, 
         const Quaternion& inRotate) -> Bone*

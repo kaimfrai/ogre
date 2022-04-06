@@ -44,8 +44,7 @@ class GLFBOManager;
     }
 
     GLFBOMultiRenderTarget::~GLFBOMultiRenderTarget()
-    {
-    }
+    = default;
 
     void GLFBOMultiRenderTarget::bindSurfaceImpl(size_t attachment, RenderTexture *target)
     {

@@ -155,8 +155,7 @@ class VertexDeclaration;
 
         StencilState()
              
-        {
-        }
+        = default;
     };
 
     /** Defines the functionality of a 3D API
@@ -949,8 +948,8 @@ class VertexDeclaration;
         class Listener
         {
         public:
-            Listener() {}
-            virtual ~Listener() {}
+            Listener() = default;
+            virtual ~Listener() = default;
 
             /** A rendersystem-specific event occurred.
             @param eventName The name of the event which has occurred

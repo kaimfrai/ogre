@@ -250,7 +250,7 @@ class SubRenderStateFactory : public RTShaderSystemAlloc
 {
 
 public:
-    SubRenderStateFactory() {}
+    SubRenderStateFactory() = default;
     virtual ~SubRenderStateFactory();
 
     /** Get the type of this sub render state factory.

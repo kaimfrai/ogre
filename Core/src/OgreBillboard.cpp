@@ -43,8 +43,7 @@ class BillboardSet;
     }
     //-----------------------------------------------------------------------
     Billboard::~Billboard()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     Billboard::Billboard(const Vector3& position, BillboardSet* owner, const ColourValue& colour)
         : mOwnDimensions(false)

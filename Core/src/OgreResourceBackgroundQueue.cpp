@@ -89,8 +89,7 @@ namespace Ogre {
     };
     //------------------------------------------------------------------------
     ResourceBackgroundQueue::ResourceBackgroundQueue()  
-    {
-    }
+    = default;
     //------------------------------------------------------------------------
     ResourceBackgroundQueue::~ResourceBackgroundQueue()
     {

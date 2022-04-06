@@ -366,12 +366,10 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------------
     VertexDeclaration::VertexDeclaration()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------------
     VertexDeclaration::~VertexDeclaration()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------------
     auto VertexDeclaration::getElements() const -> const VertexDeclaration::VertexElementList&
     {
@@ -715,8 +713,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------------
     VertexBufferBinding::VertexBufferBinding()  
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------------
     VertexBufferBinding::~VertexBufferBinding()
     {

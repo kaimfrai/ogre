@@ -89,7 +89,7 @@ namespace Ogre
         // do not reduce storage for affine for compatibility with SSE, shader mat4 types
     public:
         /// Do <b>NOT</b> initialize for efficiency.
-        TransformBase() {}
+        TransformBase() = default;
 
         template<typename U>
         explicit TransformBase(const U* ptr) {
@@ -162,7 +162,7 @@ namespace Ogre
     struct TransformBaseReal : public TransformBase<4, Real>
     {
         /// Do <b>NOT</b> initialize for efficiency.
-        TransformBaseReal() {}
+        TransformBaseReal() = default;
         template<typename U>
         explicit TransformBaseReal(const U* ptr) : TransformBase(ptr) {}
         /** Builds a translation matrix
@@ -226,7 +226,7 @@ namespace Ogre
     {
     public:
         /// Do <b>NOT</b> initialize the matrix for efficiency.
-        Matrix4() {}
+        Matrix4() = default;
 
         Matrix4(
             Real m00, Real m01, Real m02, Real m03,
@@ -324,7 +324,7 @@ namespace Ogre
     {
     public:
         /// Do <b>NOT</b> initialize the matrix for efficiency.
-        Affine3() {}
+        Affine3() = default;
 
         /// @copydoc TransformBaseReal::makeTransform
         Affine3(const Vector3& position, const Quaternion& orientation, const Vector3& scale = Vector3::UNIT_SCALE)

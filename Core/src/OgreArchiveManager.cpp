@@ -53,8 +53,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     ArchiveManager::ArchiveManager()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     auto ArchiveManager::load( const String& filename, const String& archiveType, bool readOnly) -> Archive*
     {

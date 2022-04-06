@@ -344,7 +344,7 @@ namespace Ogre {
     public:
         /// Parameter constructor for setting the members manually
         PixelBox() : data(nullptr), format(PF_UNKNOWN) {}
-        ~PixelBox() {}
+        ~PixelBox() = default;
         /** Constructor providing extents in the form of a Box object. This constructor
             assumes the pixel data is laid out consecutively in memory. (this
             means row after row, slice after slice, with no space in between)

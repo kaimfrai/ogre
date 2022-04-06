@@ -44,7 +44,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    EdgeData::EdgeData()  {}
+    EdgeData::EdgeData()  = default;
     
     void EdgeData::log(Log* l)
     {
@@ -88,8 +88,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     EdgeListBuilder::EdgeListBuilder()
          
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void EdgeListBuilder::addVertexData(const VertexData* vertexData)
     {

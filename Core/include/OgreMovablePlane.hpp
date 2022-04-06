@@ -72,7 +72,7 @@ class RenderQueue;
         MovablePlane (const Vector3& rkNormal, const Vector3& rkPoint);
         MovablePlane (const Vector3& rkPoint0, const Vector3& rkPoint1,
             const Vector3& rkPoint2);
-        ~MovablePlane() override {}
+        ~MovablePlane() override = default;
         /// Overridden from MovableObject
         void _notifyCurrentCamera(Camera*) override { /* don't care */ }
         /// Overridden from MovableObject

@@ -60,8 +60,7 @@ namespace Ogre
 
         Any()
            
-        {
-        }
+        = default;
 
         template<typename ValueType>
         Any(const ValueType & value)
@@ -127,8 +126,7 @@ namespace Ogre
         public: // structors
     
             virtual ~placeholder()
-            {
-            }
+            = default;
 
         public: // queries
 
@@ -214,8 +212,7 @@ namespace Ogre
         public: // structors
 
             ~numplaceholder() override
-            {
-            }
+            = default;
             virtual auto add(placeholder* rhs) -> placeholder* = 0;
             virtual auto subtract(placeholder* rhs) -> placeholder* = 0;
             virtual auto multiply(placeholder* rhs) -> placeholder* = 0;

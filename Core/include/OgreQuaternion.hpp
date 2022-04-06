@@ -70,8 +70,8 @@ class Matrix3;
         }
         /// Copy constructor
         inline Quaternion(const Ogre::Quaternion& rhs)
-            : w(rhs.w), x(rhs.x), y(rhs.y), z(rhs.z)
-        {}
+             
+        = default;
         /// Construct from an explicit list of values
         inline Quaternion (
             float fW,
@@ -184,13 +184,7 @@ class Matrix3;
         auto zAxis() const -> Vector3;
 
         inline auto operator= (const Quaternion& rkQ) -> Quaternion&
-        {
-            w = rkQ.w;
-            x = rkQ.x;
-            y = rkQ.y;
-            z = rkQ.z;
-            return *this;
-        }
+        = default;
         auto operator+ (const Quaternion& rkQ) const -> Quaternion;
         auto operator- (const Quaternion& rkQ) const -> Quaternion;
         auto operator*(const Quaternion& rkQ) const -> Quaternion;

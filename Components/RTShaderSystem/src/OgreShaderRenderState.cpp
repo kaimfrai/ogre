@@ -143,7 +143,7 @@ void RenderState::removeSubRenderState(SubRenderState* subRenderState)
 }
 
 //-----------------------------------------------------------------------
-TargetRenderState::TargetRenderState()  {}
+TargetRenderState::TargetRenderState()  = default;
 
 TargetRenderState::~TargetRenderState()
 {

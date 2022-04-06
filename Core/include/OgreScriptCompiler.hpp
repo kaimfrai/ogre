@@ -113,7 +113,7 @@ class Material;
         Any context; // A holder for translation context data
     public:
         AbstractNode(AbstractNode *ptr);
-        virtual ~AbstractNode(){}
+        virtual ~AbstractNode()= default;
         /// Returns a new AbstractNode which is a replica of this one.
         [[nodiscard]]
         virtual auto clone() const -> AbstractNode * = 0;
@@ -237,7 +237,7 @@ class Material;
         static auto formatErrorCode(uint32 code) -> String;
     public:
         ScriptCompiler();
-        virtual ~ScriptCompiler() {}
+        virtual ~ScriptCompiler() = default;
 
         /// Takes in a string of script code and compiles it into resources
         /**
@@ -374,7 +374,7 @@ class Material;
         String mType;
 
         ScriptCompilerEvent(const String &type):mType(type){}
-        virtual ~ScriptCompilerEvent(){}
+        virtual ~ScriptCompilerEvent()= default;
 
         ScriptCompilerEvent(const ScriptCompilerEvent&) = delete;
         auto operator = (const ScriptCompilerEvent&) -> ScriptCompilerEvent & = delete;
@@ -388,7 +388,7 @@ class Material;
     {
     public:
         ScriptCompilerListener();
-        virtual ~ScriptCompilerListener() {}
+        virtual ~ScriptCompilerListener() = default;
 
         /// Returns the concrete node list from the given file
         virtual auto importFile(ScriptCompiler *compiler, const String &name) -> ConcreteNodeListPtr;

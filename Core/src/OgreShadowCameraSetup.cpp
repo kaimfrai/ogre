@@ -44,10 +44,10 @@ THE SOFTWARE.
 namespace Ogre 
 {
     /// Default constructor
-    DefaultShadowCameraSetup::DefaultShadowCameraSetup()  {}
+    DefaultShadowCameraSetup::DefaultShadowCameraSetup()  = default;
     
     /// Destructor
-    DefaultShadowCameraSetup::~DefaultShadowCameraSetup() {}
+    DefaultShadowCameraSetup::~DefaultShadowCameraSetup() = default;
     
     /// Default shadow camera setup implementation
     void DefaultShadowCameraSetup::getShadowCamera (const SceneManager *sm, const Camera *cam, 

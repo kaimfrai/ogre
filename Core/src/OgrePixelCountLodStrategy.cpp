@@ -98,7 +98,7 @@ namespace Ogre {
     AbsolutePixelCountLodStrategy::AbsolutePixelCountLodStrategy()
         : PixelCountLodStrategyBase("pixel_count")
     { }
-    AbsolutePixelCountLodStrategy::~AbsolutePixelCountLodStrategy() {}
+    AbsolutePixelCountLodStrategy::~AbsolutePixelCountLodStrategy() = default;
     //-----------------------------------------------------------------------
     auto PixelCountLodStrategyBase::getValueImpl(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real
     {
@@ -178,7 +178,7 @@ namespace Ogre {
     ScreenRatioPixelCountLodStrategy::ScreenRatioPixelCountLodStrategy()
         : PixelCountLodStrategyBase("screen_ratio_pixel_count")
     { }
-    ScreenRatioPixelCountLodStrategy::~ScreenRatioPixelCountLodStrategy() {}
+    ScreenRatioPixelCountLodStrategy::~ScreenRatioPixelCountLodStrategy() = default;
     //-----------------------------------------------------------------------
 
 } // namespace

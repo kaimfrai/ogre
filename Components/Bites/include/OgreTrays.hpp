@@ -103,7 +103,7 @@ namespace OgreBites
     {
     public:
 
-        virtual ~TrayListener() {}
+        virtual ~TrayListener() = default;
         virtual void buttonHit(Button* button) {}
         virtual void itemSelected(SelectMenu* menu) {}
         virtual void labelHit(Label* label) {}
@@ -122,7 +122,7 @@ namespace OgreBites
             
         Widget();
 
-        virtual ~Widget() {}
+        virtual ~Widget() = default;
 
         void cleanup();
 
@@ -214,7 +214,7 @@ namespace OgreBites
         /// Do not instantiate any widgets directly. Use TrayManager.
         Button(const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width);
 
-        ~Button() override {}
+        ~Button() override = default;
 
         auto getCaption() -> const Ogre::DisplayString&
         {

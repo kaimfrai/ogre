@@ -107,7 +107,7 @@ public:
 
     struct TextureBlend
     {
-        TextureBlend()  {}
+        TextureBlend()  = default;
 
         //The blend mode to use
         BlendMode blendMode{LB_Invalid};

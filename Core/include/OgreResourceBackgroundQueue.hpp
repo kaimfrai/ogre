@@ -58,7 +58,7 @@ namespace Ogre {
         /// Any messages from the process
         String message;
 
-        BackgroundProcessResult()  {}
+        BackgroundProcessResult()  = default;
     };
 
 
@@ -106,7 +106,7 @@ namespace Ogre {
             */
             virtual void operationCompleted(BackgroundProcessTicket ticket, const BackgroundProcessResult& result) = 0;
             /// Need virtual destructor in case subclasses use it
-            virtual ~Listener() {}
+            virtual ~Listener() = default;
 
         };
 

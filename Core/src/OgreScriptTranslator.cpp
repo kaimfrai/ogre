@@ -1000,8 +1000,7 @@ class LodStrategy;
      *************************************************************************/
     MaterialTranslator::MaterialTranslator()
         
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
     void MaterialTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
@@ -1161,8 +1160,7 @@ class LodStrategy;
      *************************************************************************/
     TechniqueTranslator::TechniqueTranslator()
         
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
     void TechniqueTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
@@ -1339,8 +1337,7 @@ class LodStrategy;
      *************************************************************************/
     PassTranslator::PassTranslator()
         
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
     void PassTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
@@ -2341,8 +2338,7 @@ class LodStrategy;
      *************************************************************************/
     TextureUnitTranslator::TextureUnitTranslator()
         
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
     void SamplerTranslator::translateSamplerParam(ScriptCompiler* compiler, const SamplerPtr& sampler, PropertyAbstractNode* prop)
     {
@@ -3347,8 +3343,7 @@ class LodStrategy;
      * TextureSourceTranslator
      **************************************************************************/
     TextureSourceTranslator::TextureSourceTranslator()
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
     void TextureSourceTranslator::translate(Ogre::ScriptCompiler *compiler, const Ogre::AbstractNodePtr &node)
     {
@@ -3439,8 +3434,7 @@ class LodStrategy;
      * GpuProgramTranslator
      *************************************************************************/
     GpuProgramTranslator::GpuProgramTranslator()
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
     void GpuProgramTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
@@ -4143,8 +4137,7 @@ class LodStrategy;
      * SharedParamsTranslator
      *************************************************************************/
     SharedParamsTranslator::SharedParamsTranslator()
-    {
-    }
+    = default;
 
     //-------------------------------------------------------------------------
     void SharedParamsTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
@@ -4306,8 +4299,7 @@ class LodStrategy;
      *************************************************************************/
     ParticleSystemTranslator::ParticleSystemTranslator()
         
-    {
-    }
+    = default;
 
     void ParticleSystemTranslator::translate(ScriptCompiler* compiler, const AbstractNodePtr &node)
     {
@@ -4425,8 +4417,7 @@ class LodStrategy;
      *************************************************************************/
     ParticleEmitterTranslator::ParticleEmitterTranslator()
         
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
     void ParticleEmitterTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
@@ -4499,8 +4490,7 @@ class LodStrategy;
      *************************************************************************/
     ParticleAffectorTranslator::ParticleAffectorTranslator()
         
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
     void ParticleAffectorTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
@@ -4572,8 +4562,7 @@ class LodStrategy;
      *************************************************************************/
     CompositorTranslator::CompositorTranslator()
         
-    {
-    }
+    = default;
 
     void CompositorTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
@@ -4623,8 +4612,7 @@ class LodStrategy;
      *************************************************************************/
     CompositionTechniqueTranslator::CompositionTechniqueTranslator()
         
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
     void CompositionTechniqueTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
@@ -4883,8 +4871,7 @@ class LodStrategy;
      *************************************************************************/
     CompositionTargetPassTranslator::CompositionTargetPassTranslator()
         
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
     void CompositionTargetPassTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
@@ -4968,8 +4955,7 @@ class LodStrategy;
      *************************************************************************/
     CompositionPassTranslator::CompositionPassTranslator()
         
-    {
-    }
+    = default;
 
     void CompositionPassTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
@@ -5266,8 +5252,7 @@ class LodStrategy;
      * BuiltinScriptTranslatorManager
      *************************************************************************/
     BuiltinScriptTranslatorManager::BuiltinScriptTranslatorManager()
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
     auto BuiltinScriptTranslatorManager::getTranslator(const AbstractNodePtr &node) -> ScriptTranslator *
     {

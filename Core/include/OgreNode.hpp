@@ -86,8 +86,8 @@ class Camera;
         class Listener
         {
         public:
-            Listener() {}
-            virtual ~Listener() {}
+            Listener() = default;
+            virtual ~Listener() = default;
             /** Called when a node gets updated.
             @remarks
                 Note that this happens when the node's derived update happens,

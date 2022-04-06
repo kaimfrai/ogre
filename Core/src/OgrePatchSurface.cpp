@@ -49,8 +49,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     PatchSurface::~PatchSurface()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void PatchSurface::defineSurface(void* controlPointBuffer, 
             VertexDeclaration *declaration, size_t width, size_t height,

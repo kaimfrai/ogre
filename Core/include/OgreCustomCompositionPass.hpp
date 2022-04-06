@@ -56,7 +56,7 @@ namespace Ogre {
             CompositorInstance* instance, const CompositionPass* pass) -> CompositorInstance::RenderSystemOperation* = 0;
 
     protected:
-        virtual ~CustomCompositionPass() {}
+        virtual ~CustomCompositionPass() = default;
     };
     /** @} */
     /** @} */

@@ -33,11 +33,9 @@ namespace Ogre {
 
     HardwareOcclusionQuery::HardwareOcclusionQuery() 
         
-    {
-    }
+    = default;
     HardwareOcclusionQuery::~HardwareOcclusionQuery()
-    {
-    }
+    = default;
 
 }
 

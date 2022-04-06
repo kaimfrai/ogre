@@ -174,8 +174,8 @@ namespace Ogre
         class RequestHandler
         {
         public:
-            RequestHandler() {}
-            virtual ~RequestHandler() {}
+            RequestHandler() = default;
+            virtual ~RequestHandler() = default;
 
             /** Return whether this handler can process a given request. 
             @remarks
@@ -210,8 +210,8 @@ namespace Ogre
         class ResponseHandler
         {
         public:
-            ResponseHandler() {}
-            virtual ~ResponseHandler() {}
+            ResponseHandler() = default;
+            virtual ~ResponseHandler() = default;
 
             /** Return whether this handler can process a given response. 
             @remarks
@@ -232,8 +232,8 @@ namespace Ogre
             virtual void handleResponse(const Response* res, const WorkQueue* srcQ) = 0;
         };
 
-        WorkQueue()  {}
-        virtual ~WorkQueue() {}
+        WorkQueue()  = default;
+        virtual ~WorkQueue() = default;
 
         /** Start up the queue with the options that have been set.
         @param forceRestart If the queue is already running, whether to shut it

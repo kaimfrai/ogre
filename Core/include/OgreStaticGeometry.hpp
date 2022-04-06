@@ -167,7 +167,7 @@ class Technique;
         class OptimisedSubMeshGeometry : public BatchedGeometryAlloc
         {
         public:
-            OptimisedSubMeshGeometry()  {}
+            OptimisedSubMeshGeometry()  = default;
             ~OptimisedSubMeshGeometry() 
             {
                 delete vertexData;
@@ -779,8 +779,8 @@ class Technique;
     {
         auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override { return nullptr; }
     public:
-        StaticGeometryFactory() {}
-        ~StaticGeometryFactory() override {}
+        StaticGeometryFactory() = default;
+        ~StaticGeometryFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 

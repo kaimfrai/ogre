@@ -57,9 +57,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     WorkQueue::Request::~Request()
-    {
-
-    }
+    = default;
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
     WorkQueue::Response::Response(const Request* rq, bool success, const Any& data, const String& msg)

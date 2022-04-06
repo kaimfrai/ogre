@@ -202,7 +202,7 @@ class SceneManager;
     class SceneQueryListener
     {
     public:
-        virtual ~SceneQueryListener() { }
+        virtual ~SceneQueryListener() = default;
         /** Called when a MovableObject is returned by a query.
         @remarks
             The implementor should return 'true' to continue returning objects,
@@ -342,7 +342,7 @@ class SceneManager;
     class RaySceneQueryListener 
     {
     public:
-        virtual ~RaySceneQueryListener() { }
+        virtual ~RaySceneQueryListener() = default;
         /** Called when a movable objects intersects the ray.
         @remarks
             As with SceneQueryListener, the implementor of this method should return 'true'
@@ -472,7 +472,7 @@ class SceneManager;
     class IntersectionSceneQueryListener 
     {
     public:
-        virtual ~IntersectionSceneQueryListener() { }
+        virtual ~IntersectionSceneQueryListener() = default;
         /** Called when 2 movable objects intersect one another.
         @remarks
             As with SceneQueryListener, the implementor of this method should return 'true'

@@ -60,10 +60,10 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgramManager::GLSLLinkProgramManager()  {}
+    GLSLLinkProgramManager::GLSLLinkProgramManager()  = default;
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgramManager::~GLSLLinkProgramManager() {}
+    GLSLLinkProgramManager::~GLSLLinkProgramManager() = default;
 
     //-----------------------------------------------------------------------
     auto GLSLLinkProgramManager::getActiveLinkProgram() -> GLSLLinkProgram*

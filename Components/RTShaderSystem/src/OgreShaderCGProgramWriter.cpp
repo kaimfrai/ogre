@@ -55,9 +55,7 @@ CGProgramWriter::CGProgramWriter()
 
 //-----------------------------------------------------------------------
 CGProgramWriter::~CGProgramWriter()
-{
-
-}
+= default;
 
 //-----------------------------------------------------------------------
 void CGProgramWriter::initializeStringMaps()

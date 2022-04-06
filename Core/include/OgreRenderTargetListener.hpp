@@ -85,7 +85,7 @@ namespace Ogre {
         the 'Adapter' classes in Java rather than pure interfaces.
         */
     public:
-        virtual ~RenderTargetListener() {}
+        virtual ~RenderTargetListener() = default;
         /** Called just before a RenderTarget is about to be rendered into.
         @remarks
             This event is raised just before any of the viewports on the target

@@ -42,8 +42,8 @@ namespace Ogre {
     class GLContext
     {
     public:
-        GLContext()  {}
-        virtual ~GLContext() {}
+        GLContext()  = default;
+        virtual ~GLContext() = default;
 
         /**
          * Enable the context. All subsequent rendering commands will go here.

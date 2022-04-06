@@ -64,7 +64,7 @@ namespace Ogre
             };
 
             GLNativeSupport(int profile) : mContextProfile(ContextProfile(profile)) {}
-            virtual ~GLNativeSupport() {}
+            virtual ~GLNativeSupport() = default;
 
             /// @copydoc RenderSystem::_createRenderWindow
             virtual auto newWindow(const String &name,

@@ -102,9 +102,9 @@ namespace Ogre {
         assert( msSingleton );  return ( *msSingleton );
     }
 
-    GLRTTManager::GLRTTManager() {}
+    GLRTTManager::GLRTTManager() = default;
     // need to implement in cpp due to how Ogre::Singleton works
-    GLRTTManager::~GLRTTManager() {}
+    GLRTTManager::~GLRTTManager() = default;
 
     auto GLRTTManager::getSupportedAlternative(PixelFormat format) -> PixelFormat
     {

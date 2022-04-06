@@ -146,7 +146,7 @@ struct GpuNamedConstants;
 
     static auto getProgramTypeName(GpuProgramType programType) -> const String;
 
-    ~GpuProgram() override {}
+    ~GpuProgram() override = default;
 
     /** Sets the filename of the source assembly for this program.
         @remarks

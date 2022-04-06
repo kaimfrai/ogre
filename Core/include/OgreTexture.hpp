@@ -139,7 +139,7 @@ class ResourceManager;
         Texture(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
 
-        ~Texture() override {}
+        ~Texture() override = default;
         
         /** Sets the type of texture; can only be changed before load() 
         */

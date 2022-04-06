@@ -48,8 +48,7 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     SceneQuery::~SceneQuery()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void SceneQuery::setQueryMask(uint32 mask)
     {
@@ -143,8 +142,7 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     AxisAlignedBoxSceneQuery::~AxisAlignedBoxSceneQuery()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void AxisAlignedBoxSceneQuery::setBox(const AxisAlignedBox& box)
     {
@@ -162,8 +160,7 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     SphereSceneQuery::~SphereSceneQuery()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void SphereSceneQuery::setSphere(const Sphere& sphere)
     {
@@ -182,8 +179,7 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     PlaneBoundedVolumeListSceneQuery::~PlaneBoundedVolumeListSceneQuery()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void PlaneBoundedVolumeListSceneQuery::setVolumes(const PlaneBoundedVolumeList& volumes)
     {
@@ -203,8 +199,7 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     RaySceneQuery::~RaySceneQuery()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void RaySceneQuery::setRay(const Ray& ray)
     {

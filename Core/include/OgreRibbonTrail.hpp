@@ -234,8 +234,8 @@ template <typename T> class Controller;
     protected:
         auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
     public:
-        RibbonTrailFactory() {}
-        ~RibbonTrailFactory() override {}
+        RibbonTrailFactory() = default;
+        ~RibbonTrailFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 

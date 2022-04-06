@@ -42,8 +42,7 @@ THE SOFTWARE.
 #include "OgreString.hpp"
 
 namespace Ogre {
-    ImageCodec::~ImageCodec() {
-    }
+    ImageCodec::~ImageCodec() = default;
 
     void ImageCodec::decode(const DataStreamPtr& input, const Any& output) const
     {

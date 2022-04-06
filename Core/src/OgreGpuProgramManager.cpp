@@ -58,7 +58,7 @@ namespace {
             const String& name, ResourceHandle handle, const String& group,
             bool isManual, ManualResourceLoader* loader)
             : GpuProgram(creator, name, handle, group, isManual, loader){}
-        ~NullProgram() override {}
+        ~NullProgram() override = default;
         /// Overridden from GpuProgram - never supported
         auto isSupported() const -> bool override { return false; }
         /// Overridden from GpuProgram
@@ -77,8 +77,8 @@ namespace {
     class NullProgramFactory : public HighLevelGpuProgramFactory
     {
     public:
-        NullProgramFactory() {}
-        ~NullProgramFactory() override {}
+        NullProgramFactory() = default;
+        ~NullProgramFactory() override = default;
         /// Get the name of the language this factory creates programs for
         [[nodiscard]]
         auto getLanguage() const -> const String& override

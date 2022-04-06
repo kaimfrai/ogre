@@ -59,9 +59,7 @@ ProgramProcessor::ProgramProcessor()
 
 //-----------------------------------------------------------------------------
 ProgramProcessor::~ProgramProcessor()
-{
-    
-}
+= default;
 
 //-----------------------------------------------------------------------------
 void ProgramProcessor::bindAutoParameters(Program* pCpuProgram, GpuProgramPtr pGpuProgram)

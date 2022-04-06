@@ -57,7 +57,7 @@ namespace Ogre {
 
 	public:
         ASTCCodec();
-        ~ASTCCodec() override { }
+        ~ASTCCodec() override = default;
 
 		using ImageCodec::decode;
         [[nodiscard]]

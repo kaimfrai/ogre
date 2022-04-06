@@ -72,8 +72,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     InstanceBatchHW_VTF::~InstanceBatchHW_VTF()
-    {
-    }   
+    = default;   
     //-----------------------------------------------------------------------
     void InstanceBatchHW_VTF::setupVertices( const SubMesh* baseSubMesh )
     {

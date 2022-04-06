@@ -52,9 +52,7 @@ HLSLProgramWriter::HLSLProgramWriter()
 }
 
 HLSLProgramWriter::~HLSLProgramWriter()
-{
-
-}
+= default;
 
 }
 }

@@ -170,7 +170,7 @@ however they can be used to control event propagation in a hierarchy.
 The convention is to return true if the event was handled and false if it should be further propagated.
 */
 struct InputListener {
-    virtual ~InputListener() {}
+    virtual ~InputListener() = default;
     virtual void frameRendered(const Ogre::FrameEvent& evt) { }
     virtual auto keyPressed(const KeyboardEvent& evt) -> bool { return false;}
     virtual auto keyReleased(const KeyboardEvent& evt) -> bool { return false; }
@@ -198,7 +198,7 @@ protected:
     std::vector<InputListener*> mListenerChain;
 
 public:
-    InputListenerChain() {}
+    InputListenerChain() = default;
     InputListenerChain(std::vector<InputListener*> chain) : mListenerChain(chain) {}
 
     auto operator=(const InputListenerChain& o) -> InputListenerChain&

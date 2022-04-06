@@ -819,8 +819,8 @@ class VertexData;
     protected:
         auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
     public:
-        BillboardSetFactory() {}
-        ~BillboardSetFactory() override {}
+        BillboardSetFactory() = default;
+        ~BillboardSetFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 

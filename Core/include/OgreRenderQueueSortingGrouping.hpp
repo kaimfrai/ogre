@@ -81,8 +81,8 @@ namespace Ogre {
     class QueuedRenderableVisitor
     {
     public:
-        QueuedRenderableVisitor() {}
-        virtual ~QueuedRenderableVisitor() {}
+        QueuedRenderableVisitor() = default;
+        virtual ~QueuedRenderableVisitor() = default;
         
         /** Called when visiting a RenderablePass, i.e. items in a
             sorted collection where items are not grouped by pass.
@@ -288,7 +288,7 @@ namespace Ogre {
             bool splitNoShadowPasses, 
             bool shadowCastersNotReceivers); 
            
-        ~RenderPriorityGroup() { }
+        ~RenderPriorityGroup() = default;
 
         /** Get the collection of basic solids currently queued, this includes
             all solids when there are no shadows, or all solids which have shadow

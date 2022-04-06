@@ -86,7 +86,7 @@ namespace Ogre {
             bool pooled{false};        // whether to use pooled textures for this one
             TextureScope scope{TS_LOCAL}; // Which scope has access to this texture
 
-            TextureDefinition()  {}
+            TextureDefinition()  = default;
         };
         /// Typedefs for several iterators
         using TargetPasses = std::vector<CompositionTargetPass *>;

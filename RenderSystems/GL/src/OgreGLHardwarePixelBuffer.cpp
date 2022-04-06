@@ -168,8 +168,7 @@ GLTextureBuffer::GLTextureBuffer(GLRenderSystem* renderSystem, GLTexture* parent
     }
 }
 GLTextureBuffer::~GLTextureBuffer()
-{
-}
+= default;
 //-----------------------------------------------------------------------------
 void GLTextureBuffer::upload(const PixelBox &data, const Box &dest)
 {

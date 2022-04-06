@@ -61,9 +61,9 @@ class Affine3;
         auto operator=(const OptimisedUtil& rhs) -> OptimisedUtil& = delete;
 
         // Default constructor
-        OptimisedUtil() {}
+        OptimisedUtil() = default;
         // Destructor
-        virtual ~OptimisedUtil() {}
+        virtual ~OptimisedUtil() = default;
 
         /** Gets the implementation of this class.
         @note

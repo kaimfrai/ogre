@@ -218,7 +218,7 @@ class SceneManager;
         class RQListener: public RenderQueueListener
         {
         public:
-            RQListener()  {}
+            RQListener()  = default;
 
             void renderQueueStarted(uint8 queueGroupId, const String& invocation, bool& skipThisInvocation) override;
             void renderQueueEnded(uint8 queueGroupId, const String& invocation, bool& repeatThisInvocation) override;

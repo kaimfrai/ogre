@@ -14,7 +14,7 @@ class GLFrameBufferObjectCommon;
 class GLRenderTarget
 {
 public:
-    virtual ~GLRenderTarget() {}
+    virtual ~GLRenderTarget() = default;
 
     /** Get the GL context that needs to be active to render to this target
      */

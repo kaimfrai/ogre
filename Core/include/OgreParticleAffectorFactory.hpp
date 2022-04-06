@@ -56,7 +56,7 @@ namespace Ogre {
     protected:
         std::vector<ParticleAffector*> mAffectors;
     public:
-        ParticleAffectorFactory() {}
+        ParticleAffectorFactory() = default;
         virtual ~ParticleAffectorFactory();
         /** Returns the name of the factory, the name which identifies the particle affector type this factory creates. */
         [[nodiscard]]

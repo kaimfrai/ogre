@@ -141,7 +141,7 @@ namespace Ogre {
         {
             virtual auto operator()(const Pass* p) const -> uint32 = 0;
             /// Need virtual destructor in case subclasses use it
-            virtual ~HashFunc() {}
+            virtual ~HashFunc() = default;
         };
 
         using TextureUnitStates = std::vector<TextureUnitState *>;
@@ -1576,7 +1576,7 @@ namespace Ogre {
         /// The original pass which spawned this one
         Pass* originalPass;
 
-        IlluminationPass() {}
+        IlluminationPass() = default;
     };
 
     using IlluminationPassList = std::vector<IlluminationPass *>;

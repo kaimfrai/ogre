@@ -42,7 +42,7 @@ namespace Ogre {
     {
     public:
         SharedPtr(std::nullptr_t) {}
-        SharedPtr() {}
+        SharedPtr() = default;
         template< class Y>
         explicit SharedPtr(Y* ptr) : ::std::shared_ptr<T>(ptr) {}
         template< class Y, class Deleter >

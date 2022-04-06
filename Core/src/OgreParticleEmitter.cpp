@@ -86,8 +86,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     ParticleEmitter::~ParticleEmitter() 
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void ParticleEmitter::setPosition(const Vector3& pos) 
     { 

@@ -202,7 +202,7 @@ public:
     using OperandVector = std::vector<Operand>;
 
     /** Class default destructor. */
-    virtual ~FunctionAtom() {}
+    virtual ~FunctionAtom() = default;
 
     /** Get the group execution order of this function atom. */
     [[nodiscard]]
@@ -292,7 +292,7 @@ public:
     };
 
 private:
-    FunctionInvocation() {}
+    FunctionInvocation() = default;
 
     String mReturnType;
 };

@@ -62,7 +62,7 @@ namespace RTShader {
         {
         }
 
-        ~ConstParameterVec2() override {}
+        ~ConstParameterVec2() override = default;
 
         /** 
         @see Parameter::toString.
@@ -88,7 +88,7 @@ namespace RTShader {
             : ConstParameter<Vector3>(val, type, semantic, content)
         {
         }
-        ~ConstParameterVec3() override {}
+        ~ConstParameterVec3() override = default;
 
         /** 
         @see Parameter::toString.
@@ -114,7 +114,7 @@ namespace RTShader {
             : ConstParameter<Vector4>(val, type, semantic, content)
         {
         }
-        ~ConstParameterVec4() override {}
+        ~ConstParameterVec4() override = default;
 
         /** 
         @see Parameter::toString.
@@ -141,7 +141,7 @@ namespace RTShader {
         {
         }
 
-        ~ConstParameterFloat() override {}
+        ~ConstParameterFloat() override = default;
 
         /** 
         @see Parameter::toString.
@@ -165,7 +165,7 @@ namespace RTShader {
         {
         }
 
-        ~ConstParameterInt() override {}
+        ~ConstParameterInt() override = default;
 
         /** 
         @see Parameter::toString.

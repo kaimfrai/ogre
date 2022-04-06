@@ -86,7 +86,7 @@ namespace Ogre {
             mDeltaCount = 0;
         }
 
-        virtual ~ControllerFunction() {}
+        virtual ~ControllerFunction() = default;
 
         virtual auto calculate(T sourceValue) -> T = 0;
     };
@@ -99,7 +99,7 @@ namespace Ogre {
     {
 
     public:
-        virtual ~ControllerValue() { }
+        virtual ~ControllerValue() = default;
         [[nodiscard]]
         virtual auto getValue() const -> T = 0;
         virtual void setValue(T value) = 0;
@@ -156,7 +156,7 @@ namespace Ogre {
 
         /** Default d-tor.
         */
-        virtual ~Controller() {}
+        virtual ~Controller() = default;
 
 
         /// Sets the input controller value

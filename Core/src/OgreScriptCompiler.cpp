@@ -205,8 +205,7 @@ namespace Ogre
 
     // ScriptCompilerListener
     ScriptCompilerListener::ScriptCompilerListener()
-    {
-    }
+    = default;
 
     auto ScriptCompilerListener::importFile(ScriptCompiler *compiler, const String &name) -> ConcreteNodeListPtr
     {

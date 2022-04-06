@@ -80,7 +80,7 @@ class Viewport;
         mTempFrustum->setProjectionType(PT_PERSPECTIVE);
     }
 
-    FocusedShadowCameraSetup::~FocusedShadowCameraSetup() {}
+    FocusedShadowCameraSetup::~FocusedShadowCameraSetup() = default;
 
     //-----------------------------------------------------------------------
     void FocusedShadowCameraSetup::calculateShadowMappingMatrix(const SceneManager& sm,
@@ -500,8 +500,7 @@ class Viewport;
     }
     //-----------------------------------------------------------------------
     FocusedShadowCameraSetup::PointListBody::~PointListBody()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void FocusedShadowCameraSetup::PointListBody::merge(const PointListBody& plb)
     {

@@ -54,8 +54,7 @@ namespace Ogre {
 
         //-----------------------------------------------------------------------
         GLSLESProgramWriter::~GLSLESProgramWriter()
-        {
-        }
+        = default;
         //-----------------------------------------------------------------------
         void GLSLESProgramWriter::writeSourceCode(
             std::ostream& os,

@@ -57,8 +57,8 @@ namespace Ogre {
         using ItemList = typename std::list<T>;
         ItemList mItems;
     public:
-        Pool() {}
-        virtual ~Pool() {}
+        Pool() = default;
+        virtual ~Pool() = default;
 
         /** Get the next item from the pool.
          @return pair indicating whether there was a free item, and the item if so

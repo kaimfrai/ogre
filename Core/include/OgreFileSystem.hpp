@@ -75,7 +75,7 @@ class Archive;
     {
     public:
         APKFileSystemArchiveFactory(AAssetManager* assetMgr) : mAssetMgr(assetMgr) {}
-        ~APKFileSystemArchiveFactory() override {}
+        ~APKFileSystemArchiveFactory() override = default;
         /// @copydoc FactoryObj::getType
         [[nodiscard]]
         auto getType() const -> const String& override;

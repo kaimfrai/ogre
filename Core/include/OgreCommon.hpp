@@ -476,7 +476,7 @@ class RenderWindow;
             dirtyHash();
         }
 
-        ~HashedVector() {}
+        ~HashedVector() = default;
         auto operator=(const HashedVector<T>& rhs) -> HashedVector<T>&
         {
             mList = rhs.mList;

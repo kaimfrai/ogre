@@ -84,7 +84,7 @@ namespace Ogre {
         virtual auto doGet(const void* target) const -> String = 0;
         virtual void doSet(void* target, const String& val) = 0;
 
-        virtual ~ParamCommand() { }
+        virtual ~ParamCommand() = default;
     };
     using ParamCommandMap = std::map<String, ParamCommand *>;
 
@@ -190,10 +190,10 @@ namespace Ogre {
         auto createParamDictionary(const String& className) -> bool;
 
     public:
-        StringInterface()  { }
+        StringInterface()  = default;
 
         /** Virtual destructor, see Effective C++ */
-        virtual ~StringInterface() {}
+        virtual ~StringInterface() = default;
 
         /** Retrieves the parameter dictionary for this class. 
         @remarks

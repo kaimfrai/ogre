@@ -42,9 +42,7 @@ class ProgramSet;
 
 //-----------------------------------------------------------------------
 SubRenderState::SubRenderState()
-{
-    
-}
+= default;
 
 //-----------------------------------------------------------------------
 SubRenderState::~SubRenderState()

@@ -46,8 +46,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     TangentSpaceCalc::TangentSpaceCalc()
          
-    {
-    }
+    = default;
 
     //---------------------------------------------------------------------
     void TangentSpaceCalc::clear()

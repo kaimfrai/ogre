@@ -50,8 +50,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     DefaultIntersectionSceneQuery::~DefaultIntersectionSceneQuery()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void DefaultIntersectionSceneQuery::execute(IntersectionSceneQueryListener* listener)
     {
@@ -134,8 +133,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     DefaultAxisAlignedBoxSceneQuery::~DefaultAxisAlignedBoxSceneQuery()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void DefaultAxisAlignedBoxSceneQuery::execute(SceneQueryListener* listener)
     {
@@ -166,8 +164,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     DefaultRaySceneQuery::~DefaultRaySceneQuery()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void DefaultRaySceneQuery::execute(RaySceneQueryListener* listener)
     {
@@ -210,8 +207,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     DefaultSphereSceneQuery::~DefaultSphereSceneQuery()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void DefaultSphereSceneQuery::execute(SceneQueryListener* listener)
     {
@@ -246,8 +242,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     DefaultPlaneBoundedVolumeListSceneQuery::~DefaultPlaneBoundedVolumeListSceneQuery()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void DefaultPlaneBoundedVolumeListSceneQuery::execute(SceneQueryListener* listener)
     {

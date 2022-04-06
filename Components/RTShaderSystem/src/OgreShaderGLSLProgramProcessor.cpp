@@ -46,13 +46,11 @@ class Function;
 
 //-----------------------------------------------------------------------------
 GLSLProgramProcessor::GLSLProgramProcessor()
-{
-}
+= default;
 
 //-----------------------------------------------------------------------------
 GLSLProgramProcessor::~GLSLProgramProcessor()
-{
-}
+= default;
 
 //-----------------------------------------------------------------------------
 auto GLSLProgramProcessor::preCreateGpuPrograms(ProgramSet* programSet) -> bool

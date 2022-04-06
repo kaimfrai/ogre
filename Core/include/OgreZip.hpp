@@ -53,7 +53,7 @@ class Archive;
     class ZipArchiveFactory : public ArchiveFactory
     {
     public:
-        ~ZipArchiveFactory() override {}
+        ~ZipArchiveFactory() override = default;
         /// @copydoc FactoryObj::getType
         [[nodiscard]]
         auto getType() const -> const String& override;

@@ -58,7 +58,7 @@ namespace Ogre {
     class ScriptLoader
     {
     public:
-        virtual ~ScriptLoader() {}
+        virtual ~ScriptLoader() = default;
         /** Gets the file patterns which should be used to find scripts for this
             class.
 

@@ -726,8 +726,8 @@ class SubMesh;
     protected:
         auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
     public:
-        ManualObjectFactory() {}
-        ~ManualObjectFactory() override {}
+        ManualObjectFactory() = default;
+        ~ManualObjectFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 

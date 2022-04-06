@@ -44,7 +44,7 @@ namespace Ogre
     class ConfigDialog : public UtilityAlloc
     {
     public:
-        virtual ~ConfigDialog() {}
+        virtual ~ConfigDialog() = default;
 
         /** Displays the dialog.
         @remarks

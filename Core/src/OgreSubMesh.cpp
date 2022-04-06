@@ -171,7 +171,7 @@ class HardwareBufferManagerBase;
         std::set<uint32> mIndices;
 
         Cluster ()
-        { }
+        = default;
 
         [[nodiscard]]
         auto empty () const -> bool

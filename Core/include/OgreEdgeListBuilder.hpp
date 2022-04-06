@@ -78,7 +78,7 @@ namespace Ogre {
                 duplicates eliminated (this buffer is not exposed) */
             size_t sharedVertIndex[3];
 
-            Triangle()  {}
+            Triangle()  = default;
         };
         /** Edge data. */
         struct Edge {

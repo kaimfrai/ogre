@@ -59,12 +59,10 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     HardwareBufferManager::HardwareBufferManager()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     HardwareBufferManager::~HardwareBufferManager()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
     // Free temporary vertex buffers every 5 minutes on 100fps
@@ -73,8 +71,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     HardwareBufferManagerBase::HardwareBufferManagerBase()
          
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     HardwareBufferManagerBase::~HardwareBufferManagerBase()
     {

@@ -42,15 +42,11 @@ String HLSLProgramProcessor::TargetLanguage = "hlsl";
 
 //-----------------------------------------------------------------------------
 HLSLProgramProcessor::HLSLProgramProcessor()
-{
-
-}
+= default;
 
 //-----------------------------------------------------------------------------
 HLSLProgramProcessor::~HLSLProgramProcessor()
-{
-
-}
+= default;
 
 //-----------------------------------------------------------------------------
 auto HLSLProgramProcessor::preCreateGpuPrograms( ProgramSet* programSet ) -> bool

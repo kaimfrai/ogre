@@ -78,9 +78,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     ShadowTextureManager::ShadowTextureManager()
          
-    {
-
-    }
+    = default;
     //---------------------------------------------------------------------
     ShadowTextureManager::~ShadowTextureManager()
     {

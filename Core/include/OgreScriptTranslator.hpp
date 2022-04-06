@@ -66,7 +66,7 @@ class Matrix4;
         virtual void translate(ScriptCompiler *compiler, const AbstractNodePtr &node) = 0;
     protected:
         // needs virtual destructor
-        virtual ~ScriptTranslator() {}
+        virtual ~ScriptTranslator() = default;
         /// Retrieves a new translator from the factories and uses it to process the give node
         static void processNode(ScriptCompiler *compiler, const AbstractNodePtr &node);
 
@@ -120,7 +120,7 @@ class Matrix4;
     {
     public:
         // required - virtual destructor
-        virtual ~ScriptTranslatorManager() {}
+        virtual ~ScriptTranslatorManager() = default;
 
         /// Returns a manager for the given object abstract node, or null if it is not supported
         virtual auto getTranslator(const AbstractNodePtr&) -> ScriptTranslator * = 0;

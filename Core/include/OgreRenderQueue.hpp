@@ -110,8 +110,8 @@ class Technique;
         class RenderableListener
         {
         public:
-            RenderableListener() {}
-            virtual ~RenderableListener() {}
+            RenderableListener() = default;
+            virtual ~RenderableListener() = default;
 
             /** Method called when a Renderable is added to the queue.
             @remarks

@@ -40,12 +40,10 @@ namespace Ogre {
     //---------------------------------------------------------------------
     RotationalSpline::RotationalSpline()
          
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     RotationalSpline::~RotationalSpline()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void RotationalSpline::addPoint(const Quaternion& p)
     {

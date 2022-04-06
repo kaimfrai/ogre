@@ -41,7 +41,7 @@ class ResourceManager;
 
     struct GLGpuProgramBase
     {
-        virtual ~GLGpuProgramBase() {}
+        virtual ~GLGpuProgramBase() = default;
         /// Execute the binding functions for this program
         virtual void bindProgram() = 0;
         /// Execute the binding functions for this program

@@ -71,7 +71,7 @@ namespace Ogre
         ScreenSize first;
         Rate second;
 
-        GLXVideoMode() {}
+        GLXVideoMode() = default;
         GLXVideoMode(const VideoMode& m) : first(m.width, m.height), second(m.refreshRate) {}
 
         auto operator!=(const GLXVideoMode& o) const -> bool

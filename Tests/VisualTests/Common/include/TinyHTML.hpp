@@ -36,7 +36,7 @@ THE SOFTWARE.
 /** An abstract html node */
 struct HtmlNode : public Ogre::GeneralAllocatedObject
 {
-    virtual ~HtmlNode() {}
+    virtual ~HtmlNode() = default;
     virtual auto print(Ogre::String indent = "") -> Ogre::String = 0;
 };
 //-----------------------------------------------------------------------
