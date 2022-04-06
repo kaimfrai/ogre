@@ -192,7 +192,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     OverlayContainer::ChildContainerIterator OverlayContainer::getChildContainerIterator()
     {
-        return ChildContainerIterator(mChildContainers.begin(), mChildContainers.end());
+        return {mChildContainers.begin(), mChildContainers.end()};
     }
     //---------------------------------------------------------------------
     void OverlayContainer::initialise()

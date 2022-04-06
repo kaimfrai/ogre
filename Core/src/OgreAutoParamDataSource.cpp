@@ -241,10 +241,10 @@ namespace Ogre {
         const Light& l = getLight(index);
         if (l.getType() == Light::LT_SPOTLIGHT)
         {
-            return Vector4f(Math::Cos(l.getSpotlightInnerAngle().valueRadians() * 0.5f),
+            return {Math::Cos(l.getSpotlightInnerAngle().valueRadians() * 0.5f),
                            Math::Cos(l.getSpotlightOuterAngle().valueRadians() * 0.5f),
                            l.getSpotlightFalloff(),
-                           1.0);
+                           1.0};
         }
         else
         {
@@ -255,7 +255,7 @@ namespace Ogre {
             // since pow(anything, 0) == 1
             // However we also need to ensure we don't overflow because of the division
             // therefore set x = 1 and y = 0 so divisor doesn't change scale
-            return Vector4f(1.0, 0.0, 0.0, 0.0); // since the main op is pow(.., vec4.z), this will result in 1.0
+            return {1.0, 0.0, 0.0, 0.0}; // since the main op is pow(.., vec4.z), this will result in 1.0
         }
     }
     //-----------------------------------------------------------------------------
@@ -580,7 +580,7 @@ namespace Ogre {
     Vector4f AutoParamDataSource::getPackedTextureSize(size_t index) const
     {
         Vector4f size = getTextureSize(index);
-        return Vector4f(size[0], size[1], 1 / size[0], 1 / size[1]);
+        return {size[0], size[1], 1 / size[0], 1 / size[1]};
     }
     //-----------------------------------------------------------------------------
     const ColourValue& AutoParamDataSource::getSurfaceAmbientColour() const
@@ -943,7 +943,7 @@ namespace Ogre {
     Vector4f AutoParamDataSource::getTime_0_X_packed(Real x) const
     {
         float t = this->getTime_0_X(x);
-        return Vector4f(t, std::sin(t), std::cos(t), std::tan(t));
+        return {t, std::sin(t), std::cos(t), std::tan(t)};
     }
     //-----------------------------------------------------------------------------
     Real AutoParamDataSource::getTime_0_1(Real x) const
@@ -969,7 +969,7 @@ namespace Ogre {
     Vector4f AutoParamDataSource::getTime_0_1_packed(Real x) const
     {
         float t = this->getTime_0_1(x);
-        return Vector4f(t, std::sin(t), std::cos(t), std::tan(t));
+        return {t, std::sin(t), std::cos(t), std::tan(t)};
     }
     //-----------------------------------------------------------------------------
     Real AutoParamDataSource::getTime_0_2Pi(Real x) const
@@ -995,7 +995,7 @@ namespace Ogre {
     Vector4f AutoParamDataSource::getTime_0_2Pi_packed(Real x) const
     {
         float t = this->getTime_0_2Pi(x);
-        return Vector4f(t, std::sin(t), std::cos(t), std::tan(t));
+        return {t, std::sin(t), std::cos(t), std::tan(t)};
     }
     //-----------------------------------------------------------------------------
     Real AutoParamDataSource::getFrameTime() const

@@ -481,7 +481,7 @@ ParameterPtr ParameterFactory::createInTexcoord(GpuConstantType type, int index,
         break;
     }
 
-    return ParameterPtr();
+    return {};
 }
 
 //-----------------------------------------------------------------------
@@ -524,7 +524,7 @@ ParameterPtr ParameterFactory::createOutTexcoord(GpuConstantType type, int index
         break;
     }
 
-    return ParameterPtr();
+    return {};
 }
 
 //-----------------------------------------------------------------------
@@ -571,7 +571,7 @@ UniformParameterPtr ParameterFactory::createSampler(GpuConstantType type, int in
         break;
     }
 
-    return UniformParameterPtr();
+    return {};
     
 }
 

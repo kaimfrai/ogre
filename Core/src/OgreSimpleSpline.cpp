@@ -151,7 +151,7 @@ namespace Ogre {
         Vector4 ret = powers * mCoeffs * pt;
 
 
-        return Vector3(ret.x, ret.y, ret.z);
+        return {ret.x, ret.y, ret.z};
 
 
 

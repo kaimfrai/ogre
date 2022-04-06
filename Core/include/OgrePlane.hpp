@@ -233,7 +233,7 @@ namespace Ogre {
         /// Get flipped plane, with same location but reverted orientation
         Plane operator - () const
         {
-            return Plane(-(normal.x), -(normal.y), -(normal.z), -d); // not equal to Plane(-normal, -d)
+            return {-(normal.x), -(normal.y), -(normal.z), -d}; // not equal to Plane(-normal, -d)
         }
 
         /// Comparison operator

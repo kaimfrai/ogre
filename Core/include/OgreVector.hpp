@@ -747,9 +747,9 @@ namespace Ogre
 
     inline Vector2 VectorBase<2, Real>::midPoint( const Vector2& vec ) const
     {
-        return Vector2(
+        return {
             ( x + vec.x ) * 0.5f,
-            ( y + vec.y ) * 0.5f );
+            ( y + vec.y ) * 0.5f };
     }
 
     inline Vector2 VectorBase<2, Real>::randomDeviant(Radian angle) const
@@ -757,8 +757,8 @@ namespace Ogre
         angle *= Math::RangeRandom(-1, 1);
         Real cosa = Math::Cos(angle);
         Real sina = Math::Sin(angle);
-        return Vector2(cosa * x - sina * y,
-                       sina * x + cosa * y);
+        return {cosa * x - sina * y,
+                       sina * x + cosa * y};
     }
 
     inline Radian VectorBase<2, Real>::angleTo(const Vector2& other) const
@@ -773,7 +773,7 @@ namespace Ogre
 
     inline Vector2 VectorBase<2, Real>::perpendicular() const
     {
-        return Vector2(-y, x);
+        return {-y, x};
     }
 
     inline Vector3 VectorBase<3, Real>::perpendicular() const
@@ -787,18 +787,18 @@ namespace Ogre
 
     inline Vector3 VectorBase<3, Real>::crossProduct( const Vector3& rkVector ) const
     {
-        return Vector3(
+        return {
             y * rkVector.z - z * rkVector.y,
             z * rkVector.x - x * rkVector.z,
-            x * rkVector.y - y * rkVector.x);
+            x * rkVector.y - y * rkVector.x};
     }
 
     inline Vector3 VectorBase<3, Real>::midPoint( const Vector3& vec ) const
     {
-        return Vector3(
+        return {
             ( x + vec.x ) * 0.5f,
             ( y + vec.y ) * 0.5f,
-            ( z + vec.z ) * 0.5f );
+            ( z + vec.z ) * 0.5f };
     }
 
     inline Vector3 VectorBase<3, Real>::randomDeviant(const Radian& angle, const Vector3& up) const
@@ -896,7 +896,7 @@ namespace Ogre
     {
         Vector3 normal = calculateBasicFaceNormal(v1, v2, v3);
         // Now set up the w (distance of tri from origin
-        return Vector4(normal.x, normal.y, normal.z, -(normal.dotProduct(v1)));
+        return {normal.x, normal.y, normal.z, -(normal.dotProduct(v1))};
     }
     inline Vector3 Math::calculateBasicFaceNormalWithoutNormalize(
         const Vector3& v1, const Vector3& v2, const Vector3& v3)
@@ -910,7 +910,7 @@ namespace Ogre
     {
         Vector3 normal = calculateBasicFaceNormalWithoutNormalize(v1, v2, v3);
         // Now set up the w (distance of tri from origin)
-        return Vector4(normal.x, normal.y, normal.z, -(normal.dotProduct(v1)));
+        return {normal.x, normal.y, normal.z, -(normal.dotProduct(v1))};
     }
     /** @} */
     /** @} */

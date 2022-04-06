@@ -440,7 +440,7 @@ ParameterPtr FFPTexturing::getPSArgument(ParameterPtr texel, LayerBlendSource bl
                                                          (Real)colourValue.b, (Real)colourValue.a));
     }
 
-    return ParameterPtr();
+    return {};
 }
 
 //-----------------------------------------------------------------------

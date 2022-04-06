@@ -441,7 +441,7 @@ MeshPtr SceneManager::SkyDomeRenderer::createSkydomePlane(
         break;
     case BP_DOWN:
         // no down
-        return MeshPtr();
+        return {};
     }
     // Modify by orientation
     plane.normal = orientation * plane.normal;

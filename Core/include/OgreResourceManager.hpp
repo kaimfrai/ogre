@@ -492,7 +492,7 @@ namespace Ogre {
         */
         ResourceMapIterator getResourceIterator() 
         {
-            return ResourceMapIterator(mResourcesByHandle.begin(), mResourcesByHandle.end());
+            return {mResourcesByHandle.begin(), mResourcesByHandle.end()};
         }
 
     protected:

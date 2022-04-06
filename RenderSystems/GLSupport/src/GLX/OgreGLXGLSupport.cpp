@@ -490,7 +490,7 @@ namespace Ogre
     //-------------------------------------------------------------------------------------------------//
     String GLXGLSupport::getDisplayName()
     {
-        return String((const char*)XDisplayName(DisplayString(mGLDisplay)));
+        return {(const char*)XDisplayName(DisplayString(mGLDisplay))};
     }
 
     //-------------------------------------------------------------------------------------------------//

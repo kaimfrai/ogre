@@ -694,7 +694,7 @@ class InstancedEntity;
     {
         InstanceBatchMap::const_iterator it = mInstanceBatches.find( materialName );
         if(it != mInstanceBatches.end())
-            return InstanceBatchIterator( it->second.begin(), it->second.end() );
+            return { it->second.begin(), it->second.end() };
 
         OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "Cannot create instance batch iterator. "
                     "Material " + materialName + " cannot be found");

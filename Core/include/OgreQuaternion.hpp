@@ -192,13 +192,13 @@ class Matrix3;
         Quaternion operator*(const Quaternion& rkQ) const;
         Quaternion operator*(float s) const
         {
-            return Quaternion(s * w, s * x, s * y, s * z);
+            return {s * w, s * x, s * y, s * z};
         }
         friend Quaternion operator*(float s, const Quaternion& q)
         {
             return q * s;
         }
-        Quaternion operator-() const { return Quaternion(-w, -x, -y, -z); }
+        Quaternion operator-() const { return {-w, -x, -y, -z}; }
         inline bool operator== (const Quaternion& rhs) const
         {
             return (rhs.x == x) && (rhs.y == y) &&

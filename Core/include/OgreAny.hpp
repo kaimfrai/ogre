@@ -284,28 +284,28 @@ namespace Ogre
         }
         AnyNumeric operator+(const AnyNumeric& rhs) const
         {
-            return AnyNumeric(
-                static_cast<numplaceholder*>(mContent)->add(rhs.mContent));
+            return {
+                static_cast<numplaceholder*>(mContent)->add(rhs.mContent)};
         }
         AnyNumeric operator-(const AnyNumeric& rhs) const
         {
-            return AnyNumeric(
-                static_cast<numplaceholder*>(mContent)->subtract(rhs.mContent));
+            return {
+                static_cast<numplaceholder*>(mContent)->subtract(rhs.mContent)};
         }
         AnyNumeric operator*(const AnyNumeric& rhs) const
         {
-            return AnyNumeric(
-                static_cast<numplaceholder*>(mContent)->multiply(rhs.mContent));
+            return {
+                static_cast<numplaceholder*>(mContent)->multiply(rhs.mContent)};
         }
         AnyNumeric operator*(Real factor) const
         {
-            return AnyNumeric(
-                static_cast<numplaceholder*>(mContent)->multiply(factor));
+            return {
+                static_cast<numplaceholder*>(mContent)->multiply(factor)};
         }
         AnyNumeric operator/(const AnyNumeric& rhs) const
         {
-            return AnyNumeric(
-                static_cast<numplaceholder*>(mContent)->divide(rhs.mContent));
+            return {
+                static_cast<numplaceholder*>(mContent)->divide(rhs.mContent)};
         }
         AnyNumeric& operator+=(const AnyNumeric& rhs)
         {

@@ -200,7 +200,7 @@ class Viewport;
             else
             {
                 // failure!
-                return Vector3(0.0, 0.0, 0.0);
+                return {0.0, 0.0, 0.0};
             }
         }
     }

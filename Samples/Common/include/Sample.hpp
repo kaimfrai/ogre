@@ -123,7 +123,7 @@ namespace OgreBites
         | If this sample requires specific plugins to run, this method will be
         | used to return their names.
         -----------------------------------------------------------------------------*/
-        virtual Ogre::StringVector getRequiredPlugins() { return Ogre::StringVector(); }
+        virtual Ogre::StringVector getRequiredPlugins() { return {}; }
 
         Ogre::SceneManager* getSceneManager() { return mSceneMgr; }
         bool isDone() { return mDone; }

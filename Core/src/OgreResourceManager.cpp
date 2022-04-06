@@ -390,7 +390,7 @@ namespace Ogre {
             }
         }
     
-        return ResourcePtr();
+        return {};
     }
     //-----------------------------------------------------------------------
     ResourcePtr ResourceManager::getByHandle(ResourceHandle handle) const

@@ -204,7 +204,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     OverlayManager::OverlayMapIterator OverlayManager::getOverlayIterator()
     {
-        return OverlayMapIterator(mOverlayMap.begin(), mOverlayMap.end());
+        return {mOverlayMap.begin(), mOverlayMap.end()};
     }
     void OverlayManager::parseScript(DataStreamPtr& stream, const String& groupName)
     {

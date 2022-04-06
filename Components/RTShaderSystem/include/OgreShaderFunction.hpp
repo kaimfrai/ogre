@@ -219,7 +219,7 @@ public:
     /// get a @ref FFPShaderStage of this function
     FunctionStageRef getStage(uint32 s)
     {
-        return FunctionStageRef(s, this);
+        return {s, this};
     }
 
     /** Delete a function atom instance from this function. 

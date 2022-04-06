@@ -553,7 +553,7 @@ ParameterPtr Function::_getParameterByName( const ShaderParameterList& parameter
         }
     }
 
-    return ParameterPtr();
+    return {};
 }
 
 //-----------------------------------------------------------------------------
@@ -572,7 +572,7 @@ ParameterPtr Function::_getParameterBySemantic(const ShaderParameterList& parame
         }
     }
 
-    return ParameterPtr();
+    return {};
 }
 
 //-----------------------------------------------------------------------------
@@ -596,7 +596,7 @@ ParameterPtr Function::_getParameterByContent(const ShaderParameterList& paramet
         }
     }
     
-    return ParameterPtr();
+    return {};
 }
 
 

@@ -295,7 +295,7 @@ UniformParameterPtr Program::getParameterByName(const String& name)
         }
     }
 
-    return UniformParameterPtr();
+    return {};
 }
 
 //-----------------------------------------------------------------------------
@@ -312,7 +312,7 @@ UniformParameterPtr Program::getParameterByType(GpuConstantType type, int index)
         }
     }
 
-    return UniformParameterPtr();
+    return {};
 }
 
 //-----------------------------------------------------------------------------
@@ -328,7 +328,7 @@ UniformParameterPtr Program::getParameterByAutoType(GpuProgramParameters::AutoCo
         }
     }
 
-    return UniformParameterPtr();
+    return {};
 }
 
 //-----------------------------------------------------------------------------

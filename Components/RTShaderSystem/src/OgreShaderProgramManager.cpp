@@ -285,7 +285,7 @@ GpuProgramPtr ProgramManager::createGpuProgram(Program* shaderProgram,
             std::ofstream outFile(programFileName.c_str());
 
             if (!outFile)
-                return GpuProgramPtr();
+                return {};
 
             outFile << source;
             outFile.close();

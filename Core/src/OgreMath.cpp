@@ -702,10 +702,10 @@ namespace Ogre
     //-----------------------------------------------------------------------
     Affine3 Math::buildReflectionMatrix(const Plane& p)
     {
-        return Affine3(
+        return {
             -2 * p.normal.x * p.normal.x + 1,   -2 * p.normal.x * p.normal.y,       -2 * p.normal.x * p.normal.z,       -2 * p.normal.x * p.d, 
             -2 * p.normal.y * p.normal.x,       -2 * p.normal.y * p.normal.y + 1,   -2 * p.normal.y * p.normal.z,       -2 * p.normal.y * p.d, 
-            -2 * p.normal.z * p.normal.x,       -2 * p.normal.z * p.normal.y,       -2 * p.normal.z * p.normal.z + 1,   -2 * p.normal.z * p.d);
+            -2 * p.normal.z * p.normal.x,       -2 * p.normal.z * p.normal.y,       -2 * p.normal.z * p.normal.z + 1,   -2 * p.normal.z * p.d};
     }
     //-----------------------------------------------------------------------
     Real Math::gaussianDistribution(Real x, Real offset, Real scale)

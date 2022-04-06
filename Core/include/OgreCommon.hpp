@@ -783,7 +783,7 @@ class RenderWindow;
             }
 
             /// @overload
-            explicit Box(const Vector3i& size)
+            explicit Box(const Vector<3, uint32>& size)
                 : left(0), top(0), right(size[0]), bottom(size[1]), front(0), back(size[2])
             {
             }
@@ -803,9 +803,9 @@ class RenderWindow;
             uint32 getDepth() const { return back-front; }
 
             /// origin (top, left, front) of the box
-            Vector3i getOrigin() const { return Vector3i(left, top, front); }
+            Vector<3, uint32> getOrigin() const { return {left, top, front}; }
             /// size (width, height, depth) of the box
-            Vector3i getSize() const { return Vector3i(getWidth(), getHeight(), getDepth()); }
+            Vector<3, uint32> getSize() const { return {getWidth(), getHeight(), getDepth()}; }
         };
 
     

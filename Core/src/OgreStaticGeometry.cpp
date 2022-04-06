@@ -160,14 +160,14 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     Vector3 StaticGeometry::getRegionCentre(ushort x, ushort y, ushort z)
     {
-        return Vector3(
+        return {
             ((Real)x - REGION_HALF_RANGE) * mRegionDimensions.x + mOrigin.x
                 + mHalfRegionDimensions.x,
             ((Real)y - REGION_HALF_RANGE) * mRegionDimensions.y + mOrigin.y
                 + mHalfRegionDimensions.y,
             ((Real)z - REGION_HALF_RANGE) * mRegionDimensions.z + mOrigin.z
                 + mHalfRegionDimensions.z
-            );
+            };
     }
     //--------------------------------------------------------------------------
     StaticGeometry::Region* StaticGeometry::getRegion(

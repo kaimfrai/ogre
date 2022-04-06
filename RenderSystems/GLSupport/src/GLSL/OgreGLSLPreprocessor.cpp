@@ -276,7 +276,7 @@ namespace Ogre {
     CPreprocessor::Token CPreprocessor::GetToken (bool iExpand)
     {
         if (Source >= SourceEnd)
-            return Token (Token::TK_EOS);
+            return {Token::TK_EOS};
 
         const char *begin = Source;
         char c = *Source++;
@@ -288,7 +288,7 @@ namespace Ogre {
             BOL = true;
             if (c == '\r')
                 Source++;
-            return Token (Token::TK_NEWLINE, begin, Source - begin);
+            return {Token::TK_NEWLINE, begin, static_cast<size_t>(Source - begin)};
         }
         else if (isspace (c))
         {
@@ -298,7 +298,7 @@ namespace Ogre {
                    isspace (*Source))
                 Source++;
 
-            return Token (Token::TK_WHITESPACE, begin, Source - begin);
+            return {Token::TK_WHITESPACE, begin, static_cast<size_t>(Source - begin)};
         }
         else if (isdigit (c))
         {
@@ -312,14 +312,14 @@ namespace Ogre {
             else
                 while (Source < SourceEnd && isdigit (*Source))
                     Source++;
-            return Token (Token::TK_NUMBER, begin, Source - begin);
+            return {Token::TK_NUMBER, begin, static_cast<size_t>(Source - begin)};
         }
         else if (c == '_' || isalnum (c))
         {
             BOL = false;
             while (Source < SourceEnd && (*Source == '_' || isalnum (*Source)))
                 Source++;
-            Token t (Token::TK_KEYWORD, begin, Source - begin);
+            Token t (Token::TK_KEYWORD, begin, static_cast<size_t>(Source - begin));
             if (iExpand)
                 t = ExpandMacro (t);
             return t;
@@ -341,7 +341,7 @@ namespace Ogre {
             }
             if (Source < SourceEnd)
                 Source++;
-            return Token (Token::TK_STRING, begin, Source - begin);
+            return {Token::TK_STRING, begin, static_cast<size_t>(Source - begin)};
         }
         else if (c == '/' && *Source == '/')
         {
@@ -349,7 +349,7 @@ namespace Ogre {
             Source++;
             while (Source < SourceEnd && *Source != '\r' && *Source != '\n')
                 Source++;
-            return Token (Token::TK_LINECOMMENT, begin, Source - begin);
+            return {Token::TK_LINECOMMENT, begin, static_cast<size_t>(Source - begin)};
         }
         else if (c == '/' && *Source == '*')
         {
@@ -365,7 +365,7 @@ namespace Ogre {
                 Source++;
             if (Source < SourceEnd && *Source == '/')
                 Source++;
-            return Token (Token::TK_COMMENT, begin, Source - begin);
+            return {Token::TK_COMMENT, begin, static_cast<size_t>(Source - begin)};
         }
         else if (c == '#' && BOL)
         {
@@ -374,7 +374,7 @@ namespace Ogre {
                 Source++;
             while (Source < SourceEnd && !isspace (*Source))
                 Source++;
-            return Token (Token::TK_DIRECTIVE, begin, Source - begin);
+            return {Token::TK_DIRECTIVE, begin, static_cast<size_t>(Source - begin)};
         }
         else if (c == '\\' && Source < SourceEnd && (*Source == '\r' || *Source == '\n'))
         {
@@ -385,7 +385,7 @@ namespace Ogre {
                 Source++;
             Line++;
             BOL = true;
-            return Token (Token::TK_LINECONT, begin, Source - begin);
+            return {Token::TK_LINECONT, begin, static_cast<size_t>(Source - begin)};
         }
         else
         {
@@ -401,7 +401,7 @@ namespace Ogre {
                 Source++;
             else if ((c == '|' || c == '&' || c == '^') && *Source == c)
                 Source++;
-            return Token (Token::TK_PUNCTUATION, begin, Source - begin);
+            return {Token::TK_PUNCTUATION, begin, static_cast<size_t>(Source - begin)};
         }
     }
 
@@ -454,7 +454,7 @@ namespace Ogre {
                           int (cur->Name.Length), cur->Name.String,
                           args.size(), cur->Args.size());
                 Error (old_line, tmp);
-                return Token (Token::TK_ERROR);
+                return {Token::TK_ERROR};
             }
 
             Token t = cur->ExpandFunc ?
@@ -513,7 +513,7 @@ namespace Ogre {
                 {
                     snprintf (tmp, sizeof (tmp), "Unary '%c' not applicable", uop);
                     Error (iLine, tmp, &oResult);
-                    return Token (Token::TK_ERROR);
+                    return {Token::TK_ERROR};
                 }
 
                 if (uop == '-')
@@ -531,7 +531,7 @@ namespace Ogre {
                 if (op.Type == Token::TK_EOS)
                 {
                     Error (iLine, "Unclosed parenthesis in #if expression");
-                    return Token (Token::TK_ERROR);
+                    return {Token::TK_ERROR};
                 }
 
                 assert (op.Type == Token::TK_PUNCTUATION &&
@@ -593,7 +593,7 @@ namespace Ogre {
             if (!prio)
             {
                 Error (iLine, "Expecting operator, got", &op);
-                return Token (Token::TK_ERROR);
+                return {Token::TK_ERROR};
             }
 
             if (iOpPriority >= prio)
@@ -607,14 +607,14 @@ namespace Ogre {
                 snprintf (tmp, sizeof (tmp), "Left operand of '%.*s' is not a number",
                           int (op.Length), op.String);
                 Error (iLine, tmp, &oResult);
-                return Token (Token::TK_ERROR);
+                return {Token::TK_ERROR};
             }
             if (!GetValue (rop, vrop, iLine))
             {
                 snprintf (tmp, sizeof (tmp), "Right operand of '%.*s' is not a number",
                           int (op.Length), op.String);
                 Error (iLine, tmp, &rop);
-                return Token (Token::TK_ERROR);
+                return {Token::TK_ERROR};
             }
 
             switch (op.String [0])
@@ -658,7 +658,7 @@ namespace Ogre {
                 if (vrop == 0)
                 {
                     Error (iLine, "Division by zero");
-                    return Token (Token::TK_ERROR);
+                    return {Token::TK_ERROR};
                 }
                 if (op.String [0] == '/')
                     oResult.SetValue (vlop / vrop);
@@ -775,7 +775,7 @@ namespace Ogre {
             else if (oArg.Type != Token::TK_KEYWORD)
             {
                 Error (Line, "Unexpected token", &oArg);
-                return Token (Token::TK_ERROR);
+                return {Token::TK_ERROR};
             }
         }
 
@@ -794,7 +794,7 @@ namespace Ogre {
                 Error (Line, "Unfinished list of arguments");
                 OGRE_FALLTHROUGH;
             case Token::TK_ERROR:
-                return Token (Token::TK_ERROR);
+                return {Token::TK_ERROR};
             case Token::TK_PUNCTUATION:
                 if( t.String [0] == '(' )
                 {
@@ -841,7 +841,7 @@ namespace Ogre {
             if (!iExpand && t.Type != Token::TK_WHITESPACE)
             {
                 Error (Line, "Unexpected token", &oArg);
-                return Token (Token::TK_ERROR);
+                return {Token::TK_ERROR};
             }
 
             oArg.Append (t);
@@ -890,7 +890,7 @@ namespace Ogre {
             if (nargs == MAX_MACRO_ARGS)
             {
                 Error (Line, "Too many arguments to macro");
-                return Token (Token::TK_ERROR);
+                return {Token::TK_ERROR};
             }
 
             t = GetArgument (args [nargs++], iExpand, shouldAppendArg);
@@ -901,7 +901,7 @@ namespace Ogre {
                 Error (Line, "Unfinished list of arguments");
                 OGRE_FALLTHROUGH;
             case Token::TK_ERROR:
-                return Token (Token::TK_ERROR);
+                return {Token::TK_ERROR};
 
             case Token::TK_PUNCTUATION:
                 if (t.String [0] == ')')
@@ -1063,11 +1063,11 @@ namespace Ogre {
         if (iArgs.size() != 1)
         {
             iParent->Error (iParent->Line, "The defined() function takes exactly one argument");
-            return Token (Token::TK_ERROR);
+            return {Token::TK_ERROR};
         }
 
         const char *v = iParent->IsDefined (iArgs [0]) ? "1" : "0";
-        return Token (Token::TK_NUMBER, v, 1);
+        return {Token::TK_NUMBER, v, 1};
     }
 
     bool CPreprocessor::GetValueDef(const Token &iToken, long &oValue, int iLine)
@@ -1255,7 +1255,7 @@ namespace Ogre {
 #undef IS_DIRECTIVE
 
         if (!rc)
-            return Token (Token::TK_ERROR);
+            return {Token::TK_ERROR};
         return last;
     }
 
@@ -1390,7 +1390,7 @@ namespace Ogre {
         if (EnableOutput != 1)
         {
             Error (Line, "Unclosed #if at end of source");
-            return Token (Token::TK_ERROR);
+            return {Token::TK_ERROR};
         }
 
         return output;

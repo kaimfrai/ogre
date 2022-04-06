@@ -309,7 +309,7 @@ namespace Ogre {
 			flipEndian(&fileType, sizeof(uint32), 1);
 
 			if (ASTC_MAGIC == fileType)
-				return String("astc");
+				return {"astc"};
 		}
 
         return BLANKSTRING;

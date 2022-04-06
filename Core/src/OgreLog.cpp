@@ -165,7 +165,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     Log::Stream Log::stream(LogMessageLevel lml, bool maskDebug) 
     {
-        return Stream(this, lml, maskDebug);
+        return {this, lml, maskDebug};
 
     }
 }

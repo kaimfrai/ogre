@@ -98,7 +98,7 @@ namespace Ogre {
         /// @deprecated
         virtual DecodeResult decode(const DataStreamPtr& input) const
         {
-            return DecodeResult();
+            return {};
         }
     };
 

@@ -1071,7 +1071,7 @@ namespace {
 
             if (DDS_MAGIC == fileType)
             {
-                return String("dds");
+                return {"dds"};
             }
         }
 

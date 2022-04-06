@@ -306,7 +306,7 @@ class SceneManager;
 
         /// Get non-updateable iterator over instance batches per material
         InstanceBatchMapIterator getInstanceBatchMapIterator() const
-        { return InstanceBatchMapIterator( mInstanceBatches.begin(), mInstanceBatches.end() ); }
+        { return { mInstanceBatches.begin(), mInstanceBatches.end() }; }
 
         /** Get non-updateable iterator over instance batches for given material
         @remarks
