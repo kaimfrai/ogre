@@ -97,7 +97,7 @@ bool GBuffer::createCpuSubPrograms(ProgramSet* programSet)
             break;
         case TL_NORMAL_VIEWDEPTH:
             addViewPosInvocations(programSet, out, true);
-            OGRE_FALLTHROUGH;
+            [[fallthrough]];
         case TL_NORMAL:
             addNormalInvocations(programSet, out);
             break;

@@ -676,7 +676,7 @@ void FFPTexturing::setTextureUnit(unsigned short index, TextureUnitState* textur
         curParams.mVSInTextureCoordinateType = GCT_FLOAT1;
         if(!isGLES2) // no 1D texture support
             break;
-        OGRE_FALLTHROUGH;
+        [[fallthrough]];
     case TEX_TYPE_2D:
         curParams.mTextureSamplerType = GCT_SAMPLER2D;
         curParams.mVSInTextureCoordinateType = GCT_FLOAT2;

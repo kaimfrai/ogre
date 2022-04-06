@@ -144,13 +144,13 @@ static Parameter::Semantic semanticFromContent(Parameter::Content content, bool 
         return Parameter::SPS_FRONT_FACING;
     case Parameter::SPC_TANGENT_OBJECT_SPACE:
         if(!isVSOut) return Parameter::SPS_TANGENT;
-        OGRE_FALLTHROUGH;
+        [[fallthrough]];
     case Parameter::SPC_POSITION_OBJECT_SPACE:
         if(!isVSOut) return Parameter::SPS_POSITION;
-        OGRE_FALLTHROUGH;
+        [[fallthrough]];
     case Parameter::SPC_NORMAL_OBJECT_SPACE:
         if(!isVSOut) return Parameter::SPS_NORMAL;
-        OGRE_FALLTHROUGH;
+        [[fallthrough]];
     // the remaining types are VS output types only (or indeed texcoord)
     // for out types we use the TEXCOORD[n] semantics for compatibility
     // with Cg, HLSL SM2.0 where they are the only multivariate semantics

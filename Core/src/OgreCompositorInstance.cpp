@@ -395,7 +395,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
         }
         case CompositionPass::PT_COMPUTE:
             isCompute = true;
-            OGRE_FALLTHROUGH;
+            [[fallthrough]];
         case CompositionPass::PT_RENDERQUAD: {
             srcmat = pass->getMaterial();
             if(!srcmat)

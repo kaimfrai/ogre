@@ -159,7 +159,7 @@ namespace Ogre {
                 else
                 {
                     state = WORD;
-                    OGRE_FALLTHROUGH;
+                    [[fallthrough]];
                 }
             case WORD:
                 if(isNewline(c))

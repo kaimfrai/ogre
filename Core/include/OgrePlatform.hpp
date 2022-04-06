@@ -30,9 +30,6 @@ THE SOFTWARE.
 
 #include "OgreConfig.hpp"
 
-/* fallthrough attribute */
-#define OGRE_FALLTHROUGH __attribute__((fallthrough))
-
 /* Find how to declare aligned variable. */
 #define OGRE_ALIGNED_DECL(type, var, alignment)  type var __attribute__((__aligned__(alignment)))
 
