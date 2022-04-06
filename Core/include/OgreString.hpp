@@ -33,8 +33,6 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.hpp"
 
-#define OGRE_FORMAT_PRINTF(string_idx, first_to_check) __attribute__ ((format (printf, string_idx, first_to_check)))
-
 namespace Ogre {
     /** \addtogroup Core
      *  @{
@@ -174,7 +172,7 @@ namespace Ogre {
          *
          * @note this function - like printf - uses a locale dependent decimal point
          */
-        static String format(const char* fmt, ...) OGRE_FORMAT_PRINTF(1, 2);
+        static String format(const char* fmt, ...);
     };
 
     using _StringHash = ::std::hash<String>;
