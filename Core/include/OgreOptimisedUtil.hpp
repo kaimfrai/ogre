@@ -214,13 +214,13 @@ class Affine3;
         The offset are in bytes, no matter what type of the pointer.
     */
     template <class T>
-    static OGRE_FORCE_INLINE const T* rawOffsetPointer(const T* ptr, ptrdiff_t offset)
+    static inline const T* rawOffsetPointer(const T* ptr, ptrdiff_t offset)
     {
         return (const T*)((const char*)(ptr) + offset);
     }
 
     template <class T>
-    static OGRE_FORCE_INLINE T* rawOffsetPointer(T* ptr, ptrdiff_t offset)
+    static inline T* rawOffsetPointer(T* ptr, ptrdiff_t offset)
     {
         return (T*)((char*)(ptr) + offset);
     }
@@ -230,13 +230,13 @@ class Affine3;
         The offset are in bytes, no matter what type of the pointer.
     */
     template <class T>
-    static OGRE_FORCE_INLINE void advanceRawPointer(const T*& ptr, ptrdiff_t offset)
+    static inline void advanceRawPointer(const T*& ptr, ptrdiff_t offset)
     {
         ptr = rawOffsetPointer(ptr, offset);
     }
 
     template <class T>
-    static OGRE_FORCE_INLINE void advanceRawPointer(T*& ptr, ptrdiff_t offset)
+    static inline void advanceRawPointer(T*& ptr, ptrdiff_t offset)
     {
         ptr = rawOffsetPointer(ptr, offset);
     }

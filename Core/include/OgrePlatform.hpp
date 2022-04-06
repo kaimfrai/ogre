@@ -30,10 +30,6 @@ THE SOFTWARE.
 
 #include "OgreConfig.hpp"
 
-/* See if we can use __forceinline or if we need to use __inline instead */
-
-#define OGRE_FORCE_INLINE inline __attribute__((always_inline))
-
 /* fallthrough attribute */
 #define OGRE_FALLTHROUGH __attribute__((fallthrough))
 

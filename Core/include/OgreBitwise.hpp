@@ -46,19 +46,19 @@ namespace Ogre {
     public:
         /** Returns value with reversed bytes order.
         */
-        static OGRE_FORCE_INLINE uint16 bswap16(uint16 arg)
+        static inline uint16 bswap16(uint16 arg)
         {
             return ::std::byteswap<uint16>(arg);
         }
         /** Returns value with reversed bytes order.
         */
-        static OGRE_FORCE_INLINE uint32 bswap32(uint32 arg)
+        static inline uint32 bswap32(uint32 arg)
         {
             return  ::std::byteswap<uint32>(arg);
         }
         /** Returns value with reversed bytes order.
         */
-        static OGRE_FORCE_INLINE uint64 bswap64(uint64 arg)
+        static inline uint64 bswap64(uint64 arg)
         {
             return ::std::byteswap<uint64>(arg);
         }
@@ -93,7 +93,7 @@ namespace Ogre {
 
         /** Returns the most significant bit set in a value.
         */
-        static OGRE_FORCE_INLINE unsigned int mostSignificantBitSet(unsigned int value)
+        static inline unsigned int mostSignificantBitSet(unsigned int value)
         {
             //                                     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F
             static const unsigned char msb[16] = { 0, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4 };
@@ -109,7 +109,7 @@ namespace Ogre {
             @note 0 and 1 are powers of two, so 
                 firstPO2From(0)==0 and firstPO2From(1)==1.
         */
-        static OGRE_FORCE_INLINE uint32 firstPO2From(uint32 n)
+        static inline uint32 firstPO2From(uint32 n)
         {
             --n;            
             n |= n >> 16;
@@ -124,7 +124,7 @@ namespace Ogre {
             @note 0 and 1 are tread as power of two.
         */
         template<typename T>
-        static OGRE_FORCE_INLINE bool isPO2(T n)
+        static inline bool isPO2(T n)
         {
             return (n & (n-1)) == 0;
         }
@@ -132,7 +132,7 @@ namespace Ogre {
             remove right-hand zeros.
         */
         template<typename T>
-        static OGRE_FORCE_INLINE unsigned int getBitShift(T mask)
+        static inline unsigned int getBitShift(T mask)
         {
             if (mask == 0)
                 return 0;
