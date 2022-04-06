@@ -117,7 +117,7 @@ namespace {
         : Archive(name, archType) 
     {
         if(externBuf)
-            mBuffer.reset(new MemoryDataStream(const_cast<uint8*>(externBuf), externBufSz));
+            mBuffer = std::make_shared<MemoryDataStream>(const_cast<uint8*>(externBuf), externBufSz);
     }
     //-----------------------------------------------------------------------
     ZipArchive::~ZipArchive()
@@ -130,7 +130,7 @@ namespace {
         if (!mZipFile)
         {
             if(!mBuffer)
-                mBuffer.reset(new MemoryDataStream(_openFileStream(mName, std::ios::binary)));
+                mBuffer = std::make_shared<MemoryDataStream>(_openFileStream(mName, std::ios::binary));
 
             mZipFile = zip_stream_open((const char*)mBuffer->getPtr(), mBuffer->size(), 0, 'r');
 

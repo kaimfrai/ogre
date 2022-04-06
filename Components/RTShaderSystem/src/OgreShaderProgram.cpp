@@ -159,7 +159,7 @@ auto Program::resolveParameter(GpuProgramParameters::AutoConstantType autoType, 
     }
     
     // Create new parameter
-    param = UniformParameterPtr(new UniformParameter(autoType, data, size));
+    param = std::make_shared<UniformParameter>(autoType, data, size);
     addParameter(param);
 
     return param;
@@ -183,7 +183,7 @@ auto Program::resolveAutoParameterReal(GpuProgramParameters::AutoConstantType au
     }
     
     // Create new parameter.
-    param = UniformParameterPtr(new UniformParameter(autoType, float(data), size));
+    param = std::make_shared<UniformParameter>(autoType, float(data), size);
     addParameter(param);
 
     return param;
@@ -208,7 +208,7 @@ auto Program::resolveAutoParameterReal(GpuProgramParameters::AutoConstantType au
     }
     
     // Create new parameter.
-    param = UniformParameterPtr(new UniformParameter(autoType, data, size, type));
+    param = std::make_shared<UniformParameter>(autoType, data, size, type);
     addParameter(param);
 
     return param;
@@ -233,7 +233,7 @@ auto Program::resolveAutoParameterInt(GpuProgramParameters::AutoConstantType aut
     }
 
     // Create new parameter.
-    param = UniformParameterPtr(new UniformParameter(autoType, data, size, type));
+    param = std::make_shared<UniformParameter>(autoType, data, size, type);
     addParameter(param);
 
     return param;

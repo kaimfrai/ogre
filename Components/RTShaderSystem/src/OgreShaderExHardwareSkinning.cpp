@@ -115,7 +115,7 @@ void HardwareSkinning::setHardwareSkinningParam(ushort boneCount, ushort weightC
     {
         if(!mDualQuat)
         {
-            mDualQuat.reset(new DualQuaternionSkinning);
+            mDualQuat = std::make_shared<DualQuaternionSkinning>();
         }
 
         mActiveTechnique = mDualQuat;
@@ -124,7 +124,7 @@ void HardwareSkinning::setHardwareSkinningParam(ushort boneCount, ushort weightC
     {
         if(!mLinear)
         {
-            mLinear.reset(new LinearSkinning);
+            mLinear = std::make_shared<LinearSkinning>();
         }
 
         mActiveTechnique = mLinear;

@@ -28,6 +28,7 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <cstring>
+#include <memory>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -907,7 +908,7 @@ namespace {
             imgData->width, imgData->height, imgData->depth, imgData->format);
 
         // Bind output buffer
-        output.reset(new MemoryDataStream(imgData->size));
+        output = std::make_shared<MemoryDataStream>(imgData->size);
 
 
         // Now deal with the data
