@@ -89,7 +89,7 @@ namespace Ogre {
 
         */
         [[nodiscard]]
-        auto getSymbol( const String& strName ) const throw() -> void*;
+        auto getSymbol( const String& strName ) const noexcept -> void*;
 
     private:
 
