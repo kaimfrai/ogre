@@ -40,8 +40,7 @@ THE SOFTWARE.
 #include "OgreSharedPtr.hpp"
 #include "OgreStringConverter.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class Function;
 
 //-----------------------------------------------------------------------------
@@ -103,5 +102,4 @@ void GLSLProgramProcessor::bindTextureSamplers(Program* pCpuProgram, GpuProgramP
     }
 }
 
-}
 }

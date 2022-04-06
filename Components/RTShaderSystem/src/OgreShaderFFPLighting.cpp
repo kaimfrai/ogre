@@ -60,8 +60,7 @@ namespace Ogre {
 	class Renderable;
 }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -601,5 +600,4 @@ auto	FFPLightingFactory::createInstanceImpl() -> SubRenderState*
 	return new FFPLighting;
 }
 
-}
 }

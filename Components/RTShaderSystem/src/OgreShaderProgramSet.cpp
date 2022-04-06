@@ -36,8 +36,7 @@ THE SOFTWARE.
 #include "OgreShaderProgramSet.hpp"
 #include "OgreSharedPtr.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 //-----------------------------------------------------------------------------
 ProgramSet::ProgramSet() = default;
@@ -111,5 +110,4 @@ auto ProgramSet::getGpuProgram(GpuProgramType type) const -> const GpuProgramPtr
     return nullPtr;
 }
 
-}
 }

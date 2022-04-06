@@ -51,9 +51,7 @@ THE SOFTWARE.
 #define SGX_FUNC_NORMALIZE_DUAL_QUATERNION      "SGX_NormalizeDualQuaternion"
 #define SGX_FUNC_ADJOINT_TRANSPOSE_MATRIX       "SGX_AdjointTransposeMatrix"
 
-namespace Ogre {
-
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -306,5 +304,4 @@ void DualQuaternionSkinning::addIndexedPositionWeight(Function* vsMain, int inde
     }
 }
 
-}
 }

@@ -29,8 +29,7 @@ THE SOFTWARE.
 
 #include "OgreShaderPrerequisites.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /** \addtogroup Optional
 *  @{
@@ -84,7 +83,6 @@ enum FFPShaderStage
 /** @} */
 /** @} */
 
-}
 }
 
 #endif

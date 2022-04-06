@@ -32,16 +32,7 @@ THE SOFTWARE.
 #include "OgrePrerequisites.hpp"
 #include "OgreStringInterface.hpp"
 
-namespace Ogre  {
-
-    /** \addtogroup Optional
-    *  @{
-    */
-    /** \addtogroup Overlays
-    *  @{
-    */
-
-    namespace OverlayElementCommands {
+namespace Ogre::OverlayElementCommands {
     using CmdLeft = SimpleParamCommand<OverlayElement, Real, &OverlayElement::getLeft, &OverlayElement::setLeft>;
 
     using CmdTop = SimpleParamCommand<OverlayElement, Real, &OverlayElement::getTop, &OverlayElement::setTop>;
@@ -94,9 +85,6 @@ namespace Ogre  {
         };
 
     }
-    /** @} */
-    /** @} */
-}
 
 #endif
 

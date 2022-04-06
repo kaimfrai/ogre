@@ -35,9 +35,7 @@ THE SOFTWARE.
 #include "OgrePrerequisites.hpp"
 #include "OgreSingleton.hpp"
 
-namespace Ogre {
-
-    namespace GLSL {
+namespace Ogre::GLSL {
 class GLSLLinkProgram;
 class GLSLProgram;
 
@@ -97,6 +95,5 @@ class GLSLProgram;
     };
 
     }
-}
 
 #endif // OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAMMANAGER_H

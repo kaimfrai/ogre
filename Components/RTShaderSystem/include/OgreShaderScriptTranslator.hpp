@@ -31,8 +31,7 @@ THE SOFTWARE.
 #include "OgreScriptCompiler.hpp"
 #include "OgreScriptTranslator.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class RenderState;
 class SubRenderState;
 
@@ -114,7 +113,6 @@ private:
 
 };
 
-}
 }
 
 #endif

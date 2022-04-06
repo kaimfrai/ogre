@@ -40,8 +40,7 @@ THE SOFTWARE.
 #include "OgreShaderParameter.hpp"
 #include "OgreShaderPrerequisites.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class Function;
 class ProgramManager;
 
@@ -286,7 +285,6 @@ using ShaderFunctionConstIterator = ShaderFunctionList::const_iterator;
 /** @} */
 /** @} */
 
-}
 }
 
 #endif

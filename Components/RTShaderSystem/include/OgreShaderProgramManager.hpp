@@ -40,8 +40,7 @@ THE SOFTWARE.
 #include "OgreSharedPtr.hpp"
 #include "OgreSingleton.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
     class ProgramWriter;
 class Program;
@@ -207,7 +206,6 @@ private:
 /** @} */
 /** @} */
 
-}
 }
 
 #endif

@@ -32,8 +32,7 @@ THE SOFTWARE.
 #include "OgrePrerequisites.hpp"
 #include "OgreShaderGLSLProgramWriter.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
     class Program;
 
@@ -76,7 +75,6 @@ public:
 /** @} */
 /** @} */
 
-}
 }
 
 #endif

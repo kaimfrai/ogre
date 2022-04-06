@@ -26,15 +26,11 @@
 #include "OgreShaderProgramSet.hpp"
 #include "OgreShaderScriptTranslator.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
         class RenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
+    }  // namespace Ogre
 
-namespace Ogre
-{
-namespace RTShader
+namespace Ogre::RTShader
 {
 
 /************************************************************************/
@@ -129,5 +125,4 @@ void WBOITFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subRen
 //-----------------------------------------------------------------------
 auto WBOITFactory::createInstanceImpl() -> SubRenderState* { return new WBOIT; }
 
-} // namespace RTShader
 } // namespace Ogre

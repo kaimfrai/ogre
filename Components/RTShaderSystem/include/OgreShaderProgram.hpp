@@ -37,8 +37,7 @@ THE SOFTWARE.
 #include "OgreShaderPrerequisites.hpp"
 #include "OgreStringVector.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class Function;
 
 /** \addtogroup Optional
@@ -231,7 +230,6 @@ private:
 /** @} */
 /** @} */
 
-}
 }
 
 #endif

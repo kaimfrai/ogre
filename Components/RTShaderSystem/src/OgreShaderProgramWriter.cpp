@@ -37,8 +37,7 @@ THE SOFTWARE.
 #include "OgreShaderProgram.hpp"
 #include "OgreShaderProgramWriter.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class Function;
 
 //-----------------------------------------------------------------------
@@ -134,5 +133,4 @@ void ProgramWriter::writeParameterSemantic(std::ostream& os, const ParameterPtr&
     }
 }
 
-}
 }

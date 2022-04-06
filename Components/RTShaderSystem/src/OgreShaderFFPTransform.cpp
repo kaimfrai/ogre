@@ -47,14 +47,11 @@ THE SOFTWARE.
 #include "OgreShaderProgramSet.hpp"
 #include "OgreShaderScriptTranslator.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
         class RenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
+    }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -213,5 +210,4 @@ auto FFPTransformFactory::createInstanceImpl() -> SubRenderState*
 }
 
 
-}
 }

@@ -31,8 +31,7 @@ THE SOFTWARE.
 #include "OgreShaderProgramProcessor.hpp"
 
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class ProgramSet;
 
 /** \addtogroup Optional
@@ -78,7 +77,6 @@ public:
 /** @} */
 /** @} */
 
-}
 }
 
 #endif

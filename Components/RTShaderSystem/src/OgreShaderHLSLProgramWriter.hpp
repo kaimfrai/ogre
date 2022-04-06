@@ -31,8 +31,7 @@ THE SOFTWARE.
 #include "OgrePrerequisites.hpp"
 #include "OgreShaderCGProgramWriter.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
 /** \addtogroup Optional
 *  @{
 */
@@ -66,7 +65,6 @@ public:
 };
 /** @} */
 /** @} */
-}
 }
 
 #endif

@@ -34,9 +34,7 @@ THE SOFTWARE.
 #include "OgreStringConverter.hpp"
 
 
-namespace Ogre {
-
-    namespace OverlayElementCommands {
+namespace Ogre::OverlayElementCommands {
 
         //-----------------------------------------------------------------------
         //-----------------------------------------------------------------------
@@ -185,5 +183,4 @@ namespace Ogre {
         }
         //-----------------------------------------------------------------------
     }
-}
 

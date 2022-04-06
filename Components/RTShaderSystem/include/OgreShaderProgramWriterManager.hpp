@@ -37,8 +37,7 @@ THE SOFTWARE.
 #include "OgreShaderPrerequisites.hpp"
 #include "OgreSingleton.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
     class ProgramWriter;
 
@@ -96,7 +95,6 @@ public:
 };
 /** @} */
 /** @} */
-}
 }
 
 

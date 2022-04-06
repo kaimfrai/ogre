@@ -37,9 +37,7 @@ THE SOFTWARE.
 //
 // OpenGL Shading Language entry points
 //
-namespace Ogre
-{
-    namespace GLSL {
+namespace Ogre::GLSL {
 
     /** Check for GL errors and report them in the Ogre Log.
     */
@@ -54,7 +52,6 @@ namespace Ogre
     /// just return the info without logging it
     auto getObjectInfo(GLuint obj) -> String;
 
-    }
-} // namespace Ogre
+    } // namespace Ogre
 
 #endif // OGRE_RENDERSYSTEMS_GL_GLSL_EXTSUPPORT_H

@@ -42,8 +42,7 @@ THE SOFTWARE.
 #include "OgreStringConverter.hpp"
 #include "OgreVector.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
     //-----------------------------------------------------------------------
     // Define some ConstParameterTypes
@@ -667,5 +666,4 @@ auto ParameterFactory::createUniform(GpuConstantType type,
     return param;
 }
 
-}
 }

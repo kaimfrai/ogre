@@ -58,8 +58,7 @@ namespace Ogre {
 
 #define SGX_FUNC_TRIPLANAR_TEXTURING "SGX_TriplanarTexturing"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
     String TriplanarTexturing::type = "SGX_TriplanarTexturing";
 
@@ -303,5 +302,4 @@ namespace RTShader {
     }
 
 
-}
 }

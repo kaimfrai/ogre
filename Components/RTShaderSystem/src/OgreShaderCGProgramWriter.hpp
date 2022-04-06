@@ -34,8 +34,7 @@ THE SOFTWARE.
 #include "OgreShaderPrerequisites.hpp"
 #include "OgreShaderProgramWriter.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
     class Function;
     class FunctionAtom;
@@ -97,7 +96,6 @@ protected:
 };
 /** @} */
 /** @} */
-}
 }
 
 #endif

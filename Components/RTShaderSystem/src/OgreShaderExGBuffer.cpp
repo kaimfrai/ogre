@@ -52,15 +52,11 @@ THE SOFTWARE.
 #include "OgreShaderScriptTranslator.hpp"
 #include "OgreTechnique.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
         class RenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
+    }  // namespace Ogre
 
-namespace Ogre
-{
-namespace RTShader
+namespace Ogre::RTShader
 {
 
 /************************************************************************/
@@ -295,5 +291,4 @@ void GBufferFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subR
 //-----------------------------------------------------------------------
 auto GBufferFactory::createInstanceImpl() -> SubRenderState* { return new GBuffer; }
 
-} // namespace RTShader
 } // namespace Ogre

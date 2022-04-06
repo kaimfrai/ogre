@@ -53,8 +53,7 @@ namespace Ogre {
     class LayerBlendModeEx;
 }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 
 String LayeredBlending::Type = "LayeredBlendRTSSEx";
@@ -538,5 +537,4 @@ auto LayeredBlendingFactory::createOrRetrieveSubRenderState(SGScriptTranslator* 
 }
 
 
-}
 }

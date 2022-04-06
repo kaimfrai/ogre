@@ -34,8 +34,7 @@ THE SOFTWARE.
 #include "OgreShaderProgramProcessor.hpp"
 #include "OgreShaderProgramSet.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class Function;
 
 String HLSLProgramProcessor::TargetLanguage = "hlsl";
@@ -75,5 +74,4 @@ auto HLSLProgramProcessor::postCreateGpuPrograms( ProgramSet* programSet ) -> bo
     return true;
 }
 
-}
 }

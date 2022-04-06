@@ -31,16 +31,7 @@ THE SOFTWARE.
 #include "OgrePrerequisites.hpp"
 #include "OgreStringInterface.hpp"
 
-namespace Ogre  {
-
-    /** \addtogroup Core
-    *  @{
-    */
-    /** \addtogroup Effects
-    *  @{
-    */
-
-    namespace EmitterCommands {
+namespace Ogre::EmitterCommands {
         /// Command object for ParticleEmitter  - see ParamCommand 
         class CmdAngle : public ParamCommand
         {
@@ -210,10 +201,6 @@ namespace Ogre  {
         };
 
     }
-    /** @} */
-    /** @} */
-
-}
 
 
 

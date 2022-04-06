@@ -40,8 +40,7 @@ THE SOFTWARE.
 #include "OgreShaderPrerequisites.hpp"
 #include "OgreString.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 //-----------------------------------------------------------------------------
 Operand::Operand(ParameterPtr parameter, OpSemantic opSemantic, OpMask opMask, ushort indirectionLevel) : mParameter(parameter), mSemantic(opSemantic), mMask(opMask), mIndirectionLevel(indirectionLevel)
 {
@@ -469,5 +468,4 @@ void BinaryOpAtom::writeSourceCode(std::ostream& os, const String& targetLanguag
     os << ";";
 }
 
-}
 }

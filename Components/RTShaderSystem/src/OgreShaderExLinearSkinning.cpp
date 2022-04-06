@@ -45,9 +45,7 @@ THE SOFTWARE.
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 
 
-namespace Ogre {
-
-namespace RTShader {
+namespace Ogre::RTShader {
 
 
 /************************************************************************/
@@ -268,5 +266,4 @@ void LinearSkinning::addIndexedNormalRelatedWeight(Function* vsMain,
     }
 }
 
-}
 }
