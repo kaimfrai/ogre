@@ -65,14 +65,12 @@ class HardwareBufferManagerBase;
      */
     class VertexData : public VertexDataAlloc
     {
-    private:
-        /// Protected copy constructor, to prevent misuse
-        VertexData(const VertexData& rhs); /* do nothing, should not use */
-        /// Protected operator=, to prevent misuse
-        auto operator=(const VertexData& rhs) -> VertexData&; /* do not use */
-
         HardwareBufferManagerBase* mMgr;
     public:
+
+        VertexData(const VertexData& rhs) = delete;
+        auto operator=(const VertexData& rhs) -> VertexData& = delete;
+
         /** Constructor.
         @note 
             This constructor creates the VertexDeclaration and VertexBufferBinding
@@ -263,12 +261,10 @@ class HardwareBufferManagerBase;
     /** Summary class collecting together index data source information. */
     class IndexData : public IndexDataAlloc
     {
-    private:
-        /// Protected copy constructor, to prevent misuse
-        IndexData(const IndexData& rhs); /* do nothing, should not use */
-        /// Protected operator=, to prevent misuse
-        auto operator=(const IndexData& rhs) -> IndexData&; /* do not use */
     public:
+        IndexData(const IndexData& rhs) = delete;
+        auto operator=(const IndexData& rhs) -> IndexData& = delete;
+
         IndexData();
         ~IndexData();
         /// Pointer to the HardwareIndexBuffer to use, must be specified if useIndexes = true

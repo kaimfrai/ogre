@@ -375,9 +375,9 @@ class Material;
 
         ScriptCompilerEvent(const String &type):mType(type){}
         virtual ~ScriptCompilerEvent(){}
-    private: // Non-copyable
-        ScriptCompilerEvent(const ScriptCompilerEvent&);
-        auto operator = (const ScriptCompilerEvent&) -> ScriptCompilerEvent &;
+
+        ScriptCompilerEvent(const ScriptCompilerEvent&) = delete;
+        auto operator = (const ScriptCompilerEvent&) -> ScriptCompilerEvent & = delete;
     };
 
     /** This is a listener for the compiler. The compiler can be customized with

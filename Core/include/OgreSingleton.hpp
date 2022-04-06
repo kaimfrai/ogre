@@ -64,17 +64,13 @@ namespace Ogre {
  */
 template <typename T> class Singleton
 {
-private:
-    /** @brief Explicit private copy constructor. This is a forbidden operation.*/
-    Singleton(const Singleton<T>&);
-
-    /** @brief Private operator= . This is a forbidden operation. */
-    auto operator=(const Singleton<T>&) -> Singleton&;
-
 protected:
     static T* msSingleton;
 
 public:
+    Singleton(const Singleton<T>&) = delete;
+    auto operator=(const Singleton<T>&) -> Singleton& = delete;
+
     Singleton()
     {
         OgreAssert(!msSingleton, "There can be only one singleton");

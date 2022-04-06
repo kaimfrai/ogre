@@ -31,25 +31,20 @@ THE SOFTWARE.
 
 namespace Ogre{
 
-/** 
- * 
+/**
+ *
  * @brief Basefunctionality for IteratorWrappers
  *
- * 
+ *
  * @tparam T a Container like vector list map ...
  * @tparam IteratorType  T::iterator or T::const_iterator
  * @tparam ValType  T::mapped_type in case of a map, T::value_type for vector, list,...
- * 
+ *
  * Have a look at VectorIteratorWrapper and MapIteratorWrapper for a concrete usage
 */
 template <typename T, typename IteratorType, typename ValType>
 class IteratorWrapper
 {
-
-    private:
-        /// Private constructor since only the parameterised constructor should be used
-        IteratorWrapper();
-
     protected:
         IteratorType mBegin;
         IteratorType mCurrent;
@@ -57,7 +52,7 @@ class IteratorWrapper
     
 
     public:
-    
+        IteratorWrapper() = delete;
         /// Type you expect to get by funktions like peekNext(Value)
         using ValueType = ValType;
         /// Type you expect to get by funktions like peekNext(Value)Ptr

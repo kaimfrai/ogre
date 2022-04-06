@@ -49,12 +49,6 @@ class Affine3;
     */
     class OptimisedUtil
     {
-    private:
-        /// Privated copy constructor, to prevent misuse
-        OptimisedUtil(const OptimisedUtil& rhs); /* do nothing, should not use */
-        /// Privated operator=, to prevent misuse
-        auto operator=(const OptimisedUtil& rhs) -> OptimisedUtil&; /* do not use */
-
     protected:
         /// Store a pointer to the implementation
         static OptimisedUtil* msImplementation;
@@ -63,6 +57,9 @@ class Affine3;
         static auto _detectImplementation() -> OptimisedUtil*;
 
     public:
+        OptimisedUtil(const OptimisedUtil& rhs) = delete;
+        auto operator=(const OptimisedUtil& rhs) -> OptimisedUtil& = delete;
+
         // Default constructor
         OptimisedUtil() {}
         // Destructor
