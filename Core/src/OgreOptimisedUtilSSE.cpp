@@ -595,7 +595,7 @@ namespace Ogre {
             }
         }
     };
-    static OGRE_FORCE_INLINE void softwareVertexSkinning_SSE_PosNorm_Shared_Packed(
+    static inline void softwareVertexSkinning_SSE_PosNorm_Shared_Packed(
             const float* pSrcPos, float* pDestPos,
             const float* pBlendWeight, const unsigned char* pBlendIndex,
             const Affine3* const* blendMatrices,
@@ -750,7 +750,7 @@ namespace Ogre {
             }
         }
     };
-    static OGRE_FORCE_INLINE void softwareVertexSkinning_SSE_PosNorm_Separated_Packed(
+    static inline void softwareVertexSkinning_SSE_PosNorm_Separated_Packed(
         const float* pSrcPos, float* pDestPos,
         const float* pSrcNorm, float* pDestNorm,
         const float* pBlendWeight, const unsigned char* pBlendIndex,
@@ -869,7 +869,7 @@ namespace Ogre {
             }
         }
     };
-    static OGRE_FORCE_INLINE void softwareVertexSkinning_SSE_PosOnly_Packed(
+    static inline void softwareVertexSkinning_SSE_PosOnly_Packed(
         const float* pSrcPos, float* pDestPos,
         const float* pBlendWeight, const unsigned char* pBlendIndex,
         const Affine3* const* blendMatrices,
