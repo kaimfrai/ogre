@@ -30,6 +30,8 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.hpp"
 
+#include <bit>
+
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -46,19 +48,19 @@ namespace Ogre {
         */
         static inline uint16 bswap16(uint16 arg)
         {
-            return __builtin_bswap16(arg);
+            return ::std::byteswap<uint16>(arg);
         }
         /** Returns value with reversed bytes order.
         */
         static inline uint32 bswap32(uint32 arg)
         {
-            return __builtin_bswap32(arg);
+            return  ::std::byteswap<uint32>(arg);
         }
         /** Returns value with reversed bytes order.
         */
         static inline uint64 bswap64(uint64 arg)
         {
-            return __builtin_bswap64(arg);
+            return ::std::byteswap<uint64>(arg);
         }
 
         /** Reverses byte order of buffer. Use bswap16/32/64 instead if possible.
