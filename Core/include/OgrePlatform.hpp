@@ -30,26 +30,20 @@ THE SOFTWARE.
 
 #include "OgreConfig.hpp"
 
-/* Find how to declare aligned variable. */
-#define OGRE_ALIGNED_DECL(type, var, alignment)  type var __attribute__((__aligned__(alignment)))
-
-/** Find perfect alignment (should supports SIMD alignment if SIMD available) */
-#define OGRE_SIMD_ALIGNMENT 16
-
-/* Declare variable aligned to SIMD alignment. */
-#define OGRE_SIMD_ALIGNED_DECL(type, var)   OGRE_ALIGNED_DECL(type, var, OGRE_SIMD_ALIGNMENT)
-
 #include <cstdint>
 
+
 namespace Ogre {
-using uint32 = uint32_t;
-using uint16 = uint16_t;
-using uint8 = uint8_t;
-using uint64 = uint64_t;
-using int32 = int32_t;
-using int16 = int16_t;
-using int8 = int8_t;
-using int64 = int64_t;
+    using uint32 = uint32_t;
+    using uint16 = uint16_t;
+    using uint8 = uint8_t;
+    using uint64 = uint64_t;
+    using int32 = int32_t;
+    using int16 = int16_t;
+    using int8 = int8_t;
+    using int64 = int64_t;
+
+    auto const constexpr inline SIMD_ALIGNMENT = 16uz;
 }
 
 #endif

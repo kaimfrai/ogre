@@ -68,7 +68,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto AlignedMemory::allocate(size_t size) -> void*
     {
-        return allocate(size, OGRE_SIMD_ALIGNMENT);
+        return allocate(size, SIMD_ALIGNMENT);
     }
     //---------------------------------------------------------------------
     void AlignedMemory::deallocate(void* p, size_t alignment)
