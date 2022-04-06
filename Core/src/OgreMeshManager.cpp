@@ -98,7 +98,7 @@ namespace Ogre
         mLoadOrder = 350.0f;
         mResourceType = "Mesh";
 
-        mMeshCodec.reset(new MeshCodec());
+        mMeshCodec = std::make_unique<MeshCodec>();
         Codec::registerCodec(mMeshCodec.get());
 
         ResourceGroupManager::getSingleton()._registerResourceManager(mResourceType, this);

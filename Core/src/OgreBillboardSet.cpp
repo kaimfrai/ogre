@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include <cstring>
 #include <iterator>
 #include <map>
+#include <memory>
 #include <string>
 #include <utility>
 
@@ -590,7 +591,7 @@ namespace Ogre {
                 "expect.");
         }
 
-        mVertexData.reset(new VertexData());
+        mVertexData = std::make_unique<VertexData>();
         if (mPointRendering)
             mVertexData->vertexCount = mPoolSize;
         else
@@ -623,7 +624,7 @@ namespace Ogre {
 
         if (!mPointRendering)
         {
-            mIndexData.reset(new IndexData());
+            mIndexData = std::make_unique<IndexData>();
             mIndexData->indexStart = 0;
             mIndexData->indexCount = mPoolSize * 6;
 

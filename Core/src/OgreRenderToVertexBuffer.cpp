@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <memory>
 #include <string>
 
 #include "OgreException.hpp"
@@ -41,7 +42,7 @@ class VertexDeclaration;
     RenderToVertexBuffer::RenderToVertexBuffer() 
         
     {
-        mVertexData.reset(new VertexData);
+        mVertexData = std::make_unique<VertexData>();
     }
     RenderToVertexBuffer::~RenderToVertexBuffer() = default; // ensure unique_ptr destructors are in cpp
     //-----------------------------------------------------------------------

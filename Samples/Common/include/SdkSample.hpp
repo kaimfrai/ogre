@@ -35,6 +35,8 @@
 #include "OgreViewport.hpp"
 #include "Sample.hpp"
 
+#include <memory>
+
 namespace OgreBites
 {
     /*=============================================================================
@@ -198,7 +200,7 @@ namespace OgreBites
             Sample::_setup(window, fsLayer, overlaySys);
 
             if(mTrayMgr)
-                mControls.reset(new AdvancedRenderControls(mTrayMgr.get(), mCamera));
+                mControls = std::make_unique<AdvancedRenderControls>(mTrayMgr.get(), mCamera);
         }
 
         void _shutdown() override

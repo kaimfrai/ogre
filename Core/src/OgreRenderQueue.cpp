@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <cstddef>
 #include <map>
+#include <memory>
 #include <utility>
 
 #include "OgreHardwareVertexBuffer.hpp"
@@ -51,8 +52,8 @@ namespace Ogre {
          
     {
         // Create the 'main' queue up-front since we'll always need that
-        mGroups[RENDER_QUEUE_MAIN].reset(new RenderQueueGroup(
-            mSplitPassesByLightingType, mSplitNoShadowPasses, mShadowCastersCannotBeReceivers));
+        mGroups[RENDER_QUEUE_MAIN] = std::make_unique<RenderQueueGroup>(
+            mSplitPassesByLightingType, mSplitNoShadowPasses, mShadowCastersCannotBeReceivers);
 
         // set default queue
         mDefaultQueueGroup = RENDER_QUEUE_MAIN;
@@ -170,8 +171,8 @@ namespace Ogre {
         if (!mGroups[groupID])
         {
             // Insert new
-            mGroups[groupID].reset(new RenderQueueGroup(mSplitPassesByLightingType, mSplitNoShadowPasses,
-                                                        mShadowCastersCannotBeReceivers));
+            mGroups[groupID] = std::make_unique<RenderQueueGroup>(mSplitPassesByLightingType, mSplitNoShadowPasses,
+                                                        mShadowCastersCannotBeReceivers);
         }
 
         return mGroups[groupID].get();

@@ -272,7 +272,7 @@ void TargetRenderState::createCpuPrograms()
 //-----------------------------------------------------------------------
 auto TargetRenderState::createProgramSet() -> ProgramSet*
 {
-    mProgramSet.reset(new ProgramSet);
+    mProgramSet = std::make_unique<ProgramSet>();
 
     return mProgramSet.get();
 }

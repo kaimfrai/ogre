@@ -61,7 +61,7 @@ namespace Ogre {
         // Create a shadow buffer if required
         if (useShadowBuffer)
         {
-            mShadowBuffer.reset(new DefaultHardwareBuffer(mSizeInBytes));
+            mShadowBuffer = std::make_unique<DefaultHardwareBuffer>(mSizeInBytes);
         }
     }
 

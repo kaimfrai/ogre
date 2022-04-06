@@ -34,6 +34,7 @@ THE SOFTWARE.
 #include <cstring>
 #include <limits>
 #include <map>
+#include <memory>
 #include <string>
 #include <utility>
 
@@ -89,8 +90,8 @@ class RenderSystem;
         
         mNormalBase(Vector3::UNIT_X)
     {
-        mVertexData.reset(new VertexData());
-        mIndexData.reset(new IndexData());
+        mVertexData = std::make_unique<VertexData>();
+        mIndexData = std::make_unique<IndexData>();
 
         mOtherTexCoordRange[0] = 0.0f;
         mOtherTexCoordRange[1] = 1.0f;

@@ -146,7 +146,7 @@ mGpuParamsDirty((uint16)GPV_ALL)
     // init shadow texture config
     setShadowTextureCount(1);
 
-    mDebugDrawer.reset(new DefaultDebugDrawer());
+    mDebugDrawer = std::make_unique<DefaultDebugDrawer>();
     addListener(mDebugDrawer.get());
 
     // create the auto param data source instance
@@ -178,7 +178,7 @@ auto SceneManager::getRenderQueue() -> RenderQueue*
 //-----------------------------------------------------------------------
 void SceneManager::initRenderQueue()
 {
-    mRenderQueue.reset(new RenderQueue());
+    mRenderQueue = std::make_unique<RenderQueue>();
     // init render queues that do not need shadows
     mRenderQueue->getQueueGroup(RENDER_QUEUE_BACKGROUND)->setShadowsEnabled(false);
     mRenderQueue->getQueueGroup(RENDER_QUEUE_OVERLAY)->setShadowsEnabled(false);

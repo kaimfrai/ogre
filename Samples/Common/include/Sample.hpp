@@ -28,6 +28,8 @@
 #ifndef OGRE_SAMPLES_SAMPLE_H
 #define OGRE_SAMPLES_SAMPLE_H
 
+#include <memory>
+
 #include "OgreOverlaySystem.hpp"
 #include "OgreResourceManager.hpp"
 #include "OgreRoot.hpp"
@@ -156,7 +158,7 @@ namespace OgreBites
         // enable trays GUI for this sample
         void _setupTrays(Ogre::RenderWindow* window)
         {
-            mTrayMgr.reset(new TrayManager("SampleControls", window, this));  // create a tray interface
+            mTrayMgr = std::make_unique<TrayManager>("SampleControls", window, this);  // create a tray interface
             // show stats and logo and hide the cursor
             mTrayMgr->showFrameStats(TL_BOTTOMLEFT);
             mTrayMgr->showLogo(TL_BOTTOMRIGHT);
@@ -177,7 +179,7 @@ namespace OgreBites
             createSceneManager();
             setupView();
 
-            mCameraMan.reset(new CameraMan(mCameraNode));   // create a default camera controller
+            mCameraMan = std::make_unique<CameraMan>(mCameraNode);   // create a default camera controller
 
             loadResources();
             mResourcesLoaded = true;

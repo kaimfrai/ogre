@@ -40,7 +40,7 @@ namespace Ogre {
     UserObjectBindings::UserObjectBindings(const UserObjectBindings& other)
     {
         if (other.mAttributes)
-            mAttributes.reset(new Attributes(*other.mAttributes));
+            mAttributes = std::make_unique<Attributes>(*other.mAttributes);
     }
 
     auto UserObjectBindings::swap(UserObjectBindings& rhs) -> UserObjectBindings&
@@ -60,7 +60,7 @@ namespace Ogre {
     {
         // Allocate attributes on demand.
         if (!mAttributes)
-            mAttributes.reset(new Attributes);
+            mAttributes = std::make_unique<Attributes>();
 
         mAttributes->mKeylessAny = anything;
     }
@@ -80,11 +80,11 @@ namespace Ogre {
     {
         // Allocate attributes on demand.
         if (!mAttributes)
-            mAttributes.reset(new Attributes);
+            mAttributes = std::make_unique<Attributes>();
 
         // Case map doesn't exists.
         if (!mAttributes->mUserObjectsMap)
-            mAttributes->mUserObjectsMap.reset(new UserObjectsMap);
+            mAttributes->mUserObjectsMap = std::make_unique<UserObjectsMap>();
 
         (*mAttributes->mUserObjectsMap)[key] = anything;
     }
