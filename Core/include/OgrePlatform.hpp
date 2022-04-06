@@ -37,8 +37,6 @@ THE SOFTWARE.
 /* fallthrough attribute */
 #define OGRE_FALLTHROUGH __attribute__((fallthrough))
 
-#define OGRE_NODISCARD __attribute__((__warn_unused_result__))
-
 /* define OGRE_NORETURN macro */
 #define OGRE_NORETURN __attribute__((noreturn))
 
