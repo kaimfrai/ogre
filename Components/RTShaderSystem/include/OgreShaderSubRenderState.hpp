@@ -84,7 +84,7 @@ public:
     @remarks
     The type string should be unique among all registered sub render states.    
     */
-    virtual const String& getType() const = 0;
+    virtual auto getType() const -> const String& = 0;
 
 
     /** Get the execution order of this sub render state.
@@ -92,7 +92,7 @@ public:
     The return value should be synchronized with the predefined values
     of the FFPShaderStage enum.
     */
-    virtual int getExecutionOrder() const = 0;
+    virtual auto getExecutionOrder() const -> int = 0;
 
 
     /** Copy details from a given sub render state to this one.
@@ -103,7 +103,7 @@ public:
     /** Operator = declaration. Assign the given source sub state to this sub state.
     @param rhs the source sub state to copy from.   
     */
-    SubRenderState& operator=   (const SubRenderState& rhs);
+    auto operator=   (const SubRenderState& rhs) -> SubRenderState&;
 
     /** Create sub programs that represents this sub render state as part of a program set.
     The given program set contains CPU programs that represents a vertex shader and pixel shader.
@@ -111,7 +111,7 @@ public:
     implement.
     @param programSet container class of CPU and GPU programs that this sub state will affect on.
     */
-    virtual bool createCpuSubPrograms(ProgramSet* programSet);
+    virtual auto createCpuSubPrograms(ProgramSet* programSet) -> bool;
 
     /** Update GPU programs parameters before a rendering operation occurs.
     This method is called in the context of SceneManager::renderSingle object via the RenderObjectListener interface and
@@ -131,20 +131,20 @@ public:
     @param srcPass The source pass.
     @param dstPass The destination pass.
     */
-    virtual bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) { return true; }
+    virtual auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool { return true; }
 
     /** Return the accessor object to this sub render state.
     @see SubRenderStateAccessor.
     */
-    SubRenderStateAccessorPtr getAccessor();
+    auto getAccessor() -> SubRenderStateAccessorPtr;
 
     /** Return the accessor object to this sub render state.
     @see SubRenderStateAccessor.
     */
-    SubRenderStateAccessorPtr getAccessor() const;
+    auto getAccessor() const -> SubRenderStateAccessorPtr;
 
     /// generic set method for parameters that connot be derived in @ref preAddToRenderState
-    virtual bool setParameter(const String& name, const String& value) { return false; }
+    virtual auto setParameter(const String& name, const String& value) -> bool { return false; }
 
 // Protected methods
 protected:
@@ -153,19 +153,19 @@ protected:
     @param programSet container class of CPU and GPU programs that this sub state will affect on.
     @remarks Internal method called in the context of SubRenderState::createCpuSubPrograms implementation.
     */
-    virtual bool resolveParameters(ProgramSet* programSet); 
+    virtual auto resolveParameters(ProgramSet* programSet) -> bool; 
 
     /** Resolve dependencies that this sub render state requires.   
     @param programSet container class of CPU and GPU programs that this sub state will affect on.
     @remarks Internal method called in the context of SubRenderState::createCpuSubPrograms implementation.
     */
-    virtual bool resolveDependencies(ProgramSet* programSet);
+    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
 
     /** Add function invocation that this sub render state requires.    
     @param programSet container class of CPU and GPU programs that this sub state will affect on.
     @remarks Internal method called in the context of SubRenderState::createCpuSubPrograms implementation.
     */
-    virtual bool addFunctionInvocations(ProgramSet* programSet);
+    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
 
 // Attributes.
 private:    
@@ -214,10 +214,10 @@ public:
     }
 
     /** Return a set of all instances of the template SubRenderState. */
-    SubRenderStateSet& getSubRenderStateInstanceSet() { return mSubRenderStateInstancesSet; }
+    auto getSubRenderStateInstanceSet() -> SubRenderStateSet& { return mSubRenderStateInstancesSet; }
 
     /** Return a set of all instances of the template SubRenderState. (const version). */
-    const SubRenderStateSet& getSubRenderStateInstanceSet() const { return mSubRenderStateInstancesSet; }
+    auto getSubRenderStateInstanceSet() const -> const SubRenderStateSet& { return mSubRenderStateInstancesSet; }
 
 protected:
     /** Construct SubRenderState accessor based on the given template SubRenderState.
@@ -258,12 +258,12 @@ public:
     The type string should be the same as the type of the SubRenderState sub class it is going to create.   
     @see SubRenderState::getType.
     */
-    virtual const String& getType() const = 0;
+    virtual auto getType() const -> const String& = 0;
     
     /** Create an instance of the SubRenderState sub class it suppose to create.    
     */
     [[nodiscard]]
-    virtual SubRenderState* createInstance();
+    virtual auto createInstance() -> SubRenderState*;
 
     /** Create an instance of the SubRenderState based on script properties.    
     This method is called in the context of script parsing and let this factory
@@ -274,7 +274,7 @@ public:
     @param translator The translator instance holding existing scripts.
     */
     [[nodiscard]]
-    virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
     { return NULL; }
 
     /** Create an instance of the SubRenderState based on script properties.    
@@ -286,14 +286,14 @@ public:
     @param translator The translator instance holding existing scripts.
     */
     [[nodiscard]]
-    virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator)
+    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator) -> SubRenderState*
     { return NULL; }
 
     /** Retrieve the previous instance the SRS in the script translator or
     * create a new instance if not found 
     @param translator The translator instance holding existing scripts.
     */
-    virtual SubRenderState* createOrRetrieveInstance(SGScriptTranslator* translator);
+    virtual auto createOrRetrieveInstance(SGScriptTranslator* translator) -> SubRenderState*;
 
     /** Destroy the given instance. 
     @param subRenderState The instance to destroy.
@@ -330,7 +330,7 @@ protected:
     must implement this method in which it will allocate the specific sub class of 
     the SubRenderState.
     */
-    virtual SubRenderState* createInstanceImpl() = 0;
+    virtual auto createInstanceImpl() -> SubRenderState* = 0;
 
 // Attributes.
 protected:

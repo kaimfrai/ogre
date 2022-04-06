@@ -42,7 +42,7 @@ class GLHardwarePixelBufferCommon : public HardwarePixelBuffer
 {
 protected:
     /// Lock a box
-    PixelBox lockImpl(const Box &lockBox,  LockOptions options);
+    auto lockImpl(const Box &lockBox,  LockOptions options) -> PixelBox;
 
     /// Unlock a box
     void unlockImpl();
@@ -74,7 +74,7 @@ public:
      */
     virtual void bindToFramebuffer(uint32 attachment, uint32 zoffset);
 
-    uint32 getGLFormat() { return mGLInternalFormat; }
+    auto getGLFormat() -> uint32 { return mGLInternalFormat; }
 };
 
 } /* namespace Ogre */

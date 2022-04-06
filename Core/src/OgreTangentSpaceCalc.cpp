@@ -80,9 +80,9 @@ namespace Ogre
         mOpTypes.push_back(op);
     }
     //---------------------------------------------------------------------
-    TangentSpaceCalc::Result TangentSpaceCalc::build(
+    auto TangentSpaceCalc::build(
         VertexElementSemantic targetSemantic,
-        unsigned short sourceTexCoordSet, unsigned short index)
+        unsigned short sourceTexCoordSet, unsigned short index) -> TangentSpaceCalc::Result
     {
         Result res;
 
@@ -463,7 +463,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    int TangentSpaceCalc::calculateParity(const Vector3& u, const Vector3& v, const Vector3& n)
+    auto TangentSpaceCalc::calculateParity(const Vector3& u, const Vector3& v, const Vector3& n) -> int
     {
         // Note that this parity is the reverse of what you'd expect - this is
         // because the 'V' texture coordinate is actually left handed
@@ -522,7 +522,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    Real TangentSpaceCalc::calculateAngleWeight(size_t vidx0, size_t vidx1, size_t vidx2)
+    auto TangentSpaceCalc::calculateAngleWeight(size_t vidx0, size_t vidx1, size_t vidx2) -> Real
     {
         const VertexInfo& v0 = mVertexArray[vidx0];
         const VertexInfo& v1 = mVertexArray[vidx1];

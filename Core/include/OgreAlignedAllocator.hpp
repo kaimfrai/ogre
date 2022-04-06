@@ -75,7 +75,7 @@ namespace Ogre {
             @par
                 On failure, exception will be throw.
         */
-        static void* allocate(size_t size, size_t alignment);
+        static auto allocate(size_t size, size_t alignment) -> void*;
 
         /** Allocate memory with default platform dependent alignment.
             @remarks
@@ -89,7 +89,7 @@ namespace Ogre {
             @par
                 On failure, exception will be throw.
         */
-        static void* allocate(size_t size);
+        static auto allocate(size_t size) -> void*;
 
         /** Deallocate memory that allocated by this class.
             @param
@@ -112,10 +112,10 @@ namespace Ogre {
         template<class Other>
         struct rebind { using other = AlignedAllocator<Other, Alignment>; };
 
-        T* allocate(size_t n) {
+        auto allocate(size_t n) -> T* {
             return static_cast<T*>(AlignedMemory::allocate(n * sizeof(T), Alignment));
         }
-        T* allocate(size_t n, const void* hint) { // deprecated in C++17
+        auto allocate(size_t n, const void* hint) -> T* { // deprecated in C++17
             return static_cast<T*>(AlignedMemory::allocate(n * sizeof(T), Alignment));
         }
 

@@ -126,7 +126,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const Affine3& Node::_getFullTransform() const
+    auto Node::_getFullTransform() const -> const Affine3&
     {
         if (mCachedTransformOutOfDate)
         {
@@ -245,7 +245,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    Node* Node::createChild(const Vector3& inTranslate, const Quaternion& inRotate)
+    auto Node::createChild(const Vector3& inTranslate, const Quaternion& inRotate) -> Node*
     {
         Node* newNode = createChildImpl();
         newNode->setPosition(inTranslate);
@@ -255,7 +255,7 @@ namespace Ogre {
         return newNode;
     }
     //-----------------------------------------------------------------------
-    Node* Node::createChild(const String& name, const Vector3& inTranslate, const Quaternion& inRotate)
+    auto Node::createChild(const String& name, const Vector3& inTranslate, const Quaternion& inRotate) -> Node*
     {
         OgreAssert(!name.empty(), "");
         Node* newNode = createChildImpl(name);
@@ -281,7 +281,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    Node* Node::getChild(unsigned short index) const
+    auto Node::getChild(unsigned short index) const -> Node*
     {
         if( index < mChildren.size() )
         {
@@ -291,7 +291,7 @@ namespace Ogre {
             return NULL;
     }
     //-----------------------------------------------------------------------
-    Node* Node::removeChild(unsigned short index)
+    auto Node::removeChild(unsigned short index) -> Node*
     {
         OgreAssert(index < mChildren.size(), "");
 
@@ -308,7 +308,7 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    Node* Node::removeChild(Node* child)
+    auto Node::removeChild(Node* child) -> Node*
     {
         if (child)
         {
@@ -355,7 +355,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    Matrix3 Node::getLocalAxes() const
+    auto Node::getLocalAxes() const -> Matrix3
     {
         Matrix3 ret;
         mOrientation.ToRotationMatrix(ret);
@@ -432,7 +432,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const Quaternion & Node::_getDerivedOrientation() const
+    auto Node::_getDerivedOrientation() const -> const Quaternion &
     {
         if (mNeedParentUpdate)
         {
@@ -441,7 +441,7 @@ namespace Ogre {
         return mDerivedOrientation;
     }
     //-----------------------------------------------------------------------
-    const Vector3 & Node::_getDerivedPosition() const
+    auto Node::_getDerivedPosition() const -> const Vector3 &
     {
         if (mNeedParentUpdate)
         {
@@ -450,7 +450,7 @@ namespace Ogre {
         return mDerivedPosition;
     }
     //-----------------------------------------------------------------------
-    const Vector3 & Node::_getDerivedScale() const
+    auto Node::_getDerivedScale() const -> const Vector3 &
     {
         if (mNeedParentUpdate)
         {
@@ -459,7 +459,7 @@ namespace Ogre {
         return mDerivedScale;
     }
     //-----------------------------------------------------------------------
-    Vector3 Node::convertWorldToLocalPosition( const Vector3 &worldPos )
+    auto Node::convertWorldToLocalPosition( const Vector3 &worldPos ) -> Vector3
     {
         if (mNeedParentUpdate)
         {
@@ -469,7 +469,7 @@ namespace Ogre {
         return mDerivedOrientation.Inverse() * (worldPos - mDerivedPosition) / mDerivedScale;
     }
     //-----------------------------------------------------------------------
-    Vector3 Node::convertLocalToWorldPosition( const Vector3 &localPos )
+    auto Node::convertLocalToWorldPosition( const Vector3 &localPos ) -> Vector3
     {
         if (mNeedParentUpdate)
         {
@@ -478,7 +478,7 @@ namespace Ogre {
         return _getFullTransform() * localPos;
     }
     //-----------------------------------------------------------------------
-    Vector3 Node::convertWorldToLocalDirection( const Vector3 &worldDir, bool useScale )
+    auto Node::convertWorldToLocalDirection( const Vector3 &worldDir, bool useScale ) -> Vector3
     {
         if (mNeedParentUpdate)
         {
@@ -490,7 +490,7 @@ namespace Ogre {
             mDerivedOrientation.Inverse() * worldDir;
     }
     //-----------------------------------------------------------------------
-    Vector3 Node::convertLocalToWorldDirection( const Vector3 &localDir, bool useScale )
+    auto Node::convertLocalToWorldDirection( const Vector3 &localDir, bool useScale ) -> Vector3
     {
         if (mNeedParentUpdate)
         {
@@ -499,7 +499,7 @@ namespace Ogre {
         return useScale ? _getFullTransform().linear() * localDir : mDerivedOrientation * localDir;
     }
     //-----------------------------------------------------------------------
-    Quaternion Node::convertWorldToLocalOrientation( const Quaternion &worldOrientation )
+    auto Node::convertWorldToLocalOrientation( const Quaternion &worldOrientation ) -> Quaternion
     {
         if (mNeedParentUpdate)
         {
@@ -508,7 +508,7 @@ namespace Ogre {
         return mDerivedOrientation.Inverse() * worldOrientation;
     }
     //-----------------------------------------------------------------------
-    Quaternion Node::convertLocalToWorldOrientation( const Quaternion &localOrientation )
+    auto Node::convertLocalToWorldOrientation( const Quaternion &localOrientation ) -> Quaternion
     {
         if (mNeedParentUpdate)
         {
@@ -583,11 +583,11 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     struct NodeNameExists {
         const String& name;
-        bool operator()(const Node* mo) {
+        auto operator()(const Node* mo) -> bool {
             return mo->getName() == name;
         }
     };
-    Node* Node::getChild(const String& name) const
+    auto Node::getChild(const String& name) const -> Node*
     {
         NodeNameExists pred = {name};
         ChildNodeMap::const_iterator i = std::find_if(mChildren.begin(), mChildren.end(), pred);
@@ -601,7 +601,7 @@ namespace Ogre {
         return *i;
     }
     //-----------------------------------------------------------------------
-    Node* Node::removeChild(const String& name)
+    auto Node::removeChild(const String& name) -> Node*
     {
         OgreAssert(!name.empty(), "");
         NodeNameExists pred = {name};
@@ -627,7 +627,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    Real Node::getSquaredViewDepth(const Camera* cam) const
+    auto Node::getSquaredViewDepth(const Camera* cam) const -> Real
     {
         Vector3 diff = _getDerivedPosition() - cam->getDerivedPosition();
         Vector3 zAxis = cam->getDerivedDirection();

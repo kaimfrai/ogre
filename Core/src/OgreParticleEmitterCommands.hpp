@@ -45,14 +45,14 @@ namespace Ogre  {
         class CmdAngle : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdColour : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
 
@@ -60,14 +60,14 @@ namespace Ogre  {
         class CmdColourRangeStart : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdColourRangeEnd : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
 
@@ -75,7 +75,7 @@ namespace Ogre  {
         class CmdDirection : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         
@@ -83,7 +83,7 @@ namespace Ogre  {
         class CmdUp : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
 
@@ -91,7 +91,7 @@ namespace Ogre  {
         class CmdDirPositionRef : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
 
@@ -99,105 +99,105 @@ namespace Ogre  {
         class CmdEmissionRate : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdVelocity : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdMinVelocity : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdMaxVelocity : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdTTL : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdMinTTL : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdMaxTTL : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdPosition : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdDuration : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdMinDuration : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdMaxDuration : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdRepeatDelay : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdMinRepeatDelay : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand 
         class CmdMaxRepeatDelay : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /// Command object for particle emitter  - see ParamCommand
         class CmdName : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
 
@@ -205,7 +205,7 @@ namespace Ogre  {
         class CmdEmittedEmitter : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
 

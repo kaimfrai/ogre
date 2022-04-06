@@ -57,7 +57,7 @@ public:
 
 protected:
 
-    virtual Ogre::String getOutput(){return "";}
+    virtual auto getOutput() -> Ogre::String{return "";}
 
     const TestBatch& mSet1;
     const TestBatch& mSet2;

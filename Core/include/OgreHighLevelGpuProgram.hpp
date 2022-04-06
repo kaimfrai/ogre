@@ -83,9 +83,9 @@ struct GpuNamedConstants;
         String mEntryPoint;
 
         /// in-situ parsing of defines
-        static std::vector<std::pair<const char*, const char*>> parseDefines(String& defines);
+        static auto parseDefines(String& defines) -> std::vector<std::pair<const char*, const char*>>;
 
-        String appendBuiltinDefines(String defines);
+        auto appendBuiltinDefines(String defines) -> String;
 
         /// Internal load high-level portion if not loaded
         virtual void loadHighLevel();
@@ -126,30 +126,30 @@ struct GpuNamedConstants;
             HighLevelGpuProgramManager. This method creates a new instance of a parameters
             object containing the definition of the parameters this program understands.
         */
-        GpuProgramParametersSharedPtr createParameters();
+        auto createParameters() -> GpuProgramParametersSharedPtr;
         /** @copydoc GpuProgram::_getBindingDelegate */
-        GpuProgram* _getBindingDelegate() { return mAssemblerProgram.get(); }
+        auto _getBindingDelegate() -> GpuProgram* { return mAssemblerProgram.get(); }
 
         /** Get the full list of GpuConstantDefinition instances.
         @note
         Only available if this parameters object has named parameters.
         */
-        const GpuNamedConstants& getConstantDefinitions() override;
+        auto getConstantDefinitions() -> const GpuNamedConstants& override;
 
-        virtual size_t calculateSize() const;
+        virtual auto calculateSize() const -> size_t;
 
         /** Sets the preprocessor defines used to compile the program. */
         void setPreprocessorDefines(const String& defines) { mPreprocessorDefines = defines; }
         /** Gets the preprocessor defines used to compile the program. */
-        const String& getPreprocessorDefines() const { return mPreprocessorDefines; }
+        auto getPreprocessorDefines() const -> const String& { return mPreprocessorDefines; }
 
         /** Sets the entry point for this program i.e, the first method called. */
         void setEntryPoint(const String& entryPoint) { mEntryPoint = entryPoint; }
         /** Gets the entry point defined for this program. */
-        const String& getEntryPoint() const { return mEntryPoint; }
+        auto getEntryPoint() const -> const String& { return mEntryPoint; }
 
         /// Scan the source for \#include and replace with contents from OGRE resources
-        static String _resolveIncludes(const String& source, Resource* resourceBeingLoaded, const String& fileName, bool supportsFilename = false);
+        static auto _resolveIncludes(const String& source, Resource* resourceBeingLoaded, const String& fileName, bool supportsFilename = false) -> String;
     };
     /** @} */
     /** @} */

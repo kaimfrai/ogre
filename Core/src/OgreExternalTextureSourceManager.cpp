@@ -47,11 +47,11 @@ namespace Ogre
 {
     //****************************************************************************************
     template<> ExternalTextureSourceManager* Singleton<ExternalTextureSourceManager>::msSingleton = 0;
-    ExternalTextureSourceManager* ExternalTextureSourceManager::getSingletonPtr()
+    auto ExternalTextureSourceManager::getSingletonPtr() -> ExternalTextureSourceManager*
     {
         return msSingleton;
     }
-    ExternalTextureSourceManager& ExternalTextureSourceManager::getSingleton()
+    auto ExternalTextureSourceManager::getSingleton() -> ExternalTextureSourceManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -129,7 +129,7 @@ namespace Ogre
     }
 
     //****************************************************************************************
-    ExternalTextureSource* ExternalTextureSourceManager::getExternalTextureSource( const String& sTexturePlugInType )
+    auto ExternalTextureSourceManager::getExternalTextureSource( const String& sTexturePlugInType ) -> ExternalTextureSource*
     {
         TextureSystemList::iterator i;
         for( i = mTextureSystems.begin(); i != mTextureSystems.end(); ++i )

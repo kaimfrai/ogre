@@ -69,13 +69,13 @@ class TagPoint;
         ~SkeletonInstance();
 
         /** Gets the number of animations on this skeleton. */
-        unsigned short getNumAnimations() const;
+        auto getNumAnimations() const -> unsigned short;
 
         /** Gets a single animation by index. */
-        Animation* getAnimation(unsigned short index) const;
+        auto getAnimation(unsigned short index) const -> Animation*;
         /// Internal accessor for animations (returns null if animation does not exist)
-        Animation* _getAnimationImpl(const String& name, 
-            const LinkedSkeletonAnimationSource** linker = 0) const;
+        auto _getAnimationImpl(const String& name, 
+            const LinkedSkeletonAnimationSource** linker = 0) const -> Animation*;
 
         /** Creates a new Animation object for animating this skeleton. 
         @remarks
@@ -83,11 +83,11 @@ class TagPoint;
         @param name The name of this animation
         @param length The length of the animation in seconds
         */
-        Animation* createAnimation(const String& name, Real length);
+        auto createAnimation(const String& name, Real length) -> Animation*;
 
         /** Returns the named Animation object. */
-        Animation* getAnimation(const String& name, 
-            const LinkedSkeletonAnimationSource** linker = 0) const;
+        auto getAnimation(const String& name, 
+            const LinkedSkeletonAnimationSource** linker = 0) const -> Animation*;
 
         /** Removes an Animation from this skeleton. 
         @remarks
@@ -97,9 +97,9 @@ class TagPoint;
 
 
         /** Creates a TagPoint ready to be attached to a bone */
-        TagPoint* createTagPointOnBone(Bone* bone, 
+        auto createTagPointOnBone(Bone* bone, 
             const Quaternion &offsetOrientation = Quaternion::IDENTITY, 
-            const Vector3 &offsetPosition = Vector3::ZERO);
+            const Vector3 &offsetPosition = Vector3::ZERO) -> TagPoint*;
 
         /** Frees a TagPoint that already attached to a bone */
         void freeTagPoint(TagPoint* tagPoint);
@@ -109,8 +109,8 @@ class TagPoint;
             Real scale = 1.0f);
         /// @copydoc Skeleton::removeAllLinkedSkeletonAnimationSources
         void removeAllLinkedSkeletonAnimationSources();
-        const LinkedSkeletonAnimSourceList&
-                    getLinkedSkeletonAnimationSources() const override;
+        auto
+                    getLinkedSkeletonAnimationSources() const -> const LinkedSkeletonAnimSourceList& override;
 
         /// @copydoc Skeleton::_initAnimationState
         void _initAnimationState(AnimationStateSet* animSet);
@@ -119,11 +119,11 @@ class TagPoint;
         void _refreshAnimationState(AnimationStateSet* animSet);
 
         /// @copydoc Resource::getName
-        const String& getName() const;
+        auto getName() const -> const String&;
         /// @copydoc Resource::getHandle
-        ResourceHandle getHandle() const;
+        auto getHandle() const -> ResourceHandle;
         /// @copydoc Resource::getGroup
-        const String& getGroup() const;
+        auto getGroup() const -> const String&;
 
     private:
         /// Pointer back to master Skeleton

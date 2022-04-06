@@ -62,7 +62,7 @@ namespace Ogre {
         using Codec::encodeToFile;
 
         void decode(const DataStreamPtr& input, const Any& output) const override;
-        DataStreamPtr encode(const Any& input) const override;
+        auto encode(const Any& input) const -> DataStreamPtr override;
         void encodeToFile(const Any& input, const String& outFileName) const override;
 
         virtual ~ImageCodec();
@@ -89,14 +89,14 @@ namespace Ogre {
         typedef SharedPtr<ImageData> CodecDataPtr;
 
         /// @deprecated
-        virtual DataStreamPtr encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const { return encode(Any()); }
+        virtual auto encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const -> DataStreamPtr { return encode(Any()); }
         /// @deprecated
         virtual void encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName, const CodecDataPtr& pData) const
         { encodeToFile(Any(), ""); }
         /// Result of a decoding; both a decoded data stream and CodecData metadata
         typedef std::pair<MemoryDataStreamPtr, CodecDataPtr> DecodeResult;
         /// @deprecated
-        virtual DecodeResult decode(const DataStreamPtr& input) const
+        virtual auto decode(const DataStreamPtr& input) const -> DecodeResult
         {
             return {};
         }

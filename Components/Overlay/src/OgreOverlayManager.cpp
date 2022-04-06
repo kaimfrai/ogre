@@ -53,11 +53,11 @@ class RenderQueue;
 
     //---------------------------------------------------------------------
     template<> OverlayManager *Singleton<OverlayManager>::msSingleton = 0;
-    OverlayManager* OverlayManager::getSingletonPtr()
+    auto OverlayManager::getSingletonPtr() -> OverlayManager*
     {
         return msSingleton;
     }
-    OverlayManager& OverlayManager::getSingleton()
+    auto OverlayManager::getSingleton() -> OverlayManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -103,18 +103,18 @@ class RenderQueue;
             i->second->_restoreManualHardwareResources();
     }
     //---------------------------------------------------------------------
-    const StringVector& OverlayManager::getScriptPatterns() const
+    auto OverlayManager::getScriptPatterns() const -> const StringVector&
     {
         return mScriptPatterns;
     }
     //---------------------------------------------------------------------
-    Real OverlayManager::getLoadingOrder() const
+    auto OverlayManager::getLoadingOrder() const -> Real
     {
         // Load late
         return 1100.0f;
     }
     //---------------------------------------------------------------------
-    Overlay* OverlayManager::create(const String& name)
+    auto OverlayManager::create(const String& name) -> Overlay*
     {
         Overlay* ret = 0;
         OverlayMap::iterator i = mOverlayMap.find(name);
@@ -136,7 +136,7 @@ class RenderQueue;
 
     }
     //---------------------------------------------------------------------
-    Overlay* OverlayManager::getByName(const String& name)
+    auto OverlayManager::getByName(const String& name) -> Overlay*
     {
         OverlayMap::iterator i = mOverlayMap.find(name);
         if (i == mOverlayMap.end())
@@ -202,7 +202,7 @@ class RenderQueue;
         mOverlayMap.clear();
     }
     //---------------------------------------------------------------------
-    OverlayManager::OverlayMapIterator OverlayManager::getOverlayIterator()
+    auto OverlayManager::getOverlayIterator() -> OverlayManager::OverlayMapIterator
     {
         return {mOverlayMap.begin(), mOverlayMap.end()};
     }
@@ -241,28 +241,28 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    int OverlayManager::getViewportHeight() const
+    auto OverlayManager::getViewportHeight() const -> int
     {
         return mLastViewportHeight;
     }
     //---------------------------------------------------------------------
-    int OverlayManager::getViewportWidth() const
+    auto OverlayManager::getViewportWidth() const -> int
     {
         return mLastViewportWidth;
     }
     //---------------------------------------------------------------------
-    Real OverlayManager::getViewportAspectRatio() const
+    auto OverlayManager::getViewportAspectRatio() const -> Real
     {
         return (Real)mLastViewportWidth / (Real)mLastViewportHeight;
     }
     //---------------------------------------------------------------------
-    OrientationMode OverlayManager::getViewportOrientationMode() const
+    auto OverlayManager::getViewportOrientationMode() const -> OrientationMode
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Getting ViewPort orientation mode is not supported");
     }
     //---------------------------------------------------------------------
-    float OverlayManager::getPixelRatio() const
+    auto OverlayManager::getPixelRatio() const -> float
     {
         return mPixelRatio;
     }
@@ -272,7 +272,7 @@ class RenderQueue;
         mPixelRatio = ratio;
     }
     //---------------------------------------------------------------------
-    OverlayElement* OverlayManager::createOverlayElementFromTemplate(const String& templateName, const String& typeName, const String& instanceName, bool)
+    auto OverlayManager::createOverlayElementFromTemplate(const String& templateName, const String& typeName, const String& instanceName, bool) -> OverlayElement*
     {
 
         OverlayElement* newObj  = NULL;
@@ -306,14 +306,14 @@ class RenderQueue;
 
 
     //---------------------------------------------------------------------
-    OverlayElement* OverlayManager::cloneOverlayElementFromTemplate(const String& templateName, const String& instanceName)
+    auto OverlayManager::cloneOverlayElementFromTemplate(const String& templateName, const String& instanceName) -> OverlayElement*
     {
         OverlayElement* templateGui = getOverlayElement(templateName, true);
         return templateGui->clone(instanceName);
     }
 
     //---------------------------------------------------------------------
-    OverlayElement* OverlayManager::createOverlayElement(const String& typeName, const String& instanceName, bool)
+    auto OverlayManager::createOverlayElement(const String& typeName, const String& instanceName, bool) -> OverlayElement*
     {
         // Check not duplicated
         ElementMap::iterator ii = mElements.find(instanceName);
@@ -333,7 +333,7 @@ class RenderQueue;
     }
 
     //---------------------------------------------------------------------
-    OverlayElement* OverlayManager::createOverlayElementFromFactory(const String& typeName, const String& instanceName)
+    auto OverlayManager::createOverlayElementFromFactory(const String& typeName, const String& instanceName) -> OverlayElement*
     {
         // Look up factory
         FactoryMap::iterator fi = mFactories.find(typeName);
@@ -347,7 +347,7 @@ class RenderQueue;
         return fi->second->createOverlayElement(instanceName);
     }
     //---------------------------------------------------------------------
-    OverlayElement* OverlayManager::getOverlayElement(const String& name,bool)
+    auto OverlayManager::getOverlayElement(const String& name,bool) -> OverlayElement*
     {
         // Locate instance
         ElementMap::iterator ii = mElements.find(name);
@@ -359,7 +359,7 @@ class RenderQueue;
         return ii->second;
     }
     //---------------------------------------------------------------------
-    bool OverlayManager::hasOverlayElement(const String& name,bool)
+    auto OverlayManager::hasOverlayElement(const String& name,bool) -> bool
     {
         ElementMap::iterator ii = mElements.find(name);
         return ii != mElements.end();

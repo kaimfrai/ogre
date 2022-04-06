@@ -1990,8 +1990,8 @@ namespace Ogre {
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    extern OptimisedUtil* _getOptimisedUtilSSE();
-    extern OptimisedUtil* _getOptimisedUtilSSE()
+    extern auto _getOptimisedUtilSSE() -> OptimisedUtil*;
+    extern auto _getOptimisedUtilSSE() -> OptimisedUtil*
     {
         static OptimisedUtilSSE msOptimisedUtilSSE;
         return &msOptimisedUtilSSE;

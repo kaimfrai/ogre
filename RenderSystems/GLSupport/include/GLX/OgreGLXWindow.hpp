@@ -84,7 +84,7 @@ namespace Ogre
            */
         void getCustomAttribute(const String& name, void* pData);
         
-        PixelFormat suggestPixelFormat() const;
+        auto suggestPixelFormat() const -> PixelFormat;
 
     private:
         GLXGLSupport* mGLSupport;

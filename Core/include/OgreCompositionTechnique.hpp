@@ -98,7 +98,7 @@ namespace Ogre {
         /** Create a new local texture definition, and return a pointer to it.
             @param name     Name of the local texture
         */
-        TextureDefinition *createTextureDefinition(const String &name);
+        auto createTextureDefinition(const String &name) -> TextureDefinition *;
         
         /** Remove and destroy a local texture definition.
         */
@@ -106,25 +106,25 @@ namespace Ogre {
         
         /** Get a local texture definition.
         */
-        TextureDefinition *getTextureDefinition(size_t idx) const { return mTextureDefinitions.at(idx); }
+        auto getTextureDefinition(size_t idx) const -> TextureDefinition * { return mTextureDefinitions.at(idx); }
         
         /** Get a local texture definition with a specific name.
         */
-        TextureDefinition *getTextureDefinition(const String& name) const;
+        auto getTextureDefinition(const String& name) const -> TextureDefinition *;
 
         /** Get the number of local texture definitions.*/
-        size_t getNumTextureDefinitions() const { return mTextureDefinitions.size(); }
+        auto getNumTextureDefinitions() const -> size_t { return mTextureDefinitions.size(); }
         
         /** Remove all Texture Definitions
         */
         void removeAllTextureDefinitions();
         
         /** Get the TextureDefinitions in this Technique. */
-        const TextureDefinitions& getTextureDefinitions() const { return mTextureDefinitions; }
+        auto getTextureDefinitions() const -> const TextureDefinitions& { return mTextureDefinitions; }
         
         /** Create a new target pass, and return a pointer to it.
         */
-        CompositionTargetPass *createTargetPass();
+        auto createTargetPass() -> CompositionTargetPass *;
         
         /** Remove a target pass. It will also be destroyed.
         */
@@ -132,33 +132,33 @@ namespace Ogre {
         
         /** Get a target pass.
         */
-        CompositionTargetPass* getTargetPass(size_t idx) const { return mTargetPasses.at(idx); }
+        auto getTargetPass(size_t idx) const -> CompositionTargetPass* { return mTargetPasses.at(idx); }
         
         /** Get the number of target passes. */
-        size_t getNumTargetPasses() const { return mTargetPasses.size(); }
+        auto getNumTargetPasses() const -> size_t { return mTargetPasses.size(); }
         
         /** Remove all target passes.
         */
         void removeAllTargetPasses();
         
         /** Get the TargetPasses in this Technique. */
-        const TargetPasses& getTargetPasses() const { return mTargetPasses; }
+        auto getTargetPasses() const -> const TargetPasses& { return mTargetPasses; }
         
         /** Get output (final) target pass
          */
-        CompositionTargetPass *getOutputTargetPass() const { return mOutputTarget; }
+        auto getOutputTargetPass() const -> CompositionTargetPass * { return mOutputTarget; }
         
         /** Determine if this technique is supported on the current rendering device. 
         @param allowTextureDegradation True to accept a reduction in texture depth
          */
-        virtual bool isSupported(bool allowTextureDegradation);
+        virtual auto isSupported(bool allowTextureDegradation) -> bool;
         
         /** Assign a scheme name to this technique, used to switch between 
             multiple techniques by choice rather than for hardware compatibility.
         */
         virtual void setSchemeName(const String& schemeName);
         /** Get the scheme name assigned to this technique. */
-        const String& getSchemeName() const { return mSchemeName; }
+        auto getSchemeName() const -> const String& { return mSchemeName; }
         
         /** Set the name of the compositor logic assigned to this technique.
             Instances of this technique will be auto-coupled with the matching logic.
@@ -166,10 +166,10 @@ namespace Ogre {
         void setCompositorLogicName(const String& compositorLogicName) 
             { mCompositorLogicName = compositorLogicName; }
         /** Get the compositor logic name assigned to this technique */
-        const String& getCompositorLogicName() const { return mCompositorLogicName; }
+        auto getCompositorLogicName() const -> const String& { return mCompositorLogicName; }
 
         /** Get parent object */
-        Compositor *getParent();
+        auto getParent() -> Compositor *;
     private:
         /// Parent compositor
         Compositor *mParent;

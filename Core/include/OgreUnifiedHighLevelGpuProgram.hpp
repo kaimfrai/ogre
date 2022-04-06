@@ -85,7 +85,7 @@ class ResourceManager;
             const String& group, bool isManual = false, ManualResourceLoader* loader = 0);
         ~UnifiedHighLevelGpuProgram();
 
-        virtual size_t calculateSize() const;
+        virtual auto calculateSize() const -> size_t;
 
         /** Adds a new delegate program to the list.
         @remarks
@@ -97,10 +97,10 @@ class ResourceManager;
         void clearDelegatePrograms();
 
         /// Get the chosen delegate
-        const GpuProgramPtr& _getDelegate() const;
+        auto _getDelegate() const -> const GpuProgramPtr&;
 
         /** @copydoc GpuProgram::getLanguage */
-        const String& getLanguage() const;
+        auto getLanguage() const -> const String&;
 
         /** Creates a new parameters object compatible with this program definition. 
         @remarks
@@ -109,47 +109,47 @@ class ResourceManager;
         HighLevelGpuProgramManager. This method creates a new instance of a parameters
         object containing the definition of the parameters this program understands.
         */
-        GpuProgramParametersSharedPtr createParameters();
+        auto createParameters() -> GpuProgramParametersSharedPtr;
         /** @copydoc GpuProgram::_getBindingDelegate */
-        GpuProgram* _getBindingDelegate();
+        auto _getBindingDelegate() -> GpuProgram*;
 
         // All the following methods must delegate to the implementation
 
         /** @copydoc GpuProgram::isSupported */
-        bool isSupported() const;
+        auto isSupported() const -> bool;
 
-        const String& getSource() const override
+        auto getSource() const -> const String& override
         {
             return _getDelegate() ? _getDelegate()->getSource() : BLANKSTRING;
         }
 
         /** @copydoc GpuProgram::isSkeletalAnimationIncluded */
-        bool isSkeletalAnimationIncluded() const;
+        auto isSkeletalAnimationIncluded() const -> bool;
 
-        bool isMorphAnimationIncluded() const;
+        auto isMorphAnimationIncluded() const -> bool;
 
-        bool isPoseAnimationIncluded() const;
-        ushort getNumberOfPosesIncluded() const;
+        auto isPoseAnimationIncluded() const -> bool;
+        auto getNumberOfPosesIncluded() const -> ushort;
 
-        bool isVertexTextureFetchRequired() const;
-        const GpuProgramParametersPtr& getDefaultParameters() override;
-        bool hasDefaultParameters() const;
-        bool getPassSurfaceAndLightStates() const;
-        bool getPassFogStates() const;
-        bool getPassTransformStates() const;
-        bool hasCompileError() const;
+        auto isVertexTextureFetchRequired() const -> bool;
+        auto getDefaultParameters() -> const GpuProgramParametersPtr& override;
+        auto hasDefaultParameters() const -> bool;
+        auto getPassSurfaceAndLightStates() const -> bool;
+        auto getPassFogStates() const -> bool;
+        auto getPassTransformStates() const -> bool;
+        auto hasCompileError() const -> bool;
         void resetCompileError();
 
         void load(bool backgroundThread = false);
         void reload(LoadingFlags flags = LF_DEFAULT);
-        bool isReloadable() const;
-        bool isLoaded() const;
-        bool isLoading() const;
-        LoadingState getLoadingState() const;
+        auto isReloadable() const -> bool;
+        auto isLoaded() const -> bool;
+        auto isLoading() const -> bool;
+        auto getLoadingState() const -> LoadingState;
         void unload();
-        size_t getSize() const;
+        auto getSize() const -> size_t;
         void touch();
-        bool isBackgroundLoaded() const;
+        auto isBackgroundLoaded() const -> bool;
         void setBackgroundLoaded(bool bl);
         void escalateLoading();
         void addListener(Listener* lis);
@@ -164,10 +164,10 @@ class ResourceManager;
         UnifiedHighLevelGpuProgramFactory();
         ~UnifiedHighLevelGpuProgramFactory();
         /// Get the name of the language this factory creates programs for
-        const String& getLanguage() const;
-        GpuProgram* create(ResourceManager* creator,
+        auto getLanguage() const -> const String&;
+        auto create(ResourceManager* creator,
             const String& name, ResourceHandle handle,
-            const String& group, bool isManual, ManualResourceLoader* loader);
+            const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram*;
     };
 
     /** @} */

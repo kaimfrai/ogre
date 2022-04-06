@@ -59,7 +59,7 @@ namespace Ogre {
             size_t mVertexSize;
             size_t mInstanceDataStepRate;           
             /// Checks if vertex instance data is supported by the render system
-            virtual bool checkIfVertexInstanceDataIsSupported();
+            virtual auto checkIfVertexInstanceDataIsSupported() -> bool;
 
         public:
             /// Should be called by HardwareBufferManager
@@ -69,17 +69,17 @@ namespace Ogre {
                                  HardwareBuffer* delegate);
             ~HardwareVertexBuffer();
             /// Return the manager of this buffer, if any
-            HardwareBufferManagerBase* getManager() const { return mMgr; }
+            auto getManager() const -> HardwareBufferManagerBase* { return mMgr; }
             /// Gets the size in bytes of a single vertex in this buffer
-            size_t getVertexSize() const { return mVertexSize; }
+            auto getVertexSize() const -> size_t { return mVertexSize; }
             /// Get the number of vertices in this buffer
-            size_t getNumVertices() const { return mNumVertices; }
+            auto getNumVertices() const -> size_t { return mNumVertices; }
             /// Get if this vertex buffer is an "instance data" buffer (per instance)
-            bool isInstanceData() const { return mIsInstanceData; }
+            auto isInstanceData() const -> bool { return mIsInstanceData; }
             /// Set if this vertex buffer is an "instance data" buffer (per instance)
             void setIsInstanceData(const bool val);
             /// Get the number of instances to draw using the same per-instance data before advancing in the buffer by one element.
-            size_t getInstanceDataStepRate() const;
+            auto getInstanceDataStepRate() const -> size_t;
             /// Set the number of instances to draw using the same per-instance data before advancing in the buffer by one element.
             void setInstanceDataStepRate(const size_t val);
 
@@ -195,32 +195,32 @@ namespace Ogre {
         VertexElement(unsigned short source, size_t offset, VertexElementType theType,
             VertexElementSemantic semantic, unsigned short index = 0);
         /// Gets the vertex buffer index from where this element draws it's values
-        unsigned short getSource() const { return mSource; }
+        auto getSource() const -> unsigned short { return mSource; }
         /// Gets the offset into the buffer where this element starts
-        size_t getOffset() const { return mOffset; }
+        auto getOffset() const -> size_t { return mOffset; }
         /// Gets the data format of this element
-        VertexElementType getType() const { return mType; }
+        auto getType() const -> VertexElementType { return mType; }
         /// Gets the meaning of this element
-        VertexElementSemantic getSemantic() const { return mSemantic; }
+        auto getSemantic() const -> VertexElementSemantic { return mSemantic; }
         /// Gets the index of this element, only applicable for repeating elements
-        unsigned short getIndex() const { return mIndex; }
+        auto getIndex() const -> unsigned short { return mIndex; }
         /// Gets the size of this element in bytes
-        size_t getSize() const;
+        auto getSize() const -> size_t;
         /// Utility method for helping to calculate offsets
-        static size_t getTypeSize(VertexElementType etype);
+        static auto getTypeSize(VertexElementType etype) -> size_t;
         /// Utility method which returns the count of values in a given type (result for colors may be counter-intuitive)
-        static unsigned short getTypeCount(VertexElementType etype);
+        static auto getTypeCount(VertexElementType etype) -> unsigned short;
         /** Simple converter function which will return a type large enough to hold 'count' values
             of the same type as the values in 'baseType'.  The 'baseType' parameter should have the
             smallest count available.  The return type may have the count rounded up to the next multiple
             of 4 bytes.  Byte types will always return a 4-count type, while short types will return either
             a 2-count or 4-count type.
         */
-        static VertexElementType multiplyTypeCount(VertexElementType baseType, unsigned short count);
+        static auto multiplyTypeCount(VertexElementType baseType, unsigned short count) -> VertexElementType;
         /** Simple converter function which will turn a type into it's single-value (or lowest multiple-value)
             equivalent - makes switches on type easier.  May give counter-intuitive results with bytes or shorts.
         */
-        static VertexElementType getBaseType(VertexElementType multiType);
+        static auto getBaseType(VertexElementType multiType) -> VertexElementType;
 
         /** Utility method for converting colour from
             one packed 32-bit colour type to another.
@@ -236,15 +236,15 @@ namespace Ogre {
         @param src source colour
         @param dst The destination type
         */
-        static uint32 convertColourValue(const ColourValue& src, VertexElementType dst)
+        static auto convertColourValue(const ColourValue& src, VertexElementType dst) -> uint32
         {
             return src.getAsABGR();
         }
 
         /** Utility method to get the most appropriate packed colour vertex element format. */
-        static VertexElementType getBestColourVertexElementType();
+        static auto getBestColourVertexElementType() -> VertexElementType;
 
-        inline bool operator== (const VertexElement& rhs) const
+        inline auto operator== (const VertexElement& rhs) const -> bool
         {
             if (mType != rhs.mType ||
                 mIndex != rhs.mIndex ||
@@ -289,7 +289,7 @@ namespace Ogre {
         /// Defines the list of vertex elements that makes up this declaration
         typedef std::list<VertexElement> VertexElementList;
         /// Sort routine for vertex elements
-        static bool vertexElementLess(const VertexElement& e1, const VertexElement& e2);
+        static auto vertexElementLess(const VertexElement& e1, const VertexElement& e2) -> bool;
     protected:
         VertexElementList mElementList;
 
@@ -301,11 +301,11 @@ namespace Ogre {
         virtual ~VertexDeclaration();
 
         /** Get the number of elements in the declaration. */
-        size_t getElementCount() const { return mElementList.size(); }
+        auto getElementCount() const -> size_t { return mElementList.size(); }
         /** Gets read-only access to the list of vertex elements. */
-        const VertexElementList& getElements() const;
+        auto getElements() const -> const VertexElementList&;
         /** Get a single element. */
-        const VertexElement* getElement(unsigned short index) const;
+        auto getElement(unsigned short index) const -> const VertexElement*;
 
         /** Sorts the elements in this list to be compatible with D3D7 graphics cards
 
@@ -357,11 +357,11 @@ namespace Ogre {
         @param vertexAnimation Whether this vertex data is going to be vertex animated
         @param vertexAnimationNormals Whether vertex data animation is going to include normals animation
         */
-        VertexDeclaration* getAutoOrganisedDeclaration(bool skeletalAnimation,
-            bool vertexAnimation, bool vertexAnimationNormals) const;
+        auto getAutoOrganisedDeclaration(bool skeletalAnimation,
+            bool vertexAnimation, bool vertexAnimationNormals) const -> VertexDeclaration*;
 
         /** Gets the index of the highest source value referenced by this declaration. */
-        unsigned short getMaxSource() const;
+        auto getMaxSource() const -> unsigned short;
 
 
 
@@ -378,8 +378,8 @@ namespace Ogre {
         @param index Optional index for multi-input elements like texture coordinates
         @return A reference to the VertexElement added.
         */
-        const VertexElement& addElement(unsigned short source, size_t offset, VertexElementType theType,
-            VertexElementSemantic semantic, unsigned short index = 0);
+        auto addElement(unsigned short source, size_t offset, VertexElementType theType,
+            VertexElementSemantic semantic, unsigned short index = 0) -> const VertexElement&;
         /** Inserts a new VertexElement at a given position in this declaration.
         @remarks
         This method adds a single element (positions, normals etc) at a given position in this
@@ -394,9 +394,9 @@ namespace Ogre {
         @param index Optional index for multi-input elements like texture coordinates
         @return A reference to the VertexElement added.
         */
-        const VertexElement& insertElement(unsigned short atPosition,
+        auto insertElement(unsigned short atPosition,
             unsigned short source, size_t offset, VertexElementType theType,
-            VertexElementSemantic semantic, unsigned short index = 0);
+            VertexElementSemantic semantic, unsigned short index = 0) -> const VertexElement&;
 
         /** Remove the element at the given index from this declaration. */
         void removeElement(unsigned short elem_index);
@@ -425,7 +425,7 @@ namespace Ogre {
         @remarks
             If the element is not found, this method returns null.
         */
-        const VertexElement* findElementBySemantic(VertexElementSemantic sem, unsigned short index = 0) const;
+        auto findElementBySemantic(VertexElementSemantic sem, unsigned short index = 0) const -> const VertexElement*;
         /** Based on the current elements, gets the size of the vertex for a given buffer source.
         @param source The buffer binding index for which to get the vertex size.
         */
@@ -435,24 +435,24 @@ namespace Ogre {
             Note that the list of elements is returned by value therefore is separate from
             the declaration as soon as this method returns.
         */
-        VertexElementList findElementsBySource(unsigned short source) const;
+        auto findElementsBySource(unsigned short source) const -> VertexElementList;
 
         /** Gets the vertex size defined by this declaration for a given source. */
-        size_t getVertexSize(unsigned short source) const;
+        auto getVertexSize(unsigned short source) const -> size_t;
         
         /** Return the index of the next free texture coordinate set which may be added
             to this declaration.
         */
-        unsigned short getNextFreeTextureCoordinate() const;
+        auto getNextFreeTextureCoordinate() const -> unsigned short;
 
         /** Clones this declaration. 
         @param mgr Optional HardwareBufferManager to use for creating the clone
             (if null, use the current default).
         */
         [[nodiscard]]
-        VertexDeclaration* clone(HardwareBufferManagerBase* mgr = 0) const;
+        auto clone(HardwareBufferManagerBase* mgr = 0) const -> VertexDeclaration*;
 
-        inline bool operator== (const VertexDeclaration& rhs) const
+        inline auto operator== (const VertexDeclaration& rhs) const -> bool
         {
             if (mElementList.size() != rhs.mElementList.size())
                 return false;
@@ -469,7 +469,7 @@ namespace Ogre {
 
             return true;
         }
-        inline bool operator!= (const VertexDeclaration& rhs) const
+        inline auto operator!= (const VertexDeclaration& rhs) const -> bool
         {
             return !(*this == rhs);
         }
@@ -517,31 +517,31 @@ namespace Ogre {
         void unsetAllBindings();
 
         /// Gets a read-only version of the buffer bindings
-        const VertexBufferBindingMap& getBindings() const;
+        auto getBindings() const -> const VertexBufferBindingMap&;
 
         /// Gets the buffer bound to the given source index
-        const HardwareVertexBufferSharedPtr& getBuffer(unsigned short index) const;
+        auto getBuffer(unsigned short index) const -> const HardwareVertexBufferSharedPtr&;
         /// Gets whether a buffer is bound to the given source index
-        bool isBufferBound(unsigned short index) const;
+        auto isBufferBound(unsigned short index) const -> bool;
 
-        size_t getBufferCount() const { return mBindingMap.size(); }
+        auto getBufferCount() const -> size_t { return mBindingMap.size(); }
 
         /** Gets the highest index which has already been set, plus 1.
         @remarks
             This is to assist in binding the vertex buffers such that there are
             not gaps in the list.
         */
-        unsigned short getNextIndex() const { return mHighIndex++; }
+        auto getNextIndex() const -> unsigned short { return mHighIndex++; }
 
         /** Gets the last bound index.
         */
-        unsigned short getLastBoundIndex() const;
+        auto getLastBoundIndex() const -> unsigned short;
 
         typedef std::map<ushort, ushort> BindingIndexMap;
 
         /** Check whether any gaps in the bindings.
         */
-        bool hasGaps() const;
+        auto hasGaps() const -> bool;
 
         /** Remove any gaps in the bindings.
         @remarks
@@ -558,7 +558,7 @@ namespace Ogre {
         void closeGaps(BindingIndexMap& bindingIndexMap);
 
         /// Returns true if this binding has an element that contains instance data
-        bool hasInstanceData() const
+        auto hasInstanceData() const -> bool
         {
             for (const auto& b : mBindingMap)
                 if (b.second->isInstanceData())

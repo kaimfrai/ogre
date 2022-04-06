@@ -94,7 +94,7 @@ class VertexData;
     */
     class BillboardChain : public MovableObject, public Renderable
     {
-        bool getCastsShadows() const override { return getCastShadows(); }
+        auto getCastsShadows() const -> bool override { return getCastShadows(); }
     public:
 
         /** Contains the data of an element of the BillboardChain.
@@ -141,7 +141,7 @@ class VertexData;
         virtual void setMaxChainElements(size_t maxElements);
         /** Get the maximum number of chain elements per chain 
         */
-        virtual size_t getMaxChainElements() const { return mMaxElementsPerChain; }
+        virtual auto getMaxChainElements() const -> size_t { return mMaxElementsPerChain; }
         /** Set the number of chain segments (this class can render multiple chains
             at once using the same material). 
         */
@@ -149,7 +149,7 @@ class VertexData;
         /** Get the number of chain segments (this class can render multiple chains
         at once using the same material). 
         */
-        virtual size_t getNumberOfChains() const { return mChainCount; }
+        virtual auto getNumberOfChains() const -> size_t { return mChainCount; }
 
         /** Sets whether texture coordinate information should be included in the
             final buffers generated.
@@ -161,7 +161,7 @@ class VertexData;
         /** Gets whether texture coordinate information should be included in the
             final buffers generated.
         */
-        virtual bool getUseTextureCoords() const { return mUseTexCoords; }
+        virtual auto getUseTextureCoords() const -> bool { return mUseTexCoords; }
 
         /** The direction in which texture coordinates from elements of the
             chain are used.
@@ -181,7 +181,7 @@ class VertexData;
         /** Gets the direction in which texture coords specified on each element
             are deemed to run.
         */
-        virtual TexCoordDirection getTextureCoordDirection() { return mTexCoordDir; }
+        virtual auto getTextureCoordDirection() -> TexCoordDirection { return mTexCoordDir; }
 
         /** Set the range of the texture coordinates generated across the width of
             the chain elements.
@@ -192,7 +192,7 @@ class VertexData;
         /** Get the range of the texture coordinates generated across the width of
             the chain elements.
         */
-        virtual const Real* getOtherTextureCoordRange() const { return mOtherTexCoordRange; }
+        virtual auto getOtherTextureCoordRange() const -> const Real* { return mOtherTexCoordRange; }
 
         /** Sets whether vertex colour information should be included in the
             final buffers generated.
@@ -204,7 +204,7 @@ class VertexData;
         /** Gets whether vertex colour information should be included in the
             final buffers generated.
         */
-        virtual bool getUseVertexColours() const { return mUseVertexColour; }
+        virtual auto getUseVertexColours() const -> bool { return mUseVertexColour; }
 
         /** Sets whether or not the buffers created for this object are suitable
             for dynamic alteration.
@@ -214,7 +214,7 @@ class VertexData;
         /** Gets whether or not the buffers created for this object are suitable
             for dynamic alteration.
         */
-        virtual bool getDynamic() const { return mDynamic; }
+        virtual auto getDynamic() const -> bool { return mDynamic; }
         
         /** Add an element to the 'head' of a chain.
         @remarks
@@ -243,10 +243,10 @@ class VertexData;
         @param elementIndex The element index within the chain, measured from
             the 'head' of the chain
         */
-        virtual const Element& getChainElement(size_t chainIndex, size_t elementIndex) const;
+        virtual auto getChainElement(size_t chainIndex, size_t elementIndex) const -> const Element&;
 
         /** Returns the number of chain elements. */
-        virtual size_t getNumChainElements(size_t chainIndex) const;
+        virtual auto getNumChainElements(size_t chainIndex) const -> size_t;
 
         /** Remove all elements of a given chain (but leave the chain intact). */
         virtual void clearChain(size_t chainIndex);
@@ -272,22 +272,22 @@ class VertexData;
         void setFaceCamera( bool faceCamera, const Vector3 &normalVector=Vector3::UNIT_X );
 
         /// Get the material name in use
-        virtual const String& getMaterialName() const { return mMaterial->getName(); }
+        virtual auto getMaterialName() const -> const String& { return mMaterial->getName(); }
         /// Set the material name to use for rendering
         virtual void setMaterialName( const String& name, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
 
 
         // Overridden members follow
-        Real getSquaredViewDepth(const Camera* cam) const;
-        Real getBoundingRadius() const;
-        const AxisAlignedBox& getBoundingBox() const;
-        const MaterialPtr& getMaterial() const;
-        const String& getMovableType() const;
+        auto getSquaredViewDepth(const Camera* cam) const -> Real;
+        auto getBoundingRadius() const -> Real;
+        auto getBoundingBox() const -> const AxisAlignedBox&;
+        auto getMaterial() const -> const MaterialPtr&;
+        auto getMovableType() const -> const String&;
         void _updateRenderQueue(RenderQueue *);
         void getRenderOperation(RenderOperation &);
-        virtual bool preRender(SceneManager* sm, RenderSystem* rsys);
+        virtual auto preRender(SceneManager* sm, RenderSystem* rsys) -> bool;
         void getWorldTransforms(Matrix4 *) const;
-        const LightList& getLights() const;
+        auto getLights() const -> const LightList&;
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
             bool debugRenderables = false);
@@ -383,14 +383,14 @@ class VertexData;
     class BillboardChainFactory : public MovableObjectFactory
     {
     private:
-        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject*;
     public:
         BillboardChainFactory() {}
         ~BillboardChainFactory() {}
 
         static String FACTORY_TYPE_NAME;
 
-        const String& getType() const;
+        auto getType() const -> const String&;
     };
 
     /** @} */

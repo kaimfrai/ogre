@@ -63,7 +63,7 @@ DualQuaternionSkinning::DualQuaternionSkinning() : HardwareSkinningTechnique()
 }
 
 //-----------------------------------------------------------------------
-bool DualQuaternionSkinning::resolveParameters(ProgramSet* programSet)
+auto DualQuaternionSkinning::resolveParameters(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
@@ -139,7 +139,7 @@ bool DualQuaternionSkinning::resolveParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool DualQuaternionSkinning::resolveDependencies(ProgramSet* programSet)
+auto DualQuaternionSkinning::resolveDependencies(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     vsProgram->addDependency(FFP_LIB_COMMON);
@@ -151,7 +151,7 @@ bool DualQuaternionSkinning::resolveDependencies(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool DualQuaternionSkinning::addFunctionInvocations(ProgramSet* programSet)
+auto DualQuaternionSkinning::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();

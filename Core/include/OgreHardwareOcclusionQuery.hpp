@@ -98,20 +98,20 @@ public:
       * @retval NumOfFragments will get the resulting number of fragments.
       * @return True if success or false if not.
       */
-    virtual bool pullOcclusionQuery(unsigned int* NumOfFragments) = 0;
+    virtual auto pullOcclusionQuery(unsigned int* NumOfFragments) -> bool = 0;
 
     /**
       * Let's you get the last pixel count with out doing the hardware occlusion test
       * @return The last fragment count from the last test.
       * Remarks This function won't give you new values, just the old value.
       */
-    unsigned int getLastQuerysPixelcount() const { return mPixelCount; }
+    auto getLastQuerysPixelcount() const -> unsigned int { return mPixelCount; }
 
     /**
       * Lets you know when query is done, or still be processed by the Hardware
       * @return true if query isn't finished.
       */
-     virtual bool isStillOutstanding() = 0; 
+     virtual auto isStillOutstanding() -> bool = 0; 
 
 
     //----------------------------------------------------------------------

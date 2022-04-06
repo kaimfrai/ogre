@@ -89,7 +89,7 @@ namespace Ogre
             to monitor with different DPI. In such situation, window size in view points is usually
             preserved by windowing system, and Ogre should adjust pixel size of RenderWindow.
         */
-        virtual float getViewPointToPixelScale() { return 1.0f; }
+        virtual auto getViewPointToPixelScale() -> float { return 1.0f; }
 
         /** Creates & displays the new window.
             @param name the internal window name. Not necessarily the title.
@@ -139,7 +139,7 @@ namespace Ogre
 
         /** Indicates whether the window is visible (not minimized or obscured)
         */
-        virtual bool isVisible() const { return true; }
+        virtual auto isVisible() const -> bool { return true; }
 
         /** Set the visibility state
         */
@@ -148,7 +148,7 @@ namespace Ogre
 
         /** Indicates whether the window was set to hidden (not displayed)
         */
-        virtual bool isHidden() const { return false; }
+        virtual auto isHidden() const -> bool { return false; }
 
         /** Hide (or show) the window. If called with hidden=true, this
             will make the window completely invisible to the user.
@@ -168,7 +168,7 @@ namespace Ogre
 
         /** Indicates whether vertical sync is activated for the window.
         */
-        virtual bool isVSyncEnabled() const { return false; }
+        virtual auto isVSyncEnabled() const -> bool { return false; }
 
         /** Set the vertical sync interval. This indicates the number of vertical retraces to wait for
             before swapping buffers. A value of 1 is the default.
@@ -178,16 +178,16 @@ namespace Ogre
 
         /** Returns the vertical sync interval. 
         */
-        unsigned int getVSyncInterval() const { return mVSyncInterval; }
+        auto getVSyncInterval() const -> unsigned int { return mVSyncInterval; }
         
 
         /** Overridden from RenderTarget, flags invisible windows as inactive
         */
-        virtual bool isActive() const { return mActive && isVisible(); }
+        virtual auto isActive() const -> bool { return mActive && isVisible(); }
 
         /** Indicates whether the window has been closed by the user.
         */
-        virtual bool isClosed() const { return mClosed; }
+        virtual auto isClosed() const -> bool { return mClosed; }
         
         /** Indicates whether the window is the primary window. The
             primary window is special in that it is destroyed when 
@@ -195,11 +195,11 @@ namespace Ogre
             This is the case because it holds the context for vertex,
             index buffers and textures.
         */
-        virtual bool isPrimary() const;
+        virtual auto isPrimary() const -> bool;
 
         /** Returns true if window is running in fullscreen mode.
         */
-        virtual bool isFullScreen() const;
+        virtual auto isFullScreen() const -> bool;
 
         /** Overloaded version of getMetrics from RenderTarget, including extra details
             specific to windowing systems. Result is in pixels.
@@ -207,11 +207,11 @@ namespace Ogre
         void getMetrics(unsigned int& width, unsigned int& height, int& left, int& top) const;
 
         /// Override since windows don't usually have alpha
-        PixelFormat suggestPixelFormat() const { return PF_BYTE_RGB; }
+        auto suggestPixelFormat() const -> PixelFormat { return PF_BYTE_RGB; }
 
         /** Returns true if the window will automatically de-activate itself when it loses focus.
         */
-        bool isDeactivatedOnFocusChange() const;
+        auto isDeactivatedOnFocusChange() const -> bool;
 
         /** Indicates whether the window will automatically deactivate itself when it loses focus.
           * @param deactivate a value of 'true' will cause the window to deactivate itself when it loses focus.  'false' will allow it to continue to render even when window focus is lost.

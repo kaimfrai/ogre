@@ -136,56 +136,56 @@ class RenderTarget;
 
         /** Retrieves a pointer to the render target for this viewport.
         */
-        RenderTarget* getTarget() const;
+        auto getTarget() const -> RenderTarget*;
 
         /** Retrieves a pointer to the camera for this viewport.
         */
-        Camera* getCamera() const;
+        auto getCamera() const -> Camera*;
 
         /** Sets the camera to use for rendering to this viewport. */
         void setCamera(Camera* cam);
 
         /** Gets the Z-Order of this viewport. */
-        int getZOrder() const;
+        auto getZOrder() const -> int;
         /** Gets one of the relative dimensions of the viewport,
             a value between 0.0 and 1.0.
         */
-        Real getLeft() const;
+        auto getLeft() const -> Real;
 
         /** Gets one of the relative dimensions of the viewport, a value
             between 0.0 and 1.0.
         */
-        Real getTop() const;
+        auto getTop() const -> Real;
 
         /** Gets one of the relative dimensions of the viewport, a value
             between 0.0 and 1.0.
         */
 
-        Real getWidth() const;
+        auto getWidth() const -> Real;
         /** Gets one of the relative dimensions of the viewport, a value
             between 0.0 and 1.0.
         */
 
-        Real getHeight() const;
+        auto getHeight() const -> Real;
         /** Gets one of the actual dimensions of the viewport, a value in
             pixels.
         */
 
-        int getActualLeft() const;
+        auto getActualLeft() const -> int;
         /** Gets one of the actual dimensions of the viewport, a value in
             pixels.
         */
 
-        int getActualTop() const;
+        auto getActualTop() const -> int;
         /** Gets one of the actual dimensions of the viewport, a value in
             pixels.
         */
-        int getActualWidth() const;
+        auto getActualWidth() const -> int;
         /** Gets one of the actual dimensions of the viewport, a value in
             pixels.
         */
 
-        int getActualHeight() const;
+        auto getActualHeight() const -> int;
 
         /** Sets the dimensions (after creation).
             @param
@@ -208,7 +208,7 @@ class RenderTarget;
 
         /** Get the orientation mode of the viewport.
         */
-        OrientationMode getOrientationMode() const;
+        auto getOrientationMode() const -> OrientationMode;
 
         /** Set the initial orientation mode of viewports.
         */
@@ -216,7 +216,7 @@ class RenderTarget;
 
         /** Get the initial orientation mode of viewports.
         */
-        static OrientationMode getDefaultOrientationMode();
+        static auto getDefaultOrientationMode() -> OrientationMode;
 
         /** Sets the initial background colour of the viewport (before
             rendering).
@@ -225,7 +225,7 @@ class RenderTarget;
 
         /** Gets the background colour.
         */
-        const ColourValue& getBackgroundColour() const;
+        auto getBackgroundColour() const -> const ColourValue&;
 
         /** Sets the initial depth buffer value of the viewport (before
             rendering). Default is 1
@@ -234,7 +234,7 @@ class RenderTarget;
 
         /** Gets the default depth buffer value to which the viewport is cleared.
         */
-        float getDepthClear() const;
+        auto getDepthClear() const -> float;
 
         /** Determines whether to clear the viewport before rendering.
         @remarks
@@ -249,10 +249,10 @@ class RenderTarget;
 
         /** Determines if the viewport is cleared before every frame.
         */
-        bool getClearEveryFrame() const;
+        auto getClearEveryFrame() const -> bool;
 
         /** Gets which buffers are to be cleared each frame. */
-        unsigned int getClearBuffers() const;
+        auto getClearBuffers() const -> unsigned int;
 
         /** Sets whether this viewport should be automatically updated 
             if Ogre's rendering loop or RenderTarget::update is being used.
@@ -269,7 +269,7 @@ class RenderTarget;
         /** Gets whether this viewport is automatically updated if 
             Ogre's rendering loop or RenderTarget::update is being used.
         */
-        bool isAutoUpdated() const;
+        auto isAutoUpdated() const -> bool;
 
         /** Set the material scheme which the viewport should use.
         @remarks
@@ -283,23 +283,23 @@ class RenderTarget;
         
         /** Get the material scheme which the viewport should use.
         */
-        const String& getMaterialScheme() const
+        auto getMaterialScheme() const -> const String&
         { return mMaterialSchemeName; }
 
         /** Access to actual dimensions (based on target size).
         */
-        Rect getActualDimensions() const;
+        auto getActualDimensions() const -> Rect;
 
-        bool _isUpdated() const;
+        auto _isUpdated() const -> bool;
         void _clearUpdatedFlag();
 
         /** Gets the number of rendered faces in the last update.
         */
-        unsigned int _getNumRenderedFaces() const;
+        auto _getNumRenderedFaces() const -> unsigned int;
 
         /** Gets the number of rendered batches in the last update.
         */
-        unsigned int _getNumRenderedBatches() const;
+        auto _getNumRenderedBatches() const -> unsigned int;
 
         /** Tells this viewport whether it should display Overlay objects.
         @remarks
@@ -315,7 +315,7 @@ class RenderTarget;
 
         /** Returns whether or not Overlay objects (created in the SceneManager) are displayed in this
             viewport. */
-        bool getOverlaysEnabled() const;
+        auto getOverlaysEnabled() const -> bool;
 
         /** Tells this viewport whether it should display skies.
         @remarks
@@ -331,7 +331,7 @@ class RenderTarget;
 
         /** Returns whether or not skies (created in the SceneManager) are displayed in this
             viewport. */
-        bool getSkiesEnabled() const;
+        auto getSkiesEnabled() const -> bool;
 
         /** Tells this viewport whether it should display shadows.
         @remarks
@@ -345,7 +345,7 @@ class RenderTarget;
 
         /** Returns whether or not shadows (defined in the SceneManager) are displayed in this
             viewport. */
-        bool getShadowsEnabled() const;
+        auto getShadowsEnabled() const -> bool;
 
 
         /** Sets a per-viewport visibility mask.
@@ -361,7 +361,7 @@ class RenderTarget;
         /** Gets a per-viewport visibility mask.
         @see Viewport::setVisibilityMask
         */
-        uint getVisibilityMask() const { return mVisibilityMask; }
+        auto getVisibilityMask() const -> uint { return mVisibilityMask; }
 
         /** Convert oriented input point coordinates to screen coordinates. */
         void pointOrientedToScreen(const Vector2 &v, int orientationMode, Vector2 &outv);
@@ -387,7 +387,7 @@ class RenderTarget;
 		void setDrawBuffer(ColourBufferType colourBuffer);
 
 		/** Returns the current colour buffer type for this viewport.*/
-		ColourBufferType getDrawBuffer() const;
+		auto getDrawBuffer() const -> ColourBufferType;
 
     private:
         Camera* mCamera;

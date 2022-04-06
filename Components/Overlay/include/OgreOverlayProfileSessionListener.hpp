@@ -81,16 +81,16 @@ namespace Ogre  {
         /** Set the position of the profiler overlay, in pixels. */
         void setOverlayPosition(Real left, Real top);
 
-        Real getOverlayWidth() const;
-        Real getOverlayHeight() const;
-        Real getOverlayLeft() const;
-        Real getOverlayTop() const;
+        auto getOverlayWidth() const -> Real;
+        auto getOverlayHeight() const -> Real;
+        auto getOverlayLeft() const -> Real;
+        auto getOverlayTop() const -> Real;
 
         /// Set the display mode for the overlay.
         void setDisplayMode(DisplayMode d) { mDisplayMode = d; }
 
         /// Get the display mode for the overlay.
-        DisplayMode getDisplayMode() const { return mDisplayMode; }
+        auto getDisplayMode() const -> DisplayMode { return mDisplayMode; }
 
     private:
         typedef std::list<OverlayElement*> ProfileBarList;
@@ -100,15 +100,15 @@ namespace Ogre  {
         void displayResults(ProfileInstance* instance, ProfileBarList::const_iterator& bIter, ulong& maxTimeClocks, Real& newGuiHeight, int& profileCount);
 
         /** An internal function to create the container which will hold our display elements*/
-        OverlayContainer* createContainer();
+        auto createContainer() -> OverlayContainer*;
 
         /** An internal function to create a text area */
-        OverlayElement* createTextArea(const String& name, Real width, Real height, Real top, Real left, 
-                                    uint fontSize, const String& caption, bool show = true);
+        auto createTextArea(const String& name, Real width, Real height, Real top, Real left, 
+                                    uint fontSize, const String& caption, bool show = true) -> OverlayElement*;
 
         /** An internal function to create a panel */
-        OverlayElement* createPanel(const String& name, Real width, Real height, Real top, Real left, 
-                                const String& materialName, bool show = true);
+        auto createPanel(const String& name, Real width, Real height, Real top, Real left, 
+                                const String& materialName, bool show = true) -> OverlayElement*;
 
         /// Holds the display bars for each profile results
         ProfileBarList mProfileBars;

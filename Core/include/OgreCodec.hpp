@@ -71,7 +71,7 @@ class Any;
 
         /** Return whether a codec is registered already. 
         */
-        static bool isCodecRegistered( const String& codecType )
+        static auto isCodecRegistered( const String& codecType ) -> bool
         {
             return msMapCodecs.find(codecType) != msMapCodecs.end();
         }
@@ -84,10 +84,10 @@ class Any;
         }
 
         /** Gets the file extension list for the registered codecs. */
-        static StringVector getExtensions();
+        static auto getExtensions() -> StringVector;
 
         /** Gets the codec registered for the passed in file extension. */
-        static Codec* getCodec(const String& extension);
+        static auto getCodec(const String& extension) -> Codec*;
 
         /** Gets the codec that can handle the given 'magic' identifier. 
         @param magicNumberPtr Pointer to a stream of bytes which should identify the file.
@@ -95,12 +95,12 @@ class Any;
             a different size magic number.
         @param maxbytes The number of bytes passed
         */
-        static Codec* getCodec(char *magicNumberPtr, size_t maxbytes);
+        static auto getCodec(char *magicNumberPtr, size_t maxbytes) -> Codec*;
 
         /** Codes the input and saves the result in the output
             stream.
         */
-        virtual DataStreamPtr encode(const Any& input) const;
+        virtual auto encode(const Any& input) const -> DataStreamPtr;
 
         /** Codes the data in the input chunk and saves the result in the output
             filename provided. Provided for efficiency since coding to memory is
@@ -118,7 +118,7 @@ class Any;
 
         /** Returns the type of the codec as a String
         */
-        virtual String getType() const = 0;
+        virtual auto getType() const -> String = 0;
 
         /** Returns whether a magic number header matches this codec.
         @param magicNumberPtr Pointer to a stream of bytes which should identify the file.
@@ -126,7 +126,7 @@ class Any;
             a different size magic number.
         @param maxbytes The number of bytes passed
         */
-        bool magicNumberMatch(const char *magicNumberPtr, size_t maxbytes) const
+        auto magicNumberMatch(const char *magicNumberPtr, size_t maxbytes) const -> bool
         { return !magicNumberToFileExt(magicNumberPtr, maxbytes).empty(); }
         /** Maps a magic number header to a file extension, if this codec recognises it.
         @param magicNumberPtr Pointer to a stream of bytes which should identify the file.
@@ -135,7 +135,7 @@ class Any;
         @param maxbytes The number of bytes passed
         @return A blank string if the magic number was unknown, or a file extension.
         */
-        virtual String magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const = 0;
+        virtual auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String = 0;
     };
     /** @} */
     /** @} */

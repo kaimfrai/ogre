@@ -104,17 +104,17 @@ class ResourceManager;
 namespace Ogre {
 
     static GLNativeSupport* glsupport;
-    static void* get_proc(const char* proc) {
+    static auto get_proc(const char* proc) -> void* {
         return glsupport->getProcAddress(proc);
     }
 
     typedef TransformBase<4, float> Matrix4f;
 
     // Callback function used when registering GLGpuPrograms
-    static GpuProgram* createGLArbGpuProgram(ResourceManager* creator,
+    static auto createGLArbGpuProgram(ResourceManager* creator,
                                       const String& name, ResourceHandle handle,
                                       const String& group, bool isManual, ManualResourceLoader* loader,
-                                      GpuProgramType gptype, const String& syntaxCode)
+                                      GpuProgramType gptype, const String& syntaxCode) -> GpuProgram*
     {
         GLArbGpuProgram* ret = new GLArbGpuProgram(
             creator, name, handle, group, isManual, loader);
@@ -123,10 +123,10 @@ namespace Ogre {
         return ret;
     }
 
-    static GpuProgram* createGLGpuNvparseProgram(ResourceManager* creator,
+    static auto createGLGpuNvparseProgram(ResourceManager* creator,
                                           const String& name, ResourceHandle handle,
                                           const String& group, bool isManual, ManualResourceLoader* loader,
-                                          GpuProgramType gptype, const String& syntaxCode)
+                                          GpuProgramType gptype, const String& syntaxCode) -> GpuProgram*
     {
         GLGpuNvparseProgram* ret = new GLGpuNvparseProgram(
             creator, name, handle, group, isManual, loader);
@@ -135,10 +135,10 @@ namespace Ogre {
         return ret;
     }
 
-    static GpuProgram* createGL_ATI_FS_GpuProgram(ResourceManager* creator,
+    static auto createGL_ATI_FS_GpuProgram(ResourceManager* creator,
                                            const String& name, ResourceHandle handle,
                                            const String& group, bool isManual, ManualResourceLoader* loader,
-                                           GpuProgramType gptype, const String& syntaxCode)
+                                           GpuProgramType gptype, const String& syntaxCode) -> GpuProgram*
     {
 
         ATI_FS_GLGpuProgram* ret = new ATI_FS_GLGpuProgram(
@@ -148,7 +148,7 @@ namespace Ogre {
         return ret;
     }
 
-    static GLint getCombinedMinMipFilter(FilterOptions min, FilterOptions mip)
+    static auto getCombinedMinMipFilter(FilterOptions min, FilterOptions mip) -> GLint
     {
         switch(min)
         {
@@ -248,8 +248,8 @@ namespace Ogre {
         delete mGLSupport;
     }
 
-    const GpuProgramParametersPtr& GLRenderSystem::getFixedFunctionParams(TrackVertexColourType tracking,
-                                                                          FogMode fog)
+    auto GLRenderSystem::getFixedFunctionParams(TrackVertexColourType tracking,
+                                                                          FogMode fog) -> const GpuProgramParametersPtr&
     {
         _setSurfaceTracking(tracking);
         _setFog(fog);
@@ -373,7 +373,7 @@ namespace Ogre {
         glPopMatrix();
     }
 
-    const String& GLRenderSystem::getName() const
+    auto GLRenderSystem::getName() const -> const String&
     {
         static String strName("OpenGL Rendering Subsystem");
         return strName;
@@ -409,7 +409,7 @@ namespace Ogre {
         mOptions[opt.name] = opt;
     }
 
-    RenderSystemCapabilities* GLRenderSystem::createRenderSystemCapabilities() const
+    auto GLRenderSystem::createRenderSystemCapabilities() const -> RenderSystemCapabilities*
     {
         RenderSystemCapabilities* rsc = new RenderSystemCapabilities();
 
@@ -1025,9 +1025,9 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    RenderWindow* GLRenderSystem::_createRenderWindow(const String &name,
+    auto GLRenderSystem::_createRenderWindow(const String &name,
                                                       unsigned int width, unsigned int height, bool fullScreen,
-                                                      const NameValuePairList *miscParams)
+                                                      const NameValuePairList *miscParams) -> RenderWindow*
     {
         RenderSystem::_createRenderWindow(name, width, height, fullScreen, miscParams);
 
@@ -1088,7 +1088,7 @@ namespace Ogre {
         return win;
     }
     //---------------------------------------------------------------------
-    DepthBuffer* GLRenderSystem::_createDepthBufferFor( RenderTarget *renderTarget )
+    auto GLRenderSystem::_createDepthBufferFor( RenderTarget *renderTarget ) -> DepthBuffer*
     {
         if( auto fbo = dynamic_cast<GLRenderTarget*>(renderTarget)->getFBO() )
         {
@@ -1149,7 +1149,7 @@ namespace Ogre {
 
 
     //-----------------------------------------------------------------------
-    MultiRenderTarget * GLRenderSystem::createMultiRenderTarget(const String & name)
+    auto GLRenderSystem::createMultiRenderTarget(const String & name) -> MultiRenderTarget *
     {
         auto fboMgr = dynamic_cast<GLFBOManager*>(mRTTManager);
         if (!fboMgr)
@@ -1632,8 +1632,8 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    GLint GLRenderSystem::getTextureAddressingMode(
-        TextureAddressingMode tam) const
+    auto GLRenderSystem::getTextureAddressingMode(
+        TextureAddressingMode tam) const -> GLint
     {
         switch(tam)
         {
@@ -1686,7 +1686,7 @@ namespace Ogre {
         glMatrixMode(GL_MODELVIEW);
     }
     //-----------------------------------------------------------------------------
-    GLint GLRenderSystem::getBlendMode(SceneBlendFactor ogreBlend) const
+    auto GLRenderSystem::getBlendMode(SceneBlendFactor ogreBlend) const -> GLint
     {
         switch(ogreBlend)
         {
@@ -1845,7 +1845,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    static GLenum getBlendOp(SceneBlendOperation op)
+    static auto getBlendOp(SceneBlendOperation op) -> GLenum
     {
         switch (op)
         {
@@ -2009,7 +2009,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    GLint GLRenderSystem::convertCompareFunction(CompareFunction func) const
+    auto GLRenderSystem::convertCompareFunction(CompareFunction func) const -> GLint
     {
         switch(func)
         {
@@ -2034,7 +2034,7 @@ namespace Ogre {
         return GL_ALWAYS;
     }
     //---------------------------------------------------------------------
-    GLint GLRenderSystem::convertStencilOp(StencilOperation op, bool invert) const
+    auto GLRenderSystem::convertStencilOp(StencilOperation op, bool invert) const -> GLint
     {
         switch(op)
         {
@@ -2760,7 +2760,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    HardwareOcclusionQuery* GLRenderSystem::createHardwareOcclusionQuery()
+    auto GLRenderSystem::createHardwareOcclusionQuery() -> HardwareOcclusionQuery*
     {
         GLHardwareOcclusionQuery* ret = new GLHardwareOcclusionQuery();
         mHwOcclusionQueries.push_back(ret);

@@ -650,7 +650,7 @@ void GLTextureBuffer::blitFromMemory(const PixelBox &src, const Box &dstBox)
 }
 //-----------------------------------------------------------------------------    
 
-RenderTexture *GLTextureBuffer::getRenderTarget(size_t zoffset)
+auto GLTextureBuffer::getRenderTarget(size_t zoffset) -> RenderTexture *
 {
     assert(mUsage & TU_RENDERTARGET);
     assert(zoffset < mDepth);

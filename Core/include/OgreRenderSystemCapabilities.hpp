@@ -224,7 +224,7 @@ namespace Ogre
             major = minor = release = build = 0;
         }
 
-        String toString() const;
+        auto toString() const -> String;
         void fromString(const String& versionString);
     };
 
@@ -333,12 +333,12 @@ namespace Ogre
         }
 
 
-        DriverVersion getDriverVersion() const
+        auto getDriverVersion() const -> DriverVersion
         {
             return mDriverVersion;
         }
 
-        GPUVendor getVendor() const
+        auto getVendor() const -> GPUVendor
         {
             return mVendor;
         }
@@ -355,11 +355,11 @@ namespace Ogre
         }
 
         /// Convert a vendor string to an enum
-        static GPUVendor vendorFromString(const String& vendorString);
+        static auto vendorFromString(const String& vendorString) -> GPUVendor;
         /// Convert a vendor enum to a string
-        static const String& vendorToString(GPUVendor v);
+        static auto vendorToString(GPUVendor v) -> const String&;
 
-        bool isDriverOlderThanVersion(const DriverVersion &v) const
+        auto isDriverOlderThanVersion(const DriverVersion &v) const -> bool
         {
             if (mDriverVersion.major < v.major)
                 return true;
@@ -400,7 +400,7 @@ namespace Ogre
             mNumVertexAttributes = num;
         }
 
-        ushort getNumVertexAttributes() const
+        auto getNumVertexAttributes() const -> ushort
         {
             return mNumVertexAttributes;
         }
@@ -417,26 +417,26 @@ namespace Ogre
         to the fixed-function pipeline, the number available to the 
         programmable pipeline depends on the shader model in use.
         */
-        ushort getNumTextureUnits() const
+        auto getNumTextureUnits() const -> ushort
         {
             return mNumTextureUnits;
         }
 
         /// @deprecated assume 8-bit stencil buffer
-        ushort getStencilBufferBitDepth() const
+        auto getStencilBufferBitDepth() const -> ushort
         {
             return mStencilBufferBitDepth;
         }
 
         /// The number of simultaneous render targets supported
-        ushort getNumMultiRenderTargets() const
+        auto getNumMultiRenderTargets() const -> ushort
         {
             return mNumMultiRenderTargets;
         }
 
         /** Returns true if capability is render system specific
         */
-        bool isCapabilityRenderSystemSpecific(const Capabilities c) const
+        auto isCapabilityRenderSystemSpecific(const Capabilities c) const -> bool
         {
             int cat = c >> OGRE_CAPS_BITSHIFT;
             if(cat == CAPS_CATEGORY_GL || cat == CAPS_CATEGORY_D3D9)
@@ -464,7 +464,7 @@ namespace Ogre
 
         /** Checks for a capability
         */
-        bool hasCapability(const Capabilities c) const
+        auto hasCapability(const Capabilities c) const -> bool
         {
             int index = (CAPS_CATEGORY_MASK & c) >> OGRE_CAPS_BITSHIFT;
             // test against
@@ -488,28 +488,28 @@ namespace Ogre
 
         /** Returns true if profile is in the list of supported profiles
         */
-        bool isShaderProfileSupported(const String& profile) const;
+        auto isShaderProfileSupported(const String& profile) const -> bool;
 
         /** Returns a set of all supported shader profiles
         * */
-        const ShaderProfiles& getSupportedShaderProfiles() const
+        auto getSupportedShaderProfiles() const -> const ShaderProfiles&
         {
             return mSupportedShaderProfiles;
         }
 
 
         /// The number of floating-point 4-vector constants vertex programs support
-        ushort getVertexProgramConstantFloatCount() const
+        auto getVertexProgramConstantFloatCount() const -> ushort
         {
             return mVertexProgramConstantFloatCount;
         }
         /// The number of floating-point 4-vector constants geometry programs support
-        ushort getGeometryProgramConstantFloatCount() const
+        auto getGeometryProgramConstantFloatCount() const -> ushort
         {
             return mGeometryProgramConstantFloatCount;
         }
         /// The number of floating-point 4-vector constants fragment programs support
-        ushort getFragmentProgramConstantFloatCount() const
+        auto getFragmentProgramConstantFloatCount() const -> ushort
         {
             return mFragmentProgramConstantFloatCount;
         }
@@ -521,7 +521,7 @@ namespace Ogre
         }
 
         /// gets the device name for render system
-        String getDeviceName() const
+        auto getDeviceName() const -> String
         {
             return mDeviceName;
         }
@@ -548,7 +548,7 @@ namespace Ogre
             mMaxPointSize = s;
         }
         /// Maximum point screen size in pixels
-        Real getMaxPointSize() const
+        auto getMaxPointSize() const -> Real
         {
             return mMaxPointSize;
         }
@@ -565,7 +565,7 @@ namespace Ogre
         <li>You don't use DXT texture compression</li>
         <li>You use clamp texture addressing</li></ul>
         */
-        bool getNonPOW2TexturesLimited() const
+        auto getNonPOW2TexturesLimited() const -> bool
         {
             return mNonPOW2TexturesLimited;
         }
@@ -575,7 +575,7 @@ namespace Ogre
             mMaxSupportedAnisotropy = s;
         }
         /// Get the maximum supported anisotropic filtering
-        Real getMaxSupportedAnisotropy() const
+        auto getMaxSupportedAnisotropy() const -> Real
         {
             return mMaxSupportedAnisotropy;
         }
@@ -586,7 +586,7 @@ namespace Ogre
             mNumVertexTextureUnits = n;
         }
         /// Get the number of vertex texture units supported
-        ushort getNumVertexTextureUnits() const
+        auto getNumVertexTextureUnits() const -> ushort
         {
             return mNumVertexTextureUnits;
         }
@@ -597,13 +597,13 @@ namespace Ogre
             mGeometryProgramNumOutputVertices = numOutputVertices;
         }
         /// Get the number of vertices a single geometry program run can emit
-        int getGeometryProgramNumOutputVertices() const
+        auto getGeometryProgramNumOutputVertices() const -> int
         {
             return mGeometryProgramNumOutputVertices;
         }
 
         /// Get the identifier of the rendersystem from which these capabilities were generated
-        const String& getRenderSystemName() const
+        auto getRenderSystemName() const -> const String&
         {
             return mRenderSystemName;
         }
@@ -620,7 +620,7 @@ namespace Ogre
         }
 
         /// Return whether a category is 'relevant' or not, ie will it be reported
-        bool isCategoryRelevant(CapabilitiesCategory cat)
+        auto isCategoryRelevant(CapabilitiesCategory cat) -> bool
         {
             return mCategoryRelevant[cat];
         }
@@ -636,12 +636,12 @@ namespace Ogre
             mComputeProgramConstantFloatCount = c;
         }
         /// The number of floating-point 4-vector constants fragment programs support
-        ushort getComputeProgramConstantFloatCount() const
+        auto getComputeProgramConstantFloatCount() const -> ushort
         {
             return mComputeProgramConstantFloatCount;
         }
         /// The number of floating-point 4-vector constants fragment programs support
-        ushort getTessellationDomainProgramConstantFloatCount() const
+        auto getTessellationDomainProgramConstantFloatCount() const -> ushort
         {
             return mTessellationDomainProgramConstantFloatCount;
         }
@@ -651,7 +651,7 @@ namespace Ogre
             mTessellationDomainProgramConstantFloatCount = c;
         }
         /// The number of floating-point 4-vector constants fragment programs support
-        ushort getTessellationHullProgramConstantFloatCount() const
+        auto getTessellationHullProgramConstantFloatCount() const -> ushort
         {
             return mTessellationHullProgramConstantFloatCount;
         }
@@ -662,8 +662,8 @@ namespace Ogre
         }
     };
 
-    inline String to_string(GPUVendor v) { return RenderSystemCapabilities::vendorToString(v); }
-    inline String to_string(const DriverVersion& v) { return v.toString(); }
+    inline auto to_string(GPUVendor v) -> String { return RenderSystemCapabilities::vendorToString(v); }
+    inline auto to_string(const DriverVersion& v) -> String { return v.toString(); }
 
     /** @} */
     /** @} */

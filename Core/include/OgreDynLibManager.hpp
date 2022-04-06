@@ -75,7 +75,7 @@ class DynLib;
         @param filename
             The name of the library. The extension can be omitted.
         */
-        DynLib* load(const String& filename);
+        auto load(const String& filename) -> DynLib*;
 
         /** Unloads the passed library.
         @param lib
@@ -84,9 +84,9 @@ class DynLib;
         void unload(DynLib* lib);
 
         /// @copydoc Singleton::getSingleton()
-        static DynLibManager& getSingleton();
+        static auto getSingleton() -> DynLibManager&;
         /// @copydoc Singleton::getSingleton()
-        static DynLibManager* getSingletonPtr();
+        static auto getSingletonPtr() -> DynLibManager*;
     };
     /** @} */
     /** @} */

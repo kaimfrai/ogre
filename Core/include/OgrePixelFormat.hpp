@@ -400,24 +400,24 @@ namespace Ogre {
             one row and the leftmost pixel of the next row. (IE this is zero if rows
             are consecutive).
         */
-        size_t getRowSkip() const { return rowPitch - getWidth(); }
+        auto getRowSkip() const -> size_t { return rowPitch - getWidth(); }
         /** Get the number of elements between one past the right bottom pixel of
             one slice and the left top pixel of the next slice. (IE this is zero if slices
             are consecutive).
         */
-        size_t getSliceSkip() const { return slicePitch - (getHeight() * rowPitch); }
+        auto getSliceSkip() const -> size_t { return slicePitch - (getHeight() * rowPitch); }
 
         /** Return whether this buffer is laid out consecutive in memory (ie the pitches
             are equal to the dimensions)
         */        
-        bool isConsecutive() const 
+        auto isConsecutive() const -> bool 
         { 
             return rowPitch == getWidth() && slicePitch == getWidth()*getHeight(); 
         }
         /** Return the size (in bytes) this image would take if it was
             laid out consecutive in memory
         */
-        size_t getConsecutiveSize() const;
+        auto getConsecutiveSize() const -> size_t;
         /** Return a subvolume of this PixelBox.
             @param def  Defines the bounds of the subregion to return
             @param resetOrigin Whether to reset left/top/front of returned PixelBox to zero 
@@ -429,19 +429,19 @@ namespace Ogre {
                 the data of object.
             @throws Exception(ERR_INVALIDPARAMS) if def is not fully contained
         */
-        PixelBox getSubVolume(const Box &def, bool resetOrigin = true) const;
+        auto getSubVolume(const Box &def, bool resetOrigin = true) const -> PixelBox;
         
         /** Return a data pointer pointing to top left front pixel of the pixel box.
             @remarks Non consecutive pixel boxes are supported.
          */
-        uchar* getTopLeftFrontPixelPtr() const;
+        auto getTopLeftFrontPixelPtr() const -> uchar*;
         
         /**
          * Get colour value from a certain location in the PixelBox. The z coordinate
          * is only valid for cubemaps and volume textures. This uses the first (largest)
          * mipmap.
          */
-        ColourValue getColourAt(size_t x, size_t y, size_t z) const;
+        auto getColourAt(size_t x, size_t y, size_t z) const -> ColourValue;
 
         /**
          * Set colour value at a certain location in the PixelBox. The z coordinate
@@ -463,7 +463,7 @@ namespace Ogre {
          @remarks
                Passing PF_UNKNOWN will result in returning a size of 0 bytes.
         */
-        static size_t getNumElemBytes( PixelFormat format );
+        static auto getNumElemBytes( PixelFormat format ) -> size_t;
 
         /** Returns the size in bits of an element of the given pixel format.
           @return
@@ -471,7 +471,7 @@ namespace Ogre {
            @remarks
                Passing PF_UNKNOWN will result in returning a size of 0 bits.
         */
-        static size_t getNumElemBits( PixelFormat format );
+        static auto getNumElemBits( PixelFormat format ) -> size_t;
 
         /** Returns the size in memory of a region with the given extents and pixel
             format with consecutive memory layout.
@@ -490,7 +490,7 @@ namespace Ogre {
                 width * height * depth * PixelUtil::getNumElemBytes(format). In the compressed
                 case, this does serious magic.
         */
-        static size_t getMemorySize(uint32 width, uint32 height, uint32 depth, PixelFormat format);
+        static auto getMemorySize(uint32 width, uint32 height, uint32 depth, PixelFormat format) -> size_t;
         
         /** Returns the property flags for this pixel format
           @return
@@ -499,22 +499,22 @@ namespace Ogre {
           @remarks
                This replaces the separate functions for formatHasAlpha, formatIsFloat, ...
         */
-        static unsigned int getFlags( PixelFormat format );
+        static auto getFlags( PixelFormat format ) -> unsigned int;
 
         /** Shortcut method to determine if the format has an alpha component */
-        static bool hasAlpha(PixelFormat format);
+        static auto hasAlpha(PixelFormat format) -> bool;
         /** Shortcut method to determine if the format is floating point */
-        static bool isFloatingPoint(PixelFormat format);
+        static auto isFloatingPoint(PixelFormat format) -> bool;
         /** Shortcut method to determine if the format is integer */
-        static bool isInteger(PixelFormat format);
+        static auto isInteger(PixelFormat format) -> bool;
         /** Shortcut method to determine if the format is compressed */
-        static bool isCompressed(PixelFormat format);
+        static auto isCompressed(PixelFormat format) -> bool;
         /** Shortcut method to determine if the format is a depth format. */
-        static bool isDepth(PixelFormat format);
+        static auto isDepth(PixelFormat format) -> bool;
         /** Shortcut method to determine if the format is in native endian format. */
-        static bool isNativeEndian(PixelFormat format);
+        static auto isNativeEndian(PixelFormat format) -> bool;
         /** Shortcut method to determine if the format is a luminance format. */
-        static bool isLuminance(PixelFormat format);
+        static auto isLuminance(PixelFormat format) -> bool;
 
         /** Gives the number of bits (RGBA) for a format. See remarks.          
           @remarks      For non-colour formats (dxt, depth) this returns [0,0,0,0].
@@ -533,25 +533,25 @@ namespace Ogre {
 
         /** Gets the name of an image format
         */
-        static const String& getFormatName(PixelFormat srcformat);
+        static auto getFormatName(PixelFormat srcformat) -> const String&;
 
         /** Returns whether the format can be packed or unpacked with the packColour()
         and unpackColour() functions. This is generally not true for compressed
         formats as they are special. It can only be true for formats with a
         fixed element size.
         */
-        static bool isAccessible(PixelFormat srcformat);
+        static auto isAccessible(PixelFormat srcformat) -> bool;
         
         /** Returns the component type for a certain pixel format. Returns PCT_BYTE
             in case there is no clear component type like with compressed formats.
             This is one of PCT_BYTE, PCT_SHORT, PCT_FLOAT16, PCT_FLOAT32.
         */
-        static PixelComponentType getComponentType(PixelFormat fmt);
+        static auto getComponentType(PixelFormat fmt) -> PixelComponentType;
         
         /** Returns the component count for a certain pixel format. Returns 3(no alpha) or 
             4 (has alpha) in case there is no clear component type like with compressed formats.
          */
-        static size_t getComponentCount(PixelFormat fmt);
+        static auto getComponentCount(PixelFormat fmt) -> size_t;
 
         /** Gets the format from given name.
             @param  name            The string of format name
@@ -560,7 +560,7 @@ namespace Ogre {
             @param  caseSensitive   Should be set true if string match should use case sensitivity.
             @return                The format match the format name, or PF_UNKNOWN if is invalid name.
         */
-        static PixelFormat getFormatFromName(const String& name, bool accessibleOnly = false, bool caseSensitive = false);
+        static auto getFormatFromName(const String& name, bool accessibleOnly = false, bool caseSensitive = false) -> PixelFormat;
 
         /** Returns the similar format but acoording with given bit depths.
             @param fmt      The original foamt.
@@ -571,7 +571,7 @@ namespace Ogre {
             @return        The format that similar original format with bit depth according
                             with preferred bit depth, or original format if no conversion occurring.
         */
-        static PixelFormat getFormatForBitDepths(PixelFormat fmt, ushort integerBits, ushort floatBits);
+        static auto getFormatForBitDepths(PixelFormat fmt, ushort integerBits, ushort floatBits) -> PixelFormat;
 
         /** Pack a colour value to memory
             @param colour   The colour
@@ -650,7 +650,7 @@ namespace Ogre {
         static void bulkPixelVerticalFlip(const PixelBox &box);
     };
 
-    inline const String& to_string(PixelFormat v) { return PixelUtil::getFormatName(v); }
+    inline auto to_string(PixelFormat v) -> const String& { return PixelUtil::getFormatName(v); }
     /** @} */
     /** @} */
 

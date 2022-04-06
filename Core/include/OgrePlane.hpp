@@ -100,7 +100,7 @@ namespace Ogre {
             BOTH_SIDE
         };
 
-        Side getSide(const Vector3& rkPoint) const
+        auto getSide(const Vector3& rkPoint) const -> Side
         {
             Real fDistance = getDistance(rkPoint);
 
@@ -117,7 +117,7 @@ namespace Ogre {
         Returns the side where the alignedBox is. The flag BOTH_SIDE indicates an intersecting box.
         One corner ON the plane is sufficient to consider the box and the plane intersecting.
         */
-        Side getSide(const AxisAlignedBox& box) const
+        auto getSide(const AxisAlignedBox& box) const -> Side
         {
             if (box.isNull())
                 return NO_SIDE;
@@ -136,7 +136,7 @@ namespace Ogre {
             NEGATIVE_SIDE if the box complete lies on the "negative side" of the plane,
             and BOTH_SIDE if the box intersects the plane.
         */
-        Side getSide(const Vector3& centre, const Vector3& halfSize) const
+        auto getSide(const Vector3& centre, const Vector3& halfSize) const -> Side
         {
             // Calculate the distance between box centre and the plane
             Real dist = getDistance(centre);
@@ -162,7 +162,7 @@ namespace Ogre {
             The absolute value of the return value is the true distance only
             when the plane normal is a unit length vector.
         */
-        Real getDistance(const Vector3& rkPoint) const
+        auto getDistance(const Vector3& rkPoint) const -> Real
         {
             return normal.dotProduct(rkPoint) + d;
         }
@@ -188,7 +188,7 @@ namespace Ogre {
             from the original vector, since parallel + perpendicular = original.
         @param v The input vector
         */
-        Vector3 projectVector(const Vector3& v) const
+        auto projectVector(const Vector3& v) const -> Vector3
         {
             // We know plane normal is unit length, so use simple method
             Matrix3 xform;
@@ -213,7 +213,7 @@ namespace Ogre {
                 will be no changes made to their components.
             @return The previous length of the plane's normal.
         */
-        Real normalise()
+        auto normalise() -> Real
         {
             Real fLength = normal.length();
 
@@ -231,29 +231,29 @@ namespace Ogre {
         }
 
         /// Get flipped plane, with same location but reverted orientation
-        Plane operator - () const
+        auto operator - () const -> Plane
         {
             return {-(normal.x), -(normal.y), -(normal.z), -d}; // not equal to Plane(-normal, -d)
         }
 
         /// Comparison operator
-        bool operator==(const Plane& rhs) const
+        auto operator==(const Plane& rhs) const -> bool
         {
             return (rhs.d == d && rhs.normal == normal);
         }
-        bool operator!=(const Plane& rhs) const
+        auto operator!=(const Plane& rhs) const -> bool
         {
             return (rhs.d != d || rhs.normal != normal);
         }
 
-        friend std::ostream& operator<<(std::ostream& o, const Plane& p)
+        friend auto operator<<(std::ostream& o, const Plane& p) -> std::ostream&
         {
             o << "Plane(normal=" << p.normal << ", d=" << p.d << ")";
             return o;
         }
     };
 
-    inline Plane operator * (const Matrix4& mat, const Plane& p)
+    inline auto operator * (const Matrix4& mat, const Plane& p) -> Plane
     {
         Plane ret;
         Matrix4 invTrans = mat.inverse().transpose();
@@ -267,7 +267,7 @@ namespace Ogre {
         return ret;
     }
 
-    inline bool Math::intersects(const Plane& plane, const AxisAlignedBox& box)
+    inline auto Math::intersects(const Plane& plane, const AxisAlignedBox& box) -> bool
     {
         return plane.getSide(box) == Plane::BOTH_SIDE;
     }

@@ -72,7 +72,7 @@ namespace Ogre
          @param filename The config file name (without path)
          @return The full path to the config file
          */
-        Ogre::String getConfigFilePath(Ogre::String filename) const
+        auto getConfigFilePath(Ogre::String filename) const -> Ogre::String
         {
             // look for the requested file in several locations:
             
@@ -108,7 +108,7 @@ namespace Ogre
          @param filename Name of the file.
          @return The full path to a writable location for the given filename.
          */
-        Ogre::String getWritablePath(const Ogre::String& filename) const
+        auto getWritablePath(const Ogre::String& filename) const -> Ogre::String
         {
             return mHomePath + filename;
         }
@@ -127,18 +127,18 @@ namespace Ogre
          * @param path
          * @return path inside the bundle
          */
-        static String resolveBundlePath(String path);
+        static auto resolveBundlePath(String path) -> String;
 
         /** Create a directory. */
-        static bool createDirectory(const Ogre::String& name);
+        static auto createDirectory(const Ogre::String& name) -> bool;
         /** Delete a directory. Should be empty */
-        static bool removeDirectory(const Ogre::String& name);
+        static auto removeDirectory(const Ogre::String& name) -> bool;
         /** Test if the given file exists. */
-        static bool fileExists(const Ogre::String& path);
+        static auto fileExists(const Ogre::String& path) -> bool;
         /** Delete a file. */
-        static bool removeFile(const Ogre::String& path);
+        static auto removeFile(const Ogre::String& path) -> bool;
         /** Rename a file. */
-        static bool renameFile(const Ogre::String& oldpath, const Ogre::String& newpath);
+        static auto renameFile(const Ogre::String& oldpath, const Ogre::String& newpath) -> bool;
 
     private:
         Ogre::StringVector mConfigPaths;

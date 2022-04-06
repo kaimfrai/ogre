@@ -44,16 +44,16 @@ struct Box;
     public:
         GLWindow();
 
-        bool isVisible() const { return mVisible; }
+        auto isVisible() const -> bool { return mVisible; }
         void setVisible(bool visible) { mVisible = visible; }
-        bool isHidden() const { return mHidden; }
+        auto isHidden() const -> bool { return mHidden; }
 
-        bool isVSyncEnabled() const { return mVSync; }
+        auto isVSyncEnabled() const -> bool { return mVSync; }
         void setVSyncInterval(unsigned int interval);
 
         void copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer);
-        bool requiresTextureFlipping() const { return false; }
-        GLContext* getContext() const { return mContext; }
+        auto requiresTextureFlipping() const -> bool { return false; }
+        auto getContext() const -> GLContext* { return mContext; }
 
     protected:
         bool mVisible;

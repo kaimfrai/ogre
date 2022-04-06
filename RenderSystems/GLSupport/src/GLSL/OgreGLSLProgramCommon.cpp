@@ -115,7 +115,7 @@ void GLSLProgramCommon::useTightAttributeLayout() {
     }
 }
 
-int32 GLSLProgramCommon::getFixedAttributeIndex(VertexElementSemantic semantic, uint index)
+auto GLSLProgramCommon::getFixedAttributeIndex(VertexElementSemantic semantic, uint index) -> int32
 {
     OgreAssertDbg(semantic > 0 && semantic <= VES_COUNT, "Missing attribute!");
 
@@ -125,7 +125,7 @@ int32 GLSLProgramCommon::getFixedAttributeIndex(VertexElementSemantic semantic, 
     return attributeIndex[semantic];
 }
 
-String GLSLProgramCommon::getCombinedName()
+auto GLSLProgramCommon::getCombinedName() -> String
 {
     StringStream ss;
 
@@ -140,7 +140,7 @@ String GLSLProgramCommon::getCombinedName()
     return ss.str();
 }
 
-uint32 GLSLProgramCommon::getCombinedHash()
+auto GLSLProgramCommon::getCombinedHash() -> uint32
 {
     uint32 hash = 0;
 

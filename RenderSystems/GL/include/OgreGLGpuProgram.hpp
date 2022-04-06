@@ -49,7 +49,7 @@ class ResourceManager;
         /// Execute the param binding functions for this program
         virtual void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask) = 0;
         /// Test whether attribute index for a given semantic is valid
-        virtual bool isAttributeValid(VertexElementSemantic semantic, uint index);
+        virtual auto isAttributeValid(VertexElementSemantic semantic, uint index) -> bool;
     };
 
     /** Generalised low-level GL program, can be applied to multiple types (eg ARB and NV) */
@@ -80,7 +80,7 @@ class ResourceManager;
         void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask);
 
         /// Get the GL type for the program
-        GLenum getProgramType() const;
+        auto getProgramType() const -> GLenum;
 
     protected:
         void loadFromSource();

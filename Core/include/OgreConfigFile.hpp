@@ -81,9 +81,9 @@ namespace Ogre {
         @param section The name of the section it must be in (if any)
         @param defaultValue The value to return if the setting is not found
         */
-        String getSetting(const String& key, const String& section = BLANKSTRING, const String& defaultValue = BLANKSTRING) const;
+        auto getSetting(const String& key, const String& section = BLANKSTRING, const String& defaultValue = BLANKSTRING) const -> String;
         /** Gets all settings from the file with the named key. */
-        StringVector getMultiSetting(const String& key, const String& section = BLANKSTRING) const;
+        auto getMultiSetting(const String& key, const String& section = BLANKSTRING) const -> StringVector;
 
         typedef std::multimap<String, String> SettingsMultiMap;
         typedef MapIterator<SettingsMultiMap> SettingsIterator;
@@ -93,12 +93,12 @@ namespace Ogre {
         typedef MapIterator<SettingsBySection> SectionIterator;
 
         /** Get all the available settings grouped by sections */
-        const SettingsBySection_& getSettingsBySection() const {
+        auto getSettingsBySection() const -> const SettingsBySection_& {
             return mSettings;
         }
 
         /** Get all the available settings in a section */
-        const SettingsMultiMap& getSettings(const String& section = BLANKSTRING) const;
+        auto getSettings(const String& section = BLANKSTRING) const -> const SettingsMultiMap&;
         
         /** Clear the settings */
         void clear();

@@ -64,15 +64,15 @@ namespace Ogre {
                                 HardwareBuffer* delegate);
             ~HardwareIndexBuffer();
             /// Return the manager of this buffer, if any
-            HardwareBufferManagerBase* getManager() const { return mMgr; }
+            auto getManager() const -> HardwareBufferManagerBase* { return mMgr; }
             /// Get the type of indexes used in this buffer
-            IndexType getType() const { return mIndexType; }
+            auto getType() const -> IndexType { return mIndexType; }
             /// Get the number of indexes in this buffer
-            size_t getNumIndexes() const { return mNumIndexes; }
+            auto getNumIndexes() const -> size_t { return mNumIndexes; }
             /// Get the size in bytes of each index
-            uint8 getIndexSize() const { return mIndexSize; }
+            auto getIndexSize() const -> uint8 { return mIndexSize; }
 
-            static size_t indexSize(IndexType type) { return type == IT_16BIT ? sizeof(uint16) : sizeof(uint32); }
+            static auto indexSize(IndexType type) -> size_t { return type == IT_16BIT ? sizeof(uint16) : sizeof(uint32); }
 
             // NB subclasses should override lock, unlock, readData, writeData
     };

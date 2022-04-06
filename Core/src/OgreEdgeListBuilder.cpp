@@ -118,7 +118,7 @@ namespace Ogre {
         mGeometryList.push_back(geometry);
     }
     //---------------------------------------------------------------------
-    EdgeData* EdgeListBuilder::build()
+    auto EdgeListBuilder::build() -> EdgeData*
     {
         /* Ok, here's the algorithm:
         For each set of indices in turn
@@ -383,8 +383,8 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    size_t EdgeListBuilder::findOrCreateCommonVertex(const Vector3& vec, 
-        size_t vertexSet, size_t indexSet, size_t originalIndex)
+    auto EdgeListBuilder::findOrCreateCommonVertex(const Vector3& vec, 
+        size_t vertexSet, size_t indexSet, size_t originalIndex) -> size_t
     {
         // Because the algorithm doesn't care about manifold or not, we just identifying
         // the common vertex by EXACT same position.
@@ -445,7 +445,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    EdgeData* EdgeData::clone()
+    auto EdgeData::clone() -> EdgeData*
     {
         EdgeData* newEdgeData = new EdgeData();
         newEdgeData->triangles = triangles;

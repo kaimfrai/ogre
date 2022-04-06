@@ -60,12 +60,12 @@ namespace Ogre {
         using ImageCodec::encode;
         using ImageCodec::encodeToFile;
 
-        DataStreamPtr encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const override;
+        auto encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const -> DataStreamPtr override;
         void encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName, const CodecDataPtr& pData) const  override;
-        DecodeResult decode(const DataStreamPtr& input) const  override;
+        auto decode(const DataStreamPtr& input) const -> DecodeResult  override;
 
-        String getType() const  override;
-        String magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const override;
+        auto getType() const -> String  override;
+        auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String override;
 
         /// Static method to startup and register the codecs
         static void startup();
@@ -76,7 +76,7 @@ namespace Ogre {
     class STBIPlugin : public Plugin
     {
     public:
-        const String& getName() const;
+        auto getName() const -> const String&;
         void install() { STBIImageCodec::startup(); }
         void uninstall() { STBIImageCodec::shutdown(); }
         void initialise() {}

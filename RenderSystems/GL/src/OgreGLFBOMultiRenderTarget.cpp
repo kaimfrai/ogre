@@ -76,7 +76,7 @@ class GLFBOManager;
         }
     }
     //-----------------------------------------------------------------------------
-    bool GLFBOMultiRenderTarget::attachDepthBuffer( DepthBuffer *depthBuffer )
+    auto GLFBOMultiRenderTarget::attachDepthBuffer( DepthBuffer *depthBuffer ) -> bool
     {
         bool result;
         if( (result = MultiRenderTarget::attachDepthBuffer( depthBuffer )) )

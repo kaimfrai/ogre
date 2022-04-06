@@ -74,7 +74,7 @@ namespace Ogre
         msFreePolygons.clear();
     }
     //-----------------------------------------------------------------------
-    Polygon* ConvexBody::allocatePolygon()
+    auto ConvexBody::allocatePolygon() -> Polygon*
     {
         if (msFreePolygons.empty())
         {
@@ -466,19 +466,19 @@ namespace Ogre
         mPolygons.clear();
     }
     //-----------------------------------------------------------------------
-    size_t ConvexBody::getPolygonCount( ) const
+    auto ConvexBody::getPolygonCount( ) const -> size_t
     {
         return mPolygons.size();
     }
     //-----------------------------------------------------------------------
-    size_t ConvexBody::getVertexCount( size_t poly ) const
+    auto ConvexBody::getVertexCount( size_t poly ) const -> size_t
     {
         OgreAssertDbg(poly < getPolygonCount(), "Search position out of range" );
         
         return mPolygons[ poly ]->getVertexCount();
     }
     //-----------------------------------------------------------------------
-    bool ConvexBody::hasClosedHull( ) const
+    auto ConvexBody::hasClosedHull( ) const -> bool
     {
         // if this map is returned empty, the body is closed
         Polygon::EdgeMap edgeMap = getSingleEdges();
@@ -621,14 +621,14 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    const Vector3& ConvexBody::getNormal( size_t poly )
+    auto ConvexBody::getNormal( size_t poly ) -> const Vector3&
     {
         OgreAssertDbg( poly < getPolygonCount(), "Search position out of range" );
         
         return mPolygons[ poly ]->getNormal();
     }
     //-----------------------------------------------------------------------
-    AxisAlignedBox ConvexBody::getAABB( ) const
+    auto ConvexBody::getAABB( ) const -> AxisAlignedBox
     {
         AxisAlignedBox aab;
 
@@ -643,7 +643,7 @@ namespace Ogre
         return aab;
     }
     //-----------------------------------------------------------------------
-    bool ConvexBody::operator == ( const ConvexBody& rhs ) const
+    auto ConvexBody::operator == ( const ConvexBody& rhs ) const -> bool
     {
         if ( getPolygonCount() != rhs.getPolygonCount() )
             return false;
@@ -696,7 +696,7 @@ namespace Ogre
         return true;
     }
     //-----------------------------------------------------------------------
-    std::ostream& operator<< ( std::ostream& strm, const ConvexBody& body )
+    auto operator<< ( std::ostream& strm, const ConvexBody& body ) -> std::ostream&
     {
         strm << "POLYGON INFO (" << body.getPolygonCount() << ")" << std::endl;
 
@@ -754,7 +754,7 @@ namespace Ogre
         mPolygons.erase(it);
     }
     //-----------------------------------------------------------------------
-    Polygon* ConvexBody::unlinkPolygon(size_t poly)
+    auto ConvexBody::unlinkPolygon(size_t poly) -> Polygon*
     {
         OgreAssertDbg( poly < getPolygonCount(), "Search position out of range" );
 
@@ -784,7 +784,7 @@ namespace Ogre
         mPolygons[poly]->deleteVertex(vertex);
     }
     //-----------------------------------------------------------------------
-    const Polygon& ConvexBody::getPolygon(size_t poly) const
+    auto ConvexBody::getPolygon(size_t poly) const -> const Polygon&
     {
         OgreAssertDbg(poly < getPolygonCount(), "Search position out of range");
 
@@ -806,7 +806,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    const Vector3& ConvexBody::getVertex(size_t poly, size_t vertex) const
+    auto ConvexBody::getVertex(size_t poly, size_t vertex) const -> const Vector3&
     {
         OgreAssertDbg( poly < getPolygonCount(), "Search position out of range" );
         
@@ -828,7 +828,7 @@ namespace Ogre
         mPolygons[poly]->storeEdges(edgeMap);
     }
     //-----------------------------------------------------------------------
-    Polygon::EdgeMap ConvexBody::getSingleEdges() const
+    auto ConvexBody::getSingleEdges() const -> Polygon::EdgeMap
     {
         Polygon::EdgeMap edgeMap;
 
@@ -1162,8 +1162,8 @@ namespace Ogre
         } // if intersectionEdges contains more than three elements
     }
     //-----------------------------------------------------------------------
-    bool ConvexBody::findAndEraseEdgePair(const Vector3& vec, 
-        Polygon::EdgeMap& intersectionEdges, Vector3& vNext ) const
+    auto ConvexBody::findAndEraseEdgePair(const Vector3& vec, 
+        Polygon::EdgeMap& intersectionEdges, Vector3& vNext ) const -> bool
     {
         for (Polygon::EdgeMap::iterator it = intersectionEdges.begin(); 
             it != intersectionEdges.end(); ++it)

@@ -126,13 +126,13 @@ namespace Ogre {
         ~Log();
 
         /// Return the name of the log
-        const String& getName() const { return mLogName; }
+        auto getName() const -> const String& { return mLogName; }
         /// Get whether debug output is enabled for this log
-        bool isDebugOutputEnabled() const { return mDebugOut; }
+        auto isDebugOutputEnabled() const -> bool { return mDebugOut; }
         /// Get whether file output is suppressed for this log
-        bool isFileOutputSuppressed() const { return mSuppressFile; }
+        auto isFileOutputSuppressed() const -> bool { return mSuppressFile; }
         /// Get whether time stamps are printed for this log
-        bool isTimeStampEnabled() const { return mTimeStamp; }
+        auto isTimeStampEnabled() const -> bool { return mTimeStamp; }
 
         /** Log a message to the debugger and to log file (the default is
             "<code>OGRE.log</code>"),
@@ -140,7 +140,7 @@ namespace Ogre {
         void logMessage( const String& message, LogMessageLevel lml = LML_NORMAL, bool maskDebug = false );
 
         /** Get a stream object targeting this log. */
-        Stream stream(LogMessageLevel lml = LML_NORMAL, bool maskDebug = false);
+        auto stream(LogMessageLevel lml = LML_NORMAL, bool maskDebug = false) -> Stream;
 
         /**
         @remarks
@@ -157,7 +157,7 @@ namespace Ogre {
         void setTimeStampEnabled(bool timeStamp);
         /** Gets the level of the log detail.
         */
-        LogMessageLevel getMinLogLevel() const { return mLogLevel; }
+        auto getMinLogLevel() const -> LogMessageLevel { return mLogLevel; }
         /**
         @remarks
             Register a listener to this log
@@ -224,13 +224,13 @@ namespace Ogre {
             }
 
             template <typename T>
-            Stream& operator<< (const T& v)
+            auto operator<< (const T& v) -> Stream&
             {
                 mCache << v;
                 return *this;
             }
 
-            Stream& operator<< (const Flush& v)
+            auto operator<< (const Flush& v) -> Stream&
             {
                                 (void)v;
                 mTarget->logMessage(mCache.str(), mLevel, mMaskDebug);

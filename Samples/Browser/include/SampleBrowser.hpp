@@ -135,7 +135,7 @@ namespace OgreBites
         }
 
         /// catch any exceptions that might drop out of event handlers implemented by Samples
-        bool frameStarted(const Ogre::FrameEvent& evt)
+        auto frameStarted(const Ogre::FrameEvent& evt) -> bool
         {
             try
             {
@@ -153,7 +153,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Extends frameRenderingQueued to update tray manager and carousel.
           -----------------------------------------------------------------------------*/
-        bool frameRenderingQueued(const Ogre::FrameEvent& evt)
+        auto frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool
         {
             // don't do all these calculations when sample's running or when in configuration screen or when no samples loaded
             if (!mLoadedSamples.empty() && mTitleLabel->getTrayLocation() != TL_NONE && (!mCurrentSample || mSamplePaused))
@@ -482,7 +482,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Handles keypresses.
           -----------------------------------------------------------------------------*/
-        virtual bool keyPressed(const KeyboardEvent& evt)
+        virtual auto keyPressed(const KeyboardEvent& evt) -> bool
         {
             if (mTrayMgr->isDialogVisible()) return true;  // ignore keypresses when dialog is showing
 
@@ -549,7 +549,7 @@ namespace OgreBites
           | Extends pointerPressed to inject mouse press into tray manager, and to check
           | for thumbnail clicks, just because we can.
           -----------------------------------------------------------------------------*/
-        virtual bool mousePressed(const MouseButtonEvent& evt)
+        virtual auto mousePressed(const MouseButtonEvent& evt) -> bool
         {
             if (mTitleLabel->getTrayLocation() != TL_NONE)
             {
@@ -570,13 +570,13 @@ namespace OgreBites
         }
 
         // convert and redirect
-        virtual bool touchPressed(const TouchFingerEvent& evt) {
+        virtual auto touchPressed(const TouchFingerEvent& evt) -> bool {
             MouseButtonEvent e;
             e.button = BUTTON_LEFT;
             return mousePressed(e);
         }
 
-        bool buttonPressed(const ButtonEvent& evt) override
+        auto buttonPressed(const ButtonEvent& evt) -> bool override
         {
             KeyboardEvent e;
             e.keysym.sym = 0;
@@ -601,7 +601,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Extends pointerReleased to inject mouse release into tray manager.
           -----------------------------------------------------------------------------*/
-        virtual bool mouseReleased(const MouseButtonEvent& evt)
+        virtual auto mouseReleased(const MouseButtonEvent& evt) -> bool
          {
             if (isCurrentSamplePaused()) return mTrayMgr->mouseReleased(evt);
 
@@ -609,7 +609,7 @@ namespace OgreBites
         }
 
         // convert and redirect
-        virtual bool touchReleased(const TouchFingerEvent& evt) {
+        virtual auto touchReleased(const TouchFingerEvent& evt) -> bool {
             MouseButtonEvent e;
             e.button = BUTTON_LEFT;
             return mouseReleased(e);
@@ -619,7 +619,7 @@ namespace OgreBites
           | Extends pointerMoved to inject mouse position into tray manager, and checks
           | for mouse wheel movements to slide the carousel, because we can.
           -----------------------------------------------------------------------------*/
-        virtual bool mouseMoved(const MouseMotionEvent& evt)
+        virtual auto mouseMoved(const MouseMotionEvent& evt) -> bool
         {
             if (isCurrentSamplePaused()) return mTrayMgr->mouseMoved(evt);
 
@@ -627,7 +627,7 @@ namespace OgreBites
         }
 
         // convert and redirect
-        virtual bool touchMoved(const TouchFingerEvent& evt) {
+        virtual auto touchMoved(const TouchFingerEvent& evt) -> bool {
             MouseMotionEvent e;
             e.x = evt.x * mWindow->getWidth();
             e.y = evt.y * mWindow->getHeight();
@@ -639,7 +639,7 @@ namespace OgreBites
         //TODO: Handle iOS and Android.
         /** Mouse wheel scrolls the sample list.
          */
-        virtual bool mouseWheelRolled(const MouseWheelEvent& evt)
+        virtual auto mouseWheelRolled(const MouseWheelEvent& evt) -> bool
         {
             if(mTrayMgr->mouseWheelRolled(evt))
                 return true;
@@ -718,7 +718,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Overrides the default window title.
           -----------------------------------------------------------------------------*/
-        virtual NativeWindowPair createWindow(const Ogre::String& name, uint32_t w, uint32_t h, Ogre::NameValuePairList miscParams)
+        virtual auto createWindow(const Ogre::String& name, uint32_t w, uint32_t h, Ogre::NameValuePairList miscParams) -> NativeWindowPair
         {
             return ApplicationContext::createWindow(name, w, h, miscParams);
         }
@@ -751,7 +751,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Loads sample plugins from a configuration file.
           -----------------------------------------------------------------------------*/
-        virtual Sample* loadSamples()
+        virtual auto loadSamples() -> Sample*
         {
             Sample* startupSample = 0;
             Ogre::StringVector unloadedSamplePlugins;

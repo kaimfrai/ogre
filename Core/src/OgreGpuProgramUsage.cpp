@@ -60,8 +60,8 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------------
 
-    GpuProgramPtr GpuProgramUsage::_getProgramByName(const String& name, const String& group,
-                                                     GpuProgramType type)
+    auto GpuProgramUsage::_getProgramByName(const String& name, const String& group,
+                                                     GpuProgramType type) -> GpuProgramPtr
     {
         GpuProgramPtr program =
             GpuProgramManager::getSingleton().getByName(name, group);
@@ -91,7 +91,7 @@ namespace Ogre
         mParameters = params;
     }
     //-----------------------------------------------------------------------------
-    const GpuProgramParametersSharedPtr& GpuProgramUsage::getParameters() const
+    auto GpuProgramUsage::getParameters() const -> const GpuProgramParametersSharedPtr&
     {
         if (!mParameters)
         {
@@ -122,7 +122,7 @@ namespace Ogre
         mProgram->addListener(this);
     }
     //-----------------------------------------------------------------------------
-    size_t GpuProgramUsage::calculateSize() const
+    auto GpuProgramUsage::calculateSize() const -> size_t
     {
         size_t memSize = sizeof(*this);
 

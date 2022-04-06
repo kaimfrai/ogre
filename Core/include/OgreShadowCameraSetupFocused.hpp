@@ -126,7 +126,7 @@ class Viewport;
 
             /** Returns the bounding box representation.
             */
-            const AxisAlignedBox& getAAB() const;   
+            auto getAAB() const -> const AxisAlignedBox&;   
 
             /** Adds a specific point to the body list.
             */
@@ -138,11 +138,11 @@ class Viewport;
 
             /** Returns a point.
             */
-            const Vector3& getPoint(size_t cnt) const;
+            auto getPoint(size_t cnt) const -> const Vector3&;
 
             /** Returns the point count.
             */
-            size_t getPointCount() const;
+            auto getPointCount() const -> size_t;
 
             /** Resets the body.
             */
@@ -240,8 +240,8 @@ class Viewport;
         @param bodyLVS
             Intersection body LVS (relevant space in front of the camera).
         */
-        Vector3 getLSProjViewDir(const Matrix4& lightSpace, const Camera& cam, 
-            const PointListBody& bodyLVS) const;
+        auto getLSProjViewDir(const Matrix4& lightSpace, const Camera& cam, 
+            const PointListBody& bodyLVS) const -> Vector3;
 
         /** Returns a valid near-point seen by the camera.
         @remarks
@@ -254,8 +254,8 @@ class Viewport;
         @param bodyLVS
             Intersection body LVS (relevant space in front of the camera).
         */
-        Vector3 getNearCameraPoint_ws(const Affine3& viewMatrix,
-            const PointListBody& bodyLVS) const;
+        auto getNearCameraPoint_ws(const Affine3& viewMatrix,
+            const PointListBody& bodyLVS) const -> Vector3;
 
         /** Transforms a given body to the unit cube (-1,-1,-1) / (+1,+1,+1) with a specific 
             shadow matrix enabled.
@@ -268,7 +268,7 @@ class Viewport;
             Contains the points of the extends of all valid scene elements which 
             are mapped to the unit cube.
         */
-        Matrix4 transformToUnitCube(const Matrix4& m, const PointListBody& body) const;
+        auto transformToUnitCube(const Matrix4& m, const PointListBody& body) const -> Matrix4;
     public:
         /// @deprecated use create()
         FocusedShadowCameraSetup(bool useAggressiveRegion = true);
@@ -288,7 +288,7 @@ class Viewport;
         @param useAggressiveRegion
             True to use the more aggressive approach, false otherwise.
          */
-        static ShadowCameraSetupPtr create(bool useAggressiveRegion = true)
+        static auto create(bool useAggressiveRegion = true) -> ShadowCameraSetupPtr
         {
             return std::make_shared<FocusedShadowCameraSetup>(useAggressiveRegion);
         }
@@ -303,7 +303,7 @@ class Viewport;
         */
         void setUseAggressiveFocusRegion(bool aggressive) { mUseAggressiveRegion = aggressive; }
 
-        bool getUseAggressiveFocusRegion() const { return mUseAggressiveRegion; }
+        auto getUseAggressiveFocusRegion() const -> bool { return mUseAggressiveRegion; }
 
     };
 

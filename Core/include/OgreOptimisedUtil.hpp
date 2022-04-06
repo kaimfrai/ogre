@@ -53,14 +53,14 @@ class Affine3;
         /// Privated copy constructor, to prevent misuse
         OptimisedUtil(const OptimisedUtil& rhs); /* do nothing, should not use */
         /// Privated operator=, to prevent misuse
-        OptimisedUtil& operator=(const OptimisedUtil& rhs); /* do not use */
+        auto operator=(const OptimisedUtil& rhs) -> OptimisedUtil&; /* do not use */
 
     protected:
         /// Store a pointer to the implementation
         static OptimisedUtil* msImplementation;
 
         /// Detect best implementation based on run-time environment
-        static OptimisedUtil* _detectImplementation();
+        static auto _detectImplementation() -> OptimisedUtil*;
 
     public:
         // Default constructor
@@ -73,7 +73,7 @@ class Affine3;
             Don't cache the pointer returned by this function, it'll change due
             run-time environment detection to pick up the best implementation.
         */
-        static OptimisedUtil* getImplementation() { return msImplementation; }
+        static auto getImplementation() -> OptimisedUtil* { return msImplementation; }
 
         /** Performs software vertex skinning.
         @param srcPosPtr Pointer to source position buffer.

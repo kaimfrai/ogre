@@ -182,7 +182,7 @@ void TestContext::setup()
 }
 //-----------------------------------------------------------------------
 
-OgreBites::Sample* TestContext::loadTests()
+auto TestContext::loadTests() -> OgreBites::Sample*
 {
     OgreBites::Sample* startSample = 0;
 
@@ -217,7 +217,7 @@ OgreBites::Sample* TestContext::loadTests()
 }
 //-----------------------------------------------------------------------
 
-bool TestContext::frameRenderingQueued(const Ogre::FrameEvent& evt)
+auto TestContext::frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool
 {
     // pass a fixed timestep along to the tests
     Ogre::FrameEvent fixed_evt = Ogre::FrameEvent();
@@ -227,7 +227,7 @@ bool TestContext::frameRenderingQueued(const Ogre::FrameEvent& evt)
     return mCurrentSample->frameRenderingQueued(fixed_evt);
 }
 
-bool TestContext::frameStarted(const Ogre::FrameEvent& evt)
+auto TestContext::frameStarted(const Ogre::FrameEvent& evt) -> bool
 {
     pollEvents();
 
@@ -253,7 +253,7 @@ bool TestContext::frameStarted(const Ogre::FrameEvent& evt)
 }
 //-----------------------------------------------------------------------
 
-bool TestContext::frameEnded(const Ogre::FrameEvent& evt)
+auto TestContext::frameEnded(const Ogre::FrameEvent& evt) -> bool
 {
     // pass a fixed timestep along to the tests
     Ogre::FrameEvent fixed_evt = Ogre::FrameEvent();
@@ -363,7 +363,7 @@ void TestContext::go(OgreBites::Sample* initialSample)
 }
 //-----------------------------------------------------------------------
 
-bool TestContext::oneTimeConfig()
+auto TestContext::oneTimeConfig() -> bool
 {
     // if forced, just do it and return
     if(mForceConfig)
@@ -525,7 +525,7 @@ void TestContext::finishedTests()
 }
 //-----------------------------------------------------------------------
 
-Ogre::Real TestContext::getTimestep()
+auto TestContext::getTimestep() -> Ogre::Real
 {
     return mTimestep;
 }
@@ -537,7 +537,7 @@ void TestContext::setTimestep(Ogre::Real timestep)
     mTimestep = timestep >= 0.f ? timestep : mTimestep;
 }
 
-int main(int argc, char *argv[])
+auto main(int argc, char *argv[]) -> int
 {
     TestContext tc(argc, argv);
 

@@ -115,20 +115,20 @@ class Function : public RTShaderSystemAlloc
 // Interface.
 public:
     /// @deprecated
-    ParameterPtr resolveInputParameter(Parameter::Semantic semantic, int index,  const Parameter::Content content, GpuConstantType type);
+    auto resolveInputParameter(Parameter::Semantic semantic, int index,  const Parameter::Content content, GpuConstantType type) -> ParameterPtr;
 
     /** Resolve input parameter of this function
     @param content The content of the parameter.
     @param type The type of the desired parameter.
     @return parameter instance in case of that resolve operation succeeded.
     */
-    ParameterPtr resolveInputParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN)
+    auto resolveInputParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN) -> ParameterPtr
     {
         return resolveInputParameter(Parameter::SPS_UNKNOWN, 0, content, type);
     }
 
     /// resolve input parameter from previous output
-    ParameterPtr resolveInputParameter(const ParameterPtr& out)
+    auto resolveInputParameter(const ParameterPtr& out) -> ParameterPtr
     {
         OgreAssert(out, "parameter must not be NULL");
         return resolveInputParameter(out->getSemantic(), out->getIndex(), out->getContent(), out->getType());
@@ -140,20 +140,20 @@ public:
      * @param type The type of the desired parameter.
      * @return parameter or NULL if not found
      */
-    ParameterPtr getInputParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN)
+    auto getInputParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN) -> ParameterPtr
     {
         return _getParameterByContent(mInputParameters, content, type);
     }
 
     /// @deprecated
-    ParameterPtr resolveOutputParameter(Parameter::Semantic semantic, int index,  const Parameter::Content content, GpuConstantType type);
+    auto resolveOutputParameter(Parameter::Semantic semantic, int index,  const Parameter::Content content, GpuConstantType type) -> ParameterPtr;
 
     /** Resolve output parameter of this function
     @param content The content of the parameter.
     @param type The type of the desired parameter.
     @return parameter instance in case of that resolve operation succeeded.
     */
-    ParameterPtr resolveOutputParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN)
+    auto resolveOutputParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN) -> ParameterPtr
     {
         return resolveOutputParameter(Parameter::SPS_UNKNOWN, 0, content, type);
     }
@@ -164,7 +164,7 @@ public:
      * @param type The type of the desired parameter.
      * @return parameter or NULL if not found
      */
-    ParameterPtr getOutputParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN)
+    auto getOutputParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN) -> ParameterPtr
     {
         return _getParameterByContent(mOutputParameters, content, type);
     }
@@ -176,7 +176,7 @@ public:
     @param type The type of the desired parameter.  
     @return parameter instance in case of that resolve operation succeeded.
     */
-    ParameterPtr resolveLocalParameter(GpuConstantType type, const String& name);
+    auto resolveLocalParameter(GpuConstantType type, const String& name) -> ParameterPtr;
 
     /** Resolve local parameter of this function
 
@@ -185,31 +185,31 @@ public:
     @param type The type of the desired parameter.
     @return parameter instance in case of that resolve operation succeeded.
     */
-    ParameterPtr resolveLocalParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN);
+    auto resolveLocalParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN) -> ParameterPtr;
 
     /**
      * get local parameter by content
      * @param content
      * @return parameter or NULL if not found
      */
-    ParameterPtr getLocalParameter(Parameter::Content content)
+    auto getLocalParameter(Parameter::Content content) -> ParameterPtr
     {
         return _getParameterByContent(mLocalParameters, content, GCT_UNKNOWN);
     }
     /// @overload
-    ParameterPtr getLocalParameter(const String& name)
+    auto getLocalParameter(const String& name) -> ParameterPtr
     {
         return _getParameterByName(mLocalParameters, name);
     }
 
     /** Return a list of input parameters. */
-    const ShaderParameterList& getInputParameters() const { return mInputParameters; }  
+    auto getInputParameters() const -> const ShaderParameterList& { return mInputParameters; }  
 
     /** Return a list of output parameters. */
-    const ShaderParameterList& getOutputParameters() const { return mOutputParameters; }
+    auto getOutputParameters() const -> const ShaderParameterList& { return mOutputParameters; }
 
     /** Return a list of local parameters. */
-    const ShaderParameterList& getLocalParameters() const { return mLocalParameters; }  
+    auto getLocalParameters() const -> const ShaderParameterList& { return mLocalParameters; }  
     
     /** Add a function atom instance to this function. 
     @param atomInstance The atom instance to add.
@@ -217,7 +217,7 @@ public:
     void addAtomInstance(FunctionAtom* atomInstance);
 
     /// get a @ref FFPShaderStage of this function
-    FunctionStageRef getStage(uint32 s)
+    auto getStage(uint32 s) -> FunctionStageRef
     {
         return {s, this};
     }
@@ -225,10 +225,10 @@ public:
     /** Delete a function atom instance from this function. 
     @param atomInstance The atom instance to delete.
     */
-    bool deleteAtomInstance(FunctionAtom* atomInstance);
+    auto deleteAtomInstance(FunctionAtom* atomInstance) -> bool;
 
     /** Return list of atom instances composing this function. (Const version) */
-    const FunctionAtomInstanceList& getAtomInstances();
+    auto getAtomInstances() -> const FunctionAtomInstanceList&;
 
     /** Add input parameter to this function. */
     void addInputParameter(ParameterPtr parameter);
@@ -250,9 +250,9 @@ public:
 
 private:
 
-    static ParameterPtr _getParameterByName(const ShaderParameterList& parameterList, const String& name);
-    static ParameterPtr _getParameterBySemantic(const ShaderParameterList& parameterList, const Parameter::Semantic semantic, int index);
-    static ParameterPtr _getParameterByContent(const ShaderParameterList& parameterList, const Parameter::Content content, GpuConstantType type);
+    static auto _getParameterByName(const ShaderParameterList& parameterList, const String& name) -> ParameterPtr;
+    static auto _getParameterBySemantic(const ShaderParameterList& parameterList, const Parameter::Semantic semantic, int index) -> ParameterPtr;
+    static auto _getParameterByContent(const ShaderParameterList& parameterList, const Parameter::Content content, GpuConstantType type) -> ParameterPtr;
 
     /** Class destructor */
     ~Function();

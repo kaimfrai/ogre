@@ -89,30 +89,30 @@ namespace Ogre {
         DataStream(const String& name, uint16 accessMode = READ) 
             : mName(name), mSize(0), mAccess(accessMode) {}
         /// Returns the name of the stream, if it has one.
-        const String& getName() { return mName; }
+        auto getName() -> const String& { return mName; }
         /// Gets the access mode of the stream
-        uint16 getAccessMode() const { return mAccess; }
+        auto getAccessMode() const -> uint16 { return mAccess; }
         /** Reports whether this stream is readable. */
-        virtual bool isReadable() const { return (mAccess & READ) != 0; }
+        virtual auto isReadable() const -> bool { return (mAccess & READ) != 0; }
         /** Reports whether this stream is writeable. */
-        virtual bool isWriteable() const { return (mAccess & WRITE) != 0; }
+        virtual auto isWriteable() const -> bool { return (mAccess & WRITE) != 0; }
         virtual ~DataStream() {}
         // Streaming operators
-        template<typename T> DataStream& operator>>(T& val);
+        template<typename T> auto operator>>(T& val) -> DataStream&;
         /** Read the requisite number of bytes from the stream, 
             stopping at the end of the file.
         @param buf Reference to a buffer pointer
         @param count Number of bytes to read
         @return The number of bytes read
         */
-        virtual size_t read(void* buf, size_t count) = 0;
+        virtual auto read(void* buf, size_t count) -> size_t = 0;
         /** Write the requisite number of bytes from the stream (only applicable to 
             streams that are not read-only)
         @param buf Pointer to a buffer containing the bytes to write
         @param count Number of bytes to write
         @return The number of bytes written
         */
-        virtual size_t write(const void* buf, size_t count)
+        virtual auto write(const void* buf, size_t count) -> size_t
         {
                         (void)buf;
                         (void)count;
@@ -134,7 +134,7 @@ namespace Ogre {
         @param delim The delimiter to stop at
         @return The number of bytes read, excluding the terminating character
         */
-        virtual size_t readLine(char* buf, size_t maxCount, const String& delim = "\n");
+        virtual auto readLine(char* buf, size_t maxCount, const String& delim = "\n") -> size_t;
         
         /** Returns a String containing the next line of data, optionally 
             trimmed for whitespace. 
@@ -150,14 +150,14 @@ namespace Ogre {
             trimAfter If true, the line is trimmed for whitespace (as in 
             String.trim(true,true))
         */
-        virtual String getLine( bool trimAfter = true );
+        virtual auto getLine( bool trimAfter = true ) -> String;
 
         /** Returns a String containing the entire stream. 
         @remarks
             This is a convenience method for text streams only, allowing you to 
             retrieve a String object containing all the data in the stream.
         */
-        virtual String getAsString();
+        virtual auto getAsString() -> String;
 
         /** Skip a single line from the stream.
         @note
@@ -167,7 +167,7 @@ namespace Ogre {
             delim The delimiter(s) to stop at
         @return The number of bytes skipped
         */
-        virtual size_t skipLine(const String& delim = "\n");
+        virtual auto skipLine(const String& delim = "\n") -> size_t;
 
         /** Skip a defined number of bytes. This can also be a negative value, in which case
         the file pointer rewinds a defined number of bytes. */
@@ -178,16 +178,16 @@ namespace Ogre {
         virtual void seek( size_t pos ) = 0;
         
         /** Returns the current byte offset from beginning */
-        virtual size_t tell() const = 0;
+        virtual auto tell() const -> size_t = 0;
 
         /** Returns true if the stream has reached the end.
         */
-        virtual bool eof() const = 0;
+        virtual auto eof() const -> bool = 0;
 
         /** Returns the total size of the data to be read from the stream, 
             or 0 if this is indeterminate for this stream. 
         */
-        size_t size() const { return mSize; }
+        auto size() const -> size_t { return mSize; }
 
         /** Close the stream; this makes further operations invalid. */
         virtual void close() = 0;
@@ -313,26 +313,26 @@ namespace Ogre {
         ~MemoryDataStream();
 
         /** Get a pointer to the start of the memory block this stream holds. */
-        uchar* getPtr() { return mData; }
+        auto getPtr() -> uchar* { return mData; }
         
         /** Get a pointer to the current position in the memory block this stream holds. */
-        uchar* getCurrentPtr() { return mPos; }
+        auto getCurrentPtr() -> uchar* { return mPos; }
         
         /** @copydoc DataStream::read
         */
-        size_t read(void* buf, size_t count);
+        auto read(void* buf, size_t count) -> size_t;
 
         /** @copydoc DataStream::write
         */
-        size_t write(const void* buf, size_t count);
+        auto write(const void* buf, size_t count) -> size_t;
 
         /** @copydoc DataStream::readLine
         */
-        size_t readLine(char* buf, size_t maxCount, const String& delim = "\n");
+        auto readLine(char* buf, size_t maxCount, const String& delim = "\n") -> size_t;
         
         /** @copydoc DataStream::skipLine
         */
-        size_t skipLine(const String& delim = "\n");
+        auto skipLine(const String& delim = "\n") -> size_t;
 
         /** @copydoc DataStream::skip
         */
@@ -344,11 +344,11 @@ namespace Ogre {
         
         /** @copydoc DataStream::tell
         */
-        size_t tell() const;
+        auto tell() const -> size_t;
 
         /** @copydoc DataStream::eof
         */
-        bool eof() const;
+        auto eof() const -> bool;
 
         /** @copydoc DataStream::close
         */
@@ -447,15 +447,15 @@ namespace Ogre {
 
         /** @copydoc DataStream::read
         */
-        size_t read(void* buf, size_t count);
+        auto read(void* buf, size_t count) -> size_t;
 
         /** @copydoc DataStream::write
         */
-        size_t write(const void* buf, size_t count);
+        auto write(const void* buf, size_t count) -> size_t;
 
         /** @copydoc DataStream::readLine
         */
-        size_t readLine(char* buf, size_t maxCount, const String& delim = "\n");
+        auto readLine(char* buf, size_t maxCount, const String& delim = "\n") -> size_t;
         
         /** @copydoc DataStream::skip
         */
@@ -467,11 +467,11 @@ namespace Ogre {
 
         /** @copydoc DataStream::tell
         */
-        size_t tell() const;
+        auto tell() const -> size_t;
 
         /** @copydoc DataStream::eof
         */
-        bool eof() const;
+        auto eof() const -> bool;
 
         /** @copydoc DataStream::close
         */
@@ -502,11 +502,11 @@ namespace Ogre {
 
         /** @copydoc DataStream::read
         */
-        size_t read(void* buf, size_t count);
+        auto read(void* buf, size_t count) -> size_t;
 
         /** @copydoc DataStream::write
         */
-        size_t write(const void* buf, size_t count);
+        auto write(const void* buf, size_t count) -> size_t;
 
         /** @copydoc DataStream::skip
         */
@@ -518,11 +518,11 @@ namespace Ogre {
 
         /** @copydoc DataStream::tell
         */
-        size_t tell() const;
+        auto tell() const -> size_t;
 
         /** @copydoc DataStream::eof
         */
-        bool eof() const;
+        auto eof() const -> bool;
 
         /** @copydoc DataStream::close
         */

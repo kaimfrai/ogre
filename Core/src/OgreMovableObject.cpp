@@ -143,7 +143,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    SceneNode* MovableObject::getParentSceneNode() const
+    auto MovableObject::getParentSceneNode() const -> SceneNode*
     {
         if (mParentIsTagPoint)
         {
@@ -173,7 +173,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    bool MovableObject::isInScene() const
+    auto MovableObject::isInScene() const -> bool
     {
         if (mParentNode != 0)
         {
@@ -207,7 +207,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    bool MovableObject::isVisible() const
+    auto MovableObject::isVisible() const -> bool
     {
         if (!mVisible || mBeyondFarDistance || mRenderingDisabled)
             return false;
@@ -304,7 +304,7 @@ class Any;
     }
 
     //-----------------------------------------------------------------------
-    const Affine3& MovableObject::_getParentNodeFullTransform() const
+    auto MovableObject::_getParentNodeFullTransform() const -> const Affine3&
     {
         
         if(mParentNode)
@@ -316,7 +316,7 @@ class Any;
         return Affine3::IDENTITY;
     }
 
-    Real MovableObject::getBoundingRadiusScaled() const
+    auto MovableObject::getBoundingRadiusScaled() const -> Real
     {
         const Vector3& scl = mParentNode->_getDerivedScale();
         Real factor = std::max(std::max(std::abs(scl.x), std::abs(scl.y)), std::abs(scl.z));
@@ -324,7 +324,7 @@ class Any;
     }
 
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& MovableObject::getWorldBoundingBox(bool derive) const
+    auto MovableObject::getWorldBoundingBox(bool derive) const -> const AxisAlignedBox&
     {
         if (derive)
         {
@@ -336,7 +336,7 @@ class Any;
 
     }
     //-----------------------------------------------------------------------
-    const Sphere& MovableObject::getWorldBoundingSphere(bool derive) const
+    auto MovableObject::getWorldBoundingSphere(bool derive) const -> const Sphere&
     {
         if (derive)
         {
@@ -346,7 +346,7 @@ class Any;
         return mWorldBoundingSphere;
     }
     //-----------------------------------------------------------------------
-    const LightList& MovableObject::queryLights() const
+    auto MovableObject::queryLights() const -> const LightList&
     {
         // Try listener first
         if (mListener)
@@ -387,21 +387,21 @@ class Any;
         return mLightList;
     }
     //-----------------------------------------------------------------------
-    const ShadowRenderableList& MovableObject::getShadowVolumeRenderableList(
+    auto MovableObject::getShadowVolumeRenderableList(
         const Light* light, const HardwareIndexBufferPtr& indexBuffer, size_t& indexBufferUsedSize,
-        float extrusionDist, int flags)
+        float extrusionDist, int flags) -> const ShadowRenderableList&
     {
         static ShadowRenderableList dummyList;
         return dummyList;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& MovableObject::getLightCapBounds() const
+    auto MovableObject::getLightCapBounds() const -> const AxisAlignedBox&
     {
         // Same as original bounds
         return getWorldBoundingBox();
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& MovableObject::getDarkCapBounds(const Light& light, Real extrusionDist) const
+    auto MovableObject::getDarkCapBounds(const Light& light, Real extrusionDist) const -> const AxisAlignedBox&
     {
         // Extrude own light cap bounds
         mWorldDarkCapBounds = getLightCapBounds();
@@ -411,7 +411,7 @@ class Any;
 
     }
     //-----------------------------------------------------------------------
-    Real MovableObject::getPointExtrusionDistance(const Light* l) const
+    auto MovableObject::getPointExtrusionDistance(const Light* l) const -> Real
     {
         if (mParentNode)
         {
@@ -437,7 +437,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    uint32 MovableObject::getTypeFlags() const
+    auto MovableObject::getTypeFlags() const -> uint32
     {
         if (mCreator)
         {
@@ -474,7 +474,7 @@ class Any;
         }
     };
     //---------------------------------------------------------------------
-    bool MovableObject::getReceivesShadows()
+    auto MovableObject::getReceivesShadows() -> bool
     {
         MORecvShadVisitor visitor;
         visitRenderables(&visitor);
@@ -483,9 +483,9 @@ class Any;
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    MovableObject* MovableObjectFactory::createInstance(
+    auto MovableObjectFactory::createInstance(
         const String& name, SceneManager* manager, 
-        const NameValuePairList* params)
+        const NameValuePairList* params) -> MovableObject*
     {
         MovableObject* m = createInstanceImpl(name, params);
         m->_notifyCreator(this);

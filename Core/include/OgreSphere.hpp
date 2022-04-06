@@ -65,35 +65,35 @@ namespace Ogre {
             : mRadius(radius), mCenter(center) {}
 
         /** Returns the radius of the sphere. */
-        Real getRadius() const { return mRadius; }
+        auto getRadius() const -> Real { return mRadius; }
 
         /** Sets the radius of the sphere. */
         void setRadius(Real radius) { mRadius = radius; }
 
         /** Returns the center point of the sphere. */
-        const Vector3& getCenter() const { return mCenter; }
+        auto getCenter() const -> const Vector3& { return mCenter; }
 
         /** Sets the center point of the sphere. */
         void setCenter(const Vector3& center) { mCenter = center; }
 
         /** Returns whether or not this sphere intersects another sphere. */
-        bool intersects(const Sphere& s) const
+        auto intersects(const Sphere& s) const -> bool
         {
             return (s.mCenter - mCenter).squaredLength() <=
                 Math::Sqr(s.mRadius + mRadius);
         }
         /** Returns whether or not this sphere intersects a box. */
-        bool intersects(const AxisAlignedBox& box) const
+        auto intersects(const AxisAlignedBox& box) const -> bool
         {
             return Math::intersects(*this, box);
         }
         /** Returns whether or not this sphere intersects a plane. */
-        bool intersects(const Plane& plane) const
+        auto intersects(const Plane& plane) const -> bool
         {
             return Math::Abs(plane.getDistance(getCenter())) <= getRadius();
         }
         /** Returns whether or not this sphere intersects a point. */
-        bool intersects(const Vector3& v) const
+        auto intersects(const Vector3& v) const -> bool
         {
             return ((v - mCenter).squaredLength() <= Math::Sqr(mRadius));
         }
@@ -125,7 +125,7 @@ namespace Ogre {
         }
     };
 
-    inline bool Math::intersects(const Sphere& sphere, const Plane& plane)
+    inline auto Math::intersects(const Sphere& sphere, const Plane& plane) -> bool
     {
         return sphere.intersects(plane);
     }

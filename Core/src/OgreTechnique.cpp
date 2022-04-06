@@ -71,12 +71,12 @@ namespace Ogre {
         clearIlluminationPasses();
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isSupported() const
+    auto Technique::isSupported() const -> bool
     {
         return mIsSupported;
     }
     //-----------------------------------------------------------------------------
-    size_t Technique::calculateSize() const
+    auto Technique::calculateSize() const -> size_t
     {
         size_t memSize = 0;
 
@@ -90,7 +90,7 @@ namespace Ogre {
         return memSize;
     }
     //-----------------------------------------------------------------------------
-    String Technique::_compile(bool autoManageTextureUnits)
+    auto Technique::_compile(bool autoManageTextureUnits) -> String
     {
         StringStream errors;
 
@@ -108,7 +108,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    bool Technique::checkHardwareSupport(bool autoManageTextureUnits, StringStream& compileErrors)
+    auto Technique::checkHardwareSupport(bool autoManageTextureUnits, StringStream& compileErrors) -> bool
     {
         // Go through each pass, checking requirements
         Passes::iterator i;
@@ -227,7 +227,7 @@ namespace Ogre {
         return true;
     }
     //---------------------------------------------------------------------
-    bool Technique::checkGPURules(StringStream& errors)
+    auto Technique::checkGPURules(StringStream& errors) -> bool
     {
         const RenderSystemCapabilities* caps =
             Root::getSingleton().getRenderSystem()->getCapabilities();
@@ -304,14 +304,14 @@ namespace Ogre {
         return true;
     }
     //-----------------------------------------------------------------------------
-    Pass* Technique::createPass()
+    auto Technique::createPass() -> Pass*
     {
         Pass* newPass = new Pass(this, static_cast<unsigned short>(mPasses.size()));
         mPasses.push_back(newPass);
         return newPass;
     }
     //-----------------------------------------------------------------------------
-    Pass* Technique::getPass(const String& name) const
+    auto Technique::getPass(const String& name) const -> Pass*
     {
         Passes::const_iterator i    = mPasses.begin();
         Passes::const_iterator iend = mPasses.end();
@@ -356,7 +356,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    bool Technique::movePass(const unsigned short sourceIndex, const unsigned short destinationIndex)
+    auto Technique::movePass(const unsigned short sourceIndex, const unsigned short destinationIndex) -> bool
     {
         bool moveSuccessful = false;
 
@@ -398,7 +398,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    Technique& Technique::operator=(const Technique& rhs)
+    auto Technique::operator=(const Technique& rhs) -> Technique&
     {
         mName = rhs.mName;
         this->mIsSupported = rhs.mIsSupported;
@@ -426,7 +426,7 @@ namespace Ogre {
         return *this;
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isTransparent() const
+    auto Technique::isTransparent() const -> bool
     {
         if (mPasses.empty())
         {
@@ -439,7 +439,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isTransparentSortingEnabled() const
+    auto Technique::isTransparentSortingEnabled() const -> bool
     {
         if (mPasses.empty())
         {
@@ -452,7 +452,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isTransparentSortingForced() const
+    auto Technique::isTransparentSortingForced() const -> bool
     {
         if (mPasses.empty())
         {
@@ -465,7 +465,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isDepthWriteEnabled() const
+    auto Technique::isDepthWriteEnabled() const -> bool
     {
         if (mPasses.empty())
         {
@@ -478,7 +478,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isDepthCheckEnabled() const
+    auto Technique::isDepthCheckEnabled() const -> bool
     {
         if (mPasses.empty())
         {
@@ -491,7 +491,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::hasColourWriteDisabled() const
+    auto Technique::hasColourWriteDisabled() const -> bool
     {
         if (mPasses.empty())
         {
@@ -589,7 +589,7 @@ namespace Ogre {
         }   
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isLoaded() const
+    auto Technique::isLoaded() const -> bool
     {
         // Only supported technique will be loaded
         return mParent->isLoaded() && mIsSupported;
@@ -714,17 +714,17 @@ namespace Ogre {
         _notifyNeedsRecompile();
     }
     //-----------------------------------------------------------------------
-    const String& Technique::getSchemeName() const
+    auto Technique::getSchemeName() const -> const String&
     {
         return MaterialManager::getSingleton()._getSchemeName(mSchemeIndex);
     }
     //-----------------------------------------------------------------------
-    unsigned short Technique::_getSchemeIndex() const
+    auto Technique::_getSchemeIndex() const -> unsigned short
     {
         return mSchemeIndex;
     }
     //---------------------------------------------------------------------
-    bool Technique::checkManuallyOrganisedIlluminationPasses()
+    auto Technique::checkManuallyOrganisedIlluminationPasses() -> bool
     {
         // first check whether all passes have manually assigned illumination
         Passes::iterator i, ibegin, iend;
@@ -997,8 +997,8 @@ namespace Ogre {
         mIlluminationPasses.clear();
     }
     //-----------------------------------------------------------------------
-    const IlluminationPassList&
-    Technique::getIlluminationPasses()
+    auto
+    Technique::getIlluminationPasses() -> const IlluminationPassList&
     {
         IlluminationPassesState targetState = IPS_COMPILED;
         if(mIlluminationPassesCompilationPhase != targetState
@@ -1018,12 +1018,12 @@ namespace Ogre {
         return mIlluminationPasses;
     }
     //-----------------------------------------------------------------------
-    const String& Technique::getResourceGroup() const
+    auto Technique::getResourceGroup() const -> const String&
     {
         return mParent->getGroup();
     }
     //-----------------------------------------------------------------------
-    Ogre::MaterialPtr  Technique::getShadowCasterMaterial() const 
+    auto  Technique::getShadowCasterMaterial() const -> Ogre::MaterialPtr 
     { 
         return mShadowCasterMaterial; 
     }
@@ -1049,7 +1049,7 @@ namespace Ogre {
         setShadowCasterMaterial(MaterialManager::getSingleton().getByName(name));
     }
     //-----------------------------------------------------------------------
-    Ogre::MaterialPtr  Technique::getShadowReceiverMaterial() const 
+    auto  Technique::getShadowReceiverMaterial() const -> Ogre::MaterialPtr 
     { 
         return mShadowReceiverMaterial; 
     }

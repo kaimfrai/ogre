@@ -153,7 +153,7 @@ class SceneManager;
         */
         virtual void setQueryMask(uint32 mask);
         /** Returns the current mask for this query. */
-        virtual uint32 getQueryMask() const;
+        virtual auto getQueryMask() const -> uint32;
 
         /** Sets the type mask for results of this query.
 
@@ -165,7 +165,7 @@ class SceneManager;
         */
         virtual void setQueryTypeMask(uint32 mask);
         /** Returns the current mask for this query. */
-        virtual uint32 getQueryTypeMask() const;
+        virtual auto getQueryTypeMask() const -> uint32;
 
         /** Tells the query what kind of world geometry to return from queries;
             often the full renderable geometry is not what is needed. 
@@ -180,10 +180,10 @@ class SceneManager;
         virtual void setWorldFragmentType(enum WorldFragmentType wft);
 
         /** Gets the current world fragment types to be returned from the query. */
-        virtual WorldFragmentType getWorldFragmentType() const;
+        virtual auto getWorldFragmentType() const -> WorldFragmentType;
 
         /** Returns the types of world fragments this query supports. */
-        virtual const std::set<WorldFragmentType>* getSupportedWorldFragmentTypes() const
+        virtual auto getSupportedWorldFragmentTypes() const -> const std::set<WorldFragmentType>*
             {return &mSupportedWorldFragments;}
 
         
@@ -204,13 +204,13 @@ class SceneManager;
             The implementor should return 'true' to continue returning objects,
             or 'false' to abandon any further results from this query.
         */
-        virtual bool queryResult(MovableObject* object) = 0;
+        virtual auto queryResult(MovableObject* object) -> bool = 0;
         /** Called when a WorldFragment is returned by a query.
         @remarks
             The implementor should return 'true' to continue returning objects,
             or 'false' to abandon any further results from this query.
         */
-        virtual bool queryResult(SceneQuery::WorldFragment* fragment) = 0;
+        virtual auto queryResult(SceneQuery::WorldFragment* fragment) -> bool = 0;
 
     };
 
@@ -247,7 +247,7 @@ class SceneManager;
             executed, or clearResults() is called. An more lightweight version of
             this method that returns results through a listener is also available.
         */
-        virtual SceneQueryResult& execute();
+        virtual auto execute() -> SceneQueryResult&;
 
         /** Executes the query and returns each match through a listener interface. 
         @remarks
@@ -261,7 +261,7 @@ class SceneManager;
         /** Gets the results of the last query that was run using this object, provided
             the query was executed using the collection-returning version of execute. 
         */
-        virtual SceneQueryResult& getLastResults() const;
+        virtual auto getLastResults() const -> SceneQueryResult&;
         /** Clears the results of the last query execution.
         @remarks
             You only need to call this if you specifically want to free up the memory
@@ -271,9 +271,9 @@ class SceneManager;
         virtual void clearResults();
 
         /** Self-callback in order to deal with execute which returns collection. */
-        bool queryResult(MovableObject* first);
+        auto queryResult(MovableObject* first) -> bool;
         /** Self-callback in order to deal with execute which returns collection. */
-        bool queryResult(SceneQuery::WorldFragment* fragment);
+        auto queryResult(SceneQuery::WorldFragment* fragment) -> bool;
     };
 
     /** Specialises the SceneQuery class for querying within an axis aligned box. */
@@ -289,7 +289,7 @@ class SceneManager;
         void setBox(const AxisAlignedBox& box);
 
         /** Gets the box which is being used for this query. */
-        const AxisAlignedBox& getBox() const;
+        auto getBox() const -> const AxisAlignedBox&;
 
     };
 
@@ -305,7 +305,7 @@ class SceneManager;
         void setSphere(const Sphere& sphere);
 
         /** Gets the sphere which is being used for this query. */
-        const Sphere& getSphere() const;
+        auto getSphere() const -> const Sphere&;
 
     };
 
@@ -322,7 +322,7 @@ class SceneManager;
         void setVolumes(const PlaneBoundedVolumeList& volumes);
 
         /** Gets the volume which is being used for this query. */
-        const PlaneBoundedVolumeList& getVolumes() const;
+        auto getVolumes() const -> const PlaneBoundedVolumeList&;
 
     };
 
@@ -341,7 +341,7 @@ class SceneManager;
             if further results are required, or 'false' to abandon any further results from
             the current query.
         */
-        virtual bool queryResult(MovableObject* obj, Real distance) = 0;
+        virtual auto queryResult(MovableObject* obj, Real distance) -> bool = 0;
 
         /** Called when a world fragment is intersected by the ray. 
         @remarks
@@ -349,7 +349,7 @@ class SceneManager;
             if further results are required, or 'false' to abandon any further results from
             the current query.
         */
-        virtual bool queryResult(SceneQuery::WorldFragment* fragment, Real distance) = 0;
+        virtual auto queryResult(SceneQuery::WorldFragment* fragment, Real distance) -> bool = 0;
 
     };
       
@@ -363,7 +363,7 @@ class SceneManager;
         /// The world fragment, or NULL if this is not a fragment result
         SceneQuery::WorldFragment* worldFragment;
         /// Comparison operator for sorting
-        bool operator < (const RaySceneQueryResultEntry& rhs) const
+        auto operator < (const RaySceneQueryResultEntry& rhs) const -> bool
         {
             return this->distance < rhs.distance;
         }
@@ -387,7 +387,7 @@ class SceneManager;
         /** Sets the ray which is to be used for this query. */
         virtual void setRay(const Ray& ray);
         /** Gets the ray which is to be used for this query. */
-        virtual const Ray& getRay() const;
+        virtual auto getRay() const -> const Ray&;
         /** Sets whether the results of this query will be sorted by distance along the ray.
         @remarks
             Often you want to know what was the first object a ray intersected with, and this 
@@ -408,10 +408,10 @@ class SceneManager;
         */
         virtual void setSortByDistance(bool sort, ushort maxresults = 0);
         /** Gets whether the results are sorted by distance. */
-        virtual bool getSortByDistance() const;
+        virtual auto getSortByDistance() const -> bool;
         /** Gets the maximum number of results returned from the query (only relevant if 
         results are being sorted) */
-        virtual ushort getMaxResults() const;
+        virtual auto getMaxResults() const -> ushort;
         /** Executes the query, returning the results back in one list.
         @remarks
             This method executes the scene query as configured, gathers the results
@@ -420,7 +420,7 @@ class SceneManager;
             executed, or clearResults() is called. An more lightweight version of
             this method that returns results through a listener is also available.
         */
-        virtual RaySceneQueryResult& execute();
+        virtual auto execute() -> RaySceneQueryResult&;
 
         /** Executes the query and returns each match through a listener interface. 
         @remarks
@@ -434,7 +434,7 @@ class SceneManager;
         /** Gets the results of the last query that was run using this object, provided
             the query was executed using the collection-returning version of execute. 
         */
-        virtual RaySceneQueryResult& getLastResults();
+        virtual auto getLastResults() -> RaySceneQueryResult&;
         /** Clears the results of the last query execution.
         @remarks
             You only need to call this if you specifically want to free up the memory
@@ -444,9 +444,9 @@ class SceneManager;
         virtual void clearResults();
 
         /** Self-callback in order to deal with execute which returns collection. */
-        bool queryResult(MovableObject* obj, Real distance);
+        auto queryResult(MovableObject* obj, Real distance) -> bool;
         /** Self-callback in order to deal with execute which returns collection. */
-        bool queryResult(SceneQuery::WorldFragment* fragment, Real distance);
+        auto queryResult(SceneQuery::WorldFragment* fragment, Real distance) -> bool;
 
 
 
@@ -468,7 +468,7 @@ class SceneManager;
             if further results are required, or 'false' to abandon any further results from
             the current query.
         */
-        virtual bool queryResult(MovableObject* first, MovableObject* second) = 0;
+        virtual auto queryResult(MovableObject* first, MovableObject* second) -> bool = 0;
 
         /** Called when a movable intersects a world fragment. 
         @remarks
@@ -476,7 +476,7 @@ class SceneManager;
             if further results are required, or 'false' to abandon any further results from
             the current query.
         */
-        virtual bool queryResult(MovableObject* movable, SceneQuery::WorldFragment* fragment) = 0;
+        virtual auto queryResult(MovableObject* movable, SceneQuery::WorldFragment* fragment) -> bool = 0;
 
         /* NB there are no results for world fragments intersecting other world fragments;
            it is assumed that world geometry is either static or at least that self-intersections
@@ -525,7 +525,7 @@ class SceneManager;
             executed, or clearResults() is called. An more lightweight version of
             this method that returns results through a listener is also available.
         */
-        virtual IntersectionSceneQueryResult& execute();
+        virtual auto execute() -> IntersectionSceneQueryResult&;
 
         /** Executes the query and returns each match through a listener interface. 
         @remarks
@@ -539,7 +539,7 @@ class SceneManager;
         /** Gets the results of the last query that was run using this object, provided
             the query was executed using the collection-returning version of execute. 
         */
-        virtual IntersectionSceneQueryResult& getLastResults() const;
+        virtual auto getLastResults() const -> IntersectionSceneQueryResult&;
         /** Clears the results of the last query execution.
         @remarks
             You only need to call this if you specifically want to free up the memory
@@ -549,9 +549,9 @@ class SceneManager;
         virtual void clearResults();
 
         /** Self-callback in order to deal with execute which returns collection. */
-        bool queryResult(MovableObject* first, MovableObject* second);
+        auto queryResult(MovableObject* first, MovableObject* second) -> bool;
         /** Self-callback in order to deal with execute which returns collection. */
-        bool queryResult(MovableObject* movable, SceneQuery::WorldFragment* fragment);
+        auto queryResult(MovableObject* movable, SceneQuery::WorldFragment* fragment) -> bool;
     };
     
     /** @} */

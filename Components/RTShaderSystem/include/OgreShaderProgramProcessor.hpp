@@ -73,13 +73,13 @@ public:
     @param programSet The program set container.
     Return true on success.
     */
-    virtual bool preCreateGpuPrograms(ProgramSet* programSet) = 0;
+    virtual auto preCreateGpuPrograms(ProgramSet* programSet) -> bool = 0;
 
     /** Called after creation of the GPU programs.
     @param programSet The program set container.
     Return true on success.
     */
-    virtual bool postCreateGpuPrograms(ProgramSet* programSet) = 0;
+    virtual auto postCreateGpuPrograms(ProgramSet* programSet) -> bool = 0;
  
 // Protected types.
 protected:
@@ -101,22 +101,22 @@ protected:
         void addSourceParameter(ParameterPtr srcParam, Operand::OpMask mask);
 
         /** Return the source parameter count. */
-        size_t getSourceParameterCount() const { return mSrcParameterCount; }
+        auto getSourceParameterCount() const -> size_t { return mSrcParameterCount; }
 
         /** Return source parameter by index. */
-        ParameterPtr getSourceParameter(unsigned int index) { return mSrcParameter[index]; }
+        auto getSourceParameter(unsigned int index) -> ParameterPtr { return mSrcParameter[index]; }
 
         /** Return source parameter mask by index. */
-        Operand::OpMask getSourceParameterMask(unsigned int index) const { return mSrcParameterMask[index]; }
+        auto getSourceParameterMask(unsigned int index) const -> Operand::OpMask { return mSrcParameterMask[index]; }
 
         /** Return destination parameter mask by index. */
-        Operand::OpMask getDestinationParameterMask(unsigned int index) const { return mDstParameterMask[index]; }
+        auto getDestinationParameterMask(unsigned int index) const -> Operand::OpMask { return mDstParameterMask[index]; }
 
         /** Return the number of used floats. */ 
-        int getUsedFloatCount();
+        auto getUsedFloatCount() -> int;
         
         /** Return the destination parameter. */
-        ParameterPtr getDestinationParameter(int usage, int index);
+        auto getDestinationParameter(int usage, int index) -> ParameterPtr;
 
     protected:
     
@@ -184,7 +184,7 @@ protected:
     @param fsMain The fragment shader entry function.
     Return true on success.
     */
-    virtual bool compactVsOutputs(Function* vsMain, Function* fsMain);
+    virtual auto compactVsOutputs(Function* vsMain, Function* fsMain) -> bool;
 
     /** Internal method that counts vertex shader texcoord output slots and output floats.
     @param vsMain The vertex shader entry function.
@@ -218,8 +218,8 @@ protected:
     @param paramsTable The params table sorted by types in each row.    
     @param mergedParameter Will hold the merged parameter.
     */
-    bool mergeParametersByCombination(const MergeCombination& combination, ShaderParameterList paramsTable[4], 
-                                                                 MergeParameter* mergedParameter);
+    auto mergeParametersByCombination(const MergeCombination& combination, ShaderParameterList paramsTable[4], 
+                                                                 MergeParameter* mergedParameter) -> bool;
 
     /** Merge reminders parameters that could not be merged into one slot using the predefined combinations.
     @param paramsTable The params table sorted by types in each row.    
@@ -249,13 +249,13 @@ protected:
     void replaceSplitParametersReferences(LocalParameterMap& localParamsMap, ParameterOperandMap& paramsRefMap);
 
     /** Return number of floats needed by the given type. */
-    static int getParameterFloatCount(GpuConstantType type);        
+    static auto getParameterFloatCount(GpuConstantType type) -> int;        
 
     /** Return the parameter mask of by the given parameter type (I.E: X|Y for FLOAT2 etc..) */
-    static Operand::OpMask getParameterMaskByType(GpuConstantType type);
+    static auto getParameterMaskByType(GpuConstantType type) -> Operand::OpMask;
     
     /** Return the parameter mask of by the float count type (I.E: X|Y for 2 etc..) */
-    static Operand::OpMask getParameterMaskByFloatCount(int floatCount);
+    static auto getParameterMaskByFloatCount(int floatCount) -> Operand::OpMask;
     
     /** Bind the auto parameters for a given CPU and GPU program set. */
     void bindAutoParameters(Program* pCpuProgram, GpuProgramPtr pGpuProgram);

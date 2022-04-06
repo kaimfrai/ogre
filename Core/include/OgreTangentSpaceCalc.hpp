@@ -116,7 +116,7 @@ class VertexData;
         void setStoreParityInW(bool enabled) { mStoreParityInW = enabled; }
 
         /**  Gets whether to store tangent space parity in the W of a 4-component tangent or not. */
-        bool getStoreParityInW() const { return mStoreParityInW; }
+        auto getStoreParityInW() const -> bool { return mStoreParityInW; }
 
         /** Sets whether or not to split vertices when a mirrored tangent space
             transition is detected (matrix parity differs).
@@ -137,7 +137,7 @@ class VertexData;
         /** Gets whether or not to split vertices when a mirrored tangent space
             transition is detected.
         */
-        bool getSplitMirrored() const { return mSplitMirrored; }
+        auto getSplitMirrored() const -> bool { return mSplitMirrored; }
 
         /** Sets whether or not to split vertices when tangent space rotates
             more than 90 degrees around a vertex.
@@ -157,7 +157,7 @@ class VertexData;
         /** Sets whether or not to split vertices when tangent space rotates
         more than 90 degrees around a vertex.
         */
-        bool getSplitRotated() const { return mSplitRotated; }
+        auto getSplitRotated() const -> bool { return mSplitRotated; }
 
         /** Build a tangent space basis from the provided data.
         @remarks
@@ -181,8 +181,8 @@ class VertexData;
             This is discontinuous, therefore the vertices have to be split along
             this edge, resulting in new vertices.
         */
-        Result build(VertexElementSemantic targetSemantic = VES_TANGENT,
-            unsigned short sourceTexCoordSet = 0, unsigned short index = 1);
+        auto build(VertexElementSemantic targetSemantic = VES_TANGENT,
+            unsigned short sourceTexCoordSet = 0, unsigned short index = 1) -> Result;
 
 
     private:
@@ -224,8 +224,8 @@ class VertexData;
         void processFaces(Result& result);
         /// Calculate face tangent space, U and V are weighted by UV area, N is normalised
         void calculateFaceTangentSpace(const size_t* vertInd, Vector3& tsU, Vector3& tsV, Vector3& tsN);
-        Real calculateAngleWeight(size_t v0, size_t v1, size_t v2);
-        int calculateParity(const Vector3& u, const Vector3& v, const Vector3& n);
+        auto calculateAngleWeight(size_t v0, size_t v1, size_t v2) -> Real;
+        auto calculateParity(const Vector3& u, const Vector3& v, const Vector3& n) -> int;
         void addFaceTangentSpaceToVertices(size_t indexSet, size_t faceIndex, size_t *localVertInd, 
             const Vector3& faceTsU, const Vector3& faceTsV, const Vector3& faceNorm, Result& result);
         void normaliseVertices();

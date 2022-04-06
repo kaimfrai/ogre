@@ -99,17 +99,17 @@ namespace Ogre
         /** Gets the current colour mask setting.
          @return An array containing the mask in RGBA order.
          */
-        uchar* getColourMask() { return mColourMask; }
+        auto getColourMask() -> uchar* { return mColourMask; }
 
         /** Gets the current depth mask setting.
          @return The current depth mask.
          */
-        uchar getDepthMask() const { return mDepthMask; }
+        auto getDepthMask() const -> uchar { return mDepthMask; }
 
         /** Gets the current stencil mask.
          @return The stencil mask.
          */
-        uint32 getStencilMask() const { return mStencilMask; }
+        auto getStencilMask() const -> uint32 { return mStencilMask; }
     };
 }
 

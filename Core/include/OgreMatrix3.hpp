@@ -98,17 +98,17 @@ namespace Ogre
         }
 
         /// Member access, allows use of construct mat[r][c]
-        const Real* operator[] (size_t iRow) const
+        auto operator[] (size_t iRow) const -> const Real*
         {
             return m[iRow];
         }
 
-        Real* operator[] (size_t iRow)
+        auto operator[] (size_t iRow) -> Real*
         {
             return m[iRow];
         }
 
-        Vector3 GetColumn(size_t iCol) const
+        auto GetColumn(size_t iCol) const -> Vector3
         {
             assert(iCol < 3);
             return {m[0][iCol], m[1][iCol], m[2][iCol]};
@@ -129,11 +129,11 @@ namespace Ogre
 
         /** Tests 2 matrices for equality.
          */
-        bool operator== (const Matrix3& rkMatrix) const;
+        auto operator== (const Matrix3& rkMatrix) const -> bool;
 
         /** Tests 2 matrices for inequality.
          */
-        bool operator!= (const Matrix3& rkMatrix) const
+        auto operator!= (const Matrix3& rkMatrix) const -> bool
         {
             return !operator==(rkMatrix);
         }
@@ -141,36 +141,36 @@ namespace Ogre
         // arithmetic operations
         /** Matrix addition.
          */
-        Matrix3 operator+ (const Matrix3& rkMatrix) const;
+        auto operator+ (const Matrix3& rkMatrix) const -> Matrix3;
 
         /** Matrix subtraction.
          */
-        Matrix3 operator- (const Matrix3& rkMatrix) const;
+        auto operator- (const Matrix3& rkMatrix) const -> Matrix3;
 
         /** Matrix concatenation using '*'.
          */
-        Matrix3 operator* (const Matrix3& rkMatrix) const;
-        Matrix3 operator- () const;
+        auto operator* (const Matrix3& rkMatrix) const -> Matrix3;
+        auto operator- () const -> Matrix3;
 
         /// Vector * matrix [1x3 * 3x3 = 1x3]
-        friend Vector3 operator* (const Vector3& rkVector,
-            const Matrix3& rkMatrix);
+        friend auto operator* (const Vector3& rkVector,
+            const Matrix3& rkMatrix) -> Vector3;
 
         /// Matrix * scalar
-        Matrix3 operator* (Real fScalar) const;
+        auto operator* (Real fScalar) const -> Matrix3;
 
         /// Scalar * matrix
-        friend Matrix3 operator* (Real fScalar, const Matrix3& rkMatrix);
+        friend auto operator* (Real fScalar, const Matrix3& rkMatrix) -> Matrix3;
 
         // utilities
-        Matrix3 Transpose () const;
-        bool Inverse (Matrix3& rkInverse, Real fTolerance = 1e-06f) const;
-        Matrix3 Inverse (Real fTolerance = 1e-06f) const;
-        Real Determinant() const { return determinant(); }
+        auto Transpose () const -> Matrix3;
+        auto Inverse (Matrix3& rkInverse, Real fTolerance = 1e-06f) const -> bool;
+        auto Inverse (Real fTolerance = 1e-06f) const -> Matrix3;
+        auto Determinant() const -> Real { return determinant(); }
 
-        Matrix3 transpose() const { return Transpose(); }
-        Matrix3 inverse() const { return Inverse(); }
-        Real determinant() const
+        auto transpose() const -> Matrix3 { return Transpose(); }
+        auto inverse() const -> Matrix3 { return Inverse(); }
+        auto determinant() const -> Real
         {
             Real fCofactor00 = m[1][1] * m[2][2] - m[1][2] * m[2][1];
             Real fCofactor10 = m[1][2] * m[2][0] - m[1][0] * m[2][2];
@@ -180,7 +180,7 @@ namespace Ogre
         }
 
         /** Determines if this matrix involves a negative scaling. */
-        bool hasNegativeScale() const { return determinant() < 0; }
+        auto hasNegativeScale() const -> bool { return determinant() < 0; }
 
         /// Singular value decomposition
         void SingularValueDecomposition (Matrix3& rkL, Vector3& rkS,
@@ -189,7 +189,7 @@ namespace Ogre
             const Vector3& rkS, const Matrix3& rkR);
 
         /// Gram-Schmidt orthogonalisation (applied to columns of rotation matrix)
-        Matrix3 orthonormalised() const
+        auto orthonormalised() const -> Matrix3
         {
             // Algorithm uses Gram-Schmidt orthogonalisation.  If 'this' matrix is
             // M = [m0|m1|m2], then orthonormal output matrix is Q = [q0|q1|q2],
@@ -221,7 +221,7 @@ namespace Ogre
         void QDUDecomposition (Matrix3& rkQ, Vector3& rkD,
             Vector3& rkU) const;
 
-        Real SpectralNorm () const;
+        auto SpectralNorm () const -> Real;
 
         /// Note: Matrix must be orthonormal
         void ToAngleAxis (Vector3& rkAxis, Radian& rfAngle) const;
@@ -245,12 +245,12 @@ namespace Ogre
             @note The matrix to be decomposed must be orthonormal.
             @{
         */
-        bool ToEulerAnglesXYZ(Radian& rfYAngle, Radian& rfPAngle, Radian& rfRAngle) const;
-        bool ToEulerAnglesXZY(Radian& rfYAngle, Radian& rfPAngle, Radian& rfRAngle) const;
-        bool ToEulerAnglesYXZ(Radian& rfYAngle, Radian& rfPAngle, Radian& rfRAngle) const;
-        bool ToEulerAnglesYZX(Radian& rfYAngle, Radian& rfPAngle, Radian& rfRAngle) const;
-        bool ToEulerAnglesZXY(Radian& rfYAngle, Radian& rfPAngle, Radian& rfRAngle) const;
-        bool ToEulerAnglesZYX(Radian& rfYAngle, Radian& rfPAngle, Radian& rfRAngle) const;
+        auto ToEulerAnglesXYZ(Radian& rfYAngle, Radian& rfPAngle, Radian& rfRAngle) const -> bool;
+        auto ToEulerAnglesXZY(Radian& rfYAngle, Radian& rfPAngle, Radian& rfRAngle) const -> bool;
+        auto ToEulerAnglesYXZ(Radian& rfYAngle, Radian& rfPAngle, Radian& rfRAngle) const -> bool;
+        auto ToEulerAnglesYZX(Radian& rfYAngle, Radian& rfPAngle, Radian& rfRAngle) const -> bool;
+        auto ToEulerAnglesZXY(Radian& rfYAngle, Radian& rfPAngle, Radian& rfRAngle) const -> bool;
+        auto ToEulerAnglesZYX(Radian& rfYAngle, Radian& rfPAngle, Radian& rfRAngle) const -> bool;
         void FromEulerAnglesXYZ (const Radian& fYAngle, const Radian& fPAngle, const Radian& fRAngle);
         void FromEulerAnglesXZY (const Radian& fYAngle, const Radian& fPAngle, const Radian& fRAngle);
         void FromEulerAnglesYXZ (const Radian& fYAngle, const Radian& fPAngle, const Radian& fRAngle);
@@ -266,7 +266,7 @@ namespace Ogre
             Matrix3& rkProduct);
 
         /** Determines if this matrix involves a scaling. */
-        bool hasScale() const
+        auto hasScale() const -> bool
         {
             // check magnitude of column vectors (==local axes)
             Real t = m[0][0] * m[0][0] + m[1][0] * m[1][0] + m[2][0] * m[2][0];
@@ -284,8 +284,8 @@ namespace Ogre
 
         /** Function for writing to a stream.
         */
-        inline friend std::ostream& operator <<
-            ( std::ostream& o, const Matrix3& mat )
+        inline friend auto operator <<
+            ( std::ostream& o, const Matrix3& mat ) -> std::ostream&
         {
             o << "Matrix3(" << mat[0][0] << ", " << mat[0][1] << ", " << mat[0][2] << "; "
                             << mat[1][0] << ", " << mat[1][1] << ", " << mat[1][2] << "; "
@@ -300,7 +300,7 @@ namespace Ogre
     private:
         // support for eigensolver
         void Tridiagonal (Real afDiag[3], Real afSubDiag[3]);
-        bool QLAlgorithm (Real afDiag[3], Real afSubDiag[3]);
+        auto QLAlgorithm (Real afDiag[3], Real afSubDiag[3]) -> bool;
 
         // support for singular value decomposition
         static const unsigned int msSvdMaxIterations;
@@ -310,7 +310,7 @@ namespace Ogre
             Matrix3& kR);
 
         // support for spectral norm
-        static Real MaxCubicRoot (Real afCoeff[3]);
+        static auto MaxCubicRoot (Real afCoeff[3]) -> Real;
 
         Real m[3][3];
 
@@ -319,7 +319,7 @@ namespace Ogre
     };
 
     /// Matrix * vector [3x3 * 3x1 = 3x1]
-    inline Vector3 operator*(const Matrix3& m, const Vector3& v)
+    inline auto operator*(const Matrix3& m, const Vector3& v) -> Vector3
     {
         return {
                 m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z,
@@ -327,7 +327,7 @@ namespace Ogre
                 m[2][0] * v.x + m[2][1] * v.y + m[2][2] * v.z};
     }
 
-    inline Matrix3 Math::lookRotation(const Vector3& direction, const Vector3& yaw)
+    inline auto Math::lookRotation(const Vector3& direction, const Vector3& yaw) -> Matrix3
     {
         Matrix3 ret;
         // cross twice to rederive, only direction is unaltered

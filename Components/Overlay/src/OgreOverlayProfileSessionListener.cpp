@@ -273,7 +273,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    OverlayContainer* OverlayProfileSessionListener::createContainer()
+    auto OverlayProfileSessionListener::createContainer() -> OverlayContainer*
     {
         OverlayContainer* container = (OverlayContainer*) 
             OverlayManager::getSingleton().createOverlayElement(
@@ -298,8 +298,8 @@ namespace Ogre
         return container;
     }
     //-----------------------------------------------------------------------
-    OverlayElement* OverlayProfileSessionListener::createTextArea(const String& name, Real width, Real height, Real top, Real left, 
-                                         uint fontSize, const String& caption, bool show)
+    auto OverlayProfileSessionListener::createTextArea(const String& name, Real width, Real height, Real top, Real left, 
+                                         uint fontSize, const String& caption, bool show) -> OverlayElement*
     {
         OverlayElement* textArea = OverlayManager::getSingleton().createOverlayElement("TextArea", name);
         textArea->setMetricsMode(GMM_PIXELS);
@@ -323,8 +323,8 @@ namespace Ogre
         return textArea;
     }
     //-----------------------------------------------------------------------
-    OverlayElement* OverlayProfileSessionListener::createPanel(const String& name, Real width, Real height, Real top, Real left, 
-                                      const String& materialName, bool show)
+    auto OverlayProfileSessionListener::createPanel(const String& name, Real width, Real height, Real top, Real left, 
+                                      const String& materialName, bool show) -> OverlayElement*
     {
         OverlayElement* panel = 
             OverlayManager::getSingleton().createOverlayElement("Panel", name);
@@ -353,22 +353,22 @@ namespace Ogre
         mProfileGui->setPosition(left, top);
     }
     //---------------------------------------------------------------------
-    Real OverlayProfileSessionListener::getOverlayWidth() const
+    auto OverlayProfileSessionListener::getOverlayWidth() const -> Real
     {
         return mGuiWidth;
     }
     //---------------------------------------------------------------------
-    Real OverlayProfileSessionListener::getOverlayHeight() const
+    auto OverlayProfileSessionListener::getOverlayHeight() const -> Real
     {
         return mGuiHeight;
     }
     //---------------------------------------------------------------------
-    Real OverlayProfileSessionListener::getOverlayLeft() const
+    auto OverlayProfileSessionListener::getOverlayLeft() const -> Real
     {
         return mGuiLeft;
     }
     //---------------------------------------------------------------------
-    Real OverlayProfileSessionListener::getOverlayTop() const
+    auto OverlayProfileSessionListener::getOverlayTop() const -> Real
     {
         return mGuiTop;
     }

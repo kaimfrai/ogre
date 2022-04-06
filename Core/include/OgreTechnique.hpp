@@ -94,7 +94,7 @@ class Material;
         /// Internal method for clearing illumination pass list
         void clearIlluminationPasses();
         /// Internal method - check for manually assigned illumination passes
-        bool checkManuallyOrganisedIlluminationPasses();
+        auto checkManuallyOrganisedIlluminationPasses() -> bool;
 
 
         /** When casting shadow, if not using default Ogre shadow casting material, or 
@@ -168,14 +168,14 @@ class Material;
             This will only be correct after the Technique has been compiled, which is
             usually done from Material::compile.
         */
-        bool isSupported() const;
+        auto isSupported() const -> bool;
         /** Internal compilation method; see Material::compile. 
         @return Any information explaining problems with the compile.
         */
-        String _compile(bool autoManageTextureUnits);
+        auto _compile(bool autoManageTextureUnits) -> String;
         /// Internal method for checking hardware support
-        bool checkHardwareSupport(bool autoManageTextureUnits, StringStream& compileErrors);
-        size_t calculateSize() const;
+        auto checkHardwareSupport(bool autoManageTextureUnits, StringStream& compileErrors) -> bool;
+        auto calculateSize() const -> size_t;
 
         typedef VectorIterator<Passes> PassIterator;
         typedef VectorIterator<IlluminationPassList> IlluminationPassIterator;
@@ -191,15 +191,15 @@ class Material;
             that you create an alternative fallback Technique for if a card does not have 
             enough facilities for what you're asking for.
         */
-        Pass* createPass();
+        auto createPass() -> Pass*;
         /** Retrieves the Pass with the given index.*/
-        Pass* getPass(size_t index) const { return mPasses.at(index); }
+        auto getPass(size_t index) const -> Pass* { return mPasses.at(index); }
         /** Retrieves the Pass matching name.
             Returns 0 if name match is not found.
         */
-        Pass* getPass(const String& name) const;
+        auto getPass(const String& name) const -> Pass*;
         /** Retrieves the number of passes. */
-        size_t getNumPasses() const { return mPasses.size(); }
+        auto getNumPasses() const -> size_t { return mPasses.size(); }
         /** Removes the Pass with the given index. */
         void removePass(unsigned short index);
         /** Removes all Passes from this Technique. */
@@ -207,29 +207,29 @@ class Material;
         /** Move a pass from source index to destination index.
             If successful then returns true.
         */
-        bool movePass(const unsigned short sourceIndex, const unsigned short destinationIndex);
+        auto movePass(const unsigned short sourceIndex, const unsigned short destinationIndex) -> bool;
 
         /** Gets the passes in this Technique. */
-        const Passes& getPasses() const {
+        auto getPasses() const -> const Passes& {
             return mPasses;
         }
 
         /** Gets the illumination-stage categorised passes
          * @note triggers compilation if needed */
-        const IlluminationPassList& getIlluminationPasses();
+        auto getIlluminationPasses() -> const IlluminationPassList&;
 
         /** Internal method for splitting the passes into illumination passes. */
         void _compileIlluminationPasses();
         /// @}
 
         /// Gets the parent Material
-        Material* getParent() const { return mParent; }
+        auto getParent() const -> Material* { return mParent; }
 
         /** Overloaded operator to copy on Technique to another. */
-        Technique& operator=(const Technique& rhs);
+        auto operator=(const Technique& rhs) -> Technique&;
 
         /// Gets the resource group of the ultimate parent Material
-        const String& getResourceGroup() const;
+        auto getResourceGroup() const -> const String&;
 
         /** Returns true if this Technique involves transparency. 
         @remarks
@@ -239,21 +239,21 @@ class Material;
             scene, may be used for blending, therefore we have to treat
             the whole Technique as transparent.
         */
-        bool isTransparent() const;
+        auto isTransparent() const -> bool;
 
         /** Returns true if this Technique has transparent sorting enabled. 
         @remarks
             This basically boils down to whether the first pass
             has transparent sorting enabled or not
         */
-        bool isTransparentSortingEnabled() const;
+        auto isTransparentSortingEnabled() const -> bool;
 
         /** Returns true if this Technique has transparent sorting forced. 
         @remarks
             This basically boils down to whether the first pass
             has transparent sorting forced or not
         */
-        bool isTransparentSortingForced() const;
+        auto isTransparentSortingForced() const -> bool;
 
         /** Internal prepare method, derived from call to Material::prepare. */
         void _prepare();
@@ -265,7 +265,7 @@ class Material;
         void _unload();
 
         /// Is this loaded?
-        bool isLoaded() const;
+        auto isLoaded() const -> bool;
 
         /** Tells the technique that it needs recompilation. */
         void _notifyNeedsRecompile();
@@ -274,7 +274,7 @@ class Material;
         /// @{
         /** return this material specific  shadow casting specific material
         */
-        MaterialPtr getShadowCasterMaterial() const;
+        auto getShadowCasterMaterial() const -> MaterialPtr;
         /** Sets the details of the material to use when rendering as a
             shadow caster.
             @remarks
@@ -299,7 +299,7 @@ class Material;
         void setShadowCasterMaterial(const String &name);
         /** return this material specific shadow receiving specific material
         */
-        MaterialPtr getShadowReceiverMaterial() const;
+        auto getShadowReceiverMaterial() const -> MaterialPtr;
         /** set this material specific  shadow receiving specific material
         */
         void setShadowReceiverMaterial(MaterialPtr val);
@@ -575,7 +575,7 @@ class Material;
         */
         void setLodIndex(unsigned short index);
         /** Gets the level-of-detail index assigned to this Technique. */
-        unsigned short getLodIndex() const { return mLodIndex; }
+        auto getLodIndex() const -> unsigned short { return mLodIndex; }
 
         /** Set the 'scheme name' for this technique. 
         @remarks
@@ -598,19 +598,19 @@ class Material;
         /** Returns the scheme to which this technique is assigned.
             @see Technique::setSchemeName
         */
-        const String& getSchemeName() const;
+        auto getSchemeName() const -> const String&;
         
         /// Internal method for getting the scheme index
-        unsigned short _getSchemeIndex() const;
+        auto _getSchemeIndex() const -> unsigned short;
             
         /** Is depth writing going to occur on this technique? */
-        bool isDepthWriteEnabled() const;
+        auto isDepthWriteEnabled() const -> bool;
 
         /** Is depth checking going to occur on this technique? */
-        bool isDepthCheckEnabled() const;
+        auto isDepthCheckEnabled() const -> bool;
 
         /** Exists colour writing disabled pass on this technique? */
-        bool hasColourWriteDisabled() const;
+        auto hasColourWriteDisabled() const -> bool;
 
         /** Set the name of the technique.
         @remarks
@@ -619,7 +619,7 @@ class Material;
         */
         void setName(const String& name);
         /// Gets the name of the technique
-        const String& getName() const { return mName; }
+        auto getName() const -> const String& { return mName; }
 
         typedef ConstVectorIterator<GPUVendorRuleList> GPUVendorRuleIterator;
         typedef ConstVectorIterator<GPUDeviceNameRuleList> GPUDeviceNameRuleIterator;
@@ -627,7 +627,7 @@ class Material;
         /// @{
 
         /// Internal method for checking GPU vendor / device rules
-        bool checkGPURules(StringStream& errors);
+        auto checkGPURules(StringStream& errors) -> bool;
         /** Add a rule which manually influences the support for this technique based
             on a GPU vendor.
         @remarks
@@ -664,7 +664,7 @@ class Material;
         void removeGPUVendorRule(GPUVendor vendor);
 
         /// Get the currently registered vendor rules.
-        const GPUVendorRuleList& getGPUVendorRules() const {
+        auto getGPUVendorRules() const -> const GPUVendorRuleList& {
             return mGPUVendorRules;
         }
 
@@ -694,20 +694,20 @@ class Material;
         void removeGPUDeviceNameRule(const String& devicePattern);
 
         /// Get the currently registered device name rules.
-        const GPUDeviceNameRuleList& getGPUDeviceNameRules() const { return mGPUDeviceNameRules; }
+        auto getGPUDeviceNameRules() const -> const GPUDeviceNameRuleList& { return mGPUDeviceNameRules; }
         /// @}
 
         /** Return an instance of user objects binding associated with this class.
         You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.
         */
-        UserObjectBindings& getUserObjectBindings() { return mUserObjectBindings; }
+        auto getUserObjectBindings() -> UserObjectBindings& { return mUserObjectBindings; }
 
         /** Return an instance of user objects binding associated with this class.
         You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.        
         */
-        const UserObjectBindings& getUserObjectBindings() const { return mUserObjectBindings; }
+        auto getUserObjectBindings() const -> const UserObjectBindings& { return mUserObjectBindings; }
 
     };
 

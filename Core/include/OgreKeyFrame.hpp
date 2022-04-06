@@ -67,12 +67,11 @@ class AnimationTrack;
         virtual ~KeyFrame() {}
 
         /** Gets the time of this keyframe in the animation sequence. */
-        Real getTime() const { return mTime; }
+        auto getTime() const -> Real { return mTime; }
 
         /** Clone a keyframe (internal use only) */
         [[nodiscard]]
-        virtual KeyFrame* _clone(AnimationTrack* newParent) const;
-
+        virtual auto _clone(AnimationTrack* newParent) const -> KeyFrame*;
 
     protected:
         Real mTime;
@@ -90,7 +89,7 @@ class AnimationTrack;
         ~NumericKeyFrame() {}
 
         /** Get the value at this keyframe. */
-        virtual const AnyNumeric& getValue() const;
+        virtual auto getValue() const -> const AnyNumeric&;
         /** Set the value at this keyframe.
         @remarks
             All keyframe values must have a consistent type. 
@@ -98,7 +97,7 @@ class AnimationTrack;
         virtual void setValue(const AnyNumeric& val);
 
         /** Clone a keyframe (internal use only) */
-        KeyFrame* _clone(AnimationTrack* newParent) const;
+        auto _clone(AnimationTrack* newParent) const -> KeyFrame*;
     private:
         AnyNumeric mValue;
     };
@@ -120,7 +119,7 @@ class AnimationTrack;
         virtual void setTranslate(const Vector3& trans);
 
         /** Gets the translation applied by this keyframe. */
-        const Vector3& getTranslate() const;
+        auto getTranslate() const -> const Vector3&;
 
         /** Sets the scaling factor applied by this keyframe to the animable
         object at it's time index.
@@ -130,7 +129,7 @@ class AnimationTrack;
         virtual void setScale(const Vector3& scale);
 
         /** Gets the scaling factor applied by this keyframe. */
-        virtual const Vector3& getScale() const;
+        virtual auto getScale() const -> const Vector3&;
 
         /** Sets the rotation applied by this keyframe.
         @param rot The rotation applied; use Quaternion methods to convert from angle/axis or Matrix3 if
@@ -139,10 +138,10 @@ class AnimationTrack;
         virtual void setRotation(const Quaternion& rot);
 
         /** Gets the rotation applied by this keyframe. */
-        virtual const Quaternion& getRotation() const;
+        virtual auto getRotation() const -> const Quaternion&;
 
         /** Clone a keyframe (internal use only) */
-        KeyFrame* _clone(AnimationTrack* newParent) const;
+        auto _clone(AnimationTrack* newParent) const -> KeyFrame*;
     private:
         Vector3 mTranslate;
         Vector3 mScale;
@@ -172,10 +171,10 @@ class AnimationTrack;
         void setVertexBuffer(const HardwareVertexBufferSharedPtr& buf);
 
         /** Gets the vertex buffer containing positions for this keyframe. */
-        const HardwareVertexBufferSharedPtr& getVertexBuffer() const;
+        auto getVertexBuffer() const -> const HardwareVertexBufferSharedPtr&;
 
         /** Clone a keyframe (internal use only) */
-        KeyFrame* _clone(AnimationTrack* newParent) const;      
+        auto _clone(AnimationTrack* newParent) const -> KeyFrame*;      
 
     private:
         HardwareVertexBufferSharedPtr mBuffer;
@@ -233,12 +232,12 @@ class AnimationTrack;
 
 
         /** Get a const reference to the list of pose references. */
-        const PoseRefList& getPoseReferences() const;
+        auto getPoseReferences() const -> const PoseRefList&;
 
         typedef VectorIterator<PoseRefList> PoseRefIterator;
         typedef ConstVectorIterator<PoseRefList> ConstPoseRefIterator;
         /** Clone a keyframe (internal use only) */
-        KeyFrame* _clone(AnimationTrack* newParent) const;
+        auto _clone(AnimationTrack* newParent) const -> KeyFrame*;
         
         void _applyBaseKeyFrame(const VertexPoseKeyFrame* base);
         

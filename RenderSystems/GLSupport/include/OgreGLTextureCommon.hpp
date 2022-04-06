@@ -47,7 +47,7 @@ public:
     {
     }
 
-    uint getGLID() const { return mTextureID; }
+    auto getGLID() const -> uint { return mTextureID; }
 
     void getCustomAttribute(const String& name, void* pData);
 
@@ -57,7 +57,7 @@ protected:
 
         @return how many times we can divide this texture in 2 until we reach 1x1.
     */
-    uint32 getMaxMipmaps();
+    auto getMaxMipmaps() -> uint32;
 
     uint mTextureID;
 };

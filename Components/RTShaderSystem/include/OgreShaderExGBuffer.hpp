@@ -78,12 +78,12 @@ public:
     /**
     @see SubRenderState::getType.
     */
-    virtual const String& getType() const;
+    virtual auto getType() const -> const String&;
 
     /**
     @see SubRenderState::getExecutionOrder.
     */
-    virtual int getExecutionOrder() const;
+    virtual auto getExecutionOrder() const -> int;
 
     /**
     @see SubRenderState::copyFrom.
@@ -93,9 +93,9 @@ public:
     /**
     @see SubRenderState::createCpuSubPrograms.
     */
-    virtual bool createCpuSubPrograms(ProgramSet* programSet);
+    virtual auto createCpuSubPrograms(ProgramSet* programSet) -> bool;
 
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass);
+    auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool;
 
     void setOutBuffers(const TargetBuffers& buffers) { mOutBuffers = buffers; }
 
@@ -120,13 +120,13 @@ public:
     /**
     @see SubRenderStateFactory::getType.
     */
-    virtual const String& getType() const;
+    virtual auto getType() const -> const String&;
 
     /**
     @see SubRenderStateFactory::createInstance.
     */
-    virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                           SGScriptTranslator* translator);
+    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
+                                           SGScriptTranslator* translator) -> SubRenderState*;
 
     /**
     @see SubRenderStateFactory::writeInstance.
@@ -137,7 +137,7 @@ protected:
     /**
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual SubRenderState* createInstanceImpl();
+    virtual auto createInstanceImpl() -> SubRenderState*;
 };
 
 /** @} */

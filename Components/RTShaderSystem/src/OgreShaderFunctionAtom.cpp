@@ -55,7 +55,7 @@ Operand::Operand(const Operand& other)
     *this = other;
 }
 //-----------------------------------------------------------------------------
-Operand& Operand::operator= (const Operand & other)
+auto Operand::operator= (const Operand & other) -> Operand&
 {
     if (this != &other) 
     {
@@ -120,7 +120,7 @@ static void writeMask(std::ostream& os, int mask)
 }
 
 //-----------------------------------------------------------------------------
-int Operand::getFloatCount(int mask)
+auto Operand::getFloatCount(int mask) -> int
 {
     int floatCount = 0;
 
@@ -151,7 +151,7 @@ FunctionAtom::FunctionAtom()
 }
 
 //-----------------------------------------------------------------------------
-int FunctionAtom::getGroupExecutionOrder() const
+auto FunctionAtom::getGroupExecutionOrder() const -> int
 {
     return mGroupExecutionOrder;
 }
@@ -187,7 +187,7 @@ void FunctionInvocation::writeSourceCode(std::ostream& os, const String& targetL
 }
 
 //-----------------------------------------------------------------------
-static String parameterNullMsg(const String& name, size_t pos)
+static auto parameterNullMsg(const String& name, size_t pos) -> String
 {
     return StringUtil::format("%s: parameter #%zu is NULL", name.c_str(), pos);
 }
@@ -260,24 +260,24 @@ void FunctionAtom::writeOperands(std::ostream& os, OperandVector::const_iterator
 }
 
 //-----------------------------------------------------------------------
-bool FunctionInvocation::operator == ( const FunctionInvocation& rhs ) const
+auto FunctionInvocation::operator == ( const FunctionInvocation& rhs ) const -> bool
 {
     return FunctionInvocationCompare()(*this, rhs);
 }
 
 //-----------------------------------------------------------------------
-bool FunctionInvocation::operator != ( const FunctionInvocation& rhs ) const
+auto FunctionInvocation::operator != ( const FunctionInvocation& rhs ) const -> bool
 {
     return !(*this == rhs);
 }
 
 //-----------------------------------------------------------------------
-bool FunctionInvocation::operator < ( const FunctionInvocation& rhs ) const
+auto FunctionInvocation::operator < ( const FunctionInvocation& rhs ) const -> bool
 {
     return FunctionInvocationLessThan()(*this, rhs);
 }
 
-static uchar getSwizzledSize(const Operand& op)
+static auto getSwizzledSize(const Operand& op) -> uchar
 {
     auto gct = op.getParameter()->getType();
     if (op.getMask() == Operand::OPM_ALL)
@@ -286,7 +286,7 @@ static uchar getSwizzledSize(const Operand& op)
     return Operand::getFloatCount(op.getMask());
 }
 
-bool FunctionInvocation::FunctionInvocationLessThan::operator ()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const
+auto FunctionInvocation::FunctionInvocationLessThan::operator ()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const -> bool
 {
     // Check the function names first
     // Adding an exception to std::string sorting.  I feel that functions beginning with an underscore should be placed before
@@ -343,7 +343,7 @@ bool FunctionInvocation::FunctionInvocationLessThan::operator ()(FunctionInvocat
     return false;
 }
 
-bool FunctionInvocation::FunctionInvocationCompare::operator ()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const
+auto FunctionInvocation::FunctionInvocationCompare::operator ()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const -> bool
 {
     // Check the function names first
     if (lhs.getFunctionName() != rhs.getFunctionName())

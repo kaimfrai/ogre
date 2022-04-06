@@ -43,8 +43,8 @@ namespace Ogre
 {
 	// resolve circular dependancy
     class Any;
-    template<typename ValueType> ValueType
-    any_cast(const Any & operand);
+    template<typename ValueType> auto
+    any_cast(const Any & operand) -> ValueType;
 
     /** \addtogroup Core
     *  @{
@@ -81,20 +81,20 @@ namespace Ogre
 
     public: // modifiers
 
-        Any& swap(Any & rhs)
+        auto swap(Any & rhs) -> Any&
         {
             std::swap(mContent, rhs.mContent);
             return *this;
         }
 
         template<typename ValueType>
-        Any& operator=(const ValueType & rhs)
+        auto operator=(const ValueType & rhs) -> Any&
         {
             Any(rhs).swap(*this);
             return *this;
         }
 
-        Any & operator=(const Any & rhs)
+        auto operator=(const Any & rhs) -> Any &
         {
             Any(rhs).swap(*this);
             return *this;
@@ -102,12 +102,12 @@ namespace Ogre
 
     public: // queries
 
-        bool has_value() const
+        auto has_value() const -> bool
         {
             return mContent != NULL;
         }
 
-        const std::type_info& type() const
+        auto type() const -> const std::type_info&
         {
             return mContent ? mContent->getType() : typeid(void);
         }
@@ -130,9 +130,9 @@ namespace Ogre
 
         public: // queries
 
-            virtual const std::type_info& getType() const = 0;
+            virtual auto getType() const -> const std::type_info& = 0;
 
-            virtual placeholder * clone() const = 0;
+            virtual auto clone() const -> placeholder * = 0;
     
             virtual void writeToStream(std::ostream& o) = 0;
 
@@ -150,12 +150,12 @@ namespace Ogre
 
         public: // queries
 
-            virtual const std::type_info & getType() const
+            virtual auto getType() const -> const std::type_info &
             {
                 return typeid(ValueType);
             }
 
-            virtual placeholder * clone() const
+            virtual auto clone() const -> placeholder *
             {
                 return new holder(held);
             }
@@ -174,7 +174,7 @@ namespace Ogre
         placeholder * mContent;
 
         template<typename ValueType>
-        friend ValueType * any_cast(Any *);
+        friend auto any_cast(Any *) -> ValueType *;
     };
 
 
@@ -210,11 +210,11 @@ namespace Ogre
             ~numplaceholder()
             {
             }
-            virtual placeholder* add(placeholder* rhs) = 0;
-            virtual placeholder* subtract(placeholder* rhs) = 0;
-            virtual placeholder* multiply(placeholder* rhs) = 0;
-            virtual placeholder* multiply(Real factor) = 0;
-            virtual placeholder* divide(placeholder* rhs) = 0;
+            virtual auto add(placeholder* rhs) -> placeholder* = 0;
+            virtual auto subtract(placeholder* rhs) -> placeholder* = 0;
+            virtual auto multiply(placeholder* rhs) -> placeholder* = 0;
+            virtual auto multiply(Real factor) -> placeholder* = 0;
+            virtual auto divide(placeholder* rhs) -> placeholder* = 0;
         };
 
         template<typename ValueType>
@@ -229,33 +229,33 @@ namespace Ogre
 
         public: // queries
 
-            virtual const std::type_info & getType() const
+            virtual auto getType() const -> const std::type_info &
             {
                 return typeid(ValueType);
             }
 
-            virtual placeholder * clone() const
+            virtual auto clone() const -> placeholder *
             {
                 return new numholder(held);
             }
 
-            virtual placeholder* add(placeholder* rhs)
+            virtual auto add(placeholder* rhs) -> placeholder*
             {
                 return new numholder(held + static_cast<numholder*>(rhs)->held);
             }
-            virtual placeholder* subtract(placeholder* rhs)
+            virtual auto subtract(placeholder* rhs) -> placeholder*
             {
                 return new numholder(held - static_cast<numholder*>(rhs)->held);
             }
-            virtual placeholder* multiply(placeholder* rhs)
+            virtual auto multiply(placeholder* rhs) -> placeholder*
             {
                 return new numholder(held * static_cast<numholder*>(rhs)->held);
             }
-            virtual placeholder* multiply(Real factor)
+            virtual auto multiply(Real factor) -> placeholder*
             {
                 return new numholder(held * factor);
             }
-            virtual placeholder* divide(placeholder* rhs)
+            virtual auto divide(placeholder* rhs) -> placeholder*
             {
                 return new numholder(held / static_cast<numholder*>(rhs)->held);
             }
@@ -277,55 +277,55 @@ namespace Ogre
         }
 
     public:
-        AnyNumeric & operator=(const AnyNumeric & rhs)
+        auto operator=(const AnyNumeric & rhs) -> AnyNumeric &
         {
             AnyNumeric(rhs).swap(*this);
             return *this;
         }
-        AnyNumeric operator+(const AnyNumeric& rhs) const
+        auto operator+(const AnyNumeric& rhs) const -> AnyNumeric
         {
             return {
                 static_cast<numplaceholder*>(mContent)->add(rhs.mContent)};
         }
-        AnyNumeric operator-(const AnyNumeric& rhs) const
+        auto operator-(const AnyNumeric& rhs) const -> AnyNumeric
         {
             return {
                 static_cast<numplaceholder*>(mContent)->subtract(rhs.mContent)};
         }
-        AnyNumeric operator*(const AnyNumeric& rhs) const
+        auto operator*(const AnyNumeric& rhs) const -> AnyNumeric
         {
             return {
                 static_cast<numplaceholder*>(mContent)->multiply(rhs.mContent)};
         }
-        AnyNumeric operator*(Real factor) const
+        auto operator*(Real factor) const -> AnyNumeric
         {
             return {
                 static_cast<numplaceholder*>(mContent)->multiply(factor)};
         }
-        AnyNumeric operator/(const AnyNumeric& rhs) const
+        auto operator/(const AnyNumeric& rhs) const -> AnyNumeric
         {
             return {
                 static_cast<numplaceholder*>(mContent)->divide(rhs.mContent)};
         }
-        AnyNumeric& operator+=(const AnyNumeric& rhs)
+        auto operator+=(const AnyNumeric& rhs) -> AnyNumeric&
         {
             *this = AnyNumeric(
                 static_cast<numplaceholder*>(mContent)->add(rhs.mContent));
             return *this;
         }
-        AnyNumeric& operator-=(const AnyNumeric& rhs)
+        auto operator-=(const AnyNumeric& rhs) -> AnyNumeric&
         {
             *this = AnyNumeric(
                 static_cast<numplaceholder*>(mContent)->subtract(rhs.mContent));
             return *this;
         }
-        AnyNumeric& operator*=(const AnyNumeric& rhs)
+        auto operator*=(const AnyNumeric& rhs) -> AnyNumeric&
         {
             *this = AnyNumeric(
                 static_cast<numplaceholder*>(mContent)->multiply(rhs.mContent));
             return *this;
         }
-        AnyNumeric& operator/=(const AnyNumeric& rhs)
+        auto operator/=(const AnyNumeric& rhs) -> AnyNumeric&
         {
             *this = AnyNumeric(
                 static_cast<numplaceholder*>(mContent)->divide(rhs.mContent));
@@ -339,7 +339,7 @@ namespace Ogre
 
 
     template<typename ValueType>
-    ValueType * any_cast(Any * operand)
+    auto any_cast(Any * operand) -> ValueType *
     {
         return operand &&
                 (operand->type() == typeid(ValueType))
@@ -348,13 +348,13 @@ namespace Ogre
     }
 
     template<typename ValueType>
-    const ValueType * any_cast(const Any * operand)
+    auto any_cast(const Any * operand) -> const ValueType *
     {
         return any_cast<ValueType>(const_cast<Any *>(operand));
     }
 
     template<typename ValueType>
-    ValueType any_cast(const Any & operand)
+    auto any_cast(const Any & operand) -> ValueType
     {
         const ValueType * result = any_cast<ValueType>(&operand);
         if(!result)

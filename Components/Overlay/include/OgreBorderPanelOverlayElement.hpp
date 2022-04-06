@@ -79,7 +79,7 @@ class RenderQueue;
         /** @copydoc OverlayElement::_restoreManualHardwareResources */
         virtual void _restoreManualHardwareResources();
 
-        const String& getTypeName() const;
+        auto getTypeName() const -> const String&;
         /** @name Border Size
             Remember that the dimensions specified here are in relation to the size of
             the screen, so 0.1 is 1/10th of the screen width or height. Also note that because
@@ -116,13 +116,13 @@ class RenderQueue;
         void setBorderSize(Real left, Real right, Real top, Real bottom);
 
         /** Gets the size of the left border. */
-        Real getLeftBorderSize() const;
+        auto getLeftBorderSize() const -> Real;
         /** Gets the size of the right border. */
-        Real getRightBorderSize() const;
+        auto getRightBorderSize() const -> Real;
         /** Gets the size of the top border. */
-        Real getTopBorderSize() const;
+        auto getTopBorderSize() const -> Real;
         /** Gets the size of the bottom border. */
-        Real getBottomBorderSize() const;
+        auto getBottomBorderSize() const -> Real;
         /// @}
 
         /** @name Border UV Coordinates
@@ -160,20 +160,20 @@ class RenderQueue;
         */
         void setBottomRightBorderUV(Real u1, Real v1, Real u2, Real v2);
 
-        String getLeftBorderUVString() const;
-        String getRightBorderUVString() const;
-        String getTopBorderUVString() const;
-        String getBottomBorderUVString() const;
-        String getTopLeftBorderUVString() const;
-        String getTopRightBorderUVString() const;
-        String getBottomLeftBorderUVString() const;
-        String getBottomRightBorderUVString() const;
+        auto getLeftBorderUVString() const -> String;
+        auto getRightBorderUVString() const -> String;
+        auto getTopBorderUVString() const -> String;
+        auto getBottomBorderUVString() const -> String;
+        auto getTopLeftBorderUVString() const -> String;
+        auto getTopRightBorderUVString() const -> String;
+        auto getBottomLeftBorderUVString() const -> String;
+        auto getBottomRightBorderUVString() const -> String;
         /// @}
 
         /** Sets the name of the material to use for the borders. */
         void setBorderMaterialName(const String& name, const String& group = DEFAULT_RESOURCE_GROUP );
         /** Gets the name of the material to use for the borders. */
-        const String& getBorderMaterialName() const;
+        auto getBorderMaterialName() const -> const String&;
 
         /** @copydoc OverlayContainer::_updateRenderQueue */
         void _updateRenderQueue(RenderQueue* queue);
@@ -225,7 +225,7 @@ class RenderQueue;
             BCELL_BOTTOM = 6,
             BCELL_BOTTOM_RIGHT = 7
         };
-        String getCellUVString(BorderCellIndex idx) const;
+        auto getCellUVString(BorderCellIndex idx) const -> String;
 
         BorderRenderable* mBorderRenderable;
     };
@@ -247,12 +247,12 @@ class RenderQueue;
             mUseIdentityView = true;
             mPolygonModeOverrideable = parent->getPolygonModeOverrideable();
         }
-        const MaterialPtr& getMaterial() const { return mParent->mBorderMaterial; }
+        auto getMaterial() const -> const MaterialPtr& { return mParent->mBorderMaterial; }
         void getRenderOperation(RenderOperation& op) { op = mParent->mRenderOp2; }
         void getWorldTransforms(Matrix4* xform) const { mParent->getWorldTransforms(xform); }
-        unsigned short getNumWorldTransforms() const { return 1; }
-        Real getSquaredViewDepth(const Camera* cam) const { return mParent->getSquaredViewDepth(cam); }
-        const LightList& getLights() const
+        auto getNumWorldTransforms() const -> unsigned short { return 1; }
+        auto getSquaredViewDepth(const Camera* cam) const -> Real { return mParent->getSquaredViewDepth(cam); }
+        auto getLights() const -> const LightList&
         {
             // N/A, panels are not lit
             static LightList ll;

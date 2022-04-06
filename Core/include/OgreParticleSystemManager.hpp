@@ -110,10 +110,10 @@ class ParticleSystemRenderer;
         ParticleSystemFactory* mFactory;
 
         /// Internal implementation of createSystem
-        ParticleSystem* createSystemImpl(const String& name, size_t quota, 
-            const String& resourceGroup);
+        auto createSystemImpl(const String& name, size_t quota, 
+            const String& resourceGroup) -> ParticleSystem*;
         /// Internal implementation of createSystem
-        ParticleSystem* createSystemImpl(const String& name, const String& templateName);
+        auto createSystemImpl(const String& name, const String& templateName) -> ParticleSystem*;
         
     public:
 
@@ -227,14 +227,14 @@ class ParticleSystemRenderer;
             load any dependent resources.
             
         */
-        ParticleSystem* createTemplate(const String& name, const String& resourceGroup);
+        auto createTemplate(const String& name, const String& resourceGroup) -> ParticleSystem*;
 
         /** Retrieves a particle system template for possible modification. 
         @remarks
             Modifying a template does not affect the settings on any ParticleSystems already created
             from this template.
         */
-        ParticleSystem* getTemplate(const String& name);
+        auto getTemplate(const String& name) -> ParticleSystem*;
 
         /** Internal method for creating a new emitter from a factory.
         @remarks
@@ -246,7 +246,7 @@ class ParticleSystemRenderer;
         @param psys
             The particle system this is being created for
         */
-        ParticleEmitter* _createEmitter(const String& emitterType, ParticleSystem* psys);
+        auto _createEmitter(const String& emitterType, ParticleSystem* psys) -> ParticleEmitter*;
 
         /** Internal method for destroying an emitter.
         @remarks
@@ -268,7 +268,7 @@ class ParticleSystemRenderer;
         @param psys
             The particle system it is being created for
         */
-        ParticleAffector* _createAffector(const String& affectorType, ParticleSystem* psys);
+        auto _createAffector(const String& affectorType, ParticleSystem* psys) -> ParticleAffector*;
 
         /** Internal method for destroying an affector.
         @remarks
@@ -288,7 +288,7 @@ class ParticleSystemRenderer;
         @param rendererType
             String name of the renderer type to be created. A factory of this type must have been registered.
         */
-        ParticleSystemRenderer* _createRenderer(const String& rendererType);
+        auto _createRenderer(const String& rendererType) -> ParticleSystemRenderer*;
 
         /** Internal method for destroying a renderer.
         @remarks
@@ -308,38 +308,38 @@ class ParticleSystemRenderer;
         void _initialise();
 
         /// @copydoc ScriptLoader::getScriptPatterns
-        const StringVector& getScriptPatterns() const;
+        auto getScriptPatterns() const -> const StringVector&;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName);
         /// @copydoc ScriptLoader::getLoadingOrder
-        Real getLoadingOrder() const;
+        auto getLoadingOrder() const -> Real;
 
         typedef MapIterator<ParticleAffectorFactoryMap> ParticleAffectorFactoryIterator;
         typedef MapIterator<ParticleEmitterFactoryMap> ParticleEmitterFactoryIterator;
         typedef MapIterator<ParticleSystemRendererFactoryMap> ParticleRendererFactoryIterator;
         /** Return an iterator over the affector factories currently registered */
-        ParticleAffectorFactoryIterator getAffectorFactoryIterator();
+        auto getAffectorFactoryIterator() -> ParticleAffectorFactoryIterator;
         /** Return an iterator over the emitter factories currently registered */
-        ParticleEmitterFactoryIterator getEmitterFactoryIterator();
+        auto getEmitterFactoryIterator() -> ParticleEmitterFactoryIterator;
         /** Return an iterator over the renderer factories currently registered */
-        ParticleRendererFactoryIterator getRendererFactoryIterator();
+        auto getRendererFactoryIterator() -> ParticleRendererFactoryIterator;
 
 
         typedef MapIterator<ParticleTemplateMap> ParticleSystemTemplateIterator;
         /** Gets an iterator over the list of particle system templates. */
-        ParticleSystemTemplateIterator getTemplateIterator()
+        auto getTemplateIterator() -> ParticleSystemTemplateIterator
         {
             return {
                 mSystemTemplates.begin(), mSystemTemplates.end()};
         } 
 
         /** Get an instance of ParticleSystemFactory (internal use). */
-        ParticleSystemFactory* _getFactory() { return mFactory; }
+        auto _getFactory() -> ParticleSystemFactory* { return mFactory; }
         
         /// @copydoc Singleton::getSingleton()
-        static ParticleSystemManager& getSingleton();
+        static auto getSingleton() -> ParticleSystemManager&;
         /// @copydoc Singleton::getSingleton()
-        static ParticleSystemManager* getSingletonPtr();
+        static auto getSingletonPtr() -> ParticleSystemManager*;
 
     };
 
@@ -347,14 +347,14 @@ class ParticleSystemRenderer;
     class ParticleSystemFactory : public MovableObjectFactory
     {
     private:
-        MovableObject* createInstanceImpl(const String& name, const NameValuePairList* params);
+        auto createInstanceImpl(const String& name, const NameValuePairList* params) -> MovableObject*;
     public:
         ParticleSystemFactory() {}
         ~ParticleSystemFactory() {}
         
         static String FACTORY_TYPE_NAME;
 
-        const String& getType() const;
+        auto getType() const -> const String&;
     };
     /** @} */
     /** @} */

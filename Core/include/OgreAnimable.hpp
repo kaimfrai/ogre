@@ -150,7 +150,7 @@ namespace Ogre {
         virtual ~AnimableValue() {}
 
         /// Gets the value type of this animable value
-        ValueType getType() const { return mType; }
+        auto getType() const -> ValueType { return mType; }
 
         /// Sets the current state as the 'base' value; used for delta animation
         virtual void setCurrentStateAsBaseValue() = 0;
@@ -253,7 +253,7 @@ namespace Ogre {
             Subclasses must override this if they want to support animation of
             their values.
         */
-        virtual const String& getAnimableDictionaryName() const 
+        virtual auto getAnimableDictionaryName() const -> const String& 
         { return BLANKSTRING; }
         /** Internal method for creating a dictionary of animable value names 
             for the class, if it does not already exist.
@@ -261,7 +261,7 @@ namespace Ogre {
         void createAnimableDictionary() const;
     
         /// Get an updateable reference to animable value list
-        StringVector& _getAnimableValueNames();
+        auto _getAnimableValueNames() -> StringVector&;
 
         /** Internal method for initialising dictionary; should be implemented by 
             subclasses wanting to expose animable parameters.
@@ -274,7 +274,7 @@ namespace Ogre {
         virtual ~AnimableObject() {}
 
         /** Gets a list of animable value names for this object. */
-        const StringVector& getAnimableValueNames() const;
+        auto getAnimableValueNames() const -> const StringVector&;
 
         /** Create a reference-counted AnimableValuePtr for the named value.
         @remarks
@@ -282,7 +282,7 @@ namespace Ogre {
             using AnimationTrack. Subclasses must override this if they wish 
             to support animation of their values.
         */
-        virtual AnimableValuePtr createAnimableValue(const String& valueName)
+        virtual auto createAnimableValue(const String& valueName) -> AnimableValuePtr
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
                 "No animable value named '" + valueName + "' present.", 

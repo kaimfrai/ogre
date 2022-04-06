@@ -101,8 +101,8 @@ struct GLGpuProgramBase;
         void setGLLight(size_t index, bool lt);
         void makeGLMatrix(GLfloat gl_matrix[16], const Matrix4& m);
  
-        GLint getBlendMode(SceneBlendFactor ogreBlend) const;
-        GLint getTextureAddressingMode(TextureAddressingMode tam) const;
+        auto getBlendMode(SceneBlendFactor ogreBlend) const -> GLint;
+        auto getTextureAddressingMode(TextureAddressingMode tam) const -> GLint;
                 void initialiseContext(RenderWindow* primary);
 
         /// Store last stencil mask state
@@ -110,8 +110,8 @@ struct GLGpuProgramBase;
         /// Store last depth write state
         bool mDepthWrite;
 
-        GLint convertCompareFunction(CompareFunction func) const;
-        GLint convertStencilOp(StencilOperation op, bool invert = false) const;
+        auto convertCompareFunction(CompareFunction func) const -> GLint;
+        auto convertStencilOp(StencilOperation op, bool invert = false) const -> GLint;
 
         bool mUseAutoTextureMatrix;
         GLfloat mAutoTextureMatrix[16];
@@ -162,17 +162,17 @@ struct GLGpuProgramBase;
         // Overridden RenderSystem functions
         // ----------------------------------
 
-        const GpuProgramParametersPtr& getFixedFunctionParams(TrackVertexColourType tracking, FogMode fog);
+        auto getFixedFunctionParams(TrackVertexColourType tracking, FogMode fog) -> const GpuProgramParametersPtr&;
 
         void applyFixedFunctionParams(const GpuProgramParametersPtr& params, uint16 variabilityMask);
 
-        const String& getName() const;
+        auto getName() const -> const String&;
 
         void _initialise() override;
 
         void initConfigOptions() override;
 
-        virtual RenderSystemCapabilities* createRenderSystemCapabilities() const;
+        virtual auto createRenderSystemCapabilities() const -> RenderSystemCapabilities*;
 
         void initialiseFromRenderSystemCapabilities(RenderSystemCapabilities* caps, RenderTarget* primary);
 
@@ -183,14 +183,14 @@ struct GLGpuProgramBase;
         void setLightingEnabled(bool enabled);
         
         /// @copydoc RenderSystem::_createRenderWindow
-        RenderWindow* _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
-                                          bool fullScreen, const NameValuePairList *miscParams = 0);
+        auto _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
+                                          bool fullScreen, const NameValuePairList *miscParams = 0) -> RenderWindow*;
 
         /// @copydoc RenderSystem::_createDepthBufferFor
-        DepthBuffer* _createDepthBufferFor( RenderTarget *renderTarget );
+        auto _createDepthBufferFor( RenderTarget *renderTarget ) -> DepthBuffer*;
         
         /// @copydoc RenderSystem::createMultiRenderTarget
-        virtual MultiRenderTarget * createMultiRenderTarget(const String & name); 
+        virtual auto createMultiRenderTarget(const String & name) -> MultiRenderTarget *; 
         
 
         void destroyRenderWindow(const String& name);
@@ -277,7 +277,7 @@ struct GLGpuProgramBase;
         void clearFrameBuffer(unsigned int buffers, 
                               const ColourValue& colour = ColourValue::Black, 
                               float depth = 1.0f, unsigned short stencil = 0);
-        HardwareOcclusionQuery* createHardwareOcclusionQuery();
+        auto createHardwareOcclusionQuery() -> HardwareOcclusionQuery*;
 
         // ----------------------------------
         // GLRenderSystem specific members
@@ -299,7 +299,7 @@ struct GLGpuProgramBase;
          */
         void _unregisterContext(GLContext *context);
 
-        GLStateCacheManager * _getStateCacheManager() { return mStateCacheManager; }
+        auto _getStateCacheManager() -> GLStateCacheManager * { return mStateCacheManager; }
         
         /// @copydoc RenderSystem::beginProfileEvent
         virtual void beginProfileEvent( const String &eventName );

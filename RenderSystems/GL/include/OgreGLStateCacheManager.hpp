@@ -129,7 +129,7 @@ namespace Ogre
          @param unit The texture unit to activate.
          @return Whether or not the texture unit was successfully activated.
          */
-        bool activateGLTextureUnit(size_t unit);
+        auto activateGLTextureUnit(size_t unit) -> bool;
 
         /// Set the blend equation for RGB and alpha separately.
         void setBlendEquation(GLenum eqRGB, GLenum eqA);
@@ -149,7 +149,7 @@ namespace Ogre
         /** Gets the current depth test function.
          @return The current depth test function.
          */
-        GLenum getDepthFunc() const { return mDepthFunc; }
+        auto getDepthFunc() const -> GLenum { return mDepthFunc; }
 
         /** Sets the current depth test function.
          @param func The depth test function to use.
@@ -159,7 +159,7 @@ namespace Ogre
         /** Gets the clear depth in the range from [0..1].
          @return The current clearing depth.
          */
-        GLclampf getClearDepth() const { return mClearDepth; }
+        auto getClearDepth() const -> GLclampf { return mClearDepth; }
 
         /** Sets the clear depth in the range from [0..1].
          @param depth The clear depth to use.
@@ -195,7 +195,7 @@ namespace Ogre
         /** Gets the current polygon rendering mode, fill, wireframe, points, etc.
          @return The current polygon rendering mode.
          */
-        GLenum getPolygonMode() const { return mPolygonMode; }
+        auto getPolygonMode() const -> GLenum { return mPolygonMode; }
 
         /** Sets the current polygon rendering mode.
          @param mode The polygon mode to use.
@@ -205,7 +205,7 @@ namespace Ogre
         /** Sets the face culling mode.
          @return The current face culling mode
          */
-        GLenum getCullFace() const { return mCullFace; }
+        auto getCullFace() const -> GLenum { return mCullFace; }
 
         /** Sets the face culling setting.
          @param face The face culling mode to use.

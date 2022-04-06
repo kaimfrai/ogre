@@ -59,7 +59,7 @@ class RenderSystem;
         ~DefaultSceneManagerFactory() {}
         /// Factory type name
         static const String FACTORY_TYPE_NAME;
-        SceneManager* createInstance(const String& instanceName);
+        auto createInstance(const String& instanceName) -> SceneManager*;
     };
 
     /// Default scene manager
@@ -68,7 +68,7 @@ class RenderSystem;
     public:
         DefaultSceneManager(const String& name);
         ~DefaultSceneManager();
-        const String& getTypeName() const;
+        auto getTypeName() const -> const String&;
     };
 
     /** Enumerates the SceneManager classes available to applications.
@@ -136,13 +136,13 @@ class RenderSystem;
             If you don't know the typeName already, you can iterate over the 
             metadata for all types using getMetaDataIterator.
         */
-        const SceneManagerMetaData* getMetaData(const String& typeName) const;
+        auto getMetaData(const String& typeName) const -> const SceneManagerMetaData*;
 
         /** get all types of SceneManager available for construction
 
             providing some information about each one.
         */
-        const MetaDataList& getMetaData() const { return mMetaDataList; }
+        auto getMetaData() const -> const MetaDataList& { return mMetaDataList; }
 
         typedef ConstVectorIterator<MetaDataList> MetaDataIterator;
 
@@ -157,8 +157,8 @@ class RenderSystem;
         @param instanceName Optional name to given the new instance that is
             created. If you leave this blank, an auto name will be assigned.
         */
-        SceneManager* createSceneManager(const String& typeName, 
-            const String& instanceName = BLANKSTRING);
+        auto createSceneManager(const String& typeName, 
+            const String& instanceName = BLANKSTRING) -> SceneManager*;
 
         /** Destroy an instance of a SceneManager. */
         void destroySceneManager(SceneManager* sm);
@@ -167,17 +167,17 @@ class RenderSystem;
             identified by the instance name.
         @param instanceName The name of the instance to retrieve.
         */
-        SceneManager* getSceneManager(const String& instanceName) const;
+        auto getSceneManager(const String& instanceName) const -> SceneManager*;
 
         /** Identify if a SceneManager instance already exists.
         @param instanceName The name of the instance to retrieve.
         */
-        bool hasSceneManager(const String& instanceName) const;
+        auto hasSceneManager(const String& instanceName) const -> bool;
 
         typedef MapIterator<Instances> SceneManagerIterator;
 
         /// Get all the existing SceneManager instances.
-        const Instances& getSceneManagers() const;
+        auto getSceneManagers() const -> const Instances&;
 
         /** Notifies all SceneManagers of the destination rendering system.
         */
@@ -186,9 +186,9 @@ class RenderSystem;
         /// Utility method to control shutdown of the managers
         void shutdownAll();
         /// @copydoc Singleton::getSingleton()
-        static SceneManagerEnumerator& getSingleton();
+        static auto getSingleton() -> SceneManagerEnumerator&;
         /// @copydoc Singleton::getSingleton()
-        static SceneManagerEnumerator* getSingletonPtr();
+        static auto getSingletonPtr() -> SceneManagerEnumerator*;
 
     };
 

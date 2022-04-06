@@ -99,28 +99,28 @@ public:
     /** Copy the given Operand to this Operand.
     @param rhs The other Operand to copy to this state.
     */
-    Operand& operator= (const Operand & rhs);
+    auto operator= (const Operand & rhs) -> Operand&;
 
     /** Class destructor */
     ~Operand();
 
     /** Returns the parameter object as weak reference */
-    const ParameterPtr& getParameter()  const { return mParameter; }
+    auto getParameter()  const -> const ParameterPtr& { return mParameter; }
 
     /** Returns true if not all fields used. (usage is described through semantic)*/
-    bool hasFreeFields()    const { return mMask != OPM_ALL; }
+    auto hasFreeFields()    const -> bool { return mMask != OPM_ALL; }
     
     /** Returns the mask bitfield. */
-    OpMask getMask()   const { return mMask; }
+    auto getMask()   const -> OpMask { return mMask; }
 
-    Operand& x() { return mask(OPM_X); }
-    Operand& y() { return mask(OPM_Y); }
-    Operand& z() { return mask(OPM_Z); }
-    Operand& w() { return mask(OPM_W); }
-    Operand& xy() { return mask(OPM_XY); }
-    Operand& xyz() { return mask(OPM_XYZ); }
+    auto x() -> Operand& { return mask(OPM_X); }
+    auto y() -> Operand& { return mask(OPM_Y); }
+    auto z() -> Operand& { return mask(OPM_Z); }
+    auto w() -> Operand& { return mask(OPM_W); }
+    auto xy() -> Operand& { return mask(OPM_XY); }
+    auto xyz() -> Operand& { return mask(OPM_XYZ); }
 
-    Operand& mask(OpMask opMask)
+    auto mask(OpMask opMask) -> Operand&
     {
         mMask = opMask;
         return *this;
@@ -130,20 +130,20 @@ public:
     void setMaskToParamType();
 
     /** Returns the operand semantic (do we read/write or both with the parameter). */
-    OpSemantic getSemantic()    const { return mSemantic; }
+    auto getSemantic()    const -> OpSemantic { return mSemantic; }
 
     /** Returns the level of indirection. 
     The greater the indirection level the more the parameter needs to be nested in brackets.
     For example given 4 parameters x1...x4 with the indirections levels 0,1,1,2 
     respectively. The parameters should form the following string: x1[x2][x3[x4]].
     */
-    ushort getIndirectionLevel()    const { return mIndirectionLevel; }
+    auto getIndirectionLevel()    const -> ushort { return mIndirectionLevel; }
 
     /** write the parameter name and the usage mask like this 'color.xyz' */
     void write(std::ostream& os) const;
 
     /** Return the float count of the given mask. */
-    static int getFloatCount(int mask);
+    static auto getFloatCount(int mask) -> int;
 protected:
     /// The parameter being carried by the operand
     ParameterPtr mParameter;
@@ -200,10 +200,10 @@ public:
     virtual ~FunctionAtom() {}
 
     /** Get the group execution order of this function atom. */
-    int getGroupExecutionOrder() const;
+    auto getGroupExecutionOrder() const -> int;
 
     /** Get a list of parameters this function invocation will use in the function call as arguments. */
-    OperandVector& getOperandList() { return mOperands; }
+    auto getOperandList() -> OperandVector& { return mOperands; }
 
     /** Push a new operand (on the end) to the function.
     @param parameter A function parameter.
@@ -253,26 +253,26 @@ public:
     virtual void writeSourceCode(std::ostream& os, const String& targetLanguage) const;
 
     /** Return the function name */
-    const String& getFunctionName() const { return mFunctionName; }
+    auto getFunctionName() const -> const String& { return mFunctionName; }
 
     /** Return the return type */
-    const String& getReturnType() const { return mReturnType; }
+    auto getReturnType() const -> const String& { return mReturnType; }
 
     /** Determines if the current object is equal to the compared one. */
-    bool operator == ( const FunctionInvocation& rhs ) const;
+    auto operator == ( const FunctionInvocation& rhs ) const -> bool;
 
     /** Determines if the current object is not equal to the compared one. */
-    bool operator != ( const FunctionInvocation& rhs ) const;
+    auto operator != ( const FunctionInvocation& rhs ) const -> bool;
 
     /** Determines if the current object is less than the compared one. */
-    bool operator <  ( const FunctionInvocation& rhs ) const;
+    auto operator <  ( const FunctionInvocation& rhs ) const -> bool;
 
     /** Comparator function to be used for sorting.
         Implemented as a struct to make it easier for the compiler to inline
     */
     struct FunctionInvocationLessThan
     {
-        bool operator()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const;
+        auto operator()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const -> bool;
     };
 
     /** Comparator function to be used for comparisons.
@@ -280,7 +280,7 @@ public:
     */
     struct FunctionInvocationCompare
     {
-        bool operator()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const;
+        auto operator()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const -> bool;
     };
 
 private:

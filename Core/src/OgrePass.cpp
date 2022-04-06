@@ -62,7 +62,7 @@ namespace Ogre {
     */
     struct MinTextureStateChangeHashFunc : public Pass::HashFunc
     {
-        uint32 operator()(const Pass* p) const
+        auto operator()(const Pass* p) const -> uint32
         {
             uint32 hash = 0;
             ushort c = p->getNumTextureUnitStates();
@@ -84,7 +84,7 @@ namespace Ogre {
     */
     struct MinGpuProgramChangeHashFunc : public Pass::HashFunc
     {
-        uint32 operator()(const Pass* p) const
+        auto operator()(const Pass* p) const -> uint32
         {
             uint32 hash = 0;
 
@@ -106,7 +106,7 @@ namespace Ogre {
 
     Pass::HashFunc* Pass::msHashFunc = &sMinGpuProgramChangeHashFunc;
     //-----------------------------------------------------------------------------
-    Pass::HashFunc* Pass::getBuiltinHashFunction(BuiltinHashFunction builtin)
+    auto Pass::getBuiltinHashFunction(BuiltinHashFunction builtin) -> Pass::HashFunc*
     {
         Pass::HashFunc* hashFunc = NULL;
 
@@ -209,7 +209,7 @@ namespace Ogre {
     }
     Pass::~Pass() = default; // ensure unique_ptr destructors are in cpp
     //-----------------------------------------------------------------------------
-    Pass& Pass::operator=(const Pass& oth)
+    auto Pass::operator=(const Pass& oth) -> Pass&
     {
         mName = oth.mName;
         mHash = oth.mHash;
@@ -301,7 +301,7 @@ namespace Ogre {
         return *this;
     }
     //-----------------------------------------------------------------------------
-    size_t Pass::calculateSize() const
+    auto Pass::calculateSize() const -> size_t
     {
         size_t memSize = 0;
 
@@ -331,7 +331,7 @@ namespace Ogre {
         mPointMinSize = min;
     }
     //-----------------------------------------------------------------------
-    Real Pass::getPointMinSize() const
+    auto Pass::getPointMinSize() const -> Real
     {
         return mPointMinSize;
     }
@@ -341,7 +341,7 @@ namespace Ogre {
         mPointMaxSize = max;
     }
     //-----------------------------------------------------------------------
-    Real Pass::getPointMaxSize() const
+    auto Pass::getPointMaxSize() const -> Real
     {
         return mPointMaxSize;
     }
@@ -377,7 +377,7 @@ namespace Ogre {
         mEmissive.b = blue;
     }
     //-----------------------------------------------------------------------
-    TextureUnitState* Pass::createTextureUnitState()
+    auto Pass::createTextureUnitState() -> TextureUnitState*
     {
         TextureUnitState *t = new TextureUnitState(this);
         addTextureUnitState(t);
@@ -385,8 +385,8 @@ namespace Ogre {
         return t;
     }
     //-----------------------------------------------------------------------
-    TextureUnitState* Pass::createTextureUnitState(
-        const String& textureName, unsigned short texCoordSet)
+    auto Pass::createTextureUnitState(
+        const String& textureName, unsigned short texCoordSet) -> TextureUnitState*
     {
         TextureUnitState *t = new TextureUnitState(this);
         t->setTextureName(textureName);
@@ -422,7 +422,7 @@ namespace Ogre {
         mContentTypeLookupBuilt = false;
     }
     //-----------------------------------------------------------------------------
-    TextureUnitState* Pass::getTextureUnitState(const String& name) const
+    auto Pass::getTextureUnitState(const String& name) const -> TextureUnitState*
     {
         TextureUnitStates::const_iterator i    = mTextureUnitStates.begin();
         TextureUnitStates::const_iterator iend = mTextureUnitStates.end();
@@ -444,7 +444,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    unsigned short Pass::getTextureUnitStateIndex(const TextureUnitState* state) const
+    auto Pass::getTextureUnitStateIndex(const TextureUnitState* state) const -> unsigned short
     {
         assert(state && "state is 0 in Pass::getTextureUnitStateIndex()");
 
@@ -573,7 +573,7 @@ namespace Ogre {
         mBlendState.alphaOperation = alphaOp;
     }
     //-----------------------------------------------------------------------
-    bool Pass::isTransparent() const
+    auto Pass::isTransparent() const -> bool
     {
         // Transparent if any of the destination colour is taken into account
         if (mBlendState.destFactor == SBF_ZERO &&
@@ -605,7 +605,7 @@ namespace Ogre {
         mBlendState.writeA = enabled;
     }
     //-----------------------------------------------------------------------
-    bool Pass::getColourWriteEnabled() const
+    auto Pass::getColourWriteEnabled() const -> bool
     {
         return mBlendState.writeR || mBlendState.writeG || mBlendState.writeB ||
                mBlendState.writeA;
@@ -641,7 +641,7 @@ namespace Ogre {
         mManualCullMode = mode;
     }
     //-----------------------------------------------------------------------
-    ManualCullingMode Pass::getManualCullingMode() const
+    auto Pass::getManualCullingMode() const -> ManualCullingMode
     {
         return mManualCullMode;
     }
@@ -665,7 +665,7 @@ namespace Ogre {
        mDepthBiasSlopeScale = slopeScaleBias;
     }
     //-----------------------------------------------------------------------
-    Pass* Pass::_split(unsigned short numUnits)
+    auto Pass::_split(unsigned short numUnits) -> Pass*
     {
         OgreAssert(
             !isProgrammable(),
@@ -887,7 +887,7 @@ namespace Ogre {
         setGpuProgramParameters(GPT_COMPUTE_PROGRAM, params);
     }
     //-----------------------------------------------------------------------
-    const GpuProgramParametersSharedPtr& Pass::getGpuProgramParameters(GpuProgramType type) const
+    auto Pass::getGpuProgramParameters(GpuProgramType type) const -> const GpuProgramParametersSharedPtr&
     {
         const auto& programUsage = getProgramUsage(type);
         if (!programUsage)
@@ -898,30 +898,30 @@ namespace Ogre {
         return programUsage->getParameters();
     }
 
-    GpuProgramParametersSharedPtr Pass::getVertexProgramParameters() const
+    auto Pass::getVertexProgramParameters() const -> GpuProgramParametersSharedPtr
     {
         return getGpuProgramParameters(GPT_VERTEX_PROGRAM);
     }
 
-    std::unique_ptr<GpuProgramUsage>& Pass::getProgramUsage(GpuProgramType programType) {
+    auto Pass::getProgramUsage(GpuProgramType programType) -> std::unique_ptr<GpuProgramUsage>& {
         return mProgramUsage[programType];
     }
 
-    const std::unique_ptr<GpuProgramUsage>& Pass::getProgramUsage(GpuProgramType programType) const
+    auto Pass::getProgramUsage(GpuProgramType programType) const -> const std::unique_ptr<GpuProgramUsage>&
     {
         return mProgramUsage[programType];
     }
 
-    bool Pass::hasGpuProgram(GpuProgramType programType) const {
+    auto Pass::hasGpuProgram(GpuProgramType programType) const -> bool {
         return getProgramUsage(programType) != NULL;
     }
-    const GpuProgramPtr& Pass::getGpuProgram(GpuProgramType programType) const
+    auto Pass::getGpuProgram(GpuProgramType programType) const -> const GpuProgramPtr&
 	{
         OgreAssert(mProgramUsage[programType], "check whether program is available using hasGpuProgram()");
         return mProgramUsage[programType]->getProgram();
 	}
     //-----------------------------------------------------------------------
-    const String& Pass::getGpuProgramName(GpuProgramType type) const
+    auto Pass::getGpuProgramName(GpuProgramType type) const -> const String&
     {
         const std::unique_ptr<GpuProgramUsage>& programUsage = getProgramUsage(type);
         if (!programUsage)
@@ -930,32 +930,32 @@ namespace Ogre {
             return programUsage->getProgramName();
     }
     //-----------------------------------------------------------------------
-    GpuProgramParametersSharedPtr Pass::getFragmentProgramParameters() const
+    auto Pass::getFragmentProgramParameters() const -> GpuProgramParametersSharedPtr
     {
         return getGpuProgramParameters(GPT_FRAGMENT_PROGRAM);
     }
     //-----------------------------------------------------------------------
-    GpuProgramParametersSharedPtr Pass::getGeometryProgramParameters() const
+    auto Pass::getGeometryProgramParameters() const -> GpuProgramParametersSharedPtr
     {
         return getGpuProgramParameters(GPT_GEOMETRY_PROGRAM);
     }
     //-----------------------------------------------------------------------
-    GpuProgramParametersSharedPtr Pass::getTessellationHullProgramParameters() const
+    auto Pass::getTessellationHullProgramParameters() const -> GpuProgramParametersSharedPtr
     {
         return getGpuProgramParameters(GPT_HULL_PROGRAM);
     }
     //-----------------------------------------------------------------------
-    GpuProgramParametersSharedPtr Pass::getTessellationDomainProgramParameters() const
+    auto Pass::getTessellationDomainProgramParameters() const -> GpuProgramParametersSharedPtr
     {
         return getGpuProgramParameters(GPT_DOMAIN_PROGRAM);
     }
     //-----------------------------------------------------------------------
-    GpuProgramParametersSharedPtr Pass::getComputeProgramParameters() const
+    auto Pass::getComputeProgramParameters() const -> GpuProgramParametersSharedPtr
     {
         return getGpuProgramParameters(GPT_COMPUTE_PROGRAM);
     }
     //-----------------------------------------------------------------------
-    bool Pass::isLoaded() const
+    auto Pass::isLoaded() const -> bool
     {
         return mParent->isLoaded();
     }
@@ -1074,7 +1074,7 @@ namespace Ogre {
         msPassGraveyard.insert(this);
     }
     //-----------------------------------------------------------------------
-    bool Pass::isAmbientOnly() const
+    auto Pass::isAmbientOnly() const -> bool
     {
         // treat as ambient if lighting is off, or colour write is off,
         // or all non-ambient (& emissive) colours are black
@@ -1087,13 +1087,13 @@ namespace Ogre {
              mSpecular == ColourValue::Black));
     }
     //-----------------------------------------------------------------------
-    const String& Pass::getResourceGroup() const
+    auto Pass::getResourceGroup() const -> const String&
     {
         return mParent->getResourceGroup();
     }
     //-----------------------------------------------------------------------
-    unsigned short Pass::_getTextureUnitWithContentTypeIndex(
-        TextureUnitState::ContentType contentType, unsigned short index) const
+    auto Pass::_getTextureUnitWithContentTypeIndex(
+        TextureUnitState::ContentType contentType, unsigned short index) const -> unsigned short
     {
         if (!mContentTypeLookupBuilt)
         {

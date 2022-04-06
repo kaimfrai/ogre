@@ -108,7 +108,7 @@ Sample_NewInstancing::Sample_NewInstancing() : NUM_INST_ROW(100), NUM_INST_COLUM
 }
 
 //------------------------------------------------------------------------------
-bool Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt)
+auto Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt) -> bool
 {
     Ogre::Profile profile("New Instancing");
 
@@ -122,7 +122,7 @@ bool Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt)
 }
 
 //------------------------------------------------------------------------------
-bool Sample_NewInstancing::keyPressed(const KeyboardEvent& evt)
+auto Sample_NewInstancing::keyPressed(const KeyboardEvent& evt) -> bool
 {
     Keycode key = evt.keysym.sym;
     //Toggle bounding boxes with B key unless the help dialog is visible
@@ -600,7 +600,7 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
 }
 
 //------------------------------------------------------------------------------
-Quaternion Sample_NewInstancing::lookAt( const Vector3 &normDir )
+auto Sample_NewInstancing::lookAt( const Vector3 &normDir ) -> Quaternion
 {
     return Math::lookRotation(normDir.normalisedCopy(), Vector3::UNIT_Y);
 }

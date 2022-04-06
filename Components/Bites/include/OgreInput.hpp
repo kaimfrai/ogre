@@ -172,19 +172,19 @@ The convention is to return true if the event was handled and false if it should
 struct InputListener {
     virtual ~InputListener() {}
     virtual void frameRendered(const Ogre::FrameEvent& evt) { }
-    virtual bool keyPressed(const KeyboardEvent& evt) { return false;}
-    virtual bool keyReleased(const KeyboardEvent& evt) { return false; }
-    virtual bool touchMoved(const TouchFingerEvent& evt) { return false; }
-    virtual bool touchPressed(const TouchFingerEvent& evt) { return false; }
-    virtual bool touchReleased(const TouchFingerEvent& evt) { return false; }
-    virtual bool mouseMoved(const MouseMotionEvent& evt) { return false; }
-    virtual bool mouseWheelRolled(const MouseWheelEvent& evt) { return false; }
-    virtual bool mousePressed(const MouseButtonEvent& evt) { return false; }
-    virtual bool mouseReleased(const MouseButtonEvent& evt) { return false; }
-    virtual bool textInput(const TextInputEvent& evt) { return false; }
-    virtual bool axisMoved(const AxisEvent& evt) { return false; }
-    virtual bool buttonPressed(const ButtonEvent& evt) { return false; }
-    virtual bool buttonReleased(const ButtonEvent& evt) { return false; }
+    virtual auto keyPressed(const KeyboardEvent& evt) -> bool { return false;}
+    virtual auto keyReleased(const KeyboardEvent& evt) -> bool { return false; }
+    virtual auto touchMoved(const TouchFingerEvent& evt) -> bool { return false; }
+    virtual auto touchPressed(const TouchFingerEvent& evt) -> bool { return false; }
+    virtual auto touchReleased(const TouchFingerEvent& evt) -> bool { return false; }
+    virtual auto mouseMoved(const MouseMotionEvent& evt) -> bool { return false; }
+    virtual auto mouseWheelRolled(const MouseWheelEvent& evt) -> bool { return false; }
+    virtual auto mousePressed(const MouseButtonEvent& evt) -> bool { return false; }
+    virtual auto mouseReleased(const MouseButtonEvent& evt) -> bool { return false; }
+    virtual auto textInput(const TextInputEvent& evt) -> bool { return false; }
+    virtual auto axisMoved(const AxisEvent& evt) -> bool { return false; }
+    virtual auto buttonPressed(const ButtonEvent& evt) -> bool { return false; }
+    virtual auto buttonReleased(const ButtonEvent& evt) -> bool { return false; }
 };
 
 /**
@@ -201,13 +201,13 @@ public:
     InputListenerChain() {}
     InputListenerChain(std::vector<InputListener*> chain) : mListenerChain(chain) {}
 
-    InputListenerChain& operator=(const InputListenerChain& o)
+    auto operator=(const InputListenerChain& o) -> InputListenerChain&
     {
         mListenerChain = o.mListenerChain;
         return *this;
     }
 
-    bool keyPressed(const KeyboardEvent& evt)
+    auto keyPressed(const KeyboardEvent& evt) -> bool
     {
         for (auto listner : mListenerChain)
         {
@@ -216,7 +216,7 @@ public:
         }
         return false;
     }
-    bool keyReleased(const KeyboardEvent& evt)
+    auto keyReleased(const KeyboardEvent& evt) -> bool
     {
         for (auto listner : mListenerChain)
         {
@@ -225,7 +225,7 @@ public:
         }
         return false;
     }
-    bool touchMoved(const TouchFingerEvent& evt)
+    auto touchMoved(const TouchFingerEvent& evt) -> bool
     {
         for (auto listner : mListenerChain)
         {
@@ -234,7 +234,7 @@ public:
         }
         return false;
     }
-    bool touchPressed(const TouchFingerEvent& evt)
+    auto touchPressed(const TouchFingerEvent& evt) -> bool
     {
         for (auto listner : mListenerChain)
         {
@@ -243,7 +243,7 @@ public:
         }
         return false;
     }
-    bool touchReleased(const TouchFingerEvent& evt)
+    auto touchReleased(const TouchFingerEvent& evt) -> bool
     {
         for (auto listner : mListenerChain)
         {
@@ -252,7 +252,7 @@ public:
         }
         return false;
     }
-    bool mouseMoved(const MouseMotionEvent& evt)
+    auto mouseMoved(const MouseMotionEvent& evt) -> bool
     {
         for (auto listner : mListenerChain)
         {
@@ -261,7 +261,7 @@ public:
         }
         return false;
     }
-    bool mouseWheelRolled(const MouseWheelEvent& evt)
+    auto mouseWheelRolled(const MouseWheelEvent& evt) -> bool
     {
         for (auto listner : mListenerChain)
         {
@@ -270,7 +270,7 @@ public:
         }
         return false;
     }
-    bool mousePressed(const MouseButtonEvent& evt)
+    auto mousePressed(const MouseButtonEvent& evt) -> bool
     {
         for (auto listner : mListenerChain)
         {
@@ -279,7 +279,7 @@ public:
         }
         return false;
     }
-    bool mouseReleased(const MouseButtonEvent& evt)
+    auto mouseReleased(const MouseButtonEvent& evt) -> bool
     {
         for (auto listner : mListenerChain)
         {
@@ -288,7 +288,7 @@ public:
         }
         return false;
     }
-    bool textInput (const TextInputEvent& evt)
+    auto textInput (const TextInputEvent& evt) -> bool
     {
         for (auto listner : mListenerChain)
         {

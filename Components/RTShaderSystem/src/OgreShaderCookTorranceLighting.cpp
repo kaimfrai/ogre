@@ -41,9 +41,9 @@ String CookTorranceLighting::Type = "CookTorranceLighting";
 CookTorranceLighting::CookTorranceLighting() : mLightCount(0), mMRMapSamplerIndex(0) {}
 
 //-----------------------------------------------------------------------
-const String& CookTorranceLighting::getType() const { return Type; }
+auto CookTorranceLighting::getType() const -> const String& { return Type; }
 //-----------------------------------------------------------------------
-bool CookTorranceLighting::createCpuSubPrograms(ProgramSet* programSet)
+auto CookTorranceLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
@@ -152,7 +152,7 @@ void CookTorranceLighting::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool CookTorranceLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+auto CookTorranceLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
 {
     if (!srcPass->getLightingEnabled())
         return false;
@@ -169,7 +169,7 @@ bool CookTorranceLighting::preAddToRenderState(const RenderState* renderState, P
     return true;
 }
 
-bool CookTorranceLighting::setParameter(const String& name, const String& value)
+auto CookTorranceLighting::setParameter(const String& name, const String& value) -> bool
 {
     if (name == "texture")
     {
@@ -181,11 +181,11 @@ bool CookTorranceLighting::setParameter(const String& name, const String& value)
 }
 
 //-----------------------------------------------------------------------
-const String& CookTorranceLightingFactory::getType() const { return CookTorranceLighting::Type; }
+auto CookTorranceLightingFactory::getType() const -> const String& { return CookTorranceLighting::Type; }
 
 //-----------------------------------------------------------------------
-SubRenderState* CookTorranceLightingFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop,
-                                                            Pass* pass, SGScriptTranslator* translator)
+auto CookTorranceLightingFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop,
+                                                            Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name == "lighting_stage" && prop->values.size() >= 1)
     {
@@ -241,7 +241,7 @@ void CookTorranceLightingFactory::writeInstance(MaterialSerializer* ser, SubRend
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* CookTorranceLightingFactory::createInstanceImpl() { return new CookTorranceLighting; }
+auto CookTorranceLightingFactory::createInstanceImpl() -> SubRenderState* { return new CookTorranceLighting; }
 
 } // namespace RTShader
 } // namespace Ogre

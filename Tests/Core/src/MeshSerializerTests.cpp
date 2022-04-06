@@ -227,7 +227,7 @@ TEST_F(MeshSerializerTests,Mesh_Version_1_3)
 
 namespace Ogre
 {
-static bool operator==(const VertexPoseKeyFrame::PoseRef& a, const VertexPoseKeyFrame::PoseRef& b)
+static auto operator==(const VertexPoseKeyFrame::PoseRef& a, const VertexPoseKeyFrame::PoseRef& b) -> bool
 {
 
     return a.poseIndex == b.poseIndex && a.influence == b.influence;
@@ -349,7 +349,7 @@ void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version 
     }
 }
 //--------------------------------------------------------------------------
-bool MeshSerializerTests::isLodMixed(const Mesh* pMesh)
+auto MeshSerializerTests::isLodMixed(const Mesh* pMesh) -> bool
 {
     if (!pMesh->hasManualLodLevel()) {
         return false;
@@ -445,13 +445,13 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
 }
 //--------------------------------------------------------------------------
 template<typename T>
-bool MeshSerializerTests::isContainerClone(T& a, T& b)
+auto MeshSerializerTests::isContainerClone(T& a, T& b) -> bool
 {
     return a.size() == b.size() && std::equal(a.begin(), a.end(), b.begin());
 }
 //--------------------------------------------------------------------------
 template<typename K, typename V>
-bool MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V>& a, const std::unordered_map<K, V>& b)
+auto MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V>& a, const std::unordered_map<K, V>& b) -> bool
 {
     // if you recreate a HashMap with same elements, then iteration order may differ!
     // So isContainerClone is not always working on HashMap.
@@ -548,7 +548,7 @@ void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, Strin
     OgreAssert(info->archive->getType() == "FileSystem", "");
 }
 //--------------------------------------------------------------------------
-bool MeshSerializerTests::copyFile(const String& srcPath, const String& dstPath)
+auto MeshSerializerTests::copyFile(const String& srcPath, const String& dstPath) -> bool
 {
     std::ifstream src(srcPath.c_str(), std::ios::binary);
     if (!src.is_open()) {
@@ -563,13 +563,13 @@ bool MeshSerializerTests::copyFile(const String& srcPath, const String& dstPath)
     return true;
 }
 //--------------------------------------------------------------------------
-bool MeshSerializerTests::isEqual(Real a, Real b)
+auto MeshSerializerTests::isEqual(Real a, Real b) -> bool
 {
     Real absoluteError = std::abs(a * mErrorFactor);
     return ((a - absoluteError) <= b) && ((a + absoluteError) >= b);
 }
 //--------------------------------------------------------------------------
-bool MeshSerializerTests::isEqual(const Vector3& a, const Vector3& b)
+auto MeshSerializerTests::isEqual(const Vector3& a, const Vector3& b) -> bool
 {
     return isEqual(a.x, b.x) && isEqual(a.y, b.y) && isEqual(a.z, b.z);
 }

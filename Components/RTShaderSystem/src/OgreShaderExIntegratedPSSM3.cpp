@@ -92,14 +92,14 @@ IntegratedPSSM3::IntegratedPSSM3()
 }
 
 //-----------------------------------------------------------------------
-const String& IntegratedPSSM3::getType() const
+auto IntegratedPSSM3::getType() const -> const String&
 {
     return Type;
 }
 
 
 //-----------------------------------------------------------------------
-int IntegratedPSSM3::getExecutionOrder() const
+auto IntegratedPSSM3::getExecutionOrder() const -> int
 {
     return FFP_TEXTURING + 1;
 }
@@ -153,8 +153,8 @@ void IntegratedPSSM3::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool IntegratedPSSM3::preAddToRenderState(const RenderState* renderState, 
-                                         Pass* srcPass, Pass* dstPass)
+auto IntegratedPSSM3::preAddToRenderState(const RenderState* renderState, 
+                                         Pass* srcPass, Pass* dstPass) -> bool
 {
     if (!srcPass->getParent()->getParent()->getReceiveShadows() ||
         renderState->getLightCount().isZeroLength())
@@ -206,7 +206,7 @@ void IntegratedPSSM3::setSplitPoints(const SplitPointList& newSplitPoints)
     }
 }
 
-bool IntegratedPSSM3::setParameter(const String& name, const String& value)
+auto IntegratedPSSM3::setParameter(const String& name, const String& value) -> bool
 {
     if(name == "debug")
     {
@@ -226,7 +226,7 @@ bool IntegratedPSSM3::setParameter(const String& name, const String& value)
 }
 
 //-----------------------------------------------------------------------
-bool IntegratedPSSM3::resolveParameters(ProgramSet* programSet)
+auto IntegratedPSSM3::resolveParameters(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -302,7 +302,7 @@ bool IntegratedPSSM3::resolveParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool IntegratedPSSM3::resolveDependencies(ProgramSet* programSet)
+auto IntegratedPSSM3::resolveDependencies(ProgramSet* programSet) -> bool
 {
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
     psProgram->addDependency(SGX_LIB_INTEGRATEDPSSM);
@@ -323,7 +323,7 @@ bool IntegratedPSSM3::resolveDependencies(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool IntegratedPSSM3::addFunctionInvocations(ProgramSet* programSet)
+auto IntegratedPSSM3::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM); 
     Function* vsMain = vsProgram->getEntryPointFunction();  
@@ -341,7 +341,7 @@ bool IntegratedPSSM3::addFunctionInvocations(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool IntegratedPSSM3::addVSInvocation(Function* vsMain, const int groupOrder)
+auto IntegratedPSSM3::addVSInvocation(Function* vsMain, const int groupOrder) -> bool
 {
     auto stage = vsMain->getStage(groupOrder);
 
@@ -364,7 +364,7 @@ bool IntegratedPSSM3::addVSInvocation(Function* vsMain, const int groupOrder)
 }
 
 //-----------------------------------------------------------------------
-bool IntegratedPSSM3::addPSInvocation(Program* psProgram, const int groupOrder)
+auto IntegratedPSSM3::addPSInvocation(Program* psProgram, const int groupOrder) -> bool
 {
     Function* psMain = psProgram->getEntryPointFunction();
     auto stage = psMain->getStage(groupOrder);
@@ -414,14 +414,14 @@ bool IntegratedPSSM3::addPSInvocation(Program* psProgram, const int groupOrder)
 
 
 //-----------------------------------------------------------------------
-const String& IntegratedPSSM3Factory::getType() const
+auto IntegratedPSSM3Factory::getType() const -> const String&
 {
     return IntegratedPSSM3::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler, 
-                                                      PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+auto IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler, 
+                                                      PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name == "integrated_pssm4")
     {       
@@ -467,7 +467,7 @@ SubRenderState* IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler,
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* IntegratedPSSM3Factory::createInstanceImpl()
+auto IntegratedPSSM3Factory::createInstanceImpl() -> SubRenderState*
 {
     return new IntegratedPSSM3;
 }

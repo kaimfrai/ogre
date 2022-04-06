@@ -97,7 +97,7 @@ class AxisAlignedBox;
         destroySkeletonInstance();
     }
 
-    bool InstancedEntity::shareTransformWith( InstancedEntity *slave )
+    auto InstancedEntity::shareTransformWith( InstancedEntity *slave ) -> bool
     {
         if( !this->mBatchOwner->_getMeshRef()->hasSkeleton() ||
             !this->mBatchOwner->_getMeshRef()->getSkeleton() ||
@@ -163,13 +163,13 @@ class AxisAlignedBox;
         }
     }
     //-----------------------------------------------------------------------
-    const String& InstancedEntity::getMovableType() const
+    auto InstancedEntity::getMovableType() const -> const String&
     {
         static String sType = "InstancedEntity";
         return sType;
     }
     //-----------------------------------------------------------------------
-    size_t InstancedEntity::getTransforms( Matrix4 *xform ) const
+    auto InstancedEntity::getTransforms( Matrix4 *xform ) const -> size_t
     {
         size_t retVal = 1;
 
@@ -205,7 +205,7 @@ class AxisAlignedBox;
         return retVal;
     }
     //-----------------------------------------------------------------------
-    size_t InstancedEntity::getTransforms3x4( Matrix3x4f *xform ) const
+    auto InstancedEntity::getTransforms3x4( Matrix3x4f *xform ) const -> size_t
     {
         size_t retVal;
         //When not attached, returns zero matrix to avoid rendering this one, not identity
@@ -245,7 +245,7 @@ class AxisAlignedBox;
         return retVal;
     }
     //-----------------------------------------------------------------------
-    bool InstancedEntity::findVisible( Camera *camera ) const
+    auto InstancedEntity::findVisible( Camera *camera ) const -> bool
     {
         //Object is active
         bool retVal = isInScene();
@@ -351,19 +351,19 @@ class AxisAlignedBox;
         }
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& InstancedEntity::getBoundingBox() const
+    auto InstancedEntity::getBoundingBox() const -> const AxisAlignedBox&
     {
         //TODO: Add attached objects (TagPoints) to the bbox
         return mBatchOwner->_getMeshReference()->getBounds();
     }
 
     //-----------------------------------------------------------------------
-    Real InstancedEntity::getBoundingRadius() const
+    auto InstancedEntity::getBoundingRadius() const -> Real
     {
         return mBatchOwner->_getMeshReference()->getBoundingSphereRadius();
     }
     //-----------------------------------------------------------------------
-    Real InstancedEntity::getSquaredViewDepth( const Camera* cam ) const
+    auto InstancedEntity::getSquaredViewDepth( const Camera* cam ) const -> Real
     {
         return _getDerivedPosition().squaredDistance(cam->getDerivedPosition());
     }
@@ -383,7 +383,7 @@ class AxisAlignedBox;
         updateTransforms();
     }
     //-----------------------------------------------------------------------
-    AnimationState* InstancedEntity::getAnimationState(const String& name) const
+    auto InstancedEntity::getAnimationState(const String& name) const -> AnimationState*
     {
         if (!mAnimationState)
         {
@@ -394,12 +394,12 @@ class AxisAlignedBox;
         return mAnimationState->getAnimationState(name);
     }
     //-----------------------------------------------------------------------
-    AnimationStateSet* InstancedEntity::getAllAnimationStates() const
+    auto InstancedEntity::getAllAnimationStates() const -> AnimationStateSet*
     {
         return mAnimationState;
     }
     //-----------------------------------------------------------------------
-    bool InstancedEntity::_updateAnimation()
+    auto InstancedEntity::_updateAnimation() -> bool
     {
         if (mSharedTransformEntity)
         {
@@ -475,7 +475,7 @@ class AxisAlignedBox;
     } 
 
     //---------------------------------------------------------------------------
-    Real InstancedEntity::getMaxScaleCoef() const 
+    auto InstancedEntity::getMaxScaleCoef() const -> Real 
     { 
         return mMaxScaleLocal;
     }
@@ -527,7 +527,7 @@ class AxisAlignedBox;
         mBatchOwner->_setCustomParam( this, idx, newParam );
     }
     //---------------------------------------------------------------------------
-    const Vector4& InstancedEntity::getCustomParam( unsigned char idx )
+    auto InstancedEntity::getCustomParam( unsigned char idx ) -> const Vector4&
     {
         return mBatchOwner->_getCustomParam( this, idx );
     }

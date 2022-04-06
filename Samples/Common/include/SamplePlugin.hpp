@@ -45,7 +45,7 @@ namespace OgreBites
         {
         }
 
-        const Ogre::String& getName() const
+        auto getName() const -> const Ogre::String&
         {
             return mName;
         }
@@ -66,7 +66,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Retrieves the queue of samples.
         -----------------------------------------------------------------------------*/
-        const SampleSet& getSamples()
+        auto getSamples() -> const SampleSet&
         {
             return mSamples;
         }

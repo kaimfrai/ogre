@@ -18,8 +18,8 @@ public:
 
     /** Get the GL context that needs to be active to render to this target
      */
-    virtual GLContext* getContext() const = 0;
-    virtual GLFrameBufferObjectCommon* getFBO() { return nullptr; }
+    virtual auto getContext() const -> GLContext* = 0;
+    virtual auto getFBO() -> GLFrameBufferObjectCommon* { return nullptr; }
 };
 } // namespace Ogre
 

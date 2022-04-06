@@ -89,17 +89,17 @@ namespace Ogre  {
     };
 
     //-----------------------------------------------------------------------------
-    GLenum GLPixelUtil::getGLOriginFormat(PixelFormat pf)
+    auto GLPixelUtil::getGLOriginFormat(PixelFormat pf) -> GLenum
     {
         return _pixelFormats[pf].format;
     }
     //----------------------------------------------------------------------------- 
-    GLenum GLPixelUtil::getGLOriginDataType(PixelFormat pf)
+    auto GLPixelUtil::getGLOriginDataType(PixelFormat pf) -> GLenum
     {
         return _pixelFormats[pf].type;
     }
     
-    GLenum GLPixelUtil::getGLInternalFormat(PixelFormat pf, bool hwGamma)
+    auto GLPixelUtil::getGLInternalFormat(PixelFormat pf, bool hwGamma) -> GLenum
     {
         GLenum ret = _pixelFormats[pf].internalFormat;
 
@@ -124,7 +124,7 @@ namespace Ogre  {
     }
     
     //-----------------------------------------------------------------------------     
-    PixelFormat GLPixelUtil::getClosestOGREFormat(GLenum format)
+    auto GLPixelUtil::getClosestOGREFormat(GLenum format) -> PixelFormat
     {
         switch(format)
         {
@@ -155,7 +155,7 @@ namespace Ogre  {
         return PF_BYTE_RGBA;
     }
     //-----------------------------------------------------------------------------    
-    uint32 GLPixelUtil::optionalPO2(uint32 value)
+    auto GLPixelUtil::optionalPO2(uint32 value) -> uint32
     {
         const RenderSystemCapabilities *caps = Root::getSingleton().getRenderSystem()->getCapabilities();
         if(caps->hasCapability(RSC_NON_POWER_OF_2_TEXTURES))

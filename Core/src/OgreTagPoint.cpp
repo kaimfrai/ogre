@@ -48,12 +48,12 @@ class Skeleton;
     {
     }
     //-----------------------------------------------------------------------------
-    Entity *TagPoint::getParentEntity() const
+    auto TagPoint::getParentEntity() const -> Entity *
     {
         return mParentEntity;
     }
     //-----------------------------------------------------------------------------
-    MovableObject* TagPoint::getChildObject() const
+    auto TagPoint::getChildObject() const -> MovableObject*
     {
         return mChildObject;
     }
@@ -74,7 +74,7 @@ class Skeleton;
         needUpdate();
     }
     //-----------------------------------------------------------------------------
-    bool TagPoint::getInheritParentEntityOrientation() const
+    auto TagPoint::getInheritParentEntityOrientation() const -> bool
     {
         return mInheritParentEntityOrientation;
     }
@@ -85,17 +85,17 @@ class Skeleton;
         needUpdate();
     }
     //-----------------------------------------------------------------------------
-    bool TagPoint::getInheritParentEntityScale() const
+    auto TagPoint::getInheritParentEntityScale() const -> bool
     {
         return mInheritParentEntityScale;
     }
     //-----------------------------------------------------------------------------
-    const Affine3& TagPoint::_getFullLocalTransform() const
+    auto TagPoint::_getFullLocalTransform() const -> const Affine3&
     {
         return mFullLocalTransform;
     }
     //-----------------------------------------------------------------------------
-    const Affine3& TagPoint::getParentEntityTransform() const
+    auto TagPoint::getParentEntityTransform() const -> const Affine3&
     {
 
         return mParentEntity->_getParentNodeFullTransform();

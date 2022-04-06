@@ -44,7 +44,7 @@ namespace Ogre
 {
     namespace {
         /** Get actual file pointed to by symlink */
-        const Ogre::String resolveSymlink(const Ogre::String& symlink)
+        auto resolveSymlink(const Ogre::String& symlink) -> const Ogre::String
         {
             ssize_t bufsize = 256;
             char* resolved = 0;
@@ -84,7 +84,7 @@ namespace Ogre
         }
     }
 
-    String FileSystemLayer::resolveBundlePath(String path)
+    auto FileSystemLayer::resolveBundlePath(String path) -> String
     {
         // With Ubuntu snaps absolute paths are relative to the snap package.
         char* env_SNAP = getenv("SNAP");
@@ -182,27 +182,27 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    bool FileSystemLayer::fileExists(const Ogre::String& path)
+    auto FileSystemLayer::fileExists(const Ogre::String& path) -> bool
     {
         return access(path.c_str(), R_OK) == 0;
     }
     //---------------------------------------------------------------------
-    bool FileSystemLayer::createDirectory(const Ogre::String& path)
+    auto FileSystemLayer::createDirectory(const Ogre::String& path) -> bool
     {
         return !mkdir(path.c_str(), 0755) || errno == EEXIST;
     }
     //---------------------------------------------------------------------
-    bool FileSystemLayer::removeDirectory(const Ogre::String& path)
+    auto FileSystemLayer::removeDirectory(const Ogre::String& path) -> bool
     {
         return !rmdir(path.c_str()) || errno == ENOENT;
     }
     //---------------------------------------------------------------------
-    bool FileSystemLayer::removeFile(const Ogre::String& path)
+    auto FileSystemLayer::removeFile(const Ogre::String& path) -> bool
     {
         return !unlink(path.c_str()) || errno == ENOENT;
     }
     //---------------------------------------------------------------------
-    bool FileSystemLayer::renameFile(const Ogre::String& oldname, const Ogre::String& newname)
+    auto FileSystemLayer::renameFile(const Ogre::String& oldname, const Ogre::String& newname) -> bool
     {
         return !rename(oldname.c_str(), newname.c_str());
     }

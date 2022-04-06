@@ -48,7 +48,7 @@ void ApplicationContextSDL::removeInputListener(NativeWindowType* win, InputList
     mInputListeners.erase(std::make_pair(SDL_GetWindowID(win), lis));
 }
 
-NativeWindowPair ApplicationContextSDL::createWindow(const Ogre::String& name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams)
+auto ApplicationContextSDL::createWindow(const Ogre::String& name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams) -> NativeWindowPair
 {
     NativeWindowPair ret = {NULL, NULL};
 
@@ -112,7 +112,7 @@ void ApplicationContextSDL::setWindowGrab(NativeWindowType* win, bool _grab)
     SDL_SetRelativeMouseMode(grab);
 }
 
-float ApplicationContextSDL::getDisplayDPI() const
+auto ApplicationContextSDL::getDisplayDPI() const -> float
 {
     OgreAssert(!mWindows.empty(), "create a window first");
     float vdpi = -1;

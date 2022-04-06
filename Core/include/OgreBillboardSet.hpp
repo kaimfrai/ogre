@@ -139,7 +139,7 @@ class VertexData;
         */
         BillboardSet();
 
-        bool getCastsShadows() const override { return getCastShadows(); }
+        auto getCastsShadows() const -> bool override { return getCastShadows(); }
 
         /// Bounds of all billboards in this set
         AxisAlignedBox mAABB;
@@ -227,7 +227,7 @@ class VertexData;
         Vector3 mCommonUpVector;
 
         /// Internal method for culling individual billboards
-        inline bool billboardVisible(Camera* cam, const Billboard& bill);
+        inline auto billboardVisible(Camera* cam, const Billboard& bill) -> bool;
 
         /// Number of visible billboards (will be == getNumBillboards if mCullIndividual == false)
         unsigned short mNumVisibleBillboards;
@@ -279,7 +279,7 @@ class VertexData;
             Vector3 sortDir;
 
             SortByDirectionFunctor(const Vector3& dir);
-            float operator()(Billboard* bill) const;
+            auto operator()(Billboard* bill) const -> float;
         };
 
         /** Sort by distance functor */
@@ -289,7 +289,7 @@ class VertexData;
             Vector3 sortPos;
 
             SortByDistanceFunctor(const Vector3& pos);
-            float operator()(Billboard* bill) const;
+            auto operator()(Billboard* bill) const -> float;
         };
 
         /// Use point rendering?
@@ -359,19 +359,19 @@ class VertexData;
         @see
             BillboardSet::setAutoextend
         */
-        Billboard* createBillboard(
+        auto createBillboard(
             const Vector3& position,
-            const ColourValue& colour = ColourValue::White );
+            const ColourValue& colour = ColourValue::White ) -> Billboard*;
 
         /// @overload
-        Billboard* createBillboard(Real x, Real y, Real z, const ColourValue& colour = ColourValue::White)
+        auto createBillboard(Real x, Real y, Real z, const ColourValue& colour = ColourValue::White) -> Billboard*
         {
             return createBillboard(Vector3(x, y, z), colour);
         }
 
         /** Returns the number of active billboards which currently make up this set.
         */
-        int getNumBillboards() const { return static_cast<int>(mActiveBillboards); }
+        auto getNumBillboards() const -> int { return static_cast<int>(mActiveBillboards); }
 
         /** Tells the set whether to allow automatic extension of the pool of billboards.
         @remarks
@@ -394,7 +394,7 @@ class VertexData;
         @see
             BillboardSet::setAutoextend
         */
-        bool getAutoextend() const { return mAutoExtendPool; }
+        auto getAutoextend() const -> bool { return mAutoExtendPool; }
 
         /** Enables sorting for this BillboardSet. (default: off)
         @param sortenable true to sort the billboards according to their distance to the camera
@@ -405,7 +405,7 @@ class VertexData;
         @see
             BillboardSet::setSortingEnabled
         */
-        bool getSortingEnabled() const { return mSortingEnabled; }
+        auto getSortingEnabled() const -> bool { return mSortingEnabled; }
 
         /** Adjusts the size of the pool of billboards available in this set.
         @remarks
@@ -425,7 +425,7 @@ class VertexData;
         @see
             BillboardSet::setAutoextend
         */
-        unsigned int getPoolSize() const { return static_cast<unsigned int>(mBillboardPool.size()); }
+        auto getPoolSize() const -> unsigned int { return static_cast<unsigned int>(mBillboardPool.size()); }
 
         /** Empties this set of all billboards.
         */
@@ -441,7 +441,7 @@ class VertexData;
         @par
             On failure, @c NULL is returned.
         */
-        virtual Billboard* getBillboard(unsigned int index) const;
+        virtual auto getBillboard(unsigned int index) const -> Billboard*;
 
         /** Removes the billboard at the supplied index.
         */
@@ -470,7 +470,7 @@ class VertexData;
         @return
             A member of the BillboardOrigin enum specifying the origin for all the billboards in this set.
         */
-        BillboardOrigin getBillboardOrigin() const { return mOriginType; }
+        auto getBillboardOrigin() const -> BillboardOrigin { return mOriginType; }
 
         /** Sets billboard rotation type.
 
@@ -487,7 +487,7 @@ class VertexData;
         @return
             A member of the BillboardRotationType enum specifying the rotation type for all the billboards in this set.
         */
-        BillboardRotationType getBillboardRotationType() const { return mRotationType; }
+        auto getBillboardRotationType() const -> BillboardRotationType { return mRotationType; }
 
         /** Sets the default dimensions of the billboards in this set.
         @remarks
@@ -508,11 +508,11 @@ class VertexData;
         /** See setDefaultDimensions - this sets 1 component individually. */
         void setDefaultWidth(Real width) { mDefaultWidth = width; }
         /** See setDefaultDimensions - this gets 1 component individually. */
-        Real getDefaultWidth() const { return mDefaultWidth; }
+        auto getDefaultWidth() const -> Real { return mDefaultWidth; }
         /** See setDefaultDimensions - this sets 1 component individually. */
         void setDefaultHeight(Real height) { mDefaultHeight = height; }
         /** See setDefaultDimensions - this gets 1 component individually. */
-        Real getDefaultHeight() const { return mDefaultHeight; }
+        auto getDefaultHeight() const -> Real { return mDefaultHeight; }
         /// @}
 
         /** Sets the name of the material to be used for this billboard set.
@@ -522,7 +522,7 @@ class VertexData;
         /** Sets the name of the material to be used for this billboard set.
         @return The name of the material that is used for this set.
         */
-        const String& getMaterialName() const { return mMaterial->getName(); }
+        auto getMaterialName() const -> const String& { return mMaterial->getName(); }
 
         virtual void _notifyCurrentCamera(Camera* cam) override;
 
@@ -543,10 +543,10 @@ class VertexData;
         */
         void setBounds(const AxisAlignedBox& box, Real radius);
 
-        const AxisAlignedBox& getBoundingBox() const override { return mAABB; }
-        Real getBoundingRadius() const override { return mBoundingRadius; }
+        auto getBoundingBox() const -> const AxisAlignedBox& override { return mAABB; }
+        auto getBoundingRadius() const -> Real override { return mBoundingRadius; }
         virtual void _updateRenderQueue(RenderQueue* queue) override;
-        const MaterialPtr& getMaterial() const override { return mMaterial; }
+        auto getMaterial() const -> const MaterialPtr& override { return mMaterial; }
 
         /** Sets the name of the material to be used for this billboard set.
         @param material
@@ -559,7 +559,7 @@ class VertexData;
         virtual void getWorldTransforms(Matrix4* xform) const override;
 
         /** Returns whether or not billboards in this are tested individually for culling. */
-        bool getCullIndividually() const { return mCullIndividual; }
+        auto getCullIndividually() const -> bool { return mCullIndividual; }
         /** Sets whether culling tests billboards in this individually as well as in a group.
         @remarks
             Billboard sets are always culled as a whole group, based on a bounding box which 
@@ -607,7 +607,7 @@ class VertexData;
         void setBillboardType(BillboardType bbt) { mBillboardType = bbt; }
 
         /** Returns the billboard type in use. */
-        BillboardType getBillboardType() const { return mBillboardType; }
+        auto getBillboardType() const -> BillboardType { return mBillboardType; }
 
         /** Use this to specify the common direction given to billboards
 
@@ -626,7 +626,7 @@ class VertexData;
         void setCommonDirection(const Vector3& vec) { mCommonDirection = vec; }
 
         /** Gets the common direction for all billboards (BBT_ORIENTED_COMMON) */
-        const Vector3& getCommonDirection() const { return mCommonDirection; }
+        auto getCommonDirection() const -> const Vector3& { return mCommonDirection; }
 
         /** Use this to specify the common up-vector given to billboards
 
@@ -645,7 +645,7 @@ class VertexData;
         void setCommonUpVector(const Vector3& vec) { mCommonUpVector = vec; }
 
         /** Gets the common up-vector for all billboards (BBT_PERPENDICULAR_SELF and BBT_PERPENDICULAR_COMMON) */
-        const Vector3& getCommonUpVector() const { return mCommonUpVector; }
+        auto getCommonUpVector() const -> const Vector3& { return mCommonUpVector; }
 
         /** Sets whether or not billboards should use an 'accurate' facing model
 
@@ -664,16 +664,16 @@ class VertexData;
             based on the vector from each billboard to the camera, rather than 
             an optimised version using just the camera direction.
         */
-        bool getUseAccurateFacing() const { return mAccurateFacing; }
+        auto getUseAccurateFacing() const -> bool { return mAccurateFacing; }
         /// @}
 
-        virtual const String& getMovableType() const override;
-        Real getSquaredViewDepth(const Camera* cam) const override;
+        virtual auto getMovableType() const -> const String& override;
+        auto getSquaredViewDepth(const Camera* cam) const -> Real override;
 
         /** Update the bounds of the billboardset */
         virtual void _updateBounds();
         /** @copydoc Renderable::getLights */
-        const LightList& getLights() const;
+        auto getLights() const -> const LightList&;
 
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
@@ -683,7 +683,7 @@ class VertexData;
         virtual void _sortBillboards( Camera* cam);
 
         /** Gets the sort mode of this billboard set */
-        virtual SortMode _getSortMode() const;
+        virtual auto _getSortMode() const -> SortMode;
 
         /** Sets whether billboards should be treated as being in world space. 
         @remarks
@@ -694,7 +694,7 @@ class VertexData;
 
         /** Gets whether billboards are treated as being in world space.
          */
-        bool getBillboardsInWorldSpace() { return mWorldSpace; }
+        auto getBillboardsInWorldSpace() -> bool { return mWorldSpace; }
 
         /// @name Billboard UV computation
         /// @{
@@ -751,7 +751,7 @@ class VertexData;
         @see
             BillboardSet::setTextureCoords()
         */
-        const std::vector<FloatRect>& getTextureCoords() const { return mTextureCoords; }
+        auto getTextureCoords() const -> const std::vector<FloatRect>& { return mTextureCoords; }
 
         /** Set whether or not the BillboardSet will use point rendering
             rather than manually generated quads.
@@ -783,10 +783,10 @@ class VertexData;
         virtual void setPointRenderingEnabled(bool enabled);
 
         /** Returns whether point rendering is enabled. */
-        bool isPointRenderingEnabled() const { return mPointRendering; }
+        auto isPointRenderingEnabled() const -> bool { return mPointRendering; }
 
         /// Override to return specific type flag
-        uint32 getTypeFlags() const;
+        auto getTypeFlags() const -> uint32;
 
         /** Set the auto update state of this billboard set.
         @remarks
@@ -800,7 +800,7 @@ class VertexData;
         void setAutoUpdate(bool autoUpdate);
 
         /** Return the auto update state of this billboard set.*/
-        bool getAutoUpdate() const { return mAutoUpdate; }
+        auto getAutoUpdate() const -> bool { return mAutoUpdate; }
 
         /** When billboard set is not auto updating its GPU buffer, the user is responsible to inform it
             about any billboard changes in order to reflect them at the rendering stage.
@@ -817,14 +817,14 @@ class VertexData;
     class BillboardSetFactory : public MovableObjectFactory
     {
     protected:
-        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject*;
     public:
         BillboardSetFactory() {}
         ~BillboardSetFactory() {}
 
         static String FACTORY_TYPE_NAME;
 
-        const String& getType() const;
+        auto getType() const -> const String&;
     };
     /** @} */
     /** @} */

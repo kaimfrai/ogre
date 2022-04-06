@@ -50,7 +50,7 @@ namespace Ogre {
         @return
             The factory type.
         */
-        virtual const String& getType() const = 0;
+        virtual auto getType() const -> const String& = 0;
 
         /** Creates a new object.
         @param name Name of the object to create
@@ -58,7 +58,7 @@ namespace Ogre {
             An object created by the factory. The type of the object depends on
             the factory.
         */
-        virtual T* createInstance(const String& name) = 0;
+        virtual auto createInstance(const String& name) -> T* = 0;
         /** Destroys an object which was created by this factory.
         @param ptr Pointer to the object to destroy
         */

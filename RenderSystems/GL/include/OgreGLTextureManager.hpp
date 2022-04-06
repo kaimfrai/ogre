@@ -47,19 +47,19 @@ class GLRenderSystem;
         virtual ~GLTextureManager();
 
         /// @copydoc TextureManager::getNativeFormat
-        PixelFormat getNativeFormat(TextureType ttype, PixelFormat format, int usage);
+        auto getNativeFormat(TextureType ttype, PixelFormat format, int usage) -> PixelFormat;
 
         /// @copydoc TextureManager::isHardwareFilteringSupported
-        bool isHardwareFilteringSupported(TextureType ttype, PixelFormat format, int usage,
-            bool preciseFormatOnly = false);
+        auto isHardwareFilteringSupported(TextureType ttype, PixelFormat format, int usage,
+            bool preciseFormatOnly = false) -> bool;
 
     protected:
         friend class GLRenderSystem;
 
         /// @copydoc ResourceManager::createImpl
-        Resource* createImpl(const String& name, ResourceHandle handle, 
+        auto createImpl(const String& name, ResourceHandle handle, 
             const String& group, bool isManual, ManualResourceLoader* loader, 
-            const NameValuePairList* createParams);
+            const NameValuePairList* createParams) -> Resource*;
 
         GLRenderSystem* mRenderSystem;
     };

@@ -56,7 +56,7 @@ class Program : public RTShaderSystemAlloc
 // Interface.
 public: 
     /** Get the type of this program. */
-    GpuProgramType getType() const;
+    auto getType() const -> GpuProgramType;
 
     /** Resolve uniform auto constant parameter with associated real data of this program.
     @param autoType The auto type of the desired parameter. 
@@ -64,7 +64,7 @@ public:
     @param size number of elements in the parameter.    
     @return parameter instance in case of that resolve operation succeeded.  
     */
-    UniformParameterPtr resolveAutoParameterReal(GpuProgramParameters::AutoConstantType autoType, Real data, size_t size = 0);
+    auto resolveAutoParameterReal(GpuProgramParameters::AutoConstantType autoType, Real data, size_t size = 0) -> UniformParameterPtr;
     
     /** Resolve uniform auto constant parameter with associated real data of this program.
     @param autoType The auto type of the desired parameter. 
@@ -73,7 +73,7 @@ public:
     @param size number of elements in the parameter.    
     @return parameter instance in case of that resolve operation succeeded.  
     */
-    UniformParameterPtr resolveAutoParameterReal(GpuProgramParameters::AutoConstantType autoType, GpuConstantType type, float data, size_t size = 0);
+    auto resolveAutoParameterReal(GpuProgramParameters::AutoConstantType autoType, GpuConstantType type, float data, size_t size = 0) -> UniformParameterPtr;
 
     /** Resolve uniform auto constant parameter with associated int data of this program.
     @param autoType The auto type of the desired parameter.
@@ -82,7 +82,7 @@ public:
     @param size number of elements in the parameter.
     @return parameter instance in case of that resolve operation succeeded.  
     */
-    UniformParameterPtr resolveAutoParameterInt(GpuProgramParameters::AutoConstantType autoType, GpuConstantType type, uint32 data, size_t size = 0);
+    auto resolveAutoParameterInt(GpuProgramParameters::AutoConstantType autoType, GpuConstantType type, uint32 data, size_t size = 0) -> UniformParameterPtr;
 
     /** Resolve uniform parameter of this program.
     @param type The type of the desired parameter.
@@ -93,10 +93,10 @@ public:
     @return parameter instance in case of that resolve operation succeeded.
     @remarks Pass -1 as index parameter to create a new parameter with the desired type and index.
     */
-    UniformParameterPtr resolveParameter(GpuConstantType type, int index, uint16 variability, const String& suggestedName, size_t size = 0);
+    auto resolveParameter(GpuConstantType type, int index, uint16 variability, const String& suggestedName, size_t size = 0) -> UniformParameterPtr;
     
     /// @overload
-    UniformParameterPtr resolveParameter(GpuConstantType type, const String& name, int index = -1)
+    auto resolveParameter(GpuConstantType type, const String& name, int index = -1) -> UniformParameterPtr
     {
         return resolveParameter(type, index, GPV_GLOBAL, name);
     }
@@ -106,35 +106,35 @@ public:
     @param data The data to associate with the auto parameter. 
     @return parameter instance in case of that resolve operation succeeded.  
     */
-    UniformParameterPtr resolveParameter(GpuProgramParameters::AutoConstantType autoType, uint32 data = 0);
+    auto resolveParameter(GpuProgramParameters::AutoConstantType autoType, uint32 data = 0) -> UniformParameterPtr;
 
     /** Get parameter by a given name.  
     @param name The name of the parameter to search for.
     @remarks Return NULL if no matching parameter found.
     */
-    UniformParameterPtr getParameterByName(const String& name);
+    auto getParameterByName(const String& name) -> UniformParameterPtr;
 
     /** Get parameter by a given auto constant type.    
     @param autoType The auto type of the parameter to search for.
     @remarks Return NULL if no matching parameter found.
     */
-    UniformParameterPtr getParameterByAutoType(GpuProgramParameters::AutoConstantType autoType);
+    auto getParameterByAutoType(GpuProgramParameters::AutoConstantType autoType) -> UniformParameterPtr;
 
     /** Get parameter by a given type and index.    
     @param type The type of the parameter to search for.
     @param index The index of the parameter to search for.
     @remarks Return NULL if no matching parameter found.
     */
-    UniformParameterPtr getParameterByType(GpuConstantType type, int index);
+    auto getParameterByType(GpuConstantType type, int index) -> UniformParameterPtr;
 
     /** Get the list of uniform parameters of this program.
     */
-    const UniformParameterList& getParameters() const { return mParameters; };
+    auto getParameters() const -> const UniformParameterList& { return mParameters; };
 
     /// @deprecated use getMain()
-    Function* getEntryPointFunction()                    { return mEntryPointFunction; }
+    auto getEntryPointFunction() -> Function*                    { return mEntryPointFunction; }
 
-    Function* getMain() { return mEntryPointFunction; }
+    auto getMain() -> Function* { return mEntryPointFunction; }
 
     /** Add dependency for this program. Basically a filename that will be included in this
     program and provide predefined shader functions code.
@@ -144,12 +144,12 @@ public:
     void addDependency(const String& libFileName);
 
     /** Get the number of external libs this program depends on */
-    size_t getDependencyCount() const;
+    auto getDependencyCount() const -> size_t;
 
     /** Get the library name of the given index dependency.
     @param index The index of the dependecy.
     */
-    const String& getDependency(unsigned int index) const;
+    auto getDependency(unsigned int index) const -> const String&;
     
 
     /** Sets whether a vertex program includes the required instructions
@@ -160,7 +160,7 @@ public:
     /** Returns whether a vertex program includes the required instructions
         to perform skeletal animation. 
     */
-    bool getSkeletalAnimationIncluded() const { return mSkeletalAnimation; }
+    auto getSkeletalAnimationIncluded() const -> bool { return mSkeletalAnimation; }
 
     /** Tells Ogre whether auto-bound matrices should be sent in column or row-major order.
     @remarks
@@ -179,11 +179,11 @@ public:
     @return
     true, when the matrices will be passed in column-major order, false, when they will be passed as row-major.
     */
-    bool getUseColumnMajorMatrices() const { return mColumnMajorMatrices; }
+    auto getUseColumnMajorMatrices() const -> bool { return mColumnMajorMatrices; }
 
     void addPreprocessorDefines(const String& defines);
 
-    const String& getPreprocessorDefines() const { return mPreprocessorDefines; }
+    auto getPreprocessorDefines() const -> const String& { return mPreprocessorDefines; }
 
     /** Class destructor */
     ~Program();

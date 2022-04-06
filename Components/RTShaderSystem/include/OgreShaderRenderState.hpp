@@ -84,7 +84,7 @@ public:
     void removeSubRenderState(SubRenderState* subRenderState);
 
     /** Get the list of the sub render states composing this render state. */
-    const SubRenderStateList& getSubRenderStates() const { return mSubRenderStateList; }
+    auto getSubRenderStates() const -> const SubRenderStateList& { return mSubRenderStateList; }
 
     /** 
     Set the light count per light type.
@@ -103,7 +103,7 @@ public:
     lightCount[1] defines the directional light count.
     lightCount[2] defines the spot light count.
     */
-    const Vector3i& getLightCount() const;
+    auto getLightCount() const -> const Vector3i&;
 
     /** 
     Set the light count auto update state.
@@ -117,7 +117,7 @@ public:
     Return true if this render state override the light count. 
     If light count is not overridden it will be updated from the shader generator based on current scene lights.
     */
-    bool getLightCountAutoUpdate() const { return mLightCountAutoUpdate; }
+    auto getLightCountAutoUpdate() const -> bool { return mLightCountAutoUpdate; }
 
     
 
@@ -200,11 +200,11 @@ private:
 
     /** Create the program set of this render state.
     */
-    ProgramSet* createProgramSet();
+    auto createProgramSet() -> ProgramSet*;
 
     /** Return the program set of this render state.
     */
-    ProgramSet* getProgramSet() { return mProgramSet.get(); }
+    auto getProgramSet() -> ProgramSet* { return mProgramSet.get(); }
     
     // Tells if the list of the sub render states is sorted.
     bool mSubRenderStateSortValid;

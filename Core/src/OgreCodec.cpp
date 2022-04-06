@@ -41,7 +41,7 @@ class Any;
     Codec::~Codec() {
     }
 
-    DataStreamPtr Codec::encode(const Any& input) const
+    auto Codec::encode(const Any& input) const -> DataStreamPtr
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, getType() + " - encoding to memory not supported");
         return {};
@@ -52,7 +52,7 @@ class Any;
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, getType() + " - encoding to file not supported");
     }
 
-    StringVector Codec::getExtensions()
+    auto Codec::getExtensions() -> StringVector
     {
         StringVector result;
         result.reserve(msMapCodecs.size());
@@ -71,7 +71,7 @@ class Any;
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, pCodec->getType() + " already has a registered codec");
     }
 
-    Codec* Codec::getCodec(const String& extension)
+    auto Codec::getCodec(const String& extension) -> Codec*
     {
         String lwrcase = extension;
         StringUtil::toLowerCase(lwrcase);
@@ -92,7 +92,7 @@ class Any;
 
     }
 
-    Codec* Codec::getCodec(char *magicNumberPtr, size_t maxbytes)
+    auto Codec::getCodec(char *magicNumberPtr, size_t maxbytes) -> Codec*
     {
         for (CodecList::const_iterator i = msMapCodecs. begin(); 
             i != msMapCodecs.end(); ++i)

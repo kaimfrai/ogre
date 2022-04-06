@@ -77,45 +77,45 @@ class RenderQueue;
             mBillboardSet->setTextureStacksAndSlices(stacks, slices);
         }
 
-        const Vector2& getTextureStacksAndSlices() const { return mStacksSlices; }
+        auto getTextureStacksAndSlices() const -> const Vector2& { return mStacksSlices; }
 
         /// @copydoc BillboardSet::setBillboardType
         void setBillboardType(BillboardType bbt) { mBillboardSet->setBillboardType(bbt); }
         /// @copydoc BillboardSet::getBillboardType
-        BillboardType getBillboardType() const { return mBillboardSet->getBillboardType(); }
+        auto getBillboardType() const -> BillboardType { return mBillboardSet->getBillboardType(); }
         /// @copydoc BillboardSet::setUseAccurateFacing
         void setUseAccurateFacing(bool acc) { mBillboardSet->setUseAccurateFacing(acc); }
         /// @copydoc BillboardSet::getUseAccurateFacing
-        bool getUseAccurateFacing() const { return mBillboardSet->getUseAccurateFacing(); }
+        auto getUseAccurateFacing() const -> bool { return mBillboardSet->getUseAccurateFacing(); }
         /// @copydoc BillboardSet::setBillboardOrigin
         void setBillboardOrigin(BillboardOrigin origin) { mBillboardSet->setBillboardOrigin(origin); }
         /// @copydoc BillboardSet::getBillboardOrigin
-        BillboardOrigin getBillboardOrigin() const { return mBillboardSet->getBillboardOrigin(); }
+        auto getBillboardOrigin() const -> BillboardOrigin { return mBillboardSet->getBillboardOrigin(); }
         /// @copydoc BillboardSet::setBillboardRotationType
         void setBillboardRotationType(BillboardRotationType rotationType)
         {
             mBillboardSet->setBillboardRotationType(rotationType);
         }
         /// @copydoc BillboardSet::getBillboardRotationType
-        BillboardRotationType getBillboardRotationType() const
+        auto getBillboardRotationType() const -> BillboardRotationType
         {
             return mBillboardSet->getBillboardRotationType();
         }
         /// @copydoc BillboardSet::setCommonDirection
         void setCommonDirection(const Vector3& vec) { mBillboardSet->setCommonDirection(vec); }
         /// @copydoc BillboardSet::getCommonDirection
-        const Vector3& getCommonDirection() const { return mBillboardSet->getCommonDirection(); }
+        auto getCommonDirection() const -> const Vector3& { return mBillboardSet->getCommonDirection(); }
         /// @copydoc BillboardSet::setCommonUpVector
         void setCommonUpVector(const Vector3& vec) { mBillboardSet->setCommonUpVector(vec); }
         /// @copydoc BillboardSet::getCommonUpVector
-        const Vector3& getCommonUpVector() const { return mBillboardSet->getCommonUpVector(); }
+        auto getCommonUpVector() const -> const Vector3& { return mBillboardSet->getCommonUpVector(); }
         /// @copydoc BillboardSet::setPointRenderingEnabled
         void setPointRenderingEnabled(bool enabled) { mBillboardSet->setPointRenderingEnabled(enabled); }
         /// @copydoc BillboardSet::isPointRenderingEnabled
-        bool isPointRenderingEnabled() const { return mBillboardSet->isPointRenderingEnabled(); }
+        auto isPointRenderingEnabled() const -> bool { return mBillboardSet->isPointRenderingEnabled(); }
 
         /// @copydoc ParticleSystemRenderer::getType
-        const String& getType() const;
+        auto getType() const -> const String&;
         /// @copydoc ParticleSystemRenderer::_updateRenderQueue
         void _updateRenderQueue(RenderQueue* queue, 
             std::vector<Particle*>& currentParticles, bool cullIndividually);
@@ -152,10 +152,10 @@ class RenderQueue;
             mBillboardSet->setBillboardsInWorldSpace(!keepLocal);
         }
         /// @copydoc ParticleSystemRenderer::_getSortMode
-        SortMode _getSortMode() const { return mBillboardSet->_getSortMode(); }
+        auto _getSortMode() const -> SortMode { return mBillboardSet->_getSortMode(); }
 
         /// Access BillboardSet in use
-        BillboardSet* getBillboardSet() const { return mBillboardSet; }
+        auto getBillboardSet() const -> BillboardSet* { return mBillboardSet; }
 
         void _notifyBoundingBox(const AxisAlignedBox& aabb) override;
 
@@ -167,9 +167,9 @@ class RenderQueue;
     {
     public:
         /// @copydoc FactoryObj::getType
-        const String& getType() const;
+        auto getType() const -> const String&;
         /// @copydoc FactoryObj::createInstance
-        ParticleSystemRenderer* createInstance( const String& name );
+        auto createInstance( const String& name ) -> ParticleSystemRenderer*;
     };
     /** @} */
     /** @} */

@@ -284,7 +284,7 @@ namespace Ogre
     }
 
     //updates the vertex buffer containing the per instance data
-    size_t InstanceBatchHW_VTF::updateInstanceDataBuffer(bool isFirstTime, Camera* currentCamera)
+    auto InstanceBatchHW_VTF::updateInstanceDataBuffer(bool isFirstTime, Camera* currentCamera) -> size_t
     {
         size_t visibleEntityCount = 0;
         bool useMatrixLookup = useBoneMatrixLookup();
@@ -361,7 +361,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------
-    bool InstanceBatchHW_VTF::checkSubMeshCompatibility( const SubMesh* baseSubMesh )
+    auto InstanceBatchHW_VTF::checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool
     {
         //Max number of texture coordinates is _usually_ 8, we need at least 2 available
         unsigned short neededTextureCoord = 2;
@@ -381,8 +381,8 @@ namespace Ogre
         return InstanceBatch::checkSubMeshCompatibility( baseSubMesh );
     }
     //-----------------------------------------------------------------------
-    size_t InstanceBatchHW_VTF::calculateMaxNumInstances( 
-                    const SubMesh *baseSubMesh, uint16 flags ) const
+    auto InstanceBatchHW_VTF::calculateMaxNumInstances( 
+                    const SubMesh *baseSubMesh, uint16 flags ) const -> size_t
     {
         size_t retVal = 0;
 
@@ -423,7 +423,7 @@ namespace Ogre
         return retVal;
     }
     //-----------------------------------------------------------------------
-    size_t InstanceBatchHW_VTF::updateVertexTexture( Camera *currentCamera )
+    auto InstanceBatchHW_VTF::updateVertexTexture( Camera *currentCamera ) -> size_t
     {
         size_t renderedInstances = 0;
         bool useMatrixLookup = useBoneMatrixLookup();

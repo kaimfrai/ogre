@@ -92,24 +92,24 @@ class Viewport;
          * Create a new compositor
          * @see ResourceManager::createResource
          */
-        CompositorPtr create (const String& name, const String& group,
+        auto create (const String& name, const String& group,
                             bool isManual = false, ManualResourceLoader* loader = 0,
-                            const NameValuePairList* createParams = 0);
+                            const NameValuePairList* createParams = 0) -> CompositorPtr;
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName
-        CompositorPtr getByName(const String& name, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME) const;
+        auto getByName(const String& name, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME) const -> CompositorPtr;
 
         /** Get the compositor chain for a Viewport. If there is none yet, a new
             compositor chain is registered.
             XXX We need a _notifyViewportRemoved to find out when this viewport disappears,
             so we can destroy its chain as well.
         */
-        CompositorChain *getCompositorChain(Viewport *vp);
+        auto getCompositorChain(Viewport *vp) -> CompositorChain *;
 
         /** Returns whether exists compositor chain for a viewport.
         */
-        bool hasCompositorChain(const Viewport *vp) const;
+        auto hasCompositorChain(const Viewport *vp) const -> bool;
 
         /** Remove the compositor chain from a viewport if exists.
         */
@@ -122,7 +122,7 @@ class Viewport;
             @param addPosition  At which position to add, defaults to the end (-1).
             @return pointer to instance, or 0 if it failed.
         */
-        CompositorInstance *addCompositor(Viewport *vp, const String &compositor, int addPosition=-1);
+        auto addCompositor(Viewport *vp, const String &compositor, int addPosition=-1) -> CompositorInstance *;
 
         /** Remove a compositor from a viewport
         */
@@ -137,7 +137,7 @@ class Viewport;
 
         /** Get a textured fullscreen 2D rectangle, for internal use.
         */
-        Renderable *_getTexturedRectangle2D();
+        auto _getTexturedRectangle2D() -> Renderable *;
 
         /** Overridden from ResourceManager since we have to clean up chains too. */
         void removeAll();
@@ -154,10 +154,10 @@ class Viewport;
             twice (this is important for example if you request 2 ping-pong textures, 
             you don't want to get the same texture for both requests!
         */
-        TexturePtr getPooledTexture(const String& name, const String& localName, 
+        auto getPooledTexture(const String& name, const String& localName, 
             uint32 w, uint32 h,
             PixelFormat f, uint aa, const String& aaHint, bool srgb, UniqueTextureSet& texturesAlreadyAssigned, 
-            CompositorInstance* inst, CompositionTechnique::TextureScope scope, TextureType type = TEX_TYPE_2D);
+            CompositorInstance* inst, CompositionTechnique::TextureScope scope, TextureType type = TEX_TYPE_2D) -> TexturePtr;
 
         /** Free pooled textures from the shared pool (compositor instances still 
             using them will keep them in memory though). 
@@ -175,11 +175,11 @@ class Viewport;
         
         /** Get a compositor logic by its name
         */
-        CompositorLogic* getCompositorLogic(const String& name);
+        auto getCompositorLogic(const String& name) -> CompositorLogic*;
 
 		/** Check if a compositor logic exists
 		*/
-		bool hasCompositorLogic(const String& name);
+		auto hasCompositorLogic(const String& name) -> bool;
 		
         /** Register a custom composition pass.
         */
@@ -189,11 +189,11 @@ class Viewport;
 
         /** Get a custom composition pass by its name 
         */
-        CustomCompositionPass* getCustomCompositionPass(const String& name);
+        auto getCustomCompositionPass(const String& name) -> CustomCompositionPass*;
 
 		/** Check if a compositor pass exists
 		*/
-        bool hasCustomCompositionPass(const String& name);
+        auto hasCustomCompositionPass(const String& name) -> bool;
 
         /**
         Relocates a compositor chain from one viewport to another
@@ -203,15 +203,15 @@ class Viewport;
         void _relocateChain(Viewport* sourceVP, Viewport* destVP);
 
         /// @copydoc Singleton::getSingleton()
-        static CompositorManager& getSingleton();
+        static auto getSingleton() -> CompositorManager&;
 
         /// @copydoc Singleton::getSingleton()
-        static CompositorManager* getSingletonPtr();
+        static auto getSingletonPtr() -> CompositorManager*;
     
     private:
-        Resource* createImpl(const String& name, ResourceHandle handle,
+        auto createImpl(const String& name, ResourceHandle handle,
             const String& group, bool isManual, ManualResourceLoader* loader,
-            const NameValuePairList* params) override;
+            const NameValuePairList* params) -> Resource* override;
 
         typedef std::map<const Viewport*, CompositorChain*> Chains;
         Chains mChains;
@@ -252,7 +252,7 @@ class Viewport;
             {
             }
 
-            bool operator<(const TextureDef& y) const
+            auto operator<(const TextureDef& y) const -> bool
             {
                 return std::tie(width, height, type, format, fsaa, fsaaHint, sRGBwrite) <
                        std::tie(y.width, y.height, y.type, y.format, y.fsaa, y.fsaaHint, y.sRGBwrite);
@@ -267,10 +267,10 @@ class Viewport;
         
         ChainTexturesByDef mChainTexturesByDef;
 
-        bool isInputPreviousTarget(CompositorInstance* inst, const Ogre::String& localName);
-        bool isInputPreviousTarget(CompositorInstance* inst, TexturePtr tex);
-        bool isInputToOutputTarget(CompositorInstance* inst, const Ogre::String& localName);
-        bool isInputToOutputTarget(CompositorInstance* inst, TexturePtr tex);
+        auto isInputPreviousTarget(CompositorInstance* inst, const Ogre::String& localName) -> bool;
+        auto isInputPreviousTarget(CompositorInstance* inst, TexturePtr tex) -> bool;
+        auto isInputToOutputTarget(CompositorInstance* inst, const Ogre::String& localName) -> bool;
+        auto isInputToOutputTarget(CompositorInstance* inst, TexturePtr tex) -> bool;
 
     };
     /** @} */

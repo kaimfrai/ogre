@@ -146,7 +146,7 @@ namespace Ogre {
         addRenderable(pRend, mDefaultQueueGroup, mDefaultRenderablePriority);
     }
     //-----------------------------------------------------------------------
-    uint8 RenderQueue::getDefaultQueueGroup() const
+    auto RenderQueue::getDefaultQueueGroup() const -> uint8
     {
         return mDefaultQueueGroup;
     }
@@ -156,7 +156,7 @@ namespace Ogre {
         mDefaultQueueGroup = grp;
     }
     //-----------------------------------------------------------------------
-    ushort RenderQueue::getDefaultRenderablePriority() const
+    auto RenderQueue::getDefaultRenderablePriority() const -> ushort
     {
         return mDefaultRenderablePriority;
     }
@@ -168,7 +168,7 @@ namespace Ogre {
     
     
     //-----------------------------------------------------------------------
-    RenderQueueGroup* RenderQueue::getQueueGroup(uint8 groupID)
+    auto RenderQueue::getQueueGroup(uint8 groupID) -> RenderQueueGroup*
     {
         if (!mGroups[groupID])
         {
@@ -192,7 +192,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool RenderQueue::getSplitPassesByLightingType() const
+    auto RenderQueue::getSplitPassesByLightingType() const -> bool
     {
         return mSplitPassesByLightingType;
     }
@@ -208,7 +208,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool RenderQueue::getSplitNoShadowPasses() const
+    auto RenderQueue::getSplitNoShadowPasses() const -> bool
     {
         return mSplitNoShadowPasses;
     }
@@ -224,7 +224,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool RenderQueue::getShadowCastersCannotBeReceivers() const
+    auto RenderQueue::getShadowCastersCannotBeReceivers() const -> bool
     {
         return mShadowCastersCannotBeReceivers;
     }

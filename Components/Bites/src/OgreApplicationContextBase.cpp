@@ -86,7 +86,7 @@ void ApplicationContextBase::closeApp()
     mStaticPluginLoader.unload();
 }
 
-bool ApplicationContextBase::initialiseRTShaderSystem()
+auto ApplicationContextBase::initialiseRTShaderSystem() -> bool
 {
     if (Ogre::RTShader::ShaderGenerator::initialize())
     {
@@ -170,7 +170,7 @@ void ApplicationContextBase::createRoot()
     mOverlaySystem = new Ogre::OverlaySystem();
 }
 
-bool ApplicationContextBase::oneTimeConfig()
+auto ApplicationContextBase::oneTimeConfig() -> bool
 {
     if(mRoot->getAvailableRenderers().empty())
     {
@@ -247,7 +247,7 @@ void ApplicationContextBase::removeInputListener(NativeWindowType* win, InputLis
     mInputListeners.erase(std::make_pair(0, lis));
 }
 
-bool ApplicationContextBase::frameRenderingQueued(const Ogre::FrameEvent& evt)
+auto ApplicationContextBase::frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool
 {
     for(InputListenerList::iterator it = mInputListeners.begin();
             it != mInputListeners.end(); ++it) {
@@ -257,7 +257,7 @@ bool ApplicationContextBase::frameRenderingQueued(const Ogre::FrameEvent& evt)
     return true;
 }
 
-NativeWindowPair ApplicationContextBase::createWindow(const Ogre::String& name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams)
+auto ApplicationContextBase::createWindow(const Ogre::String& name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams) -> NativeWindowPair
 {
     NativeWindowPair ret = {NULL, NULL};
 
@@ -365,7 +365,7 @@ void ApplicationContextBase::_fireInputEvent(const Event& event, uint32_t window
     }
 }
 
-Ogre::String ApplicationContextBase::getDefaultMediaDir()
+auto ApplicationContextBase::getDefaultMediaDir() -> Ogre::String
 {
     return Ogre::FileSystemLayer::resolveBundlePath(getenv("OGRE_MEDIA_DIR"));
 }

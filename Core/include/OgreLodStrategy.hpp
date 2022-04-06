@@ -57,7 +57,7 @@ class MovableObject;
         String mName;
 
         /** Compute the LOD value for a given movable object relative to a given camera. */
-        virtual Real getValueImpl(const MovableObject *movableObject, const Camera *camera) const = 0;
+        virtual auto getValueImpl(const MovableObject *movableObject, const Camera *camera) const -> Real = 0;
 
     public:
         /** Constructor accepting name. */
@@ -67,10 +67,10 @@ class MovableObject;
         virtual ~LodStrategy();
 
         /** Get the value of the first (highest) level of detail. */
-        virtual Real getBaseValue() const = 0;
+        virtual auto getBaseValue() const -> Real = 0;
 
         /** Transform LOD bias so it only needs to be multiplied by the LOD value. */
-        virtual Real transformBias(Real factor) const = 0;
+        virtual auto transformBias(Real factor) const -> Real = 0;
 
         /** Transform user supplied value to internal value.
         @remarks
@@ -79,34 +79,34 @@ class MovableObject;
             Do not throw exceptions for invalid values here, as the LOD strategy
             may be changed such that the values become valid.
         */
-        virtual Real transformUserValue(Real userValue) const;
+        virtual auto transformUserValue(Real userValue) const -> Real;
 
         /** Compute the LOD value for a given movable object relative to a given camera. */
-        Real getValue(const MovableObject *movableObject, const Camera *camera) const;
+        auto getValue(const MovableObject *movableObject, const Camera *camera) const -> Real;
 
         /** Get the index of the LOD usage which applies to a given value. */
-        virtual ushort getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const = 0;
+        virtual auto getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const -> ushort = 0;
 
         /** Get the index of the LOD usage which applies to a given value. */
-        virtual ushort getIndex(Real value, const Material::LodValueList& materialLodValueList) const = 0;
+        virtual auto getIndex(Real value, const Material::LodValueList& materialLodValueList) const -> ushort = 0;
 
         /** Sort mesh LOD usage list from greatest to least detail */
         virtual void sort(Mesh::MeshLodUsageList& meshLodUsageList) const = 0;
 
         /** Determine if the LOD values are sorted from greatest detail to least detail. */
-        virtual bool isSorted(const Mesh::LodValueList& values) const = 0;
+        virtual auto isSorted(const Mesh::LodValueList& values) const -> bool = 0;
 
         /** Assert that the LOD values are sorted from greatest detail to least detail. */
         void assertSorted(const Mesh::LodValueList& values) const;
 
         /** Get the name of this strategy. */
-        const String& getName() const { return mName; }
+        auto getName() const -> const String& { return mName; }
 
     protected:
         /** Implementation of isSorted suitable for ascending values. */
-        static bool isSortedAscending(const Mesh::LodValueList& values);
+        static auto isSortedAscending(const Mesh::LodValueList& values) -> bool;
         /** Implementation of isSorted suitable for descending values. */
-        static bool isSortedDescending(const Mesh::LodValueList& values);
+        static auto isSortedDescending(const Mesh::LodValueList& values) -> bool;
 
         /** Implementation of sort suitable for ascending values. */
         static void sortAscending(Mesh::MeshLodUsageList& meshLodUsageList);
@@ -114,14 +114,14 @@ class MovableObject;
         static void sortDescending(Mesh::MeshLodUsageList& meshLodUsageList);
 
         /** Implementation of getIndex suitable for ascending values. */
-        static ushort getIndexAscending(Real value, const Mesh::MeshLodUsageList& meshLodUsageList);
+        static auto getIndexAscending(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) -> ushort;
         /** Implementation of getIndex suitable for descending values. */
-        static ushort getIndexDescending(Real value, const Mesh::MeshLodUsageList& meshLodUsageList);
+        static auto getIndexDescending(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) -> ushort;
 
         /** Implementation of getIndex suitable for ascending values. */
-        static ushort getIndexAscending(Real value, const Material::LodValueList& materialLodValueList);
+        static auto getIndexAscending(Real value, const Material::LodValueList& materialLodValueList) -> ushort;
         /** Implementation of getIndex suitable for descending values. */
-        static ushort getIndexDescending(Real value, const Material::LodValueList& materialLodValueList);
+        static auto getIndexDescending(Real value, const Material::LodValueList& materialLodValueList) -> ushort;
 
     };
     /** @} */

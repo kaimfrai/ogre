@@ -197,7 +197,7 @@ namespace Ogre{
     public:
         BuiltinScriptTranslatorManager();
         /// Returns a manager for the given object abstract node, or null if it is not supported
-        virtual ScriptTranslator *getTranslator(const AbstractNodePtr &node);
+        virtual auto getTranslator(const AbstractNodePtr &node) -> ScriptTranslator *;
     };
 }
 

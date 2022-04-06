@@ -44,7 +44,7 @@ THE SOFTWARE.
 
 
 namespace Ogre {
-static bool operator<(const FileInfo& a, const FileInfo& b) {
+static auto operator<(const FileInfo& a, const FileInfo& b) -> bool {
     return a.basename < b.basename;
 }
 }

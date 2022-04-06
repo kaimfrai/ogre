@@ -71,7 +71,7 @@ class ResourceManager;
         
         /** Create a new technique, and return a pointer to it.
         */
-        CompositionTechnique *createTechnique();
+        auto createTechnique() -> CompositionTechnique *;
         
         /** Remove a technique. It will also be destroyed.
         */
@@ -79,18 +79,18 @@ class ResourceManager;
         
         /** Get a technique.
         */
-        CompositionTechnique *getTechnique(size_t idx) const { return mTechniques.at(idx); }
+        auto getTechnique(size_t idx) const -> CompositionTechnique * { return mTechniques.at(idx); }
         
         /** Get the number of techniques.
         */
-        size_t getNumTechniques() const { return mTechniques.size(); }
+        auto getNumTechniques() const -> size_t { return mTechniques.size(); }
         
         /** Remove all techniques
         */
         void removeAllTechniques();
         
         /** Get an iterator over the Techniques in this compositor. */
-        TechniqueIterator getTechniqueIterator();
+        auto getTechniqueIterator() -> TechniqueIterator;
         
         /** Get a supported technique.
         @remarks
@@ -98,7 +98,7 @@ class ResourceManager;
             which typically happens on loading it. Therefore, if this method returns
             an empty list, try calling Compositor::load.
         */
-        CompositionTechnique *getSupportedTechnique(size_t idx) const { return mSupportedTechniques.at(idx); }
+        auto getSupportedTechnique(size_t idx) const -> CompositionTechnique * { return mSupportedTechniques.at(idx); }
         
         /** Get the number of supported techniques.
         @remarks
@@ -106,7 +106,7 @@ class ResourceManager;
             which typically happens on loading it. Therefore, if this method returns
             an empty list, try calling Compositor::load.
         */
-        size_t getNumSupportedTechniques() const { return mSupportedTechniques.size(); }
+        auto getNumSupportedTechniques() const -> size_t { return mSupportedTechniques.size(); }
         
         /** Gets an iterator over all the Techniques which are supported by the current card. 
         @remarks
@@ -114,7 +114,7 @@ class ResourceManager;
             which typically happens on loading it. Therefore, if this method returns
             an empty list, try calling Compositor::load.
         */
-        TechniqueIterator getSupportedTechniqueIterator();
+        auto getSupportedTechniqueIterator() -> TechniqueIterator;
 
         /** Get a pointer to a supported technique for a given scheme. 
         @remarks
@@ -123,21 +123,21 @@ class ResourceManager;
         @param schemeName The scheme name you are looking for. Blank means to 
             look for techniques with no scheme associated
         */
-        CompositionTechnique *getSupportedTechnique(const String& schemeName = BLANKSTRING);
+        auto getSupportedTechnique(const String& schemeName = BLANKSTRING) -> CompositionTechnique *;
 
         /** Get the instance name for a global texture.
         @param name The name of the texture in the original compositor definition
         @param mrtIndex If name identifies a MRT, which texture attachment to retrieve
         @return The instance name for the texture, corresponds to a real texture
         */
-        const String& getTextureInstanceName(const String& name, size_t mrtIndex);
+        auto getTextureInstanceName(const String& name, size_t mrtIndex) -> const String&;
 
         /** Get the instance of a global texture.
         @param name The name of the texture in the original compositor definition
         @param mrtIndex If name identifies a MRT, which texture attachment to retrieve
         @return The texture pointer, corresponds to a real texture
         */
-        const TexturePtr& getTextureInstance(const String& name, size_t mrtIndex);
+        auto getTextureInstance(const String& name, size_t mrtIndex) -> const TexturePtr&;
 
         /** Get the render target for a given render texture name. 
         @remarks
@@ -145,7 +145,7 @@ class ResourceManager;
             targets manually or any other modifications, the compositor instance 
             is in charge of this.
         */
-        RenderTarget* getRenderTarget(const String& name, int slice = 0);
+        auto getRenderTarget(const String& name, int slice = 0) -> RenderTarget*;
 
     protected:
         /// @copydoc Resource::loadImpl
@@ -154,7 +154,7 @@ class ResourceManager;
         /// @copydoc Resource::unloadImpl
         void unloadImpl();
         /// @copydoc Resource::calculateSize
-        size_t calculateSize() const;
+        auto calculateSize() const -> size_t;
         
         /** Check supportedness of techniques.
          */

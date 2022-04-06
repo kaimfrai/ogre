@@ -44,7 +44,7 @@ namespace Ogre
         int16 refreshRate;
         uint8  bpp;
 
-        String getDescription() const;
+        auto getDescription() const -> String;
     };
     typedef std::vector<VideoMode>    VideoModes;
 
@@ -66,26 +66,26 @@ namespace Ogre
             virtual ~GLNativeSupport() {}
 
             /// @copydoc RenderSystem::_createRenderWindow
-            virtual RenderWindow* newWindow(const String &name,
+            virtual auto newWindow(const String &name,
                                             unsigned int width, unsigned int height,
                                             bool fullScreen,
-                                            const NameValuePairList *miscParams = 0) = 0;
+                                            const NameValuePairList *miscParams = 0) -> RenderWindow* = 0;
 
-            virtual GLPBuffer* createPBuffer(PixelComponentType format, size_t width, size_t height) {
+            virtual auto createPBuffer(PixelComponentType format, size_t width, size_t height) -> GLPBuffer* {
                 return NULL;
             }
 
             /**
             * Get the address of a function
             */
-            virtual void *getProcAddress(const char* procname) const = 0;
+            virtual auto getProcAddress(const char* procname) const -> void * = 0;
 
-            bool checkExtension(const String& ext) const {
+            auto checkExtension(const String& ext) const -> bool {
                 return extensionList.find(ext) != extensionList.end();
             }
 
             /// @copydoc RenderSystem::getDisplayMonitorCount
-            virtual unsigned int getDisplayMonitorCount() const
+            virtual auto getDisplayMonitorCount() const -> unsigned int
             {
                 return 1;
             }
@@ -102,12 +102,12 @@ namespace Ogre
             /**
             * Add any special config values to the system.
             */
-            virtual ConfigOptionMap getConfigOptions() { return {}; }
+            virtual auto getConfigOptions() -> ConfigOptionMap { return {}; }
 
-            const std::vector<int>& getFSAALevels() const { return mFSAALevels; }
-            const VideoModes& getVideoModes() const { return mVideoModes; }
+            auto getFSAALevels() const -> const std::vector<int>& { return mFSAALevels; }
+            auto getVideoModes() const -> const VideoModes& { return mVideoModes; }
 
-            ContextProfile getContextProfile() const { return mContextProfile; }
+            auto getContextProfile() const -> ContextProfile { return mContextProfile; }
         protected:
             // Allowed video modes
             VideoModes mVideoModes;

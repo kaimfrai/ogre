@@ -126,7 +126,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    virtual const Ogre::String& getType                 () const;
+    virtual auto getType                 () const -> const Ogre::String&;
 
 
     /** 
@@ -139,7 +139,7 @@ public:
     /** 
     Return the blend mode of the given texture unit index.
     */
-    BlendMode getBlendMode(unsigned short index) const;
+    auto getBlendMode(unsigned short index) const -> BlendMode;
 
     
 
@@ -158,7 +158,7 @@ public:
     @param modType The source modification type to use
     @param customNum The custom parameter number used to control the modification
     */
-    bool getSourceModifier(unsigned short index, SourceModifier& modType, int& customNum) const;
+    auto getSourceModifier(unsigned short index, SourceModifier& modType, int& customNum) const -> bool;
 
     /** 
     @see SubRenderState::copyFrom.
@@ -173,12 +173,12 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    virtual bool resolveParameters(ProgramSet* programSet);
+    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
 
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    virtual bool resolveDependencies(Ogre::RTShader::ProgramSet* programSet);
+    virtual auto resolveDependencies(Ogre::RTShader::ProgramSet* programSet) -> bool;
 
 
     virtual void addPSBlendInvocations(Function* psMain, 
@@ -219,12 +219,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    virtual const String& getType() const;
+    virtual auto getType() const -> const String&;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator);
+    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator) -> SubRenderState*;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -237,33 +237,33 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual SubRenderState* createInstanceImpl();
+    virtual auto createInstanceImpl() -> SubRenderState*;
 
     /** 
     @Converts string to Enum
     */
-    LayeredBlending::BlendMode stringToBlendMode(const String &strValue);
+    auto stringToBlendMode(const String &strValue) -> LayeredBlending::BlendMode;
     /** 
     @Converts Enum to string
     */
-    String blendModeToString(LayeredBlending::BlendMode blendMode);
+    auto blendModeToString(LayeredBlending::BlendMode blendMode) -> String;
 
     /** 
     @Converts string to Enum
     */
-    LayeredBlending::SourceModifier stringToSourceModifier(const String &strValue);
+    auto stringToSourceModifier(const String &strValue) -> LayeredBlending::SourceModifier;
     
     /** 
     @Converts Enum to string
     */
-    String sourceModifierToString(LayeredBlending::SourceModifier modifier);
+    auto sourceModifierToString(LayeredBlending::SourceModifier modifier) -> String;
 
     /** 
     Returns the LayeredBlending sub-rener state previously created for this material/pass.
     if no such sub-render state exists creates a new one
     @param translator compiler
     */
-    LayeredBlending* createOrRetrieveSubRenderState(SGScriptTranslator* translator);
+    auto createOrRetrieveSubRenderState(SGScriptTranslator* translator) -> LayeredBlending*;
 };
 
 } // namespace RTShader

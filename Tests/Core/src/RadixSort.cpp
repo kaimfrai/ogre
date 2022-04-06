@@ -53,7 +53,7 @@ void RadixSortTests::TearDown()
 class FloatSortFunctor
 {
 public:
-    float operator()(const float& p) const
+    auto operator()(const float& p) const -> float
     {
         return p;
     }
@@ -62,7 +62,7 @@ public:
 class IntSortFunctor
 {
 public:
-    int operator()(const int& p) const
+    auto operator()(const int& p) const -> int
     {
         return p;
     }
@@ -71,7 +71,7 @@ public:
 class UnsignedIntSortFunctor
 {
 public:
-    unsigned int operator()(const unsigned int& p) const
+    auto operator()(const unsigned int& p) const -> unsigned int
     {
         return p;
     }

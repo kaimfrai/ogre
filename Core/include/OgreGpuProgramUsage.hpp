@@ -103,7 +103,7 @@ namespace Ogre
         ~GpuProgramUsage();
 
         /** Gets the type of program we're trying to link to. */
-        GpuProgramType getType() const { return mType; }
+        auto getType() const -> GpuProgramType { return mType; }
 
         /** Sets the name of the program to use. 
         @param name The name of the program to use
@@ -124,9 +124,9 @@ namespace Ogre
         */
         void setProgram(const GpuProgramPtr& prog, bool resetParams = true);
         /** Gets the program being used. */
-        const GpuProgramPtr& getProgram() const { return mProgram; }
+        auto getProgram() const -> const GpuProgramPtr& { return mProgram; }
         /** Gets the program being used. */
-        const String& getProgramName() const { return mProgram->getName(); }
+        auto getProgramName() const -> const String& { return mProgram->getName(); }
 
         /** Sets the program parameters that should be used; because parameters can be
             shared between multiple usages for efficiency, this method is here for you
@@ -136,21 +136,21 @@ namespace Ogre
         void setParameters(const GpuProgramParametersSharedPtr& params);
         /** Gets the parameters being used here. 
         */
-        const GpuProgramParametersSharedPtr& getParameters() const;
+        auto getParameters() const -> const GpuProgramParametersSharedPtr&;
 
         /// Load this usage (and ensure program is loaded)
         void _load();
         /// Unload this usage 
         void _unload();
 
-        size_t calculateSize() const;
+        auto calculateSize() const -> size_t;
 
         // Resource Listener
         void unloadingComplete(Resource* prog);
         void loadingComplete(Resource* prog);
 
-        static GpuProgramPtr _getProgramByName(const String& name, const String& group,
-                                               GpuProgramType type);
+        static auto _getProgramByName(const String& name, const String& group,
+                                               GpuProgramType type) -> GpuProgramPtr;
     };
     /** @} */
     /** @} */

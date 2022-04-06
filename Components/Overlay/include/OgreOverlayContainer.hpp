@@ -85,25 +85,25 @@ class RenderQueue;
         /** Add a nested container to this container. */
         virtual void addChildImpl(OverlayContainer* cont);
         /** Removes a named element from this container. */
-        virtual ChildMap::iterator removeChild(const String& name);
+        virtual auto removeChild(const String& name) -> ChildMap::iterator;
         /** Gets the named child of this container. */
-        virtual OverlayElement* getChild(const String& name);
+        virtual auto getChild(const String& name) -> OverlayElement*;
 
         /** @copydoc OverlayElement::initialise */
         void initialise();
 
         void _addChild(OverlayElement* elem);
-        ChildMap::iterator _removeChild(OverlayElement* elem) { return _removeChild(elem->getName()); }
-        ChildMap::iterator _removeChild(const String& name);
+        auto _removeChild(OverlayElement* elem) -> ChildMap::iterator { return _removeChild(elem->getName()); }
+        auto _removeChild(const String& name) -> ChildMap::iterator;
 
         /** Gets all the children of this object. */
-        const ChildMap& getChildren() const { return mChildren; }
+        auto getChildren() const -> const ChildMap& { return mChildren; }
 
         /** Gets an iterator for just the container children of this object.
         @remarks
             Good for cascading updates without having to use RTTI
         */
-        virtual ChildContainerIterator getChildContainerIterator();
+        virtual auto getChildContainerIterator() -> ChildContainerIterator;
 
         /** Tell the object and its children to recalculate */
         virtual void _positionsOutOfDate();
@@ -112,7 +112,7 @@ class RenderQueue;
         virtual void _update();
 
         /** Overridden from OverlayElement. */
-        virtual ushort _notifyZOrder(ushort newZOrder);
+        virtual auto _notifyZOrder(ushort newZOrder) -> ushort;
 
         /** Overridden from OverlayElement. */
         virtual void _notifyViewport();
@@ -127,11 +127,11 @@ class RenderQueue;
         virtual void _updateRenderQueue(RenderQueue* queue);
 
         /** Overridden from OverlayElement. */
-        inline bool isContainer() const
+        inline auto isContainer() const -> bool
         { return true; }
 
         /** Should this container pass events to their children */
-        virtual inline bool isChildrenProcessEvents() const
+        virtual inline auto isChildrenProcessEvents() const -> bool
         { return true; }
 
         /** Should this container pass events to their children */
@@ -139,10 +139,10 @@ class RenderQueue;
         { mChildrenProcessEvents = val; }
 
         /** This returns a OverlayElement at position x,y. */
-        virtual OverlayElement* findElementAt(Real x, Real y);      // relative to parent
+        virtual auto findElementAt(Real x, Real y) -> OverlayElement*;      // relative to parent
 
         void copyFromTemplate(OverlayElement* templateOverlay);
-        virtual OverlayElement* clone(const String& instanceName);
+        virtual auto clone(const String& instanceName) -> OverlayElement*;
 
     };
 

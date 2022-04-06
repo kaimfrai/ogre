@@ -132,8 +132,8 @@ class Technique;
             @return true to allow the Renderable to be added to the queue, 
                 false if you want to prevent it being added
             */
-            virtual bool renderableQueued(Renderable* rend, uint8 groupID, 
-                ushort priority, Technique** ppTech, RenderQueue* pQueue) = 0;
+            virtual auto renderableQueued(Renderable* rend, uint8 groupID, 
+                ushort priority, Technique** ppTech, RenderQueue* pQueue) -> bool = 0;
         };
     private:
         RenderQueueGroupMap mGroups;
@@ -162,7 +162,7 @@ class Technique;
             OGRE registers new queue groups as they are requested, 
             therefore this method will always return a valid group.
         */
-        RenderQueueGroup* getQueueGroup(uint8 qid);
+        auto getQueueGroup(uint8 qid) -> RenderQueueGroup*;
 
         /** Add a renderable object to the queue.
         @remarks
@@ -224,7 +224,7 @@ class Technique;
         /** Gets the current default queue group, which will be used for all renderable which do not
             specify which group they wish to be on.
         */
-        uint8 getDefaultQueueGroup() const;
+        auto getDefaultQueueGroup() const -> uint8;
 
         /** Sets the current default renderable priority, 
             which will be used for all renderables which do not
@@ -235,7 +235,7 @@ class Technique;
         /** Gets the current default renderable priority, which will be used for all renderables which do not
             specify which priority they wish to use.
         */
-        ushort getDefaultRenderablePriority() const;
+        auto getDefaultRenderablePriority() const -> ushort;
 
         /** Sets the current default queue group, which will be used for all renderable which do not
             specify which group they wish to be on. See the enum RenderQueueGroupID for what kind of
@@ -244,7 +244,7 @@ class Technique;
         void setDefaultQueueGroup(uint8 grp);
         
         /** Internal method, returns the queue groups. */
-        const RenderQueueGroupMap& _getQueueGroups() const {
+        auto _getQueueGroups() const -> const RenderQueueGroupMap& {
             return mGroups;
         }
 
@@ -256,7 +256,7 @@ class Technique;
         /** Gets whether or not the queue will split passes by their lighting type,
             ie ambient, per-light and decal. 
         */
-        bool getSplitPassesByLightingType() const;
+        auto getSplitPassesByLightingType() const -> bool;
 
         /** Sets whether or not the queue will split passes which have shadow receive
         turned off (in their parent material), which is needed when certain shadow
@@ -268,7 +268,7 @@ class Technique;
         turned off (in their parent material), which is needed when certain shadow
         techniques are used.
         */
-        bool getSplitNoShadowPasses() const;
+        auto getSplitNoShadowPasses() const -> bool;
 
         /** Sets whether or not objects which cast shadows should be treated as
         never receiving shadows. 
@@ -278,7 +278,7 @@ class Technique;
         /** Gets whether or not objects which cast shadows should be treated as
         never receiving shadows. 
         */
-        bool getShadowCastersCannotBeReceivers() const;
+        auto getShadowCastersCannotBeReceivers() const -> bool;
 
         /** Set a renderable listener on the queue.
         @remarks
@@ -288,7 +288,7 @@ class Technique;
         void setRenderableListener(RenderableListener* listener)
         { mRenderableListener = listener; }
 
-        RenderableListener* getRenderableListener() const
+        auto getRenderableListener() const -> RenderableListener*
         { return mRenderableListener; }
 
         /** Merge render queue.
