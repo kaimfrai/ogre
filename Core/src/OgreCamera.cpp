@@ -512,10 +512,10 @@ class Sphere;
         if (mProjType == PT_PERSPECTIVE)
         {
             Vector3 position = getPositionForViewUpdate();
-            mWindowClipPlanes.push_back(Plane(position, vw_bl, vw_ul));
-            mWindowClipPlanes.push_back(Plane(position, vw_ul, vw_ur));
-            mWindowClipPlanes.push_back(Plane(position, vw_ur, vw_br));
-            mWindowClipPlanes.push_back(Plane(position, vw_br, vw_bl));
+            mWindowClipPlanes.emplace_back(position, vw_bl, vw_ul);
+            mWindowClipPlanes.emplace_back(position, vw_ul, vw_ur);
+            mWindowClipPlanes.emplace_back(position, vw_ur, vw_br);
+            mWindowClipPlanes.emplace_back(position, vw_br, vw_bl);
         }
         else
         {
@@ -523,10 +523,10 @@ class Sphere;
             Vector3 y_axis(inv[1][0], inv[1][1], inv[1][2]);
             x_axis.normalise();
             y_axis.normalise();
-            mWindowClipPlanes.push_back(Plane( x_axis, vw_bl));
-            mWindowClipPlanes.push_back(Plane(-x_axis, vw_ur));
-            mWindowClipPlanes.push_back(Plane( y_axis, vw_bl));
-            mWindowClipPlanes.push_back(Plane(-y_axis, vw_ur));
+            mWindowClipPlanes.emplace_back( x_axis, vw_bl);
+            mWindowClipPlanes.emplace_back(-x_axis, vw_ur);
+            mWindowClipPlanes.emplace_back( y_axis, vw_bl);
+            mWindowClipPlanes.emplace_back(-y_axis, vw_ur);
         }
 
         mRecalcWindow = false;
@@ -726,7 +726,7 @@ class Sphere;
         {
             // store the finite intersection points
             if (infpt[i] == 0)
-                res.push_back(Vector4(vec[i].x, vec[i].y, vec[i].z, 1.0));
+                res.emplace_back(vec[i].x, vec[i].y, vec[i].z, 1.0);
             else
             {
                 // handle the infinite points of intersection;
@@ -737,19 +737,19 @@ class Sphere;
                 if ((infpt[prevind] == 0) || (infpt[nextind] == 0))
                 {
                     if (infpt[i] == 1)
-                        res.push_back(Vector4(vec[i].x, vec[i].y, vec[i].z, 0.0));
+                        res.emplace_back(vec[i].x, vec[i].y, vec[i].z, 0.0);
                     else
                     {
                         // handle the intersection points that straddle infinity (back-project)
                         if(infpt[prevind] == 0) 
                         {
                             Vector3 temp = vec[prevind] - vec[i];
-                            res.push_back(Vector4(temp.x, temp.y, temp.z, 0.0));
+                            res.emplace_back(temp.x, temp.y, temp.z, 0.0);
                         }
                         if(infpt[nextind] == 0)
                         {
                             Vector3 temp = vec[nextind] - vec[i];
-                            res.push_back(Vector4(temp.x, temp.y, temp.z, 0.0));
+                            res.emplace_back(temp.x, temp.y, temp.z, 0.0);
                         }
                     }
                 } // end if we need to add an intersection point to the list
@@ -812,7 +812,7 @@ class Sphere;
             for(unsigned int i=0; i<iPnt.size(); i++)
             {
                 Vector3 intersection = planeRot * Vector3(iPnt[i].x, iPnt[i].y, iPnt[i].z);
-                (*intersect3d).push_back(Vector4(intersection.x, intersection.y, intersection.z, iPnt[i].w));
+                (*intersect3d).emplace_back(intersection.x, intersection.y, intersection.z, iPnt[i].w);
             }
         }
     }

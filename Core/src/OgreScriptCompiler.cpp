@@ -588,7 +588,7 @@ namespace Ogre
         {
             if((*i)->type == ANT_OBJECT)
             {
-                overrides.push_back(std::make_pair(static_pointer_cast<ObjectAbstractNode>(*i), dest.children.end()));
+                overrides.emplace_back(static_pointer_cast<ObjectAbstractNode>(*i), dest.children.end());
             }
             else
             {

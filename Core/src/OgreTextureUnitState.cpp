@@ -745,7 +745,7 @@ class Frustum;
     void TextureUnitState::setBlank()
     {
         mFramePtrs.clear();
-        mFramePtrs.push_back(TexturePtr()); // insert nullptr to show warning tex
+        mFramePtrs.emplace_back(); // insert nullptr to show warning tex
     }
     //-----------------------------------------------------------------------
     void TextureUnitState::setTextureTransform(const Matrix4& xform)

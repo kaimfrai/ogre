@@ -275,7 +275,7 @@ class HardwareBufferManagerBase;
         boxes.reserve (count);
 
         // First of all, find min and max bounding box of the submesh
-        boxes.push_back (Cluster ());
+        boxes.emplace_back();
 
         if (indexData->indexCount > 0)
         {
