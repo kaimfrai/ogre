@@ -361,7 +361,7 @@ namespace Ogre
     template<typename ValueType>
     auto any_cast(const Any & operand) -> ValueType
     {
-        const ValueType * result = any_cast<ValueType>(&operand);
+        const auto * result = any_cast<ValueType>(&operand);
         if(!result)
         {
             throw std::bad_cast();

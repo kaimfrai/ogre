@@ -236,7 +236,7 @@ namespace Ogre {
             vertexData->vertexBufferBinding->getBuffer(posElem->getSource());
         // lock the buffer for reading
         HardwareBufferLockGuard vertexLock(vbuf, HardwareBuffer::HBL_READ_ONLY);
-        unsigned char* pBaseVertex = static_cast<unsigned char*>(vertexLock.pData);
+        auto* pBaseVertex = static_cast<unsigned char*>(vertexLock.pData);
 
         // Get the indexes ready for reading
         bool idx32bit = (indexData->indexBuffer->getType() == HardwareIndexBuffer::IT_32BIT);
@@ -351,7 +351,7 @@ namespace Ogre {
         size_t sharedVertIndex1)
     {
         // Find the existing edge (should be reversed order) on shared vertices
-        EdgeMap::iterator emi = mEdgeMap.find(std::pair<size_t, size_t>(sharedVertIndex1, sharedVertIndex0));
+        auto emi = mEdgeMap.find(std::pair<size_t, size_t>(sharedVertIndex1, sharedVertIndex0));
         if (emi != mEdgeMap.end())
         {
             // The edge already exist, connect it
@@ -446,7 +446,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto EdgeData::clone() -> EdgeData*
     {
-        EdgeData* newEdgeData = new EdgeData();
+        auto* newEdgeData = new EdgeData();
         newEdgeData->triangles = triangles;
         newEdgeData->triangleFaceNormals = triangleFaceNormals;
         newEdgeData->triangleLightFacings = triangleLightFacings;
@@ -476,7 +476,7 @@ namespace Ogre {
                 vData->vertexBufferBinding->getBuffer(posElem->getSource());
             // lock the buffer for reading
             HardwareBufferLockGuard vertexLock(vbuf, HardwareBuffer::HBL_READ_ONLY);
-            unsigned char* pBaseVertex = static_cast<unsigned char*>(vertexLock.pData);
+            auto* pBaseVertex = static_cast<unsigned char*>(vertexLock.pData);
             float* pFloat;
             for (j = 0; j < vData->vertexCount; ++j)
             {
@@ -501,8 +501,8 @@ namespace Ogre {
             "operationType " + StringConverter::toString(mGeometryList[i].opType));
             // Get the indexes ready for reading
             HardwareBufferLockGuard indexLock(iData->indexBuffer, HardwareBuffer::HBL_READ_ONLY);
-            unsigned short* p16Idx = static_cast<unsigned short*>(indexLock.pData);
-            unsigned int* p32Idx = static_cast<unsigned int*>(indexLock.pData);
+            auto* p16Idx = static_cast<unsigned short*>(indexLock.pData);
+            auto* p32Idx = static_cast<unsigned int*>(indexLock.pData);
             bool isIT32 = iData->indexBuffer->getType() == HardwareIndexBuffer::IT_32BIT;
 
             for (j = 0; j < iData->indexCount;  )

@@ -168,7 +168,7 @@ namespace Ogre {
 
         if(ResourceGroupManager::getSingleton().isResourceGroupInGlobalPool(res->getGroup()))
         {
-            ResourceMap::iterator nameIt = mResources.find(res->getName());
+            auto nameIt = mResources.find(res->getName());
             if (nameIt != mResources.end())
             {
                 mResources.erase(nameIt);
@@ -176,10 +176,10 @@ namespace Ogre {
         }
         else
         {
-            ResourceWithGroupMap::iterator groupIt = mResourcesWithGroup.find(res->getGroup());
+            auto groupIt = mResourcesWithGroup.find(res->getGroup());
             if (groupIt != mResourcesWithGroup.end())
             {
-                ResourceMap::iterator nameIt = groupIt->second.find(res->getName());
+                auto nameIt = groupIt->second.find(res->getName());
                 if (nameIt != groupIt->second.end())
                 {
                     groupIt->second.erase(nameIt);
@@ -192,7 +192,7 @@ namespace Ogre {
             }
         }
 
-        ResourceHandleMap::iterator handleIt = mResourcesByHandle.find(res->getHandle());
+        auto handleIt = mResourcesByHandle.find(res->getHandle());
         if (handleIt != mResourcesByHandle.end())
         {
             mResourcesByHandle.erase(handleIt);
@@ -446,7 +446,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto ResourceManager::getResourcePool(const String& name) -> ResourceManager::ResourcePool*
     {
-        ResourcePoolMap::iterator i = mResourcePoolMap.find(name);
+        auto i = mResourcePoolMap.find(name);
         if (i == mResourcePoolMap.end())
         {
             i = mResourcePoolMap.insert(ResourcePoolMap::value_type(name, 
@@ -460,7 +460,7 @@ namespace Ogre {
     {
         OgreAssert(pool, "Cannot destroy a null ResourcePool");
 
-        ResourcePoolMap::iterator i = mResourcePoolMap.find(pool->getName());
+        auto i = mResourcePoolMap.find(pool->getName());
         if (i != mResourcePoolMap.end())
             mResourcePoolMap.erase(i);
 
@@ -470,7 +470,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void ResourceManager::destroyResourcePool(const String& name)
     {
-        ResourcePoolMap::iterator i = mResourcePoolMap.find(name);
+        auto i = mResourcePoolMap.find(name);
         if (i != mResourcePoolMap.end())
         {
             delete i->second;
@@ -481,7 +481,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void ResourceManager::destroyAllResourcePools()
     {
-        for (ResourcePoolMap::iterator i = mResourcePoolMap.begin();
+        for (auto i = mResourcePoolMap.begin();
             i != mResourcePoolMap.end(); ++i)
             delete i->second;
 
@@ -507,7 +507,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void ResourceManager::ResourcePool::clear()
     {
-        for (ItemList::iterator i = mItems.begin(); i != mItems.end(); ++i)
+        for (auto i = mItems.begin(); i != mItems.end(); ++i)
         {
             (*i)->getCreator()->remove((*i)->getHandle());
         }

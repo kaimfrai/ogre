@@ -129,12 +129,12 @@ void GLArbGpuProgram::bindProgramParameters(GpuProgramParametersSharedPtr params
     // only supports float constants
     GpuLogicalBufferStructPtr floatStruct = params->getLogicalBufferStruct();
 
-    for (GpuLogicalIndexUseMap::const_iterator i = floatStruct->map.begin();
+    for (auto i = floatStruct->map.begin();
         i != floatStruct->map.end(); ++i)
     {
         if (i->second.variability & mask)
         {
-            GLuint logicalIndex = static_cast<GLuint>(i->first);
+            auto logicalIndex = static_cast<GLuint>(i->first);
             const float* pFloat = params->getFloatPointer(i->second.physicalIndex);
             // Iterate over the params, set in 4-float chunks (low-level)
             for (size_t j = 0; j < i->second.currentSize; j+=4)

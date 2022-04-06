@@ -146,7 +146,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ParticleSystemManager::removeTemplate(const String& name, bool deleteTemplate)
     {
-        ParticleTemplateMap::iterator itr = mSystemTemplates.find(name);
+        auto itr = mSystemTemplates.find(name);
         if (itr == mSystemTemplates.end())
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
                 "ParticleSystem template with name '" + name + "' cannot be found.",
@@ -172,10 +172,10 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ParticleSystemManager::removeTemplatesByResourceGroup(const String& resourceGroup)
     {
-        ParticleTemplateMap::iterator i = mSystemTemplates.begin();
+        auto i = mSystemTemplates.begin();
         while (i != mSystemTemplates.end())
         {
-            ParticleTemplateMap::iterator icur = i++;
+            auto icur = i++;
 
             if(icur->second->getResourceGroupName() == resourceGroup)
             {
@@ -196,7 +196,7 @@ namespace Ogre {
                 "ParticleSystemManager::createTemplate");
         }
 
-        ParticleSystem* tpl = new ParticleSystem(name, resourceGroup);
+        auto* tpl = new ParticleSystem(name, resourceGroup);
         addTemplate(name, tpl);
         return tpl;
 
@@ -204,7 +204,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto ParticleSystemManager::getTemplate(const String& name) -> ParticleSystem*
     {
-        ParticleTemplateMap::iterator i = mSystemTemplates.find(name);
+        auto i = mSystemTemplates.find(name);
         if (i != mSystemTemplates.end())
         {
             return i->second;
@@ -218,7 +218,7 @@ namespace Ogre {
     auto ParticleSystemManager::createSystemImpl(const String& name,
         size_t quota, const String& resourceGroup) -> ParticleSystem*
     {
-        ParticleSystem* sys = new ParticleSystem(name, resourceGroup);
+        auto* sys = new ParticleSystem(name, resourceGroup);
         sys->setParticleQuota(quota);
         return sys;
     }
@@ -245,7 +245,7 @@ namespace Ogre {
         const String& emitterType, ParticleSystem* psys) -> ParticleEmitter*
     {
         // Locate emitter type
-        ParticleEmitterFactoryMap::iterator pFact = mEmitterFactories.find(emitterType);
+        auto pFact = mEmitterFactories.find(emitterType);
 
         if (pFact == mEmitterFactories.end())
         {
@@ -261,7 +261,7 @@ namespace Ogre {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot destroy a null ParticleEmitter.", "ParticleSystemManager::_destroyEmitter");
 
         // Destroy using the factory which created it
-        ParticleEmitterFactoryMap::iterator pFact = mEmitterFactories.find(emitter->getType());
+        auto pFact = mEmitterFactories.find(emitter->getType());
 
         if (pFact == mEmitterFactories.end())
         {
@@ -276,7 +276,7 @@ namespace Ogre {
         const String& affectorType, ParticleSystem* psys) -> ParticleAffector*
     {
         // Locate affector type
-        ParticleAffectorFactoryMap::iterator pFact = mAffectorFactories.find(affectorType);
+        auto pFact = mAffectorFactories.find(affectorType);
 
         if (pFact == mAffectorFactories.end())
         {
@@ -293,7 +293,7 @@ namespace Ogre {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot destroy a null ParticleAffector.", "ParticleSystemManager::_destroyAffector");
 
         // Destroy using the factory which created it
-        ParticleAffectorFactoryMap::iterator pFact = mAffectorFactories.find(affector->getType());
+        auto pFact = mAffectorFactories.find(affector->getType());
 
         if (pFact == mAffectorFactories.end())
         {
@@ -307,7 +307,7 @@ namespace Ogre {
     auto ParticleSystemManager::_createRenderer(const String& rendererType) -> ParticleSystemRenderer*
     {
         // Locate affector type
-        ParticleSystemRendererFactoryMap::iterator pFact = mRendererFactories.find(rendererType);
+        auto pFact = mRendererFactories.find(rendererType);
 
         if (pFact == mRendererFactories.end())
         {
@@ -324,7 +324,7 @@ namespace Ogre {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot destroy a null ParticleSystemRenderer.", "ParticleSystemManager::_destroyRenderer");
 
         // Destroy using the factory which created it
-        ParticleSystemRendererFactoryMap::iterator pFact = mRendererFactories.find(renderer->getType());
+        auto pFact = mRendererFactories.find(renderer->getType());
 
         if (pFact == mRendererFactories.end())
         {
@@ -373,7 +373,7 @@ namespace Ogre {
     {
         if (params != nullptr)
         {
-            NameValuePairList::const_iterator ni = params->find("templateName");
+            auto ni = params->find("templateName");
             if (ni != params->end())
             {
                 String templateName = ni->second;
@@ -387,7 +387,7 @@ namespace Ogre {
         String resourceGroup = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
         if (params != nullptr)
         {
-            NameValuePairList::const_iterator ni = params->find("quota");
+            auto ni = params->find("quota");
             if (ni != params->end())
             {
                 quota = StringConverter::parseUnsignedInt(ni->second);

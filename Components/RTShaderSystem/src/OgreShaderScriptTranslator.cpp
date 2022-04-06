@@ -56,8 +56,8 @@ SGScriptTranslator::SGScriptTranslator()
 //-----------------------------------------------------------------------------
 void SGScriptTranslator::translate(ScriptCompiler* compiler, const AbstractNodePtr &node)
 {
-    ObjectAbstractNode* obj = static_cast<ObjectAbstractNode*>(node.get());
-    ObjectAbstractNode* parent = static_cast<ObjectAbstractNode*>(obj->parent);
+    auto* obj = static_cast<ObjectAbstractNode*>(node.get());
+    auto* parent = static_cast<ObjectAbstractNode*>(obj->parent);
 
     // Translate section within a pass context.
     if (parent->id == ID_PASS)
@@ -79,8 +79,8 @@ auto SGScriptTranslator::getGeneratedSubRenderState(const String& typeName) -> S
         /** Get the list of the template sub render states composing this render state. */
         const SubRenderStateList& rsList = mGeneratedRenderState->getSubRenderStates();
 
-        SubRenderStateList::const_iterator it = rsList.begin();
-        SubRenderStateList::const_iterator itEnd = rsList.end();
+        auto it = rsList.begin();
+        auto itEnd = rsList.end();
         for(; it != itEnd; ++it)
         {
             if ((*it)->getType() == typeName)
@@ -96,8 +96,8 @@ note: we can know the texture unit index by getting parent then finding it in th
 */
 void SGScriptTranslator::translateTextureUnit(ScriptCompiler* compiler, const AbstractNodePtr &node)
 {
-    ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());    
-    TextureUnitState* texState = any_cast<TextureUnitState*>(obj->parent->context);
+    auto *obj = static_cast<ObjectAbstractNode*>(node.get());    
+    auto* texState = any_cast<TextureUnitState*>(obj->parent->context);
     Pass* pass = texState->getParent();
     Technique* technique = pass->getParent();
     Material* material = technique->getParent();
@@ -133,11 +133,11 @@ void SGScriptTranslator::translateTextureUnit(ScriptCompiler* compiler, const Ab
             shaderGenerator->getRenderState(dstTechniqueSchemeName, *material, pass->getIndex());
 
         // Go over all the render state properties.
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
         {
             if((*i)->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
                 SubRenderState* subRenderState = ShaderGenerator::getSingleton().createSubRenderState(compiler, prop, texState, this);
                 
                 if (subRenderState)
@@ -164,7 +164,7 @@ void SGScriptTranslator::translateTextureUnit(ScriptCompiler* compiler, const Ab
 //-----------------------------------------------------------------------------
 void SGScriptTranslator::translatePass(ScriptCompiler* compiler, const AbstractNodePtr &node)
 {
-    ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());    
+    auto *obj = static_cast<ObjectAbstractNode*>(node.get());    
     Pass* pass = any_cast<Pass*>(obj->parent->context);
     Technique* technique = pass->getParent();
     Material* material = technique->getParent();
@@ -187,11 +187,11 @@ void SGScriptTranslator::translatePass(ScriptCompiler* compiler, const AbstractN
     if (techniqueCreated)
     {
         // Go over all the render state properties.
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto i = obj->children.begin(); i != obj->children.end(); ++i)
         {
             if((*i)->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>((*i).get());
 
                 // Handle light count property.
                 if (prop->name == "light_count")

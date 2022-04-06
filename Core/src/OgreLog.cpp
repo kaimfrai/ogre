@@ -84,7 +84,7 @@ namespace Ogre
         if (lml >= mLogLevel)
         {
             bool skipThisMessage = false;
-            for( mtLogListener::iterator i = mListeners.begin(); i != mListeners.end(); ++i )
+            for( auto i = mListeners.begin(); i != mListeners.end(); ++i )
                 (*i)->messageLogged( message, lml, maskDebug, mLogName, skipThisMessage);
             
             if (!skipThisMessage)
@@ -158,7 +158,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Log::removeListener(LogListener* listener)
     {
-        mtLogListener::iterator i = std::find(mListeners.begin(), mListeners.end(), listener);
+        auto i = std::find(mListeners.begin(), mListeners.end(), listener);
         if (i != mListeners.end())
             mListeners.erase(i);
     }

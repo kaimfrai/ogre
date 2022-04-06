@@ -57,7 +57,7 @@ auto CompositionTechnique::createTextureDefinition(const String &name) -> Compos
     if(getTextureDefinition(name))
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "Texture '"+name+"' already exists");
 
-    TextureDefinition *t = new TextureDefinition();
+    auto *t = new TextureDefinition();
     t->name = name;
     mTextureDefinitions.push_back(t);
     return t;
@@ -67,7 +67,7 @@ auto CompositionTechnique::createTextureDefinition(const String &name) -> Compos
 void CompositionTechnique::removeTextureDefinition(size_t index)
 {
     assert (index < mTextureDefinitions.size() && "Index out of bounds.");
-    TextureDefinitions::iterator i = mTextureDefinitions.begin() + index;
+    auto i = mTextureDefinitions.begin() + index;
     delete (*i);
     mTextureDefinitions.erase(i);
 }
@@ -99,7 +99,7 @@ void CompositionTechnique::removeAllTextureDefinitions()
 //-----------------------------------------------------------------------
 auto CompositionTechnique::createTargetPass() -> CompositionTargetPass *
 {
-    CompositionTargetPass *t = new CompositionTargetPass(this);
+    auto *t = new CompositionTargetPass(this);
     mTargetPasses.push_back(t);
     return t;
 }
@@ -108,7 +108,7 @@ auto CompositionTechnique::createTargetPass() -> CompositionTargetPass *
 void CompositionTechnique::removeTargetPass(size_t index)
 {
     assert (index < mTargetPasses.size() && "Index out of bounds.");
-    TargetPasses::iterator i = mTargetPasses.begin() + index;
+    auto i = mTargetPasses.begin() + index;
     delete (*i);
     mTargetPasses.erase(i);
 }
@@ -167,7 +167,7 @@ auto CompositionTechnique::isSupported(bool acceptTextureDegradation) -> bool
         }
 
 
-        for (PixelFormatList::iterator pfi = td->formatList.begin(); pfi != td->formatList.end(); ++pfi)
+        for (auto pfi = td->formatList.begin(); pfi != td->formatList.end(); ++pfi)
         {
             // Check whether equivalent supported
             // Need a format which is the same number of bits to pass
@@ -189,7 +189,7 @@ auto CompositionTechnique::isSupported(bool acceptTextureDegradation) -> bool
             PixelFormat nativeFormat = texMgr.getNativeFormat( td->type, td->formatList.front(),
                                                                 TU_RENDERTARGET );
             size_t nativeBits = PixelUtil::getNumElemBits( nativeFormat );
-            for( PixelFormatList::iterator pfi = td->formatList.begin()+1;
+            for( auto pfi = td->formatList.begin()+1;
                     pfi != td->formatList.end(); ++pfi )
             {
                 PixelFormat nativeTmp = texMgr.getNativeFormat( td->type, *pfi, TU_RENDERTARGET );

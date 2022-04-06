@@ -169,7 +169,7 @@ namespace Ogre {
         HardwareVertexBufferSharedPtr vbuf;
 
         // Locate existing buffer copy in temporary vertex buffers
-        FreeTemporaryVertexBufferMap::iterator i =
+        auto i =
             mFreeTempVertexBufferMap.find(sourceBuffer.get());
         if (i == mFreeTempVertexBufferMap.end())
         {
@@ -202,7 +202,7 @@ namespace Ogre {
     void HardwareBufferManagerBase::releaseVertexBufferCopy(
         const HardwareVertexBufferSharedPtr& bufferCopy)
     {
-        TemporaryVertexBufferLicenseMap::iterator i =
+        auto i =
             mTempVertexBufferLicenses.find(bufferCopy.get());
         if (i != mTempVertexBufferLicenses.end())
         {
@@ -218,7 +218,7 @@ namespace Ogre {
     void HardwareBufferManagerBase::touchVertexBufferCopy(
             const HardwareVertexBufferSharedPtr& bufferCopy)
     {
-        TemporaryVertexBufferLicenseMap::iterator i =
+        auto i =
             mTempVertexBufferLicenses.find(bufferCopy.get());
         if (i != mTempVertexBufferLicenses.end())
         {
@@ -238,7 +238,7 @@ namespace Ogre {
         i = mFreeTempVertexBufferMap.begin();
         while (i != mFreeTempVertexBufferMap.end())
         {
-            FreeTemporaryVertexBufferMap::iterator icur = i++;
+            auto icur = i++;
             // Free the temporary buffer that referenced by ourself only.
             // TODO: Some temporary buffers are bound to vertex buffer bindings
             // but not checked out, need to sort out method to unbind them.
@@ -271,7 +271,7 @@ namespace Ogre {
         i = mTempVertexBufferLicenses.begin(); 
         while (i != mTempVertexBufferLicenses.end()) 
         {
-            TemporaryVertexBufferLicenseMap::iterator icur = i++;
+            auto icur = i++;
             VertexBufferLicense& vbl = icur->second;
             if (vbl.licenseType == BLT_AUTOMATIC_RELEASE &&
                 (forceFreeUnused || --vbl.expiredDelay <= 0))
@@ -324,7 +324,7 @@ namespace Ogre {
         i = mTempVertexBufferLicenses.begin();
         while (i != mTempVertexBufferLicenses.end()) 
         {
-            TemporaryVertexBufferLicenseMap::iterator icur = i++;
+            auto icur = i++;
             const VertexBufferLicense& vbl = icur->second;
             if (vbl.originalBufferPtr == sourceBuffer)
             {
@@ -355,7 +355,7 @@ namespace Ogre {
         if (range.first != range.second)
         {
             std::list<HardwareVertexBufferSharedPtr> holdForDelayDestroy;
-            for (_Iter it = range.first; it != range.second; ++it)
+            for (auto it = range.first; it != range.second; ++it)
             {
                 if (it->second.use_count() <= 1)
                 {
@@ -371,7 +371,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void HardwareBufferManagerBase::_notifyVertexBufferDestroyed(HardwareVertexBuffer* buf)
     {
-        VertexBufferList::iterator i = mVertexBuffers.find(buf);
+        auto i = mVertexBuffers.find(buf);
         if (i != mVertexBuffers.end())
         {
             // release vertex buffer copies

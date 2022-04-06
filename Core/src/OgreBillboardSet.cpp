@@ -645,7 +645,7 @@ namespace Ogre {
             */
 
             HardwareBufferLockGuard indexLock(mIndexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
-            ushort* pIdx = static_cast<ushort*>(indexLock.pData);
+            auto* pIdx = static_cast<ushort*>(indexLock.pData);
 
             for(
                 size_t idx, idxOff, bboard = 0;
@@ -1179,7 +1179,7 @@ namespace Ogre {
 
         if (params != nullptr)
         {
-            NameValuePairList::const_iterator ni = params->find("poolSize");
+            auto ni = params->find("poolSize");
             if (ni != params->end())
             {
                 poolSize = StringConverter::parseUnsignedInt(ni->second);

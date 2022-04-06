@@ -80,7 +80,7 @@ class RenderQueue;
         destroyAllOverlayElements(false);
         destroyAllOverlayElements(true);
 
-        for(FactoryMap::iterator i = mFactories.begin(); i != mFactories.end(); ++i)
+        for(auto i = mFactories.begin(); i != mFactories.end(); ++i)
         {
             delete i->second;
         }
@@ -91,13 +91,13 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayManager::_releaseManualHardwareResources()
     {
-        for(ElementMap::iterator i = mElements.begin(), i_end = mElements.end(); i != i_end; ++i)
+        for(auto i = mElements.begin(), i_end = mElements.end(); i != i_end; ++i)
             i->second->_releaseManualHardwareResources();
     }
     //---------------------------------------------------------------------
     void OverlayManager::_restoreManualHardwareResources()
     {
-        for(ElementMap::iterator i = mElements.begin(), i_end = mElements.end(); i != i_end; ++i)
+        for(auto i = mElements.begin(), i_end = mElements.end(); i != i_end; ++i)
             i->second->_restoreManualHardwareResources();
     }
     //---------------------------------------------------------------------
@@ -115,7 +115,7 @@ class RenderQueue;
     auto OverlayManager::create(const String& name) -> Overlay*
     {
         Overlay* ret = nullptr;
-        OverlayMap::iterator i = mOverlayMap.find(name);
+        auto i = mOverlayMap.find(name);
 
         if (i == mOverlayMap.end())
         {
@@ -136,7 +136,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     auto OverlayManager::getByName(const String& name) -> Overlay*
     {
-        OverlayMap::iterator i = mOverlayMap.find(name);
+        auto i = mOverlayMap.find(name);
         if (i == mOverlayMap.end())
         {
             return nullptr;
@@ -158,7 +158,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayManager::destroy(const String& name)
     {
-        OverlayMap::iterator i = mOverlayMap.find(name);
+        auto i = mOverlayMap.find(name);
         if (i == mOverlayMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
@@ -174,7 +174,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayManager::destroy(Overlay* overlay)
     {
-        for (OverlayMap::iterator i = mOverlayMap.begin();
+        for (auto i = mOverlayMap.begin();
             i != mOverlayMap.end(); ++i)
         {
             if (i->second == overlay)
@@ -192,7 +192,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayManager::destroyAll()
     {
-        for (OverlayMap::iterator i = mOverlayMap.begin();
+        for (auto i = mOverlayMap.begin();
             i != mOverlayMap.end(); ++i)
         {
             delete i->second;
@@ -314,7 +314,7 @@ class RenderQueue;
     auto OverlayManager::createOverlayElement(const String& typeName, const String& instanceName, bool) -> OverlayElement*
     {
         // Check not duplicated
-        ElementMap::iterator ii = mElements.find(instanceName);
+        auto ii = mElements.find(instanceName);
         if (ii != mElements.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "OverlayElement with name " + instanceName +
@@ -334,7 +334,7 @@ class RenderQueue;
     auto OverlayManager::createOverlayElementFromFactory(const String& typeName, const String& instanceName) -> OverlayElement*
     {
         // Look up factory
-        FactoryMap::iterator fi = mFactories.find(typeName);
+        auto fi = mFactories.find(typeName);
         if (fi == mFactories.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate factory for element type " + typeName,
@@ -348,7 +348,7 @@ class RenderQueue;
     auto OverlayManager::getOverlayElement(const String& name,bool) -> OverlayElement*
     {
         // Locate instance
-        ElementMap::iterator ii = mElements.find(name);
+        auto ii = mElements.find(name);
         if (ii == mElements.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "OverlayElement with name " + name + " not found.");
@@ -359,7 +359,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     auto OverlayManager::hasOverlayElement(const String& name,bool) -> bool
     {
-        ElementMap::iterator ii = mElements.find(name);
+        auto ii = mElements.find(name);
         return ii != mElements.end();
     }
 
@@ -372,7 +372,7 @@ class RenderQueue;
     void OverlayManager::destroyOverlayElement(const String& instanceName,bool)
     {
         // Locate instance
-        ElementMap::iterator ii = mElements.find(instanceName);
+        auto ii = mElements.find(instanceName);
         if (ii == mElements.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "OverlayElement with name " + instanceName +
@@ -380,7 +380,7 @@ class RenderQueue;
         }
         // Look up factory
         const String& typeName = ii->second->getTypeName();
-        FactoryMap::iterator fi = mFactories.find(typeName);
+        auto fi = mFactories.find(typeName);
         if (fi == mFactories.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate factory for element type " + typeName,
@@ -400,7 +400,7 @@ class RenderQueue;
             OverlayElement* element = i->second;
 
             // Get factory to delete
-            FactoryMap::iterator fi = mFactories.find(element->getTypeName());
+            auto fi = mFactories.find(element->getTypeName());
             if (fi == mFactories.end())
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate factory for element " 

@@ -208,21 +208,21 @@ Function::~Function()
     std::map<size_t, FunctionAtomInstanceList>::iterator jt;
     for(jt = mAtomInstances.begin(); jt != mAtomInstances.end(); ++jt)
     {
-        for (FunctionAtomInstanceIterator it=jt->second.begin(); it != jt->second.end(); ++it)
+        for (auto it=jt->second.begin(); it != jt->second.end(); ++it)
             delete (*it);
     }
 
     mAtomInstances.clear();
 
-    for (ShaderParameterIterator it = mInputParameters.begin(); it != mInputParameters.end(); ++it)
+    for (auto it = mInputParameters.begin(); it != mInputParameters.end(); ++it)
         (*it).reset();
     mInputParameters.clear();
 
-    for (ShaderParameterIterator it = mOutputParameters.begin(); it != mOutputParameters.end(); ++it)
+    for (auto it = mOutputParameters.begin(); it != mOutputParameters.end(); ++it)
         (*it).reset();
     mOutputParameters.clear();
 
-    for (ShaderParameterIterator it = mLocalParameters.begin(); it != mLocalParameters.end(); ++it)
+    for (auto it = mLocalParameters.begin(); it != mLocalParameters.end(); ++it)
         (*it).reset();
     mLocalParameters.clear();
 

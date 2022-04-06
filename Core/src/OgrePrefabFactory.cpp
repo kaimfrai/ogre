@@ -313,14 +313,14 @@ namespace Ogre {
         VertexBufferBinding* binding = vertexData->vertexBufferBinding;
         binding->setBinding(0, vBuf);
         HardwareBufferLockGuard vBufLock(vBuf, HardwareBuffer::HBL_DISCARD);
-        float* pVertex = static_cast<float*>(vBufLock.pData);
+        auto* pVertex = static_cast<float*>(vBufLock.pData);
 
         // allocate index buffer
         pSphereVertex->indexData->indexCount = 6 * NUM_RINGS * (NUM_SEGMENTS + 1);
         pSphereVertex->indexData->indexBuffer = HardwareBufferManager::getSingleton().createIndexBuffer(HardwareIndexBuffer::IT_16BIT, pSphereVertex->indexData->indexCount, HardwareBuffer::HBU_STATIC_WRITE_ONLY, false);
         HardwareIndexBufferSharedPtr iBuf = pSphereVertex->indexData->indexBuffer;
         HardwareBufferLockGuard iBufLock(iBuf, HardwareBuffer::HBL_DISCARD);
-        unsigned short* pIndices = static_cast<unsigned short*>(iBufLock.pData);
+        auto* pIndices = static_cast<unsigned short*>(iBufLock.pData);
 
         float fDeltaRingAngle = (Math::PI / NUM_RINGS);
         float fDeltaSegAngle = (2 * Math::PI / NUM_SEGMENTS);

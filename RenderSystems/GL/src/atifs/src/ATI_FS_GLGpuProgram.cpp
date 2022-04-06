@@ -75,7 +75,7 @@ void ATI_FS_GLGpuProgram::bindProgramParameters(GpuProgramParametersSharedPtr pa
     // only supports float constants
     GpuLogicalBufferStructPtr floatStruct = params->getLogicalBufferStruct();
 
-    for (GpuLogicalIndexUseMap::const_iterator i = floatStruct->map.begin();
+    for (auto i = floatStruct->map.begin();
         i != floatStruct->map.end(); ++i)
     {
         if (i->second.variability & mask)

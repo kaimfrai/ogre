@@ -1508,7 +1508,7 @@ auto PS_1_4::expandMachineInstruction() -> bool
             mLastInstructionPos = mPhase2ALU_mi.size();
         }
 
-        MachineInstID alphaoptype = (MachineInstID)(mi_ALPHAOP1 + mArgCnt - 1);
+        auto alphaoptype = (MachineInstID)(mi_ALPHAOP1 + mArgCnt - 1);
         addMachineInst(mInstructionPhase, alphaoptype);
         addMachineInst(mInstructionPhase, mSymbolTypeLib[mOpInst].mPass2Data);
         // put all parameters in instruction que

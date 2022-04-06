@@ -434,8 +434,8 @@ void Sample_NewInstancing::createSceneNodes()
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::clearScene()
 {
-    std::vector<MovableObject*>::const_iterator itor = mEntities.begin();
-    std::vector<MovableObject*>::const_iterator end  = mEntities.end();
+    auto itor = mEntities.begin();
+    auto end  = mEntities.end();
 
     //Note: Destroying the instance manager automatically destroys all instanced entities
     //created by this manager (beware of not leaving reference to those pointers)
@@ -485,8 +485,8 @@ void Sample_NewInstancing::animateUnits( float timeSinceLast )
     Ogre::Profile profile("Animate");
     //Iterates through all AnimationSets and updates the animation being played. Demonstrates the
     //animation is unique and independent to each instance
-    std::set<AnimationState*>::const_iterator itor = mAnimations.begin();
-    std::set<AnimationState*>::const_iterator end  = mAnimations.end();
+    auto itor = mAnimations.begin();
+    auto end  = mAnimations.end();
 
     while( itor != end )
     {
@@ -507,8 +507,8 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
     if (!mSceneNodes.empty())
     {
         //Randomly move the units along their normal, bouncing around invisible walls
-        std::vector<SceneNode*>::const_iterator itor = mSceneNodes.begin();
-        std::vector<SceneNode*>::const_iterator end  = mSceneNodes.end();
+        auto itor = mSceneNodes.begin();
+        auto end  = mSceneNodes.end();
 
         while( itor != end )
         {
@@ -554,8 +554,8 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
         //Update instanced entities directly
 
         //Randomly move the units along their normal, bouncing around invisible walls
-        std::vector<InstancedEntity*>::const_iterator itor = mMovedInstances.begin();
-        std::vector<InstancedEntity*>::const_iterator end  = mMovedInstances.end();
+        auto itor = mMovedInstances.begin();
+        auto end  = mMovedInstances.end();
 
         while( itor != end )
         {

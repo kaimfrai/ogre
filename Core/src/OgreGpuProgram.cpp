@@ -305,7 +305,7 @@ class ResourceManager;
         mLogicalToPhysical->bufferSize = mConstantDefs->bufferSize;
         mLogicalToPhysical->map.clear();
         // need to set up logical mappings too for some rendersystems
-        for (GpuConstantDefinitionMap::const_iterator i = mConstantDefs->map.begin();
+        for (auto i = mConstantDefs->map.begin();
             i != mConstantDefs->map.end(); ++i)
         {
             const String& name = i->first;
@@ -446,12 +446,12 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     auto CmdType::doGet(const void* target) const -> String
     {
-        const GpuProgram* t = static_cast<const GpuProgram*>(target);
+        const auto* t = static_cast<const GpuProgram*>(target);
         return GpuProgram::getProgramTypeName(t->getType()) + "_program";
     }
     void CmdType::doSet(void* target, const String& val)
     {
-        GpuProgram* t = static_cast<GpuProgram*>(target);
+        auto* t = static_cast<GpuProgram*>(target);
         if (val == "vertex_program")
         {
             t->setType(GPT_VERTEX_PROGRAM);
@@ -480,80 +480,80 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     auto CmdSyntax::doGet(const void* target) const -> String
     {
-        const GpuProgram* t = static_cast<const GpuProgram*>(target);
+        const auto* t = static_cast<const GpuProgram*>(target);
         return t->getSyntaxCode();
     }
     void CmdSyntax::doSet(void* target, const String& val)
     {
-        GpuProgram* t = static_cast<GpuProgram*>(target);
+        auto* t = static_cast<GpuProgram*>(target);
         t->setSyntaxCode(val);
     }
     //-----------------------------------------------------------------------
     auto CmdSkeletal::doGet(const void* target) const -> String
     {
-        const GpuProgram* t = static_cast<const GpuProgram*>(target);
+        const auto* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->isSkeletalAnimationIncluded());
     }
     void CmdSkeletal::doSet(void* target, const String& val)
     {
-        GpuProgram* t = static_cast<GpuProgram*>(target);
+        auto* t = static_cast<GpuProgram*>(target);
         t->setSkeletalAnimationIncluded(StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
     auto CmdMorph::doGet(const void* target) const -> String
     {
-        const GpuProgram* t = static_cast<const GpuProgram*>(target);
+        const auto* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->isMorphAnimationIncluded());
     }
     void CmdMorph::doSet(void* target, const String& val)
     {
-        GpuProgram* t = static_cast<GpuProgram*>(target);
+        auto* t = static_cast<GpuProgram*>(target);
         t->setMorphAnimationIncluded(StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
     auto CmdPose::doGet(const void* target) const -> String
     {
-        const GpuProgram* t = static_cast<const GpuProgram*>(target);
+        const auto* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->getNumberOfPosesIncluded());
     }
     void CmdPose::doSet(void* target, const String& val)
     {
-        GpuProgram* t = static_cast<GpuProgram*>(target);
+        auto* t = static_cast<GpuProgram*>(target);
         t->setPoseAnimationIncluded((ushort)StringConverter::parseUnsignedInt(val));
     }
     //-----------------------------------------------------------------------
     auto CmdVTF::doGet(const void* target) const -> String
     {
-        const GpuProgram* t = static_cast<const GpuProgram*>(target);
+        const auto* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->isVertexTextureFetchRequired());
     }
     void CmdVTF::doSet(void* target, const String& val)
     {
-        GpuProgram* t = static_cast<GpuProgram*>(target);
+        auto* t = static_cast<GpuProgram*>(target);
         t->setVertexTextureFetchRequired(StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
     auto CmdManualNamedConstsFile::doGet(const void* target) const -> String
     {
-        const GpuProgram* t = static_cast<const GpuProgram*>(target);
+        const auto* t = static_cast<const GpuProgram*>(target);
         return t->getManualNamedConstantsFile();
     }
     void CmdManualNamedConstsFile::doSet(void* target, const String& val)
     {
-        GpuProgram* t = static_cast<GpuProgram*>(target);
+        auto* t = static_cast<GpuProgram*>(target);
         t->setManualNamedConstantsFile(val);
     }
     //-----------------------------------------------------------------------
     auto CmdAdjacency::doGet(const void* target) const -> String
     {
-        const GpuProgram* t = static_cast<const GpuProgram*>(target);
+        const auto* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->isAdjacencyInfoRequired());
     }
     void CmdAdjacency::doSet(void* target, const String& val)
     {
         LogManager::getSingleton().logWarning("'uses_adjacency_information' is deprecated. "
         "Set the respective RenderOperation::OpertionType instead.");
-        GpuProgram* t = static_cast<GpuProgram*>(target);
+        auto* t = static_cast<GpuProgram*>(target);
         t->setAdjacencyInfoRequired(StringConverter::parseBool(val));
     }
 }

@@ -368,21 +368,21 @@ void ShaderGenerator::_destroy()
     mIsFinalizing = true;
     
     // Delete technique entries.
-    for (SGTechniqueMapIterator itTech = mTechniqueEntriesMap.begin(); itTech != mTechniqueEntriesMap.end(); ++itTech)
+    for (auto itTech = mTechniqueEntriesMap.begin(); itTech != mTechniqueEntriesMap.end(); ++itTech)
     {           
         delete (itTech->second);
     }
     mTechniqueEntriesMap.clear();
 
     // Delete material entries.
-    for (SGMaterialIterator itMat = mMaterialEntriesMap.begin(); itMat != mMaterialEntriesMap.end(); ++itMat)
+    for (auto itMat = mMaterialEntriesMap.begin(); itMat != mMaterialEntriesMap.end(); ++itMat)
     {       
         delete (itMat->second);
     }
     mMaterialEntriesMap.clear();
 
     // Delete scheme entries.
-    for (SGSchemeIterator itScheme = mSchemeEntriesMap.begin(); itScheme != mSchemeEntriesMap.end(); ++itScheme)
+    for (auto itScheme = mSchemeEntriesMap.begin(); itScheme != mSchemeEntriesMap.end(); ++itScheme)
     {       
         delete (itScheme->second);
     }
@@ -435,7 +435,7 @@ void ShaderGenerator::destroyBuiltinSRSFactories()
 //-----------------------------------------------------------------------------
 void ShaderGenerator::addSubRenderStateFactory(SubRenderStateFactory* factory)
 {
-    SubRenderStateFactoryIterator itFind = mSubRenderStateFactories.find(factory->getType());
+    auto itFind = mSubRenderStateFactories.find(factory->getType());
 
     if (itFind != mSubRenderStateFactories.end())
     {
@@ -458,7 +458,7 @@ auto ShaderGenerator::getNumSubRenderStateFactories() const -> size_t
 auto  ShaderGenerator::getSubRenderStateFactory(size_t index) -> SubRenderStateFactory*
 {
     {
-        SubRenderStateFactoryIterator itFind = mSubRenderStateFactories.begin();
+        auto itFind = mSubRenderStateFactories.begin();
         for(; index != 0 && itFind != mSubRenderStateFactories.end(); --index , ++itFind);
 
         if (itFind != mSubRenderStateFactories.end())
@@ -476,14 +476,14 @@ auto  ShaderGenerator::getSubRenderStateFactory(size_t index) -> SubRenderStateF
 //-----------------------------------------------------------------------------
 auto ShaderGenerator::getSubRenderStateFactory(const String& type) -> SubRenderStateFactory*
 {
-    SubRenderStateFactoryIterator itFind = mSubRenderStateFactories.find(type);
+    auto itFind = mSubRenderStateFactories.find(type);
     return (itFind != mSubRenderStateFactories.end()) ? itFind->second : NULL;
 }
 
 //-----------------------------------------------------------------------------
 void ShaderGenerator::removeSubRenderStateFactory(SubRenderStateFactory* factory)
 {
-    SubRenderStateFactoryIterator itFind = mSubRenderStateFactories.find(factory->getType());
+    auto itFind = mSubRenderStateFactories.find(factory->getType());
 
     if (itFind != mSubRenderStateFactories.end())
         mSubRenderStateFactories.erase(itFind);
@@ -493,7 +493,7 @@ void ShaderGenerator::removeSubRenderStateFactory(SubRenderStateFactory* factory
 //-----------------------------------------------------------------------------
 auto ShaderGenerator::createSubRenderState(const String& type) -> SubRenderState*
 {
-    SubRenderStateFactoryIterator itFind = mSubRenderStateFactories.find(type);
+    auto itFind = mSubRenderStateFactories.find(type);
 
     if (itFind != mSubRenderStateFactories.end())
         return itFind->second->createInstance();
@@ -509,7 +509,7 @@ auto ShaderGenerator::createSubRenderState(const String& type) -> SubRenderState
 //-----------------------------------------------------------------------------
 void ShaderGenerator::destroySubRenderState(SubRenderState* subRenderState)
 {
-    SubRenderStateFactoryIterator itFind = mSubRenderStateFactories.find(subRenderState->getType());
+    auto itFind = mSubRenderStateFactories.find(subRenderState->getType());
 
     if (itFind != mSubRenderStateFactories.end())
     {
@@ -521,8 +521,8 @@ void ShaderGenerator::destroySubRenderState(SubRenderState* subRenderState)
 auto ShaderGenerator::createSubRenderState(ScriptCompiler* compiler, 
                                                       PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
-    SubRenderStateFactoryIterator it = mSubRenderStateFactories.begin();
-    SubRenderStateFactoryIterator itEnd = mSubRenderStateFactories.end();
+    auto it = mSubRenderStateFactories.begin();
+    auto itEnd = mSubRenderStateFactories.end();
     SubRenderState* subRenderState = nullptr;
 
     while (it != itEnd)
@@ -541,8 +541,8 @@ auto ShaderGenerator::createSubRenderState(ScriptCompiler* compiler,
 auto ShaderGenerator::createSubRenderState(ScriptCompiler* compiler, 
                                                       PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator) -> SubRenderState*
 {
-    SubRenderStateFactoryIterator it = mSubRenderStateFactories.begin();
-    SubRenderStateFactoryIterator itEnd = mSubRenderStateFactories.end();
+    auto it = mSubRenderStateFactories.begin();
+    auto itEnd = mSubRenderStateFactories.end();
     SubRenderState* subRenderState = nullptr;
 
     while (it != itEnd)
@@ -565,7 +565,7 @@ void ShaderGenerator::createScheme(const String& schemeName)
 //-----------------------------------------------------------------------------
 auto ShaderGenerator::getRenderState(const String& schemeName) -> RenderState*
 {
-    SGSchemeIterator itFind = mSchemeEntriesMap.find(schemeName);
+    auto itFind = mSchemeEntriesMap.find(schemeName);
     
     if (itFind == mSchemeEntriesMap.end())
     {
@@ -580,7 +580,7 @@ auto ShaderGenerator::getRenderState(const String& schemeName) -> RenderState*
 //-----------------------------------------------------------------------------
 auto ShaderGenerator::hasRenderState(const String& schemeName) const -> bool
 {
-    SGSchemeConstIterator itFind = mSchemeEntriesMap.find(schemeName);
+    auto itFind = mSchemeEntriesMap.find(schemeName);
     return itFind != mSchemeEntriesMap.end();
 }
 
@@ -595,7 +595,7 @@ auto ShaderGenerator::createOrRetrieveRenderState(const String& schemeName) -> S
 auto ShaderGenerator::createOrRetrieveScheme(const String& schemeName) -> ShaderGenerator::SchemeCreateOrRetrieveResult
 {
     bool wasCreated = false;
-    SGSchemeIterator itScheme = mSchemeEntriesMap.find(schemeName);
+    auto itScheme = mSchemeEntriesMap.find(schemeName);
     SGScheme* schemeEntry = nullptr;
 
     if (itScheme == mSchemeEntriesMap.end())
@@ -617,7 +617,7 @@ auto ShaderGenerator::getRenderState(const String& schemeName,
                                      const String& groupName, 
                                      unsigned short passIndex) -> RenderState*
 {
-    SGSchemeIterator itFind = mSchemeEntriesMap.find(schemeName);
+    auto itFind = mSchemeEntriesMap.find(schemeName);
 
     if (itFind == mSchemeEntriesMap.end())
     {
@@ -655,7 +655,7 @@ void ShaderGenerator::addSceneManager(SceneManager* sceneMgr)
 void ShaderGenerator::removeSceneManager(SceneManager* sceneMgr)
 {
     // Make sure this scene manager exists in the map.
-    SceneManagerIterator itFind = mSceneManagerMap.find(sceneMgr);
+    auto itFind = mSceneManagerMap.find(sceneMgr);
     
     if (itFind != mSceneManagerMap.end())
     {
@@ -726,13 +726,13 @@ auto ShaderGenerator::hasShaderBasedTechnique(const String& materialName,
         return false;
 
     
-    SGMaterialConstIterator itMatEntry = findMaterialEntryIt(materialName, groupName);
+    auto itMatEntry = findMaterialEntryIt(materialName, groupName);
     
     // Check if technique already created.
     if (itMatEntry != mMaterialEntriesMap.end())
     {
         const SGTechniqueList& techniqueEntires = itMatEntry->second->getTechniqueList();
-        SGTechniqueConstIterator itTechEntry = techniqueEntires.begin();
+        auto itTechEntry = techniqueEntires.begin();
 
         for (; itTechEntry != techniqueEntires.end(); ++itTechEntry)
         {
@@ -802,13 +802,13 @@ auto ShaderGenerator::createShaderBasedTechnique(const Technique* srcTechnique, 
     const String& materialName = srcMat->getName();
     const String& trueGroupName = srcMat->getGroup();
 
-    SGMaterialIterator itMatEntry = findMaterialEntryIt(materialName, trueGroupName);
+    auto itMatEntry = findMaterialEntryIt(materialName, trueGroupName);
 
     // Check if technique already created.
     if (itMatEntry != mMaterialEntriesMap.end())
     {
         const SGTechniqueList& techniqueEntires = itMatEntry->second->getTechniqueList();
-        SGTechniqueConstIterator itTechEntry = techniqueEntires.begin();
+        auto itTechEntry = techniqueEntires.begin();
 
         for (; itTechEntry != techniqueEntires.end(); ++itTechEntry)
         {
@@ -844,7 +844,7 @@ auto ShaderGenerator::createShaderBasedTechnique(const Technique* srcTechnique, 
     }
 
     // Create the new technique entry.
-    SGTechnique* techEntry =
+    auto* techEntry =
         new SGTechnique(matEntry, srcTechnique, dstTechniqueSchemeName, overProgrammable);
 
     // Add to material entry map.
@@ -863,7 +863,7 @@ auto ShaderGenerator::createShaderBasedTechnique(const Technique* srcTechnique, 
 auto ShaderGenerator::removeShaderBasedTechnique(const Technique* srcTech, const String& dstTechniqueSchemeName) -> bool
 {
     // Make sure scheme exists.
-    SGSchemeIterator itScheme = mSchemeEntriesMap.find(dstTechniqueSchemeName);
+    auto itScheme = mSchemeEntriesMap.find(dstTechniqueSchemeName);
     SGScheme* schemeEntry = nullptr;
 
     if (itScheme == mSchemeEntriesMap.end())
@@ -873,7 +873,7 @@ auto ShaderGenerator::removeShaderBasedTechnique(const Technique* srcTech, const
 
     // Find the material entry.
     Material* srcMat = srcTech->getParent();
-    SGMaterialIterator itMatEntry = findMaterialEntryIt(srcMat->getName(), srcMat->getGroup());
+    auto itMatEntry = findMaterialEntryIt(srcMat->getName(), srcMat->getGroup());
 
     // Case material not found.
     if (itMatEntry == mMaterialEntriesMap.end())
@@ -881,7 +881,7 @@ auto ShaderGenerator::removeShaderBasedTechnique(const Technique* srcTech, const
 
 
     SGTechniqueList& matTechniqueEntires = itMatEntry->second->getTechniqueList();
-    SGTechniqueIterator itTechEntry = matTechniqueEntires.begin();
+    auto itTechEntry = matTechniqueEntires.begin();
     SGTechnique* dstTechnique = nullptr;
 
     // Remove destination technique entry from material techniques list.
@@ -902,7 +902,7 @@ auto ShaderGenerator::removeShaderBasedTechnique(const Technique* srcTech, const
 
     schemeEntry->removeTechniqueEntry(dstTechnique);
 
-    SGTechniqueMapIterator itTechMap = mTechniqueEntriesMap.find(dstTechnique);
+    auto itTechMap = mTechniqueEntriesMap.find(dstTechnique);
 
     if (itTechMap != mTechniqueEntriesMap.end())
         mTechniqueEntriesMap.erase(itTechMap);
@@ -916,7 +916,7 @@ auto ShaderGenerator::removeShaderBasedTechnique(const Technique* srcTech, const
 auto ShaderGenerator::removeAllShaderBasedTechniques(const String& materialName, const String& groupName) -> bool
 {
     // Find the material entry.
-    SGMaterialIterator itMatEntry = findMaterialEntryIt(materialName, groupName);
+    auto itMatEntry = findMaterialEntryIt(materialName, groupName);
     
     // Case material not found.
     if (itMatEntry == mMaterialEntriesMap.end())
@@ -928,7 +928,7 @@ auto ShaderGenerator::removeAllShaderBasedTechniques(const String& materialName,
     // Remove all technique entries from material techniques list.
     while (matTechniqueEntires.empty() == false)
     {   
-        SGTechniqueIterator itTechEntry = matTechniqueEntires.begin();
+        auto itTechEntry = matTechniqueEntires.begin();
 
         removeShaderBasedTechnique((*itTechEntry)->getSourceTechnique(),
                                    (*itTechEntry)->getDestinationTechniqueSchemeName());
@@ -944,7 +944,7 @@ auto ShaderGenerator::cloneShaderBasedTechniques(const Material& srcMat, Materia
 {
     if(&srcMat == &dstMat) return true; // nothing to do
 
-    SGMaterialIterator itSrcMatEntry = findMaterialEntryIt(srcMat.getName(), srcMat.getGroup());
+    auto itSrcMatEntry = findMaterialEntryIt(srcMat.getName(), srcMat.getGroup());
 
     //remove any techniques in the destination material so the new techniques may be copied
     removeAllShaderBasedTechniques(dstMat);
@@ -988,7 +988,7 @@ auto ShaderGenerator::cloneShaderBasedTechniques(const Material& srcMat, Materia
     if (itSrcMatEntry != mMaterialEntriesMap.end())
     {
         const SGTechniqueList& techniqueEntires = itSrcMatEntry->second->getTechniqueList();
-        SGTechniqueConstIterator itTechEntry = techniqueEntires.begin();
+        auto itTechEntry = techniqueEntires.begin();
 
         //Go over all rtss techniques in the source material
         for (; itTechEntry != techniqueEntires.end(); ++itTechEntry)
@@ -1013,7 +1013,7 @@ auto ShaderGenerator::cloneShaderBasedTechniques(const Material& srcMat, Materia
                         const SubRenderStateList& srcSubRenderState = 
                             srcRenderState->getSubRenderStates();
 
-                        SubRenderStateList::const_iterator itSubState = srcSubRenderState.begin(),
+                        auto itSubState = srcSubRenderState.begin(),
                             itSubStateEnd = srcSubRenderState.end();
                         for(;itSubState != itSubStateEnd ; ++itSubState)
                         {
@@ -1036,7 +1036,7 @@ void ShaderGenerator::removeAllShaderBasedTechniques()
 {
     while (!mMaterialEntriesMap.empty())
     {
-        SGMaterialIterator itMatEntry = mMaterialEntriesMap.begin();
+        auto itMatEntry = mMaterialEntriesMap.begin();
 
         removeAllShaderBasedTechniques(itMatEntry->first.first, itMatEntry->first.second);
     }
@@ -1075,7 +1075,7 @@ void ShaderGenerator::preFindVisibleObjects(SceneManager* source,
 //-----------------------------------------------------------------------------
 void ShaderGenerator::invalidateScheme(const String& schemeName)
 {
-    SGSchemeIterator itScheme = mSchemeEntriesMap.find(schemeName);
+    auto itScheme = mSchemeEntriesMap.find(schemeName);
 
     if (itScheme != mSchemeEntriesMap.end())    
         itScheme->second->invalidate(); 
@@ -1085,7 +1085,7 @@ void ShaderGenerator::invalidateScheme(const String& schemeName)
 //-----------------------------------------------------------------------------
 auto ShaderGenerator::validateScheme(const String& schemeName) -> bool
 {
-    SGSchemeIterator itScheme = mSchemeEntriesMap.find(schemeName);
+    auto itScheme = mSchemeEntriesMap.find(schemeName);
 
     // No such scheme exists.
     if (itScheme == mSchemeEntriesMap.end())    
@@ -1099,7 +1099,7 @@ auto ShaderGenerator::validateScheme(const String& schemeName) -> bool
 //-----------------------------------------------------------------------------
 void ShaderGenerator::invalidateMaterial(const String& schemeName, const String& materialName, const String& groupName)
 {
-    SGSchemeIterator itScheme = mSchemeEntriesMap.find(schemeName);
+    auto itScheme = mSchemeEntriesMap.find(schemeName);
     
     if (itScheme != mSchemeEntriesMap.end())            
         itScheme->second->invalidate(materialName, groupName);  
@@ -1108,7 +1108,7 @@ void ShaderGenerator::invalidateMaterial(const String& schemeName, const String&
 //-----------------------------------------------------------------------------
 auto ShaderGenerator::validateMaterial(const String& schemeName, const String& materialName, const String& groupName) -> bool
 {
-    SGSchemeIterator itScheme = mSchemeEntriesMap.find(schemeName);
+    auto itScheme = mSchemeEntriesMap.find(schemeName);
 
     // No such scheme exists.
     if (itScheme == mSchemeEntriesMap.end())    
@@ -1120,7 +1120,7 @@ auto ShaderGenerator::validateMaterial(const String& schemeName, const String& m
 //-----------------------------------------------------------------------------
 void ShaderGenerator::invalidateMaterialIlluminationPasses(const String& schemeName, const String& materialName, const String& groupName)
 {
-	SGSchemeIterator itScheme = mSchemeEntriesMap.find(schemeName);
+	auto itScheme = mSchemeEntriesMap.find(schemeName);
 
 	if(itScheme != mSchemeEntriesMap.end())
 		itScheme->second->invalidateIlluminationPasses(materialName, groupName);
@@ -1129,7 +1129,7 @@ void ShaderGenerator::invalidateMaterialIlluminationPasses(const String& schemeN
 //-----------------------------------------------------------------------------
 auto ShaderGenerator::validateMaterialIlluminationPasses(const String& schemeName, const String& materialName, const String& groupName) -> bool
 {
-	SGSchemeIterator itScheme = mSchemeEntriesMap.find(schemeName);
+	auto itScheme = mSchemeEntriesMap.find(schemeName);
 
 	// No such scheme exists.
 	if(itScheme == mSchemeEntriesMap.end())
@@ -1150,8 +1150,8 @@ auto ShaderGenerator::getMaterialSerializerListener() -> MaterialSerializer::Lis
 //-----------------------------------------------------------------------------
 void ShaderGenerator::flushShaderCache()
 {
-    SGTechniqueMapIterator itTech = mTechniqueEntriesMap.begin();
-    SGTechniqueMapIterator itTechEnd = mTechniqueEntriesMap.end();
+    auto itTech = mTechniqueEntriesMap.begin();
+    auto itTechEnd = mTechniqueEntriesMap.end();
 
     // Release all programs.
     for (; itTech != itTechEnd; ++itTech)
@@ -1161,8 +1161,8 @@ void ShaderGenerator::flushShaderCache()
 
     ProgramManager::getSingleton().flushGpuProgramsCache();
     
-    SGSchemeIterator itScheme = mSchemeEntriesMap.begin();
-    SGSchemeIterator itSchemeEnd = mSchemeEntriesMap.end();
+    auto itScheme = mSchemeEntriesMap.begin();
+    auto itSchemeEnd = mSchemeEntriesMap.end();
 
     // Invalidate all schemes.
     for (; itScheme != itSchemeEnd; ++itScheme)
@@ -1177,7 +1177,7 @@ auto ShaderGenerator::getTranslator(const AbstractNodePtr& node) -> ScriptTransl
     if(node->type != ANT_OBJECT)
         return nullptr;
     
-    ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+    auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
     if(obj->id == ID_RT_SHADER_SYSTEM)
         return &mCoreScriptTranslator;
@@ -1200,13 +1200,13 @@ void ShaderGenerator::serializePassAttributes(MaterialSerializer* ser, SGPass* p
     {
         // Write each of the sub-render states that composing the final render state.
         const SubRenderStateList& subRenderStates = customRenderState->getSubRenderStates();
-        SubRenderStateListConstIterator it      = subRenderStates.begin();
-        SubRenderStateListConstIterator itEnd   = subRenderStates.end();
+        auto it      = subRenderStates.begin();
+        auto itEnd   = subRenderStates.end();
 
         for (; it != itEnd; ++it)
         {
             SubRenderState* curSubRenderState = *it;
-            SubRenderStateFactoryIterator itFactory = mSubRenderStateFactories.find(curSubRenderState->getType());
+            auto itFactory = mSubRenderStateFactories.find(curSubRenderState->getType());
 
             if (itFactory != mSubRenderStateFactories.end())
             {
@@ -1245,13 +1245,13 @@ void ShaderGenerator::serializeTextureUnitStateAttributes(MaterialSerializer* se
         
         // Write each of the sub-render states that composing the final render state.
         const SubRenderStateList& subRenderStates = customRenderState->getSubRenderStates();
-        SubRenderStateListConstIterator it      = subRenderStates.begin();
-        SubRenderStateListConstIterator itEnd   = subRenderStates.end();
+        auto it      = subRenderStates.begin();
+        auto itEnd   = subRenderStates.end();
 
         for (; it != itEnd; ++it)
         {
             SubRenderState* curSubRenderState = *it;
-            SubRenderStateFactoryIterator itFactory = mSubRenderStateFactories.find(curSubRenderState->getType());
+            auto itFactory = mSubRenderStateFactories.find(curSubRenderState->getType());
 
             if (itFactory != mSubRenderStateFactories.end())
             {
@@ -1378,7 +1378,7 @@ auto ShaderGenerator::getRTShaderSchemeCount() const -> size_t
 //-----------------------------------------------------------------------------
 auto ShaderGenerator::getRTShaderScheme(size_t index) const -> const String&
 {
-    SGSchemeMap::const_iterator it = mSchemeEntriesMap.begin();
+    auto it = mSchemeEntriesMap.begin();
     while ((index != 0) && (it != mSchemeEntriesMap.end()))
     {
         --index;
@@ -1403,7 +1403,7 @@ auto ShaderGenerator::createSGPassList(Material* mat) const -> ShaderGenerator::
 {
     SGPassList passList;
 
-    SGMaterialConstIterator itMatEntry = findMaterialEntryIt(mat->getName(), mat->getGroup());
+    auto itMatEntry = findMaterialEntryIt(mat->getName(), mat->getGroup());
 
     // Check if material is managed.
     if (itMatEntry == mMaterialEntriesMap.end())
@@ -1501,7 +1501,7 @@ void ShaderGenerator::SGTechnique::createSGPasses()
         Pass* srcPass = mSrcTechnique->getPass(i);
         Pass* dstPass = mDstTechnique->getPass(i);
 
-		SGPass* passEntry = new SGPass(this, srcPass, dstPass, IS_UNKNOWN);
+		auto* passEntry = new SGPass(this, srcPass, dstPass, IS_UNKNOWN);
 
         if (i < mCustomRenderStates.size())
             passEntry->setCustomRenderState(mCustomRenderStates[i]);
@@ -1522,7 +1522,7 @@ void ShaderGenerator::SGTechnique::createIlluminationSGPasses()
 		if(p->pass == p->originalPass)
 			continue;
 
-		SGPass* passEntry = new SGPass(this, p->pass, p->pass, p->stage);
+		auto* passEntry = new SGPass(this, p->pass, p->pass, p->stage);
 
 		const Any& origPassUserData = p->originalPass->getUserObjectBindings().getUserAny(TargetRenderState::UserKey);
 		if(origPassUserData.has_value())
@@ -1544,7 +1544,7 @@ void ShaderGenerator::SGTechnique::createIlluminationSGPasses()
 //-----------------------------------------------------------------------------
 void ShaderGenerator::SGTechnique::destroyIlluminationSGPasses()
 {
-	for(SGPassIterator itPass = mPassEntries.begin(); itPass != mPassEntries.end(); /* no increment*/ )
+	for(auto itPass = mPassEntries.begin(); itPass != mPassEntries.end(); /* no increment*/ )
 	{
 		if((*itPass)->isIlluminationPass())
 		{
@@ -1609,7 +1609,7 @@ ShaderGenerator::SGTechnique::~SGTechnique()
 //-----------------------------------------------------------------------------
 void ShaderGenerator::SGTechnique::destroySGPasses()
 {
-    for (SGPassIterator itPass = mPassEntries.begin(); itPass != mPassEntries.end(); ++itPass)
+    for (auto itPass = mPassEntries.begin(); itPass != mPassEntries.end(); ++itPass)
     {
         delete (*itPass);
     }
@@ -1645,7 +1645,7 @@ void ShaderGenerator::SGTechnique::buildTargetRenderState()
 
 
     // Build render state for each pass.
-    for (SGPassIterator itPass = mPassEntries.begin(); itPass != mPassEntries.end(); ++itPass)
+    for (auto itPass = mPassEntries.begin(); itPass != mPassEntries.end(); ++itPass)
     {
 		assert(!(*itPass)->isIlluminationPass()); // this is not so important, but intended to be so here.
         (*itPass)->buildTargetRenderState();
@@ -1665,7 +1665,7 @@ void ShaderGenerator::SGTechnique::buildIlluminationTargetRenderState()
 	createIlluminationSGPasses();
 
 	// Build render state for each pass.
-	for(SGPassIterator itPass = mPassEntries.begin(); itPass != mPassEntries.end(); ++itPass)
+	for(auto itPass = mPassEntries.begin(); itPass != mPassEntries.end(); ++itPass)
 	{
 		if((*itPass)->isIlluminationPass())
 			(*itPass)->buildTargetRenderState();

@@ -125,7 +125,7 @@ auto CompositionTargetPass::getShadowsEnabled() const -> bool
 //-----------------------------------------------------------------------
 auto CompositionTargetPass::createPass(CompositionPass::PassType type) -> CompositionPass *
 {
-    CompositionPass *t = new CompositionPass(this);
+    auto *t = new CompositionPass(this);
     t->setType(type);
     mPasses.push_back(t);
     return t;
@@ -135,7 +135,7 @@ auto CompositionTargetPass::createPass(CompositionPass::PassType type) -> Compos
 void CompositionTargetPass::removePass(size_t index)
 {
     assert (index < mPasses.size() && "Index out of bounds.");
-    Passes::iterator i = mPasses.begin() + index;
+    auto i = mPasses.begin() + index;
     delete (*i);
     mPasses.erase(i);
 }
@@ -162,7 +162,7 @@ auto CompositionTargetPass::_isSupported() -> bool
 {
     // A target pass is supported if all passes are supported
 
-    Passes::const_iterator passi = mPasses.begin();
+    auto passi = mPasses.begin();
     for (;passi != mPasses.end(); ++passi)
     {
         CompositionPass* pass = *passi;

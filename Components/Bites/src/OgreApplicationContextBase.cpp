@@ -249,7 +249,7 @@ void ApplicationContextBase::removeInputListener(NativeWindowType* win, InputLis
 
 auto ApplicationContextBase::frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool
 {
-    for(InputListenerList::iterator it = mInputListeners.begin();
+    for(auto it = mInputListeners.begin();
             it != mInputListeners.end(); ++it) {
         it->second->frameRendered(evt);
     }
@@ -310,7 +310,7 @@ void ApplicationContextBase::_fireInputEvent(const Event& event, uint32_t window
 {
     Event scaled = event;
 
-    for(InputListenerList::iterator it = mInputListeners.begin();
+    for(auto it = mInputListeners.begin();
             it != mInputListeners.end(); ++it)
     {
         // gamepad events are not window specific
@@ -444,7 +444,7 @@ void ApplicationContextBase::reconfigure(const Ogre::String &renderer, Ogre::Nam
     Ogre::RenderSystem* rs = mRoot->getRenderSystemByName(renderer);
 
     // set all given render system options
-    for (Ogre::NameValuePairList::iterator it = options.begin(); it != options.end(); it++)
+    for (auto it = options.begin(); it != options.end(); it++)
     {
         rs->setConfigOption(it->first, it->second);
     }

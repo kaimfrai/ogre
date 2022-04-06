@@ -661,7 +661,7 @@ void SceneManager::ShadowRenderer::ensureShadowTexturesCreated()
         size_t __i = 0;
 
         // Recreate shadow textures
-        for (ShadowTextureList::iterator i = mShadowTextures.begin();
+        for (auto i = mShadowTextures.begin();
             i != mShadowTextures.end(); ++i, ++__i)
         {
             const TexturePtr& shadowTex = *i;
@@ -857,7 +857,7 @@ void SceneManager::ShadowRenderer::prepareShadowTextures(Camera* cam, Viewport* 
             shadowView->setVisibilityMask(light->getLightMask() & vp->getVisibilityMask());
 
             // update shadow cam - light mapping
-            ShadowCamLightMapping::iterator camLightIt = mShadowCamLightMapping.find( texCam );
+            auto camLightIt = mShadowCamLightMapping.find( texCam );
             assert(camLightIt != mShadowCamLightMapping.end());
             camLightIt->second = light;
 
@@ -1648,7 +1648,7 @@ void SceneManager::ShadowRenderer::setShadowTextureConfig(size_t shadowIndex,
 void SceneManager::ShadowRenderer::setShadowTextureSize(unsigned short size)
 {
     // default all current
-    for (ShadowTextureConfigList::iterator i = mShadowTextureConfigList.begin();
+    for (auto i = mShadowTextureConfigList.begin();
         i != mShadowTextureConfigList.end(); ++i)
     {
         if (i->width != size || i->height != size)
@@ -1681,7 +1681,7 @@ void SceneManager::ShadowRenderer::setShadowTextureCount(size_t count)
 //---------------------------------------------------------------------
 void SceneManager::ShadowRenderer::setShadowTexturePixelFormat(PixelFormat fmt)
 {
-    for (ShadowTextureConfigList::iterator i = mShadowTextureConfigList.begin();
+    for (auto i = mShadowTextureConfigList.begin();
         i != mShadowTextureConfigList.end(); ++i)
     {
         if (i->format != fmt)
@@ -1693,7 +1693,7 @@ void SceneManager::ShadowRenderer::setShadowTexturePixelFormat(PixelFormat fmt)
 }
 void SceneManager::ShadowRenderer::setShadowTextureFSAA(unsigned short fsaa)
 {
-    for (ShadowTextureConfigList::iterator i = mShadowTextureConfigList.begin();
+    for (auto i = mShadowTextureConfigList.begin();
                 i != mShadowTextureConfigList.end(); ++i)
     {
         if (i->fsaa != fsaa)
@@ -1708,7 +1708,7 @@ void SceneManager::ShadowRenderer::setShadowTextureSettings(unsigned short size,
     unsigned short count, PixelFormat fmt, unsigned short fsaa, uint16 depthBufferPoolId)
 {
     setShadowTextureCount(count);
-    for (ShadowTextureConfigList::iterator i = mShadowTextureConfigList.begin();
+    for (auto i = mShadowTextureConfigList.begin();
         i != mShadowTextureConfigList.end(); ++i)
     {
         if (i->width != size || i->height != size || i->format != fmt || i->fsaa != fsaa)
@@ -1936,7 +1936,7 @@ void SceneManager::ShadowRenderer::sortLightsAffectingFrustum(LightList& lightLi
     // Reverse iterate so last takes precedence
     bool overridden = false;
     ListenerList listenersCopy = mListeners;
-    for (ListenerList::reverse_iterator ri = listenersCopy.rbegin();
+    for (auto ri = listenersCopy.rbegin();
         ri != listenersCopy.rend(); ++ri)
     {
         overridden = (*ri)->sortLightsAffectingFrustum(lightList);

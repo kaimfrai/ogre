@@ -333,7 +333,7 @@ namespace Ogre
         HardwareIndexBufferSharedPtr ibuf = sm->indexData->indexBuffer;
         // Lock the whole buffer
         HardwareBufferLockGuard ibufLock(ibuf, HardwareBuffer::HBL_DISCARD);
-        unsigned short* pIndexes = static_cast<unsigned short*>(ibufLock.pData);
+        auto* pIndexes = static_cast<unsigned short*>(ibufLock.pData);
 
         while (iterations--)
         {
@@ -404,7 +404,7 @@ namespace Ogre
         if(!createdPrefab)
         {
             // Find build parameters
-            MeshBuildParamsMap::iterator ibld = mMeshBuildParams.find(res);
+            auto ibld = mMeshBuildParams.find(res);
             if (ibld == mMeshBuildParams.end())
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
@@ -505,7 +505,7 @@ namespace Ogre
         // Generate vertex data
         // Lock the whole buffer
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-        float* pReal = static_cast<float*>(vbufLock.pData);
+        auto* pReal = static_cast<float*>(vbufLock.pData);
         Real xSpace = params.width / params.xsegments;
         Real ySpace = params.height / params.ysegments;
         Real halfWidth = params.width / 2;
@@ -631,7 +631,7 @@ namespace Ogre
 
         // Generate vertex data
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-        float* pFloat = static_cast<float*>(vbufLock.pData);
+        auto* pFloat = static_cast<float*>(vbufLock.pData);
         Real xSpace = params.width / params.xsegments;
         Real ySpace = params.height / params.ysegments;
         Real halfWidth = params.width / 2;
@@ -795,7 +795,7 @@ namespace Ogre
 
         // Lock the whole buffer
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-        float* pFloat = static_cast<float*>(vbufLock.pData);
+        auto* pFloat = static_cast<float*>(vbufLock.pData);
         Real xSpace = params.width / params.xsegments;
         Real ySpace = params.height / params.ysegments;
         Real halfWidth = params.width / 2;
@@ -888,7 +888,7 @@ namespace Ogre
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "A mesh called " + name + 
                 " already exists!", "MeshManager::createBezierPatch");
         }
-        PatchMesh* pm = new PatchMesh(this, name, getNextHandle(), groupName);
+        auto* pm = new PatchMesh(this, name, getNextHandle(), groupName);
         pm->define(controlPointBuffer, declaration, width, height,
             uMaxSubdivisionLevel, vMaxSubdivisionLevel, visibleSide, vbUsage, ibUsage,
             vbUseShadow, ibUseShadow);

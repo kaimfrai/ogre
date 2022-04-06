@@ -98,10 +98,10 @@ namespace Ogre {
     void GLRenderSystemCommon::refreshConfig()
     {
         // set bpp and refresh rate as appropriate
-        ConfigOptionMap::iterator optVideoMode = mOptions.find("Video Mode");
-        ConfigOptionMap::iterator optDisplayFrequency = mOptions.find("Display Frequency");
-        ConfigOptionMap::iterator optFullScreen = mOptions.find("Full Screen");
-        ConfigOptionMap::iterator optColourDepth = mOptions.find("Colour Depth");
+        auto optVideoMode = mOptions.find("Video Mode");
+        auto optDisplayFrequency = mOptions.find("Display Frequency");
+        auto optFullScreen = mOptions.find("Full Screen");
+        auto optColourDepth = mOptions.find("Colour Depth");
 
         // coulour depth is optional
         if (optColourDepth != mOptions.end())
@@ -157,7 +157,7 @@ namespace Ogre {
     //-------------------------------------------------------------------------------------------------//
     void GLRenderSystemCommon::setConfigOption(const String &name, const String &value)
     {
-        ConfigOptionMap::iterator option = mOptions.find(name);
+        auto option = mOptions.find(name);
         if (option == mOptions.end()) {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Option named '" + name + "' does not exist.");
         }

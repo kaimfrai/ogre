@@ -401,7 +401,7 @@ namespace Ogre {
             return addElement(source, offset, theType, semantic, index);
         }
 
-        VertexElementList::iterator i = mElementList.begin();
+        auto i = mElementList.begin();
         for (unsigned short n = 0; n < atPosition; ++n)
             ++i;
 
@@ -416,7 +416,7 @@ namespace Ogre {
     {
         assert(index < mElementList.size() && "Index out of bounds");
 
-        VertexElementList::const_iterator i = mElementList.begin();
+        auto i = mElementList.begin();
         for (unsigned short n = 0; n < index; ++n)
             ++i;
 
@@ -427,7 +427,7 @@ namespace Ogre {
     void VertexDeclaration::removeElement(unsigned short elem_index)
     {
         assert(elem_index < mElementList.size() && "Index out of bounds");
-        VertexElementList::iterator i = mElementList.begin();
+        auto i = mElementList.begin();
         for (unsigned short n = 0; n < elem_index; ++n)
             ++i;
         mElementList.erase(i);
@@ -460,7 +460,7 @@ namespace Ogre {
         VertexElementSemantic semantic, unsigned short index)
     {
         assert(elem_index < mElementList.size() && "Index out of bounds");
-        VertexElementList::iterator i = mElementList.begin();
+        auto i = mElementList.begin();
         std::advance(i, elem_index);
         (*i) = VertexElement(source, offset, theType, semantic, index);
         notifyChanged();
@@ -700,7 +700,7 @@ namespace Ogre {
     auto VertexDeclaration::getNextFreeTextureCoordinate() const -> unsigned short
     {
         unsigned short texCoord = 0;
-        for (VertexElementList::const_iterator i = mElementList.begin(); 
+        for (auto i = mElementList.begin(); 
              i != mElementList.end(); ++i)
         {
             const VertexElement& el = *i;
@@ -730,7 +730,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     void VertexBufferBinding::unsetBinding(unsigned short index)
     {
-        VertexBufferBindingMap::iterator i = mBindingMap.find(index);
+        auto i = mBindingMap.find(index);
         if (i == mBindingMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
@@ -754,7 +754,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto VertexBufferBinding::getBuffer(unsigned short index) const -> const HardwareVertexBufferSharedPtr&
     {
-        VertexBufferBindingMap::const_iterator i = mBindingMap.find(index);
+        auto i = mBindingMap.find(index);
         if (i == mBindingMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No buffer is bound to that index.",

@@ -66,7 +66,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ConvexBody::_destroyPool()
     {
-        for (PolygonList::iterator i = msFreePolygons.begin(); 
+        for (auto i = msFreePolygons.begin(); 
             i != msFreePolygons.end(); ++i)
         {
             delete *i;
@@ -403,7 +403,7 @@ namespace Ogre
 
         Polygon::EdgeMap::iterator it;
         // iterate from first to the element before the last one
-        for (Polygon::EdgeMap::iterator itStart = edgeMap.begin(); 
+        for (auto itStart = edgeMap.begin(); 
             itStart != edgeMap.end(); )
         {
             // compare with iterator + 1 to end
@@ -420,7 +420,7 @@ namespace Ogre
                 {
                     edgeMap.erase(it);
                     // increment itStart before deletion (iterator invalidation)
-                    Polygon::EdgeMap::iterator delistart = itStart++;
+                    auto delistart = itStart++;
                     edgeMap.erase(delistart);
                     erased = true;
 
@@ -438,7 +438,7 @@ namespace Ogre
         // to form a ccw polygon)
         while ( !edgeMap.empty() )
         {
-            Polygon::EdgeMap::iterator mapIt = edgeMap.begin();
+            auto mapIt = edgeMap.begin();
 
             // build polygon it.first, it.second, point
             Polygon *p = allocatePolygon();
@@ -458,7 +458,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ConvexBody::reset( )
     {
-        for (PolygonList::iterator it = mPolygons.begin(); 
+        for (auto it = mPolygons.begin(); 
             it != mPolygons.end(); ++it)
         {
             freePolygon(*it);
@@ -714,7 +714,7 @@ namespace Ogre
         OgreAssertDbg(poly <= getPolygonCount(), "Insert position out of range" );
         OgreAssertDbg( pdata != NULL, "Polygon is NULL" );
 
-        PolygonList::iterator it = mPolygons.begin();
+        auto it = mPolygons.begin();
         std::advance(it, poly);
 
         mPolygons.insert( it, pdata );
@@ -747,7 +747,7 @@ namespace Ogre
     {
         OgreAssertDbg(poly < getPolygonCount(), "Search position out of range" );
 
-        PolygonList::iterator it = mPolygons.begin();
+        auto it = mPolygons.begin();
         std::advance(it, poly);
         
         freePolygon(*it);
@@ -758,7 +758,7 @@ namespace Ogre
     {
         OgreAssertDbg( poly < getPolygonCount(), "Search position out of range" );
 
-        PolygonList::iterator it = mPolygons.begin();
+        auto it = mPolygons.begin();
         std::advance(it, poly);
 
         // safe address
@@ -944,7 +944,7 @@ namespace Ogre
             // - side is clipSide: vertex will be clipped
             // - side is !clipSide: vertex will be untouched
             // - side is NOSIDE:   vertex will be untouched
-            Plane::Side *side = new Plane::Side[vertexCount];
+            auto *side = new Plane::Side[vertexCount];
             for ( size_t iVertex = 0; iVertex < vertexCount; ++iVertex )
             {
                 side[ iVertex ] = pl.getSide( p.getVertex( iVertex ) );
@@ -1083,7 +1083,7 @@ namespace Ogre
             // Each point is twice in the list because of the fact that we have a convex body
             // with convex polygons. All we have to do is order the edges (an even-odd pair)
             // in a ccw order. The plane normal shows us the direction.
-            Polygon::EdgeMap::iterator it = intersectionEdges.begin();
+            auto it = intersectionEdges.begin();
 
             // check the cross product of the first two edges
             Vector3 vFirst  = it->first;
@@ -1165,7 +1165,7 @@ namespace Ogre
     auto ConvexBody::findAndEraseEdgePair(const Vector3& vec, 
         Polygon::EdgeMap& intersectionEdges, Vector3& vNext ) const -> bool
     {
-        for (Polygon::EdgeMap::iterator it = intersectionEdges.begin(); 
+        for (auto it = intersectionEdges.begin(); 
             it != intersectionEdges.end(); ++it)
         {
             if (it->first.positionEquals(vec))

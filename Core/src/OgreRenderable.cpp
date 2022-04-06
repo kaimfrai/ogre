@@ -24,7 +24,7 @@ auto Renderable::hasCustomParameter(size_t index) const -> bool
 
 auto Renderable::getCustomParameter(size_t index) const -> const Vector4&
 {
-    CustomParameterMap::const_iterator i = mCustomParameters.find(index);
+    auto i = mCustomParameters.find(index);
     if (i != mCustomParameters.end())
     {
         return i->second;
@@ -38,7 +38,7 @@ auto Renderable::getCustomParameter(size_t index) const -> const Vector4&
 void Renderable::_updateCustomGpuParameter(const GpuProgramParameters::AutoConstantEntry& constantEntry,
                                            GpuProgramParameters* params) const
 {
-    CustomParameterMap::const_iterator i = mCustomParameters.find(constantEntry.data);
+    auto i = mCustomParameters.find(constantEntry.data);
     if (i != mCustomParameters.end())
     {
         params->_writeRawConstant(constantEntry.physicalIndex, i->second, constantEntry.elementCount);

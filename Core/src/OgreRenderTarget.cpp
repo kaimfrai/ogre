@@ -63,7 +63,7 @@ class Camera;
         ViewportList vlist = mViewportList;
         
         // Delete viewports
-        for (ViewportList::iterator i = vlist.begin();
+        for (auto i = vlist.begin();
             i != vlist.end(); ++i)
         {
             fireViewportRemoved(i->second);
@@ -171,7 +171,7 @@ class Camera;
     {
         // Go through viewports in Z-order
         // Tell each to refresh
-        ViewportList::iterator it = mViewportList.begin();
+        auto it = mViewportList.begin();
         while (it != mViewportList.end())
         {
             Viewport* viewport = (*it).second;
@@ -210,7 +210,7 @@ class Camera;
 
     void RenderTarget::_updateViewport(int zorder, bool updateStatistics)
     {
-        ViewportList::iterator it = mViewportList.find(zorder);
+        auto it = mViewportList.find(zorder);
         if (it != mViewportList.end())
         {
             _updateViewport((*it).second,updateStatistics);
@@ -226,7 +226,7 @@ class Camera;
         float width , float height) -> Viewport*
     {       
         // Check no existing viewport with this Z-order
-        ViewportList::iterator it = mViewportList.find(ZOrder);
+        auto it = mViewportList.find(ZOrder);
 
         if (it != mViewportList.end())
         {
@@ -238,7 +238,7 @@ class Camera;
         }
         // Add viewport to list
         // Order based on Z-order
-        Viewport* vp = new Viewport(cam, this, left, top, width, height, ZOrder);
+        auto* vp = new Viewport(cam, this, left, top, width, height, ZOrder);
 
         mViewportList.emplace(ZOrder, vp);
 
@@ -249,7 +249,7 @@ class Camera;
     //-----------------------------------------------------------------------
     void RenderTarget::removeViewport(int ZOrder)
     {
-        ViewportList::iterator it = mViewportList.find(ZOrder);
+        auto it = mViewportList.find(ZOrder);
 
         if (it != mViewportList.end())
         {
@@ -264,7 +264,7 @@ class Camera;
         // make a copy of the list to avoid crashes, the viewport destructor change the list
         ViewportList vlist = mViewportList;
 
-        for (ViewportList::iterator it = vlist.begin(); it != vlist.end(); ++it)
+        for (auto it = vlist.begin(); it != vlist.end(); ++it)
         {
             fireViewportRemoved(it->second);
             delete (*it).second;
@@ -346,7 +346,7 @@ class Camera;
     //-----------------------------------------------------------------------
     void RenderTarget::removeListener(RenderTargetListener* listener)
     {
-        RenderTargetListenerList::iterator i = std::find(mListeners.begin(), mListeners.end(), listener);
+        auto i = std::find(mListeners.begin(), mListeners.end(), listener);
         if (i != mListeners.end())
             mListeners.erase(i);
     }
@@ -396,7 +396,7 @@ class Camera;
     {
         assert (index < mViewportList.size() && "Index out of bounds");
 
-        ViewportList::iterator i = mViewportList.begin();
+        auto i = mViewportList.begin();
         while (index--)
             ++i;
         return i->second;
@@ -404,7 +404,7 @@ class Camera;
     //-----------------------------------------------------------------------
     auto RenderTarget::getViewportByZOrder(int ZOrder) -> Viewport*
     {
-        ViewportList::iterator i = mViewportList.find(ZOrder);
+        auto i = mViewportList.find(ZOrder);
         if(i == mViewportList.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,"No viewport with given Z-order: "
@@ -415,7 +415,7 @@ class Camera;
     //-----------------------------------------------------------------------
     auto RenderTarget::hasViewportWithZOrder(int ZOrder) -> bool
     {
-        ViewportList::iterator i = mViewportList.find(ZOrder);
+        auto i = mViewportList.find(ZOrder);
         return i != mViewportList.end();
     }
     //-----------------------------------------------------------------------

@@ -146,8 +146,8 @@ class AxisAlignedBox;
         else
         {
             //Tell the ones sharing skeleton with us to use their own
-            InstancedEntityVec::const_iterator itor = mSharingPartners.begin();
-            InstancedEntityVec::const_iterator end  = mSharingPartners.end();
+            auto itor = mSharingPartners.begin();
+            auto end  = mSharingPartners.end();
             while( itor != end )
             {
                 (*itor)->stopSharingTransformAsSlave( false );
@@ -179,8 +179,8 @@ class AxisAlignedBox;
             {
                 Affine3* matrices = mBatchOwner->useBoneWorldMatrices() ? mBoneWorldMatrices : mBoneMatrices;
                 const Mesh::IndexMap *indexMap = mBatchOwner->_getIndexToBoneMap();
-                Mesh::IndexMap::const_iterator itor = indexMap->begin();
-                Mesh::IndexMap::const_iterator end  = indexMap->end();
+                auto itor = indexMap->begin();
+                auto end  = indexMap->end();
 
                 while( itor != end )
                     *xform++ = matrices[*itor++];
@@ -330,8 +330,8 @@ class AxisAlignedBox;
     void InstancedEntity::notifyUnlink( const InstancedEntity *slave )
     {
         //Find the slave and remove it
-        InstancedEntityVec::iterator itor = mSharingPartners.begin();
-        InstancedEntityVec::iterator end  = mSharingPartners.end();
+        auto itor = mSharingPartners.begin();
+        auto end  = mSharingPartners.end();
         while( itor != end )
         {
             if( *itor == slave )

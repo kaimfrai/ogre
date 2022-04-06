@@ -50,7 +50,7 @@ namespace Ogre {
 
         auto pData = static_cast<ImageCodec::ImageData*>(res.second.get());
 
-        Image* dest = any_cast<Image*>(output);
+        auto* dest = any_cast<Image*>(output);
         dest->mWidth = pData->width;
         dest->mHeight = pData->height;
         dest->mDepth = pData->depth;
@@ -66,7 +66,7 @@ namespace Ogre {
 
     auto ImageCodec::encode(const Any& input) const -> DataStreamPtr
     {
-        Image* src = any_cast<Image*>(input);
+        auto* src = any_cast<Image*>(input);
 
         auto imgData = std::make_shared<ImageCodec::ImageData>();
         imgData->format = src->getFormat();
@@ -82,7 +82,7 @@ namespace Ogre {
     }
     void ImageCodec::encodeToFile(const Any& input, const String& outFileName) const
     {
-        Image* src = any_cast<Image*>(input);
+        auto* src = any_cast<Image*>(input);
 
         auto imgData = std::make_shared<ImageCodec::ImageData>();
         imgData->format = src->getFormat();
@@ -291,7 +291,7 @@ namespace Ogre {
         size_t size = calculateSize(numMipMaps, numFaces, uWidth, uHeight, uDepth, eFormat);
         OgreAssert(size == stream->size(), "Wrong stream size");
 
-        uchar *buffer = new uchar[size];
+        auto *buffer = new uchar[size];
         stream->read(buffer, size);
 
         return loadDynamicImage(buffer,

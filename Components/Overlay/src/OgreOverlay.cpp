@@ -60,7 +60,7 @@ namespace Ogre {
 
         delete mRootNode;
         
-        for (OverlayContainerList::iterator i = m2DElements.begin(); 
+        for (auto i = m2DElements.begin(); 
              i != m2DElements.end(); ++i)
         {
             (*i)->_notifyParent(nullptr, nullptr);
@@ -74,7 +74,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Overlay::assignZOrders()
     {
-        ushort zorder = static_cast<ushort>(mZOrder * 100.0f);
+        auto zorder = static_cast<ushort>(mZOrder * 100.0f);
 
         // Notify attached 2D elements
         OverlayContainerList::iterator i, iend;
@@ -325,7 +325,7 @@ namespace Ogre {
         //    2. Rotate
         //    3. Translate
 
-        Radian orientationRotation = Radian(0);
+        auto orientationRotation = Radian(0);
 
         Matrix3 rot3x3, scale3x3;
         rot3x3.FromEulerAnglesXYZ(Radian(0), Radian(0), mRotate + orientationRotation);

@@ -164,7 +164,7 @@ protected:
     auto summarizeSingleResult(const std::vector<const ComparisonResult*>& result, bool passed, const TestBatch& set1, const TestBatch& set2) -> HtmlElement*
     {
         // container and header
-        HtmlElement* container = new HtmlElement("div");
+        auto* container = new HtmlElement("div");
         container->appendAttribute("id",result[0]->testName);
         container->appendElement("h2")->appendText(result[0]->testName);
             //+ " (frame " + Ogre::StringConverter::toString(result.frame) + ")");
@@ -268,7 +268,7 @@ protected:
     auto writeBatchInfoTable(const TestBatch& set, Ogre::String name) -> HtmlElement*
     {
         // main div
-        HtmlElement* column = new HtmlElement("div");
+        auto* column = new HtmlElement("div");
         column->appendAttribute("class", "img_column");
 
         // add a bit of header text

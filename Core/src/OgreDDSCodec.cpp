@@ -206,7 +206,7 @@ namespace {
                                 const CodecDataPtr& pData) const
     {
         // Unwrap codecDataPtr - data is cleaned by calling function
-        ImageData* imgData = static_cast<ImageData* >(pData.get());  
+        auto* imgData = static_cast<ImageData* >(pData.get());  
 
 
         // Check size for cube map faces
@@ -607,7 +607,7 @@ namespace {
         // General search through pixel formats
         for (int i = PF_UNKNOWN + 1; i < PF_COUNT; ++i)
         {
-            PixelFormat pf = static_cast<PixelFormat>(i);
+            auto pf = static_cast<PixelFormat>(i);
             if (PixelUtil::getNumElemBits(pf) == rgbBits)
             {
                 uint64 testMasks[4];
@@ -663,7 +663,7 @@ namespace {
             for (size_t x = 0; x < 4; ++x)
             {
                 // LSB come first
-                uint8 colIdx = static_cast<uint8>(block.indexRow[row] >> (x * 2) & 0x3);
+                auto colIdx = static_cast<uint8>(block.indexRow[row] >> (x * 2) & 0x3);
                 if (pf == PF_DXT1)
                 {
                     // Overwrite entire colour
@@ -695,7 +695,7 @@ namespace {
             for (size_t x = 0; x < 4; ++x)
             {
                 // Shift and mask off to 4 bits
-                uint8 val = static_cast<uint8>(block.alphaRow[row] >> (x * 4) & 0xF);
+                auto val = static_cast<uint8>(block.alphaRow[row] >> (x * 4) & 0xF);
                 // Convert to [0,1]
                 pCol->a = (Real)val / (Real)0xF;
                 pCol++;
@@ -782,7 +782,7 @@ namespace {
                 "DDS header size mismatch!", "DDSCodec::decode");
         }
 
-        ImageData* imgData = new ImageData();
+        auto* imgData = new ImageData();
         MemoryDataStreamPtr output;
 
         imgData->depth = 1; // (deal with volume later)

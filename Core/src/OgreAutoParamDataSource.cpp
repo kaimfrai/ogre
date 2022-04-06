@@ -1118,7 +1118,7 @@ namespace Ogre {
     //-------------------------------------------------------------------------
     void AutoParamDataSource::updateLightCustomGpuParameter(const GpuProgramParameters::AutoConstantEntry& constantEntry, GpuProgramParameters *params) const
     {
-        uint16 lightIndex = static_cast<uint16>(constantEntry.data & 0xFFFF),
+        auto lightIndex = static_cast<uint16>(constantEntry.data & 0xFFFF),
             paramIndex = static_cast<uint16>((constantEntry.data >> 16) & 0xFFFF);
         if(mCurrentLightList && lightIndex < mCurrentLightList->size())
         {

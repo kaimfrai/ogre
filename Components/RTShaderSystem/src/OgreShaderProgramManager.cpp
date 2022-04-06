@@ -104,8 +104,8 @@ void ProgramManager::releasePrograms(const ProgramSet* programSet)
     GpuProgramPtr vsProgram(programSet->getGpuProgram(GPT_VERTEX_PROGRAM));
     GpuProgramPtr psProgram(programSet->getGpuProgram(GPT_FRAGMENT_PROGRAM));
 
-    GpuProgramsMapIterator itVsGpuProgram = !vsProgram ? mVertexShaderMap.end() : mVertexShaderMap.find(vsProgram->getName());
-    GpuProgramsMapIterator itFsGpuProgram = !psProgram ? mFragmentShaderMap.end() : mFragmentShaderMap.find(psProgram->getName());
+    auto itVsGpuProgram = !vsProgram ? mVertexShaderMap.end() : mVertexShaderMap.find(vsProgram->getName());
+    auto itFsGpuProgram = !psProgram ? mFragmentShaderMap.end() : mFragmentShaderMap.find(psProgram->getName());
 
     if (itVsGpuProgram != mVertexShaderMap.end())
     {
@@ -149,7 +149,7 @@ void ProgramManager::flushGpuProgramsCache(GpuProgramsMap& gpuProgramsMap)
 {
     while (gpuProgramsMap.size() > 0)
     {
-        GpuProgramsMapIterator it = gpuProgramsMap.begin();
+        auto it = gpuProgramsMap.begin();
 
         destroyGpuProgram(it->second);
         gpuProgramsMap.erase(it);
@@ -196,7 +196,7 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
 
     auto programWriter = ProgramWriterManager::getSingleton().getProgramWriter(language);
 
-    ProgramProcessorIterator itProcessor = mProgramProcessorsMap.find(language);
+    auto itProcessor = mProgramProcessorsMap.find(language);
     ProgramProcessor* programProcessor = nullptr;
 
     if (itProcessor == mProgramProcessorsMap.end())
@@ -349,7 +349,7 @@ auto ProgramManager::generateHash(const String& programString, const String& def
 void ProgramManager::addProgramProcessor(const String& lang, ProgramProcessor* processor)
 {
     
-    ProgramProcessorIterator itFind = mProgramProcessorsMap.find(lang);
+    auto itFind = mProgramProcessorsMap.find(lang);
 
     if (itFind != mProgramProcessorsMap.end())
     {
@@ -362,7 +362,7 @@ void ProgramManager::addProgramProcessor(const String& lang, ProgramProcessor* p
 //-----------------------------------------------------------------------------
 void ProgramManager::removeProgramProcessor(const String& lang)
 {
-    ProgramProcessorIterator itFind = mProgramProcessorsMap.find(lang);
+    auto itFind = mProgramProcessorsMap.find(lang);
 
     if (itFind != mProgramProcessorsMap.end())
         mProgramProcessorsMap.erase(itFind);

@@ -142,7 +142,7 @@ namespace Ogre
     //-------------------------------------------------------------------------------------------------//
     auto GLXGLSupport::newWindow(const String &name, unsigned int width, unsigned int height, bool fullScreen, const NameValuePairList *miscParams) -> RenderWindow*
     {
-        GLXWindow* window = new GLXWindow(this);
+        auto* window = new GLXWindow(this);
 
         window->create(name, width, height, fullScreen, miscParams);
 
@@ -286,7 +286,7 @@ namespace Ogre
 
     auto GLXGLSupport::getFBConfigFromVisualID(VisualID visualid) -> GLXFBConfig
     {
-        PFNGLXGETFBCONFIGFROMVISUALSGIXPROC glXGetFBConfigFromVisualSGIX = 
+        auto glXGetFBConfigFromVisualSGIX = 
             (PFNGLXGETFBCONFIGFROMVISUALSGIXPROC)getProcAddress("glXGetFBConfigFromVisualSGIX");
 
         GLXFBConfig fbConfig = nullptr;
@@ -612,7 +612,7 @@ namespace Ogre
         GLXVideoModes glxVideoModes(mVideoModes.begin(), mVideoModes.end());
 
         GLXVideoModes::iterator mode;
-        GLXVideoModes::iterator end = glxVideoModes.end();
+        auto end = glxVideoModes.end();
         GLXVideoMode *newMode = nullptr;
 
         for(mode = glxVideoModes.begin(); mode != end; size++)

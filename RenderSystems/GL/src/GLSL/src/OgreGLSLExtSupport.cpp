@@ -99,7 +99,7 @@ namespace Ogre
             {
                 GLint charsWritten  = 0;
 
-                GLcharARB * infoLog = new GLcharARB[infologLength];
+                auto * infoLog = new GLcharARB[infologLength];
 
                 glGetInfoLogARB((GLhandleARB)obj, infologLength, &charsWritten, infoLog);
                 logMessage = String(infoLog);

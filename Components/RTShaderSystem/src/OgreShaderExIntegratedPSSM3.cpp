@@ -133,7 +133,7 @@ void IntegratedPSSM3::updateGpuProgramsParams(Renderable* rend, const Pass* pass
 //-----------------------------------------------------------------------
 void IntegratedPSSM3::copyFrom(const SubRenderState& rhs)
 {
-    const IntegratedPSSM3& rhsPssm= static_cast<const IntegratedPSSM3&>(rhs);
+    const auto& rhsPssm= static_cast<const IntegratedPSSM3&>(rhs);
 
     mPCFxSamples = rhsPssm.mPCFxSamples;
     mUseTextureCompare = rhsPssm.mUseTextureCompare;
@@ -141,8 +141,8 @@ void IntegratedPSSM3::copyFrom(const SubRenderState& rhs)
     mDebug = rhsPssm.mDebug;
     mShadowTextureParamsList.resize(rhsPssm.mShadowTextureParamsList.size());
 
-    ShadowTextureParamsConstIterator itSrc = rhsPssm.mShadowTextureParamsList.begin();
-    ShadowTextureParamsIterator itDst = mShadowTextureParamsList.begin();
+    auto itSrc = rhsPssm.mShadowTextureParamsList.begin();
+    auto itDst = mShadowTextureParamsList.begin();
 
     while(itDst != mShadowTextureParamsList.end())
     {
@@ -170,7 +170,7 @@ auto IntegratedPSSM3::preAddToRenderState(const RenderState* renderState,
     mUseTextureCompare = PixelUtil::isDepth(shadowTexFormat) && !mIsD3D9;
     mUseColourShadows = PixelUtil::getComponentType(shadowTexFormat) == PCT_BYTE; // use colour shadowmaps for byte textures
 
-    ShadowTextureParamsIterator it = mShadowTextureParamsList.begin();
+    auto it = mShadowTextureParamsList.begin();
 
     while(it != mShadowTextureParamsList.end())
     {
@@ -275,7 +275,7 @@ auto IntegratedPSSM3::resolveParameters(ProgramSet* programSet) -> bool
     // Get derived scene colour.
     mPSDerivedSceneColour = psProgram->resolveParameter(GpuProgramParameters::ACT_DERIVED_SCENE_COLOUR);
     
-    ShadowTextureParamsIterator it = mShadowTextureParamsList.begin();
+    auto it = mShadowTextureParamsList.begin();
     int lightIndex = 0;
 
     while(it != mShadowTextureParamsList.end())
@@ -352,7 +352,7 @@ auto IntegratedPSSM3::addVSInvocation(Function* vsMain, const int groupOrder) ->
     }
 
     // Compute world space position.    
-    ShadowTextureParamsIterator it = mShadowTextureParamsList.begin();
+    auto it = mShadowTextureParamsList.begin();
 
     while(it != mShadowTextureParamsList.end())
     {
@@ -433,8 +433,8 @@ auto IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler,
         {
             IntegratedPSSM3::SplitPointList splitPointList; 
 
-            AbstractNodeList::const_iterator it = prop->values.begin();
-            AbstractNodeList::const_iterator itEnd = prop->values.end();
+            auto it = prop->values.begin();
+            auto itEnd = prop->values.end();
 
             while(it != itEnd)
             {
@@ -454,7 +454,7 @@ auto IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler,
             if (splitPointList.size() == 4)
             {
                 SubRenderState* subRenderState = createOrRetrieveInstance(translator);
-                IntegratedPSSM3* pssmSubRenderState = static_cast<IntegratedPSSM3*>(subRenderState);
+                auto* pssmSubRenderState = static_cast<IntegratedPSSM3*>(subRenderState);
 
                 pssmSubRenderState->setSplitPoints(splitPointList);
 

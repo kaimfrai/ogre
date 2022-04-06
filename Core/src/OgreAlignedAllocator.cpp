@@ -62,7 +62,7 @@ namespace Ogre {
     {
         assert(0 < alignment && alignment <= 128 && Bitwise::isPO2(alignment));
 
-        unsigned char* p = new unsigned char[size + alignment];
+        auto* p = new unsigned char[size + alignment];
         size_t offset = alignment - (size_t(p) & (alignment-1));
 
         unsigned char* result = p + offset;
@@ -80,7 +80,7 @@ namespace Ogre {
     {
         if (p)
         {
-            unsigned char* mem = (unsigned char*)p;
+            auto* mem = (unsigned char*)p;
             mem = mem - mem[-1];
             delete [] mem;
         }

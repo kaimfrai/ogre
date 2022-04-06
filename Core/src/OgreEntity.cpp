@@ -577,7 +577,7 @@ class Sphere;
         for(auto child : mChildObjectList)
         {
             aa_box = child->getBoundingBox();
-            TagPoint* tp = static_cast<TagPoint*>(child->getParentNode());
+            auto* tp = static_cast<TagPoint*>(child->getParentNode());
             // Use transform local to skeleton since world xform comes later
             aa_box.transform(tp->_getFullLocalTransform());
 
@@ -769,7 +769,7 @@ class Sphere;
         {
             ret = ret && mTempVertexAnimInfo.buffersCheckedOut(true, mMesh->getSharedVertexDataAnimationIncludesNormals());
         }
-        for (SubEntityList::const_iterator i = mSubEntityList.begin();
+        for (auto i = mSubEntityList.begin();
              i != mSubEntityList.end(); ++i)
         {
             SubEntity* sub = *i;
@@ -791,7 +791,7 @@ class Sphere;
             if (!mTempSkelAnimInfo.buffersCheckedOut(true, requestNormals))
                 return false;
         }
-        for (SubEntityList::const_iterator i = mSubEntityList.begin();
+        for (auto i = mSubEntityList.begin();
              i != mSubEntityList.end(); ++i)
         {
             SubEntity* sub = *i;
@@ -1026,7 +1026,7 @@ class Sphere;
                 }
                     
 }
-            for (SubEntityList::iterator si = mSubEntityList.begin();
+            for (auto si = mSubEntityList.begin();
                 si != mSubEntityList.end(); ++si)
             {
                 SubEntity* sub = *si;
@@ -1071,7 +1071,7 @@ class Sphere;
                 initialisePoseVertexData(mMesh->sharedVertexData, mSoftwareVertexAnimVertexData.get(),
                     mMesh->getSharedVertexDataAnimationIncludesNormals());
             }
-            for (SubEntityList::iterator si = mSubEntityList.begin();
+            for (auto si = mSubEntityList.begin();
                 si != mSubEntityList.end(); ++si)
             {
                 SubEntity* sub = *si;
@@ -1126,7 +1126,7 @@ class Sphere;
                     ->vertexBufferBinding->getBuffer(elem->getSource());
                 buf->suppressHardwareUpdate(false);
             }
-            for (SubEntityList::iterator si = mSubEntityList.begin();
+            for (auto si = mSubEntityList.begin();
                 si != mSubEntityList.end(); ++si)
             {
                 SubEntity* sub = *si;
@@ -1152,7 +1152,7 @@ class Sphere;
     void Entity::markBuffersUnusedForAnimation()
     {
         mVertexAnimationAppliedThisFrame = false;
-        for (SubEntityList::iterator i = mSubEntityList.begin();
+        for (auto i = mSubEntityList.begin();
             i != mSubEntityList.end(); ++i)
         {
             (*i)->_markBuffersUnusedForAnimation();
@@ -1201,7 +1201,7 @@ class Sphere;
         }
 
 
-        for (SubEntityList::iterator i = mSubEntityList.begin();
+        for (auto i = mSubEntityList.begin();
             i != mSubEntityList.end(); ++i)
         {
             (*i)->_restoreBuffersForUnusedAnimation(hardwareAnimation);
@@ -1223,7 +1223,7 @@ class Sphere;
             srcData->vertexBufferBinding->getBuffer(
                 srcPosElem->getSource());
 
-        for (VertexData::HardwareAnimationDataList::const_iterator i = destData->hwAnimationDataList.begin();
+        for (auto i = destData->hwAnimationDataList.begin();
             i != destData->hwAnimationDataList.end(); ++i)
         {
             const VertexData::HardwareAnimationData& animData = *i;
@@ -1451,7 +1451,7 @@ class Sphere;
         for (i = 0; i < numSubMeshes; ++i)
         {
             SubMesh* subMesh = mesh->getSubMesh(i);
-            SubEntity* subEnt = new SubEntity(this, subMesh);
+            auto* subEnt = new SubEntity(this, subMesh);
             if (subMesh->getMaterial())
                 subEnt->setMaterial(subMesh->getMaterial());
             sublist->push_back(subEnt);
@@ -1574,7 +1574,7 @@ class Sphere;
     //-----------------------------------------------------------------------
     void Entity::detachObjectImpl(MovableObject* pObject)
     {
-        TagPoint* tp = static_cast<TagPoint*>(pObject->getParentNode());
+        auto* tp = static_cast<TagPoint*>(pObject->getParentNode());
 
         // free the TagPoint so we can reuse it later
         mSkeletonInstance->freeTagPoint(tp);
@@ -1763,8 +1763,8 @@ class Sphere;
                     mVertexProgramInUse = true;
                     
                     // If shadow renderables already created create their light caps
-                    ShadowRenderableList::iterator si = mShadowRenderables.begin();
-                    ShadowRenderableList::iterator siend = mShadowRenderables.end();
+                    auto si = mShadowRenderables.begin();
+                    auto siend = mShadowRenderables.end();
                     for (si = mShadowRenderables.begin(); si != siend; ++si)
                     {
                         static_cast<EntityShadowRenderable*>(*si)->_createSeparateLightCap();
@@ -1999,7 +1999,7 @@ class Sphere;
                     {
                         // Lock, we'll be locking the (suppressed hardware update) shadow buffer
                         HardwareBufferLockGuard posLock(esrPositionBuffer, HardwareBuffer::HBL_NORMAL);
-                        float* pSrc = static_cast<float*>(posLock.pData);
+                        auto* pSrc = static_cast<float*>(posLock.pData);
                         float* pDest = pSrc + (egi->vertexData->vertexCount * 3);
                         memcpy(pDest, pSrc, sizeof(float) * 3 * egi->vertexData->vertexCount);
                     }
@@ -2343,14 +2343,14 @@ class Sphere;
         bool debugRenderables)
     {
         // Visit each SubEntity
-        for (SubEntityList::iterator i = mSubEntityList.begin(); i != mSubEntityList.end(); ++i)
+        for (auto i = mSubEntityList.begin(); i != mSubEntityList.end(); ++i)
         {
             visitor->visit(*i, 0, false);
         }
 
         // if manual LOD is in use, visit those too
         ushort lodi = 1;
-        for (LODEntityList::iterator e = mLodEntityList.begin(); 
+        for (auto e = mLodEntityList.begin(); 
             e != mLodEntityList.end(); ++e, ++lodi)
         {
             if(*e != this) {

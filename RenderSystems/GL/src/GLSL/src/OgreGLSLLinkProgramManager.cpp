@@ -85,7 +85,7 @@ namespace Ogre {
         if (activeKey > 0)
         {
             // find the key in the hash map
-            ProgramIterator programFound = mPrograms.find(activeKey);
+            auto programFound = mPrograms.find(activeKey);
             // program object not found for key so need to create it
             if (programFound == mPrograms.end())
             {
@@ -128,7 +128,7 @@ namespace Ogre {
     {
         if (vertexConstantDefs)
         {
-            GpuConstantDefinitionMap::const_iterator parami = 
+            auto parami = 
                 vertexConstantDefs->find(paramName);
             if (parami != vertexConstantDefs->end())
             {
@@ -140,7 +140,7 @@ namespace Ogre {
         }
         if (geometryConstantDefs)
         {
-            GpuConstantDefinitionMap::const_iterator parami = 
+            auto parami = 
                 geometryConstantDefs->find(paramName);
             if (parami != geometryConstantDefs->end())
             {
@@ -152,7 +152,7 @@ namespace Ogre {
         }
         if (fragmentConstantDefs)
         {
-            GpuConstantDefinitionMap::const_iterator parami = 
+            auto parami = 
                 fragmentConstantDefs->find(paramName);
             if (parami != fragmentConstantDefs->end())
             {

@@ -64,7 +64,7 @@ class MovableObject;
     //---------------------------------------------------------------------
     auto LodStrategy::isSortedAscending(const Mesh::LodValueList& values) -> bool
     {
-        Mesh::LodValueList::const_iterator it = values.begin();
+        auto it = values.begin();
         Real prev = (*it);
         for (++it; it != values.end(); ++it)
         {
@@ -79,7 +79,7 @@ class MovableObject;
     //---------------------------------------------------------------------
     auto LodStrategy::isSortedDescending(const Mesh::LodValueList& values) -> bool
     {
-        Mesh::LodValueList::const_iterator it = values.begin();
+        auto it = values.begin();
         Real prev = (*it);
         for (++it; it != values.end(); ++it)
         {

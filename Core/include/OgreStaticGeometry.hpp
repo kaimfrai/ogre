@@ -569,7 +569,7 @@ class Technique;
             for (size_t i = 0; i < numIndexes; ++i)
             {
                 // look up original and map to target
-                IndexRemap::const_iterator ix = remap.find(*src++);
+                auto ix = remap.find(*src++);
                 assert(ix != remap.end());
                 *dst++ = static_cast<T>(ix->second);
             }

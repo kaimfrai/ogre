@@ -441,7 +441,7 @@ namespace Ogre {
         void addRenderable(Renderable* pRend, Technique* pTech, ushort priority)
         {
             // Check if priority group is there
-            PriorityMap::iterator i = mPriorityGroups.find(priority);
+            auto i = mPriorityGroups.find(priority);
             RenderPriorityGroup* pPriorityGrp;
             if (i == mPriorityGroups.end())
             {
@@ -615,7 +615,7 @@ namespace Ogre {
                 RenderPriorityGroup* pDstPriorityGrp;
 
                 // Check if priority group is there
-                PriorityMap::iterator i = mPriorityGroups.find(priority);
+                auto i = mPriorityGroups.find(priority);
                 if (i == mPriorityGroups.end())
                 {
                     // Missing, create

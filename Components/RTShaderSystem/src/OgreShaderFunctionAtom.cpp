@@ -169,7 +169,7 @@ FunctionInvocation::FunctionInvocation(const FunctionInvocation& other) :
     mFunctionName = other.mFunctionName;
     mGroupExecutionOrder = other.mGroupExecutionOrder;
     
-    for ( OperandVector::const_iterator it = other.mOperands.begin(); it != other.mOperands.end(); ++it)
+    for ( auto it = other.mOperands.begin(); it != other.mOperands.end(); ++it)
         mOperands.push_back(Operand(*it));
 }
 
@@ -210,7 +210,7 @@ void FunctionAtom::writeOperands(std::ostream& os, OperandVector::const_iterator
 {
     // Write parameters.
     ushort curIndLevel = 0;
-    for (OperandVector::const_iterator it = begin; it != end; )
+    for (auto it = begin; it != end; )
     {
         it->write(os);
         ++it;
@@ -318,8 +318,8 @@ auto FunctionInvocation::FunctionInvocationLessThan::operator ()(FunctionInvocat
 
     // Now that we've gotten past the two quick tests, iterate over operands
     // Check the semantic and type.  The operands must be in the same order as well.
-    OperandVector::const_iterator itLHSOps = lhs.mOperands.begin();
-    OperandVector::const_iterator itRHSOps = rhs.mOperands.begin();
+    auto itLHSOps = lhs.mOperands.begin();
+    auto itRHSOps = rhs.mOperands.begin();
 
     for ( ; ((itLHSOps != lhs.mOperands.end()) && (itRHSOps != rhs.mOperands.end())); ++itLHSOps, ++itRHSOps)
     {
@@ -388,7 +388,7 @@ AssignmentAtom::AssignmentAtom(const Out& lhs, const In& rhs, int groupOrder) {
 
 void AssignmentAtom::writeSourceCode(std::ostream& os, const String& targetLanguage) const
 {
-    OperandVector::const_iterator outOp = mOperands.begin();
+    auto outOp = mOperands.begin();
     // find the output operand
     while(outOp->getSemantic() != Operand::OPS_OUT)
         outOp++;
@@ -407,7 +407,7 @@ SampleTextureAtom::SampleTextureAtom(const In& sampler, const In& texcoord, cons
 
 void SampleTextureAtom::writeSourceCode(std::ostream& os, const String& targetLanguage) const
 {
-    OperandVector::const_iterator outOp = mOperands.begin();
+    auto outOp = mOperands.begin();
     // find the output operand
     while(outOp->getSemantic() != Operand::OPS_OUT)
         outOp++;
@@ -452,12 +452,12 @@ BinaryOpAtom::BinaryOpAtom(char op, const In& a, const In& b, const Out& dst, in
 void BinaryOpAtom::writeSourceCode(std::ostream& os, const String& targetLanguage) const
 {
     // find the output operand
-    OperandVector::const_iterator outOp = mOperands.begin();
+    auto outOp = mOperands.begin();
     while(outOp->getSemantic() != Operand::OPS_OUT)
         outOp++;
 
     // find the second operand
-    OperandVector::const_iterator secondOp = ++(mOperands.begin());
+    auto secondOp = ++(mOperands.begin());
     while(outOp->getIndirectionLevel() != 0)
         secondOp++;
 

@@ -85,11 +85,11 @@ namespace OgreBites
                 Ogre::Root::PluginInstanceList ip = mRoot->getInstalledPlugins();
                 Ogre::StringVector rp = s->getRequiredPlugins();
 
-                for (Ogre::StringVector::iterator j = rp.begin(); j != rp.end(); j++)
+                for (auto j = rp.begin(); j != rp.end(); j++)
                 {
                     bool found = false;
                     // try to find the required plugin in the current installed plugins
-                    for (Ogre::Root::PluginInstanceList::iterator k = ip.begin(); k != ip.end(); k++)
+                    for (auto k = ip.begin(); k != ip.end(); k++)
                     {
                         if ((*k)->getName() == *j)
                         {

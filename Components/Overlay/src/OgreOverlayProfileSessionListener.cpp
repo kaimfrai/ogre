@@ -100,7 +100,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void OverlayProfileSessionListener::finializeSession()
     {
-        OverlayContainer* container = dynamic_cast<OverlayContainer*>(mProfileGui);
+        auto* container = dynamic_cast<OverlayContainer*>(mProfileGui);
         if (container)
         {
             auto const& children = container->getChildren();
@@ -133,8 +133,8 @@ namespace Ogre
         Real newGuiHeight = mGuiHeight;
         int profileCount = 0;
 
-        ProfileBarList::const_iterator bIter = mProfileBars.begin();
-        ProfileInstance::ProfileChildren::const_iterator it = root.children.begin(), endit = root.children.end();
+        auto bIter = ::std::as_const(mProfileBars).begin();
+        auto it = root.children.begin(), endit = root.children.end();
         for(;it != endit; ++it)
         {
             ProfileInstance* child = it->second;
@@ -240,7 +240,7 @@ namespace Ogre
         ++profileCount;
 
         // display children
-        ProfileInstance::ProfileChildren::const_iterator it = instance->children.begin(), endit = instance->children.end();
+        auto it = instance->children.begin(), endit = instance->children.end();
         for(;it != endit; ++it)
         {
             ProfileInstance* child = it->second;

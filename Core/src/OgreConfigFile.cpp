@@ -126,14 +126,14 @@ namespace Ogre {
     auto ConfigFile::getSetting(const String& key, const String& section, const String& defaultValue) const -> String
     {
         
-        SettingsBySection_::const_iterator seci = mSettings.find(section);
+        auto seci = mSettings.find(section);
         if (seci == mSettings.end())
         {
             return defaultValue;
         }
         else
         {
-            SettingsMultiMap::const_iterator i = seci->second.find(key);
+            auto i = seci->second.find(key);
             if (i == seci->second.end())
             {
                 return defaultValue;
@@ -150,7 +150,7 @@ namespace Ogre {
     {
         StringVector ret;
 
-        SettingsBySection_::const_iterator seci = mSettings.find(section);
+        auto seci = mSettings.find(section);
         if (seci != mSettings.end())
         {
             SettingsMultiMap::const_iterator i;
@@ -171,7 +171,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto ConfigFile::getSettings(const String& section) const -> const ConfigFile::SettingsMultiMap&
     {
-        SettingsBySection_::const_iterator seci = mSettings.find(section);
+        auto seci = mSettings.find(section);
         if (seci == mSettings.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 

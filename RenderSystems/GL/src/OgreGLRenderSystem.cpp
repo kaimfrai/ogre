@@ -116,7 +116,7 @@ namespace Ogre {
                                       const String& group, bool isManual, ManualResourceLoader* loader,
                                       GpuProgramType gptype, const String& syntaxCode) -> GpuProgram*
     {
-        GLArbGpuProgram* ret = new GLArbGpuProgram(
+        auto* ret = new GLArbGpuProgram(
             creator, name, handle, group, isManual, loader);
         ret->setType(gptype);
         ret->setSyntaxCode(syntaxCode);
@@ -128,7 +128,7 @@ namespace Ogre {
                                           const String& group, bool isManual, ManualResourceLoader* loader,
                                           GpuProgramType gptype, const String& syntaxCode) -> GpuProgram*
     {
-        GLGpuNvparseProgram* ret = new GLGpuNvparseProgram(
+        auto* ret = new GLGpuNvparseProgram(
             creator, name, handle, group, isManual, loader);
         ret->setType(gptype);
         ret->setSyntaxCode(syntaxCode);
@@ -141,7 +141,7 @@ namespace Ogre {
                                            GpuProgramType gptype, const String& syntaxCode) -> GpuProgram*
     {
 
-        ATI_FS_GLGpuProgram* ret = new ATI_FS_GLGpuProgram(
+        auto* ret = new ATI_FS_GLGpuProgram(
             creator, name, handle, group, isManual, loader);
         ret->setType(gptype);
         ret->setSyntaxCode(syntaxCode);
@@ -403,7 +403,7 @@ namespace Ogre {
 
     auto GLRenderSystem::createRenderSystemCapabilities() const -> RenderSystemCapabilities*
     {
-        RenderSystemCapabilities* rsc = new RenderSystemCapabilities();
+        auto* rsc = new RenderSystemCapabilities();
 
         rsc->setCategoryRelevant(CAPS_CATEGORY_GL, true);
         rsc->setDriverVersion(mDriverVersion);
@@ -1088,7 +1088,7 @@ namespace Ogre {
             GLuint depthFormat, stencilFormat;
             mRTTManager->getBestDepthStencil(fbo->getFormat(), &depthFormat, &stencilFormat);
 
-            GLRenderBuffer *depthBuffer = new GLRenderBuffer( depthFormat, fbo->getWidth(),
+            auto *depthBuffer = new GLRenderBuffer( depthFormat, fbo->getWidth(),
                                                               fbo->getHeight(), fbo->getFSAA() );
 
             GLRenderBuffer *stencilBuffer = nullptr;
@@ -1166,13 +1166,13 @@ namespace Ogre {
 
         bool bFound = false;
         //Find the depth buffer from this window and remove it.
-        DepthBufferMap::iterator itMap = mDepthBufferPool.begin();
-        DepthBufferMap::iterator enMap = mDepthBufferPool.end();
+        auto itMap = mDepthBufferPool.begin();
+        auto enMap = mDepthBufferPool.end();
 
         while( itMap != enMap && !bFound )
         {
-            DepthBufferVec::iterator itor = itMap->second.begin();
-            DepthBufferVec::iterator end  = itMap->second.end();
+            auto itor = itMap->second.begin();
+            auto end  = itMap->second.end();
 
             while( itor != end )
             {
@@ -2465,13 +2465,13 @@ namespace Ogre {
             glDisableClientState( GL_SECONDARY_COLOR_ARRAY );
         }
         // unbind any custom attributes
-        for (std::vector<GLuint>::iterator ai = mRenderAttribsBound.begin(); ai != mRenderAttribsBound.end(); ++ai)
+        for (auto ai = mRenderAttribsBound.begin(); ai != mRenderAttribsBound.end(); ++ai)
         {
             glDisableVertexAttribArrayARB(*ai);
         }
 
         // unbind any instance attributes
-        for (std::vector<GLuint>::iterator ai = mRenderInstanceAttribsBound.begin(); ai != mRenderInstanceAttribsBound.end(); ++ai)
+        for (auto ai = mRenderInstanceAttribsBound.begin(); ai != mRenderInstanceAttribsBound.end(); ++ai)
         {
             glVertexAttribDivisorARB(*ai, 0);
         }
@@ -2495,7 +2495,7 @@ namespace Ogre {
                         "GLRenderSystem::bindGpuProgram");
         }
 
-        GLGpuProgramBase* glprg = dynamic_cast<GLGpuProgramBase*>(prg);
+        auto* glprg = dynamic_cast<GLGpuProgramBase*>(prg);
 
         // Unbind previous gpu program first.
         //
@@ -2634,7 +2634,7 @@ namespace Ogre {
         numClipPlanes = clipPlanes.size();
         for (i = 0; i < numClipPlanes; ++i)
         {
-            GLenum clipPlaneId = static_cast<GLenum>(GL_CLIP_PLANE0 + i);
+            auto clipPlaneId = static_cast<GLenum>(GL_CLIP_PLANE0 + i);
             const Plane& plane = clipPlanes[i];
 
             if (i >= 6/*GL_MAX_CLIP_PLANES*/)
@@ -2754,7 +2754,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto GLRenderSystem::createHardwareOcclusionQuery() -> HardwareOcclusionQuery*
     {
-        GLHardwareOcclusionQuery* ret = new GLHardwareOcclusionQuery();
+        auto* ret = new GLHardwareOcclusionQuery();
         mHwOcclusionQueries.push_back(ret);
         return ret;
     }

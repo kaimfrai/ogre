@@ -138,12 +138,12 @@ class ResourceManager;
     public:
         auto doGet(const void* target) const -> String override
         {
-            const GLSLProgram* t = static_cast<const GLSLProgram*>(target);
+            const auto* t = static_cast<const GLSLProgram*>(target);
             return operationTypeToString(t->getInputOperationType());
         }
         void doSet(void* target, const String& val) override
         {
-            GLSLProgram* t = static_cast<GLSLProgram*>(target);
+            auto* t = static_cast<GLSLProgram*>(target);
             t->setInputOperationType(parseOperationType(val));
         }
     };
@@ -153,12 +153,12 @@ class ResourceManager;
     public:
         auto doGet(const void* target) const -> String override
         {
-            const GLSLProgram* t = static_cast<const GLSLProgram*>(target);
+            const auto* t = static_cast<const GLSLProgram*>(target);
             return operationTypeToString(t->getOutputOperationType());
         }
         void doSet(void* target, const String& val) override
         {
-            GLSLProgram* t = static_cast<GLSLProgram*>(target);
+            auto* t = static_cast<GLSLProgram*>(target);
             t->setOutputOperationType(parseOperationType(val));
         }
     };
@@ -168,12 +168,12 @@ class ResourceManager;
     public:
         auto doGet(const void* target) const -> String override
         {
-            const GLSLProgram* t = static_cast<const GLSLProgram*>(target);
+            const auto* t = static_cast<const GLSLProgram*>(target);
             return StringConverter::toString(t->getMaxOutputVertices());
         }
         void doSet(void* target, const String& val) override
         {
-            GLSLProgram* t = static_cast<GLSLProgram*>(target);
+            auto* t = static_cast<GLSLProgram*>(target);
             t->setMaxOutputVertices(StringConverter::parseInt(val));
         }
     };
@@ -269,7 +269,7 @@ class ResourceManager;
             mSource, *mConstantDefs, getResourceLogName());
 
         // Also parse any attached sources
-        for (GLSLProgramContainer::const_iterator i = mAttachedGLSLPrograms.begin();
+        for (auto i = mAttachedGLSLPrograms.begin();
             i != mAttachedGLSLPrograms.end(); ++i)
         {
             GLSLShaderCommon* childShader = *i;
@@ -348,8 +348,8 @@ class ResourceManager;
                 "Error detaching " + mName + " shader object from GLSL Program Object", programObject );
         }
         // attach child objects
-        GLSLProgramContainerIterator childprogramcurrent = mAttachedGLSLPrograms.begin();
-        GLSLProgramContainerIterator childprogramend = mAttachedGLSLPrograms.end();
+        auto childprogramcurrent = mAttachedGLSLPrograms.begin();
+        auto childprogramend = mAttachedGLSLPrograms.end();
 
         while (childprogramcurrent != childprogramend)
         {

@@ -44,7 +44,7 @@ namespace Ogre {
 
     auto ParamDictionary::getParamCommand(const String& name) -> ParamCommand*
     {
-        ParamCommandMap::iterator i = mParamCommands.find(name);
+        auto i = mParamCommands.find(name);
         if (i != mParamCommands.end())
         {
             return i->second;
@@ -57,7 +57,7 @@ namespace Ogre {
 
     auto ParamDictionary::getParamCommand(const String& name) const -> const ParamCommand*
     {
-        ParamCommandMap::const_iterator i = mParamCommands.find(name);
+        auto i = mParamCommands.find(name);
         if (i != mParamCommands.end())
         {
             return i->second;
@@ -76,7 +76,7 @@ namespace Ogre {
 
     auto StringInterface::createParamDictionary(const String& className) -> bool
     {
-        ParamDictionaryMap::iterator it = msDictionary.find(className);
+        auto it = msDictionary.find(className);
 
         if ( it == msDictionary.end() )
         {

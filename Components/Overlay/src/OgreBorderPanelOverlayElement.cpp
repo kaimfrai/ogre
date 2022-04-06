@@ -241,7 +241,7 @@ namespace Ogre {
                 true);//Workaround, using shadow buffer to avoid stall due to buffer mapping
 
         HardwareBufferLockGuard indexLock(mRenderOp2.indexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
-        ushort* pIdx = static_cast<ushort*>(indexLock.pData);
+        auto* pIdx = static_cast<ushort*>(indexLock.pData);
 
         for (ushort cell = 0; cell < 8; ++cell)
         {
@@ -439,7 +439,7 @@ namespace Ogre {
             mRenderOp2.vertexData->vertexBufferBinding->getBuffer(TEXCOORD_BINDING);
         // Can't use discard since this discards whole buffer
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-        float* pUV = static_cast<float*>(vbufLock.pData);
+        auto* pUV = static_cast<float*>(vbufLock.pData);
         
         for (uint i = 0; i < 8; ++i)
         {
@@ -629,7 +629,7 @@ namespace Ogre {
         HardwareVertexBufferSharedPtr vbuf = 
             mRenderOp2.vertexData->vertexBufferBinding->getBuffer(POSITION_BINDING);
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-        float* pPos = static_cast<float*>(vbufLock.pData);
+        auto* pPos = static_cast<float*>(vbufLock.pData);
         // Use the furthest away depth value, since materials should have depth-check off
         // This initialised the depth buffer for any 3D objects in front
         Real zValue = Root::getSingleton().getRenderSystem()->getMaximumDepthInputValue();
@@ -742,7 +742,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto CmdBorderSize::doGet(const void* target) const -> String
     {
-        const BorderPanelOverlayElement* t = static_cast<const BorderPanelOverlayElement*>(target);
+        const auto* t = static_cast<const BorderPanelOverlayElement*>(target);
         return String(
             StringConverter::toString(t->getLeftBorderSize()) + " " +
             StringConverter::toString(t->getRightBorderSize()) + " " +

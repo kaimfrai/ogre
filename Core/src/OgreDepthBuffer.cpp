@@ -98,7 +98,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void DepthBuffer::_notifyRenderTargetDetached( RenderTarget *renderTarget )
     {
-        RenderTargetSet::iterator itor = mAttachedRenderTargets.find( renderTarget );
+        auto itor = mAttachedRenderTargets.find( renderTarget );
         assert( itor != mAttachedRenderTargets.end() );
 
         mAttachedRenderTargets.erase( itor );
@@ -106,8 +106,8 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void DepthBuffer::detachFromAllRenderTargets()
     {
-        RenderTargetSet::const_iterator itor = mAttachedRenderTargets.begin();
-        RenderTargetSet::const_iterator end  = mAttachedRenderTargets.end();
+        auto itor = mAttachedRenderTargets.begin();
+        auto end  = mAttachedRenderTargets.end();
         while( itor != end )
         {
             //If we call, detachDepthBuffer, we'll invalidate the iterators

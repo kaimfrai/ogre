@@ -84,7 +84,7 @@ class RenderSystem;
     {
         HardwareBufferManagerBase* pManager = mgr ? mgr : mMgr;
 
-        VertexData* dest = new VertexData(mgr);
+        auto* dest = new VertexData(mgr);
 
         // Copy vertex buffers in turn
         const VertexBufferBinding::VertexBufferBindingMap& bindings = 
@@ -195,11 +195,11 @@ class RenderSystem;
 
             // Iterate over the old buffer, copying the appropriate elements and initialising the rest
             float* pSrc;
-            unsigned char *pBaseSrc = static_cast<unsigned char*>(
+            auto *pBaseSrc = static_cast<unsigned char*>(
                 vbuf->lock(HardwareBuffer::HBL_READ_ONLY));
             // Point first destination pointer at the start of the new position buffer,
             // the other one half way along
-            float *pDest = static_cast<float*>(newPosBuffer->lock(HardwareBuffer::HBL_DISCARD));
+            auto *pDest = static_cast<float*>(newPosBuffer->lock(HardwareBuffer::HBL_DISCARD));
             float* pDest2 = pDest + oldVertexCount * 3; 
 
             // Precalculate any dimensions of vertex areas outside the position
@@ -291,9 +291,9 @@ class RenderSystem;
 
             // Now, alter the vertex declaration to change the position source
             // and the offsets of elements using the same buffer
-            VertexDeclaration::VertexElementList::const_iterator elemi = 
+            auto elemi = 
                 vertexDeclaration->getElements().begin();
-            VertexDeclaration::VertexElementList::const_iterator elemiend = 
+            auto elemiend = 
                 vertexDeclaration->getElements().end();
             unsigned short idx;
             for(idx = 0; elemi != elemiend; ++elemi, ++idx) 
@@ -423,7 +423,7 @@ class RenderSystem;
             for (ei = newElemList.begin(); ei != eiend; ++ei)
             {
                 const VertexElement* newElem = &(*ei);
-                NewToOldElementMap::iterator noi = newToOldElementMap.find(newElem);
+                auto noi = newToOldElementMap.find(newElem);
                 const VertexElement* oldElem = noi->second;
                 unsigned short oldBufferNo = oldElem->getSource();
                 unsigned short newBufferNo = newElem->getSource();
@@ -537,7 +537,7 @@ class RenderSystem;
         for (ai = allelems.begin(); ai != allelems.end(); ++ai, ++elemIndex)
         {
             const VertexElement& elem = *ai;
-            VertexBufferBinding::BindingIndexMap::const_iterator it =
+            auto it =
                 bindingIndexMap.find(elem.getSource());
             assert(it != bindingIndexMap.end());
             ushort targetSource = it->second;
@@ -651,7 +651,7 @@ class RenderSystem;
     {
         // Find first free texture coord set
         unsigned short texCoord = vertexDeclaration->getNextFreeTextureCoordinate();
-        unsigned short freeCount = (ushort)(OGRE_MAX_TEXTURE_COORD_SETS - texCoord);
+        auto freeCount = (ushort)(OGRE_MAX_TEXTURE_COORD_SETS - texCoord);
         if (animateNormals)
             // we need 2x the texture coords, round down
             freeCount /= 2;
@@ -690,7 +690,7 @@ class RenderSystem;
     auto IndexData::clone(bool copyData, HardwareBufferManagerBase* mgr) const -> IndexData*
     {
         HardwareBufferManagerBase* pManager = mgr ? mgr : HardwareBufferManager::getSingletonPtr();
-        IndexData* dest = new IndexData();
+        auto* dest = new IndexData();
         if (indexBuffer.get())
         {
             if (copyData)
@@ -824,15 +824,15 @@ class RenderSystem;
         {
             triangles = new Triangle[nTriangles];
             source = (uint16 *)buffer;
-            uint32 *dest = (uint32 *)triangles;
+            auto *dest = (uint32 *)triangles;
             for (i = 0; i < nIndexes; ++i) dest[i] = source[i];
         }
         else
             triangles = static_cast<Triangle*>(buffer);
 
         // sort triangles based on shared edges
-        uint32 *destlist = new uint32[nTriangles];
-        unsigned char *visited = new unsigned char[nTriangles];
+        auto *destlist = new uint32[nTriangles];
+        auto *visited = new unsigned char[nTriangles];
 
         for (i = 0; i < nTriangles; ++i) visited[i] = 0;
 
@@ -883,7 +883,7 @@ class RenderSystem;
         }
         else
         {
-            uint32 *reflist = new uint32[nTriangles];
+            auto *reflist = new uint32[nTriangles];
 
             // fill the referencebuffer
             for (i = 0; i < nTriangles; ++i)
@@ -920,14 +920,14 @@ class RenderSystem;
     {
         if (indexBuffer->isLocked()) return;
 
-        uint16 *shortbuffer = (uint16 *)indexBuffer->lock(HardwareBuffer::HBL_READ_ONLY);
+        auto *shortbuffer = (uint16 *)indexBuffer->lock(HardwareBuffer::HBL_READ_ONLY);
 
         if (indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT)
             for (unsigned int i = 0; i < indexBuffer->getNumIndexes(); ++i)
                 inCache(shortbuffer[i]);
         else
         {
-            uint32 *buffer = (uint32 *)shortbuffer;
+            auto *buffer = (uint32 *)shortbuffer;
             for (unsigned int i = 0; i < indexBuffer->getNumIndexes(); ++i)
                 inCache(buffer[i]);
         }

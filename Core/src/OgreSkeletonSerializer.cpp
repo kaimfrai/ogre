@@ -195,7 +195,7 @@ namespace Ogre {
         if ((int)ver > (int)SKELETON_VERSION_1_0)
         {
             writeChunkHeader(SKELETON_BLENDMODE, SSTREAM_OVERHEAD_SIZE + sizeof(unsigned short));
-            uint16 blendMode = static_cast<uint16>(pSkel->getBlendMode());
+            auto blendMode = static_cast<uint16>(pSkel->getBlendMode());
             writeShorts(&blendMode, 1);
         }
         
@@ -281,7 +281,7 @@ namespace Ogre {
                 writeString(anim->getBaseKeyFrameAnimationName());
                 
                 // float baseKeyFrameTime
-                float t = (float)anim->getBaseKeyFrameTime();
+                auto t = (float)anim->getBaseKeyFrameTime();
                 writeFloats(&t, 1);
             }
         }

@@ -68,7 +68,7 @@ TEST_F(EdgeBuilderTests,SingleIndexBufSingleVertexBuf)
     vd.vertexDeclaration->addElement(0, 0, VET_FLOAT3, VES_POSITION);
     HardwareVertexBufferSharedPtr vbuf = HardwareBufferManager::getSingleton().createVertexBuffer(sizeof(float)*3, 4, HardwareBuffer::HBU_STATIC,true);
     vd.vertexBufferBinding->setBinding(0, vbuf);
-    float* pFloat = static_cast<float*>(vbuf->lock(HardwareBuffer::HBL_DISCARD));
+    auto* pFloat = static_cast<float*>(vbuf->lock(HardwareBuffer::HBL_DISCARD));
     *pFloat++ = 0  ; *pFloat++ = 0  ; *pFloat++ = 0  ;
     *pFloat++ = 50 ; *pFloat++ = 0  ; *pFloat++ = 0  ;
     *pFloat++ = 0  ; *pFloat++ = 100; *pFloat++ = 0  ;
@@ -79,7 +79,7 @@ TEST_F(EdgeBuilderTests,SingleIndexBufSingleVertexBuf)
         HardwareIndexBuffer::IT_16BIT, 12, HardwareBuffer::HBU_STATIC, true);
     id.indexCount = 12;
     id.indexStart = 0;
-    unsigned short* pIdx = static_cast<unsigned short*>(id.indexBuffer->lock(HardwareBuffer::HBL_DISCARD));
+    auto* pIdx = static_cast<unsigned short*>(id.indexBuffer->lock(HardwareBuffer::HBL_DISCARD));
     *pIdx++ = 0; *pIdx++ = 1; *pIdx++ = 2;
     *pIdx++ = 0; *pIdx++ = 2; *pIdx++ = 3;
     *pIdx++ = 1; *pIdx++ = 3; *pIdx++ = 2;
@@ -117,7 +117,7 @@ TEST_F(EdgeBuilderTests,MultiIndexBufSingleVertexBuf)
     vd.vertexDeclaration->addElement(0, 0, VET_FLOAT3, VES_POSITION);
     HardwareVertexBufferSharedPtr vbuf = HardwareBufferManager::getSingleton().createVertexBuffer(sizeof(float)*3, 4, HardwareBuffer::HBU_STATIC,true);
     vd.vertexBufferBinding->setBinding(0, vbuf);
-    float* pFloat = static_cast<float*>(vbuf->lock(HardwareBuffer::HBL_DISCARD));
+    auto* pFloat = static_cast<float*>(vbuf->lock(HardwareBuffer::HBL_DISCARD));
     *pFloat++ = 0  ; *pFloat++ = 0  ; *pFloat++ = 0  ;
     *pFloat++ = 50 ; *pFloat++ = 0  ; *pFloat++ = 0  ;
     *pFloat++ = 0  ; *pFloat++ = 100; *pFloat++ = 0  ;
@@ -128,7 +128,7 @@ TEST_F(EdgeBuilderTests,MultiIndexBufSingleVertexBuf)
         HardwareIndexBuffer::IT_16BIT, 3, HardwareBuffer::HBU_STATIC, true);
     id[0].indexCount = 3;
     id[0].indexStart = 0;
-    unsigned short* pIdx = static_cast<unsigned short*>(id[0].indexBuffer->lock(HardwareBuffer::HBL_DISCARD));
+    auto* pIdx = static_cast<unsigned short*>(id[0].indexBuffer->lock(HardwareBuffer::HBL_DISCARD));
     *pIdx++ = 0; *pIdx++ = 1; *pIdx++ = 2;
     id[0].indexBuffer->unlock();
 
@@ -192,7 +192,7 @@ TEST_F(EdgeBuilderTests,MultiIndexBufMultiVertexBuf)
     vd[0].vertexDeclaration->addElement(0, 0, VET_FLOAT3, VES_POSITION);
     HardwareVertexBufferSharedPtr vbuf = HardwareBufferManager::getSingleton().createVertexBuffer(sizeof(float)*3, 3, HardwareBuffer::HBU_STATIC,true);
     vd[0].vertexBufferBinding->setBinding(0, vbuf);
-    float* pFloat = static_cast<float*>(vbuf->lock(HardwareBuffer::HBL_DISCARD));
+    auto* pFloat = static_cast<float*>(vbuf->lock(HardwareBuffer::HBL_DISCARD));
     *pFloat++ = 0  ; *pFloat++ = 0  ; *pFloat++ = 0  ;
     *pFloat++ = 50 ; *pFloat++ = 0  ; *pFloat++ = 0  ;
     *pFloat++ = 0  ; *pFloat++ = 100; *pFloat++ = 0  ;
@@ -238,7 +238,7 @@ TEST_F(EdgeBuilderTests,MultiIndexBufMultiVertexBuf)
         HardwareIndexBuffer::IT_16BIT, 3, HardwareBuffer::HBU_STATIC, true);
     id[0].indexCount = 3;
     id[0].indexStart = 0;
-    unsigned short* pIdx = static_cast<unsigned short*>(id[0].indexBuffer->lock(HardwareBuffer::HBL_DISCARD));
+    auto* pIdx = static_cast<unsigned short*>(id[0].indexBuffer->lock(HardwareBuffer::HBL_DISCARD));
     *pIdx++ = 0; *pIdx++ = 1; *pIdx++ = 2;
     id[0].indexBuffer->unlock();
 

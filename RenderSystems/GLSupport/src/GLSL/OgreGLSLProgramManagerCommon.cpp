@@ -186,7 +186,7 @@ namespace Ogre {
     GLSLProgramManagerCommon::~GLSLProgramManagerCommon()
     {
         // iterate through map container and delete link programs
-        for (ProgramIterator currentProgram = mPrograms.begin();
+        for (auto currentProgram = mPrograms.begin();
              currentProgram != mPrograms.end(); ++currentProgram)
         {
             delete currentProgram->second;
@@ -196,7 +196,7 @@ namespace Ogre {
     void GLSLProgramManagerCommon::destroyAllByShader(GLSLShaderCommon* shader)
     {
         std::vector<uint32> keysToErase;
-        for (ProgramIterator currentProgram = mPrograms.begin();
+        for (auto currentProgram = mPrograms.begin();
             currentProgram != mPrograms.end(); ++currentProgram)
         {
             GLSLProgramCommon* prgm = currentProgram->second;
@@ -230,10 +230,10 @@ namespace Ogre {
         // Split into tokens
         StringVector parts = StringUtil::split(line, ", \t\r\n");
 
-        for (StringVector::iterator i = parts.begin(); i != parts.end(); ++i)
+        for (auto i = parts.begin(); i != parts.end(); ++i)
         {
             // Is this a type?
-            StringToEnumMap::iterator typei = mTypeEnumMap.find(*i);
+            auto typei = mTypeEnumMap.find(*i);
             if (typei != mTypeEnumMap.end())
             {
                 def.constType = typei->second;
@@ -372,7 +372,7 @@ namespace Ogre {
                 else
                     typeString = parts[0];
 
-                StringToEnumMap::iterator typei = mTypeEnumMap.find(typeString);
+                auto typei = mTypeEnumMap.find(typeString);
                 if (typei == mTypeEnumMap.end())
                 {
                     // Gobble up the external name

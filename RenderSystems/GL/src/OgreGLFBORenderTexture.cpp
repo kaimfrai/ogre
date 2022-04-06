@@ -481,7 +481,7 @@ static const uchar depthBits[] =
     auto GLFBOManager::createRenderTexture(const String &name, 
         const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> GLFBORenderTexture *
     {
-        GLFBORenderTexture *retval = new GLFBORenderTexture(this, name, target, writeGamma, fsaa);
+        auto *retval = new GLFBORenderTexture(this, name, target, writeGamma, fsaa);
         return retval;
     }
     //---------------------------------------------------------------------
@@ -502,7 +502,7 @@ static const uchar depthBits[] =
         if(format != GL_NONE)
         {
             RBFormat key(format, width, height, fsaa);
-            RenderBufferMap::iterator it = mRenderBufferMap.find(key);
+            auto it = mRenderBufferMap.find(key);
             if(it != mRenderBufferMap.end())
             {
                 retval.buffer = it->second.buffer;
@@ -514,7 +514,7 @@ static const uchar depthBits[] =
             else
             {
                 // New one
-                GLRenderBuffer *rb = new GLRenderBuffer(format, width, height, fsaa);
+                auto *rb = new GLRenderBuffer(format, width, height, fsaa);
                 mRenderBufferMap[key] = RBRef(rb);
                 retval.buffer = rb;
                 retval.zoffset = 0;

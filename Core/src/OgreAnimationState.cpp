@@ -242,7 +242,7 @@ namespace Ogre
     AnimationStateSet::AnimationStateSet(const AnimationStateSet& rhs)
         : mDirtyFrameNumber(std::numeric_limits<unsigned long>::max())
     {
-        for (AnimationStateMap::const_iterator i = rhs.mAnimationStates.begin();
+        for (auto i = rhs.mAnimationStates.begin();
             i != rhs.mAnimationStates.end(); ++i)
         {
             AnimationState* src = i->second;
@@ -250,7 +250,7 @@ namespace Ogre
         }
 
         // Clone enabled animation state list
-        for (EnabledAnimationStateList::const_iterator it = rhs.mEnabledAnimationStates.begin();
+        for (auto it = rhs.mEnabledAnimationStates.begin();
             it != rhs.mEnabledAnimationStates.end(); ++it)
         {
             const AnimationState* src = *it;
@@ -266,7 +266,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void AnimationStateSet::removeAnimationState(const String& name)
     {
-        AnimationStateMap::iterator i = mAnimationStates.find(name);
+        auto i = mAnimationStates.find(name);
         if (i != mAnimationStates.end())
         {
             mEnabledAnimationStates.remove(i->second);
@@ -278,7 +278,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void AnimationStateSet::removeAllAnimationStates()
     {
-        for (AnimationStateMap::iterator i = mAnimationStates.begin();
+        for (auto i = mAnimationStates.begin();
             i != mAnimationStates.end(); ++i)
         {
             delete i->second;
@@ -290,7 +290,7 @@ namespace Ogre
     auto AnimationStateSet::createAnimationState(const String& name,  
         Real timePos, Real length, Real weight, bool enabled) -> AnimationState*
     {
-        AnimationStateMap::iterator i = mAnimationStates.find(name);
+        auto i = mAnimationStates.find(name);
         if (i != mAnimationStates.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
@@ -298,7 +298,7 @@ namespace Ogre
                 "AnimationStateSet::createAnimationState");
         }
 
-        AnimationState* newState = new AnimationState(name, this, timePos, 
+        auto* newState = new AnimationState(name, this, timePos, 
             length, weight, enabled);
         mAnimationStates[name] = newState;
         return newState;
@@ -307,7 +307,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     auto AnimationStateSet::getAnimationState(const String& name) const -> AnimationState*
     {
-        AnimationStateMap::const_iterator i = mAnimationStates.find(name);
+        auto i = mAnimationStates.find(name);
         if (i == mAnimationStates.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
@@ -335,7 +335,7 @@ namespace Ogre
         AnimationStateMap::iterator i, iend;
         iend = target->mAnimationStates.end();
         for (i = target->mAnimationStates.begin(); i != iend; ++i) {
-            AnimationStateMap::const_iterator iother = mAnimationStates.find(i->first);
+            auto iother = mAnimationStates.find(i->first);
             if (iother == mAnimationStates.end()) {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No animation entry found named " + i->first, 
                     "AnimationStateSet::copyMatchingState");
@@ -352,7 +352,7 @@ namespace Ogre
         for (it = mEnabledAnimationStates.begin(); it != itend; ++it)
         {
             const AnimationState* src = *it;
-            AnimationStateMap::const_iterator itarget = target->mAnimationStates.find(src->getAnimationName());
+            auto itarget = target->mAnimationStates.find(src->getAnimationName());
             if (itarget != target->mAnimationStates.end())
             {
                 target->mEnabledAnimationStates.push_back(itarget->second);

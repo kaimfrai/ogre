@@ -70,7 +70,7 @@ namespace Ogre {
         mVecCtlPoints.clear();
         const VertexElement* elem = declaration->findElementBySemantic(VES_POSITION);
         size_t vertSize = declaration->getVertexSize(0);
-        uchar *pVert = static_cast<uchar*>(controlPointBuffer);
+        auto *pVert = static_cast<uchar*>(controlPointBuffer);
         float* pFloat;
         for (size_t i = 0; i < mCtlCount; ++i)
         {
@@ -546,8 +546,8 @@ namespace Ogre {
                                           mIndexOffset * (use32bitindexes ? 4 : 2),
                                           mRequiredIndexCount * (use32bitindexes ? 4 : 2),
                                           HardwareBuffer::HBL_NO_OVERWRITE);
-        unsigned short* p16 = static_cast<unsigned short*>(indexLock.pData);
-        unsigned int* p32 = static_cast<unsigned int*>(indexLock.pData);
+        auto* p16 = static_cast<unsigned short*>(indexLock.pData);
+        auto* p32 = static_cast<unsigned int*>(indexLock.pData);
 
         while (iterations--)
         {

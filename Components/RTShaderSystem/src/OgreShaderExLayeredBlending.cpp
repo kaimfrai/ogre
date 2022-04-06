@@ -178,7 +178,7 @@ void LayeredBlending::copyFrom(const SubRenderState& rhs)
 {
     FFPTexturing::copyFrom(rhs);
     
-    const LayeredBlending& rhsTexture = static_cast<const LayeredBlending&>(rhs);
+    const auto& rhsTexture = static_cast<const LayeredBlending&>(rhs);
     mTextureBlends = rhsTexture.mTextureBlends; 
 }
 
@@ -384,7 +384,7 @@ auto LayeredBlendingFactory::createInstance(ScriptCompiler* compiler,
         String paramType;
         int customNum;
         
-        AbstractNodeList::const_iterator itValue = prop->values.begin();
+        auto itValue = prop->values.begin();
         isParseSuccess = SGScriptTranslator::getString(*itValue, &modifierString); 
         LayeredBlending::SourceModifier modType = stringToSourceModifier(modifierString);
         isParseSuccess &= modType != LayeredBlending::SM_Invalid;
@@ -438,7 +438,7 @@ void LayeredBlendingFactory::writeInstance(MaterialSerializer* ser, SubRenderSta
         getTextureUnitStateIndex(srcTextureState);
     
     //get blend mode for current texture unit
-    LayeredBlending* layeredBlendingSubRenderState = static_cast<LayeredBlending*>(subRenderState);
+    auto* layeredBlendingSubRenderState = static_cast<LayeredBlending*>(subRenderState);
     
     //write the blend mode
     LayeredBlending::BlendMode blendMode = layeredBlendingSubRenderState->getBlendMode(texIndex);

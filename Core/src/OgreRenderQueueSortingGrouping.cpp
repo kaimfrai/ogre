@@ -423,7 +423,7 @@ namespace {
             // Note that this pass and list are never destroyed until the
             // engine shuts down, or a pass is destroyed or has it's hash
             // recalculated, although the lists will be cleared
-            PassGroupRenderableMap::iterator i = mGrouped.emplace(pass, RenderableList()).first;
+            auto i = mGrouped.emplace(pass, RenderableList()).first;
 
             // Insert renderable
             i->second.push_back(rend);
@@ -519,7 +519,7 @@ namespace {
             // Note that this pass and list are never destroyed until the
             // engine shuts down, or a pass is destroyed or has it's hash
             // recalculated, although the lists will be cleared
-            PassGroupRenderableMap::iterator dstGroup = mGrouped.emplace(srcGroup->first, RenderableList()).first;
+            auto dstGroup = mGrouped.emplace(srcGroup->first, RenderableList()).first;
 
             // Insert renderable
             dstGroup->second.insert( dstGroup->second.end(), srcGroup->second.begin(), srcGroup->second.end() );

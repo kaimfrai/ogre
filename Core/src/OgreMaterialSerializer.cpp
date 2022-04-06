@@ -179,7 +179,7 @@ namespace Ogre
             fireMaterialEvent(MSE_WRITE_BEGIN, skipWriting, pMat.get());
 
             // Write LOD information
-            Material::LodValueList::const_iterator valueIt = pMat->getUserLodValues().begin();
+            auto valueIt = pMat->getUserLodValues().begin();
             // Skip zero value
             if (!pMat->getUserLodValues().empty())
                 valueIt++;
@@ -1562,7 +1562,7 @@ namespace Ogre
         GpuLogicalBufferStructPtr floatLogical = params->getLogicalBufferStruct();
         if( floatLogical )
         {
-            for(GpuLogicalIndexUseMap::const_iterator i = floatLogical->map.begin();
+            for(auto i = floatLogical->map.begin();
                 i != floatLogical->map.end(); ++i)
             {
                 size_t logicalIndex = i->first;
@@ -1778,8 +1778,8 @@ namespace Ogre
     void MaterialSerializer::writeGpuPrograms()
     {
         // iterate through gpu program names in container
-        GpuProgramDefIterator currentDef = mGpuProgramDefinitionContainer.begin();
-        GpuProgramDefIterator endDef = mGpuProgramDefinitionContainer.end();
+        auto currentDef = mGpuProgramDefinitionContainer.begin();
+        auto endDef = mGpuProgramDefinitionContainer.end();
 
         while (currentDef != endDef)
         {
@@ -1862,7 +1862,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void MaterialSerializer::removeListener(Listener* listener)
     {
-        ListenerList::iterator i = std::find(mListeners.begin(), mListeners.end(), listener);
+        auto i = std::find(mListeners.begin(), mListeners.end(), listener);
         if (i != mListeners.end())
             mListeners.erase(i);
     }
@@ -1870,8 +1870,8 @@ namespace Ogre
     //---------------------------------------------------------------------
     void MaterialSerializer::fireMaterialEvent(SerializeEvent event, bool& skip, const Material* mat)
     {
-        ListenerListIterator it    = mListeners.begin();
-        ListenerListIterator itEnd = mListeners.end();
+        auto it    = mListeners.begin();
+        auto itEnd = mListeners.end();
 
         while (it != itEnd)
         {
@@ -1885,8 +1885,8 @@ namespace Ogre
     //---------------------------------------------------------------------
     void MaterialSerializer::fireTechniqueEvent(SerializeEvent event, bool& skip, const Technique* tech)
     {
-        ListenerListIterator it    = mListeners.begin();
-        ListenerListIterator itEnd = mListeners.end();
+        auto it    = mListeners.begin();
+        auto itEnd = mListeners.end();
 
         while (it != itEnd)
         {
@@ -1900,8 +1900,8 @@ namespace Ogre
     //---------------------------------------------------------------------
     void MaterialSerializer::firePassEvent(SerializeEvent event, bool& skip, const Pass* pass)
     {
-        ListenerListIterator it    = mListeners.begin();
-        ListenerListIterator itEnd = mListeners.end();
+        auto it    = mListeners.begin();
+        auto itEnd = mListeners.end();
 
         while (it != itEnd)
         {
@@ -1919,8 +1919,8 @@ namespace Ogre
         const GpuProgramParametersSharedPtr& params,
         GpuProgramParameters* defaultParams)
     {
-        ListenerListIterator it    = mListeners.begin();
-        ListenerListIterator itEnd = mListeners.end();
+        auto it    = mListeners.begin();
+        auto itEnd = mListeners.end();
 
         while (it != itEnd)
         {
@@ -1935,8 +1935,8 @@ namespace Ogre
     void MaterialSerializer::fireTextureUnitStateEvent(SerializeEvent event, bool& skip,
         const TextureUnitState* textureUnit)
     {
-        ListenerListIterator it    = mListeners.begin();
-        ListenerListIterator itEnd = mListeners.end();
+        auto it    = mListeners.begin();
+        auto itEnd = mListeners.end();
 
         while (it != itEnd)
         {

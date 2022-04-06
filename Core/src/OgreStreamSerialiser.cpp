@@ -142,7 +142,7 @@ namespace Ogre
                 "Warning: stream " << mStream->getName() << " was not fully read / written; " <<
                 mChunkStack.size() << " chunks remain unterminated.";
         }
-        for (ChunkStack::iterator i = mChunkStack.begin(); i != mChunkStack.end(); ++i)
+        for (auto i = mChunkStack.begin(); i != mChunkStack.end(); ++i)
             delete *i;
         mChunkStack.clear();
 
@@ -418,7 +418,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     auto StreamSerialiser::readChunkImpl() -> StreamSerialiser::Chunk*
     {
-        Chunk *chunk = new Chunk();
+        auto *chunk = new Chunk();
         chunk->offset = static_cast<uint32>(mStream->tell());
         read(&chunk->id);
         read(&chunk->version);
@@ -447,7 +447,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void StreamSerialiser::writeChunkImpl(uint32 id, uint16 version)
     {
-        Chunk* c = new Chunk();
+        auto* c = new Chunk();
         c->id = id;
         c->version = version;
         c->offset = static_cast<uint32>(mStream->tell());
@@ -512,7 +512,7 @@ namespace Ogre
     void StreamSerialiser::write(const String* string)
     {
         // uint32 of size first, then (unterminated) string
-        uint32 len = static_cast<uint32>(string->length());
+        auto len = static_cast<uint32>(string->length());
         write(&len);
         mStream->write(string->c_str(), len);
     }

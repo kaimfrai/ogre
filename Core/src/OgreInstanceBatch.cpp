@@ -135,8 +135,8 @@ class Technique;
     {
         mFullBoundingBox.setNull();
 
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         Real maxScale = 0;
         while( itor != end )
@@ -170,8 +170,8 @@ class Technique;
     {
         mVisible = false;
 
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         while( itor != end && !mVisible )
         {
@@ -204,8 +204,8 @@ class Technique;
     //-----------------------------------------------------------------------
     void InstanceBatch::deleteAllInstancedEntities()
     {
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         while( itor != end )
         {
@@ -218,8 +218,8 @@ class Technique;
     //-----------------------------------------------------------------------
     void InstanceBatch::deleteUnusedInstancedEntities()
     {
-        InstancedEntityVec::const_iterator itor = mUnusedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mUnusedEntities.end();
+        auto itor = mUnusedEntities.begin();
+        auto end  = mUnusedEntities.end();
 
         while( itor != end )
             delete *itor++;
@@ -294,8 +294,8 @@ class Technique;
     void InstanceBatch::getInstancedEntitiesInUse( InstancedEntityVec &outEntities,
                                                     CustomParamsVec &outParams )
     {
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         while( itor != end )
         {
@@ -315,8 +315,8 @@ class Technique;
                                                 CustomParamsVec &usedParams )
     {
         const size_t maxInstancesToCopy = std::min( mInstancesPerBatch, usedEntities.size() );
-        InstancedEntityVec::iterator first = usedEntities.end() - maxInstancesToCopy;
-        CustomParamsVec::iterator firstParams = usedParams.end() - maxInstancesToCopy *
+        auto first = usedEntities.end() - maxInstancesToCopy;
+        auto firstParams = usedParams.end() - maxInstancesToCopy *
                                                                     mCreator->getNumCustomParams();
 
         //Copy from the back to front, into m_instancedEntities
@@ -331,8 +331,8 @@ class Technique;
                                                 CustomParamsVec &usedParams )
     {
         //Get the the entity closest to the minimum bbox edge and put into "first"
-        InstancedEntityVec::const_iterator itor   = usedEntities.begin();
-        InstancedEntityVec::const_iterator end   = usedEntities.end();
+        auto itor   = usedEntities.begin();
+        auto end   = usedEntities.end();
 
         Vector3 vMinPos = Vector3::ZERO, firstPos = Vector3::ZERO;
         InstancedEntity *first = nullptr;
@@ -363,9 +363,9 @@ class Technique;
         //Now collect entities closest to 'first'
         while( !usedEntities.empty() && mInstancedEntities.size() < mInstancesPerBatch )
         {
-            InstancedEntityVec::iterator closest   = usedEntities.begin();
-            InstancedEntityVec::iterator it         = usedEntities.begin();
-            InstancedEntityVec::iterator e          = usedEntities.end();
+            auto closest   = usedEntities.begin();
+            auto it         = usedEntities.begin();
+            auto e          = usedEntities.end();
 
             Vector3 closestPos;
             closestPos = (*closest)->_getDerivedPosition();
@@ -418,8 +418,8 @@ class Technique;
 
         //Reassign instance IDs and tell we're the new parent
         uint32 instanceId = 0;
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         while( itor != end )
         {
@@ -598,8 +598,8 @@ class Technique;
         {
             if( mMeshReference->hasSkeleton() )
             {
-                InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-                InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+                auto itor = mInstancedEntities.begin();
+                auto end  = mInstancedEntities.end();
 
                 while( itor != end )    
                 {

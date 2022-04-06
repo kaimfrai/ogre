@@ -195,7 +195,7 @@ auto FFPColour::addFunctionInvocations(ProgramSet* programSet) -> bool
 //-----------------------------------------------------------------------
 void FFPColour::copyFrom(const SubRenderState& rhs)
 {
-    const FFPColour& rhsColour = static_cast<const FFPColour&>(rhs);
+    const auto& rhsColour = static_cast<const FFPColour&>(rhs);
 
     setResolveStageFlags(rhsColour.mResolveStageFlags);
 }

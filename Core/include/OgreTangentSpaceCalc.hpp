@@ -235,7 +235,7 @@ class VertexData;
         template <typename T>
         void remapIndexes(T* ibuf, size_t indexSet, Result& res)
         {
-            for (IndexRemapList::iterator i = res.indexesRemapped.begin();
+            for (auto i = res.indexesRemapped.begin();
                 i != res.indexesRemapped.end(); ++i)
             {
                 IndexRemap& remap = *i;

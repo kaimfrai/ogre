@@ -85,7 +85,7 @@ namespace Ogre {
     auto LodStrategyManager::removeStrategy(const String& name) -> LodStrategy *
     {
         // Find strategy with specified name
-        StrategyMap::iterator it = mStrategies.find(name);
+        auto it = mStrategies.find(name);
 
         // If not found, return null
         if (it == mStrategies.end())
@@ -103,7 +103,7 @@ namespace Ogre {
     void LodStrategyManager::removeAllStrategies()
     {
         // Get beginning iterator
-        for (StrategyMap::iterator it = mStrategies.begin(); it != mStrategies.end(); ++it)
+        for (auto it = mStrategies.begin(); it != mStrategies.end(); ++it)
         {
             delete it->second;
         }
@@ -121,7 +121,7 @@ namespace Ogre {
             return getStrategy("pixel_count"); // Backward compatibility for loading old meshes.
         }
         // Find strategy with specified name
-        StrategyMap::iterator it = mStrategies.find(name);
+        auto it = mStrategies.find(name);
 
         // If not found, return null
         if (it == mStrategies.end())

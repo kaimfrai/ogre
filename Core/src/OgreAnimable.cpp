@@ -47,7 +47,7 @@ namespace Ogre {
     /// Get an updateable reference to animable value list
     auto AnimableObject::_getAnimableValueNames() -> StringVector&
     {
-        AnimableDictionaryMap::iterator i = msAnimableDictionary.find(getAnimableDictionaryName());
+        auto i = msAnimableDictionary.find(getAnimableDictionaryName());
         if (i != msAnimableDictionary.end())
         {
             return i->second;
@@ -60,7 +60,7 @@ namespace Ogre {
     {
         createAnimableDictionary();
 
-        AnimableDictionaryMap::iterator i = msAnimableDictionary.find(getAnimableDictionaryName());
+        auto i = msAnimableDictionary.find(getAnimableDictionaryName());
         if (i != msAnimableDictionary.end())
         {
             return i->second;

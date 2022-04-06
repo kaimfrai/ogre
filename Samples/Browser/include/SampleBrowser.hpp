@@ -341,7 +341,7 @@ namespace OgreBites
 
                 for (unsigned int i = 3; i < mTrayMgr->getWidgets(mRendererMenu->getTrayLocation()).size(); i++)
                 {
-                    SelectMenu* menu = (SelectMenu*)mTrayMgr->getWidgets(mRendererMenu->getTrayLocation())[i];
+                    auto* menu = (SelectMenu*)mTrayMgr->getWidgets(mRendererMenu->getTrayLocation())[i];
                     if (menu->getSelectedItem() != options[menu->getCaption()].currentValue) reset = true;
                     newOptions[menu->getCaption()] = menu->getSelectedItem();
                 }
@@ -384,7 +384,7 @@ namespace OgreBites
                 Ogre::MaterialPtr templateMat = Ogre::MaterialManager::getSingleton().getByName("SdkTrays/SampleThumbnail");
 
                 // populate the sample menu and carousel with filtered samples
-                for (SampleSet::iterator i = mLoadedSamples.begin(); i != mLoadedSamples.end(); i++)
+                for (auto i = mLoadedSamples.begin(); i != mLoadedSamples.end(); i++)
                 {
                     Ogre::NameValuePairList& info = (*i)->getInfo();
 
@@ -426,7 +426,7 @@ namespace OgreBites
                     mSampleSlider->setValue(menu->getSelectionIndex() + 1);
 
                 Ogre::Renderable* r = mThumbs[mSampleMenu->getSelectionIndex()];
-                Sample* s = Ogre::any_cast<Sample*>(r->getUserObjectBindings().getUserAny());
+                auto* s = Ogre::any_cast<Sample*>(r->getUserObjectBindings().getUserAny());
                 mTitleLabel->setCaption(menu->getSelectedItem());
                 mDescBox->setText("Category: " + s->getInfo()["Category"] + "\nDescription: " + s->getInfo()["Description"]);
 
@@ -445,7 +445,7 @@ namespace OgreBites
                 unsigned int i = 0;
 
                 // create all the config option select menus
-                for (Ogre::ConfigOptionMap::iterator it = options.begin(); it != options.end(); it++)
+                for (auto it = options.begin(); it != options.end(); it++)
                 {
                     i++;
                     SelectMenu* optionMenu = mTrayMgr->createLongSelectMenu
@@ -520,7 +520,7 @@ namespace OgreBites
                 if (!mLoadedSamples.empty() && (mSamplePaused || mCurrentSample == nullptr))
                 {
                     Ogre::Renderable* r = mThumbs[mSampleMenu->getSelectionIndex()];
-                    Sample* newSample = Ogre::any_cast<Sample*>(r->getUserObjectBindings().getUserAny());
+                    auto* newSample = Ogre::any_cast<Sample*>(r->getUserObjectBindings().getUserAny());
                     runSample(newSample == mCurrentSample ? nullptr : newSample);
                 }
             }
@@ -767,13 +767,13 @@ namespace OgreBites
             SampleSet newSamples;
 
             // loop through all sample plugins...
-            for (Ogre::StringVector::iterator i = sampleList.begin(); i != sampleList.end(); i++)
+            for (auto i = sampleList.begin(); i != sampleList.end(); i++)
             {
                 SamplePlugin* sp = mPluginNameMap[*i];
 
                 // go through every sample in the plugin...
                 newSamples = sp->getSamples();
-                for (SampleSet::iterator j = newSamples.begin(); j != newSamples.end(); j++)
+                for (auto j = newSamples.begin(); j != newSamples.end(); j++)
                 {
                     Ogre::NameValuePairList& info = (*j)->getInfo();   // acquire custom sample info
 
@@ -869,7 +869,7 @@ namespace OgreBites
         virtual void populateSampleMenus()
         {
             Ogre::StringVector categories;
-            for (std::set<Ogre::String>::iterator i = mSampleCategories.begin(); i != mSampleCategories.end(); i++)
+            for (auto i = mSampleCategories.begin(); i != mSampleCategories.end(); i++)
                 categories.push_back(*i);
 
             mCategoryMenu->setItems(categories);
@@ -893,7 +893,7 @@ namespace OgreBites
             if (mLastSampleIndex != -1)
             {
                 int index = -1;
-                for (SampleSet::iterator i = mLoadedSamples.begin(); i != mLoadedSamples.end(); i++)
+                for (auto i = mLoadedSamples.begin(); i != mLoadedSamples.end(); i++)
                 {
                     index++;
                     if (index == mLastSampleIndex)
@@ -923,7 +923,7 @@ namespace OgreBites
 
             mLastSampleIndex = -1;
             unsigned int index = -1;
-            for (SampleSet::iterator i = mLoadedSamples.begin(); i != mLoadedSamples.end(); i++)
+            for (auto i = mLoadedSamples.begin(); i != mLoadedSamples.end(); i++)
             {
                 index++;
                 if (*i == mCurrentSample)
@@ -993,7 +993,7 @@ namespace OgreBites
         {
             SampleContext::unpauseCurrentSample();
 
-            for (std::vector<Ogre::Overlay*>::iterator i = mHiddenOverlays.begin(); i != mHiddenOverlays.end(); i++)
+            for (auto i = mHiddenOverlays.begin(); i != mHiddenOverlays.end(); i++)
             {
                 (*i)->show();
             }

@@ -240,7 +240,7 @@ namespace Ogre {
 
         // Init stats
         for(
-            RenderTargetMap::iterator it = mRenderTargets.begin();
+            auto it = mRenderTargets.begin();
             it != mRenderTargets.end();
             ++it )
         {
@@ -373,7 +373,7 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     auto RenderSystem::getRenderTarget( const String &name ) -> RenderTarget *
     {
-        RenderTargetMap::iterator it = mRenderTargets.find( name );
+        auto it = mRenderTargets.find( name );
         RenderTarget *ret = nullptr;
 
         if( it != mRenderTargets.end() )
@@ -387,7 +387,7 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     auto RenderSystem::detachRenderTarget( const String &name ) -> RenderTarget *
     {
-        RenderTargetMap::iterator it = mRenderTargets.find( name );
+        auto it = mRenderTargets.find( name );
         RenderTarget *ret = nullptr;
 
         if( it != mRenderTargets.end() )
@@ -516,13 +516,13 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void RenderSystem::_cleanupDepthBuffers( bool bCleanManualBuffers )
     {
-        DepthBufferMap::iterator itMap = mDepthBufferPool.begin();
-        DepthBufferMap::iterator enMap = mDepthBufferPool.end();
+        auto itMap = mDepthBufferPool.begin();
+        auto enMap = mDepthBufferPool.end();
 
         while( itMap != enMap )
         {
-            DepthBufferVec::const_iterator itor = itMap->second.begin();
-            DepthBufferVec::const_iterator end  = itMap->second.end();
+            auto itor = itMap->second.begin();
+            auto end  = itMap->second.end();
 
             while( itor != end )
             {
@@ -556,8 +556,8 @@ namespace Ogre {
             return; //RenderTarget explicitly requested no depth buffer
 
         //Find a depth buffer in the pool
-        DepthBufferVec::const_iterator itor = mDepthBufferPool[poolId].begin();
-        DepthBufferVec::const_iterator end  = mDepthBufferPool[poolId].end();
+        auto itor = mDepthBufferPool[poolId].begin();
+        auto end  = mDepthBufferPool[poolId].end();
 
         bool bAttached = false;
         while( itor != end && !bAttached )
@@ -598,7 +598,7 @@ namespace Ogre {
     void RenderSystem::shutdown()
     {
         // Remove occlusion queries
-        for (HardwareOcclusionQueryList::iterator i = mHwOcclusionQueries.begin();
+        for (auto i = mHwOcclusionQueries.begin();
             i != mHwOcclusionQueries.end(); ++i)
         {
             delete *i;
@@ -611,7 +611,7 @@ namespace Ogre {
         // Keep mRenderTargets valid all the time, so that render targets could receive
         // appropriate notifications, for example FBO based about GL context destruction.
         RenderTarget* primary = nullptr;
-        for (RenderTargetMap::iterator it = mRenderTargets.begin(); it != mRenderTargets.end(); /* note - no increment */)
+        for (auto it = mRenderTargets.begin(); it != mRenderTargets.end(); /* note - no increment */)
         {
             RenderTarget* current = it->second;
             if (!primary && current->isPrimary())
@@ -807,7 +807,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::fireEvent(const String& name, const NameValuePairList* params)
     {
-        for(ListenerList::iterator i = mEventListeners.begin(); 
+        for(auto i = mEventListeners.begin(); 
             i != mEventListeners.end(); ++i)
         {
             (*i)->eventOccurred(name, params);
@@ -819,7 +819,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::destroyHardwareOcclusionQuery( HardwareOcclusionQuery *hq)
     {
-        HardwareOcclusionQueryList::iterator i =
+        auto i =
             std::find(mHwOcclusionQueries.begin(), mHwOcclusionQueries.end(), hq);
         if (i != mHwOcclusionQueries.end())
         {

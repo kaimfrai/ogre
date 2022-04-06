@@ -190,7 +190,7 @@ auto TestContext::loadTests() -> OgreBites::Sample*
     for(auto it : mPluginNameMap)
     {
         OgreBites::SampleSet newSamples = it.second->getSamples();
-        for (OgreBites::SampleSet::iterator j = newSamples.begin(); j != newSamples.end(); j++)
+        for (auto j = newSamples.begin(); j != newSamples.end(); j++)
         {
             // capability check
             try

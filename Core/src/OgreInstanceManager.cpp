@@ -81,13 +81,13 @@ class InstancedEntity;
     InstanceManager::~InstanceManager()
     {
         //Remove all batches from all materials we created
-        InstanceBatchMap::const_iterator itor = mInstanceBatches.begin();
-        InstanceBatchMap::const_iterator end  = mInstanceBatches.end();
+        auto itor = mInstanceBatches.begin();
+        auto end  = mInstanceBatches.end();
 
         while( itor != end )
         {
-            InstanceBatchVec::const_iterator it = itor->second.begin();
-            InstanceBatchVec::const_iterator en = itor->second.end();
+            auto it = itor->second.begin();
+            auto en = itor->second.end();
 
             while( it != en )
                 delete *it++;
@@ -185,8 +185,8 @@ class InstancedEntity;
     {
         InstanceBatchVec &batchVec = mInstanceBatches[materialName];
 
-        InstanceBatchVec::const_reverse_iterator itor = batchVec.rbegin();
-        InstanceBatchVec::const_reverse_iterator end  = batchVec.rend();
+        auto itor = batchVec.rbegin();
+        auto end  = batchVec.rend();
 
         while( itor != end )
         {
@@ -293,13 +293,13 @@ class InstancedEntity;
         //Do this now to avoid any dangling pointer inside mDirtyBatches
         _updateDirtyBatches();
 
-        InstanceBatchMap::iterator itor = mInstanceBatches.begin();
-        InstanceBatchMap::iterator end  = mInstanceBatches.end();
+        auto itor = mInstanceBatches.begin();
+        auto end  = mInstanceBatches.end();
 
         while( itor != end )
         {
-            InstanceBatchVec::iterator it = itor->second.begin();
-            InstanceBatchVec::iterator en = itor->second.end();
+            auto it = itor->second.begin();
+            auto en = itor->second.end();
 
             while( it != en )
             {
@@ -333,8 +333,8 @@ class InstancedEntity;
                                                 InstanceBatch::CustomParamsVec &usedParams,
                                                 InstanceBatchVec &fragmentedBatches )
     {
-        InstanceBatchVec::iterator itor = fragmentedBatches.begin();
-        InstanceBatchVec::iterator end  = fragmentedBatches.end();
+        auto itor = fragmentedBatches.begin();
+        auto end  = fragmentedBatches.end();
 
         while( itor != end && !usedEntities.empty() )
         {
@@ -343,7 +343,7 @@ class InstancedEntity;
             ++itor;
         }
 
-        InstanceBatchVec::iterator lastImportantBatch = itor;
+        auto lastImportantBatch = itor;
 
         while( itor != end )
         {
@@ -376,8 +376,8 @@ class InstancedEntity;
         _updateDirtyBatches();
 
         //Do this for every material
-        InstanceBatchMap::iterator itor = mInstanceBatches.begin();
-        InstanceBatchMap::iterator end  = mInstanceBatches.end();
+        auto itor = mInstanceBatches.begin();
+        auto end  = mInstanceBatches.end();
 
         while( itor != end )
         {
@@ -386,8 +386,8 @@ class InstancedEntity;
             usedEntities.reserve( itor->second.size() * mInstancesPerBatch );
 
             //Collect all Instanced Entities being used by _all_ batches from this material
-            InstanceBatchVec::iterator it = itor->second.begin();
-            InstanceBatchVec::iterator en = itor->second.end();
+            auto it = itor->second.begin();
+            auto en = itor->second.end();
 
             while( it != en )
             {
@@ -411,8 +411,8 @@ class InstancedEntity;
         if( materialName == BLANKSTRING )
         {
             //Setup all existing materials
-            InstanceBatchMap::iterator itor = mInstanceBatches.begin();
-            InstanceBatchMap::iterator end  = mInstanceBatches.end();
+            auto itor = mInstanceBatches.begin();
+            auto end  = mInstanceBatches.end();
 
             while( itor != end )
             {
@@ -427,7 +427,7 @@ class InstancedEntity;
             //Setup a given material
             mBatchSettings[materialName].setting[id] = value;
 
-            InstanceBatchMap::const_iterator itor = mInstanceBatches.find( materialName );
+            auto itor = mInstanceBatches.find( materialName );
             //Don't crash or throw if the batch with that material hasn't been created yet
             if( itor != mInstanceBatches.end() )
                 applySettingToBatches( id, value, itor->second );
@@ -438,7 +438,7 @@ class InstancedEntity;
     {
         assert( id < NUM_SETTINGS );
 
-        BatchSettingsMap::const_iterator itor = mBatchSettings.find( materialName );
+        auto itor = mBatchSettings.find( materialName );
         if( itor != mBatchSettings.end() )
             return itor->second.setting[id]; //Return current setting
 
@@ -453,8 +453,8 @@ class InstancedEntity;
     void InstanceManager::applySettingToBatches( BatchSettingId id, bool value,
                                                  const InstanceBatchVec &container )
     {
-        InstanceBatchVec::const_iterator itor = container.begin();
-        InstanceBatchVec::const_iterator end  = container.end();
+        auto itor = container.begin();
+        auto end  = container.end();
 
         while( itor != end )
         {
@@ -475,13 +475,13 @@ class InstancedEntity;
     //-----------------------------------------------------------------------
     void InstanceManager::setBatchesAsStaticAndUpdate( bool bStatic )
     {
-        InstanceBatchMap::iterator itor = mInstanceBatches.begin();
-        InstanceBatchMap::iterator end  = mInstanceBatches.end();
+        auto itor = mInstanceBatches.begin();
+        auto end  = mInstanceBatches.end();
 
         while( itor != end )
         {
-            InstanceBatchVec::iterator it = itor->second.begin();
-            InstanceBatchVec::iterator en = itor->second.end();
+            auto it = itor->second.begin();
+            auto en = itor->second.end();
 
             while( it != en )
             {
@@ -503,8 +503,8 @@ class InstancedEntity;
     //-----------------------------------------------------------------------
     void InstanceManager::_updateDirtyBatches()
     {
-        InstanceBatchVec::const_iterator itor = mDirtyBatches.begin();
-        InstanceBatchVec::const_iterator end  = mDirtyBatches.end();
+        auto itor = mDirtyBatches.begin();
+        auto end  = mDirtyBatches.end();
 
         while( itor != end )
         {
@@ -526,7 +526,7 @@ class InstancedEntity;
                                           idxData->indexStart * sizeof(TIndexType),
                                           idxData->indexCount * sizeof(TIndexType),
                                           HardwareBuffer::HBL_READ_ONLY);
-        TIndexType *data = (TIndexType*)indexLock.pData;
+        auto *data = (TIndexType*)indexLock.pData;
 
         for (size_t i = 0; i < idxData->indexCount; i++)
         {
@@ -534,7 +534,7 @@ class InstancedEntity;
             if (indicesMap.find(index) == indicesMap.end())
             {
                 //We need to guarantee that the size is read before an entry is added, hence these are on separate lines.
-                uint32 size = (uint32)(indicesMap.size());
+                auto size = (uint32)(indicesMap.size());
                 indicesMap[index] = size;
             }
         }
@@ -554,7 +554,7 @@ class InstancedEntity;
                                           start * sizeof(TIndexType),
                                           count * sizeof(TIndexType),
                                           HardwareBuffer::HBL_NORMAL);
-        TIndexType *data = (TIndexType*)indexLock.pData;
+        auto *data = (TIndexType*)indexLock.pData;
 
         for (size_t i = 0; i < count; i++)
         {
@@ -569,8 +569,8 @@ class InstancedEntity;
     {
         // Retrieve data to copy bone assignments
         const Mesh::VertexBoneAssignmentList& boneAssignments = mesh->getBoneAssignments();
-        Mesh::VertexBoneAssignmentList::const_iterator it = boneAssignments.begin();
-        Mesh::VertexBoneAssignmentList::const_iterator end = boneAssignments.end();
+        auto it = boneAssignments.begin();
+        auto end = boneAssignments.end();
         size_t curVertexOffset = 0;
 
         // Access shared vertices
@@ -600,7 +600,7 @@ class InstancedEntity;
             }
 
 
-            VertexData *newVertexData = new VertexData();
+            auto *newVertexData = new VertexData();
             newVertexData->vertexCount = indicesMap.size();
             newVertexData->vertexDeclaration = sharedVertexData->vertexDeclaration->clone();
 
@@ -615,8 +615,8 @@ class InstancedEntity;
                 HardwareBufferLockGuard oldLock(sharedVertexBuffer, 0, sharedVertexData->vertexCount * vertexSize, HardwareBuffer::HBL_READ_ONLY);
                 HardwareBufferLockGuard newLock(newVertexBuffer, 0, newVertexData->vertexCount * vertexSize, HardwareBuffer::HBL_NORMAL);
 
-                IndicesMap::iterator indIt = indicesMap.begin();
-                IndicesMap::iterator endIndIt = indicesMap.end();
+                auto indIt = indicesMap.begin();
+                auto endIndIt = indicesMap.end();
                 for (; indIt != endIndIt; ++indIt)
                 {
                     memcpy((uint8*)newLock.pData + vertexSize * indIt->second,
@@ -691,7 +691,7 @@ class InstancedEntity;
     //-----------------------------------------------------------------------
     auto InstanceManager::getInstanceBatchIterator( const String &materialName ) const -> InstanceManager::InstanceBatchIterator
     {
-        InstanceBatchMap::const_iterator it = mInstanceBatches.find( materialName );
+        auto it = mInstanceBatches.find( materialName );
         if(it != mInstanceBatches.end())
             return { it->second.begin(), it->second.end() };
 

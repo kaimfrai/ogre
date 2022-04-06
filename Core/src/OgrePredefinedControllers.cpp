@@ -360,7 +360,7 @@ namespace Ogre
     auto LinearControllerFunction::calculate(Real source) -> Real {
         Real input = getAdjustedInput(source*mFrequency);
 
-        std::vector<Real>::iterator ifirst = std::lower_bound(mKeys.begin(), mKeys.end(), input);
+        auto ifirst = std::lower_bound(mKeys.begin(), mKeys.end(), input);
         size_t idx = ifirst - mKeys.begin() - 1;
 
         assert(ifirst != mKeys.end());

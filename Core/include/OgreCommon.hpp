@@ -400,7 +400,7 @@ class RenderWindow;
         void recalcHash() const
         {
             mListHash = 0;
-            for (const_iterator i = mList.begin(); i != mList.end(); ++i)
+            for (auto i = mList.begin(); i != mList.end(); ++i)
                 addToHash(*i);
             mListHashDirty = false;
             
@@ -550,7 +550,7 @@ class RenderWindow;
         }
         auto erase(iterator first, iterator last) -> iterator
         {
-            iterator ret = mList.erase(first, last);
+            auto ret = mList.erase(first, last);
             dirtyHash();
             return ret;
         }

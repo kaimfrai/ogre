@@ -584,7 +584,7 @@ namespace OgreBites
         auto getSnappedValue(Ogre::Real percentage) -> Ogre::Real
         {
             percentage = Ogre::Math::saturate(percentage);
-            unsigned int whichMarker = (unsigned int) (percentage * (mMaxValue - mMinValue) / mInterval + 0.5);
+            auto whichMarker = (unsigned int) (percentage * (mMaxValue - mMinValue) / mInterval + 0.5);
             return float(whichMarker) * mInterval + mMinValue;
         }
 

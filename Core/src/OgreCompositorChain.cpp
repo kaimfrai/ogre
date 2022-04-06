@@ -164,7 +164,7 @@ auto CompositorChain::addCompositor(CompositorPtr filter, size_t addPosition, co
     {
         return nullptr;
     }
-    CompositorInstance *t = new CompositorInstance(tech, this);
+    auto *t = new CompositorInstance(tech, this);
     
     if(addPosition == LAST)
         addPosition = mInstances.size();
@@ -183,7 +183,7 @@ void CompositorChain::removeCompositor(size_t index)
         index = mInstances.size() - 1;
 
     assert (index < mInstances.size() && "Index out of bounds.");
-    Instances::iterator i = mInstances.begin() + index;
+    auto i = mInstances.begin() + index;
     delete *i;
     mInstances.erase(i);
     
@@ -206,7 +206,7 @@ void CompositorChain::removeAllCompositors()
 //-----------------------------------------------------------------------
 void CompositorChain::_removeInstance(CompositorInstance *i)
 {
-    Instances::iterator it = std::find(mInstances.begin(), mInstances.end(), i);
+    auto it = std::find(mInstances.begin(), mInstances.end(), i);
     assert(it != mInstances.end());
     if(it != mInstances.end())
     {
@@ -252,7 +252,7 @@ void CompositorChain::setCompositorEnabled(size_t position, bool state)
         {
             const CompositionTechnique::TargetPasses& tps =
                 nextInstance->getTechnique()->getTargetPasses();
-            CompositionTechnique::TargetPasses::const_iterator tpit = tps.begin();
+            auto tpit = tps.begin();
             for(;tpit != tps.end(); ++tpit)
             {
                 CompositionTargetPass* tp = *tpit;
@@ -466,7 +466,7 @@ void CompositorChain::viewportDestroyed(Viewport* viewport)
 //-----------------------------------------------------------------------
 void CompositorChain::clearCompiledState()
 {
-    for (RenderSystemOperations::iterator i = mRenderSystemOperations.begin();
+    for (auto i = mRenderSystemOperations.begin();
         i != mRenderSystemOperations.end(); ++i)
     {
         delete *i;
@@ -500,7 +500,7 @@ void CompositorChain::_compile()
     /// Set previous CompositorInstance for each compositor in the list
     CompositorInstance *lastComposition = mOriginalScene;
     mOriginalScene->mPreviousInstance = nullptr;
-    for(Instances::iterator i=mInstances.begin(); i!=mInstances.end(); ++i)
+    for(auto i=mInstances.begin(); i!=mInstances.end(); ++i)
     {
         if((*i)->getEnabled())
         {
@@ -623,7 +623,7 @@ void CompositorChain::RQListener::flushUpTo(uint8 id)
 auto CompositorChain::getPreviousInstance(CompositorInstance* curr, bool activeOnly) -> CompositorInstance*
 {
     bool found = false;
-    for(Instances::reverse_iterator i=mInstances.rbegin(); i!=mInstances.rend(); ++i)
+    for(auto i=mInstances.rbegin(); i!=mInstances.rend(); ++i)
     {
         if (found)
         {
@@ -642,7 +642,7 @@ auto CompositorChain::getPreviousInstance(CompositorInstance* curr, bool activeO
 auto CompositorChain::getNextInstance(CompositorInstance* curr, bool activeOnly) -> CompositorInstance*
 {
     bool found = false;
-    for(Instances::iterator i=mInstances.begin(); i!=mInstances.end(); ++i)
+    for(auto i=mInstances.begin(); i!=mInstances.end(); ++i)
     {
         if (found)
         {
