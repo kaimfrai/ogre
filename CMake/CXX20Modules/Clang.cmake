@@ -86,6 +86,8 @@ function(
 	file(REAL_PATH
 		${module_interface_file}
 		real_module_interface_file
+	BASE_DIRECTORY
+		${CMAKE_CURRENT_SOURCE_DIR}
 		EXPAND_TILDE
 	)
 
