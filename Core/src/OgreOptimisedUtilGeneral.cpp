@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core;
+module Ogre.Core:OptimisedUtil.General;
 
 import :EdgeListBuilder;
 import :Math;
