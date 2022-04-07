@@ -29,16 +29,17 @@ module;
 
 #include "glad/glad.h"
 
-module Ogre.RenderSystems.GL.GLSL:SLLinkProgramManager.Obj;
+#include <cassert>
 
-import :SLLinkProgram;
-import :SLLinkProgramManager;
-import :SLProgram;
+module Ogre.RenderSystems.GL:GLSL.LinkProgramManager.Obj;
+
+import :GLSL.LinkProgram;
+import :GLSL.LinkProgramManager;
+import :GLSL.Program;
 
 import Ogre.Core;
 import Ogre.RenderSystems.GLSupport.GLSL;
 
-import <cassert>;
 import <cstddef>;
 import <map>;
 import <utility>;

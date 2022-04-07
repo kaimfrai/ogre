@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GL.atifs:Compiler2Pass;
+module Ogre.RenderSystems.GL:atifs.Compiler2Pass;
 
 import <vector>;
 

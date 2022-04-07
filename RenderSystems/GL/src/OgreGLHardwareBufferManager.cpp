@@ -25,6 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <glad/glad.h>
+
+#include <cassert>
+
 module Ogre.RenderSystems.GL:HardwareBufferManager.Obj;
 
 import :HardwareBuffer;
@@ -34,7 +40,6 @@ import :RenderToVertexBuffer;
 
 import Ogre.Core;
 
-import <cassert>;
 import <memory>;
 
 namespace Ogre {

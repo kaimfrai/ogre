@@ -96,6 +96,7 @@ export import :RenderQueueListener;
 export import :RenderSystem;
 export import :RenderTargetListener;
 export import :RenderTexture;
+export import :RenderToVertexBuffer;
 export import :RenderWindow;
 export import :ResourceBackgroundQueue;
 export import :ResourceGroupManager;

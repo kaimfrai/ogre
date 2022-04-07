@@ -29,14 +29,16 @@ module;
 
 #include <sys/types.h>
 
-module Ogre.RenderSystems.GL.atifs:Compiler2Pass.Obj;
+#include <cassert>
 
-import :Compiler2Pass;
+module Ogre.RenderSystems.GL:atifs.Compiler2Pass.Obj;
 
-import <cassert>;
+import :atifs.Compiler2Pass;
+
 import <cstdio>;
 import <cstdlib>;
 import <cstring>;
+import <vector>;
 
 Compiler2Pass::Compiler2Pass()
 {

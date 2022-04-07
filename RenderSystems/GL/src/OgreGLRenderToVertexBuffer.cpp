@@ -25,17 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <glad/glad.h>
+
+#include <cassert>
+
 module Ogre.RenderSystems.GL:RenderToVertexBuffer.Obj;
 
+import :GLSL.LinkProgram;
+import :GLSL.LinkProgramManager;
 import :HardwareBuffer;
 import :Prerequisites;
 import :RenderSystem;
 import :RenderToVertexBuffer;
 
 import Ogre.Core;
-import Ogre.RenderSystems.GL.GLSL;
 
-import <cassert>;
 import <memory>;
 import <string>;
 import <vector>;

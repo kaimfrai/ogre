@@ -45,9 +45,9 @@ module;
 
 #include "glad/glad.h"
 
-module Ogre.RenderSystems.GL.atifs:ps_1_4;
+module Ogre.RenderSystems.GL:atifs.ps_1_4;
 
-import :Compiler2Pass;
+import :atifs.Compiler2Pass;
 
 import <cstdio>;
 import <vector>;

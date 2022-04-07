@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GL.GLSL:SLLinkProgramManager;
+export module Ogre.RenderSystems.GL:GLSL.LinkProgramManager;
 
 import Ogre.Core;
 import Ogre.RenderSystems.GLSupport.GLSL;

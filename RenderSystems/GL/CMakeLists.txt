@@ -11,7 +11,6 @@
 
 file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
-list(APPEND SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/glad/glad.c")
 
 file(GLOB NVPARSE_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/src/nvparse/*.cpp")
 file(GLOB NVPARSE_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/src/nvparse/*.hpp")
@@ -32,7 +31,7 @@ endif()
 list(REMOVE_ITEM NVPARSE_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/src/nvparse/ps1.0__test_main.cpp")
 
 file(GLOB ATIFS_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/src/atifs/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/src/atifs/src/*.cpp")
-file(GLOB ATIFS_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/src/atifs/*.hpp")
+file(GLOB ATIFS_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/src/atifs/include/*.hpp")
 
 file(GLOB GLSL_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/src/GLSL/include/*.hpp")
 file(GLOB GLSL_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/src/GLSL/src/*.cpp")
@@ -46,12 +45,6 @@ if(OGRE_CONFIG_ENABLE_GL_STATE_CACHE_SUPPORT)
     PROPERTIES COMPILE_DEFINITIONS OGRE_ENABLE_STATE_CACHE)
 endif()
 
-list(APPEND HEADER_FILES
-  ${GLSL_HEADERS}
-  ${NVPARSE_HEADERS}
-  ${ATIFS_HEADERS}
-)
-
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/src/GLSL/include
   ${CMAKE_CURRENT_SOURCE_DIR}/src/atifs/include
@@ -62,17 +55,49 @@ add_definitions(-DYY_NEVER_INTERACTIVE)
 add_definitions(-DOGRE_GLPLUGIN_EXPORTS ${OGRE_VISIBILITY_FLAGS})
 #Note that in the next row SOURCE_FILES are added last. This is to prevent compilation problems of unity build found on Windows Visual Studio. 
 #In this situation any file added after the "glew.cpp" file, which belongs to the SOURCE_FILES package, does not compile
-add_library(RenderSystem_GL ${OGRE_LIB_TYPE} ${HEADER_FILES} ${GLSL_SOURCE} ${ATIFS_SOURCE} ${NVPARSE_SOURCE} ${SOURCE_FILES})
-target_link_libraries(RenderSystem_GL PUBLIC Ogre.Core PRIVATE OgreGLSupport ${CMAKE_DL_LIBS})
-target_include_directories(RenderSystem_GL PUBLIC 
-    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-    $<INSTALL_INTERFACE:include/OGRE/RenderSystems/GL>)
 
-target_include_directories(RenderSystem_GL PUBLIC ${OPENGL_INCLUDE_DIR})
+add_library(
+  Ogre.RenderSystems.GL.glad
+OBJECT
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/glad/glad.c"
+)
 
-ogre_config_framework(RenderSystem_GL)
+target_include_directories(
+  Ogre.RenderSystems.GL.glad
+PUBLIC
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
-ogre_config_plugin(RenderSystem_GL)
+#cyclic dependencies => 1 module
+add_module(
+  ../GL.hpp
+PARTITION
+  ${HEADER_FILES}
+  ${GLSL_HEADERS}
+  ${ATIFS_HEADERS}
+IMPLEMENTATION
+  ${SOURCE_FILES}
+  ${GLSL_SOURCE}
+  ${ATIFS_SOURCE}
+INCLUDES
+  ${OPENGL_INCLUDE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_sources(
+  Ogre.RenderSystems.GL+
+PRIVATE
+  $<TARGET_OBJECTS:Ogre.RenderSystems.GL.glad>
+)
+
+target_link_libraries(Ogre.RenderSystems.GL+ PUBLIC Ogre.Core PRIVATE Ogre.RenderSystems.GLSupport ${CMAKE_DL_LIBS})
+
+ogre_config_framework(Ogre.RenderSystems.GL)
+ogre_config_framework(Ogre.RenderSystems.GL+)
+
+ogre_config_plugin(Ogre.RenderSystems.GL)
+ogre_config_plugin(Ogre.RenderSystems.GL+)
+
 install(FILES ${HEADER_FILES} ${GLSUPPORT_HEADERS} DESTINATION include/OGRE/RenderSystems/GL)
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/glad DESTINATION include/OGRE/RenderSystems/glad)
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/KHR DESTINATION include/OGRE/RenderSystems/KHR)

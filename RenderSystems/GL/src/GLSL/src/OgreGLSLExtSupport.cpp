@@ -25,9 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GL.GLSL:SLExtSupport.Obj;
+module;
 
-import :SLExtSupport;
+#include <glad/glad.h>
+
+module Ogre.RenderSystems.GL:GLSL.ExtSupport.Obj;
+
+import :GLSL.ExtSupport;
 
 import Ogre.Core;
 import Ogre.RenderSystems.GL;

@@ -25,6 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <glad/glad.h>
+
+#include <cassert>
+
 module Ogre.RenderSystems.GL:HardwarePixelBuffer.Obj;
 
 import :FBORenderTexture;
@@ -37,7 +43,6 @@ import :Texture;
 import Ogre.Core;
 import Ogre.RenderSystems.GLSupport;
 
-import <cassert>;
 import <memory>;
 import <string>;
 

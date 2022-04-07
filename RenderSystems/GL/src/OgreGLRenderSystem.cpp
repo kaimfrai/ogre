@@ -25,11 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <glad/glad.h>
+
+#include <cassert>
+
 module Ogre.RenderSystems.GL:RenderSystem.Obj;
 
+import :atifs.ATI_FS_GLGpuProgram;
 import :CopyingRenderTexture;
 import :FBOMultiRenderTarget;
 import :FBORenderTexture;
+import :GLSL.ProgramFactory;
 import :GpuNvparseProgram;
 import :GpuProgram;
 import :GpuProgramManager;
@@ -46,13 +54,10 @@ import :Texture;
 import :TextureManager;
 
 import Ogre.Core;
-import Ogre.RenderSystems.GL.GLSL;
-import Ogre.RenderSystems.GL.atifs;
 import Ogre.RenderSystems.GLSupport;
 import Ogre.RenderSystems.GLSupport.GLSL;
 
 import <algorithm>;
-import <cassert>;
 import <cmath>;
 import <cstdint>;
 import <cstring>;

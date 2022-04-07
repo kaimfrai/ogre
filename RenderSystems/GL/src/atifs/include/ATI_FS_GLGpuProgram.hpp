@@ -29,10 +29,11 @@ module;
 
 #include "glad/glad.h"
 
-module Ogre.RenderSystems.GL.atifs:ATI_FS_GLGpuProgram;
+module Ogre.RenderSystems.GL:atifs.ATI_FS_GLGpuProgram;
+
+import :GpuProgram;
 
 import Ogre.Core;
-import Ogre.RenderSystems.GL;
 
 namespace Ogre {
 class ResourceManager;

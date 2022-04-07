@@ -231,7 +231,7 @@ if (APPLE)
         Plugin_DotScene
         Ogre.PlugIns.STBICodec
         Codec_FreeImage
-        RenderSystem_GL
+        Ogre.RenderSystems.GL
         RenderSystem_GL3Plus
         RenderSystem_Metal
     )

@@ -25,6 +25,10 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
+module;
+
+#include <glad/glad.h>
+
 module Ogre.RenderSystems.GL:StateCacheManager.Obj;
 
 import :RenderSystem;

@@ -25,11 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <glad/glad.h>
  
-module Ogre.RenderSystems.GL.atifs:ps_1_4.Obj;
+module Ogre.RenderSystems.GL:atifs.ps_1_4.Obj;
 
  //---------------------------------------------------------------------------
-import :ps_1_4;
+import :atifs.ps_1_4;
+
+import <vector>;
 
 //---------------------------------------------------------------------------
 /* ********************* START OF PS_1_4 CLASS STATIC DATA ********************************* */

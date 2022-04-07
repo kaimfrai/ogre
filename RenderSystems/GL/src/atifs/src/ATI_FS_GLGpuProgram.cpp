@@ -25,10 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GL.atifs:ATI_FS_GLGpuProgram.Obj;
+module;
 
-import :ATI_FS_GLGpuProgram;
-import :ps_1_4;
+#include <glad/glad.h>
+
+module Ogre.RenderSystems.GL:atifs.ATI_FS_GLGpuProgram.Obj;
+
+import :atifs.ATI_FS_GLGpuProgram;
+import :atifs.ps_1_4;
+import :GpuProgram;
 
 import Ogre.Core;
 

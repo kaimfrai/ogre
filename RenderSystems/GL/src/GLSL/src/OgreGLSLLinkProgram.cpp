@@ -25,12 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GL.GLSL:SLLinkProgram.Obj;
+module;
 
-import :SLExtSupport;
-import :SLLinkProgram;
-import :SLLinkProgramManager;
-import :SLProgram;
+#include <glad/glad.h>
+
+module Ogre.RenderSystems.GL:GLSL.LinkProgram.Obj;
+
+import :GLSL.ExtSupport;
+import :GLSL.LinkProgram;
+import :GLSL.LinkProgramManager;
+import :GLSL.Program;
 
 import Ogre.Core;
 import Ogre.RenderSystems.GLSupport;
