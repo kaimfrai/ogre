@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreRenderTexture.h"
+#include "OgreRenderTexture.hpp"
 
-#include "OgreDepthBuffer.h"
-#include "OgreException.h"
-#include "OgreHardwarePixelBuffer.h"
+#include "OgreDepthBuffer.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwarePixelBuffer.hpp"
 
 namespace Ogre
 {
@@ -59,7 +59,7 @@ struct Box;
         mBuffer->blitToMemory(src, dst);
     }
     //---------------------------------------------------------------------
-    PixelFormat RenderTexture::suggestPixelFormat() const
+    auto RenderTexture::suggestPixelFormat() const -> PixelFormat
     {
         return mBuffer->getFormat();
     }
@@ -78,7 +78,7 @@ struct Box;
 
         for (size_t i = mBoundSurfaces.size(); i <= attachment; ++i)
         {
-            mBoundSurfaces.push_back(0);
+            mBoundSurfaces.push_back(nullptr);
         }
         mBoundSurfaces[attachment] = target;
 

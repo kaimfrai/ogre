@@ -27,27 +27,25 @@ THE SOFTWARE.
 
 #include <string>
 
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderExHardwareSkinningTechnique.h"
-#include "OgreShaderExLinearSkinning.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderExHardwareSkinningTechnique.hpp"
+#include "OgreShaderExLinearSkinning.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrecompiledHeaders.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 
 
-namespace Ogre {
-
-namespace RTShader {
+namespace Ogre::RTShader {
 
 
 /************************************************************************/
@@ -58,7 +56,7 @@ LinearSkinning::LinearSkinning() : HardwareSkinningTechnique()
 }
 
 //-----------------------------------------------------------------------
-bool LinearSkinning::resolveParameters(ProgramSet* programSet)
+auto LinearSkinning::resolveParameters(ProgramSet* programSet) -> bool
 {
 
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
@@ -122,7 +120,7 @@ bool LinearSkinning::resolveParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool LinearSkinning::resolveDependencies(ProgramSet* programSet)
+auto LinearSkinning::resolveDependencies(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     vsProgram->addDependency(FFP_LIB_COMMON);
@@ -132,7 +130,7 @@ bool LinearSkinning::resolveDependencies(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool LinearSkinning::addFunctionInvocations(ProgramSet* programSet)
+auto LinearSkinning::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
 
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
@@ -268,5 +266,4 @@ void LinearSkinning::addIndexedNormalRelatedWeight(Function* vsMain,
     }
 }
 
-}
 }

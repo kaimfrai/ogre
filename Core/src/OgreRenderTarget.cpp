@@ -34,31 +34,24 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreDepthBuffer.h"
-#include "OgreException.h"
-#include "OgreImage.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreProfiler.h"
-#include "OgreRenderTarget.h"
-#include "OgreRenderTargetListener.h"
-#include "OgreRoot.h"
-#include "OgreStringConverter.h"
-#include "OgreTimer.h"
-#include "OgreViewport.h"
+#include "OgreDepthBuffer.hpp"
+#include "OgreException.hpp"
+#include "OgreImage.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreProfiler.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreRenderTargetListener.hpp"
+#include "OgreRoot.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTimer.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 class Camera;
 
     RenderTarget::RenderTarget()
-        : mPriority(OGRE_DEFAULT_RT_GROUP)
-        , mDepthBufferPoolId(DepthBuffer::POOL_DEFAULT)
-        , mDepthBuffer(0)
-        , mActive(true)
-        , mAutoUpdate(true)
-        , mHwGamma(false)
-        , mFSAA(0)
-		, mStereoEnabled(false)
+         
     {
         mTimer = Root::getSingleton().getTimer();
         resetStatistics();
@@ -70,11 +63,10 @@ class Camera;
         ViewportList vlist = mViewportList;
         
         // Delete viewports
-        for (ViewportList::iterator i = vlist.begin();
-            i != vlist.end(); ++i)
+        for (auto & i : vlist)
         {
-            fireViewportRemoved(i->second);
-            delete (*i).second;
+            fireViewportRemoved(i.second);
+            delete i.second;
         }
 
         //DepthBuffer keeps track of us, avoid a dangling pointer
@@ -90,7 +82,7 @@ class Camera;
 
     }
 
-    const String& RenderTarget::getName(void) const
+    auto RenderTarget::getName() const -> const String&
     {
         return mName;
     }
@@ -102,11 +94,11 @@ class Camera;
         height = mHeight;
     }
 
-    unsigned int RenderTarget::getWidth(void) const
+    auto RenderTarget::getWidth() const -> unsigned int
     {
         return mWidth;
     }
-    unsigned int RenderTarget::getHeight(void) const
+    auto RenderTarget::getHeight() const -> unsigned int
     {
         return mHeight;
     }
@@ -120,17 +112,17 @@ class Camera;
         }
     }
     //-----------------------------------------------------------------------
-    uint16 RenderTarget::getDepthBufferPool() const
+    auto RenderTarget::getDepthBufferPool() const -> uint16
     {
         return mDepthBufferPoolId;
     }
     //-----------------------------------------------------------------------
-    DepthBuffer* RenderTarget::getDepthBuffer() const
+    auto RenderTarget::getDepthBuffer() const -> DepthBuffer*
     {
         return mDepthBuffer;
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::attachDepthBuffer( DepthBuffer *depthBuffer )
+    auto RenderTarget::attachDepthBuffer( DepthBuffer *depthBuffer ) -> bool
     {
         bool retVal = false;
 
@@ -149,16 +141,16 @@ class Camera;
         if( mDepthBuffer )
         {
             mDepthBuffer->_notifyRenderTargetDetached( this );
-            mDepthBuffer = 0;
+            mDepthBuffer = nullptr;
         }
     }
     //-----------------------------------------------------------------------
     void RenderTarget::_detachDepthBuffer()
     {
-        mDepthBuffer = 0;
+        mDepthBuffer = nullptr;
     }
 
-    void RenderTarget::updateImpl(void)
+    void RenderTarget::updateImpl()
     {
         _beginUpdate();
         _updateAutoUpdatedViewports(true);
@@ -178,7 +170,7 @@ class Camera;
     {
         // Go through viewports in Z-order
         // Tell each to refresh
-        ViewportList::iterator it = mViewportList.begin();
+        auto it = mViewportList.begin();
         while (it != mViewportList.end())
         {
             Viewport* viewport = (*it).second;
@@ -217,7 +209,7 @@ class Camera;
 
     void RenderTarget::_updateViewport(int zorder, bool updateStatistics)
     {
-        ViewportList::iterator it = mViewportList.find(zorder);
+        auto it = mViewportList.find(zorder);
         if (it != mViewportList.end())
         {
             _updateViewport((*it).second,updateStatistics);
@@ -229,11 +221,11 @@ class Camera;
         }
     }
 
-    Viewport* RenderTarget::addViewport(Camera* cam, int ZOrder, float left, float top ,
-        float width , float height)
+    auto RenderTarget::addViewport(Camera* cam, int ZOrder, float left, float top ,
+        float width , float height) -> Viewport*
     {       
         // Check no existing viewport with this Z-order
-        ViewportList::iterator it = mViewportList.find(ZOrder);
+        auto it = mViewportList.find(ZOrder);
 
         if (it != mViewportList.end())
         {
@@ -245,7 +237,7 @@ class Camera;
         }
         // Add viewport to list
         // Order based on Z-order
-        Viewport* vp = new Viewport(cam, this, left, top, width, height, ZOrder);
+        auto* vp = new Viewport(cam, this, left, top, width, height, ZOrder);
 
         mViewportList.emplace(ZOrder, vp);
 
@@ -256,7 +248,7 @@ class Camera;
     //-----------------------------------------------------------------------
     void RenderTarget::removeViewport(int ZOrder)
     {
-        ViewportList::iterator it = mViewportList.find(ZOrder);
+        auto it = mViewportList.find(ZOrder);
 
         if (it != mViewportList.end())
         {
@@ -266,22 +258,22 @@ class Camera;
         }
     }
 
-    void RenderTarget::removeAllViewports(void)
+    void RenderTarget::removeAllViewports()
     {
         // make a copy of the list to avoid crashes, the viewport destructor change the list
         ViewportList vlist = mViewportList;
 
-        for (ViewportList::iterator it = vlist.begin(); it != vlist.end(); ++it)
+        for (auto & it : vlist)
         {
-            fireViewportRemoved(it->second);
-            delete (*it).second;
+            fireViewportRemoved(it.second);
+            delete it.second;
         }
 
         mViewportList.clear();
 
     }
 
-    void RenderTarget::resetStatistics(void)
+    void RenderTarget::resetStatistics()
     {
         mStats.avgFPS = 0.0;
         mStats.bestFPS = 0.0;
@@ -298,7 +290,7 @@ class Camera;
         mFrameCount = 0;
     }
 
-    void RenderTarget::updateStats(void)
+    void RenderTarget::updateStats()
     {
         ++mFrameCount;
         unsigned long thisTime = mTimer->getMilliseconds();
@@ -353,17 +345,17 @@ class Camera;
     //-----------------------------------------------------------------------
     void RenderTarget::removeListener(RenderTargetListener* listener)
     {
-        RenderTargetListenerList::iterator i = std::find(mListeners.begin(), mListeners.end(), listener);
+        auto i = std::find(mListeners.begin(), mListeners.end(), listener);
         if (i != mListeners.end())
             mListeners.erase(i);
     }
     //-----------------------------------------------------------------------
-    void RenderTarget::removeAllListeners(void)
+    void RenderTarget::removeAllListeners()
     {
         mListeners.clear();
     }
     //-----------------------------------------------------------------------
-    void RenderTarget::firePreUpdate(void)
+    void RenderTarget::firePreUpdate()
     {
         RenderTargetEvent evt;
         evt.source = this;
@@ -379,7 +371,7 @@ class Camera;
 
     }
     //-----------------------------------------------------------------------
-    void RenderTarget::firePostUpdate(void)
+    void RenderTarget::firePostUpdate()
     {
         RenderTargetEvent evt;
         evt.source = this;
@@ -393,25 +385,25 @@ class Camera;
         }
     }
     //-----------------------------------------------------------------------
-    unsigned short RenderTarget::getNumViewports(void) const
+    auto RenderTarget::getNumViewports() const -> unsigned short
     {
         return (unsigned short)mViewportList.size();
 
     }
     //-----------------------------------------------------------------------
-    Viewport* RenderTarget::getViewport(unsigned short index)
+    auto RenderTarget::getViewport(unsigned short index) -> Viewport*
     {
         assert (index < mViewportList.size() && "Index out of bounds");
 
-        ViewportList::iterator i = mViewportList.begin();
+        auto i = mViewportList.begin();
         while (index--)
             ++i;
         return i->second;
     }
     //-----------------------------------------------------------------------
-    Viewport* RenderTarget::getViewportByZOrder(int ZOrder)
+    auto RenderTarget::getViewportByZOrder(int ZOrder) -> Viewport*
     {
-        ViewportList::iterator i = mViewportList.find(ZOrder);
+        auto i = mViewportList.find(ZOrder);
         if(i == mViewportList.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,"No viewport with given Z-order: "
@@ -420,13 +412,13 @@ class Camera;
         return i->second;
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::hasViewportWithZOrder(int ZOrder)
+    auto RenderTarget::hasViewportWithZOrder(int ZOrder) -> bool
     {
-        ViewportList::iterator i = mViewportList.find(ZOrder);
+        auto i = mViewportList.find(ZOrder);
         return i != mViewportList.end();
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::isActive() const
+    auto RenderTarget::isActive() const -> bool
     {
         return mActive;
     }
@@ -496,7 +488,7 @@ class Camera;
         }
     }
     //-----------------------------------------------------------------------
-    String RenderTarget::writeContentsToTimestampedFile(const String& filenamePrefix, const String& filenameSuffix)
+    auto RenderTarget::writeContentsToTimestampedFile(const String& filenamePrefix, const String& filenameSuffix) -> String
     {
         struct tm *pTime;
         time_t ctTime; time(&ctTime);
@@ -533,7 +525,7 @@ class Camera;
             if (v->getCamera() == cam)
             {
                 // disable camera link
-                v->setCamera(0);
+                v->setCamera(nullptr);
             }
         }
     }
@@ -543,18 +535,18 @@ class Camera;
         mAutoUpdate = autoup;
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::isAutoUpdated(void) const
+    auto RenderTarget::isAutoUpdated() const -> bool
     {
         return mAutoUpdate;
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::isPrimary(void) const
+    auto RenderTarget::isPrimary() const -> bool
     {
         // RenderWindow will override and return true for the primary window
         return false;
     }  
 	//-----------------------------------------------------------------------
-    bool RenderTarget::isStereoEnabled(void) const
+    auto RenderTarget::isStereoEnabled() const -> bool
     {
         return mStereoEnabled;
     }

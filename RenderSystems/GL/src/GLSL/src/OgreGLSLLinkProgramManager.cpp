@@ -26,47 +26,47 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLSLLinkProgramManager.h"
+#include "OgreGLSLLinkProgramManager.hpp"
 
 #include <cassert>
 #include <cstddef>
 #include <map>
 #include <utility>
 
-#include "OgreCommon.h"
-#include "OgreGLSLLinkProgram.h"
-#include "OgreGLSLProgram.h"
-#include "OgreGLSLShaderCommon.h"
-#include "OgrePlatform.h"
+#include "OgreCommon.hpp"
+#include "OgreGLSLLinkProgram.hpp"
+#include "OgreGLSLProgram.hpp"
+#include "OgreGLSLShaderCommon.hpp"
+#include "OgrePlatform.hpp"
 #include "glad/glad.h"
 
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> GLSL::GLSLLinkProgramManager* Singleton<GLSL::GLSLLinkProgramManager>::msSingleton = 0;
+    template<> GLSL::GLSLLinkProgramManager* Singleton<GLSL::GLSLLinkProgramManager>::msSingleton = nullptr;
 
     namespace GLSL {
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgramManager* GLSLLinkProgramManager::getSingletonPtr(void)
+    auto GLSLLinkProgramManager::getSingletonPtr() -> GLSLLinkProgramManager*
     {
         return msSingleton;
     }
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgramManager& GLSLLinkProgramManager::getSingleton(void)
+    auto GLSLLinkProgramManager::getSingleton() -> GLSLLinkProgramManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgramManager::GLSLLinkProgramManager(void) : mActiveLinkProgram(NULL) {}
+    GLSLLinkProgramManager::GLSLLinkProgramManager()  = default;
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgramManager::~GLSLLinkProgramManager(void) {}
+    GLSLLinkProgramManager::~GLSLLinkProgramManager() = default;
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgram* GLSLLinkProgramManager::getActiveLinkProgram(void)
+    auto GLSLLinkProgramManager::getActiveLinkProgram() -> GLSLLinkProgram*
     {
         // if there is an active link program then return it
         if (mActiveLinkProgram)
@@ -85,7 +85,7 @@ namespace Ogre {
         if (activeKey > 0)
         {
             // find the key in the hash map
-            ProgramIterator programFound = mPrograms.find(activeKey);
+            auto programFound = mPrograms.find(activeKey);
             // program object not found for key so need to create it
             if (programFound == mPrograms.end())
             {
@@ -113,22 +113,22 @@ namespace Ogre {
         {
             mActiveShader[type] = gpuProgram;
             // ActiveLinkProgram is no longer valid
-            mActiveLinkProgram = NULL;
+            mActiveLinkProgram = nullptr;
             // change back to fixed pipeline
             glUseProgramObjectARB(0);
         }
     }
     //---------------------------------------------------------------------
-    bool GLSLLinkProgramManager::completeParamSource(
+    auto GLSLLinkProgramManager::completeParamSource(
         const String& paramName,
         const GpuConstantDefinitionMap* vertexConstantDefs, 
         const GpuConstantDefinitionMap* geometryConstantDefs,
         const GpuConstantDefinitionMap* fragmentConstantDefs,
-        GLUniformReference& refToUpdate)
+        GLUniformReference& refToUpdate) -> bool
     {
         if (vertexConstantDefs)
         {
-            GpuConstantDefinitionMap::const_iterator parami = 
+            auto parami = 
                 vertexConstantDefs->find(paramName);
             if (parami != vertexConstantDefs->end())
             {
@@ -140,7 +140,7 @@ namespace Ogre {
         }
         if (geometryConstantDefs)
         {
-            GpuConstantDefinitionMap::const_iterator parami = 
+            auto parami = 
                 geometryConstantDefs->find(paramName);
             if (parami != geometryConstantDefs->end())
             {
@@ -152,7 +152,7 @@ namespace Ogre {
         }
         if (fragmentConstantDefs)
         {
-            GpuConstantDefinitionMap::const_iterator parami = 
+            auto parami = 
                 fragmentConstantDefs->find(paramName);
             if (parami != fragmentConstantDefs->end())
             {
@@ -175,7 +175,9 @@ namespace Ogre {
         // scan through the active uniforms and add them to the reference list
         GLint uniformCount = 0;
 
-        #define BUFFERSIZE 200
+enum {
+BUFFERSIZE = 200
+};
         char   uniformName[BUFFERSIZE] = "";
         //GLint location;
         GLUniformReference newGLUniformReference;
@@ -190,7 +192,7 @@ namespace Ogre {
         {
             GLint arraySize = 0;
             GLenum glType;
-            glGetActiveUniformARB((GLhandleARB)programObject, index, BUFFERSIZE, NULL,
+            glGetActiveUniformARB((GLhandleARB)programObject, index, BUFFERSIZE, nullptr,
                 &arraySize, &glType, uniformName);
             // don't add built in uniforms
             newGLUniformReference.mLocation = glGetUniformLocationARB((GLhandleARB)programObject, uniformName);

@@ -30,27 +30,27 @@ THE SOFTWARE.
 #include <sys/types.h>
 #include <vector>
 
-#include "MeshWithoutIndexDataTests.h"
-#include "OgreArchiveManager.h"
-#include "OgreDefaultHardwareBufferManager.h"
-#include "OgreFileSystem.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreManualObject.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMaterialSerializer.h"
-#include "OgreMesh.h"
-#include "OgreMeshManager.h"
-#include "OgreMeshSerializer.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreSubMesh.h"
-#include "OgreTechnique.h"
-#include "OgreVertexIndexData.h"
+#include "MeshWithoutIndexDataTests.hpp"
+#include "OgreArchiveManager.hpp"
+#include "OgreDefaultHardwareBufferManager.hpp"
+#include "OgreFileSystem.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreLodStrategyManager.hpp"
+#include "OgreManualObject.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgreMesh.hpp"
+#include "OgreMeshManager.hpp"
+#include "OgreMeshSerializer.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
     class InvalidParametersException;
@@ -68,7 +68,7 @@ void MeshWithoutIndexDataTests::SetUp()
     mArchiveMgr = new ArchiveManager();
     mArchiveMgr->addArchiveFactory(new FileSystemArchiveFactory());
 
-    MaterialManager* matMgr = new MaterialManager();
+    auto* matMgr = new MaterialManager();
     matMgr->initialise();
 }
 //--------------------------------------------------------------------------
@@ -84,7 +84,7 @@ void MeshWithoutIndexDataTests::TearDown()
 //--------------------------------------------------------------------------
 TEST_F(MeshWithoutIndexDataTests,CreateSimpleLine)
 {
-    ManualObject* line = new ManualObject("line");
+    auto* line = new ManualObject("line");
     line->begin("BaseWhiteNoLighting", RenderOperation::OT_LINE_LIST);
     line->position(0, 50, 0);
     line->position(50, 100, 0);
@@ -121,7 +121,7 @@ TEST_F(MeshWithoutIndexDataTests,CreateSimpleLine)
 //--------------------------------------------------------------------------
 TEST_F(MeshWithoutIndexDataTests,CreateLineList)
 {
-    ManualObject* lineList = new ManualObject("line");
+    auto* lineList = new ManualObject("line");
     lineList->begin("BaseWhiteNoLighting", RenderOperation::OT_LINE_LIST);
     lineList->position(0, 50, 0);
     lineList->position(50, 100, 0);
@@ -162,7 +162,7 @@ TEST_F(MeshWithoutIndexDataTests,CreateLineList)
 //--------------------------------------------------------------------------
 TEST_F(MeshWithoutIndexDataTests,CreateLineStrip)
 {
-    ManualObject* lineStrip = new ManualObject("line");
+    auto* lineStrip = new ManualObject("line");
     lineStrip->begin("BaseWhiteNoLighting", RenderOperation::OT_LINE_STRIP);
     lineStrip->position(50, 100, 0);
     lineStrip->position(0, 50, 0);
@@ -201,7 +201,7 @@ TEST_F(MeshWithoutIndexDataTests,CreateLineStrip)
 //--------------------------------------------------------------------------
 TEST_F(MeshWithoutIndexDataTests,CreatePointList)
 {
-    ManualObject* pointList = new ManualObject("line");
+    auto* pointList = new ManualObject("line");
     pointList->begin("BaseWhiteNoLighting", RenderOperation::OT_POINT_LIST);
     pointList->position(50, 100, 0);
     pointList->position(0, 50, 0);
@@ -245,7 +245,7 @@ TEST_F(MeshWithoutIndexDataTests,CreateLineWithMaterial)
     Pass* pass = matPtr->getTechnique(0)->getPass(0);
     pass->setDiffuse(1.0, 0.1, 0.1, 0);
 
-    ManualObject* line = new ManualObject("line");
+    auto* line = new ManualObject("line");
     line->begin(matName, RenderOperation::OT_LINE_LIST);
     line->position(0, 50, 0);
     line->position(50, 100, 0);
@@ -312,7 +312,7 @@ static void createMeshWithMaterial(String fileName)
     pass = matPtr->getTechnique(0)->getPass(0);
     pass->setDiffuse(1.0, 1.0, 0.1, 0);
 
-    ManualObject* manObj = new ManualObject("mesh");
+    auto* manObj = new ManualObject("mesh");
     manObj->begin(matName1, RenderOperation::OT_TRIANGLE_LIST);
     manObj->position(0, 50, 0);
     manObj->position(50, 50, 0);
@@ -403,7 +403,7 @@ TEST_F(MeshWithoutIndexDataTests,CloneMesh)
 TEST_F(MeshWithoutIndexDataTests,EdgeList)
 {
     String fileName = "testEdgeList.mesh";
-    ManualObject* line = new ManualObject("line");
+    auto* line = new ManualObject("line");
     line->begin("BaseWhiteNoLighting", RenderOperation::OT_LINE_LIST);
     line->position(0, 50, 0);
     line->position(50, 100, 0);

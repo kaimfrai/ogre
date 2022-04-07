@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreMovablePlane.h"
-#include "OgreNode.h"
+#include "OgreMovablePlane.hpp"
+#include "OgreNode.hpp"
 
 namespace Ogre {
 
@@ -65,7 +65,7 @@ namespace Ogre {
     {
     }
     //-----------------------------------------------------------------------
-    const Plane& MovablePlane::_getDerivedPlane(void) const
+    auto MovablePlane::_getDerivedPlane() const -> const Plane&
     {
         if (mParentNode)
         {
@@ -94,7 +94,7 @@ namespace Ogre {
         return mDerivedPlane;
     }
     //-----------------------------------------------------------------------
-    const String& MovablePlane::getMovableType(void) const
+    auto MovablePlane::getMovableType() const -> const String&
     {
         return msMovableType;
     }

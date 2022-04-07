@@ -30,19 +30,19 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreGLSLExtSupport.h"
-#include "OgreGLSLLinkProgram.h"
-#include "OgreGLSLLinkProgramManager.h"
-#include "OgreGLSLProgram.h"
-#include "OgreGpuProgram.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
-#include "OgreStringInterface.h"
+#include "OgreGLSLExtSupport.hpp"
+#include "OgreGLSLLinkProgram.hpp"
+#include "OgreGLSLLinkProgramManager.hpp"
+#include "OgreGLSLProgram.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringInterface.hpp"
 #include "glad/glad.h"
 
 namespace Ogre {
@@ -50,7 +50,7 @@ class ResourceManager;
 
     namespace GLSL {
     //-----------------------------------------------------------------------
-    static RenderOperation::OperationType parseOperationType(const String& val)
+    static auto parseOperationType(const String& val) -> RenderOperation::OperationType
     {
         if (val == "point_list")
         {
@@ -95,7 +95,7 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------
-    static const char* operationTypeToString(RenderOperation::OperationType val)
+    static auto operationTypeToString(RenderOperation::OperationType val) -> const char*
     {
         switch (val)
         {
@@ -136,14 +136,14 @@ class ResourceManager;
     class CmdInputOperationType : public ParamCommand
     {
     public:
-        String doGet(const void* target) const
+        auto doGet(const void* target) const -> String override
         {
-            const GLSLProgram* t = static_cast<const GLSLProgram*>(target);
+            const auto* t = static_cast<const GLSLProgram*>(target);
             return operationTypeToString(t->getInputOperationType());
         }
-        void doSet(void* target, const String& val)
+        void doSet(void* target, const String& val) override
         {
-            GLSLProgram* t = static_cast<GLSLProgram*>(target);
+            auto* t = static_cast<GLSLProgram*>(target);
             t->setInputOperationType(parseOperationType(val));
         }
     };
@@ -151,14 +151,14 @@ class ResourceManager;
     class CmdOutputOperationType : public ParamCommand
     {
     public:
-        String doGet(const void* target) const
+        auto doGet(const void* target) const -> String override
         {
-            const GLSLProgram* t = static_cast<const GLSLProgram*>(target);
+            const auto* t = static_cast<const GLSLProgram*>(target);
             return operationTypeToString(t->getOutputOperationType());
         }
-        void doSet(void* target, const String& val)
+        void doSet(void* target, const String& val) override
         {
-            GLSLProgram* t = static_cast<GLSLProgram*>(target);
+            auto* t = static_cast<GLSLProgram*>(target);
             t->setOutputOperationType(parseOperationType(val));
         }
     };
@@ -166,14 +166,14 @@ class ResourceManager;
     class CmdMaxOutputVertices : public ParamCommand
     {
     public:
-        String doGet(const void* target) const
+        auto doGet(const void* target) const -> String override
         {
-            const GLSLProgram* t = static_cast<const GLSLProgram*>(target);
+            const auto* t = static_cast<const GLSLProgram*>(target);
             return StringConverter::toString(t->getMaxOutputVertices());
         }
-        void doSet(void* target, const String& val)
+        void doSet(void* target, const String& val) override
         {
-            GLSLProgram* t = static_cast<GLSLProgram*>(target);
+            auto* t = static_cast<GLSLProgram*>(target);
             t->setMaxOutputVertices(StringConverter::parseInt(val));
         }
     };
@@ -225,7 +225,7 @@ class ResourceManager;
         if (!mSource.empty())
         {
             const char *source = mSource.c_str();
-            glShaderSourceARB((GLhandleARB)mGLShaderHandle, 1, &source, NULL);
+            glShaderSourceARB((GLhandleARB)mGLShaderHandle, 1, &source, nullptr);
         }
 
         glCompileShaderARB((GLhandleARB)mGLShaderHandle);
@@ -243,7 +243,7 @@ class ResourceManager;
             LogManager::getSingleton().stream(LML_WARNING) << getResourceLogName() << " " << compileInfo;
     }
     //-----------------------------------------------------------------------
-    void GLSLProgram::unloadHighLevelImpl(void)
+    void GLSLProgram::unloadHighLevelImpl()
     {
         if (isSupported())
         {
@@ -269,11 +269,8 @@ class ResourceManager;
             mSource, *mConstantDefs, getResourceLogName());
 
         // Also parse any attached sources
-        for (GLSLProgramContainer::const_iterator i = mAttachedGLSLPrograms.begin();
-            i != mAttachedGLSLPrograms.end(); ++i)
+        for (auto childShader : mAttachedGLSLPrograms)
         {
-            GLSLShaderCommon* childShader = *i;
-
             GLSLLinkProgramManager::getSingleton().extractUniformsFromGLSL(
                 childShader->getSource(), *mConstantDefs, childShader->getName());
 
@@ -285,9 +282,7 @@ class ResourceManager;
         const String& name, ResourceHandle handle,
         const String& group, bool isManual, ManualResourceLoader* loader)
         : GLSLShaderCommon(creator, name, handle, group, isManual, loader)
-        , mInputOperationType(RenderOperation::OT_TRIANGLE_LIST)
-        , mOutputOperationType(RenderOperation::OT_TRIANGLE_LIST)
-        , mMaxOutputVertices(3)
+         
     {
         // add parameter command "attach" to the material serializer dictionary
         if (createParamDictionary("GLSLProgram"))
@@ -350,8 +345,8 @@ class ResourceManager;
                 "Error detaching " + mName + " shader object from GLSL Program Object", programObject );
         }
         // attach child objects
-        GLSLProgramContainerIterator childprogramcurrent = mAttachedGLSLPrograms.begin();
-        GLSLProgramContainerIterator childprogramend = mAttachedGLSLPrograms.end();
+        auto childprogramcurrent = mAttachedGLSLPrograms.begin();
+        auto childprogramend = mAttachedGLSLPrograms.end();
 
         while (childprogramcurrent != childprogramend)
         {
@@ -363,23 +358,23 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------
-    const String& GLSLProgram::getLanguage(void) const
+    auto GLSLProgram::getLanguage() const -> const String&
     {
         static const String language = "glsl";
 
         return language;
     }
     //-----------------------------------------------------------------------------
-    void GLSLProgram::bindProgram(void)
+    void GLSLProgram::bindProgram()
     {
         // Tell the Link Program Manager what shader is to become active
         GLSLLinkProgramManager::getSingleton().setActiveShader( mType, this );
     }
     //-----------------------------------------------------------------------------
-    void GLSLProgram::unbindProgram(void)
+    void GLSLProgram::unbindProgram()
     {
         // Tell the Link Program Manager what shader is to become inactive
-        GLSLLinkProgramManager::getSingleton().setActiveShader( mType, NULL );
+        GLSLLinkProgramManager::getSingleton().setActiveShader( mType, nullptr );
     }
 
     //-----------------------------------------------------------------------------
@@ -397,7 +392,7 @@ class ResourceManager;
 
     }
     //-----------------------------------------------------------------------------
-    bool GLSLProgram::isAttributeValid(VertexElementSemantic semantic, uint index)
+    auto GLSLProgram::isAttributeValid(VertexElementSemantic semantic, uint index) -> bool
     {
         // get link program - only call this in the context of bound program
         GLSLLinkProgram* linkProgram = GLSLLinkProgramManager::getSingleton().getActiveLinkProgram();

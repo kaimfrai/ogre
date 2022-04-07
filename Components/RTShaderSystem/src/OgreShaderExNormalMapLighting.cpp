@@ -29,38 +29,35 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderExNormalMapLighting.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreStringConverter.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
-#include "OgreVector.h"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShaderExNormalMapLighting.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrecompiledHeaders.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreShaderScriptTranslator.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTextureUnitState.hpp"
+#include "OgreVector.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class RenderState;
-}  // namespace RTShader
 }  // namespace Ogre
 
 #define SGX_LIB_NORMALMAP                           "SGXLib_NormalMap"
 #define SGX_FUNC_CONSTRUCT_TBNMATRIX                "SGX_ConstructTBNMatrix"
 #define SGX_FUNC_FETCHNORMAL                        "SGX_FetchNormal"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -78,12 +75,12 @@ NormalMapLighting::NormalMapLighting()
 }
 
 //-----------------------------------------------------------------------
-const String& NormalMapLighting::getType() const
+auto NormalMapLighting::getType() const -> const String&
 {
     return Type;
 }
 //-----------------------------------------------------------------------
-bool NormalMapLighting::createCpuSubPrograms(ProgramSet* programSet)
+auto NormalMapLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
@@ -166,7 +163,7 @@ bool NormalMapLighting::createCpuSubPrograms(ProgramSet* programSet)
 //-----------------------------------------------------------------------
 void NormalMapLighting::copyFrom(const SubRenderState& rhs)
 {
-    const NormalMapLighting& rhsLighting = static_cast<const NormalMapLighting&>(rhs);
+    const auto& rhsLighting = static_cast<const NormalMapLighting&>(rhs);
 
     mNormalMapSpace = rhsLighting.mNormalMapSpace;
     mNormalMapTextureName = rhsLighting.mNormalMapTextureName;
@@ -174,7 +171,7 @@ void NormalMapLighting::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool NormalMapLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+auto NormalMapLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
 {
     TextureUnitState* normalMapTexture = dstPass->createTextureUnitState();
 
@@ -185,7 +182,7 @@ bool NormalMapLighting::preAddToRenderState(const RenderState* renderState, Pass
     return true;
 }
 
-bool NormalMapLighting::setParameter(const String& name, const String& value)
+auto NormalMapLighting::setParameter(const String& name, const String& value) -> bool
 {
 	if(name == "normalmap_space")
 	{
@@ -234,27 +231,27 @@ bool NormalMapLighting::setParameter(const String& name, const String& value)
 }
 
 //-----------------------------------------------------------------------
-const String& NormalMapLightingFactory::getType() const
+auto NormalMapLightingFactory::getType() const -> const String&
 {
     return NormalMapLighting::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compiler, 
-                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+auto NormalMapLightingFactory::createInstance(ScriptCompiler* compiler, 
+                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name == "lighting_stage")
     {
         if(prop->values.size() >= 2)
         {
             String strValue;
-            AbstractNodeList::const_iterator it = prop->values.begin();
+            auto it = prop->values.begin();
             
             // Read light model type.
             if(false == SGScriptTranslator::getString(*it, &strValue))
             {
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                return NULL;
+                return nullptr;
             }
 
             // Case light model type is normal map
@@ -264,12 +261,12 @@ SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compile
                 if (false == SGScriptTranslator::getString(*it, &strValue))
                 {
                     compiler->addError(ScriptCompiler::CE_STRINGEXPECTED, prop->file, prop->line);
-                    return NULL;
+                    return nullptr;
                 }
 
                 
                 SubRenderState* subRenderState = createOrRetrieveInstance(translator);
-                NormalMapLighting* normalMapSubRenderState = static_cast<NormalMapLighting*>(subRenderState);
+                auto* normalMapSubRenderState = static_cast<NormalMapLighting*>(subRenderState);
                 
                 normalMapSubRenderState->setParameter("texture", strValue);
 
@@ -281,13 +278,13 @@ SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compile
                     if (false == SGScriptTranslator::getString(*it, &strValue))
                     {
                         compiler->addError(ScriptCompiler::CE_STRINGEXPECTED, prop->file, prop->line);
-                        return NULL;
+                        return nullptr;
                     }
 
                     if(!normalMapSubRenderState->setParameter("normalmap_space", strValue))
                     {
                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                        return NULL;
+                        return nullptr;
                     }
                 }
 
@@ -310,14 +307,14 @@ SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compile
                     if (false == SGScriptTranslator::getString(*it, &strValue))
                     {
                         compiler->addError(ScriptCompiler::CE_STRINGEXPECTED, prop->file, prop->line);
-                        return NULL;
+                        return nullptr;
                     }
 
                     // sampler reference
                     if(!normalMapSubRenderState->setParameter("sampler", strValue))
                     {
                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                        return NULL;
+                        return nullptr;
                     }
                 }
                                 
@@ -326,7 +323,7 @@ SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compile
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------
@@ -334,7 +331,7 @@ void NormalMapLightingFactory::writeInstance(MaterialSerializer* ser,
                                              SubRenderState* subRenderState, 
                                              Pass* srcPass, Pass* dstPass)
 {
-    NormalMapLighting* normalMapSubRenderState = static_cast<NormalMapLighting*>(subRenderState);
+    auto* normalMapSubRenderState = static_cast<NormalMapLighting*>(subRenderState);
 
     ser->writeAttribute(4, "lighting_stage");
     ser->writeValue("normal_map");
@@ -353,10 +350,9 @@ void NormalMapLightingFactory::writeInstance(MaterialSerializer* ser,
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* NormalMapLightingFactory::createInstanceImpl()
+auto NormalMapLightingFactory::createInstanceImpl() -> SubRenderState*
 {
     return new NormalMapLighting;
 }
 
-}
 }

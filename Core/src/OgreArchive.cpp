@@ -26,14 +26,14 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreArchive.h"
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
+#include "OgreArchive.hpp"
+#include "OgreException.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace Ogre {
     //---------------------------------------------------------------------
-    DataStreamPtr Archive::create(const String&)
+    auto Archive::create(const String&) -> DataStreamPtr
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, 
                     "This archive does not support creation of files.", 

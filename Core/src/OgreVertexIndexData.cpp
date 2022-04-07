@@ -35,13 +35,13 @@ THE SOFTWARE.
 #include <set>
 #include <utility>
 
-#include "OgreConfig.h"
-#include "OgreException.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreRoot.h"
-#include "OgreVertexIndexData.h"
+#include "OgreConfig.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreRoot.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 class RenderSystem;
@@ -80,11 +80,11 @@ class RenderSystem;
         }
     }
     //-----------------------------------------------------------------------
-    VertexData* VertexData::clone(bool copyData, HardwareBufferManagerBase* mgr) const
+    auto VertexData::clone(bool copyData, HardwareBufferManagerBase* mgr) const -> VertexData*
     {
         HardwareBufferManagerBase* pManager = mgr ? mgr : mMgr;
 
-        VertexData* dest = new VertexData(mgr);
+        auto* dest = new VertexData(mgr);
 
         // Copy vertex buffers in turn
         const VertexBufferBinding::VertexBufferBindingMap& bindings = 
@@ -144,7 +144,7 @@ class RenderSystem;
         return dest;
     }
     //-----------------------------------------------------------------------
-    void VertexData::prepareForShadowVolume(void)
+    void VertexData::prepareForShadowVolume()
     {
         /* NOTE
         I would dearly, dearly love to just use a 4D position buffer in order to 
@@ -195,16 +195,16 @@ class RenderSystem;
 
             // Iterate over the old buffer, copying the appropriate elements and initialising the rest
             float* pSrc;
-            unsigned char *pBaseSrc = static_cast<unsigned char*>(
+            auto *pBaseSrc = static_cast<unsigned char*>(
                 vbuf->lock(HardwareBuffer::HBL_READ_ONLY));
             // Point first destination pointer at the start of the new position buffer,
             // the other one half way along
-            float *pDest = static_cast<float*>(newPosBuffer->lock(HardwareBuffer::HBL_DISCARD));
+            auto *pDest = static_cast<float*>(newPosBuffer->lock(HardwareBuffer::HBL_DISCARD));
             float* pDest2 = pDest + oldVertexCount * 3; 
 
             // Precalculate any dimensions of vertex areas outside the position
             size_t prePosVertexSize = 0;
-            unsigned char *pBaseDestRem = 0;
+            unsigned char *pBaseDestRem = nullptr;
             if (wasSharedBuffer)
             {
                 size_t postPosVertexSize, postPosVertexOffset;
@@ -291,9 +291,9 @@ class RenderSystem;
 
             // Now, alter the vertex declaration to change the position source
             // and the offsets of elements using the same buffer
-            VertexDeclaration::VertexElementList::const_iterator elemi = 
+            auto elemi = 
                 vertexDeclaration->getElements().begin();
-            VertexDeclaration::VertexElementList::const_iterator elemiend = 
+            auto elemiend = 
                 vertexDeclaration->getElements().end();
             unsigned short idx;
             for(idx = 0; elemi != elemiend; ++elemi, ++idx) 
@@ -395,7 +395,7 @@ class RenderSystem;
         }
 
         // Map from new to old elements
-        typedef std::map<const VertexElement*, const VertexElement*> NewToOldElementMap;
+        using NewToOldElementMap = std::map<const VertexElement *, const VertexElement *>;
         NewToOldElementMap newToOldElementMap;
         const VertexDeclaration::VertexElementList& newElemList = newDeclaration->getElements();
         VertexDeclaration::VertexElementList::const_iterator ei, eiend;
@@ -423,7 +423,7 @@ class RenderSystem;
             for (ei = newElemList.begin(); ei != eiend; ++ei)
             {
                 const VertexElement* newElem = &(*ei);
-                NewToOldElementMap::iterator noi = newToOldElementMap.find(newElem);
+                auto noi = newToOldElementMap.find(newElem);
                 const VertexElement* oldElem = noi->second;
                 unsigned short oldBufferNo = oldElem->getSource();
                 unsigned short newBufferNo = newElem->getSource();
@@ -508,7 +508,7 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    void VertexData::closeGapsInBindings(void)
+    void VertexData::closeGapsInBindings()
     {
         if (!vertexBufferBinding->hasGaps())
             return;
@@ -537,7 +537,7 @@ class RenderSystem;
         for (ai = allelems.begin(); ai != allelems.end(); ++ai, ++elemIndex)
         {
             const VertexElement& elem = *ai;
-            VertexBufferBinding::BindingIndexMap::const_iterator it =
+            auto it =
                 bindingIndexMap.find(elem.getSource());
             assert(it != bindingIndexMap.end());
             ushort targetSource = it->second;
@@ -550,7 +550,7 @@ class RenderSystem;
         }
     }
     //-----------------------------------------------------------------------
-    void VertexData::removeUnusedBuffers(void)
+    void VertexData::removeUnusedBuffers()
     {
         std::set<ushort> usedBuffers;
 
@@ -647,11 +647,11 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    ushort VertexData::allocateHardwareAnimationElements(ushort count, bool animateNormals)
+    auto VertexData::allocateHardwareAnimationElements(ushort count, bool animateNormals) -> ushort
     {
         // Find first free texture coord set
         unsigned short texCoord = vertexDeclaration->getNextFreeTextureCoordinate();
-        unsigned short freeCount = (ushort)(OGRE_MAX_TEXTURE_COORD_SETS - texCoord);
+        auto freeCount = (ushort)(OGRE_MAX_TEXTURE_COORD_SETS - texCoord);
         if (animateNormals)
             // we need 2x the texture coords, round down
             freeCount /= 2;
@@ -685,13 +685,12 @@ class RenderSystem;
     }
     //-----------------------------------------------------------------------
     IndexData::~IndexData()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
-    IndexData* IndexData::clone(bool copyData, HardwareBufferManagerBase* mgr) const
+    auto IndexData::clone(bool copyData, HardwareBufferManagerBase* mgr) const -> IndexData*
     {
         HardwareBufferManagerBase* pManager = mgr ? mgr : HardwareBufferManager::getSingletonPtr();
-        IndexData* dest = new IndexData();
+        auto* dest = new IndexData();
         if (indexBuffer.get())
         {
             if (copyData)
@@ -722,8 +721,7 @@ class RenderSystem;
         uint32 a, b, c;     
 
         inline Triangle()
-        {
-        }
+        = default;
 
         inline Triangle( uint32 ta, uint32 tb, uint32 tc ) 
             : a( ta ), b( tb ), c( tc )
@@ -736,18 +734,13 @@ class RenderSystem;
         }
 
         inline Triangle( const Triangle& t )
-            : a( t.a ), b( t.b ), c( t.c )
-        {
-        }
+             
+        = default;
 
-        inline Triangle& operator=(const Triangle& rhs) {
-            a = rhs.a;
-            b = rhs.b;
-            c = rhs.c;
-            return *this;
-        }
+        inline auto operator=(const Triangle& rhs) -> Triangle& = default;
 
-        inline bool sharesEdge(const Triangle& t) const
+        [[nodiscard]]
+        inline auto sharesEdge(const Triangle& t) const -> bool
         {
             return( (a == t.a && b == t.c) ||
                     (a == t.b && b == t.a) ||
@@ -760,14 +753,16 @@ class RenderSystem;
                     (c == t.c && a == t.b) );
         }
 
-        inline bool sharesEdge(const uint32 ea, const uint32 eb, const Triangle& t) const
+        [[nodiscard]]
+        inline auto sharesEdge(const uint32 ea, const uint32 eb, const Triangle& t) const -> bool
         {
             return( (ea == t.a && eb == t.c) ||
                     (ea == t.b && eb == t.a) ||
                     (ea == t.c && eb == t.b) ); 
         }
 
-        inline bool sharesEdge(const EdgeMatchType edge, const Triangle& t) const
+        [[nodiscard]]
+        inline auto sharesEdge(const EdgeMatchType edge, const Triangle& t) const -> bool
         {
             if (edge == AB)
                 return sharesEdge(a, b, t);
@@ -779,7 +774,8 @@ class RenderSystem;
                 return (edge == ANY) == sharesEdge(t);
         }
 
-        inline EdgeMatchType endoSharedEdge(const Triangle& t) const
+        [[nodiscard]]
+        inline auto endoSharedEdge(const Triangle& t) const -> EdgeMatchType
         {
             if (sharesEdge(a, b, t)) return AB;
             if (sharesEdge(b, c, t)) return BC;
@@ -787,7 +783,8 @@ class RenderSystem;
             return NONE;
         }
 
-        inline EdgeMatchType exoSharedEdge(const Triangle& t) const
+        [[nodiscard]]
+        inline auto exoSharedEdge(const Triangle& t) const -> EdgeMatchType
         {
             return t.endoSharedEdge(*this);
         }
@@ -810,7 +807,7 @@ class RenderSystem;
     };
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    void IndexData::optimiseVertexCacheTriList(void)
+    void IndexData::optimiseVertexCacheTriList()
     {
         if (indexBuffer->isLocked()) return;
 
@@ -821,21 +818,21 @@ class RenderSystem;
         size_t nIndexes = indexCount;
         size_t nTriangles = nIndexes / 3;
         size_t i, j;
-        uint16 *source = 0;
+        uint16 *source = nullptr;
 
         if (indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT)
         {
             triangles = new Triangle[nTriangles];
             source = (uint16 *)buffer;
-            uint32 *dest = (uint32 *)triangles;
+            auto *dest = (uint32 *)triangles;
             for (i = 0; i < nIndexes; ++i) dest[i] = source[i];
         }
         else
             triangles = static_cast<Triangle*>(buffer);
 
         // sort triangles based on shared edges
-        uint32 *destlist = new uint32[nTriangles];
-        unsigned char *visited = new unsigned char[nTriangles];
+        auto *destlist = new uint32[nTriangles];
+        auto *visited = new unsigned char[nTriangles];
 
         for (i = 0; i < nTriangles; ++i) visited[i] = 0;
 
@@ -886,7 +883,7 @@ class RenderSystem;
         }
         else
         {
-            uint32 *reflist = new uint32[nTriangles];
+            auto *reflist = new uint32[nTriangles];
 
             // fill the referencebuffer
             for (i = 0; i < nTriangles; ++i)
@@ -923,14 +920,14 @@ class RenderSystem;
     {
         if (indexBuffer->isLocked()) return;
 
-        uint16 *shortbuffer = (uint16 *)indexBuffer->lock(HardwareBuffer::HBL_READ_ONLY);
+        auto *shortbuffer = (uint16 *)indexBuffer->lock(HardwareBuffer::HBL_READ_ONLY);
 
         if (indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT)
             for (unsigned int i = 0; i < indexBuffer->getNumIndexes(); ++i)
                 inCache(shortbuffer[i]);
         else
         {
-            uint32 *buffer = (uint32 *)shortbuffer;
+            auto *buffer = (uint32 *)shortbuffer;
             for (unsigned int i = 0; i < indexBuffer->getNumIndexes(); ++i)
                 inCache(buffer[i]);
         }
@@ -939,7 +936,7 @@ class RenderSystem;
     }
 
     //-----------------------------------------------------------------------
-    bool VertexCacheProfiler::inCache(unsigned int index)
+    auto VertexCacheProfiler::inCache(unsigned int index) -> bool
     {
         for (unsigned int i = 0; i < buffersize; ++i)
         {

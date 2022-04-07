@@ -27,19 +27,20 @@ THE SOFTWARE.
 */
 
 #include <cstring>
+#include <utility>
 
-#include "OgreCodec.h"
-#include "OgreCommon.h"
-#include "OgreDataStream.h"
-#include "OgreETCCodec.h"
-#include "OgreException.h"
-#include "OgreImage.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgreSharedPtr.h"
-#include "OgreStableHeaders.h"
+#include "OgreCodec.hpp"
+#include "OgreCommon.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreETCCodec.hpp"
+#include "OgreException.hpp"
+#include "OgreImage.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStableHeaders.hpp"
 
 #define KTX_ENDIAN_REF      (0x04030201)
 #define KTX_ENDIAN_REF_REV  (0x01020304)
@@ -63,7 +64,7 @@ namespace Ogre {
     const uint32 PKM_MAGIC = FOURCC('P', 'K', 'M', ' ');
     const uint32 KTX_MAGIC = FOURCC(0xAB, 0x4B, 0x54, 0x58);
 
-    typedef struct {
+    using PKMHeader = struct {
         uint8  name[4];
         uint8  version[2];
         uint8  iTextureTypeMSB;
@@ -76,9 +77,9 @@ namespace Ogre {
         uint8  iWidthLSB;
         uint8  iHeightMSB;
         uint8  iHeightLSB;
-    } PKMHeader;
+    };
 
-    typedef struct {
+    using KTXHeader = struct {
         uint8     identifier[12];
         uint32    endianness;
         uint32    glType;
@@ -93,13 +94,13 @@ namespace Ogre {
         uint32    numberOfFaces;
         uint32    numberOfMipmapLevels;
         uint32    bytesOfKeyValueData;
-    } KTXHeader;
+    };
 
     //---------------------------------------------------------------------
-    ETCCodec* ETCCodec::msPKMInstance = 0;
-    ETCCodec* ETCCodec::msKTXInstance = 0;
+    ETCCodec* ETCCodec::msPKMInstance = nullptr;
+    ETCCodec* ETCCodec::msKTXInstance = nullptr;
     //---------------------------------------------------------------------
-    void ETCCodec::startup(void)
+    void ETCCodec::startup()
     {
         if (!msPKMInstance)
         {
@@ -117,29 +118,29 @@ namespace Ogre {
                                               "ETC codec registering");
     }
     //---------------------------------------------------------------------
-    void ETCCodec::shutdown(void)
+    void ETCCodec::shutdown()
     {
         if(msPKMInstance)
         {
             Codec::unregisterCodec(msPKMInstance);
             delete msPKMInstance;
-            msPKMInstance = 0;
+            msPKMInstance = nullptr;
         }
 
         if(msKTXInstance)
         {
             Codec::unregisterCodec(msKTXInstance);
             delete msKTXInstance;
-            msKTXInstance = 0;
+            msKTXInstance = nullptr;
         }
     }
     //---------------------------------------------------------------------
-    ETCCodec::ETCCodec(const String &type):
-        mType(type)
+    ETCCodec::ETCCodec(String type):
+        mType(std::move(type))
     {
     }
     //---------------------------------------------------------------------
-    ImageCodec::DecodeResult ETCCodec::decode(const DataStreamPtr& stream) const
+    auto ETCCodec::decode(const DataStreamPtr& stream) const -> ImageCodec::DecodeResult
     {
         DecodeResult ret;
         if (decodeKTX(stream, ret))
@@ -153,12 +154,12 @@ namespace Ogre {
                     "This is not a valid ETC file!", "ETCCodec::decode");
     }
     //---------------------------------------------------------------------
-    String ETCCodec::getType() const
+    auto ETCCodec::getType() const -> String
     {
         return mType;
     }
     //---------------------------------------------------------------------
-    String ETCCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const
+    auto ETCCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String
     {
         if (maxbytes >= sizeof(uint32))
         {
@@ -167,16 +168,16 @@ namespace Ogre {
             flipEndian(&fileType, sizeof(uint32));
 
             if (PKM_MAGIC == fileType)
-                return String("pkm");
+                return {"pkm"};
 
             if (KTX_MAGIC == fileType)
-                return String("ktx");
+                return {"ktx"};
         }
 
         return BLANKSTRING;
     }
     //---------------------------------------------------------------------
-    bool ETCCodec::decodePKM(const DataStreamPtr& stream, DecodeResult& result) const
+    auto ETCCodec::decodePKM(const DataStreamPtr& stream, DecodeResult& result) const -> bool
     {
         PKMHeader header;
 
@@ -192,7 +193,7 @@ namespace Ogre {
         uint16 paddedHeight = (header.iPaddedHeightMSB << 8) | header.iPaddedHeightLSB;
         uint16 type = (header.iTextureTypeMSB << 8) | header.iTextureTypeLSB;
 
-        ImageData *imgData = new ImageData();
+        auto *imgData = new ImageData();
         imgData->depth = 1;
         imgData->width = width;
         imgData->height = height;
@@ -254,7 +255,7 @@ namespace Ogre {
         return true;
     }
     //---------------------------------------------------------------------
-    bool ETCCodec::decodeKTX(const DataStreamPtr& stream, DecodeResult& result) const
+    auto ETCCodec::decodeKTX(const DataStreamPtr& stream, DecodeResult& result) const -> bool
     {
         KTXHeader header;
         // Read the KTX header
@@ -267,7 +268,7 @@ namespace Ogre {
         if (header.endianness == KTX_ENDIAN_REF_REV)
             flipEndian(&header.glType, sizeof(uint32));
 
-        ImageData *imgData = new ImageData();
+        auto *imgData = new ImageData();
         imgData->depth = 1;
         imgData->width = header.pixelWidth;
         imgData->height = header.pixelHeight;

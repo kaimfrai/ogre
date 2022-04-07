@@ -30,18 +30,18 @@ THE SOFTWARE.
 #include <memory>
 #include <ostream>
 #include <string>
+#include <utility>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreGpuProgramParams.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreString.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreString.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 //-----------------------------------------------------------------------------
 Operand::Operand(ParameterPtr parameter, OpSemantic opSemantic, OpMask opMask, ushort indirectionLevel) : mParameter(parameter), mSemantic(opSemantic), mMask(opMask), mIndirectionLevel(indirectionLevel)
 {
@@ -55,7 +55,7 @@ Operand::Operand(const Operand& other)
     *this = other;
 }
 //-----------------------------------------------------------------------------
-Operand& Operand::operator= (const Operand & other)
+auto Operand::operator= (const Operand & other) -> Operand&
 {
     if (this != &other) 
     {
@@ -67,10 +67,7 @@ Operand& Operand::operator= (const Operand & other)
     return *this;
 }
 //-----------------------------------------------------------------------------
-Operand::~Operand()
-{
-    // nothing to do
-}
+Operand::~Operand() = default;
 
 void Operand::setMaskToParamType()
 {
@@ -120,7 +117,7 @@ static void writeMask(std::ostream& os, int mask)
 }
 
 //-----------------------------------------------------------------------------
-int Operand::getFloatCount(int mask)
+auto Operand::getFloatCount(int mask) -> int
 {
     int floatCount = 0;
 
@@ -151,15 +148,15 @@ FunctionAtom::FunctionAtom()
 }
 
 //-----------------------------------------------------------------------------
-int FunctionAtom::getGroupExecutionOrder() const
+auto FunctionAtom::getGroupExecutionOrder() const -> int
 {
     return mGroupExecutionOrder;
 }
 
 //-----------------------------------------------------------------------
 FunctionInvocation::FunctionInvocation(const String& functionName, int groupOrder,
-                                       const String& returnType)
-    : mReturnType(returnType)
+                                       String  returnType)
+    : mReturnType(std::move(returnType))
 {
     mFunctionName = functionName;
     mGroupExecutionOrder = groupOrder;
@@ -172,8 +169,8 @@ FunctionInvocation::FunctionInvocation(const FunctionInvocation& other) :
     mFunctionName = other.mFunctionName;
     mGroupExecutionOrder = other.mGroupExecutionOrder;
     
-    for ( OperandVector::const_iterator it = other.mOperands.begin(); it != other.mOperands.end(); ++it)
-        mOperands.push_back(Operand(*it));
+    for (const auto & mOperand : other.mOperands)
+        mOperands.push_back(Operand(mOperand));
 }
 
 //-----------------------------------------------------------------------
@@ -187,7 +184,7 @@ void FunctionInvocation::writeSourceCode(std::ostream& os, const String& targetL
 }
 
 //-----------------------------------------------------------------------
-static String parameterNullMsg(const String& name, size_t pos)
+static auto parameterNullMsg(const String& name, size_t pos) -> String
 {
     return StringUtil::format("%s: parameter #%zu is NULL", name.c_str(), pos);
 }
@@ -213,7 +210,7 @@ void FunctionAtom::writeOperands(std::ostream& os, OperandVector::const_iterator
 {
     // Write parameters.
     ushort curIndLevel = 0;
-    for (OperandVector::const_iterator it = begin; it != end; )
+    for (auto it = begin; it != end; )
     {
         it->write(os);
         ++it;
@@ -260,24 +257,24 @@ void FunctionAtom::writeOperands(std::ostream& os, OperandVector::const_iterator
 }
 
 //-----------------------------------------------------------------------
-bool FunctionInvocation::operator == ( const FunctionInvocation& rhs ) const
+auto FunctionInvocation::operator == ( const FunctionInvocation& rhs ) const -> bool
 {
     return FunctionInvocationCompare()(*this, rhs);
 }
 
 //-----------------------------------------------------------------------
-bool FunctionInvocation::operator != ( const FunctionInvocation& rhs ) const
+auto FunctionInvocation::operator != ( const FunctionInvocation& rhs ) const -> bool
 {
     return !(*this == rhs);
 }
 
 //-----------------------------------------------------------------------
-bool FunctionInvocation::operator < ( const FunctionInvocation& rhs ) const
+auto FunctionInvocation::operator < ( const FunctionInvocation& rhs ) const -> bool
 {
     return FunctionInvocationLessThan()(*this, rhs);
 }
 
-static uchar getSwizzledSize(const Operand& op)
+static auto getSwizzledSize(const Operand& op) -> uchar
 {
     auto gct = op.getParameter()->getType();
     if (op.getMask() == Operand::OPM_ALL)
@@ -286,7 +283,7 @@ static uchar getSwizzledSize(const Operand& op)
     return Operand::getFloatCount(op.getMask());
 }
 
-bool FunctionInvocation::FunctionInvocationLessThan::operator ()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const
+auto FunctionInvocation::FunctionInvocationLessThan::operator ()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const -> bool
 {
     // Check the function names first
     // Adding an exception to std::string sorting.  I feel that functions beginning with an underscore should be placed before
@@ -321,8 +318,8 @@ bool FunctionInvocation::FunctionInvocationLessThan::operator ()(FunctionInvocat
 
     // Now that we've gotten past the two quick tests, iterate over operands
     // Check the semantic and type.  The operands must be in the same order as well.
-    OperandVector::const_iterator itLHSOps = lhs.mOperands.begin();
-    OperandVector::const_iterator itRHSOps = rhs.mOperands.begin();
+    auto itLHSOps = lhs.mOperands.begin();
+    auto itRHSOps = rhs.mOperands.begin();
 
     for ( ; ((itLHSOps != lhs.mOperands.end()) && (itRHSOps != rhs.mOperands.end())); ++itLHSOps, ++itRHSOps)
     {
@@ -343,7 +340,7 @@ bool FunctionInvocation::FunctionInvocationLessThan::operator ()(FunctionInvocat
     return false;
 }
 
-bool FunctionInvocation::FunctionInvocationCompare::operator ()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const
+auto FunctionInvocation::FunctionInvocationCompare::operator ()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const -> bool
 {
     // Check the function names first
     if (lhs.getFunctionName() != rhs.getFunctionName())
@@ -391,7 +388,7 @@ AssignmentAtom::AssignmentAtom(const Out& lhs, const In& rhs, int groupOrder) {
 
 void AssignmentAtom::writeSourceCode(std::ostream& os, const String& targetLanguage) const
 {
-    OperandVector::const_iterator outOp = mOperands.begin();
+    auto outOp = mOperands.begin();
     // find the output operand
     while(outOp->getSemantic() != Operand::OPS_OUT)
         outOp++;
@@ -410,7 +407,7 @@ SampleTextureAtom::SampleTextureAtom(const In& sampler, const In& texcoord, cons
 
 void SampleTextureAtom::writeSourceCode(std::ostream& os, const String& targetLanguage) const
 {
-    OperandVector::const_iterator outOp = mOperands.begin();
+    auto outOp = mOperands.begin();
     // find the output operand
     while(outOp->getSemantic() != Operand::OPS_OUT)
         outOp++;
@@ -455,12 +452,12 @@ BinaryOpAtom::BinaryOpAtom(char op, const In& a, const In& b, const Out& dst, in
 void BinaryOpAtom::writeSourceCode(std::ostream& os, const String& targetLanguage) const
 {
     // find the output operand
-    OperandVector::const_iterator outOp = mOperands.begin();
+    auto outOp = mOperands.begin();
     while(outOp->getSemantic() != Operand::OPS_OUT)
         outOp++;
 
     // find the second operand
-    OperandVector::const_iterator secondOp = ++(mOperands.begin());
+    auto secondOp = ++(mOperands.begin());
     while(outOp->getIndirectionLevel() != 0)
         secondOp++;
 
@@ -472,5 +469,4 @@ void BinaryOpAtom::writeSourceCode(std::ostream& os, const String& targetLanguag
     os << ";";
 }
 
-}
 }

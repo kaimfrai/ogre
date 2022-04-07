@@ -33,12 +33,14 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreLog.h"
-#include "OgrePrerequisites.h"
-#include "OgreStringConverter.h"
+#include "OgreLog.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreStringConverter.hpp"
 
 // LogMessageLevel + LoggingLevel > OGRE_LOG_THRESHOLD = message logged
-#define OGRE_LOG_THRESHOLD 4
+enum {
+OGRE_LOG_THRESHOLD = 4
+};
 
 namespace {
     const char* RED = "\x1b[31;1m";
@@ -50,8 +52,8 @@ namespace Ogre
 {
     //-----------------------------------------------------------------------
     Log::Log( const String& name, bool debuggerOutput, bool suppressFile ) : 
-        mLogLevel(LML_NORMAL), mDebugOut(debuggerOutput),
-        mSuppressFile(suppressFile), mTimeStamp(true), mLogName(name), mTermHasColours(false)
+         mDebugOut(debuggerOutput),
+        mSuppressFile(suppressFile),  mLogName(name) 
     {
         if (!mSuppressFile)
         {
@@ -84,8 +86,8 @@ namespace Ogre
         if (lml >= mLogLevel)
         {
             bool skipThisMessage = false;
-            for( mtLogListener::iterator i = mListeners.begin(); i != mListeners.end(); ++i )
-                (*i)->messageLogged( message, lml, maskDebug, mLogName, skipThisMessage);
+            for(auto & mListener : mListeners)
+                mListener->messageLogged( message, lml, maskDebug, mLogName, skipThisMessage);
             
             if (!skipThisMessage)
             {
@@ -158,14 +160,14 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Log::removeListener(LogListener* listener)
     {
-        mtLogListener::iterator i = std::find(mListeners.begin(), mListeners.end(), listener);
+        auto i = std::find(mListeners.begin(), mListeners.end(), listener);
         if (i != mListeners.end())
             mListeners.erase(i);
     }
     //---------------------------------------------------------------------
-    Log::Stream Log::stream(LogMessageLevel lml, bool maskDebug) 
+    auto Log::stream(LogMessageLevel lml, bool maskDebug) -> Log::Stream 
     {
-        return Stream(this, lml, maskDebug);
+        return {this, lml, maskDebug};
 
     }
 }

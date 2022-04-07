@@ -29,11 +29,11 @@ THE SOFTWARE.
 #include <ostream>
 #include <string>
 
-#include "OgreLog.h"
-#include "OgrePlatformInformation.h"
-#include "OgrePrerequisites.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
+#include "OgreLog.hpp"
+#include "OgrePlatformInformation.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
 
 
 // Yes, I know, this file looks very ugly, but there aren't other ways to do it better.
@@ -58,14 +58,14 @@ namespace Ogre {
 
     //---------------------------------------------------------------------
     // Detect whether CPU supports CPUID instruction, returns non-zero if supported.
-    static int _isSupportCpuid(void)
+    static auto _isSupportCpuid() -> int
     {
         return true;
     }
 
     //---------------------------------------------------------------------
     // Performs CPUID instruction with 'query', fill the results, and return value of eax.
-    static uint _performCpuid(int query, CpuidResult& result)
+    static auto _performCpuid(int query, CpuidResult& result) -> uint
     {
         __asm__
         (
@@ -77,7 +77,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     // Detect whether or not os support Streaming SIMD Extension.
 
-    static bool _checkOperatingSystemSupportSSE(void)
+    static auto _checkOperatingSystemSupportSSE() -> bool
     {
         return true;
     }
@@ -86,14 +86,16 @@ namespace Ogre {
     // Compiler-independent routines
     //---------------------------------------------------------------------
 
-    static uint queryCpuFeatures(void)
+    static auto queryCpuFeatures() -> uint
     {
 
-#define CPUID_FUNC_VENDOR_ID                 0x0
-#define CPUID_FUNC_STANDARD_FEATURES         0x1
-#define CPUID_FUNC_EXTENSION_QUERY           0x80000000
-#define CPUID_FUNC_EXTENDED_FEATURES         0x80000001
-#define CPUID_FUNC_ADVANCED_POWER_MANAGEMENT 0x80000007
+enum {
+CPUID_FUNC_VENDOR_ID =                 0x0,
+CPUID_FUNC_STANDARD_FEATURES =         0x1,
+CPUID_FUNC_EXTENSION_QUERY =           0x80000000,
+CPUID_FUNC_EXTENDED_FEATURES =         0x80000001,
+CPUID_FUNC_ADVANCED_POWER_MANAGEMENT = 0x80000007
+};
 
 #define CPUID_STD_FPU               (1<<0)
 #define CPUID_STD_TSC               (1<<4)
@@ -107,9 +109,11 @@ namespace Ogre {
 #define CPUID_STD_SSE41             (1<<19)     // ECX[19] - Bit 0 of standard function 1 indicate SSE41 supported
 #define CPUID_STD_SSE42             (1<<20)     // ECX[20] - Bit 0 of standard function 1 indicate SSE42 supported
 
-#define CPUID_FAMILY_ID_MASK        0x0F00      // EAX[11:8] - Bit 11 thru 8 contains family  processor id
-#define CPUID_EXT_FAMILY_ID_MASK    0x0F00000   // EAX[23:20] - Bit 23 thru 20 contains extended family processor id
-#define CPUID_PENTIUM4_ID           0x0F00      // Pentium 4 family processor id
+enum {
+CPUID_FAMILY_ID_MASK =        0x0F00,      // EAX[11:8] - Bit 11 thru 8 contains family  processor id
+CPUID_EXT_FAMILY_ID_MASK =    0x0F00000,   // EAX[23:20] - Bit 23 thru 20 contains extended family processor id
+CPUID_PENTIUM4_ID =           0x0F00      // Pentium 4 family processor id
+};
 
 #define CPUID_EXT_3DNOW             (1<<31)
 #define CPUID_EXT_AMD_3DNOWEXT      (1<<30)
@@ -228,7 +232,7 @@ namespace Ogre {
         return features;
     }
     //---------------------------------------------------------------------
-    static uint _detectCpuFeatures(void)
+    static auto _detectCpuFeatures() -> uint
     {
         uint features = queryCpuFeatures();
 
@@ -247,7 +251,7 @@ namespace Ogre {
         return features;
     }
     //---------------------------------------------------------------------
-    static String _detectCpuIdentifier(void)
+    static auto _detectCpuIdentifier() -> String
     {
         // Supports CPUID instruction ?
         if (_isSupportCpuid())
@@ -323,19 +327,19 @@ namespace Ogre {
     // Platform-independent routines, but the returns value are platform-dependent
     //---------------------------------------------------------------------
 
-    const String& PlatformInformation::getCpuIdentifier(void)
+    auto PlatformInformation::getCpuIdentifier() -> const String&
     {
         static const String sIdentifier = _detectCpuIdentifier();
         return sIdentifier;
     }
     //---------------------------------------------------------------------
-    uint PlatformInformation::getCpuFeatures(void)
+    auto PlatformInformation::getCpuFeatures() -> uint
     {
         static const uint sFeatures = _detectCpuFeatures();
         return sFeatures;
     }
     //---------------------------------------------------------------------
-    bool PlatformInformation::hasCpuFeature(CpuFeatures feature)
+    auto PlatformInformation::hasCpuFeature(CpuFeatures feature) -> bool
     {
         return (getCpuFeatures() & feature) != 0;
     }

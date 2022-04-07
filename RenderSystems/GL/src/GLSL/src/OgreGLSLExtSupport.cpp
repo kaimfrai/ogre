@@ -28,15 +28,13 @@ THE SOFTWARE.
 
 #include <string>
 
-#include "OgreException.h"
-#include "OgreGLPrerequisites.h"
-#include "OgreGLSLExtSupport.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
+#include "OgreException.hpp"
+#include "OgreGLPrerequisites.hpp"
+#include "OgreGLSLExtSupport.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
 
-namespace Ogre
-{
-    namespace GLSL
+namespace Ogre::GLSL
     {
 
     //-----------------------------------------------------------------------------
@@ -67,7 +65,7 @@ namespace Ogre
         }
     }
 
-    String logObjectInfo(const String& msg, GLuint obj)
+    auto logObjectInfo(const String& msg, GLuint obj) -> String
     {
         String logMessage = getObjectInfo(obj);
 
@@ -82,7 +80,7 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------------
-    String getObjectInfo(GLuint obj)
+    auto getObjectInfo(GLuint obj) -> String
     {
         String logMessage;
 
@@ -99,7 +97,7 @@ namespace Ogre
             {
                 GLint charsWritten  = 0;
 
-                GLcharARB * infoLog = new GLcharARB[infologLength];
+                auto * infoLog = new GLcharARB[infologLength];
 
                 glGetInfoLogARB((GLhandleARB)obj, infologLength, &charsWritten, infoLog);
                 logMessage = String(infoLog);
@@ -112,5 +110,4 @@ namespace Ogre
 
     }
 
-    } // namespace GLSL
-} // namespace Ogre
+    } // namespace Ogre

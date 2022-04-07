@@ -30,34 +30,35 @@ THE SOFTWARE.
 #include <cstring>
 #include <iterator>
 #include <map>
+#include <memory>
 #include <string>
 #include <utility>
 
-#include "OgreBillboard.h"
-#include "OgreBillboardSet.h"
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLogManager.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgreNode.h"
-#include "OgreRadixSort.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreSphere.h"
-#include "OgreStringConverter.h"
-#include "OgreVertexIndexData.h"
+#include "OgreBillboard.hpp"
+#include "OgreBillboardSet.hpp"
+#include "OgreCamera.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreNode.hpp"
+#include "OgreRadixSort.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreSphere.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
     //-----------------------------------------------------------------------
@@ -133,9 +134,9 @@ namespace Ogre {
         _destroyBuffers();
     }
     //-----------------------------------------------------------------------
-    Billboard* BillboardSet::createBillboard(
+    auto BillboardSet::createBillboard(
         const Vector3& position,
-        const ColourValue& colour )
+        const ColourValue& colour ) -> Billboard*
     {
         if( mActiveBillboards == mBillboardPool.size() )
         {
@@ -145,7 +146,7 @@ namespace Ogre {
             }
             else
             {
-                return 0;
+                return nullptr;
             }
         }
 
@@ -179,7 +180,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    Billboard* BillboardSet::getBillboard( unsigned int index ) const
+    auto BillboardSet::getBillboard( unsigned int index ) const -> Billboard*
     {
         assert(index < mActiveBillboards && "Billboard index out of bounds.");
         return mBillboardPool[index];
@@ -234,7 +235,7 @@ namespace Ogre {
         : sortDir(dir)
     {
     }
-    float BillboardSet::SortByDirectionFunctor::operator()(Billboard* bill) const
+    auto BillboardSet::SortByDirectionFunctor::operator()(Billboard* bill) const -> float
     {
         return sortDir.dotProduct(bill->getPosition());
     }
@@ -242,13 +243,13 @@ namespace Ogre {
         : sortPos(pos)
     {
     }
-    float BillboardSet::SortByDistanceFunctor::operator()(Billboard* bill) const
+    auto BillboardSet::SortByDistanceFunctor::operator()(Billboard* bill) const -> float
     {
         // Sort descending by squared distance
         return - (sortPos - bill->getPosition()).squaredLength();
     }
     //-----------------------------------------------------------------------
-    SortMode BillboardSet::_getSortMode(void) const
+    auto BillboardSet::_getSortMode() const -> SortMode
     {
         // Need to sort by distance if we're using accurate facing, or perpendicular billboard type.
         if (mAccurateFacing ||
@@ -411,7 +412,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void BillboardSet::endBillboards(void)
+    void BillboardSet::endBillboards()
     {
         mMainBuf->unlock();
     }
@@ -422,7 +423,7 @@ namespace Ogre {
         mBoundingRadius = radius;
     }
     //-----------------------------------------------------------------------
-    void BillboardSet::_updateBounds(void)
+    void BillboardSet::_updateBounds()
     {
         if (mActiveBillboards == 0)
         {
@@ -517,7 +518,7 @@ namespace Ogre {
             op.operationType = RenderOperation::OT_POINT_LIST;
             op.useIndexes = false;
             op.useGlobalInstancingVertexBufferIsAvailable = false;
-            op.indexData = 0;
+            op.indexData = nullptr;
             op.vertexData->vertexCount = mNumVisibleBillboards;
         }
         else
@@ -566,7 +567,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void BillboardSet::_createBuffers(void)
+    void BillboardSet::_createBuffers()
     {
         /* Allocate / reallocate vertex data
            Note that we allocate enough space for ALL the billboards in the pool, but only issue
@@ -590,7 +591,7 @@ namespace Ogre {
                 "expect.");
         }
 
-        mVertexData.reset(new VertexData());
+        mVertexData = std::make_unique<VertexData>();
         if (mPointRendering)
             mVertexData->vertexCount = mPoolSize;
         else
@@ -623,7 +624,7 @@ namespace Ogre {
 
         if (!mPointRendering)
         {
-            mIndexData.reset(new IndexData());
+            mIndexData = std::make_unique<IndexData>();
             mIndexData->indexStart = 0;
             mIndexData->indexCount = mPoolSize * 6;
 
@@ -645,7 +646,7 @@ namespace Ogre {
             */
 
             HardwareBufferLockGuard indexLock(mIndexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
-            ushort* pIdx = static_cast<ushort*>(indexLock.pData);
+            auto* pIdx = static_cast<ushort*>(indexLock.pData);
 
             for(
                 size_t idx, idxOff, bboard = 0;
@@ -668,7 +669,7 @@ namespace Ogre {
         mBuffersCreated = true;
     }
     //-----------------------------------------------------------------------
-    void BillboardSet::_destroyBuffers(void)
+    void BillboardSet::_destroyBuffers()
     {
         mVertexData.reset();
         mIndexData.reset();
@@ -748,7 +749,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool BillboardSet::billboardVisible(Camera* cam, const Billboard& bill)
+    auto BillboardSet::billboardVisible(Camera* cam, const Billboard& bill) -> bool
     {
         // Return always visible if not culling individually
         if (!mCullIndividual) return true;
@@ -856,7 +857,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    uint32 BillboardSet::getTypeFlags(void) const
+    auto BillboardSet::getTypeFlags() const -> uint32
     {
         return SceneManager::FX_TYPE_MASK;
     }
@@ -1069,18 +1070,18 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    const String& BillboardSet::getMovableType(void) const
+    auto BillboardSet::getMovableType() const -> const String&
     {
         return BillboardSetFactory::FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    Real BillboardSet::getSquaredViewDepth(const Camera* const cam) const
+    auto BillboardSet::getSquaredViewDepth(const Camera* const cam) const -> Real
     {
         assert(mParentNode);
         return mParentNode->getSquaredViewDepth(cam);
     }
     //-----------------------------------------------------------------------
-    const LightList& BillboardSet::getLights(void) const
+    auto BillboardSet::getLights() const -> const LightList&
     {
         // It's actually quite unlikely that this will be called,
         // because most billboards are unlit, but here we go anyway
@@ -1165,21 +1166,21 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String BillboardSetFactory::FACTORY_TYPE_NAME = "BillboardSet";
     //-----------------------------------------------------------------------
-    const String& BillboardSetFactory::getType(void) const
+    auto BillboardSetFactory::getType() const -> const String&
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    MovableObject* BillboardSetFactory::createInstanceImpl( const String& name,
-        const NameValuePairList* params)
+    auto BillboardSetFactory::createInstanceImpl( const String& name,
+        const NameValuePairList* params) -> MovableObject*
     {
         // may have parameters
         bool externalData = false;
         unsigned int poolSize = 0;
 
-        if (params != 0)
+        if (params != nullptr)
         {
-            NameValuePairList::const_iterator ni = params->find("poolSize");
+            auto ni = params->find("poolSize");
             if (ni != params->end())
             {
                 poolSize = StringConverter::parseUnsignedInt(ni->second);

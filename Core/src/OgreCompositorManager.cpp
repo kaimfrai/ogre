@@ -28,38 +28,38 @@ THE SOFTWARE.
 #include <cassert>
 #include <memory>
 
-#include "OgreCompositionPass.h"
-#include "OgreCompositionTargetPass.h"
-#include "OgreCompositionTechnique.h"
-#include "OgreCompositor.h"
-#include "OgreCompositorChain.h"
-#include "OgreCompositorInstance.h"
-#include "OgreCompositorManager.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreRectangle2D.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderTarget.h"
-#include "OgreRoot.h"
-#include "OgreTextureManager.h"
-#include "OgreViewport.h"
+#include "OgreCompositionPass.hpp"
+#include "OgreCompositionTargetPass.hpp"
+#include "OgreCompositionTechnique.hpp"
+#include "OgreCompositor.hpp"
+#include "OgreCompositorChain.hpp"
+#include "OgreCompositorInstance.hpp"
+#include "OgreCompositorManager.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreRectangle2D.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreRoot.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 class CompositorLogic;
 class CustomCompositionPass;
 class Renderable;
 
-template<> CompositorManager* Singleton<CompositorManager>::msSingleton = 0;
-CompositorManager* CompositorManager::getSingletonPtr(void)
+template<> CompositorManager* Singleton<CompositorManager>::msSingleton = nullptr;
+auto CompositorManager::getSingletonPtr() -> CompositorManager*
 {
     return msSingleton;
 }
-CompositorManager& CompositorManager::getSingleton(void)
+auto CompositorManager::getSingleton() -> CompositorManager&
 {  
     assert( msSingleton );  return ( *msSingleton );  
 }//-----------------------------------------------------------------------
-CompositorManager::CompositorManager():
-    mRectangle(0)
+CompositorManager::CompositorManager()
+    
 {
     initialise();
 
@@ -86,52 +86,52 @@ CompositorManager::~CompositorManager()
     ResourceGroupManager::getSingleton()._unregisterScriptLoader(this);
 }
 //-----------------------------------------------------------------------
-Resource* CompositorManager::createImpl(const String& name, ResourceHandle handle,
+auto CompositorManager::createImpl(const String& name, ResourceHandle handle,
     const String& group, bool isManual, ManualResourceLoader* loader,
-    const NameValuePairList* params)
+    const NameValuePairList* params) -> Resource*
 {
     return new Compositor(this, name, handle, group, isManual, loader);
 }
 //-----------------------------------------------------------------------
-CompositorPtr CompositorManager::create (const String& name, const String& group,
+auto CompositorManager::create (const String& name, const String& group,
                                 bool isManual, ManualResourceLoader* loader,
-                                const NameValuePairList* createParams)
+                                const NameValuePairList* createParams) -> CompositorPtr
 {
     return static_pointer_cast<Compositor>(createResource(name,group,isManual,loader,createParams));
 }
 //-----------------------------------------------------------------------
-CompositorPtr CompositorManager::getByName(const String& name, const String& groupName) const
+auto CompositorManager::getByName(const String& name, const String& groupName) const -> CompositorPtr
 {
     return static_pointer_cast<Compositor>(getResourceByName(name, groupName));
 }
 //-----------------------------------------------------------------------
-void CompositorManager::initialise(void)
+void CompositorManager::initialise()
 {
 }
 //-----------------------------------------------------------------------
-CompositorChain *CompositorManager::getCompositorChain(Viewport *vp)
+auto CompositorManager::getCompositorChain(Viewport *vp) -> CompositorChain *
 {
-    Chains::iterator i=mChains.find(vp);
+    auto i=mChains.find(vp);
     if(i != mChains.end())
     {
         return i->second;
     }
     else
     {
-        CompositorChain *chain = new CompositorChain(vp);
+        auto *chain = new CompositorChain(vp);
         mChains[vp] = chain;
         return chain;
     }
 }
 //-----------------------------------------------------------------------
-bool CompositorManager::hasCompositorChain(const Viewport *vp) const
+auto CompositorManager::hasCompositorChain(const Viewport *vp) const -> bool
 {
     return mChains.find(vp) != mChains.end();
 }
 //-----------------------------------------------------------------------
 void CompositorManager::removeCompositorChain(const Viewport *vp)
 {
-    Chains::iterator i = mChains.find(vp);
+    auto i = mChains.find(vp);
     if (i != mChains.end())
     {
         delete  i->second;
@@ -139,7 +139,7 @@ void CompositorManager::removeCompositorChain(const Viewport *vp)
     }
 }
 //-----------------------------------------------------------------------
-void CompositorManager::removeAll(void)
+void CompositorManager::removeAll()
 {
     freeChains();
     ResourceManager::removeAll();
@@ -155,7 +155,7 @@ void CompositorManager::freeChains()
     mChains.clear();
 }
 //-----------------------------------------------------------------------
-Renderable *CompositorManager::_getTexturedRectangle2D()
+auto CompositorManager::_getTexturedRectangle2D() -> Renderable *
 {
     if(!mRectangle)
     {
@@ -170,7 +170,7 @@ Renderable *CompositorManager::_getTexturedRectangle2D()
     return mRectangle;
 }
 //-----------------------------------------------------------------------
-CompositorInstance *CompositorManager::addCompositor(Viewport *vp, const String &compositor, int addPosition)
+auto CompositorManager::addCompositor(Viewport *vp, const String &compositor, int addPosition) -> CompositorInstance *
 {
     CompositorPtr comp = getByName(compositor);
     if(!comp)
@@ -205,11 +205,11 @@ void CompositorManager::_reconstructAllCompositorResources()
 {
     // In order to deal with shared resources, we have to disable *all* compositors
     // first, that way shared resources will get freed
-    typedef std::vector<CompositorInstance*> InstVec;
+    using InstVec = std::vector<CompositorInstance *>;
     InstVec instancesToReenable;
-    for (Chains::iterator i = mChains.begin(); i != mChains.end(); ++i)
+    for (auto & mChain : mChains)
     {
-        CompositorChain* chain = i->second;
+        CompositorChain* chain = mChain.second;
         for (CompositorInstance* inst : chain->getCompositorInstances())
         {
             if (inst->getEnabled())
@@ -224,18 +224,17 @@ void CompositorManager::_reconstructAllCompositorResources()
     if( mRectangle )
         mRectangle->setDefaultUVs();
 
-    for (InstVec::iterator i = instancesToReenable.begin(); i != instancesToReenable.end(); ++i)
+    for (auto inst : instancesToReenable)
     {
-        CompositorInstance* inst = *i;
         inst->setEnabled(true);
     }
 }
 //---------------------------------------------------------------------
-TexturePtr CompositorManager::getPooledTexture(const String& name, 
+auto CompositorManager::getPooledTexture(const String& name, 
     const String& localName,
     uint32 w, uint32 h, PixelFormat f, uint aa, const String& aaHint, bool srgb,
     CompositorManager::UniqueTextureSet& texturesAssigned, 
-    CompositorInstance* inst, CompositionTechnique::TextureScope scope, TextureType type)
+    CompositorInstance* inst, CompositionTechnique::TextureScope scope, TextureType type) -> TexturePtr
 {
     OgreAssert(scope != CompositionTechnique::TS_GLOBAL, "Global scope texture can not be pooled");
 
@@ -245,7 +244,7 @@ TexturePtr CompositorManager::getPooledTexture(const String& name,
     {
         StringPair pair = std::make_pair(inst->getCompositor()->getName(), localName);
         TextureDefMap& defMap = mChainTexturesByDef[pair];
-        TextureDefMap::iterator it = defMap.find(def);
+        auto it = defMap.find(def);
         if (it != defMap.end())
         {
             return it->second;
@@ -254,13 +253,13 @@ TexturePtr CompositorManager::getPooledTexture(const String& name,
         TexturePtr newTex = TextureManager::getSingleton().createManual(
             name, 
             ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-            (uint)w, (uint)h, 0, f, TU_RENDERTARGET, 0,
+            (uint)w, (uint)h, 0, f, TU_RENDERTARGET, nullptr,
             srgb, aa, aaHint);
         defMap.emplace(def, newTex);
         return newTex;
     }
 
-    TexturesByDef::iterator i = mTexturesByDef.emplace(def, TextureList()).first;
+    auto i = mTexturesByDef.emplace(def, TextureList()).first;
 
     CompositorInstance* previous = inst->getChain()->getPreviousInstance(inst);
     CompositorInstance* next = inst->getChain()->getNextInstance(inst);
@@ -268,9 +267,8 @@ TexturePtr CompositorManager::getPooledTexture(const String& name,
     TexturePtr ret;
     TextureList& texList = i->second;
     // iterate over the existing textures and check if we can re-use
-    for (TextureList::iterator t = texList.begin(); t != texList.end(); ++t)
+    for (auto & tex : texList)
     {
-        TexturePtr& tex = *t;
         // check not already used
         if (texturesAssigned.find(tex.get()) == texturesAssigned.end())
         {
@@ -312,7 +310,7 @@ TexturePtr CompositorManager::getPooledTexture(const String& name,
         ret = TextureManager::getSingleton().createManual(
             name, 
             ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-            w, h, 0, f, TU_RENDERTARGET, 0,
+            w, h, 0, f, TU_RENDERTARGET, nullptr,
             srgb, aa, aaHint); 
 
         texList.push_back(ret);
@@ -326,7 +324,7 @@ TexturePtr CompositorManager::getPooledTexture(const String& name,
     return ret;
 }
 //---------------------------------------------------------------------
-bool CompositorManager::isInputPreviousTarget(CompositorInstance* inst, const Ogre::String& localName)
+auto CompositorManager::isInputPreviousTarget(CompositorInstance* inst, const Ogre::String& localName) -> bool
 {
     const CompositionTechnique::TargetPasses& passes = inst->getTechnique()->getTargetPasses();
     CompositionTechnique::TargetPasses::const_iterator it;
@@ -345,7 +343,7 @@ bool CompositorManager::isInputPreviousTarget(CompositorInstance* inst, const Og
 
 }
 //---------------------------------------------------------------------
-bool CompositorManager::isInputPreviousTarget(CompositorInstance* inst, TexturePtr tex)
+auto CompositorManager::isInputPreviousTarget(CompositorInstance* inst, TexturePtr tex) -> bool
 {
     const CompositionTechnique::TargetPasses& passes = inst->getTechnique()->getTargetPasses();
     CompositionTechnique::TargetPasses::const_iterator it;
@@ -366,10 +364,10 @@ bool CompositorManager::isInputPreviousTarget(CompositorInstance* inst, TextureP
 
 }
 //---------------------------------------------------------------------
-bool CompositorManager::isInputToOutputTarget(CompositorInstance* inst, const Ogre::String& localName)
+auto CompositorManager::isInputToOutputTarget(CompositorInstance* inst, const Ogre::String& localName) -> bool
 {
     CompositionTargetPass* tp = inst->getTechnique()->getOutputTargetPass();
-    CompositionTargetPass::Passes::const_iterator pit = tp->getPasses().begin();
+    auto pit = tp->getPasses().begin();
 
     for (;pit != tp->getPasses().end(); ++pit)
     {
@@ -385,10 +383,10 @@ bool CompositorManager::isInputToOutputTarget(CompositorInstance* inst, const Og
 
 }
 //---------------------------------------------------------------------()
-bool CompositorManager::isInputToOutputTarget(CompositorInstance* inst, TexturePtr tex)
+auto CompositorManager::isInputToOutputTarget(CompositorInstance* inst, TexturePtr tex) -> bool
 {
     CompositionTargetPass* tp = inst->getTechnique()->getOutputTargetPass();
-    CompositionTargetPass::Passes::const_iterator pit = tp->getPasses().begin();
+    auto pit = tp->getPasses().begin();
 
     for (;pit != tp->getPasses().end(); ++pit)
     {
@@ -409,10 +407,10 @@ void CompositorManager::freePooledTextures(bool onlyIfUnreferenced)
 {
     if (onlyIfUnreferenced)
     {
-        for (TexturesByDef::iterator i = mTexturesByDef.begin(); i != mTexturesByDef.end(); ++i)
+        for (auto & i : mTexturesByDef)
         {
-            TextureList& texList = i->second;
-            for (TextureList::iterator j = texList.begin(); j != texList.end();)
+            TextureList& texList = i.second;
+            for (auto j = texList.begin(); j != texList.end();)
             {
                 // if the resource system, plus this class, are the only ones to have a reference..
                 // NOTE: any material references will stop this texture getting freed (e.g. compositor demo)
@@ -426,10 +424,10 @@ void CompositorManager::freePooledTextures(bool onlyIfUnreferenced)
                     ++j;
             }
         }
-        for (ChainTexturesByDef::iterator i = mChainTexturesByDef.begin(); i != mChainTexturesByDef.end(); ++i)
+        for (auto & i : mChainTexturesByDef)
         {
-            TextureDefMap& texMap = i->second;
-            for (TextureDefMap::iterator j = texMap.begin(); j != texMap.end();) 
+            TextureDefMap& texMap = i.second;
+            for (auto j = texMap.begin(); j != texMap.end();) 
             {
                 const TexturePtr& tex = j->second;
                 if (tex.use_count() == ResourceGroupManager::RESOURCE_SYSTEM_NUM_REFERENCE_COUNTS + 1)
@@ -465,7 +463,7 @@ void CompositorManager::registerCompositorLogic(const String& name, CompositorLo
 //---------------------------------------------------------------------
 void CompositorManager::unregisterCompositorLogic(const String& name)
 {
-    CompositorLogicMap::iterator itor = mCompositorLogics.find(name);
+    auto itor = mCompositorLogics.find(name);
     if( itor == mCompositorLogics.end() )
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
@@ -476,9 +474,9 @@ void CompositorManager::unregisterCompositorLogic(const String& name)
     mCompositorLogics.erase( itor );
 }
 //---------------------------------------------------------------------
-CompositorLogic* CompositorManager::getCompositorLogic(const String& name)
+auto CompositorManager::getCompositorLogic(const String& name) -> CompositorLogic*
 {
-    CompositorLogicMap::iterator it = mCompositorLogics.find(name);
+    auto it = mCompositorLogics.find(name);
     if (it == mCompositorLogics.end())
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
@@ -488,7 +486,7 @@ CompositorLogic* CompositorManager::getCompositorLogic(const String& name)
     return it->second;
 }
 //---------------------------------------------------------------------
-bool CompositorManager::hasCompositorLogic(const String& name)
+auto CompositorManager::hasCompositorLogic(const String& name) -> bool
 {
 	return mCompositorLogics.find(name) != mCompositorLogics.end();
 }
@@ -507,7 +505,7 @@ void CompositorManager::registerCustomCompositionPass(const String& name, Custom
 //---------------------------------------------------------------------
 void CompositorManager::unregisterCustomCompositionPass(const String& name)
 {	
-	CustomCompositionPassMap::iterator itor = mCustomCompositionPasses.find(name);
+	auto itor = mCustomCompositionPasses.find(name);
 	if( itor == mCustomCompositionPasses.end() )
 	{
 		OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
@@ -517,14 +515,14 @@ void CompositorManager::unregisterCustomCompositionPass(const String& name)
 	mCustomCompositionPasses.erase( itor );
 }
 //---------------------------------------------------------------------
-bool CompositorManager::hasCustomCompositionPass(const String& name)
+auto CompositorManager::hasCustomCompositionPass(const String& name) -> bool
 {
 	return mCustomCompositionPasses.find(name) != mCustomCompositionPasses.end();
 }
 //---------------------------------------------------------------------
-CustomCompositionPass* CompositorManager::getCustomCompositionPass(const String& name)
+auto CompositorManager::getCustomCompositionPass(const String& name) -> CustomCompositionPass*
 {
-    CustomCompositionPassMap::iterator it = mCustomCompositionPasses.find(name);
+    auto it = mCustomCompositionPasses.find(name);
     if (it == mCustomCompositionPasses.end())
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,

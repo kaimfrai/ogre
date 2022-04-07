@@ -25,35 +25,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <OgreRectangle2D.h>
+#include <OgreRectangle2D.hpp>
 #include <algorithm>
 #include <map>
 #include <utility>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreBuiltinMovableFactories.h"
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMatrix4.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreSharedPtr.h"
-#include "OgreSimpleRenderable.h"
-#include "OgreStringConverter.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
+#include "OgreAxisAlignedBox.hpp"
+#include "OgreBuiltinMovableFactories.hpp"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSimpleRenderable.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreVector.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 class MovableObject;
 
-#define POSITION_BINDING 0
-#define NORMAL_BINDING 1
-#define TEXCOORD_BINDING 2
+enum {
+POSITION_BINDING = 0,
+NORMAL_BINDING = 1,
+TEXCOORD_BINDING = 2
+};
 
     Rectangle2D::Rectangle2D(bool includeTextureCoords, Ogre::HardwareBuffer::Usage vBufUsage)
     : SimpleRenderable()
@@ -77,7 +79,7 @@ class MovableObject;
 
         mRenderOp.vertexData = new VertexData();
 
-        mRenderOp.indexData = 0;
+        mRenderOp.indexData = nullptr;
         mRenderOp.vertexData->vertexCount = 4; 
         mRenderOp.vertexData->vertexStart = 0; 
         mRenderOp.operationType = RenderOperation::OT_TRIANGLE_STRIP; 
@@ -136,7 +138,7 @@ class MovableObject;
         HardwareVertexBufferSharedPtr vbuf = 
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(POSITION_BINDING);
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-        float* pFloat = static_cast<float*>(vbufLock.pData);
+        auto* pFloat = static_cast<float*>(vbufLock.pData);
 
         *pFloat++ = left;
         *pFloat++ = top;
@@ -168,7 +170,7 @@ class MovableObject;
         HardwareVertexBufferSharedPtr vbuf = 
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(NORMAL_BINDING);
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-        float* pFloat = static_cast<float*>(vbufLock.pData);
+        auto* pFloat = static_cast<float*>(vbufLock.pData);
 
         *pFloat++ = topLeft.x;
         *pFloat++ = topLeft.y;
@@ -196,7 +198,7 @@ class MovableObject;
         HardwareVertexBufferSharedPtr vbuf = 
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(TEXCOORD_BINDING);
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-        float* pFloat = static_cast<float*>(vbufLock.pData);
+        auto* pFloat = static_cast<float*>(vbufLock.pData);
 
         *pFloat++ = topLeft.x;
         *pFloat++ = topLeft.y;
@@ -223,14 +225,14 @@ class MovableObject;
         *xform = Matrix4::IDENTITY;
     }
 
-    const String& Rectangle2D::getMovableType() const
+    auto Rectangle2D::getMovableType() const -> const String&
     {
         return Rectangle2DFactory::FACTORY_TYPE_NAME;
     }
 
     const String Rectangle2DFactory::FACTORY_TYPE_NAME = "Rectangle2D";
 
-    MovableObject* Rectangle2DFactory::createInstanceImpl(const String& name, const NameValuePairList* params)
+    auto Rectangle2DFactory::createInstanceImpl(const String& name, const NameValuePairList* params) -> MovableObject*
     {
         bool includeTextureCoords = false;
         if (params)

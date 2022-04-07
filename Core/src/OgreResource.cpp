@@ -30,30 +30,30 @@ THE SOFTWARE.
 #include <cstddef>
 #include <set>
 #include <string>
+#include <utility>
 
-#include "OgreException.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreResourceManager.h"
+#include "OgreException.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreResource.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreResourceManager.hpp"
 
 namespace Ogre 
 {
     //-----------------------------------------------------------------------
-    Resource::Resource(ResourceManager* creator, const String& name, ResourceHandle handle,
-        const String& group, bool isManual, ManualResourceLoader* loader)
-        : mCreator(creator), mName(name), mGroup(group), mHandle(handle), 
+    Resource::Resource(ResourceManager* creator, String  name, ResourceHandle handle,
+        String  group, bool isManual, ManualResourceLoader* loader)
+        : mCreator(creator), mName(std::move(name)), mGroup(std::move(group)), mHandle(handle), 
         mLoadingState(LOADSTATE_UNLOADED), mIsBackgroundLoaded(false),
         mIsManual(isManual), mSize(0),  mLoader(loader), mStateCount(0)
     {
     }
     //-----------------------------------------------------------------------
     Resource::~Resource() 
-    { 
-    }
-    Resource& Resource::operator=(const Resource& rhs)
+    = default;
+    auto Resource::operator=(const Resource& rhs) -> Resource&
     {
         mName = rhs.mName;
         mGroup = rhs.mGroup;
@@ -284,7 +284,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    size_t Resource::calculateSize(void) const
+    auto Resource::calculateSize() const -> size_t
     {
         size_t memSize = 0; // sizeof(*this) should be called by deriving classes
         memSize += mName.size() * sizeof(char);
@@ -313,7 +313,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    void Resource::unload(void) 
+    void Resource::unload() 
     { 
         // Early-out without lock (mitigate perf cost of ensuring unloaded)
         LoadingState old = mLoadingState.load();
@@ -355,7 +355,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    void Resource::touch(void) 
+    void Resource::touch() 
     {
         // make sure loaded
         load();
@@ -377,28 +377,25 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Resource::_fireLoadingComplete(bool wasBackgroundLoaded)
     {
-        for (ListenerList::iterator i = mListenerList.begin();
-            i != mListenerList.end(); ++i)
+        for (auto i : mListenerList)
         {
-            (*i)->loadingComplete(this);
+            i->loadingComplete(this);
         }
     }
     //-----------------------------------------------------------------------
     void Resource::_firePreparingComplete(bool wasBackgroundLoaded)
     {
-        for (ListenerList::iterator i = mListenerList.begin();
-            i != mListenerList.end(); ++i)
+        for (auto i : mListenerList)
         {
-            (*i)->preparingComplete(this);
+            i->preparingComplete(this);
         }
     }
     //-----------------------------------------------------------------------
-    void Resource::_fireUnloadingComplete(void)
+    void Resource::_fireUnloadingComplete()
     {
-        for (ListenerList::iterator i = mListenerList.begin();
-            i != mListenerList.end(); ++i)
+        for (auto i : mListenerList)
         {
-            (*i)->unloadingComplete(this);
+            i->unloadingComplete(this);
         }
     }
 }

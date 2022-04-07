@@ -27,31 +27,28 @@ THE SOFTWARE.
 #include <cstddef>
 #include <string>
 
-#include "OgreCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderFFPColour.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreVector.h"
+#include "OgreCommon.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShaderFFPColour.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreShaderScriptTranslator.hpp"
+#include "OgreVector.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
         class RenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
+    }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -65,20 +62,20 @@ FFPColour::FFPColour()
 }
 
 //-----------------------------------------------------------------------
-const String& FFPColour::getType() const
+auto FFPColour::getType() const -> const String&
 {
     return Type;
 }
 
 
 //-----------------------------------------------------------------------
-int FFPColour::getExecutionOrder() const
+auto FFPColour::getExecutionOrder() const -> int
 {
     return FFP_COLOUR;
 }
 
 //-----------------------------------------------------------------------
-bool FFPColour::resolveParameters(ProgramSet* programSet)
+auto FFPColour::resolveParameters(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -89,17 +86,17 @@ bool FFPColour::resolveParameters(ProgramSet* programSet)
         mVSInputDiffuse  = vsMain->resolveInputParameter(Parameter::SPC_COLOR_DIFFUSE);
 
     // Resolve VS color outputs if have inputs from vertex stream.
-    if (mVSInputDiffuse.get() != NULL || mResolveStageFlags & SF_VS_OUTPUT_DIFFUSE)
+    if (mVSInputDiffuse.get() != nullptr || mResolveStageFlags & SF_VS_OUTPUT_DIFFUSE)
         mVSOutputDiffuse = vsMain->resolveOutputParameter(Parameter::SPC_COLOR_DIFFUSE);
 
     if (mResolveStageFlags & SF_VS_OUTPUT_SPECULAR)
         mVSOutputSpecular = vsMain->resolveOutputParameter(Parameter::SPC_COLOR_SPECULAR);
 
     // Resolve PS color inputs if have inputs from vertex shader.
-    if (mVSOutputDiffuse.get() != NULL || mResolveStageFlags & SF_PS_INPUT_DIFFUSE)
+    if (mVSOutputDiffuse.get() != nullptr || mResolveStageFlags & SF_PS_INPUT_DIFFUSE)
         mPSInputDiffuse = psMain->resolveInputParameter(Parameter::SPC_COLOR_DIFFUSE);
 
-    if (mVSOutputSpecular.get() != NULL || mResolveStageFlags & SF_PS_INPUT_SPECULAR)
+    if (mVSOutputSpecular.get() != nullptr || mResolveStageFlags & SF_PS_INPUT_SPECULAR)
         mPSInputSpecular = psMain->resolveInputParameter(Parameter::SPC_COLOR_SPECULAR);
 
 
@@ -111,13 +108,13 @@ bool FFPColour::resolveParameters(ProgramSet* programSet)
 
 
 //-----------------------------------------------------------------------
-bool FFPColour::resolveDependencies(ProgramSet* programSet)
+auto FFPColour::resolveDependencies(ProgramSet* programSet) -> bool
 {
     return true;
 }
 
 //-----------------------------------------------------------------------
-bool FFPColour::addFunctionInvocations(ProgramSet* programSet)
+auto FFPColour::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -160,7 +157,7 @@ bool FFPColour::addFunctionInvocations(ProgramSet* programSet)
     auto psStage = psMain->getStage(FFP_PS_COLOUR_BEGIN);
 
     // Handle diffuse colour.
-    if (mPSInputDiffuse.get() != NULL)
+    if (mPSInputDiffuse.get() != nullptr)
     {
         psDiffuse = mPSInputDiffuse;                
     }
@@ -195,13 +192,13 @@ bool FFPColour::addFunctionInvocations(ProgramSet* programSet)
 //-----------------------------------------------------------------------
 void FFPColour::copyFrom(const SubRenderState& rhs)
 {
-    const FFPColour& rhsColour = static_cast<const FFPColour&>(rhs);
+    const auto& rhsColour = static_cast<const FFPColour&>(rhs);
 
     setResolveStageFlags(rhsColour.mResolveStageFlags);
 }
 
 //-----------------------------------------------------------------------
-bool FFPColour::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+auto FFPColour::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
 {
     TrackVertexColourType trackColour = srcPass->getVertexColourTracking();
 
@@ -212,14 +209,14 @@ bool FFPColour::preAddToRenderState(const RenderState* renderState, Pass* srcPas
 }
 
 //-----------------------------------------------------------------------
-const String& FFPColourFactory::getType() const
+auto FFPColourFactory::getType() const -> const String&
 {
     return FFPColour::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* FFPColourFactory::createInstance(ScriptCompiler* compiler, 
-                                                    PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+auto FFPColourFactory::createInstance(ScriptCompiler* compiler, 
+                                                    PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name == "colour_stage")
     {
@@ -230,7 +227,7 @@ SubRenderState* FFPColourFactory::createInstance(ScriptCompiler* compiler,
             if(false == SGScriptTranslator::getString(prop->values.front(), &modelType))
             {
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                return NULL;
+                return nullptr;
             }
 
             if (modelType == "ffp")
@@ -240,7 +237,7 @@ SubRenderState* FFPColourFactory::createInstance(ScriptCompiler* compiler,
         }       
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------
@@ -252,11 +249,10 @@ void FFPColourFactory::writeInstance(MaterialSerializer* ser, SubRenderState* su
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* FFPColourFactory::createInstanceImpl()
+auto FFPColourFactory::createInstanceImpl() -> SubRenderState*
 {
     return new FFPColour;
 }
 
 
-}
 }

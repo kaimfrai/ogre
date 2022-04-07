@@ -27,20 +27,20 @@ THE SOFTWARE.
 
 #include <string>
 
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderExDualQuaternionSkinning.h"
-#include "OgreShaderExHardwareSkinningTechnique.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderExDualQuaternionSkinning.hpp"
+#include "OgreShaderExHardwareSkinningTechnique.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrecompiledHeaders.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 
@@ -51,9 +51,7 @@ THE SOFTWARE.
 #define SGX_FUNC_NORMALIZE_DUAL_QUATERNION      "SGX_NormalizeDualQuaternion"
 #define SGX_FUNC_ADJOINT_TRANSPOSE_MATRIX       "SGX_AdjointTransposeMatrix"
 
-namespace Ogre {
-
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -63,7 +61,7 @@ DualQuaternionSkinning::DualQuaternionSkinning() : HardwareSkinningTechnique()
 }
 
 //-----------------------------------------------------------------------
-bool DualQuaternionSkinning::resolveParameters(ProgramSet* programSet)
+auto DualQuaternionSkinning::resolveParameters(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
@@ -139,7 +137,7 @@ bool DualQuaternionSkinning::resolveParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool DualQuaternionSkinning::resolveDependencies(ProgramSet* programSet)
+auto DualQuaternionSkinning::resolveDependencies(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     vsProgram->addDependency(FFP_LIB_COMMON);
@@ -151,7 +149,7 @@ bool DualQuaternionSkinning::resolveDependencies(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool DualQuaternionSkinning::addFunctionInvocations(ProgramSet* programSet)
+auto DualQuaternionSkinning::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
@@ -306,5 +304,4 @@ void DualQuaternionSkinning::addIndexedPositionWeight(Function* vsMain, int inde
     }
 }
 
-}
 }

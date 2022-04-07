@@ -28,10 +28,11 @@
 #include <cstdio>
 #include <cstdlib>
 #include <fstream> // IWYU pragma: keep
+#include <utility>
 
-#include "OgreDeflate.h"
-#include "OgreException.h"
-#include "OgreFileSystem.h"
+#include "OgreDeflate.hpp"
+#include "OgreException.hpp"
+#include "OgreFileSystem.hpp"
 
 #define MINIZ_HEADER_FILE_ONLY
 #include <miniz.h>
@@ -39,7 +40,7 @@
 namespace Ogre
 {
     // memory implementations
-    static void* OgreZalloc(void* opaque, size_t items, size_t size)
+    static auto OgreZalloc(void* opaque, size_t items, size_t size) -> void*
     {
         return (void*)new char[items * size];
     }
@@ -47,48 +48,50 @@ namespace Ogre
     {
         delete[] (char*)address;
     }
-    #define OGRE_DEFLATE_TMP_SIZE 16384
+enum {
+OGRE_DEFLATE_TMP_SIZE = 16384
+};
     //---------------------------------------------------------------------
-    DeflateStream::DeflateStream(const DataStreamPtr& compressedStream, const String& tmpFileName, size_t avail_in)
+    DeflateStream::DeflateStream(const DataStreamPtr& compressedStream, String  tmpFileName, size_t avail_in)
     : DataStream(compressedStream->getAccessMode())
     , mCompressedStream(compressedStream)
-    , mTempFileName(tmpFileName)
-    , mZStream(0)
+    , mTempFileName(std::move(tmpFileName))
+    , mZStream(nullptr)
     , mCurrentPos(0)
     , mAvailIn(avail_in)
-    , mTmp(0)
+    , mTmp(nullptr)
     , mStreamType(ZLib)
     {
         init();
     }
     //---------------------------------------------------------------------
-    DeflateStream::DeflateStream(const String& name, const DataStreamPtr& compressedStream, const String& tmpFileName, size_t avail_in)
+    DeflateStream::DeflateStream(const String& name, const DataStreamPtr& compressedStream, String  tmpFileName, size_t avail_in)
     : DataStream(name, compressedStream->getAccessMode())
     , mCompressedStream(compressedStream)
-    , mTempFileName(tmpFileName)
-    , mZStream(0)
+    , mTempFileName(std::move(tmpFileName))
+    , mZStream(nullptr)
     , mCurrentPos(0)
     , mAvailIn(avail_in)
-    , mTmp(0)
+    , mTmp(nullptr)
     , mStreamType(ZLib)
     {
         init();
     }
     //---------------------------------------------------------------------
-    DeflateStream::DeflateStream(const String& name, const DataStreamPtr& compressedStream, StreamType streamType, const String& tmpFileName, size_t avail_in)
+    DeflateStream::DeflateStream(const String& name, const DataStreamPtr& compressedStream, StreamType streamType, String  tmpFileName, size_t avail_in)
     : DataStream(name, compressedStream->getAccessMode())
     , mCompressedStream(compressedStream)
-    , mTempFileName(tmpFileName)
-    , mZStream(0)
+    , mTempFileName(std::move(tmpFileName))
+    , mZStream(nullptr)
     , mCurrentPos(0)
     , mAvailIn(avail_in)
-    , mTmp(0)
+    , mTmp(nullptr)
     , mStreamType(streamType)
     {
         init();
     }
     //---------------------------------------------------------------------
-    size_t DeflateStream::getAvailInForSinglePass()
+    auto DeflateStream::getAvailInForSinglePass() -> size_t
     {
         size_t ret = OGRE_DEFLATE_TMP_SIZE;
 
@@ -173,9 +176,9 @@ namespace Ogre
             inflateEnd(mZStream);
 
         delete[] mZStream;
-        mZStream = 0;
+        mZStream = nullptr;
         delete[] mTmp;
-        mTmp = 0;
+        mTmp = nullptr;
     }
     //---------------------------------------------------------------------
     DeflateStream::~DeflateStream()
@@ -183,7 +186,7 @@ namespace Ogre
         close();
     }
     //---------------------------------------------------------------------
-    size_t DeflateStream::read(void* buf, size_t count)
+    auto DeflateStream::read(void* buf, size_t count) -> size_t
     {
         if (mStreamType == Invalid)
         {
@@ -253,7 +256,7 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    size_t DeflateStream::write(const void* buf, size_t count)
+    auto DeflateStream::write(const void* buf, size_t count) -> size_t
     {
         if ((getAccessMode() & WRITE) == 0)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -394,7 +397,7 @@ namespace Ogre
         }       
     }
     //---------------------------------------------------------------------
-    size_t DeflateStream::tell(void) const
+    auto DeflateStream::tell() const -> size_t
     {
         if (mStreamType == Invalid)
         {
@@ -411,7 +414,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    bool DeflateStream::eof(void) const
+    auto DeflateStream::eof() const -> bool
     {
         if (getAccessMode() & WRITE)
             return mTmpWriteStream->eof();
@@ -424,7 +427,7 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    void DeflateStream::close(void)
+    void DeflateStream::close()
     {
         if (getAccessMode() & WRITE)
             compressFinal();

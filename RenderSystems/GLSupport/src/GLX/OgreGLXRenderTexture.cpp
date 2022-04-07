@@ -32,30 +32,32 @@ THE SOFTWARE.
 #include <climits>
 #include <string>
 
-#include "OgreException.h"
-#include "OgreGLXContext.h"
-#include "OgreGLXGLSupport.h"
-#include "OgreGLXRenderTexture.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreStringConverter.h"
+#include "OgreException.hpp"
+#include "OgreGLXContext.hpp"
+#include "OgreGLXGLSupport.hpp"
+#include "OgreGLXRenderTexture.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre {
 class GLContext;
 }  // namespace Ogre
 
-#define GLX_RGBA_FLOAT_ATI_BIT 0x00000100
-#define GLX_RGBA_FLOAT_BIT     0x00000004
+enum {
+GLX_RGBA_FLOAT_ATI_BIT = 0x00000100,
+GLX_RGBA_FLOAT_BIT =     0x00000004
+};
 
 namespace Ogre
 {
     //-------------------------------------------------------------------------------------------------//
     GLXPBuffer::GLXPBuffer(GLXGLSupport* glsupport, PixelComponentType format, size_t width, size_t height):
-        GLPBuffer(format, width, height), mContext(0), mGLSupport(glsupport)
+        GLPBuffer(format, width, height),  mGLSupport(glsupport)
     {
         Display *glDisplay = mGLSupport->getGLDisplay();
         ::GLXDrawable glxDrawable = 0;
-        ::GLXFBConfig fbConfig = 0;
+        ::GLXFBConfig fbConfig = nullptr;
         
         int bits = 0;
         
@@ -168,7 +170,7 @@ namespace Ogre
     }
     
     //-------------------------------------------------------------------------------------------------//
-    GLContext *GLXPBuffer::getContext() const
+    auto GLXPBuffer::getContext() const -> GLContext *
     {
         return mContext;
     }

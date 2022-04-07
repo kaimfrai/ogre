@@ -26,14 +26,14 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "CubeMappingTest.h"
+#include "CubeMappingTest.hpp"
 
 #include <map>
 
-#include "OgreCommon.h"
-#include "OgreEntity.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
+#include "OgreCommon.hpp"
+#include "OgreEntity.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
 
 CubeMappingTest::CubeMappingTest()
 {

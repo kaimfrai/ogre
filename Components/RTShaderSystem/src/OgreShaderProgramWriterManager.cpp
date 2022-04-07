@@ -31,28 +31,28 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgrePrerequisites.h"
-#include "OgreShaderGLSLESProgramWriter.h"
-#include "OgreShaderGLSLProgramWriter.h"
-#include "OgreShaderHLSLProgramWriter.h"
-#include "OgreShaderProgramWriter.h"
-#include "OgreShaderProgramWriterManager.h"
-#include "OgreSingleton.h"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderGLSLESProgramWriter.hpp"
+#include "OgreShaderGLSLProgramWriter.hpp"
+#include "OgreShaderHLSLProgramWriter.hpp"
+#include "OgreShaderProgramWriter.hpp"
+#include "OgreShaderProgramWriterManager.hpp"
+#include "OgreSingleton.hpp"
 
 namespace Ogre {
 
 //-----------------------------------------------------------------------
 template<> 
-RTShader::ProgramWriterManager* Singleton<RTShader::ProgramWriterManager>::msSingleton = 0;
+RTShader::ProgramWriterManager* Singleton<RTShader::ProgramWriterManager>::msSingleton = nullptr;
 
 namespace RTShader {
 //-----------------------------------------------------------------------
-ProgramWriterManager* ProgramWriterManager::getSingletonPtr(void)
+auto ProgramWriterManager::getSingletonPtr() -> ProgramWriterManager*
 {
     return msSingleton;
 }
 //-----------------------------------------------------------------------
-ProgramWriterManager& ProgramWriterManager::getSingleton(void)
+auto ProgramWriterManager::getSingleton() -> ProgramWriterManager&
 {  
     assert( msSingleton );  
     return ( *msSingleton );  
@@ -81,7 +81,7 @@ void ProgramWriterManager::addProgramWriter(const String& lang, ProgramWriter* w
     mProgramWriters[lang] = writer;
 }
 //-----------------------------------------------------------------------
-bool ProgramWriterManager::isLanguageSupported(const String& lang)
+auto ProgramWriterManager::isLanguageSupported(const String& lang) -> bool
 {
     return mProgramWriters.find(lang) != mProgramWriters.end();
 }

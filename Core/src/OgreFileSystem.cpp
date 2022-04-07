@@ -32,15 +32,15 @@ THE SOFTWARE.
 #include <fstream> // IWYU pragma: keep
 #include <string>
 
-#include "OgreArchive.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreFileSystem.h"
-#include "OgrePrerequisites.h"
-#include "OgreSearchOps.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
+#include "OgreArchive.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreFileSystem.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSearchOps.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre {
 
@@ -68,44 +68,52 @@ namespace {
 
     public:
         FileSystemArchive(const String& name, const String& archType, bool readOnly );
-        ~FileSystemArchive();
+        ~FileSystemArchive() override;
 
         /// @copydoc Archive::isCaseSensitive
-        bool isCaseSensitive(void) const;
+        [[nodiscard]]
+        auto isCaseSensitive() const -> bool override;
 
         /// @copydoc Archive::load
-        void load();
+        void load() override;
         /// @copydoc Archive::unload
-        void unload();
+        void unload() override;
 
         /// @copydoc Archive::open
-        DataStreamPtr open(const String& filename, bool readOnly = true) const;
+        [[nodiscard]]
+        auto open(const String& filename, bool readOnly = true) const -> DataStreamPtr override;
 
         /// @copydoc Archive::create
-        DataStreamPtr create(const String& filename);
+        auto create(const String& filename) -> DataStreamPtr override;
 
         /// @copydoc Archive::remove
-        void remove(const String& filename);
+        void remove(const String& filename) override;
 
         /// @copydoc Archive::list
-        StringVectorPtr list(bool recursive = true, bool dirs = false) const;
+        [[nodiscard]]
+        auto list(bool recursive = true, bool dirs = false) const -> StringVectorPtr override;
 
         /// @copydoc Archive::listFileInfo
-        FileInfoListPtr listFileInfo(bool recursive = true, bool dirs = false) const;
+        [[nodiscard]]
+        auto listFileInfo(bool recursive = true, bool dirs = false) const -> FileInfoListPtr override;
 
         /// @copydoc Archive::find
-        StringVectorPtr find(const String& pattern, bool recursive = true,
-            bool dirs = false) const;
+        [[nodiscard]]
+        auto find(const String& pattern, bool recursive = true,
+            bool dirs = false) const -> StringVectorPtr override;
 
         /// @copydoc Archive::findFileInfo
-        FileInfoListPtr findFileInfo(const String& pattern, bool recursive = true,
-            bool dirs = false) const;
+        [[nodiscard]]
+        auto findFileInfo(const String& pattern, bool recursive = true,
+            bool dirs = false) const -> FileInfoListPtr override;
 
         /// @copydoc Archive::exists
-        bool exists(const String& filename) const;
+        [[nodiscard]]
+        auto exists(const String& filename) const -> bool override;
 
         /// @copydoc Archive::getModifiedTime
-        time_t getModifiedTime(const String& filename) const;
+        [[nodiscard]]
+        auto getModifiedTime(const String& filename) const -> time_t override;
     };
 
     bool gIgnoreHidden = true;
@@ -121,22 +129,22 @@ namespace {
         mReadOnly = readOnly;
     }
     //-----------------------------------------------------------------------
-    bool FileSystemArchive::isCaseSensitive(void) const
+    auto FileSystemArchive::isCaseSensitive() const -> bool
     {
         return true;
     }
     //-----------------------------------------------------------------------
-    static bool is_reserved_dir (const char *fn)
+    static auto is_reserved_dir (const char *fn) -> bool
     {
         return (fn [0] == '.' && (fn [1] == 0 || (fn [1] == '.' && fn [2] == 0)));
     }
     //-----------------------------------------------------------------------
-    static bool is_absolute_path(const char* path)
+    static auto is_absolute_path(const char* path) -> bool
     {
         return path[0] == '/' || path[0] == '\\';
     }
     //-----------------------------------------------------------------------
-    static String concatenate_path(const String& base, const String& name)
+    static auto concatenate_path(const String& base, const String& name) -> String
     {
         if (base.empty() || is_absolute_path(name.c_str()))
             return name;
@@ -256,7 +264,7 @@ namespace {
         // nothing to see here, move along
     }
     //-----------------------------------------------------------------------
-    DataStreamPtr FileSystemArchive::open(const String& filename, bool readOnly) const
+    auto FileSystemArchive::open(const String& filename, bool readOnly) const -> DataStreamPtr
     {
         if (!readOnly && isReadOnly())
         {
@@ -271,7 +279,7 @@ namespace {
 
         return _openFileStream(concatenate_path(mName, filename), mode, filename);
     }
-    DataStreamPtr _openFileStream(const String& full_path, std::ios::openmode mode, const String& name)
+    auto _openFileStream(const String& full_path, std::ios::openmode mode, const String& name) -> DataStreamPtr
     {
         // Use filesystem to determine size 
         // (quicker than streaming to the end and back)
@@ -281,9 +289,9 @@ namespace {
 
         size_t st_size = ret == 0 ? tagStat.st_size : 0;
 
-        std::istream* baseStream = 0;
-        std::ifstream* roStream = 0;
-        std::fstream* rwStream = 0;
+        std::istream* baseStream = nullptr;
+        std::ifstream* roStream = nullptr;
+        std::fstream* rwStream = nullptr;
 
         if (mode & std::ios::out)
         {
@@ -312,7 +320,7 @@ namespace {
         }
 
         /// Construct return stream, tell it to delete on destroy
-        FileStreamDataStream* stream = 0;
+        FileStreamDataStream* stream = nullptr;
         const String& streamname = name.empty() ? full_path : name;
         if (rwStream)
         {
@@ -328,7 +336,7 @@ namespace {
         return DataStreamPtr(stream);
     }
     //---------------------------------------------------------------------
-    DataStreamPtr FileSystemArchive::create(const String& filename)
+    auto FileSystemArchive::create(const String& filename) -> DataStreamPtr
     {
         if (isReadOnly())
         {
@@ -340,7 +348,7 @@ namespace {
         // Always open in binary mode
         // Also, always include reading
         std::ios::openmode mode = std::ios::out | std::ios::binary;
-        std::fstream* rwStream = new std::fstream();
+        auto* rwStream = new std::fstream();
 
         rwStream->open(full_path.c_str(), mode);
 
@@ -352,7 +360,7 @@ namespace {
         }
 
         /// Construct return stream, tell it to delete on destroy
-        FileStreamDataStream* stream = new FileStreamDataStream(filename,
+        auto* stream = new FileStreamDataStream(filename,
                 rwStream, 0, true);
 
         return DataStreamPtr(stream);
@@ -369,47 +377,47 @@ namespace {
         ::remove(full_path.c_str());
     }
     //-----------------------------------------------------------------------
-    StringVectorPtr FileSystemArchive::list(bool recursive, bool dirs) const
+    auto FileSystemArchive::list(bool recursive, bool dirs) const -> StringVectorPtr
     {
         // directory change requires locking due to saved returns
         StringVectorPtr ret(new StringVector());
 
-        findFiles("*", recursive, dirs, ret.get(), 0);
+        findFiles("*", recursive, dirs, ret.get(), nullptr);
 
         return ret;
     }
     //-----------------------------------------------------------------------
-    FileInfoListPtr FileSystemArchive::listFileInfo(bool recursive, bool dirs) const
+    auto FileSystemArchive::listFileInfo(bool recursive, bool dirs) const -> FileInfoListPtr
     {
         FileInfoListPtr ret(new FileInfoList());
 
-        findFiles("*", recursive, dirs, 0, ret.get());
+        findFiles("*", recursive, dirs, nullptr, ret.get());
 
         return ret;
     }
     //-----------------------------------------------------------------------
-    StringVectorPtr FileSystemArchive::find(const String& pattern,
-                                            bool recursive, bool dirs) const
+    auto FileSystemArchive::find(const String& pattern,
+                                            bool recursive, bool dirs) const -> StringVectorPtr
     {
         StringVectorPtr ret(new StringVector());
 
-        findFiles(pattern, recursive, dirs, ret.get(), 0);
+        findFiles(pattern, recursive, dirs, ret.get(), nullptr);
 
         return ret;
 
     }
     //-----------------------------------------------------------------------
-    FileInfoListPtr FileSystemArchive::findFileInfo(const String& pattern, 
-        bool recursive, bool dirs) const
+    auto FileSystemArchive::findFileInfo(const String& pattern, 
+        bool recursive, bool dirs) const -> FileInfoListPtr
     {
         FileInfoListPtr ret(new FileInfoList());
 
-        findFiles(pattern, recursive, dirs, 0, ret.get());
+        findFiles(pattern, recursive, dirs, nullptr, ret.get());
 
         return ret;
     }
     //-----------------------------------------------------------------------
-    bool FileSystemArchive::exists(const String& filename) const
+    auto FileSystemArchive::exists(const String& filename) const -> bool
     {
         if (filename.empty())
             return false;
@@ -432,7 +440,7 @@ namespace {
         return ret;
     }
     //---------------------------------------------------------------------
-    time_t FileSystemArchive::getModifiedTime(const String& filename) const
+    auto FileSystemArchive::getModifiedTime(const String& filename) const -> time_t
     {
         String full_path = concatenate_path(mName, filename);
 
@@ -450,13 +458,13 @@ namespace {
 
     }
     //-----------------------------------------------------------------------
-    const String& FileSystemArchiveFactory::getType(void) const
+    auto FileSystemArchiveFactory::getType() const -> const String&
     {
         static String name = "FileSystem";
         return name;
     }
 
-    Archive *FileSystemArchiveFactory::createInstance( const String& name, bool readOnly )
+    auto FileSystemArchiveFactory::createInstance( const String& name, bool readOnly ) -> Archive *
     {
         return new FileSystemArchive(name, getType(), readOnly);
     }
@@ -466,7 +474,7 @@ namespace {
         gIgnoreHidden = ignore;
     }
 
-    bool FileSystemArchiveFactory::getIgnoreHidden()
+    auto FileSystemArchiveFactory::getIgnoreHidden() -> bool
     {
         return gIgnoreHidden;
     }

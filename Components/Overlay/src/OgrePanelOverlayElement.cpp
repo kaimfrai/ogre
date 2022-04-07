@@ -26,28 +26,28 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgrePanelOverlayElement.h"
+#include "OgrePanelOverlayElement.hpp"
 
 #include <map>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMaterial.h"
-#include "OgreOverlayElement.h"
-#include "OgrePass.h"
-#include "OgreRenderSystem.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringInterface.h"
-#include "OgreTechnique.h"
-#include "OgreVertexIndexData.h"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreOverlayElement.hpp"
+#include "OgrePass.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringInterface.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 class RenderQueue;
@@ -58,22 +58,22 @@ class RenderQueue;
     class CmdTiling : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for specifying transparency (see ParamCommand).*/
     class CmdTransparent : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for specifying UV coordinates (see ParamCommand).*/
     class CmdUVCoords : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     // Command objects
     static CmdTiling msCmdTiling;
@@ -81,19 +81,15 @@ class RenderQueue;
     static CmdUVCoords msCmdUVCoords;
     //---------------------------------------------------------------------
     // vertex buffer bindings, set at compile time (we could look these up but no point)
-    #define POSITION_BINDING 0
-    #define TEXCOORD_BINDING 1
+enum {
+POSITION_BINDING = 0,
+TEXCOORD_BINDING = 1
+};
 
     //---------------------------------------------------------------------
     PanelOverlayElement::PanelOverlayElement(const String& name)
         : OverlayContainer(name)
-        , mTransparent(false)
-        // Defer creation of texcoord buffer until we know how big it needs to be
-        , mNumTexCoordsInBuffer(0)
-        , mU1(0.0)
-        , mV1(0.0)
-        , mU2(1.0)
-        , mV2(1.0)
+         
 
     {
         // Init tiling
@@ -116,7 +112,7 @@ class RenderQueue;
         delete mRenderOp.vertexData;
     }
     //---------------------------------------------------------------------
-    void PanelOverlayElement::initialise(void)
+    void PanelOverlayElement::initialise()
     {
         bool init = !mInitialised;
 
@@ -202,12 +198,12 @@ class RenderQueue;
 
     }
     //---------------------------------------------------------------------
-    Real PanelOverlayElement::getTileX(ushort layer) const
+    auto PanelOverlayElement::getTileX(ushort layer) const -> Real
     {
         return mTileX[layer];
     }
     //---------------------------------------------------------------------
-    Real PanelOverlayElement::getTileY(ushort layer) const
+    auto PanelOverlayElement::getTileY(ushort layer) const -> Real
     {
         return mTileY[layer];
     }
@@ -217,7 +213,7 @@ class RenderQueue;
         mTransparent = inTransparent;
     }
     //---------------------------------------------------------------------
-    bool PanelOverlayElement::isTransparent(void) const
+    auto PanelOverlayElement::isTransparent() const -> bool
     {
         return mTransparent;
     }
@@ -238,7 +234,7 @@ class RenderQueue;
         v2 = mV2;
     }
     //---------------------------------------------------------------------
-    const String& PanelOverlayElement::getTypeName(void) const
+    auto PanelOverlayElement::getTypeName() const -> const String&
     {
         return msTypeName;
     }
@@ -267,7 +263,7 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    void PanelOverlayElement::updatePositionGeometry(void)
+    void PanelOverlayElement::updatePositionGeometry()
     {
         /*
             0-----2
@@ -293,7 +289,7 @@ class RenderQueue;
         HardwareVertexBufferSharedPtr vbuf =
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(POSITION_BINDING);
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-        float* pPos = static_cast<float*>(vbufLock.pData);
+        auto* pPos = static_cast<float*>(vbufLock.pData);
 
         // Use the furthest away depth value, since materials should have depth-check off
         // This initialised the depth buffer for any 3D objects in front
@@ -315,7 +311,7 @@ class RenderQueue;
         *pPos++ = zValue;
     }
     //---------------------------------------------------------------------
-    void PanelOverlayElement::updateTextureGeometry(void)
+    void PanelOverlayElement::updateTextureGeometry()
     {
         // Generate for as many texture layers as there are in material
         if (mMaterial && mInitialised)
@@ -367,7 +363,7 @@ class RenderQueue;
                 HardwareVertexBufferSharedPtr vbuf =
                     mRenderOp.vertexData->vertexBufferBinding->getBuffer(TEXCOORD_BINDING);
                 HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-                float* pVBStart = static_cast<float*>(vbufLock.pData);
+                auto* pVBStart = static_cast<float*>(vbufLock.pData);
 
                 size_t uvSize = VertexElement::getTypeSize(VET_FLOAT2) / sizeof(float);
                 size_t vertexSize = decl->getVertexSize(TEXCOORD_BINDING) / sizeof(float);
@@ -407,7 +403,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void PanelOverlayElement::addBaseParameters(void)
+    void PanelOverlayElement::addBaseParameters()
     {
         OverlayContainer::addBaseParameters();
         ParamDictionary* dict = getParamDictionary();
@@ -431,7 +427,7 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     // Command objects
     //-----------------------------------------------------------------------
-    String CmdTiling::doGet(const void* target) const
+    auto CmdTiling::doGet(const void* target) const -> String
     {
         // NB only returns 1st layer tiling
         String ret = "0 " + StringConverter::toString(
@@ -445,14 +441,14 @@ class RenderQueue;
         // 3 params: <layer> <x_tile> <y_tile>
         // Param count is validated higher up
         std::vector<String> vec = StringUtil::split(val);
-        ushort layer = (ushort)StringConverter::parseUnsignedInt(vec[0]);
+        auto layer = (ushort)StringConverter::parseUnsignedInt(vec[0]);
         Real x_tile = StringConverter::parseReal(vec[1]);
         Real y_tile = StringConverter::parseReal(vec[2]);
 
         static_cast<PanelOverlayElement*>(target)->setTiling(x_tile, y_tile, layer);
     }
     //-----------------------------------------------------------------------
-    String CmdTransparent::doGet(const void* target) const
+    auto CmdTransparent::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const PanelOverlayElement*>(target)->isTransparent() );
@@ -463,7 +459,7 @@ class RenderQueue;
             StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    String CmdUVCoords::doGet(const void* target) const
+    auto CmdUVCoords::doGet(const void* target) const -> String
     {
         Real u1, v1, u2, v2;
 

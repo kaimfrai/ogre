@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "Compiler2Pass.h"
+#include "Compiler2Pass.hpp"
 
 #include <sys/types.h>
 
@@ -66,7 +66,7 @@ void Compiler2Pass::InitSymbolTypeLib()
             case otOR:
             case otOPTIONAL:
                 // update text index in typelib
-                if (mRootRulePath[i].mSymbol != NULL) mSymbolTypeLib[token_ID].mDefTextID = i;
+                if (mRootRulePath[i].mSymbol != nullptr) mSymbolTypeLib[token_ID].mDefTextID = i;
                 break;
             case otREPEAT:
             case otEND:
@@ -77,13 +77,13 @@ void Compiler2Pass::InitSymbolTypeLib()
 }
 
 
-bool Compiler2Pass::compile(const char* source)
+auto Compiler2Pass::compile(const char* source) -> bool
 {
     bool Passed = false;
 
     mSource = source;
     // start compiling if there is a rule base to work with
-    if(mRootRulePath != NULL) {
+    if(mRootRulePath != nullptr) {
          Passed = doPass1();
 
         if(Passed) {
@@ -94,7 +94,7 @@ bool Compiler2Pass::compile(const char* source)
 }
 
 
-bool Compiler2Pass::doPass1()
+auto Compiler2Pass::doPass1() -> bool
 {
     // scan through Source string and build a token list using TokenInstructions
     // this is a simple brute force lexical scanner/analyzer that also parses the formed
@@ -119,7 +119,7 @@ bool Compiler2Pass::doPass1()
 }
 
 
-bool Compiler2Pass::processRulePath( uint rulepathIDX)
+auto Compiler2Pass::processRulePath( uint rulepathIDX) -> bool
 {
     // rule path determines what tokens and therefore what symbols are acceptable from the source
     // it is assumed that the tokens with the longest similar symbols are arranged first so
@@ -216,7 +216,7 @@ bool Compiler2Pass::processRulePath( uint rulepathIDX)
 }
 
 
-bool Compiler2Pass::ValidateToken(const uint rulepathIDX, const uint activeRuleID)
+auto Compiler2Pass::ValidateToken(const uint rulepathIDX, const uint activeRuleID) -> bool
 {
     int tokenlength = 0;
     // assume the test is going to fail
@@ -276,19 +276,19 @@ bool Compiler2Pass::ValidateToken(const uint rulepathIDX, const uint activeRuleI
 }
 
 
-const char* Compiler2Pass::getTypeDefText(const uint sid)
+auto Compiler2Pass::getTypeDefText(const uint sid) -> const char*
 {
     return mRootRulePath[mSymbolTypeLib[sid].mDefTextID].mSymbol;
 }
 
 
-bool Compiler2Pass::isFloatValue(float& fvalue, int& charsize)
+auto Compiler2Pass::isFloatValue(float& fvalue, int& charsize) -> bool
 {
     // check to see if it is a numeric float value
     bool valuefound = false;
 
     const char* startptr = mSource + mCharPos;
-    char* endptr = NULL;
+    char* endptr = nullptr;
 
     fvalue = (float)strtod(startptr, &endptr);
     // if a valid float was found then endptr will have the pointer to the first invalid character
@@ -304,7 +304,7 @@ bool Compiler2Pass::isFloatValue(float& fvalue, int& charsize)
 }
 
 
-bool Compiler2Pass::isSymbol(const char* symbol, int& symbolsize)
+auto Compiler2Pass::isSymbol(const char* symbol, int& symbolsize) -> bool
 {
     // compare text at source+charpos with the symbol : limit testing to symbolsize
     bool symbolfound = false;
@@ -317,7 +317,7 @@ bool Compiler2Pass::isSymbol(const char* symbol, int& symbolsize)
 }
 
 
-bool Compiler2Pass::positionToNextSymbol()
+auto Compiler2Pass::positionToNextSymbol() -> bool
 {
     bool validsymbolfound = false;
     bool endofsource = false;

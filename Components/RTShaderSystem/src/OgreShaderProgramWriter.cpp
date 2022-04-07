@@ -29,16 +29,15 @@ THE SOFTWARE.
 #include <ostream>
 #include <string>
 
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramWriter.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramWriter.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class Function;
 
 //-----------------------------------------------------------------------
@@ -78,7 +77,7 @@ ProgramWriter::ProgramWriter()
     mParamSemanticMap[Parameter::SPS_TANGENT] = "TANGENT";
 }
 
-ProgramWriter::~ProgramWriter() {}
+ProgramWriter::~ProgramWriter() = default;
 
 void ProgramWriter::writeParameter(std::ostream& os, const ParameterPtr& parameter)
 {
@@ -134,5 +133,4 @@ void ProgramWriter::writeParameterSemantic(std::ostream& os, const ParameterPtr&
     }
 }
 
-}
 }

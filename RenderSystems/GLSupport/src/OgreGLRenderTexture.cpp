@@ -26,14 +26,14 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   -----------------------------------------------------------------------------
 */
 
-#include "OgreGLRenderTexture.h"
+#include "OgreGLRenderTexture.hpp"
 
 #include <cassert>
 #include <utility>
 
-#include "OgreGLHardwarePixelBufferCommon.h"
-#include "OgreGLRenderSystemCommon.h"
-#include "OgreRoot.h"
+#include "OgreGLHardwarePixelBufferCommon.hpp"
+#include "OgreGLRenderSystemCommon.hpp"
+#include "OgreRoot.hpp"
 
 namespace Ogre {
 
@@ -41,21 +41,21 @@ namespace Ogre {
     const String GLRenderTexture::CustomAttributeString_TARGET = "TARGET";
     const String GLRenderTexture::CustomAttributeString_GLCONTEXT = "GLCONTEXT";
 
-    template<> GLRTTManager* Singleton<GLRTTManager>::msSingleton = NULL;
+    template<> GLRTTManager* Singleton<GLRTTManager>::msSingleton = nullptr;
 
     GLFrameBufferObjectCommon::GLFrameBufferObjectCommon(int32 fsaa)
-        : mFB(0), mMultisampleFB(0), mNumSamples(fsaa)
+        :  mNumSamples(fsaa)
     {
         auto* rs = static_cast<GLRenderSystemCommon*>(
             Root::getSingleton().getRenderSystem());
         mContext = rs->_getCurrentContext();
 
         // Initialise state
-        mDepth.buffer = 0;
-        mStencil.buffer = 0;
-        for(size_t x = 0; x < OGRE_MAX_MULTIPLE_RENDER_TARGETS; ++x)
+        mDepth.buffer = nullptr;
+        mStencil.buffer = nullptr;
+        for(auto & x : mColour)
         {
-            mColour[x].buffer=0;
+            x.buffer=nullptr;
         }
     }
 
@@ -71,42 +71,42 @@ namespace Ogre {
     void GLFrameBufferObjectCommon::unbindSurface(size_t attachment)
     {
         assert(attachment < OGRE_MAX_MULTIPLE_RENDER_TARGETS);
-        mColour[attachment].buffer = 0;
+        mColour[attachment].buffer = nullptr;
         // Re-initialise if buffer 0 still bound
         if(mColour[0].buffer)
             initialise();
     }
 
-    uint32 GLFrameBufferObjectCommon::getWidth() const
+    auto GLFrameBufferObjectCommon::getWidth() const -> uint32
     {
         assert(mColour[0].buffer);
         return mColour[0].buffer->getWidth();
     }
-    uint32 GLFrameBufferObjectCommon::getHeight() const
+    auto GLFrameBufferObjectCommon::getHeight() const -> uint32
     {
         assert(mColour[0].buffer);
         return mColour[0].buffer->getHeight();
     }
-    PixelFormat GLFrameBufferObjectCommon::getFormat() const
+    auto GLFrameBufferObjectCommon::getFormat() const -> PixelFormat
     {
         assert(mColour[0].buffer);
         return mColour[0].buffer->getFormat();
     }
 
-    GLRTTManager* GLRTTManager::getSingletonPtr(void)
+    auto GLRTTManager::getSingletonPtr() -> GLRTTManager*
     {
         return msSingleton;
     }
-    GLRTTManager& GLRTTManager::getSingleton(void)
+    auto GLRTTManager::getSingleton() -> GLRTTManager&
     {
         assert( msSingleton );  return ( *msSingleton );
     }
 
-    GLRTTManager::GLRTTManager() {}
+    GLRTTManager::GLRTTManager() = default;
     // need to implement in cpp due to how Ogre::Singleton works
-    GLRTTManager::~GLRTTManager() {}
+    GLRTTManager::~GLRTTManager() = default;
 
-    PixelFormat GLRTTManager::getSupportedAlternative(PixelFormat format)
+    auto GLRTTManager::getSupportedAlternative(PixelFormat format) -> PixelFormat
     {
         if (checkFormat(format))
         {
@@ -159,10 +159,10 @@ namespace Ogre {
 
     void GLRTTManager::releaseRenderBuffer(const GLSurfaceDesc &surface)
     {
-        if(surface.buffer == 0)
+        if(surface.buffer == nullptr)
             return;
         RBFormat key(surface.buffer->getGLFormat(), surface.buffer->getWidth(), surface.buffer->getHeight(), surface.numSamples);
-        RenderBufferMap::iterator it = mRenderBufferMap.find(key);
+        auto it = mRenderBufferMap.find(key);
         if(it != mRenderBufferMap.end())
         {
             // Decrease refcount

@@ -27,22 +27,23 @@ THE SOFTWARE.
 */
 #include <cstddef>
 #include <string>
+#include <utility>
 
-#include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreOverlay.h"
-#include "OgreOverlayContainer.h"
-#include "OgreOverlayElement.h"
-#include "OgreOverlayElementCommands.h"
-#include "OgreOverlayManager.h"
-#include "OgrePass.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderSystem.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
-#include "OgreTechnique.h"
+#include "OgreException.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreOverlay.hpp"
+#include "OgreOverlayContainer.hpp"
+#include "OgreOverlayElement.hpp"
+#include "OgreOverlayElementCommands.hpp"
+#include "OgreOverlayManager.hpp"
+#include "OgrePass.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreTechnique.hpp"
 
 namespace Ogre {
 
@@ -63,33 +64,9 @@ namespace Ogre {
 
     const String& OverlayElement::DEFAULT_RESOURCE_GROUP = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;
     //---------------------------------------------------------------------
-    OverlayElement::OverlayElement(const String& name)
-      : mName(name)
-      , mVisible(true)
-      , mCloneable(true)
-      , mLeft(0.0f)
-      , mTop(0.0f)
-      , mWidth(1.0f)
-      , mHeight(1.0f)
-      , mMetricsMode(GMM_RELATIVE)
-      , mHorzAlign(GHA_LEFT)
-      , mVertAlign(GVA_TOP)
-      , mPixelTop(0.0)
-      , mPixelLeft(0.0)
-      , mPixelWidth(1.0)
-      , mPixelHeight(1.0)
-      , mPixelScaleX(1.0)
-      , mPixelScaleY(1.0)
-      , mParent(0)
-      , mOverlay(0)
-      , mDerivedLeft(0)
-      , mDerivedTop(0)
-      , mDerivedOutOfDate(true)
-      , mGeomPositionsOutOfDate(true)
-      , mGeomUVsOutOfDate(true)
-      , mZOrder(0)
-      , mEnabled(true)
-      , mInitialised(false)
+    OverlayElement::OverlayElement(String  name)
+      : mName(std::move(name))
+       
     {
         // default overlays to preserve their own detail level
         mPolygonModeOverrideable = false;
@@ -104,7 +81,7 @@ namespace Ogre {
         if (mParent)
         {
             mParent->removeChild(mName);
-            mParent = 0;
+            mParent = nullptr;
         }
     }
     //---------------------------------------------------------------------
@@ -154,7 +131,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::getWidth(void) const
+    auto OverlayElement::getWidth() const -> Real
     {
         if (mMetricsMode != GMM_RELATIVE)
         {
@@ -180,7 +157,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::getHeight(void) const
+    auto OverlayElement::getHeight() const -> Real
     {
         if (mMetricsMode != GMM_RELATIVE)
         {
@@ -206,7 +183,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::getLeft(void) const
+    auto OverlayElement::getLeft() const -> Real
     {
         if (mMetricsMode != GMM_RELATIVE)
         {
@@ -233,7 +210,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::getTop(void) const
+    auto OverlayElement::getTop() const -> Real
     {
         if (mMetricsMode != GMM_RELATIVE)
         {
@@ -303,7 +280,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    const String& OverlayElement::getMaterialName(void) const
+    auto OverlayElement::getMaterialName() const -> const String&
     {
         return mMaterial ? mMaterial->getName() : BLANKSTRING;
     }
@@ -348,7 +325,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    const MaterialPtr& OverlayElement::getMaterial(void) const
+    auto OverlayElement::getMaterial() const -> const MaterialPtr&
     {
         return mMaterial;
     }
@@ -358,12 +335,12 @@ namespace Ogre {
         mOverlay->_getWorldTransforms(xform);
     }
     //---------------------------------------------------------------------
-    void OverlayElement::_positionsOutOfDate(void)
+    void OverlayElement::_positionsOutOfDate()
     {
         mGeomPositionsOutOfDate = true;
     }
     //---------------------------------------------------------------------
-    void OverlayElement::_update(void)
+    void OverlayElement::_update()
     {
         Real vpWidth, vpHeight;
         OverlayManager& oMgr = OverlayManager::getSingleton();
@@ -434,7 +411,7 @@ namespace Ogre {
         } 
     }
     //---------------------------------------------------------------------
-    void OverlayElement::_updateFromParent(void)
+    void OverlayElement::_updateFromParent()
     {
         Real parentLeft = 0, parentTop = 0, parentBottom = 0, parentRight = 0;
 
@@ -497,7 +474,7 @@ namespace Ogre {
 
         mDerivedOutOfDate = false;
 
-        if (mParent != 0)
+        if (mParent != nullptr)
         {
             RealRect parent;
             RealRect child;
@@ -533,7 +510,7 @@ namespace Ogre {
         mDerivedOutOfDate = true;
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::_getDerivedLeft(void)
+    auto OverlayElement::_getDerivedLeft() -> Real
     {
         if (mDerivedOutOfDate)
         {
@@ -542,7 +519,7 @@ namespace Ogre {
         return mDerivedLeft;
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::_getDerivedTop(void)
+    auto OverlayElement::_getDerivedTop() -> Real
     {
         if (mDerivedOutOfDate)
         {
@@ -551,12 +528,12 @@ namespace Ogre {
         return mDerivedTop;
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::_getRelativeWidth(void)
+    auto OverlayElement::_getRelativeWidth() -> Real
     {
         return mWidth;
     }
     //---------------------------------------------------------------------
-    Real OverlayElement::_getRelativeHeight(void)
+    auto OverlayElement::_getRelativeHeight() -> Real
     {
         return mHeight;
     }
@@ -570,7 +547,7 @@ namespace Ogre {
         clippingRegion = mClippingRegion;
     }
     //---------------------------------------------------------------------
-    ushort OverlayElement::_notifyZOrder(ushort newZOrder)
+    auto OverlayElement::_notifyZOrder(ushort newZOrder) -> ushort
     {
         mZOrder = newZOrder;
         return mZOrder + 1;
@@ -642,7 +619,7 @@ namespace Ogre {
         visitor->visit(this, 0, false);
     }
     //-----------------------------------------------------------------------
-    void OverlayElement::addBaseParameters(void)    
+    void OverlayElement::addBaseParameters()    
     {
         ParamDictionary* dict = getParamDictionary();
 
@@ -699,7 +676,7 @@ namespace Ogre {
         mColour = col;
     }
     //-----------------------------------------------------------------------
-    const ColourValue& OverlayElement::getColour(void) const
+    auto OverlayElement::getColour() const -> const ColourValue&
     {
         return mColour;
     }
@@ -785,14 +762,14 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //-----------------------------------------------------------------------    
-    bool OverlayElement::contains(Real x, Real y) const
+    auto OverlayElement::contains(Real x, Real y) const -> bool
     {
         return x >= mClippingRegion.left && x <= mClippingRegion.right && y >= mClippingRegion.top && y <= mClippingRegion.bottom;
     }
     //-----------------------------------------------------------------------
-    OverlayElement* OverlayElement::findElementAt(Real x, Real y)       // relative to parent
+    auto OverlayElement::findElementAt(Real x, Real y) -> OverlayElement*       // relative to parent
     {
-        OverlayElement* ret = NULL;
+        OverlayElement* ret = nullptr;
         if (contains(x , y ))
         {
             ret = this;
@@ -800,7 +777,7 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    OverlayElement* OverlayElement::clone(const String& instanceName)
+    auto OverlayElement::clone(const String& instanceName) -> OverlayElement*
     {
         OverlayElement* newElement;
 

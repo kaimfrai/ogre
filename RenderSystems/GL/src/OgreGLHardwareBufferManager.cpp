@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLHardwareBufferManager.h"
+#include "OgreGLHardwareBufferManager.hpp"
 
 #include <cassert>
 #include <memory>
 
-#include "OgreAlignedAllocator.h"
-#include "OgreGLHardwareBuffer.h"
-#include "OgreGLRenderSystem.h"
-#include "OgreGLRenderToVertexBuffer.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
+#include "OgreAlignedAllocator.hpp"
+#include "OgreGLHardwareBuffer.hpp"
+#include "OgreGLRenderSystem.hpp"
+#include "OgreGLRenderToVertexBuffer.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace Ogre {
     //-----------------------------------------------------------------------
@@ -52,7 +52,7 @@ namespace Ogre {
     #define SCRATCH_POOL_SIZE 1 * 1024 * 1024
     //---------------------------------------------------------------------
     GLHardwareBufferManager::GLHardwareBufferManager()
-        : mScratchBufferPool(NULL), mMapBufferThreshold(OGRE_GL_DEFAULT_MAP_BUFFER_THRESHOLD)
+        :  mMapBufferThreshold(OGRE_GL_DEFAULT_MAP_BUFFER_THRESHOLD)
     {
         mRenderSystem = static_cast<GLRenderSystem*>(Root::getSingleton().getRenderSystem());
 
@@ -60,7 +60,7 @@ namespace Ogre {
         // TODO make it a configurable size?
         // 32-bit aligned buffer
         mScratchBufferPool = static_cast<char*>(::Ogre::AlignedMemory::allocate(SCRATCH_POOL_SIZE));
-        GLScratchBufferAlloc* ptrAlloc = (GLScratchBufferAlloc*)mScratchBufferPool;
+        auto* ptrAlloc = (GLScratchBufferAlloc*)mScratchBufferPool;
         ptrAlloc->size = SCRATCH_POOL_SIZE - sizeof(GLScratchBufferAlloc);
         ptrAlloc->free = 1;
         mMapBufferThreshold = 0;
@@ -74,13 +74,13 @@ namespace Ogre {
         ::Ogre::AlignedMemory::deallocate(mScratchBufferPool);
     }
     //-----------------------------------------------------------------------
-    GLStateCacheManager * GLHardwareBufferManager::getStateCacheManager()
+    auto GLHardwareBufferManager::getStateCacheManager() -> GLStateCacheManager *
     {
         return mRenderSystem->_getStateCacheManager();
     }
     //-----------------------------------------------------------------------
-    HardwareVertexBufferSharedPtr GLHardwareBufferManager::createVertexBuffer(
-        size_t vertexSize, size_t numVerts, HardwareBuffer::Usage usage, bool useShadowBuffer)
+    auto GLHardwareBufferManager::createVertexBuffer(
+        size_t vertexSize, size_t numVerts, HardwareBuffer::Usage usage, bool useShadowBuffer) -> HardwareVertexBufferSharedPtr
     {
         auto impl = new GLHardwareVertexBuffer(GL_ARRAY_BUFFER, vertexSize * numVerts, usage, useShadowBuffer);
         auto buf = std::make_shared<HardwareVertexBuffer>(this, vertexSize, numVerts, impl);
@@ -90,10 +90,10 @@ namespace Ogre {
         return buf;
     }
     //-----------------------------------------------------------------------
-    HardwareIndexBufferSharedPtr 
+    auto 
     GLHardwareBufferManager::createIndexBuffer(
         HardwareIndexBuffer::IndexType itype, size_t numIndexes, 
-        HardwareBuffer::Usage usage, bool useShadowBuffer)
+        HardwareBuffer::Usage usage, bool useShadowBuffer) -> HardwareIndexBufferSharedPtr
     {
         // Calculate the size of the indexes
         auto indexSize = HardwareIndexBuffer::indexSize(itype);
@@ -102,19 +102,19 @@ namespace Ogre {
         return std::make_shared<HardwareIndexBuffer>(this, itype, numIndexes, impl);
     }
     //---------------------------------------------------------------------
-    RenderToVertexBufferSharedPtr 
-        GLHardwareBufferManager::createRenderToVertexBuffer()
+    auto 
+        GLHardwareBufferManager::createRenderToVertexBuffer() -> RenderToVertexBufferSharedPtr
     {
         return RenderToVertexBufferSharedPtr(new GLRenderToVertexBuffer);
     }
     //---------------------------------------------------------------------
-    GLenum GLHardwareBufferManager::getGLUsage(unsigned int usage)
+    auto GLHardwareBufferManager::getGLUsage(unsigned int usage) -> GLenum
     {
         return (usage == HBU_GPU_TO_CPU) ? GL_STATIC_READ
                                          : (usage == HBU_GPU_ONLY) ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW;
     }
     //---------------------------------------------------------------------
-    GLenum GLHardwareBufferManager::getGLType(unsigned int type)
+    auto GLHardwareBufferManager::getGLType(unsigned int type) -> GLenum
     {
         switch(type)
         {
@@ -145,7 +145,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    void* GLHardwareBufferManager::allocateScratch(uint32 size)
+    auto GLHardwareBufferManager::allocateScratch(uint32 size) -> void*
     {
         // simple forward link search based on alloc sizes
         // not that fast but the list should never get that long since not many
@@ -161,7 +161,7 @@ namespace Ogre {
         uint32 bufferPos = 0;
         while (bufferPos < SCRATCH_POOL_SIZE)
         {
-            GLScratchBufferAlloc* pNext = (GLScratchBufferAlloc*)(mScratchBufferPool + bufferPos);
+            auto* pNext = (GLScratchBufferAlloc*)(mScratchBufferPool + bufferPos);
             // Big enough?
             if (pNext->free && pNext->size >= size)
             {
@@ -170,7 +170,7 @@ namespace Ogre {
                 {
                     uint32 offset = (uint32)sizeof(GLScratchBufferAlloc) + size;
 
-                    GLScratchBufferAlloc* pSplitAlloc = (GLScratchBufferAlloc*)
+                    auto* pSplitAlloc = (GLScratchBufferAlloc*)
                         (mScratchBufferPool + bufferPos + offset);
                     pSplitAlloc->free = 1;
                     // split size is remainder minus new control block
@@ -192,7 +192,7 @@ namespace Ogre {
         }
 
         // no available alloc
-        return 0;
+        return nullptr;
 
     }
     //---------------------------------------------------------------------
@@ -200,10 +200,10 @@ namespace Ogre {
     {
         // Simple linear search dealloc
         uint32 bufferPos = 0;
-        GLScratchBufferAlloc* pLast = 0;
+        GLScratchBufferAlloc* pLast = nullptr;
         while (bufferPos < SCRATCH_POOL_SIZE)
         {
-            GLScratchBufferAlloc* pCurrent = (GLScratchBufferAlloc*)(mScratchBufferPool + bufferPos);
+            auto* pCurrent = (GLScratchBufferAlloc*)(mScratchBufferPool + bufferPos);
             
             // Pointers match?
             if ((mScratchBufferPool + bufferPos + sizeof(GLScratchBufferAlloc))
@@ -226,7 +226,7 @@ namespace Ogre {
                 uint32 offset = bufferPos + pCurrent->size + (uint32)sizeof(GLScratchBufferAlloc);
                 if (offset < SCRATCH_POOL_SIZE)
                 {
-                    GLScratchBufferAlloc* pNext = (GLScratchBufferAlloc*)(
+                    auto* pNext = (GLScratchBufferAlloc*)(
                         mScratchBufferPool + offset);
                     if (pNext->free)
                     {
@@ -249,7 +249,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    size_t GLHardwareBufferManager::getGLMapBufferThreshold() const
+    auto GLHardwareBufferManager::getGLMapBufferThreshold() const -> size_t
     {
         return mMapBufferThreshold;
     }

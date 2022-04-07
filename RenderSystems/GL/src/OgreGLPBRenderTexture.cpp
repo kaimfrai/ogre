@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLPBRenderTexture.h"
+#include "OgreGLPBRenderTexture.hpp"
 
 #include <cassert>
 #include <string>
 
-#include "OgreGLHardwarePixelBuffer.h"
-#include "OgreGLHardwarePixelBufferCommon.h"
-#include "OgreGLNativeSupport.h"
-#include "OgreGLPBuffer.h"
-#include "OgreGLRenderTarget.h"
-#include "OgreRenderTarget.h"
+#include "OgreGLHardwarePixelBuffer.hpp"
+#include "OgreGLHardwarePixelBufferCommon.hpp"
+#include "OgreGLNativeSupport.hpp"
+#include "OgreGLPBuffer.hpp"
+#include "OgreGLRenderTarget.hpp"
+#include "OgreRenderTarget.hpp"
 
 namespace Ogre {
 class GLContext;
@@ -71,7 +71,7 @@ class RenderTexture;
         }
     }
 
-    GLContext* GLPBRenderTexture::getContext() const
+    auto GLPBRenderTexture::getContext() const -> GLContext*
     {
         return mManager->getContextFor(mPBFormat, mWidth, mHeight);
     }
@@ -79,27 +79,27 @@ class RenderTexture;
 //-----------------------------------------------------------------------------  
     GLPBRTTManager::GLPBRTTManager(GLNativeSupport *support, RenderTarget *mainwindow):
         mSupport(support),
-        mMainWindow(mainwindow),
-        mMainContext(0)
+        mMainWindow(mainwindow)
+        
     {
         mMainContext = dynamic_cast<GLRenderTarget*>(mMainWindow)->getContext();
     }  
     GLPBRTTManager::~GLPBRTTManager()
     {
         // Delete remaining PBuffers
-        for(size_t x=0; x<PCT_COUNT; ++x)
+        for(auto & mPBuffer : mPBuffers)
         {
-            delete mPBuffers[x].pb;
+            delete mPBuffer.pb;
         }
     }
 
-    RenderTexture *GLPBRTTManager::createRenderTexture(const String &name, 
-        const GLSurfaceDesc &target, bool writeGamma, uint fsaa)
+    auto GLPBRTTManager::createRenderTexture(const String &name, 
+        const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> RenderTexture *
     {
         return new GLPBRenderTexture(this, name, target, writeGamma, fsaa);
     }
     
-    bool GLPBRTTManager::checkFormat(PixelFormat format) 
+    auto GLPBRTTManager::checkFormat(PixelFormat format) -> bool 
     { 
         return true; 
     }
@@ -114,7 +114,7 @@ class RenderTexture;
     { 
         // Copy on unbind
         GLSurfaceDesc surface;
-        surface.buffer = 0;
+        surface.buffer = nullptr;
         target->getCustomAttribute(GLRenderTexture::CustomAttributeString_TARGET, &surface);
         if(surface.buffer)
             static_cast<GLTextureBuffer*>(surface.buffer)->copyFromFramebuffer(surface.zoffset);
@@ -129,7 +129,7 @@ class RenderTexture;
             {
                 // If the current PBuffer is too small, destroy it and create a new one
                 delete mPBuffers[ctype].pb;
-                mPBuffers[ctype].pb = 0;
+                mPBuffers[ctype].pb = nullptr;
             }
         }
         if(!mPBuffers[ctype].pb)
@@ -147,11 +147,11 @@ class RenderTexture;
         if(mPBuffers[ctype].refcount == 0)
         {
             delete mPBuffers[ctype].pb;
-            mPBuffers[ctype].pb = 0;
+            mPBuffers[ctype].pb = nullptr;
         }
     }
     
-    GLContext *GLPBRTTManager::getContextFor(PixelComponentType ctype, uint32 width, uint32 height)
+    auto GLPBRTTManager::getContextFor(PixelComponentType ctype, uint32 width, uint32 height) -> GLContext *
     {
         // Faster to return main context if the RTT is smaller than the window size
         // and ctype is PCT_BYTE. This must be checked every time because the window might have been resized

@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreRenderWindow.h"
+#include "OgreRenderWindow.hpp"
 
 namespace Ogre {
 
     RenderWindow::RenderWindow()
-        : RenderTarget(), mIsFullScreen(false), mIsPrimary(false), mClosed(false), mLeft(0), mTop(0), mVSyncInterval(1)
+        : RenderTarget() 
     {
         mAutoDeactivatedOnFocusChange = true;
     }
@@ -45,17 +45,17 @@ namespace Ogre {
         top = mTop;
     }
     //-----------------------------------------------------------------------
-    bool RenderWindow::isFullScreen(void) const
+    auto RenderWindow::isFullScreen() const -> bool
     {
         return mIsFullScreen;
     }
     //-----------------------------------------------------------------------
-    bool RenderWindow::isPrimary(void) const
+    auto RenderWindow::isPrimary() const -> bool
     {
         return mIsPrimary;
     }
 
-    bool RenderWindow::isDeactivatedOnFocusChange() const
+    auto RenderWindow::isDeactivatedOnFocusChange() const -> bool
     {
         return mAutoDeactivatedOnFocusChange;
     }

@@ -27,19 +27,19 @@ THE SOFTWARE.
 */
 #include <cassert>
 
-#include "OgreController.h"
-#include "OgreControllerManager.h"
-#include "OgrePredefinedControllers.h"
-#include "OgreRoot.h"
+#include "OgreController.hpp"
+#include "OgreControllerManager.hpp"
+#include "OgrePredefinedControllers.hpp"
+#include "OgreRoot.hpp"
 
 namespace Ogre {
     //-----------------------------------------------------------------------
-    template<> ControllerManager* Singleton<ControllerManager>::msSingleton = 0;
-    ControllerManager* ControllerManager::getSingletonPtr(void)
+    template<> ControllerManager* Singleton<ControllerManager>::msSingleton = nullptr;
+    auto ControllerManager::getSingletonPtr() -> ControllerManager*
     {
         return msSingleton;
     }
-    ControllerManager& ControllerManager::getSingleton(void)
+    auto ControllerManager::getSingleton() -> ControllerManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -47,7 +47,7 @@ namespace Ogre {
     ControllerManager::ControllerManager()
         : mFrameTimeController(new FrameTimeControllerValue())
         , mPassthroughFunction(new PassthroughControllerFunction())
-        , mLastFrameNumber(0)
+         
     {
 
     }
@@ -57,23 +57,23 @@ namespace Ogre {
         clearControllers();
     }
     //-----------------------------------------------------------------------
-    Controller<Real>* ControllerManager::createController(
+    auto ControllerManager::createController(
         const ControllerValueRealPtr& src, const ControllerValueRealPtr& dest,
-        const ControllerFunctionRealPtr& func)
+        const ControllerFunctionRealPtr& func) -> Controller<Real>*
     {
-        Controller<Real>* c = new Controller<Real>(src, dest, func);
+        auto* c = new Controller<Real>(src, dest, func);
 
         mControllers.insert(c);
         return c;
     }
     //-----------------------------------------------------------------------
-    Controller<Real>* ControllerManager::createFrameTimePassthroughController(
-        const ControllerValueRealPtr& dest)
+    auto ControllerManager::createFrameTimePassthroughController(
+        const ControllerValueRealPtr& dest) -> Controller<Real>*
     {
         return createController(getFrameTimeSource(), dest, getPassthroughControllerFunction());
     }
     //-----------------------------------------------------------------------
-    void ControllerManager::updateAllControllers(void)
+    void ControllerManager::updateAllControllers()
     {
         // Only update once per frame
         unsigned long thisFrameNumber = Root::getSingleton().getNextFrameNumber();
@@ -88,7 +88,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ControllerManager::clearControllers(void)
+    void ControllerManager::clearControllers()
     {
         ControllerList::iterator ci;
         for (ci = mControllers.begin(); ci != mControllers.end(); ++ci)
@@ -98,25 +98,25 @@ namespace Ogre {
         mControllers.clear();
     }
     //-----------------------------------------------------------------------
-    const ControllerValueRealPtr& ControllerManager::getFrameTimeSource(void) const
+    auto ControllerManager::getFrameTimeSource() const -> const ControllerValueRealPtr&
     {
         return mFrameTimeController;
     }
     //-----------------------------------------------------------------------
-    const ControllerFunctionRealPtr& ControllerManager::getPassthroughControllerFunction(void) const
+    auto ControllerManager::getPassthroughControllerFunction() const -> const ControllerFunctionRealPtr&
     {
         return mPassthroughFunction;
     }
     //-----------------------------------------------------------------------
-    Controller<Real>* ControllerManager::createTextureAnimator(TextureUnitState* layer, Real sequenceTime)
+    auto ControllerManager::createTextureAnimator(TextureUnitState* layer, Real sequenceTime) -> Controller<Real>*
     {
         return createController(mFrameTimeController, TextureFrameControllerValue::create(layer),
                                 AnimationControllerFunction::create(sequenceTime));
     }
     //-----------------------------------------------------------------------
-    Controller<Real>* ControllerManager::createTextureUVScroller(TextureUnitState* layer, Real speed)
+    auto ControllerManager::createTextureUVScroller(TextureUnitState* layer, Real speed) -> Controller<Real>*
     {
-        Controller<Real>* ret = 0;
+        Controller<Real>* ret = nullptr;
 
         if (speed != 0)
         {
@@ -129,9 +129,9 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    Controller<Real>* ControllerManager::createTextureUScroller(TextureUnitState* layer, Real uSpeed)
+    auto ControllerManager::createTextureUScroller(TextureUnitState* layer, Real uSpeed) -> Controller<Real>*
     {
-        Controller<Real>* ret = 0;
+        Controller<Real>* ret = nullptr;
 
         if (uSpeed != 0)
         {
@@ -143,9 +143,9 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    Controller<Real>* ControllerManager::createTextureVScroller(TextureUnitState* layer, Real vSpeed)
+    auto ControllerManager::createTextureVScroller(TextureUnitState* layer, Real vSpeed) -> Controller<Real>*
     {
-        Controller<Real>* ret = 0;
+        Controller<Real>* ret = nullptr;
 
         if (vSpeed != 0)
         {
@@ -158,7 +158,7 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    Controller<Real>* ControllerManager::createTextureRotater(TextureUnitState* layer, Real speed)
+    auto ControllerManager::createTextureRotater(TextureUnitState* layer, Real speed) -> Controller<Real>*
     {
         // Target value is texture coord rotation
         // Function is simple scale (seconds * speed)
@@ -168,8 +168,8 @@ namespace Ogre {
                                 ScaleControllerFunction::create(-speed, true));
     }
     //-----------------------------------------------------------------------
-    Controller<Real>* ControllerManager::createTextureWaveTransformer(TextureUnitState* layer,
-        TextureUnitState::TextureTransformType ttype, WaveformType waveType, Real base, Real frequency, Real phase, Real amplitude)
+    auto ControllerManager::createTextureWaveTransformer(TextureUnitState* layer,
+        TextureUnitState::TextureTransformType ttype, WaveformType waveType, Real base, Real frequency, Real phase, Real amplitude) -> Controller<Real>*
     {
         ControllerValueRealPtr val;
 
@@ -201,8 +201,8 @@ namespace Ogre {
                                 WaveformControllerFunction::create(waveType, base, frequency, phase, amplitude, true));
     }
     //-----------------------------------------------------------------------
-    Controller<Real>* ControllerManager::createGpuProgramTimerParam(
-        GpuProgramParametersSharedPtr params, size_t paramIndex, Real timeFactor)
+    auto ControllerManager::createGpuProgramTimerParam(
+        GpuProgramParametersSharedPtr params, size_t paramIndex, Real timeFactor) -> Controller<Real>*
     {
         return createController(mFrameTimeController, FloatGpuParameterControllerValue::create(params, paramIndex),
                                 ScaleControllerFunction::create(timeFactor, true));
@@ -210,7 +210,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ControllerManager::destroyController(Controller<Real>* controller)
     {
-        ControllerList::iterator i = mControllers.find(controller);
+        auto i = mControllers.find(controller);
         if (i != mControllers.end())
         {
             mControllers.erase(i);
@@ -218,7 +218,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    Real ControllerManager::getTimeFactor(void) const {
+    auto ControllerManager::getTimeFactor() const -> Real {
         return static_cast<const FrameTimeControllerValue*>(mFrameTimeController.get())->getTimeFactor();
     }
     //-----------------------------------------------------------------------
@@ -226,7 +226,7 @@ namespace Ogre {
         static_cast<FrameTimeControllerValue*>(mFrameTimeController.get())->setTimeFactor(tf);
     }
     //-----------------------------------------------------------------------
-    Real ControllerManager::getFrameDelay(void) const {
+    auto ControllerManager::getFrameDelay() const -> Real {
         return static_cast<const FrameTimeControllerValue*>(mFrameTimeController.get())->getFrameDelay();
     }
     //-----------------------------------------------------------------------
@@ -234,7 +234,7 @@ namespace Ogre {
         static_cast<FrameTimeControllerValue*>(mFrameTimeController.get())->setFrameDelay(fd);
     }
     //-----------------------------------------------------------------------
-    Real ControllerManager::getElapsedTime(void) const
+    auto ControllerManager::getElapsedTime() const -> Real
     {
         return static_cast<const FrameTimeControllerValue*>(mFrameTimeController.get())->getElapsedTime();
     }

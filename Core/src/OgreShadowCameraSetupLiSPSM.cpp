@@ -29,14 +29,14 @@ THE SOFTWARE.
 
 #include <utility>
 
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreLight.h"
-#include "OgreMatrix3.h"
-#include "OgrePlane.h"
-#include "OgreRay.h"
-#include "OgreShadowCameraSetupLiSPSM.h"
-#include "OgreVector.h"
+#include "OgreCamera.hpp"
+#include "OgreException.hpp"
+#include "OgreLight.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgrePlane.hpp"
+#include "OgreRay.hpp"
+#include "OgreShadowCameraSetupLiSPSM.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre
 {
@@ -46,18 +46,17 @@ class Viewport;
     LiSPSMShadowCameraSetup::LiSPSMShadowCameraSetup(Real n, bool useSimpleNOpt, Degree angle)
         : mOptAdjustFactor(n)
         , mUseSimpleNOpt(useSimpleNOpt)
-        , mOptAdjustFactorTweak(1.0)
+         
     {
         setCameraLightDirectionThreshold(angle);
     }
     //-----------------------------------------------------------------------
-    LiSPSMShadowCameraSetup::~LiSPSMShadowCameraSetup(void)
-    {
-    }
+    LiSPSMShadowCameraSetup::~LiSPSMShadowCameraSetup()
+    = default;
     //-----------------------------------------------------------------------
-    Matrix4 LiSPSMShadowCameraSetup::calculateLiSPSM(const Matrix4& lightSpace, 
+    auto LiSPSMShadowCameraSetup::calculateLiSPSM(const Matrix4& lightSpace, 
         const PointListBody& bodyB, const PointListBody& bodyLVS,
-        const SceneManager& sm, const Camera& cam, const Light& light) const
+        const SceneManager& sm, const Camera& cam, const Light& light) const -> Matrix4
     {
         // set up bodyB AAB in light space
         AxisAlignedBox bodyBAAB_ls;
@@ -104,9 +103,9 @@ class Viewport;
         return P * lightSpaceTranslation;
     }
     //-----------------------------------------------------------------------
-    Real LiSPSMShadowCameraSetup::calculateNOpt(const Matrix4& lightSpace, 
+    auto LiSPSMShadowCameraSetup::calculateNOpt(const Matrix4& lightSpace, 
         const AxisAlignedBox& bodyBABB_ls, const PointListBody& bodyLVS, 
-        const Camera& cam) const
+        const Camera& cam) const -> Real
     {
         // get inverse light space matrix
         Matrix4 invLightSpace = lightSpace.inverse();
@@ -142,8 +141,8 @@ class Viewport;
         return cam.getNearClipDistance() + Math::Sqrt(z0 * z1) * getOptimalAdjustFactor() * mOptAdjustFactorTweak;
     }
     //-----------------------------------------------------------------------
-    Real LiSPSMShadowCameraSetup::calculateNOptSimple(const PointListBody& bodyLVS, 
-        const Camera& cam) const
+    auto LiSPSMShadowCameraSetup::calculateNOptSimple(const PointListBody& bodyLVS, 
+        const Camera& cam) const -> Real
     {
         // get view matrix
         const Affine3& viewMatrix = cam.getViewMatrix();
@@ -160,8 +159,8 @@ class Viewport;
         return (Math::Abs(e_es.z) + Math::Sqrt(cam.getNearClipDistance() * cam.getFarClipDistance())) * getOptimalAdjustFactor() * mOptAdjustFactorTweak;
     }
     //-----------------------------------------------------------------------
-    Vector3 LiSPSMShadowCameraSetup::calculateZ0_ls(const Matrix4& lightSpace, 
-        const Vector3& e, Real bodyB_zMax_ls, const Camera& cam) const
+    auto LiSPSMShadowCameraSetup::calculateZ0_ls(const Matrix4& lightSpace, 
+        const Vector3& e, Real bodyB_zMax_ls, const Camera& cam) const -> Vector3
     {
         // z0_ls lies on the intersection point between the planes 'bodyB_ls near plane 
         // (z = bodyB_zNear_ls)' and plane with normal UNIT_X where e_ls lies upon (x = e_ls_x) 
@@ -200,7 +199,7 @@ class Viewport;
             else
             {
                 // failure!
-                return Vector3(0.0, 0.0, 0.0);
+                return {0.0, 0.0, 0.0};
             }
         }
     }
@@ -209,16 +208,16 @@ class Viewport;
         const Viewport *vp, const Light *light, Camera *texCam, size_t iteration) const
     {
         // check availability - viewport not needed
-        OgreAssert(sm != NULL, "SceneManager is NULL");
-        OgreAssert(cam != NULL, "Camera (viewer) is NULL");
-        OgreAssert(light != NULL, "Light is NULL");
-        OgreAssert(texCam != NULL, "Camera (texture) is NULL");
+        OgreAssert(sm != nullptr, "SceneManager is NULL");
+        OgreAssert(cam != nullptr, "Camera (viewer) is NULL");
+        OgreAssert(light != nullptr, "Light is NULL");
+        OgreAssert(texCam != nullptr, "Camera (texture) is NULL");
         mLightFrustumCameraCalculated = false;
 
 
         // calculate standard shadow mapping matrix
         Affine3 LView; Matrix4 LProj;
-        calculateShadowMappingMatrix(*sm, *cam, *light, &LView, &LProj, NULL);
+        calculateShadowMappingMatrix(*sm, *cam, *light, &LView, &LProj, nullptr);
         
         // if the direction of the light and the direction of the camera tend to be parallel,
         // then tweak up the adjust factor
@@ -300,9 +299,9 @@ class Viewport;
         mCosCamLightDirThreshold = Math::Cos(angle.valueRadians());
     }
     //---------------------------------------------------------------------
-    Degree LiSPSMShadowCameraSetup::getCameraLightDirectionThreshold() const
+    auto LiSPSMShadowCameraSetup::getCameraLightDirectionThreshold() const -> Degree
     {
-        return Degree(Math::ACos(mCosCamLightDirThreshold));
+        return { Math::ACos(mCosCamLightDirThreshold) };
     }
 
 

@@ -30,34 +30,33 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLight.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderExPerPixelLighting.h"
-#include "OgreShaderFFPLighting.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreShaderSubRenderState.h"
-#include "OgreStringConverter.h"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreLight.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShaderExPerPixelLighting.hpp"
+#include "OgreShaderFFPLighting.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrecompiledHeaders.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreShaderScriptTranslator.hpp"
+#include "OgreShaderSubRenderState.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre {
     class Pass;
 }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -65,12 +64,12 @@ namespace RTShader {
 String PerPixelLighting::Type = "SGX_PerPixelLighting";
 
 //-----------------------------------------------------------------------
-const String& PerPixelLighting::getType() const
+auto PerPixelLighting::getType() const -> const String&
 {
     return Type;
 }
 
-bool PerPixelLighting::setParameter(const String& name, const String& value)
+auto PerPixelLighting::setParameter(const String& name, const String& value) -> bool
 {
 	if(name == "two_sided")
 	{
@@ -81,7 +80,7 @@ bool PerPixelLighting::setParameter(const String& name, const String& value)
 }
 
 //-----------------------------------------------------------------------
-bool PerPixelLighting::resolveParameters(ProgramSet* programSet)
+auto PerPixelLighting::resolveParameters(ProgramSet* programSet) -> bool
 {
     if (false == resolveGlobalParameters(programSet))
         return false;
@@ -93,7 +92,7 @@ bool PerPixelLighting::resolveParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet)
+auto PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -140,7 +139,7 @@ bool PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet)
     }
 
     mInDiffuse = psMain->getInputParameter(Parameter::SPC_COLOR_DIFFUSE);
-    if (mInDiffuse.get() == NULL)
+    if (mInDiffuse.get() == nullptr)
     {
         mInDiffuse = psMain->getLocalParameter(Parameter::SPC_COLOR_DIFFUSE);
     }
@@ -168,7 +167,7 @@ bool PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool PerPixelLighting::resolvePerLightParameters(ProgramSet* programSet)
+auto PerPixelLighting::resolvePerLightParameters(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -250,7 +249,7 @@ bool PerPixelLighting::resolvePerLightParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool PerPixelLighting::resolveDependencies(ProgramSet* programSet)
+auto PerPixelLighting::resolveDependencies(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -267,7 +266,7 @@ bool PerPixelLighting::resolveDependencies(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool PerPixelLighting::addFunctionInvocations(ProgramSet* programSet)
+auto PerPixelLighting::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM); 
     Function* vsMain = vsProgram->getEntryPointFunction();  
@@ -342,17 +341,17 @@ void PerPixelLighting::addPSGlobalIlluminationInvocation(const FunctionStageRef&
 }
 
 //-----------------------------------------------------------------------
-const String& PerPixelLightingFactory::getType() const
+auto PerPixelLightingFactory::getType() const -> const String&
 {
     return PerPixelLighting::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* PerPixelLightingFactory::createInstance(ScriptCompiler* compiler, 
-                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+auto PerPixelLightingFactory::createInstance(ScriptCompiler* compiler, 
+                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name != "lighting_stage" || prop->values.empty())
-        return NULL;
+        return nullptr;
 
     auto it = prop->values.begin();
     String val;
@@ -360,11 +359,11 @@ SubRenderState* PerPixelLightingFactory::createInstance(ScriptCompiler* compiler
     if(!SGScriptTranslator::getString(*it++, &val))
     {
         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-        return NULL;
+        return nullptr;
     }
 
     if (val != "per_pixel")
-        return NULL;
+        return nullptr;
 
     auto ret = createOrRetrieveInstance(translator);
 
@@ -389,10 +388,9 @@ void PerPixelLightingFactory::writeInstance(MaterialSerializer* ser, SubRenderSt
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* PerPixelLightingFactory::createInstanceImpl()
+auto PerPixelLightingFactory::createInstanceImpl() -> SubRenderState*
 {
     return new PerPixelLighting;
 }
 
-}
 }

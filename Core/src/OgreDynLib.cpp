@@ -28,10 +28,10 @@ THE SOFTWARE.
 #include <cstddef>
 #include <string>
 
-#include "OgreDynLib.h"
-#include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgreString.h"
+#include "OgreDynLib.hpp"
+#include "OgreException.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreString.hpp"
 
 #define DYNLIB_LOAD( a ) dlopen( a, RTLD_LAZY | RTLD_GLOBAL)
 #define DYNLIB_GETSYM( a, b ) dlsym( a, b )
@@ -47,13 +47,12 @@ namespace Ogre {
     DynLib::DynLib( const String& name )
     {
         mName = name;
-        mInst = NULL;
+        mInst = nullptr;
     }
 
     //-----------------------------------------------------------------------
     DynLib::~DynLib()
-    {
-    }
+    = default;
 
     //-----------------------------------------------------------------------
     void DynLib::load()
@@ -97,14 +96,14 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void* DynLib::getSymbol( const String& strName ) const throw()
+    auto DynLib::getSymbol( const String& strName ) const noexcept -> void*
     {
         return (void*)DYNLIB_GETSYM( mInst, strName.c_str() );
     }
     //-----------------------------------------------------------------------
-    String DynLib::dynlibError( void ) 
+    auto DynLib::dynlibError( ) -> String 
     {
-        return String(dlerror());
+        return {dlerror()};
     }
 
 }

@@ -16,19 +16,19 @@
 #include <utility>
 #include <vector>
 
-#include "OgreApplicationContext.h"
-#include "OgreApplicationContextBase.h"
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderWindow.h"
-#include "OgreRoot.h"
-#include "OgreStringConverter.h"
-#include "SDLInputMapping.h"
+#include "OgreApplicationContext.hpp"
+#include "OgreApplicationContextBase.hpp"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderWindow.hpp"
+#include "OgreRoot.hpp"
+#include "OgreStringConverter.hpp"
+#include "SDLInputMapping.hpp"
 
 namespace OgreBites {
 struct InputListener;
@@ -48,9 +48,9 @@ void ApplicationContextSDL::removeInputListener(NativeWindowType* win, InputList
     mInputListeners.erase(std::make_pair(SDL_GetWindowID(win), lis));
 }
 
-NativeWindowPair ApplicationContextSDL::createWindow(const Ogre::String& name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams)
+auto ApplicationContextSDL::createWindow(const Ogre::String& name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams) -> NativeWindowPair
 {
-    NativeWindowPair ret = {NULL, NULL};
+    NativeWindowPair ret = {nullptr, nullptr};
 
     if(!SDL_WasInit(SDL_INIT_VIDEO)) {
         if(SDL_GameControllerAddMappingsFromFile("gamecontrollerdb.txt"))
@@ -105,18 +105,18 @@ void ApplicationContextSDL::_destroyWindow(const NativeWindowPair& win)
 
 void ApplicationContextSDL::setWindowGrab(NativeWindowType* win, bool _grab)
 {
-    SDL_bool grab = SDL_bool(_grab);
+    auto grab = SDL_bool(_grab);
 
     SDL_SetWindowGrab(win, grab);
     // osx workaround: mouse motion events are gone otherwise
     SDL_SetRelativeMouseMode(grab);
 }
 
-float ApplicationContextSDL::getDisplayDPI() const
+auto ApplicationContextSDL::getDisplayDPI() const -> float
 {
-    OgreAssert(!mWindows.empty(), "create a window first");
+    Ogre::OgreAssert(!mWindows.empty(), "create a window first");
     float vdpi = -1;
-    if(SDL_GetDisplayDPI(0, NULL, NULL, &vdpi) == 0 && vdpi > 0)
+    if(SDL_GetDisplayDPI(0, nullptr, nullptr, &vdpi) == 0 && vdpi > 0)
         return vdpi;
 
     return ApplicationContextBase::getDisplayDPI();
@@ -151,12 +151,12 @@ void ApplicationContextSDL::pollEvents()
             if(event.window.event != SDL_WINDOWEVENT_RESIZED)
                 continue;
 
-            for(WindowList::iterator it = mWindows.begin(); it != mWindows.end(); ++it)
+            for(auto & mWindow : mWindows)
             {
-                if(event.window.windowID != SDL_GetWindowID(it->native))
+                if(event.window.windowID != SDL_GetWindowID(mWindow.native))
                     continue;
 
-                Ogre::RenderWindow* win = it->render;
+                Ogre::RenderWindow* win = mWindow.render;
                 win->resize(event.window.data1, event.window.data2);
                 windowResized(win);
             }

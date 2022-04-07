@@ -27,32 +27,32 @@ THE SOFTWARE
 #include <ostream>
 #include <string>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreBitwise.h"
-#include "OgreBlendMode.h"
-#include "OgreDataStream.h"
-#include "OgreFont.h"
-#include "OgreImage.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreOverlayManager.h"
-#include "OgrePass.h"
-#include "OgrePixelFormat.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreStringConverter.h"
-#include "OgreStringInterface.h"
-#include "OgreStringVector.h"
-#include "OgreTechnique.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
-#include "OgreVector.h"
+#include "OgreAxisAlignedBox.hpp"
+#include "OgreBitwise.hpp"
+#include "OgreBlendMode.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreFont.hpp"
+#include "OgreImage.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreOverlayManager.hpp"
+#include "OgrePass.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringInterface.hpp"
+#include "OgreStringVector.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTextureUnitState.hpp"
+#include "OgreVector.hpp"
 
-#include "OgreBillboard.h"
-#include "OgreBillboardSet.h"
-#include "utf8.h"
+#include "OgreBillboard.hpp"
+#include "OgreBillboardSet.hpp"
+#include "utf8.hpp"
 
 #define generic _generic    // keyword for C++/CX
 #include <freetype/freetype.h>
@@ -65,38 +65,38 @@ namespace Ogre
     class CmdType : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdSource : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdCharSpacer : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdSize : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdResolution : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdCodePoints : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
 
     // Command object for setting / getting parameters
@@ -108,7 +108,7 @@ namespace Ogre
     static CmdCodePoints msCodePointsCmd;
     }
 
-    std::vector<uint32> utftoc32(String str)
+    auto utftoc32(String str) -> std::vector<uint32>
     {
         std::vector<uint32> decoded;
         decoded.reserve(str.size());
@@ -131,8 +131,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     Font::Font(ResourceManager* creator, const String& name, ResourceHandle handle,
         const String& group, bool isManual, ManualResourceLoader* loader)
-        :Resource (creator, name, handle, group, isManual, loader),
-        mType(FT_TRUETYPE), mTtfSize(0), mTtfResolution(0), mTtfMaxBearingY(0), mAntialiasColour(false)
+        :Resource (creator, name, handle, group, isManual, loader) 
     {
 
         if (createParamDictionary("Font"))
@@ -172,7 +171,7 @@ namespace Ogre
         mType = ftype;
     }
     //---------------------------------------------------------------------
-    FontType Font::getType(void) const
+    auto Font::getType() const -> FontType
     {
         return mType;
     }
@@ -192,22 +191,22 @@ namespace Ogre
         mTtfResolution = ttfResolution;
     }
     //---------------------------------------------------------------------
-    const String& Font::getSource(void) const
+    auto Font::getSource() const -> const String&
     {
         return mSource;
     }
     //---------------------------------------------------------------------
-    Real Font::getTrueTypeSize(void) const
+    auto Font::getTrueTypeSize() const -> Real
     {
         return mTtfSize;
     }
     //---------------------------------------------------------------------
-    uint Font::getTrueTypeResolution(void) const
+    auto Font::getTrueTypeResolution() const -> uint
     {
         return mTtfResolution;
     }
     //---------------------------------------------------------------------
-    int Font::getTrueTypeMaxBearingY() const
+    auto Font::getTrueTypeMaxBearingY() const -> int
     {
         return mTtfMaxBearingY;
     }
@@ -342,7 +341,7 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    void Font::createTextureFromFont(void)
+    void Font::createTextureFromFont()
     {
         // Just create the texture here, and point it at ourselves for when
         // it wants to (re)load for real
@@ -384,7 +383,7 @@ namespace Ogre
 
 
         // Convert our point size to freetype 26.6 fixed point format
-        FT_F26Dot6 ftSize = (FT_F26Dot6)(mTtfSize * (1 << 6));
+        auto ftSize = (FT_F26Dot6)(mTtfSize * (1 << 6));
         if (FT_Set_Char_Size(face, ftSize, 0, mTtfResolution * vpScale, mTtfResolution * vpScale))
             OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Could not set char size!");
 
@@ -412,7 +411,7 @@ namespace Ogre
         // Now work out how big our texture needs to be
         size_t rawSize = (max_width + char_spacer) * (max_height + char_spacer) * glyphCount;
 
-        uint32 tex_side = static_cast<uint32>(Math::Sqrt((Real)rawSize));
+        auto tex_side = static_cast<uint32>(Math::Sqrt((Real)rawSize));
         // Now round up to nearest power of two
         uint32 roundUpSize = Bitwise::firstPO2From(tex_side);
 
@@ -513,14 +512,14 @@ namespace Ogre
 
         FT_Done_FreeType(ftLibrary);
 
-        Texture* tex = static_cast<Texture*>(res);
+        auto* tex = static_cast<Texture*>(res);
         // Call internal _loadImages, not loadImage since that's external and 
         // will determine load status etc again, and this is a manual loader inside load()
         tex->_loadImages({&img});
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    String CmdType::doGet(const void* target) const
+    auto CmdType::doGet(const void* target) const -> String
     {
         const Font* f = static_cast<const Font*>(target);
         if (f->getType() == FT_TRUETYPE)
@@ -545,7 +544,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    String CmdSource::doGet(const void* target) const
+    auto CmdSource::doGet(const void* target) const -> String
     {
         const Font* f = static_cast<const Font*>(target);
         return f->getSource();
@@ -556,13 +555,13 @@ namespace Ogre
         f->setSource(val);
     }
     //-----------------------------------------------------------------------
-    String CmdCharSpacer::doGet(const void* target) const
+    auto CmdCharSpacer::doGet(const void* target) const -> String
     {
         return "1";
     }
     void CmdCharSpacer::doSet(void* target, const String& val) {}
     //-----------------------------------------------------------------------
-    String CmdSize::doGet(const void* target) const
+    auto CmdSize::doGet(const void* target) const -> String
     {
         const Font* f = static_cast<const Font*>(target);
         return StringConverter::toString(f->getTrueTypeSize());
@@ -573,7 +572,7 @@ namespace Ogre
         f->setTrueTypeSize(StringConverter::parseReal(val));
     }
     //-----------------------------------------------------------------------
-    String CmdResolution::doGet(const void* target) const
+    auto CmdResolution::doGet(const void* target) const -> String
     {
         const Font* f = static_cast<const Font*>(target);
         return StringConverter::toString(f->getTrueTypeResolution());
@@ -584,7 +583,7 @@ namespace Ogre
         f->setTrueTypeResolution(StringConverter::parseUnsignedInt(val));
     }
     //-----------------------------------------------------------------------
-    String CmdCodePoints::doGet(const void* target) const
+    auto CmdCodePoints::doGet(const void* target) const -> String
     {
         const Font* f = static_cast<const Font*>(target);
         StringStream str;
@@ -600,9 +599,8 @@ namespace Ogre
         Font* f = static_cast<Font*>(target);
 
         StringVector vec = StringUtil::split(val, " \t");
-        for (StringVector::iterator i = vec.begin(); i != vec.end(); ++i)
+        for (auto & item : vec)
         {
-            String& item = *i;
             StringVector itemVec = StringUtil::split(item, "-");
             if (itemVec.size() == 2)
             {

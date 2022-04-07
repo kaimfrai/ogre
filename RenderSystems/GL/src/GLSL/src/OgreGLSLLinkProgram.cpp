@@ -30,25 +30,24 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreDataStream.h"
-#include "OgreGLSLExtSupport.h"
-#include "OgreGLSLLinkProgram.h"
-#include "OgreGLSLLinkProgramManager.h"
-#include "OgreGLSLProgram.h"
-#include "OgreGLSLProgramCommon.h"
-#include "OgreGLSLShaderCommon.h"
-#include "OgreGLUniformCache.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreRenderOperation.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
+#include "OgreDataStream.hpp"
+#include "OgreGLSLExtSupport.hpp"
+#include "OgreGLSLLinkProgram.hpp"
+#include "OgreGLSLLinkProgramManager.hpp"
+#include "OgreGLSLProgram.hpp"
+#include "OgreGLSLProgramCommon.hpp"
+#include "OgreGLSLShaderCommon.hpp"
+#include "OgreGLUniformCache.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringVector.hpp"
 
-namespace Ogre {
-    namespace GLSL {
+namespace Ogre::GLSL {
 
-    static GLint getGLGeometryInputPrimitiveType(RenderOperation::OperationType operationType)
+    static auto getGLGeometryInputPrimitiveType(RenderOperation::OperationType operationType) -> GLint
     {
         switch (operationType)
         {
@@ -71,7 +70,7 @@ namespace Ogre {
 		}
     }
     //-----------------------------------------------------------------------
-    static GLint getGLGeometryOutputPrimitiveType(RenderOperation::OperationType operationType)
+    static auto getGLGeometryOutputPrimitiveType(RenderOperation::OperationType operationType) -> GLint
     {
         switch (operationType)
         {
@@ -93,16 +92,16 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgram::~GLSLLinkProgram(void)
+    GLSLLinkProgram::~GLSLLinkProgram()
     {
         glDeleteObjectARB((GLhandleARB)mGLProgramHandle);
 
         delete mUniformCache;
-        mUniformCache = 0;
+        mUniformCache = nullptr;
     }
 
     //-----------------------------------------------------------------------
-    void GLSLLinkProgram::activate(void)
+    void GLSLLinkProgram::activate()
     {
         if (!mLinked)
         {           
@@ -171,7 +170,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void GLSLLinkProgram::extractAttributes(void)
+    void GLSLLinkProgram::extractAttributes()
     {
         size_t numAttribs = sizeof(msCustomAttributes)/sizeof(CustomAttribute);
 
@@ -195,18 +194,18 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool GLSLLinkProgram::isAttributeValid(VertexElementSemantic semantic, uint index)
+    auto GLSLLinkProgram::isAttributeValid(VertexElementSemantic semantic, uint index) -> bool
     {
         return mValidAttributes.find(getFixedAttributeIndex(semantic, index)) != mValidAttributes.end();
     }
     //-----------------------------------------------------------------------
-    void GLSLLinkProgram::buildGLUniformReferences(void)
+    void GLSLLinkProgram::buildGLUniformReferences()
     {
         if (!mUniformRefsBuilt)
         {
-            const GpuConstantDefinitionMap* vertParams = 0;
-            const GpuConstantDefinitionMap* fragParams = 0;
-            const GpuConstantDefinitionMap* geomParams = 0;
+            const GpuConstantDefinitionMap* vertParams = nullptr;
+            const GpuConstantDefinitionMap* fragParams = nullptr;
+            const GpuConstantDefinitionMap* geomParams = nullptr;
             if (mShaders[GPT_VERTEX_PROGRAM])
             {
                 vertParams = &(mShaders[GPT_VERTEX_PROGRAM]->getConstantDefinitions().map);
@@ -232,8 +231,8 @@ namespace Ogre {
         uint16 mask, GpuProgramType fromProgType)
     {
         // iterate through uniform reference list and update uniform values
-        GLUniformReferenceIterator currentUniform = mGLUniformReferences.begin();
-        GLUniformReferenceIterator endUniform = mGLUniformReferences.end();
+        auto currentUniform = mGLUniformReferences.begin();
+        auto endUniform = mGLUniformReferences.end();
 
         // determine if we need to transpose matrices when binding
         bool transpose = !mShaders[fromProgType] || mShaders[fromProgType]->getColumnMajorMatrices();
@@ -249,7 +248,7 @@ namespace Ogre {
                 if (def->variability & mask)
                 {
 
-                    GLsizei glArraySize = (GLsizei)def->arraySize;
+                    auto glArraySize = (GLsizei)def->arraySize;
 
                     void* val = def->isSampler() ? (void*)params->getRegPointer(def->physicalIndex)
                                                  : (void*)params->getFloatPointer(def->physicalIndex);
@@ -487,7 +486,7 @@ namespace Ogre {
 
                 // get binary
                 uint8 * programBuffer = newMicrocode->getPtr() + sizeof(GLenum);
-                glGetProgramBinary(mGLProgramHandle, binaryLength, NULL, &binaryFormat, programBuffer);
+                glGetProgramBinary(mGLProgramHandle, binaryLength, nullptr, &binaryFormat, programBuffer);
 
                 // save binary format
                 memcpy(newMicrocode->getPtr(), &binaryFormat, sizeof(GLenum));
@@ -498,5 +497,4 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-} // namespace GLSL
 } // namespace Ogre

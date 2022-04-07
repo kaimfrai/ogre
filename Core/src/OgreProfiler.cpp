@@ -35,14 +35,14 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreProfiler.h"
-#include "OgreRenderSystem.h"
-#include "OgreRoot.h"
-#include "OgreSingleton.h"
-#include "OgreStringConverter.h"
+#include "OgreLogManager.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreProfiler.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSingleton.hpp"
+#include "OgreStringConverter.hpp"
 /*
 
     Although the code is original, many of the ideas for the profiler were borrowed from 
@@ -56,18 +56,18 @@ Ogre-dependent is in the visualization/logging routines and the use of the Timer
 
 */
 
-#include "OgreTimer.h"
+#include "OgreTimer.hpp"
 
 namespace Ogre {
     //-----------------------------------------------------------------------
     // PROFILE DEFINITIONS
     //-----------------------------------------------------------------------
-    template<> Profiler* Singleton<Profiler>::msSingleton = 0;
-    Profiler* Profiler::getSingletonPtr(void)
+    template<> Profiler* Singleton<Profiler>::msSingleton = nullptr;
+    auto Profiler::getSingletonPtr() -> Profiler*
     {
         return msSingleton;
     }
-    Profiler& Profiler::getSingleton(void)
+    auto Profiler::getSingleton() -> Profiler&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -77,28 +77,15 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Profiler::Profiler() 
         : mCurrent(&mRoot)
-        , mLast(NULL)
-        , mRoot()
-        , mInitialized(false)
-        , mUpdateDisplayFrequency(10)
-        , mCurrentFrame(0)
-        , mTimer(0)
-        , mTotalFrameClocks(0)
-        , mEnabled(false)
-        , mNewEnableState(false)
-        , mProfileMask(0xFFFFFFFF)
-        , mMaxTotalFrameClocks(0)
-        , mAverageFrameClocks(0)
-        , mResetExtents(false)
+        , 
+         mRoot()
+         
     {
         mRoot.hierarchicalLvl = 0 - 1;
     }
     //-----------------------------------------------------------------------
-    ProfileInstance::ProfileInstance(void)
-        : parent(NULL)
-        , frameNumber(0)
-        , accumClocks(0)
-        , hierarchicalLvl(0)
+    ProfileInstance::ProfileInstance()
+         
     {
         history.numCallsThisFrame = 0;
         history.totalClocksPercent = 0;
@@ -115,11 +102,11 @@ namespace Ogre {
         frame.frameClocks = 0;
         frame.calls = 0;
     }
-    ProfileInstance::~ProfileInstance(void)
+    ProfileInstance::~ProfileInstance()
     {                                        
-        for(ProfileChildren::iterator it = children.begin(); it != children.end(); ++it)
+        for(auto & it : children)
         {
-            ProfileInstance* instance = it->second;
+            ProfileInstance* instance = it.second;
             delete instance;
         }
         children.clear();
@@ -142,7 +129,7 @@ namespace Ogre {
         mTimer = t;
     }
     //-----------------------------------------------------------------------
-    Timer* Profiler::getTimer()
+    auto Profiler::getTimer() -> Timer*
     {
         assert(mTimer && "Timer not set!");
         return mTimer;
@@ -152,15 +139,15 @@ namespace Ogre {
     {
         if (!mInitialized && enabled) 
         {
-            for( TProfileSessionListener::iterator i = mListeners.begin(); i != mListeners.end(); ++i )
-                (*i)->initializeSession();
+            for(auto & mListener : mListeners)
+                mListener->initializeSession();
 
             mInitialized = true;
         }
         else if (mInitialized && !enabled)
         {
-            for( TProfileSessionListener::iterator i = mListeners.begin(); i != mListeners.end(); ++i )
-                (*i)->finializeSession();
+            for(auto & mListener : mListeners)
+                mListener->finializeSession();
 
             mInitialized = false;
             mEnabled = false;
@@ -170,15 +157,15 @@ namespace Ogre {
         mNewEnableState = enabled;
     }
     //-----------------------------------------------------------------------
-    bool Profiler::getEnabled() const
+    auto Profiler::getEnabled() const -> bool
     {
         return mEnabled;
     }
     //-----------------------------------------------------------------------
     void Profiler::changeEnableState() 
     {
-        for( TProfileSessionListener::iterator i = mListeners.begin(); i != mListeners.end(); ++i )
-            (*i)->changeEnableState(mNewEnableState);
+        for(auto & mListener : mListeners)
+            mListener->changeEnableState(mNewEnableState);
 
         mEnabled = mNewEnableState;
     }
@@ -276,7 +263,7 @@ namespace Ogre {
 
                 // unwind the hierarchy, should be easy enough
                 mCurrent = &mRoot;
-                mLast = NULL;
+                mLast = nullptr;
             }
 
             if(&mRoot == mCurrent && mLast)
@@ -289,7 +276,7 @@ namespace Ogre {
                 }
                 mRoot.children.clear();
 
-                mLast = NULL;
+                mLast = nullptr;
 
                 processFrameStats();
                 displayResults();
@@ -425,7 +412,7 @@ namespace Ogre {
         if(frameClocks > maxFrameClocks)
             maxFrameClocks = frameClocks;
 
-        ProfileChildren::iterator it = instance->children.begin(), endit = instance->children.end();
+        auto it = instance->children.begin(), endit = instance->children.end();
         for(;it != endit; ++it)
         {
             ProfileInstance* child = it->second;
@@ -441,11 +428,11 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void Profiler::processFrameStats(void) 
+    void Profiler::processFrameStats() 
     {
         ulong maxFrameClocks = 0;
 
-        ProfileChildren::iterator it = mRoot.children.begin(), endit = mRoot.children.end();
+        auto it = mRoot.children.begin(), endit = mRoot.children.end();
         for(;it != endit; ++it)
         {
             ProfileInstance* child = it->second;
@@ -483,22 +470,22 @@ namespace Ogre {
             // ensure the root won't be culled
             mRoot.frame.calls = 1;
 
-            for( TProfileSessionListener::iterator i = mListeners.begin(); i != mListeners.end(); ++i )
-                (*i)->displayResults(mRoot, mMaxTotalFrameClocks);
+            for(auto & mListener : mListeners)
+                mListener->displayResults(mRoot, mMaxTotalFrameClocks);
         }
         ++mCurrentFrame;
     }
     //-----------------------------------------------------------------------
-    bool Profiler::watchForMax(const String& profileName) 
+    auto Profiler::watchForMax(const String& profileName) -> bool 
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
 
         return mRoot.watchForMax(profileName);
     }
     //-----------------------------------------------------------------------
-    bool ProfileInstance::watchForMax(const String& profileName) 
+    auto ProfileInstance::watchForMax(const String& profileName) -> bool 
     {
-        ProfileChildren::iterator it = children.begin(), endit = children.end();
+        auto it = children.begin(), endit = children.end();
         for(;it != endit; ++it)
         {
             ProfileInstance* child = it->second;
@@ -508,15 +495,15 @@ namespace Ogre {
         return false;
     }
     //-----------------------------------------------------------------------
-    bool Profiler::watchForMin(const String& profileName) 
+    auto Profiler::watchForMin(const String& profileName) -> bool 
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
         return mRoot.watchForMin(profileName);
     }
     //-----------------------------------------------------------------------
-    bool ProfileInstance::watchForMin(const String& profileName) 
+    auto ProfileInstance::watchForMin(const String& profileName) -> bool 
     {
-        ProfileChildren::iterator it = children.begin(), endit = children.end();
+        auto it = children.begin(), endit = children.end();
         for(;it != endit; ++it)
         {
             ProfileInstance* child = it->second;
@@ -526,15 +513,15 @@ namespace Ogre {
         return false;
     }
     //-----------------------------------------------------------------------
-    bool Profiler::watchForLimit(const String& profileName, long double limit, bool greaterThan)
+    auto Profiler::watchForLimit(const String& profileName, long double limit, bool greaterThan) -> bool
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
         return mRoot.watchForLimit(profileName, limit, greaterThan);
     }
     //-----------------------------------------------------------------------
-    bool ProfileInstance::watchForLimit(const String& profileName, long double limit, bool greaterThan)
+    auto ProfileInstance::watchForLimit(const String& profileName, long double limit, bool greaterThan) -> bool
     {
-        ProfileChildren::iterator it = children.begin(), endit = children.end();
+        auto it = children.begin(), endit = children.end();
         for(;it != endit; ++it)
         {
             ProfileInstance* child = it->second;
@@ -548,15 +535,15 @@ namespace Ogre {
     {
         LogManager::getSingleton().logMessage("----------------------Profiler Results----------------------");
 
-        for(ProfileChildren::iterator it = mRoot.children.begin(); it != mRoot.children.end(); ++it)
+        for(auto & it : mRoot.children)
         {
-            it->second->logResults();
+            it.second->logResults();
         }
 
         LogManager::getSingleton().logMessage("------------------------------------------------------------");
     }
 
-    long double ProfileHistory::StandardDeviationMilliseconds() const
+    auto ProfileHistory::StandardDeviationMilliseconds() const -> long double
     {
         if (totalCalls == 0ul)
             return 0.0l;
@@ -599,9 +586,9 @@ namespace Ogre {
             )
         );
 
-        for(ProfileChildren::iterator it = children.begin(); it != children.end(); ++it)
+        for(auto & it : children)
         {
-            it->second->logResults();
+            it.second->logResults();
         }
     }
     //-----------------------------------------------------------------------
@@ -611,7 +598,7 @@ namespace Ogre {
         mMaxTotalFrameClocks = 0;
     }
     //-----------------------------------------------------------------------
-    void ProfileInstance::reset(void)
+    void ProfileInstance::reset()
     {
         history.currentClocksPercent = history.maxClocksPercent = history.totalClocksPercent = 0;
         history.currentClocks = history.maxClocks = history.totalClocks = 0;
@@ -619,9 +606,9 @@ namespace Ogre {
 
         history.minClocksPercent = 1;
         history.minClocks = static_cast<ulong>(-1l);
-        for(ProfileChildren::iterator it = children.begin(); it != children.end(); ++it)
+        for(auto & it : children)
         {
-            it->second->reset();
+            it.second->reset();
         }
     }
     //-----------------------------------------------------------------------
@@ -630,7 +617,7 @@ namespace Ogre {
         mUpdateDisplayFrequency = freq;
     }
     //-----------------------------------------------------------------------
-    uint Profiler::getUpdateDisplayFrequency() const
+    auto Profiler::getUpdateDisplayFrequency() const -> uint
     {
         return mUpdateDisplayFrequency;
     }
@@ -643,7 +630,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Profiler::removeListener(ProfileSessionListener* listener)
     {
-        TProfileSessionListener::iterator i = std::find(mListeners.begin(), mListeners.end(), listener);
+        auto i = std::find(mListeners.begin(), mListeners.end(), listener);
         if (i != mListeners.end())
             mListeners.erase(i);
     }

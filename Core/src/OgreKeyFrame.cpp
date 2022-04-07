@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreKeyFrame.h"
+#include "OgreKeyFrame.hpp"
 
-#include "OgreAnimationTrack.h"
+#include "OgreAnimationTrack.hpp"
 
 namespace Ogre
 {
@@ -37,7 +37,7 @@ namespace Ogre
     {
     }
     //---------------------------------------------------------------------
-    KeyFrame* KeyFrame::_clone(AnimationTrack* newParent) const
+    auto KeyFrame::_clone(AnimationTrack* newParent) const -> KeyFrame*
     {
         return new KeyFrame(newParent, mTime);
     }
@@ -47,7 +47,7 @@ namespace Ogre
     {
     }
     //---------------------------------------------------------------------
-    const AnyNumeric& NumericKeyFrame::getValue(void) const
+    auto NumericKeyFrame::getValue() const -> const AnyNumeric&
     {
         return mValue;
     }
@@ -57,9 +57,9 @@ namespace Ogre
         mValue = val;
     }
     //---------------------------------------------------------------------
-    KeyFrame* NumericKeyFrame::_clone(AnimationTrack* newParent) const
+    auto NumericKeyFrame::_clone(AnimationTrack* newParent) const -> KeyFrame*
     {
-        NumericKeyFrame* newKf = new NumericKeyFrame(newParent, mTime);
+        auto* newKf = new NumericKeyFrame(newParent, mTime);
         newKf->mValue = mValue;
         return newKf;
     }
@@ -77,7 +77,7 @@ namespace Ogre
             mParentTrack->_keyFrameDataChanged();
     }
     //---------------------------------------------------------------------
-    const Vector3& TransformKeyFrame::getTranslate(void) const
+    auto TransformKeyFrame::getTranslate() const -> const Vector3&
     {
         return mTranslate;
     }
@@ -89,7 +89,7 @@ namespace Ogre
             mParentTrack->_keyFrameDataChanged();
     }
     //---------------------------------------------------------------------
-    const Vector3& TransformKeyFrame::getScale(void) const
+    auto TransformKeyFrame::getScale() const -> const Vector3&
     {
         return mScale;
     }
@@ -101,14 +101,14 @@ namespace Ogre
             mParentTrack->_keyFrameDataChanged();
     }
     //---------------------------------------------------------------------
-    const Quaternion& TransformKeyFrame::getRotation(void) const
+    auto TransformKeyFrame::getRotation() const -> const Quaternion&
     {
         return mRotate;
     }
     //---------------------------------------------------------------------
-    KeyFrame* TransformKeyFrame::_clone(AnimationTrack* newParent) const
+    auto TransformKeyFrame::_clone(AnimationTrack* newParent) const -> KeyFrame*
     {
-        TransformKeyFrame* newKf = new TransformKeyFrame(newParent, mTime);
+        auto* newKf = new TransformKeyFrame(newParent, mTime);
         newKf->mTranslate = mTranslate;
         newKf->mScale = mScale;
         newKf->mRotate = mRotate;
@@ -125,15 +125,15 @@ namespace Ogre
         mBuffer = buf;
     }
     //---------------------------------------------------------------------
-    const HardwareVertexBufferSharedPtr& 
-    VertexMorphKeyFrame::getVertexBuffer(void) const
+    auto 
+    VertexMorphKeyFrame::getVertexBuffer() const -> const HardwareVertexBufferSharedPtr&
     {
         return mBuffer;
     }
     //---------------------------------------------------------------------
-    KeyFrame* VertexMorphKeyFrame::_clone(AnimationTrack* newParent) const
+    auto VertexMorphKeyFrame::_clone(AnimationTrack* newParent) const -> KeyFrame*
     {
-        VertexMorphKeyFrame* newKf = new VertexMorphKeyFrame(newParent, mTime);
+        auto* newKf = new VertexMorphKeyFrame(newParent, mTime);
         newKf->mBuffer = mBuffer;
         return newKf;
     }   
@@ -150,11 +150,11 @@ namespace Ogre
     //---------------------------------------------------------------------
     void VertexPoseKeyFrame::updatePoseReference(ushort poseIndex, Real influence)
     {
-        for (PoseRefList::iterator i = mPoseRefs.begin(); i != mPoseRefs.end(); ++i)
+        for (auto & mPoseRef : mPoseRefs)
         {
-            if (i->poseIndex == poseIndex)
+            if (mPoseRef.poseIndex == poseIndex)
             {
-                i->influence = influence;
+                mPoseRef.influence = influence;
                 return;
             }
         }
@@ -165,7 +165,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void VertexPoseKeyFrame::removePoseReference(ushort poseIndex)
     {
-        for (PoseRefList::iterator i = mPoseRefs.begin(); i != mPoseRefs.end(); ++i)
+        for (auto i = mPoseRefs.begin(); i != mPoseRefs.end(); ++i)
         {
             if (i->poseIndex == poseIndex)
             {
@@ -175,21 +175,21 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    void VertexPoseKeyFrame::removeAllPoseReferences(void)
+    void VertexPoseKeyFrame::removeAllPoseReferences()
     {
         mPoseRefs.clear();
     }
     //---------------------------------------------------------------------
-    const VertexPoseKeyFrame::PoseRefList& 
-    VertexPoseKeyFrame::getPoseReferences(void) const
+    auto 
+    VertexPoseKeyFrame::getPoseReferences() const -> const VertexPoseKeyFrame::PoseRefList&
     {
         return mPoseRefs;
     }
 
     //---------------------------------------------------------------------
-    KeyFrame* VertexPoseKeyFrame::_clone(AnimationTrack* newParent) const
+    auto VertexPoseKeyFrame::_clone(AnimationTrack* newParent) const -> KeyFrame*
     {
-        VertexPoseKeyFrame* newKf = new VertexPoseKeyFrame(newParent, mTime);
+        auto* newKf = new VertexPoseKeyFrame(newParent, mTime);
         // By-value copy ok
         newKf->mPoseRefs = mPoseRefs;
         return newKf;
@@ -199,11 +199,9 @@ namespace Ogre
     {
         // We subtract the matching pose influences in the base keyframe from the
         // influences in this keyframe
-        for (PoseRefList::iterator i = mPoseRefs.begin(); i != mPoseRefs.end(); ++i)
+        for (auto & myPoseRef : mPoseRefs)
         {
-            PoseRef& myPoseRef = *i;
-            
-            PoseRefList::const_iterator basePoseIt = base->getPoseReferences().begin();
+            auto basePoseIt = base->getPoseReferences().begin();
             Real baseInfluence = 0.0f;
             for (;basePoseIt != base->getPoseReferences().end(); ++basePoseIt)
             {

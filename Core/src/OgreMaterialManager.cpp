@@ -32,32 +32,32 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreResource.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreTechnique.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreLodStrategyManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreResource.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSingleton.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTextureUnitState.hpp"
 
 
 namespace Ogre {
 class Renderable;
 
     //-----------------------------------------------------------------------
-    template<> MaterialManager* Singleton<MaterialManager>::msSingleton = 0;
-    MaterialManager* MaterialManager::getSingletonPtr(void)
+    template<> MaterialManager* Singleton<MaterialManager>::msSingleton = nullptr;
+    auto MaterialManager::getSingletonPtr() -> MaterialManager*
     {
         return msSingleton;
     }
-    MaterialManager& MaterialManager::getSingleton(void)
+    auto MaterialManager::getSingleton() -> MaterialManager&
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -94,26 +94,26 @@ class Renderable;
         ResourceGroupManager::getSingleton()._unregisterScriptLoader(this);
     }
     //-----------------------------------------------------------------------
-    Resource* MaterialManager::createImpl(const String& name, ResourceHandle handle,
+    auto MaterialManager::createImpl(const String& name, ResourceHandle handle,
         const String& group, bool isManual, ManualResourceLoader* loader,
-    const NameValuePairList* params)
+    const NameValuePairList* params) -> Resource*
     {
         return new Material(this, name, handle, group, isManual, loader);
     }
     //-----------------------------------------------------------------------
-    MaterialPtr MaterialManager::create (const String& name, const String& group,
+    auto MaterialManager::create (const String& name, const String& group,
                                     bool isManual, ManualResourceLoader* loader,
-                                    const NameValuePairList* createParams)
+                                    const NameValuePairList* createParams) -> MaterialPtr
     {
         return static_pointer_cast<Material>(createResource(name,group,isManual,loader,createParams));
     }
     //-----------------------------------------------------------------------
-    MaterialPtr MaterialManager::getByName(const String& name, const String& groupName) const
+    auto MaterialManager::getByName(const String& name, const String& groupName) const -> MaterialPtr
     {
         return static_pointer_cast<Material>(getResourceByName(name, groupName));
     }
 
-    MaterialPtr MaterialManager::getDefaultMaterial(bool useLighting) {
+    auto MaterialManager::getDefaultMaterial(bool useLighting) -> MaterialPtr {
         MaterialPtr ret = getByName(useLighting ? "BaseWhite" : "BaseWhiteNoLighting",
                                     ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
 
@@ -124,7 +124,7 @@ class Renderable;
     }
 
     //-----------------------------------------------------------------------
-    void MaterialManager::initialise(void)
+    void MaterialManager::initialise()
     {
         // Set up default material - don't use name constructor as we want to avoid applying defaults
         mDefaultSettings = create("DefaultSettings", ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
@@ -153,7 +153,7 @@ class Renderable;
         TextureManager::getSingleton().getDefaultSampler()->setAnisotropy(maxAniso);
     }
     //-----------------------------------------------------------------------
-    unsigned int MaterialManager::getDefaultAnisotropy() const
+    auto MaterialManager::getDefaultAnisotropy() const -> unsigned int
     {
         return TextureManager::getSingleton().getDefaultSampler()->getAnisotropy();
     }
@@ -169,15 +169,15 @@ class Renderable;
         TextureManager::getSingleton().getDefaultSampler()->setFiltering(minFilter, magFilter, mipFilter);
     }
     //-----------------------------------------------------------------------
-    FilterOptions MaterialManager::getDefaultTextureFiltering(FilterType ftype) const
+    auto MaterialManager::getDefaultTextureFiltering(FilterType ftype) const -> FilterOptions
     {
         return TextureManager::getSingleton().getDefaultSampler()->getFiltering(ftype);
     }
     //-----------------------------------------------------------------------
-    unsigned short MaterialManager::_getSchemeIndex(const String& schemeName)
+    auto MaterialManager::_getSchemeIndex(const String& schemeName) -> unsigned short
     {
         unsigned short ret = 0;
-        SchemeMap::iterator i = mSchemes.find(schemeName);
+        auto i = mSchemes.find(schemeName);
         if (i != mSchemes.end())
         {
             ret = i->second;
@@ -192,12 +192,12 @@ class Renderable;
 
     }
     //-----------------------------------------------------------------------
-    const String& MaterialManager::_getSchemeName(unsigned short index)
+    auto MaterialManager::_getSchemeName(unsigned short index) -> const String&
     {
-        for (SchemeMap::iterator i = mSchemes.begin(); i != mSchemes.end(); ++i)
+        for (auto & mScheme : mSchemes)
         {
-            if (i->second == index)
-                return i->first;
+            if (mScheme.second == index)
+                return mScheme.first;
         }
         return DEFAULT_SCHEME_NAME;
     }
@@ -223,17 +223,17 @@ class Renderable;
         mListenerMap[schemeName].remove(l);
     }
     //---------------------------------------------------------------------
-    Technique* MaterialManager::_arbitrateMissingTechniqueForActiveScheme(
-        Material* mat, unsigned short lodIndex, const Renderable* rend)
+    auto MaterialManager::_arbitrateMissingTechniqueForActiveScheme(
+        Material* mat, unsigned short lodIndex, const Renderable* rend) -> Technique*
     {
         //First, check the scheme specific listeners
-        ListenerMap::iterator it = mListenerMap.find(mActiveSchemeName);
+        auto it = mListenerMap.find(mActiveSchemeName);
         if (it != mListenerMap.end()) 
         {
             ListenerList& listenerList = it->second;
-            for (ListenerList::iterator i = listenerList.begin(); i != listenerList.end(); ++i)
+            for (auto & i : listenerList)
             {
-                Technique* t = (*i)->handleSchemeNotFound(mActiveSchemeIndex, 
+                Technique* t = i->handleSchemeNotFound(mActiveSchemeIndex, 
                     mActiveSchemeName, mat, lodIndex, rend);
                 if (t)
                     return t;
@@ -245,9 +245,9 @@ class Renderable;
         if (it != mListenerMap.end()) 
         {
             ListenerList& listenerList = it->second;
-            for (ListenerList::iterator i = listenerList.begin(); i != listenerList.end(); ++i)
+            for (auto & i : listenerList)
             {
-                Technique* t = (*i)->handleSchemeNotFound(mActiveSchemeIndex, 
+                Technique* t = i->handleSchemeNotFound(mActiveSchemeIndex, 
                     mActiveSchemeName, mat, lodIndex, rend);
                 if (t)
                     return t;
@@ -255,20 +255,20 @@ class Renderable;
         }
         
 
-        return 0;
+        return nullptr;
 
     }
 
 	void MaterialManager::_notifyAfterIlluminationPassesCreated(Technique* tech)
 	{
 		// First, check the scheme specific listeners
-		ListenerMap::iterator it = mListenerMap.find(mActiveSchemeName);
+		auto it = mListenerMap.find(mActiveSchemeName);
 		if(it != mListenerMap.end())
 		{
 			ListenerList& listenerList = it->second;
-			for(ListenerList::iterator i = listenerList.begin(); i != listenerList.end(); ++i)
+			for(auto & i : listenerList)
 			{
-				bool handled = (*i)->afterIlluminationPassesCreated(tech);
+				bool handled = i->afterIlluminationPassesCreated(tech);
 				if(handled)
 					return;
 			}
@@ -279,9 +279,9 @@ class Renderable;
 		if(it != mListenerMap.end())
 		{
 			ListenerList& listenerList = it->second;
-			for(ListenerList::iterator i = listenerList.begin(); i != listenerList.end(); ++i)
+			for(auto & i : listenerList)
 			{
-				bool handled = (*i)->afterIlluminationPassesCreated(tech);
+				bool handled = i->afterIlluminationPassesCreated(tech);
 				if(handled)
 					return;
 			}
@@ -291,13 +291,13 @@ class Renderable;
 	void MaterialManager::_notifyBeforeIlluminationPassesCleared(Technique* tech)
 	{
 		// First, check the scheme specific listeners
-		ListenerMap::iterator it = mListenerMap.find(mActiveSchemeName);
+		auto it = mListenerMap.find(mActiveSchemeName);
 		if(it != mListenerMap.end())
 		{
 			ListenerList& listenerList = it->second;
-			for(ListenerList::iterator i = listenerList.begin(); i != listenerList.end(); ++i)
+			for(auto & i : listenerList)
 			{
-				bool handled = (*i)->beforeIlluminationPassesCleared(tech);
+				bool handled = i->beforeIlluminationPassesCleared(tech);
 				if(handled)
 					return;
 			}
@@ -308,9 +308,9 @@ class Renderable;
 		if(it != mListenerMap.end())
 		{
 			ListenerList& listenerList = it->second;
-			for(ListenerList::iterator i = listenerList.begin(); i != listenerList.end(); ++i)
+			for(auto & i : listenerList)
 			{
-				bool handled = (*i)->beforeIlluminationPassesCleared(tech);
+				bool handled = i->beforeIlluminationPassesCleared(tech);
 				if(handled)
 					return;
 			}

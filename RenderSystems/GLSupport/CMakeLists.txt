@@ -16,14 +16,14 @@ if(EGL_FOUND)
 endif()
 
 if(ANDROID)
-  file(GLOB PLATFORM_HEADERS "include/EGL/Android/*.h" "include/EGL/*.h")
+  file(GLOB PLATFORM_HEADERS "include/EGL/Android/*.hpp" "include/EGL/*.hpp")
   file(GLOB PLATFORM_SOURCES "src/EGL/Android/*.cpp" "src/EGL/*.cpp")
 
   set(NATIVE_INCLUDES 
       ${CMAKE_CURRENT_SOURCE_DIR}/include/EGL 
       ${CMAKE_CURRENT_SOURCE_DIR}/include/EGL/Android)
 elseif (EMSCRIPTEN)
-  file(GLOB PLATFORM_HEADERS "include/EGL/Emscripten/*.h" "include/EGL/*.h")
+  file(GLOB PLATFORM_HEADERS "include/EGL/Emscripten/*.hpp" "include/EGL/*.hpp")
   file(GLOB PLATFORM_SOURCES "src/EGL/Emscripten/*.cpp" "src/EGL/*.cpp")
 
   set(NATIVE_INCLUDES 
@@ -31,14 +31,14 @@ elseif (EMSCRIPTEN)
       ${CMAKE_CURRENT_SOURCE_DIR}/include/EGL/Emscripten)
 elseif (WIN32)
   if(OGRE_GLSUPPORT_USE_EGL)
-      file(GLOB PLATFORM_HEADERS "include/EGL/WIN32/*.h" "include/EGL/*.h")
+      file(GLOB PLATFORM_HEADERS "include/EGL/WIN32/*.hpp" "include/EGL/*.hpp")
       file(GLOB PLATFORM_SOURCES "src/EGL/WIN32/*.cpp" "src/EGL/*.cpp")
       
       set(NATIVE_INCLUDES
         ${CMAKE_CURRENT_SOURCE_DIR}/include/EGL
         ${CMAKE_CURRENT_SOURCE_DIR}/include/EGL/WIN32)
   else()
-    file(GLOB PLATFORM_HEADERS "include/win32/*.h")
+    file(GLOB PLATFORM_HEADERS "include/win32/*.hpp")
     file(GLOB PLATFORM_SOURCES "src/win32/*.cpp")
 
     set(NATIVE_INCLUDES
@@ -49,7 +49,7 @@ elseif (WIN32)
 elseif(APPLE_IOS)
   # only works with GLES2 - no shared components here.
 elseif (APPLE)
-  file(GLOB PLATFORM_HEADERS "include/OSX/*.h")
+  file(GLOB PLATFORM_HEADERS "include/OSX/*.hpp")
   file(GLOB PLATFORM_SOURCES "src/OSX/*.mm")
 
   # ignore usage of deprecated OSX API for now
@@ -64,7 +64,7 @@ elseif (APPLE)
   set(PLATFORM_LIBS "-framework AppKit" ${OPENGL_gl_LIBRARY})
 elseif (UNIX)
   if(OGRE_GLSUPPORT_USE_EGL)
-    file(GLOB PLATFORM_HEADERS "include/EGL/X11/*.h" "include/EGL/*.h")
+    file(GLOB PLATFORM_HEADERS "include/EGL/X11/*.hpp" "include/EGL/*.hpp")
     file(GLOB PLATFORM_SOURCES "src/EGL/X11/*.cpp" "src/EGL/*.cpp" "src/X11/*.cpp")
     
     set(NATIVE_INCLUDES
@@ -72,7 +72,7 @@ elseif (UNIX)
         ${CMAKE_CURRENT_SOURCE_DIR}/include/EGL/X11)
     set(PLATFORM_LIBS ${X11_LIBRARIES} ${X11_Xrandr_LIB} ${EGL_LIBRARIES})
   else()
-    file(GLOB PLATFORM_HEADERS "include/GLX/*.h")
+    file(GLOB PLATFORM_HEADERS "include/GLX/*.hpp")
     file(GLOB PLATFORM_SOURCES "src/GLX/*.cpp" "src/X11/*.cpp")
 
     set(NATIVE_INCLUDES
@@ -84,7 +84,7 @@ elseif (UNIX)
   list(APPEND NATIVE_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/src/X11/")
 endif ()
 
-file(GLOB GLSUPPORT_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
+file(GLOB GLSUPPORT_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
 
 file(GLOB GLSL_SOURCES src/GLSL/*.cpp)
 

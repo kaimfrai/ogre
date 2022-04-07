@@ -26,12 +26,12 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLFBOMultiRenderTarget.h"
+#include "OgreGLFBOMultiRenderTarget.hpp"
 
 #include <cassert>
 #include <string>
 
-#include "OgreGLRenderTexture.h"
+#include "OgreGLRenderTexture.hpp"
 
 namespace Ogre {
 class DepthBuffer;
@@ -44,8 +44,7 @@ class GLFBOManager;
     }
 
     GLFBOMultiRenderTarget::~GLFBOMultiRenderTarget()
-    {
-    }
+    = default;
 
     void GLFBOMultiRenderTarget::bindSurfaceImpl(size_t attachment, RenderTexture *target)
     {
@@ -76,7 +75,7 @@ class GLFBOManager;
         }
     }
     //-----------------------------------------------------------------------------
-    bool GLFBOMultiRenderTarget::attachDepthBuffer( DepthBuffer *depthBuffer )
+    auto GLFBOMultiRenderTarget::attachDepthBuffer( DepthBuffer *depthBuffer ) -> bool
     {
         bool result;
         if( (result = MultiRenderTarget::attachDepthBuffer( depthBuffer )) )

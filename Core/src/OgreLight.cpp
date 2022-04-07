@@ -28,15 +28,15 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreAnimable.h"
-#include "OgreException.h"
-#include "OgreFrustum.h"
-#include "OgreLight.h"
-#include "OgreMatrix4.h"
-#include "OgrePlane.h"
-#include "OgreSceneManager.h"
-#include "OgreSphere.h"
-#include "OgreStringConverter.h"
+#include "OgreAnimable.hpp"
+#include "OgreException.hpp"
+#include "OgreFrustum.hpp"
+#include "OgreLight.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePlane.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSphere.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre {
     //-----------------------------------------------------------------------
@@ -53,7 +53,7 @@ namespace Ogre {
           mIndexInFrame(0),
           mShadowNearClipDist(-1),
           mShadowFarClipDist(-1),
-          mCameraToBeRelativeTo(0),
+          mCameraToBeRelativeTo(nullptr),
           mPowerScale(1.0f),
           mLightType(LT_POINT),
           mOwnShadowFarDist(false)
@@ -75,7 +75,7 @@ namespace Ogre {
         mIndexInFrame(0),
         mShadowNearClipDist(-1),
         mShadowFarClipDist(-1),
-        mCameraToBeRelativeTo(0),
+        mCameraToBeRelativeTo(nullptr),
         mPowerScale(1.0f),
         mLightType(LT_POINT),
         mOwnShadowFarDist(false)
@@ -85,15 +85,14 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     Light::~Light()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void Light::setType(LightTypes type)
     {
         mLightType = type;
     }
     //-----------------------------------------------------------------------
-    Light::LightTypes Light::getType(void) const
+    auto Light::getType() const -> Light::LightTypes
     {
         return mLightType;
     }
@@ -121,17 +120,17 @@ namespace Ogre {
         mSpotFalloff = val;
     }
     //-----------------------------------------------------------------------
-    const Radian& Light::getSpotlightInnerAngle(void) const
+    auto Light::getSpotlightInnerAngle() const -> const Radian&
     {
         return mSpotInner;
     }
     //-----------------------------------------------------------------------
-    const Radian& Light::getSpotlightOuterAngle(void) const
+    auto Light::getSpotlightOuterAngle() const -> const Radian&
     {
         return mSpotOuter;
     }
     //-----------------------------------------------------------------------
-    Real Light::getSpotlightFalloff(void) const
+    auto Light::getSpotlightFalloff() const -> Real
     {
         return mSpotFalloff;
     }
@@ -148,7 +147,7 @@ namespace Ogre {
         mDiffuse = colour;
     }
     //-----------------------------------------------------------------------
-    const ColourValue& Light::getDiffuseColour(void) const
+    auto Light::getDiffuseColour() const -> const ColourValue&
     {
         return mDiffuse;
     }
@@ -165,7 +164,7 @@ namespace Ogre {
         mSpecular = colour;
     }
     //-----------------------------------------------------------------------
-    const ColourValue& Light::getSpecularColour(void) const
+    auto Light::getSpecularColour() const -> const ColourValue&
     {
         return mSpecular;
     }
@@ -175,13 +174,13 @@ namespace Ogre {
         mPowerScale = power;
     }
     //-----------------------------------------------------------------------
-    Real Light::getPowerScale(void) const
+    auto Light::getPowerScale() const -> Real
     {
         return mPowerScale;
     }
 
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& Light::getBoundingBox(void) const
+    auto Light::getBoundingBox() const -> const AxisAlignedBox&
     {
         // zero extent to still allow SceneQueries to work
         static AxisAlignedBox box(Vector3(0, 0, 0), Vector3(0, 0, 0));
@@ -194,13 +193,13 @@ namespace Ogre {
         // nothing to render
     }
     //-----------------------------------------------------------------------
-    const String& Light::getMovableType(void) const
+    auto Light::getMovableType() const -> const String&
     {
         return LightFactory::FACTORY_TYPE_NAME;
     }
 
     //-----------------------------------------------------------------------
-    Vector4 Light::getAs4DVector(bool cameraRelativeIfSet) const
+    auto Light::getAs4DVector(bool cameraRelativeIfSet) const -> Vector4
     {
         if (mLightType == Light::LT_DIRECTIONAL)
         {
@@ -213,7 +212,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    const PlaneBoundedVolume& Light::_getNearClipVolume(const Camera* const cam) const
+    auto Light::_getNearClipVolume(const Camera* const cam) const -> const PlaneBoundedVolume&
     {
         // First check if the light is close to the near plane, since
         // in this case we have to build a degenerate clip volume
@@ -284,7 +283,7 @@ namespace Ogre {
         return mNearClipVolume;
     }
     //-----------------------------------------------------------------------
-    const PlaneBoundedVolumeList& Light::_getFrustumClipVolumes(const Camera* const cam) const
+    auto Light::_getFrustumClipVolumes(const Camera* const cam) const -> const PlaneBoundedVolumeList&
     {
 
         // Homogenous light position
@@ -404,7 +403,7 @@ namespace Ogre {
         return mFrustumClipVolumes;
     }
     //-----------------------------------------------------------------------
-    uint32 Light::getTypeFlags(void) const
+    auto Light::getTypeFlags() const -> uint32
     {
         return SceneManager::LIGHT_TYPE_MASK;
     }
@@ -433,15 +432,15 @@ namespace Ogre {
     public:
         LightDiffuseColourValue(Light* l) :AnimableValue(COLOUR) 
         { mLight = l; }
-        void setValue(const ColourValue& val)
+        void setValue(const ColourValue& val) override
         {
             mLight->setDiffuseColour(val);
         }
-        void applyDeltaValue(const ColourValue& val)
+        void applyDeltaValue(const ColourValue& val) override
         {
             setValue(mLight->getDiffuseColour() + val);
         }
-        void setCurrentStateAsBaseValue(void)
+        void setCurrentStateAsBaseValue() override
         {
             setAsBaseValue(mLight->getDiffuseColour());
         }
@@ -455,15 +454,15 @@ namespace Ogre {
     public:
         LightSpecularColourValue(Light* l) :AnimableValue(COLOUR) 
         { mLight = l; }
-        void setValue(const ColourValue& val)
+        void setValue(const ColourValue& val) override
         {
             mLight->setSpecularColour(val);
         }
-        void applyDeltaValue(const ColourValue& val)
+        void applyDeltaValue(const ColourValue& val) override
         {
             setValue(mLight->getSpecularColour() + val);
         }
-        void setCurrentStateAsBaseValue(void)
+        void setCurrentStateAsBaseValue() override
         {
             setAsBaseValue(mLight->getSpecularColour());
         }
@@ -477,15 +476,15 @@ namespace Ogre {
     public:
         LightAttenuationValue(Light* l) :AnimableValue(VECTOR4) 
         { mLight = l; }
-        void setValue(const Vector4& val)
+        void setValue(const Vector4& val) override
         {
             mLight->setAttenuation(val.x, val.y, val.z, val.w);
         }
-        void applyDeltaValue(const Vector4& val)
+        void applyDeltaValue(const Vector4& val) override
         {
             setValue(mLight->getAs4DVector() + val);
         }
-        void setCurrentStateAsBaseValue(void)
+        void setCurrentStateAsBaseValue() override
         {
             setAsBaseValue(mLight->getAs4DVector());
         }
@@ -499,15 +498,15 @@ namespace Ogre {
     public:
         LightSpotlightInnerValue(Light* l) :AnimableValue(REAL) 
         { mLight = l; }
-        void setValue(Real val)
+        void setValue(Real val) override
         {
             mLight->setSpotlightInnerAngle(Radian(val));
         }
-        void applyDeltaValue(Real val)
+        void applyDeltaValue(Real val) override
         {
             setValue(mLight->getSpotlightInnerAngle().valueRadians() + val);
         }
-        void setCurrentStateAsBaseValue(void)
+        void setCurrentStateAsBaseValue() override
         {
             setAsBaseValue(mLight->getSpotlightInnerAngle().valueRadians());
         }
@@ -521,15 +520,15 @@ namespace Ogre {
     public:
         LightSpotlightOuterValue(Light* l) :AnimableValue(REAL) 
         { mLight = l; }
-        void setValue(Real val)
+        void setValue(Real val) override
         {
             mLight->setSpotlightOuterAngle(Radian(val));
         }
-        void applyDeltaValue(Real val)
+        void applyDeltaValue(Real val) override
         {
             setValue(mLight->getSpotlightOuterAngle().valueRadians() + val);
         }
-        void setCurrentStateAsBaseValue(void)
+        void setCurrentStateAsBaseValue() override
         {
             setAsBaseValue(mLight->getSpotlightOuterAngle().valueRadians());
         }
@@ -543,22 +542,22 @@ namespace Ogre {
     public:
         LightSpotlightFalloffValue(Light* l) :AnimableValue(REAL) 
         { mLight = l; }
-        void setValue(Real val)
+        void setValue(Real val) override
         {
             mLight->setSpotlightFalloff(val);
         }
-        void applyDeltaValue(Real val)
+        void applyDeltaValue(Real val) override
         {
             setValue(mLight->getSpotlightFalloff() + val);
         }
-        void setCurrentStateAsBaseValue(void)
+        void setCurrentStateAsBaseValue() override
         {
             setAsBaseValue(mLight->getSpotlightFalloff());
         }
 
     };
     //-----------------------------------------------------------------------
-    AnimableValuePtr Light::createAnimableValue(const String& valueName)
+    auto Light::createAnimableValue(const String& valueName) -> AnimableValuePtr
     {
         if (valueName == "diffuseColour")
         {
@@ -606,7 +605,7 @@ namespace Ogre {
         mCustomShadowCameraSetup.reset();
     }
     //-----------------------------------------------------------------------
-    const ShadowCameraSetupPtr& Light::getCustomShadowCameraSetup() const
+    auto Light::getCustomShadowCameraSetup() const -> const ShadowCameraSetupPtr&
     {
         return mCustomShadowCameraSetup;
     }
@@ -618,12 +617,12 @@ namespace Ogre {
         mShadowFarDistSquared = distance * distance;
     }
     //-----------------------------------------------------------------------
-    void Light::resetShadowFarDistance(void)
+    void Light::resetShadowFarDistance()
     {
         mOwnShadowFarDist = false;
     }
     //-----------------------------------------------------------------------
-    Real Light::getShadowFarDistance(void) const
+    auto Light::getShadowFarDistance() const -> Real
     {
         if (mOwnShadowFarDist)
             return mShadowFarDist;
@@ -631,7 +630,7 @@ namespace Ogre {
             return mManager->getShadowFarDistance ();
     }
     //-----------------------------------------------------------------------
-    Real Light::getShadowFarDistanceSquared(void) const
+    auto Light::getShadowFarDistanceSquared() const -> Real
     {
         if (mOwnShadowFarDist)
             return mShadowFarDistSquared;
@@ -644,7 +643,7 @@ namespace Ogre {
         mCameraToBeRelativeTo = cam;
     }
     //---------------------------------------------------------------------
-    Real Light::_deriveShadowNearClipDistance(const Camera* maincam) const
+    auto Light::_deriveShadowNearClipDistance(const Camera* maincam) const -> Real
     {
         if (mShadowNearClipDist > 0)
             return mShadowNearClipDist;
@@ -652,7 +651,7 @@ namespace Ogre {
             return maincam->getNearClipDistance();
     }
     //---------------------------------------------------------------------
-    Real Light::_deriveShadowFarClipDistance() const
+    auto Light::_deriveShadowFarClipDistance() const -> Real
     {
         if (mShadowFarClipDist >= 0)
             return mShadowFarClipDist;
@@ -670,9 +669,9 @@ namespace Ogre {
         mCustomParameters[index] = value;
     }
     //-----------------------------------------------------------------------
-    const Vector4 &Light::getCustomParameter(uint16 index) const
+    auto Light::getCustomParameter(uint16 index) const -> const Vector4 &
     {
-        CustomParameterMap::const_iterator i = mCustomParameters.find(index);
+        auto i = mCustomParameters.find(index);
         if (i != mCustomParameters.end())
         {
             return i->second;
@@ -687,7 +686,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Light::_updateCustomGpuParameter(uint16 paramIndex, const GpuProgramParameters::AutoConstantEntry& constantEntry, GpuProgramParameters *params) const
     {
-        CustomParameterMap::const_iterator i = mCustomParameters.find(paramIndex);
+        auto i = mCustomParameters.find(paramIndex);
         if (i != mCustomParameters.end())
         {
             params->_writeRawConstant(constantEntry.physicalIndex, i->second, 
@@ -695,7 +694,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool Light::isInLightRange(const Ogre::Sphere& container) const
+    auto Light::isInLightRange(const Ogre::Sphere& container) const -> bool
     {
         bool isIntersect = true;
         //directional light always intersects (check only spotlight and point)
@@ -730,7 +729,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    bool Light::isInLightRange(const Ogre::AxisAlignedBox& container) const
+    auto Light::isInLightRange(const Ogre::AxisAlignedBox& container) const -> bool
     {
         const auto& mDerivedDirection = getDerivedDirection();
         const auto& mDerivedPosition = mParentNode->_getDerivedPosition();
@@ -775,16 +774,16 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String LightFactory::FACTORY_TYPE_NAME = "Light";
     //-----------------------------------------------------------------------
-    const String& LightFactory::getType(void) const
+    auto LightFactory::getType() const -> const String&
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    MovableObject* LightFactory::createInstanceImpl( const String& name, 
-        const NameValuePairList* params)
+    auto LightFactory::createInstanceImpl( const String& name, 
+        const NameValuePairList* params) -> MovableObject*
     {
 
-        Light* light = new Light(name);
+        auto* light = new Light(name);
  
         if(params)
         {

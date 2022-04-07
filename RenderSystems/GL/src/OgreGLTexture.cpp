@@ -26,22 +26,22 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLTexture.h"
+#include "OgreGLTexture.hpp"
 
 #include <memory>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreGLHardwarePixelBuffer.h"
-#include "OgreGLPixelFormat.h"
-#include "OgreGLRenderSystem.h"
-#include "OgreGLStateCacheManager.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgreSharedPtr.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
+#include "OgreException.hpp"
+#include "OgreGLHardwarePixelBuffer.hpp"
+#include "OgreGLPixelFormat.hpp"
+#include "OgreGLRenderSystem.hpp"
+#include "OgreGLStateCacheManager.hpp"
+#include "OgreHardwarePixelBuffer.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
 
 namespace Ogre {
 class ResourceManager;
@@ -71,7 +71,7 @@ class ResourceManager;
         }
     }
 
-    GLenum GLTexture::getGLTextureTarget(void) const
+    auto GLTexture::getGLTextureTarget() const -> GLenum
     {
         switch(mTextureType)
         {
@@ -91,7 +91,7 @@ class ResourceManager;
     }
 
     //* Creation / loading methods ********************************************
-    void GLTexture::createInternalResourcesImpl(void)
+    void GLTexture::createInternalResourcesImpl()
     {
         OgreAssert(mTextureType != TEX_TYPE_EXTERNAL_OES,
                    "TEX_TYPE_EXTERNAL_OES is not available for openGL");
@@ -142,7 +142,7 @@ class ResourceManager;
         if(PixelUtil::isCompressed(mFormat))
         {
             // Compressed formats
-            GLsizei size = static_cast<GLsizei>(PixelUtil::getMemorySize(mWidth, mHeight, mDepth, mFormat));
+            auto size = static_cast<GLsizei>(PixelUtil::getMemorySize(mWidth, mHeight, mDepth, mFormat));
             // Provide temporary buffer filled with zeroes as glCompressedTexImageXD does not
             // accept a 0 pointer like normal glTexImageXD
             // Run through this process for every mipmap to pregenerate mipmap piramid
@@ -203,25 +203,25 @@ class ResourceManager;
                     case TEX_TYPE_1D:
                         glTexImage1D(GL_TEXTURE_1D, mip, internalformat,
                             width, 0, 
-                            format, datatype, 0);
+                            format, datatype, nullptr);
     
                         break;
                     case TEX_TYPE_2D:
                         glTexImage2D(GL_TEXTURE_2D, mip, internalformat,
                             width, height, 0, 
-                            format, datatype, 0);
+                            format, datatype, nullptr);
                         break;
                     case TEX_TYPE_2D_ARRAY:
                     case TEX_TYPE_3D:
                         glTexImage3D(getGLTextureTarget(), mip, internalformat,
                             width, height, depth, 0, 
-                            format, datatype, 0);
+                            format, datatype, nullptr);
                         break;
                     case TEX_TYPE_CUBE_MAP:
                         for(int face=0; face<6; face++) {
                             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, mip, internalformat,
                                 width, height, 0, 
-                                format, datatype, 0);
+                                format, datatype, nullptr);
                         }
                         break;
                     case TEX_TYPE_EXTERNAL_OES:

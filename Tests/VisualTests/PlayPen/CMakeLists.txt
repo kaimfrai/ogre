@@ -8,8 +8,8 @@
 #-------------------------------------------------------------------
 
 set(HEADER_FILES
-  include/PlayPenTestPlugin.h
-  include/PlayPenTests.h)
+  include/PlayPenTestPlugin.hpp
+  include/PlayPenTests.hpp)
 
 set(SOURCE_FILES
   src/PlayPenTests.cpp

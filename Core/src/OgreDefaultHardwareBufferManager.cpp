@@ -28,8 +28,8 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstring>
 
-#include "OgreDefaultHardwareBufferManager.h"
-#include "OgreAlignedAllocator.h"
+#include "OgreDefaultHardwareBufferManager.hpp"
+#include "OgreAlignedAllocator.hpp"
 
 namespace Ogre {
 
@@ -46,13 +46,13 @@ namespace Ogre {
         AlignedMemory::deallocate(mData);
     }
     //-----------------------------------------------------------------------
-    void* DefaultHardwareBuffer::lockImpl(size_t offset, size_t length, LockOptions options)
+    auto DefaultHardwareBuffer::lockImpl(size_t offset, size_t length, LockOptions options) -> void*
     {
         // Only for use internally, no 'locking' as such
         return mData + offset;
     }
     //-----------------------------------------------------------------------
-    void DefaultHardwareBuffer::unlockImpl(void)
+    void DefaultHardwareBuffer::unlockImpl()
     {
         // Nothing to do
     }
@@ -72,8 +72,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     DefaultHardwareBufferManagerBase::DefaultHardwareBufferManagerBase()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     DefaultHardwareBufferManagerBase::~DefaultHardwareBufferManagerBase()
     {
@@ -81,17 +80,17 @@ namespace Ogre {
         destroyAllBindings(); 
     }
     //-----------------------------------------------------------------------
-    HardwareVertexBufferSharedPtr 
+    auto 
         DefaultHardwareBufferManagerBase::createVertexBuffer(size_t vertexSize, 
-        size_t numVerts, HardwareBuffer::Usage usage, bool useShadowBuffer)
+        size_t numVerts, HardwareBuffer::Usage usage, bool useShadowBuffer) -> HardwareVertexBufferSharedPtr
     {
         return std::make_shared<HardwareVertexBuffer>(this, vertexSize, numVerts,
                                                       new DefaultHardwareBuffer(vertexSize * numVerts));
     }
     //-----------------------------------------------------------------------
-    HardwareIndexBufferSharedPtr 
+    auto 
         DefaultHardwareBufferManagerBase::createIndexBuffer(HardwareIndexBuffer::IndexType itype, 
-        size_t numIndexes, HardwareBuffer::Usage usage, bool useShadowBuffer)
+        size_t numIndexes, HardwareBuffer::Usage usage, bool useShadowBuffer) -> HardwareIndexBufferSharedPtr
     {
         return std::make_shared<HardwareIndexBuffer>(
             this, itype, numIndexes,

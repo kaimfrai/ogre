@@ -2,37 +2,37 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 
-#include "OgreDefaultDebugDrawer.h"
+#include "OgreDefaultDebugDrawer.hpp"
 
 #include <algorithm>
 #include <array>
 #include <cstddef>
 #include <vector>
 
-#include "OgreBlendMode.h"
-#include "OgreCommon.h"
-#include "OgreFrustum.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgreNode.h"
-#include "OgrePass.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSceneNode.h"
-#include "OgreSharedPtr.h"
-#include "OgreTechnique.h"
-#include "OgreVector.h"
+#include "OgreBlendMode.hpp"
+#include "OgreCommon.hpp"
+#include "OgreFrustum.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreNode.hpp"
+#include "OgrePass.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre
 {
 class Viewport;
 
-DefaultDebugDrawer::DefaultDebugDrawer() : mLines(""), mAxes(""), mDrawType(0), mStatic(false) {}
+DefaultDebugDrawer::DefaultDebugDrawer() : mLines(""), mAxes("") {}
 
 void DefaultDebugDrawer::preFindVisibleObjects(SceneManager* source,
                                                SceneManager::IlluminationRenderStage irs, Viewport* v)

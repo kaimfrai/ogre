@@ -29,24 +29,24 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreInstanceBatchHW.h"
-#include "OgreInstanceManager.h"
-#include "OgreInstancedEntity.h"
-#include "OgreMatrix4.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
-#include "OgreSubMesh.h"
-#include "OgreVertexIndexData.h"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreInstanceBatchHW.hpp"
+#include "OgreInstanceManager.hpp"
+#include "OgreInstancedEntity.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre
 {
@@ -56,19 +56,18 @@ class Camera;
                                         const MaterialPtr &material, size_t instancesPerBatch,
                                         const Mesh::IndexMap *indexToBoneMap, const String &batchName ) :
                 InstanceBatch( creator, meshReference, material, instancesPerBatch,
-                                indexToBoneMap, batchName ),
-                mKeepStatic( false )
+                                indexToBoneMap, batchName )
+                
     {
         //Override defaults, so that InstancedEntities don't create a skeleton instance
         mTechnSupportsSkeletal = false;
     }
 
     InstanceBatchHW::~InstanceBatchHW()
-    {
-    }
+    = default;
 
     //-----------------------------------------------------------------------
-    size_t InstanceBatchHW::calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const
+    auto InstanceBatchHW::calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t
     {
         size_t retVal = 0;
 
@@ -172,7 +171,7 @@ class Camera;
         thisVertexData->closeGapsInBindings();
     }
     //-----------------------------------------------------------------------
-    bool InstanceBatchHW::checkSubMeshCompatibility( const SubMesh* baseSubMesh )
+    auto InstanceBatchHW::checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool
     {
         //Max number of texture coordinates is _usually_ 8, we need at least 3 available
         if( baseSubMesh->vertexData->vertexDeclaration->getNextFreeTextureCoordinate() > 8-2 )
@@ -196,18 +195,18 @@ class Camera;
         return InstanceBatch::checkSubMeshCompatibility( baseSubMesh );
     }
     //-----------------------------------------------------------------------
-    size_t InstanceBatchHW::updateVertexBuffer( Camera *currentCamera )
+    auto InstanceBatchHW::updateVertexBuffer( Camera *currentCamera ) -> size_t
     {
         size_t retVal = 0;
 
         //Now lock the vertex buffer and copy the 4x3 matrices, only those who need it!
         VertexBufferBinding* binding = mRenderOperation.vertexData->vertexBufferBinding; 
-        const ushort bufferIdx = ushort(binding->getBufferCount()-1);
+        const auto bufferIdx = ushort(binding->getBufferCount()-1);
         HardwareBufferLockGuard vertexLock(binding->getBuffer(bufferIdx), HardwareBuffer::HBL_DISCARD);
-        float *pDest = static_cast<float*>(vertexLock.pData);
+        auto *pDest = static_cast<float*>(vertexLock.pData);
 
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         unsigned char numCustomParams           = mCreator->getNumCustomParams();
         size_t customParamIdx                   = 0;
@@ -244,7 +243,7 @@ class Camera;
         return retVal;
     }
     //-----------------------------------------------------------------------
-    void InstanceBatchHW::_boundsDirty(void)
+    void InstanceBatchHW::_boundsDirty()
     {
         //Don't update if we're static, but still mark we're dirty
         if( !mBoundsDirty && !mKeepStatic )
@@ -265,7 +264,7 @@ class Camera;
             //(except further calls to this function). Pass NULL because
             //we want to include only those who were added to the scene
             //but we don't want to perform culling
-            mRenderOperation.numberOfInstances = updateVertexBuffer( 0 );
+            mRenderOperation.numberOfInstances = updateVertexBuffer( nullptr );
         }
     }
     //-----------------------------------------------------------------------
@@ -274,7 +273,7 @@ class Camera;
         *xform = Matrix4::IDENTITY;
     }
     //-----------------------------------------------------------------------
-    unsigned short InstanceBatchHW::getNumWorldTransforms(void) const
+    auto InstanceBatchHW::getNumWorldTransforms() const -> unsigned short
     {
         return 1;
     }

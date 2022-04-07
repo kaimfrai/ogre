@@ -27,20 +27,20 @@ THE SOFTWARE.
 */
 #include <memory>
 
-#include "OgreCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderFFPAlphaTest.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
+#include "OgreCommon.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderFFPAlphaTest.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrecompiledHeaders.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
 
 namespace Ogre {
 	class AutoParamDataSource;
@@ -51,21 +51,20 @@ namespace Ogre {
 	}  // namespace RTShader
 }  // namespace Ogre
 
-namespace Ogre {
-	namespace RTShader {
+namespace Ogre::RTShader {
 
 		String FFPAlphaTest::Type = "FFP_Alpha_Test";
 
 
 		//-----------------------------------------------------------------------
-		const Ogre::String& FFPAlphaTest::getType() const
+		auto FFPAlphaTest::getType() const -> const Ogre::String&
 		{
 			return Type;
 		}
 
 
 		//-----------------------------------------------------------------------
-		bool FFPAlphaTest::resolveParameters(ProgramSet* programSet)
+		auto FFPAlphaTest::resolveParameters(ProgramSet* programSet) -> bool
 		{
 			Program* psProgram  = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
 			Function* psMain = psProgram->getEntryPointFunction();
@@ -81,7 +80,7 @@ namespace Ogre {
 
 
 		//-----------------------------------------------------------------------
-		bool FFPAlphaTest::resolveDependencies(ProgramSet* programSet)
+		auto FFPAlphaTest::resolveDependencies(ProgramSet* programSet) -> bool
 		{
 			Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
 			psProgram->addDependency(FFP_LIB_ALPHA_TEST);
@@ -95,7 +94,7 @@ namespace Ogre {
 
 		}
 
-		bool FFPAlphaTest::addFunctionInvocations( ProgramSet* programSet )
+		auto FFPAlphaTest::addFunctionInvocations( ProgramSet* programSet ) -> bool
 		{
 			Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
 			Function* psMain = psProgram->getEntryPointFunction();
@@ -106,12 +105,12 @@ namespace Ogre {
             return true;
 		}
 
-		int FFPAlphaTest::getExecutionOrder() const
+		auto FFPAlphaTest::getExecutionOrder() const -> int
 		{
 			return FFP_ALPHA_TEST;
 		}
 
-		bool FFPAlphaTest::preAddToRenderState( const RenderState* renderState, Pass* srcPass, Pass* dstPass )
+		auto FFPAlphaTest::preAddToRenderState( const RenderState* renderState, Pass* srcPass, Pass* dstPass ) -> bool
 		{
 			return srcPass->getAlphaRejectFunction() != CMPF_ALWAYS_PASS;
 		}
@@ -123,15 +122,14 @@ namespace Ogre {
 
 		//----------------------Factory Implementation---------------------------
 		//-----------------------------------------------------------------------
-		const String& FFPAlphaTestFactory ::getType() const
+		auto FFPAlphaTestFactory ::getType() const -> const String&
 		{
 			return FFPAlphaTest::Type;
 		}
 
 		//-----------------------------------------------------------------------
-		SubRenderState*	FFPAlphaTestFactory::createInstanceImpl()
+		auto	FFPAlphaTestFactory::createInstanceImpl() -> SubRenderState*
 		{
 			return new FFPAlphaTest;
 		}
 	}
-}

@@ -28,9 +28,9 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cmath>
 
-#include "OgreColourValue.h"
-#include "OgreMath.h"
-#include "OgrePlatform.h"
+#include "OgreColourValue.hpp"
+#include "OgreMath.hpp"
+#include "OgrePlatform.hpp"
 
 namespace Ogre {
 
@@ -42,7 +42,7 @@ namespace Ogre {
     const ColourValue ColourValue::Blue = ColourValue(0.0,0.0,1.0);
 
     //---------------------------------------------------------------------
-    RGBA ColourValue::getAsRGBA(void) const
+    auto ColourValue::getAsRGBA() const -> RGBA
     {
         uint8 val8;
         uint32 val32 = 0;
@@ -69,7 +69,7 @@ namespace Ogre {
         return val32;
     }
     //---------------------------------------------------------------------
-    ARGB ColourValue::getAsARGB(void) const
+    auto ColourValue::getAsARGB() const -> ARGB
     {
         uint8 val8;
         uint32 val32 = 0;
@@ -97,7 +97,7 @@ namespace Ogre {
         return val32;
     }
     //---------------------------------------------------------------------
-    BGRA ColourValue::getAsBGRA(void) const
+    auto ColourValue::getAsBGRA() const -> BGRA
     {
         uint8 val8;
         uint32 val32 = 0;
@@ -125,7 +125,7 @@ namespace Ogre {
         return val32;
     }
     //---------------------------------------------------------------------
-    ABGR ColourValue::getAsABGR(void) const
+    auto ColourValue::getAsABGR() const -> ABGR
     {
         uint8 val8;
         uint32 val32 = 0;
@@ -258,7 +258,7 @@ namespace Ogre {
             // wrap around, and allow mathematical errors
             hueDomain = 0.0f;
         }
-        unsigned short domain = (unsigned short)hueDomain;
+        auto domain = (unsigned short)hueDomain;
         float f1 = brightness * (1 - saturation);
         float f2 = brightness * (1 - saturation * (hueDomain - domain));
         float f3 = brightness * (1 - saturation * (1 - (hueDomain - domain)));

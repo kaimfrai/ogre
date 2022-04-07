@@ -35,33 +35,33 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "CppUnitResultWriter.h"
-#include "HTMLWriter.h"
-#include "ImageValidator.h"
-#include "OgreBitesConfigDialog.h"
-#include "OgreCommon.h"
-#include "OgreConfigFile.h"
-#include "OgreConfigOptionMap.h"
-#include "OgreControllerManager.h"
-#include "OgreException.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreFrameListener.h"
-#include "OgreLogManager.h"
-#include "OgreOverlaySystem.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderWindow.h"
-#include "OgreRoot.h"
-#include "OgreStaticPluginLoader.h"
-#include "OgreStringConverter.h"
-#include "OgreTextureManager.h"
-#include "PlayPenTestPlugin.h"
-#include "Sample.h"
-#include "SamplePlugin.h"
-#include "TestBatch.h"
-#include "TestContext.h"
-#include "VTestPlugin.h"
+#include "CppUnitResultWriter.hpp"
+#include "HTMLWriter.hpp"
+#include "ImageValidator.hpp"
+#include "OgreBitesConfigDialog.hpp"
+#include "OgreCommon.hpp"
+#include "OgreConfigFile.hpp"
+#include "OgreConfigOptionMap.hpp"
+#include "OgreControllerManager.hpp"
+#include "OgreException.hpp"
+#include "OgreFileSystemLayer.hpp"
+#include "OgreFrameListener.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreOverlaySystem.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderWindow.hpp"
+#include "OgreRoot.hpp"
+#include "OgreStaticPluginLoader.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTextureManager.hpp"
+#include "PlayPenTestPlugin.hpp"
+#include "Sample.hpp"
+#include "SamplePlugin.hpp"
+#include "TestBatch.hpp"
+#include "TestContext.hpp"
+#include "VTestPlugin.hpp"
 
-TestContext::TestContext(int argc, char** argv) : OgreBites::SampleContext(), mSuccess(true), mTimestep(0.01f), mBatch(0)
+TestContext::TestContext(int argc, char** argv) : OgreBites::SampleContext() 
 {
     Ogre::UnaryOptionList unOpt;
     Ogre::BinaryOptionList binOpt;
@@ -146,7 +146,7 @@ void TestContext::setup()
     mPluginNameMap["PlayPenTests"] = new PlaypenTestPlugin();
 
     Ogre::String batchName = BLANKSTRING;
-    time_t raw = time(0);
+    time_t raw = time(nullptr);
 
     // timestamp for the filename
     char temp[25];
@@ -182,27 +182,27 @@ void TestContext::setup()
 }
 //-----------------------------------------------------------------------
 
-OgreBites::Sample* TestContext::loadTests()
+auto TestContext::loadTests() -> OgreBites::Sample*
 {
-    OgreBites::Sample* startSample = 0;
+    OgreBites::Sample* startSample = nullptr;
 
     // load all of the plugins in the set
     for(auto it : mPluginNameMap)
     {
         OgreBites::SampleSet newSamples = it.second->getSamples();
-        for (OgreBites::SampleSet::iterator j = newSamples.begin(); j != newSamples.end(); j++)
+        for (auto newSample : newSamples)
         {
             // capability check
             try
             {
-                (*j)->testCapabilities(mRoot->getRenderSystem()->getCapabilities());
+                newSample->testCapabilities(mRoot->getRenderSystem()->getCapabilities());
             }
             catch(Ogre::Exception&)
             {
                 continue;
             }
 
-            mTests.push_back(*j);
+            mTests.push_back(newSample);
         }
     }
 
@@ -213,11 +213,11 @@ OgreBites::Sample* TestContext::loadTests()
         return startSample;
     }
     else
-        return 0;    
+        return nullptr;    
 }
 //-----------------------------------------------------------------------
 
-bool TestContext::frameRenderingQueued(const Ogre::FrameEvent& evt)
+auto TestContext::frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool
 {
     // pass a fixed timestep along to the tests
     Ogre::FrameEvent fixed_evt = Ogre::FrameEvent();
@@ -227,7 +227,7 @@ bool TestContext::frameRenderingQueued(const Ogre::FrameEvent& evt)
     return mCurrentSample->frameRenderingQueued(fixed_evt);
 }
 
-bool TestContext::frameStarted(const Ogre::FrameEvent& evt)
+auto TestContext::frameStarted(const Ogre::FrameEvent& evt) -> bool
 {
     pollEvents();
 
@@ -253,7 +253,7 @@ bool TestContext::frameStarted(const Ogre::FrameEvent& evt)
 }
 //-----------------------------------------------------------------------
 
-bool TestContext::frameEnded(const Ogre::FrameEvent& evt)
+auto TestContext::frameEnded(const Ogre::FrameEvent& evt) -> bool
 {
     // pass a fixed timestep along to the tests
     Ogre::FrameEvent fixed_evt = Ogre::FrameEvent();
@@ -277,7 +277,7 @@ bool TestContext::frameEnded(const Ogre::FrameEvent& evt)
         if (mCurrentSample->isDone())
         {
             // continue onto the next test
-            runSample(0);
+            runSample(nullptr);
 
             return true;
         }
@@ -363,14 +363,14 @@ void TestContext::go(OgreBites::Sample* initialSample)
 }
 //-----------------------------------------------------------------------
 
-bool TestContext::oneTimeConfig()
+auto TestContext::oneTimeConfig() -> bool
 {
     // if forced, just do it and return
     if(mForceConfig)
     {
         bool temp = mRoot->showConfigDialog(OgreBites::getNativeConfigDialog());
         if(!temp)
-            mRoot->setRenderSystem(NULL);
+            mRoot->setRenderSystem(nullptr);
         return temp;
     }
 
@@ -382,7 +382,7 @@ bool TestContext::oneTimeConfig()
         mRoot->setRenderSystem(mRoot->getRenderSystemByName(mRenderSystemName));
     }
     else if(!restore) {
-        RenderSystem* rs = NULL;
+        RenderSystem* rs = nullptr;
 
         const auto& allRS = Root::getSingleton().getAvailableRenderers();
 
@@ -409,7 +409,7 @@ bool TestContext::oneTimeConfig()
 
     mRenderSystemName = mRoot->getRenderSystem() ? mRoot->getRenderSystem()->getName() : "";
 
-    return mRoot->getRenderSystem() != NULL;
+    return mRoot->getRenderSystem() != nullptr;
 }
 //-----------------------------------------------------------------------
 
@@ -428,9 +428,9 @@ void TestContext::setupDirectories(Ogre::String batchName)
         // add a directory for the render system
         Ogre::String rsysName = Ogre::Root::getSingleton().getRenderSystem()->getName();
         // strip spaces from render system name
-        for (unsigned int i = 0;i < rsysName.size(); ++i)
-            if (rsysName[i] != ' ')
-                mOutputDir += rsysName[i];
+        for (char i : rsysName)
+            if (i != ' ')
+                mOutputDir += i;
         mOutputDir += "/";
         static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(mOutputDir);
     }
@@ -450,12 +450,12 @@ void TestContext::finishedTests()
 {
     if ((mGenerateHtml || mSummaryOutputDir != "NONE") && !mReferenceSet)
     {
-        const TestBatch* compareTo = 0;
+        const TestBatch* compareTo = nullptr;
         TestBatchSet batches;
 
         Ogre::ConfigFile info;
         bool foundReference = true;
-        TestBatch* ref = 0;
+        TestBatch* ref = nullptr;
 
         // look for a reference set first (either "Reference" or a user-specified image set)
         try
@@ -504,16 +504,16 @@ void TestContext::finishedTests()
             if(mSummaryOutputDir != "NONE")
             {
                 Ogre::String rs;
-                for(size_t j = 0; j < mRenderSystemName.size(); ++j)
-                    if(mRenderSystemName[j]!=' ')
-                        rs += mRenderSystemName[j];
+                for(char j : mRenderSystemName)
+                    if(j!=' ')
+                        rs += j;
 
                 CppUnitResultWriter cppunitWriter(*compareTo, *mBatch, results);
                 cppunitWriter.writeToFile(mSummaryOutputDir + "/TestResults_" + rs + ".xml");
             }
 
-            for(size_t i = 0; i < results.size(); i++) {
-                mSuccess = mSuccess && results[i].passed;
+            for(auto & result : results) {
+                mSuccess = mSuccess && result.passed;
             }
         }
 
@@ -525,7 +525,7 @@ void TestContext::finishedTests()
 }
 //-----------------------------------------------------------------------
 
-Ogre::Real TestContext::getTimestep()
+auto TestContext::getTimestep() -> Ogre::Real
 {
     return mTimestep;
 }
@@ -537,7 +537,7 @@ void TestContext::setTimestep(Ogre::Real timestep)
     mTimestep = timestep >= 0.f ? timestep : mTimestep;
 }
 
-int main(int argc, char *argv[])
+auto main(int argc, char *argv[]) -> int
 {
     TestContext tc(argc, argv);
 

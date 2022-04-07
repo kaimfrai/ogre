@@ -29,21 +29,21 @@ THE SOFTWARE.
 #include <cassert>
 #include <utility>
 
-#include "OgreDistanceLodStrategy.h"
-#include "OgreException.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreLodStrategy.h"
-#include "OgreLodStrategyManager.h"
-#include "OgrePixelCountLodStrategy.h"
+#include "OgreDistanceLodStrategy.hpp"
+#include "OgreException.hpp"
+#include "OgreIteratorWrapper.hpp"
+#include "OgreLodStrategy.hpp"
+#include "OgreLodStrategyManager.hpp"
+#include "OgrePixelCountLodStrategy.hpp"
 
 namespace Ogre {
     //-----------------------------------------------------------------------
-    template<> LodStrategyManager* Singleton<LodStrategyManager>::msSingleton = 0;
-    LodStrategyManager* LodStrategyManager::getSingletonPtr(void)
+    template<> LodStrategyManager* Singleton<LodStrategyManager>::msSingleton = nullptr;
+    auto LodStrategyManager::getSingletonPtr() -> LodStrategyManager*
     {
         return msSingleton;
     }
-    LodStrategyManager& LodStrategyManager::getSingleton(void)
+    auto LodStrategyManager::getSingleton() -> LodStrategyManager&
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -82,14 +82,14 @@ namespace Ogre {
         mStrategies.insert(std::make_pair(strategy->getName(), strategy));
     }
     //-----------------------------------------------------------------------
-    LodStrategy *LodStrategyManager::removeStrategy(const String& name)
+    auto LodStrategyManager::removeStrategy(const String& name) -> LodStrategy *
     {
         // Find strategy with specified name
-        StrategyMap::iterator it = mStrategies.find(name);
+        auto it = mStrategies.find(name);
 
         // If not found, return null
         if (it == mStrategies.end())
-            return 0;
+            return nullptr;
 
         LodStrategy *strat = it->second;
 
@@ -103,14 +103,14 @@ namespace Ogre {
     void LodStrategyManager::removeAllStrategies()
     {
         // Get beginning iterator
-        for (StrategyMap::iterator it = mStrategies.begin(); it != mStrategies.end(); ++it)
+        for (auto & mStrategie : mStrategies)
         {
-            delete it->second;
+            delete mStrategie.second;
         }
         mStrategies.clear();
     }
     //-----------------------------------------------------------------------
-    LodStrategy *LodStrategyManager::getStrategy(const String& name)
+    auto LodStrategyManager::getStrategy(const String& name) -> LodStrategy *
     {
         // If name is "default", return the default strategy instead of performing a lookup
         if (name == "default") {
@@ -121,11 +121,11 @@ namespace Ogre {
             return getStrategy("pixel_count"); // Backward compatibility for loading old meshes.
         }
         // Find strategy with specified name
-        StrategyMap::iterator it = mStrategies.find(name);
+        auto it = mStrategies.find(name);
 
         // If not found, return null
         if (it == mStrategies.end())
-            return 0;
+            return nullptr;
 
         // Otherwise, return the strategy
         return it->second;
@@ -142,12 +142,12 @@ namespace Ogre {
         setDefaultStrategy(getStrategy(name));
     }
     //-----------------------------------------------------------------------
-    LodStrategy *LodStrategyManager::getDefaultStrategy()
+    auto LodStrategyManager::getDefaultStrategy() -> LodStrategy *
     {
         return mDefaultStrategy;
     }
     //-----------------------------------------------------------------------
-    MapIterator<LodStrategyManager::StrategyMap> LodStrategyManager::getIterator()
+    auto LodStrategyManager::getIterator() -> MapIterator<LodStrategyManager::StrategyMap>
     {
         // Construct map iterator from strategy map and return
         return MapIterator<StrategyMap>(mStrategies);

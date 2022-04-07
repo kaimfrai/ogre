@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLFBORenderTexture.h"
+#include "OgreGLFBORenderTexture.hpp"
 
 #include <cstddef>
 #include <map>
@@ -36,12 +36,12 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreGLHardwarePixelBuffer.h"
-#include "OgreGLPixelFormat.h"
-#include "OgreGLRenderTarget.h"
-#include "OgreLogManager.h"
-#include "OgreRenderTarget.h"
-#include "OgreString.h"
+#include "OgreGLHardwarePixelBuffer.hpp"
+#include "OgreGLPixelFormat.hpp"
+#include "OgreGLRenderTarget.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreString.hpp"
 
 namespace Ogre {
 class DepthBuffer;
@@ -85,7 +85,7 @@ class GLContext;
         mFB.swapBuffers();
     }
     //-----------------------------------------------------------------------------
-    bool GLFBORenderTexture::attachDepthBuffer( DepthBuffer *depthBuffer )
+    auto GLFBORenderTexture::attachDepthBuffer( DepthBuffer *depthBuffer ) -> bool
     {
         bool result;
         if( (result = GLRenderTexture::attachDepthBuffer( depthBuffer )) )
@@ -107,7 +107,9 @@ class GLContext;
     }
    
 /// Size of probe texture
-#define PROBE_SIZE 16
+enum {
+PROBE_SIZE = 16
+};
 
 /// Stencil and depth formats to be tried
 static const GLenum stencilFormats[] =
@@ -179,7 +181,7 @@ static const uchar depthBits[] =
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-            glTexImage2D(GL_TEXTURE_2D, 0, internalfmt, PROBE_SIZE, PROBE_SIZE, 0, fmt, type, 0);
+            glTexImage2D(GL_TEXTURE_2D, 0, internalfmt, PROBE_SIZE, PROBE_SIZE, 0, fmt, type, nullptr);
             glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT,
                                       fmt == GL_DEPTH_COMPONENT ? GL_DEPTH_ATTACHMENT_EXT
                                                                 : GL_COLOR_ATTACHMENT0_EXT,
@@ -197,7 +199,7 @@ static const uchar depthBits[] =
         @return true    if this combo is supported
                  false   if this combo is not supported
     */
-    GLuint GLFBOManager::_tryFormat(GLenum depthFormat, GLenum stencilFormat)
+    auto GLFBOManager::_tryFormat(GLenum depthFormat, GLenum stencilFormat) -> GLuint
     {
         GLuint status, depthRB = 0, stencilRB = 0;
         bool failed = false; // flag on GL errors
@@ -255,7 +257,7 @@ static const uchar depthBits[] =
         @return true    if this combo is supported
                  false   if this combo is not supported
     */
-    bool GLFBOManager::_tryPackedFormat(GLenum packedFormat)
+    auto GLFBOManager::_tryPackedFormat(GLenum packedFormat) -> bool
     {
         GLuint packedRB = 0;
         bool failed = false; // flag on GL errors
@@ -478,10 +480,10 @@ static const uchar depthBits[] =
         *stencilFormat = requestDepthOnly ? 0 : stencilFormats[props.modes[bestmode].stencil];
     }
 
-    GLFBORenderTexture *GLFBOManager::createRenderTexture(const String &name, 
-        const GLSurfaceDesc &target, bool writeGamma, uint fsaa)
+    auto GLFBOManager::createRenderTexture(const String &name, 
+        const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> GLFBORenderTexture *
     {
-        GLFBORenderTexture *retval = new GLFBORenderTexture(this, name, target, writeGamma, fsaa);
+        auto *retval = new GLFBORenderTexture(this, name, target, writeGamma, fsaa);
         return retval;
     }
     //---------------------------------------------------------------------
@@ -495,14 +497,14 @@ static const uchar depthBits[] =
             glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
     }
     
-    GLSurfaceDesc GLFBOManager::requestRenderBuffer(GLenum format, uint32 width, uint32 height, uint fsaa)
+    auto GLFBOManager::requestRenderBuffer(GLenum format, uint32 width, uint32 height, uint fsaa) -> GLSurfaceDesc
     {
         GLSurfaceDesc retval;
-        retval.buffer = 0; // Return 0 buffer if GL_NONE is requested
+        retval.buffer = nullptr; // Return 0 buffer if GL_NONE is requested
         if(format != GL_NONE)
         {
             RBFormat key(format, width, height, fsaa);
-            RenderBufferMap::iterator it = mRenderBufferMap.find(key);
+            auto it = mRenderBufferMap.find(key);
             if(it != mRenderBufferMap.end())
             {
                 retval.buffer = it->second.buffer;
@@ -514,7 +516,7 @@ static const uchar depthBits[] =
             else
             {
                 // New one
-                GLRenderBuffer *rb = new GLRenderBuffer(format, width, height, fsaa);
+                auto *rb = new GLRenderBuffer(format, width, height, fsaa);
                 mRenderBufferMap[key] = RBRef(rb);
                 retval.buffer = rb;
                 retval.zoffset = 0;

@@ -27,22 +27,23 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <ostream>
+#include <ranges>
 #include <thread>
 #include <utility>
 
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreRoot.h"
-#include "OgreTimer.h"
-#include "OgreWorkQueue.h"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreTimer.hpp"
+#include "OgreWorkQueue.hpp"
 
 namespace Ogre {
     //---------------------------------------------------------------------
-    uint16 WorkQueue::getChannel(const String& channelName)
+    auto WorkQueue::getChannel(const String& channelName) -> uint16
     {
         std::unique_lock<std::recursive_mutex> ogrenameLock(mChannelMapMutex);
 
-        ChannelMap::iterator i = mChannelMap.find(channelName);
+        auto i = mChannelMap.find(channelName);
         if (i == mChannelMap.end())
         {
             i = mChannelMap.insert(ChannelMap::value_type(channelName, mNextChannel++)).first;
@@ -51,19 +52,17 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     WorkQueue::Request::Request(uint16 channel, uint16 rtype, const Any& rData, uint8 retry, RequestID rid)
-        : mChannel(channel), mType(rtype), mData(rData), mRetryCount(retry), mID(rid), mAborted(false)
+        : mChannel(channel), mType(rtype), mData(rData), mRetryCount(retry), mID(rid) 
     {
 
     }
     //---------------------------------------------------------------------
     WorkQueue::Request::~Request()
-    {
-
-    }
+    = default;
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    WorkQueue::Response::Response(const Request* rq, bool success, const Any& data, const String& msg)
-        : mRequest(rq), mSuccess(success), mMessages(msg), mData(data)
+    WorkQueue::Response::Response(const Request* rq, bool success, const Any& data, String  msg)
+        : mRequest(rq), mSuccess(success), mMessages(std::move(msg)), mData(data)
     {
         
     }
@@ -74,28 +73,18 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    DefaultWorkQueueBase::DefaultWorkQueueBase(const String& name)
-        : mName(name)
-        , mWorkerThreadCount(1)
-        , mWorkerRenderSystemAccess(false)
-        , mIsRunning(false)
-        , mResposeTimeLimitMS(8)
-        , mWorkerFunc(0)
-        , mRequestCount(0)
-        , mPaused(false)
-        , mAcceptRequests(true)
-        , mShuttingDown(false)
-        , mIdleThreadRunning(false)
-        , mIdleProcessed(0)
+    DefaultWorkQueueBase::DefaultWorkQueueBase(String  name)
+        : mName(std::move(name))
+         
     {
     }
     //---------------------------------------------------------------------
-    const String& DefaultWorkQueueBase::getName() const
+    auto DefaultWorkQueueBase::getName() const -> const String&
     {
         return mName;
     }
     //---------------------------------------------------------------------
-    size_t DefaultWorkQueueBase::getWorkerThreadCount() const
+    auto DefaultWorkQueueBase::getWorkerThreadCount() const -> size_t
     {
         return mWorkerThreadCount;
     }
@@ -105,7 +94,7 @@ namespace Ogre {
         mWorkerThreadCount = c;
     }
     //---------------------------------------------------------------------
-    bool DefaultWorkQueueBase::getWorkersCanAccessRenderSystem() const
+    auto DefaultWorkQueueBase::getWorkersCanAccessRenderSystem() const -> bool
     {
         return mWorkerRenderSystemAccess;
     }
@@ -119,15 +108,15 @@ namespace Ogre {
     {
         //shutdown(); // can't call here; abstract function
 
-        for (RequestQueue::iterator i = mRequestQueue.begin(); i != mRequestQueue.end(); ++i)
+        for (auto & i : mRequestQueue)
         {
-            delete (*i);
+            delete i;
         }
         mRequestQueue.clear();
 
-        for (ResponseQueue::iterator i = mResponseQueue.begin(); i != mResponseQueue.end(); ++i)
+        for (auto & i : mResponseQueue)
         {
-            delete (*i);
+            delete i;
         }
         mResponseQueue.clear();
     }
@@ -136,13 +125,13 @@ namespace Ogre {
     {
         std::unique_lock<std::recursive_mutex> ogrenameLock(mRequestHandlerMutex);
 
-        RequestHandlerListByChannel::iterator i = mRequestHandlers.emplace(channel, RequestHandlerList()).first;
+        auto i = mRequestHandlers.emplace(channel, RequestHandlerList()).first;
 
         RequestHandlerList& handlers = i->second;
         bool duplicate = false;
-        for (RequestHandlerList::iterator j = handlers.begin(); j != handlers.end(); ++j)
+        for (auto & handler : handlers)
         {
-            if ((*j)->getHandler() == rh)
+            if (handler->getHandler() == rh)
             {
                 duplicate = true;
                 break;
@@ -157,11 +146,11 @@ namespace Ogre {
     {
         std::unique_lock<std::recursive_mutex> ogrenameLock(mRequestHandlerMutex);
 
-        RequestHandlerListByChannel::iterator i = mRequestHandlers.find(channel);
+        auto i = mRequestHandlers.find(channel);
         if (i != mRequestHandlers.end())
         {
             RequestHandlerList& handlers = i->second;
-            for (RequestHandlerList::iterator j = handlers.begin(); j != handlers.end(); ++j)
+            for (auto j = handlers.begin(); j != handlers.end(); ++j)
             {
                 if ((*j)->getHandler() == rh)
                 {
@@ -179,7 +168,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void DefaultWorkQueueBase::addResponseHandler(uint16 channel, ResponseHandler* rh)
     {
-        ResponseHandlerListByChannel::iterator i = mResponseHandlers.emplace(channel, ResponseHandlerList()).first;
+        auto i = mResponseHandlers.emplace(channel, ResponseHandlerList()).first;
 
         ResponseHandlerList& handlers = i->second;
         if (std::find(handlers.begin(), handlers.end(), rh) == handlers.end())
@@ -188,11 +177,11 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void DefaultWorkQueueBase::removeResponseHandler(uint16 channel, ResponseHandler* rh)
     {
-        ResponseHandlerListByChannel::iterator i = mResponseHandlers.find(channel);
+        auto i = mResponseHandlers.find(channel);
         if (i != mResponseHandlers.end())
         {
             ResponseHandlerList& handlers = i->second;
-            ResponseHandlerList::iterator j = std::find(
+            auto j = std::find(
                 handlers.begin(), handlers.end(), rh);
             if (j != handlers.end())
                 handlers.erase(j);
@@ -200,10 +189,10 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    WorkQueue::RequestID DefaultWorkQueueBase::addRequest(uint16 channel, uint16 requestType, 
-        const Any& rData, uint8 retryCount, bool forceSynchronous, bool idleThread)
+    auto DefaultWorkQueueBase::addRequest(uint16 channel, uint16 requestType, 
+        const Any& rData, uint8 retryCount, bool forceSynchronous, bool idleThread) -> WorkQueue::RequestID
     {
-        Request* req = 0;
+        Request* req = nullptr;
         RequestID rid = 0;
 
         {
@@ -251,7 +240,7 @@ namespace Ogre {
         if (mShuttingDown)
             return;
 
-        Request* req = new Request(channel, requestType, rData, retryCount, rid);
+        auto* req = new Request(channel, requestType, rData, retryCount, rid);
 
         LogManager::getSingleton().stream(LML_TRIVIAL) << 
             "DefaultWorkQueueBase('" << mName << "') - REQUEUED(thread:" <<
@@ -269,11 +258,11 @@ namespace Ogre {
         // NOTE: Pending requests are exist any of RequestQueue, ProcessQueue and
         // ResponseQueue when keeping ProcessMutex, so we check all of these queues.
 
-        for (RequestQueue::iterator i = mProcessQueue.begin(); i != mProcessQueue.end(); ++i)
+        for (auto & i : mProcessQueue)
         {
-            if ((*i)->getID() == id)
+            if (i->getID() == id)
             {
-                (*i)->abortRequest();
+                i->abortRequest();
                 break;
             }
         }
@@ -281,11 +270,11 @@ namespace Ogre {
         {
             std::unique_lock<std::recursive_mutex> ogrenameLock2(mRequestMutex);
 
-            for (RequestQueue::iterator i = mRequestQueue.begin(); i != mRequestQueue.end(); ++i)
+            for (auto & i : mRequestQueue)
             {
-                if ((*i)->getID() == id)
+                if (i->getID() == id)
                 {
-                    (*i)->abortRequest();
+                    i->abortRequest();
                     break;
                 }
             }
@@ -298,47 +287,47 @@ namespace Ogre {
             }
 
             std::unique_lock<std::recursive_mutex> ogrenameLock3(mIdleMutex);
-            for (RequestQueue::iterator i = mIdleRequestQueue.begin(); i != mIdleRequestQueue.end(); ++i)
+            for (auto & i : mIdleRequestQueue)
             {
-                (*i)->abortRequest();
+                i->abortRequest();
             }
         }
 
         {
             std::unique_lock<std::recursive_mutex> ogrenameLock4(mResponseMutex);
 
-            for (ResponseQueue::iterator i = mResponseQueue.begin(); i != mResponseQueue.end(); ++i)
+            for (auto & i : mResponseQueue)
             {
-                if( (*i)->getRequest()->getID() == id )
+                if( i->getRequest()->getID() == id )
                 {
-                    (*i)->abortRequest();
+                    i->abortRequest();
                     break;
                 }
             }
         }
     }
     //---------------------------------------------------------------------
-    bool DefaultWorkQueueBase::abortPendingRequest(RequestID id)
+    auto DefaultWorkQueueBase::abortPendingRequest(RequestID id) -> bool
     {
         // Request should not exist in idle queue and request queue simultaneously.
         {
             std::unique_lock<std::recursive_mutex> ogrenameLock1(mRequestMutex);
-            for (RequestQueue::iterator i = mRequestQueue.begin(); i != mRequestQueue.end(); ++i)
+            for (auto & i : mRequestQueue)
             {
-                if ((*i)->getID() == id)
+                if (i->getID() == id)
                 {
-                    (*i)->abortRequest();
+                    i->abortRequest();
                     return true;
                 }
             }
         }
         {
             std::unique_lock<std::recursive_mutex> ogrenameLock2(mIdleMutex);
-            for (RequestQueue::iterator i = mIdleRequestQueue.begin(); i != mIdleRequestQueue.end(); ++i)
+            for (auto & i : mIdleRequestQueue)
             {
-                if ((*i)->getID() == id)
+                if (i->getID() == id)
                 {
-                    (*i)->abortRequest();
+                    i->abortRequest();
                     return true;
                 }
             }
@@ -351,22 +340,22 @@ namespace Ogre {
     {
         std::unique_lock<std::recursive_mutex> ogrenameLock1(mProcessMutex);
 
-        for (RequestQueue::iterator i = mProcessQueue.begin(); i != mProcessQueue.end(); ++i)
+        for (auto & i : mProcessQueue)
         {
-            if ((*i)->getChannel() == channel)
+            if (i->getChannel() == channel)
             {
-                (*i)->abortRequest();
+                i->abortRequest();
             }
         }
 
         {
             std::unique_lock<std::recursive_mutex> ogrenameLock2(mRequestMutex);
 
-            for (RequestQueue::iterator i = mRequestQueue.begin(); i != mRequestQueue.end(); ++i)
+            for (auto & i : mRequestQueue)
             {
-                if ((*i)->getChannel() == channel)
+                if (i->getChannel() == channel)
                 {
-                    (*i)->abortRequest();
+                    i->abortRequest();
                 }
             }
         }
@@ -378,11 +367,11 @@ namespace Ogre {
 
             std::unique_lock<std::recursive_mutex> ogrenameLock3(mIdleMutex);
 
-            for (RequestQueue::iterator i = mIdleRequestQueue.begin(); i != mIdleRequestQueue.end(); ++i)
+            for (auto & i : mIdleRequestQueue)
             {
-                if ((*i)->getChannel() == channel)
+                if (i->getChannel() == channel)
                 {
-                    (*i)->abortRequest();
+                    i->abortRequest();
                 }
             }
         }
@@ -390,11 +379,11 @@ namespace Ogre {
         {
             std::unique_lock<std::recursive_mutex> ogrenameLock4(mResponseMutex);
 
-            for (ResponseQueue::iterator i = mResponseQueue.begin(); i != mResponseQueue.end(); ++i)
+            for (auto & i : mResponseQueue)
             {
-                if( (*i)->getRequest()->getChannel() == channel )
+                if( i->getRequest()->getChannel() == channel )
                 {
-                    (*i)->abortRequest();
+                    i->abortRequest();
                 }
             }
         }
@@ -404,22 +393,22 @@ namespace Ogre {
     {
         {
             std::unique_lock<std::recursive_mutex> ogrenameLock(mRequestMutex);
-            for (RequestQueue::iterator i = mRequestQueue.begin(); i != mRequestQueue.end(); ++i)
+            for (auto & i : mRequestQueue)
             {
-                if ((*i)->getChannel() == channel)
+                if (i->getChannel() == channel)
                 {
-                    (*i)->abortRequest();
+                    i->abortRequest();
                 }
             }
         }
         {
             std::unique_lock<std::recursive_mutex> ogrenameLock(mIdleMutex);
 
-            for (RequestQueue::iterator i = mIdleRequestQueue.begin(); i != mIdleRequestQueue.end(); ++i)
+            for (auto & i : mIdleRequestQueue)
             {
-                if ((*i)->getChannel() == channel)
+                if (i->getChannel() == channel)
                 {
-                    (*i)->abortRequest();
+                    i->abortRequest();
                 }
             }
         }
@@ -429,9 +418,9 @@ namespace Ogre {
     {
         std::unique_lock<std::recursive_mutex> ogrenameLock(mProcessMutex);
         {
-            for (RequestQueue::iterator i = mProcessQueue.begin(); i != mProcessQueue.end(); ++i)
+            for (auto & i : mProcessQueue)
             {
-                (*i)->abortRequest();
+                i->abortRequest();
             }
         }
         
@@ -439,9 +428,9 @@ namespace Ogre {
         {
             std::unique_lock<std::recursive_mutex> ogrenameLock1(mRequestMutex);
 
-            for (RequestQueue::iterator i = mRequestQueue.begin(); i != mRequestQueue.end(); ++i)
+            for (auto & i : mRequestQueue)
             {
-                (*i)->abortRequest();
+                i->abortRequest();
             }
         }
 
@@ -454,18 +443,18 @@ namespace Ogre {
 
             std::unique_lock<std::recursive_mutex> ogrenameLock2(mIdleMutex);
 
-            for (RequestQueue::iterator i = mIdleRequestQueue.begin(); i != mIdleRequestQueue.end(); ++i)
+            for (auto & i : mIdleRequestQueue)
             {
-                (*i)->abortRequest();
+                i->abortRequest();
             }
         }
 
         {
             std::unique_lock<std::recursive_mutex> ogrenameLock3(mResponseMutex);
 
-            for (ResponseQueue::iterator i = mResponseQueue.begin(); i != mResponseQueue.end(); ++i)
+            for (auto & i : mResponseQueue)
             {
-                (*i)->abortRequest();
+                i->abortRequest();
             }
         }
 
@@ -478,7 +467,7 @@ namespace Ogre {
         mPaused = pause;
     }
     //---------------------------------------------------------------------
-    bool DefaultWorkQueueBase::isPaused() const
+    auto DefaultWorkQueueBase::isPaused() const -> bool
     {
         return mPaused;
     }
@@ -490,7 +479,7 @@ namespace Ogre {
         mAcceptRequests = accept;
     }
     //---------------------------------------------------------------------
-    bool DefaultWorkQueueBase::getRequestsAccepted() const
+    auto DefaultWorkQueueBase::getRequestsAccepted() const -> bool
     {
         return mAcceptRequests;
     }
@@ -501,7 +490,7 @@ namespace Ogre {
             // Found idle requests.
             return;
         }
-        Request* request = 0;
+        Request* request = nullptr;
         {
             // scoped to only lock while retrieving the next request
             std::unique_lock<std::recursive_mutex> ogrenameLock1(mProcessMutex);
@@ -540,7 +529,7 @@ namespace Ogre {
         }
         if( mIdleProcessed == r )
         {
-            mIdleProcessed = 0;
+            mIdleProcessed = nullptr;
         }
         if (response)
         {
@@ -599,7 +588,7 @@ namespace Ogre {
         // keep going until we run out of responses or out of time
         while(true)
         {
-            Response* response = 0;
+            Response* response = nullptr;
             {
                 std::unique_lock<std::recursive_mutex> ogrenameLock(mResponseMutex);
 
@@ -630,7 +619,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    WorkQueue::Response* DefaultWorkQueueBase::processRequest(Request* r)
+    auto DefaultWorkQueueBase::processRequest(Request* r) -> WorkQueue::Response*
     {
         RequestHandlerListByChannel handlerListCopy;
         {
@@ -640,7 +629,7 @@ namespace Ogre {
             handlerListCopy = mRequestHandlers;
         }
 
-        Response* response = 0;
+        Response* response = nullptr;
 
         StringStream dbgMsg;
         dbgMsg <<
@@ -651,14 +640,14 @@ namespace Ogre {
         LogManager::getSingleton().stream(LML_TRIVIAL) << 
             "DefaultWorkQueueBase('" << mName << "') - PROCESS_REQUEST_START(" << dbgMsg.str();
 
-        RequestHandlerListByChannel::iterator i = handlerListCopy.find(r->getChannel());
+        auto i = handlerListCopy.find(r->getChannel());
         if (i != handlerListCopy.end())
         {
             RequestHandlerList& handlers = i->second;
-            for (RequestHandlerList::reverse_iterator j = handlers.rbegin(); j != handlers.rend(); ++j)
+            for (auto & handler : std::ranges::reverse_view(handlers))
             {
                 // threadsafe call which tests canHandleRequest and calls it if so 
-                response = (*j)->handleRequest(r, this);
+                response = handler->handleRequest(r, this);
 
                 if (response)
                     break;
@@ -667,7 +656,7 @@ namespace Ogre {
 
         LogManager::getSingleton().stream(LML_TRIVIAL) << 
             "DefaultWorkQueueBase('" << mName << "') - PROCESS_REQUEST_END(" << dbgMsg.str()
-            << " processed=" << (response!=0);
+            << " processed=" << (response!=nullptr);
 
         return response;
 
@@ -685,15 +674,15 @@ namespace Ogre {
         LogManager::getSingleton().stream(LML_TRIVIAL) << 
             "DefaultWorkQueueBase('" << mName << "') - PROCESS_RESPONSE_START(" << dbgMsg.str();
 
-        ResponseHandlerListByChannel::iterator i = mResponseHandlers.find(r->getRequest()->getChannel());
+        auto i = mResponseHandlers.find(r->getRequest()->getChannel());
         if (i != mResponseHandlers.end())
         {
             ResponseHandlerList& handlers = i->second;
-            for (ResponseHandlerList::reverse_iterator j = handlers.rbegin(); j != handlers.rend(); ++j)
+            for (auto & handler : std::ranges::reverse_view(handlers))
             {
-                if ((*j)->canHandleResponse(r, this))
+                if (handler->canHandleResponse(r, this))
                 {
-                    (*j)->handleResponse(r, this);
+                    handler->handleResponse(r, this);
                 }
             }
         }
@@ -702,7 +691,7 @@ namespace Ogre {
 
     }
 
-    bool DefaultWorkQueueBase::processIdleRequests()
+    auto DefaultWorkQueueBase::processIdleRequests() -> bool
     {
         {
             std::unique_lock<std::recursive_mutex> ogrenameLock1(mIdleMutex);
@@ -713,7 +702,7 @@ namespace Ogre {
             }
         }
         try {
-            while(1){
+            for(;;){
                 {
                     std::unique_lock<std::recursive_mutex> ogrenameLock2(mProcessMutex); // mProcessMutex needs to be the top mutex to prevent livelocks
                     {
@@ -722,7 +711,7 @@ namespace Ogre {
                             mIdleProcessed = mIdleRequestQueue.front();
                             mIdleRequestQueue.pop_front();
                         } else {
-                            mIdleProcessed = 0;
+                            mIdleProcessed = nullptr;
                             mIdleThreadRunning = false;
                             return true;
                         }
@@ -739,7 +728,7 @@ namespace Ogre {
                     if(mIdleProcessed){
                         mIdleProcessed->abortRequest();
                     }
-                    mIdleProcessed = 0;
+                    mIdleProcessed = nullptr;
                     mIdleThreadRunning = false;
                 }
             }

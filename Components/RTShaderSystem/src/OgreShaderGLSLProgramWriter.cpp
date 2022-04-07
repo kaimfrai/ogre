@@ -33,28 +33,27 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderGLSLProgramWriter.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramWriter.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderGLSLProgramWriter.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramWriter.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 String GLSLProgramWriter::TargetLanguage = "glsl";
 
 //-----------------------------------------------------------------------
-GLSLProgramWriter::GLSLProgramWriter() : mIsGLSLES(false), mIsVulkan(false)
+GLSLProgramWriter::GLSLProgramWriter()  
 {
     auto* rs = Root::getSingleton().getRenderSystem();
     mGLSLVersion = rs ? rs->getNativeShadingLanguageVersion() : 120;
@@ -70,9 +69,7 @@ GLSLProgramWriter::GLSLProgramWriter() : mIsGLSLES(false), mIsVulkan(false)
 
 //-----------------------------------------------------------------------
 GLSLProgramWriter::~GLSLProgramWriter()
-{
-
-}
+= default;
 
 //-----------------------------------------------------------------------
 void GLSLProgramWriter::initializeStringMaps()
@@ -225,8 +222,8 @@ void GLSLProgramWriter::writeMainSourceCode(std::ostream& os, Program* program)
 
     // Write local parameters.
     const ShaderParameterList& localParams = curFunction->getLocalParameters();
-    ShaderParameterConstIterator itParam = localParams.begin();
-    ShaderParameterConstIterator itParamEnd = localParams.end();
+    auto itParam = localParams.begin();
+    auto itParamEnd = localParams.end();
 
     for (; itParam != itParamEnd; ++itParam)
     {
@@ -308,8 +305,8 @@ void GLSLProgramWriter::writeInputParameters(std::ostream& os, Function* functio
 {
     const ShaderParameterList& inParams = function->getInputParameters();
 
-    ShaderParameterConstIterator itParam = inParams.begin();
-    ShaderParameterConstIterator itParamEnd = inParams.end();
+    auto itParam = inParams.begin();
+    auto itParamEnd = inParams.end();
 
     int psInLocation = 0;
 
@@ -393,8 +390,8 @@ void GLSLProgramWriter::writeOutParameters(std::ostream& os, Function* function,
 {
     const ShaderParameterList& outParams = function->getOutputParameters();
 
-    ShaderParameterConstIterator itParam = outParams.begin();
-    ShaderParameterConstIterator itParamEnd = outParams.end();
+    auto itParam = outParams.begin();
+    auto itParamEnd = outParams.end();
 
     int vsOutLocation = 0;
 
@@ -453,5 +450,4 @@ void GLSLProgramWriter::writeOutParameters(std::ostream& os, Function* function,
     }
 }
 //-----------------------------------------------------------------------
-}
 }

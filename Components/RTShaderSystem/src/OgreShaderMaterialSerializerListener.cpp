@@ -28,17 +28,17 @@ THE SOFTWARE.
 #include <cstddef>
 #include <vector>
 
-#include "OgreAny.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderMaterialSerializerListener.h"
-#include "OgreSharedPtr.h"
-#include "OgreTechnique.h"
-#include "OgreTextureUnitState.h"
-#include "OgreUserObjectBindings.h"
+#include "OgreAny.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderMaterialSerializerListener.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTextureUnitState.hpp"
+#include "OgreUserObjectBindings.hpp"
 
 namespace Ogre {
 class Pass;
@@ -48,7 +48,7 @@ namespace RTShader {
 //-----------------------------------------------------------------------------
 SGMaterialSerializerListener::SGMaterialSerializerListener()
 {
-    mSourceMaterial = NULL;
+    mSourceMaterial = nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -65,7 +65,7 @@ void SGMaterialSerializerListener::materialEventRaised(MaterialSerializer* ser,
 
     if (event == MaterialSerializer::MSE_POST_WRITE)
     {
-        mSourceMaterial = NULL;
+        mSourceMaterial = nullptr;
         mSGPassList.clear();
     }
 }
@@ -102,7 +102,7 @@ void SGMaterialSerializerListener::passEventRaised(MaterialSerializer* ser,
         ShaderGenerator::SGPass* passEntry = getShaderGeneratedPass(pass);
         
         // Case this pass use as source pass for shader generated pass.
-        if (passEntry != NULL)                          
+        if (passEntry != nullptr)                          
             ShaderGenerator::getSingleton().serializePassAttributes(ser, passEntry);
     }   
 }
@@ -119,16 +119,16 @@ void SGMaterialSerializerListener::textureUnitStateEventRaised(MaterialSerialize
         ShaderGenerator::SGPass* passEntry = getShaderGeneratedPass(textureUnit->getParent());
         
         // Case this pass use as source pass for shader generated pass.
-        if (passEntry != NULL)                          
+        if (passEntry != nullptr)                          
             ShaderGenerator::getSingleton().serializeTextureUnitStateAttributes(ser, passEntry, textureUnit);
     }   
 }
 
 //-----------------------------------------------------------------------------
-ShaderGenerator::SGPass* SGMaterialSerializerListener::getShaderGeneratedPass(const Pass* srcPass)
+auto SGMaterialSerializerListener::getShaderGeneratedPass(const Pass* srcPass) -> ShaderGenerator::SGPass*
 {
-    SGPassListIterator it    = mSGPassList.begin();
-    SGPassListIterator itEnd = mSGPassList.end();
+    auto it    = mSGPassList.begin();
+    auto itEnd = mSGPassList.end();
 
     for (; it != itEnd; ++it)
     {
@@ -140,7 +140,7 @@ ShaderGenerator::SGPass* SGMaterialSerializerListener::getShaderGeneratedPass(co
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 

@@ -30,38 +30,37 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLight.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePass.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderFFPLighting.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderRenderState.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreStringConverter.h"
-#include "OgreVector.h"
+#include "OgreColourValue.hpp"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreLight.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgrePass.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShaderFFPLighting.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrecompiledHeaders.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreShaderRenderState.hpp"
+#include "OgreShaderScriptTranslator.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
 	class AutoParamDataSource;
 	class Renderable;
 }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -78,14 +77,14 @@ FFPLighting::FFPLighting()
 }
 
 //-----------------------------------------------------------------------
-const String& FFPLighting::getType() const
+auto FFPLighting::getType() const -> const String&
 {
 	return Type;
 }
 
 
 //-----------------------------------------------------------------------
-int	FFPLighting::getExecutionOrder() const
+auto	FFPLighting::getExecutionOrder() const -> int
 {
 	return FFP_LIGHTING;
 }
@@ -101,11 +100,9 @@ void FFPLighting::updateGpuProgramsParams(Renderable* rend, const Pass* pass, co
 	unsigned int curSearchLightIndex = 0;
 
 	// Update per light parameters.
-	for (unsigned int i=0; i < mLightParamsList.size(); ++i)
+	for (auto & curParams : mLightParamsList)
 	{
-		const LightParams& curParams = mLightParamsList[i];
-
-		if (curLightType != curParams.mType)
+			if (curLightType != curParams.mType)
 		{
 			curLightType = curParams.mType;
 			curSearchLightIndex = 0;
@@ -159,7 +156,7 @@ void FFPLighting::updateGpuProgramsParams(Renderable* rend, const Pass* pass, co
 }
 
 //-----------------------------------------------------------------------
-bool FFPLighting::resolveParameters(ProgramSet* programSet)
+auto FFPLighting::resolveParameters(ProgramSet* programSet) -> bool
 {
 	Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
 	Function* vsMain = vsProgram->getEntryPointFunction();
@@ -256,7 +253,7 @@ bool FFPLighting::resolveParameters(ProgramSet* programSet)
 				mLightParamsList[i].mSpecularColour = vsProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_SPECULAR_COLOUR_POWER_SCALED, i);
 			}
 
-			if (mOutSpecular.get() == NULL)
+			if (mOutSpecular.get() == nullptr)
 			{
 				mOutSpecular = vsMain->resolveOutputParameter(Parameter::SPC_COLOR_SPECULAR);
 			}
@@ -274,7 +271,7 @@ bool FFPLighting::resolveParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool FFPLighting::resolveDependencies(ProgramSet* programSet)
+auto FFPLighting::resolveDependencies(ProgramSet* programSet) -> bool
 {
 	Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
 
@@ -288,7 +285,7 @@ bool FFPLighting::resolveDependencies(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool FFPLighting::addFunctionInvocations(ProgramSet* programSet)
+auto FFPLighting::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
 	Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);	
 	Function* vsMain = vsProgram->getEntryPointFunction();	
@@ -427,7 +424,7 @@ void FFPLighting::addIlluminationInvocation(const LightParams* curLightParams, c
 //-----------------------------------------------------------------------
 void FFPLighting::copyFrom(const SubRenderState& rhs)
 {
-	const FFPLighting& rhsLighting = static_cast<const FFPLighting&>(rhs);
+	const auto& rhsLighting = static_cast<const FFPLighting&>(rhs);
 
 	setLightCount(rhsLighting.getLightCount());
 	mNormalisedEnable = rhsLighting.mNormalisedEnable;
@@ -435,7 +432,7 @@ void FFPLighting::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool FFPLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+auto FFPLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
 {
     //! [disable]
 	if (!srcPass->getLightingEnabled())
@@ -498,7 +495,7 @@ bool FFPLighting::preAddToRenderState(const RenderState* renderState, Pass* srcP
 	return true;
 }
 
-bool FFPLighting::setParameter(const String& name, const String& value)
+auto FFPLighting::setParameter(const String& name, const String& value) -> bool
 {
 	if(name == "normalise" || name == "normalised") // allow both spelling variations
 	{
@@ -530,15 +527,13 @@ void FFPLighting::setLightCount(const Vector3i& lightCount)
 }
 
 //-----------------------------------------------------------------------
-Vector3i FFPLighting::getLightCount() const
+auto FFPLighting::getLightCount() const -> Vector3i
 {
 	Vector3i lightCount(0, 0, 0);
 
-	for (unsigned int i=0; i < mLightParamsList.size(); ++i)
+	for (auto curParams : mLightParamsList)
 	{
-		const LightParams curParams = mLightParamsList[i];
-
-		if (curParams.mType == Light::LT_POINT)
+			if (curParams.mType == Light::LT_POINT)
 			lightCount[0]++;
 		else if (curParams.mType == Light::LT_DIRECTIONAL)
 			lightCount[1]++;
@@ -550,17 +545,17 @@ Vector3i FFPLighting::getLightCount() const
 }
 
 //-----------------------------------------------------------------------
-const String& FFPLightingFactory::getType() const
+auto FFPLightingFactory::getType() const -> const String&
 {
 	return FFPLighting::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState*	FFPLightingFactory::createInstance(ScriptCompiler* compiler, 
-												PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+auto	FFPLightingFactory::createInstance(ScriptCompiler* compiler, 
+												PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name != "lighting_stage" || prop->values.empty())
-        return NULL;
+        return nullptr;
 
     auto it = prop->values.begin();
     String val;
@@ -568,10 +563,10 @@ SubRenderState*	FFPLightingFactory::createInstance(ScriptCompiler* compiler,
     if(!SGScriptTranslator::getString(*it, &val))
     {
         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-        return NULL;
+        return nullptr;
     }
 
-    SubRenderState* ret = NULL;
+    SubRenderState* ret = nullptr;
     if (val == "ffp")
     {
         ret = createOrRetrieveInstance(translator);
@@ -582,7 +577,7 @@ SubRenderState*	FFPLightingFactory::createInstance(ScriptCompiler* compiler,
         if(!SGScriptTranslator::getString(*it, &val))
         {
             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-            return NULL;
+            return nullptr;
         }
 
         static_cast<FFPLighting*>(ret)->setNormaliseEnabled(val == "normalised");
@@ -600,10 +595,9 @@ void FFPLightingFactory::writeInstance(MaterialSerializer* ser, SubRenderState* 
 }
 
 //-----------------------------------------------------------------------
-SubRenderState*	FFPLightingFactory::createInstanceImpl()
+auto	FFPLightingFactory::createInstanceImpl() -> SubRenderState*
 {
 	return new FFPLighting;
 }
 
-}
 }

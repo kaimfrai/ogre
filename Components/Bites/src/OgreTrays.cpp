@@ -5,7 +5,7 @@
  *      Author: parojtbe
  */
 
-#include "OgreTrays.h"
+#include "OgreTrays.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -15,17 +15,17 @@
 #include <ostream>
 #include <utility>
 
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreFont.h"
-#include "OgreMatrix4.h"
-#include "OgreOverlayManager.h"
-#include "OgrePanelOverlayElement.h"
-#include "OgreRenderTarget.h"
-#include "OgreRenderWindow.h"
-#include "OgreRoot.h"
-#include "OgreStringConverter.h"
-#include "OgreTimer.h"
+#include "OgreCamera.hpp"
+#include "OgreException.hpp"
+#include "OgreFont.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreOverlayManager.hpp"
+#include "OgrePanelOverlayElement.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreRenderWindow.hpp"
+#include "OgreRoot.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTimer.hpp"
 
 namespace Ogre {
 struct FrameEvent;
@@ -40,19 +40,19 @@ static unsigned FRAME_UPDATE_DELAY = 250; // ms
 Widget::Widget()
 {
     mTrayLoc = TL_NONE;
-    mElement = 0;
-    mListener = 0;
+    mElement = nullptr;
+    mListener = nullptr;
 }
 
 void Widget::cleanup()
 {
     if (mElement) nukeOverlayElement(mElement);
-    mElement = 0;
+    mElement = nullptr;
 }
 
 void Widget::nukeOverlayElement(Ogre::OverlayElement *element)
 {
-    Ogre::OverlayContainer* container = dynamic_cast<Ogre::OverlayContainer*>(element);
+    auto* container = dynamic_cast<Ogre::OverlayContainer*>(element);
     if (container)
     {
         std::vector<Ogre::OverlayElement*> toDelete;
@@ -61,9 +61,9 @@ void Widget::nukeOverlayElement(Ogre::OverlayElement *element)
             toDelete.push_back(p.second);
         }
 
-        for (unsigned int i = 0; i < toDelete.size(); i++)
+        for (auto & i : toDelete)
         {
-            nukeOverlayElement(toDelete[i]);
+            nukeOverlayElement(i);
         }
     }
     if (element)
@@ -74,7 +74,7 @@ void Widget::nukeOverlayElement(Ogre::OverlayElement *element)
     }
 }
 
-bool Widget::isCursorOver(Ogre::OverlayElement *element, const Ogre::Vector2 &cursorPos, Ogre::Real voidBorder)
+auto Widget::isCursorOver(Ogre::OverlayElement *element, const Ogre::Vector2 &cursorPos, Ogre::Real voidBorder) -> bool
 {
     Ogre::OverlayManager& om = Ogre::OverlayManager::getSingleton();
     Ogre::Real l = element->_getDerivedLeft() * om.getViewportWidth();
@@ -86,30 +86,30 @@ bool Widget::isCursorOver(Ogre::OverlayElement *element, const Ogre::Vector2 &cu
             cursorPos.y >= t + voidBorder && cursorPos.y <= b - voidBorder);
 }
 
-Ogre::Vector2 Widget::cursorOffset(Ogre::OverlayElement *element, const Ogre::Vector2 &cursorPos)
+auto Widget::cursorOffset(Ogre::OverlayElement *element, const Ogre::Vector2 &cursorPos) -> Ogre::Vector2
 {
     Ogre::OverlayManager& om = Ogre::OverlayManager::getSingleton();
-    return Ogre::Vector2(cursorPos.x - (element->_getDerivedLeft() * om.getViewportWidth() + element->getWidth() / 2),
-                         cursorPos.y - (element->_getDerivedTop() * om.getViewportHeight() + element->getHeight() / 2));
+    return {cursorPos.x - (element->_getDerivedLeft() * om.getViewportWidth() + element->getWidth() / 2),
+                         cursorPos.y - (element->_getDerivedTop() * om.getViewportHeight() + element->getHeight() / 2)};
 }
 
-Ogre::Real Widget::getCaptionWidth(const Ogre::DisplayString &caption, Ogre::TextAreaOverlayElement *area)
+auto Widget::getCaptionWidth(const Ogre::DisplayString &caption, Ogre::TextAreaOverlayElement *area) -> Ogre::Real
 {
     Ogre::FontPtr font = area->getFont();
     font->load(); // ensure glyph info is there
     Ogre::Real lineWidth = 0;
 
-    for (unsigned int i = 0; i < caption.length(); i++)
+    for (char i : caption)
     {
         // be sure to provide a line width in the text area
-        if (caption[i] == ' ')
+        if (i == ' ')
         {
             if (area->getSpaceWidth() != 0) lineWidth += area->getSpaceWidth();
             else lineWidth += font->getGlyphInfo(' ').advance * area->getCharHeight();
         }
-        else if (caption[i] == '\n') break;
+        else if (i == '\n') break;
         // use glyph information to calculate line width
-        else lineWidth += font->getGlyphInfo(caption[i]).advance * area->getCharHeight();
+        else lineWidth += font->getGlyphInfo(i).advance * area->getCharHeight();
     }
 
     return (unsigned int)lineWidth;
@@ -222,7 +222,7 @@ TextBox::TextBox(const Ogre::String &name, const Ogre::DisplayString &caption, O
     mElement = Ogre::OverlayManager::getSingleton().createOverlayElementFromTemplate("SdkTrays/TextBox", "BorderPanel", name);
     mElement->setWidth(width);
     mElement->setHeight(height);
-    Ogre::OverlayContainer* container = (Ogre::OverlayContainer*)mElement;
+    auto* container = (Ogre::OverlayContainer*)mElement;
     mTextArea = (Ogre::TextAreaOverlayElement*)container->getChild(getName() + "/TextBoxText");
     mCaptionBar = (Ogre::BorderPanelOverlayElement*)container->getChild(getName() + "/TextBoxCaptionBar");
     mCaptionBar->setWidth(width - 4);
@@ -385,7 +385,7 @@ void TextBox::filterLines()
 {
     Ogre::String shown = "";
     unsigned int maxLines = getHeightInLines();
-    unsigned int newStart = (unsigned int) (mScrollPercentage * (mLines.size() - maxLines) + 0.5);
+    auto newStart = (unsigned int) (mScrollPercentage * (mLines.size() - maxLines) + 0.5);
 
     mStartingLine = newStart;
 
@@ -398,9 +398,7 @@ void TextBox::filterLines()
 }
 
 SelectMenu::SelectMenu(const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real boxWidth, size_t maxItemsShown)
-    : mHighlightIndex(0)
-    , mDisplayIndex(0)
-    , mDragOffset(0.0f)
+     
 {
     mSelectionIndex = -1;
     mFitToContents = false;
@@ -463,9 +461,9 @@ void SelectMenu::setItems(const Ogre::StringVector &items)
     mItems = items;
     mSelectionIndex = -1;
 
-    for (unsigned int i = 0; i < mItemElements.size(); i++)   // destroy all the item elements
+    for (auto & mItemElement : mItemElements)   // destroy all the item elements
     {
-        nukeOverlayElement(mItemElements[i]);
+        nukeOverlayElement(mItemElement);
     }
     mItemElements.clear();
 
@@ -551,12 +549,12 @@ void SelectMenu::selectItem(size_t index, bool notifyListener)
     if (mListener && notifyListener) mListener->itemSelected(this);
 }
 
-bool SelectMenu::containsItem(const Ogre::DisplayString &item)
+auto SelectMenu::containsItem(const Ogre::DisplayString &item) -> bool
 {
     bool res = false;
-    for (unsigned int i = 0; i < mItems.size(); i++)
+    for (auto & mItem : mItems)
     {
-        if (item == mItems[i])
+        if (item == mItem)
         {
             res = true;
             break;
@@ -581,7 +579,7 @@ void SelectMenu::selectItem(const Ogre::DisplayString &item, bool notifyListener
     OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "SelectMenu::selectItem");
 }
 
-Ogre::DisplayString SelectMenu::getSelectedItem()
+auto SelectMenu::getSelectedItem() -> Ogre::DisplayString
 {
     if (mSelectionIndex == -1)
     {
@@ -614,7 +612,7 @@ void SelectMenu::_cursorPressed(const Ogre::Vector2 &cursorPos)
                 Ogre::Real lowerBoundary = mScrollTrack->getHeight() - mScrollHandle->getHeight();
                 mScrollHandle->setTop(Ogre::Math::Clamp<int>((int)newTop, 0, (int)lowerBoundary));
 
-                Ogre::Real scrollPercentage = Ogre::Math::Clamp<Ogre::Real>(newTop / lowerBoundary, 0, 1);
+                auto scrollPercentage = Ogre::Math::Clamp<Ogre::Real>(newTop / lowerBoundary, 0, 1);
                 setDisplayIndex((unsigned int)(scrollPercentage * (mItems.size() - mItemElements.size()) + 0.5));
                 return;
             }
@@ -689,7 +687,7 @@ void SelectMenu::_cursorMoved(const Ogre::Vector2 &cursorPos, float wheelDelta)
             Ogre::Real lowerBoundary = mScrollTrack->getHeight() - mScrollHandle->getHeight();
             mScrollHandle->setTop(Ogre::Math::Clamp<int>((int)newTop, 0, (int)lowerBoundary));
 
-            Ogre::Real scrollPercentage = Ogre::Math::Clamp<Ogre::Real>(newTop / lowerBoundary, 0, 1);
+            auto scrollPercentage = Ogre::Math::Clamp<Ogre::Real>(newTop / lowerBoundary, 0, 1);
             int newIndex = (int) (scrollPercentage * (mItems.size() - mItemElements.size()) + 0.5);
             if (newIndex != mDisplayIndex) setDisplayIndex(newIndex);
             return;
@@ -805,18 +803,14 @@ Separator::Separator(const Ogre::String &name, Ogre::Real width)
 }
 
 Slider::Slider(const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real trackWidth, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps)
-    : mDragOffset(0.0f)
-    , mValue(0.0f)
-    , mMinValue(0.0f)
-    , mMaxValue(0.0f)
-    , mInterval(0.0f)
+     
 {
     mDragging = false;
     mFitToContents = false;
     mElement = Ogre::OverlayManager::getSingleton().createOverlayElementFromTemplate
             ("SdkTrays/Slider", "BorderPanel", name);
     mElement->setWidth(width);
-    Ogre::OverlayContainer* c = (Ogre::OverlayContainer*)mElement;
+    auto* c = (Ogre::OverlayContainer*)mElement;
     mTextArea = (Ogre::TextAreaOverlayElement*)c->getChild(getName() + "/SliderCaption");
     Ogre::OverlayContainer* valueBox = (Ogre::OverlayContainer*)c->getChild(getName() + "/SliderValueBox");
     valueBox->setWidth(valueBoxWidth);
@@ -940,7 +934,7 @@ ParamsPanel::ParamsPanel(const Ogre::String &name, Ogre::Real width, unsigned in
 {
     mElement = Ogre::OverlayManager::getSingleton().createOverlayElementFromTemplate
             ("SdkTrays/ParamsPanel", "BorderPanel", name);
-    Ogre::OverlayContainer* c = (Ogre::OverlayContainer*)mElement;
+    auto* c = (Ogre::OverlayContainer*)mElement;
     mNamesArea = (Ogre::TextAreaOverlayElement*)c->getChild(getName() + "/ParamsPanelNames");
     mValuesArea = (Ogre::TextAreaOverlayElement*)c->getChild(getName() + "/ParamsPanelValues");
 
@@ -993,7 +987,7 @@ void ParamsPanel::setParamValue(unsigned int index, const Ogre::DisplayString &p
     updateText();
 }
 
-Ogre::DisplayString ParamsPanel::getParamValue(const Ogre::DisplayString &paramName)
+auto ParamsPanel::getParamValue(const Ogre::DisplayString &paramName) -> Ogre::DisplayString
 {
     for (unsigned int i = 0; i < mNames.size(); i++)
     {
@@ -1005,7 +999,7 @@ Ogre::DisplayString ParamsPanel::getParamValue(const Ogre::DisplayString &paramN
     return "";
 }
 
-Ogre::DisplayString ParamsPanel::getParamValue(unsigned int index)
+auto ParamsPanel::getParamValue(unsigned int index) -> Ogre::DisplayString
 {
     if (index >= mNames.size())
     {
@@ -1038,7 +1032,7 @@ CheckBox::CheckBox(const Ogre::String &name, const Ogre::DisplayString &caption,
     mFitToContents = width <= 0;
     mElement = Ogre::OverlayManager::getSingleton().createOverlayElementFromTemplate
             ("SdkTrays/CheckBox", "BorderPanel", name);
-    Ogre::OverlayContainer* c = (Ogre::OverlayContainer*)mElement;
+    auto* c = (Ogre::OverlayContainer*)mElement;
     mTextArea = (Ogre::TextAreaOverlayElement*)c->getChild(getName() + "/CheckBoxCaption");
     mSquare = (Ogre::BorderPanelOverlayElement*)c->getChild(getName() + "/CheckBoxSquare");
     mX = mSquare->getChild(mSquare->getName() + "/CheckBoxX");
@@ -1106,12 +1100,12 @@ DecorWidget::DecorWidget(const Ogre::String &name, const Ogre::String &templateN
 }
 
 ProgressBar::ProgressBar(const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real commentBoxWidth)
-    : mProgress(0.0f)
+     
 {
     mElement = Ogre::OverlayManager::getSingleton().createOverlayElementFromTemplate
             ("SdkTrays/ProgressBar", "BorderPanel", name);
     mElement->setWidth(width);
-    Ogre::OverlayContainer* c = (Ogre::OverlayContainer*)mElement;
+    auto* c = (Ogre::OverlayContainer*)mElement;
     mTextArea = (Ogre::TextAreaOverlayElement*)c->getChild(getName() + "/ProgressCaption");
     Ogre::OverlayContainer* commentBox = (Ogre::OverlayContainer*)c->getChild(getName() + "/ProgressCommentBox");
     commentBox->setWidth(commentBoxWidth);
@@ -1129,11 +1123,8 @@ void ProgressBar::setProgress(Ogre::Real progress)
     mFill->setWidth(std::max<int>((int)mFill->getHeight(), (int)(mProgress * (mMeter->getWidth() - 2 * mFill->getLeft()))));
 }
 
-TrayManager::TrayManager(const Ogre::String &name, Ogre::RenderWindow *window, TrayListener *listener) :
-    mName(name), mWindow(window), mWidgetDeathRow(), mListener(listener), mWidgetPadding(8),
-    mWidgetSpacing(2), mTrayPadding(0), mTrayDrag(false), mExpandedMenu(0), mDialog(0), mOk(0), mYes(0),
-    mNo(0), mCursorWasVisible(false), mFpsLabel(0), mStatsPanel(0), mLogo(0), mLoadBar(0),
-    mGroupInitProportion(0.0f), mGroupLoadProportion(0.0f), mLoadInc(0.0f)
+TrayManager::TrayManager(Ogre::String name, Ogre::RenderWindow *window, TrayListener *listener) :
+    mName(std::move(name)), mWindow(window), mWidgetDeathRow(), mListener(listener) 
 {
     mTimer = Ogre::Root::getSingleton().getTimer();
     mLastStatUpdateTime = -FRAME_UPDATE_DELAY; // update immediately on first call
@@ -1197,9 +1188,9 @@ TrayManager::~TrayManager()
 
     destroyAllWidgets();
 
-    for (unsigned int i = 0; i < mWidgetDeathRow.size(); i++)   // delete widgets queued for destruction
+    for (auto & i : mWidgetDeathRow)   // delete widgets queued for destruction
     {
-        delete mWidgetDeathRow[i];
+        delete i;
     }
     mWidgetDeathRow.clear();
 
@@ -1215,21 +1206,21 @@ TrayManager::~TrayManager()
     Widget::nukeOverlayElement(mCursor);
     Widget::nukeOverlayElement(mDialogShade);
 
-    for (unsigned int i = 0; i < 10; i++)
+    for (auto & mTray : mTrays)
     {
-        Widget::nukeOverlayElement(mTrays[i]);
+        Widget::nukeOverlayElement(mTray);
     }
 }
 
-Ogre::Ray TrayManager::screenToScene(Ogre::Camera *cam, const Ogre::Vector2 &pt)
+auto TrayManager::screenToScene(Ogre::Camera *cam, const Ogre::Vector2 &pt) -> Ogre::Ray
 {
     return cam->getCameraToViewportRay(pt.x, pt.y);
 }
 
-Ogre::Vector2 TrayManager::sceneToScreen(Ogre::Camera *cam, const Ogre::Vector3 &pt)
+auto TrayManager::sceneToScreen(Ogre::Camera *cam, const Ogre::Vector3 &pt) -> Ogre::Vector2
 {
     Ogre::Vector3 result = cam->getProjectionMatrix() * cam->getViewMatrix() * pt;
-    return Ogre::Vector2((result.x + 1) / 2, (-result.y + 1) / 2);
+    return {(result.x + 1) / 2, (-result.y + 1) / 2};
 }
 
 void TrayManager::showAll()
@@ -1268,15 +1259,15 @@ void TrayManager::hideCursor()
     mCursorLayer->hide();
 
     // give widgets a chance to reset in case they're in the middle of something
-    for (unsigned int i = 0; i < 10; i++)
+    for (auto & mWidget : mWidgets)
     {
-        for (unsigned int j = 0; j < mWidgets[i].size(); j++)
+        for (auto & j : mWidget)
         {
-            mWidgets[i][j]->_focusLost();
+            j->_focusLost();
         }
     }
 
-    setExpandedMenu(0);
+    setExpandedMenu(nullptr);
 }
 
 void TrayManager::refreshCursor()
@@ -1296,24 +1287,24 @@ void TrayManager::hideTrays()
     mPriorityLayer->hide();
 
     // give widgets a chance to reset in case they're in the middle of something
-    for (unsigned int i = 0; i < 10; i++)
+    for (auto & mWidget : mWidgets)
     {
-        for (unsigned int j = 0; j < mWidgets[i].size(); j++)
+        for (auto & j : mWidget)
         {
-            mWidgets[i][j]->_focusLost();
+            j->_focusLost();
         }
     }
 
-    setExpandedMenu(0);
+    setExpandedMenu(nullptr);
 }
 
 void TrayManager::setTrayWidgetAlignment(TrayLocation trayLoc, Ogre::GuiHorizontalAlignment gha)
 {
     mTrayWidgetAlign[trayLoc] = gha;
 
-    for (unsigned int i = 0; i < mWidgets[trayLoc].size(); i++)
+    for (auto & i : mWidgets[trayLoc])
     {
-        mWidgets[trayLoc][i]->getOverlayElement()->setHorizontalAlignment(gha);
+        i->getOverlayElement()->setHorizontalAlignment(gha);
     }
 }
 
@@ -1378,13 +1369,13 @@ void TrayManager::adjustTrays()
 
             trayHeight += e->getHeight();
 
-            Label* l = dynamic_cast<Label*>(mWidgets[i][j]);
+            auto* l = dynamic_cast<Label*>(mWidgets[i][j]);
             if (l && l->_isFitToTray())
             {
                 labelsAndSeps.push_back(e);
                 continue;
             }
-            Separator* s = dynamic_cast<Separator*>(mWidgets[i][j]);
+            auto* s = dynamic_cast<Separator*>(mWidgets[i][j]);
             if (s && s->_isFitToTray())
             {
                 labelsAndSeps.push_back(e);
@@ -1398,10 +1389,10 @@ void TrayManager::adjustTrays()
         mTrays[i]->setWidth(trayWidth + 2 * mWidgetPadding);
         mTrays[i]->setHeight(trayHeight + mWidgetPadding);
 
-        for (unsigned int j = 0; j < labelsAndSeps.size(); j++)
+        for (auto & labelsAndSep : labelsAndSeps)
         {
-            labelsAndSeps[j]->setWidth((int)trayWidth);
-            labelsAndSeps[j]->setLeft(-(int)(trayWidth / 2));
+            labelsAndSep->setWidth((int)trayWidth);
+            labelsAndSep->setLeft(-(int)(trayWidth / 2));
         }
     }
 
@@ -1427,120 +1418,120 @@ void TrayManager::adjustTrays()
     }
 }
 
-Ogre::Ray TrayManager::getCursorRay(Ogre::Camera *cam)
+auto TrayManager::getCursorRay(Ogre::Camera *cam) -> Ogre::Ray
 {
     return screenToScene(cam, Ogre::Vector2(mCursor->_getLeft(), mCursor->_getTop()));
 }
 
-Button *TrayManager::createButton(TrayLocation trayLoc, const Ogre::String &name, const Ogre::String &caption, Ogre::Real width)
+auto TrayManager::createButton(TrayLocation trayLoc, const Ogre::String &name, const Ogre::String &caption, Ogre::Real width) -> Button *
 {
-    Button* b = new Button(name, caption, width);
+    auto* b = new Button(name, caption, width);
     moveWidgetToTray(b, trayLoc);
     b->_assignListener(mListener);
     return b;
 }
 
-TextBox *TrayManager::createTextBox(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real height)
+auto TrayManager::createTextBox(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real height) -> TextBox *
 {
-    TextBox* tb = new TextBox(name, caption, width, height);
+    auto* tb = new TextBox(name, caption, width, height);
     moveWidgetToTray(tb, trayLoc);
     tb->_assignListener(mListener);
     return tb;
 }
 
-SelectMenu *TrayManager::createThickSelectMenu(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, unsigned int maxItemsShown, const Ogre::StringVector &items)
+auto TrayManager::createThickSelectMenu(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, unsigned int maxItemsShown, const Ogre::StringVector &items) -> SelectMenu *
 {
-    SelectMenu* sm = new SelectMenu(name, caption, width, 0, maxItemsShown);
+    auto* sm = new SelectMenu(name, caption, width, 0, maxItemsShown);
     moveWidgetToTray(sm, trayLoc);
     sm->_assignListener(mListener);
     if (!items.empty()) sm->setItems(items);
     return sm;
 }
 
-SelectMenu *TrayManager::createLongSelectMenu(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real boxWidth, unsigned int maxItemsShown, const Ogre::StringVector &items)
+auto TrayManager::createLongSelectMenu(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real boxWidth, unsigned int maxItemsShown, const Ogre::StringVector &items) -> SelectMenu *
 {
-    SelectMenu* sm = new SelectMenu(name, caption, width, boxWidth, maxItemsShown);
+    auto* sm = new SelectMenu(name, caption, width, boxWidth, maxItemsShown);
     moveWidgetToTray(sm, trayLoc);
     sm->_assignListener(mListener);
     if (!items.empty()) sm->setItems(items);
     return sm;
 }
 
-SelectMenu *TrayManager::createLongSelectMenu(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real boxWidth, unsigned int maxItemsShown, const Ogre::StringVector &items)
+auto TrayManager::createLongSelectMenu(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real boxWidth, unsigned int maxItemsShown, const Ogre::StringVector &items) -> SelectMenu *
 {
     return createLongSelectMenu(trayLoc, name, caption, 0, boxWidth, maxItemsShown, items);
 }
 
-Label *TrayManager::createLabel(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width)
+auto TrayManager::createLabel(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width) -> Label *
 {
-    Label* l = new Label(name, caption, width);
+    auto* l = new Label(name, caption, width);
     moveWidgetToTray(l, trayLoc);
     l->_assignListener(mListener);
     return l;
 }
 
-Separator *TrayManager::createSeparator(TrayLocation trayLoc, const Ogre::String &name, Ogre::Real width)
+auto TrayManager::createSeparator(TrayLocation trayLoc, const Ogre::String &name, Ogre::Real width) -> Separator *
 {
-    Separator* s = new Separator(name, width);
+    auto* s = new Separator(name, width);
     moveWidgetToTray(s, trayLoc);
     return s;
 }
 
-Slider *TrayManager::createThickSlider(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps)
+auto TrayManager::createThickSlider(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps) -> Slider *
 {
-    Slider* s = new Slider(name, caption, width, 0, valueBoxWidth, minValue, maxValue, snaps);
+    auto* s = new Slider(name, caption, width, 0, valueBoxWidth, minValue, maxValue, snaps);
     moveWidgetToTray(s, trayLoc);
     s->_assignListener(mListener);
     return s;
 }
 
-Slider *TrayManager::createLongSlider(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real trackWidth, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps)
+auto TrayManager::createLongSlider(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real trackWidth, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps) -> Slider *
 {
     if (trackWidth <= 0) trackWidth = 1;
-    Slider* s = new Slider(name, caption, width, trackWidth, valueBoxWidth, minValue, maxValue, snaps);
+    auto* s = new Slider(name, caption, width, trackWidth, valueBoxWidth, minValue, maxValue, snaps);
     moveWidgetToTray(s, trayLoc);
     s->_assignListener(mListener);
     return s;
 }
 
-Slider *TrayManager::createLongSlider(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real trackWidth, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps)
+auto TrayManager::createLongSlider(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real trackWidth, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps) -> Slider *
 {
     return createLongSlider(trayLoc, name, caption, 0, trackWidth, valueBoxWidth, minValue, maxValue, snaps);
 }
 
-ParamsPanel *TrayManager::createParamsPanel(TrayLocation trayLoc, const Ogre::String &name, Ogre::Real width, unsigned int lines)
+auto TrayManager::createParamsPanel(TrayLocation trayLoc, const Ogre::String &name, Ogre::Real width, unsigned int lines) -> ParamsPanel *
 {
-    ParamsPanel* pp = new ParamsPanel(name, width, lines);
+    auto* pp = new ParamsPanel(name, width, lines);
     moveWidgetToTray(pp, trayLoc);
     return pp;
 }
 
-ParamsPanel *TrayManager::createParamsPanel(TrayLocation trayLoc, const Ogre::String &name, Ogre::Real width, const Ogre::StringVector &paramNames)
+auto TrayManager::createParamsPanel(TrayLocation trayLoc, const Ogre::String &name, Ogre::Real width, const Ogre::StringVector &paramNames) -> ParamsPanel *
 {
-    ParamsPanel* pp = new ParamsPanel(name, width, (Ogre::uint)paramNames.size());
+    auto* pp = new ParamsPanel(name, width, (Ogre::uint)paramNames.size());
     pp->setAllParamNames(paramNames);
     moveWidgetToTray(pp, trayLoc);
     return pp;
 }
 
-CheckBox *TrayManager::createCheckBox(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width)
+auto TrayManager::createCheckBox(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width) -> CheckBox *
 {
-    CheckBox* cb = new CheckBox(name, caption, width);
+    auto* cb = new CheckBox(name, caption, width);
     moveWidgetToTray(cb, trayLoc);
     cb->_assignListener(mListener);
     return cb;
 }
 
-DecorWidget *TrayManager::createDecorWidget(TrayLocation trayLoc, const Ogre::String &name, const Ogre::String &templateName)
+auto TrayManager::createDecorWidget(TrayLocation trayLoc, const Ogre::String &name, const Ogre::String &templateName) -> DecorWidget *
 {
-    DecorWidget* dw = new DecorWidget(name, templateName);
+    auto* dw = new DecorWidget(name, templateName);
     moveWidgetToTray(dw, trayLoc);
     return dw;
 }
 
-ProgressBar *TrayManager::createProgressBar(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real commentBoxWidth)
+auto TrayManager::createProgressBar(TrayLocation trayLoc, const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real commentBoxWidth) -> ProgressBar *
 {
-    ProgressBar* pb = new ProgressBar(name, caption, width, commentBoxWidth);
+    auto* pb = new ProgressBar(name, caption, width, commentBoxWidth);
     moveWidgetToTray(pb, trayLoc);
     return pb;
 }
@@ -1571,8 +1562,8 @@ void TrayManager::hideFrameStats()
     {
         destroyWidget(mFpsLabel);
         destroyWidget(mStatsPanel);
-        mFpsLabel = 0;
-        mStatsPanel = 0;
+        mFpsLabel = nullptr;
+        mStatsPanel = nullptr;
     }
 }
 
@@ -1587,7 +1578,7 @@ void TrayManager::hideLogo()
     if (isLogoVisible())
     {
         destroyWidget(mLogo);
-        mLogo = 0;
+        mLogo = nullptr;
     }
 }
 
@@ -1638,7 +1629,7 @@ void TrayManager::hideLoadingBar()
     {
         mLoadBar->cleanup();
         delete mLoadBar;
-        mLoadBar = 0;
+        mLoadBar = nullptr;
 
         Ogre::ResourceGroupManager::getSingleton().removeResourceGroupListener(this);
         if (mCursorWasVisible) showCursor();
@@ -1664,18 +1655,18 @@ void TrayManager::showOkDialog(const Ogre::DisplayString &caption, const Ogre::D
             mNo->cleanup();
             delete mYes;
             delete mNo;
-            mYes = 0;
-            mNo = 0;
+            mYes = nullptr;
+            mNo = nullptr;
         }
     }
     else
     {
         // give widgets a chance to reset in case they're in the middle of something
-        for (unsigned int i = 0; i < 10; i++)
+        for (auto & mWidget : mWidgets)
         {
-            for (unsigned int j = 0; j < mWidgets[i].size(); j++)
+            for (auto & j : mWidget)
             {
-                mWidgets[i][j]->_focusLost();
+                j->_focusLost();
             }
         }
 
@@ -1717,18 +1708,18 @@ void TrayManager::showYesNoDialog(const Ogre::DisplayString &caption, const Ogre
         {
             mOk->cleanup();
             delete mOk;
-            mOk = 0;
+            mOk = nullptr;
         }
         else return;
     }
     else
     {
         // give widgets a chance to reset in case they're in the middle of something
-        for (unsigned int i = 0; i < 10; i++)
+        for (auto & mWidget : mWidgets)
         {
-            for (unsigned int j = 0; j < mWidgets[i].size(); j++)
+            for (auto & j : mWidget)
             {
-                mWidgets[i][j]->_focusLost();
+                j->_focusLost();
             }
         }
 
@@ -1771,7 +1762,7 @@ void TrayManager::closeDialog()
         {
             mOk->cleanup();
             delete mOk;
-            mOk = 0;
+            mOk = nullptr;
         }
         else
         {
@@ -1779,58 +1770,58 @@ void TrayManager::closeDialog()
             mNo->cleanup();
             delete mYes;
             delete mNo;
-            mYes = 0;
-            mNo = 0;
+            mYes = nullptr;
+            mNo = nullptr;
         }
 
         mDialogShade->hide();
         mDialog->cleanup();
         delete mDialog;
-        mDialog = 0;
+        mDialog = nullptr;
 
         if (!mCursorWasVisible) hideCursor();
     }
 }
 
-bool TrayManager::isDialogVisible()
+auto TrayManager::isDialogVisible() -> bool
 {
-    return mDialog != 0;
+    return mDialog != nullptr;
 }
 
-Widget *TrayManager::getWidget(TrayLocation trayLoc, const Ogre::String &name)
+auto TrayManager::getWidget(TrayLocation trayLoc, const Ogre::String &name) -> Widget *
 {
-    for (unsigned int i = 0; i < mWidgets[trayLoc].size(); i++)
+    for (auto & i : mWidgets[trayLoc])
     {
-        if (mWidgets[trayLoc][i]->getName() == name) return mWidgets[trayLoc][i];
+        if (i->getName() == name) return i;
     }
-    return 0;
+    return nullptr;
 }
 
-Widget *TrayManager::getWidget(const Ogre::String &name)
+auto TrayManager::getWidget(const Ogre::String &name) -> Widget *
 {
-    for (unsigned int i = 0; i < 10; i++)
+    for (auto & mWidget : mWidgets)
     {
-        for (unsigned int j = 0; j < mWidgets[i].size(); j++)
+        for (auto & j : mWidget)
         {
-            if (mWidgets[i][j]->getName() == name) return mWidgets[i][j];
+            if (j->getName() == name) return j;
         }
     }
-    return 0;
+    return nullptr;
 }
 
-unsigned int TrayManager::getNumWidgets()
+auto TrayManager::getNumWidgets() -> unsigned int
 {
     unsigned int total = 0;
 
-    for (unsigned int i = 0; i < 10; i++)
+    for (auto & mWidget : mWidgets)
     {
-        total += mWidgets[i].size();
+        total += mWidget.size();
     }
 
     return total;
 }
 
-int TrayManager::locateWidgetInTray(Widget *widget)
+auto TrayManager::locateWidgetInTray(Widget *widget) -> int
 {
     for (unsigned int i = 0; i < mWidgets[widget->getTrayLocation()].size(); i++)
     {
@@ -1844,18 +1835,18 @@ void TrayManager::destroyWidget(Widget *widget)
     if (!widget) OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, "Widget does not exist.", "TrayManager::destroyWidget");
 
     // in case special widgets are destroyed manually, set them to 0
-    if (widget == mLogo) mLogo = 0;
-    else if (widget == mStatsPanel) mStatsPanel = 0;
-    else if (widget == mFpsLabel) mFpsLabel = 0;
+    if (widget == mLogo) mLogo = nullptr;
+    else if (widget == mStatsPanel) mStatsPanel = nullptr;
+    else if (widget == mFpsLabel) mFpsLabel = nullptr;
 
     mTrays[widget->getTrayLocation()]->removeChild(widget->getName());
 
     WidgetList& wList = mWidgets[widget->getTrayLocation()];
-    WidgetList::iterator it = std::find(wList.begin(), wList.end(), widget);
+    auto it = std::find(wList.begin(), wList.end(), widget);
     if(it != wList.end())
         wList.erase(it);
 
-    if (widget == mExpandedMenu) setExpandedMenu(0);
+    if (widget == mExpandedMenu) setExpandedMenu(nullptr);
 
     widget->cleanup();
 
@@ -1883,7 +1874,7 @@ void TrayManager::moveWidgetToTray(Widget *widget, TrayLocation trayLoc, size_t 
 
     // remove widget from old tray
     WidgetList& wList = mWidgets[widget->getTrayLocation()];
-    WidgetList::iterator it = std::find(wList.begin(), wList.end(), widget);
+    auto it = std::find(wList.begin(), wList.end(), widget);
     if (it != wList.end())
     {
         wList.erase(it);
@@ -1923,9 +1914,9 @@ void TrayManager::clearAllTrays()
 
 void TrayManager::frameRendered(const Ogre::FrameEvent &evt)
 {
-    for (unsigned int i = 0; i < mWidgetDeathRow.size(); i++)
+    for (auto & i : mWidgetDeathRow)
     {
-        delete mWidgetDeathRow[i];
+        delete i;
     }
     mWidgetDeathRow.clear();
 
@@ -2009,7 +2000,7 @@ void TrayManager::buttonHit(Button *button)
     closeDialog();
 }
 
-bool TrayManager::mousePressed(const MouseButtonEvent &evt)
+auto TrayManager::mousePressed(const MouseButtonEvent &evt) -> bool
 {
     if (evt.button != BUTTON_LEFT) return false;
 
@@ -2020,7 +2011,7 @@ bool TrayManager::mousePressed(const MouseButtonEvent &evt)
     if (mExpandedMenu)   // only check top priority widget until it passes on
     {
         mExpandedMenu->_cursorPressed(cursorPos);
-        if (!mExpandedMenu->isExpanded()) setExpandedMenu(0);
+        if (!mExpandedMenu->isExpanded()) setExpandedMenu(nullptr);
         return true;
     }
 
@@ -2070,7 +2061,7 @@ bool TrayManager::mousePressed(const MouseButtonEvent &evt)
             if (!w->getOverlayElement()->isVisible()) continue;
             w->_cursorPressed(cursorPos);    // send event to widget
 
-            SelectMenu* m = dynamic_cast<SelectMenu*>(w);
+            auto* m = dynamic_cast<SelectMenu*>(w);
             if (m && m->isExpanded())       // a menu has begun a top priority session
             {
                 setExpandedMenu(m);
@@ -2082,7 +2073,7 @@ bool TrayManager::mousePressed(const MouseButtonEvent &evt)
     return true;   // a tray click is not to be handled by another party
 }
 
-bool TrayManager::mouseReleased(const MouseButtonEvent &evt)
+auto TrayManager::mouseReleased(const MouseButtonEvent &evt) -> bool
 {
     if (evt.button != BUTTON_LEFT) return false;
 
@@ -2127,7 +2118,7 @@ bool TrayManager::mouseReleased(const MouseButtonEvent &evt)
     return true;         // this click did originate in this tray, so don't pass it on
 }
 
-bool TrayManager::mouseMoved(const MouseMotionEvent &evt)
+auto TrayManager::mouseMoved(const MouseMotionEvent &evt) -> bool
 {
     // thats a separate event. Ignore for now.
     static float wheelDelta = 0;
@@ -2174,7 +2165,7 @@ bool TrayManager::mouseMoved(const MouseMotionEvent &evt)
     return false;
 }
 
-bool TrayManager::mouseWheelRolled(const MouseWheelEvent& evt)
+auto TrayManager::mouseWheelRolled(const MouseWheelEvent& evt) -> bool
 {
     if (mExpandedMenu)
     {
@@ -2188,7 +2179,7 @@ void TrayManager::setExpandedMenu(SelectMenu *m)
 {
     if (!mExpandedMenu && m)
     {
-        Ogre::OverlayContainer* c = (Ogre::OverlayContainer*)m->getOverlayElement();
+        auto* c = (Ogre::OverlayContainer*)m->getOverlayElement();
         Ogre::OverlayContainer* eb = (Ogre::OverlayContainer*)c->getChild(m->getName() + "/MenuExpandedBox");
         eb->_update();
         eb->setPosition

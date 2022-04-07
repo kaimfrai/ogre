@@ -31,28 +31,28 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
+#include "OgreException.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSingleton.hpp"
 
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> LogManager* Singleton<LogManager>::msSingleton = 0;
-    LogManager* LogManager::getSingletonPtr(void)
+    template<> LogManager* Singleton<LogManager>::msSingleton = nullptr;
+    auto LogManager::getSingletonPtr() -> LogManager*
     {
         return msSingleton;
     }
-    LogManager& LogManager::getSingleton(void)
+    auto LogManager::getSingleton() -> LogManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
     //-----------------------------------------------------------------------
     LogManager::LogManager()
     {
-        mDefaultLog = NULL;
+        mDefaultLog = nullptr;
     }
     //-----------------------------------------------------------------------
     LogManager::~LogManager()
@@ -65,8 +65,8 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    Log* LogManager::createLog( const String& name, bool defaultLog, bool debuggerOutput, 
-        bool suppressFileOutput)
+    auto LogManager::createLog( const String& name, bool defaultLog, bool debuggerOutput, 
+        bool suppressFileOutput) -> Log*
     {
         Log* newLog = new Log(name, debuggerOutput, suppressFileOutput);
 
@@ -80,33 +80,33 @@ namespace Ogre {
         return newLog;
     }
     //-----------------------------------------------------------------------
-    Log* LogManager::getDefaultLog()
+    auto LogManager::getDefaultLog() -> Log*
     {
         return mDefaultLog;
     }
     //-----------------------------------------------------------------------
-    Log* LogManager::setDefaultLog(Log* newLog)
+    auto LogManager::setDefaultLog(Log* newLog) -> Log*
     {
         Log* oldLog = mDefaultLog;
         mDefaultLog = newLog;
         return oldLog;
     }
     //-----------------------------------------------------------------------
-    Log* LogManager::getLog( const String& name)
+    auto LogManager::getLog( const String& name) -> Log*
     {
-        LogList::iterator i = mLogs.find(name);
+        auto i = mLogs.find(name);
         OgreAssert(i != mLogs.end(), "Log not found");
         return i->second;
     }
     //-----------------------------------------------------------------------
     void LogManager::destroyLog(const String& name)
     {
-        LogList::iterator i = mLogs.find(name);
+        auto i = mLogs.find(name);
         if (i != mLogs.end())
         {
             if (mDefaultLog == i->second)
             {
-                mDefaultLog = 0;
+                mDefaultLog = nullptr;
             }
             delete i->second;
             mLogs.erase(i);
@@ -152,7 +152,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Log::Stream LogManager::stream(LogMessageLevel lml, bool maskDebug)
+    auto LogManager::stream(LogMessageLevel lml, bool maskDebug) -> Log::Stream
     {
         OgreAssert(mDefaultLog, "Default log not found");
         return mDefaultLog->stream(lml, maskDebug);

@@ -26,21 +26,21 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLFrameBufferObject.h"
+#include "OgreGLFrameBufferObject.hpp"
 
 #include <algorithm>
 #include <ostream>
 
-#include "OgreConfig.h"
-#include "OgreException.h"
-#include "OgreGLDepthBufferCommon.h"
-#include "OgreGLFBORenderTexture.h"
-#include "OgreGLHardwarePixelBufferCommon.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
+#include "OgreConfig.hpp"
+#include "OgreException.hpp"
+#include "OgreGLDepthBufferCommon.hpp"
+#include "OgreGLFBORenderTexture.hpp"
+#include "OgreGLHardwarePixelBufferCommon.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
 #include "glad/glad.h"
 
 namespace Ogre {
@@ -222,12 +222,12 @@ class DepthBuffer;
         }
         
     }
-    bool GLFrameBufferObject::bind(bool recreateIfNeeded)
+    auto GLFrameBufferObject::bind(bool recreateIfNeeded) -> bool
     {
         // Bind it to FBO
         const GLuint fb = mMultisampleFB ? mMultisampleFB : mFB;
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fb);
-        return mContext != 0;
+        return mContext != nullptr;
     }
 
     void GLFrameBufferObject::swapBuffers()

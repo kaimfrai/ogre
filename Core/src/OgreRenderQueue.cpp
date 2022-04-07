@@ -27,35 +27,33 @@ THE SOFTWARE.
 */
 #include <cstddef>
 #include <map>
+#include <memory>
 #include <utility>
 
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMovableObject.h"
-#include "OgrePass.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderQueueSortingGrouping.h"
-#include "OgreRenderable.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneManagerEnumerator.h"
-#include "OgreSharedPtr.h"
-#include "OgreTechnique.h"
-#include "OgreVertexIndexData.h"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgrePass.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRenderQueueSortingGrouping.hpp"
+#include "OgreRenderable.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneManagerEnumerator.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 
     //---------------------------------------------------------------------
     RenderQueue::RenderQueue()
-        : mSplitPassesByLightingType(false)
-        , mSplitNoShadowPasses(false)
-        , mShadowCastersCannotBeReceivers(false)
-        , mRenderableListener(0)
+         
     {
         // Create the 'main' queue up-front since we'll always need that
-        mGroups[RENDER_QUEUE_MAIN].reset(new RenderQueueGroup(
-            mSplitPassesByLightingType, mSplitNoShadowPasses, mShadowCastersCannotBeReceivers));
+        mGroups[RENDER_QUEUE_MAIN] = std::make_unique<RenderQueueGroup>(
+            mSplitPassesByLightingType, mSplitNoShadowPasses, mShadowCastersCannotBeReceivers);
 
         // set default queue
         mDefaultQueueGroup = RENDER_QUEUE_MAIN;
@@ -88,7 +86,7 @@ namespace Ogre {
             // Use default base white, with lighting only if vertices has normals
             RenderOperation op;
             pRend->getRenderOperation(op);
-            bool useLighting = (NULL != op.vertexData->vertexDeclaration->findElementBySemantic(VES_NORMAL));
+            bool useLighting = (nullptr != op.vertexData->vertexDeclaration->findElementBySemantic(VES_NORMAL));
             MaterialPtr defaultMat = MaterialManager::getSingleton().getDefaultMaterial(useLighting);
             defaultMat->load();
             pTech = defaultMat->getBestTechnique();
@@ -120,10 +118,10 @@ namespace Ogre {
         {
             RenderQueue* queue = p.second->getRenderQueue();
 
-            for (size_t i = 0; i < RENDER_QUEUE_COUNT; ++i)
+            for (auto & mGroup : queue->mGroups)
             {
-                if(queue->mGroups[i])
-                    queue->mGroups[i]->clear(destroyPassMaps);
+                if(mGroup)
+                    mGroup->clear(destroyPassMaps);
             }
         }
 
@@ -146,7 +144,7 @@ namespace Ogre {
         addRenderable(pRend, mDefaultQueueGroup, mDefaultRenderablePriority);
     }
     //-----------------------------------------------------------------------
-    uint8 RenderQueue::getDefaultQueueGroup(void) const
+    auto RenderQueue::getDefaultQueueGroup() const -> uint8
     {
         return mDefaultQueueGroup;
     }
@@ -156,7 +154,7 @@ namespace Ogre {
         mDefaultQueueGroup = grp;
     }
     //-----------------------------------------------------------------------
-    ushort RenderQueue::getDefaultRenderablePriority(void) const
+    auto RenderQueue::getDefaultRenderablePriority() const -> ushort
     {
         return mDefaultRenderablePriority;
     }
@@ -168,13 +166,13 @@ namespace Ogre {
     
     
     //-----------------------------------------------------------------------
-    RenderQueueGroup* RenderQueue::getQueueGroup(uint8 groupID)
+    auto RenderQueue::getQueueGroup(uint8 groupID) -> RenderQueueGroup*
     {
         if (!mGroups[groupID])
         {
             // Insert new
-            mGroups[groupID].reset(new RenderQueueGroup(mSplitPassesByLightingType, mSplitNoShadowPasses,
-                                                        mShadowCastersCannotBeReceivers));
+            mGroups[groupID] = std::make_unique<RenderQueueGroup>(mSplitPassesByLightingType, mSplitNoShadowPasses,
+                                                        mShadowCastersCannotBeReceivers);
         }
 
         return mGroups[groupID].get();
@@ -185,14 +183,14 @@ namespace Ogre {
     {
         mSplitPassesByLightingType = split;
 
-        for (size_t i = 0; i < RENDER_QUEUE_COUNT; ++i)
+        for (auto & mGroup : mGroups)
         {
-            if(mGroups[i])
-                mGroups[i]->setSplitPassesByLightingType(split);
+            if(mGroup)
+                mGroup->setSplitPassesByLightingType(split);
         }
     }
     //-----------------------------------------------------------------------
-    bool RenderQueue::getSplitPassesByLightingType(void) const
+    auto RenderQueue::getSplitPassesByLightingType() const -> bool
     {
         return mSplitPassesByLightingType;
     }
@@ -201,14 +199,14 @@ namespace Ogre {
     {
         mSplitNoShadowPasses = split;
 
-        for (size_t i = 0; i < RENDER_QUEUE_COUNT; ++i)
+        for (auto & mGroup : mGroups)
         {
-            if(mGroups[i])
-                mGroups[i]->setSplitNoShadowPasses(split);
+            if(mGroup)
+                mGroup->setSplitNoShadowPasses(split);
         }
     }
     //-----------------------------------------------------------------------
-    bool RenderQueue::getSplitNoShadowPasses(void) const
+    auto RenderQueue::getSplitNoShadowPasses() const -> bool
     {
         return mSplitNoShadowPasses;
     }
@@ -217,14 +215,14 @@ namespace Ogre {
     {
         mShadowCastersCannotBeReceivers = ind;
 
-        for (size_t i = 0; i < RENDER_QUEUE_COUNT; ++i)
+        for (auto & mGroup : mGroups)
         {
-            if(mGroups[i])
-                mGroups[i]->setShadowCastersCannotBeReceivers(ind);
+            if(mGroup)
+                mGroup->setShadowCastersCannotBeReceivers(ind);
         }
     }
     //-----------------------------------------------------------------------
-    bool RenderQueue::getShadowCastersCannotBeReceivers(void) const
+    auto RenderQueue::getShadowCastersCannotBeReceivers() const -> bool
     {
         return mShadowCastersCannotBeReceivers;
     }

@@ -32,37 +32,37 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreAutoParamDataSource.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreMaterial.h"
-#include "OgreMatrix4.h"
-#include "OgrePass.h"
-#include "OgrePixelFormat.h"
-#include "OgrePrerequisites.h"
-#include "OgreSceneManager.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderExIntegratedPSSM3.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderRenderState.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreTechnique.h"
-#include "OgreTextureUnitState.h"
-#include "OgreVector.h"
+#include "OgreAutoParamDataSource.hpp"
+#include "OgreColourValue.hpp"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePass.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShaderExIntegratedPSSM3.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrecompiledHeaders.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreShaderRenderState.hpp"
+#include "OgreShaderScriptTranslator.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTextureUnitState.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
     class Renderable;
@@ -72,8 +72,7 @@ namespace Ogre {
 #define SGX_FUNC_COMPUTE_SHADOW_COLOUR3             "SGX_ComputeShadowFactor_PSSM3"
 #define SGX_FUNC_APPLYSHADOWFACTOR_DIFFUSE          "SGX_ApplyShadowFactor_Diffuse"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -92,14 +91,14 @@ IntegratedPSSM3::IntegratedPSSM3()
 }
 
 //-----------------------------------------------------------------------
-const String& IntegratedPSSM3::getType() const
+auto IntegratedPSSM3::getType() const -> const String&
 {
     return Type;
 }
 
 
 //-----------------------------------------------------------------------
-int IntegratedPSSM3::getExecutionOrder() const
+auto IntegratedPSSM3::getExecutionOrder() const -> int
 {
     return FFP_TEXTURING + 1;
 }
@@ -133,7 +132,7 @@ void IntegratedPSSM3::updateGpuProgramsParams(Renderable* rend, const Pass* pass
 //-----------------------------------------------------------------------
 void IntegratedPSSM3::copyFrom(const SubRenderState& rhs)
 {
-    const IntegratedPSSM3& rhsPssm= static_cast<const IntegratedPSSM3&>(rhs);
+    const auto& rhsPssm= static_cast<const IntegratedPSSM3&>(rhs);
 
     mPCFxSamples = rhsPssm.mPCFxSamples;
     mUseTextureCompare = rhsPssm.mUseTextureCompare;
@@ -141,8 +140,8 @@ void IntegratedPSSM3::copyFrom(const SubRenderState& rhs)
     mDebug = rhsPssm.mDebug;
     mShadowTextureParamsList.resize(rhsPssm.mShadowTextureParamsList.size());
 
-    ShadowTextureParamsConstIterator itSrc = rhsPssm.mShadowTextureParamsList.begin();
-    ShadowTextureParamsIterator itDst = mShadowTextureParamsList.begin();
+    auto itSrc = rhsPssm.mShadowTextureParamsList.begin();
+    auto itDst = mShadowTextureParamsList.begin();
 
     while(itDst != mShadowTextureParamsList.end())
     {
@@ -153,8 +152,8 @@ void IntegratedPSSM3::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool IntegratedPSSM3::preAddToRenderState(const RenderState* renderState, 
-                                         Pass* srcPass, Pass* dstPass)
+auto IntegratedPSSM3::preAddToRenderState(const RenderState* renderState, 
+                                         Pass* srcPass, Pass* dstPass) -> bool
 {
     if (!srcPass->getParent()->getParent()->getReceiveShadows() ||
         renderState->getLightCount().isZeroLength())
@@ -170,7 +169,7 @@ bool IntegratedPSSM3::preAddToRenderState(const RenderState* renderState,
     mUseTextureCompare = PixelUtil::isDepth(shadowTexFormat) && !mIsD3D9;
     mUseColourShadows = PixelUtil::getComponentType(shadowTexFormat) == PCT_BYTE; // use colour shadowmaps for byte textures
 
-    ShadowTextureParamsIterator it = mShadowTextureParamsList.begin();
+    auto it = mShadowTextureParamsList.begin();
 
     while(it != mShadowTextureParamsList.end())
     {
@@ -206,7 +205,7 @@ void IntegratedPSSM3::setSplitPoints(const SplitPointList& newSplitPoints)
     }
 }
 
-bool IntegratedPSSM3::setParameter(const String& name, const String& value)
+auto IntegratedPSSM3::setParameter(const String& name, const String& value) -> bool
 {
     if(name == "debug")
     {
@@ -226,7 +225,7 @@ bool IntegratedPSSM3::setParameter(const String& name, const String& value)
 }
 
 //-----------------------------------------------------------------------
-bool IntegratedPSSM3::resolveParameters(ProgramSet* programSet)
+auto IntegratedPSSM3::resolveParameters(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -251,7 +250,7 @@ bool IntegratedPSSM3::resolveParameters(ProgramSet* programSet)
     
     // Get in/local diffuse parameter.
     mPSDiffuse = psMain->getInputParameter(Parameter::SPC_COLOR_DIFFUSE);
-    if (mPSDiffuse.get() == NULL)   
+    if (mPSDiffuse.get() == nullptr)   
     {
         mPSDiffuse = psMain->getLocalParameter(Parameter::SPC_COLOR_DIFFUSE);
     }
@@ -261,7 +260,7 @@ bool IntegratedPSSM3::resolveParameters(ProgramSet* programSet)
     
     // Get in/local specular parameter.
     mPSSpecualr = psMain->getInputParameter(Parameter::SPC_COLOR_SPECULAR);
-    if (mPSSpecualr.get() == NULL)  
+    if (mPSSpecualr.get() == nullptr)  
     {
         mPSSpecualr = psMain->getLocalParameter(Parameter::SPC_COLOR_SPECULAR);
     }
@@ -275,7 +274,7 @@ bool IntegratedPSSM3::resolveParameters(ProgramSet* programSet)
     // Get derived scene colour.
     mPSDerivedSceneColour = psProgram->resolveParameter(GpuProgramParameters::ACT_DERIVED_SCENE_COLOUR);
     
-    ShadowTextureParamsIterator it = mShadowTextureParamsList.begin();
+    auto it = mShadowTextureParamsList.begin();
     int lightIndex = 0;
 
     while(it != mShadowTextureParamsList.end())
@@ -302,7 +301,7 @@ bool IntegratedPSSM3::resolveParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool IntegratedPSSM3::resolveDependencies(ProgramSet* programSet)
+auto IntegratedPSSM3::resolveDependencies(ProgramSet* programSet) -> bool
 {
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
     psProgram->addDependency(SGX_LIB_INTEGRATEDPSSM);
@@ -323,7 +322,7 @@ bool IntegratedPSSM3::resolveDependencies(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool IntegratedPSSM3::addFunctionInvocations(ProgramSet* programSet)
+auto IntegratedPSSM3::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM); 
     Function* vsMain = vsProgram->getEntryPointFunction();  
@@ -341,7 +340,7 @@ bool IntegratedPSSM3::addFunctionInvocations(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool IntegratedPSSM3::addVSInvocation(Function* vsMain, const int groupOrder)
+auto IntegratedPSSM3::addVSInvocation(Function* vsMain, const int groupOrder) -> bool
 {
     auto stage = vsMain->getStage(groupOrder);
 
@@ -352,7 +351,7 @@ bool IntegratedPSSM3::addVSInvocation(Function* vsMain, const int groupOrder)
     }
 
     // Compute world space position.    
-    ShadowTextureParamsIterator it = mShadowTextureParamsList.begin();
+    auto it = mShadowTextureParamsList.begin();
 
     while(it != mShadowTextureParamsList.end())
     {
@@ -364,7 +363,7 @@ bool IntegratedPSSM3::addVSInvocation(Function* vsMain, const int groupOrder)
 }
 
 //-----------------------------------------------------------------------
-bool IntegratedPSSM3::addPSInvocation(Program* psProgram, const int groupOrder)
+auto IntegratedPSSM3::addPSInvocation(Program* psProgram, const int groupOrder) -> bool
 {
     Function* psMain = psProgram->getEntryPointFunction();
     auto stage = psMain->getStage(groupOrder);
@@ -414,14 +413,14 @@ bool IntegratedPSSM3::addPSInvocation(Program* psProgram, const int groupOrder)
 
 
 //-----------------------------------------------------------------------
-const String& IntegratedPSSM3Factory::getType() const
+auto IntegratedPSSM3Factory::getType() const -> const String&
 {
     return IntegratedPSSM3::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler, 
-                                                      PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+auto IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler, 
+                                                      PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name == "integrated_pssm4")
     {       
@@ -433,8 +432,8 @@ SubRenderState* IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler,
         {
             IntegratedPSSM3::SplitPointList splitPointList; 
 
-            AbstractNodeList::const_iterator it = prop->values.begin();
-            AbstractNodeList::const_iterator itEnd = prop->values.end();
+            auto it = prop->values.begin();
+            auto itEnd = prop->values.end();
 
             while(it != itEnd)
             {
@@ -454,7 +453,7 @@ SubRenderState* IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler,
             if (splitPointList.size() == 4)
             {
                 SubRenderState* subRenderState = createOrRetrieveInstance(translator);
-                IntegratedPSSM3* pssmSubRenderState = static_cast<IntegratedPSSM3*>(subRenderState);
+                auto* pssmSubRenderState = static_cast<IntegratedPSSM3*>(subRenderState);
 
                 pssmSubRenderState->setSplitPoints(splitPointList);
 
@@ -463,14 +462,13 @@ SubRenderState* IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler,
         }       
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* IntegratedPSSM3Factory::createInstanceImpl()
+auto IntegratedPSSM3Factory::createInstanceImpl() -> SubRenderState*
 {
     return new IntegratedPSSM3;
 }
 
-}
 }

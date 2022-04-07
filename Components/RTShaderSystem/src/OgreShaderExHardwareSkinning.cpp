@@ -32,55 +32,53 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreAny.h"
-#include "OgreEntity.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialSerializer.h"
-#include "OgreMesh.h"
-#include "OgrePass.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderExDualQuaternionSkinning.h"
-#include "OgreShaderExHardwareSkinning.h"
-#include "OgreShaderExHardwareSkinningTechnique.h"
-#include "OgreShaderExLinearSkinning.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreStringConverter.h"
-#include "OgreSubEntity.h"
-#include "OgreSubMesh.h"
-#include "OgreTechnique.h"
-#include "OgreUserObjectBindings.h"
-#include "OgreVertexIndexData.h"
+#include "OgreAny.hpp"
+#include "OgreEntity.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgreMesh.hpp"
+#include "OgrePass.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShaderExDualQuaternionSkinning.hpp"
+#include "OgreShaderExHardwareSkinning.hpp"
+#include "OgreShaderExHardwareSkinningTechnique.hpp"
+#include "OgreShaderExLinearSkinning.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderScriptTranslator.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSingleton.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreSubEntity.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreUserObjectBindings.hpp"
+#include "OgreVertexIndexData.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
         class ProgramSet;
         class RenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
+    }  // namespace Ogre
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 
 
 namespace Ogre {
-template<> RTShader::HardwareSkinningFactory* Singleton<RTShader::HardwareSkinningFactory>::msSingleton = 0;
+template<> RTShader::HardwareSkinningFactory* Singleton<RTShader::HardwareSkinningFactory>::msSingleton = nullptr;
 
 namespace RTShader {
 
-HardwareSkinningFactory* HardwareSkinningFactory::getSingletonPtr(void)
+auto HardwareSkinningFactory::getSingletonPtr() -> HardwareSkinningFactory*
 {
     return msSingleton;
 }
-HardwareSkinningFactory& HardwareSkinningFactory::getSingleton(void)
+auto HardwareSkinningFactory::getSingleton() -> HardwareSkinningFactory&
 {  
     assert( msSingleton );  return ( *msSingleton );
 }
@@ -90,20 +88,18 @@ String HardwareSkinning::Type = "SGX_HardwareSkinning";
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-HardwareSkinning::HardwareSkinning() :
-    mCreator(NULL),
-    mSkinningType(ST_LINEAR)
-{
-}
+HardwareSkinning::HardwareSkinning() 
+    
+= default;
 
 //-----------------------------------------------------------------------
-const String& HardwareSkinning::getType() const
+auto HardwareSkinning::getType() const -> const String&
 {
     return Type;
 }
 
 //-----------------------------------------------------------------------
-int HardwareSkinning::getExecutionOrder() const
+auto HardwareSkinning::getExecutionOrder() const -> int
 {
     return FFP_TRANSFORM;
 }
@@ -117,7 +113,7 @@ void HardwareSkinning::setHardwareSkinningParam(ushort boneCount, ushort weightC
     {
         if(!mDualQuat)
         {
-            mDualQuat.reset(new DualQuaternionSkinning);
+            mDualQuat = std::make_shared<DualQuaternionSkinning>();
         }
 
         mActiveTechnique = mDualQuat;
@@ -126,7 +122,7 @@ void HardwareSkinning::setHardwareSkinningParam(ushort boneCount, ushort weightC
     {
         if(!mLinear)
         {
-            mLinear.reset(new LinearSkinning);
+            mLinear = std::make_shared<LinearSkinning>();
         }
 
         mActiveTechnique = mLinear;
@@ -136,35 +132,35 @@ void HardwareSkinning::setHardwareSkinningParam(ushort boneCount, ushort weightC
 }
 
 //-----------------------------------------------------------------------
-ushort HardwareSkinning::getBoneCount()
+auto HardwareSkinning::getBoneCount() -> ushort
 {
     assert(mActiveTechnique);
     return mActiveTechnique->getBoneCount();
 }
 
 //-----------------------------------------------------------------------
-ushort HardwareSkinning::getWeightCount()
+auto HardwareSkinning::getWeightCount() -> ushort
 {
     assert(mActiveTechnique);
     return mActiveTechnique->getWeightCount();
 }
 
 //-----------------------------------------------------------------------
-SkinningType HardwareSkinning::getSkinningType()
+auto HardwareSkinning::getSkinningType() -> SkinningType
 {
     assert(mActiveTechnique);
     return mSkinningType;
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinning::hasCorrectAntipodalityHandling()
+auto HardwareSkinning::hasCorrectAntipodalityHandling() -> bool
 {
     assert(mActiveTechnique);
     return mActiveTechnique->hasCorrectAntipodalityHandling();
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinning::hasScalingShearingSupport()
+auto HardwareSkinning::hasScalingShearingSupport() -> bool
 {
     assert(mActiveTechnique);
     return mActiveTechnique->hasScalingShearingSupport();
@@ -173,7 +169,7 @@ bool HardwareSkinning::hasScalingShearingSupport()
 //-----------------------------------------------------------------------
 void HardwareSkinning::copyFrom(const SubRenderState& rhs)
 {
-    const HardwareSkinning& hardSkin = static_cast<const HardwareSkinning&>(rhs);
+    const auto& hardSkin = static_cast<const HardwareSkinning&>(rhs);
 
     mDualQuat = hardSkin.mDualQuat;
     mLinear = hardSkin.mLinear;
@@ -184,7 +180,7 @@ void HardwareSkinning::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+auto HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
 {
     bool isValid = true;
     Technique* pFirstTech = srcPass->getParent()->getParent()->getTechnique(0);
@@ -192,7 +188,7 @@ bool HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass*
 
     if (hsAny.has_value())
     {
-        HardwareSkinning::SkinningData pData = any_cast<HardwareSkinning::SkinningData>(hsAny);
+        auto pData = any_cast<HardwareSkinning::SkinningData>(hsAny);
         isValid = pData.isValid;
         
         //If the skinning data is being passed through the material, we need to create an instance of the appropriate
@@ -213,7 +209,7 @@ bool HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass*
     bool doBoneCalculations =  isValid &&
         (boneCount != 0) && (boneCount <= 256) &&
         (weightCount != 0) && (weightCount <= 4) &&
-        ((mCreator == NULL) || (boneCount <= mCreator->getMaxCalculableBoneCount()));
+        ((mCreator == nullptr) || (boneCount <= mCreator->getMaxCalculableBoneCount()));
 
     // This requires GLES3.0
     if (ShaderGenerator::getSingleton().getTargetLanguage() == "glsles" &&
@@ -246,43 +242,41 @@ bool HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass*
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinning::resolveParameters(ProgramSet* programSet)
+auto HardwareSkinning::resolveParameters(ProgramSet* programSet) -> bool
 {
     assert(mActiveTechnique);
     return mActiveTechnique->resolveParameters(programSet);
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinning::resolveDependencies(ProgramSet* programSet)
+auto HardwareSkinning::resolveDependencies(ProgramSet* programSet) -> bool
 {
     assert(mActiveTechnique);
     return mActiveTechnique->resolveDependencies(programSet);
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinning::addFunctionInvocations(ProgramSet* programSet)
+auto HardwareSkinning::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
     assert(mActiveTechnique);
     return mActiveTechnique->addFunctionInvocations(programSet);
 }
 
 //-----------------------------------------------------------------------
-HardwareSkinningFactory::HardwareSkinningFactory() :
-    mMaxCalculableBoneCount(70)
-{
+HardwareSkinningFactory::HardwareSkinningFactory() 
+    
+= default;
 
-}
-
-HardwareSkinningFactory::~HardwareSkinningFactory() {}
+HardwareSkinningFactory::~HardwareSkinningFactory() = default;
 
 //-----------------------------------------------------------------------
-const String& HardwareSkinningFactory::getType() const
+auto HardwareSkinningFactory::getType() const -> const String&
 {
     return HardwareSkinning::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* HardwareSkinningFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+auto HardwareSkinningFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name == "hardware_skinning")
     {
@@ -296,7 +290,7 @@ SubRenderState* HardwareSkinningFactory::createInstance(ScriptCompiler* compiler
         
         if(prop->values.size() >= 2)
         {
-            AbstractNodeList::iterator it = prop->values.begin();
+            auto it = prop->values.begin();
             if(false == SGScriptTranslator::getUInt(*it, &boneCount))
                 hasError = true;
 
@@ -332,13 +326,13 @@ SubRenderState* HardwareSkinningFactory::createInstance(ScriptCompiler* compiler
         if (hasError == true)
         {
             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-            return NULL;
+            return nullptr;
         }
         else
         {
             //create and update the hardware skinning sub render state
             SubRenderState* subRenderState = createOrRetrieveInstance(translator);
-            HardwareSkinning* hardSkinSrs = static_cast<HardwareSkinning*>(subRenderState);
+            auto* hardSkinSrs = static_cast<HardwareSkinning*>(subRenderState);
             hardSkinSrs->setHardwareSkinningParam(boneCount, weightCount, skinType, correctAntipodalityHandling, scalingShearingSupport);
             
             return subRenderState;
@@ -346,7 +340,7 @@ SubRenderState* HardwareSkinningFactory::createInstance(ScriptCompiler* compiler
 
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------
@@ -355,7 +349,7 @@ void HardwareSkinningFactory::writeInstance(MaterialSerializer* ser, SubRenderSt
 {
     ser->writeAttribute(4, "hardware_skinning");
     
-    HardwareSkinning* hardSkinSrs = static_cast<HardwareSkinning*>(subRenderState);
+    auto* hardSkinSrs = static_cast<HardwareSkinning*>(subRenderState);
     ser->writeValue(StringConverter::toString(hardSkinSrs->getBoneCount()));
     ser->writeValue(StringConverter::toString(hardSkinSrs->getWeightCount()));
 
@@ -369,9 +363,9 @@ void HardwareSkinningFactory::writeInstance(MaterialSerializer* ser, SubRenderSt
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* HardwareSkinningFactory::createInstanceImpl()
+auto HardwareSkinningFactory::createInstanceImpl() -> SubRenderState*
 {
-    HardwareSkinning* pSkin = new HardwareSkinning;
+    auto* pSkin = new HardwareSkinning;
     
     pSkin->_setCreator(this);
     return pSkin;
@@ -418,7 +412,7 @@ void HardwareSkinningFactory::setCustomShadowReceiverMaterials(const SkinningTyp
 }
 
 //-----------------------------------------------------------------------
-const MaterialPtr& HardwareSkinningFactory::getCustomShadowCasterMaterial(const SkinningType skinningType, ushort index) const
+auto HardwareSkinningFactory::getCustomShadowCasterMaterial(const SkinningType skinningType, ushort index) const -> const MaterialPtr&
 {
     assert(index < HS_MAX_WEIGHT_COUNT);
 
@@ -433,7 +427,7 @@ const MaterialPtr& HardwareSkinningFactory::getCustomShadowCasterMaterial(const 
 }
 
 //-----------------------------------------------------------------------
-const MaterialPtr& HardwareSkinningFactory::getCustomShadowReceiverMaterial(const SkinningType skinningType, ushort index) const
+auto HardwareSkinningFactory::getCustomShadowReceiverMaterial(const SkinningType skinningType, ushort index) const -> const MaterialPtr&
 {
     assert(index < HS_MAX_WEIGHT_COUNT);
 
@@ -456,7 +450,7 @@ void HardwareSkinningFactory::prepareEntityForSkinning(const Entity* pEntity, Sk
         !GpuProgramManager::getSingleton().isSyntaxSupported("glsl300es"))
         return;
 
-    if (pEntity != NULL) 
+    if (pEntity != nullptr) 
     {
         size_t lodLevels = pEntity->getNumManualLodLevels() + 1;
         for(size_t indexLod = 0 ; indexLod < lodLevels ; ++indexLod)
@@ -479,7 +473,7 @@ void HardwareSkinningFactory::prepareEntityForSkinning(const Entity* pEntity, Sk
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinningFactory::extractSkeletonData(const Entity* pEntity, size_t subEntityIndex, ushort& boneCount, ushort& weightCount)
+auto HardwareSkinningFactory::extractSkeletonData(const Entity* pEntity, size_t subEntityIndex, ushort& boneCount, ushort& weightCount) -> bool
 {
     bool isValidData = false;
     boneCount = 0;
@@ -506,7 +500,7 @@ bool HardwareSkinningFactory::extractSkeletonData(const Entity* pEntity, size_t 
         //check that they have blend indices and blend weights
         const VertexElement* pDeclWeights = ro.vertexData->vertexDeclaration->findElementBySemantic(VES_BLEND_WEIGHTS,0);
         const VertexElement* pDeclIndexes = ro.vertexData->vertexDeclaration->findElementBySemantic(VES_BLEND_INDICES,0);
-        if ((pDeclWeights != NULL) && (pDeclIndexes != NULL))
+        if ((pDeclWeights != nullptr) && (pDeclIndexes != nullptr))
         {
             isValidData = true;
             switch (pDeclWeights->getType())
@@ -536,8 +530,8 @@ bool HardwareSkinningFactory::extractSkeletonData(const Entity* pEntity, size_t 
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinningFactory::imprintSkeletonData(const MaterialPtr& pMaterial, bool isVaild, 
-                ushort boneCount, ushort weightCount, SkinningType skinningType, bool correctAntidpodalityHandling, bool scalingShearingSupport)
+auto HardwareSkinningFactory::imprintSkeletonData(const MaterialPtr& pMaterial, bool isVaild, 
+                ushort boneCount, ushort weightCount, SkinningType skinningType, bool correctAntidpodalityHandling, bool scalingShearingSupport) -> bool
 {
     bool isUpdated = false;
     if (pMaterial->getNumTechniques() > 0) 

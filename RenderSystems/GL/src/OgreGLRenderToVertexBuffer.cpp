@@ -26,40 +26,40 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLRenderToVertexBuffer.h"
+#include "OgreGLRenderToVertexBuffer.hpp"
 
 #include <cassert>
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGLHardwareBuffer.h"
-#include "OgreGLPrerequisites.h"
-#include "OgreGLRenderSystem.h"
-#include "OgreGLSLLinkProgram.h"
-#include "OgreGLSLLinkProgramManager.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMatrix4.h"
-#include "OgrePass.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderable.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreStringConverter.h"
-#include "OgreTechnique.h"
-#include "OgreVertexIndexData.h"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreGLHardwareBuffer.hpp"
+#include "OgreGLPrerequisites.hpp"
+#include "OgreGLRenderSystem.hpp"
+#include "OgreGLSLLinkProgram.hpp"
+#include "OgreGLSLLinkProgramManager.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePass.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRenderable.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 //-----------------------------------------------------------------------------
-    static GLint getR2VBPrimitiveType(RenderOperation::OperationType operationType)
+    static auto getR2VBPrimitiveType(RenderOperation::OperationType operationType) -> GLint
     {
         switch (operationType)
         {
@@ -76,7 +76,7 @@ namespace Ogre {
         }
     }
 //-----------------------------------------------------------------------------
-    static GLint getVertexCountPerPrimitive(RenderOperation::OperationType operationType)
+    static auto getVertexCountPerPrimitive(RenderOperation::OperationType operationType) -> GLint
     {
         //We can only get points, lines or triangles since they are the only
         //legal R2VB output primitive types
@@ -122,7 +122,7 @@ namespace Ogre {
         }
     }
 //-----------------------------------------------------------------------------
-    GLRenderToVertexBuffer::GLRenderToVertexBuffer() : mFrontBufferIndex(-1)
+    GLRenderToVertexBuffer::GLRenderToVertexBuffer()  
     {
         mVertexBuffers[0].reset();
         mVertexBuffers[1].reset();
@@ -187,7 +187,7 @@ namespace Ogre {
             reallocateBuffer(targetBufferIndex);
         }
 
-        GLHardwareBuffer* vertexBuffer = mVertexBuffers[targetBufferIndex]->_getImpl<GLHardwareBuffer>();
+        auto* vertexBuffer = mVertexBuffers[targetBufferIndex]->_getImpl<GLHardwareBuffer>();
         GLuint bufferId = vertexBuffer->getGLBufferId();
 
         //Bind the target buffer
@@ -199,7 +199,7 @@ namespace Ogre {
 
         glBeginQuery(GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN_NV, mPrimitivesDrawnQuery);
 
-        GLRenderSystem* targetRenderSystem = static_cast<GLRenderSystem*>(Root::getSingleton().getRenderSystem());
+        auto* targetRenderSystem = static_cast<GLRenderSystem*>(Root::getSingleton().getRenderSystem());
         //Draw the object
         targetRenderSystem->setWorldMatrix(Matrix4::IDENTITY);
         targetRenderSystem->setViewMatrix(Matrix4::IDENTITY);
@@ -256,7 +256,7 @@ namespace Ogre {
             );
     }
 //-----------------------------------------------------------------------------
-    String GLRenderToVertexBuffer::getSemanticVaryingName(VertexElementSemantic semantic, unsigned short index)
+    auto GLRenderToVertexBuffer::getSemanticVaryingName(VertexElementSemantic semantic, unsigned short index) -> String
     {
         switch (semantic)
         {
@@ -276,7 +276,7 @@ namespace Ogre {
         }
     }
 //-----------------------------------------------------------------------------
-    GLint GLRenderToVertexBuffer::getGLSemanticType(VertexElementSemantic semantic)
+    auto GLRenderToVertexBuffer::getGLSemanticType(VertexElementSemantic semantic) -> GLint
     {
         switch (semantic)
         {
@@ -304,7 +304,7 @@ namespace Ogre {
         
         //Check if we are FixedFunc/ASM shaders (Static attributes) or GLSL (Varying attributes)
         //We assume that there isn't a mix of GLSL and ASM as this is illegal
-        GpuProgram* sampleProgram = 0;
+        GpuProgram* sampleProgram = nullptr;
         if (pass->hasVertexProgram())
         {
             sampleProgram = pass->getVertexProgram().get();
@@ -313,7 +313,7 @@ namespace Ogre {
         {
             sampleProgram = pass->getGeometryProgram().get();
         }
-        if ((sampleProgram != 0) && (sampleProgram->getLanguage() == "glsl"))
+        if ((sampleProgram != nullptr) && (sampleProgram->getLanguage() == "glsl"))
         {
             useVaryingAttributes = true;
         }

@@ -28,14 +28,15 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include <utility>
 
-#include "OgreGpuProgramParams.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgrePredefinedControllers.h"
-#include "OgreRoot.h"
-#include "OgreTextureUnitState.h"
-#include "OgreVector.h"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePredefinedControllers.hpp"
+#include "OgreRoot.hpp"
+#include "OgreTextureUnitState.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre
 {
@@ -53,7 +54,7 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------
-    bool FrameTimeControllerValue::frameStarted(const FrameEvent &evt)
+    auto FrameTimeControllerValue::frameStarted(const FrameEvent &evt) -> bool
     {
         if(mFrameDelay) 
         {
@@ -71,12 +72,12 @@ namespace Ogre
         return true;
     }
     //-----------------------------------------------------------------------
-    bool FrameTimeControllerValue::frameEnded(const FrameEvent &evt)
+    auto FrameTimeControllerValue::frameEnded(const FrameEvent &evt) -> bool
     {
         return true;
     }
     //-----------------------------------------------------------------------
-    Real FrameTimeControllerValue::getValue() const
+    auto FrameTimeControllerValue::getValue() const -> Real
     {
         return mFrameTime;
     }
@@ -86,7 +87,7 @@ namespace Ogre
         // Do nothing - value is set from frame listener
     }
     //-----------------------------------------------------------------------
-    Real FrameTimeControllerValue::getTimeFactor(void) const {
+    auto FrameTimeControllerValue::getTimeFactor() const -> Real {
         return mTimeFactor;
     }
     //-----------------------------------------------------------------------
@@ -98,7 +99,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    Real FrameTimeControllerValue::getFrameDelay(void) const {
+    auto FrameTimeControllerValue::getFrameDelay() const -> Real {
         return mFrameDelay;
     }
     //-----------------------------------------------------------------------
@@ -107,7 +108,7 @@ namespace Ogre
         mFrameDelay = fd;
     }
     //-----------------------------------------------------------------------
-    Real FrameTimeControllerValue::getElapsedTime(void) const
+    auto FrameTimeControllerValue::getElapsedTime() const -> Real
     {
         return mElapsedTime;
     }
@@ -124,7 +125,7 @@ namespace Ogre
         mTextureLayer = t;
     }
     //-----------------------------------------------------------------------
-    Real TextureFrameControllerValue::getValue(void) const
+    auto TextureFrameControllerValue::getValue() const -> Real
     {
         int numFrames = mTextureLayer->getNumFrames();
         return ((Real)mTextureLayer->getCurrentFrame() / (Real)numFrames);
@@ -149,7 +150,7 @@ namespace Ogre
         mRotate = rotate;
     }
     //-----------------------------------------------------------------------
-    Real TexCoordModifierControllerValue::getValue() const
+    auto TexCoordModifierControllerValue::getValue() const -> Real
     {
         const Matrix4& pMat = mTextureLayer->getTextureTransform();
         if (mTransU)
@@ -203,7 +204,7 @@ namespace Ogre
     {
     }
     //-----------------------------------------------------------------------
-    Real FloatGpuParameterControllerValue::getValue(void) const
+    auto FloatGpuParameterControllerValue::getValue() const -> Real
     {
         // do nothing, reading from a set of params not supported
         return 0.0f;
@@ -223,7 +224,7 @@ namespace Ogre
     {
     }
     //-----------------------------------------------------------------------
-    Real PassthroughControllerFunction::calculate(Real source)
+    auto PassthroughControllerFunction::calculate(Real source) -> Real
     {
         return getAdjustedInput(source);
 
@@ -238,7 +239,7 @@ namespace Ogre
         mTime = timeOffset;
     }
     //-----------------------------------------------------------------------
-    Real AnimationControllerFunction::calculate(Real source)
+    auto AnimationControllerFunction::calculate(Real source) -> Real
     {
         // Assume source is time since last update
         mTime += source;
@@ -267,7 +268,7 @@ namespace Ogre
         mScale = factor;
     }
     //-----------------------------------------------------------------------
-    Real ScaleControllerFunction::calculate(Real source)
+    auto ScaleControllerFunction::calculate(Real source) -> Real
     {
         return getAdjustedInput(source * mScale);
 
@@ -287,7 +288,7 @@ namespace Ogre
         mDutyCycle = dutyCycle;
     }
     //-----------------------------------------------------------------------
-    Real WaveformControllerFunction::getAdjustedInput(Real input)
+    auto WaveformControllerFunction::getAdjustedInput(Real input) -> Real
     {
         Real adjusted = ControllerFunction<Real>::getAdjustedInput(input);
 
@@ -301,7 +302,7 @@ namespace Ogre
         return adjusted;
     }
     //-----------------------------------------------------------------------
-    Real WaveformControllerFunction::calculate(Real source)
+    auto WaveformControllerFunction::calculate(Real source) -> Real
     {
         Real input = getAdjustedInput(source * mFrequency);
         Real output = 0;
@@ -352,15 +353,15 @@ namespace Ogre
     //-----------------------------------------------------------------------
     // LinearControllerFunction
     //-----------------------------------------------------------------------
-    LinearControllerFunction::LinearControllerFunction(const std::vector<Real>& keys, const std::vector<Real>& values, Real frequency, bool deltaInput) :
-            ControllerFunction<Real>(deltaInput), mFrequency(frequency), mKeys(keys), mValues(values) {
+    LinearControllerFunction::LinearControllerFunction(std::vector<Real>  keys, std::vector<Real>  values, Real frequency, bool deltaInput) :
+            ControllerFunction<Real>(deltaInput), mFrequency(frequency), mKeys(std::move(keys)), mValues(std::move(values)) {
         assert(mKeys.size() == mValues.size());
     }
     //-----------------------------------------------------------------------
-    Real LinearControllerFunction::calculate(Real source) {
+    auto LinearControllerFunction::calculate(Real source) -> Real {
         Real input = getAdjustedInput(source*mFrequency);
 
-        std::vector<Real>::iterator ifirst = std::lower_bound(mKeys.begin(), mKeys.end(), input);
+        auto ifirst = std::lower_bound(mKeys.begin(), mKeys.end(), input);
         size_t idx = ifirst - mKeys.begin() - 1;
 
         assert(ifirst != mKeys.end());

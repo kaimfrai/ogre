@@ -29,20 +29,20 @@
 #include <GL/gl.h>
 #include <X11/X.h>
 
-#include "OgreException.h"
-#include "OgreGLRenderSystemCommon.h"
-#include "OgreGLXContext.h"
-#include "OgreGLXGLSupport.h"
-#include "OgreRoot.h"
+#include "OgreException.hpp"
+#include "OgreGLRenderSystemCommon.hpp"
+#include "OgreGLXContext.hpp"
+#include "OgreGLXGLSupport.hpp"
+#include "OgreRoot.hpp"
 
 namespace Ogre
 {
     GLXContext::GLXContext(GLXGLSupport* glsupport, ::GLXFBConfig fbconfig, ::GLXDrawable drawable, ::GLXContext context) :
-        mDrawable(drawable), mContext(0), mFBConfig(fbconfig), mGLSupport(glsupport), mExternalContext(false)
+        mDrawable(drawable),  mFBConfig(fbconfig), mGLSupport(glsupport) 
     {
-        GLRenderSystemCommon *renderSystem = static_cast<GLRenderSystemCommon*>(Root::getSingleton().getRenderSystem());
-        GLXContext* mainContext = static_cast<GLXContext*>(renderSystem->_getMainContext());
-        ::GLXContext shareContext = 0;
+        auto *renderSystem = static_cast<GLRenderSystemCommon*>(Root::getSingleton().getRenderSystem());
+        auto* mainContext = static_cast<GLXContext*>(renderSystem->_getMainContext());
+        ::GLXContext shareContext = nullptr;
 
         if (mainContext)
         {
@@ -67,7 +67,7 @@ namespace Ogre
 
     GLXContext::~GLXContext()
     {
-        GLRenderSystemCommon *rs = static_cast<GLRenderSystemCommon*>(Root::getSingleton().getRenderSystem());
+        auto *rs = static_cast<GLRenderSystemCommon*>(Root::getSingleton().getRenderSystem());
 
         if (!mExternalContext)
             glXDestroyContext(mGLSupport->getGLDisplay(), mContext);
@@ -85,7 +85,7 @@ namespace Ogre
         glXMakeCurrent(mGLSupport->getGLDisplay(), None, None);
     }
 
-    GLContext* GLXContext::clone() const
+    auto GLXContext::clone() const -> GLContext*
     {
         return new GLXContext(mGLSupport, mFBConfig, mDrawable);
     }

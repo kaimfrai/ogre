@@ -28,22 +28,21 @@ THE SOFTWARE.
 #include <iostream>
 #include <utility>
 
-#include "OgreConfigFile.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreFileSystem.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
+#include "OgreConfigFile.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreFileSystem.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
 
 namespace Ogre {
 
     //-----------------------------------------------------------------------
     ConfigFile::ConfigFile()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
-    void ConfigFile::clear(void)
+    void ConfigFile::clear()
     {
         mSettings.clear();
         mSettingsPtr.clear();
@@ -124,17 +123,17 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    String ConfigFile::getSetting(const String& key, const String& section, const String& defaultValue) const
+    auto ConfigFile::getSetting(const String& key, const String& section, const String& defaultValue) const -> String
     {
         
-        SettingsBySection_::const_iterator seci = mSettings.find(section);
+        auto seci = mSettings.find(section);
         if (seci == mSettings.end())
         {
             return defaultValue;
         }
         else
         {
-            SettingsMultiMap::const_iterator i = seci->second.find(key);
+            auto i = seci->second.find(key);
             if (i == seci->second.end())
             {
                 return defaultValue;
@@ -147,11 +146,11 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    StringVector ConfigFile::getMultiSetting(const String& key, const String& section) const
+    auto ConfigFile::getMultiSetting(const String& key, const String& section) const -> StringVector
     {
         StringVector ret;
 
-        SettingsBySection_::const_iterator seci = mSettings.find(section);
+        auto seci = mSettings.find(section);
         if (seci != mSettings.end())
         {
             SettingsMultiMap::const_iterator i;
@@ -170,9 +169,9 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const ConfigFile::SettingsMultiMap& ConfigFile::getSettings(const String& section) const
+    auto ConfigFile::getSettings(const String& section) const -> const ConfigFile::SettingsMultiMap&
     {
-        SettingsBySection_::const_iterator seci = mSettings.find(section);
+        auto seci = mSettings.find(section);
         if (seci == mSettings.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 

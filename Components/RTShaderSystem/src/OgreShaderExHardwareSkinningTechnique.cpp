@@ -27,33 +27,25 @@ THE SOFTWARE.
 
 #include <algorithm>
 
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderExHardwareSkinningTechnique.h"
-#include "OgreShaderFunctionAtom.h"
+#include "OgreException.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderExHardwareSkinningTechnique.hpp"
+#include "OgreShaderFunctionAtom.hpp"
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 
-namespace Ogre {
-
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-HardwareSkinningTechnique::HardwareSkinningTechnique() :
-    mBoneCount(0),
-    mWeightCount(0),
-    mCorrectAntipodalityHandling(false),
-    mScalingShearingSupport(false),
-    mDoBoneCalculations(false)
-{
-}
+HardwareSkinningTechnique::HardwareSkinningTechnique() 
+    
+= default;
 
 //-----------------------------------------------------------------------
 HardwareSkinningTechnique::~HardwareSkinningTechnique()
-{
-}
+= default;
 
 //-----------------------------------------------------------------------
 void HardwareSkinningTechnique::setHardwareSkinningParam(ushort boneCount, ushort weightCount, bool correctAntipodalityHandling, bool scalingShearingSupport)
@@ -71,31 +63,31 @@ void HardwareSkinningTechnique::setDoBoneCalculations(bool doBoneCalculations)
 }
 
 //-----------------------------------------------------------------------
-ushort HardwareSkinningTechnique::getBoneCount()
+auto HardwareSkinningTechnique::getBoneCount() -> ushort
 {
     return mBoneCount;
 }
 
 //-----------------------------------------------------------------------
-ushort HardwareSkinningTechnique::getWeightCount()
+auto HardwareSkinningTechnique::getWeightCount() -> ushort
 {
     return mWeightCount;
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinningTechnique::hasCorrectAntipodalityHandling()
+auto HardwareSkinningTechnique::hasCorrectAntipodalityHandling() -> bool
 {
     return mCorrectAntipodalityHandling;
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinningTechnique::hasScalingShearingSupport()
+auto HardwareSkinningTechnique::hasScalingShearingSupport() -> bool
 {
     return mScalingShearingSupport;
 }
 
 //-----------------------------------------------------------------------
-Operand::OpMask HardwareSkinningTechnique::indexToMask(int index)
+auto HardwareSkinningTechnique::indexToMask(int index) -> Operand::OpMask
 {
     switch(index)
     {
@@ -117,5 +109,4 @@ void HardwareSkinningTechnique::copyFrom(const HardwareSkinningTechnique* hardSk
     mScalingShearingSupport = hardSkin->mScalingShearingSupport;
 }
 
-}
 }

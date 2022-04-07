@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 
 // Emulate _findfirst, _findnext on non-Windows platforms
-#include "OgreSearchOps.h"
+#include "OgreSearchOps.hpp"
 
 #include <cstdio>
 #include <cstdlib>
@@ -45,11 +45,11 @@ struct _find_search_t
     DIR *dirfd;
 };
         
-intptr_t _findfirst(const char *pattern, struct _finddata_t *data)
+auto _findfirst(const char *pattern, struct _finddata_t *data) -> intptr_t
 {
-    _find_search_t *fs = new _find_search_t;
-    fs->curfn = NULL;
-    fs->pattern = NULL;
+    auto *fs = new _find_search_t;
+    fs->curfn = nullptr;
+    fs->pattern = nullptr;
 
     // Separate the mask from directory name
     const char *mask = strrchr (pattern, '/');
@@ -90,9 +90,9 @@ intptr_t _findfirst(const char *pattern, struct _finddata_t *data)
     return (intptr_t)fs;
 }
 
-int _findnext(intptr_t id, struct _finddata_t *data)
+auto _findnext(intptr_t id, struct _finddata_t *data) -> int
 {
-    _find_search_t *fs = reinterpret_cast<_find_search_t *>(id);
+    auto *fs = reinterpret_cast<_find_search_t *>(id);
 
     /* Loop until we run out of entries or find the next one */
     dirent *entry;
@@ -142,10 +142,10 @@ int _findnext(intptr_t id, struct _finddata_t *data)
     return 0;
 }
 
-int _findclose(intptr_t id)
+auto _findclose(intptr_t id) -> int
 {
     int ret;
-    _find_search_t *fs = reinterpret_cast<_find_search_t *>(id);
+    auto *fs = reinterpret_cast<_find_search_t *>(id);
     
     ret = fs->dirfd ? closedir (fs->dirfd) : 0;
     free (fs->pattern);

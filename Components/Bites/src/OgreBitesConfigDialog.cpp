@@ -3,7 +3,7 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
 
-#include "OgreBitesConfigDialog.h"
+#include "OgreBitesConfigDialog.hpp"
 
 #include <cstddef>
 
@@ -12,7 +12,7 @@ namespace Ogre {
 }  // namespace Ogre
 
 namespace OgreBites {
-    Ogre::ConfigDialog* getNativeConfigDialog() {
-        return NULL;
+    auto getNativeConfigDialog() -> Ogre::ConfigDialog* {
+        return nullptr;
     }
 } /* namespace OgreBites */

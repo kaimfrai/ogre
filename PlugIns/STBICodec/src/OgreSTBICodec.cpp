@@ -26,23 +26,24 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreSTBICodec.h"
+#include "OgreSTBICodec.hpp"
 
 #include <cstdlib>
 #include <memory>
 #include <ostream>
 #include <string>
+#include <utility>
 #include <vector>
 
-#include "OgreCodec.h"
-#include "OgreCommon.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgrePixelFormat.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
+#include "OgreCodec.hpp"
+#include "OgreCommon.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringVector.hpp"
 
 #define STBI_NO_STDIO
 #define STB_IMAGE_IMPLEMENTATION
@@ -51,10 +52,10 @@ THE SOFTWARE.
 
 #include "stbi/stb_image.h"
 
-static Ogre::uchar* custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/)
+static auto custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/) -> Ogre::uchar*
 {
     unsigned long destLen = compressBound(data_len);
-    Ogre::uchar* dest = (Ogre::uchar*)malloc(destLen);
+    auto* dest = (Ogre::uchar*)malloc(destLen);
     int ret = compress(dest, &destLen, data, data_len); // use default quality
     if (ret != Z_OK)
     {
@@ -75,7 +76,7 @@ namespace Ogre {
 
     STBIImageCodec::RegisteredCodecList STBIImageCodec::msCodecList;
     //---------------------------------------------------------------------
-    void STBIImageCodec::startup(void)
+    void STBIImageCodec::startup()
     {
         stbi_convert_iphone_png_to_rgb(1);
         stbi_set_unpremultiply_on_load(1);
@@ -85,9 +86,9 @@ namespace Ogre {
         // Register codecs
         String exts = "jpeg,jpg,png,bmp,psd,tga,gif,pic,ppm,pgm,hdr";
         StringVector extsVector = StringUtil::split(exts, ",");
-        for (StringVector::iterator v = extsVector.begin(); v != extsVector.end(); ++v)
+        for (auto & v : extsVector)
         {
-            ImageCodec* codec = new STBIImageCodec(*v);
+            ImageCodec* codec = new STBIImageCodec(v);
             msCodecList.push_back(codec);
             Codec::registerCodec(codec);
         }
@@ -95,24 +96,23 @@ namespace Ogre {
         LogManager::getSingleton().logMessage("Supported formats: " + exts);
     }
     //---------------------------------------------------------------------
-    void STBIImageCodec::shutdown(void)
+    void STBIImageCodec::shutdown()
     {
-        for (RegisteredCodecList::iterator i = msCodecList.begin();
-            i != msCodecList.end(); ++i)
+        for (auto & i : msCodecList)
         {
-            Codec::unregisterCodec(*i);
-            delete *i;
+            Codec::unregisterCodec(i);
+            delete i;
         }
         msCodecList.clear();
     }
     //---------------------------------------------------------------------
-    STBIImageCodec::STBIImageCodec(const String &type):
-        mType(type)
+    STBIImageCodec::STBIImageCodec(String type):
+        mType(std::move(type))
     { 
     }
     //---------------------------------------------------------------------
-    DataStreamPtr STBIImageCodec::encode(const MemoryDataStreamPtr& input,
-                                         const CodecDataPtr& pData) const
+    auto STBIImageCodec::encode(const MemoryDataStreamPtr& input,
+                                         const CodecDataPtr& pData) const -> DataStreamPtr
     {
         if(mType != "png") {
             OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
@@ -120,12 +120,12 @@ namespace Ogre {
                         "STBIImageCodec::encode" ) ;
         }
 
-        ImageData* pImgData = static_cast<ImageData*>(pData.get());
+        auto* pImgData = static_cast<ImageData*>(pData.get());
         PixelFormat format = pImgData->format;
         uchar* inputData = input->getPtr();
 
         // Convert image data to ABGR format for STBI (unless it's already compatible)
-        uchar* tempData = 0;
+        uchar* tempData = nullptr;
         if(format != Ogre::PF_A8B8G8R8 && format != PF_B8G8R8 && format != PF_BYTE_LA && 
             format != PF_L8 && format != PF_R8)
         {   
@@ -173,7 +173,7 @@ namespace Ogre {
         f.write((char*)data->getPtr(), data->size());
     }
     //---------------------------------------------------------------------
-    ImageCodec::DecodeResult STBIImageCodec::decode(const DataStreamPtr& input) const
+    auto STBIImageCodec::decode(const DataStreamPtr& input) const -> ImageCodec::DecodeResult
     {
         String contents = input->getAsString();
 
@@ -228,17 +228,17 @@ namespace Ogre {
         return ret;
     }
     //---------------------------------------------------------------------    
-    String STBIImageCodec::getType() const
+    auto STBIImageCodec::getType() const -> String
     {
         return mType;
     }
     //---------------------------------------------------------------------
-    String STBIImageCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const
+    auto STBIImageCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String
     {
         return BLANKSTRING;
     }
 
-    const String& STBIPlugin::getName() const {
+    auto STBIPlugin::getName() const -> const String& {
         static String name = "STB Image Codec";
         return name;
     }

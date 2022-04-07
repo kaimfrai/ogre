@@ -27,19 +27,20 @@ THE SOFTWARE.
 */
 #include <ios>
 #include <string>
+#include <utility>
 #include <vector>
 
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreFileSystem.h"
-#include "OgreLogManager.h"
-#include "OgreMemoryAllocatorConfig.h"
-#include "OgreMesh.h"
-#include "OgreMeshSerializer.h"
-#include "OgreMeshSerializerImpl.h"
-#include "OgrePrerequisites.h"
-#include "OgreSerializer.h"
-#include "OgreSharedPtr.h"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreFileSystem.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMemoryAllocatorConfig.hpp"
+#include "OgreMesh.hpp"
+#include "OgreMeshSerializer.hpp"
+#include "OgreMeshSerializerImpl.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSerializer.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace Ogre {
 
@@ -50,8 +51,8 @@ namespace Ogre {
         String versionString;
         MeshSerializerImpl* impl;
 
-        MeshVersionData(MeshVersion _ver, const String& _string, MeshSerializerImpl* _impl)
-        : version(_ver), versionString(_string), impl(_impl) {}
+        MeshVersionData(MeshVersion _ver, String  _string, MeshSerializerImpl* _impl)
+        : version(_ver), versionString(std::move(_string)), impl(_impl) {}
 
         ~MeshVersionData() { delete impl; }
 
@@ -60,7 +61,7 @@ namespace Ogre {
     const unsigned short HEADER_CHUNK_ID = 0x1000;
     //---------------------------------------------------------------------
     MeshSerializer::MeshSerializer()
-        :mListener(0)
+        
     {
         // Init implementations
         // String identifiers have not always been 100% unified with OGRE version
@@ -101,10 +102,9 @@ namespace Ogre {
     MeshSerializer::~MeshSerializer()
     {
         // delete map
-        for (MeshVersionDataList::iterator i = mVersionData.begin();
-            i != mVersionData.end(); ++i)
+        for (auto & i : mVersionData)
         {
-            delete *i;
+            delete i;
         }
         mVersionData.clear();
 
@@ -144,17 +144,16 @@ namespace Ogre {
                         "You may not supply a legacy version number (pre v1.0) for writing meshes.",
                         "MeshSerializer::exportMesh");
         
-        MeshSerializerImpl* impl = 0;
+        MeshSerializerImpl* impl = nullptr;
         if (version == MESH_VERSION_LATEST)
             impl = mVersionData[0]->impl;
         else 
         {
-            for (MeshVersionDataList::iterator i = mVersionData.begin(); 
-                 i != mVersionData.end(); ++i)
+            for (auto & i : mVersionData)
             {
-                if (version == (*i)->version)
+                if (version == i->version)
                 {
-                    impl = (*i)->impl;
+                    impl = i->impl;
                     break;
                 }
             }
@@ -189,13 +188,12 @@ namespace Ogre {
         stream->seek(0);
 
         // Find the implementation to use
-        MeshSerializerImpl* impl = 0;
-        for (MeshVersionDataList::iterator i = mVersionData.begin(); 
-             i != mVersionData.end(); ++i)
+        MeshSerializerImpl* impl = nullptr;
+        for (auto & i : mVersionData)
         {
-            if ((*i)->versionString == ver)
+            if (i->versionString == ver)
             {
-                impl = (*i)->impl;
+                impl = i->impl;
                 break;
             }
         }           
@@ -221,7 +219,7 @@ namespace Ogre {
         mListener = listener;
     }
     //-------------------------------------------------------------------------
-    MeshSerializerListener *MeshSerializer::getListener()
+    auto MeshSerializer::getListener() -> MeshSerializerListener *
     {
         return mListener;
     }

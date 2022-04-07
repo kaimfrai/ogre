@@ -34,28 +34,29 @@ THE SOFTWARE.
 #include <cstring>
 #include <limits>
 #include <map>
+#include <memory>
 #include <string>
 #include <utility>
 
-#include "OgreBillboardChain.h"
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLogManager.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgreNode.h"
-#include "OgrePlatform.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreSceneManager.h"
-#include "OgreStringConverter.h"
-#include "OgreVertexIndexData.h"
-#include "OgreViewport.h"
+#include "OgreBillboardChain.hpp"
+#include "OgreCamera.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreNode.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreVertexIndexData.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 class RenderSystem;
@@ -63,8 +64,7 @@ class RenderSystem;
     const size_t BillboardChain::SEGMENT_EMPTY = std::numeric_limits<size_t>::max();
     //-----------------------------------------------------------------------
     BillboardChain::Element::Element()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     BillboardChain::Element::Element(const Vector3 &_position,
         Real _width,
@@ -87,19 +87,11 @@ class RenderSystem;
         mUseTexCoords(useTextureCoords),
         mUseVertexColour(useColours),
         mDynamic(dynamic),
-        mVertexDeclDirty(true),
-        mBuffersNeedRecreating(true),
-        mBoundsDirty(true),
-        mIndexContentDirty(true),
-        mVertexContentDirty(true),
-        mRadius(0.0f),
-        mTexCoordDir(TCD_U),
-        mVertexCameraUsed(0),
-        mFaceCamera(true),
+        
         mNormalBase(Vector3::UNIT_X)
     {
-        mVertexData.reset(new VertexData());
-        mIndexData.reset(new IndexData());
+        mVertexData = std::make_unique<VertexData>();
+        mIndexData = std::make_unique<IndexData>();
 
         mOtherTexCoordRange[0] = 0.0f;
         mOtherTexCoordRange[1] = 1.0f;
@@ -116,7 +108,7 @@ class RenderSystem;
     BillboardChain::~BillboardChain() = default; // ensure unique_ptr destructors are in cpp
 
     //-----------------------------------------------------------------------
-    void BillboardChain::setupChainContainers(void)
+    void BillboardChain::setupChainContainers()
     {
         // Allocate enough space for everything
         mChainElementList.resize(mChainCount * mMaxElementsPerChain);
@@ -135,7 +127,7 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    void BillboardChain::setupVertexDeclaration(void)
+    void BillboardChain::setupVertexDeclaration()
     {
         if (mVertexDeclDirty)
         {
@@ -168,7 +160,7 @@ class RenderSystem;
         }
     }
     //-----------------------------------------------------------------------
-    void BillboardChain::setupBuffers(void)
+    void BillboardChain::setupBuffers()
     {
         setupVertexDeclaration();
         if (mBuffersNeedRecreating)
@@ -337,7 +329,7 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    void BillboardChain::clearAllChains(void)
+    void BillboardChain::clearAllChains()
     {
         for (size_t i = 0; i < mChainCount; ++i)
         {
@@ -374,8 +366,8 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    const BillboardChain::Element&
-    BillboardChain::getChainElement(size_t chainIndex, size_t elementIndex) const
+    auto
+    BillboardChain::getChainElement(size_t chainIndex, size_t elementIndex) const -> const BillboardChain::Element&
     {
         const ChainSegment& seg = mChainSegmentList.at(chainIndex);
         OgreAssert(seg.head != SEGMENT_EMPTY, "Chain segment is empty");
@@ -387,7 +379,7 @@ class RenderSystem;
         return mChainElementList[idx];
     }
     //-----------------------------------------------------------------------
-    size_t BillboardChain::getNumChainElements(size_t chainIndex) const
+    auto BillboardChain::getNumChainElements(size_t chainIndex) const -> size_t
     {
         const ChainSegment& seg = mChainSegmentList.at(chainIndex);
         
@@ -405,17 +397,14 @@ class RenderSystem;
         }
     }
     //-----------------------------------------------------------------------
-    void BillboardChain::updateBoundingBox(void) const
+    void BillboardChain::updateBoundingBox() const
     {
         if (mBoundsDirty)
         {
             mAABB.setNull();
             Vector3 widthVector;
-            for (ChainSegmentList::const_iterator segi = mChainSegmentList.begin();
-                segi != mChainSegmentList.end(); ++segi)
+            for (const auto & seg : mChainSegmentList)
             {
-                const ChainSegment& seg = *segi;
-
                 if (seg.head != SEGMENT_EMPTY)
                 {
 
@@ -473,11 +462,8 @@ class RenderSystem;
         Vector3 eyePos = mParentNode->convertWorldToLocalPosition(camPos);
 
         Vector3 chainTangent;
-        for (ChainSegmentList::iterator segi = mChainSegmentList.begin();
-            segi != mChainSegmentList.end(); ++segi)
+        for (auto & seg : mChainSegmentList)
         {
-            ChainSegment& seg = *segi;
-
             // Skip 0 or 1 element segment counts
             if (seg.head != SEGMENT_EMPTY && seg.head != seg.tail)
             {
@@ -490,10 +476,10 @@ class RenderSystem;
 
                     Element& elem = mChainElementList[e + seg.start];
                     assert (((e + seg.start) * 2) < 65536 && "Too many elements!");
-                    uint16 baseIdx = static_cast<uint16>((e + seg.start) * 2);
+                    auto baseIdx = static_cast<uint16>((e + seg.start) * 2);
 
                     // Determine base pointer to vertex #1
-                    float* pFloat = reinterpret_cast<float*>(
+                    auto* pFloat = reinterpret_cast<float*>(
                         static_cast<char*>(vertexLock.pData) +
                             pBuffer->getVertexSize() * baseIdx);
 
@@ -597,27 +583,24 @@ class RenderSystem;
         mVertexContentDirty = false;
     }
     //-----------------------------------------------------------------------
-    void BillboardChain::updateIndexBuffer(void)
+    void BillboardChain::updateIndexBuffer()
     {
 
         setupBuffers();
         if (mIndexContentDirty)
         {
             HardwareBufferLockGuard indexLock(mIndexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
-            uint16* pShort = static_cast<uint16*>(indexLock.pData);
+            auto* pShort = static_cast<uint16*>(indexLock.pData);
             mIndexData->indexCount = 0;
             // indexes
-            for (ChainSegmentList::iterator segi = mChainSegmentList.begin();
-                segi != mChainSegmentList.end(); ++segi)
+            for (auto & seg : mChainSegmentList)
             {
-                ChainSegment& seg = *segi;
-
                 // Skip 0 or 1 element segment counts
                 if (seg.head != SEGMENT_EMPTY && seg.head != seg.tail)
                 {
                     // Start from head + 1 since it's only useful in pairs
                     size_t laste = seg.head;
-                    while(1) // until break
+                    for(;;) // until break
                     {
                         size_t e = laste + 1;
                         // Wrap forwards
@@ -626,8 +609,8 @@ class RenderSystem;
                         // indexes of this element are (e * 2) and (e * 2) + 1
                         // indexes of the last element are the same, -2
                         assert (((e + seg.start) * 2) < 65536 && "Too many elements!");
-                        uint16 baseIdx = static_cast<uint16>((e + seg.start) * 2);
-                        uint16 lastBaseIdx = static_cast<uint16>((laste + seg.start) * 2);
+                        auto baseIdx = static_cast<uint16>((e + seg.start) * 2);
+                        auto lastBaseIdx = static_cast<uint16>((laste + seg.start) * 2);
                         *pShort++ = lastBaseIdx;
                         *pShort++ = lastBaseIdx + 1;
                         *pShort++ = baseIdx;
@@ -653,23 +636,23 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    Real BillboardChain::getSquaredViewDepth(const Camera* cam) const
+    auto BillboardChain::getSquaredViewDepth(const Camera* cam) const -> Real
     {
         return (cam->getDerivedPosition() - mAABB.getCenter()).squaredLength();
     }
     //-----------------------------------------------------------------------
-    Real BillboardChain::getBoundingRadius(void) const
+    auto BillboardChain::getBoundingRadius() const -> Real
     {
         return mRadius;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& BillboardChain::getBoundingBox(void) const
+    auto BillboardChain::getBoundingBox() const -> const AxisAlignedBox&
     {
         updateBoundingBox();
         return mAABB;
     }
     //-----------------------------------------------------------------------
-    const MaterialPtr& BillboardChain::getMaterial(void) const
+    auto BillboardChain::getMaterial() const -> const MaterialPtr&
     {
         return mMaterial;
     }
@@ -690,7 +673,7 @@ class RenderSystem;
         mMaterial->load();
     }
     //-----------------------------------------------------------------------
-    const String& BillboardChain::getMovableType(void) const
+    auto BillboardChain::getMovableType() const -> const String&
     {
         return BillboardChainFactory::FACTORY_TYPE_NAME;
     }
@@ -720,7 +703,7 @@ class RenderSystem;
         op.vertexData = mVertexData.get();
     }
     //-----------------------------------------------------------------------
-    bool BillboardChain::preRender(SceneManager* sm, RenderSystem* rsys)
+    auto BillboardChain::preRender(SceneManager* sm, RenderSystem* rsys) -> bool
     {
         // Retrieve the current viewport from the scene manager.
         // The viewport is only valid during a viewport update.
@@ -737,7 +720,7 @@ class RenderSystem;
         *xform = _getParentNodeFullTransform();
     }
     //-----------------------------------------------------------------------
-    const LightList& BillboardChain::getLights(void) const
+    auto BillboardChain::getLights() const -> const LightList&
     {
         return queryLights();
     }
@@ -752,13 +735,13 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     String BillboardChainFactory::FACTORY_TYPE_NAME = "BillboardChain";
     //-----------------------------------------------------------------------
-    const String& BillboardChainFactory::getType(void) const
+    auto BillboardChainFactory::getType() const -> const String&
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    MovableObject* BillboardChainFactory::createInstanceImpl( const String& name,
-        const NameValuePairList* params)
+    auto BillboardChainFactory::createInstanceImpl( const String& name,
+        const NameValuePairList* params) -> MovableObject*
     {
         size_t maxElements = 20;
         size_t numberOfChains = 1;
@@ -766,9 +749,9 @@ class RenderSystem;
         bool useCol = true;
         bool dynamic = true;
         // optional params
-        if (params != 0)
+        if (params != nullptr)
         {
-            NameValuePairList::const_iterator ni = params->find("maxElements");
+            auto ni = params->find("maxElements");
             if (ni != params->end())
             {
                 maxElements = StringConverter::parseSizeT(ni->second);

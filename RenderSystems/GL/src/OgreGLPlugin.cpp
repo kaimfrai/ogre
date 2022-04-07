@@ -26,22 +26,20 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLPlugin.h"
+#include "OgreGLPlugin.hpp"
 
-#include "OgreGLRenderSystem.h"
-#include "OgreRoot.h"
+#include "OgreGLRenderSystem.hpp"
+#include "OgreRoot.hpp"
 
 namespace Ogre 
 {
     const String sPluginName = "GL RenderSystem";
     //---------------------------------------------------------------------
     GLPlugin::GLPlugin()
-        : mRenderSystem(0)
-    {
-
-    }
+         
+    = default;
     //---------------------------------------------------------------------
-    const String& GLPlugin::getName() const
+    auto GLPlugin::getName() const -> const String&
     {
         return sPluginName;
     }
@@ -66,6 +64,6 @@ namespace Ogre
     void GLPlugin::uninstall()
     {
         delete mRenderSystem;
-        mRenderSystem = 0;
+        mRenderSystem = nullptr;
     }
 }

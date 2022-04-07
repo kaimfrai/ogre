@@ -28,13 +28,13 @@ THE SOFTWARE.
 #include <cassert>
 #include <string>
 
-#include "OgreCompositionTargetPass.h"
-#include "OgreCompositionTechnique.h"
-#include "OgreException.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreTextureManager.h"
+#include "OgreCompositionTargetPass.hpp"
+#include "OgreCompositionTechnique.hpp"
+#include "OgreException.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
+#include "OgreTextureManager.hpp"
 
 namespace Ogre {
 class Compositor;
@@ -52,12 +52,12 @@ CompositionTechnique::~CompositionTechnique()
     delete  mOutputTarget;
 }
 //-----------------------------------------------------------------------
-CompositionTechnique::TextureDefinition *CompositionTechnique::createTextureDefinition(const String &name)
+auto CompositionTechnique::createTextureDefinition(const String &name) -> CompositionTechnique::TextureDefinition *
 {
     if(getTextureDefinition(name))
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "Texture '"+name+"' already exists");
 
-    TextureDefinition *t = new TextureDefinition();
+    auto *t = new TextureDefinition();
     t->name = name;
     mTextureDefinitions.push_back(t);
     return t;
@@ -67,12 +67,12 @@ CompositionTechnique::TextureDefinition *CompositionTechnique::createTextureDefi
 void CompositionTechnique::removeTextureDefinition(size_t index)
 {
     assert (index < mTextureDefinitions.size() && "Index out of bounds.");
-    TextureDefinitions::iterator i = mTextureDefinitions.begin() + index;
+    auto i = mTextureDefinitions.begin() + index;
     delete (*i);
     mTextureDefinitions.erase(i);
 }
 //---------------------------------------------------------------------
-CompositionTechnique::TextureDefinition *CompositionTechnique::getTextureDefinition(const String& name) const
+auto CompositionTechnique::getTextureDefinition(const String& name) const -> CompositionTechnique::TextureDefinition *
 {
     auto iend = mTextureDefinitions.end();
     for (auto i = mTextureDefinitions.begin(); i != iend; ++i)
@@ -81,7 +81,7 @@ CompositionTechnique::TextureDefinition *CompositionTechnique::getTextureDefinit
             return *i;
     }
 
-    return 0;
+    return nullptr;
 
 }
 //-----------------------------------------------------------------------
@@ -97,9 +97,9 @@ void CompositionTechnique::removeAllTextureDefinitions()
 }
 
 //-----------------------------------------------------------------------
-CompositionTargetPass *CompositionTechnique::createTargetPass()
+auto CompositionTechnique::createTargetPass() -> CompositionTargetPass *
 {
-    CompositionTargetPass *t = new CompositionTargetPass(this);
+    auto *t = new CompositionTargetPass(this);
     mTargetPasses.push_back(t);
     return t;
 }
@@ -108,7 +108,7 @@ CompositionTargetPass *CompositionTechnique::createTargetPass()
 void CompositionTechnique::removeTargetPass(size_t index)
 {
     assert (index < mTargetPasses.size() && "Index out of bounds.");
-    TargetPasses::iterator i = mTargetPasses.begin() + index;
+    auto i = mTargetPasses.begin() + index;
     delete (*i);
     mTargetPasses.erase(i);
 }
@@ -125,7 +125,7 @@ void CompositionTechnique::removeAllTargetPasses()
 }
 
 //-----------------------------------------------------------------------
-bool CompositionTechnique::isSupported(bool acceptTextureDegradation)
+auto CompositionTechnique::isSupported(bool acceptTextureDegradation) -> bool
 {
     // A technique is supported if all materials referenced have a supported
     // technique, and the intermediate texture formats requested are supported
@@ -167,7 +167,7 @@ bool CompositionTechnique::isSupported(bool acceptTextureDegradation)
         }
 
 
-        for (PixelFormatList::iterator pfi = td->formatList.begin(); pfi != td->formatList.end(); ++pfi)
+        for (auto pfi = td->formatList.begin(); pfi != td->formatList.end(); ++pfi)
         {
             // Check whether equivalent supported
             // Need a format which is the same number of bits to pass
@@ -189,7 +189,7 @@ bool CompositionTechnique::isSupported(bool acceptTextureDegradation)
             PixelFormat nativeFormat = texMgr.getNativeFormat( td->type, td->formatList.front(),
                                                                 TU_RENDERTARGET );
             size_t nativeBits = PixelUtil::getNumElemBits( nativeFormat );
-            for( PixelFormatList::iterator pfi = td->formatList.begin()+1;
+            for( auto pfi = td->formatList.begin()+1;
                     pfi != td->formatList.end(); ++pfi )
             {
                 PixelFormat nativeTmp = texMgr.getNativeFormat( td->type, *pfi, TU_RENDERTARGET );
@@ -205,7 +205,7 @@ bool CompositionTechnique::isSupported(bool acceptTextureDegradation)
     return true;
 }
 //-----------------------------------------------------------------------
-Compositor *CompositionTechnique::getParent()
+auto CompositionTechnique::getParent() -> Compositor *
 {
     return mParent;
 }

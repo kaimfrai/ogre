@@ -28,12 +28,12 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreException.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreGpuProgramUsage.h"
-#include "OgrePass.h"
-#include "OgreResourceGroupManager.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreGpuProgramUsage.hpp"
+#include "OgrePass.hpp"
+#include "OgreResourceGroupManager.hpp"
 
 namespace Ogre
 {
@@ -60,8 +60,8 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------------
 
-    GpuProgramPtr GpuProgramUsage::_getProgramByName(const String& name, const String& group,
-                                                     GpuProgramType type)
+    auto GpuProgramUsage::_getProgramByName(const String& name, const String& group,
+                                                     GpuProgramType type) -> GpuProgramPtr
     {
         GpuProgramPtr program =
             GpuProgramManager::getSingleton().getByName(name, group);
@@ -91,7 +91,7 @@ namespace Ogre
         mParameters = params;
     }
     //-----------------------------------------------------------------------------
-    const GpuProgramParametersSharedPtr& GpuProgramUsage::getParameters(void) const
+    auto GpuProgramUsage::getParameters() const -> const GpuProgramParametersSharedPtr&
     {
         if (!mParameters)
         {
@@ -122,7 +122,7 @@ namespace Ogre
         mProgram->addListener(this);
     }
     //-----------------------------------------------------------------------------
-    size_t GpuProgramUsage::calculateSize(void) const
+    auto GpuProgramUsage::calculateSize() const -> size_t
     {
         size_t memSize = sizeof(*this);
 
@@ -135,7 +135,7 @@ namespace Ogre
         return memSize;
     }
     //-----------------------------------------------------------------------------
-    void GpuProgramUsage::_load(void)
+    void GpuProgramUsage::_load()
     {
         if (!mProgram->isLoaded())
             mProgram->load();
@@ -153,7 +153,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------------
-    void GpuProgramUsage::_unload(void)
+    void GpuProgramUsage::_unload()
     {
         // TODO?
     }

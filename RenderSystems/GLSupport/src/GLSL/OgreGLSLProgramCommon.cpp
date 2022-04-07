@@ -3,26 +3,24 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
 
-#include "OgreGLSLProgramCommon.h"
+#include "OgreGLSLProgramCommon.hpp"
 
 #include <cstddef>
 #include <sstream>
 #include <string>
 
-#include "OgreException.h"
+#include "OgreException.hpp"
 
 namespace Ogre
 {
 GLSLProgramCommon::GLSLProgramCommon(const GLShaderList& shaders)
-    : mShaders(shaders),
-      mUniformRefsBuilt(false),
-      mGLProgramHandle(0),
-      mLinked(false)
+    : mShaders(shaders)
+      
 {
     // compute shader presence means no other shaders are allowed
     if(shaders[GPT_COMPUTE_PROGRAM])
     {
-        mShaders.fill(NULL);
+        mShaders.fill(nullptr);
         mShaders[GPT_COMPUTE_PROGRAM] = shaders[GPT_COMPUTE_PROGRAM];
     }
 }
@@ -115,7 +113,7 @@ void GLSLProgramCommon::useTightAttributeLayout() {
     }
 }
 
-int32 GLSLProgramCommon::getFixedAttributeIndex(VertexElementSemantic semantic, uint index)
+auto GLSLProgramCommon::getFixedAttributeIndex(VertexElementSemantic semantic, uint index) -> int32
 {
     OgreAssertDbg(semantic > 0 && semantic <= VES_COUNT, "Missing attribute!");
 
@@ -125,7 +123,7 @@ int32 GLSLProgramCommon::getFixedAttributeIndex(VertexElementSemantic semantic, 
     return attributeIndex[semantic];
 }
 
-String GLSLProgramCommon::getCombinedName()
+auto GLSLProgramCommon::getCombinedName() -> String
 {
     StringStream ss;
 
@@ -140,7 +138,7 @@ String GLSLProgramCommon::getCombinedName()
     return ss.str();
 }
 
-uint32 GLSLProgramCommon::getCombinedHash()
+auto GLSLProgramCommon::getCombinedHash() -> uint32
 {
     uint32 hash = 0;
 

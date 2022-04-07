@@ -29,9 +29,9 @@ THE SOFTWARE.
 #include <memory>
 #include <utility>
 
-#include "OgreAny.h"
-#include "OgrePrerequisites.h"
-#include "OgreUserObjectBindings.h"
+#include "OgreAny.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreUserObjectBindings.hpp"
 
 namespace Ogre {
     static Any emptyAny;
@@ -40,16 +40,16 @@ namespace Ogre {
     UserObjectBindings::UserObjectBindings(const UserObjectBindings& other)
     {
         if (other.mAttributes)
-            mAttributes.reset(new Attributes(*other.mAttributes));
+            mAttributes = std::make_unique<Attributes>(*other.mAttributes);
     }
 
-    UserObjectBindings& UserObjectBindings::swap(UserObjectBindings& rhs)
+    auto UserObjectBindings::swap(UserObjectBindings& rhs) -> UserObjectBindings&
     {
         std::swap(mAttributes, rhs.mAttributes);
         return *this;
     }
 
-    UserObjectBindings& UserObjectBindings::operator=(const UserObjectBindings& rhs)
+    auto UserObjectBindings::operator=(const UserObjectBindings& rhs) -> UserObjectBindings&
     {
         UserObjectBindings(rhs).swap(*this);
         return *this;
@@ -60,13 +60,13 @@ namespace Ogre {
     {
         // Allocate attributes on demand.
         if (!mAttributes)
-            mAttributes.reset(new Attributes);
+            mAttributes = std::make_unique<Attributes>();
 
         mAttributes->mKeylessAny = anything;
     }
 
     //-----------------------------------------------------------------------
-    const Any& UserObjectBindings::getUserAny() const
+    auto UserObjectBindings::getUserAny() const -> const Any&
     {
         // Allocate attributes on demand.
         if (!mAttributes)
@@ -80,17 +80,17 @@ namespace Ogre {
     {
         // Allocate attributes on demand.
         if (!mAttributes)
-            mAttributes.reset(new Attributes);
+            mAttributes = std::make_unique<Attributes>();
 
         // Case map doesn't exists.
         if (!mAttributes->mUserObjectsMap)
-            mAttributes->mUserObjectsMap.reset(new UserObjectsMap);
+            mAttributes->mUserObjectsMap = std::make_unique<UserObjectsMap>();
 
         (*mAttributes->mUserObjectsMap)[key] = anything;
     }
 
     //-----------------------------------------------------------------------
-    const Any& UserObjectBindings::getUserAny(const String& key) const
+    auto UserObjectBindings::getUserAny(const String& key) const -> const Any&
     {
         if (!mAttributes)
             return emptyAny;
@@ -99,7 +99,7 @@ namespace Ogre {
         if (!mAttributes->mUserObjectsMap)
             return emptyAny;
 
-        UserObjectsMapConstIterator it = mAttributes->mUserObjectsMap->find(key);
+        auto it = mAttributes->mUserObjectsMap->find(key);
 
         // Case user data found.
         if (it != mAttributes->mUserObjectsMap->end())
@@ -116,7 +116,7 @@ namespace Ogre {
         // Case attributes and map allocated.
         if (mAttributes && mAttributes->mUserObjectsMap)
         {
-            UserObjectsMapIterator it = mAttributes->mUserObjectsMap->find(key);
+            auto it = mAttributes->mUserObjectsMap->find(key);
 
             // Case object found -> erase it from the map.
             if (it != mAttributes->mUserObjectsMap->end())

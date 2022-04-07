@@ -26,17 +26,18 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <limits>
+#include <utility>
 
-#include "OgreException.h"
-#include "OgreResourceManager.h"
-#include "OgreScriptCompiler.h"
-#include "OgreStringConverter.h"
+#include "OgreException.hpp"
+#include "OgreResourceManager.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre {
 
     //-----------------------------------------------------------------------
     ResourceManager::ResourceManager()
-        : mNextHandle(1), mMemoryUsage(0), mVerbose(true), mLoadOrder(0)
+        : mNextHandle(1), mMemoryUsage(0) 
     {
         // Init memory limit & usage
         mMemoryBudget = std::numeric_limits<unsigned long>::max();
@@ -52,8 +53,8 @@ namespace Ogre {
         ScriptCompilerManager::getSingleton().parseScript(stream, groupName);
     }
     //-----------------------------------------------------------------------
-    ResourcePtr ResourceManager::createResource(const String& name, const String& group,
-        bool isManual, ManualResourceLoader* loader, const NameValuePairList* params)
+    auto ResourceManager::createResource(const String& name, const String& group,
+        bool isManual, ManualResourceLoader* loader, const NameValuePairList* params) -> ResourcePtr
     {
         OgreAssert(!name.empty(), "resource name must not be empty");
 
@@ -71,11 +72,11 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    ResourceManager::ResourceCreateOrRetrieveResult 
+    auto 
     ResourceManager::createOrRetrieve(
         const String& name, const String& group, 
         bool isManual, ManualResourceLoader* loader, 
-        const NameValuePairList* params)
+        const NameValuePairList* params) -> ResourceManager::ResourceCreateOrRetrieveResult
     {
         ResourcePtr res = getResourceByName(name, group);
         bool created = false;
@@ -85,12 +86,12 @@ namespace Ogre {
             res = createResource(name, group, isManual, loader, params);
         }
 
-        return ResourceCreateOrRetrieveResult(res, created);
+        return { res, created };
     }
     //-----------------------------------------------------------------------
-    ResourcePtr ResourceManager::prepare(const String& name, 
+    auto ResourceManager::prepare(const String& name, 
         const String& group, bool isManual, ManualResourceLoader* loader, 
-        const NameValuePairList* loadParams, bool backgroundThread)
+        const NameValuePairList* loadParams, bool backgroundThread) -> ResourcePtr
     {
         ResourcePtr r = createOrRetrieve(name,group,isManual,loader,loadParams).first;
         // ensure prepared
@@ -98,9 +99,9 @@ namespace Ogre {
         return r;
     }
     //-----------------------------------------------------------------------
-    ResourcePtr ResourceManager::load(const String& name, 
+    auto ResourceManager::load(const String& name, 
         const String& group, bool isManual, ManualResourceLoader* loader, 
-        const NameValuePairList* loadParams, bool backgroundThread)
+        const NameValuePairList* loadParams, bool backgroundThread) -> ResourcePtr
     {
         ResourcePtr r = createOrRetrieve(name,group,isManual,loader,loadParams).first;
         // ensure loaded
@@ -168,7 +169,7 @@ namespace Ogre {
 
         if(ResourceGroupManager::getSingleton().isResourceGroupInGlobalPool(res->getGroup()))
         {
-            ResourceMap::iterator nameIt = mResources.find(res->getName());
+            auto nameIt = mResources.find(res->getName());
             if (nameIt != mResources.end())
             {
                 mResources.erase(nameIt);
@@ -176,10 +177,10 @@ namespace Ogre {
         }
         else
         {
-            ResourceWithGroupMap::iterator groupIt = mResourcesWithGroup.find(res->getGroup());
+            auto groupIt = mResourcesWithGroup.find(res->getGroup());
             if (groupIt != mResourcesWithGroup.end())
             {
-                ResourceMap::iterator nameIt = groupIt->second.find(res->getName());
+                auto nameIt = groupIt->second.find(res->getName());
                 if (nameIt != groupIt->second.end())
                 {
                     groupIt->second.erase(nameIt);
@@ -192,7 +193,7 @@ namespace Ogre {
             }
         }
 
-        ResourceHandleMap::iterator handleIt = mResourcesByHandle.find(res->getHandle());
+        auto handleIt = mResourcesByHandle.find(res->getHandle());
         if (handleIt != mResourcesByHandle.end())
         {
             mResourcesByHandle.erase(handleIt);
@@ -208,7 +209,7 @@ namespace Ogre {
         checkUsage();
     }
     //-----------------------------------------------------------------------
-    size_t ResourceManager::getMemoryBudget(void) const
+    auto ResourceManager::getMemoryBudget() const -> size_t
     {
         return mMemoryBudget;
     }
@@ -314,7 +315,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ResourceManager::removeAll(void)
+    void ResourceManager::removeAll()
     {
         mResources.clear();
         mResourcesWithGroup.clear();
@@ -346,7 +347,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    ResourcePtr ResourceManager::getResourceByName(const String& name, const String& groupName) const
+    auto ResourceManager::getResourceByName(const String& name, const String& groupName) const -> ResourcePtr
     {
         // resource should be in global pool
         bool isGlobal = ResourceGroupManager::getSingleton().isResourceGroupInGlobalPool(groupName);
@@ -390,22 +391,22 @@ namespace Ogre {
             }
         }
     
-        return ResourcePtr();
+        return {};
     }
     //-----------------------------------------------------------------------
-    ResourcePtr ResourceManager::getByHandle(ResourceHandle handle) const
+    auto ResourceManager::getByHandle(ResourceHandle handle) const -> ResourcePtr
     {
         auto it = mResourcesByHandle.find(handle);
         return it == mResourcesByHandle.end() ? ResourcePtr() : it->second;
     }
     //-----------------------------------------------------------------------
-    ResourceHandle ResourceManager::getNextHandle(void)
+    auto ResourceManager::getNextHandle() -> ResourceHandle
     {
         // This is an atomic operation and hence needs no locking
         return mNextHandle++;
     }
     //-----------------------------------------------------------------------
-    void ResourceManager::checkUsage(void)
+    void ResourceManager::checkUsage()
     {
         if (getMemoryUsage() > mMemoryBudget)
         {
@@ -444,9 +445,9 @@ namespace Ogre {
         mMemoryUsage -= res->getSize();
     }
     //---------------------------------------------------------------------
-    ResourceManager::ResourcePool* ResourceManager::getResourcePool(const String& name)
+    auto ResourceManager::getResourcePool(const String& name) -> ResourceManager::ResourcePool*
     {
-        ResourcePoolMap::iterator i = mResourcePoolMap.find(name);
+        auto i = mResourcePoolMap.find(name);
         if (i == mResourcePoolMap.end())
         {
             i = mResourcePoolMap.insert(ResourcePoolMap::value_type(name, 
@@ -460,7 +461,7 @@ namespace Ogre {
     {
         OgreAssert(pool, "Cannot destroy a null ResourcePool");
 
-        ResourcePoolMap::iterator i = mResourcePoolMap.find(pool->getName());
+        auto i = mResourcePoolMap.find(pool->getName());
         if (i != mResourcePoolMap.end())
             mResourcePoolMap.erase(i);
 
@@ -470,7 +471,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void ResourceManager::destroyResourcePool(const String& name)
     {
-        ResourcePoolMap::iterator i = mResourcePoolMap.find(name);
+        auto i = mResourcePoolMap.find(name);
         if (i != mResourcePoolMap.end())
         {
             delete i->second;
@@ -481,16 +482,15 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void ResourceManager::destroyAllResourcePools()
     {
-        for (ResourcePoolMap::iterator i = mResourcePoolMap.begin();
-            i != mResourcePoolMap.end(); ++i)
-            delete i->second;
+        for (auto & i : mResourcePoolMap)
+            delete i.second;
 
         mResourcePoolMap.clear();
     }
     //-----------------------------------------------------------------------
     //---------------------------------------------------------------------
-    ResourceManager::ResourcePool::ResourcePool(const String& name)
-        : mName(name)
+    ResourceManager::ResourcePool::ResourcePool(String  name)
+        : mName(std::move(name))
     {
 
     }
@@ -500,16 +500,16 @@ namespace Ogre {
         clear();
     }
     //---------------------------------------------------------------------
-    const String& ResourceManager::ResourcePool::getName() const
+    auto ResourceManager::ResourcePool::getName() const -> const String&
     {
         return mName;
     }
     //---------------------------------------------------------------------
     void ResourceManager::ResourcePool::clear()
     {
-        for (ItemList::iterator i = mItems.begin(); i != mItems.end(); ++i)
+        for (auto & mItem : mItems)
         {
-            (*i)->getCreator()->remove((*i)->getHandle());
+            mItem->getCreator()->remove(mItem->getHandle());
         }
         mItems.clear();
     }

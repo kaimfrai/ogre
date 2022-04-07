@@ -26,16 +26,16 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreOverlayContainer.h"
+#include "OgreOverlayContainer.hpp"
 
 #include <cstddef>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreMath.h"
-#include "OgreOverlay.h"
-#include "OgreOverlayManager.h"
+#include "OgreException.hpp"
+#include "OgreIteratorWrapper.hpp"
+#include "OgreMath.hpp"
+#include "OgreOverlay.hpp"
+#include "OgreOverlayManager.hpp"
 
 namespace Ogre {
 class Matrix4;
@@ -43,8 +43,8 @@ class RenderQueue;
 
     //---------------------------------------------------------------------
     OverlayContainer::OverlayContainer(const String& name)
-        : OverlayElement(name),
-        mChildrenProcessEvents(true)
+        : OverlayElement(name)
+        
     {
     }
     //---------------------------------------------------------------------
@@ -58,7 +58,7 @@ class RenderQueue;
 
         for (const auto& p : mChildren)
         {
-            p.second->_notifyParent(0, 0);
+            p.second->_notifyParent(nullptr, nullptr);
         }
     }
     //---------------------------------------------------------------------
@@ -78,7 +78,7 @@ class RenderQueue;
     void OverlayContainer::addChildImpl(OverlayElement* elem)
     {
         String name = elem->getName();
-        ChildMap::iterator i = mChildren.find(name);
+        auto i = mChildren.find(name);
         if (i != mChildren.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "Child with name " + name + 
@@ -121,9 +121,9 @@ class RenderQueue;
 
     }
     //---------------------------------------------------------------------
-    OverlayContainer::ChildMap::iterator OverlayContainer::removeChild(const String& name)
+    auto OverlayContainer::removeChild(const String& name) -> OverlayContainer::ChildMap::iterator
     {
-        ChildMap::iterator i = mChildren.find(name);
+        auto i = mChildren.find(name);
         if (i == mChildren.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Child with name " + name + 
@@ -134,11 +134,11 @@ class RenderQueue;
         auto eraseIt = mChildren.erase(i);
 
         // Remove from container list (if found)
-        ChildContainerMap::iterator j = mChildContainers.find(name);
+        auto j = mChildContainers.find(name);
         if (j != mChildContainers.end())
             mChildContainers.erase(j);
 
-        element->_setParent(0);
+        element->_setParent(nullptr);
 
         return eraseIt;
     }
@@ -155,9 +155,9 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    OverlayContainer::ChildMap::iterator OverlayContainer::_removeChild(const String& name)
+    auto OverlayContainer::_removeChild(const String& name) -> OverlayContainer::ChildMap::iterator
     {
-        ChildMap::iterator i = mChildren.find(name);
+        auto i = mChildren.find(name);
         if (i == mChildren.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Child with name " + name + 
@@ -168,18 +168,18 @@ class RenderQueue;
         auto eraseIt = mChildren.erase(i);
 
         // Remove from container list (if found)
-        ChildContainerMap::iterator j = mChildContainers.find(name);
+        auto j = mChildContainers.find(name);
         if (j != mChildContainers.end())
             mChildContainers.erase(j);
 
-        element->_setParent(0);
+        element->_setParent(nullptr);
 
         return eraseIt;
     }
     //---------------------------------------------------------------------
-    OverlayElement* OverlayContainer::getChild(const String& name)
+    auto OverlayContainer::getChild(const String& name) -> OverlayElement*
     {
-        ChildMap::iterator i = mChildren.find(name);
+        auto i = mChildren.find(name);
         if (i == mChildren.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Child with name " + name + 
@@ -190,12 +190,12 @@ class RenderQueue;
     }
 
     //---------------------------------------------------------------------
-    OverlayContainer::ChildContainerIterator OverlayContainer::getChildContainerIterator(void)
+    auto OverlayContainer::getChildContainerIterator() -> OverlayContainer::ChildContainerIterator
     {
-        return ChildContainerIterator(mChildContainers.begin(), mChildContainers.end());
+        return {mChildContainers.begin(), mChildContainers.end()};
     }
     //---------------------------------------------------------------------
-    void OverlayContainer::initialise(void)
+    void OverlayContainer::initialise()
     {
         ChildContainerMap::iterator coni;
         for (coni =  mChildContainers.begin(); coni != mChildContainers.end(); ++coni)
@@ -209,7 +209,7 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    void OverlayContainer::_positionsOutOfDate(void)
+    void OverlayContainer::_positionsOutOfDate()
     {
         OverlayElement::_positionsOutOfDate();
 
@@ -220,7 +220,7 @@ class RenderQueue;
     }
 
     //---------------------------------------------------------------------
-    void OverlayContainer::_update(void)
+    void OverlayContainer::_update()
     {
         // call superclass
         OverlayElement::_update();
@@ -232,7 +232,7 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    ushort OverlayContainer::_notifyZOrder(ushort newZOrder)
+    auto OverlayContainer::_notifyZOrder(ushort newZOrder) -> ushort
     {
         OverlayElement::_notifyZOrder(newZOrder);
         // One for us
@@ -301,10 +301,10 @@ class RenderQueue;
     }
 
 
-    OverlayElement* OverlayContainer::findElementAt(Real x, Real y)         // relative to parent
+    auto OverlayContainer::findElementAt(Real x, Real y) -> OverlayElement*         // relative to parent
     {
 
-        OverlayElement* ret = NULL;
+        OverlayElement* ret = nullptr;
 
         int currZ = -1;
 
@@ -357,7 +357,7 @@ class RenderQueue;
         }
     }
 
-    OverlayElement* OverlayContainer::clone(const String& instanceName)
+    auto OverlayContainer::clone(const String& instanceName) -> OverlayElement*
     {
         OverlayContainer *newContainer;
 

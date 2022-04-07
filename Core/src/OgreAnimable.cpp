@@ -27,14 +27,14 @@ THE SOFTWARE.
 */
 #include <utility>
 
-#include "OgreAnimable.h"
-#include "OgreAny.h"
+#include "OgreAnimable.hpp"
+#include "OgreAny.hpp"
 
 namespace Ogre {
     //--------------------------------------------------------------------------
     AnimableObject::AnimableDictionaryMap AnimableObject::msAnimableDictionary;
     //--------------------------------------------------------------------------
-    void AnimableObject::createAnimableDictionary(void) const
+    void AnimableObject::createAnimableDictionary() const
     {
         if (msAnimableDictionary.find(getAnimableDictionaryName()) == msAnimableDictionary.end())
         {
@@ -45,9 +45,9 @@ namespace Ogre {
     }
 
     /// Get an updateable reference to animable value list
-    StringVector& AnimableObject::_getAnimableValueNames(void)
+    auto AnimableObject::_getAnimableValueNames() -> StringVector&
     {
-        AnimableDictionaryMap::iterator i = msAnimableDictionary.find(getAnimableDictionaryName());
+        auto i = msAnimableDictionary.find(getAnimableDictionaryName());
         if (i != msAnimableDictionary.end())
         {
             return i->second;
@@ -56,11 +56,11 @@ namespace Ogre {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Animable value list not found for " + getAnimableDictionaryName());
     }
 
-    const StringVector& AnimableObject::getAnimableValueNames(void) const
+    auto AnimableObject::getAnimableValueNames() const -> const StringVector&
     {
         createAnimableDictionary();
 
-        AnimableDictionaryMap::iterator i = msAnimableDictionary.find(getAnimableDictionaryName());
+        auto i = msAnimableDictionary.find(getAnimableDictionaryName());
         if (i != msAnimableDictionary.end())
         {
             return i->second;
@@ -69,7 +69,7 @@ namespace Ogre {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Animable value list not found for " + getAnimableDictionaryName());
     }
 
-    void AnimableValue::resetToBaseValue(void)
+    void AnimableValue::resetToBaseValue()
     {
         switch(mType)
         {

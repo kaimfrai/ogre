@@ -25,10 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLHardwarePixelBufferCommon.h"
+#include "OgreGLHardwarePixelBufferCommon.hpp"
 
-#include "OgreException.h"
-#include "OgrePrerequisites.h"
+#include "OgreException.hpp"
+#include "OgrePrerequisites.hpp"
 
 namespace Ogre
 {
@@ -38,8 +38,8 @@ GLHardwarePixelBufferCommon::GLHardwarePixelBufferCommon(uint32 inWidth, uint32 
                                                        uint32 inDepth, PixelFormat inFormat,
                                                        HardwareBuffer::Usage usage)
     : HardwarePixelBuffer(inWidth, inHeight, inDepth, inFormat, usage, false, false),
-      mBuffer(inWidth, inHeight, inDepth, inFormat),
-      mGLInternalFormat(0)
+      mBuffer(inWidth, inHeight, inDepth, inFormat)
+      
 {
 }
 
@@ -64,11 +64,11 @@ void GLHardwarePixelBufferCommon::freeBuffer()
     if (mUsage & HBU_STATIC)
     {
         delete[] mBuffer.data;
-        mBuffer.data = 0;
+        mBuffer.data = nullptr;
     }
 }
 
-PixelBox GLHardwarePixelBufferCommon::lockImpl(const Box& lockBox, LockOptions options)
+auto GLHardwarePixelBufferCommon::lockImpl(const Box& lockBox, LockOptions options) -> PixelBox
 {
     allocateBuffer();
     if (!((mUsage & HBU_DETAIL_WRITE_ONLY) || (options == HBL_DISCARD) || (options == HBL_WRITE_ONLY)))
@@ -79,7 +79,7 @@ PixelBox GLHardwarePixelBufferCommon::lockImpl(const Box& lockBox, LockOptions o
     return mBuffer.getSubVolume(lockBox);
 }
 
-void GLHardwarePixelBufferCommon::unlockImpl(void)
+void GLHardwarePixelBufferCommon::unlockImpl()
 {
     if (mCurrentLockOptions != HBL_READ_ONLY)
     {

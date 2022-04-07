@@ -31,48 +31,48 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreCamera.h"
-#include "OgreCommon.h"
-#include "OgreEntity.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreLogManager.h"
-#include "OgreManualObject.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMesh.h"
-#include "OgreMeshManager.h"
-#include "OgreMovableObject.h"
-#include "OgrePass.h"
-#include "OgrePlane.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreRenderOperation.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
-#include "OgreTechnique.h"
-#include "OgreTexture.h"
-#include "OgreTextureUnitState.h"
-#include "OgreVector.h"
-#include "OgreViewport.h"
+#include "OgreCamera.hpp"
+#include "OgreCommon.hpp"
+#include "OgreEntity.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreManualObject.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMesh.hpp"
+#include "OgreMeshManager.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgrePass.hpp"
+#include "OgrePlane.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureUnitState.hpp"
+#include "OgreVector.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 class Node;
 class RenderQueue;
 
 SceneManager::SkyRenderer::SkyRenderer(SceneManager* owner)
-    : mSceneManager(owner), mSceneNode(0), mEnabled(false)
+    : mSceneManager(owner) 
 {
 }
 
 void SceneManager::SkyRenderer::nodeDestroyed(const Node*)
 {
     // Remove sky nodes since they've been deleted
-    mSceneNode = 0;
+    mSceneNode = nullptr;
     mEnabled = false;
 }
 
@@ -144,7 +144,7 @@ void SceneManager::SkyPlaneRenderer::setSkyPlane(
         {
             // destroy old one, do it by name for speed
             mSceneManager->destroyEntity(meshName);
-            mSkyPlaneEntity = 0;
+            mSkyPlaneEntity = nullptr;
         }
         // Create, use the same name for mesh and entity
         // manually construct as we don't want this to be destroyed on destroyAllMovableObjects
@@ -226,7 +226,7 @@ void SceneManager::SkyBoxRenderer::setSkyBox(
         // Create object
         if (!mSkyBoxObj)
         {
-            mSkyBoxObj.reset(new ManualObject("SkyBox"));
+            mSkyBoxObj = std::make_unique<ManualObject>("SkyBox");
             mSkyBoxObj->setCastShadows(false);
             mSceneNode->attachObject(mSkyBoxObj.get());
         }
@@ -364,7 +364,7 @@ void SceneManager::SkyDomeRenderer::setSkyDome(
             {
                 // destroy old one, do it by name for speed
                 mSceneManager->destroyEntity(entName);
-                mSkyDomeEntity[i] = 0;
+                mSkyDomeEntity[i] = nullptr;
             }
             // construct manually so we don't have problems if destroyAllMovableObjects called
             MovableObjectFactory* factory =
@@ -395,14 +395,14 @@ void SceneManager::SkyDomeRenderer::setSkyDome(
     mSkyDomeGenParameters.skyDomeYSegments_keep = ySegmentsToKeep;
 }
 
-MeshPtr SceneManager::SkyDomeRenderer::createSkydomePlane(
+auto SceneManager::SkyDomeRenderer::createSkydomePlane(
                                        BoxPlane bp,
                                        Real curvature,
                                        Real tiling,
                                        Real distance,
                                        const Quaternion& orientation,
                                        int xsegments, int ysegments, int ysegments_keep,
-                                       const String& groupName)
+                                       const String& groupName) -> MeshPtr
 {
 
     Plane plane;
@@ -441,7 +441,7 @@ MeshPtr SceneManager::SkyDomeRenderer::createSkydomePlane(
         break;
     case BP_DOWN:
         // no down
-        return MeshPtr();
+        return {};
     }
     // Modify by orientation
     plane.normal = orientation * plane.normal;

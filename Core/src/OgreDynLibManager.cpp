@@ -28,37 +28,36 @@ THE SOFTWARE.
 #include <cassert>
 #include <utility>
 
-#include "OgreDynLib.h"
-#include "OgreDynLibManager.h"
+#include "OgreDynLib.hpp"
+#include "OgreDynLibManager.hpp"
 
 namespace Ogre
 {
     //-----------------------------------------------------------------------
-    template<> DynLibManager* Singleton<DynLibManager>::msSingleton = 0;
-    DynLibManager* DynLibManager::getSingletonPtr(void)
+    template<> DynLibManager* Singleton<DynLibManager>::msSingleton = nullptr;
+    auto DynLibManager::getSingletonPtr() -> DynLibManager*
     {
         return msSingleton;
     }
     //-----------------------------------------------------------------------
-    DynLibManager& DynLibManager::getSingleton(void)
+    auto DynLibManager::getSingleton() -> DynLibManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
     //-----------------------------------------------------------------------
     DynLibManager::DynLibManager()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
-    DynLib* DynLibManager::load( const String& filename)
+    auto DynLibManager::load( const String& filename) -> DynLib*
     {
-        DynLibList::iterator i = mLibList.find(filename);
+        auto i = mLibList.find(filename);
         if (i != mLibList.end())
         {
             return i->second;
         }
         else
         {
-            DynLib* pLib = new DynLib(filename);
+            auto* pLib = new DynLib(filename);
             pLib->load();        
             mLibList[filename] = pLib;
             return pLib;
@@ -67,7 +66,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void DynLibManager::unload(DynLib* lib)
     {
-        DynLibList::iterator i = mLibList.find(lib->getName());
+        auto i = mLibList.find(lib->getName());
         if (i != mLibList.end())
         {
             mLibList.erase(i);
@@ -79,10 +78,10 @@ namespace Ogre
     DynLibManager::~DynLibManager()
     {
         // Unload & delete resources in turn
-        for( DynLibList::iterator it = mLibList.begin(); it != mLibList.end(); ++it )
+        for(auto & it : mLibList)
         {
-            it->second->unload();
-            delete it->second;
+            it.second->unload();
+            delete it.second;
         }
 
         // Empty the list

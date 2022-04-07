@@ -27,24 +27,23 @@ THE SOFTWARE.
 */
 #include <utility>
 
-#include "OgreCodec.h"
-#include "OgreException.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
+#include "OgreCodec.hpp"
+#include "OgreException.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre {
 class Any;
 
     std::map< String, Codec * > Codec::msMapCodecs;
 
-    Codec::~Codec() {
-    }
+    Codec::~Codec() = default;
 
-    DataStreamPtr Codec::encode(const Any& input) const
+    auto Codec::encode(const Any& input) const -> DataStreamPtr
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, getType() + " - encoding to memory not supported");
-        return DataStreamPtr();
+        return {};
     }
 
     void Codec::encodeToFile(const Any& input, const String& outFileName) const
@@ -52,7 +51,7 @@ class Any;
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, getType() + " - encoding to file not supported");
     }
 
-    StringVector Codec::getExtensions(void)
+    auto Codec::getExtensions() -> StringVector
     {
         StringVector result;
         result.reserve(msMapCodecs.size());
@@ -71,11 +70,11 @@ class Any;
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, pCodec->getType() + " already has a registered codec");
     }
 
-    Codec* Codec::getCodec(const String& extension)
+    auto Codec::getCodec(const String& extension) -> Codec*
     {
         String lwrcase = extension;
         StringUtil::toLowerCase(lwrcase);
-        CodecList::const_iterator i = msMapCodecs.find(lwrcase);
+        auto i = msMapCodecs.find(lwrcase);
         if (i == msMapCodecs.end())
         {
             String formats_str;
@@ -92,26 +91,25 @@ class Any;
 
     }
 
-    Codec* Codec::getCodec(char *magicNumberPtr, size_t maxbytes)
+    auto Codec::getCodec(char *magicNumberPtr, size_t maxbytes) -> Codec*
     {
-        for (CodecList::const_iterator i = msMapCodecs. begin(); 
-            i != msMapCodecs.end(); ++i)
+        for (auto & msMapCodec : msMapCodecs)
         {
-            String ext = i->second->magicNumberToFileExt(magicNumberPtr, maxbytes);
+            String ext = msMapCodec.second->magicNumberToFileExt(magicNumberPtr, maxbytes);
             if (!ext.empty())
             {
                 // check codec type matches
                 // if we have a single codec class that can handle many types, 
                 // and register many instances of it against different types, we
                 // can end up matching the wrong one here, so grab the right one
-                if (ext == i->second->getType())
-                    return i->second;
+                if (ext == msMapCodec.second->getType())
+                    return msMapCodec.second;
                 else
                     return getCodec(ext);
             }
         }
 
-        return 0;
+        return nullptr;
 
     }
 

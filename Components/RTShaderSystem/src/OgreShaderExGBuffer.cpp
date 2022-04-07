@@ -29,38 +29,34 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePass.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderExGBuffer.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderScriptTranslator.h"
-#include "OgreTechnique.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgrePass.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShaderExGBuffer.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrecompiledHeaders.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreShaderScriptTranslator.hpp"
+#include "OgreTechnique.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
         class RenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
+    }  // namespace Ogre
 
-namespace Ogre
-{
-namespace RTShader
+namespace Ogre::RTShader
 {
 
 /************************************************************************/
@@ -69,19 +65,19 @@ namespace RTShader
 String GBuffer::Type = "GBuffer";
 
 //-----------------------------------------------------------------------
-const String& GBuffer::getType() const { return Type; }
+auto GBuffer::getType() const -> const String& { return Type; }
 
 //-----------------------------------------------------------------------
-int GBuffer::getExecutionOrder() const { return FFP_LIGHTING; }
+auto GBuffer::getExecutionOrder() const -> int { return FFP_LIGHTING; }
 
-bool GBuffer::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+auto GBuffer::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
 {
     srcPass->getParent()->getParent()->setReceiveShadows(false);
     return true;
 }
 
 //-----------------------------------------------------------------------
-bool GBuffer::createCpuSubPrograms(ProgramSet* programSet)
+auto GBuffer::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
     Function* psMain = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM)->getMain();
 
@@ -97,7 +93,7 @@ bool GBuffer::createCpuSubPrograms(ProgramSet* programSet)
             break;
         case TL_NORMAL_VIEWDEPTH:
             addViewPosInvocations(programSet, out, true);
-            OGRE_FALLTHROUGH;
+            [[fallthrough]];
         case TL_NORMAL:
             addNormalInvocations(programSet, out);
             break;
@@ -219,14 +215,14 @@ void GBuffer::addDiffuseSpecularInvocations(ProgramSet* programSet, const Parame
 //-----------------------------------------------------------------------
 void GBuffer::copyFrom(const SubRenderState& rhs)
 {
-    const GBuffer& rhsTransform = static_cast<const GBuffer&>(rhs);
+    const auto& rhsTransform = static_cast<const GBuffer&>(rhs);
     mOutBuffers = rhsTransform.mOutBuffers;
 }
 
 //-----------------------------------------------------------------------
-const String& GBufferFactory::getType() const { return GBuffer::Type; }
+auto GBufferFactory::getType() const -> const String& { return GBuffer::Type; }
 
-static GBuffer::TargetLayout translate(const String& val)
+static auto translate(const String& val) -> GBuffer::TargetLayout
 {
     if(val == "depth")
         return GBuffer::TL_DEPTH;
@@ -240,11 +236,11 @@ static GBuffer::TargetLayout translate(const String& val)
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* GBufferFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                               SGScriptTranslator* translator)
+auto GBufferFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
+                                               SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name != "lighting_stage" || prop->values.size() < 2)
-        return NULL;
+        return nullptr;
 
     auto it = prop->values.begin();
     String val;
@@ -252,18 +248,18 @@ SubRenderState* GBufferFactory::createInstance(ScriptCompiler* compiler, Propert
     if(!SGScriptTranslator::getString(*it++, &val))
     {
         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-        return NULL;
+        return nullptr;
     }
 
     if (val != "gbuffer")
-        return NULL;
+        return nullptr;
 
     GBuffer::TargetBuffers targets;
 
     if(!SGScriptTranslator::getString(*it++, &val))
     {
         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-        return NULL;
+        return nullptr;
     }
     targets.push_back(translate(val));
 
@@ -272,7 +268,7 @@ SubRenderState* GBufferFactory::createInstance(ScriptCompiler* compiler, Propert
         if(!SGScriptTranslator::getString(*it++, &val))
         {
             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-            return NULL;
+            return nullptr;
         }
 
         targets.push_back(translate(val));
@@ -293,7 +289,6 @@ void GBufferFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subR
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* GBufferFactory::createInstanceImpl() { return new GBuffer; }
+auto GBufferFactory::createInstanceImpl() -> SubRenderState* { return new GBuffer; }
 
-} // namespace RTShader
 } // namespace Ogre

@@ -10,20 +10,15 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "OgreMurmurHash3.h"
-#include "OgrePlatform.h"
+#include "OgreMurmurHash3.hpp"
+#include "OgrePlatform.hpp"
 
-//-----------------------------------------------------------------------------
-// Platform-specific functions and macros
-
-#define FORCE_INLINE inline __attribute__((always_inline))
-
-inline uint32_t rotl32 ( uint32_t x, int8_t r )
+inline auto rotl32 ( uint32_t x, int8_t r ) -> uint32_t
 {
   return (x << r) | (x >> (32 - r));
 }
 
-inline uint64_t rotl64 ( uint64_t x, int8_t r )
+inline auto rotl64 ( uint64_t x, int8_t r ) -> uint64_t
 {
   return (x << r) | (x >> (64 - r));
 }
@@ -39,12 +34,12 @@ namespace Ogre
 // Block read - if your platform needs to do endian-swapping or can only
 // handle aligned reads, do the conversion here
 
-FORCE_INLINE uint32_t getblock32 ( const uint32_t * p, int i )
+inline auto getblock32 ( const uint32_t * p, int i ) -> uint32_t
 {
   return p[i];
 }
 
-FORCE_INLINE uint64_t getblock64 ( const uint64_t * p, int i )
+inline auto getblock64 ( const uint64_t * p, int i ) -> uint64_t
 {
   return p[i];
 }
@@ -52,7 +47,7 @@ FORCE_INLINE uint64_t getblock64 ( const uint64_t * p, int i )
 //-----------------------------------------------------------------------------
 // Finalization mix - force all bits of a hash block to avalanche
 
-FORCE_INLINE uint32_t fmix32 ( uint32_t h )
+inline auto fmix32 ( uint32_t h ) -> uint32_t
 {
   h ^= h >> 16;
   h *= 0x85ebca6b;
@@ -65,7 +60,7 @@ FORCE_INLINE uint32_t fmix32 ( uint32_t h )
 
 //----------
 
-FORCE_INLINE uint64_t fmix64 ( uint64_t k )
+inline auto fmix64 ( uint64_t k ) -> uint64_t
 {
   k ^= k >> 33;
   k *= BIG_CONSTANT(0xff51afd7ed558ccd);
@@ -81,7 +76,7 @@ FORCE_INLINE uint64_t fmix64 ( uint64_t k )
 void MurmurHash3_x86_32 ( const void * key, const size_t len,
                           uint32_t seed, void * out )
 {
-  const uint8_t * data = (const uint8_t*)key;
+  const auto * data = (const uint8_t*)key;
   const int nblocks = len / 4;
 
   uint32_t h1 = seed;
@@ -92,7 +87,7 @@ void MurmurHash3_x86_32 ( const void * key, const size_t len,
   //----------
   // body
 
-  const uint32_t * blocks = (const uint32_t *)(data + nblocks*4);
+  const auto * blocks = (const uint32_t *)(data + nblocks*4);
 
   for(int i = -nblocks; i; i++)
   {
@@ -110,14 +105,14 @@ void MurmurHash3_x86_32 ( const void * key, const size_t len,
   //----------
   // tail
 
-  const uint8_t * tail = (const uint8_t*)(data + nblocks*4);
+  const auto * tail = (const uint8_t*)(data + nblocks*4);
 
   uint32_t k1 = 0;
 
   switch(len & 3)
   {
-  case 3: k1 ^= tail[2] << 16; OGRE_FALLTHROUGH;
-  case 2: k1 ^= tail[1] << 8; OGRE_FALLTHROUGH;
+  case 3: k1 ^= tail[2] << 16; [[fallthrough]];
+  case 2: k1 ^= tail[1] << 8; [[fallthrough]];
   case 1: k1 ^= tail[0];
           k1 *= c1; k1 = ROTL32(k1,15); k1 *= c2; h1 ^= k1;
   };
@@ -137,7 +132,7 @@ void MurmurHash3_x86_32 ( const void * key, const size_t len,
 void MurmurHash3_x86_128 ( const void * key, const size_t len,
                            uint32_t seed, void * out )
 {
-  const uint8_t * data = (const uint8_t*)key;
+  const auto * data = (const uint8_t*)key;
   const int nblocks = len / 16;
 
   uint32_t h1 = seed;
@@ -153,7 +148,7 @@ void MurmurHash3_x86_128 ( const void * key, const size_t len,
   //----------
   // body
 
-  const uint32_t * blocks = (const uint32_t *)(data + nblocks*16);
+  const auto * blocks = (const uint32_t *)(data + nblocks*16);
 
   for(int i = -nblocks; i; i++)
   {
@@ -182,7 +177,7 @@ void MurmurHash3_x86_128 ( const void * key, const size_t len,
   //----------
   // tail
 
-  const uint8_t * tail = (const uint8_t*)(data + nblocks*16);
+  const auto * tail = (const uint8_t*)(data + nblocks*16);
 
   uint32_t k1 = 0;
   uint32_t k2 = 0;
@@ -191,26 +186,26 @@ void MurmurHash3_x86_128 ( const void * key, const size_t len,
 
   switch(len & 15)
   {
-  case 15: k4 ^= tail[14] << 16; OGRE_FALLTHROUGH;
-  case 14: k4 ^= tail[13] << 8; OGRE_FALLTHROUGH;
+  case 15: k4 ^= tail[14] << 16; [[fallthrough]];
+  case 14: k4 ^= tail[13] << 8; [[fallthrough]];
   case 13: k4 ^= tail[12] << 0;
-           k4 *= c4; k4  = ROTL32(k4,18); k4 *= c1; h4 ^= k4; OGRE_FALLTHROUGH;
+           k4 *= c4; k4  = ROTL32(k4,18); k4 *= c1; h4 ^= k4; [[fallthrough]];
 
-  case 12: k3 ^= tail[11] << 24; OGRE_FALLTHROUGH;
-  case 11: k3 ^= tail[10] << 16; OGRE_FALLTHROUGH;
-  case 10: k3 ^= tail[ 9] << 8; OGRE_FALLTHROUGH;
+  case 12: k3 ^= tail[11] << 24; [[fallthrough]];
+  case 11: k3 ^= tail[10] << 16; [[fallthrough]];
+  case 10: k3 ^= tail[ 9] << 8; [[fallthrough]];
   case  9: k3 ^= tail[ 8] << 0;
-           k3 *= c3; k3  = ROTL32(k3,17); k3 *= c4; h3 ^= k3; OGRE_FALLTHROUGH;
+           k3 *= c3; k3  = ROTL32(k3,17); k3 *= c4; h3 ^= k3; [[fallthrough]];
 
-  case  8: k2 ^= tail[ 7] << 24; OGRE_FALLTHROUGH;
-  case  7: k2 ^= tail[ 6] << 16; OGRE_FALLTHROUGH;
-  case  6: k2 ^= tail[ 5] << 8; OGRE_FALLTHROUGH;
+  case  8: k2 ^= tail[ 7] << 24; [[fallthrough]];
+  case  7: k2 ^= tail[ 6] << 16; [[fallthrough]];
+  case  6: k2 ^= tail[ 5] << 8; [[fallthrough]];
   case  5: k2 ^= tail[ 4] << 0;
-           k2 *= c2; k2  = ROTL32(k2,16); k2 *= c3; h2 ^= k2; OGRE_FALLTHROUGH;
+           k2 *= c2; k2  = ROTL32(k2,16); k2 *= c3; h2 ^= k2; [[fallthrough]];
 
-  case  4: k1 ^= tail[ 3] << 24; OGRE_FALLTHROUGH;
-  case  3: k1 ^= tail[ 2] << 16; OGRE_FALLTHROUGH;
-  case  2: k1 ^= tail[ 1] << 8; OGRE_FALLTHROUGH;
+  case  4: k1 ^= tail[ 3] << 24; [[fallthrough]];
+  case  3: k1 ^= tail[ 2] << 16; [[fallthrough]];
+  case  2: k1 ^= tail[ 1] << 8; [[fallthrough]];
   case  1: k1 ^= tail[ 0] << 0;
            k1 *= c1; k1  = ROTL32(k1,15); k1 *= c2; h1 ^= k1;
   };
@@ -242,7 +237,7 @@ void MurmurHash3_x86_128 ( const void * key, const size_t len,
 void MurmurHash3_x64_128 ( const void * key, const size_t len,
                            const uint32_t seed, void * out )
 {
-  const uint8_t * data = (const uint8_t*)key;
+  const auto * data = (const uint8_t*)key;
   const int nblocks = len / 16;
 
   uint64_t h1 = seed;
@@ -254,7 +249,7 @@ void MurmurHash3_x64_128 ( const void * key, const size_t len,
   //----------
   // body
 
-  const uint64_t * blocks = (const uint64_t *)(data);
+  const auto * blocks = (const uint64_t *)(data);
 
   for(int i = 0; i < nblocks; i++)
   {
@@ -273,29 +268,29 @@ void MurmurHash3_x64_128 ( const void * key, const size_t len,
   //----------
   // tail
 
-  const uint8_t * tail = (const uint8_t*)(data + nblocks*16);
+  const auto * tail = (const uint8_t*)(data + nblocks*16);
 
   uint64_t k1 = 0;
   uint64_t k2 = 0;
 
   switch(len & 15)
   {
-  case 15: k2 ^= ((uint64_t)tail[14]) << 48; OGRE_FALLTHROUGH;
-  case 14: k2 ^= ((uint64_t)tail[13]) << 40; OGRE_FALLTHROUGH;
-  case 13: k2 ^= ((uint64_t)tail[12]) << 32; OGRE_FALLTHROUGH;
-  case 12: k2 ^= ((uint64_t)tail[11]) << 24; OGRE_FALLTHROUGH;
-  case 11: k2 ^= ((uint64_t)tail[10]) << 16; OGRE_FALLTHROUGH;
-  case 10: k2 ^= ((uint64_t)tail[ 9]) << 8; OGRE_FALLTHROUGH;
+  case 15: k2 ^= ((uint64_t)tail[14]) << 48; [[fallthrough]];
+  case 14: k2 ^= ((uint64_t)tail[13]) << 40; [[fallthrough]];
+  case 13: k2 ^= ((uint64_t)tail[12]) << 32; [[fallthrough]];
+  case 12: k2 ^= ((uint64_t)tail[11]) << 24; [[fallthrough]];
+  case 11: k2 ^= ((uint64_t)tail[10]) << 16; [[fallthrough]];
+  case 10: k2 ^= ((uint64_t)tail[ 9]) << 8; [[fallthrough]];
   case  9: k2 ^= ((uint64_t)tail[ 8]) << 0;
-           k2 *= c2; k2  = ROTL64(k2,33); k2 *= c1; h2 ^= k2; OGRE_FALLTHROUGH;
+           k2 *= c2; k2  = ROTL64(k2,33); k2 *= c1; h2 ^= k2; [[fallthrough]];
 
-  case  8: k1 ^= ((uint64_t)tail[ 7]) << 56; OGRE_FALLTHROUGH;
-  case  7: k1 ^= ((uint64_t)tail[ 6]) << 48; OGRE_FALLTHROUGH;
-  case  6: k1 ^= ((uint64_t)tail[ 5]) << 40; OGRE_FALLTHROUGH;
-  case  5: k1 ^= ((uint64_t)tail[ 4]) << 32; OGRE_FALLTHROUGH;
-  case  4: k1 ^= ((uint64_t)tail[ 3]) << 24; OGRE_FALLTHROUGH;
-  case  3: k1 ^= ((uint64_t)tail[ 2]) << 16; OGRE_FALLTHROUGH;
-  case  2: k1 ^= ((uint64_t)tail[ 1]) << 8; OGRE_FALLTHROUGH;
+  case  8: k1 ^= ((uint64_t)tail[ 7]) << 56; [[fallthrough]];
+  case  7: k1 ^= ((uint64_t)tail[ 6]) << 48; [[fallthrough]];
+  case  6: k1 ^= ((uint64_t)tail[ 5]) << 40; [[fallthrough]];
+  case  5: k1 ^= ((uint64_t)tail[ 4]) << 32; [[fallthrough]];
+  case  4: k1 ^= ((uint64_t)tail[ 3]) << 24; [[fallthrough]];
+  case  3: k1 ^= ((uint64_t)tail[ 2]) << 16; [[fallthrough]];
+  case  2: k1 ^= ((uint64_t)tail[ 1]) << 8; [[fallthrough]];
   case  1: k1 ^= ((uint64_t)tail[ 0]) << 0;
            k1 *= c1; k1  = ROTL64(k1,31); k1 *= c2; h1 ^= k1;
   };

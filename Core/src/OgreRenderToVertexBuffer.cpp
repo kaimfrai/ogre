@@ -26,30 +26,27 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <memory>
 #include <string>
 
-#include "OgreException.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreRenderToVertexBuffer.h"
-#include "OgreVertexIndexData.h"
+#include "OgreException.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreRenderToVertexBuffer.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 class VertexDeclaration;
 
     //-----------------------------------------------------------------------
-    RenderToVertexBuffer::RenderToVertexBuffer() :
-        mOperationType(RenderOperation::OT_TRIANGLE_LIST),
-        mResetsEveryUpdate(false),
-        mResetRequested(true),
-        mSourceRenderable(0),
-        mMaxVertexCount(1000)
+    RenderToVertexBuffer::RenderToVertexBuffer() 
+        
     {
-        mVertexData.reset(new VertexData);
+        mVertexData = std::make_unique<VertexData>();
     }
     RenderToVertexBuffer::~RenderToVertexBuffer() = default; // ensure unique_ptr destructors are in cpp
     //-----------------------------------------------------------------------
-    VertexDeclaration* RenderToVertexBuffer::getVertexDeclaration()
+    auto RenderToVertexBuffer::getVertexDeclaration() -> VertexDeclaration*
     {
         //TODO : Mark dirty?
         return mVertexData->vertexDeclaration;

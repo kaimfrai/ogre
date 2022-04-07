@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreBillboard.h"
+#include "OgreBillboard.hpp"
 
 namespace Ogre {
 class BillboardSet;
@@ -43,8 +43,7 @@ class BillboardSet;
     }
     //-----------------------------------------------------------------------
     Billboard::~Billboard()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     Billboard::Billboard(const Vector3& position, BillboardSet* owner, const ColourValue& colour)
         : mOwnDimensions(false)

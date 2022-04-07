@@ -26,14 +26,13 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderHLSLProgramWriter.h"
-#include "OgreShaderProgramWriter.h"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderHLSLProgramWriter.hpp"
+#include "OgreShaderProgramWriter.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 String HLSLProgramWriter::TargetLanguage = "hlsl";
 
@@ -52,9 +51,6 @@ HLSLProgramWriter::HLSLProgramWriter()
 }
 
 HLSLProgramWriter::~HLSLProgramWriter()
-{
+= default;
 
-}
-
-}
 }

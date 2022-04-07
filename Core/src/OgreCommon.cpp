@@ -29,16 +29,16 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreCommon.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreString.h"
+#include "OgreCommon.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreString.hpp"
 
 namespace Ogre 
 {
-    int findCommandLineOpts(int numargs, char** argv, UnaryOptionList& unaryOptList, 
-        BinaryOptionList& binOptList)
+    auto findCommandLineOpts(int numargs, char** argv, UnaryOptionList& unaryOptList, 
+        BinaryOptionList& binOptList) -> int
     {
         int startIndex = 1;
         for (int i = 1; i < numargs; ++i)
@@ -46,14 +46,14 @@ namespace Ogre
             String tmp(argv[i]);
             if (StringUtil::startsWith(tmp, "-"))
             {
-                UnaryOptionList::iterator ui = unaryOptList.find(argv[i]);
+                auto ui = unaryOptList.find(argv[i]);
                 if(ui != unaryOptList.end())
                 {
                     ui->second = true;
                     ++startIndex;
                     continue;
                 }
-                BinaryOptionList::iterator bi = binOptList.find(argv[i]);
+                auto bi = binOptList.find(argv[i]);
                 if(bi != binOptList.end())
                 {
                     bi->second = argv[i+1];

@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 
 
-#include "OgreGLRenderSystem.h"
+#include "OgreGLRenderSystem.hpp"
 
 #include <algorithm>
 #include <cassert>
@@ -42,56 +42,56 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "ATI_FS_GLGpuProgram.h"
-#include "OgreConfig.h"
-#include "OgreConfigOptionMap.h"
-#include "OgreDepthBuffer.h"
-#include "OgreException.h"
-#include "OgreFrustum.h"
-#include "OgreGLContext.h"
-#include "OgreGLCopyingRenderTexture.h"
-#include "OgreGLDepthBufferCommon.h"
-#include "OgreGLFBOMultiRenderTarget.h"
-#include "OgreGLFBORenderTexture.h"
-#include "OgreGLGpuNvparseProgram.h"
-#include "OgreGLGpuProgram.h"
-#include "OgreGLGpuProgramManager.h"
-#include "OgreGLHardwareBuffer.h"
-#include "OgreGLHardwareBufferManager.h"
-#include "OgreGLHardwareOcclusionQuery.h"
-#include "OgreGLHardwarePixelBuffer.h"
-#include "OgreGLNativeSupport.h"
-#include "OgreGLPBRenderTexture.h"
-#include "OgreGLPixelFormat.h"
-#include "OgreGLPrerequisites.h"
-#include "OgreGLRenderTarget.h"
-#include "OgreGLRenderTexture.h"
-#include "OgreGLSLProgramCommon.h"
-#include "OgreGLSLProgramFactory.h"
-#include "OgreGLStateCacheManager.h"
-#include "OgreGLTexture.h"
-#include "OgreGLTextureManager.h"
-#include "OgreGLUtil.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLogManager.h"
-#include "OgreMath.h"
-#include "OgrePixelFormat.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRenderTexture.h"
-#include "OgreResource.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
-#include "OgreTextureManager.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
-#include "OgreViewport.h"
+#include "ATI_FS_GLGpuProgram.hpp"
+#include "OgreConfig.hpp"
+#include "OgreConfigOptionMap.hpp"
+#include "OgreDepthBuffer.hpp"
+#include "OgreException.hpp"
+#include "OgreFrustum.hpp"
+#include "OgreGLContext.hpp"
+#include "OgreGLCopyingRenderTexture.hpp"
+#include "OgreGLDepthBufferCommon.hpp"
+#include "OgreGLFBOMultiRenderTarget.hpp"
+#include "OgreGLFBORenderTexture.hpp"
+#include "OgreGLGpuNvparseProgram.hpp"
+#include "OgreGLGpuProgram.hpp"
+#include "OgreGLGpuProgramManager.hpp"
+#include "OgreGLHardwareBuffer.hpp"
+#include "OgreGLHardwareBufferManager.hpp"
+#include "OgreGLHardwareOcclusionQuery.hpp"
+#include "OgreGLHardwarePixelBuffer.hpp"
+#include "OgreGLNativeSupport.hpp"
+#include "OgreGLPBRenderTexture.hpp"
+#include "OgreGLPixelFormat.hpp"
+#include "OgreGLPrerequisites.hpp"
+#include "OgreGLRenderTarget.hpp"
+#include "OgreGLRenderTexture.hpp"
+#include "OgreGLSLProgramCommon.hpp"
+#include "OgreGLSLProgramFactory.hpp"
+#include "OgreGLStateCacheManager.hpp"
+#include "OgreGLTexture.hpp"
+#include "OgreGLTextureManager.hpp"
+#include "OgreGLUtil.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMath.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRenderTexture.hpp"
+#include "OgreResource.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreVector.hpp"
+#include "OgreVertexIndexData.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 class HardwareOcclusionQuery;
@@ -104,51 +104,51 @@ class ResourceManager;
 namespace Ogre {
 
     static GLNativeSupport* glsupport;
-    static void* get_proc(const char* proc) {
+    static auto get_proc(const char* proc) -> void* {
         return glsupport->getProcAddress(proc);
     }
 
-    typedef TransformBase<4, float> Matrix4f;
+    using Matrix4f = TransformBase<4, float>;
 
     // Callback function used when registering GLGpuPrograms
-    static GpuProgram* createGLArbGpuProgram(ResourceManager* creator,
+    static auto createGLArbGpuProgram(ResourceManager* creator,
                                       const String& name, ResourceHandle handle,
                                       const String& group, bool isManual, ManualResourceLoader* loader,
-                                      GpuProgramType gptype, const String& syntaxCode)
+                                      GpuProgramType gptype, const String& syntaxCode) -> GpuProgram*
     {
-        GLArbGpuProgram* ret = new GLArbGpuProgram(
+        auto* ret = new GLArbGpuProgram(
             creator, name, handle, group, isManual, loader);
         ret->setType(gptype);
         ret->setSyntaxCode(syntaxCode);
         return ret;
     }
 
-    static GpuProgram* createGLGpuNvparseProgram(ResourceManager* creator,
+    static auto createGLGpuNvparseProgram(ResourceManager* creator,
                                           const String& name, ResourceHandle handle,
                                           const String& group, bool isManual, ManualResourceLoader* loader,
-                                          GpuProgramType gptype, const String& syntaxCode)
+                                          GpuProgramType gptype, const String& syntaxCode) -> GpuProgram*
     {
-        GLGpuNvparseProgram* ret = new GLGpuNvparseProgram(
+        auto* ret = new GLGpuNvparseProgram(
             creator, name, handle, group, isManual, loader);
         ret->setType(gptype);
         ret->setSyntaxCode(syntaxCode);
         return ret;
     }
 
-    static GpuProgram* createGL_ATI_FS_GpuProgram(ResourceManager* creator,
+    static auto createGL_ATI_FS_GpuProgram(ResourceManager* creator,
                                            const String& name, ResourceHandle handle,
                                            const String& group, bool isManual, ManualResourceLoader* loader,
-                                           GpuProgramType gptype, const String& syntaxCode)
+                                           GpuProgramType gptype, const String& syntaxCode) -> GpuProgram*
     {
 
-        ATI_FS_GLGpuProgram* ret = new ATI_FS_GLGpuProgram(
+        auto* ret = new ATI_FS_GLGpuProgram(
             creator, name, handle, group, isManual, loader);
         ret->setType(gptype);
         ret->setSyntaxCode(syntaxCode);
         return ret;
     }
 
-    static GLint getCombinedMinMipFilter(FilterOptions min, FilterOptions mip)
+    static auto getCombinedMinMipFilter(FilterOptions min, FilterOptions mip) -> GLint
     {
         switch(min)
         {
@@ -191,16 +191,8 @@ namespace Ogre {
     }
 
     GLRenderSystem::GLRenderSystem()
-    :   mFixedFunctionTextureUnits(0),
-        mStencilWriteMask(0xFFFFFFFF),
-        mDepthWrite(true),
-        mUseAutoTextureMatrix(false),
-        mHardwareBufferManager(0),
-        mGpuProgramManager(0),
-        mGLSLProgramFactory(0),
-        mStateCacheManager(0),
-        mActiveTextureUnit(0),
-        mMaxBuiltInTextureAttribIndex(0)
+    
+        
     {
         size_t i;
 
@@ -225,9 +217,9 @@ namespace Ogre {
             mTextureTypes[i] = 0;
         }
 
-        mActiveRenderTarget = 0;
-        mCurrentContext = 0;
-        mMainContext = 0;
+        mActiveRenderTarget = nullptr;
+        mCurrentContext = nullptr;
+        mMainContext = nullptr;
 
         mGLInitialised = false;
         mEnableFixedPipeline = true;
@@ -235,10 +227,10 @@ namespace Ogre {
         mCurrentLights = 0;
         mMinFilter = FO_LINEAR;
         mMipFilter = FO_POINT;
-        mCurrentVertexProgram = 0;
-        mCurrentGeometryProgram = 0;
-        mCurrentFragmentProgram = 0;
-        mRTTManager = NULL;
+        mCurrentVertexProgram = nullptr;
+        mCurrentGeometryProgram = nullptr;
+        mCurrentFragmentProgram = nullptr;
+        mRTTManager = nullptr;
     }
 
     GLRenderSystem::~GLRenderSystem()
@@ -248,8 +240,8 @@ namespace Ogre {
         delete mGLSupport;
     }
 
-    const GpuProgramParametersPtr& GLRenderSystem::getFixedFunctionParams(TrackVertexColourType tracking,
-                                                                          FogMode fog)
+    auto GLRenderSystem::getFixedFunctionParams(TrackVertexColourType tracking,
+                                                                          FogMode fog) -> const GpuProgramParametersPtr&
     {
         _setSurfaceTracking(tracking);
         _setFog(fog);
@@ -373,7 +365,7 @@ namespace Ogre {
         glPopMatrix();
     }
 
-    const String& GLRenderSystem::getName(void) const
+    auto GLRenderSystem::getName() const -> const String&
     {
         static String strName("OpenGL Rendering Subsystem");
         return strName;
@@ -409,9 +401,9 @@ namespace Ogre {
         mOptions[opt.name] = opt;
     }
 
-    RenderSystemCapabilities* GLRenderSystem::createRenderSystemCapabilities() const
+    auto GLRenderSystem::createRenderSystemCapabilities() const -> RenderSystemCapabilities*
     {
-        RenderSystemCapabilities* rsc = new RenderSystemCapabilities();
+        auto* rsc = new RenderSystemCapabilities();
 
         rsc->setCategoryRelevant(CAPS_CATEGORY_GL, true);
         rsc->setDriverVersion(mDriverVersion);
@@ -441,7 +433,7 @@ namespace Ogre {
             if (arbUnits > units)
                 units = arbUnits;
         }
-        rsc->setNumTextureUnits(std::min(OGRE_MAX_TEXTURE_LAYERS, units));
+        rsc->setNumTextureUnits(std::min(static_cast<GLint>(OGRE_MAX_TEXTURE_LAYERS), units));
 
         // Check for Anisotropy support
         if(GLAD_GL_EXT_texture_filter_anisotropic)
@@ -968,7 +960,7 @@ namespace Ogre {
         mGLInitialised = true;
     }
 
-    void GLRenderSystem::shutdown(void)
+    void GLRenderSystem::shutdown()
     {
         RenderSystem::shutdown();
 
@@ -979,7 +971,7 @@ namespace Ogre {
             if (HighLevelGpuProgramManager::getSingletonPtr())
                 HighLevelGpuProgramManager::getSingleton().removeFactory(mGLSLProgramFactory);
             delete mGLSLProgramFactory;
-            mGLSLProgramFactory = 0;
+            mGLSLProgramFactory = nullptr;
         }
 
         // Delete extra threads contexts
@@ -992,23 +984,23 @@ namespace Ogre {
 
         // Deleting the GPU program manager and hardware buffer manager.  Has to be done before the mGLSupport->stop().
         delete mGpuProgramManager;
-        mGpuProgramManager = 0;
+        mGpuProgramManager = nullptr;
 
         delete mHardwareBufferManager;
-        mHardwareBufferManager = 0;
+        mHardwareBufferManager = nullptr;
 
         delete mRTTManager;
-        mRTTManager = 0;
+        mRTTManager = nullptr;
 
         mGLSupport->stop();
 
         delete mTextureManager;
-        mTextureManager = 0;
+        mTextureManager = nullptr;
 
         // There will be a new initial window and so forth, thus any call to test
         //  some params will access an invalid pointer, so it is best to reset
         //  the whole state.
-        mGLInitialised = 0;
+        mGLInitialised = false;
     }
 
     void GLRenderSystem::setShadingType(ShadeOptions so)
@@ -1025,9 +1017,9 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    RenderWindow* GLRenderSystem::_createRenderWindow(const String &name,
+    auto GLRenderSystem::_createRenderWindow(const String &name,
                                                       unsigned int width, unsigned int height, bool fullScreen,
-                                                      const NameValuePairList *miscParams)
+                                                      const NameValuePairList *miscParams) -> RenderWindow*
     {
         RenderSystem::_createRenderWindow(name, width, height, fullScreen, miscParams);
 
@@ -1078,7 +1070,7 @@ namespace Ogre {
             GLContext *windowContext = dynamic_cast<GLRenderTarget*>(win)->getContext();;
 
             auto depthBuffer =
-                new GLDepthBufferCommon(DepthBuffer::POOL_DEFAULT, this, windowContext, 0, 0, win, true);
+                new GLDepthBufferCommon(DepthBuffer::POOL_DEFAULT, this, windowContext, nullptr, nullptr, win, true);
 
             mDepthBufferPool[depthBuffer->getPoolId()].push_back( depthBuffer );
 
@@ -1088,7 +1080,7 @@ namespace Ogre {
         return win;
     }
     //---------------------------------------------------------------------
-    DepthBuffer* GLRenderSystem::_createDepthBufferFor( RenderTarget *renderTarget )
+    auto GLRenderSystem::_createDepthBufferFor( RenderTarget *renderTarget ) -> DepthBuffer*
     {
         if( auto fbo = dynamic_cast<GLRenderTarget*>(renderTarget)->getFBO() )
         {
@@ -1096,10 +1088,10 @@ namespace Ogre {
             GLuint depthFormat, stencilFormat;
             mRTTManager->getBestDepthStencil(fbo->getFormat(), &depthFormat, &stencilFormat);
 
-            GLRenderBuffer *depthBuffer = new GLRenderBuffer( depthFormat, fbo->getWidth(),
+            auto *depthBuffer = new GLRenderBuffer( depthFormat, fbo->getWidth(),
                                                               fbo->getHeight(), fbo->getFSAA() );
 
-            GLRenderBuffer *stencilBuffer = NULL;
+            GLRenderBuffer *stencilBuffer = nullptr;
             if ( depthFormat == GL_DEPTH24_STENCIL8_EXT)
             {
                 // If we have a packed format, the stencilBuffer is the same as the depthBuffer
@@ -1115,7 +1107,7 @@ namespace Ogre {
                                            renderTarget, false);
         }
 
-        return NULL;
+        return nullptr;
     }
 
     void GLRenderSystem::initialiseContext(RenderWindow* primary)
@@ -1149,7 +1141,7 @@ namespace Ogre {
 
 
     //-----------------------------------------------------------------------
-    MultiRenderTarget * GLRenderSystem::createMultiRenderTarget(const String & name)
+    auto GLRenderSystem::createMultiRenderTarget(const String & name) -> MultiRenderTarget *
     {
         auto fboMgr = dynamic_cast<GLFBOManager*>(mRTTManager);
         if (!fboMgr)
@@ -1174,13 +1166,13 @@ namespace Ogre {
 
         bool bFound = false;
         //Find the depth buffer from this window and remove it.
-        DepthBufferMap::iterator itMap = mDepthBufferPool.begin();
-        DepthBufferMap::iterator enMap = mDepthBufferPool.end();
+        auto itMap = mDepthBufferPool.begin();
+        auto enMap = mDepthBufferPool.end();
 
         while( itMap != enMap && !bFound )
         {
-            DepthBufferVec::iterator itor = itMap->second.begin();
-            DepthBufferVec::iterator end  = itMap->second.end();
+            auto itor = itMap->second.begin();
+            auto end  = itMap->second.end();
 
             while( itor != end )
             {
@@ -1362,7 +1354,7 @@ namespace Ogre {
                 mStateCacheManager->setEnabled(GL_VERTEX_PROGRAM_POINT_SIZE, false);
         }
 
-        mStateCacheManager->setPointParameters(NULL, minSize, maxSize);
+        mStateCacheManager->setPointParameters(nullptr, minSize, maxSize);
     }
 
     void GLRenderSystem::_setLineWidth(float width)
@@ -1632,8 +1624,8 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    GLint GLRenderSystem::getTextureAddressingMode(
-        TextureAddressingMode tam) const
+    auto GLRenderSystem::getTextureAddressingMode(
+        TextureAddressingMode tam) const -> GLint
     {
         switch(tam)
         {
@@ -1686,7 +1678,7 @@ namespace Ogre {
         glMatrixMode(GL_MODELVIEW);
     }
     //-----------------------------------------------------------------------------
-    GLint GLRenderSystem::getBlendMode(SceneBlendFactor ogreBlend) const
+    auto GLRenderSystem::getBlendMode(SceneBlendFactor ogreBlend) const -> GLint
     {
         switch(ogreBlend)
         {
@@ -1738,8 +1730,8 @@ namespace Ogre {
         // Check if viewport is different
         if (!vp)
         {
-            mActiveViewport = NULL;
-            _setRenderTarget(NULL);
+            mActiveViewport = nullptr;
+            _setRenderTarget(nullptr);
         }
         else if (vp != mActiveViewport || vp->_isUpdated())
         {
@@ -1764,7 +1756,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    void GLRenderSystem::_endFrame(void)
+    void GLRenderSystem::_endFrame()
     {
         // unbind GPU programs at end of frame
         // this is mostly to avoid holding bound programs that might get deleted
@@ -1845,7 +1837,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    static GLenum getBlendOp(SceneBlendOperation op)
+    static auto getBlendOp(SceneBlendOperation op) -> GLenum
     {
         switch (op)
         {
@@ -2009,7 +2001,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    GLint GLRenderSystem::convertCompareFunction(CompareFunction func) const
+    auto GLRenderSystem::convertCompareFunction(CompareFunction func) const -> GLint
     {
         switch(func)
         {
@@ -2034,7 +2026,7 @@ namespace Ogre {
         return GL_ALWAYS;
     }
     //---------------------------------------------------------------------
-    GLint GLRenderSystem::convertStencilOp(StencilOperation op, bool invert) const
+    auto GLRenderSystem::convertStencilOp(StencilOperation op, bool invert) const -> GLint
     {
         switch(op)
         {
@@ -2354,7 +2346,7 @@ namespace Ogre {
             bindVertexElementToGpu(elem, vertexBuffer, op.vertexData->vertexStart);
         }
 
-        if( globalInstanceVertexBuffer && globalVertexDeclaration != NULL )
+        if( globalInstanceVertexBuffer && globalVertexDeclaration != nullptr )
         {
             elemEnd = globalVertexDeclaration->getElements().end();
             for (elemIter = globalVertexDeclaration->getElements().begin(); elemIter != elemEnd; ++elemIter)
@@ -2412,7 +2404,7 @@ namespace Ogre {
 
         if (op.useIndexes)
         {
-            void* pBufferData = 0;
+            void* pBufferData = nullptr;
             mStateCacheManager->bindGLBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB,
                                 op.indexData->indexBuffer->_getImpl<GLHardwareBuffer>()->getGLBufferId());
 
@@ -2473,15 +2465,15 @@ namespace Ogre {
             glDisableClientState( GL_SECONDARY_COLOR_ARRAY );
         }
         // unbind any custom attributes
-        for (std::vector<GLuint>::iterator ai = mRenderAttribsBound.begin(); ai != mRenderAttribsBound.end(); ++ai)
+        for (unsigned int & ai : mRenderAttribsBound)
         {
-            glDisableVertexAttribArrayARB(*ai);
+            glDisableVertexAttribArrayARB(ai);
         }
 
         // unbind any instance attributes
-        for (std::vector<GLuint>::iterator ai = mRenderInstanceAttribsBound.begin(); ai != mRenderInstanceAttribsBound.end(); ++ai)
+        for (unsigned int & ai : mRenderInstanceAttribsBound)
         {
-            glVertexAttribDivisorARB(*ai, 0);
+            glVertexAttribDivisorARB(ai, 0);
         }
 
         mRenderAttribsBound.clear();
@@ -2503,7 +2495,7 @@ namespace Ogre {
                         "GLRenderSystem::bindGpuProgram");
         }
 
-        GLGpuProgramBase* glprg = dynamic_cast<GLGpuProgramBase*>(prg);
+        auto* glprg = dynamic_cast<GLGpuProgramBase*>(prg);
 
         // Unbind previous gpu program first.
         //
@@ -2568,19 +2560,19 @@ namespace Ogre {
         {
             mActiveVertexGpuProgramParameters.reset();
             mCurrentVertexProgram->unbindProgram();
-            mCurrentVertexProgram = 0;
+            mCurrentVertexProgram = nullptr;
         }
         else if (gptype == GPT_GEOMETRY_PROGRAM && mCurrentGeometryProgram)
         {
             mActiveGeometryGpuProgramParameters.reset();
             mCurrentGeometryProgram->unbindProgram();
-            mCurrentGeometryProgram = 0;
+            mCurrentGeometryProgram = nullptr;
         }
         else if (gptype == GPT_FRAGMENT_PROGRAM && mCurrentFragmentProgram)
         {
             mActiveFragmentGpuProgramParameters.reset();
             mCurrentFragmentProgram->unbindProgram();
-            mCurrentFragmentProgram = 0;
+            mCurrentFragmentProgram = nullptr;
         }
         RenderSystem::unbindGpuProgram(gptype);
 
@@ -2642,7 +2634,7 @@ namespace Ogre {
         numClipPlanes = clipPlanes.size();
         for (i = 0; i < numClipPlanes; ++i)
         {
-            GLenum clipPlaneId = static_cast<GLenum>(GL_CLIP_PLANE0 + i);
+            auto clipPlaneId = static_cast<GLenum>(GL_CLIP_PLANE0 + i);
             const Plane& plane = clipPlanes[i];
 
             if (i >= 6/*GL_MAX_CLIP_PLANES*/)
@@ -2760,9 +2752,9 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    HardwareOcclusionQuery* GLRenderSystem::createHardwareOcclusionQuery(void)
+    auto GLRenderSystem::createHardwareOcclusionQuery() -> HardwareOcclusionQuery*
     {
-        GLHardwareOcclusionQuery* ret = new GLHardwareOcclusionQuery();
+        auto* ret = new GLHardwareOcclusionQuery();
         mHwOcclusionQueries.push_back(ret);
         return ret;
     }
@@ -2905,9 +2897,9 @@ namespace Ogre {
             } else {
                 /// No contexts remain
                 mCurrentContext->endCurrent();
-                mCurrentContext = 0;
-                mMainContext = 0;
-                mStateCacheManager = 0;
+                mCurrentContext = nullptr;
+                mMainContext = nullptr;
+                mStateCacheManager = nullptr;
             }
         }
     }
@@ -2919,7 +2911,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    void GLRenderSystem::endProfileEvent( void )
+    void GLRenderSystem::endProfileEvent( )
     {
         markProfileEvent("End Event");
     }
@@ -2939,7 +2931,7 @@ namespace Ogre {
                                                 const HardwareVertexBufferSharedPtr& vertexBuffer,
                                                 const size_t vertexStart)
     {
-        void* pBufferData = 0;
+        void* pBufferData = nullptr;
         const GLHardwareBuffer* hwGlBuffer = vertexBuffer->_getImpl<GLHardwareBuffer>();
 
         mStateCacheManager->bindGLBuffer(GL_ARRAY_BUFFER_ARB, 
@@ -3112,7 +3104,7 @@ namespace Ogre {
         PixelUtil::bulkPixelVerticalFlip(dst);
     }
 	//---------------------------------------------------------------------
-    void GLRenderSystem::initialiseExtensions(void)
+    void GLRenderSystem::initialiseExtensions()
     {
         // Set version string
         const GLubyte* pcVer = glGetString(GL_VERSION);

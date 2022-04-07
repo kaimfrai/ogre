@@ -29,15 +29,15 @@ THE SOFTWARE.
 #include <cstring>
 #include <string>
 
-#include "OgreControllerManager.h"
-#include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgrePass.h"
-#include "OgreResourceManager.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
+#include "OgreControllerManager.hpp"
+#include "OgreException.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePass.hpp"
+#include "OgreResourceManager.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTextureUnitState.hpp"
 
 namespace Ogre {
 class Frustum;
@@ -47,18 +47,11 @@ class Frustum;
 
     Sampler::Sampler()
         : mBorderColour(ColourValue::Black)
-        , mMaxAniso(1)
-        , mMipmapBias(0)
-        , mMinFilter(FO_LINEAR)
-        , mMagFilter(FO_LINEAR)
-        , mMipFilter(FO_POINT)
-        , mCompareFunc(CMPF_GREATER_EQUAL)
-        , mCompareEnabled(false)
-        , mDirty(true)
+         
     {
         setAddressingMode(TAM_WRAP);
     }
-    Sampler::~Sampler() {}
+    Sampler::~Sampler() = default;
     //-----------------------------------------------------------------------
     void Sampler::setAddressingMode(const UVWAddressingMode& uvw)
     {
@@ -111,7 +104,7 @@ class Frustum;
         mDirty = true;
     }
     //-----------------------------------------------------------------------
-    FilterOptions Sampler::getFiltering(FilterType ft) const
+    auto Sampler::getFiltering(FilterType ft) const -> FilterOptions
     {
         switch (ft)
         {
@@ -144,7 +137,7 @@ class Frustum;
         , mFramePtrs(1)
         , mSampler(TextureManager::getSingletonPtr() ? TextureManager::getSingleton().getDefaultSampler() : DUMMY_SAMPLER)
         , mParent(parent)
-        , mAnimController(0)
+        , mAnimController(nullptr)
     {
         mColourBlendMode.blendType = LBT_COLOUR;
         mAlphaBlendMode.operation = LBX_MODULATE;
@@ -164,7 +157,7 @@ class Frustum;
     TextureUnitState::TextureUnitState(Pass* parent, const TextureUnitState& oth )
     {
         mParent = parent;
-        mAnimController = 0;
+        mAnimController = nullptr;
         *this = oth;
     }
 
@@ -186,7 +179,7 @@ class Frustum;
         , mRecalcTexMatrix(false)
         , mSampler(TextureManager::getSingletonPtr() ? TextureManager::getSingleton().getDefaultSampler() : DUMMY_SAMPLER)
         , mParent(parent)
-        , mAnimController(0)
+        , mAnimController(nullptr)
     {
         mColourBlendMode.blendType = LBT_COLOUR;
         mAlphaBlendMode.operation = LBX_MODULATE;
@@ -211,10 +204,10 @@ class Frustum;
         _unload();
     }
     //-----------------------------------------------------------------------
-    TextureUnitState & TextureUnitState::operator = ( 
-        const TextureUnitState &oth )
+    auto TextureUnitState::operator = ( 
+        const TextureUnitState &oth ) -> TextureUnitState &
     {
-        assert(mAnimController == 0);
+        assert(mAnimController == nullptr);
         removeAllEffects();
 
         // copy basic members (int's, real's)
@@ -228,9 +221,9 @@ class Frustum;
         mCompositorRefName = oth.mCompositorRefName;
         mCompositorRefTexName = oth.mCompositorRefTexName;
         // Can't sharing controllers with other TUS, reset to null to avoid potential bug.
-        for (EffectMap::iterator j = mEffects.begin(); j != mEffects.end(); ++j)
+        for (auto & mEffect : mEffects)
         {
-            j->second.controller = 0;
+            mEffect.second.controller = nullptr;
         }
 
         // Load immediately if Material loaded
@@ -248,7 +241,7 @@ class Frustum;
         return *this;
     }
     //-----------------------------------------------------------------------
-    const String& TextureUnitState::getTextureName(void) const
+    auto TextureUnitState::getTextureName() const -> const String&
     {
         // Return name of current frame
         if (mCurrentFrame < mFramePtrs.size() && mFramePtrs[mCurrentFrame])
@@ -321,12 +314,12 @@ class Frustum;
         mContentType = ct;
     }
     //-----------------------------------------------------------------------
-    TextureUnitState::ContentType TextureUnitState::getContentType(void) const
+    auto TextureUnitState::getContentType() const -> TextureUnitState::ContentType
     {
         return mContentType;
     }
     //-----------------------------------------------------------------------
-    TextureType TextureUnitState::getTextureType(void) const
+    auto TextureUnitState::getTextureType() const -> TextureType
     {
         return !mFramePtrs[0] ? TEX_TYPE_2D : mFramePtrs[0]->getTextureType();
     }
@@ -462,7 +455,7 @@ class Frustum;
     }
 
     //-----------------------------------------------------------------------
-    std::pair<uint32, uint32> TextureUnitState::getTextureDimensions(unsigned int frame) const
+    auto TextureUnitState::getTextureDimensions(unsigned int frame) const -> std::pair<uint32, uint32>
     {
         
         TexturePtr tex = _getTexturePtr(frame);
@@ -484,17 +477,17 @@ class Frustum;
         }
     }
     //-----------------------------------------------------------------------
-    unsigned int TextureUnitState::getCurrentFrame(void) const
+    auto TextureUnitState::getCurrentFrame() const -> unsigned int
     {
         return mCurrentFrame;
     }
     //-----------------------------------------------------------------------
-    unsigned int TextureUnitState::getNumFrames(void) const
+    auto TextureUnitState::getNumFrames() const -> unsigned int
     {
         return (unsigned int)mFramePtrs.size();
     }
     //-----------------------------------------------------------------------
-    const String& TextureUnitState::getFrameTextureName(unsigned int frameNumber) const
+    auto TextureUnitState::getFrameTextureName(unsigned int frameNumber) const -> const String&
     {
         OgreAssert(frameNumber < mFramePtrs.size(), "out of range");
 
@@ -508,7 +501,7 @@ class Frustum;
             frame->setFormat(desiredFormat);
     }
     //-----------------------------------------------------------------------
-    PixelFormat TextureUnitState::getDesiredFormat(void) const
+    auto TextureUnitState::getDesiredFormat() const -> PixelFormat
     {
         return !mFramePtrs[0] ? PF_UNKNOWN : mFramePtrs[0]->getDesiredFormat();
     }
@@ -522,7 +515,7 @@ class Frustum;
                                      : numMipmaps);
     }
     //-----------------------------------------------------------------------
-    int TextureUnitState::getNumMipmaps(void) const
+    auto TextureUnitState::getNumMipmaps() const -> int
     {
         return !mFramePtrs[0] ? int(MIP_DEFAULT) : mFramePtrs[0]->getNumMipmaps();
     }
@@ -533,7 +526,7 @@ class Frustum;
         for(auto& frame : mFramePtrs)
             frame->setTreatLuminanceAsAlpha(isAlpha);
     }
-    float TextureUnitState::getGamma() const
+    auto TextureUnitState::getGamma() const -> float
     {
         return !mFramePtrs[0] ? 1.0f : mFramePtrs[0]->getGamma();
     }
@@ -551,12 +544,12 @@ class Frustum;
             frame->setHardwareGammaEnabled(g);
     }
     //-----------------------------------------------------------------------
-    bool TextureUnitState::isHardwareGammaEnabled() const
+    auto TextureUnitState::isHardwareGammaEnabled() const -> bool
     {
         return mFramePtrs[0] && mFramePtrs[0]->isHardwareGammaEnabled();
     }
     //-----------------------------------------------------------------------
-    unsigned int TextureUnitState::getTextureCoordSet(void) const
+    auto TextureUnitState::getTextureCoordSet() const -> unsigned int
     {
         return mTextureCoordSetIndex;
     }
@@ -631,7 +624,7 @@ class Frustum;
     void TextureUnitState::addEffect(TextureEffect& effect)
     {
         // Ensure controller pointer is null
-        effect.controller = 0;
+        effect.controller = nullptr;
 
         if (effect.type == ET_ENVIRONMENT_MAP 
             || effect.type == ET_UVSCROLL
@@ -642,7 +635,7 @@ class Frustum;
         {
             // Replace - must be unique
             // Search for existing effect of this type
-            EffectMap::iterator i = mEffects.find(effect.type);
+            auto i = mEffects.find(effect.type);
             if (i != mEffects.end())
             {
                 // Destroy old effect controller if exist
@@ -666,7 +659,7 @@ class Frustum;
 
     }
     //-----------------------------------------------------------------------
-    void TextureUnitState::removeAllEffects(void)
+    void TextureUnitState::removeAllEffects()
     {
         // Iterate over effects to remove controllers
         EffectMap::iterator i, iend;
@@ -683,28 +676,28 @@ class Frustum;
     }
 
     //-----------------------------------------------------------------------
-    bool TextureUnitState::isBlank(void) const
+    auto TextureUnitState::isBlank() const -> bool
     {
         return !mFramePtrs[0] || mTextureLoadFailed;
     }
 
     //-----------------------------------------------------------------------
-    SceneBlendFactor TextureUnitState::getColourBlendFallbackSrc(void) const
+    auto TextureUnitState::getColourBlendFallbackSrc() const -> SceneBlendFactor
     {
         return mColourBlendFallbackSrc;
     }
     //-----------------------------------------------------------------------
-    SceneBlendFactor TextureUnitState::getColourBlendFallbackDest(void) const
+    auto TextureUnitState::getColourBlendFallbackDest() const -> SceneBlendFactor
     {
         return mColourBlendFallbackDest;
     }
     //-----------------------------------------------------------------------
-    const LayerBlendModeEx& TextureUnitState::getColourBlendMode(void) const
+    auto TextureUnitState::getColourBlendMode() const -> const LayerBlendModeEx&
     {
         return mColourBlendMode;
     }
     //-----------------------------------------------------------------------
-    const LayerBlendModeEx& TextureUnitState::getAlphaBlendMode(void) const
+    auto TextureUnitState::getAlphaBlendMode() const -> const LayerBlendModeEx&
     {
         return mAlphaBlendMode;
     }
@@ -731,7 +724,7 @@ class Frustum;
         std::pair< EffectMap::iterator, EffectMap::iterator > remPair = 
             mEffects.equal_range( type );
         // Remove controllers
-        for (EffectMap::iterator i = remPair.first; i != remPair.second; ++i)
+        for (auto i = remPair.first; i != remPair.second; ++i)
         {
             if (i->second.controller)
             {
@@ -742,10 +735,10 @@ class Frustum;
         mEffects.erase( remPair.first, remPair.second );
     }
     //-----------------------------------------------------------------------
-    void TextureUnitState::setBlank(void)
+    void TextureUnitState::setBlank()
     {
         mFramePtrs.clear();
-        mFramePtrs.push_back(TexturePtr()); // insert nullptr to show warning tex
+        mFramePtrs.emplace_back(); // insert nullptr to show warning tex
     }
     //-----------------------------------------------------------------------
     void TextureUnitState::setTextureTransform(const Matrix4& xform)
@@ -774,7 +767,7 @@ class Frustum;
         mRecalcTexMatrix = true;
     }
     //-----------------------------------------------------------------------
-    const Matrix4& TextureUnitState::getTextureTransform() const
+    auto TextureUnitState::getTextureTransform() const -> const Matrix4&
     {
         if (mRecalcTexMatrix)
             recalcTextureMatrix();
@@ -912,7 +905,7 @@ class Frustum;
         // note, only remove for subtype, not entire ET_TRANSFORM
         // otherwise we won't be able to combine subtypes
         // Get range of items matching this effect
-        for (EffectMap::iterator i = mEffects.begin(); i != mEffects.end(); ++i)
+        for (auto i = mEffects.begin(); i != mEffects.end(); ++i)
         {
             if (i->second.type == ET_TRANSFORM && i->second.subtype == ttype)
             {
@@ -944,7 +937,7 @@ class Frustum;
         addEffect(eff);
     }
     //-----------------------------------------------------------------------
-    void TextureUnitState::_prepare(void)
+    void TextureUnitState::_prepare()
     {
         // Unload first
         //_unload();
@@ -956,7 +949,7 @@ class Frustum;
         }
     }
     //-----------------------------------------------------------------------
-    void TextureUnitState::_load(void)
+    void TextureUnitState::_load()
     {
 
         // Load textures
@@ -970,19 +963,19 @@ class Frustum;
             createAnimController();
         }
         // Effect controllers
-        for (EffectMap::iterator it = mEffects.begin(); it != mEffects.end(); ++it)
+        for (auto & mEffect : mEffects)
         {
-            createEffectController(it->second);
+            createEffectController(mEffect.second);
         }
 
     }
     //-----------------------------------------------------------------------
-    const TexturePtr& TextureUnitState::_getTexturePtr(void) const
+    auto TextureUnitState::_getTexturePtr() const -> const TexturePtr&
     {
         return _getTexturePtr(mCurrentFrame);
     }
     //-----------------------------------------------------------------------
-    const TexturePtr& TextureUnitState::_getTexturePtr(size_t frame) const
+    auto TextureUnitState::_getTexturePtr(size_t frame) const -> const TexturePtr&
     {
         if (frame < mFramePtrs.size())
         {
@@ -1010,7 +1003,7 @@ class Frustum;
         mFramePtrs[frame] = texptr;
     }
     //-----------------------------------------------------------------------
-    TexturePtr TextureUnitState::retrieveTexture(const String& name) {
+    auto TextureUnitState::retrieveTexture(const String& name) -> TexturePtr {
         TextureManager::ResourceCreateOrRetrieveResult res;
         res = TextureManager::getSingleton().createOrRetrieve(name, mParent->getResourceGroup());
         return static_pointer_cast<Texture>(res.first);
@@ -1056,12 +1049,12 @@ class Frustum;
         }
     }
     //-----------------------------------------------------------------------
-    void TextureUnitState::createAnimController(void)
+    void TextureUnitState::createAnimController()
     {
         if (mAnimController)
         {
             ControllerManager::getSingleton().destroyController(mAnimController);
-            mAnimController = 0;
+            mAnimController = nullptr;
         }
         mAnimController = ControllerManager::getSingleton().createTextureAnimator(this, mAnimDuration);
 
@@ -1072,7 +1065,7 @@ class Frustum;
         if (effect.controller)
         {
             ControllerManager::getSingleton().destroyController(effect.controller);
-            effect.controller = 0;
+            effect.controller = nullptr;
         }
         ControllerManager& cMgr = ControllerManager::getSingleton();
         switch (effect.type)
@@ -1100,68 +1093,68 @@ class Frustum;
         }
     }
     //-----------------------------------------------------------------------
-    Real TextureUnitState::getTextureUScroll(void) const
+    auto TextureUnitState::getTextureUScroll() const -> Real
     {
         return mUMod;
     }
 
     //-----------------------------------------------------------------------
-    Real TextureUnitState::getTextureVScroll(void) const
+    auto TextureUnitState::getTextureVScroll() const -> Real
     {
         return mVMod;
     }
 
     //-----------------------------------------------------------------------
-    Real TextureUnitState::getTextureUScale(void) const
+    auto TextureUnitState::getTextureUScale() const -> Real
     {
         return mUScale;
     }
 
     //-----------------------------------------------------------------------
-    Real TextureUnitState::getTextureVScale(void) const
+    auto TextureUnitState::getTextureVScale() const -> Real
     {
         return mVScale;
     }
 
     //-----------------------------------------------------------------------
-    const Radian& TextureUnitState::getTextureRotate(void) const
+    auto TextureUnitState::getTextureRotate() const -> const Radian&
     {
         return mRotate;
     }
     
     //-----------------------------------------------------------------------
-    Real TextureUnitState::getAnimationDuration(void) const
+    auto TextureUnitState::getAnimationDuration() const -> Real
     {
         return mAnimDuration;
     }
 
     //-----------------------------------------------------------------------
-    const TextureUnitState::EffectMap& TextureUnitState::getEffects(void) const
+    auto TextureUnitState::getEffects() const -> const TextureUnitState::EffectMap&
     {
         return mEffects;
     }
     //-----------------------------------------------------------------------
-    void TextureUnitState::_unprepare(void)
+    void TextureUnitState::_unprepare()
     {
         // don't unload textures. may be used elsewhere
     }
     //-----------------------------------------------------------------------
-    void TextureUnitState::_unload(void)
+    void TextureUnitState::_unload()
     {
         // Destroy animation controller
         if (mAnimController)
         {
             ControllerManager::getSingleton().destroyController(mAnimController);
-            mAnimController = 0;
+            mAnimController = nullptr;
         }
 
         // Destroy effect controllers
-        for (EffectMap::iterator i = mEffects.begin(); i != mEffects.end(); ++i)
+        for (auto & mEffect : mEffects)
         {
-            if (i->second.controller)
+            if (mEffect.second.controller)
             {
-                ControllerManager::getSingleton().destroyController(i->second.controller);
-                i->second.controller = 0;
+                ControllerManager::getSingleton().destroyController(mEffect.second.controller);
+                mEffect.second.controller = nullptr;
             }
         }
 
@@ -1171,17 +1164,17 @@ class Frustum;
             mFramePtrs[0].reset();
     }
     //-----------------------------------------------------------------------------
-    bool TextureUnitState::isLoaded(void) const
+    auto TextureUnitState::isLoaded() const -> bool
     {
         return mParent->isLoaded();
     }
     //-----------------------------------------------------------------------
-    void TextureUnitState::_notifyNeedsRecompile(void)
+    void TextureUnitState::_notifyNeedsRecompile()
     {
         mParent->_notifyNeedsRecompile();
     }
     //-----------------------------------------------------------------------
-    bool TextureUnitState::hasViewRelativeTextureCoordinateGeneration(void) const
+    auto TextureUnitState::hasViewRelativeTextureCoordinateGeneration() const -> bool
     {
         // Right now this only returns true for reflection maps
 
@@ -1236,7 +1229,7 @@ class Frustum;
         mCompositorRefMrtIndex = mrtIndex; 
     }
     //-----------------------------------------------------------------------
-    size_t TextureUnitState::calculateSize(void) const
+    auto TextureUnitState::calculateSize() const -> size_t
     {
         size_t memSize = sizeof(*this);
         memSize += mFramePtrs.size() * sizeof(TexturePtr);
@@ -1244,11 +1237,11 @@ class Frustum;
         return memSize;
     }
 
-    bool TextureUnitState::isDefaultFiltering() const {
+    auto TextureUnitState::isDefaultFiltering() const -> bool {
         return mSampler == TextureManager::getSingleton().getDefaultSampler();
     }
 
-    const SamplerPtr& TextureUnitState::_getLocalSampler()
+    auto TextureUnitState::_getLocalSampler() -> const SamplerPtr&
     {
         if(isDefaultFiltering())
             mSampler = TextureManager::getSingleton().createSampler();

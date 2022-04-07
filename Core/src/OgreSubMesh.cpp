@@ -31,38 +31,31 @@ THE SOFTWARE.
 #include <set>
 #include <vector>
 
-#include "OgreAnimationTrack.h"
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreMesh.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreSharedPtr.h"
-#include "OgreSubMesh.h"
-#include "OgreVector.h"
-#include "OgreVertexBoneAssignment.h"
-#include "OgreVertexIndexData.h"
+#include "OgreAnimationTrack.hpp"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreMesh.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreVector.hpp"
+#include "OgreVertexBoneAssignment.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 class HardwareBufferManagerBase;
 
     //-----------------------------------------------------------------------
     SubMesh::SubMesh()
-        : vertexData(0)
-        , parent(0)
-        , useSharedVertices(true)
-        , operationType(RenderOperation::OT_TRIANGLE_LIST)
-        , mBoneAssignmentsOutOfDate(false)
-        , mVertexAnimationType(VAT_NONE)
-        , mVertexAnimationIncludesNormals(false)
-        , mBuildEdgesEnabled(true)
+         
     {
         indexData = new IndexData();
     }
@@ -80,7 +73,7 @@ class HardwareBufferManagerBase;
         mMaterial = MaterialManager::getSingleton().getByName(name, groupName);
     }
     //-----------------------------------------------------------------------
-    const String& SubMesh::getMaterialName() const
+    auto SubMesh::getMaterialName() const -> const String&
     {
         return mMaterial ? mMaterial->getName() : BLANKSTRING;
     }
@@ -110,14 +103,14 @@ class HardwareBufferManagerBase;
         mBoneAssignmentsOutOfDate = true;
     }
     //-----------------------------------------------------------------------
-    void SubMesh::clearBoneAssignments(void)
+    void SubMesh::clearBoneAssignments()
     {
         mBoneAssignments.clear();
         mBoneAssignmentsOutOfDate = true;
     }
 
     //-----------------------------------------------------------------------
-    void SubMesh::_compileBoneAssignments(void)
+    void SubMesh::_compileBoneAssignments()
     {
         unsigned short maxBones =
             parent->_rationaliseBoneAssignments(vertexData->vertexCount, mBoneAssignments);
@@ -131,10 +124,10 @@ class HardwareBufferManagerBase;
         mBoneAssignmentsOutOfDate = false;
     }
     //---------------------------------------------------------------------
-    SubMesh::AliasTextureIterator SubMesh::getAliasTextureIterator(void) const
+    auto SubMesh::getAliasTextureIterator() const -> SubMesh::AliasTextureIterator
     {
-        return AliasTextureIterator(mTextureAliases.begin(),
-            mTextureAliases.end());
+        return {mTextureAliases.begin(),
+            mTextureAliases.end()};
     }
     //---------------------------------------------------------------------
     void SubMesh::addTextureAlias(const String& aliasName, const String& textureName)
@@ -143,7 +136,7 @@ class HardwareBufferManagerBase;
     }
 
     //---------------------------------------------------------------------
-    void SubMesh::removeLodLevels(void)
+    void SubMesh::removeLodLevels()
     {
         LODFaceList::iterator lodi, lodend;
         lodend = mLodFaceList.end();
@@ -156,7 +149,7 @@ class HardwareBufferManagerBase;
 
     }
     //---------------------------------------------------------------------
-    VertexAnimationType SubMesh::getVertexAnimationType(void) const
+    auto SubMesh::getVertexAnimationType() const -> VertexAnimationType
     {
         if(parent->_getAnimationTypesDirty())
         {
@@ -178,9 +171,10 @@ class HardwareBufferManagerBase;
         std::set<uint32> mIndices;
 
         Cluster ()
-        { }
+        = default;
 
-        bool empty () const
+        [[nodiscard]]
+        auto empty () const -> bool
         {
             if (mIndices.empty ())
                 return true;
@@ -189,7 +183,8 @@ class HardwareBufferManagerBase;
             return false;
         }
 
-        float volume () const
+        [[nodiscard]]
+        auto volume () const -> float
         {
             return (mMax.x - mMin.x) * (mMax.y - mMin.y) * (mMax.z - mMin.z);
         }
@@ -209,23 +204,22 @@ class HardwareBufferManagerBase;
             mMin.x = mMin.y = mMin.z = Math::POS_INFINITY;
             mMax.x = mMax.y = mMax.z = Math::NEG_INFINITY;
 
-            for (std::set<uint32>::const_iterator i = mIndices.begin ();
-                 i != mIndices.end (); ++i)
+            for (unsigned int mIndice : mIndices)
             {
                 float *v;
-                poselem->baseVertexPointerToElement (vdata + *i * vsz, &v);
+                poselem->baseVertexPointerToElement (vdata + mIndice * vsz, &v);
                 extend (v);
             }
         }
 
-        Cluster split (int split_axis, const VertexElement *poselem,
-                       uint8 *vdata, size_t vsz)
+        auto split (int split_axis, const VertexElement *poselem,
+                       uint8 *vdata, size_t vsz) -> Cluster
         {
             Real r = (mMin [split_axis] + mMax [split_axis]) * 0.5f;
             Cluster newbox;
 
             // Separate all points that are inside the new bbox
-            for (std::set<uint32>::iterator i = mIndices.begin ();
+            for (auto i = mIndices.begin ();
                  i != mIndices.end (); )
             {
                 float *v;
@@ -233,7 +227,7 @@ class HardwareBufferManagerBase;
                 if (v [split_axis] > r)
                 {
                     newbox.mIndices.insert (*i);
-                    std::set<uint32>::iterator x = i++;
+                    auto x = i++;
                     mIndices.erase(x);
                 }
                 else
@@ -266,21 +260,21 @@ class HardwareBufferManagerBase;
             findElementBySemantic (VES_POSITION);
         HardwareVertexBufferSharedPtr vbuf = vert->vertexBufferBinding->
             getBuffer (poselem->getSource ());
-        uint8 *vdata = (uint8 *)vbuf->lock (HardwareBuffer::HBL_READ_ONLY);
+        auto *vdata = (uint8 *)vbuf->lock (HardwareBuffer::HBL_READ_ONLY);
         size_t vsz = vbuf->getVertexSize ();
 
         std::vector<Cluster> boxes;
         boxes.reserve (count);
 
         // First of all, find min and max bounding box of the submesh
-        boxes.push_back (Cluster ());
+        boxes.emplace_back();
 
         if (indexData->indexCount > 0)
         {
 
             uint elsz = indexData->indexBuffer->getType () == HardwareIndexBuffer::IT_32BIT ?
                 4 : 2;
-            uint8 *idata = (uint8 *)indexData->indexBuffer->lock (
+            auto *idata = (uint8 *)indexData->indexBuffer->lock (
                 indexData->indexStart * elsz, indexData->indexCount * elsz,
                 HardwareIndexBuffer::HBL_READ_ONLY);
 
@@ -311,18 +305,17 @@ class HardwareBufferManagerBase;
         while (boxes.size () < count)
         {
             // Find the largest box with more than one vertex :)
-            Cluster *split_box = NULL;
+            Cluster *split_box = nullptr;
             Real split_volume = -1;
-            for (std::vector<Cluster>::iterator b = boxes.begin ();
-                 b != boxes.end (); ++b)
+            for (auto & boxe : boxes)
             {
-                if (b->empty ())
+                if (boxe.empty ())
                     continue;
-                Real v = b->volume ();
+                Real v = boxe.volume ();
                 if (v > split_volume)
                 {
                     split_volume = v;
-                    split_box = &*b;
+                    split_box = &boxe;
                 }
             }
 
@@ -349,24 +342,21 @@ class HardwareBufferManagerBase;
 
         // Fine, now from every cluster choose the vertex that is most
         // distant from the geometrical center and from other extremes.
-        for (std::vector<Cluster>::const_iterator b = boxes.begin ();
-             b != boxes.end (); ++b)
+        for (auto & boxe : boxes)
         {
             Real rating = 0;
             Vector3 best_vertex;
 
-            for (std::set<uint32>::const_iterator i = b->mIndices.begin ();
-                 i != b->mIndices.end (); ++i)
+            for (unsigned int mIndice : boxe.mIndices)
             {
                 float *v;
-                poselem->baseVertexPointerToElement (vdata + *i * vsz, &v);
+                poselem->baseVertexPointerToElement (vdata + mIndice * vsz, &v);
 
                 Vector3 vv (v [0], v [1], v [2]);
                 Real r = (vv - center).squaredLength ();
 
-                for (std::vector<Vector3>::const_iterator e = extremityPoints.begin ();
-                     e != extremityPoints.end (); ++e)
-                    r += (*e - vv).squaredLength ();
+                for (auto & extremityPoint : extremityPoints)
+                    r += (extremityPoint - vv).squaredLength ();
                 if (r > rating)
                 {
                     rating = r;
@@ -391,12 +381,12 @@ class HardwareBufferManagerBase;
         }
     }
     //---------------------------------------------------------------------
-    SubMesh * SubMesh::clone(const String& newName, Mesh *parentMesh)
+    auto SubMesh::clone(const String& newName, Mesh *parentMesh) -> SubMesh *
     {
         // This is a bit like a copy constructor, but with the additional aspect of registering the clone with
         //  the MeshManager
 
-        if(parentMesh == NULL)
+        if(parentMesh == nullptr)
             parentMesh = parent;
 
         HardwareBufferManagerBase* bufferManager = parentMesh->getHardwareBufferManager();

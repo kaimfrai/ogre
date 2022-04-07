@@ -29,33 +29,30 @@ THE SOFTWARE.
 #include <memory>
 #include <vector>
 
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderGLSLProgramProcessor.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramProcessor.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderGLSLProgramProcessor.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramProcessor.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class Function;
 
 //-----------------------------------------------------------------------------
 GLSLProgramProcessor::GLSLProgramProcessor()
-{
-}
+= default;
 
 //-----------------------------------------------------------------------------
 GLSLProgramProcessor::~GLSLProgramProcessor()
-{
-}
+= default;
 
 //-----------------------------------------------------------------------------
-bool GLSLProgramProcessor::preCreateGpuPrograms(ProgramSet* programSet)
+auto GLSLProgramProcessor::preCreateGpuPrograms(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* fsProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -72,7 +69,7 @@ bool GLSLProgramProcessor::preCreateGpuPrograms(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------------
-bool GLSLProgramProcessor::postCreateGpuPrograms(ProgramSet* programSet)
+auto GLSLProgramProcessor::postCreateGpuPrograms(ProgramSet* programSet) -> bool
 {
     // Bind vertex auto parameters.
     for(auto type : {GPT_VERTEX_PROGRAM, GPT_FRAGMENT_PROGRAM})
@@ -105,5 +102,4 @@ void GLSLProgramProcessor::bindTextureSamplers(Program* pCpuProgram, GpuProgramP
     }
 }
 
-}
 }

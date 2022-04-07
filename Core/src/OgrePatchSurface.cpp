@@ -28,13 +28,13 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 
-#include "OgreColourValue.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMath.h"
-#include "OgrePatchSurface.h"
+#include "OgreColourValue.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreMath.hpp"
+#include "OgrePatchSurface.hpp"
 
 #define LEVEL_WIDTH(lvl) ((1 << (lvl+1)) + 1)
 
@@ -49,8 +49,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     PatchSurface::~PatchSurface()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void PatchSurface::defineSurface(void* controlPointBuffer, 
             VertexDeclaration *declaration, size_t width, size_t height,
@@ -71,12 +70,12 @@ namespace Ogre {
         mVecCtlPoints.clear();
         const VertexElement* elem = declaration->findElementBySemantic(VES_POSITION);
         size_t vertSize = declaration->getVertexSize(0);
-        uchar *pVert = static_cast<uchar*>(controlPointBuffer);
+        auto *pVert = static_cast<uchar*>(controlPointBuffer);
         float* pFloat;
         for (size_t i = 0; i < mCtlCount; ++i)
         {
             elem->baseVertexPointerToElement(pVert, &pFloat);
-            mVecCtlPoints.push_back(Vector3(pFloat[0], pFloat[1], pFloat[2]));
+            mVecCtlPoints.emplace_back(pFloat[0], pFloat[1], pFloat[2]);
             pVert += vertSize;
         }
 
@@ -141,22 +140,22 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& PatchSurface::getBounds(void) const
+    auto PatchSurface::getBounds() const -> const AxisAlignedBox&
     {
         return mAABB;
     }
     //-----------------------------------------------------------------------
-    Real PatchSurface::getBoundingSphereRadius(void) const
+    auto PatchSurface::getBoundingSphereRadius() const -> Real
     {
         return mBoundingSphere;
     }
     //-----------------------------------------------------------------------
-    size_t PatchSurface::getRequiredVertexCount(void) const
+    auto PatchSurface::getRequiredVertexCount() const -> size_t
     {
         return mRequiredVertexCount;
     }
     //-----------------------------------------------------------------------
-    size_t PatchSurface::getRequiredIndexCount(void) const
+    auto PatchSurface::getRequiredIndexCount() const -> size_t
     {
         return mRequiredIndexCount;
     }
@@ -207,7 +206,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    size_t PatchSurface::getAutoULevel(bool forMax)
+    auto PatchSurface::getAutoULevel(bool forMax) -> size_t
     {
         // determine levels
         // Derived from work by Bart Sekura in Rogl
@@ -236,7 +235,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    size_t PatchSurface::getAutoVLevel(bool forMax)
+    auto PatchSurface::getAutoVLevel(bool forMax) -> size_t
     {
         Vector3 a,b,c;
         size_t u,v;
@@ -275,17 +274,17 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    Real PatchSurface::getSubdivisionFactor(void) const
+    auto PatchSurface::getSubdivisionFactor() const -> Real
     {
         return mSubdivisionFactor;
     }
     //-----------------------------------------------------------------------
-    size_t PatchSurface::getCurrentIndexCount(void) const
+    auto PatchSurface::getCurrentIndexCount() const -> size_t
     {
         return mCurrIndexCount;
     }
     //-----------------------------------------------------------------------
-    size_t PatchSurface::findLevel(Vector3& a, Vector3& b, Vector3& c)
+    auto PatchSurface::findLevel(Vector3& a, Vector3& b, Vector3& c) -> size_t
     {
         // Derived from work by Bart Sekura in rogl
         // Apart from I think I fixed a bug - see below
@@ -499,7 +498,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void PatchSurface::makeTriangles(void)
+    void PatchSurface::makeTriangles()
     {
         // Our vertex buffer is subdivided to the highest level, we need to generate tris
         // which step over the vertices we don't need for this level of detail.
@@ -547,8 +546,8 @@ namespace Ogre {
                                           mIndexOffset * (use32bitindexes ? 4 : 2),
                                           mRequiredIndexCount * (use32bitindexes ? 4 : 2),
                                           HardwareBuffer::HBL_NO_OVERWRITE);
-        unsigned short* p16 = static_cast<unsigned short*>(indexLock.pData);
-        unsigned int* p32 = static_cast<unsigned int*>(indexLock.pData);
+        auto* p16 = static_cast<unsigned short*>(indexLock.pData);
+        auto* p32 = static_cast<unsigned int*>(indexLock.pData);
 
         while (iterations--)
         {

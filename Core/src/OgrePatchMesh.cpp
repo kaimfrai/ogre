@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgrePatchMesh.h"
+#include "OgrePatchMesh.hpp"
 
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreSharedPtr.h"
-#include "OgreSubMesh.h"
-#include "OgreVertexIndexData.h"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 class ResourceManager;
@@ -40,7 +40,7 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     PatchMesh::PatchMesh(ResourceManager* creator, const String& name, ResourceHandle handle,
         const String& group)
-        : Mesh(creator, name, handle, group, false, 0), mDeclaration(0)
+        : Mesh(creator, name, handle, group, false, nullptr) 
     {
     }
     //-----------------------------------------------------------------------
@@ -86,7 +86,7 @@ class ResourceManager;
         
     }
     //-----------------------------------------------------------------------
-    void PatchMesh::loadImpl(void)
+    void PatchMesh::loadImpl()
     {
         SubMesh* sm = this->createSubMesh();
         sm->vertexData = new VertexData();

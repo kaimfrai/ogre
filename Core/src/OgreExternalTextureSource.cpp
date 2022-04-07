@@ -37,13 +37,13 @@ email                : pjcast@yahoo.com
 
 #include <string>
 
-#include "OgreException.h"
-#include "OgreExternalTextureSource.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
+#include "OgreException.hpp"
+#include "OgreExternalTextureSource.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre
 {
@@ -54,26 +54,26 @@ namespace Ogre
     class CmdInputFileName : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdFPS : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdPlayMode : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdTecPassState : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     static CmdInputFileName msCmdInputFile;     /// Command for setting input file name
     static CmdFPS msCmdFramesPerSecond;         /// Command for setting frames per second
@@ -81,7 +81,7 @@ namespace Ogre
     static CmdTecPassState msCmdTecPassState;   /// Command for setting the technique, pass, & state level
     //---------------------------------------------------------------------------------------//
 
-    ExternalTextureSource::ExternalTextureSource() : mTechniqueLevel(0), mPassLevel(0), mStateLevel(0)
+    ExternalTextureSource::ExternalTextureSource()  
     {
         mInputFileName = "None";
         mDictionaryName = "NotAssigned";
@@ -126,7 +126,7 @@ namespace Ogre
 
     //---------------------------------------------------------------------------------------//
     //*** String Interface Command Class Definitions *****************************************/
-    String CmdInputFileName::doGet(const void* target) const
+    auto CmdInputFileName::doGet(const void* target) const -> String
     {
         return static_cast<const ExternalTextureSource*>(target)->getInputName();
     }
@@ -136,7 +136,7 @@ namespace Ogre
     }
     
     //------------------------------------------------------------------------------//
-    String CmdFPS::doGet(const void* target) const
+    auto CmdFPS::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const ExternalTextureSource*>(target)->getFPS() );
@@ -146,7 +146,7 @@ namespace Ogre
         static_cast<ExternalTextureSource*>(target)->setFPS(StringConverter::parseInt(val));
     }
     //------------------------------------------------------------------------------//
-    String CmdPlayMode::doGet(const void* target) const
+    auto CmdPlayMode::doGet(const void* target) const -> String
     {
         eTexturePlayMode eMode = static_cast<const ExternalTextureSource*>(target)->getPlayMode();
         String val;
@@ -184,7 +184,7 @@ namespace Ogre
     }
 
     //------------------------------------------------------------------------------//
-    String CmdTecPassState::doGet(const void* target) const
+    auto CmdTecPassState::doGet(const void* target) const -> String
     {
         int t = 0, p = 0, s = 0;
 

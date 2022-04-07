@@ -32,22 +32,22 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreBlendMode.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreTechnique.h"
-#include "OgreTexture.h"
-#include "OgreTextureUnitState.h"
+#include "OgreBlendMode.hpp"
+#include "OgreColourValue.hpp"
+#include "OgreCommon.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureUnitState.hpp"
 
 
 namespace Ogre {
@@ -71,12 +71,12 @@ namespace Ogre {
         clearIlluminationPasses();
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isSupported(void) const
+    auto Technique::isSupported() const -> bool
     {
         return mIsSupported;
     }
     //-----------------------------------------------------------------------------
-    size_t Technique::calculateSize(void) const
+    auto Technique::calculateSize() const -> size_t
     {
         size_t memSize = 0;
 
@@ -90,7 +90,7 @@ namespace Ogre {
         return memSize;
     }
     //-----------------------------------------------------------------------------
-    String Technique::_compile(bool autoManageTextureUnits)
+    auto Technique::_compile(bool autoManageTextureUnits) -> String
     {
         StringStream errors;
 
@@ -108,7 +108,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    bool Technique::checkHardwareSupport(bool autoManageTextureUnits, StringStream& compileErrors)
+    auto Technique::checkHardwareSupport(bool autoManageTextureUnits, StringStream& compileErrors) -> bool
     {
         // Go through each pass, checking requirements
         Passes::iterator i;
@@ -201,7 +201,7 @@ namespace Ogre {
             //Check compilation errors for all program types.
             for (int t = 0; t < 6; t++)
             {
-                GpuProgramType programType = GpuProgramType(t);
+                auto programType = GpuProgramType(t);
                 if (currPass->hasGpuProgram(programType))
                 {
                     GpuProgramPtr program = currPass->getGpuProgram(programType);
@@ -227,7 +227,7 @@ namespace Ogre {
         return true;
     }
     //---------------------------------------------------------------------
-    bool Technique::checkGPURules(StringStream& errors)
+    auto Technique::checkGPURules(StringStream& errors) -> bool
     {
         const RenderSystemCapabilities* caps =
             Root::getSingleton().getRenderSystem()->getCapabilities();
@@ -237,21 +237,20 @@ namespace Ogre {
         bool includeRuleMatched = false;
 
         // Check vendors first
-        for (GPUVendorRuleList::const_iterator i = mGPUVendorRules.begin();
-            i != mGPUVendorRules.end(); ++i)
+        for (auto & mGPUVendorRule : mGPUVendorRules)
         {
-            if (i->includeOrExclude == INCLUDE)
+            if (mGPUVendorRule.includeOrExclude == INCLUDE)
             {
                 includeRulesPresent = true;
-                includeRules << caps->vendorToString(i->vendor) << " ";
-                if (i->vendor == caps->getVendor())
+                includeRules << caps->vendorToString(mGPUVendorRule.vendor) << " ";
+                if (mGPUVendorRule.vendor == caps->getVendor())
                     includeRuleMatched = true;
             }
             else // EXCLUDE
             {
-                if (i->vendor == caps->getVendor())
+                if (mGPUVendorRule.vendor == caps->getVendor())
                 {
-                    errors << "Excluded GPU vendor: " << caps->vendorToString(i->vendor)
+                    errors << "Excluded GPU vendor: " << caps->vendorToString(mGPUVendorRule.vendor)
                         << std::endl;
                     return false;
                 }
@@ -271,21 +270,20 @@ namespace Ogre {
         includeRulesPresent = false;
         includeRuleMatched = false;
 
-        for (GPUDeviceNameRuleList::const_iterator i = mGPUDeviceNameRules.begin();
-            i != mGPUDeviceNameRules.end(); ++i)
+        for (auto & mGPUDeviceNameRule : mGPUDeviceNameRules)
         {
-            if (i->includeOrExclude == INCLUDE)
+            if (mGPUDeviceNameRule.includeOrExclude == INCLUDE)
             {
                 includeRulesPresent = true;
-                includeRules << i->devicePattern << " ";
-                if (StringUtil::match(caps->getDeviceName(), i->devicePattern, i->caseSensitive))
+                includeRules << mGPUDeviceNameRule.devicePattern << " ";
+                if (StringUtil::match(caps->getDeviceName(), mGPUDeviceNameRule.devicePattern, mGPUDeviceNameRule.caseSensitive))
                     includeRuleMatched = true;
             }
             else // EXCLUDE
             {
-                if (StringUtil::match(caps->getDeviceName(), i->devicePattern, i->caseSensitive))
+                if (StringUtil::match(caps->getDeviceName(), mGPUDeviceNameRule.devicePattern, mGPUDeviceNameRule.caseSensitive))
                 {
-                    errors << "Excluded GPU device: " << i->devicePattern
+                    errors << "Excluded GPU device: " << mGPUDeviceNameRule.devicePattern
                         << std::endl;
                     return false;
                 }
@@ -304,18 +302,18 @@ namespace Ogre {
         return true;
     }
     //-----------------------------------------------------------------------------
-    Pass* Technique::createPass(void)
+    auto Technique::createPass() -> Pass*
     {
         Pass* newPass = new Pass(this, static_cast<unsigned short>(mPasses.size()));
         mPasses.push_back(newPass);
         return newPass;
     }
     //-----------------------------------------------------------------------------
-    Pass* Technique::getPass(const String& name) const
+    auto Technique::getPass(const String& name) const -> Pass*
     {
-        Passes::const_iterator i    = mPasses.begin();
-        Passes::const_iterator iend = mPasses.end();
-        Pass* foundPass = 0;
+        auto i    = mPasses.begin();
+        auto iend = mPasses.end();
+        Pass* foundPass = nullptr;
 
         // iterate through techniques to find a match
         while (i != iend)
@@ -334,7 +332,7 @@ namespace Ogre {
     void Technique::removePass(unsigned short index)
     {
         assert(index < mPasses.size() && "Index out of bounds");
-        Passes::iterator i = mPasses.begin() + index;
+        auto i = mPasses.begin() + index;
         (*i)->queueForDeletion();
         i = mPasses.erase(i);
         // Adjust passes index
@@ -344,7 +342,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    void Technique::removeAllPasses(void)
+    void Technique::removeAllPasses()
     {
         Passes::iterator i, iend;
         iend = mPasses.end();
@@ -356,7 +354,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    bool Technique::movePass(const unsigned short sourceIndex, const unsigned short destinationIndex)
+    auto Technique::movePass(const unsigned short sourceIndex, const unsigned short destinationIndex) -> bool
     {
         bool moveSuccessful = false;
 
@@ -365,7 +363,7 @@ namespace Ogre {
 
         if( (sourceIndex < mPasses.size()) && (destinationIndex < mPasses.size()))
         {
-            Passes::iterator i = mPasses.begin() + sourceIndex;
+            auto i = mPasses.begin() + sourceIndex;
             //Passes::iterator DestinationIterator = mPasses.begin() + destinationIndex;
 
             Pass* pass = (*i);
@@ -398,7 +396,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    Technique& Technique::operator=(const Technique& rhs)
+    auto Technique::operator=(const Technique& rhs) -> Technique&
     {
         mName = rhs.mName;
         this->mIsSupported = rhs.mIsSupported;
@@ -426,7 +424,7 @@ namespace Ogre {
         return *this;
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isTransparent(void) const
+    auto Technique::isTransparent() const -> bool
     {
         if (mPasses.empty())
         {
@@ -439,7 +437,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isTransparentSortingEnabled(void) const
+    auto Technique::isTransparentSortingEnabled() const -> bool
     {
         if (mPasses.empty())
         {
@@ -452,7 +450,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isTransparentSortingForced(void) const
+    auto Technique::isTransparentSortingForced() const -> bool
     {
         if (mPasses.empty())
         {
@@ -465,7 +463,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isDepthWriteEnabled(void) const
+    auto Technique::isDepthWriteEnabled() const -> bool
     {
         if (mPasses.empty())
         {
@@ -478,7 +476,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isDepthCheckEnabled(void) const
+    auto Technique::isDepthCheckEnabled() const -> bool
     {
         if (mPasses.empty())
         {
@@ -491,7 +489,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::hasColourWriteDisabled(void) const
+    auto Technique::hasColourWriteDisabled() const -> bool
     {
         if (mPasses.empty())
         {
@@ -504,7 +502,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    void Technique::_prepare(void)
+    void Technique::_prepare()
     {
         assert (mIsSupported && "This technique is not supported");
         // Load each pass
@@ -524,7 +522,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    void Technique::_unprepare(void)
+    void Technique::_unprepare()
     {
         // Unload each pass
         Passes::iterator i, iend;
@@ -535,7 +533,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    void Technique::_load(void)
+    void Technique::_load()
     {
         assert (mIsSupported && "This technique is not supported");
         // Load each pass
@@ -578,7 +576,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    void Technique::_unload(void)
+    void Technique::_unload()
     {
         // Unload each pass
         Passes::iterator i, iend;
@@ -589,7 +587,7 @@ namespace Ogre {
         }   
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isLoaded(void) const
+    auto Technique::isLoaded() const -> bool
     {
         // Only supported technique will be loaded
         return mParent->isLoaded() && mIsSupported;
@@ -693,7 +691,7 @@ namespace Ogre {
 
 
     //-----------------------------------------------------------------------
-    void Technique::_notifyNeedsRecompile(void)
+    void Technique::_notifyNeedsRecompile()
     {
         // Disable require to recompile when splitting illumination passes
         if (mIlluminationPassesCompilationPhase != IPS_COMPILE_DISABLED)
@@ -714,17 +712,17 @@ namespace Ogre {
         _notifyNeedsRecompile();
     }
     //-----------------------------------------------------------------------
-    const String& Technique::getSchemeName(void) const
+    auto Technique::getSchemeName() const -> const String&
     {
         return MaterialManager::getSingleton()._getSchemeName(mSchemeIndex);
     }
     //-----------------------------------------------------------------------
-    unsigned short Technique::_getSchemeIndex(void) const
+    auto Technique::_getSchemeIndex() const -> unsigned short
     {
         return mSchemeIndex;
     }
     //---------------------------------------------------------------------
-    bool Technique::checkManuallyOrganisedIlluminationPasses()
+    auto Technique::checkManuallyOrganisedIlluminationPasses() -> bool
     {
         // first check whether all passes have manually assigned illumination
         Passes::iterator i, ibegin, iend;
@@ -740,7 +738,7 @@ namespace Ogre {
         // ok, all manually controlled, so just use that
         for (i = ibegin; i != iend; ++i)
         {
-            IlluminationPass* iPass = new IlluminationPass();
+            auto* iPass = new IlluminationPass();
             iPass->destroyOnShutdown = false;
             iPass->originalPass = iPass->pass = *i;
             iPass->stage = (*i)->getIlluminationStage();
@@ -750,7 +748,7 @@ namespace Ogre {
         return true;
     }
     //-----------------------------------------------------------------------
-    void Technique::_compileIlluminationPasses(void)
+    void Technique::_compileIlluminationPasses()
     {
         clearIlluminationPasses();
 
@@ -979,7 +977,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    void Technique::clearIlluminationPasses(void)
+    void Technique::clearIlluminationPasses()
     {
         if(MaterialManager::getSingletonPtr())
             MaterialManager::getSingleton()._notifyBeforeIlluminationPassesCleared(this);
@@ -997,8 +995,8 @@ namespace Ogre {
         mIlluminationPasses.clear();
     }
     //-----------------------------------------------------------------------
-    const IlluminationPassList&
-    Technique::getIlluminationPasses(void)
+    auto
+    Technique::getIlluminationPasses() -> const IlluminationPassList&
     {
         IlluminationPassesState targetState = IPS_COMPILED;
         if(mIlluminationPassesCompilationPhase != targetState
@@ -1018,12 +1016,12 @@ namespace Ogre {
         return mIlluminationPasses;
     }
     //-----------------------------------------------------------------------
-    const String& Technique::getResourceGroup(void) const
+    auto Technique::getResourceGroup() const -> const String&
     {
         return mParent->getGroup();
     }
     //-----------------------------------------------------------------------
-    Ogre::MaterialPtr  Technique::getShadowCasterMaterial() const 
+    auto  Technique::getShadowCasterMaterial() const -> Ogre::MaterialPtr 
     { 
         return mShadowCasterMaterial; 
     }
@@ -1049,7 +1047,7 @@ namespace Ogre {
         setShadowCasterMaterial(MaterialManager::getSingleton().getByName(name));
     }
     //-----------------------------------------------------------------------
-    Ogre::MaterialPtr  Technique::getShadowReceiverMaterial() const 
+    auto  Technique::getShadowReceiverMaterial() const -> Ogre::MaterialPtr 
     { 
         return mShadowReceiverMaterial; 
     }
@@ -1088,7 +1086,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Technique::removeGPUVendorRule(GPUVendor vendor)
     {
-        for (GPUVendorRuleList::iterator i = mGPUVendorRules.begin(); i != mGPUVendorRules.end(); )
+        for (auto i = mGPUVendorRules.begin(); i != mGPUVendorRules.end(); )
         {
             if (i->vendor == vendor)
                 i = mGPUVendorRules.erase(i);
@@ -1112,7 +1110,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Technique::removeGPUDeviceNameRule(const String& devicePattern)
     {
-        for (GPUDeviceNameRuleList::iterator i = mGPUDeviceNameRules.begin(); i != mGPUDeviceNameRules.end(); )
+        for (auto i = mGPUDeviceNameRules.begin(); i != mGPUDeviceNameRules.end(); )
         {
             if (i->devicePattern == devicePattern)
                 i = mGPUDeviceNameRules.erase(i);

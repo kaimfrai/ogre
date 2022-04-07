@@ -33,24 +33,24 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreInstanceBatchShader.h"
-#include "OgreInstancedEntity.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMatrix4.h"
-#include "OgrePass.h"
-#include "OgreRenderOperation.h"
-#include "OgreSharedPtr.h"
-#include "OgreSubMesh.h"
-#include "OgreTechnique.h"
-#include "OgreVertexIndexData.h"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreInstanceBatchShader.hpp"
+#include "OgreInstancedEntity.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePass.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre
 {
@@ -66,7 +66,7 @@ class InstanceManager;
     }
 
     //-----------------------------------------------------------------------
-    size_t InstanceBatchShader::calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const
+    auto InstanceBatchShader::calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t
     {
         const size_t numBones = std::max<size_t>( 1, baseSubMesh->blendIndexToBoneIndexMap.size() );
 
@@ -246,16 +246,16 @@ class InstanceManager;
 
         HardwareBufferLockGuard thisLock(thisIndexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
         HardwareBufferLockGuard baseLock(baseIndexData->indexBuffer, HardwareBuffer::HBL_READ_ONLY);
-        uint16 *thisBuf16 = static_cast<uint16*>(thisLock.pData);
-        uint32 *thisBuf32 = static_cast<uint32*>(thisLock.pData);
+        auto *thisBuf16 = static_cast<uint16*>(thisLock.pData);
+        auto *thisBuf32 = static_cast<uint32*>(thisLock.pData);
         bool baseIndex16bit = baseIndexData->indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT;
 
         for( size_t i=0; i<mInstancesPerBatch; ++i )
         {
             const size_t vertexOffset = i * mRenderOperation.vertexData->vertexCount / mInstancesPerBatch;
 
-            const uint16 *initBuf16 = static_cast<const uint16 *>(baseLock.pData);
-            const uint32 *initBuf32 = static_cast<const uint32 *>(baseLock.pData);
+            const auto *initBuf16 = static_cast<const uint16 *>(baseLock.pData);
+            const auto *initBuf32 = static_cast<const uint32 *>(baseLock.pData);
 
             for( size_t j=0; j<baseIndexData->indexCount; ++j )
             {
@@ -272,7 +272,7 @@ class InstanceManager;
     void InstanceBatchShader::setupHardwareSkinned( const SubMesh* baseSubMesh, VertexData *thisVertexData,
                                                     VertexData *baseVertexData )
     {
-        const uint8 numBones = uint8(baseSubMesh->blendIndexToBoneIndexMap.size());
+        const auto numBones = uint8(baseSubMesh->blendIndexToBoneIndexMap.size());
         mNumWorldMatrices = mInstancesPerBatch * numBones;
 
         for( uint16 i=0; i<=thisVertexData->vertexDeclaration->getMaxSource(); ++i )
@@ -306,8 +306,8 @@ class InstanceManager;
 
                 for( size_t k=0; k<baseVertexData->vertexCount; ++k )
                 {
-                    VertexDeclaration::VertexElementList::const_iterator it = veList.begin();
-                    VertexDeclaration::VertexElementList::const_iterator en = veList.end();
+                    auto it = veList.begin();
+                    auto en = veList.end();
 
                     while( it != en )
                     {
@@ -334,8 +334,8 @@ class InstanceManager;
     //-----------------------------------------------------------------------
     void InstanceBatchShader::getWorldTransforms( Matrix4* xform ) const
     {
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         while( itor != end )
         {
@@ -344,7 +344,7 @@ class InstanceManager;
         }
     }
     //-----------------------------------------------------------------------
-    unsigned short InstanceBatchShader::getNumWorldTransforms(void) const
+    auto InstanceBatchShader::getNumWorldTransforms() const -> unsigned short
     {
         return uint16(mNumWorldMatrices);
     }

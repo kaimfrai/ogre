@@ -1,12 +1,12 @@
-#include "OgreSGTechniqueResolverListener.h"
+#include "OgreSGTechniqueResolverListener.hpp"
 
 #include <cstddef>
 #include <string>
 #include <vector>
 
-#include "OgreMaterial.h"
-#include "OgreShaderGenerator.h"
-#include "OgreTechnique.h"
+#include "OgreMaterial.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreTechnique.hpp"
 
 namespace Ogre {
 class Renderable;
@@ -19,10 +19,10 @@ SGTechniqueResolverListener::SGTechniqueResolverListener(Ogre::RTShader::ShaderG
     mShaderGenerator = pShaderGenerator;
 }
 
-Ogre::Technique *SGTechniqueResolverListener::handleSchemeNotFound(unsigned short schemeIndex, const Ogre::String &schemeName, Ogre::Material *originalMaterial, unsigned short lodIndex, const Ogre::Renderable *rend) {
+auto SGTechniqueResolverListener::handleSchemeNotFound(unsigned short schemeIndex, const Ogre::String &schemeName, Ogre::Material *originalMaterial, unsigned short lodIndex, const Ogre::Renderable *rend) -> Ogre::Technique * {
     if (!mShaderGenerator->hasRenderState(schemeName))
     {
-        return NULL;
+        return nullptr;
     }
     // Case this is the default shader generator scheme.
 
@@ -34,7 +34,7 @@ Ogre::Technique *SGTechniqueResolverListener::handleSchemeNotFound(unsigned shor
 
     if (!techniqueCreated)
     {
-        return NULL;
+        return nullptr;
     }
     // Case technique registration succeeded.
 
@@ -53,10 +53,10 @@ Ogre::Technique *SGTechniqueResolverListener::handleSchemeNotFound(unsigned shor
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
-bool SGTechniqueResolverListener::afterIlluminationPassesCreated(Ogre::Technique *tech)
+auto SGTechniqueResolverListener::afterIlluminationPassesCreated(Ogre::Technique *tech) -> bool
 {
     if(mShaderGenerator->hasRenderState(tech->getSchemeName()))
     {
@@ -68,7 +68,7 @@ bool SGTechniqueResolverListener::afterIlluminationPassesCreated(Ogre::Technique
     return false;
 }
 
-bool SGTechniqueResolverListener::beforeIlluminationPassesCleared(Ogre::Technique *tech)
+auto SGTechniqueResolverListener::beforeIlluminationPassesCleared(Ogre::Technique *tech) -> bool
 {
     if(mShaderGenerator->hasRenderState(tech->getSchemeName()))
     {

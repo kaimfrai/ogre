@@ -27,15 +27,15 @@ THE SOFTWARE.
 */
 #include <ostream>
 
-#include "OgreLog.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
+#include "OgreLog.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre {
 
-    String DriverVersion::toString() const
+    auto DriverVersion::toString() const -> String
     {
         StringStream str;
         str << major << "." << minor << "." << release << "." << build;
@@ -59,19 +59,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     RenderSystemCapabilities::RenderSystemCapabilities()
-        : mVendor(GPU_UNKNOWN)
-        , mNumTextureUnits(0)
-        , mStencilBufferBitDepth(8)
-        , mNumMultiRenderTargets(1)
-        , mNonPOW2TexturesLimited(false)
-        , mMaxSupportedAnisotropy(0)
-        , mVertexTextureUnitsShared(0)
-        , mGeometryProgramNumOutputVertices(0)
-        , mNumVertexAttributes(1)
+         
     {
-        for(int i = 0; i < CAPS_CATEGORY_COUNT; i++)
+        for(int & mCapabilitie : mCapabilities)
         {
-            mCapabilities[i] = 0;
+            mCapabilitie = 0;
         }
         mCategoryRelevant[CAPS_CATEGORY_COMMON] = true;
         mCategoryRelevant[CAPS_CATEGORY_COMMON_2] = true;
@@ -87,7 +79,7 @@ namespace Ogre {
         mSupportedShaderProfiles.erase(profile);
     }
 
-    bool RenderSystemCapabilities::isShaderProfileSupported(const String& profile) const
+    auto RenderSystemCapabilities::isShaderProfileSupported(const String& profile) const -> bool
     {
         return (mSupportedShaderProfiles.end() != mSupportedShaderProfiles.find(profile));
     }
@@ -268,7 +260,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     String RenderSystemCapabilities::msGPUVendorStrings[GPU_VENDOR_COUNT];
     //---------------------------------------------------------------------
-    GPUVendor RenderSystemCapabilities::vendorFromString(const String& vendorString)
+    auto RenderSystemCapabilities::vendorFromString(const String& vendorString) -> GPUVendor
     {
         initVendorStrings();
         GPUVendor ret = GPU_UNKNOWN;
@@ -288,7 +280,7 @@ namespace Ogre {
         
     }
     //---------------------------------------------------------------------
-    const String& RenderSystemCapabilities::vendorToString(GPUVendor v)
+    auto RenderSystemCapabilities::vendorToString(GPUVendor v) -> const String&
     {
         initVendorStrings();
         return msGPUVendorStrings[v];

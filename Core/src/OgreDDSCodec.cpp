@@ -28,24 +28,25 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <cstring>
+#include <memory>
 #include <ostream>
 #include <string>
 #include <utility>
 
-#include "OgreCodec.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreDDSCodec.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreImage.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreStableHeaders.h"
+#include "OgreCodec.hpp"
+#include "OgreColourValue.hpp"
+#include "OgreCommon.hpp"
+#include "OgreDDSCodec.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreImage.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStableHeaders.hpp"
 
 namespace Ogre {
     // Internal DDS structure definitions
@@ -169,9 +170,9 @@ namespace {
 }
 
     //---------------------------------------------------------------------
-    DDSCodec* DDSCodec::msInstance = 0;
+    DDSCodec* DDSCodec::msInstance = nullptr;
     //---------------------------------------------------------------------
-    void DDSCodec::startup(void)
+    void DDSCodec::startup()
     {
         if (!msInstance)
         {
@@ -186,13 +187,13 @@ namespace {
 
     }
     //---------------------------------------------------------------------
-    void DDSCodec::shutdown(void)
+    void DDSCodec::shutdown()
     {
         if(msInstance)
         {
             Codec::unregisterCodec(msInstance);
             delete msInstance;
-            msInstance = 0;
+            msInstance = nullptr;
         }
 
     }
@@ -206,7 +207,7 @@ namespace {
                                 const CodecDataPtr& pData) const
     {
         // Unwrap codecDataPtr - data is cleaned by calling function
-        ImageData* imgData = static_cast<ImageData* >(pData.get());  
+        auto* imgData = static_cast<ImageData* >(pData.get());  
 
 
         // Check size for cube map faces
@@ -295,14 +296,14 @@ namespace {
             {
             case PF_A8B8G8R8:
                 flipRgbMasks = true;
-                OGRE_FALLTHROUGH;
+                [[fallthrough]];
             case PF_A8R8G8B8:
                 ddsHeaderRgbBits = 8 * 4;
                 hasAlpha = true;
                 break;
             case PF_X8B8G8R8:
                 flipRgbMasks = true;
-                OGRE_FALLTHROUGH;
+                [[fallthrough]];
             case PF_X8R8G8B8:
                 ddsHeaderRgbBits = 8 * 4;
                 break;
@@ -359,9 +360,9 @@ namespace {
             ddsHeader.depth = (uint32)(isCubeMap ? 6 : ddsHeader.depth);
             ddsHeader.mipMapCount = imgData->num_mipmaps + 1;
             ddsHeader.sizeOrPitch = ddsHeaderSizeOrPitch;
-            for (uint32 reserved1=0; reserved1<11; reserved1++) // XXX nasty constant 11
+            for (unsigned int & reserved1 : ddsHeader.reserved1) // XXX nasty constant 11
             {
-                ddsHeader.reserved1[reserved1] = 0;
+                reserved1 = 0;
             }
             ddsHeader.reserved2 = 0;
 
@@ -403,7 +404,7 @@ namespace {
             flipEndian(&ddsMagic, sizeof(uint32));
             flipEndian(&ddsHeader, 4, sizeof(DDSHeader) / 4);
 
-            char *tmpData = 0;
+            char *tmpData = nullptr;
             char const *dataPtr = (char const *)input->getPtr();
 
             if( imgData->format == PF_B8G8R8 )
@@ -435,7 +436,7 @@ namespace {
         }
     }
     //---------------------------------------------------------------------
-    PixelFormat DDSCodec::convertDXToOgreFormat(uint32 dxfmt) const
+    auto DDSCodec::convertDXToOgreFormat(uint32 dxfmt) const -> PixelFormat
     {
         switch (dxfmt) {
 			case 2: // DXGI_FORMAT_R32G32B32A32_FLOAT
@@ -555,7 +556,7 @@ namespace {
         }
     }
     //---------------------------------------------------------------------
-    PixelFormat DDSCodec::convertFourCCFormat(uint32 fourcc) const
+    auto DDSCodec::convertFourCCFormat(uint32 fourcc) const -> PixelFormat
     {
         // convert dxt pixel format
         switch(fourcc)
@@ -601,13 +602,13 @@ namespace {
 
     }
     //---------------------------------------------------------------------
-    PixelFormat DDSCodec::convertPixelFormat(uint32 rgbBits, uint32 rMask, 
-        uint32 gMask, uint32 bMask, uint32 aMask) const
+    auto DDSCodec::convertPixelFormat(uint32 rgbBits, uint32 rMask, 
+        uint32 gMask, uint32 bMask, uint32 aMask) const -> PixelFormat
     {
         // General search through pixel formats
         for (int i = PF_UNKNOWN + 1; i < PF_COUNT; ++i)
         {
-            PixelFormat pf = static_cast<PixelFormat>(i);
+            auto pf = static_cast<PixelFormat>(i);
             if (PixelUtil::getNumElemBits(pf) == rgbBits)
             {
                 uint64 testMasks[4];
@@ -663,7 +664,7 @@ namespace {
             for (size_t x = 0; x < 4; ++x)
             {
                 // LSB come first
-                uint8 colIdx = static_cast<uint8>(block.indexRow[row] >> (x * 2) & 0x3);
+                auto colIdx = static_cast<uint8>(block.indexRow[row] >> (x * 2) & 0x3);
                 if (pf == PF_DXT1)
                 {
                     // Overwrite entire colour
@@ -690,12 +691,12 @@ namespace {
         // Note - we assume all values have already been endian swapped
         
         // This is an explicit alpha block, 4 bits per pixel, LSB first
-        for (size_t row = 0; row < 4; ++row)
+        for (unsigned short row : block.alphaRow)
         {
             for (size_t x = 0; x < 4; ++x)
             {
                 // Shift and mask off to 4 bits
-                uint8 val = static_cast<uint8>(block.alphaRow[row] >> (x * 4) & 0xF);
+                auto val = static_cast<uint8>(row >> (x * 4) & 0xF);
                 // Convert to [0,1]
                 pCol->a = (Real)val / (Real)0xF;
                 pCol++;
@@ -750,7 +751,7 @@ namespace {
             pCol[i].a = derivedAlphas[dw & 0x7];
     }
     //---------------------------------------------------------------------
-    ImageCodec::DecodeResult DDSCodec::decode(const DataStreamPtr& stream) const
+    auto DDSCodec::decode(const DataStreamPtr& stream) const -> ImageCodec::DecodeResult
     {
         // Read 4 character code
         uint32 fileType;
@@ -782,7 +783,7 @@ namespace {
                 "DDS header size mismatch!", "DDSCodec::decode");
         }
 
-        ImageData* imgData = new ImageData();
+        auto* imgData = new ImageData();
         MemoryDataStreamPtr output;
 
         imgData->depth = 1; // (deal with volume later)
@@ -843,7 +844,7 @@ namespace {
 
         if (PixelUtil::isCompressed(sourceFormat))
         {
-            if (Root::getSingleton().getRenderSystem() == NULL ||
+            if (Root::getSingleton().getRenderSystem() == nullptr ||
                 !Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(RSC_TEXTURE_COMPRESSION_DXT))
             {
                 // We'll need to decompress
@@ -907,7 +908,7 @@ namespace {
             imgData->width, imgData->height, imgData->depth, imgData->format);
 
         // Bind output buffer
-        output.reset(new MemoryDataStream(imgData->size));
+        output = std::make_shared<MemoryDataStream>(imgData->size);
 
 
         // Now deal with the data
@@ -1056,12 +1057,12 @@ namespace {
 
     }
     //---------------------------------------------------------------------    
-    String DDSCodec::getType() const 
+    auto DDSCodec::getType() const -> String 
     {
         return mType;
     }
     //---------------------------------------------------------------------
-    String DDSCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const
+    auto DDSCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String
     {
         if (maxbytes >= sizeof(uint32))
         {
@@ -1071,7 +1072,7 @@ namespace {
 
             if (DDS_MAGIC == fileType)
             {
-                return String("dds");
+                return {"dds"};
             }
         }
 

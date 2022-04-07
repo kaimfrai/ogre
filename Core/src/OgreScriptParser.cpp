@@ -30,20 +30,20 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgrePlatform.h"
-#include "OgreScriptParser.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
+#include "OgreException.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreScriptParser.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre
 {
-    static String unquoted(const String& str, bool trim = true)
+    static auto unquoted(const String& str, bool trim = true) -> String
     {
         return trim ? str.substr(1, str.size() - 2) : str;
     }
 
-    ConcreteNodeListPtr ScriptParser::parse(const ScriptTokenList &tokens, const String& file)
+    auto ScriptParser::parse(const ScriptTokenList &tokens, const String& file) -> ConcreteNodeListPtr
     {
         // MEMCATEGORY_GENERAL because SharedPtr can only free using that category
         ConcreteNodeListPtr nodes(new ConcreteNodeList());
@@ -51,10 +51,10 @@ namespace Ogre
         enum{READY, OBJECT};
         uint32 state = READY;
 
-        ConcreteNode *parent = 0;
+        ConcreteNode *parent = nullptr;
         ConcreteNodePtr node;
-        const ScriptToken *token = 0;
-        ScriptTokenList::const_iterator i = tokens.begin(), end = tokens.end();
+        const ScriptToken *token = nullptr;
+        auto i = tokens.begin(), end = tokens.end();
         while(i != end)
         {
             token = &*i;
@@ -114,7 +114,7 @@ namespace Ogre
                         }
                         else
                         {
-                            node->parent = 0;
+                            node->parent = nullptr;
                             nodes->push_back(node);
                         }
                         node = ConcreteNodePtr();
@@ -168,7 +168,7 @@ namespace Ogre
                         }
                         else
                         {
-                            node->parent = 0;
+                            node->parent = nullptr;
                             nodes->push_back(node);
                         }
                         node = ConcreteNodePtr();
@@ -189,7 +189,7 @@ namespace Ogre
                         }
                         else
                         {
-                            node->parent = 0;
+                            node->parent = nullptr;
                             nodes->push_back(node);
                         }
 
@@ -225,7 +225,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
 
@@ -240,7 +240,7 @@ namespace Ogre
                 if(token->type == TID_NEWLINE)
                 {
                     // Look ahead to the next non-newline token and if it isn't an {, this was a property
-                    ScriptTokenList::const_iterator next = skipNewlines(i, end);
+                    auto next = skipNewlines(i, end);
                     if(next == end || next->type != TID_LBRACKET)
                     {
                         // Ended a property here
@@ -260,7 +260,7 @@ namespace Ogre
                     // The following token are the parent objects (base classes).
                     // Require at least one of them.
 
-                    ScriptTokenList::const_iterator j = i + 1;
+                    auto j = i + 1;
                     j = skipNewlines(j, end);
                     if(j == end || (j->type != TID_WORD && j->type != TID_QUOTE)) {
                         OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
@@ -292,7 +292,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
                     node = ConcreteNodePtr();
@@ -316,7 +316,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
 
@@ -355,7 +355,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
 
@@ -382,7 +382,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
                     node = ConcreteNodePtr();
@@ -403,7 +403,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
                     node = ConcreteNodePtr();
@@ -424,7 +424,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
                     node = ConcreteNodePtr();
@@ -438,16 +438,16 @@ namespace Ogre
         return nodes;
     }
 
-    ConcreteNodeListPtr ScriptParser::parseChunk(const ScriptTokenList &tokens, const String& file)
+    auto ScriptParser::parseChunk(const ScriptTokenList &tokens, const String& file) -> ConcreteNodeListPtr
     {
         // MEMCATEGORY_GENERAL because SharedPtr can only free using that category
         ConcreteNodeListPtr nodes(new ConcreteNodeList());
 
         ConcreteNodePtr node;
-        const ScriptToken *token = 0;
-        for(ScriptTokenList::const_iterator i = tokens.begin(); i != tokens.end(); ++i)
+        const ScriptToken *token = nullptr;
+        for(const auto & i : tokens)
         {
-            token = &*i;
+            token = &i;
 
             switch(token->type)
             {
@@ -455,7 +455,7 @@ namespace Ogre
                 node = ConcreteNodePtr(new ConcreteNode());
                 node->file = file;
                 node->line = token->line;
-                node->parent = 0;
+                node->parent = nullptr;
                 node->token = token->lexeme;
                 node->type = CNT_VARIABLE;
                 break;
@@ -463,7 +463,7 @@ namespace Ogre
                 node = ConcreteNodePtr(new ConcreteNode());
                 node->file = file;
                 node->line = token->line;
-                node->parent = 0;
+                node->parent = nullptr;
                 node->token = token->lexeme;
                 node->type = CNT_WORD;
                 break;
@@ -471,7 +471,7 @@ namespace Ogre
                 node = ConcreteNodePtr(new ConcreteNode());
                 node->file = file;
                 node->line = token->line;
-                node->parent = 0;
+                node->parent = nullptr;
                 node->token= unquoted(token->lexeme);
                 node->type = CNT_QUOTE;
                 break;
@@ -489,16 +489,16 @@ namespace Ogre
         return nodes;
     }
 
-    const ScriptToken *ScriptParser::getToken(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end, int offset)
+    auto ScriptParser::getToken(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end, int offset) -> const ScriptToken *
     {
-        const ScriptToken *token = 0;
-        ScriptTokenList::const_iterator iter = i + offset;
+        const ScriptToken *token = nullptr;
+        auto iter = i + offset;
         if(iter != end)
             token = &*i;
         return token;
     }
 
-    ScriptTokenList::const_iterator ScriptParser::skipNewlines(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end)
+    auto ScriptParser::skipNewlines(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end) -> ScriptTokenList::const_iterator
     {
         while(i != end && i->type == TID_NEWLINE)
             ++i;

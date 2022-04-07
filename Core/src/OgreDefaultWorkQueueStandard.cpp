@@ -32,19 +32,19 @@ THE SOFTWARE.
 #include <thread>
 #include <vector>
 
-#include "OgreDefaultWorkQueueStandard.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreRoot.h"
-#include "OgreWorkQueue.h"
+#include "OgreDefaultWorkQueueStandard.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRoot.hpp"
+#include "OgreWorkQueue.hpp"
 
 namespace Ogre
 {
     //---------------------------------------------------------------------
     DefaultWorkQueue::DefaultWorkQueue(const String& name)
-    : DefaultWorkQueueBase(name), mNumThreadsRegisteredWithRS(0)
+    : DefaultWorkQueueBase(name) 
     {
     }
     //---------------------------------------------------------------------
@@ -78,7 +78,7 @@ namespace Ogre
         mNumThreadsRegisteredWithRS = 0;
         for (size_t i = 0; i < mWorkerThreadCount; ++i)
         {
-            std::thread* t = new std::thread(*mWorkerFunc);
+            auto* t = new std::thread(*mWorkerFunc);
             mWorkers.push_back(t);
         }
 
@@ -122,15 +122,15 @@ namespace Ogre
         mRequestCondition.notify_all();
 
         // all our threads should have been woken now, so join
-        for (WorkerThreadList::iterator i = mWorkers.begin(); i != mWorkers.end(); ++i)
+        for (auto & mWorker : mWorkers)
         {
-            (*i)->join();
-            delete *i;
+            mWorker->join();
+            delete mWorker;
         }
         mWorkers.clear();
 
         delete mWorkerFunc;
-        mWorkerFunc = 0;
+        mWorkerFunc = nullptr;
 
         mIsRunning = false;
     }

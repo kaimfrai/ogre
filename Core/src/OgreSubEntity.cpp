@@ -31,22 +31,22 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreAnimationTrack.h"
-#include "OgreCamera.h"
-#include "OgreEntity.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgreMesh.h"
-#include "OgreNode.h"
-#include "OgreRenderOperation.h"
-#include "OgreSubEntity.h"
-#include "OgreSubMesh.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
+#include "OgreAnimationTrack.hpp"
+#include "OgreCamera.hpp"
+#include "OgreEntity.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreMesh.hpp"
+#include "OgreNode.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreSubEntity.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreVector.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 class Technique;
@@ -54,13 +54,13 @@ class Technique;
     //-----------------------------------------------------------------------
     SubEntity::SubEntity (Entity* parent, SubMesh* subMeshBasis)
         : Renderable(), mParentEntity(parent),
-        mSubMesh(subMeshBasis), mMaterialLodIndex(0), mCachedCamera(0)
+        mSubMesh(subMeshBasis) 
     {
         mVisible = true;
         mRenderQueueID = 0;
         mRenderQueueIDSet = false;
         mRenderQueuePrioritySet = false;
-        mSkelAnimVertexData = 0;
+        mSkelAnimVertexData = nullptr;
         mVertexAnimationAppliedThisFrame = false;
         mHardwarePoseCount = 0;
         mIndexStart = 0;
@@ -69,12 +69,12 @@ class Technique;
     }
     SubEntity::~SubEntity() = default; // ensure unique_ptr destructors are in cpp
     //-----------------------------------------------------------------------
-    SubMesh* SubEntity::getSubMesh(void)
+    auto SubEntity::getSubMesh() -> SubMesh*
     {
         return mSubMesh;
     }
     //-----------------------------------------------------------------------
-    const String& SubEntity::getMaterialName(void) const
+    auto SubEntity::getMaterialName() const -> const String&
     {
         return mMaterialPtr ? mMaterialPtr->getName() : BLANKSTRING;
     }
@@ -115,7 +115,7 @@ class Technique;
         mParentEntity->reevaluateVertexProcessing();
     }
     //-----------------------------------------------------------------------
-    Technique* SubEntity::getTechnique(void) const
+    auto SubEntity::getTechnique() const -> Technique*
     {
         return mMaterialPtr->getBestTechnique(mMaterialLodIndex, this);
     }
@@ -141,7 +141,7 @@ class Technique;
             mIndexStart = start_index;
     }
     //-----------------------------------------------------------------------
-    size_t SubEntity::getIndexDataStartIndex() const
+    auto SubEntity::getIndexDataStartIndex() const -> size_t
     {
         return mIndexStart;
     }
@@ -152,7 +152,7 @@ class Technique;
             mIndexEnd = end_index;
     }
     //-----------------------------------------------------------------------
-    size_t SubEntity::getIndexDataEndIndex() const
+    auto SubEntity::getIndexDataEndIndex() const -> size_t
     {
         return mIndexEnd;
     }
@@ -163,7 +163,7 @@ class Technique;
         mIndexEnd = 0;
     }
     //-----------------------------------------------------------------------
-    VertexData* SubEntity::getVertexDataForBinding(void)
+    auto SubEntity::getVertexDataForBinding() -> VertexData*
     {
         if (mSubMesh->useSharedVertices)
         {
@@ -226,7 +226,7 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    unsigned short SubEntity::getNumWorldTransforms(void) const
+    auto SubEntity::getNumWorldTransforms() const -> unsigned short
     {
         if (!mParentEntity->mNumBoneMatrices ||
             !mParentEntity->isHardwareAnimationEnabled())
@@ -245,7 +245,7 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    Real SubEntity::getSquaredViewDepth(const Camera* cam) const
+    auto SubEntity::getSquaredViewDepth(const Camera* cam) const -> Real
     {
         // First of all, check the cached value
         // NB this is manually invalidated by parent each _notifyCurrentCamera call
@@ -280,7 +280,7 @@ class Technique;
         return dist;
     }
     //-----------------------------------------------------------------------
-    const LightList& SubEntity::getLights(void) const
+    auto SubEntity::getLights() const -> const LightList&
     {
         return mParentEntity->queryLights();
     }
@@ -290,7 +290,7 @@ class Technique;
         mVisible = visible;
     }
     //-----------------------------------------------------------------------
-    void SubEntity::prepareTempBlendBuffers(void)
+    void SubEntity::prepareTempBlendBuffers()
     {
         if (mSubMesh->useSharedVertices)
             return;
@@ -329,35 +329,35 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    bool SubEntity::getCastsShadows(void) const
+    auto SubEntity::getCastsShadows() const -> bool
     {
         return mParentEntity->getCastShadows();
     }
     //-----------------------------------------------------------------------
-    VertexData* SubEntity::_getSkelAnimVertexData(void) 
+    auto SubEntity::_getSkelAnimVertexData() -> VertexData* 
     {
         assert (mSkelAnimVertexData && "Not software skinned or has no dedicated geometry!");
         return mSkelAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    VertexData* SubEntity::_getSoftwareVertexAnimVertexData(void)
+    auto SubEntity::_getSoftwareVertexAnimVertexData() -> VertexData*
     {
         assert (mSoftwareVertexAnimVertexData && "Not vertex animated or has no dedicated geometry!");
         return mSoftwareVertexAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    VertexData* SubEntity::_getHardwareVertexAnimVertexData(void)
+    auto SubEntity::_getHardwareVertexAnimVertexData() -> VertexData*
     {
         assert (mHardwareVertexAnimVertexData && "Not vertex animated or has no dedicated geometry!");
         return mHardwareVertexAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    TempBlendedBufferInfo* SubEntity::_getSkelAnimTempBufferInfo(void) 
+    auto SubEntity::_getSkelAnimTempBufferInfo() -> TempBlendedBufferInfo* 
     {
         return &mTempSkelAnimInfo;
     }
     //-----------------------------------------------------------------------
-    TempBlendedBufferInfo* SubEntity::_getVertexAnimTempBufferInfo(void) 
+    auto SubEntity::_getVertexAnimTempBufferInfo() -> TempBlendedBufferInfo* 
     {
         return &mTempVertexAnimInfo;
     }
@@ -392,12 +392,12 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------------
-    void SubEntity::_markBuffersUnusedForAnimation(void)
+    void SubEntity::_markBuffersUnusedForAnimation()
     {
         mVertexAnimationAppliedThisFrame = false;
     }
     //-----------------------------------------------------------------------------
-    void SubEntity::_markBuffersUsedForAnimation(void)
+    void SubEntity::_markBuffersUsedForAnimation()
     {
         mVertexAnimationAppliedThisFrame = true;
     }

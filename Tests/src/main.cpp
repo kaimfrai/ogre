@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
 
-#include "OgreLog.h"
-#include "OgreLogManager.h"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
 
-int main(int argc, char *argv[])
+auto main(int argc, char *argv[]) -> int
 {
-    Ogre::LogManager* logMgr = new Ogre::LogManager();
+    auto* logMgr = new Ogre::LogManager();
     logMgr->createLog("OgreTest.log", true, false);
     logMgr->setMinLogLevel(Ogre::LML_TRIVIAL);
 

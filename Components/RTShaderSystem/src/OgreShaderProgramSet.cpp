@@ -29,21 +29,20 @@ THE SOFTWARE.
 #include <memory>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreSharedPtr.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreSharedPtr.hpp"
 
-namespace Ogre {
-namespace RTShader {
-
-//-----------------------------------------------------------------------------
-ProgramSet::ProgramSet() {}
+namespace Ogre::RTShader {
 
 //-----------------------------------------------------------------------------
-ProgramSet::~ProgramSet() {}
+ProgramSet::ProgramSet() = default;
+
+//-----------------------------------------------------------------------------
+ProgramSet::~ProgramSet() = default;
 
 //-----------------------------------------------------------------------------
 void ProgramSet::setCpuProgram(std::unique_ptr<Program>&& program)
@@ -63,7 +62,7 @@ void ProgramSet::setCpuProgram(std::unique_ptr<Program>&& program)
 }
 
 //-----------------------------------------------------------------------------
-Program* ProgramSet::getCpuProgram(GpuProgramType type) const
+auto ProgramSet::getCpuProgram(GpuProgramType type) const -> Program*
 {
     switch(type)
     {
@@ -72,7 +71,7 @@ Program* ProgramSet::getCpuProgram(GpuProgramType type) const
     case GPT_FRAGMENT_PROGRAM:
         return mPSCpuProgram.get();
     default:
-        return NULL;
+        return nullptr;
     }
 }
 //-----------------------------------------------------------------------------
@@ -93,7 +92,7 @@ void ProgramSet::setGpuProgram(const GpuProgramPtr& program)
 }
 
 //-----------------------------------------------------------------------------
-const GpuProgramPtr& ProgramSet::getGpuProgram(GpuProgramType type) const
+auto ProgramSet::getGpuProgram(GpuProgramType type) const -> const GpuProgramPtr&
 {
     switch(type)
     {
@@ -111,5 +110,4 @@ const GpuProgramPtr& ProgramSet::getGpuProgram(GpuProgramType type) const
     return nullPtr;
 }
 
-}
 }

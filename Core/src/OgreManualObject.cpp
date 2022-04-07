@@ -31,58 +31,58 @@ THE SOFTWARE.
 #include <list>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLight.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreManualObject.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgreMesh.h"
-#include "OgreMeshManager.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgrePass.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderable.h"
-#include "OgreShadowCaster.h"
-#include "OgreSharedPtr.h"
-#include "OgreSubMesh.h"
-#include "OgreTechnique.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
+#include "OgreAxisAlignedBox.hpp"
+#include "OgreColourValue.hpp"
+#include "OgreCommon.hpp"
+#include "OgreEdgeListBuilder.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreLight.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreManualObject.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreMesh.hpp"
+#include "OgreMeshManager.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgreNode.hpp"
+#include "OgrePass.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRenderable.hpp"
+#include "OgreShadowCaster.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVector.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 class Camera;
 
-#define TEMP_INITIAL_SIZE 50
+enum {
+TEMP_INITIAL_SIZE = 50
+};
 #define TEMP_VERTEXSIZE_GUESS sizeof(float) * 12
 #define TEMP_INITIAL_VERTEX_SIZE TEMP_VERTEXSIZE_GUESS * TEMP_INITIAL_SIZE
 #define TEMP_INITIAL_INDEX_SIZE sizeof(uint32) * TEMP_INITIAL_SIZE
     //-----------------------------------------------------------------------------
 ManualObject::ManualObject(const String& name)
-    : MovableObject(name), mBufferUsage(HardwareBuffer::HBU_STATIC_WRITE_ONLY), mCurrentSection(0),
-      mCurrentUpdating(false), mFirstVertex(true), mTempVertexPending(false), mTempVertexBuffer(0),
-      mTempVertexSize(TEMP_INITIAL_VERTEX_SIZE), mTempIndexBuffer(0),
-      mTempIndexSize(TEMP_INITIAL_INDEX_SIZE), mDeclSize(0), mEstVertexCount(0), mEstIndexCount(0),
-      mTexCoordIndex(0), mRadius(0), mAnyIndexed(false), mEdgeList(0), mUseIdentityProjection(false),
-      mUseIdentityView(false), mKeepDeclarationOrder(false)
+    : MovableObject(name), 
+      mTempVertexSize(TEMP_INITIAL_VERTEX_SIZE), 
+      mTempIndexSize(TEMP_INITIAL_INDEX_SIZE) 
 {
     }
     //-----------------------------------------------------------------------------
@@ -91,29 +91,29 @@ ManualObject::ManualObject(const String& name)
         clear();
     }
     //-----------------------------------------------------------------------------
-    void ManualObject::clear(void)
+    void ManualObject::clear()
     {
         resetTempAreas();
-        for (SectionList::iterator i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto & i : mSectionList)
         {
-            delete *i;
+            delete i;
         }
         mSectionList.clear();
         mRadius = 0;
         mAABB.setNull();
         delete mEdgeList;
-        mEdgeList = 0;
+        mEdgeList = nullptr;
         mAnyIndexed = false;
 
         clearShadowRenderableList(mShadowRenderables);
     }
     //-----------------------------------------------------------------------------
-    void ManualObject::resetTempAreas(void)
+    void ManualObject::resetTempAreas()
     {
         delete[] mTempVertexBuffer;
         delete[] mTempIndexBuffer;
-        mTempVertexBuffer = 0;
-        mTempIndexBuffer = 0;
+        mTempVertexBuffer = nullptr;
+        mTempIndexBuffer = nullptr;
         mTempVertexSize = TEMP_INITIAL_VERTEX_SIZE;
         mTempIndexSize = TEMP_INITIAL_INDEX_SIZE;
     }
@@ -255,7 +255,7 @@ ManualObject::ManualObject(const String& name)
                          .getSize();
     }
     //-----------------------------------------------------------------------------
-    size_t ManualObject::getCurrentVertexCount() const
+    auto ManualObject::getCurrentVertexCount() const -> size_t
     {
         if (!mCurrentSection)
             return 0;
@@ -270,7 +270,7 @@ ManualObject::ManualObject(const String& name)
         
     }
     //-----------------------------------------------------------------------------
-    size_t ManualObject::getCurrentIndexCount() const
+    auto ManualObject::getCurrentIndexCount() const -> size_t
     {
         if (!mCurrentSection)
             return 0;
@@ -283,7 +283,7 @@ ManualObject::ManualObject(const String& name)
 
     }
     //-----------------------------------------------------------------------------
-    void ManualObject::copyTempVertexToBuffer(void)
+    void ManualObject::copyTempVertexToBuffer()
     {
         mTempVertexPending = false;
         RenderOperation* rop = mCurrentSection->getRenderOperation();
@@ -301,12 +301,10 @@ ManualObject::ManualObject(const String& name)
         char* pBase = mTempVertexBuffer + (mDeclSize * (rop->vertexData->vertexCount-1));
         const VertexDeclaration::VertexElementList& elemList =
             rop->vertexData->vertexDeclaration->getElements();
-        for (VertexDeclaration::VertexElementList::const_iterator i = elemList.begin();
-            i != elemList.end(); ++i)
+        for (const auto & elem : elemList)
         {
-            float* pFloat = 0;
-            RGBA* pRGBA = 0;
-            const VertexElement& elem = *i;
+            float* pFloat = nullptr;
+            RGBA* pRGBA = nullptr;
             switch(elem.getType())
             {
             case VET_FLOAT1:
@@ -360,7 +358,7 @@ ManualObject::ManualObject(const String& name)
 
     }
     //-----------------------------------------------------------------------------
-    ManualObject::ManualObjectSection* ManualObject::end(void)
+    auto ManualObject::end() -> ManualObject::ManualObjectSection*
     {
         OgreAssert(mCurrentSection, "You cannot call end() until after you call begin()");
         if (mTempVertexPending)
@@ -370,7 +368,7 @@ ManualObject::ManualObject(const String& name)
         }
 
         // pointer that will be returned
-        ManualObjectSection* result = NULL;
+        ManualObjectSection* result = nullptr;
 
         RenderOperation* rop = mCurrentSection->getRenderOperation();
         // Check for empty content
@@ -458,7 +456,7 @@ ManualObject::ManualObject(const String& name)
                 else //(HardwareIndexBuffer::IT_16BIT == indexType)
                 {
                     HardwareBufferLockGuard indexLock(rop->indexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
-                    uint16* pIdx = static_cast<uint16*>(indexLock.pData);
+                    auto* pIdx = static_cast<uint16*>(indexLock.pData);
                     uint32* pSrc = mTempIndexBuffer;
                     for (size_t i = 0; i < rop->indexData->indexCount; i++)
                     {
@@ -472,7 +470,7 @@ ManualObject::ManualObject(const String& name)
 
         } // empty section check
 
-        mCurrentSection = 0;
+        mCurrentSection = nullptr;
         resetTempAreas();
 
         // Tell parent if present
@@ -486,7 +484,7 @@ ManualObject::ManualObject(const String& name)
         return result;
     }
     //-----------------------------------------------------------------------------
-    MeshPtr ManualObject::convertToMesh(const String& meshName, const String& groupName)
+    auto ManualObject::convertToMesh(const String& meshName, const String& groupName) -> MeshPtr
     {
         OgreAssert(!mCurrentSection, "You cannot call convertToMesh() whilst you are in the middle of "
                                      "defining the object; call end() first.");
@@ -512,9 +510,9 @@ ManualObject::ManualObject(const String& name)
     void ManualObject::setUseIdentityProjection(bool useIdentityProjection)
     {
         // Set existing
-        for (SectionList::iterator i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto & i : mSectionList)
         {
-            (*i)->setUseIdentityProjection(useIdentityProjection);
+            i->setUseIdentityProjection(useIdentityProjection);
         }
         
         // Save setting for future sections
@@ -524,16 +522,16 @@ ManualObject::ManualObject(const String& name)
     void ManualObject::setUseIdentityView(bool useIdentityView)
     {
         // Set existing
-        for (SectionList::iterator i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto & i : mSectionList)
         {
-            (*i)->setUseIdentityView(useIdentityView);
+            i->setUseIdentityView(useIdentityView);
         }
 
         // Save setting for future sections
         mUseIdentityView = useIdentityView;
     }
     //-----------------------------------------------------------------------------
-    const String& ManualObject::getMovableType(void) const
+    auto ManualObject::getMovableType() const -> const String&
     {
         return ManualObjectFactory::FACTORY_TYPE_NAME;
     }
@@ -543,10 +541,10 @@ ManualObject::ManualObject(const String& name)
         // To be used when order of creation must be kept while rendering
         unsigned short priority = queue->getDefaultRenderablePriority();
 
-        for (SectionList::iterator i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto & i : mSectionList)
         {
             // Skip empty sections (only happens if non-empty first, then updated)
-            RenderOperation* rop = (*i)->getRenderOperation();
+            RenderOperation* rop = i->getRenderOperation();
             if (rop->vertexData->vertexCount == 0 ||
                 (rop->useIndexes && rop->indexData->indexCount == 0))
                 continue;
@@ -554,26 +552,26 @@ ManualObject::ManualObject(const String& name)
             if (mRenderQueuePrioritySet)
             {
                 assert(mRenderQueueIDSet == true);
-                queue->addRenderable(*i, mRenderQueueID, mRenderQueuePriority);
+                queue->addRenderable(i, mRenderQueueID, mRenderQueuePriority);
             }
             else if (mRenderQueueIDSet)
-                queue->addRenderable(*i, mRenderQueueID, mKeepDeclarationOrder ? priority++ : queue->getDefaultRenderablePriority());
+                queue->addRenderable(i, mRenderQueueID, mKeepDeclarationOrder ? priority++ : queue->getDefaultRenderablePriority());
             else
-                queue->addRenderable(*i, queue->getDefaultQueueGroup(), mKeepDeclarationOrder ? priority++ : queue->getDefaultRenderablePriority());
+                queue->addRenderable(i, queue->getDefaultQueueGroup(), mKeepDeclarationOrder ? priority++ : queue->getDefaultRenderablePriority());
         }
     }
     //-----------------------------------------------------------------------------
     void ManualObject::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (SectionList::iterator i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto & i : mSectionList)
         {
-            visitor->visit(*i, 0, false);
+            visitor->visit(i, 0, false);
         }
 
     }
     //-----------------------------------------------------------------------------
-    EdgeData* ManualObject::getEdgeList(void)
+    auto ManualObject::getEdgeList() -> EdgeData*
     {
         // Build on demand
         if (!mEdgeList && mAnyIndexed)
@@ -581,9 +579,9 @@ ManualObject::ManualObject(const String& name)
             EdgeListBuilder eb;
             size_t vertexSet = 0;
             bool anyBuilt = false;
-            for (SectionList::iterator i = mSectionList.begin(); i != mSectionList.end(); ++i)
+            for (auto & i : mSectionList)
             {
-                RenderOperation* rop = (*i)->getRenderOperation();
+                RenderOperation* rop = i->getRenderOperation();
                 // Only indexed triangle geometry supported for stencil shadows
                 if (rop->useIndexes && rop->indexData->indexCount != 0 && 
                     (rop->operationType == RenderOperation::OT_TRIANGLE_FAN ||
@@ -603,9 +601,9 @@ ManualObject::ManualObject(const String& name)
         return mEdgeList;
     }
     //-----------------------------------------------------------------------------
-    const ShadowRenderableList& ManualObject::getShadowVolumeRenderableList(
+    auto ManualObject::getShadowVolumeRenderableList(
         const Light* light, const HardwareIndexBufferPtr& indexBuffer, size_t& indexBufferUsedSize,
-        float extrusionDistance, int flags)
+        float extrusionDistance, int flags) -> const ShadowRenderableList&
     {
         EdgeData* edgeList = getEdgeList();
         if (!edgeList)
@@ -684,8 +682,8 @@ ManualObject::ManualObject(const String& name)
     //-----------------------------------------------------------------------------
     //-----------------------------------------------------------------------------
     ManualObject::ManualObjectSection::ManualObjectSection(ManualObject* parent,
-        const String& materialName, RenderOperation::OperationType opType, const String & groupName)
-        : mParent(parent), mMaterialName(materialName), mGroupName(groupName), m32BitIndices(false)
+        String  materialName, RenderOperation::OperationType opType, String  groupName)
+        : mParent(parent), mMaterialName(std::move(materialName)), mGroupName(std::move(groupName)), m32BitIndices(false)
     {
         mRenderOperation.operationType = opType;
         // default to no indexes unless we're told
@@ -715,12 +713,12 @@ ManualObject::ManualObject(const String& name)
         delete mRenderOperation.indexData; // ok to delete 0
     }
     //-----------------------------------------------------------------------------
-    RenderOperation* ManualObject::ManualObjectSection::getRenderOperation(void)
+    auto ManualObject::ManualObjectSection::getRenderOperation() -> RenderOperation*
     {
         return &mRenderOperation;
     }
     //-----------------------------------------------------------------------------
-    const MaterialPtr& ManualObject::ManualObjectSection::getMaterial(void) const
+    auto ManualObject::ManualObjectSection::getMaterial() const -> const MaterialPtr&
     {
         if (!mMaterial)
         {
@@ -759,13 +757,13 @@ ManualObject::ManualObject(const String& name)
         xform[0] = mParent->_getParentNodeFullTransform();
     }
     //-----------------------------------------------------------------------------
-    Real ManualObject::ManualObjectSection::getSquaredViewDepth(const Ogre::Camera *cam) const
+    auto ManualObject::ManualObjectSection::getSquaredViewDepth(const Ogre::Camera *cam) const -> Real
     {
         Node* n = mParent->getParentNode();
         return n ? n->getSquaredViewDepth(cam) : 0;
     }
     //-----------------------------------------------------------------------------
-    const LightList& ManualObject::ManualObjectSection::getLights(void) const
+    auto ManualObject::ManualObjectSection::getLights() const -> const LightList&
     {
         return mParent->queryLights();
     }
@@ -791,13 +789,13 @@ ManualObject::ManualObject(const String& name)
     //-----------------------------------------------------------------------------
     String ManualObjectFactory::FACTORY_TYPE_NAME = "ManualObject";
     //-----------------------------------------------------------------------------
-    const String& ManualObjectFactory::getType(void) const
+    auto ManualObjectFactory::getType() const -> const String&
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------------
-    MovableObject* ManualObjectFactory::createInstanceImpl(
-        const String& name, const NameValuePairList* params)
+    auto ManualObjectFactory::createInstanceImpl(
+        const String& name, const NameValuePairList* params) -> MovableObject*
     {
         return new ManualObject(name);
     }

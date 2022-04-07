@@ -30,17 +30,17 @@ THE SOFTWARE.
 #include <algorithm>
 #include <vector>
 
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreFrustum.h"
-#include "OgreLight.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreNode.h"
-#include "OgrePlane.h"
-#include "OgreRay.h"
-#include "OgreShadowCameraSetupFocused.h"
-#include "OgreVector.h"
+#include "OgreCamera.hpp"
+#include "OgreException.hpp"
+#include "OgreFrustum.hpp"
+#include "OgreLight.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgreNode.hpp"
+#include "OgrePlane.hpp"
+#include "OgreRay.hpp"
+#include "OgreShadowCameraSetupFocused.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre
 {
@@ -60,7 +60,7 @@ class Viewport;
         0,  0,  0,  1); // w
 
     /// Builds a standard view matrix out of a given position, direction and up vector.
-    static Affine3 buildViewMatrix(const Vector3& pos, const Vector3& dir, const Vector3& up)
+    static auto buildViewMatrix(const Vector3& pos, const Vector3& dir, const Vector3& up) -> Affine3
     {
         Matrix3 Rt = Math::lookRotation(-dir, up).transpose();
         Matrix4 m;
@@ -71,16 +71,16 @@ class Viewport;
 
     FocusedShadowCameraSetup::FocusedShadowCameraSetup(bool useAggressiveRegion)
         : mTempFrustum(new Frustum())
-        , mLightFrustumCameraNode(NULL)
-        , mLightFrustumCamera(new Camera("TEMP LIGHT INTERSECT CAM", NULL))
+        , mLightFrustumCameraNode(nullptr)
+        , mLightFrustumCamera(new Camera("TEMP LIGHT INTERSECT CAM", nullptr))
         , mUseAggressiveRegion(useAggressiveRegion)
-        , mLightFrustumCameraCalculated(false)
+         
     {
         mLightFrustumCamera->_notifyAttached(&mLightFrustumCameraNode);
         mTempFrustum->setProjectionType(PT_PERSPECTIVE);
     }
 
-    FocusedShadowCameraSetup::~FocusedShadowCameraSetup() {}
+    FocusedShadowCameraSetup::~FocusedShadowCameraSetup() = default;
 
     //-----------------------------------------------------------------------
     void FocusedShadowCameraSetup::calculateShadowMappingMatrix(const SceneManager& sm,
@@ -106,7 +106,7 @@ class Viewport;
         if (light.getType() == Light::LT_DIRECTIONAL)
         {
             // generate view matrix if requested
-            if (out_view != NULL)
+            if (out_view != nullptr)
             {
                 Vector3 pos;
                 if (sm.getCameraRelativeRendering())
@@ -123,14 +123,14 @@ class Viewport;
             }
 
             // generate projection matrix if requested
-            if (out_proj != NULL)
+            if (out_proj != nullptr)
             {
                 *out_proj = Affine3::getScale(1, 1, -1);
                 //*out_proj = Matrix4::IDENTITY;
             }
 
             // set up camera if requested
-            if (out_cam != NULL)
+            if (out_cam != nullptr)
             {
                 out_cam->setProjectionType(PT_ORTHOGRAPHIC);
                 out_cam->getParentSceneNode()->setDirection(light.getDerivedDirection(), Node::TS_WORLD);
@@ -150,7 +150,7 @@ class Viewport;
             lightDir.normalise();
 
             // generate view matrix if requested
-            if (out_view != NULL)
+            if (out_view != nullptr)
             {
                 *out_view = buildViewMatrix(light.getDerivedPosition(), 
                     lightDir, 
@@ -158,7 +158,7 @@ class Viewport;
             }
 
             // generate projection matrix if requested
-            if (out_proj != NULL)
+            if (out_proj != nullptr)
             {
                 // set FOV to 120 degrees
                 mTempFrustum->setFOVy(Degree(120));
@@ -170,7 +170,7 @@ class Viewport;
             }
 
             // set up camera if requested
-            if (out_cam != NULL)
+            if (out_cam != nullptr)
             {
                 out_cam->setProjectionType(PT_PERSPECTIVE);
                 out_cam->getParentSceneNode()->setDirection(lightDir, Node::TS_WORLD);
@@ -181,7 +181,7 @@ class Viewport;
         else if (light.getType() == Light::LT_SPOTLIGHT)
         {
             // generate view matrix if requested
-            if (out_view != NULL)
+            if (out_view != nullptr)
             {
                 *out_view = buildViewMatrix(light.getDerivedPosition(), 
                     light.getDerivedDirection(), 
@@ -189,7 +189,7 @@ class Viewport;
             }
 
             // generate projection matrix if requested
-            if (out_proj != NULL)
+            if (out_proj != nullptr)
             {
                 // set FOV slightly larger than spotlight range
                 mTempFrustum->setFOVy(Ogre::Math::Clamp<Radian>(light.getSpotlightOuterAngle() * 1.2, Radian(0), Radian(Math::PI/2.0f)));
@@ -201,7 +201,7 @@ class Viewport;
             }
 
             // set up camera if requested
-            if (out_cam != NULL)
+            if (out_cam != nullptr)
             {
                 out_cam->setProjectionType(PT_PERSPECTIVE);
                 out_cam->getParentSceneNode()->setDirection(light.getDerivedDirection(), Node::TS_WORLD);
@@ -215,7 +215,7 @@ class Viewport;
         const Light& light, const AxisAlignedBox& sceneBB, const AxisAlignedBox& receiverBB, 
         PointListBody *out_bodyB) const
     {
-        OgreAssert(out_bodyB != NULL, "bodyB vertex list is NULL");
+        OgreAssert(out_bodyB != nullptr, "bodyB vertex list is NULL");
 
         /// perform convex intersection of the form B = ((V \cap S) + l) \cap S \cap L
 
@@ -256,7 +256,7 @@ class Viewport;
             // set up light camera to clip with the resulting frustum planes
             if (!mLightFrustumCameraCalculated)
             {
-                calculateShadowMappingMatrix(sm, cam, light, NULL, NULL, mLightFrustumCamera.get());
+                calculateShadowMappingMatrix(sm, cam, light, nullptr, nullptr, mLightFrustumCamera.get());
                 mLightFrustumCameraCalculated = true;
             }
             mBodyB.clip(*mLightFrustumCamera);
@@ -309,7 +309,7 @@ class Viewport;
             // set up light camera to clip the resulting frustum
             if (!mLightFrustumCameraCalculated)
             {
-                calculateShadowMappingMatrix(sm, cam, light, NULL, NULL, mLightFrustumCamera.get());
+                calculateShadowMappingMatrix(sm, cam, light, nullptr, nullptr, mLightFrustumCamera.get());
                 mLightFrustumCameraCalculated = true;
             }
             bodyLVS.clip(*mLightFrustumCamera);
@@ -322,8 +322,8 @@ class Viewport;
         out_LVS->build(bodyLVS);
     }
     //-----------------------------------------------------------------------
-    Vector3 FocusedShadowCameraSetup::getLSProjViewDir(const Matrix4& lightSpace, 
-        const Camera& cam, const PointListBody& bodyLVS) const
+    auto FocusedShadowCameraSetup::getLSProjViewDir(const Matrix4& lightSpace, 
+        const Camera& cam, const PointListBody& bodyLVS) const -> Vector3
     {
         // goal is to construct a view direction
         // because parallel lines are not parallel any more after perspective projection we have to transform
@@ -350,11 +350,11 @@ class Viewport;
             Vector3::NEGATIVE_UNIT_Z : projectionDir.normalisedCopy();
     }
     //-----------------------------------------------------------------------
-    Vector3 FocusedShadowCameraSetup::getNearCameraPoint_ws(const Affine3& viewMatrix,
-        const PointListBody& bodyLVS) const
+    auto FocusedShadowCameraSetup::getNearCameraPoint_ws(const Affine3& viewMatrix,
+        const PointListBody& bodyLVS) const -> Vector3
     {
         if (bodyLVS.getPointCount() == 0)
-            return Vector3(0,0,0);
+            return {0,0,0};
 
         Vector3 nearEye = viewMatrix * bodyLVS.getPoint(0), // for comparison
             nearWorld = bodyLVS.getPoint(0);                // represents the final point
@@ -377,8 +377,8 @@ class Viewport;
         return nearWorld;
     }
     //-----------------------------------------------------------------------
-    Matrix4 FocusedShadowCameraSetup::transformToUnitCube(const Matrix4& m, 
-        const PointListBody& body) const
+    auto FocusedShadowCameraSetup::transformToUnitCube(const Matrix4& m, 
+        const PointListBody& body) const -> Matrix4
     {
         // map the transformed body AAB points to the unit cube (-1/-1/-1) / (+1/+1/+1) corners
         AxisAlignedBox aab_trans;
@@ -412,10 +412,10 @@ class Viewport;
         const Viewport *vp, const Light *light, Camera *texCam, size_t iteration) const
     {
         // check availability - viewport not needed
-        OgreAssert(sm != NULL, "SceneManager is NULL");
-        OgreAssert(cam != NULL, "Camera (viewer) is NULL");
-        OgreAssert(light != NULL, "Light is NULL");
-        OgreAssert(texCam != NULL, "Camera (texture) is NULL");
+        OgreAssert(sm != nullptr, "SceneManager is NULL");
+        OgreAssert(cam != nullptr, "Camera (viewer) is NULL");
+        OgreAssert(light != nullptr, "Light is NULL");
+        OgreAssert(texCam != nullptr, "Camera (texture) is NULL");
         mLightFrustumCameraCalculated = false;
 
         texCam->setNearClipDistance(light->_deriveShadowNearClipDistance(cam));
@@ -423,7 +423,7 @@ class Viewport;
 
         // calculate standard shadow mapping matrix
         Affine3 LView; Matrix4 LProj;
-        calculateShadowMappingMatrix(*sm, *cam, *light, &LView, &LProj, NULL);
+        calculateShadowMappingMatrix(*sm, *cam, *light, &LView, &LProj, nullptr);
 
         // build scene bounding box
         const VisibleObjectsBoundsInfo& visInfo = sm->getVisibleObjectsBoundsInfo(texCam);
@@ -500,8 +500,7 @@ class Viewport;
     }
     //-----------------------------------------------------------------------
     FocusedShadowCameraSetup::PointListBody::~PointListBody()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void FocusedShadowCameraSetup::PointListBody::merge(const PointListBody& plb)
     {
@@ -532,11 +531,8 @@ class Viewport;
                 {
                     bool bPresent = false;
 
-                    for(Polygon::VertexList::iterator vit = mBodyPoints.begin();
-                        vit != mBodyPoints.end(); ++vit)
+                    for(auto & v : mBodyPoints)
                     {
-                        const Vector3& v = *vit;
-
                         if (vInsert.positionEquals(v))
                         {
                             bPresent = true;
@@ -603,7 +599,7 @@ class Viewport;
         } // for: polygon iteration
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& FocusedShadowCameraSetup::PointListBody::getAAB(void) const
+    auto FocusedShadowCameraSetup::PointListBody::getAAB() const -> const AxisAlignedBox&
     {
         return mAAB;
     }
@@ -656,19 +652,19 @@ class Viewport;
 
     }
     //-----------------------------------------------------------------------   
-    const Vector3& FocusedShadowCameraSetup::PointListBody::getPoint(size_t cnt) const
+    auto FocusedShadowCameraSetup::PointListBody::getPoint(size_t cnt) const -> const Vector3&
     {
         OgreAssertDbg(cnt < getPointCount(), "Search position out of range");
 
         return mBodyPoints[ cnt ];
     }
     //-----------------------------------------------------------------------   
-    size_t FocusedShadowCameraSetup::PointListBody::getPointCount(void) const
+    auto FocusedShadowCameraSetup::PointListBody::getPointCount() const -> size_t
     {
         return mBodyPoints.size();
     }
     //-----------------------------------------------------------------------   
-    void FocusedShadowCameraSetup::PointListBody::reset(void)
+    void FocusedShadowCameraSetup::PointListBody::reset()
     {
         mBodyPoints.clear();
         mAAB.setNull();

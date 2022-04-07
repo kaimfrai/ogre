@@ -31,40 +31,40 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgrePrerequisites.h"
-#include "OgreStringInterface.h"
+#include "OgreCommon.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreStringInterface.hpp"
 
 namespace Ogre {
     /// Dictionary of parameters
     static ParamDictionaryMap msDictionary;
 
-    ParamDictionary::ParamDictionary() {}
-    ParamDictionary::~ParamDictionary() {}
+    ParamDictionary::ParamDictionary() = default;
+    ParamDictionary::~ParamDictionary() = default;
 
-    ParamCommand* ParamDictionary::getParamCommand(const String& name)
+    auto ParamDictionary::getParamCommand(const String& name) -> ParamCommand*
     {
-        ParamCommandMap::iterator i = mParamCommands.find(name);
+        auto i = mParamCommands.find(name);
         if (i != mParamCommands.end())
         {
             return i->second;
         }
         else
         {
-            return 0;
+            return nullptr;
         }
     }
 
-    const ParamCommand* ParamDictionary::getParamCommand(const String& name) const
+    auto ParamDictionary::getParamCommand(const String& name) const -> const ParamCommand*
     {
-        ParamCommandMap::const_iterator i = mParamCommands.find(name);
+        auto i = mParamCommands.find(name);
         if (i != mParamCommands.end())
         {
             return i->second;
         }
         else
         {
-            return 0;
+            return nullptr;
         }
     }
 
@@ -74,9 +74,9 @@ namespace Ogre {
         mParamCommands[name] = paramCmd;
     }
 
-    bool StringInterface::createParamDictionary(const String& className)
+    auto StringInterface::createParamDictionary(const String& className) -> bool
     {
-        ParamDictionaryMap::iterator it = msDictionary.find(className);
+        auto it = msDictionary.find(className);
 
         if ( it == msDictionary.end() )
         {
@@ -92,7 +92,7 @@ namespace Ogre {
         }
     }
 
-    const ParameterList& StringInterface::getParameters(void) const
+    auto StringInterface::getParameters() const -> const ParameterList&
     {
         static ParameterList emptyList;
 
@@ -104,7 +104,7 @@ namespace Ogre {
 
     }
 
-    String StringInterface::getParameter(const String& name) const
+    auto StringInterface::getParameter(const String& name) const -> String
     {
         // Get dictionary
         const ParamDictionary* dict = getParamDictionary();
@@ -124,7 +124,7 @@ namespace Ogre {
         return "";
     }
 
-    bool StringInterface::setParameter(const String& name, const String& value)
+    auto StringInterface::setParameter(const String& name, const String& value) -> bool
     {
         // Get dictionary
         ParamDictionary* dict = getParamDictionary();

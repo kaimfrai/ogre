@@ -31,19 +31,18 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreGpuProgramParams.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreShaderCGProgramWriter.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramWriter.h"
+#include "OgreGpuProgramParams.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreShaderCGProgramWriter.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramWriter.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 String CGProgramWriter::TargetLanguage = "cg";
 
@@ -55,9 +54,7 @@ CGProgramWriter::CGProgramWriter()
 
 //-----------------------------------------------------------------------
 CGProgramWriter::~CGProgramWriter()
-{
-
-}
+= default;
 
 //-----------------------------------------------------------------------
 void CGProgramWriter::initializeStringMaps()
@@ -216,5 +213,4 @@ void CGProgramWriter::writeAtomInstance(std::ostream& os, FunctionAtom* atom)
     os << std::endl;
 }
 
-}
 }

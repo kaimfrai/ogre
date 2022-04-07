@@ -29,54 +29,53 @@ THE SOFTWARE.
 #include <cstring>
 #include <memory>
 #include <ostream>
+#include <utility>
 
-#include "OgreCamera.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreEntity.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLight.h"
-#include "OgreLodStrategy.h"
-#include "OgreLogManager.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgreNode.h"
-#include "OgrePass.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreStaticGeometry.h"
-#include "OgreSubEntity.h"
-#include "OgreSubMesh.h"
-#include "OgreTechnique.h"
-#include "OgreVertexIndexData.h"
+#include "OgreCamera.hpp"
+#include "OgreEdgeListBuilder.hpp"
+#include "OgreEntity.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreLight.hpp"
+#include "OgreLodStrategy.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreNode.hpp"
+#include "OgrePass.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreStaticGeometry.hpp"
+#include "OgreSubEntity.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
 
-    #define REGION_RANGE 1024
-    #define REGION_HALF_RANGE 512
-    #define REGION_MAX_INDEX 511
-    #define REGION_MIN_INDEX -512
+enum {
+REGION_RANGE = 1024,
+REGION_HALF_RANGE = 512,
+REGION_MAX_INDEX = 511,
+REGION_MIN_INDEX = -512
+};
 
     //--------------------------------------------------------------------------
-    StaticGeometry::StaticGeometry(SceneManager* owner, const String& name):
+    StaticGeometry::StaticGeometry(SceneManager* owner, String  name):
         mOwner(owner),
-        mName(name),
-        mUpperDistance(0.0f),
-        mSquaredUpperDistance(0.0f),
-        mCastShadows(false),
+        mName(std::move(name)),
+        
         mRegionDimensions(Vector3(1000,1000,1000)),
         mHalfRegionDimensions(Vector3(500,500,500)),
         mOrigin(Vector3(0,0,0)),
-        mVisible(true),
-        mRenderQueueID(RENDER_QUEUE_MAIN),
-        mRenderQueueIDSet(false),
+        
         mVisibilityFlags(Ogre::MovableObject::getDefaultVisibilityFlags())
     {
     }
@@ -86,11 +85,11 @@ namespace Ogre {
         reset();
     }
     //--------------------------------------------------------------------------
-    StaticGeometry::Region* StaticGeometry::getRegion(const AxisAlignedBox& bounds,
-        bool autoCreate)
+    auto StaticGeometry::getRegion(const AxisAlignedBox& bounds,
+        bool autoCreate) -> StaticGeometry::Region*
     {
         if (bounds.isNull())
-            return 0;
+            return nullptr;
 
         // Get the region which has the largest overlapping volume
         const Vector3 min = bounds.getMinimum();
@@ -129,8 +128,8 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    Real StaticGeometry::getVolumeIntersection(const AxisAlignedBox& box,
-        ushort x, ushort y, ushort z)
+    auto StaticGeometry::getVolumeIntersection(const AxisAlignedBox& box,
+        ushort x, ushort y, ushort z) -> Real
     {
         // Get bounds of indexed region
         AxisAlignedBox regionBounds = getRegionBounds(x, y, z);
@@ -147,31 +146,31 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    AxisAlignedBox StaticGeometry::getRegionBounds(ushort x, ushort y, ushort z)
+    auto StaticGeometry::getRegionBounds(ushort x, ushort y, ushort z) -> AxisAlignedBox
     {
         Vector3 min(
-            ((Real)x - REGION_HALF_RANGE) * mRegionDimensions.x + mOrigin.x,
-            ((Real)y - REGION_HALF_RANGE) * mRegionDimensions.y + mOrigin.y,
-            ((Real)z - REGION_HALF_RANGE) * mRegionDimensions.z + mOrigin.z
+            ((Real)x - static_cast<Real>(REGION_HALF_RANGE)) * mRegionDimensions.x + mOrigin.x,
+            ((Real)y - static_cast<Real>(REGION_HALF_RANGE)) * mRegionDimensions.y + mOrigin.y,
+            ((Real)z - static_cast<Real>(REGION_HALF_RANGE)) * mRegionDimensions.z + mOrigin.z
             );
         Vector3 max = min + mRegionDimensions;
-        return AxisAlignedBox(min, max);
+        return { min, max };
     }
     //--------------------------------------------------------------------------
-    Vector3 StaticGeometry::getRegionCentre(ushort x, ushort y, ushort z)
+    auto StaticGeometry::getRegionCentre(ushort x, ushort y, ushort z) -> Vector3
     {
-        return Vector3(
-            ((Real)x - REGION_HALF_RANGE) * mRegionDimensions.x + mOrigin.x
+        return {
+            ((Real)x - static_cast<Real>(REGION_HALF_RANGE)) * mRegionDimensions.x + mOrigin.x
                 + mHalfRegionDimensions.x,
-            ((Real)y - REGION_HALF_RANGE) * mRegionDimensions.y + mOrigin.y
+            ((Real)y - static_cast<Real>(REGION_HALF_RANGE)) * mRegionDimensions.y + mOrigin.y
                 + mHalfRegionDimensions.y,
-            ((Real)z - REGION_HALF_RANGE) * mRegionDimensions.z + mOrigin.z
+            ((Real)z - static_cast<Real>(REGION_HALF_RANGE)) * mRegionDimensions.z + mOrigin.z
                 + mHalfRegionDimensions.z
-            );
+            };
     }
     //--------------------------------------------------------------------------
-    StaticGeometry::Region* StaticGeometry::getRegion(
-            ushort x, ushort y, ushort z, bool autoCreate)
+    auto StaticGeometry::getRegion(
+            ushort x, ushort y, ushort z, bool autoCreate) -> StaticGeometry::Region*
     {
         uint32 index = packIndex(x, y, z);
         Region* ret = getRegion(index);
@@ -195,16 +194,16 @@ namespace Ogre {
         return ret;
     }
     //--------------------------------------------------------------------------
-    StaticGeometry::Region* StaticGeometry::getRegion(uint32 index)
+    auto StaticGeometry::getRegion(uint32 index) -> StaticGeometry::Region*
     {
-        RegionMap::iterator i = mRegionMap.find(index);
+        auto i = mRegionMap.find(index);
         if (i != mRegionMap.end())
         {
             return i->second;
         }
         else
         {
-            return 0;
+            return nullptr;
         }
 
     }
@@ -238,22 +237,22 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    uint32 StaticGeometry::packIndex(ushort x, ushort y, ushort z)
+    auto StaticGeometry::packIndex(ushort x, ushort y, ushort z) -> uint32
     {
         return x + (y << 10) + (z << 20);
     }
     //--------------------------------------------------------------------------
-    StaticGeometry::Region* StaticGeometry::getRegion(const Vector3& point,
-        bool autoCreate)
+    auto StaticGeometry::getRegion(const Vector3& point,
+        bool autoCreate) -> StaticGeometry::Region*
     {
         ushort x, y, z;
         getRegionIndexes(point, x, y, z);
         return getRegion(x, y, z, autoCreate);
     }
     //--------------------------------------------------------------------------
-    AxisAlignedBox StaticGeometry::calculateBounds(VertexData* vertexData,
+    auto StaticGeometry::calculateBounds(VertexData* vertexData,
         const Vector3& position, const Quaternion& orientation,
-        const Vector3& scale)
+        const Vector3& scale) -> AxisAlignedBox
     {
         const VertexElement* posElem =
             vertexData->vertexDeclaration->findElementBySemantic(
@@ -261,7 +260,7 @@ namespace Ogre {
         HardwareVertexBufferSharedPtr vbuf =
             vertexData->vertexBufferBinding->getBuffer(posElem->getSource());
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_READ_ONLY);
-        unsigned char* vertex = static_cast<unsigned char*>(vbufLock.pData);
+        auto* vertex = static_cast<unsigned char*>(vbufLock.pData);
         float* pFloat;
 
         Vector3 min = Vector3::ZERO, max = Vector3::UNIT_SCALE;
@@ -290,7 +289,7 @@ namespace Ogre {
             }
 
         }
-        return AxisAlignedBox(min, max);
+        return { min, max };
     }
     //--------------------------------------------------------------------------
     void StaticGeometry::addEntity(Entity* ent, const Vector3& position,
@@ -311,7 +310,7 @@ namespace Ogre {
         for (uint i = 0; i < ent->getNumSubEntities(); ++i)
         {
             SubEntity* se = ent->getSubEntity(i);
-            QueuedSubMesh* q = new QueuedSubMesh();
+            auto* q = new QueuedSubMesh();
 
             // Get the geometry for this SubMesh
             q->submesh = se->getSubMesh();
@@ -329,19 +328,19 @@ namespace Ogre {
         }
     }
     //--------------------------------------------------------------------------
-    StaticGeometry::SubMeshLodGeometryLinkList*
-    StaticGeometry::determineGeometry(SubMesh* sm)
+    auto
+    StaticGeometry::determineGeometry(SubMesh* sm) -> StaticGeometry::SubMeshLodGeometryLinkList*
     {
         OgreAssert(sm->indexData->indexBuffer, "currently only works with indexed geometry");
         // First, determine if we've already seen this submesh before
-        SubMeshGeometryLookup::iterator i =
+        auto i =
             mSubMeshGeometryLookup.find(sm);
         if (i != mSubMeshGeometryLookup.end())
         {
             return i->second;
         }
         // Otherwise, we have to create a new one
-        SubMeshLodGeometryLinkList* lodList = new SubMeshLodGeometryLinkList();
+        auto* lodList = new SubMeshLodGeometryLinkList();
         mSubMeshGeometryLookup[sm] = lodList;
         ushort numLods = sm->parent->hasManualLodLevel() ? 1 :
             sm->parent->getNumLodLevels();
@@ -464,7 +463,7 @@ namespace Ogre {
             // Buffers should be the same size
             assert (vertexSize == newBuf->getVertexSize());
 
-            for (IndexRemap::iterator r = indexRemap.begin();
+            for (auto r = indexRemap.begin();
                 r != indexRemap.end(); ++r)
             {
                 assert (r->first < oldBuf->getNumVertices());
@@ -489,14 +488,14 @@ namespace Ogre {
         HardwareBufferLockGuard dstIndexLock(ibuf, HardwareBuffer::HBL_DISCARD);
         if (use32bitIndexes)
         {
-            uint32 *pSrc32 = static_cast<uint32*>(srcIndexLock.pData);
-            uint32 *pDst32 = static_cast<uint32*>(dstIndexLock.pData);
+            auto *pSrc32 = static_cast<uint32*>(srcIndexLock.pData);
+            auto *pDst32 = static_cast<uint32*>(dstIndexLock.pData);
             remapIndexes(pSrc32, pDst32, indexRemap, id->indexCount);
         }
         else
         {
-            uint16 *pSrc16 = static_cast<uint16*>(srcIndexLock.pData);
-            uint16 *pDst16 = static_cast<uint16*>(dstIndexLock.pData);
+            auto *pSrc16 = static_cast<uint16*>(srcIndexLock.pData);
+            auto *pDst16 = static_cast<uint16*>(dstIndexLock.pData);
             remapIndexes(pSrc16, pDst16, indexRemap, id->indexCount);
         }
         srcIndexLock.unlock();
@@ -508,7 +507,7 @@ namespace Ogre {
         targetGeomLink->indexData->indexBuffer = ibuf;
 
         // Store optimised geometry for deallocation later
-        OptimisedSubMeshGeometry *optGeom = new OptimisedSubMeshGeometry();
+        auto *optGeom = new OptimisedSubMeshGeometry();
         optGeom->indexData = targetGeomLink->indexData;
         optGeom->vertexData = targetGeomLink->vertexData;
         mOptimisedSubMeshGeometryList.push_back(optGeom);
@@ -534,16 +533,14 @@ namespace Ogre {
         }
     }
     //--------------------------------------------------------------------------
-    void StaticGeometry::build(void)
+    void StaticGeometry::build()
     {
         // Make sure there's nothing from previous builds
         destroy();
 
         // Firstly allocate meshes to regions
-        for (QueuedSubMeshList::iterator qi = mQueuedSubMeshes.begin();
-            qi != mQueuedSubMeshes.end(); ++qi)
+        for (auto qsm : mQueuedSubMeshes)
         {
-            QueuedSubMesh* qsm = *qi;
             Region* region = getRegion(qsm->worldBounds, true);
             region->assign(qsm);
         }
@@ -554,50 +551,45 @@ namespace Ogre {
         }
 
         // Now tell each region to build itself
-        for (RegionMap::iterator ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->build(stencilShadows);
+            ri.second->build(stencilShadows);
             
             // Set the visibility flags on these regions
-            ri->second->setVisibilityFlags(mVisibilityFlags);
+            ri.second->setVisibilityFlags(mVisibilityFlags);
         }
 
     }
     //--------------------------------------------------------------------------
-    void StaticGeometry::destroy(void)
+    void StaticGeometry::destroy()
     {
         // delete the regions
-        for (RegionMap::iterator i = mRegionMap.begin();
-            i != mRegionMap.end(); ++i)
+        for (auto & i : mRegionMap)
         {
-            mOwner->extractMovableObject(i->second);
-            delete i->second;
+            mOwner->extractMovableObject(i.second);
+            delete i.second;
         }
         mRegionMap.clear();
     }
     //--------------------------------------------------------------------------
-    void StaticGeometry::reset(void)
+    void StaticGeometry::reset()
     {
         destroy();
-        for (QueuedSubMeshList::iterator i = mQueuedSubMeshes.begin();
-            i != mQueuedSubMeshes.end(); ++i)
+        for (auto & mQueuedSubMeshe : mQueuedSubMeshes)
         {
-            delete *i;
+            delete mQueuedSubMeshe;
         }
         mQueuedSubMeshes.clear();
         // Delete precached geoemtry lists
-        for (SubMeshGeometryLookup::iterator l = mSubMeshGeometryLookup.begin();
-            l != mSubMeshGeometryLookup.end(); ++l)
+        for (auto & l : mSubMeshGeometryLookup)
         {
-            delete l->second;
+            delete l.second;
         }
         mSubMeshGeometryLookup.clear();
         // Delete optimised geometry
-        for (OptimisedSubMeshGeometryList::iterator o = mOptimisedSubMeshGeometryList.begin();
-            o != mOptimisedSubMeshGeometryList.end(); ++o)
+        for (auto & o : mOptimisedSubMeshGeometryList)
         {
-            delete *o;
+            delete o;
         }
         mOptimisedSubMeshGeometryList.clear();
 
@@ -607,10 +599,9 @@ namespace Ogre {
     {
         mVisible = visible;
         // tell any existing regions
-        for (RegionMap::iterator ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->setVisible(visible);
+            ri.second->setVisible(visible);
         }
     }
     //--------------------------------------------------------------------------
@@ -618,10 +609,9 @@ namespace Ogre {
     {
         mCastShadows = castShadows;
         // tell any existing regions
-        for (RegionMap::iterator ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->setCastShadows(castShadows);
+            ri.second->setCastShadows(castShadows);
         }
 
     }
@@ -632,14 +622,13 @@ namespace Ogre {
         mRenderQueueIDSet = true;
         mRenderQueueID = queueID;
         // tell any existing regions
-        for (RegionMap::iterator ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->setRenderQueueGroup(queueID);
+            ri.second->setRenderQueueGroup(queueID);
         }
     }
     //--------------------------------------------------------------------------
-    uint8 StaticGeometry::getRenderQueueGroup(void) const
+    auto StaticGeometry::getRenderQueueGroup() const -> uint8
     {
         return mRenderQueueID;
     }
@@ -647,19 +636,18 @@ namespace Ogre {
     void StaticGeometry::setVisibilityFlags(uint32 flags)
     {
         mVisibilityFlags = flags;
-        for (RegionMap::const_iterator ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->setVisibilityFlags(flags);
+            ri.second->setVisibilityFlags(flags);
         }
     }
     //--------------------------------------------------------------------------
-    uint32 StaticGeometry::getVisibilityFlags() const
+    auto StaticGeometry::getVisibilityFlags() const -> uint32
     {
         if(mRegionMap.empty())
             return MovableObject::getDefaultVisibilityFlags();
 
-        RegionMap::const_iterator ri = mRegionMap.begin();
+        auto ri = mRegionMap.begin();
         return ri->second->getVisibilityFlags();
     }
     //--------------------------------------------------------------------------
@@ -675,10 +663,9 @@ namespace Ogre {
         of << "Max distance: " << mUpperDistance << std::endl;
         of << "Casts shadows?: " << mCastShadows << std::endl;
         of << std::endl;
-        for (RegionMap::const_iterator ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto ri : mRegionMap)
         {
-            ri->second->dump(of);
+            ri.second->dump(of);
         }
         of << "-------------------------------------------------" << std::endl;
     }
@@ -686,10 +673,9 @@ namespace Ogre {
     void StaticGeometry::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (RegionMap::const_iterator ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->visitRenderables(visitor, debugRenderables);
+            ri.second->visitRenderables(visitor, debugRenderables);
         }
 
     }
@@ -699,8 +685,7 @@ namespace Ogre {
     StaticGeometry::Region::Region(StaticGeometry* parent, const String& name,
         SceneManager* mgr, uint32 regionID, const Vector3& centre)
         : MovableObject(name), mParent(parent),
-        mRegionID(regionID), mCentre(centre), mBoundingRadius(0.0f),
-        mCurrentLod(0), mLodStrategy(0), mCamera(0), mSquaredViewDepth(0)
+        mRegionID(regionID), mCentre(centre) 
     {
         mManager = mgr;
     }
@@ -710,13 +695,12 @@ namespace Ogre {
         if (mParentNode)
         {
             mManager->destroySceneNode(static_cast<SceneNode*>(mParentNode));
-            mParentNode = 0;
+            mParentNode = nullptr;
         }
         // delete
-        for (LODBucketList::iterator i = mLodBucketList.begin();
-            i != mLodBucketList.end(); ++i)
+        for (auto & i : mLodBucketList)
         {
-            delete *i;
+            delete i;
         }
         mLodBucketList.clear();
 
@@ -726,9 +710,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void StaticGeometry::Region::_releaseManualHardwareResources()
     {
-        for (LODBucketList::iterator i = mLodBucketList.begin(); i != mLodBucketList.end(); ++i)
+        for (auto & i : mLodBucketList)
         {
-            clearShadowRenderableList((*i)->getShadowRenderableList());
+            clearShadowRenderableList(i->getShadowRenderableList());
         }
     }
     //-----------------------------------------------------------------------
@@ -737,7 +721,7 @@ namespace Ogre {
         // shadow renderables are lazy initialized
     }
     //--------------------------------------------------------------------------
-    uint32 StaticGeometry::Region::getTypeFlags(void) const
+    auto StaticGeometry::Region::getTypeFlags() const -> uint32
     {
         return SceneManager::STATICGEOMETRY_TYPE_MASK;
     }
@@ -748,7 +732,7 @@ namespace Ogre {
 
         // Set/check LOD strategy
         const LodStrategy *lodStrategy = qmesh->submesh->parent->getLodStrategy();
-        if (mLodStrategy == 0)
+        if (mLodStrategy == nullptr)
         {
             mLodStrategy = lodStrategy;
 
@@ -797,7 +781,7 @@ namespace Ogre {
         // we encountered in all the meshes queued
         for (ushort lod = 0; lod < mLodValues.size(); ++lod)
         {
-            LODBucket* lodBucket =
+            auto* lodBucket =
                 new LODBucket(this, lod, mLodValues[lod]);
             mLodBucketList.push_back(lodBucket);
             // Now iterate over the meshes and assign to LODs
@@ -816,7 +800,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    const String& StaticGeometry::Region::getMovableType(void) const
+    auto StaticGeometry::Region::getMovableType() const -> const String&
     {
         static String sType = "StaticGeometry";
         return sType;
@@ -831,7 +815,7 @@ namespace Ogre {
         mSquaredViewDepth = mParentNode->getSquaredViewDepth(cam->getLodCamera());
 
         // No LOD strategy set yet, skip (this indicates that there are no submeshes)
-        if (mLodStrategy == 0)
+        if (mLodStrategy == nullptr)
             return;
 
         // Sanity check
@@ -847,12 +831,12 @@ namespace Ogre {
         mCurrentLod = mLodStrategy->getIndex(lodValue, mLodValues);
     }
     //--------------------------------------------------------------------------
-    const AxisAlignedBox& StaticGeometry::Region::getBoundingBox(void) const
+    auto StaticGeometry::Region::getBoundingBox() const -> const AxisAlignedBox&
     {
         return mAABB;
     }
     //--------------------------------------------------------------------------
-    Real StaticGeometry::Region::getBoundingRadius(void) const
+    auto StaticGeometry::Region::getBoundingRadius() const -> Real
     {
         return mBoundingRadius;
     }
@@ -866,14 +850,14 @@ namespace Ogre {
     void StaticGeometry::Region::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (LODBucketList::iterator i = mLodBucketList.begin(); i != mLodBucketList.end(); ++i)
+        for (auto & i : mLodBucketList)
         {
-            (*i)->visitRenderables(visitor, debugRenderables);
+            i->visitRenderables(visitor, debugRenderables);
         }
 
     }
     //--------------------------------------------------------------------------
-    bool StaticGeometry::Region::isVisible(void) const
+    auto StaticGeometry::Region::isVisible() const -> bool
     {
         if(!mVisible || mBeyondFarDistance)
             return false;
@@ -886,9 +870,9 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    const ShadowRenderableList& StaticGeometry::Region::getShadowVolumeRenderableList(
+    auto StaticGeometry::Region::getShadowVolumeRenderableList(
         const Light* light, const HardwareIndexBufferPtr& indexBuffer, size_t& indexBufferUsedSize,
-        float extrusionDistance, int flags)
+        float extrusionDistance, int flags) -> const ShadowRenderableList&
     {
         // Calculate the object space light details
         Vector4 lightPos = light->getAs4DVector();
@@ -914,7 +898,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    EdgeData* StaticGeometry::Region::getEdgeList(void)
+    auto StaticGeometry::Region::getEdgeList() -> EdgeData*
     {
         return mLodBucketList[mCurrentLod]->getEdgeList();
     }
@@ -928,10 +912,9 @@ namespace Ogre {
         of << "Bounding radius: " << mBoundingRadius << std::endl;
         of << "Number of LODs: " << mLodBucketList.size() << std::endl;
 
-        for (LODBucketList::const_iterator i = mLodBucketList.begin();
-            i != mLodBucketList.end(); ++i)
+        for (auto i : mLodBucketList)
         {
-            (*i)->dump(of);
+            i->dump(of);
         }
         of << "--------------------------" << std::endl;
     }
@@ -939,8 +922,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     StaticGeometry::LODBucket::LODBucket(Region* parent, unsigned short lod,
         Real lodValue)
-        : mParent(parent), mLod(lod), mLodValue(lodValue), mEdgeList(0)
-        , mVertexProgramInUse(false)
+        : mParent(parent), mLod(lod), mLodValue(lodValue) 
     {
     }
     //--------------------------------------------------------------------------
@@ -949,16 +931,14 @@ namespace Ogre {
         delete mEdgeList;
         ShadowCaster::clearShadowRenderableList(mShadowRenderables);
         // delete
-        for (MaterialBucketMap::iterator i = mMaterialBucketMap.begin();
-            i != mMaterialBucketMap.end(); ++i)
+        for (auto & i : mMaterialBucketMap)
         {
-            delete i->second;
+            delete i.second;
         }
         mMaterialBucketMap.clear();
-        for(QueuedGeometryList::iterator qi = mQueuedGeometryList.begin();
-            qi != mQueuedGeometryList.end(); ++qi)
+        for(auto & qi : mQueuedGeometryList)
         {
-            delete *qi;
+            delete qi;
         }
         mQueuedGeometryList.clear();
 
@@ -967,7 +947,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     void StaticGeometry::LODBucket::assign(QueuedSubMesh* qmesh, ushort atLod)
     {
-        QueuedGeometry* q = new QueuedGeometry();
+        auto* q = new QueuedGeometry();
         mQueuedGeometryList.push_back(q);
         q->position = qmesh->position;
         q->orientation = qmesh->orientation;
@@ -984,8 +964,8 @@ namespace Ogre {
                 &(*qmesh->geometryLodList)[qmesh->geometryLodList->size() - 1];
         }
         // Locate a material bucket
-        MaterialBucket* mbucket = 0;
-        MaterialBucketMap::iterator m =
+        MaterialBucket* mbucket = nullptr;
+        auto m =
             mMaterialBucketMap.find(qmesh->material->getName());
         if (m != mMaterialBucketMap.end())
         {
@@ -1006,10 +986,9 @@ namespace Ogre {
         size_t vertexSet = 0;
 
         // Just pass this on to child buckets
-        for (MaterialBucketMap::iterator i = mMaterialBucketMap.begin();
-            i != mMaterialBucketMap.end(); ++i)
+        for (auto & i : mMaterialBucketMap)
         {
-            MaterialBucket* mat = i->second;
+            MaterialBucket* mat = i.second;
 
             mat->build(stencilShadows);
 
@@ -1069,10 +1048,9 @@ namespace Ogre {
         of << "------------------" << std::endl;
         of << "LOD Value: " << mLodValue << std::endl;
         of << "Number of Materials: " << mMaterialBucketMap.size() << std::endl;
-        for (MaterialBucketMap::const_iterator i = mMaterialBucketMap.begin();
-            i != mMaterialBucketMap.end(); ++i)
+        for (const auto & i : mMaterialBucketMap)
         {
-            i->second->dump(of);
+            i.second->dump(of);
         }
         of << "------------------" << std::endl;
 
@@ -1081,10 +1059,9 @@ namespace Ogre {
     void StaticGeometry::LODBucket::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (MaterialBucketMap::const_iterator i = mMaterialBucketMap.begin();
-            i != mMaterialBucketMap.end(); ++i)
+        for (auto & i : mMaterialBucketMap)
         {
-            i->second->visitRenderables(visitor, debugRenderables);
+            i.second->visitRenderables(visitor, debugRenderables);
         }
 
     }
@@ -1136,24 +1113,23 @@ namespace Ogre {
         const MaterialPtr& material)
         : mParent(parent)
         , mMaterial(material)
-        , mTechnique(0)
+         
     {
     }
     //--------------------------------------------------------------------------
     StaticGeometry::MaterialBucket::~MaterialBucket()
     {
         // delete
-        for (GeometryBucketList::iterator i = mGeometryBucketList.begin();
-            i != mGeometryBucketList.end(); ++i)
+        for (auto & i : mGeometryBucketList)
         {
-            delete *i;
+            delete i;
         }
         mGeometryBucketList.clear();
 
         // no need to delete queued meshes, these are managed in StaticGeometry
     }
     //--------------------------------------------------------------------------
-    static uint32 getHash(StaticGeometry::SubMeshLodGeometryLink* geom)
+    static auto getHash(StaticGeometry::SubMeshLodGeometryLink* geom) -> uint32
     {
         // Formulate an identifying string for the geometry format
         // Must take into account the vertex declaration and the index type
@@ -1179,7 +1155,7 @@ namespace Ogre {
     {
         // Look up any current geometry
         uint32 hash = getHash(qgeom->geometry);
-        CurrentGeometryMap::iterator gi = mCurrentGeometryMap.find(hash);
+        auto gi = mCurrentGeometryMap.find(hash);
         bool newBucket = true;
         if (gi != mCurrentGeometryMap.end())
         {
@@ -1191,7 +1167,7 @@ namespace Ogre {
         // Do we need to create a new one?
         if (newBucket)
         {
-            GeometryBucket* gbucket =
+            auto* gbucket =
                 new GeometryBucket(this, qgeom->geometry->vertexData, qgeom->geometry->indexData);
             // Add to main list
             mGeometryBucketList.push_back(gbucket);
@@ -1209,7 +1185,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     void StaticGeometry::MaterialBucket::build(bool stencilShadows)
     {
-        mTechnique = 0;
+        mTechnique = nullptr;
         mMaterial->load();
         // tell the geometry buckets to build
         for (auto gb : mGeometryBucketList)
@@ -1254,10 +1230,9 @@ namespace Ogre {
         of << "Material Bucket " << getMaterialName() << std::endl;
         of << "--------------------------------------------------" << std::endl;
         of << "Geometry buckets: " << mGeometryBucketList.size() << std::endl;
-        for (GeometryBucketList::const_iterator i = mGeometryBucketList.begin();
-            i != mGeometryBucketList.end(); ++i)
+        for (auto i : mGeometryBucketList)
         {
-            (*i)->dump(of);
+            i->dump(of);
         }
         of << "--------------------------------------------------" << std::endl;
 
@@ -1266,10 +1241,9 @@ namespace Ogre {
     void StaticGeometry::MaterialBucket::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (GeometryBucketList::const_iterator i = mGeometryBucketList.begin();
-            i != mGeometryBucketList.end(); ++i)
+        for (auto & i : mGeometryBucketList)
         {
-            visitor->visit(*i, mParent->getLod(), false);
+            visitor->visit(i, mParent->getLod(), false);
         }
 
     }
@@ -1329,12 +1303,12 @@ namespace Ogre {
         delete mIndexData;
     }
     //--------------------------------------------------------------------------
-    const MaterialPtr& StaticGeometry::GeometryBucket::getMaterial(void) const
+    auto StaticGeometry::GeometryBucket::getMaterial() const -> const MaterialPtr&
     {
         return mParent->getMaterial();
     }
     //--------------------------------------------------------------------------
-    Technique* StaticGeometry::GeometryBucket::getTechnique(void) const
+    auto StaticGeometry::GeometryBucket::getTechnique() const -> Technique*
     {
         return mParent->getCurrentTechnique();
     }
@@ -1355,7 +1329,7 @@ namespace Ogre {
         *xform = mParent->getParent()->getParent()->_getParentNodeFullTransform();
     }
     //--------------------------------------------------------------------------
-    Real StaticGeometry::GeometryBucket::getSquaredViewDepth(const Camera* cam) const
+    auto StaticGeometry::GeometryBucket::getSquaredViewDepth(const Camera* cam) const -> Real
     {
         const Region *region = mParent->getParent()->getParent();
         if (cam == region->mCamera)
@@ -1364,17 +1338,17 @@ namespace Ogre {
             return region->getParentNode()->getSquaredViewDepth(cam->getLodCamera());
     }
     //--------------------------------------------------------------------------
-    const LightList& StaticGeometry::GeometryBucket::getLights(void) const
+    auto StaticGeometry::GeometryBucket::getLights() const -> const LightList&
     {
         return mParent->getParent()->getParent()->queryLights();
     }
     //--------------------------------------------------------------------------
-    bool StaticGeometry::GeometryBucket::getCastsShadows(void) const
+    auto StaticGeometry::GeometryBucket::getCastsShadows() const -> bool
     {
         return mParent->getParent()->getParent()->getCastShadows();
     }
     //--------------------------------------------------------------------------
-    bool StaticGeometry::GeometryBucket::assign(QueuedGeometry* qgeom)
+    auto StaticGeometry::GeometryBucket::assign(QueuedGeometry* qgeom) -> bool
     {
         // Do we have enough space?
         // -2 first to avoid overflow (-1 to adjust count to index, -1 to ensure
@@ -1427,8 +1401,8 @@ namespace Ogre {
             .createIndexBuffer(indexType, mIndexData->indexCount,
                 HardwareBuffer::HBU_STATIC_WRITE_ONLY);
         HardwareBufferLockGuard dstIndexLock(mIndexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
-        uint32* p32Dest = static_cast<uint32*>(dstIndexLock.pData);
-        uint16* p16Dest = static_cast<uint16*>(dstIndexLock.pData);
+        auto* p32Dest = static_cast<uint32*>(dstIndexLock.pData);
+        auto* p16Dest = static_cast<uint16*>(dstIndexLock.pData);
         // create all vertex buffers, and lock
         ushort b;
 
@@ -1442,7 +1416,7 @@ namespace Ogre {
                     mVertexData->vertexCount,
                     HardwareBuffer::HBU_STATIC_WRITE_ONLY);
             binds->setBinding(b, vbuf);
-            uchar* pLock = static_cast<uchar*>(
+            auto* pLock = static_cast<uchar*>(
                 vbuf->lock(HardwareBuffer::HBL_DISCARD));
             destBufferLocks.push_back(pLock);
             // Pre-cache vertex elements per buffer
@@ -1466,14 +1440,14 @@ namespace Ogre {
                                                HardwareBuffer::HBL_READ_ONLY);
             if (indexType == HardwareIndexBuffer::IT_32BIT)
             {
-                uint32* pSrc = static_cast<uint32*>(srcIdxLock.pData);
+                auto* pSrc = static_cast<uint32*>(srcIdxLock.pData);
                 copyIndexes(pSrc, p32Dest, srcIdxData->indexCount, indexOffset);
                 p32Dest += srcIdxData->indexCount;
             }
             else
             {
                 // Lock source indexes
-                uint16* pSrc = static_cast<uint16*>(srcIdxLock.pData);
+                auto* pSrc = static_cast<uint16*>(srcIdxLock.pData);
                 copyIndexes(pSrc, p16Dest, srcIdxData->indexCount, indexOffset);
                 p16Dest += srcIdxData->indexCount;
             }
@@ -1488,7 +1462,7 @@ namespace Ogre {
                 // lock source
                 HardwareVertexBufferSharedPtr srcBuf = srcBinds->getBuffer(b);
                 HardwareBufferLockGuard srcBufLock(srcBuf, HardwareBuffer::HBL_READ_ONLY);
-                uchar* pSrcBase = static_cast<uchar*>(srcBufLock.pData);
+                auto* pSrcBase = static_cast<uchar*>(srcBufLock.pData);
                 // Get buffer lock pointer, we'll update this later
                 uchar* pDstBase = destBufferLocks[b];
                 size_t bufInc = srcBuf->getVertexSize();

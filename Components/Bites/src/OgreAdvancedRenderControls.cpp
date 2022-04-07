@@ -3,32 +3,32 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
 
-#include "OgreAdvancedRenderControls.h"
+#include "OgreAdvancedRenderControls.hpp"
 
 #include <string>
 #include <vector>
 
-#include "OgreCamera.h"
-#include "OgreCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreMaterialManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreProfiler.h"
-#include "OgreQuaternion.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRenderTarget.h"
-#include "OgreRoot.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderRenderState.h"
-#include "OgreShaderSubRenderState.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
-#include "OgreTextureManager.h"
-#include "OgreTrays.h"
-#include "OgreVector.h"
-#include "OgreViewport.h"
+#include "OgreCamera.hpp"
+#include "OgreCommon.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreProfiler.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreRoot.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderRenderState.hpp"
+#include "OgreShaderSubRenderState.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTrays.hpp"
+#include "OgreVector.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 struct FrameEvent;
@@ -81,7 +81,7 @@ AdvancedRenderControls::~AdvancedRenderControls() {
     mTrayMgr->destroyWidget(mDetailsPanel);
 }
 
-bool AdvancedRenderControls::keyPressed(const KeyboardEvent& evt) {
+auto AdvancedRenderControls::keyPressed(const KeyboardEvent& evt) -> bool {
     if (mTrayMgr->isDialogVisible())
         return true; // don't process any more keys if dialog is up
 

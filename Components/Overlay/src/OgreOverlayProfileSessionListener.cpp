@@ -26,38 +26,25 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreOverlayProfileSessionListener.h"
+#include "OgreOverlayProfileSessionListener.hpp"
 
 #include <map>
 #include <string>
 #include <utility>
 
-#include "OgreOverlay.h"
-#include "OgreOverlayContainer.h"
-#include "OgreOverlayElement.h"
-#include "OgreOverlayManager.h"
-#include "OgreStringConverter.h"
-#include "OgreTimer.h"
+#include "OgreOverlay.hpp"
+#include "OgreOverlayContainer.hpp"
+#include "OgreOverlayElement.hpp"
+#include "OgreOverlayManager.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTimer.hpp"
 
 namespace Ogre
 {
     //-----------------------------------------------------------------------
     OverlayProfileSessionListener::OverlayProfileSessionListener() 
-        : mOverlay(0)
-        , mProfileGui(0)
-        , mBarHeight(10)
-        , mGuiHeight(25)
-        , mGuiWidth(250)
-        , mGuiLeft(0)
-        , mGuiTop(0)
-        , mBarIndent(250)
-        , mGuiBorderWidth(10)
-        , mBarLineWidth(2)
-        , mBarSpacing(3)
-        , mMaxDisplayProfiles(50)
-        , mDisplayMode(DISPLAY_MICROSECONDS)
-    {
-    }
+         
+    = default;
     //-----------------------------------------------------------------------
     OverlayProfileSessionListener::~OverlayProfileSessionListener()
     {
@@ -113,7 +100,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void OverlayProfileSessionListener::finializeSession()
     {
-        OverlayContainer* container = dynamic_cast<OverlayContainer*>(mProfileGui);
+        auto* container = dynamic_cast<OverlayContainer*>(mProfileGui);
         if (container)
         {
             auto const& children = container->getChildren();
@@ -146,8 +133,8 @@ namespace Ogre
         Real newGuiHeight = mGuiHeight;
         int profileCount = 0;
 
-        ProfileBarList::const_iterator bIter = mProfileBars.begin();
-        ProfileInstance::ProfileChildren::const_iterator it = root.children.begin(), endit = root.children.end();
+        auto bIter = ::std::as_const(mProfileBars).begin();
+        auto it = root.children.begin(), endit = root.children.end();
         for(;it != endit; ++it)
         {
             ProfileInstance* child = it->second;
@@ -253,7 +240,7 @@ namespace Ogre
         ++profileCount;
 
         // display children
-        ProfileInstance::ProfileChildren::const_iterator it = instance->children.begin(), endit = instance->children.end();
+        auto it = instance->children.begin(), endit = instance->children.end();
         for(;it != endit; ++it)
         {
             ProfileInstance* child = it->second;
@@ -273,7 +260,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    OverlayContainer* OverlayProfileSessionListener::createContainer()
+    auto OverlayProfileSessionListener::createContainer() -> OverlayContainer*
     {
         OverlayContainer* container = (OverlayContainer*) 
             OverlayManager::getSingleton().createOverlayElement(
@@ -298,8 +285,8 @@ namespace Ogre
         return container;
     }
     //-----------------------------------------------------------------------
-    OverlayElement* OverlayProfileSessionListener::createTextArea(const String& name, Real width, Real height, Real top, Real left, 
-                                         uint fontSize, const String& caption, bool show)
+    auto OverlayProfileSessionListener::createTextArea(const String& name, Real width, Real height, Real top, Real left, 
+                                         uint fontSize, const String& caption, bool show) -> OverlayElement*
     {
         OverlayElement* textArea = OverlayManager::getSingleton().createOverlayElement("TextArea", name);
         textArea->setMetricsMode(GMM_PIXELS);
@@ -323,8 +310,8 @@ namespace Ogre
         return textArea;
     }
     //-----------------------------------------------------------------------
-    OverlayElement* OverlayProfileSessionListener::createPanel(const String& name, Real width, Real height, Real top, Real left, 
-                                      const String& materialName, bool show)
+    auto OverlayProfileSessionListener::createPanel(const String& name, Real width, Real height, Real top, Real left, 
+                                      const String& materialName, bool show) -> OverlayElement*
     {
         OverlayElement* panel = 
             OverlayManager::getSingleton().createOverlayElement("Panel", name);
@@ -353,22 +340,22 @@ namespace Ogre
         mProfileGui->setPosition(left, top);
     }
     //---------------------------------------------------------------------
-    Real OverlayProfileSessionListener::getOverlayWidth() const
+    auto OverlayProfileSessionListener::getOverlayWidth() const -> Real
     {
         return mGuiWidth;
     }
     //---------------------------------------------------------------------
-    Real OverlayProfileSessionListener::getOverlayHeight() const
+    auto OverlayProfileSessionListener::getOverlayHeight() const -> Real
     {
         return mGuiHeight;
     }
     //---------------------------------------------------------------------
-    Real OverlayProfileSessionListener::getOverlayLeft() const
+    auto OverlayProfileSessionListener::getOverlayLeft() const -> Real
     {
         return mGuiLeft;
     }
     //---------------------------------------------------------------------
-    Real OverlayProfileSessionListener::getOverlayTop() const
+    auto OverlayProfileSessionListener::getOverlayTop() const -> Real
     {
         return mGuiTop;
     }

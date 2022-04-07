@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreBone.h"
-#include "OgreMatrix4.h"
-#include "OgreNode.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreSkeleton.h"
-#include "OgreVector.h"
+#include "OgreBone.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreNode.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreSkeleton.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
 
@@ -47,11 +47,10 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     Bone::~Bone()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
-    Bone* Bone::createChild(unsigned short handle, const Vector3& inTranslate, 
-        const Quaternion& inRotate)
+    auto Bone::createChild(unsigned short handle, const Vector3& inTranslate, 
+        const Quaternion& inRotate) -> Bone*
     {
         Bone* retBone = mCreator->createBone(handle);
         retBone->translate(inTranslate);
@@ -60,17 +59,17 @@ namespace Ogre {
         return retBone;
     }
     //---------------------------------------------------------------------
-    Node* Bone::createChildImpl(void)
+    auto Bone::createChildImpl() -> Node*
     {
         return mCreator->createBone();
     }
     //---------------------------------------------------------------------
-    Node* Bone::createChildImpl(const String& name)
+    auto Bone::createChildImpl(const String& name) -> Node*
     {
         return mCreator->createBone(name);
     }
     //---------------------------------------------------------------------
-    void Bone::setBindingPose(void)
+    void Bone::setBindingPose()
     {
         setInitialState();
 
@@ -80,7 +79,7 @@ namespace Ogre {
         mBindDerivedInverseOrientation = _getDerivedOrientation().Inverse();
     }
     //---------------------------------------------------------------------
-    void Bone::reset(void)
+    void Bone::reset()
     {
         resetToInitialState();
     }
@@ -91,7 +90,7 @@ namespace Ogre {
         mCreator->_notifyManualBoneStateChange(this);
     }
     //---------------------------------------------------------------------
-    bool Bone::isManuallyControlled() const {
+    auto Bone::isManuallyControlled() const -> bool {
         return mManuallyControlled;
     }
     //---------------------------------------------------------------------
@@ -114,7 +113,7 @@ namespace Ogre {
         m.makeTransform(locTranslate, locScale, locRotate);
     }
     //---------------------------------------------------------------------
-    unsigned short Bone::getHandle(void) const
+    auto Bone::getHandle() const -> unsigned short
     {
         return mHandle;
     }

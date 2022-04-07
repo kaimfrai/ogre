@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreOverlayTranslator.h"
+#include "OgreOverlayTranslator.hpp"
 
 #include <cstddef>
 #include <list>
@@ -32,26 +32,26 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 
-#include "OgreAny.h"
-#include "OgreCommon.h"
-#include "OgreFontManager.h"
-#include "OgreMath.h"
-#include "OgreOverlay.h"
-#include "OgreOverlayContainer.h"
-#include "OgreOverlayElement.h"
-#include "OgreOverlayManager.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
+#include "OgreAny.hpp"
+#include "OgreCommon.hpp"
+#include "OgreFontManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreOverlay.hpp"
+#include "OgreOverlayContainer.hpp"
+#include "OgreOverlayElement.hpp"
+#include "OgreOverlayManager.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre
 {
 //! [font_translate]
 void FontTranslator::translate(ScriptCompiler* compiler, const AbstractNodePtr& node)
 {
-    ObjectAbstractNode* obj = static_cast<ObjectAbstractNode*>(node.get());
+    auto* obj = static_cast<ObjectAbstractNode*>(node.get());
 
     // Must have a name - unless we are in legacy mode. Then the class is the name.
     if (obj->name.empty() && obj->cls == "font")
@@ -151,7 +151,7 @@ void FontTranslator::parseAttribute(ScriptCompiler* compiler, FontPtr& pFont,
 
 void ElementTranslator::translate(ScriptCompiler* compiler, const AbstractNodePtr& node)
 {
-    ObjectAbstractNode* obj = static_cast<ObjectAbstractNode*>(node.get());
+    auto* obj = static_cast<ObjectAbstractNode*>(node.get());
 
     String name;
     // legacy compat
@@ -193,7 +193,7 @@ void ElementTranslator::translate(ScriptCompiler* compiler, const AbstractNodePt
 
     if(obj->parent && obj->parent->context.has_value())
     {
-        Overlay** overlay = any_cast<Overlay*>(&obj->parent->context);
+        auto** overlay = any_cast<Overlay*>(&obj->parent->context);
         if(overlay)
             if(newElement->isContainer())
                 (*overlay)->add2D((OverlayContainer*)newElement);
@@ -212,7 +212,7 @@ void ElementTranslator::translate(ScriptCompiler* compiler, const AbstractNodePt
     {
         if (c->type == ANT_PROPERTY)
         {
-            PropertyAbstractNode* prop = static_cast<PropertyAbstractNode*>(c.get());
+            auto* prop = static_cast<PropertyAbstractNode*>(c.get());
 
             bool succ = true;
             if(prop->values.size() > 1)
@@ -240,7 +240,7 @@ void ElementTranslator::translate(ScriptCompiler* compiler, const AbstractNodePt
 
 void OverlayTranslator::translate(ScriptCompiler* compiler, const AbstractNodePtr& node)
 {
-    ObjectAbstractNode* obj = static_cast<ObjectAbstractNode*>(node.get());
+    auto* obj = static_cast<ObjectAbstractNode*>(node.get());
 
     // Must have a name - unless we are in legacy mode. Then the class is the name.
     if (obj->name.empty() && obj->cls == "overlay")
@@ -260,7 +260,7 @@ void OverlayTranslator::translate(ScriptCompiler* compiler, const AbstractNodePt
     {
         if (c->type == ANT_PROPERTY)
         {
-            PropertyAbstractNode* prop = static_cast<PropertyAbstractNode*>(c.get());
+            auto* prop = static_cast<PropertyAbstractNode*>(c.get());
 
             uint32 zorder;
             if (prop->name != "zorder" || prop->values.empty() || !getUInt(prop->values.front(), &zorder))
@@ -294,12 +294,12 @@ OverlayTranslatorManager::~OverlayTranslatorManager()
 }
 
 //! [font_get_translator]
-ScriptTranslator* OverlayTranslatorManager::getTranslator(const AbstractNodePtr& node)
+auto OverlayTranslatorManager::getTranslator(const AbstractNodePtr& node) -> ScriptTranslator*
 {
     if (node->type != ANT_OBJECT)
-        return NULL;
+        return nullptr;
 
-    ObjectAbstractNode* obj = static_cast<ObjectAbstractNode*>(node.get());
+    auto* obj = static_cast<ObjectAbstractNode*>(node.get());
 
     if (obj->id == ID_FONT)
         return &mFontTranslator;
@@ -316,6 +316,6 @@ ScriptTranslator* OverlayTranslatorManager::getTranslator(const AbstractNodePtr&
     if(obj->id == ID_OVERLAY || (obj->id == 0 && StringUtil::endsWith(node->file, ".overlay")))
         return &mOverlayTranslator;
 
-    return NULL;
+    return nullptr;
 }
 }

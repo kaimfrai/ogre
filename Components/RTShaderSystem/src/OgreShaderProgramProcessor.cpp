@@ -32,22 +32,21 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramProcessor.h"
-#include "OgreSharedPtr.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramProcessor.hpp"
+#include "OgreSharedPtr.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 //-----------------------------------------------------------------------------
 ProgramProcessor::ProgramProcessor()
@@ -59,9 +58,7 @@ ProgramProcessor::ProgramProcessor()
 
 //-----------------------------------------------------------------------------
 ProgramProcessor::~ProgramProcessor()
-{
-    
-}
+= default;
 
 //-----------------------------------------------------------------------------
 void ProgramProcessor::bindAutoParameters(Program* pCpuProgram, GpuProgramPtr pGpuProgram)
@@ -75,7 +72,7 @@ void ProgramProcessor::bindAutoParameters(Program* pCpuProgram, GpuProgramPtr pG
         const UniformParameterPtr pCurParam = *itParams;
         const GpuConstantDefinition* gpuConstDef = pGpuParams->_findNamedConstantDefinition(pCurParam->getName());
     
-        if (gpuConstDef != NULL)
+        if (gpuConstDef != nullptr)
         {
             // Handle auto parameters.
             if (pCurParam->isAutoConstantParameter())
@@ -106,11 +103,11 @@ void ProgramProcessor::bindAutoParameters(Program* pCpuProgram, GpuProgramPtr pG
                     GpuLogicalBufferStructPtr floatLogical = pGpuParams->getLogicalBufferStruct();
                     if (floatLogical.get())
                     {
-                        for (GpuLogicalIndexUseMap::const_iterator i = floatLogical->map.begin(); i != floatLogical->map.end(); ++i)
+                        for (auto & i : floatLogical->map)
                         {
-                            if (i->second.physicalIndex == gpuConstDef->physicalIndex)
+                            if (i.second.physicalIndex == gpuConstDef->physicalIndex)
                             {
-                                i->second.variability |= gpuConstDef->variability;
+                                i.second.variability |= gpuConstDef->variability;
                                 break;
                             }
                         }
@@ -122,7 +119,7 @@ void ProgramProcessor::bindAutoParameters(Program* pCpuProgram, GpuProgramPtr pG
 }
 
 //-----------------------------------------------------------------------------
-bool ProgramProcessor::compactVsOutputs(Function* vsMain, Function* fsMain)
+auto ProgramProcessor::compactVsOutputs(Function* vsMain, Function* fsMain) -> bool
 {
 
     int outTexCoordSlots;
@@ -162,9 +159,9 @@ bool ProgramProcessor::compactVsOutputs(Function* vsMain, Function* fsMain)
 
     
     // Check if any parameter has been merged - means at least two parameters takes the same slot.
-    for (unsigned int i=0; i < vsMergedParamsList.size(); ++i)
+    for (auto & i : vsMergedParamsList)
     {
-        if (vsMergedParamsList[i].getSourceParameterCount() > 1)
+        if (i.getSourceParameterCount() > 1)
         {
             hasMergedParameters = true;
             break;
@@ -207,8 +204,8 @@ void ProgramProcessor::countVsTexcoordOutputs(Function* vsMain,
 
 
     const ShaderParameterList& vsOutputs = vsMain->getOutputParameters();
-    ShaderParameterConstIterator it    = vsOutputs.begin();
-    ShaderParameterConstIterator itEnd = vsOutputs.end();
+    auto it    = vsOutputs.begin();
+    auto itEnd = vsOutputs.end();
 
     // Grab vertex shader output information.
     for (; it != itEnd; ++it)
@@ -226,8 +223,8 @@ void ProgramProcessor::countVsTexcoordOutputs(Function* vsMain,
 //-----------------------------------------------------------------------------
 void ProgramProcessor::buildTexcoordTable(const ShaderParameterList& paramList, ShaderParameterList outParamsTable[4])
 {
-    ShaderParameterConstIterator it    = paramList.begin();
-    ShaderParameterConstIterator itEnd = paramList.end();
+    auto it    = paramList.begin();
+    auto itEnd = paramList.end();
 
     for (; it != itEnd; ++it)
     {
@@ -312,10 +309,8 @@ void ProgramProcessor::mergeParametersByPredefinedCombinations(ShaderParameterLi
     }
 
     // Create the full used merged params - means FLOAT4 params that all of their components are used.
-    for (unsigned int i=0; i < mParamMergeCombinations.size(); ++i)
+    for (auto & curCombination : mParamMergeCombinations)
     {
-        const MergeCombination& curCombination = mParamMergeCombinations[i];
-
         // Case all parameters have been merged.
         if (paramsTable[0].empty() && paramsTable[1].empty() &&
             paramsTable[2].empty() && paramsTable[3].empty())
@@ -432,10 +427,8 @@ void ProgramProcessor::mergeParametersByPredefinedCombinations(ShaderParameterLi
             
         };
 
-        for (unsigned int i=0; i < 6; ++i)
+        for (const auto & curCombination : simpleCombinations)
         {
-            const MergeCombination& curCombination = simpleCombinations[i];
-
             // Case all parameters have been merged.
             if (paramsTable[0].size() + paramsTable[1].size() + paramsTable[2].size() + paramsTable[3].empty())     
                 break;      
@@ -452,9 +445,9 @@ void ProgramProcessor::mergeParametersByPredefinedCombinations(ShaderParameterLi
 }
 
 //-----------------------------------------------------------------------------
-bool ProgramProcessor::mergeParametersByCombination(const MergeCombination& combination, 
+auto ProgramProcessor::mergeParametersByCombination(const MergeCombination& combination, 
                                     ShaderParameterList paramsTable[4], 
-                                    MergeParameter* mergedParameter)
+                                    MergeParameter* mergedParameter) -> bool
 {
     // Make sure we have enough parameters to combine.
     if (combination.srcParameterTypeCount[0] > paramsTable[0].size() ||
@@ -593,10 +586,8 @@ void ProgramProcessor::mergeParametersReminders(ShaderParameterList paramsTable[
 void ProgramProcessor::rebuildParameterList(Function* func, int paramsUsage, MergeParameterList& mergedParams)
 {
     // Delete the old merged parameters.
-    for (unsigned int i=0; i < mergedParams.size(); ++i)
+    for (auto & curMergeParameter : mergedParams)
     {
-        MergeParameter& curMergeParameter = mergedParams[i];
-
         for (unsigned int j=0; j < curMergeParameter.getSourceParameterCount(); ++j)
         {
             ParameterPtr curSrcParam = curMergeParameter.getSourceParameter(j);
@@ -638,9 +629,8 @@ void ProgramProcessor::generateLocalSplitParameters(Function* func, GpuProgramTy
         return; 
 
     // Create the local parameters + map from source to local.
-    for (unsigned int i=0; i < splitParams.size(); ++i)
+    for (auto srcParameter : splitParams)
     {
-        ParameterPtr srcParameter   = splitParams[i];
         ParameterPtr localParameter = func->resolveLocalParameter(srcParameter->getType(), "lsplit_" + srcParameter->getName());
 
         localParamsMap[srcParameter.get()] = localParameter;        
@@ -654,7 +644,7 @@ void ProgramProcessor::generateLocalSplitParameters(Function* func, GpuProgramTy
         for (unsigned int p=0; p < curMergeParameter.getSourceParameterCount(); ++p)
         {
             ParameterPtr srcMergedParameter    = curMergeParameter.getSourceParameter(p);
-            LocalParameterMap::iterator itFind = localParamsMap.find(srcMergedParameter.get());
+            auto itFind = localParamsMap.find(srcMergedParameter.get());
 
             // Case the source parameter is split parameter.
             if (itFind != localParamsMap.end())
@@ -723,7 +713,7 @@ void ProgramProcessor::replaceParametersReferences(MergeParameterList& mergedPar
         for (unsigned int j=0; j < curMergeParameter.getSourceParameterCount(); ++j)
         {
             ParameterPtr      curSrcParam  = curMergeParameter.getSourceParameter(j);
-            ParameterOperandMap::iterator itParamRefs = paramsRefMap.find(curSrcParam.get());
+            auto itParamRefs = paramsRefMap.find(curSrcParam.get());
 
             // Case the source parameter has some references
             if (itParamRefs != paramsRefMap.end())
@@ -736,9 +726,8 @@ void ProgramProcessor::replaceParametersReferences(MergeParameterList& mergedPar
                 {
                     dstParameter = curMergeParameter.getDestinationParameter(Operand::OPS_INOUT, i);
 
-                    for (unsigned int op=0; op < srcParamRefs.size(); ++op)
+                    for (auto srcOperandPtr : srcParamRefs)
                     {
-                        Operand*  srcOperandPtr = srcParamRefs[op];
                         int       dstOpMask;
 
                         if (srcOperandPtr->getMask() == Operand::OPM_ALL)
@@ -774,22 +763,21 @@ void ProgramProcessor::replaceParametersReferences(MergeParameterList& mergedPar
 //-----------------------------------------------------------------------------
 void ProgramProcessor::replaceSplitParametersReferences(LocalParameterMap& localParamsMap, ParameterOperandMap& paramsRefMap)
 {
-    LocalParameterMap::iterator it    = localParamsMap.begin(); 
-    LocalParameterMap::iterator itEnd = localParamsMap.end(); 
+    auto it    = localParamsMap.begin(); 
+    auto itEnd = localParamsMap.end(); 
 
     for (; it != itEnd; ++it)
     {
         Parameter* curSrcParam = it->first;
-        ParameterOperandMap::iterator itParamRefs = paramsRefMap.find(curSrcParam);
+        auto itParamRefs = paramsRefMap.find(curSrcParam);
 
         if (itParamRefs != paramsRefMap.end())
         {
             ParameterPtr dstParameter      = it->second;
             OperandPtrVector& srcParamRefs = itParamRefs->second;
 
-            for (unsigned int op=0; op < srcParamRefs.size(); ++op)
+            for (auto srcOperandPtr : srcParamRefs)
             {
-                Operand*  srcOperandPtr = srcParamRefs[op];
                 Operand::OpMask dstOpMask;
 
                 if (srcOperandPtr->getMask() == Operand::OPM_ALL)
@@ -809,7 +797,7 @@ void ProgramProcessor::replaceSplitParametersReferences(LocalParameterMap& local
 }
 
 //-----------------------------------------------------------------------------
-int ProgramProcessor::getParameterFloatCount(GpuConstantType type)
+auto ProgramProcessor::getParameterFloatCount(GpuConstantType type) -> int
 {
     int floatCount = 0;
 
@@ -829,7 +817,7 @@ int ProgramProcessor::getParameterFloatCount(GpuConstantType type)
 }
 
 //-----------------------------------------------------------------------------
-Operand::OpMask ProgramProcessor::getParameterMaskByType(GpuConstantType type)
+auto ProgramProcessor::getParameterMaskByType(GpuConstantType type) -> Operand::OpMask
 {
     switch (type)
     {
@@ -843,7 +831,7 @@ Operand::OpMask ProgramProcessor::getParameterMaskByType(GpuConstantType type)
 }
 
 //-----------------------------------------------------------------------------
-Operand::OpMask ProgramProcessor::getParameterMaskByFloatCount(int floatCount)
+auto ProgramProcessor::getParameterMaskByFloatCount(int floatCount) -> Operand::OpMask
 {
     switch (floatCount)
     {
@@ -945,7 +933,7 @@ void ProgramProcessor::MergeParameter::addSourceParameter(ParameterPtr srcParam,
 }
 
 //-----------------------------------------------------------------------------
-int ProgramProcessor::MergeParameter::getUsedFloatCount()
+auto ProgramProcessor::MergeParameter::getUsedFloatCount() -> int
 {
     return mUsedFloatCount;
 }
@@ -987,7 +975,7 @@ void ProgramProcessor::MergeParameter::createDestinationParameter(int usage, int
 }
 
 //-----------------------------------------------------------------------------
-Ogre::RTShader::ParameterPtr ProgramProcessor::MergeParameter::getDestinationParameter(int usage, int index)
+auto ProgramProcessor::MergeParameter::getDestinationParameter(int usage, int index) -> Ogre::RTShader::ParameterPtr
 {
     if (!mDstParameter)
         createDestinationParameter(usage, index);
@@ -1009,5 +997,4 @@ void ProgramProcessor::MergeParameter::clear()
     mUsedFloatCount = 0;
 }
 
-}
 }

@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "RenderSystemCapabilitiesTests.h"
+#include "RenderSystemCapabilitiesTests.hpp"
 
 #include <algorithm>
 #include <fstream>
@@ -35,16 +35,16 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreArchiveManager.h"
-#include "OgreConfigFile.h"
-#include "OgreDataStream.h"
-#include "OgreFileSystem.h"
-#include "OgreFileSystemLayer.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRenderSystemCapabilitiesManager.h"
-#include "OgreRenderSystemCapabilitiesSerializer.h"
-#include "OgreSharedPtr.h"
+#include "OgreArchiveManager.hpp"
+#include "OgreConfigFile.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreFileSystem.hpp"
+#include "OgreFileSystemLayer.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRenderSystemCapabilitiesManager.hpp"
+#include "OgreRenderSystemCapabilitiesSerializer.hpp"
+#include "OgreSharedPtr.hpp"
 
 // Register the test suite
 
@@ -133,7 +133,7 @@ TEST_F(RenderSystemCapabilitiesTests,SerializeBlank)
     RenderSystemCapabilities* rsc = rscManager->loadParsedCapabilities("TestCaps Blank");
 
     // if we have a non-NULL it's good enough
-    EXPECT_TRUE(rsc != 0);
+    EXPECT_TRUE(rsc != nullptr);
 }
 //--------------------------------------------------------------------------
 TEST_F(RenderSystemCapabilitiesTests,SerializeEnumCapability)
@@ -143,7 +143,7 @@ TEST_F(RenderSystemCapabilitiesTests,SerializeEnumCapability)
     RenderSystemCapabilities* rsc = rscManager->loadParsedCapabilities("TestCaps enum Capabilities");
 
     // confirm that RSC was loaded
-    EXPECT_TRUE(rsc != 0);
+    EXPECT_TRUE(rsc != nullptr);
 
     // confirm that the contents are the same as in .rendercaps file
     EXPECT_TRUE(rsc->hasCapability(RSC_AUTOMIPMAP_COMPRESSED));
@@ -156,7 +156,7 @@ TEST_F(RenderSystemCapabilitiesTests,SerializeStringCapability)
     RenderSystemCapabilities* rsc = rscManager->loadParsedCapabilities("TestCaps set String");
 
     // confirm that RSC was loaded
-    EXPECT_TRUE(rsc != 0);
+    EXPECT_TRUE(rsc != nullptr);
 
     EXPECT_TRUE(rsc->isShaderProfileSupported("vs99"));
 }
@@ -169,8 +169,8 @@ TEST_F(RenderSystemCapabilitiesTests,SerializeBoolCapability)
     RenderSystemCapabilities* rscFalse = rscManager->loadParsedCapabilities("TestCaps set bool (false)");
 
     // confirm that RSC was loaded
-    EXPECT_TRUE(rscTrue != 0);
-    EXPECT_TRUE(rscFalse != 0);
+    EXPECT_TRUE(rscTrue != nullptr);
+    EXPECT_TRUE(rscFalse != nullptr);
 }
 //--------------------------------------------------------------------------
 TEST_F(RenderSystemCapabilitiesTests,SerializeIntCapability)
@@ -180,7 +180,7 @@ TEST_F(RenderSystemCapabilitiesTests,SerializeIntCapability)
     RenderSystemCapabilities* rsc = rscManager->loadParsedCapabilities("TestCaps set int");
 
     // confirm that RSC was loaded
-    EXPECT_TRUE(rsc != 0);
+    EXPECT_TRUE(rsc != nullptr);
 
     // TODO: why no get?
     EXPECT_TRUE(rsc->getNumMultiRenderTargets() == 99);
@@ -193,7 +193,7 @@ TEST_F(RenderSystemCapabilitiesTests,SerializeRealCapability)
     RenderSystemCapabilities* rsc = rscManager->loadParsedCapabilities("TestCaps set Real");
 
     // confirm that RSC was loaded
-    EXPECT_TRUE(rsc != 0);
+    EXPECT_TRUE(rsc != nullptr);
 
     EXPECT_TRUE(rsc->getMaxPointSize() == 99.5);
 }
@@ -205,7 +205,7 @@ TEST_F(RenderSystemCapabilitiesTests,SerializeShaderCapability)
     RenderSystemCapabilities* rsc = rscManager->loadParsedCapabilities("TestCaps addShaderProfile");
 
     // confirm that RSC was loaded
-    EXPECT_TRUE(rsc != 0);
+    EXPECT_TRUE(rsc != nullptr);
 
     EXPECT_TRUE(rsc->isShaderProfileSupported("vp1"));
     EXPECT_TRUE(rsc->isShaderProfileSupported("vs_1_1"));
@@ -244,7 +244,7 @@ TEST_F(RenderSystemCapabilitiesTests,WriteSimpleCapabilities)
     while(capsfile.good())
     {
         capsfile.getline(buff, 255);
-        lines.push_back(String(buff));
+        lines.emplace_back(buff);
     }
 
     // check that the file is closed nicely
@@ -286,7 +286,7 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAllFalseCapabilities)
     while(capsfile.good())
     {
         capsfile.getline(buff, 255);
-        lines.push_back(String(buff));
+        lines.emplace_back(buff);
     }
 
       // check that the file is closed nicely
@@ -389,7 +389,7 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAllTrueCapabilities)
     while(capsfile.good())
     {
         capsfile.getline(buff, 255);
-        lines.push_back(String(buff));
+        lines.emplace_back(buff);
     }
 
     // check that the file is closed nicely
@@ -488,7 +488,7 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAndReadComplexCapabilities)
     // write them to file
     serializer.writeScript(&caps, name, filename);
 
-    FileStreamDataStream* fdatastream = new FileStreamDataStream(filename,
+    auto* fdatastream = new FileStreamDataStream(filename,
             new ifstream(filename.c_str()));
 
     DataStreamPtr dataStreamPtr(fdatastream);
@@ -500,7 +500,7 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAndReadComplexCapabilities)
 
     RenderSystemCapabilities* rsc = rscManager->loadParsedCapabilities(name);
     // confirm that RSC was loaded
-    EXPECT_TRUE(rsc != 0);
+    EXPECT_TRUE(rsc != nullptr);
 
     // create a reference, so that were are working with two refs
     RenderSystemCapabilities& caps2 = *rsc;

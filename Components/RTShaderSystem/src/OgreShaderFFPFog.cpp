@@ -28,34 +28,31 @@ THE SOFTWARE.
 #include <list>
 #include <string>
 
-#include "OgreCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreSceneManager.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderFFPFog.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderScriptTranslator.h"
+#include "OgreCommon.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShaderFFPFog.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrecompiledHeaders.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreShaderScriptTranslator.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
         class RenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
+    }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -70,19 +67,19 @@ FFPFog::FFPFog()
 }
 
 //-----------------------------------------------------------------------
-const String& FFPFog::getType() const
+auto FFPFog::getType() const -> const String&
 {
     return Type;
 }
 
 //-----------------------------------------------------------------------
-int FFPFog::getExecutionOrder() const
+auto FFPFog::getExecutionOrder() const -> int
 {
     return FFP_FOG;
 }
 
 //-----------------------------------------------------------------------
-bool FFPFog::resolveParameters(ProgramSet* programSet)
+auto FFPFog::resolveParameters(ProgramSet* programSet) -> bool
 {
     if (mFogMode == FOG_NONE)
         return true;
@@ -130,7 +127,7 @@ bool FFPFog::resolveParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool FFPFog::resolveDependencies(ProgramSet* programSet)
+auto FFPFog::resolveDependencies(ProgramSet* programSet) -> bool
 {
     if (mFogMode == FOG_NONE)
         return true;
@@ -152,14 +149,14 @@ bool FFPFog::resolveDependencies(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool FFPFog::addFunctionInvocations(ProgramSet* programSet)
+auto FFPFog::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
     Function* psMain = psProgram->getEntryPointFunction();
 
-    const char* fogfunc = NULL;
+    const char* fogfunc = nullptr;
     
     // Per pixel fog.
     if (mCalcMode == CM_PER_PIXEL)
@@ -219,7 +216,7 @@ bool FFPFog::addFunctionInvocations(ProgramSet* programSet)
 //-----------------------------------------------------------------------
 void FFPFog::copyFrom(const SubRenderState& rhs)
 {
-    const FFPFog& rhsFog = static_cast<const FFPFog&>(rhs);
+    const auto& rhsFog = static_cast<const FFPFog&>(rhs);
 
     mFogMode            = rhsFog.mFogMode;
 
@@ -227,7 +224,7 @@ void FFPFog::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool FFPFog::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+auto FFPFog::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
 {
     if (srcPass->getFogOverride())
     {
@@ -242,7 +239,7 @@ bool FFPFog::preAddToRenderState(const RenderState* renderState, Pass* srcPass, 
 }
 
 //-----------------------------------------------------------------------
-bool FFPFog::setParameter(const String& name, const String& value)
+auto FFPFog::setParameter(const String& name, const String& value) -> bool
 {
 	if(name == "calc_mode")
 	{
@@ -255,14 +252,14 @@ bool FFPFog::setParameter(const String& name, const String& value)
 }
 
 //-----------------------------------------------------------------------
-const String& FFPFogFactory::getType() const
+auto FFPFogFactory::getType() const -> const String&
 {
     return FFPFog::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* FFPFogFactory::createInstance(ScriptCompiler* compiler, 
-                                                    PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+auto FFPFogFactory::createInstance(ScriptCompiler* compiler, 
+                                                    PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name == "fog_stage")
     {
@@ -273,14 +270,14 @@ SubRenderState* FFPFogFactory::createInstance(ScriptCompiler* compiler,
             if(false == SGScriptTranslator::getString(prop->values.front(), &strValue))
             {
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                return NULL;
+                return nullptr;
             }
 
             if (strValue == "ffp")
             {
                 SubRenderState* subRenderState = createOrRetrieveInstance(translator);
-                FFPFog* fogSubRenderState = static_cast<FFPFog*>(subRenderState);
-                AbstractNodeList::const_iterator it = prop->values.begin();
+                auto* fogSubRenderState = static_cast<FFPFog*>(subRenderState);
+                auto it = prop->values.begin();
 
                 if(prop->values.size() >= 2)
                 {
@@ -288,7 +285,7 @@ SubRenderState* FFPFogFactory::createInstance(ScriptCompiler* compiler,
                     if (false == SGScriptTranslator::getString(*it, &strValue))
                     {
                         compiler->addError(ScriptCompiler::CE_STRINGEXPECTED, prop->file, prop->line);
-                        return NULL;
+                        return nullptr;
                     }
 
                     fogSubRenderState->setParameter("calc_mode", strValue);
@@ -299,7 +296,7 @@ SubRenderState* FFPFogFactory::createInstance(ScriptCompiler* compiler,
         }       
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------
@@ -309,7 +306,7 @@ void FFPFogFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subRe
     ser->writeAttribute(4, "fog_stage");
     ser->writeValue("ffp");
 
-    FFPFog* fogSubRenderState = static_cast<FFPFog*>(subRenderState);
+    auto* fogSubRenderState = static_cast<FFPFog*>(subRenderState);
 
 
     if (fogSubRenderState->getCalcMode() == FFPFog::CM_PER_VERTEX)
@@ -323,10 +320,9 @@ void FFPFogFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subRe
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* FFPFogFactory::createInstanceImpl()
+auto FFPFogFactory::createInstanceImpl() -> SubRenderState*
 {
     return new FFPFog;
 }
 
-}
 }

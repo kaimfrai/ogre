@@ -33,23 +33,23 @@ Torus Knot Software Ltd.
 #include <string>
 #include <vector>
 
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgrePixelFormat.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSceneManager.h"
-#include "OgreShadowTextureManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreStringConverter.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwarePixelBuffer.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreShadowTextureManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSingleton.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
 
 namespace Ogre
 {
     //-----------------------------------------------------------------------
-    bool operator== ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs )
+    auto operator== ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs ) -> bool
     {
         if ( lhs.width != rhs.width ||
             lhs.height != rhs.height ||
@@ -61,26 +61,24 @@ namespace Ogre
         return true;
     }
     //-----------------------------------------------------------------------
-    bool operator!= ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs )
+    auto operator!= ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs ) -> bool
     {
         return !( lhs == rhs );
     }
     //-----------------------------------------------------------------------
-    template<> ShadowTextureManager* Singleton<ShadowTextureManager>::msSingleton = 0;
-    ShadowTextureManager* ShadowTextureManager::getSingletonPtr(void)
+    template<> ShadowTextureManager* Singleton<ShadowTextureManager>::msSingleton = nullptr;
+    auto ShadowTextureManager::getSingletonPtr() -> ShadowTextureManager*
     {
         return msSingleton;
     }
-    ShadowTextureManager& ShadowTextureManager::getSingleton(void)
+    auto ShadowTextureManager::getSingleton() -> ShadowTextureManager&
     {
         assert( msSingleton );  return ( *msSingleton );
     }
     //---------------------------------------------------------------------
     ShadowTextureManager::ShadowTextureManager()
-        : mCount(0)
-    {
-
-    }
+         
+    = default;
     //---------------------------------------------------------------------
     ShadowTextureManager::~ShadowTextureManager()
     {
@@ -97,9 +95,8 @@ namespace Ogre
         for (ShadowTextureConfig& config : configList)
         {
             bool found = false;
-            for (ShadowTextureList::iterator t = mTextureList.begin(); t != mTextureList.end(); ++t)
+            for (auto & tex : mTextureList)
             {
-                const TexturePtr& tex = *t;
                 // Skip if already used this one
                 if (usedTextures.find(tex.get()) != usedTextures.end())
                     continue;
@@ -123,7 +120,7 @@ namespace Ogre
                     targName, 
                     ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, 
                     TEX_TYPE_2D, config.width, config.height, 0, config.format, 
-                    TU_RENDERTARGET, NULL, false, config.fsaa);
+                    TU_RENDERTARGET, nullptr, false, config.fsaa);
                 // Ensure texture loaded
                 shadowTex->load();
 
@@ -137,12 +134,10 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    TexturePtr ShadowTextureManager::getNullShadowTexture(PixelFormat format)
+    auto ShadowTextureManager::getNullShadowTexture(PixelFormat format) -> TexturePtr
     {
-        for (ShadowTextureList::iterator t = mNullTextureList.begin(); t != mNullTextureList.end(); ++t)
+        for (auto & tex : mNullTextureList)
         {
-            const TexturePtr& tex = *t;
-
             if (format == tex->getFormat())
             {
                 // Ok, a match
@@ -176,7 +171,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void ShadowTextureManager::clearUnused()
     {
-        for (ShadowTextureList::iterator i = mTextureList.begin(); i != mTextureList.end(); )
+        for (auto i = mTextureList.begin(); i != mTextureList.end(); )
         {
             // Unreferenced if only this reference and the resource system
             // Any cached shadow textures should be re-bound each frame dropping
@@ -191,7 +186,7 @@ namespace Ogre
                 ++i;
             }
         }
-        for (ShadowTextureList::iterator i = mNullTextureList.begin(); i != mNullTextureList.end(); )
+        for (auto i = mNullTextureList.begin(); i != mNullTextureList.end(); )
         {
             // Unreferenced if only this reference and the resource system
             // Any cached shadow textures should be re-bound each frame dropping
@@ -211,9 +206,9 @@ namespace Ogre
     //---------------------------------------------------------------------
     void ShadowTextureManager::clear()
     {
-        for (ShadowTextureList::iterator i = mTextureList.begin(); i != mTextureList.end(); ++i)
+        for (auto & i : mTextureList)
         {
-            TextureManager::getSingleton().remove((*i)->getHandle());
+            TextureManager::getSingleton().remove(i->getHandle());
         }
         mTextureList.clear();
 

@@ -29,18 +29,19 @@ THE SOFTWARE.
 #include <iterator>
 #include <memory>
 #include <ostream>
+#include <ranges>
 #include <string>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreLodStrategy.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreResourceManager.h"
-#include "OgreTechnique.h"
+#include "OgreException.hpp"
+#include "OgreLodStrategy.hpp"
+#include "OgreLodStrategyManager.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreResourceManager.hpp"
+#include "OgreTechnique.hpp"
 
 namespace Ogre {
 class Renderable;
@@ -48,10 +49,8 @@ class Renderable;
     //-----------------------------------------------------------------------
     Material::Material(ResourceManager* creator, const String& name, ResourceHandle handle,
         const String& group, bool isManual, ManualResourceLoader* loader)
-        :Resource(creator, name, handle, group, false, NULL),
-         mReceiveShadows(true),
-         mTransparencyCastsShadows(false),
-         mCompilationRequired(true)
+        :Resource(creator, name, handle, group, false, nullptr)
+         
     {
         // Override isManual, not applicable for Material (we always want to call loadImpl)
         if(isManual)
@@ -84,7 +83,7 @@ class Renderable;
         unload(); 
     }
     //-----------------------------------------------------------------------
-    Material& Material::operator=(const Material& rhs)
+    auto Material::operator=(const Material& rhs) -> Material&
     {
         Resource::operator=(rhs);
         mReceiveShadows = rhs.mReceiveShadows;
@@ -118,7 +117,7 @@ class Renderable;
 
 
     //-----------------------------------------------------------------------
-    void Material::prepareImpl(void)
+    void Material::prepareImpl()
     {
         // compile if required
         if (mCompilationRequired)
@@ -133,7 +132,7 @@ class Renderable;
         }
     }
     //-----------------------------------------------------------------------
-    void Material::unprepareImpl(void)
+    void Material::unprepareImpl()
     {
         // Load all supported techniques
         Techniques::iterator i, iend;
@@ -144,7 +143,7 @@ class Renderable;
         }
     }
     //-----------------------------------------------------------------------
-    void Material::loadImpl(void)
+    void Material::loadImpl()
     {
 
         // Load all supported techniques
@@ -157,7 +156,7 @@ class Renderable;
 
     }
     //-----------------------------------------------------------------------
-    void Material::unloadImpl(void)
+    void Material::unloadImpl()
     {
         // Unload all supported techniques
         Techniques::iterator i, iend;
@@ -168,7 +167,7 @@ class Renderable;
         }
     }
     //-----------------------------------------------------------------------
-    size_t Material::calculateSize(void) const
+    auto Material::calculateSize() const -> size_t
     {
         size_t memSize = sizeof(*this) + Resource::calculateSize();
 
@@ -183,7 +182,7 @@ class Renderable;
         return memSize;
     }
     //-----------------------------------------------------------------------
-    MaterialPtr Material::clone(const String& newName, const String& newGroup) const
+    auto Material::clone(const String& newName, const String& newGroup) const -> MaterialPtr
     {
         MaterialPtr newMat =
             MaterialManager::getSingleton().create(newName, newGroup.empty() ? mGroup : newGroup);
@@ -230,7 +229,7 @@ class Renderable;
         mat->mGroup = savedGroup;
     }
     //-----------------------------------------------------------------------
-    void Material::applyDefaults(void)
+    void Material::applyDefaults()
     {
         MaterialPtr defaults = MaterialManager::getSingleton().getDefaultSettings();
 
@@ -250,19 +249,19 @@ class Renderable;
 
     }
     //-----------------------------------------------------------------------
-    Technique* Material::createTechnique(void)
+    auto Material::createTechnique() -> Technique*
     {
-        Technique *t = new Technique(this);
+        auto *t = new Technique(this);
         mTechniques.push_back(t);
         mCompilationRequired = true;
         return t;
     }
     //-----------------------------------------------------------------------
-    Technique* Material::getTechnique(const String& name) const
+    auto Material::getTechnique(const String& name) const -> Technique*
     {
-        Techniques::const_iterator i    = mTechniques.begin();
-        Techniques::const_iterator iend = mTechniques.end();
-        Technique* foundTechnique = 0;
+        auto i    = mTechniques.begin();
+        auto iend = mTechniques.end();
+        Technique* foundTechnique = nullptr;
 
         // iterate through techniques to find a match
         while (i != iend)
@@ -278,13 +277,13 @@ class Renderable;
         return foundTechnique;
     }
     //-----------------------------------------------------------------------
-    unsigned short Material::getNumLodLevels(unsigned short schemeIndex) const
+    auto Material::getNumLodLevels(unsigned short schemeIndex) const -> unsigned short
     {
         // Safety check - empty list?
         if (mBestTechniquesBySchemeList.empty())
             return 0;
 
-        BestTechniquesBySchemeList::const_iterator i = 
+        auto i = 
             mBestTechniquesBySchemeList.find(schemeIndex);
         if (i == mBestTechniquesBySchemeList.end())
         {
@@ -296,7 +295,7 @@ class Renderable;
         return static_cast<unsigned short>(i->second.size());
     }
     //-----------------------------------------------------------------------
-    unsigned short Material::getNumLodLevels(const String& schemeName) const
+    auto Material::getNumLodLevels(const String& schemeName) const -> unsigned short
     {
         return getNumLodLevels(
             MaterialManager::getSingleton()._getSchemeIndex(schemeName));
@@ -314,15 +313,15 @@ class Renderable;
 
     }
     //-----------------------------------------------------------------------------
-    Technique* Material::getBestTechnique(unsigned short lodIndex, const Renderable* rend)
+    auto Material::getBestTechnique(unsigned short lodIndex, const Renderable* rend) -> Technique*
     {
         if (mSupportedTechniques.empty())
         {
-            return NULL;
+            return nullptr;
         }
         else
         {
-            Technique* ret = 0;
+            Technique* ret = nullptr;
             MaterialManager& matMgr = MaterialManager::getSingleton();
             // get scheme
             auto si = mBestTechniquesBySchemeList.find(matMgr._getActiveSchemeIndex());
@@ -347,11 +346,11 @@ class Renderable;
             if (li == si->second.end())
             {
                 // Use the next LOD level up
-                for (auto rli = si->second.rbegin(); rli != si->second.rend(); ++rli)
+                for (auto & rli : std::ranges::reverse_view(si->second))
                 {
-                    if (rli->second->getLodIndex() < lodIndex)
+                    if (rli.second->getLodIndex() < lodIndex)
                     {
-                        ret = rli->second;
+                        ret = rli.second;
                         break;
                     }
 
@@ -378,13 +377,13 @@ class Renderable;
     void Material::removeTechnique(unsigned short index)
     {
         assert (index < mTechniques.size() && "Index out of bounds.");
-        Techniques::iterator i = mTechniques.begin() + index;
+        auto i = mTechniques.begin() + index;
         delete(*i);
         mTechniques.erase(i);
         clearBestTechniqueList();
     }
     //-----------------------------------------------------------------------
-    void Material::removeAllTechniques(void)
+    void Material::removeAllTechniques()
     {
         Techniques::iterator i, iend;
         iend = mTechniques.end();
@@ -397,7 +396,7 @@ class Renderable;
     }
 
     //-----------------------------------------------------------------------
-    bool Material::isTransparent(void) const
+    auto Material::isTransparent() const -> bool
     {
         // Check each technique
         Techniques::const_iterator i, iend;
@@ -451,7 +450,7 @@ class Renderable;
         }
     }
     //-----------------------------------------------------------------------
-    void Material::clearBestTechniqueList(void)
+    void Material::clearBestTechniqueList()
     {
         mSupportedTechniques.clear();
         mBestTechniquesBySchemeList.clear();
@@ -548,7 +547,7 @@ class Renderable;
     }
     #undef ALL_TECHNIQUES
     // --------------------------------------------------------------------
-    void Material::_notifyNeedsRecompile(void)
+    void Material::_notifyNeedsRecompile()
     {
         mCompilationRequired = true;
         // Also need to unload to ensure we loaded any new items
@@ -576,13 +575,13 @@ class Renderable;
         
     }
     // --------------------------------------------------------------------
-    ushort Material::getLodIndex(Real value) const
+    auto Material::getLodIndex(Real value) const -> ushort
     {
         return mLodStrategy->getIndex(value, mLodValues);
     }
 
     //---------------------------------------------------------------------
-    const LodStrategy *Material::getLodStrategy() const
+    auto Material::getLodStrategy() const -> const LodStrategy *
     {
         return mLodStrategy;
     }

@@ -34,35 +34,35 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreBlendMode.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreConfig.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLight.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMaterialSerializer.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgrePass.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
-#include "OgreStringInterface.h"
-#include "OgreTechnique.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
+#include "OgreBlendMode.hpp"
+#include "OgreColourValue.hpp"
+#include "OgreCommon.hpp"
+#include "OgreConfig.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreLight.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePass.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringInterface.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTextureUnitState.hpp"
 
 namespace Ogre
 {
@@ -142,7 +142,7 @@ namespace Ogre
         mGpuProgramDefinitionContainer.clear();
     }
     //-----------------------------------------------------------------------
-    const String &MaterialSerializer::getQueuedAsString() const
+    auto MaterialSerializer::getQueuedAsString() const -> const String &
     {
         return mBuffer;
     }
@@ -179,7 +179,7 @@ namespace Ogre
             fireMaterialEvent(MSE_WRITE_BEGIN, skipWriting, pMat.get());
 
             // Write LOD information
-            Material::LodValueList::const_iterator valueIt = pMat->getUserLodValues().begin();
+            auto valueIt = pMat->getUserLodValues().begin();
             // Skip zero value
             if (!pMat->getUserLodValues().empty())
                 valueIt++;
@@ -822,7 +822,7 @@ namespace Ogre
         LogManager::getSingleton().logMessage("MaterialSerializer : done.", LML_NORMAL);
     }
     //-----------------------------------------------------------------------
-    String MaterialSerializer::convertFiltering(FilterOptions fo)
+    auto MaterialSerializer::convertFiltering(FilterOptions fo) -> String
     {
         switch (fo)
         {
@@ -839,7 +839,7 @@ namespace Ogre
         return "point";
     }
     //-----------------------------------------------------------------------
-    static String convertTexAddressMode(TextureAddressingMode tam)
+    static auto convertTexAddressMode(TextureAddressingMode tam) -> String
     {
         switch (tam)
         {
@@ -1472,7 +1472,7 @@ namespace Ogre
         bool skipWriting = false;
 
         // Fire pre-write event.
-        fireGpuProgramRefEvent(MSE_PRE_WRITE, skipWriting, attrib, program, params, NULL);
+        fireGpuProgramRefEvent(MSE_PRE_WRITE, skipWriting, attrib, program, params, nullptr);
         if (skipWriting)        
             return;
 
@@ -1482,7 +1482,7 @@ namespace Ogre
         beginSection(3);
         {
             // write out parameters
-            GpuProgramParameters* defaultParams = 0;
+            GpuProgramParameters* defaultParams = nullptr;
             // does the GPU program have default parameters?
             if (program->hasDefaultParameters())
                 defaultParams = program->getDefaultParameters().get();
@@ -1501,7 +1501,7 @@ namespace Ogre
         mGpuProgramDefinitionContainer.insert(program->getName());
 
         // Fire post section write event.
-        fireGpuProgramRefEvent(MSE_POST_WRITE, skipWriting, attrib, program, params, NULL);     
+        fireGpuProgramRefEvent(MSE_POST_WRITE, skipWriting, attrib, program, params, nullptr);     
     }
     //-----------------------------------------------------------------------
     void MaterialSerializer::writeGPUProgramParameters(
@@ -1534,7 +1534,7 @@ namespace Ogre
             // get any auto-link
             const GpuProgramParameters::AutoConstantEntry* autoEntry = 
                 params->findAutoConstantEntry(paramName);
-            const GpuProgramParameters::AutoConstantEntry* defaultAutoEntry = 0;
+            const GpuProgramParameters::AutoConstantEntry* defaultAutoEntry = nullptr;
             if (defaultParams)
             {
                 defaultAutoEntry = 
@@ -1562,15 +1562,14 @@ namespace Ogre
         GpuLogicalBufferStructPtr floatLogical = params->getLogicalBufferStruct();
         if( floatLogical )
         {
-            for(GpuLogicalIndexUseMap::const_iterator i = floatLogical->map.begin();
-                i != floatLogical->map.end(); ++i)
+            for(auto & i : floatLogical->map)
             {
-                size_t logicalIndex = i->first;
-                const GpuLogicalIndexUse& logicalUse = i->second;
+                size_t logicalIndex = i.first;
+                const GpuLogicalIndexUse& logicalUse = i.second;
 
                 const GpuProgramParameters::AutoConstantEntry* autoEntry = 
                     params->findFloatAutoConstantEntry(logicalIndex);
-                const GpuProgramParameters::AutoConstantEntry* defaultAutoEntry = 0;
+                const GpuProgramParameters::AutoConstantEntry* defaultAutoEntry = nullptr;
                 if (defaultParams)
                 {
                     defaultAutoEntry = defaultParams->findFloatAutoConstantEntry(logicalIndex);
@@ -1608,7 +1607,7 @@ namespace Ogre
         if (defaultParams)
         {
             // if default is auto but we're not or vice versa
-            if ((autoEntry == 0) != (defaultAutoEntry == 0))
+            if ((autoEntry == nullptr) != (defaultAutoEntry == nullptr))
             {
                 different = true;
             }
@@ -1775,11 +1774,11 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    void MaterialSerializer::writeGpuPrograms(void)
+    void MaterialSerializer::writeGpuPrograms()
     {
         // iterate through gpu program names in container
-        GpuProgramDefIterator currentDef = mGpuProgramDefinitionContainer.begin();
-        GpuProgramDefIterator endDef = mGpuProgramDefinitionContainer.end();
+        auto currentDef = mGpuProgramDefinitionContainer.begin();
+        auto endDef = mGpuProgramDefinitionContainer.end();
 
         while (currentDef != endDef)
         {
@@ -1839,7 +1838,7 @@ namespace Ogre
                     GpuProgramParametersSharedPtr gpuDefaultParams = program->getDefaultParameters();
                     writeAttribute(1, "default_params", false);
                     beginSection(1, false);
-                    writeGPUProgramParameters(gpuDefaultParams, 0, 2, false);
+                    writeGPUProgramParameters(gpuDefaultParams, nullptr, 2, false);
                     endSection(1, false);
                 }
             }
@@ -1862,7 +1861,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void MaterialSerializer::removeListener(Listener* listener)
     {
-        ListenerList::iterator i = std::find(mListeners.begin(), mListeners.end(), listener);
+        auto i = std::find(mListeners.begin(), mListeners.end(), listener);
         if (i != mListeners.end())
             mListeners.erase(i);
     }
@@ -1870,8 +1869,8 @@ namespace Ogre
     //---------------------------------------------------------------------
     void MaterialSerializer::fireMaterialEvent(SerializeEvent event, bool& skip, const Material* mat)
     {
-        ListenerListIterator it    = mListeners.begin();
-        ListenerListIterator itEnd = mListeners.end();
+        auto it    = mListeners.begin();
+        auto itEnd = mListeners.end();
 
         while (it != itEnd)
         {
@@ -1885,8 +1884,8 @@ namespace Ogre
     //---------------------------------------------------------------------
     void MaterialSerializer::fireTechniqueEvent(SerializeEvent event, bool& skip, const Technique* tech)
     {
-        ListenerListIterator it    = mListeners.begin();
-        ListenerListIterator itEnd = mListeners.end();
+        auto it    = mListeners.begin();
+        auto itEnd = mListeners.end();
 
         while (it != itEnd)
         {
@@ -1900,8 +1899,8 @@ namespace Ogre
     //---------------------------------------------------------------------
     void MaterialSerializer::firePassEvent(SerializeEvent event, bool& skip, const Pass* pass)
     {
-        ListenerListIterator it    = mListeners.begin();
-        ListenerListIterator itEnd = mListeners.end();
+        auto it    = mListeners.begin();
+        auto itEnd = mListeners.end();
 
         while (it != itEnd)
         {
@@ -1919,8 +1918,8 @@ namespace Ogre
         const GpuProgramParametersSharedPtr& params,
         GpuProgramParameters* defaultParams)
     {
-        ListenerListIterator it    = mListeners.begin();
-        ListenerListIterator itEnd = mListeners.end();
+        auto it    = mListeners.begin();
+        auto itEnd = mListeners.end();
 
         while (it != itEnd)
         {
@@ -1935,8 +1934,8 @@ namespace Ogre
     void MaterialSerializer::fireTextureUnitStateEvent(SerializeEvent event, bool& skip,
         const TextureUnitState* textureUnit)
     {
-        ListenerListIterator it    = mListeners.begin();
-        ListenerListIterator itEnd = mListeners.end();
+        auto it    = mListeners.begin();
+        auto itEnd = mListeners.end();
 
         while (it != itEnd)
         {

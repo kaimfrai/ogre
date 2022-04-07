@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLCopyingRenderTexture.h"
+#include "OgreGLCopyingRenderTexture.hpp"
 
 #include <string>
 
-#include "OgreGLHardwarePixelBuffer.h"
-#include "OgreGLHardwarePixelBufferCommon.h"
-#include "OgreRenderTarget.h"
+#include "OgreGLHardwarePixelBuffer.hpp"
+#include "OgreGLHardwarePixelBufferCommon.hpp"
+#include "OgreRenderTarget.hpp"
 
 namespace Ogre {
 
@@ -55,7 +55,7 @@ namespace Ogre {
     {
         // Copy on unbind
         GLSurfaceDesc surface;
-        surface.buffer = 0;
+        surface.buffer = nullptr;
         target->getCustomAttribute(GLRenderTexture::CustomAttributeString_TARGET, &surface);
         if(surface.buffer)
             static_cast<GLTextureBuffer*>(surface.buffer)->copyFromFramebuffer(surface.zoffset);

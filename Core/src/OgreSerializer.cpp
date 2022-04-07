@@ -29,15 +29,15 @@ THE SOFTWARE.
 #include <cstring>
 #include <string>
 
-#include "OgreBitwise.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreSerializer.h"
-#include "OgreSharedPtr.h"
-#include "OgreVector.h"
+#include "OgreBitwise.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreSerializer.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
 
@@ -45,15 +45,14 @@ namespace Ogre {
     const uint16 OTHER_ENDIAN_HEADER_STREAM_ID = 0x0010;
     //---------------------------------------------------------------------
     Serializer::Serializer() :
-        mVersion("[Serializer_v1.00]"), // Version number
-        mFlipEndian(false)
+        mVersion("[Serializer_v1.00]")
+        
     {
     }
 
     //---------------------------------------------------------------------
     Serializer::~Serializer()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void Serializer::determineEndianness(const DataStreamPtr& stream)
     {
@@ -108,7 +107,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void Serializer::writeFileHeader(void)
+    void Serializer::writeFileHeader()
     {
         
         uint16 val = HEADER_STREAM_ID;
@@ -121,7 +120,7 @@ namespace Ogre {
     void Serializer::writeChunkHeader(uint16 id, size_t size)
     {
         writeShorts(&id, 1);
-        uint32 uint32size = static_cast<uint32>(size);
+        auto uint32size = static_cast<uint32>(size);
         writeInts(&uint32size, 1);
     }
     //---------------------------------------------------------------------
@@ -129,7 +128,7 @@ namespace Ogre {
     {
         if (mFlipEndian)
         {
-            float * pFloatToWrite = (float *)malloc(sizeof(float) * count);
+            auto * pFloatToWrite = (float *)malloc(sizeof(float) * count);
             memcpy(pFloatToWrite, pFloat, sizeof(float) * count);
             
             flipToLittleEndian(pFloatToWrite, sizeof(float), count);
@@ -146,7 +145,7 @@ namespace Ogre {
     void Serializer::writeFloats(const double* const pDouble, size_t count)
     {
         // Convert to float, then write
-        float* tmp = new float[count];
+        auto* tmp = new float[count];
         for (unsigned int i = 0; i < count; ++i)
         {
             tmp[i] = static_cast<float>(pDouble[i]);
@@ -167,7 +166,7 @@ namespace Ogre {
     {
         if(mFlipEndian)
         {
-            unsigned short * pShortToWrite = (unsigned short *)malloc(sizeof(unsigned short) * count);
+            auto * pShortToWrite = (unsigned short *)malloc(sizeof(unsigned short) * count);
             memcpy(pShortToWrite, pShort, sizeof(unsigned short) * count);
             
             flipToLittleEndian(pShortToWrite, sizeof(unsigned short), count);
@@ -185,7 +184,7 @@ namespace Ogre {
     {
         if(mFlipEndian)
         {
-            uint32 * pIntToWrite = (uint32 *)malloc(sizeof(uint32) * count);
+            auto * pIntToWrite = (uint32 *)malloc(sizeof(uint32) * count);
             memcpy(pIntToWrite, pInt, sizeof(uint32) * count);
             
             flipToLittleEndian(pIntToWrite, sizeof(uint32), count);
@@ -249,7 +248,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    unsigned short Serializer::readChunk(const DataStreamPtr& stream)
+    auto Serializer::readChunk(const DataStreamPtr& stream) -> unsigned short
     {
         unsigned short id;
         readShorts(stream, &id, 1);
@@ -274,7 +273,7 @@ namespace Ogre {
     void Serializer::readFloats(const DataStreamPtr& stream, double* pDest, size_t count)
     {
         // Read from float, convert to double
-        float* tmp = new float[count];
+        auto* tmp = new float[count];
         float* ptmp = tmp;
         stream->read(tmp, sizeof(float) * count);
         flipFromLittleEndian(tmp, sizeof(float), count);
@@ -298,7 +297,7 @@ namespace Ogre {
         flipFromLittleEndian(pDest, sizeof(uint32), count);
     }
     //---------------------------------------------------------------------
-    String Serializer::readString(const DataStreamPtr& stream, size_t numChars)
+    auto Serializer::readString(const DataStreamPtr& stream, size_t numChars) -> String
     {
         OgreAssert(numChars <= 255, "");
         char str[255];
@@ -307,7 +306,7 @@ namespace Ogre {
         return str;
     }
     //---------------------------------------------------------------------
-    String Serializer::readString(const DataStreamPtr& stream)
+    auto Serializer::readString(const DataStreamPtr& stream) -> String
     {
         return stream->getLine(false);
     }
@@ -361,12 +360,12 @@ namespace Ogre {
         }
     }
     
-    size_t Serializer::calcChunkHeaderSize()
+    auto Serializer::calcChunkHeaderSize() -> size_t
     {
         return sizeof(uint16) + sizeof(uint32);
     }
 
-    size_t Serializer::calcStringSize( const String& string )
+    auto Serializer::calcStringSize( const String& string ) -> size_t
     {
         // string + terminating \n character
         return string.length() + 1;

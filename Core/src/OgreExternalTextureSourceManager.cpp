@@ -38,20 +38,20 @@ email                : pjcast@yahoo.com
 #include <cassert>
 #include <utility>
 
-#include "OgreExternalTextureSource.h"
-#include "OgreExternalTextureSourceManager.h"
-#include "OgreLogManager.h"
+#include "OgreExternalTextureSource.hpp"
+#include "OgreExternalTextureSourceManager.hpp"
+#include "OgreLogManager.hpp"
 
 
 namespace Ogre 
 {
     //****************************************************************************************
-    template<> ExternalTextureSourceManager* Singleton<ExternalTextureSourceManager>::msSingleton = 0;
-    ExternalTextureSourceManager* ExternalTextureSourceManager::getSingletonPtr(void)
+    template<> ExternalTextureSourceManager* Singleton<ExternalTextureSourceManager>::msSingleton = nullptr;
+    auto ExternalTextureSourceManager::getSingletonPtr() -> ExternalTextureSourceManager*
     {
         return msSingleton;
     }
-    ExternalTextureSourceManager& ExternalTextureSourceManager::getSingleton(void)
+    auto ExternalTextureSourceManager::getSingleton() -> ExternalTextureSourceManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -60,7 +60,7 @@ namespace Ogre
     //****************************************************************************************
     ExternalTextureSourceManager::ExternalTextureSourceManager()
     {
-        mCurrExternalTextureSource = 0;
+        mCurrExternalTextureSource = nullptr;
     }
 
     //****************************************************************************************
@@ -84,7 +84,7 @@ namespace Ogre
                 return;
             }
         }
-        mCurrExternalTextureSource = 0;
+        mCurrExternalTextureSource = nullptr;
     }
 
     //****************************************************************************************
@@ -129,7 +129,7 @@ namespace Ogre
     }
 
     //****************************************************************************************
-    ExternalTextureSource* ExternalTextureSourceManager::getExternalTextureSource( const String& sTexturePlugInType )
+    auto ExternalTextureSourceManager::getExternalTextureSource( const String& sTexturePlugInType ) -> ExternalTextureSource*
     {
         TextureSystemList::iterator i;
         for( i = mTextureSystems.begin(); i != mTextureSystems.end(); ++i )
@@ -137,7 +137,7 @@ namespace Ogre
             if( i->first == sTexturePlugInType )
                 return i->second;
         }
-        return 0;
+        return nullptr;
     }
 
     //****************************************************************************************

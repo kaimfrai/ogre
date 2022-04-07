@@ -30,21 +30,21 @@ THE SOFTWARE.
 #include <cassert>
 #include <memory>
 
-#include "OgreBitwise.h"
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreImage.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreResourceManager.h"
-#include "OgreRoot.h"
-#include "OgreString.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
+#include "OgreBitwise.hpp"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwarePixelBuffer.hpp"
+#include "OgreImage.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreResourceManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreString.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
 
 namespace Ogre {
     const char* Texture::CUBEMAP_SUFFIXES[] = {"_rt", "_lf", "_up", "_dn", "_fr", "_bk"};
@@ -52,29 +52,8 @@ namespace Ogre {
     Texture::Texture(ResourceManager* creator, const String& name, 
         ResourceHandle handle, const String& group, bool isManual, 
         ManualResourceLoader* loader)
-        : Resource(creator, name, handle, group, isManual, loader),
-            // init defaults; can be overridden before load()
-            mHeight(512),
-            mWidth(512),
-            mDepth(1),
-            mNumRequestedMipmaps(0),
-            mNumMipmaps(0),
-            mGamma(1.0f),
-            mFSAA(0),
-            mFormat(PF_UNKNOWN),
-            mUsage(TU_DEFAULT),
-            mSrcFormat(PF_UNKNOWN),
-            mSrcWidth(0),
-            mSrcHeight(0), 
-            mSrcDepth(0),
-            mDesiredFormat(PF_UNKNOWN),
-            mDesiredIntegerBitDepth(0),
-            mDesiredFloatBitDepth(0),
-            mTreatLuminanceAsAlpha(false),
-            mInternalResourcesCreated(false),
-            mMipmapsHardwareGenerated(false),
-            mHwGamma(false),
-            mTextureType(TEX_TYPE_2D)
+        : Resource(creator, name, handle, group, isManual, loader)
+            
     {
         if (createParamDictionary("Texture"))
         {
@@ -134,7 +113,7 @@ namespace Ogre {
         mDesiredFormat = pf;
     }
     //--------------------------------------------------------------------------
-    bool Texture::hasAlpha(void) const
+    auto Texture::hasAlpha() const -> bool
     {
         return PixelUtil::hasAlpha(mFormat);
     }
@@ -144,7 +123,7 @@ namespace Ogre {
         mDesiredIntegerBitDepth = bits;
     }
     //--------------------------------------------------------------------------
-    ushort Texture::getDesiredIntegerBitDepth(void) const
+    auto Texture::getDesiredIntegerBitDepth() const -> ushort
     {
         return mDesiredIntegerBitDepth;
     }
@@ -154,7 +133,7 @@ namespace Ogre {
         mDesiredFloatBitDepth = bits;
     }
     //--------------------------------------------------------------------------
-    ushort Texture::getDesiredFloatBitDepth(void) const
+    auto Texture::getDesiredFloatBitDepth() const -> ushort
     {
         return mDesiredFloatBitDepth;
     }
@@ -170,12 +149,12 @@ namespace Ogre {
         mTreatLuminanceAsAlpha = asAlpha;
     }
     //--------------------------------------------------------------------------
-    size_t Texture::calculateSize(void) const
+    auto Texture::calculateSize() const -> size_t
     {
         return getNumFaces() * PixelUtil::getMemorySize(mWidth, mHeight, mDepth, mFormat);
     }
     //--------------------------------------------------------------------------
-    uint32 Texture::getNumFaces(void) const
+    auto Texture::getNumFaces() const -> uint32
     {
         return getTextureType() == TEX_TYPE_CUBE_MAP ? 6 : 1;
     }
@@ -328,7 +307,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
-    void Texture::createInternalResources(void)
+    void Texture::createInternalResources()
     {
         if (!mInternalResourcesCreated)
         {
@@ -347,7 +326,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    void Texture::freeInternalResources(void)
+    void Texture::freeInternalResources()
     {
         if (mInternalResourcesCreated)
         {
@@ -364,7 +343,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    void Texture::unloadImpl(void)
+    void Texture::unloadImpl()
     {
         freeInternalResources();
     }
@@ -384,7 +363,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    String Texture::getSourceFileType() const
+    auto Texture::getSourceFileType() const -> String
     {
         if (mName.empty())
             return BLANKSTRING;
@@ -399,18 +378,18 @@ namespace Ogre {
 
         // No extension
         auto dstream = ResourceGroupManager::getSingleton().openResource(
-            mName, mGroup, NULL, false);
+            mName, mGroup, nullptr, false);
 
         if (!dstream && getTextureType() == TEX_TYPE_CUBE_MAP)
         {
             // try again with one of the faces (non-dds)
-            dstream = ResourceGroupManager::getSingleton().openResource(mName + "_rt", mGroup, NULL, false);
+            dstream = ResourceGroupManager::getSingleton().openResource(mName + "_rt", mGroup, nullptr, false);
         }
 
         return dstream ? Image::getFileExtFromMagic(dstream) : BLANKSTRING;
 
     }
-    const HardwarePixelBufferSharedPtr& Texture::getBuffer(size_t face, size_t mipmap)
+    auto Texture::getBuffer(size_t face, size_t mipmap) -> const HardwarePixelBufferSharedPtr&
     {
         OgreAssert(face < getNumFaces(), "out of range");
         OgreAssert(mipmap <= mNumMipmaps, "out of range");
@@ -458,7 +437,7 @@ namespace Ogre {
             img.resize(w, h);
     }
 
-    void Texture::prepareImpl(void)
+    void Texture::prepareImpl()
     {
         if (mUsage & TU_RENDERTARGET)
             return;
@@ -548,9 +527,9 @@ namespace Ogre {
         // will determine load status etc again
         ConstImagePtrList imagePtrs;
 
-        for (size_t i = 0; i < loadedImages.size(); ++i)
+        for (auto & loadedImage : loadedImages)
         {
-            imagePtrs.push_back(&loadedImages[i]);
+            imagePtrs.push_back(&loadedImage);
         }
 
         _loadImages(imagePtrs);

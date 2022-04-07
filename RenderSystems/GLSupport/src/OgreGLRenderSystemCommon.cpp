@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLRenderSystemCommon.h"
+#include "OgreGLRenderSystemCommon.hpp"
 
 #include <algorithm>
 #include <map>
@@ -33,15 +33,15 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreConfigOptionMap.h"
-#include "OgreException.h"
-#include "OgreGLContext.h"
-#include "OgreGLNativeSupport.h"
-#include "OgreGLRenderTexture.h"
-#include "OgreMatrix4.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
+#include "OgreConfigOptionMap.hpp"
+#include "OgreException.hpp"
+#include "OgreGLContext.hpp"
+#include "OgreGLNativeSupport.hpp"
+#include "OgreGLRenderTexture.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre {
     static void removeDuplicates(std::vector<String>& c)
@@ -51,7 +51,7 @@ namespace Ogre {
         c.erase(p, c.end());
     }
 
-    String VideoMode::getDescription() const
+    auto VideoMode::getDescription() const -> String
     {
         return StringUtil::format("%4d x %4d", width, height);
     }
@@ -98,10 +98,10 @@ namespace Ogre {
     void GLRenderSystemCommon::refreshConfig()
     {
         // set bpp and refresh rate as appropriate
-        ConfigOptionMap::iterator optVideoMode = mOptions.find("Video Mode");
-        ConfigOptionMap::iterator optDisplayFrequency = mOptions.find("Display Frequency");
-        ConfigOptionMap::iterator optFullScreen = mOptions.find("Full Screen");
-        ConfigOptionMap::iterator optColourDepth = mOptions.find("Colour Depth");
+        auto optVideoMode = mOptions.find("Video Mode");
+        auto optDisplayFrequency = mOptions.find("Display Frequency");
+        auto optFullScreen = mOptions.find("Full Screen");
+        auto optColourDepth = mOptions.find("Colour Depth");
 
         // coulour depth is optional
         if (optColourDepth != mOptions.end())
@@ -157,7 +157,7 @@ namespace Ogre {
     //-------------------------------------------------------------------------------------------------//
     void GLRenderSystemCommon::setConfigOption(const String &name, const String &value)
     {
-        ConfigOptionMap::iterator option = mOptions.find(name);
+        auto option = mOptions.find(name);
         if (option == mOptions.end()) {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Option named '" + name + "' does not exist.");
         }
@@ -167,12 +167,12 @@ namespace Ogre {
             refreshConfig();
     }
 
-    bool GLRenderSystemCommon::checkExtension(const String& ext) const
+    auto GLRenderSystemCommon::checkExtension(const String& ext) const -> bool
     {
         return mExtensionList.find(ext) != mExtensionList.end() || mGLSupport->checkExtension(ext);
     }
 
-    bool GLRenderSystemCommon::hasMinGLVersion(int major, int minor) const
+    auto GLRenderSystemCommon::hasMinGLVersion(int major, int minor) const -> bool
     {
         if (mDriverVersion.major == major) {
             return mDriverVersion.minor >= minor;
@@ -222,7 +222,7 @@ namespace Ogre {
         mRTTManager->getBestDepthStencil( internalColourFormat, depthFormat, stencilFormat );
     }
 
-    unsigned int GLRenderSystemCommon::getDisplayMonitorCount() const
+    auto GLRenderSystemCommon::getDisplayMonitorCount() const -> unsigned int
     {
         return mGLSupport->getDisplayMonitorCount();
     }

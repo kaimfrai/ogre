@@ -26,53 +26,52 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreOverlayManager.h"
+#include "OgreOverlayManager.hpp"
 
 #include <cassert>
+#include <memory>
 #include <utility>
 
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreLogManager.h"
-#include "OgreOverlay.h"
-#include "OgreOverlayContainer.h"
-#include "OgreOverlayElement.h"
-#include "OgreOverlayElementFactory.h"
-#include "OgreOverlayTranslator.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreScriptCompiler.h"
-#include "OgreScriptTranslator.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreViewport.h"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreIteratorWrapper.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreOverlay.hpp"
+#include "OgreOverlayContainer.hpp"
+#include "OgreOverlayElement.hpp"
+#include "OgreOverlayElementFactory.hpp"
+#include "OgreOverlayTranslator.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreScriptTranslator.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 class Camera;
 class RenderQueue;
 
     //---------------------------------------------------------------------
-    template<> OverlayManager *Singleton<OverlayManager>::msSingleton = 0;
-    OverlayManager* OverlayManager::getSingletonPtr(void)
+    template<> OverlayManager *Singleton<OverlayManager>::msSingleton = nullptr;
+    auto OverlayManager::getSingletonPtr() -> OverlayManager*
     {
         return msSingleton;
     }
-    OverlayManager& OverlayManager::getSingleton(void)
+    auto OverlayManager::getSingleton() -> OverlayManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
     //---------------------------------------------------------------------
     OverlayManager::OverlayManager() 
-      : mLastViewportWidth(0), 
-        mLastViewportHeight(0), 
-        mLastViewportOrientationMode(OR_DEGREE_0),
-        mPixelRatio(1)
+      
+        
     {
 
         // Scripting is supported by this manager
         mScriptPatterns.push_back("*.overlay");
         ResourceGroupManager::getSingleton()._registerScriptLoader(this);
-        mTranslatorManager.reset(new OverlayTranslatorManager());
+        mTranslatorManager = std::make_unique<OverlayTranslatorManager>();
     }
     //---------------------------------------------------------------------
     OverlayManager::~OverlayManager()
@@ -82,9 +81,9 @@ class RenderQueue;
         destroyAllOverlayElements(false);
         destroyAllOverlayElements(true);
 
-        for(FactoryMap::iterator i = mFactories.begin(); i != mFactories.end(); ++i)
+        for(auto & mFactorie : mFactories)
         {
-            delete i->second;
+            delete mFactorie.second;
         }
 
         // Unregister with resource group manager
@@ -93,31 +92,31 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayManager::_releaseManualHardwareResources()
     {
-        for(ElementMap::iterator i = mElements.begin(), i_end = mElements.end(); i != i_end; ++i)
-            i->second->_releaseManualHardwareResources();
+        for(auto & mElement : mElements)
+            mElement.second->_releaseManualHardwareResources();
     }
     //---------------------------------------------------------------------
     void OverlayManager::_restoreManualHardwareResources()
     {
-        for(ElementMap::iterator i = mElements.begin(), i_end = mElements.end(); i != i_end; ++i)
-            i->second->_restoreManualHardwareResources();
+        for(auto & mElement : mElements)
+            mElement.second->_restoreManualHardwareResources();
     }
     //---------------------------------------------------------------------
-    const StringVector& OverlayManager::getScriptPatterns(void) const
+    auto OverlayManager::getScriptPatterns() const -> const StringVector&
     {
         return mScriptPatterns;
     }
     //---------------------------------------------------------------------
-    Real OverlayManager::getLoadingOrder(void) const
+    auto OverlayManager::getLoadingOrder() const -> Real
     {
         // Load late
         return 1100.0f;
     }
     //---------------------------------------------------------------------
-    Overlay* OverlayManager::create(const String& name)
+    auto OverlayManager::create(const String& name) -> Overlay*
     {
-        Overlay* ret = 0;
-        OverlayMap::iterator i = mOverlayMap.find(name);
+        Overlay* ret = nullptr;
+        auto i = mOverlayMap.find(name);
 
         if (i == mOverlayMap.end())
         {
@@ -136,12 +135,12 @@ class RenderQueue;
 
     }
     //---------------------------------------------------------------------
-    Overlay* OverlayManager::getByName(const String& name)
+    auto OverlayManager::getByName(const String& name) -> Overlay*
     {
-        OverlayMap::iterator i = mOverlayMap.find(name);
+        auto i = mOverlayMap.find(name);
         if (i == mOverlayMap.end())
         {
-            return 0;
+            return nullptr;
         }
         else
         {
@@ -160,7 +159,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayManager::destroy(const String& name)
     {
-        OverlayMap::iterator i = mOverlayMap.find(name);
+        auto i = mOverlayMap.find(name);
         if (i == mOverlayMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
@@ -176,7 +175,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayManager::destroy(Overlay* overlay)
     {
-        for (OverlayMap::iterator i = mOverlayMap.begin();
+        for (auto i = mOverlayMap.begin();
             i != mOverlayMap.end(); ++i)
         {
             if (i->second == overlay)
@@ -192,19 +191,18 @@ class RenderQueue;
             "OverlayManager::destroy");
     }
     //---------------------------------------------------------------------
-    void OverlayManager::destroyAll(void)
+    void OverlayManager::destroyAll()
     {
-        for (OverlayMap::iterator i = mOverlayMap.begin();
-            i != mOverlayMap.end(); ++i)
+        for (auto & i : mOverlayMap)
         {
-            delete i->second;
+            delete i.second;
         }
         mOverlayMap.clear();
     }
     //---------------------------------------------------------------------
-    OverlayManager::OverlayMapIterator OverlayManager::getOverlayIterator(void)
+    auto OverlayManager::getOverlayIterator() -> OverlayManager::OverlayMapIterator
     {
-        return OverlayMapIterator(mOverlayMap.begin(), mOverlayMap.end());
+        return {mOverlayMap.begin(), mOverlayMap.end()};
     }
     void OverlayManager::parseScript(DataStreamPtr& stream, const String& groupName)
     {
@@ -241,28 +239,28 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    int OverlayManager::getViewportHeight(void) const
+    auto OverlayManager::getViewportHeight() const -> int
     {
         return mLastViewportHeight;
     }
     //---------------------------------------------------------------------
-    int OverlayManager::getViewportWidth(void) const
+    auto OverlayManager::getViewportWidth() const -> int
     {
         return mLastViewportWidth;
     }
     //---------------------------------------------------------------------
-    Real OverlayManager::getViewportAspectRatio(void) const
+    auto OverlayManager::getViewportAspectRatio() const -> Real
     {
         return (Real)mLastViewportWidth / (Real)mLastViewportHeight;
     }
     //---------------------------------------------------------------------
-    OrientationMode OverlayManager::getViewportOrientationMode(void) const
+    auto OverlayManager::getViewportOrientationMode() const -> OrientationMode
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Getting ViewPort orientation mode is not supported");
     }
     //---------------------------------------------------------------------
-    float OverlayManager::getPixelRatio(void) const
+    auto OverlayManager::getPixelRatio() const -> float
     {
         return mPixelRatio;
     }
@@ -272,10 +270,10 @@ class RenderQueue;
         mPixelRatio = ratio;
     }
     //---------------------------------------------------------------------
-    OverlayElement* OverlayManager::createOverlayElementFromTemplate(const String& templateName, const String& typeName, const String& instanceName, bool)
+    auto OverlayManager::createOverlayElementFromTemplate(const String& templateName, const String& typeName, const String& instanceName, bool) -> OverlayElement*
     {
 
-        OverlayElement* newObj  = NULL;
+        OverlayElement* newObj  = nullptr;
 
         if (templateName.empty())
         {
@@ -306,17 +304,17 @@ class RenderQueue;
 
 
     //---------------------------------------------------------------------
-    OverlayElement* OverlayManager::cloneOverlayElementFromTemplate(const String& templateName, const String& instanceName)
+    auto OverlayManager::cloneOverlayElementFromTemplate(const String& templateName, const String& instanceName) -> OverlayElement*
     {
         OverlayElement* templateGui = getOverlayElement(templateName, true);
         return templateGui->clone(instanceName);
     }
 
     //---------------------------------------------------------------------
-    OverlayElement* OverlayManager::createOverlayElement(const String& typeName, const String& instanceName, bool)
+    auto OverlayManager::createOverlayElement(const String& typeName, const String& instanceName, bool) -> OverlayElement*
     {
         // Check not duplicated
-        ElementMap::iterator ii = mElements.find(instanceName);
+        auto ii = mElements.find(instanceName);
         if (ii != mElements.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "OverlayElement with name " + instanceName +
@@ -333,10 +331,10 @@ class RenderQueue;
     }
 
     //---------------------------------------------------------------------
-    OverlayElement* OverlayManager::createOverlayElementFromFactory(const String& typeName, const String& instanceName)
+    auto OverlayManager::createOverlayElementFromFactory(const String& typeName, const String& instanceName) -> OverlayElement*
     {
         // Look up factory
-        FactoryMap::iterator fi = mFactories.find(typeName);
+        auto fi = mFactories.find(typeName);
         if (fi == mFactories.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate factory for element type " + typeName,
@@ -347,10 +345,10 @@ class RenderQueue;
         return fi->second->createOverlayElement(instanceName);
     }
     //---------------------------------------------------------------------
-    OverlayElement* OverlayManager::getOverlayElement(const String& name,bool)
+    auto OverlayManager::getOverlayElement(const String& name,bool) -> OverlayElement*
     {
         // Locate instance
-        ElementMap::iterator ii = mElements.find(name);
+        auto ii = mElements.find(name);
         if (ii == mElements.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "OverlayElement with name " + name + " not found.");
@@ -359,9 +357,9 @@ class RenderQueue;
         return ii->second;
     }
     //---------------------------------------------------------------------
-    bool OverlayManager::hasOverlayElement(const String& name,bool)
+    auto OverlayManager::hasOverlayElement(const String& name,bool) -> bool
     {
-        ElementMap::iterator ii = mElements.find(name);
+        auto ii = mElements.find(name);
         return ii != mElements.end();
     }
 
@@ -374,7 +372,7 @@ class RenderQueue;
     void OverlayManager::destroyOverlayElement(const String& instanceName,bool)
     {
         // Locate instance
-        ElementMap::iterator ii = mElements.find(instanceName);
+        auto ii = mElements.find(instanceName);
         if (ii == mElements.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "OverlayElement with name " + instanceName +
@@ -382,7 +380,7 @@ class RenderQueue;
         }
         // Look up factory
         const String& typeName = ii->second->getTypeName();
-        FactoryMap::iterator fi = mFactories.find(typeName);
+        auto fi = mFactories.find(typeName);
         if (fi == mFactories.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate factory for element type " + typeName,
@@ -402,7 +400,7 @@ class RenderQueue;
             OverlayElement* element = i->second;
 
             // Get factory to delete
-            FactoryMap::iterator fi = mFactories.find(element->getTypeName());
+            auto fi = mFactories.find(element->getTypeName());
             if (fi == mFactories.end())
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate factory for element " 
@@ -412,7 +410,7 @@ class RenderQueue;
 
             // remove from parent, if any
             OverlayContainer* parent;
-            if ((parent = element->getParent()) != 0)
+            if ((parent = element->getParent()) != nullptr)
             {
                 parent->_removeChild(element->getName());
             }

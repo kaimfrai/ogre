@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreWindowEventUtilities.h"
+#include "OgreWindowEventUtilities.hpp"
 
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -34,13 +34,13 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreRenderWindow.h"
+#include "OgreCommon.hpp"
+#include "OgreRenderWindow.hpp"
 
 using namespace Ogre;
 
 namespace OgreBites {
-    typedef std::multimap<RenderWindow*, WindowEventListener*> WindowEventListeners;
+    using WindowEventListeners = std::multimap<RenderWindow *, WindowEventListener *>;
     static WindowEventListeners _msListeners;
     static RenderWindowList _msWindows;
 
@@ -50,10 +50,10 @@ static void GLXProc( RenderWindow *win, const XEvent &event );
 void WindowEventUtilities::messagePump()
 {
     //GLX Message Pump
-    Ogre::RenderWindowList::iterator win = _msWindows.begin();
-    Ogre::RenderWindowList::iterator end = _msWindows.end();
+    auto win = _msWindows.begin();
+    auto end = _msWindows.end();
 
-    Display* xDisplay = 0; // same for all windows
+    Display* xDisplay = nullptr; // same for all windows
 
     for (; win != end; win++)
     {
@@ -87,7 +87,7 @@ void WindowEventUtilities::addWindowEventListener( RenderWindow* window, WindowE
 //--------------------------------------------------------------------------------//
 void WindowEventUtilities::removeWindowEventListener( RenderWindow* window, WindowEventListener* listener )
 {
-    WindowEventListeners::iterator i = _msListeners.begin(), e = _msListeners.end();
+    auto i = _msListeners.begin(), e = _msListeners.end();
 
     for( ; i != e; ++i )
     {
@@ -108,7 +108,7 @@ void WindowEventUtilities::_addRenderWindow(RenderWindow* window)
 //--------------------------------------------------------------------------------//
 void WindowEventUtilities::_removeRenderWindow(RenderWindow* window)
 {
-    RenderWindowList::iterator i = std::find(_msWindows.begin(), _msWindows.end(), window);
+    auto i = std::find(_msWindows.begin(), _msWindows.end(), window);
     if( i != _msWindows.end() )
         _msWindows.erase( i );
 }

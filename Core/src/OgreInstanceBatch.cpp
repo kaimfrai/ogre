@@ -30,22 +30,22 @@ THE SOFTWARE.
 #include <limits>
 #include <memory>
 
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreFrustum.h"
-#include "OgreInstanceBatch.h"
-#include "OgreInstanceManager.h"
-#include "OgreInstancedEntity.h"
-#include "OgreLodListener.h"
-#include "OgreMaterial.h"
-#include "OgreMath.h"
-#include "OgreNode.h"
-#include "OgreRenderQueue.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreSubMesh.h"
-#include "OgreVertexIndexData.h"
+#include "OgreCamera.hpp"
+#include "OgreException.hpp"
+#include "OgreFrustum.hpp"
+#include "OgreInstanceBatch.hpp"
+#include "OgreInstanceManager.hpp"
+#include "OgreInstancedEntity.hpp"
+#include "OgreLodListener.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMath.hpp"
+#include "OgreNode.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre
 {
@@ -61,18 +61,9 @@ class Technique;
                 mMaterial( material ),
                 mMeshReference( meshReference ),
                 mIndexToBoneMap( indexToBoneMap ),
-                mBoundingRadius( 0 ),
-                mBoundsDirty( false ),
-                mBoundsUpdated( false ),
-                mCurrentCamera( 0 ),
-                mMaterialLodIndex( 0 ),
-                mDirtyAnimation(true),
-                mTechnSupportsSkeletal( true ),
-                mCameraDistLastUpdateFrameNumber( std::numeric_limits<unsigned long>::max() ),
-                mCachedCamera( 0 ),
-                mTransformSharingDirty(true),
-                mRemoveOwnVertexData(false),
-                mRemoveOwnIndexData(false)
+                
+                mCameraDistLastUpdateFrameNumber( std::numeric_limits<unsigned long>::max() )
+                
     {
         assert( mInstancesPerBatch );
 
@@ -89,7 +80,7 @@ class Technique;
         mFullBoundingBox.setExtents( -Vector3::ZERO, Vector3::ZERO );
 
         mName = batchName;
-		if (mCreator != NULL)
+		if (mCreator != nullptr)
 		{
 		    mCustomParams.resize( mCreator->getNumCustomParams() * mInstancesPerBatch, Ogre::Vector4::ZERO );
 	    }
@@ -122,7 +113,7 @@ class Technique;
         mInstancesPerBatch = instancesPerBatch;
     }
     //-----------------------------------------------------------------------
-    bool InstanceBatch::checkSubMeshCompatibility( const SubMesh* baseSubMesh )
+    auto InstanceBatch::checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool
     {
         OgreAssert(baseSubMesh->operationType == RenderOperation::OT_TRIANGLE_LIST,
                    "Only meshes with OT_TRIANGLE_LIST are supported");
@@ -140,12 +131,12 @@ class Technique;
         return true;
     }
     //-----------------------------------------------------------------------
-    void InstanceBatch::_updateBounds(void)
+    void InstanceBatch::_updateBounds()
     {
         mFullBoundingBox.setNull();
 
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         Real maxScale = 0;
         while( itor != end )
@@ -175,12 +166,12 @@ class Technique;
     }
 
     //-----------------------------------------------------------------------
-    void InstanceBatch::updateVisibility(void)
+    void InstanceBatch::updateVisibility()
     {
         mVisible = false;
 
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         while( itor != end && !mVisible )
         {
@@ -206,15 +197,15 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    InstancedEntity* InstanceBatch::generateInstancedEntity(size_t num)
+    auto InstanceBatch::generateInstancedEntity(size_t num) -> InstancedEntity*
     {
         return new InstancedEntity(this, static_cast<uint32>(num));
     }
     //-----------------------------------------------------------------------
     void InstanceBatch::deleteAllInstancedEntities()
     {
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         while( itor != end )
         {
@@ -227,8 +218,8 @@ class Technique;
     //-----------------------------------------------------------------------
     void InstanceBatch::deleteUnusedInstancedEntities()
     {
-        InstancedEntityVec::const_iterator itor = mUnusedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mUnusedEntities.end();
+        auto itor = mUnusedEntities.begin();
+        auto end  = mUnusedEntities.end();
 
         while( itor != end )
             delete *itor++;
@@ -246,7 +237,7 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    RenderOperation InstanceBatch::build( const SubMesh* baseSubMesh )
+    auto InstanceBatch::build( const SubMesh* baseSubMesh ) -> RenderOperation
     {
         if( checkSubMeshCompatibility( baseSubMesh ) )
         {
@@ -269,9 +260,9 @@ class Technique;
         createAllInstancedEntities();
     }
     //-----------------------------------------------------------------------
-    InstancedEntity* InstanceBatch::createInstancedEntity()
+    auto InstanceBatch::createInstancedEntity() -> InstancedEntity*
     {
-        InstancedEntity *retVal = 0;
+        InstancedEntity *retVal = nullptr;
 
         if( !mUnusedEntities.empty() )
         {
@@ -303,8 +294,8 @@ class Technique;
     void InstanceBatch::getInstancedEntitiesInUse( InstancedEntityVec &outEntities,
                                                     CustomParamsVec &outParams )
     {
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         while( itor != end )
         {
@@ -324,8 +315,8 @@ class Technique;
                                                 CustomParamsVec &usedParams )
     {
         const size_t maxInstancesToCopy = std::min( mInstancesPerBatch, usedEntities.size() );
-        InstancedEntityVec::iterator first = usedEntities.end() - maxInstancesToCopy;
-        CustomParamsVec::iterator firstParams = usedParams.end() - maxInstancesToCopy *
+        auto first = usedEntities.end() - maxInstancesToCopy;
+        auto firstParams = usedParams.end() - maxInstancesToCopy *
                                                                     mCreator->getNumCustomParams();
 
         //Copy from the back to front, into m_instancedEntities
@@ -340,11 +331,11 @@ class Technique;
                                                 CustomParamsVec &usedParams )
     {
         //Get the the entity closest to the minimum bbox edge and put into "first"
-        InstancedEntityVec::const_iterator itor   = usedEntities.begin();
-        InstancedEntityVec::const_iterator end   = usedEntities.end();
+        auto itor   = usedEntities.begin();
+        auto end   = usedEntities.end();
 
         Vector3 vMinPos = Vector3::ZERO, firstPos = Vector3::ZERO;
-        InstancedEntity *first = 0;
+        InstancedEntity *first = nullptr;
 
         if( !usedEntities.empty() )
         {
@@ -372,9 +363,9 @@ class Technique;
         //Now collect entities closest to 'first'
         while( !usedEntities.empty() && mInstancedEntities.size() < mInstancesPerBatch )
         {
-            InstancedEntityVec::iterator closest   = usedEntities.begin();
-            InstancedEntityVec::iterator it         = usedEntities.begin();
-            InstancedEntityVec::iterator e          = usedEntities.end();
+            auto closest   = usedEntities.begin();
+            auto it         = usedEntities.begin();
+            auto e          = usedEntities.end();
 
             Vector3 closestPos;
             closestPos = (*closest)->_getDerivedPosition();
@@ -427,8 +418,8 @@ class Technique;
 
         //Reassign instance IDs and tell we're the new parent
         uint32 instanceId = 0;
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         while( itor != end )
         {
@@ -455,21 +446,21 @@ class Technique;
             _boundsDirty();
     }
     //-----------------------------------------------------------------------
-    void InstanceBatch::_defragmentBatchDiscard(void)
+    void InstanceBatch::_defragmentBatchDiscard()
     {
         //Remove and clear what we don't need
         mInstancedEntities.clear();
         deleteUnusedInstancedEntities();
     }
     //-----------------------------------------------------------------------
-    void InstanceBatch::_boundsDirty(void)
+    void InstanceBatch::_boundsDirty()
     {
         if( mCreator && !mBoundsDirty ) 
             mCreator->_addDirtyBatch( this );
         mBoundsDirty = true;
     }
     //-----------------------------------------------------------------------
-    const String& InstanceBatch::getMovableType(void) const
+    auto InstanceBatch::getMovableType() const -> const String&
     {
         static String sType = "InstanceBatch";
         return sType;
@@ -557,17 +548,17 @@ class Technique;
         // MovableObject::_notifyCurrentCamera( cam ); // it does not suit
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& InstanceBatch::getBoundingBox(void) const
+    auto InstanceBatch::getBoundingBox() const -> const AxisAlignedBox&
     {
         return mFullBoundingBox;
     }
     //-----------------------------------------------------------------------
-    Real InstanceBatch::getBoundingRadius(void) const
+    auto InstanceBatch::getBoundingRadius() const -> Real
     {
         return mBoundingRadius;
     }
     //-----------------------------------------------------------------------
-    Real InstanceBatch::getSquaredViewDepth( const Camera* cam ) const
+    auto InstanceBatch::getSquaredViewDepth( const Camera* cam ) const -> Real
     {
         unsigned long currentFrameNumber = Root::getSingleton().getNextFrameNumber();
 
@@ -583,12 +574,12 @@ class Technique;
         return mCachedCameraDist;
     }
     //-----------------------------------------------------------------------
-    const LightList& InstanceBatch::getLights( void ) const
+    auto InstanceBatch::getLights( ) const -> const LightList&
     {
         return queryLights();
     }
     //-----------------------------------------------------------------------
-    Technique* InstanceBatch::getTechnique( void ) const
+    auto InstanceBatch::getTechnique( ) const -> Technique*
     {
         return mMaterial->getBestTechnique( mMaterialLodIndex, this );
     }
@@ -607,8 +598,8 @@ class Technique;
         {
             if( mMeshReference->hasSkeleton() )
             {
-                InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-                InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+                auto itor = mInstancedEntities.begin();
+                auto end  = mInstancedEntities.end();
 
                 while( itor != end )    
                 {
@@ -636,7 +627,7 @@ class Technique;
         mCustomParams[instancedEntity->mInstanceId * mCreator->getNumCustomParams() + idx] = newParam;
     }
     //-----------------------------------------------------------------------
-    const Vector4& InstanceBatch::_getCustomParam( InstancedEntity *instancedEntity, unsigned char idx )
+    auto InstanceBatch::_getCustomParam( InstancedEntity *instancedEntity, unsigned char idx ) -> const Vector4&
     {
         return mCustomParams[instancedEntity->mInstanceId * mCreator->getNumCustomParams() + idx];
     }

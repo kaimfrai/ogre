@@ -28,33 +28,30 @@ THE SOFTWARE.
 #include <list>
 #include <string>
 
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFFPTransform.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrecompiledHeaders.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderScriptTranslator.h"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFFPTransform.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrecompiledHeaders.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreShaderScriptTranslator.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
         class RenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
+    }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -62,19 +59,19 @@ namespace RTShader {
 String FFPTransform::Type = "FFP_Transform";
 
 //-----------------------------------------------------------------------
-const String& FFPTransform::getType() const
+auto FFPTransform::getType() const -> const String&
 {
     return Type;
 }
 
 
 //-----------------------------------------------------------------------
-int FFPTransform::getExecutionOrder() const
+auto FFPTransform::getExecutionOrder() const -> int
 {
     return FFP_TRANSFORM;
 }
 
-bool FFPTransform::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+auto FFPTransform::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
 {
     mSetPointSize = srcPass->getPointSize() != 1.0f || srcPass->isPointAttenuationEnabled();
     mDoLightCalculations = srcPass->getLightingEnabled();
@@ -82,7 +79,7 @@ bool FFPTransform::preAddToRenderState(const RenderState* renderState, Pass* src
 }
 
 //-----------------------------------------------------------------------
-bool FFPTransform::createCpuSubPrograms(ProgramSet* programSet)
+auto FFPTransform::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
     //! [param_resolve]
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
@@ -148,21 +145,21 @@ bool FFPTransform::createCpuSubPrograms(ProgramSet* programSet)
 //-----------------------------------------------------------------------
 void FFPTransform::copyFrom(const SubRenderState& rhs)
 {
-    const FFPTransform& rhsTransform = static_cast<const FFPTransform&>(rhs);
+    const auto& rhsTransform = static_cast<const FFPTransform&>(rhs);
     mSetPointSize = rhsTransform.mSetPointSize;
     mInstanced = rhsTransform.mInstanced;
     mTexCoordIndex = rhsTransform.mTexCoordIndex;
 }
 
 //-----------------------------------------------------------------------
-const String& FFPTransformFactory::getType() const
+auto FFPTransformFactory::getType() const -> const String&
 {
     return FFPTransform::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* FFPTransformFactory::createInstance(ScriptCompiler* compiler, 
-                                                   PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+auto FFPTransformFactory::createInstance(ScriptCompiler* compiler, 
+                                                   PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name == "transform_stage")
     {
@@ -185,7 +182,7 @@ SubRenderState* FFPTransformFactory::createInstance(ScriptCompiler* compiler,
             if(hasError)
             {
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                return NULL;
+                return nullptr;
             }
 
             auto ret = static_cast<FFPTransform*>(createOrRetrieveInstance(translator));
@@ -195,7 +192,7 @@ SubRenderState* FFPTransformFactory::createInstance(ScriptCompiler* compiler,
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------
@@ -207,11 +204,10 @@ void FFPTransformFactory::writeInstance(MaterialSerializer* ser, SubRenderState*
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* FFPTransformFactory::createInstanceImpl()
+auto FFPTransformFactory::createInstanceImpl() -> SubRenderState*
 {
     return new FFPTransform;
 }
 
 
-}
 }

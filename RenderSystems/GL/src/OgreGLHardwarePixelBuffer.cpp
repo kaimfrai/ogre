@@ -25,33 +25,33 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLHardwarePixelBuffer.h"
+#include "OgreGLHardwarePixelBuffer.hpp"
 
 #include <cassert>
 #include <memory>
 #include <string>
 
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGLFBORenderTexture.h"
-#include "OgreGLPixelFormat.h"
-#include "OgreGLRenderSystem.h"
-#include "OgreGLRenderTexture.h"
-#include "OgreGLStateCacheManager.h"
-#include "OgreGLTexture.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreImage.h"
-#include "OgrePixelFormat.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderTexture.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
-#include "OgreVector.h"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreGLFBORenderTexture.hpp"
+#include "OgreGLPixelFormat.hpp"
+#include "OgreGLRenderSystem.hpp"
+#include "OgreGLRenderTexture.hpp"
+#include "OgreGLStateCacheManager.hpp"
+#include "OgreGLTexture.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwarePixelBuffer.hpp"
+#include "OgreImage.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderTexture.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
 //-----------------------------------------------------------------------------  
@@ -85,7 +85,7 @@ void GLTextureBuffer::blitToMemory(const Box &srcBox, const PixelBox &dst)
     if(!mBuffer.contains(srcBox))
         OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "source box out of range",
          "GLHardwarePixelBuffer::blitToMemory");
-    if(srcBox.getOrigin() == Vector3i(0, 0 ,0) &&
+    if(srcBox.getOrigin() == Vector<3, uint32>(0, 0 ,0) &&
        srcBox.getSize() == getSize() &&
        dst.getSize() == getSize() &&
        GLPixelUtil::getGLInternalFormat(dst.format) != 0)
@@ -117,7 +117,7 @@ void GLTextureBuffer::blitToMemory(const Box &srcBox, const PixelBox &dst)
 GLTextureBuffer::GLTextureBuffer(GLRenderSystem* renderSystem, GLTexture* parent, GLint face,
                                  GLint level, uint32 width, uint32 height, uint32 depth)
     : GLHardwarePixelBufferCommon(width, height, depth, parent->getFormat(), (Usage)parent->getUsage()),
-      mTarget(parent->getGLTextureTarget()), mFaceTarget(0), mTextureID(parent->getGLID()),
+      mTarget(parent->getGLTextureTarget()),  mTextureID(parent->getGLID()),
       mLevel(level), mHwGamma(parent->isHardwareGammaEnabled()),
       mRenderSystem(renderSystem)
 {
@@ -168,8 +168,7 @@ GLTextureBuffer::GLTextureBuffer(GLRenderSystem* renderSystem, GLTexture* parent
     }
 }
 GLTextureBuffer::~GLTextureBuffer()
-{
-}
+= default;
 //-----------------------------------------------------------------------------
 void GLTextureBuffer::upload(const PixelBox &data, const Box &dest)
 {
@@ -389,7 +388,7 @@ void GLTextureBuffer::copyFromFramebuffer(uint32 zoffset)
 //-----------------------------------------------------------------------------  
 void GLTextureBuffer::blit(const HardwarePixelBufferSharedPtr &src, const Box &srcBox, const Box &dstBox)
 {
-    GLTextureBuffer *srct = static_cast<GLTextureBuffer *>(src.get());
+    auto *srct = static_cast<GLTextureBuffer *>(src.get());
     /// Check for FBO support first
     /// Destination texture must be 1D, 2D, 3D, or Cube
     /// Source texture must be 1D, 2D or 3D
@@ -421,7 +420,7 @@ void GLTextureBuffer::blitFromTexture(GLTextureBuffer *src, const Box &srcBox, c
     //src->mTextureID << ":" << srcBox.left << "," << srcBox.top << "," << srcBox.right << "," << srcBox.bottom << " " << 
     //mTextureID << ":" << dstBox.left << "," << dstBox.top << "," << dstBox.right << "," << dstBox.bottom << std::endl;
     /// Store reference to FBO manager
-    GLFBOManager *fboMan = static_cast<GLFBOManager *>(GLRTTManager::getSingletonPtr());
+    auto *fboMan = static_cast<GLFBOManager *>(GLRTTManager::getSingletonPtr());
     
     /// Save and clear GL state for rendering
     glPushAttrib(GL_COLOR_BUFFER_BIT | GL_CURRENT_BIT | GL_DEPTH_BUFFER_BIT | GL_ENABLE_BIT | 
@@ -650,7 +649,7 @@ void GLTextureBuffer::blitFromMemory(const PixelBox &src, const Box &dstBox)
 }
 //-----------------------------------------------------------------------------    
 
-RenderTexture *GLTextureBuffer::getRenderTarget(size_t zoffset)
+auto GLTextureBuffer::getRenderTarget(size_t zoffset) -> RenderTexture *
 {
     assert(mUsage & TU_RENDERTARGET);
     assert(zoffset < mDepth);
@@ -659,8 +658,8 @@ RenderTexture *GLTextureBuffer::getRenderTarget(size_t zoffset)
 //********* GLRenderBuffer
 //----------------------------------------------------------------------------- 
 GLRenderBuffer::GLRenderBuffer(GLenum format, uint32 width, uint32 height, GLsizei numSamples):
-    GLHardwarePixelBufferCommon(width, height, 1, GLPixelUtil::getClosestOGREFormat(format),HBU_GPU_ONLY),
-    mRenderbufferID(0)
+    GLHardwarePixelBufferCommon(width, height, 1, GLPixelUtil::getClosestOGREFormat(format),HBU_GPU_ONLY)
+    
 {
     mGLInternalFormat = format;
     /// Generate renderbuffer

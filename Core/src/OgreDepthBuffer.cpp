@@ -27,8 +27,8 @@ THE SOFTWARE.
 */
 #include <cassert>
 
-#include "OgreDepthBuffer.h"
-#include "OgreRenderTarget.h"
+#include "OgreDepthBuffer.hpp"
+#include "OgreRenderTarget.hpp"
 
 namespace Ogre
 {
@@ -57,27 +57,27 @@ namespace Ogre
         detachFromAllRenderTargets();
     }
     //-----------------------------------------------------------------------
-    uint16 DepthBuffer::getPoolId() const
+    auto DepthBuffer::getPoolId() const -> uint16
     {
         return mPoolId;
     }
     //-----------------------------------------------------------------------
-    uint32 DepthBuffer::getWidth() const
+    auto DepthBuffer::getWidth() const -> uint32
     {
         return mWidth;
     }
     //----------------------------------------------------------------------
-    uint32 DepthBuffer::getHeight() const
+    auto DepthBuffer::getHeight() const -> uint32
     {
         return mHeight;
     }
     //-----------------------------------------------------------------------
-    bool DepthBuffer::isManual() const
+    auto DepthBuffer::isManual() const -> bool
     {
         return mManual;
     }
     //-----------------------------------------------------------------------
-    bool DepthBuffer::isCompatible( RenderTarget *renderTarget ) const
+    auto DepthBuffer::isCompatible( RenderTarget *renderTarget ) const -> bool
     {
         if( this->getWidth() >= renderTarget->getWidth() &&
             this->getHeight() >= renderTarget->getHeight() &&
@@ -98,7 +98,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void DepthBuffer::_notifyRenderTargetDetached( RenderTarget *renderTarget )
     {
-        RenderTargetSet::iterator itor = mAttachedRenderTargets.find( renderTarget );
+        auto itor = mAttachedRenderTargets.find( renderTarget );
         assert( itor != mAttachedRenderTargets.end() );
 
         mAttachedRenderTargets.erase( itor );
@@ -106,8 +106,8 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void DepthBuffer::detachFromAllRenderTargets()
     {
-        RenderTargetSet::const_iterator itor = mAttachedRenderTargets.begin();
-        RenderTargetSet::const_iterator end  = mAttachedRenderTargets.end();
+        auto itor = mAttachedRenderTargets.begin();
+        auto end  = mAttachedRenderTargets.end();
         while( itor != end )
         {
             //If we call, detachDepthBuffer, we'll invalidate the iterators

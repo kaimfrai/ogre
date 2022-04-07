@@ -26,23 +26,23 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLGpuProgram.h"
+#include "OgreGLGpuProgram.hpp"
 
 #include <cstddef>
 #include <map>
 #include <string>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreSharedPtr.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace Ogre {
 class ResourceManager;
 
-GLenum GLArbGpuProgram::getProgramType() const
+auto GLArbGpuProgram::getProgramType() const -> GLenum
 {
     switch (mType)
     {
@@ -74,7 +74,7 @@ GLGpuProgram::~GLGpuProgram()
     unload(); 
 }
 
-bool GLGpuProgramBase::isAttributeValid(VertexElementSemantic semantic, uint index)
+auto GLGpuProgramBase::isAttributeValid(VertexElementSemantic semantic, uint index) -> bool
 {
     // default implementation
     switch(semantic)
@@ -110,13 +110,13 @@ GLArbGpuProgram::~GLArbGpuProgram()
     unload(); 
 }
 
-void GLArbGpuProgram::bindProgram(void)
+void GLArbGpuProgram::bindProgram()
 {
     glEnable(getProgramType());
     glBindProgramARB(getProgramType(), mProgramID);
 }
 
-void GLArbGpuProgram::unbindProgram(void)
+void GLArbGpuProgram::unbindProgram()
 {
     glBindProgramARB(getProgramType(), 0);
     glDisable(getProgramType());
@@ -129,15 +129,14 @@ void GLArbGpuProgram::bindProgramParameters(GpuProgramParametersSharedPtr params
     // only supports float constants
     GpuLogicalBufferStructPtr floatStruct = params->getLogicalBufferStruct();
 
-    for (GpuLogicalIndexUseMap::const_iterator i = floatStruct->map.begin();
-        i != floatStruct->map.end(); ++i)
+    for (auto & i : floatStruct->map)
     {
-        if (i->second.variability & mask)
+        if (i.second.variability & mask)
         {
-            GLuint logicalIndex = static_cast<GLuint>(i->first);
-            const float* pFloat = params->getFloatPointer(i->second.physicalIndex);
+            auto logicalIndex = static_cast<GLuint>(i.first);
+            const float* pFloat = params->getFloatPointer(i.second.physicalIndex);
             // Iterate over the params, set in 4-float chunks (low-level)
-            for (size_t j = 0; j < i->second.currentSize; j+=4)
+            for (size_t j = 0; j < i.second.currentSize; j+=4)
             {
                 glProgramLocalParameter4fvARB(type, logicalIndex, pFloat);
                 pFloat += 4;
@@ -147,12 +146,12 @@ void GLArbGpuProgram::bindProgramParameters(GpuProgramParametersSharedPtr params
     }
 }
 
-void GLArbGpuProgram::unloadImpl(void)
+void GLArbGpuProgram::unloadImpl()
 {
     glDeleteProgramsARB(1, &mProgramID);
 }
 
-void GLArbGpuProgram::loadFromSource(void)
+void GLArbGpuProgram::loadFromSource()
 {
     if (GL_INVALID_OPERATION == glGetError()) {
         LogManager::getSingleton().logMessage("Invalid Operation before loading program "+mName, LML_CRITICAL);

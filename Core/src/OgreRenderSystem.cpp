@@ -37,83 +37,52 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreConfig.h"
-#include "OgreConfigOptionMap.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreHardwareOcclusionQuery.h" // IWYU pragma: keep
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLogManager.h"
-#include "OgreMaterialManager.h"
-#include "OgrePlane.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreProfiler.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
+#include "OgreCommon.hpp"
+#include "OgreConfig.hpp"
+#include "OgreConfigOptionMap.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreHardwareOcclusionQuery.hpp" // IWYU pragma: keep
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgrePlane.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreProfiler.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTextureUnitState.hpp"
+#include "OgreVector.hpp"
+#include "OgreVertexIndexData.hpp"
 // RenderSystem implementation
 // Note that most of this class is abstract since
 //  we cannot know how to implement the behaviour without
 //  being aware of the 3D API. However there are a few
 //  simple functions which can have a base implementation
 
-#include "OgreDepthBuffer.h"
-#include "OgreRenderTarget.h"
+#include "OgreDepthBuffer.hpp"
+#include "OgreRenderTarget.hpp"
 
 namespace Ogre {
     class Camera;
     class RenderWindow;
     class Viewport;
 
-    RenderSystem::Listener* RenderSystem::msSharedEventListener = 0;
+    RenderSystem::Listener* RenderSystem::msSharedEventListener = nullptr;
 
     static const TexturePtr sNullTexPtr;
 
     //-----------------------------------------------------------------------
     RenderSystem::RenderSystem()
-        : mActiveRenderTarget(0)
-        , mTextureManager(0)
-        , mActiveViewport(0)
-        // This means CULL clockwise vertices, i.e. front of poly is counter-clockwise
-        // This makes it the same as OpenGL and other right-handed systems
-        , mCullingMode(CULL_CLOCKWISE)
-        , mBatchCount(0)
-        , mFaceCount(0)
-        , mVertexCount(0)
-        , mInvertVertexWinding(false)
-        , mIsReverseDepthBufferEnabled(false)
-        , mDisabledTexUnitsFrom(0)
-        , mCurrentPassIterationCount(0)
-        , mCurrentPassIterationNum(0)
-        , mDerivedDepthBias(false)
-        , mDerivedDepthBiasBase(0.0f)
-        , mDerivedDepthBiasMultiplier(0.0f)
-        , mDerivedDepthBiasSlopeScale(0.0f)
-        , mGlobalInstanceVertexBufferVertexDeclaration(NULL)
-        , mGlobalNumberOfInstances(1)
-        , mVertexProgramBound(false)
-        , mGeometryProgramBound(false)
-        , mFragmentProgramBound(false)
-        , mTessellationHullProgramBound(false)
-        , mTessellationDomainProgramBound(false)
-        , mComputeProgramBound(false)
-        , mClipPlanesDirty(true)
-        , mRealCapabilities(0)
-        , mCurrentCapabilities(0)
-        , mUseCustomCapabilities(false)
-        , mNativeShadingLanguageVersion(0)
-        , mTexProjRelative(false)
-        , mTexProjRelativeOrigin(Vector3::ZERO)
+        : 
+         mTexProjRelativeOrigin(Vector3::ZERO)
     {
         mEventNames.push_back("RenderSystemCapabilitiesCreated");
     }
@@ -124,7 +93,7 @@ namespace Ogre {
             return;
 
         GpuLogicalBufferStructPtr logicalBufferStruct(new GpuLogicalBufferStruct());
-        mFixedFunctionParams.reset(new GpuProgramParameters);
+        mFixedFunctionParams = std::make_shared<GpuProgramParameters>();
         mFixedFunctionParams->_setLogicalIndexes(logicalBufferStruct);
         mFixedFunctionParams->setAutoConstant(0, GpuProgramParameters::ACT_WORLD_MATRIX);
         mFixedFunctionParams->setAutoConstant(4, GpuProgramParameters::ACT_VIEW_MATRIX);
@@ -181,12 +150,12 @@ namespace Ogre {
     {
         shutdown();
         delete mRealCapabilities;
-        mRealCapabilities = 0;
+        mRealCapabilities = nullptr;
         // Current capabilities managed externally
-        mCurrentCapabilities = 0;
+        mCurrentCapabilities = nullptr;
     }
 
-    RenderWindowDescription RenderSystem::getRenderWindowDescription() const
+    auto RenderSystem::getRenderWindowDescription() const -> RenderWindowDescription
     {
         RenderWindowDescription ret;
         auto& miscParams = ret.miscParams;
@@ -266,16 +235,13 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void RenderSystem::_initRenderTargets(void)
+    void RenderSystem::_initRenderTargets()
     {
 
         // Init stats
-        for(
-            RenderTargetMap::iterator it = mRenderTargets.begin();
-            it != mRenderTargets.end();
-            ++it )
+        for(auto & mRenderTarget : mRenderTargets)
         {
-            it->second->resetStatistics();
+            mRenderTarget.second->resetStatistics();
         }
 
     }
@@ -333,7 +299,7 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     void RenderSystem::useCustomRenderSystemCapabilities(RenderSystemCapabilities* capabilities)
     {
-    if (mRealCapabilities != 0)
+    if (mRealCapabilities != nullptr)
     {
       OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
           "Custom render capabilities must be set before the RenderSystem is initialised.",
@@ -345,9 +311,9 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------------------------------
-    RenderWindow* RenderSystem::_createRenderWindow(const String& name, unsigned int width,
+    auto RenderSystem::_createRenderWindow(const String& name, unsigned int width,
                                                     unsigned int height, bool fullScreen,
-                                                    const NameValuePairList* miscParams)
+                                                    const NameValuePairList* miscParams) -> RenderWindow*
     {
         if (mRenderTargets.find(name) != mRenderTargets.end())
         {
@@ -374,7 +340,7 @@ namespace Ogre {
         }
         LogManager::getSingleton().logMessage(ss.str());
 
-        return NULL;
+        return nullptr;
     }
     //---------------------------------------------------------------------------------------------
     void RenderSystem::destroyRenderWindow(const String& name)
@@ -402,10 +368,10 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------------------------------
-    RenderTarget * RenderSystem::getRenderTarget( const String &name )
+    auto RenderSystem::getRenderTarget( const String &name ) -> RenderTarget *
     {
-        RenderTargetMap::iterator it = mRenderTargets.find( name );
-        RenderTarget *ret = NULL;
+        auto it = mRenderTargets.find( name );
+        RenderTarget *ret = nullptr;
 
         if( it != mRenderTargets.end() )
         {
@@ -416,10 +382,10 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------------------------------
-    RenderTarget * RenderSystem::detachRenderTarget( const String &name )
+    auto RenderSystem::detachRenderTarget( const String &name ) -> RenderTarget *
     {
-        RenderTargetMap::iterator it = mRenderTargets.find( name );
-        RenderTarget *ret = NULL;
+        auto it = mRenderTargets.find( name );
+        RenderTarget *ret = nullptr;
 
         if( it != mRenderTargets.end() )
         {
@@ -440,12 +406,12 @@ namespace Ogre {
         }
         /// If detached render target is the active render target, reset active render target
         if(ret == mActiveRenderTarget)
-            mActiveRenderTarget = 0;
+            mActiveRenderTarget = nullptr;
 
         return ret;
     }
     //-----------------------------------------------------------------------
-    Viewport* RenderSystem::_getViewport(void)
+    auto RenderSystem::_getViewport() -> Viewport*
     {
         return mActiveViewport;
     }
@@ -547,13 +513,13 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void RenderSystem::_cleanupDepthBuffers( bool bCleanManualBuffers )
     {
-        DepthBufferMap::iterator itMap = mDepthBufferPool.begin();
-        DepthBufferMap::iterator enMap = mDepthBufferPool.end();
+        auto itMap = mDepthBufferPool.begin();
+        auto enMap = mDepthBufferPool.end();
 
         while( itMap != enMap )
         {
-            DepthBufferVec::const_iterator itor = itMap->second.begin();
-            DepthBufferVec::const_iterator end  = itMap->second.end();
+            auto itor = itMap->second.begin();
+            auto end  = itMap->second.end();
 
             while( itor != end )
             {
@@ -569,13 +535,13 @@ namespace Ogre {
 
         mDepthBufferPool.clear();
     }
-    void RenderSystem::_beginFrame(void)
+    void RenderSystem::_beginFrame()
     {
         if (!mActiveViewport)
             OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "Cannot begin frame - no viewport selected.");
     }
     //-----------------------------------------------------------------------
-    CullingMode RenderSystem::_getCullingMode(void) const
+    auto RenderSystem::_getCullingMode() const -> CullingMode
     {
         return mCullingMode;
     }
@@ -587,8 +553,8 @@ namespace Ogre {
             return; //RenderTarget explicitly requested no depth buffer
 
         //Find a depth buffer in the pool
-        DepthBufferVec::const_iterator itor = mDepthBufferPool[poolId].begin();
-        DepthBufferVec::const_iterator end  = mDepthBufferPool[poolId].end();
+        auto itor = mDepthBufferPool[poolId].begin();
+        auto end  = mDepthBufferPool[poolId].end();
 
         bool bAttached = false;
         while( itor != end && !bAttached )
@@ -615,7 +581,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool RenderSystem::isReverseDepthBufferEnabled() const
+    auto RenderSystem::isReverseDepthBufferEnabled() const -> bool
     {
         return mIsReverseDepthBufferEnabled;
     }
@@ -626,13 +592,12 @@ namespace Ogre {
         _initialise();
     }
 
-    void RenderSystem::shutdown(void)
+    void RenderSystem::shutdown()
     {
         // Remove occlusion queries
-        for (HardwareOcclusionQueryList::iterator i = mHwOcclusionQueries.begin();
-            i != mHwOcclusionQueries.end(); ++i)
+        for (auto & mHwOcclusionQuerie : mHwOcclusionQueries)
         {
-            delete *i;
+            delete mHwOcclusionQuerie;
         }
         mHwOcclusionQueries.clear();
 
@@ -641,8 +606,8 @@ namespace Ogre {
         // Remove all the render targets. Destroy primary target last since others may depend on it.
         // Keep mRenderTargets valid all the time, so that render targets could receive
         // appropriate notifications, for example FBO based about GL context destruction.
-        RenderTarget* primary = 0;
-        for (RenderTargetMap::iterator it = mRenderTargets.begin(); it != mRenderTargets.end(); /* note - no increment */)
+        RenderTarget* primary = nullptr;
+        for (auto it = mRenderTargets.begin(); it != mRenderTargets.end(); /* note - no increment */)
         {
             RenderTarget* current = it->second;
             if (!primary && current->isPrimary())
@@ -663,23 +628,23 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void RenderSystem::_beginGeometryCount(void)
+    void RenderSystem::_beginGeometryCount()
     {
         mBatchCount = mFaceCount = mVertexCount = 0;
 
     }
     //-----------------------------------------------------------------------
-    unsigned int RenderSystem::_getFaceCount(void) const
+    auto RenderSystem::_getFaceCount() const -> unsigned int
     {
         return static_cast< unsigned int >( mFaceCount );
     }
     //-----------------------------------------------------------------------
-    unsigned int RenderSystem::_getBatchCount(void) const
+    auto RenderSystem::_getBatchCount() const -> unsigned int
     {
         return static_cast< unsigned int >( mBatchCount );
     }
     //-----------------------------------------------------------------------
-    unsigned int RenderSystem::_getVertexCount(void) const
+    auto RenderSystem::_getVertexCount() const -> unsigned int
     {
         return static_cast< unsigned int >( mVertexCount );
     }
@@ -738,7 +703,7 @@ namespace Ogre {
         mInvertVertexWinding = invert;
     }
     //-----------------------------------------------------------------------
-    bool RenderSystem::getInvertVertexWinding(void) const
+    auto RenderSystem::getInvertVertexWinding() const -> bool
     {
         return mInvertVertexWinding;
     }
@@ -764,7 +729,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    bool RenderSystem::updatePassIterationRenderState(void)
+    auto RenderSystem::updatePassIterationRenderState() -> bool
     {
         if (mCurrentPassIterationCount <= 1)
             return false;
@@ -817,11 +782,11 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::setSharedListener(Listener* listener)
     {
-        assert(msSharedEventListener == NULL || listener == NULL); // you can set or reset, but for safety not directly override
+        assert(msSharedEventListener == nullptr || listener == nullptr); // you can set or reset, but for safety not directly override
         msSharedEventListener = listener;
     }
     //-----------------------------------------------------------------------
-    RenderSystem::Listener* RenderSystem::getSharedListener(void)
+    auto RenderSystem::getSharedListener() -> RenderSystem::Listener*
     {
         return msSharedEventListener;
     }
@@ -838,10 +803,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::fireEvent(const String& name, const NameValuePairList* params)
     {
-        for(ListenerList::iterator i = mEventListeners.begin(); 
-            i != mEventListeners.end(); ++i)
+        for(auto & mEventListener : mEventListeners)
         {
-            (*i)->eventOccurred(name, params);
+            mEventListener->eventOccurred(name, params);
         }
 
         if(msSharedEventListener)
@@ -850,7 +814,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::destroyHardwareOcclusionQuery( HardwareOcclusionQuery *hq)
     {
-        HardwareOcclusionQueryList::iterator i =
+        auto i =
             std::find(mHwOcclusionQueries.begin(), mHwOcclusionQueries.end(), hq);
         if (i != mHwOcclusionQueries.end())
         {
@@ -916,7 +880,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool RenderSystem::isGpuProgramBound(GpuProgramType gptype)
+    auto RenderSystem::isGpuProgramBound(GpuProgramType gptype) -> bool
     {
         switch(gptype)
         {
@@ -944,7 +908,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    RenderSystem::RenderSystemContext* RenderSystem::_pauseFrame(void)
+    auto RenderSystem::_pauseFrame() -> RenderSystem::RenderSystemContext*
     {
         _endFrame();
         return new RenderSystem::RenderSystemContext;
@@ -956,7 +920,7 @@ namespace Ogre {
         delete context;
     }
     //---------------------------------------------------------------------
-    const String& RenderSystem::_getDefaultViewportMaterialScheme( void ) const
+    auto RenderSystem::_getDefaultViewportMaterialScheme( ) const -> const String&
     {
         if ( !(getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION)) )
         {
@@ -970,7 +934,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Ogre::HardwareVertexBufferSharedPtr RenderSystem::getGlobalInstanceVertexBuffer() const
+    auto RenderSystem::getGlobalInstanceVertexBuffer() const -> Ogre::HardwareVertexBufferSharedPtr
     {
         return mGlobalInstanceVertexBuffer;
     }
@@ -986,7 +950,7 @@ namespace Ogre {
         mGlobalInstanceVertexBuffer = val;
     }
     //---------------------------------------------------------------------
-    size_t RenderSystem::getGlobalNumberOfInstances() const
+    auto RenderSystem::getGlobalNumberOfInstances() const -> size_t
     {
         return mGlobalNumberOfInstances;
     }
@@ -996,7 +960,7 @@ namespace Ogre {
         mGlobalNumberOfInstances = val;
     }
 
-    VertexDeclaration* RenderSystem::getGlobalInstanceVertexBufferVertexDeclaration() const
+    auto RenderSystem::getGlobalInstanceVertexBufferVertexDeclaration() const -> VertexDeclaration*
     {
         return mGlobalInstanceVertexBufferVertexDeclaration;
     }
@@ -1049,7 +1013,7 @@ namespace Ogre {
         mOptions[optSRGB.name] = optSRGB;
     }
 
-    CompareFunction RenderSystem::reverseCompareFunction(CompareFunction func)
+    auto RenderSystem::reverseCompareFunction(CompareFunction func) -> CompareFunction
     {
         switch(func)
         {
@@ -1066,7 +1030,7 @@ namespace Ogre {
         }
     }
 
-    bool RenderSystem::flipFrontFace() const
+    auto RenderSystem::flipFrontFace() const -> bool
     {
         return mInvertVertexWinding != mActiveRenderTarget->requiresTextureFlipping();
     }

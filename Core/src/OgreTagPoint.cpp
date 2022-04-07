@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreTagPoint.h"
+#include "OgreTagPoint.hpp"
 
-#include "OgreEntity.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreVector.h"
+#include "OgreEntity.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgreNode.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreVector.hpp"
 
 
 namespace Ogre {
@@ -41,19 +41,16 @@ class Skeleton;
     //-----------------------------------------------------------------------------
     TagPoint::TagPoint(unsigned short handle, Skeleton* creator)
         : Bone(handle, creator)
-        , mInheritParentEntityOrientation(true)
-        , mInheritParentEntityScale(true)
-        , mParentEntity(0)
-        , mChildObject(0)
+         
     {
     }
     //-----------------------------------------------------------------------------
-    Entity *TagPoint::getParentEntity(void) const
+    auto TagPoint::getParentEntity() const -> Entity *
     {
         return mParentEntity;
     }
     //-----------------------------------------------------------------------------
-    MovableObject* TagPoint::getChildObject(void) const
+    auto TagPoint::getChildObject() const -> MovableObject*
     {
         return mChildObject;
     }
@@ -74,7 +71,7 @@ class Skeleton;
         needUpdate();
     }
     //-----------------------------------------------------------------------------
-    bool TagPoint::getInheritParentEntityOrientation(void) const
+    auto TagPoint::getInheritParentEntityOrientation() const -> bool
     {
         return mInheritParentEntityOrientation;
     }
@@ -85,17 +82,17 @@ class Skeleton;
         needUpdate();
     }
     //-----------------------------------------------------------------------------
-    bool TagPoint::getInheritParentEntityScale(void) const
+    auto TagPoint::getInheritParentEntityScale() const -> bool
     {
         return mInheritParentEntityScale;
     }
     //-----------------------------------------------------------------------------
-    const Affine3& TagPoint::_getFullLocalTransform(void) const
+    auto TagPoint::_getFullLocalTransform() const -> const Affine3&
     {
         return mFullLocalTransform;
     }
     //-----------------------------------------------------------------------------
-    const Affine3& TagPoint::getParentEntityTransform(void) const
+    auto TagPoint::getParentEntityTransform() const -> const Affine3&
     {
 
         return mParentEntity->_getParentNodeFullTransform();
@@ -118,7 +115,7 @@ class Skeleton;
 
     }
     //-----------------------------------------------------------------------------
-    void TagPoint::updateFromParentImpl(void) const
+    void TagPoint::updateFromParentImpl() const
     {
         // Call superclass
         Bone::updateFromParentImpl();

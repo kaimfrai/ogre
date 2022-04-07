@@ -29,28 +29,28 @@ THE SOFTWARE.
 #include <ostream>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgreSceneManagerEnumerator.h"
+#include "OgreException.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreSceneManagerEnumerator.hpp"
 
 
 namespace Ogre {
 class RenderSystem;
 
     //-----------------------------------------------------------------------
-    template<> SceneManagerEnumerator* Singleton<SceneManagerEnumerator>::msSingleton = 0;
-    SceneManagerEnumerator* SceneManagerEnumerator::getSingletonPtr(void)
+    template<> SceneManagerEnumerator* Singleton<SceneManagerEnumerator>::msSingleton = nullptr;
+    auto SceneManagerEnumerator::getSingletonPtr() -> SceneManagerEnumerator*
     {
         return msSingleton;
     }
-    SceneManagerEnumerator& SceneManagerEnumerator::getSingleton(void)
+    auto SceneManagerEnumerator::getSingleton() -> SceneManagerEnumerator&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
 
     //-----------------------------------------------------------------------
     SceneManagerEnumerator::SceneManagerEnumerator()
-        : mInstanceCreateCount(0), mCurrentRenderSystem(0)
+         
     {
         addFactory(&mDefaultFactory);
 
@@ -61,15 +61,15 @@ class RenderSystem;
         // Destroy all remaining instances
         // Really should have shutdown and unregistered by now, but catch here in case
         Instances instancesCopy = mInstances;
-        for (Instances::iterator i = instancesCopy.begin(); i != instancesCopy.end(); ++i)
+        for (auto & i : instancesCopy)
         {
             // destroy instances
-            for(Factories::iterator f = mFactories.begin(); f != mFactories.end(); ++f)
+            for(auto & mFactorie : mFactories)
             {
-                if ((*f)->getMetaData().typeName == i->second->getTypeName())
+                if (mFactorie->getMetaData().typeName == i.second->getTypeName())
                 {
-                    (*f)->destroyInstance(i->second);
-                    mInstances.erase(i->first);
+                    mFactorie->destroyInstance(i.second);
+                    mInstances.erase(i.first);
                     break;
                 }
             }
@@ -94,13 +94,13 @@ class RenderSystem;
         OgreAssert(fact, "Cannot remove a null SceneManagerFactory");
 
         // destroy all instances for this factory
-        for (Instances::iterator i = mInstances.begin(); i != mInstances.end(); )
+        for (auto i = mInstances.begin(); i != mInstances.end(); )
         {
             SceneManager* instance = i->second;
             if (instance->getTypeName() == fact->getMetaData().typeName)
             {
                 fact->destroyInstance(instance);
-                Instances::iterator deli = i++;
+                auto deli = i++;
                 mInstances.erase(deli);
             }
             else
@@ -109,7 +109,7 @@ class RenderSystem;
             }
         }
         // remove from metadata
-        for (MetaDataList::iterator m = mMetaDataList.begin(); m != mMetaDataList.end(); ++m)
+        for (auto m = mMetaDataList.begin(); m != mMetaDataList.end(); ++m)
         {
             if(*m == &(fact->getMetaData()))
             {
@@ -120,14 +120,13 @@ class RenderSystem;
         mFactories.remove(fact);
     }
     //-----------------------------------------------------------------------
-    const SceneManagerMetaData* SceneManagerEnumerator::getMetaData(const String& typeName) const
+    auto SceneManagerEnumerator::getMetaData(const String& typeName) const -> const SceneManagerMetaData*
     {
-        for (MetaDataList::const_iterator i = mMetaDataList.begin(); 
-            i != mMetaDataList.end(); ++i)
+        for (auto i : mMetaDataList)
         {
-            if (typeName == (*i)->typeName)
+            if (typeName == i->typeName)
             {
-                return *i;
+                return i;
             }
         }
 
@@ -138,8 +137,8 @@ class RenderSystem;
     }
 
     //-----------------------------------------------------------------------
-    SceneManager* SceneManagerEnumerator::createSceneManager(
-        const String& typeName, const String& instanceName)
+    auto SceneManagerEnumerator::createSceneManager(
+        const String& typeName, const String& instanceName) -> SceneManager*
     {
         if (mInstances.find(instanceName) != mInstances.end())
         {
@@ -148,21 +147,21 @@ class RenderSystem;
                 "SceneManagerEnumerator::createSceneManager");
         }
 
-        SceneManager* inst = 0;
-        for(Factories::iterator i = mFactories.begin(); i != mFactories.end(); ++i)
+        SceneManager* inst = nullptr;
+        for(auto & mFactorie : mFactories)
         {
-            if ((*i)->getMetaData().typeName == typeName)
+            if (mFactorie->getMetaData().typeName == typeName)
             {
                 if (instanceName.empty())
                 {
                     // generate a name
                     StringStream s;
                     s << "SceneManagerInstance" << ++mInstanceCreateCount;
-                    inst = (*i)->createInstance(s.str());
+                    inst = mFactorie->createInstance(s.str());
                 }
                 else
                 {
-                    inst = (*i)->createInstance(instanceName);
+                    inst = mFactorie->createInstance(instanceName);
                 }
                 break;
             }
@@ -195,20 +194,20 @@ class RenderSystem;
         mInstances.erase(sm->getName());
 
         // Find factory to destroy
-        for(Factories::iterator i = mFactories.begin(); i != mFactories.end(); ++i)
+        for(auto & mFactorie : mFactories)
         {
-            if ((*i)->getMetaData().typeName == sm->getTypeName())
+            if (mFactorie->getMetaData().typeName == sm->getTypeName())
             {
-                (*i)->destroyInstance(sm);
+                mFactorie->destroyInstance(sm);
                 break;
             }
         }
 
     }
     //-----------------------------------------------------------------------
-    SceneManager* SceneManagerEnumerator::getSceneManager(const String& instanceName) const
+    auto SceneManagerEnumerator::getSceneManager(const String& instanceName) const -> SceneManager*
     {
-        Instances::const_iterator i = mInstances.find(instanceName);
+        auto i = mInstances.find(instanceName);
         if(i != mInstances.end())
         {
             return i->second;
@@ -222,13 +221,13 @@ class RenderSystem;
 
     }
     //---------------------------------------------------------------------
-    bool SceneManagerEnumerator::hasSceneManager(const String& instanceName) const
+    auto SceneManagerEnumerator::hasSceneManager(const String& instanceName) const -> bool
     {
         return mInstances.find(instanceName) != mInstances.end();
     }
 
     //-----------------------------------------------------------------------
-    const SceneManagerEnumerator::Instances& SceneManagerEnumerator::getSceneManagers(void) const
+    auto SceneManagerEnumerator::getSceneManagers() const -> const SceneManagerEnumerator::Instances&
     {
         return mInstances;
     }
@@ -237,33 +236,33 @@ class RenderSystem;
     {
         mCurrentRenderSystem = rs;
 
-        for (Instances::iterator i = mInstances.begin(); i != mInstances.end(); ++i)
+        for (auto & mInstance : mInstances)
         {
-            i->second->_setDestinationRenderSystem(rs);
+            mInstance.second->_setDestinationRenderSystem(rs);
         }
 
     }
     //-----------------------------------------------------------------------
-    void SceneManagerEnumerator::shutdownAll(void)
+    void SceneManagerEnumerator::shutdownAll()
     {
-        for (Instances::iterator i = mInstances.begin(); i != mInstances.end(); ++i)
+        for (auto & mInstance : mInstances)
         {
             // shutdown instances (clear scene)
-            i->second->clearScene();            
+            mInstance.second->clearScene();            
         }
 
     }
     //-----------------------------------------------------------------------
     const String DefaultSceneManagerFactory::FACTORY_TYPE_NAME = "DefaultSceneManager";
     //-----------------------------------------------------------------------
-    void DefaultSceneManagerFactory::initMetaData(void) const
+    void DefaultSceneManagerFactory::initMetaData() const
     {
         mMetaData.typeName = FACTORY_TYPE_NAME;
         mMetaData.worldGeometrySupported = false;
     }
     //-----------------------------------------------------------------------
-    SceneManager* DefaultSceneManagerFactory::createInstance(
-        const String& instanceName)
+    auto DefaultSceneManagerFactory::createInstance(
+        const String& instanceName) -> SceneManager*
     {
         return new DefaultSceneManager(instanceName);
     }
@@ -275,10 +274,9 @@ class RenderSystem;
     }
     //-----------------------------------------------------------------------
     DefaultSceneManager::~DefaultSceneManager()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
-    const String& DefaultSceneManager::getTypeName(void) const
+    auto DefaultSceneManager::getTypeName() const -> const String&
     {
         return DefaultSceneManagerFactory::FACTORY_TYPE_NAME;
     }

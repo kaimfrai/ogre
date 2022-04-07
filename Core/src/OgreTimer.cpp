@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreTimer.h"
+#include "OgreTimer.hpp"
 
 #include <ctime>
 #include <type_traits>
@@ -38,12 +38,12 @@ using namespace std::chrono;
 
 namespace Ogre {
 
-long double Timer::clocksToMilliseconds(long double clocks)
+auto Timer::clocksToMilliseconds(long double clocks) -> long double
 {
     return 1000.0l * (clocks / (long double)CLOCKS_PER_SEC);
 }
 
-long double Timer::clocksToMicroseconds(long double clocks)
+auto Timer::clocksToMicroseconds(long double clocks) -> long double
 {
     return clocksToMilliseconds(clocks * 1000.0l);
 }
@@ -62,33 +62,33 @@ void Timer::reset()
 }
 
 //--------------------------------------------------------------------------------//
-uint64_t Timer::getMilliseconds()
+auto Timer::getMilliseconds() -> uint64_t
 {
     auto now = steady_clock::now();
     return duration_cast<milliseconds>(now - start).count();
 }
 
 //--------------------------------------------------------------------------------//
-uint64_t Timer::getMicroseconds()
+auto Timer::getMicroseconds() -> uint64_t
 {
     auto now = steady_clock::now();
     return duration_cast<microseconds>(now - start).count();
 }
 
-uint64_t Timer::getCPUClocks() const
+auto Timer::getCPUClocks() const -> uint64_t
 {
     clock_t newClock = clock();
     return static_cast<uint64_t>(newClock - zeroClock);
 }
 
 //-- Common Across All Timers ----------------------------------------------------//
-uint64_t Timer::getMillisecondsCPU()
+auto Timer::getMillisecondsCPU() -> uint64_t
 {
     return clocksToMilliseconds(getCPUClocks());
 }
 
 //-- Common Across All Timers ----------------------------------------------------//
-uint64_t Timer::getMicrosecondsCPU()
+auto Timer::getMicrosecondsCPU() -> uint64_t
 {
     return clocksToMicroseconds(getCPUClocks());
 }

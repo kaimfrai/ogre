@@ -30,24 +30,24 @@ THE SOFTWARE.
 #include <cstddef>
 #include <string>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreMath.h"
-#include "OgreMesh.h"
-#include "OgrePlatform.h"
-#include "OgrePrefabFactory.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
-#include "OgreSubMesh.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
+#include "OgreAxisAlignedBox.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreMath.hpp"
+#include "OgreMesh.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrefabFactory.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreVector.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
     //---------------------------------------------------------------------
-    bool PrefabFactory::createPrefab(Mesh* mesh)
+    auto PrefabFactory::createPrefab(Mesh* mesh) -> bool
     {
         const String& resourceName = mesh->getName();
 
@@ -313,14 +313,14 @@ namespace Ogre {
         VertexBufferBinding* binding = vertexData->vertexBufferBinding;
         binding->setBinding(0, vBuf);
         HardwareBufferLockGuard vBufLock(vBuf, HardwareBuffer::HBL_DISCARD);
-        float* pVertex = static_cast<float*>(vBufLock.pData);
+        auto* pVertex = static_cast<float*>(vBufLock.pData);
 
         // allocate index buffer
         pSphereVertex->indexData->indexCount = 6 * NUM_RINGS * (NUM_SEGMENTS + 1);
         pSphereVertex->indexData->indexBuffer = HardwareBufferManager::getSingleton().createIndexBuffer(HardwareIndexBuffer::IT_16BIT, pSphereVertex->indexData->indexCount, HardwareBuffer::HBU_STATIC_WRITE_ONLY, false);
         HardwareIndexBufferSharedPtr iBuf = pSphereVertex->indexData->indexBuffer;
         HardwareBufferLockGuard iBufLock(iBuf, HardwareBuffer::HBL_DISCARD);
-        unsigned short* pIndices = static_cast<unsigned short*>(iBufLock.pData);
+        auto* pIndices = static_cast<unsigned short*>(iBufLock.pData);
 
         float fDeltaRingAngle = (Math::PI / NUM_RINGS);
         float fDeltaSegAngle = (2 * Math::PI / NUM_SEGMENTS);

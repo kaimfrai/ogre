@@ -26,12 +26,12 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLTextureCommon.h"
+#include "OgreGLTextureCommon.hpp"
 
 #include <algorithm>
 #include <string>
 
-#include "OgreBitwise.h"
+#include "OgreBitwise.hpp"
 
 namespace Ogre
 {
@@ -41,7 +41,7 @@ void GLTextureCommon::getCustomAttribute(const String& name, void* pData)
         *static_cast<uint*>(pData) = mTextureID;
 }
 
-uint32 GLTextureCommon::getMaxMipmaps() {
+auto GLTextureCommon::getMaxMipmaps() -> uint32 {
     // see ARB_texture_non_power_of_two
     return Bitwise::mostSignificantBitSet(std::max(mWidth, std::max(mHeight, mDepth)));
 }

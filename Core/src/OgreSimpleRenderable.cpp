@@ -28,19 +28,19 @@ THE SOFTWARE.
 #include <cstddef>
 #include <ostream>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreCommon.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMatrix4.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderable.h"
-#include "OgreSharedPtr.h"
-#include "OgreSimpleRenderable.h"
+#include "OgreAxisAlignedBox.hpp"
+#include "OgreCommon.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgreNode.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRenderable.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSimpleRenderable.hpp"
 
 namespace Ogre {
 class Camera;
@@ -51,8 +51,8 @@ class Camera;
     : MovableObject()
     , mTransform(Affine3::IDENTITY)
     , mMaterial(MaterialManager::getSingleton().getDefaultMaterial())
-    , mParentSceneManager(NULL)
-    , mCamera(NULL)
+    , mParentSceneManager(nullptr)
+    , mCamera(nullptr)
 
     {
         // Generate name
@@ -65,8 +65,8 @@ class Camera;
     : MovableObject(name)
     , mTransform(Affine3::IDENTITY)
     , mMaterial(MaterialManager::getSingleton().getDefaultMaterial())
-    , mParentSceneManager(NULL)
-    , mCamera(NULL)
+    , mParentSceneManager(nullptr)
+    , mCamera(nullptr)
     {
     }
 
@@ -77,7 +77,7 @@ class Camera;
         mMaterial->load();
     }
 
-    const MaterialPtr& SimpleRenderable::getMaterial(void) const
+    auto SimpleRenderable::getMaterial() const -> const MaterialPtr&
     {
         return mMaterial;
     }
@@ -114,7 +114,7 @@ class Camera;
         mBox = box;
     }
 
-    const AxisAlignedBox& SimpleRenderable::getBoundingBox(void) const
+    auto SimpleRenderable::getBoundingBox() const -> const AxisAlignedBox&
     {
         return mBox;
     }
@@ -131,13 +131,13 @@ class Camera;
     }
 
     //-----------------------------------------------------------------------
-    const String& SimpleRenderable::getMovableType(void) const
+    auto SimpleRenderable::getMovableType() const -> const String&
     {
         static String movType = "SimpleRenderable";
         return movType;
     }
     //-----------------------------------------------------------------------
-    const LightList& SimpleRenderable::getLights(void) const
+    auto SimpleRenderable::getLights() const -> const LightList&
     {
         // Use movable query lights
         return queryLights();

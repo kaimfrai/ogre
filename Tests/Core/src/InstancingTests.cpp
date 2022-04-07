@@ -29,29 +29,29 @@ THE SOFTWARE.
 #include <gtest/gtest.h>
 #include <cstddef>
 
-#include "OgreEntity.h"
-#include "OgreInstanceBatchShader.h"
-#include "OgreInstancedEntity.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreSharedPtr.h"
-#include "OgreSubEntity.h"
-#include "OgreVector.h"
-#include "RootWithoutRenderSystemFixture.h"
+#include "OgreEntity.hpp"
+#include "OgreInstanceBatchShader.hpp"
+#include "OgreInstancedEntity.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSubEntity.hpp"
+#include "OgreVector.hpp"
+#include "RootWithoutRenderSystemFixture.hpp"
 
 using namespace Ogre;
 
-typedef RootWithoutRenderSystemFixture Instancing;
+using Instancing = RootWithoutRenderSystemFixture;
 
 TEST_F(Instancing, Bounds) {
     SceneManager* sceneMgr = mRoot->createSceneManager();
     Entity* entity = sceneMgr->createEntity("robot.mesh");
 
     MeshPtr mesh = entity->getMesh();
-    InstanceBatchShader batch(NULL, mesh, entity->getSubEntity(0)->getMaterial(), 1, NULL, "");
+    InstanceBatchShader batch(nullptr, mesh, entity->getSubEntity(0)->getMaterial(), 1, nullptr, "");
     InstancedEntity instanced_entity(&batch, 0);
 
     SceneNode* node = sceneMgr->createSceneNode();

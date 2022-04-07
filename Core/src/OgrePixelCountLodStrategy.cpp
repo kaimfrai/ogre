@@ -29,14 +29,14 @@ THE SOFTWARE.
 #include <cassert>
 #include <limits>
 
-#include "OgreCamera.h"
-#include "OgreFrustum.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgrePixelCountLodStrategy.h"
-#include "OgreViewport.h"
+#include "OgreCamera.hpp"
+#include "OgreFrustum.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgreNode.hpp"
+#include "OgrePixelCountLodStrategy.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
     //-----------------------------------------------------------------------
@@ -44,25 +44,25 @@ namespace Ogre {
         : LodStrategy(name)
     { }
     //---------------------------------------------------------------------
-    Real PixelCountLodStrategyBase::getBaseValue() const
+    auto PixelCountLodStrategyBase::getBaseValue() const -> Real
     {
         // Use the maximum possible value as base
         return std::numeric_limits<Real>::max();
     }
     //---------------------------------------------------------------------
-    Real PixelCountLodStrategyBase::transformBias(Real factor) const
+    auto PixelCountLodStrategyBase::transformBias(Real factor) const -> Real
     {
         // No transformation required for pixel count strategy
         return factor;
     }
     //---------------------------------------------------------------------
-    ushort PixelCountLodStrategyBase::getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const
+    auto PixelCountLodStrategyBase::getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const -> ushort
     {
         // Values are descending
         return getIndexDescending(value, meshLodUsageList);
     }
     //---------------------------------------------------------------------
-    ushort PixelCountLodStrategyBase::getIndex(Real value, const Material::LodValueList& materialLodValueList) const
+    auto PixelCountLodStrategyBase::getIndex(Real value, const Material::LodValueList& materialLodValueList) const -> ushort
     {
         // Values are descending
         return getIndexDescending(value, materialLodValueList);
@@ -74,7 +74,7 @@ namespace Ogre {
         sortDescending(meshLodUsageList);
     }
     //---------------------------------------------------------------------
-    bool PixelCountLodStrategyBase::isSorted(const Mesh::LodValueList& values) const
+    auto PixelCountLodStrategyBase::isSorted(const Mesh::LodValueList& values) const -> bool
     {
         // Check if values are sorted descending
         return isSortedDescending(values);
@@ -85,12 +85,12 @@ namespace Ogre {
     /************************************************************************/
 
     //-----------------------------------------------------------------------
-    template<> AbsolutePixelCountLodStrategy* Singleton<AbsolutePixelCountLodStrategy>::msSingleton = 0;
-    AbsolutePixelCountLodStrategy* AbsolutePixelCountLodStrategy::getSingletonPtr(void)
+    template<> AbsolutePixelCountLodStrategy* Singleton<AbsolutePixelCountLodStrategy>::msSingleton = nullptr;
+    auto AbsolutePixelCountLodStrategy::getSingletonPtr() -> AbsolutePixelCountLodStrategy*
     {
         return msSingleton;
     }
-    AbsolutePixelCountLodStrategy& AbsolutePixelCountLodStrategy::getSingleton(void)
+    auto AbsolutePixelCountLodStrategy::getSingleton() -> AbsolutePixelCountLodStrategy&
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -98,9 +98,9 @@ namespace Ogre {
     AbsolutePixelCountLodStrategy::AbsolutePixelCountLodStrategy()
         : PixelCountLodStrategyBase("pixel_count")
     { }
-    AbsolutePixelCountLodStrategy::~AbsolutePixelCountLodStrategy() {}
+    AbsolutePixelCountLodStrategy::~AbsolutePixelCountLodStrategy() = default;
     //-----------------------------------------------------------------------
-    Real PixelCountLodStrategyBase::getValueImpl(const MovableObject *movableObject, const Ogre::Camera *camera) const
+    auto PixelCountLodStrategyBase::getValueImpl(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real
     {
         // Get area of unprojected circle with object bounding radius
         Real boundingArea = Math::PI * Math::Sqr(movableObject->getBoundingRadiusScaled());
@@ -147,7 +147,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    Real AbsolutePixelCountLodStrategy::getValueImpl(const MovableObject *movableObject, const Ogre::Camera *camera) const
+    auto AbsolutePixelCountLodStrategy::getValueImpl(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real
     {
         // Get ratio of screen size to absolutely covered pixel count
         Real absoluteValue = PixelCountLodStrategyBase::getValueImpl(movableObject, camera);
@@ -165,12 +165,12 @@ namespace Ogre {
     /************************************************************************/
 
     //-----------------------------------------------------------------------
-    template<> ScreenRatioPixelCountLodStrategy* Singleton<ScreenRatioPixelCountLodStrategy>::msSingleton = 0;
-    ScreenRatioPixelCountLodStrategy* ScreenRatioPixelCountLodStrategy::getSingletonPtr(void)
+    template<> ScreenRatioPixelCountLodStrategy* Singleton<ScreenRatioPixelCountLodStrategy>::msSingleton = nullptr;
+    auto ScreenRatioPixelCountLodStrategy::getSingletonPtr() -> ScreenRatioPixelCountLodStrategy*
     {
         return msSingleton;
     }
-    ScreenRatioPixelCountLodStrategy& ScreenRatioPixelCountLodStrategy::getSingleton(void)
+    auto ScreenRatioPixelCountLodStrategy::getSingleton() -> ScreenRatioPixelCountLodStrategy&
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -178,7 +178,7 @@ namespace Ogre {
     ScreenRatioPixelCountLodStrategy::ScreenRatioPixelCountLodStrategy()
         : PixelCountLodStrategyBase("screen_ratio_pixel_count")
     { }
-    ScreenRatioPixelCountLodStrategy::~ScreenRatioPixelCountLodStrategy() {}
+    ScreenRatioPixelCountLodStrategy::~ScreenRatioPixelCountLodStrategy() = default;
     //-----------------------------------------------------------------------
 
 } // namespace

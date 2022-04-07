@@ -5,41 +5,39 @@
 #include <string>
 #include <utility>
 
-#include "NewInstancing.h"
-#include "OgreAnimationState.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreEntity.h"
-#include "OgreInstancedEntity.h"
-#include "OgreLight.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreMeshManager.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlane.h"
-#include "OgreProfiler.h"
-#include "OgreRenderSystem.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreShaderExHardwareSkinning.h"
-#include "OgreShaderExIntegratedPSSM3.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderRenderState.h"
-#include "OgreShadowCameraSetupLiSPSM.h"
-#include "OgreStringConverter.h"
-#include "OgreTrays.h"
-#include "OgreVector.h"
-#include "OgreViewport.h"
+#include "NewInstancing.hpp"
+#include "OgreAnimationState.hpp"
+#include "OgreColourValue.hpp"
+#include "OgreCommon.hpp"
+#include "OgreEntity.hpp"
+#include "OgreInstancedEntity.hpp"
+#include "OgreLight.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgreMeshManager.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgreNode.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePlane.hpp"
+#include "OgreProfiler.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreShaderExHardwareSkinning.hpp"
+#include "OgreShaderExIntegratedPSSM3.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderRenderState.hpp"
+#include "OgreShadowCameraSetupLiSPSM.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTrays.hpp"
+#include "OgreVector.hpp"
+#include "OgreViewport.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class SubRenderState;
-}  // namespace RTShader
 }  // namespace Ogre
 
 using namespace Ogre;
@@ -92,7 +90,7 @@ static const char *c_meshNames[] =
 };
 
 //------------------------------------------------------------------------------
-Sample_NewInstancing::Sample_NewInstancing() : NUM_INST_ROW(100), NUM_INST_COLUMN(100), mCurrentManager(0), mCurrentMaterialSet(c_materialsTechniques), mCurrentFlags(0), mSkinningTechniques(NULL)
+Sample_NewInstancing::Sample_NewInstancing() :  mCurrentMaterialSet(c_materialsTechniques) 
 {
     mInfo["Title"] = "New Instancing";
     mInfo["Description"] = "Demonstrates how to use the new InstancedManager to setup many dynamic"
@@ -108,7 +106,7 @@ Sample_NewInstancing::Sample_NewInstancing() : NUM_INST_ROW(100), NUM_INST_COLUM
 }
 
 //------------------------------------------------------------------------------
-bool Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt)
+auto Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt) -> bool
 {
     Ogre::Profile profile("New Instancing");
 
@@ -122,7 +120,7 @@ bool Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt)
 }
 
 //------------------------------------------------------------------------------
-bool Sample_NewInstancing::keyPressed(const KeyboardEvent& evt)
+auto Sample_NewInstancing::keyPressed(const KeyboardEvent& evt) -> bool
 {
     Keycode key = evt.keysym.sym;
     //Toggle bounding boxes with B key unless the help dialog is visible
@@ -167,7 +165,7 @@ void Sample_NewInstancing::setupContent()
     //Initialize the techniques and current mesh variables
     mInstancingTechnique    = 0;
     mCurrentMesh            = 0;
-    mCurrentManager         = 0;
+    mCurrentManager         = nullptr;
 
     checkHardwareSupport();
 
@@ -240,7 +238,7 @@ void Sample_NewInstancing::switchInstancingTechnique()
     if( !mSupportedTechniques[mInstancingTechnique] )
     {
         //Hide GUI features available only to instancing
-        mCurrentManager = 0;
+        mCurrentManager = nullptr;
         mDefragmentBatches->hide();
         mDefragmentOptimumCull->hide();
         return;
@@ -295,7 +293,7 @@ void Sample_NewInstancing::switchInstancingTechnique()
         createEntities();
 
         //Hide GUI features available only to instancing
-        mCurrentManager = 0;
+        mCurrentManager = nullptr;
         mDefragmentBatches->hide();
         mDefragmentOptimumCull->hide();
     }
@@ -434,8 +432,8 @@ void Sample_NewInstancing::createSceneNodes()
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::clearScene()
 {
-    std::vector<MovableObject*>::const_iterator itor = mEntities.begin();
-    std::vector<MovableObject*>::const_iterator end  = mEntities.end();
+    auto itor = mEntities.begin();
+    auto end  = mEntities.end();
 
     //Note: Destroying the instance manager automatically destroys all instanced entities
     //created by this manager (beware of not leaving reference to those pointers)
@@ -485,8 +483,8 @@ void Sample_NewInstancing::animateUnits( float timeSinceLast )
     Ogre::Profile profile("Animate");
     //Iterates through all AnimationSets and updates the animation being played. Demonstrates the
     //animation is unique and independent to each instance
-    std::set<AnimationState*>::const_iterator itor = mAnimations.begin();
-    std::set<AnimationState*>::const_iterator end  = mAnimations.end();
+    auto itor = mAnimations.begin();
+    auto end  = mAnimations.end();
 
     while( itor != end )
     {
@@ -507,8 +505,8 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
     if (!mSceneNodes.empty())
     {
         //Randomly move the units along their normal, bouncing around invisible walls
-        std::vector<SceneNode*>::const_iterator itor = mSceneNodes.begin();
-        std::vector<SceneNode*>::const_iterator end  = mSceneNodes.end();
+        auto itor = mSceneNodes.begin();
+        auto end  = mSceneNodes.end();
 
         while( itor != end )
         {
@@ -554,8 +552,8 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
         //Update instanced entities directly
 
         //Randomly move the units along their normal, bouncing around invisible walls
-        std::vector<InstancedEntity*>::const_iterator itor = mMovedInstances.begin();
-        std::vector<InstancedEntity*>::const_iterator end  = mMovedInstances.end();
+        auto itor = mMovedInstances.begin();
+        auto end  = mMovedInstances.end();
 
         while( itor != end )
         {
@@ -600,7 +598,7 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
 }
 
 //------------------------------------------------------------------------------
-Quaternion Sample_NewInstancing::lookAt( const Vector3 &normDir )
+auto Sample_NewInstancing::lookAt( const Vector3 &normDir ) -> Quaternion
 {
     return Math::lookRotation(normDir.normalisedCopy(), Vector3::UNIT_Y);
 }

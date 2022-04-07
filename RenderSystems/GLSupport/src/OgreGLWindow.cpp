@@ -26,17 +26,17 @@
   -----------------------------------------------------------------------------
 */
 
-#include "OgreGLWindow.h"
+#include "OgreGLWindow.hpp"
 
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGLRenderSystemCommon.h"
-#include "OgrePixelFormat.h"
-#include "OgreRoot.h"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreGLRenderSystemCommon.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgreRoot.hpp"
 
 namespace Ogre
 {
-GLWindow::GLWindow() : mContext(0)
+GLWindow::GLWindow()  
 {
     mIsTopLevel = false;
     mIsFullScreen = false;

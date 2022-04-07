@@ -31,12 +31,12 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "ATI_FS_GLGpuProgram.h"
-#include "OgreException.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreLogManager.h"
-#include "OgreSharedPtr.h"
-#include "ps_1_4.h"
+#include "ATI_FS_GLGpuProgram.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "ps_1_4.hpp"
 
 
 namespace Ogre {
@@ -58,13 +58,13 @@ ATI_FS_GLGpuProgram::~ATI_FS_GLGpuProgram()
     unload(); 
 }
 
-void ATI_FS_GLGpuProgram::bindProgram(void)
+void ATI_FS_GLGpuProgram::bindProgram()
 {
     glEnable(mProgramType);
     glBindFragmentShaderATI(mProgramID);
 }
 
-void ATI_FS_GLGpuProgram::unbindProgram(void)
+void ATI_FS_GLGpuProgram::unbindProgram()
 {
     glDisable(mProgramType);
 }
@@ -75,15 +75,14 @@ void ATI_FS_GLGpuProgram::bindProgramParameters(GpuProgramParametersSharedPtr pa
     // only supports float constants
     GpuLogicalBufferStructPtr floatStruct = params->getLogicalBufferStruct();
 
-    for (GpuLogicalIndexUseMap::const_iterator i = floatStruct->map.begin();
-        i != floatStruct->map.end(); ++i)
+    for (auto & i : floatStruct->map)
     {
-        if (i->second.variability & mask)
+        if (i.second.variability & mask)
         {
-            size_t logicalIndex = i->first;
-            const float* pFloat = params->getFloatPointer(i->second.physicalIndex);
+            size_t logicalIndex = i.first;
+            const float* pFloat = params->getFloatPointer(i.second.physicalIndex);
             // Iterate over the params, set in 4-float chunks (low-level)
-            for (size_t j = 0; j < i->second.currentSize; j+=4)
+            for (size_t j = 0; j < i.second.currentSize; j+=4)
             {
                 glSetFragmentShaderConstantATI(GL_CON_0_ATI + logicalIndex, pFloat);
                 pFloat += 4;
@@ -94,13 +93,13 @@ void ATI_FS_GLGpuProgram::bindProgramParameters(GpuProgramParametersSharedPtr pa
 
 }
 
-void ATI_FS_GLGpuProgram::unloadImpl(void)
+void ATI_FS_GLGpuProgram::unloadImpl()
 {
     glDeleteFragmentShaderATI(mProgramID);
 }
 
 
-void ATI_FS_GLGpuProgram::loadFromSource(void)
+void ATI_FS_GLGpuProgram::loadFromSource()
 {
 
     PS_1_4 PS1_4Assembler;

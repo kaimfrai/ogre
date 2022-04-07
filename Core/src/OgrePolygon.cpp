@@ -31,9 +31,9 @@ THE SOFTWARE.
 #include <memory>
 #include <ostream>
 
-#include "OgreException.h"
-#include "OgreMath.h"
-#include "OgrePolygon.h"
+#include "OgreException.hpp"
+#include "OgreMath.hpp"
+#include "OgrePolygon.hpp"
 
 namespace Ogre
 {
@@ -41,15 +41,14 @@ namespace Ogre
     //-----------------------------------------------------------------------
     Polygon::Polygon()
     : mNormal( Vector3::ZERO )
-    , mIsNormalSet(false)
+     
     {
         // reserve space for 6 vertices to reduce allocation cost
         mVertexList.reserve(6);
     }
     //-----------------------------------------------------------------------
     Polygon::~Polygon()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     Polygon::Polygon( const Polygon& cpy )
     {
@@ -63,7 +62,7 @@ namespace Ogre
         // TODO: optional: check planarity
         OgreAssertDbg(vertex <= getVertexCount(), "Insert position out of range" );
 
-        VertexList::iterator it = mVertexList.begin();
+        auto it = mVertexList.begin();
 
         std::advance(it, vertex);
         mVertexList.insert(it, vdata);
@@ -75,7 +74,7 @@ namespace Ogre
         mVertexList.push_back(vdata);
     }
     //-----------------------------------------------------------------------
-    const Vector3& Polygon::getVertex( size_t vertex ) const
+    auto Polygon::getVertex( size_t vertex ) const -> const Vector3&
     {
         OgreAssertDbg(vertex < getVertexCount(), "Search position out of range");
 
@@ -91,7 +90,7 @@ namespace Ogre
         mVertexList[ vertex ] = vdata;
     }
     //-----------------------------------------------------------------------
-    void Polygon::removeDuplicates( void )
+    void Polygon::removeDuplicates( )
     {
         for ( size_t i = 0; i < getVertexCount(); ++i )
         {
@@ -106,19 +105,19 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    size_t Polygon::getVertexCount( void ) const
+    auto Polygon::getVertexCount( ) const -> size_t
     {
         return mVertexList.size();
     }
     //-----------------------------------------------------------------------
-    const Vector3& Polygon::getNormal( void ) const
+    auto Polygon::getNormal( ) const -> const Vector3&
     {
         updateNormal();
 
         return mNormal;
     }
     //-----------------------------------------------------------------------
-    void Polygon::updateNormal( void ) const
+    void Polygon::updateNormal( ) const
     {
         OgreAssertDbg( getVertexCount() >= 3, "Insufficient vertex count!" );
 
@@ -153,7 +152,7 @@ namespace Ogre
     {
         OgreAssertDbg( vertex < getVertexCount(), "Search position out of range" );
 
-        VertexList::iterator it = mVertexList.begin();
+        auto it = mVertexList.begin();
         std::advance(it, vertex);
 
         mVertexList.erase( it );
@@ -161,7 +160,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Polygon::storeEdges( Polygon::EdgeMap *edgeMap ) const
     {
-        OgreAssert( edgeMap != NULL, "EdgeMap ptr is NULL" );
+        OgreAssert( edgeMap != nullptr, "EdgeMap ptr is NULL" );
 
         size_t vertexCount = getVertexCount();
 
@@ -171,7 +170,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    void Polygon::reset( void )
+    void Polygon::reset( )
     {
         // could use swap() to free memory here, but assume most may be reused so avoid realloc
         mVertexList.clear();
@@ -179,7 +178,7 @@ namespace Ogre
         mIsNormalSet = false;
     }
     //-----------------------------------------------------------------------
-    bool Polygon::operator == (const Polygon& rhs) const
+    auto Polygon::operator == (const Polygon& rhs) const -> bool
     {
         if ( getVertexCount() != rhs.getVertexCount() )
             return false;
@@ -213,15 +212,10 @@ namespace Ogre
         return true;
     }
     //-----------------------------------------------------------------------
-    Polygon& Polygon::operator=(const Ogre::Polygon& rhs)
-    {
-        mIsNormalSet = rhs.mIsNormalSet;
-        mNormal = rhs.mNormal;
-        mVertexList = rhs.mVertexList;
-        return *this;
-    }
+    auto Polygon::operator=(const Ogre::Polygon& rhs) -> Polygon&
+    = default;
     //-----------------------------------------------------------------------
-    std::ostream& operator<< ( std::ostream& strm, const Polygon& poly )
+    auto operator<< ( std::ostream& strm, const Polygon& poly ) -> std::ostream&
     {
         strm << "NUM VERTICES: " << poly.getVertexCount() << std::endl;
 
@@ -233,7 +227,7 @@ namespace Ogre
         return strm;
     }
     //-----------------------------------------------------------------------
-    bool Polygon::isPointInside(const Vector3& point) const
+    auto Polygon::isPointInside(const Vector3& point) const -> bool
     {
         // sum the angles 
         Real anglesum = 0;

@@ -26,36 +26,32 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreOverlay.h"
+#include "OgreOverlay.hpp"
 
 #include <cassert>
 #include <cstddef>
 #include <string>
+#include <utility>
 
-#include "OgreCamera.h"
-#include "OgreMatrix3.h"
-#include "OgreOverlayContainer.h"
-#include "OgreOverlayElement.h"
-#include "OgrePlatform.h"
-#include "OgreRenderQueue.h"
-#include "OgreSceneNode.h"
-#include "OgreVector.h"
-#include "OgreViewport.h"
+#include "OgreCamera.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgreOverlayContainer.hpp"
+#include "OgreOverlayElement.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreVector.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 
     //---------------------------------------------------------------------
-    Overlay::Overlay(const String& name) :
-        mName(name),
-        mRotate(0.0f), 
-        mScrollX(0.0f), mScrollY(0.0f),
-        mScaleX(1.0f), mScaleY(1.0f),
-        mLastViewportWidth(0), mLastViewportHeight(0),
-        mTransformOutOfDate(true), mTransformUpdated(true), 
-        mZOrder(100), mVisible(false), mInitialised(false)
+    Overlay::Overlay(String  name) :
+        mName(std::move(name)),
+        mRotate(0.0f) 
 
     {
-        mRootNode = new SceneNode(NULL);
+        mRootNode = new SceneNode(nullptr);
 
     }
     //---------------------------------------------------------------------
@@ -65,21 +61,20 @@ namespace Ogre {
 
         delete mRootNode;
         
-        for (OverlayContainerList::iterator i = m2DElements.begin(); 
-             i != m2DElements.end(); ++i)
+        for (auto & m2DElement : m2DElements)
         {
-            (*i)->_notifyParent(0, 0);
+            m2DElement->_notifyParent(nullptr, nullptr);
         }
     }
     //---------------------------------------------------------------------
-    const String& Overlay::getName(void) const
+    auto Overlay::getName() const -> const String&
     {
         return mName;
     }
     //---------------------------------------------------------------------
     void Overlay::assignZOrders()
     {
-        ushort zorder = static_cast<ushort>(mZOrder * 100.0f);
+        auto zorder = static_cast<ushort>(mZOrder * 100.0f);
 
         // Notify attached 2D elements
         OverlayContainerList::iterator i, iend;
@@ -100,17 +95,17 @@ namespace Ogre {
         assignZOrders();
     }
     //---------------------------------------------------------------------
-    ushort Overlay::getZOrder(void) const
+    auto Overlay::getZOrder() const -> ushort
     {
         return (ushort)mZOrder;
     }
     //---------------------------------------------------------------------
-    bool Overlay::isVisible(void) const
+    auto Overlay::isVisible() const -> bool
     {
         return mVisible;
     }
     //---------------------------------------------------------------------
-    void Overlay::show(void)
+    void Overlay::show()
     {
         mVisible = true;
         if (!mInitialised)
@@ -119,7 +114,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void Overlay::hide(void)
+    void Overlay::hide()
     {
         mVisible = false;
     }
@@ -129,7 +124,7 @@ namespace Ogre {
         mVisible = visible;
     }
     //---------------------------------------------------------------------
-    void Overlay::initialise(void)
+    void Overlay::initialise()
     {
         OverlayContainerList::iterator i, iend;
         iend = m2DElements.end();
@@ -144,7 +139,7 @@ namespace Ogre {
     {
         m2DElements.push_back(cont);
         // Notify parent
-        cont->_notifyParent(0, this);
+        cont->_notifyParent(nullptr, this);
 
         assignZOrders();
 
@@ -156,7 +151,7 @@ namespace Ogre {
     void Overlay::remove2D(OverlayContainer* cont)
     {
         m2DElements.remove(cont);
-        cont->_notifyParent(0, 0);
+        cont->_notifyParent(nullptr, nullptr);
         assignZOrders();
     }
     //---------------------------------------------------------------------
@@ -170,7 +165,7 @@ namespace Ogre {
         mRootNode->removeChild(node);
     }
     //---------------------------------------------------------------------
-    void Overlay::clear(void)
+    void Overlay::clear()
     {
         mRootNode->removeAllChildren();
         m2DElements.clear();
@@ -185,17 +180,17 @@ namespace Ogre {
         mTransformUpdated = true;
     }
     //---------------------------------------------------------------------
-    Real Overlay::getScrollX(void) const
+    auto Overlay::getScrollX() const -> Real
     {
         return mScrollX;
     }
     //---------------------------------------------------------------------
-    Real Overlay::getScrollY(void) const
+    auto Overlay::getScrollY() const -> Real
     {
         return mScrollY;
     }
       //---------------------------------------------------------------------
-    OverlayContainer* Overlay::getChild(const String& name)
+    auto Overlay::getChild(const String& name) -> OverlayContainer*
     {
 
         OverlayContainerList::iterator i, iend;
@@ -208,7 +203,7 @@ namespace Ogre {
 
             }
         }
-        return NULL;
+        return nullptr;
     }
   //---------------------------------------------------------------------
     void Overlay::scroll(Real xoff, Real yoff)
@@ -239,12 +234,12 @@ namespace Ogre {
         mTransformUpdated = true;
     }
     //---------------------------------------------------------------------
-    Real Overlay::getScaleX(void) const
+    auto Overlay::getScaleX() const -> Real
     {
         return mScaleX;
     }
     //---------------------------------------------------------------------
-    Real Overlay::getScaleY(void) const
+    auto Overlay::getScaleY() const -> Real
     {
         return mScaleY;
     }
@@ -308,7 +303,7 @@ namespace Ogre {
             ushort oldPriority = queue-> getDefaultRenderablePriority();
             queue->setDefaultQueueGroup(RENDER_QUEUE_OVERLAY);
             queue->setDefaultRenderablePriority(static_cast<ushort>((mZOrder*100)-1));
-            mRootNode->_findVisibleObjects(cam, queue, NULL, true, false);
+            mRootNode->_findVisibleObjects(cam, queue, nullptr, true, false);
             // Reset the group
             queue->setDefaultQueueGroup(oldgrp);
             queue->setDefaultRenderablePriority(oldPriority);
@@ -323,14 +318,14 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void Overlay::updateTransform(void) const
+    void Overlay::updateTransform() const
     {
         // Ordering:
         //    1. Scale
         //    2. Rotate
         //    3. Translate
 
-        Radian orientationRotation = Radian(0);
+        auto orientationRotation = Radian(0);
 
         Matrix3 rot3x3, scale3x3;
         rot3x3.FromEulerAnglesXYZ(Radian(0), Radian(0), mRotate + orientationRotation);
@@ -346,9 +341,9 @@ namespace Ogre {
         mTransformOutOfDate = false;
     }
     //---------------------------------------------------------------------
-    OverlayElement* Overlay::findElementAt(Real x, Real y)
+    auto Overlay::findElementAt(Real x, Real y) -> OverlayElement*
     {
-        OverlayElement* ret = NULL;
+        OverlayElement* ret = nullptr;
         int currZ = -1;
         OverlayContainerList::iterator i, iend;
         iend = m2DElements.end();

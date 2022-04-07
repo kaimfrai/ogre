@@ -2,36 +2,37 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 
-#include "OgreApplicationContextBase.h"
+#include "OgreApplicationContextBase.hpp"
 
 #include <cstdlib>
 #include <ios>
 #include <map>
+#include <ranges>
 #include <string>
 #include <type_traits>
 
-#include "OgreBitesConfigDialog.h"
-#include "OgreCamera.h"
-#include "OgreConfigFile.h"
-#include "OgreDataStream.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreInput.h"
-#include "OgreLogManager.h"
-#include "OgreMaterialManager.h"
-#include "OgreOverlaySystem.h"
-#include "OgrePlatform.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderWindow.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
-#include "OgreSGTechniqueResolverListener.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreShaderGenerator.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreWindowEventUtilities.h"
+#include "OgreBitesConfigDialog.hpp"
+#include "OgreCamera.hpp"
+#include "OgreConfigFile.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreFileSystemLayer.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreInput.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreOverlaySystem.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderWindow.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSGTechniqueResolverListener.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreWindowEventUtilities.hpp"
 
 namespace OgreBites {
 
@@ -48,12 +49,12 @@ ApplicationContextBase::ApplicationContextBase(const Ogre::String& appName)
         mFSLayer->setConfigPaths({ configDir });
     }
 
-    mRoot = NULL;
-    mOverlaySystem = NULL;
+    mRoot = nullptr;
+    mOverlaySystem = nullptr;
     mFirstRun = true;
 
-    mMaterialMgrListener = NULL;
-    mShaderGenerator = NULL;
+    mMaterialMgrListener = nullptr;
+    mShaderGenerator = nullptr;
 }
 
 ApplicationContextBase::~ApplicationContextBase()
@@ -80,13 +81,13 @@ void ApplicationContextBase::closeApp()
         mRoot->saveConfig();
 
         delete mRoot;
-        mRoot = NULL;
+        mRoot = nullptr;
     }
 
     mStaticPluginLoader.unload();
 }
 
-bool ApplicationContextBase::initialiseRTShaderSystem()
+auto ApplicationContextBase::initialiseRTShaderSystem() -> bool
 {
     if (Ogre::RTShader::ShaderGenerator::initialize())
     {
@@ -130,18 +131,18 @@ void ApplicationContextBase::destroyRTShaderSystem()
     Ogre::MaterialManager::getSingleton().setActiveScheme(Ogre::MaterialManager::DEFAULT_SCHEME_NAME);
 
     // Unregister the material manager listener.
-    if (mMaterialMgrListener != NULL)
+    if (mMaterialMgrListener != nullptr)
     {
         Ogre::MaterialManager::getSingleton().removeListener(mMaterialMgrListener);
         delete mMaterialMgrListener;
-        mMaterialMgrListener = NULL;
+        mMaterialMgrListener = nullptr;
     }
 
     // Destroy RTShader system.
-    if (mShaderGenerator != NULL)
+    if (mShaderGenerator != nullptr)
     {
         Ogre::RTShader::ShaderGenerator::destroy();
-        mShaderGenerator = NULL;
+        mShaderGenerator = nullptr;
     }
 }
 
@@ -170,7 +171,7 @@ void ApplicationContextBase::createRoot()
     mOverlaySystem = new Ogre::OverlaySystem();
 }
 
-bool ApplicationContextBase::oneTimeConfig()
+auto ApplicationContextBase::oneTimeConfig() -> bool
 {
     if(mRoot->getAvailableRenderers().empty())
     {
@@ -247,19 +248,18 @@ void ApplicationContextBase::removeInputListener(NativeWindowType* win, InputLis
     mInputListeners.erase(std::make_pair(0, lis));
 }
 
-bool ApplicationContextBase::frameRenderingQueued(const Ogre::FrameEvent& evt)
+auto ApplicationContextBase::frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool
 {
-    for(InputListenerList::iterator it = mInputListeners.begin();
-            it != mInputListeners.end(); ++it) {
-        it->second->frameRendered(evt);
+    for(const auto & mInputListener : mInputListeners) {
+        mInputListener.second->frameRendered(evt);
     }
 
     return true;
 }
 
-NativeWindowPair ApplicationContextBase::createWindow(const Ogre::String& name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams)
+auto ApplicationContextBase::createWindow(const Ogre::String& name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams) -> NativeWindowPair
 {
-    NativeWindowPair ret = {NULL, NULL};
+    NativeWindowPair ret = {nullptr, nullptr};
 
     if(!mWindows.empty())
     {
@@ -310,13 +310,12 @@ void ApplicationContextBase::_fireInputEvent(const Event& event, uint32_t window
 {
     Event scaled = event;
 
-    for(InputListenerList::iterator it = mInputListeners.begin();
-            it != mInputListeners.end(); ++it)
+    for(const auto & mInputListener : mInputListeners)
     {
         // gamepad events are not window specific
-        if(it->first != windowID && event.type <= TEXTINPUT) continue;
+        if(mInputListener.first != windowID && event.type <= TEXTINPUT) continue;
 
-        InputListener& l = *it->second;
+        InputListener& l = *mInputListener.second;
 
         switch (event.type)
         {
@@ -365,7 +364,7 @@ void ApplicationContextBase::_fireInputEvent(const Event& event, uint32_t window
     }
 }
 
-Ogre::String ApplicationContextBase::getDefaultMediaDir()
+auto ApplicationContextBase::getDefaultMediaDir() -> Ogre::String
 {
     return Ogre::FileSystemLayer::resolveBundlePath(getenv("OGRE_MEDIA_DIR"));
 }
@@ -444,9 +443,9 @@ void ApplicationContextBase::reconfigure(const Ogre::String &renderer, Ogre::Nam
     Ogre::RenderSystem* rs = mRoot->getRenderSystemByName(renderer);
 
     // set all given render system options
-    for (Ogre::NameValuePairList::iterator it = options.begin(); it != options.end(); it++)
+    for (auto & option : options)
     {
-        rs->setConfigOption(it->first, it->second);
+        rs->setConfigOption(option.first, option.second);
     }
 
     mRoot->queueEndRendering();   // break from render loop
@@ -473,9 +472,9 @@ void ApplicationContextBase::shutdown()
     // Destroy the RT Shader System.
     destroyRTShaderSystem();
 
-    for(auto it = mWindows.rbegin(); it != mWindows.rend(); ++it)
+    for(auto & mWindow : std::ranges::reverse_view(mWindows))
     {
-        _destroyWindow(*it);
+        _destroyWindow(mWindow);
     }
     mWindows.clear();
 

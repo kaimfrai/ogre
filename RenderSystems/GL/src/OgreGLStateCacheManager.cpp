@@ -26,18 +26,18 @@
  -----------------------------------------------------------------------------
  */
 
-#include "OgreGLStateCacheManager.h"
+#include "OgreGLStateCacheManager.hpp"
 
-#include "OgreException.h"
-#include "OgreGLRenderSystem.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
+#include "OgreException.hpp"
+#include "OgreGLRenderSystem.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
 
 namespace Ogre {
     
-    GLStateCacheManager::GLStateCacheManager(void)
+    GLStateCacheManager::GLStateCacheManager()
     {
         clearCache();
     }
@@ -202,7 +202,7 @@ namespace Ogre {
         glBindTexture(target, texture);
     }
     
-    bool GLStateCacheManager::activateGLTextureUnit(size_t unit)
+    auto GLStateCacheManager::activateGLTextureUnit(size_t unit) -> bool
     {
         if (unit >= Root::getSingleton().getRenderSystem()->getCapabilities()->getNumTextureUnits())
             return false;

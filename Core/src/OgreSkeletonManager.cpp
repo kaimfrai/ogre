@@ -28,19 +28,19 @@ THE SOFTWARE.
 #include <cassert>
 #include <memory>
 
-#include "OgreSharedPtr.h"
-#include "OgreSkeleton.h"
-#include "OgreSkeletonManager.h"
+#include "OgreSharedPtr.hpp"
+#include "OgreSkeleton.hpp"
+#include "OgreSkeletonManager.hpp"
 
 namespace Ogre
 {
     //-----------------------------------------------------------------------
-    template<> SkeletonManager* Singleton<SkeletonManager>::msSingleton = 0;
-    SkeletonManager* SkeletonManager::getSingletonPtr(void)
+    template<> SkeletonManager* Singleton<SkeletonManager>::msSingleton = nullptr;
+    auto SkeletonManager::getSingletonPtr() -> SkeletonManager*
     {
         return msSingleton;
     }
-    SkeletonManager& SkeletonManager::getSingleton(void)
+    auto SkeletonManager::getSingleton() -> SkeletonManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -53,14 +53,14 @@ namespace Ogre
         ResourceGroupManager::getSingleton()._registerResourceManager(mResourceType, this);
     }
     //-----------------------------------------------------------------------
-    SkeletonPtr SkeletonManager::getByName(const String& name, const String& groupName) const
+    auto SkeletonManager::getByName(const String& name, const String& groupName) const -> SkeletonPtr
     {
         return static_pointer_cast<Skeleton>(getResourceByName(name, groupName));
     }
     //-----------------------------------------------------------------------
-    SkeletonPtr SkeletonManager::create (const String& name, const String& group,
+    auto SkeletonManager::create (const String& name, const String& group,
                                     bool isManual, ManualResourceLoader* loader,
-                                    const NameValuePairList* createParams)
+                                    const NameValuePairList* createParams) -> SkeletonPtr
     {
         return static_pointer_cast<Skeleton>(createResource(name,group,isManual,loader,createParams));
     }
@@ -70,9 +70,9 @@ namespace Ogre
         ResourceGroupManager::getSingleton()._unregisterResourceManager(mResourceType);
     }
     //-----------------------------------------------------------------------
-    Resource* SkeletonManager::createImpl(const String& name, ResourceHandle handle, 
+    auto SkeletonManager::createImpl(const String& name, ResourceHandle handle, 
         const String& group, bool isManual, ManualResourceLoader* loader, 
-        const NameValuePairList* createParams)
+        const NameValuePairList* createParams) -> Resource*
     {
         return new Skeleton(this, name, handle, group, isManual, loader);
     }

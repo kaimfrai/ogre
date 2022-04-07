@@ -37,49 +37,49 @@ THE SOFTWARE.
 #include <vector>
 // IWYU pragma: no_include <sstream>
 
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreMurmurHash3.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderGLSLProgramProcessor.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderHLSLProgramProcessor.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramManager.h"
-#include "OgreShaderProgramProcessor.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderProgramWriter.h"
-#include "OgreShaderProgramWriterManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreMurmurHash3.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderGLSLProgramProcessor.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderHLSLProgramProcessor.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramManager.hpp"
+#include "OgreShaderProgramProcessor.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreShaderProgramWriter.hpp"
+#include "OgreShaderProgramWriterManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSingleton.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre {
 
 //-----------------------------------------------------------------------
 template<> 
-RTShader::ProgramManager* Singleton<RTShader::ProgramManager>::msSingleton = 0;
+RTShader::ProgramManager* Singleton<RTShader::ProgramManager>::msSingleton = nullptr;
 
 namespace RTShader {
 
 
 //-----------------------------------------------------------------------
-ProgramManager* ProgramManager::getSingletonPtr()
+auto ProgramManager::getSingletonPtr() -> ProgramManager*
 {
     return msSingleton;
 }
 
 //-----------------------------------------------------------------------
-ProgramManager& ProgramManager::getSingleton()
+auto ProgramManager::getSingleton() -> ProgramManager&
 {
     assert( msSingleton );  
     return ( *msSingleton );
@@ -104,8 +104,8 @@ void ProgramManager::releasePrograms(const ProgramSet* programSet)
     GpuProgramPtr vsProgram(programSet->getGpuProgram(GPT_VERTEX_PROGRAM));
     GpuProgramPtr psProgram(programSet->getGpuProgram(GPT_FRAGMENT_PROGRAM));
 
-    GpuProgramsMapIterator itVsGpuProgram = !vsProgram ? mVertexShaderMap.end() : mVertexShaderMap.find(vsProgram->getName());
-    GpuProgramsMapIterator itFsGpuProgram = !psProgram ? mFragmentShaderMap.end() : mFragmentShaderMap.find(psProgram->getName());
+    auto itVsGpuProgram = !vsProgram ? mVertexShaderMap.end() : mVertexShaderMap.find(vsProgram->getName());
+    auto itFsGpuProgram = !psProgram ? mFragmentShaderMap.end() : mFragmentShaderMap.find(psProgram->getName());
 
     if (itVsGpuProgram != mVertexShaderMap.end())
     {
@@ -132,7 +132,7 @@ void ProgramManager::flushGpuProgramsCache()
     flushGpuProgramsCache(mFragmentShaderMap);
 }
 
-size_t ProgramManager::getShaderCount(GpuProgramType type) const
+auto ProgramManager::getShaderCount(GpuProgramType type) const -> size_t
 {
     switch(type)
     {
@@ -149,7 +149,7 @@ void ProgramManager::flushGpuProgramsCache(GpuProgramsMap& gpuProgramsMap)
 {
     while (gpuProgramsMap.size() > 0)
     {
-        GpuProgramsMapIterator it = gpuProgramsMap.begin();
+        auto it = gpuProgramsMap.begin();
 
         destroyGpuProgram(it->second);
         gpuProgramsMap.erase(it);
@@ -196,8 +196,8 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
 
     auto programWriter = ProgramWriterManager::getSingleton().getProgramWriter(language);
 
-    ProgramProcessorIterator itProcessor = mProgramProcessorsMap.find(language);
-    ProgramProcessor* programProcessor = NULL;
+    auto itProcessor = mProgramProcessorsMap.find(language);
+    ProgramProcessor* programProcessor = nullptr;
 
     if (itProcessor == mProgramProcessorsMap.end())
     {
@@ -231,11 +231,11 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------------
-GpuProgramPtr ProgramManager::createGpuProgram(Program* shaderProgram, 
+auto ProgramManager::createGpuProgram(Program* shaderProgram, 
                                                ProgramWriter* programWriter,
                                                const String& language,
                                                const String& profiles,
-                                               const String& cachePath)
+                                               const String& cachePath) -> GpuProgramPtr
 {
     std::stringstream sourceCodeStringStream;
 
@@ -285,7 +285,7 @@ GpuProgramPtr ProgramManager::createGpuProgram(Program* shaderProgram,
             std::ofstream outFile(programFileName.c_str());
 
             if (!outFile)
-                return GpuProgramPtr();
+                return {};
 
             outFile << source;
             outFile.close();
@@ -333,7 +333,7 @@ GpuProgramPtr ProgramManager::createGpuProgram(Program* shaderProgram,
 
 
 //-----------------------------------------------------------------------------
-String ProgramManager::generateHash(const String& programString, const String& defines)
+auto ProgramManager::generateHash(const String& programString, const String& defines) -> String
 {
     //Different programs must have unique hash values.
     uint32_t hash[4];
@@ -349,7 +349,7 @@ String ProgramManager::generateHash(const String& programString, const String& d
 void ProgramManager::addProgramProcessor(const String& lang, ProgramProcessor* processor)
 {
     
-    ProgramProcessorIterator itFind = mProgramProcessorsMap.find(lang);
+    auto itFind = mProgramProcessorsMap.find(lang);
 
     if (itFind != mProgramProcessorsMap.end())
     {
@@ -362,7 +362,7 @@ void ProgramManager::addProgramProcessor(const String& lang, ProgramProcessor* p
 //-----------------------------------------------------------------------------
 void ProgramManager::removeProgramProcessor(const String& lang)
 {
-    ProgramProcessorIterator itFind = mProgramProcessorsMap.find(lang);
+    auto itFind = mProgramProcessorsMap.find(lang);
 
     if (itFind != mProgramProcessorsMap.end())
         mProgramProcessorsMap.erase(itFind);

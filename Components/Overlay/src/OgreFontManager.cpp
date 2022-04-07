@@ -24,24 +24,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
 
-#include "OgreFontManager.h"
+#include "OgreFontManager.hpp"
 
 #include <cassert>
 #include <memory>
 
-#include "OgreResourceGroupManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringVector.h"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre
 {
     //---------------------------------------------------------------------
-    template<> FontManager * Singleton< FontManager >::msSingleton = 0;
-    FontManager* FontManager::getSingletonPtr(void)
+    template<> FontManager * Singleton< FontManager >::msSingleton = nullptr;
+    auto FontManager::getSingletonPtr() -> FontManager*
     {
         return msSingleton;
     }
-    FontManager& FontManager::getSingleton(void)
+    auto FontManager::getSingleton() -> FontManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -71,21 +71,21 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    Resource* FontManager::createImpl(const String& name, ResourceHandle handle, 
+    auto FontManager::createImpl(const String& name, ResourceHandle handle, 
         const String& group, bool isManual, ManualResourceLoader* loader,
-        const NameValuePairList* params)
+        const NameValuePairList* params) -> Resource*
     {
         return new Font(this, name, handle, group, isManual, loader);
     }
     //-----------------------------------------------------------------------
-    FontPtr FontManager::getByName(const String& name, const String& groupName) const
+    auto FontManager::getByName(const String& name, const String& groupName) const -> FontPtr
     {
         return static_pointer_cast<Font>(getResourceByName(name, groupName));
     }
     //---------------------------------------------------------------------
-    FontPtr FontManager::create (const String& name, const String& group,
+    auto FontManager::create (const String& name, const String& group,
                                     bool isManual, ManualResourceLoader* loader,
-                                    const NameValuePairList* createParams)
+                                    const NameValuePairList* createParams) -> FontPtr
     {
         return static_pointer_cast<Font>(createResource(name,group,isManual,loader,createParams));
     }

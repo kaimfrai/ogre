@@ -26,10 +26,10 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLSLProgramFactory.h"
+#include "OgreGLSLProgramFactory.hpp"
 
-#include "OgreGLSLLinkProgramManager.h"
-#include "OgreGLSLProgram.h"
+#include "OgreGLSLLinkProgramManager.hpp"
+#include "OgreGLSLProgram.hpp"
 
 namespace Ogre {
 class GpuProgram;
@@ -39,25 +39,25 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     String GLSLProgramFactory::sLanguageName = "glsl";
     //-----------------------------------------------------------------------
-    GLSLProgramFactory::GLSLProgramFactory(void)
+    GLSLProgramFactory::GLSLProgramFactory()
     {
         mLinkProgramManager = new GLSLLinkProgramManager();
     }
     //-----------------------------------------------------------------------
-    GLSLProgramFactory::~GLSLProgramFactory(void)
+    GLSLProgramFactory::~GLSLProgramFactory()
     {
         if (mLinkProgramManager)
             delete mLinkProgramManager;
     }
     //-----------------------------------------------------------------------
-    const String& GLSLProgramFactory::getLanguage(void) const
+    auto GLSLProgramFactory::getLanguage() const -> const String&
     {
         return sLanguageName;
     }
     //-----------------------------------------------------------------------
-    GpuProgram* GLSLProgramFactory::create(ResourceManager* creator,
+    auto GLSLProgramFactory::create(ResourceManager* creator,
         const String& name, ResourceHandle handle,
-        const String& group, bool isManual, ManualResourceLoader* loader)
+        const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram*
     {
         return new GLSLProgram(creator, name, handle, group, isManual, loader);
     }

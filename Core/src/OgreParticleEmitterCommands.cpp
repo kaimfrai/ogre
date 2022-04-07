@@ -25,18 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreParticleEmitterCommands.h"
+#include "OgreParticleEmitterCommands.hpp"
 
-#include "OgreParticleEmitter.h"
-#include "OgreStringConverter.h"
-#include "OgreVector.h"
+#include "OgreParticleEmitter.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreVector.hpp"
 
-namespace Ogre {
-
-    namespace EmitterCommands {
+namespace Ogre::EmitterCommands {
 
         //-----------------------------------------------------------------------
-        String CmdAngle::doGet(const void* target) const
+        auto CmdAngle::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getAngle() );
@@ -46,7 +44,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setAngle(StringConverter::parseAngle(val));
         }
         //-----------------------------------------------------------------------
-        String CmdColour::doGet(const void* target) const
+        auto CmdColour::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getColour() );
@@ -56,7 +54,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setColour(StringConverter::parseColourValue(val));
         }
         //-----------------------------------------------------------------------
-        String CmdColourRangeStart::doGet(const void* target) const
+        auto CmdColourRangeStart::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getColourRangeStart() );
@@ -66,7 +64,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setColourRangeStart(StringConverter::parseColourValue(val));
         }
         //-----------------------------------------------------------------------
-        String CmdColourRangeEnd::doGet(const void* target) const
+        auto CmdColourRangeEnd::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getColourRangeEnd() );
@@ -76,7 +74,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setColourRangeEnd(StringConverter::parseColourValue(val));
         }
         //-----------------------------------------------------------------------
-        String CmdDirection::doGet(const void* target) const
+        auto CmdDirection::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getDirection() );
@@ -86,7 +84,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setDirection(StringConverter::parseVector3(val));
         }
         //-----------------------------------------------------------------------
-        String CmdUp::doGet(const void* target) const
+        auto CmdUp::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getUp() );
@@ -96,7 +94,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setUp(StringConverter::parseVector3(val));
         }
         //-----------------------------------------------------------------------
-        String CmdDirPositionRef::doGet(const void* target) const
+        auto CmdDirPositionRef::doGet(const void* target) const -> String
         {
             Vector4 val( static_cast<const ParticleEmitter*>(target)->getDirPositionReference() );
             val.w = static_cast<const ParticleEmitter*>(target)->getDirPositionReferenceEnabled();
@@ -109,7 +107,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setDirPositionReference( vPos, parsed.w != 0 );
         }
         //-----------------------------------------------------------------------
-        String CmdEmissionRate::doGet(const void* target) const
+        auto CmdEmissionRate::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getEmissionRate() );
@@ -119,7 +117,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setEmissionRate(StringConverter::parseReal(val));
         }
         //-----------------------------------------------------------------------
-        String CmdMaxTTL::doGet(const void* target) const
+        auto CmdMaxTTL::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMaxTimeToLive() );
@@ -129,7 +127,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setMaxTimeToLive(StringConverter::parseReal(val));
         }
         //-----------------------------------------------------------------------
-        String CmdMinTTL::doGet(const void* target) const
+        auto CmdMinTTL::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMinTimeToLive() );
@@ -139,7 +137,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setMinTimeToLive(StringConverter::parseReal(val));
         }
         //-----------------------------------------------------------------------
-        String CmdMaxVelocity::doGet(const void* target) const
+        auto CmdMaxVelocity::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMaxParticleVelocity() );
@@ -149,7 +147,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setMaxParticleVelocity(StringConverter::parseReal(val));
         }
         //-----------------------------------------------------------------------
-        String CmdMinVelocity::doGet(const void* target) const
+        auto CmdMinVelocity::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMinParticleVelocity() );
@@ -159,7 +157,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setMinParticleVelocity(StringConverter::parseReal(val));
         }
         //-----------------------------------------------------------------------
-        String CmdPosition::doGet(const void* target) const
+        auto CmdPosition::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getPosition() );
@@ -169,7 +167,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setPosition(StringConverter::parseVector3(val));
         }
         //-----------------------------------------------------------------------
-        String CmdTTL::doGet(const void* target) const
+        auto CmdTTL::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getTimeToLive() );
@@ -179,7 +177,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setTimeToLive(StringConverter::parseReal(val));
         }
         //-----------------------------------------------------------------------
-        String CmdVelocity::doGet(const void* target) const
+        auto CmdVelocity::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getParticleVelocity() );
@@ -189,7 +187,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setParticleVelocity(StringConverter::parseReal(val));
         }
         //-----------------------------------------------------------------------
-        String CmdDuration::doGet(const void* target) const
+        auto CmdDuration::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getDuration() );
@@ -199,7 +197,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setDuration(StringConverter::parseReal(val));
         }
         //-----------------------------------------------------------------------
-        String CmdMinDuration::doGet(const void* target) const
+        auto CmdMinDuration::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMinDuration() );
@@ -209,7 +207,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setMinDuration(StringConverter::parseReal(val));
         }
         //-----------------------------------------------------------------------
-        String CmdMaxDuration::doGet(const void* target) const
+        auto CmdMaxDuration::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMaxDuration() );
@@ -219,7 +217,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setMaxDuration(StringConverter::parseReal(val));
         }
         //-----------------------------------------------------------------------
-        String CmdRepeatDelay::doGet(const void* target) const
+        auto CmdRepeatDelay::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getRepeatDelay() );
@@ -229,7 +227,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setRepeatDelay(StringConverter::parseReal(val));
         }
         //-----------------------------------------------------------------------
-        String CmdMinRepeatDelay::doGet(const void* target) const
+        auto CmdMinRepeatDelay::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMinRepeatDelay() );
@@ -239,7 +237,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setMinRepeatDelay(StringConverter::parseReal(val));
         }
         //-----------------------------------------------------------------------
-        String CmdMaxRepeatDelay::doGet(const void* target) const
+        auto CmdMaxRepeatDelay::doGet(const void* target) const -> String
         {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMaxRepeatDelay() );
@@ -249,7 +247,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setMaxRepeatDelay(StringConverter::parseReal(val));
         }
         //-----------------------------------------------------------------------
-        String CmdName::doGet(const void* target) const
+        auto CmdName::doGet(const void* target) const -> String
         {
             return 
                 static_cast<const ParticleEmitter*>(target)->getName();
@@ -259,7 +257,7 @@ namespace Ogre {
             static_cast<ParticleEmitter*>(target)->setName(val);
         }
         //-----------------------------------------------------------------------
-        String CmdEmittedEmitter::doGet(const void* target) const
+        auto CmdEmittedEmitter::doGet(const void* target) const -> String
         {
             return 
                 static_cast<const ParticleEmitter*>(target)->getEmittedEmitter();
@@ -272,5 +270,4 @@ namespace Ogre {
 
     
     }
-}
 

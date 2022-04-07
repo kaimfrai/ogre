@@ -1,15 +1,15 @@
-#include <OgreLogManager.h>
-#include <OgreX11.h>
+#include <OgreLogManager.hpp>
+#include <OgreX11.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <X11/extensions/randr.h>
 #include <cstddef>
 
-#include "OgreException.h"
-#include "OgreGLNativeSupport.h"
-#include "OgrePrerequisites.h"
+#include "OgreException.hpp"
+#include "OgreGLNativeSupport.hpp"
+#include "OgrePrerequisites.hpp"
 
 namespace {
-    int safeXErrorHandler (Display *display, XErrorEvent *event)
+    auto safeXErrorHandler (Display *display, XErrorEvent *event) -> int
     {
         // Ignore all XErrorEvents
         return 0;
@@ -19,9 +19,9 @@ namespace {
 
 namespace Ogre
 {
-Display* getXDisplay(Display* glDisplay, Atom& deleteWindow, Atom& fullScreen, Atom& state)
+auto getXDisplay(Display* glDisplay, Atom& deleteWindow, Atom& fullScreen, Atom& state) -> Display*
 {
-    char* displayString = glDisplay ? DisplayString(glDisplay) : NULL;
+    char* displayString = glDisplay ? DisplayString(glDisplay) : nullptr;
 
     auto xDisplay = XOpenDisplay(displayString);
 
@@ -54,8 +54,8 @@ void validateParentWindow(Display* display, Window parentWindow)
     XSetErrorHandler(oldXErrorHandler);
 }
 
-Window createXWindow(Display* display, Window parent, XVisualInfo* visualInfo, int& left, int& top, uint& width,
-                     uint& height, Atom wmFullScreen, bool fullScreen)
+auto createXWindow(Display* display, Window parent, XVisualInfo* visualInfo, int& left, int& top, uint& width,
+                     uint& height, Atom wmFullScreen, bool fullScreen) -> Window
 {
     XSetWindowAttributes attr;
     attr.background_pixel = 0;
@@ -130,7 +130,7 @@ void finaliseTopLevel(Display* display, Window window, int& left, int& top, uint
     XSizeHints* sizeHints;
 
     // Is this really necessary ? Which broken WM might need it?
-    if ((wmHints = XAllocWMHints()) != NULL)
+    if ((wmHints = XAllocWMHints()) != nullptr)
     {
         wmHints->initial_state = NormalState;
         wmHints->input = True;
@@ -138,7 +138,7 @@ void finaliseTopLevel(Display* display, Window window, int& left, int& top, uint
     }
 
     // Is this really necessary ? Which broken WM might need it?
-    if ((sizeHints = XAllocSizeHints()) != NULL)
+    if ((sizeHints = XAllocSizeHints()) != nullptr)
     {
         sizeHints->flags = USPosition;
     }
@@ -146,7 +146,7 @@ void finaliseTopLevel(Display* display, Window window, int& left, int& top, uint
     XTextProperty titleprop;
     char* lst = const_cast<char*>(title.c_str());
     XStringListToTextProperty(&lst, 1, &titleprop);
-    XSetWMProperties(display, window, &titleprop, NULL, NULL, 0, sizeHints, wmHints, NULL);
+    XSetWMProperties(display, window, &titleprop, nullptr, nullptr, 0, sizeHints, wmHints, nullptr);
 
     XFree(titleprop.value);
     XFree(wmHints);
@@ -164,7 +164,7 @@ void finaliseTopLevel(Display* display, Window window, int& left, int& top, uint
     height = windowAttrib.height;
 }
 
-bool getXVideoModes(Display* display, VideoMode& currentMode, VideoModes& videoModes)
+auto getXVideoModes(Display* display, VideoMode& currentMode, VideoModes& videoModes) -> bool
 {
     int dummy;
     if (!XQueryExtension(display, "RANDR", &dummy, &dummy, &dummy))

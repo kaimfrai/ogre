@@ -30,10 +30,10 @@ THE SOFTWARE.
 #include <memory>
 #include <vector>
 
-#include "OgreMatrix4.h"
-#include "OgrePrerequisites.h"
-#include "OgreSimpleSpline.h"
-#include "OgreVector.h"
+#include "OgreMatrix4.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSimpleSpline.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
 
@@ -63,8 +63,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     SimpleSpline::~SimpleSpline()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void SimpleSpline::addPoint(const Vector3& p)
     {
@@ -75,7 +74,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Vector3 SimpleSpline::interpolate(Real t) const
+    auto SimpleSpline::interpolate(Real t) const -> Vector3
     {
         // Currently assumes points are evenly spaced, will cause velocity
         // change where this is not the case
@@ -84,7 +83,7 @@ namespace Ogre {
         
         // Work out which segment this is in
         Real fSeg = t * (mPoints.size() - 1);
-        unsigned int segIdx = (unsigned int)fSeg;
+        auto segIdx = (unsigned int)fSeg;
         // Apportion t 
         t = fSeg - segIdx;
 
@@ -92,7 +91,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    Vector3 SimpleSpline::interpolate(unsigned int fromIndex, Real t) const
+    auto SimpleSpline::interpolate(unsigned int fromIndex, Real t) const -> Vector3
     {
         // Bounds check
         assert (fromIndex < mPoints.size() &&
@@ -151,14 +150,14 @@ namespace Ogre {
         Vector4 ret = powers * mCoeffs * pt;
 
 
-        return Vector3(ret.x, ret.y, ret.z);
+        return {ret.x, ret.y, ret.z};
 
 
 
 
     }
     //---------------------------------------------------------------------
-    void SimpleSpline::recalcTangents(void)
+    void SimpleSpline::recalcTangents()
     {
         // Catmull-Rom approach
         // 
@@ -229,19 +228,19 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    const Vector3& SimpleSpline::getPoint(unsigned short index) const
+    auto SimpleSpline::getPoint(unsigned short index) const -> const Vector3&
     {
         assert (index < mPoints.size() && "Point index is out of bounds!!");
 
         return mPoints[index];
     }
     //---------------------------------------------------------------------
-    unsigned short SimpleSpline::getNumPoints(void) const
+    auto SimpleSpline::getNumPoints() const -> unsigned short
     {
         return (unsigned short)mPoints.size();
     }
     //---------------------------------------------------------------------
-    void SimpleSpline::clear(void)
+    void SimpleSpline::clear()
     {
         mPoints.clear();
         mTangents.clear();

@@ -6,10 +6,10 @@
 #include <map>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreGpuProgramParams.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderable.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderable.hpp"
 
 namespace Ogre
 {
@@ -17,14 +17,14 @@ void Renderable::setCustomParameter(size_t index, const Vector4& value) { mCusto
 
 void Renderable::removeCustomParameter(size_t index) { mCustomParameters.erase(index); }
 
-bool Renderable::hasCustomParameter(size_t index) const
+auto Renderable::hasCustomParameter(size_t index) const -> bool
 {
     return mCustomParameters.find(index) != mCustomParameters.end();
 }
 
-const Vector4& Renderable::getCustomParameter(size_t index) const
+auto Renderable::getCustomParameter(size_t index) const -> const Vector4&
 {
-    CustomParameterMap::const_iterator i = mCustomParameters.find(index);
+    auto i = mCustomParameters.find(index);
     if (i != mCustomParameters.end())
     {
         return i->second;
@@ -38,7 +38,7 @@ const Vector4& Renderable::getCustomParameter(size_t index) const
 void Renderable::_updateCustomGpuParameter(const GpuProgramParameters::AutoConstantEntry& constantEntry,
                                            GpuProgramParameters* params) const
 {
-    CustomParameterMap::const_iterator i = mCustomParameters.find(constantEntry.data);
+    auto i = mCustomParameters.find(constantEntry.data);
     if (i != mCustomParameters.end())
     {
         params->_writeRawConstant(constantEntry.physicalIndex, i->second, constantEntry.elementCount);

@@ -27,22 +27,21 @@ THE SOFTWARE.
 */
 #include <memory>
 
-#include "OgreException.h"
-#include "OgreGLHardwareBuffer.h"
-#include "OgreGLHardwareBufferManager.h"
-#include "OgreGLRenderSystem.h"
-#include "OgreGLStateCacheManager.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgrePlatform.h"
-#include "OgreRoot.h"
+#include "OgreException.hpp"
+#include "OgreGLHardwareBuffer.hpp"
+#include "OgreGLHardwareBufferManager.hpp"
+#include "OgreGLRenderSystem.hpp"
+#include "OgreGLStateCacheManager.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreRoot.hpp"
 
 namespace Ogre {
 
     //---------------------------------------------------------------------
     GLHardwareVertexBuffer::GLHardwareVertexBuffer(GLenum target, size_t sizeInBytes,
         Usage usage, bool useShadowBuffer)
-        : HardwareBuffer(usage, false, useShadowBuffer), mTarget(target), mLockedToScratch(false),
-        mScratchOffset(0), mScratchSize(0), mScratchPtr(0), mScratchUploadOnUnlock(false)
+        : HardwareBuffer(usage, false, useShadowBuffer), mTarget(target) 
     {
         mSizeInBytes = sizeInBytes;
         mRenderSystem = static_cast<GLRenderSystem*>(Root::getSingleton().getRenderSystem());
@@ -57,7 +56,7 @@ namespace Ogre {
         mRenderSystem->_getStateCacheManager()->bindGLBuffer(mTarget, mBufferId);
 
         // Initialise mapped buffer and set usage
-        glBufferDataARB(mTarget, mSizeInBytes, NULL, GLHardwareBufferManager::getGLUsage(usage));
+        glBufferDataARB(mTarget, mSizeInBytes, nullptr, GLHardwareBufferManager::getGLUsage(usage));
 
         //std::cerr << "creating vertex buffer = " << mBufferId << std::endl;
     }
@@ -68,12 +67,12 @@ namespace Ogre {
             stateCacheManager->deleteGLBuffer(mTarget, mBufferId);
     }
     //---------------------------------------------------------------------
-    void* GLHardwareVertexBuffer::lockImpl(size_t offset, 
-        size_t length, LockOptions options)
+    auto GLHardwareVertexBuffer::lockImpl(size_t offset, 
+        size_t length, LockOptions options) -> void*
     {
-        void* retPtr = 0;
+        void* retPtr = nullptr;
 
-        GLHardwareBufferManager* glBufManager = static_cast<GLHardwareBufferManager*>(HardwareBufferManager::getSingletonPtr());
+        auto* glBufManager = static_cast<GLHardwareBufferManager*>(HardwareBufferManager::getSingletonPtr());
 
         // Try to use scratch buffers for smaller buffers
         if( length < glBufManager->getGLMapBufferThreshold() )
@@ -106,7 +105,7 @@ namespace Ogre {
             if(options == HBL_DISCARD) // TODO: check possibility to use GL_MAP_UNSYNCHRONIZED_BIT for HBL_NO_OVERWRITE locking promise
             {
                 // Discard the buffer
-                glBufferDataARB(mTarget, mSizeInBytes, NULL, GLHardwareBufferManager::getGLUsage(mUsage));
+                glBufferDataARB(mTarget, mSizeInBytes, nullptr, GLHardwareBufferManager::getGLUsage(mUsage));
             }
             if (mUsage & HBU_DETAIL_WRITE_ONLY)
                 access = GL_WRITE_ONLY_ARB;
@@ -116,7 +115,7 @@ namespace Ogre {
                 access = GL_READ_WRITE_ARB;
 
             void* pBuffer = glMapBufferARB( mTarget, access);
-            if(pBuffer == 0)
+            if(pBuffer == nullptr)
             {
                 OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Buffer: Out of memory");
             }
@@ -130,7 +129,7 @@ namespace Ogre {
         return retPtr;
     }
     //---------------------------------------------------------------------
-    void GLHardwareVertexBuffer::unlockImpl(void)
+    void GLHardwareVertexBuffer::unlockImpl()
     {
         if (mLockedToScratch)
         {
@@ -194,7 +193,7 @@ namespace Ogre {
         {
             if(discardWholeBuffer)
             {
-                glBufferDataARB(mTarget, mSizeInBytes, NULL,
+                glBufferDataARB(mTarget, mSizeInBytes, nullptr,
                     GLHardwareBufferManager::getGLUsage(mUsage));
             }
 
@@ -203,7 +202,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void GLHardwareVertexBuffer::_updateFromShadow(void)
+    void GLHardwareVertexBuffer::_updateFromShadow()
     {
         if (mShadowBuffer && mShadowUpdated && !mSuppressHardwareUpdate)
         {

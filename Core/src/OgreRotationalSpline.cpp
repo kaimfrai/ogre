@@ -29,9 +29,9 @@ THE SOFTWARE.
 #include <memory>
 #include <vector>
 
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreRotationalSpline.h"
+#include "OgrePrerequisites.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreRotationalSpline.hpp"
 
 
 
@@ -39,13 +39,11 @@ namespace Ogre {
 
     //---------------------------------------------------------------------
     RotationalSpline::RotationalSpline()
-        : mAutoCalc(true)
-    {
-    }
+         
+    = default;
     //---------------------------------------------------------------------
     RotationalSpline::~RotationalSpline()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void RotationalSpline::addPoint(const Quaternion& p)
     {
@@ -56,11 +54,11 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Quaternion RotationalSpline::interpolate(Real t, bool useShortestPath)
+    auto RotationalSpline::interpolate(Real t, bool useShortestPath) -> Quaternion
     {
         // Work out which segment this is in
         Real fSeg = t * (mPoints.size() - 1);
-        unsigned int segIdx = (unsigned int)fSeg;
+        auto segIdx = (unsigned int)fSeg;
         // Apportion t 
         t = fSeg - segIdx;
 
@@ -68,8 +66,8 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    Quaternion RotationalSpline::interpolate(unsigned int fromIndex, Real t,
-        bool useShortestPath)
+    auto RotationalSpline::interpolate(unsigned int fromIndex, Real t,
+        bool useShortestPath) -> Quaternion
     {
         // Bounds check
         assert (fromIndex < mPoints.size() &&
@@ -104,7 +102,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    void RotationalSpline::recalcTangents(void)
+    void RotationalSpline::recalcTangents()
     {
         // ShoeMake (1987) approach
         // Just like Catmull-Rom really, just more gnarly
@@ -186,19 +184,19 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    const Quaternion& RotationalSpline::getPoint(unsigned short index) const
+    auto RotationalSpline::getPoint(unsigned short index) const -> const Quaternion&
     {
         assert (index < mPoints.size() && "Point index is out of bounds!!");
 
         return mPoints[index];
     }
     //---------------------------------------------------------------------
-    unsigned short RotationalSpline::getNumPoints(void) const
+    auto RotationalSpline::getNumPoints() const -> unsigned short
     {
         return (unsigned short)mPoints.size();
     }
     //---------------------------------------------------------------------
-    void RotationalSpline::clear(void)
+    void RotationalSpline::clear()
     {
         mPoints.clear();
         mTangents.clear();

@@ -26,7 +26,7 @@
  -----------------------------------------------------------------------------
  */
 
-#include "OgreGLUniformCache.h"
+#include "OgreGLUniformCache.hpp"
 
 namespace Ogre {
 
@@ -34,7 +34,7 @@ namespace Ogre {
     {
     }
 
-    bool GLUniformCache::updateUniform(int location, const void *value, int length)
+    auto GLUniformCache::updateUniform(int location, const void *value, int length) -> bool
     {
         return true;
     }

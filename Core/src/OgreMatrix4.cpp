@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreVector.h"
+#include "OgreMatrix3.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre
 {
@@ -63,18 +63,18 @@ namespace Ogre
           0,    0,  0,   1);
 
     //-----------------------------------------------------------------------
-    static Real
+    static auto
         MINOR(const TransformBaseReal& m, const size_t r0, const size_t r1, const size_t r2,
-                                const size_t c0, const size_t c1, const size_t c2)
+                                const size_t c0, const size_t c1, const size_t c2) -> Real
     {
         return m[r0][c0] * (m[r1][c1] * m[r2][c2] - m[r2][c1] * m[r1][c2]) -
             m[r0][c1] * (m[r1][c0] * m[r2][c2] - m[r2][c0] * m[r1][c2]) +
             m[r0][c2] * (m[r1][c0] * m[r2][c1] - m[r2][c0] * m[r1][c1]);
     }
     //-----------------------------------------------------------------------
-    Matrix4 Matrix4::adjoint() const
+    auto Matrix4::adjoint() const -> Matrix4
     {
-        return Matrix4( MINOR(*this, 1, 2, 3, 1, 2, 3),
+        return { MINOR(*this, 1, 2, 3, 1, 2, 3),
             -MINOR(*this, 0, 2, 3, 1, 2, 3),
             MINOR(*this, 0, 1, 3, 1, 2, 3),
             -MINOR(*this, 0, 1, 2, 1, 2, 3),
@@ -92,10 +92,10 @@ namespace Ogre
             -MINOR(*this, 1, 2, 3, 0, 1, 2),
             MINOR(*this, 0, 2, 3, 0, 1, 2),
             -MINOR(*this, 0, 1, 3, 0, 1, 2),
-            MINOR(*this, 0, 1, 2, 0, 1, 2));
+            MINOR(*this, 0, 1, 2, 0, 1, 2)};
     }
     //-----------------------------------------------------------------------
-    Real TransformBaseReal::determinant() const
+    auto TransformBaseReal::determinant() const -> Real
     {
         return m[0][0] * MINOR(*this, 1, 2, 3, 1, 2, 3) -
             m[0][1] * MINOR(*this, 1, 2, 3, 0, 2, 3) +
@@ -103,7 +103,7 @@ namespace Ogre
             m[0][3] * MINOR(*this, 1, 2, 3, 0, 1, 2);
     }
     //-----------------------------------------------------------------------
-    Matrix4 Matrix4::inverse() const
+    auto Matrix4::inverse() const -> Matrix4
     {
         Real m00 = m[0][0], m01 = m[0][1], m02 = m[0][2], m03 = m[0][3];
         Real m10 = m[1][0], m11 = m[1][1], m12 = m[1][2], m13 = m[1][3];
@@ -158,14 +158,14 @@ namespace Ogre
         Real d23 = - (v4 * m00 - v2 * m01 + v0 * m03) * invDet;
         Real d33 = + (v3 * m00 - v1 * m01 + v0 * m02) * invDet;
 
-        return Matrix4(
+        return {
             d00, d01, d02, d03,
             d10, d11, d12, d13,
             d20, d21, d22, d23,
-            d30, d31, d32, d33);
+            d30, d31, d32, d33};
     }
     //-----------------------------------------------------------------------
-    Affine3 Affine3::inverse() const
+    auto Affine3::inverse() const -> Affine3
     {
         Real m10 = m[1][0], m11 = m[1][1], m12 = m[1][2];
         Real m20 = m[2][0], m21 = m[2][1], m22 = m[2][2];
@@ -200,10 +200,10 @@ namespace Ogre
         Real r13 = - (r10 * m03 + r11 * m13 + r12 * m23);
         Real r23 = - (r20 * m03 + r21 * m13 + r22 * m23);
 
-        return Affine3(
+        return {
             r00, r01, r02, r03,
             r10, r11, r12, r13,
-            r20, r21, r22, r23);
+            r20, r21, r22, r23};
     }
     //-----------------------------------------------------------------------
     void TransformBaseReal::makeTransform(const Vector3& position, const Vector3& scale, const Quaternion& orientation)

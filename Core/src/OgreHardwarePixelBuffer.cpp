@@ -28,13 +28,13 @@ THE SOFTWARE.
 #include <cassert>
 #include <memory>
 
-#include "OgreException.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderTexture.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreTexture.h"
+#include "OgreException.hpp"
+#include "OgreHardwarePixelBuffer.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderTexture.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreTexture.hpp"
 
 namespace Ogre 
 {
@@ -44,7 +44,7 @@ namespace Ogre
             PixelFormat format,
             HardwareBuffer::Usage usage, bool useSystemMemory, bool useShadowBuffer):
         HardwareBuffer(usage, useSystemMemory, useShadowBuffer),
-        mCurrentLockOptions(), mWidth(width), mHeight(height), mDepth(depth),
+         mWidth(width), mHeight(height), mDepth(depth),
         mFormat(format)
     {
         // Default
@@ -69,7 +69,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------------    
-    void* HardwarePixelBuffer::lock(size_t offset, size_t length, LockOptions options)
+    auto HardwarePixelBuffer::lock(size_t offset, size_t length, LockOptions options) -> void*
     {
         OgreAssert(!isLocked(), "already locked");
         OgreAssert(offset == 0 && length == mSizeInBytes, "must lock box or entire buffer");
@@ -80,7 +80,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------------    
-    const PixelBox& HardwarePixelBuffer::lock(const Box& lockBox, LockOptions options)
+    auto HardwarePixelBuffer::lock(const Box& lockBox, LockOptions options) -> const PixelBox&
     {
         if (mShadowBuffer)
         {
@@ -106,7 +106,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------------    
-    const PixelBox& HardwarePixelBuffer::getCurrentLock() 
+    auto HardwarePixelBuffer::getCurrentLock() -> const PixelBox& 
     { 
         OgreAssert(isLocked(), "buffer not locked");
         return mCurrentLock; 
@@ -114,7 +114,7 @@ namespace Ogre
     
     //-----------------------------------------------------------------------------    
     /// Internal implementation of lock()
-    void* HardwarePixelBuffer::lockImpl(size_t offset, size_t length, LockOptions options)
+    auto HardwarePixelBuffer::lockImpl(size_t offset, size_t length, LockOptions options) -> void*
     {
         OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "lockImpl(offset,length) is not valid for PixelBuffers and should never be called",
             "HardwarePixelBuffer::lockImpl");
@@ -184,7 +184,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------------    
     
-    RenderTexture *HardwarePixelBuffer::getRenderTarget(size_t zoffset)
+    auto HardwarePixelBuffer::getRenderTarget(size_t zoffset) -> RenderTexture *
     {
         assert(mUsage & TU_RENDERTARGET);
         return mSliceTRT.at(zoffset);
@@ -194,7 +194,7 @@ namespace Ogre
     void HardwarePixelBuffer::_clearSliceRTT(size_t zoffset)
     {
         if(zoffset < mSliceTRT.size())
-            mSliceTRT[zoffset] = NULL;
+            mSliceTRT[zoffset] = nullptr;
     }
 
 }

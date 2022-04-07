@@ -35,62 +35,62 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreArchiveManager.h"
-#include "OgreCamera.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreCompositorManager.h"
-#include "OgreConfigFile.h"
-#include "OgreDataStream.h"
-#include "OgreEntity.h"
-#include "OgreFileSystem.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreHighLevelGpuProgram.h"
-#include "OgreImage.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMaterialSerializer.h"
-#include "OgreMath.h"
-#include "OgreMesh.h"
-#include "OgreMeshManager.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgrePass.h"
-#include "OgrePixelFormat.h"
-#include "OgrePrerequisites.h"
-#include "OgreRay.h"
-#include "OgreResource.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreResourceManager.h"
-#include "OgreRoot.h"
-#include "OgreSTBICodec.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreSceneQuery.h"
-#include "OgreSharedPtr.h"
-#include "OgreSkeletonInstance.h"
-#include "OgreSkeletonManager.h"
-#include "OgreStaticPluginLoader.h"
-#include "OgreStringConverter.h"
-#include "OgreTechnique.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
-#include "OgreVector.h"
-#include "RootWithoutRenderSystemFixture.h"
+#include "OgreArchiveManager.hpp"
+#include "OgreCamera.hpp"
+#include "OgreColourValue.hpp"
+#include "OgreCommon.hpp"
+#include "OgreCompositorManager.hpp"
+#include "OgreConfigFile.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreEntity.hpp"
+#include "OgreFileSystem.hpp"
+#include "OgreFileSystemLayer.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreHighLevelGpuProgram.hpp"
+#include "OgreImage.hpp"
+#include "OgreIteratorWrapper.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgreMath.hpp"
+#include "OgreMesh.hpp"
+#include "OgreMeshManager.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgreNode.hpp"
+#include "OgrePass.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRay.hpp"
+#include "OgreResource.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreResourceManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSTBICodec.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreSceneQuery.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSkeletonInstance.hpp"
+#include "OgreSkeletonManager.hpp"
+#include "OgreStaticPluginLoader.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTextureUnitState.hpp"
+#include "OgreVector.hpp"
+#include "RootWithoutRenderSystemFixture.hpp"
 
 using std::minstd_rand;
 
 using namespace Ogre;
 
-typedef RootWithoutRenderSystemFixture CameraTests;
+using CameraTests = RootWithoutRenderSystemFixture;
 TEST_F(CameraTests,customProjectionMatrix)
 {
-    Camera cam("", NULL);
+    Camera cam("", nullptr);
     std::vector<Vector3> corners(cam.getWorldSpaceCorners(), cam.getWorldSpaceCorners() + 8);
     RealRect extents = cam.getFrustumExtents();
     cam.setCustomProjectionMatrix(true, cam.getProjectionMatrix());
@@ -147,7 +147,7 @@ struct SceneQueryTest : public RootWithoutRenderSystemFixture {
     Camera* mCamera;
     SceneNode* mCameraNode;
 
-    void SetUp() {
+    void SetUp() override {
         RootWithoutRenderSystemFixture::SetUp();
 
         mSceneMgr = mRoot->createSceneManager();
@@ -187,10 +187,8 @@ TEST_F(SceneQueryTest,Intersection)
     EXPECT_EQ(results.movables2movables.size(), sizeof(expected)/sizeof(expected[0]));
 
     int i = 0;
-    for (SceneQueryMovableIntersectionList::iterator mov = results.movables2movables.begin();
-         mov != results.movables2movables.end(); ++mov)
+    for (auto & thepair : results.movables2movables)
     {
-        SceneQueryMovableObjectPair& thepair = *mov;
         // printf("{%d, %d},", StringConverter::parseInt(thepair.first->getName()), StringConverter::parseInt(thepair.second->getName()));
         ASSERT_EQ(expected[i][0], StringConverter::parseInt(thepair.first->getName()));
         ASSERT_EQ(expected[i][1], StringConverter::parseInt(thepair.second->getName()));
@@ -318,10 +316,10 @@ TEST(Image, Combine)
 
 struct UsePreviousResourceLoadingListener : public ResourceLoadingListener
 {
-    bool resourceCollision(Resource *resource, ResourceManager *resourceManager) { return false; }
+    auto resourceCollision(Resource *resource, ResourceManager *resourceManager) -> bool override { return false; }
 };
 
-typedef RootWithoutRenderSystemFixture ResourceLoading;
+using ResourceLoading = RootWithoutRenderSystemFixture;
 TEST_F(ResourceLoading, CollsionUseExisting)
 {
     UsePreviousResourceLoadingListener listener;
@@ -351,7 +349,7 @@ TEST_F(ResourceLoading, CollsionUseExisting)
 
 struct DeletePreviousResourceLoadingListener : public ResourceLoadingListener
 {
-    bool resourceCollision(Resource* resource, ResourceManager* resourceManager)
+    auto resourceCollision(Resource* resource, ResourceManager* resourceManager) -> bool override
     {
         resourceManager->remove(resource->getName(), resource->getGroup());
         return true;
@@ -370,7 +368,7 @@ TEST_F(ResourceLoading, CollsionDeleteExisting)
     EXPECT_TRUE(mat->clone("Collision"));
 }
 
-typedef RootWithoutRenderSystemFixture TextureTests;
+using TextureTests = RootWithoutRenderSystemFixture;
 TEST_F(TextureTests, Blank)
 {
     auto mat = std::make_shared<Material>(nullptr, "Material Name", 0, "Group");
@@ -408,7 +406,7 @@ TEST(GpuSharedParameters, align)
     EXPECT_EQ(params.getConstantDefinition("d").logicalIndex, 48);
 }
 
-typedef RootWithoutRenderSystemFixture HighLevelGpuProgramTest;
+using HighLevelGpuProgramTest = RootWithoutRenderSystemFixture;
 TEST_F(HighLevelGpuProgramTest, resolveIncludes)
 {
     auto mat = MaterialManager::getSingleton().create("Dummy", RGN_DEFAULT);
@@ -454,7 +452,7 @@ TEST(Math, TriangleRayIntersection)
     EXPECT_FALSE(Math::intersects(ray, tri[0], tri[1], tri[2], false, false).first);
 }
 
-typedef RootWithoutRenderSystemFixture SkeletonTests;
+using SkeletonTests = RootWithoutRenderSystemFixture;
 TEST_F(SkeletonTests, linkedSkeletonAnimationSource)
 {
     auto sceneMgr = mRoot->createSceneManager();

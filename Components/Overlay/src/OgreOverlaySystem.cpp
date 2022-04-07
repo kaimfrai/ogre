@@ -26,25 +26,25 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreOverlaySystem.h"
+#include "OgreOverlaySystem.hpp"
 
 #include <cassert>
 #include <cstddef>
 #include <string>
 
-#include "OgreBorderPanelOverlayElement.h"
-#include "OgreCamera.h"
-#include "OgreFontManager.h"
-#include "OgreOverlayElementFactory.h"
-#include "OgreOverlayManager.h"
-#include "OgreOverlayProfileSessionListener.h"
-#include "OgrePanelOverlayElement.h"
-#include "OgreProfiler.h"
-#include "OgreRenderQueue.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreTextAreaOverlayElement.h"
-#include "OgreViewport.h"
+#include "OgreBorderPanelOverlayElement.hpp"
+#include "OgreCamera.hpp"
+#include "OgreFontManager.hpp"
+#include "OgreOverlayElementFactory.hpp"
+#include "OgreOverlayManager.hpp"
+#include "OgreOverlayProfileSessionListener.hpp"
+#include "OgrePanelOverlayElement.hpp"
+#include "OgreProfiler.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreTextAreaOverlayElement.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 class OverlayElement;
@@ -54,11 +54,12 @@ class OverlayElement;
     class PanelOverlayElementFactory: public OverlayElementFactory
     {
     public:
-        OverlayElement* createOverlayElement(const String& instanceName) override
+        auto createOverlayElement(const String& instanceName) -> OverlayElement* override
         {
             return new PanelOverlayElement(instanceName);
         }
-        const String& getTypeName(void) const override
+        [[nodiscard]]
+        auto getTypeName() const -> const String& override
         {
             static String name = "Panel";
             return name;
@@ -69,11 +70,12 @@ class OverlayElement;
     class BorderPanelOverlayElementFactory: public OverlayElementFactory
     {
     public:
-        OverlayElement* createOverlayElement(const String& instanceName) override
+        auto createOverlayElement(const String& instanceName) -> OverlayElement* override
         {
             return new BorderPanelOverlayElement(instanceName);
         }
-        const String& getTypeName(void) const override
+        [[nodiscard]]
+        auto getTypeName() const -> const String& override
         {
             static String name = "BorderPanel";
             return name;
@@ -84,23 +86,24 @@ class OverlayElement;
     class TextAreaOverlayElementFactory: public OverlayElementFactory
     {
     public:
-        OverlayElement* createOverlayElement(const String& instanceName) override
+        auto createOverlayElement(const String& instanceName) -> OverlayElement* override
         {
             return new TextAreaOverlayElement(instanceName);
         }
-        const String& getTypeName(void) const override
+        [[nodiscard]]
+        auto getTypeName() const -> const String& override
         {
             static String name = "TextArea";
             return name;
         }
     };
 
-    template<> OverlaySystem *Singleton<OverlaySystem>::msSingleton = 0;
-    OverlaySystem* OverlaySystem::getSingletonPtr()
+    template<> OverlaySystem *Singleton<OverlaySystem>::msSingleton = nullptr;
+    auto OverlaySystem::getSingletonPtr() -> OverlaySystem*
     {
         return msSingleton;
     }
-    OverlaySystem& OverlaySystem::getSingleton()
+    auto OverlaySystem::getSingleton() -> OverlaySystem&
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -127,7 +130,7 @@ class OverlayElement;
     OverlaySystem::~OverlaySystem()
     {
         if(RenderSystem::getSharedListener() == this)
-            RenderSystem::setSharedListener(0);
+            RenderSystem::setSharedListener(nullptr);
 
         if (auto prof = Profiler::getSingletonPtr())
         {
@@ -145,7 +148,7 @@ class OverlayElement;
         if(queueGroupId == Ogre::RENDER_QUEUE_OVERLAY)
         {
             Ogre::Viewport* vp = Ogre::Root::getSingletonPtr()->getRenderSystem()->_getViewport();
-            if(vp != NULL)
+            if(vp != nullptr)
             {
                 Ogre::SceneManager* sceneMgr = vp->getCamera()->getSceneManager();
                 if (vp->getOverlaysEnabled() && sceneMgr->_getCurrentRenderStage() != Ogre::SceneManager::IRS_RENDER_TO_TEXTURE)

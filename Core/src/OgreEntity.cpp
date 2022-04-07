@@ -33,46 +33,46 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include <map>
 #include <string>
 
-#include "OgreAlignedAllocator.h"
-#include "OgreAnimation.h"
-#include "OgreAnimationState.h"
-#include "OgreAnimationTrack.h"
-#include "OgreBone.h"
-#include "OgreCamera.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreEntity.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLight.h"
-#include "OgreLodListener.h"
-#include "OgreLodStrategy.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreMesh.h"
-#include "OgreMeshManager.h"
-#include "OgreNode.h"
-#include "OgreOptimisedUtil.h"
-#include "OgrePass.h"
-#include "OgreRenderOperation.h"
-#include "OgreRenderQueue.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreSkeleton.h"
-#include "OgreSkeletonInstance.h"
-#include "OgreStringConverter.h"
-#include "OgreSubEntity.h"
-#include "OgreSubMesh.h"
-#include "OgreTagPoint.h"
-#include "OgreTechnique.h"
-#include "OgreVertexIndexData.h"
+#include "OgreAlignedAllocator.hpp"
+#include "OgreAnimation.hpp"
+#include "OgreAnimationState.hpp"
+#include "OgreAnimationTrack.hpp"
+#include "OgreBone.hpp"
+#include "OgreCamera.hpp"
+#include "OgreEdgeListBuilder.hpp"
+#include "OgreEntity.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreLight.hpp"
+#include "OgreLodListener.hpp"
+#include "OgreLodStrategy.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgreMesh.hpp"
+#include "OgreMeshManager.hpp"
+#include "OgreNode.hpp"
+#include "OgreOptimisedUtil.hpp"
+#include "OgrePass.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreSkeleton.hpp"
+#include "OgreSkeletonInstance.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreSubEntity.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreTagPoint.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVertexIndexData.hpp"
 
 
 namespace Ogre {
@@ -80,7 +80,7 @@ class Sphere;
 
     //-----------------------------------------------------------------------
     Entity::Entity ()
-        : mAnimationState(NULL),
+        : mAnimationState(nullptr),
           mTempSkelAnimInfo(),
           mTempVertexAnimInfo(),
           mVertexAnimationAppliedThisFrame(false),
@@ -94,11 +94,11 @@ class Sphere;
           mInitialised(false),
           mHardwarePoseCount(0),
           mNumBoneMatrices(0),
-          mBoneWorldMatrices(NULL),
-          mBoneMatrices(NULL),
+          mBoneWorldMatrices(nullptr),
+          mBoneMatrices(nullptr),
           mFrameAnimationLastUpdated(std::numeric_limits<unsigned long>::max()),
-          mFrameBonesLastUpdated(NULL),
-          mSharedSkeletonEntities(NULL),
+          mFrameBonesLastUpdated(nullptr),
+          mSharedSkeletonEntities(nullptr),
         mSoftwareAnimationRequests(0),
         mSoftwareAnimationNormalsRequests(0),
         mMeshLodIndex(0),
@@ -109,7 +109,7 @@ class Sphere;
         mMaterialLodFactorTransformed(1.0f),
         mMinMaterialLodIndex(99),
         mMaxMaterialLodIndex(0),        // Backwards, remember low value = high detail
-        mSkeletonInstance(0),
+        mSkeletonInstance(nullptr),
         mLastParentXform(Affine3::ZERO),
         mMeshStateCount(0),
         mFullBoundingBox()
@@ -228,7 +228,7 @@ class Sphere;
         mMeshStateCount = mMesh->getStateCount();
     }
     //-----------------------------------------------------------------------
-    void Entity::_deinitialise(void)
+    void Entity::_deinitialise()
     {
         if (!mInitialised)
             return;
@@ -266,7 +266,7 @@ class Sphere;
 
         if (mSkeletonInstance) {
             ::Ogre::AlignedMemory::deallocate(mBoneWorldMatrices);
-            mBoneWorldMatrices = 0;
+            mBoneWorldMatrices = nullptr;
 
             if (mSharedSkeletonEntities) {
                 mSharedSkeletonEntities->erase(this);
@@ -277,18 +277,18 @@ class Sphere;
                 // Should never occur, just in case
                 else if (mSharedSkeletonEntities->empty())
                 {
-                    delete mSharedSkeletonEntities; mSharedSkeletonEntities = 0;
+                    delete mSharedSkeletonEntities; mSharedSkeletonEntities = nullptr;
 
-                    delete[] mFrameBonesLastUpdated; mFrameBonesLastUpdated = 0;
-                    delete mSkeletonInstance; mSkeletonInstance = 0;
-                    ::Ogre::AlignedMemory::deallocate(mBoneMatrices); mBoneMatrices = 0;
-                    delete mAnimationState; mAnimationState = 0;
+                    delete[] mFrameBonesLastUpdated; mFrameBonesLastUpdated = nullptr;
+                    delete mSkeletonInstance; mSkeletonInstance = nullptr;
+                    ::Ogre::AlignedMemory::deallocate(mBoneMatrices); mBoneMatrices = nullptr;
+                    delete mAnimationState; mAnimationState = nullptr;
                 }
             } else {
-                delete[] mFrameBonesLastUpdated; mFrameBonesLastUpdated = 0;
-                delete mSkeletonInstance; mSkeletonInstance = 0;
-                ::Ogre::AlignedMemory::deallocate(mBoneMatrices); mBoneMatrices = 0;
-                delete mAnimationState; mAnimationState = 0;
+                delete[] mFrameBonesLastUpdated; mFrameBonesLastUpdated = nullptr;
+                delete mSkeletonInstance; mSkeletonInstance = nullptr;
+                ::Ogre::AlignedMemory::deallocate(mBoneMatrices); mBoneMatrices = nullptr;
+                delete mAnimationState; mAnimationState = nullptr;
             }
         }
         else
@@ -296,7 +296,7 @@ class Sphere;
             //Non-skeletally animated objects don't share the mAnimationState. Always delete.
             //See https://ogre3d.atlassian.net/browse/OGRE-504
             delete mAnimationState;
-            mAnimationState = 0;
+            mAnimationState = nullptr;
         }
 
         mSkelAnimVertexData.reset();
@@ -323,23 +323,23 @@ class Sphere;
         // mShadowRenderables are lazy initialized
     }
     //-----------------------------------------------------------------------
-    bool Entity::hasVertexAnimation(void) const
+    auto Entity::hasVertexAnimation() const -> bool
     {
         return mMesh->hasVertexAnimation();
     }
     //-----------------------------------------------------------------------
-    const MeshPtr& Entity::getMesh(void) const
+    auto Entity::getMesh() const -> const MeshPtr&
     {
         return mMesh;
     }
     //-----------------------------------------------------------------------
-    SubEntity* Entity::getSubEntity(const String& name) const
+    auto Entity::getSubEntity(const String& name) const -> SubEntity*
     {
         ushort index = mMesh->_getSubMeshIndex(name);
         return getSubEntity(index);
     }
     //-----------------------------------------------------------------------
-    Entity* Entity::clone( const String& newName) const
+    auto Entity::clone( const String& newName) const -> Entity*
     {
         OgreAssert(mManager, "Cannot clone an Entity that wasn't created through a SceneManager");
         Entity* newEnt = mManager->createEntity(newName, getMesh()->getName() );
@@ -480,7 +480,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& Entity::getBoundingBox(void) const
+    auto Entity::getBoundingBox() const -> const AxisAlignedBox&
     {
         // Get from Mesh
         if (mMesh->isLoaded())
@@ -499,10 +499,9 @@ class Sphere;
                     boneHasVerts[ iBone ] = false;
                 }
                 // for each bone that has vertices weighted to it,
-                for (size_t iBlend = 0; iBlend < mMesh->sharedBlendIndexToBoneIndexMap.size(); ++iBlend)
+                for (unsigned long iBone : mMesh->sharedBlendIndexToBoneIndexMap)
                 {
                     // record which bones have vertices assigned
-                    size_t iBone = mMesh->sharedBlendIndexToBoneIndexMap[ iBlend ];
                     boneHasVerts[ iBone ] = true;
                 }
                 // for each submesh,
@@ -513,9 +512,8 @@ class Sphere;
                     if ( ! submesh->useSharedVertices )
                     {
                         // record which bones have vertices assigned
-                        for (size_t iBlend = 0; iBlend < submesh->blendIndexToBoneIndexMap.size(); ++iBlend)
+                        for (unsigned long iBone : submesh->blendIndexToBoneIndexMap)
                         {
-                            size_t iBone = submesh->blendIndexToBoneIndexMap[ iBlend ];
                             boneHasVerts[ iBone ] = true;
                         }
                     }
@@ -568,7 +566,7 @@ class Sphere;
         return mFullBoundingBox;
     }
     //-----------------------------------------------------------------------
-    AxisAlignedBox Entity::getChildObjectsBoundingBox(void) const
+    auto Entity::getChildObjectsBoundingBox() const -> AxisAlignedBox
     {
         AxisAlignedBox aa_box;
         AxisAlignedBox full_aa_box;
@@ -577,7 +575,7 @@ class Sphere;
         for(auto child : mChildObjectList)
         {
             aa_box = child->getBoundingBox();
-            TagPoint* tp = static_cast<TagPoint*>(child->getParentNode());
+            auto* tp = static_cast<TagPoint*>(child->getParentNode());
             // Use transform local to skeleton since world xform comes later
             aa_box.transform(tp->_getFullLocalTransform());
 
@@ -587,7 +585,7 @@ class Sphere;
         return full_aa_box;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& Entity::getWorldBoundingBox(bool derive) const
+    auto Entity::getWorldBoundingBox(bool derive) const -> const AxisAlignedBox&
     {
         if (derive)
         {
@@ -600,7 +598,7 @@ class Sphere;
         return MovableObject::getWorldBoundingBox(derive);
     }
     //-----------------------------------------------------------------------
-    const Sphere& Entity::getWorldBoundingSphere(bool derive) const
+    auto Entity::getWorldBoundingSphere(bool derive) const -> const Sphere&
     {
         if (derive)
         {
@@ -740,28 +738,28 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    AnimationState* Entity::getAnimationState(const String& name) const
+    auto Entity::getAnimationState(const String& name) const -> AnimationState*
     {
         OgreAssert(mAnimationState, "Entity is not animated");
         return mAnimationState->getAnimationState(name);
     }
     //-----------------------------------------------------------------------
-    bool Entity::hasAnimationState(const String& name) const
+    auto Entity::hasAnimationState(const String& name) const -> bool
     {
         return mAnimationState && mAnimationState->hasAnimationState(name);
     }
     //-----------------------------------------------------------------------
-    AnimationStateSet* Entity::getAllAnimationStates(void) const
+    auto Entity::getAllAnimationStates() const -> AnimationStateSet*
     {
         return mAnimationState;
     }
     //-----------------------------------------------------------------------
-    const String& Entity::getMovableType(void) const
+    auto Entity::getMovableType() const -> const String&
     {
         return EntityFactory::FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    bool Entity::tempVertexAnimBuffersBound(void) const
+    auto Entity::tempVertexAnimBuffersBound() const -> bool
     {
         // Do we still have temp buffers for software vertex animation bound?
         bool ret = true;
@@ -769,10 +767,8 @@ class Sphere;
         {
             ret = ret && mTempVertexAnimInfo.buffersCheckedOut(true, mMesh->getSharedVertexDataAnimationIncludesNormals());
         }
-        for (SubEntityList::const_iterator i = mSubEntityList.begin();
-             i != mSubEntityList.end(); ++i)
+        for (auto sub : mSubEntityList)
         {
-            SubEntity* sub = *i;
             if (!sub->getSubMesh()->useSharedVertices
                 && sub->getSubMesh()->getVertexAnimationType() != VAT_NONE)
             {
@@ -783,7 +779,7 @@ class Sphere;
         return ret;
     }
     //-----------------------------------------------------------------------
-    bool Entity::tempSkelAnimBuffersBound(bool requestNormals) const
+    auto Entity::tempSkelAnimBuffersBound(bool requestNormals) const -> bool
     {
         // Do we still have temp buffers for software skeleton animation bound?
         if (mSkelAnimVertexData)
@@ -791,10 +787,8 @@ class Sphere;
             if (!mTempSkelAnimInfo.buffersCheckedOut(true, requestNormals))
                 return false;
         }
-        for (SubEntityList::const_iterator i = mSubEntityList.begin();
-             i != mSubEntityList.end(); ++i)
+        for (auto sub : mSubEntityList)
         {
-            SubEntity* sub = *i;
             if (sub->isVisible() && sub->mSkelAnimVertexData)
             {
                 if (!sub->mTempSkelAnimInfo.buffersCheckedOut(true, requestNormals))
@@ -804,7 +798,7 @@ class Sphere;
         return true;
     }
     //-----------------------------------------------------------------------
-    void Entity::updateAnimation(void)
+    void Entity::updateAnimation()
     {
         // Do nothing if not initialised yet
         if (!mInitialised)
@@ -976,8 +970,8 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    ushort Entity::initHardwareAnimationElements(VertexData* vdata,
-                                                 ushort numberOfElements, bool animateNormals)
+    auto Entity::initHardwareAnimationElements(VertexData* vdata,
+                                                 ushort numberOfElements, bool animateNormals) -> ushort
     {
         ushort elemsSupported = numberOfElements;
         if (vdata->hwAnimationDataList.size() < numberOfElements)
@@ -986,9 +980,9 @@ class Sphere;
                 vdata->allocateHardwareAnimationElements(numberOfElements, animateNormals);
         }
         // Initialise parametrics in case we don't use all of them
-        for (size_t i = 0; i < vdata->hwAnimationDataList.size(); ++i)
+        for (auto & i : vdata->hwAnimationDataList)
         {
-            vdata->hwAnimationDataList[i].parametric = 0.0f;
+            i.parametric = 0.0f;
         }
         // reset used count
         vdata->hwAnimDataItemsUsed = 0;
@@ -1026,10 +1020,8 @@ class Sphere;
                 }
                     
 }
-            for (SubEntityList::iterator si = mSubEntityList.begin();
-                si != mSubEntityList.end(); ++si)
+            for (auto sub : mSubEntityList)
             {
-                SubEntity* sub = *si;
                 if (sub->getSubMesh()->getVertexAnimationType() != VAT_NONE &&
                     !sub->getSubMesh()->useSharedVertices)
                 {
@@ -1071,10 +1063,8 @@ class Sphere;
                 initialisePoseVertexData(mMesh->sharedVertexData, mSoftwareVertexAnimVertexData.get(),
                     mMesh->getSharedVertexDataAnimationIncludesNormals());
             }
-            for (SubEntityList::iterator si = mSubEntityList.begin();
-                si != mSubEntityList.end(); ++si)
+            for (auto sub : mSubEntityList)
             {
-                SubEntity* sub = *si;
                 if (!sub->getSubMesh()->useSharedVertices &&
                     sub->getSubMesh()->getVertexAnimationType() == VAT_POSE)
                 {
@@ -1126,10 +1116,8 @@ class Sphere;
                     ->vertexBufferBinding->getBuffer(elem->getSource());
                 buf->suppressHardwareUpdate(false);
             }
-            for (SubEntityList::iterator si = mSubEntityList.begin();
-                si != mSubEntityList.end(); ++si)
+            for (auto sub : mSubEntityList)
             {
-                SubEntity* sub = *si;
                 if (!sub->getSubMesh()->useSharedVertices &&
                     sub->getSubMesh()->getVertexAnimationType() == VAT_POSE)
                 {
@@ -1149,17 +1137,16 @@ class Sphere;
 
     }
     //-----------------------------------------------------------------------------
-    void Entity::markBuffersUnusedForAnimation(void)
+    void Entity::markBuffersUnusedForAnimation()
     {
         mVertexAnimationAppliedThisFrame = false;
-        for (SubEntityList::iterator i = mSubEntityList.begin();
-            i != mSubEntityList.end(); ++i)
+        for (auto & i : mSubEntityList)
         {
-            (*i)->_markBuffersUnusedForAnimation();
+            i->_markBuffersUnusedForAnimation();
         }
     }
     //-----------------------------------------------------------------------------
-    void Entity::_markBuffersUsedForAnimation(void)
+    void Entity::_markBuffersUsedForAnimation()
     {
         mVertexAnimationAppliedThisFrame = true;
         // no cascade
@@ -1201,10 +1188,9 @@ class Sphere;
         }
 
 
-        for (SubEntityList::iterator i = mSubEntityList.begin();
-            i != mSubEntityList.end(); ++i)
+        for (auto & i : mSubEntityList)
         {
-            (*i)->_restoreBuffersForUnusedAnimation(hardwareAnimation);
+            i->_restoreBuffersForUnusedAnimation(hardwareAnimation);
         }
 
     }
@@ -1223,7 +1209,7 @@ class Sphere;
             srcData->vertexBufferBinding->getBuffer(
                 srcPosElem->getSource());
 
-        for (VertexData::HardwareAnimationDataList::const_iterator i = destData->hwAnimationDataList.begin();
+        for (auto i = destData->hwAnimationDataList.begin();
             i != destData->hwAnimationDataList.end(); ++i)
         {
             const VertexData::HardwareAnimationData& animData = *i;
@@ -1337,7 +1323,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    void Entity::_updateAnimation(void)
+    void Entity::_updateAnimation()
     {
         // Externally visible method
         if (hasSkeleton() || hasVertexAnimation())
@@ -1346,47 +1332,47 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    bool Entity::_isAnimated(void) const
+    auto Entity::_isAnimated() const -> bool
     {
         return (mAnimationState && mAnimationState->hasEnabledAnimationState()) ||
                (getSkeleton() && getSkeleton()->hasManualBones());
     }
     //-----------------------------------------------------------------------
-    bool Entity::_isSkeletonAnimated(void) const
+    auto Entity::_isSkeletonAnimated() const -> bool
     {
         return getSkeleton() &&
             (mAnimationState->hasEnabledAnimationState() || getSkeleton()->hasManualBones());
     }
     //-----------------------------------------------------------------------
-    VertexData* Entity::_getSkelAnimVertexData(void) const
+    auto Entity::_getSkelAnimVertexData() const -> VertexData*
     {
         assert (mSkelAnimVertexData && "Not software skinned or has no shared vertex data!");
         return mSkelAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    VertexData* Entity::_getSoftwareVertexAnimVertexData(void) const
+    auto Entity::_getSoftwareVertexAnimVertexData() const -> VertexData*
     {
         assert (mSoftwareVertexAnimVertexData && "Not vertex animated or has no shared vertex data!");
         return mSoftwareVertexAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    VertexData* Entity::_getHardwareVertexAnimVertexData(void) const
+    auto Entity::_getHardwareVertexAnimVertexData() const -> VertexData*
     {
         assert (mHardwareVertexAnimVertexData && "Not vertex animated or has no shared vertex data!");
         return mHardwareVertexAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    TempBlendedBufferInfo* Entity::_getSkelAnimTempBufferInfo(void)
+    auto Entity::_getSkelAnimTempBufferInfo() -> TempBlendedBufferInfo*
     {
         return &mTempSkelAnimInfo;
     }
     //-----------------------------------------------------------------------
-    TempBlendedBufferInfo* Entity::_getVertexAnimTempBufferInfo(void)
+    auto Entity::_getVertexAnimTempBufferInfo() -> TempBlendedBufferInfo*
     {
         return &mTempVertexAnimInfo;
     }
     //-----------------------------------------------------------------------
-    bool Entity::cacheBoneMatrices(void)
+    auto Entity::cacheBoneMatrices() -> bool
     {
         Root& root = Root::getSingleton();
         unsigned long currentFrameNumber = root.getNextFrameNumber();
@@ -1408,18 +1394,18 @@ class Sphere;
         mDisplaySkeleton = display;
     }
     //-----------------------------------------------------------------------
-    bool Entity::getDisplaySkeleton(void) const
+    auto Entity::getDisplaySkeleton() const -> bool
     {
         return mDisplaySkeleton;
     }
     //-----------------------------------------------------------------------
-    size_t Entity::getNumManualLodLevels(void) const
+    auto Entity::getNumManualLodLevels() const -> size_t
     {
         return mLodEntityList.size();
     }
 
     //-----------------------------------------------------------------------
-    Entity* Entity::getManualLodLevel(size_t index) const
+    auto Entity::getManualLodLevel(size_t index) const -> Entity*
     {
         assert(index < mLodEntityList.size());
 
@@ -1451,7 +1437,7 @@ class Sphere;
         for (i = 0; i < numSubMeshes; ++i)
         {
             SubMesh* subMesh = mesh->getSubMesh(i);
-            SubEntity* subEnt = new SubEntity(this, subMesh);
+            auto* subEnt = new SubEntity(this, subMesh);
             if (subMesh->getMaterial())
                 subEnt->setMaterial(subMesh->getMaterial());
             sublist->push_back(subEnt);
@@ -1473,12 +1459,12 @@ class Sphere;
 
     struct MovableObjectNameExists {
         const String& name;
-        bool operator()(const MovableObject* mo) {
+        auto operator()(const MovableObject* mo) -> bool {
             return mo->getName() == name;
         }
     };
 
-    TagPoint* Entity::attachObjectToBone(const String &boneName, MovableObject *pMovable, const Quaternion &offsetOrientation, const Vector3 &offsetPosition)
+    auto Entity::attachObjectToBone(const String &boneName, MovableObject *pMovable, const Quaternion &offsetOrientation, const Vector3 &offsetPosition) -> TagPoint*
     {
         MovableObjectNameExists pred = {pMovable->getName()};
         auto it = std::find_if(mChildObjectList.begin(), mChildObjectList.end(), pred);
@@ -1522,7 +1508,7 @@ class Sphere;
     }
 
     //-----------------------------------------------------------------------
-    MovableObject* Entity::detachObjectFromBone(const String &name)
+    auto Entity::detachObjectFromBone(const String &name) -> MovableObject*
     {
         MovableObjectNameExists pred = {name};
         auto it = std::find_if(mChildObjectList.begin(), mChildObjectList.end(), pred);
@@ -1563,7 +1549,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    void Entity::detachAllObjectsFromBone(void)
+    void Entity::detachAllObjectsFromBone()
     {
         detachAllObjectsImpl();
 
@@ -1574,15 +1560,15 @@ class Sphere;
     //-----------------------------------------------------------------------
     void Entity::detachObjectImpl(MovableObject* pObject)
     {
-        TagPoint* tp = static_cast<TagPoint*>(pObject->getParentNode());
+        auto* tp = static_cast<TagPoint*>(pObject->getParentNode());
 
         // free the TagPoint so we can reuse it later
         mSkeletonInstance->freeTagPoint(tp);
 
-        pObject->_notifyAttached((TagPoint*)0);
+        pObject->_notifyAttached((TagPoint*)nullptr);
     }
     //-----------------------------------------------------------------------
-    void Entity::detachAllObjectsImpl(void)
+    void Entity::detachAllObjectsImpl()
     {
         for (auto child : mChildObjectList)
         {
@@ -1592,12 +1578,12 @@ class Sphere;
     }
 
     //-----------------------------------------------------------------------
-    Real Entity::getBoundingRadius(void) const
+    auto Entity::getBoundingRadius() const -> Real
     {
         return mMesh->getBoundingSphereRadius();
     }
     //-----------------------------------------------------------------------
-    void Entity::prepareTempBlendBuffers(void)
+    void Entity::prepareTempBlendBuffers()
     {
         mSkelAnimVertexData.reset();
         mSoftwareVertexAnimVertexData.reset();
@@ -1656,7 +1642,7 @@ class Sphere;
         info->extractFrom(sourceData);
     }
     //-----------------------------------------------------------------------
-    VertexData* Entity::cloneVertexDataRemoveBlendInfo(const VertexData* source)
+    auto Entity::cloneVertexDataRemoveBlendInfo(const VertexData* source) -> VertexData*
     {
         // Clone without copying data
         VertexData* ret = source->clone(false);
@@ -1702,13 +1688,13 @@ class Sphere;
         return ret;
     }
     //-----------------------------------------------------------------------
-    EdgeData* Entity::getEdgeList(void)
+    auto Entity::getEdgeList() -> EdgeData*
     {
         // Get from Mesh
         return mMesh->getEdgeList(mMeshLodIndex);
     }
     //-----------------------------------------------------------------------
-    bool Entity::isHardwareAnimationEnabled(void)
+    auto Entity::isHardwareAnimationEnabled() -> bool
     {
         //find whether the entity has hardware animation for the current active sceme
         unsigned short schemeIndex = MaterialManager::getSingleton()._getActiveSchemeIndex();
@@ -1722,13 +1708,13 @@ class Sphere;
     }
 
     //-----------------------------------------------------------------------
-    void Entity::reevaluateVertexProcessing(void)
+    void Entity::reevaluateVertexProcessing()
     {
         //clear the cache so that the values will be reevaluated
         mSchemeHardwareAnim.clear();
     }
     //-----------------------------------------------------------------------
-    bool Entity::calcVertexProcessing(void)
+    auto Entity::calcVertexProcessing() -> bool
     {
         // init
         bool hasHardwareAnimation = false;
@@ -1763,8 +1749,8 @@ class Sphere;
                     mVertexProgramInUse = true;
                     
                     // If shadow renderables already created create their light caps
-                    ShadowRenderableList::iterator si = mShadowRenderables.begin();
-                    ShadowRenderableList::iterator siend = mShadowRenderables.end();
+                    auto si = mShadowRenderables.begin();
+                    auto siend = mShadowRenderables.end();
                     for (si = mShadowRenderables.begin(); si != siend; ++si)
                     {
                         static_cast<EntityShadowRenderable*>(*si)->_createSeparateLightCap();
@@ -1853,14 +1839,14 @@ class Sphere;
     }
 
     //-----------------------------------------------------------------------
-    Real Entity::_getMeshLodFactorTransformed() const
+    auto Entity::_getMeshLodFactorTransformed() const -> Real
     {
         return mMeshLodFactorTransformed;
     }
     //-----------------------------------------------------------------------
-    const ShadowRenderableList&
+    auto
     Entity::getShadowVolumeRenderableList(const Light* light, const HardwareIndexBufferPtr& indexBuffer,
-                                          size_t& indexBufferUsedSize, float extrusionDistance, int flags)
+                                          size_t& indexBufferUsedSize, float extrusionDistance, int flags) -> const ShadowRenderableList&
     {
         assert(indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT &&
                "Only 16-bit indexes supported for now");
@@ -1999,7 +1985,7 @@ class Sphere;
                     {
                         // Lock, we'll be locking the (suppressed hardware update) shadow buffer
                         HardwareBufferLockGuard posLock(esrPositionBuffer, HardwareBuffer::HBL_NORMAL);
-                        float* pSrc = static_cast<float*>(posLock.pData);
+                        auto* pSrc = static_cast<float*>(posLock.pData);
                         float* pDest = pSrc + (egi->vertexData->vertexCount * 3);
                         memcpy(pDest, pSrc, sizeof(float) * 3 * egi->vertexData->vertexCount);
                     }
@@ -2030,7 +2016,7 @@ class Sphere;
         return mShadowRenderables;
     }
     //-----------------------------------------------------------------------
-    const VertexData* Entity::findBlendedVertexData(const VertexData* orig)
+    auto Entity::findBlendedVertexData(const VertexData* orig) -> const VertexData*
     {
         bool skel = hasSkeleton();
 
@@ -2054,11 +2040,11 @@ class Sphere;
             "Entity::findBlendedVertexData");
     }
     //-----------------------------------------------------------------------
-    SubEntity* Entity::findSubEntityForVertexData(const VertexData* orig)
+    auto Entity::findSubEntityForVertexData(const VertexData* orig) -> SubEntity*
     {
         if (orig == mMesh->sharedVertexData)
         {
-            return 0;
+            return nullptr;
         }
 
         SubEntityList::iterator i, iend;
@@ -2073,7 +2059,7 @@ class Sphere;
         }
 
         // None found
-        return 0;
+        return nullptr;
     }
     //-----------------------------------------------------------------------
     void Entity::addSoftwareAnimationRequest(bool normalsAlso)
@@ -2134,7 +2120,7 @@ class Sphere;
     //-----------------------------------------------------------------------
     void Entity::EntityShadowRenderable::_createSeparateLightCap()
     {
-        if (mLightCap == NULL)
+        if (mLightCap == nullptr)
         {
             // Create child light cap
             mLightCap = new EntityShadowRenderable(mParent,
@@ -2157,7 +2143,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    bool Entity::EntityShadowRenderable::isVisible(void) const
+    auto Entity::EntityShadowRenderable::isVisible() const -> bool
     {
         if (mSubEntity)
         {
@@ -2213,7 +2199,7 @@ class Sphere;
                    "must not share it's instance");
 
         //check if we already share our skeletoninstance, we don't want to delete it if so
-        if (mSharedSkeletonEntities != NULL)
+        if (mSharedSkeletonEntities != nullptr)
         {
             entity->shareSkeletonInstanceWith(this);
         }
@@ -2229,7 +2215,7 @@ class Sphere;
             mBoneMatrices = entity->mBoneMatrices;
             mAnimationState = entity->mAnimationState;
             mFrameBonesLastUpdated = entity->mFrameBonesLastUpdated;
-            if (entity->mSharedSkeletonEntities == NULL)
+            if (entity->mSharedSkeletonEntities == nullptr)
             {
                 entity->mSharedSkeletonEntities = new EntitySet();
                 entity->mSharedSkeletonEntities->insert(entity);
@@ -2247,7 +2233,7 @@ class Sphere;
         {
             //just reset
             delete mSharedSkeletonEntities;
-            mSharedSkeletonEntities = 0;
+            mSharedSkeletonEntities = nullptr;
         }
         else
         {
@@ -2265,21 +2251,21 @@ class Sphere;
             {
                 (*mSharedSkeletonEntities->begin())->stopSharingSkeletonInstance();
             }
-            mSharedSkeletonEntities = 0;
+            mSharedSkeletonEntities = nullptr;
         }
     }
     //-----------------------------------------------------------------------
-    void Entity::refreshAvailableAnimationState(void)
+    void Entity::refreshAvailableAnimationState()
     {
         mMesh->_refreshAnimationState(mAnimationState);
     }
     //-----------------------------------------------------------------------
-    uint32 Entity::getTypeFlags(void) const
+    auto Entity::getTypeFlags() const -> uint32
     {
         return SceneManager::ENTITY_TYPE_MASK;
     }
     //-----------------------------------------------------------------------
-    VertexData* Entity::getVertexDataForBinding(void)
+    auto Entity::getVertexDataForBinding() -> VertexData*
     {
         Entity::VertexDataBindChoice c =
             chooseVertexDataForBinding(mMesh->getSharedVertexDataAnimationType() != VAT_NONE);
@@ -2298,7 +2284,7 @@ class Sphere;
         return mMesh->sharedVertexData;
     }
     //-----------------------------------------------------------------------
-    Entity::VertexDataBindChoice Entity::chooseVertexDataForBinding(bool vertexAnim)
+    auto Entity::chooseVertexDataForBinding(bool vertexAnim) -> Entity::VertexDataBindChoice
     {
         if (hasSkeleton())
         {
@@ -2343,14 +2329,14 @@ class Sphere;
         bool debugRenderables)
     {
         // Visit each SubEntity
-        for (SubEntityList::iterator i = mSubEntityList.begin(); i != mSubEntityList.end(); ++i)
+        for (auto & i : mSubEntityList)
         {
-            visitor->visit(*i, 0, false);
+            visitor->visit(i, 0, false);
         }
 
         // if manual LOD is in use, visit those too
         ushort lodi = 1;
-        for (LODEntityList::iterator e = mLodEntityList.begin(); 
+        for (auto e = mLodEntityList.begin(); 
             e != mLodEntityList.end(); ++e, ++lodi)
         {
             if(*e != this) {
@@ -2366,17 +2352,17 @@ class Sphere;
     //-----------------------------------------------------------------------
     String EntityFactory::FACTORY_TYPE_NAME = "Entity";
     //-----------------------------------------------------------------------
-    const String& EntityFactory::getType(void) const
+    auto EntityFactory::getType() const -> const String&
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    MovableObject* EntityFactory::createInstanceImpl( const String& name,
-        const NameValuePairList* params)
+    auto EntityFactory::createInstanceImpl( const String& name,
+        const NameValuePairList* params) -> MovableObject*
     {
         // must have mesh parameter
         MeshPtr pMesh;
-        if (params != 0)
+        if (params != nullptr)
         {
             String groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;
 

@@ -32,33 +32,33 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreCommon.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreLight.h"
-#include "OgreLogManager.h"
-#include "OgreMatrix4.h"
-#include "OgreMovableObject.h"
-#include "OgreOptimisedUtil.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderOperation.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreShadowCaster.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringConverter.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
+#include "OgreAxisAlignedBox.hpp"
+#include "OgreCommon.hpp"
+#include "OgreEdgeListBuilder.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreLight.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgreOptimisedUtil.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreShadowCaster.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreVector.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
     ShadowRenderable::ShadowRenderable(MovableObject* parent, const HardwareIndexBufferSharedPtr& indexBuffer,
                                    const VertexData* vertexData, bool createSeparateLightCap,
                                    bool isLightCap)
-    : mLightCap(0), mParent(parent)
+    : mLightCap(nullptr), mParent(parent)
     {
         // Initialise render op
         mRenderOp.indexData = new IndexData();
@@ -117,7 +117,7 @@ namespace Ogre {
     {
         *xform = mParent->_getParentNodeFullTransform();
     }
-    const LightList& ShadowRenderable::getLights(void) const 
+    auto ShadowRenderable::getLights() const -> const LightList& 
     {
         // return empty
         static LightList ll;
@@ -126,10 +126,10 @@ namespace Ogre {
     // ------------------------------------------------------------------------
     void ShadowCaster::clearShadowRenderableList(ShadowRenderableList& shadowRenderables)
     {
-        for(ShadowRenderableList::iterator si = shadowRenderables.begin(), siend = shadowRenderables.end(); si != siend; ++si)
+        for(auto & shadowRenderable : shadowRenderables)
         {
-            delete *si;
-            *si = 0;
+            delete shadowRenderable;
+            shadowRenderable = nullptr;
         }
         shadowRenderables.clear();
     }
@@ -140,7 +140,7 @@ namespace Ogre {
         edgeData->updateTriangleLightFacing(lightPos);
     }
     // ------------------------------------------------------------------------
-    static bool isBoundOkForMcGuire(const AxisAlignedBox& lightCapBounds, const Ogre::Vector3& lightPosition)
+    static auto isBoundOkForMcGuire(const AxisAlignedBox& lightCapBounds, const Ogre::Vector3& lightPosition) -> bool
     {
         // If light position is inside light cap bound then extrusion could be in opposite directions
         // and McGuire cap could intersect near clip plane of camera frustum without being noticed
@@ -346,7 +346,7 @@ namespace Ogre {
         HardwareBufferLockGuard indexLock(indexBuffer,
             sizeof(unsigned short) * indexBufferUsedSize, sizeof(unsigned short) * preCountIndexes,
             indexBufferUsedSize == 0 ? HardwareBuffer::HBL_DISCARD : HardwareBuffer::HBL_NO_OVERWRITE);
-        unsigned short* pIdx = static_cast<unsigned short*>(indexLock.pData);
+        auto* pIdx = static_cast<unsigned short*>(indexLock.pData);
         size_t numIndices = indexBufferUsedSize;
         
         // Iterate over the groups and form renderables for each based on their
@@ -547,7 +547,7 @@ namespace Ogre {
         // updating the latter because you can't have 2 locks on the same
         // buffer
         HardwareBufferLockGuard vertexLock(vertexBuffer, HardwareBuffer::HBL_NORMAL);
-        float* pSrc = static_cast<float*>(vertexLock.pData);
+        auto* pSrc = static_cast<float*>(vertexLock.pData);
 
         // TODO: We should add extra (ununsed) vertices ensure source and
         // destination buffer have same alignment for slight performance gain.

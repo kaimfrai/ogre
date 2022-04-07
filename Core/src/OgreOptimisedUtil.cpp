@@ -25,18 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreOptimisedUtil.h"
-#include "OgrePlatformInformation.h"
-
-//#define __DO_PROFILE__
+#include "OgreOptimisedUtil.hpp"
+#include "OgrePlatformInformation.hpp"
 
 namespace Ogre {
 
     //---------------------------------------------------------------------
     // External functions
-    extern OptimisedUtil* _getOptimisedUtilGeneral(void);
+    extern auto _getOptimisedUtilGeneral() -> OptimisedUtil*;
 
-    extern OptimisedUtil* _getOptimisedUtilSSE(void);
+    extern auto _getOptimisedUtilSSE() -> OptimisedUtil*;
 
 #ifdef __DO_PROFILE__
     //---------------------------------------------------------------------
@@ -318,7 +316,7 @@ namespace Ogre {
     OptimisedUtil* OptimisedUtil::msImplementation = OptimisedUtil::_detectImplementation();
 
     //---------------------------------------------------------------------
-    OptimisedUtil* OptimisedUtil::_detectImplementation(void)
+    auto OptimisedUtil::_detectImplementation() -> OptimisedUtil*
     {
         //
         // Some speed test results (averaged number of CPU timestamp (RDTSC) per-function call):

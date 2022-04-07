@@ -37,52 +37,52 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreAny.h"
-#include "OgreBlendMode.h"
-#include "OgreBuiltinScriptTranslators.h"
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreCompositionPass.h"
-#include "OgreCompositionTargetPass.h"
-#include "OgreCompositionTechnique.h"
-#include "OgreCompositor.h"
-#include "OgreCompositorManager.h"
-#include "OgreDepthBuffer.h"
-#include "OgreDistanceLodStrategy.h"
-#include "OgreException.h"
-#include "OgreExternalTextureSource.h"
-#include "OgreExternalTextureSourceManager.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreGpuProgramUsage.h"
-#include "OgreLight.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgreParticleAffector.h"
-#include "OgreParticleEmitter.h"
-#include "OgreParticleSystem.h"
-#include "OgreParticleSystemManager.h"
-#include "OgreParticleSystemRenderer.h"
-#include "OgrePass.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreScriptCompiler.h"
-#include "OgreScriptTranslator.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreTechnique.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
+#include "OgreAny.hpp"
+#include "OgreBlendMode.hpp"
+#include "OgreBuiltinScriptTranslators.hpp"
+#include "OgreColourValue.hpp"
+#include "OgreCommon.hpp"
+#include "OgreCompositionPass.hpp"
+#include "OgreCompositionTargetPass.hpp"
+#include "OgreCompositionTechnique.hpp"
+#include "OgreCompositor.hpp"
+#include "OgreCompositorManager.hpp"
+#include "OgreDepthBuffer.hpp"
+#include "OgreDistanceLodStrategy.hpp"
+#include "OgreException.hpp"
+#include "OgreExternalTextureSource.hpp"
+#include "OgreExternalTextureSourceManager.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreGpuProgramUsage.hpp"
+#include "OgreLight.hpp"
+#include "OgreLodStrategyManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreParticleAffector.hpp"
+#include "OgreParticleEmitter.hpp"
+#include "OgreParticleSystem.hpp"
+#include "OgreParticleSystemManager.hpp"
+#include "OgreParticleSystemRenderer.hpp"
+#include "OgrePass.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreScriptTranslator.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTextureUnitState.hpp"
 
 namespace Ogre{
 class LodStrategy;
@@ -109,7 +109,7 @@ class LodStrategy;
         }
     }
 
-    static GpuProgramType translateIDToGpuProgramType(uint32 id)
+    static auto translateIDToGpuProgramType(uint32 id) -> GpuProgramType
     {
         switch (id)
         {
@@ -129,7 +129,7 @@ class LodStrategy;
         }
     }
 
-    String getPropertyName(const ScriptCompiler *compiler, uint32 id)
+    auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> String
     {
         for(auto& kv : compiler->mIds)
             if(kv.second == id)
@@ -139,43 +139,43 @@ class LodStrategy;
     }
 
     template <typename T>
-    bool getValue(const AbstractNodePtr &node, T& result);
-    template<> bool getValue(const AbstractNodePtr &node, float& result)
+    auto getValue(const AbstractNodePtr &node, T& result) -> bool;
+    template<> auto getValue(const AbstractNodePtr &node, float& result) -> bool
     {
         return ScriptTranslator::getFloat(node, &result);
     }
-    template<> bool getValue(const AbstractNodePtr &node, double& result)
+    template<> auto getValue(const AbstractNodePtr &node, double& result) -> bool
     {
         return ScriptTranslator::getDouble(node, &result);
     }
-    template<> bool getValue(const AbstractNodePtr &node, bool& result)
+    template<> auto getValue(const AbstractNodePtr &node, bool& result) -> bool
     {
         return ScriptTranslator::getBoolean(node, &result);
     }
-    template<> bool getValue(const AbstractNodePtr &node, uint32& result)
+    template<> auto getValue(const AbstractNodePtr &node, uint32& result) -> bool
     {
         return ScriptTranslator::getUInt(node, &result);
     }
-    template<> bool getValue(const AbstractNodePtr &node, int32& result)
+    template<> auto getValue(const AbstractNodePtr &node, int32& result) -> bool
     {
         return ScriptTranslator::getInt(node, &result);
     }
-    template<> bool getValue(const AbstractNodePtr &node, String& result)
+    template<> auto getValue(const AbstractNodePtr &node, String& result) -> bool
     {
         return ScriptTranslator::getString(node, &result);
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, CompareFunction& result)
+    template<> auto getValue(const AbstractNodePtr& node, CompareFunction& result) -> bool
     {
         return ScriptTranslator::getCompareFunction(node, &result);
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, StencilOperation& result)
+    template<> auto getValue(const AbstractNodePtr& node, StencilOperation& result) -> bool
     {
         return ScriptTranslator::getStencilOp(node, &result);
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, IlluminationStage& result)
+    template<> auto getValue(const AbstractNodePtr& node, IlluminationStage& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -196,7 +196,7 @@ class LodStrategy;
         }
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, SceneBlendType& result)
+    template<> auto getValue(const AbstractNodePtr& node, SceneBlendType& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -221,7 +221,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, SceneBlendOperation& result)
+    template<> auto getValue(const AbstractNodePtr& node, SceneBlendOperation& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -249,7 +249,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, CullingMode& result)
+    template<> auto getValue(const AbstractNodePtr& node, CullingMode& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -271,7 +271,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, ManualCullingMode& result)
+    template<> auto getValue(const AbstractNodePtr& node, ManualCullingMode& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -293,7 +293,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, ShadeOptions& result)
+    template<> auto getValue(const AbstractNodePtr& node, ShadeOptions& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -315,7 +315,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, PolygonMode& result)
+    template<> auto getValue(const AbstractNodePtr& node, PolygonMode& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -337,7 +337,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, LayerBlendOperation& result)
+    template<> auto getValue(const AbstractNodePtr& node, LayerBlendOperation& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -362,7 +362,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, LayerBlendOperationEx& op)
+    template<> auto getValue(const AbstractNodePtr& node, LayerBlendOperationEx& op) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -420,7 +420,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, LayerBlendSource& source1)
+    template<> auto getValue(const AbstractNodePtr& node, LayerBlendSource& source1) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -448,7 +448,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, TextureUnitState::BindingType& result)
+    template<> auto getValue(const AbstractNodePtr& node, TextureUnitState::BindingType& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -468,7 +468,7 @@ class LodStrategy;
     }
 
 
-    template<> bool getValue(const AbstractNodePtr& node, CompositionTargetPass::InputMode& result)
+    template<> auto getValue(const AbstractNodePtr& node, CompositionTargetPass::InputMode& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -487,7 +487,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, FilterOptions& tmip)
+    template<> auto getValue(const AbstractNodePtr& node, FilterOptions& tmip) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -512,7 +512,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, TextureAddressingMode& result)
+    template<> auto getValue(const AbstractNodePtr& node, TextureAddressingMode& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -538,7 +538,7 @@ class LodStrategy;
     }
 
     template <typename T>
-    static bool getValue(PropertyAbstractNode* prop, ScriptCompiler *compiler, T& val)
+    static auto getValue(PropertyAbstractNode* prop, ScriptCompiler *compiler, T& val) -> bool
     {
         if(prop->values.empty())
         {
@@ -564,8 +564,8 @@ class LodStrategy;
     }
 
     template <typename T>
-    static bool _getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end,
-                          std::vector<T>& vals, size_t count)
+    static auto _getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end,
+                          std::vector<T>& vals, size_t count) -> bool
     {
         vals.reserve(count);
         size_t n = 0;
@@ -585,13 +585,13 @@ class LodStrategy;
         return true;
     }
 
-    static GpuProgramType getProgramType(int id)
+    static auto getProgramType(int id) -> GpuProgramType
     {
         switch(id)
         {
         default:
             assert(false);
-            OGRE_FALLTHROUGH;
+            [[fallthrough]];
         case ID_VERTEX_PROGRAM:
         case ID_VERTEX_PROGRAM_REF:
             return GPT_VERTEX_PROGRAM;
@@ -633,7 +633,7 @@ class LodStrategy;
                                "token \"" + static_cast<ObjectAbstractNode*>(node.get())->cls + "\" is not recognized");
     }
     //-------------------------------------------------------------------------
-    AbstractNodeList::const_iterator ScriptTranslator::getNodeAt(const AbstractNodeList &nodes, size_t index)
+    auto ScriptTranslator::getNodeAt(const AbstractNodeList &nodes, size_t index) -> AbstractNodeList::const_iterator
     {
         if(index >= nodes.size())
             return nodes.end();
@@ -641,11 +641,11 @@ class LodStrategy;
         return std::next(nodes.begin(), index);
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getBoolean(const AbstractNodePtr &node, bool *result)
+    auto ScriptTranslator::getBoolean(const AbstractNodePtr &node, bool *result) -> bool
     {
         if (node->type != ANT_ATOM)
             return false;
-        AtomAbstractNode *atom = (AtomAbstractNode*)node.get();
+        auto *atom = (AtomAbstractNode*)node.get();
 		 if (atom->id == 1 || atom->id == 2)
 		{
 			*result = atom->id == 1 ? true : false;
@@ -655,52 +655,52 @@ class LodStrategy;
 		return false;
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getString(const AbstractNodePtr &node, String *result)
+    auto ScriptTranslator::getString(const AbstractNodePtr &node, String *result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
-        AtomAbstractNode *atom = (AtomAbstractNode*)node.get();
+        auto *atom = (AtomAbstractNode*)node.get();
         *result = atom->value;
         return true;
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getFloat(const Ogre::AbstractNodePtr &node, float *result)
+    auto ScriptTranslator::getFloat(const Ogre::AbstractNodePtr &node, float *result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
 
-        AtomAbstractNode *atom = (AtomAbstractNode*)node.get();
+        auto *atom = (AtomAbstractNode*)node.get();
         return StringConverter::parse(atom->value, *result);
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getDouble(const Ogre::AbstractNodePtr &node, double *result)
+    auto ScriptTranslator::getDouble(const Ogre::AbstractNodePtr &node, double *result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
 
-        AtomAbstractNode *atom = (AtomAbstractNode*)node.get();
+        auto *atom = (AtomAbstractNode*)node.get();
         return StringConverter::parse(atom->value, *result);
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getInt(const Ogre::AbstractNodePtr &node, int *result)
+    auto ScriptTranslator::getInt(const Ogre::AbstractNodePtr &node, int *result) -> bool
     {
         if (node->type != ANT_ATOM)
             return false;
 
-        AtomAbstractNode *atom = (AtomAbstractNode*)node.get();
+        auto *atom = (AtomAbstractNode*)node.get();
         return StringConverter::parse(atom->value, *result);
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getUInt(const Ogre::AbstractNodePtr &node, uint *result)
+    auto ScriptTranslator::getUInt(const Ogre::AbstractNodePtr &node, uint *result) -> bool
     {
         if (node->type != ANT_ATOM)
             return false;
 
-        AtomAbstractNode *atom = (AtomAbstractNode*)node.get();
+        auto *atom = (AtomAbstractNode*)node.get();
         return StringConverter::parse(atom->value, *result);
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getColour(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, ColourValue *result, int maxEntries)
+    auto ScriptTranslator::getColour(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, ColourValue *result, int maxEntries) -> bool
     {
         int n = 0;
         while(i != end && n < maxEntries)
@@ -735,11 +735,11 @@ class LodStrategy;
         return (n >= 3 || n == maxEntries);
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getSceneBlendFactor(const Ogre::AbstractNodePtr &node, Ogre::SceneBlendFactor *sbf)
+    auto ScriptTranslator::getSceneBlendFactor(const Ogre::AbstractNodePtr &node, Ogre::SceneBlendFactor *sbf) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
-        AtomAbstractNode *atom = (AtomAbstractNode*)node.get();
+        auto *atom = (AtomAbstractNode*)node.get();
         switch(atom->id)
         {
         case ID_ONE:
@@ -778,11 +778,11 @@ class LodStrategy;
         return true;
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getCompareFunction(const AbstractNodePtr &node, CompareFunction *func)
+    auto ScriptTranslator::getCompareFunction(const AbstractNodePtr &node, CompareFunction *func) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
-        AtomAbstractNode *atom = (AtomAbstractNode*)node.get();
+        auto *atom = (AtomAbstractNode*)node.get();
         switch(atom->id)
         {
         case ID_ALWAYS_FAIL:
@@ -815,7 +815,7 @@ class LodStrategy;
         return true;
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getMatrix4(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, Matrix4 *m)
+    auto ScriptTranslator::getMatrix4(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, Matrix4 *m) -> bool
     {
         int n = 0;
         while (i != end && n < 16)
@@ -838,22 +838,22 @@ class LodStrategy;
         return true;
     }
 
-    bool ScriptTranslator::getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<int>& vals, size_t count)
+    auto ScriptTranslator::getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<int>& vals, size_t count) -> bool
     {
         return _getVector(i, end, vals, count);
     }
 
-    bool ScriptTranslator::getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<float>& vals, size_t count)
+    auto ScriptTranslator::getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<float>& vals, size_t count) -> bool
     {
         return _getVector(i, end, vals, count);
     }
 
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getStencilOp(const Ogre::AbstractNodePtr &node, Ogre::StencilOperation *op)
+    auto ScriptTranslator::getStencilOp(const Ogre::AbstractNodePtr &node, Ogre::StencilOperation *op) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
-        AtomAbstractNode *atom = (AtomAbstractNode*)node.get();
+        auto *atom = (AtomAbstractNode*)node.get();
         switch(atom->id)
         {
         case ID_KEEP:
@@ -886,7 +886,7 @@ class LodStrategy;
         return true;
     }
     //---------------------------------------------------------------------
-    bool ScriptTranslator::getConstantType(AbstractNodeList::const_iterator i, GpuConstantType *op)
+    auto ScriptTranslator::getConstantType(AbstractNodeList::const_iterator i, GpuConstantType *op) -> bool
     {
 
         String val;
@@ -999,13 +999,12 @@ class LodStrategy;
      * MaterialTranslator
      *************************************************************************/
     MaterialTranslator::MaterialTranslator()
-        :mMaterial(0)
-    {
-    }
+        
+    = default;
     //-------------------------------------------------------------------------
     void MaterialTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
         if(obj->name.empty())
             compiler->addError(ScriptCompiler::CE_OBJECTNAMEEXPECTED, obj->file, obj->line);
 
@@ -1030,17 +1029,17 @@ class LodStrategy;
 
         bool bval;
 
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_LOD_VALUES:
                     {
                         Material::LodValueList lods;
-                        for(AbstractNodeList::iterator j = prop->values.begin(); j != prop->values.end(); ++j)
+                        for(auto j = prop->values.begin(); j != prop->values.end(); ++j)
                         {
                             Real v = 0;
                             if(getReal(*j, &v))
@@ -1066,7 +1065,7 @@ class LodStrategy;
 
                         // Read in LOD distances
                         Material::LodValueList lods;
-                        for(AbstractNodeList::iterator j = prop->values.begin(); j != prop->values.end(); ++j)
+                        for(auto j = prop->values.begin(); j != prop->values.end(); ++j)
                         {
                             Real v = 0;
                             if(getReal(*j, &v))
@@ -1097,7 +1096,7 @@ class LodStrategy;
 
                             LodStrategy *strategy = LodStrategyManager::getSingleton().getStrategy(strategyName);
 
-                            result = (strategy != 0);
+                            result = (strategy != nullptr);
 
                             if (result)
                                 mMaterial->setLodStrategy(strategy);
@@ -1129,7 +1128,7 @@ class LodStrategy;
                         compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, prop->file, prop->line,
                                             "set_texture_alias. Use 'set $variable value'");
 
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
+                        auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
                         String name, value;
                         if(getString(*i0, &name) && getString(*i1, &value))
                             mTextureAliases.insert(std::make_pair(name, value));
@@ -1140,9 +1139,9 @@ class LodStrategy;
                                        "token \"" + prop->name + "\" is not recognized");
                 }
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
 
@@ -1150,7 +1149,7 @@ class LodStrategy;
         if(compiler->getListener())
         {
             PreApplyTextureAliasesScriptCompilerEvent locEvt(mMaterial, &mTextureAliases);
-            compiler->_fireEvent(&locEvt, 0);
+            compiler->_fireEvent(&locEvt, nullptr);
         }
         applyTextureAliases(mMaterial, mTextureAliases);
         mTextureAliases.clear();
@@ -1160,16 +1159,15 @@ class LodStrategy;
      * TechniqueTranslator
      *************************************************************************/
     TechniqueTranslator::TechniqueTranslator()
-        :mTechnique(0)
-    {
-    }
+        
+    = default;
     //-------------------------------------------------------------------------
     void TechniqueTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
         // Create the technique from the material
-        Ogre::Material *material = Ogre::any_cast<Ogre::Material*>(obj->parent->context);
+        auto *material = Ogre::any_cast<Ogre::Material*>(obj->parent->context);
         mTechnique = material->createTechnique();
         obj->context = mTechnique;
 
@@ -1181,11 +1179,11 @@ class LodStrategy;
         String sval;
 
         // Set the properties for the material
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_SCHEME:
@@ -1200,7 +1198,7 @@ class LodStrategy;
                     if(getValue(prop, compiler, sval))
                     {
                         ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::MATERIAL, sval);
-                        compiler->_fireEvent(&evt, 0);
+                        compiler->_fireEvent(&evt, nullptr);
                         mTechnique->setShadowCasterMaterial(evt.mName); // Use the processed name
                     }
                     break;
@@ -1208,7 +1206,7 @@ class LodStrategy;
                     if(getValue(prop, compiler, sval))
                     {
                         ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::MATERIAL, sval);
-                        compiler->_fireEvent(&evt, 0);
+                        compiler->_fireEvent(&evt, nullptr);
                         mTechnique->setShadowReceiverMaterial(evt.mName); // Use the processed name
                     }
                     break;
@@ -1225,13 +1223,13 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0);
-                        AbstractNodeList::const_iterator i1 = getNodeAt(prop->values, 1);
+                        auto i0 = getNodeAt(prop->values, 0);
+                        auto i1 = getNodeAt(prop->values, 1);
 
                         Technique::GPUVendorRule rule;
                         if ((*i0)->type == ANT_ATOM)
                         {
-                            AtomAbstractNode *atom0 = (AtomAbstractNode*)(*i0).get();
+                            auto *atom0 = (AtomAbstractNode*)(*i0).get();
                             if (atom0->id == ID_INCLUDE)
                             {
                                 rule.includeOrExclude = Technique::INCLUDE;
@@ -1279,13 +1277,13 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0);
-                        AbstractNodeList::const_iterator i1 = getNodeAt(prop->values, 1);
+                        auto i0 = getNodeAt(prop->values, 0);
+                        auto i1 = getNodeAt(prop->values, 1);
 
                         Technique::GPUDeviceNameRule rule;
                         if ((*i0)->type == ANT_ATOM)
                         {
-                            AtomAbstractNode *atom0 = (AtomAbstractNode*)(*i0).get();
+                            auto *atom0 = (AtomAbstractNode*)(*i0).get();
                             if (atom0->id == ID_INCLUDE)
                             {
                                 rule.includeOrExclude = Technique::INCLUDE;
@@ -1306,10 +1304,10 @@ class LodStrategy;
 
                             if (prop->values.size() == 3)
                             {
-                                AbstractNodeList::const_iterator i2 = getNodeAt(prop->values, 2);
+                                auto i2 = getNodeAt(prop->values, 2);
                                 if (!getBoolean(*i2, &rule.caseSensitive))
                                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                       "gpu_device_rule third argument must be \"true\", \"false\", \"yes\", \"no\", \"on\", or \"off\"");
+                                                       R"(gpu_device_rule third argument must be "true", "false", "yes", "no", "on", or "off")");
                             }
 
                             mTechnique->addGPUDeviceNameRule(rule);
@@ -1327,9 +1325,9 @@ class LodStrategy;
                                        "token \"" + prop->name + "\" is not recognized");
                 }
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
     }
@@ -1338,15 +1336,14 @@ class LodStrategy;
      * PassTranslator
      *************************************************************************/
     PassTranslator::PassTranslator()
-        :mPass(0)
-    {
-    }
+        
+    = default;
     //-------------------------------------------------------------------------
     void PassTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
-        Technique *technique = any_cast<Technique*>(obj->parent->context);
+        auto *technique = any_cast<Technique*>(obj->parent->context);
         mPass = technique->createPass();
         obj->context = mPass;
 
@@ -1359,11 +1356,11 @@ class LodStrategy;
         uint32 uival;
 
         // Set the properties for the material
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_AMBIENT:
@@ -1542,7 +1539,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
+                        auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
                         SceneBlendFactor sbf0, sbf1;
                         if(getSceneBlendFactor(*i0, &sbf0) && getSceneBlendFactor(*i1, &sbf1))
                         {
@@ -1572,7 +1569,7 @@ class LodStrategy;
                     }
                     else if(prop->values.size() == 2)
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
+                        auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
                         SceneBlendType sbt0, sbt1;
                         if (getValue(*i0, sbt0) && getValue(*i1, sbt1))
                         {
@@ -1586,7 +1583,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1),
+                        auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1),
                             i2 = getNodeAt(prop->values, 2), i3 = getNodeAt(prop->values, 3);
                         if((*i0)->type == ANT_ATOM && (*i1)->type == ANT_ATOM && (*i2)->type == ANT_ATOM && (*i3)->type == ANT_ATOM)
                         {
@@ -1626,7 +1623,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
+                        auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
                         SceneBlendOperation op, alphaOp;
                         if(getValue(*i0, op) && getValue(*i1, alphaOp))
                         {
@@ -1659,7 +1656,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
+                        auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
                         float val0, val1 = 0.0f;
                         if(getFloat(*i0, &val0))
                         {
@@ -1695,7 +1692,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
+                        auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
                         CompareFunction func;
                         if(getCompareFunction(*i0, &func))
                         {
@@ -1813,7 +1810,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i1 = getNodeAt(prop->values, 1), i2 = getNodeAt(prop->values, 2);
+                        auto i1 = getNodeAt(prop->values, 1), i2 = getNodeAt(prop->values, 2);
                         bool val = false;
                         if(getBoolean(prop->values.front(), &val))
                         {
@@ -1825,7 +1822,7 @@ class LodStrategy;
                             {
                                 if((*i1)->type == ANT_ATOM)
                                 {
-                                    AtomAbstractNode *atom = (AtomAbstractNode*)(*i1).get();
+                                    auto *atom = (AtomAbstractNode*)(*i1).get();
                                     switch(atom->id)
                                     {
                                     case ID_NONE:
@@ -1958,17 +1955,17 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0);
+                        auto i0 = getNodeAt(prop->values, 0);
                         if((*i0)->type == ANT_ATOM)
                         {
-                            AtomAbstractNode *atom = (AtomAbstractNode*)(*i0).get();
+                            auto *atom = (AtomAbstractNode*)(*i0).get();
                             if(atom->id == ID_ONCE)
                             {
                                 mPass->setIteratePerLight(false);
                             }
                             else if(atom->id == ID_ONCE_PER_LIGHT)
                             {
-                                AbstractNodeList::const_iterator i1 = getNodeAt(prop->values, 1);
+                                auto i1 = getNodeAt(prop->values, 1);
                                 if(i1 != prop->values.end() && (*i1)->type == ANT_ATOM)
                                 {
                                     atom = (AtomAbstractNode*)(*i1).get();
@@ -1998,13 +1995,13 @@ class LodStrategy;
                             {
                                 mPass->setPassIterationCount(Ogre::StringConverter::parseInt(atom->value));
 
-                                AbstractNodeList::const_iterator i1 = getNodeAt(prop->values, 1);
+                                auto i1 = getNodeAt(prop->values, 1);
                                 if(i1 != prop->values.end() && (*i1)->type == ANT_ATOM)
                                 {
                                     atom = (AtomAbstractNode*)(*i1).get();
                                     if(atom->id == ID_PER_LIGHT)
                                     {
-                                        AbstractNodeList::const_iterator i2 = getNodeAt(prop->values, 2);
+                                        auto i2 = getNodeAt(prop->values, 2);
                                         if(i2 != prop->values.end() && (*i2)->type == ANT_ATOM)
                                         {
                                             atom = (AtomAbstractNode*)(*i2).get();
@@ -2031,7 +2028,7 @@ class LodStrategy;
                                     }
                                     else if(atom->id == ID_PER_N_LIGHTS)
                                     {
-                                        AbstractNodeList::const_iterator i2 = getNodeAt(prop->values, 2);
+                                        auto i2 = getNodeAt(prop->values, 2);
                                         if(i2 != prop->values.end() && (*i2)->type == ANT_ATOM)
                                         {
                                             atom = (AtomAbstractNode*)(*i2).get();
@@ -2040,7 +2037,7 @@ class LodStrategy;
                                                 mPass->setLightCountPerIteration(
                                                     static_cast<unsigned short>(StringConverter::parseInt(atom->value)));
 
-                                                AbstractNodeList::const_iterator i3 = getNodeAt(prop->values, 3);
+                                                auto i3 = getNodeAt(prop->values, 3);
                                                 if(i3 != prop->values.end() && (*i3)->type == ANT_ATOM)
                                                 {
                                                     atom = (AtomAbstractNode*)(*i3).get();
@@ -2119,7 +2116,7 @@ class LodStrategy;
                         {
                             if(val)
                             {
-                                AbstractNodeList::const_iterator i1 = getNodeAt(prop->values, 1), i2 = getNodeAt(prop->values, 2),
+                                auto i1 = getNodeAt(prop->values, 1), i2 = getNodeAt(prop->values, 2),
                                     i3 = getNodeAt(prop->values, 3);
 
                                 if (prop->values.size() > 1)
@@ -2129,7 +2126,7 @@ class LodStrategy;
 
                                     if(i1 != prop->values.end() && (*i1)->type == ANT_ATOM)
                                     {
-                                        AtomAbstractNode *atom = (AtomAbstractNode*)(*i1).get();
+                                        auto *atom = (AtomAbstractNode*)(*i1).get();
                                         if(StringConverter::isNumber(atom->value))
                                             constant = StringConverter::parseReal(atom->value);
                                         else
@@ -2143,7 +2140,7 @@ class LodStrategy;
 
                                     if(i2 != prop->values.end() && (*i2)->type == ANT_ATOM)
                                     {
-                                        AtomAbstractNode *atom = (AtomAbstractNode*)(*i2).get();
+                                        auto *atom = (AtomAbstractNode*)(*i2).get();
                                         if(StringConverter::isNumber(atom->value))
                                             linear = StringConverter::parseReal(atom->value);
                                         else
@@ -2157,7 +2154,7 @@ class LodStrategy;
 
                                     if(i3 != prop->values.end() && (*i3)->type == ANT_ATOM)
                                     {
-                                        AtomAbstractNode *atom = (AtomAbstractNode*)(*i3).get();
+                                        auto *atom = (AtomAbstractNode*)(*i3).get();
                                         if(StringConverter::isNumber(atom->value))
                                             quadratic = StringConverter::parseReal(atom->value);
                                         else
@@ -2199,9 +2196,9 @@ class LodStrategy;
                                        "token \"" + prop->name + "\" is not recognized");
                 }
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                ObjectAbstractNode *child = static_cast<ObjectAbstractNode*>((*i).get());
+                auto *child = static_cast<ObjectAbstractNode*>(i.get());
                 switch(child->id)
                 {
                 case ID_FRAGMENT_PROGRAM_REF:
@@ -2225,7 +2222,7 @@ class LodStrategy;
                     translateShadowReceiverProgramRef(GPT_FRAGMENT_PROGRAM, compiler, child);
                     break;
                 default:
-                    processNode(compiler, *i);
+                    processNode(compiler, i);
                     break;
                 case ID_FRAGMENT_PROGRAM:
                 case ID_VERTEX_PROGRAM:
@@ -2235,7 +2232,7 @@ class LodStrategy;
                 case ID_COMPUTE_PROGRAM:
                 {
                     // auto assign inline defined programs
-                    processNode(compiler, *i);
+                    processNode(compiler, i);
                     GpuProgramType type = getProgramType(child->id);
                     mPass->setGpuProgram(type, GpuProgramUsage::_getProgramByName(child->name, mPass->getResourceGroup(), type));
                 }
@@ -2244,7 +2241,7 @@ class LodStrategy;
         }
     }
 
-    static GpuProgramPtr getProgram(ScriptCompiler* compiler, ObjectAbstractNode* node)
+    static auto getProgram(ScriptCompiler* compiler, ObjectAbstractNode* node) -> GpuProgramPtr
     {
         if(node->name.empty())
         {
@@ -2253,7 +2250,7 @@ class LodStrategy;
         }
 
         ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::GPU_PROGRAM, node->name);
-        compiler->_fireEvent(&evt, 0);
+        compiler->_fireEvent(&evt, nullptr);
 
         auto& mgr = GpuProgramManager::getSingleton();
         if (auto ret = mgr.getByName(evt.mName, compiler->getResourceGroup()))
@@ -2340,9 +2337,8 @@ class LodStrategy;
      * TextureUnitTranslator
      *************************************************************************/
     TextureUnitTranslator::TextureUnitTranslator()
-        :mUnit(0)
-    {
-    }
+        
+    = default;
     //-------------------------------------------------------------------------
     void SamplerTranslator::translateSamplerParam(ScriptCompiler* compiler, const SamplerPtr& sampler, PropertyAbstractNode* prop)
     {
@@ -2360,7 +2356,7 @@ class LodStrategy;
                 }
                 else
                 {
-                    AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0),
+                    auto i0 = getNodeAt(prop->values, 0),
                         i1 = getNodeAt(prop->values, 1),
                         i2 = getNodeAt(prop->values, 2);
                     Sampler::UVWAddressingMode mode;
@@ -2368,7 +2364,7 @@ class LodStrategy;
                     if(!getValue(*i0, mode.u))
                     {
                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                           (*i0)->getValue() + " not supported as first argument (must be \"wrap\", \"clamp\", \"mirror\", or \"border\")");
+                                           (*i0)->getValue() + R"( not supported as first argument (must be "wrap", "clamp", "mirror", or "border"))");
                         return;
                     }
                     mode.v = mode.u;
@@ -2379,7 +2375,7 @@ class LodStrategy;
                         if(!getValue(*i1, mode.v))
                         {
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               (*i1)->getValue() + " not supported as second argument (must be \"wrap\", \"clamp\", \"mirror\", or \"border\")");
+                                               (*i1)->getValue() + R"( not supported as second argument (must be "wrap", "clamp", "mirror", or "border"))");
                         }
                     }
 
@@ -2388,7 +2384,7 @@ class LodStrategy;
                         if(!getValue(*i2, mode.w))
                         {
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               (*i2)->getValue() + " not supported as third argument (must be \"wrap\", \"clamp\", \"mirror\", or \"border\")");
+                                               (*i2)->getValue() + R"( not supported as third argument (must be "wrap", "clamp", "mirror", or "border"))");
                         }
                     }
 
@@ -2420,7 +2416,7 @@ class LodStrategy;
             {
                 if(prop->values.front()->type == ANT_ATOM)
                 {
-                    AtomAbstractNode *atom = (AtomAbstractNode*)prop->values.front().get();
+                    auto *atom = (AtomAbstractNode*)prop->values.front().get();
                     switch(atom->id)
                     {
                     case ID_NONE:
@@ -2437,18 +2433,18 @@ class LodStrategy;
                         break;
                     default:
                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                           prop->values.front()->getValue() + " not supported as first argument (must be \"none\", \"bilinear\", \"trilinear\", or \"anisotropic\")");
+                                           prop->values.front()->getValue() + R"( not supported as first argument (must be "none", "bilinear", "trilinear", or "anisotropic"))");
                     }
                 }
                 else
                 {
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                       prop->values.front()->getValue() + " not supported as first argument (must be \"none\", \"bilinear\", \"trilinear\", or \"anisotropic\")");
+                                       prop->values.front()->getValue() + R"( not supported as first argument (must be "none", "bilinear", "trilinear", or "anisotropic"))");
                 }
             }
             else if(prop->values.size() == 3)
             {
-                AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0),
+                auto i0 = getNodeAt(prop->values, 0),
                     i1 = getNodeAt(prop->values, 1),
                     i2 = getNodeAt(prop->values, 2);
                 FilterOptions tmin, tmax, tmip;
@@ -2475,7 +2471,7 @@ class LodStrategy;
             compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, prop->file,
                 prop->line,
                 "compare_func. Use comp_func.");
-            OGRE_FALLTHROUGH;
+            [[fallthrough]];
         case ID_COMP_FUNC:
             CompareFunction func;
             if(getValue(prop, compiler, func))
@@ -2493,7 +2489,7 @@ class LodStrategy;
     }
     void SamplerTranslator::translate(ScriptCompiler *compiler, const Ogre::AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
         if(obj->name.empty())
         {
@@ -2504,11 +2500,11 @@ class LodStrategy;
         SamplerPtr sampler = TextureManager::getSingleton().createSampler(obj->name);
 
         // Set the properties for the material
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_TEX_ADDRESS_MODE:
@@ -2525,16 +2521,16 @@ class LodStrategy;
                                        "token \"" + prop->name + "\" is not recognized");
                 }
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
     }
 
     void TextureUnitTranslator::translate(ScriptCompiler *compiler, const Ogre::AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
         Pass *pass = any_cast<Pass*>(obj->parent->context);
         mUnit = pass->createTextureUnitState();
@@ -2549,11 +2545,11 @@ class LodStrategy;
         String sval;
 
         // Set the properties for the material
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_TEX_ADDRESS_MODE:
@@ -2595,7 +2591,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator j = prop->values.begin();
+                        auto j = prop->values.begin();
                         String val;
                         if(getString(*j, &val))
                         {
@@ -2610,7 +2606,7 @@ class LodStrategy;
                             {
                                 if((*j)->type == ANT_ATOM)
                                 {
-                                    AtomAbstractNode *atom = (AtomAbstractNode*)(*j).get();
+                                    auto *atom = (AtomAbstractNode*)(*j).get();
                                     switch(atom->id)
                                     {
                                     case ID_1D:
@@ -2657,7 +2653,7 @@ class LodStrategy;
                             }
 
                             ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, val);
-                            compiler->_fireEvent(&evt, 0);
+                            compiler->_fireEvent(&evt, nullptr);
 
                             if(isAlpha)
                             {
@@ -2684,11 +2680,11 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i1 = getNodeAt(prop->values, 1);
+                        auto i1 = getNodeAt(prop->values, 1);
                         if((*i1)->type == ANT_ATOM && StringConverter::isNumber(((AtomAbstractNode*)(*i1).get())->value))
                         {
                             // Short form
-                            AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i2 = getNodeAt(prop->values, 2);
+                            auto i0 = getNodeAt(prop->values, 0), i2 = getNodeAt(prop->values, 2);
                             if((*i0)->type == ANT_ATOM && (*i1)->type == ANT_ATOM)
                             {
                                 String val0;
@@ -2697,7 +2693,7 @@ class LodStrategy;
                                 if(getString(*i0, &val0) && getUInt(*i1, &val1) && getReal(*i2, &val2))
                                 {
                                     ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, val0);
-                                    compiler->_fireEvent(&evt, 0);
+                                    compiler->_fireEvent(&evt, nullptr);
 
                                     mUnit->setAnimatedTextureName(evt.mName, val1, val2);
                                 }
@@ -2717,12 +2713,12 @@ class LodStrategy;
                         {
                             // Long form has n number of frames
                             Real duration = 0;
-                            AbstractNodeList::const_iterator in = getNodeAt(prop->values, static_cast<int>(prop->values.size()) - 1);
+                            auto in = getNodeAt(prop->values, static_cast<int>(prop->values.size()) - 1);
                             if(getReal(*in, &duration))
                             {
                                 std::vector<String> names;
 
-                                AbstractNodeList::iterator j = prop->values.begin();
+                                auto j = prop->values.begin();
                                 while(j != in)
                                 {
                                     if((*j)->type == ANT_ATOM)
@@ -2732,7 +2728,7 @@ class LodStrategy;
                                         if(compiler->getListener())
                                         {
                                             ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, name);
-                                            compiler->_fireEvent(&evt, 0);
+                                            compiler->_fireEvent(&evt, nullptr);
                                             names.push_back(evt.mName);
                                         }
                                         else
@@ -2763,14 +2759,14 @@ class LodStrategy;
                     }
                     else if(prop->values.size() == 2)
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0),
+                        auto i0 = getNodeAt(prop->values, 0),
                             i1 = getNodeAt(prop->values, 1);
                         if((*i0)->type == ANT_ATOM && (*i1)->type == ANT_ATOM)
                         {
-                            AtomAbstractNode *atom0 = (AtomAbstractNode*)(*i0).get();
+                            auto *atom0 = (AtomAbstractNode*)(*i0).get();
 
                             ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, atom0->value);
-                            compiler->_fireEvent(&evt, 0);
+                            compiler->_fireEvent(&evt, nullptr);
 
                             mUnit->setTextureName(evt.mName, TEX_TYPE_CUBE_MAP);
 
@@ -2784,7 +2780,7 @@ class LodStrategy;
                     }
                     else if(prop->values.size() == 7)
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0),
+                        auto i0 = getNodeAt(prop->values, 0),
                             i1 = getNodeAt(prop->values, 1),
                             i2 = getNodeAt(prop->values, 2),
                             i3 = getNodeAt(prop->values, 3),
@@ -2794,7 +2790,7 @@ class LodStrategy;
                         if((*i0)->type == ANT_ATOM && (*i1)->type == ANT_ATOM && (*i2)->type == ANT_ATOM && (*i3)->type == ANT_ATOM &&
                            (*i4)->type == ANT_ATOM && (*i5)->type == ANT_ATOM && (*i6)->type == ANT_ATOM)
                         {
-                            AtomAbstractNode *atom0 = (AtomAbstractNode*)(*i0).get(), *atom1 = (AtomAbstractNode*)(*i1).get(),
+                            auto *atom0 = (AtomAbstractNode*)(*i0).get(), *atom1 = (AtomAbstractNode*)(*i1).get(),
                                 *atom2 = (AtomAbstractNode*)(*i2).get(), *atom3 = (AtomAbstractNode*)(*i3).get(),
                                 *atom4 = (AtomAbstractNode*)(*i4).get(), *atom5 = (AtomAbstractNode*)(*i5).get(),
                                 *atom6 = (AtomAbstractNode*)(*i6).get();
@@ -2813,7 +2809,7 @@ class LodStrategy;
                                 for(int j = 0; j < 6; ++j)
                                 {
                                     ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, names[j]);
-                                    compiler->_fireEvent(&evt, 0);
+                                    compiler->_fireEvent(&evt, nullptr);
                                     names[j] = evt.mName;
                                 }
                             }
@@ -2856,7 +2852,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0),
+                        auto i0 = getNodeAt(prop->values, 0),
                             i1 = getNodeAt(prop->values, 1),
                             i2 = getNodeAt(prop->values, 2);
                         LayerBlendOperationEx op;
@@ -2868,7 +2864,7 @@ class LodStrategy;
 
                             if(op == LBX_BLEND_MANUAL)
                             {
-                                AbstractNodeList::const_iterator i3 = getNodeAt(prop->values, 3);
+                                auto i3 = getNodeAt(prop->values, 3);
                                 if(i3 != prop->values.end())
                                 {
                                     if(!getReal(*i3, &manualBlend))
@@ -2882,7 +2878,7 @@ class LodStrategy;
                                 }
                             }
 
-                            AbstractNodeList::const_iterator j = getNodeAt(prop->values, 3);
+                            auto j = getNodeAt(prop->values, 3);
                             if(op == LBX_BLEND_MANUAL)
                                 ++j;
                             if(source1 == LBS_MANUAL)
@@ -2936,7 +2932,7 @@ class LodStrategy;
                     {
                         if(prop->values.front()->type == ANT_ATOM)
                         {
-                            AtomAbstractNode *atom = (AtomAbstractNode*)prop->values.front().get();
+                            auto *atom = (AtomAbstractNode*)prop->values.front().get();
                             switch(atom->id)
                             {
                             case ID_ADD:
@@ -2967,7 +2963,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
+                        auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
                         SceneBlendFactor sbf0, sbf1;
                         if(getSceneBlendFactor(*i0, &sbf0) && getSceneBlendFactor(*i1, &sbf1))
                             mUnit->setColourOpMultipassFallback(sbf0, sbf1);
@@ -2989,7 +2985,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0),
+                        auto i0 = getNodeAt(prop->values, 0),
                             i1 = getNodeAt(prop->values, 1),
                             i2 = getNodeAt(prop->values, 2);
                         LayerBlendOperationEx op;
@@ -3001,7 +2997,7 @@ class LodStrategy;
 
                             if(op == LBX_BLEND_MANUAL)
                             {
-                                AbstractNodeList::const_iterator i3 = getNodeAt(prop->values, 3);
+                                auto i3 = getNodeAt(prop->values, 3);
                                 if(i3 != prop->values.end())
                                 {
                                     if(!getReal(*i3, &manualBlend))
@@ -3015,7 +3011,7 @@ class LodStrategy;
                                 }
                             }
 
-                            AbstractNodeList::const_iterator j = getNodeAt(prop->values, 3);
+                            auto j = getNodeAt(prop->values, 3);
                             if(op == LBX_BLEND_MANUAL)
                                 ++j;
                             if(source1 == LBS_MANUAL)
@@ -3071,7 +3067,7 @@ class LodStrategy;
                     {
                         if(prop->values.front()->type == ANT_ATOM)
                         {
-                            AtomAbstractNode *atom = (AtomAbstractNode*)prop->values.front().get();
+                            auto *atom = (AtomAbstractNode*)prop->values.front().get();
                             switch(atom->id)
                             {
                             case ScriptCompiler::ID_OFF:
@@ -3091,13 +3087,13 @@ class LodStrategy;
                                 break;
                             default:
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   prop->values.front()->getValue() + " is not a valid argument (must be \"off\", \"spherical\", \"planar\", \"cubic_reflection\", or \"cubic_normal\")");
+                                                   prop->values.front()->getValue() + R"( is not a valid argument (must be "off", "spherical", "planar", "cubic_reflection", or "cubic_normal"))");
                             }
                         }
                         else
                         {
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               prop->values.front()->getValue() + " is not a valid argument (must be \"off\", \"spherical\", \"planar\", \"cubic_reflection\", or \"cubic_normal\")");
+                                               prop->values.front()->getValue() + R"( is not a valid argument (must be "off", "spherical", "planar", "cubic_reflection", or "cubic_normal"))");
                         }
                     }
                     break;
@@ -3113,7 +3109,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
+                        auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
                         Real x, y;
                         if(getReal(*i0, &x) && getReal(*i1, &y))
                             mUnit->setTextureScroll(x, y);
@@ -3134,7 +3130,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
+                        auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
                         Real x, y;
                         if(getReal(*i0, &x) && getReal(*i1, &y))
                             mUnit->setScrollAnimation(x, y);
@@ -3163,7 +3159,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
+                        auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
                         Real x, y;
                         if(getReal(*i0, &x) && getReal(*i1, &y))
                             mUnit->setTextureScale(x, y);
@@ -3184,13 +3180,13 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1),
+                        auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1),
                             i2 = getNodeAt(prop->values, 2), i3 = getNodeAt(prop->values, 3),
                             i4 = getNodeAt(prop->values, 4), i5 = getNodeAt(prop->values, 5);
                         if((*i0)->type == ANT_ATOM && (*i1)->type == ANT_ATOM && (*i2)->type == ANT_ATOM &&
                            (*i3)->type == ANT_ATOM && (*i4)->type == ANT_ATOM && (*i5)->type == ANT_ATOM)
                         {
-                            AtomAbstractNode *atom0 = (AtomAbstractNode*)(*i0).get(), *atom1 = (AtomAbstractNode*)(*i1).get();
+                            auto *atom0 = (AtomAbstractNode*)(*i0).get(), *atom1 = (AtomAbstractNode*)(*i1).get();
                             TextureUnitState::TextureTransformType type = TextureUnitState::TT_ROTATE;
                             WaveformType wave = WFT_SINE;
                             Real base = 0.0f, freq = 0.0f, phase = 0.0f, amp = 0.0f;
@@ -3214,7 +3210,7 @@ class LodStrategy;
                                 break;
                             default:
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   atom0->value + " is not a valid transform type (must be \"scroll_x\", \"scroll_y\", \"scale_x\", \"scale_y\", or \"rotate\")");
+                                                   atom0->value + R"( is not a valid transform type (must be "scroll_x", "scroll_y", "scale_x", "scale_y", or "rotate"))");
                             }
 
                             switch(atom1->id)
@@ -3236,7 +3232,7 @@ class LodStrategy;
                                 break;
                             default:
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   atom1->value + " is not a valid waveform type (must be \"sine\", \"triangle\", \"square\", \"sawtooth\", or \"inverse_sawtooth\")");
+                                                   atom1->value + R"( is not a valid waveform type (must be "sine", "triangle", "square", "sawtooth", or "inverse_sawtooth"))");
                             }
 
                             if(!getReal(*i2, &base) || !getReal(*i3, &freq) || !getReal(*i4, &phase) || !getReal(*i5, &amp))
@@ -3283,7 +3279,7 @@ class LodStrategy;
                     {
                         if(prop->values.front()->type == ANT_ATOM)
                         {
-                            AtomAbstractNode *atom = (AtomAbstractNode*)prop->values.front().get();
+                            auto *atom = (AtomAbstractNode*)prop->values.front().get();
                             switch(atom->id)
                             {
                             case ID_NAMED:
@@ -3321,7 +3317,7 @@ class LodStrategy;
                                 break;
                             default:
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   atom->value + " is not a valid content type (must be \"named\" or \"shadow\" or \"compositor\")");
+                                                   atom->value + R"( is not a valid content type (must be "named" or "shadow" or "compositor"))");
                             }
                         }
                         else
@@ -3336,9 +3332,9 @@ class LodStrategy;
                                        "token \"" + prop->name + "\" is not recognized");
                 }
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
     }
@@ -3347,12 +3343,11 @@ class LodStrategy;
      * TextureSourceTranslator
      **************************************************************************/
     TextureSourceTranslator::TextureSourceTranslator()
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
     void TextureSourceTranslator::translate(Ogre::ScriptCompiler *compiler, const Ogre::AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
         // It has to have one value identifying the texture source name
         if(obj->values.empty())
@@ -3373,7 +3368,7 @@ class LodStrategy;
         }
 
         // Set up the technique, pass, and texunit levels
-        TextureUnitState *texunit = any_cast<TextureUnitState*>(obj->parent->context);
+        auto *texunit = any_cast<TextureUnitState*>(obj->parent->context);
         Pass *pass = texunit->getParent();
         Technique *technique = pass->getParent();
         Material *material = technique->getParent();
@@ -3411,14 +3406,14 @@ class LodStrategy;
 
         ExternalTextureSourceManager::getSingleton().getCurrentPlugIn()->setParameter( "set_T_P_S", tps );
 
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = (PropertyAbstractNode*)(*i).get();
+                auto *prop = (PropertyAbstractNode*)i.get();
                 // Glob the property values all together
                 String str = "";
-                for(AbstractNodeList::iterator j = prop->values.begin(); j != prop->values.end(); ++j)
+                for(auto j = prop->values.begin(); j != prop->values.end(); ++j)
                 {
                     if(j != prop->values.begin())
                         str = str + " ";
@@ -3426,9 +3421,9 @@ class LodStrategy;
                 }
                 ExternalTextureSourceManager::getSingleton().getCurrentPlugIn()->setParameter(prop->name, str);
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
 
@@ -3439,12 +3434,11 @@ class LodStrategy;
      * GpuProgramTranslator
      *************************************************************************/
     GpuProgramTranslator::GpuProgramTranslator()
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
     void GpuProgramTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
         // Must have a name
         if(obj->name.empty())
@@ -3491,11 +3485,11 @@ class LodStrategy;
         std::vector<std::pair<PropertyAbstractNode*, String> > customParameters;
         String source, profiles, target;
         AbstractNodePtr params;
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = (PropertyAbstractNode*)(*i).get();
+                auto *prop = (PropertyAbstractNode*)i.get();
                 if(prop->id == ID_SOURCE)
                 {
                     if(!getValue(prop, compiler, source))
@@ -3508,14 +3502,14 @@ class LodStrategy;
                         return;
 
                     ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::GPU_PROGRAM, value);
-                    compiler->_fireEvent(&evt, 0);
+                    compiler->_fireEvent(&evt, nullptr);
                     delegates.push_back(evt.mName);
                 }
                 else
                 {
                     String value;
                     bool first = true;
-                    for(AbstractNodeList::iterator it = prop->values.begin(); it != prop->values.end(); ++it)
+                    for(auto it = prop->values.begin(); it != prop->values.end(); ++it)
                     {
                         if((*it)->type == ANT_ATOM)
                         {
@@ -3527,7 +3521,7 @@ class LodStrategy;
                             if(prop->name == "attach")
                             {
                                 ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::GPU_PROGRAM, ((AtomAbstractNode*)(*it).get())->value);
-                                compiler->_fireEvent(&evt, 0);
+                                compiler->_fireEvent(&evt, nullptr);
                                 value += evt.mName;
 
                                 compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, prop->file,
@@ -3548,21 +3542,21 @@ class LodStrategy;
                     else if(prop->id == ID_SYNTAX && language == "asm")
                         syntax = value;
                     else
-                        customParameters.push_back(std::make_pair(prop, value));
+                        customParameters.emplace_back(prop, value);
                 }
             }
-            else if((*i)->type == ANT_OBJECT)
+            else if(i->type == ANT_OBJECT)
             {
-                if(((ObjectAbstractNode*)(*i).get())->id == ID_DEFAULT_PARAMS)
-                    params = *i;
+                if(((ObjectAbstractNode*)i.get())->id == ID_DEFAULT_PARAMS)
+                    params = i;
                 else
-                    processNode(compiler, *i);
+                    processNode(compiler, i);
             }
         }
 
         // Allocate the program
         GpuProgramType gpt = translateIDToGpuProgramType(obj->id);
-        GpuProgram *prog = 0;
+        GpuProgram *prog = nullptr;
 
         if(language == "asm")
             language = syntax;
@@ -3628,7 +3622,7 @@ class LodStrategy;
         }
     }
     //-------------------------------------------------------------------------
-    static int parseProgramParameterDimensions(String& declarator, BaseConstantType& type)
+    static auto parseProgramParameterDimensions(String& declarator, BaseConstantType& type) -> int
     {
         // Assume 1 unless otherwise specified
         int dimensions = 1;
@@ -3685,11 +3679,11 @@ class LodStrategy;
         uint32 animParametricsCount = 0;
 
         String value;
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_SHARED_PARAMS_REF:
@@ -3713,7 +3707,7 @@ class LodStrategy;
                         if(prop->values.size() >= 3)
                         {
                             bool named = (prop->id == ID_PARAM_NAMED);
-                            AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1),
+                            auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1),
                                 k = getNodeAt(prop->values, 2);
 
                             if((*i0)->type != ANT_ATOM || (*i1)->type != ANT_ATOM)
@@ -3723,7 +3717,7 @@ class LodStrategy;
                                 return;
                             }
 
-                            AtomAbstractNode *atom0 = (AtomAbstractNode*)(*i0).get(), *atom1 = (AtomAbstractNode*)(*i1).get();
+                            auto *atom0 = (AtomAbstractNode*)(*i0).get(), *atom1 = (AtomAbstractNode*)(*i1).get();
                             if(!named && !StringConverter::isNumber(atom0->value))
                             {
                                 compiler->addError(ScriptCompiler::CE_NUMBEREXPECTED, prop->file, prop->line,
@@ -3923,7 +3917,7 @@ class LodStrategy;
                         if(prop->values.size() >= 2)
                         {
                             size_t index = 0;
-                            AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0),
+                            auto i0 = getNodeAt(prop->values, 0),
                                 i1 = getNodeAt(prop->values, 1), i2 = getNodeAt(prop->values, 2), i3 = getNodeAt(prop->values, 3);
                             if((*i0)->type != ANT_ATOM || (*i1)->type != ANT_ATOM)
                             {
@@ -3931,7 +3925,7 @@ class LodStrategy;
                                                    "name or index and auto constant type expected");
                                 return;
                             }
-                            AtomAbstractNode *atom0 = (AtomAbstractNode*)(*i0).get(), *atom1 = (AtomAbstractNode*)(*i1).get();
+                            auto *atom0 = (AtomAbstractNode*)(*i0).get(), *atom1 = (AtomAbstractNode*)(*i1).get();
                             if(!named && !StringConverter::isNumber(atom0->value))
                             {
                                 compiler->addError(ScriptCompiler::CE_NUMBEREXPECTED, prop->file, prop->line,
@@ -4143,13 +4137,12 @@ class LodStrategy;
      * SharedParamsTranslator
      *************************************************************************/
     SharedParamsTranslator::SharedParamsTranslator()
-    {
-    }
+    = default;
 
     //-------------------------------------------------------------------------
     void SharedParamsTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
         // Must have a name
         if (obj->name.empty())
@@ -4158,7 +4151,7 @@ class LodStrategy;
             return;
         }
 
-        GpuSharedParameters* sharedParams = 0;
+        GpuSharedParameters* sharedParams = nullptr;
         CreateGpuSharedParametersScriptCompilerEvent evt(obj->file, obj->name, compiler->getResourceGroup());
         bool processed = compiler->_fireEvent(&evt, (void*)&sharedParams);
 
@@ -4173,12 +4166,12 @@ class LodStrategy;
             return;
         }
 
-        for (AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for (auto & i : obj->children)
         {
-            if ((*i)->type != ANT_PROPERTY)
+            if (i->type != ANT_PROPERTY)
                 continue;
 
-            PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+            auto *prop = static_cast<PropertyAbstractNode*>(i.get());
             if (prop->id != ID_SHARED_PARAM_NAMED)
             {
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
@@ -4193,7 +4186,7 @@ class LodStrategy;
                 continue;
             }
 
-            AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
+            auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1);
 
             String pName;
             GpuConstantType constType;
@@ -4205,7 +4198,7 @@ class LodStrategy;
                 continue;
             }
 
-            AbstractNodeList::const_iterator arrayStart = getNodeAt(prop->values, 2), arrayEnd = prop->values.end();
+            auto arrayStart = getNodeAt(prop->values, 2), arrayEnd = ::std::as_const(prop->values).end();
             uint32 arraySz = 1;
 
             if (arrayStart != arrayEnd)
@@ -4305,13 +4298,12 @@ class LodStrategy;
      * ParticleSystemTranslator
      *************************************************************************/
     ParticleSystemTranslator::ParticleSystemTranslator()
-        :mSystem(0)
-    {
-    }
+        
+    = default;
 
     void ParticleSystemTranslator::translate(ScriptCompiler* compiler, const AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
         // Find the name
         if(obj->name.empty())
         {
@@ -4341,11 +4333,11 @@ class LodStrategy;
 
         obj->context = mSystem;
 
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_MATERIAL:
@@ -4361,7 +4353,7 @@ class LodStrategy;
                             String name = ((AtomAbstractNode*)prop->values.front().get())->value;
 
                             ProcessResourceNameScriptCompilerEvent locEvt(ProcessResourceNameScriptCompilerEvent::MATERIAL, name);
-                            compiler->_fireEvent(&locEvt, 0);
+                            compiler->_fireEvent(&locEvt, nullptr);
 
                             if(!mSystem->setParameter("material", locEvt.mName))
                             {
@@ -4386,7 +4378,7 @@ class LodStrategy;
                         String name = prop->name, value;
 
                         // Glob the values together
-                        for(AbstractNodeList::iterator it = prop->values.begin(); it != prop->values.end(); ++it)
+                        for(auto it = prop->values.begin(); it != prop->values.end(); ++it)
                         {
                             if((*it)->type == ANT_ATOM)
                             {
@@ -4415,7 +4407,7 @@ class LodStrategy;
             }
             else
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
     }
@@ -4424,13 +4416,12 @@ class LodStrategy;
      * ParticleEmitterTranslator
      *************************************************************************/
     ParticleEmitterTranslator::ParticleEmitterTranslator()
-        :mEmitter(0)
-    {
-    }
+        
+    = default;
     //-------------------------------------------------------------------------
     void ParticleEmitterTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
         // Must have a type as the first value
         if(obj->values.empty())
@@ -4446,7 +4437,7 @@ class LodStrategy;
             return;
         }
 
-        ParticleSystem *system = any_cast<ParticleSystem*>(obj->parent->context);
+        auto *system = any_cast<ParticleSystem*>(obj->parent->context);
 
         try
         {
@@ -4458,15 +4449,15 @@ class LodStrategy;
             return;
         }
 
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 String value;
 
                 // Glob the values together
-                for(AbstractNodeList::iterator it = prop->values.begin(); it != prop->values.end(); ++it)
+                for(auto it = prop->values.begin(); it != prop->values.end(); ++it)
                 {
                     if((*it)->type == ANT_ATOM)
                     {
@@ -4489,7 +4480,7 @@ class LodStrategy;
             }
             else
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
     }
@@ -4498,13 +4489,12 @@ class LodStrategy;
      * ParticleAffectorTranslator
      *************************************************************************/
     ParticleAffectorTranslator::ParticleAffectorTranslator()
-        :mAffector(0)
-    {
-    }
+        
+    = default;
     //-------------------------------------------------------------------------
     void ParticleAffectorTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
         // Must have a type as the first value
         if(obj->values.empty())
@@ -4520,7 +4510,7 @@ class LodStrategy;
             return;
         }
 
-        ParticleSystem *system = any_cast<ParticleSystem*>(obj->parent->context);
+        auto *system = any_cast<ParticleSystem*>(obj->parent->context);
         try
         {
             mAffector = system->addAffector(type);
@@ -4531,15 +4521,15 @@ class LodStrategy;
             return;
         }
 
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_PROPERTY)
+            if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 String value;
 
                 // Glob the values together
-                for(AbstractNodeList::iterator it = prop->values.begin(); it != prop->values.end(); ++it)
+                for(auto it = prop->values.begin(); it != prop->values.end(); ++it)
                 {
                     if((*it)->type == ANT_ATOM)
                     {
@@ -4562,7 +4552,7 @@ class LodStrategy;
             }
             else
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
         }
     }
@@ -4571,13 +4561,12 @@ class LodStrategy;
      * CompositorTranslator
      *************************************************************************/
     CompositorTranslator::CompositorTranslator()
-        :mCompositor(0)
-    {
-    }
+        
+    = default;
 
     void CompositorTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
         if(obj->name.empty())
         {
             compiler->addError(ScriptCompiler::CE_OBJECTNAMEEXPECTED, obj->file, obj->line);
@@ -4604,15 +4593,15 @@ class LodStrategy;
         mCompositor->_notifyOrigin(obj->file);
         obj->context = mCompositor;
 
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_OBJECT)
+            if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
             else
             {
-                compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, (*i)->file, (*i)->line,
+                compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, i->file, i->line,
                                    "token not recognized");
             }
         }
@@ -4622,36 +4611,35 @@ class LodStrategy;
      * CompositionTechniqueTranslator
      *************************************************************************/
     CompositionTechniqueTranslator::CompositionTechniqueTranslator()
-        :mTechnique(0)
-    {
-    }
+        
+    = default;
     //-------------------------------------------------------------------------
     void CompositionTechniqueTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
-        Compositor *compositor = any_cast<Compositor*>(obj->parent->context);
+        auto *compositor = any_cast<Compositor*>(obj->parent->context);
         mTechnique = compositor->createTechnique();
         obj->context = mTechnique;
 
         String sval;
 
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_OBJECT)
+            if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
-            else if((*i)->type == ANT_PROPERTY)
+            else if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_TEXTURE:
                     {
                         size_t atomIndex = 1;
 
-                        AbstractNodeList::const_iterator it = getNodeAt(prop->values, 0);
+                        auto it = getNodeAt(prop->values, 0);
 
                         if((*it)->type != ANT_ATOM)
                         {
@@ -4659,7 +4647,7 @@ class LodStrategy;
                             return;
                         }
                         // Save the first atom, should be name
-                        AtomAbstractNode *atom0 = (AtomAbstractNode*)(*it).get();
+                        auto *atom0 = (AtomAbstractNode*)(*it).get();
 
                         uint32 width = 0, height = 0;
                         float widthFactor = 1.0f, heightFactor = 1.0f;
@@ -4680,7 +4668,7 @@ class LodStrategy;
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                                 return;
                             }
-                            AtomAbstractNode *atom = (AtomAbstractNode*)(*it).get();
+                            auto *atom = (AtomAbstractNode*)(*it).get();
 
                             switch(atom->id)
                             {
@@ -4840,7 +4828,7 @@ class LodStrategy;
                     {
                         String texName, refCompName, refTexName;
 
-                        AbstractNodeList::const_iterator it = getNodeAt(prop->values, 0);
+                        auto it = getNodeAt(prop->values, 0);
                         if(!getString(*it, &texName))
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
                                                "texture_ref must have 3 string arguments");
@@ -4882,15 +4870,14 @@ class LodStrategy;
      * CompositionTargetPass
      *************************************************************************/
     CompositionTargetPassTranslator::CompositionTargetPassTranslator()
-        :mTarget(0)
-    {
-    }
+        
+    = default;
     //-------------------------------------------------------------------------
     void CompositionTargetPassTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
-        CompositionTechnique *technique = any_cast<CompositionTechnique*>(obj->parent->context);
+        auto *technique = any_cast<CompositionTechnique*>(obj->parent->context);
         if(obj->id == ID_TARGET)
         {
             mTarget = technique->createTargetPass();
@@ -4919,15 +4906,15 @@ class LodStrategy;
         uint32 uival;
         String sval;
 
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_OBJECT)
+            if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
-            else if((*i)->type == ANT_PROPERTY)
+            else if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_INPUT:
@@ -4967,13 +4954,12 @@ class LodStrategy;
      * CompositionPassTranslator
      *************************************************************************/
     CompositionPassTranslator::CompositionPassTranslator()
-        :mPass(0)
-    {
-    }
+        
+    = default;
 
     void CompositionPassTranslator::translate(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
-        ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
+        auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
         // The name is the type of the pass
         if(obj->values.empty() || obj->values.front()->type != ANT_ATOM)
@@ -4982,7 +4968,7 @@ class LodStrategy;
             return;
         }
 
-        AtomAbstractNode* atom = static_cast<AtomAbstractNode*>(obj->values.front().get());
+        auto* atom = static_cast<AtomAbstractNode*>(obj->values.front().get());
 
         CompositionPass::PassType ptype;
         switch(atom->id)
@@ -5010,7 +4996,7 @@ class LodStrategy;
                 return;
         }
 
-        CompositionTargetPass *target = any_cast<CompositionTargetPass*>(obj->parent->context);
+        auto *target = any_cast<CompositionTargetPass*>(obj->parent->context);
         mPass = target->createPass(ptype);
         obj->context = mPass;
 
@@ -5032,15 +5018,15 @@ class LodStrategy;
         String sval;
         StencilOperation sop;
 
-        for(AbstractNodeList::iterator i = obj->children.begin(); i != obj->children.end(); ++i)
+        for(auto & i : obj->children)
         {
-            if((*i)->type == ANT_OBJECT)
+            if(i->type == ANT_OBJECT)
             {
-                processNode(compiler, *i);
+                processNode(compiler, i);
             }
-            else if((*i)->type == ANT_PROPERTY)
+            else if(i->type == ANT_PROPERTY)
             {
-                PropertyAbstractNode *prop = static_cast<PropertyAbstractNode*>((*i).get());
+                auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
                 {
                 case ID_CHECK:
@@ -5079,7 +5065,7 @@ class LodStrategy;
                 case ID_BUFFERS:
                     {
                         uint32 buffers = 0;
-                        for(AbstractNodeList::iterator k = prop->values.begin(); k != prop->values.end(); ++k)
+                        for(auto k = prop->values.begin(); k != prop->values.end(); ++k)
                         {
                             if((*k)->type == ANT_ATOM)
                             {
@@ -5133,7 +5119,7 @@ class LodStrategy;
                     if(getValue(prop, compiler, sval))
                     {
                         ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::MATERIAL, sval);
-                        compiler->_fireEvent(&evt, 0);
+                        compiler->_fireEvent(&evt, nullptr);
                         auto mat = MaterialManager::getSingleton().getByName(evt.mName, compiler->getResourceGroup());
                         if (mat)
                             mPass->setMaterial(mat);
@@ -5155,7 +5141,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        AbstractNodeList::const_iterator i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1), i2 = getNodeAt(prop->values, 2);
+                        auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1), i2 = getNodeAt(prop->values, 2);
                         uint32 id;
                         String name;
                         if(getUInt(*i0, &id) && getString(*i1, &name))
@@ -5266,17 +5252,16 @@ class LodStrategy;
      * BuiltinScriptTranslatorManager
      *************************************************************************/
     BuiltinScriptTranslatorManager::BuiltinScriptTranslatorManager()
-    {
-    }
+    = default;
     //-------------------------------------------------------------------------
-    ScriptTranslator *BuiltinScriptTranslatorManager::getTranslator(const AbstractNodePtr &node)
+    auto BuiltinScriptTranslatorManager::getTranslator(const AbstractNodePtr &node) -> ScriptTranslator *
     {
-        ScriptTranslator *translator = 0;
+        ScriptTranslator *translator = nullptr;
 
         if(node->type == ANT_OBJECT)
         {
-            ObjectAbstractNode *obj = static_cast<ObjectAbstractNode*>(node.get());
-            ObjectAbstractNode *parent = obj->parent ? static_cast<ObjectAbstractNode*>(obj->parent) : 0;
+            auto *obj = static_cast<ObjectAbstractNode*>(node.get());
+            ObjectAbstractNode *parent = obj->parent ? static_cast<ObjectAbstractNode*>(obj->parent) : nullptr;
             if(obj->id == ID_MATERIAL)
                 translator = &mMaterialTranslator;
             else if(obj->id == ID_TECHNIQUE && parent && parent->id == ID_MATERIAL)

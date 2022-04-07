@@ -28,38 +28,36 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <iterator>
+#include <ranges>
 #include <string>
 #include <utility>
 
-#include "OgreCamera.h"
-#include "OgreCompositionPass.h"
-#include "OgreCompositionTargetPass.h"
-#include "OgreCompositionTechnique.h"
-#include "OgreCompositor.h"
-#include "OgreCompositorChain.h"
-#include "OgreCompositorInstance.h"
-#include "OgreCompositorManager.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreQuaternion.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderTarget.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreVector.h"
+#include "OgreCamera.hpp"
+#include "OgreCompositionPass.hpp"
+#include "OgreCompositionTargetPass.hpp"
+#include "OgreCompositionTechnique.hpp"
+#include "OgreCompositor.hpp"
+#include "OgreCompositorChain.hpp"
+#include "OgreCompositorInstance.hpp"
+#include "OgreCompositorManager.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
 CompositorChain::CompositorChain(Viewport *vp):
-    mViewport(vp),
-    mOriginalScene(0),
-    mDirty(true),
-    mAnyCompositorsEnabled(false),
-    mOldLodBias(1.0f)
+    mViewport(vp)
+    
 {
     assert(vp);
     mOldClearEveryFrameBuffers = vp->getClearBuffers();
@@ -74,7 +72,7 @@ CompositorChain::~CompositorChain()
     destroyResources();
 }
 //-----------------------------------------------------------------------
-void CompositorChain::destroyResources(void)
+void CompositorChain::destroyResources()
 {
     clearCompiledState();
 
@@ -88,11 +86,11 @@ void CompositorChain::destroyResources(void)
         // destory base "original scene" compositor
         CompositorManager::getSingleton().remove(getCompositorName(), ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
 
-        mViewport = 0;
+        mViewport = nullptr;
     }
 }
 //-----------------------------------------------------------------------
-const String CompositorChain::getCompositorName() const
+auto CompositorChain::getCompositorName() const -> const String
 {
     return StringUtil::format("Ogre/Scene/%zu", (size_t)mViewport);
 }
@@ -152,12 +150,12 @@ void CompositorChain::destroyOriginalScene()
     if (mOriginalScene)
     {
         delete mOriginalScene;
-        mOriginalScene = 0;
+        mOriginalScene = nullptr;
     }
 }
 
 //-----------------------------------------------------------------------
-CompositorInstance* CompositorChain::addCompositor(CompositorPtr filter, size_t addPosition, const String& scheme)
+auto CompositorChain::addCompositor(CompositorPtr filter, size_t addPosition, const String& scheme) -> CompositorInstance*
 {
 
 
@@ -165,9 +163,9 @@ CompositorInstance* CompositorChain::addCompositor(CompositorPtr filter, size_t 
     CompositionTechnique *tech = filter->getSupportedTechnique(scheme);
     if(!tech)
     {
-        return 0;
+        return nullptr;
     }
-    CompositorInstance *t = new CompositorInstance(tech, this);
+    auto *t = new CompositorInstance(tech, this);
     
     if(addPosition == LAST)
         addPosition = mInstances.size();
@@ -186,7 +184,7 @@ void CompositorChain::removeCompositor(size_t index)
         index = mInstances.size() - 1;
 
     assert (index < mInstances.size() && "Index out of bounds.");
-    Instances::iterator i = mInstances.begin() + index;
+    auto i = mInstances.begin() + index;
     delete *i;
     mInstances.erase(i);
     
@@ -209,7 +207,7 @@ void CompositorChain::removeAllCompositors()
 //-----------------------------------------------------------------------
 void CompositorChain::_removeInstance(CompositorInstance *i)
 {
-    Instances::iterator it = std::find(mInstances.begin(), mInstances.end(), i);
+    auto it = std::find(mInstances.begin(), mInstances.end(), i);
     assert(it != mInstances.end());
     if(it != mInstances.end())
     {
@@ -224,7 +222,7 @@ void CompositorChain::_queuedOperation(CompositorInstance::RenderSystemOperation
 
 }
 //-----------------------------------------------------------------------
-size_t CompositorChain::getCompositorPosition(const String& name) const
+auto CompositorChain::getCompositorPosition(const String& name) const -> size_t
 {
     for (auto it = mInstances.begin(); it != mInstances.end(); ++it)
     {
@@ -235,10 +233,10 @@ size_t CompositorChain::getCompositorPosition(const String& name) const
     }
     return NPOS;
 }
-CompositorInstance *CompositorChain::getCompositor(const String& name) const
+auto CompositorChain::getCompositor(const String& name) const -> CompositorInstance *
 {
     size_t idx = getCompositorPosition(name);
-    return idx == NPOS ? NULL : mInstances[idx];
+    return idx == NPOS ? nullptr : mInstances[idx];
 }
 
 //-----------------------------------------------------------------------
@@ -255,7 +253,7 @@ void CompositorChain::setCompositorEnabled(size_t position, bool state)
         {
             const CompositionTechnique::TargetPasses& tps =
                 nextInstance->getTechnique()->getTargetPasses();
-            CompositionTechnique::TargetPasses::const_iterator tpit = tps.begin();
+            auto tpit = tps.begin();
             for(;tpit != tps.end(); ++tpit)
             {
                 CompositionTargetPass* tp = *tpit;
@@ -276,7 +274,7 @@ void CompositorChain::setCompositorEnabled(size_t position, bool state)
     inst->setEnabled(state);
 }
 //-----------------------------------------------------------------------
-static const Quaternion& getCubemapRotation(int i)
+static auto getCubemapRotation(int i) -> const Quaternion&
 {
     static const Quaternion CubemapRotations[6] = {
         Quaternion(Degree(-90), Vector3::UNIT_Y), //+X
@@ -346,7 +344,7 @@ void CompositorChain::postRenderTargetUpdate(const RenderTargetEvent& evt)
     Camera *cam = mViewport->getCamera();
     if (cam)
     {
-        cam->getSceneManager()->_setActiveCompositorChain(0);
+        cam->getSceneManager()->_setActiveCompositorChain(nullptr);
     }
 }
 //-----------------------------------------------------------------------
@@ -469,16 +467,15 @@ void CompositorChain::viewportDestroyed(Viewport* viewport)
 //-----------------------------------------------------------------------
 void CompositorChain::clearCompiledState()
 {
-    for (RenderSystemOperations::iterator i = mRenderSystemOperations.begin();
-        i != mRenderSystemOperations.end(); ++i)
+    for (auto & mRenderSystemOperation : mRenderSystemOperations)
     {
-        delete *i;
+        delete mRenderSystemOperation;
     }
     mRenderSystemOperations.clear();
 
     /// Clear compiled state
     mCompiledState.clear();
-    mOutputOperation = CompositorInstance::TargetOperation(0);
+    mOutputOperation = CompositorInstance::TargetOperation(nullptr);
 
 }
 //-----------------------------------------------------------------------
@@ -502,14 +499,14 @@ void CompositorChain::_compile()
     
     /// Set previous CompositorInstance for each compositor in the list
     CompositorInstance *lastComposition = mOriginalScene;
-    mOriginalScene->mPreviousInstance = 0;
-    for(Instances::iterator i=mInstances.begin(); i!=mInstances.end(); ++i)
+    mOriginalScene->mPreviousInstance = nullptr;
+    for(auto & mInstance : mInstances)
     {
-        if((*i)->getEnabled())
+        if(mInstance->getEnabled())
         {
             compositorsEnabled = true;
-            (*i)->mPreviousInstance = lastComposition;
-            lastComposition = (*i);
+            mInstance->mPreviousInstance = lastComposition;
+            lastComposition = mInstance;
         }
     }
     
@@ -552,7 +549,7 @@ void CompositorChain::_markDirty()
     mDirty = true;
 }
 //-----------------------------------------------------------------------
-Viewport *CompositorChain::getViewport()
+auto CompositorChain::getViewport() -> Viewport *
 {
     return mViewport;
 }
@@ -561,10 +558,10 @@ void CompositorChain::_notifyViewport(Viewport* vp)
 {
     if (vp != mViewport)
     {
-        if (mViewport != NULL) 
+        if (mViewport != nullptr) 
             mViewport->removeListener(this);
 
-        if (vp != NULL) 
+        if (vp != nullptr) 
             vp->addListener(this);
         
         if (!vp || !mViewport || vp->getTarget() != mViewport->getTarget())
@@ -623,42 +620,42 @@ void CompositorChain::RQListener::flushUpTo(uint8 id)
     }
 }
 //-----------------------------------------------------------------------
-CompositorInstance* CompositorChain::getPreviousInstance(CompositorInstance* curr, bool activeOnly)
+auto CompositorChain::getPreviousInstance(CompositorInstance* curr, bool activeOnly) -> CompositorInstance*
 {
     bool found = false;
-    for(Instances::reverse_iterator i=mInstances.rbegin(); i!=mInstances.rend(); ++i)
+    for(auto & mInstance : std::ranges::reverse_view(mInstances))
     {
         if (found)
         {
-            if ((*i)->getEnabled() || !activeOnly)
-                return *i;
+            if (mInstance->getEnabled() || !activeOnly)
+                return mInstance;
         }
-        else if(*i == curr)
+        else if(mInstance == curr)
         {
             found = true;
         }
     }
 
-    return 0;
+    return nullptr;
 }
 //---------------------------------------------------------------------
-CompositorInstance* CompositorChain::getNextInstance(CompositorInstance* curr, bool activeOnly)
+auto CompositorChain::getNextInstance(CompositorInstance* curr, bool activeOnly) -> CompositorInstance*
 {
     bool found = false;
-    for(Instances::iterator i=mInstances.begin(); i!=mInstances.end(); ++i)
+    for(auto & mInstance : mInstances)
     {
         if (found)
         {
-            if ((*i)->getEnabled() || !activeOnly)
-                return *i;
+            if (mInstance->getEnabled() || !activeOnly)
+                return mInstance;
         }
-        else if(*i == curr)
+        else if(mInstance == curr)
         {
             found = true;
         }
     }
 
-    return 0;
+    return nullptr;
 }
 //---------------------------------------------------------------------
 }

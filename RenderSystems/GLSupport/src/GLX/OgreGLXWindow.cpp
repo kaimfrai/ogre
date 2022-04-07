@@ -26,7 +26,7 @@
   -----------------------------------------------------------------------------
 */
 
-#include "OgreGLXWindow.h"
+#include "OgreGLXWindow.hpp"
 
 #include <GL/gl.h>
 #include <GL/glx.h>
@@ -38,17 +38,17 @@
 #include <utility>
 #include <vector>
 
-#include "OgreException.h"
-#include "OgreGLContext.h"
-#include "OgreGLNativeSupport.h"
-#include "OgreGLXContext.h"
-#include "OgreGLXGLSupport.h"
-#include "OgreLogManager.h"
-#include "OgreRenderTarget.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreViewport.h"
-#include "OgreX11.h"
+#include "OgreException.hpp"
+#include "OgreGLContext.hpp"
+#include "OgreGLNativeSupport.hpp"
+#include "OgreGLXContext.hpp"
+#include "OgreGLXGLSupport.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreViewport.hpp"
+#include "OgreX11.hpp"
 
 namespace Ogre
 {
@@ -76,7 +76,7 @@ namespace Ogre
             delete mContext;
         }
 
-        mContext = 0;
+        mContext = nullptr;
         mWindow = 0;
     }
 
@@ -92,7 +92,7 @@ namespace Ogre
         bool hidden = false;
         unsigned int vsyncInterval = 1;
         bool gamma = false;
-        ::GLXContext glxContext = 0;
+        ::GLXContext glxContext = nullptr;
         ::GLXDrawable glxDrawable = 0;
         Window parentWindow = DefaultRootWindow(xDisplay);
         int left = DisplayWidth(xDisplay, DefaultScreen(xDisplay))/2 - width/2;
@@ -105,7 +105,7 @@ namespace Ogre
         if(miscParams)
         {
             NameValuePairList::const_iterator opt;
-            NameValuePairList::const_iterator end = miscParams->end();
+            auto end = miscParams->end();
 
             // NB: Do not try to implement the externalGLContext option.
             //
@@ -186,7 +186,7 @@ namespace Ogre
         validateParentWindow(xDisplay, parentWindow);
 
         // Derive fbConfig
-        ::GLXFBConfig fbConfig = 0;
+        ::GLXFBConfig fbConfig = nullptr;
 
         if (glxDrawable)
         {
@@ -324,7 +324,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    void GLXWindow::destroy(void)
+    void GLXWindow::destroy()
     {
         if (mClosed)
             return;
@@ -467,8 +467,8 @@ namespace Ogre
             mWidth = width;
             mHeight = height;
 
-            for (ViewportList::iterator it = mViewportList.begin(); it != mViewportList.end(); ++it)
-                (*it).second->_updateDimensions();
+            for (auto & it : mViewportList)
+                it.second->_updateDimensions();
         }
     }
 
@@ -529,7 +529,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    PixelFormat GLXWindow::suggestPixelFormat() const
+    auto GLXWindow::suggestPixelFormat() const -> PixelFormat
     {
         return mGLSupport->getContextProfile() == GLNativeSupport::CONTEXT_ES ? PF_BYTE_RGBA : PF_BYTE_RGB;
     }

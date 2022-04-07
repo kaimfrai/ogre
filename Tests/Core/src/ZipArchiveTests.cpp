@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "ZipArchiveTests.h"
+#include "ZipArchiveTests.hpp"
 
 #include <cstddef>
 #include <map>
@@ -33,19 +33,19 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreArchive.h"
-#include "OgreCommon.h"
-#include "OgreConfigFile.h"
-#include "OgreDataStream.h"
-#include "OgreFileSystemLayer.h"
-#include "OgrePrerequisites.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringVector.h"
-#include "OgreZip.h"
+#include "OgreArchive.hpp"
+#include "OgreCommon.hpp"
+#include "OgreConfigFile.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreFileSystemLayer.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringVector.hpp"
+#include "OgreZip.hpp"
 
 using namespace Ogre;
 
-static String fileId(const String& path) {
+static auto fileId(const String& path) -> String {
     return path;
 }
 

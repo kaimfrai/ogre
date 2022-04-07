@@ -30,10 +30,10 @@ THE SOFTWARE.
 #include <cstddef>
 #include <vector>
 
-#include "OgreBone.h"
-#include "OgreNode.h"
-#include "OgreSkeletonInstance.h"
-#include "OgreTagPoint.h"
+#include "OgreBone.hpp"
+#include "OgreNode.hpp"
+#include "OgreSkeletonInstance.hpp"
+#include "OgreTagPoint.hpp"
 
 
 namespace Ogre {
@@ -44,7 +44,7 @@ class AnimationStateSet;
     SkeletonInstance::SkeletonInstance(const SkeletonPtr& masterCopy) 
         : Skeleton()
         , mSkeleton(masterCopy)
-        , mNextTagPointAutoHandle(0)
+         
     {
     }
     //-------------------------------------------------------------------------
@@ -57,29 +57,29 @@ class AnimationStateSet;
         unload();
     }
     //-------------------------------------------------------------------------
-    unsigned short SkeletonInstance::getNumAnimations(void) const
+    auto SkeletonInstance::getNumAnimations() const -> unsigned short
     {
         return mSkeleton->getNumAnimations();
     }
     //-------------------------------------------------------------------------
-    Animation* SkeletonInstance::getAnimation(unsigned short index) const
+    auto SkeletonInstance::getAnimation(unsigned short index) const -> Animation*
     {
         return mSkeleton->getAnimation(index);
     }
     //-------------------------------------------------------------------------
-    Animation* SkeletonInstance::createAnimation(const String& name, Real length)
+    auto SkeletonInstance::createAnimation(const String& name, Real length) -> Animation*
     {
         return mSkeleton->createAnimation(name, length);
     }
     //-------------------------------------------------------------------------
-    Animation* SkeletonInstance::getAnimation(const String& name, 
-        const LinkedSkeletonAnimationSource** linker) const
+    auto SkeletonInstance::getAnimation(const String& name, 
+        const LinkedSkeletonAnimationSource** linker) const -> Animation*
     {
         return mSkeleton->getAnimation(name, linker);
     }
     //-------------------------------------------------------------------------
-    Animation* SkeletonInstance::_getAnimationImpl(const String& name, 
-        const LinkedSkeletonAnimationSource** linker) const
+    auto SkeletonInstance::_getAnimationImpl(const String& name, 
+        const LinkedSkeletonAnimationSource** linker) const -> Animation*
     {
         return mSkeleton->_getAnimationImpl(name, linker);
     }
@@ -95,13 +95,13 @@ class AnimationStateSet;
         mSkeleton->addLinkedSkeletonAnimationSource(skelName, scale);
     }
     //-------------------------------------------------------------------------
-    void SkeletonInstance::removeAllLinkedSkeletonAnimationSources(void)
+    void SkeletonInstance::removeAllLinkedSkeletonAnimationSources()
     {
         mSkeleton->removeAllLinkedSkeletonAnimationSources();
     }
     //-------------------------------------------------------------------------
-    const Skeleton::LinkedSkeletonAnimSourceList&
-    SkeletonInstance::getLinkedSkeletonAnimationSources() const
+    auto
+    SkeletonInstance::getLinkedSkeletonAnimationSources() const -> const Skeleton::LinkedSkeletonAnimSourceList&
     {
         return mSkeleton->getLinkedSkeletonAnimationSources();
     }
@@ -128,7 +128,7 @@ class AnimationStateSet;
         {
             newBone = createBone(source->getName(), source->getHandle());
         }
-        if (parent == NULL)
+        if (parent == nullptr)
         {
             mRootBones.push_back(newBone);
         }
@@ -147,7 +147,7 @@ class AnimationStateSet;
         }
     }
     //-------------------------------------------------------------------------
-    void SkeletonInstance::prepareImpl(void)
+    void SkeletonInstance::prepareImpl()
     {
         mNextAutoHandle = mSkeleton->mNextAutoHandle;
         mNextTagPointAutoHandle = 0;
@@ -158,20 +158,19 @@ class AnimationStateSet;
         for (i = mSkeleton->getRootBones().begin(); i != mSkeleton->getRootBones().end(); ++i)
         {
             Bone* b = *i;
-            cloneBoneAndChildren(b, 0);
+            cloneBoneAndChildren(b, nullptr);
             b->_update(true, false);
         }
         setBindingPose();
     }
     //-------------------------------------------------------------------------
-    void SkeletonInstance::unprepareImpl(void)
+    void SkeletonInstance::unprepareImpl()
     {
         Skeleton::unprepareImpl();
 
         // destroy TagPoints
-        for (TagPointList::const_iterator it = mActiveTagPoints.begin(); it != mActiveTagPoints.end(); ++it)
+        for (auto tagPoint : mActiveTagPoints)
         {
-            TagPoint* tagPoint = *it;
             // Woohoo! The child object all the same attaching this skeleton instance, but is ok we can just
             // ignore it:
             //   1. The parent node of the tagPoint already deleted by Skeleton::unload(), nothing need to do now
@@ -179,18 +178,17 @@ class AnimationStateSet;
             delete tagPoint;
         }
         mActiveTagPoints.clear();
-        for (TagPointList::const_iterator it2 = mFreeTagPoints.begin(); it2 != mFreeTagPoints.end(); ++it2)
+        for (auto tagPoint : mFreeTagPoints)
         {
-            TagPoint* tagPoint = *it2;
             delete tagPoint;
         }
         mFreeTagPoints.clear();
     }
 
     //-------------------------------------------------------------------------
-    TagPoint* SkeletonInstance::createTagPointOnBone(Bone* bone,
+    auto SkeletonInstance::createTagPointOnBone(Bone* bone,
         const Quaternion &offsetOrientation, 
-        const Vector3 &offsetPosition)
+        const Vector3 &offsetPosition) -> TagPoint*
     {
         TagPoint* ret;
         if (mFreeTagPoints.empty()) {
@@ -201,8 +199,8 @@ class AnimationStateSet;
             mActiveTagPoints.splice(
                 mActiveTagPoints.end(), mFreeTagPoints, mFreeTagPoints.begin());
             // Initial some members ensure identically behavior, avoiding potential bug.
-            ret->setParentEntity(0);
-            ret->setChildObject(0);
+            ret->setParentEntity(nullptr);
+            ret->setChildObject(nullptr);
             ret->setInheritOrientation(true);
             ret->setInheritScale(true);
             ret->setInheritParentEntityOrientation(true);
@@ -220,7 +218,7 @@ class AnimationStateSet;
     //-------------------------------------------------------------------------
     void SkeletonInstance::freeTagPoint(TagPoint* tagPoint)
     {
-        TagPointList::iterator it =
+        auto it =
             std::find(mActiveTagPoints.begin(), mActiveTagPoints.end(), tagPoint);
         assert(it != mActiveTagPoints.end());
         if (it != mActiveTagPoints.end())
@@ -232,19 +230,19 @@ class AnimationStateSet;
         }
     }
     //-------------------------------------------------------------------------
-    const String& SkeletonInstance::getName(void) const
+    auto SkeletonInstance::getName() const -> const String&
     {
         // delegate
         return mSkeleton->getName();
     }
     //-------------------------------------------------------------------------
-    ResourceHandle SkeletonInstance::getHandle(void) const
+    auto SkeletonInstance::getHandle() const -> ResourceHandle
     {
         // delegate
         return mSkeleton->getHandle();
     }
     //-------------------------------------------------------------------------
-    const String& SkeletonInstance::getGroup(void) const
+    auto SkeletonInstance::getGroup() const -> const String&
     {
         // delegate
         return mSkeleton->getGroup();

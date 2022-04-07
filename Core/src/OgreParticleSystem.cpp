@@ -29,28 +29,28 @@ THE SOFTWARE.
 #include <cassert>
 #include <utility>
 
-#include "OgreCamera.h"
-#include "OgreCommon.h"
-#include "OgreController.h"
-#include "OgreControllerManager.h"
-#include "OgreException.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreMatrix4.h"
-#include "OgreNode.h"
-#include "OgreParticle.h"
-#include "OgreParticleAffector.h"
-#include "OgreParticleAffectorFactory.h"
-#include "OgreParticleEmitter.h"
-#include "OgreParticleSystem.h"
-#include "OgreParticleSystemManager.h"
-#include "OgreParticleSystemRenderer.h"
-#include "OgreRadixSort.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreStringConverter.h"
+#include "OgreCamera.hpp"
+#include "OgreCommon.hpp"
+#include "OgreController.hpp"
+#include "OgreControllerManager.hpp"
+#include "OgreException.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreNode.hpp"
+#include "OgreParticle.hpp"
+#include "OgreParticleAffector.hpp"
+#include "OgreParticleAffectorFactory.hpp"
+#include "OgreParticleEmitter.hpp"
+#include "OgreParticleSystem.hpp"
+#include "OgreParticleSystemManager.hpp"
+#include "OgreParticleSystemRenderer.hpp"
+#include "OgreRadixSort.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre {
 class RenderQueue;
@@ -59,78 +59,78 @@ class RenderQueue;
     class CmdQuota : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for emittedEmitterQuota (see ParamCommand).*/
     class CmdEmittedEmitterQuota : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for material (see ParamCommand).*/
     class CmdMaterial : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for cull_each (see ParamCommand).*/
     class CmdCull : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for particle_width (see ParamCommand).*/
     class CmdWidth : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for particle_height (see ParamCommand).*/
     class CmdHeight : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for renderer (see ParamCommand).*/
     class CmdRenderer : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for sorting (see ParamCommand).*/
     class CmdSorted : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for local space (see ParamCommand).*/
     class CmdLocalSpace : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for iteration interval(see ParamCommand).*/
     class CmdIterationInterval : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for nonvisible timeout (see ParamCommand).*/
     class CmdNonvisibleTimeout : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /// Command objects
     static CmdCull msCullCmd;
@@ -157,9 +157,10 @@ class RenderQueue;
     public:
         ParticleSystemUpdateValue(ParticleSystem* target) : mTarget(target) {}
 
-        Real getValue(void) const { return 0; } // N/A
+        [[nodiscard]]
+        auto getValue() const -> Real override { return 0; } // N/A
 
-        void setValue(Real value) { mTarget->_update(value); }
+        void setValue(Real value) override { mTarget->_update(value); }
 
     };
     //-----------------------------------------------------------------------
@@ -180,10 +181,10 @@ class RenderQueue;
         mNonvisibleTimeoutSet(false),
         mTimeSinceLastVisible(0),
         mLastVisibleFrame(0),
-        mTimeController(0),
+        mTimeController(nullptr),
         mEmittedEmitterPoolInitialised(false),
         mIsEmitting(true),
-        mRenderer(0),
+        mRenderer(nullptr),
         mCullIndividual(false),
         mPoolSize(0),
         mEmittedEmitterPoolSize(0)
@@ -195,14 +196,14 @@ class RenderQueue;
         mCastShadows = false;
     }
     //-----------------------------------------------------------------------
-    ParticleSystem::ParticleSystem(const String& name, const String& resourceGroup)
+    ParticleSystem::ParticleSystem(const String& name, String  resourceGroup)
       : MovableObject(name),
         mAABB(),
         mBoundingRadius(1.0f),
         mBoundsAutoUpdate(true),
         mBoundsUpdateTime(10.0f),
         mUpdateRemainTime(0),
-        mResourceGroupName(resourceGroup),
+        mResourceGroupName(std::move(resourceGroup)),
         mIsRendererConfigured(false),
         mSpeedFactor(1.0f),
         mIterationInterval(0),
@@ -213,10 +214,10 @@ class RenderQueue;
         mNonvisibleTimeoutSet(false),
         mTimeSinceLastVisible(0),
         mLastVisibleFrame(Root::getSingleton().getNextFrameNumber()),
-        mTimeController(0),
+        mTimeController(nullptr),
         mEmittedEmitterPoolInitialised(false),
         mIsEmitting(true),
-        mRenderer(0), 
+        mRenderer(nullptr), 
         mCullIndividual(false),
         mPoolSize(0),
         mEmittedEmitterPoolSize(0)
@@ -239,7 +240,7 @@ class RenderQueue;
         {
             // Destroy controller
             ControllerManager::getSingleton().destroyController(mTimeController);
-            mTimeController = 0;
+            mTimeController = nullptr;
         }
 
         // Arrange for the deletion of emitters & affectors
@@ -256,12 +257,12 @@ class RenderQueue;
         if (mRenderer)
         {
             ParticleSystemManager::getSingleton()._destroyRenderer(mRenderer);
-            mRenderer = 0;
+            mRenderer = nullptr;
         }
 
     }
     //-----------------------------------------------------------------------
-    ParticleEmitter* ParticleSystem::addEmitter(const String& emitterType)
+    auto ParticleSystem::addEmitter(const String& emitterType) -> ParticleEmitter*
     {
         ParticleEmitter* em = 
             ParticleSystemManager::getSingleton()._createEmitter(emitterType, this);
@@ -269,13 +270,13 @@ class RenderQueue;
         return em;
     }
     //-----------------------------------------------------------------------
-    ParticleEmitter* ParticleSystem::getEmitter(unsigned short index) const
+    auto ParticleSystem::getEmitter(unsigned short index) const -> ParticleEmitter*
     {
         assert(index < mEmitters.size() && "Emitter index out of bounds!");
         return mEmitters[index];
     }
     //-----------------------------------------------------------------------
-    unsigned short ParticleSystem::getNumEmitters(void) const
+    auto ParticleSystem::getNumEmitters() const -> unsigned short
     {
         return static_cast< unsigned short >( mEmitters.size() );
     }
@@ -283,7 +284,7 @@ class RenderQueue;
     void ParticleSystem::removeEmitter(unsigned short index)
     {
         assert(index < mEmitters.size() && "Emitter index out of bounds!");
-        ParticleEmitterList::iterator ei = mEmitters.begin() + index;
+        auto ei = mEmitters.begin() + index;
         ParticleSystemManager::getSingleton()._destroyEmitter(*ei);
         mEmitters.erase(ei);
     }
@@ -296,7 +297,7 @@ class RenderQueue;
         mEmitters.erase(ei);
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::removeAllEmitters(void)
+    void ParticleSystem::removeAllEmitters()
     {
         // DON'T delete directly, we don't know what heap these have been created on
         for (auto e : mEmitters)
@@ -306,7 +307,7 @@ class RenderQueue;
         mEmitters.clear();
     }
     //-----------------------------------------------------------------------
-    ParticleAffector* ParticleSystem::addAffector(const String& affectorType)
+    auto ParticleSystem::addAffector(const String& affectorType) -> ParticleAffector*
     {
         ParticleAffector* af = 
             ParticleSystemManager::getSingleton()._createAffector(affectorType, this);
@@ -314,13 +315,13 @@ class RenderQueue;
         return af;
     }
     //-----------------------------------------------------------------------
-    ParticleAffector* ParticleSystem::getAffector(unsigned short index) const
+    auto ParticleSystem::getAffector(unsigned short index) const -> ParticleAffector*
     {
         assert(index < mAffectors.size() && "Affector index out of bounds!");
         return mAffectors[index];
     }
     //-----------------------------------------------------------------------
-    unsigned short ParticleSystem::getNumAffectors(void) const
+    auto ParticleSystem::getNumAffectors() const -> unsigned short
     {
         return static_cast< unsigned short >( mAffectors.size() );
     }
@@ -328,12 +329,12 @@ class RenderQueue;
     void ParticleSystem::removeAffector(unsigned short index)
     {
         assert(index < mAffectors.size() && "Affector index out of bounds!");
-        ParticleAffectorList::iterator ai = mAffectors.begin() + index;
+        auto ai = mAffectors.begin() + index;
         ParticleSystemManager::getSingleton()._destroyAffector(*ai);
         mAffectors.erase(ai);
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::removeAllAffectors(void)
+    void ParticleSystem::removeAllAffectors()
     {
         // DON'T delete directly, we don't know what heap these have been created on
         for (auto a : mAffectors)
@@ -343,7 +344,7 @@ class RenderQueue;
         mAffectors.clear();
     }
     //-----------------------------------------------------------------------
-    ParticleSystem& ParticleSystem::operator=(const ParticleSystem& rhs)
+    auto ParticleSystem::operator=(const ParticleSystem& rhs) -> ParticleSystem&
     {
         // Blank this system's emitters & affectors
         removeAllEmitters();
@@ -388,12 +389,12 @@ class RenderQueue;
 
     }
     //-----------------------------------------------------------------------
-    size_t ParticleSystem::getNumParticles(void) const
+    auto ParticleSystem::getNumParticles() const -> size_t
     {
         return mActiveParticles.size();
     }
     //-----------------------------------------------------------------------
-    size_t ParticleSystem::getParticleQuota(void) const
+    auto ParticleSystem::getParticleQuota() const -> size_t
     {
         return mPoolSize;
     }
@@ -411,7 +412,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    size_t ParticleSystem::getEmittedEmitterQuota(void) const
+    auto ParticleSystem::getEmittedEmitterQuota() const -> size_t
     {
         return mEmittedEmitterPoolSize;
     }
@@ -653,7 +654,7 @@ class RenderQueue;
         {
             // Create a new particle & init using emitter
             // The particle is a visual particle if the emit_emitter property of the emitter isn't set 
-            Particle* p = 0;
+            Particle* p = nullptr;
             String  emitterName = emitter->getEmittedEmitter();
             if (emitterName.empty())
                 p = createParticle();
@@ -721,15 +722,15 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    Particle* ParticleSystem::getParticle(size_t index) 
+    auto ParticleSystem::getParticle(size_t index) -> Particle* 
     {
         assert (index < mActiveParticles.size() && "Index out of bounds!");
         return mActiveParticles[index];
     }
     //-----------------------------------------------------------------------
-    Particle* ParticleSystem::createParticle(void)
+    auto ParticleSystem::createParticle() -> Particle*
     {
-        Particle* p = 0;
+        Particle* p = nullptr;
         if (!mFreeParticles.empty())
         {
             // Fast creation (don't use superclass since emitter will init)
@@ -742,10 +743,10 @@ class RenderQueue;
 
     }
     //-----------------------------------------------------------------------
-    Particle* ParticleSystem::createEmitterParticle(const String& emitterName)
+    auto ParticleSystem::createEmitterParticle(const String& emitterName) -> Particle*
     {
         // Get the appropriate list and retrieve an emitter 
-        ParticleEmitter* p = 0;
+        ParticleEmitter* p = nullptr;
         std::list<ParticleEmitter*>* fee = findFreeEmittedEmitter(emitterName);
         if (fee && !fee->empty())
         {
@@ -781,7 +782,7 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    void ParticleSystem::initParameters(void)
+    void ParticleSystem::initParameters()
     {
         if (createParamDictionary("ParticleSystem"))
         {
@@ -920,7 +921,7 @@ class RenderQueue;
     void ParticleSystem::fastForward(Real time, Real interval)
     {
         // First make sure all transforms are up to date
-        size_t steps = size_t(time/interval + 0.5f); // integer round
+        auto steps = size_t(time/interval + 0.5f); // integer round
         for (size_t i = 0; i < steps; i++)
         {
             _update(interval);
@@ -932,12 +933,12 @@ class RenderQueue;
         mIsEmitting = v;
     }
     //-----------------------------------------------------------------------
-    bool ParticleSystem::getEmitting() const
+    auto ParticleSystem::getEmitting() const -> bool
     {
         return mIsEmitting;
     }
     //-----------------------------------------------------------------------
-    const String& ParticleSystem::getMovableType(void) const
+    auto ParticleSystem::getMovableType() const -> const String&
     {
         return ParticleSystemFactory::FACTORY_TYPE_NAME;
     }
@@ -963,7 +964,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    Real ParticleSystem::getDefaultWidth(void) const
+    auto ParticleSystem::getDefaultWidth() const -> Real
     {
         return mDefaultWidth;
     }
@@ -978,7 +979,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    Real ParticleSystem::getDefaultHeight(void) const
+    auto ParticleSystem::getDefaultHeight() const -> Real
     {
         return mDefaultHeight;
     }
@@ -1031,7 +1032,7 @@ class RenderQueue;
         {
             // Destroy controller
             ControllerManager::getSingleton().destroyController(mTimeController);
-            mTimeController = 0;
+            mTimeController = nullptr;
         }
     }
     //-----------------------------------------------------------------------
@@ -1053,7 +1054,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    const String& ParticleSystem::getMaterialName(void) const
+    auto ParticleSystem::getMaterialName() const -> const String&
     {
         return mMaterial->getName();
     }
@@ -1087,7 +1088,7 @@ class RenderQueue;
         {
             // Destroy existing
             ParticleSystemManager::getSingleton()._destroyRenderer(mRenderer);
-            mRenderer = 0;
+            mRenderer = nullptr;
         }
 
         if (!rendererName.empty())
@@ -1097,7 +1098,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::configureRenderer(void)
+    void ParticleSystem::configureRenderer()
     {
         // Actual allocate particles
         size_t currSize = mParticlePool.size();
@@ -1131,12 +1132,12 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    ParticleSystemRenderer* ParticleSystem::getRenderer(void) const
+    auto ParticleSystem::getRenderer() const -> ParticleSystemRenderer*
     {
         return mRenderer;
     }
     //-----------------------------------------------------------------------
-    const String& ParticleSystem::getRendererName(void) const
+    auto ParticleSystem::getRendererName() const -> const String&
     {
         if (mRenderer)
         {
@@ -1148,7 +1149,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    bool ParticleSystem::getCullIndividually(void) const
+    auto ParticleSystem::getCullIndividually() const -> bool
     {
         return mCullIndividual;
     }
@@ -1232,7 +1233,7 @@ class RenderQueue;
         : sortDir(dir)
     {
     }
-    float ParticleSystem::SortByDirectionFunctor::operator()(Particle* p) const
+    auto ParticleSystem::SortByDirectionFunctor::operator()(Particle* p) const -> float
     {
         return sortDir.dotProduct(p->mPosition);
     }
@@ -1240,18 +1241,18 @@ class RenderQueue;
         : sortPos(pos)
     {
     }
-    float ParticleSystem::SortByDistanceFunctor::operator()(Particle* p) const
+    auto ParticleSystem::SortByDistanceFunctor::operator()(Particle* p) const -> float
     {
         // Sort descending by squared distance
         return - (sortPos - p->mPosition).squaredLength();
     }
     //-----------------------------------------------------------------------
-    uint32 ParticleSystem::getTypeFlags(void) const
+    auto ParticleSystem::getTypeFlags() const -> uint32
     {
         return SceneManager::FX_TYPE_MASK;
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::initialiseEmittedEmitters(void)
+    void ParticleSystem::initialiseEmittedEmitters()
     {
         // Initialise the pool if needed
         size_t currSize = 0;
@@ -1287,7 +1288,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    void ParticleSystem::initialiseEmittedEmitterPool(void)
+    void ParticleSystem::initialiseEmittedEmitterPool()
     {
         if (mEmittedEmitterPoolInitialised)
             return;
@@ -1321,7 +1322,7 @@ class RenderQueue;
         if (mEmittedEmitterPool.empty())
             return;
 
-        ParticleEmitter* clonedEmitter = 0;
+        ParticleEmitter* clonedEmitter = nullptr;
         size_t maxNumberOfEmitters = size / mEmittedEmitterPool.size(); // equally distribute the number for each emitted emitter list
     
         // Run through mEmittedEmitterPool and search for every key (=name) its corresponding emitter in mEmitters
@@ -1355,14 +1356,14 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::addFreeEmittedEmitters(void)
+    void ParticleSystem::addFreeEmittedEmitters()
     {
         // Don't proceed if the EmittedEmitterPool is empty
         if (mEmittedEmitterPool.empty())
             return;
 
         // Copy all pooled emitters to the free list
-        std::list<ParticleEmitter*>* fee = 0;
+        std::list<ParticleEmitter*>* fee = nullptr;
 
         // Run through the emittedEmitterPool map
         for (auto& kv : mEmittedEmitterPool)
@@ -1390,7 +1391,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::removeAllEmittedEmitters(void)
+    void ParticleSystem::removeAllEmittedEmitters()
     {
         for (auto& kv : mEmittedEmitterPool)
         {
@@ -1407,7 +1408,7 @@ class RenderQueue;
         mActiveEmittedEmitters.clear();
     }
     //-----------------------------------------------------------------------
-    std::list<ParticleEmitter*>* ParticleSystem::findFreeEmittedEmitter (const String& name)
+    auto ParticleSystem::findFreeEmittedEmitter (const String& name) -> std::list<ParticleEmitter*>*
     {
         FreeEmittedEmitterMap::iterator it;
         it = mFreeEmittedEmitters.find (name);
@@ -1417,7 +1418,7 @@ class RenderQueue;
             return &it->second;
         }
 
-        return 0;
+        return nullptr;
     }
     //-----------------------------------------------------------------------
     void ParticleSystem::removeFromActiveEmittedEmitters (ParticleEmitter* emitter)
@@ -1434,7 +1435,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::addActiveEmittedEmittersToFreeList (void)
+    void ParticleSystem::addActiveEmittedEmittersToFreeList ()
     {
         ActiveEmittedEmitterList::iterator itActiveEmit;
         for (itActiveEmit = mActiveEmittedEmitters.begin(); itActiveEmit != mActiveEmittedEmitters.end(); ++itActiveEmit)
@@ -1445,13 +1446,13 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::_notifyReorganiseEmittedEmitterData (void)
+    void ParticleSystem::_notifyReorganiseEmittedEmitterData ()
     {
         removeAllEmittedEmitters();
         mEmittedEmitterPoolInitialised = false; // Don't rearrange immediately; it will be performed in the regular flow
     }
     //-----------------------------------------------------------------------
-    String CmdCull::doGet(const void* target) const
+    auto CmdCull::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getCullIndividually() );
@@ -1462,7 +1463,7 @@ class RenderQueue;
             StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    String CmdHeight::doGet(const void* target) const
+    auto CmdHeight::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getDefaultHeight() );
@@ -1473,7 +1474,7 @@ class RenderQueue;
             StringConverter::parseReal(val));
     }
     //-----------------------------------------------------------------------
-    String CmdWidth::doGet(const void* target) const
+    auto CmdWidth::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getDefaultWidth() );
@@ -1484,7 +1485,7 @@ class RenderQueue;
             StringConverter::parseReal(val));
     }
     //-----------------------------------------------------------------------
-    String CmdMaterial::doGet(const void* target) const
+    auto CmdMaterial::doGet(const void* target) const -> String
     {
         return static_cast<const ParticleSystem*>(target)->getMaterialName();
     }
@@ -1493,7 +1494,7 @@ class RenderQueue;
         static_cast<ParticleSystem*>(target)->setMaterialName(val);
     }
     //-----------------------------------------------------------------------
-    String CmdQuota::doGet(const void* target) const
+    auto CmdQuota::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getParticleQuota() );
@@ -1504,7 +1505,7 @@ class RenderQueue;
             StringConverter::parseUnsignedInt(val));
     }
     //-----------------------------------------------------------------------
-    String CmdEmittedEmitterQuota::doGet(const void* target) const
+    auto CmdEmittedEmitterQuota::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getEmittedEmitterQuota() );
@@ -1515,7 +1516,7 @@ class RenderQueue;
             StringConverter::parseUnsignedInt(val));
     }
     //-----------------------------------------------------------------------
-    String CmdRenderer::doGet(const void* target) const
+    auto CmdRenderer::doGet(const void* target) const -> String
     {
         return static_cast<const ParticleSystem*>(target)->getRendererName();
     }
@@ -1524,7 +1525,7 @@ class RenderQueue;
         static_cast<ParticleSystem*>(target)->setRenderer(val);
     }
     //-----------------------------------------------------------------------
-    String CmdSorted::doGet(const void* target) const
+    auto CmdSorted::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getSortingEnabled());
@@ -1535,7 +1536,7 @@ class RenderQueue;
             StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    String CmdLocalSpace::doGet(const void* target) const
+    auto CmdLocalSpace::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getKeepParticlesInLocalSpace());
@@ -1546,7 +1547,7 @@ class RenderQueue;
             StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    String CmdIterationInterval::doGet(const void* target) const
+    auto CmdIterationInterval::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getIterationInterval());
@@ -1557,7 +1558,7 @@ class RenderQueue;
             StringConverter::parseReal(val));
     }
     //-----------------------------------------------------------------------
-    String CmdNonvisibleTimeout::doGet(const void* target) const
+    auto CmdNonvisibleTimeout::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getNonVisibleUpdateTimeout());
@@ -1569,8 +1570,7 @@ class RenderQueue;
     }
    //-----------------------------------------------------------------------
     ParticleAffector::~ParticleAffector() 
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     ParticleAffectorFactory::~ParticleAffectorFactory() 
     {

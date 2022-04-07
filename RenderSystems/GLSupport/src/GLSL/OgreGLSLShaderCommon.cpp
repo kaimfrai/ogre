@@ -30,16 +30,16 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreGLSLPreprocessor.h"
-#include "OgreGLSLShaderCommon.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
+#include "OgreException.hpp"
+#include "OgreGLSLPreprocessor.hpp"
+#include "OgreGLSLShaderCommon.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre {
 class ResourceManager;
@@ -50,7 +50,7 @@ class ResourceManager;
     GLSLShaderCommon::CmdAttach GLSLShaderCommon::msCmdAttach;
     GLSLShaderCommon::CmdColumnMajorMatrices GLSLShaderCommon::msCmdColumnMajorMatrices;
 
-    String GLSLShaderCommon::getResourceLogName() const
+    auto GLSLShaderCommon::getResourceLogName() const -> String
     {
         if(mLoadFromFile)
             return "'" + mFilename + "'";
@@ -105,16 +105,13 @@ class ResourceManager;
         const String& name, ResourceHandle handle,
         const String& group, bool isManual, ManualResourceLoader* loader)
         : HighLevelGpuProgram(creator, name, handle, group, isManual, loader)
-        , mColumnMajorMatrices(true)
-        , mLinked(0)
-        , mShaderID(++mShaderCount) // Increase shader counter and use as ID
-        , mGLShaderHandle(0)
-        , mGLProgramHandle(0)
-        , mShaderVersion(100)
+        , 
+         mShaderID(++mShaderCount) // Increase shader counter and use as ID
+         
     {
     }
     //-----------------------------------------------------------------------
-    String GLSLShaderCommon::CmdAttach::doGet(const void *target) const
+    auto GLSLShaderCommon::CmdAttach::doGet(const void *target) const -> String
     {
         return (static_cast<const GLSLShaderCommon*>(target))->getAttachedShaderNames();
     }
@@ -143,7 +140,7 @@ class ResourceManager;
             // don't need a low level implementation for attached shader objects
             // loadHighLevel will only load the source and compile once
             // so don't worry about calling it several times
-            GLSLShaderCommon* childShader = static_cast<GLSLShaderCommon*>(hlProgram.get());
+            auto* childShader = static_cast<GLSLShaderCommon*>(hlProgram.get());
             // load the source and attach the child shader only if supported
             if (isSupported())
             {
@@ -156,7 +153,7 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------
-    String GLSLShaderCommon::CmdColumnMajorMatrices::doGet(const void *target) const
+    auto GLSLShaderCommon::CmdColumnMajorMatrices::doGet(const void *target) const -> String
     {
         return StringConverter::toString(static_cast<const GLSLShaderCommon*>(target)->getColumnMajorMatrices());
     }

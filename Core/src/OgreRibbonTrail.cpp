@@ -32,13 +32,13 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreController.h"
-#include "OgreException.h"
-#include "OgreMath.h"
-#include "OgreRibbonTrail.h"
-#include "OgreSceneNode.h"
-#include "OgreStringConverter.h"
-#include "OgreVector.h"
+#include "OgreController.hpp"
+#include "OgreException.hpp"
+#include "OgreMath.hpp"
+#include "OgreRibbonTrail.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre
 {
@@ -53,16 +53,17 @@ namespace Ogre
         public:
             TimeControllerValue(RibbonTrail* r) { mTrail = r; }
 
-            Real getValue(void) const { return 0; }// not a source 
-            void setValue(Real value) { mTrail->_timeUpdate(value); }
+            [[nodiscard]]
+            auto getValue() const -> Real override { return 0; }// not a source 
+            void setValue(Real value) override { mTrail->_timeUpdate(value); }
         };
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     RibbonTrail::RibbonTrail(const String& name, size_t maxElements, 
         size_t numberOfChains, bool useTextureCoords, bool useColours)
-        :BillboardChain(name, maxElements, 0, useTextureCoords, useColours, true),
-        mFadeController(0)
+        :BillboardChain(name, maxElements, 0, useTextureCoords, useColours, true)
+        
     {
         setTrailLength(100);
         setNumberOfChains(numberOfChains);
@@ -77,9 +78,9 @@ namespace Ogre
     RibbonTrail::~RibbonTrail()
     {
         // Detach listeners
-        for (NodeList::iterator i = mNodeList.begin(); i != mNodeList.end(); ++i)
+        for (auto & i : mNodeList)
         {
-            (*i)->setListener(0);
+            i->setListener(nullptr);
         }
 
         if (mFadeController)
@@ -119,9 +120,9 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------
-    size_t RibbonTrail::getChainIndexForNode(const Node* n)
+    auto RibbonTrail::getChainIndexForNode(const Node* n) -> size_t
     {
-        NodeToChainSegmentMap::const_iterator i = mNodeToSegMap.find(n);
+        auto i = mNodeToSegMap.find(n);
         if (i == mNodeToSegMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
@@ -132,18 +133,18 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void RibbonTrail::removeNode(const Node* n)
     {
-        NodeList::iterator i = std::find(mNodeList.begin(), mNodeList.end(), n);
+        auto i = std::find(mNodeList.begin(), mNodeList.end(), n);
         if (i != mNodeList.end())
         {
             // also get matching chain segment
             size_t index = std::distance(mNodeList.begin(), i);
-            IndexVector::iterator mi = mNodeToChainSegment.begin();
+            auto mi = mNodeToChainSegment.begin();
             std::advance(mi, index);
             size_t chainIndex = *mi;
             BillboardChain::clearChain(chainIndex);
             // mark as free now
             mFreeChains.push_back(chainIndex);
-            (*i)->setListener(0);
+            (*i)->setListener(nullptr);
             mNodeList.erase(i);
             mNodeToChainSegment.erase(mi);
             mNodeToSegMap.erase(mNodeToSegMap.find(n));
@@ -151,10 +152,10 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    RibbonTrail::NodeIterator 
-    RibbonTrail::getNodeIterator(void) const
+    auto 
+    RibbonTrail::getNodeIterator() const -> RibbonTrail::NodeIterator
     {
-        return NodeIterator(mNodeList.begin(), mNodeList.end());
+        return {mNodeList.begin(), mNodeList.end()};
     }
     //-----------------------------------------------------------------------
     void RibbonTrail::setTrailLength(Real len)
@@ -189,7 +190,7 @@ namespace Ogre
         if (oldChains > numChains)
         {
             // remove free chains
-            for (IndexVector::iterator i = mFreeChains.begin(); i != mFreeChains.end();)
+            for (auto i = mFreeChains.begin(); i != mFreeChains.end();)
             {
                 if (*i >= numChains)
                     i = mFreeChains.erase(i);
@@ -211,7 +212,7 @@ namespace Ogre
         BillboardChain::clearChain(chainIndex);
 
         // Reset if we are tracking for this chain
-        IndexVector::iterator i = std::find(mNodeToChainSegment.begin(), mNodeToChainSegment.end(), chainIndex);
+        auto i = std::find(mNodeToChainSegment.begin(), mNodeToChainSegment.end(), chainIndex);
         if (i != mNodeToChainSegment.end())
         {
             size_t nodeIndex = std::distance(mNodeToChainSegment.begin(), i);
@@ -252,7 +253,7 @@ namespace Ogre
         manageController();
     }
     //-----------------------------------------------------------------------
-    void RibbonTrail::manageController(void)
+    void RibbonTrail::manageController()
     {
         bool needController = false;
         for (size_t i = 0; i < mChainCount; ++i)
@@ -273,7 +274,7 @@ namespace Ogre
         {
             // destroy controller
             ControllerManager::getSingleton().destroyController(mFadeController);
-            mFadeController = 0;
+            mFadeController = nullptr;
         }
 
     }
@@ -423,7 +424,7 @@ namespace Ogre
         addChainElement(index, e);
     }
     //-----------------------------------------------------------------------
-    void RibbonTrail::resetAllTrails(void)
+    void RibbonTrail::resetAllTrails()
     {
         for (size_t i = 0; i < mNodeList.size(); ++i)
         {
@@ -431,7 +432,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    const String& RibbonTrail::getMovableType(void) const
+    auto RibbonTrail::getMovableType() const -> const String&
     {
         return RibbonTrailFactory::FACTORY_TYPE_NAME;
     }
@@ -439,22 +440,22 @@ namespace Ogre
     //-----------------------------------------------------------------------
     String RibbonTrailFactory::FACTORY_TYPE_NAME = "RibbonTrail";
     //-----------------------------------------------------------------------
-    const String& RibbonTrailFactory::getType(void) const
+    auto RibbonTrailFactory::getType() const -> const String&
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    MovableObject* RibbonTrailFactory::createInstanceImpl( const String& name,
-        const NameValuePairList* params)
+    auto RibbonTrailFactory::createInstanceImpl( const String& name,
+        const NameValuePairList* params) -> MovableObject*
     {
         size_t maxElements = 20;
         size_t numberOfChains = 1;
         bool useTex = true;
         bool useCol = true;
         // optional params
-        if (params != 0)
+        if (params != nullptr)
         {
-            NameValuePairList::const_iterator ni = params->find("maxElements");
+            auto ni = params->find("maxElements");
             if (ni != params->end())
             {
                 maxElements = StringConverter::parseSizeT(ni->second);

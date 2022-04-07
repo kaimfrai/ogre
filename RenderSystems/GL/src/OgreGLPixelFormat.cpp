@@ -26,12 +26,12 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLPixelFormat.h"
+#include "OgreGLPixelFormat.hpp"
 
-#include "OgreBitwise.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRoot.h"
+#include "OgreBitwise.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRoot.hpp"
 
 #ifndef GL_HALF_FLOAT
 #define GL_HALF_FLOAT                     0x140B
@@ -89,17 +89,17 @@ namespace Ogre  {
     };
 
     //-----------------------------------------------------------------------------
-    GLenum GLPixelUtil::getGLOriginFormat(PixelFormat pf)
+    auto GLPixelUtil::getGLOriginFormat(PixelFormat pf) -> GLenum
     {
         return _pixelFormats[pf].format;
     }
     //----------------------------------------------------------------------------- 
-    GLenum GLPixelUtil::getGLOriginDataType(PixelFormat pf)
+    auto GLPixelUtil::getGLOriginDataType(PixelFormat pf) -> GLenum
     {
         return _pixelFormats[pf].type;
     }
     
-    GLenum GLPixelUtil::getGLInternalFormat(PixelFormat pf, bool hwGamma)
+    auto GLPixelUtil::getGLInternalFormat(PixelFormat pf, bool hwGamma) -> GLenum
     {
         GLenum ret = _pixelFormats[pf].internalFormat;
 
@@ -124,7 +124,7 @@ namespace Ogre  {
     }
     
     //-----------------------------------------------------------------------------     
-    PixelFormat GLPixelUtil::getClosestOGREFormat(GLenum format)
+    auto GLPixelUtil::getClosestOGREFormat(GLenum format) -> PixelFormat
     {
         switch(format)
         {
@@ -155,7 +155,7 @@ namespace Ogre  {
         return PF_BYTE_RGBA;
     }
     //-----------------------------------------------------------------------------    
-    uint32 GLPixelUtil::optionalPO2(uint32 value)
+    auto GLPixelUtil::optionalPO2(uint32 value) -> uint32
     {
         const RenderSystemCapabilities *caps = Root::getSingleton().getRenderSystem()->getCapabilities();
         if(caps->hasCapability(RSC_NON_POWER_OF_2_TEXTURES))

@@ -24,19 +24,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreShaderExPerPixelLighting.h"
-#include "OgreShaderFFPAlphaTest.h"
-#include "OgreShaderFFPColour.h"
-#include "OgreShaderFFPFog.h"
-#include "OgreShaderFFPRenderStateBuilder.h"
-#include "OgreShaderFFPTexturing.h"
-#include "OgreShaderFFPTransform.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderRenderState.h"
+#include "OgreShaderExPerPixelLighting.hpp"
+#include "OgreShaderFFPAlphaTest.hpp"
+#include "OgreShaderFFPColour.hpp"
+#include "OgreShaderFFPFog.hpp"
+#include "OgreShaderFFPRenderStateBuilder.hpp"
+#include "OgreShaderFFPTexturing.hpp"
+#include "OgreShaderFFPTransform.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderRenderState.hpp"
 
-namespace Ogre {
-
-namespace RTShader {
+namespace Ogre::RTShader {
 
 
 //-----------------------------------------------------------------------------
@@ -54,6 +52,5 @@ void FFPRenderStateBuilder::buildRenderState(ShaderGenerator::SGPass* sgPass, Ta
     ffpTemplate.addTemplateSubRenderState(sg.createSubRenderState(FFPAlphaTest::Type));
 
     renderState->link(ffpTemplate, sgPass->getSrcPass(), sgPass->getDstPass());
-}
 }
 }

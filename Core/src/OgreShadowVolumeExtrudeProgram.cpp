@@ -28,12 +28,12 @@ THE SOFTWARE.
 
 #include <string>
 
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreShadowVolumeExtrudeProgram.h"
-#include "OgreSharedPtr.h"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreShadowVolumeExtrudeProgram.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace {
     enum Programs
@@ -61,7 +61,7 @@ namespace {
 namespace Ogre {
     std::vector<GpuProgramPtr> ShadowVolumeExtrudeProgram::mPrograms;
 
-    void ShadowVolumeExtrudeProgram::initialise(void)
+    void ShadowVolumeExtrudeProgram::initialise()
     {
 		mPrograms.clear();
 
@@ -78,12 +78,12 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void ShadowVolumeExtrudeProgram::shutdown(void)
+    void ShadowVolumeExtrudeProgram::shutdown()
     {
         mPrograms.clear();
     }
     //---------------------------------------------------------------------
-    const GpuProgramPtr& ShadowVolumeExtrudeProgram::get(Light::LightTypes lightType, bool finite)
+    auto ShadowVolumeExtrudeProgram::get(Light::LightTypes lightType, bool finite) -> const GpuProgramPtr&
     {
         if (lightType == Light::LT_DIRECTIONAL)
         {

@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgrePrerequisites.h"
-#include "OgreQuaternion.h"
-#include "OgreVector.h"
+#include "OgreMath.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreVector.hpp"
 // NOTE THAT THIS FILE IS BASED ON MATERIAL FROM:
 
 // Geometric Tools, LLC
@@ -186,7 +186,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    Vector3 Quaternion::xAxis(void) const
+    auto Quaternion::xAxis() const -> Vector3
     {
         //Real fTx  = 2.0*x;
         Real fTy  = 2.0f*y;
@@ -198,10 +198,10 @@ namespace Ogre {
         Real fTyy = fTy*y;
         Real fTzz = fTz*z;
 
-        return Vector3(1.0f-(fTyy+fTzz), fTxy+fTwz, fTxz-fTwy);
+        return {1.0f-(fTyy+fTzz), fTxy+fTwz, fTxz-fTwy};
     }
     //-----------------------------------------------------------------------
-    Vector3 Quaternion::yAxis(void) const
+    auto Quaternion::yAxis() const -> Vector3
     {
         Real fTx  = 2.0f*x;
         Real fTy  = 2.0f*y;
@@ -213,10 +213,10 @@ namespace Ogre {
         Real fTyz = fTz*y;
         Real fTzz = fTz*z;
 
-        return Vector3(fTxy-fTwz, 1.0f-(fTxx+fTzz), fTyz+fTwx);
+        return {fTxy-fTwz, 1.0f-(fTxx+fTzz), fTyz+fTwx};
     }
     //-----------------------------------------------------------------------
-    Vector3 Quaternion::zAxis(void) const
+    auto Quaternion::zAxis() const -> Vector3
     {
         Real fTx  = 2.0f*x;
         Real fTy  = 2.0f*y;
@@ -228,7 +228,7 @@ namespace Ogre {
         Real fTyy = fTy*y;
         Real fTyz = fTz*y;
 
-        return Vector3(fTxz+fTwy, fTyz-fTwx, 1.0f-(fTxx+fTyy));
+        return {fTxz+fTwy, fTyz-fTwx, 1.0f-(fTxx+fTyy)};
     }
     //-----------------------------------------------------------------------
     void Quaternion::ToAxes (Vector3& xaxis, Vector3& yaxis, Vector3& zaxis) const
@@ -251,37 +251,36 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    Quaternion Quaternion::operator+ (const Quaternion& rkQ) const
+    auto Quaternion::operator+ (const Quaternion& rkQ) const -> Quaternion
     {
-        return Quaternion(w+rkQ.w,x+rkQ.x,y+rkQ.y,z+rkQ.z);
+        return {w+rkQ.w,x+rkQ.x,y+rkQ.y,z+rkQ.z};
     }
     //-----------------------------------------------------------------------
-    Quaternion Quaternion::operator- (const Quaternion& rkQ) const
+    auto Quaternion::operator- (const Quaternion& rkQ) const -> Quaternion
     {
-        return Quaternion(w-rkQ.w,x-rkQ.x,y-rkQ.y,z-rkQ.z);
+        return {w-rkQ.w,x-rkQ.x,y-rkQ.y,z-rkQ.z};
     }
     //-----------------------------------------------------------------------
-    Quaternion Quaternion::operator* (const Quaternion& rkQ) const
+    auto Quaternion::operator* (const Quaternion& rkQ) const -> Quaternion
     {
         // NOTE:  Multiplication is not generally commutative, so in most
         // cases p*q != q*p.
 
-        return Quaternion
-        (
+        return {
             w * rkQ.w - x * rkQ.x - y * rkQ.y - z * rkQ.z,
             w * rkQ.x + x * rkQ.w + y * rkQ.z - z * rkQ.y,
             w * rkQ.y + y * rkQ.w + z * rkQ.x - x * rkQ.z,
             w * rkQ.z + z * rkQ.w + x * rkQ.y - y * rkQ.x
-        );
+        };
     }
     //-----------------------------------------------------------------------
-    Quaternion Quaternion::Inverse () const
+    auto Quaternion::Inverse () const -> Quaternion
     {
         Real fNorm = w*w+x*x+y*y+z*z;
         if ( fNorm > 0.0 )
         {
             Real fInvNorm = 1.0f/fNorm;
-            return Quaternion(w*fInvNorm,-x*fInvNorm,-y*fInvNorm,-z*fInvNorm);
+            return {w*fInvNorm,-x*fInvNorm,-y*fInvNorm,-z*fInvNorm};
         }
         else
         {
@@ -290,13 +289,13 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    Quaternion Quaternion::UnitInverse () const
+    auto Quaternion::UnitInverse () const -> Quaternion
     {
         // assert:  'this' is unit length
-        return Quaternion(w,-x,-y,-z);
+        return {w,-x,-y,-z};
     }
     //-----------------------------------------------------------------------
-    Quaternion Quaternion::Exp () const
+    auto Quaternion::Exp () const -> Quaternion
     {
         // If q = A*(x*i+y*j+z*k) where (x,y,z) is unit length, then
         // exp(q) = e^w(cos(A)+sin(A)*(x*i+y*j+z*k)).  If sin(A) is near zero,
@@ -326,7 +325,7 @@ namespace Ogre {
         return kResult;
     }
     //-----------------------------------------------------------------------
-    Quaternion Quaternion::Log () const
+    auto Quaternion::Log () const -> Quaternion
     {
         // If q = cos(A)+sin(A)*(x*i+y*j+z*k) where (x,y,z) is unit length, then
         // log(q) = (A/sin(A))*(x*i+y*j+z*k).  If sin(A) is near zero, use
@@ -360,7 +359,7 @@ namespace Ogre {
         return kResult;
     }
     //-----------------------------------------------------------------------
-    Vector3 Quaternion::operator* (const Vector3& v) const
+    auto Quaternion::operator* (const Vector3& v) const -> Vector3
     {
 		// nVidia SDK implementation
 		Vector3 uv, uuv;
@@ -374,8 +373,8 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    Quaternion Quaternion::Slerp (Real fT, const Quaternion& rkP,
-        const Quaternion& rkQ, bool shortestPath)
+    auto Quaternion::Slerp (Real fT, const Quaternion& rkP,
+        const Quaternion& rkQ, bool shortestPath) -> Quaternion
     {
         Real fCos = rkP.Dot(rkQ);
         Quaternion rkT;
@@ -416,8 +415,8 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    Quaternion Quaternion::SlerpExtraSpins (Real fT,
-        const Quaternion& rkP, const Quaternion& rkQ, int iExtraSpins)
+    auto Quaternion::SlerpExtraSpins (Real fT,
+        const Quaternion& rkP, const Quaternion& rkQ, int iExtraSpins) -> Quaternion
     {
         Real fCos = rkP.Dot(rkQ);
         Radian fAngle ( Math::ACos(fCos) );
@@ -450,9 +449,9 @@ namespace Ogre {
         rkB = rkQ1*kMinusArg.Exp();
     }
     //-----------------------------------------------------------------------
-    Quaternion Quaternion::Squad (Real fT,
+    auto Quaternion::Squad (Real fT,
         const Quaternion& rkP, const Quaternion& rkA,
-        const Quaternion& rkB, const Quaternion& rkQ, bool shortestPath)
+        const Quaternion& rkB, const Quaternion& rkQ, bool shortestPath) -> Quaternion
     {
         Real fSlerpT = 2.0f*fT*(1.0f-fT);
         Quaternion kSlerpP = Slerp(fT, rkP, rkQ, shortestPath);
@@ -460,7 +459,7 @@ namespace Ogre {
         return Slerp(fSlerpT, kSlerpP ,kSlerpQ);
     }
     //-----------------------------------------------------------------------
-	Radian Quaternion::getRoll(bool reprojectAxis) const
+	auto Quaternion::getRoll(bool reprojectAxis) const -> Radian
 	{
 		if (reprojectAxis)
 		{
@@ -485,7 +484,7 @@ namespace Ogre {
 		}
 	}
     //-----------------------------------------------------------------------
-	Radian Quaternion::getPitch(bool reprojectAxis) const
+	auto Quaternion::getPitch(bool reprojectAxis) const -> Radian
 	{
 		if (reprojectAxis)
 		{
@@ -509,7 +508,7 @@ namespace Ogre {
 		}
 	}
     //-----------------------------------------------------------------------
-	Radian Quaternion::getYaw(bool reprojectAxis) const
+	auto Quaternion::getYaw(bool reprojectAxis) const -> Radian
 	{
 		if (reprojectAxis)
 		{
@@ -535,8 +534,8 @@ namespace Ogre {
 		}
 	}
     //-----------------------------------------------------------------------
-    Quaternion Quaternion::nlerp(Real fT, const Quaternion& rkP,
-        const Quaternion& rkQ, bool shortestPath)
+    auto Quaternion::nlerp(Real fT, const Quaternion& rkP,
+        const Quaternion& rkQ, bool shortestPath) -> Quaternion
     {
 		Quaternion result;
         Real fCos = rkP.Dot(rkQ);

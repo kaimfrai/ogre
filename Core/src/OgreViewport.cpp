@@ -30,16 +30,16 @@ THE SOFTWARE.
 #include <iomanip>
 #include <iosfwd>
 
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreMaterialManager.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderTarget.h"
-#include "OgreRoot.h"
-#include "OgreVector.h"
-#include "OgreViewport.h"
+#include "OgreCamera.hpp"
+#include "OgreException.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreRoot.hpp"
+#include "OgreVector.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
     OrientationMode Viewport::mDefaultOrientationMode = OR_DEGREE_0;
@@ -54,21 +54,15 @@ namespace Ogre {
         // Actual dimensions will update later
         , mZOrder(ZOrder)
         , mBackColour(ColourValue::Black)
-        , mDepthClearValue(1)
-        , mClearEveryFrame(true)
-        , mClearBuffers(FBT_COLOUR | FBT_DEPTH)
-        , mUpdated(false)
-        , mShowOverlays(true)
-        , mShowSkies(true)
-        , mShowShadows(true)
-        , mVisibilityMask(0xFFFFFFFF)
-        , mMaterialSchemeName(MaterialManager::DEFAULT_SCHEME_NAME)
-        , mIsAutoUpdated(true)
-		, mColourBuffer(CBT_BACK)
+        , 
+         mClearBuffers(FBT_COLOUR | FBT_DEPTH)
+        , 
+         mMaterialSchemeName(MaterialManager::DEFAULT_SCHEME_NAME)
+         
     {           
         LogManager::getSingleton().stream(LML_TRIVIAL)
             << "Creating viewport on target '" << target->getName() << "'"
-            << ", rendering from camera '" << (cam != 0 ? cam->getName() : "NULL") << "'"
+            << ", rendering from camera '" << (cam != nullptr ? cam->getName() : "NULL") << "'"
             << ", relative dimensions " << std::ios::fixed << std::setprecision(2) 
             << "L: " << left << " T: " << top << " W: " << width << " H: " << height
             << " Z-order: " << ZOrder;
@@ -91,29 +85,29 @@ namespace Ogre {
     {
         ListenerList listenersCopy;
         std::swap(mListeners, listenersCopy);
-        for (ListenerList::iterator i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
+        for (auto & i : listenersCopy)
         {
-            (*i)->viewportDestroyed(this);
+            i->viewportDestroyed(this);
         }
 
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
         if ((rs) && (rs->_getViewport() == this))
         {
-            rs->_setViewport(NULL);
+            rs->_setViewport(nullptr);
         }
     }
     //---------------------------------------------------------------------
-    bool Viewport::_isUpdated(void) const
+    auto Viewport::_isUpdated() const -> bool
     {
         return mUpdated;
     }
     //---------------------------------------------------------------------
-    void Viewport::_clearUpdatedFlag(void)
+    void Viewport::_clearUpdatedFlag()
     {
         mUpdated = false;
     }
     //---------------------------------------------------------------------
-    void Viewport::_updateDimensions(void)
+    void Viewport::_updateDimensions()
     {
         Real height = (Real) mTarget->getHeight();
         Real width = (Real) mTarget->getWidth();
@@ -136,69 +130,69 @@ namespace Ogre {
         }
 
         LogManager::getSingleton().stream(LML_TRIVIAL)
-            << "Viewport for camera '" << (mCamera != 0 ? mCamera->getName() : "NULL") << "'"
+            << "Viewport for camera '" << (mCamera != nullptr ? mCamera->getName() : "NULL") << "'"
             << ", actual dimensions "   << std::ios::fixed << std::setprecision(2) 
             << "L: " << mActLeft << " T: " << mActTop << " W: " << mActWidth << " H: " << mActHeight;
 
          mUpdated = true;
 
-        for (ListenerList::iterator i = mListeners.begin(); i != mListeners.end(); ++i)
+        for (auto & mListener : mListeners)
         {
-            (*i)->viewportDimensionsChanged(this);
+            mListener->viewportDimensionsChanged(this);
         }
     }
     //---------------------------------------------------------------------
-    int Viewport::getZOrder(void) const
+    auto Viewport::getZOrder() const -> int
     {
         return mZOrder;
     }
     //---------------------------------------------------------------------
-    RenderTarget* Viewport::getTarget(void) const
+    auto Viewport::getTarget() const -> RenderTarget*
     {
         return mTarget;
     }
     //---------------------------------------------------------------------
-    Camera* Viewport::getCamera(void) const
+    auto Viewport::getCamera() const -> Camera*
     {
         return mCamera;
     }
     //---------------------------------------------------------------------
-    Real Viewport::getLeft(void) const
+    auto Viewport::getLeft() const -> Real
     {
         return mRelLeft;
     }
     //---------------------------------------------------------------------
-    Real Viewport::getTop(void) const
+    auto Viewport::getTop() const -> Real
     {
         return mRelTop;
     }
     //---------------------------------------------------------------------
-    Real Viewport::getWidth(void) const
+    auto Viewport::getWidth() const -> Real
     {
         return mRelWidth;
     }
     //---------------------------------------------------------------------
-    Real Viewport::getHeight(void) const
+    auto Viewport::getHeight() const -> Real
     {
         return mRelHeight;
     }
     //---------------------------------------------------------------------
-    int Viewport::getActualLeft(void) const
+    auto Viewport::getActualLeft() const -> int
     {
         return mActLeft;
     }
     //---------------------------------------------------------------------
-    int Viewport::getActualTop(void) const
+    auto Viewport::getActualTop() const -> int
     {
         return mActTop;
     }
     //---------------------------------------------------------------------
-    int Viewport::getActualWidth(void) const
+    auto Viewport::getActualWidth() const -> int
     {
         return mActWidth;
     }
     //---------------------------------------------------------------------
-    int Viewport::getActualHeight(void) const
+    auto Viewport::getActualHeight() const -> int
     {
         return mActHeight;
     }
@@ -212,7 +206,7 @@ namespace Ogre {
         _updateDimensions();
     }
     //---------------------------------------------------------------------
-    void Viewport::update(void)
+    void Viewport::update()
     {
         if (mCamera)
         {
@@ -230,7 +224,7 @@ namespace Ogre {
                     "Setting Viewport orientation mode is not supported");
     }
     //---------------------------------------------------------------------
-    OrientationMode Viewport::getOrientationMode() const
+    auto Viewport::getOrientationMode() const -> OrientationMode
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Getting Viewport orientation mode is not supported");
@@ -242,7 +236,7 @@ namespace Ogre {
                     "Setting default Viewport orientation mode is not supported");
     }
     //---------------------------------------------------------------------
-    OrientationMode Viewport::getDefaultOrientationMode()
+    auto Viewport::getDefaultOrientationMode() -> OrientationMode
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Getting default Viewport orientation mode is not supported");
@@ -253,7 +247,7 @@ namespace Ogre {
         mBackColour = colour;
     }
     //---------------------------------------------------------------------
-    const ColourValue& Viewport::getBackgroundColour(void) const
+    auto Viewport::getBackgroundColour() const -> const ColourValue&
     {
         return mBackColour;
     }
@@ -263,7 +257,7 @@ namespace Ogre {
         mDepthClearValue = depth;
     }
     //---------------------------------------------------------------------
-    float Viewport::getDepthClear(void) const
+    auto Viewport::getDepthClear() const -> float
     {
         return mDepthClearValue;
     }
@@ -274,12 +268,12 @@ namespace Ogre {
         mClearBuffers = inClear ? inBuffers : 0;
     }
     //---------------------------------------------------------------------
-    bool Viewport::getClearEveryFrame(void) const
+    auto Viewport::getClearEveryFrame() const -> bool
     {
         return mClearEveryFrame;
     }
     //---------------------------------------------------------------------
-    unsigned int Viewport::getClearBuffers(void) const
+    auto Viewport::getClearBuffers() const -> unsigned int
     {
         return mClearBuffers;
     }
@@ -301,27 +295,27 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Rect Viewport::getActualDimensions() const
+    auto Viewport::getActualDimensions() const -> Rect
     {
-        return Rect(mActLeft, mActTop, mActLeft + mActWidth, mActTop + mActHeight);
+        return { mActLeft, mActTop, mActLeft + mActWidth, mActTop + mActHeight };
     }
 
     //---------------------------------------------------------------------
-    unsigned int Viewport::_getNumRenderedFaces(void) const
+    auto Viewport::_getNumRenderedFaces() const -> unsigned int
     {
         return mCamera ? mCamera->_getNumRenderedFaces() : 0;
     }
     //---------------------------------------------------------------------
-    unsigned int Viewport::_getNumRenderedBatches(void) const
+    auto Viewport::_getNumRenderedBatches() const -> unsigned int
     {
         return mCamera ? mCamera->_getNumRenderedBatches() : 0;
     }
     //---------------------------------------------------------------------
     void Viewport::setCamera(Camera* cam)
     {
-        if (cam != NULL && mCamera != NULL && mCamera->getViewport() == this)
+        if (cam != nullptr && mCamera != nullptr && mCamera->getViewport() == this)
         {
-                mCamera->_notifyViewport(NULL);
+                mCamera->_notifyViewport(nullptr);
         }
 
         mCamera = cam;
@@ -336,9 +330,9 @@ namespace Ogre {
             cam->_notifyViewport(this);
         }
 
-        for (ListenerList::iterator i = mListeners.begin(); i != mListeners.end(); ++i)
+        for (auto & mListener : mListeners)
         {
-            (*i)->viewportCameraChanged(this);
+            mListener->viewportCameraChanged(this);
         }
     }
     //---------------------------------------------------------------------
@@ -347,7 +341,7 @@ namespace Ogre {
         mIsAutoUpdated = inAutoUpdated;
     }
     //---------------------------------------------------------------------
-    bool Viewport::isAutoUpdated() const
+    auto Viewport::isAutoUpdated() const -> bool
     {
         return mIsAutoUpdated;
     }
@@ -357,7 +351,7 @@ namespace Ogre {
         mShowOverlays = enabled;
     }
     //---------------------------------------------------------------------
-    bool Viewport::getOverlaysEnabled(void) const
+    auto Viewport::getOverlaysEnabled() const -> bool
     {
         return mShowOverlays;
     }
@@ -367,7 +361,7 @@ namespace Ogre {
         mShowSkies = enabled;
     }
     //---------------------------------------------------------------------
-    bool Viewport::getSkiesEnabled(void) const
+    auto Viewport::getSkiesEnabled() const -> bool
     {
         return mShowSkies;
     }
@@ -377,7 +371,7 @@ namespace Ogre {
         mShowShadows = enabled;
     }
     //---------------------------------------------------------------------
-    bool Viewport::getShadowsEnabled(void) const
+    auto Viewport::getShadowsEnabled() const -> bool
     {
         return mShowShadows;
     }
@@ -421,7 +415,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Viewport::removeListener(Listener* l)
     {
-        ListenerList::iterator i = std::find(mListeners.begin(), mListeners.end(), l);
+        auto i = std::find(mListeners.begin(), mListeners.end(), l);
         if (i != mListeners.end())
             mListeners.erase(i);
     }
@@ -431,7 +425,7 @@ namespace Ogre {
 		mColourBuffer = colourBuffer;
 	}
 	//-----------------------------------------------------------------------
-	ColourBufferType Viewport::getDrawBuffer() const
+	auto Viewport::getDrawBuffer() const -> ColourBufferType
 	{
 		return mColourBuffer;
 	}

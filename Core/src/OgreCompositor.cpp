@@ -30,22 +30,22 @@ THE SOFTWARE.
 #include <set>
 #include <utility>
 
-#include "OgreCompositionTechnique.h"
-#include "OgreCompositor.h"
-#include "OgreCompositorInstance.h"
-#include "OgreException.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreLogManager.h"
-#include "OgrePixelFormat.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderTarget.h"
-#include "OgreRenderTexture.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
-#include "OgreStringConverter.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
+#include "OgreCompositionTechnique.hpp"
+#include "OgreCompositor.hpp"
+#include "OgreCompositorInstance.hpp"
+#include "OgreException.hpp"
+#include "OgreHardwarePixelBuffer.hpp"
+#include "OgreIteratorWrapper.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreRenderTexture.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
 
 namespace Ogre {
 class ResourceManager;
@@ -53,8 +53,8 @@ class ResourceManager;
 //-----------------------------------------------------------------------
 Compositor::Compositor(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual, ManualResourceLoader* loader):
-    Resource(creator, name, handle, group, isManual, loader),
-    mCompilationRequired(true)
+    Resource(creator, name, handle, group, isManual, loader)
+    
 {
 }
 //-----------------------------------------------------------------------
@@ -67,9 +67,9 @@ Compositor::~Compositor()
     unload(); 
 }
 //-----------------------------------------------------------------------
-CompositionTechnique *Compositor::createTechnique()
+auto Compositor::createTechnique() -> CompositionTechnique *
 {
-    CompositionTechnique *t = new CompositionTechnique(this);
+    auto *t = new CompositionTechnique(this);
     mTechniques.push_back(t);
     mCompilationRequired = true;
     return t;
@@ -79,7 +79,7 @@ CompositionTechnique *Compositor::createTechnique()
 void Compositor::removeTechnique(size_t index)
 {
     assert (index < mTechniques.size() && "Index out of bounds.");
-    Techniques::iterator i = mTechniques.begin() + index;
+    auto i = mTechniques.begin() + index;
     delete (*i);
     mTechniques.erase(i);
     mSupportedTechniques.clear();
@@ -99,18 +99,18 @@ void Compositor::removeAllTechniques()
     mCompilationRequired = true;
 }
 //-----------------------------------------------------------------------
-Compositor::TechniqueIterator Compositor::getTechniqueIterator(void)
+auto Compositor::getTechniqueIterator() -> Compositor::TechniqueIterator
 {
-    return TechniqueIterator(mTechniques.begin(), mTechniques.end());
+    return {mTechniques.begin(), mTechniques.end()};
 }
 //-----------------------------------------------------------------------
 
-Compositor::TechniqueIterator Compositor::getSupportedTechniqueIterator(void)
+auto Compositor::getSupportedTechniqueIterator() -> Compositor::TechniqueIterator
 {
-    return TechniqueIterator(mSupportedTechniques.begin(), mSupportedTechniques.end());
+    return {mSupportedTechniques.begin(), mSupportedTechniques.end()};
 }
 //-----------------------------------------------------------------------
-void Compositor::loadImpl(void)
+void Compositor::loadImpl()
 {
     // compile if required
     if (mCompilationRequired)
@@ -119,12 +119,12 @@ void Compositor::loadImpl(void)
     createGlobalTextures();
 }
 //-----------------------------------------------------------------------
-void Compositor::unloadImpl(void)
+void Compositor::unloadImpl()
 {
     freeGlobalTextures();
 }
 //-----------------------------------------------------------------------
-size_t Compositor::calculateSize(void) const
+auto Compositor::calculateSize() const -> size_t
 {
     return 0;
 }
@@ -150,26 +150,26 @@ void Compositor::compile()
     mCompilationRequired = false;
 }
 //---------------------------------------------------------------------
-CompositionTechnique* Compositor::getSupportedTechnique(const String& schemeName)
+auto Compositor::getSupportedTechnique(const String& schemeName) -> CompositionTechnique*
 {
-    for(Techniques::iterator i = mSupportedTechniques.begin(); i != mSupportedTechniques.end(); ++i)
+    for(auto & mSupportedTechnique : mSupportedTechniques)
     {
-        if ((*i)->getSchemeName() == schemeName)
+        if (mSupportedTechnique->getSchemeName() == schemeName)
         {
-            return *i;
+            return mSupportedTechnique;
         }
     }
 
     // didn't find a matching one
-    for(Techniques::iterator i = mSupportedTechniques.begin(); i != mSupportedTechniques.end(); ++i)
+    for(auto & mSupportedTechnique : mSupportedTechniques)
     {
-        if ((*i)->getSchemeName().empty())
+        if (mSupportedTechnique->getSchemeName().empty())
         {
-            return *i;
+            return mSupportedTechnique;
         }
     }
 
-    return 0;
+    return nullptr;
 
 }
 //-----------------------------------------------------------------------
@@ -182,14 +182,14 @@ void Compositor::createGlobalTextures()
     //To make sure that we are consistent, it is demanded that all composition
     //techniques define the same set of global textures.
 
-    typedef std::set<String> StringSet;
+    using StringSet = std::set<String>;
     StringSet globalTextureNames;
 
     //Initialize global textures from first supported technique
     CompositionTechnique* firstTechnique = mSupportedTechniques[0];
 
     const CompositionTechnique::TextureDefinitions& tdefs = firstTechnique->getTextureDefinitions();
-    CompositionTechnique::TextureDefinitions::const_iterator texDefIt = tdefs.begin();
+    auto texDefIt = tdefs.begin();
     for (; texDefIt != tdefs.end(); ++texDefIt)
     {
         CompositionTechnique::TextureDefinition* def = *texDefIt;
@@ -218,7 +218,7 @@ void Compositor::createGlobalTextures()
 
                 // create and bind individual surfaces
                 size_t atch = 0;
-                for (PixelFormatList::iterator p = def->formatList.begin(); 
+                for (auto p = def->formatList.begin(); 
                     p != def->formatList.end(); ++p, ++atch)
                 {
 
@@ -228,7 +228,7 @@ void Compositor::createGlobalTextures()
                     tex = TextureManager::getSingleton().createManual(
                             texname, 
                             ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-                            (uint)def->width, (uint)def->height, 0, *p, TU_RENDERTARGET, 0, 
+                            (uint)def->width, (uint)def->height, 0, *p, TU_RENDERTARGET, nullptr, 
                             def->hwGammaWrite && !PixelUtil::isFloatingPoint(*p), def->fsaa); 
                     
                     RenderTexture* rt = tex->getBuffer()->getRenderTarget();
@@ -256,7 +256,7 @@ void Compositor::createGlobalTextures()
                 tex = TextureManager::getSingleton().createManual(
                     texName, 
                     ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-                    (uint)def->width, (uint)def->height, 0, def->formatList[0], TU_RENDERTARGET, 0,
+                    (uint)def->width, (uint)def->height, 0, def->formatList[0], TU_RENDERTARGET, nullptr,
                     def->hwGammaWrite && !PixelUtil::isFloatingPoint(def->formatList[0]), def->fsaa); 
                 
 
@@ -300,7 +300,7 @@ void Compositor::createGlobalTextures()
 //-----------------------------------------------------------------------
 void Compositor::freeGlobalTextures()
 {
-    GlobalTextureMap::iterator i = mGlobalTextures.begin();
+    auto i = mGlobalTextures.begin();
     while (i != mGlobalTextures.end())
     {
         TextureManager::getSingleton().remove(i->second);
@@ -308,7 +308,7 @@ void Compositor::freeGlobalTextures()
     }
     mGlobalTextures.clear();
 
-    GlobalMRTMap::iterator mrti = mGlobalMRTs.begin();
+    auto mrti = mGlobalMRTs.begin();
     while (mrti != mGlobalMRTs.end())
     {
         // remove MRT
@@ -319,15 +319,15 @@ void Compositor::freeGlobalTextures()
 
 }
 //-----------------------------------------------------------------------
-const String& Compositor::getTextureInstanceName(const String& name, size_t mrtIndex)
+auto Compositor::getTextureInstanceName(const String& name, size_t mrtIndex) -> const String&
 {
     return getTextureInstance(name, mrtIndex)->getName();
 }
 //-----------------------------------------------------------------------       
-const TexturePtr& Compositor::getTextureInstance(const String& name, size_t mrtIndex)
+auto Compositor::getTextureInstance(const String& name, size_t mrtIndex) -> const TexturePtr&
 {
     //Try simple texture
-    GlobalTextureMap::iterator i = mGlobalTextures.find(name);
+    auto i = mGlobalTextures.find(name);
     if(i != mGlobalTextures.end())
     {
         return i->second;
@@ -345,15 +345,15 @@ const TexturePtr& Compositor::getTextureInstance(const String& name, size_t mrtI
         
 }
 //---------------------------------------------------------------------
-RenderTarget* Compositor::getRenderTarget(const String& name, int slice)
+auto Compositor::getRenderTarget(const String& name, int slice) -> RenderTarget*
 {
     // try simple texture
-    GlobalTextureMap::iterator i = mGlobalTextures.find(name);
+    auto i = mGlobalTextures.find(name);
     if(i != mGlobalTextures.end())
         return i->second->getBuffer(slice)->getRenderTarget();
 
     // try MRTs
-    GlobalMRTMap::iterator mi = mGlobalMRTs.find(name);
+    auto mi = mGlobalMRTs.find(name);
     if (mi != mGlobalMRTs.end())
         return mi->second;
     else

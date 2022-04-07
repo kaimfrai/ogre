@@ -27,9 +27,9 @@ THE SOFTWARE.
 */
 #include <cassert>
 
-#include "OgreAlignedAllocator.h"
-#include "OgreBitwise.h"
-#include "OgrePlatform.h"
+#include "OgreAlignedAllocator.hpp"
+#include "OgreBitwise.hpp"
+#include "OgrePlatform.hpp"
 
 /**
 *
@@ -58,11 +58,11 @@ namespace Ogre {
         @par
             On failure, exception will be throw.
     */
-    void* AlignedMemory::allocate(size_t size, size_t alignment)
+    auto AlignedMemory::allocate(size_t size, size_t alignment) -> void*
     {
         assert(0 < alignment && alignment <= 128 && Bitwise::isPO2(alignment));
 
-        unsigned char* p = new unsigned char[size + alignment];
+        auto* p = new unsigned char[size + alignment];
         size_t offset = alignment - (size_t(p) & (alignment-1));
 
         unsigned char* result = p + offset;
@@ -71,16 +71,16 @@ namespace Ogre {
         return result;
     }
     //---------------------------------------------------------------------
-    void* AlignedMemory::allocate(size_t size)
+    auto AlignedMemory::allocate(size_t size) -> void*
     {
-        return allocate(size, OGRE_SIMD_ALIGNMENT);
+        return allocate(size, SIMD_ALIGNMENT);
     }
     //---------------------------------------------------------------------
     void AlignedMemory::deallocate(void* p)
     {
         if (p)
         {
-            unsigned char* mem = (unsigned char*)p;
+            auto* mem = (unsigned char*)p;
             mem = mem - mem[-1];
             delete [] mem;
         }

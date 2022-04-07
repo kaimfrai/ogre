@@ -32,28 +32,28 @@ THE SOFTWARE.
 #include <type_traits>
 #include <vector>
 
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreShaderFFPColour.h"
-#include "OgreShaderFFPLighting.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramManager.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderRenderState.h"
-#include "OgreShaderSubRenderState.h"
-#include "OgreSharedPtr.h"
-#include "OgreString.h"
-#include "OgreStringVector.h"
-#include "OgreTechnique.h"
-#include "OgreVector.h"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreShaderFFPColour.hpp"
+#include "OgreShaderFFPLighting.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramManager.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreShaderRenderState.hpp"
+#include "OgreShaderSubRenderState.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreString.hpp"
+#include "OgreStringVector.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
 class AutoParamDataSource;
@@ -81,9 +81,9 @@ RenderState::~RenderState()
 //-----------------------------------------------------------------------
 void RenderState::reset()
 {
-    for (SubRenderStateListIterator it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
+    for (auto & it : mSubRenderStateList)
     {
-        ShaderGenerator::getSingleton().destroySubRenderState(*it);
+        ShaderGenerator::getSingleton().destroySubRenderState(it);
     }
     mSubRenderStateList.clear();
 }
@@ -95,7 +95,7 @@ void RenderState::setLightCount(const Vector3i& lightCount)
 }
 
 //-----------------------------------------------------------------------
-const Vector3i& RenderState::getLightCount() const
+auto RenderState::getLightCount() const -> const Vector3i&
 {
     return mLightCount;
 }
@@ -106,10 +106,10 @@ void RenderState::addTemplateSubRenderState(SubRenderState* subRenderState)
     bool addSubRenderState = true;
 
     // Go over the current sub render state.
-    for (SubRenderStateListIterator it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
+    for (auto & it : mSubRenderStateList)
     {
         // Case the same instance already exists -> do not add to list.
-        if (*it == subRenderState)
+        if (it == subRenderState)
         {
             addSubRenderState = false;
             break;
@@ -118,9 +118,9 @@ void RenderState::addTemplateSubRenderState(SubRenderState* subRenderState)
         // Case it is different sub render state instance with the same type, use the new sub render state
         // instead of the previous sub render state. This scenario is usually caused by material inheritance, so we use the derived material sub render state
         // and destroy the base sub render state.
-        else if ((*it)->getType() == subRenderState->getType())
+        else if (it->getType() == subRenderState->getType())
         {
-            removeSubRenderState(*it);
+            removeSubRenderState(it);
             break;
         }
     }
@@ -143,7 +143,7 @@ void RenderState::removeSubRenderState(SubRenderState* subRenderState)
 }
 
 //-----------------------------------------------------------------------
-TargetRenderState::TargetRenderState() : mSubRenderStateSortValid(false), mParent(nullptr) {}
+TargetRenderState::TargetRenderState()  = default;
 
 TargetRenderState::~TargetRenderState()
 {
@@ -257,10 +257,8 @@ void TargetRenderState::createCpuPrograms()
     programSet->setCpuProgram(std::unique_ptr<Program>(new Program(GPT_VERTEX_PROGRAM)));
     programSet->setCpuProgram(std::unique_ptr<Program>(new Program(GPT_FRAGMENT_PROGRAM)));
 
-    for (SubRenderStateListIterator it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
+    for (auto srcSubRenderState : mSubRenderStateList)
     {
-        SubRenderState* srcSubRenderState = *it;
-
         if (!srcSubRenderState->createCpuSubPrograms(programSet))
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -270,9 +268,9 @@ void TargetRenderState::createCpuPrograms()
 }
 
 //-----------------------------------------------------------------------
-ProgramSet* TargetRenderState::createProgramSet()
+auto TargetRenderState::createProgramSet() -> ProgramSet*
 {
-    mProgramSet.reset(new ProgramSet);
+    mProgramSet = std::make_unique<ProgramSet>();
 
     return mProgramSet.get();
 }
@@ -281,10 +279,8 @@ ProgramSet* TargetRenderState::createProgramSet()
 void TargetRenderState::updateGpuProgramsParams(Renderable* rend, const Pass* pass, const AutoParamDataSource* source,
                                                 const LightList* pLightList)
 {
-    for (SubRenderStateListIterator it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
+    for (auto curSubRenderState : mSubRenderStateList)
     {
-        SubRenderState* curSubRenderState = *it;
-
         curSubRenderState->updateGpuProgramsParams(rend, pass, source, pLightList);     
     }
 }
@@ -357,7 +353,7 @@ void TargetRenderState::link(const RenderState& templateRS, Pass* srcPass, Pass*
 
 namespace {
     struct CmpSubRenderStates {
-        bool operator()(const SubRenderState* a, const SubRenderState* b) const
+        auto operator()(const SubRenderState* a, const SubRenderState* b) const -> bool
         {
             return a->getExecutionOrder() < b->getExecutionOrder();
         }

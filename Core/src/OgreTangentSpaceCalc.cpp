@@ -29,35 +29,31 @@ THE SOFTWARE.
 #include <map>
 #include <memory>
 
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgreMath.h"
-#include "OgrePlatform.h"
-#include "OgreSharedPtr.h"
-#include "OgreTangentSpaceCalc.h"
-#include "OgreVertexIndexData.h"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMath.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreTangentSpaceCalc.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre
 {
     //---------------------------------------------------------------------
     TangentSpaceCalc::TangentSpaceCalc()
-        : mVData(0)
-        , mSplitMirrored(false)
-        , mSplitRotated(false)
-        , mStoreParityInW(false)
-    {
-    }
+         
+    = default;
 
     //---------------------------------------------------------------------
     void TangentSpaceCalc::clear()
     {
         mIDataList.clear();
         mOpTypes.clear();
-        mVData = 0;
+        mVData = nullptr;
     }
     //---------------------------------------------------------------------
     void TangentSpaceCalc::setVertexData(VertexData* v_in)
@@ -80,9 +76,9 @@ namespace Ogre
         mOpTypes.push_back(op);
     }
     //---------------------------------------------------------------------
-    TangentSpaceCalc::Result TangentSpaceCalc::build(
+    auto TangentSpaceCalc::build(
         VertexElementSemantic targetSemantic,
-        unsigned short sourceTexCoordSet, unsigned short index)
+        unsigned short sourceTexCoordSet, unsigned short index) -> TangentSpaceCalc::Result
     {
         Result res;
 
@@ -120,10 +116,9 @@ namespace Ogre
             VertexBufferBinding* newBindings = HardwareBufferManager::getSingleton().createVertexBufferBinding();
             const VertexBufferBinding::VertexBufferBindingMap& bindmap = 
                 mVData->vertexBufferBinding->getBindings();
-            for (VertexBufferBinding::VertexBufferBindingMap::const_iterator i = 
-                bindmap.begin(); i != bindmap.end(); ++i)
+            for (const auto & i : bindmap)
             {
-                HardwareVertexBufferSharedPtr srcbuf = i->second;
+                HardwareVertexBufferSharedPtr srcbuf = i.second;
                 // Derive vertex count from buffer not vertex data, in case using
                 // the vertexStart option in vertex data
                 size_t newVertexCount = srcbuf->getNumVertices() + vertexSplits.size();
@@ -132,7 +127,7 @@ namespace Ogre
                     HardwareBufferManager::getSingleton().createVertexBuffer(
                     srcbuf->getVertexSize(), newVertexCount, srcbuf->getUsage(), 
                     srcbuf->hasShadowBuffer());
-                newBindings->setBinding(i->first, newBuf);
+                newBindings->setBinding(i.first, newBuf);
 
                 // Copy existing contents (again, entire buffer, not just elements referenced)
                 newBuf->copyData(*(srcbuf.get()), 0, 0, srcbuf->getNumVertices() * srcbuf->getVertexSize(), true);
@@ -140,11 +135,10 @@ namespace Ogre
                 // Split vertices, read / write from new buffer
                 HardwareBufferLockGuard newBufLock(newBuf, HardwareBuffer::HBL_NORMAL);
                 char* pBase = static_cast<char*>(newBufLock.pData);
-                for (VertexSplits::iterator spliti = vertexSplits.begin(); 
-                    spliti != vertexSplits.end(); ++spliti)
+                for (auto & vertexSplit : vertexSplits)
                 {
-                    const char* pSrcBase = pBase + spliti->first * newBuf->getVertexSize();
-                    char* pDstBase = pBase + spliti->second * newBuf->getVertexSize();
+                    const char* pSrcBase = pBase + vertexSplit.first * newBuf->getVertexSize();
+                    char* pDstBase = pBase + vertexSplit.second * newBuf->getVertexSize();
                     memcpy(pDstBase, pSrcBase, newBuf->getVertexSize());
                 }
             }
@@ -159,10 +153,9 @@ namespace Ogre
             // If vertex size requires 32bit index buffer
             if (mVData->vertexCount > 65536)
             {
-                for (size_t i = 0; i < mIDataList.size(); ++i)
+                for (auto idata : mIDataList)
                 {
                     // check index size
-                    IndexData* idata = mIDataList[i];
                     HardwareIndexBufferSharedPtr srcbuf = idata->indexBuffer;
                     if (srcbuf->getType() == HardwareIndexBuffer::IT_16BIT)
                     {
@@ -176,8 +169,8 @@ namespace Ogre
 
                         HardwareBufferLockGuard srcBufLock(srcbuf, HardwareBuffer::HBL_NORMAL);
                         HardwareBufferLockGuard newBufLock(newBuf, HardwareBuffer::HBL_NORMAL);
-                        uint16* pSrcBase = static_cast<uint16*>(srcBufLock.pData);
-                        uint32* pBase = static_cast<uint32*>(newBufLock.pData);
+                        auto* pSrcBase = static_cast<uint16*>(srcBufLock.pData);
+                        auto* pBase = static_cast<uint32*>(newBufLock.pData);
 
                         size_t j = 0;
                         while (j < indexCount)
@@ -220,10 +213,8 @@ namespace Ogre
     {
         // Just run through our complete (possibly augmented) list of vertices
         // Normalise the tangents & binormals
-        for (VertexInfoArray::iterator i = mVertexArray.begin(); i != mVertexArray.end(); ++i)
+        for (auto & v : mVertexArray)
         {
-            VertexInfo& v = *i;
-
             v.tangent.normalise();
             v.binormal.normalise();
 
@@ -246,9 +237,9 @@ namespace Ogre
     void TangentSpaceCalc::processFaces(Result& result)
     {
         // Quick pre-check for triangle strips / fans
-        for (OpTypeList::iterator ot = mOpTypes.begin(); ot != mOpTypes.end(); ++ot)
+        for (auto & mOpType : mOpTypes)
         {
-            if (*ot != RenderOperation::OT_TRIANGLE_LIST)
+            if (mOpType != RenderOperation::OT_TRIANGLE_LIST)
             {
                 // Can't split strips / fans
                 setSplitMirrored(false);
@@ -463,7 +454,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    int TangentSpaceCalc::calculateParity(const Vector3& u, const Vector3& v, const Vector3& n)
+    auto TangentSpaceCalc::calculateParity(const Vector3& u, const Vector3& v, const Vector3& n) -> int
     {
         // Note that this parity is the reverse of what you'd expect - this is
         // because the 'V' texture coordinate is actually left handed
@@ -522,7 +513,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    Real TangentSpaceCalc::calculateAngleWeight(size_t vidx0, size_t vidx1, size_t vidx2)
+    auto TangentSpaceCalc::calculateAngleWeight(size_t vidx0, size_t vidx1, size_t vidx2) -> Real
     {
         const VertexInfo& v0 = mVertexArray[vidx0];
         const VertexInfo& v1 = mVertexArray[vidx1];
@@ -677,7 +668,7 @@ namespace Ogre
         }
 
         HardwareVertexBufferSharedPtr targetBuffer, origBuffer;
-        unsigned char* pSrc = NULL;
+        unsigned char* pSrc = nullptr;
 
         if (needsToBeCreated)
         {
@@ -726,7 +717,7 @@ namespace Ogre
         }
 
 
-        unsigned char* pDest = static_cast<unsigned char*>(
+        auto* pDest = static_cast<unsigned char*>(
             targetBuffer->lock(HardwareBuffer::HBL_DISCARD));
         size_t origVertSize = origBuffer->getVertexSize();
         size_t newVertSize = targetBuffer->getVertexSize();

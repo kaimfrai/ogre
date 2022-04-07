@@ -31,10 +31,10 @@ THE SOFTWARE.
 #include <limits>
 #include <utility>
 
-#include "OgreAnimationState.h"
-#include "OgreException.h"
-#include "OgreIteratorWrapper.h"
-#include "OgreMath.h"
+#include "OgreAnimationState.hpp"
+#include "OgreException.hpp"
+#include "OgreIteratorWrapper.hpp"
+#include "OgreMath.hpp"
 
 
 namespace Ogre 
@@ -42,7 +42,7 @@ namespace Ogre
 
     //---------------------------------------------------------------------
     AnimationState::AnimationState(AnimationStateSet* parent, const AnimationState &rhs)
-        : mBlendMask(0)
+        : mBlendMask(nullptr)
         , mAnimationName(rhs.mAnimationName)
         , mParent(parent)
         , mTimePos(rhs.mTimePos)
@@ -54,11 +54,11 @@ namespace Ogre
         mParent->_notifyDirty();
     }
     //---------------------------------------------------------------------
-    AnimationState::AnimationState(const String& animName, 
+    AnimationState::AnimationState(String  animName, 
         AnimationStateSet *parent, Real timePos, Real length, Real weight, 
         bool enabled)
-        : mBlendMask(0)
-        , mAnimationName(animName)
+        : mBlendMask(nullptr)
+        , mAnimationName(std::move(animName))
         , mParent(parent)
         , mTimePos(timePos)
         , mLength(length)
@@ -69,12 +69,12 @@ namespace Ogre
         mParent->_notifyDirty();
     }
     //---------------------------------------------------------------------
-    const String& AnimationState::getAnimationName() const
+    auto AnimationState::getAnimationName() const -> const String&
     {
         return mAnimationName;
     }
     //---------------------------------------------------------------------
-    Real AnimationState::getTimePosition(void) const
+    auto AnimationState::getTimePosition() const -> Real
     {
         return mTimePos;
     }
@@ -102,7 +102,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    Real AnimationState::getLength() const
+    auto AnimationState::getLength() const -> Real
     {
         return mLength;
     }
@@ -112,7 +112,7 @@ namespace Ogre
         mLength = len;
     }
     //---------------------------------------------------------------------
-    Real AnimationState::getWeight(void) const
+    auto AnimationState::getWeight() const -> Real
     {
         return mWeight;
     }
@@ -130,12 +130,12 @@ namespace Ogre
         setTimePosition(mTimePos + offset);
     }
     //---------------------------------------------------------------------
-    bool AnimationState::hasEnded(void) const
+    auto AnimationState::hasEnded() const -> bool
     {
         return (mTimePos >= mLength && !mLoop);
     }
     //---------------------------------------------------------------------
-    bool AnimationState::getEnabled(void) const
+    auto AnimationState::getEnabled() const -> bool
     {
         return mEnabled;
     }
@@ -146,7 +146,7 @@ namespace Ogre
         mParent->_notifyAnimationStateEnabled(this, enabled);
     }
     //---------------------------------------------------------------------
-    bool AnimationState::operator==(const AnimationState& rhs) const
+    auto AnimationState::operator==(const AnimationState& rhs) const -> bool
     {
         if (mAnimationName == rhs.mAnimationName &&
             mEnabled == rhs.mEnabled &&
@@ -163,7 +163,7 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    bool AnimationState::operator!=(const AnimationState& rhs) const
+    auto AnimationState::operator!=(const AnimationState& rhs) const -> bool
     {
         return !(*this == rhs);
     }
@@ -229,7 +229,7 @@ namespace Ogre
     void AnimationState::destroyBlendMask()
     {
         delete mBlendMask;
-        mBlendMask = 0;
+        mBlendMask = nullptr;
     }
     //---------------------------------------------------------------------
 
@@ -242,18 +242,15 @@ namespace Ogre
     AnimationStateSet::AnimationStateSet(const AnimationStateSet& rhs)
         : mDirtyFrameNumber(std::numeric_limits<unsigned long>::max())
     {
-        for (AnimationStateMap::const_iterator i = rhs.mAnimationStates.begin();
-            i != rhs.mAnimationStates.end(); ++i)
+        for (const auto & mAnimationState : rhs.mAnimationStates)
         {
-            AnimationState* src = i->second;
+            AnimationState* src = mAnimationState.second;
             mAnimationStates[src->getAnimationName()] = new AnimationState(this, *src);
         }
 
         // Clone enabled animation state list
-        for (EnabledAnimationStateList::const_iterator it = rhs.mEnabledAnimationStates.begin();
-            it != rhs.mEnabledAnimationStates.end(); ++it)
+        for (auto src : rhs.mEnabledAnimationStates)
         {
-            const AnimationState* src = *it;
             mEnabledAnimationStates.push_back(getAnimationState(src->getAnimationName()));
         }
     }
@@ -266,7 +263,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void AnimationStateSet::removeAnimationState(const String& name)
     {
-        AnimationStateMap::iterator i = mAnimationStates.find(name);
+        auto i = mAnimationStates.find(name);
         if (i != mAnimationStates.end())
         {
             mEnabledAnimationStates.remove(i->second);
@@ -276,21 +273,20 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    void AnimationStateSet::removeAllAnimationStates(void)
+    void AnimationStateSet::removeAllAnimationStates()
     {
-        for (AnimationStateMap::iterator i = mAnimationStates.begin();
-            i != mAnimationStates.end(); ++i)
+        for (auto & mAnimationState : mAnimationStates)
         {
-            delete i->second;
+            delete mAnimationState.second;
         }
         mAnimationStates.clear();
         mEnabledAnimationStates.clear();
     }
     //---------------------------------------------------------------------
-    AnimationState* AnimationStateSet::createAnimationState(const String& name,  
-        Real timePos, Real length, Real weight, bool enabled)
+    auto AnimationStateSet::createAnimationState(const String& name,  
+        Real timePos, Real length, Real weight, bool enabled) -> AnimationState*
     {
-        AnimationStateMap::iterator i = mAnimationStates.find(name);
+        auto i = mAnimationStates.find(name);
         if (i != mAnimationStates.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
@@ -298,16 +294,16 @@ namespace Ogre
                 "AnimationStateSet::createAnimationState");
         }
 
-        AnimationState* newState = new AnimationState(name, this, timePos, 
+        auto* newState = new AnimationState(name, this, timePos, 
             length, weight, enabled);
         mAnimationStates[name] = newState;
         return newState;
 
     }
     //---------------------------------------------------------------------
-    AnimationState* AnimationStateSet::getAnimationState(const String& name) const
+    auto AnimationStateSet::getAnimationState(const String& name) const -> AnimationState*
     {
-        AnimationStateMap::const_iterator i = mAnimationStates.find(name);
+        auto i = mAnimationStates.find(name);
         if (i == mAnimationStates.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
@@ -317,16 +313,16 @@ namespace Ogre
         return i->second;
     }
     //---------------------------------------------------------------------
-    bool AnimationStateSet::hasAnimationState(const String& name) const
+    auto AnimationStateSet::hasAnimationState(const String& name) const -> bool
     {
         return mAnimationStates.find(name) != mAnimationStates.end();
     }
     //---------------------------------------------------------------------
-    AnimationStateIterator AnimationStateSet::getAnimationStateIterator(void)
+    auto AnimationStateSet::getAnimationStateIterator() -> AnimationStateIterator
     {
         // returned iterator not threadsafe, noted in header
-        return AnimationStateIterator(
-            mAnimationStates.begin(), mAnimationStates.end());
+        return {
+            mAnimationStates.begin(), mAnimationStates.end()};
     }
 
     //---------------------------------------------------------------------
@@ -335,7 +331,7 @@ namespace Ogre
         AnimationStateMap::iterator i, iend;
         iend = target->mAnimationStates.end();
         for (i = target->mAnimationStates.begin(); i != iend; ++i) {
-            AnimationStateMap::const_iterator iother = mAnimationStates.find(i->first);
+            auto iother = mAnimationStates.find(i->first);
             if (iother == mAnimationStates.end()) {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No animation entry found named " + i->first, 
                     "AnimationStateSet::copyMatchingState");
@@ -352,7 +348,7 @@ namespace Ogre
         for (it = mEnabledAnimationStates.begin(); it != itend; ++it)
         {
             const AnimationState* src = *it;
-            AnimationStateMap::const_iterator itarget = target->mAnimationStates.find(src->getAnimationName());
+            auto itarget = target->mAnimationStates.find(src->getAnimationName());
             if (itarget != target->mAnimationStates.end())
             {
                 target->mEnabledAnimationStates.push_back(itarget->second);
@@ -362,7 +358,7 @@ namespace Ogre
         target->mDirtyFrameNumber = mDirtyFrameNumber;
     }
     //---------------------------------------------------------------------
-    void AnimationStateSet::_notifyDirty(void)
+    void AnimationStateSet::_notifyDirty()
     {
         ++mDirtyFrameNumber;
     }

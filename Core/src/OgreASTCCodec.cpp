@@ -29,22 +29,22 @@ THE SOFTWARE.
 #include <cmath>
 #include <cstring>
 
-#include "OgreASTCCodec.h"
-#include "OgreCodec.h"
-#include "OgreCommon.h"
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreImage.h"
-#include "OgreLog.h"
-#include "OgreLogManager.h"
-#include "OgrePlatform.h"
-#include "OgreSharedPtr.h"
+#include "OgreASTCCodec.hpp"
+#include "OgreCodec.hpp"
+#include "OgreCommon.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreImage.hpp"
+#include "OgreLog.hpp"
+#include "OgreLogManager.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreSharedPtr.hpp"
 
 namespace Ogre {
 
     const uint32 ASTC_MAGIC = 0x5CA1AB13;
 
-    typedef struct
+    using ASTCHeader = struct
     {
         uint8 magic[4];
         uint8 blockdim_x;
@@ -53,9 +53,9 @@ namespace Ogre {
         uint8 xsize[3];			// x-size = xsize[0] + xsize[1] + xsize[2]
         uint8 ysize[3];			// x-size, y-size and z-size are given in texels;
         uint8 zsize[3];			// block count is inferred
-    } ASTCHeader;
+    };
 
-    float ASTCCodec::getBitrateForPixelFormat(PixelFormat fmt)
+    auto ASTCCodec::getBitrateForPixelFormat(PixelFormat fmt) -> float
     {
         switch (fmt)
         {
@@ -167,9 +167,9 @@ namespace Ogre {
         }
     }
 	//---------------------------------------------------------------------
-	ASTCCodec* ASTCCodec::msInstance = 0;
+	ASTCCodec* ASTCCodec::msInstance = nullptr;
 	//---------------------------------------------------------------------
-	void ASTCCodec::startup(void)
+	void ASTCCodec::startup()
 	{
 		if (!msInstance)
 		{
@@ -181,13 +181,13 @@ namespace Ogre {
                                               "ASTC codec registering");
 	}
 	//---------------------------------------------------------------------
-	void ASTCCodec::shutdown(void)
+	void ASTCCodec::shutdown()
 	{
 		if(msInstance)
 		{
 			Codec::unregisterCodec(msInstance);
 			delete msInstance;
-			msInstance = 0;
+			msInstance = nullptr;
 		}
 	}
 	//---------------------------------------------------------------------
@@ -196,7 +196,7 @@ namespace Ogre {
     { 
     }
     //---------------------------------------------------------------------
-    ImageCodec::DecodeResult ASTCCodec::decode(const DataStreamPtr& stream) const
+    auto ASTCCodec::decode(const DataStreamPtr& stream) const -> ImageCodec::DecodeResult
     {
         DecodeResult ret;
         ASTCHeader header;
@@ -216,7 +216,7 @@ namespace Ogre {
         int ysize = header.ysize[0] + 256 * header.ysize[1] + 65536 * header.ysize[2];
         int zsize = header.zsize[0] + 256 * header.zsize[1] + 65536 * header.zsize[2];
 
-        ImageData *imgData = new ImageData();
+        auto *imgData = new ImageData();
         imgData->width = xsize;
         imgData->height = ysize;
         imgData->depth = zsize;
@@ -295,12 +295,12 @@ namespace Ogre {
 		return ret;
     }
     //---------------------------------------------------------------------    
-    String ASTCCodec::getType() const 
+    auto ASTCCodec::getType() const -> String 
     {
         return mType;
     }
     //---------------------------------------------------------------------    
-	String ASTCCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const
+	auto ASTCCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String
 	{
 		if (maxbytes >= sizeof(uint32))
 		{
@@ -309,7 +309,7 @@ namespace Ogre {
 			flipEndian(&fileType, sizeof(uint32), 1);
 
 			if (ASTC_MAGIC == fileType)
-				return String("astc");
+				return {"astc"};
 		}
 
         return BLANKSTRING;

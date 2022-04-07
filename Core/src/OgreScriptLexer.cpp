@@ -28,12 +28,12 @@ THE SOFTWARE.
 #include <memory>
 #include <string>
 
-#include "OgreLogManager.h"
-#include "OgreScriptLexer.h"
-#include "OgreString.h"
+#include "OgreLogManager.hpp"
+#include "OgreScriptLexer.hpp"
+#include "OgreString.hpp"
 
 namespace Ogre {
-    ScriptTokenList ScriptLexer::tokenize(const String &str, const String& source)
+    auto ScriptLexer::tokenize(const String &str, const String& source) -> ScriptTokenList
     {
         String error;
         ScriptTokenList ret = _tokenize(str, source.c_str(), error);
@@ -44,7 +44,7 @@ namespace Ogre {
         return ret;
     }
 
-    ScriptTokenList ScriptLexer::_tokenize(const String &str, const char* source, String& error)
+    auto ScriptLexer::_tokenize(const String &str, const char* source, String& error) -> ScriptTokenList
     {
         // State enums
         enum{ READY = 0, COMMENT, MULTICOMMENT, WORD, QUOTE, VAR, POSSIBLECOMMENT };
@@ -159,7 +159,7 @@ namespace Ogre {
                 else
                 {
                     state = WORD;
-                    OGRE_FALLTHROUGH;
+                    [[fallthrough]];
                 }
             case WORD:
                 if(isNewline(c))
@@ -318,12 +318,12 @@ namespace Ogre {
             tokens.push_back(token);
     }
 
-    bool ScriptLexer::isWhitespace(Ogre::String::value_type c)
+    auto ScriptLexer::isWhitespace(Ogre::String::value_type c) -> bool
     {
         return c == ' ' || c == '\r' || c == '\t';
     }
 
-    bool ScriptLexer::isNewline(Ogre::String::value_type c)
+    auto ScriptLexer::isNewline(Ogre::String::value_type c) -> bool
     {
         return c == '\n' || c == '\r';
     }

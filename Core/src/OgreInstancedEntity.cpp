@@ -31,20 +31,20 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreAlignedAllocator.h"
-#include "OgreAnimationState.h"
-#include "OgreCamera.h"
-#include "OgreException.h"
-#include "OgreInstanceBatch.h"
-#include "OgreInstancedEntity.h"
-#include "OgreMath.h"
-#include "OgreMesh.h"
-#include "OgreNameGenerator.h"
-#include "OgreOptimisedUtil.h"
-#include "OgreSharedPtr.h"
-#include "OgreSkeletonInstance.h"
-#include "OgreSphere.h"
-#include "OgreStringConverter.h"
+#include "OgreAlignedAllocator.hpp"
+#include "OgreAnimationState.hpp"
+#include "OgreCamera.hpp"
+#include "OgreException.hpp"
+#include "OgreInstanceBatch.hpp"
+#include "OgreInstancedEntity.hpp"
+#include "OgreMath.hpp"
+#include "OgreMesh.hpp"
+#include "OgreNameGenerator.hpp"
+#include "OgreOptimisedUtil.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSkeletonInstance.hpp"
+#include "OgreSphere.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre
 {
@@ -55,23 +55,17 @@ class AxisAlignedBox;
     InstancedEntity::InstancedEntity( InstanceBatch *batchOwner, uint32 instanceID, InstancedEntity* sharedTransformEntity ) :
                 MovableObject(),
                 mInstanceId( instanceID ),
-                mInUse( false ),
+                
                 mBatchOwner( batchOwner ),
-                mAnimationState( 0 ),
-                mSkeletonInstance( 0 ),
-                mBoneMatrices(0),
-                mBoneWorldMatrices(0),
+                
                 mFrameAnimationLastUpdated(std::numeric_limits<unsigned long>::max() - 1),
-                mSharedTransformEntity( 0 ),
+                
                 mTransformLookupNumber(instanceID),
                 mPosition(Vector3::ZERO),
                 mDerivedLocalPosition(Vector3::ZERO),
                 mOrientation(Quaternion::IDENTITY),
-                mScale(Vector3::UNIT_SCALE),
-                mMaxScaleLocal(1),
-                mNeedTransformUpdate(true),
-                mNeedAnimTransformUpdate(true),
-                mUseLocalTransform(false)
+                mScale(Vector3::UNIT_SCALE)
+                
 
     
     {
@@ -97,7 +91,7 @@ class AxisAlignedBox;
         destroySkeletonInstance();
     }
 
-    bool InstancedEntity::shareTransformWith( InstancedEntity *slave )
+    auto InstancedEntity::shareTransformWith( InstancedEntity *slave ) -> bool
     {
         if( !this->mBatchOwner->_getMeshRef()->hasSkeleton() ||
             !this->mBatchOwner->_getMeshRef()->getSkeleton() ||
@@ -152,8 +146,8 @@ class AxisAlignedBox;
         else
         {
             //Tell the ones sharing skeleton with us to use their own
-            InstancedEntityVec::const_iterator itor = mSharingPartners.begin();
-            InstancedEntityVec::const_iterator end  = mSharingPartners.end();
+            auto itor = mSharingPartners.begin();
+            auto end  = mSharingPartners.end();
             while( itor != end )
             {
                 (*itor)->stopSharingTransformAsSlave( false );
@@ -163,13 +157,13 @@ class AxisAlignedBox;
         }
     }
     //-----------------------------------------------------------------------
-    const String& InstancedEntity::getMovableType(void) const
+    auto InstancedEntity::getMovableType() const -> const String&
     {
         static String sType = "InstancedEntity";
         return sType;
     }
     //-----------------------------------------------------------------------
-    size_t InstancedEntity::getTransforms( Matrix4 *xform ) const
+    auto InstancedEntity::getTransforms( Matrix4 *xform ) const -> size_t
     {
         size_t retVal = 1;
 
@@ -185,8 +179,8 @@ class AxisAlignedBox;
             {
                 Affine3* matrices = mBatchOwner->useBoneWorldMatrices() ? mBoneWorldMatrices : mBoneMatrices;
                 const Mesh::IndexMap *indexMap = mBatchOwner->_getIndexToBoneMap();
-                Mesh::IndexMap::const_iterator itor = indexMap->begin();
-                Mesh::IndexMap::const_iterator end  = indexMap->end();
+                auto itor = indexMap->begin();
+                auto end  = indexMap->end();
 
                 while( itor != end )
                     *xform++ = matrices[*itor++];
@@ -205,7 +199,7 @@ class AxisAlignedBox;
         return retVal;
     }
     //-----------------------------------------------------------------------
-    size_t InstancedEntity::getTransforms3x4( Matrix3x4f *xform ) const
+    auto InstancedEntity::getTransforms3x4( Matrix3x4f *xform ) const -> size_t
     {
         size_t retVal;
         //When not attached, returns zero matrix to avoid rendering this one, not identity
@@ -245,7 +239,7 @@ class AxisAlignedBox;
         return retVal;
     }
     //-----------------------------------------------------------------------
-    bool InstancedEntity::findVisible( Camera *camera ) const
+    auto InstancedEntity::findVisible( Camera *camera ) const -> bool
     {
         //Object is active
         bool retVal = isInScene();
@@ -303,10 +297,10 @@ class AxisAlignedBox;
             ::Ogre::AlignedMemory::deallocate(mBoneMatrices);
             ::Ogre::AlignedMemory::deallocate(mBoneWorldMatrices);
 
-            mSkeletonInstance   = 0;
-            mAnimationState     = 0;
-            mBoneMatrices       = 0;
-            mBoneWorldMatrices  = 0;
+            mSkeletonInstance   = nullptr;
+            mAnimationState     = nullptr;
+            mBoneMatrices       = nullptr;
+            mBoneWorldMatrices  = nullptr;
         }
     }
     //-----------------------------------------------------------------------
@@ -325,19 +319,19 @@ class AxisAlignedBox;
                 mSharedTransformEntity->notifyUnlink( this );
             mBatchOwner->_markTransformSharingDirty();
 
-            mSkeletonInstance   = 0;
-            mAnimationState     = 0;
-            mBoneMatrices       = 0;
-            mBoneWorldMatrices  = 0;
-            mSharedTransformEntity = 0;
+            mSkeletonInstance   = nullptr;
+            mAnimationState     = nullptr;
+            mBoneMatrices       = nullptr;
+            mBoneWorldMatrices  = nullptr;
+            mSharedTransformEntity = nullptr;
         }
     }
     //-----------------------------------------------------------------------
     void InstancedEntity::notifyUnlink( const InstancedEntity *slave )
     {
         //Find the slave and remove it
-        InstancedEntityVec::iterator itor = mSharingPartners.begin();
-        InstancedEntityVec::iterator end  = mSharingPartners.end();
+        auto itor = mSharingPartners.begin();
+        auto end  = mSharingPartners.end();
         while( itor != end )
         {
             if( *itor == slave )
@@ -351,24 +345,24 @@ class AxisAlignedBox;
         }
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& InstancedEntity::getBoundingBox(void) const
+    auto InstancedEntity::getBoundingBox() const -> const AxisAlignedBox&
     {
         //TODO: Add attached objects (TagPoints) to the bbox
         return mBatchOwner->_getMeshReference()->getBounds();
     }
 
     //-----------------------------------------------------------------------
-    Real InstancedEntity::getBoundingRadius(void) const
+    auto InstancedEntity::getBoundingRadius() const -> Real
     {
         return mBatchOwner->_getMeshReference()->getBoundingSphereRadius();
     }
     //-----------------------------------------------------------------------
-    Real InstancedEntity::getSquaredViewDepth( const Camera* cam ) const
+    auto InstancedEntity::getSquaredViewDepth( const Camera* cam ) const -> Real
     {
         return _getDerivedPosition().squaredDistance(cam->getDerivedPosition());
     }
     //-----------------------------------------------------------------------
-    void InstancedEntity::_notifyMoved(void)
+    void InstancedEntity::_notifyMoved()
     {
         markTransformDirty();
         MovableObject::_notifyMoved();
@@ -383,7 +377,7 @@ class AxisAlignedBox;
         updateTransforms();
     }
     //-----------------------------------------------------------------------
-    AnimationState* InstancedEntity::getAnimationState(const String& name) const
+    auto InstancedEntity::getAnimationState(const String& name) const -> AnimationState*
     {
         if (!mAnimationState)
         {
@@ -394,12 +388,12 @@ class AxisAlignedBox;
         return mAnimationState->getAnimationState(name);
     }
     //-----------------------------------------------------------------------
-    AnimationStateSet* InstancedEntity::getAllAnimationStates(void) const
+    auto InstancedEntity::getAllAnimationStates() const -> AnimationStateSet*
     {
         return mAnimationState;
     }
     //-----------------------------------------------------------------------
-    bool InstancedEntity::_updateAnimation(void)
+    auto InstancedEntity::_updateAnimation() -> bool
     {
         if (mSharedTransformEntity)
         {
@@ -475,7 +469,7 @@ class AxisAlignedBox;
     } 
 
     //---------------------------------------------------------------------------
-    Real InstancedEntity::getMaxScaleCoef() const 
+    auto InstancedEntity::getMaxScaleCoef() const -> Real 
     { 
         return mMaxScaleLocal;
     }
@@ -527,7 +521,7 @@ class AxisAlignedBox;
         mBatchOwner->_setCustomParam( this, idx, newParam );
     }
     //---------------------------------------------------------------------------
-    const Vector4& InstancedEntity::getCustomParam( unsigned char idx )
+    auto InstancedEntity::getCustomParam( unsigned char idx ) -> const Vector4&
     {
         return mBatchOwner->_getCustomParam( this, idx );
     }

@@ -27,11 +27,11 @@ THE SOFTWARE.
 */
 #include <gtest/gtest.h>
 
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreVector.h"
+#include "OgreMatrix3.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreVector.hpp"
 
 using namespace Ogre;
 
@@ -190,7 +190,7 @@ TEST(VectorTests, Matrix3QDU)
 //--------------------------------------------------------------------------
 TEST(VectorTests, TransformBaseArrayLoading)
 {
-    typedef TransformBase<3, float> Matrix3x4f;
+    using Matrix3x4f = TransformBase<3, float>;
 
     double arr1[12] = { 0,    1,   2,   3,
                         4,    5,   6,   7,
@@ -224,7 +224,7 @@ TEST(VectorTests, TypeCasts)
     EXPECT_EQ(affine, Affine3::ZERO);
     EXPECT_EQ(matrix, Matrix4::ZERO);
 
-    typedef TransformBase<4, int> Matrix4i; // something that is neither float nor double
+    using Matrix4i = TransformBase<4, int>; // something that is neither float nor double
     Matrix4i imat;
 
     Vector3i vec(1, 2, 3);

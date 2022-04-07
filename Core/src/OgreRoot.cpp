@@ -33,112 +33,104 @@ THE SOFTWARE.
 #include <map>
 #include <memory>
 #include <ostream>
+#include <ranges>
 #include <set>
 #include <string>
 #include <thread>
 #include <utility>
 #include <vector>
 
-#include "OgreASTCCodec.h"
-#include "OgreArchiveFactory.h"
-#include "OgreArchiveManager.h"
-#include "OgreBillboardChain.h"
-#include "OgreBillboardSet.h"
-#include "OgreBuiltinMovableFactories.h"
-#include "OgreCommon.h"
-#include "OgreCompositorManager.h"
-#include "OgreConfigDialog.h"
-#include "OgreConfigFile.h"
-#include "OgreConfigOptionMap.h"
-#include "OgreControllerManager.h"
-#include "OgreConvexBody.h"
-#include "OgreDDSCodec.h"
-#include "OgreDefaultWorkQueueStandard.h"
-#include "OgreDynLib.h"
-#include "OgreDynLibManager.h"
-#include "OgreETCCodec.h"
-#include "OgreEntity.h"
-#include "OgreException.h"
-#include "OgreExternalTextureSourceManager.h"
-#include "OgreFileSystem.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreFrameListener.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreLight.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreLogManager.h"
-#include "OgreManualObject.h"
-#include "OgreMaterialManager.h"
-#include "OgreMath.h"
-#include "OgreMeshManager.h"
-#include "OgreMovableObject.h"
-#include "OgreParticleSystemManager.h"
-#include "OgrePlatform.h"
-#include "OgrePlatformInformation.h"
-#include "OgrePlugin.h"
-#include "OgrePrerequisites.h"
-#include "OgreProfiler.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRenderSystemCapabilitiesManager.h"
-#include "OgreRenderTarget.h"
-#include "OgreRenderWindow.h"
-#include "OgreResourceBackgroundQueue.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRibbonTrail.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneManagerEnumerator.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShadowTextureManager.h"
-#include "OgreShadowVolumeExtrudeProgram.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreSkeletonManager.h"
-#include "OgreStaticGeometry.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringInterface.h"
-#include "OgreStringVector.h"
-#include "OgreTextureManager.h"
-#include "OgreTimer.h"
-#include "OgreWorkQueue.h"
-#include "OgreZip.h"
+#include "OgreASTCCodec.hpp"
+#include "OgreArchiveFactory.hpp"
+#include "OgreArchiveManager.hpp"
+#include "OgreBillboardChain.hpp"
+#include "OgreBillboardSet.hpp"
+#include "OgreBuiltinMovableFactories.hpp"
+#include "OgreCommon.hpp"
+#include "OgreCompositorManager.hpp"
+#include "OgreConfigDialog.hpp"
+#include "OgreConfigFile.hpp"
+#include "OgreConfigOptionMap.hpp"
+#include "OgreControllerManager.hpp"
+#include "OgreConvexBody.hpp"
+#include "OgreDDSCodec.hpp"
+#include "OgreDefaultWorkQueueStandard.hpp"
+#include "OgreDynLib.hpp"
+#include "OgreDynLibManager.hpp"
+#include "OgreETCCodec.hpp"
+#include "OgreEntity.hpp"
+#include "OgreException.hpp"
+#include "OgreExternalTextureSourceManager.hpp"
+#include "OgreFileSystem.hpp"
+#include "OgreFileSystemLayer.hpp"
+#include "OgreFrameListener.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreLight.hpp"
+#include "OgreLodStrategyManager.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreManualObject.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMath.hpp"
+#include "OgreMeshManager.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgreParticleSystemManager.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePlatformInformation.hpp"
+#include "OgrePlugin.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreProfiler.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRenderSystemCapabilitiesManager.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreRenderWindow.hpp"
+#include "OgreResourceBackgroundQueue.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRibbonTrail.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneManagerEnumerator.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShadowTextureManager.hpp"
+#include "OgreShadowVolumeExtrudeProgram.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSingleton.hpp"
+#include "OgreSkeletonManager.hpp"
+#include "OgreStaticGeometry.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringInterface.hpp"
+#include "OgreStringVector.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTimer.hpp"
+#include "OgreWorkQueue.hpp"
+#include "OgreZip.hpp"
 
 namespace Ogre {
     //-----------------------------------------------------------------------
-    template<> Root* Singleton<Root>::msSingleton = 0;
-    Root* Root::getSingletonPtr(void)
+    template<> Root* Singleton<Root>::msSingleton = nullptr;
+    auto Root::getSingletonPtr() -> Root*
     {
         return msSingleton;
     }
-    Root& Root::getSingleton(void)
+    auto Root::getSingleton() -> Root&
     {
         assert( msSingleton );  return ( *msSingleton );
     }
 
-    typedef void (*DLL_START_PLUGIN)(void);
-    typedef void (*DLL_STOP_PLUGIN)(void);
+    using DLL_START_PLUGIN = void (*)();
+    using DLL_STOP_PLUGIN = void (*)();
 
     //-----------------------------------------------------------------------
     Root::Root(const String& pluginFileName, const String& configFileName,
         const String& logFileName)
-      : mQueuedEnd(false)
-      , mCurrentSceneManager(NULL)
-      , mNextFrame(0)
-      , mFrameSmoothingTime(0.0f)
-      , mRemoveQueueStructuresOnClear(false)
-      , mDefaultMinPixelSize(0)
-      , mNextMovableObjectTypeFlag(1)
-      , mIsInitialised(false)
-      , mIsBlendIndicesGpuRedundant(true)
-      , mIsBlendWeightsGpuRedundant(true)
+       
     {
         // superclass will do singleton checking
 
         // Init
-        mActiveRenderer = 0;
+        mActiveRenderer = nullptr;
         mVersion = StringConverter::toString(/*OGRE_VERSION_MAJOR*/13) + "." +
             StringConverter::toString(/*OGRE_VERSION_MINOR*/3) + "." +
             StringConverter::toString(/*OGRE_VERSION_PATCH*/3) +
@@ -149,17 +141,17 @@ namespace Ogre {
         // Create log manager and default log file if there is no log manager yet
         if(!LogManager::getSingletonPtr())
         {
-            mLogManager.reset(new LogManager());
+            mLogManager = std::make_unique<LogManager>();
 
             mLogManager->createLog(logFileName, true, true);
         }
 
-        mDynLibManager.reset(new DynLibManager());
-        mArchiveManager.reset(new ArchiveManager());
-        mResourceGroupManager.reset(new ResourceGroupManager());
+        mDynLibManager = std::make_unique<DynLibManager>();
+        mArchiveManager = std::make_unique<ArchiveManager>();
+        mResourceGroupManager = std::make_unique<ResourceGroupManager>();
 
         // WorkQueue (note: users can replace this if they want)
-        DefaultWorkQueue* defaultQ = new DefaultWorkQueue("Root");
+        auto* defaultQ = new DefaultWorkQueue("Root");
         // never process responses in main thread for longer than 10ms by default
         defaultQ->setResponseProcessingTimeLimit(10);
         // match threads to hardware
@@ -173,29 +165,29 @@ namespace Ogre {
         mWorkQueue.reset(defaultQ);
 
         // ResourceBackgroundQueue
-        mResourceBackgroundQueue.reset(new ResourceBackgroundQueue());
+        mResourceBackgroundQueue = std::make_unique<ResourceBackgroundQueue>();
 
         // Create SceneManager enumerator (note - will be managed by singleton)
-        mSceneManagerEnum.reset(new SceneManagerEnumerator());
-        mShadowTextureManager.reset(new ShadowTextureManager());
-        mRenderSystemCapabilitiesManager.reset(new RenderSystemCapabilitiesManager());
-        mMaterialManager.reset(new MaterialManager());
-        mMeshManager.reset(new MeshManager());
-        mSkeletonManager.reset(new SkeletonManager());
-        mParticleManager.reset(new ParticleSystemManager());
-        mTimer.reset(new Timer());
-        mLodStrategyManager.reset(new LodStrategyManager());
+        mSceneManagerEnum = std::make_unique<SceneManagerEnumerator>();
+        mShadowTextureManager = std::make_unique<ShadowTextureManager>();
+        mRenderSystemCapabilitiesManager = std::make_unique<RenderSystemCapabilitiesManager>();
+        mMaterialManager = std::make_unique<MaterialManager>();
+        mMeshManager = std::make_unique<MeshManager>();
+        mSkeletonManager = std::make_unique<SkeletonManager>();
+        mParticleManager = std::make_unique<ParticleSystemManager>();
+        mTimer = std::make_unique<Timer>();
+        mLodStrategyManager = std::make_unique<LodStrategyManager>();
 
         // Profiler
-        mProfiler.reset(new Profiler());
+        mProfiler = std::make_unique<Profiler>();
         Profiler::getSingleton().setTimer(mTimer.get());
 
-        mFileSystemArchiveFactory.reset(new FileSystemArchiveFactory());
+        mFileSystemArchiveFactory = std::make_unique<FileSystemArchiveFactory>();
         ArchiveManager::getSingleton().addArchiveFactory( mFileSystemArchiveFactory.get() );
 
-        mZipArchiveFactory.reset(new ZipArchiveFactory());
+        mZipArchiveFactory = std::make_unique<ZipArchiveFactory>();
         ArchiveManager::getSingleton().addArchiveFactory( mZipArchiveFactory.get() );
-        mEmbeddedZipArchiveFactory.reset(new EmbeddedZipArchiveFactory());
+        mEmbeddedZipArchiveFactory = std::make_unique<EmbeddedZipArchiveFactory>();
         ArchiveManager::getSingleton().addArchiveFactory( mEmbeddedZipArchiveFactory.get() );
 
         // Register image codecs
@@ -203,30 +195,30 @@ namespace Ogre {
         ETCCodec::startup();
         ASTCCodec::startup();
 
-        mGpuProgramManager.reset(new GpuProgramManager());
-        mExternalTextureSourceManager.reset(new ExternalTextureSourceManager());
-        mCompositorManager.reset(new CompositorManager());
-        mCompilerManager.reset(new ScriptCompilerManager());
+        mGpuProgramManager = std::make_unique<GpuProgramManager>();
+        mExternalTextureSourceManager = std::make_unique<ExternalTextureSourceManager>();
+        mCompositorManager = std::make_unique<CompositorManager>();
+        mCompilerManager = std::make_unique<ScriptCompilerManager>();
 
         // Auto window
-        mAutoWindow = 0;
+        mAutoWindow = nullptr;
 
         // instantiate and register base movable factories
-        mEntityFactory.reset(new EntityFactory());
+        mEntityFactory = std::make_unique<EntityFactory>();
         addMovableObjectFactory(mEntityFactory.get());
-        mLightFactory.reset(new LightFactory());
+        mLightFactory = std::make_unique<LightFactory>();
         addMovableObjectFactory(mLightFactory.get());
-        mBillboardSetFactory.reset(new BillboardSetFactory());
+        mBillboardSetFactory = std::make_unique<BillboardSetFactory>();
         addMovableObjectFactory(mBillboardSetFactory.get());
-        mManualObjectFactory.reset(new ManualObjectFactory());
+        mManualObjectFactory = std::make_unique<ManualObjectFactory>();
         addMovableObjectFactory(mManualObjectFactory.get());
-        mBillboardChainFactory.reset(new BillboardChainFactory());
+        mBillboardChainFactory = std::make_unique<BillboardChainFactory>();
         addMovableObjectFactory(mBillboardChainFactory.get());
-        mRibbonTrailFactory.reset(new RibbonTrailFactory());
+        mRibbonTrailFactory = std::make_unique<RibbonTrailFactory>();
         addMovableObjectFactory(mRibbonTrailFactory.get());
-        mStaticGeometryFactory.reset(new StaticGeometryFactory());
+        mStaticGeometryFactory = std::make_unique<StaticGeometryFactory>();
         addMovableObjectFactory(mStaticGeometryFactory.get());
-        mRectangle2DFactory.reset(new Rectangle2DFactory());
+        mRectangle2DFactory = std::make_unique<Rectangle2DFactory>();
         addMovableObjectFactory(mRectangle2DFactory.get());
 
         // Load plugins
@@ -237,7 +229,7 @@ namespace Ogre {
         LogManager::getSingleton().logMessage("*-*-* Version " + mVersion);
 
         // Can't create managers until initialised
-        mControllerManager = 0;
+        mControllerManager = nullptr;
 
         mFirstTimePostWindowInit = false;
     }
@@ -256,13 +248,13 @@ namespace Ogre {
         mGpuProgramManager.reset(); // may use plugins
         unloadPlugins();
 
-        mAutoWindow = 0;
+        mAutoWindow = nullptr;
 
         StringInterface::cleanupDictionary();
     }
 
     //-----------------------------------------------------------------------
-    void Root::saveConfig(void)
+    void Root::saveConfig()
     {
         if (mConfigFileName.empty())
             return;
@@ -282,15 +274,14 @@ namespace Ogre {
             of << "Render System=" << std::endl;
         }
 
-        for (RenderSystemList::const_iterator pRend = getAvailableRenderers().begin(); pRend != getAvailableRenderers().end(); ++pRend)
+        for (auto rs : getAvailableRenderers())
         {
-            RenderSystem* rs = *pRend;
             of << std::endl;
             of << "[" << rs->getName() << "]" << std::endl;
             const ConfigOptionMap& opts = rs->getConfigOptions();
-            for (ConfigOptionMap::const_iterator pOpt = opts.begin(); pOpt != opts.end(); ++pOpt)
+            for (const auto & opt : opts)
             {
-                of << pOpt->first << "=" << pOpt->second.currentValue << std::endl;
+                of << opt.first << "=" << opt.second.currentValue << std::endl;
             }
         }
 
@@ -298,7 +289,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    bool Root::restoreConfig(void)
+    auto Root::restoreConfig() -> bool
     {
         if (mConfigFileName.empty ())
             return true;
@@ -364,7 +355,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    bool Root::showConfigDialog(ConfigDialog* dialog) {
+    auto Root::showConfigDialog(ConfigDialog* dialog) -> bool {
         if(dialog) {
             if(!mActiveRenderer)
                 restoreConfig();
@@ -388,7 +379,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const RenderSystemList& Root::getAvailableRenderers(void)
+    auto Root::getAvailableRenderers() -> const RenderSystemList&
     {
         // Returns a vector of renders
 
@@ -397,12 +388,12 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    RenderSystem* Root::getRenderSystemByName(const String& name)
+    auto Root::getRenderSystemByName(const String& name) -> RenderSystem*
     {
         if (name.empty())
         {
             // No render system
-            return NULL;
+            return nullptr;
         }
 
         RenderSystemList::const_iterator pRend;
@@ -414,7 +405,7 @@ namespace Ogre {
         }
 
         // Unrecognised render system
-        return NULL;
+        return nullptr;
     }
 
     //-----------------------------------------------------------------------
@@ -445,7 +436,7 @@ namespace Ogre {
         mRenderers.push_back(newRend);
     }
     //-----------------------------------------------------------------------
-    RenderSystem* Root::getRenderSystem(void)
+    auto Root::getRenderSystem() -> RenderSystem*
     {
         // Gets the currently active renderer
         return mActiveRenderer;
@@ -453,12 +444,12 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    RenderWindow* Root::initialise(bool autoCreateWindow, const String& windowTitle, const String& customCapabilitiesConfig)
+    auto Root::initialise(bool autoCreateWindow, const String& windowTitle, const String& customCapabilitiesConfig) -> RenderWindow*
     {
         OgreAssert(mActiveRenderer, "Cannot initialise");
 
         if (!mControllerManager)
-            mControllerManager.reset(new ControllerManager());
+            mControllerManager = std::make_unique<ControllerManager>();
 
         // .rendercaps manager
         RenderSystemCapabilitiesManager& rscManager = RenderSystemCapabilitiesManager::getSingleton();
@@ -471,11 +462,11 @@ namespace Ogre {
             // Capabilities Database setting must be in the same format as
             // resources.cfg in Ogre examples.
             const ConfigFile::SettingsMultiMap& dbs = cfg.getSettings("Capabilities Database");
-            for(ConfigFile::SettingsMultiMap::const_iterator it = dbs.begin(); it != dbs.end(); ++it)
+            for(const auto & db : dbs)
             {
-                const String& archType = it->first;
+                const String& archType = db.first;
 
-                String filename = it->second;
+                String filename = db.second;
 
                 rscManager.parseCapabilitiesFromArchive(filename, archType, true);
             }
@@ -483,7 +474,7 @@ namespace Ogre {
             String capsName = cfg.getSetting("Custom Capabilities");
             // The custom capabilities have been parsed, let's retrieve them
             RenderSystemCapabilities* rsc = rscManager.loadParsedCapabilities(capsName);
-            if(rsc == 0)
+            if(rsc == nullptr)
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
                     String("Cannot load a RenderSystemCapability named ") + capsName,
@@ -532,20 +523,20 @@ namespace Ogre {
         mSceneManagerEnum->removeFactory(fact);
     }
     //-----------------------------------------------------------------------
-    const SceneManagerMetaData* Root::getSceneManagerMetaData(const String& typeName) const
+    auto Root::getSceneManagerMetaData(const String& typeName) const -> const SceneManagerMetaData*
     {
         return mSceneManagerEnum->getMetaData(typeName);
     }
 
     //-----------------------------------------------------------------------
-    const SceneManagerEnumerator::MetaDataList&
-    Root::getSceneManagerMetaData(void) const
+    auto
+    Root::getSceneManagerMetaData() const -> const SceneManagerEnumerator::MetaDataList&
     {
         return mSceneManagerEnum->getMetaData();
     }
     //-----------------------------------------------------------------------
-    SceneManager* Root::createSceneManager(const String& typeName,
-        const String& instanceName)
+    auto Root::createSceneManager(const String& typeName,
+        const String& instanceName) -> SceneManager*
     {
         return mSceneManagerEnum->createSceneManager(typeName, instanceName);
     }
@@ -555,28 +546,28 @@ namespace Ogre {
         mSceneManagerEnum->destroySceneManager(sm);
     }
     //-----------------------------------------------------------------------
-    SceneManager* Root::getSceneManager(const String& instanceName) const
+    auto Root::getSceneManager(const String& instanceName) const -> SceneManager*
     {
         return mSceneManagerEnum->getSceneManager(instanceName);
     }
     //---------------------------------------------------------------------
-    bool Root::hasSceneManager(const String& instanceName) const
+    auto Root::hasSceneManager(const String& instanceName) const -> bool
     {
         return mSceneManagerEnum->hasSceneManager(instanceName);
     }
 
     //-----------------------------------------------------------------------
-    const SceneManagerEnumerator::Instances& Root::getSceneManagers(void) const
+    auto Root::getSceneManagers() const -> const SceneManagerEnumerator::Instances&
     {
         return mSceneManagerEnum->getSceneManagers();
     }
     //-----------------------------------------------------------------------
-    TextureManager* Root::getTextureManager(void)
+    auto Root::getTextureManager() -> TextureManager*
     {
         return &TextureManager::getSingleton();
     }
     //-----------------------------------------------------------------------
-    MeshManager* Root::getMeshManager(void)
+    auto Root::getMeshManager() -> MeshManager*
     {
         return &MeshManager::getSingleton();
     }
@@ -595,63 +586,63 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Root::_syncAddedRemovedFrameListeners()
     {
-        for (std::set<FrameListener*>::iterator i = mRemovedFrameListeners.begin(); i != mRemovedFrameListeners.end(); ++i)
-            mFrameListeners.erase(*i);
+        for (auto mRemovedFrameListener : mRemovedFrameListeners)
+            mFrameListeners.erase(mRemovedFrameListener);
         mRemovedFrameListeners.clear();
 
-        for (std::set<FrameListener*>::iterator i = mAddedFrameListeners.begin(); i != mAddedFrameListeners.end(); ++i)
-            mFrameListeners.insert(*i);
+        for (auto mAddedFrameListener : mAddedFrameListeners)
+            mFrameListeners.insert(mAddedFrameListener);
         mAddedFrameListeners.clear();
     }
     //-----------------------------------------------------------------------
-    bool Root::_fireFrameStarted(FrameEvent& evt)
+    auto Root::_fireFrameStarted(FrameEvent& evt) -> bool
     {
         _syncAddedRemovedFrameListeners();
 
         // Tell all listeners
-        for (std::set<FrameListener*>::iterator i = mFrameListeners.begin(); i != mFrameListeners.end(); ++i)
+        for (auto mFrameListener : mFrameListeners)
         {
-            if(mRemovedFrameListeners.find(*i) != mRemovedFrameListeners.end())
+            if(mRemovedFrameListeners.find(mFrameListener) != mRemovedFrameListeners.end())
                 continue;
 
-            if (!(*i)->frameStarted(evt))
+            if (!mFrameListener->frameStarted(evt))
                 return false;
         }
 
         return true;
     }
     //-----------------------------------------------------------------------
-    bool Root::_fireFrameRenderingQueued(FrameEvent& evt)
+    auto Root::_fireFrameRenderingQueued(FrameEvent& evt) -> bool
     {
         // Increment next frame number
         ++mNextFrame;
         _syncAddedRemovedFrameListeners();
 
         // Tell all listeners
-        for (std::set<FrameListener*>::iterator i = mFrameListeners.begin(); i != mFrameListeners.end(); ++i)
+        for (auto mFrameListener : mFrameListeners)
         {
-            if(mRemovedFrameListeners.find(*i) != mRemovedFrameListeners.end())
+            if(mRemovedFrameListeners.find(mFrameListener) != mRemovedFrameListeners.end())
                 continue;
 
-            if (!(*i)->frameRenderingQueued(evt))
+            if (!mFrameListener->frameRenderingQueued(evt))
                 return false;
         }
 
         return true;
     }
     //-----------------------------------------------------------------------
-    bool Root::_fireFrameEnded(FrameEvent& evt)
+    auto Root::_fireFrameEnded(FrameEvent& evt) -> bool
     {
         _syncAddedRemovedFrameListeners();
 
         // Tell all listeners
         bool ret = true;
-        for (std::set<FrameListener*>::iterator i = mFrameListeners.begin(); i != mFrameListeners.end(); ++i)
+        for (auto mFrameListener : mFrameListeners)
         {
-            if(mRemovedFrameListeners.find(*i) != mRemovedFrameListeners.end())
+            if(mRemovedFrameListeners.find(mFrameListener) != mRemovedFrameListeners.end())
                 continue;
 
-            if (!(*i)->frameEnded(evt))
+            if (!mFrameListener->frameEnded(evt))
             {
                 ret = false;
                 break;
@@ -668,7 +659,7 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    bool Root::_fireFrameStarted()
+    auto Root::_fireFrameStarted() -> bool
     {
         FrameEvent evt;
         populateFrameEvent(FETT_STARTED, evt);
@@ -676,7 +667,7 @@ namespace Ogre {
         return _fireFrameStarted(evt);
     }
     //-----------------------------------------------------------------------
-    bool Root::_fireFrameRenderingQueued()
+    auto Root::_fireFrameRenderingQueued() -> bool
     {
         FrameEvent evt;
         populateFrameEvent(FETT_QUEUED, evt);
@@ -684,7 +675,7 @@ namespace Ogre {
         return _fireFrameRenderingQueued(evt);
     }
     //-----------------------------------------------------------------------
-    bool Root::_fireFrameEnded()
+    auto Root::_fireFrameEnded() -> bool
     {
         FrameEvent evt;
         populateFrameEvent(FETT_ENDED, evt);
@@ -698,7 +689,7 @@ namespace Ogre {
         evtToUpdate.timeSinceLastFrame = calculateEventTime(now, type);
     }
     //-----------------------------------------------------------------------
-    Real Root::calculateEventTime(unsigned long now, FrameEventTimeType type)
+    auto Root::calculateEventTime(unsigned long now, FrameEventTimeType type) -> Real
     {
         // Calculate the average time passed between events of the given type
         // during the last mFrameSmoothingTime seconds.
@@ -710,11 +701,11 @@ namespace Ogre {
             return 0;
 
         // Times up to mFrameSmoothingTime seconds old should be kept
-        unsigned long discardThreshold =
+        auto discardThreshold =
             static_cast<unsigned long>(mFrameSmoothingTime * 1000.0f);
 
         // Find the oldest time to keep
-        EventTimesQueue::iterator it = times.begin(),
+        auto it = times.begin(),
             end = times.end()-2; // We need at least two times
         while(it != end)
         {
@@ -735,12 +726,12 @@ namespace Ogre {
         mQueuedEnd = state;
     }
     //-----------------------------------------------------------------------
-    bool Root::endRenderingQueued(void)
+    auto Root::endRenderingQueued() -> bool
     {
         return mQueuedEnd;
     }
     //-----------------------------------------------------------------------
-    void Root::startRendering(void)
+    void Root::startRendering()
     {
         OgreAssert(mActiveRenderer, "no RenderSystem");
 
@@ -763,7 +754,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool Root::renderOneFrame(void)
+    auto Root::renderOneFrame() -> bool
     {
         if(!_fireFrameStarted())
             return false;
@@ -774,7 +765,7 @@ namespace Ogre {
         return _fireFrameEnded();
     }
     //---------------------------------------------------------------------
-    bool Root::renderOneFrame(Real timeSinceLastFrame)
+    auto Root::renderOneFrame(Real timeSinceLastFrame) -> bool
     {
         FrameEvent evt;
         evt.timeSinceLastFrame = timeSinceLastFrame;
@@ -794,10 +785,10 @@ namespace Ogre {
         return _fireFrameEnded(evt);
     }
     //-----------------------------------------------------------------------
-    void Root::shutdown(void)
+    void Root::shutdown()
     {
         if(mActiveRenderer)
-            mActiveRenderer->_setViewport(NULL);
+            mActiveRenderer->_setViewport(nullptr);
 
         // Since background thread might be access resources,
         // ensure shutdown before destroying resource manager.
@@ -868,60 +859,60 @@ namespace Ogre {
             pluginDir += "/";
         }
 
-        for( StringVector::iterator it = pluginList.begin(); it != pluginList.end(); ++it )
+        for(auto & it : pluginList)
         {
-            loadPlugin(pluginDir + (*it));
+            loadPlugin(pluginDir + it);
         }
 
     }
     //-----------------------------------------------------------------------
-    void Root::shutdownPlugins(void)
+    void Root::shutdownPlugins()
     {
         // NB Shutdown plugins in reverse order to enforce dependencies
-        for (PluginInstanceList::reverse_iterator i = mPlugins.rbegin(); i != mPlugins.rend(); ++i)
+        for (auto & mPlugin : std::ranges::reverse_view(mPlugins))
         {
-            (*i)->shutdown();
+            mPlugin->shutdown();
         }
     }
     //-----------------------------------------------------------------------
-    void Root::initialisePlugins(void)
+    void Root::initialisePlugins()
     {
-        for (PluginInstanceList::iterator i = mPlugins.begin(); i != mPlugins.end(); ++i)
+        for (auto & mPlugin : mPlugins)
         {
-            (*i)->initialise();
+            mPlugin->initialise();
         }
     }
     //-----------------------------------------------------------------------
-    void Root::unloadPlugins(void)
+    void Root::unloadPlugins()
     {
         // unload dynamic libs first
-        for (PluginLibList::reverse_iterator i = mPluginLibs.rbegin(); i != mPluginLibs.rend(); ++i)
+        for (auto & mPluginLib : std::ranges::reverse_view(mPluginLibs))
         {
             // Call plugin shutdown
             #ifdef __GNUC__
             __extension__
             #endif
-            DLL_STOP_PLUGIN pFunc = reinterpret_cast<DLL_STOP_PLUGIN>((*i)->getSymbol("dllStopPlugin"));
+            DLL_STOP_PLUGIN pFunc = reinterpret_cast<DLL_STOP_PLUGIN>(mPluginLib->getSymbol("dllStopPlugin"));
             // this will call uninstallPlugin
             pFunc();
             // Unload library & destroy
-            DynLibManager::getSingleton().unload(*i);
+            DynLibManager::getSingleton().unload(mPluginLib);
 
         }
         mPluginLibs.clear();
 
         // now deal with any remaining plugins that were registered through other means
-        for (PluginInstanceList::reverse_iterator i = mPlugins.rbegin(); i != mPlugins.rend(); ++i)
+        for (auto & mPlugin : std::ranges::reverse_view(mPlugins))
         {
             // Note this does NOT call uninstallPlugin - this shutdown is for the
             // detail objects
-            (*i)->uninstall();
+            mPlugin->uninstall();
         }
         mPlugins.clear();
     }
     //---------------------------------------------------------------------
-    DataStreamPtr Root::createFileStream(const String& filename, const String& groupName,
-        bool overwrite, const String& locationPattern)
+    auto Root::createFileStream(const String& filename, const String& groupName,
+        bool overwrite, const String& locationPattern) -> DataStreamPtr
     {
         // Does this file include path specifiers?
         String path, basename;
@@ -950,22 +941,22 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    DataStreamPtr Root::openFileStream(const String& filename, const String& groupName)
+    auto Root::openFileStream(const String& filename, const String& groupName) -> DataStreamPtr
     {
-        auto ret = ResourceGroupManager::getSingleton().openResource(filename, groupName, NULL, false);
+        auto ret = ResourceGroupManager::getSingleton().openResource(filename, groupName, nullptr, false);
         if(ret)
             return ret;
 
         return _openFileStream(filename, std::ios::in | std::ios::binary);
     }
     //-----------------------------------------------------------------------
-    RenderWindow* Root::getAutoCreatedWindow(void)
+    auto Root::getAutoCreatedWindow() -> RenderWindow*
     {
         return mAutoWindow;
     }
     //-----------------------------------------------------------------------
-    RenderWindow* Root::createRenderWindow(const String &name, unsigned int width, unsigned int height,
-            bool fullScreen, const NameValuePairList *miscParams)
+    auto Root::createRenderWindow(const String &name, unsigned int width, unsigned int height,
+            bool fullScreen, const NameValuePairList *miscParams) -> RenderWindow*
     {
         OgreAssert(mIsInitialised,
                    "Cannot create window! Make sure to call Root::initialise before creating a window");
@@ -985,13 +976,13 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    RenderTarget* Root::detachRenderTarget(RenderTarget* target)
+    auto Root::detachRenderTarget(RenderTarget* target) -> RenderTarget*
     {
         OgreAssert(mActiveRenderer, "Cannot detach target");
         return mActiveRenderer->detachRenderTarget( target->getName() );
     }
     //-----------------------------------------------------------------------
-    RenderTarget* Root::detachRenderTarget(const String &name)
+    auto Root::detachRenderTarget(const String &name) -> RenderTarget*
     {
         OgreAssert(mActiveRenderer, "Cannot detach target");
         return mActiveRenderer->detachRenderTarget( name );
@@ -1009,7 +1000,7 @@ namespace Ogre {
         destroyRenderTarget(target);
     }
     //-----------------------------------------------------------------------
-    RenderTarget* Root::getRenderTarget(const String &name)
+    auto Root::getRenderTarget(const String &name) -> RenderTarget*
     {
         OgreAssert(mActiveRenderer, "Cannot get target");
         return mActiveRenderer->getRenderTarget(name);
@@ -1034,7 +1025,7 @@ namespace Ogre {
     void Root::uninstallPlugin(Plugin* plugin)
     {
         LogManager::getSingleton().logMessage("Uninstalling plugin: " + plugin->getName());
-        PluginInstanceList::iterator i =
+        auto i =
             std::find(mPlugins.begin(), mPlugins.end(), plugin);
         if (i != mPlugins.end())
         {
@@ -1056,12 +1047,12 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    Timer* Root::getTimer(void)
+    auto Root::getTimer() -> Timer*
     {
         return mTimer.get();
     }
     //-----------------------------------------------------------------------
-    void Root::oneTimePostWindowInit(void)
+    void Root::oneTimePostWindowInit()
     {
         // log RenderSystem caps
         mActiveRenderer->getCapabilities()->log(LogManager::getSingleton().getDefaultLog());
@@ -1080,7 +1071,7 @@ namespace Ogre {
         mFirstTimePostWindowInit = true;
     }
     //-----------------------------------------------------------------------
-    bool Root::_updateAllRenderTargets(void)
+    auto Root::_updateAllRenderTargets() -> bool
     {
         // update all targets but don't swap buffers
         mActiveRenderer->_updateAllRenderTargets(false);
@@ -1099,7 +1090,7 @@ namespace Ogre {
         return ret;
     }
     //---------------------------------------------------------------------
-    bool Root::_updateAllRenderTargets(FrameEvent& evt)
+    auto Root::_updateAllRenderTargets(FrameEvent& evt) -> bool
     {
         // update all targets but don't swap buffers
         mActiveRenderer->_updateAllRenderTargets(false);
@@ -1118,17 +1109,17 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    void Root::clearEventTimes(void)
+    void Root::clearEventTimes()
     {
         // Clear event times
-        for(int i=0; i<FETT_COUNT; ++i)
-            mEventTimes[i].clear();
+        for(auto & mEventTime : mEventTimes)
+            mEventTime.clear();
     }
     //---------------------------------------------------------------------
     void Root::addMovableObjectFactory(MovableObjectFactory* fact,
         bool overrideExisting)
     {
-        MovableObjectFactoryMap::iterator facti = mMovableObjectFactoryMap.find(
+        auto facti = mMovableObjectFactoryMap.find(
             fact->getType());
         if (!overrideExisting && facti != mMovableObjectFactoryMap.end())
         {
@@ -1159,14 +1150,14 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    bool Root::hasMovableObjectFactory(const String& typeName) const
+    auto Root::hasMovableObjectFactory(const String& typeName) const -> bool
     {
         return !(mMovableObjectFactoryMap.find(typeName) == mMovableObjectFactoryMap.end());
     }
     //---------------------------------------------------------------------
-    MovableObjectFactory* Root::getMovableObjectFactory(const String& typeName)
+    auto Root::getMovableObjectFactory(const String& typeName) -> MovableObjectFactory*
     {
-        MovableObjectFactoryMap::iterator i =
+        auto i =
             mMovableObjectFactoryMap.find(typeName);
         if (i == mMovableObjectFactoryMap.end())
         {
@@ -1177,7 +1168,7 @@ namespace Ogre {
         return i->second;
     }
     //---------------------------------------------------------------------
-    uint32 Root::_allocateNextMovableObjectTypeFlag(void)
+    auto Root::_allocateNextMovableObjectTypeFlag() -> uint32
     {
         if (mNextMovableObjectTypeFlag == SceneManager::USER_TYPE_MASK_LIMIT)
         {
@@ -1195,7 +1186,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Root::removeMovableObjectFactory(MovableObjectFactory* fact)
     {
-        MovableObjectFactoryMap::iterator i = mMovableObjectFactoryMap.find(
+        auto i = mMovableObjectFactoryMap.find(
             fact->getType());
         if (i != mMovableObjectFactoryMap.end())
         {

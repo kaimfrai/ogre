@@ -28,17 +28,17 @@ THE SOFTWARE.
 #include <algorithm>
 #include <string>
 
-#include "OgreDataStream.h"
-#include "OgreException.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreHighLevelGpuProgram.h"
-#include "OgreRenderSystem.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreResourceManager.h"
-#include "OgreRoot.h"
-#include "OgreString.h"
-#include "OgreStringInterface.h"
+#include "OgreDataStream.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreHighLevelGpuProgram.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreResourceManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreString.hpp"
+#include "OgreStringInterface.hpp"
 
 namespace Ogre
 {
@@ -47,11 +47,11 @@ namespace Ogre
     {
     public:
         //-----------------------------------------------------------------------
-        String doGet(const void* target) const
+        auto doGet(const void* target) const -> String override
         {
             return static_cast<const HighLevelGpuProgram*>(target)->getPreprocessorDefines();
         }
-        void doSet(void* target, const String& val)
+        void doSet(void* target, const String& val) override
         {
             static_cast<HighLevelGpuProgram*>(target)->setPreprocessorDefines(val);
         }
@@ -62,11 +62,11 @@ namespace Ogre
     class CmdEntryPoint : public ParamCommand
     {
     public:
-        String doGet(const void* target) const
+        auto doGet(const void* target) const -> String override
         {
             return static_cast<const HighLevelGpuProgram*>(target)->getEntryPoint();
         }
-        void doSet(void* target, const String& val) { static_cast<HighLevelGpuProgram*>(target)->setEntryPoint(val); }
+        void doSet(void* target, const String& val) override { static_cast<HighLevelGpuProgram*>(target)->setEntryPoint(val); }
     };
     static CmdEntryPoint msCmdEntryPoint;
 
@@ -84,7 +84,7 @@ namespace Ogre
         const String& name, ResourceHandle handle, const String& group, 
         bool isManual, ManualResourceLoader* loader)
         : GpuProgram(creator, name, handle, group, isManual, loader), 
-        mHighLevelLoaded(false), mConstantDefsBuilt(false), mEntryPoint("main")
+         mEntryPoint("main")
     {
     }
     //---------------------------------------------------------------------------
@@ -118,12 +118,10 @@ namespace Ogre
         resetCompileError();
     }
     //---------------------------------------------------------------------------
-    HighLevelGpuProgram::~HighLevelGpuProgram()
-    {
-        // superclasses will trigger unload
-    }
+    HighLevelGpuProgram::~HighLevelGpuProgram() = default;
+
     //---------------------------------------------------------------------------
-    GpuProgramParametersSharedPtr HighLevelGpuProgram::createParameters(void)
+    auto HighLevelGpuProgram::createParameters() -> GpuProgramParametersSharedPtr
     {
         // Make sure param defs are loaded
         GpuProgramParametersSharedPtr params = GpuProgramManager::getSingleton().createParameters();
@@ -143,7 +141,7 @@ namespace Ogre
             params->copyConstantsFrom(*(mDefaultParams.get()));
         return params;
     }
-    size_t HighLevelGpuProgram::calculateSize(void) const
+    auto HighLevelGpuProgram::calculateSize() const -> size_t
     {
         size_t memSize = GpuProgram::calculateSize();
         if(mAssemblerProgram)
@@ -152,7 +150,7 @@ namespace Ogre
         return memSize;
     }
 
-    std::vector<std::pair<const char*, const char*>> HighLevelGpuProgram::parseDefines(String& defines)
+    auto HighLevelGpuProgram::parseDefines(String& defines) -> std::vector<std::pair<const char*, const char*>>
     {
         std::vector<std::pair<const char*, const char*>> ret;
         if (defines.empty())
@@ -188,7 +186,7 @@ namespace Ogre
                         pos = endPos+1;
                     }
 
-                    ret.push_back({&defines[macro_name_start], &defines[macro_val_start]});
+                    ret.emplace_back(&defines[macro_name_start], &defines[macro_val_start]);
                 }
                 else
                 {
@@ -198,13 +196,13 @@ namespace Ogre
                     ++pos;
 
                     if(defines[macro_name_start] != '\0') // e.g ",DEFINE" or "DEFINE,"
-                        ret.push_back({&defines[macro_name_start], "1"});
+                        ret.emplace_back(&defines[macro_name_start], "1");
                 }
             }
             else
             {
                 if(pos < defines.size())
-                    ret.push_back({&defines[pos], "1"});
+                    ret.emplace_back(&defines[pos], "1");
 
                 pos = endPos;
             }
@@ -213,7 +211,7 @@ namespace Ogre
         return ret;
     }
 
-    String HighLevelGpuProgram::appendBuiltinDefines(String defines)
+    auto HighLevelGpuProgram::appendBuiltinDefines(String defines) -> String
     {
         if(!defines.empty()) defines += ",";
 
@@ -237,7 +235,7 @@ namespace Ogre
     }
 
     //---------------------------------------------------------------------------
-    void HighLevelGpuProgram::loadHighLevel(void)
+    void HighLevelGpuProgram::loadHighLevel()
     {
         if (!mHighLevelLoaded)
         {
@@ -246,7 +244,7 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------------
-    void HighLevelGpuProgram::unloadHighLevel(void)
+    void HighLevelGpuProgram::unloadHighLevel()
     {
         if (mHighLevelLoaded)
         {
@@ -259,7 +257,7 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    const GpuNamedConstants& HighLevelGpuProgram::getConstantDefinitions()
+    auto HighLevelGpuProgram::getConstantDefinitions() -> const GpuNamedConstants&
     {
         if (!mConstantDefsBuilt)
         {
@@ -279,7 +277,7 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------
-    String HighLevelGpuProgram::_resolveIncludes(const String& inSource, Resource* resourceBeingLoaded, const String& fileName, bool supportsFilename)
+    auto HighLevelGpuProgram::_resolveIncludes(const String& inSource, Resource* resourceBeingLoaded, const String& fileName, bool supportsFilename) -> String
     {
         String outSource;
         // output will be at least this big

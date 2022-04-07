@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "OgreGLHardwareOcclusionQuery.h"
+#include "OgreGLHardwareOcclusionQuery.hpp"
 
 namespace Ogre {
 
@@ -68,14 +68,14 @@ void GLHardwareOcclusionQuery::endOcclusionQuery()
     glEndQueryARB(GL_SAMPLES_PASSED_ARB);
 }
 //------------------------------------------------------------------
-bool GLHardwareOcclusionQuery::pullOcclusionQuery( unsigned int* NumOfFragments ) 
+auto GLHardwareOcclusionQuery::pullOcclusionQuery( unsigned int* NumOfFragments ) -> bool 
 {
     glGetQueryObjectuivARB(mQueryID, GL_QUERY_RESULT_ARB, (GLuint*)NumOfFragments);
     mPixelCount = *NumOfFragments;
     return true;
 }
 //------------------------------------------------------------------
-bool GLHardwareOcclusionQuery::isStillOutstanding(void)
+auto GLHardwareOcclusionQuery::isStillOutstanding() -> bool
 {    
     GLuint available = GL_FALSE;
 

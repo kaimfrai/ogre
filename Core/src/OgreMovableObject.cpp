@@ -29,32 +29,33 @@ THE SOFTWARE.
 #include <cassert>
 #include <cmath>
 #include <cstddef>
+#include <utility>
 
-#include "OgreAxisAlignedBox.h"
-#include "OgreCamera.h"
-#include "OgreCommon.h"
-#include "OgreEntity.h"
-#include "OgreFrustum.h"
-#include "OgreLight.h"
-#include "OgreLodListener.h"
-#include "OgreMaterial.h"
-#include "OgreMath.h"
-#include "OgreMatrix3.h"
-#include "OgreMatrix4.h"
-#include "OgreMovableObject.h"
-#include "OgreNode.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderQueue.h"
-#include "OgreRenderable.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreShadowCaster.h"
-#include "OgreSphere.h"
-#include "OgreTagPoint.h"
-#include "OgreTechnique.h"
-#include "OgreVector.h"
+#include "OgreAxisAlignedBox.hpp"
+#include "OgreCamera.hpp"
+#include "OgreCommon.hpp"
+#include "OgreEntity.hpp"
+#include "OgreFrustum.hpp"
+#include "OgreLight.hpp"
+#include "OgreLodListener.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMath.hpp"
+#include "OgreMatrix3.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgreMovableObject.hpp"
+#include "OgreNode.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderQueue.hpp"
+#include "OgreRenderable.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneNode.hpp"
+#include "OgreShadowCaster.hpp"
+#include "OgreSphere.hpp"
+#include "OgreTagPoint.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVector.hpp"
 
 namespace Ogre {
 class Any;
@@ -66,12 +67,12 @@ class Any;
     //-----------------------------------------------------------------------
     MovableObject::MovableObject() : MovableObject(BLANKSTRING) {}
     //-----------------------------------------------------------------------
-    MovableObject::MovableObject(const String& name)
-        : mName(name)
-        , mCreator(0)
-        , mManager(0)
-        , mParentNode(0)
-        , mListener(0)
+    MovableObject::MovableObject(String  name)
+        : mName(std::move(name))
+        , mCreator(nullptr)
+        , mManager(nullptr)
+        , mParentNode(nullptr)
+        , mListener(nullptr)
         , mParentIsTagPoint(false)
         , mVisible(true)
         , mDebugDisplay(false)
@@ -143,11 +144,11 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    SceneNode* MovableObject::getParentSceneNode(void) const
+    auto MovableObject::getParentSceneNode() const -> SceneNode*
     {
         if (mParentIsTagPoint)
         {
-            TagPoint* tp = static_cast<TagPoint*>(mParentNode);
+            auto* tp = static_cast<TagPoint*>(mParentNode);
             return tp->getParentEntity()->getParentSceneNode();
         }
         else
@@ -156,35 +157,35 @@ class Any;
         }
     }
     //---------------------------------------------------------------------
-    void MovableObject::detachFromParent(void)
+    void MovableObject::detachFromParent()
     {
         if (isAttached())
         {
             if (mParentIsTagPoint)
             {
-                TagPoint* tp = static_cast<TagPoint*>(mParentNode);
+                auto* tp = static_cast<TagPoint*>(mParentNode);
                 tp->getParentEntity()->detachObjectFromBone(this);
             }
             else
             {
-                SceneNode* sn = static_cast<SceneNode*>(mParentNode);
+                auto* sn = static_cast<SceneNode*>(mParentNode);
                 sn->detachObject(this);
             }
         }
     }
     //-----------------------------------------------------------------------
-    bool MovableObject::isInScene(void) const
+    auto MovableObject::isInScene() const -> bool
     {
-        if (mParentNode != 0)
+        if (mParentNode != nullptr)
         {
             if (mParentIsTagPoint)
             {
-                TagPoint* tp = static_cast<TagPoint*>(mParentNode);
+                auto* tp = static_cast<TagPoint*>(mParentNode);
                 return tp->getParentEntity()->isInScene();
             }
             else
             {
-                SceneNode* sn = static_cast<SceneNode*>(mParentNode);
+                auto* sn = static_cast<SceneNode*>(mParentNode);
                 return sn->isInSceneGraph();
             }
         }
@@ -194,7 +195,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    void MovableObject::_notifyMoved(void)
+    void MovableObject::_notifyMoved()
     {
         // Mark light list being dirty, simply decrease
         // counter by one for minimise overhead
@@ -207,7 +208,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    bool MovableObject::isVisible(void) const
+    auto MovableObject::isVisible() const -> bool
     {
         if (!mVisible || mBeyondFarDistance || mRenderingDisabled)
             return false;
@@ -304,7 +305,7 @@ class Any;
     }
 
     //-----------------------------------------------------------------------
-    const Affine3& MovableObject::_getParentNodeFullTransform(void) const
+    auto MovableObject::_getParentNodeFullTransform() const -> const Affine3&
     {
         
         if(mParentNode)
@@ -316,7 +317,7 @@ class Any;
         return Affine3::IDENTITY;
     }
 
-    Real MovableObject::getBoundingRadiusScaled() const
+    auto MovableObject::getBoundingRadiusScaled() const -> Real
     {
         const Vector3& scl = mParentNode->_getDerivedScale();
         Real factor = std::max(std::max(std::abs(scl.x), std::abs(scl.y)), std::abs(scl.z));
@@ -324,7 +325,7 @@ class Any;
     }
 
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& MovableObject::getWorldBoundingBox(bool derive) const
+    auto MovableObject::getWorldBoundingBox(bool derive) const -> const AxisAlignedBox&
     {
         if (derive)
         {
@@ -336,7 +337,7 @@ class Any;
 
     }
     //-----------------------------------------------------------------------
-    const Sphere& MovableObject::getWorldBoundingSphere(bool derive) const
+    auto MovableObject::getWorldBoundingSphere(bool derive) const -> const Sphere&
     {
         if (derive)
         {
@@ -346,7 +347,7 @@ class Any;
         return mWorldBoundingSphere;
     }
     //-----------------------------------------------------------------------
-    const LightList& MovableObject::queryLights(void) const
+    auto MovableObject::queryLights() const -> const LightList&
     {
         // Try listener first
         if (mListener)
@@ -362,13 +363,13 @@ class Any;
         // Query from parent entity if exists
         if (mParentIsTagPoint)
         {
-            TagPoint* tp = static_cast<TagPoint*>(mParentNode);
+            auto* tp = static_cast<TagPoint*>(mParentNode);
             return tp->getParentEntity()->queryLights();
         }
 
         if (mParentNode)
         {
-            SceneNode* sn = static_cast<SceneNode*>(mParentNode);
+            auto* sn = static_cast<SceneNode*>(mParentNode);
 
             // Make sure we only update this only if need.
             ulong frame = sn->getCreator()->_getLightsDirtyCounter();
@@ -387,21 +388,21 @@ class Any;
         return mLightList;
     }
     //-----------------------------------------------------------------------
-    const ShadowRenderableList& MovableObject::getShadowVolumeRenderableList(
+    auto MovableObject::getShadowVolumeRenderableList(
         const Light* light, const HardwareIndexBufferPtr& indexBuffer, size_t& indexBufferUsedSize,
-        float extrusionDist, int flags)
+        float extrusionDist, int flags) -> const ShadowRenderableList&
     {
         static ShadowRenderableList dummyList;
         return dummyList;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& MovableObject::getLightCapBounds(void) const
+    auto MovableObject::getLightCapBounds() const -> const AxisAlignedBox&
     {
         // Same as original bounds
         return getWorldBoundingBox();
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& MovableObject::getDarkCapBounds(const Light& light, Real extrusionDist) const
+    auto MovableObject::getDarkCapBounds(const Light& light, Real extrusionDist) const -> const AxisAlignedBox&
     {
         // Extrude own light cap bounds
         mWorldDarkCapBounds = getLightCapBounds();
@@ -411,7 +412,7 @@ class Any;
 
     }
     //-----------------------------------------------------------------------
-    Real MovableObject::getPointExtrusionDistance(const Light* l) const
+    auto MovableObject::getPointExtrusionDistance(const Light* l) const -> Real
     {
         if (mParentNode)
         {
@@ -437,7 +438,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    uint32 MovableObject::getTypeFlags(void) const
+    auto MovableObject::getTypeFlags() const -> uint32
     {
         if (mCreator)
         {
@@ -459,13 +460,11 @@ class Any;
     class MORecvShadVisitor : public Renderable::Visitor
     {
     public:
-        bool anyReceiveShadows;
-        MORecvShadVisitor() : anyReceiveShadows(false)
-        {
-
-        }
+        bool anyReceiveShadows{false};
+        MORecvShadVisitor()  
+        = default;
         void visit(Renderable* rend, ushort lodIndex, bool isDebug, 
-            Any* pAny = 0)
+            Any* pAny = nullptr) override
         {
             Technique* tech = rend->getTechnique();
             bool techReceivesShadows = tech && tech->getParent()->getReceiveShadows();
@@ -474,7 +473,7 @@ class Any;
         }
     };
     //---------------------------------------------------------------------
-    bool MovableObject::getReceivesShadows()
+    auto MovableObject::getReceivesShadows() -> bool
     {
         MORecvShadVisitor visitor;
         visitRenderables(&visitor);
@@ -483,9 +482,9 @@ class Any;
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    MovableObject* MovableObjectFactory::createInstance(
+    auto MovableObjectFactory::createInstance(
         const String& name, SceneManager* manager, 
-        const NameValuePairList* params)
+        const NameValuePairList* params) -> MovableObject*
     {
         MovableObject* m = createInstanceImpl(name, params);
         m->_notifyCreator(this);

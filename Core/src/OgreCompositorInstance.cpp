@@ -27,49 +27,49 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <cassert>
+#include <utility>
 
-#include "OgreCamera.h"
-#include "OgreColourValue.h"
-#include "OgreCompositionPass.h"
-#include "OgreCompositionTargetPass.h"
-#include "OgreCompositor.h"
-#include "OgreCompositorChain.h"
-#include "OgreCompositorInstance.h"
-#include "OgreCompositorLogic.h"
-#include "OgreCompositorManager.h"
-#include "OgreCustomCompositionPass.h"
-#include "OgreDepthBuffer.h"
-#include "OgreException.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreLogManager.h"
-#include "OgreMaterial.h"
-#include "OgreMatrix4.h"
-#include "OgrePass.h"
-#include "OgrePixelFormat.h"
-#include "OgreRectangle2D.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderTarget.h"
-#include "OgreRenderTexture.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreRoot.h"
-#include "OgreSceneManager.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreTechnique.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
-#include "OgreVector.h"
-#include "OgreViewport.h"
+#include "OgreCamera.hpp"
+#include "OgreColourValue.hpp"
+#include "OgreCompositionPass.hpp"
+#include "OgreCompositionTargetPass.hpp"
+#include "OgreCompositor.hpp"
+#include "OgreCompositorChain.hpp"
+#include "OgreCompositorInstance.hpp"
+#include "OgreCompositorLogic.hpp"
+#include "OgreCompositorManager.hpp"
+#include "OgreCustomCompositionPass.hpp"
+#include "OgreDepthBuffer.hpp"
+#include "OgreException.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreHardwarePixelBuffer.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePass.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgreRectangle2D.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderTarget.hpp"
+#include "OgreRenderTexture.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTextureUnitState.hpp"
+#include "OgreVector.hpp"
+#include "OgreViewport.hpp"
 
 namespace Ogre {
 CompositorInstance::CompositorInstance(CompositionTechnique *technique,
     CompositorChain *chain):
-    mCompositor(technique->getParent()), mTechnique(technique), mChain(chain),
-        mEnabled(false),
-        mAlive(false)
+    mCompositor(technique->getParent()), mTechnique(technique), mChain(chain)
+        
 {
     OgreAssert(mChain, "Undefined compositor chain");
     mEnabled = false;
@@ -150,7 +150,7 @@ public:
     /// Stencil value to set in case FBT_STENCIL is set
     unsigned short stencil;
 
-    virtual void execute(SceneManager *sm, RenderSystem *rs)
+    void execute(SceneManager *sm, RenderSystem *rs) override
     {
         if((buffers & FBT_COLOUR) && chain) // if chain is present, query colour from dst viewport
           colour = chain->getViewport()->getBackgroundColour();
@@ -180,9 +180,7 @@ class RSQuadOperation: public CompositorInstance::RenderSystemOperation
 public:
     RSQuadOperation(CompositorInstance *inInstance, uint32 inPass_id, MaterialPtr inMat):
       mat(inMat), instance(inInstance), pass_id(inPass_id),
-      mQuadCornerModified(false),
-      mQuadFarCorners(false),
-      mQuadFarCornersViewSpace(false),
+      
       mQuad(-1, 1, 1, -1)
     {
         instance->_fireNotifyMaterialSetup(pass_id, mat);
@@ -194,7 +192,7 @@ public:
     CompositorInstance *instance;
     uint32 pass_id;
 
-    bool mQuadCornerModified, mQuadFarCorners, mQuadFarCornersViewSpace;
+    bool mQuadCornerModified{false}, mQuadFarCorners{false}, mQuadFarCornersViewSpace{false};
     FloatRect mQuad;
 
     void setQuadCorners(const FloatRect& quad)
@@ -209,13 +207,13 @@ public:
         mQuadFarCornersViewSpace = farCornersViewSpace;
     }
    
-    virtual void execute(SceneManager *sm, RenderSystem *rs)
+    void execute(SceneManager *sm, RenderSystem *rs) override
     {
         // Fire listener
         instance->_fireNotifyMaterialRender(pass_id, mat);
 
         Viewport* vp = rs->_getViewport();
-        Rectangle2D *rect = static_cast<Rectangle2D*>(CompositorManager::getSingleton()._getTexturedRectangle2D());
+        auto *rect = static_cast<Rectangle2D*>(CompositorManager::getSingleton()._getTexturedRectangle2D());
 
         if (mQuadCornerModified)
         {
@@ -257,14 +255,14 @@ public:
 class RSSetSchemeOperation: public CompositorInstance::RenderSystemOperation
 {
 public:
-    RSSetSchemeOperation(const String& schemeName) : mPreviousLateResolving(false), mSchemeName(schemeName) {}
+    RSSetSchemeOperation(String  schemeName) :  mSchemeName(std::move(schemeName)) {}
     
     String mPreviousScheme;
-    bool mPreviousLateResolving;
+    bool mPreviousLateResolving{false};
 
     String mSchemeName;
 
-    virtual void execute(SceneManager *sm, RenderSystem *rs)
+    void execute(SceneManager *sm, RenderSystem *rs) override
     {
         MaterialManager& matMgr = MaterialManager::getSingleton();
         mPreviousScheme = matMgr.getActiveScheme();
@@ -274,8 +272,10 @@ public:
         sm->setLateMaterialResolving(true);
     }
 
-    const String& getPreviousScheme() const { return mPreviousScheme; }
-    bool getPreviousLateResolving() const { return mPreviousLateResolving; }
+    [[nodiscard]]
+    auto getPreviousScheme() const -> const String& { return mPreviousScheme; }
+    [[nodiscard]]
+    auto getPreviousLateResolving() const -> bool { return mPreviousLateResolving; }
 };
 
 /** Restore the settings changed by the set scheme operation */
@@ -287,7 +287,7 @@ public:
     
     const RSSetSchemeOperation* mSetOperation;
 
-    virtual void execute(SceneManager *sm, RenderSystem *rs)
+    void execute(SceneManager *sm, RenderSystem *rs) override
     {
         MaterialManager::getSingleton().setActiveScheme(mSetOperation->getPreviousScheme());
         sm->setLateMaterialResolving(mSetOperation->getPreviousLateResolving());
@@ -310,7 +310,7 @@ public:
         technique = mat->getBestTechnique();
     }
 
-    void execute(SceneManager *sm, RenderSystem *rs)
+    void execute(SceneManager *sm, RenderSystem *rs) override
     {
         // Fire listener
         instance->_fireNotifyMaterialRender(pass_id, mat);
@@ -344,7 +344,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
                 pass->getClearColour(),
                 pass->getClearDepth(),
                 pass->getClearStencil(),
-                pass->getAutomaticColour() ? mChain : NULL
+                pass->getAutomaticColour() ? mChain : nullptr
                 ));
             break;
         case CompositionPass::PT_STENCIL:
@@ -362,7 +362,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
                     StringConverter::toString(finalState.currentQueueGroupID));
             }
 
-            RSSetSchemeOperation* setSchemeOperation = 0;
+            RSSetSchemeOperation* setSchemeOperation = nullptr;
             if (!pass->getMaterialScheme().empty())
             {
                 //Add the triggers that will set the scheme and restore it each frame
@@ -379,7 +379,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
             }
             finalState.currentQueueGroupID = pass->getLastRenderQueue()+1;
 
-            if (setSchemeOperation != 0)
+            if (setSchemeOperation != nullptr)
             {
                 //Restoring the scheme after the queues have been rendered
                 queueRenderSystemOp(finalState, 
@@ -395,7 +395,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
         }
         case CompositionPass::PT_COMPUTE:
             isCompute = true;
-            OGRE_FALLTHROUGH;
+            [[fallthrough]];
         case CompositionPass::PT_RENDERQUAD: {
             srcmat = pass->getMaterial();
             if(!srcmat)
@@ -547,13 +547,13 @@ void CompositorInstance::setTechnique(CompositionTechnique* tech, bool reuseText
             // this will ensure they don't get destroyed as unreferenced
             // so they're ready to use again later
             const CompositionTechnique::TextureDefinitions& tdefs = mTechnique->getTextureDefinitions();
-            CompositionTechnique::TextureDefinitions::const_iterator it = tdefs.begin();
+            auto it = tdefs.begin();
             for (; it != tdefs.end(); ++it)
             {
                 CompositionTechnique::TextureDefinition *def = *it;
                 if (def->pooled)
                 {
-                    LocalTextureMap::iterator i = mLocalTextures.find(def->name);
+                    auto i = mLocalTextures.find(def->name);
                     if (i != mLocalTextures.end())
                     {
                         // overwriting duplicates is fine, we only want one entry per def
@@ -587,21 +587,21 @@ void CompositorInstance::setScheme(const String& schemeName, bool reuseTextures)
     }
 }
 //-----------------------------------------------------------------------
-CompositorChain *CompositorInstance::getChain()
+auto CompositorInstance::getChain() -> CompositorChain *
 {
     return mChain;
 }
 //-----------------------------------------------------------------------
-const String& CompositorInstance::getTextureInstanceName(const String& name, 
-                                                         size_t mrtIndex)
+auto CompositorInstance::getTextureInstanceName(const String& name, 
+                                                         size_t mrtIndex) -> const String&
 {
     return getSourceForTex(name, mrtIndex)->getName();
 }
 //---------------------------------------------------------------------
-const TexturePtr& CompositorInstance::getTextureInstance(const String& name, size_t mrtIndex)
+auto CompositorInstance::getTextureInstance(const String& name, size_t mrtIndex) -> const TexturePtr&
 {
     // try simple textures first
-    LocalTextureMap::iterator i = mLocalTextures.find(name);
+    auto i = mLocalTextures.find(name);
     if(i != mLocalTextures.end())
     {
         return i->second;
@@ -620,7 +620,7 @@ const TexturePtr& CompositorInstance::getTextureInstance(const String& name, siz
 
 }
 //-----------------------------------------------------------------------
-MaterialPtr CompositorInstance::createLocalMaterial(const String& srcName)
+auto CompositorInstance::createLocalMaterial(const String& srcName) -> MaterialPtr
 {
     static size_t dummyCounter = 0;
     MaterialPtr mat = MaterialManager::getSingleton().create(
@@ -663,13 +663,13 @@ void CompositorInstance::createResources(bool forResizeOnly)
             if (def->formatList.size() > 1) 
             {
                 size_t atch = 0;
-                for (PixelFormatList::iterator p = def->formatList.begin(); 
+                for (auto p = def->formatList.begin(); 
                      p != def->formatList.end(); ++p, ++atch)
                 {
                     Ogre::TexturePtr tex = parentComp->getTextureInstance(def->name, atch);
                     mLocalTextures[getMRTTexLocalName(def->name, atch)] = tex;
                 }
-                MultiRenderTarget* mrt = static_cast<MultiRenderTarget*>
+                auto* mrt = static_cast<MultiRenderTarget*>
                 (parentComp->getRenderTarget(def->name));
                 mLocalMRTs[def->name] = mrt;
                 
@@ -727,7 +727,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
                 
                 // create and bind individual surfaces
                 size_t atch = 0;
-                for (PixelFormatList::iterator p = def->formatList.begin(); 
+                for (auto p = def->formatList.begin(); 
                      p != def->formatList.end(); ++p, ++atch)
                 {
                     
@@ -747,7 +747,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
                     {
                         tex = TextureManager::getSingleton().createManual(texname,
                                                                           RGN_INTERNAL, def->type,
-                                                                          width, height, 0, *p, TU_RENDERTARGET, 0,
+                                                                          width, height, 0, *p, TU_RENDERTARGET, nullptr,
                                                                           hwGamma && !PixelUtil::isFloatingPoint(*p), fsaa, fsaaHint ); 
                     }
                     
@@ -786,7 +786,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
                 {
                     tex = TextureManager::getSingleton().createManual(
                         texName, RGN_INTERNAL, def->type, width, height, 0, def->formatList[0],
-                        TU_RENDERTARGET, 0, hwGamma, fsaa, fsaaHint);
+                        TU_RENDERTARGET, nullptr, hwGamma, fsaa, fsaaHint);
                 }
 
                 mLocalTextures[def->name] = tex;
@@ -880,7 +880,7 @@ void CompositorInstance::deriveTextureRenderTargetOptions(
             else
             {
                 // look for a render_scene pass
-                CompositionTargetPass::Passes::const_iterator pit = tp->getPasses().begin();
+                auto pit = tp->getPasses().begin();
 
                 for (;pit != tp->getPasses().end(); ++pit)
                 {
@@ -913,7 +913,7 @@ void CompositorInstance::deriveTextureRenderTargetOptions(
 
 }
 //---------------------------------------------------------------------
-String CompositorInstance::getMRTTexLocalName(const String& baseName, size_t attachment)
+auto CompositorInstance::getMRTTexLocalName(const String& baseName, size_t attachment) -> String
 {
     return StringUtil::format("%s/%zu", baseName.c_str(), attachment);
 }
@@ -931,7 +931,7 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
     // required (saves some time & memory thrashing / fragmentation on resize)
 
     const CompositionTechnique::TextureDefinitions& tdefs = mTechnique->getTextureDefinitions();
-    CompositionTechnique::TextureDefinitions::const_iterator it = tdefs.begin();
+    auto it = tdefs.begin();
     for (; it != tdefs.end(); ++it)
     {
         CompositionTechnique::TextureDefinition *def = *it;
@@ -953,7 +953,7 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
                 String texName = subSurf > 1 ? getMRTTexLocalName(def->name, s)
                     : def->name;
 
-                LocalTextureMap::iterator i = mLocalTextures.find(texName);
+                auto i = mLocalTextures.find(texName);
                 if (i != mLocalTextures.end())
                 {
                     if (!def->pooled && def->scope != CompositionTechnique::TS_GLOBAL)
@@ -972,7 +972,7 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
 
             if (subSurf > 1)
             {
-                LocalMRTMap::iterator mrti = mLocalMRTs.find(def->name);
+                auto mrti = mLocalMRTs.find(def->name);
                 if (mrti != mLocalMRTs.end())
                 {
                     if (def->scope != CompositionTechnique::TS_GLOBAL) 
@@ -994,7 +994,7 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
         if (forResizeOnly)
         {
             // just remove the ones which would be affected by a resize
-            for (ReserveTextureMap::iterator i = mReserveTextures.begin();
+            for (auto i = mReserveTextures.begin();
                 i != mReserveTextures.end(); )
             {
                 if (i->first->width == 0 || i->first->height == 0)
@@ -1018,18 +1018,18 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
     CompositorManager::getSingleton().freePooledTextures(true);
 }
 //---------------------------------------------------------------------
-RenderTarget* CompositorInstance::getRenderTarget(const String& name, int slice)
+auto CompositorInstance::getRenderTarget(const String& name, int slice) -> RenderTarget*
 {
     return getTargetForTex(name, slice);
 }
 
-CompositionTechnique::TextureDefinition*
-CompositorInstance::resolveTexReference(const CompositionTechnique::TextureDefinition* texDef)
+auto
+CompositorInstance::resolveTexReference(const CompositionTechnique::TextureDefinition* texDef) -> CompositionTechnique::TextureDefinition*
 {
     //This TextureDefinition is reference.
     //Since referenced TD's have no info except name we have to find original TD
 
-    CompositionTechnique::TextureDefinition* refTexDef = 0;
+    CompositionTechnique::TextureDefinition* refTexDef = nullptr;
 
     //Try chain first
     if (CompositorInstance* refCompInst = mChain->getCompositor(texDef->refCompName))
@@ -1063,21 +1063,21 @@ CompositorInstance::resolveTexReference(const CompositionTechnique::TextureDefin
 }
 
 //-----------------------------------------------------------------------
-RenderTarget *CompositorInstance::getTargetForTex(const String &name, int slice)
+auto CompositorInstance::getTargetForTex(const String &name, int slice) -> RenderTarget *
 {
     // try simple texture
-    LocalTextureMap::iterator i = mLocalTextures.find(name);
+    auto i = mLocalTextures.find(name);
     if(i != mLocalTextures.end())
         return i->second->getBuffer(slice)->getRenderTarget();
 
     // try MRTs
-    LocalMRTMap::iterator mi = mLocalMRTs.find(name);
+    auto mi = mLocalMRTs.find(name);
     if (mi != mLocalMRTs.end())
         return mi->second;
     
     //Try reference : Find the instance and check if it is before us
     CompositionTechnique::TextureDefinition* texDef = mTechnique->getTextureDefinition(name);
-    if (texDef != 0 && !texDef->refCompName.empty()) 
+    if (texDef != nullptr && !texDef->refCompName.empty()) 
     {
         auto refTexDef = resolveTexReference(texDef);
 
@@ -1086,7 +1086,7 @@ RenderTarget *CompositorInstance::getTargetForTex(const String &name, int slice)
             case CompositionTechnique::TS_CHAIN:
             {
                 //Find the instance and check if it is before us
-                CompositorInstance* refCompInst = 0;
+                CompositorInstance* refCompInst = nullptr;
                 bool beforeMe = true;
                 for (CompositorInstance* nextCompInst : mChain->getCompositorInstances())
                 {
@@ -1124,7 +1124,7 @@ RenderTarget *CompositorInstance::getTargetForTex(const String &name, int slice)
 
 }
 //-----------------------------------------------------------------------
-const TexturePtr &CompositorInstance::getSourceForTex(const String &name, size_t mrtIndex)
+auto CompositorInstance::getSourceForTex(const String &name, size_t mrtIndex) -> const TexturePtr &
 {
     CompositionTechnique::TextureDefinition* texDef = mTechnique->getTextureDefinition(name);
     OgreAssert(texDef, "Referencing non-existent TextureDefinition");
@@ -1139,7 +1139,7 @@ const TexturePtr &CompositorInstance::getSourceForTex(const String &name, size_t
             case CompositionTechnique::TS_CHAIN:
             {
                 //Find the instance and check if it is before us
-                CompositorInstance* refCompInst = 0;
+                CompositorInstance* refCompInst = nullptr;
                 bool beforeMe = true;
                 for (CompositorInstance* nextCompInst : mChain->getCompositorInstances())
                 {
@@ -1176,7 +1176,7 @@ const TexturePtr &CompositorInstance::getSourceForTex(const String &name, size_t
     if (texDef->formatList.size() == 1) 
     {
         //This is a simple texture
-        LocalTextureMap::iterator i = mLocalTextures.find(name);
+        auto i = mLocalTextures.find(name);
         if(i != mLocalTextures.end())
         {
             return i->second;
@@ -1185,7 +1185,7 @@ const TexturePtr &CompositorInstance::getSourceForTex(const String &name, size_t
     else
     {
         // try MRTs - texture (rather than target)
-        LocalTextureMap::iterator i = mLocalTextures.find(getMRTTexLocalName(name, mrtIndex));
+        auto i = mLocalTextures.find(getMRTTexLocalName(name, mrtIndex));
         if (i != mLocalTextures.end())
         {
             return i->second;
@@ -1212,7 +1212,7 @@ void CompositorInstance::addListener(Listener *l)
 //-----------------------------------------------------------------------
 void CompositorInstance::removeListener(Listener *l)
 {
-    Listeners::iterator i = std::find(mListeners.begin(), mListeners.end(), l);
+    auto i = std::find(mListeners.begin(), mListeners.end(), l);
     if (i != mListeners.end())
         mListeners.erase(i);
 }
@@ -1248,8 +1248,8 @@ void CompositorInstance::_fireNotifyResourcesReleased(bool forResizeOnly)
 void CompositorInstance::notifyCameraChanged(Camera* camera)
 {
     // update local texture's viewports.
-    LocalTextureMap::iterator localTexIter = mLocalTextures.begin();
-    LocalTextureMap::iterator localTexIterEnd = mLocalTextures.end();
+    auto localTexIter = mLocalTextures.begin();
+    auto localTexIterEnd = mLocalTextures.end();
     while (localTexIter != localTexIterEnd)
     {
         RenderTexture* target = localTexIter->second->getBuffer()->getRenderTarget();
@@ -1262,8 +1262,8 @@ void CompositorInstance::notifyCameraChanged(Camera* camera)
     }
 
     // update MRT's viewports.
-    LocalMRTMap::iterator localMRTIter = mLocalMRTs.begin();
-    LocalMRTMap::iterator localMRTIterEnd = mLocalMRTs.end();
+    auto localMRTIter = mLocalMRTs.begin();
+    auto localMRTIterEnd = mLocalMRTs.end();
     while (localMRTIter != localMRTIterEnd)
     {
         MultiRenderTarget* target = localMRTIter->second;
@@ -1274,12 +1274,10 @@ void CompositorInstance::notifyCameraChanged(Camera* camera)
 }
 //-----------------------------------------------------------------------
 CompositorInstance::RenderSystemOperation::~RenderSystemOperation()
-{
-}
+= default;
 //-----------------------------------------------------------------------
 CompositorInstance::Listener::~Listener()
-{
-}
+= default;
 void CompositorInstance::Listener::notifyMaterialSetup(uint32 pass_id, MaterialPtr &mat)
 {
 }

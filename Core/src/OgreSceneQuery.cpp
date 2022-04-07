@@ -29,17 +29,17 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstddef>
 
-#include "OgreException.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneQuery.h"
+#include "OgreException.hpp"
+#include "OgreSceneManager.hpp"
+#include "OgreSceneQuery.hpp"
 
 namespace Ogre {
 class MovableObject;
 
     //-----------------------------------------------------------------------
     SceneQuery::SceneQuery(SceneManager* mgr)
-        : mParentSceneMgr(mgr), mQueryMask(0xFFFFFFFF), 
-        mWorldFragmentType(SceneQuery::WFT_NONE)
+        : mParentSceneMgr(mgr) 
+        
     {
         // default type mask to everything except lights & fx (previous behaviour)
         mQueryTypeMask = (0xFFFFFFFF & ~SceneManager::FX_TYPE_MASK) 
@@ -48,15 +48,14 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     SceneQuery::~SceneQuery()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void SceneQuery::setQueryMask(uint32 mask)
     {
         mQueryMask = mask;
     }
     //-----------------------------------------------------------------------
-    uint32 SceneQuery::getQueryMask(void) const
+    auto SceneQuery::getQueryMask() const -> uint32
     {
         return mQueryMask;
     }
@@ -66,7 +65,7 @@ class MovableObject;
         mQueryTypeMask = mask;
     }
     //-----------------------------------------------------------------------
-    uint32 SceneQuery::getQueryTypeMask(void) const
+    auto SceneQuery::getQueryTypeMask() const -> uint32
     {
         return mQueryTypeMask;
     }
@@ -82,14 +81,14 @@ class MovableObject;
         mWorldFragmentType = wft;
     }
     //-----------------------------------------------------------------------
-    SceneQuery::WorldFragmentType 
-    SceneQuery::getWorldFragmentType(void) const
+    auto 
+    SceneQuery::getWorldFragmentType() const -> SceneQuery::WorldFragmentType
     {
         return mWorldFragmentType;
     }
     //-----------------------------------------------------------------------
     RegionSceneQuery::RegionSceneQuery(SceneManager* mgr)
-        :SceneQuery(mgr), mLastResult(NULL)
+        :SceneQuery(mgr) 
     {
     }
     //-----------------------------------------------------------------------
@@ -98,20 +97,20 @@ class MovableObject;
         clearResults();
     }
     //-----------------------------------------------------------------------
-    SceneQueryResult& RegionSceneQuery::getLastResults(void) const
+    auto RegionSceneQuery::getLastResults() const -> SceneQueryResult&
     {
         assert(mLastResult);
         return *mLastResult;
     }
     //-----------------------------------------------------------------------
-    void RegionSceneQuery::clearResults(void)
+    void RegionSceneQuery::clearResults()
     {
         delete mLastResult;
-        mLastResult = NULL;
+        mLastResult = nullptr;
     }
     //---------------------------------------------------------------------
-    SceneQueryResult&
-    RegionSceneQuery::execute(void)
+    auto
+    RegionSceneQuery::execute() -> SceneQueryResult&
     {
         clearResults();
         mLastResult = new SceneQueryResult();
@@ -120,8 +119,8 @@ class MovableObject;
         return *mLastResult;
     }
     //---------------------------------------------------------------------
-    bool RegionSceneQuery::
-        queryResult(MovableObject* obj)
+    auto RegionSceneQuery::
+        queryResult(MovableObject* obj) -> bool
     {
         // Add to internal list
         mLastResult->movables.push_back(obj);
@@ -129,7 +128,7 @@ class MovableObject;
         return true;
     }
     //---------------------------------------------------------------------
-    bool RegionSceneQuery::queryResult(SceneQuery::WorldFragment* fragment)
+    auto RegionSceneQuery::queryResult(SceneQuery::WorldFragment* fragment) -> bool
     {
         // Add to internal list
         mLastResult->worldFragments.push_back(fragment);
@@ -143,15 +142,14 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     AxisAlignedBoxSceneQuery::~AxisAlignedBoxSceneQuery()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void AxisAlignedBoxSceneQuery::setBox(const AxisAlignedBox& box)
     {
         mAABB = box;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& AxisAlignedBoxSceneQuery::getBox(void) const
+    auto AxisAlignedBoxSceneQuery::getBox() const -> const AxisAlignedBox&
     {
         return mAABB;
     }
@@ -162,15 +160,14 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     SphereSceneQuery::~SphereSceneQuery()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void SphereSceneQuery::setSphere(const Sphere& sphere)
     {
         mSphere = sphere;
     }
     //-----------------------------------------------------------------------
-    const Sphere& SphereSceneQuery::getSphere() const
+    auto SphereSceneQuery::getSphere() const -> const Sphere&
     {
         return mSphere;
     }
@@ -182,15 +179,14 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     PlaneBoundedVolumeListSceneQuery::~PlaneBoundedVolumeListSceneQuery()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void PlaneBoundedVolumeListSceneQuery::setVolumes(const PlaneBoundedVolumeList& volumes)
     {
         mVolumes = volumes;
     }
     //-----------------------------------------------------------------------
-    const PlaneBoundedVolumeList& PlaneBoundedVolumeListSceneQuery::getVolumes() const
+    auto PlaneBoundedVolumeListSceneQuery::getVolumes() const -> const PlaneBoundedVolumeList&
     {
         return mVolumes;
     }
@@ -203,15 +199,14 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     RaySceneQuery::~RaySceneQuery()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     void RaySceneQuery::setRay(const Ray& ray)
     {
         mRay = ray;
     }
     //-----------------------------------------------------------------------
-    const Ray& RaySceneQuery::getRay(void) const
+    auto RaySceneQuery::getRay() const -> const Ray&
     {
         return mRay;
     }
@@ -222,17 +217,17 @@ class MovableObject;
         mMaxResults = maxresults;
     }
     //-----------------------------------------------------------------------
-    bool RaySceneQuery::getSortByDistance(void) const
+    auto RaySceneQuery::getSortByDistance() const -> bool
     {
         return mSortByDistance;
     }
     //-----------------------------------------------------------------------
-    ushort RaySceneQuery::getMaxResults(void) const
+    auto RaySceneQuery::getMaxResults() const -> ushort
     {
         return mMaxResults;
     }
     //-----------------------------------------------------------------------
-    RaySceneQueryResult& RaySceneQuery::execute(void)
+    auto RaySceneQuery::execute() -> RaySceneQueryResult&
     {
         // Clear without freeing the vector buffer
         mResult.clear();
@@ -258,35 +253,35 @@ class MovableObject;
         return mResult;
     }
     //-----------------------------------------------------------------------
-    RaySceneQueryResult& RaySceneQuery::getLastResults(void)
+    auto RaySceneQuery::getLastResults() -> RaySceneQueryResult&
     {
         return mResult;
     }
     //-----------------------------------------------------------------------
-    void RaySceneQuery::clearResults(void)
+    void RaySceneQuery::clearResults()
     {
         // C++ idiom to free vector buffer: swap with empty vector
         RaySceneQueryResult().swap(mResult);
     }
     //-----------------------------------------------------------------------
-    bool RaySceneQuery::queryResult(MovableObject* obj, Real distance)
+    auto RaySceneQuery::queryResult(MovableObject* obj, Real distance) -> bool
     {
         // Add to internal list
         RaySceneQueryResultEntry dets;
         dets.distance = distance;
         dets.movable = obj;
-        dets.worldFragment = NULL;
+        dets.worldFragment = nullptr;
         mResult.push_back(dets);
         // Continue
         return true;
     }
     //-----------------------------------------------------------------------
-    bool RaySceneQuery::queryResult(SceneQuery::WorldFragment* fragment, Real distance)
+    auto RaySceneQuery::queryResult(SceneQuery::WorldFragment* fragment, Real distance) -> bool
     {
         // Add to internal list
         RaySceneQueryResultEntry dets;
         dets.distance = distance;
-        dets.movable = NULL;
+        dets.movable = nullptr;
         dets.worldFragment = fragment;
         mResult.push_back(dets);
         // Continue
@@ -294,7 +289,7 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     IntersectionSceneQuery::IntersectionSceneQuery(SceneManager* mgr)
-    : SceneQuery(mgr), mLastResult(NULL)
+    : SceneQuery(mgr) 
     {
     }
     //-----------------------------------------------------------------------
@@ -303,20 +298,20 @@ class MovableObject;
         clearResults();
     }
     //-----------------------------------------------------------------------
-    IntersectionSceneQueryResult& IntersectionSceneQuery::getLastResults(void) const
+    auto IntersectionSceneQuery::getLastResults() const -> IntersectionSceneQueryResult&
     {
         assert(mLastResult);
         return *mLastResult;
     }
     //-----------------------------------------------------------------------
-    void IntersectionSceneQuery::clearResults(void)
+    void IntersectionSceneQuery::clearResults()
     {
         delete mLastResult;
-        mLastResult = NULL;
+        mLastResult = nullptr;
     }
     //---------------------------------------------------------------------
-    IntersectionSceneQueryResult&
-    IntersectionSceneQuery::execute(void)
+    auto
+    IntersectionSceneQuery::execute() -> IntersectionSceneQueryResult&
     {
         clearResults();
         mLastResult = new IntersectionSceneQueryResult();
@@ -325,8 +320,8 @@ class MovableObject;
         return *mLastResult;
     }
     //---------------------------------------------------------------------
-    bool IntersectionSceneQuery::
-        queryResult(MovableObject* first, MovableObject* second)
+    auto IntersectionSceneQuery::
+        queryResult(MovableObject* first, MovableObject* second) -> bool
     {
         // Add to internal list
         mLastResult->movables2movables.push_back(
@@ -336,8 +331,8 @@ class MovableObject;
         return true;
     }
     //---------------------------------------------------------------------
-    bool IntersectionSceneQuery::
-        queryResult(MovableObject* movable, SceneQuery::WorldFragment* fragment)
+    auto IntersectionSceneQuery::
+        queryResult(MovableObject* movable, SceneQuery::WorldFragment* fragment) -> bool
     {
         // Add to internal list
         mLastResult->movables2world.push_back(

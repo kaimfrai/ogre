@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "StringTests.h"
+#include "StringTests.hpp"
 
 #include <clocale>
 #include <cstddef>
 
-#include "OgreColourValue.h"
-#include "OgreMatrix4.h"
-#include "OgrePlatform.h"
-#include "OgreQuaternion.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreVector.h"
+#include "OgreColourValue.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreQuaternion.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreVector.hpp"
 
 
 using namespace Ogre;
@@ -48,9 +48,9 @@ void StringTests::SetUp()
 {    
     testFileNoPath = "testfile.txt";
     testFileRelativePathUnix = "this/is/relative/testfile.txt";
-    testFileRelativePathWindows = "this\\is\\relative\\testfile.txt";
+    testFileRelativePathWindows = R"(this\is\relative\testfile.txt)";
     testFileAbsolutePathUnix = "/this/is/absolute/testfile.txt";
-    testFileAbsolutePathWindows = "c:\\this\\is\\absolute\\testfile.txt";
+    testFileAbsolutePathWindows = R"(c:\this\is\absolute\testfile.txt)";
     setlocale(LC_NUMERIC, "");
 }
 //--------------------------------------------------------------------------

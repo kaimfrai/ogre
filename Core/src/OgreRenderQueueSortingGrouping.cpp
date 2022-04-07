@@ -30,13 +30,13 @@ THE SOFTWARE.
 #include <cstddef>
 #include <set>
 
-#include "OgreException.h"
-#include "OgreMaterial.h"
-#include "OgreMath.h"
-#include "OgreRadixSort.h"
-#include "OgreRenderQueueSortingGrouping.h"
-#include "OgreRenderable.h"
-#include "OgreTechnique.h"
+#include "OgreException.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMath.hpp"
+#include "OgreRadixSort.hpp"
+#include "OgreRenderQueueSortingGrouping.hpp"
+#include "OgreRenderable.hpp"
+#include "OgreTechnique.hpp"
 
 namespace Ogre {
 class Camera;
@@ -52,7 +52,7 @@ namespace {
         {
         }
 
-        bool operator()(const RenderablePass& a, const RenderablePass& b) const
+        auto operator()(const RenderablePass& a, const RenderablePass& b) const -> bool
         {
             if (a.renderable == b.renderable)
             {
@@ -82,7 +82,7 @@ namespace {
     /// Functor for accessing sort value 1 for radix sort (Pass)
     struct RadixSortFunctorPass
     {
-        uint32 operator()(const RenderablePass& p) const
+        auto operator()(const RenderablePass& p) const -> uint32
         {
             return p.pass->getHash();
         }
@@ -98,7 +98,7 @@ namespace {
         {
         }
 
-        float operator()(const RenderablePass& p) const
+        auto operator()(const RenderablePass& p) const -> float
         {
             // Sort DESCENDING by depth (ie far objects first), use negative distance
             // here because radix sorter always dealing with accessing sort
@@ -126,7 +126,7 @@ namespace {
         
     }
     //-----------------------------------------------------------------------
-    void RenderPriorityGroup::resetOrganisationModes(void)
+    void RenderPriorityGroup::resetOrganisationModes()
     {
         mSolidsBasic.resetOrganisationModes();
         mSolidsDiffuseSpecular.resetOrganisationModes();
@@ -144,7 +144,7 @@ namespace {
         mTransparentsUnsorted.addOrganisationMode(om);
     }
     //-----------------------------------------------------------------------
-    void RenderPriorityGroup::defaultOrganisationMode(void)
+    void RenderPriorityGroup::defaultOrganisationMode()
     {
         resetOrganisationModes();
         addOrganisationMode(QueuedRenderableCollection::OM_PASS_GROUP);
@@ -219,11 +219,10 @@ namespace {
         // Divide the passes into the 3 categories
         const IlluminationPassList& passes = pTech->getIlluminationPasses();
 
-        for(size_t i = 0; i < passes.size(); i++)
+        for(auto p : passes)
         {
-            IlluminationPass* p = passes[i];
             // Insert into solid list
-            QueuedRenderableCollection* collection = NULL;
+            QueuedRenderableCollection* collection = nullptr;
             switch(p->stage)
             {
             case IS_AMBIENT:
@@ -273,7 +272,7 @@ namespace {
         mTransparents.removePassGroup(p); // shouldn't be any, but for completeness
     }   
     //-----------------------------------------------------------------------
-    void RenderPriorityGroup::clear(void)
+    void RenderPriorityGroup::clear()
     {
         // Delete queue groups which are using passes which are to be
         // deleted, we won't need these any more and they clutter up 
@@ -335,13 +334,12 @@ namespace {
         mTransparents.merge( rhs->mTransparents );
     }
     //-----------------------------------------------------------------------
-    QueuedRenderableCollection::QueuedRenderableCollection(void)
-        :mOrganisationMode(0)
-    {
-    }
+    QueuedRenderableCollection::QueuedRenderableCollection()
+        
+    = default;
 
     //-----------------------------------------------------------------------
-    void QueuedRenderableCollection::clear(void)
+    void QueuedRenderableCollection::clear()
     {
         PassGroupRenderableMap::iterator i, iend;
         iend = mGrouped.end();
@@ -424,7 +422,7 @@ namespace {
             // Note that this pass and list are never destroyed until the
             // engine shuts down, or a pass is destroyed or has it's hash
             // recalculated, although the lists will be cleared
-            PassGroupRenderableMap::iterator i = mGrouped.emplace(pass, RenderableList()).first;
+            auto i = mGrouped.emplace(pass, RenderableList()).first;
 
             // Insert renderable
             i->second.push_back(rend);
@@ -520,7 +518,7 @@ namespace {
             // Note that this pass and list are never destroyed until the
             // engine shuts down, or a pass is destroyed or has it's hash
             // recalculated, although the lists will be cleared
-            PassGroupRenderableMap::iterator dstGroup = mGrouped.emplace(srcGroup->first, RenderableList()).first;
+            auto dstGroup = mGrouped.emplace(srcGroup->first, RenderableList()).first;
 
             // Insert renderable
             dstGroup->second.insert( dstGroup->second.end(), srcGroup->second.begin(), srcGroup->second.end() );

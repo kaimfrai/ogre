@@ -8,14 +8,14 @@
 #-------------------------------------------------------------------
 
 set(HEADER_FILES
-    include/TestContext.h
-	../Common/include/ImageValidator.h
-	../Common/include/TestBatch.h
-	../Common/include/CppUnitResultWriter.h
-	../Common/include/TestResultWriter.h
-	../Common/include/HTMLWriter.h
-	../Common/include/VisualTest.h
-	../Common/include/TinyHTML.h
+    include/TestContext.hpp
+	../Common/include/ImageValidator.hpp
+	../Common/include/TestBatch.hpp
+	../Common/include/CppUnitResultWriter.hpp
+	../Common/include/TestResultWriter.hpp
+	../Common/include/HTMLWriter.hpp
+	../Common/include/VisualTest.hpp
+	../Common/include/TinyHTML.hpp
 	)
 
 set(SOURCE_FILES

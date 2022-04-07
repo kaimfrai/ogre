@@ -29,36 +29,36 @@ THE SOFTWARE.
 #include <cstddef>
 #include <memory>
 
-#include "OgreGpuProgram.h"
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePass.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderRenderState.h"
-#include "OgreSharedPtr.h"
-#include "OgreTechnique.h"
-#include "OgreVector.h"
-#include "RootWithoutRenderSystemFixture.h"
+#include "OgreGpuProgram.hpp"
+#include "OgreMaterial.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgrePass.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderRenderState.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreTechnique.hpp"
+#include "OgreVector.hpp"
+#include "RootWithoutRenderSystemFixture.hpp"
 
 using namespace Ogre;
 
 struct RTShaderSystem : public RootWithoutRenderSystemFixture
 {
-    void SetUp()
+    void SetUp() override
     {
         RootWithoutRenderSystemFixture::SetUp();
 
         RTShader::ShaderGenerator::initialize();
         RTShader::ShaderGenerator::getSingleton().setTargetLanguage("glsl");
     }
-    void TearDown()
+    void TearDown() override
     {
         RTShader::ShaderGenerator::destroy();
         RootWithoutRenderSystemFixture::TearDown();

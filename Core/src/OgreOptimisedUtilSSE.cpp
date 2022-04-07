@@ -31,17 +31,17 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstring>
 
-#include "OgreOptimisedUtil.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreException.h"
-#include "OgreMatrix4.h"
-#include "OgrePlatform.h"
-#include "OgrePlatformInformation.h"
-#include "OgrePrerequisites.h"
-#include "OgreVector.h"
+#include "OgreOptimisedUtil.hpp"
+#include "OgreEdgeListBuilder.hpp"
+#include "OgreException.hpp"
+#include "OgreMatrix4.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePlatformInformation.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreVector.hpp"
 // Should keep this includes at latest to avoid potential "xmmintrin.h" included by
 // other header file on some platform for some reason.
-#include "OgreSIMDHelper.h"
+#include "OgreSIMDHelper.hpp"
 
 // I'd like to merge this file with OgreOptimisedUtil.cpp, but it's
 // impossible when compile with gcc, due SSE instructions can only
@@ -66,7 +66,9 @@ THE SOFTWARE.
 //-------------------------------------------------------------------------
 
 // Use unrolled SSE version when vertices exceeds this limit
-#define OGRE_SSE_SKINNING_UNROLL_VERTICES  16
+enum {
+OGRE_SSE_SKINNING_UNROLL_VERTICES =  16
+};
 
 namespace Ogre {
 
@@ -82,14 +84,14 @@ namespace Ogre {
     {
     protected:
         /// Do we prefer to use a general SSE version for position/normal shared buffers?
-        bool mPreferGeneralVersionForSharedBuffers;
+        bool mPreferGeneralVersionForSharedBuffers{false};
 
     public:
         /// Constructor
-        OptimisedUtilSSE(void);
+        OptimisedUtilSSE();
 
         /// @copydoc OptimisedUtil::softwareVertexSkinning
-        virtual void __OGRE_SIMD_ALIGN_ATTRIBUTE softwareVertexSkinning(
+        void softwareVertexSkinning(
             const float *srcPosPtr, float *destPosPtr,
             const float *srcNormPtr, float *destNormPtr,
             const float *blendWeightPtr, const unsigned char* blendIndexPtr,
@@ -98,45 +100,45 @@ namespace Ogre {
             size_t srcNormStride, size_t destNormStride,
             size_t blendWeightStride, size_t blendIndexStride,
             size_t numWeightsPerVertex,
-            size_t numVertices);
+            size_t numVertices) override;
 
         /// @copydoc OptimisedUtil::softwareVertexMorph
-        virtual void __OGRE_SIMD_ALIGN_ATTRIBUTE softwareVertexMorph(
+        void softwareVertexMorph(
             Real t,
             const float *srcPos1, const float *srcPos2,
             float *dstPos,
             size_t pos1VSize, size_t pos2VSize, size_t dstVSize, 
             size_t numVertices,
-            bool morphNormals);
+            bool morphNormals) override;
 
         /// @copydoc OptimisedUtil::concatenateAffineMatrices
-        virtual void __OGRE_SIMD_ALIGN_ATTRIBUTE concatenateAffineMatrices(
+        void concatenateAffineMatrices(
             const Affine3& baseMatrix,
             const Affine3* srcMatrices,
             Affine3* dstMatrices,
-            size_t numMatrices);
+            size_t numMatrices) override;
 
         /// @copydoc OptimisedUtil::calculateFaceNormals
-        virtual void __OGRE_SIMD_ALIGN_ATTRIBUTE calculateFaceNormals(
+        void calculateFaceNormals(
             const float *positions,
             const EdgeData::Triangle *triangles,
             Vector4 *faceNormals,
-            size_t numTriangles);
+            size_t numTriangles) override;
 
         /// @copydoc OptimisedUtil::calculateLightFacing
-        virtual void __OGRE_SIMD_ALIGN_ATTRIBUTE calculateLightFacing(
+        void calculateLightFacing(
             const Vector4& lightPos,
             const Vector4* faceNormals,
             char* lightFacings,
-            size_t numFaces);
+            size_t numFaces) override;
 
         /// @copydoc OptimisedUtil::extrudeVertices
-        virtual void __OGRE_SIMD_ALIGN_ATTRIBUTE extrudeVertices(
+        void extrudeVertices(
             const Vector4& lightPos,
             Real extrudeDist,
             const float* srcPositions,
             float* destPositions,
-            size_t numVertices);
+            size_t numVertices) override;
     };
 
 //---------------------------------------------------------------------
@@ -482,8 +484,8 @@ namespace Ogre {
             size_t numWeightsPerVertex,
             size_t numIterations)
         {
-            typedef SSEMemoryAccessor<srcAligned> SrcAccessor;
-            typedef SSEMemoryAccessor<destAligned> DestAccessor;
+            using SrcAccessor = SSEMemoryAccessor<srcAligned>;
+            using DestAccessor = SSEMemoryAccessor<destAligned>;
 
             // Blending 4 vertices per-iteration
             for (size_t i = 0; i < numIterations; ++i)
@@ -595,7 +597,7 @@ namespace Ogre {
             }
         }
     };
-    static OGRE_FORCE_INLINE void softwareVertexSkinning_SSE_PosNorm_Shared_Packed(
+    static inline void softwareVertexSkinning_SSE_PosNorm_Shared_Packed(
             const float* pSrcPos, float* pDestPos,
             const float* pBlendWeight, const unsigned char* pBlendIndex,
             const Affine3* const* blendMatrices,
@@ -642,10 +644,10 @@ namespace Ogre {
             size_t numWeightsPerVertex,
             size_t numIterations)
         {
-            typedef SSEMemoryAccessor<srcPosAligned> SrcPosAccessor;
-            typedef SSEMemoryAccessor<destPosAligned> DestPosAccessor;
-            typedef SSEMemoryAccessor<srcNormAligned> SrcNormAccessor;
-            typedef SSEMemoryAccessor<destNormAligned> DestNormAccessor;
+            using SrcPosAccessor = SSEMemoryAccessor<srcPosAligned>;
+            using DestPosAccessor = SSEMemoryAccessor<destPosAligned>;
+            using SrcNormAccessor = SSEMemoryAccessor<srcNormAligned>;
+            using DestNormAccessor = SSEMemoryAccessor<destNormAligned>;
 
             // Blending 4 vertices per-iteration
             for (size_t i = 0; i < numIterations; ++i)
@@ -750,7 +752,7 @@ namespace Ogre {
             }
         }
     };
-    static OGRE_FORCE_INLINE void softwareVertexSkinning_SSE_PosNorm_Separated_Packed(
+    static inline void softwareVertexSkinning_SSE_PosNorm_Separated_Packed(
         const float* pSrcPos, float* pDestPos,
         const float* pSrcNorm, float* pDestNorm,
         const float* pBlendWeight, const unsigned char* pBlendIndex,
@@ -799,8 +801,8 @@ namespace Ogre {
             size_t numWeightsPerVertex,
             size_t numIterations)
         {
-            typedef SSEMemoryAccessor<srcPosAligned> SrcPosAccessor;
-            typedef SSEMemoryAccessor<destPosAligned> DestPosAccessor;
+            using SrcPosAccessor = SSEMemoryAccessor<srcPosAligned>;
+            using DestPosAccessor = SSEMemoryAccessor<destPosAligned>;
 
             // Blending 4 vertices per-iteration
             for (size_t i = 0; i < numIterations; ++i)
@@ -869,7 +871,7 @@ namespace Ogre {
             }
         }
     };
-    static OGRE_FORCE_INLINE void softwareVertexSkinning_SSE_PosOnly_Packed(
+    static inline void softwareVertexSkinning_SSE_PosOnly_Packed(
         const float* pSrcPos, float* pDestPos,
         const float* pBlendWeight, const unsigned char* pBlendIndex,
         const Affine3* const* blendMatrices,
@@ -904,8 +906,8 @@ namespace Ogre {
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    OptimisedUtilSSE::OptimisedUtilSSE(void)
-        : mPreferGeneralVersionForSharedBuffers(false)
+    OptimisedUtilSSE::OptimisedUtilSSE()
+         
     {
         // For AMD Athlon XP (but not that for Althon 64), it's prefer to never use
         // unrolled version for shared buffers at all, I guess because that version
@@ -1453,7 +1455,7 @@ namespace Ogre {
 #define __LOAD_VECTOR3(p)   _mm_loadh_pi(_mm_load_ss(p), (const __m64*)((p)+1))
 
         // Mask used to changes sign of single precision floating point values.
-        OGRE_SIMD_ALIGNED_DECL(static const uint32, msSignMask[4]) =
+        alignas(SIMD_ALIGNMENT) static const uint32 msSignMask[4] =
         {
             0x80000000, 0x80000000, 0x80000000, 0x80000000,
         };
@@ -1738,8 +1740,8 @@ namespace Ogre {
             float* pDestPos,
             size_t numVertices)
         {
-            typedef SSEMemoryAccessor<srcAligned> SrcAccessor;
-            typedef SSEMemoryAccessor<destAligned> DestAccessor;
+            using SrcAccessor = SSEMemoryAccessor<srcAligned>;
+            using DestAccessor = SSEMemoryAccessor<destAligned>;
 
             // Directional light, extrusion is along light direction
 
@@ -1844,8 +1846,8 @@ namespace Ogre {
             float* pDestPos,
             size_t numVertices)
         {
-            typedef SSEMemoryAccessor<srcAligned> SrcAccessor;
-            typedef SSEMemoryAccessor<destAligned> DestAccessor;
+            using SrcAccessor = SSEMemoryAccessor<srcAligned>;
+            using DestAccessor = SSEMemoryAccessor<destAligned>;
 
             // Point light, will calculate extrusion direction for every vertex
 
@@ -1990,8 +1992,8 @@ namespace Ogre {
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    extern OptimisedUtil* _getOptimisedUtilSSE(void);
-    extern OptimisedUtil* _getOptimisedUtilSSE(void)
+    extern auto _getOptimisedUtilSSE() -> OptimisedUtil*;
+    extern auto _getOptimisedUtilSSE() -> OptimisedUtil*
     {
         static OptimisedUtilSSE msOptimisedUtilSSE;
         return &msOptimisedUtilSSE;

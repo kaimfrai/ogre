@@ -29,42 +29,42 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreArchive.h"
-#include "OgreArchiveManager.h"
-#include "OgreDataStream.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRenderSystemCapabilitiesManager.h"
-#include "OgreRenderSystemCapabilitiesSerializer.h"
-#include "OgreSharedPtr.h"
-#include "OgreStringVector.h"
+#include "OgreArchive.hpp"
+#include "OgreArchiveManager.hpp"
+#include "OgreDataStream.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRenderSystemCapabilitiesManager.hpp"
+#include "OgreRenderSystemCapabilitiesSerializer.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreStringVector.hpp"
 
 
 
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> RenderSystemCapabilitiesManager* Singleton<RenderSystemCapabilitiesManager>::msSingleton = 0;
-    RenderSystemCapabilitiesManager* RenderSystemCapabilitiesManager::getSingletonPtr(void)
+    template<> RenderSystemCapabilitiesManager* Singleton<RenderSystemCapabilitiesManager>::msSingleton = nullptr;
+    auto RenderSystemCapabilitiesManager::getSingletonPtr() -> RenderSystemCapabilitiesManager*
     {
         return msSingleton;
     }
-    RenderSystemCapabilitiesManager& RenderSystemCapabilitiesManager::getSingleton(void)
+    auto RenderSystemCapabilitiesManager::getSingleton() -> RenderSystemCapabilitiesManager&
     {
         assert( msSingleton );  return ( *msSingleton );
     }
 
     //-----------------------------------------------------------------------
-    RenderSystemCapabilitiesManager::RenderSystemCapabilitiesManager() : mSerializer(0), mScriptPattern("*.rendercaps")
+    RenderSystemCapabilitiesManager::RenderSystemCapabilitiesManager() :  mScriptPattern("*.rendercaps")
     {
         mSerializer = new RenderSystemCapabilitiesSerializer();
     }
     //-----------------------------------------------------------------------
     RenderSystemCapabilitiesManager::~RenderSystemCapabilitiesManager()
     {
-        for (CapabilitiesMap::iterator it = mCapabilitiesMap.begin(), end = mCapabilitiesMap.end(); it != end; ++it)
+        for (auto & it : mCapabilitiesMap)
         {
         // free memory in RenderSystemCapabilities*
-            delete it->second;
+            delete it.second;
         }
 
         delete mSerializer;
@@ -78,20 +78,20 @@ namespace Ogre {
         StringVectorPtr files = arch->find(mScriptPattern, recursive);
 
         // loop through .rendercaps files and load each one
-        for (StringVector::iterator it = files->begin(), end = files->end(); it != end; ++it)
+        for (auto & it : *files)
         {
-            DataStreamPtr stream = arch->open(*it);
+            DataStreamPtr stream = arch->open(it);
             mSerializer->parseScript(stream);
             stream->close();
         }
     }
 
-    RenderSystemCapabilities* RenderSystemCapabilitiesManager::loadParsedCapabilities(const String& name)
+    auto RenderSystemCapabilitiesManager::loadParsedCapabilities(const String& name) -> RenderSystemCapabilities*
     {
         return mCapabilitiesMap[name];
     }
 
-    const std::map<String, RenderSystemCapabilities*> &RenderSystemCapabilitiesManager::getCapabilities() const
+    auto RenderSystemCapabilitiesManager::getCapabilities() const -> const std::map<String, RenderSystemCapabilities*> &
     {
         return mCapabilitiesMap;
     }

@@ -8,33 +8,29 @@
 #include <memory>
 #include <string>
 
-#include "OgreBlendMode.h"
-#include "OgreGpuProgram.h"
-#include "OgreGpuProgramManager.h"
-#include "OgreGpuProgramParams.h"
-#include "OgreMaterialSerializer.h"
-#include "OgrePass.h"
-#include "OgrePrerequisites.h"
-#include "OgreScriptCompiler.h"
-#include "OgreShaderExWBOIT.h"
-#include "OgreShaderFFPRenderState.h"
-#include "OgreShaderFunction.h"
-#include "OgreShaderFunctionAtom.h"
-#include "OgreShaderGenerator.h"
-#include "OgreShaderParameter.h"
-#include "OgreShaderProgram.h"
-#include "OgreShaderProgramSet.h"
-#include "OgreShaderScriptTranslator.h"
+#include "OgreBlendMode.hpp"
+#include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramManager.hpp"
+#include "OgreGpuProgramParams.hpp"
+#include "OgreMaterialSerializer.hpp"
+#include "OgrePass.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreScriptCompiler.hpp"
+#include "OgreShaderExWBOIT.hpp"
+#include "OgreShaderFFPRenderState.hpp"
+#include "OgreShaderFunction.hpp"
+#include "OgreShaderFunctionAtom.hpp"
+#include "OgreShaderGenerator.hpp"
+#include "OgreShaderParameter.hpp"
+#include "OgreShaderProgram.hpp"
+#include "OgreShaderProgramSet.hpp"
+#include "OgreShaderScriptTranslator.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
         class RenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
+    }  // namespace Ogre
 
-namespace Ogre
-{
-namespace RTShader
+namespace Ogre::RTShader
 {
 
 /************************************************************************/
@@ -43,19 +39,19 @@ namespace RTShader
 String WBOIT::Type = "WBOIT";
 
 //-----------------------------------------------------------------------
-const String& WBOIT::getType() const { return Type; }
+auto WBOIT::getType() const -> const String& { return Type; }
 
 //-----------------------------------------------------------------------
-int WBOIT::getExecutionOrder() const { return FFP_POST_PROCESS; }
+auto WBOIT::getExecutionOrder() const -> int { return FFP_POST_PROCESS; }
 
-bool WBOIT::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+auto WBOIT::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
 {
     dstPass->setTransparentSortingEnabled(false);
     dstPass->setSeparateSceneBlending(SBF_ONE, SBF_ONE, SBF_ZERO, SBF_ONE_MINUS_SOURCE_ALPHA);
     return true;
 }
 
-bool WBOIT::createCpuSubPrograms(ProgramSet* programSet)
+auto WBOIT::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
     psProgram->addDependency("SGXLib_WBOIT");
@@ -94,25 +90,25 @@ bool WBOIT::createCpuSubPrograms(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-const String& WBOITFactory::getType() const { return WBOIT::Type; }
+auto WBOITFactory::getType() const -> const String& { return WBOIT::Type; }
 
 //-----------------------------------------------------------------------
-SubRenderState* WBOITFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                               SGScriptTranslator* translator)
+auto WBOITFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
+                                               SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name != "weighted_blended_oit" || prop->values.empty())
-        return NULL;
+        return nullptr;
 
     auto it = prop->values.begin();
     bool val;
     if(!SGScriptTranslator::getBoolean(*it++, &val))
     {
         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-        return NULL;
+        return nullptr;
     }
 
     if (!val)
-        return NULL;
+        return nullptr;
 
     auto ret = static_cast<WBOIT*>(createOrRetrieveInstance(translator));
     return ret;
@@ -127,7 +123,6 @@ void WBOITFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subRen
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* WBOITFactory::createInstanceImpl() { return new WBOIT; }
+auto WBOITFactory::createInstanceImpl() -> SubRenderState* { return new WBOIT; }
 
-} // namespace RTShader
 } // namespace Ogre

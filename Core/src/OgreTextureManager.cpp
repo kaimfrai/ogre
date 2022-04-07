@@ -32,41 +32,39 @@ THE SOFTWARE.
 #include <unordered_map>
 #include <utility>
 
-#include "OgreColourValue.h"
-#include "OgreCommon.h"
-#include "OgreException.h"
-#include "OgreImage.h"
-#include "OgrePixelFormat.h"
-#include "OgrePlatform.h"
-#include "OgrePrerequisites.h"
-#include "OgreRenderSystem.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreResourceManager.h"
-#include "OgreRoot.h"
-#include "OgreSharedPtr.h"
-#include "OgreSingleton.h"
-#include "OgreTexture.h"
-#include "OgreTextureManager.h"
-#include "OgreTextureUnitState.h"
+#include "OgreColourValue.hpp"
+#include "OgreCommon.hpp"
+#include "OgreException.hpp"
+#include "OgreImage.hpp"
+#include "OgrePixelFormat.hpp"
+#include "OgrePlatform.hpp"
+#include "OgrePrerequisites.hpp"
+#include "OgreRenderSystem.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreResourceManager.hpp"
+#include "OgreRoot.hpp"
+#include "OgreSharedPtr.hpp"
+#include "OgreSingleton.hpp"
+#include "OgreTexture.hpp"
+#include "OgreTextureManager.hpp"
+#include "OgreTextureUnitState.hpp"
 
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> TextureManager* Singleton<TextureManager>::msSingleton = 0;
-    TextureManager* TextureManager::getSingletonPtr(void)
+    template<> TextureManager* Singleton<TextureManager>::msSingleton = nullptr;
+    auto TextureManager::getSingletonPtr() -> TextureManager*
     {
         return msSingleton;
     }
-    TextureManager& TextureManager::getSingleton(void)
+    auto TextureManager::getSingleton() -> TextureManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
     //-----------------------------------------------------------------------
-    TextureManager::TextureManager(void)
-         : mPreferredIntegerBitDepth(0)
-         , mPreferredFloatBitDepth(0)
-         , mDefaultNumMipmaps(MIP_UNLIMITED)
+    TextureManager::TextureManager()
+          
     {
         mResourceType = "Texture";
         mLoadOrder = 75.0f;
@@ -74,12 +72,9 @@ namespace Ogre {
         // Subclasses should register (when this is fully constructed)
     }
     //-----------------------------------------------------------------------
-    TextureManager::~TextureManager()
-    {
-        // subclasses should unregister with resource group manager
+    TextureManager::~TextureManager() = default;
 
-    }
-    SamplerPtr TextureManager::createSampler(const String& name)
+    auto TextureManager::createSampler(const String& name) -> SamplerPtr
     {
         SamplerPtr ret = _createSamplerImpl();
         if(!name.empty())
@@ -92,7 +87,7 @@ namespace Ogre {
     }
 
     /// retrieve an named sampler
-    const SamplerPtr& TextureManager::getSampler(const String& name) const
+    auto TextureManager::getSampler(const String& name) const -> const SamplerPtr&
     {
         static SamplerPtr nullPtr;
         auto it = mNamedSamplers.find(name);
@@ -101,22 +96,22 @@ namespace Ogre {
         return it->second;
     }
     //-----------------------------------------------------------------------
-    TexturePtr TextureManager::getByName(const String& name, const String& groupName) const
+    auto TextureManager::getByName(const String& name, const String& groupName) const -> TexturePtr
     {
         return static_pointer_cast<Texture>(getResourceByName(name, groupName));
     }
     //-----------------------------------------------------------------------
-    TexturePtr TextureManager::create (const String& name, const String& group,
+    auto TextureManager::create (const String& name, const String& group,
                                     bool isManual, ManualResourceLoader* loader,
-                                    const NameValuePairList* createParams)
+                                    const NameValuePairList* createParams) -> TexturePtr
     {
         return static_pointer_cast<Texture>(createResource(name,group,isManual,loader,createParams));
     }
     //-----------------------------------------------------------------------
-    TextureManager::ResourceCreateOrRetrieveResult TextureManager::createOrRetrieve(
+    auto TextureManager::createOrRetrieve(
             const String &name, const String& group, bool isManual, ManualResourceLoader* loader,
             const NameValuePairList* createParams, TextureType texType, int numMipmaps, Real gamma,
-            bool isAlpha, PixelFormat desiredFormat, bool hwGamma)
+            bool isAlpha, PixelFormat desiredFormat, bool hwGamma) -> TextureManager::ResourceCreateOrRetrieveResult
     {
         ResourceCreateOrRetrieveResult res =
             Ogre::ResourceManager::createOrRetrieve(name, group, isManual, loader, createParams);
@@ -135,30 +130,30 @@ namespace Ogre {
         return res;
     }
     //-----------------------------------------------------------------------
-    TexturePtr TextureManager::prepare(const String &name, const String& group, TextureType texType,
+    auto TextureManager::prepare(const String &name, const String& group, TextureType texType,
                                        int numMipmaps, Real gamma, bool isAlpha,
-                                       PixelFormat desiredFormat, bool hwGamma)
+                                       PixelFormat desiredFormat, bool hwGamma) -> TexturePtr
     {
         ResourceCreateOrRetrieveResult res =
-            createOrRetrieve(name,group,false,0,0,texType,numMipmaps,gamma,isAlpha,desiredFormat,hwGamma);
+            createOrRetrieve(name,group,false,nullptr,nullptr,texType,numMipmaps,gamma,isAlpha,desiredFormat,hwGamma);
         TexturePtr tex = static_pointer_cast<Texture>(res.first);
         tex->prepare();
         return tex;
     }
 
-    TexturePtr TextureManager::load(const String& name, const String& group, TextureType texType,
-                                    int numMipmaps, Real gamma, PixelFormat desiredFormat, bool hwGamma)
+    auto TextureManager::load(const String& name, const String& group, TextureType texType,
+                                    int numMipmaps, Real gamma, PixelFormat desiredFormat, bool hwGamma) -> TexturePtr
     {
-        auto res = createOrRetrieve(name, group, false, 0, 0, texType, numMipmaps, gamma, false,
+        auto res = createOrRetrieve(name, group, false, nullptr, nullptr, texType, numMipmaps, gamma, false,
                                     desiredFormat, hwGamma);
         TexturePtr tex = static_pointer_cast<Texture>(res.first);
         tex->load();
         return tex;
     }
     //-----------------------------------------------------------------------
-    TexturePtr TextureManager::loadImage( const String &name, const String& group,
+    auto TextureManager::loadImage( const String &name, const String& group,
         const Image &img, TextureType texType, int numMipmaps, Real gamma, bool isAlpha, 
-        PixelFormat desiredFormat, bool hwGamma)
+        PixelFormat desiredFormat, bool hwGamma) -> TexturePtr
     {
         TexturePtr tex = create(name, group, true);
 
@@ -174,10 +169,10 @@ namespace Ogre {
         return tex;
     }
     //-----------------------------------------------------------------------
-    TexturePtr TextureManager::loadRawData(const String &name, const String& group,
+    auto TextureManager::loadRawData(const String &name, const String& group,
         DataStreamPtr& stream, ushort uWidth, ushort uHeight, 
         PixelFormat format, TextureType texType, 
-        int numMipmaps, Real gamma, bool hwGamma)
+        int numMipmaps, Real gamma, bool hwGamma) -> TexturePtr
     {
         TexturePtr tex = create(name, group, true);
 
@@ -191,10 +186,10 @@ namespace Ogre {
         return tex;
     }
     //-----------------------------------------------------------------------
-    TexturePtr TextureManager::createManual(const String & name, const String& group,
+    auto TextureManager::createManual(const String & name, const String& group,
         TextureType texType, uint width, uint height, uint depth, int numMipmaps,
         PixelFormat format, int usage, ManualResourceLoader* loader, bool hwGamma, 
-        uint fsaa, const String& fsaaHint)
+        uint fsaa, const String& fsaaHint) -> TexturePtr
     {
         TexturePtr ret;
 
@@ -232,9 +227,9 @@ namespace Ogre {
         if (reloadTextures)
         {
             // Iterate through all textures
-            for (ResourceMap::iterator it = mResources.begin(); it != mResources.end(); ++it)
+            for (auto & mResource : mResources)
             {
-                Texture* texture = static_cast<Texture*>(it->second.get());
+                auto* texture = static_cast<Texture*>(mResource.second.get());
                 // Reload loaded and reloadable texture only
                 if (texture->isLoaded() && texture->isReloadable())
                 {
@@ -250,7 +245,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    ushort TextureManager::getPreferredIntegerBitDepth(void) const
+    auto TextureManager::getPreferredIntegerBitDepth() const -> ushort
     {
         return mPreferredIntegerBitDepth;
     }
@@ -262,9 +257,9 @@ namespace Ogre {
         if (reloadTextures)
         {
             // Iterate through all textures
-            for (ResourceMap::iterator it = mResources.begin(); it != mResources.end(); ++it)
+            for (auto & mResource : mResources)
             {
-                Texture* texture = static_cast<Texture*>(it->second.get());
+                auto* texture = static_cast<Texture*>(mResource.second.get());
                 // Reload loaded and reloadable texture only
                 if (texture->isLoaded() && texture->isReloadable())
                 {
@@ -280,7 +275,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    ushort TextureManager::getPreferredFloatBitDepth(void) const
+    auto TextureManager::getPreferredFloatBitDepth() const -> ushort
     {
         return mPreferredFloatBitDepth;
     }
@@ -293,9 +288,9 @@ namespace Ogre {
         if (reloadTextures)
         {
             // Iterate through all textures
-            for (ResourceMap::iterator it = mResources.begin(); it != mResources.end(); ++it)
+            for (auto & mResource : mResources)
             {
-                Texture* texture = static_cast<Texture*>(it->second.get());
+                auto* texture = static_cast<Texture*>(mResource.second.get());
                 // Reload loaded and reloadable texture only
                 if (texture->isLoaded() && texture->isReloadable())
                 {
@@ -316,12 +311,12 @@ namespace Ogre {
         mDefaultNumMipmaps = num;
     }
     //-----------------------------------------------------------------------
-    bool TextureManager::isFormatSupported(TextureType ttype, PixelFormat format, int usage)
+    auto TextureManager::isFormatSupported(TextureType ttype, PixelFormat format, int usage) -> bool
     {
         return getNativeFormat(ttype, format, usage) == format;
     }
     //-----------------------------------------------------------------------
-    bool TextureManager::isEquivalentFormatSupported(TextureType ttype, PixelFormat format, int usage)
+    auto TextureManager::isEquivalentFormatSupported(TextureType ttype, PixelFormat format, int usage) -> bool
     {
         PixelFormat supportedFormat = getNativeFormat(ttype, format, usage);
 
@@ -330,8 +325,8 @@ namespace Ogre {
         
     }
 
-    bool TextureManager::isHardwareFilteringSupported(TextureType ttype, PixelFormat format,
-                                                      int usage, bool preciseFormatOnly)
+    auto TextureManager::isHardwareFilteringSupported(TextureType ttype, PixelFormat format,
+                                                      int usage, bool preciseFormatOnly) -> bool
     {
         if (format == PF_UNKNOWN)
             return false;
@@ -343,7 +338,7 @@ namespace Ogre {
         return true;
     }
 
-    const TexturePtr& TextureManager::_getWarningTexture()
+    auto TextureManager::_getWarningTexture() -> const TexturePtr&
     {
         if(mWarningTexture)
             return mWarningTexture;
@@ -366,7 +361,7 @@ namespace Ogre {
         return mWarningTexture;
     }
 
-    const SamplerPtr& TextureManager::getDefaultSampler()
+    auto TextureManager::getDefaultSampler() -> const SamplerPtr&
     {
         if(!mDefaultSampler)
             mDefaultSampler = createSampler();

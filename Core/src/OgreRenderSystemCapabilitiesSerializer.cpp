@@ -29,20 +29,20 @@ THE SOFTWARE.
 #include <ostream>
 #include <set>
 
-#include "OgreDataStream.h"
-#include "OgreLogManager.h"
-#include "OgreRenderSystemCapabilities.h"
-#include "OgreRenderSystemCapabilitiesManager.h"
-#include "OgreRenderSystemCapabilitiesSerializer.h"
-#include "OgreString.h"
-#include "OgreStringConverter.h"
-#include "OgreStringVector.h"
+#include "OgreDataStream.hpp"
+#include "OgreLogManager.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
+#include "OgreRenderSystemCapabilitiesManager.hpp"
+#include "OgreRenderSystemCapabilitiesSerializer.hpp"
+#include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
+#include "OgreStringVector.hpp"
 
 namespace Ogre
 {
 
-    RenderSystemCapabilitiesSerializer::RenderSystemCapabilitiesSerializer() : mCurrentLineNumber(0), mCurrentLine(0),
-        mCurrentCapabilities(0)
+    RenderSystemCapabilitiesSerializer::RenderSystemCapabilitiesSerializer() 
+        
     {
         initialiaseDispatchTables();
     }
@@ -68,17 +68,17 @@ namespace Ogre
 
         file << endl;
 
-        for(CapabilitiesMap::iterator it = mCapabilitiesMap.begin(); it != mCapabilitiesMap.end(); ++it) {
-            file << "\t" << it->first << " " << StringConverter::toString(caps->hasCapability(it->second)) << endl;
+        for(auto & it : mCapabilitiesMap) {
+            file << "\t" << it.first << " " << StringConverter::toString(caps->hasCapability(it.second)) << endl;
         }
 
         file << endl;
 
         RenderSystemCapabilities::ShaderProfiles profiles = caps->getSupportedShaderProfiles();
         // write every profile
-        for(RenderSystemCapabilities::ShaderProfiles::iterator it = profiles.begin(), end = profiles.end(); it != end; ++it)
+        for(const auto & profile : profiles)
         {
-            file << "\t" << "shader_profile " << *it << endl;
+            file << "\t" << "shader_profile " << profile << endl;
         }
 
         file << endl;
@@ -117,7 +117,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------
-    String RenderSystemCapabilitiesSerializer::writeString(const RenderSystemCapabilities* caps, const String &name)
+    auto RenderSystemCapabilitiesSerializer::writeString(const RenderSystemCapabilities* caps, const String &name) -> String
     {
         using namespace std;
         
@@ -133,9 +133,9 @@ namespace Ogre
     {
         // reset parsing data to NULL
         mCurrentLineNumber = 0;
-        mCurrentLine = 0;
+        mCurrentLine = nullptr;
         mCurrentStream.reset();
-        mCurrentCapabilities = 0;
+        mCurrentCapabilities = nullptr;
 
         mCurrentStream = stream;
 
@@ -393,13 +393,13 @@ namespace Ogre
     {
         StringVector tokens;
 
-        for (CapabilitiesLinesList::iterator it = lines.begin(), end = lines.end(); it != end; ++it)
+        for (auto & line : lines)
         {
             // restore the current line information for debugging
-            mCurrentLine = &(it->first);
-            mCurrentLineNumber = it->second;
+            mCurrentLine = &(line.first);
+            mCurrentLineNumber = line.second;
 
-            tokens = StringUtil::split(it->first);
+            tokens = StringUtil::split(line.first);
             // check for incomplete lines
             if(tokens.size() < 2)
             {
@@ -429,7 +429,7 @@ namespace Ogre
                     break;
                 case SET_INT_METHOD:
                 {
-                    ushort integer = (ushort)StringConverter::parseInt(tokens[1]);
+                    auto integer = (ushort)StringConverter::parseInt(tokens[1]);
                     callSetIntMethod(keyword, integer);
                     break;
                 }
@@ -463,7 +463,7 @@ namespace Ogre
     void RenderSystemCapabilitiesSerializer::logParseError(const String& error) const
     {
         // log the line with error in it if the current line is available
-        if (mCurrentLine != 0 && mCurrentStream)
+        if (mCurrentLine != nullptr && mCurrentStream)
         {
             LogManager::getSingleton().logMessage(
                 "Error in .rendercaps " + mCurrentStream->getName() + ":" + StringConverter::toString(mCurrentLineNumber) +

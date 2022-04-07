@@ -29,17 +29,17 @@ THE SOFTWARE.
 #include <cstring>
 #include <utility>
 
-#include "OgreException.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgrePose.h"
-#include "OgreVertexIndexData.h"
+#include "OgreException.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgrePose.hpp"
+#include "OgreVertexIndexData.hpp"
 
 namespace Ogre {
     //---------------------------------------------------------------------
-    Pose::Pose(ushort target, const String& name)
-        : mTarget(target), mName(name)
+    Pose::Pose(ushort target, String  name)
+        : mTarget(target), mName(std::move(name))
     {
     }
     //---------------------------------------------------------------------
@@ -74,20 +74,20 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Pose::removeVertex(size_t index)
     {
-        VertexOffsetMap::iterator i = mVertexOffsetMap.find(index);
+        auto i = mVertexOffsetMap.find(index);
         if (i != mVertexOffsetMap.end())
         {
             mVertexOffsetMap.erase(i);
             mBuffer.reset();
         }
-        NormalsMap::iterator j = mNormalsMap.find(index);
+        auto j = mNormalsMap.find(index);
         if (j != mNormalsMap.end())
         {
             mNormalsMap.erase(j);
         }
     }
     //---------------------------------------------------------------------
-    void Pose::clearVertices(void)
+    void Pose::clearVertices()
     {
         mVertexOffsetMap.clear();
         mNormalsMap.clear();
@@ -95,7 +95,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    const HardwareVertexBufferSharedPtr& Pose::_getHardwareVertexBuffer(const VertexData* origData) const
+    auto Pose::_getHardwareVertexBuffer(const VertexData* origData) const -> const HardwareVertexBufferSharedPtr&
     {
         size_t numVertices = origData->vertexCount;
         
@@ -111,7 +111,7 @@ namespace Ogre {
                 vertexSize, numVertices, HardwareBuffer::HBU_STATIC_WRITE_ONLY);
 
             HardwareBufferLockGuard bufLock(mBuffer, HardwareBuffer::HBL_DISCARD);
-            float* pFloat = static_cast<float*>(bufLock.pData);
+            auto* pFloat = static_cast<float*>(bufLock.pData);
             // initialise - these will be the values used where no pose vertex is included
             memset(pFloat, 0, mBuffer->getSizeInBytes()); 
             if (normals)
@@ -138,8 +138,8 @@ namespace Ogre {
                 }
             }
             // Set each vertex
-            VertexOffsetMap::const_iterator v = mVertexOffsetMap.begin();
-            NormalsMap::const_iterator n = mNormalsMap.begin();
+            auto v = mVertexOffsetMap.begin();
+            auto n = mNormalsMap.begin();
             
             size_t numFloatsPerVertex = normals ? 6: 3;
             
@@ -165,7 +165,7 @@ namespace Ogre {
         return mBuffer;
     }
     //---------------------------------------------------------------------
-    Pose* Pose::clone(void) const
+    auto Pose::clone() const -> Pose*
     {
         Pose* newPose = new Pose(mTarget, mName);
         newPose->mVertexOffsetMap = mVertexOffsetMap;

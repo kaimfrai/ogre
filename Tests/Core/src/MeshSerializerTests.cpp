@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "MeshSerializerTests.h"
+#include "MeshSerializerTests.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -39,39 +39,39 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreAnimation.h"
-#include "OgreAnimationTrack.h"
-#include "OgreArchive.h"
-#include "OgreArchiveManager.h"
-#include "OgreAxisAlignedBox.h"
-#include "OgreConfigFile.h"
-#include "OgreDefaultHardwareBufferManager.h"
-#include "OgreDistanceLodStrategy.h"
-#include "OgreEdgeListBuilder.h"
-#include "OgreException.h"
-#include "OgreFileSystem.h"
-#include "OgreFileSystemLayer.h"
-#include "OgreHardwareBuffer.h"
-#include "OgreHardwareBufferManager.h"
-#include "OgreHardwareIndexBuffer.h"
-#include "OgreHardwareVertexBuffer.h"
-#include "OgreKeyFrame.h"
-#include "OgreLodStrategyManager.h"
-#include "OgreMaterialManager.h"
-#include "OgreMesh.h"
-#include "OgreMeshManager.h"
-#include "OgreMeshSerializer.h"
-#include "OgrePose.h"
-#include "OgreRenderOperation.h"
-#include "OgreResource.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreSkeleton.h"
-#include "OgreSkeletonManager.h"
-#include "OgreSkeletonSerializer.h"
-#include "OgreString.h"
-#include "OgreSubMesh.h"
-#include "OgreVector.h"
-#include "OgreVertexIndexData.h"
+#include "OgreAnimation.hpp"
+#include "OgreAnimationTrack.hpp"
+#include "OgreArchive.hpp"
+#include "OgreArchiveManager.hpp"
+#include "OgreAxisAlignedBox.hpp"
+#include "OgreConfigFile.hpp"
+#include "OgreDefaultHardwareBufferManager.hpp"
+#include "OgreDistanceLodStrategy.hpp"
+#include "OgreEdgeListBuilder.hpp"
+#include "OgreException.hpp"
+#include "OgreFileSystem.hpp"
+#include "OgreFileSystemLayer.hpp"
+#include "OgreHardwareBuffer.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
+#include "OgreKeyFrame.hpp"
+#include "OgreLodStrategyManager.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMesh.hpp"
+#include "OgreMeshManager.hpp"
+#include "OgreMeshSerializer.hpp"
+#include "OgrePose.hpp"
+#include "OgreRenderOperation.hpp"
+#include "OgreResource.hpp"
+#include "OgreResourceGroupManager.hpp"
+#include "OgreSkeleton.hpp"
+#include "OgreSkeletonManager.hpp"
+#include "OgreSkeletonSerializer.hpp"
+#include "OgreString.hpp"
+#include "OgreSubMesh.hpp"
+#include "OgreVector.hpp"
+#include "OgreVertexIndexData.hpp"
 
 // Register the test suite
 
@@ -87,10 +87,10 @@ void MeshSerializerTests::SetUp()
     new DefaultHardwareBufferManager();
     new MeshManager();
     new SkeletonManager();
-    ArchiveManager* archiveMgr = new ArchiveManager();
+    auto* archiveMgr = new ArchiveManager();
     archiveMgr->addArchiveFactory(new FileSystemArchiveFactory());
 
-    MaterialManager* matMgr = new MaterialManager();
+    auto* matMgr = new MaterialManager();
     matMgr->initialise();
 
     // Load resource paths from config file
@@ -227,7 +227,7 @@ TEST_F(MeshSerializerTests,Mesh_Version_1_3)
 
 namespace Ogre
 {
-static bool operator==(const VertexPoseKeyFrame::PoseRef& a, const VertexPoseKeyFrame::PoseRef& b)
+static auto operator==(const VertexPoseKeyFrame::PoseRef& a, const VertexPoseKeyFrame::PoseRef& b) -> bool
 {
 
     return a.poseIndex == b.poseIndex && a.influence == b.influence;
@@ -274,7 +274,7 @@ void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version 
         for (int i = 0; i < numLods; i++) {
             if (version != MESH_VERSION_1_0 && a->getAutoBuildEdgeLists() == b->getAutoBuildEdgeLists()) {
                 assertEdgeDataClone(a->getEdgeList(i), b->getEdgeList(i));
-            } else if (a->getLodLevel(i).edgeData != NULL && b->getLodLevel(i).edgeData != NULL) {
+            } else if (a->getLodLevel(i).edgeData != nullptr && b->getLodLevel(i).edgeData != nullptr) {
                 assertEdgeDataClone(a->getLodLevel(i).edgeData, b->getLodLevel(i).edgeData);
             }
             assertLodUsageClone(a->getLodLevel(i), b->getLodLevel(i));
@@ -333,7 +333,7 @@ void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version 
         const Animation::VertexTrackList& aList = a->getAnimation(i)->_getVertexTrackList();
         const Animation::VertexTrackList& bList = b->getAnimation(i)->_getVertexTrackList();
 
-        Animation::VertexTrackList::const_iterator it = aList.begin();
+        auto it = aList.begin();
         for (; it != aList.end(); ++it)
         {
             EXPECT_EQ(bList.at(it->first)->getAnimationType(), it->second->getAnimationType());
@@ -349,7 +349,7 @@ void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version 
     }
 }
 //--------------------------------------------------------------------------
-bool MeshSerializerTests::isLodMixed(const Mesh* pMesh)
+auto MeshSerializerTests::isLodMixed(const Mesh* pMesh) -> bool
 {
     if (!pMesh->hasManualLodLevel()) {
         return false;
@@ -367,20 +367,19 @@ bool MeshSerializerTests::isLodMixed(const Mesh* pMesh)
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, MeshVersion version /*= MESH_VERSION_LATEST*/)
 {
-    EXPECT_TRUE((a == NULL) == (b == NULL));
+    EXPECT_TRUE((a == nullptr) == (b == nullptr));
     if (a) {
         // compare bindings
         {
             const VertexBufferBinding::VertexBufferBindingMap& aBindings = a->vertexBufferBinding->getBindings();
             const VertexBufferBinding::VertexBufferBindingMap& bBindings = b->vertexBufferBinding->getBindings();
             EXPECT_TRUE(aBindings.size() == bBindings.size());
-            typedef VertexBufferBinding::VertexBufferBindingMap::const_iterator bindingIterator;
-            bindingIterator aIt = aBindings.begin();
-            bindingIterator aEndIt = aBindings.end();
-            bindingIterator bIt = bBindings.begin();
+            auto aIt = aBindings.begin();
+            auto aEndIt = aBindings.end();
+            auto bIt = bBindings.begin();
             for (; aIt != aEndIt; aIt++, bIt++) {
                 EXPECT_TRUE(aIt->first == bIt->first);
-                EXPECT_TRUE((aIt->second.get() == NULL) == (bIt->second.get() == NULL));
+                EXPECT_TRUE((aIt->second.get() == nullptr) == (bIt->second.get() == nullptr));
                 if (a) {
                     EXPECT_TRUE(aIt->second->getManager() == bIt->second->getManager());
                     EXPECT_TRUE(aIt->second->getNumVertices() == bIt->second->getNumVertices());
@@ -392,9 +391,9 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             const VertexDeclaration::VertexElementList& aElements = a->vertexDeclaration->getElements();
             const VertexDeclaration::VertexElementList& bElements = a->vertexDeclaration->getElements();
             EXPECT_TRUE(aElements.size() == bElements.size());
-            typedef VertexDeclaration::VertexElementList::const_iterator bindingIterator;
-            bindingIterator aIt = aElements.begin();
-            bindingIterator aEndIt = aElements.end();
+            using bindingIterator = VertexDeclaration::VertexElementList::const_iterator;
+            auto aIt = aElements.begin();
+            auto aEndIt = aElements.end();
             bindingIterator bIt;
             for (; aIt != aEndIt; aIt++) {
                 bIt = std::find(bElements.begin(), bElements.end(), *aIt);
@@ -404,8 +403,8 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
                 const VertexElement& bElem = *bIt;
                 HardwareVertexBufferSharedPtr abuf = a->vertexBufferBinding->getBuffer(aElem.getSource());
                 HardwareVertexBufferSharedPtr bbuf = b->vertexBufferBinding->getBuffer(bElem.getSource());
-                unsigned char* avertex = static_cast<unsigned char*>(abuf->lock(HardwareBuffer::HBL_READ_ONLY));
-                unsigned char* bvertex = static_cast<unsigned char*>(bbuf->lock(HardwareBuffer::HBL_READ_ONLY));
+                auto* avertex = static_cast<unsigned char*>(abuf->lock(HardwareBuffer::HBL_READ_ONLY));
+                auto* bvertex = static_cast<unsigned char*>(bbuf->lock(HardwareBuffer::HBL_READ_ONLY));
                 size_t avSize = abuf->getVertexSize();
                 size_t bvSize = bbuf->getVertexSize();
                 size_t elemSize = VertexElement::getTypeSize(aElem.getType());
@@ -432,10 +431,9 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             const VertexData::HardwareAnimationDataList& aAnimData = a->hwAnimationDataList;
             const VertexData::HardwareAnimationDataList& bAnimData = b->hwAnimationDataList;
             EXPECT_TRUE(aAnimData.size() == bAnimData.size());
-            typedef VertexData::HardwareAnimationDataList::const_iterator bindingIterator;
-            bindingIterator aIt = aAnimData.begin();
-            bindingIterator aEndIt = aAnimData.end();
-            bindingIterator bIt = bAnimData.begin();
+            auto aIt = aAnimData.begin();
+            auto aEndIt = aAnimData.end();
+            auto bIt = bAnimData.begin();
             for (; aIt != aEndIt; aIt++, bIt++) {
                 EXPECT_TRUE(aIt->parametric == bIt->parametric);
                 EXPECT_TRUE(aIt->targetBufferIndex == bIt->targetBufferIndex);
@@ -445,13 +443,13 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
 }
 //--------------------------------------------------------------------------
 template<typename T>
-bool MeshSerializerTests::isContainerClone(T& a, T& b)
+auto MeshSerializerTests::isContainerClone(T& a, T& b) -> bool
 {
     return a.size() == b.size() && std::equal(a.begin(), a.end(), b.begin());
 }
 //--------------------------------------------------------------------------
 template<typename K, typename V>
-bool MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V>& a, const std::unordered_map<K, V>& b)
+auto MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V>& a, const std::unordered_map<K, V>& b) -> bool
 {
     // if you recreate a HashMap with same elements, then iteration order may differ!
     // So isContainerClone is not always working on HashMap.
@@ -472,11 +470,11 @@ bool MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V>& a, cons
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertIndexDataClone(IndexData* a, IndexData* b, MeshVersion version /*= MESH_VERSION_LATEST*/)
 {
-    EXPECT_TRUE((a == NULL) == (b == NULL));
+    EXPECT_TRUE((a == nullptr) == (b == nullptr));
     if (a) {
         EXPECT_TRUE(a->indexCount == b->indexCount);
         // EXPECT_TRUE(a->indexStart == b->indexStart);
-        EXPECT_TRUE((a->indexBuffer.get() == NULL) == (b->indexBuffer.get() == NULL));
+        EXPECT_TRUE((a->indexBuffer.get() == nullptr) == (b->indexBuffer.get() == nullptr));
         if (a->indexBuffer) {
             EXPECT_TRUE(a->indexBuffer->getManager() == b->indexBuffer->getManager());
             // EXPECT_TRUE(a->indexBuffer->getNumIndexes() == b->indexBuffer->getNumIndexes());
@@ -497,7 +495,7 @@ void MeshSerializerTests::assertIndexDataClone(IndexData* a, IndexData* b, MeshV
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertEdgeDataClone(EdgeData* a, EdgeData* b, MeshVersion version /*= MESH_VERSION_LATEST*/)
 {
-    EXPECT_TRUE((a == NULL) == (b == NULL));
+    EXPECT_TRUE((a == nullptr) == (b == nullptr));
     if (a) {
         EXPECT_TRUE(a->isClosed == b->isClosed);
         EXPECT_TRUE(isContainerClone(a->triangleFaceNormals, b->triangleFaceNormals));
@@ -520,7 +518,7 @@ void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, Strin
     ResourceGroupManager& resourceGroupMgr = ResourceGroupManager::getSingleton();
     String group = resource->getGroup();
     String name = resource->getName();
-    FileInfo* info = NULL;
+    FileInfo* info = nullptr;
     FileInfoListPtr locPtr = resourceGroupMgr.listResourceFileInfo(group);
     FileInfoList::iterator it, itEnd;
     it = locPtr->begin();
@@ -548,7 +546,7 @@ void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, Strin
     OgreAssert(info->archive->getType() == "FileSystem", "");
 }
 //--------------------------------------------------------------------------
-bool MeshSerializerTests::copyFile(const String& srcPath, const String& dstPath)
+auto MeshSerializerTests::copyFile(const String& srcPath, const String& dstPath) -> bool
 {
     std::ifstream src(srcPath.c_str(), std::ios::binary);
     if (!src.is_open()) {
@@ -563,13 +561,13 @@ bool MeshSerializerTests::copyFile(const String& srcPath, const String& dstPath)
     return true;
 }
 //--------------------------------------------------------------------------
-bool MeshSerializerTests::isEqual(Real a, Real b)
+auto MeshSerializerTests::isEqual(Real a, Real b) -> bool
 {
     Real absoluteError = std::abs(a * mErrorFactor);
     return ((a - absoluteError) <= b) && ((a + absoluteError) >= b);
 }
 //--------------------------------------------------------------------------
-bool MeshSerializerTests::isEqual(const Vector3& a, const Vector3& b)
+auto MeshSerializerTests::isEqual(const Vector3& a, const Vector3& b) -> bool
 {
     return isEqual(a.x, b.x) && isEqual(a.y, b.y) && isEqual(a.z, b.z);
 }
