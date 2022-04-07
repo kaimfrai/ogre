@@ -27,6 +27,18 @@ THE SOFTWARE.
 */
 export module Ogre.Components.Overlay;
 
+export import :BorderPanelOverlayElement;
+export import :Container;
+export import :Element;
+export import :ElementFactory;
+export import :Font;
+export import :FontManager;
+export import :Manager;
+export import :PanelOverlayElement;
+export import :ProfileSessionListener;
+export import :System;
+export import :TextAreaOverlayElement;
+
 export import Ogre.Core;
 
 export import <list>;

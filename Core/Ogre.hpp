@@ -52,6 +52,7 @@ export import :ControllerManager;
 export import :DataStream;
 export import :Entity;
 export import :Exception;
+export import :FileSystemLayer;
 export import :FrameListener;
 export import :Frustum;
 export import :GpuProgram;

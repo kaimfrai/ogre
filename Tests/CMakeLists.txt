@@ -124,7 +124,7 @@ if (OGRE_BUILD_TESTS)
     endif()
     add_executable(Test_Ogre ${HEADER_FILES} ${SOURCE_FILES} ${RESOURCE_FILES} )
     ogre_install_target(Test_Ogre "" FALSE)
-    target_link_libraries(Test_Ogre OgreBites Ogre.PlugIns.STBICodec ${OGRE_LIBRARIES} GTest::gtest)
+    target_link_libraries(Test_Ogre Ogre.Components.Bites Ogre.PlugIns.STBICodec ${OGRE_LIBRARIES} GTest::gtest)
 
     if(ANDROID)
         set_target_properties(Test_Ogre PROPERTIES LINK_FLAGS -pie)
@@ -167,7 +167,7 @@ if (OGRE_BUILD_TESTS)
         COMMAND mkdir ARGS -p ${OGRE_TEST_CONTENTS_PATH}/Plugins)
 
       set(FRAMEWORKS Ogre.Components.Overlay
-        OgreBites
+        Ogre.Components.Bites
         OgrePaging
         OgreProperty
         Ogre.Components.RTShaderSystem
