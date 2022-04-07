@@ -48,9 +48,9 @@ void StringTests::SetUp()
 {    
     testFileNoPath = "testfile.txt";
     testFileRelativePathUnix = "this/is/relative/testfile.txt";
-    testFileRelativePathWindows = "this\\is\\relative\\testfile.txt";
+    testFileRelativePathWindows = R"(this\is\relative\testfile.txt)";
     testFileAbsolutePathUnix = "/this/is/absolute/testfile.txt";
-    testFileAbsolutePathWindows = "c:\\this\\is\\absolute\\testfile.txt";
+    testFileAbsolutePathWindows = R"(c:\this\is\absolute\testfile.txt)";
     setlocale(LC_NUMERIC, "");
 }
 //--------------------------------------------------------------------------
