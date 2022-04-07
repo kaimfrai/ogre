@@ -53,7 +53,7 @@ namespace Ogre {
 
     auto VideoMode::getDescription() const -> String
     {
-        return StringUtil::format("%4d x %4d", width, height);
+        return StringUtil::format("{:4} x {:4}", width, height);
     }
 
     void GLRenderSystemCommon::initConfigOptions()
