@@ -27,9 +27,11 @@ THE SOFTWARE.
 */
 module;
 
+#include "OgreSIMDHelper.hpp"
+
 #include <mmintrin.h>
 #include <xmmintrin.h>
-#include <cstring>
+#include <cassert>
 
 module Ogre.Core;
 
@@ -42,10 +44,9 @@ import :OptimisedUtil;
 import :Platform;
 import :PlatformInformation;
 import :Prerequisites;
-import :SIMDHelper;
 import :Vector;
 
-import <cassert>;
+import <cstring>;
 
 // I'd like to merge this file with OgreOptimisedUtil.cpp, but it's
 // impossible when compile with gcc, due SSE instructions can only

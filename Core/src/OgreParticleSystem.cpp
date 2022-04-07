@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:ParticleSystem.Obj;
 
 import :Camera;
@@ -51,7 +55,6 @@ import :SceneManager;
 import :StringConverter;
 
 import <algorithm>;
-import <cassert>;
 import <utility>;
 
 namespace Ogre {

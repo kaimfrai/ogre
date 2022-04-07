@@ -33,6 +33,7 @@ import :Common;
 import :DataStream;
 import :Exception;
 import :Image;
+import :ImageCodec;
 import :Log;
 import :LogManager;
 import :Platform;

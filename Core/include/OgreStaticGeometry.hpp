@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 export module Ogre.Core:StaticGeometry;
 
 export import :AxisAlignedBox;
@@ -36,6 +40,7 @@ export import :Mesh;
 export import :MovableObject;
 export import :Platform;
 export import :Prerequisites;
+export import :RenderQueue;
 export import :Quaternion;
 export import :Renderable;
 export import :ShadowCaster;
@@ -44,7 +49,6 @@ export import :Vector;
 export import :VertexIndexData;
 
 export import <algorithm>;
-export import <cassert>;
 export import <cstddef>;
 export import <iosfwd>;
 export import <list>;

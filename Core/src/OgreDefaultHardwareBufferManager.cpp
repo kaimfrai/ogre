@@ -25,12 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:DefaultHardwareBufferManager.Obj;
 
 import :AlignedAllocator;
 import :DefaultHardwareBufferManager;
 
-import <cassert>;
 import <cstring>;
 
 namespace Ogre {

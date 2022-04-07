@@ -31,12 +31,15 @@ THE SOFTWARE.
 // Distributed under the Boost Software License, Version 1.0.
 // http://www.boost.org/LICENSE_1_0.txt
 // http://www.geometrictools.com/License/Boost/LICENSE_1_0.txt
+module;
+
+#include <cassert>
+
 export module Ogre.Core:Quaternion;
 
 export import :Math;
 export import :Prerequisites;
 
-export import <cassert>;
 export import <cmath>;
 export import <cstring>;
 export import <ostream>;

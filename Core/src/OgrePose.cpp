@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 module;
 
-#include <utility>
+#include <cassert>
 
 module Ogre.Core:Pose.Obj;
 
@@ -38,8 +38,8 @@ import :HardwareVertexBuffer;
 import :Pose;
 import :VertexIndexData;
 
-import <cassert>;
 import <cstring>;
+import <utility>;
 
 namespace Ogre {
     //---------------------------------------------------------------------

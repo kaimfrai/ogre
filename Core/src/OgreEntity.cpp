@@ -25,6 +25,10 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:Entity.Obj;
 
 import :AlignedAllocator;
@@ -69,7 +73,6 @@ import :Technique;
 import :VertexIndexData;
 
 import <algorithm>;
-import <cassert>;
 import <cstring>;
 import <limits>;
 import <list>;

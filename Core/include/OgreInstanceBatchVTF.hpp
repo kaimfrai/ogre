@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 export module Ogre.Core:InstanceBatchVTF;
 
 export import :InstanceBatch;
@@ -36,7 +40,6 @@ export import :SharedPtr;
 export import :Texture;
 
 export import <algorithm>;
-export import <cassert>;
 export import <cstddef>;
 export import <vector>;
 

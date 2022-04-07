@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:Technique.Obj;
 
 import :BlendMode;
@@ -45,7 +49,6 @@ import :Texture;
 import :TextureUnitState;
 
 import <algorithm>;
-import <cassert>;
 import <cstddef>;
 import <ostream>;
 import <string>;

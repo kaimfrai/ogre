@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:PredefinedControllers.Obj;
 
 import :GpuProgramParams;
@@ -36,7 +40,6 @@ import :TextureUnitState;
 import :Vector;
 
 import <algorithm>;
-import <cassert>;
 import <cmath>;
 import <utility>;
 

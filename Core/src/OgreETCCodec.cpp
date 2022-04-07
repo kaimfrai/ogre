@@ -25,10 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
-#include <utility>
-
 module Ogre.Core:ETCCodec.Obj;
 
 import :Codec;
@@ -37,6 +33,7 @@ import :DataStream;
 import :ETCCodec;
 import :Exception;
 import :Image;
+import :ImageCodec;
 import :Log;
 import :LogManager;
 import :PixelFormat;
@@ -45,6 +42,7 @@ import :SharedPtr;
 import :StableHeaders;
 
 import <cstring>;
+import <utility>;
 
 #define KTX_ENDIAN_REF      (0x04030201)
 #define KTX_ENDIAN_REF_REV  (0x01020304)

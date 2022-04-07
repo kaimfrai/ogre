@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:Material.Obj;
 
 import :Exception;
@@ -37,7 +41,6 @@ import :MaterialManager;
 import :ResourceManager;
 import :Technique;
 
-import <cassert>;
 import <iterator>;
 import <memory>;
 import <ostream>;

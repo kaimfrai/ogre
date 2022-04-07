@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:ResourceBackgroundQueue.Obj;
 
 import :Any;
@@ -35,7 +39,6 @@ import :ResourceManager;
 import :Root;
 import :SharedPtr;
 
-import <cassert>;
 import <utility>;
 
 namespace Ogre {

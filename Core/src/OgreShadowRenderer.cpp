@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core;
 
 import :AutoParamDataSource;
@@ -75,7 +79,6 @@ import :Vector;
 import :Viewport;
 
 import <algorithm>;
-import <cassert>;
 import <cstddef>;
 import <map>;
 import <memory>;

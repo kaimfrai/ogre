@@ -25,13 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:SceneManagerEnumerator.Obj;
 
 import :Exception;
 import :LogManager;
 import :SceneManagerEnumerator;
 
-import <cassert>;
 import <ostream>;
 import <utility>;
 

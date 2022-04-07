@@ -1,5 +1,3 @@
-module;
-
  /*
 -----------------------------------------------------------------------------
 This source file is part of OGRE
@@ -30,6 +28,8 @@ THE SOFTWARE.
 /** Internal include file -- do not use externally */
 
 module Ogre.Core:PixelConversions;
+
+import :PixelFormat;
 
 //using namespace Ogre;
 // NB VC6 can't handle these templates

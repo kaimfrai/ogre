@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 export module Ogre.Core:Common;
 
 export import :MurmurHash3;
@@ -32,7 +36,6 @@ export import :Platform;
 export import :Prerequisites;
 export import :Vector;
 
-export import <cassert>;
 export import <cstddef>;
 export import <map>;
 export import <ostream>;

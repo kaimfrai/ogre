@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:LogManager.Obj;
 
 import :Exception;
@@ -33,7 +37,6 @@ import :LogManager;
 import :Prerequisites;
 import :Singleton;
 
-import <cassert>;
 import <cstddef>;
 import <map>;
 import <string>;

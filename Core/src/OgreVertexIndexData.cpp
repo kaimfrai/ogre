@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:VertexIndexData.Obj;
 
 import :Config;
@@ -36,7 +40,6 @@ import :Root;
 import :VertexIndexData;
 
 import <algorithm>;
-import <cassert>;
 import <cstring>;
 import <iterator>;
 import <list>;

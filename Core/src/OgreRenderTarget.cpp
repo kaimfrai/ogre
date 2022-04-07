@@ -25,7 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-// IWYU pragma: no_include <cxxabi.h>
+module;
+
+#include <cassert>
+
 module Ogre.Core:RenderTarget.Obj;
 
 import :DepthBuffer;
@@ -42,7 +45,6 @@ import :Timer;
 import :Viewport;
 
 import <algorithm>;
-import <cassert>;
 import <ctime>;
 import <iomanip>;
 import <ostream>;

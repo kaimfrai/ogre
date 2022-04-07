@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 module;
 
-#include <ostream>
+#include <cassert>
 
 export module Ogre.Core:Matrix4;
 
@@ -37,8 +37,8 @@ export import :Prerequisites;
 export import :Quaternion;
 export import :Vector;
 
-export import <cassert>;
 export import <cstring>;
+export import <ostream>;
 
 export
 namespace Ogre

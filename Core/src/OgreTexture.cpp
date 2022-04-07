@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:Texture.Obj;
 
 import :Bitwise;
@@ -45,7 +49,6 @@ import :TextureManager;
 
 import <algorithm>;
 import <atomic>;
-import <cassert>;
 import <memory>;
 
 namespace Ogre {

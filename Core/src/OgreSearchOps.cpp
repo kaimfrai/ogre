@@ -31,12 +31,12 @@ module;
 #include <dirent.h>
 #include <fnmatch.h>
 #include <sys/stat.h>
-    
 
 module Ogre.Core:SearchOps.Obj;
 
 import :SearchOps;
 
+import <cstdint>;
 import <cstdio>;
 import <cstdlib>;
 import <cstring>;

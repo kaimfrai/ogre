@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Components.RTShaderSystem:ShaderProgramWriterManager.Obj;
 
 import :ShaderGLSLESProgramWriter;
@@ -35,7 +39,6 @@ import :ShaderProgramWriterManager;
 
 import Ogre.Core;
 
-import <cassert>;
 import <map>;
 import <string>;
 import <utility>;

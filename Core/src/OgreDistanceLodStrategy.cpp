@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:DistanceLodStrategy.Obj;
 
 import :AxisAlignedBox;
@@ -37,7 +41,6 @@ import :Node;
 import :Viewport;
 
 import <algorithm>;
-import <cassert>;
 
 namespace Ogre {
     DistanceLodStrategyBase::DistanceLodStrategyBase(const String& name)

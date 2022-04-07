@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:RenderQueueSortingGrouping.Obj;
 
 import :Exception;
@@ -36,7 +40,6 @@ import :Renderable;
 import :Technique;
 
 import <algorithm>;
-import <cassert>;
 import <cstddef>;
 import <set>;
 

@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:SceneManager.Obj;
 
 import :Animable;
@@ -104,7 +108,6 @@ import :Vector;
 import :Viewport;
 
 import <algorithm>;
-import <cassert>;
 import <iterator>;
 import <limits>;
 import <list>;

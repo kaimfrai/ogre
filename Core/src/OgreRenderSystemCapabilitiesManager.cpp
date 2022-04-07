@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:RenderSystemCapabilitiesManager.Obj;
 
 import :Archive;
@@ -36,7 +40,6 @@ import :RenderSystemCapabilitiesSerializer;
 import :SharedPtr;
 import :StringVector;
 
-import <cassert>;
 import <utility>;
 import <vector>;
 

@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:GpuProgramManager.Obj;
 
 import :DataStream;
@@ -38,7 +42,6 @@ import :Root;
 import :StreamSerialiser;
 import :UnifiedHighLevelGpuProgram;
 
-import <cassert>;
 import <memory>;
 import <utility>;
 

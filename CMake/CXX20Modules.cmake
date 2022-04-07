@@ -228,6 +228,7 @@ function(add_module_implementation
 	module_name
 	module_target_name
 	module_binary
+	module_includes
 	out_module_target_name
 )
 	invoke_preprocessor(
@@ -268,7 +269,15 @@ function(add_module_implementation
 		target_compile_options(
 			"${module_implementation_target_name}"
 		PRIVATE
-			-fmodule-file=${module_binary}
+			${WARNING_FLAGS}
+			${MODULE_FLAGS}
+			${ADDITIONAL_COMPILE_OPTIONS}
+		)
+
+		target_include_directories(
+			"${module_implementation_target_name}"
+		PRIVATE
+			"${module_includes}"
 		)
 
 		target_sources(
@@ -365,6 +374,7 @@ function(add_module
 				"${module_name}"
 				"${module_target_name}"
 				"${module_binary}"
+				"${MODULE_INCLUDES}"
 				module_implementation_target_name
 			)
 		endforeach()
@@ -373,11 +383,26 @@ function(add_module
 			"${module_target_name}+"
 		PRIVATE
 			-fmodule-file=${module_binary}
+			${WARNING_FLAGS}
+			${MODULE_FLAGS}
+			${ADDITIONAL_COMPILE_OPTIONS}
+		)
+
+		target_include_directories(
+			"${module_target_name}+"
+		PRIVATE
+			"${MODULE_INCLUDES}"
 		)
 
 		add_dependencies(
 		"${module_target_name}+"
 			"${module_target_name}"
+		)
+
+		target_link_libraries(
+			${module_target_name}
+		INTERFACE
+			"${module_target_name}+"
 		)
 	endif()
 

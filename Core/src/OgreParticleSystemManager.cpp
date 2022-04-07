@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:ParticleSystemManager.Obj;
 
 import :BillboardParticleRenderer;
@@ -47,7 +51,6 @@ import :Singleton;
 import :StringConverter;
 import :StringVector;
 
-import <cassert>;
 import <cstddef>;
 import <map>;
 import <string>;

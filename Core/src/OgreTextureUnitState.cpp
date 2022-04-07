@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:TextureUnitState.Obj;
 
 import :ControllerManager;
@@ -37,7 +41,6 @@ import :StringConverter;
 import :TextureManager;
 import :TextureUnitState;
 
-import <cassert>;
 import <cstring>;
 import <string>;
 

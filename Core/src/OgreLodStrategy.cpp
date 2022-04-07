@@ -25,13 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:LodStrategy.Obj;
 
 import :Camera;
 import :LodStrategy;
 
 import <algorithm>;
-import <cassert>;
 import <functional>;
 import <utility>;
 import <vector>;

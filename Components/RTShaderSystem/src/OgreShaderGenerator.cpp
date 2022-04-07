@@ -24,6 +24,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Components.RTShaderSystem:ShaderGenerator.Obj;
 
 import :ShaderCookTorranceLighting;
@@ -54,7 +58,6 @@ import :ShaderSubRenderState;
 import Ogre.Core;
 
 import <algorithm>;
-import <cassert>;
 import <cstdio>;
 import <ios>;
 import <map>;

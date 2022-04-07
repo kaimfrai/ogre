@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 export module Ogre.Core:AnimationState;
 
 export import :Controller;
@@ -32,7 +36,6 @@ export import :ControllerManager;
 export import :MemoryAllocatorConfig;
 export import :Prerequisites;
 
-export import <cassert>;
 export import <cstddef>;
 export import <list>;
 export import <map>;

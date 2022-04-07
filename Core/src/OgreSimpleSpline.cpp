@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:SimpleSpline.Obj;
 
 import :Matrix4;
@@ -32,7 +36,6 @@ import :Prerequisites;
 import :SimpleSpline;
 import :Vector;
 
-import <cassert>;
 import <cstddef>;
 import <memory>;
 import <vector>;

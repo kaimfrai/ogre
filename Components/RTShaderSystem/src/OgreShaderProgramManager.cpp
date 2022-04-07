@@ -24,6 +24,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Components.RTShaderSystem:ShaderProgramManager.Obj;
 
 import :ShaderFunction;
@@ -44,7 +48,6 @@ import Ogre.Core;
 
 // IWYU pragma: no_include <sstream>
 import <algorithm>;
-import <cassert>;
 import <cstdint>;
 import <fstream>;
 import <initializer_list>;

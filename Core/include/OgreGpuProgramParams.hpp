@@ -25,6 +25,10 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 export module Ogre.Core:GpuProgramParams;
 
 export import :MemoryAllocatorConfig;
@@ -34,7 +38,6 @@ export import :Serializer;
 export import :SharedPtr;
 
 export import <algorithm>;
-export import <cassert>;
 export import <cstring>;
 export import <limits>;
 export import <map>;

@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:PixelFormat.Obj;
 
 import :AlignedAllocator;
@@ -38,12 +42,8 @@ import :String;
 import :Vector;
 
 import <algorithm>;
-import <cassert>;
 import <cstring>;
 import <string>;
-
-namespace {
-}
 
 namespace Ogre {
 

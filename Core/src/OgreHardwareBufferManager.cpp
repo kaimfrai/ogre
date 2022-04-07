@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:HardwareBufferManager.Obj;
 
 import :Exception;
@@ -38,7 +42,6 @@ import :SharedPtr;
 import :Singleton;
 import :VertexIndexData;
 
-import <cassert>;
 import <cstddef>;
 import <list>;
 import <map>;

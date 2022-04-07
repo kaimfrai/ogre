@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:ShadowCaster.Obj;
 
 import :AxisAlignedBox;
@@ -49,7 +53,6 @@ import :StringConverter;
 import :Vector;
 import :VertexIndexData;
 
-import <cassert>;
 import <cstddef>;
 import <memory>;
 import <string>;

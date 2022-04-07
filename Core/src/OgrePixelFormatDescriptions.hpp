@@ -27,6 +27,9 @@ THE SOFTWARE.
 */
 module Ogre.Core:PixelFormatDescriptions;
 
+import :PixelFormat;
+import :Prerequisites;
+
 namespace Ogre {
     //-----------------------------------------------------------------------
     /**

@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:PatchSurface.Obj;
 
 import :ColourValue;
@@ -36,7 +40,6 @@ import :Math;
 import :PatchSurface;
 
 import <algorithm>;
-import <cassert>;
 
 #define LEVEL_WIDTH(lvl) ((1 << (lvl+1)) + 1)
 namespace Ogre {

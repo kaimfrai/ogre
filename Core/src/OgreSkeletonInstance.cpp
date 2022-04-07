@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:SkeletonInstance.Obj;
 
 import :Bone;
@@ -33,7 +37,6 @@ import :SkeletonInstance;
 import :TagPoint;
 
 import <algorithm>;
-import <cassert>;
 import <cstddef>;
 import <vector>;
 

@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:HardwarePixelBuffer.Obj;
 
 import :Exception;
@@ -35,7 +39,6 @@ import :Root;
 import :SharedPtr;
 import :Texture;
 
-import <cassert>;
 import <memory>;
 
 namespace Ogre 

@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 module;
 
-#include <ostream>
+#include <cassert>
 
 export module Ogre.Core:DualQuaternion;
 
@@ -35,8 +35,8 @@ export import :Math;
 export import :Prerequisites;
 export import :Quaternion;
 
-export import <cassert>;
 export import <cstring>;
+export import <ostream>;
 export import <utility>;
 
 export

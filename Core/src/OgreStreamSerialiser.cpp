@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:StreamSerialiser.Obj;
 
 import :AxisAlignedBox;
@@ -46,7 +50,6 @@ import :StreamSerialiser;
 import :StringConverter;
 import :Vector;
 
-import <cassert>;
 import <cstring>;
 import <string>;
 

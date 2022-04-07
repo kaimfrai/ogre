@@ -33,13 +33,16 @@ OgreExternalTextureSourceManager.cpp  -
 date                 : Jan 1 2004
 email                : pjcast@yahoo.com
 ***************************************************************************/
+module;
+
+#include <cassert>
+
 module Ogre.Core:ExternalTextureSourceManager.Obj;
 
 import :ExternalTextureSource;
 import :ExternalTextureSourceManager;
 import :LogManager;
 
-import <cassert>;
 import <utility>;
 
 namespace Ogre 

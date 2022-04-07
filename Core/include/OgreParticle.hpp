@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 export module Ogre.Core:Particle;
 
+export import :ColourValue;
 export import :Prerequisites;
 export import :Vector;
 

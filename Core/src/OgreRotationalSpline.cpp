@@ -25,13 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:RotationalSpline.Obj;
 
 import :Prerequisites;
 import :Quaternion;
 import :RotationalSpline;
 
-import <cassert>;
 import <memory>;
 import <vector>;
 

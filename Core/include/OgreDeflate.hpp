@@ -25,13 +25,16 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
+module;
+
+#include <cassert>
+
 export module Ogre.Core:Deflate;
 
 export import :DataStream;
 export import :Prerequisites;
 export import :SharedPtr;
 
-export import <cassert>;
 export import <cstring>;
 
 export

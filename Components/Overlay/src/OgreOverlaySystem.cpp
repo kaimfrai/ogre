@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Components.Overlay:System.Obj;
 
 import :BorderPanelOverlayElement;
@@ -38,7 +42,6 @@ import :TextAreaOverlayElement;
 
 import Ogre.Core;
 
-import <cassert>;
 import <cstddef>;
 import <string>;
 

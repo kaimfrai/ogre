@@ -25,13 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 export module Ogre.Core:Matrix3;
 
 export import :Math;
 export import :Prerequisites;
 export import :Vector;
 
-export import <cassert>;
 export import <cstring>;
 export import <ostream>;
 

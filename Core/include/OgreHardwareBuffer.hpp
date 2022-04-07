@@ -25,9 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 export module Ogre.Core:HardwareBuffer;
 
-// Precompiler options
 export import :Exception;
 export import :Prerequisites;
 

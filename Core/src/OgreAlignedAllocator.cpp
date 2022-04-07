@@ -25,13 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:AlignedAllocator.Obj;
 
 import :AlignedAllocator;
 import :Bitwise;
 import :Platform;
-
-import <cassert>;
 
 /**
 *

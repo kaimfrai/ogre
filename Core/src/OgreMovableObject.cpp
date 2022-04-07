@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:MovableObject.Obj;
 
 import :AxisAlignedBox;
@@ -54,7 +58,6 @@ import :Technique;
 import :Vector;
 
 import <algorithm>;
-import <cassert>;
 import <cmath>;
 import <cstddef>;
 import <utility>;

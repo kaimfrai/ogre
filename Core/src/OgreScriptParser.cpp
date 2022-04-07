@@ -29,6 +29,7 @@ module Ogre.Core:ScriptParser.Obj;
 
 import :Exception;
 import :Platform;
+import :ScriptCompiler;
 import :ScriptParser;
 import :SharedPtr;
 import :StringConverter;

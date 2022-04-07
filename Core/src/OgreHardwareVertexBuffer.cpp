@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:HardwareVertexBuffer.Obj;
 
 import :DefaultHardwareBufferManager;
@@ -37,7 +41,6 @@ import :Root;
 import :StringConverter;
 
 import <algorithm>;
-import <cassert>;
 import <iterator>;
 import <memory>;
 import <string>;

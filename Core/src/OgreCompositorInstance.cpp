@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:CompositorInstance.Obj;
 
 import :Camera;
@@ -64,7 +68,6 @@ import :Vector;
 import :Viewport;
 
 import <algorithm>;
-import <cassert>;
 import <utility>;
 
 namespace Ogre {

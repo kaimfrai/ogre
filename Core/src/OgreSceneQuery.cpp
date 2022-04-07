@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:SceneQuery.Obj;
 
 import :Exception;
@@ -32,7 +36,6 @@ import :SceneManager;
 import :SceneQuery;
 
 import <algorithm>;
-import <cassert>;
 import <cstddef>;
 
 namespace Ogre {

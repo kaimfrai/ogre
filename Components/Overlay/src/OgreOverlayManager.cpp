@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Components.Overlay:Manager.Obj;
 
 import :Container;
@@ -36,7 +40,6 @@ import :Translator;
 import Ogre.Components.Overlay;
 import Ogre.Core;
 
-import <cassert>;
 import <memory>;
 import <utility>;
 

@@ -24,6 +24,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Components.RTShaderSystem:ShaderParameter.Obj;
 
 import :ShaderParameter;
@@ -32,7 +36,6 @@ import :ShaderPrerequisites;
 import Ogre.Core;
 
 import <algorithm>;
-import <cassert>;
 import <cstddef>;
 import <memory>;
 import <ostream>;

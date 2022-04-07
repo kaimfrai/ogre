@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:ParticleEmitter.Obj;
 
 import :Common;
@@ -32,7 +36,6 @@ import :ParticleEmitter;
 import :ParticleEmitterCommands;
 import :ParticleEmitterFactory;
 
-import <cassert>;
 import <cmath>;
 import <vector>;
 

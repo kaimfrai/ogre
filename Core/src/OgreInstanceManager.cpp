@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:InstanceManager.Obj;
 
 import :Exception;
@@ -49,7 +53,6 @@ import :VertexBoneAssignment;
 import :VertexIndexData;
 
 import <algorithm>;
-import <cassert>;
 import <cstring>;
 import <memory>;
 import <utility>;

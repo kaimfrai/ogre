@@ -27,6 +27,11 @@ THE SOFTWARE.
 */
 module;
 
+#define DYNLIB_LOAD( a ) dlopen( a, RTLD_LAZY | RTLD_GLOBAL)
+#define DYNLIB_GETSYM( a, b ) dlsym( a, b )
+#define DYNLIB_UNLOAD( a ) dlclose( a )
+
+extern "C" {
 #   include <dlfcn.h>
 }
 
@@ -39,11 +44,6 @@ import :String;
 
 import <cstddef>;
 import <string>;
-
-#define DYNLIB_LOAD( a ) dlopen( a, RTLD_LAZY | RTLD_GLOBAL)
-#define DYNLIB_GETSYM( a, b ) dlsym( a, b )
-#define DYNLIB_UNLOAD( a ) dlclose( a )
-extern "C" {
 
 namespace Ogre {
 

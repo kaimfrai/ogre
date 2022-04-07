@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:Mesh.Obj;
 
 import :Animation;
@@ -70,7 +74,6 @@ import :VertexBoneAssignment;
 import :VertexIndexData;
 
 import <algorithm>;
-import <cassert>;
 import <cmath>;
 import <cstring>;
 import <iterator>;

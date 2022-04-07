@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:MeshSerializerImpl.Obj;
 
 import :Animation;
@@ -35,10 +39,12 @@ import :ColourValue;
 import :Common;
 import :DataStream;
 import :DistanceLodStrategy;
+import :EdgeListBuilder;
 import :Exception;
 import :HardwareBuffer;
 import :HardwareBufferManager;
 import :HardwareIndexBuffer;
+import :KeyFrame;
 import :LodStrategy;
 import :LodStrategyManager;
 import :Log;
@@ -57,7 +63,6 @@ import :SubMesh;
 import :Vector;
 import :VertexIndexData;
 
-import <cassert>;
 import <cstring>;
 import <list>;
 import <map>;

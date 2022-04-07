@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:ResourceGroupManager.Obj;
 
 import :Archive;
@@ -45,7 +49,6 @@ import :Singleton;
 import :String;
 import :StringVector;
 
-import <cassert>;
 import <iterator>;
 import <list>;
 import <map>;

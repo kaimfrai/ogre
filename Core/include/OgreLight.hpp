@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 export module Ogre.Core:Light;
 
 export import :AxisAlignedBox;
@@ -43,7 +47,6 @@ export import :Renderable;
 export import :SharedPtr;
 export import :Vector;
 
-export import <cassert>;
 export import <cstddef>;
 export import <map>;
 

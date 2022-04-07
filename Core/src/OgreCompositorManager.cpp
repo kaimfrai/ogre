@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:CompositorManager.Obj;
 
 import :CompositionPass;
@@ -43,7 +47,6 @@ import :Root;
 import :TextureManager;
 import :Viewport;
 
-import <cassert>;
 import <memory>;
 
 namespace Ogre {

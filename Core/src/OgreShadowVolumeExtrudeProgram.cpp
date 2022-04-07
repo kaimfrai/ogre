@@ -30,6 +30,7 @@ module Ogre.Core:ShadowVolumeExtrudeProgram.Obj;
 import :Exception;
 import :GpuProgram;
 import :GpuProgramManager;
+import :Light;
 import :ResourceGroupManager;
 import :ShadowVolumeExtrudeProgram;
 import :SharedPtr;

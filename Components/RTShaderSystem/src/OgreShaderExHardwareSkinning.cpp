@@ -24,6 +24,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Components.RTShaderSystem:ShaderExHardwareSkinning.Obj;
 
 import :ShaderExDualQuaternionSkinning;
@@ -38,7 +42,6 @@ import :ShaderScriptTranslator;
 import Ogre.Core;
 
 import <algorithm>;
-import <cassert>;
 import <cstddef>;
 import <list>;
 import <memory>;

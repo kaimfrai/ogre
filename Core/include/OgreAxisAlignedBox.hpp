@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 export module Ogre.Core:AxisAlignedBox;
 
 // Precompiler options
@@ -34,7 +38,6 @@ export import :Prerequisites;
 export import :Vector;
 
 export import <array>;
-export import <cassert>;
 export import <ostream>;
 
 export

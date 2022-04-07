@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:Profiler.Obj;
 
 /*
@@ -39,6 +43,7 @@ Ogre-dependent is in the visualization/logging routines and the use of the Timer
     Enjoy!
 
 */
+
 import :LogManager;
 import :Platform;
 import :Prerequisites;
@@ -50,7 +55,6 @@ import :StringConverter;
 import :Timer;
 
 import <algorithm>;
-import <cassert>;
 import <cmath>;
 import <cstddef>;
 import <map>;

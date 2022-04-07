@@ -27,6 +27,10 @@ THE SOFTWARE.
 */
 // Thanks to Vincent Cantin (karmaGfa) for the original implementation of this
 // class, although it has now been mostly rewritten
+module;
+
+#include <cassert>
+
 module Ogre.Core:BillboardChain.Obj;
 
 import :BillboardChain;
@@ -50,7 +54,6 @@ import :VertexIndexData;
 import :Viewport;
 
 import <algorithm>;
-import <cassert>;
 import <cstring>;
 import <limits>;
 import <map>;

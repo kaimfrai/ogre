@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:DataStream.Obj;
 
 import :DataStream;
@@ -36,7 +40,6 @@ import :SharedPtr;
 import :String;
 
 import <algorithm>;
-import <cassert>;
 import <cstdio>;
 import <cstring>;
 import <fstream>;

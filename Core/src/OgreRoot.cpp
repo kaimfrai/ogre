@@ -25,7 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-// Ogre includes
+module;
+
+#include <cassert>
+
 module Ogre.Core:Root.Obj;
 
 import :ASTCCodec;
@@ -96,7 +99,6 @@ import :WorkQueue;
 import :Zip;
 
 import <algorithm>;
-import <cassert>;
 import <cstdlib>;
 import <deque>;
 import <map>;

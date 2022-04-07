@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:InstanceBatch.Obj;
 
 import :Camera;
@@ -45,7 +49,6 @@ import :SubMesh;
 import :VertexIndexData;
 
 import <algorithm>;
-import <cassert>;
 import <limits>;
 import <memory>;
 

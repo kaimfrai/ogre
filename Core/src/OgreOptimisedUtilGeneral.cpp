@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core;
 
 import :EdgeListBuilder;
@@ -34,7 +38,6 @@ import :OptimisedUtil;
 import :Prerequisites;
 import :Vector;
 
-import <cassert>;
 import <cstddef>;
 
 namespace Ogre {

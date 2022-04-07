@@ -25,12 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
-[[nodiscard]]
-
 module Ogre.Core:StableHeaders;
 
+export
+[[nodiscard]]
 auto constexpr inline FOURCC(int c0, int c1, int c2, int c3) -> int
 {   return (c0 | (c1 << 8) | (c2 << 16) | (c3 << 24));
 }

@@ -34,6 +34,7 @@ import :DDSCodec;
 import :DataStream;
 import :Exception;
 import :Image;
+import :ImageCodec;
 import :Log;
 import :LogManager;
 import :RenderSystem;

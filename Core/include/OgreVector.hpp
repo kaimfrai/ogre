@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 export module Ogre.Core:Vector;
 
 export import :Math;
@@ -32,7 +36,6 @@ export import :Prerequisites;
 export import :Quaternion;
 
 export import <algorithm>;
-export import <cassert>;
 export import <cstddef>;
 export import <ostream>;
 export import <type_traits>;

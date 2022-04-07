@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:LodStrategyManager.Obj;
 
 import :DistanceLodStrategy;
@@ -34,7 +38,6 @@ import :LodStrategy;
 import :LodStrategyManager;
 import :PixelCountLodStrategy;
 
-import <cassert>;
 import <utility>;
 
 namespace Ogre {

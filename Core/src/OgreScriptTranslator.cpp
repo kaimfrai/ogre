@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:ScriptTranslator.Obj;
 
 import :Any;
@@ -74,7 +78,6 @@ import :Texture;
 import :TextureManager;
 import :TextureUnitState;
 
-import <cassert>;
 import <cstddef>;
 import <iterator>;
 import <list>;

@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:SubEntity.Obj;
 
 import :AnimationTrack;
@@ -45,7 +49,6 @@ import :Vector;
 import :VertexIndexData;
 
 import <algorithm>;
-import <cassert>;
 import <limits>;
 import <string>;
 import <vector>;

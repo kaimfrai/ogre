@@ -25,9 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.Core:Skeleton.Obj;
 
-// Just for logging
 import :Animation;
 import :AnimationState;
 import :AnimationTrack;
@@ -51,7 +54,6 @@ import :StringVector;
 import :Vector;
 
 import <algorithm>;
-import <cassert>;
 import <cstddef>;
 import <iterator>;
 import <list>;
