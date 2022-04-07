@@ -35,8 +35,10 @@ THE SOFTWARE.
 #include "Sample.hpp"
 
 // resource group that will be automatically unloaded after the close of the sample
-#define TRANSIENT_RESOURCE_GROUP "VisualTestTransient"
-#define ASSETS_RESOURCE_GROUP "General"
+char const constexpr inline TRANSIENT_RESOURCE_GROUP[] =
+    "VisualTestTransient";
+char const constexpr inline ASSETS_RESOURCE_GROUP[] =
+    "General";
 
 /** The base class for a visual test scene */
 class VisualTest : public OgreBites::Sample
