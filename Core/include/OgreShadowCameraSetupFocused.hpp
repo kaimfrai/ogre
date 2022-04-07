@@ -26,23 +26,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_SHADOWCAMERASETUPFOCUSED_H
-#define OGRE_CORE_SHADOWCAMERASETUPFOCUSED_H
+export module Ogre.Core:ShadowCameraSetupFocused;
 
-#include <cstddef>
-#include <memory>
+export import :AxisAlignedBox;
+export import :ConvexBody;
+export import :Light;
+export import :Matrix4;
+export import :Polygon;
+export import :Prerequisites;
+export import :SceneManager;
+export import :SceneNode;
+export import :ShadowCameraSetup;
+export import :SharedPtr;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreConvexBody.hpp"
-#include "OgreLight.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePolygon.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreShadowCameraSetup.hpp"
-#include "OgreSharedPtr.hpp"
+export import <cstddef>;
+export import <memory>;
 
+export
 namespace Ogre {
 class Camera;
 class Frustum;
@@ -314,5 +314,3 @@ class Viewport;
     /** @} */
 
 } // namespace Ogre
-
-#endif // OGRE_CORE_SHADOWCAMERASETUPFOCUSED_H

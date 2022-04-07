@@ -25,17 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Components.Overlay:System;
 
-#ifndef OGRE_COMPONENTS_OVERLAY_SYSTEM_H
-#define OGRE_COMPONENTS_OVERLAY_SYSTEM_H
+export import Ogre.Core;
 
-#include "OgreCommon.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderQueueListener.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreSingleton.hpp"
-
+export
 namespace Ogre {
     class OverlayManager;
     class FontManager;
@@ -81,4 +75,3 @@ namespace Ogre {
     };
 
 }
-#endif

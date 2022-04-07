@@ -25,20 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <cstdio>
-#include <cstring>
-#include <fstream>
-#include <string>
+module Ogre.Core:DataStream.Obj;
 
-#include "OgreDataStream.hpp"
-#include "OgreException.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreString.hpp"
+import :DataStream;
+import :Exception;
+import :LogManager;
+import :Platform;
+import :Prerequisites;
+import :SharedPtr;
+import :String;
+
+import <algorithm>;
+import <cassert>;
+import <cstdio>;
+import <cstring>;
+import <fstream>;
+import <string>;
 
 namespace Ogre {
 

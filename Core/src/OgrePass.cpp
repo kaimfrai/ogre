@@ -25,33 +25,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <cstddef>
-#include <iterator>
-#include <memory>
-#include <set>
-#include <string>
-#include <vector>
+module Ogre.Core:Pass.Obj;
 
-#include "OgreBlendMode.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreConfig.hpp"
-#include "OgreException.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreGpuProgramUsage.hpp"
-#include "OgreLight.hpp"
-#include "OgreMaterial.hpp"
-#include "OgrePass.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreString.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreVector.hpp"
+import :BlendMode;
+import :ColourValue;
+import :Common;
+import :Config;
+import :Exception;
+import :GpuProgram;
+import :GpuProgramParams;
+import :GpuProgramUsage;
+import :Light;
+import :Material;
+import :Pass;
+import :Platform;
+import :Prerequisites;
+import :SharedPtr;
+import :String;
+import :Technique;
+import :TextureUnitState;
+import :Vector;
+
+import <algorithm>;
+import <cassert>;
+import <cstddef>;
+import <iterator>;
+import <memory>;
+import <set>;
+import <string>;
+import <vector>;
 
 namespace Ogre {
     class AutoParamDataSource;

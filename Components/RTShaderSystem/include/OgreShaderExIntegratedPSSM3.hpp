@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXINTEGRATEDPSSM3_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXINTEGRATEDPSSM3_H
+export module Ogre.Components.RTShaderSystem:ShaderExIntegratedPSSM3;
 
-#include <algorithm>
-#include <vector>
+export import :ShaderPrerequisites;
+export import :ShaderSubRenderState;
 
-#include "OgreCommon.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderSubRenderState.hpp"
+export import Ogre.Core;
 
+export import <algorithm>;
+export import <vector>;
+
+export
 namespace Ogre {
     class AutoParamDataSource;
     class Pass;
@@ -51,6 +51,7 @@ namespace Ogre {
     }  // namespace RTShader
 }  // namespace Ogre
 
+export
 namespace Ogre::RTShader {
 
 /** \addtogroup Optional
@@ -243,6 +244,3 @@ protected:
 /** @} */
 
 }
-
-#endif
-

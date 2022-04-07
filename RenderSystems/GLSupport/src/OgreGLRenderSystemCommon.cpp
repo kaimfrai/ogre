@@ -25,23 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLRenderSystemCommon.hpp"
+module Ogre.RenderSystems.GLSupport:GLRenderSystemCommon.Obj;
 
-#include <algorithm>
-#include <map>
-#include <string>
-#include <utility>
-#include <vector>
+import :GLContext;
+import :GLNativeSupport;
+import :GLRenderSystemCommon;
+import :GLRenderTexture;
 
-#include "OgreConfigOptionMap.hpp"
-#include "OgreException.hpp"
-#include "OgreGLContext.hpp"
-#include "OgreGLNativeSupport.hpp"
-#include "OgreGLRenderTexture.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreStringVector.hpp"
+import Ogre.Core;
+
+import <algorithm>;
+import <map>;
+import <string>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
     static void removeDuplicates(std::vector<String>& c)

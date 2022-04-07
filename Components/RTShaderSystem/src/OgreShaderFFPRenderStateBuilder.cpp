@@ -24,15 +24,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreShaderExPerPixelLighting.hpp"
-#include "OgreShaderFFPAlphaTest.hpp"
-#include "OgreShaderFFPColour.hpp"
-#include "OgreShaderFFPFog.hpp"
-#include "OgreShaderFFPRenderStateBuilder.hpp"
-#include "OgreShaderFFPTexturing.hpp"
-#include "OgreShaderFFPTransform.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreShaderRenderState.hpp"
+module Ogre.Components.RTShaderSystem:ShaderFFPRenderStateBuilder.Obj;
+
+import :ShaderExPerPixelLighting;
+import :ShaderFFPAlphaTest;
+import :ShaderFFPColour;
+import :ShaderFFPFog;
+import :ShaderFFPRenderStateBuilder;
+import :ShaderFFPTexturing;
+import :ShaderFFPTransform;
+import :ShaderGenerator;
+import :ShaderRenderState;
 
 namespace Ogre::RTShader {
 

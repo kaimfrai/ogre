@@ -1,12 +1,13 @@
-#include "OgreSGTechniqueResolverListener.hpp"
+module Ogre.Components.Bites:SGTechniqueResolverListener.Obj;
 
-#include <cstddef>
-#include <string>
-#include <vector>
+import :SGTechniqueResolverListener;
 
-#include "OgreMaterial.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreTechnique.hpp"
+import Ogre.Components.RTShaderSystem;
+import Ogre.Core;
+
+import <cstddef>;
+import <string>;
+import <vector>;
 
 namespace Ogre {
 class Renderable;

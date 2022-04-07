@@ -25,32 +25,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#include "OgreSTBICodec.hpp"
-
-#include <cstdlib>
-#include <memory>
-#include <ostream>
-#include <string>
-#include <utility>
-#include <vector>
-
-#include "OgreCodec.hpp"
-#include "OgreCommon.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreException.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreString.hpp"
-#include "OgreStringVector.hpp"
+module;
 
 #define STBI_NO_STDIO
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_STATIC
 #include <zlib.h>
-
 #include "stbi/stb_image.h"
+#define STBIW_ZLIB_COMPRESS custom_zlib_compress
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#define STBI_WRITE_NO_STDIO
+#include "stbi/stb_image_write.h"
+
+module Ogre.PlugIns.STBICodec:.Obj;
+
+import Ogre.Core;
+import Ogre.PlugIns.STBICodec;
+
+import <cstdlib>;
+import <memory>;
+import <ostream>;
+import <string>;
+import <utility>;
+import <vector>;
 
 static auto custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/) -> Ogre::uchar*
 {
@@ -66,11 +63,6 @@ static auto custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, 
     *out_len = destLen;
     return dest;
 }
-#define STBIW_ZLIB_COMPRESS custom_zlib_compress
-
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#define STBI_WRITE_NO_STDIO
-#include "stbi/stb_image_write.h"
 
 namespace Ogre {
 

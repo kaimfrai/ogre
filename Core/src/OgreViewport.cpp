@@ -25,21 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cstddef>
-#include <iomanip>
-#include <iosfwd>
+module Ogre.Core:Viewport.Obj;
 
-#include "OgreCamera.hpp"
-#include "OgreException.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderTarget.hpp"
-#include "OgreRoot.hpp"
-#include "OgreVector.hpp"
-#include "OgreViewport.hpp"
+import :Camera;
+import :Exception;
+import :Log;
+import :LogManager;
+import :MaterialManager;
+import :RenderSystem;
+import :RenderTarget;
+import :Root;
+import :Vector;
+import :Viewport;
+
+import <algorithm>;
+import <cstddef>;
+import <iomanip>;
+import <iosfwd>;
 
 namespace Ogre {
     OrientationMode Viewport::mDefaultOrientationMode = OR_DEGREE_0;

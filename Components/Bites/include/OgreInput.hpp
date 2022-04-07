@@ -2,17 +2,17 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
+export module Ogre.Components.Bites:Input;
 
-#ifndef OGRE_COMPONENTS_BITES_INPUT_H
-#define OGRE_COMPONENTS_BITES_INPUT_H
+export import <utility>;
+export import <vector>;
 
-#include <utility>
-#include <vector>
-
+export
 namespace Ogre {
     struct FrameEvent;
 }
 
+export
 namespace OgreBites {
 
 /** \addtogroup Optional
@@ -303,5 +303,3 @@ public:
 /** @} */
 /** @} */
 }
-
-#endif // OGRE_COMPONENTS_BITES_INPUT_H

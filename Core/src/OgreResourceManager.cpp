@@ -25,13 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <limits>
-#include <utility>
+module Ogre.Core:ResourceManager.Obj;
 
-#include "OgreException.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreScriptCompiler.hpp"
-#include "OgreStringConverter.hpp"
+import :Exception;
+import :ResourceManager;
+import :ScriptCompiler;
+import :StringConverter;
+
+import <limits>;
+import <utility>;
 
 namespace Ogre {
 
@@ -514,7 +516,3 @@ namespace Ogre {
         mItems.clear();
     }
 }
-
-
-
-

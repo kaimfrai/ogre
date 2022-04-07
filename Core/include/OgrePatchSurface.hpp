@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PATCHSURFACE_H
-#define OGRE_CORE_PATCHSURFACE_H
+export module Ogre.Core:PatchSurface;
 
-#include <cstddef>
-#include <vector>
+export import :AxisAlignedBox;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :SharedPtr;
+export import :Vector;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreVector.hpp"
+export import <cstddef>;
+export import <vector>;
 
+export
 namespace Ogre {
 class VertexDeclaration;
 
@@ -248,5 +248,3 @@ class VertexDeclaration;
     /** @} */
 
 } // namespace
-
-#endif

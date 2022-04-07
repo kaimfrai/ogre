@@ -25,30 +25,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_COMPOSITORMANAGER_H
-#define OGRE_CORE_COMPOSITORMANAGER_H
+export module Ogre.Core:CompositorManager;
 
-#include <cstddef>
-#include <map>
-#include <set>
-#include <string>
-#include <tuple>
-#include <utility>
-#include <vector>
+export import :Common;
+export import :CompositionTechnique;
+export import :IteratorWrapper;
+export import :PixelFormat;
+export import :Platform;
+export import :Prerequisites;
+export import :Resource;
+export import :ResourceGroupManager;
+export import :ResourceManager;
+export import :SharedPtr;
+export import :Singleton;
+export import :Texture;
 
-#include "OgreCommon.hpp"
-#include "OgreCompositionTechnique.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreTexture.hpp"
+export import <cstddef>;
+export import <map>;
+export import <set>;
+export import <string>;
+export import <tuple>;
+export import <utility>;
+export import <vector>;
 
+export
 namespace Ogre {
 
     class Rectangle2D;
@@ -277,5 +277,3 @@ class Viewport;
     /** @} */
 
 }
-
-#endif

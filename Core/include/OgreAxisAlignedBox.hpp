@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_AXISALIGNEDBOX_H
-#define OGRE_CORE_AXISALIGNEDBOX_H
-
-#include <array>
-#include <cassert>
-#include <ostream>
+export module Ogre.Core:AxisAlignedBox;
 
 // Precompiler options
-#include "OgreMath.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreVector.hpp"
+export import :Math;
+export import :Matrix4;
+export import :Prerequisites;
+export import :Vector;
 
+export import <array>;
+export import <cassert>;
+export import <ostream>;
+
+export
 namespace Ogre {
 class Plane;
 class Sphere;
@@ -833,5 +833,3 @@ class Sphere;
     /** @} */
     /** @} */
 } // namespace Ogre
-
-#endif

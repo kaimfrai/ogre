@@ -25,17 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLPBRenderTexture.hpp"
+module Ogre.RenderSystems.GL:PBRenderTexture.Obj;
 
-#include <cassert>
-#include <string>
+import :HardwarePixelBuffer;
+import :PBRenderTexture;
 
-#include "OgreGLHardwarePixelBuffer.hpp"
-#include "OgreGLHardwarePixelBufferCommon.hpp"
-#include "OgreGLNativeSupport.hpp"
-#include "OgreGLPBuffer.hpp"
-#include "OgreGLRenderTarget.hpp"
-#include "OgreRenderTarget.hpp"
+import Ogre.Core;
+import Ogre.RenderSystems.GLSupport;
+
+import <cassert>;
+import <string>;
 
 namespace Ogre {
 class GLContext;
@@ -166,4 +165,3 @@ class RenderTexture;
 //---------------------------------------------------------------------------------------------
 
 }
-

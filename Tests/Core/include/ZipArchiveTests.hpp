@@ -25,16 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_TESTS_CORE_ZIPARCHIVETESTS_H
-#define OGRE_TESTS_CORE_ZIPARCHIVETESTS_H
+module;
 
 #include <gtest/gtest.h>
 
+export module Ogre.Tests.Core:ZipArchiveTests;
+
+export
 namespace Ogre {
     class Archive;
 }  // namespace Ogre
 
+export
 class ZipArchiveTests : public ::testing::Test
 {
 
@@ -44,5 +46,3 @@ public:
     void SetUp() override;
     void TearDown() override;
 };
-
-#endif

@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_CONFIGDIALOG_H
-#define OGRE_CORE_CONFIGDIALOG_H
+export module Ogre.Core:ConfigDialog;
 
-#include "OgrePrerequisites.hpp"
+export import :Prerequisites;
 
+export
 namespace Ogre
 {
     /** \addtogroup Core
@@ -66,5 +66,3 @@ namespace Ogre
     /** @} */
     /** @} */
 }
-
-#endif

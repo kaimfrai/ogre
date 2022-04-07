@@ -25,37 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.RenderSystems.GL:RenderToVertexBuffer.Obj;
 
-#include "OgreGLRenderToVertexBuffer.hpp"
+import :HardwareBuffer;
+import :Prerequisites;
+import :RenderSystem;
+import :RenderToVertexBuffer;
 
-#include <cassert>
-#include <memory>
-#include <string>
-#include <vector>
+import Ogre.Core;
+import Ogre.RenderSystems.GL.GLSL;
 
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreGLHardwareBuffer.hpp"
-#include "OgreGLPrerequisites.hpp"
-#include "OgreGLRenderSystem.hpp"
-#include "OgreGLSLLinkProgram.hpp"
-#include "OgreGLSLLinkProgramManager.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePass.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreVertexIndexData.hpp"
+import <cassert>;
+import <memory>;
+import <string>;
+import <vector>;
 
 namespace Ogre {
 //-----------------------------------------------------------------------------

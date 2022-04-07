@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_DATASTREAM_H
-#define OGRE_CORE_DATASTREAM_H
+export module Ogre.Core:DataStream;
 
-#include <cstdio>
-#include <istream>
-#include <list>
-#include <utility>
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :SharedPtr;
 
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
+export import <cstdio>;
+export import <istream>;
+export import <list>;
+export import <utility>;
 
+export
 namespace Ogre {
     
     /** \addtogroup Core
@@ -547,6 +547,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#endif
-

@@ -25,13 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLCopyingRenderTexture.hpp"
+module Ogre.RenderSystems.GL:CopyingRenderTexture.Obj;
 
-#include <string>
+import :CopyingRenderTexture;
+import :HardwarePixelBuffer;
 
-#include "OgreGLHardwarePixelBuffer.hpp"
-#include "OgreGLHardwarePixelBufferCommon.hpp"
-#include "OgreRenderTarget.hpp"
+import Ogre.Core;
+import Ogre.RenderSystems.GLSupport;
+
+import <string>;
 
 namespace Ogre {
 
@@ -61,4 +63,3 @@ namespace Ogre {
             static_cast<GLTextureBuffer*>(surface.buffer)->copyFromFramebuffer(surface.zoffset);
     }
 }
-

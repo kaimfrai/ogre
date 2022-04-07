@@ -25,20 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_COMPOSITOR_H
-#define OGRE_CORE_COMPOSITOR_H
+export module Ogre.Core:Compositor;
 
-#include <algorithm>
-#include <cstddef>
-#include <map>
-#include <string>
-#include <vector>
+export import :Common;
+export import :Prerequisites;
+export import :Resource;
+export import :SharedPtr;
 
-#include "OgreCommon.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
-#include "OgreSharedPtr.hpp"
+export import <algorithm>;
+export import <cstddef>;
+export import <map>;
+export import <string>;
+export import <vector>;
 
+export
 namespace Ogre {
     template <typename T> class VectorIterator;
 class CompositionTechnique;
@@ -187,5 +187,3 @@ class ResourceManager;
     /** @} */
     /** @} */
 }
-
-#endif

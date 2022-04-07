@@ -2,33 +2,16 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
+module Ogre.Components.Bites:AdvancedRenderControls.Obj;
 
-#include "OgreAdvancedRenderControls.hpp"
+import :AdvancedRenderControls;
+import :Trays;
 
-#include <string>
-#include <vector>
+import Ogre.Components.RTShaderSystem;
+import Ogre.Core;
 
-#include "OgreCamera.hpp"
-#include "OgreCommon.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreProfiler.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreRenderTarget.hpp"
-#include "OgreRoot.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderRenderState.hpp"
-#include "OgreShaderSubRenderState.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreTextureManager.hpp"
-#include "OgreTrays.hpp"
-#include "OgreVector.hpp"
-#include "OgreViewport.hpp"
+import <string>;
+import <vector>;
 
 namespace Ogre {
 struct FrameEvent;

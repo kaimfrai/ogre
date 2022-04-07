@@ -26,19 +26,21 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 // IWYU pragma: no_include <cxxabi.h>
-#include <condition_variable>
-#include <cstddef>
-#include <mutex>
-#include <thread>
-#include <vector>
+module Ogre.Core:DefaultWorkQueueStandard.Obj;
 
-#include "OgreDefaultWorkQueueStandard.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRoot.hpp"
-#include "OgreWorkQueue.hpp"
+import :DefaultWorkQueueStandard;
+import :Log;
+import :LogManager;
+import :Prerequisites;
+import :RenderSystem;
+import :Root;
+import :WorkQueue;
+
+import <condition_variable>;
+import <cstddef>;
+import <mutex>;
+import <thread>;
+import <vector>;
 
 namespace Ogre
 {

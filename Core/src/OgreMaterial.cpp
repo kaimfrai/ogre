@@ -25,23 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <iterator>
-#include <memory>
-#include <ostream>
-#include <ranges>
-#include <string>
-#include <utility>
+module Ogre.Core:Material.Obj;
 
-#include "OgreException.hpp"
-#include "OgreLodStrategy.hpp"
-#include "OgreLodStrategyManager.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreTechnique.hpp"
+import :Exception;
+import :LodStrategy;
+import :LodStrategyManager;
+import :Log;
+import :LogManager;
+import :Material;
+import :MaterialManager;
+import :ResourceManager;
+import :Technique;
+
+import <cassert>;
+import <iterator>;
+import <memory>;
+import <ostream>;
+import <ranges>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
 class Renderable;

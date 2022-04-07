@@ -25,11 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
+module Ogre.Core:AlignedAllocator.Obj;
 
-#include "OgreAlignedAllocator.hpp"
-#include "OgreBitwise.hpp"
-#include "OgrePlatform.hpp"
+import :AlignedAllocator;
+import :Bitwise;
+import :Platform;
+
+import <cassert>;
 
 /**
 *
@@ -44,7 +46,6 @@ THE SOFTWARE.
 * 5 -> Data block.
 * 6 -> Wasted memory at rear of data block.
 */
-
 namespace Ogre {
 
     /** Allocate memory with given alignment.

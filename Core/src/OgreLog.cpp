@@ -25,17 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cstdlib>
-#include <ctime>
-#include <iomanip>
-#include <iostream>
-#include <string>
-#include <vector>
+module Ogre.Core:Log.Obj;
 
-#include "OgreLog.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreStringConverter.hpp"
+import :Log;
+import :Prerequisites;
+import :StringConverter;
+
+import <algorithm>;
+import <cstdlib>;
+import <ctime>;
+import <iomanip>;
+import <iostream>;
+import <string>;
+import <vector>;
 
 // LogMessageLevel + LoggingLevel > OGRE_LOG_THRESHOLD = message logged
 enum {

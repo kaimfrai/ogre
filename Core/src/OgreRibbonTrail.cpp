@@ -25,20 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <iterator>
-#include <memory>
-#include <string>
-#include <utility>
+module Ogre.Core:RibbonTrail.Obj;
 
-#include "OgreController.hpp"
-#include "OgreException.hpp"
-#include "OgreMath.hpp"
-#include "OgreRibbonTrail.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreVector.hpp"
+import :Controller;
+import :Exception;
+import :Math;
+import :RibbonTrail;
+import :SceneNode;
+import :StringConverter;
+import :Vector;
+
+import <algorithm>;
+import <cassert>;
+import <iterator>;
+import <memory>;
+import <string>;
+import <utility>;
 
 namespace Ogre
 {
@@ -483,4 +485,3 @@ namespace Ogre
     }
 
 }
-

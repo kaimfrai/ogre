@@ -24,19 +24,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_SUBRENDERSTATE_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_SUBRENDERSTATE_H
+export module Ogre.Components.RTShaderSystem:ShaderSubRenderState;
 
-#include <cstddef>
-#include <set>
-#include <vector>
+export import :ShaderPrerequisites;
 
-#include "OgreCommon.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
+export import Ogre.Core;
 
+export import <cstddef>;
+export import <set>;
+export import <vector>;
+
+export
 namespace Ogre {
 class AutoParamDataSource;
 class MaterialSerializer;
@@ -344,6 +342,3 @@ protected:
 
 }
 }
-
-#endif
-

@@ -25,23 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.RenderSystems.GL:Texture.Obj;
 
-#include "OgreGLTexture.hpp"
+import :HardwarePixelBuffer;
+import :PixelFormat;
+import :RenderSystem;
+import :StateCacheManager;
+import :Texture;
 
-#include <memory>
-#include <vector>
+import Ogre.Core;
 
-#include "OgreException.hpp"
-#include "OgreGLHardwarePixelBuffer.hpp"
-#include "OgreGLPixelFormat.hpp"
-#include "OgreGLRenderSystem.hpp"
-#include "OgreGLStateCacheManager.hpp"
-#include "OgreHardwarePixelBuffer.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlatform.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreTexture.hpp"
-#include "OgreTextureManager.hpp"
+import <memory>;
+import <vector>;
 
 namespace Ogre {
 class ResourceManager;
@@ -284,4 +279,3 @@ class ResourceManager;
         }
     }
 }
-

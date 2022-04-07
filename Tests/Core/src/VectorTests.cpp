@@ -25,16 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <gtest/gtest.h>
 
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreVector.hpp"
+module Ogre.Tests.Core;
+
+import Ogre.Core;
 
 using namespace Ogre;
-
 //--------------------------------------------------------------------------
 TEST(VectorTests,Vector2Scaler)
 {

@@ -24,42 +24,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Components.RTShaderSystem:ShaderExHardwareSkinning.Obj;
 
-#include <algorithm>
-#include <cassert>
-#include <cstddef>
-#include <list>
-#include <memory>
-#include <string>
+import :ShaderExDualQuaternionSkinning;
+import :ShaderExHardwareSkinning;
+import :ShaderExHardwareSkinningTechnique;
+import :ShaderExLinearSkinning;
+import :ShaderFFPRenderState;
+import :ShaderGenerator;
+import :ShaderPrerequisites;
+import :ShaderScriptTranslator;
 
-#include "OgreAny.hpp"
-#include "OgreEntity.hpp"
-#include "OgreGpuProgramManager.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialSerializer.hpp"
-#include "OgreMesh.hpp"
-#include "OgrePass.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreScriptCompiler.hpp"
-#include "OgreShaderExDualQuaternionSkinning.hpp"
-#include "OgreShaderExHardwareSkinning.hpp"
-#include "OgreShaderExHardwareSkinningTechnique.hpp"
-#include "OgreShaderExLinearSkinning.hpp"
-#include "OgreShaderFFPRenderState.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderScriptTranslator.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreSubEntity.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreUserObjectBindings.hpp"
-#include "OgreVertexIndexData.hpp"
+import Ogre.Core;
+
+import <algorithm>;
+import <cassert>;
+import <cstddef>;
+import <list>;
+import <memory>;
+import <string>;
 
 namespace Ogre::RTShader {
         class ProgramSet;
@@ -67,8 +50,6 @@ namespace Ogre::RTShader {
     }  // namespace Ogre
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
-
-
 namespace Ogre {
 template<> RTShader::HardwareSkinningFactory* Singleton<RTShader::HardwareSkinningFactory>::msSingleton = nullptr;
 

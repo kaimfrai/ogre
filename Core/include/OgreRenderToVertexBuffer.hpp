@@ -25,15 +25,15 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RENDERTOVERTEXBUFFER_H
-#define OGRE_CORE_RENDERTOVERTEXBUFFER_H
+export module Ogre.Core:RenderToVertexBuffer;
 
-#include <memory>
+export import :Prerequisites;
+export import :RenderOperation;
+export import :SharedPtr;
 
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreSharedPtr.hpp"
+export import <memory>;
 
+export
 namespace Ogre {
    class Renderable;
    class SceneManager;
@@ -156,5 +156,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#endif

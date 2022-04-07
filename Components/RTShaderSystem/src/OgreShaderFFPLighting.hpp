@@ -24,16 +24,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FFPLIGHTING_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_FFPLIGHTING_H
+module Ogre.Components.RTShaderSystem:ShaderFFPLighting;
 
-#include <vector>
+import :ShaderPrerequisites;
+import :ShaderSubRenderState;
 
-#include "OgreCommon.hpp"
-#include "OgreLight.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderSubRenderState.hpp"
+import Ogre.Core;
+
+import <vector>;
 
 namespace Ogre {
     class AutoParamDataSource;
@@ -287,5 +285,3 @@ protected:
 /** @} */
 
 }
-
-#endif

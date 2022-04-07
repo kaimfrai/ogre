@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_ALIGNEDALLOCATOR_H
-#define OGRE_CORE_ALIGNEDALLOCATOR_H
+export module Ogre.Core:AlignedAllocator;
 
-#include <cstdlib>
-#include <memory>
+export import :Platform;
 
-#include "OgrePlatform.hpp"
+export import <cstdlib>;
+export import <memory>;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -127,5 +127,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif // OGRE_CORE_ALIGNEDALLOCATOR_H

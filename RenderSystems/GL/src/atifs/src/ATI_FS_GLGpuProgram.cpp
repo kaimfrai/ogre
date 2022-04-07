@@ -25,19 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.RenderSystems.GL.atifs:ATI_FS_GLGpuProgram.Obj;
 
-#include <cstdio>
-#include <map>
-#include <string>
-#include <utility>
+import :ATI_FS_GLGpuProgram;
+import :ps_1_4;
 
-#include "ATI_FS_GLGpuProgram.hpp"
-#include "OgreException.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "ps_1_4.hpp"
+import Ogre.Core;
 
+import <cstdio>;
+import <map>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
 class ResourceManager;

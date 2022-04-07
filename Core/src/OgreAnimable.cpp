@@ -25,10 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <utility>
+module Ogre.Core:Animable.Obj;
 
-#include "OgreAnimable.hpp"
-#include "OgreAny.hpp"
+import :Animable;
+import :Any;
+
+import <utility>;
 
 namespace Ogre {
     //--------------------------------------------------------------------------

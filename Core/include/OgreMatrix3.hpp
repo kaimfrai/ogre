@@ -25,20 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_MATRIX3_H
-#define OGRE_CORE_MATRIX3_H
+export module Ogre.Core:Matrix3;
 
-#include <cassert>
-#include <cstring>
-#include <ostream>
+export import :Math;
+export import :Prerequisites;
+export import :Vector;
 
-#include "OgreMath.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreVector.hpp"
+export import <cassert>;
+export import <cstring>;
+export import <ostream>;
 
 // NB All code adapted from Wild Magic 0.2 Matrix math (free source code)
 // http://www.geometrictools.com/
-
 // NOTE.  The (x,y,z) coordinate system is assumed to be right-handed.
 // Coordinate axis rotation matrices are of the form
 //   RX =    1       0       0
@@ -53,7 +51,7 @@ THE SOFTWARE.
 //         sin(t)  cos(t)    0
 //           0       0       1
 // where t > 0 indicates a counterclockwise rotation in the xy-plane.
-
+export
 namespace Ogre
 {
     /** \addtogroup Core
@@ -350,4 +348,3 @@ namespace Ogre
     /** @} */
     /** @} */
 }
-#endif

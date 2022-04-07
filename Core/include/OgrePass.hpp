@@ -25,28 +25,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PASS_H
-#define OGRE_CORE_PASS_H
+export module Ogre.Core:Pass;
 
-#include <algorithm>
-#include <cstddef>
-#include <memory>
-#include <set>
-#include <vector>
+export import :BlendMode;
+export import :ColourValue;
+export import :Common;
+export import :GpuProgram;
+export import :IteratorWrapper;
+export import :Light;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :TextureUnitState;
+export import :UserObjectBindings;
+export import :Vector;
 
-#include "OgreBlendMode.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreLight.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreUserObjectBindings.hpp"
-#include "OgreVector.hpp"
+export import <algorithm>;
+export import <cstddef>;
+export import <memory>;
+export import <set>;
+export import <vector>;
 
+export
 namespace Ogre {
     class AutoParamDataSource;
     class GpuProgramUsage;
@@ -1585,5 +1585,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

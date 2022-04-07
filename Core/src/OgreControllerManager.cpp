@@ -25,12 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
+module Ogre.Core:ControllerManager.Obj;
 
-#include "OgreController.hpp"
-#include "OgreControllerManager.hpp"
-#include "OgrePredefinedControllers.hpp"
-#include "OgreRoot.hpp"
+import :Controller;
+import :ControllerManager;
+import :PredefinedControllers;
+import :Root;
+
+import <cassert>;
 
 namespace Ogre {
     //-----------------------------------------------------------------------

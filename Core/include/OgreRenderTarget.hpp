@@ -25,19 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RENDERTARGET_H
-#define OGRE_CORE_RENDERTARGET_H
+export module Ogre.Core:RenderTarget;
 
-#include <algorithm>
-#include <cstddef>
-#include <map>
-#include <vector>
+export import :DepthBuffer;
+export import :MemoryAllocatorConfig;
+export import :PixelFormat;
+export import :Platform;
+export import :Prerequisites;
 
-#include "OgreDepthBuffer.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
+export import <algorithm>;
+export import <cstddef>;
+export import <map>;
+export import <vector>;
 
 /* Define the number of priority groups for the render system's render targets. */
 #ifndef OGRE_NUM_RENDERTARGET_GROUPS
@@ -46,6 +45,7 @@ THE SOFTWARE.
     #define OGRE_REND_TO_TEX_RT_GROUP 2
 #endif
 
+export
 namespace Ogre {
 class Camera;
 class DepthBuffer;
@@ -516,5 +516,3 @@ virtual auto isStereoEnabled() const -> bool;
     /** @} */
 
 } // Namespace
-
-#endif

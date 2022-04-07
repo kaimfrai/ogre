@@ -25,32 +25,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <cstring>
-#include <memory>
-#include <utility>
+module Ogre.Core:InstanceManager.Obj;
 
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreInstanceBatch.hpp"
-#include "OgreInstanceBatchHW.hpp"
-#include "OgreInstanceBatchHW_VTF.hpp"
-#include "OgreInstanceBatchShader.hpp"
-#include "OgreInstanceBatchVTF.hpp"
-#include "OgreInstanceManager.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMesh.hpp"
-#include "OgreMeshManager.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreVertexBoneAssignment.hpp"
-#include "OgreVertexIndexData.hpp"
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :InstanceBatch;
+import :InstanceBatchHW;
+import :InstanceBatchHW_VTF;
+import :InstanceBatchShader;
+import :InstanceBatchVTF;
+import :InstanceManager;
+import :MaterialManager;
+import :Mesh;
+import :MeshManager;
+import :SceneManager;
+import :SceneNode;
+import :StringConverter;
+import :SubMesh;
+import :VertexBoneAssignment;
+import :VertexIndexData;
+
+import <algorithm>;
+import <cassert>;
+import <cstring>;
+import <memory>;
+import <utility>;
 
 namespace Ogre
 {

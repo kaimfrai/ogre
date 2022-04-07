@@ -25,14 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GL_HARDWAREBUFFER_H
-#define OGRE_RENDERSYSTEMS_GL_HARDWAREBUFFER_H
+module;
 
-#include <cstddef>
-
-#include "OgreHardwareBuffer.hpp"
 #include "glad/glad.h"
 
+export module Ogre.RenderSystems.GL:HardwareBuffer;
+
+export import Ogre.Core;
+
+export import <cstddef>;
+
+export
 namespace Ogre {
 class GLRenderSystem;
 
@@ -72,4 +75,3 @@ class GLRenderSystem;
     using GLHardwareBuffer = GLHardwareVertexBuffer;
 
 }
-#endif // OGRE_RENDERSYSTEMS_GL_HARDWAREBUFFER_H

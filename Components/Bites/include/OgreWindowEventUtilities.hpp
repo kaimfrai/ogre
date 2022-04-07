@@ -25,13 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_BITES_WINDOWEVENTUTILITIES_H
-#define OGRE_COMPONENTS_BITES_WINDOWEVENTUTILITIES_H
+export module Ogre.Components.Bites:WindowEventUtilities;
 
+export
 namespace Ogre {
     class RenderWindow;
 }  // namespace Ogre
 
+export
 namespace OgreBites
 {
     /** \addtogroup Optional
@@ -151,5 +152,3 @@ namespace OgreBites
     /** @} */
     /** @} */
 }
-
-#endif

@@ -25,20 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_VERTEXINDEXDATA_H
-#define OGRE_CORE_VERTEXINDEXDATA_H
+export module Ogre.Core:VertexIndexData;
 
-#include <algorithm>
-#include <cstddef>
-#include <vector>
+export import :HardwareBuffer;
+export import :HardwareVertexBuffer;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :SharedPtr;
 
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
+export import <algorithm>;
+export import <cstddef>;
+export import <vector>;
 
+export
 namespace Ogre {
 class HardwareBufferManagerBase;
     /** \addtogroup Core
@@ -333,5 +333,3 @@ class HardwareBufferManagerBase;
     /** @} */
     /** @} */
 }
-
-#endif

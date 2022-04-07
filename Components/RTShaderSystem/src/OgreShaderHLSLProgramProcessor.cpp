@@ -24,15 +24,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Components.RTShaderSystem:ShaderHLSLProgramProcessor.Obj;
 
-#include <initializer_list>
+import :ShaderHLSLProgramProcessor;
+import :ShaderProgram;
+import :ShaderProgramProcessor;
+import :ShaderProgramSet;
 
-#include "OgreGpuProgram.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderHLSLProgramProcessor.hpp"
-#include "OgreShaderProgram.hpp"
-#include "OgreShaderProgramProcessor.hpp"
-#include "OgreShaderProgramSet.hpp"
+import Ogre.Core;
+
+import <initializer_list>;
 
 namespace Ogre::RTShader {
 class Function;

@@ -2,13 +2,12 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_COOKTORRANCELIGHTING_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_COOKTORRANCELIGHTING_H
+module Ogre.Components.RTShaderSystem:ShaderCookTorranceLighting;
 
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderFFPRenderState.hpp"
-#include "OgreShaderSubRenderState.hpp"
+import :ShaderFFPRenderState;
+import :ShaderSubRenderState;
+
+import Ogre.Core;
 
 namespace Ogre {
     class MaterialSerializer;
@@ -81,5 +80,3 @@ protected:
 /** @} */
 
 } // namespace Ogre
-
-#endif

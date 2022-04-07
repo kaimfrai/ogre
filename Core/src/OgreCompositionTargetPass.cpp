@@ -25,13 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
+module Ogre.Core:CompositionTargetPass.Obj;
 
-#include "OgreCompositionTargetPass.hpp"
-#include "OgreCompositionPass.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRoot.hpp"
+import :CompositionPass;
+import :CompositionTargetPass;
+import :MaterialManager;
+import :RenderSystem;
+import :Root;
+
+import <cassert>;
 
 namespace Ogre {
 class CompositionTechnique;

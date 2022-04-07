@@ -24,25 +24,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cstddef>
-#include <string>
+module Ogre.Components.RTShaderSystem:ShaderFFPColour.Obj;
 
-#include "OgreCommon.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreMaterialSerializer.hpp"
-#include "OgrePass.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreScriptCompiler.hpp"
-#include "OgreShaderFFPColour.hpp"
-#include "OgreShaderFFPRenderState.hpp"
-#include "OgreShaderFunction.hpp"
-#include "OgreShaderFunctionAtom.hpp"
-#include "OgreShaderParameter.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderProgram.hpp"
-#include "OgreShaderProgramSet.hpp"
-#include "OgreShaderScriptTranslator.hpp"
-#include "OgreVector.hpp"
+import :ShaderFFPColour;
+import :ShaderFFPRenderState;
+import :ShaderFunction;
+import :ShaderFunctionAtom;
+import :ShaderParameter;
+import :ShaderPrerequisites;
+import :ShaderProgram;
+import :ShaderProgramSet;
+import :ShaderScriptTranslator;
+
+import Ogre.Core;
+
+import <cstddef>;
+import <string>;
 
 namespace Ogre::RTShader {
         class RenderState;

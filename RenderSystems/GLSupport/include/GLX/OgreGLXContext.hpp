@@ -25,13 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_CONTEXT_H
-#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_CONTEXT_H
+module;
 
 #include <GL/glx.h>
 
-#include "OgreGLContext.hpp"
+export module Ogre.RenderSystems.GLSupport.GLX:Context;
 
+export import Ogre.RenderSystems.GLSupport;
+
+export
 namespace Ogre {
 class GLXGLSupport;
 
@@ -61,5 +63,3 @@ class GLXGLSupport;
         bool mExternalContext{false};
     };
 }
-
-#endif

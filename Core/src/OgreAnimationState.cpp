@@ -25,17 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cmath>
-#include <cstring>
-#include <limits>
-#include <utility>
+module Ogre.Core:AnimationState.Obj;
 
-#include "OgreAnimationState.hpp"
-#include "OgreException.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreMath.hpp"
+import :AnimationState;
+import :Exception;
+import :IteratorWrapper;
+import :Math;
 
+import <algorithm>;
+import <cmath>;
+import <cstring>;
+import <limits>;
+import <utility>;
 
 namespace Ogre 
 {
@@ -378,4 +379,3 @@ namespace Ogre
         _notifyDirty();
     }
 }
-

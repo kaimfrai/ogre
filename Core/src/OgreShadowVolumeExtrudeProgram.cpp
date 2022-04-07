@@ -25,15 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Core:ShadowVolumeExtrudeProgram.Obj;
 
-#include <string>
+import :Exception;
+import :GpuProgram;
+import :GpuProgramManager;
+import :ResourceGroupManager;
+import :ShadowVolumeExtrudeProgram;
+import :SharedPtr;
 
-#include "OgreException.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramManager.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreShadowVolumeExtrudeProgram.hpp"
-#include "OgreSharedPtr.hpp"
+import <string>;
 
 namespace {
     enum Programs

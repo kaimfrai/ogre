@@ -24,30 +24,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cstddef>
-#include <list>
-#include <memory>
-#include <string>
+module Ogre.Components.RTShaderSystem:ShaderExNormalMapLighting.Obj;
 
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreMaterialSerializer.hpp"
-#include "OgrePass.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreScriptCompiler.hpp"
-#include "OgreShaderExNormalMapLighting.hpp"
-#include "OgreShaderFFPRenderState.hpp"
-#include "OgreShaderFunction.hpp"
-#include "OgreShaderFunctionAtom.hpp"
-#include "OgreShaderParameter.hpp"
-#include "OgreShaderPrecompiledHeaders.hpp"
-#include "OgreShaderProgram.hpp"
-#include "OgreShaderProgramSet.hpp"
-#include "OgreShaderScriptTranslator.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreTextureManager.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreVector.hpp"
+import :ShaderExNormalMapLighting;
+import :ShaderFFPRenderState;
+import :ShaderFunction;
+import :ShaderFunctionAtom;
+import :ShaderParameter;
+import :ShaderPrecompiledHeaders;
+import :ShaderProgram;
+import :ShaderProgramSet;
+import :ShaderScriptTranslator;
+
+import Ogre.Core;
+
+import <cstddef>;
+import <list>;
+import <memory>;
+import <string>;
 
 namespace Ogre::RTShader {
 class RenderState;
@@ -56,7 +50,6 @@ class RenderState;
 #define SGX_LIB_NORMALMAP                           "SGXLib_NormalMap"
 #define SGX_FUNC_CONSTRUCT_TBNMATRIX                "SGX_ConstructTBNMatrix"
 #define SGX_FUNC_FETCHNORMAL                        "SGX_FetchNormal"
-
 namespace Ogre::RTShader {
 
 /************************************************************************/

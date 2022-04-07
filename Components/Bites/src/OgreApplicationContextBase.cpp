@@ -1,38 +1,24 @@
 // This file is part of the OGRE project.
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
+module Ogre.Components.Bites:ApplicationContextBase.Obj;
 
-#include "OgreApplicationContextBase.hpp"
+import :ApplicationContextBase;
+import :ConfigDialog;
+import :Input;
+import :SGTechniqueResolverListener;
+import :WindowEventUtilities;
 
-#include <cstdlib>
-#include <ios>
-#include <map>
-#include <ranges>
-#include <string>
-#include <type_traits>
+import Ogre.Components.Overlay;
+import Ogre.Components.RTShaderSystem;
+import Ogre.Core;
 
-#include "OgreBitesConfigDialog.hpp"
-#include "OgreCamera.hpp"
-#include "OgreConfigFile.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreFileSystemLayer.hpp"
-#include "OgreGpuProgramManager.hpp"
-#include "OgreInput.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreOverlaySystem.hpp"
-#include "OgrePlatform.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderWindow.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSGTechniqueResolverListener.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreString.hpp"
-#include "OgreWindowEventUtilities.hpp"
+import <cstdlib>;
+import <ios>;
+import <map>;
+import <ranges>;
+import <string>;
+import <type_traits>;
 
 namespace OgreBites {
 

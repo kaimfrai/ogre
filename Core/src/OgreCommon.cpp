@@ -25,15 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <map>
-#include <string>
-#include <utility>
+module Ogre.Core:Common.Obj;
 
-#include "OgreCommon.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreString.hpp"
+import :Common;
+import :Log;
+import :LogManager;
+import :Prerequisites;
+import :String;
+
+import <map>;
+import <string>;
+import <utility>;
 
 namespace Ogre 
 {

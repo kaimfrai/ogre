@@ -25,18 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:Billboard;
 
-#ifndef OGRE_CORE_BILLBOARD_H
-#define OGRE_CORE_BILLBOARD_H
+export import :ColourValue;
+export import :Common;
+export import :Math;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :Vector;
 
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreMath.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreVector.hpp"
-
+export
 namespace Ogre {
 class BillboardSet;
     /** \addtogroup Core
@@ -220,5 +219,3 @@ class BillboardSet;
     /** @} */
 
 }
-
-#endif

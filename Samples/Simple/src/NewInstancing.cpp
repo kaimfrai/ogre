@@ -1,48 +1,25 @@
-#include <cstddef>
-#include <map>
-#include <memory>
-#include <random>
-#include <string>
-#include <utility>
+module Ogre.Samples.Simple:NewInstancing.Obj;
 
-#include "NewInstancing.hpp"
-#include "OgreAnimationState.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreEntity.hpp"
-#include "OgreInstancedEntity.hpp"
-#include "OgreLight.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMeshManager.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgreNode.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlane.hpp"
-#include "OgreProfiler.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreShaderExHardwareSkinning.hpp"
-#include "OgreShaderExIntegratedPSSM3.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreShaderRenderState.hpp"
-#include "OgreShadowCameraSetupLiSPSM.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreTrays.hpp"
-#include "OgreVector.hpp"
-#include "OgreViewport.hpp"
+import :NewInstancing;
+
+import Ogre.Components.Bites;
+import Ogre.Components.RTShaderSystem;
+import Ogre.Core;
+
+import <cstddef>;
+import <map>;
+import <memory>;
+import <random>;
+import <string>;
+import <utility>;
 
 namespace Ogre::RTShader {
 class SubRenderState;
 }  // namespace Ogre
 
 using namespace Ogre;
-using namespace OgreBites;
 
+using namespace OgreBites;
 static const char *c_instancingTechniques[] =
 {
     "Shader Based",
@@ -52,7 +29,6 @@ static const char *c_instancingTechniques[] =
     "Limited Animation - Hardware Instancing + VTF",
     "No Instancing"
 };
-
 static const char *c_materialsTechniques[] =
 {
     "Examples/Instancing/RTSS/Robot",
@@ -62,7 +38,6 @@ static const char *c_materialsTechniques[] =
     "Examples/Instancing/VTF/HW/LUT/Robot",
     "Examples/Instancing/RTSS/Robot"
 };
-
 static const char *c_materialsTechniques_dq[] =
 {
     "Examples/Instancing/RTSS/Robot_dq",
@@ -72,7 +47,6 @@ static const char *c_materialsTechniques_dq[] =
     "Examples/Instancing/VTF/HW/LUT/Robot_dq",
     "Examples/Instancing/RTSS/Robot_dq"
 };
-
 static const char *c_materialsTechniques_dq_two_weights[] =
 {
     "Examples/Instancing/RTSS/spine_dq_two_weights",
@@ -82,13 +56,11 @@ static const char *c_materialsTechniques_dq_two_weights[] =
     "Examples/Instancing/VTF/HW/LUT/spine_dq_two_weights",
     "Examples/Instancing/RTSS/spine_dq_two_weights"
 };
-
 static const char *c_meshNames[] =
 {
     "robot.mesh",
     "spine.mesh"
 };
-
 //------------------------------------------------------------------------------
 Sample_NewInstancing::Sample_NewInstancing() :  mCurrentMaterialSet(c_materialsTechniques) 
 {
@@ -211,6 +183,7 @@ void Sample_NewInstancing::setupContent()
 
     switchInstancingTechnique();
 }
+
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::setupLighting()
 {
@@ -370,6 +343,7 @@ void Sample_NewInstancing::createEntities()
         }
     }
 }
+
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::createInstancedEntities()
 {
@@ -403,6 +377,7 @@ void Sample_NewInstancing::createInstancedEntities()
         }
     }
 }
+
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::createSceneNodes()
 {
@@ -429,6 +404,7 @@ void Sample_NewInstancing::createSceneNodes()
         }
     }
 }
+
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::clearScene()
 {
@@ -463,6 +439,7 @@ void Sample_NewInstancing::clearScene()
     mSceneNodes.clear();
     mAnimations.clear();
 }
+
 //-----------------------------------------------------------------------------------
 void Sample_NewInstancing::destroyManagers()
 {
@@ -718,7 +695,6 @@ void Sample_NewInstancing::sliderMoved( Slider* slider )
 }
 
 //------------------------------------------------------------------------------
-
 void Sample_NewInstancing::checkHardwareSupport()
 {
     //Check Technique support

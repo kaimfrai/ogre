@@ -25,16 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GL_FBORENDERTEXTURE_H
-#define OGRE_RENDERSYSTEMS_GL_FBORENDERTEXTURE_H
+module;
 
-#include "OgreGLFrameBufferObject.hpp"
-#include "OgreGLRenderTexture.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
 #include "glad/glad.h"
 
+export module Ogre.RenderSystems.GL:FBORenderTexture;
+
+export import :FrameBufferObject;
+
+export import Ogre.Core;
+export import Ogre.RenderSystems.GLSupport;
+
+export
 namespace Ogre {
 class DepthBuffer;
 class GLContext;
@@ -42,11 +44,12 @@ class RenderTarget;
 }  // namespace Ogre
 
 /// Extra GL constants
+export
 enum {
 GL_DEPTH24_STENCIL8_EXT =                           0x88F0
 };
 
-
+export
 namespace Ogre {
     class GLFBOManager;
 
@@ -123,5 +126,3 @@ namespace Ogre {
     
 
 }
-
-#endif

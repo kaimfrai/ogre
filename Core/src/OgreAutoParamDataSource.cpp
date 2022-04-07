@@ -25,28 +25,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <cmath>
-#include <limits>
+module Ogre.Core:AutoParamDataSource.Obj;
 
-#include "OgreAutoParamDataSource.hpp"
-#include "OgreCamera.hpp"
-#include "OgreController.hpp"
-#include "OgreControllerManager.hpp"
-#include "OgreFrustum.hpp"
-#include "OgreMath.hpp"
-#include "OgrePass.hpp"
-#include "OgrePlatform.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderTarget.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreTexture.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreViewport.hpp"
+import :AutoParamDataSource;
+import :Camera;
+import :Controller;
+import :ControllerManager;
+import :Frustum;
+import :Math;
+import :Pass;
+import :Platform;
+import :Quaternion;
+import :RenderSystem;
+import :RenderTarget;
+import :Renderable;
+import :Root;
+import :SceneManager;
+import :SharedPtr;
+import :Texture;
+import :TextureUnitState;
+import :Viewport;
+
+import <cassert>;
+import <cmath>;
+import <limits>;
 
 namespace Ogre {
     //-----------------------------------------------------------------------------
@@ -1128,4 +1130,3 @@ namespace Ogre {
     }
 
 }
-

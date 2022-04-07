@@ -25,25 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <clocale>
-#include <cstdlib>
-#include <locale>
-#include <ostream>
-#include <string>
-#include <vector>
+module Ogre.Core:StringConverter.Obj;
 
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreVector.hpp"
+import :ColourValue;
+import :Common;
+import :Exception;
+import :Matrix3;
+import :Matrix4;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :String;
+import :StringConverter;
+import :StringVector;
+import :Vector;
+
+import <clocale>;
+import <cstdlib>;
+import <locale>;
+import <ostream>;
+import <string>;
+import <vector>;
 
 namespace Ogre {
     locale_t StringConverter::_numLocale = newlocale(LC_NUMERIC_MASK, "C", nullptr);
@@ -400,5 +402,3 @@ namespace Ogre {
     }
 	//-----------------------------------------------------------------------
 }
-
-

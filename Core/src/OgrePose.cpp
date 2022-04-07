@@ -25,16 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <cstring>
+module;
+
 #include <utility>
 
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgrePose.hpp"
-#include "OgreVertexIndexData.hpp"
+module Ogre.Core:Pose.Obj;
+
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareVertexBuffer;
+import :Pose;
+import :VertexIndexData;
+
+import <cassert>;
+import <cstring>;
 
 namespace Ogre {
     //---------------------------------------------------------------------
@@ -175,4 +180,3 @@ namespace Ogre {
     }
 
 }
-

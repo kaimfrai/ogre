@@ -25,23 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_INSTANCEMANAGER_H
-#define OGRE_CORE_INSTANCEMANAGER_H
+export module Ogre.Core:InstanceManager;
 
-#include <algorithm>
-#include <cstddef>
-#include <map>
-#include <string>
-#include <vector>
+export import :Common;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderOperation;
+export import :SharedPtr;
 
-#include "OgreCommon.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreSharedPtr.hpp"
+export import <algorithm>;
+export import <cstddef>;
+export import <map>;
+export import <string>;
+export import <vector>;
 
+export
 namespace Ogre
 {
 class InstanceBatch;
@@ -325,5 +325,3 @@ class SceneManager;
         auto getInstanceBatchIterator( const String &materialName ) const -> InstanceBatchIterator;
     };
 } // namespace Ogre
-
-#endif // OGRE_CORE_INSTANCEMANAGER_H

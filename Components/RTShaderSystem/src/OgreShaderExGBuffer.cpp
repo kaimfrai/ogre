@@ -24,33 +24,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cstddef>
-#include <list>
-#include <memory>
-#include <string>
+module Ogre.Components.RTShaderSystem:ShaderExGBuffer.Obj;
 
-#include "OgreException.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramManager.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialSerializer.hpp"
-#include "OgrePass.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreScriptCompiler.hpp"
-#include "OgreShaderExGBuffer.hpp"
-#include "OgreShaderFFPRenderState.hpp"
-#include "OgreShaderFunction.hpp"
-#include "OgreShaderFunctionAtom.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreShaderParameter.hpp"
-#include "OgreShaderPrecompiledHeaders.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderProgram.hpp"
-#include "OgreShaderProgramSet.hpp"
-#include "OgreShaderScriptTranslator.hpp"
-#include "OgreTechnique.hpp"
+import :ShaderExGBuffer;
+import :ShaderFFPRenderState;
+import :ShaderFunction;
+import :ShaderFunctionAtom;
+import :ShaderGenerator;
+import :ShaderParameter;
+import :ShaderPrecompiledHeaders;
+import :ShaderPrerequisites;
+import :ShaderProgram;
+import :ShaderProgramSet;
+import :ShaderScriptTranslator;
+
+import Ogre.Core;
+
+import <cstddef>;
+import <list>;
+import <memory>;
+import <string>;
 
 namespace Ogre::RTShader {
         class RenderState;

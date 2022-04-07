@@ -25,41 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Tests.VisualTests.Context:TestContext.Obj;
 
-#include <algorithm>
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
-#include <memory>
-#include <set>
-#include <utility>
-#include <vector>
+import :TestContext;
 
-#include "CppUnitResultWriter.hpp"
-#include "HTMLWriter.hpp"
-#include "ImageValidator.hpp"
-#include "OgreBitesConfigDialog.hpp"
-#include "OgreCommon.hpp"
-#include "OgreConfigFile.hpp"
-#include "OgreConfigOptionMap.hpp"
-#include "OgreControllerManager.hpp"
-#include "OgreException.hpp"
-#include "OgreFileSystemLayer.hpp"
-#include "OgreFrameListener.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreOverlaySystem.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderWindow.hpp"
-#include "OgreRoot.hpp"
-#include "OgreStaticPluginLoader.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreTextureManager.hpp"
-#include "PlayPenTestPlugin.hpp"
-#include "Sample.hpp"
-#include "SamplePlugin.hpp"
-#include "TestBatch.hpp"
-#include "TestContext.hpp"
-#include "VTestPlugin.hpp"
+import Ogre.Components.Bites;
+import Ogre.Components.Overlay;
+import Ogre.Core;
+import Ogre.Samples.Common;
+import Ogre.Tests.VisualTests.Common;
+import Ogre.Tests.VisualTests.PlayPen;
+import Ogre.Tests.VisualTests.VTests;
+
+import <algorithm>;
+import <cstdlib>;
+import <ctime>;
+import <iostream>;
+import <memory>;
+import <set>;
+import <utility>;
+import <vector>;
 
 TestContext::TestContext(int argc, char** argv) : OgreBites::SampleContext() 
 {
@@ -103,14 +88,13 @@ TestContext::TestContext(int argc, char** argv) : OgreBites::SampleContext()
         mReferenceSetPath = mOutputDir;
 }
 //-----------------------------------------------------------------------
-
 TestContext::~TestContext()
 {
     if (mBatch)
         delete mBatch;
 }
-//-----------------------------------------------------------------------
 
+//-----------------------------------------------------------------------
 void TestContext::setup()
 {
     NameValuePairList miscParams;
@@ -180,8 +164,8 @@ void TestContext::setup()
     if (firstTest)
         runSample(firstTest);
 }
-//-----------------------------------------------------------------------
 
+//-----------------------------------------------------------------------
 auto TestContext::loadTests() -> OgreBites::Sample*
 {
     OgreBites::Sample* startSample = nullptr;
@@ -215,8 +199,8 @@ auto TestContext::loadTests() -> OgreBites::Sample*
     else
         return nullptr;    
 }
-//-----------------------------------------------------------------------
 
+//-----------------------------------------------------------------------
 auto TestContext::frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool
 {
     // pass a fixed timestep along to the tests
@@ -251,8 +235,8 @@ auto TestContext::frameStarted(const Ogre::FrameEvent& evt) -> bool
         return false;
     }
 }
-//-----------------------------------------------------------------------
 
+//-----------------------------------------------------------------------
 auto TestContext::frameEnded(const Ogre::FrameEvent& evt) -> bool
 {
     // pass a fixed timestep along to the tests
@@ -292,8 +276,8 @@ auto TestContext::frameEnded(const Ogre::FrameEvent& evt) -> bool
         return false;
     }
 }
-//-----------------------------------------------------------------------
 
+//-----------------------------------------------------------------------
 void TestContext::runSample(OgreBites::Sample* sampleToRun)
 {
     // reset frame timing
@@ -318,8 +302,8 @@ void TestContext::runSample(OgreBites::Sample* sampleToRun)
         LogManager::getSingleton().logMessage("----- Running Visual Test " + sampleToRun->getInfo()["Title"] + " -----");
     SampleContext::runSample(sampleToRun);
 }
-//-----------------------------------------------------------------------
 
+//-----------------------------------------------------------------------
 void TestContext::createRoot()
 {
     // note that we use a separate config file here
@@ -333,8 +317,8 @@ void TestContext::createRoot()
 
     mOverlaySystem = new Ogre::OverlaySystem();
 }
-//-----------------------------------------------------------------------
 
+//-----------------------------------------------------------------------
 void TestContext::go(OgreBites::Sample* initialSample)
 {
     // Either start up as usual or print usage details.
@@ -361,8 +345,8 @@ void TestContext::go(OgreBites::Sample* initialSample)
         std::cout<<"\t--nograb     Do not restrict mouse to window (warning: may affect results).\n\n";
     }
 }
-//-----------------------------------------------------------------------
 
+//-----------------------------------------------------------------------
 auto TestContext::oneTimeConfig() -> bool
 {
     // if forced, just do it and return
@@ -411,8 +395,8 @@ auto TestContext::oneTimeConfig() -> bool
 
     return mRoot->getRenderSystem() != nullptr;
 }
-//-----------------------------------------------------------------------
 
+//-----------------------------------------------------------------------
 void TestContext::setupDirectories(Ogre::String batchName)
 {
     // ensure there's a root directory for visual tests
@@ -444,8 +428,8 @@ void TestContext::setupDirectories(Ogre::String batchName)
     static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(mOutputDir
                                                                    + batchName + "/");
 }
-//-----------------------------------------------------------------------
 
+//-----------------------------------------------------------------------
 void TestContext::finishedTests()
 {
     if ((mGenerateHtml || mSummaryOutputDir != "NONE") && !mReferenceSet)
@@ -523,14 +507,14 @@ void TestContext::finishedTests()
     // write this batch's config file
     mBatch->writeConfig();
 }
-//-----------------------------------------------------------------------
 
+//-----------------------------------------------------------------------
 auto TestContext::getTimestep() -> Ogre::Real
 {
     return mTimestep;
 }
-//-----------------------------------------------------------------------
 
+//-----------------------------------------------------------------------
 void TestContext::setTimestep(Ogre::Real timestep)
 {
     // ensure we're getting a positive value

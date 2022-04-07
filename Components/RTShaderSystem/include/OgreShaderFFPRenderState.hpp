@@ -24,11 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FFPSTATE_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_FFPSTATE_H
+export module Ogre.Components.RTShaderSystem:ShaderFFPRenderState;
 
-#include "OgreShaderPrerequisites.hpp"
+export import :ShaderPrerequisites;
 
+export
 namespace Ogre::RTShader {
 
 /** \addtogroup Optional
@@ -87,6 +87,3 @@ char const constexpr inline FFP_LIB_FOG[] =
 /** @} */
 
 }
-
-#endif
-

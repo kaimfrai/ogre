@@ -25,22 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <cstring>
-#include <string>
+module Ogre.Core:PixelFormat.Obj;
 
-#include "OgreAlignedAllocator.hpp"
-#include "OgreBitwise.hpp"
-#include "OgreException.hpp"
-#include "OgreMath.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePixelFormatDescriptions.hpp"
-#include "OgreString.hpp"
-#include "OgreVector.hpp"
+import :AlignedAllocator;
+import :Bitwise;
+import :Exception;
+import :Math;
+import :PixelConversions;
+import :PixelFormat;
+import :PixelFormatDescriptions;
+import :String;
+import :Vector;
+
+import <algorithm>;
+import <cassert>;
+import <cstring>;
+import <string>;
 
 namespace {
-#include "OgrePixelConversions.hpp"
 }
 
 namespace Ogre {

@@ -27,17 +27,16 @@ You may alternatively use this source under the terms of a specific version of
 the OGRE Unrestricted License provided you have obtained such a license from
 Torus Knot Software Ltd.
 -------------------------------------------------------------------------*/
-#ifndef OGRE_CORE_SHADOWTEXTUREMANAGER_H
-#define OGRE_CORE_SHADOWTEXTUREMANAGER_H
-
-#include <cstddef>
+module Ogre.Core:ShadowTextureManager;
 
 // Precompiler options
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSingleton.hpp"
+import :MemoryAllocatorConfig;
+import :PixelFormat;
+import :Prerequisites;
+import :SceneManager;
+import :Singleton;
+
+import <cstddef>;
 
 namespace Ogre
 {
@@ -102,6 +101,3 @@ namespace Ogre
     /** @} */
     /** @} */
 }
-
-#endif
-

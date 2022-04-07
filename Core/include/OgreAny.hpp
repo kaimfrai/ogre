@@ -32,14 +32,17 @@ THE SOFTWARE.
 // accompAnying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 // -- End original copyright --
+module;
 
-#ifndef OGRE_CORE_ANY_H
-#define OGRE_CORE_ANY_H
-
-#include "OgrePrerequisites.hpp"
-#include <typeinfo>
 #include <utility>
 
+export module Ogre.Core:Any;
+
+export import :Prerequisites;
+
+export import <typeinfo>;
+
+export
 namespace Ogre
 {
 	// resolve circular dependancy
@@ -374,6 +377,3 @@ namespace Ogre
 
 
 }
-
-#endif
-

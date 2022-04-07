@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_CONTROLLERMANAGER_H
-#define OGRE_CORE_CONTROLLERMANAGER_H
+export module Ogre.Core:ControllerManager;
 
-#include <cstddef>
-#include <set>
+export import :Common;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :SharedPtr;
+export import :Singleton;
+export import :TextureUnitState;
 
-#include "OgreCommon.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreTextureUnitState.hpp"
+export import <cstddef>;
+export import <set>;
 
+export
 namespace Ogre {
 template <typename T> class Controller;
 template <typename T> class ControllerFunction;
@@ -278,5 +278,3 @@ template <typename T> class ControllerValue;
     /** @} */
 
 } // namespace Ogre
-
-#endif // OGRE_CORE_CONTROLLERMANAGER_H

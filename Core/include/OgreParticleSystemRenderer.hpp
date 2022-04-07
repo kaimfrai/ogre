@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PARTICLESYSTEMRENDERER_H
-#define OGRE_CORE_PARTICLESYSTEMRENDERER_H
+export module Ogre.Core:ParticleSystemRenderer;
 
-#include "OgreCommon.hpp"
-#include "OgreFactoryObj.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreStringInterface.hpp"
+export import :Common;
+export import :FactoryObj;
+export import :Prerequisites;
+export import :RenderQueue;
+export import :Renderable;
+export import :StringInterface;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -136,5 +136,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

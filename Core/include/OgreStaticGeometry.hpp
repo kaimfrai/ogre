@@ -25,35 +25,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_STATICGEOMETRY_H
-#define OGRE_CORE_STATICGEOMETRY_H
+export module Ogre.Core:StaticGeometry;
 
-#include <algorithm>
-#include <cassert>
-#include <cstddef>
-#include <iosfwd>
-#include <list>
-#include <map>
-#include <string>
-#include <utility>
-#include <vector>
+export import :AxisAlignedBox;
+export import :Common;
+export import :IteratorWrapper;
+export import :Material;
+export import :MemoryAllocatorConfig;
+export import :Mesh;
+export import :MovableObject;
+export import :Platform;
+export import :Prerequisites;
+export import :Quaternion;
+export import :Renderable;
+export import :ShadowCaster;
+export import :SharedPtr;
+export import :Vector;
+export import :VertexIndexData;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreCommon.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgreMesh.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreShadowCaster.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexIndexData.hpp"
+export import <algorithm>;
+export import <cassert>;
+export import <cstddef>;
+export import <iosfwd>;
+export import <list>;
+export import <map>;
+export import <string>;
+export import <utility>;
+export import <vector>;
 
+export
 namespace Ogre {
 class Camera;
 class EdgeData;
@@ -791,5 +791,3 @@ class Technique;
     /** @} */
 
 }
-
-#endif

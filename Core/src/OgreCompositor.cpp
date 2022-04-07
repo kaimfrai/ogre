@@ -25,27 +25,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <set>
-#include <utility>
+module Ogre.Core:Compositor.Obj;
 
-#include "OgreCompositionTechnique.hpp"
-#include "OgreCompositor.hpp"
-#include "OgreCompositorInstance.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwarePixelBuffer.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderTarget.hpp"
-#include "OgreRenderTexture.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreTexture.hpp"
-#include "OgreTextureManager.hpp"
+import :CompositionTechnique;
+import :Compositor;
+import :CompositorInstance;
+import :Exception;
+import :HardwarePixelBuffer;
+import :IteratorWrapper;
+import :LogManager;
+import :PixelFormat;
+import :RenderSystem;
+import :RenderTarget;
+import :RenderTexture;
+import :ResourceGroupManager;
+import :Root;
+import :StringConverter;
+import :Texture;
+import :TextureManager;
+
+import <algorithm>;
+import <cassert>;
+import <set>;
+import <utility>;
 
 namespace Ogre {
 class ResourceManager;

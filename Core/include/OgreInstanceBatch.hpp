@@ -25,25 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_INSTANCEBATCH_H
-#define OGRE_CORE_INSTANCEBATCH_H
+export module Ogre.Core:InstanceBatch;
 
-#include <algorithm>
-#include <cstddef>
-#include <vector>
+export import :AxisAlignedBox;
+export import :Common;
+export import :Matrix4;
+export import :Mesh;
+export import :MovableObject;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderOperation;
+export import :Renderable;
+export import :SharedPtr;
+export import :Vector;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreCommon.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreMesh.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreVector.hpp"
+export import <algorithm>;
+export import <cstddef>;
+export import <vector>;
 
+export
 namespace Ogre
 {
 class Camera;
@@ -373,5 +373,3 @@ class Technique;
         void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false ) override;
     };
 } // namespace Ogre
-
-#endif // OGRE_CORE_INSTANCEBATCH_H

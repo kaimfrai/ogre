@@ -25,25 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Core:PrefabFactory.Obj;
 
-#include <cmath>
-#include <cstddef>
-#include <string>
+import :AxisAlignedBox;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :Math;
+import :Mesh;
+import :Platform;
+import :PrefabFactory;
+import :Prerequisites;
+import :SharedPtr;
+import :SubMesh;
+import :Vector;
+import :VertexIndexData;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreMath.hpp"
-#include "OgreMesh.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrefabFactory.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexIndexData.hpp"
+import <cmath>;
+import <cstddef>;
+import <string>;
 
 namespace Ogre {
     //---------------------------------------------------------------------

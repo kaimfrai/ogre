@@ -25,24 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_COMPOSITIONPASS_H
-#define OGRE_CORE_COMPOSITIONPASS_H
+export module Ogre.Core:CompositionPass;
 
-#include <cstddef>
-#include <string>
-#include <utility>
+export import :ColourValue;
+export import :Common;
+export import :Config;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderQueue;
+export import :RenderSystem;
+export import :SharedPtr;
+export import :Vector;
 
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreConfig.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreVector.hpp"
+export import <cstddef>;
+export import <string>;
+export import <utility>;
 
+export
 namespace Ogre {
 class CompositionTargetPass;
 
@@ -448,5 +448,3 @@ class CompositionTargetPass;
     /** @} */
 
 }
-
-#endif

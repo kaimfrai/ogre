@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_BITWISE_H
-#define OGRE_CORE_BITWISE_H
+export module Ogre.Core:Bitwise;
 
-#include "OgrePrerequisites.hpp"
+export import :Prerequisites;
 
-#include <bit>
+export import <bit>;
 
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -368,5 +368,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

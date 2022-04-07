@@ -25,14 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PLATFORM_H
-#define OGRE_CORE_PLATFORM_H
+export module Ogre.Core:Platform;
 
-#include "OgreConfig.hpp"
+export import :Config;
 
-#include <cstdint>
+export import <cstdint>;
 
-
+export
 namespace Ogre {
 
     auto const constexpr inline SIMD_ALIGNMENT = 16uz;
@@ -46,5 +45,3 @@ namespace Ogre {
     using int8 = int8_t;
     using int64 = int64_t;
 }
-
-#endif

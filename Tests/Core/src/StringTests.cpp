@@ -25,24 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "StringTests.hpp"
+module Ogre.Tests.Core:StringTests.Obj;
 
-#include <clocale>
-#include <cstddef>
+import :StringTests;
 
-#include "OgreColourValue.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePlatform.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreVector.hpp"
+import Ogre.Core;
 
+import <clocale>;
+import <cstddef>;
 
 using namespace Ogre;
 
 // Register the test suite
-
 //--------------------------------------------------------------------------
 void StringTests::SetUp()
 {    
@@ -53,6 +47,7 @@ void StringTests::SetUp()
     testFileAbsolutePathWindows = R"(c:\this\is\absolute\testfile.txt)";
     setlocale(LC_NUMERIC, "");
 }
+
 //--------------------------------------------------------------------------
 void StringTests::TearDown()
 {
@@ -284,7 +279,6 @@ TEST_F(StringTests,EndsWith)
     EXPECT_FALSE(StringUtil::endsWith(s, "world!", false));
     EXPECT_FALSE(StringUtil::endsWith(s, "", false));
 }
-
 TEST_F(StringTests,StartsWith)
 {
     String s = "Hello World!";

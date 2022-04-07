@@ -25,26 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:Skeleton;
 
-#ifndef OGRE_CORE_SKELETON_H
-#define OGRE_CORE_SKELETON_H
+export import :Animation;
+export import :IteratorWrapper;
+export import :Platform;
+export import :Prerequisites;
+export import :Resource;
+export import :SharedPtr;
+export import :StringVector;
 
-#include <algorithm>
-#include <cstddef>
-#include <map>
-#include <set>
-#include <string>
-#include <utility>
-#include <vector>
+export import <algorithm>;
+export import <cstddef>;
+export import <map>;
+export import <set>;
+export import <string>;
+export import <utility>;
+export import <vector>;
 
-#include "OgreAnimation.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringVector.hpp"
-
+export
 namespace Ogre {
 class Affine3;
 class AnimationStateSet;
@@ -488,5 +487,3 @@ OGRE_MAX_NUM_BONES = 256
     /** @} */
 
 }
-
-#endif

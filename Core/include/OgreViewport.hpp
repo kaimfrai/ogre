@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_VIEWPORT_H
-#define OGRE_CORE_VIEWPORT_H
+export module Ogre.Core:Viewport;
 
-#include <algorithm>
-#include <vector>
+export import :ColourValue;
+export import :Common;
+export import :Frustum;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
 
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreFrustum.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
+export import <algorithm>;
+export import <vector>;
 
+export
 namespace Ogre {
 class Camera;
 class RenderTarget;
@@ -452,5 +452,3 @@ auto getDrawBuffer() const -> ColourBufferType;
     /** @} */
 
 }
-
-#endif

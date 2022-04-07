@@ -24,12 +24,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FFPCOLOUR_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_FFPCOLOUR_H
+module Ogre.Components.RTShaderSystem:ShaderFFPColour;
 
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderSubRenderState.hpp"
+import :ShaderPrerequisites;
+import :ShaderSubRenderState;
+
+import Ogre.Core;
 
 namespace Ogre {
     class MaterialSerializer;
@@ -187,5 +187,3 @@ protected:
 /** @} */
 
 }
-
-#endif

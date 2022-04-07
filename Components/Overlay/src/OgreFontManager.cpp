@@ -23,15 +23,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
+module Ogre.Components.Overlay:FontManager.Obj;
 
-#include "OgreFontManager.hpp"
+import :FontManager;
 
-#include <cassert>
-#include <memory>
+import Ogre.Core;
 
-#include "OgreResourceGroupManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringVector.hpp"
+import <cassert>;
+import <memory>;
 
 namespace Ogre
 {

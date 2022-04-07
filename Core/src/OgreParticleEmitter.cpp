@@ -25,14 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <cmath>
-#include <vector>
+module Ogre.Core:ParticleEmitter.Obj;
 
-#include "OgreCommon.hpp"
-#include "OgreParticleEmitter.hpp"
-#include "OgreParticleEmitterCommands.hpp"
-#include "OgreParticleEmitterFactory.hpp"
+import :Common;
+import :ParticleEmitter;
+import :ParticleEmitterCommands;
+import :ParticleEmitterFactory;
+
+import <cassert>;
+import <cmath>;
+import <vector>;
 
 namespace Ogre
 {
@@ -707,4 +709,3 @@ namespace Ogre
     //-----------------------------------------------------------------------
 
 }
-

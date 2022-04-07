@@ -25,23 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_MATERIALSERIALIZER_H
-#define OGRE_CORE_MATERIALSERIALIZER_H
+export module Ogre.Core:MaterialSerializer;
 
-#include <algorithm>
-#include <cstddef>
-#include <map>
-#include <set>
-#include <string>
-#include <vector>
+export import :BlendMode;
+export import :Common;
+export import :GpuProgramParams;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :TextureUnitState;
 
-#include "OgreBlendMode.hpp"
-#include "OgreCommon.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreTextureUnitState.hpp"
+export import <algorithm>;
+export import <cstddef>;
+export import <map>;
+export import <set>;
+export import <string>;
+export import <vector>;
 
+export
 namespace Ogre {
 class ColourValue;
 class Material;
@@ -369,5 +369,3 @@ class Technique;
     /** @} */
     /** @} */
 }
-
-#endif

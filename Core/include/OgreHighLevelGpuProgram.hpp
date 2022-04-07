@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_HIGHLEVELGPUPROGRAM_H
-#define OGRE_CORE_HIGHLEVELGPUPROGRAM_H
+export module Ogre.Core:HighLevelGpuProgram;
 
-#include <cstddef>
-#include <utility>
-#include <vector>
+export import :GpuProgram;
+export import :Prerequisites;
+export import :Resource;
+export import :SharedPtr;
 
-#include "OgreGpuProgram.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
-#include "OgreSharedPtr.hpp"
+export import <cstddef>;
+export import <utility>;
+export import <vector>;
 
+export
 namespace Ogre {
 class ResourceManager;
 struct GpuNamedConstants;
@@ -155,5 +155,3 @@ struct GpuNamedConstants;
     /** @} */
 
 }
-
-#endif

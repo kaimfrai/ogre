@@ -25,18 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <memory>
-#include <ostream>
-#include <set>
+module Ogre.Core:RenderSystemCapabilitiesSerializer.Obj;
 
-#include "OgreDataStream.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreRenderSystemCapabilitiesManager.hpp"
-#include "OgreRenderSystemCapabilitiesSerializer.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreStringVector.hpp"
+import :DataStream;
+import :LogManager;
+import :RenderSystemCapabilities;
+import :RenderSystemCapabilitiesManager;
+import :RenderSystemCapabilitiesSerializer;
+import :String;
+import :StringConverter;
+import :StringVector;
+
+import <memory>;
+import <ostream>;
+import <set>;
 
 namespace Ogre
 {

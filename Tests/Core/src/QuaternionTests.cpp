@@ -25,23 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <gtest/gtest.h>
-#include <cstddef>
-#include <ostream>
+module;
 
-#include "OgreMath.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreVector.hpp"
+#include <gtest/gtest.h>
+
+module Ogre.Tests.Core;
+
+import Ogre.Core;
+
+import <cstddef>;
+import <ostream>;
 
 using namespace Ogre;
-
 TEST(QuaternionTests,Norm)
 {
     EXPECT_EQ(Quaternion(0, 2, 2, 2).Norm(), Vector3(2, 2, 2).length());
 }
-
 TEST(QuaternionTests,FromVectors)
 {
     // VectorBase<3, Real>::getRotationTo tests
@@ -85,7 +84,6 @@ TEST(QuaternionTests,FromVectors)
         EXPECT_EQ(quat, Quaternion::IDENTITY) << " index is " << index << std::endl;
     }
 }
-
 TEST(QuaternionTests,Exp)
 {
     /** Comparison values got from the Octave quaternion package. */
@@ -114,7 +112,6 @@ TEST(QuaternionTests,Exp)
     EXPECT_NEAR(expUnitQuatB.y, 0.838714409500305, 1e-6);
     EXPECT_NEAR(expUnitQuatB.z, 0.240273979405873, 1e-6);
 }
-
 TEST(QuaternionTests,Log)
 {
     /** Comparison values got from the Octave quaternion package. */

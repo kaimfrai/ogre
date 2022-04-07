@@ -25,23 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <cstring>
-#include <iterator>
-#include <list>
-#include <map>
-#include <memory>
-#include <set>
-#include <utility>
+module Ogre.Core:VertexIndexData.Obj;
 
-#include "OgreConfig.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreRoot.hpp"
-#include "OgreVertexIndexData.hpp"
+import :Config;
+import :Exception;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :Root;
+import :VertexIndexData;
+
+import <algorithm>;
+import <cassert>;
+import <cstring>;
+import <iterator>;
+import <list>;
+import <map>;
+import <memory>;
+import <set>;
+import <utility>;
 
 namespace Ogre {
 class RenderSystem;

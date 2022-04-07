@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_BLENDMODE_H
-#define OGRE_CORE_BLENDMODE_H
+export module Ogre.Core:BlendMode;
 
-#include "OgreColourValue.hpp"
-#include "OgrePrerequisites.hpp"
+export import :ColourValue;
+export import :Prerequisites;
 
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -306,5 +306,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

@@ -25,26 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RESOURCEGROUPMANAGER_H
-#define OGRE_CORE_RESOURCEGROUPMANAGER_H
+export module Ogre.Core:ResourceGroupManager;
 
-#include <ctime>
-#include <list>
-#include <map>
-#include <string>
-#include <utility>
-#include <vector>
+export import :Archive;
+export import :Common;
+export import :DataStream;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :SharedPtr;
+export import :Singleton;
+export import :StringVector;
 
-#include "OgreArchive.hpp"
-#include "OgreCommon.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreStringVector.hpp"
+export import <ctime>;
+export import <list>;
+export import <map>;
+export import <string>;
+export import <utility>;
+export import <vector>;
 
 // If X11/Xlib.h gets included before this header (for example it happens when
 // including wxWidgets and FLTK), Status is defined as an int which we don't
@@ -53,6 +52,7 @@ THE SOFTWARE.
 #undef Status
 #endif
 
+export
 namespace Ogre {
 
     class ManualResourceLoader;
@@ -954,5 +954,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#endif

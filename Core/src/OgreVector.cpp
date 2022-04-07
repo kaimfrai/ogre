@@ -25,8 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgrePrerequisites.hpp"
-#include "OgreVector.hpp"
+module Ogre.Core:Vector.Obj;
+
+import :Prerequisites;
+import :Vector;
 
 namespace Ogre
 {

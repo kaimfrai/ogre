@@ -25,31 +25,33 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-#include <ios>
-#include <iterator>
-#include <memory>
-#include <utility>
+module Ogre.Core:GpuProgramParams.Obj;
 
-#include "OgreAutoParamDataSource.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreDualQuaternion.hpp"
-#include "OgreException.hpp"
-#include "OgreFileSystem.hpp"
-#include "OgreGpuProgramManager.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderTarget.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreRoot.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreVector.hpp"
+import :AutoParamDataSource;
+import :ColourValue;
+import :DataStream;
+import :DualQuaternion;
+import :Exception;
+import :FileSystem;
+import :GpuProgramManager;
+import :GpuProgramParams;
+import :HardwareBuffer;
+import :LogManager;
+import :Math;
+import :Matrix3;
+import :Matrix4;
+import :RenderSystem;
+import :RenderTarget;
+import :Renderable;
+import :Root;
+import :String;
+import :StringConverter;
+import :Vector;
+
+import <ios>;
+import <iterator>;
+import <memory>;
+import <utility>;
 
 namespace Ogre
 {

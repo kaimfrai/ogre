@@ -25,24 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_WORKQUEUE_H
-#define OGRE_CORE_WORKQUEUE_H
+export module Ogre.Core:WorkQueue;
 
-#include <algorithm>
-#include <cstddef>
-#include <deque>
-#include <list>
-#include <map>
-#include <mutex>
-#include <string>
+export import :Any;
+export import :Common;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :SharedPtr;
 
-#include "OgreAny.hpp"
-#include "OgreCommon.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
+export import <algorithm>;
+export import <cstddef>;
+export import <deque>;
+export import <list>;
+export import <map>;
+export import <mutex>;
+export import <string>;
 
+export
 namespace Ogre
 {
     /** \addtogroup Core
@@ -599,5 +599,3 @@ namespace Ogre
     /** @} */
 
 }
-
-#endif

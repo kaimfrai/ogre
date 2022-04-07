@@ -25,16 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <cstddef>
-#include <vector>
+module Ogre.Core:SkeletonInstance.Obj;
 
-#include "OgreBone.hpp"
-#include "OgreNode.hpp"
-#include "OgreSkeletonInstance.hpp"
-#include "OgreTagPoint.hpp"
+import :Bone;
+import :Node;
+import :SkeletonInstance;
+import :TagPoint;
 
+import <algorithm>;
+import <cassert>;
+import <cstddef>;
+import <vector>;
 
 namespace Ogre {
 class Animation;
@@ -249,4 +250,3 @@ class AnimationStateSet;
     }
 
 }
-

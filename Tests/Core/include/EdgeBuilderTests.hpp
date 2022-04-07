@@ -25,20 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_TESTS_CORE_EDGEBUILDERTESTS_H
-#define OGRE_TESTS_CORE_EDGEBUILDERTESTS_H
+module;
 
 #include <gtest/gtest.h>
 
-#include "OgrePlatform.hpp"
+export module Ogre.Tests.Core:EdgeBuilderTests;
 
+export import Ogre.Core;
+
+export
 namespace Ogre {
     class HardwareBufferManager;
 }  // namespace Ogre
 
+export
 using namespace Ogre;
 
+export
 class EdgeBuilderTests : public ::testing::Test
 {
 
@@ -49,5 +52,3 @@ public:
     void SetUp() override;
     void TearDown() override;
 };
-
-#endif

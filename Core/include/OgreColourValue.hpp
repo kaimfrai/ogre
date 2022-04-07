@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_COLOURVALUE_H
-#define OGRE_CORE_COLOURVALUE_H
+export module Ogre.Core:ColourValue;
 
-#include <cassert>
-#include <cstddef>
-#include <ostream>
+export import :Platform;
+export import :Prerequisites;
 
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
+export import <cassert>;
+export import <cstddef>;
+export import <ostream>;
 
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -351,5 +351,3 @@ namespace Ogre {
     /** @} */
 
 } // namespace
-
-#endif

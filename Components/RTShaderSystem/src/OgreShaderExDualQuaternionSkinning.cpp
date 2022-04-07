@@ -24,33 +24,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Components.RTShaderSystem:ShaderExDualQuaternionSkinning.Obj;
 
-#include <string>
+import :ShaderExDualQuaternionSkinning;
+import :ShaderExHardwareSkinningTechnique;
+import :ShaderFFPRenderState;
+import :ShaderFunction;
+import :ShaderFunctionAtom;
+import :ShaderGenerator;
+import :ShaderParameter;
+import :ShaderPrecompiledHeaders;
+import :ShaderPrerequisites;
+import :ShaderProgram;
+import :ShaderProgramSet;
 
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderExDualQuaternionSkinning.hpp"
-#include "OgreShaderExHardwareSkinningTechnique.hpp"
-#include "OgreShaderFFPRenderState.hpp"
-#include "OgreShaderFunction.hpp"
-#include "OgreShaderFunctionAtom.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreShaderParameter.hpp"
-#include "OgreShaderPrecompiledHeaders.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderProgram.hpp"
-#include "OgreShaderProgramSet.hpp"
+import Ogre.Core;
+
+import <string>;
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
-
 #define SGX_LIB_DUAL_QUATERNION                 "SGXLib_DualQuaternion"
 #define SGX_FUNC_ANTIPODALITY_ADJUSTMENT        "SGX_AntipodalityAdjustment"
 #define SGX_FUNC_CALCULATE_BLEND_POSITION       "SGX_CalculateBlendPosition"
 #define SGX_FUNC_CALCULATE_BLEND_NORMAL         "SGX_CalculateBlendNormal"
 #define SGX_FUNC_NORMALIZE_DUAL_QUATERNION      "SGX_NormalizeDualQuaternion"
 #define SGX_FUNC_ADJOINT_TRANSPOSE_MATRIX       "SGX_AdjointTransposeMatrix"
-
 namespace Ogre::RTShader {
 
 /************************************************************************/

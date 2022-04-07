@@ -25,24 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_ANIMABLE_H
-#define OGRE_CORE_ANIMABLE_H
+export module Ogre.Core:Animable;
 
-#include <cstring>
-#include <map>
-#include <string>
+export import :ColourValue;
+export import :Common;
+export import :Exception;
+export import :Math;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :Quaternion;
+export import :SharedPtr;
+export import :StringVector;
+export import :Vector;
 
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreMath.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreVector.hpp"
+export import <cstring>;
+export import <map>;
+export import <string>;
 
+export
 namespace Ogre {
 
     class Any;
@@ -300,5 +300,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

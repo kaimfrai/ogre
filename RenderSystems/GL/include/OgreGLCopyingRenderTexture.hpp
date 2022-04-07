@@ -25,16 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.RenderSystems.GL:CopyingRenderTexture;
 
-#ifndef OGRE_RENDERSYSTEMS_GL_COPYINGRENDERTEXTURE_H
-#define OGRE_RENDERSYSTEMS_GL_COPYINGRENDERTEXTURE_H
+export import Ogre.Core;
+export import Ogre.RenderSystems.GLSupport;
 
-#include <cstddef>
+export import <cstddef>;
 
-#include "OgreGLRenderTexture.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePrerequisites.hpp"
-
+export
 namespace Ogre {
     /** RenderTexture for simple copying from frame buffer
     */
@@ -76,5 +74,3 @@ class RenderTexture;
         void unbind(RenderTarget *target) override;
     };
 }
-
-#endif // OGRE_RENDERSYSTEMS_GL_COPYINGRENDERTEXTURE_H

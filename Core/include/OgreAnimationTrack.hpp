@@ -25,22 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:AnimationTrack;
 
-#ifndef OGRE_CORE_ANIMATIONTRACK_H
-#define OGRE_CORE_ANIMATIONTRACK_H
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Pose;
+export import :Prerequisites;
+export import :RotationalSpline;
+export import :SharedPtr;
+export import :SimpleSpline;
 
-#include <algorithm>
-#include <cstddef>
-#include <vector>
+export import <algorithm>;
+export import <cstddef>;
+export import <vector>;
 
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePose.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRotationalSpline.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSimpleSpline.hpp"
-
+export
 namespace Ogre 
 {
     class VertexPoseKeyFrame;
@@ -604,5 +603,3 @@ class VertexMorphKeyFrame;
     /** @} */
     /** @} */
 }
-
-#endif

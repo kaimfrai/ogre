@@ -25,32 +25,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_ENTITY_H
-#define OGRE_CORE_ENTITY_H
+export module Ogre.Core:Entity;
 
-#include <algorithm>
-#include <cstddef>
-#include <memory>
-#include <set>
-#include <utility>
-#include <vector>
+export import :AxisAlignedBox;
+export import :Common;
+export import :HardwareBufferManager;
+export import :IteratorWrapper;
+export import :Matrix4;
+export import :MovableObject;
+export import :Platform;
+export import :Prerequisites;
+export import :Quaternion;
+export import :Renderable;
+export import :Resource;
+export import :ResourceGroupManager;
+export import :ShadowCaster;
+export import :SharedPtr;
+export import :Vector;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreCommon.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreResource.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreShadowCaster.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreVector.hpp"
+export import <algorithm>;
+export import <cstddef>;
+export import <memory>;
+export import <set>;
+export import <utility>;
+export import <vector>;
 
+export
 namespace Ogre {
 class AnimationState;
 class AnimationStateSet;
@@ -887,5 +887,3 @@ class VertexData;
     /** @} */
 
 } // namespace Ogre
-
-#endif // OGRE_CORE_ENTITY_H

@@ -25,17 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreWindowEventUtilities.hpp"
+module;
 
 #include <X11/X.h>
 #include <X11/Xlib.h>
-#include <algorithm>
-#include <map>
-#include <utility>
-#include <vector>
 
-#include "OgreCommon.hpp"
-#include "OgreRenderWindow.hpp"
+module Ogre.Components.Bites:WindowEventUtilities.Obj;
+
+import :WindowEventUtilities;
+
+import Ogre.Core;
+
+import <algorithm>;
+import <map>;
+import <utility>;
+import <vector>;
 
 using namespace Ogre;
 

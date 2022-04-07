@@ -25,38 +25,40 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cstring>
-#include <memory>
-#include <ostream>
-#include <utility>
+module Ogre.Core:StaticGeometry.Obj;
 
-#include "OgreCamera.hpp"
-#include "OgreEdgeListBuilder.hpp"
-#include "OgreEntity.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreLight.hpp"
-#include "OgreLodStrategy.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreNode.hpp"
-#include "OgrePass.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreStaticGeometry.hpp"
-#include "OgreSubEntity.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreVertexIndexData.hpp"
+import :Camera;
+import :EdgeListBuilder;
+import :Entity;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :Light;
+import :LodStrategy;
+import :LogManager;
+import :Math;
+import :Matrix3;
+import :Matrix4;
+import :Node;
+import :Pass;
+import :RenderOperation;
+import :RenderQueue;
+import :Root;
+import :SceneManager;
+import :SceneNode;
+import :StaticGeometry;
+import :SubEntity;
+import :SubMesh;
+import :Technique;
+import :VertexIndexData;
+
+import <algorithm>;
+import <cstring>;
+import <memory>;
+import <ostream>;
+import <utility>;
 
 namespace Ogre {
 
@@ -1562,4 +1564,3 @@ REGION_MIN_INDEX = -512
     //--------------------------------------------------------------------------
     String StaticGeometryFactory::FACTORY_TYPE_NAME = "StaticGeometry";
 }
-

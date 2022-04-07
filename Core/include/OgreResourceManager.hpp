@@ -25,27 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RESOURCEMANAGER_H
-#define OGRE_CORE_RESOURCEMANAGER_H
+export module Ogre.Core:ResourceManager;
 
-#include <atomic>
-#include <cstddef>
-#include <list>
-#include <map>
-#include <string>
-#include <unordered_map>
-#include <utility>
+export import :Common;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :Resource;
+export import :ResourceGroupManager;
+export import :ScriptLoader;
+export import :SharedPtr;
+export import :StringVector;
 
-#include "OgreCommon.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreScriptLoader.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringVector.hpp"
+export import <atomic>;
+export import <cstddef>;
+export import <list>;
+export import <map>;
+export import <string>;
+export import <unordered_map>;
+export import <utility>;
 
+export
 namespace Ogre {
 
     /** Template class describing a simple pool of items.
@@ -505,5 +505,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

@@ -25,19 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreVector.hpp"
-// NOTE THAT THIS FILE IS BASED ON MATERIAL FROM:
+module Ogre.Core:Quaternion.Obj;
 
+import :Math;
+import :Matrix3;
+import :Prerequisites;
+import :Quaternion;
+import :Vector;
+
+// NOTE THAT THIS FILE IS BASED ON MATERIAL FROM:
 // Geometric Tools, LLC
 // Copyright (c) 1998-2010
 // Distributed under the Boost Software License, Version 1.0.
 // http://www.boost.org/LICENSE_1_0.txt
 // http://www.geometrictools.com/License/Boost/LICENSE_1_0.txt
-
 namespace Ogre {
 
     const float Quaternion::msEpsilon = 1e-03;

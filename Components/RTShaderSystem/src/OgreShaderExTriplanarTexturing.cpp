@@ -24,28 +24,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cstddef>
-#include <list>
-#include <memory>
-#include <string>
+module Ogre.Components.RTShaderSystem:ShaderExTriplanarTexturing.Obj;
 
-#include "OgreCommon.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgrePass.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreScriptCompiler.hpp"
-#include "OgreShaderExTriplanarTexturing.hpp"
-#include "OgreShaderFFPRenderState.hpp"
-#include "OgreShaderFunction.hpp"
-#include "OgreShaderFunctionAtom.hpp"
-#include "OgreShaderParameter.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderProgram.hpp"
-#include "OgreShaderProgramSet.hpp"
-#include "OgreShaderScriptTranslator.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreVector.hpp"
+import :ShaderExTriplanarTexturing;
+import :ShaderFFPRenderState;
+import :ShaderFunction;
+import :ShaderFunctionAtom;
+import :ShaderParameter;
+import :ShaderPrerequisites;
+import :ShaderProgram;
+import :ShaderProgramSet;
+import :ShaderScriptTranslator;
+
+import Ogre.Core;
+
+import <cstddef>;
+import <list>;
+import <memory>;
+import <string>;
 
 namespace Ogre {
     class AutoParamDataSource;
@@ -57,7 +53,6 @@ namespace Ogre {
 }  // namespace Ogre
 
 #define SGX_FUNC_TRIPLANAR_TEXTURING "SGX_TriplanarTexturing"
-
 namespace Ogre::RTShader {
 
     String TriplanarTexturing::type = "SGX_TriplanarTexturing";

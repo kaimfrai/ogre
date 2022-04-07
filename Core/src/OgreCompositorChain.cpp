@@ -25,34 +25,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <iterator>
-#include <ranges>
-#include <string>
-#include <utility>
+module Ogre.Core:CompositorChain.Obj;
 
-#include "OgreCamera.hpp"
-#include "OgreCompositionPass.hpp"
-#include "OgreCompositionTargetPass.hpp"
-#include "OgreCompositionTechnique.hpp"
-#include "OgreCompositor.hpp"
-#include "OgreCompositorChain.hpp"
-#include "OgreCompositorInstance.hpp"
-#include "OgreCompositorManager.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderTarget.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreString.hpp"
-#include "OgreVector.hpp"
+import :Camera;
+import :CompositionPass;
+import :CompositionTargetPass;
+import :CompositionTechnique;
+import :Compositor;
+import :CompositorChain;
+import :CompositorInstance;
+import :CompositorManager;
+import :MaterialManager;
+import :Math;
+import :Quaternion;
+import :RenderQueue;
+import :RenderSystem;
+import :RenderTarget;
+import :ResourceGroupManager;
+import :Root;
+import :SceneManager;
+import :SceneNode;
+import :SharedPtr;
+import :String;
+import :Vector;
+
+import <algorithm>;
+import <cassert>;
+import <iterator>;
+import <ranges>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
 CompositorChain::CompositorChain(Viewport *vp):
@@ -659,4 +661,3 @@ auto CompositorChain::getNextInstance(CompositorInstance* curr, bool activeOnly)
 }
 //---------------------------------------------------------------------
 }
-

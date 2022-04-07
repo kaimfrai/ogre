@@ -24,17 +24,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXLINEARSKINNING_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXLINEARSKINNING_H
+module Ogre.Components.RTShaderSystem:ShaderExLinearSkinning;
 
-#include "OgreShaderPrerequisites.hpp"
+import :ShaderExHardwareSkinningTechnique;
+import :ShaderPrerequisites;
 
 namespace Ogre::RTShader {
 class Function;
 class ProgramSet;
 }  // namespace Ogre
-
-#include "OgreShaderExHardwareSkinningTechnique.hpp"
 
 namespace Ogre::RTShader {
 
@@ -90,5 +88,3 @@ protected:
 };
 
 }
-
-#endif

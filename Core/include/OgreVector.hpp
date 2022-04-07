@@ -25,20 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_VECTOR_H
-#define OGRE_CORE_VECTOR_H
+export module Ogre.Core:Vector;
 
+export import :Math;
+export import :Prerequisites;
+export import :Quaternion;
 
-#include <algorithm>
-#include <cassert>
-#include <cstddef>
-#include <ostream>
-#include <type_traits>
+export import <algorithm>;
+export import <cassert>;
+export import <cstddef>;
+export import <ostream>;
+export import <type_traits>;
 
-#include "OgreMath.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-
+export
 namespace Ogre
 {
 
@@ -947,4 +946,3 @@ namespace Ogre
     /** @} */
 
 }
-#endif

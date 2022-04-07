@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <memory>
+module Ogre.RenderSystems.GL:HardwareBuffer.Obj;
 
-#include "OgreException.hpp"
-#include "OgreGLHardwareBuffer.hpp"
-#include "OgreGLHardwareBufferManager.hpp"
-#include "OgreGLRenderSystem.hpp"
-#include "OgreGLStateCacheManager.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgrePlatform.hpp"
-#include "OgreRoot.hpp"
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :RenderSystem;
+import :StateCacheManager;
+
+import Ogre.Core;
+
+import <memory>;
 
 namespace Ogre {
 

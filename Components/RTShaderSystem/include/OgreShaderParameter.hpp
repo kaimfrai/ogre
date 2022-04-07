@@ -24,19 +24,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PARAMETER_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_PARAMETER_H
+export module Ogre.Components.RTShaderSystem:ShaderParameter;
 
-#include <cstddef>
-#include <vector>
+export import :ShaderPrerequisites;
 
-#include "OgreGpuProgramParams.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreVector.hpp"
+export import Ogre.Core;
 
+export import <cstddef>;
+export import <vector>;
+
+export
 namespace Ogre {
 class ColourValue;
 class Matrix3;
@@ -735,5 +732,3 @@ public:
 
 }
 }
-
-#endif

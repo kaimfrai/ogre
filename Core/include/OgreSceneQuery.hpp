@@ -25,24 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_SCENEQUERY_H
-#define OGRE_CORE_SCENEQUERY_H
+export module Ogre.Core:SceneQuery;
 
-#include <algorithm>
-#include <list>
-#include <set>
-#include <utility>
-#include <vector>
+export import :AxisAlignedBox;
+export import :MemoryAllocatorConfig;
+export import :PlaneBoundedVolume;
+export import :Platform;
+export import :Prerequisites;
+export import :Ray;
+export import :Sphere;
+export import :Vector;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlaneBoundedVolume.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRay.hpp"
-#include "OgreSphere.hpp"
-#include "OgreVector.hpp"
+export import <algorithm>;
+export import <list>;
+export import <set>;
+export import <utility>;
+export import <vector>;
 
+export
 namespace Ogre {
 class MovableObject;
 class Plane;
@@ -570,5 +570,3 @@ class SceneManager;
     /** @} */
 
 }
-
-#endif

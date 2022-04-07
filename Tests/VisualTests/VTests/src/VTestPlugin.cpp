@@ -25,15 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Tests.VisualTests.VTests:VTestPlugin.Obj;
 
-#include "VTestPlugin.hpp"
+import :CubeMappingTest;
+import :StencilShadowTest;
+import :VTestPlugin;
 
-#include <set>
+import Ogre.Samples.Common;
 
-#include "CubeMappingTest.hpp"
-#include "StencilShadowTest.hpp"
-
-#include "Sample.hpp"
+import <set>;
 
 VTestPlugin::VTestPlugin()
     :SamplePlugin("VTestPlugin")
@@ -45,7 +45,6 @@ VTestPlugin::VTestPlugin()
     addSample(new StencilShadowTest());
 }
 //---------------------------------------------------------------------
-
 VTestPlugin::~VTestPlugin()
 {
     for (auto mSample : mSamples)

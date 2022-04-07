@@ -25,24 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cctype>
-#include <cstdarg>
-#include <cstdio>
-#include <cstring>
-#include <string>
-#include <strings.h>
-#include <vector>
+module;
 
-#include "OgreException.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreString.hpp"
-#include "OgreStringVector.hpp"
+#include <strings.h>
+
+module Ogre.Core:String.Obj;
+
+import :Exception;
+import :Prerequisites;
+import :String;
+import :StringVector;
+
+import <algorithm>;
+import <cctype>;
+import <cstdarg>;
+import <cstdio>;
+import <cstring>;
+import <string>;
+import <vector>;
 
 // A quick define to overcome different names for the same function
-
 #define strnicmp strncasecmp
-
 namespace Ogre {
 
     //-----------------------------------------------------------------------

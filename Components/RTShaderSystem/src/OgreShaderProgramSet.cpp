@@ -24,17 +24,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Components.RTShaderSystem:ShaderProgramSet.Obj;
 
-#include <cstddef>
-#include <memory>
-#include <utility>
+import :ShaderProgram;
+import :ShaderProgramSet;
 
-#include "OgreException.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderProgram.hpp"
-#include "OgreShaderProgramSet.hpp"
-#include "OgreSharedPtr.hpp"
+import Ogre.Core;
+
+import <cstddef>;
+import <memory>;
+import <utility>;
 
 namespace Ogre::RTShader {
 

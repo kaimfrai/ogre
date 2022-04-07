@@ -25,19 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cstdlib>
-#include <cstring>
-#include <string>
+module Ogre.Core:Serializer.Obj;
 
-#include "OgreBitwise.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreException.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreSerializer.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreVector.hpp"
+import :Bitwise;
+import :DataStream;
+import :Exception;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :Serializer;
+import :SharedPtr;
+import :Vector;
+
+import <cstdlib>;
+import <cstring>;
+import <string>;
 
 namespace Ogre {
 
@@ -388,4 +390,3 @@ namespace Ogre {
     }
 
 }
-

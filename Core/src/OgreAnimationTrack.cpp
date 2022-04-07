@@ -25,26 +25,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <cmath>
-#include <iterator>
-#include <list>
-#include <memory>
+module Ogre.Core:AnimationTrack.Obj;
 
-#include "OgreAnimable.hpp"
-#include "OgreAnimation.hpp"
-#include "OgreAnimationTrack.hpp"
-#include "OgreAny.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreKeyFrame.hpp"
-#include "OgreMath.hpp"
-#include "OgreMesh.hpp"
-#include "OgreNode.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexIndexData.hpp"
+import :Animable;
+import :Animation;
+import :AnimationTrack;
+import :Any;
+import :Exception;
+import :HardwareVertexBuffer;
+import :KeyFrame;
+import :Math;
+import :Mesh;
+import :Node;
+import :Quaternion;
+import :Vector;
+import :VertexIndexData;
+
+import <algorithm>;
+import <cassert>;
+import <cmath>;
+import <iterator>;
+import <list>;
+import <memory>;
 
 namespace Ogre {
 
@@ -1037,4 +1039,3 @@ namespace Ogre {
     
 
 }
-

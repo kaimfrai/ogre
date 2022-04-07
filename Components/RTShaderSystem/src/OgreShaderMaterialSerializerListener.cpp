@@ -24,21 +24,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Components.RTShaderSystem:ShaderMaterialSerializerListener.Obj;
 
-#include <cstddef>
-#include <vector>
+import :ShaderGenerator;
+import :ShaderMaterialSerializerListener;
 
-#include "OgreAny.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMaterialSerializer.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreShaderMaterialSerializerListener.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreUserObjectBindings.hpp"
+import Ogre.Core;
+
+import <cstddef>;
+import <vector>;
 
 namespace Ogre {
 class Pass;

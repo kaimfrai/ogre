@@ -25,22 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_SCENENODE_H
-#define OGRE_CORE_SCENENODE_H
+export module Ogre.Core:SceneNode;
 
-#include <algorithm>
-#include <cstddef>
-#include <vector>
+export import :AxisAlignedBox;
+export import :Common;
+export import :Math;
+export import :Node;
+export import :Platform;
+export import :Prerequisites;
+export import :Quaternion;
+export import :Vector;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreCommon.hpp"
-#include "OgreMath.hpp"
-#include "OgreNode.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreVector.hpp"
+export import <algorithm>;
+export import <cstddef>;
+export import <vector>;
 
+export
 namespace Ogre {
 
     // forward decl
@@ -455,5 +455,3 @@ class SceneManager;
 
 
 }// namespace
-
-#endif

@@ -25,36 +25,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <map>
-#include <string>
-#include <utility>
-#include <vector>
+module Ogre.Core:InstanceBatchHW_VTF.Obj;
 
-#include "OgreCamera.hpp"
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwarePixelBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreInstanceBatch.hpp"
-#include "OgreInstanceBatchHW_VTF.hpp"
-#include "OgreInstanceManager.hpp"
-#include "OgreInstancedEntity.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreTexture.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexIndexData.hpp"
+import :Camera;
+import :Common;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwarePixelBuffer;
+import :HardwareVertexBuffer;
+import :InstanceBatch;
+import :InstanceBatchHW_VTF;
+import :InstanceManager;
+import :InstancedEntity;
+import :Matrix4;
+import :PixelFormat;
+import :RenderOperation;
+import :RenderQueue;
+import :RenderSystem;
+import :RenderSystemCapabilities;
+import :Root;
+import :SceneManager;
+import :StringConverter;
+import :SubMesh;
+import :Texture;
+import :Vector;
+import :VertexIndexData;
+
+import <algorithm>;
+import <map>;
+import <string>;
+import <utility>;
+import <vector>;
 
 namespace Ogre
 {

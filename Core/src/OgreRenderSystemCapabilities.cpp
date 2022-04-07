@@ -25,13 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <ostream>
+module Ogre.Core:RenderSystemCapabilities.Obj;
 
-#include "OgreLog.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreStringVector.hpp"
+import :Log;
+import :RenderSystemCapabilities;
+import :String;
+import :StringConverter;
+import :StringVector;
+
+import <ostream>;
 
 namespace Ogre {
 

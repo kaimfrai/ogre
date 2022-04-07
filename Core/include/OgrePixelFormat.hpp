@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PIXELFORMAT_H
-#define OGRE_CORE_PIXELFORMAT_H
+export module Ogre.Core:PixelFormat;
 
-#include <cstddef>
-#include <vector>
+export import :ColourValue;
+export import :Common;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
 
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
+export import <cstddef>;
+export import <vector>;
 
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -662,5 +662,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

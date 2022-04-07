@@ -24,19 +24,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Components.RTShaderSystem:ShaderGLSLESProgramWriter.Obj;
 
-#include <memory>
-#include <ostream>
-#include <vector>
+import :ShaderGLSLESProgramWriter;
+import :ShaderParameter;
+import :ShaderProgram;
 
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRoot.hpp"
-#include "OgreShaderGLSLESProgramWriter.hpp"
-#include "OgreShaderParameter.hpp"
-#include "OgreShaderProgram.hpp"
+import Ogre.Core;
+
+import <memory>;
+import <ostream>;
+import <vector>;
 
 namespace Ogre::RTShader {
 

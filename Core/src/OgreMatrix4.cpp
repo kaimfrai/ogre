@@ -25,11 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreVector.hpp"
+module Ogre.Core:Matrix4.Obj;
+
+import :Matrix3;
+import :Matrix4;
+import :Prerequisites;
+import :Quaternion;
+import :Vector;
 
 namespace Ogre
 {

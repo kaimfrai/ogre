@@ -25,27 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_TEXTUREUNITSTATE_H
-#define OGRE_CORE_TEXTUREUNITSTATE_H
+export module Ogre.Core:TextureUnitState;
 
-#include <cstddef>
-#include <map>
-#include <memory>
-#include <utility>
-#include <vector>
+export import :BlendMode;
+export import :ColourValue;
+export import :Common;
+export import :Math;
+export import :Matrix4;
+export import :MemoryAllocatorConfig;
+export import :PixelFormat;
+export import :Platform;
+export import :Prerequisites;
+export import :SharedPtr;
+export import :Texture;
 
-#include "OgreBlendMode.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreTexture.hpp"
+export import <cstddef>;
+export import <map>;
+export import <memory>;
+export import <utility>;
+export import <vector>;
 
+export
 namespace Ogre {
 class Frustum;
 class Pass;
@@ -1132,5 +1132,3 @@ private:
     /** @} */
 
 } // namespace Ogre
-
-#endif // OGRE_CORE_TEXTUREUNITSTATE_H

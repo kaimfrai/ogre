@@ -25,33 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLHardwarePixelBuffer.hpp"
+module Ogre.RenderSystems.GL:HardwarePixelBuffer.Obj;
 
-#include <cassert>
-#include <memory>
-#include <string>
+import :FBORenderTexture;
+import :HardwarePixelBuffer;
+import :PixelFormat;
+import :RenderSystem;
+import :StateCacheManager;
+import :Texture;
 
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreGLFBORenderTexture.hpp"
-#include "OgreGLPixelFormat.hpp"
-#include "OgreGLRenderSystem.hpp"
-#include "OgreGLRenderTexture.hpp"
-#include "OgreGLStateCacheManager.hpp"
-#include "OgreGLTexture.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwarePixelBuffer.hpp"
-#include "OgreImage.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderTexture.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreTexture.hpp"
-#include "OgreTextureManager.hpp"
-#include "OgreVector.hpp"
+import Ogre.Core;
+import Ogre.RenderSystems.GLSupport;
+
+import <cassert>;
+import <memory>;
+import <string>;
 
 namespace Ogre {
 //-----------------------------------------------------------------------------  

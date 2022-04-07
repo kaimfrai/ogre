@@ -25,17 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
 // Emulate _findfirst, _findnext on non-Windows platforms
-#include "OgreSearchOps.hpp"
+module;
 
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
 #include <dirent.h>
 #include <fnmatch.h>
 #include <sys/stat.h>
     
+
+module Ogre.Core:SearchOps.Obj;
+
+import :SearchOps;
+
+import <cstdio>;
+import <cstdlib>;
+import <cstring>;
+
 struct _find_search_t
 {
     char *pattern;
@@ -45,6 +50,7 @@ struct _find_search_t
     DIR *dirfd;
 };
         
+
 auto _findfirst(const char *pattern, struct _finddata_t *data) -> intptr_t
 {
     auto *fs = new _find_search_t;

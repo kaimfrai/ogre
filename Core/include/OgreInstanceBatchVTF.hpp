@@ -25,22 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_INSTANCEBATCHVTF_H
-#define OGRE_CORE_INSTANCEBATCHVTF_H
+export module Ogre.Core:InstanceBatchVTF;
 
-#include <algorithm>
-#include <cassert>
-#include <cstddef>
-#include <vector>
+export import :InstanceBatch;
+export import :Matrix4;
+export import :Mesh;
+export import :Platform;
+export import :Prerequisites;
+export import :SharedPtr;
+export import :Texture;
 
-#include "OgreInstanceBatch.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreMesh.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreTexture.hpp"
+export import <algorithm>;
+export import <cassert>;
+export import <cstddef>;
+export import <vector>;
 
+export
 namespace Ogre
 {
 class InstanceManager;
@@ -238,5 +238,3 @@ class VertexData;
         auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t override;
     };
 }
-
-#endif

@@ -25,16 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <utility>
+module Ogre.Core:ResourceBackgroundQueue.Obj;
 
-#include "OgreResourceBackgroundQueue.hpp"
-#include "OgreAny.hpp"
-#include "OgreException.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSharedPtr.hpp"
+import :Any;
+import :Exception;
+import :ResourceBackgroundQueue;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :Root;
+import :SharedPtr;
+
+import <cassert>;
+import <utility>;
 
 namespace Ogre {
 
@@ -403,6 +405,3 @@ namespace Ogre {
     //------------------------------------------------------------------------
 
 }
-
-
-

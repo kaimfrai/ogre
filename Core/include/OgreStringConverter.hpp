@@ -25,26 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:StringConverter;
 
-#ifndef OGRE_CORE_STRINGCONVERTER_H
-#define OGRE_CORE_STRINGCONVERTER_H
+export import :ColourValue;
+export import :Common;
+export import :Math;
+export import :Matrix3;
+export import :Matrix4;
+export import :Platform;
+export import :Prerequisites;
+export import :Quaternion;
+export import :StringVector;
+export import :Vector;
 
-#include <cstddef>
-#include <iosfwd>
-#include <locale>
-#include <string>
+export import <cstddef>;
+export import <iosfwd>;
+export import <locale>;
+export import <string>;
 
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreVector.hpp"
-
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -332,8 +331,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-
-
-#endif
-

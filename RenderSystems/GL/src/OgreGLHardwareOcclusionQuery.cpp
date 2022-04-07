@@ -25,8 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.RenderSystems.GL:HardwareOcclusionQuery.Obj;
 
-#include "OgreGLHardwareOcclusionQuery.hpp"
+import :HardwareOcclusionQuery;
 
 namespace Ogre {
 
@@ -86,5 +87,3 @@ auto GLHardwareOcclusionQuery::isStillOutstanding() -> bool
 } 
 
 }
-
-

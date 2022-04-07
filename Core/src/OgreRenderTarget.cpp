@@ -26,26 +26,28 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 // IWYU pragma: no_include <cxxabi.h>
-#include <algorithm>
-#include <cassert>
-#include <ctime>
-#include <iomanip>
-#include <ostream>
-#include <string>
-#include <utility>
+module Ogre.Core:RenderTarget.Obj;
 
-#include "OgreDepthBuffer.hpp"
-#include "OgreException.hpp"
-#include "OgreImage.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreProfiler.hpp"
-#include "OgreRenderTarget.hpp"
-#include "OgreRenderTargetListener.hpp"
-#include "OgreRoot.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreTimer.hpp"
-#include "OgreViewport.hpp"
+import :DepthBuffer;
+import :Exception;
+import :Image;
+import :Log;
+import :LogManager;
+import :Profiler;
+import :RenderTarget;
+import :RenderTargetListener;
+import :Root;
+import :StringConverter;
+import :Timer;
+import :Viewport;
+
+import <algorithm>;
+import <cassert>;
+import <ctime>;
+import <iomanip>;
+import <ostream>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
 class Camera;

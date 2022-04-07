@@ -25,23 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_NODE_H
-#define OGRE_CORE_NODE_H
+export module Ogre.Core:Node;
 
-#include <algorithm>
-#include <set>
-#include <vector>
+export import :Math;
+export import :Matrix3;
+export import :Matrix4;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :Quaternion;
+export import :UserObjectBindings;
+export import :Vector;
 
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreUserObjectBindings.hpp"
-#include "OgreVector.hpp"
+export import <algorithm>;
+export import <set>;
+export import <vector>;
 
+export
 namespace Ogre {
     template <typename T> class VectorIterator;
     template <typename T> class ConstVectorIterator;
@@ -665,5 +665,3 @@ class Camera;
     /** @} */
 
 } // namespace Ogre
-
-#endif // OGRE_CORE_NODE_H

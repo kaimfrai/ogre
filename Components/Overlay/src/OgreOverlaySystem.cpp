@@ -25,26 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Components.Overlay:System.Obj;
 
-#include "OgreOverlaySystem.hpp"
+import :BorderPanelOverlayElement;
+import :ElementFactory;
+import :FontManager;
+import :Manager;
+import :PanelOverlayElement;
+import :ProfileSessionListener;
+import :System;
+import :TextAreaOverlayElement;
 
-#include <cassert>
-#include <cstddef>
-#include <string>
+import Ogre.Core;
 
-#include "OgreBorderPanelOverlayElement.hpp"
-#include "OgreCamera.hpp"
-#include "OgreFontManager.hpp"
-#include "OgreOverlayElementFactory.hpp"
-#include "OgreOverlayManager.hpp"
-#include "OgreOverlayProfileSessionListener.hpp"
-#include "OgrePanelOverlayElement.hpp"
-#include "OgreProfiler.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreTextAreaOverlayElement.hpp"
-#include "OgreViewport.hpp"
+import <cassert>;
+import <cstddef>;
+import <string>;
 
 namespace Ogre {
 class OverlayElement;

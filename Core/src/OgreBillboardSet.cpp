@@ -25,40 +25,42 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <cstring>
-#include <iterator>
-#include <map>
-#include <memory>
-#include <string>
-#include <utility>
+module Ogre.Core:BillboardSet.Obj;
 
-#include "OgreBillboard.hpp"
-#include "OgreBillboardSet.hpp"
-#include "OgreCamera.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreNode.hpp"
-#include "OgreRadixSort.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreSphere.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreVertexIndexData.hpp"
+import :Billboard;
+import :BillboardSet;
+import :Camera;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :LogManager;
+import :MaterialManager;
+import :Math;
+import :Matrix3;
+import :Matrix4;
+import :Node;
+import :RadixSort;
+import :RenderOperation;
+import :RenderQueue;
+import :RenderSystem;
+import :RenderSystemCapabilities;
+import :Root;
+import :SceneManager;
+import :SceneNode;
+import :Sphere;
+import :StringConverter;
+import :VertexIndexData;
+
+import <algorithm>;
+import <cassert>;
+import <cstring>;
+import <iterator>;
+import <map>;
+import <memory>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
     //-----------------------------------------------------------------------

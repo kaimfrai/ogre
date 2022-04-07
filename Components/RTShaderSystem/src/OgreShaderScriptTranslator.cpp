@@ -24,26 +24,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Components.RTShaderSystem:ShaderScriptTranslator.Obj;
 
-#include <cassert>
-#include <cstddef>
-#include <list>
-#include <string>
-#include <vector>
+import :ShaderGenerator;
+import :ShaderRenderState;
+import :ShaderScriptTranslator;
+import :ShaderSubRenderState;
 
-#include "OgreAny.hpp"
-#include "OgreMaterial.hpp"
-#include "OgrePass.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreScriptCompiler.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreShaderRenderState.hpp"
-#include "OgreShaderScriptTranslator.hpp"
-#include "OgreShaderSubRenderState.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreVector.hpp"
+import Ogre.Core;
+
+import <cassert>;
+import <cstddef>;
+import <list>;
+import <string>;
+import <vector>;
 
 namespace Ogre::RTShader {
 

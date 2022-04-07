@@ -1,32 +1,32 @@
 // This file is part of the OGRE project.
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
+module Ogre.Core:DefaultDebugDrawer.Obj;
 
-#include "OgreDefaultDebugDrawer.hpp"
+import :BlendMode;
+import :Common;
+import :DefaultDebugDrawer;
+import :Frustum;
+import :HardwareBuffer;
+import :Material;
+import :MaterialManager;
+import :Matrix3;
+import :Matrix4;
+import :Node;
+import :Pass;
+import :Platform;
+import :Prerequisites;
+import :RenderOperation;
+import :ResourceGroupManager;
+import :SceneNode;
+import :SharedPtr;
+import :Technique;
+import :Vector;
 
-#include <algorithm>
-#include <array>
-#include <cstddef>
-#include <vector>
-
-#include "OgreBlendMode.hpp"
-#include "OgreCommon.hpp"
-#include "OgreFrustum.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreNode.hpp"
-#include "OgrePass.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreVector.hpp"
+import <algorithm>;
+import <array>;
+import <cstddef>;
+import <vector>;
 
 namespace Ogre
 {

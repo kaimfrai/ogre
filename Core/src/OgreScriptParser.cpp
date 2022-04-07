@@ -25,16 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Core:ScriptParser.Obj;
 
-#include <list>
-#include <string>
-#include <vector>
+import :Exception;
+import :Platform;
+import :ScriptParser;
+import :SharedPtr;
+import :StringConverter;
 
-#include "OgreException.hpp"
-#include "OgrePlatform.hpp"
-#include "OgreScriptParser.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringConverter.hpp"
+import <list>;
+import <string>;
+import <vector>;
 
 namespace Ogre
 {

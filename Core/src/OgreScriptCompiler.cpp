@@ -25,35 +25,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Core:ScriptCompiler.Obj;
 
-#include <algorithm>
-#include <cassert>
-#include <cstddef>
-#include <list>
-#include <map>
-#include <memory>
-#include <ostream>
-#include <ranges>
-#include <string>
-#include <type_traits>
-#include <unordered_map>
-#include <utility>
-#include <vector>
+import :BuiltinScriptTranslators;
+import :DataStream;
+import :LogManager;
+import :Platform;
+import :Prerequisites;
+import :ResourceGroupManager;
+import :ScriptCompiler;
+import :ScriptLexer;
+import :ScriptParser;
+import :ScriptTranslator;
+import :SharedPtr;
+import :Singleton;
+import :String;
+import :StringVector;
 
-#include "OgreBuiltinScriptTranslators.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreScriptCompiler.hpp"
-#include "OgreScriptLexer.hpp"
-#include "OgreScriptParser.hpp"
-#include "OgreScriptTranslator.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreString.hpp"
-#include "OgreStringVector.hpp"
+import <algorithm>;
+import <cassert>;
+import <cstddef>;
+import <list>;
+import <map>;
+import <memory>;
+import <ostream>;
+import <ranges>;
+import <string>;
+import <type_traits>;
+import <unordered_map>;
+import <utility>;
+import <vector>;
 
 namespace Ogre
 {
@@ -1585,5 +1586,3 @@ namespace Ogre
     //-------------------------------------------------------------------------
     String CreateCompositorScriptCompilerEvent::eventType = "createCompositor";
 }
-
-

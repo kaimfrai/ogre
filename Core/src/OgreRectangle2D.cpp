@@ -25,28 +25,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <OgreRectangle2D.hpp>
-#include <algorithm>
-#include <map>
-#include <utility>
+module Ogre.Core:Rectangle2D.Obj;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreBuiltinMovableFactories.hpp"
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSimpleRenderable.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexIndexData.hpp"
+import :AxisAlignedBox;
+import :BuiltinMovableFactories;
+import :Common;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareVertexBuffer;
+import :Material;
+import :MaterialManager;
+import :Matrix4;
+import :Prerequisites;
+import :Rectangle2D;
+import :RenderOperation;
+import :SharedPtr;
+import :SimpleRenderable;
+import :StringConverter;
+import :Vector;
+import :VertexIndexData;
+
+import <algorithm>;
+import <map>;
+import <utility>;
 
 namespace Ogre {
 class MovableObject;
@@ -244,4 +246,3 @@ TEXCOORD_BINDING = 2
         return new Rectangle2D(includeTextureCoords);
     }
 }
-

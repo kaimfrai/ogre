@@ -25,17 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Components.Overlay:PanelOverlayElement;
 
-#ifndef OGRE_COMPONENTS_OVERLAY_PANELOVERLAYELEMENT_H
-#define OGRE_COMPONENTS_OVERLAY_PANELOVERLAYELEMENT_H
+export import :Container;
 
-#include <cstddef>
+export import Ogre.Core;
 
-#include "OgreConfig.hpp"
-#include "OgreOverlayContainer.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
+export import <cstddef>;
 
+export
 namespace Ogre {
 class RenderQueue;
 
@@ -139,5 +137,3 @@ class RenderQueue;
     /** @} */
 
 }
-
-#endif

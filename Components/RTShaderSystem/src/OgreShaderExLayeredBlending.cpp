@@ -25,29 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cstddef>
-#include <list>
-#include <memory>
-#include <string>
-#include <vector>
+module Ogre.Components.RTShaderSystem:ShaderExLayeredBlending.Obj;
 
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreMaterialSerializer.hpp"
-#include "OgrePass.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreScriptCompiler.hpp"
-#include "OgreShaderExLayeredBlending.hpp"
-#include "OgreShaderFFPTexturing.hpp"
-#include "OgreShaderFunction.hpp"
-#include "OgreShaderFunctionAtom.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderProgram.hpp"
-#include "OgreShaderProgramSet.hpp"
-#include "OgreShaderScriptTranslator.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreTextureUnitState.hpp"
+import :ShaderExLayeredBlending;
+import :ShaderFFPTexturing;
+import :ShaderFunction;
+import :ShaderFunctionAtom;
+import :ShaderPrerequisites;
+import :ShaderProgram;
+import :ShaderProgramSet;
+import :ShaderScriptTranslator;
+
+import Ogre.Core;
+
+import <algorithm>;
+import <cstddef>;
+import <list>;
+import <memory>;
+import <string>;
+import <vector>;
 
 namespace Ogre {
     class LayerBlendModeEx;

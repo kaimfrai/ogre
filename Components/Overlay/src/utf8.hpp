@@ -2,10 +2,9 @@
  *
  * This is free and unencumbered software released into the public domain.
  */
-#ifndef OGRE_COMPONENTS_OVERLAY_UTF8_H
-#define OGRE_COMPONENTS_OVERLAY_UTF8_H
+module Ogre.Components.Overlay:utf8;
 
-#include <cstdint>
+import <cstdint>;
 
 /* Decode the next character, C, from BUF, reporting errors in E.
  *
@@ -64,5 +63,3 @@ utf8_decode(const char *buf, uint32_t *c, int *e) -> const char *
 
     return next;
 }
-
-#endif

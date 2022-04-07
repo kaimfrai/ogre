@@ -25,19 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Components.Overlay:ProfileSessionListener.Obj;
 
-#include "OgreOverlayProfileSessionListener.hpp"
+import :Container;
+import :Element;
+import :Manager;
+import :ProfileSessionListener;
 
-#include <map>
-#include <string>
-#include <utility>
+import Ogre.Components.Overlay;
+import Ogre.Core;
 
-#include "OgreOverlay.hpp"
-#include "OgreOverlayContainer.hpp"
-#include "OgreOverlayElement.hpp"
-#include "OgreOverlayManager.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreTimer.hpp"
+import <map>;
+import <string>;
+import <utility>;
 
 namespace Ogre
 {

@@ -25,21 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_MATH_H
-#define OGRE_CORE_MATH_H
+export module Ogre.Core:Math;
 
-#include <cassert>
-#include <cmath>
-#include <cstdint>
-#include <cstdlib>
-#include <limits>
-#include <ostream>
-#include <utility>
-#include <vector>
+export import :Platform;
+export import :Prerequisites;
 
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
+export import <cassert>;
+export import <cmath>;
+export import <cstdint>;
+export import <cstdlib>;
+export import <limits>;
+export import <ostream>;
+export import <utility>;
+export import <vector>;
 
+export
 namespace Ogre
 {
 class Affine3;
@@ -816,5 +816,3 @@ class Sphere;
     /** @} */
 
 }
-
-#endif

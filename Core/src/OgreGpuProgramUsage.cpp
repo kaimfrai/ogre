@@ -25,15 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <memory>
-#include <string>
+module Ogre.Core:GpuProgramUsage.Obj;
 
-#include "OgreException.hpp"
-#include "OgreGpuProgramManager.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreGpuProgramUsage.hpp"
-#include "OgrePass.hpp"
-#include "OgreResourceGroupManager.hpp"
+import :Exception;
+import :GpuProgramManager;
+import :GpuProgramParams;
+import :GpuProgramUsage;
+import :Pass;
+import :ResourceGroupManager;
+
+import <memory>;
+import <string>;
 
 namespace Ogre
 {

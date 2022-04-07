@@ -25,31 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "FileSystemArchiveTests.hpp"
+module Ogre.Tests.Core:FileSystemArchiveTests.Obj;
 
-#include <algorithm>
-#include <map>
-#include <string>
-#include <utility>
-#include <vector>
+import :FileSystemArchiveTests;
 
-#include "OgreArchive.hpp"
-#include "OgreCommon.hpp"
-#include "OgreConfigFile.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreFileSystem.hpp"
-#include "OgreFileSystemLayer.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringVector.hpp"
+import Ogre.Core;
 
+import <algorithm>;
+import <map>;
+import <string>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
 static auto operator<(const FileInfo& a, const FileInfo& b) -> bool {
     return a.basename < b.basename;
 }
 }
-// Register the test suite
 
+// Register the test suite
 //--------------------------------------------------------------------------
 void FileSystemArchiveTests::SetUp()
 {    
@@ -63,6 +57,7 @@ void FileSystemArchiveTests::SetUp()
     mArch = mFactory.createInstance(mTestPath, false);
     mArch->load();
 }
+
 //--------------------------------------------------------------------------
 void FileSystemArchiveTests::TearDown()
 {
@@ -80,7 +75,6 @@ TEST_F(FileSystemArchiveTests,ListNonRecursive)
     EXPECT_EQ(String("rootfile2.txt"), vec->at(1));
 
 }
-
 TEST_F(FileSystemArchiveTests,Exists)
 {
     EXPECT_FALSE(mArch->exists(""));

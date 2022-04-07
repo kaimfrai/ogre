@@ -25,14 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_SEARCHOPS_H
-#define OGRE_CORE_SEARCHOPS_H
+module Ogre.Core:SearchOps;
 
-// Emulate _findfirst, _findnext on non-Windows platforms
-
-#include <cstdint>
+import <cstdint>;
 
 /* Our simplified data entry structure */
+
 struct _finddata_t
 {
     char *name;
@@ -53,7 +51,7 @@ _A_SUBDIR = 0x10  /* Subdirectory */
 };
 
 auto _findfirst(const char *pattern, struct _finddata_t *data) -> intptr_t;
-auto _findnext(intptr_t id, struct _finddata_t *data) -> int;
-auto _findclose(intptr_t id) -> int;
 
-#endif
+auto _findnext(intptr_t id, struct _finddata_t *data) -> int;
+
+auto _findclose(intptr_t id) -> int;

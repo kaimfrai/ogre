@@ -24,18 +24,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FUNCTIONATOM_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_FUNCTIONATOM_H
+export module Ogre.Components.RTShaderSystem:ShaderFunctionAtom;
 
-#include <algorithm>
-#include <iosfwd>
-#include <vector>
+export import :ShaderParameter;
+export import :ShaderPrerequisites;
 
-#include "OgreException.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderParameter.hpp"
-#include "OgreShaderPrerequisites.hpp"
+export import Ogre.Core;
 
+export import <algorithm>;
+export import <iosfwd>;
+export import <vector>;
+
+export
 namespace Ogre::RTShader {
 
 /** \addtogroup Optional
@@ -333,5 +333,3 @@ using FunctionAtomInstanceConstIterator = FunctionAtomInstanceList::const_iterat
 /** @} */
 
 }
-
-#endif

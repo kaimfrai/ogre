@@ -25,17 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAM_H
-#define OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAM_H
+module Ogre.RenderSystems.GL.GLSL:SLProgram;
 
-#include "OgreException.hpp"
-#include "OgreGLGpuProgram.hpp"
-#include "OgreGLSLShaderCommon.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreResource.hpp"
+import Ogre.Core;
+import Ogre.RenderSystems.GL;
+import Ogre.RenderSystems.GLSupport.GLSL;
 
 namespace Ogre {
 class ResourceManager;
@@ -127,5 +121,3 @@ class ResourceManager;
     };
     }
 }
-
-#endif // OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAM_H

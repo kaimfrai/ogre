@@ -25,20 +25,24 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#include "OgreFileSystemLayer.hpp"
+module;
 
-#include <cerrno>
-#include <cstdio>
-#include <cstdlib>
 #include <dlfcn.h>
 #include <pwd.h>
-#include <string>
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "OgrePrerequisites.hpp"
-#include "OgreString.hpp"
-#include "OgreStringVector.hpp"
+module Ogre.Core:FileSystemLayer.Obj;
+
+import :FileSystemLayer;
+import :Prerequisites;
+import :String;
+import :StringVector;
+
+import <cerrno>;
+import <cstdio>;
+import <cstdlib>;
+import <string>;
 
 namespace Ogre
 {

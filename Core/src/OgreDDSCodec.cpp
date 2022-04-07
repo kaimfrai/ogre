@@ -25,28 +25,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Core:DDSCodec.Obj;
 
-#include <algorithm>
-#include <cstring>
-#include <memory>
-#include <ostream>
-#include <string>
-#include <utility>
+import :Codec;
+import :ColourValue;
+import :Common;
+import :DDSCodec;
+import :DataStream;
+import :Exception;
+import :Image;
+import :Log;
+import :LogManager;
+import :RenderSystem;
+import :RenderSystemCapabilities;
+import :Root;
+import :SharedPtr;
+import :StableHeaders;
 
-#include "OgreCodec.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreDDSCodec.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreException.hpp"
-#include "OgreImage.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStableHeaders.hpp"
+import <algorithm>;
+import <cstring>;
+import <memory>;
+import <ostream>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
     // Internal DDS structure definitions
@@ -1081,4 +1082,3 @@ namespace {
     }
     
 }
-

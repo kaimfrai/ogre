@@ -25,16 +25,16 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef OGRE_CORE_FILESYSTEMLAYER_H
-#define OGRE_CORE_FILESYSTEMLAYER_H
+export module Ogre.Core:FileSystemLayer;
 
-#include <string>
-#include <vector>
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :StringVector;
 
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreStringVector.hpp"
+export import <string>;
+export import <vector>;
 
+export
 namespace Ogre
 {
     /** Provides methods to find out where the Ogre config files are stored
@@ -154,5 +154,3 @@ namespace Ogre
     };
 
 }
-
-#endif

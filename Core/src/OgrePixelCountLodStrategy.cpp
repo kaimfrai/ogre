@@ -25,18 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Core:PixelCountLodStrategy.Obj;
 
-#include <cassert>
-#include <limits>
+import :Camera;
+import :Frustum;
+import :Math;
+import :Matrix4;
+import :MovableObject;
+import :Node;
+import :PixelCountLodStrategy;
+import :Viewport;
 
-#include "OgreCamera.hpp"
-#include "OgreFrustum.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgreNode.hpp"
-#include "OgrePixelCountLodStrategy.hpp"
-#include "OgreViewport.hpp"
+import <cassert>;
+import <limits>;
 
 namespace Ogre {
     //-----------------------------------------------------------------------

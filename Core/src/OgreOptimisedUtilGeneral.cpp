@@ -25,15 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <cstddef>
+module Ogre.Core;
 
-#include "OgreEdgeListBuilder.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreOptimisedUtil.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreVector.hpp"
+import :EdgeListBuilder;
+import :Math;
+import :Matrix4;
+import :OptimisedUtil;
+import :Prerequisites;
+import :Vector;
+
+import <cassert>;
+import <cstddef>;
 
 namespace Ogre {
 

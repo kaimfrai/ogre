@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PATCHMESH_H
-#define OGRE_CORE_PATCHMESH_H
+export module Ogre.Core:PatchMesh;
 
-#include <cstddef>
+export import :HardwareBuffer;
+export import :Mesh;
+export import :PatchSurface;
+export import :Prerequisites;
+export import :Resource;
 
-#include "OgreHardwareBuffer.hpp"
-#include "OgreMesh.hpp"
-#include "OgrePatchSurface.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
+export import <cstddef>;
 
+export
 namespace Ogre {
 class ResourceManager;
 class VertexDeclaration;
@@ -89,5 +89,3 @@ class VertexDeclaration;
     /** @} */
 
 }
-
-#endif

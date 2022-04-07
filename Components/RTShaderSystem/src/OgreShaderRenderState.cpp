@@ -24,36 +24,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Components.RTShaderSystem:ShaderRenderState.Obj;
 
-#include <algorithm>
-#include <initializer_list>
-#include <memory>
-#include <string>
-#include <type_traits>
-#include <vector>
+import :ShaderFFPColour;
+import :ShaderFFPLighting;
+import :ShaderFFPRenderState;
+import :ShaderGenerator;
+import :ShaderParameter;
+import :ShaderProgram;
+import :ShaderProgramManager;
+import :ShaderProgramSet;
+import :ShaderRenderState;
+import :ShaderSubRenderState;
 
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterial.hpp"
-#include "OgrePass.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderFFPColour.hpp"
-#include "OgreShaderFFPLighting.hpp"
-#include "OgreShaderFFPRenderState.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreShaderParameter.hpp"
-#include "OgreShaderProgram.hpp"
-#include "OgreShaderProgramManager.hpp"
-#include "OgreShaderProgramSet.hpp"
-#include "OgreShaderRenderState.hpp"
-#include "OgreShaderSubRenderState.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreString.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreVector.hpp"
+import Ogre.Core;
+
+import <algorithm>;
+import <initializer_list>;
+import <memory>;
+import <string>;
+import <type_traits>;
+import <vector>;
 
 namespace Ogre {
 class AutoParamDataSource;

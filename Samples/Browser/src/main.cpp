@@ -25,13 +25,14 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#include <iostream>
-#include <string>
+module Ogre.Samples.Browser;
 
-#include "OgreException.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreStringConverter.hpp"
-#include "SampleBrowser.hpp"
+import :SampleBrowser;
+
+import Ogre.Core;
+
+import <iostream>;
+import <string>;
 
 auto main(int argc, char *argv[]) -> int {
 

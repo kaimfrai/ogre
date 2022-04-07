@@ -23,19 +23,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
-#ifndef OGRE_CORE_DEFAULTWORKQUEUESTANDARD_H
-#define OGRE_CORE_DEFAULTWORKQUEUESTANDARD_H
+export module Ogre.Core:DefaultWorkQueueStandard;
 
-#include <condition_variable>
-#include <cstddef>
-#include <mutex>
-#include <thread>
-#include <vector>
+export import :Common;
+export import :Prerequisites;
+export import :WorkQueue;
 
-#include "OgreCommon.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreWorkQueue.hpp"
+export import <condition_variable>;
+export import <cstddef>;
+export import <mutex>;
+export import <thread>;
+export import <vector>;
 
+export
 namespace Ogre
 {
     /** Implementation of a general purpose request / response style background work queue.
@@ -84,5 +84,3 @@ namespace Ogre
     };
 
 }
-
-#endif

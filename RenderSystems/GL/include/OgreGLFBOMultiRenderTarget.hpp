@@ -25,17 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.RenderSystems.GL:FBOMultiRenderTarget;
 
-#ifndef OGRE_RENDERSYSTEMS_GL_FBOMULTIRENDERTARGET_H
-#define OGRE_RENDERSYSTEMS_GL_FBOMULTIRENDERTARGET_H
+export import :FrameBufferObject;
 
-#include <cstddef>
+export import Ogre.Core;
+export import Ogre.RenderSystems.GLSupport;
 
-#include "OgreGLFrameBufferObject.hpp"
-#include "OgreGLRenderTarget.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderTexture.hpp"
+export import <cstddef>;
 
+export
 namespace Ogre {
 class DepthBuffer;
 class GLContext;
@@ -69,5 +68,3 @@ class GLFrameBufferObjectCommon;
     };
 
 }
-
-#endif // OGRE_RENDERSYSTEMS_GL_FBOMULTIRENDERTARGET_H

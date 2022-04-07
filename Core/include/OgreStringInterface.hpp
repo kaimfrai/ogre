@@ -25,21 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:StringInterface;
 
-#ifndef OGRE_CORE_STRINGINTERFACE_H
-#define OGRE_CORE_STRINGINTERFACE_H
+export import :Common;
+export import :Prerequisites;
+export import :StringConverter;
 
-#include <cstddef>
-#include <map>
-#include <string>
-#include <type_traits>
-#include <utility>
-#include <vector>
+export import <cstddef>;
+export import <map>;
+export import <string>;
+export import <type_traits>;
+export import <utility>;
+export import <vector>;
 
-#include "OgreCommon.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreStringConverter.hpp"
-
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -285,5 +284,3 @@ namespace Ogre {
 
 
 }
-
-#endif

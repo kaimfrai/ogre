@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_INSTANCEBATCHSHADER_H
-#define OGRE_CORE_INSTANCEBATCHSHADER_H
+export module Ogre.Core:InstanceBatchShader;
 
-#include <cstddef>
+export import :InstanceBatch;
+export import :Mesh;
+export import :Platform;
+export import :Prerequisites;
 
-#include "OgreInstanceBatch.hpp"
-#include "OgreMesh.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
+export import <cstddef>;
 
+export
 namespace Ogre
 {
 class InstanceManager;
@@ -104,5 +104,3 @@ class VertexData;
         auto getNumWorldTransforms() const -> unsigned short override;
     };
 }
-
-#endif

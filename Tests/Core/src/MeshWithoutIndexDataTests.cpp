@@ -25,39 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cstdio>
-#include <string>
-#include <sys/types.h>
-#include <vector>
+module;
 
-#include "MeshWithoutIndexDataTests.hpp"
-#include "OgreArchiveManager.hpp"
-#include "OgreDefaultHardwareBufferManager.hpp"
-#include "OgreFileSystem.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreLodStrategyManager.hpp"
-#include "OgreManualObject.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMaterialSerializer.hpp"
-#include "OgreMesh.hpp"
-#include "OgreMeshManager.hpp"
-#include "OgreMeshSerializer.hpp"
-#include "OgrePass.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreVertexIndexData.hpp"
+#include <sys/types.h>
+
+module Ogre.Tests.Core:MeshWithoutIndexDataTests.Obj;
+
+import :MeshWithoutIndexDataTests;
+
+import Ogre.Core;
+
+import <cstdio>;
+import <string>;
+import <vector>;
 
 namespace Ogre {
     class InvalidParametersException;
 }  // namespace Ogre
 
 // Register the test suite
-
 //--------------------------------------------------------------------------
 void MeshWithoutIndexDataTests::SetUp()
 {    
@@ -71,6 +57,7 @@ void MeshWithoutIndexDataTests::SetUp()
     auto* matMgr = new MaterialManager();
     matMgr->initialise();
 }
+
 //--------------------------------------------------------------------------
 void MeshWithoutIndexDataTests::TearDown()
 {

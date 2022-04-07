@@ -24,13 +24,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FFPTRANSFORM_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_FFPTRANSFORM_H
+export module Ogre.Components.RTShaderSystem:ShaderFFPTransform;
 
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderParameter.hpp"
-#include "OgreShaderSubRenderState.hpp"
+export import :ShaderParameter;
+export import :ShaderSubRenderState;
 
+export import Ogre.Core;
+
+export
 namespace Ogre {
     class MaterialSerializer;
     class Pass;
@@ -43,6 +44,7 @@ namespace Ogre {
     }  // namespace RTShader
 }  // namespace Ogre
 
+export
 namespace Ogre::RTShader {
 
 /** \addtogroup Optional
@@ -139,5 +141,3 @@ protected:
 
 
 }
-
-#endif

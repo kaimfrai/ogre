@@ -25,34 +25,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <cstddef>
-#include <memory>
-#include <string>
-#include <utility>
-#include <vector>
+module Ogre.Core:ShadowCaster.Obj;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreCommon.hpp"
-#include "OgreEdgeListBuilder.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreLight.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgreOptimisedUtil.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreShadowCaster.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexIndexData.hpp"
+import :AxisAlignedBox;
+import :Common;
+import :EdgeListBuilder;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :Light;
+import :LogManager;
+import :Matrix4;
+import :MovableObject;
+import :OptimisedUtil;
+import :Prerequisites;
+import :RenderOperation;
+import :Root;
+import :SceneManager;
+import :ShadowCaster;
+import :SharedPtr;
+import :StringConverter;
+import :Vector;
+import :VertexIndexData;
+
+import <cassert>;
+import <cstddef>;
+import <memory>;
+import <string>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
     ShadowRenderable::ShadowRenderable(MovableObject* parent, const HardwareIndexBufferSharedPtr& indexBuffer,

@@ -25,19 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_MATRIX4_H
-#define OGRE_CORE_MATRIX4_H
+module;
 
-#include <cassert>
-#include <cstring>
 #include <ostream>
 
-// Precompiler options
-#include "OgreMatrix3.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreVector.hpp"
+export module Ogre.Core:Matrix4;
 
+// Precompiler options
+export import :Matrix3;
+export import :Prerequisites;
+export import :Quaternion;
+export import :Vector;
+
+export import <cassert>;
+export import <cstring>;
+
+export
 namespace Ogre
 {
     /** \addtogroup Core
@@ -604,4 +607,3 @@ namespace Ogre
     /** @} */
 
 }
-#endif

@@ -25,16 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Core:LodStrategyManager.Obj;
 
-#include <cassert>
-#include <utility>
+import :DistanceLodStrategy;
+import :Exception;
+import :IteratorWrapper;
+import :LodStrategy;
+import :LodStrategyManager;
+import :PixelCountLodStrategy;
 
-#include "OgreDistanceLodStrategy.hpp"
-#include "OgreException.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreLodStrategy.hpp"
-#include "OgreLodStrategyManager.hpp"
-#include "OgrePixelCountLodStrategy.hpp"
+import <cassert>;
+import <utility>;
 
 namespace Ogre {
     //-----------------------------------------------------------------------

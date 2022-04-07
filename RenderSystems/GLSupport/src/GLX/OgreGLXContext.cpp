@@ -25,15 +25,18 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
+module;
 
 #include <GL/gl.h>
 #include <X11/X.h>
 
-#include "OgreException.hpp"
-#include "OgreGLRenderSystemCommon.hpp"
-#include "OgreGLXContext.hpp"
-#include "OgreGLXGLSupport.hpp"
-#include "OgreRoot.hpp"
+module Ogre.RenderSystems.GLSupport.GLX:Context.Obj;
+
+import :Context;
+import :GLSupport;
+
+import Ogre.Core;
+import Ogre.RenderSystems.GLSupport;
 
 namespace Ogre
 {

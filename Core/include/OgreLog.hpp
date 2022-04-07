@@ -25,19 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:Log;
 
-#ifndef OGRE_CORE_LOG_H
-#define OGRE_CORE_LOG_H
+export import :Common;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
 
-#include <algorithm>
-#include <fstream>
-#include <string>
-#include <vector>
+export import <algorithm>;
+export import <fstream>;
+export import <string>;
+export import <vector>;
 
-#include "OgreCommon.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
-
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -245,5 +244,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#endif

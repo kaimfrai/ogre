@@ -25,15 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
-#ifndef __ATI_FS_GLGpuProgram_H__
-#define __ATI_FS_GLGpuProgram_H__
-
-#include "OgreGLGpuProgram.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
 #include "glad/glad.h"
+
+module Ogre.RenderSystems.GL.atifs:ATI_FS_GLGpuProgram;
+
+import Ogre.Core;
+import Ogre.RenderSystems.GL;
 
 namespace Ogre {
 class ResourceManager;
@@ -70,5 +69,3 @@ class ResourceManager;
 
 
 } // namespace Ogre
-
-#endif // __ATI_FS_GLGpuProgram_H__

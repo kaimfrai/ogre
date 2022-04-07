@@ -25,8 +25,7 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef OGRE_SAMPLES_BROWSER_H
-#define OGRE_SAMPLES_BROWSER_H
+module;
 
 #include "OgreArchiveManager.hpp"
 #include "OgreConfigFile.hpp"
@@ -35,15 +34,17 @@
 #include "SampleContext.hpp"
 #include "SamplePlugin.hpp"
 #include "SdkSample.hpp"
+#include "DefaultSamplesPlugin.hpp"
 
+export module Ogre.Samples.Browser:SampleBrowser;
+
+export
 enum {
 ENABLE_SHADERS_CACHE = 1
 };
 
-#include "DefaultSamplesPlugin.hpp"
-
 #define CAROUSEL_REDRAW_EPS 0.001
-
+export
 namespace OgreBites
 {
     /*=============================================================================
@@ -1025,5 +1026,3 @@ namespace OgreBites
         bool mGrabInput;
     };
 }
-
-#endif

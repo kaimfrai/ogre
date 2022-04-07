@@ -25,20 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <gtest/gtest.h>
-#include <cstddef>
 
-#include "OgreArchive.hpp"
-#include "OgreFileSystem.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStreamSerialiser.hpp"
-#include "OgreVector.hpp"
+module Ogre.Tests.Core;
 
+import Ogre.Core;
+
+import <cstddef>;
 
 using namespace Ogre;
-
 //--------------------------------------------------------------------------
 TEST(StreamSerialiserTests,WriteBasic)
 {

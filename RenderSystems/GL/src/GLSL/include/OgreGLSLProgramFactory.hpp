@@ -25,14 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.RenderSystems.GL.GLSL:SLProgramFactory;
 
-
-#ifndef OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAMFACTORY_H
-#define OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAMFACTORY_H
-
-#include "OgreGpuProgramManager.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
+import Ogre.Core;
 
 namespace Ogre
 {
@@ -64,5 +59,3 @@ class GLSLLinkProgramManager;
     };
     }
 }
-
-#endif // OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAMFACTORY_H

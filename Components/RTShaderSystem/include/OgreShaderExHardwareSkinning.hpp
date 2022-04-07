@@ -24,16 +24,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXHARDWARESKINNING_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXHARDWARESKINNING_H
+export module Ogre.Components.RTShaderSystem:ShaderExHardwareSkinning;
 
-#include <cstddef>
+export import :ShaderPrerequisites;
+export import :ShaderSubRenderState;
 
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
+export import Ogre.Core;
 
+export import <cstddef>;
+
+export
 namespace Ogre {
 class Entity;
 class MaterialSerializer;
@@ -47,12 +47,12 @@ class SGScriptTranslator;
 }  // namespace RTShader
 }  // namespace Ogre
 
-#include "OgreShaderSubRenderState.hpp"
-
+export
 enum {
 HS_MAX_WEIGHT_COUNT = 4
 };
 
+export
 namespace Ogre::RTShader {
 
     class HardwareSkinningFactory;
@@ -349,5 +349,3 @@ protected:
 
 
 }
-
-#endif

@@ -25,21 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cstring>
-#include <memory>
+module Ogre.Core:Image.Obj;
 
-#include "OgreAny.hpp"
-#include "OgreCodec.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreException.hpp"
-#include "OgreImage.hpp"
-#include "OgreImageCodec.hpp"
-#include "OgreImageResampler.hpp"
-#include "OgreMath.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreString.hpp"
+import :Any;
+import :Codec;
+import :DataStream;
+import :Exception;
+import :Image;
+import :ImageCodec;
+import :ImageResampler;
+import :Math;
+import :ResourceGroupManager;
+import :SharedPtr;
+import :String;
+
+import <algorithm>;
+import <cstring>;
+import <memory>;
 
 namespace Ogre {
     ImageCodec::~ImageCodec() = default;

@@ -25,32 +25,34 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
+export module Ogre.Tests.VisualTests.Context:TestContext;
 
-#ifndef OGRE_TESTS_VISUALTESTS_TESTCONTEXT_H
-#define OGRE_TESTS_VISUALTESTS_TESTCONTEXT_H
+export import Ogre.Core;
+export import Ogre.Samples.Common;
 
-#include <deque>
-#include <map>
-#include <string>
+export import <deque>;
+export import <map>;
+export import <string>;
 
-#include "OgreIteratorWrapper.hpp"
-#include "OgrePrerequisites.hpp"
-#include "SampleContext.hpp"
-
+export
 namespace Ogre{
     struct FrameEvent;
 }
 
+export
 namespace OgreBites{
     class Sample;
     class SamplePlugin;
 }
 
+export
 class TestBatch;
 
+export
 using namespace Ogre;
-
 /** The common environment that all of the tests run in */
+
+export
 class TestContext : public OgreBites::SampleContext
 {
  public:
@@ -160,5 +162,3 @@ class TestContext : public OgreBites::SampleContext
     // Location to output a test summary (used for CTest)
     String mSummaryOutputDir;
 };
-
-#endif

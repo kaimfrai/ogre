@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_NAMEGENERATOR_H
-#define OGRE_CORE_NAMEGENERATOR_H
+export module Ogre.Core:NameGenerator;
 
-#include "OgreString.hpp"
+export import :String;
 
-#include <condition_variable>
-#include <memory>
-#include <mutex>
-#include <sstream>
-#include <thread>
-#include <utility>
+export import <condition_variable>;
+export import <memory>;
+export import <mutex>;
+export import <sstream>;
+export import <thread>;
+export import <utility>;
 
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -88,5 +88,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#endif

@@ -25,12 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GL_PLUGIN_H
-#define OGRE_RENDERSYSTEMS_GL_PLUGIN_H
+export module Ogre.RenderSystems.GL:Plugin;
 
-#include "OgrePlugin.hpp"
-#include "OgrePrerequisites.hpp"
+export import Ogre.Core;
 
+export
 namespace Ogre
 {
     class GLRenderSystem;
@@ -61,5 +60,3 @@ namespace Ogre
         GLRenderSystem* mRenderSystem{nullptr};
     };
 }
-
-#endif

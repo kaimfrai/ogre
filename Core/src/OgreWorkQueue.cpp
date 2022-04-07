@@ -25,17 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <ostream>
-#include <ranges>
-#include <thread>
-#include <utility>
+module Ogre.Core:WorkQueue.Obj;
 
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreTimer.hpp"
-#include "OgreWorkQueue.hpp"
+import :Log;
+import :LogManager;
+import :Root;
+import :Timer;
+import :WorkQueue;
+
+import <algorithm>;
+import <ostream>;
+import <ranges>;
+import <thread>;
+import <utility>;
 
 namespace Ogre {
     //---------------------------------------------------------------------

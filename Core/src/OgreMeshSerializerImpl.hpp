@@ -25,18 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Core:MeshSerializerImpl;
 
-#ifndef OGRE_CORE_MESHSERIALIZERIMPL_H
-#define OGRE_CORE_MESHSERIALIZERIMPL_H
+import :EdgeListBuilder;
+import :HardwareVertexBuffer;
+import :KeyFrame;
+import :Prerequisites;
+import :Serializer;
+import :VertexBoneAssignment;
 
-#include <cstddef>
-
-#include "OgreEdgeListBuilder.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreKeyFrame.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSerializer.hpp"
-#include "OgreVertexBoneAssignment.hpp"
+import <cstddef>;
 
 namespace Ogre {
     
@@ -322,5 +320,3 @@ class VertexData;
     /** @} */
 
 }
-
-#endif
