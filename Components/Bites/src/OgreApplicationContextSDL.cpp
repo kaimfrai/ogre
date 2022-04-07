@@ -112,7 +112,7 @@ void ApplicationContextSDL::setWindowGrab(NativeWindowType* win, bool _grab)
 
 auto ApplicationContextSDL::getDisplayDPI() const noexcept -> float
 {
-    OgreAssert(!mWindows.empty(), "create a window first");
+    Ogre::OgreAssert(!mWindows.empty(), "create a window first");
     float vdpi = -1;
     if(SDL_GetDisplayDPI(0, nullptr, nullptr, &vdpi) == 0 && vdpi > 0)
         return vdpi;
