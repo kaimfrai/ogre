@@ -214,7 +214,7 @@ if (APPLE)
 		COMMAND mkdir ARGS -p ${OGRE_SAMPLE_CONTENTS_PATH}/Frameworks
 		COMMAND mkdir ARGS -p ${OGRE_SAMPLE_CONTENTS_PATH}/Plugins)
 
-    set(FRAMEWORKS OgreOverlay
+    set(FRAMEWORKS Ogre.Components.Overlay
 		OgreBites
         OgrePaging
         OgreProperty

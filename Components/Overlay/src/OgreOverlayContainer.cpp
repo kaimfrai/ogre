@@ -37,8 +37,6 @@ import <cstddef>;
 import <utility>;
 
 namespace Ogre {
-class Matrix4;
-class RenderQueue;
 
     //---------------------------------------------------------------------
     OverlayContainer::OverlayContainer(const String& name)

@@ -29,12 +29,11 @@ module;
 
 #include <cassert>
 
-module Ogre.Components.Overlay:.Obj;
+module Ogre.Components.Overlay;
 
 import :Container;
 import :Element;
 
-import Ogre.Components.Overlay;
 import Ogre.Core;
 
 import <cstddef>;

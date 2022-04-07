@@ -101,7 +101,7 @@ if (OGRE_BUILD_TESTS)
       list(APPEND SOURCE_FILES Components/PropertyTests.cpp)
     endif ()
     if (OGRE_BUILD_COMPONENT_OVERLAY)
-      set(OGRE_LIBRARIES ${OGRE_LIBRARIES} OgreOverlay)
+      set(OGRE_LIBRARIES ${OGRE_LIBRARIES} Ogre.Components.Overlay)
     endif ()
 
     if (OGRE_BUILD_COMPONENT_RTSHADERSYSTEM)
@@ -166,7 +166,7 @@ if (OGRE_BUILD_TESTS)
       add_custom_command(TARGET Test_Ogre POST_BUILD
         COMMAND mkdir ARGS -p ${OGRE_TEST_CONTENTS_PATH}/Plugins)
 
-      set(FRAMEWORKS OgreOverlay
+      set(FRAMEWORKS Ogre.Components.Overlay
         OgreBites
         OgrePaging
         OgreProperty

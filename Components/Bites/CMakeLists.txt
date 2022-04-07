@@ -144,7 +144,7 @@ endif()
 # setup target
 add_library(OgreBites ${OGRE_COMP_LIB_TYPE} ${HEADER_FILES} ${SOURCES})
 set_target_properties(OgreBites PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
-target_link_libraries(OgreBites PUBLIC Ogre.Core OgreOverlay PRIVATE ${DEPENDENCIES})
+target_link_libraries(OgreBites PUBLIC Ogre.Core Ogre.Components.Overlay PRIVATE ${DEPENDENCIES})
 if (OGRE_BUILD_COMPONENT_RTSHADERSYSTEM)
   target_link_libraries(OgreBites PUBLIC Ogre.Components.RTShaderSystem)
 endif ()
