@@ -28,7 +28,9 @@ class Slider;
 using namespace Ogre;
 using namespace OgreBites;
 
-#define NUM_TECHNIQUES (((int)InstanceManager::InstancingTechniquesCount) + 1)
+enum
+{   NUM_TECHNIQUES = (((int)InstanceManager::InstancingTechniquesCount) + 1)
+};
 
 class Sample_NewInstancing : public SdkSample
 {

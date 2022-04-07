@@ -40,10 +40,12 @@ THE SOFTWARE.
 namespace Ogre {
 
     class GLStateCacheManager;
-class GLRenderSystem;
+    class GLRenderSystem;
 
 // Default threshold at which glMapBuffer becomes more efficient than glBufferSubData (32k?)
-#   define OGRE_GL_DEFAULT_MAP_BUFFER_THRESHOLD (1024 * 32)
+    enum
+    {   OGRE_GL_DEFAULT_MAP_BUFFER_THRESHOLD = (1024 * 32)
+    };
 
     /** Implementation of HardwareBufferManager for OpenGL. */
     class GLHardwareBufferManager : public HardwareBufferManager
