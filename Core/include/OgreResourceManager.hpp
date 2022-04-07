@@ -166,7 +166,7 @@ namespace Ogre {
             as much as they can and wait to be reloaded.
             @see ResourceGroupManager for unloading of resource groups.
         */
-        void  unload(std::string_view name, std::string_view group OGRE_RESOURCE_GROUP_INIT);
+        void  unload(std::string_view name, std::string_view group = RGN_DEFAULT);
         
         /** Unloads a single resource by handle.
         @remarks
@@ -280,7 +280,7 @@ namespace Ogre {
         void remove(const ResourcePtr& r);
 
         /// @overload
-        void remove(std::string_view name, std::string_view group OGRE_RESOURCE_GROUP_INIT);
+        void remove(std::string_view name, std::string_view group = RGN_DEFAULT);
         
         /// @overload
         void remove(ResourceHandle handle);
@@ -318,14 +318,14 @@ namespace Ogre {
 
         /** Retrieves a pointer to a resource by name, or null if the resource does not exist.
         */
-        virtual auto getResourceByName(std::string_view name, std::string_view groupName OGRE_RESOURCE_GROUP_INIT) const -> ResourcePtr;
+        virtual auto getResourceByName(std::string_view name, std::string_view groupName = RGN_DEFAULT) const -> ResourcePtr;
 
         /** Retrieves a pointer to a resource by handle, or null if the resource does not exist.
         */
         virtual auto getByHandle(ResourceHandle handle) const -> ResourcePtr;
         
         /// Returns whether the named resource exists in this manager
-        auto resourceExists(std::string_view name, std::string_view group OGRE_RESOURCE_GROUP_INIT) const -> bool
+        auto resourceExists(std::string_view name, std::string_view group = RGN_DEFAULT) const -> bool
         {
             return getResourceByName(name, group).get() != nullptr;
         }

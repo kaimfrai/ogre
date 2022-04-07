@@ -65,7 +65,7 @@ namespace Ogre {
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName
-        auto getByName(std::string_view name, std::string_view groupName OGRE_RESOURCE_GROUP_INIT) const -> SkeletonPtr;
+        auto getByName(std::string_view name, std::string_view groupName = RGN_DEFAULT) const -> SkeletonPtr;
 
         /// @copydoc Singleton::getSingleton()
         static auto getSingleton() noexcept -> SkeletonManager&;

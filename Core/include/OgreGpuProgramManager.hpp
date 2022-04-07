@@ -118,7 +118,7 @@ namespace Ogre {
 
         /// Get a resource by name
         /// @see GpuProgramManager::getResourceByName
-        auto getByName(std::string_view name, std::string_view group OGRE_RESOURCE_GROUP_INIT) const -> GpuProgramPtr;
+        auto getByName(std::string_view name, std::string_view group = RGN_DEFAULT) const -> GpuProgramPtr;
 
         /** Loads a GPU program from a file
         @remarks

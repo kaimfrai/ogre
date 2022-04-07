@@ -59,7 +59,7 @@ namespace Ogre
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName
-        auto getByName(std::string_view name, std::string_view groupName OGRE_RESOURCE_GROUP_INIT) const -> FontPtr;
+        auto getByName(std::string_view name, std::string_view groupName = RGN_DEFAULT) const -> FontPtr;
 
         /** Override standard Singleton retrieval.
         @remarks

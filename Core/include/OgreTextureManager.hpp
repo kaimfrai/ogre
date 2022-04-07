@@ -91,7 +91,7 @@ class Image;
                             bool isManual = false, ManualResourceLoader* loader = nullptr,
                             const NameValuePairList* createParams = nullptr) -> TexturePtr;
         /// @copydoc ResourceManager::getResourceByName
-        auto getByName(std::string_view name, std::string_view groupName OGRE_RESOURCE_GROUP_INIT) const -> TexturePtr;
+        auto getByName(std::string_view name, std::string_view groupName  = RGN_DEFAULT) const -> TexturePtr;
 
         using ResourceManager::createOrRetrieve;
 
