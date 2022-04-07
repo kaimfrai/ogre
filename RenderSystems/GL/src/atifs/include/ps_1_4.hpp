@@ -192,9 +192,9 @@ private:
 
     };
 
-    #define R_BASE  static_cast<unsigned int>((sid_R0 - GL_REG_0_ATI))
-    #define C_BASE  static_cast<unsigned int>((sid_C0 - GL_CON_0_ATI))
-    #define T_BASE  static_cast<unsigned int>((sid_1T0 - GL_REG_0_ATI))
+    static auto constexpr inline R_BASE = static_cast<unsigned int>((sid_R0 - GL_REG_0_ATI));
+    static auto constexpr inline C_BASE = static_cast<unsigned int>((sid_C0 - GL_CON_0_ATI));
+    static auto constexpr inline T_BASE = static_cast<unsigned int>((sid_1T0 - GL_REG_0_ATI));
 
     // static library database for tokens and BNF rules
     static SymbolDef PS_1_4_SymbolTypeLib[];
@@ -254,7 +254,7 @@ private:
     int mArgCnt;
     int mConstantsPos;
 
-    #define MAXOPPARRAMS 5 // max number of parrams bound to an instruction
+    static auto constexpr inline MAXOPPARRAMS = 5; // max number of parrams bound to an instruction
     
     OpParram mOpParrams[MAXOPPARRAMS];
 
