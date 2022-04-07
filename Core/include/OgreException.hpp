@@ -29,17 +29,12 @@ THE SOFTWARE.
 #define OGRE_CORE_EXCEPTION_H
 
 #include <exception>
+#include <source_location>
+#include <string_view>
 
 // Precompiler options
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
-
-// Check for OGRE assert mode
-
-#define OgreAssert( a, b ) if( !(a) ) OGRE_EXCEPT_2( Ogre::Exception::ERR_RT_ASSERTION_FAILED, (#a " failed. " b) )
-
-/// replaced with OgreAssert(expr, mesg) in Debug configuration
-#define OgreAssertDbg( expr, mesg )
 
 namespace Ogre {
 
@@ -232,7 +227,7 @@ namespace Ogre {
         [[noreturn]]
         static void _throwException(
             Exception::ExceptionCodes code, int number,
-            const String& desc, 
+            const String& desc,
             const String& src, const char* file, long line)
         {
             switch (code)
@@ -261,15 +256,36 @@ namespace Ogre {
         }
     };
     
+    [[noreturn]]
+    auto inline OGRE_EXCEPT(Exception::ExceptionCodes code,
+                            ::std::string_view desc,
+                            // TODO cannot yet use consteval function source_location::current as a default argument
+                            ::std::string_view src =
+                                //::std::source_location::current().function_name(),
+                                __builtin_source_location()->_M_function_name,
+                            char const* file =
+                                //::std::source_location::current().file_name(),
+                                __builtin_source_location()->_M_file_name,
+                            ::std::uint_least32_t line =
+                                //::std::source_location::current().line()
+                                __builtin_source_location()->_M_line
+                            )
+    {
+        Ogre::ExceptionFactory::throwException(code, {desc.begin(), desc.end()}, { src.begin(), src.end() }, file, line);
+    }
 
-    
-#ifndef OGRE_EXCEPT
-#define OGRE_EXCEPT_3(code, desc, src)  Ogre::ExceptionFactory::throwException(code, desc, src, __FILE__, __LINE__)
-#define OGRE_EXCEPT_2(code, desc)       Ogre::ExceptionFactory::throwException(code, desc, __FUNCTION__, __FILE__, __LINE__)
-#define OGRE_EXCEPT_CHOOSER(arg1, arg2, arg3, arg4, ...) arg4
-#define OGRE_EXPAND(x) x // MSVC workaround
-#define OGRE_EXCEPT(...) OGRE_EXPAND(OGRE_EXCEPT_CHOOSER(__VA_ARGS__, OGRE_EXCEPT_3, OGRE_EXCEPT_2)(__VA_ARGS__))
-#endif
+    // Check for OGRE assert mode
+    auto inline OgreAssert(auto&& a, ::std::string_view b ) -> void
+    {   if( !static_cast<decltype(a)>(a) )
+            // TODO condition string is lost by conversion from macro to inline function
+            OGRE_EXCEPT(Ogre::Exception::ERR_RT_ASSERTION_FAILED, b);
+    }
+
+    /// replaced with OgreAssert(expr, mesg) in Debug configuration
+    auto inline OgreAssertDbg(auto&& expr[[maybe_unused]], ::std::string_view mesg[[maybe_unused]]) -> void
+    {
+
+    }
     /** @} */
     /** @} */
 
