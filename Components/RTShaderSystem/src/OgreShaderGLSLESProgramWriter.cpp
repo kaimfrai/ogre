@@ -29,6 +29,7 @@ module Ogre.Components.RTShaderSystem:ShaderGLSLESProgramWriter.Obj;
 import :ShaderGLSLESProgramWriter;
 import :ShaderParameter;
 import :ShaderProgram;
+import :ShaderProgramWriter;
 
 import Ogre.Core;
 

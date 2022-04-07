@@ -22,7 +22,7 @@ include_directories(${PROJECT_SOURCE_DIR}/Samples/Simple/include)
 include_directories(${PROJECT_SOURCE_DIR}/Tests/VisualTests/Common/include)
 
 add_library(VTests ${OGRE_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES} )
-target_link_libraries(VTests ${OGRE_LIBRARIES} OgreBites OgreOverlay OgreRTShaderSystem)
+target_link_libraries(VTests ${OGRE_LIBRARIES} OgreBites OgreOverlay Ogre.Components.RTShaderSystem)
 #ogre_config_sample_lib(VTests)
 
 if (APPLE AND NOT APPLE_IOS)

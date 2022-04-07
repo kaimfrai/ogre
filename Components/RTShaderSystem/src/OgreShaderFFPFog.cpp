@@ -37,6 +37,7 @@ import :ShaderPrerequisites;
 import :ShaderProgram;
 import :ShaderProgramSet;
 import :ShaderScriptTranslator;
+import :ShaderSubRenderState;
 
 import Ogre.Core;
 

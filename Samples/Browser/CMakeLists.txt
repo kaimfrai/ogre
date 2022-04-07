@@ -218,7 +218,7 @@ if (APPLE)
 		OgreBites
         OgrePaging
         OgreProperty
-        OgreRTShaderSystem
+        Ogre.Components.RTShaderSystem
         OgreTerrain
         OgreVolume
         OgreMeshLodGenerator

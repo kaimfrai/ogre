@@ -105,7 +105,7 @@ if (OGRE_BUILD_TESTS)
     endif ()
 
     if (OGRE_BUILD_COMPONENT_RTSHADERSYSTEM)
-      set(OGRE_LIBRARIES ${OGRE_LIBRARIES} OgreRTShaderSystem)
+      set(OGRE_LIBRARIES ${OGRE_LIBRARIES} Ogre.Components.RTShaderSystem)
       list(APPEND SOURCE_FILES Components/RTShaderSystemTests.cpp)
     endif ()
 
@@ -170,7 +170,7 @@ if (OGRE_BUILD_TESTS)
         OgreBites
         OgrePaging
         OgreProperty
-        OgreRTShaderSystem
+        Ogre.Components.RTShaderSystem
         OgreTerrain
         OgreVolume
         OgreMeshLodGenerator

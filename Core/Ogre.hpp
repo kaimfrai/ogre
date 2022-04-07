@@ -105,6 +105,7 @@ export import :Root;
 export import :SceneManager;
 export import :SceneManagerEnumerator;
 export import :SceneNode;
+export import :ScriptTranslator;
 export import :ShadowCameraSetup;
 export import :ShadowCameraSetupFocused;
 export import :ShadowCameraSetupLiSPSM;
