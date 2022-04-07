@@ -44,9 +44,6 @@ THE SOFTWARE.
 module;
 
 #include "glad/glad.h"
-//---------------------------------------------------------------------------
-// macro to get the size of a static array
-#undef ARRAYSIZE
 
 module Ogre.RenderSystems.GL.atifs:ps_1_4;
 
@@ -55,16 +52,22 @@ import :Compiler2Pass;
 import <cstdio>;
 import <vector>;
 
-#define ARRAYSIZE(array) (sizeof(array)/sizeof(array[0]))
-#define ALPHA_BIT 0x08
-#define RGB_BITS 0x07
+template<::std::size_t N>
+auto constexpr inline ARRAYSIZE(auto const (& array)[N]) -> ::std::size_t
+{   return N;   }
+
+auto constexpr inline ALPHA_BIT = 0x08;
+auto constexpr inline RGB_BITS = 0x07;
+
 // Context key patterns
-#define ckp_PS_BASE 0x1
-#define ckp_PS_1_1  0x2
-#define ckp_PS_1_2  0x4
-#define ckp_PS_1_3  0x8
-#define ckp_PS_1_4  0x10
-#define ckp_PS_1_4_BASE (ckp_PS_BASE + ckp_PS_1_4)
+auto constexpr inline ckp_PS_BASE = 0x1;
+auto constexpr inline ckp_PS_1_1 = 0x2;
+auto constexpr inline ckp_PS_1_2 = 0x4;
+auto constexpr inline ckp_PS_1_3 = 0x8;
+auto constexpr inline ckp_PS_1_4 = 0x10;
+
+auto constexpr inline ckp_PS_1_4_BASE = (ckp_PS_BASE + ckp_PS_1_4);
+
 /** Subclasses Compiler2Pass to provide a ps_1_x compiler that takes DirectX pixel shader assembly
     and converts it to a form that can be used by ATI_fragment_shader OpenGL API
 @remarks
