@@ -132,8 +132,10 @@ namespace Ogre {
         static CmdBorderBottomRightUV msCmdBorderBottomRightUV;
 
     #define BCELL_UV(x) (x * 4 * 2)
-    #define POSITION_BINDING 0
-    #define TEXCOORD_BINDING 1
+enum {
+POSITION_BINDING = 0,
+TEXCOORD_BINDING = 1
+};
     //---------------------------------------------------------------------
     BorderPanelOverlayElement::BorderPanelOverlayElement(const String& name)
       : PanelOverlayElement(name), 

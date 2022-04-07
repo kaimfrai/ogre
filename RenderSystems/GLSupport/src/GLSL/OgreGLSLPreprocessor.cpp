@@ -45,7 +45,9 @@
 namespace Ogre {
 
     // Limit max number of macro arguments to this
-#define MAX_MACRO_ARGS 16
+enum {
+MAX_MACRO_ARGS = 16
+};
 
     /// Return closest power of two not smaller than given number
     static auto ClosestPow2 (size_t x) -> size_t

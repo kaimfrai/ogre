@@ -30,22 +30,32 @@ THE SOFTWARE.
 
 /** Define number of texture coordinate sets allowed per vertex.
 */
-#define OGRE_MAX_TEXTURE_COORD_SETS 8
+enum {
+OGRE_MAX_TEXTURE_COORD_SETS = 8
+};
 
 /** Define max number of texture layers allowed per pass on any card.
 */
-#define OGRE_MAX_TEXTURE_LAYERS 16
+enum {
+OGRE_MAX_TEXTURE_LAYERS = 16
+};
 
 /** Define max number of lights allowed per pass.
 */
-#define OGRE_MAX_SIMULTANEOUS_LIGHTS 8
+enum {
+OGRE_MAX_SIMULTANEOUS_LIGHTS = 8
+};
 
 /** Define max number of blending weights allowed per vertex.
 */
-#define OGRE_MAX_BLEND_WEIGHTS 4
+enum {
+OGRE_MAX_BLEND_WEIGHTS = 4
+};
 
 /** Define max number of multiple render targets (MRTs) to render to at once.
 */
-#define OGRE_MAX_MULTIPLE_RENDER_TARGETS 8
+enum {
+OGRE_MAX_MULTIPLE_RENDER_TARGETS = 8
+};
 
 #endif

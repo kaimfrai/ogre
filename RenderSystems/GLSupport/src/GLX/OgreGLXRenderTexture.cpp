@@ -44,8 +44,10 @@ namespace Ogre {
 class GLContext;
 }  // namespace Ogre
 
-#define GLX_RGBA_FLOAT_ATI_BIT 0x00000100
-#define GLX_RGBA_FLOAT_BIT     0x00000004
+enum {
+GLX_RGBA_FLOAT_ATI_BIT = 0x00000100,
+GLX_RGBA_FLOAT_BIT =     0x00000004
+};
 
 namespace Ogre
 {

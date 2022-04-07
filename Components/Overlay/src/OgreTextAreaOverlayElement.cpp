@@ -45,7 +45,9 @@ THE SOFTWARE
 
 namespace Ogre {
 
-#define DEFAULT_INITIAL_CHARS 12
+enum {
+DEFAULT_INITIAL_CHARS = 12
+};
     //---------------------------------------------------------------------
     String TextAreaOverlayElement::msTypeName = "TextArea";
     //-----------------------------------------------------------------------------------------
@@ -106,13 +108,15 @@ namespace Ogre {
     static CmdColourBottom msCmdColourBottom;
     static CmdAlignment msCmdAlignment;
     //---------------------------------------------------------------------
-    #define POS_TEX_BINDING 0
-    #define COLOUR_BINDING 1
-    #define UNICODE_NEL 0x0085
-    #define UNICODE_CR 0x000D
-    #define UNICODE_LF 0x000A
-    #define UNICODE_SPACE 0x0020
-    #define UNICODE_ZERO 0x0030
+enum {
+POS_TEX_BINDING = 0,
+COLOUR_BINDING = 1,
+UNICODE_NEL = 0x0085,
+UNICODE_CR = 0x000D,
+UNICODE_LF = 0x000A,
+UNICODE_SPACE = 0x0020,
+UNICODE_ZERO = 0x0030
+};
     //---------------------------------------------------------------------
     TextAreaOverlayElement::TextAreaOverlayElement(const String& name)
         : OverlayElement(name), mColourBottom(ColourValue::White), mColourTop(ColourValue::White)

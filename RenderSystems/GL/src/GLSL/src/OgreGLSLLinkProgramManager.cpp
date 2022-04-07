@@ -175,7 +175,9 @@ namespace Ogre {
         // scan through the active uniforms and add them to the reference list
         GLint uniformCount = 0;
 
-        #define BUFFERSIZE 200
+enum {
+BUFFERSIZE = 200
+};
         char   uniformName[BUFFERSIZE] = "";
         //GLint location;
         GLUniformReference newGLUniformReference;

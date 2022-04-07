@@ -36,7 +36,9 @@
 #include "SamplePlugin.hpp"
 #include "SdkSample.hpp"
 
-#define ENABLE_SHADERS_CACHE 1
+enum {
+ENABLE_SHADERS_CACHE = 1
+};
 
 #include "DefaultSamplesPlugin.hpp"
 

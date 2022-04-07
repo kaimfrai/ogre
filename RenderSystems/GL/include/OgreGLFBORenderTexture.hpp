@@ -42,7 +42,9 @@ class RenderTarget;
 }  // namespace Ogre
 
 /// Extra GL constants
-#define GL_DEPTH24_STENCIL8_EXT                           0x88F0
+enum {
+GL_DEPTH24_STENCIL8_EXT =                           0x88F0
+};
 
 
 namespace Ogre {

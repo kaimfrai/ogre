@@ -40,13 +40,17 @@ struct _finddata_t
     unsigned long size;
 };
 
-#define _A_NORMAL 0x00  /* Normalfile-Noread/writerestrictions */
-#define _A_RDONLY 0x01  /* Read only file */
-#define _A_HIDDEN 0x02  /* Hidden file */
-#define _A_SYSTEM 0x04  /* System file */
-#define _A_ARCH   0x20  /* Archive file */
+enum {
+_A_NORMAL = 0x00,  /* Normalfile-Noread/writerestrictions */
+_A_RDONLY = 0x01,  /* Read only file */
+_A_HIDDEN = 0x02,  /* Hidden file */
+_A_SYSTEM = 0x04,  /* System file */
+_A_ARCH =   0x20  /* Archive file */
+};
 
-#define _A_SUBDIR 0x10  /* Subdirectory */
+enum {
+_A_SUBDIR = 0x10  /* Subdirectory */
+};
 
 auto _findfirst(const char *pattern, struct _finddata_t *data) -> intptr_t;
 auto _findnext(intptr_t id, struct _finddata_t *data) -> int;

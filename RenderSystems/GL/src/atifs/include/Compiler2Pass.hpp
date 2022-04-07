@@ -33,7 +33,9 @@ THE SOFTWARE.
 #include <vector>
 
 // FIX ME - should not be hard coded
-#define BAD_TOKEN 999
+enum {
+BAD_TOKEN = 999
+};
 
 using uint = unsigned int;
 

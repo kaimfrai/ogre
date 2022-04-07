@@ -433,7 +433,7 @@ namespace Ogre {
             if (arbUnits > units)
                 units = arbUnits;
         }
-        rsc->setNumTextureUnits(std::min(OGRE_MAX_TEXTURE_LAYERS, units));
+        rsc->setNumTextureUnits(std::min(static_cast<GLint>(OGRE_MAX_TEXTURE_LAYERS), units));
 
         // Check for Anisotropy support
         if(GLAD_GL_EXT_texture_filter_anisotropic)

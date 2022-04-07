@@ -89,11 +89,13 @@ namespace Ogre {
     static auto queryCpuFeatures() -> uint
     {
 
-#define CPUID_FUNC_VENDOR_ID                 0x0
-#define CPUID_FUNC_STANDARD_FEATURES         0x1
-#define CPUID_FUNC_EXTENSION_QUERY           0x80000000
-#define CPUID_FUNC_EXTENDED_FEATURES         0x80000001
-#define CPUID_FUNC_ADVANCED_POWER_MANAGEMENT 0x80000007
+enum {
+CPUID_FUNC_VENDOR_ID =                 0x0,
+CPUID_FUNC_STANDARD_FEATURES =         0x1,
+CPUID_FUNC_EXTENSION_QUERY =           0x80000000,
+CPUID_FUNC_EXTENDED_FEATURES =         0x80000001,
+CPUID_FUNC_ADVANCED_POWER_MANAGEMENT = 0x80000007
+};
 
 #define CPUID_STD_FPU               (1<<0)
 #define CPUID_STD_TSC               (1<<4)
@@ -107,9 +109,11 @@ namespace Ogre {
 #define CPUID_STD_SSE41             (1<<19)     // ECX[19] - Bit 0 of standard function 1 indicate SSE41 supported
 #define CPUID_STD_SSE42             (1<<20)     // ECX[20] - Bit 0 of standard function 1 indicate SSE42 supported
 
-#define CPUID_FAMILY_ID_MASK        0x0F00      // EAX[11:8] - Bit 11 thru 8 contains family  processor id
-#define CPUID_EXT_FAMILY_ID_MASK    0x0F00000   // EAX[23:20] - Bit 23 thru 20 contains extended family processor id
-#define CPUID_PENTIUM4_ID           0x0F00      // Pentium 4 family processor id
+enum {
+CPUID_FAMILY_ID_MASK =        0x0F00,      // EAX[11:8] - Bit 11 thru 8 contains family  processor id
+CPUID_EXT_FAMILY_ID_MASK =    0x0F00000,   // EAX[23:20] - Bit 23 thru 20 contains extended family processor id
+CPUID_PENTIUM4_ID =           0x0F00      // Pentium 4 family processor id
+};
 
 #define CPUID_EXT_3DNOW             (1<<31)
 #define CPUID_EXT_AMD_3DNOWEXT      (1<<30)

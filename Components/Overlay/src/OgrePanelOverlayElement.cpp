@@ -81,8 +81,10 @@ class RenderQueue;
     static CmdUVCoords msCmdUVCoords;
     //---------------------------------------------------------------------
     // vertex buffer bindings, set at compile time (we could look these up but no point)
-    #define POSITION_BINDING 0
-    #define TEXCOORD_BINDING 1
+enum {
+POSITION_BINDING = 0,
+TEXCOORD_BINDING = 1
+};
 
     //---------------------------------------------------------------------
     PanelOverlayElement::PanelOverlayElement(const String& name)

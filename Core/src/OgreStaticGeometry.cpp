@@ -60,10 +60,12 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    #define REGION_RANGE 1024
-    #define REGION_HALF_RANGE 512
-    #define REGION_MAX_INDEX 511
-    #define REGION_MIN_INDEX -512
+enum {
+REGION_RANGE = 1024,
+REGION_HALF_RANGE = 512,
+REGION_MAX_INDEX = 511,
+REGION_MIN_INDEX = -512
+};
 
     //--------------------------------------------------------------------------
     StaticGeometry::StaticGeometry(SceneManager* owner, String  name):
@@ -147,9 +149,9 @@ namespace Ogre {
     auto StaticGeometry::getRegionBounds(ushort x, ushort y, ushort z) -> AxisAlignedBox
     {
         Vector3 min(
-            ((Real)x - REGION_HALF_RANGE) * mRegionDimensions.x + mOrigin.x,
-            ((Real)y - REGION_HALF_RANGE) * mRegionDimensions.y + mOrigin.y,
-            ((Real)z - REGION_HALF_RANGE) * mRegionDimensions.z + mOrigin.z
+            ((Real)x - static_cast<Real>(REGION_HALF_RANGE)) * mRegionDimensions.x + mOrigin.x,
+            ((Real)y - static_cast<Real>(REGION_HALF_RANGE)) * mRegionDimensions.y + mOrigin.y,
+            ((Real)z - static_cast<Real>(REGION_HALF_RANGE)) * mRegionDimensions.z + mOrigin.z
             );
         Vector3 max = min + mRegionDimensions;
         return { min, max };
@@ -158,11 +160,11 @@ namespace Ogre {
     auto StaticGeometry::getRegionCentre(ushort x, ushort y, ushort z) -> Vector3
     {
         return {
-            ((Real)x - REGION_HALF_RANGE) * mRegionDimensions.x + mOrigin.x
+            ((Real)x - static_cast<Real>(REGION_HALF_RANGE)) * mRegionDimensions.x + mOrigin.x
                 + mHalfRegionDimensions.x,
-            ((Real)y - REGION_HALF_RANGE) * mRegionDimensions.y + mOrigin.y
+            ((Real)y - static_cast<Real>(REGION_HALF_RANGE)) * mRegionDimensions.y + mOrigin.y
                 + mHalfRegionDimensions.y,
-            ((Real)z - REGION_HALF_RANGE) * mRegionDimensions.z + mOrigin.z
+            ((Real)z - static_cast<Real>(REGION_HALF_RANGE)) * mRegionDimensions.z + mOrigin.z
                 + mHalfRegionDimensions.z
             };
     }

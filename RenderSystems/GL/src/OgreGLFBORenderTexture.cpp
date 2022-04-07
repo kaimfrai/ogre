@@ -107,7 +107,9 @@ class GLContext;
     }
    
 /// Size of probe texture
-#define PROBE_SIZE 16
+enum {
+PROBE_SIZE = 16
+};
 
 /// Stencil and depth formats to be tried
 static const GLenum stencilFormats[] =

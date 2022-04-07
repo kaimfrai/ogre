@@ -38,7 +38,9 @@ THE SOFTWARE.
 #include "OgreStringConverter.hpp"
 
 // LogMessageLevel + LoggingLevel > OGRE_LOG_THRESHOLD = message logged
-#define OGRE_LOG_THRESHOLD 4
+enum {
+OGRE_LOG_THRESHOLD = 4
+};
 
 namespace {
     const char* RED = "\x1b[31;1m";

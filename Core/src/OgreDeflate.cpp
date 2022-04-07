@@ -48,7 +48,9 @@ namespace Ogre
     {
         delete[] (char*)address;
     }
-    #define OGRE_DEFLATE_TMP_SIZE 16384
+enum {
+OGRE_DEFLATE_TMP_SIZE = 16384
+};
     //---------------------------------------------------------------------
     DeflateStream::DeflateStream(const DataStreamPtr& compressedStream, String  tmpFileName, size_t avail_in)
     : DataStream(compressedStream->getAccessMode())

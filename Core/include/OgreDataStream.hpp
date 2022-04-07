@@ -46,6 +46,9 @@ namespace Ogre {
     /** \addtogroup Resources
     *  @{
     */
+    enum {
+        OGRE_STREAM_TEMP_SIZE = 128
+    };
 
     /** General purpose class used for encapsulating the reading and writing of data.
     @remarks
@@ -82,7 +85,6 @@ namespace Ogre {
         /// What type of access is allowed (AccessMode)
         uint16 mAccess;
 
-        #define OGRE_STREAM_TEMP_SIZE 128
     public:
         /// Constructor for creating unnamed streams
         DataStream(uint16 accessMode = READ) : mSize(0), mAccess(accessMode) {}

@@ -51,9 +51,11 @@ THE SOFTWARE.
 namespace Ogre {
 class MovableObject;
 
-#define POSITION_BINDING 0
-#define NORMAL_BINDING 1
-#define TEXCOORD_BINDING 2
+enum {
+POSITION_BINDING = 0,
+NORMAL_BINDING = 1,
+TEXCOORD_BINDING = 2
+};
 
     Rectangle2D::Rectangle2D(bool includeTextureCoords, Ogre::HardwareBuffer::Usage vBufUsage)
     : SimpleRenderable()
