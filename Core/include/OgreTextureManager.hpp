@@ -91,7 +91,7 @@ class Image;
                             bool isManual = false, ManualResourceLoader* loader = nullptr,
                             const NameValuePairList* createParams = nullptr) -> TexturePtr;
         /// @copydoc ResourceManager::getResourceByName
-        auto getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const -> TexturePtr;
+        auto getByName(const String& name, const String& groupName = RGN_DEFAULT) const -> TexturePtr;
 
         using ResourceManager::createOrRetrieve;
 

@@ -333,7 +333,7 @@ public:
     @param materialName The source material name.   
     @param groupName The source group name. 
     */
-    auto removeAllShaderBasedTechniques(const String& materialName, const String& groupName OGRE_RESOURCE_GROUP_INIT) -> bool;
+    auto removeAllShaderBasedTechniques(const String& materialName, const String& groupName = RGN_DEFAULT) -> bool;
 
     /// @overload
     auto removeAllShaderBasedTechniques(const Material& mat) -> bool
@@ -383,7 +383,7 @@ public:
     @param materialName The material to invalidate.
     @param groupName The source group name. 
     */
-    void invalidateMaterial(const String& schemeName, const String& materialName, const String& groupName OGRE_RESOURCE_GROUP_INIT);
+    void invalidateMaterial(const String& schemeName, const String& materialName, const String& groupName = RGN_DEFAULT);
 
     /// @overload
     void invalidateMaterial(const String& schemeName, const Material& mat)
@@ -398,7 +398,7 @@ public:
     @param materialName The material to validate.
     @param groupName The source group name. 
     */
-    auto validateMaterial(const String& schemeName, const String& materialName, const String& groupName OGRE_RESOURCE_GROUP_INIT) -> bool;
+    auto validateMaterial(const String& schemeName, const String& materialName, const String& groupName = RGN_DEFAULT) -> bool;
 
     /// @overload
     void validateMaterial(const String& schemeName, const Material& mat)
@@ -413,7 +413,7 @@ public:
 	@param materialName The material to invalidate.
 	@param groupName The source group name.
 	*/
-    void invalidateMaterialIlluminationPasses(const String& schemeName, const String& materialName, const String& groupName OGRE_RESOURCE_GROUP_INIT);
+    void invalidateMaterialIlluminationPasses(const String& schemeName, const String& materialName, const String& groupName = RGN_DEFAULT);
 
 	/**
 	Validate specific material scheme. This action will generate shader programs illumination passes of the technique of the
@@ -422,7 +422,7 @@ public:
 	@param materialName The material to validate.
 	@param groupName The source group name.
 	*/
-	auto validateMaterialIlluminationPasses(const String& schemeName, const String& materialName, const String& groupName OGRE_RESOURCE_GROUP_INIT) -> bool;
+	auto validateMaterialIlluminationPasses(const String& schemeName, const String& materialName, const String& groupName = RGN_DEFAULT) -> bool;
 
     /** 
     Return custom material Serializer of the shader generator.

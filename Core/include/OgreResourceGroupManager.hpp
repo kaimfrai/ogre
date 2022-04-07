@@ -53,13 +53,12 @@ THE SOFTWARE.
 #undef Status
 #endif
 
-#define OGRE_RESOURCE_GROUP_INIT = RGN_DEFAULT
-
 namespace Ogre {
-class ManualResourceLoader;
-class Resource;
-class ResourceManager;
-class ScriptLoader;
+
+    class ManualResourceLoader;
+    class Resource;
+    class ResourceManager;
+    class ScriptLoader;
 
     /** \addtogroup Core
     *  @{

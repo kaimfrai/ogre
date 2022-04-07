@@ -119,7 +119,7 @@ namespace Ogre {
 
         /// Get a resource by name
         /// @see GpuProgramManager::getResourceByName
-        auto getByName(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT) const -> GpuProgramPtr;
+        auto getByName(const String& name, const String& group = RGN_DEFAULT) const -> GpuProgramPtr;
 
         /** Loads a GPU program from a file
         @remarks

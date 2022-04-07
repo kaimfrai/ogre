@@ -81,7 +81,7 @@ class SubMesh;
         void _initialise();
 
         /// @copydoc ResourceManager::getResourceByName
-        auto getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const -> MeshPtr;
+        auto getByName(const String& name, const String& groupName = RGN_DEFAULT) const -> MeshPtr;
 
         /// Create a new mesh
         /// @copydetails ResourceManager::createResource
