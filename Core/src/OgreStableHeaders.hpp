@@ -29,6 +29,9 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_STABLE_HEADERS_H
 #define OGRE_CORE_STABLE_HEADERS_H
 
-#define FOURCC(c0, c1, c2, c3) (c0 | (c1 << 8) | (c2 << 16) | (c3 << 24))
+[[nodiscard]]
+auto constexpr inline FOURCC(int c0, int c1, int c2, int c3) -> int
+{   return (c0 | (c1 << 8) | (c2 << 16) | (c3 << 24));
+}
 
 #endif 
