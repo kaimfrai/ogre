@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstddef>
 #include <string>
+#include <utility>
 
 #include "OgreCamera.hpp"
 #include "OgreMatrix3.hpp"
@@ -45,8 +46,8 @@ THE SOFTWARE.
 namespace Ogre {
 
     //---------------------------------------------------------------------
-    Overlay::Overlay(const String& name) :
-        mName(name),
+    Overlay::Overlay(String  name) :
+        mName(std::move(name)),
         mRotate(0.0f) 
 
     {

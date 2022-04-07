@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <ios>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "OgreDataStream.hpp"
@@ -50,8 +51,8 @@ namespace Ogre {
         String versionString;
         MeshSerializerImpl* impl;
 
-        MeshVersionData(MeshVersion _ver, const String& _string, MeshSerializerImpl* _impl)
-        : version(_ver), versionString(_string), impl(_impl) {}
+        MeshVersionData(MeshVersion _ver, String  _string, MeshSerializerImpl* _impl)
+        : version(_ver), versionString(std::move(_string)), impl(_impl) {}
 
         ~MeshVersionData() { delete impl; }
 

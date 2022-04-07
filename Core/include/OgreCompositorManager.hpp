@@ -246,9 +246,9 @@ class Viewport;
             String fsaaHint;
             bool sRGBwrite;
 
-            TextureDef(size_t w, size_t h, TextureType t, PixelFormat f, uint aa, const String& aaHint,
+            TextureDef(size_t w, size_t h, TextureType t, PixelFormat f, uint aa, String  aaHint,
                        bool srgb)
-                : width(w), height(h), type(t), format(f), fsaa(aa), fsaaHint(aaHint), sRGBwrite(srgb)
+                : width(w), height(h), type(t), format(f), fsaa(aa), fsaaHint(std::move(aaHint)), sRGBwrite(srgb)
             {
             }
 

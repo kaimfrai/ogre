@@ -28,6 +28,8 @@
 #ifndef OGRE_SAMPLES_SAMPLEPLUGIN_H
 #define OGRE_SAMPLES_SAMPLEPLUGIN_H
 
+#include <utility>
+
 #include "OgrePlugin.hpp"
 #include "Sample.hpp"
 
@@ -40,8 +42,8 @@ namespace OgreBites
     {
     public:
 
-        SamplePlugin(const Ogre::String& name)
-        : mName(name)
+        SamplePlugin(Ogre::String  name)
+        : mName(std::move(name))
         {
         }
 

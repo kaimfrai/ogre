@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include <mutex>
 #include <sstream>
 #include <thread>
+#include <utility>
 
 namespace Ogre {
     /** \addtogroup Core
@@ -54,7 +55,7 @@ namespace Ogre {
         NameGenerator(const NameGenerator& rhs)
              = default;
         
-        NameGenerator(const String& prefix) : mPrefix(prefix) {}
+        NameGenerator(String  prefix) : mPrefix(std::move(prefix)) {}
 
         /// Generate a new name
         auto generate() -> String

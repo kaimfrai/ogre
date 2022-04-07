@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include <utility>
 
 #include "OgreGpuProgramParams.hpp"
 #include "OgreMath.hpp"
@@ -352,8 +353,8 @@ namespace Ogre
     //-----------------------------------------------------------------------
     // LinearControllerFunction
     //-----------------------------------------------------------------------
-    LinearControllerFunction::LinearControllerFunction(const std::vector<Real>& keys, const std::vector<Real>& values, Real frequency, bool deltaInput) :
-            ControllerFunction<Real>(deltaInput), mFrequency(frequency), mKeys(keys), mValues(values) {
+    LinearControllerFunction::LinearControllerFunction(std::vector<Real>  keys, std::vector<Real>  values, Real frequency, bool deltaInput) :
+            ControllerFunction<Real>(deltaInput), mFrequency(frequency), mKeys(std::move(keys)), mValues(std::move(values)) {
         assert(mKeys.size() == mValues.size());
     }
     //-----------------------------------------------------------------------

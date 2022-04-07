@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <functional>
+#include <utility>
 #include <vector>
 
 #include "OgreCamera.hpp"
@@ -38,8 +39,8 @@ namespace Ogre {
 class MovableObject;
 
     //-----------------------------------------------------------------------
-    LodStrategy::LodStrategy(const String& name)
-        : mName(name)
+    LodStrategy::LodStrategy(String  name)
+        : mName(std::move(name))
     { }
     //-----------------------------------------------------------------------
     LodStrategy::~LodStrategy()

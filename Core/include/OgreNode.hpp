@@ -214,7 +214,7 @@ class Camera;
         @remarks
             Assigned a name.
         */
-        Node(const String& name);
+        Node(String  name);
 
         virtual ~Node();  
 

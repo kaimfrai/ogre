@@ -61,7 +61,7 @@ class MovableObject;
 
     public:
         /** Constructor accepting name. */
-        LodStrategy(const String& name);
+        LodStrategy(String  name);
 
         /** Virtual destructor. */
         virtual ~LodStrategy();

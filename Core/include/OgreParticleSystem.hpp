@@ -86,7 +86,7 @@ namespace Ogre {
             You should use the ParticleSystemManager to create particle systems rather than creating
             them directly.
         */
-        ParticleSystem(const String& name, const String& resourceGroupName);
+        ParticleSystem(const String& name, String  resourceGroupName);
 
         ~ParticleSystem() override;
 

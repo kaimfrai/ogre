@@ -182,7 +182,7 @@ class SceneNode;
         MovableObject();
 
         /// Named constructor
-        MovableObject(const String& name);
+        MovableObject(String  name);
         /** Virtual destructor - read Scott Meyers if you don't know why this is needed.
         */
         ~MovableObject() override;

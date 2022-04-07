@@ -196,14 +196,14 @@ class RenderQueue;
         mCastShadows = false;
     }
     //-----------------------------------------------------------------------
-    ParticleSystem::ParticleSystem(const String& name, const String& resourceGroup)
+    ParticleSystem::ParticleSystem(const String& name, String  resourceGroup)
       : MovableObject(name),
         mAABB(),
         mBoundingRadius(1.0f),
         mBoundsAutoUpdate(true),
         mBoundsUpdateTime(10.0f),
         mUpdateRemainTime(0),
-        mResourceGroupName(resourceGroup),
+        mResourceGroupName(std::move(resourceGroup)),
         mIsRendererConfigured(false),
         mSpeedFactor(1.0f),
         mIterationInterval(0),

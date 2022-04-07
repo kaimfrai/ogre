@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <cstddef>
 #include <string>
+#include <utility>
 
 #include "OgreException.hpp"
 #include "OgreLogManager.hpp"
@@ -63,8 +64,8 @@ namespace Ogre {
 
     const String& OverlayElement::DEFAULT_RESOURCE_GROUP = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;
     //---------------------------------------------------------------------
-    OverlayElement::OverlayElement(const String& name)
-      : mName(name)
+    OverlayElement::OverlayElement(String  name)
+      : mName(std::move(name))
        
     {
         // default overlays to preserve their own detail level

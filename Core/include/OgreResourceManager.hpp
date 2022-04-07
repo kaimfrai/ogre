@@ -403,7 +403,7 @@ namespace Ogre {
         {
             String mName;
         public:
-            ResourcePool(const String& name);
+            ResourcePool(String  name);
             ~ResourcePool() override;
             /// Get the name of the pool
             [[nodiscard]]

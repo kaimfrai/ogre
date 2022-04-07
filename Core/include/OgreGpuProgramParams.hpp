@@ -34,6 +34,7 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include <limits>
 #include <map>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "OgreMemoryAllocatorConfig.hpp"
@@ -426,7 +427,7 @@ template <int dims, typename T> class Vector;
         bool mDirty{false};
 
     public:
-        GpuSharedParameters(const String& name);
+        GpuSharedParameters(String  name);
 
         /// Get the name of this shared parameter set.
         auto getName() -> const String& { return mName; }
@@ -1203,10 +1204,10 @@ template <int dims, typename T> class Vector;
             /// The type of any extra data
             ACDataType dataType;
 
-        AutoConstantDefinition(AutoConstantType _acType, const String& _name,
+        AutoConstantDefinition(AutoConstantType _acType, String  _name,
                                size_t _elementCount, ElementType _elementType,
                                ACDataType _dataType)
-        :acType(_acType), name(_name), elementCount(_elementCount),
+        :acType(_acType), name(std::move(_name)), elementCount(_elementCount),
                 elementType(_elementType), dataType(_dataType)
             {
 

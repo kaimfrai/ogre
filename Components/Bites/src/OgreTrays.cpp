@@ -1123,8 +1123,8 @@ void ProgressBar::setProgress(Ogre::Real progress)
     mFill->setWidth(std::max<int>((int)mFill->getHeight(), (int)(mProgress * (mMeter->getWidth() - 2 * mFill->getLeft()))));
 }
 
-TrayManager::TrayManager(const Ogre::String &name, Ogre::RenderWindow *window, TrayListener *listener) :
-    mName(name), mWindow(window), mWidgetDeathRow(), mListener(listener) 
+TrayManager::TrayManager(Ogre::String name, Ogre::RenderWindow *window, TrayListener *listener) :
+    mName(std::move(name)), mWindow(window), mWidgetDeathRow(), mListener(listener) 
 {
     mTimer = Ogre::Root::getSingleton().getTimer();
     mLastStatUpdateTime = -FRAME_UPDATE_DELAY; // update immediately on first call

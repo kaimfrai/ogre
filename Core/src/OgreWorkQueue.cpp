@@ -61,8 +61,8 @@ namespace Ogre {
     = default;
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    WorkQueue::Response::Response(const Request* rq, bool success, const Any& data, const String& msg)
-        : mRequest(rq), mSuccess(success), mMessages(msg), mData(data)
+    WorkQueue::Response::Response(const Request* rq, bool success, const Any& data, String  msg)
+        : mRequest(rq), mSuccess(success), mMessages(std::move(msg)), mData(data)
     {
         
     }
@@ -73,8 +73,8 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    DefaultWorkQueueBase::DefaultWorkQueueBase(const String& name)
-        : mName(name)
+    DefaultWorkQueueBase::DefaultWorkQueueBase(String  name)
+        : mName(std::move(name))
          
     {
     }

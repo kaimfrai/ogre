@@ -1485,10 +1485,10 @@ void ShaderGenerator::SGPass::buildTargetRenderState()
 
 //-----------------------------------------------------------------------------
 ShaderGenerator::SGTechnique::SGTechnique(SGMaterial* parent, const Technique* srcTechnique,
-                                          const String& dstTechniqueSchemeName,
+                                          String  dstTechniqueSchemeName,
                                           bool overProgrammable)
     : mParent(parent), mSrcTechnique(srcTechnique), 
-      mDstTechniqueSchemeName(dstTechniqueSchemeName), mOverProgrammable(overProgrammable)
+      mDstTechniqueSchemeName(std::move(dstTechniqueSchemeName)), mOverProgrammable(overProgrammable)
 {
 }
 
@@ -1719,8 +1719,8 @@ auto ShaderGenerator::SGTechnique::hasRenderState(unsigned short passIndex) -> b
 
 
 //-----------------------------------------------------------------------------
-ShaderGenerator::SGScheme::SGScheme(const String& schemeName) :
-    mName(schemeName) 
+ShaderGenerator::SGScheme::SGScheme(String  schemeName) :
+    mName(std::move(schemeName)) 
 {
 }
 

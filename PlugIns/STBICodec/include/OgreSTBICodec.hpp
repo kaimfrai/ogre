@@ -53,7 +53,7 @@ namespace Ogre {
         static RegisteredCodecList msCodecList;
 
     public:
-        STBIImageCodec(const String &type);
+        STBIImageCodec(String type);
         ~STBIImageCodec() override = default;
 
         using ImageCodec::decode;

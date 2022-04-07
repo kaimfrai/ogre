@@ -130,7 +130,7 @@ class VertexData;
         @param name The name of the animation, should be unique within it's parent (e.g. Skeleton)
         @param length The length of the animation in seconds.
         */
-        Animation(const String& name, Real length);
+        Animation(String  name, Real length);
         virtual ~Animation();
 
         /** Gets the name of this animation. */

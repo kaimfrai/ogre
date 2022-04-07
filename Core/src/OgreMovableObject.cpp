@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <cassert>
 #include <cmath>
 #include <cstddef>
+#include <utility>
 
 #include "OgreAxisAlignedBox.hpp"
 #include "OgreCamera.hpp"
@@ -66,8 +67,8 @@ class Any;
     //-----------------------------------------------------------------------
     MovableObject::MovableObject() : MovableObject(BLANKSTRING) {}
     //-----------------------------------------------------------------------
-    MovableObject::MovableObject(const String& name)
-        : mName(name)
+    MovableObject::MovableObject(String  name)
+        : mName(std::move(name))
         , mCreator(nullptr)
         , mManager(nullptr)
         , mParentNode(nullptr)

@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <cstring>
 #include <memory>
 #include <ostream>
+#include <utility>
 
 #include "OgreCamera.hpp"
 #include "OgreEdgeListBuilder.hpp"
@@ -65,9 +66,9 @@ namespace Ogre {
     #define REGION_MIN_INDEX -512
 
     //--------------------------------------------------------------------------
-    StaticGeometry::StaticGeometry(SceneManager* owner, const String& name):
+    StaticGeometry::StaticGeometry(SceneManager* owner, String  name):
         mOwner(owner),
-        mName(name),
+        mName(std::move(name)),
         
         mRegionDimensions(Vector3(1000,1000,1000)),
         mHalfRegionDimensions(Vector3(500,500,500)),

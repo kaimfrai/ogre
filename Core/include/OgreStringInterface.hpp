@@ -33,6 +33,7 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 #include "OgreCommon.hpp"
@@ -72,8 +73,8 @@ namespace Ogre {
     {
     public:
         String name;
-        ParameterDef(const String& newName, const String& = "", ParameterType = PT_INT)
-            : name(newName) {}
+        ParameterDef(String  newName, const String& = "", ParameterType = PT_INT)
+            : name(std::move(newName)) {}
     };
     using ParameterList = std::vector<String>;
 

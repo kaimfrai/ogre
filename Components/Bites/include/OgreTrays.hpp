@@ -761,7 +761,7 @@ namespace OgreBites
         /**
         Creates backdrop, cursor, and trays.
         */
-        TrayManager(const Ogre::String& name, Ogre::RenderWindow* window, TrayListener* listener = nullptr);
+        TrayManager(Ogre::String  name, Ogre::RenderWindow* window, TrayListener* listener = nullptr);
 
         /**
         Destroys background, cursor, widgets, and trays.

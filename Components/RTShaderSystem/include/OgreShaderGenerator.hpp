@@ -572,7 +572,7 @@ private:
     {
     public:
         SGTechnique(SGMaterial* parent, const Technique* srcTechnique,
-                    const String& dstTechniqueSchemeName, bool overProgrammable);
+                    String  dstTechniqueSchemeName, bool overProgrammable);
         ~SGTechnique();
         
         /** Get the parent SGMaterial */
@@ -661,7 +661,7 @@ private:
     
     public:
         /** Class constructor. */
-        SGMaterial(const String& materialName, const String& groupName) : mName(materialName), mGroup(groupName) 
+        SGMaterial(String  materialName, String  groupName) : mName(std::move(materialName)), mGroup(std::move(groupName)) 
         {}
 
         /** Get the material name. */
@@ -693,7 +693,7 @@ private:
     class SGScheme : public RTShaderSystemAlloc
     {   
     public:
-        SGScheme(const String& schemeName);
+        SGScheme(String  schemeName);
         ~SGScheme();    
 
 

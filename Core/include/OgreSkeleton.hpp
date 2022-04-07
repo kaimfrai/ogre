@@ -34,6 +34,7 @@ THE SOFTWARE.
 #include <map>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "OgreAnimation.hpp"
@@ -475,11 +476,11 @@ class ResourceManager;
         String skeletonName;
         SkeletonPtr pSkeleton;
         Real scale;
-        LinkedSkeletonAnimationSource(const String& skelName, Real scl)
-            : skeletonName(skelName), scale(scl) {}
-            LinkedSkeletonAnimationSource(const String& skelName, Real scl, 
+        LinkedSkeletonAnimationSource(String  skelName, Real scl)
+            : skeletonName(std::move(skelName)), scale(scl) {}
+            LinkedSkeletonAnimationSource(String  skelName, Real scl, 
                 SkeletonPtr skelPtr)
-                : skeletonName(skelName), pSkeleton(skelPtr), scale(scl) {}
+                : skeletonName(std::move(skelName)), pSkeleton(skelPtr), scale(scl) {}
     };
     /** @} */
     /** @} */

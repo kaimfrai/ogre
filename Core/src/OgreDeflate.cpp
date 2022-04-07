@@ -28,6 +28,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <fstream> // IWYU pragma: keep
+#include <utility>
 
 #include "OgreDeflate.hpp"
 #include "OgreException.hpp"
@@ -49,10 +50,10 @@ namespace Ogre
     }
     #define OGRE_DEFLATE_TMP_SIZE 16384
     //---------------------------------------------------------------------
-    DeflateStream::DeflateStream(const DataStreamPtr& compressedStream, const String& tmpFileName, size_t avail_in)
+    DeflateStream::DeflateStream(const DataStreamPtr& compressedStream, String  tmpFileName, size_t avail_in)
     : DataStream(compressedStream->getAccessMode())
     , mCompressedStream(compressedStream)
-    , mTempFileName(tmpFileName)
+    , mTempFileName(std::move(tmpFileName))
     , mZStream(nullptr)
     , mCurrentPos(0)
     , mAvailIn(avail_in)
@@ -62,10 +63,10 @@ namespace Ogre
         init();
     }
     //---------------------------------------------------------------------
-    DeflateStream::DeflateStream(const String& name, const DataStreamPtr& compressedStream, const String& tmpFileName, size_t avail_in)
+    DeflateStream::DeflateStream(const String& name, const DataStreamPtr& compressedStream, String  tmpFileName, size_t avail_in)
     : DataStream(name, compressedStream->getAccessMode())
     , mCompressedStream(compressedStream)
-    , mTempFileName(tmpFileName)
+    , mTempFileName(std::move(tmpFileName))
     , mZStream(nullptr)
     , mCurrentPos(0)
     , mAvailIn(avail_in)
@@ -75,10 +76,10 @@ namespace Ogre
         init();
     }
     //---------------------------------------------------------------------
-    DeflateStream::DeflateStream(const String& name, const DataStreamPtr& compressedStream, StreamType streamType, const String& tmpFileName, size_t avail_in)
+    DeflateStream::DeflateStream(const String& name, const DataStreamPtr& compressedStream, StreamType streamType, String  tmpFileName, size_t avail_in)
     : DataStream(name, compressedStream->getAccessMode())
     , mCompressedStream(compressedStream)
-    , mTempFileName(tmpFileName)
+    , mTempFileName(std::move(tmpFileName))
     , mZStream(nullptr)
     , mCurrentPos(0)
     , mAvailIn(avail_in)

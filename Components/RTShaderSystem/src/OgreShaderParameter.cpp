@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <memory>
 #include <ostream>
 #include <string>
+#include <utility>
 
 #include "OgreGpuProgramParams.hpp"
 #include "OgrePlatform.hpp"
@@ -182,10 +183,10 @@ Parameter::Parameter() : mName(""), mType(GCT_UNKNOWN), mSemantic(SPS_UNKNOWN), 
 }
 
 //-----------------------------------------------------------------------
-Parameter::Parameter(GpuConstantType type, const String& name, 
+Parameter::Parameter(GpuConstantType type, String  name, 
             const Semantic& semantic, int index, 
             const Content& content, size_t size) :
-    mName(name), mType(type), mSemantic(semantic), mIndex(index), mContent(content), mSize(size), mUsed(false)
+    mName(std::move(name)), mType(type), mSemantic(semantic), mIndex(index), mContent(content), mSize(size), mUsed(false)
 {
 }
 

@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include <memory>
 #include <ostream>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "OgreCodec.hpp"
@@ -105,8 +106,8 @@ namespace Ogre {
         msCodecList.clear();
     }
     //---------------------------------------------------------------------
-    STBIImageCodec::STBIImageCodec(const String &type):
-        mType(type)
+    STBIImageCodec::STBIImageCodec(String type):
+        mType(std::move(type))
     { 
     }
     //---------------------------------------------------------------------
