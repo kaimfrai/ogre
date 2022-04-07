@@ -38,12 +38,9 @@ export import <cstddef>;
 export import <map>;
 export import <vector>;
 
-/* Define the number of priority groups for the render system's render targets. */
-#ifndef OGRE_NUM_RENDERTARGET_GROUPS
-    #define OGRE_NUM_RENDERTARGET_GROUPS 10
-    #define OGRE_DEFAULT_RT_GROUP 4
-    #define OGRE_REND_TO_TEX_RT_GROUP 2
-#endif
+auto constexpr inline OGRE_NUM_RENDERTARGET_GROUPS = 10;
+auto constexpr inline OGRE_DEFAULT_RT_GROUP = 4;
+auto constexpr inline OGRE_REND_TO_TEX_RT_GROUP = 2;
 
 export
 namespace Ogre {

@@ -29,6 +29,7 @@ export module Ogre.Core:String;
 
 export import :Prerequisites;
 
+export import <format>;
 export import <string>;
 export import <vector>;
 
@@ -168,11 +169,12 @@ namespace Ogre {
         */
         static auto replaceAll(const String& source, const String& replaceWhat, const String& replaceWithWhat) -> const String;
 
-        /** create a string from a printf expression
-         *
-         * @note this function - like printf - uses a locale dependent decimal point
-         */
-        static auto format(const char* fmt, ...) -> String;
+
+        template<typename ...Args>
+        static auto inline format(const char* fmt, Args&&... args) -> String
+        {
+            return ::std::format(fmt, ::std::forward<Args>(args)...);
+        }
     };
 
     using _StringHash = ::std::hash<String>;

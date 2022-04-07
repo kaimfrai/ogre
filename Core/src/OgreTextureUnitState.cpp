@@ -392,7 +392,7 @@ class Frustum;
         std::vector<String> names(numFrames);
         for (uint32 i = 0; i < names.size(); ++i)
         {
-            names[i] = StringUtil::format("%s_%u.%s", baseName.c_str(), i, ext.c_str());
+            names[i] = StringUtil::format("{}_{}.{}", baseName.c_str(), i, ext.c_str());
         }
 
         setAnimatedTextureName(names, duration);
@@ -450,7 +450,7 @@ class Frustum;
         for(const String& name : names)
             hash = FastHash(name.data(), name.size(), hash);
 
-        auto tex = retrieveTexture(StringUtil::format("%sTex_%x", typeName, hash));
+        auto tex = retrieveTexture(StringUtil::format("{}Tex_{}", typeName, hash));
         tex->setTextureType(type);
         tex->setLayerNames(names);
         setTexture(tex);

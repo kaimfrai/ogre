@@ -419,7 +419,7 @@ namespace Ogre {
 
             // allow 8 digit hex number. there should never be that many texture units.
             // This sprintf replaced a call to StringConverter::toString for performance reasons
-            state->setName( StringUtil::format("%lx", static_cast<long>(idx)));
+            state->setName( StringUtil::format("{:#08x}", static_cast<long>(idx)));
         }
         _notifyNeedsRecompile();
         _dirtyHash();

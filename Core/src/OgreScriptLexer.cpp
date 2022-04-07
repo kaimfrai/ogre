@@ -83,7 +83,7 @@ namespace Ogre {
                     if (braceLayer == 0)
                     {
                         error = StringUtil::format(
-                            "no matching open bracket '{' found for close bracket '}' at %s:%d", source,
+                            "no matching open bracket '{' found for close bracket '}' at {}:{}", source,
                             line);
                         return tokens;
                     }
@@ -256,7 +256,7 @@ namespace Ogre {
         {
             if(state == QUOTE)
             {
-                error = StringUtil::format("no matching \" found for \" at %s:%d", source, lastQuote);
+                error = StringUtil::format("no matching \" found for \" at {}:{}", source, lastQuote);
                 return tokens;
             }
         }
@@ -264,13 +264,13 @@ namespace Ogre {
         // Check that all opened brackets have been closed
         if (braceLayer == 1)
         {
-            error = StringUtil::format("no matching closing bracket '}' for open bracket '{' at %s:%d",
+            error = StringUtil::format("no matching closing bracket '}}' for open bracket '{{' at {}:{}",
                                        source, firstOpenBrace);
         }
         else if (braceLayer > 1)
         {
             error = StringUtil::format(
-                "too many open brackets (%d) '{' without matching closing bracket '}' in %s", braceLayer,
+                "too many open brackets ({}) '{' without matching closing bracket '}' in {}", braceLayer,
                 source);
         }
        
