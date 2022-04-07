@@ -32,15 +32,33 @@ module;
 #define STB_IMAGE_STATIC
 #include <zlib.h>
 #include "stbi/stb_image.h"
+
+static auto custom_zlib_compress(unsigned char* data, int data_len, int* out_len, int /*quality*/) -> unsigned char*
+{
+    unsigned long destLen = compressBound(data_len);
+    auto* dest = (unsigned char*)malloc(destLen);
+    int ret = compress(dest, &destLen, data, data_len); // use default quality
+    if (ret != Z_OK)
+    {
+        free(dest);
+        // TODO how do you solve this with modules?
+        // returning nullptr is safe, another exception is thrown elsewhere
+        return nullptr;
+//         OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "compress failed");
+    }
+
+    *out_len = destLen;
+    return dest;
+}
+
 #define STBIW_ZLIB_COMPRESS custom_zlib_compress
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STBI_WRITE_NO_STDIO
 #include "stbi/stb_image_write.h"
 
-module Ogre.PlugIns.STBICodec:.Obj;
+module Ogre.PlugIns.STBICodec;
 
 import Ogre.Core;
-import Ogre.PlugIns.STBICodec;
 
 import <cstdlib>;
 import <memory>;
@@ -48,21 +66,6 @@ import <ostream>;
 import <string>;
 import <utility>;
 import <vector>;
-
-static auto custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/) -> Ogre::uchar*
-{
-    unsigned long destLen = compressBound(data_len);
-    auto* dest = (Ogre::uchar*)malloc(destLen);
-    int ret = compress(dest, &destLen, data, data_len); // use default quality
-    if (ret != Z_OK)
-    {
-        free(dest);
-        OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "compress failed");
-    }
-
-    *out_len = destLen;
-    return dest;
-}
 
 namespace Ogre {
 
