@@ -31,13 +31,13 @@ module;
 
 export module Ogre.Core:Zip;
 
-export import :ArchiveFactory;
-export import :Archive;
-export import :Platform;
-export import :Prerequisites;
+import :ArchiveFactory;
+import :Platform;
+import :Prerequisites;
 
 export
 namespace Ogre {
+class Archive;
 
     /** \addtogroup Core
     *  @{

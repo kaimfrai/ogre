@@ -25,18 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
-#include <cassert>
-#include <ios>
-#include <memory>
-
 export module Ogre.Core:HardwareBuffer;
 
-export import :Exception;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
+// Precompiler options
+import :Exception;
+import :Prerequisites;
 
 export
 namespace Ogre {
@@ -218,8 +211,8 @@ namespace Ogre {
             */
             virtual void* lock(size_t offset, size_t length, LockOptions options)
             {
-                // OgreAssert(!isLocked(), "Cannot lock this buffer: it is already locked");
-                // OgreAssert((length + offset) <= mSizeInBytes, "Lock request out of bounds");
+                OgreAssert(!isLocked(), "Cannot lock this buffer: it is already locked");
+                OgreAssert((length + offset) <= mSizeInBytes, "Lock request out of bounds");
 
                 void* ret = NULL;
                 if (mShadowBuffer)
@@ -260,7 +253,7 @@ namespace Ogre {
             */
             void unlock(void)
             {
-                // OgreAssert(isLocked(), "Cannot unlock this buffer: it is not locked");
+                OgreAssert(isLocked(), "Cannot unlock this buffer: it is not locked");
 
                 // If we used the shadow buffer this time...
                 if (mShadowBuffer && mShadowBuffer->isLocked())

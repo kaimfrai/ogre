@@ -27,13 +27,10 @@ THE SOFTWARE.
 */
 module;
 
-#include <map>
-#include <string_view>
 #include <utility>
 
-module Ogre.Core;
+module Ogre.Core:Codec;
 
-import :Codec;
 import :Exception;
 import :SharedPtr;
 import :String;
@@ -42,7 +39,7 @@ import :StringConverter;
 namespace Ogre {
 class Any;
 
-    std::map< ::std::string_view, Codec * > Codec::msMapCodecs;
+    std::map< String, Codec * > Codec::msMapCodecs;
 
     Codec::~Codec() {
     }
@@ -53,7 +50,7 @@ class Any;
         return DataStreamPtr();
     }
 
-    void Codec::encodeToFile(const Any& input, ::std::string_view outFileName) const
+    void Codec::encodeToFile(const Any& input, const String& outFileName) const
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, getType() + " - encoding to file not supported");
     }
@@ -77,7 +74,7 @@ class Any;
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, pCodec->getType() + " already has a registered codec");
     }
 
-    Codec* Codec::getCodec(::std::string_view extension)
+    Codec* Codec::getCodec(const String& extension)
     {
         String lwrcase = extension;
         StringUtil::toLowerCase(lwrcase);

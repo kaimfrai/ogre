@@ -40,7 +40,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:ScriptCompiler;
 
 import :BuiltinScriptTranslators;
 import :DataStream;

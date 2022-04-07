@@ -37,14 +37,14 @@ module;
 
 export module Ogre.Core:CompositorInstance;
 
-export import :Common;
-export import :CompositionTechnique;
-export import :MaterialManager;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :RenderQueue;
-export import :SharedPtr;
+import :Common;
+import :CompositionTechnique;
+import :MaterialManager;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :RenderQueue;
+import :SharedPtr;
 
 export
 namespace Ogre {

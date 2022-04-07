@@ -25,18 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+export module Ogre.Core:BuiltinScriptTranslators;
 
-#include <map>
-#include <string>
-
-module Ogre.Core:BuiltinScriptTranslators;
-
-import :Common;
-import :GpuProgram;
-import :Material;
-import :Prerequisites;
-import :ScriptCompiler;
 import :ScriptTranslator;
 import :TextureUnitState;
 

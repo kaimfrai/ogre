@@ -29,7 +29,7 @@ module;
 
 #include <memory>
 
-module Ogre.Core;
+module Ogre.Core:HardwareIndexBuffer;
 
 import :DefaultHardwareBufferManager;
 import :Exception;

@@ -32,7 +32,7 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core;
+module Ogre.Core:GpuProgram;
 
 import :Common;
 import :DataStream;
@@ -136,7 +136,7 @@ class ResourceManager;
     //-----------------------------------------------------------------------------
     void GpuProgram::setSourceFile(const String& filename)
     {
-        // OgreAssert(!filename.empty(), "invalid filename");
+        OgreAssert(!filename.empty(), "invalid filename");
 
         mFilename = filename;
         mSource.clear();

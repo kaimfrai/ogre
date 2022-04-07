@@ -33,7 +33,7 @@ module;
 #include <set>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:SubMesh;
 
 import :AnimationTrack;
 import :Common;
@@ -107,7 +107,7 @@ class HardwareBufferManagerBase;
     //-----------------------------------------------------------------------
     void SubMesh::addBoneAssignment(const VertexBoneAssignment& vertBoneAssign)
     {
-        // OgreAssert(!useSharedVertices,
+        OgreAssert(!useSharedVertices,
                    "This SubMesh uses shared geometry, you must assign bones to the Mesh, not the SubMesh");
         mBoneAssignments.emplace(vertBoneAssign.vertexIndex, vertBoneAssign);
         mBoneAssignmentsOutOfDate = true;

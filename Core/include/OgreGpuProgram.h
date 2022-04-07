@@ -28,14 +28,13 @@ THE SOFTWARE.
 module;
 
 #include <cstddef>
-#include <string>
 
 export module Ogre.Core:GpuProgram;
 
-export import :Platform;
-export import :Prerequisites;
-export import :Resource;
-export import :SharedPtr;
+import :Platform;
+import :Prerequisites;
+import :Resource;
+import :SharedPtr;
 
 export
 namespace Ogre {

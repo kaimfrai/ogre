@@ -31,7 +31,7 @@ module;
 #include <cstddef>
 #include <string>
 
-module Ogre.Core;
+module Ogre.Core:PrefabFactory;
 
 import :AxisAlignedBox;
 import :HardwareBuffer;

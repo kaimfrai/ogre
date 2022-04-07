@@ -31,8 +31,8 @@ module;
 
 export module Ogre.Core:RotationalSpline;
 
-export import :Prerequisites;
-export import :Quaternion;
+import :Prerequisites;
+import :Quaternion;
 
 export
 namespace Ogre {

@@ -31,7 +31,7 @@ module;
 #include <cassert>
 #include <cmath>
 
-module Ogre.Core;
+module Ogre.Core:PredefinedControllers;
 
 import :GpuProgramParams;
 import :Math;

@@ -27,9 +27,8 @@ THE SOFTWARE.
 */
 export module Ogre.Core:RenderQueueListener;
 
-export import :Platform;
-export import :Prerequisites;
-export import :RenderQueue;
+import :Prerequisites;
+import :RenderQueue;
 
 export
 namespace Ogre {

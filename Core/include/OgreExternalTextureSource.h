@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 module;
 
-#include <string>
+ 
 
 export module Ogre.Core:ExternalTextureSource;
 
@@ -46,9 +46,9 @@ OgreExternalTextureSource.h  -
 date                 : Jan 1 2004
 email                : pjcast@yahoo.com
 ***************************************************************************/
-export import :Prerequisites;
-export import :ResourceGroupManager;
-export import :StringInterface;
+import :Prerequisites;
+import :ResourceGroupManager;
+import :StringInterface;
 
 export
 namespace Ogre

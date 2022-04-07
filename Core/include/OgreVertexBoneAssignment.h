@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 export module Ogre.Core:VertexBoneAssignment;
 
-export import :Prerequisites;
+import :Prerequisites;
 
 export
 namespace Ogre 

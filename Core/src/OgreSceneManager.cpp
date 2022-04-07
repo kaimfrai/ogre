@@ -40,7 +40,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:SceneManager;
 
 import :Animable;
 import :Animation;
@@ -294,7 +294,7 @@ bool SceneManager::hasCamera(const String& name) const
 //-----------------------------------------------------------------------
 void SceneManager::destroyCamera(Camera *cam)
 {
-    // OgreAssert(cam, "Cannot destroy a null Camera");
+    OgreAssert(cam, "Cannot destroy a null Camera");
     destroyCamera(cam->getName());
 }
 
@@ -787,7 +787,7 @@ SceneNode* SceneManager::createSceneNode(const String& name)
 //-----------------------------------------------------------------------
 void SceneManager::destroySceneNode(const String& name)
 {
-    // OgreAssert(!name.empty(), "name must not be empty");
+    OgreAssert(!name.empty(), "name must not be empty");
     auto i = mNamedNodes.find(name);
     destroySceneNode(i != mNamedNodes.end() ? i->second : NULL);
 }
@@ -842,7 +842,7 @@ void SceneManager::_destroySceneNode(SceneNodeList::iterator i)
 //---------------------------------------------------------------------
 void SceneManager::destroySceneNode(SceneNode* sn)
 {
-    // OgreAssert(sn, "Cannot destroy a null SceneNode");
+    OgreAssert(sn, "Cannot destroy a null SceneNode");
 
     auto pos = sn->mGlobalIndex < mSceneNodes.size() &&
                        sn == *(mSceneNodes.begin() + sn->mGlobalIndex)
@@ -866,7 +866,7 @@ SceneNode* SceneManager::getRootSceneNode(void)
 //-----------------------------------------------------------------------
 SceneNode* SceneManager::getSceneNode(const String& name, bool throwExceptionIfNotFound) const
 {
-    // OgreAssert(!name.empty(), "name must not be empty");
+    OgreAssert(!name.empty(), "name must not be empty");
     auto i = mNamedNodes.find(name);
 
     if (i != mNamedNodes.end())
@@ -1110,7 +1110,7 @@ const Pass* SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed,
         if (pTex->getContentType() == TextureUnitState::CONTENT_COMPOSITOR)
         {
             CompositorChain* currentChain = _getActiveCompositorChain();
-            // OgreAssert(currentChain, "A pass that wishes to reference a compositor texture "
+            OgreAssert(currentChain, "A pass that wishes to reference a compositor texture "
                                      "attempted to render in a pipeline without a compositor");
             auto compName = pTex->getReferencedCompositorName();
             CompositorInstance* refComp = currentChain->getCompositor(compName);
@@ -3570,7 +3570,7 @@ SceneManager::getMovableObjects(const String& typeName)
 //---------------------------------------------------------------------
 void SceneManager::destroyMovableObject(MovableObject* m)
 {
-    // OgreAssert(m, "Cannot destroy a null MovableObject");
+    OgreAssert(m, "Cannot destroy a null MovableObject");
     destroyMovableObject(m->getName(), m->getMovableType());
 }
 //---------------------------------------------------------------------

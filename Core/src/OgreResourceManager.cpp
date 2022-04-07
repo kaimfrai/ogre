@@ -29,7 +29,7 @@ module;
 
 #include <limits>
 
-module Ogre.Core;
+module Ogre.Core:ResourceManager;
 
 import :Exception;
 import :ScriptCompiler;
@@ -58,7 +58,7 @@ namespace Ogre {
     ResourcePtr ResourceManager::createResource(const String& name, const String& group,
         bool isManual, ManualResourceLoader* loader, const NameValuePairList* params)
     {
-        // OgreAssert(!name.empty(), "resource name must not be empty");
+        OgreAssert(!name.empty(), "resource name must not be empty");
 
         // Call creation implementation
         ResourcePtr ret = ResourcePtr(
@@ -167,7 +167,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ResourceManager::removeImpl(const ResourcePtr& res )
     {
-        // OgreAssert(res, "attempting to remove nullptr");
+        OgreAssert(res, "attempting to remove nullptr");
 
         if(ResourceGroupManager::getSingleton().isResourceGroupInGlobalPool(res->getGroup()))
         {
@@ -234,7 +234,7 @@ namespace Ogre {
     {
         ResourcePtr res = getByHandle(handle);
 
-        // OgreAssert(res, "attempting to unload unknown resource");
+        OgreAssert(res, "attempting to unload unknown resource");
 
         if (res)
         {
@@ -309,7 +309,7 @@ namespace Ogre {
     {
         ResourcePtr res = getByHandle(handle);
 
-        // OgreAssert(res, "attempting to remove unknown resource");
+        OgreAssert(res, "attempting to remove unknown resource");
 
         if (res)
         {
@@ -461,7 +461,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void ResourceManager::destroyResourcePool(ResourcePool* pool)
     {
-        // OgreAssert(pool, "Cannot destroy a null ResourcePool");
+        OgreAssert(pool, "Cannot destroy a null ResourcePool");
 
         ResourcePoolMap::iterator i = mResourcePoolMap.find(pool->getName());
         if (i != mResourcePoolMap.end())

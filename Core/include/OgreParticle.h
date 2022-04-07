@@ -27,12 +27,8 @@ THE SOFTWARE.
 */
 export module Ogre.Core:Particle;
 
-export import :ColourValue;
-export import :Math;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :Vector;
+import :Prerequisites;
+import :Vector;
 
 export
 namespace Ogre {

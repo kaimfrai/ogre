@@ -33,10 +33,11 @@ module;
 
 export module Ogre.Core:AxisAlignedBox;
 
-export import :Math;
-export import :Matrix4;
-export import :Prerequisites;
-export import :Vector;
+// Precompiler options
+import :Math;
+import :Matrix4;
+import :Prerequisites;
+import :Vector;
 
 export
 namespace Ogre {
@@ -98,7 +99,7 @@ class Sphere;
 
         AxisAlignedBox()
         {
-            // Default to a null box
+            // Default to a null box 
             setMinimum( -0.5, -0.5, -0.5 );
             setMaximum( 0.5, 0.5, 0.5 );
             mExtent = EXTENT_NULL;
@@ -123,22 +124,22 @@ class Sphere;
         /** Gets the minimum corner of the box.
         */
         inline const Vector3& getMinimum(void) const
-        {
-            return mMinimum;
+        { 
+            return mMinimum; 
         }
 
         /** Gets a modifiable version of the minimum
         corner of the box.
         */
         inline Vector3& getMinimum(void)
-        {
-            return mMinimum;
+        { 
+            return mMinimum; 
         }
 
         /** Gets the maximum corner of the box.
         */
         inline const Vector3& getMaximum(void) const
-        {
+        { 
             return mMaximum;
         }
 
@@ -146,7 +147,7 @@ class Sphere;
         corner of the box.
         */
         inline Vector3& getMaximum(void)
-        {
+        { 
             return mMaximum;
         }
 
@@ -433,7 +434,7 @@ class Sphere;
             // For each one, we transform it using the matrix
             // Which gives the resulting point and merge the resulting point.
 
-            // First corner
+            // First corner 
             // min min min
             currentCorner = oldMin;
             merge( matrix * currentCorner );
@@ -464,7 +465,7 @@ class Sphere;
 
             // max min min
             currentCorner.z = oldMin.z;
-            merge( matrix * currentCorner );
+            merge( matrix * currentCorner ); 
         }
 
         /** Transforms the box according to the affine matrix supplied.
@@ -487,7 +488,7 @@ class Sphere;
 
             Vector3 newCentre = m * centre;
             Vector3 newHalfSize(
-                Math::Abs(m[0][0]) * halfSize.x + Math::Abs(m[0][1]) * halfSize.y + Math::Abs(m[0][2]) * halfSize.z,
+                Math::Abs(m[0][0]) * halfSize.x + Math::Abs(m[0][1]) * halfSize.y + Math::Abs(m[0][2]) * halfSize.z, 
                 Math::Abs(m[1][0]) * halfSize.x + Math::Abs(m[1][1]) * halfSize.y + Math::Abs(m[1][2]) * halfSize.z,
                 Math::Abs(m[2][0]) * halfSize.x + Math::Abs(m[2][1]) * halfSize.y + Math::Abs(m[2][2]) * halfSize.z);
 
@@ -632,7 +633,7 @@ class Sphere;
         /** Tests whether this box intersects a sphere. */
         bool intersects(const Sphere& s) const
         {
-            return Math::intersects(s, *this);
+            return Math::intersects(s, *this); 
         }
         /** Tests whether this box intersects a plane. */
         bool intersects(const Plane& p) const
@@ -648,8 +649,8 @@ class Sphere;
                 return false;
 
             case EXTENT_FINITE:
-                return(v.x >= mMinimum.x  &&  v.x <= mMaximum.x  &&
-                    v.y >= mMinimum.y  &&  v.y <= mMaximum.y  &&
+                return(v.x >= mMinimum.x  &&  v.x <= mMaximum.x  && 
+                    v.y >= mMinimum.y  &&  v.y <= mMaximum.y  && 
                     v.z >= mMinimum.z  &&  v.z <= mMaximum.z);
 
             case EXTENT_INFINITE:
@@ -728,7 +729,7 @@ class Sphere;
                    mMinimum.y <= v.y && v.y <= mMaximum.y &&
                    mMinimum.z <= v.z && v.z <= mMaximum.z;
         }
-
+        
         /** Returns the squared minimum distance between a given point and any part of the box.
          *  This is faster than distance since avoiding a squareroot, so use if you can. */
         Real squaredDistance(const Vector3& v) const
@@ -758,7 +759,7 @@ class Sphere;
                 return maxDist.squaredLength();
             }
         }
-
+        
         /** Returns the minimum distance between a given point and any part of the box. */
         Real distance (const Vector3& v) const
         {

@@ -39,7 +39,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:Skeleton;
 
 // Just for logging
 import :Animation;
@@ -154,7 +154,7 @@ class Affine3;
     //---------------------------------------------------------------------
     Bone* Skeleton::createBone(unsigned short handle)
     {
-        // OgreAssert(handle < OGRE_MAX_NUM_BONES, "Exceeded the maximum number of bones per skeleton");
+        OgreAssert(handle < OGRE_MAX_NUM_BONES, "Exceeded the maximum number of bones per skeleton");
         // Check handle not used
         if (handle < mBoneList.size() && mBoneList[handle] != NULL)
         {
@@ -177,7 +177,7 @@ class Affine3;
     //---------------------------------------------------------------------
     Bone* Skeleton::createBone(const String& name, unsigned short handle)
     {
-        // OgreAssert(handle < OGRE_MAX_NUM_BONES, "Exceeded the maximum number of bones per skeleton");
+        OgreAssert(handle < OGRE_MAX_NUM_BONES, "Exceeded the maximum number of bones per skeleton");
         // Check handle not used
         if (handle < mBoneList.size() && mBoneList[handle] != NULL)
         {
@@ -542,7 +542,7 @@ class Affine3;
     void Skeleton::deriveRootBone(void) const
     {
         // Start at the first bone and work up
-        // OgreAssert(!mBoneList.empty(), "Cannot derive root bone as this skeleton has no bones");
+        OgreAssert(!mBoneList.empty(), "Cannot derive root bone as this skeleton has no bones");
 
         mRootBones.clear();
 
@@ -733,7 +733,7 @@ class Affine3;
         ushort numSrcBones = src->getNumBones();
         ushort numDstBones = this->getNumBones();
 
-        // OgreAssert(
+        OgreAssert(
             boneHandleMap.size() == numSrcBones,
             "Number of bones in the bone handle map must equal to number of bones in the source skeleton");
 

@@ -27,13 +27,13 @@ THE SOFTWARE.
 */
 export module Ogre.Core:Billboard;
 
-export import :ColourValue;
-export import :Common;
-export import :Math;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :Vector;
+import :ColourValue;
+import :Common;
+import :Math;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :Vector;
 
 export
 namespace Ogre {

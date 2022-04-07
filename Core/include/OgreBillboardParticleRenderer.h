@@ -32,16 +32,15 @@ module;
 
 export module Ogre.Core:BillboardParticleRenderer;
 
-export import :AxisAlignedBox;
-export import :BillboardSet;
-export import :Common;
-export import :FactoryObj;
-export import :MovableObject;
-export import :ParticleSystemRenderer;
-export import :Platform;
-export import :Prerequisites;
-export import :Renderable;
-export import :Vector;
+import :AxisAlignedBox;
+import :BillboardSet;
+import :Common;
+import :FactoryObj;
+import :ParticleSystemRenderer;
+import :Platform;
+import :Prerequisites;
+import :Renderable;
+import :Vector;
 
 export
 namespace Ogre {

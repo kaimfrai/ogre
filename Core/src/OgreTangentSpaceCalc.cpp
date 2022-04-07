@@ -31,7 +31,7 @@ module;
 #include <map>
 #include <memory>
 
-module Ogre.Core;
+module Ogre.Core:TangentSpaceCalc;
 
 import :Exception;
 import :HardwareBuffer;

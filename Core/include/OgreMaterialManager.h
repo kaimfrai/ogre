@@ -33,13 +33,13 @@ module;
 
 export module Ogre.Core:MaterialManager;
 
-export import :Common;
-export import :Prerequisites;
-export import :Resource;
-export import :ResourceGroupManager;
-export import :ResourceManager;
-export import :SharedPtr;
-export import :Singleton;
+import :Common;
+import :Prerequisites;
+import :Resource;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :SharedPtr;
+import :Singleton;
 
 export
 namespace Ogre {

@@ -28,16 +28,15 @@ THE SOFTWARE.
 module;
 
 #include <cstddef>
-#include <string>
 #include <vector>
 
 export module Ogre.Core:CompositionTechnique;
 
-export import :MemoryAllocatorConfig;
-export import :PixelFormat;
-export import :Platform;
-export import :Prerequisites;
-export import :Texture;
+import :MemoryAllocatorConfig;
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
+import :Texture;
 
 export
 namespace Ogre {

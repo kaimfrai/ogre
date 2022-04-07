@@ -32,7 +32,7 @@ module;
 #include <cstddef>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:SkeletonInstance;
 
 import :Bone;
 import :Node;

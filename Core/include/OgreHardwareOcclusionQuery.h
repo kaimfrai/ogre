@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 export module Ogre.Core:HardwareOcclusionQuery;
 
-export import :MemoryAllocatorConfig;
+import :MemoryAllocatorConfig;
 
 export
 namespace Ogre {

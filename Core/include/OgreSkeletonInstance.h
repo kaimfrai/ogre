@@ -31,12 +31,12 @@ module;
 
 export module Ogre.Core:SkeletonInstance;
 
-export import :Prerequisites;
-export import :Quaternion;
-export import :Resource;
-export import :SharedPtr;
-export import :Skeleton;
-export import :Vector;
+import :Prerequisites;
+import :Quaternion;
+import :Resource;
+import :SharedPtr;
+import :Skeleton;
+import :Vector;
 
 export
 namespace Ogre {

@@ -32,7 +32,7 @@ module;
 #include <thread>
 #include <utility>
 
-module Ogre.Core;
+module Ogre.Core:WorkQueue;
 
 import :Log;
 import :LogManager;

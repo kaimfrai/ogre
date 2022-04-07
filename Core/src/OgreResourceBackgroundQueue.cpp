@@ -29,14 +29,13 @@ module;
 
 #include <cassert>
 
-module Ogre.Core;
+module Ogre.Core:ResourceBackgroundQueue;
 
 import :Any;
 import :Exception;
 import :ResourceGroupManager;
 import :ResourceManager;
 import :Root;
-import :Singleton;
 import :SharedPtr;
 
 namespace Ogre {

@@ -35,14 +35,14 @@ module;
 
 export module Ogre.Core:SceneQuery;
 
-export import :AxisAlignedBox;
-export import :MemoryAllocatorConfig;
-export import :PlaneBoundedVolume;
-export import :Platform;
-export import :Prerequisites;
-export import :Ray;
-export import :Sphere;
-export import :Vector;
+import :AxisAlignedBox;
+import :MemoryAllocatorConfig;
+import :PlaneBoundedVolume;
+import :Platform;
+import :Prerequisites;
+import :Ray;
+import :Sphere;
+import :Vector;
 
 export
 namespace Ogre {

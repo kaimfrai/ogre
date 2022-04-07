@@ -29,20 +29,19 @@ module;
 
 #include <algorithm>
 #include <set>
-#include <string>
 #include <vector>
 
 export module Ogre.Core:Node;
 
-export import :Math;
-export import :Matrix3;
-export import :Matrix4;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :Quaternion;
-export import :UserObjectBindings;
-export import :Vector;
+import :Math;
+import :Matrix3;
+import :Matrix4;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :UserObjectBindings;
+import :Vector;
 
 export
 namespace Ogre {

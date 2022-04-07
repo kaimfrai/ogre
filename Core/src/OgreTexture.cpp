@@ -32,7 +32,7 @@ module;
 #include <cassert>
 #include <memory>
 
-module Ogre.Core;
+module Ogre.Core:Texture;
 
 import :Bitwise;
 import :Common;
@@ -108,7 +108,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------    
     void Texture::loadImage( const Image &img )
     {
-        // OgreAssert(img.getSize(), "cannot load empty image");
+        OgreAssert(img.getSize(), "cannot load empty image");
         LoadingState old = mLoadingState.load();
 
         // Scope lock for actual loading
@@ -185,7 +185,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     void Texture::_loadImages( const ConstImagePtrList& images )
     {
-        // OgreAssert(!images.empty(), "Cannot load empty vector of images");
+        OgreAssert(!images.empty(), "Cannot load empty vector of images");
 
         // Set desired texture size and properties from images[0]
         mSrcWidth = mWidth = images[0]->getWidth();
@@ -374,7 +374,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------   
     void Texture::copyToTexture( TexturePtr& target )
     {
-        // OgreAssert(target->getNumFaces() == getNumFaces(), "Texture types must match");
+        OgreAssert(target->getNumFaces() == getNumFaces(), "Texture types must match");
         size_t numMips = std::min(getNumMipmaps(), target->getNumMipmaps());
         if((mUsage & TU_AUTOMIPMAP) || (target->getUsage()&TU_AUTOMIPMAP))
             numMips = 0;
@@ -415,8 +415,8 @@ namespace Ogre {
     }
     const HardwarePixelBufferSharedPtr& Texture::getBuffer(size_t face, size_t mipmap)
     {
-        // OgreAssert(face < getNumFaces(), "out of range");
-        // OgreAssert(mipmap <= mNumMipmaps, "out of range");
+        OgreAssert(face < getNumFaces(), "out of range");
+        OgreAssert(mipmap <= mNumMipmaps, "out of range");
 
         size_t idx = face * (mNumMipmaps + 1) + mipmap;
         assert(idx < mSurfaceList.size());

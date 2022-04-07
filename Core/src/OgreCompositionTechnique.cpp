@@ -29,9 +29,8 @@ module;
 
 #include <cassert>
 #include <string>
-#include <vector>
 
-module Ogre.Core;
+module Ogre.Core:CompositionTechnique;
 
 import :CompositionTargetPass;
 import :Exception;

@@ -34,7 +34,7 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core;
+module Ogre.Core:RibbonTrail;
 
 import :Controller;
 import :Exception;
@@ -178,7 +178,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void RibbonTrail::setNumberOfChains(size_t numChains)
     {
-        // OgreAssert(numChains >= mNodeList.size(),
+        OgreAssert(numChains >= mNodeList.size(),
                    "Can't shrink the number of chains less than number of tracking nodes");
         size_t oldChains = getNumberOfChains();
 

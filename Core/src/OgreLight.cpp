@@ -30,7 +30,7 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core;
+module Ogre.Core:Light;
 
 import :Animable;
 import :Exception;

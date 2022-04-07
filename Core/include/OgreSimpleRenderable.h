@@ -27,14 +27,14 @@ THE SOFTWARE.
 */
 export module Ogre.Core:SimpleRenderable;
 
-export import :AxisAlignedBox;
-export import :Common;
-export import :Matrix4;
-export import :MovableObject;
-export import :Prerequisites;
-export import :RenderOperation;
-export import :Renderable;
-export import :SharedPtr;
+import :AxisAlignedBox;
+import :Common;
+import :Matrix4;
+import :MovableObject;
+import :Prerequisites;
+import :RenderOperation;
+import :Renderable;
+import :SharedPtr;
 
 export
 namespace Ogre {

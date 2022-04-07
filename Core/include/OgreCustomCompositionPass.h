@@ -27,9 +27,8 @@ THE SOFTWARE.
 */
 export module Ogre.Core:CustomCompositionPass;
 
-export import :CompositionPass;
-export import :CompositorInstance;
-export import :Prerequisites;
+import :CompositionPass;
+import :Prerequisites;
 
 export
 namespace Ogre {

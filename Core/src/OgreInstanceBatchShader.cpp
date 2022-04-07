@@ -35,7 +35,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:InstanceBatchShader;
 
 import :Common;
 import :Exception;

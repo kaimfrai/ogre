@@ -30,7 +30,7 @@ module;
 #include <cassert>
 #include <memory>
 
-module Ogre.Core;
+module Ogre.Core:HardwarePixelBuffer;
 
 import :Exception;
 import :RenderSystem;
@@ -74,8 +74,8 @@ namespace Ogre
     //-----------------------------------------------------------------------------    
     void* HardwarePixelBuffer::lock(size_t offset, size_t length, LockOptions options)
     {
-        // OgreAssert(!isLocked(), "already locked");
-        // OgreAssert(offset == 0 && length == mSizeInBytes, "must lock box or entire buffer");
+        OgreAssert(!isLocked(), "already locked");
+        OgreAssert(offset == 0 && length == mSizeInBytes, "must lock box or entire buffer");
         
         Box myBox(0, 0, 0, mWidth, mHeight, mDepth);
         const PixelBox &rv = lock(myBox, options);
@@ -111,7 +111,7 @@ namespace Ogre
     //-----------------------------------------------------------------------------    
     const PixelBox& HardwarePixelBuffer::getCurrentLock() 
     { 
-        // OgreAssert(isLocked(), "buffer not locked");
+        OgreAssert(isLocked(), "buffer not locked");
         return mCurrentLock; 
     }
     

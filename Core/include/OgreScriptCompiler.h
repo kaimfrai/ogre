@@ -37,16 +37,16 @@ module;
 
 export module Ogre.Core:ScriptCompiler;
 
-export import :Any;
-export import :Common;
-export import :GpuProgram;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :ScriptLoader;
-export import :SharedPtr;
-export import :Singleton;
-export import :StringVector;
+import :Any;
+import :Common;
+import :GpuProgram;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :ScriptLoader;
+import :SharedPtr;
+import :Singleton;
+import :StringVector;
 
 export
 namespace Ogre

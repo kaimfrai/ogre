@@ -29,7 +29,7 @@ module;
 
 #include <vector>
 
-module Ogre.Core:ShadowVolumeExtrudeProgram;
+export module Ogre.Core:ShadowVolumeExtrudeProgram;
 
 import :Light;
 import :MemoryAllocatorConfig;

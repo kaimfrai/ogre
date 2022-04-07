@@ -37,7 +37,7 @@ module;
 #include <set>
 #include <utility>
 
-module Ogre.Core;
+module Ogre.Core:VertexIndexData;
 
 import :Config;
 import :Exception;
@@ -584,7 +584,7 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     void VertexData::convertPackedColour(VertexElementType, VertexElementType destType)
     {
-        // OgreAssert(destType == VET_UBYTE4_NORM, "Not supported");
+        OgreAssert(destType == VET_UBYTE4_NORM, "Not supported");
 
         const VertexBufferBinding::VertexBufferBindingMap& bindMap = 
             vertexBufferBinding->getBindings();

@@ -25,16 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
-#include <map>
-#include <string>
-#include <vector>
-
 export module Ogre.Core:ConfigOptionMap;
 
-export import :Prerequisites;
-export import :StringVector;
+import :Prerequisites;
+import :StringVector;
 
 export
 namespace Ogre {

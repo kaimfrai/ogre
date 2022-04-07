@@ -27,11 +27,11 @@ THE SOFTWARE.
 */
 export module Ogre.Core:PixelCountLodStrategy;
 
-export import :LodStrategy;
-export import :Material;
-export import :Mesh;
-export import :Prerequisites;
-export import :Singleton;
+import :LodStrategy;
+import :Material;
+import :Mesh;
+import :Prerequisites;
+import :Singleton;
 
 export
 namespace Ogre {

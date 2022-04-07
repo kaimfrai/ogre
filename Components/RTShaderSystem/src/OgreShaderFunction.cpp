@@ -143,13 +143,13 @@ static Parameter::Semantic semanticFromContent(Parameter::Content content, bool 
         return Parameter::SPS_FRONT_FACING;
     case Parameter::SPC_TANGENT_OBJECT_SPACE:
         if(!isVSOut) return Parameter::SPS_TANGENT;
-        [[fallthrough]];
+        OGRE_FALLTHROUGH;
     case Parameter::SPC_POSITION_OBJECT_SPACE:
         if(!isVSOut) return Parameter::SPS_POSITION;
-        [[fallthrough]];
+        OGRE_FALLTHROUGH;
     case Parameter::SPC_NORMAL_OBJECT_SPACE:
         if(!isVSOut) return Parameter::SPS_NORMAL;
-        [[fallthrough]];
+        OGRE_FALLTHROUGH;
     // the remaining types are VS output types only (or indeed texcoord)
     // for out types we use the TEXCOORD[n] semantics for compatibility
     // with Cg, HLSL SM2.0 where they are the only multivariate semantics
@@ -322,7 +322,7 @@ ParameterPtr Function::resolveInputParameter(Parameter::Semantic semantic,
 
     
     // No parameter found -> create new one.
-    // OgreAssert(semantic != Parameter::SPS_UNKNOWN, "unknown semantic");
+    OgreAssert(semantic != Parameter::SPS_UNKNOWN, "unknown semantic");
     param =
         std::make_shared<Parameter>(type, getParameterName("i", semantic, index), semantic, index, content);
     addInputParameter(param);

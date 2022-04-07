@@ -646,7 +646,7 @@ void FFPTexturing::setTextureUnitCount(size_t count)
 //-----------------------------------------------------------------------
 void FFPTexturing::setTextureUnit(unsigned short index, TextureUnitState* textureUnitState)
 {
-    // OgreAssert(index < mTextureUnitParamsList.size(), "FFPTexturing unit index out of bounds");
+    OgreAssert(index < mTextureUnitParamsList.size(), "FFPTexturing unit index out of bounds");
 
     TextureUnitParams& curParams = mTextureUnitParamsList[index];
 
@@ -663,7 +663,7 @@ void FFPTexturing::setTextureUnit(unsigned short index, TextureUnitState* textur
         curParams.mVSInTextureCoordinateType = GCT_FLOAT1;
         if(!isGLES2) // no 1D texture support
             break;
-        [[fallthrough]];
+        OGRE_FALLTHROUGH;
     case TEX_TYPE_2D:
         curParams.mTextureSamplerType = GCT_SAMPLER2D;
         curParams.mVSInTextureCoordinateType = GCT_FLOAT2;

@@ -59,7 +59,7 @@ SubRenderState::~SubRenderState()
 //-----------------------------------------------------------------------
 SubRenderStateFactory::~SubRenderStateFactory()
 {
-    // OgreAssert(mSubRenderStateList.empty(), "Sub render states still exists");
+    OgreAssert(mSubRenderStateList.empty(), "Sub render states still exists");
 }
 
 //-----------------------------------------------------------------------

@@ -34,13 +34,13 @@ module;
 
 export module Ogre.Core:Texture;
 
-export import :HardwareBuffer;
-export import :Image;
-export import :PixelFormat;
-export import :Platform;
-export import :Prerequisites;
-export import :Resource;
-export import :SharedPtr;
+import :HardwareBuffer;
+import :Image;
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
+import :Resource;
+import :SharedPtr;
 
 export
 namespace Ogre {

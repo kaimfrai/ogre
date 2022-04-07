@@ -31,7 +31,7 @@ module;
 #include <cstring>
 #include <string>
 
-module Ogre.Core;
+module Ogre.Core:TextureUnitState;
 
 import :ControllerManager;
 import :Exception;
@@ -338,7 +338,7 @@ class Frustum;
     void TextureUnitState::setFrameTextureName(const String& name, unsigned int frameNumber)
     {
         mTextureLoadFailed = false;
-        // OgreAssert(frameNumber < mFramePtrs.size(), "out of range");
+        OgreAssert(frameNumber < mFramePtrs.size(), "out of range");
 
         mFramePtrs[frameNumber] = retrieveTexture(name);
 
@@ -377,7 +377,7 @@ class Frustum;
     void TextureUnitState::deleteFrameTextureName(const size_t frameNumber)
     {
         mTextureLoadFailed = false;
-        // OgreAssert(frameNumber < mFramePtrs.size(), "out of range");
+        OgreAssert(frameNumber < mFramePtrs.size(), "out of range");
         mFramePtrs.erase(mFramePtrs.begin() + frameNumber);
 
         if (isLoaded())
@@ -434,7 +434,7 @@ class Frustum;
     }
     void TextureUnitState::setLayerArrayNames(TextureType type, const std::vector<String>& names)
     {
-        // OgreAssert(!names.empty(), "array layers empty");
+        OgreAssert(!names.empty(), "array layers empty");
 
         const char* typeName;
         switch(type)
@@ -478,7 +478,7 @@ class Frustum;
     //-----------------------------------------------------------------------
     void TextureUnitState::setCurrentFrame(unsigned int frameNumber)
     {
-        // OgreAssert(frameNumber < mFramePtrs.size(), "out of range");
+        OgreAssert(frameNumber < mFramePtrs.size(), "out of range");
         mCurrentFrame = frameNumber;
         // this will affect the hash
         if( Pass::getHashFunction() == Pass::getBuiltinHashFunction( Pass::MIN_TEXTURE_CHANGE ) )
@@ -499,14 +499,14 @@ class Frustum;
     //-----------------------------------------------------------------------
     const String& TextureUnitState::getFrameTextureName(unsigned int frameNumber) const
     {
-        // OgreAssert(frameNumber < mFramePtrs.size(), "out of range");
+        OgreAssert(frameNumber < mFramePtrs.size(), "out of range");
 
         return mFramePtrs[0] ? mFramePtrs[frameNumber]->getName() : BLANKSTRING;
     }
     //-----------------------------------------------------------------------
     void TextureUnitState::setDesiredFormat(PixelFormat desiredFormat)
     {
-        // OgreAssert(mFramePtrs[0], "frame must not be blank");
+        OgreAssert(mFramePtrs[0], "frame must not be blank");
         for(auto& frame : mFramePtrs)
             frame->setFormat(desiredFormat);
     }
@@ -518,7 +518,7 @@ class Frustum;
     //-----------------------------------------------------------------------
     void TextureUnitState::setNumMipmaps(int numMipmaps)
     {
-        // OgreAssert(mFramePtrs[0], "frame must not be blank");
+        OgreAssert(mFramePtrs[0], "frame must not be blank");
         for (auto& frame : mFramePtrs)
             frame->setNumMipmaps(numMipmaps == MIP_DEFAULT
                                      ? TextureManager::getSingleton().getDefaultNumMipmaps()
@@ -532,7 +532,7 @@ class Frustum;
     //-----------------------------------------------------------------------
     void TextureUnitState::setIsAlpha(bool isAlpha)
     {
-        // OgreAssert(mFramePtrs[0], "frame must not be blank");
+        OgreAssert(mFramePtrs[0], "frame must not be blank");
         for(auto& frame : mFramePtrs)
             frame->setTreatLuminanceAsAlpha(isAlpha);
     }
@@ -542,14 +542,14 @@ class Frustum;
     }
     void TextureUnitState::setGamma(float gamma)
     {
-        // OgreAssert(mFramePtrs[0], "frame must not be blank");
+        OgreAssert(mFramePtrs[0], "frame must not be blank");
         for(auto& frame : mFramePtrs)
             frame->setGamma(gamma);
     }
     //-----------------------------------------------------------------------
     void TextureUnitState::setHardwareGammaEnabled(bool g)
     {
-        // OgreAssert(mFramePtrs[0], "frame must not be blank");
+        OgreAssert(mFramePtrs[0], "frame must not be blank");
         for(auto& frame : mFramePtrs)
             frame->setHardwareGammaEnabled(g);
     }

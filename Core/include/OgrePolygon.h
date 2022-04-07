@@ -36,8 +36,8 @@ module;
 
 export module Ogre.Core:Polygon;
 
-export import :Prerequisites;
-export import :Vector;
+import :Prerequisites;
+import :Vector;
 
 export
 namespace Ogre

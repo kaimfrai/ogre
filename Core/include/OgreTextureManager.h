@@ -34,17 +34,17 @@ module;
 
 export module Ogre.Core:TextureManager;
 
-export import :Common;
-export import :PixelFormat;
-export import :Platform;
-export import :Prerequisites;
-export import :Resource;
-export import :ResourceGroupManager;
-export import :ResourceManager;
-export import :SharedPtr;
-export import :Singleton;
-export import :Texture;
-export import :TextureUnitState;
+import :Common;
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
+import :Resource;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :SharedPtr;
+import :Singleton;
+import :Texture;
+import :TextureUnitState;
 
 export
 namespace Ogre {
@@ -92,7 +92,7 @@ class Image;
                             bool isManual = false, ManualResourceLoader* loader = 0,
                             const NameValuePairList* createParams = 0);
         /// @copydoc ResourceManager::getResourceByName
-        TexturePtr getByName(const String& name, ::std::string_view groupName = RGN_DEFAULT) const;
+        TexturePtr getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const;
 
         using ResourceManager::createOrRetrieve;
 

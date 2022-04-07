@@ -35,7 +35,7 @@ module;
 #include <type_traits>
 #include <utility>
 
-module Ogre.Core;
+module Ogre.Core:InstanceBatchVTF;
 
 import :Common;
 import :DualQuaternion;
@@ -320,7 +320,7 @@ class RenderQueue;
                                         (uint)texWidth, (uint)texHeight,
                                         0, PF_FLOAT32_RGBA, TU_DYNAMIC_WRITE_ONLY_DISCARDABLE );
 
-        // OgreAssert(mMatrixTexture->getFormat() == PF_FLOAT32_RGBA, "float texture support required");
+        OgreAssert(mMatrixTexture->getFormat() == PF_FLOAT32_RGBA, "float texture support required");
         //Set our cloned material to use this custom texture!
         setupMaterialToUseVTF( texType, mMaterial );
     }

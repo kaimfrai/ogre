@@ -33,7 +33,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:SkeletonSerializer;
 
 import :Animation;
 import :AnimationTrack;

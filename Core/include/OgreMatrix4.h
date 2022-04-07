@@ -33,10 +33,11 @@ module;
 
 export module Ogre.Core:Matrix4;
 
-export import :Matrix3;
-export import :Prerequisites;
-export import :Quaternion;
-export import :Vector;
+// Precompiler options
+import :Matrix3;
+import :Prerequisites;
+import :Quaternion;
+import :Vector;
 
 export
 namespace Ogre

@@ -33,8 +33,8 @@ module;
 
 export module Ogre.Core:ColourValue;
 
-export import :Platform;
-export import :Prerequisites;
+import :Platform;
+import :Prerequisites;
 
 export
 namespace Ogre {

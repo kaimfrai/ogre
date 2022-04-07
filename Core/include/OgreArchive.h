@@ -28,15 +28,14 @@ THE SOFTWARE.
 module;
 
 #include <ctime>
-#include <string>
 #include <vector>
 
 export module Ogre.Core:Archive;
 
-export import :MemoryAllocatorConfig;
-export import :Prerequisites;
-export import :SharedPtr;
-export import :StringVector;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :SharedPtr;
+import :StringVector;
 
 export
 namespace Ogre {

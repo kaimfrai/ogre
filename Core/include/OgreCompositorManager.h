@@ -37,18 +37,18 @@ module;
 
 export module Ogre.Core:CompositorManager;
 
-export import :Common;
-export import :CompositionTechnique;
-export import :IteratorWrapper;
-export import :PixelFormat;
-export import :Platform;
-export import :Prerequisites;
-export import :Resource;
-export import :ResourceGroupManager;
-export import :ResourceManager;
-export import :SharedPtr;
-export import :Singleton;
-export import :Texture;
+import :Common;
+import :CompositionTechnique;
+import :IteratorWrapper;
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
+import :Resource;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :SharedPtr;
+import :Singleton;
+import :Texture;
 
 export
 namespace Ogre {

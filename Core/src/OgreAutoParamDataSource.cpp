@@ -30,18 +30,14 @@ module;
 #include <cassert>
 #include <cmath>
 #include <limits>
-#include <vector>
 
-module Ogre.Core;
+module Ogre.Core:AutoParamDataSource;
 
-import :AutoParamDataSource;
 import :Camera;
-import :ColourValue;
 import :Controller;
 import :ControllerManager;
 import :Frustum;
 import :Math;
-import :MemoryAllocatorConfig;
 import :Pass;
 import :Platform;
 import :Quaternion;

@@ -25,18 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
-#include <string_view>
-
 export module Ogre.Core:SkeletonManager;
 
-export import :Common;
-export import :Prerequisites;
-export import :Resource;
-export import :ResourceGroupManager;
-export import :ResourceManager;
-export import :Singleton;
+import :Common;
+import :Prerequisites;
+import :Resource;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :Singleton;
 
 export
 namespace Ogre {
@@ -69,7 +65,7 @@ namespace Ogre {
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName
-        SkeletonPtr getByName(const String& name, ::std::string_view groupName = RGN_DEFAULT) const;
+        SkeletonPtr getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const;
 
         /// @copydoc Singleton::getSingleton()
         static SkeletonManager& getSingleton(void);

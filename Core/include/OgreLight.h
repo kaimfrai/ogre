@@ -30,25 +30,24 @@ module;
 #include <cassert>
 #include <cstddef>
 #include <map>
-#include <vector>
 
 export module Ogre.Core:Light;
 
-export import :AxisAlignedBox;
-export import :Camera;
-export import :ColourValue;
-export import :Common;
-export import :GpuProgramParams;
-export import :Math;
-export import :MovableObject;
-export import :Node;
-export import :PlaneBoundedVolume;
-export import :Platform;
-export import :Prerequisites;
-export import :Quaternion;
-export import :Renderable;
-export import :SharedPtr;
-export import :Vector;
+import :AxisAlignedBox;
+import :Camera;
+import :ColourValue;
+import :Common;
+import :GpuProgramParams;
+import :Math;
+import :MovableObject;
+import :Node;
+import :PlaneBoundedVolume;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :Renderable;
+import :SharedPtr;
+import :Vector;
 
 export
 namespace Ogre {

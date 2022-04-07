@@ -30,15 +30,14 @@ module;
 #include <algorithm>
 #include <cstddef>
 #include <map>
-#include <string>
 #include <vector>
 
 export module Ogre.Core:RenderTarget;
 
-export import :MemoryAllocatorConfig;
-export import :PixelFormat;
-export import :Platform;
-export import :Prerequisites;
+import :MemoryAllocatorConfig;
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
 
 /* Define the number of priority groups for the render system's render targets. */
 #ifndef OGRE_NUM_RENDERTARGET_GROUPS

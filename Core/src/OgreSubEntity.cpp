@@ -33,7 +33,7 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:SubEntity;
 
 import :AnimationTrack;
 import :Camera;

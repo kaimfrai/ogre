@@ -32,10 +32,10 @@ module;
 
 export module Ogre.Core:ArchiveManager;
 
-export import :IteratorWrapper;
-export import :MemoryAllocatorConfig;
-export import :Prerequisites;
-export import :Singleton;
+import :IteratorWrapper;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :Singleton;
 
 export
 namespace Ogre {

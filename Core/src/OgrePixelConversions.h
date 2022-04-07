@@ -1,3 +1,5 @@
+module;
+
  /*
 -----------------------------------------------------------------------------
 This source file is part of OGRE
@@ -26,20 +28,12 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 /** Internal include file -- do not use externally */
-module;
 
-#include <cstddef>
-
-module Ogre.Core:PixelConversions;
-
-import :Common;
-import :PixelFormat;
-import :Platform;
+export module Ogre.Core:PixelConversions;
 
 //using namespace Ogre;
 // NB VC6 can't handle these templates
 #define FMTCONVERTERID(from,to) (((from)<<8)|(to))
-
 /** \addtogroup Core
 *  @{
 */

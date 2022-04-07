@@ -30,7 +30,7 @@ module;
 
 #include <utility>
 
-module Ogre.Core;
+module Ogre.Core:ShadowCameraSetupLiSPSM;
 
 import :Camera;
 import :Exception;
@@ -211,10 +211,10 @@ class Viewport;
         const Viewport *vp, const Light *light, Camera *texCam, size_t iteration) const
     {
         // check availability - viewport not needed
-        // OgreAssert(sm != NULL, "SceneManager is NULL");
-        // OgreAssert(cam != NULL, "Camera (viewer) is NULL");
-        // OgreAssert(light != NULL, "Light is NULL");
-        // OgreAssert(texCam != NULL, "Camera (texture) is NULL");
+        OgreAssert(sm != NULL, "SceneManager is NULL");
+        OgreAssert(cam != NULL, "Camera (viewer) is NULL");
+        OgreAssert(light != NULL, "Light is NULL");
+        OgreAssert(texCam != NULL, "Camera (texture) is NULL");
         mLightFrustumCameraCalculated = false;
 
 

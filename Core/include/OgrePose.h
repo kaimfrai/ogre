@@ -29,17 +29,16 @@ module;
 
 #include <cstddef>
 #include <map>
-#include <string>
 #include <vector>
 
 export module Ogre.Core:Pose;
 
-export import :Common;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :SharedPtr;
-export import :Vector;
+import :Common;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :SharedPtr;
+import :Vector;
 
 export
 namespace Ogre {
@@ -134,7 +133,7 @@ class VertexData;
         /** Clone this pose and create another one configured exactly the same
             way (only really useful for cloning holders of this class).
         */
-        [[nodiscard]] Pose* clone(void) const;
+        Pose* clone(void) const OGRE_NODISCARD;
     private:
         /// Target geometry index
         ushort mTarget;

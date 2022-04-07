@@ -31,8 +31,8 @@ module;
 
 export module Ogre.Core:MeshSerializer;
 
-export import :Prerequisites;
-export import :Serializer;
+import :Prerequisites;
+import :Serializer;
 
 export
 namespace Ogre {

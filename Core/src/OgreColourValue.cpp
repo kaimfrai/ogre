@@ -30,7 +30,7 @@ module;
 #include <algorithm>
 #include <cmath>
 
-module Ogre.Core;
+module Ogre.Core:ColourValue;
 
 import :Math;
 import :Platform;

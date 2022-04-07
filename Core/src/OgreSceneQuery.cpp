@@ -31,7 +31,7 @@ module;
 #include <cassert>
 #include <cstddef>
 
-module Ogre.Core;
+module Ogre.Core:SceneQuery;
 
 import :Exception;
 import :SceneManager;

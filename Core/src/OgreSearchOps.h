@@ -31,7 +31,7 @@ module;
 #include <cstdint>
 /* Our simplified data entry structure */
 
-module Ogre.Core:SearchOps;
+export module Ogre.Core:SearchOps;
 
 export
 struct _finddata_t

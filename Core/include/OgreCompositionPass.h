@@ -32,16 +32,16 @@ module;
 
 export module Ogre.Core:CompositionPass;
 
-export import :ColourValue;
-export import :Common;
-export import :Config;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :RenderQueue;
-export import :RenderSystem;
-export import :SharedPtr;
-export import :Vector;
+import :ColourValue;
+import :Common;
+import :Config;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :RenderQueue;
+import :RenderSystem;
+import :SharedPtr;
+import :Vector;
 
 export
 namespace Ogre {

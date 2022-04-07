@@ -37,11 +37,11 @@ module;
 
 export module Ogre.Core:GpuProgramParams;
 
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :Serializer;
-export import :SharedPtr;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :Serializer;
+import :SharedPtr;
 
 export
 namespace Ogre {

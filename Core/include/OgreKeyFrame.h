@@ -31,14 +31,14 @@ module;
 
 export module Ogre.Core:KeyFrame;
 
-export import :Any;
-export import :IteratorWrapper;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :Quaternion;
-export import :SharedPtr;
-export import :Vector;
+import :Any;
+import :IteratorWrapper;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :SharedPtr;
+import :Vector;
 
 export
 namespace Ogre 
@@ -71,7 +71,7 @@ class AnimationTrack;
         Real getTime(void) const { return mTime; }
 
         /** Clone a keyframe (internal use only) */
-        [[nodiscard]] virtual KeyFrame* _clone(AnimationTrack* newParent) const;
+        virtual KeyFrame* _clone(AnimationTrack* newParent) const OGRE_NODISCARD;
 
 
     protected:

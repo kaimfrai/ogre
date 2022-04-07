@@ -34,16 +34,16 @@ module;
 
 export module Ogre.Core:StringConverter;
 
-export import :ColourValue;
-export import :Common;
-export import :Math;
-export import :Matrix3;
-export import :Matrix4;
-export import :Platform;
-export import :Prerequisites;
-export import :Quaternion;
-export import :StringVector;
-export import :Vector;
+import :ColourValue;
+import :Common;
+import :Math;
+import :Matrix3;
+import :Matrix4;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :StringVector;
+import :Vector;
 
 export
 namespace Ogre {

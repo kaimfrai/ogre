@@ -28,9 +28,8 @@ THE SOFTWARE.
 module;
 
 #include <cassert>
-#include <string>
 
-module Ogre.Core;
+module Ogre.Core:CompositionTargetPass;
 
 import :CompositionPass;
 import :MaterialManager;

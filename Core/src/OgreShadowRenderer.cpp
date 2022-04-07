@@ -1277,7 +1277,7 @@ void SceneManager::ShadowRenderer::setShadowTextureCasterMaterial(const Material
     }
     else
     {
-        // OgreAssert(!mat->getTechnique(0)->getPasses().empty(), "technique 0 has no passes");
+        OgreAssert(!mat->getTechnique(0)->getPasses().empty(), "technique 0 has no passes");
         mShadowTextureCustomCasterPass = mat->getTechnique(0)->getPass(0);
     }
 }
@@ -1297,7 +1297,7 @@ void SceneManager::ShadowRenderer::setShadowTextureReceiverMaterial(const Materi
     }
     else
     {
-        // OgreAssert(!mat->getTechnique(0)->getPasses().empty(), "technique 0 has no passes");
+        OgreAssert(!mat->getTechnique(0)->getPasses().empty(), "technique 0 has no passes");
         mShadowTextureCustomReceiverPass = mat->getTechnique(0)->getPass(0);
     }
 }
@@ -1357,7 +1357,7 @@ void SceneManager::ShadowRenderer::initShadowVolumeMaterials()
        created the SceneManager BEFORE the Root object, you will need to call
        SceneManager::_setDestinationRenderSystem manually.
      */
-    // OgreAssert( mDestRenderSystem, "no RenderSystem");
+    OgreAssert( mDestRenderSystem, "no RenderSystem");
 
     if (mShadowMaterialInitDone)
         return;

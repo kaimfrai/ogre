@@ -27,12 +27,12 @@ THE SOFTWARE.
 */
 export module Ogre.Core:DistanceLodStrategy;
 
-export import :LodStrategy;
-export import :Material;
-export import :Math;
-export import :Mesh;
-export import :Prerequisites;
-export import :Singleton;
+import :LodStrategy;
+import :Material;
+import :Math;
+import :Mesh;
+import :Prerequisites;
+import :Singleton;
 
 export
 namespace Ogre {

@@ -35,16 +35,17 @@ module;
 
 export module Ogre.Core:GpuProgramManager;
 
-export import :Common;
-export import :GpuProgram;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :Resource;
-export import :ResourceGroupManager;
-export import :ResourceManager;
-export import :SharedPtr;
-export import :Singleton;
+// Precompiler options
+import :Common;
+import :GpuProgram;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :Resource;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :SharedPtr;
+import :Singleton;
 
 export
 namespace Ogre {
@@ -119,7 +120,7 @@ namespace Ogre {
 
         /// Get a resource by name
         /// @see GpuProgramManager::getResourceByName
-        GpuProgramPtr getByName(const String& name, ::std::string_view group = RGN_DEFAULT) const;
+        GpuProgramPtr getByName(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT) const;
 
         /** Loads a GPU program from a file
         @remarks

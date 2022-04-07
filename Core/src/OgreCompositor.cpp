@@ -30,11 +30,9 @@ module;
 #include <algorithm>
 #include <cassert>
 #include <set>
-#include <string>
 #include <utility>
-#include <vector>
 
-module Ogre.Core;
+module Ogre.Core:Compositor;
 
 import :CompositionTechnique;
 import :CompositorInstance;
@@ -201,8 +199,8 @@ void Compositor::createGlobalTextures()
         if (def->scope == CompositionTechnique::TS_GLOBAL) 
         {
             //Check that this is a legit global texture
-            // OgreAssert(def->refCompName.empty(), "Global compositor texture definition can not be a reference");
-            // OgreAssert(def->width && def->height, "Global compositor texture definition must have absolute size");
+            OgreAssert(def->refCompName.empty(), "Global compositor texture definition can not be a reference");
+            OgreAssert(def->width && def->height, "Global compositor texture definition must have absolute size");
             if (def->pooled) 
             {
                 LogManager::getSingleton().logWarning("Pooling global compositor textures has no effect");
@@ -298,7 +296,7 @@ void Compositor::createGlobalTextures()
         if (numGlobals != globalTextureNames.size())
             isConsistent = false;
 
-        // OgreAssert(isConsistent, "Different composition techniques define different global textures");
+        OgreAssert(isConsistent, "Different composition techniques define different global textures");
     }
     
 }

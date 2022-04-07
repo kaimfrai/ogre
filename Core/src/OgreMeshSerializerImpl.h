@@ -29,7 +29,7 @@ module;
 
 #include <cstddef>
 
-module Ogre.Core:MeshSerializerImpl;
+export module Ogre.Core:MeshSerializerImpl;
 
 import :EdgeListBuilder;
 import :HardwareVertexBuffer;

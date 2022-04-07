@@ -47,10 +47,10 @@ module;
 
 export module Ogre.Core:Profiler;
 
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :Singleton;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :Singleton;
 
 export
 namespace Ogre {

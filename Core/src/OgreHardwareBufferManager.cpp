@@ -36,7 +36,7 @@ module;
 #include <set>
 #include <utility>
 
-module Ogre.Core;
+module Ogre.Core:HardwareBufferManager;
 
 import :Exception;
 import :HardwareBuffer;
@@ -98,7 +98,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void HardwareBufferManagerBase::destroyVertexDeclaration(VertexDeclaration* decl)
     {
-        // OgreAssertDbg(mVertexDeclarations.find(decl) != mVertexDeclarations.end(), "unknown decl");
+        OgreAssertDbg(mVertexDeclarations.find(decl) != mVertexDeclarations.end(), "unknown decl");
         mVertexDeclarations.erase(decl);
         destroyVertexDeclarationImpl(decl);
     }
@@ -112,7 +112,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void HardwareBufferManagerBase::destroyVertexBufferBinding(VertexBufferBinding* binding)
     {
-        // OgreAssertDbg(mVertexBufferBindings.find(binding) != mVertexBufferBindings.end(),
+        OgreAssertDbg(mVertexBufferBindings.find(binding) != mVertexBufferBindings.end(),
                       "unknown binding");
         mVertexBufferBindings.erase(binding);
         destroyVertexBufferBindingImpl(binding);

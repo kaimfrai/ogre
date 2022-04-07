@@ -6,14 +6,12 @@ module;
 #include <algorithm>
 #include <array>
 #include <cstddef>
-#include <string>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:DefaultDebugDrawer;
 
 import :BlendMode;
 import :Common;
-import :DefaultDebugDrawer;
 import :Frustum;
 import :HardwareBuffer;
 import :Material;

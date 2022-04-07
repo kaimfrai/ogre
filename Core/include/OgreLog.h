@@ -29,15 +29,14 @@ module;
 
 #include <algorithm>
 #include <fstream>
-#include <sstream>
 #include <string>
 #include <vector>
 
 export module Ogre.Core:Log;
 
-export import :Common;
-export import :MemoryAllocatorConfig;
-export import :Prerequisites;
+import :Common;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
 
 export
 namespace Ogre {

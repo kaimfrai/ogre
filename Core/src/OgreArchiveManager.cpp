@@ -32,7 +32,7 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core;
+module Ogre.Core:ArchiveManager;
 
 import :Archive;
 import :ArchiveFactory;
@@ -83,7 +83,7 @@ namespace Ogre {
         else
         {
             pArch = i->second;
-            // OgreAssert(pArch->isReadOnly() == readOnly, "existing archive location has different readOnly status");
+            OgreAssert(pArch->isReadOnly() == readOnly, "existing archive location has different readOnly status");
         }
 
         return pArch;

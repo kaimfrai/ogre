@@ -31,8 +31,8 @@ module;
 
 export module Ogre.Core:DepthBuffer;
 
-export import :MemoryAllocatorConfig;
-export import :Platform;
+import :MemoryAllocatorConfig;
+import :Platform;
 
 export
 namespace Ogre

@@ -31,7 +31,7 @@ module;
 #include <map>
 #include <utility>
 
-module Ogre.Core;
+module Ogre.Core:RenderQueue;
 
 import :HardwareVertexBuffer;
 import :Material;

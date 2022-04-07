@@ -32,13 +32,12 @@ module;
 #include <list>
 #include <map>
 #include <memory>
-#include <ostream
-#include <sstream>
+#include <ostream>
 #include <string>
 #include <utility>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:ResourceGroupManager;
 
 import :Archive;
 import :ArchiveManager;
@@ -47,7 +46,6 @@ import :DataStream;
 import :Exception;
 import :Log;
 import :LogManager;
-import :MemoryAllocatorConfig;
 import :Platform;
 import :Prerequisites;
 import :Resource;
@@ -535,7 +533,7 @@ namespace Ogre {
                                                      Resource* resourceBeingLoaded,
                                                      bool throwOnFailure) const
     {
-        // OgreAssert(!resourceName.empty(), "resourceName is empty string");
+        OgreAssert(!resourceName.empty(), "resourceName is empty string");
         if(mLoadingListener)
         {
             DataStreamPtr stream = mLoadingListener->resourceLoading(resourceName, groupName, resourceBeingLoaded);
@@ -1366,7 +1364,7 @@ namespace Ogre {
     std::pair<Archive*, ResourceGroupManager::ResourceGroup*>
     ResourceGroupManager::resourceExistsInAnyGroupImpl(const String& filename) const
     {
-        // OgreAssert(!filename.empty(), "resourceName is empty string");
+        OgreAssert(!filename.empty(), "resourceName is empty string");
 
             // Iterate over resource groups and find
         for (ResourceGroupMap::const_iterator i = mResourceGroupMap.begin();

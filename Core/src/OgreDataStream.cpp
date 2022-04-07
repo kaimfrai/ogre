@@ -34,7 +34,7 @@ module;
 #include <fstream>
 #include <string>
 
-module Ogre.Core;
+module Ogre.Core:DataStream;
 
 import :Exception;
 import :LogManager;

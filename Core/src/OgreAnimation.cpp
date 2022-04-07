@@ -32,17 +32,15 @@ module;
 #include <iterator>
 #include <list>
 #include <string>
-#include <set>
 #include <utility>
 
-module Ogre.Core;
+module Ogre.Core:Animation;
 
 import :Bone;
 import :Entity;
 import :Exception;
 import :KeyFrame;
 import :Mesh;
-import :Prerequisites;
 import :SharedPtr;
 import :Skeleton;
 import :StringConverter;

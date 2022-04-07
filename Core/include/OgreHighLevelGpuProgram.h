@@ -29,15 +29,14 @@ module;
 
 #include <cstddef>
 #include <utility>
-#include <string>
 #include <vector>
 
 export module Ogre.Core:HighLevelGpuProgram;
 
-export import :GpuProgram;
-export import :Prerequisites;
-export import :Resource;
-export import :SharedPtr;
+import :GpuProgram;
+import :Prerequisites;
+import :Resource;
+import :SharedPtr;
 
 export
 namespace Ogre {

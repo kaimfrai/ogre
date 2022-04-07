@@ -28,26 +28,12 @@ THE SOFTWARE.
 module;
 
 #include <exception>
-#include <string>
-#include <string_view>
-// TODO use <source_location> once it is available in libc++
-// #include <source_location>
-// copied form https://github.com/llvm/llvm-project/commit/d61487490022aaacc34249475fac3e208c7d767e
-namespace std {
-    struct source_location {
-        struct __impl {
-            long _M_line;
-            const char *_M_file_name;
-            long _M_column;
-            const char *_M_function_name;
-        };
-    };
-}
 
 export module Ogre.Core:Exception;
 
-export import :Platform;
-export import :Prerequisites;
+// Precompiler options
+import :Platform;
+import :Prerequisites;
 
 // Check for OGRE assert mode
 #define OgreAssert( a, b ) if( !(a) ) OGRE_EXCEPT_2( Ogre::Exception::ERR_RT_ASSERTION_FAILED, (#a " failed. " b) )
@@ -106,11 +92,11 @@ namespace Ogre {
 
         /** Default constructor.
         */
-        Exception( int number, ::std::string_view description, ::std::string_view  source );
+        Exception( int number, const String& description, const String& source );
 
         /** Advanced constructor.
         */
-        Exception( int number, ::std::string_view  description, ::std::string_view  source, const char* type, const char* file, long line );
+        Exception( int number, const String& description, const String& source, const char* type, const char* file, long line );
 
         /** Copy constructor.
         */
@@ -129,11 +115,11 @@ namespace Ogre {
                 the place in which OGRE found the problem, and a text
                 description from the 3D rendering library, if available.
         */
-        ::std::string_view  getFullDescription(void) const { return fullDesc; }
+        const String& getFullDescription(void) const { return fullDesc; }
 
         /** Gets the source function.
         */
-        ::std::string_view getSource() const { return source; }
+        const String &getSource() const { return source; }
 
         /** Gets source file name.
         */
@@ -147,7 +133,7 @@ namespace Ogre {
             getFullDescriptionto get a full description of the error including line number,
             error number and what function threw the exception.
         */
-        ::std::string_view getDescription(void) const { return description; }
+        const String &getDescription(void) const { return description; }
 
         /// Override std::exception::what
         const char* what() const throw() { return fullDesc.c_str(); }
@@ -164,61 +150,61 @@ namespace Ogre {
     class UnimplementedException : public Exception 
     {
     public:
-        UnimplementedException(int inNumber, ::std::string_view  inDescription, ::std::string_view  inSource, const char* inFile, long inLine)
+        UnimplementedException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class FileNotFoundException : public Exception
     {
     public:
-        FileNotFoundException(int inNumber, ::std::string_view  inDescription, ::std::string_view  inSource, const char* inFile, long inLine)
+        FileNotFoundException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class IOException : public Exception
     {
     public:
-        IOException(int inNumber, ::std::string_view  inDescription, ::std::string_view  inSource, const char* inFile, long inLine)
+        IOException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class InvalidStateException : public Exception
     {
     public:
-        InvalidStateException(int inNumber, ::std::string_view  inDescription, ::std::string_view  inSource, const char* inFile, long inLine)
+        InvalidStateException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class InvalidParametersException : public Exception
     {
     public:
-        InvalidParametersException(int inNumber, ::std::string_view  inDescription, ::std::string_view  inSource, const char* inFile, long inLine)
+        InvalidParametersException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class ItemIdentityException : public Exception
     {
     public:
-        ItemIdentityException(int inNumber, ::std::string_view  inDescription, ::std::string_view  inSource, const char* inFile, long inLine)
+        ItemIdentityException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class InternalErrorException : public Exception
     {
     public:
-        InternalErrorException(int inNumber, ::std::string_view  inDescription, ::std::string_view  inSource, const char* inFile, long inLine)
+        InternalErrorException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class RenderingAPIException : public Exception
     {
     public:
-        RenderingAPIException(int inNumber, ::std::string_view  inDescription, ::std::string_view  inSource, const char* inFile, long inLine)
+        RenderingAPIException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class RuntimeAssertionException : public Exception
     {
     public:
-        RuntimeAssertionException(int inNumber, ::std::string_view & inDescription, ::std::string_view  inSource, const char* inFile, long inLine)
+        RuntimeAssertionException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class InvalidCallException : public Exception
     {
     public:
-        InvalidCallException(int inNumber, ::std::string_view  inDescription, ::std::string_view  inSource, const char* inFile, long inLine)
+        InvalidCallException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
 
@@ -236,10 +222,10 @@ namespace Ogre {
     private:
         /// Private constructor, no construction
         ExceptionFactory() {}
-        [[noreturn]] static void _throwException(
+        static OGRE_NORETURN void _throwException(
             Exception::ExceptionCodes code, int number,
-            ::std::string_view desc,
-            ::std::string_view src, const char* file, long line)
+            const String& desc, 
+            const String& src, const char* file, long line)
         {
             switch (code)
             {
@@ -257,26 +243,24 @@ namespace Ogre {
             }
         }
     public:
-        [[noreturn]] static void throwException(
+        static OGRE_NORETURN void throwException(
             Exception::ExceptionCodes code,
-            ::std::string_view desc,
-            ::std::string_view src, const char* file, long line)
+            const String& desc,
+            const String& src, const char* file, long line)
         {
             _throwException(code, code, desc, src, file, line);
         }
     };
     
-    //  TODO use ::std::source_location once it is available in libc++
 
-    [[noreturn]]
-    auto inline OGRE_EXCEPT(Exception::ExceptionCodes code, ::std::string_view desc,
-                            ::std::string_view src = __builtin_source_location()->_M_function_name,
-                            const char* file = __builtin_source_location()->_M_file_name,
-                            long line = __builtin_source_location()->_M_line
-                            )
-    {
-        Ogre::ExceptionFactory::throwException(code, desc, src, file, line);
-    }
+    
+#ifndef OGRE_EXCEPT
+#define OGRE_EXCEPT_3(code, desc, src)  Ogre::ExceptionFactory::throwException(code, desc, src, __FILE__, __LINE__)
+#define OGRE_EXCEPT_2(code, desc)       Ogre::ExceptionFactory::throwException(code, desc, __FUNCTION__, __FILE__, __LINE__)
+#define OGRE_EXCEPT_CHOOSER(arg1, arg2, arg3, arg4, ...) arg4
+#define OGRE_EXPAND(x) x // MSVC workaround
+#define OGRE_EXCEPT(...) OGRE_EXPAND(OGRE_EXCEPT_CHOOSER(__VA_ARGS__, OGRE_EXCEPT_3, OGRE_EXCEPT_2)(__VA_ARGS__))
+#endif
     /** @} */
     /** @} */
 

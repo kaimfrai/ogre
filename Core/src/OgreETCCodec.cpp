@@ -29,7 +29,7 @@ module;
 
 #include <cstring>
 
-module Ogre.Core;
+module Ogre.Core:ETCCodec;
 
 import :Codec;
 import :Common;

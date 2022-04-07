@@ -32,11 +32,11 @@ module;
 
 export module Ogre.Core:PatchSurface;
 
-export import :AxisAlignedBox;
-export import :MemoryAllocatorConfig;
-export import :Prerequisites;
-export import :SharedPtr;
-export import :Vector;
+import :AxisAlignedBox;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :SharedPtr;
+import :Vector;
 
 export
 namespace Ogre {

@@ -148,7 +148,7 @@ namespace Ogre {
     {
         if(target == GL_FRAMEBUFFER)
         {
-            // OgreAssert(false, "not implemented");
+            OgreAssert(false, "not implemented");
         }
         else if(target == GL_RENDERBUFFER)
         {

@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Core;
+module Ogre.Core:RenderTexture;
 
 import :DepthBuffer;
 import :Exception;
@@ -54,7 +54,7 @@ struct Box;
     void RenderTexture::copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer)
     {
         if (buffer == FB_AUTO) buffer = FB_FRONT;
-        // OgreAssert(buffer == FB_FRONT, "Invalid buffer");
+        OgreAssert(buffer == FB_FRONT, "Invalid buffer");
 
         mBuffer->blitToMemory(src, dst);
     }

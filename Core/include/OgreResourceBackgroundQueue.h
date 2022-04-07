@@ -28,17 +28,16 @@ THE SOFTWARE.
 module;
 
 #include <set>
-#include <string>
 
 export module Ogre.Core:ResourceBackgroundQueue;
 
-export import :Common;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :Resource;
-export import :Singleton;
-export import :WorkQueue;
+import :Common;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :Resource;
+import :Singleton;
+import :WorkQueue;
 
 export
 namespace Ogre {

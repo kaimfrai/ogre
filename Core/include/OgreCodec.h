@@ -30,13 +30,12 @@ module;
 #include <cstddef>
 #include <map>
 #include <string>
-#include <string_view>
 
 export module Ogre.Core:Codec;
 
-export import :MemoryAllocatorConfig;
-export import :Prerequisites;
-export import :StringVector;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :StringVector;
 
 export
 namespace Ogre {
@@ -60,7 +59,7 @@ class Any;
     class Codec : public CodecAlloc
     {
     private:
-        typedef std::map< ::std::string_view, Codec* > CodecList;
+        typedef std::map< String, Codec* > CodecList; 
         /** A map that contains all the registered codecs.
         */
         static CodecList msMapCodecs;
@@ -74,7 +73,7 @@ class Any;
 
         /** Return whether a codec is registered already. 
         */
-        static bool isCodecRegistered( ::std::string_view codecType )
+        static bool isCodecRegistered( const String& codecType )
         {
             return msMapCodecs.find(codecType) != msMapCodecs.end();
         }
@@ -90,7 +89,7 @@ class Any;
         static StringVector getExtensions(void);
 
         /** Gets the codec registered for the passed in file extension. */
-        static Codec* getCodec(::std::string_view extension);
+        static Codec* getCodec(const String& extension);
 
         /** Gets the codec that can handle the given 'magic' identifier. 
         @param magicNumberPtr Pointer to a stream of bytes which should identify the file.
@@ -111,7 +110,7 @@ class Any;
         @param input The input data (codec type specific)
         @param outFileName The filename to write to
         */
-        virtual void encodeToFile(const Any& input, ::std::string_view outFileName) const;
+        virtual void encodeToFile(const Any& input, const String& outFileName) const;
 
         /** Codes the data from the input chunk into the output chunk.
             @param input Stream containing the encoded data
@@ -121,7 +120,7 @@ class Any;
 
         /** Returns the type of the codec as a String
         */
-        virtual ::std::string_view getType() const = 0;
+        virtual String getType() const = 0;
 
         /** Returns whether a magic number header matches this codec.
         @param magicNumberPtr Pointer to a stream of bytes which should identify the file.

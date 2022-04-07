@@ -28,15 +28,14 @@ THE SOFTWARE.
 module;
 
 #include <cstddef>
-#include <string>
 
 export module Ogre.Core:Serializer;
 
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :Quaternion;
-export import :SharedPtr;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :SharedPtr;
 
 export
 namespace Ogre {

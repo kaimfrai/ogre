@@ -34,19 +34,18 @@ module;
 #include <string>
 #include <unordered_map>
 #include <utility>
-#include <vector>
 
 export module Ogre.Core:ResourceManager;
 
-export import :Common;
-export import :IteratorWrapper;
-export import :MemoryAllocatorConfig;
-export import :Prerequisites;
-export import :Resource;
-export import :ResourceGroupManager;
-export import :ScriptLoader;
-export import :SharedPtr;
-export import :StringVector;
+import :Common;
+import :IteratorWrapper;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :Resource;
+import :ResourceGroupManager;
+import :ScriptLoader;
+import :SharedPtr;
+import :StringVector;
 
 export
 namespace Ogre {
@@ -169,7 +168,7 @@ namespace Ogre {
             as much as they can and wait to be reloaded.
             @see ResourceGroupManager for unloading of resource groups.
         */
-        void  unload(const String& name, ::std::string_view group = RGN_DEFAULT);
+        void  unload(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT);
         
         /** Unloads a single resource by handle.
         @remarks
@@ -283,7 +282,7 @@ namespace Ogre {
         void remove(const ResourcePtr& r);
 
         /// @overload
-        void remove(const String& name, ::std::string_view group = RGN_DEFAULT);
+        void remove(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT);
         
         /// @overload
         void remove(ResourceHandle handle);
@@ -321,14 +320,14 @@ namespace Ogre {
 
         /** Retrieves a pointer to a resource by name, or null if the resource does not exist.
         */
-        virtual ResourcePtr getResourceByName(const String& name, ::std::string_view groupName = RGN_DEFAULT) const;
+        virtual ResourcePtr getResourceByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const;
 
         /** Retrieves a pointer to a resource by handle, or null if the resource does not exist.
         */
         virtual ResourcePtr getByHandle(ResourceHandle handle) const;
         
         /// Returns whether the named resource exists in this manager
-        bool resourceExists(const String& name, ::std::string_view group = RGN_DEFAULT) const
+        bool resourceExists(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT) const
         {
             return getResourceByName(name, group).get() != 0;
         }

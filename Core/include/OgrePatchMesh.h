@@ -31,11 +31,11 @@ module;
 
 export module Ogre.Core:PatchMesh;
 
-export import :HardwareBuffer;
-export import :Mesh;
-export import :PatchSurface;
-export import :Prerequisites;
-export import :Resource;
+import :HardwareBuffer;
+import :Mesh;
+import :PatchSurface;
+import :Prerequisites;
+import :Resource;
 
 export
 namespace Ogre {

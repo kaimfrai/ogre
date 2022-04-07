@@ -181,7 +181,7 @@ bool IntegratedPSSM3::preAddToRenderState(const RenderState* renderState,
 //-----------------------------------------------------------------------
 void IntegratedPSSM3::setSplitPoints(const SplitPointList& newSplitPoints)
 {
-    // OgreAssert(newSplitPoints.size() <= 5, "at most 5 split points are supported");
+    OgreAssert(newSplitPoints.size() <= 5, "at most 5 split points are supported");
 
     mShadowTextureParamsList.resize(newSplitPoints.size() - 1);
 

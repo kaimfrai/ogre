@@ -27,9 +27,9 @@ THE SOFTWARE.
 */
 export module Ogre.Core:Rectangle2D;
 
-export import :HardwareBuffer;
-export import :Prerequisites;
-export import :SimpleRenderable;
+import :HardwareBuffer;
+import :Prerequisites;
+import :SimpleRenderable;
 
 export
 namespace Ogre {

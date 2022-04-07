@@ -33,16 +33,16 @@ module;
 
 export module Ogre.Core:Animable;
 
-export import :ColourValue;
-export import :Common;
-export import :Exception;
-export import :Math;
-export import :MemoryAllocatorConfig;
-export import :Prerequisites;
-export import :Quaternion;
-export import :SharedPtr;
-export import :StringVector;
-export import :Vector;
+import :ColourValue;
+import :Common;
+import :Exception;
+import :Math;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :Quaternion;
+import :SharedPtr;
+import :StringVector;
+import :Vector;
 
 export
 namespace Ogre {

@@ -25,11 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
-#include <string_view>
-
-module Ogre.Core;
+module Ogre.Core:Archive;
 
 import :Exception;
 import :Prerequisites;

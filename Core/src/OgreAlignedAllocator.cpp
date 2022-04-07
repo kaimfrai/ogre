@@ -28,11 +28,9 @@ THE SOFTWARE.
 module;
 
 #include <cassert>
-#include <cstddef>
 
-module Ogre.Core;
+module Ogre.Core:AlignedAllocator;
 
-import :AlignedAllocator;
 import :Bitwise;
 import :Platform;
 

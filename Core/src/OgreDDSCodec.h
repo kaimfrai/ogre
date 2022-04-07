@@ -28,9 +28,8 @@ THE SOFTWARE.
 module;
 
 #include <cstddef>
-#include <string>
 
-module Ogre.Core:DDSCodec;
+export module Ogre.Core:DDSCodec;
 
 import :ImageCodec;
 import :PixelFormat;
@@ -84,10 +83,10 @@ class ColourValue;
         using ImageCodec::encode;
         using ImageCodec::encodeToFile;
 
-        void encodeToFile(const MemoryDataStreamPtr& input, ::std::string_view outFileName, const CodecDataPtr& pData) const override;
+        void encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName, const CodecDataPtr& pData) const override;
         DecodeResult decode(const DataStreamPtr& input) const override;
         String magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const override;
-        ::std::string_view getType() const override;
+        String getType() const override;
 
         /// Static method to startup and register the DDS codec
         static void startup(void);

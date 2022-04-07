@@ -36,7 +36,7 @@ module;
 #include <sys/stat.h>
 #include <unistd.h>
 
-module Ogre.Core;
+module Ogre.Core:FileSystemLayer;
 
 import :Prerequisites;
 import :String;

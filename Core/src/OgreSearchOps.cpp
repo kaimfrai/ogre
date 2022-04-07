@@ -36,7 +36,7 @@ module;
 #include <sys/stat.h>
     
 
-module Ogre.Core;
+module Ogre.Core:SearchOps;
 
 struct _find_search_t
 {

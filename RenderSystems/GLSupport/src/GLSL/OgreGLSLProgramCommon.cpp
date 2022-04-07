@@ -118,7 +118,7 @@ void GLSLProgramCommon::useTightAttributeLayout() {
 
 int32 GLSLProgramCommon::getFixedAttributeIndex(VertexElementSemantic semantic, uint index)
 {
-    // OgreAssertDbg(semantic > 0 && semantic <= VES_COUNT, "Missing attribute!");
+    OgreAssertDbg(semantic > 0 && semantic <= VES_COUNT, "Missing attribute!");
 
     if(semantic == VES_TEXTURE_COORDINATES)
         return attributeIndex[semantic] + index;

@@ -32,7 +32,7 @@ module;
 #include <memory>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:SimpleSpline;
 
 import :Matrix4;
 import :Prerequisites;

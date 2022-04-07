@@ -31,9 +31,9 @@ module;
 
 export module Ogre.Core:RenderToVertexBuffer;
 
-export import :Prerequisites;
-export import :RenderOperation;
-export import :SharedPtr;
+import :Prerequisites;
+import :RenderOperation;
+import :SharedPtr;
 
 export
 namespace Ogre {

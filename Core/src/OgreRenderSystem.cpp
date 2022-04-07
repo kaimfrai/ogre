@@ -35,12 +35,11 @@ module;
 #include <list>
 #include <map>
 #include <memory>
-#include <sstream>
 #include <string>
 #include <utility>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:RenderSystem;
 
 // RenderSystem implementation
 // Note that most of this class is abstract since
@@ -609,8 +608,8 @@ namespace Ogre {
 
                 bAttached = renderTarget->attachDepthBuffer( newDepthBuffer );
 
-                // OgreAssert( bAttached ,"A new DepthBuffer for a RenderTarget was created, but after creation"
-//                                      " it says it's incompatible with that RT" );
+                OgreAssert( bAttached ,"A new DepthBuffer for a RenderTarget was created, but after creation"
+                                     " it says it's incompatible with that RT" );
             }
             else
                 LogManager::getSingleton().logWarning( "Couldn't create a suited DepthBuffer"

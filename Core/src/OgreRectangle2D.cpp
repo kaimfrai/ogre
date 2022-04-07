@@ -193,7 +193,7 @@ class MovableObject;
     void Rectangle2D::setUVs(const Vector2& topLeft, const Vector2& bottomLeft, const Vector2& topRight,
                              const Vector2& bottomRight)
     {
-        // OgreAssert(mRenderOp.vertexData->vertexDeclaration->getElementCount() > TEXCOORD_BINDING,
+        OgreAssert(mRenderOp.vertexData->vertexDeclaration->getElementCount() > TEXCOORD_BINDING,
                    "Vertex data wasn't built with UV buffer");
 
         HardwareVertexBufferSharedPtr vbuf = 

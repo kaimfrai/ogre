@@ -32,9 +32,9 @@ module;
 
 export module Ogre.Core:RenderSystemCapabilitiesManager;
 
-export import :MemoryAllocatorConfig;
-export import :Prerequisites;
-export import :Singleton;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :Singleton;
 
 export
 namespace Ogre {

@@ -27,19 +27,19 @@ THE SOFTWARE.
 */
 export module Ogre.Core:Frustum;
 
-export import :AxisAlignedBox;
-export import :ColourValue;
-export import :Common;
-export import :Math;
-export import :Matrix4;
-export import :MovableObject;
-export import :Plane;
-export import :PlaneBoundedVolume;
-export import :Platform;
-export import :Prerequisites;
-export import :Quaternion;
-export import :Renderable;
-export import :Vector;
+import :AxisAlignedBox;
+import :ColourValue;
+import :Common;
+import :Math;
+import :Matrix4;
+import :MovableObject;
+import :Plane;
+import :PlaneBoundedVolume;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :Renderable;
+import :Vector;
 
 export
 namespace Ogre

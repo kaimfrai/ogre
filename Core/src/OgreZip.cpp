@@ -37,7 +37,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:Zip;
 
 import :Archive;
 import :DataStream;

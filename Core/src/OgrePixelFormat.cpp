@@ -32,7 +32,7 @@ module;
 #include <cstring>
 #include <string>
 
-module Ogre.Core;
+module Ogre.Core:PixelFormat;
 
 import :AlignedAllocator;
 import :Bitwise;
@@ -55,7 +55,7 @@ namespace Ogre {
     }
     PixelBox PixelBox::getSubVolume(const Box &def, bool resetOrigin /* = true */) const
     {
-        // OgreAssert(contains(def), "");
+        OgreAssert(contains(def), "");
 
         if(PixelUtil::isCompressed(format) && (def.left != left || def.top != top || def.right != right || def.bottom != bottom))
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot return subvolume of compressed PixelBuffer with less than slice granularity", "PixelBox::getSubVolume");
@@ -684,7 +684,7 @@ namespace Ogre {
     /* Convert pixels from one format to another */
     void PixelUtil::bulkPixelConversion(const PixelBox &src, const PixelBox &dst)
     {
-        // OgreAssert(src.getSize() == dst.getSize(), "");
+        OgreAssert(src.getSize() == dst.getSize(), "");
 
         // Check for compressed formats, we don't support decompression, compression or recoding
         if(PixelUtil::isCompressed(src.format) || PixelUtil::isCompressed(dst.format))

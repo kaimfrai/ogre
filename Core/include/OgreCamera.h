@@ -35,14 +35,14 @@ export module Ogre.Core:Camera;
 
 // Default options
 // Matrices & Vectors
-export import :AxisAlignedBox;
-export import :Common;
-export import :Frustum;
-export import :Plane;
-export import :PlaneBoundedVolume;
-export import :Prerequisites;
-export import :Quaternion;
-export import :Vector;
+import :AxisAlignedBox;
+import :Common;
+import :Frustum;
+import :Plane;
+import :PlaneBoundedVolume;
+import :Prerequisites;
+import :Quaternion;
+import :Vector;
 
 export
 namespace Ogre {

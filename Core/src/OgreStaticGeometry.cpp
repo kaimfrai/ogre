@@ -32,7 +32,7 @@ module;
 #include <memory>
 #include <ostream>
 
-module Ogre.Core;
+module Ogre.Core:StaticGeometry;
 
 import :Camera;
 import :EdgeListBuilder;
@@ -335,7 +335,7 @@ namespace Ogre {
     StaticGeometry::SubMeshLodGeometryLinkList*
     StaticGeometry::determineGeometry(SubMesh* sm)
     {
-        // OgreAssert(sm->indexData->indexBuffer, "currently only works with indexed geometry");
+        OgreAssert(sm->indexData->indexBuffer, "currently only works with indexed geometry");
         // First, determine if we've already seen this submesh before
         SubMeshGeometryLookup::iterator i =
             mSubMeshGeometryLookup.find(sm);
@@ -1100,7 +1100,7 @@ namespace Ogre {
                "Only 16-bit indexes supported for now");
 
         // We need to search the edge list for silhouette edges
-        // OgreAssert(mEdgeList, "You enabled stencil shadows after the build process!");
+        OgreAssert(mEdgeList, "You enabled stencil shadows after the build process!");
 
         // Init shadow renderable list if required
         bool init = mShadowRenderables.empty();
@@ -1247,7 +1247,7 @@ namespace Ogre {
     }
     void StaticGeometry::MaterialBucket::_setMaterial(const MaterialPtr& material)
     {
-        // OgreAssert(material, "NULL pointer");
+        OgreAssert(material, "NULL pointer");
         mMaterial = material;
         mMaterial->load();
     }
@@ -1414,7 +1414,7 @@ namespace Ogre {
     {
         // Need to double the vertex count for the position buffer
         // if we're doing stencil shadows
-        // OgreAssert(!stencilShadows || mVertexData->vertexCount * 2 <= mMaxVertexIndex,
+        OgreAssert(!stencilShadows || mVertexData->vertexCount * 2 <= mMaxVertexIndex,
                    "Index range exceeded when using stencil shadows, consider reducing your region size or "
                    "reducing poly count");
 

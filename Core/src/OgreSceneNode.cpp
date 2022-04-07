@@ -34,7 +34,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:SceneNode;
 
 import :AxisAlignedBox;
 import :Camera;
@@ -127,7 +127,7 @@ namespace Ogre {
     };
     void SceneNode::attachObject(MovableObject* obj)
     {
-        // OgreAssert(!obj->isAttached(), "Object already attached to a SceneNode or a Bone");
+        OgreAssert(!obj->isAttached(), "Object already attached to a SceneNode or a Bone");
 
         obj->_notifyAttached(this);
 
@@ -160,7 +160,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     MovableObject* SceneNode::detachObject(unsigned short index)
     {
-        // OgreAssert(index < mObjectsByName.size(), "out of bounds");
+        OgreAssert(index < mObjectsByName.size(), "out of bounds");
         ObjectMap::iterator i = mObjectsByName.begin();
         i += index;
 

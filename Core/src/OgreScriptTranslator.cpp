@@ -38,7 +38,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:ScriptTranslator;
 
 import :Any;
 import :BlendMode;
@@ -136,7 +136,7 @@ class LodStrategy;
         for(auto& kv : compiler->mIds)
             if(kv.second == id)
                 return kv.first;
-        // OgreAssertDbg(false,  "should not get here");
+        OgreAssertDbg(false,  "should not get here");
         return "unknown";
     }
 
@@ -593,7 +593,7 @@ class LodStrategy;
         {
         default:
             assert(false);
-            [[fallthrough]];
+            OGRE_FALLTHROUGH;
         case ID_VERTEX_PROGRAM:
         case ID_VERTEX_PROGRAM_REF:
             return GPT_VERTEX_PROGRAM;
@@ -2477,7 +2477,7 @@ class LodStrategy;
             compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, prop->file,
                 prop->line,
                 "compare_func. Use comp_func.");
-            [[fallthrough]];
+            OGRE_FALLTHROUGH;
         case ID_COMP_FUNC:
             CompareFunction func;
             if(getValue(prop, compiler, func))

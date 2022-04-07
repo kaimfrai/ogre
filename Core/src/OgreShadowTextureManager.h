@@ -30,10 +30,10 @@ Torus Knot Software Ltd.
 module;
 
 #include <cstddef>
-#include <vector>
 
-module Ogre.Core:ShadowTextureManager;
+export module Ogre.Core:ShadowTextureManager;
 
+// Precompiler options
 import :MemoryAllocatorConfig;
 import :PixelFormat;
 import :Prerequisites;

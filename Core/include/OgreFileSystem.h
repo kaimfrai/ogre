@@ -27,20 +27,19 @@ THE SOFTWARE.
 */
 module;
 
-#include <ios>
 #include <iosfwd>
 
 export module Ogre.Core:FileSystem;
 
-export import :Archive;
-export import :ArchiveFactory;
-export import :Prerequisites;
+import :ArchiveFactory;
+import :Prerequisites;
 
 export
 struct AAssetManager;
 
 export
 namespace Ogre {
+class Archive;
 
     /** \addtogroup Core
     *  @{

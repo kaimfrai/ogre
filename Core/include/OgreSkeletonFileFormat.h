@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 export module Ogre.Core:SkeletonFileFormat;
 
-export import :Prerequisites;
+import :Prerequisites;
 
 export
 namespace Ogre {

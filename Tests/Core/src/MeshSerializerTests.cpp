@@ -523,7 +523,7 @@ void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, Strin
     }
     outPath += info->filename;
 
-    // OgreAssert(info->archive->getType() == "FileSystem", "");
+    OgreAssert(info->archive->getType() == "FileSystem", "");
 }
 //--------------------------------------------------------------------------
 bool MeshSerializerTests::copyFile(const String& srcPath, const String& dstPath)

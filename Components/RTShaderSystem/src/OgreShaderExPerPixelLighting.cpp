@@ -141,7 +141,7 @@ bool PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet)
         mInDiffuse = psMain->getLocalParameter(Parameter::SPC_COLOR_DIFFUSE);
     }
 
-    // OgreAssert(mInDiffuse, "mInDiffuse is NULL");
+    OgreAssert(mInDiffuse, "mInDiffuse is NULL");
 
     mOutDiffuse = psMain->resolveOutputParameter(Parameter::SPC_COLOR_DIFFUSE);
 

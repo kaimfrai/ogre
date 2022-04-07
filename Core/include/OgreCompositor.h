@@ -35,10 +35,10 @@ module;
 
 export module Ogre.Core:Compositor;
 
-export import :Common;
-export import :Prerequisites;
-export import :Resource;
-export import :SharedPtr;
+import :Common;
+import :Prerequisites;
+import :Resource;
+import :SharedPtr;
 
 export
 namespace Ogre {

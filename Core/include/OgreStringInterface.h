@@ -35,9 +35,9 @@ module;
 
 export module Ogre.Core:StringInterface;
 
-export import :Common;
-export import :Prerequisites;
-export import :StringConverter;
+import :Common;
+import :Prerequisites;
+import :StringConverter;
 
 export
 namespace Ogre {

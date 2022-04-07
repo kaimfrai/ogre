@@ -35,12 +35,11 @@ module;
 
 export module Ogre.Core:EdgeListBuilder;
 
-export import :AlignedAllocator;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :RenderOperation;
-export import :Vector;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :RenderOperation;
+import :Vector;
 
 export
 namespace Ogre {
@@ -163,7 +162,7 @@ namespace Ogre {
         */
         void updateFaceNormals(size_t vertexSet, const HardwareVertexBufferSharedPtr& positionBuffer);
 
-        [[nodiscard]] EdgeData* clone();
+        EdgeData* clone() OGRE_NODISCARD;
 
 
         /// Debugging method

@@ -35,7 +35,7 @@ module;
 #include <map>
 #include <string>
 
-module Ogre.Core;
+module Ogre.Core:Entity;
 
 import :AlignedAllocator;
 import :Animation;
@@ -184,7 +184,7 @@ class Sphere;
                 Entity* lodEnt;
                 if(!usage.manualName.empty()){
                     // Disabled to prevent recursion when a.mesh has manualLod to b.mesh and b.mesh has manualLod to a.mesh.
-                    // OgreAssert(usage.manualMesh->getNumLodLevels() == 1, "Manual Lod Mesh can't have Lod levels!");
+                    OgreAssert(usage.manualMesh->getNumLodLevels() == 1, "Manual Lod Mesh can't have Lod levels!");
 
                     if(usage.manualMesh->getNumLodLevels() != 1) {
                         // To prevent crash in release builds, we will remove Lod levels.
@@ -343,7 +343,7 @@ class Sphere;
     //-----------------------------------------------------------------------
     Entity* Entity::clone( const String& newName) const
     {
-        // OgreAssert(mManager, "Cannot clone an Entity that wasn't created through a SceneManager");
+        OgreAssert(mManager, "Cannot clone an Entity that wasn't created through a SceneManager");
         Entity* newEnt = mManager->createEntity(newName, getMesh()->getName() );
 
         if (mInitialised)
@@ -744,7 +744,7 @@ class Sphere;
     //-----------------------------------------------------------------------
     AnimationState* Entity::getAnimationState(const String& name) const
     {
-        // OgreAssert(mAnimationState, "Entity is not animated");
+        OgreAssert(mAnimationState, "Entity is not animated");
         return mAnimationState->getAnimationState(name);
     }
     //-----------------------------------------------------------------------
@@ -1490,8 +1490,8 @@ class Sphere;
                 "An object with the name " + pMovable->getName() + " already attached",
                 "Entity::attachObjectToBone");
         }
-        // OgreAssert(!pMovable->isAttached(), "Object already attached to a sceneNode or a Bone");
-        // OgreAssert(hasSkeleton(), "This entity's mesh has no skeleton to attach object to");
+        OgreAssert(!pMovable->isAttached(), "Object already attached to a sceneNode or a Bone");
+        OgreAssert(hasSkeleton(), "This entity's mesh has no skeleton to attach object to");
         Bone* bone = mSkeletonInstance->getBone(boneName);
         if (!bone)
         {
@@ -2207,10 +2207,10 @@ class Sphere;
     //-----------------------------------------------------------------------
     void Entity::shareSkeletonInstanceWith(Entity* entity)
     {
-        // OgreAssert(entity->getMesh()->getSkeleton() == getMesh()->getSkeleton(),
+        OgreAssert(entity->getMesh()->getSkeleton() == getMesh()->getSkeleton(),
                    "The supplied entity has a different skeleton");
-        // OgreAssert(mSkeletonInstance, "This entity has no skeleton");
-        // OgreAssert(!mSharedSkeletonEntities || !entity->mSharedSkeletonEntities,
+        OgreAssert(mSkeletonInstance, "This entity has no skeleton");
+        OgreAssert(!mSharedSkeletonEntities || !entity->mSharedSkeletonEntities,
                    "Both entities already shares their SkeletonInstances! At least one of the instances "
                    "must not share it's instance");
 
@@ -2243,7 +2243,7 @@ class Sphere;
     //-----------------------------------------------------------------------
     void Entity::stopSharingSkeletonInstance()
     {
-        // OgreAssert(mSharedSkeletonEntities, "This entity is not sharing it's skeletoninstance");
+        OgreAssert(mSharedSkeletonEntities, "This entity is not sharing it's skeletoninstance");
         //check if there's no other than us sharing the skeleton instance
         if (mSharedSkeletonEntities->size() == 1)
         {

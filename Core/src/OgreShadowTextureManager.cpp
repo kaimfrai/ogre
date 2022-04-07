@@ -35,7 +35,7 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:ShadowTextureManager;
 
 import :HardwareBuffer;
 import :HardwarePixelBuffer;

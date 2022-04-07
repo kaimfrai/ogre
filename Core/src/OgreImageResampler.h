@@ -29,13 +29,7 @@ module;
 
 #include <algorithm>
 
-module Ogre.Core:ImageResampler;
-
-import :ColourValue;
-import :Common;
-import :PixelFormat;
-import :Platform;
-import :Prerequisites;
+export module Ogre.Core:ImageResampler;
 
 // this file is inlined into OgreImage.cpp!
 // do not include anywhere else.

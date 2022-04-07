@@ -31,7 +31,7 @@ module;
 #include <cmath>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:ParticleEmitter;
 
 import :Common;
 import :ParticleEmitterCommands;

@@ -46,7 +46,7 @@ module;
 //
 #include <xmmintrin.h>
 
-module Ogre.Core:SIMDHelper;
+export module Ogre.Core:SIMDHelper;
 
 //---------------------------------------------------------------------
 // SIMD macros and helpers
@@ -202,11 +202,11 @@ namespace Ogre {
     template <bool aligned = false>
     struct SSEMemoryAccessor
     {
-        static inline __attribute__((always_inline)) __m128 load(const float *p)
+        static OGRE_FORCE_INLINE __m128 load(const float *p)
         {
             return _mm_loadu_ps(p);
         }
-        static inline __attribute__((always_inline)) void store(float *p, const __m128& v)
+        static OGRE_FORCE_INLINE void store(float *p, const __m128& v)
         {
             _mm_storeu_ps(p, v);
         }
@@ -215,11 +215,11 @@ namespace Ogre {
     template <>
     struct SSEMemoryAccessor<true>
     {
-        static inline __attribute__((always_inline)) const __m128& load(const float *p)
+        static OGRE_FORCE_INLINE const __m128& load(const float *p)
         {
             return __MM_LOAD_PS(p);
         }
-        static inline __attribute__((always_inline)) void store(float *p, const __m128& v)
+        static OGRE_FORCE_INLINE void store(float *p, const __m128& v)
         {
             __MM_STORE_PS(p, v);
         }
@@ -227,7 +227,7 @@ namespace Ogre {
 
     /** Check whether or not the given pointer perfect aligned for SSE.
     */
-    inline __attribute__((always_inline)) bool _isAlignedForSSE(const void *p)
+    static OGRE_FORCE_INLINE bool _isAlignedForSSE(const void *p)
     {
         return (((size_t)p) & 15) == 0;
     }

@@ -31,22 +31,21 @@ module;
 #include <map>
 #include <memory>
 #include <utility>
-#include <string>
 #include <vector>
 
 export module Ogre.Core:TextureUnitState;
 
-export import :BlendMode;
-export import :ColourValue;
-export import :Common;
-export import :Math;
-export import :Matrix4;
-export import :MemoryAllocatorConfig;
-export import :PixelFormat;
-export import :Platform;
-export import :Prerequisites;
-export import :SharedPtr;
-export import :Texture;
+import :BlendMode;
+import :ColourValue;
+import :Common;
+import :Math;
+import :Matrix4;
+import :MemoryAllocatorConfig;
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
+import :SharedPtr;
+import :Texture;
 
 export
 namespace Ogre {

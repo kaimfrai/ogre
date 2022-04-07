@@ -36,13 +36,13 @@ module;
 
 export module Ogre.Core:Skeleton;
 
-export import :Animation;
-export import :IteratorWrapper;
-export import :Platform;
-export import :Prerequisites;
-export import :Resource;
-export import :SharedPtr;
-export import :StringVector;
+import :Animation;
+import :IteratorWrapper;
+import :Platform;
+import :Prerequisites;
+import :Resource;
+import :SharedPtr;
+import :StringVector;
 
 export
 namespace Ogre {

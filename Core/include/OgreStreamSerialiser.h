@@ -33,11 +33,11 @@ module;
 
 export module Ogre.Core:StreamSerialiser;
 
-export import :Common;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :SharedPtr;
+import :Common;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :SharedPtr;
 
 export
 namespace Ogre 

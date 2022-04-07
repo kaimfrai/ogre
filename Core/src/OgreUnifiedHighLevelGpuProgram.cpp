@@ -30,7 +30,7 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:UnifiedHighLevelGpuProgram;
 
 import :Exception;
 import :GpuProgramManager;

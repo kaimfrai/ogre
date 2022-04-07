@@ -34,12 +34,12 @@ module;
 
 export module Ogre.Core:SceneManagerEnumerator;
 
-export import :Common;
-export import :IteratorWrapper;
-export import :MemoryAllocatorConfig;
-export import :Prerequisites;
-export import :SceneManager;
-export import :Singleton;
+import :Common;
+import :IteratorWrapper;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :SceneManager;
+import :Singleton;
 
 export
 namespace Ogre {

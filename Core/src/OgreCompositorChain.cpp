@@ -32,9 +32,8 @@ module;
 #include <iterator>
 #include <string>
 #include <utility>
-#include <vector>
 
-module Ogre.Core;
+module Ogre.Core:CompositorChain;
 
 import :Camera;
 import :CompositionPass;

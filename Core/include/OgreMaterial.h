@@ -29,17 +29,16 @@ module;
 
 #include <cstddef>
 #include <map>
-#include <string>
 #include <vector>
 
 export module Ogre.Core:Material;
 
-export import :BlendMode;
-export import :ColourValue;
-export import :Common;
-export import :Prerequisites;
-export import :Resource;
-export import :SharedPtr;
+import :BlendMode;
+import :ColourValue;
+import :Common;
+import :Prerequisites;
+import :Resource;
+import :SharedPtr;
 
 export
 namespace Ogre {
@@ -48,9 +47,9 @@ namespace Ogre {
     class LodStrategy;
     template <typename T> class ConstVectorIterator;
     template <typename T> class VectorIterator;
-    class Renderable;
-    class ResourceManager;
-    class Technique;
+class Renderable;
+class ResourceManager;
+class Technique;
 
     /** \addtogroup Core
     *  @{

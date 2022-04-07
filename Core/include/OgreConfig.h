@@ -29,16 +29,16 @@ export module Ogre.Core:Config;
 
 /** Define number of texture coordinate sets allowed per vertex.
 */
-export auto constexpr inline OGRE_MAX_TEXTURE_COORD_SETS = 8;
+#define OGRE_MAX_TEXTURE_COORD_SETS 8
 /** Define max number of texture layers allowed per pass on any card.
 */
-export auto constexpr inline OGRE_MAX_TEXTURE_LAYERS = 16;
+#define OGRE_MAX_TEXTURE_LAYERS 16
 /** Define max number of lights allowed per pass.
 */
-export auto constexpr inline OGRE_MAX_SIMULTANEOUS_LIGHTS = 8;
+#define OGRE_MAX_SIMULTANEOUS_LIGHTS 8
 /** Define max number of blending weights allowed per vertex.
 */
-export auto constexpr inline OGRE_MAX_BLEND_WEIGHTS = 4;
+#define OGRE_MAX_BLEND_WEIGHTS 4
 /** Define max number of multiple render targets (MRTs) to render to at once.
 */
-export auto constexpr inline OGRE_MAX_MULTIPLE_RENDER_TARGETS = 8;
+#define OGRE_MAX_MULTIPLE_RENDER_TARGETS 8

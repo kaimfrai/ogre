@@ -30,7 +30,7 @@ module;
 #include <ctime>
 #include <type_traits>
 
-module Ogre.Core;
+module Ogre.Core:Timer;
 
 static_assert(std::is_integral<std::clock_t>::value, "clock_t assumed to be an integral!");
 static_assert(sizeof(std::clock_t) == sizeof(ulong), "clock_t assumed to match ulong!");

@@ -185,7 +185,7 @@ namespace OgreBites
 
         /// @overload
         void setWindowGrab(bool grab = true) {
-            // OgreAssert(!mWindows.empty(), "create a window first");
+            OgreAssert(!mWindows.empty(), "create a window first");
             setWindowGrab(mWindows[0].native, grab);
         }
 
@@ -243,7 +243,7 @@ namespace OgreBites
 
         /// @overload
         void addInputListener(InputListener* lis) {
-            // OgreAssert(!mWindows.empty(), "create a window first");
+            OgreAssert(!mWindows.empty(), "create a window first");
             addInputListener(mWindows[0].native, lis);
         }
 
@@ -256,7 +256,7 @@ namespace OgreBites
 
         /// @overload
         void removeInputListener(InputListener* lis) {
-            // OgreAssert(!mWindows.empty(), "called after all windows were deleted");
+            OgreAssert(!mWindows.empty(), "called after all windows were deleted");
             removeInputListener(mWindows[0].native, lis);
         }
 

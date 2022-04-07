@@ -33,9 +33,9 @@ module;
 
 export module Ogre.Core:Matrix3;
 
-export import :Math;
-export import :Prerequisites;
-export import :Vector;
+import :Math;
+import :Prerequisites;
+import :Vector;
 
 // NB All code adapted from Wild Magic 0.2 Matrix math (free source code)
 // http://www.geometrictools.com/

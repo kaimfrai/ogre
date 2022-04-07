@@ -31,13 +31,11 @@ module;
 #include <memory>
 #include <mutex>
 #include <sstream>
-#include <string>
 #include <thread>
 
 export module Ogre.Core:NameGenerator;
 
-export import :Prerequisites;
-export import :String;
+import :String;
 
 export
 namespace Ogre {

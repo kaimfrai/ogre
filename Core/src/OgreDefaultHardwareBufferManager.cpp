@@ -30,7 +30,7 @@ module;
 #include <cassert>
 #include <cstring>
 
-module Ogre.Core;
+module Ogre.Core:DefaultHardwareBufferManager;
 
 import :AlignedAllocator;
 

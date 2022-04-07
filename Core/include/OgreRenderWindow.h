@@ -25,10 +25,10 @@ THE SOFTWARE
 -------------------------------------------------------------------------*/
 export module Ogre.Core:RenderWindow;
 
-export import :Common;
-export import :PixelFormat;
-export import :Prerequisites;
-export import :RenderTarget;
+import :Common;
+import :PixelFormat;
+import :Prerequisites;
+import :RenderTarget;
 
 export
 namespace Ogre

@@ -32,9 +32,9 @@ module;
 
 export module Ogre.Core:ShadowCameraSetup;
 
-export import :MemoryAllocatorConfig;
-export import :Prerequisites;
-export import :SharedPtr;
+import :MemoryAllocatorConfig;
+import :Prerequisites;
+import :SharedPtr;
 
 export
 namespace Ogre {

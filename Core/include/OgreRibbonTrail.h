@@ -30,20 +30,18 @@ module;
 #include <algorithm>
 #include <cstddef>
 #include <map>
-#include <memory>
 #include <vector>
 
 export module Ogre.Core:RibbonTrail;
 
-export import :BillboardChain;
-export import :ColourValue;
-export import :Common;
-export import :ControllerManager;
-export import :IteratorWrapper;
-export import :MovableObject;
-export import :Node;
-export import :Prerequisites;
-export import :SharedPtr;
+import :BillboardChain;
+import :ColourValue;
+import :Common;
+import :ControllerManager;
+import :IteratorWrapper;
+import :MovableObject;
+import :Node;
+import :Prerequisites;
 
 export
 namespace Ogre {

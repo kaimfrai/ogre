@@ -35,13 +35,13 @@ module;
 
 export module Ogre.Core:InstanceManager;
 
-export import :Common;
-export import :IteratorWrapper;
-export import :MemoryAllocatorConfig;
-export import :Platform;
-export import :Prerequisites;
-export import :RenderOperation;
-export import :SharedPtr;
+import :Common;
+import :IteratorWrapper;
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
+import :RenderOperation;
+import :SharedPtr;
 
 export
 namespace Ogre

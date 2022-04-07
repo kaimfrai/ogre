@@ -36,21 +36,21 @@ module;
 
 export module Ogre.Core:Entity;
 
-export import :AxisAlignedBox;
-export import :Common;
-export import :HardwareBufferManager;
-export import :IteratorWrapper;
-export import :Matrix4;
-export import :MovableObject;
-export import :Platform;
-export import :Prerequisites;
-export import :Quaternion;
-export import :Renderable;
-export import :Resource;
-export import :ResourceGroupManager;
-export import :ShadowCaster;
-export import :SharedPtr;
-export import :Vector;
+import :AxisAlignedBox;
+import :Common;
+import :HardwareBufferManager;
+import :IteratorWrapper;
+import :Matrix4;
+import :MovableObject;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :Renderable;
+import :Resource;
+import :ResourceGroupManager;
+import :ShadowCaster;
+import :SharedPtr;
+import :Vector;
 
 export
 namespace Ogre {

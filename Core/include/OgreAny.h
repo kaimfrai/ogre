@@ -34,12 +34,11 @@ THE SOFTWARE.
 // -- End original copyright --
 module;
 
-#include <ostream>
 #include <typeinfo>
 
 export module Ogre.Core:Any;
 
-export import :Prerequisites;
+import :Prerequisites;
 
 export
 namespace Ogre

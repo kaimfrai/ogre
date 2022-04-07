@@ -32,7 +32,7 @@ module;
 #include <limits>
 #include <memory>
 
-module Ogre.Core;
+module Ogre.Core:InstanceBatch;
 
 import :Camera;
 import :Exception;
@@ -120,14 +120,14 @@ class Technique;
 
     void InstanceBatch::_setInstancesPerBatch( size_t instancesPerBatch )
     {
-        // OgreAssert(mInstancedEntities.empty(),
+        OgreAssert(mInstancedEntities.empty(),
                    "Instances per batch can only be changed before building the batch");
         mInstancesPerBatch = instancesPerBatch;
     }
     //-----------------------------------------------------------------------
     bool InstanceBatch::checkSubMeshCompatibility( const SubMesh* baseSubMesh )
     {
-        // OgreAssert(baseSubMesh->operationType == RenderOperation::OT_TRIANGLE_LIST,
+        OgreAssert(baseSubMesh->operationType == RenderOperation::OT_TRIANGLE_LIST,
                    "Only meshes with OT_TRIANGLE_LIST are supported");
 
         if( !mCustomParams.empty() && mCreator->getInstancingTechnique() != InstanceManager::HWInstancingBasic )
@@ -289,9 +289,9 @@ class Technique;
     //-----------------------------------------------------------------------
     void InstanceBatch::removeInstancedEntity( InstancedEntity *instancedEntity )
     {
-        // OgreAssert(instancedEntity->mBatchOwner == this,
+        OgreAssert(instancedEntity->mBatchOwner == this,
                    "Trying to remove an InstancedEntity from scene created with a different InstanceBatch");
-        // OgreAssert(instancedEntity->isInUse(), "Trying to remove an InstancedEntity that is already removed");
+        OgreAssert(instancedEntity->isInUse(), "Trying to remove an InstancedEntity that is already removed");
 
         if( instancedEntity->getParentSceneNode() )
             instancedEntity->getParentSceneNode()->detachObject( instancedEntity );

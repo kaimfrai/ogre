@@ -33,7 +33,7 @@ module;
     #include <stdio.h>
 #endif
 
-module Ogre.Core;
+module Ogre.Core:Exception;
 
 import :Prerequisites;
 

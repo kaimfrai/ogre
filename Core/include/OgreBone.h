@@ -27,10 +27,10 @@ THE SOFTWARE.
 */
 export module Ogre.Core:Bone;
 
-export import :Node;
-export import :Prerequisites;
-export import :Quaternion;
-export import :Vector;
+import :Node;
+import :Prerequisites;
+import :Quaternion;
+import :Vector;
 
 export
 namespace Ogre 

@@ -30,20 +30,16 @@ module;
 #include <cmath>
 #include <cstring>
 
-module Ogre.Core;
+module Ogre.Core:ASTCCodec;
 
-import :ASTCCodec;
 import :Codec;
 import :Common;
 import :DataStream;
 import :Exception;
 import :Image;
-import :ImageCodec;
 import :Log;
 import :LogManager;
-import :PixelFormat;
 import :Platform;
-import :Prerequisites;
 import :SharedPtr;
 
 namespace Ogre {

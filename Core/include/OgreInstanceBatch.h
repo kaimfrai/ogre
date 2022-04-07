@@ -33,17 +33,17 @@ module;
 
 export module Ogre.Core:InstanceBatch;
 
-export import :AxisAlignedBox;
-export import :Common;
-export import :Matrix4;
-export import :Mesh;
-export import :MovableObject;
-export import :Platform;
-export import :Prerequisites;
-export import :RenderOperation;
-export import :Renderable;
-export import :SharedPtr;
-export import :Vector;
+import :AxisAlignedBox;
+import :Common;
+import :Matrix4;
+import :Mesh;
+import :MovableObject;
+import :Platform;
+import :Prerequisites;
+import :RenderOperation;
+import :Renderable;
+import :SharedPtr;
+import :Vector;
 
 export
 namespace Ogre

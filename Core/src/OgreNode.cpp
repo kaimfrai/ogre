@@ -36,7 +36,7 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core;
+module Ogre.Core:Node;
 
 import :Camera;
 import :Common;
@@ -260,7 +260,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Node* Node::createChild(const String& name, const Vector3& inTranslate, const Quaternion& inRotate)
     {
-        // OgreAssert(!name.empty(), "");
+        OgreAssert(!name.empty(), "");
         Node* newNode = createChildImpl(name);
         newNode->setPosition(inTranslate);
         newNode->setOrientation(inRotate);
@@ -296,7 +296,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Node* Node::removeChild(unsigned short index)
     {
-        // OgreAssert(index < mChildren.size(), "");
+        OgreAssert(index < mChildren.size(), "");
 
         ChildNodeMap::iterator i = mChildren.begin();
         i += index;
@@ -332,7 +332,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Node::setOrientation( const Quaternion & q )
     {
-        // OgreAssertDbg(!q.isNaN(), "Invalid orientation supplied as parameter");
+        OgreAssertDbg(!q.isNaN(), "Invalid orientation supplied as parameter");
         mOrientation = q;
         mOrientation.normalise();
         needUpdate();
@@ -606,7 +606,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Node* Node::removeChild(const String& name)
     {
-        // OgreAssert(!name.empty(), "");
+        OgreAssert(!name.empty(), "");
         NodeNameExists pred = {name};
         ChildNodeMap::iterator i = std::find_if(mChildren.begin(), mChildren.end(), pred);
 

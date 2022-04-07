@@ -32,7 +32,7 @@ module;
 
 export module Ogre.Core:AlignedAllocator;
 
-export import :Platform;
+import :Platform;
 
 export
 namespace Ogre {
@@ -77,7 +77,7 @@ namespace Ogre {
             @par
                 On failure, exception will be throw.
         */
-        static __attribute__ ((malloc)) void* allocate(size_t size, size_t alignment);
+        static DECL_MALLOC void* allocate(size_t size, size_t alignment);
 
         /** Allocate memory with default platform dependent alignment.
             @remarks
@@ -91,7 +91,7 @@ namespace Ogre {
             @par
                 On failure, exception will be throw.
         */
-        static __attribute__ ((malloc)) void* allocate(size_t size);
+        static DECL_MALLOC void* allocate(size_t size);
 
         /** Deallocate memory that allocated by this class.
             @param

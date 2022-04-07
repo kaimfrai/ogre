@@ -32,7 +32,7 @@ module;
 #include <cstddef>
 #include <set>
 
-module Ogre.Core;
+module Ogre.Core:RenderQueueSortingGrouping;
 
 import :Exception;
 import :Material;

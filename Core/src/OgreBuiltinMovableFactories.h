@@ -2,11 +2,9 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
-module Ogre.Core:BuiltinMovableFactories;
+export module Ogre.Core:BuiltinMovableFactories;
 
-import :Common;
 import :MovableObject;
-import :Prerequisites;
 import :Rectangle2D;
 
 export

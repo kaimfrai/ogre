@@ -679,7 +679,7 @@ void ShaderGenerator::setShaderProfiles(GpuProgramType type, const String& shade
         mFragmentShaderProfiles = shaderProfiles;
         break;
     default:
-        // OgreAssert(false, "not implemented");
+        OgreAssert(false, "not implemented");
         break;
     }
 }
@@ -1801,7 +1801,7 @@ void ShaderGenerator::SGScheme::synchronizeWithLightSettings()
 
     if (curRenderState->getLightCountAutoUpdate())
     {
-        // OgreAssert(sceneManager, "no active SceneManager. Did you forget to call ShaderGenerator::addSceneManager?");
+        OgreAssert(sceneManager, "no active SceneManager. Did you forget to call ShaderGenerator::addSceneManager?");
 
         const LightList& lightList =  sceneManager->_getLightsAffectingFrustum();
         

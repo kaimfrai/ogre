@@ -25,22 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
-#include <cstddef>
-#include <memory>
-#include <string_view>
-#include <utility>
-
 export module Ogre.Core:ImageCodec;
 
-export import :Any;
-export import :Bitwise;
-export import :Codec;
-export import :PixelFormat;
-export import :Platform;
-export import :Prerequisites;
-export import :SharedPtr;
+import :Any;
+import :Bitwise;
+import :Codec;
+import :PixelFormat;
 
 export
 namespace Ogre {
@@ -73,7 +63,7 @@ namespace Ogre {
 
         void decode(const DataStreamPtr& input, const Any& output) const override;
         DataStreamPtr encode(const Any& input) const override;
-        void encodeToFile(const Any& input, ::std::string_view outFileName) const override;
+        void encodeToFile(const Any& input, const String& outFileName) const override;
 
         virtual ~ImageCodec();
         /** Codec return class for images. Has information about the size and the
@@ -101,7 +91,7 @@ namespace Ogre {
         /// @deprecated
         virtual DataStreamPtr encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const { return encode(Any()); }
         /// @deprecated
-        virtual void encodeToFile(const MemoryDataStreamPtr& input, ::std::string_view outFileName, const CodecDataPtr& pData) const
+        virtual void encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName, const CodecDataPtr& pData) const
         { encodeToFile(Any(), ""); }
         /// Result of a decoding; both a decoded data stream and CodecData metadata
         typedef std::pair<MemoryDataStreamPtr, CodecDataPtr> DecodeResult;

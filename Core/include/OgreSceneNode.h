@@ -33,14 +33,14 @@ module;
 
 export module Ogre.Core:SceneNode;
 
-export import :AxisAlignedBox;
-export import :Common;
-export import :Math;
-export import :Node;
-export import :Platform;
-export import :Prerequisites;
-export import :Quaternion;
-export import :Vector;
+import :AxisAlignedBox;
+import :Common;
+import :Math;
+import :Node;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :Vector;
 
 export
 namespace Ogre {

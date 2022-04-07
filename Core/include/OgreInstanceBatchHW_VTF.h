@@ -31,11 +31,11 @@ module;
 
 export module Ogre.Core:InstanceBatchHW_VTF;
 
-export import :InstanceBatchVTF;
-export import :Mesh;
-export import :Platform;
-export import :Prerequisites;
-export import :SharedPtr;
+import :InstanceBatchVTF;
+import :Mesh;
+import :Platform;
+import :Prerequisites;
+import :SharedPtr;
 
 export
 namespace Ogre
