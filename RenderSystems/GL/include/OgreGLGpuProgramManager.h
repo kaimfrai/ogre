@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GL:GpuProgramManager;
 
-import :Prerequisites;
+#ifndef OGRE_RENDERSYSTEMS_GL_GPUPROGRAMMANAGER_H
+#define OGRE_RENDERSYSTEMS_GL_GPUPROGRAMMANAGER_H
 
-import Ogre.Core;
+#include "OgreGLPrerequisites.h"
+#include "OgreGpuProgramManager.h"
 
-export
 namespace Ogre {
 
 typedef GpuProgram* (*CreateGpuProgramCallback)(ResourceManager* creator,
@@ -65,3 +65,5 @@ public:
 };
 
 } //namespace Ogre
+
+#endif // OGRE_RENDERSYSTEMS_GL_GPUPROGRAMMANAGER_H

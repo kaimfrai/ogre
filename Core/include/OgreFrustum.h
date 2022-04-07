@@ -25,23 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:Frustum;
+#ifndef OGRE_CORE_FRUSTUM_H
+#define OGRE_CORE_FRUSTUM_H
 
-import :AxisAlignedBox;
-import :ColourValue;
-import :Common;
-import :Math;
-import :Matrix4;
-import :MovableObject;
-import :Plane;
-import :PlaneBoundedVolume;
-import :Platform;
-import :Prerequisites;
-import :Quaternion;
-import :Renderable;
-import :Vector;
+#include "OgreAxisAlignedBox.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreMath.h"
+#include "OgreMatrix4.h"
+#include "OgreMovableObject.h"
+#include "OgrePlane.h"
+#include "OgrePlaneBoundedVolume.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderable.h"
+#include "OgreVector.h"
 
-export
 namespace Ogre
 {
 class Camera;
@@ -650,3 +650,5 @@ class Sphere;
     /** @} */
 
 } // namespace Ogre
+
+#endif // OGRE_CORE_FRUSTUM_H

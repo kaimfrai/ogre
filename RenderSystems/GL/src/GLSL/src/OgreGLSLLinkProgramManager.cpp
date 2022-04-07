@@ -25,21 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#include "OgreGLSLLinkProgramManager.h"
 
 #include <cassert>
 #include <cstddef>
 #include <map>
 #include <utility>
 
-module Ogre.RenderSystems.GL.GLSL:SLLinkProgramManager;
-
-import :SLLinkProgram;
-import :SLProgram;
-
-import Ogre.Core;
-import Ogre.RenderSystems.GL.glad;
-import Ogre.RenderSystems.GLSupport.GLSL;
+#include "OgreCommon.h"
+#include "OgreGLSLLinkProgram.h"
+#include "OgreGLSLProgram.h"
+#include "OgreGLSLShaderCommon.h"
+#include "OgrePlatform.h"
+#include "glad/glad.h"
 
 namespace Ogre {
 

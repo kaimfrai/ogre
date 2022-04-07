@@ -25,22 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_SHADOWCASTER_H
+#define OGRE_CORE_SHADOWCASTER_H
 
 #include <cstddef>
 #include <vector>
 
-export module Ogre.Core:ShadowCaster;
+#include "OgreCommon.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderable.h"
+#include "OgreSharedPtr.h"
 
-import :Common;
-import :IteratorWrapper;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :RenderOperation;
-import :Renderable;
-import :SharedPtr;
 
-export
 namespace Ogre {
 class AxisAlignedBox;
 class Camera;
@@ -267,3 +266,5 @@ class VertexData;
     /** @} */
     /** @} */
 } // namespace Ogre
+
+#endif // OGRE_CORE_SHADOWCASTER_H

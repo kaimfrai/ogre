@@ -25,21 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXLAYEREDBLENDING_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXLAYEREDBLENDING_H
 
 #include <memory>
 #include <vector>
 
-export module Ogre.Components.RTShaderSystem:ShaderExLayeredBlending;
+#include "OgrePrerequisites.h"
+#include "OgreShaderFFPTexturing.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderSubRenderState.h"
 
-import :ShaderFFPTexturing;
-import :ShaderFunctionAtom;
-import :ShaderPrerequisites;
-import :ShaderSubRenderState;
-
-import Ogre.Core;
-
-export
 namespace Ogre {
     class LayerBlendModeEx;
     class MaterialSerializer;
@@ -53,7 +50,6 @@ namespace Ogre {
     }  // namespace RTShader
 }  // namespace Ogre
 
-export
 namespace Ogre {
 namespace RTShader {
 
@@ -272,3 +268,5 @@ protected:
 
 } // namespace RTShader
 } // namespace Ogre
+
+#endif // OGRESHADEREXLAYEREDBLENDING_H

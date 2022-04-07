@@ -25,31 +25,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <memory>
 #include <string>
 #include <vector>
 
-module Ogre.Core:InstanceBatchHW;
-
-import :Exception;
-import :HardwareBuffer;
-import :HardwareBufferManager;
-import :HardwareVertexBuffer;
-import :InstanceManager;
-import :InstancedEntity;
-import :Matrix4;
-import :RenderOperation;
-import :RenderQueue;
-import :RenderSystem;
-import :RenderSystemCapabilities;
-import :Root;
-import :SceneManager;
-import :SharedPtr;
-import :StringConverter;
-import :SubMesh;
-import :VertexIndexData;
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreInstanceBatchHW.h"
+#include "OgreInstanceManager.h"
+#include "OgreInstancedEntity.h"
+#include "OgreMatrix4.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderQueue.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
+#include "OgreSubMesh.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre
 {

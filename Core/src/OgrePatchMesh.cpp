@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Core:PatchMesh;
+#include "OgrePatchMesh.h"
 
-import :HardwareBufferManager;
-import :HardwareIndexBuffer;
-import :HardwareVertexBuffer;
-import :SharedPtr;
-import :SubMesh;
-import :VertexIndexData;
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreSharedPtr.h"
+#include "OgreSubMesh.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 class ResourceManager;
@@ -124,3 +124,4 @@ class ResourceManager;
     }
 
 }
+

@@ -25,12 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GL.GLSL:SLLinkProgramManager;
+#ifndef OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAMMANAGER_H
+#define OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAMMANAGER_H
 
-import Ogre.Core;
-import Ogre.RenderSystems.GLSupport.GLSL;
+#include "OgreGLSLProgramCommon.h"
+#include "OgreGLSLProgramManagerCommon.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgrePrerequisites.h"
+#include "OgreSingleton.h"
 
-export
 namespace Ogre {
 
     namespace GLSL {
@@ -94,3 +98,5 @@ class GLSLProgram;
 
     }
 }
+
+#endif // OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAMMANAGER_H

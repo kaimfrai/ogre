@@ -25,21 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_MATRIX4_H
+#define OGRE_CORE_MATRIX4_H
 
 #include <cassert>
 #include <cstring>
 #include <ostream>
 
-export module Ogre.Core:Matrix4;
-
 // Precompiler options
-import :Matrix3;
-import :Prerequisites;
-import :Quaternion;
-import :Vector;
+#include "OgreMatrix3.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreVector.h"
 
-export
 namespace Ogre
 {
     /** \addtogroup Core
@@ -599,3 +597,4 @@ namespace Ogre
     /** @} */
 
 }
+#endif

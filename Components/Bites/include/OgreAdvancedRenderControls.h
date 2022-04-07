@@ -25,11 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Components.Bites:AdvancedRenderControls;
 
-import :Input;
+#ifndef OGRE_COMPONENTS_BITES_ADVANCEDRENDERCONTROLS_H
+#define OGRE_COMPONENTS_BITES_ADVANCEDRENDERCONTROLS_H
 
-export
+#include "OgreInput.h"
+
 namespace Ogre {
     class Camera;
     class Root;
@@ -40,7 +41,6 @@ namespace Ogre {
     struct FrameEvent;
 }  // namespace Ogre
 
-export
 namespace OgreBites {
 
 class TrayManager;
@@ -92,3 +92,5 @@ protected:
 /** @} */
 /** @} */
 } /* namespace OgreBites */
+
+#endif // OGRE_COMPONENTS_BITES_ADVANCEDRENDERCONTROLS_H

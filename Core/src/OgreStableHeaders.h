@@ -25,6 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:StableHeaders;
+
+#ifndef OGRE_CORE_STABLE_HEADERS_H
+#define OGRE_CORE_STABLE_HEADERS_H
 
 #define FOURCC(c0, c1, c2, c3) (c0 | (c1 << 8) | (c2 << 16) | (c3 << 24))
+
+#endif 

@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
@@ -35,13 +33,13 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core:Log;
-
-import :Prerequisites;
-import :StringConverter;
+#include "OgreLog.h"
+#include "OgrePrerequisites.h"
+#include "OgreStringConverter.h"
 
 // LogMessageLevel + LoggingLevel > OGRE_LOG_THRESHOLD = message logged
 #define OGRE_LOG_THRESHOLD 4
+
 namespace {
     const char* RED = "\x1b[31;1m";
     const char* YELLOW = "\x1b[33;1m";

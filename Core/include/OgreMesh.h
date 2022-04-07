@@ -25,7 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_MESH_H
+#define OGRE_CORE_MESH_H
 
 #include <algorithm>
 #include <cstddef>
@@ -35,22 +36,20 @@ module;
 #include <unordered_map>
 #include <vector>
 
-export module Ogre.Core:Mesh;
+#include "OgreAnimation.h"
+#include "OgreAnimationTrack.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreCommon.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreIteratorWrapper.h"
+#include "OgrePose.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreSharedPtr.h"
+#include "OgreVertexBoneAssignment.h"
 
-import :Animation;
-import :AnimationTrack;
-import :AxisAlignedBox;
-import :Common;
-import :HardwareBuffer;
-import :HardwareVertexBuffer;
-import :IteratorWrapper;
-import :Pose;
-import :Prerequisites;
-import :Resource;
-import :SharedPtr;
-import :VertexBoneAssignment;
 
-export
 namespace Ogre {
 
 
@@ -1004,3 +1003,5 @@ class VertexData;
 
 
 } // namespace Ogre
+
+#endif // OGRE_CORE_MESH_H

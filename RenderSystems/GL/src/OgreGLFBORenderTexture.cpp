@@ -25,7 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#include "OgreGLFBORenderTexture.h"
 
 #include <cstddef>
 #include <map>
@@ -35,13 +36,12 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.RenderSystems.GL:FBORenderTexture;
-
-import :HardwarePixelBuffer;
-import :PixelFormat;
-
-import Ogre.Core;
-import Ogre.RenderSystems.GLSupport;
+#include "OgreGLHardwarePixelBuffer.h"
+#include "OgreGLPixelFormat.h"
+#include "OgreGLRenderTarget.h"
+#include "OgreLogManager.h"
+#include "OgreRenderTarget.h"
+#include "OgreString.h"
 
 namespace Ogre {
 class DepthBuffer;

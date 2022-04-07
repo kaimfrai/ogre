@@ -25,18 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_RENDERSYSTEMCAPABILITIESMANAGER_H
+#define OGRE_CORE_RENDERSYSTEMCAPABILITIESMANAGER_H
 
 #include <map>
 #include <string>
 
-export module Ogre.Core:RenderSystemCapabilitiesManager;
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreSingleton.h"
 
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :Singleton;
-
-export
 namespace Ogre {
     class RenderSystemCapabilities;
     class RenderSystemCapabilitiesSerializer;
@@ -99,3 +97,5 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
+
+#endif

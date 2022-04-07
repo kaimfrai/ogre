@@ -25,7 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_RENDERSYSTEM_H
+#define OGRE_CORE_RENDERSYSTEM_H
 
 #include <algorithm>
 #include <cstddef>
@@ -34,24 +35,21 @@ module;
 #include <string>
 #include <vector>
 
-export module Ogre.Core:RenderSystem;
+#include "OgreBlendMode.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreConfig.h"
+#include "OgreConfigOptionMap.h"
+#include "OgreGpuProgram.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlane.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
+#include "OgreVector.h"
 
-import :BlendMode;
-import :ColourValue;
-import :Common;
-import :Config;
-import :ConfigOptionMap;
-import :GpuProgram;
-import :MemoryAllocatorConfig;
-import :Plane;
-import :Platform;
-import :Prerequisites;
-import :RenderSystemCapabilities;
-import :SharedPtr;
-import :StringVector;
-import :Vector;
-
-export
 namespace Ogre
 {
     class Camera;
@@ -1186,3 +1184,5 @@ class VertexDeclaration;
     /** @} */
     /** @} */
 }
+
+#endif

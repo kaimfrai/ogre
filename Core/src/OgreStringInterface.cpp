@@ -25,18 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <map>
 #include <string>
 #include <type_traits>
 #include <utility>
 #include <vector>
 
-module Ogre.Core:StringInterface;
-
-import :Common;
-import :Prerequisites;
+#include "OgreCommon.h"
+#include "OgrePrerequisites.h"
+#include "OgreStringInterface.h"
 
 namespace Ogre {
     /// Dictionary of parameters

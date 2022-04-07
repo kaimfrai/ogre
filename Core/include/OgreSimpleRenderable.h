@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:SimpleRenderable;
+#ifndef OGRE_CORE_SIMPLERENDERABLE_H
+#define OGRE_CORE_SIMPLERENDERABLE_H
 
-import :AxisAlignedBox;
-import :Common;
-import :Matrix4;
-import :MovableObject;
-import :Prerequisites;
-import :RenderOperation;
-import :Renderable;
-import :SharedPtr;
+#include "OgreAxisAlignedBox.h"
+#include "OgreCommon.h"
+#include "OgreMatrix4.h"
+#include "OgreMovableObject.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderable.h"
+#include "OgreSharedPtr.h"
 
-export
 namespace Ogre {
 class Camera;
 class RenderQueue;
@@ -104,3 +104,5 @@ class SceneManager;
     /** @} */
     /** @} */
 }
+
+#endif

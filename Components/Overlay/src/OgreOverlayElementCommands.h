@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Components.Overlay:ElementCommands;
+#ifndef OGRE_COMPONENTS_OVERLAY_ELEMENTCOMMANDS_H
+#define OGRE_COMPONENTS_OVERLAY_ELEMENTCOMMANDS_H
 
-import :Element;
+#include "OgreOverlayElement.h"
+#include "OgrePrerequisites.h"
+#include "OgreStringInterface.h"
 
-import Ogre.Core;
-
-export
 namespace Ogre  {
 
     /** \addtogroup Optional
@@ -101,3 +101,7 @@ namespace Ogre  {
     /** @} */
     /** @} */
 }
+
+#endif
+
+

@@ -25,18 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_INSTANCEBATCHHW_H
+#define OGRE_CORE_INSTANCEBATCHHW_H
 
 #include <cstddef>
 
-export module Ogre.Core:InstanceBatchHW;
+#include "OgreInstanceBatch.h"
+#include "OgreMesh.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
-import :InstanceBatch;
-import :Mesh;
-import :Platform;
-import :Prerequisites;
-
-export
 namespace Ogre
 {
 class Camera;
@@ -119,3 +117,5 @@ class SubMesh;
         virtual void _updateRenderQueue( RenderQueue* queue );
     };
 }
+
+#endif

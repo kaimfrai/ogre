@@ -25,17 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <gtest/gtest.h>
 #include <cmath>
 #include <initializer_list>
 
-module Ogre.Tests.Core;
-
-import Ogre.Core;
+#include "OgreBitwise.h"
+#include "OgrePlatform.h"
 
 using namespace Ogre;
+
 //--------------------------------------------------------------------------
 TEST(BitwiseTests,FixedPointConversion)
 {

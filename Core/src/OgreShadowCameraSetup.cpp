@@ -25,22 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
 
 #include <cmath>
 
-module Ogre.Core:ShadowCameraSetup;
+#include "OgreCamera.h"
+#include "OgreFrustum.h"
+#include "OgreLight.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreNode.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreShadowCameraSetup.h"
+#include "OgreVector.h"
+#include "OgreViewport.h"
 
-import :Camera;
-import :Frustum;
-import :Light;
-import :Math;
-import :Matrix3;
-import :Node;
-import :SceneManager;
-import :SceneNode;
-import :Vector;
-import :Viewport;
 
 namespace Ogre 
 {

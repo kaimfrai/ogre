@@ -25,19 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_FILESYSTEM_H
+#define OGRE_CORE_FILESYSTEM_H
 
 #include <iosfwd>
 
-export module Ogre.Core:FileSystem;
+#include "OgreArchiveFactory.h"
+#include "OgrePrerequisites.h"
 
-import :ArchiveFactory;
-import :Prerequisites;
-
-export
 struct AAssetManager;
 
-export
 namespace Ogre {
 class Archive;
 
@@ -90,3 +87,5 @@ class Archive;
     /** @} */
 
 } // namespace Ogre
+
+#endif // OGRE_CORE_FILESYSTEM_H

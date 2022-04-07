@@ -1,5 +1,3 @@
-module;
-
 #include <cstddef>
 #include <map>
 #include <memory>
@@ -7,19 +5,46 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Samples.Simple:NewInstancing;
-
-import Ogre.Components.Bites;
-import Ogre.Components.RTShaderSystem;
-import Ogre.Core;
+#include "NewInstancing.h"
+#include "OgreAnimationState.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreEntity.h"
+#include "OgreInstancedEntity.h"
+#include "OgreLight.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMeshManager.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlane.h"
+#include "OgreProfiler.h"
+#include "OgreRenderSystem.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreShaderExHardwareSkinning.h"
+#include "OgreShaderExIntegratedPSSM3.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderRenderState.h"
+#include "OgreShadowCameraSetupLiSPSM.h"
+#include "OgreStringConverter.h"
+#include "OgreTrays.h"
+#include "OgreVector.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 namespace RTShader {
 class SubRenderState;
 }  // namespace RTShader
 }  // namespace Ogre
+
 using namespace Ogre;
 using namespace OgreBites;
+
 static const char *c_instancingTechniques[] =
 {
     "Shader Based",
@@ -29,6 +54,7 @@ static const char *c_instancingTechniques[] =
     "Limited Animation - Hardware Instancing + VTF",
     "No Instancing"
 };
+
 static const char *c_materialsTechniques[] =
 {
     "Examples/Instancing/RTSS/Robot",
@@ -38,6 +64,7 @@ static const char *c_materialsTechniques[] =
     "Examples/Instancing/VTF/HW/LUT/Robot",
     "Examples/Instancing/RTSS/Robot"
 };
+
 static const char *c_materialsTechniques_dq[] =
 {
     "Examples/Instancing/RTSS/Robot_dq",
@@ -47,6 +74,7 @@ static const char *c_materialsTechniques_dq[] =
     "Examples/Instancing/VTF/HW/LUT/Robot_dq",
     "Examples/Instancing/RTSS/Robot_dq"
 };
+
 static const char *c_materialsTechniques_dq_two_weights[] =
 {
     "Examples/Instancing/RTSS/spine_dq_two_weights",
@@ -56,11 +84,13 @@ static const char *c_materialsTechniques_dq_two_weights[] =
     "Examples/Instancing/VTF/HW/LUT/spine_dq_two_weights",
     "Examples/Instancing/RTSS/spine_dq_two_weights"
 };
+
 static const char *c_meshNames[] =
 {
     "robot.mesh",
     "spine.mesh"
 };
+
 //------------------------------------------------------------------------------
 Sample_NewInstancing::Sample_NewInstancing() : NUM_INST_ROW(100), NUM_INST_COLUMN(100), mCurrentManager(0), mCurrentMaterialSet(c_materialsTechniques), mCurrentFlags(0), mSkinningTechniques(NULL)
 {
@@ -76,6 +106,7 @@ Sample_NewInstancing::Sample_NewInstancing() : NUM_INST_ROW(100), NUM_INST_COLUM
         " and instance numbers on the scene.\n\n"
         "If performance is too slow, try defragmenting batches once in a while";
 }
+
 //------------------------------------------------------------------------------
 bool Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt)
 {
@@ -89,6 +120,7 @@ bool Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt)
 
     return SdkSample::frameRenderingQueued(evt);        // don't forget the parent class updates!
 }
+
 //------------------------------------------------------------------------------
 bool Sample_NewInstancing::keyPressed(const KeyboardEvent& evt)
 {
@@ -181,7 +213,6 @@ void Sample_NewInstancing::setupContent()
 
     switchInstancingTechnique();
 }
-
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::setupLighting()
 {
@@ -341,7 +372,6 @@ void Sample_NewInstancing::createEntities()
         }
     }
 }
-
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::createInstancedEntities()
 {
@@ -375,7 +405,6 @@ void Sample_NewInstancing::createInstancedEntities()
         }
     }
 }
-
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::createSceneNodes()
 {
@@ -402,7 +431,6 @@ void Sample_NewInstancing::createSceneNodes()
         }
     }
 }
-
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::clearScene()
 {
@@ -437,7 +465,6 @@ void Sample_NewInstancing::clearScene()
     mSceneNodes.clear();
     mAnimations.clear();
 }
-
 //-----------------------------------------------------------------------------------
 void Sample_NewInstancing::destroyManagers()
 {
@@ -571,6 +598,7 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
         }
     }
 }
+
 //------------------------------------------------------------------------------
 Quaternion Sample_NewInstancing::lookAt( const Vector3 &normDir )
 {
@@ -692,6 +720,7 @@ void Sample_NewInstancing::sliderMoved( Slider* slider )
 }
 
 //------------------------------------------------------------------------------
+
 void Sample_NewInstancing::checkHardwareSupport()
 {
     //Check Technique support

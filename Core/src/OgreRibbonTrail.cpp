@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 #include <iterator>
@@ -34,14 +32,13 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core:RibbonTrail;
-
-import :Controller;
-import :Exception;
-import :Math;
-import :SceneNode;
-import :StringConverter;
-import :Vector;
+#include "OgreController.h"
+#include "OgreException.h"
+#include "OgreMath.h"
+#include "OgreRibbonTrail.h"
+#include "OgreSceneNode.h"
+#include "OgreStringConverter.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {
@@ -485,3 +482,4 @@ namespace Ogre
     }
 
 }
+

@@ -25,26 +25,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#include "OgreSTBICodec.h"
 
 #include <cstdlib>
 #include <memory>
 #include <ostream>
 #include <string>
 #include <vector>
+
+#include "OgreCodec.h"
+#include "OgreCommon.h"
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreLogManager.h"
+#include "OgrePixelFormat.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringVector.h"
+
 #define STBI_NO_STDIO
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_STATIC
 #include <zlib.h>
 
-module Ogre.PlugIns.STBICodec;
-
-#define STBIW_ZLIB_COMPRESS custom_zlib_compress
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#define STBI_WRITE_NO_STDIO
-import Ogre.Core;
-import Ogre.PlugIns.STBICodec;
-import Ogre.PlugIns.STBICodec.stbi;
+#include "stbi/stb_image.h"
 
 static Ogre::uchar* custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/)
 {
@@ -60,6 +65,11 @@ static Ogre::uchar* custom_zlib_compress(Ogre::uchar* data, int data_len, int* o
     *out_len = destLen;
     return dest;
 }
+#define STBIW_ZLIB_COMPRESS custom_zlib_compress
+
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#define STBI_WRITE_NO_STDIO
+#include "stbi/stb_image_write.h"
 
 namespace Ogre {
 

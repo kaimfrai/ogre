@@ -25,25 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_CORE_MOVABLEOBJECT_H
+#define OGRE_CORE_MOVABLEOBJECT_H
 
 #include <cstddef>
 
-export module Ogre.Core:MovableObject;
-
 // Precompiler options
-import :Animable;
-import :AxisAlignedBox;
-import :Common;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :Renderable;
-import :ShadowCaster;
-import :Sphere;
-import :UserObjectBindings;
+#include "OgreAnimable.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreCommon.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderable.h"
+#include "OgreShadowCaster.h"
+#include "OgreSphere.h"
+#include "OgreUserObjectBindings.h"
 
-export
 namespace Ogre {
 
     // Forward declaration
@@ -649,3 +648,5 @@ class SceneNode;
     /** @} */
 
 }
+
+#endif

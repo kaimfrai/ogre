@@ -24,17 +24,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERGLSLES_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERGLSLES_H
 
 #include <iosfwd>
 
-export module Ogre.Components.RTShaderSystem:ShaderGLSLESProgramWriter;
+#include "OgrePrerequisites.h"
+#include "OgreShaderGLSLProgramWriter.h"
 
-import :ShaderGLSLProgramWriter;
-
-import Ogre.Core;
-
-export
 namespace Ogre {
 namespace RTShader {
 
@@ -80,3 +77,5 @@ public:
 
 }
 }
+
+#endif

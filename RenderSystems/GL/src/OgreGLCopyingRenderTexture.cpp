@@ -25,16 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#include "OgreGLCopyingRenderTexture.h"
 
 #include <string>
 
-module Ogre.RenderSystems.GL:CopyingRenderTexture;
-
-import :HardwarePixelBuffer;
-
-import Ogre.Core;
-import Ogre.RenderSystems.GLSupport;
+#include "OgreGLHardwarePixelBuffer.h"
+#include "OgreGLHardwarePixelBufferCommon.h"
+#include "OgreRenderTarget.h"
 
 namespace Ogre {
 
@@ -64,3 +61,4 @@ namespace Ogre {
             static_cast<GLTextureBuffer*>(surface.buffer)->copyFromFramebuffer(surface.zoffset);
     }
 }
+

@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -43,48 +41,47 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:Mesh;
-
-import :Animation;
-import :AnimationState;
-import :AnimationTrack;
-import :AxisAlignedBox;
-import :Bone;
-import :Codec;
-import :Common;
-import :Config;
-import :DataStream;
-import :EdgeListBuilder;
-import :Exception;
-import :HardwareBuffer;
-import :HardwareBufferManager;
-import :HardwareIndexBuffer;
-import :HardwareVertexBuffer;
-import :LodStrategy;
-import :LodStrategyManager;
-import :Log;
-import :LogManager;
-import :Math;
-import :Matrix4;
-import :MeshManager;
-import :OptimisedUtil;
-import :Platform;
-import :Pose;
-import :Prerequisites;
-import :RenderOperation;
-import :Resource;
-import :ResourceGroupManager;
-import :ResourceManager;
-import :SharedPtr;
-import :Skeleton;
-import :SkeletonManager;
-import :String;
-import :StringConverter;
-import :SubMesh;
-import :TangentSpaceCalc;
-import :Vector;
-import :VertexBoneAssignment;
-import :VertexIndexData;
+#include "OgreAnimation.h"
+#include "OgreAnimationState.h"
+#include "OgreAnimationTrack.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreBone.h"
+#include "OgreCodec.h"
+#include "OgreCommon.h"
+#include "OgreConfig.h"
+#include "OgreDataStream.h"
+#include "OgreEdgeListBuilder.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreLodStrategy.h"
+#include "OgreLodStrategyManager.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix4.h"
+#include "OgreMesh.h"
+#include "OgreMeshManager.h"
+#include "OgreOptimisedUtil.h"
+#include "OgrePlatform.h"
+#include "OgrePose.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSkeleton.h"
+#include "OgreSkeletonManager.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreSubMesh.h"
+#include "OgreTangentSpaceCalc.h"
+#include "OgreVector.h"
+#include "OgreVertexBoneAssignment.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------
@@ -2410,3 +2407,4 @@ namespace Ogre {
         mMeshLodUsageList[0].value = mLodStrategy->getBaseValue();
     }
 }
+

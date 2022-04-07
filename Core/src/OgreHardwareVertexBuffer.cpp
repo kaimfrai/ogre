@@ -25,23 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 #include <iterator>
 #include <memory>
 #include <string>
 
-module Ogre.Core:HardwareVertexBuffer;
-
-import :DefaultHardwareBufferManager;
-import :Exception;
-import :HardwareBufferManager;
-import :RenderSystem;
-import :RenderSystemCapabilities;
-import :Root;
-import :StringConverter;
+#include "OgreDefaultHardwareBufferManager.h"
+#include "OgreException.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRoot.h"
+#include "OgreStringConverter.h"
 
 namespace Ogre {
 

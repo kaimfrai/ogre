@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Core:KeyFrame;
+#include "OgreKeyFrame.h"
 
-import :AnimationTrack;
+#include "OgreAnimationTrack.h"
 
 namespace Ogre
 {
@@ -223,3 +223,4 @@ namespace Ogre
 
 
 }
+

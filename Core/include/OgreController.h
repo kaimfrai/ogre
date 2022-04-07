@@ -25,12 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:Controller;
+#ifndef OGRE_CORE_CONTROLLER_H
+#define OGRE_CORE_CONTROLLER_H
 
-import :Prerequisites;
-import :SharedPtr;
+#include "OgrePrerequisites.h"
 
-export
+#include "OgreSharedPtr.h"
+
 namespace Ogre {
 
     /** \addtogroup Core
@@ -222,3 +223,5 @@ namespace Ogre {
     /** @} */
 
 }
+
+#endif

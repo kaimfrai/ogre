@@ -25,25 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_INSTANCEDENTITY_H
+#define OGRE_CORE_INSTANCEDENTITY_H
 
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
 #include <vector>
 
-export module Ogre.Core:InstancedEntity;
+#include "OgreMatrix4.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderable.h"
+#include "OgreVector.h"
 
-import :Matrix4;
-import :MovableObject;
-import :Node;
-import :Platform;
-import :Prerequisites;
-import :Quaternion;
-import :Renderable;
-import :Vector;
-
-export
 namespace Ogre
 {
     class NameGenerator;
@@ -311,3 +309,5 @@ class SkeletonInstance;
         const Vector4& getCustomParam( unsigned char idx );
     };
 }
+
+#endif

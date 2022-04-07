@@ -25,28 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_MESHMANAGER_H
+#define OGRE_CORE_MESHMANAGER_H
 
 #include <cstddef>
 #include <map>
 #include <memory>
 
-export module Ogre.Core:MeshManager;
+#include "OgreCommon.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgrePatchSurface.h"
+#include "OgrePlane.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreSingleton.h"
+#include "OgreVector.h"
 
-import :Common;
-import :HardwareBuffer;
-import :HardwareVertexBuffer;
-import :PatchSurface;
-import :Plane;
-import :Prerequisites;
-import :Quaternion;
-import :Resource;
-import :ResourceGroupManager;
-import :ResourceManager;
-import :Singleton;
-import :Vector;
-
-export
 namespace Ogre {
 
     class MeshSerializerListener;
@@ -491,3 +489,5 @@ class SubMesh;
     /** @} */
 
 } //namespace
+
+#endif

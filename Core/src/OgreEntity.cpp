@@ -25,8 +25,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 #include <cstring>
@@ -35,47 +33,47 @@ module;
 #include <map>
 #include <string>
 
-module Ogre.Core:Entity;
+#include "OgreAlignedAllocator.h"
+#include "OgreAnimation.h"
+#include "OgreAnimationState.h"
+#include "OgreAnimationTrack.h"
+#include "OgreBone.h"
+#include "OgreCamera.h"
+#include "OgreEdgeListBuilder.h"
+#include "OgreEntity.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreLight.h"
+#include "OgreLodListener.h"
+#include "OgreLodStrategy.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMesh.h"
+#include "OgreMeshManager.h"
+#include "OgreNode.h"
+#include "OgreOptimisedUtil.h"
+#include "OgrePass.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderQueue.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreSkeleton.h"
+#include "OgreSkeletonInstance.h"
+#include "OgreStringConverter.h"
+#include "OgreSubEntity.h"
+#include "OgreSubMesh.h"
+#include "OgreTagPoint.h"
+#include "OgreTechnique.h"
+#include "OgreVertexIndexData.h"
 
-import :AlignedAllocator;
-import :Animation;
-import :AnimationState;
-import :AnimationTrack;
-import :Bone;
-import :Camera;
-import :EdgeListBuilder;
-import :Exception;
-import :GpuProgram;
-import :HardwareBuffer;
-import :HardwareIndexBuffer;
-import :HardwareVertexBuffer;
-import :Light;
-import :LodListener;
-import :LodStrategy;
-import :Log;
-import :LogManager;
-import :Material;
-import :MaterialManager;
-import :Math;
-import :Matrix3;
-import :Mesh;
-import :MeshManager;
-import :Node;
-import :OptimisedUtil;
-import :Pass;
-import :RenderOperation;
-import :RenderQueue;
-import :Root;
-import :SceneManager;
-import :SceneNode;
-import :Skeleton;
-import :SkeletonInstance;
-import :StringConverter;
-import :SubEntity;
-import :SubMesh;
-import :TagPoint;
-import :Technique;
-import :VertexIndexData;
 
 namespace Ogre {
 class Sphere;

@@ -25,17 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_RENDERSYSTEMCAPABILITIES_H
+#define OGRE_CORE_RENDERSYSTEMCAPABILITIES_H
 
 #include <set>
 #include <string>
 
-export module Ogre.Core:RenderSystemCapabilities;
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-
-export
 namespace Ogre {
 class Log;
 }  // namespace Ogre
@@ -45,13 +43,14 @@ class Log;
 // enum. The only way to know which capabilities should be stored where in the array is to use some of the 32 bits
 // to record the category of the capability.  These top few bits are used as an index into mCapabilities array
 // The lower bits are used to identify each capability individually by setting 1 bit for each
+
 // Identifies how many bits are reserved for categories
 // NOTE: Although 4 bits (currently) are enough
 #define CAPS_CATEGORY_SIZE 4
 #define OGRE_CAPS_BITSHIFT (32 - CAPS_CATEGORY_SIZE)
 #define CAPS_CATEGORY_MASK (((1 << CAPS_CATEGORY_SIZE) - 1) << OGRE_CAPS_BITSHIFT)
 #define OGRE_CAPS_VALUE(cat, val) ((cat << OGRE_CAPS_BITSHIFT) | (1 << val))
-export
+
 namespace Ogre 
 {
     /** \addtogroup Core
@@ -669,3 +668,5 @@ namespace Ogre
     /** @} */
     /** @} */
 } // namespace
+
+#endif // OGRE_CORE_RENDERSYSTEMCAPABILITIES_H

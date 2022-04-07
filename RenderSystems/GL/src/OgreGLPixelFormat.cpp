@@ -25,9 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GL:PixelFormat;
 
-import Ogre.Core;
+#include "OgreGLPixelFormat.h"
+
+#include "OgreBitwise.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRoot.h"
 
 #ifndef GL_HALF_FLOAT
 #define GL_HALF_FLOAT                     0x140B

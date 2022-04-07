@@ -25,20 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_CORE_SKELETONINSTANCE_H
+#define OGRE_CORE_SKELETONINSTANCE_H
 
 #include <list>
 
-export module Ogre.Core:SkeletonInstance;
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreResource.h"
+#include "OgreSharedPtr.h"
+#include "OgreSkeleton.h"
+#include "OgreVector.h"
 
-import :Prerequisites;
-import :Quaternion;
-import :Resource;
-import :SharedPtr;
-import :Skeleton;
-import :Vector;
-
-export
 namespace Ogre {
 class Animation;
 class AnimationStateSet;
@@ -163,3 +162,5 @@ class TagPoint;
     /** @} */
 
 }
+
+#endif

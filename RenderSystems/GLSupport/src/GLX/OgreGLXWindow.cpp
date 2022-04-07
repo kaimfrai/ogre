@@ -25,7 +25,8 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-module;
+
+#include "OgreGLXWindow.h"
 
 #include <GL/gl.h>
 #include <GL/glx.h>
@@ -37,14 +38,17 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.RenderSystems.GLSupport.GLX:Window;
-
-import :Context;
-import :GLSupport;
-
-import Ogre.Core;
-import Ogre.RenderSystems.GLSupport;
-import Ogre.RenderSystems.GLSupport.X11;
+#include "OgreException.h"
+#include "OgreGLContext.h"
+#include "OgreGLNativeSupport.h"
+#include "OgreGLXContext.h"
+#include "OgreGLXGLSupport.h"
+#include "OgreLogManager.h"
+#include "OgreRenderTarget.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreViewport.h"
+#include "OgreX11.h"
 
 namespace Ogre
 {

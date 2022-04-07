@@ -25,14 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:ScriptParser;
 
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :ScriptCompiler;
-import :ScriptLexer;
+#ifndef OGRE_CORE_SCRIPTPARSER_H
+#define OGRE_CORE_SCRIPTPARSER_H
 
-export
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreScriptCompiler.h"
+#include "OgreScriptLexer.h"
+
 namespace Ogre {
 
     /** \addtogroup Core
@@ -55,3 +56,5 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
+
+#endif

@@ -25,14 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#include "OgreGLFBOMultiRenderTarget.h"
 
 #include <cassert>
 #include <string>
 
-module Ogre.RenderSystems.GL:FBOMultiRenderTarget;
-
-import Ogre.RenderSystems.GLSupport;
+#include "OgreGLRenderTexture.h"
 
 namespace Ogre {
 class DepthBuffer;

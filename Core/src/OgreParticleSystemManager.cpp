@@ -25,34 +25,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <cassert>
 #include <cstddef>
 #include <map>
 #include <string>
 #include <utility>
 
-module Ogre.Core:ParticleSystemManager;
-
-import :BillboardParticleRenderer;
-import :Common;
-import :Exception;
-import :FactoryObj;
-import :LogManager;
-import :ParticleAffector;
-import :ParticleAffectorFactory;
-import :ParticleEmitter;
-import :ParticleEmitterFactory;
-import :ParticleSystem;
-import :ParticleSystemRenderer;
-import :Prerequisites;
-import :ResourceGroupManager;
-import :Root;
-import :ScriptCompiler;
-import :Singleton;
-import :StringConverter;
-import :StringVector;
+#include "OgreBillboardParticleRenderer.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreFactoryObj.h"
+#include "OgreLogManager.h"
+#include "OgreParticleAffector.h"
+#include "OgreParticleAffectorFactory.h"
+#include "OgreParticleEmitter.h"
+#include "OgreParticleEmitterFactory.h"
+#include "OgreParticleSystem.h"
+#include "OgreParticleSystemManager.h"
+#include "OgreParticleSystemRenderer.h"
+#include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreScriptCompiler.h"
+#include "OgreSingleton.h"
+#include "OgreStringConverter.h"
+#include "OgreStringVector.h"
 
 namespace Ogre {
 

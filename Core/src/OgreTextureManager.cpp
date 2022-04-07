@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <cassert>
 #include <map>
 #include <memory>
@@ -34,24 +32,23 @@ module;
 #include <unordered_map>
 #include <utility>
 
-module Ogre.Core:TextureManager;
-
-import :ColourValue;
-import :Common;
-import :Exception;
-import :Image;
-import :PixelFormat;
-import :Platform;
-import :Prerequisites;
-import :RenderSystem;
-import :RenderSystemCapabilities;
-import :ResourceGroupManager;
-import :ResourceManager;
-import :Root;
-import :SharedPtr;
-import :Singleton;
-import :Texture;
-import :TextureUnitState;
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreImage.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreRoot.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreTexture.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
 
 namespace Ogre {
 

@@ -2,13 +2,12 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
-export module Ogre.Components.RTShaderSystem:ShaderExWBOIT;
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_WBOIT_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_WBOIT_H
 
-import :ShaderSubRenderState;
+#include "OgrePrerequisites.h"
+#include "OgreShaderSubRenderState.h"
 
-import Ogre.Core;
-
-export
 namespace Ogre {
     class MaterialSerializer;
     class Pass;
@@ -21,7 +20,6 @@ namespace Ogre {
     }  // namespace RTShader
 }  // namespace Ogre
 
-export
 namespace Ogre
 {
 namespace RTShader
@@ -71,3 +69,5 @@ protected:
 
 } // namespace RTShader
 } // namespace Ogre
+
+#endif

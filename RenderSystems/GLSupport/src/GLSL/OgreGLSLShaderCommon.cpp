@@ -25,18 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <cstdlib>
 #include <cstring>
 #include <string>
 #include <utility>
 
-module Ogre.RenderSystems.GLSupport.GLSL:ShaderCommon;
-
-import :Preprocessor;
-
-import Ogre.Core;
+#include "OgreException.h"
+#include "OgreGLSLPreprocessor.h"
+#include "OgreGLSLShaderCommon.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreStringVector.h"
 
 namespace Ogre {
 class ResourceManager;

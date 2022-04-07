@@ -2,21 +2,21 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
-module;
 
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_X11_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_X11_H
+
+#include <OgreGLNativeSupport.h>
+#include <OgrePrerequisites.h>
 #include <X11/X.h>
+
 #ifndef Status
 #define Status int
 #endif
+
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
-export module Ogre.RenderSystems.GLSupport.X11;
-
-import Ogre.Core;
-import Ogre.RenderSystems.GLSupport;
-
-export
 namespace Ogre
 {
 Display* getXDisplay(Display* glDisplay, Atom& deleteWindow, Atom& fullScreen, Atom& state);
@@ -35,3 +35,5 @@ void finaliseTopLevel(Display* display, Window window, int& left, int& top, uint
 
 bool getXVideoModes(Display* display, VideoMode& currentMode, VideoModes& videoModes);
 } // namespace Ogre
+
+#endif

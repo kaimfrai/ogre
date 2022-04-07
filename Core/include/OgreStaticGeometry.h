@@ -25,7 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_STATICGEOMETRY_H
+#define OGRE_CORE_STATICGEOMETRY_H
 
 #include <algorithm>
 #include <cassert>
@@ -37,25 +38,22 @@ module;
 #include <utility>
 #include <vector>
 
-export module Ogre.Core:StaticGeometry;
+#include "OgreAxisAlignedBox.h"
+#include "OgreCommon.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMaterial.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgreMovableObject.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderable.h"
+#include "OgreShadowCaster.h"
+#include "OgreSharedPtr.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
-import :AxisAlignedBox;
-import :Common;
-import :IteratorWrapper;
-import :Material;
-import :MemoryAllocatorConfig;
-import :Mesh;
-import :MovableObject;
-import :Platform;
-import :Prerequisites;
-import :Quaternion;
-import :Renderable;
-import :ShadowCaster;
-import :SharedPtr;
-import :Vector;
-import :VertexIndexData;
-
-export
 namespace Ogre {
 class Camera;
 class EdgeData;
@@ -768,3 +766,5 @@ class Technique;
     /** @} */
 
 }
+
+#endif

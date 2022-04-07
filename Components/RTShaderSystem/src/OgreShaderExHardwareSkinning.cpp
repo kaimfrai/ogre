@@ -24,7 +24,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
 
 #include <algorithm>
 #include <cassert>
@@ -33,17 +32,34 @@ module;
 #include <memory>
 #include <string>
 
-module Ogre.Components.RTShaderSystem:ShaderExHardwareSkinning;
-
-import :ShaderExDualQuaternionSkinning;
-import :ShaderExHardwareSkinningTechnique;
-import :ShaderExLinearSkinning;
-import :ShaderFFPRenderState;
-import :ShaderGenerator;
-import :ShaderPrerequisites;
-import :ShaderScriptTranslator;
-
-import Ogre.Core;
+#include "OgreAny.h"
+#include "OgreEntity.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialSerializer.h"
+#include "OgreMesh.h"
+#include "OgrePass.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreScriptCompiler.h"
+#include "OgreShaderExDualQuaternionSkinning.h"
+#include "OgreShaderExHardwareSkinning.h"
+#include "OgreShaderExHardwareSkinningTechnique.h"
+#include "OgreShaderExLinearSkinning.h"
+#include "OgreShaderFFPRenderState.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderScriptTranslator.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreStringConverter.h"
+#include "OgreSubEntity.h"
+#include "OgreSubMesh.h"
+#include "OgreTechnique.h"
+#include "OgreUserObjectBindings.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
     namespace RTShader {
@@ -53,6 +69,8 @@ namespace Ogre {
 }  // namespace Ogre
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
+
+
 namespace Ogre {
 template<> RTShader::HardwareSkinningFactory* Singleton<RTShader::HardwareSkinningFactory>::msSingleton = 0;
 

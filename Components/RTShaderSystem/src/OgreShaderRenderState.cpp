@@ -24,7 +24,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
 
 #include <algorithm>
 #include <initializer_list>
@@ -33,19 +32,28 @@ module;
 #include <type_traits>
 #include <vector>
 
-module Ogre.Components.RTShaderSystem:ShaderRenderState;
-
-import :ShaderFFPColour;
-import :ShaderFFPLighting;
-import :ShaderFFPRenderState;
-import :ShaderGenerator;
-import :ShaderParameter;
-import :ShaderProgram;
-import :ShaderProgramManager;
-import :ShaderProgramSet;
-import :ShaderSubRenderState;
-
-import Ogre.Core;
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreLogManager.h"
+#include "OgreMaterial.h"
+#include "OgrePass.h"
+#include "OgrePrerequisites.h"
+#include "OgreShaderFFPColour.h"
+#include "OgreShaderFFPLighting.h"
+#include "OgreShaderFFPRenderState.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramManager.h"
+#include "OgreShaderProgramSet.h"
+#include "OgreShaderRenderState.h"
+#include "OgreShaderSubRenderState.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringVector.h"
+#include "OgreTechnique.h"
+#include "OgreVector.h"
 
 namespace Ogre {
 class AutoParamDataSource;

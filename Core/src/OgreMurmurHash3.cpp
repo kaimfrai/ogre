@@ -1,22 +1,23 @@
 //-----------------------------------------------------------------------------
 // MurmurHash3 was written by Austin Appleby, and is placed in the public
 // domain. The author hereby disclaims copyright to this source code.
+
 // Note - The x86 and x64 versions do _not_ produce the same results, as the
 // algorithms are optimized for their respective platforms. You can still
 // compile and run any of them on any platform, but your performance with the
 // non-native version will be less than optimal.
-module;
 
 #include <cstddef>
 #include <cstdint>
 
-module Ogre.Core:MurmurHash3;
-
-import :Platform;
+#include "OgreMurmurHash3.h"
+#include "OgrePlatform.h"
 
 //-----------------------------------------------------------------------------
 // Platform-specific functions and macros
+
 #define FORCE_INLINE inline __attribute__((always_inline))
+
 inline uint32_t rotl32 ( uint32_t x, int8_t r )
 {
   return (x << r) | (x >> (32 - r));
@@ -29,7 +30,9 @@ inline uint64_t rotl64 ( uint64_t x, int8_t r )
 
 #define ROTL32(x,y) rotl32(x,y)
 #define ROTL64(x,y) rotl64(x,y)
+
 #define BIG_CONSTANT(x) (x##LLU)
+
 namespace Ogre
 {
 //-----------------------------------------------------------------------------

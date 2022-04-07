@@ -25,12 +25,12 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-export module Ogre.Core:RenderOperation;
+#ifndef OGRE_CORE_RENDEROPERATION_H
+#define OGRE_CORE_RENDEROPERATION_H
 
-import :Prerequisites;
-import :VertexIndexData;
+#include "OgrePrerequisites.h"
+#include "OgreVertexIndexData.h"
 
-export
 namespace Ogre {
 
 
@@ -138,3 +138,5 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
+
+#endif

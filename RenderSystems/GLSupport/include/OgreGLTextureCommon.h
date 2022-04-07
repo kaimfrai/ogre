@@ -25,11 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLTextureCommon;
 
-import Ogre.Core;
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_TEXTURECOMMON_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_TEXTURECOMMON_H
 
-export
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreTexture.h"
+
 namespace Ogre
 {
 class ResourceManager;
@@ -59,3 +63,5 @@ protected:
 };
 
 } /* namespace Ogre */
+
+#endif // OGREGLTEXTURECOMMON_H

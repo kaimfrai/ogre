@@ -24,11 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Components.RTShaderSystem:ShaderFFPRenderState;
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FFPSTATE_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_FFPSTATE_H
 
-import :ShaderPrerequisites;
+#include "OgreShaderPrerequisites.h"
 
-export
 namespace Ogre {
 namespace RTShader {
 
@@ -86,3 +86,6 @@ enum FFPShaderStage
 
 }
 }
+
+#endif
+

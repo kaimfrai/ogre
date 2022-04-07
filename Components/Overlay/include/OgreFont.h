@@ -23,7 +23,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
-module;
+
+#ifndef OGRE_COMPONENTS_OVERLAY_FONT_H
+#define OGRE_COMPONENTS_OVERLAY_FONT_H
 
 #include <algorithm>
 #include <cstddef>
@@ -31,11 +33,15 @@ module;
 #include <utility>
 #include <vector>
 
-export module Ogre.Components.Overlay:Font;
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
 
-import Ogre.Core;
-
-export
 namespace Ogre
 {
     class BillboardSet;
@@ -348,3 +354,5 @@ class ResourceManager;
     /** @} */
     /** @} */
 }
+
+#endif

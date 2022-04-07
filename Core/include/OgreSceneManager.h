@@ -27,7 +27,8 @@ You may alternatively use this source under the terms of a specific version of
 the OGRE Unrestricted License provided you have obtained such a license from
 Torus Knot Software Ltd.
 -------------------------------------------------------------------------*/
-module;
+#ifndef OGRE_CORE_SCENEMANAGER_H
+#define OGRE_CORE_SCENEMANAGER_H
 
 #include <algorithm>
 #include <array>
@@ -38,40 +39,37 @@ module;
 #include <string>
 #include <vector>
 
-export module Ogre.Core:SceneManager;
+#include "OgreAnimationState.h"
+#include "OgreAutoParamDataSource.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreInstanceManager.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreLight.h"
+#include "OgreLodListener.h"
+#include "OgreManualObject.h"
+#include "OgreMatrix4.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreNameGenerator.h"
+#include "OgreNode.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlane.h"
+#include "OgrePlaneBoundedVolume.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderQueue.h"
+#include "OgreRenderQueueSortingGrouping.h"
+#include "OgreRenderSystem.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSceneQuery.h"
+#include "OgreShadowCaster.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
 
-import :AnimationState;
-import :AutoParamDataSource;
-import :AxisAlignedBox;
-import :ColourValue;
-import :Common;
-import :InstanceManager;
-import :IteratorWrapper;
-import :Light;
-import :LodListener;
-import :ManualObject;
-import :Matrix4;
-import :MemoryAllocatorConfig;
-import :NameGenerator;
-import :Node;
-import :PixelFormat;
-import :Plane;
-import :PlaneBoundedVolume;
-import :Platform;
-import :Prerequisites;
-import :Quaternion;
-import :RenderQueue;
-import :RenderQueueSortingGrouping;
-import :RenderSystem;
-import :ResourceGroupManager;
-import :SceneQuery;
-import :ShadowCaster;
-import :SharedPtr;
-import :StringVector;
-import :TextureUnitState;
-import :Vector;
-
-export
 namespace Ogre {
     class Animation;
     class BillboardChain;
@@ -3504,3 +3502,5 @@ namespace Ogre {
 
 
 } // Namespace
+
+#endif

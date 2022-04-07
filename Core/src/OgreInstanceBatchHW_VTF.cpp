@@ -25,39 +25,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <map>
 #include <string>
 #include <utility>
 #include <vector>
 
-module Ogre.Core:InstanceBatchHW_VTF;
-
-import :Camera;
-import :Common;
-import :Exception;
-import :HardwareBuffer;
-import :HardwareBufferManager;
-import :HardwarePixelBuffer;
-import :HardwareVertexBuffer;
-import :InstanceBatch;
-import :InstanceManager;
-import :InstancedEntity;
-import :Matrix4;
-import :PixelFormat;
-import :RenderOperation;
-import :RenderQueue;
-import :RenderSystem;
-import :RenderSystemCapabilities;
-import :Root;
-import :SceneManager;
-import :StringConverter;
-import :SubMesh;
-import :Texture;
-import :Vector;
-import :VertexIndexData;
+#include "OgreCamera.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwarePixelBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreInstanceBatch.h"
+#include "OgreInstanceBatchHW_VTF.h"
+#include "OgreInstanceManager.h"
+#include "OgreInstancedEntity.h"
+#include "OgreMatrix4.h"
+#include "OgrePixelFormat.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderQueue.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreStringConverter.h"
+#include "OgreSubMesh.h"
+#include "OgreTexture.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre
 {

@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Tests.VisualTests.VTests:VTestPlugin;
 
-import Ogre.Samples.Common;
+#ifndef OGRE_TESTS_VISUALTESTS_VTESTPLUGIN_H
+#define OGRE_TESTS_VISUALTESTS_VTESTPLUGIN_H
+
+#include "SamplePlugin.h"
 
 /** Plugin class for visual tests */
-
-export
 class VTestPlugin : public OgreBites::SamplePlugin
 {
 public:
@@ -39,3 +39,5 @@ public:
     VTestPlugin();
     ~VTestPlugin();
 };
+
+#endif

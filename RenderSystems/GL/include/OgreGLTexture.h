@@ -25,13 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GL:Texture;
 
-import Ogre.Core;
-import Ogre.RenderSystems.GL.glad;
-import Ogre.RenderSystems.GLSupport;
+#ifndef OGRE_RENDERSYSTEMS_GL_TEXTURE_H
+#define OGRE_RENDERSYSTEMS_GL_TEXTURE_H
 
-export
+#include "OgreGLTextureCommon.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "glad/glad.h"
+
 namespace Ogre {
 class GLRenderSystem;
 class ResourceManager;
@@ -66,3 +68,5 @@ class ResourceManager;
         GLRenderSystem* mRenderSystem;
     };
 }
+
+#endif // OGRE_RENDERSYSTEMS_GL_TEXTURE_H

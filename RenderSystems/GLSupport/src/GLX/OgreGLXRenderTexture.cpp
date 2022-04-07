@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <GL/gl.h>
 #include <GL/glx.h>
 #include <X11/X.h>
@@ -34,12 +32,13 @@ module;
 #include <climits>
 #include <string>
 
-module Ogre.RenderSystems.GLSupport.GLX:RenderTexture;
-
-import :Context;
-import :GLSupport;
-
-import Ogre.Core;
+#include "OgreException.h"
+#include "OgreGLXContext.h"
+#include "OgreGLXGLSupport.h"
+#include "OgreGLXRenderTexture.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreStringConverter.h"
 
 namespace Ogre {
 class GLContext;
@@ -47,6 +46,7 @@ class GLContext;
 
 #define GLX_RGBA_FLOAT_ATI_BIT 0x00000100
 #define GLX_RGBA_FLOAT_BIT     0x00000004
+
 namespace Ogre
 {
     //-------------------------------------------------------------------------------------------------//

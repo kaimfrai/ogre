@@ -25,12 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
+#ifndef OGRE_CORE_EXTERNALTEXTURESOURCE_H
+#define OGRE_CORE_EXTERNALTEXTURESOURCE_H
  
-
-export module Ogre.Core:ExternalTextureSource;
-
 /***************************************************************************
 OgreExternalTextureSource.h  -  
     Base class that texture plugins need to derive from. This provides the hooks
@@ -46,11 +43,11 @@ OgreExternalTextureSource.h  -
 date                 : Jan 1 2004
 email                : pjcast@yahoo.com
 ***************************************************************************/
-import :Prerequisites;
-import :ResourceGroupManager;
-import :StringInterface;
 
-export
+#include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreStringInterface.h"
+
 namespace Ogre
 {
     /** \addtogroup Core
@@ -157,3 +154,5 @@ namespace Ogre
     /** @} */
     /** @} */
 }
+
+#endif

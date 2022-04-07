@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#include "OgreOverlayContainer.h"
 
 #include <cstddef>
 #include <utility>
 
-module Ogre.Components.Overlay:Container;
-
-import :Manager;
-
-import Ogre.Components.Overlay;
-import Ogre.Core;
+#include "OgreException.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMath.h"
+#include "OgreOverlay.h"
+#include "OgreOverlayManager.h"
 
 namespace Ogre {
 class Matrix4;
@@ -377,3 +377,4 @@ class RenderQueue;
     }
 
 }
+

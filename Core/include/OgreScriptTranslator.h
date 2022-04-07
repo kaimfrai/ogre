@@ -25,23 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_CORE_SCRIPTTRANSLATOR_H
+#define OGRE_CORE_SCRIPTTRANSLATOR_H
 
 #include <cstddef>
 #include <vector>
 
-export module Ogre.Core:ScriptTranslator;
+#include "OgreBlendMode.h"
+#include "OgreCommon.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreScriptCompiler.h"
 
-import :BlendMode;
-import :Common;
-import :GpuProgramParams;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :RenderSystem;
-import :ScriptCompiler;
-
-export
 namespace Ogre{
 class ColourValue;
 class Matrix4;
@@ -129,3 +128,5 @@ class Matrix4;
     /** @} */
     /** @} */
 }
+
+#endif

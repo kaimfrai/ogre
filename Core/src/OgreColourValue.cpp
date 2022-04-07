@@ -25,15 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cmath>
 
-module Ogre.Core:ColourValue;
-
-import :Math;
-import :Platform;
+#include "OgreColourValue.h"
+#include "OgreMath.h"
+#include "OgrePlatform.h"
 
 namespace Ogre {
 
@@ -350,3 +347,4 @@ namespace Ogre {
     }
 
 }
+

@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:HardwareOcclusionQuery;
+#ifndef OGRE_CORE_HARDWAREOCCLUSIONQUERY_H
+#define OGRE_CORE_HARDWAREOCCLUSIONQUERY_H
 
-import :MemoryAllocatorConfig;
+#include "OgreMemoryAllocatorConfig.h"
 
-export
 namespace Ogre {
 
 
@@ -127,3 +127,5 @@ public:
     /** @} */
     /** @} */
 }
+#endif
+

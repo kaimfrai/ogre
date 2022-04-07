@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:Plugin;
+#ifndef OGRE_CORE_PLUGIN_H
+#define OGRE_CORE_PLUGIN_H
 
-import :Prerequisites;
+#include "OgrePrerequisites.h"
 
-export
 namespace Ogre
 {
     /** \addtogroup Core
@@ -133,3 +133,7 @@ namespace Ogre
     /** @} */
 
 }
+
+#endif
+
+

@@ -25,17 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_STRING_H
+#define OGRE_CORE_STRING_H
 
 #include <string>
 #include <vector>
 
-export module Ogre.Core:String;
-
-import :Prerequisites;
+#include "OgrePrerequisites.h"
 
 #define OGRE_FORMAT_PRINTF(string_idx, first_to_check) __attribute__ ((format (printf, string_idx, first_to_check)))
-export
+
 namespace Ogre {
     /** \addtogroup Core
      *  @{
@@ -183,3 +182,5 @@ namespace Ogre {
     /** @} */
 
 } // namespace Ogre
+
+#endif // OGRE_CORE_STRING_H

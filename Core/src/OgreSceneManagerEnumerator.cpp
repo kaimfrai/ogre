@@ -25,16 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <cassert>
 #include <ostream>
 #include <utility>
 
-module Ogre.Core:SceneManagerEnumerator;
+#include "OgreException.h"
+#include "OgreLogManager.h"
+#include "OgreSceneManagerEnumerator.h"
 
-import :Exception;
-import :LogManager;
 
 namespace Ogre {
 class RenderSystem;

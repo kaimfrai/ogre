@@ -25,7 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_RESOURCEGROUPMANAGER_H
+#define OGRE_CORE_RESOURCEGROUPMANAGER_H
 
 #include <ctime>
 #include <list>
@@ -34,18 +35,16 @@ module;
 #include <utility>
 #include <vector>
 
-export module Ogre.Core:ResourceGroupManager;
-
-import :Archive;
-import :Common;
-import :DataStream;
-import :IteratorWrapper;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :SharedPtr;
-import :Singleton;
-import :StringVector;
+#include "OgreArchive.h"
+#include "OgreCommon.h"
+#include "OgreDataStream.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreStringVector.h"
 
 // If X11/Xlib.h gets included before this header (for example it happens when
 // including wxWidgets and FLTK), Status is defined as an int which we don't
@@ -55,7 +54,7 @@ import :StringVector;
 #endif
 
 #define OGRE_RESOURCE_GROUP_INIT = RGN_DEFAULT
-export
+
 namespace Ogre {
 class ManualResourceLoader;
 class Resource;
@@ -930,3 +929,5 @@ class ScriptLoader;
     /** @} */
     /** @} */
 }
+
+#endif

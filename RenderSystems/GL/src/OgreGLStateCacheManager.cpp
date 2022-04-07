@@ -25,11 +25,15 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-module Ogre.RenderSystems.GL:StateCacheManager;
 
-import :RenderSystem;
+#include "OgreGLStateCacheManager.h"
 
-import Ogre.Core;
+#include "OgreException.h"
+#include "OgreGLRenderSystem.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRoot.h"
 
 namespace Ogre {
     

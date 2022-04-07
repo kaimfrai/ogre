@@ -1,14 +1,15 @@
 // This file is part of the OGRE project.
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
-export module Ogre.Core:DefaultDebugDrawer;
 
-import :AxisAlignedBox;
-import :ColourValue;
-import :ManualObject;
-import :SceneManager;
+#ifndef OGRE_CORE_DEFAULTDEBUGDRAWER_H
+#define OGRE_CORE_DEFAULTDEBUGDRAWER_H
 
-export
+#include "OgreAxisAlignedBox.h"
+#include "OgreColourValue.h"
+#include "OgreManualObject.h"
+#include "OgreSceneManager.h"
+
 namespace Ogre
 {
 class Affine3;
@@ -48,3 +49,5 @@ public:
 };
 
 } /* namespace Ogre */
+
+#endif // OGRE_CORE_DEFAULTDEBUGDRAWER_H

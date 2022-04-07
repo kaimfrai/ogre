@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <cassert>
 #include <cmath>
 #include <cstddef>
@@ -35,36 +33,35 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core:MeshManager;
-
-import :Any;
-import :AxisAlignedBox;
-import :Codec;
-import :Common;
-import :Exception;
-import :HardwareBuffer;
-import :HardwareBufferManager;
-import :HardwareIndexBuffer;
-import :HardwareVertexBuffer;
-import :Math;
-import :Matrix3;
-import :Matrix4;
-import :Mesh;
-import :MeshSerializer;
-import :PatchMesh;
-import :PatchSurface;
-import :Plane;
-import :PrefabFactory;
-import :Prerequisites;
-import :Quaternion;
-import :Resource;
-import :ResourceGroupManager;
-import :ResourceManager;
-import :SharedPtr;
-import :Singleton;
-import :SubMesh;
-import :Vector;
-import :VertexIndexData;
+#include "OgreAny.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreCodec.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
+#include "OgreMesh.h"
+#include "OgreMeshManager.h"
+#include "OgreMeshSerializer.h"
+#include "OgrePatchMesh.h"
+#include "OgrePatchSurface.h"
+#include "OgrePlane.h"
+#include "OgrePrefabFactory.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreSubMesh.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre
 {

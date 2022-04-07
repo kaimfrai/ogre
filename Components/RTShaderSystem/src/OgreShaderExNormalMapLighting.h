@@ -24,14 +24,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Components.RTShaderSystem:ShaderExNormalMapLighting;
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXNORMALMAPLIGHTING_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXNORMALMAPLIGHTING_H
 
-import :ShaderFFPRenderState;
-import :ShaderSubRenderState;
+#include "OgrePrerequisites.h"
+#include "OgreShaderFFPRenderState.h"
+#include "OgreShaderSubRenderState.h"
+#include "OgreTextureUnitState.h"
 
-import Ogre.Core;
-
-export
 namespace Ogre {
     class MaterialSerializer;
     class Pass;
@@ -44,7 +44,6 @@ namespace Ogre {
     }  // namespace RTShader
 }  // namespace Ogre
 
-export
 namespace Ogre {
 namespace RTShader {
 
@@ -178,3 +177,5 @@ protected:
 
 }
 }
+
+#endif

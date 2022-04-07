@@ -24,7 +24,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
 
 #include <algorithm>
 #include <cassert>
@@ -37,33 +36,57 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Components.RTShaderSystem:ShaderGenerator;
-
-import :ShaderCookTorranceLighting;
-import :ShaderExGBuffer;
-import :ShaderExHardwareSkinning;
-import :ShaderExIntegratedPSSM3;
-import :ShaderExLayeredBlending;
-import :ShaderExNormalMapLighting;
-import :ShaderExPerPixelLighting;
-import :ShaderExTriplanarTexturing;
-import :ShaderExWBOIT;
-import :ShaderFFPAlphaTest;
-import :ShaderFFPColour;
-import :ShaderFFPFog;
-import :ShaderFFPLighting;
-import :ShaderFFPRenderStateBuilder;
-import :ShaderFFPTexturing;
-import :ShaderFFPTransform;
-import :ShaderMaterialSerializerListener;
-import :ShaderPrerequisites;
-import :ShaderProgramManager;
-import :ShaderProgramWriterManager;
-import :ShaderRenderState;
-import :ShaderScriptTranslator;
-import :ShaderSubRenderState;
-
-import Ogre.Core;
+#include "OgreAny.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreLight.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMaterialSerializer.h"
+#include "OgrePass.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderObjectListener.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSceneManager.h"
+#include "OgreScriptCompiler.h"
+#include "OgreScriptTranslator.h"
+#include "OgreShaderCookTorranceLighting.h"
+#include "OgreShaderExGBuffer.h"
+#include "OgreShaderExHardwareSkinning.h"
+#include "OgreShaderExIntegratedPSSM3.h"
+#include "OgreShaderExLayeredBlending.h"
+#include "OgreShaderExNormalMapLighting.h"
+#include "OgreShaderExPerPixelLighting.h"
+#include "OgreShaderExTriplanarTexturing.h"
+#include "OgreShaderExWBOIT.h"
+#include "OgreShaderFFPAlphaTest.h"
+#include "OgreShaderFFPColour.h"
+#include "OgreShaderFFPFog.h"
+#include "OgreShaderFFPLighting.h"
+#include "OgreShaderFFPRenderStateBuilder.h"
+#include "OgreShaderFFPTexturing.h"
+#include "OgreShaderFFPTransform.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderMaterialSerializerListener.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgramManager.h"
+#include "OgreShaderProgramWriterManager.h"
+#include "OgreShaderRenderState.h"
+#include "OgreShaderScriptTranslator.h"
+#include "OgreShaderSubRenderState.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreTechnique.h"
+#include "OgreTextureUnitState.h"
+#include "OgreUserObjectBindings.h"
+#include "OgreVector.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 class AutoParamDataSource;

@@ -25,7 +25,8 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-module;
+#ifndef OGRE_SAMPLES_BROWSER_H
+#define OGRE_SAMPLES_BROWSER_H
 
 #include "OgreArchiveManager.h"
 #include "OgreConfigFile.h"
@@ -34,13 +35,13 @@ module;
 #include "SampleContext.h"
 #include "SamplePlugin.h"
 #include "SdkSample.h"
+
 #define ENABLE_SHADERS_CACHE 1
+
 #include "DefaultSamplesPlugin.h"
 
-export module Ogre.Samples.Browser:SampleBrowser;
-
 #define CAROUSEL_REDRAW_EPS 0.001
-export
+
 namespace OgreBites
 {
     /*=============================================================================
@@ -1022,3 +1023,5 @@ namespace OgreBites
         bool mGrabInput;
     };
 }
+
+#endif

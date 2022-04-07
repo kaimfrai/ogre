@@ -25,21 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
 #include <set>
 
-module Ogre.Core:RenderQueueSortingGrouping;
-
-import :Exception;
-import :Material;
-import :Math;
-import :RadixSort;
-import :Renderable;
-import :Technique;
+#include "OgreException.h"
+#include "OgreMaterial.h"
+#include "OgreMath.h"
+#include "OgreRadixSort.h"
+#include "OgreRenderQueueSortingGrouping.h"
+#include "OgreRenderable.h"
+#include "OgreTechnique.h"
 
 namespace Ogre {
 class Camera;
@@ -532,3 +529,4 @@ namespace {
 
 
 }
+

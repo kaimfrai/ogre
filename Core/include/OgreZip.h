@@ -25,17 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_ZIP_H
+#define OGRE_CORE_ZIP_H
 
 #include <cstddef>
 
-export module Ogre.Core:Zip;
+#include "OgreArchiveFactory.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
-import :ArchiveFactory;
-import :Platform;
-import :Prerequisites;
-
-export
 namespace Ogre {
 class Archive;
 
@@ -99,3 +97,5 @@ class Archive;
     /** @} */
 
 }
+
+#endif

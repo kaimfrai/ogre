@@ -25,20 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_CORE_DUALQUATERNION_H
+#define OGRE_CORE_DUALQUATERNION_H
 
 #include <cassert>
 #include <cstring>
 #include <ostream>
 #include <utility>
 
-export module Ogre.Core:DualQuaternion;
+#include "OgreMath.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
 
-import :Math;
-import :Prerequisites;
-import :Quaternion;
-
-export
 namespace Ogre {
 class Affine3;
 
@@ -188,3 +187,5 @@ class Affine3;
     /** @} */
 
 }
+
+#endif 

@@ -25,9 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Core:Vector;
-
-import :Prerequisites;
+#include "OgrePrerequisites.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {

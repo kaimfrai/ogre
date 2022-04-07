@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cstddef>
 #include <list>
@@ -34,17 +32,22 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Components.RTShaderSystem:ShaderExLayeredBlending;
-
-import :ShaderFFPTexturing;
-import :ShaderFunction;
-import :ShaderFunctionAtom;
-import :ShaderPrerequisites;
-import :ShaderProgram;
-import :ShaderProgramSet;
-import :ShaderScriptTranslator;
-
-import Ogre.Core;
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMaterialSerializer.h"
+#include "OgrePass.h"
+#include "OgrePrerequisites.h"
+#include "OgreScriptCompiler.h"
+#include "OgreShaderExLayeredBlending.h"
+#include "OgreShaderFFPTexturing.h"
+#include "OgreShaderFunction.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramSet.h"
+#include "OgreShaderScriptTranslator.h"
+#include "OgreStringConverter.h"
+#include "OgreTextureUnitState.h"
 
 namespace Ogre {
     class LayerBlendModeEx;

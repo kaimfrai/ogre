@@ -25,19 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_CONFIGFILE_H
+#define OGRE_CORE_CONFIGFILE_H
 
 #include <map>
 #include <string>
 
-export module Ogre.Core:ConfigFile;
+#include "OgreCommon.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreStringVector.h"
 
-import :Common;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :StringVector;
-
-export
 namespace Ogre {
     template <typename T> class MapIterator;
 
@@ -112,3 +110,5 @@ namespace Ogre {
     /** @} */
 
 }
+
+#endif

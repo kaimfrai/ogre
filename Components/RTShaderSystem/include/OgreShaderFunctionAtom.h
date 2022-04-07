@@ -24,20 +24,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FUNCTIONATOM_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_FUNCTIONATOM_H
 
 #include <algorithm>
 #include <iosfwd>
 #include <vector>
 
-export module Ogre.Components.RTShaderSystem:ShaderFunctionAtom;
+#include "OgreException.h"
+#include "OgrePrerequisites.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrerequisites.h"
 
-import :ShaderParameter;
-import :ShaderPrerequisites;
-
-import Ogre.Core;
-
-export
 namespace Ogre {
 namespace RTShader {
 
@@ -329,3 +327,5 @@ typedef FunctionAtomInstanceList::const_iterator    FunctionAtomInstanceConstIte
 
 }
 }
+
+#endif

@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GL:Plugin;
 
-import :RenderSystem;
+#include "OgreGLPlugin.h"
 
-import Ogre.Core;
+#include "OgreGLRenderSystem.h"
+#include "OgreRoot.h"
 
 namespace Ogre 
 {

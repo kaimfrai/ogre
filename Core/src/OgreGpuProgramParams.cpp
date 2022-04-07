@@ -25,34 +25,31 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-module;
-
 #include <ios>
 #include <iterator>
 #include <memory>
 #include <utility>
 
-module Ogre.Core:GpuProgramParams;
-
-import :AutoParamDataSource;
-import :ColourValue;
-import :DataStream;
-import :DualQuaternion;
-import :Exception;
-import :FileSystem;
-import :GpuProgramManager;
-import :HardwareBuffer;
-import :LogManager;
-import :Math;
-import :Matrix3;
-import :Matrix4;
-import :RenderSystem;
-import :RenderTarget;
-import :Renderable;
-import :Root;
-import :String;
-import :StringConverter;
-import :Vector;
+#include "OgreAutoParamDataSource.h"
+#include "OgreColourValue.h"
+#include "OgreDataStream.h"
+#include "OgreDualQuaternion.h"
+#include "OgreException.h"
+#include "OgreFileSystem.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreLogManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderTarget.h"
+#include "OgreRenderable.h"
+#include "OgreRoot.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {

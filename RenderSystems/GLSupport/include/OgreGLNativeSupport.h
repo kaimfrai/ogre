@@ -25,13 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLNativeSupport;
 
-import :GLRenderSystemCommon;
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_NATIVESUPPORT_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_NATIVESUPPORT_H
 
-import Ogre.Core;
+#include "OgreConfigOptionMap.h"
+#include "OgreException.h"
+#include "OgreGLRenderSystemCommon.h"
+#include "OgrePixelFormat.h"
 
-export
 namespace Ogre
 {
     class GLPBuffer;
@@ -117,3 +119,5 @@ namespace Ogre
             ContextProfile mContextProfile;
     };
 }
+
+#endif

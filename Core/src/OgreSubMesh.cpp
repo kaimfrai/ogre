@@ -25,33 +25,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <cstddef>
 #include <map>
 #include <memory>
 #include <set>
 #include <vector>
 
-module Ogre.Core:SubMesh;
-
-import :AnimationTrack;
-import :Common;
-import :Exception;
-import :HardwareBuffer;
-import :HardwareIndexBuffer;
-import :HardwareVertexBuffer;
-import :Material;
-import :MaterialManager;
-import :Math;
-import :Mesh;
-import :Platform;
-import :Prerequisites;
-import :RenderOperation;
-import :SharedPtr;
-import :Vector;
-import :VertexBoneAssignment;
-import :VertexIndexData;
+#include "OgreAnimationTrack.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMesh.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreSharedPtr.h"
+#include "OgreSubMesh.h"
+#include "OgreVector.h"
+#include "OgreVertexBoneAssignment.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 class HardwareBufferManagerBase;
@@ -437,3 +434,5 @@ class HardwareBufferManagerBase;
         return newSub;
     }
 }
+
+

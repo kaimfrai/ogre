@@ -25,9 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:IteratorWrapper;
+#ifndef OGRE_CORE_ITERATORWRAPPER_H
+#define OGRE_CORE_ITERATORWRAPPER_H
 
-export
+
 namespace Ogre{
 
 /** 
@@ -373,3 +374,5 @@ class ConstMapIterator : public MapIteratorWrapper<T,  typename T::const_iterato
 
 
 }
+
+#endif

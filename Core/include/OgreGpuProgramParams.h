@@ -25,7 +25,8 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_GPUPROGRAMPARAMS_H
+#define OGRE_CORE_GPUPROGRAMPARAMS_H
 
 #include <algorithm>
 #include <cassert>
@@ -35,15 +36,12 @@ module;
 #include <string>
 #include <vector>
 
-export module Ogre.Core:GpuProgramParams;
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSerializer.h"
+#include "OgreSharedPtr.h"
 
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :Serializer;
-import :SharedPtr;
-
-export
 namespace Ogre {
     struct TransformBaseReal;
     template <typename T> class ConstMapIterator;
@@ -1839,3 +1837,5 @@ template <int dims, typename T> class Vector;
     /** @} */
     /** @} */
 }
+
+#endif

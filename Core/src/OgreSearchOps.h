@@ -25,27 +25,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_SEARCHOPS_H
+#define OGRE_CORE_SEARCHOPS_H
 
 // Emulate _findfirst, _findnext on non-Windows platforms
+
 #include <cstdint>
+
 /* Our simplified data entry structure */
-
-export module Ogre.Core:SearchOps;
-
-export
 struct _finddata_t
 {
     char *name;
     int attrib;
     unsigned long size;
 };
+
 #define _A_NORMAL 0x00  /* Normalfile-Noread/writerestrictions */
 #define _A_RDONLY 0x01  /* Read only file */
 #define _A_HIDDEN 0x02  /* Hidden file */
 #define _A_SYSTEM 0x04  /* System file */
 #define _A_ARCH   0x20  /* Archive file */
+
 #define _A_SUBDIR 0x10  /* Subdirectory */
+
 intptr_t _findfirst(const char *pattern, struct _finddata_t *data);
 int _findnext(intptr_t id, struct _finddata_t *data);
 int _findclose(intptr_t id);
+
+#endif

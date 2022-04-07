@@ -25,22 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_TESTS_CORE_FILESYSTEMARCHIVETESTS_H
+#define OGRE_TESTS_CORE_FILESYSTEMARCHIVETESTS_H
 
 #include <gtest/gtest.h>
 #include <cstddef>
 
-export module Ogre.Tests.Core:FileSystemArchiveTests;
+#include "OgreFileSystem.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
-import Ogre.Core;
-
-export
 namespace Ogre {
 class Archive;
 }  // namespace Ogre
+
 using namespace Ogre;
 
-export
 class FileSystemArchiveTests : public ::testing::Test
 {
 
@@ -55,3 +56,5 @@ public:
     void SetUp();
     void TearDown();
 };
+
+#endif

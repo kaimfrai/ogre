@@ -1,11 +1,13 @@
 // This file is part of the OGRE project.
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
-export module Ogre.RenderSystems.GLSupport:GLDepthBufferCommon;
 
-import Ogre.Core;
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_DEPTHBUFFERCOMMON_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_DEPTHBUFFERCOMMON_H
 
-export
+#include "OgreDepthBuffer.h"
+#include "OgrePlatform.h"
+
 namespace Ogre
 {
     class GLContext;
@@ -44,3 +46,5 @@ namespace Ogre
         GLRenderSystemCommon        *mRenderSystem;
     };
 } // namespace Ogre
+
+#endif

@@ -25,7 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_RENDERQUEUESORTINGGROUPING_H
+#define OGRE_CORE_RENDERQUEUESORTINGGROUPING_H
 
 #include <algorithm>
 #include <functional>
@@ -33,16 +34,13 @@ module;
 #include <utility>
 #include <vector>
 
-export module Ogre.Core:RenderQueueSortingGrouping;
-
 // Precompiler options
-import :IteratorWrapper;
-import :MemoryAllocatorConfig;
-import :Pass;
-import :Platform;
-import :Prerequisites;
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePass.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
-export
 namespace Ogre {
     class Camera;
     class RenderQueueGroup;
@@ -642,3 +640,5 @@ namespace Ogre {
 
 
 }
+
+#endif

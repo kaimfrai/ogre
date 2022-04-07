@@ -25,21 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <cassert>
 #include <utility>
 #include <vector>
 
-module Ogre.Core:RenderSystemCapabilitiesManager;
+#include "OgreArchive.h"
+#include "OgreArchiveManager.h"
+#include "OgreDataStream.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderSystemCapabilitiesManager.h"
+#include "OgreRenderSystemCapabilitiesSerializer.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
 
-import :Archive;
-import :ArchiveManager;
-import :DataStream;
-import :RenderSystemCapabilities;
-import :RenderSystemCapabilitiesSerializer;
-import :SharedPtr;
-import :StringVector;
+
 
 namespace Ogre {
 
@@ -103,3 +102,8 @@ namespace Ogre {
         mCapabilitiesMap.emplace(name, caps);
     }
 }
+
+
+
+
+

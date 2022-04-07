@@ -25,12 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GL:PixelFormat;
+#ifndef OGRE_RENDERSYSTEMS_GL_PIXELFORMAT_H
+#define OGRE_RENDERSYSTEMS_GL_PIXELFORMAT_H
 
-import Ogre.Core;
-import Ogre.RenderSystems.GL.glad;
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "glad/glad.h"
 
-export
 namespace Ogre {
     
     /**
@@ -72,3 +73,5 @@ namespace Ogre {
         static uint32 optionalPO2(uint32 value);
     };
 }
+
+#endif

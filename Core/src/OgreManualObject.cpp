@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 #include <cstring>
@@ -35,41 +33,40 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Core:ManualObject;
-
-import :AxisAlignedBox;
-import :ColourValue;
-import :Common;
-import :EdgeListBuilder;
-import :Exception;
-import :HardwareBuffer;
-import :HardwareBufferManager;
-import :HardwareIndexBuffer;
-import :HardwareVertexBuffer;
-import :Light;
-import :Log;
-import :LogManager;
-import :Material;
-import :MaterialManager;
-import :Math;
-import :Matrix3;
-import :Matrix4;
-import :Mesh;
-import :MeshManager;
-import :MovableObject;
-import :Node;
-import :Pass;
-import :Platform;
-import :Prerequisites;
-import :RenderOperation;
-import :RenderQueue;
-import :Renderable;
-import :ShadowCaster;
-import :SharedPtr;
-import :SubMesh;
-import :Technique;
-import :Vector;
-import :VertexIndexData;
+#include "OgreAxisAlignedBox.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreEdgeListBuilder.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreLight.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreManualObject.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
+#include "OgreMesh.h"
+#include "OgreMeshManager.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePass.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderQueue.h"
+#include "OgreRenderable.h"
+#include "OgreShadowCaster.h"
+#include "OgreSharedPtr.h"
+#include "OgreSubMesh.h"
+#include "OgreTechnique.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 class Camera;

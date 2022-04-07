@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_TESTS_CORE_PIXELFORMATTESTS_H
+#define OGRE_TESTS_CORE_PIXELFORMATTESTS_H
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:PixelFormatTests;
-
-import Ogre.Core;
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
 
 using namespace Ogre;
 
-export
 class PixelFormatTests : public ::testing::Test
 {
 
@@ -52,3 +52,5 @@ public:
     uint8 *mTemp, *mTemp2;
     PixelBox mSrc, mDst1, mDst2;
 };
+
+#endif

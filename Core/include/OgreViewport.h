@@ -25,21 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_VIEWPORT_H
+#define OGRE_CORE_VIEWPORT_H
 
 #include <algorithm>
 #include <vector>
 
-export module Ogre.Core:Viewport;
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreFrustum.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
-import :ColourValue;
-import :Common;
-import :Frustum;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-
-export
 namespace Ogre {
 class Camera;
 class RenderTarget;
@@ -427,3 +425,5 @@ class RenderTarget;
     /** @} */
 
 }
+
+#endif

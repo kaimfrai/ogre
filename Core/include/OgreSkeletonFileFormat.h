@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:SkeletonFileFormat;
+#ifndef OGRE_CORE_SKELETONFILEFORMAT_H
+#define OGRE_CORE_SKELETONFILEFORMAT_H
 
-import :Prerequisites;
+#include "OgrePrerequisites.h"
 
-export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -112,3 +112,6 @@ namespace Ogre {
     /** @} */
 
 } // namespace
+
+
+#endif

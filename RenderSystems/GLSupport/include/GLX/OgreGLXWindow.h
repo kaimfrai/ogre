@@ -25,16 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_WINDOW_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLX_WINDOW_H
 
 #include <X11/X.h>
 
-export module Ogre.RenderSystems.GLSupport.GLX:Window;
+#include "OgreCommon.h"
+#include "OgreGLWindow.h"
+#include "OgrePixelFormat.h"
+#include "OgrePrerequisites.h"
 
-import Ogre.Core;
-import Ogre.RenderSystems.GLSupport;
-
-export
 namespace Ogre 
 {
     class GLXGLSupport;
@@ -91,3 +92,5 @@ namespace Ogre
         void switchFullScreen(bool fullscreen);
     };
 }
+
+#endif

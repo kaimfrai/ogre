@@ -25,12 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:ConfigOptionMap;
 
-import :Prerequisites;
-import :StringVector;
+#ifndef OGRE_CORE_CONFIGOPTIONMAP_H
+#define OGRE_CORE_CONFIGOPTIONMAP_H
 
-export
+#include "OgrePrerequisites.h"
+
+#include "OgreStringVector.h"
+
+
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -55,3 +58,5 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
+
+#endif

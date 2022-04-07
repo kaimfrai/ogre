@@ -25,9 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
+#ifndef OGRE_CORE_COMMON_H
+#define OGRE_CORE_COMMON_H
 // Common stuff
+
 #include <cassert>
 #include <cstddef>
 #include <map>
@@ -35,14 +36,11 @@ module;
 #include <string>
 #include <vector>
 
-export module Ogre.Core:Common;
+#include "OgreMurmurHash3.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreVector.h"
 
-import :MurmurHash3;
-import :Platform;
-import :Prerequisites;
-import :Vector;
-
-export
 namespace Ogre {
 class RenderWindow;
 
@@ -856,3 +854,5 @@ class RenderWindow;
     /** @} */
     /** @} */
 }
+
+#endif

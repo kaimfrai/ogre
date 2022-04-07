@@ -25,19 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_CODEC_H
+#define OGRE_CORE_CODEC_H
 
 #include <cstddef>
 #include <map>
 #include <string>
 
-export module Ogre.Core:Codec;
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreStringVector.h"
 
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :StringVector;
-
-export
 namespace Ogre {
 class Any;
     /** \addtogroup Core
@@ -143,3 +141,5 @@ class Any;
     /** @} */
 
 } // namespace
+
+#endif

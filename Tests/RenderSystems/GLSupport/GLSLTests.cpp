@@ -25,17 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
 
 #include <gtest/gtest.h>
 #include <cstdlib>
 
-module Ogre.Tests.RenderSystems.GLSupport;
-
-import Ogre.Core;
-import Ogre.RenderSystems.GLSupport.GLSL;
+#include "GLSL/OgreGLSLPreprocessor.h"
+#include "OgrePrerequisites.h"
+#include "OgreString.h"
 
 using namespace Ogre;
+
 TEST(CPreprocessorTests, MacroBraces)
 {
     CPreprocessor prep;
@@ -49,6 +48,7 @@ TEST(CPreprocessorTests, MacroBraces)
     EXPECT_EQ(str, "print( (myValue * 3) * 2 )");
     free(out);
 }
+
 TEST(CPreprocessorTests, MacroExpansion)
 {
     CPreprocessor prep;
@@ -62,6 +62,7 @@ TEST(CPreprocessorTests, MacroExpansion)
     EXPECT_EQ(str, "fma( x.s, y, a )");
     free(out);
 }
+
 TEST(CPreprocessorTests, IfDef)
 {
     CPreprocessor prep;
@@ -79,6 +80,7 @@ TEST(CPreprocessorTests, IfDef)
     EXPECT_EQ(str, "defined");
     free(out);
 }
+
 TEST(CPreprocessorTests, ElseIf)
 {
     CPreprocessor prep;
@@ -100,6 +102,7 @@ TEST(CPreprocessorTests, ElseIf)
     EXPECT_EQ(str, "value is 0");
     free(out);
 }
+
 TEST(CPreprocessorTests, MacroMacroArgument)
 {
     CPreprocessor prep;
@@ -114,6 +117,7 @@ TEST(CPreprocessorTests, MacroMacroArgument)
     EXPECT_EQ(str, "(A)");
     free(out);
 }
+
 TEST(CPreprocessorTests, MacroMacroArgumentAndExpansion)
 {
     CPreprocessor prep;
@@ -129,6 +133,7 @@ TEST(CPreprocessorTests, MacroMacroArgumentAndExpansion)
     EXPECT_EQ(str, "((C))");
     free(out);
 }
+
 TEST(CPreprocessorTests, MacroRecursion1)
 {
     CPreprocessor prep;
@@ -142,6 +147,8 @@ TEST(CPreprocessorTests, MacroRecursion1)
     EXPECT_EQ(str, "(U,U(U),U)");
     free(out);
 }
+
+
 TEST(CPreprocessorTests, MacroRecursion2)
 {
     CPreprocessor prep;
@@ -155,6 +162,7 @@ TEST(CPreprocessorTests, MacroRecursion2)
     EXPECT_EQ(str, "(Z+(1,1,1),Z+(1,1,1),Z+(1,1,1))");
     free(out);
 }
+
 TEST(CPreprocessorTests, MacroRecursion3)
 {
     CPreprocessor prep;
@@ -168,6 +176,7 @@ TEST(CPreprocessorTests, MacroRecursion3)
     EXPECT_EQ(str, "(((1,1,1)+(2,2,2),(1,1,1)+(2,2,2),(1,1,1)+(2,2,2)),((1,1,1)+(2,2,2),(1,1,1)+(2,2,2),(1,1,1)+(2,2,2)),((1,1,1)+(2,2,2),(1,1,1)+(2,2,2),(1,1,1)+(2,2,2)))");
     free(out);
 }
+
 TEST(CPreprocessorTests, MacroConcat)
 {
     CPreprocessor prep;

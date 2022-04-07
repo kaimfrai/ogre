@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Core:OptimisedUtil;
-
-import :PlatformInformation;
+#include "OgreOptimisedUtil.h"
+#include "OgrePlatformInformation.h"
 
 //#define __DO_PROFILE__
+
 namespace Ogre {
 
     //---------------------------------------------------------------------

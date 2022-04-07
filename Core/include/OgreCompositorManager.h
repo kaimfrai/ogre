@@ -25,7 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_COMPOSITORMANAGER_H
+#define OGRE_CORE_COMPOSITORMANAGER_H
 
 #include <cstddef>
 #include <map>
@@ -35,22 +36,19 @@ module;
 #include <utility>
 #include <vector>
 
-export module Ogre.Core:CompositorManager;
+#include "OgreCommon.h"
+#include "OgreCompositionTechnique.h"
+#include "OgreIteratorWrapper.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreTexture.h"
 
-import :Common;
-import :CompositionTechnique;
-import :IteratorWrapper;
-import :PixelFormat;
-import :Platform;
-import :Prerequisites;
-import :Resource;
-import :ResourceGroupManager;
-import :ResourceManager;
-import :SharedPtr;
-import :Singleton;
-import :Texture;
-
-export
 namespace Ogre {
 
     class Rectangle2D;
@@ -279,3 +277,5 @@ class Viewport;
     /** @} */
 
 }
+
+#endif

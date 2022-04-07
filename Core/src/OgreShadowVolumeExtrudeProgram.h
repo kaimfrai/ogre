@@ -25,17 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_CORE_SHADOWVOLUMEEXTRUDEPROGRAM_H
+#define OGRE_CORE_SHADOWVOLUMEEXTRUDEPROGRAM_H
 
 #include <vector>
 
-export module Ogre.Core:ShadowVolumeExtrudeProgram;
+#include "OgreLight.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
 
-import :Light;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-
-export
 namespace Ogre {
     class ShadowVolumeExtrudeProgram : public ShadowDataAlloc
     {
@@ -50,3 +49,5 @@ namespace Ogre {
         static const GpuProgramPtr& get(Light::LightTypes lightType, bool finite);
     };
 }
+
+#endif

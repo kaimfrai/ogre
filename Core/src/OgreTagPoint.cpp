@@ -25,14 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Core:TagPoint;
+#include "OgreTagPoint.h"
 
-import :Entity;
-import :MovableObject;
-import :Node;
-import :Prerequisites;
-import :Quaternion;
-import :Vector;
+#include "OgreEntity.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreVector.h"
+
 
 namespace Ogre {
 class Skeleton;

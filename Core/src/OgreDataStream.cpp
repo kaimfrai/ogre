@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 #include <cstdio>
@@ -34,14 +32,13 @@ module;
 #include <fstream>
 #include <string>
 
-module Ogre.Core:DataStream;
-
-import :Exception;
-import :LogManager;
-import :Platform;
-import :Prerequisites;
-import :SharedPtr;
-import :String;
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreLogManager.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
 
 namespace Ogre {
 

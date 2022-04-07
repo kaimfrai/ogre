@@ -25,14 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#include "OgreBorderPanelOverlayElement.h"
 
 #include <string>
 #include <vector>
 
-module Ogre.Components.Overlay:BorderPanelOverlayElement;
-
-import Ogre.Core;
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreRenderQueue.h"
+#include "OgreRenderSystem.h"
+#include "OgreRoot.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreStringInterface.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
     //---------------------------------------------------------------------
@@ -912,3 +924,4 @@ namespace Ogre {
 
 
 }
+

@@ -25,47 +25,44 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 
-module Ogre.Core:CompositorInstance;
-
-import :Camera;
-import :ColourValue;
-import :CompositionPass;
-import :CompositionTargetPass;
-import :Compositor;
-import :CompositorChain;
-import :CompositorLogic;
-import :CompositorManager;
-import :CustomCompositionPass;
-import :DepthBuffer;
-import :Exception;
-import :GpuProgram;
-import :GpuProgramParams;
-import :HardwarePixelBuffer;
-import :LogManager;
-import :Material;
-import :Matrix4;
-import :Pass;
-import :PixelFormat;
-import :Rectangle2D;
-import :RenderSystem;
-import :RenderTarget;
-import :RenderTexture;
-import :ResourceGroupManager;
-import :Root;
-import :SceneManager;
-import :String;
-import :StringConverter;
-import :Technique;
-import :Texture;
-import :TextureManager;
-import :TextureUnitState;
-import :Vector;
-import :Viewport;
+#include "OgreCamera.h"
+#include "OgreColourValue.h"
+#include "OgreCompositionPass.h"
+#include "OgreCompositionTargetPass.h"
+#include "OgreCompositor.h"
+#include "OgreCompositorChain.h"
+#include "OgreCompositorInstance.h"
+#include "OgreCompositorLogic.h"
+#include "OgreCompositorManager.h"
+#include "OgreCustomCompositionPass.h"
+#include "OgreDepthBuffer.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreHardwarePixelBuffer.h"
+#include "OgreLogManager.h"
+#include "OgreMaterial.h"
+#include "OgreMatrix4.h"
+#include "OgrePass.h"
+#include "OgrePixelFormat.h"
+#include "OgreRectangle2D.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderTarget.h"
+#include "OgreRenderTexture.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreTechnique.h"
+#include "OgreTexture.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 CompositorInstance::CompositorInstance(CompositionTechnique *technique,

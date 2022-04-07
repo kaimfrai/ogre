@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:PixelFormatDescriptions;
+#ifndef OGRE_CORE_PIXELFORMATDESCRIPTIONS_H
+#define OGRE_CORE_PIXELFORMATDESCRIPTIONS_H
 
-export
 namespace Ogre {
     //-----------------------------------------------------------------------
     /**
@@ -1545,3 +1545,5 @@ namespace Ogre {
     /** @} */
 
 }
+
+#endif

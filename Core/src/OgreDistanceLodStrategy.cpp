@@ -25,20 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
 
 #include <algorithm>
 #include <cassert>
 
-module Ogre.Core:DistanceLodStrategy;
-
-import :AxisAlignedBox;
-import :Camera;
-import :Frustum;
-import :Matrix4;
-import :MovableObject;
-import :Node;
-import :Viewport;
+#include "OgreAxisAlignedBox.h"
+#include "OgreCamera.h"
+#include "OgreDistanceLodStrategy.h"
+#include "OgreFrustum.h"
+#include "OgreMatrix4.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
     DistanceLodStrategyBase::DistanceLodStrategyBase(const String& name)

@@ -25,6 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+
 /* dqconv.c
 
   Conversion routines between (regular quaternion, translation) and dual quaternion.
@@ -53,10 +54,11 @@ THE SOFTWARE.
   Author: Ladislav Kavan, kavanl@cs.tcd.ie
 
 */
-module Ogre.Core:DualQuaternion;
 
-import :Matrix4;
-import :Vector;
+#include "OgreDualQuaternion.h"
+#include "OgreMatrix4.h"
+#include "OgreVector.h"
+
 
 namespace Ogre {
 

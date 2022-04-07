@@ -25,17 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <memory>
 
-module Ogre.Core:HardwareIndexBuffer;
+#include "OgreDefaultHardwareBufferManager.h"
+#include "OgreException.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRoot.h"
 
-import :DefaultHardwareBufferManager;
-import :Exception;
-import :RenderSystem;
-import :RenderSystemCapabilities;
-import :Root;
 
 namespace Ogre {
 
@@ -81,3 +79,4 @@ namespace Ogre {
     }
 
 }
+

@@ -25,17 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#include "UseCustomCapabilitiesTests.h"
 
 #include <algorithm>
 #include <string>
 #include <vector>
 
-module Ogre.Tests.Core:UseCustomCapabilitiesTests;
-
-import Ogre.Core;
+#include "OgreCommon.h"
+#include "OgreCompositorManager.h"
+#include "OgreConfigOptionMap.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreMaterialManager.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreStringVector.h"
 
 // Register the test suite
+
 //--------------------------------------------------------------------------
 void UseCustomCapabilitiesTests::SetUp()
 {    
@@ -52,7 +62,6 @@ void UseCustomCapabilitiesTests::SetUp()
     if(Ogre::ResourceGroupManager::getSingletonPtr())
         delete Ogre::ResourceGroupManager::getSingletonPtr();
 }
-
 //--------------------------------------------------------------------------
 void UseCustomCapabilitiesTests::TearDown()
 {
@@ -221,3 +230,5 @@ TEST_F(UseCustomCapabilitiesTests,CustomCapabilitiesD3D9)
     delete root;
 }
 //--------------------------------------------------------------------------
+
+

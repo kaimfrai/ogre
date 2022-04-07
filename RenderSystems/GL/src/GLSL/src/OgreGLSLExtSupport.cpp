@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
 
 #include <string>
 
-module Ogre.RenderSystems.GL.GLSL:SLExtSupport;
-
-import Ogre.Core;
-import Ogre.RenderSystems.GL;
+#include "OgreException.h"
+#include "OgreGLPrerequisites.h"
+#include "OgreGLSLExtSupport.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
 
 namespace Ogre
 {

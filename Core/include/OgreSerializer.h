@@ -25,19 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_CORE_SERIALIZER_H
+#define OGRE_CORE_SERIALIZER_H
 
 #include <cstddef>
 
-export module Ogre.Core:Serializer;
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreSharedPtr.h"
 
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :Quaternion;
-import :SharedPtr;
-
-export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -123,3 +122,5 @@ namespace Ogre {
     /** @} */
 
 }
+
+#endif

@@ -25,26 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
 
 #include <cstring>
 
-module Ogre.Core:ETCCodec;
-
-import :Codec;
-import :Common;
-import :DataStream;
-import :Exception;
-import :Image;
-import :Log;
-import :LogManager;
-import :PixelFormat;
-import :Platform;
-import :SharedPtr;
-import :StableHeaders;
+#include "OgreCodec.h"
+#include "OgreCommon.h"
+#include "OgreDataStream.h"
+#include "OgreETCCodec.h"
+#include "OgreException.h"
+#include "OgreImage.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgreSharedPtr.h"
+#include "OgreStableHeaders.h"
 
 #define KTX_ENDIAN_REF      (0x04030201)
 #define KTX_ENDIAN_REF_REV  (0x01020304)
+
 // In a PKM-file, the codecs are stored using the following identifiers
 //
 // identifier                         value               codec
@@ -58,6 +57,7 @@ import :StableHeaders;
 // ETC2PACKAGE_RG_NO_MIPMAPS            6                 GL_COMPRESSED_RG11_EAC
 // ETC2PACKAGE_R_SIGNED_NO_MIPMAPS      7                 GL_COMPRESSED_SIGNED_R11_EAC
 // ETC2PACKAGE_RG_SIGNED_NO_MIPMAPS     8                 GL_COMPRESSED_SIGNED_RG11_EAC
+
 namespace Ogre {
 
     const uint32 PKM_MAGIC = FOURCC('P', 'K', 'M', ' ');

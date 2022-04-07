@@ -25,19 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_RENDERSYSTEMS_GL_HARDWAREPIXELBUFFER_H
+#define OGRE_RENDERSYSTEMS_GL_HARDWAREPIXELBUFFER_H
 
 #include <cstddef>
 
-export module Ogre.RenderSystems.GL:HardwarePixelBuffer;
+#include "OgreException.h"
+#include "OgreGLHardwarePixelBufferCommon.h"
+#include "OgreGLPrerequisites.h" // IWYU pragma: keep
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "glad/glad.h"
 
-import :Prerequisites;
-
-import Ogre.Core;
-import Ogre.RenderSystems.GL.glad;
-import Ogre.RenderSystems.GLSupport;
-
-export
 namespace Ogre {
     class GLRenderSystem;
     class GLTexture;
@@ -101,3 +100,5 @@ namespace Ogre {
         GLuint mRenderbufferID;
     };
 }
+
+#endif

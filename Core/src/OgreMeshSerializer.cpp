@@ -25,24 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <ios>
 #include <string>
 #include <vector>
 
-module Ogre.Core:MeshSerializer;
-
-import :DataStream;
-import :Exception;
-import :FileSystem;
-import :LogManager;
-import :MemoryAllocatorConfig;
-import :Mesh;
-import :MeshSerializerImpl;
-import :Prerequisites;
-import :Serializer;
-import :SharedPtr;
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreFileSystem.h"
+#include "OgreLogManager.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgreMesh.h"
+#include "OgreMeshSerializer.h"
+#include "OgreMeshSerializerImpl.h"
+#include "OgrePrerequisites.h"
+#include "OgreSerializer.h"
+#include "OgreSharedPtr.h"
 
 namespace Ogre {
 
@@ -229,3 +226,4 @@ namespace Ogre {
         return mListener;
     }
 }
+

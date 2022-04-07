@@ -25,17 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_TESTS_VISUALTESTS_IMAGEVALIDATOR_H
+#define OGRE_TESTS_VISUALTESTS_IMAGEVALIDATOR_H
+
+#include "OgreArchiveManager.h"
+#include "OgreColourValue.h"
+#include "OgreConfigFile.h"
+#include "OgreDataStream.h"
+#include "OgreImage.h"
 
 #include <fstream>
+
 /** Some functionality for comparing images */
+
 /* Results of comparing two test images */
-
-export module Ogre.Tests.VisualTests.Common:ImageValidator;
-
-import Ogre.Core;
-
-export
 struct ComparisonResult
 {
     bool passed;
@@ -52,14 +56,10 @@ struct ComparisonResult
     float ssim;                     // structural similarity index
 };
 
-export
 typedef std::vector<ComparisonResult> ComparisonResultVector;
-
-export
 typedef Ogre::SharedPtr<ComparisonResultVector> ComparisonResultVectorPtr;
-/** Simple object for doing image comparison between two image sets */
 
-export
+/** Simple object for doing image comparison between two image sets */
 class ImageValidator
 {
 public:
@@ -212,3 +212,5 @@ private:
     Ogre::String mDirectory2;
 
 };
+
+#endif

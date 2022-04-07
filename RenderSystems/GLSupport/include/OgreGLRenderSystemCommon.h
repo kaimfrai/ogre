@@ -25,17 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_RENDERSYSTEMCOMMON_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_RENDERSYSTEMCOMMON_H
 
 #include <cstddef>
 #include <list>
 #include <set>
 
-export module Ogre.RenderSystems.GLSupport:GLRenderSystemCommon;
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderTarget.h"
+#include "OgreRenderWindow.h"
 
-import Ogre.Core;
-
-export
 namespace Ogre {
     class GLContext;
     class GLNativeSupport;
@@ -155,3 +159,5 @@ namespace Ogre {
         void postExtraThreadsStarted();
     };
 }
+
+#endif

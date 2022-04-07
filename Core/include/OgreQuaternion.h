@@ -31,7 +31,10 @@ THE SOFTWARE.
 // Distributed under the Boost Software License, Version 1.0.
 // http://www.boost.org/LICENSE_1_0.txt
 // http://www.geometrictools.com/License/Boost/LICENSE_1_0.txt
-module;
+
+
+#ifndef OGRE_CORE_QUATERNION_H
+#define OGRE_CORE_QUATERNION_H
 
 #include <cassert>
 #include <cmath>
@@ -39,12 +42,9 @@ module;
 #include <ostream>
 #include <utility>
 
-export module Ogre.Core:Quaternion;
+#include "OgreMath.h"
+#include "OgrePrerequisites.h"
 
-import :Math;
-import :Prerequisites;
-
-export
 namespace Ogre {
 class Matrix3;
 
@@ -371,3 +371,8 @@ class Matrix3;
     /** @} */
 
 }
+
+
+
+
+#endif 

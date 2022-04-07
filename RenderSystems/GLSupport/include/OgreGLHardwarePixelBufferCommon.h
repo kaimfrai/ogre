@@ -25,11 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLHardwarePixelBufferCommon;
 
-import Ogre.Core;
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_HARDWAREPIXELBUFFERCOMMON_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_HARDWAREPIXELBUFFERCOMMON_H
 
-export
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwarePixelBuffer.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+
 namespace Ogre
 {
 struct Box;
@@ -74,3 +78,5 @@ public:
 };
 
 } /* namespace Ogre */
+
+#endif // OGREGLHARDWAREPIXELBUFFERCOMMON_H

@@ -25,13 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Components.RTShaderSystem:ShaderHLSLProgramWriter;
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERHLSL_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERHLSL_H
 
-import :ShaderCGProgramWriter;
+#include "OgrePrerequisites.h"
+#include "OgreShaderCGProgramWriter.h"
 
-import Ogre.Core;
-
-export
 namespace Ogre {
     namespace RTShader {
 /** \addtogroup Optional
@@ -68,3 +67,5 @@ public:
 /** @} */
 }
 }
+
+#endif

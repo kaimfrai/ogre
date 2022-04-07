@@ -25,31 +25,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
+#include <OgreRectangle2D.h>
 #include <algorithm>
 #include <map>
 #include <utility>
 
-module Ogre.Core:Rectangle2D;
-
-import :AxisAlignedBox;
-import :BuiltinMovableFactories;
-import :Common;
-import :Exception;
-import :HardwareBuffer;
-import :HardwareBufferManager;
-import :HardwareVertexBuffer;
-import :Material;
-import :MaterialManager;
-import :Matrix4;
-import :Prerequisites;
-import :RenderOperation;
-import :SharedPtr;
-import :SimpleRenderable;
-import :StringConverter;
-import :Vector;
-import :VertexIndexData;
+#include "OgreAxisAlignedBox.h"
+#include "OgreBuiltinMovableFactories.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMatrix4.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderOperation.h"
+#include "OgreSharedPtr.h"
+#include "OgreSimpleRenderable.h"
+#include "OgreStringConverter.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 class MovableObject;
@@ -245,3 +242,4 @@ class MovableObject;
         return new Rectangle2D(includeTextureCoords);
     }
 }
+

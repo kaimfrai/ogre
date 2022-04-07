@@ -25,22 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_POSE_H
+#define OGRE_CORE_POSE_H
 
 #include <cstddef>
 #include <map>
 #include <vector>
 
-export module Ogre.Core:Pose;
+#include "OgreCommon.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
-import :Common;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :SharedPtr;
-import :Vector;
-
-export
 namespace Ogre {
 
     template <typename T> class MapIterator;
@@ -152,3 +150,5 @@ class VertexData;
     /** @} */
 
 }
+
+#endif

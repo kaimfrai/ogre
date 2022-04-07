@@ -25,16 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_HARDWAREINDEXBUFFER_H
+#define OGRE_CORE_HARDWAREINDEXBUFFER_H
 
 #include <cstddef>
 
-export module Ogre.Core:HardwareIndexBuffer;
+#include "OgreHardwareBuffer.h"
+#include "OgrePlatform.h"
 
-import :HardwareBuffer;
-import :Platform;
-
-export
 namespace Ogre {
     class HardwareBufferManagerBase;
 
@@ -82,3 +80,5 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
+#endif
+

@@ -25,7 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_WORKQUEUE_H
+#define OGRE_CORE_WORKQUEUE_H
 
 #include <algorithm>
 #include <cstddef>
@@ -35,16 +36,13 @@ module;
 #include <mutex>
 #include <string>
 
-export module Ogre.Core:WorkQueue;
+#include "OgreAny.h"
+#include "OgreCommon.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
 
-import :Any;
-import :Common;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :SharedPtr;
-
-export
 namespace Ogre
 {
     /** \addtogroup Core
@@ -596,3 +594,5 @@ namespace Ogre
     /** @} */
 
 }
+
+#endif

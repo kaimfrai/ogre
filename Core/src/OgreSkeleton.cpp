@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
@@ -39,29 +37,29 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:Skeleton;
-
+#include "OgreAnimationState.h"
+#include "OgreSkeletonManager.h"
+#include "OgreSkeletonSerializer.h"
 // Just for logging
-import :Animation;
-import :AnimationState;
-import :AnimationTrack;
-import :Bone;
-import :Exception;
-import :KeyFrame;
-import :Log;
-import :LogManager;
-import :Math;
-import :Prerequisites;
-import :Quaternion;
-import :Resource;
-import :ResourceGroupManager;
-import :ResourceManager;
-import :SharedPtr;
-import :SkeletonManager;
-import :SkeletonSerializer;
-import :StringConverter;
-import :StringVector;
-import :Vector;
+#include "OgreAnimation.h"
+#include "OgreAnimationTrack.h"
+#include "OgreBone.h"
+#include "OgreException.h"
+#include "OgreKeyFrame.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMath.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSkeleton.h"
+#include "OgreStringConverter.h"
+#include "OgreStringVector.h"
+#include "OgreVector.h"
+
 
 namespace Ogre {
 class Affine3;

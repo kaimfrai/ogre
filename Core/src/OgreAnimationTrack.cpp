@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -34,20 +32,19 @@ module;
 #include <list>
 #include <memory>
 
-module Ogre.Core:AnimationTrack;
-
-import :Animable;
-import :Animation;
-import :Any;
-import :Exception;
-import :HardwareVertexBuffer;
-import :KeyFrame;
-import :Math;
-import :Mesh;
-import :Node;
-import :Quaternion;
-import :Vector;
-import :VertexIndexData;
+#include "OgreAnimable.h"
+#include "OgreAnimation.h"
+#include "OgreAnimationTrack.h"
+#include "OgreAny.h"
+#include "OgreException.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreKeyFrame.h"
+#include "OgreMath.h"
+#include "OgreMesh.h"
+#include "OgreNode.h"
+#include "OgreQuaternion.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 
@@ -1047,3 +1044,4 @@ namespace Ogre {
     
 
 }
+

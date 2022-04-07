@@ -25,18 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_TESTS_CORE_USECUSTOMCAPABILITIESTESTS_H
+#define OGRE_TESTS_CORE_USECUSTOMCAPABILITIESTESTS_H
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:UseCustomCapabilitiesTests;
+#include "OgrePlatform.h"
 
-import Ogre.Components.Bites;
-import Ogre.Core;
+#include "OgreStaticPluginLoader.h"
 
 using namespace Ogre;
 
-export
 class UseCustomCapabilitiesTests : public ::testing::Test
 {
 public:
@@ -45,3 +45,5 @@ public:
     void SetUp();
     void TearDown();
 };
+
+#endif

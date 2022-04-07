@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:PlatformInformation;
+#ifndef OGRE_CORE_PLATFORMINFORMATION_H
+#define OGRE_CORE_PLATFORMINFORMATION_H
 
-import :Prerequisites;
+#include "OgrePrerequisites.h"
 
-export
 namespace Ogre {
     class Log;
 
@@ -110,3 +110,5 @@ namespace Ogre {
     /** @} */
 
 }
+
+#endif  // OGRE_CORE_PLATFORMINFORMATION_H

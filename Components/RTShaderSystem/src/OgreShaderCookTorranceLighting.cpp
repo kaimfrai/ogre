@@ -2,28 +2,30 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
-module;
-
 #include <cstddef>
 #include <list>
 #include <memory>
 #include <string>
 
-module Ogre.Components.RTShaderSystem:ShaderCookTorranceLighting;
-
-import :ShaderFFPRenderState;
-import :ShaderFunction;
-import :ShaderFunctionAtom;
-import :ShaderParameter;
-import :ShaderPrecompiledHeaders;
-import :ShaderPrerequisites;
-import :ShaderProgram;
-import :ShaderProgramSet;
-import :ShaderRenderState;
-import :ShaderScriptTranslator;
-import :ShaderSubRenderState;
-
-import Ogre.Core;
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMaterialSerializer.h"
+#include "OgrePass.h"
+#include "OgrePrerequisites.h"
+#include "OgreScriptCompiler.h"
+#include "OgreShaderCookTorranceLighting.h"
+#include "OgreShaderFFPRenderState.h"
+#include "OgreShaderFunction.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrecompiledHeaders.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramSet.h"
+#include "OgreShaderRenderState.h"
+#include "OgreShaderScriptTranslator.h"
+#include "OgreShaderSubRenderState.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {

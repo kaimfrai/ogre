@@ -25,21 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Tests.VisualTests.Common:TestBatch;
 
-import :ImageValidator;
+#ifndef OGRE_TESTS_VISUALTESTS_TESTBATCH_H
+#define OGRE_TESTS_VISUALTESTS_TESTBATCH_H
 
-import Ogre.Core;
+#include "ImageValidator.h"
+#include "Ogre.h"
 
-export
 class TestBatch;
-
-export
 typedef std::set<TestBatch,std::greater<TestBatch> > TestBatchSet;
 
 /** Represents the output from running a batch of tests
  *        (i.e. a single run of the TestContext) */
-export
 class TestBatch : public Ogre::GeneralAllocatedObject
 {
 public:
@@ -207,3 +204,7 @@ private:
     Ogre::String mDirectory;
 
 };
+
+
+
+#endif

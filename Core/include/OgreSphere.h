@@ -25,14 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:Sphere;
+#ifndef OGRE_CORE_SPHERE_H
+#define OGRE_CORE_SPHERE_H
 
 // Precompiler options
-import :Plane;
-import :Prerequisites;
-import :Vector;
+#include "OgrePrerequisites.h"
 
-export
+#include "OgrePlane.h"
+#include "OgreVector.h"
+
 namespace Ogre {
 
 
@@ -132,3 +133,6 @@ namespace Ogre {
     /** @} */
 
 }
+
+#endif
+

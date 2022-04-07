@@ -25,9 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <sys/stat.h>
+
+#include <zip.h>
+
 #include <algorithm>
 #include <cstddef>
 #include <iosfwd>
@@ -37,22 +38,21 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:Zip;
-
-import :Archive;
-import :DataStream;
-import :Exception;
-import :FileSystem;
-import :Platform;
-import :Prerequisites;
-import :SharedPtr;
-import :String;
-import :StringVector;
+#include "OgreArchive.h"
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreFileSystem.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringVector.h"
+#include "OgreZip.h"
 
 // NOLINTBEGIN
-import Ogre.Core.zip;
-
+#include <zip.h>
 // NOLINTEND
+
 namespace Ogre {
 namespace {
     class ZipArchive : public Archive

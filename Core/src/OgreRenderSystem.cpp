@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
@@ -39,38 +37,38 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:RenderSystem;
-
+#include "OgreCommon.h"
+#include "OgreConfig.h"
+#include "OgreConfigOptionMap.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreHardwareOcclusionQuery.h" // IWYU pragma: keep
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreLogManager.h"
+#include "OgreMaterialManager.h"
+#include "OgrePlane.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreProfiler.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
+#include "OgreStringVector.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 // RenderSystem implementation
 // Note that most of this class is abstract since
 //  we cannot know how to implement the behaviour without
 //  being aware of the 3D API. However there are a few
 //  simple functions which can have a base implementation
-import :Common;
-import :Config;
-import :ConfigOptionMap;
-import :DepthBuffer;
-import :Exception;
-import :GpuProgram;
-import :GpuProgramParams;
-import :HardwareOcclusionQuery;
-import :HardwareVertexBuffer;
-import :LogManager;
-import :MaterialManager;
-import :Plane;
-import :Platform;
-import :Prerequisites;
-import :Profiler;
-import :RenderOperation;
-import :RenderSystemCapabilities;
-import :RenderTarget;
-import :SharedPtr;
-import :StringConverter;
-import :StringVector;
-import :TextureManager;
-import :TextureUnitState;
-import :Vector;
-import :VertexIndexData;
+
+#include "OgreDepthBuffer.h"
+#include "OgreRenderTarget.h"
 
 namespace Ogre {
     class Camera;
@@ -1073,3 +1071,4 @@ namespace Ogre {
         return mInvertVertexWinding != mActiveRenderTarget->requiresTextureFlipping();
     }
 }
+

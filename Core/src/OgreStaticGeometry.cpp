@@ -25,40 +25,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cstring>
 #include <memory>
 #include <ostream>
 
-module Ogre.Core:StaticGeometry;
-
-import :Camera;
-import :EdgeListBuilder;
-import :Entity;
-import :Exception;
-import :HardwareBuffer;
-import :HardwareBufferManager;
-import :HardwareIndexBuffer;
-import :HardwareVertexBuffer;
-import :Light;
-import :LodStrategy;
-import :LogManager;
-import :Math;
-import :Matrix3;
-import :Matrix4;
-import :Node;
-import :Pass;
-import :RenderOperation;
-import :RenderQueue;
-import :Root;
-import :SceneManager;
-import :SceneNode;
-import :SubEntity;
-import :SubMesh;
-import :Technique;
-import :VertexIndexData;
+#include "OgreCamera.h"
+#include "OgreEdgeListBuilder.h"
+#include "OgreEntity.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreLight.h"
+#include "OgreLodStrategy.h"
+#include "OgreLogManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
+#include "OgreNode.h"
+#include "OgrePass.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderQueue.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreStaticGeometry.h"
+#include "OgreSubEntity.h"
+#include "OgreSubMesh.h"
+#include "OgreTechnique.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 
@@ -1591,3 +1588,4 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     String StaticGeometryFactory::FACTORY_TYPE_NAME = "StaticGeometry";
 }
+

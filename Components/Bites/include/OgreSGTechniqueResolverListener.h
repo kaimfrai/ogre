@@ -1,3 +1,6 @@
+#ifndef OGRE_COMPONENTS_BITES_SGTECHNIQUERESOLVERLISTENER_H
+#define OGRE_COMPONENTS_BITES_SGTECHNIQUERESOLVERLISTENER_H
+
 /*
  -----------------------------------------------------------------------------
  This source file is part of OGRE
@@ -25,11 +28,13 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-export module Ogre.Components.Bites:SGTechniqueResolverListener;
 
-import Ogre.Core;
+#pragma once
 
-export
+#include "OgreMaterialManager.h"
+#include "OgrePrerequisites.h"
+#include "OgreTechnique.h"
+
 namespace Ogre {
     class Material;
     class Renderable;
@@ -39,7 +44,6 @@ namespace Ogre {
     }  // namespace RTShader
 }  // namespace Ogre
 
-export
 namespace OgreBites {
 /** \addtogroup Optional
 *  @{
@@ -75,3 +79,5 @@ protected:
 /** @} */
 /** @} */
 }
+
+#endif

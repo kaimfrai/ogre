@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
@@ -34,18 +32,17 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:Math;
-
-import :AxisAlignedBox;
-import :Frustum;
-import :Matrix3;
-import :Matrix4;
-import :Plane;
-import :Prerequisites;
-import :Quaternion;
-import :Ray;
-import :Sphere;
-import :Vector;
+#include "OgreAxisAlignedBox.h"
+#include "OgreFrustum.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMatrix4.h"
+#include "OgrePlane.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRay.h"
+#include "OgreSphere.h"
+#include "OgreVector.h"
 
 namespace Ogre
 {

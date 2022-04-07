@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 #include <memory>
@@ -34,26 +32,25 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:SceneNode;
-
-import :AxisAlignedBox;
-import :Camera;
-import :Codec;
-import :Common;
-import :Exception;
-import :Math;
-import :Matrix3;
-import :MovableObject;
-import :Node;
-import :Platform;
-import :Prerequisites;
-import :Quaternion;
-import :RenderQueue;
-import :ResourceGroupManager;
-import :Root;
-import :SceneManager;
-import :String;
-import :Vector;
+#include "OgreAxisAlignedBox.h"
+#include "OgreCamera.h"
+#include "OgreCodec.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreMath.h"
+#include "OgreMatrix3.h"
+#include "OgreMovableObject.h"
+#include "OgreNode.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderQueue.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreString.h"
+#include "OgreVector.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------

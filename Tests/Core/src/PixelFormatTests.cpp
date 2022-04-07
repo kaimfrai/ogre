@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#include "PixelFormatTests.h"
 
 #include <cstdlib>
 #include <cstring>
@@ -33,11 +33,11 @@ module;
 #include <ostream>
 #include <string>
 
-module Ogre.Tests.Core:PixelFormatTests;
+#include "OgrePrerequisites.h"
 
-import Ogre.Core;
 
 // Register the test suite
+
 //--------------------------------------------------------------------------
 void PixelFormatTests::SetUp()
 {    
@@ -51,7 +51,6 @@ void PixelFormatTests::SetUp()
     for(unsigned int x=0; x<(unsigned int)mSize; x++)
         mRandomData[x] = (uint8)rand();
 }
-
 //--------------------------------------------------------------------------
 void PixelFormatTests::TearDown()
 {
@@ -130,7 +129,6 @@ static void naiveBulkPixelConversion(const PixelBox &src, const PixelBox &dst)
         dstptr += dstSliceSkipBytes;
     }
 }
-
 //--------------------------------------------------------------------------
 void PixelFormatTests::setupBoxes(PixelFormat srcFormat, PixelFormat dstFormat)
 {
@@ -143,7 +141,6 @@ void PixelFormatTests::setupBoxes(PixelFormat srcFormat, PixelFormat dstFormat)
     mDst1 = PixelBox(width, 1, 1, dstFormat, mTemp);
     mDst2 = PixelBox(width, 1, 1, dstFormat, mTemp2);
 }
-
 //--------------------------------------------------------------------------
 void PixelFormatTests::testCase(PixelFormat srcFormat, PixelFormat dstFormat)
 {
@@ -238,3 +235,4 @@ TEST_F(PixelFormatTests,BulkConversion)
     testCase(PF_X8B8G8R8, PF_R8G8B8A8);
 }
 //--------------------------------------------------------------------------
+

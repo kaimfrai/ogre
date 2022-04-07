@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cstring>
 #include <limits>
@@ -35,33 +33,32 @@ module;
 #include <type_traits>
 #include <utility>
 
-module Ogre.Core:InstanceBatchVTF;
-
-import :Common;
-import :DualQuaternion;
-import :Exception;
-import :HardwareBuffer;
-import :HardwareBufferManager;
-import :HardwareIndexBuffer;
-import :HardwarePixelBuffer;
-import :HardwareVertexBuffer;
-import :InstancedEntity;
-import :Material;
-import :MaterialManager;
-import :Pass;
-import :PixelFormat;
-import :RenderOperation;
-import :RenderSystem;
-import :RenderSystemCapabilities;
-import :Root;
-import :SceneManager;
-import :StringConverter;
-import :SubMesh;
-import :Technique;
-import :TextureManager;
-import :TextureUnitState;
-import :Vector;
-import :VertexIndexData;
+#include "OgreCommon.h"
+#include "OgreDualQuaternion.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwarePixelBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreInstanceBatchVTF.h"
+#include "OgreInstancedEntity.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgrePass.h"
+#include "OgrePixelFormat.h"
+#include "OgreRenderOperation.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreStringConverter.h"
+#include "OgreSubMesh.h"
+#include "OgreTechnique.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre
 {

@@ -25,18 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_UNIFORMCACHE_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_UNIFORMCACHE_H
 
 #include <unordered_map>
 
-export module Ogre.RenderSystems.GLSupport:GLUniformCache;
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
 
-import Ogre.Core;
-
-export
 typedef Ogre::GeneralAllocatedObject UniformCacheAlloc;
 
-export
 namespace Ogre
 {
     /** An in memory cache of the OpenGL uniforms. */
@@ -59,3 +58,5 @@ namespace Ogre
         bool updateUniform(int location, const void *value, int length);
     };
 }
+
+#endif

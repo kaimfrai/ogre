@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cstddef>
 #include <list>
@@ -34,21 +32,37 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Components.RTShaderSystem:ShaderExIntegratedPSSM3;
-
-import :ShaderFFPRenderState;
-import :ShaderFunction;
-import :ShaderFunctionAtom;
-import :ShaderGenerator;
-import :ShaderParameter;
-import :ShaderPrecompiledHeaders;
-import :ShaderPrerequisites;
-import :ShaderProgram;
-import :ShaderProgramSet;
-import :ShaderRenderState;
-import :ShaderScriptTranslator;
-
-import Ogre.Core;
+#include "OgreAutoParamDataSource.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMaterial.h"
+#include "OgreMatrix4.h"
+#include "OgrePass.h"
+#include "OgrePixelFormat.h"
+#include "OgrePrerequisites.h"
+#include "OgreSceneManager.h"
+#include "OgreScriptCompiler.h"
+#include "OgreShaderExIntegratedPSSM3.h"
+#include "OgreShaderFFPRenderState.h"
+#include "OgreShaderFunction.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrecompiledHeaders.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramSet.h"
+#include "OgreShaderRenderState.h"
+#include "OgreShaderScriptTranslator.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreTechnique.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
 
 namespace Ogre {
     class Renderable;
@@ -57,6 +71,7 @@ namespace Ogre {
 #define SGX_LIB_INTEGRATEDPSSM                      "SGXLib_IntegratedPSSM"
 #define SGX_FUNC_COMPUTE_SHADOW_COLOUR3             "SGX_ComputeShadowFactor_PSSM3"
 #define SGX_FUNC_APPLYSHADOWFACTOR_DIFFUSE          "SGX_ApplyShadowFactor_Diffuse"
+
 namespace Ogre {
 namespace RTShader {
 

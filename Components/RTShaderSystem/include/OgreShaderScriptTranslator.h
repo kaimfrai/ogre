@@ -24,11 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Components.RTShaderSystem:ShaderScriptTranslator;
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_SCRIPTTRANSLATOR_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_SCRIPTTRANSLATOR_H
 
-import Ogre.Core;
+#include "OgrePrerequisites.h"
+#include "OgreScriptCompiler.h"
+#include "OgreScriptTranslator.h"
 
-export
 namespace Ogre {
 namespace RTShader {
 class RenderState;
@@ -114,3 +116,5 @@ private:
 
 }
 }
+
+#endif

@@ -25,11 +25,14 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GLSupport:GLWindow;
 
-import :GLRenderSystemCommon;
+#include "OgreGLWindow.h"
 
-import Ogre.Core;
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreGLRenderSystemCommon.h"
+#include "OgrePixelFormat.h"
+#include "OgreRoot.h"
 
 namespace Ogre
 {

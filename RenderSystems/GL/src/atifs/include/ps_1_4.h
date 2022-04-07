@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+
+
 /**
     A number of invaluable references were used to put together this ps.1.x compiler for ATI_fragment_shader execution
 
@@ -41,31 +43,36 @@ THE SOFTWARE.
 
 */
 //---------------------------------------------------------------------------
-module;
+#ifndef ps_1_4H
+#define ps_1_4H
 
 #include <cstdio>
 #include <vector>
 
-export module Ogre.RenderSystems.GL.atifs:ps_1_4;
+#include "Compiler2Pass.h"
+#include "glad/glad.h"
 
-import :Compiler2Pass;
-
-import Ogre.RenderSystems.GL.glad;
 
 //---------------------------------------------------------------------------
 // macro to get the size of a static array
 #undef ARRAYSIZE
-
 #define ARRAYSIZE(array) (sizeof(array)/sizeof(array[0]))
+
 #define ALPHA_BIT 0x08
 #define RGB_BITS 0x07
+
 // Context key patterns
 #define ckp_PS_BASE 0x1
 #define ckp_PS_1_1  0x2
 #define ckp_PS_1_2  0x4
 #define ckp_PS_1_3  0x8
 #define ckp_PS_1_4  0x10
+
 #define ckp_PS_1_4_BASE (ckp_PS_BASE + ckp_PS_1_4)
+
+
+
+
 /** Subclasses Compiler2Pass to provide a ps_1_x compiler that takes DirectX pixel shader assembly
     and converts it to a form that can be used by ATI_fragment_shader OpenGL API
 @remarks
@@ -80,7 +87,6 @@ import Ogre.RenderSystems.GL.glad;
 
 
 */
-export
 class PS_1_4 : public Compiler2Pass{
 private:
     enum RWAflags {rwa_NONE = 0, rwa_READ = 1, rwa_WRITE = 2};
@@ -353,3 +359,7 @@ public:
 
 #endif
 };
+
+
+#endif
+

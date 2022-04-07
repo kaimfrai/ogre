@@ -25,12 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Tests.VisualTests.Common:HTMLWriter;
 
-import :TestResultWriter;
-import :TinyHTML;
+#ifndef OGRE_TESTS_VISUALTESTS_HTMLWRITER_H
+#define OGRE_TESTS_VISUALTESTS_HTMLWRITER_H
 
-export
+#include "TestResultWriter.h"
+#include "TinyHTML.h"
+
 class HtmlWriter : public TestResultWriter
 {
 public:
@@ -315,3 +316,5 @@ protected:
     }    
     //-----------------------------------------------------------------------
 };
+
+#endif

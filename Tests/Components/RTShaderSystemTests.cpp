@@ -25,17 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <gtest/gtest.h>
 #include <cstddef>
 #include <memory>
 
-module Ogre.Tests.Components;
-
-import Ogre.Components.RTShaderSystem;
-import Ogre.Core;
-import Ogre.Tests.Core;
+#include "OgreGpuProgram.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMaterialSerializer.h"
+#include "OgrePass.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderRenderState.h"
+#include "OgreSharedPtr.h"
+#include "OgreTechnique.h"
+#include "OgreVector.h"
+#include "RootWithoutRenderSystemFixture.h"
 
 using namespace Ogre;
 
@@ -54,6 +64,7 @@ struct RTShaderSystem : public RootWithoutRenderSystemFixture
         RootWithoutRenderSystemFixture::TearDown();
     }
 };
+
 TEST_F(RTShaderSystem, createShaderBasedTechnique)
 {
     auto& shaderGen = RTShader::ShaderGenerator::getSingleton();
@@ -74,6 +85,7 @@ TEST_F(RTShaderSystem, createShaderBasedTechnique)
 
     EXPECT_TRUE(shaderGen.removeShaderBasedTechnique(mat->getTechniques()[0], "MyScheme"));
 }
+
 TEST_F(RTShaderSystem, MaterialSerializer)
 {
     auto& shaderGen = RTShader::ShaderGenerator::getSingleton();
@@ -92,6 +104,7 @@ TEST_F(RTShaderSystem, MaterialSerializer)
     ser.queueForExport(mat);
     EXPECT_TRUE(ser.getQueuedAsString().find("colour_stage") != String::npos);
 }
+
 TEST_F(RTShaderSystem, TargetRenderState)
 {
     auto mat = MaterialManager::getSingleton().create("TestMat", RGN_DEFAULT);
@@ -105,6 +118,7 @@ TEST_F(RTShaderSystem, TargetRenderState)
     EXPECT_TRUE(pass->hasGpuProgram(GPT_VERTEX_PROGRAM));
     EXPECT_TRUE(pass->hasGpuProgram(GPT_FRAGMENT_PROGRAM));
 }
+
 TEST_F(RTShaderSystem, FunctionInvocationOrder)
 {
     using namespace RTShader;

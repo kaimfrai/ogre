@@ -25,12 +25,13 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-export module Ogre.Components.Bites:ApplicationContext;
+#ifndef OGRE_COMPONENTS_BITES_APPLICATIONCONTEXT_H
+#define OGRE_COMPONENTS_BITES_APPLICATIONCONTEXT_H
 
-import :ApplicationContextBase;
-import :Input;
+#include "OgreApplicationContextBase.h"
 
-export
+#include "OgreInput.h"
+
 namespace OgreBites
 {
     /** \addtogroup Optional
@@ -66,3 +67,4 @@ namespace OgreBites
     /** @} */
     /** @} */
 }
+#endif

@@ -24,17 +24,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Components.RTShaderSystem;
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_H
 
-import :ShaderExHardwareSkinning;
-import :ShaderExIntegratedPSSM3;
-import :ShaderExLayeredBlending;
-import :ShaderFFPTransform;
-import :ShaderFunction;
-import :ShaderGenerator;
-import :ShaderProgramManager;
-import :ShaderProgramWriter;
-import :ShaderRenderState;
+#include "OgreShaderExHardwareSkinning.h"
+#include "OgreShaderExIntegratedPSSM3.h"
+#include "OgreShaderExLayeredBlending.h"
+#include "OgreShaderFFPTransform.h"
+#include "OgreShaderFunction.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderProgramManager.h"
+#include "OgreShaderProgramWriter.h"
+#include "OgreShaderRenderState.h"
 
 /** \addtogroup Optional
 *  @{
@@ -60,3 +61,5 @@ import :ShaderRenderState;
 * 
 */
 /** @} */
+
+#endif

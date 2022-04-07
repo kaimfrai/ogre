@@ -25,16 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_ROTATIONALSPLINE_H
+#define OGRE_CORE_ROTATIONALSPLINE_H
 
 #include <vector>
 
-export module Ogre.Core:RotationalSpline;
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
 
-import :Prerequisites;
-import :Quaternion;
-
-export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -134,3 +132,5 @@ namespace Ogre {
     /** @} */
 
 }
+
+#endif

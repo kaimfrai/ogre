@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:RenderObjectListener;
+#ifndef OGRE_CORE_RENDEROBJECTLISTENER_H
+#define OGRE_CORE_RENDEROBJECTLISTENER_H
 
-import :Pass;
-import :Prerequisites;
-import :Renderable;
+#include "OgrePass.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderable.h"
 
-export
 namespace Ogre {
 
     class Pass;
@@ -63,3 +63,6 @@ namespace Ogre {
     };
 
 } // namespace Ogre
+
+#endif // OGRE_CORE_RENDEROBJECTLISTENER_H
+

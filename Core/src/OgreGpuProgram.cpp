@@ -25,28 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <map>
 #include <memory>
 #include <string>
 #include <utility>
 
-module Ogre.Core:GpuProgram;
-
-import :Common;
-import :DataStream;
-import :Exception;
-import :GpuProgramManager;
-import :GpuProgramParams;
-import :Log;
-import :LogManager;
-import :RenderSystem;
-import :RenderSystemCapabilities;
-import :ResourceGroupManager;
-import :Root;
-import :StringConverter;
-import :StringInterface;
+#include "OgreCommon.h"
+#include "OgreDataStream.h"
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "OgreStringConverter.h"
+#include "OgreStringInterface.h"
 
 namespace Ogre
 {
@@ -562,3 +559,4 @@ class ResourceManager;
         t->setAdjacencyInfoRequired(StringConverter::parseBool(val));
     }
 }
+

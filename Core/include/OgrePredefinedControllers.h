@@ -25,22 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_PREDEFINEDCONTROLLERS_H
+#define OGRE_CORE_PREDEFINEDCONTROLLERS_H
 
 #include <cstddef>
 #include <memory>
 #include <vector>
 
-export module Ogre.Core:PredefinedControllers;
+#include "OgreCommon.h"
+#include "OgreController.h"
+#include "OgreControllerManager.h"
+#include "OgreFrameListener.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
 
-import :Common;
-import :Controller;
-import :ControllerManager;
-import :FrameListener;
-import :Prerequisites;
-import :SharedPtr;
-
-export
 namespace Ogre {
 class TextureUnitState;
 
@@ -356,3 +354,5 @@ class TextureUnitState;
     /** @} */
 
 }
+
+#endif

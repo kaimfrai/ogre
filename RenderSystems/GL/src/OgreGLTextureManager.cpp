@@ -25,15 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GL:TextureManager;
 
-import :PixelFormat;
-import :RenderSystem;
-import :Texture;
+#include "OgreGLTextureManager.h"
 
-import Ogre.Core;
-import Ogre.RenderSystems.GL.glad;
-import Ogre.RenderSystems.GLSupport;
+#include "OgreGLPixelFormat.h"
+#include "OgreGLRenderSystem.h"
+#include "OgreGLRenderTexture.h"
+#include "OgreGLTexture.h"
+#include "OgreRenderSystem.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreRoot.h"
+#include "glad/glad.h"
 
 namespace Ogre {
     //-----------------------------------------------------------------------------

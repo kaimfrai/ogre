@@ -25,11 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLStateCacheManagerCommon;
 
-import Ogre.Core;
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_STATECACHEMANAGERCOMMON_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_STATECACHEMANAGERCOMMON_H
 
-export
+#include "OgreCommon.h"
+#include "OgrePrerequisites.h"
+
 namespace Ogre
 {
     typedef GeneralAllocatedObject StateCacheAlloc;
@@ -110,3 +112,5 @@ namespace Ogre
         uint32 getStencilMask(void) const { return mStencilMask; }
     };
 }
+
+#endif

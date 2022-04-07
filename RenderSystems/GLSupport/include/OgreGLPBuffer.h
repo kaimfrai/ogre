@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLPBuffer;
 
-import :GLRenderTarget;
+#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_PBUFFER_H
+#define OGRE_RENDERSYSTEMS_GLSUPPORT_PBUFFER_H
 
-import Ogre.Core;
+#include "OgreGLRenderTarget.h"
+#include "OgrePixelFormat.h"
 
-export
 namespace Ogre {
     /** An off-screen rendering context. These contexts are always RGBA for simplicity, speed and
         convience, but the component format is configurable.
@@ -53,3 +53,5 @@ namespace Ogre {
     };
     
 }
+
+#endif // OGREGLPBUFFER_H

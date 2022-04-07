@@ -25,35 +25,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 #include <utility>
 
-module Ogre.Core:ParticleSystem;
-
-import :Camera;
-import :Common;
-import :Controller;
-import :ControllerManager;
-import :Exception;
-import :LogManager;
-import :Material;
-import :MaterialManager;
-import :Math;
-import :Matrix4;
-import :Node;
-import :Particle;
-import :ParticleAffector;
-import :ParticleAffectorFactory;
-import :ParticleEmitter;
-import :ParticleSystemManager;
-import :ParticleSystemRenderer;
-import :RadixSort;
-import :Root;
-import :SceneManager;
-import :StringConverter;
+#include "OgreCamera.h"
+#include "OgreCommon.h"
+#include "OgreController.h"
+#include "OgreControllerManager.h"
+#include "OgreException.h"
+#include "OgreLogManager.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMatrix4.h"
+#include "OgreNode.h"
+#include "OgreParticle.h"
+#include "OgreParticleAffector.h"
+#include "OgreParticleAffectorFactory.h"
+#include "OgreParticleEmitter.h"
+#include "OgreParticleSystem.h"
+#include "OgreParticleSystemManager.h"
+#include "OgreParticleSystemRenderer.h"
+#include "OgreRadixSort.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreStringConverter.h"
 
 namespace Ogre {
 class RenderQueue;

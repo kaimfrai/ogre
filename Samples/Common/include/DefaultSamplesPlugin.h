@@ -25,11 +25,11 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-export module Ogre.Samples.Common:DefaultSamplesPlugin;
+#ifndef OGRE_SAMPLES_DEFAULTSAMPLESPLUGIN_H
+#define OGRE_SAMPLES_DEFAULTSAMPLESPLUGIN_H
 
-import :SamplePlugin;
+#include "SamplePlugin.h"
 
-export
 namespace OgreBites
 {
     class DefaultSamplesPlugin : public SamplePlugin
@@ -39,3 +39,5 @@ namespace OgreBites
         ~DefaultSamplesPlugin();
     };
 }
+
+#endif

@@ -25,30 +25,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+
 // Thanks to Vincent Cantin (karmaGfa) for the original implementation of this
 // class, although it has now been mostly rewritten
-module;
+
+#ifndef OGRE_CORE_BILLBOARDCHAIN_H
+#define OGRE_CORE_BILLBOARDCHAIN_H
 
 #include <algorithm>
 #include <cstddef>
 #include <memory>
 #include <vector>
 
-export module Ogre.Core:BillboardChain;
+#include "OgreAxisAlignedBox.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreMaterial.h"
+#include "OgreMovableObject.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderable.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreVector.h"
 
-import :AxisAlignedBox;
-import :ColourValue;
-import :Common;
-import :Material;
-import :MovableObject;
-import :Prerequisites;
-import :Quaternion;
-import :Renderable;
-import :ResourceGroupManager;
-import :SharedPtr;
-import :Vector;
-
-export
 namespace Ogre {
 class Camera;
 class IndexData;
@@ -397,3 +397,7 @@ class VertexData;
     /** @} */
 
 } // namespace
+
+#endif
+
+

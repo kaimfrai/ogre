@@ -25,15 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_COMPONENTS_OVERLAY_PROFILESESSIONLISTENER_H
+#define OGRE_COMPONENTS_OVERLAY_PROFILESESSIONLISTENER_H
 
 #include <list>
 
-export module Ogre.Components.Overlay:ProfileSessionListener;
+#include "OgrePrerequisites.h"
+#include "OgreProfiler.h"
 
-import Ogre.Core;
-
-export
 namespace Ogre  {
     class Overlay;
     class OverlayContainer;
@@ -153,3 +153,4 @@ namespace Ogre  {
         DisplayMode mDisplayMode;
     };
 }
+#endif

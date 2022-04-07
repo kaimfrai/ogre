@@ -25,21 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_CORE_DEFAULTHARDWAREBUFFERMANAGER_H
+#define OGRE_CORE_DEFAULTHARDWAREBUFFERMANAGER_H
 
 #include <cstddef>
 #include <memory>
 
-export module Ogre.Core:DefaultHardwareBufferManager;
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
 
-import :HardwareBuffer;
-import :HardwareBufferManager;
-import :HardwareIndexBuffer;
-import :HardwareVertexBuffer;
-import :Prerequisites;
-import :SharedPtr;
-
-export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -155,3 +154,5 @@ namespace Ogre {
     /** @} */
 
 }
+
+#endif

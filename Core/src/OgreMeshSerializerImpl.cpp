@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <cassert>
 #include <cstring>
 #include <list>
@@ -37,36 +35,35 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Core:MeshSerializerImpl;
-
-import :Animation;
-import :AnimationTrack;
-import :AxisAlignedBox;
-import :Bitwise;
-import :ColourValue;
-import :Common;
-import :DataStream;
-import :DistanceLodStrategy;
-import :Exception;
-import :HardwareBuffer;
-import :HardwareBufferManager;
-import :HardwareIndexBuffer;
-import :LodStrategy;
-import :LodStrategyManager;
-import :Log;
-import :LogManager;
-import :MaterialManager;
-import :Math;
-import :Mesh;
-import :MeshFileFormat;
-import :MeshSerializer;
-import :Platform;
-import :Pose;
-import :RenderOperation;
-import :SharedPtr;
-import :SubMesh;
-import :Vector;
-import :VertexIndexData;
+#include "OgreAnimation.h"
+#include "OgreAnimationTrack.h"
+#include "OgreAxisAlignedBox.h"
+#include "OgreBitwise.h"
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreDataStream.h"
+#include "OgreDistanceLodStrategy.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreLodStrategy.h"
+#include "OgreLodStrategyManager.h"
+#include "OgreLog.h"
+#include "OgreLogManager.h"
+#include "OgreMaterialManager.h"
+#include "OgreMath.h"
+#include "OgreMesh.h"
+#include "OgreMeshFileFormat.h"
+#include "OgreMeshSerializer.h"
+#include "OgreMeshSerializerImpl.h"
+#include "OgrePlatform.h"
+#include "OgrePose.h"
+#include "OgreRenderOperation.h"
+#include "OgreSharedPtr.h"
+#include "OgreSubMesh.h"
+#include "OgreVector.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 
@@ -3930,3 +3927,5 @@ namespace Ogre {
 
 
 }
+
+

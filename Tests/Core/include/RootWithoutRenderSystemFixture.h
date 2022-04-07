@@ -25,20 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_TESTS_CORE_ROOTWITHOUTRENDERSYSTEMFIXTURE_H
+#define OGRE_TESTS_CORE_ROOTWITHOUTRENDERSYSTEMFIXTURE_H
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:RootWithoutRenderSystemFixture;
-
-export
 namespace Ogre {
     class FileSystemLayer;
     class HardwareBufferManager;
     class Root;
 }  // namespace Ogre
 
-export
 class RootWithoutRenderSystemFixture : public ::testing::Test {
 public:
     Ogre::Root* mRoot;
@@ -47,3 +45,5 @@ public:
     void SetUp();
     void TearDown();
 };
+
+#endif // ROOTWITHOUTRENDERSYSTEMFIXTURE_H

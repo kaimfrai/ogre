@@ -25,17 +25,15 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-module;
+
+#include "OgreGLRenderTexture.h"
 
 #include <cassert>
 #include <utility>
 
-module Ogre.RenderSystems.GLSupport:GLRenderTexture;
-
-import :GLHardwarePixelBufferCommon;
-import :GLRenderSystemCommon;
-
-import Ogre.Core;
+#include "OgreGLHardwarePixelBufferCommon.h"
+#include "OgreGLRenderSystemCommon.h"
+#include "OgreRoot.h"
 
 namespace Ogre {
 

@@ -24,11 +24,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Components.RTShaderSystem:ShaderPrerequisites;
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PREREQUISITES_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_PREREQUISITES_H
 
-import Ogre.Core;
+#include "OgreCommon.h"
+#include "OgrePrerequisites.h"
 
-export
 namespace Ogre 
 {
 
@@ -91,3 +92,5 @@ enum SkinningType
 
 }
 }
+
+#endif

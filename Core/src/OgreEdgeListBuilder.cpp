@@ -25,25 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <algorithm>
 #include <cassert>
 #include <memory>
 #include <string>
 
-module Ogre.Core:EdgeListBuilder;
-
-import :Exception;
-import :HardwareBuffer;
-import :HardwareIndexBuffer;
-import :HardwareVertexBuffer;
-import :Log;
-import :Math;
-import :OptimisedUtil;
-import :SharedPtr;
-import :StringConverter;
-import :VertexIndexData;
+#include "OgreEdgeListBuilder.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgreLog.h"
+#include "OgreMath.h"
+#include "OgreOptimisedUtil.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
+#include "OgreVertexIndexData.h"
 
 namespace Ogre {
 
@@ -574,3 +571,4 @@ namespace Ogre {
 
 
 }
+

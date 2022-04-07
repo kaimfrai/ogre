@@ -25,7 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#include "RenderSystemCapabilitiesTests.h"
 
 #include <algorithm>
 #include <fstream>
@@ -34,11 +35,19 @@ module;
 #include <utility>
 #include <vector>
 
-module Ogre.Tests.Core:RenderSystemCapabilitiesTests;
-
-import Ogre.Core;
+#include "OgreArchiveManager.h"
+#include "OgreConfigFile.h"
+#include "OgreDataStream.h"
+#include "OgreFileSystem.h"
+#include "OgreFileSystemLayer.h"
+#include "OgrePrerequisites.h"
+#include "OgreRenderSystemCapabilities.h"
+#include "OgreRenderSystemCapabilitiesManager.h"
+#include "OgreRenderSystemCapabilitiesSerializer.h"
+#include "OgreSharedPtr.h"
 
 // Register the test suite
+
 //--------------------------------------------------------------------------
 void RenderSystemCapabilitiesTests::SetUp()
 {    
@@ -59,7 +68,6 @@ void RenderSystemCapabilitiesTests::SetUp()
     // Actual parsing happens here. The following test methods confirm parse results only.
     mRenderSystemCapabilitiesManager->parseCapabilitiesFromArchive(testPath, "FileSystem", true);
 }
-
 //--------------------------------------------------------------------------
 void RenderSystemCapabilitiesTests::TearDown()
 {
@@ -545,3 +553,4 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAndReadComplexCapabilities)
     dataStreamPtr.reset();
 }
 //--------------------------------------------------------------------------
+

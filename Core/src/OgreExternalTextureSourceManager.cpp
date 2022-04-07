@@ -25,6 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+
 /***************************************************************************
 OgreExternalTextureSourceManager.cpp  -  
     Implementation of the manager class
@@ -33,15 +34,14 @@ OgreExternalTextureSourceManager.cpp  -
 date                 : Jan 1 2004
 email                : pjcast@yahoo.com
 ***************************************************************************/
-module;
 
 #include <cassert>
 #include <utility>
 
-module Ogre.Core:ExternalTextureSourceManager;
+#include "OgreExternalTextureSource.h"
+#include "OgreExternalTextureSourceManager.h"
+#include "OgreLogManager.h"
 
-import :ExternalTextureSource;
-import :LogManager;
 
 namespace Ogre 
 {
@@ -143,3 +143,4 @@ namespace Ogre
     //****************************************************************************************
 
 }  //End Ogre Namespace
+

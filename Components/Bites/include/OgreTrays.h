@@ -25,20 +25,29 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-module;
+#ifndef OGRE_COMPONENTS_BITES_TRAYS_H
+#define OGRE_COMPONENTS_BITES_TRAYS_H
 
 #include <cstddef>
 #include <string>
 #include <vector>
 
-export module Ogre.Components.Bites:Trays;
+#include "OgreBorderPanelOverlayElement.h"
+#include "OgreCommon.h"
+#include "OgreInput.h"
+#include "OgreMath.h"
+#include "OgreOverlay.h"
+#include "OgreOverlayContainer.h"
+#include "OgreOverlayElement.h"
+#include "OgrePrerequisites.h"
+#include "OgreRay.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringVector.h"
+#include "OgreTextAreaOverlayElement.h"
+#include "OgreVector.h"
 
-import :Input;
-
-import Ogre.Components.Overlay;
-import Ogre.Core;
-
-export
 namespace Ogre {
     class Camera;
     class PanelOverlayElement;
@@ -47,7 +56,6 @@ namespace Ogre {
     struct FrameEvent;
 }  // namespace Ogre
 
-export
 namespace OgreBites
 {
     /** \addtogroup Optional
@@ -1212,3 +1220,4 @@ namespace OgreBites
     /** @} */
     /** @} */
 }
+#endif

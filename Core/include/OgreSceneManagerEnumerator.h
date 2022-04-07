@@ -25,23 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_SCENEMANAGERENUMERATOR_H
+#define OGRE_CORE_SCENEMANAGERENUMERATOR_H
 
 #include <list>
 #include <map>
 #include <string>
 #include <vector>
 
-export module Ogre.Core:SceneManagerEnumerator;
+#include "OgreCommon.h"
+#include "OgreIteratorWrapper.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePrerequisites.h"
+#include "OgreSceneManager.h"
+#include "OgreSingleton.h"
 
-import :Common;
-import :IteratorWrapper;
-import :MemoryAllocatorConfig;
-import :Prerequisites;
-import :SceneManager;
-import :Singleton;
-
-export
 namespace Ogre {
 class RenderSystem;
     
@@ -198,3 +196,5 @@ class RenderSystem;
     /** @} */
 
 }
+
+#endif

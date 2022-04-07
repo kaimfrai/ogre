@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <cassert>
 #include <list>
 #include <map>
@@ -34,21 +32,21 @@ module;
 #include <string>
 #include <utility>
 
-module Ogre.Core:MaterialManager;
+#include "OgreCommon.h"
+#include "OgreException.h"
+#include "OgreLodStrategyManager.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgrePass.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
+#include "OgreTechnique.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
 
-import :Common;
-import :Exception;
-import :LodStrategyManager;
-import :Material;
-import :Pass;
-import :Prerequisites;
-import :Resource;
-import :ResourceGroupManager;
-import :SharedPtr;
-import :Singleton;
-import :Technique;
-import :TextureManager;
-import :TextureUnitState;
 
 namespace Ogre {
 class Renderable;

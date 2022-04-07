@@ -25,7 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_GPUPROGRAMMANAGER_H
+#define OGRE_CORE_GPUPROGRAMMANAGER_H
 
 #include <cstddef>
 #include <map>
@@ -33,21 +34,18 @@ module;
 #include <set>
 #include <string>
 
-export module Ogre.Core:GpuProgramManager;
-
 // Precompiler options
-import :Common;
-import :GpuProgram;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :Resource;
-import :ResourceGroupManager;
-import :ResourceManager;
-import :SharedPtr;
-import :Singleton;
+#include "OgreCommon.h"
+#include "OgreGpuProgram.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreResource.h"
+#include "OgreResourceGroupManager.h"
+#include "OgreResourceManager.h"
+#include "OgreSharedPtr.h"
+#include "OgreSingleton.h"
 
-export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -308,3 +306,5 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
+
+#endif

@@ -25,16 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_TESTS_CORE_RADIXSORTTESTS_H
+#define OGRE_TESTS_CORE_RADIXSORTTESTS_H
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:RadixSortTests;
-
-export
 class RadixSortTests : public ::testing::Test
 {
 public:
     void SetUp();
     void TearDown();
 };
+
+#endif

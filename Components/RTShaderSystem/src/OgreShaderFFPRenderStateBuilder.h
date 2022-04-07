@@ -24,18 +24,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Components.RTShaderSystem:ShaderFFPRenderStateBuilder;
+#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FFPRENDERSTATEBUILDER_H
+#define OGRE_COMPONENTS_RTSHADERSYSTEM_FFPRENDERSTATEBUILDER_H
 
-import :ShaderGenerator;
+#include "OgreShaderGenerator.h"
 
-export
 namespace Ogre {
     namespace RTShader {
         class TargetRenderState;
     }  // namespace RTShader
 }  // namespace Ogre
 
-export
 namespace Ogre {
 namespace RTShader {
 
@@ -70,3 +69,5 @@ public:
 
 }
 }
+
+#endif

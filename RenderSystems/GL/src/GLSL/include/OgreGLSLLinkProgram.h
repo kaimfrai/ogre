@@ -25,17 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAM_H
+#define OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAM_H
 
 #include <set>
 
-export module Ogre.RenderSystems.GL.GLSL:SLLinkProgram;
+#include "OgreGLSLProgramCommon.h"
+#include "OgreGpuProgram.h"
+#include "OgreHardwareVertexBuffer.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "glad/glad.h"
 
-import Ogre.Core;
-import Ogre.RenderSystems.GL.glad;
-import Ogre.RenderSystems.GLSupport.GLSL;
-
-export
 namespace Ogre {
 class GLUniformCache;
 
@@ -86,3 +87,5 @@ class GLUniformCache;
 
     }
 }
+
+#endif // OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAM_H

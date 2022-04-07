@@ -25,15 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <gtest/gtest.h>
 
-module Ogre.Tests.Core;
+#include "OgreDualQuaternion.h"
+#include "OgreMath.h"
+#include "OgreMatrix4.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreVector.h"
 
-import Ogre.Core;
 
 using namespace Ogre;
+
 //--------------------------------------------------------------------------
 TEST(DualQuaternionTests,Conversion)
 {

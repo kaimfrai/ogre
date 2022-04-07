@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:TagPoint;
+#ifndef OGRE_CORE_TAGPOINT_H
+#define OGRE_CORE_TAGPOINT_H
 
-import :Bone;
-import :Matrix4;
+#include "OgreBone.h"
+#include "OgreMatrix4.h"
 
-export
 namespace Ogre  {
 class Entity;
 class MovableObject;
@@ -113,3 +113,6 @@ class Skeleton;
     /** @} */
 
 } //namespace
+
+
+#endif // OGRE_CORE_TAGPOINT_H

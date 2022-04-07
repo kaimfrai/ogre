@@ -25,25 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_TESTS_VISUALTESTS_TINYHTML_H
+#define OGRE_TESTS_VISUALTESTS_TINYHTML_H
 
 /** The following is a very simple representation of the HTML DOM.
  *    It's sole purpose is outputting formatted html documents, there
  *    are no provisions for traversal, parsing, etc. */
+
 /** An abstract html node */
-
-export module Ogre.Tests.VisualTests.Common:TinyHTML;
-
-export
 struct HtmlNode : public Ogre::GeneralAllocatedObject
 {
     virtual ~HtmlNode() {}
     virtual Ogre::String print(Ogre::String indent = "") = 0;
 };
 //-----------------------------------------------------------------------
-/** A plain text node (cannot have children, text only). */
 
-export
+/** A plain text node (cannot have children, text only). */
 struct HtmlTextNode : public HtmlNode
 {
     Ogre::String contents;
@@ -56,11 +54,10 @@ struct HtmlTextNode : public HtmlNode
         return contents;
     }
 };
-
 //-----------------------------------------------------------------------
+
 /** An HTML element, can contain children (either text or other elements), as well
      as storing a list of attributes */
-export
 struct HtmlElement : public HtmlNode
 {
     Ogre::String tagname;
@@ -155,3 +152,5 @@ struct HtmlElement : public HtmlNode
         return out.str();
     }
 };
+
+#endif

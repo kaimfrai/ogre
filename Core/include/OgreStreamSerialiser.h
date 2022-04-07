@@ -25,21 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_STREAMSERIALISER_H
+#define OGRE_CORE_STREAMSERIALISER_H
 
 #include <algorithm>
 #include <cstddef>
 #include <deque>
 
-export module Ogre.Core:StreamSerialiser;
+#include "OgreCommon.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
 
-import :Common;
-import :MemoryAllocatorConfig;
-import :Platform;
-import :Prerequisites;
-import :SharedPtr;
-
-export
 namespace Ogre 
 {
 class AxisAlignedBox;
@@ -401,3 +399,5 @@ class Sphere;
     /** @} */
     /** @} */
 }
+
+#endif

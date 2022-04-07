@@ -25,23 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_TESTS_CORE_RENDERSYSTEMCAPABILITIESTESTS_H
+#define OGRE_TESTS_CORE_RENDERSYSTEMCAPABILITIESTESTS_H
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:RenderSystemCapabilitiesTests;
+#include "OgrePlatform.h"
 
-import Ogre.Core;
-
-export
 namespace Ogre {
     class ArchiveManager;
     class FileSystemArchiveFactory;
     class RenderSystemCapabilitiesManager;
 }  // namespace Ogre
+
 using namespace Ogre;
 
-export
 class RenderSystemCapabilitiesTests : public ::testing::Test
 {
 
@@ -55,3 +54,5 @@ public:
     ArchiveManager* mArchiveManager;
     FileSystemArchiveFactory* mFileSystemArchiveFactory;
 };
+
+#endif

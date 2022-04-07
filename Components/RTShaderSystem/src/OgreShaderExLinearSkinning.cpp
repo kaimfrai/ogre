@@ -24,26 +24,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
 
 #include <string>
 
-module Ogre.Components.RTShaderSystem:ShaderExLinearSkinning;
-
-import :ShaderExHardwareSkinningTechnique;
-import :ShaderFFPRenderState;
-import :ShaderFunction;
-import :ShaderFunctionAtom;
-import :ShaderGenerator;
-import :ShaderParameter;
-import :ShaderPrecompiledHeaders;
-import :ShaderPrerequisites;
-import :ShaderProgram;
-import :ShaderProgramSet;
-
-import Ogre.Core;
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramParams.h"
+#include "OgrePrerequisites.h"
+#include "OgreShaderExHardwareSkinningTechnique.h"
+#include "OgreShaderExLinearSkinning.h"
+#include "OgreShaderFFPRenderState.h"
+#include "OgreShaderFunction.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrecompiledHeaders.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramSet.h"
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
+
+
 namespace Ogre {
 
 namespace RTShader {

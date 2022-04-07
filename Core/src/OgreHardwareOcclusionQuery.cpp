@@ -25,7 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Core:HardwareOcclusionQuery;
+
+#include "OgreHardwareOcclusionQuery.h"
 
 namespace Ogre {
 
@@ -40,3 +41,4 @@ namespace Ogre {
     }
 
 }
+

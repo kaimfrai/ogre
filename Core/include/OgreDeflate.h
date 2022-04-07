@@ -25,21 +25,19 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-module;
+#ifndef OGRE_CORE_DEFLATE_H
+#define OGRE_CORE_DEFLATE_H
 
 #include <cassert>
 #include <cstring>
 
-export module Ogre.Core:Deflate;
+#include "OgreSharedPtr.h"
 
-import :DataStream;
-import :Prerequisites;
-import :SharedPtr;
+#include "OgreDataStream.h"
+#include "OgrePrerequisites.h"
 
-export
 typedef struct mz_stream_s z_stream;
 
-export
 namespace Ogre
 {
     /** Template version of cache based on static array.
@@ -274,3 +272,5 @@ namespace Ogre
         
     };
 }
+
+#endif

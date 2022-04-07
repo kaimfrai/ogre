@@ -25,43 +25,40 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
 
 #include <array>
 #include <map>
 #include <memory>
 #include <string>
 
-module Ogre.Core;
-
-import :Camera;
-import :Common;
-import :Entity;
-import :Exception;
-import :HardwareBuffer;
-import :LogManager;
-import :ManualObject;
-import :Material;
-import :MaterialManager;
-import :Mesh;
-import :MeshManager;
-import :MovableObject;
-import :Pass;
-import :Plane;
-import :Platform;
-import :Prerequisites;
-import :Quaternion;
-import :RenderOperation;
-import :Root;
-import :SceneManager;
-import :SceneNode;
-import :SharedPtr;
-import :StringConverter;
-import :Technique;
-import :Texture;
-import :TextureUnitState;
-import :Vector;
-import :Viewport;
+#include "OgreCamera.h"
+#include "OgreCommon.h"
+#include "OgreEntity.h"
+#include "OgreException.h"
+#include "OgreHardwareBuffer.h"
+#include "OgreLogManager.h"
+#include "OgreManualObject.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialManager.h"
+#include "OgreMesh.h"
+#include "OgreMeshManager.h"
+#include "OgreMovableObject.h"
+#include "OgrePass.h"
+#include "OgrePlane.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreRenderOperation.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+#include "OgreSharedPtr.h"
+#include "OgreStringConverter.h"
+#include "OgreTechnique.h"
+#include "OgreTexture.h"
+#include "OgreTextureUnitState.h"
+#include "OgreVector.h"
+#include "OgreViewport.h"
 
 namespace Ogre {
 class Node;

@@ -25,16 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <map>
 #include <memory>
 #include <utility>
 
-module Ogre.Core:UserObjectBindings;
-
-import :Any;
-import :Prerequisites;
+#include "OgreAny.h"
+#include "OgrePrerequisites.h"
+#include "OgreUserObjectBindings.h"
 
 namespace Ogre {
     static Any emptyAny;

@@ -25,17 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <ostream>
 #include <string>
+
+#include "OgreException.h"
+#include "OgrePrerequisites.h"
+
 #ifdef __BORLANDC__
     #include <stdio.h>
 #endif
-
-module Ogre.Core:Exception;
-
-import :Prerequisites;
 
 namespace Ogre {
 
@@ -75,3 +73,4 @@ namespace Ogre {
     {
     }
 }
+

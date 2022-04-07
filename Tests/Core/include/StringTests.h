@@ -25,15 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+
+#ifndef OGRE_TESTS_CORE_STRINGTESTS_H
+#define OGRE_TESTS_CORE_STRINGTESTS_H
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:StringTests;
+#include "OgrePrerequisites.h"
 
-import Ogre.Core;
-
-export
 class StringTests : public ::testing::Test
 {
 
@@ -48,3 +47,5 @@ public:
     void SetUp();
     void TearDown();
 };
+
+#endif

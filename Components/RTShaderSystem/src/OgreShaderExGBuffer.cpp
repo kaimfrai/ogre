@@ -24,27 +24,33 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
-
 #include <cstddef>
 #include <list>
 #include <memory>
 #include <string>
 
-module Ogre.Components.RTShaderSystem:ShaderExGBuffer;
-
-import :ShaderFFPRenderState;
-import :ShaderFunction;
-import :ShaderFunctionAtom;
-import :ShaderGenerator;
-import :ShaderParameter;
-import :ShaderPrecompiledHeaders;
-import :ShaderPrerequisites;
-import :ShaderProgram;
-import :ShaderProgramSet;
-import :ShaderScriptTranslator;
-
-import Ogre.Core;
+#include "OgreException.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMaterial.h"
+#include "OgreMaterialSerializer.h"
+#include "OgrePass.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
+#include "OgreScriptCompiler.h"
+#include "OgreShaderExGBuffer.h"
+#include "OgreShaderFFPRenderState.h"
+#include "OgreShaderFunction.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderPrecompiledHeaders.h"
+#include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramSet.h"
+#include "OgreShaderScriptTranslator.h"
+#include "OgreTechnique.h"
 
 namespace Ogre {
     namespace RTShader {

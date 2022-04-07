@@ -25,14 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Core:Bone;
 
-import :Node;
-import :Prerequisites;
-import :Quaternion;
-import :Vector;
+#ifndef OGRE_CORE_BONE_H
+#define OGRE_CORE_BONE_H
 
-export
+#include "OgreNode.h"
+#include "OgrePrerequisites.h"
+#include "OgreQuaternion.h"
+#include "OgreVector.h"
+
+
 namespace Ogre 
 {
 class Affine3;
@@ -154,3 +156,5 @@ class Skeleton;
     /** @} */
 
 }
+
+#endif

@@ -25,22 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_IMAGE_H
+#define OGRE_CORE_IMAGE_H
 
 #include <cassert>
 #include <cstddef>
 #include <vector>
 
-export module Ogre.Core:Image;
+#include "OgreColourValue.h"
+#include "OgreCommon.h"
+#include "OgreMemoryAllocatorConfig.h"
+#include "OgrePixelFormat.h"
+#include "OgrePlatform.h"
+#include "OgrePrerequisites.h"
 
-import :ColourValue;
-import :Common;
-import :MemoryAllocatorConfig;
-import :PixelFormat;
-import :Platform;
-import :Prerequisites;
-
-export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -483,3 +481,5 @@ namespace Ogre {
     /** @} */
 
 } // namespace
+
+#endif

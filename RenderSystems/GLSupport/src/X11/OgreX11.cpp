@@ -1,14 +1,12 @@
-module;
-
+#include <OgreLogManager.h>
+#include <OgreX11.h>
 #include <X11/extensions/Xrandr.h>
 #include <X11/extensions/randr.h>
 #include <cstddef>
 
-module Ogre.RenderSystems.GLSupport.X11;
-
-import Ogre.Core;
-import Ogre.RenderSystems.GLSupport;
-import Ogre.RenderSystems.GLSupport.X11;
+#include "OgreException.h"
+#include "OgreGLNativeSupport.h"
+#include "OgrePrerequisites.h"
 
 namespace {
     int safeXErrorHandler (Display *display, XErrorEvent *event)

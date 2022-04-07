@@ -2,25 +2,29 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
-module;
 
 #include <cstddef>
 #include <list>
 #include <memory>
 #include <string>
 
-module Ogre.Components.RTShaderSystem:ShaderExWBOIT;
-
-import :ShaderFFPRenderState;
-import :ShaderFunction;
-import :ShaderFunctionAtom;
-import :ShaderGenerator;
-import :ShaderParameter;
-import :ShaderProgram;
-import :ShaderProgramSet;
-import :ShaderScriptTranslator;
-
-import Ogre.Core;
+#include "OgreBlendMode.h"
+#include "OgreGpuProgram.h"
+#include "OgreGpuProgramManager.h"
+#include "OgreGpuProgramParams.h"
+#include "OgreMaterialSerializer.h"
+#include "OgrePass.h"
+#include "OgrePrerequisites.h"
+#include "OgreScriptCompiler.h"
+#include "OgreShaderExWBOIT.h"
+#include "OgreShaderFFPRenderState.h"
+#include "OgreShaderFunction.h"
+#include "OgreShaderFunctionAtom.h"
+#include "OgreShaderGenerator.h"
+#include "OgreShaderParameter.h"
+#include "OgreShaderProgram.h"
+#include "OgreShaderProgramSet.h"
+#include "OgreShaderScriptTranslator.h"
 
 namespace Ogre {
     namespace RTShader {

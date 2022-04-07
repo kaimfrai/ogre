@@ -24,17 +24,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
 
 #include <algorithm>
 
-module Ogre.Components.RTShaderSystem:ShaderExHardwareSkinningTechnique;
-
-import :ShaderFunctionAtom;
-
-import Ogre.Core;
+#include "OgreException.h"
+#include "OgrePrerequisites.h"
+#include "OgreShaderExHardwareSkinningTechnique.h"
+#include "OgreShaderFunctionAtom.h"
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
+
 namespace Ogre {
 
 namespace RTShader {

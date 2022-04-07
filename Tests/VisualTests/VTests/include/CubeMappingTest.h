@@ -25,15 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.Tests.VisualTests.VTests:CubeMappingTest;
 
-import Ogre.Core;
-import Ogre.Tests.VisualTests.Common;
+#ifndef OGRE_TESTS_VISUALTESTS_CUBEMAPPINGTEST_H
+#define OGRE_TESTS_VISUALTESTS_CUBEMAPPINGTEST_H
+
+#include "OgrePlatform.h"
+#include "VisualTest.h"
 
 using namespace Ogre;
-/** Tests basic fixed-function cube mapping */
 
-export
+/** Tests basic fixed-function cube mapping */
 class CubeMappingTest : public VisualTest
 {
 public:
@@ -45,3 +46,5 @@ protected:
     void setupContent();
 
 };
+
+#endif

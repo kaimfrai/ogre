@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#include "OgreOverlayTranslator.h"
 
 #include <cstddef>
 #include <list>
@@ -32,15 +32,19 @@ module;
 #include <string>
 #include <vector>
 
-module Ogre.Components.Overlay:Translator;
-
-import :Container;
-import :Element;
-import :FontManager;
-import :Manager;
-
-import Ogre.Components.Overlay;
-import Ogre.Core;
+#include "OgreAny.h"
+#include "OgreCommon.h"
+#include "OgreFontManager.h"
+#include "OgreMath.h"
+#include "OgreOverlay.h"
+#include "OgreOverlayContainer.h"
+#include "OgreOverlayElement.h"
+#include "OgreOverlayManager.h"
+#include "OgrePrerequisites.h"
+#include "OgreSharedPtr.h"
+#include "OgreString.h"
+#include "OgreStringConverter.h"
+#include "OgreStringVector.h"
 
 namespace Ogre
 {
