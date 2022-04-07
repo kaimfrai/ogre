@@ -28,6 +28,7 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_STRING_H
 #define OGRE_CORE_STRING_H
 
+#include <format>
 #include <string>
 #include <vector>
 
@@ -168,11 +169,11 @@ namespace Ogre {
         */
         static const String replaceAll(const String& source, const String& replaceWhat, const String& replaceWithWhat);
 
-        /** create a string from a printf expression
-         *
-         * @note this function - like printf - uses a locale dependent decimal point
-         */
-        static String format(const char* fmt, ...);
+        template<typename ...Args>
+        static auto inline format(const char* fmt, Args&&... args) -> String
+        {
+            return ::std::format(fmt, ::std::forward<Args>(args)...);
+        }
     };
 
     typedef ::std::hash< String > _StringHash;

@@ -495,7 +495,7 @@ namespace Ogre {
             {
                 mLayerNames.resize(6);
                 for (size_t i = 0; i < 6; i++)
-                    mLayerNames[i] = StringUtil::format("%s%s.%s", baseName.c_str(), CUBEMAP_SUFFIXES[i], ext.c_str());
+                    mLayerNames[i] = StringUtil::format("{}{}.{}", baseName.c_str(), CUBEMAP_SUFFIXES[i], ext.c_str());
             }
             else if (mTextureType == TEX_TYPE_2D_ARRAY)
             { // ignore

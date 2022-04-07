@@ -27,7 +27,6 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <cctype>
-#include <cstdarg>
 #include <cstdio>
 #include <cstring>
 #include <string>
@@ -490,34 +489,5 @@ namespace Ogre {
             pos += replaceWithWhat.size();
         }
         return result;
-    }
-
-    String StringUtil::format(const char* fmt, ...)
-    {
-        // try to use a stack buffer and fall back to heap for large strings
-        char sbuf[1024];
-        size_t bsize = sizeof(sbuf);
-        std::vector<char> hbuf;
-        char* pbuf = sbuf;
-
-        while (true)
-        {
-            va_list va;
-            va_start(va, fmt);
-            int const len = vsnprintf(pbuf, bsize, fmt, va);
-            va_end(va);
-
-            OgreAssert(len >= 0, "Check format string for errors");
-            auto const ulen = static_cast<size_t>(len);
-            if (ulen >= bsize)
-            {
-                hbuf.resize(len + 1);
-                pbuf = hbuf.data();
-                bsize = hbuf.size();
-                continue;
-            }
-            pbuf[bsize - 1] = 0;
-            return {pbuf, ulen};
-        }
     }
 }
