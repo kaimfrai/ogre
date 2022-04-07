@@ -25,6 +25,10 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.RenderSystems.GLSupport.GLSL:Preprocessor.Obj;
 
 import :Preprocessor;
@@ -32,7 +36,6 @@ import :Preprocessor;
 import Ogre.Core;
 
 import <algorithm>;
-import <cassert>;
 import <cctype>;
 import <cstdio>;
 import <iterator>;

@@ -27,9 +27,11 @@
 */
 module;
 
+#include <GL/glx.h>
 #include <X11/extensions/Xrandr.h>
 #include <X11/extensions/randr.h>
-#include <istream>
+
+#include <cassert>
 
 module Ogre.RenderSystems.GLSupport.GLX:GLSupport.Obj;
 
@@ -41,7 +43,7 @@ import Ogre.Core;
 import Ogre.RenderSystems.GLSupport;
 import Ogre.RenderSystems.GLSupport.X11;
 
-import <cassert>;
+import <istream>;
 import <map>;
 import <string>;
 import <utility>;

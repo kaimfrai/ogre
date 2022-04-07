@@ -11,11 +11,12 @@ module;
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
-module Ogre.RenderSystems.GLSupport.X11;
+export module Ogre.RenderSystems.GLSupport.X11;
 
 import Ogre.Core;
 import Ogre.RenderSystems.GLSupport;
 
+export
 namespace Ogre
 {
 auto getXDisplay(Display* glDisplay, Atom& deleteWindow, Atom& fullScreen, Atom& state) -> Display*;

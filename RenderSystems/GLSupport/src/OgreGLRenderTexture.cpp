@@ -25,6 +25,10 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
+module;
+
+#include <cassert>
+
 module Ogre.RenderSystems.GLSupport:GLRenderTexture.Obj;
 
 import :GLHardwarePixelBufferCommon;
@@ -33,7 +37,6 @@ import :GLRenderTexture;
 
 import Ogre.Core;
 
-import <cassert>;
 import <utility>;
 
 namespace Ogre {
