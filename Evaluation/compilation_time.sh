@@ -3,14 +3,13 @@
 TARGETS=(\
 	miniz\
 	zip\
-	OgreMain\
-	Codec_STBI\
-	OgreGLSupport\
-	RenderSystem_GL\
-	OgreRTShaderSystem\
-	OgreOverlay\
-	OgreBites\
-	DefaultSamples\
+	Ogre.Core+\
+	Ogre.PlugIns.STBICodec+\
+	Ogre.RenderSystems.GLSupport+\
+	Ogre.RenderSystems.GL+\
+	Ogre.Components.RTShaderSystem+\
+	Ogre.Components.Overlay+\
+	Ogre.Components.Bites+\
 	SampleBrowser
 )
 
