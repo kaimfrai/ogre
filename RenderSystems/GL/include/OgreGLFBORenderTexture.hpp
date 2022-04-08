@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 export module Ogre.RenderSystems.GL:FBORenderTexture;
 
@@ -35,13 +35,6 @@ export import :FrameBufferObject;
 
 export import Ogre.Core;
 export import Ogre.RenderSystems.GLSupport;
-
-export
-namespace Ogre {
-class DepthBuffer;
-class GLContext;
-class RenderTarget;
-}  // namespace Ogre
 
 /// Extra GL constants
 export
@@ -51,7 +44,6 @@ GL_DEPTH24_STENCIL8_EXT =                           0x88F0
 
 export
 namespace Ogre {
-    class GLFBOManager;
 
     /** RenderTexture for GL FBO
     */

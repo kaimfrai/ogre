@@ -27,12 +27,13 @@ THE SOFTWARE.
 */
 export module Ogre.RenderSystems.GL:Plugin;
 
+export import :RenderSystem;
+
 export import Ogre.Core;
 
 export
 namespace Ogre
 {
-    class GLRenderSystem;
 
     /** Plugin instance for GL Manager */
     class GLPlugin : public Plugin

@@ -27,15 +27,11 @@ THE SOFTWARE.
 */
 module Ogre.RenderSystems.GL:GLSL.ProgramFactory;
 
+import :GLSL.LinkProgramManager;
+
 import Ogre.Core;
 
-namespace Ogre
-{
-class GpuProgram;
-class ResourceManager;
-
-    namespace GLSL {
-class GLSLLinkProgramManager;
+namespace Ogre::GLSL {
 
     /** Factory class for GLSL programs. */
     class GLSLProgramFactory : public HighLevelGpuProgramFactory
@@ -57,5 +53,4 @@ class GLSLLinkProgramManager;
         GLSLLinkProgramManager* mLinkProgramManager;
 
     };
-    }
 }

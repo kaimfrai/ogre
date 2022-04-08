@@ -41,7 +41,6 @@ import <cstddef>;
 import <string>;
 
 namespace Ogre {
-class ResourceManager;
 
 GLGpuNvparseProgram::GLGpuNvparseProgram(ResourceManager* creator, 
         const String& name, ResourceHandle handle, 

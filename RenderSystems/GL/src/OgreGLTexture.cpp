@@ -43,9 +43,6 @@ import <memory>;
 import <vector>;
 
 namespace Ogre {
-class ResourceManager;
-
-
 
     GLTexture::GLTexture(ResourceManager* creator, const String& name, 
         ResourceHandle handle, const String& group, bool isManual, 

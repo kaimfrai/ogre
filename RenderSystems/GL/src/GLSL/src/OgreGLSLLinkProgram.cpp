@@ -38,7 +38,7 @@ import :GLSL.Program;
 
 import Ogre.Core;
 import Ogre.RenderSystems.GLSupport;
-import Ogre.RenderSystems.GLSupport.GLSL;
+import Ogre.RenderSystems.GLSupport;
 
 import <cstring>;
 import <string>;

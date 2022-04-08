@@ -27,9 +27,11 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 export module Ogre.RenderSystems.GL:HardwareBuffer;
+
+export import :RenderSystem;
 
 export import Ogre.Core;
 
@@ -37,8 +39,6 @@ export import <cstddef>;
 
 export
 namespace Ogre {
-class GLRenderSystem;
-
     /// Specialisation of HardwareVertexBuffer for OpenGL
     class GLHardwareVertexBuffer : public HardwareBuffer
     {

@@ -25,14 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GL:GLSL.LinkProgramManager;
+module Ogre.RenderSystems.GL:GLSL.LinkProgramManager;
+
+import :GLSL.LinkProgram;
+import :GLSL.Program;
 
 import Ogre.Core;
-import Ogre.RenderSystems.GLSupport.GLSL;
+import Ogre.RenderSystems.GLSupport;
 
 namespace Ogre::GLSL {
-class GLSLLinkProgram;
-class GLSLProgram;
 
     class GLSLLinkProgramManager : public Singleton<GLSLLinkProgramManager>, public GLSLProgramManagerCommon
     {

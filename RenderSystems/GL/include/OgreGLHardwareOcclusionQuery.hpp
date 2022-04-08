@@ -41,7 +41,7 @@ initialised and used in glRenderSystem and copy what is done there.
 //GL_ActiveTextureARB_Func* glActiveTextureARB_ptr = (GL_ActiveTextureARB_Func)mGLSupport->getProcAddress("glActiveTextureARB");
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 export module Ogre.RenderSystems.GL:HardwareOcclusionQuery;
 

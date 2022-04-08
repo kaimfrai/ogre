@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 module Ogre.RenderSystems.GL:GLSL.Program.Obj;
 
@@ -38,17 +38,14 @@ import :GLSL.Program;
 import :GpuProgram;
 
 import Ogre.Core;
-import Ogre.RenderSystems.GLSupport.GLSL;
+import Ogre.RenderSystems.GLSupport;
 
 import <cstddef>;
 import <memory>;
 import <string>;
 import <vector>;
 
-namespace Ogre {
-class ResourceManager;
-
-    namespace GLSL {
+namespace Ogre::GLSL {
     //-----------------------------------------------------------------------
     static auto parseOperationType(const String& val) -> RenderOperation::OperationType
     {
@@ -407,5 +404,4 @@ class ResourceManager;
             return GLGpuProgramBase::isAttributeValid(semantic, index);
         }
     }
-}
 }

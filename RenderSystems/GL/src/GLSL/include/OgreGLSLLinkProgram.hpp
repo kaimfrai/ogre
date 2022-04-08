@@ -27,19 +27,16 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 module Ogre.RenderSystems.GL:GLSL.LinkProgram;
 
 import Ogre.Core;
-import Ogre.RenderSystems.GLSupport.GLSL;
+import Ogre.RenderSystems.GLSupport;
 
 import <set>;
 
-namespace Ogre {
-class GLUniformCache;
-
-    namespace GLSL {
+namespace Ogre::GLSL {
 
     /** C++ encapsulation of GLSL Program Object
 
@@ -84,6 +81,4 @@ class GLUniformCache;
         [[nodiscard]]
         auto getGLHandle() const -> uint { return mGLProgramHandle; }
     };
-
-    }
 }

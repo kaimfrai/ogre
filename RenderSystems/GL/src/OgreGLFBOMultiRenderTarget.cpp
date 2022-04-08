@@ -38,8 +38,6 @@ import Ogre.RenderSystems.GLSupport;
 import <string>;
 
 namespace Ogre {
-class DepthBuffer;
-class GLFBOManager;
 
     GLFBOMultiRenderTarget::GLFBOMultiRenderTarget(GLFBOManager *manager, const String &name):
         MultiRenderTarget(name),

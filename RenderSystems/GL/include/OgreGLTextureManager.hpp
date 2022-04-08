@@ -27,12 +27,12 @@ THE SOFTWARE.
 */
 export module Ogre.RenderSystems.GL:TextureManager;
 
+export import :RenderSystem;
+
 export import Ogre.Core;
 
 export
 namespace Ogre {
-class GLRenderSystem;
-
     /** GL-specific implementation of a TextureManager */
     class GLTextureManager : public TextureManager
     {

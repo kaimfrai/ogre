@@ -27,18 +27,17 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 export module Ogre.RenderSystems.GL:Texture;
+
+export import :RenderSystem;
 
 export import Ogre.Core;
 export import Ogre.RenderSystems.GLSupport;
 
 export
 namespace Ogre {
-class GLRenderSystem;
-class ResourceManager;
-
     class GLTexture : public GLTextureCommon
     {
     public:

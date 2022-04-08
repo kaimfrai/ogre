@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 #include <cassert>
 
@@ -38,7 +38,7 @@ import :GLSL.LinkProgramManager;
 import :GLSL.Program;
 
 import Ogre.Core;
-import Ogre.RenderSystems.GLSupport.GLSL;
+import Ogre.RenderSystems.GLSupport;
 
 import <cstddef>;
 import <map>;

@@ -36,11 +36,6 @@ export import <cstddef>;
 
 export
 namespace Ogre {
-class DepthBuffer;
-class GLContext;
-class GLFBOManager;
-class GLFrameBufferObjectCommon;
-
     /** MultiRenderTarget for GL. Requires the FBO extension.
     */
     class GLFBOMultiRenderTarget : public MultiRenderTarget, public GLRenderTarget

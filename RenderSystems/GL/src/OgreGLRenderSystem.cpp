@@ -55,7 +55,6 @@ import :TextureManager;
 
 import Ogre.Core;
 import Ogre.RenderSystems.GLSupport;
-import Ogre.RenderSystems.GLSupport.GLSL;
 
 import <algorithm>;
 import <cmath>;
@@ -68,11 +67,6 @@ import <memory>;
 import <set>;
 import <string>;
 import <utility>;
-
-namespace Ogre {
-class HardwareOcclusionQuery;
-class ResourceManager;
-}  // namespace Ogre
 
 // Convenience macro from ARB_vertex_buffer_object spec
 #define VBO_BUFFER_OFFSET(i) ((char *)(i))
@@ -1364,6 +1358,7 @@ namespace Ogre {
 
         if (enabled)
         {
+            using GLTexturePtr = shared_ptr<GLTexture>;
             GLTexturePtr tex = static_pointer_cast<GLTexture>(texPtr);
 
             // note used

@@ -27,9 +27,12 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 export module Ogre.RenderSystems.GL:HardwareBufferManager;
+
+export import :RenderSystem;
+export import :StateCacheManager;
 
 export import Ogre.Core;
 
@@ -38,8 +41,6 @@ export import <cstddef>;
 export
 namespace Ogre {
 
-    class GLStateCacheManager;
-    class GLRenderSystem;
 
 // Default threshold at which glMapBuffer becomes more efficient than glBufferSubData (32k?)
     enum

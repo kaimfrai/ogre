@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 module Ogre.RenderSystems.GL:FrameBufferObject.Obj;
 
@@ -41,8 +41,6 @@ import <algorithm>;
 import <ostream>;
 
 namespace Ogre {
-class DepthBuffer;
-
 //-----------------------------------------------------------------------------
     GLFrameBufferObject::GLFrameBufferObject(GLFBOManager *manager, uint fsaa):
         GLFrameBufferObjectCommon(fsaa), mManager(manager)

@@ -27,9 +27,14 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 export module Ogre.RenderSystems.GL:RenderSystem;
+
+export import :GpuProgram;
+export import :GpuProgramManager;
+export import :StateCacheManager;
+import :GLSL.ProgramFactory;
 
 export import Ogre.Core;
 export import Ogre.RenderSystems.GLSupport;
@@ -39,20 +44,6 @@ export import <vector>;
 
 export
 namespace Ogre {
-class DepthBuffer;
-class Frustum;
-class GLContext;
-class GLGpuProgramManager;
-class GLStateCacheManager;
-class HardwareBufferManager;
-class HardwareOcclusionQuery;
-class MultiRenderTarget;
-class PixelBox;
-class RenderOperation;
-class RenderSystemCapabilities;
-class VertexElement;
-class Viewport;
-struct GLGpuProgramBase;
     /** \addtogroup RenderSystems RenderSystems
     *  @{
     */
@@ -60,10 +51,6 @@ struct GLGpuProgramBase;
     * Implementation of GL as a rendering system.
     *  @{
     */
-
-    namespace GLSL {
-        class GLSLProgramFactory;
-    }
 
     /**
       Implementation of GL as a rendering system.

@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 export module Ogre.RenderSystems.GL:GpuProgram;
 
@@ -35,7 +35,6 @@ export import Ogre.Core;
 
 export
 namespace Ogre {
-class ResourceManager;
 
     struct GLGpuProgramBase
     {

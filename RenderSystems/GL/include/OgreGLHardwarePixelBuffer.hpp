@@ -27,11 +27,13 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 export module Ogre.RenderSystems.GL:HardwarePixelBuffer;
 
 export import :Prerequisites;
+export import :RenderSystem;
+export import :Texture;
 
 export import Ogre.Core;
 export import Ogre.RenderSystems.GLSupport;
@@ -40,12 +42,6 @@ export import <cstddef>;
 
 export
 namespace Ogre {
-    class GLRenderSystem;
-    class GLTexture;
-    class PixelBox;
-    class RenderTexture;
-    struct Box;
-
     /** Texture surface.
     */
     class GLTextureBuffer: public GLHardwarePixelBufferCommon

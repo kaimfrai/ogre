@@ -33,11 +33,7 @@ import :GLSL.ProgramFactory;
 
 import Ogre.Core;
 
-namespace Ogre {
-class GpuProgram;
-class ResourceManager;
-
-    namespace GLSL {
+namespace Ogre::GLSL {
     //-----------------------------------------------------------------------
     String GLSLProgramFactory::sLanguageName = "glsl";
     //-----------------------------------------------------------------------
@@ -63,5 +59,4 @@ class ResourceManager;
     {
         return new GLSLProgram(creator, name, handle, group, isManual, loader);
     }
-}
 }

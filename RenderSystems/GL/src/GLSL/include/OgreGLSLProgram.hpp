@@ -30,10 +30,9 @@ module Ogre.RenderSystems.GL:GLSL.Program;
 import :GpuProgram;
 
 import Ogre.Core;
-import Ogre.RenderSystems.GLSupport.GLSL;
+import Ogre.RenderSystems.GLSupport;
 
 namespace Ogre {
-class ResourceManager;
 
     namespace GLSL {
     class GLSLProgram : public GLSLShaderCommon, public GLGpuProgramBase

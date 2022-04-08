@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 export module Ogre.RenderSystems.GL:RenderToVertexBuffer;
 
@@ -37,9 +37,6 @@ export import <cstddef>;
 
 export
 namespace Ogre {
-class Pass;
-class RenderOperation;
-class SceneManager;
 
     /**
         An object which renders geometry to a vertex.

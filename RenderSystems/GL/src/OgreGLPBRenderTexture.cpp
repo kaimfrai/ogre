@@ -40,9 +40,6 @@ import Ogre.RenderSystems.GLSupport;
 import <string>;
 
 namespace Ogre {
-class GLContext;
-class RenderTexture;
-
 //-----------------------------------------------------------------------------  
     GLPBRenderTexture::GLPBRenderTexture(GLPBRTTManager *manager, const String &name, 
         const GLSurfaceDesc &target, bool writeGamma, uint fsaa):

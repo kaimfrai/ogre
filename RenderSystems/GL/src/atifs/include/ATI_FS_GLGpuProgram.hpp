@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 module Ogre.RenderSystems.GL:atifs.ATI_FS_GLGpuProgram;
 
@@ -36,7 +36,6 @@ import :GpuProgram;
 import Ogre.Core;
 
 namespace Ogre {
-class ResourceManager;
 
     /** Specialisation of the GL low-level program for ATI Fragment Shader programs. */
     class ATI_FS_GLGpuProgram : public GLGpuProgram

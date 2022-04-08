@@ -32,25 +32,7 @@ module;
 export module Ogre.RenderSystems.GL:Prerequisites;
 
 export import Ogre.Core;
-
-export
-namespace Ogre {
-    // Forward declarations
-    class GLNativeSupport;
-    class GLRenderSystem;
-    class GLTexture;
-    class GLTextureManager;
-    struct GLGpuProgramBase;
-    class GLGpuProgram;
-    class GLContext;
-    class GLRTTManager;
-    class GLFBOManager;
-    class GLHardwarePixelBuffer;
-    class GLRenderBuffer;
-
-    using GLGpuProgramPtr = shared_ptr<GLGpuProgram>;
-    using GLTexturePtr = shared_ptr<GLTexture>;
-}
+export import Ogre.RenderSystems.GLSupport;
 
 export
 namespace Ogre {

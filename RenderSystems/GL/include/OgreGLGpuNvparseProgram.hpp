@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 export module Ogre.RenderSystems.GL:GpuNvparseProgram;
 
@@ -37,7 +37,6 @@ export import Ogre.Core;
 
 export
 namespace Ogre {
-class ResourceManager;
 
 class GLGpuNvparseProgram : public GLGpuProgram
 {

@@ -43,7 +43,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class ResourceManager;
 
 ATI_FS_GLGpuProgram::ATI_FS_GLGpuProgram(ResourceManager* creator, 
         const String& name, ResourceHandle handle, 

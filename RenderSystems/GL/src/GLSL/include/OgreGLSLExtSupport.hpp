@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 module;
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 module Ogre.RenderSystems.GL:GLSL.ExtSupport;
 
