@@ -25,14 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Tests.VisualTests.Context:TestContext.Obj;
-
-import :TestContext;
+module Ogre.Tests.VisualTests.Context;
 
 import Ogre.Components.Bites;
 import Ogre.Components.Overlay;
 import Ogre.Core;
-import Ogre.Samples.Common;
+import Ogre.Samples;
 import Ogre.Tests.VisualTests.Common;
 import Ogre.Tests.VisualTests.PlayPen;
 import Ogre.Tests.VisualTests.VTests;
@@ -519,23 +517,4 @@ void TestContext::setTimestep(Ogre::Real timestep)
 {
     // ensure we're getting a positive value
     mTimestep = timestep >= 0.f ? timestep : mTimestep;
-}
-
-auto main(int argc, char *argv[]) -> int
-{
-    TestContext tc(argc, argv);
-
-    try
-    {
-        tc.go();
-    }
-    catch (Ogre::Exception& e)
-    {
-
-        std::cerr << "An exception has occurred: " << e.getFullDescription().c_str() << std::endl;
-
-        return -1;
-    }
-
-    return !tc.wasSuccessful();
 }

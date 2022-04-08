@@ -20,8 +20,17 @@ include_directories(${PROJECT_SOURCE_DIR}/Samples/Common/include)
 include_directories(${PROJECT_SOURCE_DIR}/Samples/Browser/include)
 include_directories(${PROJECT_SOURCE_DIR}/Tests/VisualTests/Common/include)
 
-add_library(PlayPenTests ${OGRE_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
-target_link_libraries(PlayPenTests ${OGRE_LIBRARIES} ${SDL2_LIBRARY} Ogre.Components.Bites Ogre.Components.Overlay Ogre.Components.RTShaderSystem)
+add_module(
+  PlayPen.hpp
+PARTITION
+  include/PlayPenTestPlugin.hpp
+  include/PlayPenTests.hpp
+IMPLEMENTATION
+  src/PlayPenTestPlugin.cpp
+  src/PlayPenTests.cpp
+  PlayPen.cpp
+)
+target_link_libraries(Ogre.Tests.VisualTests.PlayPen+ ${OGRE_LIBRARIES} ${SDL2_LIBRARY} Ogre.Components.Bites Ogre.Components.Overlay Ogre.Components.RTShaderSystem)
 #ogre_config_sample_lib(PlayPenTests)
 
 if (APPLE AND NOT APPLE_IOS)

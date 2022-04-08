@@ -30,7 +30,6 @@ export module Ogre.Tests.VisualTests.VTests:CubeMappingTest;
 export import Ogre.Core;
 export import Ogre.Tests.VisualTests.Common;
 
-export
 using namespace Ogre;
 /** Tests basic fixed-function cube mapping */
 

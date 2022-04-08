@@ -15,6 +15,13 @@ endif ()
 
 add_definitions(${OGRE_VISIBILITY_FLAGS})
 
+file(GLOB COMMON_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/Common/include/*.hpp")
+add_module(
+  Common.hpp
+PARTITION
+  ${COMMON_HEADERS}
+)
+
 if(NOT ANDROID)
     # add Context directory
     add_subdirectory(Context)

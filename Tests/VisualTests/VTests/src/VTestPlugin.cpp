@@ -31,7 +31,7 @@ import :CubeMappingTest;
 import :StencilShadowTest;
 import :VTestPlugin;
 
-import Ogre.Samples.Common;
+import Ogre.Samples;
 
 import <set>;
 

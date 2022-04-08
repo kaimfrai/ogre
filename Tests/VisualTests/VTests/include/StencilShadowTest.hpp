@@ -30,12 +30,6 @@ export module Ogre.Tests.VisualTests.VTests:StencilShadowTest;
 export import Ogre.Core;
 export import Ogre.Tests.VisualTests.Common;
 
-export
-namespace Ogre {
-class Entity;
-}  // namespace Ogre
-
-export
 using namespace Ogre;
 /** Tests basic stencil shadow behavior */
 

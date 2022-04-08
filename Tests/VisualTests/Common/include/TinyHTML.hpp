@@ -1,7 +1,3 @@
-export module Ogre.Tests.VisualTests.Common:TinyHTML;
-
-export import <utility>;
-
 /*
 -----------------------------------------------------------------------------
 This source file is part of OGRE
@@ -29,8 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_TESTS_VISUALTESTS_TINYHTML_H
-#define OGRE_TESTS_VISUALTESTS_TINYHTML_H
+export module Ogre.Tests.VisualTests.Common:TinyHTML;
+
+export import Ogre.Core;
+
+export import <utility>;
+
 /** The following is a very simple representation of the HTML DOM.
  *    It's sole purpose is outputting formatted html documents, there
  *    are no provisions for traversal, parsing, etc. */
@@ -155,4 +155,3 @@ struct HtmlElement : public HtmlNode
         return out.str();
     }
 };
-#endif

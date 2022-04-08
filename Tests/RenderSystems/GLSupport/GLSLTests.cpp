@@ -29,7 +29,7 @@ module;
 
 #include <gtest/gtest.h>
 
-module Ogre.Tests:RenderSystems.GLSupport;
+module Ogre.Tests;
 
 import Ogre.Core;
 import Ogre.RenderSystems.GLSupport;

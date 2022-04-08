@@ -8,6 +8,7 @@
 #-------------------------------------------------------------------
 
 set(HEADER_FILES
+    include/CubeMappingTest.hpp
     include/StencilShadowTest.hpp
     include/VTestPlugin.hpp)
 
@@ -21,8 +22,15 @@ include_directories(${PROJECT_SOURCE_DIR}/Samples/Common/include)
 include_directories(${PROJECT_SOURCE_DIR}/Samples/Simple/include)
 include_directories(${PROJECT_SOURCE_DIR}/Tests/VisualTests/Common/include)
 
-add_library(VTests ${OGRE_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES} )
-target_link_libraries(VTests ${OGRE_LIBRARIES} Ogre.Components.Bites Ogre.Components.Overlay Ogre.Components.RTShaderSystem)
+add_module(
+    VTests.hpp
+PARTITION
+    ${HEADER_FILES}
+IMPLEMENTATION
+    ${SOURCE_FILES}
+)
+
+target_link_libraries(Ogre.Tests.VisualTests.VTests+ ${OGRE_LIBRARIES} Ogre.Components.Bites Ogre.Components.Overlay Ogre.Components.RTShaderSystem)
 #ogre_config_sample_lib(VTests)
 
 if (APPLE AND NOT APPLE_IOS)
