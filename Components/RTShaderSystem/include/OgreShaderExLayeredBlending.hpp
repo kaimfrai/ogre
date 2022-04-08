@@ -38,18 +38,11 @@ export import <memory>;
 export import <vector>;
 
 export
-namespace Ogre {
-    class LayerBlendModeEx;
-    class MaterialSerializer;
-    class PropertyAbstractNode;
-    class ScriptCompiler;
-    class TextureUnitState;
-    namespace RTShader {
+namespace Ogre::RTShader {
     class Function;
     class ProgramSet;
     class SGScriptTranslator;
-    }  // namespace RTShader
-}  // namespace Ogre
+}  // namespace RTShader
 
 export
 namespace Ogre::RTShader {

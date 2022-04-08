@@ -34,17 +34,11 @@ export import Ogre.Core;
 export import <vector>;
 
 export
-namespace Ogre {
-    class MaterialSerializer;
-    class Pass;
-    class PropertyAbstractNode;
-    class ScriptCompiler;
-    namespace RTShader {
-        class ProgramSet;
-        class RenderState;
-        class SGScriptTranslator;
-    }  // namespace RTShader
-}  // namespace Ogre
+namespace Ogre::RTShader {
+    class ProgramSet;
+    class RenderState;
+    class SGScriptTranslator;
+}  // namespace RTShader
 
 export
 namespace Ogre::RTShader

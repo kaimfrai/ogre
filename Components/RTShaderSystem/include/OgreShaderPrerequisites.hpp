@@ -29,27 +29,9 @@ export module Ogre.Components.RTShaderSystem:ShaderPrerequisites;
 export import Ogre.Core;
 
 export
-namespace Ogre 
+namespace Ogre::RTShader
 {
-
-/// Forward declarations from Ogre namespace.
-class Technique;
-class Pass;
-class Renderable;
-class Viewport;
-class RenderObjectListener;
-class TextureUnitState;
-class Frustum;
-class ScriptTranslator;
-class ScriptCompiler;
-class PropertyAbstractNode;
-class MaterialSerializer;
-
 using RTShaderSystemAlloc = GeneralAllocatedObject;
-
-namespace RTShader 
-{
-
 /// Forward declarations from RTShader namespace.
 class RenderState;
 class TargetRenderState;
@@ -89,5 +71,4 @@ enum SkinningType
 };
 
 
-}
 }

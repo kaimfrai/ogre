@@ -35,16 +35,7 @@ export import <set>;
 export import <vector>;
 
 export
-namespace Ogre {
-class AutoParamDataSource;
-class MaterialSerializer;
-class Pass;
-class PropertyAbstractNode;
-class Renderable;
-class ScriptCompiler;
-class TextureUnitState;
-
-namespace RTShader {
+namespace Ogre::RTShader {
 class ProgramSet;
 class RenderState;
 class SGScriptTranslator;
@@ -340,5 +331,4 @@ protected:
 /** @} */
 /** @} */
 
-}
 }

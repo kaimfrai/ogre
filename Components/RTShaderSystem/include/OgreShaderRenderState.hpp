@@ -34,12 +34,7 @@ export import Ogre.Core;
 export import <memory>;
 
 export
-namespace Ogre {
-class AutoParamDataSource;
-class Pass;
-class Renderable;
-
-namespace RTShader {
+namespace Ogre::RTShader {
 class Program;
 class ProgramSet;
 
@@ -223,5 +218,4 @@ using TargetRenderStatePtr = std::shared_ptr<TargetRenderState>;
 /** @} */
 /** @} */
 
-}
 }

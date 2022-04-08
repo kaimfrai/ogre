@@ -34,11 +34,7 @@ export import <cstddef>;
 export import <vector>;
 
 export
-namespace Ogre {
-class ColourValue;
-class Matrix3;
-
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /** \addtogroup Optional
 *  @{
@@ -730,5 +726,4 @@ public:
 /** @} */
 /** @} */
 
-}
 }

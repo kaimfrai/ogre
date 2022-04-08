@@ -46,11 +46,7 @@ import <string>;
 import <type_traits>;
 import <vector>;
 
-namespace Ogre {
-class AutoParamDataSource;
-class Renderable;
-
-namespace RTShader {
+namespace Ogre::RTShader {
 
 const char* TargetRenderState::UserKey = "TargetRenderState";
 
@@ -361,5 +357,4 @@ void TargetRenderState::sortSubRenderStates()
     }
 }
 
-}
 }

@@ -68,8 +68,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-class AutoParamDataSource;
-class Renderable;
 
 //-----------------------------------------------------------------------
 template<> 

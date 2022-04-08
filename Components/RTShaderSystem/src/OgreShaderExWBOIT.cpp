@@ -22,10 +22,6 @@ import <list>;
 import <memory>;
 import <string>;
 
-namespace Ogre::RTShader {
-        class RenderState;
-    }  // namespace Ogre
-
 namespace Ogre::RTShader
 {
 

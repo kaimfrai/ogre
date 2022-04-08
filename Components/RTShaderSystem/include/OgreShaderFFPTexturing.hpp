@@ -36,20 +36,12 @@ export import <cstddef>;
 export import <vector>;
 
 export
-namespace Ogre {
-    class ColourValue;
-    class MaterialSerializer;
-    class Pass;
-    class PropertyAbstractNode;
-    class ScriptCompiler;
-    class TextureUnitState;
-    namespace RTShader {
-        class Function;
-        class ProgramSet;
-        class RenderState;
-        class SGScriptTranslator;
-    }  // namespace RTShader
-}  // namespace Ogre
+namespace Ogre::RTShader {
+    class Function;
+    class ProgramSet;
+    class RenderState;
+    class SGScriptTranslator;
+}  // namespace RTShader
 
 export
 namespace Ogre::RTShader {

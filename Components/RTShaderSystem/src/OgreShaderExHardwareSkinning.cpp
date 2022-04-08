@@ -48,9 +48,9 @@ import <memory>;
 import <string>;
 
 namespace Ogre::RTShader {
-        class ProgramSet;
-        class RenderState;
-    }  // namespace Ogre
+    class ProgramSet;
+    class RenderState;
+}  // namespace Ogre
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 namespace Ogre {

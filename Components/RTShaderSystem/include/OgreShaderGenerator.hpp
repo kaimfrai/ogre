@@ -41,17 +41,7 @@ export import <utility>;
 export import <vector>;
 
 export
-namespace Ogre {
-class AutoParamDataSource;
-class FileSystemLayer;
-class Renderable;
-class ScriptTranslator;
-class Technique;
-class TextureUnitState;
-class Viewport;
-
-
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /** \addtogroup Optional
 *  @{
@@ -926,5 +916,4 @@ private:
 /** @} */
 /** @} */
 
-}
 }

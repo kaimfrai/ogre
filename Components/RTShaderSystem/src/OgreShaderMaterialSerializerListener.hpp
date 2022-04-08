@@ -33,13 +33,7 @@ import Ogre.Core;
 
 import <vector>;
 
-namespace Ogre {
-class Material;
-class Pass;
-class Technique;
-class TextureUnitState;
-
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /** \addtogroup Optional
 *  @{
@@ -108,5 +102,4 @@ private:
     friend class ShaderGenerator;
 };
 
-}
 }

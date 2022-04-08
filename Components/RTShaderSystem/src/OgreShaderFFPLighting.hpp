@@ -33,20 +33,12 @@ import Ogre.Core;
 
 import <vector>;
 
-namespace Ogre {
-    class AutoParamDataSource;
-    class MaterialSerializer;
-    class Pass;
-    class PropertyAbstractNode;
-    class Renderable;
-    class ScriptCompiler;
-    namespace RTShader {
-        class FunctionStageRef;
-        class ProgramSet;
-        class RenderState;
-        class SGScriptTranslator;
-    }  // namespace RTShader
-}  // namespace Ogre
+namespace Ogre::RTShader {
+    class FunctionStageRef;
+    class ProgramSet;
+    class RenderState;
+    class SGScriptTranslator;
+}  // namespace RTShader
 
 namespace Ogre::RTShader {
 

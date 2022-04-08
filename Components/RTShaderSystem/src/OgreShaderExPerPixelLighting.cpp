@@ -47,10 +47,6 @@ import <memory>;
 import <string>;
 import <vector>;
 
-namespace Ogre {
-    class Pass;
-}  // namespace Ogre
-
 namespace Ogre::RTShader {
 
 /************************************************************************/

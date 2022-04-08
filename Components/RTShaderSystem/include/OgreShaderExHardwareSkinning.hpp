@@ -34,18 +34,11 @@ export import Ogre.Core;
 export import <cstddef>;
 
 export
-namespace Ogre {
-class Entity;
-class MaterialSerializer;
-class Pass;
-class PropertyAbstractNode;
-class ScriptCompiler;
-namespace RTShader {
-class ProgramSet;
-class RenderState;
-class SGScriptTranslator;
+namespace Ogre::RTShader {
+    class ProgramSet;
+    class RenderState;
+    class SGScriptTranslator;
 }  // namespace RTShader
-}  // namespace Ogre
 
 export
 enum {

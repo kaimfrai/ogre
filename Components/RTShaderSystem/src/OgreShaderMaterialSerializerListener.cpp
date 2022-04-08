@@ -34,10 +34,7 @@ import Ogre.Core;
 import <cstddef>;
 import <vector>;
 
-namespace Ogre {
-class Pass;
-
-namespace RTShader {
+namespace Ogre::RTShader {
 
 //-----------------------------------------------------------------------------
 SGMaterialSerializerListener::SGMaterialSerializerListener()
@@ -135,8 +132,5 @@ auto SGMaterialSerializerListener::getShaderGeneratedPass(const Pass* srcPass) -
     }
 
     return nullptr;
-}
-
-
 }
 }

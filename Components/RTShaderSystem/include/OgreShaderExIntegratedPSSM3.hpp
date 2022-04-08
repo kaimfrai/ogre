@@ -36,20 +36,13 @@ export import <algorithm>;
 export import <vector>;
 
 export
-namespace Ogre {
-    class AutoParamDataSource;
-    class Pass;
-    class PropertyAbstractNode;
-    class Renderable;
-    class ScriptCompiler;
-    namespace RTShader {
-        class Function;
-        class Program;
-        class ProgramSet;
-        class RenderState;
-        class SGScriptTranslator;
-    }  // namespace RTShader
-}  // namespace Ogre
+namespace Ogre::RTShader {
+    class Function;
+    class Program;
+    class ProgramSet;
+    class RenderState;
+    class SGScriptTranslator;
+}  // namespace RTShader
 
 export
 namespace Ogre::RTShader {
