@@ -259,6 +259,14 @@ function(add_module_implementation
 			${source_file}
 		)
 
+		add_module_source_dependencies(
+			"${module_target_name}+"
+			"${source_file}"
+			"${module_dependencies}"
+			"${module_target_dependencies}"
+			"${module_dependency_binaries}"
+		)
+
 	else()
 		add_library(
 			"${module_implementation_target_name}"
@@ -285,15 +293,15 @@ function(add_module_implementation
 		PRIVATE
 			$<TARGET_OBJECTS:${module_implementation_target_name}>
 		)
-	endif()
 
-	add_module_source_dependencies(
-		"${module_target_name}"
-		"${source_file}"
-		"${module_dependencies}"
-		"${module_target_dependencies}"
-		"${module_dependency_binaries}"
-	)
+		add_module_source_dependencies(
+			"${module_implementation_target_name}"
+			"${source_file}"
+			"${module_dependencies}"
+			"${module_target_dependencies}"
+			"${module_dependency_binaries}"
+		)
+	endif()
 
 	set("${out_module_target_name}" ${module_target_name} PARENT_SCOPE)
 
@@ -323,6 +331,17 @@ function(add_module
 		module_binary
 	)
 
+	add_module_partition(
+		${module_name}
+		${module_name}
+		${module_target_name}
+		${module_binary}
+		${module_interface_file}
+		"${preprocessed_module_file}"
+		"${MODULE_INCLUDES}"
+		"${MODULE_BYPRODUCTS}"
+	)
+
 	foreach(partition_file IN LISTS MODULE_PARTITION)
 		invoke_preprocessor(
 			"${partition_file}"
@@ -348,17 +367,6 @@ function(add_module
 			"${MODULE_BYPRODUCTS}"
 		)
 	endforeach()
-
-	add_module_partition(
-		${module_name}
-		${module_name}
-		${module_target_name}
-		${module_binary}
-		${module_interface_file}
-		"${preprocessed_module_file}"
-		"${MODULE_INCLUDES}"
-		"${MODULE_BYPRODUCTS}"
-	)
 
 	if	(NOT "${MODULE_IMPLEMENTATION}" STREQUAL "")
 
@@ -480,6 +488,14 @@ function(add_module_executable
 	add_executable(
 		${target_name}
 		${ARGN}
+	)
+
+	target_compile_options(
+		${target_name}
+	PRIVATE
+		${WARNING_FLAGS}
+		${MODULE_FLAGS}
+		${ADDITIONAL_COMPILE_OPTIONS}
 	)
 
 	add_module_dependencies(

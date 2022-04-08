@@ -60,7 +60,7 @@ namespace Ogre {
     };
     //-----------------------------------------------------------------------
     /** Pixel format database */
-    PixelFormatDescription _pixelFormats[PF_COUNT] = {
+    inline PixelFormatDescription _pixelFormats[PF_COUNT] = {
         //-----------------------------------------------------------------------
         {"PF_UNKNOWN",
             /* Bytes per element */

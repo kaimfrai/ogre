@@ -601,7 +601,7 @@ class RenderWindow;
 
 
     /// Constant blank string, useful for returning by ref where local does not exist
-    const String BLANKSTRING;
+    const inline String BLANKSTRING;
 
     using UnaryOptionList = std::map<String, bool>;
     using BinaryOptionList = std::map<String, String>;
