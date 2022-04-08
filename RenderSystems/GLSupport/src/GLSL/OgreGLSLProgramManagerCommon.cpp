@@ -25,10 +25,10 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GLSupport.GLSL:ProgramManagerCommon.Obj;
+module Ogre.RenderSystems.GLSupport:GLSL.ProgramManagerCommon.Obj;
 
-import :ProgramCommon;
-import :ProgramManagerCommon;
+import :GLSL.ProgramCommon;
+import :GLSL.ProgramManagerCommon;
 
 import Ogre.Core;
 

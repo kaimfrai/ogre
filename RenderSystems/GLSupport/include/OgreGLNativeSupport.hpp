@@ -25,17 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLNativeSupport;
+export module Ogre.RenderSystems.GLSupport:NativeSupport;
 
-export import :GLRenderSystemCommon;
+export import :PBuffer;
+export import :RenderSystemCommon;
 
 export import Ogre.Core;
 
 export
 namespace Ogre
 {
-    class GLPBuffer;
-
     struct VideoMode {
         uint32 width;
         uint32 height;

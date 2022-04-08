@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLStateCacheManagerCommon;
+export module Ogre.RenderSystems.GLSupport:StateCacheManagerCommon;
 
 export import Ogre.Core;
 

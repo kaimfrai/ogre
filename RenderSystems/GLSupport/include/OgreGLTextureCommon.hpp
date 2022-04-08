@@ -25,14 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLTextureCommon;
+export module Ogre.RenderSystems.GLSupport:TextureCommon;
 
 export import Ogre.Core;
 
 export
 namespace Ogre
 {
-class ResourceManager;
 
 class GLTextureCommon  : public Texture
 {

@@ -29,11 +29,11 @@ module;
 
 #include <cassert>
 
-module Ogre.RenderSystems.GLSupport:GLRenderTexture.Obj;
+module Ogre.RenderSystems.GLSupport:RenderTexture.Obj;
 
-import :GLHardwarePixelBufferCommon;
-import :GLRenderSystemCommon;
-import :GLRenderTexture;
+import :HardwarePixelBufferCommon;
+import :RenderSystemCommon;
+import :RenderTexture;
 
 import Ogre.Core;
 

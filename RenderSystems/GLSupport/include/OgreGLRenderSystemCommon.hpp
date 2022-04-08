@@ -25,7 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLRenderSystemCommon;
+export module Ogre.RenderSystems.GLSupport:RenderSystemCommon;
+
+export import :Context;
+export import :RenderTexture;
 
 export import Ogre.Core;
 
@@ -35,13 +38,8 @@ export import <set>;
 
 export
 namespace Ogre {
-    class GLContext;
+
     class GLNativeSupport;
-    class GLRTTManager;
-    class Matrix4;
-    class VertexElement;
-    class Viewport;
-    struct Box;
 
     class GLRenderSystemCommon : public RenderSystem
     {

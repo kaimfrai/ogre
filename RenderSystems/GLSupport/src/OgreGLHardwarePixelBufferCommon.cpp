@@ -25,15 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GLSupport:GLHardwarePixelBufferCommon.Obj;
+module Ogre.RenderSystems.GLSupport:HardwarePixelBufferCommon.Obj;
 
-import :GLHardwarePixelBufferCommon;
+import :HardwarePixelBufferCommon;
 
 import Ogre.Core;
 
 namespace Ogre
 {
-struct Box;
 
 GLHardwarePixelBufferCommon::GLHardwarePixelBufferCommon(uint32 inWidth, uint32 inHeight,
                                                        uint32 inDepth, PixelFormat inFormat,

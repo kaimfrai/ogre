@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GLSupport:GLTextureCommon.Obj;
+module Ogre.RenderSystems.GLSupport:TextureCommon.Obj;
 
-import :GLTextureCommon;
+import :TextureCommon;
 
 import Ogre.Core;
 

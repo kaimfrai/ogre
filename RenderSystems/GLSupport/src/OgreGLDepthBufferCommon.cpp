@@ -1,20 +1,18 @@
 // This file is part of the OGRE project.
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
-module Ogre.RenderSystems.GLSupport:GLDepthBufferCommon.Obj;
+module Ogre.RenderSystems.GLSupport:DepthBufferCommon.Obj;
 
-import :GLDepthBufferCommon;
-import :GLHardwarePixelBufferCommon;
-import :GLRenderSystemCommon;
-import :GLRenderTarget;
-import :GLRenderTexture;
+import :DepthBufferCommon;
+import :HardwarePixelBufferCommon;
+import :RenderSystemCommon;
+import :RenderTarget;
+import :RenderTexture;
 
 import Ogre.Core;
 
 namespace Ogre
 {
-class GLContext;
-
 GLDepthBufferCommon::GLDepthBufferCommon(uint16 poolId, GLRenderSystemCommon* renderSystem,
                                          GLContext* creatorContext, GLHardwarePixelBufferCommon* depth,
                                          GLHardwarePixelBufferCommon* stencil, const RenderTarget* target,

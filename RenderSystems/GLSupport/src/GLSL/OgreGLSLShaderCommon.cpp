@@ -25,10 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GLSupport.GLSL:ShaderCommon.Obj;
+module Ogre.RenderSystems.GLSupport:GLSL.ShaderCommon.Obj;
 
-import :Preprocessor;
-import :ShaderCommon;
+import :GLSL.Preprocessor;
+import :GLSL.ShaderCommon;
 
 import Ogre.Core;
 
@@ -38,7 +38,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class ResourceManager;
 
     //-----------------------------------------------------------------------
     uint GLSLShaderCommon::mShaderCount = 0;

@@ -32,15 +32,14 @@ module;
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
-module Ogre.RenderSystems.GLSupport.GLX:Window.Obj;
+module Ogre.RenderSystems.GLSupport:GLX.Window.Obj;
 
-import :Context;
-import :GLSupport;
-import :Window;
+import :GLX.Context;
+import :GLX.GLSupport;
+import :GLX.Window;
+import :X11;
 
 import Ogre.Core;
-import Ogre.RenderSystems.GLSupport;
-import Ogre.RenderSystems.GLSupport.X11;
 
 import <climits>;
 import <map>;

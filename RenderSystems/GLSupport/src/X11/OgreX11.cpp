@@ -3,10 +3,12 @@ module;
 #include <X11/extensions/Xrandr.h>
 #include <X11/extensions/randr.h>
 
-module Ogre.RenderSystems.GLSupport.X11;
+module Ogre.RenderSystems.GLSupport:X11.Obj;
+
+import :NativeSupport;
+import :X11;
 
 import Ogre.Core;
-import Ogre.RenderSystems.GLSupport;
 
 import <cstddef>;
 

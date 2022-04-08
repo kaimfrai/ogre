@@ -25,10 +25,10 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GLSupport:GLWindow.Obj;
+module Ogre.RenderSystems.GLSupport:Window.Obj;
 
-import :GLRenderSystemCommon;
-import :GLWindow;
+import :RenderSystemCommon;
+import :Window;
 
 import Ogre.Core;
 

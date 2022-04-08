@@ -25,9 +25,9 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-module Ogre.RenderSystems.GLSupport:GLUniformCache.Obj;
+module Ogre.RenderSystems.GLSupport:UniformCache.Obj;
 
-import :GLUniformCache;
+import :UniformCache;
 
 namespace Ogre {
 

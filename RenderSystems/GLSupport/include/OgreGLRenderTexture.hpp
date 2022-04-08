@@ -25,9 +25,10 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLRenderTexture;
+export module Ogre.RenderSystems.GLSupport:RenderTexture;
 
-export import :GLRenderTarget;
+export import :HardwarePixelBufferCommon;
+export import :RenderTarget;
 
 export import Ogre.Core;
 
@@ -37,10 +38,6 @@ export import <vector>;
 
 export
 namespace Ogre {
-    class GLHardwarePixelBufferCommon;
-class GLContext;
-class RenderTarget;
-
     /** GL surface descriptor. Points to a 2D surface that can be rendered to.
      */
     struct GLSurfaceDesc

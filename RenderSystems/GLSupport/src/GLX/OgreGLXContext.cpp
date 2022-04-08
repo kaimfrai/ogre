@@ -31,13 +31,12 @@ module;
 #include <GL/glx.h>
 #include <X11/X.h>
 
-module Ogre.RenderSystems.GLSupport.GLX:Context.Obj;
+module Ogre.RenderSystems.GLSupport:GLX.Context.Obj;
 
-import :Context;
-import :GLSupport;
+import :GLX.Context;
+import :GLX.GLSupport;
 
 import Ogre.Core;
-import Ogre.RenderSystems.GLSupport;
 
 namespace Ogre
 {

@@ -29,16 +29,16 @@ module;
 
 #include <X11/X.h>
 
-export module Ogre.RenderSystems.GLSupport.GLX:Window;
+export module Ogre.RenderSystems.GLSupport:GLX.Window;
+
+export import :Window;
+export import :GLX.GLSupport;
 
 export import Ogre.Core;
-export import Ogre.RenderSystems.GLSupport;
 
 export
 namespace Ogre 
 {
-    class GLXGLSupport;
-
     class GLXWindow : public GLWindow
     {
     public:

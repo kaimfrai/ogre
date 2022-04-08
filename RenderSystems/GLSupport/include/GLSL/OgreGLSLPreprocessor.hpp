@@ -25,7 +25,7 @@
    THE SOFTWARE.
    -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport.GLSL:Preprocessor;
+export module Ogre.RenderSystems.GLSupport:GLSL.Preprocessor;
 
 export import <cstdlib>;
 export import <cstring>;

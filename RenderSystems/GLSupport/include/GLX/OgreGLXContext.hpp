@@ -29,14 +29,13 @@ module;
 
 #include <GL/glx.h>
 
-export module Ogre.RenderSystems.GLSupport.GLX:Context;
+export module Ogre.RenderSystems.GLSupport:GLX.Context;
 
-export import Ogre.RenderSystems.GLSupport;
+export import :Context;
+export import :GLX.GLSupport;
 
 export
 namespace Ogre {
-class GLXGLSupport;
-
     class GLXContext: public GLContext
     {
     public:

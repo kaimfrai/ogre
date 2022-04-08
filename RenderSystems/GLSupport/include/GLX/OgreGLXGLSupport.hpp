@@ -35,18 +35,13 @@ module;
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
-export module Ogre.RenderSystems.GLSupport.GLX:GLSupport;
+export module Ogre.RenderSystems.GLSupport:GLX.GLSupport;
+
+export import :NativeSupport;
 
 export import Ogre.Core;
-export import Ogre.RenderSystems.GLSupport;
 
 export import <cstddef>;
-
-export
-namespace Ogre {
-class GLPBuffer;
-class RenderWindow;
-}  // namespace Ogre
 
 export
 namespace Ogre {

@@ -25,17 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport.GLSL:ShaderCommon;
+export module Ogre.RenderSystems.GLSupport:GLSL.ShaderCommon;
+
+export import :UniformCache;
 
 export import Ogre.Core;
-export import Ogre.RenderSystems.GLSupport;
 
 export import <vector>;
 
 export
 namespace Ogre {
-class GpuProgram;
-class ResourceManager;
 
     /** Specialisation of HighLevelGpuProgram to provide support for OpenGL
         Shader Language (GLSL).

@@ -1,18 +1,15 @@
 // This file is part of the OGRE project.
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
-export module Ogre.RenderSystems.GLSupport:GLDepthBufferCommon;
+export module Ogre.RenderSystems.GLSupport:DepthBufferCommon;
+
+export import :RenderSystemCommon;
 
 export import Ogre.Core;
 
 export
 namespace Ogre
 {
-    class GLContext;
-    class GLHardwarePixelBufferCommon;
-    class GLRenderSystemCommon;
-    class RenderTarget;
-
     /**
         OpenGL supports 3 different methods: FBO, pbuffer & Copy.
         Each one has it's own limitations. Non-FBO methods are solved using "dummy" DepthBuffers.

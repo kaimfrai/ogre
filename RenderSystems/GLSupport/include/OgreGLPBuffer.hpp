@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLPBuffer;
+export module Ogre.RenderSystems.GLSupport:PBuffer;
 
-export import :GLRenderTarget;
+export import :RenderTarget;
 
 export import Ogre.Core;
 

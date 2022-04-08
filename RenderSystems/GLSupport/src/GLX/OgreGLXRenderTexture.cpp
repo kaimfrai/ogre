@@ -33,19 +33,15 @@ module;
 #include <X11/Xlib.h>
 #include <climits>
 
-module Ogre.RenderSystems.GLSupport.GLX:RenderTexture.Obj;
+module Ogre.RenderSystems.GLSupport:GLX.RenderTexture.Obj;
 
-import :Context;
-import :GLSupport;
-import :RenderTexture;
+import :GLX.Context;
+import :GLX.GLSupport;
+import :GLX.RenderTexture;
 
 import Ogre.Core;
 
 import <string>;
-
-namespace Ogre {
-class GLContext;
-}  // namespace Ogre
 
 enum {
 GLX_RGBA_FLOAT_ATI_BIT = 0x00000100,

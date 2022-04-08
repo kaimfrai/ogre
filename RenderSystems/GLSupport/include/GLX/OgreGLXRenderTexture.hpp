@@ -25,20 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport.GLX:RenderTexture;
+export module Ogre.RenderSystems.GLSupport:GLX.RenderTexture;
+
+export import :PBuffer;
+export import :GLX.Context;
+export import :GLX.GLSupport;
 
 export import Ogre.Core;
-export import Ogre.RenderSystems.GLSupport;
 
 export import <cstddef>;
 
 export
 namespace Ogre
 {
-class GLContext;
-class GLXContext;
-class GLXGLSupport;
-
     class GLXPBuffer : public GLPBuffer
     {
     public:

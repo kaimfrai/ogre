@@ -33,15 +33,14 @@ module;
 
 #include <cassert>
 
-module Ogre.RenderSystems.GLSupport.GLX:GLSupport.Obj;
+module Ogre.RenderSystems.GLSupport:GLX.GLSupport.Obj;
 
-import :GLSupport;
-import :RenderTexture;
-import :Window;
+import :GLX.GLSupport;
+import :GLX.RenderTexture;
+import :GLX.Window;
+import :X11;
 
 import Ogre.Core;
-import Ogre.RenderSystems.GLSupport;
-import Ogre.RenderSystems.GLSupport.X11;
 
 import <istream>;
 import <map>;
@@ -49,10 +48,6 @@ import <string>;
 import <utility>;
 import <vector>;
 
-namespace Ogre {
-class GLPBuffer;
-class RenderWindow;
-}  // namespace Ogre
 static bool ctxErrorOccurred = false;
 static Ogre::String ctxErrorMessage;
 static auto ctxErrorHandler( Display *dpy, XErrorEvent *ev ) -> int

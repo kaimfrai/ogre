@@ -25,14 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLHardwarePixelBufferCommon;
+export module Ogre.RenderSystems.GLSupport:HardwarePixelBufferCommon;
 
 export import Ogre.Core;
 
 export
 namespace Ogre
 {
-struct Box;
 
 class GLHardwarePixelBufferCommon : public HardwarePixelBuffer
 {

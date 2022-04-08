@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GLSupport:GLRenderSystemCommon.Obj;
+module Ogre.RenderSystems.GLSupport:RenderSystemCommon.Obj;
 
-import :GLContext;
-import :GLNativeSupport;
-import :GLRenderSystemCommon;
-import :GLRenderTexture;
+import :Context;
+import :NativeSupport;
+import :RenderSystemCommon;
+import :RenderTexture;
 
 import Ogre.Core;
 

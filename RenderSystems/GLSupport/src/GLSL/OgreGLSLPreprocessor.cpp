@@ -29,9 +29,9 @@ module;
 
 #include <cassert>
 
-module Ogre.RenderSystems.GLSupport.GLSL:Preprocessor.Obj;
+module Ogre.RenderSystems.GLSupport:GLSL.Preprocessor.Obj;
 
-import :Preprocessor;
+import :GLSL.Preprocessor;
 
 import Ogre.Core;
 

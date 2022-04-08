@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport.GLSL:ProgramCommon;
+export module Ogre.RenderSystems.GLSupport:GLSL.ProgramCommon;
 
-export import :ShaderCommon;
+export import :GLSL.ShaderCommon;
 
 export import Ogre.Core;
 
@@ -37,7 +37,6 @@ export import <vector>;
 export
 namespace Ogre
 {
-struct GpuConstantDefinition;
 
 /// Structure used to keep track of named uniforms in the linked program object
 struct GLUniformReference

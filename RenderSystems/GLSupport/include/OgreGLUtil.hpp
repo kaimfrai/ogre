@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLUtil;
+export module Ogre.RenderSystems.GLSupport:Util;
 
-export import :GLNativeSupport;
+export import :NativeSupport;
 
 export
 namespace Ogre {

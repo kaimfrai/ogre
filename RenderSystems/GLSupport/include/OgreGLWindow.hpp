@@ -25,19 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-export module Ogre.RenderSystems.GLSupport:GLWindow;
+export module Ogre.RenderSystems.GLSupport:Window;
 
-export import :GLRenderTarget;
+export import :RenderTarget;
 
 export import Ogre.Core;
 
 export
 namespace Ogre
 {
-class GLContext;
-class PixelBox;
-struct Box;
-
     class GLWindow : public RenderWindow, public GLRenderTarget
     {
     public:

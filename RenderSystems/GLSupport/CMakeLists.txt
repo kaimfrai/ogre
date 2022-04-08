@@ -26,6 +26,7 @@ set(PLATFORM_LIBS ${X11_LIBRARIES} ${X11_Xrandr_LIB} ${OPENGL_glx_LIBRARY})
 list(APPEND NATIVE_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/src/X11/")
 
 file(GLOB GLSUPPORT_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
+file(GLOB GLSUPPORT_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 file(GLOB GLSL_HEADERS include/GLSL/*.hpp)
 file(GLOB GLSL_SOURCES src/GLSL/*.cpp)
@@ -35,40 +36,20 @@ if(OGRE_CONFIG_ENABLE_GL_STATE_CACHE_SUPPORT)
     PROPERTIES COMPILE_DEFINITIONS OGRE_ENABLE_STATE_CACHE)
 endif()
 
-add_module(
-  src/X11/OgreX11.hpp
-IMPLEMENTATION
-  src/X11/OgreX11.cpp
-)
-
-add_module(
-  GLSL.hpp
-PARTITION
-  ${GLSL_HEADERS}
-IMPLEMENTATION
-  ${GLSL_SOURCES}
-)
-
-add_module(
-  GLX.hpp
-PARTITION
-  ${PLATFORM_HEADERS}
-IMPLEMENTATION
-  ${PLATFORM_SOURCES}
-)
-
+# GLX contains defition for getGLSupport declared in OgreGLUtil.hpp
+# GLX => X11 => GLSupport => GLX
 add_module(
   ../GLSupport.hpp
 PARTITION
   ${GLSUPPORT_HEADERS}
+  ${PLATFORM_HEADERS}
+  ${GLSL_HEADERS}
+  src/X11/OgreX11.hpp
 IMPLEMENTATION
-  src/OgreGLRenderSystemCommon.cpp
-  src/OgreGLTextureCommon.cpp
-  src/OgreGLDepthBufferCommon.cpp
-  src/OgreGLRenderTexture.cpp
-  src/OgreGLHardwarePixelBufferCommon.cpp
-  src/OgreGLUniformCache.cpp
-  src/OgreGLWindow.cpp
+  ${GLSUPPORT_SOURCES}
+  ${PLATFORM_SOURCES}
+  ${GLSL_SOURCES}
+  src/X11/OgreX11.cpp
 INCLUDES
   ${NATIVE_INCLUDES}
 )
