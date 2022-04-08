@@ -29,9 +29,9 @@ module;
 
 #include <gtest/gtest.h>
 
-module Ogre.Tests.Core:ResourceLocationPriorityTest.Obj;
+module Ogre.Tests:Core.ResourceLocationPriority.Obj;
 
-import :ResourceLocationPriorityTest;
+import :Core.ResourceLocationPriority;
 
 import Ogre.Core;
 

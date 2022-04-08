@@ -25,9 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Tests.Core:FileSystemArchiveTests.Obj;
+module;
 
-import :FileSystemArchiveTests;
+#include <gtest/gtest.h>
+
+module Ogre.Tests:Core.FileSystemArchive.Obj;
+
+import :Core.FileSystemArchive;
 
 import Ogre.Core;
 

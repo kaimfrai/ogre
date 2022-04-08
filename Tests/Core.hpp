@@ -1,14 +1,14 @@
-export module Ogre.Tests.Core;
+export module Ogre.Tests;
 
-export import :RootWithoutRenderSystemFixture;
-export import :ZipArchiveTests;
-export import :EdgeBuilderTests;
-export import :UseCustomCapabilitiesTests;
-export import :StringTests;
-export import :MeshSerializerTests;
-export import :MeshWithoutIndexDataTests;
-export import :ResourceLocationPriorityTest;
-export import :PixelFormatTests;
-export import :FileSystemArchiveTests;
-export import :RadixSortTests;
-export import :RenderSystemCapabilitiesTests;
+export import :Core.RootWithoutRenderSystemFixture;
+export import :Core.ZipArchive;
+export import :Core.EdgeBuilder;
+export import :Core.UseCustomCapabilities;
+export import :Core.String;
+export import :Core.MeshSerializer;
+export import :Core.MeshWithoutIndexData;
+export import :Core.ResourceLocationPriority;
+export import :Core.PixelFormat;
+export import :Core.FileSystemArchive;
+export import :Core.RadixSort;
+export import :Core.RenderSystemCapabilities;

@@ -29,12 +29,9 @@ module;
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:ZipArchiveTests;
+export module Ogre.Tests:Core.ZipArchive;
 
-export
-namespace Ogre {
-    class Archive;
-}  // namespace Ogre
+export import Ogre.Core;
 
 export
 class ZipArchiveTests : public ::testing::Test

@@ -29,7 +29,7 @@ module;
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:StringTests;
+export module Ogre.Tests:Core.String;
 
 export import Ogre.Core;
 

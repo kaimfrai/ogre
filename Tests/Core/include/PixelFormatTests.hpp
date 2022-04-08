@@ -29,11 +29,10 @@ module;
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:PixelFormatTests;
+export module Ogre.Tests:Core.PixelFormat;
 
 export import Ogre.Core;
 
-export
 using namespace Ogre;
 
 export

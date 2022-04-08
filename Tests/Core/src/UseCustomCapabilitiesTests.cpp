@@ -25,9 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Tests.Core:UseCustomCapabilitiesTests.Obj;
+module;
 
-import :UseCustomCapabilitiesTests;
+#include <gtest/gtest.h>
+
+module Ogre.Tests:Core.UseCustomCapabilities.Obj;
+
+import :Core.UseCustomCapabilities;
 
 import Ogre.Core;
 

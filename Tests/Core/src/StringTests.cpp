@@ -25,9 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Tests.Core:StringTests.Obj;
+module;
 
-import :StringTests;
+#include <gtest/gtest.h>
+
+module Ogre.Tests:Core.String.Obj;
+
+import :Core.String;
 
 import Ogre.Core;
 

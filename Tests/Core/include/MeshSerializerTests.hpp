@@ -29,23 +29,12 @@ module;
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:MeshSerializerTests;
+export module Ogre.Tests:Core.MeshSerializer;
 
 export import Ogre.Core;
 
 export import <unordered_map>;
 
-export
-namespace Ogre {
-    class EdgeData;
-    class FileSystemLayer;
-    class IndexData;
-    class Mesh;
-    class VertexData;
-    struct MeshLodUsage;
-}  // namespace Ogre
-
-export
 using namespace Ogre;
 
 export

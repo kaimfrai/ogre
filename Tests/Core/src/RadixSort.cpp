@@ -28,11 +28,10 @@ THE SOFTWARE.
 module;
 
 #include <gtest/gtest.h>
-#include "../../Core/src/OgreRadixSort.hpp"
 
-module Ogre.Tests.Core;
+module Ogre.Tests:Core.RadixSort.Obj;
 
-import :RadixSortTests;
+import :Core.RadixSort;
 
 import Ogre.Core;
 

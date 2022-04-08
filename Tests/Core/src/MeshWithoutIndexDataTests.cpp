@@ -27,21 +27,19 @@ THE SOFTWARE.
 */
 module;
 
+#include <gtest/gtest.h>
+
 #include <sys/types.h>
 
-module Ogre.Tests.Core:MeshWithoutIndexDataTests.Obj;
+module Ogre.Tests:Core.MeshWithoutIndexData.Obj;
 
-import :MeshWithoutIndexDataTests;
+import :Core.MeshWithoutIndexData;
 
 import Ogre.Core;
 
 import <cstdio>;
 import <string>;
 import <vector>;
-
-namespace Ogre {
-    class InvalidParametersException;
-}  // namespace Ogre
 
 // Register the test suite
 //--------------------------------------------------------------------------

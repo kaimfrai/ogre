@@ -243,6 +243,13 @@ function(add_module_implementation
 		module_implementation_target_name
 		module_implementation_binary
 	)
+
+	if	(NOT "${module_implementation_name}" MATCHES "^${module_name}:"
+		AND	NOT "${module_implementation_name}" STREQUAL "${module_name}")
+
+		message(FATAL_ERROR "Implementation ${source_file} does not appear to belong to module ${module_name}!")
+	endif()
+
 	read_module_dependencies(
 		"${preprocessed_module_file}"
 		"${module_name}"
@@ -355,6 +362,10 @@ function(add_module
 			partition_target_name
 			partition_binary
 		)
+
+		if	(NOT ${partition_name} MATCHES "^${module_name}:")
+			message(FATAL_ERROR "Partition ${partition_file} does not appear to belong to module ${module_name} with primary interface declared in ${module_interface_file}!")
+		endif()
 
 		add_module_partition(
 			"${module_name}"

@@ -29,18 +29,10 @@ module;
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:RenderSystemCapabilitiesTests;
+export module Ogre.Tests:Core.RenderSystemCapabilities;
 
 export import Ogre.Core;
 
-export
-namespace Ogre {
-    class ArchiveManager;
-    class FileSystemArchiveFactory;
-    class RenderSystemCapabilitiesManager;
-}  // namespace Ogre
-
-export
 using namespace Ogre;
 
 export

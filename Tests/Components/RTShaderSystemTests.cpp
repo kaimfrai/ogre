@@ -29,11 +29,12 @@ module;
 
 #include <gtest/gtest.h>
 
-module Ogre.Tests.Components;
+module Ogre.Tests:Components;
+
+import :Core.RootWithoutRenderSystemFixture;
 
 import Ogre.Components.RTShaderSystem;
 import Ogre.Core;
-import Ogre.Tests.Core;
 
 import <cstddef>;
 import <memory>;

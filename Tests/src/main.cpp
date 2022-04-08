@@ -1,10 +1,7 @@
-module;
-
 #include <gtest/gtest.h>
 
-module Ogre.Tests;
-
 import Ogre.Core;
+import Ogre.Tests;
 
 auto main(int argc, char *argv[]) -> int
 {

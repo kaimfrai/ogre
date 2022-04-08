@@ -25,9 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Tests.Core:MeshSerializerTests.Obj;
+module;
 
-import :MeshSerializerTests;
+#include <gtest/gtest.h>
+
+module Ogre.Tests:Core.MeshSerializer.Obj;
+
+import :Core.MeshSerializer;
 
 import Ogre.Core;
 

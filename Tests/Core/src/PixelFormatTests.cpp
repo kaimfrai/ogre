@@ -25,9 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Tests.Core:PixelFormatTests.Obj;
+module;
 
-import :PixelFormatTests;
+#include <gtest/gtest.h>
+
+module Ogre.Tests:Core.PixelFormat.Obj;
+
+import :Core.PixelFormat;
 
 import Ogre.Core;
 

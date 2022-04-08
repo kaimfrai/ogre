@@ -10,6 +10,8 @@ if	(NOT WARNING_FLAGS)
 	message(WARNING "Compiling modules without WARNING_FLAGS")
 endif()
 
+set(WARNING_FLAGS ${WARNING_FLAGS} -Werror=export-using-directive)
+
 if	(NOT ADDITIONAL_COMPILE_OPTIONS)
 	message(WARNING "Compiling modules without ADDITIONAL_COMPILE_OPTIONS")
 endif()

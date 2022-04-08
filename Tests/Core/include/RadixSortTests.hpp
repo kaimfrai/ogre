@@ -29,7 +29,7 @@ module;
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:RadixSortTests;
+export module Ogre.Tests:Core.RadixSort;
 
 export
 class RadixSortTests : public ::testing::Test

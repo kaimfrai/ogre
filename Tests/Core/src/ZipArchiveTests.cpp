@@ -25,9 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Tests.Core:ZipArchiveTests.Obj;
+module;
 
-import :ZipArchiveTests;
+#include <gtest/gtest.h>
+
+module Ogre.Tests:Core.ZipArchive.Obj;
+
+import :Core.ZipArchive;
 
 import Ogre.Core;
 

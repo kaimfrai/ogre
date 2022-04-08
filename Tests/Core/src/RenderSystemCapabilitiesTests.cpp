@@ -25,9 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Tests.Core:RenderSystemCapabilitiesTests.Obj;
+module;
 
-import :RenderSystemCapabilitiesTests;
+#include <gtest/gtest.h>
+
+module Ogre.Tests:Core.RenderSystemCapabilities.Obj;
+
+import :Core.RenderSystemCapabilities;
 
 import Ogre.Core;
 

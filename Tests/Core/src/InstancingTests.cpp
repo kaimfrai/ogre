@@ -29,9 +29,9 @@ module;
 
 #include <gtest/gtest.h>
 
-module Ogre.Tests.Core;
+module Ogre.Tests:Core.Instancing;
 
-import :RootWithoutRenderSystemFixture;
+import :Core.RootWithoutRenderSystemFixture;
 
 import Ogre.Core;
 

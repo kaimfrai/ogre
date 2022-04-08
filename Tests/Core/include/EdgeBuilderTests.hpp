@@ -29,16 +29,10 @@ module;
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:EdgeBuilderTests;
+export module Ogre.Tests:Core.EdgeBuilder;
 
 export import Ogre.Core;
 
-export
-namespace Ogre {
-    class HardwareBufferManager;
-}  // namespace Ogre
-
-export
 using namespace Ogre;
 
 export

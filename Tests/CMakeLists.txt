@@ -76,13 +76,7 @@ if (OGRE_BUILD_TESTS)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Core/include)
 
     file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/Core/include/*.hpp")
-    file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/Core/src/*.cpp"
-      "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")
-
-    if (OGRE_CONFIG_ENABLE_ZIP)
-      list(APPEND HEADER_FILES Core/include/ZipArchiveTests.hpp)
-      list(APPEND SOURCE_FILES Core/src/ZipArchiveTests.cpp)
-    endif ()
+    file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/Core/src/*.cpp")
 
     if (OGRE_BUILD_COMPONENT_PAGING)
       set(OGRE_LIBRARIES ${OGRE_LIBRARIES} OgrePaging)
@@ -109,8 +103,8 @@ if (OGRE_BUILD_TESTS)
       list(APPEND SOURCE_FILES Components/RTShaderSystemTests.cpp)
     endif ()
 
-    if(TARGET OgreGLSupport)
-      set(OGRE_LIBRARIES ${OGRE_LIBRARIES} OgreGLSupport)
+    if(TARGET Ogre.RenderSystems.GLSupport)
+      set(OGRE_LIBRARIES ${OGRE_LIBRARIES} Ogre.RenderSystems.GLSupport)
       list(APPEND SOURCE_FILES RenderSystems/GLSupport/GLSLTests.cpp)
     endif()
 
@@ -122,7 +116,18 @@ if (OGRE_BUILD_TESTS)
     if(UNIX)
       add_definitions(-Wno-undef)
     endif()
-    add_executable(Test_Ogre ${HEADER_FILES} ${SOURCE_FILES} ${RESOURCE_FILES} )
+
+    add_module(
+      Core.hpp
+    PARTITION
+      ${HEADER_FILES}
+    IMPLEMENTATION
+      ${SOURCE_FILES}
+    )
+    add_module_executable(Test_Ogre
+      "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp"
+      ${RESOURCE_FILES}
+    )
     ogre_install_target(Test_Ogre "" FALSE)
     target_link_libraries(Test_Ogre Ogre.Components.Bites Ogre.PlugIns.STBICodec ${OGRE_LIBRARIES} GTest::gtest)
 
