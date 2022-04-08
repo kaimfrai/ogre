@@ -3,7 +3,7 @@
 TARGETS=(\
 	miniz\
 	zip\
-	OgreMain\
+	OgreCore\
 	Codec_STBI\
 	OgreGLSupport\
 	RenderSystem_GL\
