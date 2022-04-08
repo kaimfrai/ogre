@@ -38,8 +38,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-class RenderQueue;
-
     //---------------------------------------------------------------------
     String PanelOverlayElement::msTypeName = "Panel";
     /** Command object for specifying tiling (see ParamCommand).*/

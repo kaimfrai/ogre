@@ -33,8 +33,6 @@ export
 namespace Ogre {
     class Overlay;
     class OverlayContainer;
-class Camera;
-class RenderQueue;
 
     /** \addtogroup Optional
     *  @{

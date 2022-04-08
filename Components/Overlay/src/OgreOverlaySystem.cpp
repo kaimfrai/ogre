@@ -46,7 +46,7 @@ import <cstddef>;
 import <string>;
 
 namespace Ogre {
-class OverlayElement;
+    class OverlayElement;
 
     //---------------------------------------------------------------------
     /** Factory for creating PanelOverlayElement instances. */

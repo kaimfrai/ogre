@@ -35,8 +35,6 @@ export import <cstddef>;
 
 export
 namespace Ogre {
-class RenderQueue;
-
     /** \addtogroup Optional
     *  @{
     */
