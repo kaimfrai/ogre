@@ -25,11 +25,8 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-module Ogre.Samples.Browser;
-
-import :SampleBrowser;
-
 import Ogre.Core;
+import Ogre.Samples;
 
 import <iostream>;
 import <string>;

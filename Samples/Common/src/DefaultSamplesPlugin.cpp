@@ -25,14 +25,14 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-module Ogre.Samples.Common:DefaultSamplesPlugin.Obj;
+module Ogre.Samples:DefaultSamplesPlugin.Obj;
 
 import :DefaultSamplesPlugin;
+import :NewInstancing;
 import :Sample;
 
 import Ogre.Components.Bites;
 import Ogre.Core;
-import Ogre.Samples.Simple;
 
 import <set>;
 

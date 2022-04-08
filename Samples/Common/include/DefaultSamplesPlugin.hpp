@@ -25,7 +25,7 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-export module Ogre.Samples.Common:DefaultSamplesPlugin;
+export module Ogre.Samples:DefaultSamplesPlugin;
 
 export import :SamplePlugin;
 

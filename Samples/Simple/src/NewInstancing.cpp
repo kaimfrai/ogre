@@ -1,4 +1,4 @@
-module Ogre.Samples.Simple:NewInstancing.Obj;
+module Ogre.Samples:NewInstancing.Obj;
 
 import :NewInstancing;
 
@@ -12,10 +12,6 @@ import <memory>;
 import <random>;
 import <string>;
 import <utility>;
-
-namespace Ogre::RTShader {
-class SubRenderState;
-}  // namespace Ogre
 
 using namespace Ogre;
 

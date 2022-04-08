@@ -25,18 +25,15 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-module;
+export module Ogre.Samples;
 
-#include "OgreArchiveManager.hpp"
-#include "OgreConfigFile.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreTrays.hpp"
-#include "SampleContext.hpp"
-#include "SamplePlugin.hpp"
-#include "SdkSample.hpp"
-#include "DefaultSamplesPlugin.hpp"
+export import :Sample;
+export import :SdkSample;
+export import :DefaultSamplesPlugin;
+export import :SamplePlugin;
+export import :SampleContext;
 
-export module Ogre.Samples.Browser:SampleBrowser;
+export import Ogre.Core;
 
 export
 enum {
