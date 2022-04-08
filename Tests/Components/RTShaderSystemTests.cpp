@@ -29,7 +29,7 @@ module;
 
 #include <gtest/gtest.h>
 
-module Ogre.Tests:Components;
+module Ogre.Tests;
 
 import :Core.RootWithoutRenderSystemFixture;
 

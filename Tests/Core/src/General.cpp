@@ -29,7 +29,7 @@ module;
 
 #include <gtest/gtest.h>
 
-module Ogre.Tests:Core.General;
+module Ogre.Tests;
 
 import :Core.RootWithoutRenderSystemFixture;
 
@@ -343,19 +343,19 @@ TEST(GpuSharedParameters, align)
 
     // trivial case
     params.addConstantDefinition("a", GCT_FLOAT1);
-    EXPECT_EQ(params.getConstantDefinition("a").logicalIndex, 0);
+    EXPECT_EQ(params.getConstantDefinition("a").logicalIndex, 0u);
 
     // 16 byte alignment
     params.addConstantDefinition("b", GCT_FLOAT4);
-    EXPECT_EQ(params.getConstantDefinition("b").logicalIndex, 16);
+    EXPECT_EQ(params.getConstantDefinition("b").logicalIndex, 16u);
 
     // break alignment again
     params.addConstantDefinition("c", GCT_FLOAT1);
-    EXPECT_EQ(params.getConstantDefinition("c").logicalIndex, 32);
+    EXPECT_EQ(params.getConstantDefinition("c").logicalIndex, 32u);
 
     // 16 byte alignment
     params.addConstantDefinition("d", GCT_MATRIX_4X4);
-    EXPECT_EQ(params.getConstantDefinition("d").logicalIndex, 48);
+    EXPECT_EQ(params.getConstantDefinition("d").logicalIndex, 48u);
 }
 
 using HighLevelGpuProgramTest = RootWithoutRenderSystemFixture;

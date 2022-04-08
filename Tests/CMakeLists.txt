@@ -118,15 +118,23 @@ if (OGRE_BUILD_TESTS)
     endif()
 
     add_module(
-      Core.hpp
+      Tests.hpp
     PARTITION
       ${HEADER_FILES}
     IMPLEMENTATION
       ${SOURCE_FILES}
+    INCLUDES
+      ${OGRE_DEPENDENCIES_DIR}/${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}/include/
     )
+
     add_module_executable(Test_Ogre
       "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp"
       ${RESOURCE_FILES}
+    )
+    target_sources(
+      Test_Ogre
+    PRIVATE
+      $<TARGET_OBJECTS:Ogre.Tests+>
     )
     ogre_install_target(Test_Ogre "" FALSE)
     target_link_libraries(Test_Ogre Ogre.Components.Bites Ogre.PlugIns.STBICodec ${OGRE_LIBRARIES} GTest::gtest)

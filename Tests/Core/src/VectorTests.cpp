@@ -29,7 +29,7 @@ module;
 
 #include <gtest/gtest.h>
 
-module Ogre.Tests:Core.Vector;
+module Ogre.Tests;
 
 import Ogre.Core;
 

@@ -31,7 +31,7 @@ module;
 
 #include <sys/types.h>
 
-module Ogre.Tests:Core.MeshWithoutIndexData.Obj;
+module Ogre.Tests;
 
 import :Core.MeshWithoutIndexData;
 

@@ -29,7 +29,7 @@ module;
 
 #include <gtest/gtest.h>
 
-module Ogre.Tests:Core.MeshSerializer.Obj;
+module Ogre.Tests;
 
 import :Core.MeshSerializer;
 
