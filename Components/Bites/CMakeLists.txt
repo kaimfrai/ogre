@@ -86,21 +86,7 @@ endif ()
 # define header and source files for the library
 file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
 file(GLOB PRIVATE_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp")
-set(SOURCES 
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreAdvancedRenderControls.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreApplicationContextBase.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreBitesConfigDialog.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreCameraMan.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreSGTechniqueResolverListener.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreStaticPluginLoader.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreTrays.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreWindowEventUtilities.cpp")
-
-if(SDL2_FOUND OR EMSCRIPTEN)
-  list(APPEND SOURCES  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreApplicationContextSDL.cpp")
-elseif(ANDROID)
-  list(APPEND SOURCES  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreApplicationContextAndroid.cpp")
-endif()
+file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 #if(ANDROID OR EMSCRIPTEN OR APPLE_IOS OR WINDOWS_STORE OR WINDOWS_PHONE)
   ## no config dialog available
@@ -136,11 +122,6 @@ endif()
     #install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/misc/GLX_backdrop.png" DESTINATION "share/OGRE/")
   #endif()
 #endif()
-
-if(OGRE_BUILD_COMPONENT_OVERLAY_IMGUI)
-  list(APPEND SOURCES
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreImGuiInputListener.cpp")
-endif()
 
 # setup target
 add_module(

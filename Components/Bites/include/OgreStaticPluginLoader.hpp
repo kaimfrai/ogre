@@ -4,12 +4,9 @@
 // SPDX-License-Identifier: MIT
 export module Ogre.Components.Bites:StaticPluginLoader;
 
-export import <vector>;
+export import Ogre.Core;
 
-export
-namespace Ogre {
-class Plugin;
-}  // namespace Ogre
+export import <vector>;
 
 export
 namespace OgreBites

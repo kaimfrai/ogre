@@ -4,13 +4,10 @@
 // SPDX-License-Identifier: MIT
 export module Ogre.Components.Bites:Input;
 
+export import Ogre.Core;
+
 export import <utility>;
 export import <vector>;
-
-export
-namespace Ogre {
-    struct FrameEvent;
-}
 
 export
 namespace OgreBites {

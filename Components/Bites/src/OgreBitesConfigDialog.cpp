@@ -6,11 +6,9 @@ module Ogre.Components.Bites:ConfigDialog.Obj;
 
 import :ConfigDialog;
 
-import <cstddef>;
+import Ogre.Core;
 
-namespace Ogre {
-    class ConfigDialog;
-}  // namespace Ogre
+import <cstddef>;
 
 namespace OgreBites {
     auto getNativeConfigDialog() -> Ogre::ConfigDialog* {

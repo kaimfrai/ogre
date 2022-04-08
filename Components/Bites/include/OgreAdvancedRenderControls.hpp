@@ -29,22 +29,14 @@ export module Ogre.Components.Bites:AdvancedRenderControls;
 
 export import :Input;
 
-export
-namespace Ogre {
-    class Camera;
-    class Root;
-
-    namespace RTShader {
-        class ShaderGenerator;
-    }  // namespace RTShader
-    struct FrameEvent;
-}  // namespace Ogre
+export import Ogre.Core;
+export import Ogre.Components.RTShaderSystem;
 
 export
 namespace OgreBites {
 
-class TrayManager;
-class ParamsPanel;
+    class TrayManager;
+    class ParamsPanel;
 
 /** \addtogroup Optional
 *  @{

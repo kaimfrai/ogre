@@ -25,11 +25,18 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
+module;
+
+#include <SDL2/SDL.h>
+
 export module Ogre.Components.Bites:ApplicationContextBase;
 
+export import :Input;
 export import :StaticPluginLoader;
 
 export import Ogre.Core;
+export import Ogre.Components.Overlay;
+export import Ogre.Components.RTShaderSystem;
 
 export import <cstddef>;
 export import <cstdint>;
@@ -38,27 +45,10 @@ export import <set>;
 export import <utility>;
 export import <vector>;
 
-// forward declarations
-export
-extern "C" struct SDL_Window;
-
-export
-namespace Ogre {
-    class OverlaySystem;
-    class FileSystemLayer;
-    class RenderWindow;
-    class Root;
-
-    namespace RTShader {
-        class ShaderGenerator;
-    }  // namespace RTShader
-}
-
 export
 namespace OgreBites
 {
     class SGTechniqueResolverListener;
-    struct InputListener;
     union Event;
 
     using NativeWindowType = SDL_Window;

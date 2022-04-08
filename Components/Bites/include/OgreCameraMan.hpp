@@ -32,12 +32,6 @@ export import :Input;
 export import Ogre.Core;
 
 export
-namespace Ogre {
-class SceneNode;
-struct FrameEvent;
-}  // namespace Ogre
-
-export
 namespace OgreBites
 {
     /** \addtogroup Optional

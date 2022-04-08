@@ -13,10 +13,6 @@ import Ogre.Core;
 import <string>;
 import <vector>;
 
-namespace Ogre {
-struct FrameEvent;
-}  // namespace Ogre
-
 namespace OgreBites {
 AdvancedRenderControls::AdvancedRenderControls(TrayManager* trayMgr, Ogre::Camera* cam)
     : mCamera(cam), mTrayMgr(trayMgr) {
