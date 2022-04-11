@@ -1,8 +1,6 @@
 #!/bin/bash
 
 TARGETS=(\
-	miniz\
-	zip\
 	OgreCore\
 	Codec_STBI\
 	OgreGLSupport\
@@ -10,7 +8,6 @@ TARGETS=(\
 	OgreRTShaderSystem\
 	OgreOverlay\
 	OgreBites\
-	DefaultSamples\
 	SampleBrowser
 )
 
