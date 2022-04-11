@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:Entity.Obj;
+module Ogre.Core;
 
 import :AlignedAllocator;
 import :Animation;

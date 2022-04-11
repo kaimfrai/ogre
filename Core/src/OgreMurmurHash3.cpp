@@ -5,7 +5,7 @@
 // algorithms are optimized for their respective platforms. You can still
 // compile and run any of them on any platform, but your performance with the
 // non-native version will be less than optimal.
-module Ogre.Core:MurmurHash3.Obj;
+module Ogre.Core;
 
 import :MurmurHash3;
 import :Platform;

@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:InstanceBatch.Obj;
+module Ogre.Core;
 
 import :Camera;
 import :Exception;

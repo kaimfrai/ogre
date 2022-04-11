@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:Root.Obj;
+module Ogre.Core;
 
 import :ASTCCodec;
 import :ArchiveFactory;

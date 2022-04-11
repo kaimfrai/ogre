@@ -32,7 +32,7 @@ module;
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
-module Ogre.RenderSystems.GLSupport:GLX.Window.Obj;
+module Ogre.RenderSystems.GLSupport;
 
 import :GLX.Context;
 import :GLX.GLSupport;

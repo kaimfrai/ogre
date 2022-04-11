@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:ParticleSystemManager.Obj;
+module Ogre.Core;
 
 import :BillboardParticleRenderer;
 import :Common;

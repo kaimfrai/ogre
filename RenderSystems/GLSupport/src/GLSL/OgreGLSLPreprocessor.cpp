@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.RenderSystems.GLSupport:GLSL.Preprocessor.Obj;
+module Ogre.RenderSystems.GLSupport;
 
 import :GLSL.Preprocessor;
 

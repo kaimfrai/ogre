@@ -31,7 +31,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:ShadowTextureManager.Obj;
+module Ogre.Core;
 
 import :HardwareBuffer;
 import :HardwarePixelBuffer;

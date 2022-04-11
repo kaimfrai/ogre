@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:EdgeListBuilder.Obj;
+module Ogre.Core;
 
 import :EdgeListBuilder;
 import :Exception;

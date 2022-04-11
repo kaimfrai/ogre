@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:DataStream.Obj;
+module Ogre.Core;
 
 import :DataStream;
 import :Exception;

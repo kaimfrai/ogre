@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Tests.VisualTests.VTests:VTestPlugin.Obj;
+module Ogre.Tests.VisualTests.VTests;
 
 import :CubeMappingTest;
 import :StencilShadowTest;

@@ -29,7 +29,7 @@ module;
 #include <freetype/freetype.h>
 #undef generic
 
-module Ogre.Components.Overlay:Font.Obj;
+module Ogre.Components.Overlay;
 
 import :Font;
 import :Manager;

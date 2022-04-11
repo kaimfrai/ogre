@@ -29,7 +29,7 @@ module;
 
 #include <glad/glad.h>
 
-module Ogre.RenderSystems.GL:GpuProgram.Obj;
+module Ogre.RenderSystems.GL;
 
 import :GpuProgram;
 

@@ -32,7 +32,7 @@ module;
 // NOLINTBEGIN
 #include <zip.h>
 
-module Ogre.Core:Zip.Obj;
+module Ogre.Core;
 
 import :Archive;
 import :DataStream;

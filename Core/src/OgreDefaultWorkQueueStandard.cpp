@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 // IWYU pragma: no_include <cxxabi.h>
-module Ogre.Core:DefaultWorkQueueStandard.Obj;
+module Ogre.Core;
 
 import :DefaultWorkQueueStandard;
 import :Log;

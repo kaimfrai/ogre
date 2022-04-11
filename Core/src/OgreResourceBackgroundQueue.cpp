@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:ResourceBackgroundQueue.Obj;
+module Ogre.Core;
 
 import :Any;
 import :Exception;

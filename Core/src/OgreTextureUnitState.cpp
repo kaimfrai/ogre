@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:TextureUnitState.Obj;
+module Ogre.Core;
 
 import :ControllerManager;
 import :Exception;

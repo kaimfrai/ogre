@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Components.RTShaderSystem:ShaderExGBuffer.Obj;
+module Ogre.Components.RTShaderSystem;
 
 import :ShaderExGBuffer;
 import :ShaderFFPRenderState;

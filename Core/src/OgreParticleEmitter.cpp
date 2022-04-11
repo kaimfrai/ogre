@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:ParticleEmitter.Obj;
+module Ogre.Core;
 
 import :Common;
 import :ParticleEmitter;

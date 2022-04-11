@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:HardwarePixelBuffer.Obj;
+module Ogre.Core;
 
 import :Exception;
 import :HardwarePixelBuffer;

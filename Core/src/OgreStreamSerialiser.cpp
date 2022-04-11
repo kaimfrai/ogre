@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:StreamSerialiser.Obj;
+module Ogre.Core;
 
 import :AxisAlignedBox;
 import :Bitwise;

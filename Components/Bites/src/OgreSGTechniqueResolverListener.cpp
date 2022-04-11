@@ -1,4 +1,4 @@
-module Ogre.Components.Bites:SGTechniqueResolverListener.Obj;
+module Ogre.Components.Bites;
 
 import :SGTechniqueResolverListener;
 

@@ -31,7 +31,7 @@ module;
 
 #include <cassert>
 
-module Ogre.RenderSystems.GL:HardwarePixelBuffer.Obj;
+module Ogre.RenderSystems.GL;
 
 import :FBORenderTexture;
 import :HardwarePixelBuffer;

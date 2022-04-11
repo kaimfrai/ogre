@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:MeshSerializerImpl.Obj;
+module Ogre.Core;
 
 import :Animation;
 import :AnimationTrack;

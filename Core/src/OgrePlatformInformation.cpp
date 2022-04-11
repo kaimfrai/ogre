@@ -29,7 +29,7 @@ module;
 
 #include <ostream>
 
-module Ogre.Core:PlatformInformation.Obj;
+module Ogre.Core;
 
 import :Log;
 import :PlatformInformation;

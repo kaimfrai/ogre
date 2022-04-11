@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:DynLibManager.Obj;
+module Ogre.Core;
 
 import :DynLib;
 import :DynLibManager;

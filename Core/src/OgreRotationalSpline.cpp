@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:RotationalSpline.Obj;
+module Ogre.Core;
 
 import :Prerequisites;
 import :Quaternion;

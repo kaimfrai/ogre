@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:RenderSystem.Obj;
+module Ogre.Core;
 
 // RenderSystem implementation
 // Note that most of this class is abstract since

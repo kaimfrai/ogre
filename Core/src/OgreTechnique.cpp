@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:Technique.Obj;
+module Ogre.Core;
 
 import :BlendMode;
 import :ColourValue;

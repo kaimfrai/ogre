@@ -4,7 +4,7 @@
  *  Created on: 01.07.2016
  *      Author: parojtbe
  */
-module Ogre.Components.Bites:Trays.Obj;
+module Ogre.Components.Bites;
 
 import :Trays;
 

@@ -33,7 +33,7 @@ module;
 #include <X11/Xlib.h>
 #include <climits>
 
-module Ogre.RenderSystems.GLSupport:GLX.RenderTexture.Obj;
+module Ogre.RenderSystems.GLSupport;
 
 import :GLX.Context;
 import :GLX.GLSupport;

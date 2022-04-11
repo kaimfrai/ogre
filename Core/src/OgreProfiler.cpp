@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:Profiler.Obj;
+module Ogre.Core;
 
 /*
 

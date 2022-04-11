@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Components.RTShaderSystem:ShaderProgramWriterManager.Obj;
+module Ogre.Components.RTShaderSystem;
 
 import :ShaderGLSLESProgramWriter;
 import :ShaderGLSLProgramWriter;

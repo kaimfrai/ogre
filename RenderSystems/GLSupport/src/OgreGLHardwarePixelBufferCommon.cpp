@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GLSupport:HardwarePixelBufferCommon.Obj;
+module Ogre.RenderSystems.GLSupport;
 
 import :HardwarePixelBufferCommon;
 

@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:MovableObject.Obj;
+module Ogre.Core;
 
 import :AxisAlignedBox;
 import :Camera;

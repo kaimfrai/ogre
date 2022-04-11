@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:RibbonTrail.Obj;
+module Ogre.Core;
 
 import :Controller;
 import :Exception;

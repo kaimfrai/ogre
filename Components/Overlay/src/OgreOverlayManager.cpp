@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Components.Overlay:Manager.Obj;
+module Ogre.Components.Overlay;
 
 import :Container;
 import :Element;
@@ -37,7 +37,6 @@ import :ElementFactory;
 import :Manager;
 import :Translator;
 
-import Ogre.Components.Overlay;
 import Ogre.Core;
 
 import <memory>;

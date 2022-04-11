@@ -33,7 +33,7 @@ module;
 
 #include <cassert>
 
-module Ogre.RenderSystems.GLSupport:GLX.GLSupport.Obj;
+module Ogre.RenderSystems.GLSupport;
 
 import :GLX.GLSupport;
 import :GLX.RenderTexture;

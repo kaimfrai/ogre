@@ -29,7 +29,7 @@ module;
 
 #include <glad/glad.h>
 
-module Ogre.RenderSystems.GL:TextureManager.Obj;
+module Ogre.RenderSystems.GL;
 
 import :PixelFormat;
 import :RenderSystem;

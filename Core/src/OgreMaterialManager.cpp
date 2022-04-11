@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:MaterialManager.Obj;
+module Ogre.Core;
 
 import :Common;
 import :Exception;

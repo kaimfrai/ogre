@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:SceneManager.Shadow;
+module Ogre.Core;
 
 import :AutoParamDataSource;
 import :AxisAlignedBox;

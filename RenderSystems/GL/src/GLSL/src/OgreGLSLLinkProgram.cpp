@@ -29,7 +29,7 @@ module;
 
 #include <glad/glad.h>
 
-module Ogre.RenderSystems.GL:GLSL.LinkProgram.Obj;
+module Ogre.RenderSystems.GL;
 
 import :GLSL.ExtSupport;
 import :GLSL.LinkProgram;

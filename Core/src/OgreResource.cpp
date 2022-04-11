@@ -26,7 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 // Ogre includes
-module Ogre.Core:Resource.Obj;
+module Ogre.Core;
 
 import :Exception;
 import :Log;

@@ -1,7 +1,7 @@
 // This file is part of the OGRE project.
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
-module Ogre.Core:DefaultDebugDrawer.Obj;
+module Ogre.Core;
 
 import :BlendMode;
 import :Common;

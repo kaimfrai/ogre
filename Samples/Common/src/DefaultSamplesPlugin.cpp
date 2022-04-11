@@ -25,7 +25,7 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-module Ogre.Samples:DefaultSamplesPlugin.Obj;
+module Ogre.Samples;
 
 import :DefaultSamplesPlugin;
 import :NewInstancing;

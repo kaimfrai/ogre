@@ -28,7 +28,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Components.RTShaderSystem:ShaderParameter.Obj;
+module Ogre.Components.RTShaderSystem;
 
 import :ShaderParameter;
 import :ShaderPrerequisites;

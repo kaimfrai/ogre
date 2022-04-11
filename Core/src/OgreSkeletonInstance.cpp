@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:SkeletonInstance.Obj;
+module Ogre.Core;
 
 import :Bone;
 import :Node;

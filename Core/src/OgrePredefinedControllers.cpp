@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:PredefinedControllers.Obj;
+module Ogre.Core;
 
 import :GpuProgramParams;
 import :Math;

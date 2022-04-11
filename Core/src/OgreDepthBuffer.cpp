@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:DepthBuffer.Obj;
+module Ogre.Core;
 
 import :DepthBuffer;
 import :RenderTarget;

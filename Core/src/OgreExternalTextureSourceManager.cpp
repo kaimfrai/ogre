@@ -37,7 +37,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:ExternalTextureSourceManager.Obj;
+module Ogre.Core;
 
 import :ExternalTextureSource;
 import :ExternalTextureSourceManager;

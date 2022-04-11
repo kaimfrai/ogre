@@ -30,7 +30,7 @@ module;
 #include <X11/X.h>
 #include <X11/Xlib.h>
 
-module Ogre.Components.Bites:WindowEventUtilities.Obj;
+module Ogre.Components.Bites;
 
 import :WindowEventUtilities;
 

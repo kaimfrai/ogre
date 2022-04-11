@@ -31,7 +31,7 @@ module;
 
 #include <cassert>
 
-module Ogre.RenderSystems.GL:RenderToVertexBuffer.Obj;
+module Ogre.RenderSystems.GL;
 
 import :GLSL.LinkProgram;
 import :GLSL.LinkProgramManager;

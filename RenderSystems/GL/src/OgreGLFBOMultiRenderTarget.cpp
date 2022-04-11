@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.RenderSystems.GL:FBOMultiRenderTarget.Obj;
+module Ogre.RenderSystems.GL;
 
 import :FBOMultiRenderTarget;
 

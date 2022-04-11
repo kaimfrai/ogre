@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:SimpleSpline.Obj;
+module Ogre.Core;
 
 import :Matrix4;
 import :Prerequisites;

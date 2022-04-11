@@ -25,7 +25,7 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GLSupport:Window.Obj;
+module Ogre.RenderSystems.GLSupport;
 
 import :RenderSystemCommon;
 import :Window;

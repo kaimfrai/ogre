@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Components.RTShaderSystem:ShaderExLayeredBlending.Obj;
+module Ogre.Components.RTShaderSystem;
 
 import :ShaderExLayeredBlending;
 import :ShaderFFPTexturing;

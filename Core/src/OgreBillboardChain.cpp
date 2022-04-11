@@ -31,7 +31,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:BillboardChain.Obj;
+module Ogre.Core;
 
 import :BillboardChain;
 import :Camera;

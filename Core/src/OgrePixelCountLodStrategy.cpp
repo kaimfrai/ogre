@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:PixelCountLodStrategy.Obj;
+module Ogre.Core;
 
 import :Camera;
 import :Frustum;

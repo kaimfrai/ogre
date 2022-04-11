@@ -35,7 +35,7 @@ extern "C" {
 #   include <dlfcn.h>
 }
 
-module Ogre.Core:DynLib.Obj;
+module Ogre.Core;
 
 import :DynLib;
 import :Exception;

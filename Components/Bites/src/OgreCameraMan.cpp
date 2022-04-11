@@ -1,4 +1,4 @@
-module Ogre.Components.Bites:CameraMan.Obj;
+module Ogre.Components.Bites;
 
 import :CameraMan;
 

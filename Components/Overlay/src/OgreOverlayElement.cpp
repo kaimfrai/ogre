@@ -25,14 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Components.Overlay:Element.Obj;
+module Ogre.Components.Overlay;
 
 import :Container;
 import :Element;
 import :ElementCommands;
 import :Manager;
 
-import Ogre.Components.Overlay;
 import Ogre.Core;
 
 import <cstddef>;

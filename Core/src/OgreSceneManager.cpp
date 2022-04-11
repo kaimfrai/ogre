@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:SceneManager.Obj;
+module Ogre.Core;
 
 import :Animable;
 import :Animation;

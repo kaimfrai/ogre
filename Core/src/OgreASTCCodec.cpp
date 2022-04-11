@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Core:ASTCCodec.Obj;
+module Ogre.Core;
 
 import :ASTCCodec;
 import :Codec;

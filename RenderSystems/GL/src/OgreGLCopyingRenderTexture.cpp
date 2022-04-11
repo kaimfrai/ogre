@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.RenderSystems.GL:CopyingRenderTexture.Obj;
+module Ogre.RenderSystems.GL;
 
 import :CopyingRenderTexture;
 import :HardwarePixelBuffer;

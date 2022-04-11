@@ -31,7 +31,7 @@ module;
     #include <stdio.h>
 #endif
 
-module Ogre.Core:Exception.Obj;
+module Ogre.Core;
 
 import :Exception;
 import :Prerequisites;

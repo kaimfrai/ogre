@@ -31,7 +31,7 @@ module;
 
 #include <cassert>
 
-module Ogre.RenderSystems.GL:atifs.Compiler2Pass.Obj;
+module Ogre.RenderSystems.GL;
 
 import :atifs.Compiler2Pass;
 

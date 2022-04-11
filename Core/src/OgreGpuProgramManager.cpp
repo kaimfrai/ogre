@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:GpuProgramManager.Obj;
+module Ogre.Core;
 
 import :DataStream;
 import :Exception;

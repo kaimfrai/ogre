@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:ScriptCompiler.Obj;
+module Ogre.Core;
 
 import :BuiltinScriptTranslators;
 import :DataStream;

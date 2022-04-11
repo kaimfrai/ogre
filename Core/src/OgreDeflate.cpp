@@ -30,7 +30,7 @@ module;
 #define MINIZ_HEADER_FILE_ONLY
 #include <miniz.h>
 
-module Ogre.Core:Deflate.Obj;
+module Ogre.Core;
 
 import :Deflate;
 import :Exception;

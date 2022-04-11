@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Components.Overlay:System.Obj;
+module Ogre.Components.Overlay;
 
 import :BorderPanelOverlayElement;
 import :ElementFactory;

@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:BillboardSet.Obj;
+module Ogre.Core;
 
 import :Billboard;
 import :BillboardSet;

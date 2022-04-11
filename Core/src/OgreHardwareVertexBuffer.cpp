@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:HardwareVertexBuffer.Obj;
+module Ogre.Core;
 
 import :DefaultHardwareBufferManager;
 import :Exception;

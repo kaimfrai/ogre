@@ -25,14 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Components.Overlay:ProfileSessionListener.Obj;
+module Ogre.Components.Overlay;
 
 import :Container;
 import :Element;
 import :Manager;
 import :ProfileSessionListener;
 
-import Ogre.Components.Overlay;
 import Ogre.Core;
 
 import <map>;

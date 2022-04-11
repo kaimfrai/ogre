@@ -29,7 +29,7 @@ module;
 
 #include <glad/glad.h>
  
-module Ogre.RenderSystems.GL:atifs.ps_1_4.Obj;
+module Ogre.RenderSystems.GL;
 
  //---------------------------------------------------------------------------
 import :atifs.ps_1_4;

@@ -53,7 +53,7 @@ THE SOFTWARE.
   Author: Ladislav Kavan, kavanl@cs.tcd.ie
 
 */
-module Ogre.Core:DualQuaternion.Obj;
+module Ogre.Core;
 
 import :DualQuaternion;
 import :Matrix4;

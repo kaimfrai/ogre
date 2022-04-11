@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:PixelFormat.Obj;
+module Ogre.Core;
 
 import :AlignedAllocator;
 import :Bitwise;

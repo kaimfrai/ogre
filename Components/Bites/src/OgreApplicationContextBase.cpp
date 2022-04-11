@@ -1,7 +1,7 @@
 // This file is part of the OGRE project.
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
-module Ogre.Components.Bites:ApplicationContextBase.Obj;
+module Ogre.Components.Bites;
 
 import :ApplicationContextBase;
 import :ConfigDialog;

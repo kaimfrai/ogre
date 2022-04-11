@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:Texture.Obj;
+module Ogre.Core;
 
 import :Bitwise;
 import :Common;

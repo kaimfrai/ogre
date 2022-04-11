@@ -28,7 +28,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Components.RTShaderSystem:ShaderProgramManager.Obj;
+module Ogre.Components.RTShaderSystem;
 
 import :ShaderFunction;
 import :ShaderGLSLProgramProcessor;

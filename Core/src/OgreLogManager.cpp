@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:LogManager.Obj;
+module Ogre.Core;
 
 import :Exception;
 import :Log;

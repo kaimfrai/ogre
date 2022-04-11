@@ -29,7 +29,7 @@ module;
 
 #include <glad/glad.h>
 
-module Ogre.RenderSystems.GL:FBORenderTexture.Obj;
+module Ogre.RenderSystems.GL;
 
 import :FBORenderTexture;
 import :HardwarePixelBuffer;

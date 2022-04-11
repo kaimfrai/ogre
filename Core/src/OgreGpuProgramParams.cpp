@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:GpuProgramParams.Obj;
+module Ogre.Core;
 
 import :AutoParamDataSource;
 import :ColourValue;

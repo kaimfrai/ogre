@@ -28,7 +28,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Components.RTShaderSystem:ShaderExHardwareSkinning.Obj;
+module Ogre.Components.RTShaderSystem;
 
 import :ShaderExDualQuaternionSkinning;
 import :ShaderExHardwareSkinning;

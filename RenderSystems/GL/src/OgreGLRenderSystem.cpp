@@ -31,7 +31,7 @@ module;
 
 #include <cassert>
 
-module Ogre.RenderSystems.GL:RenderSystem.Obj;
+module Ogre.RenderSystems.GL;
 
 import :atifs.ATI_FS_GLGpuProgram;
 import :CopyingRenderTexture;

@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:SubEntity.Obj;
+module Ogre.Core;
 
 import :AnimationTrack;
 import :Camera;

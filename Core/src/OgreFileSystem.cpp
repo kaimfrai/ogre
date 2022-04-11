@@ -29,7 +29,7 @@ module;
 
 #include <sys/stat.h>
 
-module Ogre.Core:FileSystem.Obj;
+module Ogre.Core;
 
 import :Archive;
 import :DataStream;

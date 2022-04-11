@@ -32,7 +32,7 @@ module;
 #include <sys/stat.h>
 #include <unistd.h>
 
-module Ogre.Core:FileSystemLayer.Obj;
+module Ogre.Core;
 
 import :FileSystemLayer;
 import :Prerequisites;

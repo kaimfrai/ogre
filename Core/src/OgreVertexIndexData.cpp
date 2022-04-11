@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:VertexIndexData.Obj;
+module Ogre.Core;
 
 import :Config;
 import :Exception;

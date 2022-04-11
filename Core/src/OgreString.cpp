@@ -29,7 +29,7 @@ module;
 
 #include <strings.h>
 
-module Ogre.Core:String.Obj;
+module Ogre.Core;
 
 import :Exception;
 import :Prerequisites;

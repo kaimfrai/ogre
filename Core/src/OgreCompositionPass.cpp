@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:CompositionPass.Obj;
+module Ogre.Core;
 
 import :CompositionPass;
 import :Material;

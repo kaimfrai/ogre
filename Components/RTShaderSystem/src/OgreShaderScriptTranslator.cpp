@@ -28,7 +28,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Components.RTShaderSystem:ShaderScriptTranslator.Obj;
+module Ogre.Components.RTShaderSystem;
 
 import :ShaderGenerator;
 import :ShaderRenderState;

@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:ArchiveManager.Obj;
+module Ogre.Core;
 
 import :Archive;
 import :ArchiveFactory;

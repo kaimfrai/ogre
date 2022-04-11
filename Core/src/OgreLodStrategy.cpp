@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:LodStrategy.Obj;
+module Ogre.Core;
 
 import :Camera;
 import :LodStrategy;

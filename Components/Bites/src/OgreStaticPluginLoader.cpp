@@ -1,4 +1,4 @@
-module Ogre.Components.Bites:StaticPluginLoader.Obj;
+module Ogre.Components.Bites;
 
 import :StaticPluginLoader;
 

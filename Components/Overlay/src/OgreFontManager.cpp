@@ -27,7 +27,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Components.Overlay:FontManager.Obj;
+module Ogre.Components.Overlay;
 
 import :FontManager;
 

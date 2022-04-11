@@ -32,7 +32,7 @@ module;
 #include <fnmatch.h>
 #include <sys/stat.h>
 
-module Ogre.Core:SearchOps.Obj;
+module Ogre.Core;
 
 import :SearchOps;
 

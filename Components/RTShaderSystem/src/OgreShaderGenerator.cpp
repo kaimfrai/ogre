@@ -28,7 +28,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Components.RTShaderSystem:ShaderGenerator.Obj;
+module Ogre.Components.RTShaderSystem;
 
 import :ShaderCookTorranceLighting;
 import :ShaderExGBuffer;

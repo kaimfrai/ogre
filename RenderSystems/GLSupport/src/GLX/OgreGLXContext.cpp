@@ -31,7 +31,7 @@ module;
 #include <GL/glx.h>
 #include <X11/X.h>
 
-module Ogre.RenderSystems.GLSupport:GLX.Context.Obj;
+module Ogre.RenderSystems.GLSupport;
 
 import :GLX.Context;
 import :GLX.GLSupport;

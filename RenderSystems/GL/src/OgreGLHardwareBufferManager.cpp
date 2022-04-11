@@ -31,7 +31,7 @@ module;
 
 #include <cassert>
 
-module Ogre.RenderSystems.GL:HardwareBufferManager.Obj;
+module Ogre.RenderSystems.GL;
 
 import :HardwareBuffer;
 import :HardwareBufferManager;

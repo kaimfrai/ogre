@@ -1,4 +1,4 @@
-module Ogre.Samples:NewInstancing.Obj;
+module Ogre.Samples;
 
 import :NewInstancing;
 

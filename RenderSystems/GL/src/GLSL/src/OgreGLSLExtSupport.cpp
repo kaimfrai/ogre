@@ -29,12 +29,11 @@ module;
 
 #include <glad/glad.h>
 
-module Ogre.RenderSystems.GL:GLSL.ExtSupport.Obj;
+module Ogre.RenderSystems.GL;
 
 import :GLSL.ExtSupport;
 
 import Ogre.Core;
-import Ogre.RenderSystems.GL;
 
 import <string>;
 

@@ -33,7 +33,7 @@ OgreExternalTextureSource.cpp  -
 date                 : Jan 1 2004
 email                : pjcast@yahoo.com
 ***************************************************************************/
-module Ogre.Core:ExternalTextureSource.Obj;
+module Ogre.Core;
 
 import :Exception;
 import :ExternalTextureSource;

@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:StaticGeometry.Obj;
+module Ogre.Core;
 
 import :Camera;
 import :EdgeListBuilder;

@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.RenderSystems.GL:PBRenderTexture.Obj;
+module Ogre.RenderSystems.GL;
 
 import :HardwarePixelBuffer;
 import :PBRenderTexture;

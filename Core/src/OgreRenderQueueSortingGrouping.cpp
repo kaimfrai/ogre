@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:RenderQueueSortingGrouping.Obj;
+module Ogre.Core;
 
 import :Exception;
 import :Material;

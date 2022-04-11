@@ -29,7 +29,7 @@ module;
 
 #include <cassert>
 
-module Ogre.Core:AnimationState.Obj;
+module Ogre.Core;
 
 import :AnimationState;
 import :Exception;

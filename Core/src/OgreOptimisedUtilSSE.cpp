@@ -33,7 +33,7 @@ module;
 #include <xmmintrin.h>
 #include <cassert>
 
-module Ogre.Core:OptimisedUtil.SSE;
+module Ogre.Core;
 
 // Should keep this includes at latest to avoid potential "xmmintrin.h" included by
 // other header file on some platform for some reason.
