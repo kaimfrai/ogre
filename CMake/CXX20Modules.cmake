@@ -258,57 +258,19 @@ function(add_module_implementation
 		module_dependency_binaries
 	)
 
-	if	("${module_implementation_name}" STREQUAL "${module_name}")
+	target_sources(
+		"${module_target_name}+"
+	PRIVATE
+		${source_file}
+	)
 
-		target_sources(
-			"${module_target_name}+"
-		PRIVATE
-			${source_file}
-		)
-
-		add_module_source_dependencies(
-			"${module_target_name}+"
-			"${source_file}"
-			"${module_dependencies}"
-			"${module_target_dependencies}"
-			"${module_dependency_binaries}"
-		)
-
-	else()
-		add_library(
-			"${module_implementation_target_name}"
-		OBJECT
-			"${source_file}"
-		)
-
-		target_compile_options(
-			"${module_implementation_target_name}"
-		PRIVATE
-			${WARNING_FLAGS}
-			${MODULE_FLAGS}
-			${ADDITIONAL_COMPILE_OPTIONS}
-		)
-
-		target_include_directories(
-			"${module_implementation_target_name}"
-		PRIVATE
-			"${module_includes}"
-		)
-
-		target_sources(
-			"${module_target_name}+"
-		PRIVATE
-			$<TARGET_OBJECTS:${module_implementation_target_name}>
-		)
-
-		add_module_source_dependencies(
-			"${module_implementation_target_name}"
-			"${source_file}"
-			"${module_dependencies}"
-			"${module_target_dependencies}"
-			"${module_dependency_binaries}"
-		)
-	endif()
+	add_module_source_dependencies(
+		"${module_target_name}+"
+		"${source_file}"
+		"${module_dependencies}"
+		"${module_target_dependencies}"
+		"${module_dependency_binaries}"
+	)
 
 	set("${out_module_target_name}" ${module_target_name} PARENT_SCOPE)
 
