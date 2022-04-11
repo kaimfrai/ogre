@@ -1,8 +1,6 @@
 #!/bin/bash
 
 TARGETS=(\
-	miniz\
-	zip\
 	Ogre.Core\
 	Ogre.PlugIns.STBICodec\
 	Ogre.RenderSystems.GLSupport\
