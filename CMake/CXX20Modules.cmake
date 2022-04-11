@@ -42,7 +42,6 @@ function(read_module_name
 	preprocessed_file
 	must_have_module_name
 	out_module_name
-	out_module_target_name
 	out_module_binary
 )
 	string(
@@ -58,9 +57,8 @@ function(read_module_name
 	endif()
 
 	set(${out_module_name} ${module_name} PARENT_SCOPE)
-	string(REPLACE ":" "-" module_target_name "${module_name}")
-	set(${out_module_target_name} ${module_target_name} PARENT_SCOPE)
-	set(${out_module_binary} ${PREBUILT_MODULE_PATH}/${module_target_name}${MODULE_INTERFACE_EXTENSION} PARENT_SCOPE)
+	string(REPLACE ":" "-" module_binary "${module_name}")
+	set(${out_module_binary} ${PREBUILT_MODULE_PATH}/${module_binary}${MODULE_INTERFACE_EXTENSION} PARENT_SCOPE)
 
 endfunction()
 
@@ -177,18 +175,12 @@ endfunction()
 function(add_module_partition
 	module_name
 	partition_name
-	partition_target_name
 	partition_binary
 	interface_file
 	preprocessed_module_file
 	module_includes
 	module_byproducts
 )
-	add_library(
-		${partition_target_name}
-	INTERFACE
-		${interface_file}
-	)
 	read_module_dependencies(
 		"${preprocessed_module_file}"
 		${module_name}
@@ -197,7 +189,7 @@ function(add_module_partition
 	)
 
 	add_module_source_dependencies(
-		${partition_target_name}
+		${module_name}
 		${interface_file}
 		"${module_target_dependencies}"
 		"${module_dependency_binaries}"
@@ -222,16 +214,13 @@ function(add_module_partition
 		"${module_header_units}"
 	)
 
-
 endfunction()
 
 function(add_module_implementation
 	source_file
 	module_name
-	module_target_name
 	module_binary
 	module_includes
-	out_module_target_name
 )
 	invoke_preprocessor(
 		"${source_file}"
@@ -242,13 +231,10 @@ function(add_module_implementation
 		"${preprocessed_module_file}"
 		TRUE
 		module_implementation_name
-		module_implementation_target_name
 		module_implementation_binary
 	)
 
-	if	(NOT "${module_implementation_name}" MATCHES "^${module_name}:"
-		AND	NOT "${module_implementation_name}" STREQUAL "${module_name}")
-
+	if	(NOT "${module_implementation_name}" STREQUAL "${module_name}")
 		message(FATAL_ERROR "Implementation ${source_file} does not appear to belong to module ${module_name}!")
 	endif()
 
@@ -260,20 +246,17 @@ function(add_module_implementation
 	)
 
 	target_sources(
-		"${module_target_name}+"
+		"${module_name}+"
 	PRIVATE
 		${source_file}
 	)
 
 	add_module_source_dependencies(
-		"${module_target_name}+"
+		"${module_name}+"
 		"${source_file}"
 		"${module_target_dependencies}"
 		"${module_dependency_binaries}"
 	)
-
-	set("${out_module_target_name}" ${module_target_name} PARENT_SCOPE)
-
 endfunction()
 
 function(add_module
@@ -296,14 +279,18 @@ function(add_module
 		"${preprocessed_module_file}"
 		TRUE
 		module_name
-		module_target_name
 		module_binary
+	)
+
+	add_library(
+		${module_name}
+	INTERFACE
+		${module_interface_file}
 	)
 
 	add_module_partition(
 		${module_name}
 		${module_name}
-		${module_target_name}
 		${module_binary}
 		${module_interface_file}
 		"${preprocessed_module_file}"
@@ -321,7 +308,6 @@ function(add_module
 			"${preprocessed_partition_file}"
 			TRUE
 			partition_name
-			partition_target_name
 			partition_binary
 		)
 
@@ -332,7 +318,6 @@ function(add_module
 		add_module_partition(
 			"${module_name}"
 			"${partition_name}"
-			"${partition_target_name}"
 			"${partition_binary}"
 			"${partition_file}"
 			"${preprocessed_partition_file}"
@@ -343,13 +328,13 @@ function(add_module
 
 	if	("${MODULE_IMPLEMENTATION}" STREQUAL "")
 		add_library(
-			"${module_target_name}+"
+			"${module_name}+"
 		ALIAS
-			"${module_target_name}"
+			"${module_name}"
 		)
 	else()
 		add_library(
-			"${module_target_name}+"
+			"${module_name}+"
 		STATIC
 			${MODULE_IMPLEMENTATION}
 		)
@@ -358,15 +343,13 @@ function(add_module
 			add_module_implementation(
 				"${module_implementation}"
 				"${module_name}"
-				"${module_target_name}"
 				"${module_binary}"
 				"${MODULE_INCLUDES}"
-				module_implementation_target_name
 			)
 		endforeach()
 
 		target_compile_options(
-			"${module_target_name}+"
+			"${module_name}+"
 		PRIVATE
 			-fmodule-file=${module_binary}
 			${WARNING_FLAGS}
@@ -375,15 +358,15 @@ function(add_module
 		)
 
 		target_include_directories(
-			"${module_target_name}+"
+			"${module_name}+"
 		PRIVATE
 			"${MODULE_INCLUDES}"
 		)
 
 		target_link_libraries(
-		"${module_target_name}+"
+		"${module_name}+"
 		PUBLIC
-			"${module_target_name}"
+			"${module_name}"
 		)
 	endif()
 endfunction()
@@ -407,7 +390,6 @@ function(add_module_dependencies
 			"${preprocessed_module_file}"
 			FALSE
 			module_name
-			module_target_name
 			module_binary
 		)
 		read_module_dependencies(
