@@ -30,7 +30,7 @@ IMPLEMENTATION
     ${SOURCE_FILES}
 )
 
-target_link_libraries(Ogre.Tests.VisualTests.VTests+ ${OGRE_LIBRARIES} Ogre.Components.Bites Ogre.Components.Overlay Ogre.Components.RTShaderSystem)
+target_link_libraries(Ogre.Tests.VisualTests.VTests+ PRIVATE ${OGRE_LIBRARIES})
 #ogre_config_sample_lib(VTests)
 
 if (APPLE AND NOT APPLE_IOS)

@@ -23,7 +23,6 @@ IMPLEMENTATION
 )
 
 set_target_properties(Ogre.Components.RTShaderSystem+ PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
-target_link_libraries(Ogre.Components.RTShaderSystem+ PUBLIC Ogre.Core)
 
 include_directories("${PROJECT_SOURCE_DIR}/Core/include" "${PROJECT_BINARY_DIR}/include" "${CMAKE_CURRENT_SOURCE_DIR}/include" "${CMAKE_CURRENT_SOURCE_DIR}/src")
 

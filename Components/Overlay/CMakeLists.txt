@@ -53,7 +53,6 @@ INCLUDES
 
 # setup target
 set_target_properties(Ogre.Components.Overlay+ PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
-target_link_libraries(Ogre.Components.Overlay+ PUBLIC Ogre.Core)
 
 if(FREETYPE_FOUND)
   target_compile_definitions(Ogre.Components.Overlay+ PRIVATE HAVE_FREETYPE)

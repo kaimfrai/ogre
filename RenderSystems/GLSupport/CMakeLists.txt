@@ -54,7 +54,7 @@ INCLUDES
   ${NATIVE_INCLUDES}
 )
 
-target_link_libraries(Ogre.RenderSystems.GLSupport+ PUBLIC Ogre.Core PRIVATE ${PLATFORM_LIBS})
+target_link_libraries(Ogre.RenderSystems.GLSupport+ PRIVATE ${PLATFORM_LIBS})
 
 set_property(TARGET Ogre.RenderSystems.GLSupport+ PROPERTY POSITION_INDEPENDENT_CODE ON)
 

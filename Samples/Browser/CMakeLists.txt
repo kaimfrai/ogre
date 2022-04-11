@@ -34,55 +34,9 @@ if (OGRE_BUILD_RENDERSYSTEM_D3D9 AND OGRE_STATIC)
     link_directories(${DirectX9_LIBRARY_DIR})
 endif()
 
-add_module(
-  include/SampleBrowser.hpp
-PARTITION
-  ../Common/include/DefaultSamplesPlugin.hpp
-  ../Common/include/Sample.hpp
-  ../Common/include/SampleContext.hpp
-  ../Common/include/SamplePlugin.hpp
-  ../Common/include/SdkSample.hpp
-  ../Simple/include/NewInstancing.hpp
-IMPLEMENTATION
-  ../Simple/src/NewInstancing.cpp
-  ../Common/src/DefaultSamplesPlugin.cpp
-)
 
 set(SOURCE_FILES ${PROJECT_SOURCE_DIR}/Samples/Browser/src/main.cpp)
 add_module_executable(SampleBrowser ${SOURCE_FILES})
-
-# Fix for static build with MinGW
-if (OGRE_BUILD_RENDERSYSTEM_D3D9 AND OGRE_STATIC)
-   target_link_libraries(SampleBrowser ${DirectX9_LIBRARIES})
-endif()
-
-target_link_libraries(SampleBrowser Ogre.Core ${OGRE_PLUGIN_LIBRARIES}
-	Ogre.Components.Bites
-	Ogre.Components.Bites+
-	Ogre.Components.Overlay
-	Ogre.Components.Overlay+
-	Ogre.RenderSystems.GLSupport
-	Ogre.RenderSystems.GLSupport+
-	Ogre.RenderSystems.GL
-	Ogre.RenderSystems.GL+
-	Ogre.PlugIns.STBICodec
-	Ogre.PlugIns.STBICodec+
-	Ogre.Core
-	Ogre.Core+
-)
-
-# Add samples as dependencies
-#add_dependencies(SampleBrowser ${OGRE_SAMPLES_LIST})
-
-if (OGRE_STATIC)
-	# Link to samples too
-	#target_link_libraries(SampleBrowser ${OGRE_SAMPLES_LIST})
-endif()
-
-if (SAMPLE_DEPENDENCIES)
-  #add_dependencies(SampleBrowser ${SAMPLE_DEPENDENCIES})
-endif ()
-
 
 # configure SampleBrowser build
 

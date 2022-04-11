@@ -90,7 +90,7 @@ PRIVATE
   $<TARGET_OBJECTS:Ogre.RenderSystems.GL.glad>
 )
 
-target_link_libraries(Ogre.RenderSystems.GL+ PUBLIC Ogre.Core PRIVATE Ogre.RenderSystems.GLSupport ${CMAKE_DL_LIBS})
+target_link_libraries(Ogre.RenderSystems.GL+ PRIVATE ${CMAKE_DL_LIBS})
 
 ogre_config_framework(Ogre.RenderSystems.GL)
 ogre_config_framework(Ogre.RenderSystems.GL+)

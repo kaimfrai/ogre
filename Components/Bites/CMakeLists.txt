@@ -136,10 +136,6 @@ INCLUDES
   ${SDL_INCLUDE_DIRS}
 )
 set_target_properties(Ogre.Components.Bites+ PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
-target_link_libraries(Ogre.Components.Bites+ PUBLIC Ogre.Core Ogre.Components.Overlay PRIVATE ${DEPENDENCIES})
-if (OGRE_BUILD_COMPONENT_RTSHADERSYSTEM)
-  target_link_libraries(Ogre.Components.Bites+ PUBLIC Ogre.Components.RTShaderSystem)
-endif ()
 
 if (OGRE_STATIC OR OGRE_BITES_STATIC_PLUGINS)
   target_compile_definitions(Ogre.Components.Bites+ PRIVATE OGRE_BITES_STATIC_PLUGINS)

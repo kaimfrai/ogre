@@ -46,7 +46,6 @@ target_sources(
 PRIVATE
 	 $<TARGET_OBJECTS:Ogre.Tests.VisualTests.Context+>
 )
-target_link_libraries(TestContext Ogre.Core ${SAMPLE_LIBRARIES} Ogre.Components.Overlay Ogre.Components.RTShaderSystem Ogre.Components.Bites)
 ogre_config_common(TestContext)
 
 # Make sure all plugins are built

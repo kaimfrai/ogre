@@ -79,33 +79,21 @@ endfunction()
 function(read_module_dependencies
 	preprocessed_file
 	module_name
-	out_module_dependencies
 	out_module_target_dependencies
 	out_module_dependency_binaries
 )
-	string(REGEX MATCHALL "${REGEX_IMPORT}${REGEX_ID}" dependencies "${preprocessed_file}")
-	list(TRANSFORM dependencies REPLACE "${REGEX_IMPORT}" "")
+	string(REGEX MATCHALL "${REGEX_IMPORT}${REGEX_ID}" module_target_dependencies "${preprocessed_file}")
+	list(TRANSFORM module_target_dependencies REPLACE "${REGEX_IMPORT}" "")
 
+	set(${out_module_target_dependencies} ${module_target_dependencies} PARENT_SCOPE)
 
 	string(REGEX MATCHALL "${REGEX_IMPORT}:${REGEX_ID}" module_partitions "${preprocessed_file}")
 
-	list(TRANSFORM module_partitions REPLACE "${REGEX_IMPORT}" "")
-	list(TRANSFORM module_partitions PREPEND "${module_name}")
-
-	list(APPEND dependencies ${module_partitions})
-	set(${out_module_dependencies} ${dependencies} PARENT_SCOPE)
-
-	set(module_target_dependencies ${dependencies})
-	list(
-		TRANSFORM
-		module_target_dependencies
-	REPLACE
-		":"
-		"-"
-	)
-	set(${out_module_target_dependencies} ${module_target_dependencies} PARENT_SCOPE)
+	list(TRANSFORM module_partitions REPLACE "${REGEX_IMPORT}:" "")
+	list(TRANSFORM module_partitions PREPEND "${module_name}-")
 
 	set(dependency_binaries ${module_target_dependencies})
+	list(APPEND dependency_binaries ${module_partitions})
 	list(TRANSFORM dependency_binaries PREPEND ${PREBUILT_MODULE_PATH}/)
 	list(TRANSFORM dependency_binaries APPEND ${MODULE_INTERFACE_EXTENSION})
 	set(${out_module_dependency_binaries} ${dependency_binaries} PARENT_SCOPE)
@@ -115,18 +103,34 @@ endfunction()
 function(add_module_source_dependencies
 	target_name
 	source_file
-	module_dependencies
 	module_target_dependencies
 	module_dependency_files
 )
-	list(LENGTH module_dependencies module_dependency_count)
+	get_target_property(target_type "${target_name}" TYPE)
+	if	(target_type MATCHES "INTERFACE")
+		#add a link dependency for interface libraries
+		foreach(target_dependency IN LISTS module_target_dependencies)
+			target_link_libraries(
+			${target_name}
+			INTERFACE
+				"${target_dependency}+"
+			)
+		endforeach()
+	else()
+		#add a link dependency for non-interface libraries
+		foreach(target_dependency IN LISTS module_target_dependencies)
+
+			target_link_libraries(
+			${target_name}
+			PUBLIC
+				"${target_dependency}+"
+			)
+
+		endforeach()
+	endif()
+
+	list(LENGTH module_dependency_files module_dependency_count)
 	if(${module_dependency_count} GREATER 0)
-
-		add_dependencies(
-		"${target_name}"
-			${module_target_dependencies}
-		)
-
 		set_source_files_properties(
 		"${source_file}"
 		OBJECT_DEPENDS
@@ -163,7 +167,7 @@ function(add_module_command
 	DEPENDS
 		${module_dependency_binaries}
 	BYPRODUCTS
-		${MODULE_BYPRODUCTS}
+		${module_byproducts}
 	COMMENT
 		"Generating precompiled module ${module_name}"
 	)
@@ -188,7 +192,6 @@ function(add_module_partition
 	read_module_dependencies(
 		"${preprocessed_module_file}"
 		${module_name}
-		module_dependencies
 		module_target_dependencies
 		module_dependency_binaries
 	)
@@ -196,7 +199,6 @@ function(add_module_partition
 	add_module_source_dependencies(
 		${partition_target_name}
 		${interface_file}
-		"${module_dependencies}"
 		"${module_target_dependencies}"
 		"${module_dependency_binaries}"
 	)
@@ -253,7 +255,6 @@ function(add_module_implementation
 	read_module_dependencies(
 		"${preprocessed_module_file}"
 		"${module_name}"
-		module_dependencies
 		module_target_dependencies
 		module_dependency_binaries
 	)
@@ -267,7 +268,6 @@ function(add_module_implementation
 	add_module_source_dependencies(
 		"${module_target_name}+"
 		"${source_file}"
-		"${module_dependencies}"
 		"${module_target_dependencies}"
 		"${module_dependency_binaries}"
 	)
@@ -341,8 +341,13 @@ function(add_module
 		)
 	endforeach()
 
-	if	(NOT "${MODULE_IMPLEMENTATION}" STREQUAL "")
-
+	if	("${MODULE_IMPLEMENTATION}" STREQUAL "")
+		add_library(
+			"${module_target_name}+"
+		ALIAS
+			"${module_target_name}"
+		)
+	else()
 		add_library(
 			"${module_target_name}+"
 		STATIC
@@ -375,19 +380,12 @@ function(add_module
 			"${MODULE_INCLUDES}"
 		)
 
-		add_dependencies(
+		target_link_libraries(
 		"${module_target_name}+"
+		PUBLIC
 			"${module_target_name}"
 		)
-
-		target_link_libraries(
-			${module_target_name}
-		INTERFACE
-			"${module_target_name}+"
-		)
 	endif()
-
-
 endfunction()
 
 function(add_module_dependencies
@@ -415,27 +413,15 @@ function(add_module_dependencies
 		read_module_dependencies(
 			"${preprocessed_module_file}"
 			"${module_name}"
-			module_dependencies
 			module_target_dependencies
 			module_dependency_binaries
 		)
 		add_module_source_dependencies(
 			"${target_name}"
 			${source_file}
-			"${module_dependencies}"
 			"${module_target_dependencies}"
 			"${module_dependency_binaries}"
 		)
-
-		#add a link dependency for non-interface libraries
-		foreach(dependency IN LISTS module_dependencies)
-			if	(TARGET "${dependency}+")
-				target_link_libraries(
-					${target_name}
-					"${dependency}+"
-				)
-			endif()
-		endforeach()
 
 	endforeach()
 endfunction()
