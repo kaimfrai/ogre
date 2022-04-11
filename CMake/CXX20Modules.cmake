@@ -111,7 +111,7 @@ function(add_module_source_dependencies
 			target_link_libraries(
 			${target_name}
 			INTERFACE
-				"${target_dependency}+"
+				"${target_dependency}"
 			)
 		endforeach()
 	else()
@@ -121,7 +121,7 @@ function(add_module_source_dependencies
 			target_link_libraries(
 			${target_name}
 			PUBLIC
-				"${target_dependency}+"
+				"${target_dependency}"
 			)
 
 		endforeach()
@@ -245,14 +245,8 @@ function(add_module_implementation
 		module_dependency_binaries
 	)
 
-	target_sources(
-		"${module_name}+"
-	PRIVATE
-		${source_file}
-	)
-
 	add_module_source_dependencies(
-		"${module_name}+"
+		"${module_name}"
 		"${source_file}"
 		"${module_target_dependencies}"
 		"${module_dependency_binaries}"
@@ -282,11 +276,35 @@ function(add_module
 		module_binary
 	)
 
-	add_library(
-		${module_name}
-	INTERFACE
-		${module_interface_file}
-	)
+	if	("${MODULE_IMPLEMENTATION}" STREQUAL "")
+		add_library(
+			"${module_name}"
+		INTERFACE
+			${module_interface_file}
+		)
+	else()
+		add_library(
+			"${module_name}"
+		STATIC
+			${module_interface_file}
+			${MODULE_IMPLEMENTATION}
+		)
+
+		target_compile_options(
+			"${module_name}"
+		PRIVATE
+			-fmodule-file=${module_binary}
+			${WARNING_FLAGS}
+			${MODULE_FLAGS}
+			${ADDITIONAL_COMPILE_OPTIONS}
+		)
+
+		target_include_directories(
+			"${module_name}"
+		PRIVATE
+			"${MODULE_INCLUDES}"
+		)
+	endif()
 
 	add_module_partition(
 		${module_name}
@@ -326,49 +344,14 @@ function(add_module
 		)
 	endforeach()
 
-	if	("${MODULE_IMPLEMENTATION}" STREQUAL "")
-		add_library(
-			"${module_name}+"
-		ALIAS
+	foreach(module_implementation IN LISTS MODULE_IMPLEMENTATION)
+		add_module_implementation(
+			"${module_implementation}"
 			"${module_name}"
-		)
-	else()
-		add_library(
-			"${module_name}+"
-		STATIC
-			${MODULE_IMPLEMENTATION}
-		)
-
-		foreach(module_implementation IN LISTS MODULE_IMPLEMENTATION)
-			add_module_implementation(
-				"${module_implementation}"
-				"${module_name}"
-				"${module_binary}"
-				"${MODULE_INCLUDES}"
-			)
-		endforeach()
-
-		target_compile_options(
-			"${module_name}+"
-		PRIVATE
-			-fmodule-file=${module_binary}
-			${WARNING_FLAGS}
-			${MODULE_FLAGS}
-			${ADDITIONAL_COMPILE_OPTIONS}
-		)
-
-		target_include_directories(
-			"${module_name}+"
-		PRIVATE
+			"${module_binary}"
 			"${MODULE_INCLUDES}"
 		)
-
-		target_link_libraries(
-		"${module_name}+"
-		PUBLIC
-			"${module_name}"
-		)
-	endif()
+	endforeach()
 endfunction()
 
 function(add_module_dependencies

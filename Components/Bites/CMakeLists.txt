@@ -135,10 +135,10 @@ INCLUDES
   ${NATIVE_INCLUDES}
   ${SDL_INCLUDE_DIRS}
 )
-set_target_properties(Ogre.Components.Bites+ PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
+set_target_properties(Ogre.Components.Bites PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
 
 if (OGRE_STATIC OR OGRE_BITES_STATIC_PLUGINS)
-  target_compile_definitions(Ogre.Components.Bites+ PRIVATE OGRE_BITES_STATIC_PLUGINS)
+  target_compile_definitions(Ogre.Components.Bites PRIVATE OGRE_BITES_STATIC_PLUGINS)
 endif()
 
 if(OGRE_STATIC AND APPLE AND OGRE_BUILD_PLUGIN_CG)
@@ -147,7 +147,7 @@ if(OGRE_STATIC AND APPLE AND OGRE_BUILD_PLUGIN_CG)
 endif()
 
 if(SDL2_FOUND)
-  target_link_libraries(Ogre.Components.Bites+ PRIVATE SDL2::SDL2)
+  target_link_libraries(Ogre.Components.Bites PRIVATE SDL2::SDL2)
 elseif(NOT EMSCRIPTEN)
   message(WARNING "SDL2 not found - no input handling and reduced window creation capabilites")
 endif()
@@ -167,9 +167,7 @@ endif()
 
 # install 
 ogre_config_framework(Ogre.Components.Bites)
-ogre_config_framework(Ogre.Components.Bites+)
 ogre_config_component(Ogre.Components.Bites)
-ogre_config_component(Ogre.Components.Bites+)
 
 install(FILES ${HEADER_FILES}
   DESTINATION include/OGRE/Bites

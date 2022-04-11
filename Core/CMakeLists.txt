@@ -45,7 +45,7 @@ INCLUDES
 )
 
 target_sources(
-  Ogre.Core+
+  Ogre.Core
 PRIVATE
   $<TARGET_OBJECTS:zip>
 )
@@ -60,13 +60,12 @@ PRIVATE
   #"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/zip>"
 #)
 
-set_target_properties(Ogre.Core+ PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
+set_target_properties(Ogre.Core PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
 
-target_link_libraries(Ogre.Core+ PUBLIC pthread PRIVATE ${CMAKE_DL_LIBS})
+target_link_libraries(Ogre.Core PUBLIC pthread PRIVATE ${CMAKE_DL_LIBS})
 
 # install OgreCore
 ogre_config_lib(Ogre.Core TRUE)
-ogre_config_lib(Ogre.Core+ TRUE)
 
 install(FILES ${HEADER_FILES}
   DESTINATION include/OGRE

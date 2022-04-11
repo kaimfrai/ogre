@@ -22,14 +22,12 @@ IMPLEMENTATION
   ${SOURCE_FILES}
 )
 
-set_target_properties(Ogre.Components.RTShaderSystem+ PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
+set_target_properties(Ogre.Components.RTShaderSystem PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
 
 include_directories("${PROJECT_SOURCE_DIR}/Core/include" "${PROJECT_BINARY_DIR}/include" "${CMAKE_CURRENT_SOURCE_DIR}/include" "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 ogre_config_framework(Ogre.Components.RTShaderSystem)
-ogre_config_framework(Ogre.Components.RTShaderSystem+)
 ogre_config_component(Ogre.Components.RTShaderSystem)
-ogre_config_component(Ogre.Components.RTShaderSystem+)
 
 install(FILES ${HEADER_FILES}
   DESTINATION include/OGRE/RTShaderSystem

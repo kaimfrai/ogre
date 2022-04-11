@@ -85,18 +85,16 @@ INCLUDES
 )
 
 target_sources(
-  Ogre.RenderSystems.GL+
+  Ogre.RenderSystems.GL
 PRIVATE
   $<TARGET_OBJECTS:Ogre.RenderSystems.GL.glad>
 )
 
-target_link_libraries(Ogre.RenderSystems.GL+ PRIVATE ${CMAKE_DL_LIBS})
+target_link_libraries(Ogre.RenderSystems.GL PRIVATE ${CMAKE_DL_LIBS})
 
 ogre_config_framework(Ogre.RenderSystems.GL)
-ogre_config_framework(Ogre.RenderSystems.GL+)
 
 ogre_config_plugin(Ogre.RenderSystems.GL)
-ogre_config_plugin(Ogre.RenderSystems.GL+)
 
 install(FILES ${HEADER_FILES} ${GLSUPPORT_HEADERS} DESTINATION include/OGRE/RenderSystems/GL)
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/glad DESTINATION include/OGRE/RenderSystems/glad)

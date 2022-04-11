@@ -32,7 +32,7 @@ include_directories(${PROJECT_SOURCE_DIR}/Tests/VisualTests/Common/include)
 include_directories(${PROJECT_SOURCE_DIR}/Tests/VisualTests/VTests/include)
 include_directories(${PROJECT_SOURCE_DIR}/Tests/VisualTests/PlayPen/include)
 
-set(SAMPLE_LIBRARIES Ogre.Tests.VisualTests.VTests+ Ogre.Tests.VisualTests.PlayPen+)
+set(SAMPLE_LIBRARIES Ogre.Tests.VisualTests.VTests Ogre.Tests.VisualTests.PlayPen)
 
 add_module(
 	include/TestContext.hpp
@@ -44,7 +44,7 @@ add_module_executable(TestContext src/main.cpp)
 target_sources(
 	TestContext
 PRIVATE
-	 $<TARGET_OBJECTS:Ogre.Tests.VisualTests.Context+>
+	 $<TARGET_OBJECTS:Ogre.Tests.VisualTests.Context>
 )
 ogre_config_common(TestContext)
 
@@ -82,8 +82,6 @@ endif ()
 if (OGRE_BUILD_RENDERSYSTEM_GLES2)
     add_dependencies(TestContext RenderSystem_GLES2)
 endif ()
-
-add_dependencies(TestContext Ogre.Tests.VisualTests.VTests+ Ogre.Tests.VisualTests.PlayPen+)
 
 if (APPLE)
   if (APPLE_IOS)

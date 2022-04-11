@@ -30,7 +30,7 @@ IMPLEMENTATION
   src/PlayPenTests.cpp
   PlayPen.cpp
 )
-target_link_libraries(Ogre.Tests.VisualTests.PlayPen+ PRIVATE ${OGRE_LIBRARIES} ${SDL2_LIBRARY})
+target_link_libraries(Ogre.Tests.VisualTests.PlayPen PRIVATE ${OGRE_LIBRARIES} ${SDL2_LIBRARY})
 #ogre_config_sample_lib(PlayPenTests)
 
 if (APPLE AND NOT APPLE_IOS)

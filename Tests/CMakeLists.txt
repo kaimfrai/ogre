@@ -134,7 +134,7 @@ if (OGRE_BUILD_TESTS)
     target_sources(
       Test_Ogre
     PRIVATE
-      $<TARGET_OBJECTS:Ogre.Tests+>
+      $<TARGET_OBJECTS:Ogre.Tests>
     )
     ogre_install_target(Test_Ogre "" FALSE)
     target_link_libraries(Test_Ogre PRIVATE ${OGRE_LIBRARIES} GTest::gtest)

@@ -23,17 +23,15 @@ IMPLEMENTATION
 
 if(CMAKE_COMPILER_IS_GNUCXX)
   # workaround gcc5 bug on Ubuntu 16.04 regarding __builtin_cpu_supports
-  target_link_libraries(Ogre.PlugIns.STBICodec+ PRIVATE gcc)
+  target_link_libraries(Ogre.PlugIns.STBICodec PRIVATE gcc)
 endif()
 
 if(ZLIB_FOUND)
-  target_compile_definitions(Ogre.PlugIns.STBICodec+ PRIVATE HAVE_ZLIB)
-  target_link_libraries(Ogre.PlugIns.STBICodec+ PRIVATE ZLIB::ZLIB)
+  target_compile_definitions(Ogre.PlugIns.STBICodec PRIVATE HAVE_ZLIB)
+  target_link_libraries(Ogre.PlugIns.STBICodec PRIVATE ZLIB::ZLIB)
 endif()
 
 ogre_config_framework(Ogre.PlugIns.STBICodec)
-ogre_config_framework(Ogre.PlugIns.STBICodec+)
 ogre_config_plugin(Ogre.PlugIns.STBICodec)
-ogre_config_plugin(Ogre.PlugIns.STBICodec+)
 
 install(FILES ${HEADER_FILES} DESTINATION include/OGRE/Plugins/STBICodec)

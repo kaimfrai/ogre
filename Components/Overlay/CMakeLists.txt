@@ -52,13 +52,13 @@ INCLUDES
 )
 
 # setup target
-set_target_properties(Ogre.Components.Overlay+ PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
+set_target_properties(Ogre.Components.Overlay PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
 
 if(FREETYPE_FOUND)
-  target_compile_definitions(Ogre.Components.Overlay+ PRIVATE HAVE_FREETYPE)
-  target_link_libraries(Ogre.Components.Overlay+ PRIVATE ${FREETYPE_LIBRARIES})
+  target_compile_definitions(Ogre.Components.Overlay PRIVATE HAVE_FREETYPE)
+  target_link_libraries(Ogre.Components.Overlay PRIVATE ${FREETYPE_LIBRARIES})
   if(ZLIB_FOUND)
-    target_link_libraries(Ogre.Components.Overlay+ PRIVATE ZLIB::ZLIB)
+    target_link_libraries(Ogre.Components.Overlay PRIVATE ZLIB::ZLIB)
   endif()
 elseif(UNIX)
   set_source_files_properties(src/OgreFont.cpp PROPERTIES
@@ -66,7 +66,7 @@ elseif(UNIX)
 endif()
 
 if(OGRE_BUILD_COMPONENT_OVERLAY_IMGUI)
-  target_include_directories(Ogre.Components.Overlay+ PUBLIC
+  target_include_directories(Ogre.Components.Overlay PUBLIC
     PUBLIC "$<BUILD_INTERFACE:${IMGUI_DIR}>"
     PRIVATE "$<BUILD_INTERFACE:${IMGUI_DIR}/misc/freetype>")
 
@@ -83,7 +83,7 @@ if(OGRE_BUILD_COMPONENT_OVERLAY_IMGUI)
   endif()
 
   if(MINGW)
-    target_link_libraries(Ogre.Components.Overlay+ PRIVATE imm32)
+    target_link_libraries(Ogre.Components.Overlay PRIVATE imm32)
   endif()
 
   configure_file(${OGRE_TEMPLATES_DIR}/imconfig.h ${IMGUI_DIR}/imconfig.h)
@@ -95,9 +95,7 @@ endif()
 
 # install 
 ogre_config_framework(Ogre.Components.Overlay)
-ogre_config_framework(Ogre.Components.Overlay+)
 ogre_config_component(Ogre.Components.Overlay)
-ogre_config_component(Ogre.Components.Overlay+)
 
 install(FILES ${HEADER_FILES}
   DESTINATION include/OGRE/Overlay
