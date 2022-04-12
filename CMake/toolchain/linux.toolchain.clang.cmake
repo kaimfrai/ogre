@@ -9,9 +9,6 @@ file(REAL_PATH ${CMAKE_CXX_COMPILER} CMAKE_CXX_COMPILER EXPAND_TILDE)
 #add ++ to real path
 set(CMAKE_CXX_COMPILER "${CMAKE_CXX_COMPILER}++")
 
-set(CXX_STANDARD_VERSION_FLAG "-std=c++2b")
-set(CXX_STANDARD_LIBRARY_FLAG "-stdlib=libc++")
-
 #do not use libc++ for C objects
 add_compile_options($<$<COMPILE_LANGUAGE:CXX>:-stdlib=libc++>)
 add_link_options($<$<COMPILE_LANGUAGE:CXX>:-stdlib=libc++>)

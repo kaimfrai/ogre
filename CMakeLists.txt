@@ -89,7 +89,6 @@ set(CMAKE_MODULE_PATH
   "${PROJECT_SOURCE_DIR}/CMake/Packages"
 )
 
-include(CXX20Modules)
 include(CMakeDependentOption)
 include(MacroLogFeature)
 include(OgreConfigTargets)
@@ -133,7 +132,6 @@ if (NOT ANDROID AND NOT EMSCRIPTEN AND UNIX OR MINGW)
   if (OGRE_GCC_HAS_SSE)
     add_compile_options(-msse)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse")
-    set(ADDITIONAL_COMPILE_OPTIONS ${ADDITIONAL_COMPILE_OPTIONS} -msse)
   endif ()
 endif()
 
@@ -447,6 +445,9 @@ endif()
 
 # install resource files
 include(InstallResources)
+
+#include CXX20 modules as late as possible
+include(CXX20Modules)
 
 # Setup OgreCore project
 add_subdirectory(Core)
