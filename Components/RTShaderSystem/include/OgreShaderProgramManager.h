@@ -32,6 +32,8 @@ THE SOFTWARE.
 #include "OgreSingleton.h"
 #include "OgreStringVector.h"
 
+#include <memory>
+
 namespace Ogre {
 namespace RTShader {
 
@@ -104,7 +106,7 @@ private:
     typedef std::map<String, ProgramProcessor*>        ProgramProcessorMap;
     typedef ProgramProcessorMap::iterator               ProgramProcessorIterator;
     typedef ProgramProcessorMap::const_iterator         ProgramProcessorConstIterator;
-    typedef std::vector<ProgramProcessor*>             ProgramProcessorList;
+    typedef std::vector<::std::unique_ptr<ProgramProcessor>>             ProgramProcessorList;
 
 
     /** Create default program processors. */
