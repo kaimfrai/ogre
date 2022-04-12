@@ -19,3 +19,18 @@ add_link_options($<$<COMPILE_LANGUAGE:CXX>:-lm>)
 add_link_options($<$<COMPILE_LANGUAGE:CXX>:-lc++>)
 add_link_options($<$<COMPILE_LANGUAGE:CXX>:-lc++abi>)
 add_link_options(-fuse-ld=lld)
+
+if	(BUILD_WITH_SANITIZER)
+	add_compile_options(
+		-O1
+		-fsanitize=address
+		-fno-omit-frame-pointer
+		-fno-optimize-sibling-calls
+		-fsanitize-address-use-after-return=always
+		-fsanitize-address-use-after-scope
+	)
+	add_link_options(
+		-fsanitize=address
+	)
+
+endif()
