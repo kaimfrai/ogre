@@ -200,7 +200,7 @@ TEST_F(SceneQueryTest,Intersection)
 }
 
 TEST_F(SceneQueryTest, Ray) {
-    RaySceneQuery* rayQuery = mSceneMgr->createRayQuery(mCamera->getCameraToViewportRay(0.5, 0.5));
+    auto rayQuery = mSceneMgr->createRayQuery(mCamera->getCameraToViewportRay(0.5, 0.5));
     rayQuery->setSortByDistance(true, 2);
 
     RaySceneQueryResult& results = rayQuery->execute();

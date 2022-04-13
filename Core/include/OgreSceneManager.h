@@ -2549,7 +2549,7 @@ namespace Ogre {
         @param mask The query mask to apply to this query; can be used to filter out
             certain objects; see SceneQuery for details.
         */
-        virtual RaySceneQuery* 
+        virtual ::std::unique_ptr<RaySceneQuery>
             createRayQuery(const Ray& ray, uint32 mask = 0xFFFFFFFF);
 
         /** Creates an IntersectionSceneQuery for this scene manager. 
