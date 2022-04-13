@@ -40,6 +40,9 @@
 
 #include "DefaultSamplesPlugin.h"
 
+#include <map>
+#include <memory>
+
 #define CAROUSEL_REDRAW_EPS 0.001
 
 namespace OgreBites
@@ -50,7 +53,7 @@ namespace OgreBites
       =============================================================================*/
     class SampleBrowser : public SampleContext, public TrayListener
     {
-        typedef std::map<Ogre::String, SamplePlugin*> PluginMap;
+        typedef std::map<Ogre::String, ::std::unique_ptr<SamplePlugin>> PluginMap;
         PluginMap mPluginNameMap;                      // A structure to map plugin names to class types
     public:
 
@@ -695,7 +698,7 @@ namespace OgreBites
             if(mGrabInput) setWindowGrab();
             else mTrayMgr->hideCursor();
 
-            mPluginNameMap["DefaultSamples"] = new DefaultSamplesPlugin();
+            mPluginNameMap.emplace("DefaultSamples", new DefaultSamplesPlugin());
 
             Sample* startupSample = loadSamples();
 
@@ -767,7 +770,7 @@ namespace OgreBites
             // loop through all sample plugins...
             for (Ogre::StringVector::iterator i = sampleList.begin(); i != sampleList.end(); i++)
             {
-                SamplePlugin* sp = mPluginNameMap[*i];
+                SamplePlugin* sp = mPluginNameMap[*i].get();
 
                 // go through every sample in the plugin...
                 for (auto const& sample : sp->getSamples())
