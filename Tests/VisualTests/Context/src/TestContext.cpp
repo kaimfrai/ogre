@@ -188,20 +188,19 @@ OgreBites::Sample* TestContext::loadTests()
     // load all of the plugins in the set
     for(auto it : mPluginNameMap)
     {
-        OgreBites::SampleSet newSamples = it.second->getSamples();
-        for (OgreBites::SampleSet::iterator j = newSamples.begin(); j != newSamples.end(); j++)
+        for (auto const& sample : it.second->getSamples())
         {
             // capability check
             try
             {
-                (*j)->testCapabilities(mRoot->getRenderSystem()->getCapabilities());
+                sample->testCapabilities(mRoot->getRenderSystem()->getCapabilities());
             }
             catch(Ogre::Exception&)
             {
                 continue;
             }
 
-            mTests.push_back(*j);
+            mTests.push_back(sample.get());
         }
     }
 

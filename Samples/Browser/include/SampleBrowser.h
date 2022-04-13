@@ -384,9 +384,9 @@ namespace OgreBites
                 Ogre::MaterialPtr templateMat = Ogre::MaterialManager::getSingleton().getByName("SdkTrays/SampleThumbnail");
 
                 // populate the sample menu and carousel with filtered samples
-                for (SampleSet::iterator i = mLoadedSamples.begin(); i != mLoadedSamples.end(); i++)
+                for (auto const& sample : mLoadedSamples)
                 {
-                    Ogre::NameValuePairList& info = (*i)->getInfo();
+                    Ogre::NameValuePairList& info = sample->getInfo();
 
                     if (all || info["Category"] == selectedCategory)
                     {
@@ -404,12 +404,12 @@ namespace OgreBites
                         bp->setHorizontalAlignment(Ogre::GHA_RIGHT);
                         bp->setVerticalAlignment(Ogre::GVA_CENTER);
                         bp->setMaterialName(name);
-                        bp->getUserObjectBindings().setUserAny(*i);
+                        bp->getUserObjectBindings().setUserAny(sample);
                         mTrayMgr->getTraysLayer()->add2D(bp);
 
                         // add sample thumbnail and title
                         mThumbs.push_back(bp);
-                        sampleTitles.push_back((*i)->getInfo()["Title"]);
+                        sampleTitles.push_back(sample->getInfo()["Title"]);
                     }
                 }
 
@@ -764,23 +764,20 @@ namespace OgreBites
                 sampleList.push_back(it->first);
             }
 
-            SampleSet newSamples;
-
             // loop through all sample plugins...
             for (Ogre::StringVector::iterator i = sampleList.begin(); i != sampleList.end(); i++)
             {
                 SamplePlugin* sp = mPluginNameMap[*i];
 
                 // go through every sample in the plugin...
-                newSamples = sp->getSamples();
-                for (SampleSet::iterator j = newSamples.begin(); j != newSamples.end(); j++)
+                for (auto const& sample : sp->getSamples())
                 {
-                    Ogre::NameValuePairList& info = (*j)->getInfo();   // acquire custom sample info
+                    Ogre::NameValuePairList& info = sample->getInfo();   // acquire custom sample info
 
-                    mLoadedSamples.insert(*j);                    // add sample only after ensuring title for sorting
+                    mLoadedSamples.insert(sample.get());                    // add sample only after ensuring title for sorting
                     mSampleCategories.insert(info["Category"]);   // add sample category
 
-                    if (info["Title"] == startupSampleTitle) startupSample = *j;   // we found the startup sample
+                    if (info["Title"] == startupSampleTitle) startupSample = sample.get();   // we found the startup sample
                 }
             }
 
@@ -893,13 +890,13 @@ namespace OgreBites
             if (mLastSampleIndex != -1)
             {
                 int index = -1;
-                for (SampleSet::iterator i = mLoadedSamples.begin(); i != mLoadedSamples.end(); i++)
+                for (auto const& sample : mLoadedSamples)
                 {
                     index++;
                     if (index == mLastSampleIndex)
                     {
-                        runSample(*i);
-                        (*i)->restoreState(mLastSampleState);
+                        runSample(sample);
+                        sample->restoreState(mLastSampleState);
                         mLastSample = 0;
                         mLastSampleIndex = -1;
                         mLastSampleState.clear();
@@ -923,10 +920,10 @@ namespace OgreBites
 
             mLastSampleIndex = -1;
             unsigned int index = -1;
-            for (SampleSet::iterator i = mLoadedSamples.begin(); i != mLoadedSamples.end(); i++)
+            for (auto const& sample : mLoadedSamples)
             {
                 index++;
-                if (*i == mCurrentSample)
+                if (sample == mCurrentSample)
                 {
                     mLastSampleIndex = index;
                     break;
@@ -1004,7 +1001,7 @@ namespace OgreBites
         TrayManager* mTrayMgr;                      // SDK tray interface
         Ogre::StringVector mLoadedSamplePlugins;       // loaded sample plugins
         std::set<Ogre::String> mSampleCategories;      // sample categories
-        SampleSet mLoadedSamples;                      // loaded samples
+        std::set<Sample*, Sample::Comparer> mLoadedSamples;                      // loaded samples
         SelectMenu* mCategoryMenu;                     // sample category select menu
         SelectMenu* mSampleMenu;                       // sample select menu
         Slider* mSampleSlider;                         // sample slider bar

@@ -45,13 +45,3 @@ VTestPlugin::VTestPlugin()
     addSample(new StencilShadowTest());
 }
 //---------------------------------------------------------------------
-
-VTestPlugin::~VTestPlugin()
-{
-    for (OgreBites::SampleSet::iterator i = mSamples.begin(); i != mSamples.end(); ++i)
-    {
-        delete *i;
-    }
-    mSamples.clear();
-}
-//---------------------------------------------------------------------
