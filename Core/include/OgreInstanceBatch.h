@@ -103,7 +103,7 @@ class Technique;
     class InstanceBatch : public Renderable, public MovableObject
     {
     public:
-        typedef std::vector<InstancedEntity*>  InstancedEntityVec;
+        typedef std::vector<::std::unique_ptr<InstancedEntity>>  InstancedEntityVec;
         typedef std::vector<Vector4>           CustomParamsVec;
     protected:
         typedef TransformBase<3, float>        Matrix3x4f;
@@ -122,7 +122,7 @@ class Technique;
         //and put back again when they're no longer needed
         //Note each InstancedEntity has a unique ID ranging from [0; mInstancesPerBatch)
         InstancedEntityVec  mInstancedEntities;
-        InstancedEntityVec  mUnusedEntities;
+        std::vector<InstancedEntity*> mUnusedEntities;
 
         ///@see InstanceManager::setNumCustomParams(). Because this may not even be used,
         ///our implementations keep the params separate from the InstancedEntity to lower
@@ -162,7 +162,6 @@ class Technique;
         virtual void setupIndices( const SubMesh* baseSubMesh ) = 0;
         virtual void createAllInstancedEntities(void);
         virtual void deleteAllInstancedEntities(void);
-        virtual void deleteUnusedInstancedEntities(void);
         /// Creates a new InstancedEntity instance
         virtual InstancedEntity* generateInstancedEntity(size_t num);
 
@@ -265,10 +264,13 @@ class Technique;
         */
         bool isBatchUnused(void) const { return mUnusedEntities.size() == mInstancedEntities.size(); }
 
+        auto inline getUsedEntityCount() const noexcept -> size_t { return mInstancedEntities.size() - mUnusedEntities.size();  }
+
         /** Fills the input vector with the instances that are currently being used or were requested.
-            Used for defragmentation, @see InstanceManager::defragmentBatches
+            Used for defragmentation, @see InstanceManager::defragmentBatches.
+            Ownership of instanced entities is transfered to outEntities. mInstancedEntities will be empty afterwards.
         */
-        void getInstancedEntitiesInUse( InstancedEntityVec &outEntities, CustomParamsVec &outParams );
+        void transferInstancedEntitiesInUse( InstancedEntityVec &outEntities, CustomParamsVec &outParams );
 
         /** @see InstanceManager::defragmentBatches
             This function takes InstancedEntities and pushes back all entities it can fit here
@@ -285,13 +287,6 @@ class Technique;
         */
         void _defragmentBatch( bool optimizeCulling, InstancedEntityVec &usedEntities,
                                 CustomParamsVec &usedParams );
-
-        /** @see InstanceManager::_defragmentBatchDiscard
-            Destroys unused entities and clears the mInstancedEntity container which avoids leaving
-            dangling pointers from reparented InstancedEntities
-            Usually called before deleting this pointer. Don't call directly!
-        */
-        void _defragmentBatchDiscard(void);
 
         /** Called by InstancedEntity(s) to tell us we need to update the bounds
             (we touch the SceneNode so the SceneManager aknowledges such change)

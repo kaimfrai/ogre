@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <cassert>
+#include <iterator>
 #include <limits>
 #include <memory>
 
@@ -145,21 +146,15 @@ class Technique;
     {
         mFullBoundingBox.setNull();
 
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
-
         Real maxScale = 0;
-        while( itor != end )
+        for(auto const& ent : mInstancedEntities)
         {
-            InstancedEntity* ent = (*itor);
             //Only increase the bounding box for those objects we know are in the scene
             if( ent->isInScene() )
             {
                 maxScale = std::max(maxScale, ent->getMaxScaleCoef());
                 mFullBoundingBox.merge( ent->_getDerivedPosition() );
             }
-
-            ++itor;
         }
 
         Real addToBound = maxScale * _getMeshReference()->getBoundingSphereRadius();
@@ -180,17 +175,15 @@ class Technique;
     {
         mVisible = false;
 
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
-
-        while( itor != end && !mVisible )
+        for(auto const& ent : mInstancedEntities)
         {
             //Trick to force Ogre not to render us if none of our instances is visible
             //Because we do Camera::isVisible(), it is better if the SceneNode from the
             //InstancedEntity is not part of the scene graph (i.e. ultimate parent is root node)
             //to avoid unnecessary wasteful calculations
-            mVisible |= (*itor)->findVisible( mCurrentCamera );
-            ++itor;
+            mVisible |= ent->findVisible( mCurrentCamera );
+            if (mVisible)
+                break;
         }
     }
     //-----------------------------------------------------------------------
@@ -202,7 +195,7 @@ class Technique;
         for( size_t i=0; i<mInstancesPerBatch; ++i )
         {
             InstancedEntity *instance = generateInstancedEntity(i);
-            mInstancedEntities.push_back( instance );
+            mInstancedEntities.emplace_back( instance );
             mUnusedEntities.push_back( instance );
         }
     }
@@ -214,27 +207,12 @@ class Technique;
     //-----------------------------------------------------------------------
     void InstanceBatch::deleteAllInstancedEntities()
     {
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
-
-        while( itor != end )
+        for(auto const& ent : mInstancedEntities)
         {
-            if( (*itor)->getParentSceneNode() )
-                (*itor)->getParentSceneNode()->detachObject( (*itor) );
-
-            delete *itor++;
+            if( ent->getParentSceneNode() )
+                ent->getParentSceneNode()->detachObject( ent.get() );
         }
-    }
-    //-----------------------------------------------------------------------
-    void InstanceBatch::deleteUnusedInstancedEntities()
-    {
-        InstancedEntityVec::const_iterator itor = mUnusedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mUnusedEntities.end();
-
-        while( itor != end )
-            delete *itor++;
-
-        mUnusedEntities.clear();
+        mInstancedEntities.clear();
     }
     //-----------------------------------------------------------------------
     void InstanceBatch::makeMatrixCameraRelative3x4( Matrix3x4f *mat3x4, size_t count )
@@ -301,40 +279,43 @@ class Technique;
         mUnusedEntities.push_back( instancedEntity );
     }
     //-----------------------------------------------------------------------
-    void InstanceBatch::getInstancedEntitiesInUse( InstancedEntityVec &outEntities,
+    void InstanceBatch::transferInstancedEntitiesInUse( InstancedEntityVec &outEntities,
                                                     CustomParamsVec &outParams )
     {
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
-
-        while( itor != end )
+        for(auto& ent : mInstancedEntities)
         {
-            if( (*itor)->isInUse() )
+            if( ent->isInUse() )
             {
-                outEntities.push_back( *itor );
+                outEntities.emplace_back( ::std::move(ent) );
 
                 for( unsigned char i=0; i<mCreator->getNumCustomParams(); ++i )
-                    outParams.push_back( _getCustomParam( *itor, i ) );
+                    outParams.push_back( _getCustomParam( ent.get(), i ) );
             }
-
-            ++itor;
         }
+
+        mInstancedEntities.clear();
+        mUnusedEntities.clear();
+        mCustomParams.clear();
     }
     //-----------------------------------------------------------------------
     void InstanceBatch::defragmentBatchNoCull( InstancedEntityVec &usedEntities,
                                                 CustomParamsVec &usedParams )
     {
-        const size_t maxInstancesToCopy = std::min( mInstancesPerBatch, usedEntities.size() );
-        InstancedEntityVec::iterator first = usedEntities.end() - maxInstancesToCopy;
-        CustomParamsVec::iterator firstParams = usedParams.end() - maxInstancesToCopy *
-                                                                    mCreator->getNumCustomParams();
+        size_t const maxInstancesToCopy = std::min( mInstancesPerBatch, usedEntities.size() );
+        auto const last = ::std::make_move_iterator(usedEntities.end());
+        auto const first = last- maxInstancesToCopy;
 
         //Copy from the back to front, into m_instancedEntities
-        mInstancedEntities.insert( mInstancedEntities.begin(), first, usedEntities.end() );
+        mInstancedEntities.insert( mInstancedEntities.begin(), first, last );
         //Remove them from the array
-        usedEntities.resize( usedEntities.size() - maxInstancesToCopy );    
+        usedEntities.resize( usedEntities.size() - maxInstancesToCopy );
 
-        mCustomParams.insert( mCustomParams.begin(), firstParams, usedParams.end() );
+        size_t const maxParamsToCopy = maxInstancesToCopy * mCreator->getNumCustomParams();
+        auto const lastParams = ::std::make_move_iterator(usedParams.end());
+        auto const firstParams = lastParams - maxParamsToCopy;
+
+        mCustomParams.insert( mCustomParams.begin(), firstParams, lastParams );
+        usedParams.resize( usedParams.size() - maxParamsToCopy );
     }
     //-----------------------------------------------------------------------
     void InstanceBatch::defragmentBatchDoCull( InstancedEntityVec &usedEntities,
@@ -349,7 +330,7 @@ class Technique;
 
         if( !usedEntities.empty() )
         {
-            first      = *usedEntities.begin();
+            first      = usedEntities.begin()->get();
             firstPos   = first->_getDerivedPosition();
             vMinPos      = first->_getDerivedPosition();
         }
@@ -393,34 +374,33 @@ class Technique;
                 ++it;
             }
 
-            mInstancedEntities.push_back( *closest );
+            mInstancedEntities.push_back( ::std::move(*closest) );
             //Now the custom params
             const size_t idx = closest - usedEntities.begin();  
             for( unsigned char i=0; i<mCreator->getNumCustomParams(); ++i )
             {
-                mCustomParams.push_back( usedParams[idx + i] );
+                mCustomParams.push_back( usedParams[idx * mCreator->getNumCustomParams() + i] );
             }
 
             //Remove 'closest' from usedEntities & usedParams using swap and pop_back trick
-            *closest = *(usedEntities.end() - 1);
-            usedEntities.pop_back();
-
-            for( unsigned char i=1; i<=mCreator->getNumCustomParams(); ++i )
+            if  (closest != usedEntities.end() - 1)
             {
-                usedParams[idx + mCreator->getNumCustomParams() - i] = *(usedParams.end() - 1);
-                usedParams.pop_back();
+                // no self move assignment!
+                *closest = ::std::move(usedEntities.back());
+
+                for( unsigned char i=1; i<=mCreator->getNumCustomParams(); ++i )
+                {
+                    usedParams[(idx + 1) * mCreator->getNumCustomParams() - i] = *(usedParams.end() - i);
+                }
             }
+            usedEntities.pop_back();
+            usedParams.resize(usedParams.size() - mCreator->getNumCustomParams());
         }
     }
     //-----------------------------------------------------------------------
-    void InstanceBatch::_defragmentBatch( bool optimizeCulling, InstancedEntityVec &usedEntities,
+    void InstanceBatch::_defragmentBatch( bool optimizeCulling, InstanceBatch::InstancedEntityVec &usedEntities,
                                             CustomParamsVec &usedParams )
     {
-        //Remove and clear what we don't need
-        mInstancedEntities.clear();
-        mCustomParams.clear();
-        deleteUnusedInstancedEntities();
-
         if( !optimizeCulling )
             defragmentBatchNoCull( usedEntities, usedParams );
         else
@@ -428,25 +408,22 @@ class Technique;
 
         //Reassign instance IDs and tell we're the new parent
         uint32 instanceId = 0;
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
 
-        while( itor != end )
+        for(auto& ent : mInstancedEntities)
         {
-            (*itor)->mInstanceId = instanceId++;
-            (*itor)->mBatchOwner = this;
-            ++itor;
+            ent->mInstanceId = instanceId++;
+            ent->mBatchOwner = this;
         }
 
         //Recreate unused entities, if there's left space in our container
-        assert( (signed)(mInstancesPerBatch) - (signed)(mInstancedEntities.size()) >= 0 );
+        assert( mInstancesPerBatch >= mInstancedEntities.size());
         mInstancedEntities.reserve( mInstancesPerBatch );
         mUnusedEntities.reserve( mInstancesPerBatch );
         mCustomParams.reserve( mCreator->getNumCustomParams() * mInstancesPerBatch );
         for( size_t i=mInstancedEntities.size(); i<mInstancesPerBatch; ++i )
         {
             InstancedEntity *instance = generateInstancedEntity(i);
-            mInstancedEntities.push_back( instance );
+            mInstancedEntities.emplace_back( instance );
             mUnusedEntities.push_back( instance );
             mCustomParams.push_back( Ogre::Vector4::ZERO );
         }
@@ -454,13 +431,6 @@ class Technique;
         //We've potentially changed our bounds
         if( !isBatchUnused() )
             _boundsDirty();
-    }
-    //-----------------------------------------------------------------------
-    void InstanceBatch::_defragmentBatchDiscard(void)
-    {
-        //Remove and clear what we don't need
-        mInstancedEntities.clear();
-        deleteUnusedInstancedEntities();
     }
     //-----------------------------------------------------------------------
     void InstanceBatch::_boundsDirty(void)
@@ -608,13 +578,9 @@ class Technique;
         {
             if( mMeshReference->hasSkeleton() )
             {
-                InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-                InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
-
-                while( itor != end )    
+                for(auto& ent : mInstancedEntities)
                 {
-                    mDirtyAnimation |= (*itor)->_updateAnimation();
-                    ++itor;
+                    mDirtyAnimation |= ent->_updateAnimation();
                 }
             }
 
