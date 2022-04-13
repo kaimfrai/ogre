@@ -170,7 +170,7 @@ struct SceneQueryTest : public RootWithoutRenderSystemFixture {
 
 TEST_F(SceneQueryTest,Intersection)
 {
-    IntersectionSceneQuery* intersectionQuery = mSceneMgr->createIntersectionQuery();
+    auto intersectionQuery = mSceneMgr->createIntersectionQuery();
 
     int expected[][2] = {
         {0, 391},   {1, 8},     {117, 128}, {118, 171}, {118, 24},  {121, 72},  {121, 95},

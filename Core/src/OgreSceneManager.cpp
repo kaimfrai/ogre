@@ -3377,11 +3377,11 @@ SceneManager::createRayQuery(const Ray& ray, uint32 mask)
     return q;
 }
 //---------------------------------------------------------------------
-IntersectionSceneQuery* 
+::std::unique_ptr<IntersectionSceneQuery>
 SceneManager::createIntersectionQuery(uint32 mask)
 {
 
-    DefaultIntersectionSceneQuery* q = new DefaultIntersectionSceneQuery(this);
+    ::std::unique_ptr<IntersectionSceneQuery> q{new DefaultIntersectionSceneQuery(this)};
     q->setQueryMask(mask);
     return q;
 }
