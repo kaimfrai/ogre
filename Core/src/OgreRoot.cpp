@@ -1010,6 +1010,11 @@ namespace Ogre {
         delete target;
     }
     //-----------------------------------------------------------------------
+    void Root::destroyRenderWindow(RenderWindow* target)
+    {
+        mActiveRenderer->destroyRenderWindow(target->getName());
+    }
+    //-----------------------------------------------------------------------
     void Root::destroyRenderTarget(const String &name)
     {
         RenderTarget* target = getRenderTarget(name);
