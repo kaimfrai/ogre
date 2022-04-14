@@ -440,7 +440,7 @@ class RenderQueue;
         InstancedEntity* sharedTransformEntity = NULL;
         if ((useBoneMatrixLookup()) && (num >= getMaxLookupTableInstances()))
         {
-            sharedTransformEntity = mInstancedEntities[num % getMaxLookupTableInstances()];
+            sharedTransformEntity = mInstancedEntities[num % getMaxLookupTableInstances()].get();
             if (sharedTransformEntity->mSharedTransformEntity)
             {
                 sharedTransformEntity = sharedTransformEntity->mSharedTransformEntity;

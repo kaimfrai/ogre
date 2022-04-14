@@ -303,7 +303,7 @@ void ApplicationContextBase::destroyWindow(const Ogre::String& name)
 
 void ApplicationContextBase::_destroyWindow(const NativeWindowPair& win)
 {
-    mRoot->destroyRenderTarget(win.render);
+    mRoot->destroyRenderWindow(win.render);
 }
 
 void ApplicationContextBase::_fireInputEvent(const Event& event, uint32_t windowID) const

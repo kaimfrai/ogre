@@ -142,8 +142,8 @@ void TestContext::setup()
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
     mRoot->addFrameListener(this);
 
-    mPluginNameMap["VTests"]       = new VTestPlugin();
-    mPluginNameMap["PlayPenTests"] = new PlaypenTestPlugin();
+    mPluginNameMap.emplace("VTests", new VTestPlugin());
+    mPluginNameMap.emplace("PlayPenTests", new PlaypenTestPlugin());
 
     Ogre::String batchName = BLANKSTRING;
     time_t raw = time(0);
@@ -187,22 +187,21 @@ OgreBites::Sample* TestContext::loadTests()
     OgreBites::Sample* startSample = 0;
 
     // load all of the plugins in the set
-    for(auto it : mPluginNameMap)
+    for(auto const& it : mPluginNameMap)
     {
-        OgreBites::SampleSet newSamples = it.second->getSamples();
-        for (OgreBites::SampleSet::iterator j = newSamples.begin(); j != newSamples.end(); j++)
+        for (auto const& sample : it.second->getSamples())
         {
             // capability check
             try
             {
-                (*j)->testCapabilities(mRoot->getRenderSystem()->getCapabilities());
+                sample->testCapabilities(mRoot->getRenderSystem()->getCapabilities());
             }
             catch(Ogre::Exception&)
             {
                 continue;
             }
 
-            mTests.push_back(*j);
+            mTests.push_back(sample.get());
         }
     }
 
