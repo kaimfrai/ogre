@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <cassert>
+#include <new>
 
 #include "OgreAlignedAllocator.hpp"
 #include "OgreBitwise.hpp"
@@ -62,13 +63,7 @@ namespace Ogre {
     {
         assert(0 < alignment && alignment <= 128 && Bitwise::isPO2(alignment));
 
-        auto* p = new unsigned char[size + alignment];
-        size_t offset = alignment - (size_t(p) & (alignment-1));
-
-        unsigned char* result = p + offset;
-        result[-1] = (unsigned char)offset;
-
-        return result;
+        return new (::std::align_val_t{alignment}) unsigned char[size];
     }
     //---------------------------------------------------------------------
     void* AlignedMemory::allocate(size_t size)
@@ -80,9 +75,7 @@ namespace Ogre {
     {
         if (p)
         {
-            auto* mem = (unsigned char*)p;
-            mem = mem - mem[-1];
-            delete [] mem;
+            delete [] static_cast<unsigned char*>(p);
         }
     }
 
