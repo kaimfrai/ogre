@@ -148,10 +148,10 @@ TEST_F(UseCustomCapabilitiesTests,CustomCapabilitiesGL)
 {
     using namespace Ogre;
 
-    Root* root = new Root(BLANKSTRING);        
+    Root root{BLANKSTRING};
     mStaticPluginLoader.load();
 
-    RenderSystem* rs = root->getRenderSystemByName("OpenGL Rendering Subsystem");
+    RenderSystem* rs = root.getRenderSystemByName("OpenGL Rendering Subsystem");
     if(!rs)
     {
         // This test is irrelevant because GL RenderSystem is not available
@@ -160,9 +160,9 @@ TEST_F(UseCustomCapabilitiesTests,CustomCapabilitiesGL)
     {
         try {
             setUpGLRenderSystemOptions(rs);
-            root->setRenderSystem(rs);
+            root.setRenderSystem(rs);
 
-            root->initialise(true, "OGRE testCustomCapabilitiesGL Window",
+            root.initialise(true, "OGRE testCustomCapabilitiesGL Window",
                 "../../Tests/Media/CustomCapabilities/customCapabilitiesTest.cfg");
 
             const RenderSystemCapabilities* caps = rs->getCapabilities();
@@ -174,7 +174,7 @@ TEST_F(UseCustomCapabilitiesTests,CustomCapabilitiesGL)
         {
         }
     }
-    delete root;
+    mStaticPluginLoader.unload();
 }
 //--------------------------------------------------------------------------
 static void setUpD3D9RenderSystemOptions(Ogre::RenderSystem* rs)

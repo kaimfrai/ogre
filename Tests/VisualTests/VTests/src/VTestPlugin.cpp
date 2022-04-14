@@ -33,8 +33,6 @@ import :VTestPlugin;
 
 import Ogre.Samples;
 
-import <set>;
-
 VTestPlugin::VTestPlugin()
     :SamplePlugin("VTestPlugin")
 {
@@ -43,14 +41,5 @@ VTestPlugin::VTestPlugin()
     addSample(new CubeMappingTest());
 
     addSample(new StencilShadowTest());
-}
-//---------------------------------------------------------------------
-VTestPlugin::~VTestPlugin()
-{
-    for (auto mSample : mSamples)
-    {
-        delete mSample;
-    }
-    mSamples.clear();
 }
 //---------------------------------------------------------------------

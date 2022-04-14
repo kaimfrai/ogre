@@ -58,6 +58,7 @@ import <algorithm>;
 import <cstring>;
 import <limits>;
 import <map>;
+import <memory>;
 import <string>;
 import <type_traits>;
 import <utility>;
@@ -435,7 +436,7 @@ class RenderQueue;
         InstancedEntity* sharedTransformEntity = nullptr;
         if ((useBoneMatrixLookup()) && (num >= getMaxLookupTableInstances()))
         {
-            sharedTransformEntity = mInstancedEntities[num % getMaxLookupTableInstances()];
+            sharedTransformEntity = mInstancedEntities[num % getMaxLookupTableInstances()].get();
             if (sharedTransformEntity->mSharedTransformEntity)
             {
                 sharedTransformEntity = sharedTransformEntity->mSharedTransformEntity;

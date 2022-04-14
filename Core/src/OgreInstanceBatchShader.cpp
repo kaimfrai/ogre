@@ -50,6 +50,7 @@ import <algorithm>;
 import <cstring>;
 import <list>;
 import <map>;
+import <memory>;
 import <string>;
 import <utility>;
 import <vector>;

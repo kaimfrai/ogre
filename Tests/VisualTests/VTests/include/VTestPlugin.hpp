@@ -37,5 +37,4 @@ class VTestPlugin : public OgreBites::SamplePlugin
 public:
 
     VTestPlugin();
-    ~VTestPlugin() override;
 };

@@ -41,6 +41,7 @@ import :InstanceBatchHW;
 import :InstanceBatchHW_VTF;
 import :InstanceBatchShader;
 import :InstanceBatchVTF;
+import :InstancedEntity;
 import :InstanceManager;
 import :MaterialManager;
 import :Mesh;
@@ -59,8 +60,6 @@ import <utility>;
 
 namespace Ogre
 {
-class InstancedEntity;
-
     InstanceManager::InstanceManager( String customName, SceneManager *sceneManager,
                                         const String &meshName, const String &groupName,
                                         InstancingTechnique instancingTechnique, uint16 instancingFlags,
@@ -341,26 +340,21 @@ class InstancedEntity;
         auto itor = fragmentedBatches.begin();
         auto end  = fragmentedBatches.end();
 
-        while( itor != end && !usedEntities.empty() )
+        while( itor != end  )
         {
             if( !(*itor)->isStatic() )
                 (*itor)->_defragmentBatch( optimizeCull, usedEntities, usedParams );
             ++itor;
+
+            if  (usedEntities.empty())
+                break;
         }
 
         auto lastImportantBatch = itor;
 
         while( itor != end )
         {
-            if( !(*itor)->isStatic() )
-            {
-                //If we get here, this means we hit remaining batches which will be unused.
-                //Destroy them
-                //Call this to avoid freeing InstancedEntities that were just reparented
-                (*itor)->_defragmentBatchDiscard();
-                delete *itor;
-            }
-            else
+            if( (*itor)->isStatic() )
             {
                 //This isn't a meaningless batch, move it forward so it doesn't get wipe
                 //when we resize the container (faster than removing element by element)
@@ -381,31 +375,34 @@ class InstancedEntity;
         _updateDirtyBatches();
 
         //Do this for every material
-        auto itor = mInstanceBatches.begin();
-        auto end  = mInstanceBatches.end();
-
-        while( itor != end )
+        for(auto& instanceBatchPair : mInstanceBatches)
         {
             InstanceBatch::InstancedEntityVec   usedEntities;
             InstanceBatch::CustomParamsVec      usedParams;
-            usedEntities.reserve( itor->second.size() * mInstancesPerBatch );
+            usedEntities.reserve( instanceBatchPair.second.size() * mInstancesPerBatch );
+
+            // only 1 allocation required with reserve
+            size_t entitiesInUseCount{};
+            for(auto& instanceBatch : instanceBatchPair.second)
+            {
+                //  branchless optimization
+                    entitiesInUseCount
+                +=  !instanceBatch->isStatic()
+                * instanceBatch->getUsedEntityCount()
+                ;
+            }
+            usedEntities.reserve(entitiesInUseCount);
 
             //Collect all Instanced Entities being used by _all_ batches from this material
-            auto it = itor->second.begin();
-            auto en = itor->second.end();
-
-            while( it != en )
+            for(auto& instanceBatch : instanceBatchPair.second)
             {
                 //Don't collect instances from static batches, we assume they're correctly set
                 //Plus, we don't want to put InstancedEntities from non-static into static batches
-                if( !(*it)->isStatic() )
-                    (*it)->getInstancedEntitiesInUse( usedEntities, usedParams );
-                ++it;
+                if( !instanceBatch->isStatic() )
+                    instanceBatch->transferInstancedEntitiesInUse( usedEntities, usedParams );
             }
 
-            defragmentBatches( optimizeCulling, usedEntities, usedParams, itor->second );
-
-            ++itor;
+            defragmentBatches( optimizeCulling, usedEntities, usedParams, instanceBatchPair.second );
         }
     }
     //-----------------------------------------------------------------------

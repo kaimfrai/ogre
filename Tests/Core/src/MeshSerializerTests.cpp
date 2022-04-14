@@ -53,18 +53,19 @@ void MeshSerializerTests::SetUp()
 {
     mErrorFactor = 0.05;
 
-    mFSLayer = new Ogre::FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua");
+    mFSLayer = std::make_unique<Ogre::FileSystemLayer>(/*OGRE_VERSION_NAME*/"Tsathoggua");
 
-    new ResourceGroupManager();
-    new LodStrategyManager();
-    new DefaultHardwareBufferManager();
-    new MeshManager();
-    new SkeletonManager();
-    auto* archiveMgr = new ArchiveManager();
-    archiveMgr->addArchiveFactory(new FileSystemArchiveFactory());
+    mResGroupMgr = std::make_unique<ResourceGroupManager>();
+    mLodMgr = std::make_unique<LodStrategyManager>();
+    mHardMgr = std::make_unique<DefaultHardwareBufferManager>();
+    mMeshMgr = std::make_unique<MeshManager>();
+    mSkelMgr = std::make_unique<SkeletonManager>();
+    mArchiveFactory = std::make_unique<FileSystemArchiveFactory>();
+    mArchiveMgr = std::make_unique<ArchiveManager>();
+    mArchiveMgr->addArchiveFactory(mArchiveFactory.get());
 
-    auto* matMgr = new MaterialManager();
-    matMgr->initialise();
+    mMatMgr = std::make_unique<MaterialManager>();
+    mMatMgr->initialise();
 
     // Load resource paths from config file
     ConfigFile cf;
@@ -132,14 +133,15 @@ void MeshSerializerTests::TearDown()
         mSkeleton.reset();
     }    
     
-    delete MeshManager::getSingletonPtr();
-    delete SkeletonManager::getSingletonPtr();
-    delete DefaultHardwareBufferManager::getSingletonPtr();
-    delete ArchiveManager::getSingletonPtr();    
-    delete MaterialManager::getSingletonPtr();
-    delete LodStrategyManager::getSingletonPtr();
-    delete ResourceGroupManager::getSingletonPtr();
-    delete mFSLayer;
+    mMatMgr.reset();
+    mArchiveMgr.reset();
+    mArchiveFactory.reset();
+    mSkelMgr.reset();
+    mMeshMgr.reset();
+    mHardMgr.reset();
+    mLodMgr.reset();
+    mResGroupMgr.reset();
+    mFSLayer.reset();
 }
 //--------------------------------------------------------------------------
 TEST_F(MeshSerializerTests,Mesh_clone)

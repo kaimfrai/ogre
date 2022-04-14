@@ -38,33 +38,35 @@ import :Core.MeshWithoutIndexData;
 import Ogre.Core;
 
 import <cstdio>;
+import <memory>;
 import <string>;
-import <vector>;
 
 // Register the test suite
 //--------------------------------------------------------------------------
 void MeshWithoutIndexDataTests::SetUp()
 {    
-    new ResourceGroupManager();
-    new LodStrategyManager();
-    mBufMgr = new DefaultHardwareBufferManager();
-    mMeshMgr = new MeshManager();
-    mArchiveMgr = new ArchiveManager();
-    mArchiveMgr->addArchiveFactory(new FileSystemArchiveFactory());
+    mResMgr = std::make_unique<ResourceGroupManager>();
+    mLodMgr = std::make_unique<LodStrategyManager>();
+    mBufMgr = std::make_unique<DefaultHardwareBufferManager>();
+    mMeshMgr = std::make_unique<MeshManager>();
+    mArchFactory = std::make_unique<FileSystemArchiveFactory>();
+    mArchiveMgr = std::make_unique<ArchiveManager>();
+    mArchiveMgr->addArchiveFactory(mArchFactory.get());
 
-    auto* matMgr = new MaterialManager();
-    matMgr->initialise();
+    mMatMgr = std::make_unique<MaterialManager>();
+    mMatMgr->initialise();
 }
 
 //--------------------------------------------------------------------------
 void MeshWithoutIndexDataTests::TearDown()
 {
-    delete MaterialManager::getSingletonPtr();
-    delete mArchiveMgr;
-    delete mMeshMgr;
-    delete mBufMgr;
-    delete LodStrategyManager::getSingletonPtr();
-    delete ResourceGroupManager::getSingletonPtr();
+    mMatMgr.reset();
+    mArchiveMgr.reset();
+    mArchFactory.reset();
+    mMeshMgr.reset();
+    mBufMgr.reset();
+    mLodMgr.reset();
+    mResMgr.reset();
 }
 //--------------------------------------------------------------------------
 TEST_F(MeshWithoutIndexDataTests,CreateSimpleLine)

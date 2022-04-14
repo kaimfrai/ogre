@@ -53,7 +53,7 @@ namespace Ogre {
     protected:
         GLRenderSystem* mRenderSystem;
         char* mScratchBufferPool{nullptr};
-        size_t mMapBufferThreshold;
+        size_t mMapBufferThreshold{OGRE_GL_DEFAULT_MAP_BUFFER_THRESHOLD};
 
     public:
         GLHardwareBufferManager();

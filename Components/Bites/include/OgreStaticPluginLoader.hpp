@@ -6,6 +6,7 @@ export module Ogre.Components.Bites:StaticPluginLoader;
 
 export import Ogre.Core;
 
+export import <memory>;
 export import <vector>;
 
 export
@@ -24,13 +25,15 @@ namespace OgreBites
         plugins.
     */
     class StaticPluginLoader {
-        std::vector<Ogre::Plugin*> mPlugins;
+        std::vector<::std::unique_ptr<Ogre::Plugin>> mPlugins;
 
     public:
         /** Load all the enabled plugins */
         void load();
 
         void unload();
+
+        ~StaticPluginLoader();
     };
     /** @} */
     /** @} */

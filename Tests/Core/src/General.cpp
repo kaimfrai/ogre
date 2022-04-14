@@ -130,7 +130,7 @@ struct SceneQueryTest : public RootWithoutRenderSystemFixture {
 };
 TEST_F(SceneQueryTest,Intersection)
 {
-    IntersectionSceneQuery* intersectionQuery = mSceneMgr->createIntersectionQuery();
+    auto intersectionQuery = mSceneMgr->createIntersectionQuery();
 
     int expected[][2] = {
         {0, 391},   {1, 8},     {117, 128}, {118, 171}, {118, 24},  {121, 72},  {121, 95},
@@ -157,7 +157,7 @@ TEST_F(SceneQueryTest,Intersection)
     // printf("\n");
 }
 TEST_F(SceneQueryTest, Ray) {
-    RaySceneQuery* rayQuery = mSceneMgr->createRayQuery(mCamera->getCameraToViewportRay(0.5, 0.5));
+    auto rayQuery = mSceneMgr->createRayQuery(mCamera->getCameraToViewportRay(0.5, 0.5));
     rayQuery->setSortByDistance(true, 2);
 
     RaySceneQueryResult& results = rayQuery->execute();

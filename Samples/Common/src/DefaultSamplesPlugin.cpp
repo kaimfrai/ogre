@@ -43,10 +43,3 @@ DefaultSamplesPlugin::DefaultSamplesPlugin() : SamplePlugin("DefaultSamplesPlugi
 {
     addSample(new Sample_NewInstancing);
 }
-DefaultSamplesPlugin::~DefaultSamplesPlugin()
-{
-    for (auto mSample : mSamples)
-    {
-        delete mSample;
-    }
-}

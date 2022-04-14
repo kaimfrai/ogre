@@ -33,6 +33,7 @@ export import Ogre.Core;
 export import <algorithm>;
 export import <cstddef>;
 export import <map>;
+export import <memory>;
 export import <set>;
 export import <string>;
 export import <vector>;
@@ -42,7 +43,6 @@ namespace Ogre::RTShader {
 
     class ProgramWriter;
 class Program;
-class ProgramProcessor;
 class ProgramSet;
 
 /** \addtogroup Optional
@@ -112,7 +112,7 @@ private:
     using ProgramProcessorMap = std::map<String, ProgramProcessor *>;
     using ProgramProcessorIterator = ProgramProcessorMap::iterator;
     using ProgramProcessorConstIterator = ProgramProcessorMap::const_iterator;
-    using ProgramProcessorList = std::vector<ProgramProcessor *>;
+    using ProgramProcessorList = std::vector<::std::unique_ptr<ProgramProcessor>>;
 
 
     /** Create default program processors. */

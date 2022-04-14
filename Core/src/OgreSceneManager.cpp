@@ -3334,19 +3334,18 @@ SceneManager::createPlaneBoundedVolumeQuery(const PlaneBoundedVolumeList& volume
 
 //---------------------------------------------------------------------
 auto 
-SceneManager::createRayQuery(const Ray& ray, uint32 mask) -> RaySceneQuery*
+SceneManager::createRayQuery(const Ray& ray, uint32 mask) -> ::std::unique_ptr<RaySceneQuery>
 {
-    auto* q = new DefaultRaySceneQuery(this);
+    ::std::unique_ptr<RaySceneQuery> q{ new DefaultRaySceneQuery(this)};
     q->setRay(ray);
     q->setQueryMask(mask);
     return q;
 }
 //---------------------------------------------------------------------
 auto 
-SceneManager::createIntersectionQuery(uint32 mask) -> IntersectionSceneQuery*
+SceneManager::createIntersectionQuery(uint32 mask) -> ::std::unique_ptr<IntersectionSceneQuery>
 {
-
-    auto* q = new DefaultIntersectionSceneQuery(this);
+    ::std::unique_ptr<IntersectionSceneQuery> q{new DefaultIntersectionSceneQuery(this)};
     q->setQueryMask(mask);
     return q;
 }

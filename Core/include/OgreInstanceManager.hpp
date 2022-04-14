@@ -29,6 +29,7 @@ export module Ogre.Core:InstanceManager;
 
 export import :Common;
 export import :IteratorWrapper;
+export import :InstanceBatch;
 export import :MemoryAllocatorConfig;
 export import :Platform;
 export import :Prerequisites;
@@ -44,9 +45,8 @@ export import <vector>;
 export
 namespace Ogre
 {
-class InstanceBatch;
-class InstancedEntity;
-class SceneManager;
+    class InstancedEntity;
+    class SceneManager;
     /** \addtogroup Core
     *  @{
     */
@@ -147,8 +147,8 @@ class SceneManager;
 
         /** @see defragmentBatches overload, this takes care of an array of batches
             for a specific material */
-        void defragmentBatches( bool optimizeCull, std::vector<InstancedEntity*> &entities,
-                                std::vector<Ogre::Vector4> &usedParams,
+        void defragmentBatches( bool optimizeCull, InstanceBatch::InstancedEntityVec &entities,
+                                InstanceBatch::CustomParamsVec &usedParams,
                                 InstanceBatchVec &fragmentedBatches );
 
         /** @see setSetting. This function helps it by setting the given parameter to all batches

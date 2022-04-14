@@ -712,7 +712,7 @@ namespace Ogre
     void ConvexBody::insertPolygon(Polygon* pdata, size_t poly )
     {
         OgreAssertDbg(poly <= getPolygonCount(), "Insert position out of range" );
-        OgreAssertDbg( pdata != NULL, "Polygon is NULL" );
+        OgreAssertDbg( pdata != nullptr, "Polygon is NULL" );
 
         auto it = mPolygons.begin();
         std::advance(it, poly);
@@ -723,7 +723,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ConvexBody::insertPolygon(Polygon* pdata)
     {
-        OgreAssertDbg( pdata != NULL, "Polygon is NULL" );
+        OgreAssertDbg( pdata != nullptr, "Polygon is NULL" );
 
         mPolygons.push_back( pdata );
 
@@ -794,7 +794,7 @@ namespace Ogre
     void ConvexBody::setPolygon(Polygon* pdata, size_t poly)
     {
         OgreAssertDbg(poly < getPolygonCount(), "Search position out of range" );
-        OgreAssertDbg(pdata != NULL, "Polygon is NULL" );
+        OgreAssertDbg(pdata != nullptr, "Polygon is NULL" );
 
         if (pdata != mPolygons[poly])
         {
@@ -823,7 +823,7 @@ namespace Ogre
     void ConvexBody::storeEdgesOfPolygon(size_t poly, Polygon::EdgeMap *edgeMap ) const
     {
         OgreAssertDbg(poly <= getPolygonCount(), "Search position out of range" );
-        OgreAssertDbg( edgeMap != NULL, "TEdgeMap ptr is NULL" );
+        OgreAssertDbg( edgeMap != nullptr, "TEdgeMap ptr is NULL" );
 
         mPolygons[poly]->storeEdges(edgeMap);
     }

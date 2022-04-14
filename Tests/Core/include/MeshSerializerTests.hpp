@@ -33,6 +33,7 @@ export module Ogre.Tests:Core.MeshSerializer;
 
 export import Ogre.Core;
 
+export import <memory>;
 export import <unordered_map>;
 
 using namespace Ogre;
@@ -48,7 +49,15 @@ protected:
     String mSkeletonFullPath;
     SkeletonPtr mSkeleton;
     Real mErrorFactor;
-    FileSystemLayer* mFSLayer;
+    ::std::unique_ptr<FileSystemLayer> mFSLayer;
+    ::std::unique_ptr<ResourceGroupManager> mResGroupMgr;
+    ::std::unique_ptr<LodStrategyManager> mLodMgr;
+    ::std::unique_ptr<HardwareBufferManager> mHardMgr;
+    ::std::unique_ptr<MeshManager> mMeshMgr;
+    ::std::unique_ptr<SkeletonManager> mSkelMgr;
+    ::std::unique_ptr<ArchiveFactory> mArchiveFactory;
+    ::std::unique_ptr<ArchiveManager> mArchiveMgr;
+    ::std::unique_ptr<MaterialManager> mMatMgr;
 
 public:
     void SetUp() override;
