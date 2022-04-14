@@ -61,25 +61,27 @@ namespace Ogre {
 //--------------------------------------------------------------------------
 void MeshWithoutIndexDataTests::SetUp()
 {    
-    new ResourceGroupManager();
-    new LodStrategyManager();
-    mBufMgr = new DefaultHardwareBufferManager();
-    mMeshMgr = new MeshManager();
-    mArchiveMgr = new ArchiveManager();
-    mArchiveMgr->addArchiveFactory(new FileSystemArchiveFactory());
+    mResMgr.reset(new ResourceGroupManager());
+    mLodMgr.reset(new LodStrategyManager());
+    mBufMgr.reset(new DefaultHardwareBufferManager());
+    mMeshMgr.reset(new MeshManager());
+    mArchFactory.reset(new FileSystemArchiveFactory());
+    mArchiveMgr.reset(new ArchiveManager());
+    mArchiveMgr->addArchiveFactory(mArchFactory.get());
 
-    auto* matMgr = new MaterialManager();
-    matMgr->initialise();
+    mMatMgr.reset(new MaterialManager());
+    mMatMgr->initialise();
 }
 //--------------------------------------------------------------------------
 void MeshWithoutIndexDataTests::TearDown()
 {
-    delete MaterialManager::getSingletonPtr();
-    delete mArchiveMgr;
-    delete mMeshMgr;
-    delete mBufMgr;
-    delete LodStrategyManager::getSingletonPtr();
-    delete ResourceGroupManager::getSingletonPtr();
+    mMatMgr.reset();
+    mArchiveMgr.reset();
+    mArchFactory.reset();
+    mMeshMgr.reset();
+    mBufMgr.reset();
+    mLodMgr.reset();
+    mResMgr.reset();
 }
 //--------------------------------------------------------------------------
 TEST_F(MeshWithoutIndexDataTests,CreateSimpleLine)

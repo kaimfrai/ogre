@@ -31,13 +31,17 @@ THE SOFTWARE.
 
 #include <gtest/gtest.h>
 
-#include "OgrePlatform.hpp"
+#include <memory>
 
-namespace Ogre {
-class ArchiveManager;
-class HardwareBufferManager;
-class MeshManager;
-}  // namespace Ogre
+#include "OgreArchiveFactory.hpp"
+#include "OgreArchiveManager.hpp"
+#include "OgreHardwareBufferManager.hpp"
+#include "OgreLodStrategyManager.hpp"
+#include "OgreMaterialManager.hpp"
+#include "OgreMeshManager.hpp"
+#include "OgrePlatform.hpp"
+#include "OgreResourceGroupManager.hpp"
+
 
 using namespace Ogre;
 
@@ -45,9 +49,13 @@ class MeshWithoutIndexDataTests : public ::testing::Test
 {
 
 protected:
-    HardwareBufferManager* mBufMgr;
-    MeshManager* mMeshMgr;
-    ArchiveManager* mArchiveMgr;
+    ::std::unique_ptr<ResourceGroupManager> mResMgr;
+    ::std::unique_ptr<LodStrategyManager> mLodMgr;
+    ::std::unique_ptr<HardwareBufferManager> mBufMgr;
+    ::std::unique_ptr<MeshManager> mMeshMgr;
+    ::std::unique_ptr<ArchiveFactory> mArchFactory;
+    ::std::unique_ptr<ArchiveManager> mArchiveMgr;
+    ::std::unique_ptr<MaterialManager> mMatMgr;
 
 public:
     void SetUp() override;

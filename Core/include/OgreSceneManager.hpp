@@ -2541,7 +2541,7 @@ namespace Ogre {
             certain objects; see SceneQuery for details.
         */
         virtual auto 
-            createRayQuery(const Ray& ray, uint32 mask = 0xFFFFFFFF) -> RaySceneQuery*;
+            createRayQuery(const Ray& ray, uint32 mask = 0xFFFFFFFF) -> ::std::unique_ptr<RaySceneQuery>;
 
         /** Creates an IntersectionSceneQuery for this scene manager. 
         @remarks
@@ -2555,7 +2555,7 @@ namespace Ogre {
             certain objects; see SceneQuery for details.
         */
         virtual auto 
-            createIntersectionQuery(uint32 mask = 0xFFFFFFFF) -> IntersectionSceneQuery*;
+            createIntersectionQuery(uint32 mask = 0xFFFFFFFF) -> ::std::unique_ptr<IntersectionSceneQuery>;
 
         /** Destroys a scene query of any type. */
         void destroyQuery(SceneQuery* query);

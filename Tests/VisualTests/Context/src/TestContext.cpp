@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include <iostream>
 #include <memory>
 #include <set>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -142,8 +143,8 @@ void TestContext::setup()
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
     mRoot->addFrameListener(this);
 
-    mPluginNameMap["VTests"]       = new VTestPlugin();
-    mPluginNameMap["PlayPenTests"] = new PlaypenTestPlugin();
+    mPluginNameMap.emplace("VTests", new VTestPlugin());
+    mPluginNameMap.emplace("PlayPenTests", new PlaypenTestPlugin());
 
     Ogre::String batchName = BLANKSTRING;
     time_t raw = time(nullptr);
@@ -187,22 +188,21 @@ auto TestContext::loadTests() -> OgreBites::Sample*
     OgreBites::Sample* startSample = nullptr;
 
     // load all of the plugins in the set
-    for(auto it : mPluginNameMap)
+    for(auto const& it : mPluginNameMap)
     {
-        OgreBites::SampleSet newSamples = it.second->getSamples();
-        for (auto newSample : newSamples)
+        for (auto const& sample : it.second->getSamples())
         {
             // capability check
             try
             {
-                newSample->testCapabilities(mRoot->getRenderSystem()->getCapabilities());
+                sample->testCapabilities(mRoot->getRenderSystem()->getCapabilities());
             }
             catch(Ogre::Exception&)
             {
                 continue;
             }
 
-            mTests.push_back(newSample);
+            mTests.push_back(sample.get());
         }
     }
 

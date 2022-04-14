@@ -43,6 +43,9 @@
 #include "OgreMaterialManager.hpp"
 #include "OgreTrays.hpp"
 
+#include <memory>
+#include <set>
+
 namespace OgreBites
 {
 
@@ -59,9 +62,14 @@ namespace OgreBites
         =============================================================================*/
         struct Comparer
         {
-            auto operator()(const Sample* a, const Sample* b) const -> bool
+            auto operator()(Sample const* a, Sample const* b) const -> bool
             {
                 return a->getInfo().at("Title") < b->getInfo().at("Title");
+            }
+
+            bool operator()(::std::unique_ptr<Sample> const& a, ::std::unique_ptr<Sample> const& b) const
+            {
+                return operator()(a.get(), b.get());
             }
         };
 
@@ -337,7 +345,7 @@ namespace OgreBites
         std::set<int> mScreenshotFrames;
     };
 
-    using SampleSet = std::set<Sample *, Sample::Comparer>;
+    using SampleSet = std::set<::std::unique_ptr<Sample>, Sample::Comparer>;
 }
 
 #endif

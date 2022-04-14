@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <map>
 #include <string>
+#include <memory>
 #include <utility>
 #include <vector>
 
@@ -310,7 +311,7 @@ namespace Ogre
             //Calculate UV offsets, which change per instance
             for( size_t i=0; i<mInstancesPerBatch; ++i )
             {
-                InstancedEntity* entity = useMatrixLookup ? mInstancedEntities[i] : nullptr;
+                InstancedEntity* entity = useMatrixLookup ? mInstancedEntities[i].get() : nullptr;
                 if  //Update if we are not using a lookup bone matrix method. In this case the function will 
                     //be called only once
                     (!useMatrixLookup || 
@@ -464,7 +465,7 @@ namespace Ogre
         
         for(size_t i = 0 ; i < instanceCount ; ++i)
         {
-            InstancedEntity* entity = mInstancedEntities[i];
+            InstancedEntity* entity = mInstancedEntities[i].get();
             size_t textureLookupPosition = updatedInstances;
             if (useMatrixLookup)
             {

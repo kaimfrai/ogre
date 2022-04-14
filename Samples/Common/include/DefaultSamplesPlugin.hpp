@@ -36,7 +36,6 @@ namespace OgreBites
     {
     public:
         DefaultSamplesPlugin();
-        ~DefaultSamplesPlugin() override;
     };
 }
 

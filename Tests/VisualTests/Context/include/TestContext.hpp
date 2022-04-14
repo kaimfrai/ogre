@@ -31,7 +31,7 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 #include <deque>
 #include <map>
-#include <string>
+#include <memory>
 
 #include "OgreIteratorWrapper.hpp"
 #include "OgrePrerequisites.hpp"
@@ -112,7 +112,7 @@ class TestContext : public OgreBites::SampleContext
     }
 
  private:
-    using PluginMap = std::map<String, OgreBites::SamplePlugin *>;
+    using PluginMap = std::map<String, ::std::unique_ptr<OgreBites::SamplePlugin>>;
     bool mSuccess{true};
 
     /// The timestep

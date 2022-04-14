@@ -30,10 +30,12 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <cstddef>
+#include <memory>
 #include <vector>
 
 #include "OgreAxisAlignedBox.hpp"
 #include "OgreCommon.hpp"
+#include "OgreInstancedEntity.hpp"
 #include "OgreMatrix4.hpp"
 #include "OgreMesh.hpp"
 #include "OgreMovableObject.hpp"
@@ -48,7 +50,6 @@ namespace Ogre
 {
 class Camera;
 class InstanceManager;
-class InstancedEntity;
 class RenderQueue;
 class SubMesh;
 class Technique;
@@ -103,7 +104,7 @@ class Technique;
     class InstanceBatch : public Renderable, public MovableObject
     {
     public:
-        using InstancedEntityVec = std::vector<InstancedEntity *>;
+        using InstancedEntityVec = std::vector<::std::unique_ptr<InstancedEntity>>;
         using CustomParamsVec = std::vector<Vector4>;
     protected:
         using Matrix3x4f = TransformBase<3, float>;
@@ -122,7 +123,7 @@ class Technique;
         //and put back again when they're no longer needed
         //Note each InstancedEntity has a unique ID ranging from [0; mInstancesPerBatch)
         InstancedEntityVec  mInstancedEntities;
-        InstancedEntityVec  mUnusedEntities;
+        std::vector<InstancedEntity*> mUnusedEntities;
 
         ///@see InstanceManager::setNumCustomParams(). Because this may not even be used,
         ///our implementations keep the params separate from the InstancedEntity to lower
@@ -162,7 +163,6 @@ class Technique;
         virtual void setupIndices( const SubMesh* baseSubMesh ) = 0;
         virtual void createAllInstancedEntities();
         virtual void deleteAllInstancedEntities();
-        virtual void deleteUnusedInstancedEntities();
         /// Creates a new InstancedEntity instance
         virtual auto generateInstancedEntity(size_t num) -> InstancedEntity*;
 
@@ -265,10 +265,13 @@ class Technique;
         */
         auto isBatchUnused() const -> bool { return mUnusedEntities.size() == mInstancedEntities.size(); }
 
+        auto inline getUsedEntityCount() const noexcept -> size_t { return mInstancedEntities.size() - mUnusedEntities.size();  }
+
         /** Fills the input vector with the instances that are currently being used or were requested.
-            Used for defragmentation, @see InstanceManager::defragmentBatches
+            Used for defragmentation, @see InstanceManager::defragmentBatches.
+            Ownership of instanced entities is transfered to outEntities. mInstancedEntities will be empty afterwards.
         */
-        void getInstancedEntitiesInUse( InstancedEntityVec &outEntities, CustomParamsVec &outParams );
+        void transferInstancedEntitiesInUse( InstancedEntityVec &outEntities, CustomParamsVec &outParams );
 
         /** @see InstanceManager::defragmentBatches
             This function takes InstancedEntities and pushes back all entities it can fit here
@@ -285,13 +288,6 @@ class Technique;
         */
         void _defragmentBatch( bool optimizeCulling, InstancedEntityVec &usedEntities,
                                 CustomParamsVec &usedParams );
-
-        /** @see InstanceManager::_defragmentBatchDiscard
-            Destroys unused entities and clears the mInstancedEntity container which avoids leaving
-            dangling pointers from reparented InstancedEntities
-            Usually called before deleting this pointer. Don't call directly!
-        */
-        void _defragmentBatchDiscard();
 
         /** Called by InstancedEntity(s) to tell us we need to update the bounds
             (we touch the SceneNode so the SceneManager aknowledges such change)
