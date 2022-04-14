@@ -120,7 +120,7 @@ namespace Ogre {
             return;
 
         if (!buffer)
-            buffer = new uchar[size];
+            buffer = static_cast<unsigned char*>(malloc(size));
         loadDynamicImage(buffer, width, height, depth, format, autoDelete);
     }
 
@@ -131,7 +131,7 @@ namespace Ogre {
         if (!mAutoDelete || !mBuffer || mBufSize != size)
         {
             freeMemory();
-            mBuffer = new uchar[size]; // allocate
+            mBuffer = static_cast<unsigned char*>(malloc(size)); // allocate
         }
 
         // make sure freeMemory() does nothing, we set this true immediately after
@@ -159,8 +159,8 @@ namespace Ogre {
         //Only delete if this was not a dynamic image (meaning app holds & destroys buffer)
         if( mBuffer && mAutoDelete )
         {
-            delete[] mBuffer;
-            mBuffer = NULL;
+            free(mBuffer);
+            mBuffer = nullptr;
         }
 
     }
@@ -299,7 +299,7 @@ namespace Ogre {
         size_t size = calculateSize(numMipMaps, numFaces, uWidth, uHeight, uDepth, eFormat);
         OgreAssert(size == stream->size(), "Wrong stream size");
 
-        uchar *buffer = new uchar[size];
+        auto *buffer = static_cast<unsigned char*>(malloc(size));
         stream->read(buffer, size);
 
         return loadDynamicImage(buffer,

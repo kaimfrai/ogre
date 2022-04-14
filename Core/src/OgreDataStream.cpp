@@ -259,14 +259,14 @@ namespace Ogre {
             // size of source is unknown, read all of it into memory
             String contents = sourceStream->getAsString();
             mSize = contents.size();
-            mData = new  uchar[mSize];
+            mData = static_cast<uchar*>(malloc(mSize));
             mPos = mData;
             memcpy(mData, contents.data(), mSize);
             mEnd = mData + mSize;
         }
         else
         {
-            mData = new uchar[mSize];
+            mData = static_cast<uchar*>(malloc(mSize));
             mPos = mData;
             mEnd = mData + sourceStream->read(mData, mSize);
         }
@@ -318,7 +318,7 @@ namespace Ogre {
         }
         else
         {
-            mData = new uchar[mSize];
+            mData = static_cast<uchar*>(malloc(mSize));
             mPos = mData;
             mEnd = mData + sourceStream->read(mData, mSize);
         }
@@ -330,7 +330,7 @@ namespace Ogre {
         : DataStream(static_cast<uint16>(readOnly ? READ : (READ | WRITE)))
     {
         mSize = inSize;
-        mData = new uchar[mSize];
+        mData = static_cast<uchar*>(malloc(mSize));
         mPos = mData;
         mEnd = mData + mSize;
         mFreeOnClose = freeOnClose;
@@ -476,8 +476,8 @@ namespace Ogre {
         mAccess = 0;
         if (mFreeOnClose && mData)
         {
-            delete[] mData;
-            mData = 0;
+            free(mData);
+            mData = nullptr;
         }
     }
     //-----------------------------------------------------------------------
