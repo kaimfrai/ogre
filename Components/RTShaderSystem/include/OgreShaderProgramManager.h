@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cstddef>
 #include <map>
+#include <memory>
 #include <set>
 #include <string>
 #include <vector>
@@ -37,6 +38,7 @@ THE SOFTWARE.
 #include "OgreGpuProgram.h"
 #include "OgrePrerequisites.h"
 #include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgramProcessor.h"
 #include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
 
@@ -45,7 +47,6 @@ namespace RTShader {
 
     class ProgramWriter;
 class Program;
-class ProgramProcessor;
 class ProgramSet;
 
 /** \addtogroup Optional
@@ -115,7 +116,7 @@ private:
     typedef std::map<String, ProgramProcessor*>        ProgramProcessorMap;
     typedef ProgramProcessorMap::iterator               ProgramProcessorIterator;
     typedef ProgramProcessorMap::const_iterator         ProgramProcessorConstIterator;
-    typedef std::vector<ProgramProcessor*>             ProgramProcessorList;
+    typedef std::vector<::std::unique_ptr<ProgramProcessor>>             ProgramProcessorList;
 
 
     /** Create default program processors. */
