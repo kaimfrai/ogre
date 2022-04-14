@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <cstring>
 #include <limits>
 #include <map>
+#include <memory>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -440,7 +441,7 @@ class RenderQueue;
         InstancedEntity* sharedTransformEntity = NULL;
         if ((useBoneMatrixLookup()) && (num >= getMaxLookupTableInstances()))
         {
-            sharedTransformEntity = mInstancedEntities[num % getMaxLookupTableInstances()];
+            sharedTransformEntity = mInstancedEntities[num % getMaxLookupTableInstances()].get();
             if (sharedTransformEntity->mSharedTransformEntity)
             {
                 sharedTransformEntity = sharedTransformEntity->mSharedTransformEntity;

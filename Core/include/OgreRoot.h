@@ -624,6 +624,8 @@ struct SceneManagerMetaData;
         */
         void destroyRenderTarget(RenderTarget* target);
 
+        void destroyRenderWindow(RenderWindow* pWin);
+
         /** Destroys the given named RenderTarget.
         */
         void destroyRenderTarget(const String &name);

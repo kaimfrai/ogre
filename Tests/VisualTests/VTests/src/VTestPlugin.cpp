@@ -28,12 +28,8 @@ THE SOFTWARE.
 
 #include "VTestPlugin.h"
 
-#include <set>
-
 #include "CubeMappingTest.h"
 #include "StencilShadowTest.h"
-
-#include "Sample.h"
 
 VTestPlugin::VTestPlugin()
     :SamplePlugin("VTestPlugin")
@@ -43,15 +39,5 @@ VTestPlugin::VTestPlugin()
     addSample(new CubeMappingTest());
 
     addSample(new StencilShadowTest());
-}
-//---------------------------------------------------------------------
-
-VTestPlugin::~VTestPlugin()
-{
-    for (OgreBites::SampleSet::iterator i = mSamples.begin(); i != mSamples.end(); ++i)
-    {
-        delete *i;
-    }
-    mSamples.clear();
 }
 //---------------------------------------------------------------------
