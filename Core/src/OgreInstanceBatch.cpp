@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include <iterator>
 #include <limits>
 #include <memory>
+#include <utility>
 
 #include "OgreCamera.h"
 #include "OgreException.h"

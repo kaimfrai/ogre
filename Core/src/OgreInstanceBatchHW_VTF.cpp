@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <map>
 #include <string>
+#include <memory>
 #include <utility>
 #include <vector>
 

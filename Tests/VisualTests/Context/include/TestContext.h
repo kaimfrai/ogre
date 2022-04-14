@@ -32,7 +32,6 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include <deque>
 #include <map>
 #include <memory>
-#include <string>
 
 #include "OgreIteratorWrapper.h"
 #include "OgrePrerequisites.h"

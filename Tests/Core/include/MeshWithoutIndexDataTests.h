@@ -31,7 +31,14 @@ THE SOFTWARE.
 
 #include <gtest/gtest.h>
 
+#include <memory>
+
+#include "OgreArchiveFactory.h"
+#include "OgreArchiveManager.h"
 #include "OgreHardwareBufferManager.h"
+#include "OgreLodStrategyManager.h"
+#include "OgreMaterialManager.h"
+#include "OgreMeshManager.h"
 #include "OgrePlatform.h"
 #include "OgreResourceGroupManager.h"
 

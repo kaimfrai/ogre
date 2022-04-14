@@ -11,11 +11,6 @@
 #include <memory>
 #include <vector>
 
-
-namespace Ogre {
-class Plugin;
-}  // namespace Ogre
-
 namespace OgreBites
 {
     /** \addtogroup Optional
