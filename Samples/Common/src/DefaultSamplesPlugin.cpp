@@ -27,12 +27,9 @@
  */
 #include "DefaultSamplesPlugin.h"
 
-#include <set>
-
 #include "NewInstancing.h"
 #include "OgreInput.h"
 #include "OgrePlatform.h"
-#include "Sample.h"
 
 using namespace Ogre;
 using namespace OgreBites;
@@ -40,12 +37,4 @@ using namespace OgreBites;
 DefaultSamplesPlugin::DefaultSamplesPlugin() : SamplePlugin("DefaultSamplesPlugin")
 {
     addSample(new Sample_NewInstancing);
-}
-
-DefaultSamplesPlugin::~DefaultSamplesPlugin()
-{
-    for (SampleSet::iterator i = mSamples.begin(); i != mSamples.end(); ++i)
-    {
-        delete *i;
-    }
 }

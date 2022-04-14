@@ -30,21 +30,23 @@ THE SOFTWARE.
 #define OGRE_TESTS_CORE_MESHSERIALIZERTESTS_H
 
 #include <gtest/gtest.h>
+#include <memory>
 #include <unordered_map>
 
+#include "OgreArchiveFactory.h"
+#include "OgreArchiveManager.h"
+#include "OgreFileSystemLayer.h"
+#include "OgreHardwareBufferManager.h"
+#include "OgreLodStrategyManager.h"
+#include "OgreMaterialManager.h"
+#include "OgreMesh.h"
+#include "OgreMeshManager.h"
 #include "OgreMeshSerializer.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
-
-namespace Ogre {
-    class EdgeData;
-    class FileSystemLayer;
-    class IndexData;
-    class Mesh;
-    class VertexData;
-    struct MeshLodUsage;
-}  // namespace Ogre
+#include "OgreSkeletonManager.h"
 
 using namespace Ogre;
 
@@ -58,7 +60,15 @@ protected:
     String mSkeletonFullPath;
     SkeletonPtr mSkeleton;
     Real mErrorFactor;
-    FileSystemLayer* mFSLayer;
+    ::std::unique_ptr<FileSystemLayer> mFSLayer;
+    ::std::unique_ptr<ResourceGroupManager> mResGroupMgr;
+    ::std::unique_ptr<LodStrategyManager> mLodMgr;
+    ::std::unique_ptr<HardwareBufferManager> mHardMgr;
+    ::std::unique_ptr<MeshManager> mMeshMgr;
+    ::std::unique_ptr<SkeletonManager> mSkelMgr;
+    ::std::unique_ptr<ArchiveFactory> mArchiveFactory;
+    ::std::unique_ptr<ArchiveManager> mArchiveMgr;
+    ::std::unique_ptr<MaterialManager> mMatMgr;
 
 public:
     void SetUp();
