@@ -97,7 +97,7 @@ namespace Ogre {
             @par
                 On <b>NULL</b> pointer, nothing happen.
         */
-        static void deallocate(void* p);
+        static void deallocate(void* p, size_t alignment = OGRE_SIMD_ALIGNMENT);
     };
 
     /// STL compatible wrapper for @ref AlignedMemory
@@ -115,12 +115,18 @@ namespace Ogre {
         T* allocate(size_t n) {
             return static_cast<T*>(AlignedMemory::allocate(n * sizeof(T), Alignment));
         }
-        T* allocate(size_t n, const void* hint) { // deprecated in C++17
+
+        auto allocate_at_least(size_t size) -> ::std::allocation_result<T*>
+        {
+            return { allocate(size), size };
+        }
+
+        auto allocate(size_t n, const void* hint) -> T* { // deprecated in C++17
             return static_cast<T*>(AlignedMemory::allocate(n * sizeof(T), Alignment));
         }
 
         void deallocate(T* p, size_t /*n*/) {
-            AlignedMemory::deallocate(p);
+            AlignedMemory::deallocate(p, Alignment);
         }
     };
     /** @} */
