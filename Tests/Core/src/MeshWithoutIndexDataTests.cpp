@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <cstdio>
+#include <memory>
 #include <string>
 #include <sys/types.h>
 #include <vector>
@@ -61,15 +62,15 @@ namespace Ogre {
 //--------------------------------------------------------------------------
 void MeshWithoutIndexDataTests::SetUp()
 {    
-    mResMgr.reset(new ResourceGroupManager());
-    mLodMgr.reset(new LodStrategyManager());
-    mBufMgr.reset(new DefaultHardwareBufferManager());
-    mMeshMgr.reset(new MeshManager());
-    mArchFactory.reset(new FileSystemArchiveFactory());
-    mArchiveMgr.reset(new ArchiveManager());
+    mResMgr = std::make_unique<ResourceGroupManager>();
+    mLodMgr = std::make_unique<LodStrategyManager>();
+    mBufMgr = std::make_unique<DefaultHardwareBufferManager>();
+    mMeshMgr = std::make_unique<MeshManager>();
+    mArchFactory = std::make_unique<FileSystemArchiveFactory>();
+    mArchiveMgr = std::make_unique<ArchiveManager>();
     mArchiveMgr->addArchiveFactory(mArchFactory.get());
 
-    mMatMgr.reset(new MaterialManager());
+    mMatMgr = std::make_unique<MaterialManager>();
     mMatMgr->initialise();
 }
 //--------------------------------------------------------------------------

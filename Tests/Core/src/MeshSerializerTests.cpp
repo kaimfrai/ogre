@@ -80,18 +80,18 @@ void MeshSerializerTests::SetUp()
 {
     mErrorFactor = 0.05;
 
-    mFSLayer.reset(new Ogre::FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua"));
+    mFSLayer = std::make_unique<Ogre::FileSystemLayer>(/*OGRE_VERSION_NAME*/"Tsathoggua");
 
-    mResGroupMgr.reset(new ResourceGroupManager());
-    mLodMgr.reset(new LodStrategyManager());
-    mHardMgr.reset(new DefaultHardwareBufferManager());
-    mMeshMgr.reset(new MeshManager());
-    mSkelMgr.reset(new SkeletonManager());
-    mArchiveFactory.reset(new FileSystemArchiveFactory());
-    mArchiveMgr.reset(new ArchiveManager());
+    mResGroupMgr = std::make_unique<ResourceGroupManager>();
+    mLodMgr = std::make_unique<LodStrategyManager>();
+    mHardMgr = std::make_unique<DefaultHardwareBufferManager>();
+    mMeshMgr = std::make_unique<MeshManager>();
+    mSkelMgr = std::make_unique<SkeletonManager>();
+    mArchiveFactory = std::make_unique<FileSystemArchiveFactory>();
+    mArchiveMgr = std::make_unique<ArchiveManager>();
     mArchiveMgr->addArchiveFactory(mArchiveFactory.get());
 
-    mMatMgr.reset(new MaterialManager());
+    mMatMgr = std::make_unique<MaterialManager>();
     mMatMgr->initialise();
 
     // Load resource paths from config file
