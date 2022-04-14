@@ -3357,20 +3357,20 @@ SceneManager::createPlaneBoundedVolumeQuery(const PlaneBoundedVolumeList& volume
 }
 
 //---------------------------------------------------------------------
-RaySceneQuery* 
+::std::unique_ptr<RaySceneQuery>
 SceneManager::createRayQuery(const Ray& ray, uint32 mask)
 {
-    DefaultRaySceneQuery* q = new DefaultRaySceneQuery(this);
+    ::std::unique_ptr<RaySceneQuery> q{ new DefaultRaySceneQuery(this)};
     q->setRay(ray);
     q->setQueryMask(mask);
     return q;
 }
 //---------------------------------------------------------------------
-IntersectionSceneQuery* 
+::std::unique_ptr<IntersectionSceneQuery>
 SceneManager::createIntersectionQuery(uint32 mask)
 {
 
-    DefaultIntersectionSceneQuery* q = new DefaultIntersectionSceneQuery(this);
+    ::std::unique_ptr<IntersectionSceneQuery> q{new DefaultIntersectionSceneQuery(this)};
     q->setQueryMask(mask);
     return q;
 }

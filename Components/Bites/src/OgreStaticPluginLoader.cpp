@@ -1,8 +1,7 @@
 #include "OgreStaticPluginLoader.h"
 
-#include <cstddef>
-
 #include "OgreGLPlugin.h"
+#include "OgrePlatform.h"
 #include "OgrePlugin.h"
 #include "OgreRoot.h"
 #include "OgreSTBICodec.h"
@@ -10,25 +9,29 @@
 void OgreBites::StaticPluginLoader::load()
 {
     using namespace Ogre;
-    Plugin* plugin = NULL;
 
-    plugin = new GLPlugin();
-    mPlugins.push_back(plugin);
+    mPlugins.emplace_back(new GLPlugin());
 
-    plugin = new STBIPlugin();
-    mPlugins.push_back(plugin);
+    mPlugins.emplace_back(new STBIPlugin());
 
     Root& root  = Root::getSingleton();
-    for (size_t i = 0; i < mPlugins.size(); ++i) {
-        root.installPlugin(mPlugins[i]);
+    for (auto const& plugin : mPlugins) {
+        root.installPlugin(plugin.get());
     }
 }
 
 void OgreBites::StaticPluginLoader::unload()
 {
-    // don't unload plugins, since Root will have done that. Destroy here.
-    for (size_t i = 0; i < mPlugins.size(); ++i) {
-        delete mPlugins[i];
-    }
+    auto* root  = Ogre::Root::getSingletonPtr();
+    if  (root)
+        for (auto const& plugin : mPlugins) {
+            root->uninstallPlugin(plugin.get());
+        }
     mPlugins.clear();
+}
+
+
+OgreBites::StaticPluginLoader::~StaticPluginLoader()
+{
+    unload();
 }
