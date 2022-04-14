@@ -29,6 +29,7 @@ export module Ogre.Tests:Core.ResourceLocationPriority;
 
 export import Ogre.Core;
 
+export import <cstdlib>;
 export import <ctime>;
 export import <memory>;
 export import <string>;
@@ -107,7 +108,7 @@ public:
     {
         if (filename == "dummyArchiveTest")
         {
-            auto* ptr = new unsigned char[1];
+            auto* ptr = static_cast<unsigned char*>(malloc(1));
             *ptr = mContents;
             return std::make_shared<Ogre::MemoryDataStream>(ptr, 1, true, true);
         }
