@@ -67,7 +67,7 @@ namespace OgreBites
                 return a->getInfo().at("Title") < b->getInfo().at("Title");
             }
 
-            bool operator()(::std::unique_ptr<Sample> const& a, ::std::unique_ptr<Sample> const& b) const
+            auto operator()(::std::unique_ptr<Sample> const& a, ::std::unique_ptr<Sample> const& b) const -> bool
             {
                 return operator()(a.get(), b.get());
             }
