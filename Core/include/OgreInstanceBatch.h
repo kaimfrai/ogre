@@ -30,10 +30,12 @@ THE SOFTWARE.
 
 #include <cstddef>
 #include <ostream>
+#include <memory>
 #include <vector>
 
 #include "OgreAxisAlignedBox.h"
 #include "OgreCommon.h"
+#include "OgreInstancedEntity.h"
 #include "OgreMatrix4.h"
 #include "OgreMesh.h"
 #include "OgreMovableObject.h"
@@ -48,7 +50,6 @@ namespace Ogre
 {
 class Camera;
 class InstanceManager;
-class InstancedEntity;
 class RenderQueue;
 class SubMesh;
 class Technique;

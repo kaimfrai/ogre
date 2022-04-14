@@ -1,8 +1,7 @@
 #include "OgreStaticPluginLoader.h"
 
-#include <cstddef>
-
 #include "OgreGLPlugin.h"
+#include "OgrePlatform.h"
 #include "OgrePlugin.h"
 #include "OgreRoot.h"
 #include "OgreSTBICodec.h"

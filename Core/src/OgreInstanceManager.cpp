@@ -56,8 +56,6 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-class InstancedEntity;
-
     InstanceManager::InstanceManager( const String &customName, SceneManager *sceneManager,
                                         const String &meshName, const String &groupName,
                                         InstancingTechnique instancingTechnique, uint16 instancingFlags,

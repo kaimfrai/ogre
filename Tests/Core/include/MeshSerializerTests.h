@@ -33,13 +33,20 @@ THE SOFTWARE.
 #include <memory>
 #include <unordered_map>
 
+#include "OgreArchiveFactory.h"
+#include "OgreArchiveManager.h"
 #include "OgreFileSystemLayer.h"
 #include "OgreHardwareBufferManager.h"
+#include "OgreLodStrategyManager.h"
+#include "OgreMaterialManager.h"
 #include "OgreMesh.h"
+#include "OgreMeshManager.h"
 #include "OgreMeshSerializer.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
+#include "OgreResourceGroupManager.h"
 #include "OgreSharedPtr.h"
+#include "OgreSkeletonManager.h"
 
 using namespace Ogre;
 

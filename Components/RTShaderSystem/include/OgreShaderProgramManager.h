@@ -27,17 +27,27 @@ THE SOFTWARE.
 #ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMMANAGER_H
 #define OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMMANAGER_H
 
+#include <algorithm>
+#include <cstddef>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "OgreGpuProgram.h"
 #include "OgreShaderPrerequisites.h"
+#include "OgreShaderProgramProcessor.h"
+#include "OgreSharedPtr.h"
 #include "OgreSingleton.h"
 #include "OgreStringVector.h"
-
-#include <memory>
 
 namespace Ogre {
 namespace RTShader {
 
     class ProgramWriter;
+class Program;
+class ProgramSet;
 
 /** \addtogroup Optional
 *  @{
