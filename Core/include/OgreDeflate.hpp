@@ -29,6 +29,8 @@ module;
 
 #include <cassert>
 
+struct mz_stream_s;
+
 export module Ogre.Core:Deflate;
 
 export import :DataStream;
@@ -38,7 +40,7 @@ export import :SharedPtr;
 export import <cstring>;
 
 export
-using z_stream = struct mz_stream_s;
+using z_stream = mz_stream_s;
 
 export
 namespace Ogre
