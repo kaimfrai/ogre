@@ -18,6 +18,11 @@ file(GLOB PRIVATE_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp")
 list(REMOVE_ITEM PRIVATE_HEADER_FILES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/OgreSIMDHelper.hpp
 )
+add_header_unit(
+  OgreSIMDHelper.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/
+)
+
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 add_library(miniz INTERFACE src/zip/miniz.h)
@@ -42,6 +47,25 @@ IMPLEMENTATION
   ${SOURCE_FILES}
 INCLUDES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/zip
+)
+
+get_module_dependency_flag_list(
+  ${MODULE_CACHE_PATH}/OgreSIMDHelper${MODULE_INTERFACE_EXTENSION}
+  OgreSIMDHelper_flag
+)
+set_property(
+SOURCE
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/OgreOptimisedUtilSSE.cpp
+APPEND PROPERTY
+OBJECT_DEPENDS
+  ${MODULE_CACHE_PATH}/OgreSIMDHelper${MODULE_INTERFACE_EXTENSION}
+)
+set_property(
+SOURCE
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/OgreOptimisedUtilSSE.cpp
+APPEND PROPERTY
+COMPILE_OPTIONS
+  "${OgreSIMDHelper_flag}"
 )
 
 target_sources(

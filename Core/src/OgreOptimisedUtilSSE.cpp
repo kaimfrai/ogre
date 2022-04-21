@@ -27,8 +27,6 @@ THE SOFTWARE.
 */
 module;
 
-#include "OgreSIMDHelper.hpp"
-
 #include <mmintrin.h>
 #include <xmmintrin.h>
 #include <cassert>
@@ -45,6 +43,8 @@ import :Platform;
 import :PlatformInformation;
 import :Prerequisites;
 import :Vector;
+
+import "OgreSIMDHelper.hpp";
 
 import <cstring>;
 
