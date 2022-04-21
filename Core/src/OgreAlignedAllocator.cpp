@@ -28,13 +28,14 @@ THE SOFTWARE.
 module;
 
 #include <cassert>
-#include <new>
 
 module Ogre.Core;
 
 import :AlignedAllocator;
 import :Bitwise;
 import :Platform;
+
+import <new>;
 
 /**
 *

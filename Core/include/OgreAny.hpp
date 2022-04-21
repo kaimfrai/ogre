@@ -32,15 +32,12 @@ THE SOFTWARE.
 // accompAnying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 // -- End original copyright --
-module;
-
-#include <utility>
-
 export module Ogre.Core:Any;
 
 export import :Prerequisites;
 
 export import <typeinfo>;
+export import <utility>;
 
 export
 namespace Ogre
