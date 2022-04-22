@@ -32,7 +32,6 @@ FileSystem=@OGRE_MEDIA_DIR_REL@/materials/scripts
 FileSystem=@OGRE_MEDIA_DIR_REL@/materials/textures
 FileSystem=@OGRE_MEDIA_DIR_REL@/materials/textures/terrain
 FileSystem=@OGRE_MEDIA_DIR_REL@/models
-FileSystem=@OGRE_MEDIA_DIR_REL@/particle
 FileSystem=@OGRE_MEDIA_DIR_REL@/DeferredShadingMedia
 FileSystem=@OGRE_MEDIA_DIR_REL@/DeferredShadingMedia/DeferredShading/post
 FileSystem=@OGRE_MEDIA_DIR_REL@/PCZAppMedia
