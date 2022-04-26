@@ -133,7 +133,7 @@ class SceneManager;
         @remarks
             Creates a node with a specified name.
         */
-        SceneNode(SceneManager* creator, const String& name);
+        SceneNode(SceneManager* creator, ::std::string_view name);
         ~SceneNode() override;
 
         /** Adds an instance of a scene object to this node.

@@ -142,7 +142,7 @@ class Affine3;
         return createBone(mNextAutoHandle++);
     }
     //---------------------------------------------------------------------
-    auto Skeleton::createBone(const String& name) -> Bone*
+    auto Skeleton::createBone(::std::string_view name) -> Bone*
     {
         return createBone(name, mNextAutoHandle++);
     }
@@ -170,7 +170,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    auto Skeleton::createBone(const String& name, unsigned short handle) -> Bone*
+    auto Skeleton::createBone(::std::string_view name, unsigned short handle) -> Bone*
     {
         OgreAssert(handle < OGRE_MAX_NUM_BONES, "Exceeded the maximum number of bones per skeleton");
         // Check handle not used
@@ -195,7 +195,7 @@ class Affine3;
             mBoneList.resize(handle+1);
         }
         mBoneList[handle] = ret;
-        mBoneListByName[name] = ret;
+        mBoneListByName[ret->getName()] = ret;
         return ret;
     }
 
@@ -511,7 +511,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    auto Skeleton::hasBone(const String& name) const -> bool 
+    auto Skeleton::hasBone(::std::string_view name) const -> bool
     {   
         return mBoneListByName.find(name) != mBoneListByName.end();
     }
