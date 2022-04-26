@@ -28,9 +28,11 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
+#include <format>
 #include <memory>
 #include <set>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -271,8 +273,7 @@ namespace Ogre {
         if (child->mParent)
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                "Node '" + child->getName() + "' already was a child of '" +
-                child->mParent->getName() + "'.",
+                ::std::format("Node '{}' already was a child of '{}'.", child->getName(), child->mParent->getName()),
                 "Node::addChild");
         }
 
