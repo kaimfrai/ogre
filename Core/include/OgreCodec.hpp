@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 export module Ogre.Core:Codec;
 
+export import :Any;
 export import :MemoryAllocatorConfig;
 export import :Prerequisites;
 export import :StringVector;
@@ -37,7 +38,6 @@ export import <string>;
 
 export
 namespace Ogre {
-class Any;
     /** \addtogroup Core
     *  @{
     */

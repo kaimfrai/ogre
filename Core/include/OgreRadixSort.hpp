@@ -29,6 +29,7 @@ export module Ogre.Core:RadixSort;
 
 export import <vector>;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
