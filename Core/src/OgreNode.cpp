@@ -59,7 +59,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Node::Node(::std::string_view name)
         :mParent(nullptr),
-        mName(name.begin(), name.end()),
+        mName(SmallString<16uz>::Create(name)),
         mNeedParentUpdate(false),
         mNeedChildUpdate(false),
         mParentNotified(false),
