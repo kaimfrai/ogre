@@ -45,6 +45,7 @@ import :Vector;
 import <algorithm>;
 import <cstddef>;
 import <memory>;
+import <format>;
 import <set>;
 import <string>;
 import <utility>;
@@ -276,8 +277,7 @@ namespace Ogre {
         if (child->mParent)
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                "Node '" + child->getName() + "' already was a child of '" +
-                child->mParent->getName() + "'.",
+                ::std::format("Node '{}' already was a child of '{}'.", child->getName(), child->mParent->getName()),
                 "Node::addChild");
         }
 

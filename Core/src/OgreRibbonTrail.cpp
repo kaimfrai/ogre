@@ -40,6 +40,7 @@ import :StringConverter;
 import :Vector;
 
 import <algorithm>;
+import <format>;
 import <iterator>;
 import <memory>;
 import <string>;
@@ -107,7 +108,7 @@ namespace Ogre
         if (n->getListener())
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                mName + " cannot monitor node " + n->getName() + " since it already has a listener.",
+                ::std::format("{} cannot monitor node {} since it already has a listener.", mName, n->getName()),
                 "RibbonTrail::addNode");
         }
 
