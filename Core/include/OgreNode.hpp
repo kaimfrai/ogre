@@ -47,6 +47,22 @@ namespace Ogre {
     template <typename T> class ConstVectorIterator;
 class Camera;
 
+    template<::std::size_t N>
+    struct SmallString
+    {
+        char data[N];
+        static auto constexpr Create(::std::string_view string) -> SmallString
+        {
+            SmallString small{};
+            if  (string.size() >= N)
+            {
+                return small;
+            }
+            ::std::copy(string.begin(), string.end(), small.data);
+            return small;
+        }
+    };
+
     /** \addtogroup Core
     *  @{
     */
@@ -114,7 +130,7 @@ class Camera;
         /// List of children which need updating, used if self is not out of date but children are
         ChildUpdateSet mChildrenToUpdate;
         /// Friendly name of this node
-        String mName;
+        SmallString<16uz> mName;
 
         /// Flag to indicate own transform from parent is out of date
         mutable bool mNeedParentUpdate : 1;
@@ -216,7 +232,7 @@ class Camera;
         virtual ~Node();  
 
         /** Returns the name of the node. */
-        auto getName() const -> ::std::string_view { return mName; }
+        auto getName() const -> ::std::string_view { return mName.data; }
 
         /** Gets this node's parent (NULL if this is the root).
         */
