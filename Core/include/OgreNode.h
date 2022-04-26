@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
 #include "OgreQuaternion.h"
-#include "OgreUserObjectBindings.h"
 #include "OgreVector.h"
 
 namespace Ogre {
@@ -195,9 +194,6 @@ class Camera;
 
         /** Node listener - only one allowed (no list) for size & performance reasons. */
         Listener* mListener;
-
-        /// User objects binding.
-        UserObjectBindings mUserObjectBindings;
 
         typedef std::vector<Node*> QueuedUpdates;
         static QueuedUpdates msQueuedUpdates;
@@ -647,19 +643,6 @@ class Camera;
         static void queueNeedUpdate(Node* n);
         /** Process queued 'needUpdate' calls. */
         static void processQueuedUpdates(void);
-
-        /** Return an instance of user objects binding associated with this class.
-            You can use it to associate one or more custom objects with this class instance.
-        @see UserObjectBindings::setUserAny.
-        */
-        UserObjectBindings& getUserObjectBindings() { return mUserObjectBindings; }
-
-        /** Return an instance of user objects binding associated with this class.
-            You can use it to associate one or more custom objects with this class instance.
-        @see UserObjectBindings::setUserAny.
-        */
-        const UserObjectBindings& getUserObjectBindings() const { return mUserObjectBindings; }
-
     };
     /** @} */
     /** @} */
