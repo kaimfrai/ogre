@@ -743,7 +743,7 @@ SceneNode* SceneManager::createSceneNode(const String& name)
     {
         OGRE_EXCEPT(
             Exception::ERR_DUPLICATE_ITEM,
-            "A scene node with the name " + name + " already exists",
+            ::std::format("A scene node with the name {} already exists", name),
             "SceneManager::createSceneNode" );
     }
 
@@ -840,7 +840,7 @@ SceneNode* SceneManager::getSceneNode(const String& name, bool throwExceptionIfN
         return i->second;
 
     if (throwExceptionIfNotFound)
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "SceneNode '" + name + "' not found.");
+        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("SceneNode '{}' not found.", name));
     return nullptr;
 }
 
