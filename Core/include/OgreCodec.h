@@ -32,12 +32,12 @@ THE SOFTWARE.
 #include <map>
 #include <string>
 
+#include "OgreAny.h"
 #include "OgreMemoryAllocatorConfig.h"
 #include "OgrePrerequisites.h"
 #include "OgreStringVector.h"
 
 namespace Ogre {
-class Any;
     /** \addtogroup Core
     *  @{
     */
