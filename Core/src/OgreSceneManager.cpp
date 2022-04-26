@@ -104,6 +104,7 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <cassert>
+#include <format>
 #include <iterator>
 #include <limits>
 #include <list>
@@ -111,6 +112,7 @@ THE SOFTWARE.
 #include <memory>
 #include <set>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -724,7 +726,7 @@ auto SceneManager::createSceneNodeImpl() -> SceneNode*
     return new SceneNode(this);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createSceneNodeImpl(const String& name) -> SceneNode*
+auto SceneManager::createSceneNodeImpl(::std::string_view name) -> SceneNode*
 {
     return new SceneNode(this, name);
 }//-----------------------------------------------------------------------
@@ -736,7 +738,7 @@ auto SceneManager::createSceneNode() -> SceneNode*
     return sn;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createSceneNode(const String& name) -> SceneNode*
+auto SceneManager::createSceneNode(::std::string_view name) -> SceneNode*
 {
     // Check name not used
     if (hasSceneNode(name))
@@ -749,12 +751,12 @@ auto SceneManager::createSceneNode(const String& name) -> SceneNode*
 
     SceneNode* sn = createSceneNodeImpl(name);
     mSceneNodes.push_back(sn);
-    mNamedNodes[name] = sn;
+    mNamedNodes[sn->getName()] = sn;
     sn->mGlobalIndex = mSceneNodes.size() - 1;
     return sn;
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroySceneNode(const String& name)
+void SceneManager::destroySceneNode(::std::string_view name)
 {
     OgreAssert(!name.empty(), "name must not be empty");
     auto i = mNamedNodes.find(name);
@@ -831,7 +833,7 @@ auto SceneManager::getRootSceneNode() noexcept -> SceneNode*
     return mSceneRoot.get();
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getSceneNode(const String& name, bool throwExceptionIfNotFound) const -> SceneNode*
+auto SceneManager::getSceneNode(::std::string_view name, bool throwExceptionIfNotFound) const -> SceneNode*
 {
     OgreAssert(!name.empty(), "name must not be empty");
     auto i = mNamedNodes.find(name);
