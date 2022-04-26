@@ -40,6 +40,7 @@ import :Vector;
 import <cstdlib>;
 import <cstring>;
 import <string>;
+import <string_view>;
 
 namespace Ogre {
 
@@ -214,10 +215,10 @@ namespace Ogre {
         mStream->write(buf, size * count);
     }
     //---------------------------------------------------------------------
-    void Serializer::writeString(const String& string)
+    void Serializer::writeString(::std::string_view string)
     {
         // Old, backwards compatible way - \n terminated
-        mStream->write(string.c_str(), string.length());
+        mStream->write(string.data(), string.length());
         // Write terminating newline char
         char terminator = '\n';
         mStream->write(&terminator, 1);

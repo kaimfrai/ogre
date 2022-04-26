@@ -54,6 +54,7 @@ import :Vector;
 import <algorithm>;
 import <memory>;
 import <string>;
+import <string_view>;
 import <utility>;
 import <vector>;
 
@@ -63,7 +64,7 @@ namespace Ogre {
     {
     }
     //-----------------------------------------------------------------------
-    SceneNode::SceneNode(SceneManager* creator, const String& name)
+    SceneNode::SceneNode(SceneManager* creator, ::std::string_view name)
         : Node(name)
         , mCreator(creator)
         , mAutoTrackTarget(nullptr)

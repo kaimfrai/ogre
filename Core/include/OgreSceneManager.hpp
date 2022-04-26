@@ -67,6 +67,7 @@ export import <map>;
 export import <memory>;
 export import <set>;
 export import <string>;
+export import <string_view>;
 export import <vector>;
 
 export
@@ -458,7 +459,7 @@ namespace Ogre {
         /// Subclasses can override this to ensure their specialised SceneNode is used.
         virtual auto createSceneNodeImpl() -> SceneNode*;
         /// Subclasses can override this to ensure their specialised SceneNode is used.
-        virtual auto createSceneNodeImpl(const String& name) -> SceneNode*;
+        virtual auto createSceneNodeImpl(::std::string_view name) -> SceneNode*;
 
         /// Instance name
         String mName;
@@ -492,7 +493,7 @@ namespace Ogre {
         SceneNodeList mSceneNodes;
 
         /// additional map to speed up lookup by name
-        std::map<String, SceneNode*> mNamedNodes;
+        std::map<::std::string_view, SceneNode*> mNamedNodes;
 
         /// Camera in progress
         Camera* mCameraInProgress{nullptr};
@@ -1351,7 +1352,7 @@ namespace Ogre {
         virtual auto createSceneNode() -> SceneNode*;
 
         /// @overload
-        virtual auto createSceneNode(const String& name) -> SceneNode*;
+        virtual auto createSceneNode(::std::string_view name) -> SceneNode*;
 
         /** Destroys a SceneNode.
         @remarks
@@ -1362,7 +1363,7 @@ namespace Ogre {
         virtual void destroySceneNode(SceneNode* sn);
 
         /// @overload
-        virtual void destroySceneNode(const String& name);
+        virtual void destroySceneNode(::std::string_view name);
 
         /** Gets the SceneNode at the root of the scene hierarchy.
             @remarks
@@ -1388,11 +1389,11 @@ namespace Ogre {
             @param name
             @param throwExceptionIfNotFound Throws an exception if the named instance does not exist
         */
-        auto getSceneNode(const String& name, bool throwExceptionIfNotFound = true) const -> SceneNode*;
+        auto getSceneNode(::std::string_view, bool throwExceptionIfNotFound = true) const -> SceneNode*;
 
         /** Returns whether a scene node with the given name exists.
         */
-        auto hasSceneNode(const String& name) const -> bool { return getSceneNode(name, false) != nullptr; }
+        auto hasSceneNode(::std::string_view name) const -> bool { return getSceneNode(name, false) != nullptr; }
 
         /** Tells the SceneManager whether it should render the SceneNodes which
             make up the scene as well as the objects in the scene.

@@ -57,9 +57,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Node::Node() : Node(BLANKSTRING) {}
     //-----------------------------------------------------------------------
-    Node::Node(String  name)
+    Node::Node(::std::string_view name)
         :mParent(nullptr),
-        mName(std::move(name)),
+        mName(name.begin(), name.end()),
         mNeedParentUpdate(false),
         mNeedChildUpdate(false),
         mParentNotified(false),

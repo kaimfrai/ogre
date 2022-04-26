@@ -35,6 +35,8 @@ import :Quaternion;
 import :Skeleton;
 import :Vector;
 
+#include <string_view>
+
 namespace Ogre {
 
     //---------------------------------------------------------------------
@@ -43,7 +45,7 @@ namespace Ogre {
     {
     }
     //---------------------------------------------------------------------
-    Bone::Bone(const String& name, unsigned short handle, Skeleton* creator) 
+    Bone::Bone(::std::string_view name, unsigned short handle, Skeleton* creator)
         : Node(name), mCreator(creator), mHandle(handle), mManuallyControlled(false)
     {
     }

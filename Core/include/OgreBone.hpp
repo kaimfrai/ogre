@@ -32,6 +32,8 @@ export import :Prerequisites;
 export import :Quaternion;
 export import :Vector;
 
+export import <string_view>;
+
 export
 namespace Ogre 
 {
@@ -56,7 +58,7 @@ class Skeleton;
         /** Constructor, not to be used directly (use Bone::createChild or Skeleton::createBone) */
         Bone(unsigned short handle, Skeleton* creator);
         /** Constructor, not to be used directly (use Bone::createChild or Skeleton::createBone) */
-        Bone(const String& name, unsigned short handle, Skeleton* creator);
+        Bone(::std::string_view name, unsigned short handle, Skeleton* creator);
         ~Bone() override;
 
     private:

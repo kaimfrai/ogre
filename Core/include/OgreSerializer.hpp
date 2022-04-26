@@ -34,6 +34,7 @@ export import :Quaternion;
 export import :SharedPtr;
 
 export import <cstddef>;
+export import <string_view>;
 
 export
 namespace Ogre {
@@ -88,7 +89,7 @@ namespace Ogre {
         void writeObject(const Vector3& vec);
         void writeObject(const Quaternion& q);
         
-        void writeString(const String& string);
+        void writeString(::std::string_view string);
         void writeData(const void* const buf, size_t size, size_t count);
         
         void readFileHeader(const DataStreamPtr& stream);

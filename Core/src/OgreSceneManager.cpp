@@ -108,6 +108,7 @@ import :Vector;
 import :Viewport;
 
 import <algorithm>;
+import <format>;
 import <iterator>;
 import <limits>;
 import <list>;
@@ -115,6 +116,7 @@ import <map>;
 import <memory>;
 import <set>;
 import <string>;
+import <string_view>;
 import <utility>;
 import <vector>;
 
@@ -734,7 +736,7 @@ auto SceneManager::createSceneNodeImpl() -> SceneNode*
     return new SceneNode(this);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createSceneNodeImpl(const String& name) -> SceneNode*
+auto SceneManager::createSceneNodeImpl(::std::string_view name) -> SceneNode*
 {
     return new SceneNode(this, name);
 }//-----------------------------------------------------------------------
@@ -746,25 +748,25 @@ auto SceneManager::createSceneNode() -> SceneNode*
     return sn;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createSceneNode(const String& name) -> SceneNode*
+auto SceneManager::createSceneNode(::std::string_view name) -> SceneNode*
 {
     // Check name not used
     if (hasSceneNode(name))
     {
         OGRE_EXCEPT(
             Exception::ERR_DUPLICATE_ITEM,
-            "A scene node with the name " + name + " already exists",
+            ::std::format("A scene node with the name {} already exists", name),
             "SceneManager::createSceneNode" );
     }
 
     SceneNode* sn = createSceneNodeImpl(name);
     mSceneNodes.push_back(sn);
-    mNamedNodes[name] = sn;
+    mNamedNodes[sn->getName()] = sn;
     sn->mGlobalIndex = mSceneNodes.size() - 1;
     return sn;
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroySceneNode(const String& name)
+void SceneManager::destroySceneNode(::std::string_view name)
 {
     OgreAssert(!name.empty(), "name must not be empty");
     auto i = mNamedNodes.find(name);
@@ -843,7 +845,7 @@ auto SceneManager::getRootSceneNode() -> SceneNode*
     return mSceneRoot.get();
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getSceneNode(const String& name, bool throwExceptionIfNotFound) const -> SceneNode*
+auto SceneManager::getSceneNode(::std::string_view name, bool throwExceptionIfNotFound) const -> SceneNode*
 {
     OgreAssert(!name.empty(), "name must not be empty");
     auto i = mNamedNodes.find(name);
@@ -852,7 +854,7 @@ auto SceneManager::getSceneNode(const String& name, bool throwExceptionIfNotFoun
         return i->second;
 
     if (throwExceptionIfNotFound)
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "SceneNode '" + name + "' not found.");
+        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("SceneNode '{}' not found.", name));
     return nullptr;
 }
 
