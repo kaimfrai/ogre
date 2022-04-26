@@ -115,7 +115,7 @@ if (OGRE_BUILD_TESTS)
     endif()
 
     if(UNIX)
-      add_definitions(-Wno-undef)
+      add_compile_options(-Wno-undef)
     endif()
 
     add_module(
