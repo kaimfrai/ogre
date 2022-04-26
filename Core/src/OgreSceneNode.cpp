@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <cassert>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -58,7 +59,7 @@ namespace Ogre {
     {
     }
     //-----------------------------------------------------------------------
-    SceneNode::SceneNode(SceneManager* creator, const String& name)
+    SceneNode::SceneNode(SceneManager* creator, ::std::string_view name)
         : Node(name)
         , mCreator(creator)
         , mAutoTrackTarget(nullptr)

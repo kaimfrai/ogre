@@ -30,6 +30,7 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <set>
+#include <string_view>
 #include <vector>
 
 #include "OgreMath.hpp"
@@ -210,12 +211,12 @@ class Camera;
         @remarks
             Assigned a name.
         */
-        Node(String  name);
+        Node(::std::string_view name);
 
         virtual ~Node();  
 
         /** Returns the name of the node. */
-        auto getName() const -> const String& { return mName; }
+        auto getName() const -> ::std::string_view { return mName; }
 
         /** Gets this node's parent (NULL if this is the root).
         */

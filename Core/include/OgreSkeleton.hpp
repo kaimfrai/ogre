@@ -34,6 +34,7 @@ THE SOFTWARE.
 #include <map>
 #include <set>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -158,7 +159,7 @@ OGRE_MAX_NUM_BONES = 256
             for your convenience, although it is recommended that you only use the handle to 
             retrieve the bone in performance-critical code.
         */
-        virtual auto createBone(const String& name) -> Bone*;
+        virtual auto createBone(::std::string_view name) -> Bone*;
 
         /** Creates a brand new Bone owned by this Skeleton. 
         @remarks
@@ -170,7 +171,7 @@ OGRE_MAX_NUM_BONES = 256
         @param name The name to give to this new bone - must be unique within this skeleton. 
         @param handle The handle to give to this new bone - must be unique within this skeleton. 
         */
-        virtual auto createBone(const String& name, unsigned short handle) -> Bone*;
+        virtual auto createBone(::std::string_view name, unsigned short handle) -> Bone*;
 
         /** Returns the number of bones in this skeleton. */
         virtual auto getNumBones() const -> unsigned short;
@@ -203,7 +204,7 @@ OGRE_MAX_NUM_BONES = 256
         virtual auto getBone(const String& name) const -> Bone*;
 
         /** Returns whether this skeleton contains the named bone. */
-        virtual auto hasBone(const String& name) const -> bool;
+        virtual auto hasBone(::std::string_view name) const -> bool;
 
         /** Sets the current position / orientation to be the 'binding pose' i.e. the layout in which 
             bones were originally bound to a mesh.
@@ -432,7 +433,7 @@ OGRE_MAX_NUM_BONES = 256
         AnimationList mAnimationsList;
     private:
         /// Lookup by bone name
-        using BoneListByName = std::map<String, Bone *>;
+        using BoneListByName = std::map<::std::string_view, Bone *>;
         BoneListByName mBoneListByName;
 
         /// Pointer to root bones (can now have multiple roots)

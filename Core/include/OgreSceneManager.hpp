@@ -37,6 +37,7 @@ Torus Knot Software Ltd.
 #include <memory>
 #include <set>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "OgreAnimationState.hpp"
@@ -492,7 +493,7 @@ namespace Ogre {
         SceneNodeList mSceneNodes;
 
         /// additional map to speed up lookup by name
-        std::map<String, SceneNode*> mNamedNodes;
+        std::map<::std::string_view, SceneNode*> mNamedNodes;
 
         /// Camera in progress
         Camera* mCameraInProgress{nullptr};
