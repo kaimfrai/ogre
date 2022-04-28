@@ -82,8 +82,7 @@ class VertexData;
         if (hasNodeTrack(handle))
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
-                "Node track with the specified handle " +
-                StringConverter::toString(handle) + " already exists",
+                ::std::format("Node track with the specified handle {} already exists", StringConverter::toString(handle)),
                 "Animation::createNodeTrack");
         }
 
@@ -119,8 +118,7 @@ class VertexData;
         if (i == mNodeTrackList.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "Cannot find node track with the specified handle " +
-                StringConverter::toString(handle),
+                ::std::format("Cannot find node track with the specified handle {}", StringConverter::toString(handle)),
                 "Animation::getNodeTrack");
         }
 
@@ -156,8 +154,7 @@ class VertexData;
         if (hasNumericTrack(handle))
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
-                "Numeric track with the specified handle " +
-                StringConverter::toString(handle) + " already exists",
+                ::std::format("Numeric track with the specified handle {} already exists", StringConverter::toString(handle)),
                 "Animation::createNumericTrack");
         }
 
@@ -194,8 +191,7 @@ class VertexData;
         if (i == mNumericTrackList.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "Cannot find numeric track with the specified handle " +
-                StringConverter::toString(handle),
+                ::std::format("Cannot find numeric track with the specified handle {}", StringConverter::toString(handle)),
                 "Animation::getNumericTrack");
         }
 
@@ -232,8 +228,7 @@ class VertexData;
         if (hasVertexTrack(handle))
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
-                "Vertex track with the specified handle " +
-                StringConverter::toString(handle) + " already exists",
+                ::std::format("Vertex track with the specified handle {} already exists", StringConverter::toString(handle)),
                 "Animation::createVertexTrack");
         }
 
@@ -271,8 +266,7 @@ class VertexData;
         if (i == mVertexTrackList.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "Cannot find vertex track with the specified handle " +
-                StringConverter::toString(handle),
+                ::std::format("Cannot find vertex track with the specified handle {}", StringConverter::toString(handle)),
                 "Animation::getVertexTrack");
         }
 
