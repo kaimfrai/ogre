@@ -311,7 +311,7 @@ namespace Ogre
 
         mGLSupport->getFBConfigAttrib(fbConfig, GLX_FBCONFIG_ID, &fbConfigID);
 
-        LogManager::getSingleton().logMessage("GLXWindow::create used FBConfigID = " + StringConverter::toString(fbConfigID));
+        LogManager::getSingleton().logMessage(::std::format("GLXWindow::create used FBConfigID = {}", StringConverter::toString(fbConfigID)));
 
         mName = name;
         mWidth = width;

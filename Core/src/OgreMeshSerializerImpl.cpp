@@ -2186,7 +2186,7 @@ namespace Ogre {
         for (unsigned short a = 0; a < pMesh->getNumAnimations(); ++a)
         {
             Animation* anim = pMesh->getAnimation(a);
-            LogManager::getSingleton().logMessage("Exporting animation " + anim->getName());
+            LogManager::getSingleton().logMessage(::std::format("Exporting animation {}", anim->getName()));
             writeAnimation(anim);
             LogManager::getSingleton().logMessage("Animation exported.");
         }

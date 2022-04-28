@@ -39,7 +39,7 @@ namespace Ogre {
         ScriptTokenList ret = _tokenize(str, source.c_str(), error);
 
         if (!error.empty())
-            LogManager::getSingleton().logError("ScriptLexer - " + error);
+            LogManager::getSingleton().logError(::std::format("ScriptLexer - {}", error));
 
         return ret;
     }

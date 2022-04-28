@@ -92,7 +92,7 @@ namespace Ogre {
             Codec::registerCodec(codec);
         }
 
-        LogManager::getSingleton().logMessage("Supported formats: " + exts);
+        LogManager::getSingleton().logMessage(::std::format("Supported formats: {}", exts));
     }
     //---------------------------------------------------------------------
     void STBIImageCodec::shutdown()
@@ -167,7 +167,7 @@ namespace Ogre {
 
         if (!f.is_open())
         {
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "could not open file " + outFileName);
+            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, ::std::format("could not open file {}", outFileName));
         }
 
         f.write((char*)data->getPtr(), data->size());

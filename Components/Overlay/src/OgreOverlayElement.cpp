@@ -322,7 +322,7 @@ namespace Ogre {
         {
             LogManager::getSingleton().logWarning(
                 "force-disabling 'lighting' and 'depth_check' of Material " + mat->getName() +
-                " for use with OverlayElement " + getName());
+                ::std::format(" for use with OverlayElement {}", getName()));
         }
 
         // Set some prerequisites to be sure
@@ -805,7 +805,7 @@ namespace Ogre {
         OverlayElement* newElement;
 
         newElement = OverlayManager::getSingleton().createOverlayElement(
-            getTypeName(), instanceName + "/" + mName);
+            getTypeName(), instanceName + ::std::format("/{}", mName));
         copyParametersTo(newElement);
 
         return newElement;

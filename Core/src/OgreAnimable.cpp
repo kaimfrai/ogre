@@ -53,7 +53,7 @@ namespace Ogre {
             return i->second;
         }
 
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Animable value list not found for " + getAnimableDictionaryName());
+        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Animable value list not found for {}", getAnimableDictionaryName()));
     }
 
     const StringVector& AnimableObject::getAnimableValueNames() const
@@ -66,7 +66,7 @@ namespace Ogre {
             return i->second;
         }
 
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Animable value list not found for " + getAnimableDictionaryName());
+        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Animable value list not found for {}", getAnimableDictionaryName()));
     }
 
     void AnimableValue::resetToBaseValue()

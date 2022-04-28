@@ -476,7 +476,7 @@ void SelectMenu::setItems(const Ogre::StringVector &items)
         Ogre::BorderPanelOverlayElement* e =
                 (Ogre::BorderPanelOverlayElement*)Ogre::OverlayManager::getSingleton().createOverlayElementFromTemplate
                 ("SdkTrays/SelectMenuItem", "BorderPanel",
-                 mExpandedBox->getName() + "/Item" + Ogre::StringConverter::toString(i + 1));
+                 mExpandedBox->getName() + ::std::format("/Item{}", Ogre::StringConverter::toString(i + 1)));
 
         e->setTop(6 + i * (mSmallBox->getHeight() - 8));
         e->setWidth(mExpandedBox->getWidth() - 32);
