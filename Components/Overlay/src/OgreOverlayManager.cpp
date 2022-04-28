@@ -309,8 +309,8 @@ class RenderQueue;
         auto ii = mElements.find(instanceName);
         if (ii != mElements.end())
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "OverlayElement with name " + instanceName +
-                " already exists.", "OverlayManager::createOverlayElement" );
+            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("OverlayElement with name {}"
+                " already exists.", instanceName), "OverlayManager::createOverlayElement" );
         }
         OverlayElement* newElem = createOverlayElementFromFactory(typeName, instanceName);
 
@@ -329,7 +329,7 @@ class RenderQueue;
         auto fi = mFactories.find(typeName);
         if (fi == mFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate factory for element type " + typeName,
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Cannot locate factory for element type {}", typeName),
                 "OverlayManager::createOverlayElement");
         }
 
@@ -367,15 +367,15 @@ class RenderQueue;
         auto ii = mElements.find(instanceName);
         if (ii == mElements.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "OverlayElement with name " + instanceName +
-                " not found.", "OverlayManager::destroyOverlayElement" );
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("OverlayElement with name {}"
+                " not found.", instanceName), "OverlayManager::destroyOverlayElement" );
         }
         // Look up factory
         const String& typeName = ii->second->getTypeName();
         auto fi = mFactories.find(typeName);
         if (fi == mFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate factory for element type " + typeName,
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Cannot locate factory for element type {}", typeName),
                 "OverlayManager::destroyOverlayElement");
         }
 
@@ -419,7 +419,7 @@ class RenderQueue;
         // Add / replace
         mFactories[elemFactory->getTypeName()].reset(elemFactory);
 
-        LogManager::getSingleton().logMessage("OverlayElementFactory for type " + elemFactory->getTypeName()
+        LogManager::getSingleton().logMessage(::std::format("OverlayElementFactory for type {}", elemFactory->getTypeName())
             + " registered.");
     }
 }

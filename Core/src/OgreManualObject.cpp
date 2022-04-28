@@ -185,11 +185,12 @@ ManualObject::ManualObject(const String& name)
 
         if(!material)
         {
-            LogManager::getSingleton().logError("Can't assign material " + materialName +
-                                                  " to the ManualObject " + mName + " because this "
-                                                  "Material does not exist in group " + groupName +
-                                                  ". Have you forgotten to define it in a "
-                                                  ".material script?");
+            LogManager::getSingleton().logError(
+                ::std::format("Can't assign material {}"
+                " to the ManualObject {} because this "
+                "Material does not exist in group {}"
+                ". Have you forgotten to define it in a "
+                ".material script?", materialName, mName, groupName));
 
             material = MaterialManager::getSingleton().getDefaultMaterial();
         }

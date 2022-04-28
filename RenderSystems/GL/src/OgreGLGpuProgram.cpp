@@ -154,7 +154,7 @@ void GLArbGpuProgram::unloadImpl()
 void GLArbGpuProgram::loadFromSource()
 {
     if (GL_INVALID_OPERATION == glGetError()) {
-        LogManager::getSingleton().logMessage("Invalid Operation before loading program "+mName, LML_CRITICAL);
+        LogManager::getSingleton().logMessage(::std::format("Invalid Operation before loading program {}", mName), LML_CRITICAL);
 
     }
     glBindProgramARB(getProgramType(), mProgramID);

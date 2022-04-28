@@ -715,7 +715,7 @@ namespace Ogre {
         if (i == mBindingMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                "Cannot find buffer binding for index " + StringConverter::toString(index),
+                ::std::format("Cannot find buffer binding for index {}", StringConverter::toString(index)),
                 "VertexBufferBinding::unsetBinding");
         }
         mBindingMap.erase(i);

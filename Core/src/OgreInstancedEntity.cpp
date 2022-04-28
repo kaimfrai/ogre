@@ -72,8 +72,10 @@ class AxisAlignedBox;
     {
         //Use a static name generator to ensure this name stays unique (which may not happen
         //otherwise due to reparenting when defragmenting)
-        mName = batchOwner->getName() + "/InstancedEntity_" + StringConverter::toString(mInstanceId) + "/"+
-                msNameGenerator.generate();
+        mName = ::std::format("{}/InstancedEntity_{}/{}",
+                    batchOwner->getName(),
+                    StringConverter::toString(mInstanceId),
+                    msNameGenerator.generate());
 
         if (sharedTransformEntity)
         {
@@ -103,10 +105,14 @@ class AxisAlignedBox;
 
         if( this->mSharedTransformEntity  )
         {
-            OGRE_EXCEPT( Exception::ERR_INVALID_STATE, "Attempted to share '" + mName + "' transforms "
-                                            "with slave '" + slave->mName + "' but '" + mName +"' is "
-                                            "already sharing. Hierarchical sharing not allowed.",
-                                            "InstancedEntity::shareTransformWith" );
+            OGRE_EXCEPT( Exception::ERR_INVALID_STATE,
+                         ::std::format("Attempted to share '{}' transforms "
+                            "with slave '{}' but '{}' is "
+                            "already sharing. Hierarchical sharing not allowed.",
+                            "InstancedEntity::shareTransformWith",
+                            mName,
+                            slave->mName,
+                            mName));
             return false;
         }
 

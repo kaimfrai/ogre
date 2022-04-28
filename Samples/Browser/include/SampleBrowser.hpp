@@ -431,7 +431,7 @@ namespace OgreBites
                 Ogre::Renderable* r = mThumbs[mSampleMenu->getSelectionIndex()];
                 auto* s = ::std::any_cast<Sample*>(r->getUserObjectBindings().getUserAny());
                 mTitleLabel->setCaption(menu->getSelectedItem());
-                mDescBox->setText("Category: " + s->getInfo()["Category"] + "\nDescription: " + s->getInfo()["Description"]);
+                mDescBox->setText(::std::format("Category: {}\nDescription: {}", s->getInfo()["Category"], s->getInfo()["Description"]));
 
                 if (mCurrentSample != s) ((Button*)mTrayMgr->getWidget("StartStop"))->setCaption("Start Sample");
                 else ((Button*)mTrayMgr->getWidget("StartStop"))->setCaption("Stop Sample");
@@ -452,7 +452,7 @@ namespace OgreBites
                 {
                     i++;
                     SelectMenu* optionMenu = mTrayMgr->createLongSelectMenu
-                        (TL_LEFT, "ConfigOption" + Ogre::StringConverter::toString(i), option.first, 450, 240, 10);
+                        (TL_LEFT, ::std::format("ConfigOption{}", Ogre::StringConverter::toString(i)), option.first, 450, 240, 10);
                     optionMenu->setItems(option.second.possibleValues);
 
                     // if the current config value is not in the menu, add it
@@ -788,7 +788,7 @@ namespace OgreBites
 
                 for (auto & unloadedSamplePlugin : unloadedSamplePlugins)
                 {
-                    message += "\n- " + unloadedSamplePlugin;
+                    message += ::std::format("\n- {}", unloadedSamplePlugin);
                 }
 
                 mTrayMgr->showOkDialog("Error!", message);

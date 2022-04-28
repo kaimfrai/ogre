@@ -152,7 +152,7 @@ namespace Ogre {
 
         if (!data) {
             OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
-                "Error encoding image: " + String(stbi_failure_reason()),
+                ::std::format("Error encoding image: {}", String(stbi_failure_reason())),
                 "STBIImageCodec::encode");
         }
 
@@ -184,7 +184,7 @@ namespace Ogre {
         if (!pixelData)
         {
             OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
-                "Error decoding image: " + String(stbi_failure_reason()),
+                ::std::format("Error decoding image: {}", String(stbi_failure_reason())),
                 "STBIImageCodec::decode");
         }
 

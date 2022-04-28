@@ -175,7 +175,7 @@ namespace Ogre {
         if (seci == mSettings.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "Cannot find section " + section, 
+                ::std::format("Cannot find section {}", section), 
                 "ConfigFile::getSettings");
         }
 

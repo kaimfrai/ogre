@@ -172,16 +172,17 @@ namespace Ogre {
             }
         }           
         if (!impl)
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Cannot find serializer implementation for "
-                        "mesh version " + ver, "MeshSerializer::importMesh");
+            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
+                        ::std::format("Cannot find serializer implementation for mesh version {}", ver), "MeshSerializer::importMesh");
         
         // Call implementation
         impl->importMesh(stream, pDest, mListener);
         // Warn on old version of mesh
         if (ver != mVersionData[0]->versionString)
         {
-            LogManager::getSingleton().logWarning(pDest->getName() + " uses an old format " + ver +
-                                                  "; upgrade with the OgreMeshUpgrader tool");
+            LogManager::getSingleton().logWarning(
+                ::std::format("{} uses an old format {}; upgrade with the OgreMeshUpgrader tool",
+                    pDest->getName(), ver));
         }
 
         if(mListener)

@@ -3114,8 +3114,10 @@ class LodStrategy;
                         if(getReal(*i0, &x) && getReal(*i1, &y))
                             mUnit->setTextureScroll(x, y);
                         else
-                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               (*i0)->getValue() + " and/or " + (*i1)->getValue() + " is invalid; both must be numbers");
+                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
+                                               prop->file,
+                                               prop->line,
+                                               ::std::format("{} and/or {} is invalid; both must be numbers",(*i0)->getValue(), (*i1)->getValue() ));
                     }
                     break;
                 case ID_SCROLL_ANIM:
@@ -3135,8 +3137,12 @@ class LodStrategy;
                         if(getReal(*i0, &x) && getReal(*i1, &y))
                             mUnit->setScrollAnimation(x, y);
                         else
-                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               (*i0)->getValue() + " and/or " + (*i1)->getValue() + " is invalid; both must be numbers");
+                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
+                                        prop->file,
+                                        prop->line,
+                                        ::std::format("{} and/or {} is invalid; both must be numbers",
+                                            (*i0)->getValue(),
+                                            (*i1)->getValue() ));
                     }
                     break;
                 case ID_ROTATE:
@@ -3164,8 +3170,10 @@ class LodStrategy;
                         if(getReal(*i0, &x) && getReal(*i1, &y))
                             mUnit->setTextureScale(x, y);
                         else
-                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               "first and second arguments must both be valid number values (received " + (*i0)->getValue() + ", " + (*i1)->getValue() + ")");
+                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
+                                prop->file,
+                                prop->line,
+                                ::std::format("first and second arguments must both be valid number values (received {}, {})", (*i0)->getValue() , (*i1)->getValue()));
                     }
                     break;
                 case ID_WAVE_XFORM:
@@ -4386,7 +4394,7 @@ class LodStrategy;
                                 if(value.empty())
                                     value = ((AtomAbstractNode*)it.get())->value;
                                 else
-                                    value = value + " " + ((AtomAbstractNode*)it.get())->value;
+                                    value = value + ::std::format(" {}", ((AtomAbstractNode*)it.get())->value);
                             }
                             else
                             {
@@ -4465,7 +4473,7 @@ class LodStrategy;
                         if(value.empty())
                             value = ((AtomAbstractNode*)it.get())->value;
                         else
-                            value = value + " " + ((AtomAbstractNode*)it.get())->value;
+                            value = value + ::std::format(" {}", ((AtomAbstractNode*)it.get())->value);
                     }
                     else
                     {
@@ -4537,7 +4545,7 @@ class LodStrategy;
                         if(value.empty())
                             value = ((AtomAbstractNode*)it.get())->value;
                         else
-                            value = value + " " + ((AtomAbstractNode*)it.get())->value;
+                            value = value + ::std::format(" {}", ((AtomAbstractNode*)it.get())->value);
                     }
                     else
                     {

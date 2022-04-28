@@ -407,7 +407,7 @@ namespace Ogre
             if (ibld == mMeshBuildParams.end())
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                    "Cannot find build parameters for " + res->getName(),
+                    ::std::format("Cannot find build parameters for {}", res->getName()),
                     "MeshManager::loadResource");
             }
             MeshBuildParams& params = ibld->second;
@@ -425,7 +425,7 @@ namespace Ogre
                 break;
             default:
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                    "Unknown build parameters for " + res->getName(),
+                    ::std::format("Unknown build parameters for {}", res->getName()),
                     "MeshManager::loadResource");
             }
         }
@@ -883,8 +883,7 @@ namespace Ogre
         MeshPtr pMesh = getByName(name, groupName);
         if (pMesh)
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "A mesh called " + name + 
-                " already exists!", "MeshManager::createBezierPatch");
+            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("A mesh called {} already exists!", name), "MeshManager::createBezierPatch");
         }
         auto* pm = new PatchMesh(this, name, getNextHandle(), groupName);
         pm->define(controlPointBuffer, declaration, width, height,

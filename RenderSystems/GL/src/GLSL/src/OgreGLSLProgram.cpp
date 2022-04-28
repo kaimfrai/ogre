@@ -236,7 +236,7 @@ class ResourceManager;
         String compileInfo = getObjectInfo(mGLShaderHandle);
 
         if (!compiled)
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, getResourceLogName() + " " + compileInfo, "compile");
+            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, getResourceLogName() + ::std::format(" {}", compileInfo), "compile");
 
         // probably we have warnings
         if (!compileInfo.empty())

@@ -121,7 +121,7 @@ void ATI_FS_GLGpuProgram::loadFromSource()
         if (Error)
         {
             OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
-                "Cannot Bind ATI fragment shader :" + mName, mName); 
+                ::std::format("Cannot Bind ATI fragment shader :{}", mName), mName); 
         }
 
     }
