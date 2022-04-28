@@ -349,7 +349,7 @@ CPUID_PENTIUM4_ID =           0x0F00      // Pentium 4 family processor id
         pLog->logMessage("CPU Identifier & Features");
         pLog->logMessage("-------------------------");
         pLog->logMessage(
-            " *   CPU ID: " + getCpuIdentifier());
+            ::std::format(" *   CPU ID: {}", getCpuIdentifier()));
 
         if(_isSupportCpuid())
         {

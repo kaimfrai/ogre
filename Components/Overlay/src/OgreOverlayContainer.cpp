@@ -349,7 +349,7 @@ class RenderQueue;
                      OverlayElement* newChildElement = 
                          OverlayManager::getSingleton().createOverlayElement(
                             oldChildElement->getTypeName(), 
-                            mName+"/"+oldChildElement->getName());
+                            mName+::std::format("/{}", oldChildElement->getName()));
                      newChildElement->copyFromTemplate(oldChildElement);
                      addChild(newChildElement);
                  }
