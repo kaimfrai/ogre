@@ -666,7 +666,7 @@ void SceneManager::ShadowRenderer::ensureShadowTexturesCreated()
             // Camera names are local to SM
             String camName = ::std::format("{}Cam", shadowTex->getName());
             // Material names are global to SM, make specific
-            String matName = shadowTex->getName() + ::std::format("Mat{}", mSceneManager->getName());
+            String matName = ::std::format("{}Mat{}", shadowTex->getName() , mSceneManager->getName());
 
             RenderTexture *shadowRTT = shadowTex->getBuffer()->getRenderTarget();
 
@@ -744,7 +744,7 @@ void SceneManager::ShadowRenderer::destroyShadowTextures()
     for (auto & shadowTex : mShadowTextures)
     {
         // Cleanup material that references this texture
-        String matName = shadowTex->getName() + ::std::format("Mat{}", mSceneManager->getName());
+        String matName = ::std::format("{}Mat{}", shadowTex->getName() , mSceneManager->getName());
         MaterialPtr mat = MaterialManager::getSingleton().getByName(matName);
         if (mat)
         {

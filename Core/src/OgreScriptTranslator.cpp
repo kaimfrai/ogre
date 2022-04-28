@@ -4400,7 +4400,7 @@ class LodStrategy;
                                 if(value.empty())
                                     value = ((AtomAbstractNode*)it.get())->value;
                                 else
-                                    value = value + ::std::format(" {}", ((AtomAbstractNode*)it.get())->value);
+                                    value = ::std::format("{} {}", value , ((AtomAbstractNode*)it.get())->value);
                             }
                             else
                             {
@@ -4479,7 +4479,7 @@ class LodStrategy;
                         if(value.empty())
                             value = ((AtomAbstractNode*)it.get())->value;
                         else
-                            value = value + ::std::format(" {}", ((AtomAbstractNode*)it.get())->value);
+                            value = ::std::format("{} {}", value, ((AtomAbstractNode*)it.get())->value);
                     }
                     else
                     {
@@ -4551,7 +4551,7 @@ class LodStrategy;
                         if(value.empty())
                             value = ((AtomAbstractNode*)it.get())->value;
                         else
-                            value = value + ::std::format(" {}", ((AtomAbstractNode*)it.get())->value);
+                            value =::std::format("{} {}",  value , ((AtomAbstractNode*)it.get())->value);
                     }
                     else
                     {

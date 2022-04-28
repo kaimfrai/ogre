@@ -99,8 +99,9 @@ namespace Ogre
     //****************************************************************************************
     void ExternalTextureSourceManager::setExternalTextureSource( const String& sTexturePlugInType, ExternalTextureSource* pTextureSystem )
     {
-        LogManager::getSingleton().logMessage( "Registering Texture Controller: Type = "
-                        + sTexturePlugInType + ::std::format(" Name = {}", pTextureSystem->getPluginStringName()));
+        LogManager::getSingleton().logMessage(
+            ::std::format("Registering Texture Controller: Type = "
+                        "{} Name = {}", sTexturePlugInType , pTextureSystem->getPluginStringName()));
 
         for(auto& i : mTextureSystems)
         {

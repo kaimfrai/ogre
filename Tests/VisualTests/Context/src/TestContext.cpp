@@ -161,7 +161,7 @@ void TestContext::setup()
     {
         Ogre::String filestamp = Ogre::String(temp);
         // name for this batch (used for naming the directory, and uniquely identifying this batch)
-        batchName = mTestSetName + ::std::format("_{}", filestamp);
+        ::std::format("{}_{}", batchName = mTestSetName , filestamp);
 
         if (mReferenceSet)
             batchName = "Reference";
@@ -174,7 +174,7 @@ void TestContext::setup()
 
     // An object storing info about this set.
     mBatch = new TestBatch(batchName, mTestSetName, timestamp,
-                           mWindow->getWidth(), mWindow->getHeight(), mOutputDir + ::std::format("{}/", batchName));
+                           mWindow->getWidth(), mWindow->getHeight(), ::std::format("{}{}/", mOutputDir , batchName));
     mBatch->comment = mComment;
 
     OgreBites::Sample* firstTest = loadTests();
@@ -460,7 +460,7 @@ void TestContext::finishedTests()
         // look for a reference set first (either "Reference" or a user-specified image set)
         try
         {
-            info.load(mReferenceSetPath + ::std::format("{}/info.cfg", mCompareWith));
+            info.load(::std::format("{}{}/info.cfg", mReferenceSetPath , mCompareWith));
         }
         catch (Ogre::FileNotFoundException&)
         {
@@ -496,7 +496,7 @@ void TestContext::finishedTests()
                 // we save a generally named "out.html" that gets overwritten each run,
                 // plus a uniquely named one for this run
                 writer.writeToFile(::std::format("{}out.html", mOutputDir));
-                writer.writeToFile(mOutputDir + ::std::format("TestResults_{}.html", mBatch->name ));
+                writer.writeToFile(::std::format("{}TestResults_{}.html", mOutputDir , mBatch->name ));
             }
 
             // also save a summary file for CTest to parse, if required
@@ -508,7 +508,7 @@ void TestContext::finishedTests()
                         rs += j;
 
                 CppUnitResultWriter cppunitWriter(*compareTo, *mBatch, results);
-                cppunitWriter.writeToFile(mSummaryOutputDir + ::std::format("/TestResults_{}.xml", rs ));
+                cppunitWriter.writeToFile(::std::format("{}/TestResults_{}.xml", mSummaryOutputDir , rs ));
             }
 
             for(auto & result : results) {
