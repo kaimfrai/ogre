@@ -255,13 +255,13 @@ TEST(Image, FlipV)
     auto testPath = cf.getSettings("Tests").begin()->second;
 
     Image ref;
-    ref.load(Root::openFileStream(testPath+"/decal1vflip.png"), "png");
+    ref.load(Root::openFileStream(::std::format("{}/decal1vflip.png", testPath)), "png");
 
     Image img;
-    img.load(Root::openFileStream(testPath+"/decal1.png"), "png");
+    img.load(Root::openFileStream(::std::format("{}/decal1.png", testPath)), "png");
     img.flipAroundX();
 
-    // img.save(testPath+"/decal1vflip.png");
+    // img.save(::std::format("{}/decal1vflip.png", testPath));
 
     STBIImageCodec::shutdown();
     ASSERT_TRUE(!memcmp(img.getData(), ref.getData(), ref.getSize()));
@@ -276,13 +276,13 @@ TEST(Image, Resize)
     auto testPath = cf.getSettings("Tests").begin()->second;
 
     Image ref;
-    ref.load(Root::openFileStream(testPath+"/decal1small.png"), "png");
+    ref.load(Root::openFileStream(::std::format("{}/decal1small.png", testPath)), "png");
 
     Image img;
-    img.load(Root::openFileStream(testPath+"/decal1.png"), "png");
+    img.load(Root::openFileStream(::std::format("{}/decal1.png", testPath)), "png");
     img.resize(128, 128);
 
-    //img.save(testPath+"/decal1small.png");
+    //img.save(::std::format("{}/decal1small.png", testPath));
 
     STBIImageCodec::shutdown();
     ASSERT_TRUE(!memcmp(img.getData(), ref.getData(), ref.getSize()));
@@ -298,18 +298,18 @@ TEST(Image, Combine)
     STBIImageCodec::startup();
     ConfigFile cf;
     cf.load(FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
-    mgr.addResourceLocation(cf.getSettings("General").begin()->second+"/../materials/textures", fs.getType());
+    mgr.addResourceLocation(::std::format("{}/../materials/textures", cf.getSettings("General").begin()->second), fs.getType());
     mgr.initialiseAllResourceGroups();
 
     auto testPath = cf.getSettings("Tests").begin()->second;
     Image ref;
-    ref.load(Root::openFileStream(testPath+"/rockwall_flare.png"), "png");
+    ref.load(Root::openFileStream(::std::format("{}/rockwall_flare.png", testPath)), "png");
 
     Image combined;
     // pick 2 files that are the same size, alpha texture will be made greyscale
     combined.loadTwoImagesAsRGBA("rockwall.tga", "flare.png", RGN_DEFAULT, PF_BYTE_RGBA);
 
-    // combined.save(testPath+"/rockwall_flare.png");
+    // combined.save(::std::format("{}/rockwall_flare.png", testPath));
     STBIImageCodec::shutdown();
     ASSERT_TRUE(!memcmp(combined.getData(), ref.getData(), ref.getSize()));
 }

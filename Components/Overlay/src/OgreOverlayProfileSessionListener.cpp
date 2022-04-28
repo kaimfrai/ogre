@@ -226,12 +226,13 @@ namespace Ogre
         if (mDisplayMode == DISPLAY_PERCENTAGE)
         {
             g->setLeft(mBarIndent + instance->history.currentClocksPercent * mGuiWidth + 2);
-            g->setCaption(StringConverter::toString(instance->history.currentClocksPercent * 100.0l, 3, 3) + "%");
+            g->setCaption(::std::format("{:3.3}%",
+                instance->history.currentClocksPercent * 100.0l));
         }
         else
         {
             g->setLeft(mBarIndent + ((long double)instance->history.currentClocks / (long double)maxClocks) * mGuiWidth + 2);
-            g->setCaption(StringConverter::toString(Timer::clocksToMilliseconds(instance->history.currentClocks)) + "ms");
+            g->setCaption(::std::format("{}ms", Timer::clocksToMilliseconds(instance->history.currentClocks)));
         }
 
         // we set the height of the display with respect to the number of profiles displayed
