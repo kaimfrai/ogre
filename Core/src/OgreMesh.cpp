@@ -524,7 +524,7 @@ namespace Ogre {
                     mSkeleton.reset();
                     // Log this error
                     String msg = "Unable to load skeleton '";
-                    msg += skelName + ::std::format("' for Mesh '{}'. This Mesh will not be animated.", mName );
+                    ::std::format("{}' for Mesh '{}'. This Mesh will not be animated.", msg += skelName , mName );
                     LogManager::getSingleton().logError(msg);
 
                 }

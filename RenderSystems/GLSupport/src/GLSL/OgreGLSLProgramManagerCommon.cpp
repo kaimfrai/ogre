@@ -285,8 +285,9 @@ namespace Ogre {
                 // this part once for each name mentioned
                 if (def.constType == GCT_UNKNOWN)
                 {
-                    LogManager::getSingleton().logMessage("Problem parsing the following GLSL Uniform: '"
-                                                          + line + ::std::format("' in file {}", filename), LML_CRITICAL);
+                    LogManager::getSingleton().logMessage(
+                        ::std::format("Problem parsing the following GLSL Uniform: '"
+                                                          "{}' in file {}", line , filename), LML_CRITICAL);
                     // next uniform
                     break;
                 }
@@ -306,8 +307,9 @@ namespace Ogre {
                 }
                 else
                 {
-                    LogManager::getSingleton().logMessage("Could not parse type of GLSL Uniform: '"
-                                                          + line + ::std::format("' in file {}", filename));
+                    LogManager::getSingleton().logMessage(
+                        ::std::format("Could not parse type of GLSL Uniform: '"
+                                                          "{}' in file {}", line , filename));
                 }
                 defs.map.emplace(paramName, def);
 

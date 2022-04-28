@@ -123,7 +123,7 @@ public:
     [[nodiscard]]
     auto getImagePath(size_t index) const -> Ogre::String
     {
-        return mDirectory + ::std::format("/{}.png", images[index] );
+        return ::std::format("{}/{}.png", mDirectory , images[index] );
     }
 
     /** Does image comparison on all images between these two sets */

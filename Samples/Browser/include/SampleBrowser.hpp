@@ -134,7 +134,7 @@ namespace OgreBites
                     mTrayMgr->showAll();
                     ((Button*)mTrayMgr->getWidget("StartStop"))->setCaption("Start Sample");
 
-                    mTrayMgr->showOkDialog("Error!", e.getDescription() + ::std::format("\nSource: {}", e.getSource()));
+                    mTrayMgr->showOkDialog("Error!", ::std::format("{}\nSource: {}", e.getDescription() , e.getSource()));
                 }
             }
         }
@@ -149,7 +149,7 @@ namespace OgreBites
             catch (Ogre::Exception& e)   // show error and fall back to menu
             {
                 runSample(nullptr);
-                mTrayMgr->showOkDialog("Error!", e.getDescription() + ::std::format("\nSource: {}", e.getSource()));
+                mTrayMgr->showOkDialog("Error!", ::std::format("{}\nSource: {}", e.getDescription() , e.getSource()));
             }
 
             return true;

@@ -126,7 +126,7 @@ protected:
             anchor->appendAttribute("href", Ogre::String("#") + mResult.testName);
             anchor->appendAttribute("title", mResult.testName);
             HtmlElement* img = anchor->appendElement("img");
-            img->appendAttribute("src",mSet2.name + ::std::format("/{}", mResult.image));
+            img->appendAttribute("src", ::std::format("{}/{}", mSet2.name , mResult.image));
             img->appendAttribute("class", mResult.passed ? "thumb" : "thumb_fail");
         }
 
@@ -166,7 +166,6 @@ protected:
         auto* container = new HtmlElement("div");
         container->appendAttribute("id",result[0]->testName);
         container->appendElement("h2")->appendText(result[0]->testName);
-            //+ ::std::format(" (frame {})", Ogre::StringConverter::toString(result.frame) ));
         HtmlElement* content = container->appendElement("div");
         // if failed, we give it a different class, and make it red
         content->appendAttribute("class", Ogre::String("contentarea") 
@@ -213,7 +212,7 @@ protected:
             column1->appendElement("h3")->appendText("Original:");
             HtmlElement* img = column1->appendElement("img");
             img->appendAttribute("alt", ::std::format("{}{} original", result[i]->testName, result[i]->frame));
-            img->appendAttribute("src", set1.name + ::std::format("/{}", result[i]->image));
+            img->appendAttribute("src", ::std::format("{}/{}", set1.name , result[i]->image));
 
             // second image
             HtmlElement* column2 = imageBox->appendElement("div");
@@ -287,8 +286,10 @@ protected:
         row->appendElement("td")->appendText(set.version);
         row = table->appendElement("tr");
         row->appendElement("th")->appendText("Resolution:");
-        row->appendElement("td")->appendText(Ogre::StringConverter::toString(set.resolutionX) 
-            + ::std::format(" x {}", Ogre::StringConverter::toString(set.resolutionY)));
+        row->appendElement("td")->appendText(
+            ::std::format("{} x {}",
+                Ogre::StringConverter::toString(set.resolutionX),
+                Ogre::StringConverter::toString(set.resolutionY)));
         row = table->appendElement("tr");
         row->appendElement("th")->appendText("Comment:");
         row->appendElement("td")->appendText(set.comment);

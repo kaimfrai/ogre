@@ -163,7 +163,7 @@ namespace Ogre
         g = *bIter;
         ++bIter;
         g->show();
-        g->setCaption(String(instance->name + ::std::format(" ({})", StringConverter::toString(instance->history.numCallsThisFrame) )));
+        g->setCaption(::std::format("{} ({})", instance->name, instance->history.numCallsThisFrame) );
         g->setLeft(10 + instance->hierarchicalLvl * 10.0f);
 
 
