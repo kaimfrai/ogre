@@ -345,7 +345,7 @@ namespace Ogre {
         pLog->logMessage("CPU Identifier & Features");
         pLog->logMessage("-------------------------");
         pLog->logMessage(
-            " *   CPU ID: " + getCpuIdentifier());
+            ::std::format(" *   CPU ID: {}", getCpuIdentifier()));
 
         if(_isSupportCpuid())
         {

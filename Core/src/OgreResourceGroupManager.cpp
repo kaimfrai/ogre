@@ -105,7 +105,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ResourceGroupManager::createResourceGroup(const String& name, bool inGlobalPool)
     {
-        LogManager::getSingleton().logMessage("Creating resource group " + name);
+        LogManager::getSingleton().logMessage(::std::format("Creating resource group {}", name));
         if (getResourceGroup(name))
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
@@ -123,7 +123,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ResourceGroupManager::initialiseResourceGroup(const String& name)
     {
-        LogManager::getSingleton().logMessage("Initialising resource group " + name);
+        LogManager::getSingleton().logMessage(::std::format("Initialising resource group {}", name));
         ResourceGroup* grp = getResourceGroup(name, true);
 
         if (grp->groupStatus == ResourceGroup::UNINITIALSED)
@@ -133,7 +133,7 @@ namespace Ogre {
             // Set current group
             parseResourceGroupScripts(grp);
             mCurrentGroup = grp;
-            LogManager::getSingleton().logMessage("Creating resources for group " + name);
+            LogManager::getSingleton().logMessage(::std::format("Creating resources for group {}", name));
             createDeclaredResources(grp);
             grp->groupStatus = ResourceGroup::INITIALISED;
             LogManager::getSingleton().logMessage("All done");
@@ -155,7 +155,7 @@ namespace Ogre {
                 // Set current group
                 mCurrentGroup = grp;
                 parseResourceGroupScripts(grp);
-                LogManager::getSingleton().logMessage("Creating resources for group " + i.first);
+                LogManager::getSingleton().logMessage(::std::format("Creating resources for group {}", i.first));
                 createDeclaredResources(grp);
                 grp->groupStatus = ResourceGroup::INITIALISED;
                 LogManager::getSingleton().logMessage("All done");
@@ -224,7 +224,7 @@ namespace Ogre {
         // reset current group
         mCurrentGroup = nullptr;
         
-        LogManager::getSingleton().logMessage("Finished preparing resource group " + name);
+        LogManager::getSingleton().logMessage(::std::format("Finished preparing resource group {}", name));
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::loadResourceGroup(const String& name)
@@ -289,12 +289,12 @@ namespace Ogre {
         // reset current group
         mCurrentGroup = nullptr;
         
-        LogManager::getSingleton().logMessage("Finished loading resource group " + name);
+        LogManager::getSingleton().logMessage(::std::format("Finished loading resource group {}", name));
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::unloadResourceGroup(const String& name, bool reloadableOnly)
     {
-        LogManager::getSingleton().logMessage("Unloading resource group " + name);
+        LogManager::getSingleton().logMessage(::std::format("Unloading resource group {}", name));
         ResourceGroup* grp = getResourceGroup(name, true);
         // Set current group
         mCurrentGroup = grp;
@@ -317,14 +317,14 @@ namespace Ogre {
 
         // reset current group
         mCurrentGroup = nullptr;
-        LogManager::getSingleton().logMessage("Finished unloading resource group " + name);
+        LogManager::getSingleton().logMessage(::std::format("Finished unloading resource group {}", name));
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::unloadUnreferencedResourcesInGroup(
         const String& name, bool reloadableOnly )
     {
         LogManager::getSingleton().logMessage(
-            "Unloading unused resources in resource group " + name);
+            ::std::format("Unloading unused resources in resource group {}", name));
         ResourceGroup* grp = getResourceGroup(name, true);
         // Set current group
         mCurrentGroup = grp;
@@ -352,12 +352,12 @@ namespace Ogre {
         // reset current group
         mCurrentGroup = nullptr;
         LogManager::getSingleton().logMessage(
-            "Finished unloading unused resources in resource group " + name);
+            ::std::format("Finished unloading unused resources in resource group {}", name));
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::clearResourceGroup(const String& name)
     {
-            LogManager::getSingleton().logMessage("Clearing resource group " + name);
+            LogManager::getSingleton().logMessage(::std::format("Clearing resource group {}", name));
         ResourceGroup* grp = getResourceGroup(name, true);
         // set current group
         mCurrentGroup = grp;
@@ -366,12 +366,12 @@ namespace Ogre {
         grp->groupStatus = ResourceGroup::UNINITIALSED;
         // reset current group
         mCurrentGroup = nullptr;
-        LogManager::getSingleton().logMessage("Finished clearing resource group " + name);
+        LogManager::getSingleton().logMessage(::std::format("Finished clearing resource group {}", name));
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::destroyResourceGroup(const String& name)
     {
-        LogManager::getSingleton().logMessage("Destroying resource group " + name);
+        LogManager::getSingleton().logMessage(::std::format("Destroying resource group {}", name));
         ResourceGroup* grp = getResourceGroup(name, true);
         // set current group
         mCurrentGroup = grp;
@@ -468,7 +468,7 @@ namespace Ogre {
 
         }
 
-        LogManager::getSingleton().logMessage("Removed resource location " + name);
+        LogManager::getSingleton().logMessage(::std::format("Removed resource location {}", name));
 
 
     }
@@ -700,7 +700,7 @@ namespace Ogre {
         const String& resourceType, ResourceManager* rm)
     {
         LogManager::getSingleton().logMessage(
-            "Registering ResourceManager for type " + resourceType);
+            ::std::format("Registering ResourceManager for type {}", resourceType));
         mResourceManagerMap[resourceType] = rm;
     }
     //-----------------------------------------------------------------------
@@ -708,7 +708,7 @@ namespace Ogre {
         const String& resourceType)
     {
         LogManager::getSingleton().logMessage(
-            "Unregistering ResourceManager for type " + resourceType);
+            ::std::format("Unregistering ResourceManager for type {}", resourceType));
         
         auto i = mResourceManagerMap.find(resourceType);
         if (i != mResourceManagerMap.end())
@@ -763,7 +763,7 @@ namespace Ogre {
     {
 
         LogManager::getSingleton().logMessage(
-            "Parsing scripts for resource group " + grp->name);
+            ::std::format("Parsing scripts for resource group {}", grp->name));
 
         // Count up the number of scripts we have to parse
         using LoaderFileListPair = std::pair<ScriptLoader *, FileInfoList>;
@@ -804,12 +804,12 @@ namespace Ogre {
                 if(skipScript)
                 {
                     LogManager::getSingleton().logMessage(
-                        "Skipping script " + fii.filename);
+                        ::std::format("Skipping script {}", fii.filename));
                 }
                 else
                 {
                     LogManager::getSingleton().logMessage(
-                        "Parsing script " + fii.filename);
+                        ::std::format("Parsing script {}", fii.filename));
                     DataStreamPtr stream = fii.archive->open(fii.filename);
                     if (stream)
                     {
@@ -831,7 +831,7 @@ namespace Ogre {
 
         fireResourceGroupScriptingEnded(grp->name);
         LogManager::getSingleton().logMessage(
-            "Finished parsing scripts for resource group " + grp->name);
+            ::std::format("Finished parsing scripts for resource group {}", grp->name));
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::createDeclaredResources(ResourceGroup* grp)

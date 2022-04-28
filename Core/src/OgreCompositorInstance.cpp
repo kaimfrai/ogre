@@ -724,7 +724,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
                      p != def->formatList.end(); ++p, ++atch)
                 {
                     
-                    String texname = MRTbaseName + "/" + StringConverter::toString(atch);
+                    String texname = MRTbaseName + ::std::format("/{}", StringConverter::toString(atch));
                     String mrtLocalName = getMRTTexLocalName(def->name, atch);
                     TexturePtr tex;
                     if (def->pooled)

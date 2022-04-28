@@ -89,10 +89,10 @@ namespace Ogre {
     {
         pLog->logMessage("RenderSystem capabilities");
         pLog->logMessage("-------------------------");
-        pLog->logMessage("RenderSystem Name: " + getRenderSystemName());
-        pLog->logMessage("GPU Vendor: " + vendorToString(getVendor()));
-        pLog->logMessage("Device Name: " + getDeviceName());
-        pLog->logMessage("Driver Version: " + getDriverVersion().toString());
+        pLog->logMessage(::std::format("RenderSystem Name: {}", getRenderSystemName()));
+        pLog->logMessage(::std::format("GPU Vendor: {}", vendorToString(getVendor())));
+        pLog->logMessage(::std::format("Device Name: {}", getDeviceName()));
+        pLog->logMessage(::std::format("Driver Version: {}", getDriverVersion().toString()));
         pLog->logMessage(" * Fixed function pipeline: " +
                          StringConverter::toString(hasCapability(RSC_FIXED_FUNCTION), true));
         pLog->logMessage(" * 32-bit index buffers: " + StringConverter::toString(hasCapability(RSC_32BIT_INDEX), true));
@@ -143,9 +143,9 @@ namespace Ogre {
             StringConverter::toString(StringVector(mSupportedShaderProfiles.begin(), mSupportedShaderProfiles.end())));
         pLog->logMessage(" * Read-back compiled shader: " +
                          StringConverter::toString(hasCapability(RSC_CAN_GET_COMPILED_SHADER_BUFFER), true));
-        pLog->logMessage(" * Number of vertex attributes: " + StringConverter::toString(mNumVertexAttributes));
+        pLog->logMessage(::std::format(" * Number of vertex attributes: {}", StringConverter::toString(mNumVertexAttributes)));
         pLog->logMessage(" * Textures");
-        pLog->logMessage("   - Number of texture units: " + StringConverter::toString(mNumTextureUnits));
+        pLog->logMessage(::std::format("   - Number of texture units: {}", StringConverter::toString(mNumTextureUnits)));
         pLog->logMessage("   - Floating point: " + StringConverter::toString(hasCapability(RSC_TEXTURE_FLOAT), true));
         pLog->logMessage(
             "   - Non-power-of-two: " + StringConverter::toString(hasCapability(RSC_NON_POWER_OF_2_TEXTURES), true) +
@@ -193,7 +193,7 @@ namespace Ogre {
                          StringConverter::toString(hasCapability(RSC_VERTEX_TEXTURE_FETCH), true));
         if (hasCapability(RSC_VERTEX_TEXTURE_FETCH))
         {
-            pLog->logMessage("   - Max vertex textures: " + StringConverter::toString(mNumVertexTextureUnits));
+            pLog->logMessage(::std::format("   - Max vertex textures: {}", StringConverter::toString(mNumVertexTextureUnits)));
             pLog->logMessage("   - Vertex textures shared: " +
                              StringConverter::toString(mVertexTextureUnitsShared, true));
         }
@@ -211,7 +211,7 @@ namespace Ogre {
         pLog->logMessage(
             " * Hardware render-to-texture: "
             + StringConverter::toString(hasCapability(RSC_HWRENDER_TO_TEXTURE), true));
-        pLog->logMessage("   - Multiple Render Targets: " + StringConverter::toString(mNumMultiRenderTargets));
+        pLog->logMessage(::std::format("   - Multiple Render Targets: {}", StringConverter::toString(mNumMultiRenderTargets)));
         pLog->logMessage("   - With different bit depths: " +
                          StringConverter::toString(hasCapability(RSC_MRT_DIFFERENT_BIT_DEPTHS), true));
         pLog->logMessage(" * Point Sprites: " + StringConverter::toString(hasCapability(RSC_POINT_SPRITES), true));
@@ -219,7 +219,7 @@ namespace Ogre {
         {
             pLog->logMessage("   - Extended parameters: " +
                              StringConverter::toString(hasCapability(RSC_POINT_EXTENDED_PARAMETERS), true));
-            pLog->logMessage("   - Max Size: " + StringConverter::toString(mMaxPointSize));
+            pLog->logMessage(::std::format("   - Max Size: {}", StringConverter::toString(mMaxPointSize)));
         }
         pLog->logMessage(
             " * Wide Lines: "

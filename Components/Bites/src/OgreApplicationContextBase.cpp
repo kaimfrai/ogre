@@ -441,12 +441,12 @@ void ApplicationContextBase::shutdown()
 
         if (outFile.is_open())
         {
-            Ogre::LogManager::getSingleton().logMessage("Writing shader cache to "+path);
+            Ogre::LogManager::getSingleton().logMessage(::std::format("Writing shader cache to {}", path));
             Ogre::DataStreamPtr ostream(new Ogre::FileStreamDataStream(path, &outFile, false));
             gpuMgr.saveMicrocodeCache(ostream);
         }
         else
-            Ogre::LogManager::getSingleton().logWarning("Cannot open shader cache for writing "+path);
+            Ogre::LogManager::getSingleton().logWarning(::std::format("Cannot open shader cache for writing {}", path));
     }
 
     // Destroy the RT Shader System.

@@ -1081,7 +1081,7 @@ const Pass* SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed,
             CompositorInstance* refComp = currentChain->getCompositor(compName);
             if (!refComp)
                 OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                            "Current CompositorChain does not contain compositor named " + compName);
+                            ::std::format("Current CompositorChain does not contain compositor named {}", compName));
 
             auto texName = pTex->getReferencedTextureName();
             TexturePtr refTex = refComp->getTextureInstance(texName, pTex->getReferencedMRTIndex());

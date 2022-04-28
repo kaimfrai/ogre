@@ -228,7 +228,7 @@ namespace Ogre {
             loadPlugins(pluginFileName);
 
         LogManager::getSingleton().logMessage("*-*-* OGRE Initialising");
-        LogManager::getSingleton().logMessage("*-*-* Version " + mVersion);
+        LogManager::getSingleton().logMessage(::std::format("*-*-* Version {}", mVersion));
 
         // Can't create managers until initialised
         mControllerManager = nullptr;
@@ -1026,7 +1026,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Root::installPlugin(Plugin* plugin)
     {
-        LogManager::getSingleton().logMessage("Installing plugin: " + plugin->getName());
+        LogManager::getSingleton().logMessage(::std::format("Installing plugin: {}", plugin->getName()));
 
         mPlugins.push_back(plugin);
         plugin->install();
@@ -1042,7 +1042,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Root::uninstallPlugin(Plugin* plugin)
     {
-        LogManager::getSingleton().logMessage("Uninstalling plugin: " + plugin->getName());
+        LogManager::getSingleton().logMessage(::std::format("Uninstalling plugin: {}", plugin->getName()));
         auto i =
             std::ranges::find(mPlugins, plugin);
         if (i != mPlugins.end())

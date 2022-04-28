@@ -61,7 +61,7 @@ namespace Ogre {
         }
         for (auto & edgeGroup : edgeGroups)
         {
-            l->logMessage("Edge Group vertexSet=" + StringConverter::toString(edgeGroup.vertexSet));
+            l->logMessage(::std::format("Edge Group vertexSet={}", i->vertexSet));
             for (size_t num = 0;
                 Edge& e : edgeGroup.edges)
             {
@@ -455,8 +455,8 @@ namespace Ogre {
     {
         l->logMessage("EdgeListBuilder Log");
         l->logMessage("-------------------");
-        l->logMessage("Number of vertex sets: " + StringConverter::toString(mVertexDataList.size()));
-        l->logMessage("Number of index sets: " + StringConverter::toString(mGeometryList.size()));
+        l->logMessage(::std::format("Number of vertex sets: {}", StringConverter::toString(mVertexDataList.size())));
+        l->logMessage(::std::format("Number of index sets: {}", StringConverter::toString(mGeometryList.size())));
         
         size_t i, j, k;
         // Log original vertex data
@@ -494,7 +494,7 @@ namespace Ogre {
                 StringConverter::toString(mGeometryList[i].indexSet) + " - index count " + 
                 StringConverter::toString(iData->indexCount) + " - " + 
             ::std::format("vertex set {} - ", StringConverter::toString(mGeometryList[i].vertexSet) ) + 
-            "operationType " + StringConverter::toString(mGeometryList[i].opType));
+            ::std::format("operationType {}", StringConverter::toString(mGeometryList[i].opType)));
             // Get the indexes ready for reading
             HardwareBufferLockGuard indexLock(iData->indexBuffer, HardwareBuffer::HBL_READ_ONLY);
             auto* p16Idx = static_cast<unsigned short*>(indexLock.pData);

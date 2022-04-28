@@ -132,7 +132,7 @@ namespace OgreBites
                     mTrayMgr->showAll();
                     ((Button*)mTrayMgr->getWidget("StartStop"))->setCaption("Start Sample");
 
-                    mTrayMgr->showOkDialog("Error!", e.getDescription() + "\nSource: " + e.getSource());
+                    mTrayMgr->showOkDialog("Error!", e.getDescription() + ::std::format("\nSource: {}", e.getSource()));
                 }
             }
         }
@@ -147,7 +147,7 @@ namespace OgreBites
             catch (Ogre::Exception& e)   // show error and fall back to menu
             {
                 runSample(nullptr);
-                mTrayMgr->showOkDialog("Error!", e.getDescription() + "\nSource: " + e.getSource());
+                mTrayMgr->showOkDialog("Error!", e.getDescription() + ::std::format("\nSource: {}", e.getSource()));
             }
 
             return true;
@@ -393,7 +393,7 @@ namespace OgreBites
 
                     if (all || info["Category"] == selectedCategory)
                     {
-                        Ogre::String name = "SdkTrays/SampleThumb" + Ogre::StringConverter::toString(sampleTitles.size() + 1);
+                        Ogre::String name = ::std::format("SdkTrays/SampleThumb{}", Ogre::StringConverter::toString(sampleTitles.size() + 1));
 
                         // clone a new material for sample thumbnail
                         Ogre::MaterialPtr newMat = templateMat->clone(name);
@@ -474,7 +474,7 @@ namespace OgreBites
         void sliderMoved(Slider* slider) override
         {
             // format the caption to be fraction style
-            Ogre::String denom = "/" + Ogre::StringConverter::toString(mSampleMenu->getNumItems());
+            Ogre::String denom = ::std::format("/{}", Ogre::StringConverter::toString(mSampleMenu->getNumItems()));
             slider->setValueCaption(slider->getValueCaption() + denom);
 
             // tell the sample menu to change if it hasn't already

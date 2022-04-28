@@ -257,7 +257,7 @@ void GLSLProgramWriter::writeMainSourceCode(std::ostream& os, Program* program)
                 if(doLocalRename && mLocalRenames.find(param->getName()) == mLocalRenames.end())
                 {
                     // Declare the copy variable and assign the original
-                    String newVar = "local_" + param->getName();
+                    String newVar = ::std::format("local_{}", param->getName());
                     os << "\t" << mGpuConstTypeMap[param->getType()] << " " << newVar << " = " << param->getName() << ";" << std::endl;
 
                     // From now on we replace it automatic

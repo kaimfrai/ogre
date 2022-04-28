@@ -372,7 +372,7 @@ namespace Ogre
 
             // Add #line to the end of the included file to correct the line count.
             // +1 as #line specifies the number of the following line
-            outSource.append("\n#line " + std::to_string(lineCount + 1) + lineFilename);
+            outSource.append(::std::format("\n#line {}", std::to_string(lineCount + 1) + lineFilename));
 
             startMarker = newLineAfter;
 

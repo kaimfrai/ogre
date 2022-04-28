@@ -66,7 +66,7 @@ namespace Ogre {
         }
 
         // Log library load
-        LogManager::getSingleton().logMessage("Loading library " + name);
+        LogManager::getSingleton().logMessage(::std::format("Loading library {}", name));
 
         mInst = (DYNLIB_HANDLE)DYNLIB_LOAD( name.c_str() );
 
@@ -82,7 +82,7 @@ namespace Ogre {
     void DynLib::unload()
     {
         // Log library unload
-        LogManager::getSingleton().logMessage("Unloading library " + mName);
+        LogManager::getSingleton().logMessage(::std::format("Unloading library {}", mName));
 
         if( DYNLIB_UNLOAD( mInst ) )
         {

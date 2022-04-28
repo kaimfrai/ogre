@@ -1033,7 +1033,7 @@ class Frustum;
         catch (Exception& e)
         {
             String msg = "preparing texture '" + tex->getName() +
-                         "'. Texture layer will be blank: " + e.getDescription();
+                         ::std::format("'. Texture layer will be blank: {}", e.getDescription());
             LogManager::getSingleton().logError(msg);
             mTextureLoadFailed = true;
         }
@@ -1053,7 +1053,7 @@ class Frustum;
         catch (Exception& e)
         {
             String msg = "loading texture '" + tex->getName() +
-                         "'. Texture layer will be blank: " + e.getDescription();
+                         ::std::format("'. Texture layer will be blank: {}", e.getDescription());
             LogManager::getSingleton().logError(msg);
             mTextureLoadFailed = true;
         }

@@ -570,7 +570,7 @@ namespace Ogre
 
         if (ctxErrorOccurred || !glxContext)
         {
-            LogManager::getSingleton().logError("Failed to create an OpenGL context - " + ctxErrorMessage);
+            LogManager::getSingleton().logError(::std::format("Failed to create an OpenGL context - {}", ctxErrorMessage));
         }
 
         return glxContext;

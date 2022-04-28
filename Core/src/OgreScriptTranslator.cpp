@@ -4011,7 +4011,7 @@ class LodStrategy;
                                             else
                                             {
                                                 compiler->addError(ScriptCompiler::CE_NUMBEREXPECTED, prop->file, prop->line,
-                                                                   "<extraInfo> parameter required by constant definition " + atom1->value);
+                                                                   ::std::format("<extraInfo> parameter required by constant definition {}", atom1->value));
                                             }
                                         }
                                         else
@@ -4108,7 +4108,7 @@ class LodStrategy;
                                         else
                                         {
                                             compiler->addError(ScriptCompiler::CE_NUMBEREXPECTED, prop->file, prop->line,
-                                                               "<extraInfo> parameter required by constant definition " + atom1->value);
+                                                               ::std::format("<extraInfo> parameter required by constant definition {}", atom1->value));
                                         }
                                     }
                                     break;

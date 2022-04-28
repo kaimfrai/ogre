@@ -262,7 +262,7 @@ void TargetRenderState::createCpuPrograms()
         if (!srcSubRenderState->createCpuSubPrograms(programSet))
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        "Could not generate sub render program of type: " + srcSubRenderState->getType());
+                        ::std::format("Could not generate sub render program of type: {}", srcSubRenderState->getType()));
         }
     }
 }
