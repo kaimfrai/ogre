@@ -499,8 +499,7 @@ void SelectMenu::removeItem(const Ogre::DisplayString &item)
 void SelectMenu::removeItem(size_t index)
 {
     if(index >= mItems.size()){
-        Ogre::String desc = "Menu \"" + getName() + "\" contains no item at position " +
-                Ogre::StringConverter::toString(index) + ".";
+        Ogre::String desc = ::std::format("Menu \"{}\" contains no item at position {}.", getName(), Ogre::StringConverter::toString(index) );
         OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "SelectMenu::removeItem");
     }
     mItems.erase(mItems.begin() + index);
@@ -536,8 +535,7 @@ void SelectMenu::selectItem(size_t index, bool notifyListener)
 {
     if (index >= mItems.size())
     {
-        Ogre::String desc = "Menu \"" + getName() + "\" contains no item at position " +
-                Ogre::StringConverter::toString(index) + ".";
+        Ogre::String desc = ::std::format("Menu \"{}\" contains no item at position {}.", getName() , Ogre::StringConverter::toString(index) );
         OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "SelectMenu::selectItem");
     }
 
@@ -573,7 +571,7 @@ void SelectMenu::selectItem(const Ogre::DisplayString &item, bool notifyListener
         }
     }
 
-    Ogre::String desc = "Menu \"" + getName() + "\" contains no item \"" + item + "\".";
+    Ogre::String desc = ::std::format("Menu \"{}\" contains no item \"{}\".", getName() , item );
     OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "SelectMenu::selectItem");
 }
 
@@ -581,7 +579,7 @@ Ogre::DisplayString SelectMenu::getSelectedItem()
 {
     if (mSelectionIndex == -1)
     {
-        Ogre::String desc = "Menu \"" + getName() + "\" has no item selected.";
+        Ogre::String desc = ::std::format("Menu \"{}\" has no item selected.", getName());
         OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "SelectMenu::getSelectedItem");
         return "";
     }
@@ -968,7 +966,7 @@ void ParamsPanel::setParamValue(const Ogre::DisplayString &paramName, const Ogre
         }
     }
 
-    Ogre::String desc = "ParamsPanel \"" + getName() + "\" has no parameter \"" + paramName + "\".";
+    Ogre::String desc = ::std::format("ParamsPanel \"{}\" has no parameter \"{}\".", getName(), paramName );
     OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "ParamsPanel::setParamValue");
 }
 
@@ -976,8 +974,7 @@ void ParamsPanel::setParamValue(unsigned int index, const Ogre::DisplayString &p
 {
     if (index >= mNames.size())
     {
-        Ogre::String desc = "ParamsPanel \"" + getName() + "\" has no parameter at position " +
-                Ogre::StringConverter::toString(index) + ".";
+        Ogre::String desc = ::std::format("ParamsPanel \"{}\" has no parameter at position {}.", getName() , Ogre::StringConverter::toString(index));
         OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "ParamsPanel::setParamValue");
     }
 
@@ -992,7 +989,7 @@ Ogre::DisplayString ParamsPanel::getParamValue(const Ogre::DisplayString &paramN
         if (mNames[i] == paramName) return mValues[i];
     }
 
-    Ogre::String desc = "ParamsPanel \"" + getName() + "\" has no parameter \"" + paramName + "\".";
+    Ogre::String desc = ::std::format("ParamsPanel \"{}\" has no parameter \"{}\".", getName() , paramName);
     OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "ParamsPanel::getParamValue");
     return "";
 }
@@ -1001,8 +998,7 @@ Ogre::DisplayString ParamsPanel::getParamValue(unsigned int index)
 {
     if (index >= mNames.size())
     {
-        Ogre::String desc = "ParamsPanel \"" + getName() + "\" has no parameter at position " +
-                Ogre::StringConverter::toString(index) + ".";
+        Ogre::String desc = ::std::format("ParamsPanel \"{}\" has no parameter at position {}.", getName() , Ogre::StringConverter::toString(index) );
         OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "ParamsPanel::getParamValue");
     }
 
