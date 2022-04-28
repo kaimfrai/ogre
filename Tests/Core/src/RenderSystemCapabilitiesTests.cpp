@@ -63,7 +63,7 @@ void RenderSystemCapabilitiesTests::SetUp()
 
     Ogre::ConfigFile cf;
     cf.load(Ogre::FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
-    Ogre::String testPath = cf.getSettings("Tests").begin()->second+"/CustomCapabilities";
+    Ogre::String testPath = ::std::format("{}/CustomCapabilities", cf.getSettings("Tests").begin()->second);
 
     // Actual parsing happens here. The following test methods confirm parse results only.
     mRenderSystemCapabilitiesManager->parseCapabilitiesFromArchive(testPath, "FileSystem", true);
@@ -234,7 +234,7 @@ TEST_F(RenderSystemCapabilitiesTests,WriteSimpleCapabilities)
     char buff[255];
 
     capsfile.getline(buff, 255);
-    EXPECT_EQ(String("render_system_capabilities \"") + name + "\"", String(buff));
+    EXPECT_EQ(::std::format("render_system_capabilities \"{}\"", name), String(buff));
 
     capsfile.getline(buff, 255);
     EXPECT_EQ(String("{"), String(buff));
@@ -276,7 +276,7 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAllFalseCapabilities)
     char buff[255];
 
     capsfile.getline(buff, 255);
-    EXPECT_EQ(String("render_system_capabilities \"") + name + "\"", String(buff));
+    EXPECT_EQ(::std::format("render_system_capabilities \"{}\"", name), String(buff));
 
     capsfile.getline(buff, 255);
     EXPECT_EQ(String("{"), String(buff));
@@ -379,7 +379,7 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAllTrueCapabilities)
     char buff[255];
 
     capsfile.getline(buff, 255);
-    EXPECT_EQ(String("render_system_capabilities \"") + name + "\"", String(buff));
+    EXPECT_EQ(::std::format("render_system_capabilities \"{}\"", name), String(buff));
 
     capsfile.getline(buff, 255);
     EXPECT_EQ(String("{"), String(buff));

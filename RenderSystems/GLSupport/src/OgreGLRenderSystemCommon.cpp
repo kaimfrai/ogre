@@ -133,7 +133,7 @@ namespace Ogre {
             {
                 if (mode.getDescription() == optVideoMode->second.currentValue)
                 {
-                    String frequency = StringConverter::toString(mode.refreshRate) + " Hz";
+                    String frequency = ::std::format("{} Hz", mode.refreshRate);
                     optDisplayFrequency->second.possibleValues.push_back(frequency);
 
                     if(optColourDepth != mOptions.end())

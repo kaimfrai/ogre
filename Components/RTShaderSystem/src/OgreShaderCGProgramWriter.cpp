@@ -159,9 +159,9 @@ void CGProgramWriter::writeProgramDependencies(std::ostream& os, Program* progra
 
     for (unsigned int i=0; i < program->getDependencyCount(); ++i)
     {
-        String curDependency = program->getDependency(i) + ".cg";
+        String curDependency = ::std::format("{}.cg", program->getDependency(i));
         if (!rgm.resourceExistsInAnyGroup(curDependency))
-            curDependency = program->getDependency(i) + ".glsl"; // fall back to glsl extension
+            curDependency = ::std::format("{}.glsl", program->getDependency(i)); // fall back to glsl extension
 
         os << "#include \"" << curDependency << '\"' << std::endl;
     }

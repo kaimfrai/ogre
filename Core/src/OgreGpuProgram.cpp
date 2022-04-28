@@ -449,7 +449,7 @@ class ResourceManager;
     String CmdType::doGet(const void* target) const
     {
         const GpuProgram* t = static_cast<const GpuProgram*>(target);
-        return GpuProgram::getProgramTypeName(t->getType()) + "_program";
+        return ::std::format("{}_program", GpuProgram::getProgramTypeName(t->getType()));
     }
     void CmdType::doSet(void* target, const String& val)
     {
