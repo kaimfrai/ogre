@@ -236,7 +236,7 @@ auto SceneManager::createCamera(const String& name) -> Camera*
     {
         OGRE_EXCEPT(
             Exception::ERR_DUPLICATE_ITEM,
-            "A camera with the name " + name + " already exists",
+            ::std::format("A camera with the name {} already exists", name ),
             "SceneManager::createCamera" );
     }
 
@@ -1101,7 +1101,7 @@ auto SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed,
 
             if (!refTex)
                 OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                            "Compositor " + compName + " does not declare texture " + texName);
+                            ::std::format("Compositor {} does not declare texture ", compName ) + texName);
             pTex->_setTexturePtr(refTex);
         }
         mDestRenderSystem->_setTextureUnitSettings(unit, *pTex);
@@ -2144,7 +2144,7 @@ auto SceneManager::createAnimation(const String& name, Real length) -> Animation
     {
         OGRE_EXCEPT(
             Exception::ERR_DUPLICATE_ITEM,
-            "An animation with the name " + name + " already exists",
+            ::std::format("An animation with the name {} already exists", name ),
             "SceneManager::createAnimation" );
     }
 
@@ -3107,7 +3107,7 @@ auto SceneManager::createStaticGeometry(const String& name) -> StaticGeometry*
     if (mStaticGeometryList.find(name) != mStaticGeometryList.end())
     {
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
-            "StaticGeometry with name '" + name + "' already exists!", 
+            ::std::format("StaticGeometry with name '{}' already exists!", name ), 
             "SceneManager::createStaticGeometry");
     }
     auto* ret = new StaticGeometry(this, name);
@@ -3121,7 +3121,7 @@ auto SceneManager::getStaticGeometry(const String& name) const -> StaticGeometry
     if (i == mStaticGeometryList.end())
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-            "StaticGeometry with name '" + name + "' not found", 
+            ::std::format("StaticGeometry with name '{}' not found", name ), 
             "SceneManager::createStaticGeometry");
     }
     return i->second;
@@ -3169,7 +3169,7 @@ auto SceneManager::createInstanceManager( const String &customName, const String
     if (mInstanceManagerMap.find(customName) != mInstanceManagerMap.end())
     {
         OGRE_EXCEPT( Exception::ERR_DUPLICATE_ITEM, 
-            "InstancedManager with name '" + customName + "' already exists!", 
+            ::std::format("InstancedManager with name '{}' already exists!", customName ), 
             "SceneManager::createInstanceManager");
     }
 
@@ -3187,7 +3187,7 @@ auto SceneManager::getInstanceManager( const String &managerName ) const -> Inst
     if (itor == mInstanceManagerMap.end())
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "InstancedManager with name '" + managerName + "' not found", 
+                ::std::format("InstancedManager with name '{}' not found", managerName ), 
                 "SceneManager::getInstanceManager");
     }
 
@@ -3253,7 +3253,7 @@ auto SceneManager::createInstancedEntity( const String &materialName, const Stri
     if (itor == mInstanceManagerMap.end())
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "InstancedManager with name '" + managerName + "' not found", 
+                ::std::format("InstancedManager with name '{}' not found", managerName ), 
                 "SceneManager::createInstanceEntity");
     }
 
@@ -3380,7 +3380,7 @@ SceneManager::getMovableObjectCollection(const String& typeName) const -> const 
     if (i == mMovableObjectCollectionMap.end())
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-            "Object collection named '" + typeName + "' does not exist.", 
+            ::std::format("Object collection named '{}' does not exist.", typeName ), 
             "SceneManager::getMovableObjectCollection");
     }
     else
@@ -3405,7 +3405,7 @@ auto SceneManager::createMovableObject(const String& name,
     if (objectMap->map.find(name) != objectMap->map.end())
     {
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-            "An object of type '" + typeName + "' with name '" + name
+            ::std::format("An object of type '{}' with name '", typeName ) + name
             + "' already exists.",
             "SceneManager::createMovableObject");
     }
@@ -3507,7 +3507,7 @@ auto SceneManager::getMovableObject(const String& name, const String& typeName) 
         if (mi == objectMap->map.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "Object named '" + name + "' does not exist.", 
+                ::std::format("Object named '{}' does not exist.", name ), 
                 "SceneManager::getMovableObject");
         }
         return mi->second;

@@ -153,7 +153,7 @@ namespace Ogre
         
         mWidth = iWidth;  
         mHeight = iHeight;
-        LogManager::getSingleton().logMessage(LML_NORMAL, "GLXPBuffer::create used final dimensions " + StringConverter::toString(mWidth) + " x " + StringConverter::toString(mHeight));
+        LogManager::getSingleton().logMessage(LML_NORMAL, ::std::format("GLXPBuffer::create used final dimensions {} x ", StringConverter::toString(mWidth) ) + StringConverter::toString(mHeight));
         LogManager::getSingleton().logMessage("GLXPBuffer::create used FBConfigID " + StringConverter::toString(fbConfigID));
         
         mContext = new GLXContext(mGLSupport, fbConfig, glxDrawable);

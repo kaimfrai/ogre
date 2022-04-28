@@ -80,7 +80,7 @@ namespace Ogre {
         if(!name.empty())
         {
             if (mNamedSamplers.find(name) != mNamedSamplers.end())
-                OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Sampler '" + name + "' already exists");
+                OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Sampler '{}' already exists", name ));
             mNamedSamplers[name] = ret;
         }
         return ret;

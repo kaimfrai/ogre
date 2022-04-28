@@ -347,7 +347,7 @@ class Technique;
         auto quoteWord(const String& val) -> String
         {
             if (val.find_first_of("{}$: \t") != String::npos)
-                return ("\"" + val + "\"");
+                return (::std::format("\"{}\"", val ));
             else return val;
         }
 

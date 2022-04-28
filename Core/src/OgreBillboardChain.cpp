@@ -151,10 +151,10 @@ class RenderSystem;
             if (!mUseTexCoords && !mUseVertexColour)
             {
                 LogManager::getSingleton().logError(
-                    "BillboardChain '" + mName + "' is using neither "
+                    ::std::format("BillboardChain '{}' is using neither "
                     "texture coordinates nor vertex colours; it will not be "
                     "visible on some rendering APIs so you should change this "
-                    "so you use one or the other.");
+                    "so you use one or the other.", mName ));
             }
             mVertexDeclDirty = false;
         }
@@ -663,10 +663,10 @@ class RenderSystem;
 
         if (!mMaterial)
         {
-            LogManager::getSingleton().logError("Can't assign material " + name +
-                " to BillboardChain " + mName + " because this "
-                "Material does not exist in group "+groupName+". Have you forgotten to define it in a "
-                ".material script?");
+            LogManager::getSingleton().logError(
+                ::std::format("Can't assign material {} to BillboardChain {} because this "
+                "Material does not exist in group {}. Have you forgotten to define it in a "
+                ".material script?", name, mName, groupName));
             mMaterial = MaterialManager::getSingleton().getDefaultMaterial(false);
         }
         // Ensure new material loaded (will not load again if already loaded)

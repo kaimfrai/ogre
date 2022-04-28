@@ -157,7 +157,7 @@ GLTextureBuffer::GLTextureBuffer(GLRenderSystem* renderSystem, GLTexture* parent
         for(uint32 zoffset=0; zoffset<mDepth; ++zoffset)
         {
             String name;
-            name = "rtt/" + StringConverter::toString((size_t)this) + "/" + parent->getName();
+            name = ::std::format("rtt/{}/", StringConverter::toString((size_t)this) ) + parent->getName();
             GLSurfaceDesc surface;
             surface.buffer = this;
             surface.zoffset = zoffset;

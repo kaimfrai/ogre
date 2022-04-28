@@ -290,7 +290,7 @@ namespace Ogre
         if (i != mAnimationStates.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
-                "State for animation named '" + name + "' already exists.", 
+                ::std::format("State for animation named '{}' already exists.", name ), 
                 "AnimationStateSet::createAnimationState");
         }
 
@@ -307,7 +307,7 @@ namespace Ogre
         if (i == mAnimationStates.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "No state found for animation named '" + name + "'", 
+                ::std::format("No state found for animation named '{}'", name ), 
                 "AnimationStateSet::getAnimationState");
         }
         return i->second;

@@ -229,10 +229,10 @@ void ApplicationContextBase::enableShaderCache() const
     std::ifstream inFile(path.c_str(), std::ios::binary);
     if (!inFile.is_open())
     {
-        Ogre::LogManager::getSingleton().logWarning("Could not open '"+path+"'");
+        Ogre::LogManager::getSingleton().logWarning(::std::format("Could not open '{}'", path));
         return;
     }
-    Ogre::LogManager::getSingleton().logMessage("Loading shader cache from '"+path+"'");
+    Ogre::LogManager::getSingleton().logMessage(::std::format("Loading shader cache from '{}'", path));
     Ogre::DataStreamPtr istream(new Ogre::FileStreamDataStream(path, &inFile, false));
     Ogre::GpuProgramManager::getSingleton().loadMicrocodeCache(istream);
 }
@@ -298,7 +298,7 @@ void ApplicationContextBase::destroyWindow(const Ogre::String& name)
         return;
     }
 
-    OGRE_EXCEPT(Ogre::Exception::ERR_INVALIDPARAMS, "No window named '"+name+"'");
+    OGRE_EXCEPT(Ogre::Exception::ERR_INVALIDPARAMS, ::std::format("No window named '{}'", name));
 }
 
 void ApplicationContextBase::_destroyWindow(const NativeWindowPair& win)
@@ -378,7 +378,7 @@ void ApplicationContextBase::locateResources()
 
     if (Ogre::FileSystemLayer::fileExists(resourcesPath))
     {
-        Ogre::LogManager::getSingleton().logMessage("Parsing '"+resourcesPath+"'");
+        Ogre::LogManager::getSingleton().logMessage(::std::format("Parsing '{}'", resourcesPath));
         cf.load(resourcesPath);
     }
     else
@@ -413,7 +413,7 @@ void ApplicationContextBase::locateResources()
 
             if((type == "Zip" || type == "FileSystem") && !Ogre::FileSystemLayer::fileExists(arch))
             {
-                Ogre::LogManager::getSingleton().logWarning("resource location '"+arch+"' does not exist - skipping");
+                Ogre::LogManager::getSingleton().logWarning(::std::format("resource location '{}' does not exist - skipping", arch));
                 continue;
             }
 
