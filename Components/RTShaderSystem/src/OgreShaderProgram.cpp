@@ -346,8 +346,10 @@ void Program::addDependency(const String& libFileName)
 
 void Program::addPreprocessorDefines(const String& defines)
 {
-    mPreprocessorDefines +=
-        mPreprocessorDefines.empty() ? defines : ("," + defines);
+    mPreprocessorDefines =
+        mPreprocessorDefines.empty()
+    ? defines
+    : ::std::format("{},{}", mPreprocessorDefines, defines);
 }
 
 //-----------------------------------------------------------------------------
