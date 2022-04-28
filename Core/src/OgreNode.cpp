@@ -599,8 +599,8 @@ namespace Ogre {
 
         if (i == mChildren.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Child node named " + name +
-                " does not exist.", "Node::getChild");
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Child node named {}"
+                " does not exist.", name ), "Node::getChild");
         }
 
         return *i;
@@ -614,8 +614,8 @@ namespace Ogre {
 
         if (i == mChildren.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Child node named " + name +
-                " does not exist.", "Node::removeChild");
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Child node named {}"
+                " does not exist.", name), "Node::removeChild");
         }
 
         Node* ret = *i;

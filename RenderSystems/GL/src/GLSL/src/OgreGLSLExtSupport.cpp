@@ -35,6 +35,7 @@ import :GLSL.ExtSupport;
 
 import Ogre.Core;
 
+import <format>;
 import <string>;
 
 namespace Ogre::GLSL
@@ -75,7 +76,7 @@ namespace Ogre::GLSL
         if (logMessage.empty())
             return msg;
 
-        logMessage = msg + "\n" + logMessage;
+        ::std::format("{}\n{}", logMessage = msg , logMessage);
 
         LogManager::getSingleton().logMessage(LML_CRITICAL, logMessage);
 

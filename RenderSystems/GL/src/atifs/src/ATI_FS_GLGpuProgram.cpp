@@ -123,7 +123,7 @@ void ATI_FS_GLGpuProgram::loadFromSource()
         if (Error)
         {
             OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
-                "Cannot Bind ATI fragment shader :" + mName, mName); 
+                ::std::format("Cannot Bind ATI fragment shader :{}", mName), mName); 
         }
 
     }
@@ -137,7 +137,7 @@ void ATI_FS_GLGpuProgram::loadFromSource()
         LogManager::getSingleton().logMessage(buff + mName);
 
         OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
-            "Cannot Compile ATI fragment shader : " + mName + "\n\n" + buff , mName);// + 
+            ::std::format("Cannot Compile ATI fragment shader : {}\n\n{}", mName, buff) , mName);// +
     }
 
 

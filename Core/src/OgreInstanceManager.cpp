@@ -136,22 +136,22 @@ namespace Ogre
         {
         case ShaderBased:
             batch = new InstanceBatchShader( this, mMeshReference, mat, suggestedSize,
-                                                    nullptr, mName + "/TempBatch" );
+                                                    nullptr, ::std::format("{}/TempBatch", mName) );
             break;
         case TextureVTF:
             batch = new InstanceBatchVTF( this, mMeshReference, mat, suggestedSize,
-                                                    nullptr, mName + "/TempBatch" );
+                                                    nullptr, ::std::format("{}/TempBatch", mName) );
             static_cast<InstanceBatchVTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
             static_cast<InstanceBatchVTF*>(batch)->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
             static_cast<InstanceBatchVTF*>(batch)->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
             break;
         case HWInstancingBasic:
             batch = new InstanceBatchHW( this, mMeshReference, mat, suggestedSize,
-                                                    nullptr, mName + "/TempBatch" );
+                                                    nullptr, ::std::format("{}/TempBatch", mName) );
             break;
         case HWInstancingVTF:
             batch = new InstanceBatchHW_VTF( this, mMeshReference, mat, suggestedSize,
-                                                    nullptr, mName + "/TempBatch" );
+                                                    nullptr, ::std::format("{}/TempBatch", mName) );
             static_cast<InstanceBatchHW_VTF*>(batch)->setBoneMatrixLookup((mInstancingFlags & IM_VTFBONEMATRIXLOOKUP) != 0, mMaxLookupTableInstances);
             static_cast<InstanceBatchHW_VTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
             static_cast<InstanceBatchHW_VTF*>(batch)->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
@@ -159,8 +159,7 @@ namespace Ogre
             break;
         default:
             OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
-                    "Unimplemented instancing technique: " +
-                    StringConverter::toString(mInstancingTechnique),
+                    ::std::format("Unimplemented instancing technique: {}", StringConverter::toString(mInstancingTechnique)),
                     "InstanceBatch::getMaxOrBestNumInstancesPerBatches()");
         }
 
@@ -222,26 +221,22 @@ namespace Ogre
         {
         case ShaderBased:
             batch = new InstanceBatchShader( this, mMeshReference, mat, mInstancesPerBatch,
-                                                    &idxMap, mName + "/InstanceBatch_" +
-                                                    StringConverter::toString(mIdCount++) );
+                                                    &idxMap, ::std::format("{}/InstanceBatch_{}", mName , StringConverter::toString(mIdCount++)));
             break;
         case TextureVTF:
             batch = new InstanceBatchVTF( this, mMeshReference, mat, mInstancesPerBatch,
-                                                    &idxMap, mName + "/InstanceBatch_" +
-                                                    StringConverter::toString(mIdCount++) );
+                                                    &idxMap, ::std::format("{}/InstanceBatch_{}", mName , StringConverter::toString(mIdCount++)));
             static_cast<InstanceBatchVTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
             static_cast<InstanceBatchVTF*>(batch)->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
             static_cast<InstanceBatchVTF*>(batch)->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
             break;
         case HWInstancingBasic:
             batch = new InstanceBatchHW( this, mMeshReference, mat, mInstancesPerBatch,
-                                                    &idxMap, mName + "/InstanceBatch_" +
-                                                    StringConverter::toString(mIdCount++) );
+            &idxMap, ::std::format("{}/InstanceBatch_{}", mName , mIdCount++));
             break;
         case HWInstancingVTF:
             batch = new InstanceBatchHW_VTF( this, mMeshReference, mat, mInstancesPerBatch,
-                                                    &idxMap, mName + "/InstanceBatch_" +
-                                                    StringConverter::toString(mIdCount++) );
+            &idxMap, ::std::format("{}/InstanceBatch_{}", mName , mIdCount++));
             static_cast<InstanceBatchHW_VTF*>(batch)->setBoneMatrixLookup((mInstancingFlags & IM_VTFBONEMATRIXLOOKUP) != 0, mMaxLookupTableInstances);
             static_cast<InstanceBatchHW_VTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
             static_cast<InstanceBatchHW_VTF*>(batch)->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
@@ -249,8 +244,7 @@ namespace Ogre
             break;
         default:
             OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
-                    "Unimplemented instancing technique: " +
-                    StringConverter::toString(mInstancingTechnique),
+                    ::std::format("Unimplemented instancing technique: {}", StringConverter::toString(mInstancingTechnique)),
                     "InstanceBatch::buildNewBatch()");
         }
 
@@ -697,7 +691,7 @@ namespace Ogre
         if(it != mInstanceBatches.end())
             return { it->second.begin(), it->second.end() };
 
-        OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "Cannot create instance batch iterator. "
-                    "Material " + materialName + " cannot be found");
+        OGRE_EXCEPT(Exception::ERR_INVALID_STATE, ::std::format("Cannot create instance batch iterator. "
+                    "Material {} cannot be found", materialName ));
     }
 }

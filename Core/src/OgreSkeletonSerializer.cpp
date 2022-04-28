@@ -84,7 +84,7 @@ namespace Ogre {
         if (!stream->isWriteable())
         {
             OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE,
-                "Unable to write to stream " + stream->getName(),
+                ::std::format("Unable to write to stream {}", stream->getName()),
                 "SkeletonSerializer::exportSkeleton");
         }
 
@@ -139,7 +139,7 @@ namespace Ogre {
             (ver != "[Serializer_v1.80]"))
         {
             OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
-                "Invalid file: version incompatible, file reports " + String(ver),
+                ::std::format("Invalid file: version incompatible, file reports {}", ver),
                 "SkeletonSerializer::importSkeleton");
         }
         mVersion = ver;

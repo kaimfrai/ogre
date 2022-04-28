@@ -348,7 +348,7 @@ void UniformParameter::bind(GpuProgramParametersSharedPtr paramsPtr)
 //-----------------------------------------------------------------------
 auto ParameterFactory::createInPosition(int index, Parameter::Content content) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT4, "iPos_" + StringConverter::toString(index),
+    return std::make_shared<Parameter>(GCT_FLOAT4, ::std::format("iPos_{}", StringConverter::toString(index)),
                                        Parameter::SPS_POSITION, index,
                                        content);
 }
@@ -356,7 +356,7 @@ auto ParameterFactory::createInPosition(int index, Parameter::Content content) -
 //-----------------------------------------------------------------------
 auto ParameterFactory::createOutPosition(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT4, "oPos_" + StringConverter::toString(index), 
+    return std::make_shared<Parameter>(GCT_FLOAT4, ::std::format("oPos_{}", StringConverter::toString(index)), 
         Parameter::SPS_POSITION, index, 
         Parameter::SPC_POSITION_PROJECTIVE_SPACE);
 }
@@ -364,7 +364,7 @@ auto ParameterFactory::createOutPosition(int index) -> ParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createInNormal(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT3, "iNormal_" + StringConverter::toString(index), 
+    return std::make_shared<Parameter>(GCT_FLOAT3, ::std::format("iNormal_{}", StringConverter::toString(index)), 
         Parameter::SPS_NORMAL, index, 
         Parameter::SPC_NORMAL_OBJECT_SPACE);
 }
@@ -373,7 +373,7 @@ auto ParameterFactory::createInNormal(int index) -> ParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createInWeights(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT4, "iBlendWeights_" + StringConverter::toString(index), 
+    return std::make_shared<Parameter>(GCT_FLOAT4, ::std::format("iBlendWeights_{}", StringConverter::toString(index)), 
         Parameter::SPS_BLEND_WEIGHTS, index, 
         Parameter::SPC_BLEND_WEIGHTS);
 }
@@ -384,7 +384,7 @@ auto ParameterFactory::createInIndices(int index) -> ParameterPtr
 {
 	return std::make_shared<Parameter>(
 		GCT_UINT4
-	, "iBlendIndices_" + StringConverter::toString(index), 
+	, ::std::format("iBlendIndices_{}", StringConverter::toString(index)), 
         Parameter::SPS_BLEND_INDICES, index, 
         Parameter::SPC_BLEND_INDICES);
 }
@@ -392,7 +392,7 @@ auto ParameterFactory::createInIndices(int index) -> ParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createInBiNormal(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT3, "iBiNormal_" + StringConverter::toString(index), 
+    return std::make_shared<Parameter>(GCT_FLOAT3, ::std::format("iBiNormal_{}", StringConverter::toString(index)), 
         Parameter::SPS_BINORMAL, index, 
         Parameter::SPC_BINORMAL_OBJECT_SPACE);
 }
@@ -400,7 +400,7 @@ auto ParameterFactory::createInBiNormal(int index) -> ParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createInTangent(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT3, "iTangent_" + StringConverter::toString(index), 
+    return std::make_shared<Parameter>(GCT_FLOAT3, ::std::format("iTangent_{}", StringConverter::toString(index)), 
         Parameter::SPS_TANGENT, index, 
         Parameter::SPC_TANGENT_OBJECT_SPACE);
 }
@@ -408,7 +408,7 @@ auto ParameterFactory::createInTangent(int index) -> ParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createOutNormal(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT3, "oNormal_" + StringConverter::toString(index), 
+    return std::make_shared<Parameter>(GCT_FLOAT3, ::std::format("oNormal_{}", StringConverter::toString(index)), 
         Parameter::SPS_NORMAL, index, 
         Parameter::SPC_NORMAL_OBJECT_SPACE);
 }
@@ -416,7 +416,7 @@ auto ParameterFactory::createOutNormal(int index) -> ParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createOutBiNormal(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT3, "oBiNormal_" + StringConverter::toString(index), 
+    return std::make_shared<Parameter>(GCT_FLOAT3, ::std::format("oBiNormal_{}", StringConverter::toString(index)), 
         Parameter::SPS_BINORMAL, index, 
         Parameter::SPC_BINORMAL_OBJECT_SPACE);
 }
@@ -424,7 +424,7 @@ auto ParameterFactory::createOutBiNormal(int index) -> ParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createOutTangent(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT3, "oTangent_" + StringConverter::toString(index), 
+    return std::make_shared<Parameter>(GCT_FLOAT3, ::std::format("oTangent_{}", StringConverter::toString(index)), 
         Parameter::SPS_TANGENT, index, 
         Parameter::SPC_TANGENT_OBJECT_SPACE);
 }
@@ -432,7 +432,7 @@ auto ParameterFactory::createOutTangent(int index) -> ParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createInColor(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT4, "iColor_" + StringConverter::toString(index), 
+    return std::make_shared<Parameter>(GCT_FLOAT4, ::std::format("iColor_{}", StringConverter::toString(index)), 
         Parameter::SPS_COLOR, index, 
         index == 0 ? Parameter::SPC_COLOR_DIFFUSE : Parameter::SPC_COLOR_SPECULAR);
 }
@@ -440,7 +440,7 @@ auto ParameterFactory::createInColor(int index) -> ParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createOutColor(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT4, "oColor_" + StringConverter::toString(index), 
+    return std::make_shared<Parameter>(GCT_FLOAT4, ::std::format("oColor_{}", StringConverter::toString(index)), 
         Parameter::SPS_COLOR, index, 
         index == 0 ? Parameter::SPC_COLOR_DIFFUSE : Parameter::SPC_COLOR_SPECULAR);
 }
@@ -582,7 +582,7 @@ auto ParameterFactory::createSampler(GpuConstantType type, int index) -> Uniform
 //-----------------------------------------------------------------------
 auto ParameterFactory::createSampler1D(int index) -> UniformParameterPtr
 {
-    return std::make_shared<UniformParameter>(GCT_SAMPLER1D, "gSampler1D_" + StringConverter::toString(index), 
+    return std::make_shared<UniformParameter>(GCT_SAMPLER1D, ::std::format("gSampler1D_{}", StringConverter::toString(index)), 
         Parameter::SPS_UNKNOWN, index, 
         Parameter::SPC_UNKNOWN,
         (uint16)GPV_GLOBAL, 1);
@@ -591,7 +591,7 @@ auto ParameterFactory::createSampler1D(int index) -> UniformParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createSampler2D(int index) -> UniformParameterPtr
 {
-    return std::make_shared<UniformParameter>(GCT_SAMPLER2D, "gSampler2D_" + StringConverter::toString(index), 
+    return std::make_shared<UniformParameter>(GCT_SAMPLER2D, ::std::format("gSampler2D_{}", StringConverter::toString(index)), 
         Parameter::SPS_UNKNOWN, index, 
         Parameter::SPC_UNKNOWN,
         (uint16)GPV_GLOBAL, 1);
@@ -600,7 +600,7 @@ auto ParameterFactory::createSampler2D(int index) -> UniformParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createSampler2DArray(int index) -> UniformParameterPtr
 {
-    return std::make_shared<UniformParameter>(GCT_SAMPLER2DARRAY, "gSampler2DArray_" + StringConverter::toString(index), 
+    return std::make_shared<UniformParameter>(GCT_SAMPLER2DARRAY, ::std::format("gSampler2DArray_{}", StringConverter::toString(index)), 
                                                          Parameter::SPS_UNKNOWN, index, 
                                                          Parameter::SPC_UNKNOWN,
                                                          (uint16)GPV_GLOBAL, 1);
@@ -609,7 +609,7 @@ auto ParameterFactory::createSampler2DArray(int index) -> UniformParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createSampler3D(int index) -> UniformParameterPtr
 {
-    return std::make_shared<UniformParameter>(GCT_SAMPLER3D, "gSampler3D_" + StringConverter::toString(index), 
+    return std::make_shared<UniformParameter>(GCT_SAMPLER3D, ::std::format("gSampler3D_{}", StringConverter::toString(index)), 
         Parameter::SPS_UNKNOWN, index, 
         Parameter::SPC_UNKNOWN,
         (uint16)GPV_GLOBAL, 1);
@@ -618,7 +618,7 @@ auto ParameterFactory::createSampler3D(int index) -> UniformParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createSamplerCUBE(int index) -> UniformParameterPtr
 {
-    return std::make_shared<UniformParameter>(GCT_SAMPLERCUBE, "gSamplerCUBE_" + StringConverter::toString(index), 
+    return std::make_shared<UniformParameter>(GCT_SAMPLERCUBE, ::std::format("gSamplerCUBE_{}", StringConverter::toString(index)), 
         Parameter::SPS_UNKNOWN, index, 
         Parameter::SPC_UNKNOWN,
         (uint16)GPV_GLOBAL, 1);

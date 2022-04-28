@@ -375,8 +375,8 @@ namespace Ogre
         if( baseSubMesh->vertexData->vertexDeclaration->getNextFreeTextureCoordinate() > 8 - neededTextureCoord )
         {
             OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, 
-                    String("Given mesh must have at least ") + 
-                    StringConverter::toString(neededTextureCoord) + "free TEXCOORDs",
+                    ::std::format("Given mesh must have at least "
+                    "{} free TEXCOORDs", neededTextureCoord),
                     "InstanceBatchHW_VTF::checkSubMeshCompatibility");
         }
 

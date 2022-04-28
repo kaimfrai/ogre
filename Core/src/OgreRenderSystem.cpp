@@ -321,7 +321,7 @@ namespace Ogre {
     {
         if (mRenderTargets.find(name) != mRenderTargets.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Window with name '" + name + "' already exists");
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Window with name '{}' already exists", name ));
         }
 
         // Log a message
@@ -580,8 +580,8 @@ namespace Ogre {
                                      " it says it's incompatible with that RT" );
             }
             else
-                LogManager::getSingleton().logWarning( "Couldn't create a suited DepthBuffer"
-                                                       "for RT: " + renderTarget->getName());
+                LogManager::getSingleton().logWarning( ::std::format("Couldn't create a suited DepthBuffer"
+                                                       "for RT: {}", renderTarget->getName()));
         }
     }
     //-----------------------------------------------------------------------

@@ -39,6 +39,7 @@ import :Vector;
 
 import <cstdlib>;
 import <cstring>;
+import <format>;
 import <string>;
 import <string_view>;
 
@@ -238,8 +239,7 @@ namespace Ogre {
             if (ver != mVersion)
             {
                 OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
-                    "Invalid file: version incompatible, file reports " + String(ver) +
-                    " Serializer is version " + mVersion,
+                    ::std::format("Invalid file: version incompatible, file reports {} Serializer is version {}", ver, mVersion),
                     "Serializer::readFileHeader");
             }
         }

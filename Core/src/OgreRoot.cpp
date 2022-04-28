@@ -101,6 +101,7 @@ import :Zip;
 import <algorithm>;
 import <cstdlib>;
 import <deque>;
+import <format>;
 import <map>;
 import <memory>;
 import <ostream>;
@@ -135,11 +136,12 @@ namespace Ogre {
 
         // Init
         mActiveRenderer = nullptr;
-        mVersion = StringConverter::toString(/*OGRE_VERSION_MAJOR*/13) + "." +
-            StringConverter::toString(/*OGRE_VERSION_MINOR*/3) + "." +
-            StringConverter::toString(/*OGRE_VERSION_PATCH*/3) +
-            /*OGRE_VERSION_SUFFIX*/"Modernized " + " " +
-            "(" + /*OGRE_VERSION_NAME*/"Tsathoggua" + ")";
+        mVersion = ::std::format("{}.{}.{}{} ({})",
+            /*OGRE_VERSION_MAJOR*/13,
+            /*OGRE_VERSION_MINOR*/3,
+            /*OGRE_VERSION_PATCH*/3,
+            /*OGRE_VERSION_SUFFIX*/"Modernized",
+            /*OGRE_VERSION_NAME*/"Tsathoggua");
         mConfigFileName = configFileName;
 
         // Create log manager and default log file if there is no log manager yet
@@ -230,7 +232,7 @@ namespace Ogre {
             loadPlugins(pluginFileName);
 
         LogManager::getSingleton().logMessage("*-*-* OGRE Initialising");
-        LogManager::getSingleton().logMessage("*-*-* Version " + mVersion);
+        LogManager::getSingleton().logMessage(::std::format("*-*-* Version {}", mVersion));
 
         // Can't create managers until initialised
         mControllerManager = nullptr;
@@ -833,7 +835,7 @@ namespace Ogre {
         }
         catch (Exception& e)
         {
-            LogManager::getSingleton().logError(e.getDescription()+" - skipping automatic plugin loading");
+            LogManager::getSingleton().logError(::std::format("{} - skipping automatic plugin loading", e.getDescription()));
             return;
         }
 
@@ -1017,7 +1019,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Root::installPlugin(Plugin* plugin)
     {
-        LogManager::getSingleton().logMessage("Installing plugin: " + plugin->getName());
+        LogManager::getSingleton().logMessage(::std::format("Installing plugin: {}", plugin->getName()));
 
         mPlugins.push_back(plugin);
         plugin->install();
@@ -1033,7 +1035,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Root::uninstallPlugin(Plugin* plugin)
     {
-        LogManager::getSingleton().logMessage("Uninstalling plugin: " + plugin->getName());
+        LogManager::getSingleton().logMessage(::std::format("Uninstalling plugin: {}", plugin->getName()));
         auto i =
             std::find(mPlugins.begin(), mPlugins.end(), plugin);
         if (i != mPlugins.end())
@@ -1133,7 +1135,7 @@ namespace Ogre {
         if (!overrideExisting && facti != mMovableObjectFactoryMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-                "A factory of type '" + fact->getType() + "' already exists.",
+                ::std::format("A factory of type '{}' already exists.", fact->getType() ),
                 "Root::addMovableObjectFactory");
         }
 
@@ -1154,8 +1156,8 @@ namespace Ogre {
         // Save
         mMovableObjectFactoryMap[fact->getType()] = fact;
 
-        LogManager::getSingleton().logMessage("MovableObjectFactory for type '" +
-            fact->getType() + "' registered.");
+        LogManager::getSingleton().logMessage(
+            ::std::format("MovableObjectFactory for type '{}' registered.", fact->getType()));
 
     }
     //---------------------------------------------------------------------
@@ -1171,7 +1173,7 @@ namespace Ogre {
         if (i == mMovableObjectFactoryMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                "MovableObjectFactory of type " + typeName + " does not exist",
+                ::std::format("MovableObjectFactory of type {} does not exist", typeName ),
                 "Root::getMovableObjectFactory");
         }
         return i->second;

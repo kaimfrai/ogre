@@ -268,7 +268,7 @@ namespace {
         if (mSharedParametersMap.find(name) != mSharedParametersMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                "The shared parameter set '" + name + "' already exists!", 
+                ::std::format("The shared parameter set '{}' already exists!", name ), 
                 "GpuProgramManager::createSharedParameters");
         }
         GpuSharedParametersPtr ret(new GpuSharedParameters(name));
@@ -282,7 +282,7 @@ namespace {
         if (i == mSharedParametersMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                "No shared parameter set with name '" + name + "'!", 
+                ::std::format("No shared parameter set with name '{}'!", name ), 
                 "GpuProgramManager::getSharedParameters");
         }
         return i->second;
@@ -327,7 +327,7 @@ namespace {
         // Use the current render system
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
 
-        return rs->getName() + "_" + name;
+        return  ::std::format("{}_{}", rs->getName(), name);
     }
     //---------------------------------------------------------------------
     auto GpuProgramManager::isMicrocodeAvailableInCache( uint32 id ) const -> bool
@@ -380,7 +380,7 @@ namespace {
         if (!stream->isWriteable())
         {
             OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE,
-                "Unable to write to stream " + stream->getName(),
+                ::std::format("Unable to write to stream {}", stream->getName()),
                 "GpuProgramManager::saveMicrocodeCache");
         }
         
@@ -420,8 +420,8 @@ namespace {
         }
         catch (const InvalidStateException& e)
         {
-            LogManager::getSingleton().logWarning("Could not load Microcode Cache: " +
-                                                  e.getDescription());
+            LogManager::getSingleton().logWarning(
+                ::std::format("Could not load Microcode Cache: {}", e.getDescription()));
             return;
         }
 

@@ -48,8 +48,8 @@ namespace Ogre {
     auto GLSLShaderCommon::getResourceLogName() const -> String
     {
         if(mLoadFromFile)
-            return "'" + mFilename + "'";
-        return "'"+mName+"'";
+            return ::std::format("'{}'", mFilename );
+        return ::std::format("'{}'", mName);
     }
 
     //-----------------------------------------------------------------------
@@ -89,7 +89,7 @@ namespace Ogre {
         char *out = cpp.Parse (src, src_len, out_size);
         if (!out || !out_size)
             // Failed to preprocess, break out
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Failed to preprocess shader " + mName);
+            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, ::std::format("Failed to preprocess shader {}", mName));
 
         mSource = String (out, out_size);
         if (out < src || out > src + src_len)
@@ -143,7 +143,7 @@ namespace Ogre {
                 childShader->loadHighLevel();
                 // add to the container
                 mAttachedGLSLPrograms.push_back( childShader );
-                mAttachedShaderNames += name + " ";
+                mAttachedShaderNames += ::std::format("{} ", name);
             }
         }
     }

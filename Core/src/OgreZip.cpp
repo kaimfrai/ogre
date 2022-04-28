@@ -188,14 +188,14 @@ namespace {
 
         if (!open)
         {
-            OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, "could not open "+lookUpFileName);
+            OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, ::std::format("could not open {}", lookUpFileName));
         }
 
         // Construct & return stream
         auto ret = std::make_shared<MemoryDataStream>(zip_entry_size(mZipFile));
 
         if(zip_entry_noallocread(mZipFile, ret->getPtr(), ret->size()) < 0)
-            OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, "could not read "+lookUpFileName);
+            OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, ::std::format("could not read {}", lookUpFileName));
         zip_entry_close(mZipFile);
 
         return ret;

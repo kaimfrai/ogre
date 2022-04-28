@@ -456,7 +456,7 @@ namespace Ogre
 
             if(! mGLDisplay)
             {
-                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Couldn`t open X display " + String((const char*)XDisplayName (nullptr)), "GLXGLSupport::getGLDisplay");
+                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, ::std::format("Couldn`t open X display {}", String((const char*)XDisplayName (nullptr))), "GLXGLSupport::getGLDisplay");
             }
         }
 
@@ -474,7 +474,7 @@ namespace Ogre
 
             if (! mXDisplay)
             {
-                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Couldn`t open X display " + String((const char*)displayString), "GLXGLSupport::getXDisplay");
+                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, ::std::format("Couldn`t open X display {}", String((const char*)displayString)), "GLXGLSupport::getXDisplay");
             }
 
             mAtomDeleteWindow = XInternAtom(mXDisplay, "WM_DELETE_WINDOW", True);
@@ -575,7 +575,7 @@ namespace Ogre
 
         if (ctxErrorOccurred || !glxContext)
         {
-            LogManager::getSingleton().logError("Failed to create an OpenGL context - " + ctxErrorMessage);
+            LogManager::getSingleton().logError(::std::format("Failed to create an OpenGL context - {}", ctxErrorMessage));
         }
 
         return glxContext;
@@ -654,7 +654,9 @@ namespace Ogre
 
                 mCurrentMode = {newMode->first.first, newMode->first.second, newMode->second};
 
-                LogManager::getSingleton().logMessage("Entered video mode " + mCurrentMode.getDescription() + " @ " + StringConverter::toString(mCurrentMode.refreshRate) + "Hz");
+                LogManager::getSingleton().logMessage(
+                    ::std::format("Entered video mode {} @ {}Hz",
+                        mCurrentMode.getDescription(), mCurrentMode.refreshRate));
             }
         }
     }

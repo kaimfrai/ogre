@@ -162,7 +162,7 @@ class Affine3;
         {
             OGRE_EXCEPT(
                 Exception::ERR_DUPLICATE_ITEM,
-                "A bone with the handle " + StringConverter::toString(handle) + " already exists",
+                ::std::format("A bone with the handle {} already exists", StringConverter::toString(handle) ),
                 "Skeleton::createBone" );
         }
         Bone* ret = new Bone(handle, this);
@@ -185,7 +185,7 @@ class Affine3;
         {
             OGRE_EXCEPT(
                 Exception::ERR_DUPLICATE_ITEM,
-                "A bone with the handle " + StringConverter::toString(handle) + " already exists",
+                ::std::format("A bone with the handle {} already exists", StringConverter::toString(handle) ),
                 "Skeleton::createBone" );
         }
         // Check name not used
@@ -307,7 +307,7 @@ class Affine3;
         {
             OGRE_EXCEPT(
                 Exception::ERR_DUPLICATE_ITEM,
-                "An animation with the name " + name + " already exists",
+                ::std::format("An animation with the name {} already exists", name ),
                 "Skeleton::createAnimation");
         }
 
@@ -327,7 +327,7 @@ class Affine3;
         Animation* ret = _getAnimationImpl(name, linker);
         if (!ret)
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No animation entry found named " + name, 
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", name), 
                 "Skeleton::getAnimation");
         }
 
@@ -385,7 +385,7 @@ class Affine3;
 
         if (i == mAnimationsList.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No animation entry found named " + name, 
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", name), 
             "Skeleton::getAnimation");
         }
 
@@ -528,7 +528,7 @@ class Affine3;
 
         if (i == mBoneListByName.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Bone named '" + name + "' not found.", 
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Bone named '{}' not found.", name ), 
                 "Skeleton::getBone");
         }
 
@@ -910,7 +910,7 @@ class Affine3;
                 if (!srcAnimation || linker)
                 {
                     OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                        "No animation entry found named " + animations[i],
+                        ::std::format("No animation entry found named {}", animations[i]),
                         "Skeleton::_mergeSkeletonAnimations");
                 }
             }

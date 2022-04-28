@@ -73,7 +73,7 @@ namespace Ogre {
             {
                 // Factory not found
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                            "Cannot find an ArchiveFactory for type '" + archiveType + "'");
+                            ::std::format("Cannot find an ArchiveFactory for type '{}'", archiveType ));
             }
 
             pArch = it->second->createInstance(filename, readOnly);
@@ -142,7 +142,7 @@ namespace Ogre {
     void ArchiveManager::addArchiveFactory(ArchiveFactory* factory)
     {
         mArchFactories.emplace(factory->getType(), factory);
-        LogManager::getSingleton().logMessage("ArchiveFactory for type '" + factory->getType() + "' registered");
+        LogManager::getSingleton().logMessage(::std::format("ArchiveFactory for type '{}' registered", factory->getType() ));
     }
 
 }

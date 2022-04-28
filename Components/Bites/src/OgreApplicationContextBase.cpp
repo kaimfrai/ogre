@@ -215,10 +215,10 @@ void ApplicationContextBase::enableShaderCache() const
     std::ifstream inFile(path.c_str(), std::ios::binary);
     if (!inFile.is_open())
     {
-        Ogre::LogManager::getSingleton().logWarning("Could not open '"+path+"'");
+        Ogre::LogManager::getSingleton().logWarning(::std::format("Could not open '{}'", path));
         return;
     }
-    Ogre::LogManager::getSingleton().logMessage("Loading shader cache from '"+path+"'");
+    Ogre::LogManager::getSingleton().logMessage(::std::format("Loading shader cache from '{}'", path));
     Ogre::DataStreamPtr istream(new Ogre::FileStreamDataStream(path, &inFile, false));
     Ogre::GpuProgramManager::getSingleton().loadMicrocodeCache(istream);
 }
@@ -284,7 +284,7 @@ void ApplicationContextBase::destroyWindow(const Ogre::String& name)
         return;
     }
 
-    OGRE_EXCEPT(Ogre::Exception::ERR_INVALIDPARAMS, "No window named '"+name+"'");
+    OGRE_EXCEPT(Ogre::Exception::ERR_INVALIDPARAMS, ::std::format("No window named '{}'", name));
 }
 
 void ApplicationContextBase::_destroyWindow(const NativeWindowPair& win)
@@ -364,7 +364,7 @@ void ApplicationContextBase::locateResources()
 
     if (Ogre::FileSystemLayer::fileExists(resourcesPath))
     {
-        Ogre::LogManager::getSingleton().logMessage("Parsing '"+resourcesPath+"'");
+        Ogre::LogManager::getSingleton().logMessage(::std::format("Parsing '{}'", resourcesPath));
         cf.load(resourcesPath);
     }
     else
@@ -399,7 +399,7 @@ void ApplicationContextBase::locateResources()
 
             if((type == "Zip" || type == "FileSystem") && !Ogre::FileSystemLayer::fileExists(arch))
             {
-                Ogre::LogManager::getSingleton().logWarning("resource location '"+arch+"' does not exist - skipping");
+                Ogre::LogManager::getSingleton().logWarning(::std::format("resource location '{}' does not exist - skipping", arch));
                 continue;
             }
 
@@ -411,10 +411,10 @@ void ApplicationContextBase::locateResources()
     {
         const auto& mediaDir = getDefaultMediaDir();
         // add default locations
-        rgm.addResourceLocation(mediaDir + "/Main", "FileSystem", Ogre::RGN_INTERNAL);
+        rgm.addResourceLocation(::std::format("{}/Main", mediaDir), "FileSystem", Ogre::RGN_INTERNAL);
 
-        rgm.addResourceLocation(mediaDir + "/RTShaderLib/GLSL", "FileSystem", Ogre::RGN_INTERNAL);
-        rgm.addResourceLocation(mediaDir + "/RTShaderLib/HLSL_Cg", "FileSystem", Ogre::RGN_INTERNAL);
+        rgm.addResourceLocation(::std::format("{}/RTShaderLib/GLSL", mediaDir), "FileSystem", Ogre::RGN_INTERNAL);
+        rgm.addResourceLocation(::std::format("{}/RTShaderLib/HLSL_Cg", mediaDir), "FileSystem", Ogre::RGN_INTERNAL);
     }
 }
 
@@ -447,12 +447,12 @@ void ApplicationContextBase::shutdown()
 
         if (outFile.is_open())
         {
-            Ogre::LogManager::getSingleton().logMessage("Writing shader cache to "+path);
+            Ogre::LogManager::getSingleton().logMessage(::std::format("Writing shader cache to {}", path));
             Ogre::DataStreamPtr ostream(new Ogre::FileStreamDataStream(path, &outFile, false));
             gpuMgr.saveMicrocodeCache(ostream);
         }
         else
-            Ogre::LogManager::getSingleton().logWarning("Cannot open shader cache for writing "+path);
+            Ogre::LogManager::getSingleton().logWarning(::std::format("Cannot open shader cache for writing {}", path));
     }
 
     // Destroy the RT Shader System.

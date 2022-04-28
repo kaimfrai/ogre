@@ -42,6 +42,7 @@ import :RenderToVertexBuffer;
 
 import Ogre.Core;
 
+import <format>;
 import <memory>;
 import <string>;
 import <vector>;
@@ -98,7 +99,7 @@ namespace Ogre {
 
         if (foundError && (logError || throwException))
         {
-            String fullErrorMessage = "GL Error : " + msg + " in " + sectionName;
+            String fullErrorMessage = ::std::format("GL Error : {} in ", msg ) + sectionName;
             if (logError)
             {
                 LogManager::getSingleton().getDefaultLog()->logMessage(fullErrorMessage, LML_CRITICAL);
@@ -252,7 +253,7 @@ namespace Ogre {
         case VES_POSITION:
             return "gl_Position";
         case VES_TEXTURE_COORDINATES:
-            return String("gl_TexCoord[") + StringConverter::toString(index) + "]";
+            return ::std::format("gl_TexCoord[{}]", index);
         case VES_DIFFUSE:
             return "gl_FrontColor";
         case VES_SPECULAR:
@@ -322,8 +323,9 @@ namespace Ogre {
                 if (location < 0)
                 {
                     OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, 
-                        "GLSL link program does not output " + varyingName + 
-                        " so it cannot fill the requested vertex buffer", 
+                        ::std::format("GLSL link program does not output {}"
+                        " so it cannot fill the requested vertex buffer",
+                        varyingName),
                         "OgreGLRenderToVertexBuffer::bindVerticesOutput");
                 }
                 locations.push_back(location);

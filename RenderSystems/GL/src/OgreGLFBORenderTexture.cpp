@@ -439,9 +439,9 @@ static const uchar depthBits[] =
         for(size_t x=0; x<PF_COUNT; ++x)
         {
             if(mProps[x].valid)
-                fmtstring += PixelUtil::getFormatName((PixelFormat)x)+" ";
+                fmtstring = ::std::format("{}{} ", fmtstring, PixelUtil::getFormatName((PixelFormat)x));
         }
-        LogManager::getSingleton().logMessage("[GL] : Valid FBO targets " + fmtstring);
+        LogManager::getSingleton().logMessage(::std::format("[GL] : Valid FBO targets {}", fmtstring));
     }
     void GLFBOManager::getBestDepthStencil(PixelFormat internalFormat, GLenum *depthFormat, GLenum *stencilFormat)
     {

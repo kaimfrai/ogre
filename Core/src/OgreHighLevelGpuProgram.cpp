@@ -228,7 +228,7 @@ namespace Ogre
         // OGRE_VERTEX_SHADER, OGRE_FRAGMENT_SHADER
         tmp = GpuProgram::getProgramTypeName(getType());
         StringUtil::toUpperCase(tmp);
-        defines += ",OGRE_"+tmp+"_SHADER";
+        defines += ::std::format(",OGRE_{}_SHADER", tmp);
 
         if(renderSystem && renderSystem->isReverseDepthBufferEnabled())
             defines += ",OGRE_REVERSED_Z";
@@ -333,8 +333,9 @@ namespace Ogre
                 if (startIt == String::npos || startIt > newLineAfter)
                 {
                     OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
-                                "Badly formed #include directive (expected \" or <) in file " + fileName + ": " +
-                                    inSource.substr(includePos, newLineAfter - includePos));
+                        ::std::format("Badly formed #include directive (expected \" or <) in file {} : {}",
+                            fileName,
+                            inSource.substr(includePos, newLineAfter - includePos)));
                 }
                 else
                 {
@@ -345,9 +346,10 @@ namespace Ogre
             if (endIt == String::npos || endIt <= startIt)
             {
                 OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
-                            "Badly formed #include directive (expected " + String(1, endDelimiter) +
-                                ") in file " + fileName + ": " +
-                                inSource.substr(includePos, newLineAfter - includePos));
+                    ::std::format("Badly formed #include directive (expected {}) in file {}: {}",
+                                String(1, endDelimiter),
+                                fileName,
+                                inSource.substr(includePos, newLineAfter - includePos)));
             }
 
             // extract filename
@@ -369,14 +371,14 @@ namespace Ogre
             String incLineFilename = supportsFilename ? StringUtil::format(" \"{}\"", filename.c_str()) : StringUtil::format(" {}", lineCount);
 
             // Add #line to the start of the included file to correct the line count)
-            outSource.append("#line 1 " + incLineFilename + "\n");
+            outSource.append(::std::format("#line 1 {}\n", incLineFilename));
 
             // recurse into include
             outSource.append(_resolveIncludes(resource->getAsString(), resourceBeingLoaded, filename, supportsFilename));
 
             // Add #line to the end of the included file to correct the line count.
             // +1 as #line specifies the number of the following line
-            outSource.append("\n#line " + std::to_string(lineCount + 1) + lineFilename);
+            outSource.append(::std::format("\n#line {}", std::to_string(lineCount + 1) + lineFilename));
 
             startMarker = newLineAfter;
 

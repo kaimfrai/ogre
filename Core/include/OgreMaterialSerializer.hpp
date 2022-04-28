@@ -341,13 +341,13 @@ class Technique;
         void writeValue(const String& val, const bool useMainBuffer = true)
         {
             String& buffer = (useMainBuffer ? mBuffer : mGpuProgramBuffer);
-            buffer += (" " + val);
+            buffer += (::std::format(" {}", val));
         }
 
         auto quoteWord(const String& val) -> String
         {
             if (val.find_first_of("{}$: \t") != String::npos)
-                return ("\"" + val + "\"");
+                return (::std::format("\"{}\"", val ));
             else return val;
         }
 
@@ -360,7 +360,7 @@ class Technique;
             {
                 buffer += "\t";
             }
-            buffer += "// " + comment;
+            buffer += ::std::format("// {}", comment);
         }
 
 

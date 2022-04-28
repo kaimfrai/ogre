@@ -97,14 +97,14 @@ void SceneManager::SkyPlaneRenderer::setSkyPlane(
 {
     if (enable)
     {
-        String meshName = mSceneManager->mName + "SkyPlane";
+        String meshName = ::std::format("{}SkyPlane", mSceneManager->mName);
         mSkyPlane = plane;
 
         MaterialPtr m = MaterialManager::getSingleton().getByName(materialName, groupName);
         if (!m)
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                "Sky plane material '" + materialName + "' not found.",
+                ::std::format("Sky plane material '{}' not found.", materialName ),
                 "SceneManager::setSkyPlane");
         }
         // Make sure the material doesn't update the depth buffer
@@ -196,7 +196,7 @@ void SceneManager::SkyBoxRenderer::setSkyBox(
         if (!m)
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                "Sky box material '" + materialName + "' not found.",
+                ::std::format("Sky box material '{}' not found.", materialName ),
                 "SceneManager::setSkyBox");
         }
         // Ensure loaded
@@ -212,8 +212,8 @@ void SceneManager::SkyBoxRenderer::setSkyBox(
 
         if (!valid)
         {
-            LogManager::getSingleton().logWarning("skybox material " + materialName +
-                                                  " is not supported, defaulting");
+            LogManager::getSingleton().logWarning(
+                ::std::format("skybox material {} is not supported, defaulting", materialName));
             m = MaterialManager::getSingleton().getDefaultSettings();
         }
 
@@ -332,7 +332,7 @@ void SceneManager::SkyDomeRenderer::setSkyDome(
         if (!m)
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                "Sky dome material '" + materialName + "' not found.",
+                ::std::format("Sky dome material '{}' not found.", materialName ),
                 "SceneManager::setSkyDome");
         }
         // Make sure the material doesn't update the depth buffer
@@ -358,7 +358,7 @@ void SceneManager::SkyDomeRenderer::setSkyDome(
                 tiling, distance, orientation, xsegments, ysegments,
                 i!=BP_UP ? ySegmentsToKeep : -1, groupName);
 
-            String entName = "SkyDomePlane" + StringConverter::toString(i);
+            String entName = ::std::format("SkyDomePlane{}", StringConverter::toString(i));
 
             // Create entity
             if (mSkyDomeEntity[i])
@@ -410,7 +410,7 @@ auto SceneManager::SkyDomeRenderer::createSkydomePlane(
     String meshName;
     Vector3 up;
 
-    meshName = mSceneManager->mName + "SkyDomePlane_";
+    meshName = ::std::format("{}SkyDomePlane_", mSceneManager->mName);
     // Set up plane equation
     plane.d = distance;
     switch(bp)

@@ -538,7 +538,7 @@ namespace Ogre {
                 // Not yet supported
                 OGRE_EXCEPT(
                     Exception::ERR_NOT_IMPLEMENTED,
-                    "pack to "+getFormatName(pf)+" not implemented",
+                    ::std::format("pack to {} not implemented", getFormatName(pf)),
                     "PixelUtil::packColour");
                 break;
             }
@@ -673,7 +673,7 @@ namespace Ogre {
             default:
                 // Not yet supported
                 OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
-                    "unpack from "+getFormatName(pf)+" not implemented",
+                    ::std::format("unpack from {} not implemented", getFormatName(pf)),
                     "PixelUtil::unpackColour");
                 break;
             }

@@ -130,7 +130,7 @@ namespace Ogre {
             {
                 if (mode.getDescription() == optVideoMode->second.currentValue)
                 {
-                    String frequency = StringConverter::toString(mode.refreshRate) + " Hz";
+                    String frequency = ::std::format("{} Hz", mode.refreshRate);
                     optDisplayFrequency->second.possibleValues.push_back(frequency);
 
                     if(optColourDepth != mOptions.end())
@@ -156,7 +156,7 @@ namespace Ogre {
     {
         auto option = mOptions.find(name);
         if (option == mOptions.end()) {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Option named '" + name + "' does not exist.");
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Option named '{}' does not exist.", name ));
         }
         option->second.currentValue = value;
 

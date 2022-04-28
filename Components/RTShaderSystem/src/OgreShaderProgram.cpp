@@ -78,7 +78,7 @@ void Program::addParameter(UniformParameterPtr parameter)
     if (getParameterByName(parameter->getName()).get() != nullptr)
     {
         OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
-            "Parameter <" + parameter->getName() + "> already declared in program.", 
+            ::std::format("Parameter <{}> already declared in program.", parameter->getName() ), 
             "Program::addParameter" );
     }
 
@@ -342,8 +342,10 @@ void Program::addDependency(const String& libFileName)
 
 void Program::addPreprocessorDefines(const String& defines)
 {
-    mPreprocessorDefines +=
-        mPreprocessorDefines.empty() ? defines : ("," + defines);
+    mPreprocessorDefines =
+        mPreprocessorDefines.empty()
+    ? defines
+    : ::std::format("{},{}", mPreprocessorDefines, defines);
 }
 
 //-----------------------------------------------------------------------------

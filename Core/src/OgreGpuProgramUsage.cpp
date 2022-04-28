@@ -77,7 +77,7 @@ namespace Ogre
         {
             String progType = GpuProgram::getProgramTypeName(type);
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                        "Unable to locate " + progType + " program called " + name);
+                        ::std::format("Unable to locate {} program called ", progType ) + name);
         }
 
         return program;
@@ -149,8 +149,8 @@ namespace Ogre
             String yourType = GpuProgram::getProgramTypeName(mProgram->getType());
 
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                mProgram->getName() + " is a " + yourType + " program, but you are assigning it to a " 
-                + myType + " program slot. This is invalid");
+                ::std::format("{} is a {} program, but you are assigning it to a "
+                "{} program slot. This is invalid", mProgram->getName(), yourType, myType));
 
         }
     }

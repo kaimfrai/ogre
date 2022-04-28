@@ -89,7 +89,7 @@ namespace Ogre {
     void MeshSerializerImpl::exportMesh(const Mesh* pMesh, 
         const DataStreamPtr stream, Endian endianMode)
     {
-        LogManager::getSingleton().logMessage("MeshSerializer writing mesh data to stream " + stream->getName() + "...");
+        LogManager::getSingleton().logMessage(::std::format("MeshSerializer writing mesh data to stream {}...", stream->getName() ));
 
         // Decide on endian mode
         determineEndianness(endianMode);
@@ -105,7 +105,7 @@ namespace Ogre {
         if (!mStream->isWriteable())
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                "Unable to use stream " + mStream->getName() + " for writing",
+                ::std::format("Unable to use stream {} for writing", mStream->getName() ),
                 "MeshSerializerImpl::exportMesh");
         }
 
@@ -1007,10 +1007,11 @@ namespace Ogre {
         }
         else
         {
-            LogManager::getSingleton().logWarning("Can't assign material '" + materialName +
-                "' to SubMesh of '" + pMesh->getName() + "' because this "
-                "Material does not exist in group '"+pMesh->getGroup()+"'. Have you forgotten to define it in a "
-                ".material script?");
+            LogManager::getSingleton().logWarning(
+                ::std::format("Can't assign material '"
+                "' to SubMesh of '{}' because this "
+                "Material does not exist in group '{}'. Have you forgotten to define it in a "
+                ".material script?", materialName, pMesh->getName(), pMesh->getGroup()));
         }
 
         // bool useSharedVertices
@@ -1099,8 +1100,9 @@ namespace Ogre {
             }
 
             if (seenTexAlias)
-                LogManager::getSingleton().logWarning("texture aliases for SubMeshes are deprecated - " +
-                                                      stream->getName());
+                LogManager::getSingleton().logWarning(
+                    ::std::format("texture aliases for SubMeshes are deprecated - {}",
+                                                      stream->getName()));
 
             if (!stream->eof())
             {
@@ -1477,7 +1479,7 @@ namespace Ogre {
                 break;
             default:
                 OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                "Invalid Lod Usage type in " + pMesh->getName(),
+                ::std::format("Invalid Lod Usage type in {}", pMesh->getName()),
                     "MeshSerializerImpl::readMeshLodInfo");
             }
             usage.manualMesh.reset(); // will trigger load later with manual Lod
@@ -2184,7 +2186,7 @@ namespace Ogre {
         for (unsigned short a = 0; a < pMesh->getNumAnimations(); ++a)
         {
             Animation* anim = pMesh->getAnimation(a);
-            LogManager::getSingleton().logMessage("Exporting animation " + anim->getName());
+            LogManager::getSingleton().logMessage(::std::format("Exporting animation {}", anim->getName()));
             writeAnimation(anim);
             LogManager::getSingleton().logMessage("Animation exported.");
         }
@@ -2884,7 +2886,7 @@ namespace Ogre {
                 if (streamID != M_MESH_LOD_GENERATED)
                 {
                     OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                        "Missing M_MESH_LOD_GENERATED stream in " + pMesh->getName(),
+                        ::std::format("Missing M_MESH_LOD_GENERATED stream in {}", pMesh->getName()),
                         "MeshSerializerImpl::readMeshLodUsageGenerated");
                 }
 
@@ -2931,7 +2933,7 @@ namespace Ogre {
         if (streamID != M_MESH_LOD_MANUAL)
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                "Missing M_MESH_LOD_MANUAL stream in " + pMesh->getName(),
+                ::std::format("Missing M_MESH_LOD_MANUAL stream in {}", pMesh->getName()),
                 "MeshSerializerImpl::readMeshLodUsageManual");
         }
 
@@ -2976,7 +2978,7 @@ namespace Ogre {
             if (streamID != M_MESH_LOD_USAGE)
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                    "Missing M_MESH_LOD_USAGE stream in " + pMesh->getName(),
+                    ::std::format("Missing M_MESH_LOD_USAGE stream in {}", pMesh->getName()),
                     "MeshSerializerImpl::readMeshLodInfo");
             }
             // Read depth
@@ -3294,7 +3296,7 @@ namespace Ogre {
             if (streamID != M_MESH_LOD_USAGE)
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                    "Missing M_MESH_LOD_USAGE stream in " + pMesh->getName(),
+                    ::std::format("Missing M_MESH_LOD_USAGE stream in {}", pMesh->getName()),
                     "MeshSerializerImpl::readMeshLodInfo");
             }
             // Read depth

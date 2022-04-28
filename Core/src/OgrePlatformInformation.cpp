@@ -352,40 +352,40 @@ CPUID_PENTIUM4_ID =           0x0F00      // Pentium 4 family processor id
         pLog->logMessage("CPU Identifier & Features");
         pLog->logMessage("-------------------------");
         pLog->logMessage(
-            " *   CPU ID: " + getCpuIdentifier());
+            ::std::format(" *   CPU ID: {}", getCpuIdentifier()));
 
         if(_isSupportCpuid())
         {
             pLog->logMessage(
-                " *          SSE: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_SSE), true));
+                ::std::format(" *          SSE: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_SSE)), true));
             pLog->logMessage(
-                " *         SSE2: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_SSE2), true));
+                ::std::format(" *         SSE2: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_SSE2)), true));
             pLog->logMessage(
-                " *         SSE3: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_SSE3), true));
+                ::std::format(" *         SSE3: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_SSE3)), true));
             pLog->logMessage(
-                " *        SSE41: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_SSE41), true));
+                ::std::format(" *        SSE41: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_SSE41)), true));
             pLog->logMessage(
-                " *        SSE42: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_SSE42), true));
+                ::std::format(" *        SSE42: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_SSE42)), true));
             pLog->logMessage(
-                " *          MMX: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_MMX), true));
+                ::std::format(" *          MMX: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_MMX)), true));
             pLog->logMessage(
-                " *       MMXEXT: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_MMXEXT), true));
+                ::std::format(" *       MMXEXT: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_MMXEXT)), true));
             pLog->logMessage(
-                " *        3DNOW: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_3DNOW), true));
+                ::std::format(" *        3DNOW: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_3DNOW)), true));
             pLog->logMessage(
-                " *     3DNOWEXT: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_3DNOWEXT), true));
+                ::std::format(" *     3DNOWEXT: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_3DNOWEXT)), true));
             pLog->logMessage(
-                " *         CMOV: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_CMOV), true));
+                ::std::format(" *         CMOV: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_CMOV)), true));
             pLog->logMessage(
-                " *          TSC: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_TSC), true));
+                ::std::format(" *          TSC: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_TSC)), true));
             pLog->logMessage(
-                " *INVARIANT TSC: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_INVARIANT_TSC), true));
+                ::std::format(" *INVARIANT TSC: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_INVARIANT_TSC)), true));
             pLog->logMessage(
-                " *          FPU: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_FPU), true));
+                ::std::format(" *          FPU: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_FPU)), true));
             pLog->logMessage(
-                " *          PRO: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_PRO), true));
+                ::std::format(" *          PRO: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_PRO)), true));
             pLog->logMessage(
-                " *           HT: " + StringConverter::toString(hasCpuFeature(CPU_FEATURE_HTT), true));
+                ::std::format(" *           HT: {}", StringConverter::toString(hasCpuFeature(CPU_FEATURE_HTT)), true));
         }
 
         pLog->logMessage("-------------------------");

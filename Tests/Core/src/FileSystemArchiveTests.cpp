@@ -56,7 +56,7 @@ void FileSystemArchiveTests::SetUp()
 
     Ogre::ConfigFile cf;
     cf.load(Ogre::FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
-    mTestPath = cf.getSettings("Tests").begin()->second+"/misc/ArchiveTest";
+    mTestPath = ::std::format("{}/misc/ArchiveTest", cf.getSettings("Tests").begin()->second);
 
     mArch = mFactory.createInstance(mTestPath, false);
     mArch->load();

@@ -165,7 +165,7 @@ namespace Ogre {
     {
         size_t i;
 
-        LogManager::getSingleton().logMessage(getName() + " created.");
+        LogManager::getSingleton().logMessage(::std::format("{} created.", getName()));
 
         mRenderAttribsBound.reserve(100);
         mRenderInstanceAttribsBound.reserve(100);
@@ -2877,7 +2877,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void GLRenderSystem::beginProfileEvent( const String &eventName )
     {
-        markProfileEvent("Begin Event: " + eventName);
+        markProfileEvent(::std::format("Begin Event: {}", eventName));
     }
 
     //---------------------------------------------------------------------
@@ -3082,18 +3082,18 @@ namespace Ogre {
 
         String tmpStr = (const char*)pcVer;
         mDriverVersion.fromString(tmpStr.substr(0, tmpStr.find(' ')));
-        LogManager::getSingleton().logMessage("GL_VERSION = " + mDriverVersion.toString());
+        LogManager::getSingleton().logMessage(::std::format("GL_VERSION = {}", mDriverVersion.toString()));
 
         // Get vendor
         const GLubyte* pcVendor = glGetString(GL_VENDOR);
         tmpStr = (const char*)pcVendor;
-        LogManager::getSingleton().logMessage("GL_VENDOR = " + tmpStr);
+        LogManager::getSingleton().logMessage(::std::format("GL_VENDOR = {}", tmpStr));
         mVendor = RenderSystemCapabilities::vendorFromString(tmpStr.substr(0, tmpStr.find(' ')));
 
         // Get renderer
         const GLubyte* pcRenderer = glGetString(GL_RENDERER);
         tmpStr = (const char*)pcRenderer;
-        LogManager::getSingleton().logMessage("GL_RENDERER = " + tmpStr);
+        LogManager::getSingleton().logMessage(::std::format("GL_RENDERER = {}", tmpStr));
 
         // Set extension list
         StringStream ext;
@@ -3101,7 +3101,7 @@ namespace Ogre {
 
         const GLubyte* pcExt = glGetString(GL_EXTENSIONS);
         assert(pcExt && "Problems getting GL extension string using glGetString");
-        LogManager::getSingleton().logMessage("GL_EXTENSIONS = " + String((const char*)pcExt));
+        LogManager::getSingleton().logMessage(::std::format("GL_EXTENSIONS = {}", String((const char*)pcExt)));
 
         ext << pcExt;
 

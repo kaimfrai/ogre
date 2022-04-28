@@ -150,7 +150,7 @@ void Compositor::compile()
     }
 
     if (mSupportedTechniques.empty())
-        LogManager::getSingleton().logError("Compositor '" + getName() + "' has no supported techniques");
+        LogManager::getSingleton().logError(::std::format("Compositor '{}' has no supported techniques", getName() ));
 
     mCompilationRequired = false;
 }
@@ -215,8 +215,10 @@ void Compositor::createGlobalTextures()
             RenderTarget* rendTarget;
             if (def->formatList.size() > 1)
             {
-                String MRTbaseName = "mrt/c" + StringConverter::toString(dummyCounter++) + 
-                    "/" + mName + "/" + def->name;
+                String MRTbaseName = ::std::format("mrt/c{}/{}/{}",
+                    StringConverter::toString(dummyCounter++),
+                    mName,
+                    def->name);
                 MultiRenderTarget* mrt = 
                     Root::getSingleton().getRenderSystem()->createMultiRenderTarget(MRTbaseName);
                 mGlobalMRTs[def->name] = mrt;
@@ -227,7 +229,7 @@ void Compositor::createGlobalTextures()
                     p != def->formatList.end(); ++p, ++atch)
                 {
 
-                    String texname = MRTbaseName + "/" + StringConverter::toString(atch);
+                    String texname = ::std::format("{}/{}", MRTbaseName, atch);
                     TexturePtr tex;
                     
                     tex = TextureManager::getSingleton().createManual(
@@ -250,8 +252,9 @@ void Compositor::createGlobalTextures()
             }
             else
             {
-                String texName =  "c" + StringConverter::toString(dummyCounter++) + 
-                    "/" + mName + "/" + def->name;
+                String texName =  ::std::format("c{}/{}/{}",
+                    StringConverter::toString(dummyCounter++),
+                    mName,  def->name);
                 
                 // space in the name mixup the cegui in the compositor demo
                 // this is an auto generated name - so no spaces can't hart us.

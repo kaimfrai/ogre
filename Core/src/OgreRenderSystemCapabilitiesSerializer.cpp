@@ -211,7 +211,7 @@ namespace Ogre
                             // RSCManager is responsible for deleting mCurrentCapabilities
                             RenderSystemCapabilitiesManager::getSingleton()._addRenderSystemCapabilities(rscName, mCurrentCapabilities);
 
-                            LogManager::getSingleton().logMessage("Created RenderSystemCapabilities" + rscName);
+                            LogManager::getSingleton().logMessage(::std::format("Created RenderSystemCapabilities{}", rscName));
 
                             // do next action
                             parseAction = FIND_OPEN_BRACE;
@@ -224,7 +224,7 @@ namespace Ogre
                 case FIND_OPEN_BRACE:
                     if (tokens[0] != "{" || tokens.size() != 1)
                     {
-                        logParseError("Expected '{' got: " + line + ". Continuing to next line.");
+                        logParseError(::std::format("Expected '{' got: {}. Continuing to next line.", line ));
                     }
                     else
                     {
@@ -415,7 +415,7 @@ namespace Ogre
             String everythingElse = "";
             for(unsigned int i = 1; i < tokens.size() - 1; i ++)
             {
-                everythingElse = everythingElse + tokens[i] + " ";
+               everythingElse = ::std::format("{}{} ", everythingElse , tokens[i]);
             }
             everythingElse = everythingElse + tokens[tokens.size() - 1];
 
@@ -424,7 +424,7 @@ namespace Ogre
             switch(keywordType)
             {
                 case UNDEFINED_CAPABILITY_TYPE:
-                    logParseError("Unknown capability keyword: " + keyword);
+                    logParseError(::std::format("Unknown capability keyword: {}", keyword));
                     break;
                 case SET_STRING_METHOD:
                     callSetStringMethod(keyword, everythingElse);
@@ -468,14 +468,13 @@ namespace Ogre
         if (mCurrentLine != nullptr && mCurrentStream)
         {
             LogManager::getSingleton().logMessage(
-                "Error in .rendercaps " + mCurrentStream->getName() + ":" + StringConverter::toString(mCurrentLineNumber) +
-                " : " + error);
+                ::std::format("Error in .rendercaps {}:", mCurrentStream->getName() ) + StringConverter::toString(mCurrentLineNumber) +
+                ::std::format(" : {}", error));
         }
         else if (mCurrentStream)
         {
             LogManager::getSingleton().logMessage(
-                "Error in .rendercaps " + mCurrentStream->getName() +
-                " : " + error);
+                ::std::format("Error in .rendercaps {} : {}", mCurrentStream->getName(), error));
         }
     }
 

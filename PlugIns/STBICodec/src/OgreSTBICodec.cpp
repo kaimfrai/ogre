@@ -88,7 +88,7 @@ namespace Ogre {
             Codec::registerCodec(codec);
         }
 
-        LogManager::getSingleton().logMessage("Supported formats: " + exts);
+        LogManager::getSingleton().logMessage(::std::format("Supported formats: {}", exts));
     }
     //---------------------------------------------------------------------
     void STBIImageCodec::shutdown()
@@ -147,7 +147,7 @@ namespace Ogre {
 
         if (!data) {
             OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
-                "Error encoding image: " + String(stbi_failure_reason()),
+                ::std::format("Error encoding image: {}", String(stbi_failure_reason())),
                 "STBIImageCodec::encode");
         }
 
@@ -162,7 +162,7 @@ namespace Ogre {
 
         if (!f.is_open())
         {
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "could not open file " + outFileName);
+            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, ::std::format("could not open file {}", outFileName));
         }
 
         f.write((char*)data->getPtr(), data->size());
@@ -179,7 +179,7 @@ namespace Ogre {
         if (!pixelData)
         {
             OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
-                "Error decoding image: " + String(stbi_failure_reason()),
+                ::std::format("Error decoding image: {}", String(stbi_failure_reason())),
                 "STBIImageCodec::decode");
         }
 

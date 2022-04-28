@@ -151,17 +151,19 @@ namespace Ogre {
 
         if (!result.second)
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, getResourceType()+" with the name " + res->getName() +
-                " already exists.", "ResourceManager::add");
+            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+                        ::std::format("{} with the name {} already exists.", getResourceType(), res->getName()),
+                        "ResourceManager::add");
         }
 
         // Insert the handle
         std::pair<ResourceHandleMap::iterator, bool> resultHandle = mResourcesByHandle.emplace(res->getHandle(), res);
         if (!resultHandle.second)
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, getResourceType()+" with the handle " +
-                StringConverter::toString((long) (res->getHandle())) +
-                " already exists.", "ResourceManager::add");
+            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+                ::std::format("{} with the handle {} already exists.",
+                    getResourceType(),
+                    StringConverter::toString((long) (res->getHandle()))), "ResourceManager::add");
         }
     }
     //-----------------------------------------------------------------------
@@ -222,7 +224,7 @@ namespace Ogre {
 
         if (!res)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        "attempting to unload unknown resource: " + name + " in group " + group);
+                        ::std::format("attempting to unload unknown resource: {} in group ", name ) + group);
 
         if (res)
         {
@@ -297,7 +299,7 @@ namespace Ogre {
 
         if (!res)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        "attempting to remove unknown resource: " + name + " in group " + group);
+                        ::std::format("attempting to remove unknown resource: {} in group ", name ) + group);
 
         if (res)
         {

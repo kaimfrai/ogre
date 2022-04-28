@@ -139,7 +139,7 @@ namespace Ogre {
         auto it = std::find_if(mObjectsByName.begin(), mObjectsByName.end(), pred);
         if (it != mObjectsByName.end())
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-                        "An object named '" + obj->getName() + "' already attached to this SceneNode");
+                        ::std::format("An object named '{}' already attached to this SceneNode", obj->getName() ));
         mObjectsByName.push_back(obj);
 
         // Make sure bounds get updated (must go right to the top)
@@ -154,8 +154,9 @@ namespace Ogre {
 
         if (i == mObjectsByName.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Attached object " + 
-                name + " not found.", "SceneNode::getAttachedObject");
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                ::std::format("Attached object {} not found.", "SceneNode::getAttachedObject",
+                name));
         }
 
         return *i;
@@ -186,8 +187,8 @@ namespace Ogre {
 
         if (it == mObjectsByName.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Object " + name + " is not attached "
-                "to this node.", "SceneNode::detachObject");
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Object {} is not attached "
+                "to this node.", name), "SceneNode::detachObject");
         }
 
         MovableObject* ret = *it;
@@ -357,7 +358,7 @@ namespace Ogre {
         StringUtil::splitBaseFilename(filename, baseName, strExt);
         auto codec = Codec::getCodec(strExt);
         if (!codec)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "No codec found to load " + filename);
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("No codec found to load {}", filename));
 
         auto stream = Root::openFileStream(
             filename, ResourceGroupManager::getSingleton().getWorldResourceGroupName());

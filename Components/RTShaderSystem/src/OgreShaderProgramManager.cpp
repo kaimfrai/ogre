@@ -196,7 +196,7 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
     if (itProcessor == mProgramProcessorsMap.end())
     {
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-            "Could not find processor for language '" + language,
+            ::std::format("Could not find processor for language '{}", language),
             "ProgramManager::createGpuPrograms");       
     }
 
@@ -266,7 +266,7 @@ auto ProgramManager::createGpuProgram(Program* shaderProgram,
     // Case cache directory specified -> create program from file.
     if (!cachePath.empty())
     {
-        const String  programFullName = programName + "." + programWriter->getTargetLanguage();
+        const String  programFullName = ::std::format("{}.{}", programName , programWriter->getTargetLanguage());
         const String  programFileName = cachePath + programFullName;
         std::ifstream programFile;
 
@@ -347,7 +347,7 @@ void ProgramManager::addProgramProcessor(const String& lang, ProgramProcessor* p
 
     if (itFind != mProgramProcessorsMap.end())
     {
-        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "A processor for language '" + lang + "' already exists.");
+        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("A processor for language '{}' already exists.", lang ));
     }
 
     mProgramProcessorsMap[lang] = processor;

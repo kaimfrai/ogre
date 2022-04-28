@@ -44,13 +44,13 @@ class Any;
 
     auto Codec::encode(const Any& input) const -> DataStreamPtr
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, getType() + " - encoding to memory not supported");
+        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, ::std::format("{} - encoding to memory not supported", getType()));
         return {};
     }
 
     void Codec::encodeToFile(const Any& input, const String& outFileName) const
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, getType() + " - encoding to file not supported");
+        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, ::std::format("{} - encoding to file not supported", getType()));
     }
 
     auto Codec::getExtensions() -> StringVector
@@ -69,7 +69,7 @@ class Any;
     {
         auto ret = msMapCodecs.emplace(pCodec->getType(), pCodec);
         if (!ret.second)
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, pCodec->getType() + " already has a registered codec");
+            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("{} already has a registered codec", pCodec->getType()));
     }
 
     auto Codec::getCodec(const String& extension) -> Codec*
@@ -83,10 +83,10 @@ class Any;
             if(msMapCodecs.empty())
                 formats_str = "There are no formats supported (no codecs registered).";
             else
-                formats_str = "Supported formats are: " + StringConverter::toString(getExtensions()) + ".";
+                formats_str = ::std::format("Supported formats are: {}.", StringConverter::toString(getExtensions()) );
 
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                        "Can not find codec for '" + extension + "' format.\n" + formats_str);
+                        ::std::format("Can not find codec for '{}' format.\n", extension ) + formats_str);
         }
 
         return i->second;

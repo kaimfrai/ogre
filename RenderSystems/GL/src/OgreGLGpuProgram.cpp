@@ -154,7 +154,7 @@ void GLArbGpuProgram::unloadImpl()
 void GLArbGpuProgram::loadFromSource()
 {
     if (GL_INVALID_OPERATION == glGetError()) {
-        LogManager::getSingleton().logMessage("Invalid Operation before loading program "+mName, LML_CRITICAL);
+        LogManager::getSingleton().logMessage(::std::format("Invalid Operation before loading program {}", mName), LML_CRITICAL);
 
     }
     glBindProgramARB(getProgramType(), mProgramID);
@@ -165,7 +165,7 @@ void GLArbGpuProgram::loadFromSource()
         GLint errPos;
         glGetIntegerv(GL_PROGRAM_ERROR_POSITION_ARB, &errPos);
         const char* errStr = (const char*)glGetString(GL_PROGRAM_ERROR_STRING_ARB);
-        OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "'" + mName + "' " + errStr);
+        OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, ::std::format("'{}' ", mName ) + errStr);
     }
     glBindProgramARB(getProgramType(), 0);
 }

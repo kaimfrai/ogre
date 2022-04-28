@@ -210,7 +210,7 @@ namespace Ogre {
         mMaterial = MaterialManager::getSingleton().getByName(name, groupName);
 
         if (!mMaterial)
-            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, "Could not find material " + name,
+            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, ::std::format("Could not find material {}", name),
                 "BillboardSet::setMaterialName" );
 
         /* Ensure that the new material was loaded (will not load again if
@@ -590,10 +590,10 @@ namespace Ogre {
         if (mPointRendering && mBillboardType != BBT_POINT)
         {
 
-            LogManager::getSingleton().logWarning("BillboardSet " +
-                mName + " has point rendering enabled but is using a type "
+            LogManager::getSingleton().logWarning(
+                ::std::format("BillboardSet {} has point rendering enabled but is using a type "
                 "other than BBT_POINT, this may not give you the results you "
-                "expect.");
+                "expect.", mName));
         }
 
         mVertexData = std::make_unique<VertexData>();

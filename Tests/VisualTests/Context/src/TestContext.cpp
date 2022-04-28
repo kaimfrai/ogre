@@ -143,7 +143,7 @@ void TestContext::setup()
     {
         Ogre::String filestamp = Ogre::String(temp);
         // name for this batch (used for naming the directory, and uniquely identifying this batch)
-        batchName = mTestSetName + "_" + filestamp;
+        ::std::format("{}_{}", batchName = mTestSetName , filestamp);
 
         if (mReferenceSet)
             batchName = "Reference";
@@ -156,7 +156,7 @@ void TestContext::setup()
 
     // An object storing info about this set.
     mBatch = new TestBatch(batchName, mTestSetName, timestamp,
-                           mWindow->getWidth(), mWindow->getHeight(), mOutputDir + batchName + "/");
+                           mWindow->getWidth(), mWindow->getHeight(), ::std::format("{}{}/", mOutputDir , batchName));
     mBatch->comment = mComment;
 
     OgreBites::Sample* firstTest = loadTests();
@@ -247,12 +247,17 @@ auto TestContext::frameEnded(const Ogre::FrameEvent& evt) -> bool
         if (mCurrentSample->isScreenshotFrame(mCurrentFrame))
         {
             // take a screenshot
-            Ogre::String filename = mOutputDir + mBatch->name + "/" +
-                    mCurrentSample->getInfo()["Title"] + "_" +
-                Ogre::StringConverter::toString(mCurrentFrame) + ".png";
+            Ogre::String filename = ::std::format(
+                    "{}{}/{}_{}.png",
+                    mOutputDir,
+                    mBatch->name,
+                    mCurrentSample->getInfo()["Title"],
+                    Ogre::StringConverter::toString(mCurrentFrame));
             // remember the name of the shot, for later comparison purposes
-            mBatch->images.push_back(mCurrentSample->getInfo()["Title"] + "_" +
-                                     Ogre::StringConverter::toString(mCurrentFrame));
+            mBatch->images.push_back(
+                ::std::format("{}_{}",
+                              mCurrentSample->getInfo()["Title"],
+                              Ogre::StringConverter::toString(mCurrentFrame)));
             mWindow->writeContentsToFile(filename);
         }
 
@@ -297,7 +302,8 @@ void TestContext::runSample(OgreBites::Sample* sampleToRun)
     Ogre::ControllerManager::getSingleton().setFrameDelay(mTimestep);
 
     if(sampleToRun)
-        LogManager::getSingleton().logMessage("----- Running Visual Test " + sampleToRun->getInfo()["Title"] + " -----");
+        LogManager::getSingleton().logMessage(
+            ::std::format("----- Running Visual Test {} -----", sampleToRun->getInfo()["Title"]));
     SampleContext::runSample(sampleToRun);
 }
 
@@ -404,7 +410,7 @@ void TestContext::setupDirectories(Ogre::String batchName)
         static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(mOutputDir);
 
         // make sure there's a directory for the test set
-        mOutputDir += mTestSetName + "/";
+        mOutputDir += ::std::format("{}/", mTestSetName);
         static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(mOutputDir);
 
         // add a directory for the render system
@@ -423,8 +429,8 @@ void TestContext::setupDirectories(Ogre::String batchName)
     }
 
     // and finally a directory for the test batch itself
-    static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(mOutputDir
-                                                                   + batchName + "/");
+    static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(
+        ::std::format("{}{}/", mOutputDir, batchName));
 }
 
 //-----------------------------------------------------------------------
@@ -442,7 +448,7 @@ void TestContext::finishedTests()
         // look for a reference set first (either "Reference" or a user-specified image set)
         try
         {
-            info.load(mReferenceSetPath + mCompareWith + "/info.cfg");
+            info.load(::std::format("{}{}/info.cfg", mReferenceSetPath , mCompareWith));
         }
         catch (Ogre::FileNotFoundException&)
         {
@@ -478,8 +484,8 @@ void TestContext::finishedTests()
 
                 // we save a generally named "out.html" that gets overwritten each run,
                 // plus a uniquely named one for this run
-                writer.writeToFile(mOutputDir + "out.html");
-                writer.writeToFile(mOutputDir + "TestResults_" + mBatch->name + ".html");
+                writer.writeToFile(::std::format("{}out.html", mOutputDir));
+                writer.writeToFile(::std::format("{}TestResults_{}.html", mOutputDir , mBatch->name ));
             }
 
             // also save a summary file for CTest to parse, if required
@@ -491,7 +497,7 @@ void TestContext::finishedTests()
                         rs += j;
 
                 CppUnitResultWriter cppunitWriter(*compareTo, *mBatch, results);
-                cppunitWriter.writeToFile(mSummaryOutputDir + "/TestResults_" + rs + ".xml");
+                cppunitWriter.writeToFile(::std::format("{}/TestResults_{}.xml", mSummaryOutputDir , rs ));
             }
 
             for(auto & result : results) {

@@ -97,7 +97,7 @@ namespace OgreBites
                     }
                     if (!found)  // throw an exception if a plugin is not found
                     {
-                        OGRE_EXCEPT(Ogre::Exception::ERR_NOT_IMPLEMENTED, "Sample requires plugin: " + j);
+                        OGRE_EXCEPT(Ogre::Exception::ERR_NOT_IMPLEMENTED, ::std::format("Sample requires plugin: {}", j));
                     }
                 }
 

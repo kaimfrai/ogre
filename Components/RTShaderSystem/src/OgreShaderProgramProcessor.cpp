@@ -629,7 +629,7 @@ void ProgramProcessor::generateLocalSplitParameters(Function* func, GpuProgramTy
     // Create the local parameters + map from source to local.
     for (auto srcParameter : splitParams)
     {
-        ParameterPtr localParameter = func->resolveLocalParameter(srcParameter->getType(), "lsplit_" + srcParameter->getName());
+        ParameterPtr localParameter = func->resolveLocalParameter(srcParameter->getType(), ::std::format("lsplit_{}", srcParameter->getName()));
 
         localParamsMap[srcParameter.get()] = localParameter;        
     }   

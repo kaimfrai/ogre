@@ -233,7 +233,7 @@ namespace Ogre::GLSL {
         String compileInfo = getObjectInfo(mGLShaderHandle);
 
         if (!compiled)
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, getResourceLogName() + " " + compileInfo, "compile");
+             OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, ::std::format("{} {}", getResourceLogName() , compileInfo), "compile");
 
         // probably we have warnings
         if (!compileInfo.empty())
@@ -326,7 +326,7 @@ namespace Ogre::GLSL {
         if(glErr != GL_NO_ERROR)
         {
             reportGLSLError( glErr, "GLSLProgram::attachToProgramObject",
-                "Error attaching " + mName + " shader object to GLSL Program Object", programObject );
+                ::std::format("Error attaching {} shader object to GLSL Program Object", mName ), programObject );
         }
 
     }
@@ -339,7 +339,7 @@ namespace Ogre::GLSL {
         if(glErr != GL_NO_ERROR)
         {
             reportGLSLError( glErr, "GLSLProgram::detachFromProgramObject",
-                "Error detaching " + mName + " shader object from GLSL Program Object", programObject );
+                ::std::format("Error detaching {} shader object from GLSL Program Object", mName ), programObject );
         }
         // attach child objects
         auto childprogramcurrent = mAttachedGLSLPrograms.begin();

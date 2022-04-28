@@ -89,8 +89,8 @@ class RenderSystem;
         // add to metadata
         mMetaDataList.push_back(&fact->getMetaData());
         // Log
-        LogManager::getSingleton().logMessage("SceneManagerFactory for type '" +
-            fact->getMetaData().typeName + "' registered.");
+        LogManager::getSingleton().logMessage(
+            ::std::format("SceneManagerFactory for type '{}' registered.", fact->getMetaData().typeName));
     }
     //-----------------------------------------------------------------------
     void SceneManagerEnumerator::removeFactory(SceneManagerFactory* fact)
@@ -135,7 +135,7 @@ class RenderSystem;
         }
 
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-            "No metadata found for scene manager of type '" + typeName + "'",
+            ::std::format("No metadata found for scene manager of type '{}'", typeName ),
             "SceneManagerEnumerator::createSceneManager");
 
     }
@@ -147,7 +147,7 @@ class RenderSystem;
         if (mInstances.find(instanceName) != mInstances.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
-                "SceneManager instance called '" + instanceName + "' already exists",
+                ::std::format("SceneManager instance called '{}' already exists", instanceName ),
                 "SceneManagerEnumerator::createSceneManager");
         }
 
@@ -175,7 +175,7 @@ class RenderSystem;
         {
             // Error!
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "No factory found for scene manager of type '" + typeName + "'",
+                ::std::format("No factory found for scene manager of type '{}'", typeName ),
                 "SceneManagerEnumerator::createSceneManager");
         }
 
@@ -219,7 +219,7 @@ class RenderSystem;
         else
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "SceneManager instance with name '" + instanceName + "' not found.",
+                ::std::format("SceneManager instance with name '{}' not found.", instanceName ),
                 "SceneManagerEnumerator::getSceneManager");
         }
 

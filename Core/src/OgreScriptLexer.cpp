@@ -41,7 +41,7 @@ namespace Ogre {
         ScriptTokenList ret = _tokenize(str, source.c_str(), error);
 
         if (!error.empty())
-            LogManager::getSingleton().logError("ScriptLexer - " + error);
+            LogManager::getSingleton().logError(::std::format("ScriptLexer - {}", error));
 
         return ret;
     }
@@ -206,7 +206,7 @@ namespace Ogre {
                     {
                         // Backtrack here and allow a backslash normally within the quote
                         if(lastc == backslash)
-                            lexeme = lexeme + "\\" + c;
+                            lexeme = ::std::format("{}\\{}", lexeme , c);
                         else
                             lexeme += c;
                     }

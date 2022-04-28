@@ -63,32 +63,32 @@ namespace Ogre
         for (uint i = 0; i < mMaxDisplayProfiles; ++i) 
         {
             // this is for the profile name and the number of times it was called in a frame
-            OverlayElement* element = createTextArea("profileText" + StringConverter::toString(i), 90, mBarHeight, mGuiBorderWidth + (mBarHeight + mBarSpacing) * i, 0, 14, "", false);
+            OverlayElement* element = createTextArea(::std::format("profileText{}", StringConverter::toString(i)), 90, mBarHeight, mGuiBorderWidth + (mBarHeight + mBarSpacing) * i, 0, 14, "", false);
             mProfileGui->addChild(element);
             mProfileBars.push_back(element);
 
             // this indicates the current frame time
-            element = createPanel("currBar" + StringConverter::toString(i), 0, mBarHeight, mGuiBorderWidth + (mBarHeight + mBarSpacing) * i, mBarIndent, "Core/ProfilerCurrent", false);
+            element = createPanel(::std::format("currBar{}", StringConverter::toString(i)), 0, mBarHeight, mGuiBorderWidth + (mBarHeight + mBarSpacing) * i, mBarIndent, "Core/ProfilerCurrent", false);
             mProfileGui->addChild(element);
             mProfileBars.push_back(element);
 
             // this indicates the minimum frame time
-            element = createPanel("minBar" + StringConverter::toString(i), mBarLineWidth, mBarHeight, mGuiBorderWidth + (mBarHeight + mBarSpacing) * i, 0, "Core/ProfilerMin", false);
+            element = createPanel(::std::format("minBar{}", StringConverter::toString(i)), mBarLineWidth, mBarHeight, mGuiBorderWidth + (mBarHeight + mBarSpacing) * i, 0, "Core/ProfilerMin", false);
             mProfileGui->addChild(element);
             mProfileBars.push_back(element);
 
             // this indicates the maximum frame time
-            element = createPanel("maxBar" + StringConverter::toString(i), mBarLineWidth, mBarHeight, mGuiBorderWidth + (mBarHeight + mBarSpacing) * i, 0, "Core/ProfilerMax", false);
+            element = createPanel(::std::format("maxBar{}", StringConverter::toString(i)), mBarLineWidth, mBarHeight, mGuiBorderWidth + (mBarHeight + mBarSpacing) * i, 0, "Core/ProfilerMax", false);
             mProfileGui->addChild(element);
             mProfileBars.push_back(element);
 
             // this indicates the average frame time
-            element = createPanel("avgBar" + StringConverter::toString(i), mBarLineWidth, mBarHeight, mGuiBorderWidth + (mBarHeight + mBarSpacing) * i, 0, "Core/ProfilerAvg", false);
+            element = createPanel(::std::format("avgBar{}", StringConverter::toString(i)), mBarLineWidth, mBarHeight, mGuiBorderWidth + (mBarHeight + mBarSpacing) * i, 0, "Core/ProfilerAvg", false);
             mProfileGui->addChild(element);
             mProfileBars.push_back(element);
 
             // this indicates the text of the frame time
-            element = createTextArea("statText" + StringConverter::toString(i), 20, mBarHeight, mGuiBorderWidth + (mBarHeight + mBarSpacing) * i, 0, 14, "", false);
+            element = createTextArea(::std::format("statText{}", StringConverter::toString(i)), 20, mBarHeight, mGuiBorderWidth + (mBarHeight + mBarSpacing) * i, 0, 14, "", false);
             mProfileGui->addChild(element);
             mProfileBars.push_back(element);
         }
@@ -162,7 +162,7 @@ namespace Ogre
         g = *bIter;
         ++bIter;
         g->show();
-        g->setCaption(String(instance->name + " (" + StringConverter::toString(instance->history.numCallsThisFrame) + ")"));
+        g->setCaption(::std::format("{} ({})", instance->name, instance->history.numCallsThisFrame) );
         g->setLeft(10 + instance->hierarchicalLvl * 10.0f);
 
 
@@ -225,12 +225,13 @@ namespace Ogre
         if (mDisplayMode == DISPLAY_PERCENTAGE)
         {
             g->setLeft(mBarIndent + instance->history.currentClocksPercent * mGuiWidth + 2);
-            g->setCaption(StringConverter::toString(instance->history.currentClocksPercent * 100.0l, 3, 3) + "%");
+            g->setCaption(::std::format("{:3.3}%",
+                instance->history.currentClocksPercent * 100.0l));
         }
         else
         {
             g->setLeft(mBarIndent + ((long double)instance->history.currentClocks / (long double)maxClocks) * mGuiWidth + 2);
-            g->setCaption(StringConverter::toString(Timer::clocksToMilliseconds(instance->history.currentClocks)) + "ms");
+            g->setCaption(::std::format("{}ms", Timer::clocksToMilliseconds(instance->history.currentClocks)));
         }
 
         // we set the height of the display with respect to the number of profiles displayed

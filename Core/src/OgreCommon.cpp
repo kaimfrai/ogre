@@ -65,7 +65,7 @@ namespace Ogre
                 }
 
                 // Invalid option
-                LogManager::getSingleton().logMessage("Invalid option " + tmp, LML_CRITICAL);
+                LogManager::getSingleton().logMessage(::std::format("Invalid option {}", tmp), LML_CRITICAL);
 
             }
         }

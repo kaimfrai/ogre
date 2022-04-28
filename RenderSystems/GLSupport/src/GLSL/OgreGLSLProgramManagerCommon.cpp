@@ -282,8 +282,9 @@ namespace Ogre {
                 // this part once for each name mentioned
                 if (def.constType == GCT_UNKNOWN)
                 {
-                    LogManager::getSingleton().logMessage("Problem parsing the following GLSL Uniform: '"
-                                                          + line + "' in file " + filename, LML_CRITICAL);
+                    LogManager::getSingleton().logMessage(
+                        ::std::format("Problem parsing the following GLSL Uniform: '"
+                                                          "{}' in file {}", line , filename), LML_CRITICAL);
                     // next uniform
                     break;
                 }
@@ -303,16 +304,18 @@ namespace Ogre {
                 }
                 else
                 {
-                    LogManager::getSingleton().logMessage("Could not parse type of GLSL Uniform: '"
-                                                          + line + "' in file " + filename);
+                    LogManager::getSingleton().logMessage(
+                        ::std::format("Could not parse type of GLSL Uniform: '"
+                                                          "{}' in file {}", line , filename));
                 }
                 defs.map.emplace(paramName, def);
 
                 // warn if there is a default value, that we would overwrite
                 if (line.find('=') != String::npos)
                 {
-                    LogManager::getSingleton().logWarning("Default value of uniform '" + paramName +
-                                                          "' is ignored in " + filename);
+                    LogManager::getSingleton().logWarning(
+                        ::std::format("Default value of uniform '{}' is ignored in {}",
+                                      paramName, filename));
                     break;
                 }
             }
@@ -381,8 +384,7 @@ namespace Ogre {
                     }
                     else
                     {
-                        LogManager::getSingleton().logMessage("Missing opening brace in GLSL Uniform Block in file "
-                                                              + filename);
+                        LogManager::getSingleton().logMessage(::std::format("Missing opening brace in GLSL Uniform Block in file {}", filename));
                         break;
                     }
 

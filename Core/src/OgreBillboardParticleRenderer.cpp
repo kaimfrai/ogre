@@ -305,7 +305,7 @@ class RenderQueue;
         else
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                "Invalid billboard_type '" + val + "'", 
+                ::std::format("Invalid billboard_type '{}'", val ), 
                 "ParticleSystem::CmdBillboardType::doSet");
         }
 
@@ -363,7 +363,7 @@ class RenderQueue;
         else
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                "Invalid billboard_origin '" + val + "'", 
+                ::std::format("Invalid billboard_origin '{}'", val ), 
                 "ParticleSystem::CmdBillboardOrigin::doSet");
         }
 
@@ -393,7 +393,7 @@ class RenderQueue;
         else
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                "Invalid billboard_rotation_type '" + val + "'", 
+                ::std::format("Invalid billboard_rotation_type '{}'", val ), 
                 "ParticleSystem::CmdBillboardRotationType::doSet");
         }
 

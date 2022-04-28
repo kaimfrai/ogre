@@ -70,15 +70,15 @@ namespace Ogre {
         }
 
         // Log library load
-        LogManager::getSingleton().logMessage("Loading library " + name);
+        LogManager::getSingleton().logMessage(::std::format("Loading library {}", name));
 
         mInst = (DYNLIB_HANDLE)DYNLIB_LOAD( name.c_str() );
 
         if( !mInst )
             OGRE_EXCEPT(
                 Exception::ERR_INTERNAL_ERROR, 
-                "Could not load dynamic library " + mName + 
-                ".  System Error: " + dynlibError(),
+                ::std::format("Could not load dynamic library {}"
+                ".  System Error: {}", name, dynlibError()),
                 "DynLib::load" );
     }
 
@@ -86,14 +86,14 @@ namespace Ogre {
     void DynLib::unload()
     {
         // Log library unload
-        LogManager::getSingleton().logMessage("Unloading library " + mName);
+        LogManager::getSingleton().logMessage(::std::format("Unloading library {}", mName));
 
         if( DYNLIB_UNLOAD( mInst ) )
         {
             OGRE_EXCEPT(
                 Exception::ERR_INTERNAL_ERROR, 
-                "Could not unload dynamic library " + mName +
-                ".  System Error: " + dynlibError(),
+                ::std::format("Could not unload dynamic library {}"
+                ".  System Error: {}", mName, dynlibError()),
                 "DynLib::unload");
         }
 

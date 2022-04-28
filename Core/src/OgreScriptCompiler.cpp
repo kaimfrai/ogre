@@ -1337,7 +1337,7 @@ namespace Ogre
                 else
                 {
                     mCompiler->addError(CE_UNEXPECTEDTOKEN, impl->file, impl->line,
-                                        "'" + impl->cls + "'. If this is a legacy script you must prepend the type (e.g. font, overlay).");
+                                        ::std::format("'{}'. If this is a legacy script you must prepend the type (e.g. font, overlay).", impl->cls));
                 }
 
                 // Get the name

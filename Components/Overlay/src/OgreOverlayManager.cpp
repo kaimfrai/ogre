@@ -119,7 +119,7 @@ namespace Ogre {
         else
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
-                "Overlay with name '" + name + "' already exists!",
+                ::std::format("Overlay with name '{}' already exists!", name ),
                 "OverlayManager::create");
         }
 
@@ -146,7 +146,7 @@ namespace Ogre {
         bool succ = mOverlayMap.emplace(overlay->getName(), overlay).second;
         if(succ) return;
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-                    "Overlay with name '" + overlay->getName() + "' already exists!");
+                    ::std::format("Overlay with name '{}' already exists!", overlay->getName() ));
     }
     //---------------------------------------------------------------------
     void OverlayManager::destroy(const String& name)
@@ -155,7 +155,7 @@ namespace Ogre {
         if (i == mOverlayMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "Overlay with name '" + name + "' not found.",
+                ::std::format("Overlay with name '{}' not found.", name ),
                 "OverlayManager::destroy");
         }
         else
@@ -309,8 +309,8 @@ namespace Ogre {
         auto ii = mElements.find(instanceName);
         if (ii != mElements.end())
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "OverlayElement with name " + instanceName +
-                " already exists.", "OverlayManager::createOverlayElement" );
+            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("OverlayElement with name {}"
+                " already exists.", instanceName), "OverlayManager::createOverlayElement" );
         }
         OverlayElement* newElem = createOverlayElementFromFactory(typeName, instanceName);
 
@@ -329,7 +329,7 @@ namespace Ogre {
         auto fi = mFactories.find(typeName);
         if (fi == mFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate factory for element type " + typeName,
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Cannot locate factory for element type {}", typeName),
                 "OverlayManager::createOverlayElement");
         }
 
@@ -343,7 +343,7 @@ namespace Ogre {
         auto ii = mElements.find(name);
         if (ii == mElements.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "OverlayElement with name " + name + " not found.");
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("OverlayElement with name {} not found.", name ));
         }
 
         return ii->second;
@@ -367,15 +367,15 @@ namespace Ogre {
         auto ii = mElements.find(instanceName);
         if (ii == mElements.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "OverlayElement with name " + instanceName +
-                " not found.", "OverlayManager::destroyOverlayElement" );
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("OverlayElement with name {}"
+                " not found.", instanceName), "OverlayManager::destroyOverlayElement" );
         }
         // Look up factory
         const String& typeName = ii->second->getTypeName();
         auto fi = mFactories.find(typeName);
         if (fi == mFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate factory for element type " + typeName,
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Cannot locate factory for element type {}", typeName),
                 "OverlayManager::destroyOverlayElement");
         }
 
@@ -395,8 +395,9 @@ namespace Ogre {
             auto fi = mFactories.find(element->getTypeName());
             if (fi == mFactories.end())
             {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate factory for element " 
-                    + element->getName(),
+                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                    ::std::format("Cannot locate factory for element {}",
+                        element->getName()),
                     "OverlayManager::destroyAllOverlayElements");
             }
 
@@ -419,7 +420,8 @@ namespace Ogre {
         // Add / replace
         mFactories[elemFactory->getTypeName()] = elemFactory;
 
-        LogManager::getSingleton().logMessage("OverlayElementFactory for type " + elemFactory->getTypeName()
-            + " registered.");
+        LogManager::getSingleton().logMessage(
+            ::std::format("OverlayElementFactory for type {} registered.",
+                          elemFactory->getTypeName()));
     }
 }

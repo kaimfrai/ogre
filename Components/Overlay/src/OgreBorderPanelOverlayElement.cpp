@@ -442,10 +442,11 @@ TEXCOORD_BINDING = 1
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getCellUVString(BorderCellIndex idx) const -> String
     {
-        String ret = StringConverter::toString(mBorderUV[idx].u1) + " " +
-                    StringConverter::toString(mBorderUV[idx].v1) + " " +
-                    StringConverter::toString(mBorderUV[idx].u2) + " " +
-                    StringConverter::toString(mBorderUV[idx].v2);
+        String ret = ::std::format("{} {} {} {}",
+            StringConverter::toString(mBorderUV[idx].u1),
+            StringConverter::toString(mBorderUV[idx].v1),
+            StringConverter::toString(mBorderUV[idx].u2),
+            StringConverter::toString(mBorderUV[idx].v2));
         return ret;
     }
     //---------------------------------------------------------------------
@@ -571,7 +572,7 @@ TEXCOORD_BINDING = 1
     {
         mBorderMaterial = MaterialManager::getSingleton().getByName(name, group);
         if (!mBorderMaterial)
-            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, "Could not find material " + name,
+            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, ::std::format("Could not find material {}", name),
                 "BorderPanelOverlayElement::setBorderMaterialName" );
         mBorderMaterial->load();
         // Set some prerequisites to be sure
@@ -733,10 +734,10 @@ TEXCOORD_BINDING = 1
     auto CmdBorderSize::doGet(const void* target) const -> String
     {
         const auto* t = static_cast<const BorderPanelOverlayElement*>(target);
-        return String(
-            StringConverter::toString(t->getLeftBorderSize()) + " " +
-            StringConverter::toString(t->getRightBorderSize()) + " " +
-            StringConverter::toString(t->getTopBorderSize()) + " " +
+        return ::std::format("{} {} {} {}",
+            StringConverter::toString(t->getLeftBorderSize()),
+            StringConverter::toString(t->getRightBorderSize()),
+            StringConverter::toString(t->getTopBorderSize()),
             StringConverter::toString(t->getBottomBorderSize()) );
     }
     void CmdBorderSize::doSet(void* target, const String& val)

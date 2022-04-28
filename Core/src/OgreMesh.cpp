@@ -231,7 +231,7 @@ namespace Ogre {
     {
         // Load from specified 'name'
         if (getCreator()->getVerbose())
-            LogManager::getSingleton().logMessage("Mesh: Loading "+mName+".");
+            LogManager::getSingleton().logMessage(::std::format("Mesh: Loading {}.", mName));
 
         mFreshFromDisk =
             ResourceGroupManager::getSingleton().openResource(
@@ -254,7 +254,7 @@ namespace Ogre {
 
         if (!data) {
             OGRE_EXCEPT(Exception::ERR_INVALID_STATE,
-                        "Data doesn't appear to have been prepared in " + mName,
+                        ::std::format("Data doesn't appear to have been prepared in {}", mName),
                         "Mesh::loadImpl()");
         }
 
@@ -262,7 +262,7 @@ namespace Ogre {
         StringUtil::splitBaseFilename(mName, baseName, strExt);
         auto codec = Codec::getCodec(strExt);
         if (!codec)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "No codec found to load " + mName);
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("No codec found to load {}", mName));
 
         codec->decode(data, this);
     }
@@ -529,7 +529,7 @@ namespace Ogre {
                     mSkeleton.reset();
                     // Log this error
                     String msg = "Unable to load skeleton '";
-                    msg += skelName + "' for Mesh '" + mName + "'. This Mesh will not be animated.";
+                    ::std::format("{}' for Mesh '{}'. This Mesh will not be animated.", msg += skelName , mName );
                     LogManager::getSingleton().logError(msg);
 
                 }
@@ -698,13 +698,16 @@ namespace Ogre {
         if (maxBones > OGRE_MAX_BLEND_WEIGHTS)
         {
             // Warn that we've reduced bone assignments
-            LogManager::getSingleton().logWarning("the mesh '" + mName + "' "
-                "includes vertices with more than " +
-                StringConverter::toString(OGRE_MAX_BLEND_WEIGHTS) + " bone assignments. "
+            LogManager::getSingleton().logWarning(
+                ::std::format("the mesh '{}' "
+                "includes vertices with more than {}"
+                " bone assignments. "
                 "The lowest weighted assignments beyond this limit have been removed, so "
                 "your animation may look slightly different. To eliminate this, reduce "
-                "the number of bone assignments per vertex on your mesh to " +
-                StringConverter::toString(OGRE_MAX_BLEND_WEIGHTS) + ".");
+                "the number of bone assignments per vertex on your mesh to {}.",
+                mName,
+                static_cast<int>(OGRE_MAX_BLEND_WEIGHTS),
+                static_cast<int>(OGRE_MAX_BLEND_WEIGHTS)));
             // we've adjusted them down to the max
             maxBones = OGRE_MAX_BLEND_WEIGHTS;
 
@@ -713,11 +716,11 @@ namespace Ogre {
         if (existsNonSkinnedVertices)
         {
             // Warn that we've non-skinned vertices
-            LogManager::getSingleton().logWarning("the mesh '" + mName + "' "
+            LogManager::getSingleton().logWarning(::std::format("the mesh '{}' "
                 "includes vertices without bone assignments. Those vertices will "
                 "transform to wrong position when skeletal animation enabled. "
                 "To eliminate this, assign at least one bone assignment per vertex "
-                "on your mesh.");
+                "on your mesh.", mName));
         }
 
         return maxBones;
@@ -1222,7 +1225,7 @@ namespace Ogre {
     {
         auto i = mSubMeshNameMap.find(name) ;
         if (i == mSubMeshNameMap.end())
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No SubMesh named " + name + " found.",
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No SubMesh named {} found.", name ),
                 "Mesh::_getSubMeshIndex");
 
         return i->second;
@@ -2142,9 +2145,9 @@ namespace Ogre {
                     {
                         // Mixing of morph and pose animation on same data is not allowed
                         OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                            "Animation tracks for shared vertex data on mesh "
-                            + mName + " try to mix vertex animation types, which is "
-                            "not allowed.",
+                            ::std::format("Animation tracks for shared vertex data on mesh {}"
+                            " try to mix vertex animation types, which is "
+                            "not allowed.", mName),
                             "Mesh::_determineAnimationTypes");
                     }
                     mSharedVertexDataAnimationType = track->getAnimationType();
@@ -2163,10 +2166,10 @@ namespace Ogre {
                     {
                         // Mixing of morph and pose animation on same data is not allowed
                         OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                            "Animation tracks for dedicated vertex data "
-                            + StringConverter::toString(handle-1) + " on mesh "
-                            + mName + " try to mix vertex animation types, which is "
-                            "not allowed.",
+                            ::std::format("Animation tracks for dedicated vertex data "
+                            "{} on mesh {}"
+                            " try to mix vertex animation types, which is "
+                            "not allowed.", handle-1, mName),
                             "Mesh::_determineAnimationTypes");
                     }
                     sm->mVertexAnimationType = track->getAnimationType();
@@ -2189,7 +2192,7 @@ namespace Ogre {
         {
             OGRE_EXCEPT(
                 Exception::ERR_DUPLICATE_ITEM,
-                "An animation with the name " + name + " already exists",
+                ::std::format("An animation with the name {} already exists", name ),
                 "Mesh::createAnimation");
         }
 
@@ -2212,7 +2215,7 @@ namespace Ogre {
         if (!ret)
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                "No animation entry found named " + name,
+                ::std::format("No animation entry found named {}", name),
                 "Mesh::getAnimation");
         }
 
@@ -2262,7 +2265,7 @@ namespace Ogre {
 
         if (i == mAnimationsList.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No animation entry found named " + name,
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", name),
                 "Mesh::getAnimation");
         }
 
