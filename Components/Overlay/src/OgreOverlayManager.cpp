@@ -395,8 +395,9 @@ class RenderQueue;
             auto fi = mFactories.find(element->getTypeName());
             if (fi == mFactories.end())
             {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate factory for element " 
-                    + element->getName(),
+                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                    ::std::format("Cannot locate factory for element {}",
+                        element->getName()),
                     "OverlayManager::destroyAllOverlayElements");
             }
 
