@@ -309,7 +309,7 @@ namespace Ogre {
     {
         if (mRenderTargets.find(name) != mRenderTargets.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Window with name '" + name + "' already exists");
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Window with name '{}' already exists", name ));
         }
 
         // Log a message

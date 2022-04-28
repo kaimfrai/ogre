@@ -647,7 +647,7 @@ namespace Ogre
 
                 mCurrentMode = {newMode->first.first, newMode->first.second, newMode->second};
 
-                LogManager::getSingleton().logMessage("Entered video mode " + mCurrentMode.getDescription() + " @ " + StringConverter::toString(mCurrentMode.refreshRate) + "Hz");
+                LogManager::getSingleton().logMessage(::std::format("Entered video mode {} @ ", mCurrentMode.getDescription() ) + StringConverter::toString(mCurrentMode.refreshRate) + "Hz");
             }
         }
     }

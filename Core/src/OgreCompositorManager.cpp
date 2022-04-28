@@ -172,7 +172,7 @@ CompositorInstance *CompositorManager::addCompositor(Viewport *vp, const String 
 {
     CompositorPtr comp = getByName(compositor);
     if(!comp)
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Compositor '"+compositor+"' not found");
+        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Compositor '{}' not found", compositor));
     CompositorChain *chain = getCompositorChain(vp);
     return chain->addCompositor(comp, addPosition==-1 ? CompositorChain::LAST : (size_t)addPosition);
 }
@@ -183,7 +183,7 @@ void CompositorManager::removeCompositor(Viewport *vp, const String &compositor)
     size_t pos = chain->getCompositorPosition(compositor);
 
     if(pos == CompositorChain::NPOS)
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Compositor '"+compositor+"' not in chain");
+        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Compositor '{}' not in chain", compositor));
 
     chain->removeCompositor(pos);
 }
@@ -194,7 +194,7 @@ void CompositorManager::setCompositorEnabled(Viewport *vp, const String &composi
     size_t pos = chain->getCompositorPosition(compositor);
 
     if(pos == CompositorChain::NPOS)
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Compositor '"+compositor+"' not in chain");
+        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Compositor '{}' not in chain", compositor));
 
     chain->setCompositorEnabled(pos, value);
 }
@@ -443,7 +443,7 @@ void CompositorManager::registerCompositorLogic(const String& name, CompositorLo
     if (mCompositorLogics.find(name) != mCompositorLogics.end())
     {
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-            "Compositor logic '" + name + "' already exists.",
+            ::std::format("Compositor logic '{}' already exists.", name ),
             "CompositorManager::registerCompositorLogic");
     }
     mCompositorLogics[name] = logic;
@@ -455,7 +455,7 @@ void CompositorManager::unregisterCompositorLogic(const String& name)
     if( itor == mCompositorLogics.end() )
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-            "Compositor logic '" + name + "' not registered.",
+            ::std::format("Compositor logic '{}' not registered.", name ),
             "CompositorManager::unregisterCompositorLogic");
     }
 
@@ -468,7 +468,7 @@ CompositorLogic* CompositorManager::getCompositorLogic(const String& name)
     if (it == mCompositorLogics.end())
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-            "Compositor logic '" + name + "' not registered.",
+            ::std::format("Compositor logic '{}' not registered.", name ),
             "CompositorManager::getCompositorLogic");
     }
     return it->second;
@@ -485,7 +485,7 @@ void CompositorManager::registerCustomCompositionPass(const String& name, Custom
     if (mCustomCompositionPasses.find(name) != mCustomCompositionPasses.end())
     {
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-            "Custom composition pass  '" + name + "' already exists.",
+            ::std::format("Custom composition pass  '{}' already exists.", name ),
             "CompositorManager::registerCustomCompositionPass");
     }
     mCustomCompositionPasses[name] = logic;
@@ -497,7 +497,7 @@ void CompositorManager::unregisterCustomCompositionPass(const String& name)
 	if( itor == mCustomCompositionPasses.end() )
 	{
 		OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-			"Custom composition pass '" + name + "' not registered.",
+			::std::format("Custom composition pass '{}' not registered.", name ),
 			"CompositorManager::unRegisterCustomCompositionPass");
 	}
 	mCustomCompositionPasses.erase( itor );
@@ -514,7 +514,7 @@ CustomCompositionPass* CompositorManager::getCustomCompositionPass(const String&
     if (it == mCustomCompositionPasses.end())
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-            "Custom composition pass '" + name + "' not registered.",
+            ::std::format("Custom composition pass '{}' not registered.", name ),
             "CompositorManager::getCustomCompositionPass");
     }
     return it->second;

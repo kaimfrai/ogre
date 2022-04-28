@@ -353,7 +353,7 @@ void ProgramManager::addProgramProcessor(const String& lang, ProgramProcessor* p
 
     if (itFind != mProgramProcessorsMap.end())
     {
-        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "A processor for language '" + lang + "' already exists.");
+        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("A processor for language '{}' already exists.", lang ));
     }
 
     mProgramProcessorsMap[lang] = processor;

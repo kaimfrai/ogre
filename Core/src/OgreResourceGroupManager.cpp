@@ -109,7 +109,7 @@ namespace Ogre {
         if (getResourceGroup(name))
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
-                "Resource group with name '" + name + "' already exists!", 
+                ::std::format("Resource group with name '{}' already exists!", name ), 
                 "ResourceGroupManager::createResourceGroup");
         }
         auto* grp = new ResourceGroup();
@@ -559,7 +559,7 @@ namespace Ogre {
             return {};
 
         OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, "Cannot locate resource " + 
-            resourceName + " in resource group " + groupName + ".", 
+            resourceName + ::std::format(" in resource group {}.", groupName ), 
             "ResourceGroupManager::openResource");
 
     }
@@ -997,7 +997,7 @@ namespace Ogre {
         if (i == mResourceGroupMap.end())
         {
             if (throwOnFailure)
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate a resource group called '" + name + "'");
+                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Cannot locate a resource group called '{}'", name ));
 
             return nullptr;
         }

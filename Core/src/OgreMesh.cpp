@@ -227,7 +227,7 @@ namespace Ogre {
     {
         // Load from specified 'name'
         if (getCreator()->getVerbose())
-            LogManager::getSingleton().logMessage("Mesh: Loading "+mName+".");
+            LogManager::getSingleton().logMessage(::std::format("Mesh: Loading {}.", mName));
 
         mFreshFromDisk =
             ResourceGroupManager::getSingleton().openResource(
@@ -523,7 +523,7 @@ namespace Ogre {
                     mSkeleton.reset();
                     // Log this error
                     String msg = "Unable to load skeleton '";
-                    msg += skelName + "' for Mesh '" + mName + "'. This Mesh will not be animated.";
+                    msg += skelName + ::std::format("' for Mesh '{}'. This Mesh will not be animated.", mName );
                     LogManager::getSingleton().logError(msg);
 
                 }
@@ -699,13 +699,16 @@ namespace Ogre {
         if (maxBones > OGRE_MAX_BLEND_WEIGHTS)
         {
             // Warn that we've reduced bone assignments
-            LogManager::getSingleton().logWarning("the mesh '" + mName + "' "
-                "includes vertices with more than " +
-                StringConverter::toString(OGRE_MAX_BLEND_WEIGHTS) + " bone assignments. "
+            LogManager::getSingleton().logWarning(
+                ::std::format("the mesh '{}' "
+                "includes vertices with more than {}"
+                " bone assignments. "
                 "The lowest weighted assignments beyond this limit have been removed, so "
                 "your animation may look slightly different. To eliminate this, reduce "
-                "the number of bone assignments per vertex on your mesh to " +
-                StringConverter::toString(OGRE_MAX_BLEND_WEIGHTS) + ".");
+                "the number of bone assignments per vertex on your mesh to {}.",
+                mName,
+                static_cast<int>(OGRE_MAX_BLEND_WEIGHTS),
+                static_cast<int>(OGRE_MAX_BLEND_WEIGHTS)));
             // we've adjusted them down to the max
             maxBones = OGRE_MAX_BLEND_WEIGHTS;
 
@@ -714,11 +717,11 @@ namespace Ogre {
         if (existsNonSkinnedVertices)
         {
             // Warn that we've non-skinned vertices
-            LogManager::getSingleton().logWarning("the mesh '" + mName + "' "
+            LogManager::getSingleton().logWarning(::std::format("the mesh '{}' "
                 "includes vertices without bone assignments. Those vertices will "
                 "transform to wrong position when skeletal animation enabled. "
                 "To eliminate this, assign at least one bone assignment per vertex "
-                "on your mesh.");
+                "on your mesh.", mName));
         }
 
         return maxBones;
@@ -1215,7 +1218,7 @@ namespace Ogre {
     {
         auto i = mSubMeshNameMap.find(name) ;
         if (i == mSubMeshNameMap.end())
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No SubMesh named " + name + " found.",
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No SubMesh named {} found.", name ),
                 "Mesh::_getSubMeshIndex");
 
         return i->second;
@@ -2183,7 +2186,7 @@ namespace Ogre {
         {
             OGRE_EXCEPT(
                 Exception::ERR_DUPLICATE_ITEM,
-                "An animation with the name " + name + " already exists",
+                ::std::format("An animation with the name {} already exists", name ),
                 "Mesh::createAnimation");
         }
 

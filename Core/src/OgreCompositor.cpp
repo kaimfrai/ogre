@@ -143,7 +143,7 @@ void Compositor::compile()
     }
 
     if (mSupportedTechniques.empty())
-        LogManager::getSingleton().logError("Compositor '" + getName() + "' has no supported techniques");
+        LogManager::getSingleton().logError(::std::format("Compositor '{}' has no supported techniques", getName() ));
 
     mCompilationRequired = false;
 }
@@ -207,7 +207,7 @@ void Compositor::createGlobalTextures()
             if (def->formatList.size() > 1)
             {
                 String MRTbaseName = "mrt/c" + StringConverter::toString(dummyCounter++) + 
-                    "/" + mName + "/" + def->name;
+                    ::std::format("/{}/", mName ) + def->name;
                 MultiRenderTarget* mrt = 
                     Root::getSingleton().getRenderSystem()->createMultiRenderTarget(MRTbaseName);
                 mGlobalMRTs[def->name] = mrt;
@@ -242,7 +242,7 @@ void Compositor::createGlobalTextures()
             else
             {
                 String texName =  "c" + StringConverter::toString(dummyCounter++) + 
-                    "/" + mName + "/" + def->name;
+                    ::std::format("/{}/", mName ) + def->name;
                 
                 // space in the name mixup the cegui in the compositor demo
                 // this is an auto generated name - so no spaces can't hart us.

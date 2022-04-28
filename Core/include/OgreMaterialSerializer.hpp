@@ -346,7 +346,7 @@ class Technique;
         String quoteWord(const String& val)
         {
             if (val.find_first_of("{}$: \t") != String::npos)
-                return ("\"" + val + "\"");
+                return (::std::format("\"{}\"", val ));
             else return val;
         }
 

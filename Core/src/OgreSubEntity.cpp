@@ -86,10 +86,12 @@ class Technique;
 
         if( !material )
         {
-            LogManager::getSingleton().logError("Can't assign material '" + name +
-                "' to SubEntity of '" + mParentEntity->getName() + "' because this "
-                "Material does not exist in group '"+groupName+"'. Have you forgotten to define it in a "
-                ".material script?");
+            LogManager::getSingleton().logError(
+                ::std::format("Can't assign material '"
+                    "' to SubEntity of '{}' because this "
+                    "Material does not exist in group '{}'. Have you forgotten to define it in a {}"
+                    ".material script?",
+                    name, mParentEntity->getName(), groupName ));
 
             material = MaterialManager::getSingleton().getDefaultMaterial();
         }
@@ -103,8 +105,9 @@ class Technique;
         
         if (!mMaterialPtr)
         {
-            LogManager::getSingleton().logError("Can't assign nullptr material "
-                "to SubEntity of '" + mParentEntity->getName() + "'. Falling back to default");
+            LogManager::getSingleton().logError(
+                ::std::format("Can't assign nullptr material "
+                "to SubEntity of '{}'. Falling back to default", mParentEntity->getName() ));
             
             mMaterialPtr = MaterialManager::getSingleton().getDefaultMaterial();
         }

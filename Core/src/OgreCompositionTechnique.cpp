@@ -54,7 +54,7 @@ CompositionTechnique::~CompositionTechnique()
 CompositionTechnique::TextureDefinition *CompositionTechnique::createTextureDefinition(const String &name)
 {
     if(getTextureDefinition(name))
-        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "Texture '"+name+"' already exists");
+        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("Texture '{}' already exists", name));
 
     auto *t = new TextureDefinition();
     t->name = name;
