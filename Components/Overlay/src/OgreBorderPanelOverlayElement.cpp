@@ -454,10 +454,11 @@ TEXCOORD_BINDING = 1
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getCellUVString(BorderCellIndex idx) const -> String
     {
-        String ret = StringConverter::toString(mBorderUV[idx].u1) + " " +
-                    StringConverter::toString(mBorderUV[idx].v1) + " " +
-                    StringConverter::toString(mBorderUV[idx].u2) + " " +
-                    StringConverter::toString(mBorderUV[idx].v2);
+        String ret = ::std::format("{} {} {} {}",
+            StringConverter::toString(mBorderUV[idx].u1),
+            StringConverter::toString(mBorderUV[idx].v1),
+            StringConverter::toString(mBorderUV[idx].u2),
+            StringConverter::toString(mBorderUV[idx].v2));
         return ret;
     }
     //---------------------------------------------------------------------
@@ -745,10 +746,10 @@ TEXCOORD_BINDING = 1
     auto CmdBorderSize::doGet(const void* target) const -> String
     {
         const auto* t = static_cast<const BorderPanelOverlayElement*>(target);
-        return String(
-            StringConverter::toString(t->getLeftBorderSize()) + " " +
-            StringConverter::toString(t->getRightBorderSize()) + " " +
-            StringConverter::toString(t->getTopBorderSize()) + " " +
+        return ::std::format("{} {} {} {}",
+            StringConverter::toString(t->getLeftBorderSize()),
+            StringConverter::toString(t->getRightBorderSize()),
+            StringConverter::toString(t->getTopBorderSize()),
             StringConverter::toString(t->getBottomBorderSize()) );
     }
     void CmdBorderSize::doSet(void* target, const String& val)

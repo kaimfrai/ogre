@@ -85,8 +85,8 @@ class RenderSystem;
         // add to metadata
         mMetaDataList.push_back(&fact->getMetaData());
         // Log
-        LogManager::getSingleton().logMessage("SceneManagerFactory for type '" +
-            fact->getMetaData().typeName + "' registered.");
+        LogManager::getSingleton().logMessage(
+            ::std::format("SceneManagerFactory for type '{}' registered.", fact->getMetaData().typeName));
     }
     //-----------------------------------------------------------------------
     void SceneManagerEnumerator::removeFactory(SceneManagerFactory* fact)

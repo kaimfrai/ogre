@@ -415,8 +415,8 @@ namespace {
         }
         catch (const InvalidStateException& e)
         {
-            LogManager::getSingleton().logWarning("Could not load Microcode Cache: " +
-                                                  e.getDescription());
+            LogManager::getSingleton().logWarning(
+                ::std::format("Could not load Microcode Cache: {}", e.getDescription()));
             return;
         }
 

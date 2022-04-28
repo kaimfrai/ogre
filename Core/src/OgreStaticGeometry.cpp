@@ -299,9 +299,10 @@ REGION_MIN_INDEX = -512
         // Validate
         if (msh->hasManualLodLevel())
         {
-            LogManager::getSingleton().logWarning("(StaticGeometry): Manual LOD is not supported. "
-                                                  "Using only highest LOD level for mesh " +
-                                                  msh->getName());
+            LogManager::getSingleton().logWarning(
+                ::std::format("(StaticGeometry): Manual LOD is not supported. "
+                    "Using only highest LOD level for mesh {}",
+                    msh->getName()));
         }
 
         AxisAlignedBox sharedWorldBounds;

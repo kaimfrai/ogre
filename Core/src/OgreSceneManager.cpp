@@ -899,10 +899,8 @@ auto SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed,
     else if (!mDestRenderSystem->getCapabilities()->hasCapability(RSC_FIXED_FUNCTION))
     {
         OGRE_EXCEPT(Exception::ERR_INVALID_STATE,
-                    "RenderSystem does not support FixedFunction, "
-                    "but technique of '" +
-                        pass->getParent()->getParent()->getName() +
-                        "' has no Vertex Shader. Use the RTSS or write custom shaders.",
+            ::std::format("RenderSystem does not support FixedFunction, "
+                    "but technique of '{}' has no Vertex Shader. Use the RTSS or write custom shaders.", pass->getParent()->getParent()->getName()),
                     "SceneManager::_setPass");
     }
     else
@@ -985,10 +983,8 @@ auto SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed,
              !pass->hasGeometryProgram())
     {
         OGRE_EXCEPT(Exception::ERR_INVALID_STATE,
-                    "RenderSystem does not support FixedFunction, "
-                    "but technique of '" +
-                        pass->getParent()->getParent()->getName() +
-                        "' has no Fragment Shader. Use the RTSS or write custom shaders.",
+            ::std::format("RenderSystem does not support FixedFunction, "
+                    "but technique of '{}' has no Fragment Shader. Use the RTSS or write custom shaders.", pass->getParent()->getParent()->getName()),
                     "SceneManager::_setPass");
     }
     else

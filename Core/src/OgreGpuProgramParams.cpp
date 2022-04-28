@@ -1378,8 +1378,9 @@ namespace Ogre
         const AutoConstantDefinition* autoDef = getAutoConstantDefinition(acType);
 
         if(!autoDef)
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No constant definition found for type " +
-                        StringConverter::toString(acType),
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                ::std::format("No constant definition found for type {}",
+                        StringConverter::toString(acType)),
                         "GpuProgramParameters::setAutoConstant");
 
         // round up to nearest multiple of 4
@@ -1498,8 +1499,9 @@ namespace Ogre
         const AutoConstantDefinition* autoDef = getAutoConstantDefinition(acType);
 
         if(!autoDef)
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No constant definition found for type " +
-                        StringConverter::toString(acType),
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                ::std::format("No constant definition found for type {}",
+                        StringConverter::toString(acType)),
                         "GpuProgramParameters::setAutoConstantReal");
 
         // round up to nearest multiple of 4
