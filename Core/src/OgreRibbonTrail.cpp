@@ -97,7 +97,8 @@ namespace Ogre
         if (mNodeList.size() == mChainCount)
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                mName + " cannot monitor any more nodes, chain count exceeded",
+                ::std::format("{} cannot monitor any more nodes, chain count exceeded",
+                    mName),
                 "RibbonTrail::addNode");
         }
         if (n->getListener())
