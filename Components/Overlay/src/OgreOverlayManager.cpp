@@ -419,8 +419,9 @@ class RenderQueue;
         // Add / replace
         mFactories[elemFactory->getTypeName()].reset(elemFactory);
 
-        LogManager::getSingleton().logMessage(::std::format("OverlayElementFactory for type {}", elemFactory->getTypeName())
-            + " registered.");
+        LogManager::getSingleton().logMessage(
+            ::std::format("OverlayElementFactory for type {} registered.",
+                          elemFactory->getTypeName()));
     }
 }
 

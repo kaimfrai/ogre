@@ -547,8 +547,7 @@ class LodStrategy;
         else if(prop->values.size() > 1)
         {
             compiler->addError(ScriptCompiler::CE_FEWERPARAMETERSEXPECTED, prop->file, prop->line,
-                               getPropertyName(compiler, prop->id) +
-                                   " must have at most 1 argument");
+                                ::std::format("{} must have at most 1 argument", getPropertyName(compiler, prop->id)));
         }
         else
         {
@@ -1632,8 +1631,9 @@ class LodStrategy;
                         }
                         else
                         {
-                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               prop->values.front()->getValue() + ": unrecognized argument");
+                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
+                                               prop->file, prop->line,
+                                               ::std::format("{}: unrecognized argument", prop->values.front()->getValue()));
                         }
                     }
                     break;
@@ -1703,15 +1703,17 @@ class LodStrategy;
                                 if(getUInt(*i1, &val))
                                     mPass->setAlphaRejectSettings(func, static_cast<unsigned char>(val));
                                 else
-                                    compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                       (*i1)->getValue() + " is not a valid integer");
+                                    compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
+                                                       prop->file,
+                                                       prop->line,
+                                                       ::std::format("{} is not a valid integer", (*i1)->getValue()));
                             }
                             else
                                 mPass->setAlphaRejectFunction(func);
                         }
                         else
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               (*i0)->getValue() + " is not a valid CompareFunction");
+                                               ::std::format("{} is not a valid CompareFunction", (*i0)->getValue()));
                     }
                     break;
                 case ID_ALPHA_TO_COVERAGE:
@@ -1755,7 +1757,7 @@ class LodStrategy;
                             else
                             {
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   prop->values.front()->getValue() + " must be boolean or force");
+                                                   ::std::format("{} must be boolean or force", prop->values.front()->getValue()));
                             }
                         }
                     }
@@ -1775,7 +1777,7 @@ class LodStrategy;
                     if(getValue(prop, compiler, mmode))
                         mPass->setManualCullingMode(mmode);
                     compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, prop->file, prop->line,
-                                       prop->name + ". Only used by the BSP scene manager.");
+                                       ::std::format("{}. Only used by the BSP scene manager.", prop->name));
                     break;
                 case ID_NORMALISE_NORMALS:
                     if(getValue(prop, compiler, bval))
@@ -1840,14 +1842,14 @@ class LodStrategy;
                                         break;
                                     default:
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                           (*i1)->getValue() + " is not a valid FogMode");
+                                                           ::std::format("{} is not a valid FogMode", (*i1)->getValue()));
                                         break;
                                     }
                                 }
                                 else
                                 {
                                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                       (*i1)->getValue() + " is not a valid FogMode");
+                                                       ::std::format("{} is not a valid FogMode", (*i1)->getValue()));
                                     break;
                                 }
                             }
@@ -1857,7 +1859,7 @@ class LodStrategy;
                                 if(!getColour(i2, prop->values.end(), &clr, 3))
                                 {
                                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                       (*i2)->getValue() + " is not a valid colour");
+                                                       ::std::format("{} is not a valid colour", (*i2)->getValue()));
                                     break;
                                 }
 
@@ -1869,7 +1871,7 @@ class LodStrategy;
                                 if(!getReal(*i2, &dens))
                                 {
                                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                       (*i2)->getValue() + " is not a valid number");
+                                                       ::std::format("{} is not a valid number", (*i2)->getValue()));
                                     break;
                                 }
                                 ++i2;
@@ -1880,7 +1882,7 @@ class LodStrategy;
                                 if(!getReal(*i2, &start))
                                 {
                                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                       (*i2)->getValue() + " is not a valid number");
+                                                       ::std::format("{} is not a valid number", (*i2)->getValue()));
                                     return;
                                 }
                                 ++i2;
@@ -1891,7 +1893,7 @@ class LodStrategy;
                                 if(!getReal(*i2, &end))
                                 {
                                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                       (*i2)->getValue() + " is not a valid number");
+                                                       ::std::format("{} is not a valid number", (*i2)->getValue()));
                                     return;
                                 }
                                 ++i2;
@@ -1901,7 +1903,7 @@ class LodStrategy;
                         }
                         else
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               prop->values.front()->getValue() + " is not a valid boolean");
+                                               ::std::format("{} is not a valid boolean", prop->values.front()->getValue()));
                     }
                     break;
                 case ID_COLOUR_WRITE:
@@ -1929,7 +1931,7 @@ class LodStrategy;
                             if(!getBoolean(abstractNode, &colourMask[channelIndex++]))
                             {
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   abstractNode->getValue() + " is not a valid boolean");
+                                                   ::std::format("{} is not a valid boolean", abstractNode->getValue()));
                                 break;
                             }
                         }
@@ -1983,7 +1985,7 @@ class LodStrategy;
                                         break;
                                     default:
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                           prop->values.front()->getValue() + " is not a valid light type (point, directional, or spot)");
+                                                           ::std::format("{} is not a valid light type (point, directional, or spot)", prop->values.front()->getValue()));
                                     }
                                 }
                                 else
@@ -2019,7 +2021,7 @@ class LodStrategy;
                                                 break;
                                             default:
                                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                                   (*i2)->getValue() + " is not a valid light type (point, directional, or spot)");
+                                                                   ::std::format("{} is not a valid light type (point, directional, or spot)", (*i2)->getValue()));
                                             }
                                         }
                                         else
@@ -2055,7 +2057,7 @@ class LodStrategy;
                                                         break;
                                                     default:
                                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                                           (*i3)->getValue() + " is not a valid light type (point, directional, or spot)");
+                                                                           ::std::format("{} is not a valid light type (point, directional, or spot)", (*i3)->getValue()));
                                                     }
                                                 }
                                                 else
@@ -2066,13 +2068,13 @@ class LodStrategy;
                                             else
                                             {
                                                 compiler->addError(ScriptCompiler::CE_NUMBEREXPECTED, prop->file, prop->line,
-                                                                   (*i2)->getValue() + " is not a valid number");
+                                                                   ::std::format("{} is not a valid number", (*i2)->getValue()));
                                             }
                                         }
                                         else
                                         {
                                             compiler->addError(ScriptCompiler::CE_NUMBEREXPECTED, prop->file, prop->line,
-                                                               prop->values.front()->getValue() + " is not a valid number");
+                                                               ::std::format("{} is not a valid number", prop->values.front()->getValue()));
                                         }
                                     }
                                 }
@@ -2136,7 +2138,7 @@ class LodStrategy;
                                     else
                                     {
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                           (*i1)->getValue() + " is not a valid number");
+                                                           ::std::format("{} is not a valid number", (*i1)->getValue()));
                                     }
 
                                     if(i2 != prop->values.end() && (*i2)->type == ANT_ATOM)
@@ -2150,7 +2152,7 @@ class LodStrategy;
                                     else
                                     {
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                           (*i2)->getValue() + " is not a valid number");
+                                                           ::std::format("{} is not a valid number", (*i2)->getValue()));
                                     }
 
                                     if(i3 != prop->values.end() && (*i3)->type == ANT_ATOM)
@@ -2164,7 +2166,7 @@ class LodStrategy;
                                     else
                                     {
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                           (*i3)->getValue() + " is not a valid number");
+                                                           ::std::format("{} is not a valid number", (*i3)->getValue()));
                                     }
 
                                     mPass->setPointAttenuation(true, constant, linear, quadratic);
@@ -2181,7 +2183,7 @@ class LodStrategy;
                         }
                         else
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               prop->values.front()->getValue() + " is not a valid boolean");
+                                               ::std::format("{} is not a valid boolean", prop->values.front()->getValue()));
                     }
                     break;
                 case ID_POINT_SIZE_MIN:
@@ -2288,14 +2290,14 @@ class LodStrategy;
         auto pass = any_cast<Pass*>(node->parent->context);
 
         compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, node->file, node->line,
-                           node->cls + ". Use shadow_caster_material instead");
+                           ::std::format("{}. Use shadow_caster_material instead", node->cls));
 
         auto caster_mat = pass->getParent()->getShadowCasterMaterial();
         if(!caster_mat)
         {
             auto src_mat = pass->getParent()->getParent();
             // only first pass of this will be used
-            caster_mat = src_mat->clone(src_mat->getName()+"/CasterFallback");
+            caster_mat = src_mat->clone(::std::format("{}/CasterFallback", src_mat->getName()));
             pass->getParent()->setShadowCasterMaterial(caster_mat);
         }
         auto caster_pass = caster_mat->getTechnique(0)->getPass(0);
@@ -2315,14 +2317,14 @@ class LodStrategy;
         auto pass = any_cast<Pass*>(node->parent->context);
 
         compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, node->file, node->line,
-                           node->cls + ". Use shadow_receiver_material instead");
+                           ::std::format("{}. Use shadow_receiver_material instead", node->cls));
 
         auto receiver_mat = pass->getParent()->getShadowReceiverMaterial();
         if(!receiver_mat)
         {
             auto src_mat = pass->getParent()->getParent();
             // only first pass of this will be used
-            receiver_mat = src_mat->clone(src_mat->getName()+"/ReceiverFallback");
+            receiver_mat = src_mat->clone(::std::format("{}/ReceiverFallback", src_mat->getName()));
             pass->getParent()->setShadowReceiverMaterial(receiver_mat);
         }
         auto receiver_pass = receiver_mat->getTechnique(0)->getPass(0);
@@ -2648,7 +2650,7 @@ class LodStrategy;
                                 else
                                 {
                                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                       (*j)->getValue() + " is not a supported argument to the texture property");
+                                                       ::std::format("{} is not a supported argument to the texture property", (*j)->getValue()));
                                 }
                                 ++j;
                             }
@@ -2671,7 +2673,7 @@ class LodStrategy;
                         }
                         else
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               (*j)->getValue() + " is not a valid texture name");
+                                               ::std::format("{} is not a valid texture name", (*j)->getValue()));
                     }
                     break;
                 case ID_ANIM_TEXTURE:
@@ -2739,7 +2741,7 @@ class LodStrategy;
                                     }
                                     else
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                           (*j)->getValue() + " is not supported as a texture name");
+                                                           ::std::format("{} is not supported as a texture name", (*j)->getValue()));
                                     ++j;
                                 }
 
@@ -2748,7 +2750,7 @@ class LodStrategy;
                             else
                             {
                                 compiler->addError(ScriptCompiler::CE_NUMBEREXPECTED, prop->file, prop->line,
-                                                   (*in)->getValue() + " is not supported for the duration argument");
+                                                   ::std::format("{} is not supported for the duration argument", (*in)->getValue()));
                             }
                         }
                     }
@@ -2870,7 +2872,7 @@ class LodStrategy;
                                 {
                                     if(!getReal(*i3, &manualBlend))
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                           (*i3)->getValue() + " is not a valid number argument");
+                                                           ::std::format("{} is not a valid number argument", (*i3)->getValue()));
                                 }
                                 else
                                 {
@@ -3338,7 +3340,7 @@ class LodStrategy;
                         else
                         {
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               prop->values.front()->getValue() + " is not a valid content type");
+                                               ::std::format("{} is not a valid content type", prop->values.front()->getValue()));
                         }
                     }
                     break;
@@ -3414,10 +3416,7 @@ class LodStrategy;
             }
         }
 
-        String tps;
-        tps = StringConverter::toString(techniqueIndex) + " "
-            + StringConverter::toString(passIndex) + " "
-            + StringConverter::toString(texUnitIndex);
+        String tps = ::std::format("{} {} {}", techniqueIndex, passIndex, texUnitIndex);
 
         ExternalTextureSourceManager::getSingleton().getCurrentPlugIn()->setParameter( "set_T_P_S", tps );
 
@@ -3431,8 +3430,8 @@ class LodStrategy;
                 for(auto j = prop->values.begin(); j != prop->values.end(); ++j)
                 {
                     if(j != prop->values.begin())
-                        str = str + " ";
-                    str = str + (*j)->getValue();
+                        str += " ";
+                    str += (*j)->getValue();
                 }
                 ExternalTextureSourceManager::getSingleton().getCurrentPlugIn()->setParameter(prop->name, str);
             }
