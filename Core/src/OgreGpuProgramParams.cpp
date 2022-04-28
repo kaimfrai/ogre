@@ -265,7 +265,7 @@ namespace Ogre
         if (!stream->isWriteable())
         {
             OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE,
-                        "Unable to write to stream " + stream->getName(),
+                        ::std::format("Unable to write to stream {}", stream->getName()),
                         "GpuNamedConstantsSerializer::exportNamedConstants");
         }
 
@@ -577,8 +577,8 @@ namespace Ogre
                     mCopyDataList.push_back(e);
                 }
                 else
-                    LogManager::getSingleton().logWarning("cannot copy shared parameter '" + pName +
-                                                          "' - type or variability mismatch");
+                    LogManager::getSingleton().logWarning(
+                        ::std::format("cannot copy shared parameter '{}' - type or variability mismatch", pName));
             }
         }
 

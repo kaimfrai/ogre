@@ -583,7 +583,7 @@ TEXCOORD_BINDING = 1
     {
         mBorderMaterial = MaterialManager::getSingleton().getByName(name, group);
         if (!mBorderMaterial)
-            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, "Could not find material " + name,
+            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, ::std::format("Could not find material {}", name),
                 "BorderPanelOverlayElement::setBorderMaterialName" );
         mBorderMaterial->load();
         // Set some prerequisites to be sure

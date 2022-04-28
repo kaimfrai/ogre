@@ -430,9 +430,8 @@ TEXCOORD_BINDING = 1
     auto CmdTiling::doGet(const void* target) const -> String
     {
         // NB only returns 1st layer tiling
-        String ret = "0 " + StringConverter::toString(
-            static_cast<const PanelOverlayElement*>(target)->getTileX() );
-        ret += " " + StringConverter::toString(
+        String ret = ::std::format("0 {} {}",
+            static_cast<const PanelOverlayElement*>(target)->getTileX(),
             static_cast<const PanelOverlayElement*>(target)->getTileY() );
         return ret;
     }

@@ -460,7 +460,7 @@ class Frustum;
         
         TexturePtr tex = _getTexturePtr(frame);
         if (!tex)
-            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, "Could not find texture " + StringConverter::toString(frame),
+            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, ::std::format("Could not find texture {}", StringConverter::toString(frame)),
             "TextureUnitState::getTextureDimensions" );
 
         return {tex->getWidth(), tex->getHeight()};
@@ -1022,8 +1022,8 @@ class Frustum;
         }
         catch (Exception& e)
         {
-            String msg = "preparing texture '" + tex->getName() +
-                         ::std::format("'. Texture layer will be blank: {}", e.getDescription());
+            String msg = ::std::format("preparing texture '{}'. Texture layer will be blank: {}",
+                                       tex->getName(), e.getDescription());
             LogManager::getSingleton().logError(msg);
             mTextureLoadFailed = true;
         }
@@ -1042,8 +1042,7 @@ class Frustum;
         }
         catch (Exception& e)
         {
-            String msg = "loading texture '" + tex->getName() +
-                         ::std::format("'. Texture layer will be blank: {}", e.getDescription());
+            String msg = ::std::format("loading texture '{}'. Texture layer will be blank: {}", tex->getName(),  e.getDescription());
             LogManager::getSingleton().logError(msg);
             mTextureLoadFailed = true;
         }

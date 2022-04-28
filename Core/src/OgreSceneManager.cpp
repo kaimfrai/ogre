@@ -256,7 +256,7 @@ auto SceneManager::getCamera(const String& name) const -> Camera*
     if (i == mCameras.end())
     {
         OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, 
-            "Cannot find Camera with name " + name,
+            ::std::format("Cannot find Camera with name {}", name),
             "SceneManager::getCamera");
     }
     else
@@ -445,7 +445,7 @@ auto SceneManager::createEntity(const String& entityName, PrefabType ptype) -> E
     }
 
     OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, 
-        "Unknown prefab type for entity " + entityName,
+        ::std::format("Unknown prefab type for entity {}", entityName),
         "SceneManager::createEntity");
 }
 //---------------------------------------------------------------------
@@ -2159,7 +2159,7 @@ auto SceneManager::getAnimation(const String& name) const -> Animation*
     if (i == mAnimationsList.end())
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-            "Cannot find animation with name " + name, 
+            ::std::format("Cannot find animation with name {}", name), 
             "SceneManager::getAnimation");
     }
     return i->second;
@@ -2179,7 +2179,7 @@ void SceneManager::destroyAnimation(const String& name)
     if (i == mAnimationsList.end())
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-            "Cannot find animation with name " + name, 
+            ::std::format("Cannot find animation with name {}", name), 
             "SceneManager::getAnimation");
     }
 

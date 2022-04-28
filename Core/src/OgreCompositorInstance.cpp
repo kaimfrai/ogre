@@ -719,8 +719,10 @@ void CompositorInstance::createResources(bool forResizeOnly)
             /// Make the tetxure
             if (def->formatList.size() > 1)
             {
-                String MRTbaseName = "mrt/c" + StringConverter::toString(dummyCounter++) + 
-                ::std::format("/{}/", def->name ) + mChain->getViewport()->getTarget()->getName();
+                String MRTbaseName = ::std::format("mrt/c{}/{}/{}",
+                    StringConverter::toString(dummyCounter++),
+                    def->name,
+                    mChain->getViewport()->getTarget()->getName());
                 MultiRenderTarget* mrt = 
                 Root::getSingleton().getRenderSystem()->createMultiRenderTarget(MRTbaseName);
                 mLocalMRTs[def->name] = mrt;
@@ -764,8 +766,10 @@ void CompositorInstance::createResources(bool forResizeOnly)
             }
             else
             {
-                String texName =  "c" + StringConverter::toString(dummyCounter++) + 
-                ::std::format("/{}/", def->name ) + mChain->getViewport()->getTarget()->getName();
+                String texName =  ::std::format("c{}/{}/{}",
+                    StringConverter::toString(dummyCounter++),
+                    def->name,
+                    mChain->getViewport()->getTarget()->getName());
                 
                 // space in the name mixup the cegui in the compositor demo
                 // this is an auto generated name - so no spaces can't hart us.

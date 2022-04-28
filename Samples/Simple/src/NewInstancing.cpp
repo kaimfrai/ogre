@@ -277,7 +277,7 @@ void Sample_NewInstancing::switchInstancingTechnique()
         }
 
         mCurrentManager = mSceneMgr->createInstanceManager(
-            "InstanceMgr" + StringConverter::toString(mInstancingTechnique), c_meshNames[mCurrentMesh],
+            ::std::format("InstanceMgr{}", StringConverter::toString(mInstancingTechnique)), c_meshNames[mCurrentMesh],
             ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, technique,
             NUM_INST_ROW * NUM_INST_COLUMN, flags);
 
@@ -622,7 +622,7 @@ void Sample_NewInstancing::setupGUI()
     {
         String text = c_instancingTechniques[i];
         if( !mSupportedTechniques[i] )
-            text = "Unsupported: " + text;
+            text = ::std::format("Unsupported: {}", text);
         mTechniqueMenu->addItem( text );
     }
     //Check box to enable dual quaternion skinning

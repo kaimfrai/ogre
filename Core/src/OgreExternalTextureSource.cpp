@@ -96,9 +96,9 @@ namespace Ogre
     {
         if( mDictionaryName == "NotAssigned" )
             OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, 
-                "Plugin " + mPluginName + 
+                ::std::format("Plugin {}"
                 " needs to override default mDictionaryName", 
-                "ExternalTextureSource::addBaseParams");
+                "ExternalTextureSource::addBaseParams", mPluginName ));
 
         //Create Dictionary Here
         if (createParamDictionary( mDictionaryName ))

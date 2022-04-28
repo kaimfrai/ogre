@@ -205,7 +205,7 @@ namespace Ogre {
         mMaterial = MaterialManager::getSingleton().getByName(name, groupName);
 
         if (!mMaterial)
-            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, "Could not find material " + name,
+            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, ::std::format("Could not find material {}", name),
                 "BillboardSet::setMaterialName" );
 
         /* Ensure that the new material was loaded (will not load again if

@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstdlib>
 #include <deque>
+#include <format>
 #include <map>
 #include <memory>
 #include <ostream>
@@ -131,11 +132,12 @@ namespace Ogre {
 
         // Init
         mActiveRenderer = nullptr;
-        mVersion = StringConverter::toString(/*OGRE_VERSION_MAJOR*/13) + "." +
-            StringConverter::toString(/*OGRE_VERSION_MINOR*/3) + "." +
-            StringConverter::toString(/*OGRE_VERSION_PATCH*/3) +
-            /*OGRE_VERSION_SUFFIX*/"Modernized " + " " +
-            "(" + /*OGRE_VERSION_NAME*/"Tsathoggua" + ")";
+        mVersion = ::std::format("{}.{}.{}{} ({})",
+            /*OGRE_VERSION_MAJOR*/13,
+            /*OGRE_VERSION_MINOR*/3,
+            /*OGRE_VERSION_PATCH*/3,
+            /*OGRE_VERSION_SUFFIX*/"Modernized",
+            /*OGRE_VERSION_NAME*/"Tsathoggua");
         mConfigFileName = configFileName;
 
         // Create log manager and default log file if there is no log manager yet

@@ -324,7 +324,7 @@ class Affine3;
         Animation* ret = _getAnimationImpl(name, linker);
         if (!ret)
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No animation entry found named " + name, 
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", name), 
                 "Skeleton::getAnimation");
         }
 
@@ -382,7 +382,7 @@ class Affine3;
 
         if (i == mAnimationsList.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No animation entry found named " + name, 
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", name), 
             "Skeleton::getAnimation");
         }
 
@@ -907,7 +907,7 @@ class Affine3;
                 if (!srcAnimation || linker)
                 {
                     OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                        "No animation entry found named " + animations[i],
+                        ::std::format("No animation entry found named {}", animations[i]),
                         "Skeleton::_mergeSkeletonAnimations");
                 }
             }

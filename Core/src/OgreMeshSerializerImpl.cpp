@@ -1471,7 +1471,7 @@ namespace Ogre {
                 break;
             default:
                 OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                "Invalid Lod Usage type in " + pMesh->getName(),
+                ::std::format("Invalid Lod Usage type in {}", pMesh->getName()),
                     "MeshSerializerImpl::readMeshLodInfo");
             }
             usage.manualMesh.reset(); // will trigger load later with manual Lod
@@ -2878,7 +2878,7 @@ namespace Ogre {
                 if (streamID != M_MESH_LOD_GENERATED)
                 {
                     OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                        "Missing M_MESH_LOD_GENERATED stream in " + pMesh->getName(),
+                        ::std::format("Missing M_MESH_LOD_GENERATED stream in {}", pMesh->getName()),
                         "MeshSerializerImpl::readMeshLodUsageGenerated");
                 }
 
@@ -2925,7 +2925,7 @@ namespace Ogre {
         if (streamID != M_MESH_LOD_MANUAL)
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                "Missing M_MESH_LOD_MANUAL stream in " + pMesh->getName(),
+                ::std::format("Missing M_MESH_LOD_MANUAL stream in {}", pMesh->getName()),
                 "MeshSerializerImpl::readMeshLodUsageManual");
         }
 
@@ -2970,7 +2970,7 @@ namespace Ogre {
             if (streamID != M_MESH_LOD_USAGE)
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                    "Missing M_MESH_LOD_USAGE stream in " + pMesh->getName(),
+                    ::std::format("Missing M_MESH_LOD_USAGE stream in {}", pMesh->getName()),
                     "MeshSerializerImpl::readMeshLodInfo");
             }
             // Read depth
@@ -3288,7 +3288,7 @@ namespace Ogre {
             if (streamID != M_MESH_LOD_USAGE)
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                    "Missing M_MESH_LOD_USAGE stream in " + pMesh->getName(),
+                    ::std::format("Missing M_MESH_LOD_USAGE stream in {}", pMesh->getName()),
                     "MeshSerializerImpl::readMeshLodInfo");
             }
             // Read depth
