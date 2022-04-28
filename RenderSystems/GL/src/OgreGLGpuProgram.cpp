@@ -166,7 +166,7 @@ void GLArbGpuProgram::loadFromSource()
         GLint errPos;
         glGetIntegerv(GL_PROGRAM_ERROR_POSITION_ARB, &errPos);
         const char* errStr = (const char*)glGetString(GL_PROGRAM_ERROR_STRING_ARB);
-        OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "'" + mName + "' " + errStr);
+        OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, ::std::format("'{}' ", mName ) + errStr);
     }
     glBindProgramARB(getProgramType(), 0);
 }

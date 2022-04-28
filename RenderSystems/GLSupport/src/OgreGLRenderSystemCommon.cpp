@@ -159,7 +159,7 @@ namespace Ogre {
     {
         ConfigOptionMap::iterator option = mOptions.find(name);
         if (option == mOptions.end()) {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Option named '" + name + "' does not exist.");
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Option named '{}' does not exist.", name ));
         }
         option->second.currentValue = value;
 

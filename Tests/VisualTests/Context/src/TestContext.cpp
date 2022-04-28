@@ -497,7 +497,7 @@ void TestContext::finishedTests()
                 // we save a generally named "out.html" that gets overwritten each run,
                 // plus a uniquely named one for this run
                 writer.writeToFile(mOutputDir + "out.html");
-                writer.writeToFile(mOutputDir + "TestResults_" + mBatch->name + ".html");
+                writer.writeToFile(mOutputDir + ::std::format("TestResults_{}.html", mBatch->name ));
             }
 
             // also save a summary file for CTest to parse, if required
@@ -509,7 +509,7 @@ void TestContext::finishedTests()
                         rs += mRenderSystemName[j];
 
                 CppUnitResultWriter cppunitWriter(*compareTo, *mBatch, results);
-                cppunitWriter.writeToFile(mSummaryOutputDir + "/TestResults_" + rs + ".xml");
+                cppunitWriter.writeToFile(mSummaryOutputDir + ::std::format("/TestResults_{}.xml", rs ));
             }
 
             for(size_t i = 0; i < results.size(); i++) {

@@ -1485,7 +1485,7 @@ class Sphere;
         if (it != mChildObjectList.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-                "An object with the name " + pMovable->getName() + " already attached",
+                ::std::format("An object with the name {} already attached", pMovable->getName() ),
                 "Entity::attachObjectToBone");
         }
         OgreAssert(!pMovable->isAttached(), "Object already attached to a sceneNode or a Bone");

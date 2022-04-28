@@ -1040,10 +1040,10 @@ class RenderQueue;
         mMaterial = MaterialManager::getSingleton().getByName(name, groupName);
         if (!mMaterial)
         {
-            LogManager::getSingleton().logError("Can't assign material " + name +
-                " to ParticleSystem " + mName + " because this "
-                "Material does not exist in group "+groupName+". Have you forgotten to define it in a "
-                ".material script?");
+            LogManager::getSingleton().logError(
+                ::std::format("Can't assign material {} to ParticleSystem {} because this "
+                "Material does not exist in group {}. Have you forgotten to define it in a "
+                ".material script?", name, mName, groupName));
             mMaterial = MaterialManager::getSingleton().getDefaultMaterial(false);
         }
         if (mIsRendererConfigured)

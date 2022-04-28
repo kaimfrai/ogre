@@ -114,21 +114,21 @@ namespace Ogre {
     {
         String name = factory->getName();
         mEmitterFactories[name] = factory;
-        LogManager::getSingleton().logMessage("Particle Emitter Type '" + name + "' registered");
+        LogManager::getSingleton().logMessage(::std::format("Particle Emitter Type '{}' registered", name ));
     }
     //-----------------------------------------------------------------------
     void ParticleSystemManager::addAffectorFactory(ParticleAffectorFactory* factory)
     {
         String name = factory->getName();
         mAffectorFactories[name] = factory;
-        LogManager::getSingleton().logMessage("Particle Affector Type '" + name + "' registered");
+        LogManager::getSingleton().logMessage(::std::format("Particle Affector Type '{}' registered", name ));
     }
     //-----------------------------------------------------------------------
     void ParticleSystemManager::addRendererFactory(ParticleSystemRendererFactory* factory)
     {
         String name = factory->getType();
         mRendererFactories[name] = factory;
-        LogManager::getSingleton().logMessage("Particle Renderer Type '" + name + "' registered");
+        LogManager::getSingleton().logMessage(::std::format("Particle Renderer Type '{}' registered", name ));
     }
     //-----------------------------------------------------------------------
     void ParticleSystemManager::addTemplate(const String& name, ParticleSystem* sysTemplate)
@@ -137,7 +137,7 @@ namespace Ogre {
         if (mSystemTemplates.find(name) != mSystemTemplates.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
-                "ParticleSystem template with name '" + name + "' already exists.", 
+                ::std::format("ParticleSystem template with name '{}' already exists.", name ), 
                 "ParticleSystemManager::addTemplate");
         }
 
@@ -149,7 +149,7 @@ namespace Ogre {
         ParticleTemplateMap::iterator itr = mSystemTemplates.find(name);
         if (itr == mSystemTemplates.end())
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                "ParticleSystem template with name '" + name + "' cannot be found.",
+                ::std::format("ParticleSystem template with name '{}' cannot be found.", name ),
                 "ParticleSystemManager::removeTemplate");
 
         if (deleteTemplate)
@@ -192,7 +192,7 @@ namespace Ogre {
         if (mSystemTemplates.find(name) != mSystemTemplates.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
-                "ParticleSystem template with name '" + name + "' already exists.", 
+                ::std::format("ParticleSystem template with name '{}' already exists.", name ), 
                 "ParticleSystemManager::createTemplate");
         }
 
@@ -230,7 +230,7 @@ namespace Ogre {
         ParticleSystem* pTemplate = getTemplate(templateName);
         if (!pTemplate)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot find required template '" + templateName + "'", "ParticleSystemManager::createSystem");
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Cannot find required template '{}'", templateName ), "ParticleSystemManager::createSystem");
         }
 
         ParticleSystem* sys = createSystemImpl(name, pTemplate->getParticleQuota(), 
@@ -249,7 +249,7 @@ namespace Ogre {
 
         if (pFact == mEmitterFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot find emitter type '" + emitterType + "'");
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Cannot find emitter type '{}'", emitterType ));
         }
 
         return pFact->second->createEmitter(psys);
@@ -280,7 +280,7 @@ namespace Ogre {
 
         if (pFact == mAffectorFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot find affector type '" + affectorType + "'");
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Cannot find affector type '{}'", affectorType ));
         }
 
         return pFact->second->createAffector(psys);

@@ -133,7 +133,7 @@ namespace Ogre {
         ObjectMap::iterator it = std::find_if(mObjectsByName.begin(), mObjectsByName.end(), pred);
         if (it != mObjectsByName.end())
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-                        "An object named '" + obj->getName() + "' already attached to this SceneNode");
+                        ::std::format("An object named '{}' already attached to this SceneNode", obj->getName() ));
         mObjectsByName.push_back(obj);
 
         // Make sure bounds get updated (must go right to the top)
@@ -180,8 +180,8 @@ namespace Ogre {
 
         if (it == mObjectsByName.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Object " + name + " is not attached "
-                "to this node.", "SceneNode::detachObject");
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Object {} is not attached "
+                "to this node.", name), "SceneNode::detachObject");
         }
 
         MovableObject* ret = *it;

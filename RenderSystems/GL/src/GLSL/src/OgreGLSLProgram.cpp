@@ -334,7 +334,7 @@ class ResourceManager;
         if(glErr != GL_NO_ERROR)
         {
             reportGLSLError( glErr, "GLSLProgram::attachToProgramObject",
-                "Error attaching " + mName + " shader object to GLSL Program Object", programObject );
+                ::std::format("Error attaching {} shader object to GLSL Program Object", mName ), programObject );
         }
 
     }
@@ -347,7 +347,7 @@ class ResourceManager;
         if(glErr != GL_NO_ERROR)
         {
             reportGLSLError( glErr, "GLSLProgram::detachFromProgramObject",
-                "Error detaching " + mName + " shader object from GLSL Program Object", programObject );
+                ::std::format("Error detaching {} shader object from GLSL Program Object", mName ), programObject );
         }
         // attach child objects
         GLSLProgramContainerIterator childprogramcurrent = mAttachedGLSLPrograms.begin();

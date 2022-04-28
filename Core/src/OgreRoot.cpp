@@ -1153,7 +1153,7 @@ namespace Ogre {
         if (!overrideExisting && facti != mMovableObjectFactoryMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-                "A factory of type '" + fact->getType() + "' already exists.",
+                ::std::format("A factory of type '{}' already exists.", fact->getType() ),
                 "Root::addMovableObjectFactory");
         }
 
@@ -1191,7 +1191,7 @@ namespace Ogre {
         if (i == mMovableObjectFactoryMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                "MovableObjectFactory of type " + typeName + " does not exist",
+                ::std::format("MovableObjectFactory of type {} does not exist", typeName ),
                 "Root::getMovableObjectFactory");
         }
         return i->second;

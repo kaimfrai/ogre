@@ -269,7 +269,7 @@ namespace {
         if (notImplemented)
         {
             OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
-                        "DDS encoding for " + notImplementedString + " not supported");
+                        ::std::format("DDS encoding for {} not supported", notImplementedString ));
         }
         else
         {

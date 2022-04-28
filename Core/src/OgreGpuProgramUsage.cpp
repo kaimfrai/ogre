@@ -75,7 +75,7 @@ namespace Ogre
         {
             String progType = GpuProgram::getProgramTypeName(type);
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                        "Unable to locate " + progType + " program called " + name);
+                        ::std::format("Unable to locate {} program called ", progType ) + name);
         }
 
         return program;

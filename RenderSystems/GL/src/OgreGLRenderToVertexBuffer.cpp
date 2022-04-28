@@ -109,7 +109,7 @@ namespace Ogre {
 
         if (foundError && (logError || throwException))
         {
-            String fullErrorMessage = "GL Error : " + msg + " in " + sectionName;
+            String fullErrorMessage = ::std::format("GL Error : {} in ", msg ) + sectionName;
             if (logError)
             {
                 LogManager::getSingleton().getDefaultLog()->logMessage(fullErrorMessage, LML_CRITICAL);

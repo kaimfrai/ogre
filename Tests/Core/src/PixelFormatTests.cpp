@@ -150,7 +150,7 @@ void PixelFormatTests::testCase(PixelFormat srcFormat, PixelFormat dstFormat)
     mTemp[eob] = (unsigned char)0x56;
     mTemp[eob+1] = (unsigned char)0x23;
 
-    //std::cerr << "["+PixelUtil::getFormatName(srcFormat)+"->"+PixelUtil::getFormatName(dstFormat)+"]" << " " << eob << std::endl;
+    //std::cerr << ::std::format("[{}->", PixelUtil::getFormatName(srcFormat))+PixelUtil::getFormatName(dstFormat)+"]" << " " << eob << std::endl;
 
     // Do pack/unpacking with both naive and optimized version
     PixelUtil::bulkPixelConversion(mSrc, mDst1);
