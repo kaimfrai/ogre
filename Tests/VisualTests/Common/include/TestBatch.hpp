@@ -119,7 +119,7 @@ public:
     /** Gets the full path to the image at the specificied index */
     [[nodiscard]] Ogre::String getImagePath(size_t index) const
     {
-        return mDirectory + ::std::format("/{}.png", images[index] );
+        return ::std::format("{}/{}.png", mDirectory , images[index] );
     }
 
     /** Does image comparison on all images between these two sets */

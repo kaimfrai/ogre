@@ -217,22 +217,22 @@ namespace Ogre
         {
         case ShaderBased:
             batch = new InstanceBatchShader( this, mMeshReference, mat, mInstancesPerBatch,
-                                                    &idxMap, mName + ::std::format("/InstanceBatch_{}", StringConverter::toString(mIdCount++)));
+                                                    &idxMap, ::std::format("{}/InstanceBatch_{}", mName , StringConverter::toString(mIdCount++)));
             break;
         case TextureVTF:
             batch = new InstanceBatchVTF( this, mMeshReference, mat, mInstancesPerBatch,
-                                                    &idxMap, mName + ::std::format("/InstanceBatch_{}", StringConverter::toString(mIdCount++)));
+                                                    &idxMap, ::std::format("{}/InstanceBatch_{}", mName , StringConverter::toString(mIdCount++)));
             static_cast<InstanceBatchVTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
             static_cast<InstanceBatchVTF*>(batch)->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
             static_cast<InstanceBatchVTF*>(batch)->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
             break;
         case HWInstancingBasic:
             batch = new InstanceBatchHW( this, mMeshReference, mat, mInstancesPerBatch,
-                                                    &idxMap, mName + ::std::format("/InstanceBatch_{}", StringConverter::toString(mIdCount++)));
+            &idxMap, ::std::format("{}/InstanceBatch_{}", mName , mIdCount++));
             break;
         case HWInstancingVTF:
             batch = new InstanceBatchHW_VTF( this, mMeshReference, mat, mInstancesPerBatch,
-                                                    &idxMap, mName + ::std::format("/InstanceBatch_{}", StringConverter::toString(mIdCount++)));
+            &idxMap, ::std::format("{}/InstanceBatch_{}", mName , mIdCount++));
             static_cast<InstanceBatchHW_VTF*>(batch)->setBoneMatrixLookup((mInstancingFlags & IM_VTFBONEMATRIXLOOKUP) != 0, mMaxLookupTableInstances);
             static_cast<InstanceBatchHW_VTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
             static_cast<InstanceBatchHW_VTF*>(batch)->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
