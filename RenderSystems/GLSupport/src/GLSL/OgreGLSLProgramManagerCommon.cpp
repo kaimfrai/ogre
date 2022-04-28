@@ -288,7 +288,7 @@ namespace Ogre {
                 if (def.constType == GCT_UNKNOWN)
                 {
                     LogManager::getSingleton().logMessage("Problem parsing the following GLSL Uniform: '"
-                                                          + line + "' in file " + filename, LML_CRITICAL);
+                                                          + line + ::std::format("' in file {}", filename), LML_CRITICAL);
                     // next uniform
                     break;
                 }
@@ -316,8 +316,9 @@ namespace Ogre {
                 // warn if there is a default value, that we would overwrite
                 if (line.find('=') != String::npos)
                 {
-                    LogManager::getSingleton().logWarning("Default value of uniform '" + paramName +
-                                                          ::std::format("' is ignored in {}", filename));
+                    LogManager::getSingleton().logWarning(
+                        ::std::format("Default value of uniform '{}' is ignored in {}",
+                                      paramName, filename));
                     break;
                 }
             }

@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include "OgreGLRenderToVertexBuffer.hpp"
 
 #include <cassert>
+#include <format>
 #include <memory>
 #include <string>
 #include <vector>
@@ -333,8 +334,9 @@ namespace Ogre {
                 if (location < 0)
                 {
                     OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, 
-                        "GLSL link program does not output " + varyingName + 
-                        " so it cannot fill the requested vertex buffer", 
+                        ::std::format("GLSL link program does not output {}"
+                        " so it cannot fill the requested vertex buffer",
+                        varyingName),
                         "OgreGLRenderToVertexBuffer::bindVerticesOutput");
                 }
                 locations.push_back(location);

@@ -458,7 +458,7 @@ namespace Ogre
 
             if(! mGLDisplay)
             {
-                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Couldn`t open X display " + String((const char*)XDisplayName (0)), "GLXGLSupport::getGLDisplay");
+                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, ::std::format("Couldn`t open X display {}", String((const char*)XDisplayName (0))), "GLXGLSupport::getGLDisplay");
             }
         }
 
@@ -476,7 +476,7 @@ namespace Ogre
 
             if (! mXDisplay)
             {
-                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Couldn`t open X display " + String((const char*)displayString), "GLXGLSupport::getXDisplay");
+                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, ::std::format("Couldn`t open X display {}", String((const char*)displayString)), "GLXGLSupport::getXDisplay");
             }
 
             mAtomDeleteWindow = XInternAtom(mXDisplay, "WM_DELETE_WINDOW", True);

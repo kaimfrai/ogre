@@ -81,8 +81,7 @@ class RenderQueue;
         ChildMap::iterator i = mChildren.find(name);
         if (i != mChildren.end())
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "Child with name " + name + 
-                " already defined.", "OverlayContainer::addChild");
+            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("Child with name {} already defined.", name), "OverlayContainer::addChild");
         }
 
         mChildren.emplace(name, elem);
@@ -126,8 +125,7 @@ class RenderQueue;
         ChildMap::iterator i = mChildren.find(name);
         if (i == mChildren.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Child with name " + name + 
-                " not found.", "OverlayContainer::removeChild");
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Child with name {} not found.", name), "OverlayContainer::removeChild");
         }
 
         OverlayElement* element = i->second;
@@ -160,8 +158,7 @@ class RenderQueue;
         ChildMap::iterator i = mChildren.find(name);
         if (i == mChildren.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Child with name " + name + 
-                " not found.", "OverlayContainer::removeChild");
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Child with name {} not found.", name), "OverlayContainer::removeChild");
         }
 
         OverlayElement* element = i->second;
@@ -182,8 +179,7 @@ class RenderQueue;
         ChildMap::iterator i = mChildren.find(name);
         if (i == mChildren.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Child with name " + name + 
-                " not found.", "OverlayContainer::getChild");
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Child with name {} not found.", name), "OverlayContainer::getChild");
         }
 
         return i->second;

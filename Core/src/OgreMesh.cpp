@@ -265,7 +265,7 @@ namespace Ogre {
 
         if (!data) {
             OGRE_EXCEPT(Exception::ERR_INVALID_STATE,
-                        "Data doesn't appear to have been prepared in " + mName,
+                        ::std::format("Data doesn't appear to have been prepared in {}", mName),
                         "Mesh::loadImpl()");
         }
 
@@ -2241,7 +2241,7 @@ namespace Ogre {
         if (!ret)
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                "No animation entry found named " + name,
+                ::std::format("No animation entry found named {}", name),
                 "Mesh::getAnimation");
         }
 
@@ -2291,7 +2291,7 @@ namespace Ogre {
 
         if (i == mAnimationsList.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No animation entry found named " + name,
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", name),
                 "Mesh::getAnimation");
         }
 

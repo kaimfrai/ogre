@@ -434,9 +434,8 @@ class RenderQueue;
     String CmdTiling::doGet(const void* target) const
     {
         // NB only returns 1st layer tiling
-        String ret = "0 " + StringConverter::toString(
-            static_cast<const PanelOverlayElement*>(target)->getTileX() );
-        ret += " " + StringConverter::toString(
+        String ret = ::std::format("0 {} {}",
+            static_cast<const PanelOverlayElement*>(target)->getTileX(),
             static_cast<const PanelOverlayElement*>(target)->getTileY() );
         return ret;
     }

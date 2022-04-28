@@ -58,12 +58,18 @@ namespace Ogre {
         for (ti = triangles.begin(); ti != tiend; ++ti, ++num)
         {
             Triangle& t = *ti;
-            l->logMessage(::std::format("Triangle {} = {", StringConverter::toString(num) ) +
-                "indexSet=" + StringConverter::toString(t.indexSet) + ", " + 
-                "vertexSet=" + StringConverter::toString(t.vertexSet) + ", " + 
-                "v0=" + StringConverter::toString(t.vertIndex[0]) + ", " + 
-                "v1=" + StringConverter::toString(t.vertIndex[1]) + ", " + 
-                ::std::format("v2={}}", StringConverter::toString(t.vertIndex[2]) )); 
+            l->logMessage(::std::format("Triangle {} = {{"
+                "indexSet={}, "
+                "vertexSet={}, "
+                "v0={}, "
+                "v1={}, "
+                "v2={}}}",
+                StringConverter::toString(num),
+                StringConverter::toString(t.indexSet),
+                StringConverter::toString(t.vertexSet),
+                StringConverter::toString(t.vertIndex[0]),
+                StringConverter::toString(t.vertIndex[1]),
+                StringConverter::toString(t.vertIndex[2]) ));
         }
         iend = edgeGroups.end();
         for (i = edgeGroups.begin(); i != iend; ++i)
@@ -475,9 +481,10 @@ namespace Ogre {
         {
             const VertexData* vData = mVertexDataList[i];
             l->logMessage(".");
-            l->logMessage("Original vertex set " + 
-                StringConverter::toString(i) + " - vertex count " + 
-                StringConverter::toString(vData->vertexCount));
+            l->logMessage(::std::format("Original vertex set {}"
+                " - vertex count {}",
+                StringConverter::toString(i),
+                StringConverter::toString(vData->vertexCount)));
             const VertexElement* posElem = vData->vertexDeclaration->findElementBySemantic(VES_POSITION);
             HardwareVertexBufferSharedPtr vbuf = 
                 vData->vertexBufferBinding->getBuffer(posElem->getSource());
@@ -488,10 +495,13 @@ namespace Ogre {
             for (j = 0; j < vData->vertexCount; ++j)
             {
                 posElem->baseVertexPointerToElement(pBaseVertex, &pFloat);
-                l->logMessage("Vertex " + StringConverter::toString(j) + 
-                    ": (" + StringConverter::toString(pFloat[0]) + 
-                    ", " + StringConverter::toString(pFloat[1]) + 
-                    ", " + StringConverter::toString(pFloat[2]) + ")");
+                l->logMessage(
+                    ::std::format("Vertex {}: ({}, {}, {})",
+                    StringConverter::toString(j),
+                    StringConverter::toString(pFloat[0]),
+                    StringConverter::toString(pFloat[1]),
+                    StringConverter::toString(pFloat[2])
+                    ));
                 pBaseVertex += vbuf->getVertexSize();
             }
         }
@@ -501,11 +511,12 @@ namespace Ogre {
         {
             const IndexData* iData = mGeometryList[i].indexData;
             l->logMessage(".");
-            l->logMessage("Original triangle set " + 
-                StringConverter::toString(mGeometryList[i].indexSet) + " - index count " + 
-                StringConverter::toString(iData->indexCount) + " - " + 
-            ::std::format("vertex set {} - ", StringConverter::toString(mGeometryList[i].vertexSet) ) + 
-            ::std::format("operationType {}", StringConverter::toString(mGeometryList[i].opType)));
+            l->logMessage(
+                ::std::format("Original triangle set {} - index count {} - vertex set {} - operationType {}",
+                StringConverter::toString(mGeometryList[i].indexSet),
+                StringConverter::toString(iData->indexCount),
+                StringConverter::toString(mGeometryList[i].vertexSet),
+                StringConverter::toString(mGeometryList[i].opType)));
             // Get the indexes ready for reading
             HardwareBufferLockGuard indexLock(iData->indexBuffer, HardwareBuffer::HBL_READ_ONLY);
             unsigned short* p16Idx = static_cast<unsigned short*>(indexLock.pData);
@@ -522,16 +533,18 @@ namespace Ogre {
                         unsigned int n1 = *p32Idx++;
                         unsigned int n2 = *p32Idx++;
                         unsigned int n3 = *p32Idx++;
-                        l->logMessage("Triangle " + StringConverter::toString(j) +
-                            ": (" + StringConverter::toString(n1) + 
-                            ", " + StringConverter::toString(n2) + 
-                            ", " + StringConverter::toString(n3) + ")");
+                        l->logMessage(::std::format("Triangle {}: ({}, {}, {})",
+                            StringConverter::toString(j),
+                            StringConverter::toString(n1),
+                            StringConverter::toString(n2),
+                            StringConverter::toString(n3)));
                         j += 3;
                     }
                     else
                     {
-                        l->logMessage("Triangle " + StringConverter::toString(j) + 
-                            ::std::format(": ({})", StringConverter::toString(*p32Idx++) ));
+                        l->logMessage(::std::format("Triangle {}: ({})",
+                            StringConverter::toString(j),
+                            StringConverter::toString(*p32Idx++) ));
                         j++;
                     }
                 }
@@ -543,16 +556,17 @@ namespace Ogre {
                         unsigned short n1 = *p16Idx++;
                         unsigned short n2 = *p16Idx++;
                         unsigned short n3 = *p16Idx++;
-                        l->logMessage("Index " + StringConverter::toString(j) +
-                            ": (" + StringConverter::toString(n1) + 
-                            ", " + StringConverter::toString(n2) + 
-                            ", " + StringConverter::toString(n3) + ")");
+                        l->logMessage(::std::format("Index {}: ({}, {}, {})",
+                            StringConverter::toString(j),
+                            StringConverter::toString(n1),
+                            StringConverter::toString(n2),
+                            StringConverter::toString(n3)));
                         j += 3;
                     }
                     else
                     {
-                        l->logMessage("Triangle " + StringConverter::toString(j) + 
-                            ::std::format(": ({})", StringConverter::toString(*p16Idx++) ));
+                        l->logMessage(::std::format("Triangle {}: ({})",
+                            StringConverter::toString(j), StringConverter::toString(*p16Idx++) ));
                         j++;
                     }
                 }
@@ -560,15 +574,16 @@ namespace Ogre {
 
             // Log common vertex list
             l->logMessage(".");
-            l->logMessage("Common vertex list - vertex count " + 
-                StringConverter::toString(mVertices.size()));
+            l->logMessage(::std::format("Common vertex list - vertex count {}",
+                StringConverter::toString(mVertices.size())));
             for (k = 0; k < mVertices.size(); ++k)
             {
                 CommonVertex& c = mVertices[k];
-                l->logMessage("Common vertex " + StringConverter::toString(k) + 
-                    ": (vertexSet=" + StringConverter::toString(c.vertexSet) + 
-                    ", originalIndex=" + StringConverter::toString(c.originalIndex) + 
-                    ", position=" + StringConverter::toString(c.position));
+                l->logMessage(::std::format("Common vertex {}: (vertexSet={}, originalIndex={}, position={})",
+                    StringConverter::toString(k),
+                    StringConverter::toString(c.vertexSet),
+                    StringConverter::toString(c.originalIndex),
+                    StringConverter::toString(c.position)));
             }
         }
 

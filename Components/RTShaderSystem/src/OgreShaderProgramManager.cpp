@@ -202,7 +202,7 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
     if (itProcessor == mProgramProcessorsMap.end())
     {
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-            "Could not find processor for language '" + language,
+            ::std::format("Could not find processor for language '{}", language),
             "ProgramManager::createGpuPrograms");       
     }
 

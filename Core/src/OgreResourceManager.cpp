@@ -148,8 +148,9 @@ namespace Ogre {
 
         if (!result.second)
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, getResourceType()+" with the name " + res->getName() +
-                " already exists.", "ResourceManager::add");
+            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+                        ::std::format("{} with the name {} already exists.", getResourceType(), res->getName()),
+                        "ResourceManager::add");
         }
 
         // Insert the handle

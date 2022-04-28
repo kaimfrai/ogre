@@ -91,7 +91,7 @@ namespace Ogre
         if (mBuffer.empty())
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Queue is empty !", "MaterialSerializer::exportQueued");
 
-        LogManager::getSingleton().logMessage("MaterialSerializer : writing material(s) to material script : " + fileName, LML_NORMAL);
+        LogManager::getSingleton().logMessage(::std::format("MaterialSerializer : writing material(s) to material script : {}", fileName), LML_NORMAL);
         FILE *fp;
         fp = fopen(fileName.c_str(), "w");
         if (!fp)
@@ -1715,7 +1715,7 @@ namespace Ogre
                     // Get pointer to start of values
                     const float* pFloat = params->getFloatPointer(physicalIndex);
 
-                    writeValue("float" + countLabel, useMainBuffer);
+                    writeValue(::std::format("float{}", countLabel), useMainBuffer);
                     // iterate through real constants
                     for (size_t f = 0; f < physicalSize; ++f)
                     {
@@ -1727,7 +1727,7 @@ namespace Ogre
                     // Get pointer to start of values
                     const double* pDouble = params->getDoublePointer(physicalIndex);
 
-                    writeValue("double" + countLabel, useMainBuffer);
+                    writeValue(::std::format("double{}", countLabel), useMainBuffer);
                     // iterate through double constants
                     for (size_t f = 0; f < physicalSize; ++f)
                     {
@@ -1739,7 +1739,7 @@ namespace Ogre
                     // Get pointer to start of values
                     const int* pInt = params->getIntPointer(physicalIndex);
 
-                    writeValue("int" + countLabel, useMainBuffer);
+                    writeValue(::std::format("int{}", countLabel), useMainBuffer);
                     // iterate through int constants
                     for (size_t f = 0; f < physicalSize; ++f)
                     {
@@ -1751,7 +1751,7 @@ namespace Ogre
                     // Get pointer to start of values
                     const uint* pUInt = params->getUnsignedIntPointer(physicalIndex);
 
-                    writeValue("uint" + countLabel, useMainBuffer);
+                    writeValue(::std::format("uint{}", countLabel), useMainBuffer);
                     // iterate through uint constants
                     for (size_t f = 0; f < physicalSize; ++f)
                     {
@@ -1764,7 +1764,7 @@ namespace Ogre
                 //    // const bool* pBool = params->getBoolPointer(physicalIndex);
                 //    const uint* pBool = params->getUnsignedIntPointer(physicalIndex);
 
-                //    writeValue("bool" + countLabel, useMainBuffer);
+                //    writeValue(::std::format("bool{}", countLabel), useMainBuffer);
                 //    // iterate through bool constants
                 //    for (size_t f = 0; f < physicalSize; ++f)
                 //    {

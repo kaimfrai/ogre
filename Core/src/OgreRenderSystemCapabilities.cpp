@@ -103,7 +103,7 @@ namespace Ogre {
         pLog->logMessage(::std::format("Driver Version: {}", getDriverVersion().toString()));
         pLog->logMessage(" * Fixed function pipeline: " +
                          StringConverter::toString(hasCapability(RSC_FIXED_FUNCTION), true));
-        pLog->logMessage(" * 32-bit index buffers: " + StringConverter::toString(hasCapability(RSC_32BIT_INDEX), true));
+        pLog->logMessage(::std::format(" * 32-bit index buffers: {}", StringConverter::toString(hasCapability(RSC_32BIT_INDEX)), true));
         pLog->logMessage(" * Hardware stencil buffer: " +
                          StringConverter::toString(hasCapability(RSC_HWSTENCIL), true));
         if (hasCapability(RSC_HWSTENCIL))
@@ -140,7 +140,7 @@ namespace Ogre {
             pLog->logMessage("   - Number of constant 4-vectors: " +
                              StringConverter::toString(mTessellationDomainProgramConstantFloatCount));
         }
-        pLog->logMessage(" * Compute programs: " + StringConverter::toString(hasCapability(RSC_COMPUTE_PROGRAM), true));
+        pLog->logMessage(::std::format(" * Compute programs: {}", StringConverter::toString(hasCapability(RSC_COMPUTE_PROGRAM)), true));
         if (hasCapability(RSC_COMPUTE_PROGRAM))
         {
             pLog->logMessage("   - Number of constant 4-vectors: " +
@@ -154,14 +154,14 @@ namespace Ogre {
         pLog->logMessage(::std::format(" * Number of vertex attributes: {}", StringConverter::toString(mNumVertexAttributes)));
         pLog->logMessage(" * Textures");
         pLog->logMessage(::std::format("   - Number of texture units: {}", StringConverter::toString(mNumTextureUnits)));
-        pLog->logMessage("   - Floating point: " + StringConverter::toString(hasCapability(RSC_TEXTURE_FLOAT), true));
+        pLog->logMessage(::std::format("   - Floating point: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_FLOAT)), true));
         pLog->logMessage(
-            "   - Non-power-of-two: " + StringConverter::toString(hasCapability(RSC_NON_POWER_OF_2_TEXTURES), true) +
+            ::std::format("   - Non-power-of-two: {}", StringConverter::toString(hasCapability(RSC_NON_POWER_OF_2_TEXTURES)), true) +
             (mNonPOW2TexturesLimited ? " (limited)" : ""));
-        pLog->logMessage("   - 1D textures: " + StringConverter::toString(hasCapability(RSC_TEXTURE_1D), true));
-        pLog->logMessage("   - 2D array textures: " + StringConverter::toString(hasCapability(RSC_TEXTURE_2D_ARRAY), true));
-        pLog->logMessage("   - 3D textures: " + StringConverter::toString(hasCapability(RSC_TEXTURE_3D), true));
-        pLog->logMessage("   - Anisotropic filtering: " + StringConverter::toString(hasCapability(RSC_ANISOTROPY), true));
+        pLog->logMessage(::std::format("   - 1D textures: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_1D)), true));
+        pLog->logMessage(::std::format("   - 2D array textures: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_2D_ARRAY)), true));
+        pLog->logMessage(::std::format("   - 3D textures: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_3D)), true));
+        pLog->logMessage(::std::format("   - Anisotropic filtering: {}", StringConverter::toString(hasCapability(RSC_ANISOTROPY)), true));
 
         pLog->logMessage(
             " * Texture Compression: "
@@ -222,7 +222,7 @@ namespace Ogre {
         pLog->logMessage(::std::format("   - Multiple Render Targets: {}", StringConverter::toString(mNumMultiRenderTargets)));
         pLog->logMessage("   - With different bit depths: " +
                          StringConverter::toString(hasCapability(RSC_MRT_DIFFERENT_BIT_DEPTHS), true));
-        pLog->logMessage(" * Point Sprites: " + StringConverter::toString(hasCapability(RSC_POINT_SPRITES), true));
+        pLog->logMessage(::std::format(" * Point Sprites: {}", StringConverter::toString(hasCapability(RSC_POINT_SPRITES)), true));
         if (hasCapability(RSC_POINT_SPRITES))
         {
             pLog->logMessage("   - Extended parameters: " +

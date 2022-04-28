@@ -332,7 +332,7 @@ class Camera;
 
     void RenderTarget::getCustomAttribute(const String& name, void* pData)
     {
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Attribute not found. " + name, " RenderTarget::getCustomAttribute");
+        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Attribute not found. {}", name), " RenderTarget::getCustomAttribute");
     }
     //-----------------------------------------------------------------------
     void RenderTarget::addListener(RenderTargetListener* listener)

@@ -191,8 +191,9 @@ protected:
                     ++p;
 
             content->appendElement("h4")->appendText(
-                Ogre::StringConverter::toString(p) + " of " + 
-                Ogre::StringConverter::toString(result.size()) + " images passed.");
+                ::std::format("{} of {} images passed.",
+                    Ogre::StringConverter::toString(p),
+                    Ogre::StringConverter::toString(result.size())));
         }
 
         // loop over images

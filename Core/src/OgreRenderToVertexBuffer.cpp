@@ -60,7 +60,7 @@ class VertexDeclaration;
         mMaterial = MaterialManager::getSingleton().getByName(materialName);
 
         if (!mMaterial)
-            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, "Could not find material " + materialName,
+            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, ::std::format("Could not find material {}", materialName),
                          "RenderToVertexBuffer::setRenderToBufferMaterialName" );
 
         /* Ensure that the new material was loaded (will not load again if
