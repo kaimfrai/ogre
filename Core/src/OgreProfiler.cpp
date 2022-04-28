@@ -567,24 +567,16 @@ namespace Ogre {
         }
 
         LogManager::getSingleton().logMessage
-        (   indent
-        +   name
-        +   " | Min "
-        +   StringConverter::toString(Timer::clocksToMilliseconds(history.minClocks))
-        +   " | Max "
-        +   StringConverter::toString(Timer::clocksToMilliseconds(history.maxClocks))
-        +   " | Avg "
-        +   StringConverter::toString
+        (   ::std::format("{}{} | Min {} | Max {} | Avg {} | StdDev {} | Calls {}",
+            indent,
+            name,
+            Timer::clocksToMilliseconds(history.minClocks),
+            Timer::clocksToMilliseconds(history.maxClocks),
             (   Timer::clocksToMilliseconds(history.totalClocks)
             /   (long double)(history.totalCalls)
-            )
-        +   " | StdDev "
-        +   StringConverter::toString
-            (   history.StandardDeviationMilliseconds()
-            )
-        +   " | Calls "
-        +   StringConverter::toString
-            (   history.totalCalls
+            ),
+            history.StandardDeviationMilliseconds(),
+            history.totalCalls
             )
         );
 

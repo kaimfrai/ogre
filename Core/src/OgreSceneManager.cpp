@@ -3409,8 +3409,7 @@ MovableObject* SceneManager::createMovableObject(const String& name,
     if (objectMap->map.find(name) != objectMap->map.end())
     {
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-            ::std::format("An object of type '{}' with name '", typeName ) + name
-            + "' already exists.",
+            ::std::format("An object of type '{}' with name '{}' already exists.", typeName, name),
             "SceneManager::createMovableObject");
     }
 

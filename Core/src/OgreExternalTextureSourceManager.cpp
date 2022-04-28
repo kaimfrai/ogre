@@ -111,10 +111,10 @@ namespace Ogre
         {
             if( i->first == sTexturePlugInType )
             {
-                LogManager::getSingleton().logMessage( "Shutting Down Texture Controller: " 
-                        + i->second->getPluginStringName() 
-                        + " To be replaced by: "
-                        + pTextureSystem->getPluginStringName());
+                LogManager::getSingleton().logMessage(
+                    ::std::format("Shutting Down Texture Controller: {} To be replaced by: {}",
+                        i->second->getPluginStringName(),
+                        pTextureSystem->getPluginStringName()));
 
                 i->second->shutDown();              //Only one plugIn of Sent Type can be registered at a time
                                                     //so shut down old plugin before starting new plugin
