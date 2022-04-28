@@ -405,10 +405,10 @@ void ApplicationContextBase::locateResources()
     {
         const auto& mediaDir = getDefaultMediaDir();
         // add default locations
-        rgm.addResourceLocation(mediaDir + "/Main", "FileSystem", Ogre::RGN_INTERNAL);
+        rgm.addResourceLocation(::std::format("{}/Main", mediaDir), "FileSystem", Ogre::RGN_INTERNAL);
 
-        rgm.addResourceLocation(mediaDir + "/RTShaderLib/GLSL", "FileSystem", Ogre::RGN_INTERNAL);
-        rgm.addResourceLocation(mediaDir + "/RTShaderLib/HLSL_Cg", "FileSystem", Ogre::RGN_INTERNAL);
+        rgm.addResourceLocation(::std::format("{}/RTShaderLib/GLSL", mediaDir), "FileSystem", Ogre::RGN_INTERNAL);
+        rgm.addResourceLocation(::std::format("{}/RTShaderLib/HLSL_Cg", mediaDir), "FileSystem", Ogre::RGN_INTERNAL);
     }
 }
 

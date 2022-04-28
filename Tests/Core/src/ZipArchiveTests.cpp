@@ -54,7 +54,7 @@ void ZipArchiveTests::SetUp()
 {
     Ogre::ConfigFile cf;
     cf.load(Ogre::FileSystemLayer(/*OGRE_VERSION_NAME*/"Tsathoggua").getConfigFilePath("resources.cfg"));
-    Ogre::String testPath = cf.getSettings("Tests").begin()->second+"/misc/ArchiveTest.zip";
+    Ogre::String testPath = ::std::format("{}/misc/ArchiveTest.zip", cf.getSettings("Tests").begin()->second);
 
     arch = Ogre::ZipArchiveFactory().createInstance(testPath, true);
     arch->load();

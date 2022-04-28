@@ -264,7 +264,7 @@ namespace Ogre {
         case VES_POSITION:
             return "gl_Position";
         case VES_TEXTURE_COORDINATES:
-            return String("gl_TexCoord[") + StringConverter::toString(index) + "]";
+            return ::std::format("gl_TexCoord[{}]", index);
         case VES_DIFFUSE:
             return "gl_FrontColor";
         case VES_SPECULAR:

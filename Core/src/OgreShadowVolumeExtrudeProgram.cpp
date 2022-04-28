@@ -71,7 +71,7 @@ namespace Ogre {
             auto vp = HighLevelGpuProgramManager::getSingleton().getByName(name, RGN_INTERNAL);
             if (!vp)
                 OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                            String(name) + " not found. Verify that you referenced the 'Media/Main' "
+                           ::std::format("{} not found. Verify that you referenced the 'Media/Main' ", name),
                                            "folder in your resources.cfg");
             vp->load();
             mPrograms.push_back(vp);

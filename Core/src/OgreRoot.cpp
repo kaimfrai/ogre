@@ -844,7 +844,7 @@ namespace Ogre {
         }
         catch (Exception& e)
         {
-            LogManager::getSingleton().logError(e.getDescription()+" - skipping automatic plugin loading");
+            LogManager::getSingleton().logError(::std::format("{} - skipping automatic plugin loading", e.getDescription()));
             return;
         }
 

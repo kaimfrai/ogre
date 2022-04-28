@@ -532,7 +532,7 @@ namespace Ogre {
         String indent = "";
         for (uint i = 0; i < hierarchicalLvl; ++i) 
         {
-            indent = indent + "  ";
+            indent = ::std::format("{}  ", indent);
         }
 
         LogManager::getSingleton().logMessage

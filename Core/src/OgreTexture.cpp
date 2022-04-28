@@ -383,7 +383,7 @@ namespace Ogre {
         if (!dstream && getTextureType() == TEX_TYPE_CUBE_MAP)
         {
             // try again with one of the faces (non-dds)
-            dstream = ResourceGroupManager::getSingleton().openResource(mName + "_rt", mGroup, nullptr, false);
+            dstream = ResourceGroupManager::getSingleton().openResource(::std::format("{}_rt", mName), mGroup, nullptr, false);
         }
 
         return dstream ? Image::getFileExtFromMagic(dstream) : BLANKSTRING;

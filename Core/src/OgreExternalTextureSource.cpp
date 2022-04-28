@@ -190,11 +190,7 @@ namespace Ogre
 
         static_cast<const ExternalTextureSource*>(target)->getTextureTecPassStateLevel(t, p, s);
 
-        String ret = StringConverter::toString( t ) + " " 
-                    + StringConverter::toString( p ) + " " 
-                    + StringConverter::toString( s );
-        
-        return ret;         
+        return ::std::format("{} {} {}", t, p, s);
     }
 
     void CmdTecPassState::doSet(void* target, const String& val)

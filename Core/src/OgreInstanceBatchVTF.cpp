@@ -126,7 +126,7 @@ class RenderQueue;
         MatMap clonedMaterials;
 
         //We need to clone the material so we can have different textures for each batch.
-        mMaterial = material->clone( mName + "/VTFMaterial" );
+        mMaterial = material->clone( ::std::format("{}/VTFMaterial", mName) );
 
         //Now do the same with the techniques which have a material shadow caster
         for (Technique *technique : material->getTechniques())
@@ -292,7 +292,7 @@ class RenderQueue;
         TextureType texType = TEX_TYPE_2D;
 
         mMatrixTexture = TextureManager::getSingleton().createManual(
-                                        mName + "/VTF", mMeshReference->getGroup(), texType,
+                                        ::std::format("{}/VTF", mName), mMeshReference->getGroup(), texType,
                                         (uint)texWidth, (uint)texHeight,
                                         0, PF_FLOAT32_RGBA, TU_DYNAMIC_WRITE_ONLY_DISCARDABLE );
 

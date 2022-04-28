@@ -1275,7 +1275,7 @@ void ShaderGenerator::setShaderCachePath( const String& cachePath )
         if (mShaderCachePath.empty() == false)
         {   
             // Make sure this is a valid writable path.
-            String outTestFileName(mShaderCachePath + "ShaderGenerator.tst");
+            String outTestFileName(::std::format("{}ShaderGenerator.tst", mShaderCachePath));
             std::ofstream outFile(outTestFileName.c_str());
             
             if (!outFile)

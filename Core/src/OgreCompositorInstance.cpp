@@ -353,10 +353,13 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
             {
                 /// Mismatch -- warn user
                 /// XXX We could support repeating the last queue, with some effort
-                LogManager::getSingleton().logWarning("in compilation of Compositor "
-                    +mCompositor->getName()+": Attempt to render queue "+
-                    StringConverter::toString(pass->getFirstRenderQueue())+" after "+
-                    StringConverter::toString(finalState.currentQueueGroupID));
+                LogManager::getSingleton().logWarning(
+                    ::std::format("in compilation of Compositor "
+                        "{}: Attempt to render queue {} after {}",
+                        mCompositor->getName(),
+                        pass->getFirstRenderQueue(),
+                        finalState.currentQueueGroupID)
+                    );
             }
 
             RSSetSchemeOperation* setSchemeOperation = nullptr;
@@ -398,8 +401,9 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
             if(!srcmat)
             {
                 /// No material -- warn user
-                LogManager::getSingleton().logWarning("in compilation of Compositor "
-                    +mCompositor->getName()+": No material defined for composition pass");
+                LogManager::getSingleton().logWarning(
+                     ::std::format("in compilation of Compositor "
+                   "{}: No material defined for composition pass", mCompositor->getName()));
                 break;
             }
             srcmat->load();
@@ -424,7 +428,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
                 {
                     LogManager::getSingleton().logError(
                         ::std::format("in compilation of Compositor {}: material ", mCompositor->getName() ) +
-                        srcmat->getName() + " has no compute program");
+                        ::std::format("{} has no compute program", srcmat->getName()));
                     continue;
                 }
 
@@ -441,9 +445,9 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
                         else
                         {
                             /// Texture unit not there
-                            LogManager::getSingleton().logWarning("in compilation of Compositor "
-                                +mCompositor->getName()+::std::format(": material {} texture unit ", srcmat->getName())
-                                +StringConverter::toString(x)+" out of bounds");
+                            LogManager::getSingleton().logWarning(
+                                ::std::format("in compilation of Compositor {}"
+                                ": material {} texture unit {} out of bounds", mCompositor->getName(), srcmat->getName(), x));
                         }
                     }
                 }
