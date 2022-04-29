@@ -63,7 +63,6 @@ namespace Ogre {
         : Node(name)
         , mCreator(creator)
         , mAutoTrackTarget(nullptr)
-        , mGlobalIndex(-1)
         , mYawFixed(false)
         , mIsInSceneGraph(false)
         , mShowBoundingBox(false)

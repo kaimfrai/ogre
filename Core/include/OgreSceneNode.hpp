@@ -84,13 +84,6 @@ class SceneManager;
         /// Auto tracking target
         SceneNode* mAutoTrackTarget;
 
-        /** Index in the vector holding this node reference. Used for O(1) removals.
-
-            It is the parent (or our creator) the one that sets this value, not ourselves. Do NOT modify
-            it manually.
-        */
-        size_t mGlobalIndex;
-
         /// World-Axis aligned bounding box, updated only through _update
         AxisAlignedBox mWorldAABB;
 

@@ -71,6 +71,8 @@ Torus Knot Software Ltd.
 #include "OgreTextureUnitState.hpp"
 #include "OgreVector.hpp"
 
+#include "plf_hive.h"
+
 namespace Ogre {
     class Animation;
     class BillboardChain;
@@ -456,10 +458,14 @@ namespace Ogre {
         using MovableObjectMap = std::map<String, MovableObject *>;
     protected:
 
+        using SceneNodeList = plf::hive<SceneNode>;
+
         /// Subclasses can override this to ensure their specialised SceneNode is used.
-        virtual auto createSceneNodeImpl() -> SceneNode*;
+        virtual auto createSceneNodeImpl() -> SceneNodeList::iterator;
         /// Subclasses can override this to ensure their specialised SceneNode is used.
-        virtual auto createSceneNodeImpl(::std::string_view name) -> SceneNode*;
+        virtual auto createSceneNodeImpl(::std::string_view name) -> SceneNodeList::iterator;
+        /// Subclasses can override this to ensure their specialised SceneNode is used.
+        virtual auto createRootSceneNodeImpl(::std::string_view name) -> ::std::unique_ptr<SceneNode>;
 
         /// Instance name
         String mName;
@@ -481,8 +487,6 @@ namespace Ogre {
 
         using InstanceManagerMap = std::map<String, InstanceManager *>;
         InstanceManagerMap  mInstanceManagerMap;
-
-        using SceneNodeList = std::vector<SceneNode *>;
 
         /** Central list of SceneNodes - for easy memory management.
             @note

@@ -100,6 +100,8 @@ THE SOFTWARE.
 #include "OgreVector.hpp"
 #include "OgreViewport.hpp"
 
+#include "plf_hive.h"
+
 // This class implements the most basic scene manager
 
 #include <algorithm>
@@ -706,10 +708,6 @@ void SceneManager::clearScene()
     getRootSceneNode()->detachAllObjects();
 
     // Delete all SceneNodes, except root that is
-    for (auto & mSceneNode : mSceneNodes)
-    {
-        delete mSceneNode;
-    }
     mSceneNodes.clear();
     mNamedNodes.clear();
     mAutoTrackingSceneNodes.clear();
@@ -727,21 +725,24 @@ void SceneManager::clearScene()
     mAutoParamDataSource.reset(createAutoParamDataSource());
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createSceneNodeImpl() -> SceneNode*
+auto SceneManager::createSceneNodeImpl() -> SceneNodeList::iterator
 {
-    return new SceneNode(this);
+    return mSceneNodes.emplace(this);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createSceneNodeImpl(::std::string_view name) -> SceneNode*
+auto SceneManager::createSceneNodeImpl(::std::string_view name) -> SceneNodeList::iterator
 {
-    return new SceneNode(this, name);
-}//-----------------------------------------------------------------------
+    return mSceneNodes.emplace(this, name);
+}
+//-----------------------------------------------------------------------
 auto SceneManager::createSceneNode() -> SceneNode*
 {
-    SceneNode* sn = createSceneNodeImpl();
-    mSceneNodes.push_back(sn);
-    sn->mGlobalIndex = mSceneNodes.size() - 1;
-    return sn;
+    return ::std::addressof(*createSceneNodeImpl());
+}
+//-----------------------------------------------------------------------
+auto SceneManager::createRootSceneNodeImpl(::std::string_view name) -> ::std::unique_ptr<SceneNode>
+{
+    return ::std::make_unique<SceneNode>(this, name);
 }
 //-----------------------------------------------------------------------
 auto SceneManager::createSceneNode(::std::string_view name) -> SceneNode*
@@ -755,10 +756,8 @@ auto SceneManager::createSceneNode(::std::string_view name) -> SceneNode*
             "SceneManager::createSceneNode" );
     }
 
-    SceneNode* sn = createSceneNodeImpl(name);
-    mSceneNodes.push_back(sn);
+    SceneNode* const sn = ::std::addressof(*createSceneNodeImpl(name));
     mNamedNodes[sn->getName()] = sn;
-    sn->mGlobalIndex = mSceneNodes.size() - 1;
     return sn;
 }
 //-----------------------------------------------------------------------
@@ -787,13 +786,13 @@ void SceneManager::_destroySceneNode(SceneNodeList::iterator i)
         auto curri = ai++;
         SceneNode* n = *curri;
         // Tracking this node
-        if (n->getAutoTrackTarget() == *i)
+        if (n->getAutoTrackTarget() == ::std::addressof(*i))
         {
             // turn off, this will notify SceneManager to remove
             n->setAutoTracking(false);
         }
         // node is itself a tracker
-        else if (n == *i)
+        else if (n == ::std::addressof(*i))
         {
             mAutoTrackingSceneNodes.erase(curri);
         }
@@ -801,32 +800,21 @@ void SceneManager::_destroySceneNode(SceneNodeList::iterator i)
 
     // detach from parent (don't do this in destructor since bulk destruction
     // behaves differently)
-    Node* parentNode = (*i)->getParent();
+    Node* parentNode = i->getParent();
     if (parentNode)
     {
-        parentNode->removeChild(*i);
+        parentNode->removeChild(::std::addressof(*i));
     }
-    if(!(*i)->getName().empty())
-        mNamedNodes.erase((*i)->getName());
-    delete *i;
-    if (std::next(i) != mSceneNodes.end())
-    {
-       std::swap(*i, mSceneNodes.back());
-       (*i)->mGlobalIndex = i - mSceneNodes.begin();
-    }
-    mSceneNodes.pop_back();
+    if(!i->getName().empty())
+        mNamedNodes.erase(i->getName());
+    mSceneNodes.erase(i);
 }
 //---------------------------------------------------------------------
 void SceneManager::destroySceneNode(SceneNode* sn)
 {
     OgreAssert(sn, "Cannot destroy a null SceneNode");
 
-    auto pos = sn->mGlobalIndex < mSceneNodes.size() &&
-                       sn == *(mSceneNodes.begin() + sn->mGlobalIndex)
-                   ? mSceneNodes.begin() + sn->mGlobalIndex
-                   : mSceneNodes.end();
-
-    _destroySceneNode(pos);
+    _destroySceneNode(mSceneNodes.get_iterator(sn));
 }
 //-----------------------------------------------------------------------
 auto SceneManager::getRootSceneNode() -> SceneNode*
@@ -834,7 +822,7 @@ auto SceneManager::getRootSceneNode() -> SceneNode*
     if (!mSceneRoot)
     {
         // Create root scene node
-        mSceneRoot.reset(createSceneNodeImpl("Ogre/SceneRoot"));
+        mSceneRoot = createRootSceneNodeImpl("Ogre/SceneRoot");
         mSceneRoot->_notifyRootNode();
     }
 
