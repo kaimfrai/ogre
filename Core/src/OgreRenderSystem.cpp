@@ -50,7 +50,6 @@ THE SOFTWARE.
 #include "OgrePlane.h"
 #include "OgrePlatform.h"
 #include "OgrePrerequisites.h"
-#include "OgreProfiler.h"
 #include "OgreRenderOperation.h"
 #include "OgreRenderSystem.h"
 #include "OgreRenderSystemCapabilities.h"
@@ -295,7 +294,6 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::_swapAllRenderTargetBuffers()
     {
-        Ogre::Profile swapAllRenderTargetBuffersProfile("_swapAllRenderTargetBuffers");
         // Update all in order of priority
         // This ensures render-to-texture targets get updated before render windows
         RenderTargetPriorityMap::iterator itarg, itargend;
