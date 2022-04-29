@@ -41,7 +41,6 @@ THE SOFTWARE.
 #include "OgrePlane.h"
 #include "OgrePlaneBoundedVolume.h"
 #include "OgrePrerequisites.h"
-#include "OgreProfiler.h"
 #include "OgreQuaternion.h"
 #include "OgreRay.h"
 #include "OgreSceneManager.h"
@@ -170,8 +169,6 @@ class Sphere;
     //-----------------------------------------------------------------------
     void Camera::_renderScene(Viewport *vp)
     {
-        Ogre::Profiler::getSingleton().beginGPUEvent(getName());
-
         //update the pixel display ratio
         if (mProjType == Ogre::PT_PERSPECTIVE)
         {
@@ -200,7 +197,6 @@ class Sphere;
         {
             (*i)->cameraPostRenderScene(this);
         }
-        Ogre::Profiler::getSingleton().endGPUEvent(getName());
     }
     //---------------------------------------------------------------------
     void Camera::addListener(Listener* l)
