@@ -15,50 +15,8 @@ import <utility>;
 
 using namespace Ogre;
 
-using namespace OgreBites;
-static const char *c_instancingTechniques[] =
-{
-    "Shader Based",
-    "Vertex Texture Fetch (VTF)",
-    "Hardware Instancing Basic",
-    "Hardware Instancing + VTF",
-    "Limited Animation - Hardware Instancing + VTF",
-    "No Instancing"
-};
-static const char *c_materialsTechniques[] =
-{
-    "Examples/Instancing/RTSS/Robot",
-    "Examples/Instancing/VTF/Robot",
-    "Examples/Instancing/HWBasic/Robot",
-    "Examples/Instancing/VTF/HW/Robot",
-    "Examples/Instancing/VTF/HW/LUT/Robot",
-    "Examples/Instancing/RTSS/Robot"
-};
-static const char *c_materialsTechniques_dq[] =
-{
-    "Examples/Instancing/RTSS/Robot_dq",
-    "Examples/Instancing/VTF/Robot_dq",
-    "Examples/Instancing/HWBasic/Robot",
-    "Examples/Instancing/VTF/HW/Robot_dq",
-    "Examples/Instancing/VTF/HW/LUT/Robot_dq",
-    "Examples/Instancing/RTSS/Robot_dq"
-};
-static const char *c_materialsTechniques_dq_two_weights[] =
-{
-    "Examples/Instancing/RTSS/spine_dq_two_weights",
-    "Examples/Instancing/VTF/spine_dq_two_weights",
-    "Examples/Instancing/HWBasic/spine",
-    "Examples/Instancing/VTF/HW/spine_dq_two_weights",
-    "Examples/Instancing/VTF/HW/LUT/spine_dq_two_weights",
-    "Examples/Instancing/RTSS/spine_dq_two_weights"
-};
-static const char *c_meshNames[] =
-{
-    "robot.mesh",
-    "spine.mesh"
-};
 //------------------------------------------------------------------------------
-Sample_NewInstancing::Sample_NewInstancing() :  mCurrentMaterialSet(c_materialsTechniques) 
+Sample_NewInstancing::Sample_NewInstancing()
 {
     mInfo["Title"] = "New Instancing";
     mInfo["Description"] = "Demonstrates how to use the new InstancedManager to setup many dynamic"
@@ -76,13 +34,9 @@ Sample_NewInstancing::Sample_NewInstancing() :  mCurrentMaterialSet(c_materialsT
 //------------------------------------------------------------------------------
 auto Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt) -> bool
 {
-    Ogre::Profile profile("New Instancing");
+    animateUnits( /*evt.timeSinceLastEvent*/ 1.0f/60.0f);
 
-    if( mAnimateInstances->isChecked() )
-        animateUnits( /*evt.timeSinceLastEvent*/ 1.0f/30.0f);
-
-    if( mMoveInstances->isChecked() )
-        moveUnits( /*evt.timeSinceLastEvent*/ 1.0f/30.0f);
+    moveUnits( /*evt.timeSinceLastEvent*/ 1.0f/60.0f);
 
     return SdkSample::frameRenderingQueued(evt);        // don't forget the parent class updates!
 }
@@ -90,19 +44,6 @@ auto Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt) -> bool
 //------------------------------------------------------------------------------
 auto Sample_NewInstancing::keyPressed(const KeyboardEvent& evt) -> bool
 {
-    Keycode key = evt.keysym.sym;
-    //Toggle bounding boxes with B key unless the help dialog is visible
-    if (key == 'b' && !mTrayMgr->isDialogVisible() && mCurrentManager)
-    {
-        bool oldShow = mCurrentManager->getSetting( InstanceManager::SHOW_BOUNDINGBOX,
-            mCurrentMaterialSet[mInstancingTechnique] );
-        mCurrentManager->setSetting( InstanceManager::SHOW_BOUNDINGBOX, !oldShow );
-    }
-
-    //Switch to next instancing technique with space bar
-    if (key == SDLK_SPACE && !mTrayMgr->isDialogVisible())
-        mTechniqueMenu->selectItem( (mTechniqueMenu->getSelectionIndex() + 1) % (NUM_TECHNIQUES+1) );
-
     return SdkSample::keyPressed(evt);
 }
 
@@ -131,11 +72,7 @@ void Sample_NewInstancing::setupContent()
     MaterialManager::getSingleton().setActiveScheme(mViewport->getMaterialScheme());
 
     //Initialize the techniques and current mesh variables
-    mInstancingTechnique    = 0;
-    mCurrentMesh            = 0;
     mCurrentManager         = nullptr;
-
-    checkHardwareSupport();
 
     mSceneMgr->setShadowTechnique( SHADOWTYPE_TEXTURE_ADDITIVE_INTEGRATED );
     mSceneMgr->setShadowTextureSelfShadow( true );
@@ -173,8 +110,6 @@ void Sample_NewInstancing::setupContent()
     // set initial camera position and speed
     mCameraNode->setPosition( 0, 120, 100 );
 
-    setupGUI();
-
     setDragLook(true);
 
     switchInstancingTechnique();
@@ -198,146 +133,21 @@ void Sample_NewInstancing::setupLighting()
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::switchInstancingTechnique()
 {
-    //mInstancingTechnique = (mInstancingTechnique+1) % (NUM_TECHNIQUES+1);
-    mInstancingTechnique = mTechniqueMenu->getSelectionIndex();
+    //Instancing
 
-    if( mCurrentManager )
-        mSceneMgr->destroyInstanceManager(mCurrentManager);
+    //Create the manager if we haven't already (i.e. first time)
+    //Because we use IM_USEALL as flags, the actual num of instances per batch might be much lower
+    //If you're not bandwidth limited, you may want to lift IM_VTFBESTFIT flag away
 
-    if( !mSupportedTechniques[mInstancingTechnique] )
-    {
-        //Hide GUI features available only to instancing
-        mCurrentManager = nullptr;
-        mDefragmentBatches->hide();
-        mDefragmentOptimumCull->hide();
-        return;
-    }
 
-    if( mInstancingTechnique < NUM_TECHNIQUES )
-    {
-        //Instancing
+    mCurrentManager = mSceneMgr->createInstanceManager(
+        "InstanceMgr", "robot.mesh",
+        ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, InstanceManager::ShaderBased,
+        NUM_INST_ROW * NUM_INST_COLUMN, IM_USEALL);
 
-        //Create the manager if we haven't already (i.e. first time)
-        //Because we use IM_USEALL as flags, the actual num of instances per batch might be much lower
-        //If you're not bandwidth limited, you may want to lift IM_VTFBESTFIT flag away
-
-        InstanceManager::InstancingTechnique technique = InstanceManager::ShaderBased;
-
-        switch( mInstancingTechnique )
-        {
-        case 0: technique = InstanceManager::ShaderBased; break;
-        case 1: technique = InstanceManager::TextureVTF; break;
-        case 2: technique = InstanceManager::HWInstancingBasic; break;
-        case 3:
-        case 4: technique = InstanceManager::HWInstancingVTF; break;
-        }
-
-        uint16 flags = IM_USEALL;
-        flags |= mCurrentFlags;
-
-        if (mInstancingTechnique == 4)
-        {
-            flags |= IM_VTFBONEMATRIXLOOKUP;
-        }
-        //Only one weight is recommended for the VTF technique, but force the use of more for the demo
-        if(mInstancingTechnique == 1 && (flags & IM_USEBONEDUALQUATERNIONS))
-        {
-            flags &= ~IM_USEONEWEIGHT;
-        }
-
-        mCurrentManager = mSceneMgr->createInstanceManager(
-            ::std::format("InstanceMgr{}", StringConverter::toString(mInstancingTechnique)), c_meshNames[mCurrentMesh],
-            ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, technique,
-            NUM_INST_ROW * NUM_INST_COLUMN, flags);
-
-        createInstancedEntities();
-
-        //Show GUI features available only to instancing
-        mDefragmentBatches->show();
-        mDefragmentOptimumCull->show();
-    }
-    else
-    {
-        //Non-instancing
-        createEntities();
-
-        //Hide GUI features available only to instancing
-        mCurrentManager = nullptr;
-        mDefragmentBatches->hide();
-        mDefragmentOptimumCull->hide();
-    }
+    createInstancedEntities();
 
     createSceneNodes();
-
-    //Show/hide "static" button, and restore config. Do this _after_ createSceneNodes()
-    if( mInstancingTechnique == InstanceManager::HWInstancingBasic ||
-        mInstancingTechnique == InstanceManager::HWInstancingVTF ||
-        mInstancingTechnique == InstanceManager::HWInstancingVTF + 1) // instancing with lookup
-    {
-        if( mSetStatic->isChecked() )
-            mCurrentManager->setBatchesAsStaticAndUpdate( mSetStatic->isChecked() );
-        mSetStatic->show();
-    }
-    else
-        mSetStatic->hide();
-    if( mInstancingTechnique < NUM_TECHNIQUES)
-    {
-        mUseSceneNodes->show();
-    }
-    else
-    {
-        mUseSceneNodes->hide();
-    }
-}
-
-//------------------------------------------------------------------------------
-void Sample_NewInstancing::switchSkinningTechnique(int index)
-{
-    switch(index)
-    {
-        default:
-        //Linear Skinning
-        case 0:
-            mCurrentMesh = 0;
-            mCurrentMaterialSet = c_materialsTechniques;
-            mCurrentFlags = 0;
-            break;
-        //Dual Quaternion Skinning
-        case 1:
-            mCurrentMesh = 0;
-            mCurrentMaterialSet = c_materialsTechniques_dq;
-            mCurrentFlags = IM_USEBONEDUALQUATERNIONS;
-            break;
-        //Dual Quaternion Skinning with two weights
-        case 2:
-            mCurrentMesh = 1;
-            mCurrentMaterialSet = c_materialsTechniques_dq_two_weights;
-            mCurrentFlags = IM_USEBONEDUALQUATERNIONS;
-            break;
-    };
-}
-
-//------------------------------------------------------------------------------
-void Sample_NewInstancing::createEntities()
-{
-    std::mt19937 rng;
-    for( int i=0; i<NUM_INST_ROW * NUM_INST_COLUMN; ++i )
-    {
-        //Create the non-instanced entity. Use the same shader as shader-based because:
-        //a. To prove we can (runs without modification! :-) )
-        //b. Make a fair comparison
-        Entity *ent = mSceneMgr->createEntity( c_meshNames[mCurrentMesh] );
-        ent->setMaterialName( mCurrentMaterialSet[NUM_TECHNIQUES] );
-        mEntities.push_back( ent );
-
-        //Get the animation
-        AnimationState *anim = ent->getAnimationState( "Walk" );
-        if (mAnimations.insert( anim ).second)
-        {
-            anim->setEnabled( true );
-            anim->addTime( float(rng())/float(rng.max()) * 10 ); //Random start offset
-        }
-    }
 }
 
 //------------------------------------------------------------------------------
@@ -350,26 +160,14 @@ void Sample_NewInstancing::createInstancedEntities()
         for( int j=0; j<NUM_INST_COLUMN; ++j )
         {
             //Create the instanced entity
-        InstancedEntity *ent = mCurrentManager->createInstancedEntity(mCurrentMaterialSet[mInstancingTechnique] );
+            InstancedEntity *ent = mCurrentManager->createInstancedEntity("Examples/Instancing/RTSS/Robot" );
             mEntities.push_back( ent );
 
-            //HWInstancingBasic is the only technique without animation support
-            if( mInstancingTechnique != InstanceManager::HWInstancingBasic)
-            {
-                //Get the animation
-                AnimationState *anim = ent->getAnimationState( "Walk" );
-                anim->setEnabled( true );
-                anim->addTime( float(rng())/float(rng.max()) * 10); //Random start offset
-                mAnimations.insert( anim );
-            }
-
-            if ((mInstancingTechnique < NUM_TECHNIQUES) && (!mUseSceneNodes->isChecked()))
-            {
-                mMovedInstances.push_back( ent );
-                ent->setOrientation(Quaternion(Radian(float(orng())/float(orng.max()) * 10 * Math::PI), Vector3::UNIT_Y));
-                ent->setPosition( Ogre::Vector3(mEntities[0]->getBoundingRadius() * (i - NUM_INST_ROW * 0.5f), 0,
-                    mEntities[0]->getBoundingRadius() * (j - NUM_INST_COLUMN * 0.5f)) );
-            }
+            //Get the animation
+            AnimationState *anim = ent->getAnimationState( "Walk" );
+            anim->setEnabled( true );
+            anim->addTime( float(rng())/float(rng.max()) * 10); //Random start offset
+            mAnimations.insert( anim );
         }
     }
 }
@@ -387,16 +185,12 @@ void Sample_NewInstancing::createSceneNodes()
         for( int j=0; j<NUM_INST_COLUMN; ++j )
         {
             int idx = i * NUM_INST_COLUMN + j;
-            if ((mInstancingTechnique >= NUM_TECHNIQUES) || (mUseSceneNodes->isChecked()))
-            {
-                SceneNode *sceneNode = rootNode->createChildSceneNode();
-                sceneNode->attachObject( mEntities[idx] );
-                sceneNode->yaw( Radian( float(rng())/float(rng.max()) * 10 * Math::PI )); //Random orientation
-                sceneNode->setPosition( mEntities[idx]->getBoundingRadius() * (i - NUM_INST_ROW * 0.5f), 0,
-                    mEntities[idx]->getBoundingRadius() * (j - NUM_INST_COLUMN * 0.5f) );
-                mSceneNodes.push_back( sceneNode );
-            }
-
+            SceneNode *sceneNode = rootNode->createChildSceneNode();
+            sceneNode->attachObject( mEntities[idx] );
+            sceneNode->yaw( Radian( float(rng())/float(rng.max()) * 10 * Math::PI )); //Random orientation
+            sceneNode->setPosition( mEntities[idx]->getBoundingRadius() * (i - NUM_INST_ROW * 0.5f), 0,
+                mEntities[idx]->getBoundingRadius() * (j - NUM_INST_COLUMN * 0.5f) );
+            mSceneNodes.push_back( sceneNode );
         }
     }
 }
@@ -417,10 +211,8 @@ void Sample_NewInstancing::clearScene()
             sceneNode->detachAllObjects();
             sceneNode->getParentSceneNode()->removeAndDestroyChild( sceneNode );
         }
-        if( mInstancingTechnique == NUM_TECHNIQUES )
-            mSceneMgr->destroyEntity( (*itor)->getName() );
-        else
-            mSceneMgr->destroyInstancedEntity( static_cast<InstancedEntity*>(*itor) );
+
+        mSceneMgr->destroyInstancedEntity( static_cast<InstancedEntity*>(*itor) );
 
         ++itor;
     }
@@ -453,7 +245,6 @@ void Sample_NewInstancing::cleanupContent()
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::animateUnits( float timeSinceLast )
 {
-    Ogre::Profile profile("Animate");
     //Iterates through all AnimationSets and updates the animation being played. Demonstrates the
     //animation is unique and independent to each instance
     auto itor = mAnimations.begin();
@@ -469,7 +260,6 @@ void Sample_NewInstancing::animateUnits( float timeSinceLast )
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::moveUnits( float timeSinceLast )
 {
-    Ogre::Profile profile("Move");
     Real fMovSpeed = 1.0f;
 
     if( !mEntities.empty() )
@@ -574,151 +364,4 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
 auto Sample_NewInstancing::lookAt( const Vector3 &normDir ) -> Quaternion
 {
     return Math::lookRotation(normDir.normalisedCopy(), Vector3::UNIT_Y);
-}
-
-//------------------------------------------------------------------------------
-void Sample_NewInstancing::defragmentBatches()
-{
-    //Defragment batches is used after many InstancedEntities were removed (and you won't
-    //be requesting more). However, then the optimize cull option is on, it can cause
-    //quite a perf. boost on large batches (i.e. VTF) even if not a single instance was ever removed.
-    if( mCurrentManager )
-        mCurrentManager->defragmentBatches( mDefragmentOptimumCull->isChecked() );
-}
-
-//------------------------------------------------------------------------------
-void Sample_NewInstancing::setupGUI()
-{
-    mTechniqueMenu = mTrayMgr->createLongSelectMenu(
-        TL_TOPLEFT, "TechniqueSelectMenu", "Technique", 450, 350, 5);
-    for( int i=0; i<NUM_TECHNIQUES+1; ++i )
-    {
-        String text = c_instancingTechniques[i];
-        if( !mSupportedTechniques[i] )
-            text = ::std::format("Unsupported: {}", text);
-        mTechniqueMenu->addItem( text );
-    }
-    //Check box to enable dual quaternion skinning
-    mSkinningTechniques = mTrayMgr->createLongSelectMenu(TL_TOPLEFT, "SkinningTechnique", "Skinning Technique", 450, 285, 5);
-    mSkinningTechniques->addItem("Linear Skinning");
-    mSkinningTechniques->addItem("Dual Quaternion Skinning");
-    mSkinningTechniques->addItem("Dual Quaternion Skinning (2 wgts)");
-
-    //Check box to move the units
-    mMoveInstances = mTrayMgr->createCheckBox(TL_TOPRIGHT, "MoveInstances", "Move Instances", 175);
-    mMoveInstances->setChecked(true);
-
-    //Check box to animate the units
-    mAnimateInstances = mTrayMgr->createCheckBox(TL_TOPRIGHT, "AnimateInstances",
-        "Animate Instances", 175);
-    mAnimateInstances->setChecked(true);
-
-    //Checkbox to toggle shadows
-    mEnableShadows = mTrayMgr->createCheckBox(TL_TOPRIGHT, "EnableShadows",
-        "Enable Shadows", 175);
-    mEnableShadows->setChecked(true);
-
-    //Check box to make instances static (where supported)
-    mSetStatic = mTrayMgr->createCheckBox(TL_TOPRIGHT, "SetStatic", "Set Static", 175);
-    mSetStatic->setChecked(false);
-
-    //Checkbox to toggle use of scene nodes
-    mUseSceneNodes = mTrayMgr->createCheckBox(TL_TOPRIGHT, "UseSceneNodes",
-        "Use Scene Nodes", 175);
-    mUseSceneNodes->setChecked(true, false);
-
-    //Controls to control batch defragmentation on the fly
-    mDefragmentBatches =  mTrayMgr->createButton(TL_RIGHT, "DefragmentBatches",
-        "Defragment Batches", 175);
-    mDefragmentOptimumCull = mTrayMgr->createCheckBox(TL_RIGHT, "DefragmentOptimumCull",
-        "Optimum Cull", 175);
-    mDefragmentOptimumCull->setChecked(true);
-
-    //Slider to control max number of instances
-    mInstancesSlider = mTrayMgr->createThickSlider( TL_TOPLEFT, "InstancesSlider", "Instances (NxN)",
-        300, 50, 4, 100, 97 );
-    mInstancesSlider->setValue( NUM_INST_ROW );
-
-    mTrayMgr->showCursor();
-}
-
-//------------------------------------------------------------------------------
-void Sample_NewInstancing::itemSelected( SelectMenu* menu )
-{
-    if (menu == mTechniqueMenu)
-    {
-        clearScene();
-        switchInstancingTechnique();
-    }
-    else if(menu == mSkinningTechniques)
-    {
-        clearScene();
-        switchSkinningTechnique(menu->getSelectionIndex());
-        switchInstancingTechnique();
-    }
-}
-
-//------------------------------------------------------------------------------
-void Sample_NewInstancing::buttonHit( OgreBites::Button* button )
-{
-    if( button == mDefragmentBatches ) defragmentBatches();
-}
-
-//------------------------------------------------------------------------------
-void Sample_NewInstancing::checkBoxToggled( CheckBox* box )
-{
-    if( box == mEnableShadows )
-    {
-        mSceneMgr->setShadowTechnique( mEnableShadows->isChecked() ?
-            SHADOWTYPE_TEXTURE_ADDITIVE_INTEGRATED : SHADOWTYPE_NONE );
-    }
-    else if( box == mSetStatic && mCurrentManager )
-    {
-        mCurrentManager->setBatchesAsStaticAndUpdate( mSetStatic->isChecked() );
-    }
-    else if (box == mUseSceneNodes)
-    {
-        clearScene();
-        switchInstancingTechnique();
-    }
-}
-
-//------------------------------------------------------------------------------
-void Sample_NewInstancing::sliderMoved( Slider* slider )
-{
-    if( slider == mInstancesSlider ) NUM_INST_ROW = static_cast<int>(mInstancesSlider->getValue());
-    NUM_INST_COLUMN = static_cast<int>(mInstancesSlider->getValue());
-}
-
-//------------------------------------------------------------------------------
-void Sample_NewInstancing::checkHardwareSupport()
-{
-    //Check Technique support
-    for( int i=0; i<NUM_TECHNIQUES; ++i )
-    {
-        InstanceManager::InstancingTechnique technique;
-        switch( i )
-        {
-        case 0: technique = InstanceManager::ShaderBased; break;
-        case 1: technique = InstanceManager::TextureVTF; break;
-        case 2: technique = InstanceManager::HWInstancingBasic; break;
-        case 3:
-        case 4: technique = InstanceManager::HWInstancingVTF; break;
-        }
-
-        uint16 flags = IM_USEALL;
-        if (i == 4)
-        {
-            flags |= IM_VTFBONEMATRIXLOOKUP;
-        }
-
-        const size_t numInstances = mSceneMgr->getNumInstancesPerBatch( c_meshNames[mCurrentMesh],
-            ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME,
-            mCurrentMaterialSet[i], technique, NUM_INST_ROW * NUM_INST_COLUMN, flags );
-
-        mSupportedTechniques[i] = numInstances > 0;
-    }
-
-    //Non instancing is always supported
-    mSupportedTechniques[NUM_TECHNIQUES] = true;
 }

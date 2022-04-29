@@ -50,7 +50,6 @@ import :MaterialManager;
 import :Plane;
 import :Platform;
 import :Prerequisites;
-import :Profiler;
 import :RenderOperation;
 import :RenderSystem;
 import :RenderSystemCapabilities;
@@ -265,7 +264,6 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::_swapAllRenderTargetBuffers()
     {
-        Ogre::Profile swapAllRenderTargetBuffersProfile("_swapAllRenderTargetBuffers");
         // Update all in order of priority
         // This ensures render-to-texture targets get updated before render windows
         RenderTargetPriorityMap::iterator itarg, itargend;

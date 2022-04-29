@@ -40,7 +40,6 @@ import :Matrix4;
 import :Plane;
 import :PlaneBoundedVolume;
 import :Prerequisites;
-import :Profiler;
 import :Quaternion;
 import :Ray;
 import :SceneManager;
@@ -51,7 +50,6 @@ import <algorithm>;
 import <memory>;
 import <ostream>;
 import <string>;
-import <vector>;
 
 namespace Ogre {
 class Sphere;
@@ -163,8 +161,6 @@ class Sphere;
     //-----------------------------------------------------------------------
     void Camera::_renderScene(Viewport *vp)
     {
-        Ogre::Profiler::getSingleton().beginGPUEvent(getName());
-
         //update the pixel display ratio
         if (mProjType == Ogre::PT_PERSPECTIVE)
         {
@@ -193,7 +189,6 @@ class Sphere;
         {
             i->cameraPostRenderScene(this);
         }
-        Ogre::Profiler::getSingleton().endGPUEvent(getName());
     }
     //---------------------------------------------------------------------
     void Camera::addListener(Listener* l)

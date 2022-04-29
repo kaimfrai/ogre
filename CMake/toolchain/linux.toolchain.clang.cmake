@@ -17,9 +17,12 @@ add_link_options($<$<COMPILE_LANGUAGE:CXX>:-lc++>)
 add_link_options($<$<COMPILE_LANGUAGE:CXX>:-lc++abi>)
 add_link_options(-fuse-ld=lld)
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  add_compile_options(-O1)
+endif ()
+
 if	(BUILD_WITH_SANITIZER)
 	add_compile_options(
-		-O1
 		-fsanitize=address
 		-fno-omit-frame-pointer
 		-fno-optimize-sibling-calls

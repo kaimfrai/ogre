@@ -36,7 +36,6 @@ import :Exception;
 import :Image;
 import :Log;
 import :LogManager;
-import :Profiler;
 import :RenderTarget;
 import :RenderTargetListener;
 import :Root;
@@ -557,7 +556,6 @@ class Camera;
     //-----------------------------------------------------------------------
     void RenderTarget::update(bool swap)
     {
-        Ogre::Profiler::getSingleton().beginGPUEvent(getName());
         // call implementation
         updateImpl();
 
@@ -567,7 +565,6 @@ class Camera;
             // Swap buffers
             swapBuffers();
         }
-        Ogre::Profiler::getSingleton().endGPUEvent(getName());
     }
     
 
