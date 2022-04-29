@@ -50,7 +50,6 @@ THE SOFTWARE.
 #include "OgrePlane.hpp"
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
-#include "OgreProfiler.hpp"
 #include "OgreRenderOperation.hpp"
 #include "OgreRenderSystem.hpp"
 #include "OgreRenderSystemCapabilities.hpp"
@@ -61,6 +60,7 @@ THE SOFTWARE.
 #include "OgreTextureUnitState.hpp"
 #include "OgreVector.hpp"
 #include "OgreVertexIndexData.hpp"
+
 // RenderSystem implementation
 // Note that most of this class is abstract since
 //  we cannot know how to implement the behaviour without
@@ -261,7 +261,6 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::_swapAllRenderTargetBuffers()
     {
-        Ogre::Profile swapAllRenderTargetBuffersProfile("_swapAllRenderTargetBuffers");
         // Update all in order of priority
         // This ensures render-to-texture targets get updated before render windows
         RenderTargetPriorityMap::iterator itarg, itargend;

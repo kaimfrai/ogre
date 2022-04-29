@@ -341,12 +341,8 @@ namespace Ogre {
             displayResults();
 
             if  (   mLast->history.totalCalls
-                //  fixed amount of calls,
-#ifdef NDEBUG   //  2% margin of error, 98% confidence level
-                >=  3394
-#else           //  5% margin of error, 98% confidence level
-                >=  543
-#endif
+                //  5% margin of error, 99% confidence level
+                >=  666
                 )
             {
                 Ogre::Root::getSingleton().queueEndRendering();

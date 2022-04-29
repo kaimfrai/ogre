@@ -39,7 +39,6 @@ THE SOFTWARE.
 #include "OgreImage.hpp"
 #include "OgreLog.hpp"
 #include "OgreLogManager.hpp"
-#include "OgreProfiler.hpp"
 #include "OgreRenderTarget.hpp"
 #include "OgreRenderTargetListener.hpp"
 #include "OgreRoot.hpp"
@@ -553,7 +552,6 @@ class Camera;
     //-----------------------------------------------------------------------
     void RenderTarget::update(bool swap)
     {
-        Ogre::Profiler::getSingleton().beginGPUEvent(getName());
         // call implementation
         updateImpl();
 
@@ -563,7 +561,6 @@ class Camera;
             // Swap buffers
             swapBuffers();
         }
-        Ogre::Profiler::getSingleton().endGPUEvent(getName());
     }
     
 
