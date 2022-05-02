@@ -123,7 +123,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     Root::Root(const String& pluginFileName, const String& configFileName,
-        const String& logFileName)
+        const String& logFileName, ulong frameCount)
       : mQueuedEnd(false)
       , mCurrentSceneManager(NULL)
       , mNextFrame(0)
@@ -187,7 +187,7 @@ namespace Ogre {
         mLodStrategyManager.reset(new LodStrategyManager());
 
         // Profiler
-        mProfiler.reset(new Profiler());
+        mProfiler.reset(new Profiler(frameCount));
         Profiler::getSingleton().setTimer(mTimer.get());
 
         mFileSystemArchiveFactory.reset(new FileSystemArchiveFactory());
