@@ -320,14 +320,14 @@ void TestContext::runSample(OgreBites::Sample* sampleToRun)
 }
 //-----------------------------------------------------------------------
 
-void TestContext::createRoot()
+void TestContext::createRoot(ulong frameCount)
 {
     // note that we use a separate config file here
 
     Ogre::String pluginsPath = Ogre::BLANKSTRING;
     // we use separate config and log files for the tests
     mRoot = new Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogretests.cfg"),
-                                mFSLayer->getWritablePath("ogretests.log"));
+                                mFSLayer->getWritablePath("ogretests.log"), frameCount);
 
     mStaticPluginLoader.load();
 
@@ -335,12 +335,12 @@ void TestContext::createRoot()
 }
 //-----------------------------------------------------------------------
 
-void TestContext::go(OgreBites::Sample* initialSample)
+void TestContext::go(OgreBites::Sample* initialSample, ulong frameCount)
 {
     // Either start up as usual or print usage details.
     if (!mHelp)
     {
-        SampleContext::go(initialSample);
+        SampleContext::go(initialSample, frameCount);
     }
     else
     {

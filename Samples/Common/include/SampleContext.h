@@ -118,13 +118,13 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | This function encapsulates the entire lifetime of the context.
         -----------------------------------------------------------------------------*/
-        virtual void go(Sample* initialSample = 0)
+        virtual void go(Sample* initialSample = nullptr, ulong frameCount = -1)
         {
             while (!mLastRun)
             {
                 mLastRun = true;  // assume this is our last run
 
-                initApp();
+                initApp(frameCount);
 
                 // restore the last sample if there was one or, if not, start initial sample
                 if (!mFirstRun) recoverLastSample();
