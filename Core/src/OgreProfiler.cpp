@@ -597,6 +597,9 @@ namespace Ogre {
             )
         );
 
+        if(history.totalCalls == 0)
+            return;
+
         for(ProfileChildren::iterator it = children.begin(); it != children.end(); ++it)
         {
             it->second->logResults();
