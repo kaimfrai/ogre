@@ -82,10 +82,10 @@ class TestContext : public OgreBites::SampleContext
     OgreBites::Sample* loadTests();
 
     /** Setup the Root */
-    virtual void createRoot();
+    virtual void createRoot(ulong frameCount = -1);
 
     /** Start it up */
-    virtual void go(OgreBites::Sample* initialSample = 0);
+    virtual void go(OgreBites::Sample* initialSample = 0, ulong frameCount = -1);
 
     /** Handles the config dialog */
     virtual bool oneTimeConfig();
