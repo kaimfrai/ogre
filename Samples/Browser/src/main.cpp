@@ -37,23 +37,14 @@ int main(int argc, char *argv[]) {
 
     try
     {
-        bool nograb = false;
-        if (argc >= 2 && Ogre::String(argv[1]) == "nograb")
-            nograb = true;
-
-        int startUpSampleIdx = -1;
-        if (argc >= 3)
+        ulong frameCount = 666;
+        if (argc >= 2)
         {
-            startUpSampleIdx = Ogre::StringConverter::parseInt(Ogre::String(argv[2]), -1);
+            Ogre::StringConverter::parse(Ogre::String(argv[1]), frameCount);
         }
-        else if (argc >= 2)
-        {
-            // first parameter can be either nograb or index. in the former case, we'll just
-            // get -1, which is fine.
-            startUpSampleIdx = Ogre::StringConverter::parseInt(Ogre::String(argv[1]), -1);
-        }
-        OgreBites::SampleBrowser brows (nograb, startUpSampleIdx);
-        brows.go();
+        // always no grab
+        OgreBites::SampleBrowser brows (true, 0);
+        brows.go(nullptr, frameCount);
     }
     catch (Ogre::Exception& e)
     {

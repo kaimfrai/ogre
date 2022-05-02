@@ -61,9 +61,9 @@ ApplicationContextBase::~ApplicationContextBase()
     delete mFSLayer;
 }
 
-void ApplicationContextBase::initApp()
+void ApplicationContextBase::initApp(ulong frameCount)
 {
-    createRoot();
+    createRoot(frameCount);
     if (!oneTimeConfig()) return;
 
     // if the context was reconfigured, set requested renderer
@@ -158,12 +158,12 @@ void ApplicationContextBase::setup()
     mRoot->addFrameListener(this);
 }
 
-void ApplicationContextBase::createRoot()
+void ApplicationContextBase::createRoot(ulong frameCount)
 {
     Ogre::String pluginsPath;
 
     mRoot = new Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogre.cfg"),
-                                mFSLayer->getWritablePath("ogre.log"));
+                                mFSLayer->getWritablePath("ogre.log"), frameCount);
 
     mStaticPluginLoader.load();
 
