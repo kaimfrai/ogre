@@ -76,7 +76,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     // PROFILER DEFINITIONS
     //-----------------------------------------------------------------------
-    Profiler::Profiler() 
+    Profiler::Profiler(ulong frameCount)
         : mCurrent(&mRoot)
         , mLast(NULL)
         , mRoot()
@@ -91,6 +91,7 @@ namespace Ogre {
         , mMaxTotalFrameClocks(0)
         , mAverageFrameClocks(0)
         , mResetExtents(false)
+        , mFrameCount(frameCount)
     {
         mRoot.hierarchicalLvl = 0 - 1;
     }
@@ -356,7 +357,7 @@ namespace Ogre {
 
             if  (   mLast->history.totalCalls
                 //  5% margin of error, 99% confidence level
-                >=  666
+                >=  mFrameCount
                 )
             {
                 Ogre::Root::getSingleton().queueEndRendering();

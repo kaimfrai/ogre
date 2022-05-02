@@ -37,9 +37,14 @@ int main(int argc, char *argv[]) {
 
     try
     {
-        // always no grab, always scene 0
+        ulong frameCount = 666;
+        if (argc >= 2)
+        {
+            Ogre::StringConverter::parse(Ogre::String(argv[1]), frameCount);
+        }
+        // always no grab
         OgreBites::SampleBrowser brows (true, 0);
-        brows.go();
+        brows.go(nullptr, frameCount);
     }
     catch (Ogre::Exception& e)
     {
