@@ -129,8 +129,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     Root::Root(const String& pluginFileName, const String& configFileName,
-        const String& logFileName)
-       
+        const String& logFileName, ulong frameCount)
     {
         // superclass will do singleton checking
 
@@ -185,7 +184,7 @@ namespace Ogre {
         mLodStrategyManager = std::make_unique<LodStrategyManager>();
 
         // Profiler
-        mProfiler = std::make_unique<Profiler>();
+        mProfiler = std::make_unique<Profiler>(frameCount);
         Profiler::getSingleton().setTimer(mTimer.get());
 
         mFileSystemArchiveFactory = std::make_unique<FileSystemArchiveFactory>();
