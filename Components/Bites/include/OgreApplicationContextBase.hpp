@@ -114,7 +114,7 @@ namespace OgreBites
         /**
         This function initializes the render system and resources.
         */
-        void initApp();
+        void initApp(ulong frameCount = -1);
 
         /**
         This function closes down the application - saves the configuration then
@@ -169,7 +169,7 @@ namespace OgreBites
         /**
         Creates the OGRE root.
         */
-        virtual void createRoot();
+        virtual void createRoot(ulong frameCount = -1);
 
         /**
         Configures the startup settings for OGRE. I use the config dialog here,

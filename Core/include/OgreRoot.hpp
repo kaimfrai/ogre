@@ -251,7 +251,8 @@ struct SceneManagerMetaData;
         */
         Root(const String& pluginFileName = "plugins.cfg",
             const String& configFileName = "ogre.cfg", 
-            const String& logFileName = "Ogre.log");
+            const String& logFileName = "Ogre.log",
+            ulong frameCount = -1);
         ~Root();
 
         /** Saves the details of the current configuration
