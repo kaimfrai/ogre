@@ -1132,7 +1132,7 @@ void ProgressBar::setProgress(Ogre::Real progress)
 TrayManager::TrayManager(const Ogre::String &name, Ogre::RenderWindow *window, TrayListener *listener) :
     mName(name), mWindow(window), mWidgetDeathRow(), mListener(listener), mWidgetPadding(8),
     mWidgetSpacing(2), mTrayPadding(0), mTrayDrag(false), mExpandedMenu(0), mDialog(0), mOk(0), mYes(0),
-    mNo(0), mCursorWasVisible(false), mFpsLabel(0), mStatsPanel(0), mLogo(0), mLoadBar(0),
+    mNo(0), mCursorWasVisible(false), mLogo(0), mLoadBar(0),
     mGroupInitProportion(0.0f), mGroupLoadProportion(0.0f), mLoadInc(0.0f)
 {
     mTimer = Ogre::Root::getSingleton().getTimer();
@@ -1547,34 +1547,8 @@ ProgressBar *TrayManager::createProgressBar(TrayLocation trayLoc, const Ogre::St
 
 void TrayManager::showFrameStats(TrayLocation trayLoc, size_t place)
 {
-    if (!areFrameStatsVisible())
-    {
-        Ogre::StringVector stats;
-        stats.push_back("Average FPS");
-        stats.push_back("Best FPS");
-        stats.push_back("Worst FPS");
-        stats.push_back("Triangles");
-        stats.push_back("Batches");
-
-        mFpsLabel = createLabel(TL_NONE, mName + "/FpsLabel", "FPS:", 180);
-        mFpsLabel->_assignListener(this);
-        mStatsPanel = createParamsPanel(TL_NONE, mName + "/StatsPanel", 180, stats);
-    }
-
-    moveWidgetToTray(mFpsLabel, trayLoc, place);
-    moveWidgetToTray(mStatsPanel, trayLoc, locateWidgetInTray(mFpsLabel) + 1);
 }
 
-void TrayManager::hideFrameStats()
-{
-    if (areFrameStatsVisible())
-    {
-        destroyWidget(mFpsLabel);
-        destroyWidget(mStatsPanel);
-        mFpsLabel = 0;
-        mStatsPanel = 0;
-    }
-}
 
 void TrayManager::showLogo(TrayLocation trayLoc, size_t place)
 {
@@ -1845,8 +1819,6 @@ void TrayManager::destroyWidget(Widget *widget)
 
     // in case special widgets are destroyed manually, set them to 0
     if (widget == mLogo) mLogo = 0;
-    else if (widget == mStatsPanel) mStatsPanel = 0;
-    else if (widget == mFpsLabel) mFpsLabel = 0;
 
     mTrays[widget->getTrayLocation()]->removeChild(widget->getName());
 
@@ -1928,49 +1900,6 @@ void TrayManager::frameRendered(const Ogre::FrameEvent &evt)
         delete mWidgetDeathRow[i];
     }
     mWidgetDeathRow.clear();
-
-
-    unsigned long currentTime = mTimer->getMilliseconds();
-    if (areFrameStatsVisible() && currentTime - mLastStatUpdateTime >= FRAME_UPDATE_DELAY)
-    {
-        Ogre::RenderTarget::FrameStats stats = mWindow->getStatistics();
-
-        mLastStatUpdateTime = currentTime;
-
-        Ogre::String s("FPS: ");
-        s += Ogre::StringConverter::toString((int)stats.lastFPS);
-
-        mFpsLabel->setCaption(s);
-
-        if (mStatsPanel->getOverlayElement()->isVisible())
-        {
-            Ogre::StringVector values;
-            Ogre::StringStream oss;
-
-            oss.str("");
-            oss << std::fixed << std::setprecision(1) << stats.avgFPS;
-            Ogre::String str = oss.str();
-            values.push_back(str);
-
-            oss.str("");
-            oss << std::fixed << std::setprecision(1) << stats.bestFPS;
-            str = oss.str();
-            values.push_back(str);
-
-            oss.str("");
-            oss << std::fixed << std::setprecision(1) << stats.worstFPS;
-            str = oss.str();
-            values.push_back(str);
-
-            str = Ogre::StringConverter::toString(stats.triangleCount);
-            values.push_back(str);
-
-            str = Ogre::StringConverter::toString(stats.batchCount);
-            values.push_back(str);
-
-            mStatsPanel->setAllParamValues(values);
-        }
-    }
 }
 
 void TrayManager::windowUpdate()
@@ -1985,18 +1914,6 @@ void TrayManager::windowUpdate()
 
 void TrayManager::labelHit(Label *label)
 {
-    if (mStatsPanel->getOverlayElement()->isVisible())
-    {
-        mStatsPanel->getOverlayElement()->hide();
-        mFpsLabel->getOverlayElement()->setWidth(150);
-        removeWidgetFromTray(mStatsPanel);
-    }
-    else
-    {
-        mStatsPanel->getOverlayElement()->show();
-        mFpsLabel->getOverlayElement()->setWidth(180);
-        moveWidgetToTray(mStatsPanel, mFpsLabel->getTrayLocation(), locateWidgetInTray(mFpsLabel) + 1);
-    }
 }
 
 void TrayManager::buttonHit(Button *button)

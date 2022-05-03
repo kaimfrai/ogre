@@ -87,10 +87,7 @@ bool AdvancedRenderControls::keyPressed(const KeyboardEvent& evt) {
 
     int key = evt.keysym.sym;
 
-    if (key == 'f') // toggle visibility of advanced frame stats
-    {
-        mTrayMgr->toggleAdvancedFrameStats();
-    } else if (key == 'g') // toggle visibility of even rarer debugging details
+    if (key == 'g') // toggle visibility of even rarer debugging details
     {
         if (mDetailsPanel->getTrayLocation() == TL_NONE) {
             mTrayMgr->moveWidgetToTray(mDetailsPanel, TL_TOPRIGHT, 0);
