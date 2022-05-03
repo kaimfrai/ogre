@@ -100,7 +100,6 @@ function(get_compile_module_command
 	#flags specific to the current build type
 	string(TOUPPER ${CMAKE_BUILD_TYPE} build_type_flags)
 	set(build_type_flags CMAKE_CXX_FLAGS_${build_type_flags})
-	set(build_type_flags ${${build_type_flags}})
 	string(REPLACE " " ";" build_type_flags "${${build_type_flags}}")
 
 	#flags specific to CXX
