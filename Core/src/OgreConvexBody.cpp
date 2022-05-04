@@ -49,7 +49,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     // Statics
     //-----------------------------------------------------------------------
-    ConvexBody::PolygonList ConvexBody::msFreePolygons;
+    ::std::vector<::std::unique_ptr<Polygon>> ConvexBody::msFreePolygons;
     //-----------------------------------------------------------------------
     void ConvexBody::_initialisePool()
     {
@@ -61,18 +61,13 @@ namespace Ogre
             msFreePolygons.resize(initialSize);
             for (size_t i = 0; i < initialSize; ++i)
             {
-                msFreePolygons[i] = new Polygon();
+                msFreePolygons.emplace_back(new Polygon());
             }
         }
     }
     //-----------------------------------------------------------------------
     void ConvexBody::_destroyPool()
     {
-        for (PolygonList::iterator i = msFreePolygons.begin(); 
-            i != msFreePolygons.end(); ++i)
-        {
-            delete *i;
-        }
         msFreePolygons.clear();
     }
     //-----------------------------------------------------------------------
@@ -86,7 +81,7 @@ namespace Ogre
         }
         else
         {
-            Polygon* ret = msFreePolygons.back();
+            Polygon* ret = msFreePolygons.back().release();
             ret->reset();
 
             msFreePolygons.pop_back();
@@ -98,31 +93,9 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ConvexBody::freePolygon(Polygon* poly)
     {
-        msFreePolygons.push_back(poly);
+        msFreePolygons.emplace_back(poly);
     }
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    ConvexBody::ConvexBody()
-    {
-        // Reserve space for 8 polys, normally 6 faces plus a couple of clips
-        mPolygons.reserve(8);
 
-    }
-    //-----------------------------------------------------------------------
-    ConvexBody::~ConvexBody()
-    {
-        reset();
-    }
-    //-----------------------------------------------------------------------
-    ConvexBody::ConvexBody( const ConvexBody& cpy )
-    {
-        for ( size_t i = 0; i < cpy.getPolygonCount(); ++i )
-        {
-            Polygon *p = allocatePolygon();
-            *p = cpy.getPolygon( i );
-            mPolygons.push_back( p );
-        }
-    }
     //-----------------------------------------------------------------------
     void ConvexBody::define(const Frustum& frustum)
     {
@@ -151,7 +124,7 @@ namespace Ogre
         poly->insertVertex( pts[1] );
         poly->insertVertex( pts[2] );
         poly->insertVertex( pts[3] );
-        mPolygons.push_back( poly );
+        insertPolygon(poly);
 
         // far
         poly = allocatePolygon();
@@ -159,7 +132,7 @@ namespace Ogre
         poly->insertVertex( pts[4] );
         poly->insertVertex( pts[7] );
         poly->insertVertex( pts[6] );
-        mPolygons.push_back( poly );
+        insertPolygon(poly);
 
         // left
         poly = allocatePolygon();
@@ -167,7 +140,7 @@ namespace Ogre
         poly->insertVertex( pts[6] );
         poly->insertVertex( pts[2] );
         poly->insertVertex( pts[1] );
-        mPolygons.push_back( poly ); 
+        insertPolygon(poly);
 
         // right
         poly = allocatePolygon();
@@ -175,7 +148,7 @@ namespace Ogre
         poly->insertVertex( pts[0] );
         poly->insertVertex( pts[3] );
         poly->insertVertex( pts[7] );
-        mPolygons.push_back( poly ); 
+        insertPolygon(poly);
 
         // bottom
         poly = allocatePolygon();
@@ -183,7 +156,7 @@ namespace Ogre
         poly->insertVertex( pts[7] );
         poly->insertVertex( pts[3] );
         poly->insertVertex( pts[2] );
-        mPolygons.push_back( poly ); 
+        insertPolygon(poly);
 
         // top
         poly = allocatePolygon();
@@ -191,7 +164,7 @@ namespace Ogre
         poly->insertVertex( pts[5] );
         poly->insertVertex( pts[1] );
         poly->insertVertex( pts[0] );
-        mPolygons.push_back( poly ); 
+        insertPolygon(poly);
     }
     //-----------------------------------------------------------------------
     void ConvexBody::define(const AxisAlignedBox& aab)
@@ -460,17 +433,15 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ConvexBody::reset( void )
     {
-        for (PolygonList::iterator it = mPolygons.begin(); 
-            it != mPolygons.end(); ++it)
+        while (mPolygonCount > 0)
         {
-            freePolygon(*it);
+            mPolygons[--mPolygonCount].reset();
         }
-        mPolygons.clear();
     }
     //-----------------------------------------------------------------------
     size_t ConvexBody::getPolygonCount( void ) const
     {
-        return mPolygons.size();
+        return mPolygonCount;
     }
     //-----------------------------------------------------------------------
     size_t ConvexBody::getVertexCount( size_t poly ) const
@@ -711,23 +682,12 @@ namespace Ogre
         return strm;
     }
     //-----------------------------------------------------------------------
-    void ConvexBody::insertPolygon(Polygon* pdata, size_t poly )
-    {
-        OgreAssertDbg(poly <= getPolygonCount(), "Insert position out of range" );
-        OgreAssertDbg( pdata != NULL, "Polygon is NULL" );
-
-        PolygonList::iterator it = mPolygons.begin();
-        std::advance(it, poly);
-
-        mPolygons.insert( it, pdata );
-
-    }
-    //-----------------------------------------------------------------------
     void ConvexBody::insertPolygon(Polygon* pdata)
     {
         OgreAssertDbg( pdata != NULL, "Polygon is NULL" );
+        OgreAssert( mPolygonCount < 10, "Only up to 10 polygons supported!" );
 
-        mPolygons.push_back( pdata );
+        mPolygons[mPolygonCount++].reset(pdata);
 
     }
     //-----------------------------------------------------------------------
@@ -749,34 +709,22 @@ namespace Ogre
     {
         OgreAssertDbg(poly < getPolygonCount(), "Search position out of range" );
 
-        PolygonList::iterator it = mPolygons.begin();
-        std::advance(it, poly);
-        
-        freePolygon(*it);
-        mPolygons.erase(it);
+        mPolygons[poly].reset();
+        ::std::move(mPolygons + poly + 1, mPolygons + mPolygonCount, mPolygons + poly);
+        --mPolygonCount;
     }
     //-----------------------------------------------------------------------
     Polygon* ConvexBody::unlinkPolygon(size_t poly)
     {
         OgreAssertDbg( poly < getPolygonCount(), "Search position out of range" );
 
-        PolygonList::iterator it = mPolygons.begin();
-        std::advance(it, poly);
-
-        // safe address
-        Polygon *pRet = *it;
-        
-        // delete entry
-        mPolygons.erase(it);    
+        auto pRet = mPolygons[poly].release();
+        ::std::move(mPolygons + poly + 1, mPolygons + mPolygonCount, mPolygons + poly);
+        --mPolygonCount;
 
         // return polygon pointer
 
         return pRet;
-    }
-    //-----------------------------------------------------------------------
-    void ConvexBody::moveDataFromBody(ConvexBody& body)
-    {
-        body.mPolygons.swap(this->mPolygons);
     }
     //-----------------------------------------------------------------------
     void ConvexBody::deleteVertex(size_t poly, size_t vertex)
@@ -798,13 +746,10 @@ namespace Ogre
         OgreAssertDbg(poly < getPolygonCount(), "Search position out of range" );
         OgreAssertDbg(pdata != NULL, "Polygon is NULL" );
 
-        if (pdata != mPolygons[poly])
+        if (pdata != mPolygons[poly].get())
         {
-            // delete old polygon
-            freePolygon(mPolygons[ poly ]);
-
             // set new polygon
-            mPolygons[poly] = pdata;
+            mPolygons[poly].reset(pdata);;
         }
     }
     //-----------------------------------------------------------------------
@@ -890,6 +835,7 @@ namespace Ogre
     {
         reset();
 
+        OgreAssert( numPolygons <= 10, "Only up to 10 polygons supported!" );
         // allocate numPolygons polygons with each numVertices vertices
         for ( size_t iPoly = 0; iPoly < numPolygons; ++iPoly )
         {
@@ -900,7 +846,7 @@ namespace Ogre
                 poly->insertVertex( Vector3::ZERO );
             }
 
-            mPolygons.push_back( poly );
+            mPolygons[mPolygonCount++].reset(poly);
         }
     }
     //-----------------------------------------------------------------------
@@ -911,7 +857,8 @@ namespace Ogre
 
         // current will be used as the reference body
         ConvexBody current;
-        current.moveDataFromBody(*this);
+        using ::std::swap;
+        swap(current, *this);
         
         OgreAssert( this->getPolygonCount() == 0, "Body not empty!" );
         OgreAssert( current.getPolygonCount() != 0, "Body empty!" );
