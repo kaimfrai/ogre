@@ -1220,30 +1220,26 @@ void CompositorInstance::removeListener(Listener *l)
 //-----------------------------------------------------------------------
 void CompositorInstance::_fireNotifyMaterialSetup(uint32 pass_id, MaterialPtr &mat)
 {
-    Listeners::iterator i, iend=mListeners.end();
-    for(i=mListeners.begin(); i!=iend; ++i)
-        (*i)->notifyMaterialSetup(pass_id, mat);
+    for(auto listener : mListeners)
+        listener->notifyMaterialSetup(pass_id, mat);
 }
 //-----------------------------------------------------------------------
 void CompositorInstance::_fireNotifyMaterialRender(uint32 pass_id, MaterialPtr &mat)
 {
-    Listeners::iterator i, iend=mListeners.end();
-    for(i=mListeners.begin(); i!=iend; ++i)
-        (*i)->notifyMaterialRender(pass_id, mat);
+    for(auto listener : mListeners)
+        listener->notifyMaterialRender(pass_id, mat);
 }
 //-----------------------------------------------------------------------
 void CompositorInstance::_fireNotifyResourcesCreated(bool forResizeOnly)
 {
-    Listeners::iterator i, iend=mListeners.end();
-    for(i=mListeners.begin(); i!=iend; ++i)
-        (*i)->notifyResourcesCreated(forResizeOnly);
+    for(auto listener : mListeners)
+        listener->notifyResourcesCreated(forResizeOnly);
 }
 //-----------------------------------------------------------------------
 void CompositorInstance::_fireNotifyResourcesReleased(bool forResizeOnly)
 {
-    Listeners::iterator i, iend=mListeners.end();
-    for(i=mListeners.begin(); i!=iend; ++i)
-        (*i)->notifyResourcesReleased(forResizeOnly);
+    for(auto listener : mListeners)
+        listener->notifyResourcesReleased(forResizeOnly);
 }
 //-----------------------------------------------------------------------
 void CompositorInstance::notifyCameraChanged(Camera* camera)

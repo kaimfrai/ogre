@@ -368,12 +368,9 @@ class Camera;
         RenderTargetEvent evt;
         evt.source = this;
 
-        RenderTargetListenerList::iterator i, iend;
-        i = mListeners.begin();
-        iend = mListeners.end();
-        for(; i != iend; ++i)
+        for(auto listener : mListeners)
         {
-            (*i)->preRenderTargetUpdate(evt);
+            listener->preRenderTargetUpdate(evt);
         }
 
 
@@ -384,12 +381,9 @@ class Camera;
         RenderTargetEvent evt;
         evt.source = this;
 
-        RenderTargetListenerList::iterator i, iend;
-        i = mListeners.begin();
-        iend = mListeners.end();
-        for(; i != iend; ++i)
+        for(auto listener : mListeners)
         {
-            (*i)->postRenderTargetUpdate(evt);
+            listener->postRenderTargetUpdate(evt);
         }
     }
     //-----------------------------------------------------------------------
@@ -441,12 +435,9 @@ class Camera;
         RenderTargetViewportEvent evt;
         evt.source = vp;
 
-        RenderTargetListenerList::iterator i, iend;
-        i = mListeners.begin();
-        iend = mListeners.end();
-        for(; i != iend; ++i)
+        for(auto listener : mListeners)
         {
-            (*i)->preViewportUpdate(evt);
+            listener->preViewportUpdate(evt);
         }
     }
     //-----------------------------------------------------------------------
@@ -469,12 +460,9 @@ class Camera;
         RenderTargetViewportEvent evt;
         evt.source = vp;
 
-        RenderTargetListenerList::iterator i, iend;
-        i = mListeners.begin();
-        iend = mListeners.end();
-        for(; i != iend; ++i)
+        for(auto listener : mListeners)
         {
-            (*i)->viewportAdded(evt);
+            listener->viewportAdded(evt);
         }
     }
     //-----------------------------------------------------------------------
@@ -483,16 +471,9 @@ class Camera;
         RenderTargetViewportEvent evt;
         evt.source = vp;
 
-        // Make a temp copy of the listeners
-        // some will want to remove themselves as listeners when they get this
-        RenderTargetListenerList tempList = mListeners;
-
-        RenderTargetListenerList::iterator i, iend;
-        i = tempList.begin();
-        iend = tempList.end();
-        for(; i != iend; ++i)
+        for(auto listener : mListeners)
         {
-            (*i)->viewportRemoved(evt);
+            listener->viewportRemoved(evt);
         }
     }
     //-----------------------------------------------------------------------

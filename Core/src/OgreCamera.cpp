@@ -95,10 +95,9 @@ class Sphere;
     //-----------------------------------------------------------------------
     Camera::~Camera()
     {
-        ListenerList listenersCopy = mListeners;
-        for (ListenerList::iterator i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
+        for (auto listener : mListeners)
         {
-            (*i)->cameraDestroyed(this);
+            listener->cameraDestroyed(this);
         }
     }
     //-----------------------------------------------------------------------
@@ -180,22 +179,19 @@ class Sphere;
         }
 
         //notify prerender scene
-        ListenerList listenersCopy = mListeners;
-        for (ListenerList::iterator i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
+        for (auto listener : mListeners)
         {
-            (*i)->cameraPreRenderScene(this);
+            listener->cameraPreRenderScene(this);
         }
 
         //render scene
         mManager->_renderScene(this, vp);
 
         // Listener list may have change
-        listenersCopy = mListeners;
-
         //notify postrender scene
-        for (ListenerList::iterator i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
+        for (auto listener : mListeners)
         {
-            (*i)->cameraPostRenderScene(this);
+            listener->cameraPostRenderScene(this);
         }
     }
     //---------------------------------------------------------------------

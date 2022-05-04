@@ -1918,34 +1918,25 @@ SceneManager::ShadowRenderer::findShadowCastersForLight(const Light* light, cons
 //---------------------------------------------------------------------
 void SceneManager::ShadowRenderer::fireShadowTexturesUpdated(size_t numberOfShadowTextures)
 {
-    ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for(auto listener : mListeners)
     {
-        (*i)->shadowTexturesUpdated(numberOfShadowTextures);
+        listener->shadowTexturesUpdated(numberOfShadowTextures);
     }
 }
 //---------------------------------------------------------------------
 void SceneManager::ShadowRenderer::fireShadowTexturesPreCaster(Light* light, Camera* camera, size_t iteration)
 {
-    auto listenersCopy = mListeners;
-    for (auto l : listenersCopy)
+    for(auto listener : mListeners)
     {
-        l->shadowTextureCasterPreViewProj(light, camera, iteration);
+        listener->shadowTextureCasterPreViewProj(light, camera, iteration);
     }
 }
 //---------------------------------------------------------------------
 void SceneManager::ShadowRenderer::fireShadowTexturesPreReceiver(Light* light, Frustum* f)
 {
-    ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for(auto listener : mListeners)
     {
-        (*i)->shadowTextureReceiverPreViewProj(light, f);
+        listener->shadowTextureReceiverPreViewProj(light, f);
     }
 }
 void SceneManager::ShadowRenderer::sortLightsAffectingFrustum(LightList& lightList)

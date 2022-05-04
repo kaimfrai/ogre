@@ -2496,65 +2496,42 @@ void SceneManager::fireRenderSingleObject(Renderable* rend, const Pass* pass,
 //---------------------------------------------------------------------
 void SceneManager::firePreUpdateSceneGraph(Camera* camera)
 {
-    ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for(auto listener : mListeners)
     {
-        (*i)->preUpdateSceneGraph(this, camera);
+        listener->preUpdateSceneGraph(this, camera);
     }
 }
 //---------------------------------------------------------------------
 void SceneManager::firePostUpdateSceneGraph(Camera* camera)
 {
-    ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for(auto listener : mListeners)
     {
-        (*i)->postUpdateSceneGraph(this, camera);
+        listener->postUpdateSceneGraph(this, camera);
     }
 }
 
 //---------------------------------------------------------------------
 void SceneManager::firePreFindVisibleObjects(Viewport* v)
 {
-    ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for(auto listener : mListeners)
     {
-        (*i)->preFindVisibleObjects(this, mIlluminationStage, v);
+        listener->preFindVisibleObjects(this, mIlluminationStage, v);
     }
-
 }
 //---------------------------------------------------------------------
 void SceneManager::firePostFindVisibleObjects(Viewport* v)
 {
-    ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for(auto listener : mListeners)
     {
-        (*i)->postFindVisibleObjects(this, mIlluminationStage, v);
+        listener->postFindVisibleObjects(this, mIlluminationStage, v);
     }
-
-
 }
 //---------------------------------------------------------------------
 void SceneManager::fireSceneManagerDestroyed()
 {
-    ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for(auto listener : mListeners)
     {
-        (*i)->sceneManagerDestroyed(this);
+        listener->sceneManagerDestroyed(this);
     }
 }
 //---------------------------------------------------------------------
