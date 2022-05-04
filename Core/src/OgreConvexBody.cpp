@@ -685,7 +685,7 @@ namespace Ogre
     void ConvexBody::insertPolygon(Polygon* pdata)
     {
         OgreAssertDbg( pdata != NULL, "Polygon is NULL" );
-        OgreAssert( mPolygonCount < 10, "Only up to 10 polygons supported!" );
+        OgreAssert( mPolygonCount < maxPolygonCount, "Exceeded maximum amount of polygons!" );
 
         mPolygons[mPolygonCount++].reset(pdata);
 
@@ -835,7 +835,7 @@ namespace Ogre
     {
         reset();
 
-        OgreAssert( numPolygons <= 10, "Only up to 10 polygons supported!" );
+        OgreAssert( numPolygons <= maxPolygonCount, "Exceeded maximum amount of polygons!" );
         // allocate numPolygons polygons with each numVertices vertices
         for ( size_t iPoly = 0; iPoly < numPolygons; ++iPoly )
         {
@@ -852,6 +852,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ConvexBody::clip( const Plane& pl, bool keepNegative )
     {
+        static ::std::size_t constexpr verticesPerPolygon = 6;
         if ( getPolygonCount() == 0 )
             return;
 
@@ -864,7 +865,8 @@ namespace Ogre
         OgreAssert( current.getPolygonCount() != 0, "Body empty!" );
 
         // holds all intersection edges for the different polygons
-        Polygon::EdgeMap intersectionEdges;
+        Polygon::Edge intersectionEdges[10 * verticesPerPolygon];
+        Polygon::Edge* intersectionEdgesEnd = intersectionEdges;
 
         // clip all polygons by the intersection plane
         // add only valid or intersected polygons to *this
@@ -874,6 +876,7 @@ namespace Ogre
             // fetch vertex count and ignore polygons with less than three vertices
             // the polygon is not valid and won't be added
             const size_t vertexCount = current.getVertexCount( iPoly );
+            OgreAssert( vertexCount <= verticesPerPolygon, "Exceeded maximum amount of vertices per polygon!" );
             if ( vertexCount < 3 )
                 continue;
 
@@ -893,7 +896,7 @@ namespace Ogre
             // - side is clipSide: vertex will be clipped
             // - side is !clipSide: vertex will be untouched
             // - side is NOSIDE:   vertex will be untouched
-            Plane::Side *side = new Plane::Side[vertexCount];
+            Plane::Side side[verticesPerPolygon];
             for ( size_t iVertex = 0; iVertex < vertexCount; ++iVertex )
             {
                 side[ iVertex ] = pl.getSide( p.getVertex( iVertex ) );
@@ -1008,23 +1011,19 @@ namespace Ogre
             // insert intersection polygon only, if there are two vertices present
             if ( pIntersect->getVertexCount() == 2 )
             {
-                intersectionEdges.insert( Polygon::Edge( pIntersect->getVertex( 0 ),
-                                                          pIntersect->getVertex( 1 ) ) );
+                *intersectionEdgesEnd++ = Polygon::Edge( pIntersect->getVertex( 0 ),
+                                                          pIntersect->getVertex( 1 ) ) ;
             }
 
             // delete intersection polygon
             // vertices were copied (if there were any)
             freePolygon(pIntersect);
             pIntersect = 0;
-
-            // delete side info
-            delete[] side;
-            side = 0;
         }
 
         // if the polygon was partially clipped, close it
         // at least three edges are needed for a polygon
-        if ( intersectionEdges.size() >= 3 )
+        if ( intersectionEdgesEnd >= 3 + intersectionEdges )
         {
             Polygon *pClosing = allocatePolygon();
 
@@ -1032,19 +1031,20 @@ namespace Ogre
             // Each point is twice in the list because of the fact that we have a convex body
             // with convex polygons. All we have to do is order the edges (an even-odd pair)
             // in a ccw order. The plane normal shows us the direction.
-            Polygon::EdgeMap::iterator it = intersectionEdges.begin();
+            Polygon::Edge* it = intersectionEdges;
 
             // check the cross product of the first two edges
             Vector3 vFirst  = it->first;
             Vector3 vSecond = it->second;
 
             // remove inserted edge
-            intersectionEdges.erase( it );
+            using ::std::swap;
+            swap(*it, *--intersectionEdgesEnd);
 
             Vector3 vNext;
 
             // find mating edge
-            if (findAndEraseEdgePair(vSecond, intersectionEdges, vNext))
+            if (findAndEraseEdgePair(vSecond, it, intersectionEdgesEnd, vNext))
             {
                 // detect the orientation
                 // the polygon must have the same normal direction as the plane and then n
@@ -1078,13 +1078,13 @@ namespace Ogre
 
                 // search mating edges that have a point in common
                 // continue this operation as long as edges are present
-                while ( !intersectionEdges.empty() )
+                while ( intersectionEdges != intersectionEdgesEnd )
                 {
 
-                    if (findAndEraseEdgePair(currentVertex, intersectionEdges, vNext))
+                    if (findAndEraseEdgePair(currentVertex, intersectionEdges, intersectionEdgesEnd, vNext))
                     {
                         // insert only if it's not the last (which equals the first) vertex
-                        if ( !intersectionEdges.empty() )
+                        if ( intersectionEdges != intersectionEdgesEnd )
                         {
                             currentVertex = vNext;
                             pClosing->insertVertex( vNext );
@@ -1112,17 +1112,18 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     bool ConvexBody::findAndEraseEdgePair(const Vector3& vec, 
-        Polygon::EdgeMap& intersectionEdges, Vector3& vNext ) const
+        Polygon::Edge* intersectionEdgesBegin, Polygon::Edge*& intersectionEdgesEnd, Vector3& vNext ) const
     {
-        for (Polygon::EdgeMap::iterator it = intersectionEdges.begin(); 
-            it != intersectionEdges.end(); ++it)
+        for (auto it = intersectionEdgesBegin;
+            it != intersectionEdgesEnd; ++it)
         {
+            using ::std::swap;
             if (it->first.positionEquals(vec))
             {
                 vNext = it->second;
 
                 // erase found edge
-                intersectionEdges.erase( it );
+                swap(*it, *--intersectionEdgesEnd);
 
                 return true; // found!
             }
@@ -1131,7 +1132,7 @@ namespace Ogre
                 vNext = it->first;
 
                 // erase found edge
-                intersectionEdges.erase( it );
+                swap(*it, *--intersectionEdgesEnd);
 
                 return true; // found!
             }
