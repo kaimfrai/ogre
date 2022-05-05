@@ -1208,11 +1208,7 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
 
     // preserve the previous scheme, in case this is a RTT update with an outer _renderScene pending
     MaterialManager& matMgr = MaterialManager::getSingleton();
-    char prevMaterialScheme[32];
-    {
-        String const& activeScheme = matMgr.getActiveScheme();
-        ::std::copy(activeScheme.begin(), activeScheme.end(), prevMaterialScheme);
-    }
+    String prevMaterialScheme = matMgr.getActiveScheme();
 
     // Also set the internal viewport pointer at this point, for calls that need it
     // However don't call setViewport just yet (see below)
@@ -1371,11 +1367,7 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
     // Notify camera of vis batches
     camera->_notifyRenderedBatches(mDestRenderSystem->_getBatchCount());
 
-    {
-        String const& activeScheme = matMgr.getActiveScheme();
-        if (!::std::equal(activeScheme.begin(), activeScheme.end(), prevMaterialScheme))
-            matMgr.setActiveScheme(prevMaterialScheme);
-    }
+    matMgr.setActiveScheme(prevMaterialScheme);
     Root::getSingleton()._setCurrentSceneManager(prevSceneManager);
 }
 //-----------------------------------------------------------------------
