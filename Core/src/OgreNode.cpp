@@ -157,14 +157,30 @@ namespace Ogre {
 
         if(updateChildren)
         {
-            bool const updateAll = mNeedChildUpdate || parentHasChanged;
-            for(auto child : mChildren)
+            if (mNeedChildUpdate || parentHasChanged)
             {
-                if  (updateAll || child->mParentNotified)
-                    child->_update(true, updateAll);
+                ChildNodeMap::iterator it, itend;
+                itend = mChildren.end();
+                for (it = mChildren.begin(); it != itend; ++it)
+                {
+                    Node* child = *it;
+                    child->_update(true, true);
+                }
+            }
+            else
+            {
+                // Just update selected children
+                ChildUpdateSet::iterator it, itend;
+                itend = mChildrenToUpdate.end();
+                for(it = mChildrenToUpdate.begin(); it != itend; ++it)
+                {
+                    Node* child = *it;
+                    child->_update(true, false);
+                }
+
             }
 
-            mChildrenToUpdate = 0;
+            mChildrenToUpdate.clear();
             mNeedChildUpdate = false;
         }
     }
@@ -513,7 +529,7 @@ namespace Ogre {
             (*i)->setParent(0);
         }
         mChildren.clear();
-        mChildrenToUpdate = 0;
+        mChildrenToUpdate.clear();
     }
     //-----------------------------------------------------------------------
     void Node::setScale(const Vector3& inScale)
@@ -637,7 +653,7 @@ namespace Ogre {
         }
 
         // all children will be updated
-        mChildrenToUpdate = 0;
+        mChildrenToUpdate.clear();
     }
     //-----------------------------------------------------------------------
     void Node::requestUpdate(Node* child, bool forceParentUpdate)
@@ -648,8 +664,7 @@ namespace Ogre {
             return;
         }
 
-        mChildrenToUpdate += !child->mParentNotified;
-
+        mChildrenToUpdate.insert(child);
         // Request selective update of me, if we didn't do it before
         if (mParent && (!mParentNotified || forceParentUpdate))
         {
@@ -661,10 +676,10 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Node::cancelUpdate(Node* child)
     {
-        mChildrenToUpdate -= child->mParentNotified;
+        mChildrenToUpdate.erase(child);
 
         // Propagate this up if we're done
-        if (mChildrenToUpdate == 0 && mParent && !mNeedChildUpdate)
+        if (mChildrenToUpdate.empty() && mParent && !mNeedChildUpdate)
         {
             mParent->cancelUpdate(this);
             mParentNotified = false ;
