@@ -70,9 +70,7 @@ class Plane;
             }
         };
 
-        static ::std::size_t constexpr maxPolygonCount = 10;
-
-        ::std::unique_ptr<Polygon, FreePolygon> mPolygons[maxPolygonCount];
+        ::std::unique_ptr<Polygon, FreePolygon> mPolygons[10];
         ::std::size_t mPolygonCount = 0;
 
         // Static 'free list' of polygons to save reallocation, shared between all bodies
@@ -250,7 +248,7 @@ class Plane;
         @return True if a match was found
         */
         bool findAndEraseEdgePair(const Vector3& vec, 
-            Polygon::Edge* intersectionEdgesBegin, Polygon::Edge*& intersectionEdgesEnd, Vector3& vNext ) const;
+            Polygon::EdgeMap& intersectionEdges, Vector3& vNext ) const;
 
     };
     /** @} */
