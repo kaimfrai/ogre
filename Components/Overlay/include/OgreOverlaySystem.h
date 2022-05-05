@@ -39,6 +39,7 @@ THE SOFTWARE.
 namespace Ogre {
     class OverlayManager;
     class FontManager;
+    class OverlayProfileSessionListener;
 
     /** \addtogroup Optional
     *  @{
@@ -76,6 +77,7 @@ namespace Ogre {
     private:
         OverlayManager* mOverlayManager;
         FontManager* mFontManager;
+        OverlayProfileSessionListener* mProfileListener;
     };
 
 }
