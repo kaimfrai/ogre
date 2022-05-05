@@ -1132,7 +1132,7 @@ void ProgressBar::setProgress(Ogre::Real progress)
 TrayManager::TrayManager(const Ogre::String &name, Ogre::RenderWindow *window, TrayListener *listener) :
     mName(name), mWindow(window), mWidgetDeathRow(), mListener(listener), mWidgetPadding(8),
     mWidgetSpacing(2), mTrayPadding(0), mTrayDrag(false), mExpandedMenu(0), mDialog(0), mOk(0), mYes(0),
-    mNo(0), mCursorWasVisible(false), mFpsLabel(0), mStatsPanel(0), mLogo(0), mLoadBar(0),
+    mNo(0), mCursorWasVisible(false), mFpsLabel(0), mStatsPanel(0), mLogo(0),
     mGroupInitProportion(0.0f), mGroupLoadProportion(0.0f), mLoadInc(0.0f)
 {
     mTimer = Ogre::Root::getSingleton().getTimer();
@@ -1209,7 +1209,6 @@ TrayManager::~TrayManager()
     om.destroy(mCursorLayer);
 
     closeDialog();
-    hideLoadingBar();
 
     Widget::nukeOverlayElement(mBackdrop);
     Widget::nukeOverlayElement(mCursor);
@@ -1591,65 +1590,8 @@ void TrayManager::hideLogo()
     }
 }
 
-void TrayManager::showLoadingBar(unsigned int numGroupsInit, unsigned int numGroupsLoad, Ogre::Real initProportion)
-{
-    if (mDialog) closeDialog();
-    if (mLoadBar) hideLoadingBar();
-
-    mLoadBar = new ProgressBar(mName + "/LoadingBar", "Loading...", 400, 308);
-    Ogre::OverlayElement* e = mLoadBar->getOverlayElement();
-    mDialogShade->addChild(e);
-    e->setVerticalAlignment(Ogre::GVA_CENTER);
-    e->setLeft(-(e->getWidth() / 2));
-    e->setTop(-(e->getHeight() / 2));
-
-    Ogre::ResourceGroupManager::getSingleton().addResourceGroupListener(this);
-    mCursorWasVisible = isCursorVisible();
-    hideCursor();
-    mDialogShade->show();
-
-    // calculate the proportion of job required to init/load one group
-
-    if (numGroupsInit == 0 && numGroupsLoad != 0)
-    {
-        mGroupInitProportion = 0;
-        mGroupLoadProportion = 1;
-    }
-    else if (numGroupsLoad == 0 && numGroupsInit != 0)
-    {
-        mGroupLoadProportion = 0;
-        if (numGroupsInit != 0) mGroupInitProportion = 1;
-    }
-    else if (numGroupsInit == 0 && numGroupsLoad == 0)
-    {
-        mGroupInitProportion = 0;
-        mGroupLoadProportion = 0;
-    }
-    else
-    {
-        mGroupInitProportion = initProportion / numGroupsInit;
-        mGroupLoadProportion = (1 - initProportion) / numGroupsLoad;
-    }
-}
-
-void TrayManager::hideLoadingBar()
-{
-    if (mLoadBar)
-    {
-        mLoadBar->cleanup();
-        delete mLoadBar;
-        mLoadBar = 0;
-
-        Ogre::ResourceGroupManager::getSingleton().removeResourceGroupListener(this);
-        if (mCursorWasVisible) showCursor();
-        mDialogShade->hide();
-    }
-}
-
 void TrayManager::showOkDialog(const Ogre::DisplayString &caption, const Ogre::DisplayString &message)
 {
-    if (mLoadBar) hideLoadingBar();
-
     Ogre::OverlayElement* e;
 
     if (mDialog)
@@ -1704,8 +1646,6 @@ void TrayManager::showOkDialog(const Ogre::DisplayString &caption, const Ogre::D
 
 void TrayManager::showYesNoDialog(const Ogre::DisplayString &caption, const Ogre::DisplayString &question)
 {
-    if (mLoadBar) hideLoadingBar();
-
     Ogre::OverlayElement* e;
 
     if (mDialog)
