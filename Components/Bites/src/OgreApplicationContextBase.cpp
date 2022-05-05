@@ -219,6 +219,23 @@ void ApplicationContextBase::destroyDummyScene()
     mRoot->destroySceneManager(dummyScene);
 }
 
+void ApplicationContextBase::enableShaderCache() const
+{
+    Ogre::GpuProgramManager::getSingleton().setSaveMicrocodesToCache(true);
+
+    // Load for a package version of the shaders.
+    Ogre::String path = mFSLayer->getWritablePath(SHADER_CACHE_FILENAME);
+    std::ifstream inFile(path.c_str(), std::ios::binary);
+    if (!inFile.is_open())
+    {
+        Ogre::LogManager::getSingleton().logWarning("Could not open '"+path+"'");
+        return;
+    }
+    Ogre::LogManager::getSingleton().logMessage("Loading shader cache from '"+path+"'");
+    Ogre::DataStreamPtr istream(new Ogre::FileStreamDataStream(path, &inFile, false));
+    Ogre::GpuProgramManager::getSingleton().loadMicrocodeCache(istream);
+}
+
 void ApplicationContextBase::addInputListener(NativeWindowType* win, InputListener* lis)
 {
     mInputListeners.insert(std::make_pair(0, lis));

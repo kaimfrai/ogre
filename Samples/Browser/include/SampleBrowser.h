@@ -740,6 +740,8 @@ namespace OgreBites
             mTrayMgr->showBackdrop("SdkTrays/Bands");
             mTrayMgr->getTrayContainer(TL_NONE)->hide();
 
+            enableShaderCache();
+
             // Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
             createDummyScene();

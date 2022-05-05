@@ -227,6 +227,13 @@ namespace OgreBites
           */
         void destroyDummyScene();
 
+        /**
+         * enables the caching of compiled shaders to file
+         *
+         * also loads any existing cache
+         */
+        void enableShaderCache() const;
+
         /** attach input listener
          *
          * @param lis the listener
