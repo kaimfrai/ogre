@@ -908,6 +908,24 @@ namespace OgreBites
         void showFrameStats(TrayLocation trayLoc, size_t place = -1);
 
         /**
+        Hides frame statistics widget set.
+        */
+        void hideFrameStats();
+
+        bool areFrameStatsVisible()
+        {
+            return mFpsLabel != 0;
+        }
+
+        /**
+        Toggles visibility of advanced statistics.
+        */
+        void toggleAdvancedFrameStats()
+        {
+            if (mFpsLabel) labelHit(mFpsLabel);
+        }
+
+        /**
         Shows logo in the specified location.
         */
         void showLogo(TrayLocation trayLoc, size_t place = -1);
@@ -1161,6 +1179,8 @@ namespace OgreBites
         Button* mYes;                         // top priority Yes button
         Button* mNo;                          // top priority No button
         bool mCursorWasVisible;               // cursor state before showing dialog
+        Label* mFpsLabel;                     // FPS label
+        ParamsPanel* mStatsPanel;             // frame stats panel
         DecorWidget* mLogo;                   // logo
         Ogre::Real mGroupInitProportion;      // proportion of load job assigned to initialising one resource group
         Ogre::Real mGroupLoadProportion;      // proportion of load job assigned to loading one resource group
