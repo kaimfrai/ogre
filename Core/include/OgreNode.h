@@ -109,8 +109,9 @@ class Camera;
         /// Collection of pointers to direct children
         ChildNodeMap mChildren;
 
-        /// Number of children which need updating, used if self is not out of date but children are
-        ::std::size_t mChildrenToUpdate;
+        typedef std::set<Node*> ChildUpdateSet;
+        /// List of children which need updating, used if self is not out of date but children are
+        ChildUpdateSet mChildrenToUpdate;
         /// Friendly name of this node
         String mName;
 
