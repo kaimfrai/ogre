@@ -154,15 +154,15 @@ namespace Ogre {
     {
         if (!mInitialized && enabled) 
         {
-            for(auto listener : mListeners)
-                listener->initializeSession();
+            for( TProfileSessionListener::iterator i = mListeners.begin(); i != mListeners.end(); ++i )
+                (*i)->initializeSession();
 
             mInitialized = true;
         }
         else if (mInitialized && !enabled)
         {
-            for(auto listener : mListeners)
-                listener->finializeSession();
+            for( TProfileSessionListener::iterator i = mListeners.begin(); i != mListeners.end(); ++i )
+                (*i)->finializeSession();
 
             mInitialized = false;
             mEnabled = false;
@@ -179,8 +179,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Profiler::changeEnableState() 
     {
-        for(auto listener : mListeners )
-            listener->changeEnableState(mNewEnableState);
+        for( TProfileSessionListener::iterator i = mListeners.begin(); i != mListeners.end(); ++i )
+            (*i)->changeEnableState(mNewEnableState);
 
         mEnabled = mNewEnableState;
     }
@@ -481,8 +481,8 @@ namespace Ogre {
             // ensure the root won't be culled
             mRoot.frame.calls = 1;
 
-            for(auto listener : mListeners )
-                listener->displayResults(mRoot, mMaxTotalFrameClocks);
+            for( TProfileSessionListener::iterator i = mListeners.begin(); i != mListeners.end(); ++i )
+                (*i)->displayResults(mRoot, mMaxTotalFrameClocks);
         }
         ++mCurrentFrame;
     }

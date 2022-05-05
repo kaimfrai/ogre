@@ -90,8 +90,8 @@ namespace Ogre
         if (lml >= mLogLevel)
         {
             bool skipThisMessage = false;
-            for( auto listener : mListeners )
-                listener->messageLogged( message, lml, maskDebug, mLogName, skipThisMessage);
+            for( mtLogListener::iterator i = mListeners.begin(); i != mListeners.end(); ++i )
+                (*i)->messageLogged( message, lml, maskDebug, mLogName, skipThisMessage);
             
             if (!skipThisMessage)
             {
