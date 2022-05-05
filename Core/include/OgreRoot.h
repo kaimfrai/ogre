@@ -175,6 +175,8 @@ struct SceneManagerMetaData;
         Real mFrameSmoothingTime;
         bool mRemoveQueueStructuresOnClear;
         Real mDefaultMinPixelSize;
+        // maximum amount of frames
+        ::std::size_t mFrameCount;
 
     private:
         /// List of plugin DLLs loaded

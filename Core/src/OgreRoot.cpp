@@ -137,6 +137,7 @@ namespace Ogre {
       , mFrameSmoothingTime(0.0f)
       , mRemoveQueueStructuresOnClear(false)
       , mDefaultMinPixelSize(0)
+      , mFrameCount(frameCount)
       , mNextMovableObjectTypeFlag(1)
       , mIsInitialised(false)
       , mIsBlendIndicesGpuRedundant(true)
@@ -194,7 +195,7 @@ namespace Ogre {
         mLodStrategyManager.reset(new LodStrategyManager());
 
         // Profiler
-        mProfiler.reset(new Profiler(frameCount));
+        mProfiler.reset(new Profiler());
         Profiler::getSingleton().setTimer(mTimer.get());
 
         mFileSystemArchiveFactory.reset(new FileSystemArchiveFactory());
@@ -774,7 +775,7 @@ namespace Ogre {
         // or break out by calling queueEndRendering()
         mQueuedEnd = false;
 
-        while( !mQueuedEnd )
+        for(::std::size_t frame = 0; frame < mFrameCount && !mQueuedEnd; ++frame)
         {
             Ogre::Profile frameProfile("Frame", OGREPROF_GENERAL);
             if (!renderOneFrame())

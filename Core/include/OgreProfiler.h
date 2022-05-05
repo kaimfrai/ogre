@@ -225,7 +225,7 @@ namespace Ogre {
         public ProfilerAlloc
     {
         public:
-            Profiler(ulong frameCount = -1);
+            Profiler();
             ~Profiler();
 
             /** Sets the timer for the profiler */
@@ -433,7 +433,6 @@ namespace Ogre {
             long double mAverageFrameClocks;
             bool mResetExtents;
 
-            ulong mFrameCount;
     }; // end class
 
     /** An individual profile that will be processed by the Profiler
