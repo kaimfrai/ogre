@@ -37,7 +37,6 @@ THE SOFTWARE.
 #include "OgreFontManager.h"
 #include "OgreOverlayElementFactory.h"
 #include "OgreOverlayManager.h"
-#include "OgreOverlayProfileSessionListener.h"
 #include "OgrePanelOverlayElement.h"
 #include "OgreProfiler.h"
 #include "OgreRenderQueue.h"
@@ -117,23 +116,12 @@ class OverlayElement;
         mOverlayManager->addOverlayElementFactory(new Ogre::TextAreaOverlayElementFactory());
 
         mFontManager = new FontManager();
-        if (auto prof = Profiler::getSingletonPtr())
-        {
-            mProfileListener = new Ogre::OverlayProfileSessionListener();
-            prof->addListener(mProfileListener);
-        }
     }
     //---------------------------------------------------------------------
     OverlaySystem::~OverlaySystem()
     {
         if(RenderSystem::getSharedListener() == this)
             RenderSystem::setSharedListener(0);
-
-        if (auto prof = Profiler::getSingletonPtr())
-        {
-            prof->removeListener(mProfileListener);
-            delete mProfileListener;
-        }
 
         delete mOverlayManager;
         delete mFontManager;
