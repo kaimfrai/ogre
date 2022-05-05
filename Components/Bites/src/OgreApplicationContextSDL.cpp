@@ -48,10 +48,8 @@ auto ApplicationContextSDL::createWindow(const Ogre::String& name, Ogre::uint32 
     NativeWindowPair ret = {nullptr, nullptr};
 
     if(!SDL_WasInit(SDL_INIT_VIDEO)) {
-        if(SDL_GameControllerAddMappingsFromFile("gamecontrollerdb.txt"))
-            Ogre::LogManager::getSingleton().logMessage("[SDL] gamecontrollerdb.txt loaded");
 
-        SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER);
+        SDL_InitSubSystem(SDL_INIT_VIDEO);
     }
 
     auto p = mRoot->getRenderSystem()->getRenderWindowDescription();

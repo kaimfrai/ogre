@@ -922,22 +922,6 @@ namespace OgreBites
         }
 
         /**
-        Shows loading bar. Also takes job settings: the number of resource groups
-        to be initialised, the number of resource groups to be loaded, and the
-        proportion of the job that will be taken up by initialisation. Usually,
-        script parsing takes up most time, so the default value is 0.7.
-        */
-        void showLoadingBar(unsigned int numGroupsInit = 1, unsigned int numGroupsLoad = 1,
-            Ogre::Real initProportion = 0.7f);
-
-        void hideLoadingBar();
-
-        auto isLoadingBarVisible() -> bool
-        {
-            return mLoadBar != nullptr;
-        }
-
-        /**
         Pops up a message dialog with an OK button.
         */
         void showOkDialog(const Ogre::DisplayString& caption, const Ogre::DisplayString& message);
@@ -1081,50 +1065,42 @@ namespace OgreBites
         void resourceGroupScriptingStarted(const Ogre::String& groupName, size_t scriptCount) override
         {
             mLoadInc = mGroupInitProportion / float(scriptCount);
-            mLoadBar->setCaption("Parsing...");
             windowUpdate();
         }
 
         void scriptParseStarted(const Ogre::String& scriptName, bool& skipThisScript) override
         {
-            mLoadBar->setComment(scriptName);
             windowUpdate();
         }
 
         void scriptParseEnded(const Ogre::String& scriptName, bool skipped) override
         {
-            mLoadBar->setProgress(mLoadBar->getProgress() + mLoadInc);
             windowUpdate();
         }
 
         void resourceGroupLoadStarted(const Ogre::String& groupName, size_t resourceCount) override
         {
             mLoadInc = mGroupLoadProportion / float(resourceCount);
-            mLoadBar->setCaption("Loading...");
             windowUpdate();
         }
 
         void resourceLoadStarted(const Ogre::ResourcePtr& resource) override
         {
-            mLoadBar->setComment(resource->getName());
             windowUpdate();
         }
 
         void resourceLoadEnded() override
         {
-            mLoadBar->setProgress(mLoadBar->getProgress() + mLoadInc);
             windowUpdate();
         }
 
         void customStageStarted(const Ogre::String& description) override
         {
-            mLoadBar->setComment(description);
             windowUpdate();
         }
 
         void customStageEnded() override
         {
-            mLoadBar->setProgress(mLoadBar->getProgress() + mLoadInc);
             windowUpdate();
         }
 
@@ -1191,7 +1167,6 @@ namespace OgreBites
         Label* mFpsLabel{nullptr};                     // FPS label
         ParamsPanel* mStatsPanel{nullptr};             // frame stats panel
         DecorWidget* mLogo{nullptr};                   // logo
-        ProgressBar* mLoadBar{nullptr};                // loading bar
         Ogre::Real mGroupInitProportion{0.0f};      // proportion of load job assigned to initialising one resource group
         Ogre::Real mGroupLoadProportion{0.0f};      // proportion of load job assigned to loading one resource group
         Ogre::Real mLoadInc{0.0f};                  // loading increment

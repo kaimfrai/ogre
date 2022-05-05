@@ -36,7 +36,6 @@ import :ElementFactory;
 import :FontManager;
 import :Manager;
 import :PanelOverlayElement;
-import :ProfileSessionListener;
 import :System;
 import :TextAreaOverlayElement;
 
@@ -119,23 +118,12 @@ namespace Ogre {
         mOverlayManager->addOverlayElementFactory(new Ogre::TextAreaOverlayElementFactory());
 
         mFontManager = new FontManager();
-        if (auto prof = Profiler::getSingletonPtr())
-        {
-            mProfileListener = new Ogre::OverlayProfileSessionListener();
-            prof->addListener(mProfileListener);
-        }
     }
     //---------------------------------------------------------------------
     OverlaySystem::~OverlaySystem()
     {
         if(RenderSystem::getSharedListener() == this)
             RenderSystem::setSharedListener(nullptr);
-
-        if (auto prof = Profiler::getSingletonPtr())
-        {
-            prof->removeListener(mProfileListener);
-            delete mProfileListener;
-        }
 
         delete mOverlayManager;
         delete mFontManager;

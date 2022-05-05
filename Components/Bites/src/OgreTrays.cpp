@@ -1184,7 +1184,6 @@ TrayManager::~TrayManager()
     om.destroy(mCursorLayer);
 
     closeDialog();
-    hideLoadingBar();
 
     Widget::nukeOverlayElement(mBackdrop);
     Widget::nukeOverlayElement(mCursor);
@@ -1566,65 +1565,8 @@ void TrayManager::hideLogo()
     }
 }
 
-void TrayManager::showLoadingBar(unsigned int numGroupsInit, unsigned int numGroupsLoad, Ogre::Real initProportion)
-{
-    if (mDialog) closeDialog();
-    if (mLoadBar) hideLoadingBar();
-
-    mLoadBar = new ProgressBar(::std::format("{}/LoadingBar", mName), "Loading...", 400, 308);
-    Ogre::OverlayElement* e = mLoadBar->getOverlayElement();
-    mDialogShade->addChild(e);
-    e->setVerticalAlignment(Ogre::GVA_CENTER);
-    e->setLeft(-(e->getWidth() / 2));
-    e->setTop(-(e->getHeight() / 2));
-
-    Ogre::ResourceGroupManager::getSingleton().addResourceGroupListener(this);
-    mCursorWasVisible = isCursorVisible();
-    hideCursor();
-    mDialogShade->show();
-
-    // calculate the proportion of job required to init/load one group
-
-    if (numGroupsInit == 0 && numGroupsLoad != 0)
-    {
-        mGroupInitProportion = 0;
-        mGroupLoadProportion = 1;
-    }
-    else if (numGroupsLoad == 0 && numGroupsInit != 0)
-    {
-        mGroupLoadProportion = 0;
-        if (numGroupsInit != 0) mGroupInitProportion = 1;
-    }
-    else if (numGroupsInit == 0 && numGroupsLoad == 0)
-    {
-        mGroupInitProportion = 0;
-        mGroupLoadProportion = 0;
-    }
-    else
-    {
-        mGroupInitProportion = initProportion / numGroupsInit;
-        mGroupLoadProportion = (1 - initProportion) / numGroupsLoad;
-    }
-}
-
-void TrayManager::hideLoadingBar()
-{
-    if (mLoadBar)
-    {
-        mLoadBar->cleanup();
-        delete mLoadBar;
-        mLoadBar = nullptr;
-
-        Ogre::ResourceGroupManager::getSingleton().removeResourceGroupListener(this);
-        if (mCursorWasVisible) showCursor();
-        mDialogShade->hide();
-    }
-}
-
 void TrayManager::showOkDialog(const Ogre::DisplayString &caption, const Ogre::DisplayString &message)
 {
-    if (mLoadBar) hideLoadingBar();
-
     Ogre::OverlayElement* e;
 
     if (mDialog)
@@ -1679,8 +1621,6 @@ void TrayManager::showOkDialog(const Ogre::DisplayString &caption, const Ogre::D
 
 void TrayManager::showYesNoDialog(const Ogre::DisplayString &caption, const Ogre::DisplayString &question)
 {
-    if (mLoadBar) hideLoadingBar();
-
     Ogre::OverlayElement* e;
 
     if (mDialog)
