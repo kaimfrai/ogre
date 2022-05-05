@@ -60,23 +60,19 @@ class Plane;
     */
     class ConvexBody
     {
-    private:
-        struct FreePolygon
-        {
-            auto operator()(Polygon* polygon) const -> void
-            {
-                if (polygon)
-                    freePolygon(polygon);
-            }
-        };
+    public:
+        typedef std::vector< Polygon* >    PolygonList;
 
-        ::std::unique_ptr<Polygon, FreePolygon> mPolygons[10];
-        ::std::size_t mPolygonCount = 0;
+    private:
+        PolygonList mPolygons;
 
         // Static 'free list' of polygons to save reallocation, shared between all bodies
-        static ::std::vector<::std::unique_ptr<Polygon>> msFreePolygons;
+        static PolygonList msFreePolygons;
 
     public:
+        ConvexBody();
+        ~ConvexBody();
+        ConvexBody( const ConvexBody& cpy );
 
         /** Build a new polygon representation from a frustum.
         */
@@ -177,6 +173,12 @@ class Plane;
         static Polygon* allocatePolygon();
         /** Release a polygon back tot he pool. */
         static void freePolygon(Polygon* poly);
+        /** Inserts a polygon at a particular point in the body.
+        @note
+            After this method is called, the ConvexBody 'owns' this Polygon
+            and will be responsible for deleting it.
+        */
+        void insertPolygon(Polygon* pdata, size_t poly);
         /** Inserts a polygon at the end.
         @note
             After this method is called, the ConvexBody 'owns' this Polygon
@@ -205,6 +207,11 @@ class Plane;
             The retrieved polygon needs to be deleted later by the caller.
         */
         Polygon* unlinkPolygon(size_t poly);
+
+        /** Moves all polygons from the parameter body to this instance.
+        @note Both the passed in object and this instance are modified
+        */
+        void moveDataFromBody(ConvexBody& body);
 
         /** Deletes a specific vertex of a specific polygon.
         */
