@@ -1,13 +1,13 @@
 #!/bin/bash
 
 TARGETS=(\
-	Ogre.Core\
-	Ogre.PlugIns.STBICodec\
-	Ogre.RenderSystems.GLSupport\
-	Ogre.RenderSystems.GL\
-	Ogre.Components.RTShaderSystem\
-	Ogre.Components.Overlay\
-	Ogre.Components.Bites\
+# 	Ogre.Core\
+# 	Ogre.PlugIns.STBICodec\
+# 	Ogre.RenderSystems.GLSupport\
+# 	Ogre.RenderSystems.GL\
+# 	Ogre.Components.RTShaderSystem\
+# 	Ogre.Components.Overlay\
+# 	Ogre.Components.Bites\
 	SampleBrowser
 )
 

@@ -34,9 +34,9 @@ Sample_NewInstancing::Sample_NewInstancing()
 //------------------------------------------------------------------------------
 auto Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt) -> bool
 {
-    animateUnits( /*evt.timeSinceLastEvent*/ 1.0f/60.0f);
+    animateUnits( evt.timeSinceLastFrame);
 
-    moveUnits( /*evt.timeSinceLastEvent*/ 1.0f/60.0f);
+    moveUnits( evt.timeSinceLastFrame);
 
     return SdkSample::frameRenderingQueued(evt);        // don't forget the parent class updates!
 }
