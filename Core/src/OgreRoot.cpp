@@ -130,6 +130,7 @@ namespace Ogre {
       , mFrameSmoothingTime(0.0f)
       , mRemoveQueueStructuresOnClear(false)
       , mDefaultMinPixelSize(0)
+      , mFrameCount(frameCount)
       , mNextMovableObjectTypeFlag(1)
       , mIsInitialised(false)
       , mIsBlendIndicesGpuRedundant(true)
@@ -187,7 +188,7 @@ namespace Ogre {
         mLodStrategyManager.reset(new LodStrategyManager());
 
         // Profiler
-        mProfiler.reset(new Profiler(frameCount));
+        mProfiler.reset(new Profiler());
         Profiler::getSingleton().setTimer(mTimer.get());
 
         mFileSystemArchiveFactory.reset(new FileSystemArchiveFactory());
@@ -694,8 +695,22 @@ namespace Ogre {
     void Root::populateFrameEvent(FrameEventTimeType type, FrameEvent& evtToUpdate)
     {
         unsigned long now = mTimer->getMilliseconds();
-        evtToUpdate.timeSinceLastEvent = calculateEventTime(now, FETT_ANY);
-        evtToUpdate.timeSinceLastFrame = calculateEventTime(now, type);
+        auto const timeSinceLastEvent = calculateEventTime(now, FETT_ANY);
+        auto const timeSinceLastFrame = calculateEventTime(now, type);
+//         evtToUpdate.timeSinceLastEvent = timeSinceLastEvent;
+//         evtToUpdate.timeSinceLastFrame = timeSinceLastFrame;
+        if  (timeSinceLastFrame <= 0.0)
+        {   evtToUpdate.timeSinceLastEvent = 0.0f;
+            evtToUpdate.timeSinceLastFrame = 0.0f;
+        }
+        else
+        {
+            evtToUpdate.timeSinceLastEvent =
+                1.0 / (32.0 * timeSinceLastFrame) *
+                timeSinceLastEvent;
+            evtToUpdate.timeSinceLastFrame =
+                1.0/32.0;
+        }
     }
     //-----------------------------------------------------------------------
     Real Root::calculateEventTime(unsigned long now, FrameEventTimeType type)
@@ -753,7 +768,7 @@ namespace Ogre {
         // or break out by calling queueEndRendering()
         mQueuedEnd = false;
 
-        while( !mQueuedEnd )
+        for(::std::size_t frame = 0; frame < mFrameCount && !mQueuedEnd; ++frame)
         {
             Ogre::Profile frameProfile("Frame", OGREPROF_GENERAL);
             if (!renderOneFrame())

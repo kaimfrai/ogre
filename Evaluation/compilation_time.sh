@@ -1,13 +1,13 @@
 #!/bin/bash
 
 TARGETS=(\
-	OgreCore\
-	Codec_STBI\
-	OgreGLSupport\
-	RenderSystem_GL\
-	OgreRTShaderSystem\
-	OgreOverlay\
-	OgreBites\
+# 	OgreCore\
+# 	Codec_STBI\
+# 	OgreGLSupport\
+# 	RenderSystem_GL\
+# 	OgreRTShaderSystem\
+# 	OgreOverlay\
+# 	OgreBites\
 	SampleBrowser
 )
 
