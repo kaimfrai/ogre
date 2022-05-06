@@ -126,6 +126,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Root::Root(const String& pluginFileName, const String& configFileName,
         const String& logFileName, ulong frameCount)
+      : mFrameCount(frameCount)
     {
         // superclass will do singleton checking
 
@@ -180,7 +181,7 @@ namespace Ogre {
         mLodStrategyManager = std::make_unique<LodStrategyManager>();
 
         // Profiler
-        mProfiler = std::make_unique<Profiler>(frameCount);
+        mProfiler = std::make_unique<Profiler>();
         Profiler::getSingleton().setTimer(mTimer.get());
 
         mFileSystemArchiveFactory = std::make_unique<FileSystemArchiveFactory>();
@@ -686,8 +687,22 @@ namespace Ogre {
     void Root::populateFrameEvent(FrameEventTimeType type, FrameEvent& evtToUpdate)
     {
         unsigned long now = mTimer->getMilliseconds();
-        evtToUpdate.timeSinceLastEvent = calculateEventTime(now, FETT_ANY);
-        evtToUpdate.timeSinceLastFrame = calculateEventTime(now, type);
+        auto const timeSinceLastEvent = calculateEventTime(now, FETT_ANY);
+        auto const timeSinceLastFrame = calculateEventTime(now, type);
+//         evtToUpdate.timeSinceLastEvent = timeSinceLastEvent;
+//         evtToUpdate.timeSinceLastFrame = timeSinceLastFrame;
+        if  (timeSinceLastFrame <= 0.0)
+        {   evtToUpdate.timeSinceLastEvent = 0.0f;
+            evtToUpdate.timeSinceLastFrame = 0.0f;
+        }
+        else
+        {
+            evtToUpdate.timeSinceLastEvent =
+                1.0 / (32.0 * timeSinceLastFrame) *
+                timeSinceLastEvent;
+            evtToUpdate.timeSinceLastFrame =
+                1.0/32.0;
+        }
     }
     //-----------------------------------------------------------------------
     auto Root::calculateEventTime(unsigned long now, FrameEventTimeType type) -> Real
@@ -745,7 +760,7 @@ namespace Ogre {
         // or break out by calling queueEndRendering()
         mQueuedEnd = false;
 
-        while( !mQueuedEnd )
+        for(::std::size_t frame = 0; frame < mFrameCount && !mQueuedEnd; ++frame)
         {
             Ogre::Profile frameProfile("Frame", OGREPROF_GENERAL);
             if (!renderOneFrame())
