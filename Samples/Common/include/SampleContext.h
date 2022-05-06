@@ -66,10 +66,6 @@ namespace OgreBites
         -----------------------------------------------------------------------------*/
         virtual void runSample(Sample* s)
         {
-            Ogre::Profiler* prof = Ogre::Profiler::getSingletonPtr();
-            if (prof)
-                prof->setEnabled(false);
-
             if (mCurrentSample)
             {
                 mCurrentSample->_shutdown();    // quit current sample
@@ -108,9 +104,6 @@ namespace OgreBites
                 s->setShaderGenerator(mShaderGenerator);
                 s->_setup(mWindow, mFSLayer, mOverlaySystem);   // start new sample
             }
-
-            if (prof)
-                prof->setEnabled(true);
 
             mCurrentSample = s;
         }
