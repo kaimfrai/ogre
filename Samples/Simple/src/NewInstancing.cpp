@@ -6,6 +6,7 @@
 #include "OgreColourValue.hpp"
 #include "OgreCommon.hpp"
 #include "OgreEntity.hpp"
+#include "OgreFrameListener.hpp"
 #include "OgreInstancedEntity.hpp"
 #include "OgreLight.hpp"
 #include "OgreMaterialManager.hpp"
