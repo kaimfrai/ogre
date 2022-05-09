@@ -71,11 +71,11 @@ namespace Ogre {
         return allocate(size, OGRE_SIMD_ALIGNMENT);
     }
     //---------------------------------------------------------------------
-    void AlignedMemory::deallocate(void* p, size_t alignment)
+    void AlignedMemory::deallocate(void* p)
     {
         if (p)
         {
-            ::operator delete[](static_cast<unsigned char*>(p), ::std::align_val_t{alignment}) ;
+            delete [] static_cast<unsigned char*>(p);
         }
     }
 
