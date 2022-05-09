@@ -90,6 +90,7 @@ disassemble()
 		-M intel\
 		$obj\
 		> "${assembly}"
+	sed -i 's/0x[0-9a-f]*/0x/g' ${assembly}
 }
 
 for	obj in "${OBJECT_FILE_LIST[@]}"
