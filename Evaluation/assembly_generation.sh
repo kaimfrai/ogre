@@ -12,6 +12,10 @@ elif [[ $# < 3 ]]
 then
 	echo "C++ standard version required as third argument."
 	exit 1
+elif [[ $# < 4 ]]
+then
+	echo "Clang path required as third argument."
+	exit 1
 fi
 
 CMAKE_SOURCE_DIR=$(realpath $1)
@@ -32,22 +36,24 @@ then
 fi
 
 CMAKE_CXX_STANDARD=$3
+CMAKE_CXX_COMPILER=$4
+
 #do not overwrite configurations of different branches
 GIT_BRANCH_NAME=$(git -C $CMAKE_SOURCE_DIR branch --show-current)
-CMAKE_BINARY_DIR=$CMAKE_SOURCE_DIR/build/Assembly/Clang-$CMAKE_BUILD_TYPE-$CMAKE_CXX_STANDARD-$GIT_BRANCH_NAME
-ASSEMBLY_DIR=$CMAKE_SOURCE_DIR/build/Assembly/$CMAKE_BUILD_TYPE-$CMAKE_CXX_STANDARD-$GIT_BRANCH_NAME
+CMAKE_BINARY_DIR=$CMAKE_SOURCE_DIR/build/Assembly-Build/$CMAKE_CXX_COMPILER-$CMAKE_BUILD_TYPE-$CMAKE_CXX_STANDARD-$GIT_BRANCH_NAME
+ASSEMBLY_DIR=$CMAKE_SOURCE_DIR/build/Assembly/$CMAKE_CXX_COMPILER-$CMAKE_BUILD_TYPE-$CMAKE_CXX_STANDARD-$GIT_BRANCH_NAME
 THIRD_PARTY_DIR=$(realpath $CMAKE_SOURCE_DIR/../ThirdParty/)
 
 cmake\
 	-DCMAKE_EXPORT_COMPILE_COMMANDS=ON\
 	--install-prefix $THIRD_PARTY_DIR\
 	-G Ninja\
-	--toolchain $CMAKE_SOURCE_DIR/CMake/toolchain/linux.toolchain.clang.cmake\
 	-DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE\
 	-DOGRE_DEPENDENCIES_DIR=$THIRD_PARTY_DIR\
 	-S $CMAKE_SOURCE_DIR\
 	-B $CMAKE_BINARY_DIR\
-	-DCMAKE_CXX_FLAGS=-g\
+	-DCMAKE_CXX_COMPILER=$CMAKE_CXX_COMPILER\
+	-DCMAKE_CXX_FLAGS="-g -stdlib=libc++"\
 	-DCMAKE_CXX_STANDARD=$CMAKE_CXX_STANDARD
 
 cmake\
@@ -81,7 +87,6 @@ disassemble()
 		--disassemble\
 		--no-leading-addr\
 		--no-show-raw-insn\
-		--source\
 		-M intel\
 		$obj\
 		> "${assembly}"
