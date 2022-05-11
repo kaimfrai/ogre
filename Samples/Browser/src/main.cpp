@@ -25,6 +25,28 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
+#if defined(OGRE_TRACK_MEMORY) && OGRE_TRACK_MEMORY != 0
+namespace
+{
+    unsigned long NewByteCount = 0;
+    unsigned long NewCallCount = 0;
+    unsigned long DelCallCount = 0;
+    struct
+        TrackMemory
+    {
+        TrackMemory()
+        {
+            NewCallCount = 0;
+            NewByteCount = 0;
+            DelCallCount = 0;
+        }
+
+        ~TrackMemory() noexcept;
+
+    } TrackMemoryGlobal;
+}
+#endif
+
 #include <iostream>
 #include <string>
 
@@ -32,6 +54,36 @@
 #include "OgrePrerequisites.h"
 #include "OgreStringConverter.h"
 #include "SampleBrowser.h"
+
+#if defined(OGRE_TRACK_MEMORY) && OGRE_TRACK_MEMORY != 0
+void* operator new  ( std::size_t count )
+{
+    ++NewCallCount;
+    NewByteCount += count;
+    return ::std::malloc(count);
+}
+void* operator new[]( std::size_t count )
+{
+    ++NewCallCount;
+    NewByteCount += count;
+    return ::std::malloc(count);
+}
+void operator delete  ( void* ptr ) noexcept
+{
+    ++DelCallCount;
+    return ::std::free(ptr);
+}
+void operator delete[]( void* ptr ) noexcept
+{
+    ++DelCallCount;
+    ::std::free(ptr);
+}
+
+TrackMemory::~TrackMemory() noexcept
+{
+    printf("\n\nNewCallCount: %lu\nDelCallCount: %lu\nNewByteCount: %lu\n", NewCallCount, DelCallCount, NewByteCount);
+}
+#endif
 
 int main(int argc, char *argv[]) {
 

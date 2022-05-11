@@ -8,6 +8,9 @@
 #-------------------------------------------------------------------
 
 # Configure Browser demo build
+if (OGRE_TRACK_MEMORY)
+  add_compile_definitions(OGRE_TRACK_MEMORY=1)
+endif()
 
 set (HEADER_FILES
 	${PROJECT_SOURCE_DIR}/Samples/Browser/include/SampleBrowser.h
