@@ -99,11 +99,11 @@ namespace Ogre {
         void _restoreManualHardwareResources();
 
         /// @copydoc ScriptLoader::getScriptPatterns
-        const StringVector& getScriptPatterns() const;
+        [[nodiscard]] const StringVector& getScriptPatterns() const;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName);
         /// @copydoc ScriptLoader::getLoadingOrder
-        Real getLoadingOrder() const;
+        [[nodiscard]] Real getLoadingOrder() const;
 
         void addOverlay(Overlay* overlay);
 
@@ -126,21 +126,21 @@ namespace Ogre {
         void _queueOverlaysForRendering(Camera* cam, RenderQueue* pQueue, Viewport *vp);
 
         /** Gets the height of the destination viewport in pixels. */
-        int getViewportHeight() const;
+        [[nodiscard]] int getViewportHeight() const;
         
         /** Gets the width of the destination viewport in pixels. */
-        int getViewportWidth() const;
-        Real getViewportAspectRatio() const;
+        [[nodiscard]] int getViewportWidth() const;
+        [[nodiscard]] Real getViewportAspectRatio() const;
 
         /** Gets the orientation mode of the destination viewport. */
-        OrientationMode getViewportOrientationMode() const;
+        [[nodiscard]] OrientationMode getViewportOrientationMode() const;
 
        /** Sets the pixel ratio: how many viewport pixels represent a single overlay pixel (in one dimension).
 
        By default this is an 1:1 mapping. However on HiDPI screens you want to increase that to scale up your Overlay.
        @see RenderWindow::getViewPointToPixelScale */
        void setPixelRatio(float ratio);
-       float getPixelRatio() const;
+       [[nodiscard]] float getPixelRatio() const;
 
         /** Creates a new OverlayElement of the type requested.
         @remarks
@@ -186,7 +186,7 @@ namespace Ogre {
         void addOverlayElementFactory(OverlayElementFactory* elemFactory);
         
         /** Get const access to the list of registered OverlayElement factories. */
-        const FactoryMap& getOverlayElementFactoryMap() const {
+        [[nodiscard]] const FactoryMap& getOverlayElementFactoryMap() const {
             return mFactories;
         }
 

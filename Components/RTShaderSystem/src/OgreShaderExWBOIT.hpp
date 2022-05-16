@@ -53,7 +53,7 @@ A factory that enables creation of GBuffer instances.
 class WBOITFactory : public SubRenderStateFactory
 {
 public:
-    const String& getType() const override;
+    [[nodiscard]] const String& getType() const override;
 
     SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
                                            SGScriptTranslator* translator) override;

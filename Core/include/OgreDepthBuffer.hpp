@@ -93,14 +93,14 @@ class RenderTarget;
         void _setPoolId( uint16 poolId );
 
         /// Gets the pool id in which this DepthBuffer lives
-        virtual uint16 getPoolId() const;
-        virtual uint32 getWidth() const;
-        virtual uint32 getHeight() const;
-        uint32 getFSAA() const { return mFsaa; }
+        [[nodiscard]] virtual uint16 getPoolId() const;
+        [[nodiscard]] virtual uint32 getWidth() const;
+        [[nodiscard]] virtual uint32 getHeight() const;
+        [[nodiscard]] uint32 getFSAA() const { return mFsaa; }
 
         /** Manual DepthBuffers are cleared in RenderSystem's destructor. Non-manual ones are released
             with it's render target (aka, a backbuffer or similar) */
-        bool isManual() const;
+        [[nodiscard]] bool isManual() const;
 
         /** Returns whether the specified RenderTarget is compatible with this DepthBuffer
             That is, this DepthBuffer can be attached to that RenderTarget

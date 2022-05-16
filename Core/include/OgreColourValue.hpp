@@ -92,19 +92,19 @@ namespace Ogre {
         /// @{
 
         /// value packed as #PF_R8G8B8A8
-        RGBA getAsRGBA() const;
+        [[nodiscard]] RGBA getAsRGBA() const;
 
         /// value packed as #PF_A8R8G8B8
-        ARGB getAsARGB() const;
+        [[nodiscard]] ARGB getAsARGB() const;
 
         /// value packed as #PF_B8G8R8A8
-        BGRA getAsBGRA() const;
+        [[nodiscard]] BGRA getAsBGRA() const;
 
         /// value packed as #PF_A8B8G8R8
-        ABGR getAsABGR() const;
+        [[nodiscard]] ABGR getAsABGR() const;
 
         /// value packed as #PF_BYTE_RGBA
-        RGBA getAsBYTE() const
+        [[nodiscard]] RGBA getAsBYTE() const
         {
             return getAsABGR();
         }
@@ -149,7 +149,7 @@ namespace Ogre {
 
         /** As saturate, except that this colour value is unaffected and
             the saturated colour value is returned as a copy. */
-        ColourValue saturateCopy() const
+        [[nodiscard]] ColourValue saturateCopy() const
         {
             ColourValue ret = *this;
             ret.saturate();
@@ -178,7 +178,7 @@ namespace Ogre {
             return &r;
         }
         /// Pointer accessor for direct copying
-        const float* ptr() const
+        [[nodiscard]] const float* ptr() const
         {
             return &r;
         }

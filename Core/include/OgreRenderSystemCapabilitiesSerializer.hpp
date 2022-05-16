@@ -125,7 +125,7 @@ namespace Ogre {
             mKeywordTypeMap.emplace(keyword, type);
         }
 
-        CapabilityKeywordType getKeywordType(const String& keyword) const
+        [[nodiscard]] CapabilityKeywordType getKeywordType(const String& keyword) const
         {
             KeywordTypeMap::const_iterator it = mKeywordTypeMap.find(keyword);
             if (it != mKeywordTypeMap.end())

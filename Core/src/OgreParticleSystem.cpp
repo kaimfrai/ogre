@@ -157,7 +157,7 @@ class RenderQueue;
     public:
         ParticleSystemUpdateValue(ParticleSystem* target) : mTarget(target) {}
 
-        Real getValue() const { return 0; } // N/A
+        [[nodiscard]] Real getValue() const { return 0; } // N/A
 
         void setValue(Real value) { mTarget->_update(value); }
 

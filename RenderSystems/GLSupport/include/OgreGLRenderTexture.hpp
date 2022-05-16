@@ -78,18 +78,18 @@ class RenderTarget;
         void unbindSurface(size_t attachment);
 
         /// Accessors
-        int32 getFSAA() const { return mNumSamples; }
-        uint32 getWidth() const;
-        uint32 getHeight() const;
-        PixelFormat getFormat() const;
+        [[nodiscard]] int32 getFSAA() const { return mNumSamples; }
+        [[nodiscard]] uint32 getWidth() const;
+        [[nodiscard]] uint32 getHeight() const;
+        [[nodiscard]] PixelFormat getFormat() const;
 
-        GLContext* getContext() const { return mContext; }
+        [[nodiscard]] GLContext* getContext() const { return mContext; }
         /// Get the GL id for the FBO
-        uint32 getGLFBOID() const { return mFB; }
+        [[nodiscard]] uint32 getGLFBOID() const { return mFB; }
         /// Get the GL id for the multisample FBO
-        uint32 getGLMultisampleFBOID() const { return mMultisampleFB; }
+        [[nodiscard]] uint32 getGLMultisampleFBOID() const { return mMultisampleFB; }
 
-        const GLSurfaceDesc &getSurface(size_t attachment) const { return mColour[attachment]; }
+        [[nodiscard]] const GLSurfaceDesc &getSurface(size_t attachment) const { return mColour[attachment]; }
 
         void notifyContextDestroyed(GLContext* context) { if(mContext == context) { mContext = 0; mFB = 0; mMultisampleFB = 0; } }
     protected:
@@ -119,7 +119,7 @@ class RenderTarget;
     {
     public:
         GLRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
-        bool requiresTextureFlipping() const { return true; }
+        [[nodiscard]] bool requiresTextureFlipping() const { return true; }
 
         static const String CustomAttributeString_FBO;
         static const String CustomAttributeString_TARGET;

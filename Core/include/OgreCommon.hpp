@@ -630,15 +630,15 @@ class RenderWindow;
             bottom = o.bottom;
             return *this;
           }
-          T width() const
+          [[nodiscard]] T width() const
           {
             return right - left;
           }
-          T height() const
+          [[nodiscard]] T height() const
           {
             return bottom - top;
           }
-          bool isNull() const
+          [[nodiscard]] bool isNull() const
           {
               return width() == 0 || height() == 0;
           }
@@ -674,7 +674,7 @@ class RenderWindow;
            * @param rhs Another rectangle.
            * @return The intersection of the two rectangles. Zero size if they don't intersect.
            */
-          TRect intersect(const TRect& rhs) const
+          [[nodiscard]] TRect intersect(const TRect& rhs) const
           {
               assert(right >= left && bottom >= top);
               assert(rhs.right >= rhs.left && rhs.bottom >= rhs.top);
@@ -789,23 +789,23 @@ class RenderWindow;
             }
 
             /// Return true if the other box is a part of this one
-            bool contains(const Box &def) const
+            [[nodiscard]] bool contains(const Box &def) const
             {
                 return (def.left >= left && def.top >= top && def.front >= front &&
                     def.right <= right && def.bottom <= bottom && def.back <= back);
             }
             
             /// Get the width of this box
-            uint32 getWidth() const { return right-left; }
+            [[nodiscard]] uint32 getWidth() const { return right-left; }
             /// Get the height of this box
-            uint32 getHeight() const { return bottom-top; }
+            [[nodiscard]] uint32 getHeight() const { return bottom-top; }
             /// Get the depth of this box
-            uint32 getDepth() const { return back-front; }
+            [[nodiscard]] uint32 getDepth() const { return back-front; }
 
             /// origin (top, left, front) of the box
-            Vector<3, uint32> getOrigin() const { return {left, top, front}; }
+            [[nodiscard]] Vector<3, uint32> getOrigin() const { return {left, top, front}; }
             /// size (width, height, depth) of the box
-            Vector<3, uint32> getSize() const { return {getWidth(), getHeight(), getDepth()}; }
+            [[nodiscard]] Vector<3, uint32> getSize() const { return {getWidth(), getHeight(), getDepth()}; }
         };
 
     

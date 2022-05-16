@@ -100,7 +100,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Retrieves custom sample info.
         -----------------------------------------------------------------------------*/
-        const Ogre::NameValuePairList& getInfo() const { return mInfo; }
+        [[nodiscard]] const Ogre::NameValuePairList& getInfo() const { return mInfo; }
         Ogre::NameValuePairList& getInfo() { return mInfo; }
 
         /*-----------------------------------------------------------------------------

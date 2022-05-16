@@ -93,15 +93,15 @@ namespace Ogre {
         }
 
         /** Retrieves the particle's personal width, if hasOwnDimensions is true. */
-        float getOwnWidth() const { return mWidth; }
+        [[nodiscard]] float getOwnWidth() const { return mWidth; }
 
         /** Retrieves the particle's personal width, if hasOwnDimensions is true. */
-        float getOwnHeight() const { return mHeight; }
+        [[nodiscard]] float getOwnHeight() const { return mHeight; }
         
         /** Sets the current rotation */
         void setRotation(const Radian& rad) { mRotation = rad; }
 
-        const Radian& getRotation() const { return mRotation; }
+        [[nodiscard]] const Radian& getRotation() const { return mRotation; }
     };
     /** @} */
     /** @} */

@@ -129,7 +129,7 @@ namespace Ogre {
         /// The hierarchical level of this profile, 0 being the root profile
         uint    hierarchicalLvl;
 
-        long double StandardDeviationMilliseconds() const;
+        [[nodiscard]] long double StandardDeviationMilliseconds() const;
     };
 
     /// Represents an individual profile call
@@ -288,7 +288,7 @@ namespace Ogre {
             void setEnabled(bool enabled);
 
             /** Gets whether this profiler is enabled */
-            bool getEnabled() const;
+            [[nodiscard]] bool getEnabled() const;
 
             /** Enables a previously disabled profile 
             @remarks Can be safely called in the middle of the profile.
@@ -305,7 +305,7 @@ namespace Ogre {
             void setProfileGroupMask(uint32 mask) { mProfileMask = mask; }
             /** Get the mask which all profiles must pass to be enabled. 
             */
-            uint32 getProfileGroupMask() const { return mProfileMask; }
+            [[nodiscard]] uint32 getProfileGroupMask() const { return mProfileMask; }
 
             /** Returns true if the specified profile reaches a new frame time maximum
             @remarks If this is called during a frame, it will be reading the results
@@ -343,7 +343,7 @@ namespace Ogre {
             void setUpdateDisplayFrequency(uint freq);
 
             /** Gets the frequency that the Profiler display is updated */
-            uint getUpdateDisplayFrequency() const;
+            [[nodiscard]] uint getUpdateDisplayFrequency() const;
 
             /**
             @remarks
@@ -366,7 +366,7 @@ namespace Ogre {
             /// @copydoc Singleton::getSingleton()
             static Profiler* getSingletonPtr();
 
-            uint getCurrentCalls() const
+            [[nodiscard]] uint getCurrentCalls() const
             {
                 return mCurrent->history.totalCalls;
             }

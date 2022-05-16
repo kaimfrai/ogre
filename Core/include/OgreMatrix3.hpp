@@ -108,7 +108,7 @@ namespace Ogre
             return m[iRow];
         }
 
-        Vector3 GetColumn(size_t iCol) const
+        [[nodiscard]] Vector3 GetColumn(size_t iCol) const
         {
             assert(iCol < 3);
             return {m[0][iCol], m[1][iCol], m[2][iCol]};
@@ -163,14 +163,14 @@ namespace Ogre
         friend Matrix3 operator* (Real fScalar, const Matrix3& rkMatrix);
 
         // utilities
-        Matrix3 Transpose () const;
+        [[nodiscard]] Matrix3 Transpose () const;
         bool Inverse (Matrix3& rkInverse, Real fTolerance = 1e-06f) const;
-        Matrix3 Inverse (Real fTolerance = 1e-06f) const;
-        Real Determinant() const { return determinant(); }
+        [[nodiscard]] Matrix3 Inverse (Real fTolerance = 1e-06f) const;
+        [[nodiscard]] Real Determinant() const { return determinant(); }
 
-        Matrix3 transpose() const { return Transpose(); }
-        Matrix3 inverse() const { return Inverse(); }
-        Real determinant() const
+        [[nodiscard]] Matrix3 transpose() const { return Transpose(); }
+        [[nodiscard]] Matrix3 inverse() const { return Inverse(); }
+        [[nodiscard]] Real determinant() const
         {
             Real fCofactor00 = m[1][1] * m[2][2] - m[1][2] * m[2][1];
             Real fCofactor10 = m[1][2] * m[2][0] - m[1][0] * m[2][2];
@@ -180,7 +180,7 @@ namespace Ogre
         }
 
         /** Determines if this matrix involves a negative scaling. */
-        bool hasNegativeScale() const { return determinant() < 0; }
+        [[nodiscard]] bool hasNegativeScale() const { return determinant() < 0; }
 
         /// Singular value decomposition
         void SingularValueDecomposition (Matrix3& rkL, Vector3& rkS,
@@ -189,7 +189,7 @@ namespace Ogre
             const Vector3& rkS, const Matrix3& rkR);
 
         /// Gram-Schmidt orthogonalisation (applied to columns of rotation matrix)
-        Matrix3 orthonormalised() const
+        [[nodiscard]] Matrix3 orthonormalised() const
         {
             // Algorithm uses Gram-Schmidt orthogonalisation.  If 'this' matrix is
             // M = [m0|m1|m2], then orthonormal output matrix is Q = [q0|q1|q2],
@@ -221,7 +221,7 @@ namespace Ogre
         void QDUDecomposition (Matrix3& rkQ, Vector3& rkD,
             Vector3& rkU) const;
 
-        Real SpectralNorm () const;
+        [[nodiscard]] Real SpectralNorm () const;
 
         /// Note: Matrix must be orthonormal
         void ToAngleAxis (Vector3& rkAxis, Radian& rfAngle) const;
@@ -266,7 +266,7 @@ namespace Ogre
             Matrix3& rkProduct);
 
         /** Determines if this matrix involves a scaling. */
-        bool hasScale() const
+        [[nodiscard]] bool hasScale() const
         {
             // check magnitude of column vectors (==local axes)
             Real t = m[0][0] * m[0][0] + m[1][0] * m[1][0] + m[2][0] * m[2][0];

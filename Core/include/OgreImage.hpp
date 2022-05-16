@@ -333,7 +333,7 @@ namespace Ogre {
         }
 
         /// @overload
-        const uchar* getData(uint32 x = 0, uint32 y = 0, uint32 z = 0) const
+        [[nodiscard]] const uchar* getData(uint32 x = 0, uint32 y = 0, uint32 z = 0) const
         {
             assert(mBuffer);
             assert(x < mWidth && y < mHeight && z < mDepth);
@@ -354,48 +354,48 @@ namespace Ogre {
 
         /** Returns the size of the data buffer in bytes
         */
-        size_t getSize() const;
+        [[nodiscard]] size_t getSize() const;
 
         /** Returns the number of mipmaps contained in the image.
         */
-        uint32 getNumMipmaps() const;
+        [[nodiscard]] uint32 getNumMipmaps() const;
 
         /** Returns true if the image has the appropriate flag set.
         */
-        bool hasFlag(const ImageFlags imgFlag) const;
+        [[nodiscard]] bool hasFlag(const ImageFlags imgFlag) const;
 
         /** Gets the width of the image in pixels.
         */
-        uint32 getWidth() const;
+        [[nodiscard]] uint32 getWidth() const;
 
         /** Gets the height of the image in pixels.
         */
-        uint32 getHeight() const;
+        [[nodiscard]] uint32 getHeight() const;
 
         /** Gets the depth of the image.
         */
-        uint32 getDepth() const;
+        [[nodiscard]] uint32 getDepth() const;
         
         /** Get the number of faces of the image. This is usually 6 for a cubemap, and
             1 for a normal image.
         */
-        uint32 getNumFaces() const;
+        [[nodiscard]] uint32 getNumFaces() const;
 
         /** Gets the physical width in bytes of each row of pixels.
         */
-        size_t getRowSpan() const;
+        [[nodiscard]] size_t getRowSpan() const;
 
         /** Returns the image format.
         */
-        PixelFormat getFormat() const;
+        [[nodiscard]] PixelFormat getFormat() const;
 
         /** Returns the number of bits per pixel.
         */
-        uchar getBPP() const;
+        [[nodiscard]] uchar getBPP() const;
 
         /** Returns true if the image has an alpha component.
         */
-        bool getHasAlpha() const;
+        [[nodiscard]] bool getHasAlpha() const;
         
         /** Does gamma adjustment.
             @note
@@ -409,7 +409,7 @@ namespace Ogre {
          * is only valid for cubemaps and volume textures. This uses the first (largest)
          * mipmap.
          */
-        ColourValue getColourAt(uint32 x, uint32 y, uint32 z) const;
+        [[nodiscard]] ColourValue getColourAt(uint32 x, uint32 y, uint32 z) const;
         
         /**
          * Set colour value at a certain location in the image. The z coordinate
@@ -421,7 +421,7 @@ namespace Ogre {
         /**
          * Get a PixelBox encapsulating the image data of a mipmap
          */
-        PixelBox getPixelBox(uint32 face = 0, uint32 mipmap = 0) const;
+        [[nodiscard]] PixelBox getPixelBox(uint32 face = 0, uint32 mipmap = 0) const;
 
         /// Delete all the memory held by this image, if owned by this image (not dynamic)
         void freeMemory();

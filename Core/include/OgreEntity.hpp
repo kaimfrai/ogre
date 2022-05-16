@@ -351,7 +351,7 @@ class VertexData;
             void _createSeparateLightCap();
             /// Rebind the source positions (for temp buffer users).
             void rebindPositionBuffer(const VertexData* vertexData, bool force);
-            bool isVisible() const override;
+            [[nodiscard]] bool isVisible() const override;
         };
     public:
         /** Default destructor.
@@ -879,7 +879,7 @@ class VertexData;
 
         static String FACTORY_TYPE_NAME;
 
-        const String& getType() const;
+        [[nodiscard]] const String& getType() const;
     };
     /** @} */
     /** @} */

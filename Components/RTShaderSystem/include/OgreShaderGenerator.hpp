@@ -158,7 +158,7 @@ public:
     /** 
     Return the target shader language currently in use.     
     */
-    const String& getTargetLanguage() const { return mShaderLanguage; }
+    [[nodiscard]] const String& getTargetLanguage() const { return mShaderLanguage; }
 
     /** 
     Set the output shader target profiles.
@@ -170,7 +170,7 @@ public:
     /** 
     Get the output shader target profiles.
     */
-    const String& getShaderProfiles(GpuProgramType type) const;
+    [[nodiscard]] const String& getShaderProfiles(GpuProgramType type) const;
 
     /** 
     Set the output shader cache path. Generated shader code will be written to this path.
@@ -183,7 +183,7 @@ public:
     /** 
     Get the output shader cache path.
     */
-    const String& getShaderCachePath() const { return mShaderCachePath; }
+    [[nodiscard]] const String& getShaderCachePath() const { return mShaderCachePath; }
 
     /** 
     Flush the shader cache. This operation will cause all active schemes to be invalidated and will
@@ -214,7 +214,7 @@ public:
     Tells if a given render state exists
     @param schemeName The scheme name to check.
     */
-    bool hasRenderState(const String& schemeName) const;
+    [[nodiscard]] bool hasRenderState(const String& schemeName) const;
     
     /**
      Get render state of specific pass.
@@ -243,7 +243,7 @@ public:
     /** 
     Returns the number of existing factories
     */
-    size_t getNumSubRenderStateFactories() const;
+    [[nodiscard]] size_t getNumSubRenderStateFactories() const;
 
     /** 
     Returns a sub render state factory by index
@@ -289,10 +289,10 @@ public:
      @param srcTechniqueSchemeName The source technique scheme name.
      @param dstTechniqueSchemeName The destination shader based technique scheme name.
      */
-    bool hasShaderBasedTechnique(const String& materialName, const String& groupName, const String& srcTechniqueSchemeName, const String& dstTechniqueSchemeName) const;
+    [[nodiscard]] bool hasShaderBasedTechnique(const String& materialName, const String& groupName, const String& srcTechniqueSchemeName, const String& dstTechniqueSchemeName) const;
 
     /// @overload
-    bool hasShaderBasedTechnique(const Material& mat, const String& srcTechniqueSchemeName, const String& dstTechniqueSchemeName) const
+    [[nodiscard]] bool hasShaderBasedTechnique(const Material& mat, const String& srcTechniqueSchemeName, const String& dstTechniqueSchemeName) const
     {
         return hasShaderBasedTechnique(mat.getName(), mat.getGroup(), srcTechniqueSchemeName, dstTechniqueSchemeName);
     }
@@ -431,7 +431,7 @@ public:
     MaterialSerializer::Listener* getMaterialSerializerListener();
 
     /** Return the current number of generated shaders. */
-    size_t getShaderCount(GpuProgramType type) const;
+    [[nodiscard]] size_t getShaderCount(GpuProgramType type) const;
 
     /** Set the vertex shader outputs compaction policy. 
     @see VSOutputCompactPolicy.
@@ -442,7 +442,7 @@ public:
     /** Get the vertex shader outputs compaction policy. 
     @see VSOutputCompactPolicy. 
     */
-    VSOutputCompactPolicy getVertexShaderOutputsCompactPolicy() const { return mVSOutputCompactPolicy; }
+    [[nodiscard]] VSOutputCompactPolicy getVertexShaderOutputsCompactPolicy() const { return mVSOutputCompactPolicy; }
 
 
     /** Sets whether shaders are created for passes with shaders.
@@ -455,16 +455,16 @@ public:
     /** Returns whether shaders are created for passes with shaders.
     @see setCreateShaderOverProgrammablePass(). 
     */
-    bool getCreateShaderOverProgrammablePass() const { return mCreateShaderOverProgrammablePass; }
+    [[nodiscard]] bool getCreateShaderOverProgrammablePass() const { return mCreateShaderOverProgrammablePass; }
 
 
     /** Returns the amount of schemes used in the for RT shader generation
     */
-    size_t getRTShaderSchemeCount() const;
+    [[nodiscard]] size_t getRTShaderSchemeCount() const;
 
     /** Returns the scheme name used in the for RT shader generation by index
     */
-    const String& getRTShaderScheme(size_t index) const;
+    [[nodiscard]] const String& getRTShaderScheme(size_t index) const;
 
     /// Default material scheme of the shader generator.
     static String DEFAULT_SCHEME_NAME;
@@ -539,7 +539,7 @@ private:
         /** Set the custom render state of this pass. */
         void setCustomRenderState(RenderState* customRenderState) { mCustomRenderState = customRenderState; }
 
-        const SGTechnique* getParent() const { return mParent; }
+        [[nodiscard]] const SGTechnique* getParent() const { return mParent; }
     protected:
         // Parent technique.
         SGTechnique* mParent;
@@ -563,7 +563,7 @@ private:
         ~SGTechnique();
         
         /** Get the parent SGMaterial */
-        const SGMaterial* getParent() const { return mParent; }
+        [[nodiscard]] const SGMaterial* getParent() const { return mParent; }
         
         /** Get the source technique. */
         const Technique* getSourceTechnique() { return mSrcTechnique; }
@@ -572,7 +572,7 @@ private:
         Technique* getDestinationTechnique() { return mDstTechnique; }
 
         /** Get the destination technique scheme name. */
-        const String& getDestinationTechniqueSchemeName() const { return mDstTechniqueSchemeName; }
+        [[nodiscard]] const String& getDestinationTechniqueSchemeName() const { return mDstTechniqueSchemeName; }
         
         /** Build the render state. */
         void buildTargetRenderState();
@@ -590,7 +590,7 @@ private:
         void setBuildDestinationTechnique(bool buildTechnique)  { mBuildDstTechnique = buildTechnique; }        
 
         /** Tells if the destination technique should be build. */
-        bool getBuildDestinationTechnique() const               { return mBuildDstTechnique; }
+        [[nodiscard]] bool getBuildDestinationTechnique() const               { return mBuildDstTechnique; }
 
         /** Get render state of specific pass.
         @param passIndex The pass index.
@@ -602,7 +602,7 @@ private:
         /// whether shaders are created for passes with shaders
         bool overProgrammablePass() { return mOverProgrammable; }
 
-        const SGPassList& getPassList() const  { return mPassEntries; }
+        [[nodiscard]] const SGPassList& getPassList() const  { return mPassEntries; }
 
         // Key name for associating with a Technique instance.
         static String UserKey;
@@ -648,13 +648,13 @@ private:
         {}
 
         /** Get the material name. */
-        const String& getMaterialName() const   { return mName; }
+        [[nodiscard]] const String& getMaterialName() const   { return mName; }
         
         /** Get the group name. */
-        const String& getGroupName() const  { return mGroup; }
+        [[nodiscard]] const String& getGroupName() const  { return mGroup; }
 
         /** Get the const techniques list of this material. */
-        const SGTechniqueList& getTechniqueList() const  { return mTechniqueEntries; }
+        [[nodiscard]] const SGTechniqueList& getTechniqueList() const  { return mTechniqueEntries; }
 
         /** Get the techniques list of this material. */
         SGTechniqueList& getTechniqueList()              { return mTechniqueEntries; }
@@ -679,7 +679,7 @@ private:
 
         /** Return true if this scheme dose not contains any techniques.
         */
-        bool empty() const  { return mTechniqueEntries.empty(); }
+        [[nodiscard]] bool empty() const  { return mTechniqueEntries.empty(); }
         
         /** Invalidate the whole scheme.
         @see ShaderGenerator::invalidateScheme.
@@ -830,7 +830,7 @@ private:
     AUTODETECT_RESOURCE_GROUP_NAME 
     */
     SGMaterialIterator findMaterialEntryIt(const String& materialName, const String& groupName);
-    SGMaterialConstIterator findMaterialEntryIt(const String& materialName, const String& groupName) const;
+    [[nodiscard]] SGMaterialConstIterator findMaterialEntryIt(const String& materialName, const String& groupName) const;
 
 
     typedef std::pair<SGScheme*, bool> SchemeCreateOrRetrieveResult;
@@ -841,7 +841,7 @@ private:
     SchemeCreateOrRetrieveResult createOrRetrieveScheme(const String& schemeName);
 
     /** Used to check if finalizing */
-    bool getIsFinalizing() const;
+    [[nodiscard]] bool getIsFinalizing() const;
 
     /** Internal method that creates list of SGPass instances composing the given material. */
     SGPassList createSGPassList(Material* mat) const;

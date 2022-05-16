@@ -400,24 +400,24 @@ namespace Ogre {
             one row and the leftmost pixel of the next row. (IE this is zero if rows
             are consecutive).
         */
-        size_t getRowSkip() const { return rowPitch - getWidth(); }
+        [[nodiscard]] size_t getRowSkip() const { return rowPitch - getWidth(); }
         /** Get the number of elements between one past the right bottom pixel of
             one slice and the left top pixel of the next slice. (IE this is zero if slices
             are consecutive).
         */
-        size_t getSliceSkip() const { return slicePitch - (getHeight() * rowPitch); }
+        [[nodiscard]] size_t getSliceSkip() const { return slicePitch - (getHeight() * rowPitch); }
 
         /** Return whether this buffer is laid out consecutive in memory (ie the pitches
             are equal to the dimensions)
         */        
-        bool isConsecutive() const 
+        [[nodiscard]] bool isConsecutive() const 
         { 
             return rowPitch == getWidth() && slicePitch == getWidth()*getHeight(); 
         }
         /** Return the size (in bytes) this image would take if it was
             laid out consecutive in memory
         */
-        size_t getConsecutiveSize() const;
+        [[nodiscard]] size_t getConsecutiveSize() const;
         /** Return a subvolume of this PixelBox.
             @param def  Defines the bounds of the subregion to return
             @param resetOrigin Whether to reset left/top/front of returned PixelBox to zero 
@@ -429,19 +429,19 @@ namespace Ogre {
                 the data of object.
             @throws Exception(ERR_INVALIDPARAMS) if def is not fully contained
         */
-        PixelBox getSubVolume(const Box &def, bool resetOrigin = true) const;
+        [[nodiscard]] PixelBox getSubVolume(const Box &def, bool resetOrigin = true) const;
         
         /** Return a data pointer pointing to top left front pixel of the pixel box.
             @remarks Non consecutive pixel boxes are supported.
          */
-        uchar* getTopLeftFrontPixelPtr() const;
+        [[nodiscard]] uchar* getTopLeftFrontPixelPtr() const;
         
         /**
          * Get colour value from a certain location in the PixelBox. The z coordinate
          * is only valid for cubemaps and volume textures. This uses the first (largest)
          * mipmap.
          */
-        ColourValue getColourAt(size_t x, size_t y, size_t z) const;
+        [[nodiscard]] ColourValue getColourAt(size_t x, size_t y, size_t z) const;
 
         /**
          * Set colour value at a certain location in the PixelBox. The z coordinate

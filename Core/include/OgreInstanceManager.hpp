@@ -168,9 +168,9 @@ namespace Ogre
                          size_t instancesPerBatch, unsigned short subMeshIdx, bool useBoneMatrixLookup = false);
         ~InstanceManager();
 
-        const String& getName() const { return mName; }
+        [[nodiscard]] const String& getName() const { return mName; }
 
-        SceneManager* getSceneManager() const { return mSceneManager; }
+        [[nodiscard]] SceneManager* getSceneManager() const { return mSceneManager; }
 
         /** Raises an exception if trying to change it after creating the first InstancedEntity
         The actual value may be less if the technique doesn't support having so much.
@@ -209,11 +209,11 @@ namespace Ogre
         */
         void setNumCustomParams( unsigned char numCustomParams );
 
-        unsigned char getNumCustomParams() const
+        [[nodiscard]] unsigned char getNumCustomParams() const
         { return mNumCustomParams; }
 
         /** @return Instancing technique this manager was created for. Can't be changed after creation */
-        InstancingTechnique getInstancingTechnique() const
+        [[nodiscard]] InstancingTechnique getInstancingTechnique() const
         { return mInstancingTechnique; }
 
         /** Calculates the maximum (or the best amount, depending on flags) of instances
@@ -283,12 +283,12 @@ namespace Ogre
         void setSetting( BatchSettingId id, bool enabled, const String &materialName = BLANKSTRING );
 
         /// If settings for the given material didn't exist, default value is returned
-        bool getSetting( BatchSettingId id, const String &materialName ) const;
+        [[nodiscard]] bool getSetting( BatchSettingId id, const String &materialName ) const;
 
         /** Returns true if settings were already created for the given material name.
             If false is returned, it means getSetting will return default settings.
         */
-        bool hasSettings( const String &materialName ) const;
+        [[nodiscard]] bool hasSettings( const String &materialName ) const;
 
         /** @copydoc InstanceBatch::setStaticAndUpdate */
         void setBatchesAsStaticAndUpdate( bool bStatic );
@@ -305,7 +305,7 @@ namespace Ogre
         typedef ConstVectorIterator<InstanceBatchVec> InstanceBatchIterator;
 
         /// Get non-updateable iterator over instance batches per material
-        InstanceBatchMapIterator getInstanceBatchMapIterator() const
+        [[nodiscard]] InstanceBatchMapIterator getInstanceBatchMapIterator() const
         { return { mInstanceBatches.begin(), mInstanceBatches.end() }; }
 
         /** Get non-updateable iterator over instance batches for given material
@@ -314,7 +314,7 @@ namespace Ogre
             setCustomParameter), but there's no synchronization mechanism when
             multithreading or creating more instances, that's up to the user.
         */
-        InstanceBatchIterator getInstanceBatchIterator( const String &materialName ) const;
+        [[nodiscard]] InstanceBatchIterator getInstanceBatchIterator( const String &materialName ) const;
     };
 } // namespace Ogre
 

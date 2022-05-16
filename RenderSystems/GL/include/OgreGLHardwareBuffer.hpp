@@ -66,7 +66,7 @@ class GLRenderSystem;
         /** See HardwareBuffer. */
         void _updateFromShadow();
 
-        GLuint getGLBufferId() const { return mBufferId; }
+        [[nodiscard]] GLuint getGLBufferId() const { return mBufferId; }
     };
     typedef GLHardwareVertexBuffer GLHardwareBuffer;
 

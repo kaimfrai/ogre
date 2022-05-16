@@ -201,7 +201,7 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    virtual const String& getType() const;
+    [[nodiscard]] virtual const String& getType() const;
 
     /** 
     @see SubRenderStateFactory::createInstance.
@@ -228,12 +228,12 @@ public:
     /** 
     Returns the name of a custom shadow caster material for a given number of weights
     */
-    const MaterialPtr& getCustomShadowCasterMaterial(const SkinningType skinningType, ushort index) const;
+    [[nodiscard]] const MaterialPtr& getCustomShadowCasterMaterial(const SkinningType skinningType, ushort index) const;
 
     /** 
     Returns the name of a custom shadow receiver material for a given number of weights
     */
-    const MaterialPtr& getCustomShadowReceiverMaterial(const SkinningType skinningType, ushort index) const;
+    [[nodiscard]] const MaterialPtr& getCustomShadowReceiverMaterial(const SkinningType skinningType, ushort index) const;
 
     /**
         @brief 
@@ -262,7 +262,7 @@ public:
 
         The default value for this property is 70 which correspond to pixel shader model 3 limitations
     */
-    ushort getMaxCalculableBoneCount() const {
+    [[nodiscard]] ushort getMaxCalculableBoneCount() const {
         return mMaxCalculableBoneCount; }
     /** 
         Sets the maximum number of bones for which hardware skinning is performed.

@@ -597,7 +597,7 @@ class SceneNode;
         MovableObjectFactory() : mTypeFlag(0xFFFFFFFF) {}
         virtual ~MovableObjectFactory() {}
         /// Get the type of the object to be created
-        virtual const String& getType() const = 0;
+        [[nodiscard]] virtual const String& getType() const = 0;
 
         /** Create a new instance of the object.
         @param name The name of the new object
@@ -625,7 +625,7 @@ class SceneNode;
             and given that you don't know what other MovableObject types are 
             registered, Root will allocate you one. 
         */
-        virtual bool requestTypeFlags() const { return false; }
+        [[nodiscard]] virtual bool requestTypeFlags() const { return false; }
         /** Notify this factory of the type mask to apply. 
         @remarks
             This should normally only be called by Root in response to
@@ -641,7 +641,7 @@ class SceneNode;
             A type flag is like a query flag, except that it applies to all instances
             of a certain type of object.
         */
-        uint32 getTypeFlags() const { return mTypeFlag; }
+        [[nodiscard]] uint32 getTypeFlags() const { return mTypeFlag; }
 
     };
     /** @} */

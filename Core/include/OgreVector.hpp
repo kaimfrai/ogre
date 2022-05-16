@@ -69,7 +69,7 @@ namespace Ogre
         }
         T data[dims];
         T* ptr() { return data; }
-        const T* ptr() const { return data; }
+        [[nodiscard]] const T* ptr() const { return data; }
     };
     template <> struct VectorBase<2, Real>
     {
@@ -77,17 +77,17 @@ namespace Ogre
         VectorBase(Real _x, Real _y) : x(_x), y(_y) {}
         Real x, y;
         Real* ptr() { return &x; }
-        const Real* ptr() const { return &x; }
+        [[nodiscard]] const Real* ptr() const { return &x; }
 
         /** Returns a vector at a point half way between this and the passed
             in vector.
         */
-        Vector2 midPoint( const Vector2& vec ) const;
+        [[nodiscard]] Vector2 midPoint( const Vector2& vec ) const;
 
         /** Calculates the 2 dimensional cross-product of 2 vectors, which results
             in a single floating point value which is 2 times the area of the triangle.
         */
-        Real crossProduct( const VectorBase& rkVector ) const
+        [[nodiscard]] Real crossProduct( const VectorBase& rkVector ) const
         {
             return x * rkVector.y - y * rkVector.x;
         }
@@ -99,7 +99,7 @@ namespace Ogre
                 method will guarantee to generate one of them. If you need more
                 control you should use the Quaternion class.
         */
-        Vector2 perpendicular() const;
+        [[nodiscard]] Vector2 perpendicular() const;
 
         /** Generates a new random vector which deviates from this vector by a
             given angle in a random direction.
@@ -113,14 +113,14 @@ namespace Ogre
                 vector will not be normalised, normalise it if you wish
                 afterwards.
         */
-        Vector2 randomDeviant(Radian angle) const;
+        [[nodiscard]] Vector2 randomDeviant(Radian angle) const;
 
         /**  Gets the oriented angle between 2 vectors.
         @remarks
             Vectors do not have to be unit-length but must represent directions.
             The angle is comprised between 0 and 2 PI.
         */
-        Radian angleTo(const Vector2& other) const;
+        [[nodiscard]] Radian angleTo(const Vector2& other) const;
 
         // special points
         static const Vector2 ZERO;
@@ -137,7 +137,7 @@ namespace Ogre
         VectorBase(Real _x, Real _y, Real _z) : x(_x), y(_y), z(_z) {}
         Real x, y, z;
         Real* ptr() { return &x; }
-        const Real* ptr() const { return &x; }
+        [[nodiscard]] const Real* ptr() const { return &x; }
 
         /** Calculates the cross-product of 2 vectors, i.e. the vector that
             lies perpendicular to them both.
@@ -167,7 +167,7 @@ namespace Ogre
                 and will go <i>inside</i> the screen, towards the cathode tube
                 (assuming you're using a CRT monitor, of course).
         */
-        Vector3 crossProduct( const Vector3& rkVector ) const;
+        [[nodiscard]] Vector3 crossProduct( const Vector3& rkVector ) const;
 
         /** Generates a vector perpendicular to this vector (eg an 'up' vector).
             @remarks
@@ -176,7 +176,7 @@ namespace Ogre
                 method will guarantee to generate one of them. If you need more
                 control you should use the Quaternion class.
         */
-        Vector3 perpendicular() const;
+        [[nodiscard]] Vector3 perpendicular() const;
 
         Vector3& operator = ( const Real fScaler )
         {
@@ -197,7 +197,7 @@ namespace Ogre
             @return
                 A Real representing the absolute dot product value.
         */
-        Real absDotProduct(const VectorBase& vec) const
+        [[nodiscard]] Real absDotProduct(const VectorBase& vec) const
         {
             return Math::Abs(x * vec.x) + Math::Abs(y * vec.y) + Math::Abs(z * vec.z);
         }
@@ -205,7 +205,7 @@ namespace Ogre
         /** Returns a vector at a point half way between this and the passed
             in vector.
         */
-        Vector3 midPoint( const Vector3& vec ) const;
+        [[nodiscard]] Vector3 midPoint( const Vector3& vec ) const;
 
         /** Generates a new random vector which deviates from this vector by a
             given angle in a random direction.
@@ -226,7 +226,7 @@ namespace Ogre
                 vector will not be normalised, normalise it if you wish
                 afterwards.
         */
-        Vector3 randomDeviant(const Radian& angle, const Vector3& up = ZERO) const;
+        [[nodiscard]] Vector3 randomDeviant(const Radian& angle, const Vector3& up = ZERO) const;
 
         /** Gets the shortest arc quaternion to rotate this vector to the destination
             vector.
@@ -236,7 +236,7 @@ namespace Ogre
             (if specified, or a generated axis if not) since in this case
             ANY axis of rotation is valid.
         */
-        Quaternion getRotationTo(const Vector3& dest, const Vector3& fallbackAxis = ZERO) const;
+        [[nodiscard]] Quaternion getRotationTo(const Vector3& dest, const Vector3& fallbackAxis = ZERO) const;
 
         /** Returns whether this vector is within a positional tolerance
             of another vector, also take scale of the vectors into account.
@@ -244,7 +244,7 @@ namespace Ogre
         @param tolerance The amount (related to the scale of vectors) that distance
             of the vector may vary by and still be considered close
         */
-        bool positionCloses(const Vector3& rhs, Real tolerance = 1e-03f) const;
+        [[nodiscard]] bool positionCloses(const Vector3& rhs, Real tolerance = 1e-03f) const;
 
         /** Returns whether this vector is within a directional tolerance
             of another vector.
@@ -253,10 +253,10 @@ namespace Ogre
             still be considered equal
         @note Both vectors should be normalised.
         */
-        bool directionEquals(const Vector3& rhs, const Radian& tolerance) const;
+        [[nodiscard]] bool directionEquals(const Vector3& rhs, const Radian& tolerance) const;
 
         /// Extract the primary (dominant) axis from this direction vector
-        const Vector3& primaryAxis() const;
+        [[nodiscard]] const Vector3& primaryAxis() const;
 
         // special points
         static const Vector3 ZERO;
@@ -275,7 +275,7 @@ namespace Ogre
         VectorBase(Real _x, Real _y, Real _z, Real _w) : x(_x), y(_y), z(_z), w(_w) {}
         Real x, y, z, w;
         Real* ptr() { return &x; }
-        const Real* ptr() const { return &x; }
+        [[nodiscard]] const Real* ptr() const { return &x; }
 
         Vector4& operator = ( const Real fScalar)
         {
@@ -342,12 +342,12 @@ namespace Ogre
 
         /** Swizzle-like narrowing operations
         */
-        Vector<3, T> xyz() const
+        [[nodiscard]] Vector<3, T> xyz() const
         {
             static_assert(dims > 3, "just use assignment");
             return Vector<3, T>(ptr());
         }
-        Vector<2, T> xy() const
+        [[nodiscard]] Vector<2, T> xy() const
         {
             static_assert(dims > 2, "just use assignment");
             return Vector<2, T>(ptr());
@@ -379,7 +379,7 @@ namespace Ogre
         @param tolerance The amount that each element of the vector may vary by
             and still be considered equal
         */
-        bool positionEquals(const Vector& rhs, Real tolerance = 1e-03f) const
+        [[nodiscard]] bool positionEquals(const Vector& rhs, Real tolerance = 1e-03f) const
         {
             for (int i = 0; i < dims; i++)
                 if (!Math::RealEqual(ptr()[i], rhs[i], tolerance))
@@ -453,7 +453,7 @@ namespace Ogre
             @return
                 A float representing the dot product value.
         */
-        T dotProduct(const VectorBase<dims, T>& vec) const
+        [[nodiscard]] T dotProduct(const VectorBase<dims, T>& vec) const
         {
             T ret = 0;
             for (int i = 0; i < dims; i++)
@@ -471,10 +471,10 @@ namespace Ogre
                 want to find the longest / shortest vector without incurring
                 the square root.
         */
-        T squaredLength() const { return dotProduct(*this); }
+        [[nodiscard]] T squaredLength() const { return dotProduct(*this); }
 
         /** Returns true if this vector is zero length. */
-        bool isZeroLength() const
+        [[nodiscard]] bool isZeroLength() const
         {
             return squaredLength() < 1e-06 * 1e-06;
         }
@@ -486,7 +486,7 @@ namespace Ogre
                 length (e.g. for just comparing lengths) use squaredLength()
                 instead.
         */
-        Real length() const { return Math::Sqrt(squaredLength()); }
+        [[nodiscard]] Real length() const { return Math::Sqrt(squaredLength()); }
 
         /** Returns the distance to another vector.
             @warning
@@ -495,7 +495,7 @@ namespace Ogre
                 distance (e.g. for just comparing distances) use squaredDistance()
                 instead.
         */
-        Real distance(const Vector& rhs) const
+        [[nodiscard]] Real distance(const Vector& rhs) const
         {
             return (*this - rhs).length();
         }
@@ -510,7 +510,7 @@ namespace Ogre
                 Use this if you want to find the longest / shortest distance
                 without incurring the square root.
         */
-        T squaredDistance(const Vector& rhs) const
+        [[nodiscard]] T squaredDistance(const Vector& rhs) const
         {
             return (*this - rhs).squaredLength();
         }
@@ -543,7 +543,7 @@ namespace Ogre
 
         /** As normalise, except that this vector is unaffected and the
             normalised vector is returned as a copy. */
-        Vector normalisedCopy() const
+        [[nodiscard]] Vector normalisedCopy() const
         {
             Vector ret = *this;
             ret.normalise();
@@ -551,7 +551,7 @@ namespace Ogre
         }
 
         /// Check whether this vector contains valid values
-        bool isNaN() const
+        [[nodiscard]] bool isNaN() const
         {
             for (int i = 0; i < dims; i++)
                 if (Math::isNaN(ptr()[i]))
@@ -563,7 +563,7 @@ namespace Ogre
         @remarks
             Vectors do not have to be unit-length but must represent directions.
         */
-        Radian angleBetween(const Vector& dest) const
+        [[nodiscard]] Radian angleBetween(const Vector& dest) const
         {
             Real lenProduct = length() * dest.length();
 
@@ -581,7 +581,7 @@ namespace Ogre
         /** Calculates a reflection vector to the plane with the given normal .
         @remarks NB assumes 'this' is pointing AWAY FROM the plane, invert if it is not.
         */
-        Vector reflect(const Vector& normal) const { return *this - (2 * dotProduct(normal) * normal); }
+        [[nodiscard]] Vector reflect(const Vector& normal) const { return *this - (2 * dotProduct(normal) * normal); }
 
         // Vector: arithmetic updates
         Vector& operator*=(Real s)

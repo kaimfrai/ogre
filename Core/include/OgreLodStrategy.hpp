@@ -67,10 +67,10 @@ class MovableObject;
         virtual ~LodStrategy();
 
         /** Get the value of the first (highest) level of detail. */
-        virtual Real getBaseValue() const = 0;
+        [[nodiscard]] virtual Real getBaseValue() const = 0;
 
         /** Transform LOD bias so it only needs to be multiplied by the LOD value. */
-        virtual Real transformBias(Real factor) const = 0;
+        [[nodiscard]] virtual Real transformBias(Real factor) const = 0;
 
         /** Transform user supplied value to internal value.
         @remarks
@@ -79,28 +79,28 @@ class MovableObject;
             Do not throw exceptions for invalid values here, as the LOD strategy
             may be changed such that the values become valid.
         */
-        virtual Real transformUserValue(Real userValue) const;
+        [[nodiscard]] virtual Real transformUserValue(Real userValue) const;
 
         /** Compute the LOD value for a given movable object relative to a given camera. */
         Real getValue(const MovableObject *movableObject, const Camera *camera) const;
 
         /** Get the index of the LOD usage which applies to a given value. */
-        virtual ushort getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const = 0;
+        [[nodiscard]] virtual ushort getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const = 0;
 
         /** Get the index of the LOD usage which applies to a given value. */
-        virtual ushort getIndex(Real value, const Material::LodValueList& materialLodValueList) const = 0;
+        [[nodiscard]] virtual ushort getIndex(Real value, const Material::LodValueList& materialLodValueList) const = 0;
 
         /** Sort mesh LOD usage list from greatest to least detail */
         virtual void sort(Mesh::MeshLodUsageList& meshLodUsageList) const = 0;
 
         /** Determine if the LOD values are sorted from greatest detail to least detail. */
-        virtual bool isSorted(const Mesh::LodValueList& values) const = 0;
+        [[nodiscard]] virtual bool isSorted(const Mesh::LodValueList& values) const = 0;
 
         /** Assert that the LOD values are sorted from greatest detail to least detail. */
         void assertSorted(const Mesh::LodValueList& values) const;
 
         /** Get the name of this strategy. */
-        const String& getName() const { return mName; }
+        [[nodiscard]] const String& getName() const { return mName; }
 
     protected:
         /** Implementation of isSorted suitable for ascending values. */

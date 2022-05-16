@@ -102,7 +102,7 @@ class BillboardSet;
             @remarks
                 This rotation is relative to the center of the billboard.
         */
-        const Radian& getRotation() const { return mRotation; }
+        [[nodiscard]] const Radian& getRotation() const { return mRotation; }
 
         /** Set the rotation of the billboard.
             @remarks
@@ -125,7 +125,7 @@ class BillboardSet;
                 This position is relative to a point on the quad which is the billboard. Depending on the BillboardSet,
                 this may be the center of the quad, the top-left etc. See BillboardSet::setBillboardOrigin for more info.
         */
-        const Vector3& getPosition() const { return mPosition; }
+        [[nodiscard]] const Vector3& getPosition() const { return mPosition; }
 
         /** Sets the width and height for this billboard.
             @remarks
@@ -148,20 +148,20 @@ class BillboardSet;
 
         /** Gets the colour of this billboard.
         */
-        ColourValue getColour() const { return ColourValue((const uchar*)&mColour); }
+        [[nodiscard]] ColourValue getColour() const { return ColourValue((const uchar*)&mColour); }
 
         /** Returns true if this billboard deviates from the BillboardSet's default dimensions (i.e. if the
             Billboard::setDimensions method has been called for this instance).
             @see
                 Billboard::setDimensions
         */
-        bool hasOwnDimensions() const { return mOwnDimensions; }
+        [[nodiscard]] bool hasOwnDimensions() const { return mOwnDimensions; }
 
         /** Retrieves the billboard's personal width, if hasOwnDimensions is true. */
-        float getOwnWidth() const { return mWidth; }
+        [[nodiscard]] float getOwnWidth() const { return mWidth; }
 
         /** Retrieves the billboard's personal height, if hasOwnDimensions is true. */
-        float getOwnHeight() const { return mHeight; }
+        [[nodiscard]] float getOwnHeight() const { return mHeight; }
 
         /** Returns true if this billboard use individual texture coordinate rect (i.e. if the 
             Billboard::setTexcoordRect method has been called for this instance), or returns
@@ -172,7 +172,7 @@ class BillboardSet;
                 Billboard::setTexcoordIndex()
                 Billboard::setTexcoordRect()
         */
-        bool isUseTexcoordRect() const { return mUseTexcoordRect; }
+        [[nodiscard]] bool isUseTexcoordRect() const { return mUseTexcoordRect; }
 
         /** setTexcoordIndex() sets which texture coordinate rect this billboard will use 
             when rendering. The parent billboard set may contain more than one, in which 
@@ -188,7 +188,7 @@ class BillboardSet;
             @remarks
                 This value is useful only when isUseTexcoordRect return false.
           */
-        uint16 getTexcoordIndex() const { return mTexcoordIndex; }
+        [[nodiscard]] uint16 getTexcoordIndex() const { return mTexcoordIndex; }
 
         /** sets the individual texture coordinate rect of this billboard will use when rendering.
             The parent billboard set may contain more than one, in
@@ -204,7 +204,7 @@ class BillboardSet;
             @remarks
                 This value is useful only when isUseTexcoordRect returns true.
         */
-        const FloatRect& getTexcoordRect() const { return mTexcoordRect; }
+        [[nodiscard]] const FloatRect& getTexcoordRect() const { return mTexcoordRect; }
     };
 
     /** @} */

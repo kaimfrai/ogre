@@ -43,7 +43,7 @@ namespace Ogre
 
 
         /// @copydoc Plugin::getName
-        const String& getName() const;
+        [[nodiscard]] const String& getName() const;
 
         /// @copydoc Plugin::install
         void install();

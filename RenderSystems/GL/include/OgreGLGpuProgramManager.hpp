@@ -43,7 +43,7 @@ struct CreateCallbackWrapper : public GpuProgramFactory
 {
     String language;
     CreateGpuProgramCallback callback;
-    const String& getLanguage() const override { return language; };
+    [[nodiscard]] const String& getLanguage() const override { return language; };
     GpuProgram* create(ResourceManager* creator, const String& name, ResourceHandle handle,
                        const String& group, bool isManual, ManualResourceLoader* loader)
     {

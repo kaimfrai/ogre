@@ -51,7 +51,7 @@ class GLSLLinkProgramManager;
         GLSLProgramFactory();
         ~GLSLProgramFactory();
         /// Get the name of the language this factory creates programs for
-        const String& getLanguage() const;
+        [[nodiscard]] const String& getLanguage() const;
         /// Create an instance of GLSLProgram
         GpuProgram* create(ResourceManager* creator,
             const String& name, ResourceHandle handle,

@@ -138,7 +138,7 @@ class Matrix3;
         }
 
         /// Pointer accessor for direct copying
-        inline const float* ptr() const
+        [[nodiscard]] inline const float* ptr() const
         {
             return &w;
         }
@@ -167,17 +167,17 @@ class Matrix3;
         /** Returns the X orthonormal axis defining the quaternion. Same as doing
             xAxis = Vector3::UNIT_X * this. Also called the local X-axis
         */
-        Vector3 xAxis() const;
+        [[nodiscard]] Vector3 xAxis() const;
 
         /** Returns the Y orthonormal axis defining the quaternion. Same as doing
             yAxis = Vector3::UNIT_Y * this. Also called the local Y-axis
         */
-        Vector3 yAxis() const;
+        [[nodiscard]] Vector3 yAxis() const;
 
         /** Returns the Z orthonormal axis defining the quaternion. Same as doing
             zAxis = Vector3::UNIT_Z * this. Also called the local Z-axis
         */
-        Vector3 zAxis() const;
+        [[nodiscard]] Vector3 zAxis() const;
 
         inline Quaternion& operator= (const Quaternion& rkQ)
         {
@@ -210,12 +210,12 @@ class Matrix3;
         }
         // functions of a quaternion
         /// Returns the dot product of the quaternion
-        float Dot(const Quaternion& rkQ) const
+        [[nodiscard]] float Dot(const Quaternion& rkQ) const
         {
             return w * rkQ.w + x * rkQ.x + y * rkQ.y + z * rkQ.z;
         }
         /// Returns the normal length of this quaternion.
-        float Norm() const { return std::sqrt(w * w + x * x + y * y + z * z); }
+        [[nodiscard]] float Norm() const { return std::sqrt(w * w + x * x + y * y + z * z); }
         /// Normalises this quaternion, and returns the previous length
         float normalise()
         {
@@ -223,10 +223,10 @@ class Matrix3;
             *this = 1.0f / len * *this;
             return len;
         }
-        Quaternion Inverse () const;  /// Apply to non-zero quaternion
-        Quaternion UnitInverse () const;  /// Apply to unit-length quaternion
-        Quaternion Exp () const;
-        Quaternion Log () const;
+        [[nodiscard]] Quaternion Inverse () const;  /// Apply to non-zero quaternion
+        [[nodiscard]] Quaternion UnitInverse () const;  /// Apply to unit-length quaternion
+        [[nodiscard]] Quaternion Exp () const;
+        [[nodiscard]] Quaternion Log () const;
 
         /// Rotation of a vector by a quaternion
         Vector3 operator* (const Vector3& rkVector) const;
@@ -241,7 +241,7 @@ class Matrix3;
             backward compatibility, to decompose quaternion into yaw, pitch and roll use
             q.ToRotationMatrix().ToEulerAnglesYXZ(yaw, pitch, roll) instead.
         */
-        Radian getRoll(bool reprojectAxis = true) const;
+        [[nodiscard]] Radian getRoll(bool reprojectAxis = true) const;
         /** Calculate the local pitch element of this quaternion
         @param reprojectAxis By default the method returns the 'intuitive' result
             that is, if you projected the local Y of the quaternion onto the YZ plane,
@@ -252,7 +252,7 @@ class Matrix3;
             backward compatibility, to decompose quaternion into yaw, pitch and roll use
             q.ToRotationMatrix().ToEulerAnglesYXZ(yaw, pitch, roll) instead.
         */
-        Radian getPitch(bool reprojectAxis = true) const;
+        [[nodiscard]] Radian getPitch(bool reprojectAxis = true) const;
         /** Calculate the local yaw element of this quaternion
         @param reprojectAxis By default the method returns the 'intuitive' result
             that is, if you projected the local Z of the quaternion onto the ZX plane,
@@ -263,13 +263,13 @@ class Matrix3;
             backward compatibility, to decompose quaternion into yaw, pitch and roll use
             q.ToRotationMatrix().ToEulerAnglesYXZ(yaw, pitch, roll) instead.
         */
-        Radian getYaw(bool reprojectAxis = true) const;
+        [[nodiscard]] Radian getYaw(bool reprojectAxis = true) const;
         
         /** Equality with tolerance (tolerance is max angle difference)
         @remark Both equals() and orientationEquals() measure the exact same thing.
                 One measures the difference by angle, the other by a different, non-linear metric.
         */
-        bool equals(const Quaternion& rhs, const Radian& tolerance) const
+        [[nodiscard]] bool equals(const Quaternion& rhs, const Radian& tolerance) const
         {
             float d = Dot(rhs);
             Radian angle = Math::ACos(2.0f * d*d - 1.0f);
@@ -285,7 +285,7 @@ class Matrix3;
             therefore be careful if your code relies in the order of the operands.
             This is specially important in IK animation.
         */
-        inline bool orientationEquals( const Quaternion& other, float tolerance = 1e-3f ) const
+        [[nodiscard]] inline bool orientationEquals( const Quaternion& other, float tolerance = 1e-3f ) const
         {
             float d = this->Dot(other);
             return 1 - d*d < tolerance;
@@ -351,7 +351,7 @@ class Matrix3;
         float w, x, y, z;
 
         /// Check whether this quaternion contains valid values
-        inline bool isNaN() const
+        [[nodiscard]] inline bool isNaN() const
         {
             return Math::isNaN(x) || Math::isNaN(y) || Math::isNaN(z) || Math::isNaN(w);
         }

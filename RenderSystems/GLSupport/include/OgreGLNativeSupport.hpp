@@ -44,7 +44,7 @@ namespace Ogre
         int16 refreshRate;
         uint8  bpp;
 
-        String getDescription() const;
+        [[nodiscard]] String getDescription() const;
     };
     typedef std::vector<VideoMode>    VideoModes;
 
@@ -80,12 +80,12 @@ namespace Ogre
             */
             virtual void *getProcAddress(const char* procname) const = 0;
 
-            bool checkExtension(const String& ext) const {
+            [[nodiscard]] bool checkExtension(const String& ext) const {
                 return extensionList.find(ext) != extensionList.end();
             }
 
             /// @copydoc RenderSystem::getDisplayMonitorCount
-            virtual unsigned int getDisplayMonitorCount() const
+            [[nodiscard]] virtual unsigned int getDisplayMonitorCount() const
             {
                 return 1;
             }
@@ -104,10 +104,10 @@ namespace Ogre
             */
             virtual ConfigOptionMap getConfigOptions() { return {}; }
 
-            const std::vector<int>& getFSAALevels() const { return mFSAALevels; }
-            const VideoModes& getVideoModes() const { return mVideoModes; }
+            [[nodiscard]] const std::vector<int>& getFSAALevels() const { return mFSAALevels; }
+            [[nodiscard]] const VideoModes& getVideoModes() const { return mVideoModes; }
 
-            ContextProfile getContextProfile() const { return mContextProfile; }
+            [[nodiscard]] ContextProfile getContextProfile() const { return mContextProfile; }
         protected:
             // Allowed video modes
             VideoModes mVideoModes;

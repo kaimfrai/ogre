@@ -103,13 +103,13 @@ struct Box;
         virtual ~RenderTarget();
 
         /// Retrieve target's name.
-        virtual const String& getName() const;
+        [[nodiscard]] virtual const String& getName() const;
 
         /// Retrieve information about the render target.
         void getMetrics(unsigned int& width, unsigned int& height);
 
-        virtual uint32 getWidth() const;
-        virtual uint32 getHeight() const;
+        [[nodiscard]] virtual uint32 getWidth() const;
+        [[nodiscard]] virtual uint32 getHeight() const;
 
         /**
          * Sets the pool ID this RenderTarget should query from. Default value is POOL_DEFAULT.
@@ -121,9 +121,9 @@ struct Box;
         void setDepthBufferPool( uint16 poolId );
 
         //Returns the pool ID this RenderTarget should query from. @see DepthBuffer
-        uint16 getDepthBufferPool() const;
+        [[nodiscard]] uint16 getDepthBufferPool() const;
 
-        DepthBuffer* getDepthBuffer() const;
+        [[nodiscard]] DepthBuffer* getDepthBuffer() const;
 
         //Returns false if couldn't attach
         virtual bool attachDepthBuffer( DepthBuffer *depthBuffer );
@@ -196,7 +196,7 @@ struct Box;
             float width = 1.0f, float height = 1.0f);
 
         /** Returns the number of viewports attached to this target.*/
-        virtual unsigned short getNumViewports() const;
+        [[nodiscard]] virtual unsigned short getNumViewports() const;
 
         /** Retrieves a pointer to the viewport with the given index. */
         virtual Viewport* getViewport(unsigned short index);
@@ -218,7 +218,7 @@ struct Box;
         virtual void removeAllViewports();
 
         /** Retieves details of current rendering performance. */
-        const FrameStats& getStatistics() const {
+        [[nodiscard]] const FrameStats& getStatistics() const {
             return mStats;
         }
 
@@ -288,11 +288,11 @@ struct Box;
         */
         virtual void setPriority( uchar priority ) { mPriority = priority; }
         /** Gets the priority of a render target. */
-        virtual uchar getPriority() const { return mPriority; }
+        [[nodiscard]] virtual uchar getPriority() const { return mPriority; }
 
         /** Used to retrieve or set the active state of the render target.
         */
-        virtual bool isActive() const;
+        [[nodiscard]] virtual bool isActive() const;
 
         /** Used to set the active state of the render target.
         */
@@ -313,7 +313,7 @@ struct Box;
         /** Gets whether this target is automatically updated if Ogre's rendering
             loop or Root::_updateAllRenderTargets is being used.
         */
-        virtual bool isAutoUpdated() const;
+        [[nodiscard]] virtual bool isAutoUpdated() const;
 
         /** Copies the current contents of the render target to a pixelbox. 
         @remarks See suggestPixelFormat for a tip as to the best pixel format to
@@ -325,7 +325,7 @@ struct Box;
         /** Suggests a pixel format to use for extracting the data in this target,
             when calling copyContentsToMemory.
         */
-        virtual PixelFormat suggestPixelFormat() const { return PF_BYTE_RGBA; }
+        [[nodiscard]] virtual PixelFormat suggestPixelFormat() const { return PF_BYTE_RGBA; }
         
         /** Writes the current contents of the render target to the named file. */
         void writeContentsToFile(const String& filename);
@@ -334,7 +334,7 @@ struct Box;
             @return the name of the file used.*/
         virtual String writeContentsToTimestampedFile(const String& filenamePrefix, const String& filenameSuffix);
 
-        virtual bool requiresTextureFlipping() const = 0;
+        [[nodiscard]] virtual bool requiresTextureFlipping() const = 0;
 
         /** Utility method to notify a render target that a camera has been removed,
         incase it was referring to it as a viewer.
@@ -347,10 +347,10 @@ struct Box;
             This is the case because it holds the context for vertex,
             index buffers and textures.
         */
-        virtual bool isPrimary() const;
+        [[nodiscard]] virtual bool isPrimary() const;
 
 		/** Indicates whether stereo is currently enabled for this target. Default is false. */
-		virtual bool isStereoEnabled() const;
+		[[nodiscard]] virtual bool isStereoEnabled() const;
 		
         /** Indicates whether on rendering, linear colour space is converted to 
             sRGB gamma colour space. This is the exact opposite conversion of
@@ -359,14 +359,14 @@ struct Box;
             enabled through the 'gamma' creation misc parameter. For textures, 
             it is enabled through the hwGamma parameter to the create call.
         */
-        virtual bool isHardwareGammaEnabled() const { return mHwGamma; }
+        [[nodiscard]] virtual bool isHardwareGammaEnabled() const { return mHwGamma; }
 
         /** Indicates whether multisampling is performed on rendering and at what level.
         */
-        virtual uint getFSAA() const { return mFSAA; }
+        [[nodiscard]] virtual uint getFSAA() const { return mFSAA; }
 
         /// RenderSystem specific FSAA option. See @ref RenderSystem::_createRenderWindow for details.
-        virtual const String& getFSAAHint() const { return mFSAAHint; }
+        [[nodiscard]] virtual const String& getFSAAHint() const { return mFSAAHint; }
 
         /** Set the level of multisample AA to be used if hardware support it.
             This option will be ignored if the hardware does not support it 

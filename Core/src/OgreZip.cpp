@@ -67,7 +67,7 @@ namespace {
         ZipArchive(const String& name, const String& archType, const uint8* externBuf = 0, size_t externBufSz = 0);
         ~ZipArchive();
         /// @copydoc Archive::isCaseSensitive
-        bool isCaseSensitive() const { return true; }
+        [[nodiscard]] bool isCaseSensitive() const { return true; }
 
         /// @copydoc Archive::load
         void load();
@@ -75,7 +75,7 @@ namespace {
         void unload();
 
         /// @copydoc Archive::open
-        DataStreamPtr open(const String& filename, bool readOnly = true) const;
+        [[nodiscard]] DataStreamPtr open(const String& filename, bool readOnly = true) const;
 
         /// @copydoc Archive::create
         DataStreamPtr create(const String& filename);
@@ -84,24 +84,24 @@ namespace {
         void remove(const String& filename);
 
         /// @copydoc Archive::list
-        StringVectorPtr list(bool recursive = true, bool dirs = false) const;
+        [[nodiscard]] StringVectorPtr list(bool recursive = true, bool dirs = false) const;
 
         /// @copydoc Archive::listFileInfo
-        FileInfoListPtr listFileInfo(bool recursive = true, bool dirs = false) const;
+        [[nodiscard]] FileInfoListPtr listFileInfo(bool recursive = true, bool dirs = false) const;
 
         /// @copydoc Archive::find
-        StringVectorPtr find(const String& pattern, bool recursive = true,
+        [[nodiscard]] StringVectorPtr find(const String& pattern, bool recursive = true,
             bool dirs = false) const;
 
         /// @copydoc Archive::findFileInfo
-        FileInfoListPtr findFileInfo(const String& pattern, bool recursive = true,
+        [[nodiscard]] FileInfoListPtr findFileInfo(const String& pattern, bool recursive = true,
             bool dirs = false) const;
 
         /// @copydoc Archive::exists
-        bool exists(const String& filename) const;
+        [[nodiscard]] bool exists(const String& filename) const;
 
         /// @copydoc Archive::getModifiedTime
-        time_t getModifiedTime(const String& filename) const;
+        [[nodiscard]] time_t getModifiedTime(const String& filename) const;
     };
 }
     //-----------------------------------------------------------------------

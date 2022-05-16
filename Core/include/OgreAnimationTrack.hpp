@@ -97,17 +97,17 @@ class VertexMorphKeyFrame;
         {
         }
 
-        bool hasKeyIndex() const
+        [[nodiscard]] bool hasKeyIndex() const
         {
             return mKeyIndex != INVALID_KEY_INDEX;
         }
 
-        Real getTimePos() const
+        [[nodiscard]] Real getTimePos() const
         {
             return mTimePos;
         }
 
-        uint getKeyIndex() const
+        [[nodiscard]] uint getKeyIndex() const
         {
             return mKeyIndex;
         }
@@ -156,13 +156,13 @@ class VertexMorphKeyFrame;
         virtual ~AnimationTrack();
 
         /** Get the handle associated with this track. */
-        unsigned short getHandle() const { return mHandle; }
+        [[nodiscard]] unsigned short getHandle() const { return mHandle; }
 
         /** Returns the number of keyframes in this animation. */
-        size_t getNumKeyFrames() const { return mKeyFrames.size(); }
+        [[nodiscard]] size_t getNumKeyFrames() const { return mKeyFrames.size(); }
 
         /** Returns the KeyFrame at the specified index. */
-        KeyFrame* getKeyFrame(size_t index) const { return mKeyFrames.at(index); }
+        [[nodiscard]] KeyFrame* getKeyFrame(size_t index) const { return mKeyFrames.at(index); }
 
         /** Gets the 2 KeyFrame objects which are active at the time given, and the blend value between them.
         @remarks
@@ -232,7 +232,7 @@ class VertexMorphKeyFrame;
         doing anything useful - can be used to determine if this track
         can be optimised out.
         */
-        virtual bool hasNonZeroKeyFrames() const { return true; }
+        [[nodiscard]] virtual bool hasNonZeroKeyFrames() const { return true; }
 
         /** Optimise the current track by removing any duplicate keyframes. */
         virtual void optimise() {}
@@ -251,7 +251,7 @@ class VertexMorphKeyFrame;
         virtual void setListener(Listener* l) { mListener = l; }
 
         /** Returns the parent Animation object for this track. */
-        Animation *getParent() const { return mParent; }
+        [[nodiscard]] Animation *getParent() const { return mParent; }
     private:
         /// Map used to translate global keyframe time lower bound index to local lower bound index
         typedef std::vector<ushort> KeyFrameIndexMap;
@@ -308,14 +308,14 @@ class VertexMorphKeyFrame;
             Real weight = 1.0, Real scale = 1.0f);
 
         /** Returns a pointer to the associated animable object (if any). */
-        virtual const AnimableValuePtr& getAssociatedAnimable() const;
+        [[nodiscard]] virtual const AnimableValuePtr& getAssociatedAnimable() const;
 
         /** Sets the associated animable object which will be automatically 
             affected by calls to 'apply'. */
         virtual void setAssociatedAnimable(const AnimableValuePtr& val);
 
         /** Returns the KeyFrame at the specified index. */
-        NumericKeyFrame* getNumericKeyFrame(unsigned short index) const;
+        [[nodiscard]] NumericKeyFrame* getNumericKeyFrame(unsigned short index) const;
 
         /** Clone this track (internal use only) */
         NumericAnimationTrack* _clone(Animation* newParent) const;
@@ -506,10 +506,10 @@ class VertexMorphKeyFrame;
             VertexData* targetData, TargetMode target = TM_SOFTWARE);
 
         /** Get the type of vertex animation we're performing. */
-        VertexAnimationType getAnimationType() const { return mAnimationType; }
+        [[nodiscard]] VertexAnimationType getAnimationType() const { return mAnimationType; }
         
         /** Whether the vertex animation (if present) includes normals */
-        bool getVertexAnimationIncludesNormals() const;
+        [[nodiscard]] bool getVertexAnimationIncludesNormals() const;
 
         /** Creates a new morph KeyFrame and adds it to this animation at the given time index.
         @remarks
@@ -539,26 +539,26 @@ class VertexMorphKeyFrame;
 
 
         /** Returns the morph KeyFrame at the specified index. */
-        VertexMorphKeyFrame* getVertexMorphKeyFrame(unsigned short index) const;
+        [[nodiscard]] VertexMorphKeyFrame* getVertexMorphKeyFrame(unsigned short index) const;
 
         /** Returns the pose KeyFrame at the specified index. */
-        VertexPoseKeyFrame* getVertexPoseKeyFrame(unsigned short index) const;
+        [[nodiscard]] VertexPoseKeyFrame* getVertexPoseKeyFrame(unsigned short index) const;
 
         /** Sets the associated VertexData which this track will update. */
         void setAssociatedVertexData(VertexData* data) { mTargetVertexData = data; }
         /** Gets the associated VertexData which this track will update. */
-        VertexData* getAssociatedVertexData() const { return mTargetVertexData; }
+        [[nodiscard]] VertexData* getAssociatedVertexData() const { return mTargetVertexData; }
 
         /// Set the target mode
         void setTargetMode(TargetMode m) { mTargetMode = m; }
         /// Get the target mode
-        TargetMode getTargetMode() const { return mTargetMode; }
+        [[nodiscard]] TargetMode getTargetMode() const { return mTargetMode; }
 
         /** Method to determine if this track has any KeyFrames which are
         doing anything useful - can be used to determine if this track
         can be optimised out.
         */
-        virtual bool hasNonZeroKeyFrames() const;
+        [[nodiscard]] virtual bool hasNonZeroKeyFrames() const;
 
         /** Optimise the current track by removing any duplicate keyframes. */
         virtual void optimise();

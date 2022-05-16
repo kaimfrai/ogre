@@ -238,17 +238,17 @@ class Technique;
             virtual ~GeometryBucket();
             MaterialBucket* getParent() { return mParent; }
             /// Get the vertex data for this geometry 
-            const VertexData* getVertexData() const { return mVertexData; }
+            [[nodiscard]] const VertexData* getVertexData() const { return mVertexData; }
             /// Get the index data for this geometry 
-            const IndexData* getIndexData() const { return mIndexData; }
+            [[nodiscard]] const IndexData* getIndexData() const { return mIndexData; }
             /// @copydoc Renderable::getMaterial
-            const MaterialPtr& getMaterial() const;
-            Technique* getTechnique() const;
+            [[nodiscard]] const MaterialPtr& getMaterial() const;
+            [[nodiscard]] Technique* getTechnique() const;
             void getRenderOperation(RenderOperation& op);
             void getWorldTransforms(Matrix4* xform) const;
             Real getSquaredViewDepth(const Camera* cam) const;
-            const LightList& getLights() const;
-            bool getCastsShadows() const;
+            [[nodiscard]] const LightList& getLights() const;
+            [[nodiscard]] bool getCastsShadows() const;
             
             /** Try to assign geometry to this bucket.
             @return false if there is no room left in this bucket
@@ -285,7 +285,7 @@ class Technique;
             virtual ~MaterialBucket();
             LODBucket* getParent() { return mParent; }
             /// Get the material name
-            const String& getMaterialName() const { return mMaterial->getName(); }
+            [[nodiscard]] const String& getMaterialName() const { return mMaterial->getName(); }
             /// Assign geometry to this bucket
             void assign(QueuedGeometry* qsm);
             /// Build
@@ -294,16 +294,16 @@ class Technique;
             void addRenderables(RenderQueue* queue, uint8 group, 
                 Real lodValue);
             /// Get the material for this bucket
-            const MaterialPtr& getMaterial() const { return mMaterial; }
+            [[nodiscard]] const MaterialPtr& getMaterial() const { return mMaterial; }
             /// Override Material without changing the partitioning. For advanced use only.
             void _setMaterial(const MaterialPtr& material);
             /// Iterator over geometry
             typedef VectorIterator<GeometryBucketList> GeometryIterator;
             /// Get a list of the contained geometry
-            const GeometryBucketList& getGeometryList() const { return mGeometryBucketList; }
+            [[nodiscard]] const GeometryBucketList& getGeometryList() const { return mGeometryBucketList; }
 
             /// Get the current Technique
-            Technique* getCurrentTechnique() const { return mTechnique; }
+            [[nodiscard]] Technique* getCurrentTechnique() const { return mTechnique; }
             /// Dump contents for diagnostics
             void dump(std::ofstream& of) const;
             void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables);
@@ -340,9 +340,9 @@ class Technique;
             virtual ~LODBucket();
             Region* getParent() { return mParent; }
             /// Get the LOD index
-            ushort getLod() const { return mLod; }
+            [[nodiscard]] ushort getLod() const { return mLod; }
             /// Get the LOD value
-            Real getLodValue() const { return mLodValue; }
+            [[nodiscard]] Real getLodValue() const { return mLodValue; }
             /// Assign a queued submesh to this bucket, using specified mesh LOD
             void assign(QueuedSubMesh* qsm, ushort atLod);
             /// Build
@@ -353,14 +353,14 @@ class Technique;
             /// Iterator over the materials in this LOD
             typedef MapIterator<MaterialBucketMap> MaterialIterator;
             /// Get an iterator over the materials in this LOD
-            const MaterialBucketMap& getMaterialBuckets() const { return mMaterialBucketMap; }
+            [[nodiscard]] const MaterialBucketMap& getMaterialBuckets() const { return mMaterialBucketMap; }
 
             /// Dump contents for diagnostics
             void dump(std::ofstream& of) const;
             void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables);
-            EdgeData* getEdgeList() const { return mEdgeList; }
+            [[nodiscard]] EdgeData* getEdgeList() const { return mEdgeList; }
             ShadowCaster::ShadowRenderableList& getShadowRenderableList() { return mShadowRenderables; }
-            bool isVertexProgramInUse() const { return mVertexProgramInUse; }
+            [[nodiscard]] bool isVertexProgramInUse() const { return mVertexProgramInUse; }
             void updateShadowRenderables(const Vector4& lightPos, const HardwareIndexBufferPtr& indexBuffer,
                                          Real extrusionDistance, int flags = 0);
         };
@@ -567,7 +567,7 @@ class Technique;
         virtual ~StaticGeometry();
 
         /// Get the name of this object
-        const String& getName() const { return mName; }
+        [[nodiscard]] const String& getName() const { return mName; }
         /** Adds an Entity to the static geometry.
         @remarks
             This method takes an existing Entity and adds its details to the 
@@ -649,17 +649,17 @@ class Technique;
         }
 
         /** Gets the distance at which batches are no longer rendered. */
-        virtual Real getRenderingDistance() const { return mUpperDistance; }
+        [[nodiscard]] virtual Real getRenderingDistance() const { return mUpperDistance; }
 
         /** Gets the squared distance at which batches are no longer rendered. */
-        virtual Real getSquaredRenderingDistance() const 
+        [[nodiscard]] virtual Real getSquaredRenderingDistance() const 
         { return mSquaredUpperDistance; }
 
         /** Hides or shows all the batches. */
         virtual void setVisible(bool visible);
 
         /** Are the batches visible? */
-        virtual bool isVisible() const { return mVisible; }
+        [[nodiscard]] virtual bool isVisible() const { return mVisible; }
 
         /** Sets whether this geometry should cast shadows.
         @remarks
@@ -697,7 +697,7 @@ class Technique;
             mHalfRegionDimensions = size * 0.5;
         }
         /** Gets the size of a single batch of geometry. */
-        virtual const Vector3& getRegionDimensions() const { return mRegionDimensions; }
+        [[nodiscard]] virtual const Vector3& getRegionDimensions() const { return mRegionDimensions; }
         /** Sets the origin of the geometry.
         @remarks
             This method allows you to configure the world centre of the geometry,
@@ -711,12 +711,12 @@ class Technique;
         */
         virtual void setOrigin(const Vector3& origin) { mOrigin = origin; }
         /** Gets the origin of this geometry. */
-        virtual const Vector3& getOrigin() const { return mOrigin; }
+        [[nodiscard]] virtual const Vector3& getOrigin() const { return mOrigin; }
 
         /// Sets the visibility flags of all the regions at once
         void setVisibilityFlags(uint32 flags);
         /// Returns the visibility flags of the regions
-        uint32 getVisibilityFlags() const;
+        [[nodiscard]] uint32 getVisibilityFlags() const;
 
         /** Sets the render queue group this object will be rendered through.
         @remarks
@@ -732,7 +732,7 @@ class Technique;
         virtual void setRenderQueueGroup(uint8 queueID);
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        virtual uint8 getRenderQueueGroup() const;
+        [[nodiscard]] virtual uint8 getRenderQueueGroup() const;
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
             bool debugRenderables = false);
@@ -740,7 +740,7 @@ class Technique;
         /// Iterator for iterating over contained regions
         typedef MapIterator<RegionMap> RegionIterator;
         /// Get an list of the regions in this geometry
-        const RegionMap& getRegions() const { return mRegionMap; }
+        [[nodiscard]] const RegionMap& getRegions() const { return mRegionMap; }
 
         /** Dump the contents of this StaticGeometry to a file for diagnostic
             purposes.
@@ -760,7 +760,7 @@ class Technique;
 
         static String FACTORY_TYPE_NAME;
 
-        const String& getType() const { return FACTORY_TYPE_NAME; }
+        [[nodiscard]] const String& getType() const { return FACTORY_TYPE_NAME; }
     };
     /** @} */
     /** @} */

@@ -100,7 +100,7 @@ namespace Ogre {
         /** Codes the input and saves the result in the output
             stream.
         */
-        virtual DataStreamPtr encode(const Any& input) const;
+        [[nodiscard]] virtual DataStreamPtr encode(const Any& input) const;
 
         /** Codes the data in the input chunk and saves the result in the output
             filename provided. Provided for efficiency since coding to memory is
@@ -118,7 +118,7 @@ namespace Ogre {
 
         /** Returns the type of the codec as a String
         */
-        virtual String getType() const = 0;
+        [[nodiscard]] virtual String getType() const = 0;
 
         /** Returns whether a magic number header matches this codec.
         @param magicNumberPtr Pointer to a stream of bytes which should identify the file.

@@ -56,7 +56,7 @@ class Program : public RTShaderSystemAlloc
 // Interface.
 public: 
     /** Get the type of this program. */
-    GpuProgramType getType() const;
+    [[nodiscard]] GpuProgramType getType() const;
 
     /** Resolve uniform auto constant parameter with associated real data of this program.
     @param autoType The auto type of the desired parameter. 
@@ -129,7 +129,7 @@ public:
 
     /** Get the list of uniform parameters of this program.
     */
-    const UniformParameterList& getParameters() const { return mParameters; };
+    [[nodiscard]] const UniformParameterList& getParameters() const { return mParameters; };
 
     /// @deprecated use getMain()
     Function* getEntryPointFunction()                    { return mEntryPointFunction; }
@@ -144,12 +144,12 @@ public:
     void addDependency(const String& libFileName);
 
     /** Get the number of external libs this program depends on */
-    size_t getDependencyCount() const;
+    [[nodiscard]] size_t getDependencyCount() const;
 
     /** Get the library name of the given index dependency.
     @param index The index of the dependecy.
     */
-    const String& getDependency(unsigned int index) const;
+    [[nodiscard]] const String& getDependency(unsigned int index) const;
     
 
     /** Sets whether a vertex program includes the required instructions
@@ -160,7 +160,7 @@ public:
     /** Returns whether a vertex program includes the required instructions
         to perform skeletal animation. 
     */
-    bool getSkeletalAnimationIncluded() const { return mSkeletalAnimation; }
+    [[nodiscard]] bool getSkeletalAnimationIncluded() const { return mSkeletalAnimation; }
 
     /** Tells Ogre whether auto-bound matrices should be sent in column or row-major order.
     @remarks
@@ -179,11 +179,11 @@ public:
     @return
     true, when the matrices will be passed in column-major order, false, when they will be passed as row-major.
     */
-    bool getUseColumnMajorMatrices() const { return mColumnMajorMatrices; }
+    [[nodiscard]] bool getUseColumnMajorMatrices() const { return mColumnMajorMatrices; }
 
     void addPreprocessorDefines(const String& defines);
 
-    const String& getPreprocessorDefines() const { return mPreprocessorDefines; }
+    [[nodiscard]] const String& getPreprocessorDefines() const { return mPreprocessorDefines; }
 
     /** Class destructor */
     ~Program();

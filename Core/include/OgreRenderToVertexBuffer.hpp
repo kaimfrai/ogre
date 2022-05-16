@@ -72,7 +72,7 @@ namespace Ogre {
         /**
            Get the maximum number of vertices that the buffer will hold
         */
-        unsigned int getMaxVertexCount() const { return mMaxVertexCount; }
+        [[nodiscard]] unsigned int getMaxVertexCount() const { return mMaxVertexCount; }
 
         /**
            Set the maximum number of vertices that the buffer will hold
@@ -82,7 +82,7 @@ namespace Ogre {
         /**
            What type of primitives does this object generate?
         */
-        RenderOperation::OperationType getOperationType() const { return mOperationType; }
+        [[nodiscard]] RenderOperation::OperationType getOperationType() const { return mOperationType; }
 
         /**
            Set the type of primitives that this object generates
@@ -97,7 +97,7 @@ namespace Ogre {
         /**
            Does this object reset its buffer each time it updates?
         */
-        bool getResetsEveryUpdate() const { return mResetsEveryUpdate; }
+        [[nodiscard]] bool getResetsEveryUpdate() const { return mResetsEveryUpdate; }
 
         /**
            Get the render operation for this buffer
@@ -125,7 +125,7 @@ namespace Ogre {
         /**
            Get the source renderable of this object
         */
-        const Renderable* getSourceRenderable() const { return mSourceRenderable; }
+        [[nodiscard]] const Renderable* getSourceRenderable() const { return mSourceRenderable; }
 
         /**
            Get the material which is used to render the geometry into the

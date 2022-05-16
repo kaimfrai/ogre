@@ -105,7 +105,7 @@ public:
       * @return The last fragment count from the last test.
       * Remarks This function won't give you new values, just the old value.
       */
-    unsigned int getLastQuerysPixelcount() const { return mPixelCount; }
+    [[nodiscard]] unsigned int getLastQuerysPixelcount() const { return mPixelCount; }
 
     /**
       * Lets you know when query is done, or still be processed by the Hardware

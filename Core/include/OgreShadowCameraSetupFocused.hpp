@@ -126,7 +126,7 @@ class Viewport;
 
             /** Returns the bounding box representation.
             */
-            const AxisAlignedBox& getAAB() const;   
+            [[nodiscard]] const AxisAlignedBox& getAAB() const;   
 
             /** Adds a specific point to the body list.
             */
@@ -138,11 +138,11 @@ class Viewport;
 
             /** Returns a point.
             */
-            const Vector3& getPoint(size_t cnt) const;
+            [[nodiscard]] const Vector3& getPoint(size_t cnt) const;
 
             /** Returns the point count.
             */
-            size_t getPointCount() const;
+            [[nodiscard]] size_t getPointCount() const;
 
             /** Resets the body.
             */

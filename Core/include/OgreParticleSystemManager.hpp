@@ -308,11 +308,11 @@ class ParticleSystemRenderer;
         void _initialise();
 
         /// @copydoc ScriptLoader::getScriptPatterns
-        const StringVector& getScriptPatterns() const;
+        [[nodiscard]] const StringVector& getScriptPatterns() const;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName);
         /// @copydoc ScriptLoader::getLoadingOrder
-        Real getLoadingOrder() const;
+        [[nodiscard]] Real getLoadingOrder() const;
 
         typedef MapIterator<ParticleAffectorFactoryMap> ParticleAffectorFactoryIterator;
         typedef MapIterator<ParticleEmitterFactoryMap> ParticleEmitterFactoryIterator;
@@ -354,7 +354,7 @@ class ParticleSystemRenderer;
         
         static String FACTORY_TYPE_NAME;
 
-        const String& getType() const;
+        [[nodiscard]] const String& getType() const;
     };
     /** @} */
     /** @} */

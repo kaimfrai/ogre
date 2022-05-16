@@ -100,7 +100,7 @@ namespace Ogre {
             BOTH_SIDE
         };
 
-        Side getSide(const Vector3& rkPoint) const
+        [[nodiscard]] Side getSide(const Vector3& rkPoint) const
         {
             Real fDistance = getDistance(rkPoint);
 
@@ -117,7 +117,7 @@ namespace Ogre {
         Returns the side where the alignedBox is. The flag BOTH_SIDE indicates an intersecting box.
         One corner ON the plane is sufficient to consider the box and the plane intersecting.
         */
-        Side getSide(const AxisAlignedBox& box) const
+        [[nodiscard]] Side getSide(const AxisAlignedBox& box) const
         {
             if (box.isNull())
                 return NO_SIDE;
@@ -136,7 +136,7 @@ namespace Ogre {
             NEGATIVE_SIDE if the box complete lies on the "negative side" of the plane,
             and BOTH_SIDE if the box intersects the plane.
         */
-        Side getSide(const Vector3& centre, const Vector3& halfSize) const
+        [[nodiscard]] Side getSide(const Vector3& centre, const Vector3& halfSize) const
         {
             // Calculate the distance between box centre and the plane
             Real dist = getDistance(centre);
@@ -162,7 +162,7 @@ namespace Ogre {
             The absolute value of the return value is the true distance only
             when the plane normal is a unit length vector.
         */
-        Real getDistance(const Vector3& rkPoint) const
+        [[nodiscard]] Real getDistance(const Vector3& rkPoint) const
         {
             return normal.dotProduct(rkPoint) + d;
         }
@@ -188,7 +188,7 @@ namespace Ogre {
             from the original vector, since parallel + perpendicular = original.
         @param v The input vector
         */
-        Vector3 projectVector(const Vector3& v) const
+        [[nodiscard]] Vector3 projectVector(const Vector3& v) const
         {
             // We know plane normal is unit length, so use simple method
             Matrix3 xform;

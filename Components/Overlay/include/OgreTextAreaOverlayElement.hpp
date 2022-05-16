@@ -70,19 +70,19 @@ namespace Ogre
         virtual void setCaption(const DisplayString& text);
 
         void setCharHeight( Real height );
-        Real getCharHeight() const;
+        [[nodiscard]] Real getCharHeight() const;
 
         void setSpaceWidth( Real width );
-        Real getSpaceWidth() const;
+        [[nodiscard]] Real getSpaceWidth() const;
 
         void setFontName( const String& font, const String& group = DEFAULT_RESOURCE_GROUP );
 
-        const FontPtr& getFont() const {
+        [[nodiscard]] const FontPtr& getFont() const {
             return mFont;
         }
 
-        virtual const String& getTypeName() const override;
-        const MaterialPtr& getMaterial() const override;
+        [[nodiscard]] virtual const String& getTypeName() const override;
+        [[nodiscard]] const MaterialPtr& getMaterial() const override;
         void getRenderOperation(RenderOperation& op) override;
 
         /** Sets the colour of the text. 
@@ -94,7 +94,7 @@ namespace Ogre
         void setColour(const ColourValue& col);
 
         /** Gets the colour of the text. */
-        const ColourValue& getColour() const;
+        [[nodiscard]] const ColourValue& getColour() const;
         /** Sets the colour of the bottom of the letters.
         @remarks
             By setting a separate top and bottom colour, you
@@ -103,7 +103,7 @@ namespace Ogre
         */
         void setColourBottom(const ColourValue& col);
         /** Gets the colour of the bottom of the letters. */
-        const ColourValue& getColourBottom() const;
+        [[nodiscard]] const ColourValue& getColourBottom() const;
         /** Sets the colour of the top of the letters.
         @remarks
             By setting a separate top and bottom colour, you
@@ -112,14 +112,14 @@ namespace Ogre
         */
         void setColourTop(const ColourValue& col);
         /** Gets the colour of the top of the letters. */
-        const ColourValue& getColourTop() const;
+        [[nodiscard]] const ColourValue& getColourTop() const;
 
         inline void setAlignment( Alignment a )
         {
             mAlignment = a;
             mGeomPositionsOutOfDate = true;
         }
-        inline Alignment getAlignment() const
+        [[nodiscard]] inline Alignment getAlignment() const
         {
             return mAlignment;
         }

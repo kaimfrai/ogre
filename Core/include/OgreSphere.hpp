@@ -65,35 +65,35 @@ namespace Ogre {
             : mRadius(radius), mCenter(center) {}
 
         /** Returns the radius of the sphere. */
-        Real getRadius() const { return mRadius; }
+        [[nodiscard]] Real getRadius() const { return mRadius; }
 
         /** Sets the radius of the sphere. */
         void setRadius(Real radius) { mRadius = radius; }
 
         /** Returns the center point of the sphere. */
-        const Vector3& getCenter() const { return mCenter; }
+        [[nodiscard]] const Vector3& getCenter() const { return mCenter; }
 
         /** Sets the center point of the sphere. */
         void setCenter(const Vector3& center) { mCenter = center; }
 
         /** Returns whether or not this sphere intersects another sphere. */
-        bool intersects(const Sphere& s) const
+        [[nodiscard]] bool intersects(const Sphere& s) const
         {
             return (s.mCenter - mCenter).squaredLength() <=
                 Math::Sqr(s.mRadius + mRadius);
         }
         /** Returns whether or not this sphere intersects a box. */
-        bool intersects(const AxisAlignedBox& box) const
+        [[nodiscard]] bool intersects(const AxisAlignedBox& box) const
         {
             return Math::intersects(*this, box);
         }
         /** Returns whether or not this sphere intersects a plane. */
-        bool intersects(const Plane& plane) const
+        [[nodiscard]] bool intersects(const Plane& plane) const
         {
             return Math::Abs(plane.getDistance(getCenter())) <= getRadius();
         }
         /** Returns whether or not this sphere intersects a point. */
-        bool intersects(const Vector3& v) const
+        [[nodiscard]] bool intersects(const Vector3& v) const
         {
             return ((v - mCenter).squaredLength() <= Math::Sqr(mRadius));
         }

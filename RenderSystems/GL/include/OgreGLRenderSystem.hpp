@@ -101,8 +101,8 @@ struct GLGpuProgramBase;
         void setGLLight(size_t index, bool lt);
         void makeGLMatrix(GLfloat gl_matrix[16], const Matrix4& m);
  
-        GLint getBlendMode(SceneBlendFactor ogreBlend) const;
-        GLint getTextureAddressingMode(TextureAddressingMode tam) const;
+        [[nodiscard]] GLint getBlendMode(SceneBlendFactor ogreBlend) const;
+        [[nodiscard]] GLint getTextureAddressingMode(TextureAddressingMode tam) const;
                 void initialiseContext(RenderWindow* primary);
 
         /// Store last stencil mask state
@@ -110,8 +110,8 @@ struct GLGpuProgramBase;
         /// Store last depth write state
         bool mDepthWrite;
 
-        GLint convertCompareFunction(CompareFunction func) const;
-        GLint convertStencilOp(StencilOperation op, bool invert = false) const;
+        [[nodiscard]] GLint convertCompareFunction(CompareFunction func) const;
+        [[nodiscard]] GLint convertStencilOp(StencilOperation op, bool invert = false) const;
 
         bool mUseAutoTextureMatrix;
         GLfloat mAutoTextureMatrix[16];
@@ -166,13 +166,13 @@ struct GLGpuProgramBase;
 
         void applyFixedFunctionParams(const GpuProgramParametersPtr& params, uint16 variabilityMask);
 
-        const String& getName() const;
+        [[nodiscard]] const String& getName() const;
 
         void _initialise() override;
 
         void initConfigOptions() override;
 
-        virtual RenderSystemCapabilities* createRenderSystemCapabilities() const;
+        [[nodiscard]] virtual RenderSystemCapabilities* createRenderSystemCapabilities() const;
 
         void initialiseFromRenderSystemCapabilities(RenderSystemCapabilities* caps, RenderTarget* primary);
 

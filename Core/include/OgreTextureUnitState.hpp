@@ -103,14 +103,14 @@ template <typename T> class Controller;
         */
         void setFiltering(FilterOptions minFilter, FilterOptions magFilter, FilterOptions mipFilter);
         /// Get the texture filtering for the given type.
-        FilterOptions getFiltering(FilterType ftype) const;
+        [[nodiscard]] FilterOptions getFiltering(FilterType ftype) const;
 
         /** Gets the texture addressing mode for a given coordinate,
             i.e. what happens at uv values above 1.0.
         @note
             The default is TAM_WRAP i.e. the texture repeats over values of 1.0.
         */
-        const UVWAddressingMode& getAddressingMode() const { return mAddressMode; }
+        [[nodiscard]] const UVWAddressingMode& getAddressingMode() const { return mAddressMode; }
 
         /** Sets the texture addressing mode, i.e. what happens at uv values above 1.0.
 
@@ -158,7 +158,7 @@ template <typename T> class Controller;
             mDirty = true;
         }
         /// Get this layer texture anisotropy level.
-        unsigned int getAnisotropy() const { return mMaxAniso; }
+        [[nodiscard]] unsigned int getAnisotropy() const { return mMaxAniso; }
 
         /** Sets the bias value applied to the mipmap calculation.
 
@@ -183,7 +183,7 @@ template <typename T> class Controller;
         /** Gets the bias value applied to the mipmap calculation.
         @see TextureUnitState::setTextureMipmapBias
         */
-        float getMipmapBias() const { return mMipmapBias; }
+        [[nodiscard]] float getMipmapBias() const { return mMipmapBias; }
 
         /** Enables or disables the comparison test for depth textures.
          *
@@ -196,14 +196,14 @@ template <typename T> class Controller;
             mCompareEnabled = enabled;
             mDirty = true;
         }
-        bool getCompareEnabled() const { return mCompareEnabled; }
+        [[nodiscard]] bool getCompareEnabled() const { return mCompareEnabled; }
 
         void setCompareFunction(CompareFunction function)
         {
             mCompareFunc = function;
             mDirty = true;
         }
-        CompareFunction getCompareFunction() const { return mCompareFunc; }
+        [[nodiscard]] CompareFunction getCompareFunction() const { return mCompareFunc; }
 
         /** Sets the texture border colour.
 
@@ -215,7 +215,7 @@ template <typename T> class Controller;
             mBorderColour = colour;
             mDirty = true;
         }
-        const ColourValue& getBorderColour() const { return mBorderColour; }
+        [[nodiscard]] const ColourValue& getBorderColour() const { return mBorderColour; }
 
     protected:
         ColourValue mBorderColour;

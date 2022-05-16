@@ -145,7 +145,7 @@ class Sphere;
             If the result is ENDIAN_AUTO, this mode will change when the first piece of
             data is read / written. 
         */
-        virtual Endian getEndian() const { return mEndian; }
+        [[nodiscard]] virtual Endian getEndian() const { return mEndian; }
 
         /** Pack a 4-character code into a 32-bit identifier.
         @remarks
@@ -161,13 +161,13 @@ class Sphere;
             either writing or reading. In order to tidily finish, you must call
             read/writeChunkEnd this many times.
         */
-        size_t getCurrentChunkDepth() const { return mChunkStack.size(); }
+        [[nodiscard]] size_t getCurrentChunkDepth() const { return mChunkStack.size(); }
 
         /** Get the ID of the chunk that's currently being read/written, if any.
         @return The id of the current chunk being read / written (at the tightest
             level of nesting), or zero if no chunk is being processed.
         */
-        uint32 getCurrentChunkID() const;
+        [[nodiscard]] uint32 getCurrentChunkID() const;
 
         /** Get the current byte position relative to the start of the data section
             of the last chunk that was read or written. 
@@ -176,7 +176,7 @@ class Sphere;
             header), or that no chunk is currently active. Use getCurrentChunkID
             or getCurrentChunkDepth to determine if a chunk is active.
         */
-        size_t getOffsetFromChunkStart() const;
+        [[nodiscard]] size_t getOffsetFromChunkStart() const;
 
         /** Reads the start of the next chunk in the file.
         @remarks
@@ -235,10 +235,10 @@ class Sphere;
         virtual bool isEndOfChunk(uint32 id);
 
         /// Reports whether the stream is at the end of file
-        virtual bool eof() const;
+        [[nodiscard]] virtual bool eof() const;
 
         /** Get the definition of the current chunk being read (if any). */
-        virtual const Chunk* getCurrentChunk() const;
+        [[nodiscard]] virtual const Chunk* getCurrentChunk() const;
 
         /** Begin writing a new chunk.
         @remarks

@@ -122,7 +122,7 @@ namespace Ogre
             m[2][3] = v[2];
         }
         /// Extracts the translation transformation part of the matrix.
-        Vector<3, T> getTrans() const
+        [[nodiscard]] Vector<3, T> getTrans() const
         {
             assert(rows > 2);
             return Vector<3, T>(m[0][3], m[1][3], m[2][3]);
@@ -190,16 +190,16 @@ namespace Ogre
 
         /** Extracts the rotation / scaling part of the Matrix as a 3x3 matrix.
         */
-        Matrix3 linear() const
+        [[nodiscard]] Matrix3 linear() const
         {
             return {m[0][0], m[0][1], m[0][2],
                            m[1][0], m[1][1], m[1][2],
                            m[2][0], m[2][1], m[2][2]};
         }
 
-        Real determinant() const;
+        [[nodiscard]] Real determinant() const;
 
-        Matrix4 transpose() const;
+        [[nodiscard]] Matrix4 transpose() const;
 
         /** Building a Affine3 from orientation / scale / position.
         @remarks
@@ -309,8 +309,8 @@ namespace Ogre
                 scalar*m[3][0], scalar*m[3][1], scalar*m[3][2], scalar*m[3][3]};
         }
         
-        Matrix4 adjoint() const;
-        Matrix4 inverse() const;
+        [[nodiscard]] Matrix4 adjoint() const;
+        [[nodiscard]] Matrix4 inverse() const;
     };
 
     /// Transform specialization for 3D Affine - encapsulating a 3x4 Matrix
@@ -380,7 +380,7 @@ namespace Ogre
 
         bool operator!=(const Affine3& m2) const { return !(*this == m2); }
 
-        Affine3 inverse() const;
+        [[nodiscard]] Affine3 inverse() const;
 
         /** Decompose to orientation / scale / position.
         */

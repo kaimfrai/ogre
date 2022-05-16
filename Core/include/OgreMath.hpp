@@ -84,9 +84,9 @@ class Sphere;
         Radian& operator = ( const Radian& r ) { mRad = r.mRad; return *this; }
         Radian& operator = ( const Degree& d );
 
-        float valueDegrees() const; // see bottom of this file
-        float valueRadians() const { return mRad; }
-        float valueAngleUnits() const;
+        [[nodiscard]] float valueDegrees() const; // see bottom of this file
+        [[nodiscard]] float valueRadians() const { return mRad; }
+        [[nodiscard]] float valueAngleUnits() const;
 
         const Radian& operator + () const { return *this; }
         Radian operator + ( const Radian& r ) const { return Radian ( mRad + r.mRad ); }
@@ -136,9 +136,9 @@ class Sphere;
         Degree& operator = ( const Degree& d ) { mDeg = d.mDeg; return *this; }
         Degree& operator = ( const Radian& r ) { mDeg = r.valueDegrees(); return *this; }
 
-        float valueDegrees() const { return mDeg; }
-        float valueRadians() const; // see bottom of this file
-        float valueAngleUnits() const;
+        [[nodiscard]] float valueDegrees() const { return mDeg; }
+        [[nodiscard]] float valueRadians() const; // see bottom of this file
+        [[nodiscard]] float valueAngleUnits() const;
 
         const Degree& operator + () const { return *this; }
         Degree operator + ( const Degree& d ) const { return Degree ( mDeg + d.mDeg ); }

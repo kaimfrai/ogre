@@ -106,21 +106,21 @@ namespace Ogre {
         
         /** Get a local texture definition.
         */
-        TextureDefinition *getTextureDefinition(size_t idx) const { return mTextureDefinitions.at(idx); }
+        [[nodiscard]] TextureDefinition *getTextureDefinition(size_t idx) const { return mTextureDefinitions.at(idx); }
         
         /** Get a local texture definition with a specific name.
         */
-        TextureDefinition *getTextureDefinition(const String& name) const;
+        [[nodiscard]] TextureDefinition *getTextureDefinition(const String& name) const;
 
         /** Get the number of local texture definitions.*/
-        size_t getNumTextureDefinitions() const { return mTextureDefinitions.size(); }
+        [[nodiscard]] size_t getNumTextureDefinitions() const { return mTextureDefinitions.size(); }
         
         /** Remove all Texture Definitions
         */
         void removeAllTextureDefinitions();
         
         /** Get the TextureDefinitions in this Technique. */
-        const TextureDefinitions& getTextureDefinitions() const { return mTextureDefinitions; }
+        [[nodiscard]] const TextureDefinitions& getTextureDefinitions() const { return mTextureDefinitions; }
         
         /** Create a new target pass, and return a pointer to it.
         */
@@ -132,21 +132,21 @@ namespace Ogre {
         
         /** Get a target pass.
         */
-        CompositionTargetPass* getTargetPass(size_t idx) const { return mTargetPasses.at(idx); }
+        [[nodiscard]] CompositionTargetPass* getTargetPass(size_t idx) const { return mTargetPasses.at(idx); }
         
         /** Get the number of target passes. */
-        size_t getNumTargetPasses() const { return mTargetPasses.size(); }
+        [[nodiscard]] size_t getNumTargetPasses() const { return mTargetPasses.size(); }
         
         /** Remove all target passes.
         */
         void removeAllTargetPasses();
         
         /** Get the TargetPasses in this Technique. */
-        const TargetPasses& getTargetPasses() const { return mTargetPasses; }
+        [[nodiscard]] const TargetPasses& getTargetPasses() const { return mTargetPasses; }
         
         /** Get output (final) target pass
          */
-        CompositionTargetPass *getOutputTargetPass() const { return mOutputTarget; }
+        [[nodiscard]] CompositionTargetPass *getOutputTargetPass() const { return mOutputTarget; }
         
         /** Determine if this technique is supported on the current rendering device. 
         @param allowTextureDegradation True to accept a reduction in texture depth
@@ -158,7 +158,7 @@ namespace Ogre {
         */
         virtual void setSchemeName(const String& schemeName);
         /** Get the scheme name assigned to this technique. */
-        const String& getSchemeName() const { return mSchemeName; }
+        [[nodiscard]] const String& getSchemeName() const { return mSchemeName; }
         
         /** Set the name of the compositor logic assigned to this technique.
             Instances of this technique will be auto-coupled with the matching logic.
@@ -166,7 +166,7 @@ namespace Ogre {
         void setCompositorLogicName(const String& compositorLogicName) 
             { mCompositorLogicName = compositorLogicName; }
         /** Get the compositor logic name assigned to this technique */
-        const String& getCompositorLogicName() const { return mCompositorLogicName; }
+        [[nodiscard]] const String& getCompositorLogicName() const { return mCompositorLogicName; }
 
         /** Get parent object */
         Compositor *getParent();

@@ -274,8 +274,8 @@ public:
         sm->setLateMaterialResolving(true);
     }
 
-    const String& getPreviousScheme() const { return mPreviousScheme; }
-    bool getPreviousLateResolving() const { return mPreviousLateResolving; }
+    [[nodiscard]] const String& getPreviousScheme() const { return mPreviousScheme; }
+    [[nodiscard]] bool getPreviousLateResolving() const { return mPreviousLateResolving; }
 };
 
 /** Restore the settings changed by the set scheme operation */

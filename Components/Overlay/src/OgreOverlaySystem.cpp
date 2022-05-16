@@ -57,7 +57,7 @@ class OverlayElement;
         {
             return new PanelOverlayElement(instanceName);
         }
-        const String& getTypeName() const override
+        [[nodiscard]] const String& getTypeName() const override
         {
             static String name = "Panel";
             return name;
@@ -72,7 +72,7 @@ class OverlayElement;
         {
             return new BorderPanelOverlayElement(instanceName);
         }
-        const String& getTypeName() const override
+        [[nodiscard]] const String& getTypeName() const override
         {
             static String name = "BorderPanel";
             return name;
@@ -87,7 +87,7 @@ class OverlayElement;
         {
             return new TextAreaOverlayElement(instanceName);
         }
-        const String& getTypeName() const override
+        [[nodiscard]] const String& getTypeName() const override
         {
             static String name = "TextArea";
             return name;

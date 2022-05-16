@@ -59,9 +59,9 @@ class ColourValue;
     private:
         String mType;
 
-        PixelFormat convertFourCCFormat(uint32 fourcc) const;
-        PixelFormat convertDXToOgreFormat(uint32 fourcc) const;
-        PixelFormat convertPixelFormat(uint32 rgbBits, uint32 rMask,
+        [[nodiscard]] PixelFormat convertFourCCFormat(uint32 fourcc) const;
+        [[nodiscard]] PixelFormat convertDXToOgreFormat(uint32 fourcc) const;
+        [[nodiscard]] PixelFormat convertPixelFormat(uint32 rgbBits, uint32 rMask,
             uint32 gMask, uint32 bMask, uint32 aMask) const;
 
         /// Unpack DXT colours into array of 16 colour values
@@ -82,9 +82,9 @@ class ColourValue;
         using ImageCodec::encodeToFile;
 
         void encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName, const CodecDataPtr& pData) const override;
-        DecodeResult decode(const DataStreamPtr& input) const override;
+        [[nodiscard]] DecodeResult decode(const DataStreamPtr& input) const override;
         String magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const override;
-        String getType() const override;
+        [[nodiscard]] String getType() const override;
 
         /// Static method to startup and register the DDS codec
         static void startup();

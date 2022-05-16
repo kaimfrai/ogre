@@ -69,17 +69,17 @@ namespace Ogre {
                                  HardwareBuffer* delegate);
             ~HardwareVertexBuffer();
             /// Return the manager of this buffer, if any
-            HardwareBufferManagerBase* getManager() const { return mMgr; }
+            [[nodiscard]] HardwareBufferManagerBase* getManager() const { return mMgr; }
             /// Gets the size in bytes of a single vertex in this buffer
-            size_t getVertexSize() const { return mVertexSize; }
+            [[nodiscard]] size_t getVertexSize() const { return mVertexSize; }
             /// Get the number of vertices in this buffer
-            size_t getNumVertices() const { return mNumVertices; }
+            [[nodiscard]] size_t getNumVertices() const { return mNumVertices; }
             /// Get if this vertex buffer is an "instance data" buffer (per instance)
-            bool isInstanceData() const { return mIsInstanceData; }
+            [[nodiscard]] bool isInstanceData() const { return mIsInstanceData; }
             /// Set if this vertex buffer is an "instance data" buffer (per instance)
             void setIsInstanceData(const bool val);
             /// Get the number of instances to draw using the same per-instance data before advancing in the buffer by one element.
-            size_t getInstanceDataStepRate() const;
+            [[nodiscard]] size_t getInstanceDataStepRate() const;
             /// Set the number of instances to draw using the same per-instance data before advancing in the buffer by one element.
             void setInstanceDataStepRate(const size_t val);
 
@@ -195,17 +195,17 @@ namespace Ogre {
         VertexElement(unsigned short source, size_t offset, VertexElementType theType,
             VertexElementSemantic semantic, unsigned short index = 0);
         /// Gets the vertex buffer index from where this element draws it's values
-        unsigned short getSource() const { return mSource; }
+        [[nodiscard]] unsigned short getSource() const { return mSource; }
         /// Gets the offset into the buffer where this element starts
-        size_t getOffset() const { return mOffset; }
+        [[nodiscard]] size_t getOffset() const { return mOffset; }
         /// Gets the data format of this element
-        VertexElementType getType() const { return mType; }
+        [[nodiscard]] VertexElementType getType() const { return mType; }
         /// Gets the meaning of this element
-        VertexElementSemantic getSemantic() const { return mSemantic; }
+        [[nodiscard]] VertexElementSemantic getSemantic() const { return mSemantic; }
         /// Gets the index of this element, only applicable for repeating elements
-        unsigned short getIndex() const { return mIndex; }
+        [[nodiscard]] unsigned short getIndex() const { return mIndex; }
         /// Gets the size of this element in bytes
-        size_t getSize() const;
+        [[nodiscard]] size_t getSize() const;
         /// Utility method for helping to calculate offsets
         static size_t getTypeSize(VertexElementType etype);
         /// Utility method which returns the count of values in a given type (result for colors may be counter-intuitive)
@@ -301,11 +301,11 @@ namespace Ogre {
         virtual ~VertexDeclaration();
 
         /** Get the number of elements in the declaration. */
-        size_t getElementCount() const { return mElementList.size(); }
+        [[nodiscard]] size_t getElementCount() const { return mElementList.size(); }
         /** Gets read-only access to the list of vertex elements. */
-        const VertexElementList& getElements() const;
+        [[nodiscard]] const VertexElementList& getElements() const;
         /** Get a single element. */
-        const VertexElement* getElement(unsigned short index) const;
+        [[nodiscard]] const VertexElement* getElement(unsigned short index) const;
 
         /** Sorts the elements in this list to be compatible with D3D7 graphics cards
 
@@ -357,11 +357,11 @@ namespace Ogre {
         @param vertexAnimation Whether this vertex data is going to be vertex animated
         @param vertexAnimationNormals Whether vertex data animation is going to include normals animation
         */
-        VertexDeclaration* getAutoOrganisedDeclaration(bool skeletalAnimation,
+        [[nodiscard]] VertexDeclaration* getAutoOrganisedDeclaration(bool skeletalAnimation,
             bool vertexAnimation, bool vertexAnimationNormals) const;
 
         /** Gets the index of the highest source value referenced by this declaration. */
-        unsigned short getMaxSource() const;
+        [[nodiscard]] unsigned short getMaxSource() const;
 
 
 
@@ -425,7 +425,7 @@ namespace Ogre {
         @remarks
             If the element is not found, this method returns null.
         */
-        const VertexElement* findElementBySemantic(VertexElementSemantic sem, unsigned short index = 0) const;
+        [[nodiscard]] const VertexElement* findElementBySemantic(VertexElementSemantic sem, unsigned short index = 0) const;
         /** Based on the current elements, gets the size of the vertex for a given buffer source.
         @param source The buffer binding index for which to get the vertex size.
         */
@@ -435,15 +435,15 @@ namespace Ogre {
             Note that the list of elements is returned by value therefore is separate from
             the declaration as soon as this method returns.
         */
-        VertexElementList findElementsBySource(unsigned short source) const;
+        [[nodiscard]] VertexElementList findElementsBySource(unsigned short source) const;
 
         /** Gets the vertex size defined by this declaration for a given source. */
-        size_t getVertexSize(unsigned short source) const;
+        [[nodiscard]] size_t getVertexSize(unsigned short source) const;
         
         /** Return the index of the next free texture coordinate set which may be added
             to this declaration.
         */
-        unsigned short getNextFreeTextureCoordinate() const;
+        [[nodiscard]] unsigned short getNextFreeTextureCoordinate() const;
 
         /** Clones this declaration. 
         @param mgr Optional HardwareBufferManager to use for creating the clone

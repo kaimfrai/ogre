@@ -203,13 +203,13 @@ public:
     }
 
     /** Return a list of input parameters. */
-    const ShaderParameterList& getInputParameters() const { return mInputParameters; }  
+    [[nodiscard]] const ShaderParameterList& getInputParameters() const { return mInputParameters; }  
 
     /** Return a list of output parameters. */
-    const ShaderParameterList& getOutputParameters() const { return mOutputParameters; }
+    [[nodiscard]] const ShaderParameterList& getOutputParameters() const { return mOutputParameters; }
 
     /** Return a list of local parameters. */
-    const ShaderParameterList& getLocalParameters() const { return mLocalParameters; }  
+    [[nodiscard]] const ShaderParameterList& getLocalParameters() const { return mLocalParameters; }  
     
     /** Add a function atom instance to this function. 
     @param atomInstance The atom instance to add.

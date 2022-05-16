@@ -129,7 +129,7 @@ namespace Ogre {
 
         /** Retrieves the parameter command object for a named parameter. */
         ParamCommand* getParamCommand(const String& name);
-        const ParamCommand* getParamCommand(const String& name) const;
+        [[nodiscard]] const ParamCommand* getParamCommand(const String& name) const;
     public:
         ParamDictionary();
         ~ParamDictionary();
@@ -151,7 +151,7 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
-        const ParameterList& getParameters() const
+        [[nodiscard]] const ParameterList& getParameters() const
         {
             return mParamDefs;
         }
@@ -205,7 +205,7 @@ namespace Ogre {
             return mParamDict;
         }
 
-        const ParamDictionary* getParamDictionary() const
+        [[nodiscard]] const ParamDictionary* getParamDictionary() const
         {
             return mParamDict;
         }
@@ -215,7 +215,7 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
-        const ParameterList& getParameters() const;
+        [[nodiscard]] const ParameterList& getParameters() const;
 
         /** Generic parameter setting method.
         @remarks
@@ -253,7 +253,7 @@ namespace Ogre {
         @return
             String value of parameter, blank if not found
         */
-        String getParameter(const String& name) const;
+        [[nodiscard]] String getParameter(const String& name) const;
         /** Method for copying this object's parameters to another object.
         @remarks
             This method takes the values of all the object's parameters and tries to set the

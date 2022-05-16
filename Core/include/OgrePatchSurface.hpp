@@ -116,27 +116,27 @@ class VertexDeclaration;
             @remarks This is useful when you wish to build the patch into external vertex / index buffers.
 
         */
-        size_t getRequiredVertexCount() const;
+        [[nodiscard]] size_t getRequiredVertexCount() const;
         /** Based on a previous call to defineSurface, establishes the number of indexes required
             to hold this patch at the maximum detail level. 
             @remarks This is useful when you wish to build the patch into external vertex / index buffers.
 
         */
-        size_t getRequiredIndexCount() const;
+        [[nodiscard]] size_t getRequiredIndexCount() const;
 
         /** Gets the current index count based on the current subdivision level. */
-        size_t getCurrentIndexCount() const;
+        [[nodiscard]] size_t getCurrentIndexCount() const;
         /// Returns the index offset used by this buffer to write data into the buffer
-        size_t getIndexOffset() const { return mIndexOffset; }
+        [[nodiscard]] size_t getIndexOffset() const { return mIndexOffset; }
         /// Returns the vertex offset used by this buffer to write data into the buffer
-        size_t getVertexOffset() const { return mVertexOffset; }
+        [[nodiscard]] size_t getVertexOffset() const { return mVertexOffset; }
 
 
         /** Gets the bounds of this patch, only valid after calling defineSurface. */
-        const AxisAlignedBox& getBounds() const;
+        [[nodiscard]] const AxisAlignedBox& getBounds() const;
         /** Gets the radius of the bounding sphere for this patch, only valid after defineSurface 
         has been called. */
-        Real getBoundingSphereRadius() const;
+        [[nodiscard]] Real getBoundingSphereRadius() const;
         /** Tells the system to build the mesh relating to the surface into externally created
             buffers.
             @remarks
@@ -166,9 +166,9 @@ class VertexDeclaration;
         void setSubdivisionFactor(Real factor);
 
         /** Gets the current level of subdivision. */
-        Real getSubdivisionFactor() const;
+        [[nodiscard]] Real getSubdivisionFactor() const;
 
-        void* getControlPointBuffer() const
+        [[nodiscard]] void* getControlPointBuffer() const
         {
             return mControlPointBuffer;
         }

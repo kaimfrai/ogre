@@ -82,7 +82,7 @@ class GLUniformCache;
         void updateUniforms(GpuProgramParametersSharedPtr params, uint16 mask, GpuProgramType fromProgType);
 
         /// Get the GL Handle for the program object
-        uint getGLHandle() const { return mGLProgramHandle; }
+        [[nodiscard]] uint getGLHandle() const { return mGLProgramHandle; }
     };
 
     }

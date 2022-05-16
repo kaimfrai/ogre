@@ -59,7 +59,7 @@ namespace Ogre
         /** Returns microseconds since initialisation or last reset */
         uint64_t getMicroseconds();
 
-        uint64_t getCPUClocks() const;
+        [[nodiscard]] uint64_t getCPUClocks() const;
 
         /** Returns milliseconds since initialisation or last reset, only CPU time measured */  
         uint64_t getMillisecondsCPU();

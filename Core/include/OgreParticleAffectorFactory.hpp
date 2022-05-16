@@ -59,7 +59,7 @@ namespace Ogre {
         ParticleAffectorFactory() {}
         virtual ~ParticleAffectorFactory();
         /** Returns the name of the factory, the name which identifies the particle affector type this factory creates. */
-        virtual String getName() const = 0;
+        [[nodiscard]] virtual String getName() const = 0;
 
         /** Creates a new affector instance.
         @remarks

@@ -116,7 +116,7 @@ class VertexData;
         void setStoreParityInW(bool enabled) { mStoreParityInW = enabled; }
 
         /**  Gets whether to store tangent space parity in the W of a 4-component tangent or not. */
-        bool getStoreParityInW() const { return mStoreParityInW; }
+        [[nodiscard]] bool getStoreParityInW() const { return mStoreParityInW; }
 
         /** Sets whether or not to split vertices when a mirrored tangent space
             transition is detected (matrix parity differs).
@@ -137,7 +137,7 @@ class VertexData;
         /** Gets whether or not to split vertices when a mirrored tangent space
             transition is detected.
         */
-        bool getSplitMirrored() const { return mSplitMirrored; }
+        [[nodiscard]] bool getSplitMirrored() const { return mSplitMirrored; }
 
         /** Sets whether or not to split vertices when tangent space rotates
             more than 90 degrees around a vertex.
@@ -157,7 +157,7 @@ class VertexData;
         /** Sets whether or not to split vertices when tangent space rotates
         more than 90 degrees around a vertex.
         */
-        bool getSplitRotated() const { return mSplitRotated; }
+        [[nodiscard]] bool getSplitRotated() const { return mSplitRotated; }
 
         /** Build a tangent space basis from the provided data.
         @remarks

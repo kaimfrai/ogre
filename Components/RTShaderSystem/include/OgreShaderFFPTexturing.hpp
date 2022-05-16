@@ -257,7 +257,7 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    virtual const String& getType() const;
+    [[nodiscard]] virtual const String& getType() const;
 
     /** 
     @see SubRenderStateFactory::createInstance.

@@ -93,7 +93,7 @@ class IteratorWrapper
 
 
         /** Returns true if there are more items in the collection. */
-        bool hasMoreElements ( ) const
+        [[nodiscard]] bool hasMoreElements ( ) const
         {
             return mCurrent != mEnd;
         }
@@ -154,13 +154,13 @@ class VectorIteratorWrapper : public IteratorWrapper<T, IteratorType, typename  
 
 
         /** Returns the next(=current) element in the collection, without advancing to the next. */
-        ValueType peekNext (  ) const
+        [[nodiscard]] ValueType peekNext (  ) const
         {
             return *(this->mCurrent);
         }
 
         /** Returns a pointer to the next(=current) element in the collection, without advancing to the next afterwards. */
-        PointerType peekNextPtr (  )  const
+        [[nodiscard]] PointerType peekNextPtr (  )  const
         {
             return &(*(this->mCurrent) );
         }
@@ -273,14 +273,14 @@ class MapIteratorWrapper  : public IteratorWrapper<T, IteratorType, typename T::
         }
 
         /** Returns the next(=current) key element in the collection, without advancing to the next. */
-        KeyType peekNextKey() const
+        [[nodiscard]] KeyType peekNextKey() const
         {
             return this->mCurrent->first;
         }
 
 
         /** Returns the next(=current) value element in the collection, without advancing to the next. */
-        ValueType peekNextValue (  ) const
+        [[nodiscard]] ValueType peekNextValue (  ) const
         {
             return this->mCurrent->second;
         }
@@ -288,7 +288,7 @@ class MapIteratorWrapper  : public IteratorWrapper<T, IteratorType, typename T::
 
         /** Returns a pointer to the next/current value element in the collection, without 
         advancing to the next afterwards. */
-        const PointerType peekNextValuePtr (  )  const
+        [[nodiscard]] const PointerType peekNextValuePtr (  )  const
         {
             return &(this->mCurrent->second);
         }

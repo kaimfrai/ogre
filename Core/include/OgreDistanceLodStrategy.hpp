@@ -66,25 +66,25 @@ class MovableObject;
         DistanceLodStrategyBase(const String& name);
 
         /// @copydoc LodStrategy::getBaseValue
-        virtual Real getBaseValue() const;
+        [[nodiscard]] virtual Real getBaseValue() const;
 
         /// @copydoc LodStrategy::transformBias
-        virtual Real transformBias(Real factor) const;
+        [[nodiscard]] virtual Real transformBias(Real factor) const;
 
         /// @copydoc LodStrategy::transformUserValue
-        virtual Real transformUserValue(Real userValue) const;
+        [[nodiscard]] virtual Real transformUserValue(Real userValue) const;
 
         /// @copydoc LodStrategy::getIndex
-        virtual ushort getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const;
+        [[nodiscard]] virtual ushort getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const;
 
         /// @copydoc LodStrategy::getIndex
-        virtual ushort getIndex(Real value, const Material::LodValueList& materialLodValueList) const;
+        [[nodiscard]] virtual ushort getIndex(Real value, const Material::LodValueList& materialLodValueList) const;
 
         /// @copydoc LodStrategy::sort
         virtual void sort(Mesh::MeshLodUsageList& meshLodUsageList) const;
 
         /// @copydoc LodStrategy::isSorted
-        virtual bool isSorted(const Mesh::LodValueList& values) const;
+        [[nodiscard]] virtual bool isSorted(const Mesh::LodValueList& values) const;
 
         /** Get the squared distance between the camera and the LOD object */
         virtual Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const = 0;
@@ -104,7 +104,7 @@ class MovableObject;
         void setReferenceViewEnabled(bool value);
 
         /** Determine if use of the reference view is enabled */
-        bool isReferenceViewEnabled() const;
+        [[nodiscard]] bool isReferenceViewEnabled() const;
 
     private:
         bool mReferenceViewEnabled;

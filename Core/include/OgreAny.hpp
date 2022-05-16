@@ -102,12 +102,12 @@ namespace Ogre
 
     public: // queries
 
-        bool has_value() const
+        [[nodiscard]] bool has_value() const
         {
             return mContent != NULL;
         }
 
-        const std::type_info& type() const
+        [[nodiscard]] const std::type_info& type() const
         {
             return mContent ? mContent->getType() : typeid(void);
         }
@@ -130,9 +130,9 @@ namespace Ogre
 
         public: // queries
 
-            virtual const std::type_info& getType() const = 0;
+            [[nodiscard]] virtual const std::type_info& getType() const = 0;
 
-            virtual placeholder * clone() const = 0;
+            [[nodiscard]] virtual placeholder * clone() const = 0;
     
             virtual void writeToStream(std::ostream& o) = 0;
 
@@ -150,12 +150,12 @@ namespace Ogre
 
         public: // queries
 
-            virtual const std::type_info & getType() const
+            [[nodiscard]] virtual const std::type_info & getType() const
             {
                 return typeid(ValueType);
             }
 
-            virtual placeholder * clone() const
+            [[nodiscard]] virtual placeholder * clone() const
             {
                 return new holder(held);
             }
@@ -229,12 +229,12 @@ namespace Ogre
 
         public: // queries
 
-            virtual const std::type_info & getType() const
+            [[nodiscard]] virtual const std::type_info & getType() const
             {
                 return typeid(ValueType);
             }
 
-            virtual placeholder * clone() const
+            [[nodiscard]] virtual placeholder * clone() const
             {
                 return new numholder(held);
             }

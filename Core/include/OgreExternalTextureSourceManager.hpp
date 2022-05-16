@@ -69,7 +69,7 @@ class ExternalTextureSource;
         void setCurrentPlugIn( const String& sTexturePlugInType );
 
         /** Returns currently selected plugin, may be null if none selected */
-        ExternalTextureSource* getCurrentPlugIn( ) const { return mCurrExternalTextureSource; }
+        [[nodiscard]] ExternalTextureSource* getCurrentPlugIn( ) const { return mCurrExternalTextureSource; }
     
         /** Calls the destroy method of all registered plugins... 
         Only the owner plugin should perform the destroy action. */

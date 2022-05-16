@@ -55,7 +55,7 @@ class Archive;
     public:
         virtual ~ZipArchiveFactory() {}
         /// @copydoc FactoryObj::getType
-        const String& getType() const;
+        [[nodiscard]] const String& getType() const;
 
         using ArchiveFactory::createInstance;
 
@@ -69,7 +69,7 @@ class Archive;
         EmbeddedZipArchiveFactory();
         virtual ~EmbeddedZipArchiveFactory();
 
-        const String& getType() const override;
+        [[nodiscard]] const String& getType() const override;
 
         using ArchiveFactory::createInstance;
 

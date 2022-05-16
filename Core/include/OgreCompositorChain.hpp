@@ -98,13 +98,13 @@ class SceneManager;
         
         /** Get compositor instance by name. Returns null if not found.
         */
-        CompositorInstance* getCompositor(const String& name) const;
+        [[nodiscard]] CompositorInstance* getCompositor(const String& name) const;
 
         /// @overload
-        CompositorInstance *getCompositor(size_t index) const { return mInstances.at(index); }
+        [[nodiscard]] CompositorInstance *getCompositor(size_t index) const { return mInstances.at(index); }
 
         /// Get compositor position by name. Returns #NPOS if not found.
-        size_t getCompositorPosition(const String& name) const;
+        [[nodiscard]] size_t getCompositorPosition(const String& name) const;
 
         /** Get the original scene compositor instance for this chain (internal use). 
         */
@@ -112,7 +112,7 @@ class SceneManager;
 
         /** The compositor instances. The first compositor in this list is applied first, the last one is applied last.
         */
-        const Instances& getCompositorInstances() const { return mInstances; }
+        [[nodiscard]] const Instances& getCompositorInstances() const { return mInstances; }
     
         /** Enable or disable a compositor, by position. Disabling a compositor stops it from rendering
             but does not free any resources. This can be more efficient than using removeCompositor and 
@@ -207,7 +207,7 @@ class SceneManager;
         
         /** Internal method to get a unique name of a compositor
         */
-        const String getCompositorName() const;
+        [[nodiscard]] const String getCompositorName() const;
 
         /** Render queue listener used to set up rendering events. */
         class RQListener: public RenderQueueListener

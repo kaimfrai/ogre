@@ -105,10 +105,10 @@ template <typename T> class ControllerValue;
         @see
             RenderSystem::beginFrame
         */
-        const ControllerValueRealPtr& getFrameTimeSource() const;
+        [[nodiscard]] const ControllerValueRealPtr& getFrameTimeSource() const;
 
         /** Retrieve a simple passthrough controller function. */
-        const ControllerFunctionRealPtr& getPassthroughControllerFunction() const;
+        [[nodiscard]] const ControllerFunctionRealPtr& getPassthroughControllerFunction() const;
 
         /** Creates a texture layer animator controller.
         @remarks
@@ -214,7 +214,7 @@ template <typename T> class ControllerValue;
         @remarks
             See setTimeFactor for full information on the meaning of this value.
         */
-        Real getTimeFactor() const;
+        [[nodiscard]] Real getTimeFactor() const;
 
         /** Set the relative speed to update frame time based controllers.
         @remarks
@@ -231,7 +231,7 @@ template <typename T> class ControllerValue;
         @remarks
             See setFrameDelay for full information on the meaning of this value.
         */
-        Real getFrameDelay() const;
+        [[nodiscard]] Real getFrameDelay() const;
 
         /** Sets a constant frame rate.
         @remarks
@@ -251,7 +251,7 @@ template <typename T> class ControllerValue;
         @remarks
             See setElapsedTime for full information on the meaning of this value.
         */
-        Real getElapsedTime() const;
+        [[nodiscard]] Real getElapsedTime() const;
 
         /** Set the elapsed time.
         @remarks

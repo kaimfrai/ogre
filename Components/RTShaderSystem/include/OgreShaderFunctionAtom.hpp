@@ -105,13 +105,13 @@ public:
     ~Operand();
 
     /** Returns the parameter object as weak reference */
-    const ParameterPtr& getParameter()  const { return mParameter; }
+    [[nodiscard]] const ParameterPtr& getParameter()  const { return mParameter; }
 
     /** Returns true if not all fields used. (usage is described through semantic)*/
-    bool hasFreeFields()    const { return mMask != OPM_ALL; }
+    [[nodiscard]] bool hasFreeFields()    const { return mMask != OPM_ALL; }
     
     /** Returns the mask bitfield. */
-    OpMask getMask()   const { return mMask; }
+    [[nodiscard]] OpMask getMask()   const { return mMask; }
 
     Operand& x() { return mask(OPM_X); }
     Operand& y() { return mask(OPM_Y); }
@@ -130,14 +130,14 @@ public:
     void setMaskToParamType();
 
     /** Returns the operand semantic (do we read/write or both with the parameter). */
-    OpSemantic getSemantic()    const { return mSemantic; }
+    [[nodiscard]] OpSemantic getSemantic()    const { return mSemantic; }
 
     /** Returns the level of indirection. 
     The greater the indirection level the more the parameter needs to be nested in brackets.
     For example given 4 parameters x1...x4 with the indirections levels 0,1,1,2 
     respectively. The parameters should form the following string: x1[x2][x3[x4]].
     */
-    ushort getIndirectionLevel()    const { return mIndirectionLevel; }
+    [[nodiscard]] ushort getIndirectionLevel()    const { return mIndirectionLevel; }
 
     /** write the parameter name and the usage mask like this 'color.xyz' */
     void write(std::ostream& os) const;
@@ -200,7 +200,7 @@ public:
     virtual ~FunctionAtom() {}
 
     /** Get the group execution order of this function atom. */
-    int getGroupExecutionOrder() const;
+    [[nodiscard]] int getGroupExecutionOrder() const;
 
     /** Get a list of parameters this function invocation will use in the function call as arguments. */
     OperandVector& getOperandList() { return mOperands; }
@@ -253,10 +253,10 @@ public:
     virtual void writeSourceCode(std::ostream& os, const String& targetLanguage) const;
 
     /** Return the function name */
-    const String& getFunctionName() const { return mFunctionName; }
+    [[nodiscard]] const String& getFunctionName() const { return mFunctionName; }
 
     /** Return the return type */
-    const String& getReturnType() const { return mReturnType; }
+    [[nodiscard]] const String& getReturnType() const { return mReturnType; }
 
     /** Determines if the current object is equal to the compared one. */
     bool operator == ( const FunctionInvocation& rhs ) const;

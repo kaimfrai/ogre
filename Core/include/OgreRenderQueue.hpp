@@ -224,7 +224,7 @@ class Technique;
         /** Gets the current default queue group, which will be used for all renderable which do not
             specify which group they wish to be on.
         */
-        uint8 getDefaultQueueGroup() const;
+        [[nodiscard]] uint8 getDefaultQueueGroup() const;
 
         /** Sets the current default renderable priority, 
             which will be used for all renderables which do not
@@ -235,7 +235,7 @@ class Technique;
         /** Gets the current default renderable priority, which will be used for all renderables which do not
             specify which priority they wish to use.
         */
-        ushort getDefaultRenderablePriority() const;
+        [[nodiscard]] ushort getDefaultRenderablePriority() const;
 
         /** Sets the current default queue group, which will be used for all renderable which do not
             specify which group they wish to be on. See the enum RenderQueueGroupID for what kind of
@@ -244,7 +244,7 @@ class Technique;
         void setDefaultQueueGroup(uint8 grp);
         
         /** Internal method, returns the queue groups. */
-        const RenderQueueGroupMap& _getQueueGroups() const {
+        [[nodiscard]] const RenderQueueGroupMap& _getQueueGroups() const {
             return mGroups;
         }
 
@@ -256,7 +256,7 @@ class Technique;
         /** Gets whether or not the queue will split passes by their lighting type,
             ie ambient, per-light and decal. 
         */
-        bool getSplitPassesByLightingType() const;
+        [[nodiscard]] bool getSplitPassesByLightingType() const;
 
         /** Sets whether or not the queue will split passes which have shadow receive
         turned off (in their parent material), which is needed when certain shadow
@@ -268,7 +268,7 @@ class Technique;
         turned off (in their parent material), which is needed when certain shadow
         techniques are used.
         */
-        bool getSplitNoShadowPasses() const;
+        [[nodiscard]] bool getSplitNoShadowPasses() const;
 
         /** Sets whether or not objects which cast shadows should be treated as
         never receiving shadows. 
@@ -278,7 +278,7 @@ class Technique;
         /** Gets whether or not objects which cast shadows should be treated as
         never receiving shadows. 
         */
-        bool getShadowCastersCannotBeReceivers() const;
+        [[nodiscard]] bool getShadowCastersCannotBeReceivers() const;
 
         /** Set a renderable listener on the queue.
         @remarks
@@ -288,7 +288,7 @@ class Technique;
         void setRenderableListener(RenderableListener* listener)
         { mRenderableListener = listener; }
 
-        RenderableListener* getRenderableListener() const
+        [[nodiscard]] RenderableListener* getRenderableListener() const
         { return mRenderableListener; }
 
         /** Merge render queue.

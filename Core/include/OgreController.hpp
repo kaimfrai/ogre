@@ -100,7 +100,7 @@ namespace Ogre {
 
     public:
         virtual ~ControllerValue() { }
-        virtual T getValue() const = 0;
+        [[nodiscard]] virtual T getValue() const = 0;
         virtual void setValue(T value) = 0;
 
     };
@@ -164,7 +164,7 @@ namespace Ogre {
             mSource = src;
         }
         /// Gets the input controller value
-        const SharedPtr< ControllerValue<T> >& getSource() const
+        [[nodiscard]] const SharedPtr< ControllerValue<T> >& getSource() const
         {
             return mSource;
         }
@@ -175,13 +175,13 @@ namespace Ogre {
         }
 
         /// Gets the output controller value
-        const SharedPtr< ControllerValue<T> >& getDestination() const
+        [[nodiscard]] const SharedPtr< ControllerValue<T> >& getDestination() const
         {
             return mDest;
         }
 
         /// Returns true if this controller is currently enabled
-        bool getEnabled() const
+        [[nodiscard]] bool getEnabled() const
         {
             return mEnabled;
         }
@@ -201,7 +201,7 @@ namespace Ogre {
 
         /** Returns a pointer to the function object used by this controller.
         */
-        const SharedPtr< ControllerFunction<T> >& getFunction() const
+        [[nodiscard]] const SharedPtr< ControllerFunction<T> >& getFunction() const
         {
             return mFunc;
         }

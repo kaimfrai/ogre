@@ -298,7 +298,7 @@ namespace Ogre {
         }
 
         /// can we simply overwrite the existing pixels or do we have to blend
-        bool blendingEnabled() const
+        [[nodiscard]] bool blendingEnabled() const
         {
             return !(sourceFactor == SBF_ONE && destFactor == SBF_ZERO &&
                      sourceFactorAlpha == SBF_ONE && destFactorAlpha == SBF_ZERO);

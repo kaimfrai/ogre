@@ -133,7 +133,7 @@ class Affine3;
         }
 
         /// Pointer accessor for direct copying
-        inline const Real* ptr() const
+        [[nodiscard]] inline const Real* ptr() const
         {
             return &w;
         }
@@ -152,7 +152,7 @@ class Affine3;
         }
         
         /// Check whether this dual quaternion contains valid values
-        inline bool isNaN() const
+        [[nodiscard]] inline bool isNaN() const
         {
             return Math::isNaN(w) || Math::isNaN(x) || Math::isNaN(y) || Math::isNaN(z) ||  
                 Math::isNaN(dw) || Math::isNaN(dx) || Math::isNaN(dy) || Math::isNaN(dz);

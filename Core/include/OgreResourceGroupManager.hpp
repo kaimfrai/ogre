@@ -345,13 +345,13 @@ class ScriptLoader;
         /** Adds a created resource to a group. */
         void addCreatedResource(ResourcePtr& res, ResourceGroup& group) const;
         /** Get resource group */
-        ResourceGroup* getResourceGroup(const String& name, bool throwOnFailure = false) const;
+        [[nodiscard]] ResourceGroup* getResourceGroup(const String& name, bool throwOnFailure = false) const;
         /** Drops contents of a group, leave group there, notify ResourceManagers. */
         void dropGroupContents(ResourceGroup* grp);
         /** Delete a group for shutdown - don't notify ResourceManagers. */
         void deleteGroup(ResourceGroup* grp);
         /// Internal find method for auto groups
-        std::pair<Archive*, ResourceGroup*>
+        [[nodiscard]] std::pair<Archive*, ResourceGroup*>
         resourceExistsInAnyGroupImpl(const String& filename) const;
         /// Internal event firing method
         void fireResourceGroupScriptingStarted(const String& groupName, size_t scriptCount) const;
@@ -517,7 +517,7 @@ class ScriptLoader;
             group return true, otherwise return false.
         @param name The name to of the resource group to access.
         */
-        bool isResourceGroupInitialised(const String& name) const;
+        [[nodiscard]] bool isResourceGroupInitialised(const String& name) const;
 
         /** Checks the status of a resource group.
         @remarks
@@ -526,12 +526,12 @@ class ScriptLoader;
             group return true, otherwise return false.
         @param name The name to of the resource group to access.
         */
-        bool isResourceGroupLoaded(const String& name) const;
+        [[nodiscard]] bool isResourceGroupLoaded(const String& name) const;
 
         /*** Verify if a resource group exists
         @param name The name of the resource group to look for
         */
-        bool resourceGroupExists(const String& name) const;
+        [[nodiscard]] bool resourceGroupExists(const String& name) const;
 
         /** Adds a location to the list of searchable locations for a
             Resource type.
@@ -563,7 +563,7 @@ class ScriptLoader;
         void removeResourceLocation(const String& name, 
             const String& resGroup = DEFAULT_RESOURCE_GROUP_NAME);
         /** Verify if a resource location exists for the given group. */ 
-        bool resourceLocationExists(const String& name, 
+        [[nodiscard]] bool resourceLocationExists(const String& name, 
             const String& resGroup = DEFAULT_RESOURCE_GROUP_NAME) const;
 
         /** Declares a resource to be a part of a resource group, allowing you 
@@ -651,7 +651,7 @@ class ScriptLoader;
         @return Shared pointer to a data stream list , will be
             destroyed automatically when no longer referenced
         */
-        DataStreamList openResources(const String& pattern,
+        [[nodiscard]] DataStreamList openResources(const String& pattern,
             const String& groupName = DEFAULT_RESOURCE_GROUP_NAME) const;
         
         /** List all file or directory names in a resource group.
@@ -662,7 +662,7 @@ class ScriptLoader;
         @param dirs If true, directory names will be returned instead of file names
         @return A list of filenames matching the criteria, all are fully qualified
         */
-        StringVectorPtr listResourceNames(const String& groupName, bool dirs = false) const;
+        [[nodiscard]] StringVectorPtr listResourceNames(const String& groupName, bool dirs = false) const;
 
         /** List all files in a resource group with accompanying information.
         @param groupName The name of the group
@@ -670,7 +670,7 @@ class ScriptLoader;
         @return A list of structures detailing quite a lot of information about
         all the files in the archive.
         */
-        FileInfoListPtr listResourceFileInfo(const String& groupName, bool dirs = false) const;
+        [[nodiscard]] FileInfoListPtr listResourceFileInfo(const String& groupName, bool dirs = false) const;
 
         /** Find all file or directory names matching a given pattern in a
             resource group.
@@ -683,19 +683,19 @@ class ScriptLoader;
             instead of files
         @return A list of filenames matching the criteria, all are fully qualified
         */
-        StringVectorPtr findResourceNames(const String& groupName, const String& pattern,
+        [[nodiscard]] StringVectorPtr findResourceNames(const String& groupName, const String& pattern,
             bool dirs = false) const;
 
         /** Find out if the named file exists in a group. 
         @param group The name of the resource group
         @param filename Fully qualified name of the file to test for
         */
-        bool resourceExists(const String& group, const String& filename) const;
+        [[nodiscard]] bool resourceExists(const String& group, const String& filename) const;
         
         /** Find out if the named file exists in any group. 
         @param filename Fully qualified name of the file to test for
         */
-        bool resourceExistsInAnyGroup(const String& filename) const;
+        [[nodiscard]] bool resourceExistsInAnyGroup(const String& filename) const;
 
         /** Find the group in which a resource exists.
         @param filename Fully qualified name of the file the resource should be
@@ -703,7 +703,7 @@ class ScriptLoader;
         @return Name of the resource group the resource was found in. An
             exception is thrown if the group could not be determined.
         */
-        const String& findGroupContainingResource(const String& filename) const;
+        [[nodiscard]] const String& findGroupContainingResource(const String& filename) const;
 
         /** Find all files or directories matching a given pattern in a group
             and get some detailed information about them.
@@ -714,16 +714,16 @@ class ScriptLoader;
         @return A list of file information structures for all files matching 
         the criteria.
         */
-        FileInfoListPtr findResourceFileInfo(const String& group, const String& pattern,
+        [[nodiscard]] FileInfoListPtr findResourceFileInfo(const String& group, const String& pattern,
             bool dirs = false) const;
 
         /** Retrieve the modification time of a given file */
-        time_t resourceModifiedTime(const String& group, const String& filename) const;
+        [[nodiscard]] time_t resourceModifiedTime(const String& group, const String& filename) const;
         /** List all resource locations in a resource group.
         @param groupName The name of the group
         @return A list of resource locations matching the criteria
         */
-        StringVectorPtr listResourceLocations(const String& groupName) const;
+        [[nodiscard]] StringVectorPtr listResourceLocations(const String& groupName) const;
 
         /** Find all resource location names matching a given pattern in a
             resource group.
@@ -731,7 +731,7 @@ class ScriptLoader;
         @param pattern The pattern to search for; wildcards (*) are allowed
         @return A list of resource locations matching the criteria
         */
-        StringVectorPtr findResourceLocation(const String& groupName, const String& pattern) const;
+        [[nodiscard]] StringVectorPtr findResourceLocation(const String& groupName, const String& pattern) const;
 
         /** Create a new resource file in a given group.
         @remarks
@@ -790,7 +790,7 @@ class ScriptLoader;
         void setWorldResourceGroupName(const String& groupName) {mWorldGroupName = groupName;}
 
         /// Gets the resource group that 'world' resources will use.
-        const String& getWorldResourceGroupName() const { return mWorldGroupName; }
+        [[nodiscard]] const String& getWorldResourceGroupName() const { return mWorldGroupName; }
 
         /** Declare the number custom loading stages for a resource group
 
@@ -812,7 +812,7 @@ class ScriptLoader;
             group return true, otherwise return false.
         @param name The name to of the resource group to access.
         */
-        bool isResourceGroupInGlobalPool(const String& name) const;
+        [[nodiscard]] bool isResourceGroupInGlobalPool(const String& name) const;
 
         /** Shutdown all ResourceManagers, performed as part of clean-up. */
         void shutdownAll();
@@ -839,7 +839,7 @@ class ScriptLoader;
 
         /** Get the registered resource managers.
         */
-        const ResourceManagerMap& getResourceManagers() const { return mResourceManagerMap; }
+        [[nodiscard]] const ResourceManagerMap& getResourceManagers() const { return mResourceManagerMap; }
 
         /** Internal method for registering a ScriptLoader.
         @remarks ScriptLoaders parse scripts when resource groups are initialised.
@@ -855,12 +855,12 @@ class ScriptLoader;
         /** Method used to directly query for registered script loaders.
         @param pattern The specific script pattern (e.g. *.material) the script loader handles
         */
-        ScriptLoader *_findScriptLoader(const String &pattern) const;
+        [[nodiscard]] ScriptLoader *_findScriptLoader(const String &pattern) const;
 
         /** Internal method for getting a registered ResourceManager.
         @param resourceType String identifying the resource type.
         */
-        ResourceManager* _getResourceManager(const String& resourceType) const;
+        [[nodiscard]] ResourceManager* _getResourceManager(const String& resourceType) const;
 
         /** Internal method called by ResourceManager when a resource is created.
         @param res Weak reference to resource
@@ -900,25 +900,25 @@ class ScriptLoader;
             order to avoid any contention issues in multithreaded applications.
         @return A copy of list of currently defined groups.
         */
-        StringVector getResourceGroups() const;
+        [[nodiscard]] StringVector getResourceGroups() const;
         /** Get the list of resource declarations for the specified group name. 
         @note This method intentionally returns a copy rather than a reference in
             order to avoid any contention issues in multithreaded applications.
         @param groupName The name of the group
         @return A copy of list of currently defined resources.
         */
-        ResourceDeclarationList getResourceDeclarationList(const String& groupName) const;
+        [[nodiscard]] ResourceDeclarationList getResourceDeclarationList(const String& groupName) const;
 
         /** Get the list of resource locations for the specified group name.
         @param groupName The name of the group
         @return The list of resource locations associated with the given group.
         */      
-        const LocationList& getResourceLocationList(const String& groupName) const;
+        [[nodiscard]] const LocationList& getResourceLocationList(const String& groupName) const;
 
         /// Sets a new loading listener
         void setLoadingListener(ResourceLoadingListener *listener);
         /// Returns the current loading listener
-        ResourceLoadingListener *getLoadingListener() const;
+        [[nodiscard]] ResourceLoadingListener *getLoadingListener() const;
 
         /// @copydoc Singleton::getSingleton()
         static ResourceGroupManager& getSingleton();

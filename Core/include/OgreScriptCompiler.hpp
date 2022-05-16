@@ -115,9 +115,9 @@ class Material;
         AbstractNode(AbstractNode *ptr);
         virtual ~AbstractNode(){}
         /// Returns a new AbstractNode which is a replica of this one.
-        virtual AbstractNode *clone() const = 0;
+        [[nodiscard]] virtual AbstractNode *clone() const = 0;
         /// Returns a string value depending on the type of the AbstractNode.
-        virtual const String& getValue() const = 0;
+        [[nodiscard]] virtual const String& getValue() const = 0;
     };
 
     /** This is an abstract node which cannot be broken down further */
@@ -128,8 +128,8 @@ class Material;
         uint32 id;
     public:
         AtomAbstractNode(AbstractNode *ptr);
-        AbstractNode *clone() const;
-        const String& getValue() const { return value; }
+        [[nodiscard]] AbstractNode *clone() const;
+        [[nodiscard]] const String& getValue() const { return value; }
     };
 
     /** This specific abstract node represents a script object */
@@ -147,13 +147,13 @@ class Material;
         AbstractNodeList overrides; // For use when processing object inheritance and overriding
     public:
         ObjectAbstractNode(AbstractNode *ptr);
-        AbstractNode *clone() const;
-        const String& getValue() const { return cls; }
+        [[nodiscard]] AbstractNode *clone() const;
+        [[nodiscard]] const String& getValue() const { return cls; }
 
         void addVariable(const String &name);
         void setVariable(const String &name, const String &value);
-        std::pair<bool,String> getVariable(const String &name) const;
-        const std::map<String,String> &getVariables() const;
+        [[nodiscard]] std::pair<bool,String> getVariable(const String &name) const;
+        [[nodiscard]] const std::map<String,String> &getVariables() const;
     };
 
     /** This abstract node represents a script property */
@@ -165,8 +165,8 @@ class Material;
         AbstractNodeList values;
     public:
         PropertyAbstractNode(AbstractNode *ptr);
-        AbstractNode *clone() const;
-        const String& getValue() const { return name; }
+        [[nodiscard]] AbstractNode *clone() const;
+        [[nodiscard]] const String& getValue() const { return name; }
     };
 
     /** This abstract node represents an import statement */
@@ -176,8 +176,8 @@ class Material;
         String target, source;
     public:
         ImportAbstractNode();
-        AbstractNode *clone() const;
-        const String& getValue() const { return target; }
+        [[nodiscard]] AbstractNode *clone() const;
+        [[nodiscard]] const String& getValue() const { return target; }
     };
 
     /** This abstract node represents a variable assignment */
@@ -187,8 +187,8 @@ class Material;
         String name;
     public:
         VariableAccessAbstractNode(AbstractNode *ptr);
-        AbstractNode *clone() const;
-        const String& getValue() const { return name; }
+        [[nodiscard]] AbstractNode *clone() const;
+        [[nodiscard]] const String& getValue() const { return name; }
     };
 
     class ScriptCompilerEvent;
@@ -241,7 +241,7 @@ class Material;
         /// Returns the currently set listener
         ScriptCompilerListener *getListener();
         /// Returns the resource group currently set for this compiler
-        const String &getResourceGroup() const;
+        [[nodiscard]] const String &getResourceGroup() const;
         /// Adds a name exclusion to the map
         /**
          * Name exclusions identify object types which cannot accept
@@ -329,7 +329,7 @@ class Material;
             ScriptCompiler *mCompiler;
         public:
             AbstractTreeBuilder(ScriptCompiler *compiler);
-            const AbstractNodeListPtr &getResult() const;
+            [[nodiscard]] const AbstractNodeListPtr &getResult() const;
             void visit(ConcreteNode *node);
             static void visit(AbstractTreeBuilder *visitor, const ConcreteNodeList &nodes);
         };
@@ -455,11 +455,11 @@ class Material;
         /// Adds a script extension that can be handled (e.g. *.material, *.pu, etc.)
         void addScriptPattern(const String &pattern);
         /// @copydoc ScriptLoader::getScriptPatterns
-        const StringVector& getScriptPatterns() const;
+        [[nodiscard]] const StringVector& getScriptPatterns() const;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName);
         /// @copydoc ScriptLoader::getLoadingOrder
-        Real getLoadingOrder() const;
+        [[nodiscard]] Real getLoadingOrder() const;
 
         /// @copydoc Singleton::getSingleton()
         static ScriptCompilerManager& getSingleton();

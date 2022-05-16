@@ -110,12 +110,12 @@ namespace Ogre {
         /**
         * Check if GL Version is supported
         */
-        bool hasMinGLVersion(int major, int minor) const;
+        [[nodiscard]] bool hasMinGLVersion(int major, int minor) const;
 
         /**
         * Check if an extension is available
         */
-        bool checkExtension(const String& ext) const;
+        [[nodiscard]] bool checkExtension(const String& ext) const;
 
         /** Unregister a render target->context mapping. If the context of target
             is the current context, change the context to the main context so it
@@ -151,7 +151,7 @@ namespace Ogre {
         /** Complete destruction of VAOs and FBOs deferred while creator context was not current */
         void _completeDeferredVaoFboDestruction();
 
-        unsigned int getDisplayMonitorCount() const;
+        [[nodiscard]] unsigned int getDisplayMonitorCount() const;
 
         void registerThread();
         void unregisterThread();

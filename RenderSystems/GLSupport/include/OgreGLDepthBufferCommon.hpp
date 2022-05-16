@@ -35,9 +35,9 @@ namespace Ogre
 
         bool isCompatible( RenderTarget *renderTarget ) const override;
 
-        GLContext* getGLContext() const { return mCreatorContext; }
-        GLHardwarePixelBufferCommon* getDepthBuffer() const  { return mDepthBuffer; }
-        GLHardwarePixelBufferCommon* getStencilBuffer() const { return mStencilBuffer; }
+        [[nodiscard]] GLContext* getGLContext() const { return mCreatorContext; }
+        [[nodiscard]] GLHardwarePixelBufferCommon* getDepthBuffer() const  { return mDepthBuffer; }
+        [[nodiscard]] GLHardwarePixelBufferCommon* getStencilBuffer() const { return mStencilBuffer; }
 
     protected:
         GLContext                   *mCreatorContext;

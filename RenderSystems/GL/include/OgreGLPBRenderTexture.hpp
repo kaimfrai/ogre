@@ -55,7 +55,7 @@ class RenderTexture;
         
         virtual void getCustomAttribute(const String& name, void* pData);
 
-        GLContext* getContext() const;
+        [[nodiscard]] GLContext* getContext() const;
     protected:
         GLPBRTTManager *mManager;
         PixelComponentType mPBFormat;

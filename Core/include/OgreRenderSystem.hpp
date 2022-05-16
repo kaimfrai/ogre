@@ -197,7 +197,7 @@ class VertexDeclaration;
 
         /** Returns the name of the rendering system.
         */
-        virtual const String& getName() const = 0;
+        [[nodiscard]] virtual const String& getName() const = 0;
 
         /** Returns the details of this API's configuration options
         @remarks
@@ -220,7 +220,7 @@ class VertexDeclaration;
         A 'map' of options, i.e. a list of options which is also
         indexed by option name.
         */
-        const ConfigOptionMap& getConfigOptions() const { return mOptions; }
+        [[nodiscard]] const ConfigOptionMap& getConfigOptions() const { return mOptions; }
 
         /** Sets an option for this API
 
@@ -259,7 +259,7 @@ class VertexDeclaration;
 
         /** get a RenderWindowDescription from the current ConfigOptionMap
          */
-        RenderWindowDescription getRenderWindowDescription() const;
+        [[nodiscard]] RenderWindowDescription getRenderWindowDescription() const;
 
         /** Create an object for performing hardware occlusion queries. 
         */
@@ -283,7 +283,7 @@ class VertexDeclaration;
         virtual void _initialise();
 
         /** Query the real capabilities of the GPU and driver in the RenderSystem*/
-        virtual RenderSystemCapabilities* createRenderSystemCapabilities() const = 0;
+        [[nodiscard]] virtual RenderSystemCapabilities* createRenderSystemCapabilities() const = 0;
  
         /** Get a pointer to the current capabilities being used by the RenderSystem.
         @remarks
@@ -427,19 +427,19 @@ class VertexDeclaration;
 
         /** Returns the global instance vertex buffer.
         */
-        HardwareVertexBufferSharedPtr getGlobalInstanceVertexBuffer() const;
+        [[nodiscard]] HardwareVertexBufferSharedPtr getGlobalInstanceVertexBuffer() const;
         /** Sets the global instance vertex buffer.
         */
         void setGlobalInstanceVertexBuffer(const HardwareVertexBufferSharedPtr &val);
         /** Gets vertex declaration for the global vertex buffer for the global instancing
         */
-        VertexDeclaration* getGlobalInstanceVertexBufferVertexDeclaration() const;
+        [[nodiscard]] VertexDeclaration* getGlobalInstanceVertexBufferVertexDeclaration() const;
         /** Sets vertex declaration for the global vertex buffer for the global instancing
         */
         void setGlobalInstanceVertexBufferVertexDeclaration( VertexDeclaration* val);
         /** Gets the global number of instances.
         */
-        size_t getGlobalNumberOfInstances() const;
+        [[nodiscard]] size_t getGlobalNumberOfInstances() const;
         /** Sets the global number of instances.
         */
         void setGlobalNumberOfInstances(const size_t val);
@@ -464,7 +464,7 @@ class VertexDeclaration;
 
          @see setReverseDepthBuffer
          */
-        bool isReverseDepthBufferEnabled() const;
+        [[nodiscard]] bool isReverseDepthBufferEnabled() const;
 
         // ------------------------------------------------------------------------
         //                     Internal Rendering Access
@@ -649,7 +649,7 @@ class VertexDeclaration;
         */
         virtual void _setCullingMode(CullingMode mode) = 0;
 
-        virtual CullingMode _getCullingMode() const;
+        [[nodiscard]] virtual CullingMode _getCullingMode() const;
 
         /** Sets the mode of operation for depth buffer tests from this point onwards.
         Sometimes you may wish to alter the behaviour of the depth buffer to achieve
@@ -700,11 +700,11 @@ class VertexDeclaration;
         /** The RenderSystem will keep a count of tris rendered, this resets the count. */
         virtual void _beginGeometryCount();
         /** Reports the number of tris rendered since the last _beginGeometryCount call. */
-        virtual unsigned int _getFaceCount() const;
+        [[nodiscard]] virtual unsigned int _getFaceCount() const;
         /** Reports the number of batches rendered since the last _beginGeometryCount call. */
-        virtual unsigned int _getBatchCount() const;
+        [[nodiscard]] virtual unsigned int _getBatchCount() const;
         /** Reports the number of vertices passed to the renderer since the last _beginGeometryCount call. */
-        virtual unsigned int _getVertexCount() const;
+        [[nodiscard]] virtual unsigned int _getVertexCount() const;
 
         /** Converts a uniform projection matrix to suitable for this render system.
         @remarks
@@ -761,12 +761,12 @@ class VertexDeclaration;
         virtual void _dispatchCompute(const Vector3i& workgroupDim) {}
 
         /** Gets the capabilities of the render system. */
-        const RenderSystemCapabilities* getCapabilities() const { return mCurrentCapabilities; }
+        [[nodiscard]] const RenderSystemCapabilities* getCapabilities() const { return mCurrentCapabilities; }
 
 
         /** Returns the driver version.
         */
-        const DriverVersion& getDriverVersion() const { return mDriverVersion; }
+        [[nodiscard]] const DriverVersion& getDriverVersion() const { return mDriverVersion; }
 
         /** Returns the default material scheme used by the render system.
             Systems that use the RTSS to emulate a fixed function pipeline 
@@ -777,7 +777,7 @@ class VertexDeclaration;
             viewports.  It is a necessary step on these render systems for
             render textures to be rendered into properly.
         */
-        const String& _getDefaultViewportMaterialScheme() const;
+        [[nodiscard]] const String& _getDefaultViewportMaterialScheme() const;
 
         /** Binds a given GpuProgram (but not the parameters). 
         @remarks Only one GpuProgram of each type can be bound at once, binding another
@@ -807,7 +807,7 @@ class VertexDeclaration;
          * Formatted so that it can be used within a shading program. 
          * For example, OpenGL 3.2 would return 150, while 3.3 would return 330
          */
-        uint16 getNativeShadingLanguageVersion() const { return mNativeShadingLanguageVersion; }
+        [[nodiscard]] uint16 getNativeShadingLanguageVersion() const { return mNativeShadingLanguageVersion; }
 
         /** Sets the user clipping region.
         @deprecated only needed for fixed function APIs
@@ -835,7 +835,7 @@ class VertexDeclaration;
         /** Indicates whether or not the vertex windings set will be inverted for the current render (e.g. reflections)
         @see RenderSystem::setInvertVertexWinding
         */
-        bool getInvertVertexWinding() const;
+        [[nodiscard]] bool getInvertVertexWinding() const;
 
         /** Sets the 'scissor region' i.e. the region of the target in which rendering can take place.
         @remarks
@@ -977,7 +977,7 @@ class VertexDeclaration;
         can raise.
         @see RenderSystem::addListener
         */
-        const StringVector& getRenderSystemEvents() const { return mEventNames; }
+        [[nodiscard]] const StringVector& getRenderSystemEvents() const { return mEventNames; }
 
         /** Tell the rendersystem to perform any prep tasks it needs to directly
         before other threads which might access the rendering API are registered.
@@ -1176,7 +1176,7 @@ class VertexDeclaration;
 
         void initFixedFunctionParams();
         void setFFPLightParams(uint32 index, bool enabled);
-        bool flipFrontFace() const;
+        [[nodiscard]] bool flipFrontFace() const;
         static CompareFunction reverseCompareFunction(CompareFunction func);
     private:
         StencilState mStencilState;

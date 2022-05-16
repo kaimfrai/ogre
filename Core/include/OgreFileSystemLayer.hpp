@@ -72,7 +72,7 @@ namespace Ogre
          @param filename The config file name (without path)
          @return The full path to the config file
          */
-        Ogre::String getConfigFilePath(Ogre::String filename) const
+        [[nodiscard]] Ogre::String getConfigFilePath(Ogre::String filename) const
         {
             // look for the requested file in several locations:
             
@@ -108,7 +108,7 @@ namespace Ogre
          @param filename Name of the file.
          @return The full path to a writable location for the given filename.
          */
-        Ogre::String getWritablePath(const Ogre::String& filename) const
+        [[nodiscard]] Ogre::String getWritablePath(const Ogre::String& filename) const
         {
             return mHomePath + filename;
         }

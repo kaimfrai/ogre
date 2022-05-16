@@ -747,7 +747,7 @@ class RenderSystem;
             return *this;
         }
 
-        inline bool sharesEdge(const Triangle& t) const
+        [[nodiscard]] inline bool sharesEdge(const Triangle& t) const
         {
             return( (a == t.a && b == t.c) ||
                     (a == t.b && b == t.a) ||
@@ -760,14 +760,14 @@ class RenderSystem;
                     (c == t.c && a == t.b) );
         }
 
-        inline bool sharesEdge(const uint32 ea, const uint32 eb, const Triangle& t) const
+        [[nodiscard]] inline bool sharesEdge(const uint32 ea, const uint32 eb, const Triangle& t) const
         {
             return( (ea == t.a && eb == t.c) ||
                     (ea == t.b && eb == t.a) ||
                     (ea == t.c && eb == t.b) ); 
         }
 
-        inline bool sharesEdge(const EdgeMatchType edge, const Triangle& t) const
+        [[nodiscard]] inline bool sharesEdge(const EdgeMatchType edge, const Triangle& t) const
         {
             if (edge == AB)
                 return sharesEdge(a, b, t);
@@ -779,7 +779,7 @@ class RenderSystem;
                 return (edge == ANY) == sharesEdge(t);
         }
 
-        inline EdgeMatchType endoSharedEdge(const Triangle& t) const
+        [[nodiscard]] inline EdgeMatchType endoSharedEdge(const Triangle& t) const
         {
             if (sharesEdge(a, b, t)) return AB;
             if (sharesEdge(b, c, t)) return BC;
@@ -787,7 +787,7 @@ class RenderSystem;
             return NONE;
         }
 
-        inline EdgeMatchType exoSharedEdge(const Triangle& t) const
+        [[nodiscard]] inline EdgeMatchType exoSharedEdge(const Triangle& t) const
         {
             return t.endoSharedEdge(*this);
         }

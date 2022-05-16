@@ -74,7 +74,7 @@ namespace Ogre {
         */
         void unload();
         /// Get the name of the library
-        const String& getName() const { return mName; }
+        [[nodiscard]] const String& getName() const { return mName; }
 
         /**
             Returns the address of the given symbol from the loaded library.
@@ -87,7 +87,7 @@ namespace Ogre {
                 If the function fails, the returned value is <b>NULL</b>.
 
         */
-        void* getSymbol( const String& strName ) const throw();
+        [[nodiscard]] void* getSymbol( const String& strName ) const throw();
 
     private:
 

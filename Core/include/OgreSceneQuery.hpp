@@ -153,7 +153,7 @@ class SceneManager;
         */
         virtual void setQueryMask(uint32 mask);
         /** Returns the current mask for this query. */
-        virtual uint32 getQueryMask() const;
+        [[nodiscard]] virtual uint32 getQueryMask() const;
 
         /** Sets the type mask for results of this query.
 
@@ -165,7 +165,7 @@ class SceneManager;
         */
         virtual void setQueryTypeMask(uint32 mask);
         /** Returns the current mask for this query. */
-        virtual uint32 getQueryTypeMask() const;
+        [[nodiscard]] virtual uint32 getQueryTypeMask() const;
 
         /** Tells the query what kind of world geometry to return from queries;
             often the full renderable geometry is not what is needed. 
@@ -180,10 +180,10 @@ class SceneManager;
         virtual void setWorldFragmentType(enum WorldFragmentType wft);
 
         /** Gets the current world fragment types to be returned from the query. */
-        virtual WorldFragmentType getWorldFragmentType() const;
+        [[nodiscard]] virtual WorldFragmentType getWorldFragmentType() const;
 
         /** Returns the types of world fragments this query supports. */
-        virtual const std::set<WorldFragmentType>* getSupportedWorldFragmentTypes() const
+        [[nodiscard]] virtual const std::set<WorldFragmentType>* getSupportedWorldFragmentTypes() const
             {return &mSupportedWorldFragments;}
 
         
@@ -261,7 +261,7 @@ class SceneManager;
         /** Gets the results of the last query that was run using this object, provided
             the query was executed using the collection-returning version of execute. 
         */
-        virtual SceneQueryResult& getLastResults() const;
+        [[nodiscard]] virtual SceneQueryResult& getLastResults() const;
         /** Clears the results of the last query execution.
         @remarks
             You only need to call this if you specifically want to free up the memory
@@ -289,7 +289,7 @@ class SceneManager;
         void setBox(const AxisAlignedBox& box);
 
         /** Gets the box which is being used for this query. */
-        const AxisAlignedBox& getBox() const;
+        [[nodiscard]] const AxisAlignedBox& getBox() const;
 
     };
 
@@ -305,7 +305,7 @@ class SceneManager;
         void setSphere(const Sphere& sphere);
 
         /** Gets the sphere which is being used for this query. */
-        const Sphere& getSphere() const;
+        [[nodiscard]] const Sphere& getSphere() const;
 
     };
 
@@ -322,7 +322,7 @@ class SceneManager;
         void setVolumes(const PlaneBoundedVolumeList& volumes);
 
         /** Gets the volume which is being used for this query. */
-        const PlaneBoundedVolumeList& getVolumes() const;
+        [[nodiscard]] const PlaneBoundedVolumeList& getVolumes() const;
 
     };
 
@@ -387,7 +387,7 @@ class SceneManager;
         /** Sets the ray which is to be used for this query. */
         virtual void setRay(const Ray& ray);
         /** Gets the ray which is to be used for this query. */
-        virtual const Ray& getRay() const;
+        [[nodiscard]] virtual const Ray& getRay() const;
         /** Sets whether the results of this query will be sorted by distance along the ray.
         @remarks
             Often you want to know what was the first object a ray intersected with, and this 
@@ -408,10 +408,10 @@ class SceneManager;
         */
         virtual void setSortByDistance(bool sort, ushort maxresults = 0);
         /** Gets whether the results are sorted by distance. */
-        virtual bool getSortByDistance() const;
+        [[nodiscard]] virtual bool getSortByDistance() const;
         /** Gets the maximum number of results returned from the query (only relevant if 
         results are being sorted) */
-        virtual ushort getMaxResults() const;
+        [[nodiscard]] virtual ushort getMaxResults() const;
         /** Executes the query, returning the results back in one list.
         @remarks
             This method executes the scene query as configured, gathers the results
@@ -539,7 +539,7 @@ class SceneManager;
         /** Gets the results of the last query that was run using this object, provided
             the query was executed using the collection-returning version of execute. 
         */
-        virtual IntersectionSceneQueryResult& getLastResults() const;
+        [[nodiscard]] virtual IntersectionSceneQueryResult& getLastResults() const;
         /** Clears the results of the last query execution.
         @remarks
             You only need to call this if you specifically want to free up the memory

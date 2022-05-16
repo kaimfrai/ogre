@@ -55,15 +55,15 @@ namespace Ogre {
         /** Sets the origin of the ray. */
         void setOrigin(const Vector3& origin) {mOrigin = origin;} 
         /** Gets the origin of the ray. */
-        const Vector3& getOrigin() const {return mOrigin;} 
+        [[nodiscard]] const Vector3& getOrigin() const {return mOrigin;} 
 
         /** Sets the direction of the ray. */
         void setDirection(const Vector3& dir) {mDirection = dir;} 
         /** Gets the direction of the ray. */
-        const Vector3& getDirection() const {return mDirection;} 
+        [[nodiscard]] const Vector3& getDirection() const {return mDirection;} 
 
         /** Gets the position of a point t units along the ray. */
-        Vector3 getPoint(Real t) const { 
+        [[nodiscard]] Vector3 getPoint(Real t) const { 
             return Vector3(mOrigin + (mDirection * t));
         }
         
@@ -73,7 +73,7 @@ namespace Ogre {
         }
 
         /** Tests whether this ray intersects the given plane. */
-        RayTestResult intersects(const Plane& p) const
+        [[nodiscard]] RayTestResult intersects(const Plane& p) const
         {
             Real denom = p.normal.dotProduct(mDirection);
             if (Math::Abs(denom) < std::numeric_limits<Real>::epsilon())
@@ -89,12 +89,12 @@ namespace Ogre {
             }
         }
         /** Tests whether this ray intersects the given plane bounded volume. */
-        RayTestResult intersects(const PlaneBoundedVolume& p) const
+        [[nodiscard]] RayTestResult intersects(const PlaneBoundedVolume& p) const
         {
             return Math::intersects(*this, p.planes, p.outside == Plane::POSITIVE_SIDE);
         }
         /** Tests whether this ray intersects the given sphere. */
-        RayTestResult intersects(const Sphere& s, bool discardInside = true) const
+        [[nodiscard]] RayTestResult intersects(const Sphere& s, bool discardInside = true) const
         {
             // Adjust ray origin relative to sphere center
             Vector3 rayorig = mOrigin - s.getCenter();
@@ -132,7 +132,7 @@ namespace Ogre {
             }
         }
         /** Tests whether this ray intersects the given box. */
-        RayTestResult intersects(const AxisAlignedBox& box) const
+        [[nodiscard]] RayTestResult intersects(const AxisAlignedBox& box) const
         {
             return Math::intersects(*this, box);
         }

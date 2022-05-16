@@ -58,7 +58,7 @@ public:
     virtual ~HLSLProgramProcessor();
 
     /** Return the target language of this processor. */
-    virtual const String& getTargetLanguage() const { return TargetLanguage; }
+    [[nodiscard]] virtual const String& getTargetLanguage() const { return TargetLanguage; }
 
     /** 
     @see ProgramProcessor::preCreateGpuPrograms

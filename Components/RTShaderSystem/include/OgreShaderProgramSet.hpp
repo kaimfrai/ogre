@@ -60,10 +60,10 @@ public:
     ~ProgramSet();
 
     /** Get the shader CPU program. */
-    Program* getCpuProgram(GpuProgramType type) const;
+    [[nodiscard]] Program* getCpuProgram(GpuProgramType type) const;
 
     /** Get the shader GPU program. */
-    const GpuProgramPtr& getGpuProgram(GpuProgramType type) const;
+    [[nodiscard]] const GpuProgramPtr& getGpuProgram(GpuProgramType type) const;
 
     // Protected methods.
 private:
