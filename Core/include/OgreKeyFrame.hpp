@@ -70,8 +70,7 @@ class AnimationTrack;
         Real getTime() const { return mTime; }
 
         /** Clone a keyframe (internal use only) */
-        [[nodiscard]]
-        virtual KeyFrame* _clone(AnimationTrack* newParent) const;
+        virtual KeyFrame* _clone(AnimationTrack* newParent) const OGRE_NODISCARD;
 
 
     protected:

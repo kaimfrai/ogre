@@ -124,8 +124,7 @@ class HardwareBufferManagerBase;
         @param mgr If supplied, the buffer manager through which copies should be made
         @remarks The caller is expected to delete the returned pointer when ready
         */
-        [[nodiscard]]
-        VertexData* clone(bool copyData = true, HardwareBufferManagerBase* mgr = 0) const;
+        VertexData* clone(bool copyData = true, HardwareBufferManagerBase* mgr = 0) const OGRE_NODISCARD;
 
         /** Modifies the vertex data to be suitable for use for rendering shadow geometry as in @cite mcguire2003fast
 

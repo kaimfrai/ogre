@@ -131,8 +131,7 @@ class VertexData;
         /** Clone this pose and create another one configured exactly the same
             way (only really useful for cloning holders of this class).
         */
-        [[nodiscard]]
-        Pose* clone() const;
+        Pose* clone() const OGRE_NODISCARD;
     private:
         /// Target geometry index
         ushort mTarget;

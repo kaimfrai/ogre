@@ -443,8 +443,7 @@ class VertexData;
             thus it is up to the caller to arrange for the deletion of this
             object.
         */
-        [[nodiscard]]
-        Animation* clone(const String& newName) const;
+        Animation* clone(const String& newName) const OGRE_NODISCARD;
         
         /** Internal method used to tell the animation that keyframe list has been
             changed, which may cause it to rebuild some internal data */
