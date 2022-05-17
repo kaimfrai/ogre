@@ -148,9 +148,8 @@ namespace Ogre {
 
         if (i == mObjectsByName.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                ::std::format("Attached object {} not found.", "SceneNode::getAttachedObject",
-                name));
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Attached object " + 
+                name + " not found.", "SceneNode::getAttachedObject");
         }
 
         return *i;

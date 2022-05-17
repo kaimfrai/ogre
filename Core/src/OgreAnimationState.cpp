@@ -337,7 +337,7 @@ namespace Ogre
         for (i = target->mAnimationStates.begin(); i != iend; ++i) {
             AnimationStateMap::const_iterator iother = mAnimationStates.find(i->first);
             if (iother == mAnimationStates.end()) {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", i->first), 
+                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No animation entry found named " + i->first, 
                     "AnimationStateSet::copyMatchingState");
             } else {
                 i->second->copyStateFrom(*(iother->second));

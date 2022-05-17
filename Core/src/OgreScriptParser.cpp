@@ -477,8 +477,8 @@ namespace Ogre
                 break;
             default:
                 OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
-                    ::std::format("unexpected token {} at line {}",
-                        token->lexeme, Ogre::StringConverter::toString(token->line)),
+                    Ogre::String("unexpected token") + token->lexeme + " at line " + 
+                        Ogre::StringConverter::toString(token->line),
                     "ScriptParser::parseChunk");
             }
 

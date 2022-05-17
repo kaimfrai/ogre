@@ -56,10 +56,9 @@ class Renderable;
         // Override isManual, not applicable for Material (we always want to call loadImpl)
         if(isManual)
         {
-            LogManager::getSingleton().logWarning(
-                ::std::format("Material {}"
+            LogManager::getSingleton().logWarning("Material " + name +
                 " was requested with isManual=true, but this is not applicable " 
-                "for materials; the flag has been reset to false", name));
+                "for materials; the flag has been reset to false");
         }
 
         // Initialise to default strategy

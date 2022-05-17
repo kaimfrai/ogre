@@ -81,7 +81,7 @@ namespace Ogre {
         if (!stream->isWriteable())
         {
             OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE,
-                ::std::format("Unable to write to stream {}", stream->getName()),
+                "Unable to write to stream " + stream->getName(),
                 "SkeletonSerializer::exportSkeleton");
         }
 

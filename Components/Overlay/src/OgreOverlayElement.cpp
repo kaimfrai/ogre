@@ -321,8 +321,8 @@ namespace Ogre {
         if (dstPass->getLightingEnabled() || dstPass->getDepthCheckEnabled())
         {
             LogManager::getSingleton().logWarning(
-                ::std::format("force-disabling 'lighting' and 'depth_check' of Material {}"
-                " for use with OverlayElement {}", mat->getName(), getName()));
+                "force-disabling 'lighting' and 'depth_check' of Material " + mat->getName() +
+                ::std::format(" for use with OverlayElement {}", getName()));
         }
 
         // Set some prerequisites to be sure
@@ -337,7 +337,7 @@ namespace Ogre {
         {
             mMaterial = MaterialManager::getSingleton().getByName(matName, group);
             if (!mMaterial)
-                OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, ::std::format("Could not find material {}", matName),
+                OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, "Could not find material " + matName,
                     "OverlayElement::setMaterialName" );
 
             setMaterial(mMaterial);

@@ -161,7 +161,7 @@ void TestContext::setup()
     {
         Ogre::String filestamp = Ogre::String(temp);
         // name for this batch (used for naming the directory, and uniquely identifying this batch)
-        batchName = mTestSetName + ::std::format("_{}", filestamp);
+        batchName = mTestSetName + "_" + filestamp;
 
         if (mReferenceSet)
             batchName = "Reference";
@@ -315,8 +315,7 @@ void TestContext::runSample(OgreBites::Sample* sampleToRun)
     Ogre::ControllerManager::getSingleton().setFrameDelay(mTimestep);
 
     if(sampleToRun)
-        LogManager::getSingleton().logMessage(
-            ::std::format("----- Running Visual Test {} -----", sampleToRun->getInfo()["Title"]));
+        LogManager::getSingleton().logMessage("----- Running Visual Test " + sampleToRun->getInfo()["Title"] + " -----");
     SampleContext::runSample(sampleToRun);
 }
 //-----------------------------------------------------------------------

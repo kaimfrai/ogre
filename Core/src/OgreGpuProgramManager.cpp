@@ -321,7 +321,7 @@ namespace {
         // Use the current render system
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
 
-        return  ::std::format("{}_{}", rs->getName(), name);
+        return rs->getName() + "_" + name;
     }
     //---------------------------------------------------------------------
     bool GpuProgramManager::isMicrocodeAvailableInCache( uint32 id ) const
@@ -374,7 +374,7 @@ namespace {
         if (!stream->isWriteable())
         {
             OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE,
-                ::std::format("Unable to write to stream {}", stream->getName()),
+                "Unable to write to stream " + stream->getName(),
                 "GpuProgramManager::saveMicrocodeCache");
         }
         

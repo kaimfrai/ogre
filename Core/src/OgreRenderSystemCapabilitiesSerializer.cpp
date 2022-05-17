@@ -472,7 +472,8 @@ namespace Ogre
         else if (mCurrentStream)
         {
             LogManager::getSingleton().logMessage(
-                ::std::format("Error in .rendercaps {} : {}", mCurrentStream->getName(), error));
+                "Error in .rendercaps " + mCurrentStream->getName() +
+                ::std::format(" : {}", error));
         }
     }
 

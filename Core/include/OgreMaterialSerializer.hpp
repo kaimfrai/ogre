@@ -359,7 +359,7 @@ class Technique;
             {
                 buffer += "\t";
             }
-            buffer += ::std::format("// {}", comment);
+            buffer += "// " + comment;
         }
 
 

@@ -74,8 +74,8 @@ namespace Ogre {
         if( !mInst )
             OGRE_EXCEPT(
                 Exception::ERR_INTERNAL_ERROR, 
-                ::std::format("Could not load dynamic library {}"
-                ".  System Error: {}", name, dynlibError()),
+                "Could not load dynamic library " + mName + 
+                ".  System Error: " + dynlibError(),
                 "DynLib::load" );
     }
 
@@ -89,8 +89,8 @@ namespace Ogre {
         {
             OGRE_EXCEPT(
                 Exception::ERR_INTERNAL_ERROR, 
-                ::std::format("Could not unload dynamic library {}"
-                ".  System Error: {}", mName, dynlibError()),
+                "Could not unload dynamic library " + mName +
+                ".  System Error: " + dynlibError(),
                 "DynLib::unload");
         }
 

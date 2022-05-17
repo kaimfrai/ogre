@@ -277,7 +277,7 @@ namespace Ogre
     {
         // Create a new material
         mMaterial =  MaterialManager::getSingleton().create(
-            ::std::format("Fonts/{}", mName),  mGroup);
+            "Fonts/" + mName,  mGroup);
 
         if (!mMaterial)
         {

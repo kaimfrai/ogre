@@ -571,7 +571,8 @@ namespace Ogre {
         if(!throwOnFailure)
             return {};
 
-        OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, ::std::format("Cannot locate resource {} in resource group {}.", resourceName, groupName ),
+        OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, "Cannot locate resource " + 
+            resourceName + ::std::format(" in resource group {}.", groupName ), 
             "ResourceGroupManager::openResource");
 
     }
@@ -622,7 +623,7 @@ namespace Ogre {
             {
                 if (!overwrite && arch->exists(filename))
                     OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
-                        ::std::format("Cannot overwrite existing file {}", filename), 
+                        "Cannot overwrite existing file " + filename, 
                         "ResourceGroupManager::createResource");
                 
                 // create it
@@ -635,7 +636,7 @@ namespace Ogre {
         }
 
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-            ::std::format("Cannot find a writable location in group {}", groupName), 
+            "Cannot find a writable location in group " + groupName, 
             "ResourceGroupManager::createResource");
 
     }

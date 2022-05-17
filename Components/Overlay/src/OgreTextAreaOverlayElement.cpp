@@ -439,7 +439,7 @@ namespace Ogre {
     {
         mFont = FontManager::getSingleton().getByName(font, group);
         if (!mFont)
-            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, ::std::format("Could not find font {}", font),
+            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, "Could not find font " + font,
                 "TextAreaOverlayElement::setFontName" );
         mMaterial.reset();
 

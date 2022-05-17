@@ -1316,7 +1316,7 @@ void ShaderGenerator::setShaderCachePath( const String& cachePath )
             if (!outFile)
             {
                 OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE,
-                    ::std::format("Could not create output files in the given shader cache path '{}", mShaderCachePath),
+                    "Could not create output files in the given shader cache path '" + mShaderCachePath,
                     "ShaderGenerator::setShaderCachePath"); 
             }
 

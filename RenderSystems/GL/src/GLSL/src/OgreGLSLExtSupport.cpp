@@ -26,7 +26,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include <format>
 #include <string>
 
 #include "OgreException.hpp"
@@ -75,7 +74,7 @@ namespace Ogre
         if (logMessage.empty())
             return msg;
 
-        logMessage = msg + ::std::format("\n{}", logMessage);
+        logMessage = msg + "\n" + logMessage;
 
         LogManager::getSingleton().logMessage(LML_CRITICAL, logMessage);
 

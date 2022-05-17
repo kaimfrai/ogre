@@ -27,7 +27,6 @@ THE SOFTWARE.
 */
 #include <cstdlib>
 #include <cstring>
-#include <format>
 #include <string>
 
 #include "OgreBitwise.hpp"
@@ -238,7 +237,7 @@ namespace Ogre {
             {
                 OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
                     "Invalid file: version incompatible, file reports " + String(ver) +
-                    ::std::format(" Serializer is version {}", mVersion),
+                    " Serializer is version " + mVersion,
                     "Serializer::readFileHeader");
             }
         }
