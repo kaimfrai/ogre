@@ -90,7 +90,7 @@ namespace Ogre {
             should be overridden to return a new instance of it. The default
             behaviour is to return null.
         */
-        virtual ParticleVisualData* _createVisualData() { return 0; }
+        virtual ParticleVisualData* _createVisualData() { return nullptr; }
         /** Destroy a ParticleVisualData instance.
         @remarks
             If this renderer needs additional data in each particle, then this should

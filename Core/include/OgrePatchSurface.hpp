@@ -175,7 +175,7 @@ class VertexDeclaration;
         /** Convenience method for telling the patch that the control points have been 
             deleted, since once the patch has been built they are not required. */
         void notifyControlPointBufferDeallocated() { 
-            mControlPointBuffer = 0;
+            mControlPointBuffer = nullptr;
         }
     private:
         /// Vertex declaration describing the control point buffer

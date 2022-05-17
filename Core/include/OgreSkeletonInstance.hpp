@@ -75,7 +75,7 @@ class TagPoint;
         Animation* getAnimation(unsigned short index) const;
         /// Internal accessor for animations (returns null if animation does not exist)
         Animation* _getAnimationImpl(const String& name, 
-            const LinkedSkeletonAnimationSource** linker = 0) const;
+            const LinkedSkeletonAnimationSource** linker = nullptr) const;
 
         /** Creates a new Animation object for animating this skeleton. 
         @remarks
@@ -87,7 +87,7 @@ class TagPoint;
 
         /** Returns the named Animation object. */
         Animation* getAnimation(const String& name, 
-            const LinkedSkeletonAnimationSource** linker = 0) const;
+            const LinkedSkeletonAnimationSource** linker = nullptr) const;
 
         /** Removes an Animation from this skeleton. 
         @remarks

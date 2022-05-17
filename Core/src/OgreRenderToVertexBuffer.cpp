@@ -42,7 +42,7 @@ class VertexDeclaration;
         mOperationType(RenderOperation::OT_TRIANGLE_LIST),
         mResetsEveryUpdate(false),
         mResetRequested(true),
-        mSourceRenderable(0),
+        mSourceRenderable(nullptr),
         mMaxVertexCount(1000)
     {
         mVertexData.reset(new VertexData);

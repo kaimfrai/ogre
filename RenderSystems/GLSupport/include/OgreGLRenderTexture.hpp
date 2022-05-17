@@ -55,7 +55,7 @@ class RenderTarget;
         uint32 zoffset;
         uint numSamples;
 
-        GLSurfaceDesc() : buffer(0), zoffset(0), numSamples(0) {}
+        GLSurfaceDesc() : buffer(nullptr), zoffset(0), numSamples(0) {}
     };
 
     /// Frame Buffer Object abstraction
@@ -91,7 +91,7 @@ class RenderTarget;
 
         [[nodiscard]] const GLSurfaceDesc &getSurface(size_t attachment) const { return mColour[attachment]; }
 
-        void notifyContextDestroyed(GLContext* context) { if(mContext == context) { mContext = 0; mFB = 0; mMultisampleFB = 0; } }
+        void notifyContextDestroyed(GLContext* context) { if(mContext == context) { mContext = nullptr; mFB = 0; mMultisampleFB = 0; } }
     protected:
         GLSurfaceDesc mDepth;
         GLSurfaceDesc mStencil;

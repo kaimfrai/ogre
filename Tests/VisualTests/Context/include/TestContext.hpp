@@ -55,7 +55,7 @@ class TestContext : public OgreBites::SampleContext
 {
  public:
 
-    TestContext(int argc = 0, char** argv = 0);
+    TestContext(int argc = 0, char** argv = nullptr);
     virtual ~TestContext();
 
     /** Does basic setup for the context */
@@ -85,7 +85,7 @@ class TestContext : public OgreBites::SampleContext
     virtual void createRoot(ulong frameCount = -1);
 
     /** Start it up */
-    virtual void go(OgreBites::Sample* initialSample = 0, ulong frameCount = -1);
+    virtual void go(OgreBites::Sample* initialSample = nullptr, ulong frameCount = -1);
 
     /** Handles the config dialog */
     virtual bool oneTimeConfig();

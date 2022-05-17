@@ -74,15 +74,15 @@ class RenderQueue;
         mCustomProjMatrix(false),
         mFrustumExtentsManuallySet(false),
         mProjType(PT_PERSPECTIVE),
-        mLinkedReflectPlane(0),
-        mLinkedObliqueProjPlane(0),
+        mLinkedReflectPlane(nullptr),
+        mLinkedObliqueProjPlane(nullptr),
         mReflect(false),
         mObliqueDepthProjection(false),
         mOrientationMode(OR_DEGREE_0)
     {
         // Alter superclass members
         mVisible = false;
-        mParentNode = 0;
+        mParentNode = nullptr;
         mName = name;
 
         mLastLinkedReflectionPlane.normal = Vector3::ZERO;
@@ -592,7 +592,7 @@ class RenderQueue;
             const Quaternion& orientation = getOrientationForViewUpdate();
             const Vector3& position = getPositionForViewUpdate();
 
-            mViewMatrix = Math::makeViewMatrix(position, orientation, mReflect? &mReflectMatrix : 0);
+            mViewMatrix = Math::makeViewMatrix(position, orientation, mReflect? &mReflectMatrix : nullptr);
         }
 
         mRecalcView = false;
@@ -825,7 +825,7 @@ class RenderQueue;
     {
         mReflect = true;
         mReflectPlane = p;
-        mLinkedReflectPlane = 0;
+        mLinkedReflectPlane = nullptr;
         mReflectMatrix = Math::buildReflectionMatrix(p);
         invalidateView();
 
@@ -844,7 +844,7 @@ class RenderQueue;
     void Frustum::disableReflection()
     {
         mReflect = false;
-        mLinkedReflectPlane = 0;
+        mLinkedReflectPlane = nullptr;
         mLastLinkedReflectionPlane.normal = Vector3::ZERO;
         invalidateView();
     }
@@ -1028,7 +1028,7 @@ class RenderQueue;
     void Frustum::enableCustomNearClipPlane(const Plane& plane)
     {
         mObliqueDepthProjection = true;
-        mLinkedObliqueProjPlane = 0;
+        mLinkedObliqueProjPlane = nullptr;
         mObliqueProjPlane = plane;
         invalidateFrustum();
     }
@@ -1036,7 +1036,7 @@ class RenderQueue;
     void Frustum::disableCustomNearClipPlane()
     {
         mObliqueDepthProjection = false;
-        mLinkedObliqueProjPlane = 0;
+        mLinkedObliqueProjPlane = nullptr;
         invalidateFrustum();
     }
     //---------------------------------------------------------------------

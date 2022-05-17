@@ -41,7 +41,7 @@ namespace Ogre {
     // is now contained in WorkQueue - this class is entirely single-threaded
     //------------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    template<> ResourceBackgroundQueue* Singleton<ResourceBackgroundQueue>::msSingleton = 0;
+    template<> ResourceBackgroundQueue* Singleton<ResourceBackgroundQueue>::msSingleton = nullptr;
     ResourceBackgroundQueue* ResourceBackgroundQueue::getSingletonPtr()
     {
         return msSingleton;
@@ -173,7 +173,7 @@ namespace Ogre {
         req.isManual = isManual;
         req.loader = loader;
         // Make instance copy of loadParams for thread independence
-        req.loadParams = ( loadParams ? new NameValuePairList( *loadParams ) : 0 );
+        req.loadParams = ( loadParams ? new NameValuePairList( *loadParams ) : nullptr );
         req.listener = listener;
         return addRequest(req);
     }
@@ -194,7 +194,7 @@ namespace Ogre {
         req.isManual = isManual;
         req.loader = loader;
         // Make instance copy of loadParams for thread independence
-        req.loadParams = ( loadParams ? new NameValuePairList( *loadParams ) : 0 );
+        req.loadParams = ( loadParams ? new NameValuePairList( *loadParams ) : nullptr );
         req.listener = listener;
         return addRequest(req);
     }
@@ -277,14 +277,14 @@ namespace Ogre {
             if( resreq.type == RT_PREPARE_RESOURCE || resreq.type == RT_LOAD_RESOURCE )
             {
                 delete resreq.loadParams;
-                resreq.loadParams = 0;
+                resreq.loadParams = nullptr;
             }
             resreq.result.error = false;
             ResourceResponse resresp(ResourcePtr(), resreq);
             return new WorkQueue::Response(req, true, resresp);
         }
 
-        ResourceManager* rm = 0;
+        ResourceManager* rm = nullptr;
         ResourcePtr resource;
         try
         {
@@ -337,7 +337,7 @@ namespace Ogre {
             if( resreq.type == RT_PREPARE_RESOURCE || resreq.type == RT_LOAD_RESOURCE )
             {
                 delete resreq.loadParams;
-                resreq.loadParams = 0;
+                resreq.loadParams = nullptr;
             }
             resreq.result.error = true;
             resreq.result.message = e.getFullDescription();
@@ -352,7 +352,7 @@ namespace Ogre {
         if( resreq.type == RT_PREPARE_RESOURCE || resreq.type == RT_LOAD_RESOURCE )
         {
             delete resreq.loadParams;
-            resreq.loadParams = 0;
+            resreq.loadParams = nullptr;
         }
         resreq.result.error = false;
         ResourceResponse resresp(resource, resreq);

@@ -94,7 +94,7 @@ class OverlayElement;
         }
     };
 
-    template<> OverlaySystem *Singleton<OverlaySystem>::msSingleton = 0;
+    template<> OverlaySystem *Singleton<OverlaySystem>::msSingleton = nullptr;
     OverlaySystem* OverlaySystem::getSingletonPtr()
     {
         return msSingleton;
@@ -121,7 +121,7 @@ class OverlayElement;
     OverlaySystem::~OverlaySystem()
     {
         if(RenderSystem::getSharedListener() == this)
-            RenderSystem::setSharedListener(0);
+            RenderSystem::setSharedListener(nullptr);
 
         delete mOverlayManager;
         delete mFontManager;
@@ -133,7 +133,7 @@ class OverlayElement;
         if(queueGroupId == Ogre::RENDER_QUEUE_OVERLAY)
         {
             Ogre::Viewport* vp = Ogre::Root::getSingletonPtr()->getRenderSystem()->_getViewport();
-            if(vp != NULL)
+            if(vp != nullptr)
             {
                 Ogre::SceneManager* sceneMgr = vp->getCamera()->getSceneManager();
                 if (vp->getOverlaysEnabled() && sceneMgr->_getCurrentRenderStage() != Ogre::SceneManager::IRS_RENDER_TO_TEXTURE)

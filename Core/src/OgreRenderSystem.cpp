@@ -74,15 +74,15 @@ namespace Ogre {
     class RenderWindow;
     class Viewport;
 
-    RenderSystem::Listener* RenderSystem::msSharedEventListener = 0;
+    RenderSystem::Listener* RenderSystem::msSharedEventListener = nullptr;
 
     static const TexturePtr sNullTexPtr;
 
     //-----------------------------------------------------------------------
     RenderSystem::RenderSystem()
-        : mActiveRenderTarget(0)
-        , mTextureManager(0)
-        , mActiveViewport(0)
+        : mActiveRenderTarget(nullptr)
+        , mTextureManager(nullptr)
+        , mActiveViewport(nullptr)
         // This means CULL clockwise vertices, i.e. front of poly is counter-clockwise
         // This makes it the same as OpenGL and other right-handed systems
         , mCullingMode(CULL_CLOCKWISE)
@@ -98,7 +98,7 @@ namespace Ogre {
         , mDerivedDepthBiasBase(0.0f)
         , mDerivedDepthBiasMultiplier(0.0f)
         , mDerivedDepthBiasSlopeScale(0.0f)
-        , mGlobalInstanceVertexBufferVertexDeclaration(NULL)
+        , mGlobalInstanceVertexBufferVertexDeclaration(nullptr)
         , mGlobalNumberOfInstances(1)
         , mVertexProgramBound(false)
         , mGeometryProgramBound(false)
@@ -107,8 +107,8 @@ namespace Ogre {
         , mTessellationDomainProgramBound(false)
         , mComputeProgramBound(false)
         , mClipPlanesDirty(true)
-        , mRealCapabilities(0)
-        , mCurrentCapabilities(0)
+        , mRealCapabilities(nullptr)
+        , mCurrentCapabilities(nullptr)
         , mUseCustomCapabilities(false)
         , mNativeShadingLanguageVersion(0)
         , mTexProjRelative(false)
@@ -180,9 +180,9 @@ namespace Ogre {
     {
         shutdown();
         delete mRealCapabilities;
-        mRealCapabilities = 0;
+        mRealCapabilities = nullptr;
         // Current capabilities managed externally
-        mCurrentCapabilities = 0;
+        mCurrentCapabilities = nullptr;
     }
 
     RenderWindowDescription RenderSystem::getRenderWindowDescription() const
@@ -331,7 +331,7 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     void RenderSystem::useCustomRenderSystemCapabilities(RenderSystemCapabilities* capabilities)
     {
-    if (mRealCapabilities != 0)
+    if (mRealCapabilities != nullptr)
     {
       OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
           "Custom render capabilities must be set before the RenderSystem is initialised.",
@@ -372,7 +372,7 @@ namespace Ogre {
         }
         LogManager::getSingleton().logMessage(ss.str());
 
-        return NULL;
+        return nullptr;
     }
     //---------------------------------------------------------------------------------------------
     void RenderSystem::destroyRenderWindow(const String& name)
@@ -403,7 +403,7 @@ namespace Ogre {
     RenderTarget * RenderSystem::getRenderTarget( const String &name )
     {
         RenderTargetMap::iterator it = mRenderTargets.find( name );
-        RenderTarget *ret = NULL;
+        RenderTarget *ret = nullptr;
 
         if( it != mRenderTargets.end() )
         {
@@ -417,7 +417,7 @@ namespace Ogre {
     RenderTarget * RenderSystem::detachRenderTarget( const String &name )
     {
         RenderTargetMap::iterator it = mRenderTargets.find( name );
-        RenderTarget *ret = NULL;
+        RenderTarget *ret = nullptr;
 
         if( it != mRenderTargets.end() )
         {
@@ -438,7 +438,7 @@ namespace Ogre {
         }
         /// If detached render target is the active render target, reset active render target
         if(ret == mActiveRenderTarget)
-            mActiveRenderTarget = 0;
+            mActiveRenderTarget = nullptr;
 
         return ret;
     }
@@ -639,7 +639,7 @@ namespace Ogre {
         // Remove all the render targets. Destroy primary target last since others may depend on it.
         // Keep mRenderTargets valid all the time, so that render targets could receive
         // appropriate notifications, for example FBO based about GL context destruction.
-        RenderTarget* primary = 0;
+        RenderTarget* primary = nullptr;
         for (RenderTargetMap::iterator it = mRenderTargets.begin(); it != mRenderTargets.end(); /* note - no increment */)
         {
             RenderTarget* current = it->second;

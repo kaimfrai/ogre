@@ -96,7 +96,7 @@ void Sample_NewInstancing::setupContent()
     MaterialManager::getSingleton().setActiveScheme(mViewport->getMaterialScheme());
 
     //Initialize the techniques and current mesh variables
-    mCurrentManager         = 0;
+    mCurrentManager         = nullptr;
 
     mSceneMgr->setShadowTechnique( SHADOWTYPE_TEXTURE_ADDITIVE_INTEGRATED );
     mSceneMgr->setShadowTextureSelfShadow( true );

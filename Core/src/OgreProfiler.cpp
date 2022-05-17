@@ -62,7 +62,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     // PROFILE DEFINITIONS
     //-----------------------------------------------------------------------
-    template<> Profiler* Singleton<Profiler>::msSingleton = 0;
+    template<> Profiler* Singleton<Profiler>::msSingleton = nullptr;
     Profiler* Profiler::getSingletonPtr()
     {
         return msSingleton;
@@ -77,12 +77,12 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Profiler::Profiler()
         : mCurrent(&mRoot)
-        , mLast(NULL)
+        , mLast(nullptr)
         , mRoot()
         , mInitialized(false)
         , mUpdateDisplayFrequency(10)
         , mCurrentFrame(0)
-        , mTimer(0)
+        , mTimer(nullptr)
         , mTotalFrameClocks(0)
         , mEnabled(true)
         , mNewEnableState(true)
@@ -95,7 +95,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     ProfileInstance::ProfileInstance()
-        : parent(NULL)
+        : parent(nullptr)
         , frameNumber(0)
         , accumClocks(0)
         , hierarchicalLvl(0)
@@ -276,7 +276,7 @@ namespace Ogre {
 
                 // unwind the hierarchy, should be easy enough
                 mCurrent = &mRoot;
-                mLast = NULL;
+                mLast = nullptr;
             }
 
             if(&mRoot == mCurrent && mLast)
@@ -289,7 +289,7 @@ namespace Ogre {
                 }
                 mRoot.children.clear();
 
-                mLast = NULL;
+                mLast = nullptr;
 
                 processFrameStats();
                 displayResults();

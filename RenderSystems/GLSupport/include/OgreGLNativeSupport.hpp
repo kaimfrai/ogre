@@ -69,10 +69,10 @@ namespace Ogre
             virtual RenderWindow* newWindow(const String &name,
                                             unsigned int width, unsigned int height,
                                             bool fullScreen,
-                                            const NameValuePairList *miscParams = 0) = 0;
+                                            const NameValuePairList *miscParams = nullptr) = 0;
 
             virtual GLPBuffer* createPBuffer(PixelComponentType format, size_t width, size_t height) {
-                return NULL;
+                return nullptr;
             }
 
             /**

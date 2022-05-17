@@ -57,12 +57,12 @@ class AxisAlignedBox;
                 mInstanceId( instanceID ),
                 mInUse( false ),
                 mBatchOwner( batchOwner ),
-                mAnimationState( 0 ),
-                mSkeletonInstance( 0 ),
-                mBoneMatrices(0),
-                mBoneWorldMatrices(0),
+                mAnimationState( nullptr ),
+                mSkeletonInstance( nullptr ),
+                mBoneMatrices(nullptr),
+                mBoneWorldMatrices(nullptr),
                 mFrameAnimationLastUpdated(std::numeric_limits<unsigned long>::max() - 1),
-                mSharedTransformEntity( 0 ),
+                mSharedTransformEntity( nullptr ),
                 mTransformLookupNumber(instanceID),
                 mPosition(Vector3::ZERO),
                 mDerivedLocalPosition(Vector3::ZERO),
@@ -303,10 +303,10 @@ class AxisAlignedBox;
             ::Ogre::AlignedMemory::deallocate(mBoneMatrices);
             ::Ogre::AlignedMemory::deallocate(mBoneWorldMatrices);
 
-            mSkeletonInstance   = 0;
-            mAnimationState     = 0;
-            mBoneMatrices       = 0;
-            mBoneWorldMatrices  = 0;
+            mSkeletonInstance   = nullptr;
+            mAnimationState     = nullptr;
+            mBoneMatrices       = nullptr;
+            mBoneWorldMatrices  = nullptr;
         }
     }
     //-----------------------------------------------------------------------
@@ -325,11 +325,11 @@ class AxisAlignedBox;
                 mSharedTransformEntity->notifyUnlink( this );
             mBatchOwner->_markTransformSharingDirty();
 
-            mSkeletonInstance   = 0;
-            mAnimationState     = 0;
-            mBoneMatrices       = 0;
-            mBoneWorldMatrices  = 0;
-            mSharedTransformEntity = 0;
+            mSkeletonInstance   = nullptr;
+            mAnimationState     = nullptr;
+            mBoneMatrices       = nullptr;
+            mBoneWorldMatrices  = nullptr;
+            mSharedTransformEntity = nullptr;
         }
     }
     //-----------------------------------------------------------------------

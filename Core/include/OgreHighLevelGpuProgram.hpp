@@ -115,7 +115,7 @@ struct GpuNamedConstants;
     public:
         /** Constructor, should be used only by factory classes. */
         HighLevelGpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual = false, ManualResourceLoader* loader = 0);
+            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~HighLevelGpuProgram();
 
 

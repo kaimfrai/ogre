@@ -123,8 +123,8 @@ namespace Ogre {
             they should be supplied here as name / value pairs
         */
         ResourcePtr createResource(const String& name, const String& group,
-            bool isManual = false, ManualResourceLoader* loader = 0, 
-            const NameValuePairList* createParams = 0);
+            bool isManual = false, ManualResourceLoader* loader = nullptr, 
+            const NameValuePairList* createParams = nullptr);
 
         typedef std::pair<ResourcePtr, bool> ResourceCreateOrRetrieveResult;
         /** Create a new resource, or retrieve an existing one with the same
@@ -141,8 +141,8 @@ namespace Ogre {
         */
         ResourceCreateOrRetrieveResult createOrRetrieve(const String& name,
             const String& group, bool isManual = false, 
-            ManualResourceLoader* loader = 0, 
-            const NameValuePairList* createParams = 0);
+            ManualResourceLoader* loader = nullptr, 
+            const NameValuePairList* createParams = nullptr);
         
         /** Set a limit on the amount of memory this resource handler may use.
             @remarks
@@ -327,12 +327,12 @@ namespace Ogre {
         /// Returns whether the named resource exists in this manager
         bool resourceExists(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT) const
         {
-            return getResourceByName(name, group).get() != 0;
+            return getResourceByName(name, group).get() != nullptr;
         }
         /// Returns whether a resource with the given handle exists in this manager
         bool resourceExists(ResourceHandle handle) const
         {
-            return getByHandle(handle).get() != 0;
+            return getByHandle(handle).get() != nullptr;
         }
 
         /** Notify this manager that a resource which it manages has been 
@@ -367,7 +367,7 @@ namespace Ogre {
         */
         ResourcePtr prepare(const String& name,
             const String& group, bool isManual = false, 
-            ManualResourceLoader* loader = 0, const NameValuePairList* loadParams = 0,
+            ManualResourceLoader* loader = nullptr, const NameValuePairList* loadParams = nullptr,
             bool backgroundThread = false);
 
         /** Generic load method, used to create a Resource specific to this 
@@ -377,7 +377,7 @@ namespace Ogre {
         */
         ResourcePtr load(const String& name,
             const String& group, bool isManual = false, 
-            ManualResourceLoader* loader = 0, const NameValuePairList* loadParams = 0,
+            ManualResourceLoader* loader = nullptr, const NameValuePairList* loadParams = nullptr,
             bool backgroundThread = false);
 
         const StringVector& getScriptPatterns() const override { return mScriptPatterns; }

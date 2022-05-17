@@ -129,7 +129,7 @@ namespace Ogre {
         bool useGlobalInstancingVertexBufferIsAvailable;
 
         RenderOperation()
-            : vertexData(0), indexData(0), srcRenderable(0), numberOfInstances(1),
+            : vertexData(nullptr), indexData(nullptr), srcRenderable(nullptr), numberOfInstances(1),
               operationType(OT_TRIANGLE_LIST), useIndexes(true),
               useGlobalInstancingVertexBufferIsAvailable(true)
         {

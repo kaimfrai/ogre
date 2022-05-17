@@ -47,7 +47,7 @@ namespace Ogre
         const Ogre::String resolveSymlink(const Ogre::String& symlink)
         {
             ssize_t bufsize = 256;
-            char* resolved = 0;
+            char* resolved = nullptr;
             do
             {
                 char* buf = new char[bufsize];

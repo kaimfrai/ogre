@@ -52,7 +52,7 @@ namespace Ogre {
 class Renderable;
 
     //-----------------------------------------------------------------------
-    template<> MaterialManager* Singleton<MaterialManager>::msSingleton = 0;
+    template<> MaterialManager* Singleton<MaterialManager>::msSingleton = nullptr;
     MaterialManager* MaterialManager::getSingletonPtr()
     {
         return msSingleton;
@@ -255,7 +255,7 @@ class Renderable;
         }
         
 
-        return 0;
+        return nullptr;
 
     }
 

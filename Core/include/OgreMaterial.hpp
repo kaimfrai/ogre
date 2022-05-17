@@ -154,7 +154,7 @@ class Technique;
         /** Constructor - use resource manager's create method rather than this.
         */
         Material(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual = false, ManualResourceLoader* loader = 0);
+            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
 
         ~Material();
         /** Assignment operator to allow easy copying between materials.
@@ -263,7 +263,7 @@ class Technique;
             scheme is found, at which point it is passed to 
             MaterialManager::Listener::handleSchemeNotFound as information.
         */
-        Technique* getBestTechnique(unsigned short lodIndex = 0, const Renderable* rend = 0);
+        Technique* getBestTechnique(unsigned short lodIndex = 0, const Renderable* rend = nullptr);
         /// @}
 
         /** Creates a new copy of this material with the same settings but a new name.

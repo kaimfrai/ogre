@@ -89,7 +89,7 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     RegionSceneQuery::RegionSceneQuery(SceneManager* mgr)
-        :SceneQuery(mgr), mLastResult(NULL)
+        :SceneQuery(mgr), mLastResult(nullptr)
     {
     }
     //-----------------------------------------------------------------------
@@ -107,7 +107,7 @@ class MovableObject;
     void RegionSceneQuery::clearResults()
     {
         delete mLastResult;
-        mLastResult = NULL;
+        mLastResult = nullptr;
     }
     //---------------------------------------------------------------------
     SceneQueryResult&
@@ -275,7 +275,7 @@ class MovableObject;
         RaySceneQueryResultEntry dets;
         dets.distance = distance;
         dets.movable = obj;
-        dets.worldFragment = NULL;
+        dets.worldFragment = nullptr;
         mResult.push_back(dets);
         // Continue
         return true;
@@ -286,7 +286,7 @@ class MovableObject;
         // Add to internal list
         RaySceneQueryResultEntry dets;
         dets.distance = distance;
-        dets.movable = NULL;
+        dets.movable = nullptr;
         dets.worldFragment = fragment;
         mResult.push_back(dets);
         // Continue
@@ -294,7 +294,7 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     IntersectionSceneQuery::IntersectionSceneQuery(SceneManager* mgr)
-    : SceneQuery(mgr), mLastResult(NULL)
+    : SceneQuery(mgr), mLastResult(nullptr)
     {
     }
     //-----------------------------------------------------------------------
@@ -312,7 +312,7 @@ class MovableObject;
     void IntersectionSceneQuery::clearResults()
     {
         delete mLastResult;
-        mLastResult = NULL;
+        mLastResult = nullptr;
     }
     //---------------------------------------------------------------------
     IntersectionSceneQueryResult&

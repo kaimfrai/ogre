@@ -933,7 +933,7 @@ namespace Ogre {
                     {
                         // duff geometry data entry with 0 vertices
                         delete pMesh->sharedVertexData;
-                        pMesh->sharedVertexData = 0;
+                        pMesh->sharedVertexData = nullptr;
                         // Skip this stream (pointer will have been returned to just after header)
                         stream->skip(mCurrentstreamLen - MSTREAM_OVERHEAD_SIZE);
                     }
@@ -1439,7 +1439,7 @@ namespace Ogre {
         LodStrategy *strategy = LodStrategyManager::getSingleton().getStrategy(strategyName);
 
         // Check that valid strategy name was given, otherwise use default
-        if (strategy == 0)
+        if (strategy == nullptr)
             strategy = LodStrategyManager::getSingleton().getDefaultStrategy();
 
         pMesh->setLodStrategy(strategy);
@@ -1476,7 +1476,7 @@ namespace Ogre {
                     "MeshSerializerImpl::readMeshLodInfo");
             }
             usage.manualMesh.reset(); // will trigger load later with manual Lod
-            usage.edgeData = NULL;
+            usage.edgeData = nullptr;
         }
         popInnerChunk(stream);
     }
@@ -2988,7 +2988,7 @@ namespace Ogre {
             // Set default values
             usage.manualName = "";
             usage.manualMesh.reset();
-            usage.edgeData = NULL;
+            usage.edgeData = nullptr;
 
             if (pMesh->hasManualLodLevel())
             {
@@ -2998,7 +2998,7 @@ namespace Ogre {
             {
                 readMeshLodUsageGenerated(stream, pMesh, i, usage);
             }
-            usage.edgeData = NULL;
+            usage.edgeData = nullptr;
 
             // Save usage
             pMesh->mMeshLodUsageList.push_back(usage);
@@ -3309,7 +3309,7 @@ namespace Ogre {
             // Set default values
             usage.manualName = "";
             usage.manualMesh.reset();
-            usage.edgeData = NULL;
+            usage.edgeData = nullptr;
 
             if (manual)
             {
@@ -3319,7 +3319,7 @@ namespace Ogre {
             {
                 readMeshLodUsageGenerated(stream, pMesh, i, usage);
             }
-            usage.edgeData = NULL;
+            usage.edgeData = nullptr;
 
             // Save usage
             pMesh->mMeshLodUsageList.push_back(usage);
@@ -3458,7 +3458,7 @@ namespace Ogre {
             }
 
             bool isGrouped = true;
-            EdgeData::EdgeGroup* lastEdgeGroup = 0;
+            EdgeData::EdgeGroup* lastEdgeGroup = nullptr;
             for (size_t t = 0; t < numTriangles; ++t)
             {
                 // Gets the edge group that the triangle belongs to
@@ -3885,7 +3885,7 @@ namespace Ogre {
     void MeshSerializerImpl_v1_1::readGeometryTexCoords(unsigned short bindIdx,
         const DataStreamPtr& stream, Mesh* pMesh, VertexData* dest, unsigned short texCoordSet)
     {
-        float *pFloat = 0;
+        float *pFloat = nullptr;
         HardwareVertexBufferSharedPtr vbuf;
         // unsigned short dimensions    (1 for 1D, 2 for 2D, 3 for 3D)
         unsigned short dim;

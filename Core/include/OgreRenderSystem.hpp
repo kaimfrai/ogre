@@ -396,7 +396,7 @@ class VertexDeclaration;
         | maxDepthBufferSize | Positive integer (usually 0, 16, 24) | 16 | EGL_DEPTH_SIZE | Android |
         */
         virtual RenderWindow* _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
-            bool fullScreen, const NameValuePairList *miscParams = 0);
+            bool fullScreen, const NameValuePairList *miscParams = nullptr);
         
         /** Create a MultiRenderTarget, which is a render target that renders to multiple RenderTextures
         at once. Surfaces can be bound and unbound at will.
@@ -546,7 +546,7 @@ class VertexDeclaration;
         @deprecated only needed for fixed function APIs
         */
         virtual void _setTextureCoordCalculation(size_t unit, TexCoordCalcMethod m, 
-            const Frustum* frustum = 0) {}
+            const Frustum* frustum = nullptr) {}
 
         /** Sets the texture blend modes from a TextureUnitState record.
         Meant for use internally only - apps should use the Material
@@ -943,7 +943,7 @@ class VertexDeclaration;
             may be null if there are no parameters
             */
             virtual void eventOccurred(const String& eventName, 
-                const NameValuePairList* parameters = 0) = 0;
+                const NameValuePairList* parameters = nullptr) = 0;
         };
 
         /** Sets shared listener.
@@ -1127,7 +1127,7 @@ class VertexDeclaration;
         StringVector mEventNames;
 
         /// Internal method for firing a rendersystem event
-        void fireEvent(const String& name, const NameValuePairList* params = 0);
+        void fireEvent(const String& name, const NameValuePairList* params = nullptr);
 
         typedef std::list<Listener*> ListenerList;
         ListenerList mEventListeners;

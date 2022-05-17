@@ -48,8 +48,8 @@ struct _find_search_t
 intptr_t _findfirst(const char *pattern, struct _finddata_t *data)
 {
     _find_search_t *fs = new _find_search_t;
-    fs->curfn = NULL;
-    fs->pattern = NULL;
+    fs->curfn = nullptr;
+    fs->pattern = nullptr;
 
     // Separate the mask from directory name
     const char *mask = strrchr (pattern, '/');

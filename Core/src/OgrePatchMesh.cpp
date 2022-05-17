@@ -40,7 +40,7 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     PatchMesh::PatchMesh(ResourceManager* creator, const String& name, ResourceHandle handle,
         const String& group)
-        : Mesh(creator, name, handle, group, false, 0), mDeclaration(0)
+        : Mesh(creator, name, handle, group, false, nullptr), mDeclaration(nullptr)
     {
     }
     //-----------------------------------------------------------------------

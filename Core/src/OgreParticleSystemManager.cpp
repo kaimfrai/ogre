@@ -55,9 +55,9 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     // Shortcut to set up billboard particle renderer
-    BillboardParticleRendererFactory* mBillboardRendererFactory = 0;
+    BillboardParticleRendererFactory* mBillboardRendererFactory = nullptr;
     //-----------------------------------------------------------------------
-    template<> ParticleSystemManager* Singleton<ParticleSystemManager>::msSingleton = 0;
+    template<> ParticleSystemManager* Singleton<ParticleSystemManager>::msSingleton = nullptr;
     ParticleSystemManager* ParticleSystemManager::getSingletonPtr()
     {
         return msSingleton;
@@ -81,7 +81,7 @@ namespace Ogre {
         if (mBillboardRendererFactory)
         {
             delete mBillboardRendererFactory;
-            mBillboardRendererFactory = 0;
+            mBillboardRendererFactory = nullptr;
         }
 
         if (mFactory)
@@ -89,7 +89,7 @@ namespace Ogre {
             // delete particle system factory
             Root::getSingleton().removeMovableObjectFactory(mFactory);
             delete mFactory;
-            mFactory = 0;
+            mFactory = nullptr;
         }
 
     }
@@ -211,7 +211,7 @@ namespace Ogre {
         }
         else
         {
-            return 0;
+            return nullptr;
         }
     }
     //-----------------------------------------------------------------------
@@ -371,7 +371,7 @@ namespace Ogre {
     MovableObject* ParticleSystemFactory::createInstanceImpl( const String& name, 
             const NameValuePairList* params)
     {
-        if (params != 0)
+        if (params != nullptr)
         {
             NameValuePairList::const_iterator ni = params->find("templateName");
             if (ni != params->end())
@@ -385,7 +385,7 @@ namespace Ogre {
         // Not template based, look for quota & resource name
         size_t quota = 500;
         String resourceGroup = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
-        if (params != 0)
+        if (params != nullptr)
         {
             NameValuePairList::const_iterator ni = params->find("quota");
             if (ni != params->end())

@@ -213,7 +213,7 @@ namespace Ogre {
             Bone* pBone = pSkel->getBone(i);
             unsigned short handle = pBone->getHandle();
             Bone* pParent = static_cast<Bone*>(pBone->getParent());
-            if (pParent != NULL) 
+            if (pParent != nullptr) 
             {
                 writeBoneParent(pSkel, handle, pParent->getHandle());             
             }

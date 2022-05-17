@@ -40,7 +40,7 @@ THE SOFTWARE.
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> LogManager* Singleton<LogManager>::msSingleton = 0;
+    template<> LogManager* Singleton<LogManager>::msSingleton = nullptr;
     LogManager* LogManager::getSingletonPtr()
     {
         return msSingleton;
@@ -52,7 +52,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     LogManager::LogManager()
     {
-        mDefaultLog = NULL;
+        mDefaultLog = nullptr;
     }
     //-----------------------------------------------------------------------
     LogManager::~LogManager()
@@ -106,7 +106,7 @@ namespace Ogre {
         {
             if (mDefaultLog == i->second)
             {
-                mDefaultLog = 0;
+                mDefaultLog = nullptr;
             }
             delete i->second;
             mLogs.erase(i);

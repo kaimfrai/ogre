@@ -232,7 +232,7 @@ class VertexData;
             Do not call this method directly.
         */
         Mesh(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual = false, ManualResourceLoader* loader = 0);
+            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~Mesh();
 
         // NB All methods below are non-virtual since they will be
@@ -427,7 +427,7 @@ class VertexData;
         void setSkeletonName(const String& skelName);
 
         /** Returns true if this Mesh has a linked Skeleton. */
-        bool hasSkeleton() const { return mSkeleton != 0; }
+        bool hasSkeleton() const { return mSkeleton != nullptr; }
 
         /** Returns whether or not this mesh has some kind of vertex animation. 
         */
@@ -995,7 +995,7 @@ class VertexData;
         /// Edge list for this LOD level (may be derived from manual mesh).
         mutable EdgeData* edgeData;
 
-        MeshLodUsage() : userValue(0.0), value(0.0), edgeData(0) {}
+        MeshLodUsage() : userValue(0.0), value(0.0), edgeData(nullptr) {}
     };
 
     /** @} */

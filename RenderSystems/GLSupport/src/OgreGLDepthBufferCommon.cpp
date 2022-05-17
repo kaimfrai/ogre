@@ -31,13 +31,13 @@ GLDepthBufferCommon::~GLDepthBufferCommon()
     if (mStencilBuffer && mStencilBuffer != mDepthBuffer)
     {
         delete mStencilBuffer;
-        mStencilBuffer = 0;
+        mStencilBuffer = nullptr;
     }
 
     if (mDepthBuffer)
     {
         delete mDepthBuffer;
-        mDepthBuffer = 0;
+        mDepthBuffer = nullptr;
     }
 }
 

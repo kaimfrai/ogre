@@ -82,7 +82,7 @@ class ResourceManager;
     public:
         /** Constructor, should be used only by factory classes. */
         UnifiedHighLevelGpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual = false, ManualResourceLoader* loader = 0);
+            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~UnifiedHighLevelGpuProgram();
 
         virtual size_t calculateSize() const;

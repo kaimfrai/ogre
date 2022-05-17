@@ -107,10 +107,10 @@ namespace Ogre {
             /// Token length in bytes
             size_t Length;
 
-            Token () : Allocated (0), String (NULL), Length(0)
+            Token () : Allocated (0), String (nullptr), Length(0)
             { }
 
-            Token (Kind iType) : Type (iType), Allocated (0), String (NULL), Length(0)
+            Token (Kind iType) : Type (iType), Allocated (0), String (nullptr), Length(0)
             { }
 
             Token (Kind iType, const char *iString, size_t iLength) :
@@ -185,7 +185,7 @@ namespace Ogre {
             /// true if macro expansion is in progress
             bool Expanding;
 
-            Macro(const Token& iName) : Name(iName), ExpandFunc(NULL), Expanding(false) {}
+            Macro(const Token& iName) : Name(iName), ExpandFunc(nullptr), Expanding(false) {}
 
             // Macro(Macro&&) = default; // TODO unsupported by VS2013
 
@@ -436,7 +436,7 @@ namespace Ogre {
          * @param iToken
          *     If not NULL contains the erroneous token
          */
-        void Error (int iLine, const char *iError, const Token *iToken = NULL);
+        void Error (int iLine, const char *iError, const Token *iToken = nullptr);
 
     public:
         /// Create an empty preprocessor object

@@ -54,13 +54,13 @@ class Technique;
     //-----------------------------------------------------------------------
     SubEntity::SubEntity (Entity* parent, SubMesh* subMeshBasis)
         : Renderable(), mParentEntity(parent),
-        mSubMesh(subMeshBasis), mMaterialLodIndex(0), mCachedCamera(0)
+        mSubMesh(subMeshBasis), mMaterialLodIndex(0), mCachedCamera(nullptr)
     {
         mVisible = true;
         mRenderQueueID = 0;
         mRenderQueueIDSet = false;
         mRenderQueuePrioritySet = false;
-        mSkelAnimVertexData = 0;
+        mSkelAnimVertexData = nullptr;
         mVertexAnimationAppliedThisFrame = false;
         mHardwarePoseCount = 0;
         mIndexStart = 0;

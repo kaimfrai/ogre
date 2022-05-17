@@ -68,7 +68,7 @@ namespace Ogre {
     {           
         LogManager::getSingleton().stream(LML_TRIVIAL)
             << "Creating viewport on target '" << target->getName() << "'"
-            << ", rendering from camera '" << (cam != 0 ? cam->getName() : "NULL") << "'"
+            << ", rendering from camera '" << (cam != nullptr ? cam->getName() : "NULL") << "'"
             << ", relative dimensions " << std::ios::fixed << std::setprecision(2) 
             << "L: " << left << " T: " << top << " W: " << width << " H: " << height
             << " Z-order: " << ZOrder;
@@ -99,7 +99,7 @@ namespace Ogre {
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
         if ((rs) && (rs->_getViewport() == this))
         {
-            rs->_setViewport(NULL);
+            rs->_setViewport(nullptr);
         }
     }
     //---------------------------------------------------------------------
@@ -136,7 +136,7 @@ namespace Ogre {
         }
 
         LogManager::getSingleton().stream(LML_TRIVIAL)
-            << "Viewport for camera '" << (mCamera != 0 ? mCamera->getName() : "NULL") << "'"
+            << "Viewport for camera '" << (mCamera != nullptr ? mCamera->getName() : "NULL") << "'"
             << ", actual dimensions "   << std::ios::fixed << std::setprecision(2) 
             << "L: " << mActLeft << " T: " << mActTop << " W: " << mActWidth << " H: " << mActHeight;
 
@@ -319,9 +319,9 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Viewport::setCamera(Camera* cam)
     {
-        if (cam != NULL && mCamera != NULL && mCamera->getViewport() == this)
+        if (cam != nullptr && mCamera != nullptr && mCamera->getViewport() == this)
         {
-                mCamera->_notifyViewport(NULL);
+                mCamera->_notifyViewport(nullptr);
         }
 
         mCamera = cam;

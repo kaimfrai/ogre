@@ -517,7 +517,7 @@ namespace Ogre
             {
                 // write lock - must wait for all requests to finish
                 std::unique_lock<std::recursive_mutex> ogrenameLock(mRWMutex);
-                mHandler = 0;
+                mHandler = nullptr;
             }
 
             /** Get handler pointer - note, only use this for == comparison or similar,
@@ -533,7 +533,7 @@ namespace Ogre
                 // Read mutex so that multiple requests can be processed by the
                 // same handler in parallel if required
                 std::unique_lock<std::recursive_mutex> ogrenameLock(mRWMutex);
-                Response* response = 0;
+                Response* response = nullptr;
                 if (mHandler)
                 {
                     if (mHandler->canHandleRequest(req, srcQ))

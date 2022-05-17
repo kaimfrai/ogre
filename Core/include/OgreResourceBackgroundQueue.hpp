@@ -142,7 +142,7 @@ namespace Ogre {
             determine if completed if not using listener
         */
         virtual BackgroundProcessTicket initialiseResourceGroup(
-            const String& name, Listener* listener = 0);
+            const String& name, Listener* listener = nullptr);
 
         /** Initialise all resource groups which are yet to be initialised in 
             the background.
@@ -153,7 +153,7 @@ namespace Ogre {
             determine if completed if not using listener
         */
         virtual BackgroundProcessTicket initialiseAllResourceGroups( 
-            Listener* listener = 0);
+            Listener* listener = nullptr);
         /** Prepares a resource group in the background.
         @see ResourceGroupManager::prepareResourceGroup
         @param name The name of the resource group to prepare
@@ -163,7 +163,7 @@ namespace Ogre {
             determine if completed if not using listener
         */
         virtual BackgroundProcessTicket prepareResourceGroup(const String& name, 
-            Listener* listener = 0);
+            Listener* listener = nullptr);
 
         /** Loads a resource group in the background.
         @see ResourceGroupManager::loadResourceGroup
@@ -174,7 +174,7 @@ namespace Ogre {
             determine if completed if not using listener
         */
         virtual BackgroundProcessTicket loadResourceGroup(const String& name, 
-            Listener* listener = 0);
+            Listener* listener = nullptr);
 
 
         /** Unload a single resource in the background. 
@@ -187,7 +187,7 @@ namespace Ogre {
         */
         virtual BackgroundProcessTicket unload(
             const String& resType, const String& name, 
-            Listener* listener = 0);
+            Listener* listener = nullptr);
 
         /** Unload a single resource in the background. 
         @see ResourceManager::unload
@@ -199,7 +199,7 @@ namespace Ogre {
         */
         virtual BackgroundProcessTicket unload(
             const String& resType, ResourceHandle handle, 
-            Listener* listener = 0);
+            Listener* listener = nullptr);
 
         /** Unloads a resource group in the background.
         @see ResourceGroupManager::unloadResourceGroup
@@ -210,7 +210,7 @@ namespace Ogre {
             determine if completed if not using listener
         */
         virtual BackgroundProcessTicket unloadResourceGroup(const String& name, 
-            Listener* listener = 0);
+            Listener* listener = nullptr);
 
 
         /** Prepare a single resource in the background. 
@@ -233,9 +233,9 @@ namespace Ogre {
         virtual BackgroundProcessTicket prepare(
             const String& resType, const String& name, 
             const String& group, bool isManual = false, 
-            ManualResourceLoader* loader = 0, 
-            const NameValuePairList* loadParams = 0, 
-            Listener* listener = 0);
+            ManualResourceLoader* loader = nullptr, 
+            const NameValuePairList* loadParams = nullptr, 
+            Listener* listener = nullptr);
 
         /** Load a single resource in the background. 
         @see ResourceManager::load
@@ -257,9 +257,9 @@ namespace Ogre {
         virtual BackgroundProcessTicket load(
             const String& resType, const String& name, 
             const String& group, bool isManual = false, 
-            ManualResourceLoader* loader = 0, 
-            const NameValuePairList* loadParams = 0, 
-            Listener* listener = 0);
+            ManualResourceLoader* loader = nullptr, 
+            const NameValuePairList* loadParams = nullptr, 
+            Listener* listener = nullptr);
         /** Returns whether a previously queued process has completed or not. 
         @remarks
             This method of checking that a background process has completed is

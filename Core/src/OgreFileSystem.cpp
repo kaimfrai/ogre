@@ -281,9 +281,9 @@ namespace {
 
         size_t st_size = ret == 0 ? tagStat.st_size : 0;
 
-        std::istream* baseStream = 0;
-        std::ifstream* roStream = 0;
-        std::fstream* rwStream = 0;
+        std::istream* baseStream = nullptr;
+        std::ifstream* roStream = nullptr;
+        std::fstream* rwStream = nullptr;
 
         if (mode & std::ios::out)
         {
@@ -312,7 +312,7 @@ namespace {
         }
 
         /// Construct return stream, tell it to delete on destroy
-        FileStreamDataStream* stream = 0;
+        FileStreamDataStream* stream = nullptr;
         const String& streamname = name.empty() ? full_path : name;
         if (rwStream)
         {
@@ -374,7 +374,7 @@ namespace {
         // directory change requires locking due to saved returns
         StringVectorPtr ret(new StringVector());
 
-        findFiles("*", recursive, dirs, ret.get(), 0);
+        findFiles("*", recursive, dirs, ret.get(), nullptr);
 
         return ret;
     }
@@ -383,7 +383,7 @@ namespace {
     {
         FileInfoListPtr ret(new FileInfoList());
 
-        findFiles("*", recursive, dirs, 0, ret.get());
+        findFiles("*", recursive, dirs, nullptr, ret.get());
 
         return ret;
     }
@@ -393,7 +393,7 @@ namespace {
     {
         StringVectorPtr ret(new StringVector());
 
-        findFiles(pattern, recursive, dirs, ret.get(), 0);
+        findFiles(pattern, recursive, dirs, ret.get(), nullptr);
 
         return ret;
 
@@ -404,7 +404,7 @@ namespace {
     {
         FileInfoListPtr ret(new FileInfoList());
 
-        findFiles(pattern, recursive, dirs, 0, ret.get());
+        findFiles(pattern, recursive, dirs, nullptr, ret.get());
 
         return ret;
     }

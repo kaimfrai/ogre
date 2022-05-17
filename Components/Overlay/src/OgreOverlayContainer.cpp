@@ -58,7 +58,7 @@ class RenderQueue;
 
         for (const auto& p : mChildren)
         {
-            p.second->_notifyParent(0, 0);
+            p.second->_notifyParent(nullptr, nullptr);
         }
     }
     //---------------------------------------------------------------------
@@ -138,7 +138,7 @@ class RenderQueue;
         if (j != mChildContainers.end())
             mChildContainers.erase(j);
 
-        element->_setParent(0);
+        element->_setParent(nullptr);
 
         return eraseIt;
     }
@@ -172,7 +172,7 @@ class RenderQueue;
         if (j != mChildContainers.end())
             mChildContainers.erase(j);
 
-        element->_setParent(0);
+        element->_setParent(nullptr);
 
         return eraseIt;
     }
@@ -304,7 +304,7 @@ class RenderQueue;
     OverlayElement* OverlayContainer::findElementAt(Real x, Real y)         // relative to parent
     {
 
-        OverlayElement* ret = NULL;
+        OverlayElement* ret = nullptr;
 
         int currZ = -1;
 

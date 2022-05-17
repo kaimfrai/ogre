@@ -91,7 +91,7 @@ public:
     ~Singleton()
     {
         assert(msSingleton);
-        msSingleton = 0;
+        msSingleton = nullptr;
     }
     /// Get the singleton instance
     static T& getSingleton()

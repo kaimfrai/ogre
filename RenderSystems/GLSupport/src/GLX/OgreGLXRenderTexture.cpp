@@ -51,11 +51,11 @@ namespace Ogre
 {
     //-------------------------------------------------------------------------------------------------//
     GLXPBuffer::GLXPBuffer(GLXGLSupport* glsupport, PixelComponentType format, size_t width, size_t height):
-        GLPBuffer(format, width, height), mContext(0), mGLSupport(glsupport)
+        GLPBuffer(format, width, height), mContext(nullptr), mGLSupport(glsupport)
     {
         Display *glDisplay = mGLSupport->getGLDisplay();
         ::GLXDrawable glxDrawable = 0;
-        ::GLXFBConfig fbConfig = 0;
+        ::GLXFBConfig fbConfig = nullptr;
         
         int bits = 0;
         

@@ -340,7 +340,7 @@ namespace Ogre {
                 calling the visitor may populate if it chooses to.
             */
             virtual void visit(Renderable* rend, ushort lodIndex, bool isDebug, 
-                Any* pAny = 0) = 0;
+                Any* pAny = nullptr) = 0;
         };
 
     protected:

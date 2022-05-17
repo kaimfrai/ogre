@@ -64,7 +64,7 @@ void GLHardwarePixelBufferCommon::freeBuffer()
     if (mUsage & HBU_STATIC)
     {
         delete[] mBuffer.data;
-        mBuffer.data = 0;
+        mBuffer.data = nullptr;
     }
 }
 

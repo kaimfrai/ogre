@@ -53,7 +53,7 @@ namespace Ogre {
           mIndexInFrame(0),
           mShadowNearClipDist(-1),
           mShadowFarClipDist(-1),
-          mCameraToBeRelativeTo(0),
+          mCameraToBeRelativeTo(nullptr),
           mPowerScale(1.0f),
           mLightType(LT_POINT),
           mOwnShadowFarDist(false)
@@ -75,7 +75,7 @@ namespace Ogre {
         mIndexInFrame(0),
         mShadowNearClipDist(-1),
         mShadowFarClipDist(-1),
-        mCameraToBeRelativeTo(0),
+        mCameraToBeRelativeTo(nullptr),
         mPowerScale(1.0f),
         mLightType(LT_POINT),
         mOwnShadowFarDist(false)

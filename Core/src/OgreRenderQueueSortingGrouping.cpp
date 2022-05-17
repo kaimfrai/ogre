@@ -223,7 +223,7 @@ namespace {
         {
             IlluminationPass* p = passes[i];
             // Insert into solid list
-            QueuedRenderableCollection* collection = NULL;
+            QueuedRenderableCollection* collection = nullptr;
             switch(p->stage)
             {
             case IS_AMBIENT:

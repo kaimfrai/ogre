@@ -445,7 +445,7 @@ namespace Ogre {
             */
             void renderObjects(const QueuedRenderableCollection& objs, QueuedRenderableCollection::OrganisationMode om,
                                bool lightScissoringClipping, bool doLightIteration,
-                               const LightList* manualLightList = 0, bool transparentShadowCastersMode = false);
+                               const LightList* manualLightList = nullptr, bool transparentShadowCastersMode = false);
         };
         /// Allow visitor helper to access protected methods
         friend class SceneMgrQueuedRenderableVisitor;
@@ -539,7 +539,7 @@ namespace Ogre {
             Plane mSkyPlane;
             void _updateRenderQueue(RenderQueue* queue);
         public:
-            SkyPlaneRenderer(SceneManager* owner) : SkyRenderer(owner), mSkyPlaneEntity(0) {}
+            SkyPlaneRenderer(SceneManager* owner) : SkyRenderer(owner), mSkyPlaneEntity(nullptr) {}
             SkyPlaneGenParameters mSkyPlaneGenParameters;
             void setSkyPlane(bool enable, const Plane& plane, const String& materialName,
                              Real scale, Real tiling, uint8 renderQueue, Real bow, int xsegments,
@@ -853,8 +853,8 @@ namespace Ogre {
                 Real mFarDistSquared;
             public:
                 ShadowCasterSceneQueryListener(SceneManager* sm) : mSceneMgr(sm),
-                    mCasterList(0), mIsLightInFrustum(false), mLightClipVolumeList(0),
-                    mCamera(0), mFarDistSquared(0) {}
+                    mCasterList(nullptr), mIsLightInFrustum(false), mLightClipVolumeList(nullptr),
+                    mCamera(nullptr), mFarDistSquared(0) {}
                 // Prepare the listener for use with a set of parameters
                 void prepare(bool lightInFrustum, const PlaneBoundedVolumeList* lightClipVolumes,
                              const Light* light, const Camera* cam, ShadowCasterList* casterList,
@@ -971,7 +971,7 @@ namespace Ogre {
         scissor rectangle and user clip planes.
         */
         void renderSingleObject(Renderable* rend, const Pass* pass,
-            bool lightScissoringClipping, bool doLightIteration, const LightList* manualLightList = 0);
+            bool lightScissoringClipping, bool doLightIteration, const LightList* manualLightList = nullptr);
 
         /** Internal method for creating the AutoParamDataSource instance. */
         AutoParamDataSource* createAutoParamDataSource() const
@@ -1394,7 +1394,7 @@ namespace Ogre {
 
         /** Returns whether a scene node with the given name exists.
         */
-        bool hasSceneNode(const String& name) const { return getSceneNode(name, false) != NULL; }
+        bool hasSceneNode(const String& name) const { return getSceneNode(name, false) != nullptr; }
 
         /** Tells the SceneManager whether it should render the SceneNodes which
             make up the scene as well as the objects in the scene.
@@ -2386,7 +2386,7 @@ namespace Ogre {
         */
         void manualRender(Renderable* rend, const Pass* pass, Viewport* vp,
             const Affine3& viewMatrix, const Matrix4& projMatrix, bool doBeginEndFrame = false, bool lightScissoringClipping = true,
-            bool doLightIteration = true, const LightList* manualLightList = 0);
+            bool doLightIteration = true, const LightList* manualLightList = nullptr);
 
         /** Retrieves the internal render queue, for advanced users only.
         @remarks
@@ -2768,7 +2768,7 @@ namespace Ogre {
         /// Method for preparing shadow textures ready for use in a regular render
         /// Do not call manually unless before frame start or rendering is paused
         /// If lightList is not supplied, will render all lights in frustum
-        virtual void prepareShadowTextures(Camera* cam, Viewport* vp, const LightList* lightList = 0);
+        virtual void prepareShadowTextures(Camera* cam, Viewport* vp, const LightList* lightList = nullptr);
 
         /** Set the size of the texture used for all texture-based shadows.
         @remarks
@@ -3168,9 +3168,9 @@ namespace Ogre {
             the created object.
         */
         MovableObject* createMovableObject(const String& name,
-            const String& typeName, const NameValuePairList* params = 0);
+            const String& typeName, const NameValuePairList* params = nullptr);
         /// @overload
-        MovableObject* createMovableObject(const String& typeName, const NameValuePairList* params = 0);
+        MovableObject* createMovableObject(const String& typeName, const NameValuePairList* params = nullptr);
         /** Destroys a MovableObject with the name specified, of the type specified.
         @remarks
             The MovableObject will automatically detach itself from any nodes
@@ -3304,7 +3304,7 @@ namespace Ogre {
             passes from original passes
          */
         void _injectRenderWithPass(Pass *pass, Renderable *rend, bool shadowDerivation = true,
-            bool doLightIteration = false, const LightList* manualLightList = 0);
+            bool doLightIteration = false, const LightList* manualLightList = nullptr);
 
         /** Internal method for setting up the renderstate for a rendering pass.
             @param pass The Pass details to set.

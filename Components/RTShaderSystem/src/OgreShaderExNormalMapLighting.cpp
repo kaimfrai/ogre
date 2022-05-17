@@ -254,7 +254,7 @@ SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compile
             if(false == SGScriptTranslator::getString(*it, &strValue))
             {
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                return NULL;
+                return nullptr;
             }
 
             // Case light model type is normal map
@@ -264,7 +264,7 @@ SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compile
                 if (false == SGScriptTranslator::getString(*it, &strValue))
                 {
                     compiler->addError(ScriptCompiler::CE_STRINGEXPECTED, prop->file, prop->line);
-                    return NULL;
+                    return nullptr;
                 }
 
                 
@@ -281,13 +281,13 @@ SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compile
                     if (false == SGScriptTranslator::getString(*it, &strValue))
                     {
                         compiler->addError(ScriptCompiler::CE_STRINGEXPECTED, prop->file, prop->line);
-                        return NULL;
+                        return nullptr;
                     }
 
                     if(!normalMapSubRenderState->setParameter("normalmap_space", strValue))
                     {
                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                        return NULL;
+                        return nullptr;
                     }
                 }
 
@@ -310,14 +310,14 @@ SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compile
                     if (false == SGScriptTranslator::getString(*it, &strValue))
                     {
                         compiler->addError(ScriptCompiler::CE_STRINGEXPECTED, prop->file, prop->line);
-                        return NULL;
+                        return nullptr;
                     }
 
                     // sampler reference
                     if(!normalMapSubRenderState->setParameter("sampler", strValue))
                     {
                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                        return NULL;
+                        return nullptr;
                     }
                 }
                                 
@@ -326,7 +326,7 @@ SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compile
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------

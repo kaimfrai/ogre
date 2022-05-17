@@ -344,7 +344,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
                 pass->getClearColour(),
                 pass->getClearDepth(),
                 pass->getClearStencil(),
-                pass->getAutomaticColour() ? mChain : NULL
+                pass->getAutomaticColour() ? mChain : nullptr
                 ));
             break;
         case CompositionPass::PT_STENCIL:
@@ -362,7 +362,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
                     StringConverter::toString(finalState.currentQueueGroupID));
             }
 
-            RSSetSchemeOperation* setSchemeOperation = 0;
+            RSSetSchemeOperation* setSchemeOperation = nullptr;
             if (!pass->getMaterialScheme().empty())
             {
                 //Add the triggers that will set the scheme and restore it each frame
@@ -379,7 +379,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
             }
             finalState.currentQueueGroupID = pass->getLastRenderQueue()+1;
 
-            if (setSchemeOperation != 0)
+            if (setSchemeOperation != nullptr)
             {
                 //Restoring the scheme after the queues have been rendered
                 queueRenderSystemOp(finalState, 
@@ -747,7 +747,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
                     {
                         tex = TextureManager::getSingleton().createManual(texname,
                                                                           RGN_INTERNAL, def->type,
-                                                                          width, height, 0, *p, TU_RENDERTARGET, 0,
+                                                                          width, height, 0, *p, TU_RENDERTARGET, nullptr,
                                                                           hwGamma && !PixelUtil::isFloatingPoint(*p), fsaa, fsaaHint ); 
                     }
                     
@@ -786,7 +786,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
                 {
                     tex = TextureManager::getSingleton().createManual(
                         texName, RGN_INTERNAL, def->type, width, height, 0, def->formatList[0],
-                        TU_RENDERTARGET, 0, hwGamma, fsaa, fsaaHint);
+                        TU_RENDERTARGET, nullptr, hwGamma, fsaa, fsaaHint);
                 }
 
                 mLocalTextures[def->name] = tex;
@@ -1029,7 +1029,7 @@ CompositorInstance::resolveTexReference(const CompositionTechnique::TextureDefin
     //This TextureDefinition is reference.
     //Since referenced TD's have no info except name we have to find original TD
 
-    CompositionTechnique::TextureDefinition* refTexDef = 0;
+    CompositionTechnique::TextureDefinition* refTexDef = nullptr;
 
     //Try chain first
     if (CompositorInstance* refCompInst = mChain->getCompositor(texDef->refCompName))
@@ -1077,7 +1077,7 @@ RenderTarget *CompositorInstance::getTargetForTex(const String &name, int slice)
     
     //Try reference : Find the instance and check if it is before us
     CompositionTechnique::TextureDefinition* texDef = mTechnique->getTextureDefinition(name);
-    if (texDef != 0 && !texDef->refCompName.empty()) 
+    if (texDef != nullptr && !texDef->refCompName.empty()) 
     {
         auto refTexDef = resolveTexReference(texDef);
 
@@ -1086,7 +1086,7 @@ RenderTarget *CompositorInstance::getTargetForTex(const String &name, int slice)
             case CompositionTechnique::TS_CHAIN:
             {
                 //Find the instance and check if it is before us
-                CompositorInstance* refCompInst = 0;
+                CompositorInstance* refCompInst = nullptr;
                 bool beforeMe = true;
                 for (CompositorInstance* nextCompInst : mChain->getCompositorInstances())
                 {
@@ -1139,7 +1139,7 @@ const TexturePtr &CompositorInstance::getSourceForTex(const String &name, size_t
             case CompositionTechnique::TS_CHAIN:
             {
                 //Find the instance and check if it is before us
-                CompositorInstance* refCompInst = 0;
+                CompositorInstance* refCompInst = nullptr;
                 bool beforeMe = true;
                 for (CompositorInstance* nextCompInst : mChain->getCompositorInstances())
                 {

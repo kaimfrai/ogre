@@ -169,7 +169,7 @@ namespace {
 }
 
     //---------------------------------------------------------------------
-    DDSCodec* DDSCodec::msInstance = 0;
+    DDSCodec* DDSCodec::msInstance = nullptr;
     //---------------------------------------------------------------------
     void DDSCodec::startup()
     {
@@ -192,7 +192,7 @@ namespace {
         {
             Codec::unregisterCodec(msInstance);
             delete msInstance;
-            msInstance = 0;
+            msInstance = nullptr;
         }
 
     }
@@ -403,7 +403,7 @@ namespace {
             flipEndian(&ddsMagic, sizeof(uint32));
             flipEndian(&ddsHeader, 4, sizeof(DDSHeader) / 4);
 
-            char *tmpData = 0;
+            char *tmpData = nullptr;
             char const *dataPtr = (char const *)input->getPtr();
 
             if( imgData->format == PF_B8G8R8 )
@@ -843,7 +843,7 @@ namespace {
 
         if (PixelUtil::isCompressed(sourceFormat))
         {
-            if (Root::getSingleton().getRenderSystem() == NULL ||
+            if (Root::getSingleton().getRenderSystem() == nullptr ||
                 !Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(RSC_TEXTURE_COMPRESSION_DXT))
             {
                 // We'll need to decompress

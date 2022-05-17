@@ -46,7 +46,7 @@ email                : pjcast@yahoo.com
 namespace Ogre 
 {
     //****************************************************************************************
-    template<> ExternalTextureSourceManager* Singleton<ExternalTextureSourceManager>::msSingleton = 0;
+    template<> ExternalTextureSourceManager* Singleton<ExternalTextureSourceManager>::msSingleton = nullptr;
     ExternalTextureSourceManager* ExternalTextureSourceManager::getSingletonPtr()
     {
         return msSingleton;
@@ -60,7 +60,7 @@ namespace Ogre
     //****************************************************************************************
     ExternalTextureSourceManager::ExternalTextureSourceManager()
     {
-        mCurrExternalTextureSource = 0;
+        mCurrExternalTextureSource = nullptr;
     }
 
     //****************************************************************************************
@@ -84,7 +84,7 @@ namespace Ogre
                 return;
             }
         }
-        mCurrExternalTextureSource = 0;
+        mCurrExternalTextureSource = nullptr;
     }
 
     //****************************************************************************************
@@ -137,7 +137,7 @@ namespace Ogre
             if( i->first == sTexturePlugInType )
                 return i->second;
         }
-        return 0;
+        return nullptr;
     }
 
     //****************************************************************************************

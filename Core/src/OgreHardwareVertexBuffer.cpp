@@ -481,7 +481,7 @@ namespace Ogre {
             }
         }
 
-        return NULL;
+        return nullptr;
 
 
     }

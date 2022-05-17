@@ -51,7 +51,7 @@ namespace Ogre {
         : mSplitPassesByLightingType(false)
         , mSplitNoShadowPasses(false)
         , mShadowCastersCannotBeReceivers(false)
-        , mRenderableListener(0)
+        , mRenderableListener(nullptr)
     {
         // Create the 'main' queue up-front since we'll always need that
         mGroups[RENDER_QUEUE_MAIN].reset(new RenderQueueGroup(
@@ -88,7 +88,7 @@ namespace Ogre {
             // Use default base white, with lighting only if vertices has normals
             RenderOperation op;
             pRend->getRenderOperation(op);
-            bool useLighting = (NULL != op.vertexData->vertexDeclaration->findElementBySemantic(VES_NORMAL));
+            bool useLighting = (nullptr != op.vertexData->vertexDeclaration->findElementBySemantic(VES_NORMAL));
             MaterialPtr defaultMat = MaterialManager::getSingleton().getDefaultMaterial(useLighting);
             defaultMat->load();
             pTech = defaultMat->getBestTechnique();

@@ -145,7 +145,7 @@ namespace Ogre {
             }
             else
             {
-                return 0;
+                return nullptr;
             }
         }
 
@@ -517,7 +517,7 @@ namespace Ogre {
             op.operationType = RenderOperation::OT_POINT_LIST;
             op.useIndexes = false;
             op.useGlobalInstancingVertexBufferIsAvailable = false;
-            op.indexData = 0;
+            op.indexData = nullptr;
             op.vertexData->vertexCount = mNumVisibleBillboards;
         }
         else
@@ -1177,7 +1177,7 @@ namespace Ogre {
         bool externalData = false;
         unsigned int poolSize = 0;
 
-        if (params != 0)
+        if (params != nullptr)
         {
             NameValuePairList::const_iterator ni = params->find("poolSize");
             if (ni != params->end())

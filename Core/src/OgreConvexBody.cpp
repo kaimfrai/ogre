@@ -676,7 +676,7 @@ namespace Ogre
             if ( bFound == false )
             {
                 delete[] bChecked;
-                bChecked = 0;
+                bChecked = nullptr;
                 return false;
             }
         }
@@ -686,13 +686,13 @@ namespace Ogre
             if ( bChecked[ i ] != true )
             {
                 delete[] bChecked;
-                bChecked = 0;
+                bChecked = nullptr;
                 return false;
             }
         }
 
         delete[] bChecked;
-        bChecked = 0;
+        bChecked = nullptr;
         return true;
     }
     //-----------------------------------------------------------------------
@@ -1046,14 +1046,14 @@ namespace Ogre
                 {
                     // delete pNew because it's empty or invalid
                     freePolygon(pNew);
-                    pNew = 0;
+                    pNew = nullptr;
                 }
             }
             else
             {
                 // delete pNew because it's empty or invalid
                 freePolygon(pNew);
-                pNew = 0;
+                pNew = nullptr;
             }
 
             // insert intersection polygon only, if there are two vertices present
@@ -1066,11 +1066,11 @@ namespace Ogre
             // delete intersection polygon
             // vertices were copied (if there were any)
             freePolygon(pIntersect);
-            pIntersect = 0;
+            pIntersect = nullptr;
 
             // delete side info
             delete[] side;
-            side = 0;
+            side = nullptr;
         }
 
         // if the polygon was partially clipped, close it

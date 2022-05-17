@@ -48,12 +48,12 @@ namespace OgreBites
         Ogre::RenderWindow* mWindow;
 
         SampleContext(const Ogre::String& appName = /*OGRE_VERSION_NAME*/"Tsathoggua")
-        : ApplicationContext(appName), mWindow(NULL)
+        : ApplicationContext(appName), mWindow(nullptr)
         {
-            mCurrentSample = 0;
+            mCurrentSample = nullptr;
             mSamplePaused = false;
             mLastRun = false;
-            mLastSample = 0;
+            mLastSample = nullptr;
         }
 
         virtual Sample* getCurrentSample()
@@ -125,7 +125,7 @@ namespace OgreBites
 
                 loadStartUpSample();
         
-                if (mRoot->getRenderSystem() != NULL)
+                if (mRoot->getRenderSystem() != nullptr)
                 {
                     mRoot->startRendering();    // start the render loop
                 }
@@ -191,7 +191,7 @@ namespace OgreBites
             // quit if window was closed
             if (mWindow->isClosed()) return false;
             // go into idle mode if current sample has ended
-            if (mCurrentSample && mCurrentSample->isDone()) runSample(0);
+            if (mCurrentSample && mCurrentSample->isDone()) runSample(nullptr);
 
             return true;
         }
@@ -329,7 +329,7 @@ namespace OgreBites
         {
             runSample(mLastSample);
             mLastSample->restoreState(mLastSampleState);
-            mLastSample = 0;
+            mLastSample = nullptr;
             mLastSampleState.clear();
         }
 
@@ -341,7 +341,7 @@ namespace OgreBites
             if (mCurrentSample)
             {
                 mCurrentSample->_shutdown();
-                mCurrentSample = 0;
+                mCurrentSample = nullptr;
             }
 
             ApplicationContext::shutdown();

@@ -77,7 +77,7 @@ class MovableObject;
 
         mRenderOp.vertexData = new VertexData();
 
-        mRenderOp.indexData = 0;
+        mRenderOp.indexData = nullptr;
         mRenderOp.vertexData->vertexCount = 4; 
         mRenderOp.vertexData->vertexStart = 0; 
         mRenderOp.operationType = RenderOperation::OT_TRIANGLE_STRIP; 

@@ -79,7 +79,7 @@ class HardwareBufferManagerBase;
             automatically, and arranges for their deletion afterwards.
         @param mgr Optional HardwareBufferManager from which to create resources
         */
-        VertexData(HardwareBufferManagerBase* mgr = 0);
+        VertexData(HardwareBufferManagerBase* mgr = nullptr);
         /** Constructor.
         @note 
         This constructor receives the VertexDeclaration and VertexBufferBinding
@@ -125,7 +125,7 @@ class HardwareBufferManagerBase;
         @remarks The caller is expected to delete the returned pointer when ready
         */
         [[nodiscard]]
-        VertexData* clone(bool copyData = true, HardwareBufferManagerBase* mgr = 0) const;
+        VertexData* clone(bool copyData = true, HardwareBufferManagerBase* mgr = nullptr) const;
 
         /** Modifies the vertex data to be suitable for use for rendering shadow geometry as in @cite mcguire2003fast
 
@@ -187,7 +187,7 @@ class HardwareBufferManagerBase;
             and buffers etc. If not supplied, the HardwareBufferManager singleton will be used
         */
         void reorganiseBuffers(VertexDeclaration* newDeclaration, const BufferUsageList& bufferUsage, 
-            HardwareBufferManagerBase* mgr = 0);
+            HardwareBufferManagerBase* mgr = nullptr);
 
         /** Reorganises the data in the vertex buffers according to the 
             new vertex declaration passed in. Note that new vertex buffers
@@ -206,7 +206,7 @@ class HardwareBufferManagerBase;
         @param mgr Optional pointer to the manager to use to create new declarations
             and buffers etc. If not supplied, the HardwareBufferManager singleton will be used
         */
-        void reorganiseBuffers(VertexDeclaration* newDeclaration, HardwareBufferManagerBase* mgr = 0);
+        void reorganiseBuffers(VertexDeclaration* newDeclaration, HardwareBufferManagerBase* mgr = nullptr);
 
         /** Remove any gaps in the vertex buffer bindings.
         @remarks
@@ -285,7 +285,7 @@ class HardwareBufferManagerBase;
         @param mgr If supplied, the buffer manager through which copies should be made
         @remarks The caller is expected to delete the returned pointer when finished
         */
-        IndexData* clone(bool copyData = true, HardwareBufferManagerBase* mgr = 0) const;
+        IndexData* clone(bool copyData = true, HardwareBufferManagerBase* mgr = nullptr) const;
 
         /** Re-order the indexes in this index data structure to be more
             vertex cache friendly; that is to re-use the same vertices as close

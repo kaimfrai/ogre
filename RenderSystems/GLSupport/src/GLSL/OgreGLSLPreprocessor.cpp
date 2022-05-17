@@ -263,8 +263,8 @@ namespace Ogre {
 
     CPreprocessor::CPreprocessor()
     {
-        Source = 0;
-        SourceEnd = 0;
+        Source = nullptr;
+        SourceEnd = nullptr;
         EnableOutput = 1;
         Line = 0;
         BOL = true;
@@ -412,7 +412,7 @@ namespace Ogre {
             if (cur.Name == iToken)
                 return &cur;
 
-        return NULL;
+        return nullptr;
     }
 
 
@@ -1401,7 +1401,7 @@ namespace Ogre {
     {
         Token retval = Parse (Token (Token::TK_TEXT, iSource, iLength));
         if (retval.Type == Token::TK_ERROR)
-            return NULL;
+            return nullptr;
 
         oLength = retval.Length;
         retval.Allocated = 0;

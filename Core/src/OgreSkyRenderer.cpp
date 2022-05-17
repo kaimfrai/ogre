@@ -65,14 +65,14 @@ class Node;
 class RenderQueue;
 
 SceneManager::SkyRenderer::SkyRenderer(SceneManager* owner)
-    : mSceneManager(owner), mSceneNode(0), mEnabled(false)
+    : mSceneManager(owner), mSceneNode(nullptr), mEnabled(false)
 {
 }
 
 void SceneManager::SkyRenderer::nodeDestroyed(const Node*)
 {
     // Remove sky nodes since they've been deleted
-    mSceneNode = 0;
+    mSceneNode = nullptr;
     mEnabled = false;
 }
 
@@ -144,7 +144,7 @@ void SceneManager::SkyPlaneRenderer::setSkyPlane(
         {
             // destroy old one, do it by name for speed
             mSceneManager->destroyEntity(meshName);
-            mSkyPlaneEntity = 0;
+            mSkyPlaneEntity = nullptr;
         }
         // Create, use the same name for mesh and entity
         // manually construct as we don't want this to be destroyed on destroyAllMovableObjects
@@ -364,7 +364,7 @@ void SceneManager::SkyDomeRenderer::setSkyDome(
             {
                 // destroy old one, do it by name for speed
                 mSceneManager->destroyEntity(entName);
-                mSkyDomeEntity[i] = 0;
+                mSkyDomeEntity[i] = nullptr;
             }
             // construct manually so we don't have problems if destroyAllMovableObjects called
             MovableObjectFactory* factory =

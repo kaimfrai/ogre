@@ -40,14 +40,14 @@ static unsigned FRAME_UPDATE_DELAY = 250; // ms
 Widget::Widget()
 {
     mTrayLoc = TL_NONE;
-    mElement = 0;
-    mListener = 0;
+    mElement = nullptr;
+    mListener = nullptr;
 }
 
 void Widget::cleanup()
 {
     if (mElement) nukeOverlayElement(mElement);
-    mElement = 0;
+    mElement = nullptr;
 }
 
 void Widget::nukeOverlayElement(Ogre::OverlayElement *element)
@@ -1131,8 +1131,8 @@ void ProgressBar::setProgress(Ogre::Real progress)
 
 TrayManager::TrayManager(const Ogre::String &name, Ogre::RenderWindow *window, TrayListener *listener) :
     mName(name), mWindow(window), mWidgetDeathRow(), mListener(listener), mWidgetPadding(8),
-    mWidgetSpacing(2), mTrayPadding(0), mTrayDrag(false), mExpandedMenu(0), mDialog(0), mOk(0), mYes(0),
-    mNo(0), mCursorWasVisible(false), mFpsLabel(0), mStatsPanel(0), mLogo(0),
+    mWidgetSpacing(2), mTrayPadding(0), mTrayDrag(false), mExpandedMenu(nullptr), mDialog(nullptr), mOk(nullptr), mYes(nullptr),
+    mNo(nullptr), mCursorWasVisible(false), mFpsLabel(nullptr), mStatsPanel(nullptr), mLogo(nullptr),
     mGroupInitProportion(0.0f), mGroupLoadProportion(0.0f), mLoadInc(0.0f)
 {
     mTimer = Ogre::Root::getSingleton().getTimer();
@@ -1275,7 +1275,7 @@ void TrayManager::hideCursor()
         }
     }
 
-    setExpandedMenu(0);
+    setExpandedMenu(nullptr);
 }
 
 void TrayManager::refreshCursor()
@@ -1303,7 +1303,7 @@ void TrayManager::hideTrays()
         }
     }
 
-    setExpandedMenu(0);
+    setExpandedMenu(nullptr);
 }
 
 void TrayManager::setTrayWidgetAlignment(TrayLocation trayLoc, Ogre::GuiHorizontalAlignment gha)
@@ -1570,8 +1570,8 @@ void TrayManager::hideFrameStats()
     {
         destroyWidget(mFpsLabel);
         destroyWidget(mStatsPanel);
-        mFpsLabel = 0;
-        mStatsPanel = 0;
+        mFpsLabel = nullptr;
+        mStatsPanel = nullptr;
     }
 }
 
@@ -1586,7 +1586,7 @@ void TrayManager::hideLogo()
     if (isLogoVisible())
     {
         destroyWidget(mLogo);
-        mLogo = 0;
+        mLogo = nullptr;
     }
 }
 
@@ -1606,8 +1606,8 @@ void TrayManager::showOkDialog(const Ogre::DisplayString &caption, const Ogre::D
             mNo->cleanup();
             delete mYes;
             delete mNo;
-            mYes = 0;
-            mNo = 0;
+            mYes = nullptr;
+            mNo = nullptr;
         }
     }
     else
@@ -1657,7 +1657,7 @@ void TrayManager::showYesNoDialog(const Ogre::DisplayString &caption, const Ogre
         {
             mOk->cleanup();
             delete mOk;
-            mOk = 0;
+            mOk = nullptr;
         }
         else return;
     }
@@ -1711,7 +1711,7 @@ void TrayManager::closeDialog()
         {
             mOk->cleanup();
             delete mOk;
-            mOk = 0;
+            mOk = nullptr;
         }
         else
         {
@@ -1719,14 +1719,14 @@ void TrayManager::closeDialog()
             mNo->cleanup();
             delete mYes;
             delete mNo;
-            mYes = 0;
-            mNo = 0;
+            mYes = nullptr;
+            mNo = nullptr;
         }
 
         mDialogShade->hide();
         mDialog->cleanup();
         delete mDialog;
-        mDialog = 0;
+        mDialog = nullptr;
 
         if (!mCursorWasVisible) hideCursor();
     }
@@ -1734,7 +1734,7 @@ void TrayManager::closeDialog()
 
 bool TrayManager::isDialogVisible()
 {
-    return mDialog != 0;
+    return mDialog != nullptr;
 }
 
 Widget *TrayManager::getWidget(TrayLocation trayLoc, const Ogre::String &name)
@@ -1743,7 +1743,7 @@ Widget *TrayManager::getWidget(TrayLocation trayLoc, const Ogre::String &name)
     {
         if (mWidgets[trayLoc][i]->getName() == name) return mWidgets[trayLoc][i];
     }
-    return 0;
+    return nullptr;
 }
 
 Widget *TrayManager::getWidget(const Ogre::String &name)
@@ -1755,7 +1755,7 @@ Widget *TrayManager::getWidget(const Ogre::String &name)
             if (mWidgets[i][j]->getName() == name) return mWidgets[i][j];
         }
     }
-    return 0;
+    return nullptr;
 }
 
 unsigned int TrayManager::getNumWidgets()
@@ -1784,9 +1784,9 @@ void TrayManager::destroyWidget(Widget *widget)
     if (!widget) OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, "Widget does not exist.", "TrayManager::destroyWidget");
 
     // in case special widgets are destroyed manually, set them to 0
-    if (widget == mLogo) mLogo = 0;
-    else if (widget == mStatsPanel) mStatsPanel = 0;
-    else if (widget == mFpsLabel) mFpsLabel = 0;
+    if (widget == mLogo) mLogo = nullptr;
+    else if (widget == mStatsPanel) mStatsPanel = nullptr;
+    else if (widget == mFpsLabel) mFpsLabel = nullptr;
 
     mTrays[widget->getTrayLocation()]->removeChild(widget->getName());
 
@@ -1795,7 +1795,7 @@ void TrayManager::destroyWidget(Widget *widget)
     if(it != wList.end())
         wList.erase(it);
 
-    if (widget == mExpandedMenu) setExpandedMenu(0);
+    if (widget == mExpandedMenu) setExpandedMenu(nullptr);
 
     widget->cleanup();
 
@@ -1960,7 +1960,7 @@ bool TrayManager::mousePressed(const MouseButtonEvent &evt)
     if (mExpandedMenu)   // only check top priority widget until it passes on
     {
         mExpandedMenu->_cursorPressed(cursorPos);
-        if (!mExpandedMenu->isExpanded()) setExpandedMenu(0);
+        if (!mExpandedMenu->isExpanded()) setExpandedMenu(nullptr);
         return true;
     }
 

@@ -426,7 +426,7 @@ class Sphere;
         @par
             Otherwise, @c false is returned.
         */
-        virtual bool isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy = 0) const;
+        virtual bool isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy = nullptr) const;
 
         /** Tests whether the given container is visible in the Frustum.
         @param bound
@@ -439,7 +439,7 @@ class Sphere;
         @par
             Otherwise, @c false is returned.
         */
-        virtual bool isVisible(const Sphere& bound, FrustumPlane* culledBy = 0) const;
+        virtual bool isVisible(const Sphere& bound, FrustumPlane* culledBy = nullptr) const;
 
         /** Tests whether the given vertex is visible in the Frustum.
         @param vert
@@ -452,7 +452,7 @@ class Sphere;
         @par
             Otherwise, @c false is returned.
         */
-        virtual bool isVisible(const Vector3& vert, FrustumPlane* culledBy = 0) const;
+        virtual bool isVisible(const Vector3& vert, FrustumPlane* culledBy = nullptr) const;
 
         uint32 getTypeFlags() const override;
         const AxisAlignedBox& getBoundingBox() const override;

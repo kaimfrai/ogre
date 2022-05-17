@@ -209,16 +209,16 @@ class Viewport;
         const Viewport *vp, const Light *light, Camera *texCam, size_t iteration) const
     {
         // check availability - viewport not needed
-        OgreAssert(sm != NULL, "SceneManager is NULL");
-        OgreAssert(cam != NULL, "Camera (viewer) is NULL");
-        OgreAssert(light != NULL, "Light is NULL");
-        OgreAssert(texCam != NULL, "Camera (texture) is NULL");
+        OgreAssert(sm != nullptr, "SceneManager is NULL");
+        OgreAssert(cam != nullptr, "Camera (viewer) is NULL");
+        OgreAssert(light != nullptr, "Light is NULL");
+        OgreAssert(texCam != nullptr, "Camera (texture) is NULL");
         mLightFrustumCameraCalculated = false;
 
 
         // calculate standard shadow mapping matrix
         Affine3 LView; Matrix4 LProj;
-        calculateShadowMappingMatrix(*sm, *cam, *light, &LView, &LProj, NULL);
+        calculateShadowMappingMatrix(*sm, *cam, *light, &LView, &LProj, nullptr);
         
         // if the direction of the light and the direction of the camera tend to be parallel,
         // then tweak up the adjust factor

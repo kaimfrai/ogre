@@ -161,7 +161,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Polygon::storeEdges( Polygon::EdgeMap *edgeMap ) const
     {
-        OgreAssert( edgeMap != NULL, "EdgeMap ptr is NULL" );
+        OgreAssert( edgeMap != nullptr, "EdgeMap ptr is NULL" );
 
         size_t vertexCount = getVertexCount();
 

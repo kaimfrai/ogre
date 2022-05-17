@@ -64,7 +64,7 @@ namespace {
         /// File list (since zziplib seems to only allow scanning of dir tree once)
         FileInfoList mFileList;
     public:
-        ZipArchive(const String& name, const String& archType, const uint8* externBuf = 0, size_t externBufSz = 0);
+        ZipArchive(const String& name, const String& archType, const uint8* externBuf = nullptr, size_t externBufSz = 0);
         ~ZipArchive();
         /// @copydoc Archive::isCaseSensitive
         [[nodiscard]] bool isCaseSensitive() const { return true; }
@@ -106,7 +106,7 @@ namespace {
 }
     //-----------------------------------------------------------------------
     ZipArchive::ZipArchive(const String& name, const String& archType, const uint8* externBuf, size_t externBufSz)
-        : Archive(name, archType), mZipFile(0)
+        : Archive(name, archType), mZipFile(nullptr)
     {
         if(externBuf)
             mBuffer.reset(new MemoryDataStream(const_cast<uint8*>(externBuf), externBufSz));
@@ -162,7 +162,7 @@ namespace {
         if (mZipFile)
         {
             zip_close(mZipFile);
-            mZipFile = 0;
+            mZipFile = nullptr;
             mFileList.clear();
             mBuffer.reset();
         }
@@ -301,7 +301,7 @@ namespace {
     Archive *ZipArchiveFactory::createInstance( const String& name, bool readOnly )
     {
         if(!readOnly)
-            return NULL;
+            return nullptr;
 
         return new ZipArchive(name, getType());
     }
@@ -341,7 +341,7 @@ namespace {
     {
         auto it = gEmbeddedFileDataList->find(name);
         if(it == gEmbeddedFileDataList->end())
-            return NULL;
+            return nullptr;
 
         // TODO: decryptFunc
 

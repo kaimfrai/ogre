@@ -68,10 +68,10 @@ class Any;
     //-----------------------------------------------------------------------
     MovableObject::MovableObject(const String& name)
         : mName(name)
-        , mCreator(0)
-        , mManager(0)
-        , mParentNode(0)
-        , mListener(0)
+        , mCreator(nullptr)
+        , mManager(nullptr)
+        , mParentNode(nullptr)
+        , mListener(nullptr)
         , mParentIsTagPoint(false)
         , mVisible(true)
         , mDebugDisplay(false)
@@ -175,7 +175,7 @@ class Any;
     //-----------------------------------------------------------------------
     bool MovableObject::isInScene() const
     {
-        if (mParentNode != 0)
+        if (mParentNode != nullptr)
         {
             if (mParentIsTagPoint)
             {
@@ -465,7 +465,7 @@ class Any;
 
         }
         void visit(Renderable* rend, ushort lodIndex, bool isDebug, 
-            Any* pAny = 0)
+            Any* pAny = nullptr)
         {
             Technique* tech = rend->getTechnique();
             bool techReceivesShadows = tech && tech->getParent()->getReceiveShadows();

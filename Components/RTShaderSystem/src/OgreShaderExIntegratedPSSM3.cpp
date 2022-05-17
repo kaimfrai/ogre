@@ -251,7 +251,7 @@ bool IntegratedPSSM3::resolveParameters(ProgramSet* programSet)
     
     // Get in/local diffuse parameter.
     mPSDiffuse = psMain->getInputParameter(Parameter::SPC_COLOR_DIFFUSE);
-    if (mPSDiffuse.get() == NULL)   
+    if (mPSDiffuse.get() == nullptr)   
     {
         mPSDiffuse = psMain->getLocalParameter(Parameter::SPC_COLOR_DIFFUSE);
     }
@@ -261,7 +261,7 @@ bool IntegratedPSSM3::resolveParameters(ProgramSet* programSet)
     
     // Get in/local specular parameter.
     mPSSpecualr = psMain->getInputParameter(Parameter::SPC_COLOR_SPECULAR);
-    if (mPSSpecualr.get() == NULL)  
+    if (mPSSpecualr.get() == nullptr)  
     {
         mPSSpecualr = psMain->getLocalParameter(Parameter::SPC_COLOR_SPECULAR);
     }
@@ -463,7 +463,7 @@ SubRenderState* IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler,
         }       
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------

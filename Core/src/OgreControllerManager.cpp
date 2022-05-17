@@ -34,7 +34,7 @@ THE SOFTWARE.
 
 namespace Ogre {
     //-----------------------------------------------------------------------
-    template<> ControllerManager* Singleton<ControllerManager>::msSingleton = 0;
+    template<> ControllerManager* Singleton<ControllerManager>::msSingleton = nullptr;
     ControllerManager* ControllerManager::getSingletonPtr()
     {
         return msSingleton;
@@ -116,7 +116,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Controller<Real>* ControllerManager::createTextureUVScroller(TextureUnitState* layer, Real speed)
     {
-        Controller<Real>* ret = 0;
+        Controller<Real>* ret = nullptr;
 
         if (speed != 0)
         {
@@ -131,7 +131,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Controller<Real>* ControllerManager::createTextureUScroller(TextureUnitState* layer, Real uSpeed)
     {
-        Controller<Real>* ret = 0;
+        Controller<Real>* ret = nullptr;
 
         if (uSpeed != 0)
         {
@@ -145,7 +145,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Controller<Real>* ControllerManager::createTextureVScroller(TextureUnitState* layer, Real vSpeed)
     {
-        Controller<Real>* ret = 0;
+        Controller<Real>* ret = nullptr;
 
         if (vSpeed != 0)
         {

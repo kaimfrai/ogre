@@ -80,7 +80,7 @@ class RenderTexture;
     GLPBRTTManager::GLPBRTTManager(GLNativeSupport *support, RenderTarget *mainwindow):
         mSupport(support),
         mMainWindow(mainwindow),
-        mMainContext(0)
+        mMainContext(nullptr)
     {
         mMainContext = dynamic_cast<GLRenderTarget*>(mMainWindow)->getContext();
     }  
@@ -114,7 +114,7 @@ class RenderTexture;
     { 
         // Copy on unbind
         GLSurfaceDesc surface;
-        surface.buffer = 0;
+        surface.buffer = nullptr;
         target->getCustomAttribute(GLRenderTexture::CustomAttributeString_TARGET, &surface);
         if(surface.buffer)
             static_cast<GLTextureBuffer*>(surface.buffer)->copyFromFramebuffer(surface.zoffset);
@@ -129,7 +129,7 @@ class RenderTexture;
             {
                 // If the current PBuffer is too small, destroy it and create a new one
                 delete mPBuffers[ctype].pb;
-                mPBuffers[ctype].pb = 0;
+                mPBuffers[ctype].pb = nullptr;
             }
         }
         if(!mPBuffers[ctype].pb)
@@ -147,7 +147,7 @@ class RenderTexture;
         if(mPBuffers[ctype].refcount == 0)
         {
             delete mPBuffers[ctype].pb;
-            mPBuffers[ctype].pb = 0;
+            mPBuffers[ctype].pb = nullptr;
         }
     }
     

@@ -58,7 +58,7 @@ namespace Ogre {
     ShadowRenderable::ShadowRenderable(MovableObject* parent, const HardwareIndexBufferSharedPtr& indexBuffer,
                                    const VertexData* vertexData, bool createSeparateLightCap,
                                    bool isLightCap)
-    : mLightCap(0), mParent(parent)
+    : mLightCap(nullptr), mParent(parent)
     {
         // Initialise render op
         mRenderOp.indexData = new IndexData();

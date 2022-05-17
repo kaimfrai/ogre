@@ -1292,13 +1292,13 @@ template <int dims, typename T> class Vector;
         void _setLogicalIndexes(const GpuLogicalBufferStructPtr& indexMap);
 
         /// Does this parameter set include named parameters?
-        [[nodiscard]] bool hasNamedParameters() const { return mNamedConstants.get() != 0; }
+        [[nodiscard]] bool hasNamedParameters() const { return mNamedConstants.get() != nullptr; }
         /** Does this parameter set include logically indexed parameters?
             @note Not mutually exclusive with hasNamedParameters since some high-level
             programs still use logical indexes to set the parameters on the
             rendersystem.
         */
-        [[nodiscard]] bool hasLogicalIndexedParameters() const { return mLogicalToPhysical.get() != 0; }
+        [[nodiscard]] bool hasLogicalIndexedParameters() const { return mLogicalToPhysical.get() != nullptr; }
 
         /// @name Set constant by logical index
         /// @{

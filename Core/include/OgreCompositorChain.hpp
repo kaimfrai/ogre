@@ -213,7 +213,7 @@ class SceneManager;
         class RQListener: public RenderQueueListener
         {
         public:
-            RQListener() : mOperation(0), mSceneManager(0), mRenderSystem(0), mViewport(0) {}
+            RQListener() : mOperation(nullptr), mSceneManager(nullptr), mRenderSystem(nullptr), mViewport(nullptr) {}
 
             void renderQueueStarted(uint8 queueGroupId, const String& invocation, bool& skipThisInvocation);
             void renderQueueEnded(uint8 queueGroupId, const String& invocation, bool& repeatThisInvocation);

@@ -94,7 +94,7 @@ namespace Ogre {
         mLodStrategy(LodStrategyManager::getSingleton().getDefaultStrategy()),
         mHasManualLodLevel(false),
         mNumLods(1),
-        mBufferManager(0),
+        mBufferManager(nullptr),
         mVertexBufferUsage(HardwareBuffer::HBU_STATIC_WRITE_ONLY),
         mIndexBufferUsage(HardwareBuffer::HBU_STATIC_WRITE_ONLY),
         mVertexBufferShadowBuffer(false),
@@ -106,13 +106,13 @@ namespace Ogre {
         mSharedVertexDataAnimationIncludesNormals(false),
         mAnimationTypesDirty(true),
         mPosesIncludeNormals(false),
-        sharedVertexData(0)
+        sharedVertexData(nullptr)
     {
         // Init first (manual) lod
         MeshLodUsage lod;
         lod.userValue = 0; // User value not used for base LOD level
         lod.value = getLodStrategy()->getBaseValue();
-        lod.edgeData = NULL;
+        lod.edgeData = nullptr;
         lod.manualMesh.reset();
         mMeshLodUsageList.push_back(lod);
     }
@@ -290,7 +290,7 @@ namespace Ogre {
         if (sharedVertexData)
         {
             delete sharedVertexData;
-            sharedVertexData = NULL;
+            sharedVertexData = nullptr;
         }
         // Clear SubMesh lists
         mSubMeshList.clear();
@@ -1178,7 +1178,7 @@ namespace Ogre {
         lod->manualName = meshName;
         lod->manualMesh.reset();
         delete lod->edgeData;
-        lod->edgeData = 0;
+        lod->edgeData = nullptr;
     }
     //---------------------------------------------------------------------
     void Mesh::_setLodInfo(unsigned short numLevels)
@@ -1258,7 +1258,7 @@ namespace Ogre {
         // Reinitialise
         mNumLods = 1;
         mMeshLodUsageList.resize(1);
-        mMeshLodUsageList[0].edgeData = NULL;
+        mMeshLodUsageList[0].edgeData = nullptr;
 
         if(edgeListWasBuilt)
             buildEdgeList();
@@ -1343,7 +1343,7 @@ namespace Ogre {
                     vDecl->modifyElement( elem_idx, uv0->getSource(), newOffset, newType,
                                             VES_TEXTURE_COORDINATES, newIdx );
                     vDecl->removeElement( VES_TEXTURE_COORDINATES, texCoordSetToDestroy );
-                    uv1 = 0;
+                    uv1 = nullptr;
                 }
 
                 vDecl->closeGapsInSource();
@@ -1572,7 +1572,7 @@ namespace Ogre {
                 vertexData = sm->vertexData;
             }
 
-            const VertexElement *sourceElem = 0;
+            const VertexElement *sourceElem = nullptr;
             unsigned short targetIndex = 0;
             for (targetIndex = 0; targetIndex < OGRE_MAX_TEXTURE_COORD_SETS; ++targetIndex)
             {
@@ -1775,7 +1775,7 @@ namespace Ogre {
                 // Manual LODs > 0 own their own
                 delete usage.edgeData;
             }
-            usage.edgeData = NULL;
+            usage.edgeData = nullptr;
         }
 
         mEdgeListsBuilt = false;
@@ -1838,12 +1838,12 @@ namespace Ogre {
         const Affine3* const* blendMatrices, size_t numMatrices,
         bool blendNormals)
     {
-        float *pSrcPos = 0;
-        float *pSrcNorm = 0;
-        float *pDestPos = 0;
-        float *pDestNorm = 0;
-        float *pBlendWeight = 0;
-        unsigned char* pBlendIdx = 0;
+        float *pSrcPos = nullptr;
+        float *pSrcNorm = nullptr;
+        float *pDestPos = nullptr;
+        float *pDestNorm = nullptr;
+        float *pBlendWeight = nullptr;
+        unsigned char* pBlendIdx = nullptr;
         size_t srcPosStride = 0;
         size_t srcNormStride = 0;
         size_t destPosStride = 0;
@@ -1870,7 +1870,7 @@ namespace Ogre {
             targetVertexData->vertexDeclaration->findElementBySemantic(VES_NORMAL);
 
         // Do we have normals and want to blend them?
-        bool includeNormals = blendNormals && (srcElemNorm != NULL) && (destElemNorm != NULL);
+        bool includeNormals = blendNormals && (srcElemNorm != nullptr) && (destElemNorm != nullptr);
 
 
         // Get buffers for source
@@ -2265,12 +2265,12 @@ namespace Ogre {
     //---------------------------------------------------------------------
     bool Mesh::hasAnimation(const String& name) const
     {
-        return _getAnimationImpl(name) != 0;
+        return _getAnimationImpl(name) != nullptr;
     }
     //---------------------------------------------------------------------
     Animation* Mesh::_getAnimationImpl(const String& name) const
     {
-        Animation* ret = 0;
+        Animation* ret = nullptr;
         AnimationList::const_iterator i = mAnimationsList.find(name);
 
         if (i != mAnimationsList.end())

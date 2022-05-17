@@ -91,23 +91,23 @@ namespace RTShader {
 		mPSInPosition = psMain->resolveInputParameter(mVSOutPosition);
 
 		mSamplerFromX = psProgram->resolveParameter(GCT_SAMPLER2D, "tp_sampler_from_x", mTextureSamplerIndexFromX);
-		if (mSamplerFromX.get() == NULL)
+		if (mSamplerFromX.get() == nullptr)
 			return false;
 
 		mSamplerFromY = psProgram->resolveParameter(GCT_SAMPLER2D, "tp_sampler_from_y", mTextureSamplerIndexFromY);
-		if (mSamplerFromY.get() == NULL)
+		if (mSamplerFromY.get() == nullptr)
 			return false;
 
 		mSamplerFromZ = psProgram->resolveParameter(GCT_SAMPLER2D, "tp_sampler_from_z", mTextureSamplerIndexFromZ);
-		if (mSamplerFromZ.get() == NULL)
+		if (mSamplerFromZ.get() == nullptr)
 			return false;
 
         mPSOutDiffuse = psMain->resolveOutputParameter(Parameter::SPC_COLOR_DIFFUSE);
-        if (mPSOutDiffuse.get() == NULL)    
+        if (mPSOutDiffuse.get() == nullptr)    
             return false;
     
         mPSTPParams = psProgram->resolveParameter(GCT_FLOAT3, "gTPParams");
-        if (mPSTPParams.get() == NULL)
+        if (mPSTPParams.get() == nullptr)
             return false;
         return true;
     }
@@ -248,19 +248,19 @@ namespace RTShader {
                 if (false == SGScriptTranslator::getFloat(*it, parameters))
                 {
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                    return NULL;
+                    return nullptr;
                 }
                 ++it;
                 if (false == SGScriptTranslator::getFloat(*it, parameters + 1))
                 {
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                    return NULL;
+                    return nullptr;
                 }
                 ++it;
                 if (false == SGScriptTranslator::getFloat(*it, parameters + 2))
                 {
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                    return NULL;
+                    return nullptr;
                 }
                 Vector3 vParameters(parameters[0], parameters[1], parameters[2]);
                 tpSubRenderState->setParameters(vParameters);
@@ -270,19 +270,19 @@ namespace RTShader {
                 if (false == SGScriptTranslator::getString(*it, &textureNameFromX))
                 {
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                    return NULL;
+                    return nullptr;
                 }
                 ++it;
                 if (false == SGScriptTranslator::getString(*it, &textureNameFromY))
                 {
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                    return NULL;
+                    return nullptr;
                 }
                 ++it;
                 if (false == SGScriptTranslator::getString(*it, &textureNameFromZ))
                 {
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                    return NULL;
+                    return nullptr;
                 }
                 tpSubRenderState->setTextureNames(textureNameFromX, textureNameFromY, textureNameFromZ);
 
@@ -293,7 +293,7 @@ namespace RTShader {
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
             }
         }
-        return NULL;
+        return nullptr;
     }
 
     //-----------------------------------------------------------------------

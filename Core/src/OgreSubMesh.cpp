@@ -55,8 +55,8 @@ class HardwareBufferManagerBase;
 
     //-----------------------------------------------------------------------
     SubMesh::SubMesh()
-        : vertexData(0)
-        , parent(0)
+        : vertexData(nullptr)
+        , parent(nullptr)
         , useSharedVertices(true)
         , operationType(RenderOperation::OT_TRIANGLE_LIST)
         , mBoneAssignmentsOutOfDate(false)
@@ -311,7 +311,7 @@ class HardwareBufferManagerBase;
         while (boxes.size () < count)
         {
             // Find the largest box with more than one vertex :)
-            Cluster *split_box = NULL;
+            Cluster *split_box = nullptr;
             Real split_volume = -1;
             for (std::vector<Cluster>::iterator b = boxes.begin ();
                  b != boxes.end (); ++b)
@@ -396,7 +396,7 @@ class HardwareBufferManagerBase;
         // This is a bit like a copy constructor, but with the additional aspect of registering the clone with
         //  the MeshManager
 
-        if(parentMesh == NULL)
+        if(parentMesh == nullptr)
             parentMesh = parent;
 
         HardwareBufferManagerBase* bufferManager = parentMesh->getHardwareBufferManager();

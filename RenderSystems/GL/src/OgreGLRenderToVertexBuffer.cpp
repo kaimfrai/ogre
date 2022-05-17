@@ -304,7 +304,7 @@ namespace Ogre {
         
         //Check if we are FixedFunc/ASM shaders (Static attributes) or GLSL (Varying attributes)
         //We assume that there isn't a mix of GLSL and ASM as this is illegal
-        GpuProgram* sampleProgram = 0;
+        GpuProgram* sampleProgram = nullptr;
         if (pass->hasVertexProgram())
         {
             sampleProgram = pass->getVertexProgram().get();
@@ -313,7 +313,7 @@ namespace Ogre {
         {
             sampleProgram = pass->getGeometryProgram().get();
         }
-        if ((sampleProgram != 0) && (sampleProgram->getLanguage() == "glsl"))
+        if ((sampleProgram != nullptr) && (sampleProgram->getLanguage() == "glsl"))
         {
             useVaryingAttributes = true;
         }

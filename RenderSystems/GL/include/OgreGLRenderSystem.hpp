@@ -184,7 +184,7 @@ struct GLGpuProgramBase;
         
         /// @copydoc RenderSystem::_createRenderWindow
         RenderWindow* _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
-                                          bool fullScreen, const NameValuePairList *miscParams = 0);
+                                          bool fullScreen, const NameValuePairList *miscParams = nullptr);
 
         /// @copydoc RenderSystem::_createDepthBufferFor
         DepthBuffer* _createDepthBufferFor( RenderTarget *renderTarget );
@@ -224,7 +224,7 @@ struct GLGpuProgramBase;
         void _setTextureCoordSet(size_t stage, size_t index);
 
         void _setTextureCoordCalculation(size_t stage, TexCoordCalcMethod m, 
-            const Frustum* frustum = 0);
+            const Frustum* frustum = nullptr);
 
         void _setTextureBlendMode(size_t stage, const LayerBlendModeEx& bm);
 

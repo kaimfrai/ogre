@@ -48,7 +48,7 @@ class Renderable;
     //-----------------------------------------------------------------------
     Material::Material(ResourceManager* creator, const String& name, ResourceHandle handle,
         const String& group, bool isManual, ManualResourceLoader* loader)
-        :Resource(creator, name, handle, group, false, NULL),
+        :Resource(creator, name, handle, group, false, nullptr),
          mReceiveShadows(true),
          mTransparencyCastsShadows(false),
          mCompilationRequired(true)
@@ -262,7 +262,7 @@ class Renderable;
     {
         Techniques::const_iterator i    = mTechniques.begin();
         Techniques::const_iterator iend = mTechniques.end();
-        Technique* foundTechnique = 0;
+        Technique* foundTechnique = nullptr;
 
         // iterate through techniques to find a match
         while (i != iend)
@@ -318,11 +318,11 @@ class Renderable;
     {
         if (mSupportedTechniques.empty())
         {
-            return NULL;
+            return nullptr;
         }
         else
         {
-            Technique* ret = 0;
+            Technique* ret = nullptr;
             MaterialManager& matMgr = MaterialManager::getSingleton();
             // get scheme
             auto si = mBestTechniquesBySchemeList.find(matMgr._getActiveSchemeIndex());

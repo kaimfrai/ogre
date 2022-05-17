@@ -52,7 +52,7 @@ namespace Ogre {
     Node::Node() : Node(BLANKSTRING) {}
     //-----------------------------------------------------------------------
     Node::Node(const String& name)
-        :mParent(0),
+        :mParent(nullptr),
         mName(name),
         mNeedParentUpdate(false),
         mNeedChildUpdate(false),
@@ -70,7 +70,7 @@ namespace Ogre {
         mInitialPosition(Vector3::ZERO),
         mInitialOrientation(Quaternion::IDENTITY),
         mInitialScale(Vector3::UNIT_SCALE),
-        mListener(0)
+        mListener(nullptr)
     {
         needUpdate();
     }
@@ -288,7 +288,7 @@ namespace Ogre {
             return mChildren[index];
         }
         else
-            return NULL;
+            return nullptr;
     }
     //-----------------------------------------------------------------------
     Node* Node::removeChild(unsigned short index)
@@ -304,7 +304,7 @@ namespace Ogre {
 
         std::swap(*i, mChildren.back());
         mChildren.pop_back();
-        ret->setParent(NULL);
+        ret->setParent(nullptr);
         return ret;
     }
     //-----------------------------------------------------------------------
@@ -320,7 +320,7 @@ namespace Ogre {
 
                 std::swap(*i, mChildren.back());
                 mChildren.pop_back();
-                child->setParent(NULL);
+                child->setParent(nullptr);
             }
         }
         return child;
@@ -524,7 +524,7 @@ namespace Ogre {
         iend = mChildren.end();
         for (i = mChildren.begin(); i != iend; ++i)
         {
-            (*i)->setParent(0);
+            (*i)->setParent(nullptr);
         }
         mChildren.clear();
         mChildrenToUpdate.clear();
@@ -619,7 +619,7 @@ namespace Ogre {
         cancelUpdate(ret);
         std::swap(*i, mChildren.back());
         mChildren.pop_back();
-        ret->setParent(NULL);
+        ret->setParent(nullptr);
 
         return ret;
 

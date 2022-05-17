@@ -315,7 +315,7 @@ namespace Ogre {
     {
         Passes::const_iterator i    = mPasses.begin();
         Passes::const_iterator iend = mPasses.end();
-        Pass* foundPass = 0;
+        Pass* foundPass = nullptr;
 
         // iterate through techniques to find a match
         while (i != iend)

@@ -57,7 +57,7 @@ class ResourceManager;
     {
     public:
         GLGpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual = false, ManualResourceLoader* loader = 0);
+            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         virtual ~GLGpuProgram();
     protected:
 
@@ -69,7 +69,7 @@ class ResourceManager;
     {
     public:
         GLArbGpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual = false, ManualResourceLoader* loader = 0);
+            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         virtual ~GLArbGpuProgram();
 
         /// Execute the binding functions for this program

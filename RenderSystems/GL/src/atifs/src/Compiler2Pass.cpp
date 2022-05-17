@@ -66,7 +66,7 @@ void Compiler2Pass::InitSymbolTypeLib()
             case otOR:
             case otOPTIONAL:
                 // update text index in typelib
-                if (mRootRulePath[i].mSymbol != NULL) mSymbolTypeLib[token_ID].mDefTextID = i;
+                if (mRootRulePath[i].mSymbol != nullptr) mSymbolTypeLib[token_ID].mDefTextID = i;
                 break;
             case otREPEAT:
             case otEND:
@@ -83,7 +83,7 @@ bool Compiler2Pass::compile(const char* source)
 
     mSource = source;
     // start compiling if there is a rule base to work with
-    if(mRootRulePath != NULL) {
+    if(mRootRulePath != nullptr) {
          Passed = doPass1();
 
         if(Passed) {
@@ -288,7 +288,7 @@ bool Compiler2Pass::isFloatValue(float& fvalue, int& charsize)
     bool valuefound = false;
 
     const char* startptr = mSource + mCharPos;
-    char* endptr = NULL;
+    char* endptr = nullptr;
 
     fvalue = (float)strtod(startptr, &endptr);
     // if a valid float was found then endptr will have the pointer to the first invalid character

@@ -52,7 +52,7 @@ namespace Ogre {
     #define SCRATCH_POOL_SIZE 1 * 1024 * 1024
     //---------------------------------------------------------------------
     GLHardwareBufferManager::GLHardwareBufferManager()
-        : mScratchBufferPool(NULL), mMapBufferThreshold(OGRE_GL_DEFAULT_MAP_BUFFER_THRESHOLD)
+        : mScratchBufferPool(nullptr), mMapBufferThreshold(OGRE_GL_DEFAULT_MAP_BUFFER_THRESHOLD)
     {
         mRenderSystem = static_cast<GLRenderSystem*>(Root::getSingleton().getRenderSystem());
 
@@ -192,7 +192,7 @@ namespace Ogre {
         }
 
         // no available alloc
-        return 0;
+        return nullptr;
 
     }
     //---------------------------------------------------------------------
@@ -200,7 +200,7 @@ namespace Ogre {
     {
         // Simple linear search dealloc
         uint32 bufferPos = 0;
-        GLScratchBufferAlloc* pLast = 0;
+        GLScratchBufferAlloc* pLast = nullptr;
         while (bufferPos < SCRATCH_POOL_SIZE)
         {
             GLScratchBufferAlloc* pCurrent = (GLScratchBufferAlloc*)(mScratchBufferPool + bufferPos);

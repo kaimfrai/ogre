@@ -1472,7 +1472,7 @@ namespace Ogre
         bool skipWriting = false;
 
         // Fire pre-write event.
-        fireGpuProgramRefEvent(MSE_PRE_WRITE, skipWriting, attrib, program, params, NULL);
+        fireGpuProgramRefEvent(MSE_PRE_WRITE, skipWriting, attrib, program, params, nullptr);
         if (skipWriting)        
             return;
 
@@ -1482,7 +1482,7 @@ namespace Ogre
         beginSection(3);
         {
             // write out parameters
-            GpuProgramParameters* defaultParams = 0;
+            GpuProgramParameters* defaultParams = nullptr;
             // does the GPU program have default parameters?
             if (program->hasDefaultParameters())
                 defaultParams = program->getDefaultParameters().get();
@@ -1501,7 +1501,7 @@ namespace Ogre
         mGpuProgramDefinitionContainer.insert(program->getName());
 
         // Fire post section write event.
-        fireGpuProgramRefEvent(MSE_POST_WRITE, skipWriting, attrib, program, params, NULL);     
+        fireGpuProgramRefEvent(MSE_POST_WRITE, skipWriting, attrib, program, params, nullptr);     
     }
     //-----------------------------------------------------------------------
     void MaterialSerializer::writeGPUProgramParameters(
@@ -1534,7 +1534,7 @@ namespace Ogre
             // get any auto-link
             const GpuProgramParameters::AutoConstantEntry* autoEntry = 
                 params->findAutoConstantEntry(paramName);
-            const GpuProgramParameters::AutoConstantEntry* defaultAutoEntry = 0;
+            const GpuProgramParameters::AutoConstantEntry* defaultAutoEntry = nullptr;
             if (defaultParams)
             {
                 defaultAutoEntry = 
@@ -1570,7 +1570,7 @@ namespace Ogre
 
                 const GpuProgramParameters::AutoConstantEntry* autoEntry = 
                     params->findFloatAutoConstantEntry(logicalIndex);
-                const GpuProgramParameters::AutoConstantEntry* defaultAutoEntry = 0;
+                const GpuProgramParameters::AutoConstantEntry* defaultAutoEntry = nullptr;
                 if (defaultParams)
                 {
                     defaultAutoEntry = defaultParams->findFloatAutoConstantEntry(logicalIndex);
@@ -1608,7 +1608,7 @@ namespace Ogre
         if (defaultParams)
         {
             // if default is auto but we're not or vice versa
-            if ((autoEntry == 0) != (defaultAutoEntry == 0))
+            if ((autoEntry == nullptr) != (defaultAutoEntry == nullptr))
             {
                 different = true;
             }
@@ -1839,7 +1839,7 @@ namespace Ogre
                     GpuProgramParametersSharedPtr gpuDefaultParams = program->getDefaultParameters();
                     writeAttribute(1, "default_params", false);
                     beginSection(1, false);
-                    writeGPUProgramParameters(gpuDefaultParams, 0, 2, false);
+                    writeGPUProgramParameters(gpuDefaultParams, nullptr, 2, false);
                     endSection(1, false);
                 }
             }

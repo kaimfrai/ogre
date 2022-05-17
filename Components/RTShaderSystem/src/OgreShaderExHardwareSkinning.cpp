@@ -72,7 +72,7 @@ namespace Ogre {
 
 
 namespace Ogre {
-template<> RTShader::HardwareSkinningFactory* Singleton<RTShader::HardwareSkinningFactory>::msSingleton = 0;
+template<> RTShader::HardwareSkinningFactory* Singleton<RTShader::HardwareSkinningFactory>::msSingleton = nullptr;
 
 namespace RTShader {
 
@@ -91,7 +91,7 @@ String HardwareSkinning::Type = "SGX_HardwareSkinning";
 /*                                                                      */
 /************************************************************************/
 HardwareSkinning::HardwareSkinning() :
-    mCreator(NULL),
+    mCreator(nullptr),
     mSkinningType(ST_LINEAR)
 {
 }
@@ -213,7 +213,7 @@ bool HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass*
     bool doBoneCalculations =  isValid &&
         (boneCount != 0) && (boneCount <= 256) &&
         (weightCount != 0) && (weightCount <= 4) &&
-        ((mCreator == NULL) || (boneCount <= mCreator->getMaxCalculableBoneCount()));
+        ((mCreator == nullptr) || (boneCount <= mCreator->getMaxCalculableBoneCount()));
 
     // This requires GLES3.0
     if (ShaderGenerator::getSingleton().getTargetLanguage() == "glsles" &&
@@ -332,7 +332,7 @@ SubRenderState* HardwareSkinningFactory::createInstance(ScriptCompiler* compiler
         if (hasError == true)
         {
             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-            return NULL;
+            return nullptr;
         }
         else
         {
@@ -346,7 +346,7 @@ SubRenderState* HardwareSkinningFactory::createInstance(ScriptCompiler* compiler
 
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------
@@ -456,7 +456,7 @@ void HardwareSkinningFactory::prepareEntityForSkinning(const Entity* pEntity, Sk
         !GpuProgramManager::getSingleton().isSyntaxSupported("glsl300es"))
         return;
 
-    if (pEntity != NULL) 
+    if (pEntity != nullptr) 
     {
         size_t lodLevels = pEntity->getNumManualLodLevels() + 1;
         for(size_t indexLod = 0 ; indexLod < lodLevels ; ++indexLod)
@@ -506,7 +506,7 @@ bool HardwareSkinningFactory::extractSkeletonData(const Entity* pEntity, size_t 
         //check that they have blend indices and blend weights
         const VertexElement* pDeclWeights = ro.vertexData->vertexDeclaration->findElementBySemantic(VES_BLEND_WEIGHTS,0);
         const VertexElement* pDeclIndexes = ro.vertexData->vertexDeclaration->findElementBySemantic(VES_BLEND_INDICES,0);
-        if ((pDeclWeights != NULL) && (pDeclIndexes != NULL))
+        if ((pDeclWeights != nullptr) && (pDeclIndexes != nullptr))
         {
             isValidData = true;
             switch (pDeclWeights->getType())

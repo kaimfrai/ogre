@@ -80,7 +80,7 @@ class Sphere;
 
     //-----------------------------------------------------------------------
     Entity::Entity ()
-        : mAnimationState(NULL),
+        : mAnimationState(nullptr),
           mTempSkelAnimInfo(),
           mTempVertexAnimInfo(),
           mVertexAnimationAppliedThisFrame(false),
@@ -94,11 +94,11 @@ class Sphere;
           mInitialised(false),
           mHardwarePoseCount(0),
           mNumBoneMatrices(0),
-          mBoneWorldMatrices(NULL),
-          mBoneMatrices(NULL),
+          mBoneWorldMatrices(nullptr),
+          mBoneMatrices(nullptr),
           mFrameAnimationLastUpdated(std::numeric_limits<unsigned long>::max()),
-          mFrameBonesLastUpdated(NULL),
-          mSharedSkeletonEntities(NULL),
+          mFrameBonesLastUpdated(nullptr),
+          mSharedSkeletonEntities(nullptr),
         mSoftwareAnimationRequests(0),
         mSoftwareAnimationNormalsRequests(0),
         mMeshLodIndex(0),
@@ -109,7 +109,7 @@ class Sphere;
         mMaterialLodFactorTransformed(1.0f),
         mMinMaterialLodIndex(99),
         mMaxMaterialLodIndex(0),        // Backwards, remember low value = high detail
-        mSkeletonInstance(0),
+        mSkeletonInstance(nullptr),
         mLastParentXform(Affine3::ZERO),
         mMeshStateCount(0),
         mFullBoundingBox()
@@ -266,7 +266,7 @@ class Sphere;
 
         if (mSkeletonInstance) {
             ::Ogre::AlignedMemory::deallocate(mBoneWorldMatrices);
-            mBoneWorldMatrices = 0;
+            mBoneWorldMatrices = nullptr;
 
             if (mSharedSkeletonEntities) {
                 mSharedSkeletonEntities->erase(this);
@@ -277,18 +277,18 @@ class Sphere;
                 // Should never occur, just in case
                 else if (mSharedSkeletonEntities->empty())
                 {
-                    delete mSharedSkeletonEntities; mSharedSkeletonEntities = 0;
+                    delete mSharedSkeletonEntities; mSharedSkeletonEntities = nullptr;
 
-                    delete[] mFrameBonesLastUpdated; mFrameBonesLastUpdated = 0;
-                    delete mSkeletonInstance; mSkeletonInstance = 0;
-                    ::Ogre::AlignedMemory::deallocate(mBoneMatrices); mBoneMatrices = 0;
-                    delete mAnimationState; mAnimationState = 0;
+                    delete[] mFrameBonesLastUpdated; mFrameBonesLastUpdated = nullptr;
+                    delete mSkeletonInstance; mSkeletonInstance = nullptr;
+                    ::Ogre::AlignedMemory::deallocate(mBoneMatrices); mBoneMatrices = nullptr;
+                    delete mAnimationState; mAnimationState = nullptr;
                 }
             } else {
-                delete[] mFrameBonesLastUpdated; mFrameBonesLastUpdated = 0;
-                delete mSkeletonInstance; mSkeletonInstance = 0;
-                ::Ogre::AlignedMemory::deallocate(mBoneMatrices); mBoneMatrices = 0;
-                delete mAnimationState; mAnimationState = 0;
+                delete[] mFrameBonesLastUpdated; mFrameBonesLastUpdated = nullptr;
+                delete mSkeletonInstance; mSkeletonInstance = nullptr;
+                ::Ogre::AlignedMemory::deallocate(mBoneMatrices); mBoneMatrices = nullptr;
+                delete mAnimationState; mAnimationState = nullptr;
             }
         }
         else
@@ -296,7 +296,7 @@ class Sphere;
             //Non-skeletally animated objects don't share the mAnimationState. Always delete.
             //See https://ogre3d.atlassian.net/browse/OGRE-504
             delete mAnimationState;
-            mAnimationState = 0;
+            mAnimationState = nullptr;
         }
 
         mSkelAnimVertexData.reset();
@@ -1579,7 +1579,7 @@ class Sphere;
         // free the TagPoint so we can reuse it later
         mSkeletonInstance->freeTagPoint(tp);
 
-        pObject->_notifyAttached((TagPoint*)0);
+        pObject->_notifyAttached((TagPoint*)nullptr);
     }
     //-----------------------------------------------------------------------
     void Entity::detachAllObjectsImpl()
@@ -2058,7 +2058,7 @@ class Sphere;
     {
         if (orig == mMesh->sharedVertexData)
         {
-            return 0;
+            return nullptr;
         }
 
         SubEntityList::iterator i, iend;
@@ -2073,7 +2073,7 @@ class Sphere;
         }
 
         // None found
-        return 0;
+        return nullptr;
     }
     //-----------------------------------------------------------------------
     void Entity::addSoftwareAnimationRequest(bool normalsAlso)
@@ -2134,7 +2134,7 @@ class Sphere;
     //-----------------------------------------------------------------------
     void Entity::EntityShadowRenderable::_createSeparateLightCap()
     {
-        if (mLightCap == NULL)
+        if (mLightCap == nullptr)
         {
             // Create child light cap
             mLightCap = new EntityShadowRenderable(mParent,
@@ -2213,7 +2213,7 @@ class Sphere;
                    "must not share it's instance");
 
         //check if we already share our skeletoninstance, we don't want to delete it if so
-        if (mSharedSkeletonEntities != NULL)
+        if (mSharedSkeletonEntities != nullptr)
         {
             entity->shareSkeletonInstanceWith(this);
         }
@@ -2229,7 +2229,7 @@ class Sphere;
             mBoneMatrices = entity->mBoneMatrices;
             mAnimationState = entity->mAnimationState;
             mFrameBonesLastUpdated = entity->mFrameBonesLastUpdated;
-            if (entity->mSharedSkeletonEntities == NULL)
+            if (entity->mSharedSkeletonEntities == nullptr)
             {
                 entity->mSharedSkeletonEntities = new EntitySet();
                 entity->mSharedSkeletonEntities->insert(entity);
@@ -2247,7 +2247,7 @@ class Sphere;
         {
             //just reset
             delete mSharedSkeletonEntities;
-            mSharedSkeletonEntities = 0;
+            mSharedSkeletonEntities = nullptr;
         }
         else
         {
@@ -2265,7 +2265,7 @@ class Sphere;
             {
                 (*mSharedSkeletonEntities->begin())->stopSharingSkeletonInstance();
             }
-            mSharedSkeletonEntities = 0;
+            mSharedSkeletonEntities = nullptr;
         }
     }
     //-----------------------------------------------------------------------
@@ -2376,7 +2376,7 @@ class Sphere;
     {
         // must have mesh parameter
         MeshPtr pMesh;
-        if (params != 0)
+        if (params != nullptr)
         {
             String groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;
 

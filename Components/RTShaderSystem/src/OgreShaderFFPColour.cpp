@@ -89,17 +89,17 @@ bool FFPColour::resolveParameters(ProgramSet* programSet)
         mVSInputDiffuse  = vsMain->resolveInputParameter(Parameter::SPC_COLOR_DIFFUSE);
 
     // Resolve VS color outputs if have inputs from vertex stream.
-    if (mVSInputDiffuse.get() != NULL || mResolveStageFlags & SF_VS_OUTPUT_DIFFUSE)
+    if (mVSInputDiffuse.get() != nullptr || mResolveStageFlags & SF_VS_OUTPUT_DIFFUSE)
         mVSOutputDiffuse = vsMain->resolveOutputParameter(Parameter::SPC_COLOR_DIFFUSE);
 
     if (mResolveStageFlags & SF_VS_OUTPUT_SPECULAR)
         mVSOutputSpecular = vsMain->resolveOutputParameter(Parameter::SPC_COLOR_SPECULAR);
 
     // Resolve PS color inputs if have inputs from vertex shader.
-    if (mVSOutputDiffuse.get() != NULL || mResolveStageFlags & SF_PS_INPUT_DIFFUSE)
+    if (mVSOutputDiffuse.get() != nullptr || mResolveStageFlags & SF_PS_INPUT_DIFFUSE)
         mPSInputDiffuse = psMain->resolveInputParameter(Parameter::SPC_COLOR_DIFFUSE);
 
-    if (mVSOutputSpecular.get() != NULL || mResolveStageFlags & SF_PS_INPUT_SPECULAR)
+    if (mVSOutputSpecular.get() != nullptr || mResolveStageFlags & SF_PS_INPUT_SPECULAR)
         mPSInputSpecular = psMain->resolveInputParameter(Parameter::SPC_COLOR_SPECULAR);
 
 
@@ -160,7 +160,7 @@ bool FFPColour::addFunctionInvocations(ProgramSet* programSet)
     auto psStage = psMain->getStage(FFP_PS_COLOUR_BEGIN);
 
     // Handle diffuse colour.
-    if (mPSInputDiffuse.get() != NULL)
+    if (mPSInputDiffuse.get() != nullptr)
     {
         psDiffuse = mPSInputDiffuse;                
     }
@@ -230,7 +230,7 @@ SubRenderState* FFPColourFactory::createInstance(ScriptCompiler* compiler,
             if(false == SGScriptTranslator::getString(prop->values.front(), &modelType))
             {
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                return NULL;
+                return nullptr;
             }
 
             if (modelType == "ffp")
@@ -240,7 +240,7 @@ SubRenderState* FFPColourFactory::createInstance(ScriptCompiler* compiler,
         }       
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------

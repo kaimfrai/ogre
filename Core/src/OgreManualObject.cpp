@@ -77,11 +77,11 @@ class Camera;
 #define TEMP_INITIAL_INDEX_SIZE sizeof(uint32) * TEMP_INITIAL_SIZE
     //-----------------------------------------------------------------------------
 ManualObject::ManualObject(const String& name)
-    : MovableObject(name), mBufferUsage(HardwareBuffer::HBU_STATIC_WRITE_ONLY), mCurrentSection(0),
-      mCurrentUpdating(false), mFirstVertex(true), mTempVertexPending(false), mTempVertexBuffer(0),
-      mTempVertexSize(TEMP_INITIAL_VERTEX_SIZE), mTempIndexBuffer(0),
+    : MovableObject(name), mBufferUsage(HardwareBuffer::HBU_STATIC_WRITE_ONLY), mCurrentSection(nullptr),
+      mCurrentUpdating(false), mFirstVertex(true), mTempVertexPending(false), mTempVertexBuffer(nullptr),
+      mTempVertexSize(TEMP_INITIAL_VERTEX_SIZE), mTempIndexBuffer(nullptr),
       mTempIndexSize(TEMP_INITIAL_INDEX_SIZE), mDeclSize(0), mEstVertexCount(0), mEstIndexCount(0),
-      mTexCoordIndex(0), mRadius(0), mAnyIndexed(false), mEdgeList(0), mUseIdentityProjection(false),
+      mTexCoordIndex(0), mRadius(0), mAnyIndexed(false), mEdgeList(nullptr), mUseIdentityProjection(false),
       mUseIdentityView(false), mKeepDeclarationOrder(false)
 {
     }
@@ -102,7 +102,7 @@ ManualObject::ManualObject(const String& name)
         mRadius = 0;
         mAABB.setNull();
         delete mEdgeList;
-        mEdgeList = 0;
+        mEdgeList = nullptr;
         mAnyIndexed = false;
 
         clearShadowRenderableList(mShadowRenderables);
@@ -112,8 +112,8 @@ ManualObject::ManualObject(const String& name)
     {
         delete[] mTempVertexBuffer;
         delete[] mTempIndexBuffer;
-        mTempVertexBuffer = 0;
-        mTempIndexBuffer = 0;
+        mTempVertexBuffer = nullptr;
+        mTempIndexBuffer = nullptr;
         mTempVertexSize = TEMP_INITIAL_VERTEX_SIZE;
         mTempIndexSize = TEMP_INITIAL_INDEX_SIZE;
     }
@@ -304,8 +304,8 @@ ManualObject::ManualObject(const String& name)
         for (VertexDeclaration::VertexElementList::const_iterator i = elemList.begin();
             i != elemList.end(); ++i)
         {
-            float* pFloat = 0;
-            RGBA* pRGBA = 0;
+            float* pFloat = nullptr;
+            RGBA* pRGBA = nullptr;
             const VertexElement& elem = *i;
             switch(elem.getType())
             {
@@ -370,7 +370,7 @@ ManualObject::ManualObject(const String& name)
         }
 
         // pointer that will be returned
-        ManualObjectSection* result = NULL;
+        ManualObjectSection* result = nullptr;
 
         RenderOperation* rop = mCurrentSection->getRenderOperation();
         // Check for empty content
@@ -472,7 +472,7 @@ ManualObject::ManualObject(const String& name)
 
         } // empty section check
 
-        mCurrentSection = 0;
+        mCurrentSection = nullptr;
         resetTempAreas();
 
         // Tell parent if present

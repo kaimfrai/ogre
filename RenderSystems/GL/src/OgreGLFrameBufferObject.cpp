@@ -227,7 +227,7 @@ class DepthBuffer;
         // Bind it to FBO
         const GLuint fb = mMultisampleFB ? mMultisampleFB : mFB;
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fb);
-        return mContext != 0;
+        return mContext != nullptr;
     }
 
     void GLFrameBufferObject::swapBuffers()

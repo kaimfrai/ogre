@@ -170,7 +170,7 @@ namespace Ogre
 
     // ImportAbstractNode
     ImportAbstractNode::ImportAbstractNode()
-        :AbstractNode(0)
+        :AbstractNode(nullptr)
     {
         type = ANT_IMPORT;
     }
@@ -278,7 +278,7 @@ namespace Ogre
     }
 
     ScriptCompiler::ScriptCompiler()
-        :mListener(0)
+        :mListener(nullptr)
     {
         initWordMap();
     }
@@ -475,7 +475,7 @@ namespace Ogre
 
         if(!nodes && ResourceGroupManager::getSingletonPtr())
         {
-            auto stream = ResourceGroupManager::getSingleton().openResource(name, mGroup, NULL, false);
+            auto stream = ResourceGroupManager::getSingleton().openResource(name, mGroup, nullptr, false);
 
             if (!stream)
                 return retval;
@@ -806,7 +806,7 @@ namespace Ogre
                 VariableAccessAbstractNode *var = (VariableAccessAbstractNode*)(*cur).get();
 
                 // Look up the enclosing scope
-                ObjectAbstractNode *scope = 0;
+                ObjectAbstractNode *scope = nullptr;
                 AbstractNode *temp = var->parent;
                 while(temp)
                 {
@@ -1185,7 +1185,7 @@ namespace Ogre
 
     // AbstractTreeeBuilder
     ScriptCompiler::AbstractTreeBuilder::AbstractTreeBuilder(ScriptCompiler *compiler)
-        :mNodes(new AbstractNodeList()), mCurrent(0), mCompiler(compiler)
+        :mNodes(new AbstractNodeList()), mCurrent(nullptr), mCompiler(compiler)
     {
     }
 
@@ -1199,7 +1199,7 @@ namespace Ogre
         AbstractNodePtr asn;
 
         // Import = "import" >> 2 children, mCurrent == null
-        if(node->type == CNT_IMPORT && mCurrent == 0)
+        if(node->type == CNT_IMPORT && mCurrent == nullptr)
         {
             if(node->children.size() > 2)
             {
@@ -1460,7 +1460,7 @@ namespace Ogre
     
 
     // ScriptCompilerManager
-    template<> ScriptCompilerManager *Singleton<ScriptCompilerManager>::msSingleton = 0;
+    template<> ScriptCompilerManager *Singleton<ScriptCompilerManager>::msSingleton = nullptr;
     
     ScriptCompilerManager* ScriptCompilerManager::getSingletonPtr()
     {
@@ -1524,13 +1524,13 @@ namespace Ogre
     //-----------------------------------------------------------------------
     ScriptTranslator *ScriptCompilerManager::getTranslator(const AbstractNodePtr &node)
     {
-        ScriptTranslator *translator = 0;
+        ScriptTranslator *translator = nullptr;
         {
             // Start looking from the back
             for(std::vector<ScriptTranslatorManager*>::reverse_iterator i = mManagers.rbegin(); i != mManagers.rend(); ++i)
             {
                 translator = (*i)->getTranslator(node);
-                if(translator != 0)
+                if(translator != nullptr)
                     break;
             }
         }

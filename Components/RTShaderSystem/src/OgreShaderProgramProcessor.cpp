@@ -75,7 +75,7 @@ void ProgramProcessor::bindAutoParameters(Program* pCpuProgram, GpuProgramPtr pG
         const UniformParameterPtr pCurParam = *itParams;
         const GpuConstantDefinition* gpuConstDef = pGpuParams->_findNamedConstantDefinition(pCurParam->getName());
     
-        if (gpuConstDef != NULL)
+        if (gpuConstDef != nullptr)
         {
             // Handle auto parameters.
             if (pCurParam->isAutoConstantParameter())

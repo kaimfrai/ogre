@@ -61,7 +61,7 @@ namespace Ogre {
     SceneNode::SceneNode(SceneManager* creator, const String& name)
         : Node(name)
         , mCreator(creator)
-        , mAutoTrackTarget(0)
+        , mAutoTrackTarget(nullptr)
         , mGlobalIndex(-1)
         , mYawFixed(false)
         , mIsInSceneGraph(false)
@@ -76,7 +76,7 @@ namespace Ogre {
         // which can fail because of deleted items
         for (ObjectMap::iterator itr = mObjectsByName.begin(); itr != mObjectsByName.end(); ++itr )
         {
-            (*itr)->_notifyAttached((SceneNode*)0);
+            (*itr)->_notifyAttached((SceneNode*)nullptr);
         }
         mObjectsByName.clear();
     }
@@ -165,7 +165,7 @@ namespace Ogre {
         std::swap(*i, mObjectsByName.back());
         mObjectsByName.pop_back();
 
-        ret->_notifyAttached((SceneNode*)0);
+        ret->_notifyAttached((SceneNode*)nullptr);
 
         // Make sure bounds get updated (must go right to the top)
         needUpdate();
@@ -188,7 +188,7 @@ namespace Ogre {
         std::swap(*it, mObjectsByName.back());
         mObjectsByName.pop_back();
 
-        ret->_notifyAttached((SceneNode*)0);
+        ret->_notifyAttached((SceneNode*)nullptr);
         // Make sure bounds get updated (must go right to the top)
         needUpdate();
         
@@ -209,7 +209,7 @@ namespace Ogre {
                 break;
             }
         }
-        obj->_notifyAttached((SceneNode*)0);
+        obj->_notifyAttached((SceneNode*)nullptr);
 
         // Make sure bounds get updated (must go right to the top)
         needUpdate();
@@ -220,7 +220,7 @@ namespace Ogre {
     {
         for (ObjectMap::iterator itr = mObjectsByName.begin(); itr != mObjectsByName.end(); ++itr )
         {
-            (*itr)->_notifyAttached((SceneNode*)0);
+            (*itr)->_notifyAttached((SceneNode*)nullptr);
         }
         mObjectsByName.clear();
         // Make sure bounds get updated (must go right to the top)
@@ -409,7 +409,7 @@ namespace Ogre {
         }
         else
         {
-            mAutoTrackTarget = 0;
+            mAutoTrackTarget = nullptr;
         }
         if (mCreator)
             mCreator->_notifyAutotrackingSceneNode(this, enabled);

@@ -281,7 +281,7 @@ namespace Ogre
         mInstanceVertexBuffer->setIsInstanceData( true );
         mInstanceVertexBuffer->setInstanceDataStepRate( 1 );
 
-        updateInstanceDataBuffer(true, NULL);
+        updateInstanceDataBuffer(true, nullptr);
     }
 
     //updates the vertex buffer containing the per instance data
@@ -312,7 +312,7 @@ namespace Ogre
             //Calculate UV offsets, which change per instance
             for( size_t i=0; i<mInstancesPerBatch; ++i )
             {
-                InstancedEntity* entity = useMatrixLookup ? mInstancedEntities[i].get() : NULL;
+                InstancedEntity* entity = useMatrixLookup ? mInstancedEntities[i].get() : nullptr;
                 if  //Update if we are not using a lookup bone matrix method. In this case the function will 
                     //be called only once
                     (!useMatrixLookup || 
@@ -457,7 +457,7 @@ namespace Ogre
         size_t instanceCount = mInstancedEntities.size();
         size_t updatedInstances = 0;
 
-        Matrix3x4f* transforms = NULL;
+        Matrix3x4f* transforms = nullptr;
         //If using dual quaternions, write 3x4 matrices to a temporary buffer, then convert to dual quaternions
         if(mUseBoneDualQuaternions)
         {
@@ -542,7 +542,7 @@ namespace Ogre
             //(except further calls to this function). Pass NULL because
             //we want to include only those who were added to the scene
             //but we don't want to perform culling
-            mRenderOperation.numberOfInstances = updateVertexTexture( 0 );
+            mRenderOperation.numberOfInstances = updateVertexTexture( nullptr );
         }
     }
     //-----------------------------------------------------------------------

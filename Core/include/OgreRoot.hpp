@@ -600,7 +600,7 @@ struct SceneManagerMetaData;
         /** @copydoc RenderSystem::_createRenderWindow
         */
         RenderWindow* createRenderWindow(const String &name, unsigned int width, unsigned int height, 
-            bool fullScreen, const NameValuePairList *miscParams = 0) ;
+            bool fullScreen, const NameValuePairList *miscParams = nullptr) ;
 
         /// @overload
         RenderWindow* createRenderWindow(const RenderWindowDescription& desc)

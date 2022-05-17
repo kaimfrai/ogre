@@ -55,7 +55,7 @@ namespace Ogre {
         mZOrder(100), mVisible(false), mInitialised(false)
 
     {
-        mRootNode = new SceneNode(NULL);
+        mRootNode = new SceneNode(nullptr);
 
     }
     //---------------------------------------------------------------------
@@ -68,7 +68,7 @@ namespace Ogre {
         for (OverlayContainerList::iterator i = m2DElements.begin(); 
              i != m2DElements.end(); ++i)
         {
-            (*i)->_notifyParent(0, 0);
+            (*i)->_notifyParent(nullptr, nullptr);
         }
     }
     //---------------------------------------------------------------------
@@ -144,7 +144,7 @@ namespace Ogre {
     {
         m2DElements.push_back(cont);
         // Notify parent
-        cont->_notifyParent(0, this);
+        cont->_notifyParent(nullptr, this);
 
         assignZOrders();
 
@@ -156,7 +156,7 @@ namespace Ogre {
     void Overlay::remove2D(OverlayContainer* cont)
     {
         m2DElements.remove(cont);
-        cont->_notifyParent(0, 0);
+        cont->_notifyParent(nullptr, nullptr);
         assignZOrders();
     }
     //---------------------------------------------------------------------
@@ -208,7 +208,7 @@ namespace Ogre {
 
             }
         }
-        return NULL;
+        return nullptr;
     }
   //---------------------------------------------------------------------
     void Overlay::scroll(Real xoff, Real yoff)
@@ -308,7 +308,7 @@ namespace Ogre {
             ushort oldPriority = queue-> getDefaultRenderablePriority();
             queue->setDefaultQueueGroup(RENDER_QUEUE_OVERLAY);
             queue->setDefaultRenderablePriority(static_cast<ushort>((mZOrder*100)-1));
-            mRootNode->_findVisibleObjects(cam, queue, NULL, true, false);
+            mRootNode->_findVisibleObjects(cam, queue, nullptr, true, false);
             // Reset the group
             queue->setDefaultQueueGroup(oldgrp);
             queue->setDefaultRenderablePriority(oldPriority);
@@ -348,7 +348,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     OverlayElement* Overlay::findElementAt(Real x, Real y)
     {
-        OverlayElement* ret = NULL;
+        OverlayElement* ret = nullptr;
         int currZ = -1;
         OverlayContainerList::iterator i, iend;
         iend = m2DElements.end();

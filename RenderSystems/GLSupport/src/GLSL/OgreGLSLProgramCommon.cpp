@@ -22,7 +22,7 @@ GLSLProgramCommon::GLSLProgramCommon(const GLShaderList& shaders)
     // compute shader presence means no other shaders are allowed
     if(shaders[GPT_COMPUTE_PROGRAM])
     {
-        mShaders.fill(NULL);
+        mShaders.fill(nullptr);
         mShaders[GPT_COMPUTE_PROGRAM] = shaders[GPT_COMPUTE_PROGRAM];
     }
 }

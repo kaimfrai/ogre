@@ -48,7 +48,7 @@ namespace RTShader {
 //-----------------------------------------------------------------------------
 SGMaterialSerializerListener::SGMaterialSerializerListener()
 {
-    mSourceMaterial = NULL;
+    mSourceMaterial = nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -65,7 +65,7 @@ void SGMaterialSerializerListener::materialEventRaised(MaterialSerializer* ser,
 
     if (event == MaterialSerializer::MSE_POST_WRITE)
     {
-        mSourceMaterial = NULL;
+        mSourceMaterial = nullptr;
         mSGPassList.clear();
     }
 }
@@ -102,7 +102,7 @@ void SGMaterialSerializerListener::passEventRaised(MaterialSerializer* ser,
         ShaderGenerator::SGPass* passEntry = getShaderGeneratedPass(pass);
         
         // Case this pass use as source pass for shader generated pass.
-        if (passEntry != NULL)                          
+        if (passEntry != nullptr)                          
             ShaderGenerator::getSingleton().serializePassAttributes(ser, passEntry);
     }   
 }
@@ -119,7 +119,7 @@ void SGMaterialSerializerListener::textureUnitStateEventRaised(MaterialSerialize
         ShaderGenerator::SGPass* passEntry = getShaderGeneratedPass(textureUnit->getParent());
         
         // Case this pass use as source pass for shader generated pass.
-        if (passEntry != NULL)                          
+        if (passEntry != nullptr)                          
             ShaderGenerator::getSingleton().serializeTextureUnitStateAttributes(ser, passEntry, textureUnit);
     }   
 }
@@ -140,7 +140,7 @@ ShaderGenerator::SGPass* SGMaterialSerializerListener::getShaderGeneratedPass(co
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 

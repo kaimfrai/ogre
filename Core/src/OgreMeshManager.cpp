@@ -79,7 +79,7 @@ namespace Ogre
     };
 
     //-----------------------------------------------------------------------
-    template<> MeshManager* Singleton<MeshManager>::msSingleton = 0;
+    template<> MeshManager* Singleton<MeshManager>::msSingleton = nullptr;
     MeshManager* MeshManager::getSingletonPtr()
     {
         return msSingleton;
@@ -90,7 +90,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     MeshManager::MeshManager():
-    mBoundsPaddingFactor(0.01), mListener(0)
+    mBoundsPaddingFactor(0.01), mListener(nullptr)
     {
         mBlendWeightsBaseElementType = VET_FLOAT1;
         mPrepAllMeshesForShadowVolumes = false;
@@ -151,7 +151,7 @@ namespace Ogre
         HardwareBuffer::Usage indexBufferUsage, 
         bool vertexBufferShadowed, bool indexBufferShadowed)
     {
-        MeshPtr pMesh = static_pointer_cast<Mesh>(createOrRetrieve(filename,groupName,false,0,0,
+        MeshPtr pMesh = static_pointer_cast<Mesh>(createOrRetrieve(filename,groupName,false,nullptr,nullptr,
                                          vertexBufferUsage,indexBufferUsage,
                                          vertexBufferShadowed,indexBufferShadowed).first);
         pMesh->prepare();
@@ -163,7 +163,7 @@ namespace Ogre
         HardwareBuffer::Usage indexBufferUsage, 
         bool vertexBufferShadowed, bool indexBufferShadowed)
     {
-        MeshPtr pMesh = static_pointer_cast<Mesh>(createOrRetrieve(filename,groupName,false,0,0,
+        MeshPtr pMesh = static_pointer_cast<Mesh>(createOrRetrieve(filename,groupName,false,nullptr,nullptr,
                                          vertexBufferUsage,indexBufferUsage,
                                          vertexBufferShadowed,indexBufferShadowed).first);
         pMesh->load();

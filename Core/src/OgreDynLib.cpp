@@ -47,7 +47,7 @@ namespace Ogre {
     DynLib::DynLib( const String& name )
     {
         mName = name;
-        mInst = NULL;
+        mInst = nullptr;
     }
 
     //-----------------------------------------------------------------------

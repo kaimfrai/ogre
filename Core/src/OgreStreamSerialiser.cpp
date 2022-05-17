@@ -65,7 +65,7 @@ namespace Ogre
         else
             hash = len;
 
-        if (len <= 0 || data == NULL) return 0;
+        if (len <= 0 || data == nullptr) return 0;
 
         rem = len & 3;
         len >>= 2;
@@ -191,7 +191,7 @@ namespace Ogre
         {
             // rewind
             undoReadChunk(c->id);
-            return 0;
+            return nullptr;
         }
         else if (c->version > maxVersion)
         {
@@ -200,7 +200,7 @@ namespace Ogre
                 << "up to version " << maxVersion;
             // skip
             readChunkEnd(c->id);
-            return 0;
+            return nullptr;
         }
 
         return c;
@@ -314,7 +314,7 @@ namespace Ogre
     const StreamSerialiser::Chunk* StreamSerialiser::getCurrentChunk() const
     {
         if (mChunkStack.empty())
-            return 0;
+            return nullptr;
         else
             return mChunkStack.back();
     }

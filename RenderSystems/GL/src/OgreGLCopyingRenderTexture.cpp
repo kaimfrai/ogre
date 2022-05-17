@@ -55,7 +55,7 @@ namespace Ogre {
     {
         // Copy on unbind
         GLSurfaceDesc surface;
-        surface.buffer = 0;
+        surface.buffer = nullptr;
         target->getCustomAttribute(GLRenderTexture::CustomAttributeString_TARGET, &surface);
         if(surface.buffer)
             static_cast<GLTextureBuffer*>(surface.buffer)->copyFromFramebuffer(surface.zoffset);

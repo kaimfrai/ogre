@@ -48,12 +48,12 @@ ApplicationContextBase::ApplicationContextBase(const Ogre::String& appName)
         mFSLayer->setConfigPaths({ configDir });
     }
 
-    mRoot = NULL;
-    mOverlaySystem = NULL;
+    mRoot = nullptr;
+    mOverlaySystem = nullptr;
     mFirstRun = true;
 
-    mMaterialMgrListener = NULL;
-    mShaderGenerator = NULL;
+    mMaterialMgrListener = nullptr;
+    mShaderGenerator = nullptr;
 }
 
 ApplicationContextBase::~ApplicationContextBase()
@@ -80,7 +80,7 @@ void ApplicationContextBase::closeApp()
         mRoot->saveConfig();
 
         delete mRoot;
-        mRoot = NULL;
+        mRoot = nullptr;
     }
 
     mStaticPluginLoader.unload();
@@ -130,18 +130,18 @@ void ApplicationContextBase::destroyRTShaderSystem()
     Ogre::MaterialManager::getSingleton().setActiveScheme(Ogre::MaterialManager::DEFAULT_SCHEME_NAME);
 
     // Unregister the material manager listener.
-    if (mMaterialMgrListener != NULL)
+    if (mMaterialMgrListener != nullptr)
     {
         Ogre::MaterialManager::getSingleton().removeListener(mMaterialMgrListener);
         delete mMaterialMgrListener;
-        mMaterialMgrListener = NULL;
+        mMaterialMgrListener = nullptr;
     }
 
     // Destroy RTShader system.
-    if (mShaderGenerator != NULL)
+    if (mShaderGenerator != nullptr)
     {
         Ogre::RTShader::ShaderGenerator::destroy();
-        mShaderGenerator = NULL;
+        mShaderGenerator = nullptr;
     }
 }
 
@@ -242,7 +242,7 @@ bool ApplicationContextBase::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
 NativeWindowPair ApplicationContextBase::createWindow(const Ogre::String& name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams)
 {
-    NativeWindowPair ret = {NULL, NULL};
+    NativeWindowPair ret = {nullptr, nullptr};
 
     if(!mWindows.empty())
     {

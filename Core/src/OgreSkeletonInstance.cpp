@@ -128,7 +128,7 @@ class AnimationStateSet;
         {
             newBone = createBone(source->getName(), source->getHandle());
         }
-        if (parent == NULL)
+        if (parent == nullptr)
         {
             mRootBones.push_back(newBone);
         }
@@ -158,7 +158,7 @@ class AnimationStateSet;
         for (i = mSkeleton->getRootBones().begin(); i != mSkeleton->getRootBones().end(); ++i)
         {
             Bone* b = *i;
-            cloneBoneAndChildren(b, 0);
+            cloneBoneAndChildren(b, nullptr);
             b->_update(true, false);
         }
         setBindingPose();
@@ -201,8 +201,8 @@ class AnimationStateSet;
             mActiveTagPoints.splice(
                 mActiveTagPoints.end(), mFreeTagPoints, mFreeTagPoints.begin());
             // Initial some members ensure identically behavior, avoiding potential bug.
-            ret->setParentEntity(0);
-            ret->setChildObject(0);
+            ret->setParentEntity(nullptr);
+            ret->setChildObject(nullptr);
             ret->setInheritOrientation(true);
             ret->setInheritScale(true);
             ret->setInheritParentEntityOrientation(true);

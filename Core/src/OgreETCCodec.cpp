@@ -96,8 +96,8 @@ namespace Ogre {
     } KTXHeader;
 
     //---------------------------------------------------------------------
-    ETCCodec* ETCCodec::msPKMInstance = 0;
-    ETCCodec* ETCCodec::msKTXInstance = 0;
+    ETCCodec* ETCCodec::msPKMInstance = nullptr;
+    ETCCodec* ETCCodec::msKTXInstance = nullptr;
     //---------------------------------------------------------------------
     void ETCCodec::startup()
     {
@@ -123,14 +123,14 @@ namespace Ogre {
         {
             Codec::unregisterCodec(msPKMInstance);
             delete msPKMInstance;
-            msPKMInstance = 0;
+            msPKMInstance = nullptr;
         }
 
         if(msKTXInstance)
         {
             Codec::unregisterCodec(msKTXInstance);
             delete msKTXInstance;
-            msKTXInstance = 0;
+            msKTXInstance = nullptr;
         }
     }
     //---------------------------------------------------------------------

@@ -175,7 +175,7 @@ class SkeletonInstance;
         static NameGenerator msNameGenerator;
 
     public:
-        InstancedEntity( InstanceBatch *batchOwner, uint32 instanceID, InstancedEntity* sharedTransformEntity = NULL);
+        InstancedEntity( InstanceBatch *batchOwner, uint32 instanceID, InstancedEntity* sharedTransformEntity = nullptr);
         virtual ~InstancedEntity();
 
         /** Shares the entire transformation with another InstancedEntity. This is useful when a mesh
@@ -227,7 +227,7 @@ class SkeletonInstance;
         void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false ) {}
 
         /** @see Entity::hasSkeleton */
-        bool hasSkeleton() const { return mSkeletonInstance != 0; }
+        bool hasSkeleton() const { return mSkeletonInstance != nullptr; }
         /** @see Entity::getSkeleton */
         SkeletonInstance* getSkeleton() const { return mSkeletonInstance; }
 

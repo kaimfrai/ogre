@@ -81,7 +81,7 @@ CompositionTechnique::TextureDefinition *CompositionTechnique::getTextureDefinit
             return *i;
     }
 
-    return 0;
+    return nullptr;
 
 }
 //-----------------------------------------------------------------------

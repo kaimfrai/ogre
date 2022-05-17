@@ -297,7 +297,7 @@ OverlayTranslatorManager::~OverlayTranslatorManager()
 ScriptTranslator* OverlayTranslatorManager::getTranslator(const AbstractNodePtr& node)
 {
     if (node->type != ANT_OBJECT)
-        return NULL;
+        return nullptr;
 
     ObjectAbstractNode* obj = static_cast<ObjectAbstractNode*>(node.get());
 
@@ -316,6 +316,6 @@ ScriptTranslator* OverlayTranslatorManager::getTranslator(const AbstractNodePtr&
     if(obj->id == ID_OVERLAY || (obj->id == 0 && StringUtil::endsWith(node->file, ".overlay")))
         return &mOverlayTranslator;
 
-    return NULL;
+    return nullptr;
 }
 }

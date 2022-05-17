@@ -142,7 +142,7 @@ struct GpuNamedConstants;
     public:
 
     GpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
-               const String& group, bool isManual = false, ManualResourceLoader* loader = 0);
+               const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
 
     static const String getProgramTypeName(GpuProgramType programType);
 
@@ -276,7 +276,7 @@ struct GpuNamedConstants;
 
     /** Returns true if default parameters have been set up.
      */
-    virtual bool hasDefaultParameters() const { return mDefaultParams.get() != 0; }
+    virtual bool hasDefaultParameters() const { return mDefaultParams.get() != nullptr; }
 
     /** Returns whether a vertex program wants light and material states to be passed
         through fixed pipeline low level API rendering calls (default false, subclasses can override)

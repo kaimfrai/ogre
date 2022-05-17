@@ -195,7 +195,7 @@ UniformParameter::UniformParameter(GpuConstantType type, const String& name,
     mIsAutoConstantInt      = false;
     mAutoConstantIntData    = 0;
     mVariability            = variability;
-    mParamsPtr              = NULL;
+    mParamsPtr              = nullptr;
     mPhysicalIndex          = -1;
     mAutoConstantType       = GpuProgramParameters::ACT_UNKNOWN;
 }
@@ -248,7 +248,7 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
     mAutoConstantType   = autoType;
     mAutoConstantRealData = fAutoConstantData;
     mVariability        = (uint16)GPV_GLOBAL;
-    mParamsPtr           = NULL;
+    mParamsPtr           = nullptr;
     mPhysicalIndex       = -1;
     mSize                = size;
 }
@@ -275,7 +275,7 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
     mAutoConstantType   = autoType;
     mAutoConstantRealData = fAutoConstantData;
     mVariability        = (uint16)GPV_GLOBAL;
-    mParamsPtr           = NULL;
+    mParamsPtr           = nullptr;
     mPhysicalIndex       = -1;
     mSize                = size;
 }
@@ -298,7 +298,7 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
     mAutoConstantType   = autoType;
     mAutoConstantIntData = nAutoConstantData;
     mVariability        = (uint16)GPV_GLOBAL;
-    mParamsPtr           = NULL;
+    mParamsPtr           = nullptr;
     mPhysicalIndex       = -1;
     mSize                = size;
 }
@@ -321,7 +321,7 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
     mAutoConstantType   = autoType;
     mAutoConstantIntData = nAutoConstantData;
     mVariability        = (uint16)GPV_GLOBAL;
-    mParamsPtr           = NULL;
+    mParamsPtr           = nullptr;
     mPhysicalIndex       = -1;
     mSize                = size;
 }
@@ -332,7 +332,7 @@ void UniformParameter::bind(GpuProgramParametersSharedPtr paramsPtr)
     // do not throw on failure: some RS optimize unused uniforms away. Also unit tests run without any RS
     const GpuConstantDefinition* def = paramsPtr->_findNamedConstantDefinition(mBindName.empty() ? mName : mBindName, false);
 
-    if (def != NULL)
+    if (def != nullptr)
     {
         mParamsPtr = paramsPtr.get();
         mPhysicalIndex = def->physicalIndex;

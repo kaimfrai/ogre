@@ -36,7 +36,7 @@ namespace Ogre
     const String sPluginName = "GL RenderSystem";
     //---------------------------------------------------------------------
     GLPlugin::GLPlugin()
-        : mRenderSystem(0)
+        : mRenderSystem(nullptr)
     {
 
     }
@@ -66,6 +66,6 @@ namespace Ogre
     void GLPlugin::uninstall()
     {
         delete mRenderSystem;
-        mRenderSystem = 0;
+        mRenderSystem = nullptr;
     }
 }

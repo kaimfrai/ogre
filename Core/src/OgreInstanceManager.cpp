@@ -122,7 +122,7 @@ namespace Ogre
         //Get the material
         MaterialPtr mat = MaterialManager::getSingleton().getByName( materialName,
                                                                     mMeshReference->getGroup() );
-        InstanceBatch *batch = 0;
+        InstanceBatch *batch = nullptr;
 
         //Base material couldn't be found
         if( !mat )
@@ -132,22 +132,22 @@ namespace Ogre
         {
         case ShaderBased:
             batch = new InstanceBatchShader( this, mMeshReference, mat, suggestedSize,
-                                                    0, mName + "/TempBatch" );
+                                                    nullptr, mName + "/TempBatch" );
             break;
         case TextureVTF:
             batch = new InstanceBatchVTF( this, mMeshReference, mat, suggestedSize,
-                                                    0, mName + "/TempBatch" );
+                                                    nullptr, mName + "/TempBatch" );
             static_cast<InstanceBatchVTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
             static_cast<InstanceBatchVTF*>(batch)->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
             static_cast<InstanceBatchVTF*>(batch)->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
             break;
         case HWInstancingBasic:
             batch = new InstanceBatchHW( this, mMeshReference, mat, suggestedSize,
-                                                    0, mName + "/TempBatch" );
+                                                    nullptr, mName + "/TempBatch" );
             break;
         case HWInstancingVTF:
             batch = new InstanceBatchHW_VTF( this, mMeshReference, mat, suggestedSize,
-                                                    0, mName + "/TempBatch" );
+                                                    nullptr, mName + "/TempBatch" );
             static_cast<InstanceBatchHW_VTF*>(batch)->setBoneMatrixLookup((mInstancingFlags & IM_VTFBONEMATRIXLOOKUP) != 0, mMaxLookupTableInstances);
             static_cast<InstanceBatchHW_VTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
             static_cast<InstanceBatchHW_VTF*>(batch)->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
@@ -212,7 +212,7 @@ namespace Ogre
         //Get the array of batches grouped by this material
         InstanceBatchVec &materialInstanceBatch = mInstanceBatches[materialName];
 
-        InstanceBatch *batch = 0;
+        InstanceBatch *batch = nullptr;
 
         switch( mInstancingTechnique )
         {
@@ -677,7 +677,7 @@ namespace Ogre
 
         // Release shared vertex data
         delete mesh->sharedVertexData;
-        mesh->sharedVertexData = NULL;
+        mesh->sharedVertexData = nullptr;
         mesh->clearBoneAssignments();
 
         if( mesh->isEdgeListBuilt() )

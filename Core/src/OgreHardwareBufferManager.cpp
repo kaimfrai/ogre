@@ -48,7 +48,7 @@ THE SOFTWARE.
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> HardwareBufferManager* Singleton<HardwareBufferManager>::msSingleton = 0;
+    template<> HardwareBufferManager* Singleton<HardwareBufferManager>::msSingleton = nullptr;
     HardwareBufferManager* HardwareBufferManager::getSingletonPtr()
     {
         return msSingleton;

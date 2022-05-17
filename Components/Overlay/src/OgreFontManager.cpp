@@ -36,7 +36,7 @@ THE SOFTWARE
 namespace Ogre
 {
     //---------------------------------------------------------------------
-    template<> FontManager * Singleton< FontManager >::msSingleton = 0;
+    template<> FontManager * Singleton< FontManager >::msSingleton = nullptr;
     FontManager* FontManager::getSingletonPtr()
     {
         return msSingleton;

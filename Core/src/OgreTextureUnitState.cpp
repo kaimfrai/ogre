@@ -144,7 +144,7 @@ class Frustum;
         , mFramePtrs(1)
         , mSampler(TextureManager::getSingletonPtr() ? TextureManager::getSingleton().getDefaultSampler() : DUMMY_SAMPLER)
         , mParent(parent)
-        , mAnimController(0)
+        , mAnimController(nullptr)
     {
         mColourBlendMode.blendType = LBT_COLOUR;
         mAlphaBlendMode.operation = LBX_MODULATE;
@@ -164,7 +164,7 @@ class Frustum;
     TextureUnitState::TextureUnitState(Pass* parent, const TextureUnitState& oth )
     {
         mParent = parent;
-        mAnimController = 0;
+        mAnimController = nullptr;
         *this = oth;
     }
 
@@ -186,7 +186,7 @@ class Frustum;
         , mRecalcTexMatrix(false)
         , mSampler(TextureManager::getSingletonPtr() ? TextureManager::getSingleton().getDefaultSampler() : DUMMY_SAMPLER)
         , mParent(parent)
-        , mAnimController(0)
+        , mAnimController(nullptr)
     {
         mColourBlendMode.blendType = LBT_COLOUR;
         mAlphaBlendMode.operation = LBX_MODULATE;
@@ -230,7 +230,7 @@ class Frustum;
         // Can't sharing controllers with other TUS, reset to null to avoid potential bug.
         for (EffectMap::iterator j = mEffects.begin(); j != mEffects.end(); ++j)
         {
-            j->second.controller = 0;
+            j->second.controller = nullptr;
         }
 
         // Load immediately if Material loaded
@@ -631,7 +631,7 @@ class Frustum;
     void TextureUnitState::addEffect(TextureEffect& effect)
     {
         // Ensure controller pointer is null
-        effect.controller = 0;
+        effect.controller = nullptr;
 
         if (effect.type == ET_ENVIRONMENT_MAP 
             || effect.type == ET_UVSCROLL
@@ -1061,7 +1061,7 @@ class Frustum;
         if (mAnimController)
         {
             ControllerManager::getSingleton().destroyController(mAnimController);
-            mAnimController = 0;
+            mAnimController = nullptr;
         }
         mAnimController = ControllerManager::getSingleton().createTextureAnimator(this, mAnimDuration);
 
@@ -1072,7 +1072,7 @@ class Frustum;
         if (effect.controller)
         {
             ControllerManager::getSingleton().destroyController(effect.controller);
-            effect.controller = 0;
+            effect.controller = nullptr;
         }
         ControllerManager& cMgr = ControllerManager::getSingleton();
         switch (effect.type)
@@ -1152,7 +1152,7 @@ class Frustum;
         if (mAnimController)
         {
             ControllerManager::getSingleton().destroyController(mAnimController);
-            mAnimController = 0;
+            mAnimController = nullptr;
         }
 
         // Destroy effect controllers
@@ -1161,7 +1161,7 @@ class Frustum;
             if (i->second.controller)
             {
                 ControllerManager::getSingleton().destroyController(i->second.controller);
-                i->second.controller = 0;
+                i->second.controller = nullptr;
             }
         }
 

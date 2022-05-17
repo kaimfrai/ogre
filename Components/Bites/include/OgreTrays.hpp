@@ -761,7 +761,7 @@ namespace OgreBites
         /**
         Creates backdrop, cursor, and trays.
         */
-        TrayManager(const Ogre::String& name, Ogre::RenderWindow* window, TrayListener* listener = 0);
+        TrayManager(const Ogre::String& name, Ogre::RenderWindow* window, TrayListener* listener = nullptr);
 
         /**
         Destroys background, cursor, widgets, and trays.
@@ -914,7 +914,7 @@ namespace OgreBites
 
         bool areFrameStatsVisible()
         {
-            return mFpsLabel != 0;
+            return mFpsLabel != nullptr;
         }
 
         /**
@@ -934,7 +934,7 @@ namespace OgreBites
 
         bool isLogoVisible()
         {
-            return mLogo != 0;
+            return mLogo != nullptr;
         }
 
         /**

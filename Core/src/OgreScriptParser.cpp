@@ -51,9 +51,9 @@ namespace Ogre
         enum{READY, OBJECT};
         uint32 state = READY;
 
-        ConcreteNode *parent = 0;
+        ConcreteNode *parent = nullptr;
         ConcreteNodePtr node;
-        const ScriptToken *token = 0;
+        const ScriptToken *token = nullptr;
         ScriptTokenList::const_iterator i = tokens.begin(), end = tokens.end();
         while(i != end)
         {
@@ -114,7 +114,7 @@ namespace Ogre
                         }
                         else
                         {
-                            node->parent = 0;
+                            node->parent = nullptr;
                             nodes->push_back(node);
                         }
                         node = ConcreteNodePtr();
@@ -168,7 +168,7 @@ namespace Ogre
                         }
                         else
                         {
-                            node->parent = 0;
+                            node->parent = nullptr;
                             nodes->push_back(node);
                         }
                         node = ConcreteNodePtr();
@@ -189,7 +189,7 @@ namespace Ogre
                         }
                         else
                         {
-                            node->parent = 0;
+                            node->parent = nullptr;
                             nodes->push_back(node);
                         }
 
@@ -225,7 +225,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
 
@@ -292,7 +292,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
                     node = ConcreteNodePtr();
@@ -316,7 +316,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
 
@@ -355,7 +355,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
 
@@ -382,7 +382,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
                     node = ConcreteNodePtr();
@@ -403,7 +403,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
                     node = ConcreteNodePtr();
@@ -424,7 +424,7 @@ namespace Ogre
                     }
                     else
                     {
-                        node->parent = 0;
+                        node->parent = nullptr;
                         nodes->push_back(node);
                     }
                     node = ConcreteNodePtr();
@@ -444,7 +444,7 @@ namespace Ogre
         ConcreteNodeListPtr nodes(new ConcreteNodeList());
 
         ConcreteNodePtr node;
-        const ScriptToken *token = 0;
+        const ScriptToken *token = nullptr;
         for(ScriptTokenList::const_iterator i = tokens.begin(); i != tokens.end(); ++i)
         {
             token = &*i;
@@ -455,7 +455,7 @@ namespace Ogre
                 node = ConcreteNodePtr(new ConcreteNode());
                 node->file = file;
                 node->line = token->line;
-                node->parent = 0;
+                node->parent = nullptr;
                 node->token = token->lexeme;
                 node->type = CNT_VARIABLE;
                 break;
@@ -463,7 +463,7 @@ namespace Ogre
                 node = ConcreteNodePtr(new ConcreteNode());
                 node->file = file;
                 node->line = token->line;
-                node->parent = 0;
+                node->parent = nullptr;
                 node->token = token->lexeme;
                 node->type = CNT_WORD;
                 break;
@@ -471,7 +471,7 @@ namespace Ogre
                 node = ConcreteNodePtr(new ConcreteNode());
                 node->file = file;
                 node->line = token->line;
-                node->parent = 0;
+                node->parent = nullptr;
                 node->token= unquoted(token->lexeme);
                 node->type = CNT_QUOTE;
                 break;
@@ -491,7 +491,7 @@ namespace Ogre
 
     const ScriptToken *ScriptParser::getToken(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end, int offset)
     {
-        const ScriptToken *token = 0;
+        const ScriptToken *token = nullptr;
         ScriptTokenList::const_iterator iter = i + offset;
         if(iter != end)
             token = &*i;

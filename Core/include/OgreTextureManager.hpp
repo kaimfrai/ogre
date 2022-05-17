@@ -88,8 +88,8 @@ class Image;
         /// Create a new texture
         /// @copydetails ResourceManager::createResource
         TexturePtr create (const String& name, const String& group,
-                            bool isManual = false, ManualResourceLoader* loader = 0,
-                            const NameValuePairList* createParams = 0);
+                            bool isManual = false, ManualResourceLoader* loader = nullptr,
+                            const NameValuePairList* createParams = nullptr);
         /// @copydoc ResourceManager::getResourceByName
         TexturePtr getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const;
 
@@ -266,14 +266,14 @@ class Image;
         */
         virtual TexturePtr createManual(const String & name, const String& group,
             TextureType texType, uint width, uint height, uint depth, 
-            int numMipmaps, PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = 0,
+            int numMipmaps, PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = nullptr,
             bool hwGammaCorrection = false, uint fsaa = 0, const String& fsaaHint = BLANKSTRING);
             
         /** @overload
         */
         TexturePtr createManual(const String & name, const String& group,
             TextureType texType, uint width, uint height, int numMipmaps,
-            PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = 0,
+            PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = nullptr,
             bool hwGammaCorrection = false, uint fsaa = 0, const String& fsaaHint = BLANKSTRING)
         {
             return createManual(name, group, texType, width, height, 1, 

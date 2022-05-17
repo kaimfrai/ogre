@@ -185,7 +185,7 @@ SubRenderState* FFPTransformFactory::createInstance(ScriptCompiler* compiler,
             if(hasError)
             {
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
-                return NULL;
+                return nullptr;
             }
 
             auto ret = static_cast<FFPTransform*>(createOrRetrieveInstance(translator));
@@ -195,7 +195,7 @@ SubRenderState* FFPTransformFactory::createInstance(ScriptCompiler* compiler,
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------

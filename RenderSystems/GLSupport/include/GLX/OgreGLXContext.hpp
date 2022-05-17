@@ -38,7 +38,7 @@ class GLXGLSupport;
     class GLXContext: public GLContext
     {
     public:
-        GLXContext(GLXGLSupport* glsupport, ::GLXFBConfig fbconfig, ::GLXDrawable drawable, ::GLXContext context = 0);
+        GLXContext(GLXGLSupport* glsupport, ::GLXFBConfig fbconfig, ::GLXDrawable drawable, ::GLXContext context = nullptr);
         
         virtual ~GLXContext();
         

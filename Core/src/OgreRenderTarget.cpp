@@ -52,7 +52,7 @@ class Camera;
     RenderTarget::RenderTarget()
         : mPriority(OGRE_DEFAULT_RT_GROUP)
         , mDepthBufferPoolId(DepthBuffer::POOL_DEFAULT)
-        , mDepthBuffer(0)
+        , mDepthBuffer(nullptr)
         , mActive(true)
         , mAutoUpdate(true)
         , mHwGamma(false)
@@ -148,13 +148,13 @@ class Camera;
         if( mDepthBuffer )
         {
             mDepthBuffer->_notifyRenderTargetDetached( this );
-            mDepthBuffer = 0;
+            mDepthBuffer = nullptr;
         }
     }
     //-----------------------------------------------------------------------
     void RenderTarget::_detachDepthBuffer()
     {
-        mDepthBuffer = 0;
+        mDepthBuffer = nullptr;
     }
 
     void RenderTarget::updateImpl()
@@ -532,7 +532,7 @@ class Camera;
             if (v->getCamera() == cam)
             {
                 // disable camera link
-                v->setCamera(0);
+                v->setCamera(nullptr);
             }
         }
     }

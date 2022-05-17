@@ -276,7 +276,7 @@ void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version 
         for (int i = 0; i < numLods; i++) {
             if (version != MESH_VERSION_1_0 && a->getAutoBuildEdgeLists() == b->getAutoBuildEdgeLists()) {
                 assertEdgeDataClone(a->getEdgeList(i), b->getEdgeList(i));
-            } else if (a->getLodLevel(i).edgeData != NULL && b->getLodLevel(i).edgeData != NULL) {
+            } else if (a->getLodLevel(i).edgeData != nullptr && b->getLodLevel(i).edgeData != nullptr) {
                 assertEdgeDataClone(a->getLodLevel(i).edgeData, b->getLodLevel(i).edgeData);
             }
             assertLodUsageClone(a->getLodLevel(i), b->getLodLevel(i));
@@ -369,7 +369,7 @@ bool MeshSerializerTests::isLodMixed(const Mesh* pMesh)
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, MeshVersion version /*= MESH_VERSION_LATEST*/)
 {
-    EXPECT_TRUE((a == NULL) == (b == NULL));
+    EXPECT_TRUE((a == nullptr) == (b == nullptr));
     if (a) {
         // compare bindings
         {
@@ -382,7 +382,7 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             bindingIterator bIt = bBindings.begin();
             for (; aIt != aEndIt; aIt++, bIt++) {
                 EXPECT_TRUE(aIt->first == bIt->first);
-                EXPECT_TRUE((aIt->second.get() == NULL) == (bIt->second.get() == NULL));
+                EXPECT_TRUE((aIt->second.get() == nullptr) == (bIt->second.get() == nullptr));
                 if (a) {
                     EXPECT_TRUE(aIt->second->getManager() == bIt->second->getManager());
                     EXPECT_TRUE(aIt->second->getNumVertices() == bIt->second->getNumVertices());
@@ -474,11 +474,11 @@ bool MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V>& a, cons
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertIndexDataClone(IndexData* a, IndexData* b, MeshVersion version /*= MESH_VERSION_LATEST*/)
 {
-    EXPECT_TRUE((a == NULL) == (b == NULL));
+    EXPECT_TRUE((a == nullptr) == (b == nullptr));
     if (a) {
         EXPECT_TRUE(a->indexCount == b->indexCount);
         // EXPECT_TRUE(a->indexStart == b->indexStart);
-        EXPECT_TRUE((a->indexBuffer.get() == NULL) == (b->indexBuffer.get() == NULL));
+        EXPECT_TRUE((a->indexBuffer.get() == nullptr) == (b->indexBuffer.get() == nullptr));
         if (a->indexBuffer) {
             EXPECT_TRUE(a->indexBuffer->getManager() == b->indexBuffer->getManager());
             // EXPECT_TRUE(a->indexBuffer->getNumIndexes() == b->indexBuffer->getNumIndexes());
@@ -499,7 +499,7 @@ void MeshSerializerTests::assertIndexDataClone(IndexData* a, IndexData* b, MeshV
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertEdgeDataClone(EdgeData* a, EdgeData* b, MeshVersion version /*= MESH_VERSION_LATEST*/)
 {
-    EXPECT_TRUE((a == NULL) == (b == NULL));
+    EXPECT_TRUE((a == nullptr) == (b == nullptr));
     if (a) {
         EXPECT_TRUE(a->isClosed == b->isClosed);
         EXPECT_TRUE(isContainerClone(a->triangleFaceNormals, b->triangleFaceNormals));
@@ -522,7 +522,7 @@ void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, Strin
     ResourceGroupManager& resourceGroupMgr = ResourceGroupManager::getSingleton();
     String group = resource->getGroup();
     String name = resource->getName();
-    FileInfo* info = NULL;
+    FileInfo* info = nullptr;
     FileInfoListPtr locPtr = resourceGroupMgr.listResourceFileInfo(group);
     FileInfoList::iterator it, itEnd;
     it = locPtr->begin();

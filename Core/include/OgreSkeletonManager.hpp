@@ -60,8 +60,8 @@ namespace Ogre {
         /// Create a new skeleton
         /// @see ResourceManager::createResource
         SkeletonPtr create (const String& name, const String& group,
-                            bool isManual = false, ManualResourceLoader* loader = 0,
-                            const NameValuePairList* createParams = 0);
+                            bool isManual = false, ManualResourceLoader* loader = nullptr,
+                            const NameValuePairList* createParams = nullptr);
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName

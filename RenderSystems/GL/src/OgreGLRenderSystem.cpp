@@ -195,10 +195,10 @@ namespace Ogre {
         mStencilWriteMask(0xFFFFFFFF),
         mDepthWrite(true),
         mUseAutoTextureMatrix(false),
-        mHardwareBufferManager(0),
-        mGpuProgramManager(0),
-        mGLSLProgramFactory(0),
-        mStateCacheManager(0),
+        mHardwareBufferManager(nullptr),
+        mGpuProgramManager(nullptr),
+        mGLSLProgramFactory(nullptr),
+        mStateCacheManager(nullptr),
         mActiveTextureUnit(0),
         mMaxBuiltInTextureAttribIndex(0)
     {
@@ -225,9 +225,9 @@ namespace Ogre {
             mTextureTypes[i] = 0;
         }
 
-        mActiveRenderTarget = 0;
-        mCurrentContext = 0;
-        mMainContext = 0;
+        mActiveRenderTarget = nullptr;
+        mCurrentContext = nullptr;
+        mMainContext = nullptr;
 
         mGLInitialised = false;
         mEnableFixedPipeline = true;
@@ -235,10 +235,10 @@ namespace Ogre {
         mCurrentLights = 0;
         mMinFilter = FO_LINEAR;
         mMipFilter = FO_POINT;
-        mCurrentVertexProgram = 0;
-        mCurrentGeometryProgram = 0;
-        mCurrentFragmentProgram = 0;
-        mRTTManager = NULL;
+        mCurrentVertexProgram = nullptr;
+        mCurrentGeometryProgram = nullptr;
+        mCurrentFragmentProgram = nullptr;
+        mRTTManager = nullptr;
     }
 
     GLRenderSystem::~GLRenderSystem()
@@ -979,7 +979,7 @@ namespace Ogre {
             if (HighLevelGpuProgramManager::getSingletonPtr())
                 HighLevelGpuProgramManager::getSingleton().removeFactory(mGLSLProgramFactory);
             delete mGLSLProgramFactory;
-            mGLSLProgramFactory = 0;
+            mGLSLProgramFactory = nullptr;
         }
 
         // Delete extra threads contexts
@@ -992,18 +992,18 @@ namespace Ogre {
 
         // Deleting the GPU program manager and hardware buffer manager.  Has to be done before the mGLSupport->stop().
         delete mGpuProgramManager;
-        mGpuProgramManager = 0;
+        mGpuProgramManager = nullptr;
 
         delete mHardwareBufferManager;
-        mHardwareBufferManager = 0;
+        mHardwareBufferManager = nullptr;
 
         delete mRTTManager;
-        mRTTManager = 0;
+        mRTTManager = nullptr;
 
         mGLSupport->stop();
 
         delete mTextureManager;
-        mTextureManager = 0;
+        mTextureManager = nullptr;
 
         // There will be a new initial window and so forth, thus any call to test
         //  some params will access an invalid pointer, so it is best to reset
@@ -1078,7 +1078,7 @@ namespace Ogre {
             GLContext *windowContext = dynamic_cast<GLRenderTarget*>(win)->getContext();;
 
             auto depthBuffer =
-                new GLDepthBufferCommon(DepthBuffer::POOL_DEFAULT, this, windowContext, 0, 0, win, true);
+                new GLDepthBufferCommon(DepthBuffer::POOL_DEFAULT, this, windowContext, nullptr, nullptr, win, true);
 
             mDepthBufferPool[depthBuffer->getPoolId()].push_back( depthBuffer );
 
@@ -1099,7 +1099,7 @@ namespace Ogre {
             GLRenderBuffer *depthBuffer = new GLRenderBuffer( depthFormat, fbo->getWidth(),
                                                               fbo->getHeight(), fbo->getFSAA() );
 
-            GLRenderBuffer *stencilBuffer = NULL;
+            GLRenderBuffer *stencilBuffer = nullptr;
             if ( depthFormat == GL_DEPTH24_STENCIL8_EXT)
             {
                 // If we have a packed format, the stencilBuffer is the same as the depthBuffer
@@ -1115,7 +1115,7 @@ namespace Ogre {
                                            renderTarget, false);
         }
 
-        return NULL;
+        return nullptr;
     }
 
     void GLRenderSystem::initialiseContext(RenderWindow* primary)
@@ -1362,7 +1362,7 @@ namespace Ogre {
                 mStateCacheManager->setEnabled(GL_VERTEX_PROGRAM_POINT_SIZE, false);
         }
 
-        mStateCacheManager->setPointParameters(NULL, minSize, maxSize);
+        mStateCacheManager->setPointParameters(nullptr, minSize, maxSize);
     }
 
     void GLRenderSystem::_setLineWidth(float width)
@@ -1738,8 +1738,8 @@ namespace Ogre {
         // Check if viewport is different
         if (!vp)
         {
-            mActiveViewport = NULL;
-            _setRenderTarget(NULL);
+            mActiveViewport = nullptr;
+            _setRenderTarget(nullptr);
         }
         else if (vp != mActiveViewport || vp->_isUpdated())
         {
@@ -2354,7 +2354,7 @@ namespace Ogre {
             bindVertexElementToGpu(elem, vertexBuffer, op.vertexData->vertexStart);
         }
 
-        if( globalInstanceVertexBuffer && globalVertexDeclaration != NULL )
+        if( globalInstanceVertexBuffer && globalVertexDeclaration != nullptr )
         {
             elemEnd = globalVertexDeclaration->getElements().end();
             for (elemIter = globalVertexDeclaration->getElements().begin(); elemIter != elemEnd; ++elemIter)
@@ -2412,7 +2412,7 @@ namespace Ogre {
 
         if (op.useIndexes)
         {
-            void* pBufferData = 0;
+            void* pBufferData = nullptr;
             mStateCacheManager->bindGLBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB,
                                 op.indexData->indexBuffer->_getImpl<GLHardwareBuffer>()->getGLBufferId());
 
@@ -2568,19 +2568,19 @@ namespace Ogre {
         {
             mActiveVertexGpuProgramParameters.reset();
             mCurrentVertexProgram->unbindProgram();
-            mCurrentVertexProgram = 0;
+            mCurrentVertexProgram = nullptr;
         }
         else if (gptype == GPT_GEOMETRY_PROGRAM && mCurrentGeometryProgram)
         {
             mActiveGeometryGpuProgramParameters.reset();
             mCurrentGeometryProgram->unbindProgram();
-            mCurrentGeometryProgram = 0;
+            mCurrentGeometryProgram = nullptr;
         }
         else if (gptype == GPT_FRAGMENT_PROGRAM && mCurrentFragmentProgram)
         {
             mActiveFragmentGpuProgramParameters.reset();
             mCurrentFragmentProgram->unbindProgram();
-            mCurrentFragmentProgram = 0;
+            mCurrentFragmentProgram = nullptr;
         }
         RenderSystem::unbindGpuProgram(gptype);
 
@@ -2905,9 +2905,9 @@ namespace Ogre {
             } else {
                 /// No contexts remain
                 mCurrentContext->endCurrent();
-                mCurrentContext = 0;
-                mMainContext = 0;
-                mStateCacheManager = 0;
+                mCurrentContext = nullptr;
+                mMainContext = nullptr;
+                mStateCacheManager = nullptr;
             }
         }
     }
@@ -2939,7 +2939,7 @@ namespace Ogre {
                                                 const HardwareVertexBufferSharedPtr& vertexBuffer,
                                                 const size_t vertexStart)
     {
-        void* pBufferData = 0;
+        void* pBufferData = nullptr;
         const GLHardwareBuffer* hwGlBuffer = vertexBuffer->_getImpl<GLHardwareBuffer>();
 
         mStateCacheManager->bindGLBuffer(GL_ARRAY_BUFFER_ARB, 

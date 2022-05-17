@@ -51,7 +51,7 @@ namespace Ogre {
         }
         else
         {
-            return 0;
+            return nullptr;
         }
     }
 
@@ -64,7 +64,7 @@ namespace Ogre {
         }
         else
         {
-            return 0;
+            return nullptr;
         }
     }
 

@@ -168,7 +168,7 @@ class AnimationStateSet;
       /// Get the current blend mask (const version, may be 0) 
       [[nodiscard]] const BoneBlendMask* getBlendMask() const {return mBlendMask;}
       /// Return whether there is currently a valid blend mask set
-      [[nodiscard]] bool hasBlendMask() const {return mBlendMask != 0;}
+      [[nodiscard]] bool hasBlendMask() const {return mBlendMask != nullptr;}
       /// Set the weight for the bone identified by the given handle
       void setBlendMaskEntry(size_t boneHandle, float weight);
       /// Get the weight for the bone identified by the given handle

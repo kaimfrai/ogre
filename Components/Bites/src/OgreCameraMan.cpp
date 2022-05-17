@@ -13,9 +13,9 @@ namespace OgreBites {
 
 CameraMan::CameraMan(Ogre::SceneNode *cam)
     : mYawSpace(Ogre::Node::TS_PARENT)
-    , mCamera(0)
+    , mCamera(nullptr)
     , mStyle(CS_MANUAL)
-    , mTarget(0)
+    , mTarget(nullptr)
     , mOrbiting(false)
     , mMoving(false)
     , mTopSpeed(150)

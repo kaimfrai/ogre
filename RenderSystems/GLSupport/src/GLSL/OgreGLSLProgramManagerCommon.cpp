@@ -43,7 +43,7 @@ namespace Ogre {
 
     GLSLProgramManagerCommon::GLSLProgramManagerCommon()
     {
-        mActiveShader.fill(NULL);
+        mActiveShader.fill(nullptr);
 
         // Fill in the relationship between type names and enums
         mTypeEnumMap.emplace("float", GCT_FLOAT1);

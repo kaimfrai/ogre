@@ -80,13 +80,13 @@ namespace Ogre {
         , mWorkerRenderSystemAccess(false)
         , mIsRunning(false)
         , mResposeTimeLimitMS(8)
-        , mWorkerFunc(0)
+        , mWorkerFunc(nullptr)
         , mRequestCount(0)
         , mPaused(false)
         , mAcceptRequests(true)
         , mShuttingDown(false)
         , mIdleThreadRunning(false)
-        , mIdleProcessed(0)
+        , mIdleProcessed(nullptr)
     {
     }
     //---------------------------------------------------------------------
@@ -203,7 +203,7 @@ namespace Ogre {
     WorkQueue::RequestID DefaultWorkQueueBase::addRequest(uint16 channel, uint16 requestType, 
         const Any& rData, uint8 retryCount, bool forceSynchronous, bool idleThread)
     {
-        Request* req = 0;
+        Request* req = nullptr;
         RequestID rid = 0;
 
         {
@@ -501,7 +501,7 @@ namespace Ogre {
             // Found idle requests.
             return;
         }
-        Request* request = 0;
+        Request* request = nullptr;
         {
             // scoped to only lock while retrieving the next request
             std::unique_lock<std::recursive_mutex> ogrenameLock1(mProcessMutex);
@@ -540,7 +540,7 @@ namespace Ogre {
         }
         if( mIdleProcessed == r )
         {
-            mIdleProcessed = 0;
+            mIdleProcessed = nullptr;
         }
         if (response)
         {
@@ -599,7 +599,7 @@ namespace Ogre {
         // keep going until we run out of responses or out of time
         while(true)
         {
-            Response* response = 0;
+            Response* response = nullptr;
             {
                 std::unique_lock<std::recursive_mutex> ogrenameLock(mResponseMutex);
 
@@ -640,7 +640,7 @@ namespace Ogre {
             handlerListCopy = mRequestHandlers;
         }
 
-        Response* response = 0;
+        Response* response = nullptr;
 
         StringStream dbgMsg;
         dbgMsg <<
@@ -667,7 +667,7 @@ namespace Ogre {
 
         LogManager::getSingleton().stream(LML_TRIVIAL) << 
             "DefaultWorkQueueBase('" << mName << "') - PROCESS_REQUEST_END(" << dbgMsg.str()
-            << " processed=" << (response!=0);
+            << " processed=" << (response!=nullptr);
 
         return response;
 
@@ -722,7 +722,7 @@ namespace Ogre {
                             mIdleProcessed = mIdleRequestQueue.front();
                             mIdleRequestQueue.pop_front();
                         } else {
-                            mIdleProcessed = 0;
+                            mIdleProcessed = nullptr;
                             mIdleThreadRunning = false;
                             return true;
                         }
@@ -739,7 +739,7 @@ namespace Ogre {
                     if(mIdleProcessed){
                         mIdleProcessed->abortRequest();
                     }
-                    mIdleProcessed = 0;
+                    mIdleProcessed = nullptr;
                     mIdleThreadRunning = false;
                 }
             }

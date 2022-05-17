@@ -78,7 +78,7 @@ namespace Ogre {
         float mPixelRatio;
 
         bool parseChildren( DataStreamPtr& chunk, const String& line, int& l,
-            Overlay* pOverlay, bool isTemplate, OverlayContainer* parent = NULL);
+            Overlay* pOverlay, bool isTemplate, OverlayContainer* parent = nullptr);
 
         FactoryMap mFactories;
 

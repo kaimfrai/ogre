@@ -712,7 +712,7 @@ class Sphere;
             Where T = -(Transposed(Rot) * Pos)
          */
         static Affine3 makeViewMatrix(const Vector3& position, const Quaternion& orientation,
-            const Affine3* reflectMatrix = 0);
+            const Affine3* reflectMatrix = nullptr);
 
         /** Create a rotation matrix from direction and yaw
         @param direction the direction to look in. Must be normalised.

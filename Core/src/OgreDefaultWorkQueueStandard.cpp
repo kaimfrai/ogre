@@ -130,7 +130,7 @@ namespace Ogre
         mWorkers.clear();
 
         delete mWorkerFunc;
-        mWorkerFunc = 0;
+        mWorkerFunc = nullptr;
 
         mIsRunning = false;
     }

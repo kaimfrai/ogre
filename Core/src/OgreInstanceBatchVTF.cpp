@@ -80,7 +80,7 @@ class RenderQueue;
                 mMaxFloatsPerLine( std::numeric_limits<size_t>::max() ),
                 mRowLength(3),
                 mWeightCount(1),
-                mTempTransformsArray3x4(0),
+                mTempTransformsArray3x4(nullptr),
                 mUseBoneMatrixLookup(false),
                 mMaxLookupTableInstances(16),
                 mUseBoneDualQuaternions(false),
@@ -438,7 +438,7 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     InstancedEntity* BaseInstanceBatchVTF::generateInstancedEntity(size_t num)
     {
-        InstancedEntity* sharedTransformEntity = NULL;
+        InstancedEntity* sharedTransformEntity = nullptr;
         if ((useBoneMatrixLookup()) && (num >= getMaxLookupTableInstances()))
         {
             sharedTransformEntity = mInstancedEntities[num % getMaxLookupTableInstances()].get();

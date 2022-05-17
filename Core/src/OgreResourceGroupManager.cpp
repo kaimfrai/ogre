@@ -56,7 +56,7 @@ THE SOFTWARE.
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> ResourceGroupManager* Singleton<ResourceGroupManager>::msSingleton = 0;
+    template<> ResourceGroupManager* Singleton<ResourceGroupManager>::msSingleton = nullptr;
     ResourceGroupManager* ResourceGroupManager::getSingletonPtr()
     {
         return msSingleton;
@@ -80,7 +80,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     ResourceGroupManager::ResourceGroupManager()
-        : mLoadingListener(0), mCurrentGroup(0)
+        : mLoadingListener(nullptr), mCurrentGroup(nullptr)
     {
         // Create the 'General' group
         createResourceGroup(DEFAULT_RESOURCE_GROUP_NAME, true); // the "General" group is synonymous to global pool
@@ -139,7 +139,7 @@ namespace Ogre {
             grp->groupStatus = ResourceGroup::INITIALISED;
             LogManager::getSingleton().logMessage("All done");
             // Reset current group
-            mCurrentGroup = 0;
+            mCurrentGroup = nullptr;
         }
     }
     //-----------------------------------------------------------------------
@@ -163,7 +163,7 @@ namespace Ogre {
                 grp->groupStatus = ResourceGroup::INITIALISED;
                 LogManager::getSingleton().logMessage("All done");
                 // Reset current group
-                mCurrentGroup = 0;
+                mCurrentGroup = nullptr;
             }
         }
     }
@@ -226,7 +226,7 @@ namespace Ogre {
         fireResourceGroupPrepareEnded(name);
 
         // reset current group
-        mCurrentGroup = 0;
+        mCurrentGroup = nullptr;
         
         LogManager::getSingleton().logMessage("Finished preparing resource group " + name);
     }
@@ -292,7 +292,7 @@ namespace Ogre {
         grp->groupStatus = ResourceGroup::LOADED;
 
         // reset current group
-        mCurrentGroup = 0;
+        mCurrentGroup = nullptr;
         
         LogManager::getSingleton().logMessage("Finished loading resource group " + name);
     }
@@ -323,7 +323,7 @@ namespace Ogre {
         grp->groupStatus = ResourceGroup::INITIALISED;
 
         // reset current group
-        mCurrentGroup = 0;
+        mCurrentGroup = nullptr;
         LogManager::getSingleton().logMessage("Finished unloading resource group " + name);
     }
     //-----------------------------------------------------------------------
@@ -359,7 +359,7 @@ namespace Ogre {
         grp->groupStatus = ResourceGroup::INITIALISED;
 
         // reset current group
-        mCurrentGroup = 0;
+        mCurrentGroup = nullptr;
         LogManager::getSingleton().logMessage(
             "Finished unloading unused resources in resource group " + name);
     }
@@ -374,7 +374,7 @@ namespace Ogre {
         // clear initialised flag
         grp->groupStatus = ResourceGroup::UNINITIALSED;
         // reset current group
-        mCurrentGroup = 0;
+        mCurrentGroup = nullptr;
         LogManager::getSingleton().logMessage("Finished clearing resource group " + name);
     }
     //-----------------------------------------------------------------------
@@ -389,7 +389,7 @@ namespace Ogre {
         deleteGroup(grp);
         mResourceGroupMap.erase(mResourceGroupMap.find(name));
         // reset current group
-        mCurrentGroup = 0;
+        mCurrentGroup = nullptr;
     }
     //-----------------------------------------------------------------------
     bool ResourceGroupManager::isResourceGroupInitialised(const String& name) const
@@ -490,7 +490,7 @@ namespace Ogre {
         const String& resourceType, const String& groupName,
         const NameValuePairList& loadParameters)
     {
-        declareResource(name, resourceType, groupName, 0, loadParameters);
+        declareResource(name, resourceType, groupName, nullptr, loadParameters);
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::declareResource(const String& name, 
@@ -548,7 +548,7 @@ namespace Ogre {
 
         Archive* pArch = resourceExists(grp, resourceName);
 
-        if (pArch == NULL && (searchGroupsIfNotFound ||
+        if (pArch == nullptr && (searchGroupsIfNotFound ||
             groupName == AUTODETECT_RESOURCE_GROUP_NAME || grp->inGlobalPool))
         {
             std::pair<Archive*, ResourceGroup*> ret = resourceExistsInAnyGroupImpl(resourceName);
@@ -773,7 +773,7 @@ namespace Ogre {
             }
         }
 
-        return 0; // No loader was found
+        return nullptr; // No loader was found
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::parseResourceGroupScripts(ResourceGroup* grp) const
@@ -834,7 +834,7 @@ namespace Ogre {
                     if (stream)
                     {
                         if (mLoadingListener)
-                            mLoadingListener->resourceStreamOpened(fii->filename, grp->name, 0, stream);
+                            mLoadingListener->resourceStreamOpened(fii->filename, grp->name, nullptr, stream);
 
                         if(fii->archive->getType() == "FileSystem" && stream->size() <= 1024 * 1024)
                         {
@@ -865,7 +865,7 @@ namespace Ogre {
             ResourceManager* mgr = _getResourceManager(dcl.resourceType);
             // Create the resource
             ResourcePtr res = mgr->createResource(dcl.resourceName, grp->name,
-                dcl.loader != 0, dcl.loader, &dcl.parameters);
+                dcl.loader != nullptr, dcl.loader, &dcl.parameters);
             // Add resource to load list
             ResourceGroup::LoadResourceOrderMap::iterator li = 
                 grp->loadResourceOrderMap.find(mgr->getLoadingOrder());
@@ -1065,7 +1065,7 @@ namespace Ogre {
 
         if (groupSet)
         {
-            mCurrentGroup = 0;
+            mCurrentGroup = nullptr;
         }
     }
     //-----------------------------------------------------------------------
@@ -1324,7 +1324,7 @@ namespace Ogre {
     {
         // Try to find in resource index first
         ResourceGroup* grp = getResourceGroup(groupName, true);
-        return resourceExists(grp, resourceName) != 0;
+        return resourceExists(grp, resourceName) != nullptr;
     }
     //-----------------------------------------------------------------------
     Archive* ResourceGroupManager::resourceExists(ResourceGroup* grp, const String& resourceName) const
@@ -1337,7 +1337,7 @@ namespace Ogre {
             return rit->second;
         }
 
-        return NULL;
+        return nullptr;
     }
     //-----------------------------------------------------------------------
     time_t ResourceGroupManager::resourceModifiedTime(const String& groupName, const String& resourceName) const

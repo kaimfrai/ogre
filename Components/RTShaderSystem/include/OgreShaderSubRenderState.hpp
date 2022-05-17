@@ -275,7 +275,7 @@ public:
     */
     [[nodiscard]]
     virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
-    { return NULL; }
+    { return nullptr; }
 
     /** Create an instance of the SubRenderState based on script properties.    
     This method is called in the context of script parsing and let this factory
@@ -287,7 +287,7 @@ public:
     */
     [[nodiscard]]
     virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator)
-    { return NULL; }
+    { return nullptr; }
 
     /** Retrieve the previous instance the SRS in the script translator or
     * create a new instance if not found 

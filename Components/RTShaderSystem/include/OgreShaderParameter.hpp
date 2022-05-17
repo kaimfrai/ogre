@@ -494,7 +494,7 @@ public:
     /** Update the GPU parameter with the given value. */   
     void setGpuParameter(int val)
     { 
-        if (mParamsPtr != NULL)
+        if (mParamsPtr != nullptr)
         {
             mParamsPtr->_writeRawConstant(mPhysicalIndex, val);
         }
@@ -503,7 +503,7 @@ public:
     /** Update the GPU parameter with the given value. */   
     void setGpuParameter(Real val)  
     { 
-        if (mParamsPtr != NULL)
+        if (mParamsPtr != nullptr)
         {
             mParamsPtr->_writeRawConstant(mPhysicalIndex, val);
         }
@@ -512,7 +512,7 @@ public:
     /** Update the GPU parameter with the given value. */   
     void setGpuParameter(const ColourValue& val)  
     { 
-        if (mParamsPtr != NULL)
+        if (mParamsPtr != nullptr)
         {
             mParamsPtr->_writeRawConstant(mPhysicalIndex, val);
         }
@@ -521,7 +521,7 @@ public:
     /** Update the GPU parameter with the given value. */   
     void setGpuParameter(const Vector2& val)  
     { 
-        if (mParamsPtr != NULL)
+        if (mParamsPtr != nullptr)
         {
             mParamsPtr->_writeRawConstants(mPhysicalIndex, val.ptr(), 2);
         }
@@ -530,7 +530,7 @@ public:
     /** Update the GPU parameter with the given value. */   
     void setGpuParameter(const Vector3& val)  
     { 
-        if (mParamsPtr != NULL)
+        if (mParamsPtr != nullptr)
         {
             mParamsPtr->_writeRawConstant(mPhysicalIndex, val);
         }
@@ -539,7 +539,7 @@ public:
     /** Update the GPU parameter with the given value. */   
     void setGpuParameter(const Vector4& val)  
     { 
-        if (mParamsPtr != NULL)
+        if (mParamsPtr != nullptr)
         {
             mParamsPtr->_writeRawConstant(mPhysicalIndex, val);     
         }
@@ -547,7 +547,7 @@ public:
 
     void setGpuParameter(const Matrix3& val)
     {
-        if (mParamsPtr == NULL) return;
+        if (mParamsPtr == nullptr) return;
 
         if(mElementSize == 9) // check if tight packing is supported
         {
@@ -562,7 +562,7 @@ public:
     /** Update the GPU parameter with the given value. */   
     void setGpuParameter(const Matrix4& val)  
     { 
-        if (mParamsPtr != NULL)
+        if (mParamsPtr != nullptr)
         {
             mParamsPtr->_writeRawConstant(mPhysicalIndex, val, 16);
         }
@@ -571,7 +571,7 @@ public:
     /** Update the GPU parameter with the given value. */   
     void setGpuParameter(const float *val, size_t count, size_t multiple = 4)  
     { 
-        if (mParamsPtr != NULL)
+        if (mParamsPtr != nullptr)
         {
             mParamsPtr->_writeRawConstants(mPhysicalIndex, val, count * multiple);
         }
@@ -580,7 +580,7 @@ public:
     /** Update the GPU parameter with the given value. */   
     void setGpuParameter(const double *val, size_t count, size_t multiple = 4)  
     { 
-        if (mParamsPtr != NULL)
+        if (mParamsPtr != nullptr)
         {
             mParamsPtr->_writeRawConstants(mPhysicalIndex, val, count * multiple);
         }
@@ -589,7 +589,7 @@ public:
     /** Update the GPU parameter with the given value. */   
     void setGpuParameter(const int *val, size_t count, size_t multiple = 4)  
     { 
-        if (mParamsPtr != NULL)
+        if (mParamsPtr != nullptr)
         {
             mParamsPtr->_writeRawConstants(mPhysicalIndex, val, count * multiple);
         }

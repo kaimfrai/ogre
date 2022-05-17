@@ -62,7 +62,7 @@ namespace Ogre
     RibbonTrail::RibbonTrail(const String& name, size_t maxElements, 
         size_t numberOfChains, bool useTextureCoords, bool useColours)
         :BillboardChain(name, maxElements, 0, useTextureCoords, useColours, true),
-        mFadeController(0)
+        mFadeController(nullptr)
     {
         setTrailLength(100);
         setNumberOfChains(numberOfChains);
@@ -79,7 +79,7 @@ namespace Ogre
         // Detach listeners
         for (NodeList::iterator i = mNodeList.begin(); i != mNodeList.end(); ++i)
         {
-            (*i)->setListener(0);
+            (*i)->setListener(nullptr);
         }
 
         if (mFadeController)
@@ -143,7 +143,7 @@ namespace Ogre
             BillboardChain::clearChain(chainIndex);
             // mark as free now
             mFreeChains.push_back(chainIndex);
-            (*i)->setListener(0);
+            (*i)->setListener(nullptr);
             mNodeList.erase(i);
             mNodeToChainSegment.erase(mi);
             mNodeToSegMap.erase(mNodeToSegMap.find(n));
@@ -273,7 +273,7 @@ namespace Ogre
         {
             // destroy controller
             ControllerManager::getSingleton().destroyController(mFadeController);
-            mFadeController = 0;
+            mFadeController = nullptr;
         }
 
     }
@@ -452,7 +452,7 @@ namespace Ogre
         bool useTex = true;
         bool useCol = true;
         // optional params
-        if (params != 0)
+        if (params != nullptr)
         {
             NameValuePairList::const_iterator ni = params->find("maxElements");
             if (ni != params->end())

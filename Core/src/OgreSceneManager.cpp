@@ -121,8 +121,8 @@ static const String INVOCATION_SHADOWS = "SHADOWS";
 //-----------------------------------------------------------------------
 SceneManager::SceneManager(const String& name) :
 mName(name),
-mCameraInProgress(0),
-mCurrentViewport(0),
+mCameraInProgress(nullptr),
+mCurrentViewport(nullptr),
 mSkyPlane(this),
 mSkyBox(this),
 mSkyDome(this),
@@ -143,7 +143,7 @@ mMovableNameGenerator("Ogre/MO"),
 mShadowRenderer(this),
 mDisplayNodes(false),
 mShowBoundingBoxes(false),
-mActiveCompositorChain(0),
+mActiveCompositorChain(nullptr),
 mLateMaterialResolving(false),
 mIlluminationStage(IRS_NONE),
 mLightClippingInfoMapFrameNumber(999),
@@ -871,7 +871,7 @@ SceneNode* SceneManager::getSceneNode(const String& name, bool throwExceptionIfN
 
     if (throwExceptionIfNotFound)
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "SceneNode '" + name + "' not found.");
-    return NULL;
+    return nullptr;
 }
 
 //-----------------------------------------------------------------------
@@ -906,8 +906,8 @@ const Pass* SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed,
     // Tell params about current pass
     mAutoParamDataSource->setCurrentPass(pass);
 
-    GpuProgram* vprog = pass->hasVertexProgram() ? pass->getVertexProgram().get() : 0;
-    GpuProgram* fprog = pass->hasFragmentProgram() ? pass->getFragmentProgram().get() : 0;
+    GpuProgram* vprog = pass->hasVertexProgram() ? pass->getVertexProgram().get() : nullptr;
+    GpuProgram* fprog = pass->hasFragmentProgram() ? pass->getFragmentProgram().get() : nullptr;
 
     bool passSurfaceAndLightParams = !vprog || vprog->getPassSurfaceAndLightStates();
 
@@ -1207,7 +1207,7 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
 	mDestRenderSystem->setDrawBuffer(mCurrentViewport->getDrawBuffer());
 	
     // reset light hash so even if light list is the same, we refresh the content every frame
-    useLights(NULL, 0);
+    useLights(nullptr, 0);
 
     if (isShadowTechniqueInUse())
     {
@@ -2287,14 +2287,14 @@ void SceneManager::manualRender(RenderOperation* rend,
         mDestRenderSystem->_beginFrame();
 
     auto usedPass = _setPass(pass);
-    mAutoParamDataSource->setCurrentRenderable(0);
+    mAutoParamDataSource->setCurrentRenderable(nullptr);
     if (vp)
     {
         mAutoParamDataSource->setCurrentRenderTarget(vp->getTarget());
     }
     mAutoParamDataSource->setCurrentSceneManager(this);
     mAutoParamDataSource->setWorldMatrices(&worldMatrix, 1);
-    Camera dummyCam(BLANKSTRING, 0);
+    Camera dummyCam(BLANKSTRING, nullptr);
     dummyCam.setCustomViewMatrix(true, viewMatrix);
     dummyCam.setCustomProjectionMatrix(true, projMatrix);
     mAutoParamDataSource->setCurrentCamera(&dummyCam, false);
@@ -2318,7 +2318,7 @@ void SceneManager::manualRender(Renderable* rend, const Pass* pass, Viewport* vp
         mDestRenderSystem->_beginFrame();
 
     auto usedPass = _setPass(pass);
-    Camera dummyCam(BLANKSTRING, 0);
+    Camera dummyCam(BLANKSTRING, nullptr);
     dummyCam.setCustomViewMatrix(true, viewMatrix);
     dummyCam.setCustomProjectionMatrix(true, projMatrix);
 
@@ -2701,7 +2701,7 @@ void SceneManager::findLightsAffectingFrustum(const Camera* camera)
         if (mCameraRelativeRendering)
             l->_setCameraRelative(mCameraInProgress);
         else
-            l->_setCameraRelative(0);
+            l->_setCameraRelative(nullptr);
 
         if (l->isVisible())
         {
@@ -2885,7 +2885,7 @@ ClipResult SceneManager::buildAndSetLightClip(const LightList& ll)
     if (!mDestRenderSystem->getCapabilities()->hasCapability(RSC_USER_CLIP_PLANES))
         return CLIPPED_NONE;
 
-    Light* clipBase = 0;
+    Light* clipBase = nullptr;
     for (LightList::const_iterator i = ll.begin(); i != ll.end(); ++i)
     {
         // a directional light is being used, no clipping can be done, period.
@@ -3048,7 +3048,7 @@ void SceneManager::prepareShadowTextures(Camera* cam, Viewport* vp, const LightL
     IlluminationRenderStage savedStage = mIlluminationStage;
     mIlluminationStage = IRS_RENDER_TO_TEXTURE;
 
-    if (lightList == 0)
+    if (lightList == nullptr)
         lightList = &mLightsAffectingFrustum;
 
     try
@@ -3074,7 +3074,7 @@ SceneManager::RenderContext* SceneManager::_pauseRendering()
     context->activeChain = _getActiveCompositorChain();
 
     context->rsContext = mDestRenderSystem->_pauseFrame();
-    mRenderQueue = 0;
+    mRenderQueue = nullptr;
     return context;
 }
 //---------------------------------------------------------------------

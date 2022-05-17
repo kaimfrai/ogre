@@ -43,7 +43,7 @@ namespace Ogre {
 
 //-----------------------------------------------------------------------
 template<> 
-RTShader::ProgramWriterManager* Singleton<RTShader::ProgramWriterManager>::msSingleton = 0;
+RTShader::ProgramWriterManager* Singleton<RTShader::ProgramWriterManager>::msSingleton = nullptr;
 
 namespace RTShader {
 //-----------------------------------------------------------------------
