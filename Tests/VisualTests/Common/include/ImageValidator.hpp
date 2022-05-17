@@ -73,7 +73,7 @@ public:
     ComparisonResult compare(Ogre::String image)
     {
         ComparisonResult out;
-        out.image = ::std::format("{}.png", image);
+        out.image = image + ".png";
 
         // extract test name and frame from image filename
         size_t end = image.find_last_of("_");

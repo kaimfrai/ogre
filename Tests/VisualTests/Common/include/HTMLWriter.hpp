@@ -115,7 +115,8 @@ protected:
         }
 
         contentDiv->appendElement("h3")->appendText(
-            ::std::format("{} of {} tests passed.", numPassed, numTests));
+            Ogre::StringConverter::toString(numPassed) + " of " 
+            + Ogre::StringConverter::toString(numTests) + " tests passed.");
         contentDiv->appendElement("hr");
         
         // add thumbnails
@@ -212,7 +213,7 @@ protected:
             column1->appendAttribute("class", Ogre::String("img_column") + (result[i]->passed ? "" : " failed_test"));
             column1->appendElement("h3")->appendText("Original:");
             HtmlElement* img = column1->appendElement("img");
-            img->appendAttribute("alt", ::std::format("{}{} original", result[i]->testName, result[i]->frame));
+            img->appendAttribute("alt", result[i]->testName + Ogre::StringConverter::toString(result[i]->frame) + " original");
             img->appendAttribute("src", set1.name + ::std::format("/{}", result[i]->image));
 
             // second image
@@ -220,8 +221,8 @@ protected:
             column2->appendAttribute("class", Ogre::String("img_column") + (result[i]->passed ? "" : " failed_test"));
             column2->appendElement("h3")->appendText("New:");
             img = column2->appendElement("img");
-            img->appendAttribute("alt", ::std::format("{} new", result[i]->testName, result[i]->frame));
-            img->appendAttribute("src", ::std::format("{}/{}", set2.name, result[i]->image));
+            img->appendAttribute("alt", result[i]->testName + Ogre::StringConverter::toString(result[i]->frame) + " new");
+            img->appendAttribute("src", set2.name + ::std::format("/{}", result[i]->image));
 
             imageBox->appendElement("h4")->appendText("Comparison Summary:");
             

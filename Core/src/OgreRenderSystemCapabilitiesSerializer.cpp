@@ -413,7 +413,7 @@ namespace Ogre
             String everythingElse = "";
             for(unsigned int i = 1; i < tokens.size() - 1; i ++)
             {
-                everythingElse = everythingElse + ::std::format("{} ", tokens[i]);
+                everythingElse = everythingElse + tokens[i] + " ";
             }
             everythingElse = everythingElse + tokens[tokens.size() - 1];
 

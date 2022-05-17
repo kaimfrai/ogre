@@ -151,7 +151,7 @@ class ResourceManager;
                 childShader->loadHighLevel();
                 // add to the container
                 mAttachedGLSLPrograms.push_back( childShader );
-                mAttachedShaderNames += ::std::format("{} ", name);
+                mAttachedShaderNames += name + " ";
             }
         }
     }

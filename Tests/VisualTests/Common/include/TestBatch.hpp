@@ -144,7 +144,7 @@ public:
     {
         // save a small .cfg file with some details about the batch
         std::ofstream config;
-        config.open(::std::format("{}/info.cfg", mDirectory));
+        config.open(Ogre::String(mDirectory + "/info.cfg").c_str());
 
         if (config.is_open())
         {
@@ -186,7 +186,7 @@ public:
             // look for info.cfg, if none found, must not be a batch directory
             try
             {
-                info.load(::std::format("{}{}/info.cfg", directory, (*tests)[i]));
+                info.load(directory + (*tests)[i] + "/info.cfg");
             }
             catch (Ogre::FileNotFoundException& e)
             {

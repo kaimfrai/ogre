@@ -43,13 +43,13 @@ class Any;
 
     DataStreamPtr Codec::encode(const Any& input) const
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, ::std::format("{} - encoding to memory not supported", getType()));
+        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, getType() + " - encoding to memory not supported");
         return {};
     }
 
     void Codec::encodeToFile(const Any& input, const String& outFileName) const
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, ::std::format("{} - encoding to file not supported", getType()));
+        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, getType() + " - encoding to file not supported");
     }
 
     StringVector Codec::getExtensions()
@@ -68,7 +68,7 @@ class Any;
     {
         auto ret = msMapCodecs.emplace(pCodec->getType(), pCodec);
         if (!ret.second)
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("{} already has a registered codec", pCodec->getType()));
+            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, pCodec->getType() + " already has a registered codec");
     }
 
     Codec* Codec::getCodec(const String& extension)

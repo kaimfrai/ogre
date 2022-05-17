@@ -268,7 +268,7 @@ TEST_F(MeshWithoutIndexDataTests,CreateLineWithMaterial)
     MaterialSerializer matWriter;
     matWriter.exportMaterial(
         MaterialManager::getSingleton().getByName(matName),
-        ::std::format("{}.material", matName));
+        matName + ".material");
 
     mMeshMgr->remove(fileName, "General");
 
@@ -276,7 +276,7 @@ TEST_F(MeshWithoutIndexDataTests,CreateLineWithMaterial)
     MeshPtr loadedLine = mMeshMgr->load(fileName, "General");
 
     remove(fileName.c_str());
-    remove((::std::format("{}.material", matName)).c_str());
+    remove((matName + ".material").c_str());
 
     EXPECT_TRUE(loadedLine->getNumSubMeshes() == 1);
     EXPECT_TRUE(loadedLine->getSubMesh(0)->indexData->indexCount == 0);

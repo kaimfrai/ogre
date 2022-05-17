@@ -207,8 +207,9 @@ namespace Ogre {
                     GpuProgramPtr program = currPass->getGpuProgram(programType);
                     if (!program->isSupported())
                     {
-                        compileErrors << ::std::format("Pass {}: {} program {} cannot be used -", passNum, GpuProgram::getProgramTypeName(programType), program->getName()
-                                           );
+                        compileErrors << "Pass " << passNum <<
+                            ": " << GpuProgram::getProgramTypeName(programType) + " program " << program->getName()
+                            << " cannot be used - ";
                         if (program->hasCompileError() && program->getSource().empty())
                             compileErrors << "resource not found.";
                         else if (program->hasCompileError())

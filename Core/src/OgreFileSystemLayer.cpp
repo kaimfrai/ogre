@@ -131,9 +131,9 @@ namespace Ogre
                 base.erase(pos);
 
             // search inside ../share/OGRE
-            mConfigPaths.push_back(StringUtil::normalizeFilePath(::std::format("{}/../share/OGRE/", base), false));
+            mConfigPaths.push_back(StringUtil::normalizeFilePath(base + "/../share/OGRE/", false));
             // then look relative to PIP structure
-            mConfigPaths.push_back(StringUtil::normalizeFilePath(::std::format("{}/../../../../share/OGRE/", base)));
+            mConfigPaths.push_back(StringUtil::normalizeFilePath(base+"/../../../../share/OGRE/"));
         }
 
         // then try system wide /etc

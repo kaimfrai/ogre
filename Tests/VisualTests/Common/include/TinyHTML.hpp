@@ -140,7 +140,7 @@ struct HtmlElement : public HtmlNode
         for (std::list<HtmlNode*>::iterator it = children.begin();
             it != children.end(); ++it)
         {
-            out<<(*it)->print(::std::format("{}\t", indent));
+            out<<(*it)->print(indent + "\t");
         }
 
         // if the last child was an actual element start a newline (otherwise, if text, we'll close on the same line)

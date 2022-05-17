@@ -204,7 +204,7 @@ namespace Ogre {
     {
         size_t i;
 
-        LogManager::getSingleton().logMessage(::std::format("{} created.", getName()));
+        LogManager::getSingleton().logMessage(getName() + " created.");
 
         mRenderAttribsBound.reserve(100);
         mRenderInstanceAttribsBound.reserve(100);

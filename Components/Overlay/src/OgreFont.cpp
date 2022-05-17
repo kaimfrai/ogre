@@ -346,7 +346,7 @@ namespace Ogre
     {
         // Just create the texture here, and point it at ourselves for when
         // it wants to (re)load for real
-        mTexture = TextureManager::getSingleton().create(::std::format("{}Texture", mName), mGroup, true, this);
+        mTexture = TextureManager::getSingleton().create(mName + "Texture", mGroup, true, this);
         mTexture->setTextureType(TEX_TYPE_2D);
         mTexture->setNumMipmaps(0);
         mTexture->load();

@@ -437,7 +437,7 @@ static const uchar depthBits[] =
         for(size_t x=0; x<PF_COUNT; ++x)
         {
             if(mProps[x].valid)
-                fmtstring = ::std::format("{}{} ", fmtstring, PixelUtil::getFormatName((PixelFormat)x));
+                fmtstring += PixelUtil::getFormatName((PixelFormat)x)+" ";
         }
         LogManager::getSingleton().logMessage(::std::format("[GL] : Valid FBO targets {}", fmtstring));
     }

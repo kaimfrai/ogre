@@ -120,31 +120,31 @@ void MeshSerializerTests::SetUp()
     mMesh = MeshManager::getSingleton().load("facial.mesh", "General");
 
     getResourceFullPath(mMesh, mMeshFullPath);
-    if (!copyFile(::std::format("{}.bak", mMeshFullPath), mMeshFullPath)) {
+    if (!copyFile(mMeshFullPath + ".bak", mMeshFullPath)) {
         // If there is no backup, create one.
-        copyFile(mMeshFullPath, ::std::format("{}.bak", mMeshFullPath));
+        copyFile(mMeshFullPath, mMeshFullPath + ".bak");
     }
     mSkeletonFullPath = "";
     mSkeleton = static_pointer_cast<Skeleton>(SkeletonManager::getSingleton().load("jaiqua.skeleton", "General"));
     getResourceFullPath(mSkeleton, mSkeletonFullPath);
-    if (!copyFile(::std::format("{}.bak", mSkeletonFullPath), mSkeletonFullPath)) {
+    if (!copyFile(mSkeletonFullPath + ".bak", mSkeletonFullPath)) {
         // If there is no backup, create one.
-        copyFile(mSkeletonFullPath, ::std::format("{}.bak", mSkeletonFullPath));
+        copyFile(mSkeletonFullPath, mSkeletonFullPath + ".bak");
     }
 
     mMesh->reload();
 
-    mOrigMesh = mMesh->clone(::std::format("{}.orig.mesh", mMesh->getName()), mMesh->getGroup());
+    mOrigMesh = mMesh->clone(mMesh->getName() + ".orig.mesh", mMesh->getGroup());
 }
 //--------------------------------------------------------------------------
 void MeshSerializerTests::TearDown()
 {
     // Copy back original file.
     if (!mMeshFullPath.empty()) {
-        copyFile(::std::format("{}.bak", mMeshFullPath), mMeshFullPath);
+        copyFile(mMeshFullPath + ".bak", mMeshFullPath);
     }
     if (!mSkeletonFullPath.empty()) {
-        copyFile(::std::format("{}.bak", mSkeletonFullPath), mSkeletonFullPath);
+        copyFile(mSkeletonFullPath + ".bak", mSkeletonFullPath);
     }
     if (mMesh) {
         mMesh->unload();
@@ -172,7 +172,7 @@ void MeshSerializerTests::TearDown()
 //--------------------------------------------------------------------------
 TEST_F(MeshSerializerTests,Mesh_clone)
 {
-    MeshPtr cloneMesh = mMesh->clone(::std::format("{}.clone.mesh", mMesh->getName()), mMesh->getGroup());
+    MeshPtr cloneMesh = mMesh->clone(mMesh->getName() + ".clone.mesh", mMesh->getGroup());
     assertMeshClone(mMesh.get(), cloneMesh.get());
 }
 //--------------------------------------------------------------------------

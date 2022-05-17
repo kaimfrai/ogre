@@ -174,7 +174,7 @@ void TestContext::setup()
 
     // An object storing info about this set.
     mBatch = new TestBatch(batchName, mTestSetName, timestamp,
-                           mWindow->getWidth(), mWindow->getHeight(), mOutputDir + ::std::format("{}/", batchName));
+                           mWindow->getWidth(), mWindow->getHeight(), mOutputDir + batchName + "/");
     mBatch->comment = mComment;
 
     OgreBites::Sample* firstTest = loadTests();
@@ -428,7 +428,7 @@ void TestContext::setupDirectories(Ogre::String batchName)
         static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(mOutputDir);
 
         // make sure there's a directory for the test set
-        mOutputDir += ::std::format("{}/", mTestSetName);
+        mOutputDir += mTestSetName + "/";
         static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(mOutputDir);
 
         // add a directory for the render system
@@ -448,7 +448,7 @@ void TestContext::setupDirectories(Ogre::String batchName)
 
     // and finally a directory for the test batch itself
     static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(mOutputDir
-                                                                   + ::std::format("{}/", batchName));
+                                                                   + batchName + "/");
 }
 //-----------------------------------------------------------------------
 
@@ -466,7 +466,7 @@ void TestContext::finishedTests()
         // look for a reference set first (either "Reference" or a user-specified image set)
         try
         {
-            info.load(mReferenceSetPath + ::std::format("{}/info.cfg", mCompareWith));
+            info.load(mReferenceSetPath + mCompareWith + "/info.cfg");
         }
         catch (Ogre::FileNotFoundException&)
         {
@@ -502,7 +502,7 @@ void TestContext::finishedTests()
 
                 // we save a generally named "out.html" that gets overwritten each run,
                 // plus a uniquely named one for this run
-                writer.writeToFile(::std::format("{}out.html", mOutputDir));
+                writer.writeToFile(mOutputDir + "out.html");
                 writer.writeToFile(mOutputDir + ::std::format("TestResults_{}.html", mBatch->name ));
             }
 

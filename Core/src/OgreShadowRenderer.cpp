@@ -689,7 +689,7 @@ void SceneManager::ShadowRenderer::ensureShadowTexturesCreated()
             const TexturePtr& shadowTex = *i;
 
             // Camera names are local to SM
-            String camName = ::std::format("{}Cam", shadowTex->getName());
+            String camName = shadowTex->getName() + "Cam";
             // Material names are global to SM, make specific
             String matName = shadowTex->getName() + ::std::format("Mat{}", mSceneManager->getName());
 

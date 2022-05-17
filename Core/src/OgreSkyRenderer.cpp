@@ -96,7 +96,7 @@ void SceneManager::SkyPlaneRenderer::setSkyPlane(
 {
     if (enable)
     {
-        String meshName = ::std::format("{}SkyPlane", mSceneManager->mName);
+        String meshName = mSceneManager->mName + "SkyPlane";
         mSkyPlane = plane;
 
         MaterialPtr m = MaterialManager::getSingleton().getByName(materialName, groupName);
@@ -409,7 +409,7 @@ MeshPtr SceneManager::SkyDomeRenderer::createSkydomePlane(
     String meshName;
     Vector3 up;
 
-    meshName = ::std::format("{}SkyDomePlane_", mSceneManager->mName);
+    meshName = mSceneManager->mName + "SkyDomePlane_";
     // Set up plane equation
     plane.d = distance;
     switch(bp)
