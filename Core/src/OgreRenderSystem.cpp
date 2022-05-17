@@ -608,8 +608,8 @@ namespace Ogre {
                                      " it says it's incompatible with that RT" );
             }
             else
-                LogManager::getSingleton().logWarning( ::std::format("Couldn't create a suited DepthBuffer"
-                                                       "for RT: {}", renderTarget->getName()));
+                LogManager::getSingleton().logWarning( "Couldn't create a suited DepthBuffer"
+                                                       "for RT: " + renderTarget->getName());
         }
     }
     //-----------------------------------------------------------------------

@@ -209,7 +209,7 @@ namespace Ogre
                             // RSCManager is responsible for deleting mCurrentCapabilities
                             RenderSystemCapabilitiesManager::getSingleton()._addRenderSystemCapabilities(rscName, mCurrentCapabilities);
 
-                            LogManager::getSingleton().logMessage(::std::format("Created RenderSystemCapabilities{}", rscName));
+                            LogManager::getSingleton().logMessage("Created RenderSystemCapabilities" + rscName);
 
                             // do next action
                             parseAction = FIND_OPEN_BRACE;
@@ -422,7 +422,7 @@ namespace Ogre
             switch(keywordType)
             {
                 case UNDEFINED_CAPABILITY_TYPE:
-                    logParseError(::std::format("Unknown capability keyword: {}", keyword));
+                    logParseError("Unknown capability keyword: " + keyword);
                     break;
                 case SET_STRING_METHOD:
                     callSetStringMethod(keyword, everythingElse);
@@ -467,13 +467,13 @@ namespace Ogre
         {
             LogManager::getSingleton().logMessage(
                 ::std::format("Error in .rendercaps {}:", mCurrentStream->getName() ) + StringConverter::toString(mCurrentLineNumber) +
-                ::std::format(" : {}", error));
+                " : " + error);
         }
         else if (mCurrentStream)
         {
             LogManager::getSingleton().logMessage(
                 "Error in .rendercaps " + mCurrentStream->getName() +
-                ::std::format(" : {}", error));
+                " : " + error);
         }
     }
 

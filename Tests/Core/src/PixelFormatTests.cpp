@@ -29,7 +29,6 @@ THE SOFTWARE.
 
 #include <cstdlib>
 #include <cstring>
-#include <format>
 #include <iomanip>
 #include <ostream>
 #include <string>
@@ -92,7 +91,7 @@ TEST_F(PixelFormatTests,FloatPackUnpack)
     }
 
     // src and dst2 should match
-    EXPECT_TRUE(memcmp(mSrc.data, mDst2.data, eob) == 0) << ::std::format("PF_FLOAT16_RGBA<->PF_A8B8G8R8 conversion was not lossless {}", s.str());
+    EXPECT_TRUE(memcmp(mSrc.data, mDst2.data, eob) == 0) << "PF_FLOAT16_RGBA<->PF_A8B8G8R8 conversion was not lossless "+s.str();
 }
 //--------------------------------------------------------------------------
 // Pure 32 bit float precision brute force pixel conversion; for comparison

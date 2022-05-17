@@ -340,7 +340,7 @@ class Technique;
         void writeValue(const String& val, const bool useMainBuffer = true)
         {
             String& buffer = (useMainBuffer ? mBuffer : mGpuProgramBuffer);
-            buffer += (::std::format(" {}", val));
+            buffer += (" " + val);
         }
 
         String quoteWord(const String& val)

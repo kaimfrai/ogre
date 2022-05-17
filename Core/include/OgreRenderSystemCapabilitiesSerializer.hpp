@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_RENDERSYSTEMCAPABILITIESSERIALIZER_H
 #define OGRE_CORE_RENDERSYSTEMCAPABILITIESSERIALIZER_H
 
-#include <format>
 #include <iosfwd>
 #include <map>
 #include <string>
@@ -151,7 +150,7 @@ namespace Ogre {
             }
             else
             {
-                logParseError(::std::format("undefined keyword: {}", keyword));
+                logParseError("undefined keyword: " + keyword);
             }
         }
 
@@ -171,7 +170,7 @@ namespace Ogre {
             }
             else
             {
-                logParseError(::std::format("undefined keyword: {}", keyword));
+                logParseError("undefined keyword: " + keyword);
             }  
         }
 
@@ -191,7 +190,7 @@ namespace Ogre {
             }
             else
             {
-                logParseError(::std::format("undefined keyword: {}", keyword));
+                logParseError("undefined keyword: " + keyword);
                         }
         }
 
@@ -211,7 +210,7 @@ namespace Ogre {
             }
             else
             {
-                logParseError(::std::format("undefined keyword: {}", keyword));
+                logParseError("undefined keyword: " + keyword);
                         }
         }
 
@@ -225,7 +224,7 @@ namespace Ogre {
             // check for errors
             if(mCapabilitiesMap.find(name) == mCapabilitiesMap.end())
             {
-                logParseError(::std::format("Undefined capability: {}", name));
+                logParseError("Undefined capability: " + name);
                 return;
             }
             // only set true capabilities, we can't unset false

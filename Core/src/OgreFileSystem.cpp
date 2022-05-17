@@ -308,7 +308,7 @@ namespace {
         {
             delete roStream;
             delete rwStream;
-            OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, ::std::format("Cannot open file: {}", full_path));
+            OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, "Cannot open file: " + full_path);
         }
 
         /// Construct return stream, tell it to delete on destroy
@@ -348,7 +348,7 @@ namespace {
         if (rwStream->fail())
         {
             delete rwStream;
-            OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, ::std::format("Cannot open file: {}", filename));
+            OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, "Cannot open file: " + filename);
         }
 
         /// Construct return stream, tell it to delete on destroy

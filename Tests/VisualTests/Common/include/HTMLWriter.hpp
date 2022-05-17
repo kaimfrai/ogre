@@ -127,7 +127,7 @@ protected:
             anchor->appendAttribute("href", Ogre::String("#") + mResults[i].testName);
             anchor->appendAttribute("title", mResults[i].testName);
             HtmlElement* img = anchor->appendElement("img");
-            img->appendAttribute("src",mSet2.name + ::std::format("/{}", mResults[i].image));
+            img->appendAttribute("src",mSet2.name + "/" + mResults[i].image);
             img->appendAttribute("class", mResults[i].passed ? "thumb" : "thumb_fail");
         }
 
@@ -213,7 +213,7 @@ protected:
             column1->appendElement("h3")->appendText("Original:");
             HtmlElement* img = column1->appendElement("img");
             img->appendAttribute("alt", result[i]->testName + Ogre::StringConverter::toString(result[i]->frame) + " original");
-            img->appendAttribute("src", set1.name + ::std::format("/{}", result[i]->image));
+            img->appendAttribute("src", set1.name + "/" + result[i]->image);
 
             // second image
             HtmlElement* column2 = imageBox->appendElement("div");
@@ -221,7 +221,7 @@ protected:
             column2->appendElement("h3")->appendText("New:");
             img = column2->appendElement("img");
             img->appendAttribute("alt", result[i]->testName + Ogre::StringConverter::toString(result[i]->frame) + " new");
-            img->appendAttribute("src", set2.name + ::std::format("/{}", result[i]->image));
+            img->appendAttribute("src", set2.name + "/" + result[i]->image);
 
             imageBox->appendElement("h4")->appendText("Comparison Summary:");
             
@@ -250,7 +250,7 @@ protected:
 
                 HtmlElement* ssim = imageBox->appendElement("p");
                 ssim->appendAttribute("class", "diffreport");
-                ssim->appendText(::std::format("Structural Similarity Index: {}", formatFloat(result[i]->ssim)));
+                ssim->appendText("Structural Similarity Index: " + formatFloat(result[i]->ssim));
             }
             else
             {
@@ -288,7 +288,7 @@ protected:
         row = table->appendElement("tr");
         row->appendElement("th")->appendText("Resolution:");
         row->appendElement("td")->appendText(Ogre::StringConverter::toString(set.resolutionX) 
-            + ::std::format(" x {}", Ogre::StringConverter::toString(set.resolutionY)));
+            + " x " + Ogre::StringConverter::toString(set.resolutionY));
         row = table->appendElement("tr");
         row->appendElement("th")->appendText("Comment:");
         row->appendElement("td")->appendText(set.comment);

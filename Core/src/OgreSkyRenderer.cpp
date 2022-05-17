@@ -357,7 +357,7 @@ void SceneManager::SkyDomeRenderer::setSkyDome(
                 tiling, distance, orientation, xsegments, ysegments,
                 i!=BP_UP ? ySegmentsToKeep : -1, groupName);
 
-            String entName = ::std::format("SkyDomePlane{}", StringConverter::toString(i));
+            String entName = "SkyDomePlane" + StringConverter::toString(i);
 
             // Create entity
             if (mSkyDomeEntity[i])

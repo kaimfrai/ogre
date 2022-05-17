@@ -309,7 +309,7 @@ namespace Ogre {
                 else
                 {
                     LogManager::getSingleton().logMessage("Could not parse type of GLSL Uniform: '"
-                                                          + line + ::std::format("' in file {}", filename));
+                                                          + line + "' in file " + filename);
                 }
                 defs.map.emplace(paramName, def);
 
@@ -317,7 +317,7 @@ namespace Ogre {
                 if (line.find('=') != String::npos)
                 {
                     LogManager::getSingleton().logWarning("Default value of uniform '" + paramName +
-                                                          ::std::format("' is ignored in {}", filename));
+                                                          "' is ignored in " + filename);
                     break;
                 }
             }

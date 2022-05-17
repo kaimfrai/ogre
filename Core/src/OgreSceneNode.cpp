@@ -351,7 +351,7 @@ namespace Ogre {
         StringUtil::splitBaseFilename(filename, baseName, strExt);
         auto codec = Codec::getCodec(strExt);
         if (!codec)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("No codec found to load {}", filename));
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "No codec found to load " + filename);
 
         auto stream = Root::openFileStream(
             filename, ResourceGroupManager::getSingleton().getWorldResourceGroupName());
