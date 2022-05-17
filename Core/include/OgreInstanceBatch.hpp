@@ -164,7 +164,7 @@ class Technique;
         virtual void createAllInstancedEntities();
         virtual void deleteAllInstancedEntities();
         /// Creates a new InstancedEntity instance
-        virtual InstancedEntity* generateInstancedEntity(size_t num);
+        virtual auto generateInstancedEntity(size_t num) -> InstancedEntity*;
 
         /** Takes an array of 3x4 matrices and makes it camera relative. Note the second argument
             takes number of floats in the array, not number of matrices. Assumes mCachedCamera
@@ -173,7 +173,7 @@ class Technique;
         void makeMatrixCameraRelative3x4( Matrix3x4f *mat3x4, size_t count );
 
         /// Returns false on errors that would prevent building this batch from the given submesh
-        virtual bool checkSubMeshCompatibility( const SubMesh* baseSubMesh );
+        virtual auto checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool;
 
         void updateVisibility();
 
@@ -193,13 +193,13 @@ class Technique;
                        const String &batchName );
         virtual ~InstanceBatch();
 
-        MeshPtr& _getMeshRef() { return mMeshReference; }
+        auto _getMeshRef() -> MeshPtr& { return mMeshReference; }
 
         /** Raises an exception if trying to change it after being built
         */
         void _setInstancesPerBatch( size_t instancesPerBatch );
 
-        const Mesh::IndexMap* _getIndexToBoneMap() const { return mIndexToBoneMap; }
+        auto _getIndexToBoneMap() const -> const Mesh::IndexMap* { return mIndexToBoneMap; }
 
         /** Returns true if this technique supports skeletal animation
         @remarks
@@ -207,7 +207,7 @@ class Technique;
             by the derived class is faster than virtual call overhead. And both are clean
             ways of implementing it.
         */
-        bool _supportsSkeletalAnimation() const { return mTechnSupportsSkeletal; }
+        auto _supportsSkeletalAnimation() const -> bool { return mTechnSupportsSkeletal; }
 
         /** @see InstanceManager::updateDirtyBatches */
         void _updateBounds();
@@ -222,7 +222,7 @@ class Technique;
         @param flags Flags to pass to the InstanceManager. @see InstanceManagerFlags
         @return The max instances limit
         */
-        virtual size_t calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const = 0;
+        virtual auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t = 0;
 
         /** Constructs all the data needed to use this batch, as well as the
             InstanceEntities. Placed here because in the constructor virtual
@@ -237,7 +237,7 @@ class Technique;
             (@see buildFrom) so that they share the same vertex buffers and indices,
             when possible
         */
-        virtual RenderOperation build( const SubMesh* baseSubMesh );
+        virtual auto build( const SubMesh* baseSubMesh ) -> RenderOperation;
 
         /** Instancing consumes significantly more GPU memory than regular rendering
             methods. However, multiple batches can share most, if not all, of the
@@ -254,16 +254,16 @@ class Technique;
         */
         virtual void buildFrom( const SubMesh *baseSubMesh, const RenderOperation &renderOperation );
 
-        const Ogre::MeshPtr& _getMeshReference() const { return mMeshReference; }
+        auto _getMeshReference() const -> const Ogre::MeshPtr& { return mMeshReference; }
 
         /** @return true if it can not create more InstancedEntities
             (Num InstancedEntities == mInstancesPerBatch)
         */
-        bool isBatchFull() const { return mUnusedEntities.empty(); }
+        auto isBatchFull() const -> bool { return mUnusedEntities.empty(); }
 
         /** Returns true if it no instanced entity has been requested or all of them have been removed
         */
-        bool isBatchUnused() const { return mUnusedEntities.size() == mInstancedEntities.size(); }
+        auto isBatchUnused() const -> bool { return mUnusedEntities.size() == mInstancedEntities.size(); }
 
         auto inline getUsedEntityCount() const noexcept -> size_t { return mInstancedEntities.size() - mUnusedEntities.size();  }
 
@@ -311,7 +311,7 @@ class Technique;
 
         /** Returns true if this batch was set as static. @see setStaticAndUpdate
         */
-        virtual bool isStatic() const                       { return false; }
+        virtual auto isStatic() const -> bool                       { return false; }
 
         /** Returns a pointer to a new InstancedEntity ready to use
             Note it's actually preallocated, so no memory allocation happens at
@@ -319,7 +319,7 @@ class Technique;
             @remarks
                 Returns NULL if all instances are being used
         */
-        InstancedEntity* createInstancedEntity();
+        auto createInstancedEntity() -> InstancedEntity*;
 
         /** Removes an InstancedEntity from the scene retrieved with
             getNewInstancedEntity, putting back into a queue
@@ -332,7 +332,7 @@ class Technique;
         /** Tells whether world bone matrices need to be calculated.
             This does not include bone matrices which are calculated regardless
         */
-        virtual bool useBoneWorldMatrices() const { return true; }
+        virtual auto useBoneWorldMatrices() const -> bool { return true; }
 
         /** Tells that the list of entity instances with shared transforms has changed */
         void _markTransformSharingDirty() { mTransformSharingDirty = true; }
@@ -341,29 +341,29 @@ class Technique;
         void _setCustomParam( InstancedEntity *instancedEntity, unsigned char idx, const Vector4 &newParam );
 
         /** @see InstancedEntity::getCustomParam */
-        const Vector4& _getCustomParam( InstancedEntity *instancedEntity, unsigned char idx );
+        auto _getCustomParam( InstancedEntity *instancedEntity, unsigned char idx ) -> const Vector4&;
 
         //Renderable overloads
         /** @copydoc Renderable::getMaterial */
-        const MaterialPtr& getMaterial() const      { return mMaterial; }
+        auto getMaterial() const -> const MaterialPtr&      { return mMaterial; }
         /** @copydoc Renderable::getRenderOperation */
         void getRenderOperation( RenderOperation& op )  { op = mRenderOperation; }
 
         /** @copydoc Renderable::getSquaredViewDepth */
-        Real getSquaredViewDepth( const Camera* cam ) const;
+        auto getSquaredViewDepth( const Camera* cam ) const -> Real;
         /** @copydoc Renderable::getLights */
-        const LightList& getLights( ) const;
+        auto getLights( ) const -> const LightList&;
         /** @copydoc Renderable::getTechnique */
-        Technique* getTechnique() const;
+        auto getTechnique() const -> Technique*;
 
         /** @copydoc MovableObject::getMovableType */
-        const String& getMovableType() const;
+        auto getMovableType() const -> const String&;
         /** @copydoc MovableObject::_notifyCurrentCamera */
         void _notifyCurrentCamera( Camera* cam );
         /** @copydoc MovableObject::getBoundingBox */
-        const AxisAlignedBox& getBoundingBox() const;
+        auto getBoundingBox() const -> const AxisAlignedBox&;
         /** @copydoc MovableObject::getBoundingRadius */
-        Real getBoundingRadius() const;
+        auto getBoundingRadius() const -> Real;
 
         virtual void _updateRenderQueue(RenderQueue* queue);
         void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false );

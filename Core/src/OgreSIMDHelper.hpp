@@ -205,7 +205,7 @@ namespace Ogre {
     template <bool aligned = false>
     struct SSEMemoryAccessor
     {
-        static inline __m128 load(const float *p)
+        static inline auto load(const float *p) -> __m128
         {
             return _mm_loadu_ps(p);
         }
@@ -218,7 +218,7 @@ namespace Ogre {
     template <>
     struct SSEMemoryAccessor<true>
     {
-        static inline const __m128& load(const float *p)
+        static inline auto load(const float *p) -> const __m128&
         {
             return __MM_LOAD_PS(p);
         }
@@ -230,7 +230,7 @@ namespace Ogre {
 
     /** Check whether or not the given pointer perfect aligned for SSE.
     */
-    static inline bool _isAlignedForSSE(const void *p)
+    static inline auto _isAlignedForSSE(const void *p) -> bool
     {
         return (((size_t)p) & 15) == 0;
     }

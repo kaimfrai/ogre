@@ -202,7 +202,7 @@ namespace Ogre {
         glBindTexture(target, texture);
     }
     
-    bool GLStateCacheManager::activateGLTextureUnit(size_t unit)
+    auto GLStateCacheManager::activateGLTextureUnit(size_t unit) -> bool
     {
         if (unit >= Root::getSingleton().getRenderSystem()->getCapabilities()->getNumTextureUnits())
             return false;

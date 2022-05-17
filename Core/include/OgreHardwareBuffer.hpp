@@ -179,7 +179,7 @@ namespace Ogre {
             Usage mUsage;
             
             /// Internal implementation of lock()
-            virtual void* lockImpl(size_t offset, size_t length, LockOptions options)
+            virtual auto lockImpl(size_t offset, size_t length, LockOptions options) -> void*
             {
                 return mDelegate->lock(offset, length, options);
             }
@@ -209,7 +209,7 @@ namespace Ogre {
             @param options Locking options
             @return Pointer to the locked memory
             */
-            virtual void* lock(size_t offset, size_t length, LockOptions options)
+            virtual auto lock(size_t offset, size_t length, LockOptions options) -> void*
             {
                 OgreAssert(!isLocked(), "Cannot lock this buffer: it is already locked");
                 OgreAssert((length + offset) <= mSizeInBytes, "Lock request out of bounds");
@@ -235,7 +235,7 @@ namespace Ogre {
             }
 
             /// @overload
-            void* lock(LockOptions options)
+            auto lock(LockOptions options) -> void*
             {
                 return this->lock(0, mSizeInBytes, options);
             }
@@ -362,15 +362,15 @@ namespace Ogre {
             }
 
             /// Returns the size of this buffer in bytes
-            [[nodiscard]] size_t getSizeInBytes() const { return mSizeInBytes; }
+            [[nodiscard]] auto getSizeInBytes() const -> size_t { return mSizeInBytes; }
             /// Returns the Usage flags with which this buffer was created
-            [[nodiscard]] Usage getUsage() const { return mUsage; }
+            [[nodiscard]] auto getUsage() const -> Usage { return mUsage; }
             /// Returns whether this buffer is held in system memory
-            [[nodiscard]] bool isSystemMemory() const { return mSystemMemory; }
+            [[nodiscard]] auto isSystemMemory() const -> bool { return mSystemMemory; }
             /// Returns whether this buffer has a system memory shadow for quicker reading
-            [[nodiscard]] bool hasShadowBuffer() const { return mShadowBuffer || (mDelegate && mDelegate->hasShadowBuffer()); }
+            [[nodiscard]] auto hasShadowBuffer() const -> bool { return mShadowBuffer || (mDelegate && mDelegate->hasShadowBuffer()); }
             /// Returns whether or not this buffer is currently locked.
-            [[nodiscard]] bool isLocked() const { 
+            [[nodiscard]] auto isLocked() const -> bool { 
                 return mIsLocked || (mShadowBuffer && mShadowBuffer->isLocked());
             }
             /// Pass true to suppress hardware upload of shadow buffer changes
@@ -383,7 +383,7 @@ namespace Ogre {
                     mDelegate->suppressHardwareUpdate(suppress);
             }
 
-            template <typename T> T* _getImpl()
+            template <typename T> auto _getImpl() -> T*
             {
                 return static_cast<T*>(mDelegate.get());
             }

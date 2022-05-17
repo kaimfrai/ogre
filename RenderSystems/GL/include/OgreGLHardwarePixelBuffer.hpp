@@ -56,7 +56,7 @@ namespace Ogre {
         
         void bindToFramebuffer(uint32 attachment, uint32 zoffset) override;
         /// @copydoc HardwarePixelBuffer::getRenderTarget
-        RenderTexture* getRenderTarget(size_t slice);
+        auto getRenderTarget(size_t slice) -> RenderTexture*;
         /// Upload a box of pixels to this buffer on the card
         virtual void upload(const PixelBox &data, const Box &dest);
         /// Download a box of pixels from the card

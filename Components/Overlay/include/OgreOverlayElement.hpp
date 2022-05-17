@@ -197,7 +197,7 @@ class RenderQueue;
         virtual void _restoreManualHardwareResources() {}
 
         /** Gets the name of this overlay. */
-        [[nodiscard]] const String& getName() const { return mName; }
+        [[nodiscard]] auto getName() const -> const String& { return mName; }
 
 
         /** Shows this element if it was hidden. */
@@ -210,9 +210,9 @@ class RenderQueue;
         void setVisible(bool visible) { mVisible = visible; }
 
         /** Returns whether or not the element is visible. */
-        [[nodiscard]] bool isVisible() const { return mVisible; }
+        [[nodiscard]] auto isVisible() const -> bool { return mVisible; }
 
-        [[nodiscard]] bool isEnabled() const { return mEnabled; }
+        [[nodiscard]] auto isEnabled() const -> bool { return mEnabled; }
         void setEnabled(bool b) { mEnabled = b; }
 
 
@@ -225,31 +225,31 @@ class RenderQueue;
         /** Sets the width of this element in relation to the current #GuiMetricsMode. */
         void setWidth(Real width);
         /** Gets the width of this element in relation to the current #GuiMetricsMode. */
-        [[nodiscard]] Real getWidth() const;
+        [[nodiscard]] auto getWidth() const -> Real;
 
         /** Sets the height of this element in relation to the current #GuiMetricsMode. */
         void setHeight(Real height);
         /** Gets the height of this element in relation to the current #GuiMetricsMode. */
-        [[nodiscard]] Real getHeight() const;
+        [[nodiscard]] auto getHeight() const -> Real;
 
         /** Sets the left of this element in relation to the current #GuiMetricsMode. */
         void setLeft(Real left);
         /** Gets the left of this element in relation to the current #GuiMetricsMode. */
-        [[nodiscard]] Real getLeft() const;
+        [[nodiscard]] auto getLeft() const -> Real;
 
         /** Sets the top of this element in relation to the current #GuiMetricsMode (where 0 = top). */
         void setTop(Real Top);
         /** Gets the top of this element in relation to the current #GuiMetricsMode (where 0 = top). */
-        [[nodiscard]] Real getTop() const;
+        [[nodiscard]] auto getTop() const -> Real;
 
         /** Gets the left of this element in relation to the screen (where 0 = far left, 1.0 = far right)  */
-        [[nodiscard]] Real _getLeft() const { return mLeft; }
+        [[nodiscard]] auto _getLeft() const -> Real { return mLeft; }
         /** Gets the top of this element in relation to the screen (where 0 = far top, 1.0 = far bottom)  */
-        [[nodiscard]] Real _getTop() const { return mTop; }
+        [[nodiscard]] auto _getTop() const -> Real { return mTop; }
         /** Gets the width of this element in relation to the screen (where 1.0 = screen width)  */
-        [[nodiscard]] Real _getWidth() const { return mWidth; }
+        [[nodiscard]] auto _getWidth() const -> Real { return mWidth; }
         /** Gets the height of this element in relation to the screen (where 1.0 = screen height)  */
-        [[nodiscard]] Real _getHeight() const { return mHeight; }
+        [[nodiscard]] auto _getHeight() const -> Real { return mHeight; }
         /** Sets the left of this element in relation to the screen (where 1.0 = screen width) */
         void _setLeft(Real left);
         /** Sets the top of this element in relation to the screen (where 1.0 = screen height) */
@@ -264,7 +264,7 @@ class RenderQueue;
         void _setDimensions(Real width, Real height);
 
         /** Gets the name of the material this element uses. */
-        [[nodiscard]] virtual const String& getMaterialName() const;
+        [[nodiscard]] virtual auto getMaterialName() const -> const String&;
 
         /** Sets the the material this element will use.
         @remarks
@@ -284,7 +284,7 @@ class RenderQueue;
 
 
         // --- Renderable Overrides ---
-        [[nodiscard]] const MaterialPtr& getMaterial() const override;
+        [[nodiscard]] auto getMaterial() const -> const MaterialPtr& override;
 
         // NB getRenderOperation not implemented, still abstract here
 
@@ -303,15 +303,15 @@ class RenderQueue;
         virtual void _notifyParent(OverlayContainer* parent, Overlay* overlay);
 
         /** Gets the 'left' position as derived from own left and that of parents. */
-        virtual Real _getDerivedLeft();
+        virtual auto _getDerivedLeft() -> Real;
 
         /** Gets the 'top' position as derived from own left and that of parents. */
-        virtual Real _getDerivedTop();
+        virtual auto _getDerivedTop() -> Real;
 
         /** Gets the 'width' as derived from own width and metrics mode. */
-        virtual Real _getRelativeWidth();
+        virtual auto _getRelativeWidth() -> Real;
         /** Gets the 'height' as derived from own height and metrics mode. */
-        virtual Real _getRelativeHeight();
+        virtual auto _getRelativeHeight() -> Real;
 
 
         /** Gets the clipping region of the element */
@@ -329,7 +329,7 @@ class RenderQueue;
         is simply 'newZOrder + 1', except for containers. They increment it once for each
         child (or even more if those children are also containers with their own elements).
         */
-        virtual ushort _notifyZOrder(ushort newZOrder);
+        virtual auto _notifyZOrder(ushort newZOrder) -> ushort;
 
         /** Internal method to notify the element when it's world transform
          of parent overlay has changed.
@@ -349,7 +349,7 @@ class RenderQueue;
             bool debugRenderables = false);
 
         /** Gets the type name of the element. All concrete subclasses must implement this. */
-        [[nodiscard]] virtual const String& getTypeName() const = 0;
+        [[nodiscard]] virtual auto getTypeName() const -> const String& = 0;
 
         /** Sets the caption on elements that support it. 
         @remarks
@@ -359,7 +359,7 @@ class RenderQueue;
         */
         virtual void setCaption(const DisplayString& text);
         /** Gets the caption for this element. */
-        [[nodiscard]] const DisplayString& getCaption() const { return mCaption; }
+        [[nodiscard]] auto getCaption() const -> const DisplayString& { return mCaption; }
         /** Sets the colour on elements that support it. 
         @remarks
         This property doesn't do something on all elements, just those that support it.
@@ -369,7 +369,7 @@ class RenderQueue;
         virtual void setColour(const ColourValue& col);
 
         /** Gets the colour for this element. */
-        [[nodiscard]] virtual const ColourValue& getColour() const;
+        [[nodiscard]] virtual auto getColour() const -> const ColourValue&;
 
         /** Tells this element how to interpret the position and dimension values it is given.
         @remarks
@@ -383,7 +383,7 @@ class RenderQueue;
         */
         virtual void setMetricsMode(GuiMetricsMode gmm);
         /** Retrieves the current settings of how the element metrics are interpreted. */
-        [[nodiscard]] GuiMetricsMode getMetricsMode() const { return mMetricsMode; }
+        [[nodiscard]] auto getMetricsMode() const -> GuiMetricsMode { return mMetricsMode; }
         /** Sets the horizontal origin for this element.
         @remarks
         By default, the horizontal origin for a OverlayElement is the left edge of the parent container
@@ -401,7 +401,7 @@ class RenderQueue;
         */
         virtual void setHorizontalAlignment(GuiHorizontalAlignment gha);
         /** Gets the horizontal alignment for this element. */
-        [[nodiscard]] GuiHorizontalAlignment getHorizontalAlignment() const { return mHorzAlign; }
+        [[nodiscard]] auto getHorizontalAlignment() const -> GuiHorizontalAlignment { return mHorzAlign; }
         /** Sets the vertical origin for this element. 
         @remarks
         By default, the vertical origin for a OverlayElement is the top edge of the parent container
@@ -419,45 +419,45 @@ class RenderQueue;
         */
         virtual void setVerticalAlignment(GuiVerticalAlignment gva);
         /** Gets the vertical alignment for this element. */
-        [[nodiscard]] GuiVerticalAlignment getVerticalAlignment() const { return mVertAlign; }
+        [[nodiscard]] auto getVerticalAlignment() const -> GuiVerticalAlignment { return mVertAlign; }
 
 
 
 
         /** Returns true if xy is within the constraints of the component */
-        [[nodiscard]] virtual bool contains(Real x, Real y) const;
+        [[nodiscard]] virtual auto contains(Real x, Real y) const -> bool;
 
         /** Returns true if xy is within the constraints of the component */
-        virtual OverlayElement* findElementAt(Real x, Real y);      // relative to parent
+        virtual auto findElementAt(Real x, Real y) -> OverlayElement*;      // relative to parent
 
         /**
         * returns false as this class is not a container type 
         */
-        [[nodiscard]] virtual bool isContainer() const { return false; }
-        [[nodiscard]] virtual bool isKeyEnabled() const { return false; }
-        [[nodiscard]] bool isCloneable() const { return mCloneable; }
+        [[nodiscard]] virtual auto isContainer() const -> bool { return false; }
+        [[nodiscard]] virtual auto isKeyEnabled() const -> bool { return false; }
+        [[nodiscard]] auto isCloneable() const -> bool { return mCloneable; }
         void setCloneable(bool c) { mCloneable = c; }
 
         /**
         * Returns the parent container.
         */
-        OverlayContainer* getParent() { return mParent; }
+        auto getParent() -> OverlayContainer* { return mParent; }
         void _setParent(OverlayContainer* parent) { mParent = parent; }
 
         /**
         * Returns the zOrder of the element
         */
-        [[nodiscard]] ushort getZOrder() const { return mZOrder; }
+        [[nodiscard]] auto getZOrder() const -> ushort { return mZOrder; }
 
         /** Overridden from Renderable */
-        Real getSquaredViewDepth(const Camera* cam) const 
+        auto getSquaredViewDepth(const Camera* cam) const -> Real 
         { 
             (void)cam;
             return 10000.0f - (Real)getZOrder(); 
         }
 
         /** @copydoc Renderable::getLights */
-        [[nodiscard]] const LightList& getLights() const
+        [[nodiscard]] auto getLights() const -> const LightList&
         {
             // Overlayelements should not be lit by the scene, this will not get called
             static LightList ll;
@@ -465,7 +465,7 @@ class RenderQueue;
         }
 
         virtual void copyFromTemplate(OverlayElement* templateOverlay) { templateOverlay->copyParametersTo(this); }
-        virtual OverlayElement* clone(const String& instanceName);
+        virtual auto clone(const String& instanceName) -> OverlayElement*;
     };
 
 

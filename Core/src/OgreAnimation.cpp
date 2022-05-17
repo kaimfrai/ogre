@@ -69,7 +69,7 @@ class VertexData;
         destroyAllTracks();
     }
     //---------------------------------------------------------------------
-    Real Animation::getLength() const
+    auto Animation::getLength() const -> Real
     {
         return mLength;
     }
@@ -79,7 +79,7 @@ class VertexData;
         mLength = len;
     }
     //---------------------------------------------------------------------
-    NodeAnimationTrack* Animation::createNodeTrack(unsigned short handle)
+    auto Animation::createNodeTrack(unsigned short handle) -> NodeAnimationTrack*
     {
         if (hasNodeTrack(handle))
         {
@@ -95,7 +95,7 @@ class VertexData;
         return ret;
     }
     //---------------------------------------------------------------------
-    NodeAnimationTrack* Animation::createNodeTrack(unsigned short handle, Node* node)
+    auto Animation::createNodeTrack(unsigned short handle, Node* node) -> NodeAnimationTrack*
     {
         NodeAnimationTrack* ret = createNodeTrack(handle);
 
@@ -104,17 +104,17 @@ class VertexData;
         return ret;
     }
     //---------------------------------------------------------------------
-    unsigned short Animation::getNumNodeTracks() const
+    auto Animation::getNumNodeTracks() const -> unsigned short
     {
         return (unsigned short)mNodeTrackList.size();
     }
     //---------------------------------------------------------------------
-    bool Animation::hasNodeTrack(unsigned short handle) const
+    auto Animation::hasNodeTrack(unsigned short handle) const -> bool
     {
         return (mNodeTrackList.find(handle) != mNodeTrackList.end());
     }
     //---------------------------------------------------------------------
-    NodeAnimationTrack* Animation::getNodeTrack(unsigned short handle) const
+    auto Animation::getNodeTrack(unsigned short handle) const -> NodeAnimationTrack*
     {
         NodeTrackList::const_iterator i = mNodeTrackList.find(handle);
 
@@ -153,7 +153,7 @@ class VertexData;
         _keyFrameListChanged();
     }
     //---------------------------------------------------------------------
-    NumericAnimationTrack* Animation::createNumericTrack(unsigned short handle)
+    auto Animation::createNumericTrack(unsigned short handle) -> NumericAnimationTrack*
     {
         if (hasNumericTrack(handle))
         {
@@ -169,8 +169,8 @@ class VertexData;
         return ret;
     }
     //---------------------------------------------------------------------
-    NumericAnimationTrack* Animation::createNumericTrack(unsigned short handle, 
-        const AnimableValuePtr& anim)
+    auto Animation::createNumericTrack(unsigned short handle, 
+        const AnimableValuePtr& anim) -> NumericAnimationTrack*
     {
         NumericAnimationTrack* ret = createNumericTrack(handle);
 
@@ -179,17 +179,17 @@ class VertexData;
         return ret;
     }
     //---------------------------------------------------------------------
-    unsigned short Animation::getNumNumericTracks() const
+    auto Animation::getNumNumericTracks() const -> unsigned short
     {
         return (unsigned short)mNumericTrackList.size();
     }
     //---------------------------------------------------------------------
-    bool Animation::hasNumericTrack(unsigned short handle) const
+    auto Animation::hasNumericTrack(unsigned short handle) const -> bool
     {
         return (mNumericTrackList.find(handle) != mNumericTrackList.end());
     }
     //---------------------------------------------------------------------
-    NumericAnimationTrack* Animation::getNumericTrack(unsigned short handle) const
+    auto Animation::getNumericTrack(unsigned short handle) const -> NumericAnimationTrack*
     {
         NumericTrackList::const_iterator i = mNumericTrackList.find(handle);
 
@@ -228,8 +228,8 @@ class VertexData;
         _keyFrameListChanged();
     }
     //---------------------------------------------------------------------
-    VertexAnimationTrack* Animation::createVertexTrack(unsigned short handle, 
-        VertexAnimationType animType)
+    auto Animation::createVertexTrack(unsigned short handle, 
+        VertexAnimationType animType) -> VertexAnimationTrack*
     {
         if (hasVertexTrack(handle))
         {
@@ -246,8 +246,8 @@ class VertexData;
 
     }
     //---------------------------------------------------------------------
-    VertexAnimationTrack* Animation::createVertexTrack(unsigned short handle, 
-        VertexData* data, VertexAnimationType animType)
+    auto Animation::createVertexTrack(unsigned short handle, 
+        VertexData* data, VertexAnimationType animType) -> VertexAnimationTrack*
     {
         VertexAnimationTrack* ret = createVertexTrack(handle, animType);
 
@@ -256,17 +256,17 @@ class VertexData;
         return ret;
     }
     //---------------------------------------------------------------------
-    unsigned short Animation::getNumVertexTracks() const
+    auto Animation::getNumVertexTracks() const -> unsigned short
     {
         return (unsigned short)mVertexTrackList.size();
     }
     //---------------------------------------------------------------------
-    bool Animation::hasVertexTrack(unsigned short handle) const
+    auto Animation::hasVertexTrack(unsigned short handle) const -> bool
     {
         return (mVertexTrackList.find(handle) != mVertexTrackList.end());
     }
     //---------------------------------------------------------------------
-    VertexAnimationTrack* Animation::getVertexTrack(unsigned short handle) const
+    auto Animation::getVertexTrack(unsigned short handle) const -> VertexAnimationTrack*
     {
         VertexTrackList::const_iterator i = mVertexTrackList.find(handle);
 
@@ -312,7 +312,7 @@ class VertexData;
         destroyAllVertexTracks();
     }
     //---------------------------------------------------------------------
-    const String& Animation::getName() const
+    auto Animation::getName() const -> const String&
     {
         return mName;
     }
@@ -476,7 +476,7 @@ class VertexData;
         mInterpolationMode = im;
     }
     //---------------------------------------------------------------------
-    Animation::InterpolationMode Animation::getInterpolationMode() const
+    auto Animation::getInterpolationMode() const -> Animation::InterpolationMode
     {
         return mInterpolationMode;
     }
@@ -486,23 +486,23 @@ class VertexData;
         msDefaultInterpolationMode = im;
     }
     //---------------------------------------------------------------------
-    Animation::InterpolationMode Animation::getDefaultInterpolationMode()
+    auto Animation::getDefaultInterpolationMode() -> Animation::InterpolationMode
     {
         return msDefaultInterpolationMode;
     }
     //---------------------------------------------------------------------
-    const Animation::NodeTrackList& Animation::_getNodeTrackList() const
+    auto Animation::_getNodeTrackList() const -> const Animation::NodeTrackList&
     {
         return mNodeTrackList;
 
     }
     //---------------------------------------------------------------------
-    const Animation::NumericTrackList& Animation::_getNumericTrackList() const
+    auto Animation::_getNumericTrackList() const -> const Animation::NumericTrackList&
     {
         return mNumericTrackList;
     }
     //---------------------------------------------------------------------
-    const Animation::VertexTrackList& Animation::_getVertexTrackList() const
+    auto Animation::_getVertexTrackList() const -> const Animation::VertexTrackList&
     {
         return mVertexTrackList;
     }
@@ -512,7 +512,7 @@ class VertexData;
         mRotationInterpolationMode = im;
     }
     //---------------------------------------------------------------------
-    Animation::RotationInterpolationMode Animation::getRotationInterpolationMode() const
+    auto Animation::getRotationInterpolationMode() const -> Animation::RotationInterpolationMode
     {
         return mRotationInterpolationMode;
     }
@@ -522,7 +522,7 @@ class VertexData;
         msDefaultRotationInterpolationMode = im;
     }
     //---------------------------------------------------------------------
-    Animation::RotationInterpolationMode Animation::getDefaultRotationInterpolationMode()
+    auto Animation::getDefaultRotationInterpolationMode() -> Animation::RotationInterpolationMode
     {
         return msDefaultRotationInterpolationMode;
     }
@@ -615,7 +615,7 @@ class VertexData;
 
     }
     //-----------------------------------------------------------------------
-    Animation* Animation::clone(const String& newName) const
+    auto Animation::clone(const String& newName) const -> Animation*
     {
         Animation* newAnim = new Animation(newName, mLength);
         newAnim->mInterpolationMode = mInterpolationMode;
@@ -643,7 +643,7 @@ class VertexData;
 
     }
     //-----------------------------------------------------------------------
-    TimeIndex Animation::_getTimeIndex(Real timePos) const
+    auto Animation::_getTimeIndex(Real timePos) const -> TimeIndex
     {
         // Uncomment following statement for work as previous
         //return timePos;
@@ -720,17 +720,17 @@ class VertexData;
         }
     }
     //-----------------------------------------------------------------------
-    bool Animation::getUseBaseKeyFrame() const
+    auto Animation::getUseBaseKeyFrame() const -> bool
     {
         return mUseBaseKeyFrame;
     }
     //-----------------------------------------------------------------------
-    Real Animation::getBaseKeyFrameTime() const
+    auto Animation::getBaseKeyFrameTime() const -> Real
     {
         return mBaseKeyFrameTime;
     }
     //-----------------------------------------------------------------------
-    const String& Animation::getBaseKeyFrameAnimationName() const
+    auto Animation::getBaseKeyFrameAnimationName() const -> const String&
     {
         return mBaseKeyFrameAnimationName;
     }
@@ -792,7 +792,7 @@ class VertexData;
         mContainer = c;
     }
     //-----------------------------------------------------------------------
-    AnimationContainer* Animation::getContainer()
+    auto Animation::getContainer() -> AnimationContainer*
     {
         return mContainer;
     }

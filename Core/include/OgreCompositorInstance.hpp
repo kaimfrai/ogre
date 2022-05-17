@@ -195,7 +195,7 @@ class SceneManager;
         
         /** Get enabled flag.
         */
-        [[nodiscard]] bool getEnabled() const { return mEnabled; }
+        [[nodiscard]] auto getEnabled() const -> bool { return mEnabled; }
 
         /** Set alive/active flag. The compositor instance will create resources when alive,
             and destroy them when inactive.
@@ -207,7 +207,7 @@ class SceneManager;
 
         /** Get alive flag.
         */
-        [[nodiscard]] bool getAlive() const { return mAlive; }
+        [[nodiscard]] auto getAlive() const -> bool { return mAlive; }
 
         /** Get the instance name for a local texture.
         @note It is only valid to call this when local textures have been loaded, 
@@ -222,7 +222,7 @@ class SceneManager;
         @return
             The instance name for the texture, corresponds to a real texture.
         */
-        const String& getTextureInstanceName(const String& name, size_t mrtIndex);
+        auto getTextureInstanceName(const String& name, size_t mrtIndex) -> const String&;
 
         /** Get the instance of a local texture.
         @note Textures are only valid when local textures have been loaded, 
@@ -237,7 +237,7 @@ class SceneManager;
         @return
             The texture pointer, corresponds to a real texture.
         */
-        const TexturePtr& getTextureInstance(const String& name, size_t mrtIndex);
+        auto getTextureInstance(const String& name, size_t mrtIndex) -> const TexturePtr&;
 
         /** Get the render target for a given render texture name. 
         @remarks
@@ -245,7 +245,7 @@ class SceneManager;
             targets manually or any other modifications, the compositor instance 
             is in charge of this.
         */
-        RenderTarget* getRenderTarget(const String& name, int slice = 0);
+        auto getRenderTarget(const String& name, int slice = 0) -> RenderTarget*;
 
        
         /** Recursively collect target states (except for final Pass).
@@ -261,11 +261,11 @@ class SceneManager;
         
         /** Get Compositor of which this is an instance
         */
-        [[nodiscard]] Compositor *getCompositor() const { return mCompositor; }
+        [[nodiscard]] auto getCompositor() const -> Compositor * { return mCompositor; }
         
         /** Get CompositionTechnique used by this instance
         */
-        [[nodiscard]] CompositionTechnique *getTechnique() const { return mTechnique; }
+        [[nodiscard]] auto getTechnique() const -> CompositionTechnique * { return mTechnique; }
 
         /** Change the technique we're using to render this compositor. 
         @param tech
@@ -292,7 +292,7 @@ class SceneManager;
         void setScheme(const String& schemeName, bool reuseTextures = true);
 
         /// Returns the name of the scheme this compositor is using.
-        [[nodiscard]] const String& getScheme() const { return mTechnique ? mTechnique->getSchemeName() : BLANKSTRING; }
+        [[nodiscard]] auto getScheme() const -> const String& { return mTechnique ? mTechnique->getSchemeName() : BLANKSTRING; }
 
         /** Notify this instance that the primary surface has been resized. 
         @remarks
@@ -303,7 +303,7 @@ class SceneManager;
 
         /** Get Chain that this instance is part of
         */
-        CompositorChain *getChain();
+        auto getChain() -> CompositorChain *;
 
         /** Add a listener. Listeners provide an interface to "listen in" to to render system 
             operations executed by this CompositorInstance so that materials can be 
@@ -372,7 +372,7 @@ class SceneManager;
             The material is detached from the Material Manager to make sure it is destroyed
             when going out of scope.
         */
-        MaterialPtr createLocalMaterial(const String& srcName);
+        auto createLocalMaterial(const String& srcName) -> MaterialPtr;
         
         /** Create local rendertextures and other resources. Builds mLocalTextures.
         */
@@ -384,12 +384,12 @@ class SceneManager;
         */
         void freeResources(bool forResizeOnly, bool clearReserveTextures);
 
-        CompositionTechnique::TextureDefinition*
-        resolveTexReference(const CompositionTechnique::TextureDefinition* texDef);
+        auto
+        resolveTexReference(const CompositionTechnique::TextureDefinition* texDef) -> CompositionTechnique::TextureDefinition*;
 
         /** Get RenderTarget for a named local texture.
         */
-        RenderTarget *getTargetForTex(const String &name, int slice);
+        auto getTargetForTex(const String &name, int slice) -> RenderTarget *;
         
         /** Get source texture name for a named local texture.
         @param name
@@ -397,14 +397,14 @@ class SceneManager;
         @param mrtIndex
             For MRTs, which attached surface to retrieve.
         */
-        const TexturePtr &getSourceForTex(const String &name, size_t mrtIndex = 0);
+        auto getSourceForTex(const String &name, size_t mrtIndex = 0) -> const TexturePtr &;
 
         /** Queue a render system operation.
         */
         void queueRenderSystemOp(TargetOperation &finalState, RenderSystemOperation *op);
 
         /// Util method for assigning a local texture name to a MRT attachment
-        static String getMRTTexLocalName(const String& baseName, size_t attachment);
+        static auto getMRTTexLocalName(const String& baseName, size_t attachment) -> String;
 
         /** Search for options like AA and hardware gamma which we may want to 
             inherit from the main render target to which we're attached. 

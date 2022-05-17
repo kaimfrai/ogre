@@ -435,7 +435,7 @@ namespace {
         }
     }
     //---------------------------------------------------------------------
-    PixelFormat DDSCodec::convertDXToOgreFormat(uint32 dxfmt) const
+    auto DDSCodec::convertDXToOgreFormat(uint32 dxfmt) const -> PixelFormat
     {
         switch (dxfmt) {
 			case 2: // DXGI_FORMAT_R32G32B32A32_FLOAT
@@ -555,7 +555,7 @@ namespace {
         }
     }
     //---------------------------------------------------------------------
-    PixelFormat DDSCodec::convertFourCCFormat(uint32 fourcc) const
+    auto DDSCodec::convertFourCCFormat(uint32 fourcc) const -> PixelFormat
     {
         // convert dxt pixel format
         switch(fourcc)
@@ -601,8 +601,8 @@ namespace {
 
     }
     //---------------------------------------------------------------------
-    PixelFormat DDSCodec::convertPixelFormat(uint32 rgbBits, uint32 rMask, 
-        uint32 gMask, uint32 bMask, uint32 aMask) const
+    auto DDSCodec::convertPixelFormat(uint32 rgbBits, uint32 rMask, 
+        uint32 gMask, uint32 bMask, uint32 aMask) const -> PixelFormat
     {
         // General search through pixel formats
         for (int i = PF_UNKNOWN + 1; i < PF_COUNT; ++i)
@@ -750,7 +750,7 @@ namespace {
             pCol[i].a = derivedAlphas[dw & 0x7];
     }
     //---------------------------------------------------------------------
-    ImageCodec::DecodeResult DDSCodec::decode(const DataStreamPtr& stream) const
+    auto DDSCodec::decode(const DataStreamPtr& stream) const -> ImageCodec::DecodeResult
     {
         // Read 4 character code
         uint32 fileType;
@@ -1056,12 +1056,12 @@ namespace {
 
     }
     //---------------------------------------------------------------------    
-    String DDSCodec::getType() const 
+    auto DDSCodec::getType() const -> String 
     {
         return mType;
     }
     //---------------------------------------------------------------------
-    String DDSCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const
+    auto DDSCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String
     {
         if (maxbytes >= sizeof(uint32))
         {

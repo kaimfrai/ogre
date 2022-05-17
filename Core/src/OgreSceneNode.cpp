@@ -118,7 +118,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     struct MovableObjectNameExists {
         const String& name;
-        bool operator()(const MovableObject* mo) {
+        auto operator()(const MovableObject* mo) -> bool {
             return mo->getName() == name;
         }
     };
@@ -140,7 +140,7 @@ namespace Ogre {
         needUpdate();
     }
     //-----------------------------------------------------------------------
-    MovableObject* SceneNode::getAttachedObject(const String& name) const
+    auto SceneNode::getAttachedObject(const String& name) const -> MovableObject*
     {
         // Look up 
         MovableObjectNameExists pred = {name};
@@ -155,7 +155,7 @@ namespace Ogre {
         return *i;
     }
     //-----------------------------------------------------------------------
-    MovableObject* SceneNode::detachObject(unsigned short index)
+    auto SceneNode::detachObject(unsigned short index) -> MovableObject*
     {
         OgreAssert(index < mObjectsByName.size(), "out of bounds");
         ObjectMap::iterator i = mObjectsByName.begin();
@@ -173,7 +173,7 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    MovableObject* SceneNode::detachObject(const String& name)
+    auto SceneNode::detachObject(const String& name) -> MovableObject*
     {
         MovableObjectNameExists pred = {name};
         ObjectMap::iterator it = std::find_if(mObjectsByName.begin(), mObjectsByName.end(), pred);
@@ -295,13 +295,13 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    Node* SceneNode::createChildImpl()
+    auto SceneNode::createChildImpl() -> Node*
     {
         assert(mCreator);
         return mCreator->createSceneNode();
     }
     //-----------------------------------------------------------------------
-    Node* SceneNode::createChildImpl(const String& name)
+    auto SceneNode::createChildImpl(const String& name) -> Node*
     {
         assert(mCreator);
         return mCreator->createSceneNode(name);
@@ -365,14 +365,14 @@ namespace Ogre {
         codec->encodeToFile(this, filename);
     }
     //-----------------------------------------------------------------------
-    SceneNode* SceneNode::createChildSceneNode(const Vector3& inTranslate, 
-        const Quaternion& inRotate)
+    auto SceneNode::createChildSceneNode(const Vector3& inTranslate, 
+        const Quaternion& inRotate) -> SceneNode*
     {
         return static_cast<SceneNode*>(this->createChild(inTranslate, inRotate));
     }
     //-----------------------------------------------------------------------
-    SceneNode* SceneNode::createChildSceneNode(const String& name, const Vector3& inTranslate, 
-        const Quaternion& inRotate)
+    auto SceneNode::createChildSceneNode(const String& name, const Vector3& inTranslate, 
+        const Quaternion& inRotate) -> SceneNode*
     {
         return static_cast<SceneNode*>(this->createChild(name, inTranslate, inRotate));
     }
@@ -561,7 +561,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    SceneNode* SceneNode::getParentSceneNode() const
+    auto SceneNode::getParentSceneNode() const -> SceneNode*
     {
         return static_cast<SceneNode*>(getParent());
     }

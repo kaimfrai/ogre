@@ -79,7 +79,7 @@ class RenderQueue;
         /** @copydoc OverlayElement::_restoreManualHardwareResources */
         virtual void _restoreManualHardwareResources();
 
-        [[nodiscard]] const String& getTypeName() const;
+        [[nodiscard]] auto getTypeName() const -> const String&;
         /** @name Border Size
             Remember that the dimensions specified here are in relation to the size of
             the screen, so 0.1 is 1/10th of the screen width or height. Also note that because
@@ -116,13 +116,13 @@ class RenderQueue;
         void setBorderSize(Real left, Real right, Real top, Real bottom);
 
         /** Gets the size of the left border. */
-        [[nodiscard]] Real getLeftBorderSize() const;
+        [[nodiscard]] auto getLeftBorderSize() const -> Real;
         /** Gets the size of the right border. */
-        [[nodiscard]] Real getRightBorderSize() const;
+        [[nodiscard]] auto getRightBorderSize() const -> Real;
         /** Gets the size of the top border. */
-        [[nodiscard]] Real getTopBorderSize() const;
+        [[nodiscard]] auto getTopBorderSize() const -> Real;
         /** Gets the size of the bottom border. */
-        [[nodiscard]] Real getBottomBorderSize() const;
+        [[nodiscard]] auto getBottomBorderSize() const -> Real;
         /// @}
 
         /** @name Border UV Coordinates
@@ -160,20 +160,20 @@ class RenderQueue;
         */
         void setBottomRightBorderUV(Real u1, Real v1, Real u2, Real v2);
 
-        [[nodiscard]] String getLeftBorderUVString() const;
-        [[nodiscard]] String getRightBorderUVString() const;
-        [[nodiscard]] String getTopBorderUVString() const;
-        [[nodiscard]] String getBottomBorderUVString() const;
-        [[nodiscard]] String getTopLeftBorderUVString() const;
-        [[nodiscard]] String getTopRightBorderUVString() const;
-        [[nodiscard]] String getBottomLeftBorderUVString() const;
-        [[nodiscard]] String getBottomRightBorderUVString() const;
+        [[nodiscard]] auto getLeftBorderUVString() const -> String;
+        [[nodiscard]] auto getRightBorderUVString() const -> String;
+        [[nodiscard]] auto getTopBorderUVString() const -> String;
+        [[nodiscard]] auto getBottomBorderUVString() const -> String;
+        [[nodiscard]] auto getTopLeftBorderUVString() const -> String;
+        [[nodiscard]] auto getTopRightBorderUVString() const -> String;
+        [[nodiscard]] auto getBottomLeftBorderUVString() const -> String;
+        [[nodiscard]] auto getBottomRightBorderUVString() const -> String;
         /// @}
 
         /** Sets the name of the material to use for the borders. */
         void setBorderMaterialName(const String& name, const String& group = DEFAULT_RESOURCE_GROUP );
         /** Gets the name of the material to use for the borders. */
-        [[nodiscard]] const String& getBorderMaterialName() const;
+        [[nodiscard]] auto getBorderMaterialName() const -> const String&;
 
         /** @copydoc OverlayContainer::_updateRenderQueue */
         void _updateRenderQueue(RenderQueue* queue);
@@ -225,7 +225,7 @@ class RenderQueue;
             BCELL_BOTTOM = 6,
             BCELL_BOTTOM_RIGHT = 7
         };
-        [[nodiscard]] String getCellUVString(BorderCellIndex idx) const;
+        [[nodiscard]] auto getCellUVString(BorderCellIndex idx) const -> String;
 
         BorderRenderable* mBorderRenderable;
     };
@@ -247,12 +247,12 @@ class RenderQueue;
             mUseIdentityView = true;
             mPolygonModeOverrideable = parent->getPolygonModeOverrideable();
         }
-        [[nodiscard]] const MaterialPtr& getMaterial() const { return mParent->mBorderMaterial; }
+        [[nodiscard]] auto getMaterial() const -> const MaterialPtr& { return mParent->mBorderMaterial; }
         void getRenderOperation(RenderOperation& op) { op = mParent->mRenderOp2; }
         void getWorldTransforms(Matrix4* xform) const { mParent->getWorldTransforms(xform); }
-        [[nodiscard]] unsigned short getNumWorldTransforms() const { return 1; }
-        Real getSquaredViewDepth(const Camera* cam) const { return mParent->getSquaredViewDepth(cam); }
-        [[nodiscard]] const LightList& getLights() const
+        [[nodiscard]] auto getNumWorldTransforms() const -> unsigned short { return 1; }
+        auto getSquaredViewDepth(const Camera* cam) const -> Real { return mParent->getSquaredViewDepth(cam); }
+        [[nodiscard]] auto getLights() const -> const LightList&
         {
             // N/A, panels are not lit
             static LightList ll;

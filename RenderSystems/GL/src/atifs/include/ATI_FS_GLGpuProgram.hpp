@@ -56,7 +56,7 @@ class ResourceManager;
         void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask);
 
         /// Get the assigned GL program id
-        GLuint getProgramID() const
+        auto getProgramID() const -> GLuint
         { return mProgramID; }
 
     protected:

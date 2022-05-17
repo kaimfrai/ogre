@@ -88,12 +88,12 @@ class Matrix4;
 
         void setDefaultUVs();
 
-        Real getSquaredViewDepth(const Camera* cam) const
+        auto getSquaredViewDepth(const Camera* cam) const -> Real
         { (void)cam; return 0; }
 
-        Real getBoundingRadius() const { return 0; }
+        auto getBoundingRadius() const -> Real { return 0; }
 
-        const String& getMovableType() const override;
+        auto getMovableType() const -> const String& override;
     };
     /** @} */
     /** @} */

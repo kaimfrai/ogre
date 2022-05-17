@@ -66,14 +66,14 @@ class ResourceManager;
         class CmdAttach : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& shaderNames);
         };
         /// Command object for setting matrix packing in column-major order
         class CmdColumnMajorMatrices : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
 
@@ -84,7 +84,7 @@ class ResourceManager;
         virtual void attachToProgramObject(const uint programObject) = 0;
         virtual void detachFromProgramObject(const uint programObject) = 0;
 
-        String getAttachedShaderNames() const { return mAttachedShaderNames; }
+        auto getAttachedShaderNames() const -> String { return mAttachedShaderNames; }
 
         /// Overridden
         /** Attach another GLSL Shader to this one. */
@@ -93,25 +93,25 @@ class ResourceManager;
         /** Sets whether matrix packing in column-major order. */ 
         void setColumnMajorMatrices(bool columnMajor) { mColumnMajorMatrices = columnMajor; }
         /** Gets whether matrix packed in column-major order. */
-        bool getColumnMajorMatrices() const { return mColumnMajorMatrices; }
+        auto getColumnMajorMatrices() const -> bool { return mColumnMajorMatrices; }
 
         /// Only used for separable programs.
-        virtual bool linkSeparable() { return false; }
+        virtual auto linkSeparable() -> bool { return false; }
 
         /// reset link status of separable program
         void resetLinked() { mLinked = 0; }
 
         /// Get the OGRE assigned shader ID.
-        uint getShaderID() const { return mShaderID; }
+        auto getShaderID() const -> uint { return mShaderID; }
 
         /// If we are using program pipelines, the OpenGL program handle
-        uint getGLProgramHandle() const { return mGLProgramHandle; }
+        auto getGLProgramHandle() const -> uint { return mGLProgramHandle; }
 
         /// Get the uniform cache for this shader
-        GLUniformCache*    getUniformCache(){return &mUniformCache;}
+        auto    getUniformCache() -> GLUniformCache*{return &mUniformCache;}
 
         /// GLSL does not provide access to the low level code of the shader, so use this shader for binding as well
-        GpuProgram* _getBindingDelegate() { return this; }
+        auto _getBindingDelegate() -> GpuProgram* { return this; }
     protected:
         /// GLSL does not provide access to the low level implementation of the shader, so this method s a no-op
         void createLowLevelImpl() {}
@@ -119,7 +119,7 @@ class ResourceManager;
         static CmdAttach msCmdAttach;
         static CmdColumnMajorMatrices msCmdColumnMajorMatrices;
 
-        String getResourceLogName() const;
+        auto getResourceLogName() const -> String;
 
         void prepareImpl();
 

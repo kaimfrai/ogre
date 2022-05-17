@@ -61,15 +61,15 @@ class TestContext : public OgreBites::SampleContext
     /** Does basic setup for the context */
     virtual void setup();
 
-    bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+    auto frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool;
 
     /** Frame listener callback, handles updating of the tests at the start of frames
      *        @param evt The frame event (passed in for the framelistener) */
-    virtual bool frameStarted(const FrameEvent& evt);
+    virtual auto frameStarted(const FrameEvent& evt) -> bool;
 
     /** Frame listener callback, handles updating of the tests at the end of frames
      *        @param evt The frame event (passed in for the framelistener) */
-    virtual bool frameEnded(const FrameEvent& evt);
+    virtual auto frameEnded(const FrameEvent& evt) -> bool;
 
     /** Runs a given test or sample
      *        @param s The OgreBites::Sample to run
@@ -79,7 +79,7 @@ class TestContext : public OgreBites::SampleContext
 
     /** Loads test plugins
      *        @return The initial tets or sample to run */
-    OgreBites::Sample* loadTests();
+    auto loadTests() -> OgreBites::Sample*;
 
     /** Setup the Root */
     virtual void createRoot(ulong frameCount = -1);
@@ -88,7 +88,7 @@ class TestContext : public OgreBites::SampleContext
     virtual void go(OgreBites::Sample* initialSample = 0, ulong frameCount = -1);
 
     /** Handles the config dialog */
-    virtual bool oneTimeConfig();
+    virtual auto oneTimeConfig() -> bool;
 
     /** Set up directories for the tests to output to */
     virtual void setupDirectories(String batchName);
@@ -103,10 +103,10 @@ class TestContext : public OgreBites::SampleContext
     void setTimestep(Real timestep);
 
     /** Gets the current timestep value */
-    Real getTimestep();
+    auto getTimestep() -> Real;
 
     /// Returns whether the entire test was successful or not.
-    [[nodiscard]] bool wasSuccessful() const {
+    [[nodiscard]] auto wasSuccessful() const -> bool {
         return mSuccess;
     }
 

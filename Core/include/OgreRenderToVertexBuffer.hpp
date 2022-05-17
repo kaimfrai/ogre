@@ -67,12 +67,12 @@ namespace Ogre {
            Use this object to set the elements of the buffer. Object will calculate
            buffers on its own. Only one source allowed!
         */
-        VertexDeclaration* getVertexDeclaration();
+        auto getVertexDeclaration() -> VertexDeclaration*;
 
         /**
            Get the maximum number of vertices that the buffer will hold
         */
-        [[nodiscard]] unsigned int getMaxVertexCount() const { return mMaxVertexCount; }
+        [[nodiscard]] auto getMaxVertexCount() const -> unsigned int { return mMaxVertexCount; }
 
         /**
            Set the maximum number of vertices that the buffer will hold
@@ -82,7 +82,7 @@ namespace Ogre {
         /**
            What type of primitives does this object generate?
         */
-        [[nodiscard]] RenderOperation::OperationType getOperationType() const { return mOperationType; }
+        [[nodiscard]] auto getOperationType() const -> RenderOperation::OperationType { return mOperationType; }
 
         /**
            Set the type of primitives that this object generates
@@ -97,7 +97,7 @@ namespace Ogre {
         /**
            Does this object reset its buffer each time it updates?
         */
-        [[nodiscard]] bool getResetsEveryUpdate() const { return mResetsEveryUpdate; }
+        [[nodiscard]] auto getResetsEveryUpdate() const -> bool { return mResetsEveryUpdate; }
 
         /**
            Get the render operation for this buffer
@@ -125,13 +125,13 @@ namespace Ogre {
         /**
            Get the source renderable of this object
         */
-        [[nodiscard]] const Renderable* getSourceRenderable() const { return mSourceRenderable; }
+        [[nodiscard]] auto getSourceRenderable() const -> const Renderable* { return mSourceRenderable; }
 
         /**
            Get the material which is used to render the geometry into the
            vertex buffer.
         */
-        const MaterialPtr& getRenderToBufferMaterial() { return mMaterial; }
+        auto getRenderToBufferMaterial() -> const MaterialPtr& { return mMaterial; }
 
         /**
            Set the material name which is used to render the geometry into

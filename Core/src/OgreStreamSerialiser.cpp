@@ -54,7 +54,7 @@ namespace Ogre
     http://www.azillionmonkeys.com/qed/hash.html
     Original by Paul Hsieh
     */
-    static uint32 SuperFastHash (const char * data, int len, uint32 hashSoFar)
+    static auto SuperFastHash (const char * data, int len, uint32 hashSoFar) -> uint32
     {
 #  define OGRE_GET16BITS(d) (*((const uint16 *) (d)))
         uint32 hash;
@@ -148,7 +148,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    uint32 StreamSerialiser::makeIdentifier(const char (&code)[5])
+    auto StreamSerialiser::makeIdentifier(const char (&code)[5]) -> uint32
     {
         uint32 ret = 0;
         for (size_t i = 0; i < 4; ++i)
@@ -159,7 +159,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    uint32 StreamSerialiser::getCurrentChunkID() const
+    auto StreamSerialiser::getCurrentChunkID() const -> uint32
     {
         if (mChunkStack.empty())
             return 0;
@@ -167,7 +167,7 @@ namespace Ogre
             return mChunkStack.back()->id;
     }
     //---------------------------------------------------------------------
-    const StreamSerialiser::Chunk* StreamSerialiser::readChunkBegin()
+    auto StreamSerialiser::readChunkBegin() -> const StreamSerialiser::Chunk*
     {
         // Have we figured out the endian mode yet?
         if (mReadWriteHeader)
@@ -183,8 +183,8 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    const StreamSerialiser::Chunk* StreamSerialiser::readChunkBegin(
-        uint32 id, uint16 maxVersion, const String& msg)
+    auto StreamSerialiser::readChunkBegin(
+        uint32 id, uint16 maxVersion, const String& msg) -> const StreamSerialiser::Chunk*
     {
         const Chunk* c = readChunkBegin();
         if (c->id != id)
@@ -219,7 +219,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    uint32 StreamSerialiser::peekNextChunkID()
+    auto StreamSerialiser::peekNextChunkID() -> uint32
     {
         OgreAssert(mStream, "Stream is null");
 
@@ -256,7 +256,7 @@ namespace Ogre
         delete c;
     }
     //---------------------------------------------------------------------
-    bool StreamSerialiser::isEndOfChunk(uint32 id)
+    auto StreamSerialiser::isEndOfChunk(uint32 id) -> bool
     {
         const Chunk* c = getCurrentChunk();
         assert(c->id == id);
@@ -311,7 +311,7 @@ namespace Ogre
             mEndian = ENDIAN_LITTLE;
     }
     //---------------------------------------------------------------------
-    const StreamSerialiser::Chunk* StreamSerialiser::getCurrentChunk() const
+    auto StreamSerialiser::getCurrentChunk() const -> const StreamSerialiser::Chunk*
     {
         if (mChunkStack.empty())
             return 0;
@@ -319,7 +319,7 @@ namespace Ogre
             return mChunkStack.back();
     }
     //---------------------------------------------------------------------
-    bool StreamSerialiser::eof() const
+    auto StreamSerialiser::eof() const -> bool
     {
         OgreAssert(mStream, "Stream is null");
         return mStream->eof(); 
@@ -395,7 +395,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    size_t StreamSerialiser::getOffsetFromChunkStart() const
+    auto StreamSerialiser::getOffsetFromChunkStart() const -> size_t
     {
         OgreAssert(mStream, "Stream is null");
 
@@ -416,7 +416,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    StreamSerialiser::Chunk* StreamSerialiser::readChunkImpl()
+    auto StreamSerialiser::readChunkImpl() -> StreamSerialiser::Chunk*
     {
         Chunk *chunk = new Chunk();
         chunk->offset = static_cast<uint32>(mStream->tell());
@@ -794,7 +794,7 @@ namespace Ogre
         readConverted(val, t, count);
     }
     //---------------------------------------------------------------------
-    uint32 StreamSerialiser::calculateChecksum(Chunk* c)
+    auto StreamSerialiser::calculateChecksum(Chunk* c) -> uint32
     {
         // Always calculate checksums in little endian to make sure they match 
         // Otherwise checksums for the same data on different endians will not match
@@ -810,7 +810,7 @@ namespace Ogre
         return hashVal;
     }
     //---------------------------------------------------------------------
-    StreamSerialiser::Chunk* StreamSerialiser::popChunk(uint id)
+    auto StreamSerialiser::popChunk(uint id) -> StreamSerialiser::Chunk*
     {
         OgreAssert(!mChunkStack.empty(), "No active chunk!");
 

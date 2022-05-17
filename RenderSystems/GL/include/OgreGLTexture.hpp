@@ -49,7 +49,7 @@ class ResourceManager;
         virtual ~GLTexture();      
 
         /// Takes the OGRE texture type (1d/2d/3d/cube) and returns the appropriate GL one
-        GLenum getGLTextureTarget() const;
+        auto getGLTextureTarget() const -> GLenum;
 
     protected:
         /// @copydoc Texture::createInternalResourcesImpl

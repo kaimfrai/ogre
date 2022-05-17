@@ -52,7 +52,7 @@ class GLRenderSystem;
 
     protected:
         /** See HardwareBuffer. */
-        void* lockImpl(size_t offset, size_t length, LockOptions options);
+        auto lockImpl(size_t offset, size_t length, LockOptions options) -> void*;
         /** See HardwareBuffer. */
         void unlockImpl();
     public:
@@ -66,7 +66,7 @@ class GLRenderSystem;
         /** See HardwareBuffer. */
         void _updateFromShadow();
 
-        [[nodiscard]] GLuint getGLBufferId() const { return mBufferId; }
+        [[nodiscard]] auto getGLBufferId() const -> GLuint { return mBufferId; }
     };
     typedef GLHardwareVertexBuffer GLHardwareBuffer;
 

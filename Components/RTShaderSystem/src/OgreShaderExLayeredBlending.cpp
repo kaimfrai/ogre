@@ -124,14 +124,14 @@ LayeredBlending::LayeredBlending()
 }
 
 //-----------------------------------------------------------------------
-const Ogre::String& LayeredBlending::getType() const
+auto LayeredBlending::getType() const -> const Ogre::String&
 {
     return Type;
 }
 
 
 //-----------------------------------------------------------------------
-bool LayeredBlending::resolveParameters(ProgramSet* programSet)
+auto LayeredBlending::resolveParameters(ProgramSet* programSet) -> bool
 {
 
     //resolve peremeter for normal texturing procedures
@@ -165,7 +165,7 @@ bool LayeredBlending::resolveParameters(ProgramSet* programSet)
 
 
 //-----------------------------------------------------------------------
-bool LayeredBlending::resolveDependencies(ProgramSet* programSet)
+auto LayeredBlending::resolveDependencies(ProgramSet* programSet) -> bool
 {
     FFPTexturing::resolveDependencies(programSet);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -291,7 +291,7 @@ void LayeredBlending::setBlendMode(unsigned short index, BlendMode mode)
 }
 
 //-----------------------------------------------------------------------
-LayeredBlending::BlendMode LayeredBlending::getBlendMode(unsigned short index) const
+auto LayeredBlending::getBlendMode(unsigned short index) const -> LayeredBlending::BlendMode
 {
     if(index < mTextureBlends.size())
     {
@@ -313,7 +313,7 @@ void LayeredBlending::setSourceModifier(unsigned short index, SourceModifier mod
 }
 
 //-----------------------------------------------------------------------
-bool LayeredBlending::getSourceModifier(unsigned short index, SourceModifier& modType, int& customNum) const
+auto LayeredBlending::getSourceModifier(unsigned short index, SourceModifier& modType, int& customNum) const -> bool
 {
     modType = SM_Invalid;
     customNum = 0;
@@ -328,14 +328,14 @@ bool LayeredBlending::getSourceModifier(unsigned short index, SourceModifier& mo
 
 //----------------------Factory Implementation---------------------------
 //-----------------------------------------------------------------------
-const String& LayeredBlendingFactory::getType() const
+auto LayeredBlendingFactory::getType() const -> const String&
 {
     return LayeredBlending::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* LayeredBlendingFactory::createInstance(ScriptCompiler* compiler, 
-                                    PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator)
+auto LayeredBlendingFactory::createInstance(ScriptCompiler* compiler, 
+                                    PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name == "layered_blend")
     {
@@ -464,13 +464,13 @@ void LayeredBlendingFactory::writeInstance(MaterialSerializer* ser, SubRenderSta
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* LayeredBlendingFactory::createInstanceImpl()
+auto LayeredBlendingFactory::createInstanceImpl() -> SubRenderState*
 {
     return new LayeredBlending;
 }
 
 //-----------------------------------------------------------------------
-LayeredBlending::BlendMode LayeredBlendingFactory::stringToBlendMode(const String &strValue)
+auto LayeredBlendingFactory::stringToBlendMode(const String &strValue) -> LayeredBlending::BlendMode
 {
     for(int i = 0 ; i < (int)LayeredBlending::LB_MaxBlendModes ; ++i)
     {
@@ -483,7 +483,7 @@ LayeredBlending::BlendMode LayeredBlendingFactory::stringToBlendMode(const Strin
 }
 
 //-----------------------------------------------------------------------
-String LayeredBlendingFactory::blendModeToString(LayeredBlending::BlendMode blendMode)
+auto LayeredBlendingFactory::blendModeToString(LayeredBlending::BlendMode blendMode) -> String
 {
     for(int i = 0 ; i < (int)LayeredBlending::LB_MaxBlendModes ; ++i)
     {
@@ -496,7 +496,7 @@ String LayeredBlendingFactory::blendModeToString(LayeredBlending::BlendMode blen
 }
 
 //-----------------------------------------------------------------------
-LayeredBlending::SourceModifier LayeredBlendingFactory::stringToSourceModifier(const String &strValue)
+auto LayeredBlendingFactory::stringToSourceModifier(const String &strValue) -> LayeredBlending::SourceModifier
 {
     for(int i = 0 ; i < (int)LayeredBlending::SM_MaxSourceModifiers ; ++i)
     {
@@ -509,7 +509,7 @@ LayeredBlending::SourceModifier LayeredBlendingFactory::stringToSourceModifier(c
 }
 
 //-----------------------------------------------------------------------
-String LayeredBlendingFactory::sourceModifierToString(LayeredBlending::SourceModifier modifier)
+auto LayeredBlendingFactory::sourceModifierToString(LayeredBlending::SourceModifier modifier) -> String
 {
     for(int i = 0 ; i < (int)LayeredBlending::SM_MaxSourceModifiers ; ++i)
     {
@@ -522,7 +522,7 @@ String LayeredBlendingFactory::sourceModifierToString(LayeredBlending::SourceMod
 }
 
 //-----------------------------------------------------------------------
-LayeredBlending* LayeredBlendingFactory::createOrRetrieveSubRenderState(SGScriptTranslator* translator)
+auto LayeredBlendingFactory::createOrRetrieveSubRenderState(SGScriptTranslator* translator) -> LayeredBlending*
 {
     LayeredBlending* layeredBlendState;
     //check if we already create a blend srs

@@ -58,14 +58,14 @@ namespace Ogre {
 
     //---------------------------------------------------------------------
     // Detect whether CPU supports CPUID instruction, returns non-zero if supported.
-    static int _isSupportCpuid()
+    static auto _isSupportCpuid() -> int
     {
         return true;
     }
 
     //---------------------------------------------------------------------
     // Performs CPUID instruction with 'query', fill the results, and return value of eax.
-    static uint _performCpuid(int query, CpuidResult& result)
+    static auto _performCpuid(int query, CpuidResult& result) -> uint
     {
         __asm__
         (
@@ -77,7 +77,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     // Detect whether or not os support Streaming SIMD Extension.
 
-    static bool _checkOperatingSystemSupportSSE()
+    static auto _checkOperatingSystemSupportSSE() -> bool
     {
         return true;
     }
@@ -86,7 +86,7 @@ namespace Ogre {
     // Compiler-independent routines
     //---------------------------------------------------------------------
 
-    static uint queryCpuFeatures()
+    static auto queryCpuFeatures() -> uint
     {
 
 #define CPUID_FUNC_VENDOR_ID                 0x0
@@ -228,7 +228,7 @@ namespace Ogre {
         return features;
     }
     //---------------------------------------------------------------------
-    static uint _detectCpuFeatures()
+    static auto _detectCpuFeatures() -> uint
     {
         uint features = queryCpuFeatures();
 
@@ -247,7 +247,7 @@ namespace Ogre {
         return features;
     }
     //---------------------------------------------------------------------
-    static String _detectCpuIdentifier()
+    static auto _detectCpuIdentifier() -> String
     {
         // Supports CPUID instruction ?
         if (_isSupportCpuid())
@@ -323,19 +323,19 @@ namespace Ogre {
     // Platform-independent routines, but the returns value are platform-dependent
     //---------------------------------------------------------------------
 
-    const String& PlatformInformation::getCpuIdentifier()
+    auto PlatformInformation::getCpuIdentifier() -> const String&
     {
         static const String sIdentifier = _detectCpuIdentifier();
         return sIdentifier;
     }
     //---------------------------------------------------------------------
-    uint PlatformInformation::getCpuFeatures()
+    auto PlatformInformation::getCpuFeatures() -> uint
     {
         static const uint sFeatures = _detectCpuFeatures();
         return sFeatures;
     }
     //---------------------------------------------------------------------
-    bool PlatformInformation::hasCpuFeature(CpuFeatures feature)
+    auto PlatformInformation::hasCpuFeature(CpuFeatures feature) -> bool
     {
         return (getCpuFeatures() & feature) != 0;
     }

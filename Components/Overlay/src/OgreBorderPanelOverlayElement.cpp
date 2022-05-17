@@ -53,70 +53,70 @@ namespace Ogre {
         class CmdBorderSize : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying the Material for the border (see ParamCommand).*/
         class CmdBorderMaterial : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderLeftUV : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderTopUV : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderRightUV : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderBottomUV : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderTopLeftUV : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderBottomLeftUV : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderBottomRightUV : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderTopRightUV : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
+            auto doGet(const void* target) const -> String;
             void doSet(void* target, const String& val);
         };
         // Command objects
@@ -382,7 +382,7 @@ namespace Ogre {
         mGeomPositionsOutOfDate = true;
     }
     //---------------------------------------------------------------------
-    Real BorderPanelOverlayElement::getLeftBorderSize() const
+    auto BorderPanelOverlayElement::getLeftBorderSize() const -> Real
     {
         if (mMetricsMode == GMM_PIXELS)
         {
@@ -394,7 +394,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Real BorderPanelOverlayElement::getRightBorderSize() const
+    auto BorderPanelOverlayElement::getRightBorderSize() const -> Real
     {
         if (mMetricsMode == GMM_PIXELS)
         {
@@ -406,7 +406,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Real BorderPanelOverlayElement::getTopBorderSize() const
+    auto BorderPanelOverlayElement::getTopBorderSize() const -> Real
     {
         if (mMetricsMode == GMM_PIXELS)
         {
@@ -418,7 +418,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Real BorderPanelOverlayElement::getBottomBorderSize() const
+    auto BorderPanelOverlayElement::getBottomBorderSize() const -> Real
     {
         if (mMetricsMode == GMM_PIXELS)
         {
@@ -457,7 +457,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    String BorderPanelOverlayElement::getCellUVString(BorderCellIndex idx) const
+    auto BorderPanelOverlayElement::getCellUVString(BorderCellIndex idx) const -> String
     {
         String ret = StringConverter::toString(mBorderUV[idx].u1) + " " +
                     StringConverter::toString(mBorderUV[idx].v1) + " " +
@@ -539,42 +539,42 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    String BorderPanelOverlayElement::getLeftBorderUVString() const
+    auto BorderPanelOverlayElement::getLeftBorderUVString() const -> String
     {
         return getCellUVString(BCELL_LEFT);
     }
     //---------------------------------------------------------------------
-    String BorderPanelOverlayElement::getRightBorderUVString() const
+    auto BorderPanelOverlayElement::getRightBorderUVString() const -> String
     {
         return getCellUVString(BCELL_RIGHT);
     }
     //---------------------------------------------------------------------
-    String BorderPanelOverlayElement::getTopBorderUVString() const
+    auto BorderPanelOverlayElement::getTopBorderUVString() const -> String
     {
         return getCellUVString(BCELL_TOP);
     }
     //---------------------------------------------------------------------
-    String BorderPanelOverlayElement::getBottomBorderUVString() const
+    auto BorderPanelOverlayElement::getBottomBorderUVString() const -> String
     {
         return getCellUVString(BCELL_BOTTOM);
     }
     //---------------------------------------------------------------------
-    String BorderPanelOverlayElement::getTopLeftBorderUVString() const
+    auto BorderPanelOverlayElement::getTopLeftBorderUVString() const -> String
     {
         return getCellUVString(BCELL_TOP_LEFT);
     }
     //---------------------------------------------------------------------
-    String BorderPanelOverlayElement::getTopRightBorderUVString() const
+    auto BorderPanelOverlayElement::getTopRightBorderUVString() const -> String
     {
         return getCellUVString(BCELL_TOP_RIGHT);
     }
     //---------------------------------------------------------------------
-    String BorderPanelOverlayElement::getBottomLeftBorderUVString() const
+    auto BorderPanelOverlayElement::getBottomLeftBorderUVString() const -> String
     {
         return getCellUVString(BCELL_BOTTOM_LEFT);
     }
     //---------------------------------------------------------------------
-    String BorderPanelOverlayElement::getBottomRightBorderUVString() const
+    auto BorderPanelOverlayElement::getBottomRightBorderUVString() const -> String
     {
         return getCellUVString(BCELL_BOTTOM_RIGHT);
     }
@@ -598,7 +598,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    const String& BorderPanelOverlayElement::getBorderMaterialName() const
+    auto BorderPanelOverlayElement::getBorderMaterialName() const -> const String&
     {
         return mBorderMaterial ? mBorderMaterial->getName() : BLANKSTRING;
     }
@@ -747,7 +747,7 @@ namespace Ogre {
     // Command objects
     //---------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    String CmdBorderSize::doGet(const void* target) const
+    auto CmdBorderSize::doGet(const void* target) const -> String
     {
         const BorderPanelOverlayElement* t = static_cast<const BorderPanelOverlayElement*>(target);
         return String(
@@ -768,7 +768,7 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    String CmdBorderMaterial::doGet(const void* target) const
+    auto CmdBorderMaterial::doGet(const void* target) const -> String
     {
         // No need right now..
         return static_cast<const BorderPanelOverlayElement*>(target)->getBorderMaterialName();
@@ -780,7 +780,7 @@ namespace Ogre {
         static_cast<BorderPanelOverlayElement*>(target)->setBorderMaterialName(val);
     }
     //-----------------------------------------------------------------------
-    String CmdBorderBottomLeftUV::doGet(const void* target) const
+    auto CmdBorderBottomLeftUV::doGet(const void* target) const -> String
     {
         // No need right now..
         return  static_cast<const BorderPanelOverlayElement*>(target)->getBottomLeftBorderUVString();
@@ -797,7 +797,7 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    String CmdBorderBottomRightUV::doGet(const void* target) const
+    auto CmdBorderBottomRightUV::doGet(const void* target) const -> String
     {
         // No need right now..
         return  static_cast<const BorderPanelOverlayElement*>(target)->getBottomRightBorderUVString();
@@ -814,7 +814,7 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    String CmdBorderTopLeftUV::doGet(const void* target) const
+    auto CmdBorderTopLeftUV::doGet(const void* target) const -> String
     {
         // No need right now..
         return  static_cast<const BorderPanelOverlayElement*>(target)->getTopLeftBorderUVString();
@@ -831,7 +831,7 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    String CmdBorderTopRightUV::doGet(const void* target) const
+    auto CmdBorderTopRightUV::doGet(const void* target) const -> String
     {
         // No need right now..
         return  static_cast<const BorderPanelOverlayElement*>(target)->getTopRightBorderUVString();
@@ -848,7 +848,7 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    String CmdBorderLeftUV::doGet(const void* target) const
+    auto CmdBorderLeftUV::doGet(const void* target) const -> String
     {
         // No need right now..
         return  static_cast<const BorderPanelOverlayElement*>(target)->getLeftBorderUVString();
@@ -865,7 +865,7 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    String CmdBorderRightUV::doGet(const void* target) const
+    auto CmdBorderRightUV::doGet(const void* target) const -> String
     {
         // No need right now..
         return  static_cast<const BorderPanelOverlayElement*>(target)->getRightBorderUVString();
@@ -882,7 +882,7 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    String CmdBorderTopUV::doGet(const void* target) const
+    auto CmdBorderTopUV::doGet(const void* target) const -> String
     {
         // No need right now..
         return  static_cast<const BorderPanelOverlayElement*>(target)->getTopBorderUVString();
@@ -899,7 +899,7 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    String CmdBorderBottomUV::doGet(const void* target) const
+    auto CmdBorderBottomUV::doGet(const void* target) const -> String
     {
         // No need right now..
         return  static_cast<const BorderPanelOverlayElement*>(target)->getBottomBorderUVString();
@@ -916,7 +916,7 @@ namespace Ogre {
             );
     }
     //---------------------------------------------------------------------
-    const String& BorderPanelOverlayElement::getTypeName() const
+    auto BorderPanelOverlayElement::getTypeName() const -> const String&
     {
         return msTypeName;
     }

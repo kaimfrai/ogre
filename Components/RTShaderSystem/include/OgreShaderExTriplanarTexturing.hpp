@@ -133,17 +133,17 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    virtual bool resolveParameters(ProgramSet* programSet);
+    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
 
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    virtual bool resolveDependencies(ProgramSet* programSet);
+    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
 
     /** 
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual bool addFunctionInvocations(ProgramSet* programSet);
+    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
 
 public:
     
@@ -169,17 +169,17 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    virtual const String& getType() const;
+    virtual auto getType() const -> const String&;
 
     /** 
     @see SubRenderState::getExecutionOrder.
     */
-    virtual int getExecutionOrder() const;
+    virtual auto getExecutionOrder() const -> int;
 
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    virtual bool preAddToRenderState (const RenderState* renderState, Pass* srcPass, Pass* dstPass);
+    virtual auto preAddToRenderState (const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool;
 
     /** 
     @see SubRenderState::copyFrom.
@@ -205,19 +205,19 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] virtual const String& getType() const;
+    [[nodiscard]] virtual auto getType() const -> const String&;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator);
+    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*;
 
 protected:
 
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual SubRenderState* createInstanceImpl();
+    virtual auto createInstanceImpl() -> SubRenderState*;
 
 
 

@@ -134,7 +134,7 @@ namespace Ogre {
         mDesiredFormat = pf;
     }
     //--------------------------------------------------------------------------
-    bool Texture::hasAlpha() const
+    auto Texture::hasAlpha() const -> bool
     {
         return PixelUtil::hasAlpha(mFormat);
     }
@@ -144,7 +144,7 @@ namespace Ogre {
         mDesiredIntegerBitDepth = bits;
     }
     //--------------------------------------------------------------------------
-    ushort Texture::getDesiredIntegerBitDepth() const
+    auto Texture::getDesiredIntegerBitDepth() const -> ushort
     {
         return mDesiredIntegerBitDepth;
     }
@@ -154,7 +154,7 @@ namespace Ogre {
         mDesiredFloatBitDepth = bits;
     }
     //--------------------------------------------------------------------------
-    ushort Texture::getDesiredFloatBitDepth() const
+    auto Texture::getDesiredFloatBitDepth() const -> ushort
     {
         return mDesiredFloatBitDepth;
     }
@@ -170,12 +170,12 @@ namespace Ogre {
         mTreatLuminanceAsAlpha = asAlpha;
     }
     //--------------------------------------------------------------------------
-    size_t Texture::calculateSize() const
+    auto Texture::calculateSize() const -> size_t
     {
         return getNumFaces() * PixelUtil::getMemorySize(mWidth, mHeight, mDepth, mFormat);
     }
     //--------------------------------------------------------------------------
-    uint32 Texture::getNumFaces() const
+    auto Texture::getNumFaces() const -> uint32
     {
         return getTextureType() == TEX_TYPE_CUBE_MAP ? 6 : 1;
     }
@@ -384,7 +384,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    String Texture::getSourceFileType() const
+    auto Texture::getSourceFileType() const -> String
     {
         if (mName.empty())
             return BLANKSTRING;
@@ -410,7 +410,7 @@ namespace Ogre {
         return dstream ? Image::getFileExtFromMagic(dstream) : BLANKSTRING;
 
     }
-    const HardwarePixelBufferSharedPtr& Texture::getBuffer(size_t face, size_t mipmap)
+    auto Texture::getBuffer(size_t face, size_t mipmap) -> const HardwarePixelBufferSharedPtr&
     {
         OgreAssert(face < getNumFaces(), "out of range");
         OgreAssert(mipmap <= mNumMipmaps, "out of range");

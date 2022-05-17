@@ -119,10 +119,10 @@ class SceneManager;
         */
         virtual void setInSceneGraph(bool inGraph);
         /** See Node. */
-        Node* createChildImpl();
+        auto createChildImpl() -> Node*;
 
         /** See Node. */
-        Node* createChildImpl(const String& name);
+        auto createChildImpl(const String& name) -> Node*;
     public:
         /** Constructor, only to be called by the creator SceneManager.
         @remarks
@@ -145,28 +145,28 @@ class SceneManager;
 
         /** Reports the number of objects attached to this node.
         */
-        size_t numAttachedObjects() const { return mObjectsByName.size(); }
+        auto numAttachedObjects() const -> size_t { return mObjectsByName.size(); }
 
         /** Retrieves a pointer to an attached object by index
         @note The index of an object may change as other objects are added / removed.
         */
-        MovableObject* getAttachedObject(size_t index) const { return mObjectsByName.at(index); }
+        auto getAttachedObject(size_t index) const -> MovableObject* { return mObjectsByName.at(index); }
 
         /** Retrieves a pointer to an attached object by name
         */
-        MovableObject* getAttachedObject(const String& name) const;
+        auto getAttachedObject(const String& name) const -> MovableObject*;
 
         /** Detaches the indexed object from this scene node.
         @remarks
             Detaches by index, see the alternate version to detach by name. Object indexes
             may change as other objects are added / removed.
         */
-        virtual MovableObject* detachObject(unsigned short index);
+        virtual auto detachObject(unsigned short index) -> MovableObject*;
         /** Detaches an object by pointer. */
         virtual void detachObject(MovableObject* obj);
 
         /** Detaches the named object from this node and returns a pointer to it. */
-        virtual MovableObject* detachObject(const String& name);
+        virtual auto detachObject(const String& name) -> MovableObject*;
 
         /** Detaches all objects attached to this node.
         */
@@ -175,7 +175,7 @@ class SceneManager;
         /** Determines whether this node is in the scene graph, i.e.
             whether it's ultimate ancestor is the root scene node.
         */
-        bool isInSceneGraph() const { return mIsInSceneGraph; }
+        auto isInSceneGraph() const -> bool { return mIsInSceneGraph; }
 
         /** Notifies this SceneNode that it is the root scene node. 
         @remarks
@@ -230,14 +230,14 @@ class SceneManager;
             Recommended only if you are extending a SceneManager, because the bounding box returned
             from this method is only up to date after the SceneManager has called _update.
         */
-        const AxisAlignedBox& _getWorldAABB() const { return mWorldAABB; }
+        auto _getWorldAABB() const -> const AxisAlignedBox& { return mWorldAABB; }
 
         /** The MovableObjects attached to this node
          *
          * This is a much faster way to go through <B>all</B> the objects attached to the node than
          * using getAttachedObject.
          */
-        const ObjectMap& getAttachedObjects() const {
+        auto getAttachedObjects() const -> const ObjectMap& {
             return mObjectsByName;
         }
 
@@ -246,7 +246,7 @@ class SceneManager;
             This method returns the SceneManager which created this node.
             This can be useful for destroying this node.
         */
-        SceneManager* getCreator() const { return mCreator; }
+        auto getCreator() const -> SceneManager* { return mCreator; }
 
         /** This method removes and destroys the named child and all of its children.
         @remarks
@@ -304,7 +304,7 @@ class SceneManager;
             check this flag and then use _addBoundingBoxToQueue to add the bounding box
             wireframe.
         */
-        bool getShowBoundingBox() const { return mShowBoundingBox; }
+        auto getShowBoundingBox() const -> bool { return mShowBoundingBox; }
 
         /** Creates an unnamed new SceneNode as a child of this node.
         @param
@@ -312,9 +312,9 @@ class SceneManager;
         @param
             rotate Initial rotation relative to parent
         */
-        virtual SceneNode* createChildSceneNode(
+        virtual auto createChildSceneNode(
             const Vector3& translate = Vector3::ZERO, 
-            const Quaternion& rotate = Quaternion::IDENTITY );
+            const Quaternion& rotate = Quaternion::IDENTITY ) -> SceneNode*;
 
         /** Creates a new named SceneNode as a child of this node.
         @remarks
@@ -326,7 +326,7 @@ class SceneManager;
             @param
                 rotate Initial rotation relative to parent
         */
-        virtual SceneNode* createChildSceneNode(const String& name, const Vector3& translate = Vector3::ZERO, const Quaternion& rotate = Quaternion::IDENTITY);
+        virtual auto createChildSceneNode(const String& name, const Vector3& translate = Vector3::ZERO, const Quaternion& rotate = Quaternion::IDENTITY) -> SceneNode*;
 
         /** Allows retrieval of the nearest lights to the centre of this SceneNode.
         @remarks
@@ -412,15 +412,15 @@ class SceneManager;
             const Vector3& localDirectionVector = Vector3::NEGATIVE_UNIT_Z,
             const Vector3& offset = Vector3::ZERO);
         /** Get the auto tracking target for this node, if any. */
-        SceneNode* getAutoTrackTarget() const { return mAutoTrackTarget; }
+        auto getAutoTrackTarget() const -> SceneNode* { return mAutoTrackTarget; }
         /** Get the auto tracking offset for this node, if the node is auto tracking. */
-        const Vector3& getAutoTrackOffset() const { return mAutoTrackOffset; }
+        auto getAutoTrackOffset() const -> const Vector3& { return mAutoTrackOffset; }
         /** Get the auto tracking local direction for this node, if it is auto tracking. */
-        const Vector3& getAutoTrackLocalDirection() const { return mAutoTrackLocalDirection; }
+        auto getAutoTrackLocalDirection() const -> const Vector3& { return mAutoTrackLocalDirection; }
         /** Internal method used by OGRE to update auto-tracking cameras. */
         void _autoTrack();
         /** Gets the parent of this SceneNode. */
-        SceneNode* getParentSceneNode() const;
+        auto getParentSceneNode() const -> SceneNode*;
         /** Makes all objects attached to this node become visible / invisible.
         @remarks    
             This is a shortcut to calling setVisible() on the objects attached

@@ -84,7 +84,7 @@ class SceneManager;
         @param scheme
             Scheme to use (blank means default).
         */
-        CompositorInstance* addCompositor(CompositorPtr filter, size_t addPosition=LAST, const String& scheme = BLANKSTRING);
+        auto addCompositor(CompositorPtr filter, size_t addPosition=LAST, const String& scheme = BLANKSTRING) -> CompositorInstance*;
 
         /** Remove a compositor.
         @param position
@@ -98,21 +98,21 @@ class SceneManager;
         
         /** Get compositor instance by name. Returns null if not found.
         */
-        [[nodiscard]] CompositorInstance* getCompositor(const String& name) const;
+        [[nodiscard]] auto getCompositor(const String& name) const -> CompositorInstance*;
 
         /// @overload
-        [[nodiscard]] CompositorInstance *getCompositor(size_t index) const { return mInstances.at(index); }
+        [[nodiscard]] auto getCompositor(size_t index) const -> CompositorInstance * { return mInstances.at(index); }
 
         /// Get compositor position by name. Returns #NPOS if not found.
-        [[nodiscard]] size_t getCompositorPosition(const String& name) const;
+        [[nodiscard]] auto getCompositorPosition(const String& name) const -> size_t;
 
         /** Get the original scene compositor instance for this chain (internal use). 
         */
-        CompositorInstance* _getOriginalSceneCompositor() { return mOriginalScene; }
+        auto _getOriginalSceneCompositor() -> CompositorInstance* { return mOriginalScene; }
 
         /** The compositor instances. The first compositor in this list is applied first, the last one is applied last.
         */
-        [[nodiscard]] const Instances& getCompositorInstances() const { return mInstances; }
+        [[nodiscard]] auto getCompositorInstances() const -> const Instances& { return mInstances; }
     
         /** Enable or disable a compositor, by position. Disabling a compositor stops it from rendering
             but does not free any resources. This can be more efficient than using removeCompositor and 
@@ -137,7 +137,7 @@ class SceneManager;
         
         /** Get viewport that is the target of this chain
         */
-        Viewport *getViewport();
+        auto getViewport() -> Viewport *;
         /** Set viewport that is the target of this chain
         */
         void _notifyViewport(Viewport* vp);
@@ -156,10 +156,10 @@ class SceneManager;
 
         /** Get the previous instance in this chain to the one specified. 
         */
-        CompositorInstance* getPreviousInstance(CompositorInstance* curr, bool activeOnly = true);
+        auto getPreviousInstance(CompositorInstance* curr, bool activeOnly = true) -> CompositorInstance*;
         /** Get the next instance in this chain to the one specified. 
         */
-        CompositorInstance* getNextInstance(CompositorInstance* curr, bool activeOnly = true);
+        auto getNextInstance(CompositorInstance* curr, bool activeOnly = true) -> CompositorInstance*;
 
     private:
         /// Viewport affected by this CompositorChain
@@ -207,7 +207,7 @@ class SceneManager;
         
         /** Internal method to get a unique name of a compositor
         */
-        [[nodiscard]] const String getCompositorName() const;
+        [[nodiscard]] auto getCompositorName() const -> const String;
 
         /** Render queue listener used to set up rendering events. */
         class RQListener: public RenderQueueListener

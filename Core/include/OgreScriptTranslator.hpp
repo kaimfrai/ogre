@@ -71,44 +71,44 @@ class Matrix4;
         static void processNode(ScriptCompiler *compiler, const AbstractNodePtr &node);
 
         /// Retrieves the node iterator at the given index
-        static AbstractNodeList::const_iterator getNodeAt(const AbstractNodeList &nodes, size_t index);
+        static auto getNodeAt(const AbstractNodeList &nodes, size_t index) -> AbstractNodeList::const_iterator;
         /// Converts the node to a boolean and returns true if successful
-        static bool getBoolean(const AbstractNodePtr &node, bool *result);
+        static auto getBoolean(const AbstractNodePtr &node, bool *result) -> bool;
         /// Converts the node to a string and returns true if successful
-        static bool getString(const AbstractNodePtr &node, String *result);
+        static auto getString(const AbstractNodePtr &node, String *result) -> bool;
         /// Converts the node to a Real and returns true if successful
-        static bool getReal(const AbstractNodePtr& node, Real* result)
+        static auto getReal(const AbstractNodePtr& node, Real* result) -> bool
         {
             return getFloat(node, result);
         }
         /// Converts the node to a float and returns true if successful
-        static bool getFloat(const AbstractNodePtr &node, float *result);
+        static auto getFloat(const AbstractNodePtr &node, float *result) -> bool;
         /// Converts the node to a float and returns true if successful
-        static bool getDouble(const AbstractNodePtr &node, double *result);
+        static auto getDouble(const AbstractNodePtr &node, double *result) -> bool;
         /// Converts the node to an integer and returns true if successful
-        static bool getInt(const AbstractNodePtr &node, int *result); 
+        static auto getInt(const AbstractNodePtr &node, int *result) -> bool; 
         /// Converts the node to an unsigned integer and returns true if successful
-        static bool getUInt(const AbstractNodePtr &node, uint32 *result); 
+        static auto getUInt(const AbstractNodePtr &node, uint32 *result) -> bool; 
         /// Converts the range of nodes to a ColourValue and returns true if successful
-        static bool getColour(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, ColourValue *result, int maxEntries = 4);
+        static auto getColour(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, ColourValue *result, int maxEntries = 4) -> bool;
         /// Converts the node to a SceneBlendFactor enum and returns true if successful
-        static bool getSceneBlendFactor(const AbstractNodePtr &node, SceneBlendFactor *sbf);
+        static auto getSceneBlendFactor(const AbstractNodePtr &node, SceneBlendFactor *sbf) -> bool;
         /// Converts the node to a CompareFunction enum and returns true if successful
-        static bool getCompareFunction(const AbstractNodePtr &node, CompareFunction *func);
+        static auto getCompareFunction(const AbstractNodePtr &node, CompareFunction *func) -> bool;
         /// Converts the range of nodes to a Matrix4 and returns true if successful
-        static bool getMatrix4(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, Matrix4 *m);
+        static auto getMatrix4(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, Matrix4 *m) -> bool;
 
         /// read count values from the AbstractNodeList into vals. Fill with default value if AbstractNodeList is shorter then count
-        static bool getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<int>& vals, size_t count);
+        static auto getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<int>& vals, size_t count) -> bool;
         /// @overload
-        static bool getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<float>& vals, size_t count);
+        static auto getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<float>& vals, size_t count) -> bool;
         /// Converts the node to a StencilOperation enum and returns true if successful
-        static bool getStencilOp(const AbstractNodePtr &node, StencilOperation *op); 
+        static auto getStencilOp(const AbstractNodePtr &node, StencilOperation *op) -> bool; 
         /// Converts the node to a GpuConstantType enum and returns true if successful
-        static bool getConstantType(AbstractNodeList::const_iterator i, GpuConstantType *op); 
+        static auto getConstantType(AbstractNodeList::const_iterator i, GpuConstantType *op) -> bool; 
 
         template<typename T>
-        friend bool getValue(const AbstractNodePtr &node, T& result);
+        friend auto getValue(const AbstractNodePtr &node, T& result) -> bool;
     };
 
     /** The ScriptTranslatorManager manages the lifetime and access to
@@ -123,7 +123,7 @@ class Matrix4;
         virtual ~ScriptTranslatorManager() {}
 
         /// Returns a manager for the given object abstract node, or null if it is not supported
-        virtual ScriptTranslator *getTranslator(const AbstractNodePtr&) = 0;
+        virtual auto getTranslator(const AbstractNodePtr&) -> ScriptTranslator * = 0;
     };
     /** @} */
     /** @} */

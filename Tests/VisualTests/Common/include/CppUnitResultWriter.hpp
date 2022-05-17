@@ -46,7 +46,7 @@ public:
 
 protected:
 
-    virtual Ogre::String getOutput()
+    virtual auto getOutput() -> Ogre::String
     {
         Ogre::StringStream out;
         int numFailed = 0;

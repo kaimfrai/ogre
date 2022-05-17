@@ -53,7 +53,7 @@ namespace Ogre
     Resource::~Resource() 
     { 
     }
-    Resource& Resource::operator=(const Resource& rhs)
+    auto Resource::operator=(const Resource& rhs) -> Resource&
     {
         mName = rhs.mName;
         mGroup = rhs.mGroup;
@@ -284,7 +284,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    size_t Resource::calculateSize() const
+    auto Resource::calculateSize() const -> size_t
     {
         size_t memSize = 0; // sizeof(*this) should be called by deriving classes
         memSize += mName.size() * sizeof(char);

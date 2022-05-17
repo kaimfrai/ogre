@@ -85,7 +85,7 @@ class GLContext;
         mFB.swapBuffers();
     }
     //-----------------------------------------------------------------------------
-    bool GLFBORenderTexture::attachDepthBuffer( DepthBuffer *depthBuffer )
+    auto GLFBORenderTexture::attachDepthBuffer( DepthBuffer *depthBuffer ) -> bool
     {
         bool result;
         if( (result = GLRenderTexture::attachDepthBuffer( depthBuffer )) )
@@ -197,7 +197,7 @@ static const uchar depthBits[] =
         @return true    if this combo is supported
                  false   if this combo is not supported
     */
-    GLuint GLFBOManager::_tryFormat(GLenum depthFormat, GLenum stencilFormat)
+    auto GLFBOManager::_tryFormat(GLenum depthFormat, GLenum stencilFormat) -> GLuint
     {
         GLuint status, depthRB = 0, stencilRB = 0;
         bool failed = false; // flag on GL errors
@@ -255,7 +255,7 @@ static const uchar depthBits[] =
         @return true    if this combo is supported
                  false   if this combo is not supported
     */
-    bool GLFBOManager::_tryPackedFormat(GLenum packedFormat)
+    auto GLFBOManager::_tryPackedFormat(GLenum packedFormat) -> bool
     {
         GLuint packedRB = 0;
         bool failed = false; // flag on GL errors
@@ -478,8 +478,8 @@ static const uchar depthBits[] =
         *stencilFormat = requestDepthOnly ? 0 : stencilFormats[props.modes[bestmode].stencil];
     }
 
-    GLFBORenderTexture *GLFBOManager::createRenderTexture(const String &name, 
-        const GLSurfaceDesc &target, bool writeGamma, uint fsaa)
+    auto GLFBOManager::createRenderTexture(const String &name, 
+        const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> GLFBORenderTexture *
     {
         GLFBORenderTexture *retval = new GLFBORenderTexture(this, name, target, writeGamma, fsaa);
         return retval;
@@ -495,7 +495,7 @@ static const uchar depthBits[] =
             glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
     }
     
-    GLSurfaceDesc GLFBOManager::requestRenderBuffer(GLenum format, uint32 width, uint32 height, uint fsaa)
+    auto GLFBOManager::requestRenderBuffer(GLenum format, uint32 width, uint32 height, uint fsaa) -> GLSurfaceDesc
     {
         GLSurfaceDesc retval;
         retval.buffer = 0; // Return 0 buffer if GL_NONE is requested

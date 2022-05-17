@@ -102,7 +102,7 @@ public:
     /** Returns whether or not the passed in set is comparable
         this means they must have the same resolution and image (test)
         names. */
-    [[nodiscard]] bool canCompareWith(const TestBatch& other) const
+    [[nodiscard]] auto canCompareWith(const TestBatch& other) const -> bool
     {
         if (resolutionX != other.resolutionX ||
             resolutionY != other.resolutionY ||
@@ -117,13 +117,13 @@ public:
     }
 
     /** Gets the full path to the image at the specificied index */
-    [[nodiscard]] Ogre::String getImagePath(size_t index) const
+    [[nodiscard]] auto getImagePath(size_t index) const -> Ogre::String
     {
         return mDirectory + "/" + images[index] + ".png";
     }
 
     /** Does image comparison on all images between these two sets */
-    [[nodiscard]] ComparisonResultVector compare(const TestBatch& other) const
+    [[nodiscard]] auto compare(const TestBatch& other) const -> ComparisonResultVector
     {
         ComparisonResultVector out;
         if (!canCompareWith(other))
@@ -165,7 +165,7 @@ public:
     }
 
     /** Greater than operator, so they can be sorted chronologically */
-    bool operator>(const TestBatch& other) const
+    auto operator>(const TestBatch& other) const -> bool
     {
         // due to the way timestamps are formatted, lexicographical ordering will also be chronological
         return timestamp > other.timestamp;
@@ -173,7 +173,7 @@ public:
 
     /** Loads all test batches found in a directory and returns a reference counted ptr 
      *    to a set containing all the valid batches */
-    static TestBatchSet loadTestBatches(Ogre::String directory)
+    static auto loadTestBatches(Ogre::String directory) -> TestBatchSet
     {
         TestBatchSet out;
         // use ArchiveManager to get a list of all subdirectories

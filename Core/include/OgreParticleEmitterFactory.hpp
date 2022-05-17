@@ -61,13 +61,13 @@ namespace Ogre {
         virtual ~ParticleEmitterFactory();
 
         /** Returns the name of the factory, the name which identifies the particle emitter type this factory creates. */
-        [[nodiscard]] virtual String getName() const = 0;
+        [[nodiscard]] virtual auto getName() const -> String = 0;
 
         /** Creates a new emitter instance.
         @remarks
             The subclass MUST add a pointer to the created instance to mEmitters.
         */
-        virtual ParticleEmitter* createEmitter(ParticleSystem* psys) = 0;
+        virtual auto createEmitter(ParticleSystem* psys) -> ParticleEmitter* = 0;
 
         /** Destroys the emitter pointed to by the parameter (for early clean up if required). */
         virtual void destroyEmitter(ParticleEmitter* e);

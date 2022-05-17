@@ -54,29 +54,29 @@ class MovableObject;
     class PixelCountLodStrategyBase : public LodStrategy
     {
     protected:
-        Real getValueImpl(const MovableObject *movableObject, const Camera *camera) const override;
+        auto getValueImpl(const MovableObject *movableObject, const Camera *camera) const -> Real override;
 
     public:
         /** Default constructor. */
         PixelCountLodStrategyBase(const String& name);
 
         /// @copydoc LodStrategy::getBaseValue
-        [[nodiscard]] virtual Real getBaseValue() const;
+        [[nodiscard]] virtual auto getBaseValue() const -> Real;
 
         /// @copydoc LodStrategy::transformBias
-        [[nodiscard]] virtual Real transformBias(Real factor) const;
+        [[nodiscard]] virtual auto transformBias(Real factor) const -> Real;
 
         /// @copydoc LodStrategy::getIndex
-        [[nodiscard]] virtual ushort getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const;
+        [[nodiscard]] virtual auto getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const -> ushort;
 
         /// @copydoc LodStrategy::getIndex
-        [[nodiscard]] virtual ushort getIndex(Real value, const Material::LodValueList& materialLodValueList) const;
+        [[nodiscard]] virtual auto getIndex(Real value, const Material::LodValueList& materialLodValueList) const -> ushort;
 
         /// @copydoc LodStrategy::sort
         virtual void sort(Mesh::MeshLodUsageList& meshLodUsageList) const;
 
         /// @copydoc LodStrategy::isSorted
-        [[nodiscard]] virtual bool isSorted(const Mesh::LodValueList& values) const;
+        [[nodiscard]] virtual auto isSorted(const Mesh::LodValueList& values) const -> bool;
     };
 
     class AbsolutePixelCountLodStrategy : public PixelCountLodStrategyBase, public Singleton<AbsolutePixelCountLodStrategy>
@@ -86,12 +86,12 @@ class MovableObject;
         AbsolutePixelCountLodStrategy();
         ~AbsolutePixelCountLodStrategy();
 
-        Real getValueImpl(const MovableObject *movableObject, const Camera *camera) const override;
+        auto getValueImpl(const MovableObject *movableObject, const Camera *camera) const -> Real override;
 
         /// @copydoc Singleton::getSingleton()
-        static AbsolutePixelCountLodStrategy& getSingleton();
+        static auto getSingleton() -> AbsolutePixelCountLodStrategy&;
         /// @copydoc Singleton::getSingleton()
-        static AbsolutePixelCountLodStrategy* getSingletonPtr();
+        static auto getSingletonPtr() -> AbsolutePixelCountLodStrategy*;
     };
 
     class ScreenRatioPixelCountLodStrategy : public PixelCountLodStrategyBase, public Singleton<ScreenRatioPixelCountLodStrategy>
@@ -102,9 +102,9 @@ class MovableObject;
         ~ScreenRatioPixelCountLodStrategy();
 
         /// @copydoc Singleton::getSingleton()
-        static ScreenRatioPixelCountLodStrategy& getSingleton();
+        static auto getSingleton() -> ScreenRatioPixelCountLodStrategy&;
         /// @copydoc Singleton::getSingleton()
-        static ScreenRatioPixelCountLodStrategy* getSingletonPtr();
+        static auto getSingletonPtr() -> ScreenRatioPixelCountLodStrategy*;
     };
     /** @} */
     /** @} */

@@ -49,7 +49,7 @@ void CompositionPass::setType(CompositionPass::PassType type)
     mType = type;
 }
 //-----------------------------------------------------------------------
-CompositionPass::PassType CompositionPass::getType() const
+auto CompositionPass::getType() const -> CompositionPass::PassType
 {
     return mType;
 }
@@ -59,7 +59,7 @@ void CompositionPass::setIdentifier(uint32 id)
     mMaterial.identifier = id;
 }
 //-----------------------------------------------------------------------
-uint32 CompositionPass::getIdentifier() const
+auto CompositionPass::getIdentifier() const -> uint32
 {
     return mMaterial.identifier;
 }
@@ -74,7 +74,7 @@ void CompositionPass::setMaterialName(const String &name)
     mMaterial.material = MaterialManager::getSingleton().getByName(name);
 }
 //-----------------------------------------------------------------------
-const MaterialPtr& CompositionPass::getMaterial() const
+auto CompositionPass::getMaterial() const -> const MaterialPtr&
 {
     return mMaterial.material;
 }
@@ -84,7 +84,7 @@ void CompositionPass::setClearBuffers(uint32 val)
     mClear.buffers = val;
 }
 //-----------------------------------------------------------------------
-uint32 CompositionPass::getClearBuffers() const
+auto CompositionPass::getClearBuffers() const -> uint32
 {
     return mClear.buffers;
 }
@@ -94,7 +94,7 @@ void CompositionPass::setClearColour(const ColourValue &val)
     mClear.colour = val;
 }
 //-----------------------------------------------------------------------
-const ColourValue &CompositionPass::getClearColour() const
+auto CompositionPass::getClearColour() const -> const ColourValue &
 {
     return mClear.colour;
 }
@@ -104,7 +104,7 @@ void CompositionPass::setAutomaticColour(bool val)
     mClear.automaticColour = val;
 }
 //-----------------------------------------------------------------------
-bool CompositionPass::getAutomaticColour() const
+auto CompositionPass::getAutomaticColour() const -> bool
 {
     return mClear.automaticColour;
 }
@@ -115,13 +115,13 @@ void CompositionPass::setInput(size_t id, const String &input, size_t mrtIndex)
     mMaterial.inputs[id] = InputTex(input, mrtIndex);
 }
 //-----------------------------------------------------------------------
-const CompositionPass::InputTex &CompositionPass::getInput(size_t id) const
+auto CompositionPass::getInput(size_t id) const -> const CompositionPass::InputTex &
 {
     assert(id<OGRE_MAX_TEXTURE_LAYERS);
     return mMaterial.inputs[id];
 }
 //-----------------------------------------------------------------------
-size_t CompositionPass::getNumInputs() const
+auto CompositionPass::getNumInputs() const -> size_t
 {
     size_t count = 0;
     for(size_t x=0; x<OGRE_MAX_TEXTURE_LAYERS; ++x)
@@ -140,7 +140,7 @@ void CompositionPass::clearAllInputs()
     }
 }
 //-----------------------------------------------------------------------
-CompositionTargetPass *CompositionPass::getParent()
+auto CompositionPass::getParent() -> CompositionTargetPass *
 {
     return mParent;
 }
@@ -150,7 +150,7 @@ void CompositionPass::setFirstRenderQueue(uint8 id)
     mRenderScene.firstRenderQueue = id;
 }
 //-----------------------------------------------------------------------
-uint8 CompositionPass::getFirstRenderQueue() const
+auto CompositionPass::getFirstRenderQueue() const -> uint8
 {
     return mRenderScene.firstRenderQueue;
 }
@@ -160,7 +160,7 @@ void CompositionPass::setLastRenderQueue(uint8 id)
     mRenderScene.lastRenderQueue = id;
 }
 //-----------------------------------------------------------------------
-uint8 CompositionPass::getLastRenderQueue() const
+auto CompositionPass::getLastRenderQueue() const -> uint8
 {
     return mRenderScene.lastRenderQueue ;
 }
@@ -170,7 +170,7 @@ void CompositionPass::setMaterialScheme(const String& schemeName)
     mRenderScene.materialScheme = schemeName;
 }
 //-----------------------------------------------------------------------
-const String& CompositionPass::getMaterialScheme() const
+auto CompositionPass::getMaterialScheme() const -> const String&
 {
     return mRenderScene.materialScheme;
 }
@@ -179,7 +179,7 @@ void CompositionPass::setClearDepth(float depth)
 {
     mClear.depth = depth;
 }
-float CompositionPass::getClearDepth() const
+auto CompositionPass::getClearDepth() const -> float
 {
     return mClear.depth;
 }
@@ -187,7 +187,7 @@ void CompositionPass::setClearStencil(uint16 value)
 {
     mClear.stencil = value;
 }
-uint16 CompositionPass::getClearStencil() const
+auto CompositionPass::getClearStencil() const -> uint16
 {
     return mClear.stencil;
 }
@@ -196,7 +196,7 @@ void CompositionPass::setStencilCheck(bool value)
 {
     mStencilState.enabled = value;
 }
-bool CompositionPass::getStencilCheck() const
+auto CompositionPass::getStencilCheck() const -> bool
 {
     return mStencilState.enabled;
 }
@@ -204,7 +204,7 @@ void CompositionPass::setStencilFunc(CompareFunction value)
 {
     mStencilState.compareOp = value;
 }
-CompareFunction CompositionPass::getStencilFunc() const
+auto CompositionPass::getStencilFunc() const -> CompareFunction
 {
     return mStencilState.compareOp;
 } 
@@ -212,7 +212,7 @@ void CompositionPass::setStencilRefValue(uint32 value)
 {
     mStencilState.referenceValue = value;
 }
-uint32 CompositionPass::getStencilRefValue() const
+auto CompositionPass::getStencilRefValue() const -> uint32
 {
     return mStencilState.referenceValue;
 }
@@ -220,7 +220,7 @@ void CompositionPass::setStencilMask(uint32 value)
 {
     mStencilState.compareMask = value;
 }
-uint32 CompositionPass::getStencilMask() const
+auto CompositionPass::getStencilMask() const -> uint32
 {
     return mStencilState.compareMask ;
 }
@@ -228,7 +228,7 @@ void CompositionPass::setStencilFailOp(StencilOperation value)
 {
     mStencilState.stencilFailOp = value;
 }
-StencilOperation CompositionPass::getStencilFailOp() const
+auto CompositionPass::getStencilFailOp() const -> StencilOperation
 {
     return mStencilState.stencilFailOp;
 }
@@ -236,7 +236,7 @@ void CompositionPass::setStencilDepthFailOp(StencilOperation value)
 {
     mStencilState.depthFailOp = value;
 }
-StencilOperation CompositionPass::getStencilDepthFailOp() const
+auto CompositionPass::getStencilDepthFailOp() const -> StencilOperation
 {
     return mStencilState.depthFailOp;
 }
@@ -244,7 +244,7 @@ void CompositionPass::setStencilPassOp(StencilOperation value)
 {
     mStencilState.depthStencilPassOp = value;
 }
-StencilOperation CompositionPass::getStencilPassOp() const
+auto CompositionPass::getStencilPassOp() const -> StencilOperation
 {
     return mStencilState.depthStencilPassOp;
 }
@@ -252,7 +252,7 @@ void CompositionPass::setStencilTwoSidedOperation(bool value)
 {
     mStencilState.twoSidedOperation = value;
 }
-bool CompositionPass::getStencilTwoSidedOperation() const
+auto CompositionPass::getStencilTwoSidedOperation() const -> bool
 {
     return mStencilState.twoSidedOperation;
 }
@@ -261,11 +261,11 @@ void CompositionPass::setQuadFarCorners(bool farCorners, bool farCornersViewSpac
     mQuad.farCorners = farCorners;
     mQuad.farCornersViewSpace = farCornersViewSpace;
 }
-bool CompositionPass::getQuadFarCorners() const
+auto CompositionPass::getQuadFarCorners() const -> bool
 {
     return mQuad.farCorners;
 }
-bool CompositionPass::getQuadFarCornersViewSpace() const
+auto CompositionPass::getQuadFarCornersViewSpace() const -> bool
 {
     return mQuad.farCornersViewSpace;
 }
@@ -275,12 +275,12 @@ void CompositionPass::setCustomType(const String& customType)
     mCustomType = customType;
 }
 
-const String& CompositionPass::getCustomType() const
+auto CompositionPass::getCustomType() const -> const String&
 {
     return mCustomType;
 }
 //-----------------------------------------------------------------------
-bool CompositionPass::_isSupported()
+auto CompositionPass::_isSupported() -> bool
 {
     // A pass is supported if material referenced have a supported technique
 

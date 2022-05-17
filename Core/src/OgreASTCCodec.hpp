@@ -60,9 +60,9 @@ namespace Ogre {
         virtual ~ASTCCodec() { }
 
 		using ImageCodec::decode;
-        [[nodiscard]] DecodeResult decode(const DataStreamPtr& input) const override;
-		String magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const override;
-        [[nodiscard]] String getType() const override;
+        [[nodiscard]] auto decode(const DataStreamPtr& input) const -> DecodeResult override;
+		auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String override;
+        [[nodiscard]] auto getType() const -> String override;
 
 		/// Static method to startup and register the ASTC codec
 		static void startup();
@@ -72,7 +72,7 @@ namespace Ogre {
     private:
         void getClosestBlockDim2d(float targetBitrate, int *x, int *y) const;
         static void getClosestBlockDim3d(float targetBitrate, int *x, int *y, int *z);
-        static float getBitrateForPixelFormat(PixelFormat fmt);
+        static auto getBitrateForPixelFormat(PixelFormat fmt) -> float;
 
     };
 	/** @} */

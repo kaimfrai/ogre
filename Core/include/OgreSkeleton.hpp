@@ -125,7 +125,7 @@ class ResourceManager;
             handle, use the alternate form of this method which takes a handle as a parameter,
             although you should note the restrictions.
         */
-        virtual Bone* createBone();
+        virtual auto createBone() -> Bone*;
 
         /** Creates a brand new Bone owned by this Skeleton. 
         @remarks
@@ -140,7 +140,7 @@ class ResourceManager;
             it is advised that you use the simpler createBone method which automatically assigns a
             sequential handle starting from 0.
         */
-        virtual Bone* createBone(unsigned short handle);
+        virtual auto createBone(unsigned short handle) -> Bone*;
 
         /** Creates a brand new Bone owned by this Skeleton. 
         @remarks
@@ -155,7 +155,7 @@ class ResourceManager;
             for your convenience, although it is recommended that you only use the handle to 
             retrieve the bone in performance-critical code.
         */
-        virtual Bone* createBone(const String& name);
+        virtual auto createBone(const String& name) -> Bone*;
 
         /** Creates a brand new Bone owned by this Skeleton. 
         @remarks
@@ -167,10 +167,10 @@ class ResourceManager;
         @param name The name to give to this new bone - must be unique within this skeleton. 
         @param handle The handle to give to this new bone - must be unique within this skeleton. 
         */
-        virtual Bone* createBone(const String& name, unsigned short handle);
+        virtual auto createBone(const String& name, unsigned short handle) -> Bone*;
 
         /** Returns the number of bones in this skeleton. */
-        virtual unsigned short getNumBones() const;
+        virtual auto getNumBones() const -> unsigned short;
 
         typedef std::vector<Bone*> BoneList;
         typedef VectorIterator<BoneList> BoneIterator;
@@ -186,21 +186,21 @@ class ResourceManager;
             only once, and then use Bone::createChild from then on, then inherently the first
             bone you create will by default be the root.
         */
-        const BoneList& getRootBones() const;
+        auto getRootBones() const -> const BoneList&;
 
         /// Get all the bones in the skeleton
-        const BoneList& getBones() const {
+        auto getBones() const -> const BoneList& {
             return mBoneList;
         }
 
         /** Gets a bone by it's handle. */
-        virtual Bone* getBone(unsigned short handle) const;
+        virtual auto getBone(unsigned short handle) const -> Bone*;
 
         /** Gets a bone by it's name. */
-        virtual Bone* getBone(const String& name) const;
+        virtual auto getBone(const String& name) const -> Bone*;
 
         /** Returns whether this skeleton contains the named bone. */
-        virtual bool hasBone(const String& name) const;
+        virtual auto hasBone(const String& name) const -> bool;
 
         /** Sets the current position / orientation to be the 'binding pose' i.e. the layout in which 
             bones were originally bound to a mesh.
@@ -222,7 +222,7 @@ class ResourceManager;
         @param name The name of this animation
         @param length The length of the animation in seconds
         */
-        virtual Animation* createAnimation(const String& name, Real length);
+        virtual auto createAnimation(const String& name, Real length) -> Animation*;
 
         /** Returns the named Animation object. 
         @remarks
@@ -232,8 +232,8 @@ class ResourceManager;
         @param linker Optional pointer to a pointer to the linked skeleton animation
             where this is coming from.
         */
-        virtual Animation* getAnimation(const String& name, 
-            const LinkedSkeletonAnimationSource** linker) const;
+        virtual auto getAnimation(const String& name, 
+            const LinkedSkeletonAnimationSource** linker) const -> Animation*;
 
         /** Returns the named Animation object.
          @remarks
@@ -241,15 +241,15 @@ class ResourceManager;
              (@see addLinkedSkeletonAnimationSource). 
          @param name The name of the animation
          */
-        virtual Animation* getAnimation(const String& name) const;
+        virtual auto getAnimation(const String& name) const -> Animation*;
 
         /// Internal accessor for animations (returns null if animation does not exist)
-        virtual Animation* _getAnimationImpl(const String& name, 
-            const LinkedSkeletonAnimationSource** linker = 0) const;
+        virtual auto _getAnimationImpl(const String& name, 
+            const LinkedSkeletonAnimationSource** linker = 0) const -> Animation*;
 
 
         /** Returns whether this skeleton contains the named animation. */
-        virtual bool hasAnimation(const String& name) const;
+        virtual auto hasAnimation(const String& name) const -> bool;
 
         /** Removes an Animation from this skeleton. */
         virtual void removeAnimation(const String& name);
@@ -288,18 +288,18 @@ class ResourceManager;
         virtual void _getBoneMatrices(Affine3* pMatrices);
 
         /** Gets the number of animations on this skeleton. */
-        virtual unsigned short getNumAnimations() const;
+        virtual auto getNumAnimations() const -> unsigned short;
 
         /** Gets a single animation by index. 
         @remarks
             Will NOT pick up animations in linked skeletons 
             (@see addLinkedSkeletonAnimationSource).
         */
-        virtual Animation* getAnimation(unsigned short index) const;
+        virtual auto getAnimation(unsigned short index) const -> Animation*;
 
 
         /** Gets the animation blending mode which this skeleton will use. */
-        virtual SkeletonAnimationBlendMode getBlendMode() const;
+        virtual auto getBlendMode() const -> SkeletonAnimationBlendMode;
         /** Sets the animation blending mode this skeleton will use. */
         virtual void setBlendMode(SkeletonAnimationBlendMode state);
 
@@ -356,7 +356,7 @@ class ResourceManager;
         typedef ConstVectorIterator<LinkedSkeletonAnimSourceList> 
             LinkedSkeletonAnimSourceIterator;
         /// Get the linked skeletons used as animation sources
-        virtual const LinkedSkeletonAnimSourceList& getLinkedSkeletonAnimationSources() const
+        virtual auto getLinkedSkeletonAnimationSources() const -> const LinkedSkeletonAnimSourceList&
         {
             return mLinkedSkeletonAnimSourceList;
         }
@@ -367,9 +367,9 @@ class ResourceManager;
         virtual void _notifyManualBoneStateChange(Bone* bone);
 
         /// Have manual bones been modified since the skeleton was last updated?
-        virtual bool getManualBonesDirty() const { return mManualBonesDirty; }
+        virtual auto getManualBonesDirty() const -> bool { return mManualBonesDirty; }
         /// Are there any manually controlled bones?
-        virtual bool hasManualBones() const { return !mManualBones.empty(); }
+        virtual auto hasManualBones() const -> bool { return !mManualBones.empty(); }
 
         /// Map to translate bone handle from one skeleton to another skeleton.
         typedef std::vector<ushort> BoneHandleMap;
@@ -467,7 +467,7 @@ class ResourceManager;
         void prepareImpl();
         void unprepareImpl();
         /// @copydoc Resource::calculateSize
-        size_t calculateSize() const;
+        auto calculateSize() const -> size_t;
 
     };
 

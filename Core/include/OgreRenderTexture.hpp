@@ -60,7 +60,7 @@ namespace Ogre
 
         using RenderTarget::copyContentsToMemory;
         virtual void copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer = FB_AUTO);
-        [[nodiscard]] PixelFormat suggestPixelFormat() const;
+        [[nodiscard]] auto suggestPixelFormat() const -> PixelFormat;
 
     protected:
         HardwarePixelBuffer *mBuffer;
@@ -107,14 +107,14 @@ namespace Ogre
         virtual void copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer = FB_AUTO);
 
         /// Irrelevant implementation since cannot copy
-        [[nodiscard]] PixelFormat suggestPixelFormat() const { return PF_UNKNOWN; }
+        [[nodiscard]] auto suggestPixelFormat() const -> PixelFormat { return PF_UNKNOWN; }
 
         typedef std::vector<RenderTexture*> BoundSufaceList;
         /// Get a list of the surfaces which have been bound
-        [[nodiscard]] const BoundSufaceList& getBoundSurfaceList() const { return mBoundSurfaces; }
+        [[nodiscard]] auto getBoundSurfaceList() const -> const BoundSufaceList& { return mBoundSurfaces; }
 
         /** Get a pointer to a bound surface */
-        RenderTexture* getBoundSurface(size_t index) { return mBoundSurfaces.at(index); }
+        auto getBoundSurface(size_t index) -> RenderTexture* { return mBoundSurfaces.at(index); }
 
     protected:
         BoundSufaceList mBoundSurfaces;

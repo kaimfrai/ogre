@@ -65,17 +65,17 @@ class TextureUnitState;
         /// @deprecated use create()
         FrameTimeControllerValue();
 
-        static ControllerValueRealPtr create() { return std::make_shared<FrameTimeControllerValue>(); }
+        static auto create() -> ControllerValueRealPtr { return std::make_shared<FrameTimeControllerValue>(); }
 
-        bool frameEnded(const FrameEvent &evt);
-        bool frameStarted(const FrameEvent &evt);
-        [[nodiscard]] Real getValue() const;
+        auto frameEnded(const FrameEvent &evt) -> bool;
+        auto frameStarted(const FrameEvent &evt) -> bool;
+        [[nodiscard]] auto getValue() const -> Real;
         void setValue(Real value);
-        [[nodiscard]] Real getTimeFactor() const;
+        [[nodiscard]] auto getTimeFactor() const -> Real;
         void setTimeFactor(Real tf);
-        [[nodiscard]] Real getFrameDelay() const;
+        [[nodiscard]] auto getFrameDelay() const -> Real;
         void setFrameDelay(Real fd);
-        [[nodiscard]] Real getElapsedTime() const;
+        [[nodiscard]] auto getElapsedTime() const -> Real;
         void setElapsedTime(Real elapsedTime);
     };
 
@@ -90,14 +90,14 @@ class TextureUnitState;
         /// @deprecated use create()
         TextureFrameControllerValue(TextureUnitState* t);
 
-        static ControllerValueRealPtr create(TextureUnitState* t)
+        static auto create(TextureUnitState* t) -> ControllerValueRealPtr
         {
             return std::make_shared<TextureFrameControllerValue>(t);
         }
 
         /** Gets the frame number as a parametric value in the range [0,1]
         */
-        [[nodiscard]] Real getValue() const;
+        [[nodiscard]] auto getValue() const -> Real;
         /** Sets the frame number as a parametric value in the range [0,1]; the actual frame number is (value * numFrames) % numFrames).
         */
         void setValue(Real value);
@@ -138,13 +138,13 @@ class TextureUnitState;
             @param
                 rotate If true, the texture will be rotated by the modification.
         */
-        static ControllerValueRealPtr create(TextureUnitState* t, bool translateU = false, bool translateV = false,
-                                             bool scaleU = false, bool scaleV = false, bool rotate = false)
+        static auto create(TextureUnitState* t, bool translateU = false, bool translateV = false,
+                                             bool scaleU = false, bool scaleV = false, bool rotate = false) -> ControllerValueRealPtr
         {
             return std::make_shared<TexCoordModifierControllerValue>(t, translateU, translateV, scaleU, scaleV, rotate);
         }
 
-        [[nodiscard]] Real getValue() const;
+        [[nodiscard]] auto getValue() const -> Real;
         void setValue(Real value);
 
     };
@@ -179,12 +179,12 @@ class TextureUnitState;
             @param
                 index The index of the parameter to be set
         */
-        static ControllerValueRealPtr create(GpuProgramParametersSharedPtr params, size_t index)
+        static auto create(GpuProgramParametersSharedPtr params, size_t index) -> ControllerValueRealPtr
         {
             return std::make_shared<FloatGpuParameterControllerValue>(params, index);
         }
 
-        [[nodiscard]] Real getValue() const;
+        [[nodiscard]] auto getValue() const -> Real;
         void setValue(Real value);
 
     };
@@ -202,12 +202,12 @@ class TextureUnitState;
         PassthroughControllerFunction(bool deltaInput = false);
 
         /// @copydoc ControllerFunction::ControllerFunction
-        static ControllerFunctionRealPtr create(bool deltaInput = false)
+        static auto create(bool deltaInput = false) -> ControllerFunctionRealPtr
         {
             return std::make_shared<PassthroughControllerFunction>(deltaInput);
         }
 
-        Real calculate(Real source);
+        auto calculate(Real source) -> Real;
     };
 
     /** Predefined controller function for dealing with animation.
@@ -227,12 +227,12 @@ class TextureUnitState;
             @param
                 timeOffset The offset in seconds at which to start (default is start at 0)
         */
-        static ControllerFunctionRealPtr create(Real sequenceTime, Real timeOffset = 0.0f)
+        static auto create(Real sequenceTime, Real timeOffset = 0.0f) -> ControllerFunctionRealPtr
         {
             return std::make_shared<AnimationControllerFunction>(sequenceTime, timeOffset);
         }
 
-        Real calculate(Real source);
+        auto calculate(Real source) -> Real;
 
         /** Set the time value manually. */
         void setTime(Real timeVal);
@@ -258,12 +258,12 @@ class TextureUnitState;
                 deltaInput If true, signifies that the input will be a delta value such that the function should
                  add it to an internal counter before calculating the output.
         */
-        static ControllerFunctionRealPtr create(Real scalefactor, bool deltaInput = false)
+        static auto create(Real scalefactor, bool deltaInput = false) -> ControllerFunctionRealPtr
         {
             return std::make_shared<ScaleControllerFunction>(scalefactor, deltaInput);
         }
 
-        Real calculate(Real source);
+        auto calculate(Real source) -> Real;
     };
 
     //-----------------------------------------------------------------------
@@ -290,7 +290,7 @@ class TextureUnitState;
         Real mDutyCycle;
 
         /** Overridden from ControllerFunction. */
-        Real getAdjustedInput(Real input);
+        auto getAdjustedInput(Real input) -> Real;
 
     public:
         /// @deprecated use create()
@@ -308,12 +308,12 @@ class TextureUnitState;
             @param
                 dutyCycle Used in PWM mode to specify the pulse width.
         */
-        static ControllerFunctionRealPtr create(WaveformType wType, Real base = 0, Real frequency = 1, Real phase = 0, Real amplitude = 1, bool deltaInput = true, Real dutyCycle = 0.5)
+        static auto create(WaveformType wType, Real base = 0, Real frequency = 1, Real phase = 0, Real amplitude = 1, bool deltaInput = true, Real dutyCycle = 0.5) -> ControllerFunctionRealPtr
         {
             return std::make_shared<WaveformControllerFunction>(wType, base, frequency, phase, amplitude, deltaInput, dutyCycle);
         }
 
-        Real calculate(Real source);
+        auto calculate(Real source) -> Real;
     };
 
     //-----------------------------------------------------------------------
@@ -342,12 +342,12 @@ class TextureUnitState;
             @note
                 there must be the same amount of keys and values
         */
-        static ControllerFunctionRealPtr create(const std::vector<Real>& keys, const std::vector<Real>& values, Real frequency = 1, bool deltaInput = true)
+        static auto create(const std::vector<Real>& keys, const std::vector<Real>& values, Real frequency = 1, bool deltaInput = true) -> ControllerFunctionRealPtr
         {
             return std::make_shared<LinearControllerFunction>(keys, values, frequency, deltaInput);
         }
 
-        Real calculate(Real source);
+        auto calculate(Real source) -> Real;
     };
     //-----------------------------------------------------------------------
     /** @} */

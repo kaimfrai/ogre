@@ -50,7 +50,7 @@ class ResourceManager;
 
     namespace GLSL {
     //-----------------------------------------------------------------------
-    static RenderOperation::OperationType parseOperationType(const String& val)
+    static auto parseOperationType(const String& val) -> RenderOperation::OperationType
     {
         if (val == "point_list")
         {
@@ -95,7 +95,7 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------
-    static const char* operationTypeToString(RenderOperation::OperationType val)
+    static auto operationTypeToString(RenderOperation::OperationType val) -> const char*
     {
         switch (val)
         {
@@ -136,7 +136,7 @@ class ResourceManager;
     class CmdInputOperationType : public ParamCommand
     {
     public:
-        String doGet(const void* target) const
+        auto doGet(const void* target) const -> String
         {
             const GLSLProgram* t = static_cast<const GLSLProgram*>(target);
             return operationTypeToString(t->getInputOperationType());
@@ -151,7 +151,7 @@ class ResourceManager;
     class CmdOutputOperationType : public ParamCommand
     {
     public:
-        String doGet(const void* target) const
+        auto doGet(const void* target) const -> String
         {
             const GLSLProgram* t = static_cast<const GLSLProgram*>(target);
             return operationTypeToString(t->getOutputOperationType());
@@ -166,7 +166,7 @@ class ResourceManager;
     class CmdMaxOutputVertices : public ParamCommand
     {
     public:
-        String doGet(const void* target) const
+        auto doGet(const void* target) const -> String
         {
             const GLSLProgram* t = static_cast<const GLSLProgram*>(target);
             return StringConverter::toString(t->getMaxOutputVertices());
@@ -363,7 +363,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------
-    const String& GLSLProgram::getLanguage() const
+    auto GLSLProgram::getLanguage() const -> const String&
     {
         static const String language = "glsl";
 
@@ -397,7 +397,7 @@ class ResourceManager;
 
     }
     //-----------------------------------------------------------------------------
-    bool GLSLProgram::isAttributeValid(VertexElementSemantic semantic, uint index)
+    auto GLSLProgram::isAttributeValid(VertexElementSemantic semantic, uint index) -> bool
     {
         // get link program - only call this in the context of bound program
         GLSLLinkProgram* linkProgram = GLSLLinkProgramManager::getSingleton().getActiveLinkProgram();

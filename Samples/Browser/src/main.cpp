@@ -56,13 +56,13 @@ namespace
 #include "SampleBrowser.hpp"
 
 #if defined(OGRE_TRACK_MEMORY) && OGRE_TRACK_MEMORY != 0
-void* operator new  ( std::size_t count )
+auto operator new  ( std::size_t count ) -> void*
 {
     ++NewCallCount;
     NewByteCount += count;
     return ::std::malloc(count);
 }
-void* operator new[]( std::size_t count )
+auto operator new[]( std::size_t count ) -> void*
 {
     ++NewCallCount;
     NewByteCount += count;
@@ -85,7 +85,7 @@ TrackMemory::~TrackMemory() noexcept
 }
 #endif
 
-int main(int argc, char *argv[]) {
+auto main(int argc, char *argv[]) -> int {
 
     try
     {

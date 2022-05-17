@@ -57,7 +57,7 @@ namespace Ogre {
         NameGenerator(const String& prefix) : mPrefix(prefix), mNext(1) {}
 
         /// Generate a new name
-        String generate()
+        auto generate() -> String
         {
             StringStream s;
             s << mPrefix << mNext++;
@@ -77,7 +77,7 @@ namespace Ogre {
         }
 
         /// Get the internal counter
-        [[nodiscard]] unsigned long long int getNext() const
+        [[nodiscard]] auto getNext() const -> unsigned long long int
         {
             return mNext;
         }

@@ -76,7 +76,7 @@ public:
     *
     * @param typeName The type of the sub-render state to find.
     */
-    virtual SubRenderState* getGeneratedSubRenderState(const String& typeName);
+    virtual auto getGeneratedSubRenderState(const String& typeName) -> SubRenderState*;
 
 
 protected:

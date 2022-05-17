@@ -79,7 +79,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool HardwareVertexBuffer::checkIfVertexInstanceDataIsSupported()
+    auto HardwareVertexBuffer::checkIfVertexInstanceDataIsSupported() -> bool
     {
         // Use the current render system
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
@@ -102,7 +102,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    size_t HardwareVertexBuffer::getInstanceDataStepRate() const
+    auto HardwareVertexBuffer::getInstanceDataStepRate() const -> size_t
     {
         return mInstanceDataStepRate;
     }
@@ -129,12 +129,12 @@ namespace Ogre {
     {
     }
     //-----------------------------------------------------------------------------
-    size_t VertexElement::getSize() const
+    auto VertexElement::getSize() const -> size_t
     {
         return getTypeSize(mType);
     }
     //-----------------------------------------------------------------------------
-    size_t VertexElement::getTypeSize(VertexElementType etype)
+    auto VertexElement::getTypeSize(VertexElementType etype) -> size_t
     {
         switch(etype)
         {
@@ -192,7 +192,7 @@ namespace Ogre {
         return 0;
     }
     //-----------------------------------------------------------------------------
-    unsigned short VertexElement::getTypeCount(VertexElementType etype)
+    auto VertexElement::getTypeCount(VertexElementType etype) -> unsigned short
     {
         switch (etype)
         {
@@ -238,8 +238,8 @@ namespace Ogre {
             "VertexElement::getTypeCount");
     }
     //-----------------------------------------------------------------------------
-    VertexElementType VertexElement::multiplyTypeCount(VertexElementType baseType, 
-        unsigned short count)
+    auto VertexElement::multiplyTypeCount(VertexElementType baseType, 
+        unsigned short count) -> VertexElementType
     {
         OgreAssert(count > 0 && count < 5, "Count out of range");
 
@@ -295,7 +295,7 @@ namespace Ogre {
             "VertexElement::multiplyTypeCount");
     }
     //--------------------------------------------------------------------------
-    VertexElementType VertexElement::getBestColourVertexElementType()
+    auto VertexElement::getBestColourVertexElementType() -> VertexElementType
     {
         return VET_UBYTE4_NORM;
     }
@@ -311,7 +311,7 @@ namespace Ogre {
            ((*ptr&0x00FF0000)>>16)|((*ptr&0x000000FF)<<16)|(*ptr&0xFF00FF00);               
     }
     //-----------------------------------------------------------------------------
-    VertexElementType VertexElement::getBaseType(VertexElementType multiType)
+    auto VertexElement::getBaseType(VertexElementType multiType) -> VertexElementType
     {
         switch (multiType)
         {
@@ -373,14 +373,14 @@ namespace Ogre {
     {
     }
     //-----------------------------------------------------------------------------
-    const VertexDeclaration::VertexElementList& VertexDeclaration::getElements() const
+    auto VertexDeclaration::getElements() const -> const VertexDeclaration::VertexElementList&
     {
         return mElementList;
     }
     //-----------------------------------------------------------------------------
-    const VertexElement& VertexDeclaration::addElement(unsigned short source, 
+    auto VertexDeclaration::addElement(unsigned short source, 
         size_t offset, VertexElementType theType,
-        VertexElementSemantic semantic, unsigned short index)
+        VertexElementSemantic semantic, unsigned short index) -> const VertexElement&
     {
         // Refine colour type to a specific type
         if (theType == VET_COLOUR)
@@ -394,9 +394,9 @@ namespace Ogre {
         return mElementList.back();
     }
     //-----------------------------------------------------------------------------
-    const VertexElement& VertexDeclaration::insertElement(unsigned short atPosition,
+    auto VertexDeclaration::insertElement(unsigned short atPosition,
         unsigned short source, size_t offset, VertexElementType theType,
-        VertexElementSemantic semantic, unsigned short index)
+        VertexElementSemantic semantic, unsigned short index) -> const VertexElement&
     {
         if (atPosition >= mElementList.size())
         {
@@ -414,7 +414,7 @@ namespace Ogre {
         return *i;
     }
     //-----------------------------------------------------------------------------
-    const VertexElement* VertexDeclaration::getElement(unsigned short index) const
+    auto VertexDeclaration::getElement(unsigned short index) const -> const VertexElement*
     {
         assert(index < mElementList.size() && "Index out of bounds");
 
@@ -468,8 +468,8 @@ namespace Ogre {
         notifyChanged();
     }
     //-----------------------------------------------------------------------------
-    const VertexElement* VertexDeclaration::findElementBySemantic(
-        VertexElementSemantic sem, unsigned short index) const
+    auto VertexDeclaration::findElementBySemantic(
+        VertexElementSemantic sem, unsigned short index) const -> const VertexElement*
     {
         VertexElementList::const_iterator ei, eiend;
         eiend = mElementList.end();
@@ -486,8 +486,8 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
-    VertexDeclaration::VertexElementList VertexDeclaration::findElementsBySource(
-        unsigned short source) const
+    auto VertexDeclaration::findElementsBySource(
+        unsigned short source) const -> VertexDeclaration::VertexElementList
     {
         VertexElementList retList;
         VertexElementList::const_iterator ei, eiend;
@@ -504,7 +504,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    size_t VertexDeclaration::getVertexSize(unsigned short source) const
+    auto VertexDeclaration::getVertexSize(unsigned short source) const -> size_t
     {
         VertexElementList::const_iterator i, iend;
         iend = mElementList.end();
@@ -521,7 +521,7 @@ namespace Ogre {
         return sz;
     }
     //-----------------------------------------------------------------------------
-    VertexDeclaration* VertexDeclaration::clone(HardwareBufferManagerBase* mgr) const
+    auto VertexDeclaration::clone(HardwareBufferManagerBase* mgr) const -> VertexDeclaration*
     {
         HardwareBufferManagerBase* pManager = mgr ? mgr : HardwareBufferManager::getSingletonPtr(); 
         VertexDeclaration* ret = pManager->createVertexDeclaration();
@@ -536,7 +536,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------------
     // Sort routine for VertexElement
-    bool VertexDeclaration::vertexElementLess(const VertexElement& e1, const VertexElement& e2)
+    auto VertexDeclaration::vertexElementLess(const VertexElement& e1, const VertexElement& e2) -> bool
     {
         // Sort by source first
         if (e1.getSource() < e2.getSource())
@@ -597,8 +597,8 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    VertexDeclaration* VertexDeclaration::getAutoOrganisedDeclaration(
-        bool skeletalAnimation, bool vertexAnimation, bool vertexAnimationNormals) const
+    auto VertexDeclaration::getAutoOrganisedDeclaration(
+        bool skeletalAnimation, bool vertexAnimation, bool vertexAnimationNormals) const -> VertexDeclaration*
     {
         VertexDeclaration* newDecl = this->clone();
         // Set all sources to the same buffer (for now)
@@ -683,7 +683,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
-    unsigned short VertexDeclaration::getMaxSource() const
+    auto VertexDeclaration::getMaxSource() const -> unsigned short
     {
         VertexElementList::const_iterator i, iend;
         iend = mElementList.end();
@@ -699,7 +699,7 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------------
-    unsigned short VertexDeclaration::getNextFreeTextureCoordinate() const
+    auto VertexDeclaration::getNextFreeTextureCoordinate() const -> unsigned short
     {
         unsigned short texCoord = 0;
         for (VertexElementList::const_iterator i = mElementList.begin(); 
@@ -749,13 +749,13 @@ namespace Ogre {
         mHighIndex = 0;
     }
     //-----------------------------------------------------------------------------
-    const VertexBufferBinding::VertexBufferBindingMap& 
-    VertexBufferBinding::getBindings() const
+    auto 
+    VertexBufferBinding::getBindings() const -> const VertexBufferBinding::VertexBufferBindingMap&
     {
         return mBindingMap;
     }
     //-----------------------------------------------------------------------------
-    const HardwareVertexBufferSharedPtr& VertexBufferBinding::getBuffer(unsigned short index) const
+    auto VertexBufferBinding::getBuffer(unsigned short index) const -> const HardwareVertexBufferSharedPtr&
     {
         VertexBufferBindingMap::const_iterator i = mBindingMap.find(index);
         if (i == mBindingMap.end())
@@ -766,17 +766,17 @@ namespace Ogre {
         return i->second;
     }
     //-----------------------------------------------------------------------------
-    bool VertexBufferBinding::isBufferBound(unsigned short index) const
+    auto VertexBufferBinding::isBufferBound(unsigned short index) const -> bool
     {
         return mBindingMap.find(index) != mBindingMap.end();
     }
     //-----------------------------------------------------------------------------
-    unsigned short VertexBufferBinding::getLastBoundIndex() const
+    auto VertexBufferBinding::getLastBoundIndex() const -> unsigned short
     {
         return mBindingMap.empty() ? 0 : mBindingMap.rbegin()->first + 1;
     }
     //-----------------------------------------------------------------------------
-    bool VertexBufferBinding::hasGaps() const
+    auto VertexBufferBinding::hasGaps() const -> bool
     {
         if (mBindingMap.empty())
             return false;

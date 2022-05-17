@@ -45,7 +45,7 @@ THE SOFTWARE.
 
 using namespace Ogre;
 
-static String fileId(const String& path) {
+static auto fileId(const String& path) -> String {
     return path;
 }
 

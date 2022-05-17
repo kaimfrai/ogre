@@ -41,11 +41,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> LogManager* Singleton<LogManager>::msSingleton = 0;
-    LogManager* LogManager::getSingletonPtr()
+    auto LogManager::getSingletonPtr() -> LogManager*
     {
         return msSingleton;
     }
-    LogManager& LogManager::getSingleton()
+    auto LogManager::getSingleton() -> LogManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -65,8 +65,8 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    Log* LogManager::createLog( const String& name, bool defaultLog, bool debuggerOutput, 
-        bool suppressFileOutput)
+    auto LogManager::createLog( const String& name, bool defaultLog, bool debuggerOutput, 
+        bool suppressFileOutput) -> Log*
     {
         Log* newLog = new Log(name, debuggerOutput, suppressFileOutput);
 
@@ -80,19 +80,19 @@ namespace Ogre {
         return newLog;
     }
     //-----------------------------------------------------------------------
-    Log* LogManager::getDefaultLog()
+    auto LogManager::getDefaultLog() -> Log*
     {
         return mDefaultLog;
     }
     //-----------------------------------------------------------------------
-    Log* LogManager::setDefaultLog(Log* newLog)
+    auto LogManager::setDefaultLog(Log* newLog) -> Log*
     {
         Log* oldLog = mDefaultLog;
         mDefaultLog = newLog;
         return oldLog;
     }
     //-----------------------------------------------------------------------
-    Log* LogManager::getLog( const String& name)
+    auto LogManager::getLog( const String& name) -> Log*
     {
         LogList::iterator i = mLogs.find(name);
         OgreAssert(i != mLogs.end(), "Log not found");
@@ -152,7 +152,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Log::Stream LogManager::stream(LogMessageLevel lml, bool maskDebug)
+    auto LogManager::stream(LogMessageLevel lml, bool maskDebug) -> Log::Stream
     {
         OgreAssert(mDefaultLog, "Default log not found");
         return mDefaultLog->stream(lml, maskDebug);

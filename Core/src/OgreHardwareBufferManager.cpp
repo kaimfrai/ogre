@@ -49,11 +49,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> HardwareBufferManager* Singleton<HardwareBufferManager>::msSingleton = 0;
-    HardwareBufferManager* HardwareBufferManager::getSingletonPtr()
+    auto HardwareBufferManager::getSingletonPtr() -> HardwareBufferManager*
     {
         return msSingleton;
     }
-    HardwareBufferManager& HardwareBufferManager::getSingleton()
+    auto HardwareBufferManager::getSingleton() -> HardwareBufferManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -86,7 +86,7 @@ namespace Ogre {
         // No need to destroy temp buffers - they will be destroyed automatically.
     }
     //-----------------------------------------------------------------------
-    VertexDeclaration* HardwareBufferManagerBase::createVertexDeclaration()
+    auto HardwareBufferManagerBase::createVertexDeclaration() -> VertexDeclaration*
     {
         VertexDeclaration* decl = createVertexDeclarationImpl();
         mVertexDeclarations.insert(decl);
@@ -100,7 +100,7 @@ namespace Ogre {
         destroyVertexDeclarationImpl(decl);
     }
     //-----------------------------------------------------------------------
-    VertexBufferBinding* HardwareBufferManagerBase::createVertexBufferBinding()
+    auto HardwareBufferManagerBase::createVertexBufferBinding() -> VertexBufferBinding*
     {
         VertexBufferBinding* ret = createVertexBufferBindingImpl();
         mVertexBufferBindings.insert(ret);
@@ -115,7 +115,7 @@ namespace Ogre {
         destroyVertexBufferBindingImpl(binding);
     }
     //-----------------------------------------------------------------------
-    VertexDeclaration* HardwareBufferManagerBase::createVertexDeclarationImpl()
+    auto HardwareBufferManagerBase::createVertexDeclarationImpl() -> VertexDeclaration*
     {
         return new VertexDeclaration();
     }
@@ -125,7 +125,7 @@ namespace Ogre {
         delete decl;
     }
     //-----------------------------------------------------------------------
-    VertexBufferBinding* HardwareBufferManagerBase::createVertexBufferBindingImpl()
+    auto HardwareBufferManagerBase::createVertexBufferBindingImpl() -> VertexBufferBinding*
     {
         return new VertexBufferBinding();
     }
@@ -163,11 +163,11 @@ namespace Ogre {
         mFreeTempVertexBufferMap.emplace(sourceBuffer.get(), copy);
     }
     //-----------------------------------------------------------------------
-    HardwareVertexBufferSharedPtr 
+    auto 
     HardwareBufferManagerBase::allocateVertexBufferCopy(
         const HardwareVertexBufferSharedPtr& sourceBuffer, 
         BufferLicenseType licenseType, HardwareBufferLicensee* licensee,
-        bool copyData)
+        bool copyData) -> HardwareVertexBufferSharedPtr
     {
         HardwareVertexBufferSharedPtr vbuf;
 
@@ -382,21 +382,21 @@ namespace Ogre {
             _forceReleaseBufferCopies(buf);
         }
     }
-    RenderToVertexBufferSharedPtr HardwareBufferManagerBase::createRenderToVertexBuffer()
+    auto HardwareBufferManagerBase::createRenderToVertexBuffer() -> RenderToVertexBufferSharedPtr
     {
         OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "not supported by RenderSystem");
     }
-    HardwareBufferPtr HardwareBufferManagerBase::createUniformBuffer(size_t sizeBytes,
+    auto HardwareBufferManagerBase::createUniformBuffer(size_t sizeBytes,
                                                                      HardwareBufferUsage usage,
-                                                                     bool useShadowBuffer)
+                                                                     bool useShadowBuffer) -> HardwareBufferPtr
     {
         OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "not supported by RenderSystem");
     }
     //-----------------------------------------------------------------------
-    HardwareVertexBufferSharedPtr 
+    auto 
     HardwareBufferManagerBase::makeBufferCopy(
         const HardwareVertexBufferSharedPtr& source,
-        HardwareBuffer::Usage usage, bool useShadowBuffer)
+        HardwareBuffer::Usage usage, bool useShadowBuffer) -> HardwareVertexBufferSharedPtr
     {
         return this->createVertexBuffer(
             source->getVertexSize(), 
@@ -478,7 +478,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool TempBlendedBufferInfo::buffersCheckedOut(bool positions, bool normals) const
+    auto TempBlendedBufferInfo::buffersCheckedOut(bool positions, bool normals) const -> bool
     {
         if (positions || (normals && posNormalShareBuffer))
         {

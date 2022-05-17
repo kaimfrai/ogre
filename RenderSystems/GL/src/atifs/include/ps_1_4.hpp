@@ -294,11 +294,11 @@ private:
         determines what phase machine insturction should be in and if an Alpha Op is required
         calls expandMachineInstruction() to expand the token into machine instructions
     */
-    bool BuildMachineInst();
+    auto BuildMachineInst() -> bool;
     
     void clearMachineInstState();
 
-    bool setOpParram(const SymbolDef* symboldef);
+    auto setOpParram(const SymbolDef* symboldef) -> bool;
 
     /** optimizes machine instructions depending on pixel shader context
         only applies to ps.1.1 ps.1.2 and ps.1.3 since they use CISC instructions
@@ -307,34 +307,34 @@ private:
     void optimize();
 
     // the method is expected to be recursive to allow for inline expansion of instructions if required
-    bool Pass2scan(const TokenInst * Tokens, const size_t size);
+    auto Pass2scan(const TokenInst * Tokens, const size_t size) -> bool;
 
     // supply virtual functions for Compiler2Pass
     /// Pass 1 is completed so now take tokens generated and build machine instructions
-    bool doPass2();
+    auto doPass2() -> bool;
 
     /** Build a machine instruction from token and ready it for expansion
         will expand CISC tokens using macro database
 
     */
-    bool bindMachineInstInPassToFragmentShader(const MachineInstContainer & PassMachineInstructions);
+    auto bindMachineInstInPassToFragmentShader(const MachineInstContainer & PassMachineInstructions) -> bool;
 
     /** Expand CISC tokens into PS1_4 token equivalents
 
     */
-    bool expandMacro(const MacroRegModify & MacroMod);
+    auto expandMacro(const MacroRegModify & MacroMod) -> bool;
 
     /** Expand Machine instruction into operation type and arguments and put into proper machine
         instruction container
         also expands scaler alpha machine instructions if required
 
     */
-    bool expandMachineInstruction();
+    auto expandMachineInstruction() -> bool;
 
     // mainly used by tests - too slow for use in binding
-    size_t getMachineInst(size_t Idx);
+    auto getMachineInst(size_t Idx) -> size_t;
 
-    size_t getMachineInstCount();
+    auto getMachineInstCount() -> size_t;
 
     void addMachineInst(PhaseType phase, const uint inst);
 
@@ -342,7 +342,7 @@ private:
 
     void updateRegisterWriteState(const PhaseType phase);
 
-    bool isRegisterReadValid(const PhaseType phase, const int param);
+    auto isRegisterReadValid(const PhaseType phase, const int param) -> bool;
 
 public:
 
@@ -350,7 +350,7 @@ public:
     PS_1_4();
 
     /// binds machine instructions generated in Pass 2 to the ATI GL fragment shader
-    bool bindAllMachineInstToFragmentShader();
+    auto bindAllMachineInstToFragmentShader() -> bool;
 
 #ifdef _DEBUG
     /// perform compiler tests - only available in _DEBUG mode

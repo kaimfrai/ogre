@@ -67,7 +67,7 @@ namespace Ogre
         }
     }
 
-    String logObjectInfo(const String& msg, GLuint obj)
+    auto logObjectInfo(const String& msg, GLuint obj) -> String
     {
         String logMessage = getObjectInfo(obj);
 
@@ -82,7 +82,7 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------------
-    String getObjectInfo(GLuint obj)
+    auto getObjectInfo(GLuint obj) -> String
     {
         String logMessage;
 

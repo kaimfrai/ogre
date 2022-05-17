@@ -111,7 +111,7 @@ class Frustum;
         mDirty = true;
     }
     //-----------------------------------------------------------------------
-    FilterOptions Sampler::getFiltering(FilterType ft) const
+    auto Sampler::getFiltering(FilterType ft) const -> FilterOptions
     {
         switch (ft)
         {
@@ -211,8 +211,8 @@ class Frustum;
         _unload();
     }
     //-----------------------------------------------------------------------
-    TextureUnitState & TextureUnitState::operator = ( 
-        const TextureUnitState &oth )
+    auto TextureUnitState::operator = ( 
+        const TextureUnitState &oth ) -> TextureUnitState &
     {
         assert(mAnimController == 0);
         removeAllEffects();
@@ -248,7 +248,7 @@ class Frustum;
         return *this;
     }
     //-----------------------------------------------------------------------
-    const String& TextureUnitState::getTextureName() const
+    auto TextureUnitState::getTextureName() const -> const String&
     {
         // Return name of current frame
         if (mCurrentFrame < mFramePtrs.size() && mFramePtrs[mCurrentFrame])
@@ -321,12 +321,12 @@ class Frustum;
         mContentType = ct;
     }
     //-----------------------------------------------------------------------
-    TextureUnitState::ContentType TextureUnitState::getContentType() const
+    auto TextureUnitState::getContentType() const -> TextureUnitState::ContentType
     {
         return mContentType;
     }
     //-----------------------------------------------------------------------
-    TextureType TextureUnitState::getTextureType() const
+    auto TextureUnitState::getTextureType() const -> TextureType
     {
         return !mFramePtrs[0] ? TEX_TYPE_2D : mFramePtrs[0]->getTextureType();
     }
@@ -462,7 +462,7 @@ class Frustum;
     }
 
     //-----------------------------------------------------------------------
-    std::pair<uint32, uint32> TextureUnitState::getTextureDimensions(unsigned int frame) const
+    auto TextureUnitState::getTextureDimensions(unsigned int frame) const -> std::pair<uint32, uint32>
     {
         
         TexturePtr tex = _getTexturePtr(frame);
@@ -484,17 +484,17 @@ class Frustum;
         }
     }
     //-----------------------------------------------------------------------
-    unsigned int TextureUnitState::getCurrentFrame() const
+    auto TextureUnitState::getCurrentFrame() const -> unsigned int
     {
         return mCurrentFrame;
     }
     //-----------------------------------------------------------------------
-    unsigned int TextureUnitState::getNumFrames() const
+    auto TextureUnitState::getNumFrames() const -> unsigned int
     {
         return (unsigned int)mFramePtrs.size();
     }
     //-----------------------------------------------------------------------
-    const String& TextureUnitState::getFrameTextureName(unsigned int frameNumber) const
+    auto TextureUnitState::getFrameTextureName(unsigned int frameNumber) const -> const String&
     {
         OgreAssert(frameNumber < mFramePtrs.size(), "out of range");
 
@@ -508,7 +508,7 @@ class Frustum;
             frame->setFormat(desiredFormat);
     }
     //-----------------------------------------------------------------------
-    PixelFormat TextureUnitState::getDesiredFormat() const
+    auto TextureUnitState::getDesiredFormat() const -> PixelFormat
     {
         return !mFramePtrs[0] ? PF_UNKNOWN : mFramePtrs[0]->getDesiredFormat();
     }
@@ -522,7 +522,7 @@ class Frustum;
                                      : numMipmaps);
     }
     //-----------------------------------------------------------------------
-    int TextureUnitState::getNumMipmaps() const
+    auto TextureUnitState::getNumMipmaps() const -> int
     {
         return !mFramePtrs[0] ? int(MIP_DEFAULT) : mFramePtrs[0]->getNumMipmaps();
     }
@@ -533,7 +533,7 @@ class Frustum;
         for(auto& frame : mFramePtrs)
             frame->setTreatLuminanceAsAlpha(isAlpha);
     }
-    float TextureUnitState::getGamma() const
+    auto TextureUnitState::getGamma() const -> float
     {
         return !mFramePtrs[0] ? 1.0f : mFramePtrs[0]->getGamma();
     }
@@ -551,12 +551,12 @@ class Frustum;
             frame->setHardwareGammaEnabled(g);
     }
     //-----------------------------------------------------------------------
-    bool TextureUnitState::isHardwareGammaEnabled() const
+    auto TextureUnitState::isHardwareGammaEnabled() const -> bool
     {
         return mFramePtrs[0] && mFramePtrs[0]->isHardwareGammaEnabled();
     }
     //-----------------------------------------------------------------------
-    unsigned int TextureUnitState::getTextureCoordSet() const
+    auto TextureUnitState::getTextureCoordSet() const -> unsigned int
     {
         return mTextureCoordSetIndex;
     }
@@ -683,28 +683,28 @@ class Frustum;
     }
 
     //-----------------------------------------------------------------------
-    bool TextureUnitState::isBlank() const
+    auto TextureUnitState::isBlank() const -> bool
     {
         return !mFramePtrs[0] || mTextureLoadFailed;
     }
 
     //-----------------------------------------------------------------------
-    SceneBlendFactor TextureUnitState::getColourBlendFallbackSrc() const
+    auto TextureUnitState::getColourBlendFallbackSrc() const -> SceneBlendFactor
     {
         return mColourBlendFallbackSrc;
     }
     //-----------------------------------------------------------------------
-    SceneBlendFactor TextureUnitState::getColourBlendFallbackDest() const
+    auto TextureUnitState::getColourBlendFallbackDest() const -> SceneBlendFactor
     {
         return mColourBlendFallbackDest;
     }
     //-----------------------------------------------------------------------
-    const LayerBlendModeEx& TextureUnitState::getColourBlendMode() const
+    auto TextureUnitState::getColourBlendMode() const -> const LayerBlendModeEx&
     {
         return mColourBlendMode;
     }
     //-----------------------------------------------------------------------
-    const LayerBlendModeEx& TextureUnitState::getAlphaBlendMode() const
+    auto TextureUnitState::getAlphaBlendMode() const -> const LayerBlendModeEx&
     {
         return mAlphaBlendMode;
     }
@@ -774,7 +774,7 @@ class Frustum;
         mRecalcTexMatrix = true;
     }
     //-----------------------------------------------------------------------
-    const Matrix4& TextureUnitState::getTextureTransform() const
+    auto TextureUnitState::getTextureTransform() const -> const Matrix4&
     {
         if (mRecalcTexMatrix)
             recalcTextureMatrix();
@@ -977,12 +977,12 @@ class Frustum;
 
     }
     //-----------------------------------------------------------------------
-    const TexturePtr& TextureUnitState::_getTexturePtr() const
+    auto TextureUnitState::_getTexturePtr() const -> const TexturePtr&
     {
         return _getTexturePtr(mCurrentFrame);
     }
     //-----------------------------------------------------------------------
-    const TexturePtr& TextureUnitState::_getTexturePtr(size_t frame) const
+    auto TextureUnitState::_getTexturePtr(size_t frame) const -> const TexturePtr&
     {
         if (frame < mFramePtrs.size())
         {
@@ -1010,7 +1010,7 @@ class Frustum;
         mFramePtrs[frame] = texptr;
     }
     //-----------------------------------------------------------------------
-    TexturePtr TextureUnitState::retrieveTexture(const String& name) {
+    auto TextureUnitState::retrieveTexture(const String& name) -> TexturePtr {
         TextureManager::ResourceCreateOrRetrieveResult res;
         res = TextureManager::getSingleton().createOrRetrieve(name, mParent->getResourceGroup());
         return static_pointer_cast<Texture>(res.first);
@@ -1100,43 +1100,43 @@ class Frustum;
         }
     }
     //-----------------------------------------------------------------------
-    Real TextureUnitState::getTextureUScroll() const
+    auto TextureUnitState::getTextureUScroll() const -> Real
     {
         return mUMod;
     }
 
     //-----------------------------------------------------------------------
-    Real TextureUnitState::getTextureVScroll() const
+    auto TextureUnitState::getTextureVScroll() const -> Real
     {
         return mVMod;
     }
 
     //-----------------------------------------------------------------------
-    Real TextureUnitState::getTextureUScale() const
+    auto TextureUnitState::getTextureUScale() const -> Real
     {
         return mUScale;
     }
 
     //-----------------------------------------------------------------------
-    Real TextureUnitState::getTextureVScale() const
+    auto TextureUnitState::getTextureVScale() const -> Real
     {
         return mVScale;
     }
 
     //-----------------------------------------------------------------------
-    const Radian& TextureUnitState::getTextureRotate() const
+    auto TextureUnitState::getTextureRotate() const -> const Radian&
     {
         return mRotate;
     }
     
     //-----------------------------------------------------------------------
-    Real TextureUnitState::getAnimationDuration() const
+    auto TextureUnitState::getAnimationDuration() const -> Real
     {
         return mAnimDuration;
     }
 
     //-----------------------------------------------------------------------
-    const TextureUnitState::EffectMap& TextureUnitState::getEffects() const
+    auto TextureUnitState::getEffects() const -> const TextureUnitState::EffectMap&
     {
         return mEffects;
     }
@@ -1171,7 +1171,7 @@ class Frustum;
             mFramePtrs[0].reset();
     }
     //-----------------------------------------------------------------------------
-    bool TextureUnitState::isLoaded() const
+    auto TextureUnitState::isLoaded() const -> bool
     {
         return mParent->isLoaded();
     }
@@ -1181,7 +1181,7 @@ class Frustum;
         mParent->_notifyNeedsRecompile();
     }
     //-----------------------------------------------------------------------
-    bool TextureUnitState::hasViewRelativeTextureCoordinateGeneration() const
+    auto TextureUnitState::hasViewRelativeTextureCoordinateGeneration() const -> bool
     {
         // Right now this only returns true for reflection maps
 
@@ -1236,7 +1236,7 @@ class Frustum;
         mCompositorRefMrtIndex = mrtIndex; 
     }
     //-----------------------------------------------------------------------
-    size_t TextureUnitState::calculateSize() const
+    auto TextureUnitState::calculateSize() const -> size_t
     {
         size_t memSize = sizeof(*this);
         memSize += mFramePtrs.size() * sizeof(TexturePtr);
@@ -1244,11 +1244,11 @@ class Frustum;
         return memSize;
     }
 
-    bool TextureUnitState::isDefaultFiltering() const {
+    auto TextureUnitState::isDefaultFiltering() const -> bool {
         return mSampler == TextureManager::getSingleton().getDefaultSampler();
     }
 
-    const SamplerPtr& TextureUnitState::_getLocalSampler()
+    auto TextureUnitState::_getLocalSampler() -> const SamplerPtr&
     {
         if(isDefaultFiltering())
             mSampler = TextureManager::getSingleton().createSampler();

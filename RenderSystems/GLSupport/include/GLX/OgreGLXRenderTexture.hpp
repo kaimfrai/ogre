@@ -45,7 +45,7 @@ class GLXGLSupport;
         GLXPBuffer(GLXGLSupport* glsupport, PixelComponentType format, size_t width, size_t height);
         ~GLXPBuffer();
         
-        [[nodiscard]] GLContext *getContext() const;
+        [[nodiscard]] auto getContext() const -> GLContext *;
 
     protected:
         GLXContext*   mContext;

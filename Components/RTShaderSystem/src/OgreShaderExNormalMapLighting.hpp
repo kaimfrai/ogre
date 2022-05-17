@@ -68,9 +68,9 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    virtual const String& getType() const;
+    virtual auto getType() const -> const String&;
 
-    int getExecutionOrder() const { return FFP_LIGHTING - 1; }
+    auto getExecutionOrder() const -> int { return FFP_LIGHTING - 1; }
 
     /** 
     @see SubRenderState::copyFrom.
@@ -81,7 +81,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    virtual bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass);
+    virtual auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool;
 
     /** 
     Set the index of the input vertex shader texture coordinate set 
@@ -91,7 +91,7 @@ public:
     /** 
     Return the index of the input vertex shader texture coordinate set.
     */
-    unsigned int getTexCoordIndex() const { return mVSTexCoordSetIndex; }
+    auto getTexCoordIndex() const -> unsigned int { return mVSTexCoordSetIndex; }
 
     // Type of this render state.
     static String Type;
@@ -110,18 +110,18 @@ public:
     void setNormalMapSpace(NormalMapSpace normalMapSpace) { mNormalMapSpace = normalMapSpace; }
 
     /** Return the normal map space. */
-    NormalMapSpace getNormalMapSpace() const { return mNormalMapSpace; }
+    auto getNormalMapSpace() const -> NormalMapSpace { return mNormalMapSpace; }
 
     /** 
     Return the normal map texture name.
     */
-    const String& getNormalMapTextureName() const { return mNormalMapTextureName; }
+    auto getNormalMapTextureName() const -> const String& { return mNormalMapTextureName; }
 
-    bool setParameter(const String& name, const String& value) override;
+    auto setParameter(const String& name, const String& value) -> bool override;
 
 // Protected methods
 protected:
-    bool createCpuSubPrograms(ProgramSet* programSet) override;
+    auto createCpuSubPrograms(ProgramSet* programSet) -> bool override;
 
 // Attributes.
 protected:  
@@ -149,12 +149,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] virtual const String& getType() const;
+    [[nodiscard]] virtual auto getType() const -> const String&;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator);
+    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -167,7 +167,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual SubRenderState* createInstanceImpl();
+    virtual auto createInstanceImpl() -> SubRenderState*;
 
 
 };

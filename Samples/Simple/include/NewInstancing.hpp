@@ -29,9 +29,9 @@ public:
 
     Sample_NewInstancing();
 
-    bool frameRenderingQueued(const FrameEvent& evt);
+    auto frameRenderingQueued(const FrameEvent& evt) -> bool;
 
-    bool keyPressed(const KeyboardEvent& evt);
+    auto keyPressed(const KeyboardEvent& evt) -> bool;
 
 protected:
     void setupContent();
@@ -57,7 +57,7 @@ protected:
     void moveUnits( float timeSinceLast );
 
     //Helper function to look towards normDir, where this vector is normalized, with fixed Yaw
-    Quaternion lookAt( const Vector3 &normDir );
+    auto lookAt( const Vector3 &normDir ) -> Quaternion;
 
     static int constexpr NUM_INST_ROW = 100;
     static int constexpr NUM_INST_COLUMN = 100;

@@ -48,13 +48,13 @@ namespace Ogre {
     namespace GLSL {
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgramManager* GLSLLinkProgramManager::getSingletonPtr()
+    auto GLSLLinkProgramManager::getSingletonPtr() -> GLSLLinkProgramManager*
     {
         return msSingleton;
     }
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgramManager& GLSLLinkProgramManager::getSingleton()
+    auto GLSLLinkProgramManager::getSingleton() -> GLSLLinkProgramManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -66,7 +66,7 @@ namespace Ogre {
     GLSLLinkProgramManager::~GLSLLinkProgramManager() {}
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgram* GLSLLinkProgramManager::getActiveLinkProgram()
+    auto GLSLLinkProgramManager::getActiveLinkProgram() -> GLSLLinkProgram*
     {
         // if there is an active link program then return it
         if (mActiveLinkProgram)
@@ -119,12 +119,12 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    bool GLSLLinkProgramManager::completeParamSource(
+    auto GLSLLinkProgramManager::completeParamSource(
         const String& paramName,
         const GpuConstantDefinitionMap* vertexConstantDefs, 
         const GpuConstantDefinitionMap* geometryConstantDefs,
         const GpuConstantDefinitionMap* fragmentConstantDefs,
-        GLUniformReference& refToUpdate)
+        GLUniformReference& refToUpdate) -> bool
     {
         if (vertexConstantDefs)
         {

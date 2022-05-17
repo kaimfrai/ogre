@@ -138,7 +138,7 @@ void CameraMan::frameRendered(const Ogre::FrameEvent &evt)
     }
 }
 
-bool CameraMan::keyPressed(const KeyboardEvent &evt)
+auto CameraMan::keyPressed(const KeyboardEvent &evt) -> bool
 {
     if (mStyle == CS_FREELOOK)
     {
@@ -155,7 +155,7 @@ bool CameraMan::keyPressed(const KeyboardEvent &evt)
     return InputListener::keyPressed(evt);
 }
 
-bool CameraMan::keyReleased(const KeyboardEvent &evt)
+auto CameraMan::keyReleased(const KeyboardEvent &evt) -> bool
 {
     if (mStyle == CS_FREELOOK)
     {
@@ -172,7 +172,7 @@ bool CameraMan::keyReleased(const KeyboardEvent &evt)
     return InputListener::keyReleased(evt);
 }
 
-Ogre::Real CameraMan::getDistToTarget()
+auto CameraMan::getDistToTarget() -> Ogre::Real
 {
     Ogre::Vector3 offset = mCamera->getPosition() - mTarget->_getDerivedPosition() - mOffset;
     return offset.length();
@@ -186,7 +186,7 @@ void CameraMan::setPivotOffset(const Ogre::Vector3& pivot)
     mCamera->translate(Ogre::Vector3(0, 0, dist), Ogre::Node::TS_LOCAL);
 }
 
-bool CameraMan::mouseMoved(const MouseMotionEvent &evt)
+auto CameraMan::mouseMoved(const MouseMotionEvent &evt) -> bool
 {
     if (mStyle == CS_ORBIT)
     {
@@ -220,7 +220,7 @@ bool CameraMan::mouseMoved(const MouseMotionEvent &evt)
     return InputListener::mouseMoved(evt);
 }
 
-bool CameraMan::mouseWheelRolled(const MouseWheelEvent &evt) {
+auto CameraMan::mouseWheelRolled(const MouseWheelEvent &evt) -> bool {
     if (mStyle == CS_ORBIT && evt.y != 0)
     {
         Ogre::Real dist = (mCamera->getPosition() - mTarget->_getDerivedPosition()).length();
@@ -230,7 +230,7 @@ bool CameraMan::mouseWheelRolled(const MouseWheelEvent &evt) {
     return InputListener::mouseWheelRolled(evt);
 }
 
-bool CameraMan::mousePressed(const MouseButtonEvent &evt)
+auto CameraMan::mousePressed(const MouseButtonEvent &evt) -> bool
 {
     if (mStyle == CS_ORBIT)
     {
@@ -241,7 +241,7 @@ bool CameraMan::mousePressed(const MouseButtonEvent &evt)
     return InputListener::mousePressed(evt);
 }
 
-bool CameraMan::mouseReleased(const MouseButtonEvent &evt)
+auto CameraMan::mouseReleased(const MouseButtonEvent &evt) -> bool
 {
     if (mStyle == CS_ORBIT)
     {

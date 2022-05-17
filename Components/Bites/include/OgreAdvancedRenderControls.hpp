@@ -77,7 +77,7 @@ public:
     AdvancedRenderControls(TrayManager* trayMgr, Ogre::Camera* cam);
     ~AdvancedRenderControls();
 
-    bool keyPressed(const KeyboardEvent& evt);
+    auto keyPressed(const KeyboardEvent& evt) -> bool;
 
     void frameRendered(const Ogre::FrameEvent& evt);
 

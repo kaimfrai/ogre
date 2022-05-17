@@ -86,15 +86,15 @@ namespace Ogre
         /// Sets an input file name - if needed by plugin
         void setInputName( const String &sIN ) { mInputFileName = sIN; }
         /// Gets currently set input file name
-        [[nodiscard]] const String& getInputName( ) const { return mInputFileName; }
+        [[nodiscard]] auto getInputName( ) const -> const String& { return mInputFileName; }
         /// Sets the frames per second - plugin may or may not use this
         void setFPS( int iFPS ) { mFramesPerSecond = iFPS; }
         /// Gets currently set frames per second
-        [[nodiscard]] int getFPS( ) const { return mFramesPerSecond; }
+        [[nodiscard]] auto getFPS( ) const -> int { return mFramesPerSecond; }
         /// Sets a play mode
         void setPlayMode( eTexturePlayMode eMode )  { mMode = eMode; }
         /// Gets currently set play mode
-        [[nodiscard]] eTexturePlayMode getPlayMode() const { return mMode; }
+        [[nodiscard]] auto getPlayMode() const -> eTexturePlayMode { return mMode; }
 
         /// Used for attaching texture to Technique, State, and texture unit layer
         void setTextureTecPassStateLevel( int t, int p, int s ) 
@@ -107,13 +107,13 @@ namespace Ogre
         void addBaseParams();
 
         /** Returns the string name of this Plugin (as set by the Plugin)*/
-        [[nodiscard]] const String& getPluginStringName( ) const { return mPluginName; }
+        [[nodiscard]] auto getPluginStringName( ) const -> const String& { return mPluginName; }
         /** Returns dictionary name */
-        [[nodiscard]] const String& getDictionaryStringName( ) const { return mDictionaryName; }
+        [[nodiscard]] auto getDictionaryStringName( ) const -> const String& { return mDictionaryName; }
 
         //Pure virtual functions that plugins must Override
         /** Call this function from manager to init system */
-        virtual bool initialise() = 0;
+        virtual auto initialise() -> bool = 0;
         /** Shuts down Plugin */
         virtual void shutDown() = 0;
 

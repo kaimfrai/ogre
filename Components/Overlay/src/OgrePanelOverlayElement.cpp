@@ -58,21 +58,21 @@ class RenderQueue;
     class CmdTiling : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
+        auto doGet(const void* target) const -> String;
         void doSet(void* target, const String& val);
     };
     /** Command object for specifying transparency (see ParamCommand).*/
     class CmdTransparent : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
+        auto doGet(const void* target) const -> String;
         void doSet(void* target, const String& val);
     };
     /** Command object for specifying UV coordinates (see ParamCommand).*/
     class CmdUVCoords : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
+        auto doGet(const void* target) const -> String;
         void doSet(void* target, const String& val);
     };
     // Command objects
@@ -202,12 +202,12 @@ class RenderQueue;
 
     }
     //---------------------------------------------------------------------
-    Real PanelOverlayElement::getTileX(ushort layer) const
+    auto PanelOverlayElement::getTileX(ushort layer) const -> Real
     {
         return mTileX[layer];
     }
     //---------------------------------------------------------------------
-    Real PanelOverlayElement::getTileY(ushort layer) const
+    auto PanelOverlayElement::getTileY(ushort layer) const -> Real
     {
         return mTileY[layer];
     }
@@ -217,7 +217,7 @@ class RenderQueue;
         mTransparent = inTransparent;
     }
     //---------------------------------------------------------------------
-    bool PanelOverlayElement::isTransparent() const
+    auto PanelOverlayElement::isTransparent() const -> bool
     {
         return mTransparent;
     }
@@ -238,7 +238,7 @@ class RenderQueue;
         v2 = mV2;
     }
     //---------------------------------------------------------------------
-    const String& PanelOverlayElement::getTypeName() const
+    auto PanelOverlayElement::getTypeName() const -> const String&
     {
         return msTypeName;
     }
@@ -431,7 +431,7 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     // Command objects
     //-----------------------------------------------------------------------
-    String CmdTiling::doGet(const void* target) const
+    auto CmdTiling::doGet(const void* target) const -> String
     {
         // NB only returns 1st layer tiling
         String ret = "0 " + StringConverter::toString(
@@ -452,7 +452,7 @@ class RenderQueue;
         static_cast<PanelOverlayElement*>(target)->setTiling(x_tile, y_tile, layer);
     }
     //-----------------------------------------------------------------------
-    String CmdTransparent::doGet(const void* target) const
+    auto CmdTransparent::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const PanelOverlayElement*>(target)->isTransparent() );
@@ -463,7 +463,7 @@ class RenderQueue;
             StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    String CmdUVCoords::doGet(const void* target) const
+    auto CmdUVCoords::doGet(const void* target) const -> String
     {
         Real u1, v1, u2, v2;
 

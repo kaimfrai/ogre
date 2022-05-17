@@ -132,7 +132,7 @@ namespace Ogre
         /** Finds a batch with at least one free instanced entity we can use.
             If none found, creates one.
         */
-        inline InstanceBatch* getFreeBatch( const String &materialName );
+        inline auto getFreeBatch( const String &materialName ) -> InstanceBatch*;
 
         /** Called when batches are fully exhausted (can't return more instances) so a new batch
             is created.
@@ -143,7 +143,7 @@ namespace Ogre
         @param firstTime True if this is the first time it is called
         @return The created InstancedManager for convenience
         */
-        InstanceBatch* buildNewBatch( const String &materialName, bool firstTime );
+        auto buildNewBatch( const String &materialName, bool firstTime ) -> InstanceBatch*;
 
         /** @see defragmentBatches overload, this takes care of an array of batches
             for a specific material */
@@ -168,9 +168,9 @@ namespace Ogre
                          size_t instancesPerBatch, unsigned short subMeshIdx, bool useBoneMatrixLookup = false);
         ~InstanceManager();
 
-        [[nodiscard]] const String& getName() const { return mName; }
+        [[nodiscard]] auto getName() const -> const String& { return mName; }
 
-        [[nodiscard]] SceneManager* getSceneManager() const { return mSceneManager; }
+        [[nodiscard]] auto getSceneManager() const -> SceneManager* { return mSceneManager; }
 
         /** Raises an exception if trying to change it after creating the first InstancedEntity
         The actual value may be less if the technique doesn't support having so much.
@@ -209,11 +209,11 @@ namespace Ogre
         */
         void setNumCustomParams( unsigned char numCustomParams );
 
-        [[nodiscard]] unsigned char getNumCustomParams() const
+        [[nodiscard]] auto getNumCustomParams() const -> unsigned char
         { return mNumCustomParams; }
 
         /** @return Instancing technique this manager was created for. Can't be changed after creation */
-        [[nodiscard]] InstancingTechnique getInstancingTechnique() const
+        [[nodiscard]] auto getInstancingTechnique() const -> InstancingTechnique
         { return mInstancingTechnique; }
 
         /** Calculates the maximum (or the best amount, depending on flags) of instances
@@ -227,10 +227,10 @@ namespace Ogre
         @param flags @ref InstanceManagerFlags to pass to the InstanceManager
         @return The max/best amount of instances per batch given the suggested size and flags
         */
-        size_t getMaxOrBestNumInstancesPerBatch( const String &materialName, size_t suggestedSize, uint16 flags );
+        auto getMaxOrBestNumInstancesPerBatch( const String &materialName, size_t suggestedSize, uint16 flags ) -> size_t;
 
         /// Creates an InstancedEntity
-        InstancedEntity* createInstancedEntity( const String &materialName );
+        auto createInstancedEntity( const String &materialName ) -> InstancedEntity*;
 
         /** This function can be useful to improve CPU speed after having too many instances
             created, which where now removed, thus freeing many batches with zero used Instanced Entities
@@ -283,12 +283,12 @@ namespace Ogre
         void setSetting( BatchSettingId id, bool enabled, const String &materialName = BLANKSTRING );
 
         /// If settings for the given material didn't exist, default value is returned
-        [[nodiscard]] bool getSetting( BatchSettingId id, const String &materialName ) const;
+        [[nodiscard]] auto getSetting( BatchSettingId id, const String &materialName ) const -> bool;
 
         /** Returns true if settings were already created for the given material name.
             If false is returned, it means getSetting will return default settings.
         */
-        [[nodiscard]] bool hasSettings( const String &materialName ) const;
+        [[nodiscard]] auto hasSettings( const String &materialName ) const -> bool;
 
         /** @copydoc InstanceBatch::setStaticAndUpdate */
         void setBatchesAsStaticAndUpdate( bool bStatic );
@@ -305,7 +305,7 @@ namespace Ogre
         typedef ConstVectorIterator<InstanceBatchVec> InstanceBatchIterator;
 
         /// Get non-updateable iterator over instance batches per material
-        [[nodiscard]] InstanceBatchMapIterator getInstanceBatchMapIterator() const
+        [[nodiscard]] auto getInstanceBatchMapIterator() const -> InstanceBatchMapIterator
         { return { mInstanceBatches.begin(), mInstanceBatches.end() }; }
 
         /** Get non-updateable iterator over instance batches for given material
@@ -314,7 +314,7 @@ namespace Ogre
             setCustomParameter), but there's no synchronization mechanism when
             multithreading or creating more instances, that's up to the user.
         */
-        [[nodiscard]] InstanceBatchIterator getInstanceBatchIterator( const String &materialName ) const;
+        [[nodiscard]] auto getInstanceBatchIterator( const String &materialName ) const -> InstanceBatchIterator;
     };
 } // namespace Ogre
 

@@ -162,7 +162,7 @@ void SceneManager::ShadowRenderer::render(RenderQueueGroup* group,
     // Modulative
     renderModulativeTextureShadowedQueueGroupObjects(group, om);
 }
-size_t SceneManager::ShadowRenderer::getShadowTexIndex(size_t startLightIndex)
+auto SceneManager::ShadowRenderer::getShadowTexIndex(size_t startLightIndex) -> size_t
 {
     size_t shadowTexIndex = mShadowTextures.size();
     if (mShadowTextureIndexLightList.size() > startLightIndex)
@@ -1414,7 +1414,7 @@ void SceneManager::ShadowRenderer::initShadowVolumeMaterials()
 
     mShadowMaterialInitDone = true;
 }
-const Pass* SceneManager::ShadowRenderer::deriveShadowCasterPass(const Pass* pass)
+auto SceneManager::ShadowRenderer::deriveShadowCasterPass(const Pass* pass) -> const Pass*
 {
     if (mShadowTechnique & SHADOWDETAILTYPE_TEXTURE)
     {
@@ -1502,7 +1502,7 @@ const Pass* SceneManager::ShadowRenderer::deriveShadowCasterPass(const Pass* pas
 
 }
 //---------------------------------------------------------------------
-const Pass* SceneManager::ShadowRenderer::deriveShadowReceiverPass(const Pass* pass)
+auto SceneManager::ShadowRenderer::deriveShadowReceiverPass(const Pass* pass) -> const Pass*
 {
 
     if (mShadowTechnique & SHADOWDETAILTYPE_TEXTURE)
@@ -1585,8 +1585,8 @@ const Pass* SceneManager::ShadowRenderer::deriveShadowReceiverPass(const Pass* p
 
 }
 //---------------------------------------------------------------------
-const VisibleObjectsBoundsInfo&
-SceneManager::ShadowRenderer::getShadowCasterBoundsInfo( const Light* light, size_t iteration ) const
+auto
+SceneManager::ShadowRenderer::getShadowCasterBoundsInfo( const Light* light, size_t iteration ) const -> const VisibleObjectsBoundsInfo&
 {
     static VisibleObjectsBoundsInfo nullBox;
 
@@ -1744,7 +1744,7 @@ void SceneManager::ShadowRenderer::setShadowTextureSettings(unsigned short size,
     }
 }
 //---------------------------------------------------------------------
-const TexturePtr& SceneManager::ShadowRenderer::getShadowTexture(size_t shadowIndex)
+auto SceneManager::ShadowRenderer::getShadowTexture(size_t shadowIndex) -> const TexturePtr&
 {
     if (shadowIndex >= mShadowTextureConfigList.size())
     {
@@ -1782,8 +1782,8 @@ void SceneManager::ShadowRenderer::resolveShadowTexture(TextureUnitState* tu, si
 }
 
 //---------------------------------------------------------------------
-bool SceneManager::ShadowRenderer::ShadowCasterSceneQueryListener::queryResult(
-    MovableObject* object)
+auto SceneManager::ShadowRenderer::ShadowCasterSceneQueryListener::queryResult(
+    MovableObject* object) -> bool
 {
     if (object->getCastShadows() && object->isVisible() &&
         mSceneMgr->isRenderQueueToBeProcessed(object->getRenderQueueGroup()) &&
@@ -1837,15 +1837,15 @@ bool SceneManager::ShadowRenderer::ShadowCasterSceneQueryListener::queryResult(
     return true;
 }
 //---------------------------------------------------------------------
-bool SceneManager::ShadowRenderer::ShadowCasterSceneQueryListener::queryResult(
-    SceneQuery::WorldFragment* fragment)
+auto SceneManager::ShadowRenderer::ShadowCasterSceneQueryListener::queryResult(
+    SceneQuery::WorldFragment* fragment) -> bool
 {
     // don't deal with world geometry
     return true;
 }
 //---------------------------------------------------------------------
-const SceneManager::ShadowRenderer::ShadowCasterList&
-SceneManager::ShadowRenderer::findShadowCastersForLight(const Light* light, const Camera* camera)
+auto
+SceneManager::ShadowRenderer::findShadowCastersForLight(const Light* light, const Camera* camera) -> const SceneManager::ShadowRenderer::ShadowCasterList&
 {
     mShadowCasterList.clear();
 

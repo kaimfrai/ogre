@@ -52,7 +52,7 @@ CompositionTechnique::~CompositionTechnique()
     delete  mOutputTarget;
 }
 //-----------------------------------------------------------------------
-CompositionTechnique::TextureDefinition *CompositionTechnique::createTextureDefinition(const String &name)
+auto CompositionTechnique::createTextureDefinition(const String &name) -> CompositionTechnique::TextureDefinition *
 {
     if(getTextureDefinition(name))
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "Texture '"+name+"' already exists");
@@ -72,7 +72,7 @@ void CompositionTechnique::removeTextureDefinition(size_t index)
     mTextureDefinitions.erase(i);
 }
 //---------------------------------------------------------------------
-CompositionTechnique::TextureDefinition *CompositionTechnique::getTextureDefinition(const String& name) const
+auto CompositionTechnique::getTextureDefinition(const String& name) const -> CompositionTechnique::TextureDefinition *
 {
     auto iend = mTextureDefinitions.end();
     for (auto i = mTextureDefinitions.begin(); i != iend; ++i)
@@ -97,7 +97,7 @@ void CompositionTechnique::removeAllTextureDefinitions()
 }
 
 //-----------------------------------------------------------------------
-CompositionTargetPass *CompositionTechnique::createTargetPass()
+auto CompositionTechnique::createTargetPass() -> CompositionTargetPass *
 {
     CompositionTargetPass *t = new CompositionTargetPass(this);
     mTargetPasses.push_back(t);
@@ -125,7 +125,7 @@ void CompositionTechnique::removeAllTargetPasses()
 }
 
 //-----------------------------------------------------------------------
-bool CompositionTechnique::isSupported(bool acceptTextureDegradation)
+auto CompositionTechnique::isSupported(bool acceptTextureDegradation) -> bool
 {
     // A technique is supported if all materials referenced have a supported
     // technique, and the intermediate texture formats requested are supported
@@ -205,7 +205,7 @@ bool CompositionTechnique::isSupported(bool acceptTextureDegradation)
     return true;
 }
 //-----------------------------------------------------------------------
-Compositor *CompositionTechnique::getParent()
+auto CompositionTechnique::getParent() -> Compositor *
 {
     return mParent;
 }

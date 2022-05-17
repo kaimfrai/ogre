@@ -71,31 +71,31 @@ void HardwareSkinningTechnique::setDoBoneCalculations(bool doBoneCalculations)
 }
 
 //-----------------------------------------------------------------------
-ushort HardwareSkinningTechnique::getBoneCount()
+auto HardwareSkinningTechnique::getBoneCount() -> ushort
 {
     return mBoneCount;
 }
 
 //-----------------------------------------------------------------------
-ushort HardwareSkinningTechnique::getWeightCount()
+auto HardwareSkinningTechnique::getWeightCount() -> ushort
 {
     return mWeightCount;
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinningTechnique::hasCorrectAntipodalityHandling()
+auto HardwareSkinningTechnique::hasCorrectAntipodalityHandling() -> bool
 {
     return mCorrectAntipodalityHandling;
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinningTechnique::hasScalingShearingSupport()
+auto HardwareSkinningTechnique::hasScalingShearingSupport() -> bool
 {
     return mScalingShearingSupport;
 }
 
 //-----------------------------------------------------------------------
-Operand::OpMask HardwareSkinningTechnique::indexToMask(int index)
+auto HardwareSkinningTechnique::indexToMask(int index) -> Operand::OpMask
 {
     switch(index)
     {

@@ -102,20 +102,20 @@ namespace Ogre {
                                            RenderWindow::FrameBuffer buffer) = 0;
 
         /** Returns the main context */
-        GLContext* _getMainContext() { return mMainContext; }
+        auto _getMainContext() -> GLContext* { return mMainContext; }
 
         /** Returns the current context */
-        GLContext* _getCurrentContext() { return mCurrentContext; }
+        auto _getCurrentContext() -> GLContext* { return mCurrentContext; }
 
         /**
         * Check if GL Version is supported
         */
-        [[nodiscard]] bool hasMinGLVersion(int major, int minor) const;
+        [[nodiscard]] auto hasMinGLVersion(int major, int minor) const -> bool;
 
         /**
         * Check if an extension is available
         */
-        [[nodiscard]] bool checkExtension(const String& ext) const;
+        [[nodiscard]] auto checkExtension(const String& ext) const -> bool;
 
         /** Unregister a render target->context mapping. If the context of target
             is the current context, change the context to the main context so it
@@ -130,8 +130,8 @@ namespace Ogre {
                                             const HardwareVertexBufferSharedPtr& vertexBuffer,
                                             const size_t vertexStart) = 0;
 
-        Real getMinimumDepthInputValue() { return -1.0f; }            // Range [-1.0f, 1.0f]
-        Real getMaximumDepthInputValue() { return 1.0f; }             // Range [-1.0f, 1.0f]
+        auto getMinimumDepthInputValue() -> Real { return -1.0f; }            // Range [-1.0f, 1.0f]
+        auto getMaximumDepthInputValue() -> Real { return 1.0f; }             // Range [-1.0f, 1.0f]
 
         void _convertProjectionMatrix(const Matrix4& matrix, Matrix4& dest, bool);
 
@@ -141,7 +141,7 @@ namespace Ogre {
                                                uint32* stencilFormat);
 
         /** Create VAO on current context */
-        virtual uint32 _createVao() { return 0; }
+        virtual auto _createVao() -> uint32 { return 0; }
         /** Bind VAO, context should be equal to current context, as VAOs are not shared  */
         virtual void _bindVao(GLContext* context, uint32 vao) {}
         /** Destroy VAO immediately or defer if it was created on other context */
@@ -151,7 +151,7 @@ namespace Ogre {
         /** Complete destruction of VAOs and FBOs deferred while creator context was not current */
         void _completeDeferredVaoFboDestruction();
 
-        [[nodiscard]] unsigned int getDisplayMonitorCount() const;
+        [[nodiscard]] auto getDisplayMonitorCount() const -> unsigned int;
 
         void registerThread();
         void unregisterThread();

@@ -64,14 +64,14 @@ public:
     virtual ~GLSLProgramCommon() {}
 
     /// Get the GL Handle for the program object
-    [[nodiscard]] uint getGLProgramHandle() const { return mGLProgramHandle; }
+    [[nodiscard]] auto getGLProgramHandle() const -> uint { return mGLProgramHandle; }
 
     /** Makes a program object active by making sure it is linked and then putting it in use.
      */
     virtual void activate() = 0;
 
     /// query if the program is using the given shader
-    bool isUsingShader(GLSLShaderCommon* shader) const { return mShaders[shader->getType()] == shader; }
+    auto isUsingShader(GLSLShaderCommon* shader) const -> bool { return mShaders[shader->getType()] == shader; }
 
     /** Updates program object uniforms using data from GpuProgramParameters.
         Normally called by GLSLShader::bindParameters() just before rendering occurs.
@@ -79,7 +79,7 @@ public:
     virtual void updateUniforms(GpuProgramParametersPtr params, uint16 mask, GpuProgramType fromProgType) = 0;
 
     /** Get the fixed attribute bindings normally used by GL for a semantic. */
-    static int32 getFixedAttributeIndex(VertexElementSemantic semantic, uint index);
+    static auto getFixedAttributeIndex(VertexElementSemantic semantic, uint index) -> int32;
 
     /**
      * use alternate vertex attribute layout using only 8 vertex attributes
@@ -104,8 +104,8 @@ protected:
     /// Compiles and links the vertex and fragment programs
     virtual void compileAndLink() = 0;
 
-    uint32 getCombinedHash();
-    String getCombinedName();
+    auto getCombinedHash() -> uint32;
+    auto getCombinedName() -> String;
 
     /// Name / attribute list
     struct CustomAttribute

@@ -172,28 +172,28 @@ template <int dims, typename T> class Vector;
         // Binding goes in logicalIndex, but where does offset go?
         //size_t offset;
 
-        bool isFloat() const { return isFloat(constType); }
-        static bool isFloat(GpuConstantType c) { return getBaseType(c) == BCT_FLOAT; }
+        auto isFloat() const -> bool { return isFloat(constType); }
+        static auto isFloat(GpuConstantType c) -> bool { return getBaseType(c) == BCT_FLOAT; }
 
-        bool isDouble() const { return isDouble(constType); }
-        static bool isDouble(GpuConstantType c) { return getBaseType(c) == BCT_DOUBLE; }
+        auto isDouble() const -> bool { return isDouble(constType); }
+        static auto isDouble(GpuConstantType c) -> bool { return getBaseType(c) == BCT_DOUBLE; }
 
-        bool isInt() const { return isInt(constType); }
-        static bool isInt(GpuConstantType c) { return getBaseType(c) == BCT_INT; }
+        auto isInt() const -> bool { return isInt(constType); }
+        static auto isInt(GpuConstantType c) -> bool { return getBaseType(c) == BCT_INT; }
 
-        bool isUnsignedInt() const { return isUnsignedInt(constType); }
-        static bool isUnsignedInt(GpuConstantType c) { return getBaseType(c) == BCT_UINT; }
+        auto isUnsignedInt() const -> bool { return isUnsignedInt(constType); }
+        static auto isUnsignedInt(GpuConstantType c) -> bool { return getBaseType(c) == BCT_UINT; }
 
-        bool isBool() const { return isBool(constType); }
-        static bool isBool(GpuConstantType c) { return getBaseType(c) == BCT_BOOL; }
+        auto isBool() const -> bool { return isBool(constType); }
+        static auto isBool(GpuConstantType c) -> bool { return getBaseType(c) == BCT_BOOL; }
 
-        bool isSampler() const { return isSampler(constType); }
-        static bool isSampler(GpuConstantType c) { return getBaseType(c) == BCT_SAMPLER; }
+        auto isSampler() const -> bool { return isSampler(constType); }
+        static auto isSampler(GpuConstantType c) -> bool { return getBaseType(c) == BCT_SAMPLER; }
 
-        bool isSpecialization() const { return isSpecialization(constType); }
-        static bool isSpecialization(GpuConstantType c) { return getBaseType(c) == BCT_SPECIALIZATION; }
+        auto isSpecialization() const -> bool { return isSpecialization(constType); }
+        static auto isSpecialization(GpuConstantType c) -> bool { return getBaseType(c) == BCT_SPECIALIZATION; }
 
-        static BaseConstantType getBaseType(GpuConstantType ctype)
+        static auto getBaseType(GpuConstantType ctype) -> BaseConstantType
         {
             return BaseConstantType(ctype / 0x10 * 0x10);
         }
@@ -201,7 +201,7 @@ template <int dims, typename T> class Vector;
         /** Get the number of elements of a given type, including whether to pad the
             elements into multiples of 4 (e.g. SM1 and D3D does, GLSL doesn't)
         */
-        static uint32 getElementSize(GpuConstantType ctype, bool padToMultiplesOf4)
+        static auto getElementSize(GpuConstantType ctype, bool padToMultiplesOf4) -> uint32
         {
             if (padToMultiplesOf4)
             {
@@ -338,7 +338,7 @@ template <int dims, typename T> class Vector;
          */
         void load(DataStreamPtr& stream);
 
-        [[nodiscard]] size_t calculateSize() const;
+        [[nodiscard]] auto calculateSize() const -> size_t;
     };
 
     /// Simple class for loading / saving GpuNamedConstants
@@ -432,7 +432,7 @@ template <int dims, typename T> class Vector;
         GpuSharedParameters(const String& name);
 
         /// Get the name of this shared parameter set.
-        const String& getName() { return mName; }
+        auto getName() -> const String& { return mName; }
 
         /** Add a new constant definition to this shared set of parameters.
             @remarks
@@ -450,17 +450,17 @@ template <int dims, typename T> class Vector;
         /** Get the version number of this shared parameter set, can be used to identify when
             changes have occurred.
         */
-        [[nodiscard]] uint32 getVersion() const { return mVersion; }
+        [[nodiscard]] auto getVersion() const -> uint32 { return mVersion; }
 
         /** Calculate the expected size of the shared parameter buffer based
             on constant definition data types.
         */
-        [[nodiscard]] size_t calculateSize() const;
+        [[nodiscard]] auto calculateSize() const -> size_t;
 
         /** True if this parameter set is dirty (values have been modified,
             but the render system has not updated them yet).
         */
-        [[nodiscard]] bool isDirty() const { return mDirty; }
+        [[nodiscard]] auto isDirty() const -> bool { return mDirty; }
 
         /** Mark the shared set as being clean (values successfully updated
             by the render system).
@@ -481,11 +481,11 @@ template <int dims, typename T> class Vector;
 
         /** Get a specific GpuConstantDefinition for a named parameter.
          */
-        [[nodiscard]] const GpuConstantDefinition& getConstantDefinition(const String& name) const;
+        [[nodiscard]] auto getConstantDefinition(const String& name) const -> const GpuConstantDefinition&;
 
         /** Get the full list of GpuConstantDefinition instances.
          */
-        [[nodiscard]] const GpuNamedConstants& getConstantDefinitions() const;
+        [[nodiscard]] auto getConstantDefinitions() const -> const GpuNamedConstants&;
 
         /** @copydoc GpuProgramParameters::setNamedConstant(const String&, Real) */
         template <typename T> void setNamedConstant(const String& name, T val)
@@ -509,27 +509,27 @@ template <int dims, typename T> class Vector;
         void setNamedConstant(const String& name, const int *val, uint32 count);
         void setNamedConstant(const String& name, const uint *val, uint32 count);
         /// Get a pointer to the 'nth' item in the float buffer
-        float* getFloatPointer(size_t pos) { _markDirty(); return (float*)&mConstants[pos]; }
+        auto getFloatPointer(size_t pos) -> float* { _markDirty(); return (float*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the float buffer
-        [[nodiscard]] const float* getFloatPointer(size_t pos) const { return (const float*)&mConstants[pos]; }
+        [[nodiscard]] auto getFloatPointer(size_t pos) const -> const float* { return (const float*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the double buffer
-        double* getDoublePointer(size_t pos) { _markDirty(); return (double*)&mConstants[pos]; }
+        auto getDoublePointer(size_t pos) -> double* { _markDirty(); return (double*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the double buffer
-        [[nodiscard]] const double* getDoublePointer(size_t pos) const { return (const double*)&mConstants[pos]; }
+        [[nodiscard]] auto getDoublePointer(size_t pos) const -> const double* { return (const double*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the int buffer
-        int* getIntPointer(size_t pos) { _markDirty(); return (int*)&mConstants[pos]; }
+        auto getIntPointer(size_t pos) -> int* { _markDirty(); return (int*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the int buffer
-        [[nodiscard]] const int* getIntPointer(size_t pos) const { return (const int*)&mConstants[pos]; }
+        [[nodiscard]] auto getIntPointer(size_t pos) const -> const int* { return (const int*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the uint buffer
-        uint* getUnsignedIntPointer(size_t pos) { _markDirty(); return (uint*)&mConstants[pos]; }
+        auto getUnsignedIntPointer(size_t pos) -> uint* { _markDirty(); return (uint*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the uint buffer
-        [[nodiscard]] const uint* getUnsignedIntPointer(size_t pos) const { return (const uint*)&mConstants[pos]; }
+        [[nodiscard]] auto getUnsignedIntPointer(size_t pos) const -> const uint* { return (const uint*)&mConstants[pos]; }
         /// Get a reference to the list of constants
-        [[nodiscard]] const ConstantList& getConstantList() const { return mConstants; }
+        [[nodiscard]] auto getConstantList() const -> const ConstantList& { return mConstants; }
         /** Internal method that the RenderSystem might use to store optional data. */
         void _setHardwareBuffer(const HardwareBufferPtr& data) { mHardwareBuffer = data; }
         /** Internal method that the RenderSystem might use to store optional data. */
-        [[nodiscard]] const HardwareBufferPtr& _getHardwareBuffer() const { return mHardwareBuffer; }
+        [[nodiscard]] auto _getHardwareBuffer() const -> const HardwareBufferPtr& { return mHardwareBuffer; }
         /// upload parameter data to GPU memory. Must have a HardwareBuffer
         void _upload() const;
         /// download data from GPU memory. Must have a writable HardwareBuffer
@@ -578,10 +578,10 @@ template <int dims, typename T> class Vector;
         void _copySharedParamsToTargetParams() const;
 
         /// Get the name of the shared parameter set
-        [[nodiscard]] const String& getName() const { return mSharedParams->getName(); }
+        [[nodiscard]] auto getName() const -> const String& { return mSharedParams->getName(); }
 
-        [[nodiscard]] GpuSharedParametersPtr getSharedParams() const { return mSharedParams; }
-        [[nodiscard]] GpuProgramParameters* getTargetParams() const { return mParams; }
+        [[nodiscard]] auto getSharedParams() const -> GpuSharedParametersPtr { return mSharedParams; }
+        [[nodiscard]] auto getTargetParams() const -> GpuProgramParameters* { return mParams; }
     };
 
     /** Collects together the program parameters used for a GpuProgram.
@@ -1252,8 +1252,8 @@ template <int dims, typename T> class Vector;
 
         /** Gets the physical buffer index associated with a logical int constant index.
          */
-        GpuLogicalIndexUse* getConstantLogicalIndexUse(size_t logicalIndex, size_t requestedSize,
-                                                       uint16 variability, BaseConstantType type);
+        auto getConstantLogicalIndexUse(size_t logicalIndex, size_t requestedSize,
+                                                       uint16 variability, BaseConstantType type) -> GpuLogicalIndexUse*;
 
         /// Mapping from parameter names to def - high-level programs are expected to populate this
         GpuNamedConstantsPtr mNamedConstants;
@@ -1269,7 +1269,7 @@ template <int dims, typename T> class Vector;
         size_t mActivePassIterationIndex;
 
         /// Return the variability for an auto constant
-        static uint16 deriveVariability(AutoConstantType act);
+        static auto deriveVariability(AutoConstantType act) -> uint16;
 
         void copySharedParamSetUsage(const GpuSharedParamUsageList& srcList);
 
@@ -1282,7 +1282,7 @@ template <int dims, typename T> class Vector;
         /// Copy constructor
         GpuProgramParameters(const GpuProgramParameters& oth);
         /// Operator = overload
-        GpuProgramParameters& operator=(const GpuProgramParameters& oth);
+        auto operator=(const GpuProgramParameters& oth) -> GpuProgramParameters&;
 
         /** Internal method for providing a link to a name->definition map for parameters. */
         void _setNamedConstants(const GpuNamedConstantsPtr& constantmap);
@@ -1292,13 +1292,13 @@ template <int dims, typename T> class Vector;
         void _setLogicalIndexes(const GpuLogicalBufferStructPtr& indexMap);
 
         /// Does this parameter set include named parameters?
-        [[nodiscard]] bool hasNamedParameters() const { return mNamedConstants.get() != 0; }
+        [[nodiscard]] auto hasNamedParameters() const -> bool { return mNamedConstants.get() != 0; }
         /** Does this parameter set include logically indexed parameters?
             @note Not mutually exclusive with hasNamedParameters since some high-level
             programs still use logical indexes to set the parameters on the
             rendersystem.
         */
-        [[nodiscard]] bool hasLogicalIndexedParameters() const { return mLogicalToPhysical.get() != 0; }
+        [[nodiscard]] auto hasLogicalIndexedParameters() const -> bool { return mLogicalToPhysical.get() != 0; }
 
         /// @name Set constant by logical index
         /// @{
@@ -1485,56 +1485,56 @@ template <int dims, typename T> class Vector;
             @note
             Only available if this parameters object has named parameters.
         */
-        [[nodiscard]] const GpuConstantDefinition& getConstantDefinition(const String& name) const;
+        [[nodiscard]] auto getConstantDefinition(const String& name) const -> const GpuConstantDefinition&;
 
         /** Get the full list of GpuConstantDefinition instances.
             @note
             Only available if this parameters object has named parameters.
         */
-        [[nodiscard]] const GpuNamedConstants& getConstantDefinitions() const;
+        [[nodiscard]] auto getConstantDefinitions() const -> const GpuNamedConstants&;
 
         /** Get the current list of mappings from low-level logical param indexes
             to physical buffer locations in the float buffer.
             @note
             Only applicable to low-level programs.
         */
-        [[nodiscard]] const GpuLogicalBufferStructPtr& getLogicalBufferStruct() const { return mLogicalToPhysical; }
+        [[nodiscard]] auto getLogicalBufferStruct() const -> const GpuLogicalBufferStructPtr& { return mLogicalToPhysical; }
 
         /** Retrieves the logical index relating to a physical index in the
             buffer, for programs which support that (low-level programs and
             high-level programs which use logical parameter indexes).
             @return std::numeric_limits<size_t>::max() if not found
         */
-        size_t getLogicalIndexForPhysicalIndex(size_t physicalIndex);
+        auto getLogicalIndexForPhysicalIndex(size_t physicalIndex) -> size_t;
         /// Get a reference to the list of constants
-        [[nodiscard]] const ConstantList& getConstantList() const { return mConstants; }
+        [[nodiscard]] auto getConstantList() const -> const ConstantList& { return mConstants; }
         /// Get a pointer to the 'nth' item in the float buffer
-        float* getFloatPointer(size_t pos) { return (float*)&mConstants[pos]; }
+        auto getFloatPointer(size_t pos) -> float* { return (float*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the float buffer
-        [[nodiscard]] const float* getFloatPointer(size_t pos) const { return (const float*)&mConstants[pos]; }
+        [[nodiscard]] auto getFloatPointer(size_t pos) const -> const float* { return (const float*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the double buffer
-        double* getDoublePointer(size_t pos) { return (double*)&mConstants[pos]; }
+        auto getDoublePointer(size_t pos) -> double* { return (double*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the double buffer
-        [[nodiscard]] const double* getDoublePointer(size_t pos) const { return (const double*)&mConstants[pos]; }
+        [[nodiscard]] auto getDoublePointer(size_t pos) const -> const double* { return (const double*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the int buffer
-        int* getIntPointer(size_t pos) { return (int*)&mConstants[pos]; }
+        auto getIntPointer(size_t pos) -> int* { return (int*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the int buffer
-        [[nodiscard]] const int* getIntPointer(size_t pos) const { return (const int*)&mConstants[pos]; }
+        [[nodiscard]] auto getIntPointer(size_t pos) const -> const int* { return (const int*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the uint buffer
-        uint* getUnsignedIntPointer(size_t pos) { return (uint*)&mConstants[pos]; }
+        auto getUnsignedIntPointer(size_t pos) -> uint* { return (uint*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the uint buffer
-        [[nodiscard]] const uint* getUnsignedIntPointer(size_t pos) const { return (const uint*)&mConstants[pos]; }
+        [[nodiscard]] auto getUnsignedIntPointer(size_t pos) const -> const uint* { return (const uint*)&mConstants[pos]; }
 
         /// get a pointer to register storage
-        int* getRegPointer(size_t pos) { return &mRegisters[pos]; }
+        auto getRegPointer(size_t pos) -> int* { return &mRegisters[pos]; }
         /// @overload
-        [[nodiscard]] const int* getRegPointer(size_t pos) const { return &mRegisters[pos]; }
+        [[nodiscard]] auto getRegPointer(size_t pos) const -> const int* { return &mRegisters[pos]; }
 
         /// @name Automatically derived constants
         /// @{
 
         /// Get a reference to the list of auto constant bindings
-        [[nodiscard]] const AutoConstantList& getAutoConstantList() const { return mAutoConstants; }
+        [[nodiscard]] auto getAutoConstantList() const -> const AutoConstantList& { return mAutoConstants; }
 
         /** Sets up a constant which will automatically be updated by the system.
             @remarks
@@ -1577,32 +1577,32 @@ template <int dims, typename T> class Vector;
         void clearAutoConstants();
 
         /** Gets the automatic constant bindings currently in place. */
-        [[nodiscard]] const AutoConstantList& getAutoConstants() const {
+        [[nodiscard]] auto getAutoConstants() const -> const AutoConstantList& {
             return mAutoConstants;
         }
 
         /// Gets the number of int constants that have been set
-        [[nodiscard]] size_t getAutoConstantCount() const { return mAutoConstants.size(); }
+        [[nodiscard]] auto getAutoConstantCount() const -> size_t { return mAutoConstants.size(); }
         /** Gets a specific Auto Constant entry if index is in valid range
             otherwise returns a NULL
             @param index which entry is to be retrieved
         */
-        AutoConstantEntry* getAutoConstantEntry(const size_t index);
+        auto getAutoConstantEntry(const size_t index) -> AutoConstantEntry*;
         /** Returns true if this instance has any automatic constants. */
-        [[nodiscard]] bool hasAutoConstants() const { return !(mAutoConstants.empty()); }
+        [[nodiscard]] auto hasAutoConstants() const -> bool { return !(mAutoConstants.empty()); }
         /** Finds an auto constant that's affecting a given logical parameter
             index for floating-point values.
             @note Only applicable for low-level programs.
         */
-        const AutoConstantEntry* findFloatAutoConstantEntry(size_t logicalIndex);
+        auto findFloatAutoConstantEntry(size_t logicalIndex) -> const AutoConstantEntry*;
         /** Finds an auto constant that's affecting a given named parameter index.
             @note Only applicable to high-level programs.
         */
-        [[nodiscard]] const AutoConstantEntry* findAutoConstantEntry(const String& paramName) const;
+        [[nodiscard]] auto findAutoConstantEntry(const String& paramName) const -> const AutoConstantEntry*;
         /** Finds an auto constant that's affecting a given physical position in
             the floating-point buffer
         */
-        [[nodiscard]] const AutoConstantEntry* _findRawAutoConstantEntryFloat(size_t physicalIndex) const;
+        [[nodiscard]] auto _findRawAutoConstantEntryFloat(size_t physicalIndex) const -> const AutoConstantEntry*;
         /** Sets up a constant which will automatically be updated by the system.
             @remarks
             Vertex and fragment programs often need parameters which are to do with the
@@ -1727,8 +1727,8 @@ template <int dims, typename T> class Vector;
             @param throwExceptionIfMissing If set to true, failure to find an entry
             will throw an exception.
         */
-        [[nodiscard]] const GpuConstantDefinition* _findNamedConstantDefinition(
-            const String& name, bool throwExceptionIfMissing = false) const;
+        [[nodiscard]] auto _findNamedConstantDefinition(
+            const String& name, bool throwExceptionIfMissing = false) const -> const GpuConstantDefinition*;
         /** Gets the physical buffer index associated with a logical float constant index.
             @note Only applicable to low-level programs.
             @param logicalIndex The logical parameter index
@@ -1737,7 +1737,7 @@ template <int dims, typename T> class Vector;
             @param variability
             @param type
         */
-        size_t _getConstantPhysicalIndex(size_t logicalIndex, size_t requestedSize, uint16 variability, BaseConstantType type);
+        auto _getConstantPhysicalIndex(size_t logicalIndex, size_t requestedSize, uint16 variability, BaseConstantType type) -> size_t;
         /** Sets whether or not we need to transpose the matrices passed in from the rest of OGRE.
             @remarks
             D3D uses transposed matrices compared to GL and OGRE; this is not important when you
@@ -1747,7 +1747,7 @@ template <int dims, typename T> class Vector;
         */
         void setTransposeMatrices(bool val) { mTransposeMatrices = val; }
         /// Gets whether or not matrices are to be transposed when set
-        [[nodiscard]] bool getTransposeMatrices() const { return mTransposeMatrices; }
+        [[nodiscard]] auto getTransposeMatrices() const -> bool { return mTransposeMatrices; }
 
         /** Copies the values of all constants (including auto constants) from another
             GpuProgramParameters object.
@@ -1770,15 +1770,15 @@ template <int dims, typename T> class Vector;
         /** gets the auto constant definition associated with name if found else returns NULL
             @param name The name of the auto constant
         */
-        static const AutoConstantDefinition* getAutoConstantDefinition(const String& name);
+        static auto getAutoConstantDefinition(const String& name) -> const AutoConstantDefinition*;
         /** gets the auto constant definition using an index into the auto constant definition array.
             If the index is out of bounds then NULL is returned;
             @param idx The auto constant index
         */
-        static const AutoConstantDefinition* getAutoConstantDefinition(const size_t idx);
+        static auto getAutoConstantDefinition(const size_t idx) -> const AutoConstantDefinition*;
         /** Returns the number of auto constant definitions
          */
-        static size_t getNumAutoConstantDefinitions();
+        static auto getNumAutoConstantDefinitions() -> size_t;
 
 
         /** increments the multipass number entry by 1 if it exists
@@ -1804,7 +1804,7 @@ template <int dims, typename T> class Vector;
         void addSharedParameters(const String& sharedParamsName);
 
         /** Returns whether this parameter set is using the named shared parameter set. */
-        [[nodiscard]] bool isUsingSharedParameters(const String& sharedParamsName) const;
+        [[nodiscard]] auto isUsingSharedParameters(const String& sharedParamsName) const -> bool;
 
         /** Stop using the named shared parameter set. */
         void removeSharedParameters(const String& sharedParamsName);
@@ -1813,7 +1813,7 @@ template <int dims, typename T> class Vector;
         void removeAllSharedParameters();
 
         /** Get the list of shared parameter sets. */
-        [[nodiscard]] const GpuSharedParamUsageList& getSharedParameters() const;
+        [[nodiscard]] auto getSharedParameters() const -> const GpuSharedParamUsageList&;
 
         /** Update the parameters by copying the data from the shared
             parameters.
@@ -1831,7 +1831,7 @@ template <int dims, typename T> class Vector;
         void _updateSharedParams();
         /// @}
 
-        [[nodiscard]] size_t calculateSize() const;
+        [[nodiscard]] auto calculateSize() const -> size_t;
     };
 
     /** @} */

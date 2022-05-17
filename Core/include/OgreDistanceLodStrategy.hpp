@@ -59,35 +59,35 @@ class MovableObject;
     {
     protected:
         /// @copydoc LodStrategy::getValueImpl
-        virtual Real getValueImpl(const MovableObject *movableObject, const Camera *camera) const;
+        virtual auto getValueImpl(const MovableObject *movableObject, const Camera *camera) const -> Real;
 
     public:
         /** Default constructor. */
         DistanceLodStrategyBase(const String& name);
 
         /// @copydoc LodStrategy::getBaseValue
-        [[nodiscard]] virtual Real getBaseValue() const;
+        [[nodiscard]] virtual auto getBaseValue() const -> Real;
 
         /// @copydoc LodStrategy::transformBias
-        [[nodiscard]] virtual Real transformBias(Real factor) const;
+        [[nodiscard]] virtual auto transformBias(Real factor) const -> Real;
 
         /// @copydoc LodStrategy::transformUserValue
-        [[nodiscard]] virtual Real transformUserValue(Real userValue) const;
+        [[nodiscard]] virtual auto transformUserValue(Real userValue) const -> Real;
 
         /// @copydoc LodStrategy::getIndex
-        [[nodiscard]] virtual ushort getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const;
+        [[nodiscard]] virtual auto getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const -> ushort;
 
         /// @copydoc LodStrategy::getIndex
-        [[nodiscard]] virtual ushort getIndex(Real value, const Material::LodValueList& materialLodValueList) const;
+        [[nodiscard]] virtual auto getIndex(Real value, const Material::LodValueList& materialLodValueList) const -> ushort;
 
         /// @copydoc LodStrategy::sort
         virtual void sort(Mesh::MeshLodUsageList& meshLodUsageList) const;
 
         /// @copydoc LodStrategy::isSorted
-        [[nodiscard]] virtual bool isSorted(const Mesh::LodValueList& values) const;
+        [[nodiscard]] virtual auto isSorted(const Mesh::LodValueList& values) const -> bool;
 
         /** Get the squared distance between the camera and the LOD object */
-        virtual Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const = 0;
+        virtual auto getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real = 0;
 
         /** Sets the reference view upon which the distances were based.
         @note
@@ -104,7 +104,7 @@ class MovableObject;
         void setReferenceViewEnabled(bool value);
 
         /** Determine if use of the reference view is enabled */
-        [[nodiscard]] bool isReferenceViewEnabled() const;
+        [[nodiscard]] auto isReferenceViewEnabled() const -> bool;
 
     private:
         bool mReferenceViewEnabled;
@@ -137,12 +137,12 @@ class MovableObject;
         /** Default constructor. */
         DistanceLodSphereStrategy();
 
-        Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const;
+        auto getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real;
 
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodSphereStrategy& getSingleton();
+        static auto getSingleton() -> DistanceLodSphereStrategy&;
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodSphereStrategy* getSingletonPtr();
+        static auto getSingletonPtr() -> DistanceLodSphereStrategy*;
     };
     /** @} */
     /** @} */
@@ -170,12 +170,12 @@ class MovableObject;
         /** Default constructor. */
         DistanceLodBoxStrategy();
 
-        Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const;
+        auto getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real;
 
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodBoxStrategy& getSingleton();
+        static auto getSingleton() -> DistanceLodBoxStrategy&;
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodBoxStrategy* getSingletonPtr();
+        static auto getSingletonPtr() -> DistanceLodBoxStrategy*;
     };
 
     /** @} */

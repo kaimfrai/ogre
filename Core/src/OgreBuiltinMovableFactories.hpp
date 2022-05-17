@@ -13,11 +13,11 @@ namespace Ogre
 {
 class Rectangle2DFactory : public MovableObjectFactory
 {
-    MovableObject* createInstanceImpl(const String& name, const NameValuePairList* params) override;
+    auto createInstanceImpl(const String& name, const NameValuePairList* params) -> MovableObject* override;
 
 public:
     static const String FACTORY_TYPE_NAME;
-    [[nodiscard]] const String& getType() const override { return FACTORY_TYPE_NAME; }
+    [[nodiscard]] auto getType() const -> const String& override { return FACTORY_TYPE_NAME; }
 };
 } // namespace Ogre
 

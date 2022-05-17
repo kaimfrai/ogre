@@ -59,24 +59,24 @@ namespace Ogre {
 
         /// Create a new skeleton
         /// @see ResourceManager::createResource
-        SkeletonPtr create (const String& name, const String& group,
+        auto create (const String& name, const String& group,
                             bool isManual = false, ManualResourceLoader* loader = 0,
-                            const NameValuePairList* createParams = 0);
+                            const NameValuePairList* createParams = 0) -> SkeletonPtr;
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName
-        SkeletonPtr getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const;
+        auto getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const -> SkeletonPtr;
 
         /// @copydoc Singleton::getSingleton()
-        static SkeletonManager& getSingleton();
+        static auto getSingleton() -> SkeletonManager&;
         /// @copydoc Singleton::getSingleton()
-        static SkeletonManager* getSingletonPtr();
+        static auto getSingletonPtr() -> SkeletonManager*;
     private:
 
         /// @copydoc ResourceManager::createImpl
-        Resource* createImpl(const String& name, ResourceHandle handle, 
+        auto createImpl(const String& name, ResourceHandle handle, 
             const String& group, bool isManual, ManualResourceLoader* loader, 
-            const NameValuePairList* createParams);
+            const NameValuePairList* createParams) -> Resource*;
 
     };
 

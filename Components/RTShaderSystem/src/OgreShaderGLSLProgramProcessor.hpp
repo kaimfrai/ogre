@@ -60,12 +60,12 @@ public:
     /** 
     @see ProgramProcessor::preCreateGpuPrograms
     */
-    virtual bool preCreateGpuPrograms(ProgramSet* programSet);
+    virtual auto preCreateGpuPrograms(ProgramSet* programSet) -> bool;
 
     /** 
     @see ProgramProcessor::postCreateGpuPrograms
     */
-    virtual bool postCreateGpuPrograms(ProgramSet* programSet);
+    virtual auto postCreateGpuPrograms(ProgramSet* programSet) -> bool;
 
 
 private:

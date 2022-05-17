@@ -38,7 +38,7 @@ THE SOFTWARE.
 
 namespace Ogre {
     //---------------------------------------------------------------------
-    uint16 WorkQueue::getChannel(const String& channelName)
+    auto WorkQueue::getChannel(const String& channelName) -> uint16
     {
         std::unique_lock<std::recursive_mutex> ogrenameLock(mChannelMapMutex);
 
@@ -90,12 +90,12 @@ namespace Ogre {
     {
     }
     //---------------------------------------------------------------------
-    const String& DefaultWorkQueueBase::getName() const
+    auto DefaultWorkQueueBase::getName() const -> const String&
     {
         return mName;
     }
     //---------------------------------------------------------------------
-    size_t DefaultWorkQueueBase::getWorkerThreadCount() const
+    auto DefaultWorkQueueBase::getWorkerThreadCount() const -> size_t
     {
         return mWorkerThreadCount;
     }
@@ -105,7 +105,7 @@ namespace Ogre {
         mWorkerThreadCount = c;
     }
     //---------------------------------------------------------------------
-    bool DefaultWorkQueueBase::getWorkersCanAccessRenderSystem() const
+    auto DefaultWorkQueueBase::getWorkersCanAccessRenderSystem() const -> bool
     {
         return mWorkerRenderSystemAccess;
     }
@@ -200,8 +200,8 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    WorkQueue::RequestID DefaultWorkQueueBase::addRequest(uint16 channel, uint16 requestType, 
-        const Any& rData, uint8 retryCount, bool forceSynchronous, bool idleThread)
+    auto DefaultWorkQueueBase::addRequest(uint16 channel, uint16 requestType, 
+        const Any& rData, uint8 retryCount, bool forceSynchronous, bool idleThread) -> WorkQueue::RequestID
     {
         Request* req = 0;
         RequestID rid = 0;
@@ -318,7 +318,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    bool DefaultWorkQueueBase::abortPendingRequest(RequestID id)
+    auto DefaultWorkQueueBase::abortPendingRequest(RequestID id) -> bool
     {
         // Request should not exist in idle queue and request queue simultaneously.
         {
@@ -478,7 +478,7 @@ namespace Ogre {
         mPaused = pause;
     }
     //---------------------------------------------------------------------
-    bool DefaultWorkQueueBase::isPaused() const
+    auto DefaultWorkQueueBase::isPaused() const -> bool
     {
         return mPaused;
     }
@@ -490,7 +490,7 @@ namespace Ogre {
         mAcceptRequests = accept;
     }
     //---------------------------------------------------------------------
-    bool DefaultWorkQueueBase::getRequestsAccepted() const
+    auto DefaultWorkQueueBase::getRequestsAccepted() const -> bool
     {
         return mAcceptRequests;
     }
@@ -630,7 +630,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    WorkQueue::Response* DefaultWorkQueueBase::processRequest(Request* r)
+    auto DefaultWorkQueueBase::processRequest(Request* r) -> WorkQueue::Response*
     {
         RequestHandlerListByChannel handlerListCopy;
         {
@@ -702,7 +702,7 @@ namespace Ogre {
 
     }
 
-    bool DefaultWorkQueueBase::processIdleRequests()
+    auto DefaultWorkQueueBase::processIdleRequests() -> bool
     {
         {
             std::unique_lock<std::recursive_mutex> ogrenameLock1(mIdleMutex);

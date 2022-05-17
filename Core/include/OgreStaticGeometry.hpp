@@ -236,24 +236,24 @@ class Technique;
         public:
             GeometryBucket(MaterialBucket* parent, const VertexData* vData, const IndexData* iData);
             virtual ~GeometryBucket();
-            MaterialBucket* getParent() { return mParent; }
+            auto getParent() -> MaterialBucket* { return mParent; }
             /// Get the vertex data for this geometry 
-            [[nodiscard]] const VertexData* getVertexData() const { return mVertexData; }
+            [[nodiscard]] auto getVertexData() const -> const VertexData* { return mVertexData; }
             /// Get the index data for this geometry 
-            [[nodiscard]] const IndexData* getIndexData() const { return mIndexData; }
+            [[nodiscard]] auto getIndexData() const -> const IndexData* { return mIndexData; }
             /// @copydoc Renderable::getMaterial
-            [[nodiscard]] const MaterialPtr& getMaterial() const;
-            [[nodiscard]] Technique* getTechnique() const;
+            [[nodiscard]] auto getMaterial() const -> const MaterialPtr&;
+            [[nodiscard]] auto getTechnique() const -> Technique*;
             void getRenderOperation(RenderOperation& op);
             void getWorldTransforms(Matrix4* xform) const;
-            Real getSquaredViewDepth(const Camera* cam) const;
-            [[nodiscard]] const LightList& getLights() const;
-            [[nodiscard]] bool getCastsShadows() const;
+            auto getSquaredViewDepth(const Camera* cam) const -> Real;
+            [[nodiscard]] auto getLights() const -> const LightList&;
+            [[nodiscard]] auto getCastsShadows() const -> bool;
             
             /** Try to assign geometry to this bucket.
             @return false if there is no room left in this bucket
             */
-            bool assign(QueuedGeometry* qsm);
+            auto assign(QueuedGeometry* qsm) -> bool;
             /// Build
             void build(bool stencilShadows);
             /// Dump contents for diagnostics
@@ -283,9 +283,9 @@ class Technique;
         public:
             MaterialBucket(LODBucket* parent, const MaterialPtr& material);
             virtual ~MaterialBucket();
-            LODBucket* getParent() { return mParent; }
+            auto getParent() -> LODBucket* { return mParent; }
             /// Get the material name
-            [[nodiscard]] const String& getMaterialName() const { return mMaterial->getName(); }
+            [[nodiscard]] auto getMaterialName() const -> const String& { return mMaterial->getName(); }
             /// Assign geometry to this bucket
             void assign(QueuedGeometry* qsm);
             /// Build
@@ -294,16 +294,16 @@ class Technique;
             void addRenderables(RenderQueue* queue, uint8 group, 
                 Real lodValue);
             /// Get the material for this bucket
-            [[nodiscard]] const MaterialPtr& getMaterial() const { return mMaterial; }
+            [[nodiscard]] auto getMaterial() const -> const MaterialPtr& { return mMaterial; }
             /// Override Material without changing the partitioning. For advanced use only.
             void _setMaterial(const MaterialPtr& material);
             /// Iterator over geometry
             typedef VectorIterator<GeometryBucketList> GeometryIterator;
             /// Get a list of the contained geometry
-            [[nodiscard]] const GeometryBucketList& getGeometryList() const { return mGeometryBucketList; }
+            [[nodiscard]] auto getGeometryList() const -> const GeometryBucketList& { return mGeometryBucketList; }
 
             /// Get the current Technique
-            [[nodiscard]] Technique* getCurrentTechnique() const { return mTechnique; }
+            [[nodiscard]] auto getCurrentTechnique() const -> Technique* { return mTechnique; }
             /// Dump contents for diagnostics
             void dump(std::ofstream& of) const;
             void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables);
@@ -338,11 +338,11 @@ class Technique;
         public:
             LODBucket(Region* parent, unsigned short lod, Real lodValue);
             virtual ~LODBucket();
-            Region* getParent() { return mParent; }
+            auto getParent() -> Region* { return mParent; }
             /// Get the LOD index
-            [[nodiscard]] ushort getLod() const { return mLod; }
+            [[nodiscard]] auto getLod() const -> ushort { return mLod; }
             /// Get the LOD value
-            [[nodiscard]] Real getLodValue() const { return mLodValue; }
+            [[nodiscard]] auto getLodValue() const -> Real { return mLodValue; }
             /// Assign a queued submesh to this bucket, using specified mesh LOD
             void assign(QueuedSubMesh* qsm, ushort atLod);
             /// Build
@@ -353,14 +353,14 @@ class Technique;
             /// Iterator over the materials in this LOD
             typedef MapIterator<MaterialBucketMap> MaterialIterator;
             /// Get an iterator over the materials in this LOD
-            [[nodiscard]] const MaterialBucketMap& getMaterialBuckets() const { return mMaterialBucketMap; }
+            [[nodiscard]] auto getMaterialBuckets() const -> const MaterialBucketMap& { return mMaterialBucketMap; }
 
             /// Dump contents for diagnostics
             void dump(std::ofstream& of) const;
             void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables);
-            [[nodiscard]] EdgeData* getEdgeList() const { return mEdgeList; }
-            ShadowCaster::ShadowRenderableList& getShadowRenderableList() { return mShadowRenderables; }
-            [[nodiscard]] bool isVertexProgramInUse() const { return mVertexProgramInUse; }
+            [[nodiscard]] auto getEdgeList() const -> EdgeData* { return mEdgeList; }
+            auto getShadowRenderableList() -> ShadowCaster::ShadowRenderableList& { return mShadowRenderables; }
+            [[nodiscard]] auto isVertexProgramInUse() const -> bool { return mVertexProgramInUse; }
             void updateShadowRenderables(const Vector4& lightPos, const HardwareIndexBufferPtr& indexBuffer,
                                          Real extrusionDistance, int flags = 0);
         };
@@ -414,35 +414,35 @@ class Technique;
                 uint32 regionID, const Vector3& centre);
             virtual ~Region();
             // more fields can be added in subclasses
-            StaticGeometry* getParent() const { return mParent;}
+            auto getParent() const -> StaticGeometry* { return mParent;}
             /// Assign a queued mesh to this region, read for final build
             void assign(QueuedSubMesh* qmesh);
             /// Build this region
             void build(bool stencilShadows);
             /// Get the region ID of this region
-            uint32 getID() const { return mRegionID; }
+            auto getID() const -> uint32 { return mRegionID; }
             /// Get the centre point of the region
-            const Vector3& getCentre() const { return mCentre; }
-            const String& getMovableType() const;
+            auto getCentre() const -> const Vector3& { return mCentre; }
+            auto getMovableType() const -> const String&;
             void _notifyCurrentCamera(Camera* cam);
-            const AxisAlignedBox& getBoundingBox() const;
-            Real getBoundingRadius() const;
+            auto getBoundingBox() const -> const AxisAlignedBox&;
+            auto getBoundingRadius() const -> Real;
             void _updateRenderQueue(RenderQueue* queue);
             /// @copydoc MovableObject::visitRenderables
             void visitRenderables(Renderable::Visitor* visitor, 
                 bool debugRenderables = false);
-            bool isVisible() const;
-            uint32 getTypeFlags() const;
+            auto isVisible() const -> bool;
+            auto getTypeFlags() const -> uint32;
 
             typedef VectorIterator<LODBucketList> LODIterator;
 
             /// Get an list of the LODs in this region
-            const LODBucketList& getLODBuckets() const { return mLodBucketList; }
-            const ShadowRenderableList&
+            auto getLODBuckets() const -> const LODBucketList& { return mLodBucketList; }
+            auto
             getShadowVolumeRenderableList(const Light* light, const HardwareIndexBufferPtr& indexBuffer,
                                           size_t& indexBufferUsedSize, float extrusionDistance,
-                                          int flags = 0) override;
-            EdgeData* getEdgeList() override;
+                                          int flags = 0) -> const ShadowRenderableList& override;
+            auto getEdgeList() -> EdgeData* override;
 
             void _releaseManualHardwareResources() override;
             void _restoreManualHardwareResources() override;
@@ -495,36 +495,36 @@ class Technique;
         /** Virtual method for getting a region most suitable for the
             passed in bounds. Can be overridden by subclasses.
         */
-        virtual Region* getRegion(const AxisAlignedBox& bounds, bool autoCreate);
+        virtual auto getRegion(const AxisAlignedBox& bounds, bool autoCreate) -> Region*;
         /** Get the region within which a point lies */
-        virtual Region* getRegion(const Vector3& point, bool autoCreate);
+        virtual auto getRegion(const Vector3& point, bool autoCreate) -> Region*;
         /** Get the region using indexes */
-        virtual Region* getRegion(ushort x, ushort y, ushort z, bool autoCreate);
+        virtual auto getRegion(ushort x, ushort y, ushort z, bool autoCreate) -> Region*;
         /** Get the region using a packed index, returns null if it doesn't exist. */
-        virtual Region* getRegion(uint32 index);
+        virtual auto getRegion(uint32 index) -> Region*;
         /** Get the region indexes for a point.
         */
         virtual void getRegionIndexes(const Vector3& point, 
             ushort& x, ushort& y, ushort& z);
         /** Pack 3 indexes into a single index value
         */
-        virtual uint32 packIndex(ushort x, ushort y, ushort z);
+        virtual auto packIndex(ushort x, ushort y, ushort z) -> uint32;
         /** Get the volume intersection for an indexed region with some bounds.
         */
-        virtual Real getVolumeIntersection(const AxisAlignedBox& box,  
-            ushort x, ushort y, ushort z);
+        virtual auto getVolumeIntersection(const AxisAlignedBox& box,  
+            ushort x, ushort y, ushort z) -> Real;
         /** Get the bounds of an indexed region.
         */
-        virtual AxisAlignedBox getRegionBounds(ushort x, ushort y, ushort z);
+        virtual auto getRegionBounds(ushort x, ushort y, ushort z) -> AxisAlignedBox;
         /** Get the centre of an indexed region.
         */
-        virtual Vector3 getRegionCentre(ushort x, ushort y, ushort z);
+        virtual auto getRegionCentre(ushort x, ushort y, ushort z) -> Vector3;
         /** Calculate world bounds from a set of vertex data. */
-        virtual AxisAlignedBox calculateBounds(VertexData* vertexData, 
+        virtual auto calculateBounds(VertexData* vertexData, 
             const Vector3& position, const Quaternion& orientation, 
-            const Vector3& scale);
+            const Vector3& scale) -> AxisAlignedBox;
         /** Look up or calculate the geometry data to use for this SubMesh */
-        SubMeshLodGeometryLinkList* determineGeometry(SubMesh* sm);
+        auto determineGeometry(SubMesh* sm) -> SubMeshLodGeometryLinkList*;
         /** Split some shared geometry into dedicated geometry. */
         void splitGeometry(VertexData* vd, IndexData* id, 
             SubMeshLodGeometryLink* targetGeomLink);
@@ -567,7 +567,7 @@ class Technique;
         virtual ~StaticGeometry();
 
         /// Get the name of this object
-        [[nodiscard]] const String& getName() const { return mName; }
+        [[nodiscard]] auto getName() const -> const String& { return mName; }
         /** Adds an Entity to the static geometry.
         @remarks
             This method takes an existing Entity and adds its details to the 
@@ -649,17 +649,17 @@ class Technique;
         }
 
         /** Gets the distance at which batches are no longer rendered. */
-        [[nodiscard]] virtual Real getRenderingDistance() const { return mUpperDistance; }
+        [[nodiscard]] virtual auto getRenderingDistance() const -> Real { return mUpperDistance; }
 
         /** Gets the squared distance at which batches are no longer rendered. */
-        [[nodiscard]] virtual Real getSquaredRenderingDistance() const 
+        [[nodiscard]] virtual auto getSquaredRenderingDistance() const -> Real 
         { return mSquaredUpperDistance; }
 
         /** Hides or shows all the batches. */
         virtual void setVisible(bool visible);
 
         /** Are the batches visible? */
-        [[nodiscard]] virtual bool isVisible() const { return mVisible; }
+        [[nodiscard]] virtual auto isVisible() const -> bool { return mVisible; }
 
         /** Sets whether this geometry should cast shadows.
         @remarks
@@ -680,7 +680,7 @@ class Technique;
         */
         virtual void setCastShadows(bool castShadows);
         /// Will the geometry from this object cast shadows?
-        virtual bool getCastShadows() { return mCastShadows; }
+        virtual auto getCastShadows() -> bool { return mCastShadows; }
 
         /** Sets the size of a single region of geometry.
         @remarks
@@ -697,7 +697,7 @@ class Technique;
             mHalfRegionDimensions = size * 0.5;
         }
         /** Gets the size of a single batch of geometry. */
-        [[nodiscard]] virtual const Vector3& getRegionDimensions() const { return mRegionDimensions; }
+        [[nodiscard]] virtual auto getRegionDimensions() const -> const Vector3& { return mRegionDimensions; }
         /** Sets the origin of the geometry.
         @remarks
             This method allows you to configure the world centre of the geometry,
@@ -711,12 +711,12 @@ class Technique;
         */
         virtual void setOrigin(const Vector3& origin) { mOrigin = origin; }
         /** Gets the origin of this geometry. */
-        [[nodiscard]] virtual const Vector3& getOrigin() const { return mOrigin; }
+        [[nodiscard]] virtual auto getOrigin() const -> const Vector3& { return mOrigin; }
 
         /// Sets the visibility flags of all the regions at once
         void setVisibilityFlags(uint32 flags);
         /// Returns the visibility flags of the regions
-        [[nodiscard]] uint32 getVisibilityFlags() const;
+        [[nodiscard]] auto getVisibilityFlags() const -> uint32;
 
         /** Sets the render queue group this object will be rendered through.
         @remarks
@@ -732,7 +732,7 @@ class Technique;
         virtual void setRenderQueueGroup(uint8 queueID);
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        [[nodiscard]] virtual uint8 getRenderQueueGroup() const;
+        [[nodiscard]] virtual auto getRenderQueueGroup() const -> uint8;
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
             bool debugRenderables = false);
@@ -740,7 +740,7 @@ class Technique;
         /// Iterator for iterating over contained regions
         typedef MapIterator<RegionMap> RegionIterator;
         /// Get an list of the regions in this geometry
-        [[nodiscard]] const RegionMap& getRegions() const { return mRegionMap; }
+        [[nodiscard]] auto getRegions() const -> const RegionMap& { return mRegionMap; }
 
         /** Dump the contents of this StaticGeometry to a file for diagnostic
             purposes.
@@ -753,14 +753,14 @@ class Technique;
     /** Dummy factory to let Regions adhere to MovableObject protocol */
     class StaticGeometryFactory : public MovableObjectFactory
     {
-        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) { return NULL; }
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* { return NULL; }
     public:
         StaticGeometryFactory() {}
         ~StaticGeometryFactory() {}
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const { return FACTORY_TYPE_NAME; }
+        [[nodiscard]] auto getType() const -> const String& { return FACTORY_TYPE_NAME; }
     };
     /** @} */
     /** @} */

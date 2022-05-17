@@ -84,19 +84,19 @@ FFPTexturing::FFPTexturing() : mIsPointSprite(false), mLateAddBlend(false)
 }
 
 //-----------------------------------------------------------------------
-const String& FFPTexturing::getType() const
+auto FFPTexturing::getType() const -> const String&
 {
     return Type;
 }
 
 //-----------------------------------------------------------------------
-int FFPTexturing::getExecutionOrder() const
+auto FFPTexturing::getExecutionOrder() const -> int
 {       
     return FFP_TEXTURING;
 }
 
 //-----------------------------------------------------------------------
-bool FFPTexturing::resolveParameters(ProgramSet* programSet)
+auto FFPTexturing::resolveParameters(ProgramSet* programSet) -> bool
 {
     for (unsigned int i=0; i < mTextureUnitParamsList.size(); ++i)
     {
@@ -115,7 +115,7 @@ bool FFPTexturing::resolveParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool FFPTexturing::resolveUniformParams(TextureUnitParams* textureUnitParams, ProgramSet* programSet)
+auto FFPTexturing::resolveUniformParams(TextureUnitParams* textureUnitParams, ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -163,7 +163,7 @@ bool FFPTexturing::resolveUniformParams(TextureUnitParams* textureUnitParams, Pr
 
 
 //-----------------------------------------------------------------------
-bool FFPTexturing::resolveFunctionsParams(TextureUnitParams* textureUnitParams, ProgramSet* programSet)
+auto FFPTexturing::resolveFunctionsParams(TextureUnitParams* textureUnitParams, ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -251,7 +251,7 @@ bool FFPTexturing::resolveFunctionsParams(TextureUnitParams* textureUnitParams, 
 }
 
 //-----------------------------------------------------------------------
-bool FFPTexturing::resolveDependencies(ProgramSet* programSet)
+auto FFPTexturing::resolveDependencies(ProgramSet* programSet) -> bool
 {
     //! [deps_resolve]
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
@@ -266,7 +266,7 @@ bool FFPTexturing::resolveDependencies(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool FFPTexturing::addFunctionInvocations(ProgramSet* programSet)
+auto FFPTexturing::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -288,7 +288,7 @@ bool FFPTexturing::addFunctionInvocations(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool FFPTexturing::addVSFunctionInvocations(TextureUnitParams* textureUnitParams, Function* vsMain)
+auto FFPTexturing::addVSFunctionInvocations(TextureUnitParams* textureUnitParams, Function* vsMain) -> bool
 {
     if(mIsPointSprite)
         return true;
@@ -335,7 +335,7 @@ bool FFPTexturing::addVSFunctionInvocations(TextureUnitParams* textureUnitParams
     return true;
 }
 //-----------------------------------------------------------------------
-bool FFPTexturing::addPSFunctionInvocations(TextureUnitParams* textureUnitParams, Function* psMain)
+auto FFPTexturing::addPSFunctionInvocations(TextureUnitParams* textureUnitParams, Function* psMain) -> bool
 {
     const LayerBlendModeEx& colourBlend = textureUnitParams->mTextureUnitState->getColourBlendMode();
     const LayerBlendModeEx& alphaBlend  = textureUnitParams->mTextureUnitState->getAlphaBlendMode();
@@ -417,8 +417,8 @@ void FFPTexturing::addPSSampleTexelInvocation(TextureUnitParams* textureUnitPara
 }
 
 //-----------------------------------------------------------------------
-ParameterPtr FFPTexturing::getPSArgument(ParameterPtr texel, LayerBlendSource blendSrc, const ColourValue& colourValue,
-                                         Real alphaValue, bool isAlphaArgument) const
+auto FFPTexturing::getPSArgument(ParameterPtr texel, LayerBlendSource blendSrc, const ColourValue& colourValue,
+                                         Real alphaValue, bool isAlphaArgument) const -> ParameterPtr
 {
     switch(blendSrc)
     {
@@ -517,7 +517,7 @@ void FFPTexturing::addPSBlendInvocations(Function* psMain,
 }
 
 //-----------------------------------------------------------------------
-TexCoordCalcMethod FFPTexturing::getTexCalcMethod(TextureUnitState* textureUnitState)
+auto FFPTexturing::getTexCalcMethod(TextureUnitState* textureUnitState) -> TexCoordCalcMethod
 {
     TexCoordCalcMethod                      texCoordCalcMethod = TEXCALC_NONE;  
     const TextureUnitState::EffectMap&      effectMap = textureUnitState->getEffects(); 
@@ -561,7 +561,7 @@ TexCoordCalcMethod FFPTexturing::getTexCalcMethod(TextureUnitState* textureUnitS
 }
 
 //-----------------------------------------------------------------------
-bool FFPTexturing::needsTextureMatrix(TextureUnitState* textureUnitState)
+auto FFPTexturing::needsTextureMatrix(TextureUnitState* textureUnitState) -> bool
 {
     const TextureUnitState::EffectMap&      effectMap = textureUnitState->getEffects(); 
     TextureUnitState::EffectMap::const_iterator effi;
@@ -592,7 +592,7 @@ bool FFPTexturing::needsTextureMatrix(TextureUnitState* textureUnitState)
 }
 
 
-bool FFPTexturing::setParameter(const String& name, const String& value)
+auto FFPTexturing::setParameter(const String& name, const String& value) -> bool
 {
     if(name == "late_add_blend")
     {
@@ -617,7 +617,7 @@ void FFPTexturing::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool FFPTexturing::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+auto FFPTexturing::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
 {
     mIsPointSprite = srcPass->getPointSpritesEnabled();
 
@@ -715,14 +715,14 @@ void FFPTexturing::setTextureUnit(unsigned short index, TextureUnitState* textur
 }
 
 //-----------------------------------------------------------------------
-const String& FFPTexturingFactory::getType() const
+auto FFPTexturingFactory::getType() const -> const String&
 {
     return FFPTexturing::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* FFPTexturingFactory::createInstance(ScriptCompiler* compiler, 
-                                                 PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+auto FFPTexturingFactory::createInstance(ScriptCompiler* compiler, 
+                                                 PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name == "texturing_stage")
     {
@@ -760,7 +760,7 @@ void FFPTexturingFactory::writeInstance(MaterialSerializer* ser, SubRenderState*
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* FFPTexturingFactory::createInstanceImpl()
+auto FFPTexturingFactory::createInstanceImpl() -> SubRenderState*
 {
     return new FFPTexturing;
 }

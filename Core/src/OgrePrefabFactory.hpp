@@ -52,7 +52,7 @@ class Mesh;
             @param mesh The mesh that the potential prefab will be created in.
             @return true if a prefab has been created, otherwise false.
         */
-        static bool createPrefab(Mesh* mesh);
+        static auto createPrefab(Mesh* mesh) -> bool;
 
     private:
         /// Creates a plane as a submesh of the given mesh

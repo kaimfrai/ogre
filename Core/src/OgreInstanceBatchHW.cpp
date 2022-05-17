@@ -68,7 +68,7 @@ class Camera;
     }
 
     //-----------------------------------------------------------------------
-    size_t InstanceBatchHW::calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const
+    auto InstanceBatchHW::calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t
     {
         size_t retVal = 0;
 
@@ -172,7 +172,7 @@ class Camera;
         thisVertexData->closeGapsInBindings();
     }
     //-----------------------------------------------------------------------
-    bool InstanceBatchHW::checkSubMeshCompatibility( const SubMesh* baseSubMesh )
+    auto InstanceBatchHW::checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool
     {
         //Max number of texture coordinates is _usually_ 8, we need at least 3 available
         if( baseSubMesh->vertexData->vertexDeclaration->getNextFreeTextureCoordinate() > 8-2 )
@@ -196,7 +196,7 @@ class Camera;
         return InstanceBatch::checkSubMeshCompatibility( baseSubMesh );
     }
     //-----------------------------------------------------------------------
-    size_t InstanceBatchHW::updateVertexBuffer( Camera *currentCamera )
+    auto InstanceBatchHW::updateVertexBuffer( Camera *currentCamera ) -> size_t
     {
         size_t retVal = 0;
 
@@ -274,7 +274,7 @@ class Camera;
         *xform = Matrix4::IDENTITY;
     }
     //-----------------------------------------------------------------------
-    unsigned short InstanceBatchHW::getNumWorldTransforms() const
+    auto InstanceBatchHW::getNumWorldTransforms() const -> unsigned short
     {
         return 1;
     }

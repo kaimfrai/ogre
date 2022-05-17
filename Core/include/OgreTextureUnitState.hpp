@@ -103,14 +103,14 @@ template <typename T> class Controller;
         */
         void setFiltering(FilterOptions minFilter, FilterOptions magFilter, FilterOptions mipFilter);
         /// Get the texture filtering for the given type.
-        [[nodiscard]] FilterOptions getFiltering(FilterType ftype) const;
+        [[nodiscard]] auto getFiltering(FilterType ftype) const -> FilterOptions;
 
         /** Gets the texture addressing mode for a given coordinate,
             i.e. what happens at uv values above 1.0.
         @note
             The default is TAM_WRAP i.e. the texture repeats over values of 1.0.
         */
-        [[nodiscard]] const UVWAddressingMode& getAddressingMode() const { return mAddressMode; }
+        [[nodiscard]] auto getAddressingMode() const -> const UVWAddressingMode& { return mAddressMode; }
 
         /** Sets the texture addressing mode, i.e. what happens at uv values above 1.0.
 
@@ -158,7 +158,7 @@ template <typename T> class Controller;
             mDirty = true;
         }
         /// Get this layer texture anisotropy level.
-        [[nodiscard]] unsigned int getAnisotropy() const { return mMaxAniso; }
+        [[nodiscard]] auto getAnisotropy() const -> unsigned int { return mMaxAniso; }
 
         /** Sets the bias value applied to the mipmap calculation.
 
@@ -183,7 +183,7 @@ template <typename T> class Controller;
         /** Gets the bias value applied to the mipmap calculation.
         @see TextureUnitState::setTextureMipmapBias
         */
-        [[nodiscard]] float getMipmapBias() const { return mMipmapBias; }
+        [[nodiscard]] auto getMipmapBias() const -> float { return mMipmapBias; }
 
         /** Enables or disables the comparison test for depth textures.
          *
@@ -196,14 +196,14 @@ template <typename T> class Controller;
             mCompareEnabled = enabled;
             mDirty = true;
         }
-        [[nodiscard]] bool getCompareEnabled() const { return mCompareEnabled; }
+        [[nodiscard]] auto getCompareEnabled() const -> bool { return mCompareEnabled; }
 
         void setCompareFunction(CompareFunction function)
         {
             mCompareFunc = function;
             mDirty = true;
         }
-        [[nodiscard]] CompareFunction getCompareFunction() const { return mCompareFunc; }
+        [[nodiscard]] auto getCompareFunction() const -> CompareFunction { return mCompareFunc; }
 
         /** Sets the texture border colour.
 
@@ -215,7 +215,7 @@ template <typename T> class Controller;
             mBorderColour = colour;
             mDirty = true;
         }
-        [[nodiscard]] const ColourValue& getBorderColour() const { return mBorderColour; }
+        [[nodiscard]] auto getBorderColour() const -> const ColourValue& { return mBorderColour; }
 
     protected:
         ColourValue mBorderColour;
@@ -345,7 +345,7 @@ template <typename T> class Controller;
 
         TextureUnitState(Pass* parent, const TextureUnitState& oth );
 
-        TextureUnitState & operator = ( const TextureUnitState& oth );
+        auto operator = ( const TextureUnitState& oth ) -> TextureUnitState &;
 
         /** Default destructor.
         */
@@ -366,7 +366,7 @@ template <typename T> class Controller;
             or will be the name of the current frame for an animated
             or otherwise multi-frame texture.
         */
-        const String& getTextureName() const;
+        auto getTextureName() const -> const String&;
 
         /** Sets this texture layer to use a single texture, given the
             name of the texture to use on this layer.
@@ -417,7 +417,7 @@ template <typename T> class Controller;
 
         /** Returns the width and height of the texture in the given frame.
         */
-        std::pair<uint32, uint32> getTextureDimensions(unsigned int frame = 0) const;
+        auto getTextureDimensions(unsigned int frame = 0) const -> std::pair<uint32, uint32>;
 
         /** Changes the active frame in an animated or multi-image texture.
 
@@ -428,12 +428,12 @@ template <typename T> class Controller;
 
         /** Gets the active frame in an animated or multi-image texture layer.
         */
-        unsigned int getCurrentFrame() const;
+        auto getCurrentFrame() const -> unsigned int;
 
         /** Gets the name of the texture associated with a frame number.
             Throws an exception if frameNumber exceeds the number of stored frames.
         */
-        const String& getFrameTextureName(unsigned int frameNumber) const;
+        auto getFrameTextureName(unsigned int frameNumber) const -> const String&;
 
         /** Sets the name of the texture associated with a frame.
         @param name
@@ -459,7 +459,7 @@ template <typename T> class Controller;
         void deleteFrameTextureName(const size_t frameNumber);
         /** Gets the number of frames for a texture.
         */
-        unsigned int getNumFrames() const;
+        auto getNumFrames() const -> unsigned int;
 
 
         /** The type of unit to bind the texture settings to.
@@ -498,43 +498,43 @@ template <typename T> class Controller;
         */
         void setContentType(ContentType ct);
         /** Get the type of content this TextureUnitState references. */
-        ContentType getContentType() const;
+        auto getContentType() const -> ContentType;
 
         /** Returns the type of this texture.
         */
-        TextureType getTextureType() const;
+        auto getTextureType() const -> TextureType;
 
         /// @copydoc Texture::setFormat
         void setDesiredFormat(PixelFormat desiredFormat);
 
         /// @copydoc Texture::getDesiredFormat
-        PixelFormat getDesiredFormat() const;
+        auto getDesiredFormat() const -> PixelFormat;
 
         /// @copydoc Texture::setNumMipmaps
         void setNumMipmaps(int numMipmaps);
 
         /** Gets how many mipmaps have been requested for the texture.
         */
-        int getNumMipmaps() const;
+        auto getNumMipmaps() const -> int;
 
         /// @deprecated use setDesiredFormat(PF_A8)
         void setIsAlpha(bool isAlpha);
 
         /// @copydoc Texture::getGamma
-        float getGamma() const;
+        auto getGamma() const -> float;
         /// @copydoc Texture::setGamma
         void setGamma(float gamma);
 
         /// @copydoc Texture::setHardwareGammaEnabled
         void setHardwareGammaEnabled(bool enabled);
         /// @copydoc Texture::isHardwareGammaEnabled
-        bool isHardwareGammaEnabled() const;
+        auto isHardwareGammaEnabled() const -> bool;
 
         /** Gets the index of the set of texture co-ords this layer uses.
         @note
         Only applies to the fixed function pipeline and has no effect if a fragment program is used.
         */
-        unsigned int getTextureCoordSet() const;
+        auto getTextureCoordSet() const -> unsigned int;
 
         /** Sets which texture coordinate set is to be used for this texture layer.
 
@@ -568,7 +568,7 @@ template <typename T> class Controller;
             Causes a reclaculation of the matrix if any parameters have been changed via
             setTextureScroll, setTextureScale and setTextureRotate.
         */
-        const Matrix4& getTextureTransform() const;
+        auto getTextureTransform() const -> const Matrix4&;
 
         /** Sets the translation offset of the texture, ie scrolls the texture.
 
@@ -587,25 +587,25 @@ template <typename T> class Controller;
         */
         void setTextureUScroll(Real value);
         /// Get texture uscroll value.
-        Real getTextureUScroll() const;
+        auto getTextureUScroll() const -> Real;
 
         /** As setTextureScroll, but sets only V value.
         */
         void setTextureVScroll(Real value);
         /// Get texture vscroll value.
-        Real getTextureVScroll() const;
+        auto getTextureVScroll() const -> Real;
 
         /** As setTextureScale, but sets only U value.
         */
         void setTextureUScale(Real value);
         /// Get texture uscale value.
-        Real getTextureUScale() const;
+        auto getTextureUScale() const -> Real;
 
         /** As setTextureScale, but sets only V value.
         */
         void setTextureVScale(Real value);
         /// Get texture vscale value.
-        Real getTextureVScale() const;
+        auto getTextureVScale() const -> Real;
 
         /** Sets the scaling factor applied to texture coordinates.
 
@@ -628,14 +628,14 @@ template <typename T> class Controller;
         */
         void setTextureRotate(const Radian& angle);
         /// Get texture rotation effects angle value.
-        const Radian& getTextureRotate() const;
+        auto getTextureRotate() const -> const Radian&;
 
         /// get the associated sampler
-        const SamplerPtr& getSampler() const { return mSampler; }
+        auto getSampler() const -> const SamplerPtr& { return mSampler; }
         void setSampler(const SamplerPtr& sampler) { mSampler = sampler; }
 
         /// @copydoc Sampler::setAddressingMode
-        const Sampler::UVWAddressingMode& getTextureAddressingMode() const
+        auto getTextureAddressingMode() const -> const Sampler::UVWAddressingMode&
         {
             return mSampler->getAddressingMode();
         }
@@ -652,7 +652,7 @@ template <typename T> class Controller;
         /// @copydoc Sampler::setBorderColour
         void setTextureBorderColour(const ColourValue& colour) { _getLocalSampler()->setBorderColour(colour); }
         /// @copydoc Sampler::getBorderColour
-        const ColourValue& getTextureBorderColour() const { return mSampler->getBorderColour(); }
+        auto getTextureBorderColour() const -> const ColourValue& { return mSampler->getBorderColour(); }
         /// @copydoc Sampler::setFiltering(TextureFilterOptions)
         void setTextureFiltering(TextureFilterOptions filterType)
         {
@@ -669,23 +669,23 @@ template <typename T> class Controller;
             _getLocalSampler()->setFiltering(minFilter, magFilter, mipFilter);
         }
         /// @copydoc Sampler::getFiltering
-        FilterOptions getTextureFiltering(FilterType ftype) const { return mSampler->getFiltering(ftype); }
+        auto getTextureFiltering(FilterType ftype) const -> FilterOptions { return mSampler->getFiltering(ftype); }
         /// @copydoc Sampler::setCompareEnabled
         void setTextureCompareEnabled(bool enabled) { _getLocalSampler()->setCompareEnabled(enabled); }
         /// @copydoc Sampler::getCompareEnabled
-        bool getTextureCompareEnabled() const { return mSampler->getCompareEnabled(); }
+        auto getTextureCompareEnabled() const -> bool { return mSampler->getCompareEnabled(); }
         /// @copydoc Sampler::setCompareFunction
         void setTextureCompareFunction(CompareFunction function) { _getLocalSampler()->setCompareFunction(function); }
         /// @copydoc Sampler::getCompareFunction
-        CompareFunction getTextureCompareFunction() const { return mSampler->getCompareFunction(); }
+        auto getTextureCompareFunction() const -> CompareFunction { return mSampler->getCompareFunction(); }
         /// @copydoc Sampler::setAnisotropy
         void setTextureAnisotropy(unsigned int maxAniso) { _getLocalSampler()->setAnisotropy(maxAniso); }
         /// @copydoc Sampler::getAnisotropy
-        unsigned int getTextureAnisotropy() const { return mSampler->getAnisotropy(); }
+        auto getTextureAnisotropy() const -> unsigned int { return mSampler->getAnisotropy(); }
         /// @copydoc Sampler::setMipmapBias
         void setTextureMipmapBias(float bias) { _getLocalSampler()->setMipmapBias(bias); }
         /// @copydoc Sampler::getMipmapBias
-        float getTextureMipmapBias() const { return mSampler->getMipmapBias(); }
+        auto getTextureMipmapBias() const -> float { return mSampler->getMipmapBias(); }
 
 
         /** Setting advanced blending options.
@@ -797,19 +797,19 @@ template <typename T> class Controller;
 
         /** Get multitexturing colour blending mode.
         */
-        const LayerBlendModeEx& getColourBlendMode() const;
+        auto getColourBlendMode() const -> const LayerBlendModeEx&;
 
         /** Get multitexturing alpha blending mode.
         */
-        const LayerBlendModeEx& getAlphaBlendMode() const;
+        auto getAlphaBlendMode() const -> const LayerBlendModeEx&;
 
         /** Get the multipass fallback for colour blending operation source factor.
         */
-        SceneBlendFactor getColourBlendFallbackSrc() const;
+        auto getColourBlendFallbackSrc() const -> SceneBlendFactor;
 
         /** Get the multipass fallback for colour blending operation destination factor.
         */
-        SceneBlendFactor getColourBlendFallbackDest() const;
+        auto getColourBlendFallbackDest() const -> SceneBlendFactor;
 
         /** Sets the alpha operation to be applied to this texture.
 
@@ -953,7 +953,7 @@ template <typename T> class Controller;
             This can happen if a texture fails to load or some other non-fatal error. Worth checking after
             setting texture name.
         */
-        bool isBlank() const;
+        auto isBlank() const -> bool;
 
         /** Sets this texture layer to be blank.
         */
@@ -961,19 +961,19 @@ template <typename T> class Controller;
 
         /** Tests if the texture associated with this unit has failed to load.
         */
-        bool isTextureLoadFailing() const { return mTextureLoadFailed; }
+        auto isTextureLoadFailing() const -> bool { return mTextureLoadFailed; }
 
         /** Tells the unit to retry loading the texture if it had failed to load.
         */
         void retryTextureLoad() { mTextureLoadFailed = false; }
 
         /// Get texture effects in a multimap paired array.
-        const EffectMap& getEffects() const;
+        auto getEffects() const -> const EffectMap&;
         /// Get the animated-texture animation duration.
-        Real getAnimationDuration() const;
+        auto getAnimationDuration() const -> Real;
 
         /// Returns true if this texture unit is using the default Sampler
-        bool isDefaultFiltering() const;
+        auto isDefaultFiltering() const -> bool;
 
         /** Set the compositor reference for this texture unit state.
 
@@ -988,14 +988,14 @@ template <typename T> class Controller;
         void setCompositorReference(const String& compositorName, const String& textureName, size_t mrtIndex = 0);
 
         /** Gets the name of the compositor that this texture referneces. */
-        const String& getReferencedCompositorName() const { return mCompositorRefName; }
+        auto getReferencedCompositorName() const -> const String& { return mCompositorRefName; }
         /** Gets the name of the texture in the compositor that this texture references. */
-        const String& getReferencedTextureName() const { return mCompositorRefTexName; }
+        auto getReferencedTextureName() const -> const String& { return mCompositorRefTexName; }
         /** Gets the MRT index of the texture in the compositor that this texture references. */ 
-        size_t getReferencedMRTIndex() const { return mCompositorRefMrtIndex; }
+        auto getReferencedMRTIndex() const -> size_t { return mCompositorRefMrtIndex; }
     
         /// Gets the parent Pass object.
-        Pass* getParent() const { return mParent; }
+        auto getParent() const -> Pass* { return mParent; }
 
         /** Internal method for preparing this object for load, as part of Material::prepare. */
         void _prepare();
@@ -1006,10 +1006,10 @@ template <typename T> class Controller;
         /** Internal method for unloading this object as part of Material::unload. */
         void _unload();
         /// Returns whether this unit has texture coordinate generation that depends on the camera.
-        bool hasViewRelativeTextureCoordinateGeneration() const;
+        auto hasViewRelativeTextureCoordinateGeneration() const -> bool;
 
         /// Is this loaded?
-        bool isLoaded() const;
+        auto isLoaded() const -> bool;
         /** Tells the class that it needs recompilation. */
         void _notifyNeedsRecompile();
 
@@ -1020,33 +1020,33 @@ template <typename T> class Controller;
         */
         void setName(const String& name);
         /// Get the name of the Texture Unit State.
-        const String& getName() const { return mName; }
+        auto getName() const -> const String& { return mName; }
 
         /// @deprecated use getName()
-        const String& getTextureNameAlias() const { return getName();}
+        auto getTextureNameAlias() const -> const String& { return getName();}
 
         /** Notify this object that its parent has changed. */
         void _notifyParent(Pass* parent);
 
         /** Get the texture pointer for the current frame. */
-        const TexturePtr& _getTexturePtr() const;
+        auto _getTexturePtr() const -> const TexturePtr&;
         /** Get the texture pointer for a given frame. */
-        const TexturePtr& _getTexturePtr(size_t frame) const;
+        auto _getTexturePtr(size_t frame) const -> const TexturePtr&;
     
         /** Set the texture pointer for the current frame (internal use only!). */
         void _setTexturePtr(const TexturePtr& texptr);
         /** Set the texture pointer for a given frame (internal use only!). */
         void _setTexturePtr(const TexturePtr& texptr, size_t frame);
 
-        size_t calculateSize() const;
+        auto calculateSize() const -> size_t;
 
         /** Gets the animation controller (as created because of setAnimatedTexture)
             if it exists.
         */
-        Controller<Real>* _getAnimController() const { return mAnimController; }
+        auto _getAnimController() const -> Controller<Real>* { return mAnimController; }
 
         /// return a sampler local to this TUS instead of the shared global one
-        const SamplerPtr& _getLocalSampler();
+        auto _getLocalSampler() -> const SamplerPtr&;
 private:
         // State
         /// The current animation frame.
@@ -1118,7 +1118,7 @@ private:
         /** Internal method for ensuring the texture for a given frame is loaded. */
         void ensureLoaded(size_t frame) const;
 
-        TexturePtr retrieveTexture(const String& name);
+        auto retrieveTexture(const String& name) -> TexturePtr;
     };
 
     /** @} */

@@ -81,13 +81,13 @@ class SubMesh;
         void _initialise();
 
         /// @copydoc ResourceManager::getResourceByName
-        MeshPtr getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const;
+        auto getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const -> MeshPtr;
 
         /// Create a new mesh
         /// @copydetails ResourceManager::createResource
-        MeshPtr create (const String& name, const String& group,
+        auto create (const String& name, const String& group,
                             bool isManual = false, ManualResourceLoader* loader = 0,
-                            const NameValuePairList* createParams = 0);
+                            const NameValuePairList* createParams = 0) -> MeshPtr;
 
         using ResourceManager::createOrRetrieve;
 
@@ -103,14 +103,14 @@ class SubMesh;
             @param indexBufferShadowed If true, the index buffers will be shadowed by system memory 
                 copies for faster read access
         */
-        ResourceCreateOrRetrieveResult createOrRetrieve(
+        auto createOrRetrieve(
             const String& name,
             const String& group,
             bool isManual, ManualResourceLoader* loader,
             const NameValuePairList* createParams,
             HardwareBuffer::Usage vertexBufferUsage,
             HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
-            bool vertexBufferShadowed = false, bool indexBufferShadowed = false);
+            bool vertexBufferShadowed = false, bool indexBufferShadowed = false) -> ResourceCreateOrRetrieveResult;
 
         /** Prepares a mesh for loading from a file.  This does the IO in advance of the call to load().
             @note
@@ -127,18 +127,18 @@ class SubMesh;
             @param indexBufferShadowed If true, the index buffers will be shadowed by system memory 
                 copies for faster read access
         */
-        MeshPtr prepare( const String& filename, const String& groupName,
+        auto prepare( const String& filename, const String& groupName,
             HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
             HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
-            bool vertexBufferShadowed = false, bool indexBufferShadowed = false);
+            bool vertexBufferShadowed = false, bool indexBufferShadowed = false) -> MeshPtr;
 
         /** Loads a mesh from a file, making it immediately available for use.
             @copydetails MeshManager::prepare
         */
-        MeshPtr load( const String& filename, const String& groupName,
+        auto load( const String& filename, const String& groupName,
             HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
             HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
-            bool vertexBufferShadowed = false, bool indexBufferShadowed = false);
+            bool vertexBufferShadowed = false, bool indexBufferShadowed = false) -> MeshPtr;
 
 
         /** Creates a new Mesh specifically for manual definition rather
@@ -154,8 +154,8 @@ class SubMesh;
             when the time comes. It is recommended that you populate this field
             in order that the mesh can be rebuilt should the need arise
         */
-        MeshPtr createManual( const String& name, const String& groupName, 
-            ManualResourceLoader* loader = 0);
+        auto createManual( const String& name, const String& groupName, 
+            ManualResourceLoader* loader = 0) -> MeshPtr;
 
         /** Creates a basic plane, by default majoring on the x/y axes facing positive Z.
             @param
@@ -196,7 +196,7 @@ class SubMesh;
                 created with a system memory shadow buffer,
                 allowing you to read it back more efficiently than if it is in hardware
         */
-        MeshPtr createPlane(
+        auto createPlane(
             const String& name, const String& groupName, const Plane& plane,
             Real width, Real height,
             int xsegments = 1, int ysegments = 1,
@@ -204,7 +204,7 @@ class SubMesh;
             Real uTile = 1.0f, Real vTile = 1.0f, const Vector3& upVector = Vector3::UNIT_Y,
             HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
             HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY,
-            bool vertexShadowBuffer = false, bool indexShadowBuffer = false);
+            bool vertexShadowBuffer = false, bool indexShadowBuffer = false) -> MeshPtr;
 
         
         /** Creates a plane, which because of it's texture coordinates looks like a curved
@@ -257,7 +257,7 @@ class SubMesh;
                 downwards to keep. -1 keeps all of them. This can save fillrate if
                 you cannot see much of the sky lower down.
         */
-        MeshPtr createCurvedIllusionPlane(
+        auto createCurvedIllusionPlane(
             const String& name, const String& groupName, const Plane& plane,
             Real width, Real height, Real curvature,
             int xsegments = 1, int ysegments = 1,
@@ -267,7 +267,7 @@ class SubMesh;
             HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
             HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY,
             bool vertexShadowBuffer = false, bool indexShadowBuffer = false, 
-            int ySegmentsToKeep = -1);
+            int ySegmentsToKeep = -1) -> MeshPtr;
 
         /** Creates a genuinely curved plane, by default majoring on the x/y axes facing positive Z.
             @param name
@@ -310,7 +310,7 @@ class SubMesh;
                 created with a system memory shadow buffer,
                 allowing you to read it back more efficiently than if it is in hardware
         */
-        MeshPtr createCurvedPlane( 
+        auto createCurvedPlane( 
             const String& name, const String& groupName, const Plane& plane, 
             Real width, Real height, Real bow = 0.5f, 
             int xsegments = 1, int ysegments = 1,
@@ -318,7 +318,7 @@ class SubMesh;
             Real uTile = 1.0f, Real vTile = 1.0f, const Vector3& upVector = Vector3::UNIT_Y,
             HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
             HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY,
-            bool vertexShadowBuffer = false, bool indexShadowBuffer = false);
+            bool vertexShadowBuffer = false, bool indexShadowBuffer = false) -> MeshPtr;
 
         /** Creates a Bezier patch based on an array of control vertices.
             @param name
@@ -356,7 +356,7 @@ class SubMesh;
                 Flag to determine if a shadow buffer is generated for the index buffer. See
                 HardwareBuffer for full details.
         */
-        PatchMeshPtr createBezierPatch(
+        auto createBezierPatch(
             const String& name, const String& groupName, void* controlPointBuffer, 
             VertexDeclaration *declaration, size_t width, size_t height,
             size_t uMaxSubdivisionLevel = PatchSurface::AUTO_LEVEL, 
@@ -364,25 +364,25 @@ class SubMesh;
             PatchSurface::VisibleSide visibleSide = PatchSurface::VS_FRONT,
             HardwareBuffer::Usage vbUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
             HardwareBuffer::Usage ibUsage = HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY,
-            bool vbUseShadow = true, bool ibUseShadow = true);
+            bool vbUseShadow = true, bool ibUseShadow = true) -> PatchMeshPtr;
         
         /** Tells the mesh manager that all future meshes should prepare themselves for
             shadow volumes on loading.
         */
         void setPrepareAllMeshesForShadowVolumes(bool enable);
         /** Retrieves whether all Meshes should prepare themselves for shadow volumes. */
-        bool getPrepareAllMeshesForShadowVolumes();
+        auto getPrepareAllMeshesForShadowVolumes() -> bool;
 
         /// @copydoc Singleton::getSingleton()
-        static MeshManager& getSingleton();
+        static auto getSingleton() -> MeshManager&;
         /// @copydoc Singleton::getSingleton()
-        static MeshManager* getSingletonPtr();
+        static auto getSingletonPtr() -> MeshManager*;
 
         /** Gets the base element type used for blend weights in vertex buffers.
         @remarks
         See the remarks below for SetBlendWeightsBaseElementType().
         */
-        VertexElementType getBlendWeightsBaseElementType() const;
+        auto getBlendWeightsBaseElementType() const -> VertexElementType;
 
         /** sets the base element type used for blend weights in vertex buffers.
         @remarks
@@ -397,7 +397,7 @@ class SubMesh;
         /** Gets the factor by which the bounding box of an entity is padded.
             Default is 0.01
         */
-        Real getBoundsPaddingFactor();
+        auto getBoundsPaddingFactor() -> Real;
     
         /** Sets the factor by which the bounding box of an entity is padded
         */
@@ -409,14 +409,14 @@ class SubMesh;
         
         /** Gets the listener used to control mesh loading through the serializer.
         */
-        MeshSerializerListener *getListener();
+        auto getListener() -> MeshSerializerListener *;
 
     private:
 
         /// @copydoc ResourceManager::createImpl
-        Resource* createImpl(const String& name, ResourceHandle handle, 
+        auto createImpl(const String& name, ResourceHandle handle, 
             const String& group, bool isManual, ManualResourceLoader* loader, 
-            const NameValuePairList* createParams);
+            const NameValuePairList* createParams) -> Resource*;
     
         /** Enum identifying the types of manual mesh built by this manager */
         enum MeshBuildType

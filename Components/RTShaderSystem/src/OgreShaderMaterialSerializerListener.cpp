@@ -125,7 +125,7 @@ void SGMaterialSerializerListener::textureUnitStateEventRaised(MaterialSerialize
 }
 
 //-----------------------------------------------------------------------------
-ShaderGenerator::SGPass* SGMaterialSerializerListener::getShaderGeneratedPass(const Pass* srcPass)
+auto SGMaterialSerializerListener::getShaderGeneratedPass(const Pass* srcPass) -> ShaderGenerator::SGPass*
 {
     SGPassListIterator it    = mSGPassList.begin();
     SGPassListIterator itEnd = mSGPassList.end();

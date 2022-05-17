@@ -78,12 +78,12 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    virtual const String& getType() const;
+    virtual auto getType() const -> const String&;
 
     /** 
     @see SubRenderState::getType.
     */
-    virtual int getExecutionOrder() const;
+    virtual auto getExecutionOrder() const -> int;
 
     /** 
     @see SubRenderState::copyFrom.
@@ -93,7 +93,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    virtual bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass);
+    virtual auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool;
 
     /** 
     Set the fog calculation mode. Either per vertex or per pixel.
@@ -101,12 +101,12 @@ public:
     */
     void setCalcMode(CalcMode calcMode) { mCalcMode = calcMode; }
 
-    bool setParameter(const String& name, const String& value) override;
+    auto setParameter(const String& name, const String& value) -> bool override;
 
     /** 
     Return the current calculation mode.
     */
-    CalcMode getCalcMode() const { return mCalcMode; }
+    auto getCalcMode() const -> CalcMode { return mCalcMode; }
 
     static String Type;
 
@@ -116,17 +116,17 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    virtual bool resolveParameters(ProgramSet* programSet);
+    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
 
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    virtual bool resolveDependencies(ProgramSet* programSet);
+    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
 
     /** 
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual bool addFunctionInvocations(ProgramSet* programSet);
+    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
 
 // Attributes.
 protected:  
@@ -165,12 +165,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] virtual const String& getType() const;
+    [[nodiscard]] virtual auto getType() const -> const String&;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator);
+    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -183,7 +183,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual SubRenderState* createInstanceImpl();
+    virtual auto createInstanceImpl() -> SubRenderState*;
 
 
 };

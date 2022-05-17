@@ -324,7 +324,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    size_t BaseInstanceBatchVTF::convert3x4MatricesToDualQuaternions(Matrix3x4f* matrices, size_t numOfMatrices, float* outDualQuaternions)
+    auto BaseInstanceBatchVTF::convert3x4MatricesToDualQuaternions(Matrix3x4f* matrices, size_t numOfMatrices, float* outDualQuaternions) -> size_t
     {
         DualQuaternion dQuat;
         size_t floatsWritten = 0;
@@ -436,7 +436,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    InstancedEntity* BaseInstanceBatchVTF::generateInstancedEntity(size_t num)
+    auto BaseInstanceBatchVTF::generateInstancedEntity(size_t num) -> InstancedEntity*
     {
         InstancedEntity* sharedTransformEntity = NULL;
         if ((useBoneMatrixLookup()) && (num >= getMaxLookupTableInstances()))
@@ -458,7 +458,7 @@ class RenderQueue;
         *xform = Matrix4::IDENTITY;
     }
     //-----------------------------------------------------------------------
-    unsigned short BaseInstanceBatchVTF::getNumWorldTransforms() const
+    auto BaseInstanceBatchVTF::getNumWorldTransforms() const -> unsigned short
     {
         return 1;
     }
@@ -715,8 +715,8 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    size_t InstanceBatchVTF::calculateMaxNumInstances( 
-                    const SubMesh *baseSubMesh, uint16 flags ) const
+    auto InstanceBatchVTF::calculateMaxNumInstances( 
+                    const SubMesh *baseSubMesh, uint16 flags ) const -> size_t
     {
         size_t retVal = 0;
 

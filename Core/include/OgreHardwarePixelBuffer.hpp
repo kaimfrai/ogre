@@ -73,11 +73,11 @@ class RenderTexture;
         SliceTRT mSliceTRT;
         
         /// Internal implementation of lock(), must be overridden in subclasses
-        virtual PixelBox lockImpl(const Box &lockBox,  LockOptions options) = 0;
+        virtual auto lockImpl(const Box &lockBox,  LockOptions options) -> PixelBox = 0;
 
         /** Internal implementation of lock(), do not OVERRIDE or CALL this
             for HardwarePixelBuffer implementations, but override the previous method */
-        virtual void* lockImpl(size_t offset, size_t length, LockOptions options);
+        virtual auto lockImpl(size_t offset, size_t length, LockOptions options) -> void*;
 
         /** Notify TextureBuffer of destruction of render target.
             Called by RenderTexture when destroyed.
@@ -102,7 +102,7 @@ class RenderTexture;
             @return PixelBox containing the locked region, the pitches and
                 the pixel format
         */
-        const PixelBox& lock(const Box& lockBox, LockOptions options);
+        auto lock(const Box& lockBox, LockOptions options) -> const PixelBox&;
         /** @copydoc HardwareBuffer::lock
             @attention this method returns a pointer to the raw buffer storage, which is likely not what you
            want. The RenderSystem is free to add padding, which you have to query from @ref getCurrentLock()
@@ -110,13 +110,13 @@ class RenderTexture;
            handles copying in this case
            @see @ref Updating-Pixel-Buffers
          */
-        void* lock(size_t offset, size_t length, LockOptions options) override;
+        auto lock(size_t offset, size_t length, LockOptions options) -> void* override;
 
         /** Get the current locked region. This is the same value as returned
             by lock(const Box, LockOptions)
             @return PixelBox containing the locked region
         */        
-        const PixelBox& getCurrentLock();
+        auto getCurrentLock() -> const PixelBox&;
         
         /// @copydoc HardwareBuffer::readData
         virtual void readData(size_t offset, size_t length, void* pDest);
@@ -183,18 +183,18 @@ class RenderTexture;
             @return A pointer to the render target. This pointer has the lifespan of this
             PixelBuffer.
         */
-        RenderTexture *getRenderTarget(size_t slice=0);
+        auto getRenderTarget(size_t slice=0) -> RenderTexture *;
         
         /// Gets the width of this buffer
-        [[nodiscard]] uint32 getWidth() const { return mWidth; }
+        [[nodiscard]] auto getWidth() const -> uint32 { return mWidth; }
         /// Gets the height of this buffer
-        [[nodiscard]] uint32 getHeight() const { return mHeight; }
+        [[nodiscard]] auto getHeight() const -> uint32 { return mHeight; }
         /// Gets the depth of this buffer
-        [[nodiscard]] uint32 getDepth() const { return mDepth; }
+        [[nodiscard]] auto getDepth() const -> uint32 { return mDepth; }
         /// size (width, height, depth) of the pixel buffer
-        [[nodiscard]] Vector<3, uint32> getSize() const { return {getWidth(), getHeight(), getDepth()}; }
+        [[nodiscard]] auto getSize() const -> Vector<3, uint32> { return {getWidth(), getHeight(), getDepth()}; }
         /// Gets the native pixel format of this buffer
-        [[nodiscard]] PixelFormat getFormat() const { return mFormat; }
+        [[nodiscard]] auto getFormat() const -> PixelFormat { return mFormat; }
     };
 
     /** @} */

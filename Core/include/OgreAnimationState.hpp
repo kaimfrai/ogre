@@ -87,17 +87,17 @@ class AnimationStateSet;
         AnimationState(AnimationStateSet* parent, const AnimationState &rhs);
         
         /// Gets the name of the animation to which this state applies
-        [[nodiscard]] const String& getAnimationName() const;
+        [[nodiscard]] auto getAnimationName() const -> const String&;
         /// Gets the time position for this animation
-        [[nodiscard]] Real getTimePosition() const;
+        [[nodiscard]] auto getTimePosition() const -> Real;
         /// Sets the time position for this animation
         void setTimePosition(Real timePos);
         /// Gets the total length of this animation (may be shorter than whole animation)
-        [[nodiscard]] Real getLength() const;
+        [[nodiscard]] auto getLength() const -> Real;
         /// Sets the total length of this animation (may be shorter than whole animation)
         void setLength(Real len);
         /// Gets the weight (influence) of this animation
-        [[nodiscard]] Real getWeight() const;
+        [[nodiscard]] auto getWeight() const -> Real;
         /// Sets the weight (influence) of this animation
         void setWeight(Real weight);
         /** Modifies the time position, adjusting for animation length
@@ -108,24 +108,24 @@ class AnimationStateSet;
         void addTime(Real offset);
 
         /// Returns true if the animation has reached the end and is not looping
-        [[nodiscard]] bool hasEnded() const;
+        [[nodiscard]] auto hasEnded() const -> bool;
 
         /// Returns true if this animation is currently enabled
-        [[nodiscard]] bool getEnabled() const;
+        [[nodiscard]] auto getEnabled() const -> bool;
         /// Sets whether this animation is enabled
         void setEnabled(bool enabled);
 
         /// Equality operator
-        bool operator==(const AnimationState& rhs) const;
+        auto operator==(const AnimationState& rhs) const -> bool;
         /// Inequality operator
-        bool operator!=(const AnimationState& rhs) const;
+        auto operator!=(const AnimationState& rhs) const -> bool;
 
         /** Sets whether or not an animation loops at the start and end of
             the animation if the time continues to be altered.
         */
         void setLoop(bool loop) { mLoop = loop; }
         /// Gets whether or not this animation loops            
-        [[nodiscard]] bool getLoop() const { return mLoop; }
+        [[nodiscard]] auto getLoop() const -> bool { return mLoop; }
      
         /** Copies the states from another animation state, preserving the animation name
         (unlike operator=) but copying everything else.
@@ -134,7 +134,7 @@ class AnimationStateSet;
         void copyStateFrom(const AnimationState& animState);
 
         /// Get the parent animation state set
-        [[nodiscard]] AnimationStateSet* getParent() const { return mParent; }
+        [[nodiscard]] auto getParent() const -> AnimationStateSet* { return mParent; }
 
       /** @brief Create a new blend mask with the given number of entries
        *
@@ -166,13 +166,13 @@ class AnimationStateSet;
        */
       void _setBlendMask(const BoneBlendMask* blendMask);
       /// Get the current blend mask (const version, may be 0) 
-      [[nodiscard]] const BoneBlendMask* getBlendMask() const {return mBlendMask;}
+      [[nodiscard]] auto getBlendMask() const -> const BoneBlendMask* {return mBlendMask;}
       /// Return whether there is currently a valid blend mask set
-      [[nodiscard]] bool hasBlendMask() const {return mBlendMask != 0;}
+      [[nodiscard]] auto hasBlendMask() const -> bool {return mBlendMask != 0;}
       /// Set the weight for the bone identified by the given handle
       void setBlendMaskEntry(size_t boneHandle, float weight);
       /// Get the weight for the bone identified by the given handle
-      [[nodiscard]] inline float getBlendMaskEntry(size_t boneHandle) const
+      [[nodiscard]] inline auto getBlendMaskEntry(size_t boneHandle) const -> float
       {
           assert(mBlendMask && mBlendMask->size() > boneHandle);
           return (*mBlendMask)[boneHandle];
@@ -218,12 +218,12 @@ class AnimationStateSet;
         @param weight Weight to apply the animation with 
         @param enabled Whether the animation is enabled
         */
-        AnimationState* createAnimationState(const String& animName,  
-            Real timePos, Real length, Real weight = 1.0, bool enabled = false);
+        auto createAnimationState(const String& animName,  
+            Real timePos, Real length, Real weight = 1.0, bool enabled = false) -> AnimationState*;
         /// Get an animation state by the name of the animation
-        [[nodiscard]] AnimationState* getAnimationState(const String& name) const;
+        [[nodiscard]] auto getAnimationState(const String& name) const -> AnimationState*;
         /// Tests if state for the named animation is present
-        [[nodiscard]] bool hasAnimationState(const String& name) const;
+        [[nodiscard]] auto hasAnimationState(const String& name) const -> bool;
         /// Remove animation state with the given name
         void removeAnimationState(const String& name);
         /// Remove all animation states
@@ -232,7 +232,7 @@ class AnimationStateSet;
         /** Get an iterator over all the animation states in this set.
         @deprecated use getAnimationStates()
         */
-        AnimationStateIterator getAnimationStateIterator();
+        auto getAnimationStateIterator() -> AnimationStateIterator;
 
         /** Get all the animation states in this set.
         @note
@@ -240,7 +240,7 @@ class AnimationStateSet;
             you will need to manually lock the public mutex on this
             class to ensure thread safety if you need it.
         */
-        [[nodiscard]] const AnimationStateMap& getAnimationStates() const {
+        [[nodiscard]] auto getAnimationStates() const -> const AnimationStateMap& {
             return mAnimationStates;
         }
 
@@ -249,12 +249,12 @@ class AnimationStateSet;
         /// Set the dirty flag and dirty frame number on this state set
         void _notifyDirty();
         /// Get the latest animation state been altered frame number
-        [[nodiscard]] unsigned long getDirtyFrameNumber() const { return mDirtyFrameNumber; }
+        [[nodiscard]] auto getDirtyFrameNumber() const -> unsigned long { return mDirtyFrameNumber; }
 
         /// Internal method respond to enable/disable an animation state
         void _notifyAnimationStateEnabled(AnimationState* target, bool enabled);
         /// Tests if exists enabled animation state in this set
-        [[nodiscard]] bool hasEnabledAnimationState() const { return !mEnabledAnimationStates.empty(); }
+        [[nodiscard]] auto hasEnabledAnimationState() const -> bool { return !mEnabledAnimationStates.empty(); }
 
         /** Get an iterator over all the enabled animation states in this set
         @note
@@ -262,7 +262,7 @@ class AnimationStateSet;
             you will need to manually lock the public mutex on this
             class to ensure thread safety if you need it.
         */
-        [[nodiscard]] const EnabledAnimationStateList& getEnabledAnimationStates() const {
+        [[nodiscard]] auto getEnabledAnimationStates() const -> const EnabledAnimationStateList& {
             return mEnabledAnimationStates;
         }
 
@@ -296,10 +296,10 @@ class AnimationStateSet;
          * @param targetAnimationState
          * @param addTime if true, increment time instead of setting to an absolute position
          */
-        static ControllerValueRealPtr create(AnimationState* targetAnimationState, bool addTime = false);
+        static auto create(AnimationState* targetAnimationState, bool addTime = false) -> ControllerValueRealPtr;
 
         /** ControllerValue implementation. */
-        [[nodiscard]] Real getValue() const
+        [[nodiscard]] auto getValue() const -> Real
         {
             return mTargetAnimationState->getTimePosition() / mTargetAnimationState->getLength();
         }

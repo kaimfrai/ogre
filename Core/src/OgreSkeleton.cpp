@@ -139,18 +139,18 @@ class Affine3;
         mLinkedSkeletonAnimSourceList.clear();
     }
     //---------------------------------------------------------------------
-    Bone* Skeleton::createBone()
+    auto Skeleton::createBone() -> Bone*
     {
         // use autohandle
         return createBone(mNextAutoHandle++);
     }
     //---------------------------------------------------------------------
-    Bone* Skeleton::createBone(const String& name)
+    auto Skeleton::createBone(const String& name) -> Bone*
     {
         return createBone(name, mNextAutoHandle++);
     }
     //---------------------------------------------------------------------
-    Bone* Skeleton::createBone(unsigned short handle)
+    auto Skeleton::createBone(unsigned short handle) -> Bone*
     {
         OgreAssert(handle < OGRE_MAX_NUM_BONES, "Exceeded the maximum number of bones per skeleton");
         // Check handle not used
@@ -173,7 +173,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    Bone* Skeleton::createBone(const String& name, unsigned short handle)
+    auto Skeleton::createBone(const String& name, unsigned short handle) -> Bone*
     {
         OgreAssert(handle < OGRE_MAX_NUM_BONES, "Exceeded the maximum number of bones per skeleton");
         // Check handle not used
@@ -202,7 +202,7 @@ class Affine3;
         return ret;
     }
 
-    const Skeleton::BoneList& Skeleton::getRootBones() const {
+    auto Skeleton::getRootBones() const -> const Skeleton::BoneList& {
         if (mRootBones.empty())
         {
             deriveRootBone();
@@ -296,7 +296,7 @@ class Affine3;
         }
     }
     //---------------------------------------------------------------------
-    Animation* Skeleton::createAnimation(const String& name, Real length)
+    auto Skeleton::createAnimation(const String& name, Real length) -> Animation*
     {
         // Check name not used
         if (mAnimationsList.find(name) != mAnimationsList.end())
@@ -317,8 +317,8 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    Animation* Skeleton::getAnimation(const String& name, 
-        const LinkedSkeletonAnimationSource** linker) const
+    auto Skeleton::getAnimation(const String& name, 
+        const LinkedSkeletonAnimationSource** linker) const -> Animation*
     {
         Animation* ret = _getAnimationImpl(name, linker);
         if (!ret)
@@ -330,18 +330,18 @@ class Affine3;
         return ret;
     }
     //---------------------------------------------------------------------
-    Animation* Skeleton::getAnimation(const String& name) const
+    auto Skeleton::getAnimation(const String& name) const -> Animation*
     {
         return getAnimation(name, 0);
     }
     //---------------------------------------------------------------------
-    bool Skeleton::hasAnimation(const String& name) const
+    auto Skeleton::hasAnimation(const String& name) const -> bool
     {
         return _getAnimationImpl(name) != 0;
     }
     //---------------------------------------------------------------------
-    Animation* Skeleton::_getAnimationImpl(const String& name, 
-        const LinkedSkeletonAnimationSource** linker) const
+    auto Skeleton::_getAnimationImpl(const String& name, 
+        const LinkedSkeletonAnimationSource** linker) const -> Animation*
     {
         Animation* ret = 0;
         AnimationList::const_iterator i = mAnimationsList.find(name);
@@ -463,7 +463,7 @@ class Affine3;
             mManualBones.erase(bone);
     }
     //-----------------------------------------------------------------------
-    unsigned short Skeleton::getNumBones() const
+    auto Skeleton::getNumBones() const -> unsigned short
     {
         return (unsigned short)mBoneList.size();
     }
@@ -495,12 +495,12 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    unsigned short Skeleton::getNumAnimations() const
+    auto Skeleton::getNumAnimations() const -> unsigned short
     {
         return (unsigned short)mAnimationsList.size();
     }
     //---------------------------------------------------------------------
-    Animation* Skeleton::getAnimation(unsigned short index) const
+    auto Skeleton::getAnimation(unsigned short index) const -> Animation*
     {
         // If you hit this assert, then the index is out of bounds.
         assert( index < mAnimationsList.size() );
@@ -512,13 +512,13 @@ class Affine3;
         return i->second;
     }
     //---------------------------------------------------------------------
-    Bone* Skeleton::getBone(unsigned short handle) const
+    auto Skeleton::getBone(unsigned short handle) const -> Bone*
     {
         assert(handle < mBoneList.size() && "Index out of bounds");
         return mBoneList[handle];
     }
     //---------------------------------------------------------------------
-    Bone* Skeleton::getBone(const String& name) const
+    auto Skeleton::getBone(const String& name) const -> Bone*
     {
         BoneListByName::const_iterator i = mBoneListByName.find(name);
 
@@ -532,7 +532,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    bool Skeleton::hasBone(const String& name) const 
+    auto Skeleton::hasBone(const String& name) const -> bool 
     {   
         return mBoneListByName.find(name) != mBoneListByName.end();
     }
@@ -621,7 +621,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    SkeletonAnimationBlendMode Skeleton::getBlendMode() const
+    auto Skeleton::getBlendMode() const -> SkeletonAnimationBlendMode
     {
         return mBlendState;
     }
@@ -1003,7 +1003,7 @@ class Affine3;
         }
     }
 
-    size_t Skeleton::calculateSize() const
+    auto Skeleton::calculateSize() const -> size_t
     {
         size_t memSize = sizeof(*this);
         memSize += mBoneList.size() * sizeof(Bone);

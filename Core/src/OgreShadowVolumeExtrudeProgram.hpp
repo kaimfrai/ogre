@@ -46,7 +46,7 @@ namespace Ogre {
         /// Shutdown & destroy the vertex programs
         static void shutdown();
 
-        static const GpuProgramPtr& get(Light::LightTypes lightType, bool finite);
+        static auto get(Light::LightTypes lightType, bool finite) -> const GpuProgramPtr&;
     };
 }
 

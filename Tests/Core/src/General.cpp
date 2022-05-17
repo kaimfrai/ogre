@@ -318,7 +318,7 @@ TEST(Image, Combine)
 
 struct UsePreviousResourceLoadingListener : public ResourceLoadingListener
 {
-    bool resourceCollision(Resource *resource, ResourceManager *resourceManager) { return false; }
+    auto resourceCollision(Resource *resource, ResourceManager *resourceManager) -> bool { return false; }
 };
 
 typedef RootWithoutRenderSystemFixture ResourceLoading;
@@ -351,7 +351,7 @@ TEST_F(ResourceLoading, CollsionUseExisting)
 
 struct DeletePreviousResourceLoadingListener : public ResourceLoadingListener
 {
-    bool resourceCollision(Resource* resource, ResourceManager* resourceManager)
+    auto resourceCollision(Resource* resource, ResourceManager* resourceManager) -> bool
     {
         resourceManager->remove(resource->getName(), resource->getGroup());
         return true;

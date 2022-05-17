@@ -60,12 +60,12 @@ namespace OgreBites
         =============================================================================*/
         struct Comparer
         {
-            bool operator()(Sample const* a, Sample const* b) const
+            auto operator()(Sample const* a, Sample const* b) const -> bool
             {
                 return a->getInfo().at("Title") < b->getInfo().at("Title");
             }
 
-            bool operator()(::std::unique_ptr<Sample> const& a, ::std::unique_ptr<Sample> const& b) const
+            auto operator()(::std::unique_ptr<Sample> const& a, ::std::unique_ptr<Sample> const& b) const -> bool
             {
                 return operator()(a.get(), b.get());
             }
@@ -100,8 +100,8 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Retrieves custom sample info.
         -----------------------------------------------------------------------------*/
-        [[nodiscard]] const Ogre::NameValuePairList& getInfo() const { return mInfo; }
-        Ogre::NameValuePairList& getInfo() { return mInfo; }
+        [[nodiscard]] auto getInfo() const -> const Ogre::NameValuePairList& { return mInfo; }
+        auto getInfo() -> Ogre::NameValuePairList& { return mInfo; }
 
         /*-----------------------------------------------------------------------------
         | Tests to see if target machine meets any special requirements of
@@ -131,10 +131,10 @@ namespace OgreBites
         | If this sample requires specific plugins to run, this method will be
         | used to return their names.
         -----------------------------------------------------------------------------*/
-        virtual Ogre::StringVector getRequiredPlugins() { return {}; }
+        virtual auto getRequiredPlugins() -> Ogre::StringVector { return {}; }
 
-        Ogre::SceneManager* getSceneManager() { return mSceneMgr; }
-        bool isDone() { return mDone; }
+        auto getSceneManager() -> Ogre::SceneManager* { return mSceneMgr; }
+        auto isDone() -> bool { return mDone; }
 
         /** Adds a screenshot frame to the list - this should
          *    be done during setup of the test. */
@@ -144,7 +144,7 @@ namespace OgreBites
         }
 
         /** Returns whether or not a screenshot should be taken at the given frame */
-        virtual bool isScreenshotFrame(int frame)
+        virtual auto isScreenshotFrame(int frame) -> bool
         {
             if (mScreenshotFrames.empty())
             {
@@ -245,12 +245,12 @@ namespace OgreBites
 
         // callback interface copied from various listeners to be used by SampleContext
 
-        virtual bool frameStarted(const Ogre::FrameEvent& evt) { return true; }
-        virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt) { return true; }
-        virtual bool frameEnded(const Ogre::FrameEvent& evt) { return true; }
+        virtual auto frameStarted(const Ogre::FrameEvent& evt) -> bool { return true; }
+        virtual auto frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool { return true; }
+        virtual auto frameEnded(const Ogre::FrameEvent& evt) -> bool { return true; }
         virtual void windowMoved(Ogre::RenderWindow* rw) {}
         virtual void windowResized(Ogre::RenderWindow* rw) {}
-        virtual bool windowClosing(Ogre::RenderWindow* rw) { return true; }
+        virtual auto windowClosing(Ogre::RenderWindow* rw) -> bool { return true; }
         virtual void windowClosed(Ogre::RenderWindow* rw) {}
         virtual void windowFocusChange(Ogre::RenderWindow* rw) {}
     protected:

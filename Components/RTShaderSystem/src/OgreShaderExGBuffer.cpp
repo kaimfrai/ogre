@@ -69,19 +69,19 @@ namespace RTShader
 String GBuffer::Type = "GBuffer";
 
 //-----------------------------------------------------------------------
-const String& GBuffer::getType() const { return Type; }
+auto GBuffer::getType() const -> const String& { return Type; }
 
 //-----------------------------------------------------------------------
-int GBuffer::getExecutionOrder() const { return FFP_LIGHTING; }
+auto GBuffer::getExecutionOrder() const -> int { return FFP_LIGHTING; }
 
-bool GBuffer::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+auto GBuffer::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
 {
     srcPass->getParent()->getParent()->setReceiveShadows(false);
     return true;
 }
 
 //-----------------------------------------------------------------------
-bool GBuffer::createCpuSubPrograms(ProgramSet* programSet)
+auto GBuffer::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
     Function* psMain = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM)->getMain();
 
@@ -224,9 +224,9 @@ void GBuffer::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-const String& GBufferFactory::getType() const { return GBuffer::Type; }
+auto GBufferFactory::getType() const -> const String& { return GBuffer::Type; }
 
-static GBuffer::TargetLayout translate(const String& val)
+static auto translate(const String& val) -> GBuffer::TargetLayout
 {
     if(val == "depth")
         return GBuffer::TL_DEPTH;
@@ -240,8 +240,8 @@ static GBuffer::TargetLayout translate(const String& val)
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* GBufferFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                               SGScriptTranslator* translator)
+auto GBufferFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
+                                               SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name != "lighting_stage" || prop->values.size() < 2)
         return NULL;
@@ -293,7 +293,7 @@ void GBufferFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subR
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* GBufferFactory::createInstanceImpl() { return new GBuffer; }
+auto GBufferFactory::createInstanceImpl() -> SubRenderState* { return new GBuffer; }
 
 } // namespace RTShader
 } // namespace Ogre

@@ -118,10 +118,10 @@ namespace Ogre {
         virtual ~Overlay();
 
 
-        OverlayContainer* getChild(const String& name);
+        auto getChild(const String& name) -> OverlayContainer*;
 
         /** Gets the name of this overlay. */
-        const String& getName() const;
+        auto getName() const -> const String&;
         
         /** Alters the Z-order of this overlay. 
         @remarks
@@ -129,13 +129,13 @@ namespace Ogre {
         */
         void setZOrder(ushort zorder);
         /** Gets the Z-order of this overlay. */
-        ushort getZOrder() const;
+        auto getZOrder() const -> ushort;
 
         /** Gets whether the overlay is displayed or not. */
-        bool isVisible() const;
+        auto isVisible() const -> bool;
 
         /** Gets whether the overlay is initialised or not. */
-        bool isInitialised() const { return mInitialised; }
+        auto isInitialised() const -> bool { return mInitialised; }
 
         /** Shows the overlay if it was hidden. */
         void show();
@@ -217,10 +217,10 @@ namespace Ogre {
         void setScroll(Real x, Real y);
 
         /** Gets the current X scroll value */
-        Real getScrollX() const;
+        auto getScrollX() const -> Real;
 
         /** Gets the current Y scroll value */
-        Real getScrollY() const;
+        auto getScrollY() const -> Real;
 
         /** Scrolls the overlay by the offsets provided.
         @remarks
@@ -234,7 +234,7 @@ namespace Ogre {
         void setRotate(const Radian& angle);
 
         /** Gets the rotation applied to this overlay, in degrees.*/
-        const Radian &getRotate() const { return mRotate; }
+        auto getRotate() const -> const Radian & { return mRotate; }
 
         /** Adds the passed in angle to the rotation applied to this overlay. */
         void rotate(const Radian& angle);
@@ -249,10 +249,10 @@ namespace Ogre {
         void setScale(Real x, Real y);
 
         /** Gets the current X scale value */
-        Real getScaleX() const;
+        auto getScaleX() const -> Real;
 
         /** Gets the current Y scale value */
-        Real getScaleY() const;
+        auto getScaleY() const -> Real;
 
         /** Used to transform the overlay when scrolling, scaling etc. */
         void _getWorldTransforms(Matrix4* xform) const;
@@ -261,11 +261,11 @@ namespace Ogre {
         virtual void _findVisibleObjects(Camera* cam, RenderQueue* queue, Viewport* vp);
 
         /** This returns a OverlayElement at position x,y. */
-        virtual OverlayElement* findElementAt(Real x, Real y);
+        virtual auto findElementAt(Real x, Real y) -> OverlayElement*;
 
         /** Returns all 2D elements in this manager.
         */
-        const OverlayContainerList& get2DElements() const {
+        auto get2DElements() const -> const OverlayContainerList& {
             return m2DElements;
         }
 
@@ -275,7 +275,7 @@ namespace Ogre {
             this overlay chose to populate it. Script loaders are advised
             to populate it.
         */
-        const String& getOrigin() const { return mOrigin; }
+        auto getOrigin() const -> const String& { return mOrigin; }
         /// Notify this overlay of it's origin
         void _notifyOrigin(const String& origin) { mOrigin = origin; }
 

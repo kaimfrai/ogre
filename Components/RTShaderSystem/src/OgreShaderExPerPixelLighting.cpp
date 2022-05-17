@@ -65,12 +65,12 @@ namespace RTShader {
 String PerPixelLighting::Type = "SGX_PerPixelLighting";
 
 //-----------------------------------------------------------------------
-const String& PerPixelLighting::getType() const
+auto PerPixelLighting::getType() const -> const String&
 {
     return Type;
 }
 
-bool PerPixelLighting::setParameter(const String& name, const String& value)
+auto PerPixelLighting::setParameter(const String& name, const String& value) -> bool
 {
 	if(name == "two_sided")
 	{
@@ -81,7 +81,7 @@ bool PerPixelLighting::setParameter(const String& name, const String& value)
 }
 
 //-----------------------------------------------------------------------
-bool PerPixelLighting::resolveParameters(ProgramSet* programSet)
+auto PerPixelLighting::resolveParameters(ProgramSet* programSet) -> bool
 {
     if (false == resolveGlobalParameters(programSet))
         return false;
@@ -93,7 +93,7 @@ bool PerPixelLighting::resolveParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet)
+auto PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -168,7 +168,7 @@ bool PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool PerPixelLighting::resolvePerLightParameters(ProgramSet* programSet)
+auto PerPixelLighting::resolvePerLightParameters(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -250,7 +250,7 @@ bool PerPixelLighting::resolvePerLightParameters(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool PerPixelLighting::resolveDependencies(ProgramSet* programSet)
+auto PerPixelLighting::resolveDependencies(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -267,7 +267,7 @@ bool PerPixelLighting::resolveDependencies(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-bool PerPixelLighting::addFunctionInvocations(ProgramSet* programSet)
+auto PerPixelLighting::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM); 
     Function* vsMain = vsProgram->getEntryPointFunction();  
@@ -342,14 +342,14 @@ void PerPixelLighting::addPSGlobalIlluminationInvocation(const FunctionStageRef&
 }
 
 //-----------------------------------------------------------------------
-const String& PerPixelLightingFactory::getType() const
+auto PerPixelLightingFactory::getType() const -> const String&
 {
     return PerPixelLighting::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* PerPixelLightingFactory::createInstance(ScriptCompiler* compiler, 
-                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+auto PerPixelLightingFactory::createInstance(ScriptCompiler* compiler, 
+                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
 {
     if (prop->name != "lighting_stage" || prop->values.empty())
         return NULL;
@@ -389,7 +389,7 @@ void PerPixelLightingFactory::writeInstance(MaterialSerializer* ser, SubRenderSt
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* PerPixelLightingFactory::createInstanceImpl()
+auto PerPixelLightingFactory::createInstanceImpl() -> SubRenderState*
 {
     return new PerPixelLighting;
 }

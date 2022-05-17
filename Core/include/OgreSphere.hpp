@@ -65,35 +65,35 @@ namespace Ogre {
             : mRadius(radius), mCenter(center) {}
 
         /** Returns the radius of the sphere. */
-        [[nodiscard]] Real getRadius() const { return mRadius; }
+        [[nodiscard]] auto getRadius() const -> Real { return mRadius; }
 
         /** Sets the radius of the sphere. */
         void setRadius(Real radius) { mRadius = radius; }
 
         /** Returns the center point of the sphere. */
-        [[nodiscard]] const Vector3& getCenter() const { return mCenter; }
+        [[nodiscard]] auto getCenter() const -> const Vector3& { return mCenter; }
 
         /** Sets the center point of the sphere. */
         void setCenter(const Vector3& center) { mCenter = center; }
 
         /** Returns whether or not this sphere intersects another sphere. */
-        [[nodiscard]] bool intersects(const Sphere& s) const
+        [[nodiscard]] auto intersects(const Sphere& s) const -> bool
         {
             return (s.mCenter - mCenter).squaredLength() <=
                 Math::Sqr(s.mRadius + mRadius);
         }
         /** Returns whether or not this sphere intersects a box. */
-        [[nodiscard]] bool intersects(const AxisAlignedBox& box) const
+        [[nodiscard]] auto intersects(const AxisAlignedBox& box) const -> bool
         {
             return Math::intersects(*this, box);
         }
         /** Returns whether or not this sphere intersects a plane. */
-        [[nodiscard]] bool intersects(const Plane& plane) const
+        [[nodiscard]] auto intersects(const Plane& plane) const -> bool
         {
             return Math::Abs(plane.getDistance(getCenter())) <= getRadius();
         }
         /** Returns whether or not this sphere intersects a point. */
-        [[nodiscard]] bool intersects(const Vector3& v) const
+        [[nodiscard]] auto intersects(const Vector3& v) const -> bool
         {
             return ((v - mCenter).squaredLength() <= Math::Sqr(mRadius));
         }
@@ -125,7 +125,7 @@ namespace Ogre {
         }
     };
 
-    inline bool Math::intersects(const Sphere& sphere, const Plane& plane)
+    inline auto Math::intersects(const Sphere& sphere, const Plane& plane) -> bool
     {
         return sphere.intersects(plane);
     }

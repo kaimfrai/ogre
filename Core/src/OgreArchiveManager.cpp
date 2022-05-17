@@ -43,11 +43,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> ArchiveManager* Singleton<ArchiveManager>::msSingleton = 0;
-    ArchiveManager* ArchiveManager::getSingletonPtr()
+    auto ArchiveManager::getSingletonPtr() -> ArchiveManager*
     {
         return msSingleton;
     }
-    ArchiveManager& ArchiveManager::getSingleton()
+    auto ArchiveManager::getSingleton() -> ArchiveManager&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -56,7 +56,7 @@ namespace Ogre {
     {
     }
     //-----------------------------------------------------------------------
-    Archive* ArchiveManager::load( const String& filename, const String& archiveType, bool readOnly)
+    auto ArchiveManager::load( const String& filename, const String& archiveType, bool readOnly) -> Archive*
     {
         ArchiveMap::iterator i = mArchives.find(filename);
         Archive* pArch = 0;
@@ -107,7 +107,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    ArchiveManager::ArchiveMapIterator ArchiveManager::getArchiveIterator()
+    auto ArchiveManager::getArchiveIterator() -> ArchiveManager::ArchiveMapIterator
     {
         return {mArchives.begin(), mArchives.end()};
     }

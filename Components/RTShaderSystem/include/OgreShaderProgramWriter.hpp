@@ -68,7 +68,7 @@ public:
     virtual void                writeSourceCode         (std::ostream& os, Program* program) = 0;
     
     /** Return the target language of this writer. */
-    [[nodiscard]] virtual const String&       getTargetLanguage   () const = 0;
+    [[nodiscard]] virtual auto       getTargetLanguage   () const -> const String& = 0;
 
 // Protected methods.
 protected:

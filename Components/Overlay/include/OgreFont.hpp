@@ -55,7 +55,7 @@ class ResourceManager;
     */
 
     /// decode UTF8 encoded bytestream to uint32 codepoints
-    std::vector<uint32> utftoc32(String str);
+    auto utftoc32(String str) -> std::vector<uint32>;
 
     /** Enumerates the types of Font usable in the engine. */
     enum FontType
@@ -141,7 +141,7 @@ class ResourceManager;
         /// @copydoc Resource::unloadImpl
         virtual void unloadImpl();
         /// @copydoc Resource::calculateSize
-        size_t calculateSize() const { return 0; } // permanent resource is in the texture 
+        auto calculateSize() const -> size_t { return 0; } // permanent resource is in the texture 
     public:
 
         /** Constructor.
@@ -155,7 +155,7 @@ class ResourceManager;
         void setType(FontType ftype);
 
         /** Gets the type of font. */
-        FontType getType() const;
+        auto getType() const -> FontType;
 
         /** Sets the source of the font.
         @remarks
@@ -176,7 +176,7 @@ class ResourceManager;
 
         /** Gets the source this font (either an image or a truetype font).
         */
-        const String& getSource() const;
+        auto getSource() const -> const String&;
 
         /** Sets the size of a truetype font (only required for FT_TRUETYPE). 
         @param ttfSize The size of the font in points. Note that the
@@ -196,12 +196,12 @@ class ResourceManager;
             Note that the size of the font does not affect how big it is on the screen, 
             just how large it is in the texture and thus how detailed it is.            
         */
-        Real getTrueTypeSize() const;
+        auto getTrueTypeSize() const -> Real;
         /** Gets the resolution (dpi) of the font used to generate the texture.
         @remarks
             Only applicable for FT_TRUETYPE Font objects.
         */
-        uint getTrueTypeResolution() const;
+        auto getTrueTypeResolution() const -> uint;
         /** Gets the maximum baseline distance of all glyphs used in the texture.
         @remarks
             Only applicable for FT_TRUETYPE Font objects.
@@ -211,7 +211,7 @@ class ResourceManager;
         @note
             This value is only available after the font has been loaded.
         */
-        int getTrueTypeMaxBearingY() const;
+        auto getTrueTypeMaxBearingY() const -> int;
 
 
         /** Returns the texture coordinates of the associated glyph. 
@@ -220,7 +220,7 @@ class ResourceManager;
             @return A rectangle with the UV coordinates, or null UVs if the
                 code point was not present
         */
-        const UVRect& getGlyphTexCoords(CodePoint id) const { return getGlyphInfo(id).uvRect; }
+        auto getGlyphTexCoords(CodePoint id) const -> const UVRect& { return getGlyphInfo(id).uvRect; }
 
         /** Sets the texture coordinates of a glyph.
         @remarks
@@ -238,7 +238,7 @@ class ResourceManager;
         void setGlyphInfo(const GlyphInfo& info) { mCodePointMap[info.codePoint] = info; }
 
         /** Gets the aspect ratio (width / height) of this character. */
-        float getGlyphAspectRatio(CodePoint id) const { return getGlyphInfo(id).aspectRatio; }
+        auto getGlyphAspectRatio(CodePoint id) const -> float { return getGlyphInfo(id).aspectRatio; }
         /** Sets the aspect ratio (width / height) of this character.
         @remarks
             You only need to call this if you're setting up a font loaded from a 
@@ -256,7 +256,7 @@ class ResourceManager;
         /** Gets the information available for a glyph corresponding to a
             given code point, or throws an exception if it doesn't exist;
         */
-        const GlyphInfo& getGlyphInfo(CodePoint id) const
+        auto getGlyphInfo(CodePoint id) const -> const GlyphInfo&
         {
             CodePointMap::const_iterator i = mCodePointMap.find(id);
             if (i == mCodePointMap.end())
@@ -289,7 +289,7 @@ class ResourceManager;
         /** Get a const reference to the list of code point ranges to be used to
             generate glyphs from a truetype font.
         */
-        const CodePointRangeList& getCodePointRangeList() const
+        auto getCodePointRangeList() const -> const CodePointRangeList&
         {
             return mCodePointRangeList;
         }
@@ -297,7 +297,7 @@ class ResourceManager;
         @remarks
             This will only be valid after the Font has been loaded. 
         */
-        inline const MaterialPtr& getMaterial() const
+        inline auto getMaterial() const -> const MaterialPtr&
         {
             return mMaterial;
         }
@@ -332,7 +332,7 @@ class ResourceManager;
         /** Gets whether or not the colour of this font is antialiased as it is generated
         from a true type font.
         */
-        inline bool getAntialiasColour() const
+        inline auto getAntialiasColour() const -> bool
         {
             return mAntialiasColour;
         }

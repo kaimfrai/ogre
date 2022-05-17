@@ -39,11 +39,11 @@ class RenderSystem;
 
     //-----------------------------------------------------------------------
     template<> SceneManagerEnumerator* Singleton<SceneManagerEnumerator>::msSingleton = 0;
-    SceneManagerEnumerator* SceneManagerEnumerator::getSingletonPtr()
+    auto SceneManagerEnumerator::getSingletonPtr() -> SceneManagerEnumerator*
     {
         return msSingleton;
     }
-    SceneManagerEnumerator& SceneManagerEnumerator::getSingleton()
+    auto SceneManagerEnumerator::getSingleton() -> SceneManagerEnumerator&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -120,7 +120,7 @@ class RenderSystem;
         mFactories.remove(fact);
     }
     //-----------------------------------------------------------------------
-    const SceneManagerMetaData* SceneManagerEnumerator::getMetaData(const String& typeName) const
+    auto SceneManagerEnumerator::getMetaData(const String& typeName) const -> const SceneManagerMetaData*
     {
         for (MetaDataList::const_iterator i = mMetaDataList.begin(); 
             i != mMetaDataList.end(); ++i)
@@ -138,8 +138,8 @@ class RenderSystem;
     }
 
     //-----------------------------------------------------------------------
-    SceneManager* SceneManagerEnumerator::createSceneManager(
-        const String& typeName, const String& instanceName)
+    auto SceneManagerEnumerator::createSceneManager(
+        const String& typeName, const String& instanceName) -> SceneManager*
     {
         if (mInstances.find(instanceName) != mInstances.end())
         {
@@ -206,7 +206,7 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    SceneManager* SceneManagerEnumerator::getSceneManager(const String& instanceName) const
+    auto SceneManagerEnumerator::getSceneManager(const String& instanceName) const -> SceneManager*
     {
         Instances::const_iterator i = mInstances.find(instanceName);
         if(i != mInstances.end())
@@ -222,13 +222,13 @@ class RenderSystem;
 
     }
     //---------------------------------------------------------------------
-    bool SceneManagerEnumerator::hasSceneManager(const String& instanceName) const
+    auto SceneManagerEnumerator::hasSceneManager(const String& instanceName) const -> bool
     {
         return mInstances.find(instanceName) != mInstances.end();
     }
 
     //-----------------------------------------------------------------------
-    const SceneManagerEnumerator::Instances& SceneManagerEnumerator::getSceneManagers() const
+    auto SceneManagerEnumerator::getSceneManagers() const -> const SceneManagerEnumerator::Instances&
     {
         return mInstances;
     }
@@ -262,8 +262,8 @@ class RenderSystem;
         mMetaData.worldGeometrySupported = false;
     }
     //-----------------------------------------------------------------------
-    SceneManager* DefaultSceneManagerFactory::createInstance(
-        const String& instanceName)
+    auto DefaultSceneManagerFactory::createInstance(
+        const String& instanceName) -> SceneManager*
     {
         return new DefaultSceneManager(instanceName);
     }
@@ -278,7 +278,7 @@ class RenderSystem;
     {
     }
     //-----------------------------------------------------------------------
-    const String& DefaultSceneManager::getTypeName() const
+    auto DefaultSceneManager::getTypeName() const -> const String&
     {
         return DefaultSceneManagerFactory::FACTORY_TYPE_NAME;
     }

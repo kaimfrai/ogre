@@ -35,7 +35,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    String DriverVersion::toString() const
+    auto DriverVersion::toString() const -> String
     {
         StringStream str;
         str << major << "." << minor << "." << release << "." << build;
@@ -87,7 +87,7 @@ namespace Ogre {
         mSupportedShaderProfiles.erase(profile);
     }
 
-    bool RenderSystemCapabilities::isShaderProfileSupported(const String& profile) const
+    auto RenderSystemCapabilities::isShaderProfileSupported(const String& profile) const -> bool
     {
         return (mSupportedShaderProfiles.end() != mSupportedShaderProfiles.find(profile));
     }
@@ -268,7 +268,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     String RenderSystemCapabilities::msGPUVendorStrings[GPU_VENDOR_COUNT];
     //---------------------------------------------------------------------
-    GPUVendor RenderSystemCapabilities::vendorFromString(const String& vendorString)
+    auto RenderSystemCapabilities::vendorFromString(const String& vendorString) -> GPUVendor
     {
         initVendorStrings();
         GPUVendor ret = GPU_UNKNOWN;
@@ -288,7 +288,7 @@ namespace Ogre {
         
     }
     //---------------------------------------------------------------------
-    const String& RenderSystemCapabilities::vendorToString(GPUVendor v)
+    auto RenderSystemCapabilities::vendorToString(GPUVendor v) -> const String&
     {
         initVendorStrings();
         return msGPUVendorStrings[v];

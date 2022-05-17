@@ -73,13 +73,13 @@ namespace RTShader {
 
 
 //-----------------------------------------------------------------------
-ProgramManager* ProgramManager::getSingletonPtr()
+auto ProgramManager::getSingletonPtr() -> ProgramManager*
 {
     return msSingleton;
 }
 
 //-----------------------------------------------------------------------
-ProgramManager& ProgramManager::getSingleton()
+auto ProgramManager::getSingleton() -> ProgramManager&
 {
     assert( msSingleton );  
     return ( *msSingleton );
@@ -132,7 +132,7 @@ void ProgramManager::flushGpuProgramsCache()
     flushGpuProgramsCache(mFragmentShaderMap);
 }
 
-size_t ProgramManager::getShaderCount(GpuProgramType type) const
+auto ProgramManager::getShaderCount(GpuProgramType type) const -> size_t
 {
     switch(type)
     {
@@ -231,11 +231,11 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------------
-GpuProgramPtr ProgramManager::createGpuProgram(Program* shaderProgram, 
+auto ProgramManager::createGpuProgram(Program* shaderProgram, 
                                                ProgramWriter* programWriter,
                                                const String& language,
                                                const String& profiles,
-                                               const String& cachePath)
+                                               const String& cachePath) -> GpuProgramPtr
 {
     std::stringstream sourceCodeStringStream;
 
@@ -333,7 +333,7 @@ GpuProgramPtr ProgramManager::createGpuProgram(Program* shaderProgram,
 
 
 //-----------------------------------------------------------------------------
-String ProgramManager::generateHash(const String& programString, const String& defines)
+auto ProgramManager::generateHash(const String& programString, const String& defines) -> String
 {
     //Different programs must have unique hash values.
     uint32_t hash[4];

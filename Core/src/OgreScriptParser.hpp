@@ -46,11 +46,11 @@ namespace Ogre {
     class ScriptParser : public ScriptCompilerAlloc
     {
     public:
-        static ConcreteNodeListPtr parse(const ScriptTokenList &tokens, const String& file);
-        static ConcreteNodeListPtr parseChunk(const ScriptTokenList &tokens, const String& file);
+        static auto parse(const ScriptTokenList &tokens, const String& file) -> ConcreteNodeListPtr;
+        static auto parseChunk(const ScriptTokenList &tokens, const String& file) -> ConcreteNodeListPtr;
     private:
-        static const ScriptToken *getToken(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end, int offset);
-        static ScriptTokenList::const_iterator skipNewlines(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end);
+        static auto getToken(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end, int offset) -> const ScriptToken *;
+        static auto skipNewlines(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end) -> ScriptTokenList::const_iterator;
     };
     
     /** @} */

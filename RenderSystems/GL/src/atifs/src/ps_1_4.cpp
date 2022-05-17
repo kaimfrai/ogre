@@ -1040,7 +1040,7 @@ PS_1_4::PS_1_4()
 }
 
 
-bool PS_1_4::bindMachineInstInPassToFragmentShader(const MachineInstContainer & PassMachineInstructions)
+auto PS_1_4::bindMachineInstInPassToFragmentShader(const MachineInstContainer & PassMachineInstructions) -> bool
 {
   size_t instIDX = 0;
   size_t instCount = PassMachineInstructions.size();
@@ -1174,7 +1174,7 @@ bool PS_1_4::bindMachineInstInPassToFragmentShader(const MachineInstContainer & 
 }
 
 
-size_t PS_1_4::getMachineInst( size_t Idx)
+auto PS_1_4::getMachineInst( size_t Idx) -> size_t
 {
     if (Idx < mPhase1TEX_mi.size()) {
         return mPhase1TEX_mi[Idx];
@@ -1232,14 +1232,14 @@ void PS_1_4::addMachineInst(const PhaseType phase, const uint inst)
 
 }
 
-size_t PS_1_4::getMachineInstCount()
+auto PS_1_4::getMachineInstCount() -> size_t
 {
 
     return (mPhase1TEX_mi.size() + mPhase1ALU_mi.size() + mPhase2TEX_mi.size() + mPhase2ALU_mi.size());
 }
 
 
-bool PS_1_4::bindAllMachineInstToFragmentShader()
+auto PS_1_4::bindAllMachineInstToFragmentShader() -> bool
 {
     bool passed;
 
@@ -1253,7 +1253,7 @@ bool PS_1_4::bindAllMachineInstToFragmentShader()
 }
 
 
-bool PS_1_4::expandMacro(const MacroRegModify & MacroMod)
+auto PS_1_4::expandMacro(const MacroRegModify & MacroMod) -> bool
 {
 
     RegModOffset * regmod;
@@ -1276,7 +1276,7 @@ bool PS_1_4::expandMacro(const MacroRegModify & MacroMod)
 }
 
 
-bool PS_1_4::BuildMachineInst()
+auto PS_1_4::BuildMachineInst() -> bool
 {
 
     // check the states to see if a machine instruction can be assembled
@@ -1402,7 +1402,7 @@ bool PS_1_4::BuildMachineInst()
 }
 
 
-bool PS_1_4::expandMachineInstruction()
+auto PS_1_4::expandMachineInstruction() -> bool
 {
     // now push instructions onto MachineInstructions container
     // assume that an instruction will be expanded
@@ -1554,7 +1554,7 @@ void PS_1_4::updateRegisterWriteState(const PhaseType phase)
 }
 
 
-bool PS_1_4::isRegisterReadValid(const PhaseType phase, const int param)
+auto PS_1_4::isRegisterReadValid(const PhaseType phase, const int param) -> bool
 {
     bool passed = true; // assume everything will go alright
     // if in phase 2 ALU and argument is a source
@@ -1662,7 +1662,7 @@ void PS_1_4::clearAllMachineInst()
 
 }
 
-bool PS_1_4::doPass2()
+auto PS_1_4::doPass2() -> bool
 {
     clearAllMachineInst();
     // if pass 2 was successful, optimize the machine instructions
@@ -1674,7 +1674,7 @@ bool PS_1_4::doPass2()
 }
 
 
-bool PS_1_4::Pass2scan(const TokenInst * Tokens, const size_t size)
+auto PS_1_4::Pass2scan(const TokenInst * Tokens, const size_t size) -> bool
 {
 
     // execute TokenInstructions to build MachineInstructions
@@ -1769,7 +1769,7 @@ bool PS_1_4::Pass2scan(const TokenInst * Tokens, const size_t size)
 
 
 
-bool PS_1_4::setOpParram(const SymbolDef* symboldef)
+auto PS_1_4::setOpParram(const SymbolDef* symboldef) -> bool
 {
   bool success = true;
   if(mArgCnt<MAXOPPARRAMS) {

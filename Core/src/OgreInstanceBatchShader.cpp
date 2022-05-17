@@ -67,7 +67,7 @@ class InstanceManager;
     }
 
     //-----------------------------------------------------------------------
-    size_t InstanceBatchShader::calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const
+    auto InstanceBatchShader::calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t
     {
         const size_t numBones = std::max<size_t>( 1, baseSubMesh->blendIndexToBoneIndexMap.size() );
 
@@ -345,7 +345,7 @@ class InstanceManager;
         }
     }
     //-----------------------------------------------------------------------
-    unsigned short InstanceBatchShader::getNumWorldTransforms() const
+    auto InstanceBatchShader::getNumWorldTransforms() const -> unsigned short
     {
         return uint16(mNumWorldMatrices);
     }
