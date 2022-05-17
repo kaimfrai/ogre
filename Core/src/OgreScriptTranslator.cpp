@@ -556,7 +556,8 @@ class LodStrategy;
                 return true;
             else
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                    ::std::format("{} is not a valid value for {}", prop->values.front()->getValue(), getPropertyName(compiler, prop->id)));
+                                   prop->values.front()->getValue() + " is not a valid value for " +
+                                       getPropertyName(compiler, prop->id));
         }
 
         return false;
@@ -629,7 +630,7 @@ class LodStrategy;
             translator->translate(compiler, node);
         else
             compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, node->file, node->line,
-                               ::std::format("token \"{}\" is not recognized", static_cast<ObjectAbstractNode*>(node.get())->cls));
+                               "token \"" + static_cast<ObjectAbstractNode*>(node.get())->cls + "\" is not recognized");
     }
     //-------------------------------------------------------------------------
     AbstractNodeList::const_iterator ScriptTranslator::getNodeAt(const AbstractNodeList &nodes, size_t index)
@@ -1136,7 +1137,7 @@ class LodStrategy;
                     break;
                 default:
                     compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, prop->file, prop->line,
-                                       ::std::format("token \"{}\" is not recognized", prop->name));
+                                       "token \"" + prop->name + "\" is not recognized");
                 }
             }
             else if((*i)->type == ANT_OBJECT)
@@ -1242,13 +1243,13 @@ class LodStrategy;
                             else
                             {
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   ::std::format("gpu_vendor_rule cannot accept \"{}\" as first argument", (*i0)->getValue()));
+                                                   "gpu_vendor_rule cannot accept \"" + (*i0)->getValue() + "\" as first argument");
                             }
 
                             String vendor;
                             if(!getString(*i1, &vendor))
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   ::std::format("gpu_vendor_rule cannot accept \"{}\" as second argument", (*i1)->getValue()));
+                                                   "gpu_vendor_rule cannot accept \"" + (*i1)->getValue() + "\" as second argument");
 
                             rule.vendor = RenderSystemCapabilities::vendorFromString(vendor);
 
@@ -1260,7 +1261,7 @@ class LodStrategy;
                         else
                         {
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               ::std::format("gpu_vendor_rule cannot accept \"{}\" as first argument", (*i0)->getValue()));
+                                               "gpu_vendor_rule cannot accept \"" + (*i0)->getValue() + "\" as first argument");
                         }
 
                     }
@@ -1296,12 +1297,12 @@ class LodStrategy;
                             else
                             {
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   ::std::format("gpu_device_rule cannot accept \"{}\" as first argument", (*i0)->getValue()));
+                                                   "gpu_device_rule cannot accept \"" + (*i0)->getValue() + "\" as first argument");
                             }
 
                             if(!getString(*i1, &rule.devicePattern))
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   ::std::format("gpu_device_rule cannot accept \"{}\" as second argument", (*i1)->getValue()));
+                                                   "gpu_device_rule cannot accept \"" + (*i1)->getValue() + "\" as second argument");
 
                             if (prop->values.size() == 3)
                             {
@@ -1316,14 +1317,14 @@ class LodStrategy;
                         else
                         {
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               ::std::format("gpu_device_rule cannot accept \"{}\" as first argument", (*i0)->getValue()));
+                                               "gpu_device_rule cannot accept \"" + (*i0)->getValue() + "\" as first argument");
                         }
 
                     }
                     break;
                 default:
                     compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, prop->file, prop->line,
-                                       ::std::format("token \"{}\" is not recognized", prop->name));
+                                       "token \"" + prop->name + "\" is not recognized");
                 }
             }
             else if((*i)->type == ANT_OBJECT)
@@ -1389,7 +1390,7 @@ class LodStrategy;
                                 mPass->setAmbient(val);
                             else
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   "ambient requires 3 or 4 colour arguments, or a 'vertexcolour' directive");
+                                                   "ambient requires 3 or 4 colour arguments, or a \"vertexcolour\" directive");
                         }
                     }
                     break;
@@ -1417,7 +1418,7 @@ class LodStrategy;
                                 mPass->setDiffuse(val);
                             else
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   "diffuse requires 3 or 4 colour arguments, or a 'vertexcolour' directive");
+                                                   "diffuse requires 3 or 4 colour arguments, or a \"vertexcolour\" directive");
                         }
                     }
                     break;
@@ -1445,7 +1446,7 @@ class LodStrategy;
                                     mPass->setShininess(val);
                                 else
                                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                       ::std::format("specular does not support \"{}\" as its second argument", prop->values.back()->getValue()));
+                                                       "specular does not support \"" + prop->values.back()->getValue() + "\" as its second argument");
                             }
                         }
                         else
@@ -1512,7 +1513,7 @@ class LodStrategy;
                                 mPass->setSelfIllumination(val);
                             else
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   "emissive requires 3 or 4 colour arguments, or a 'vertexcolour' directive");
+                                                   "emissive requires 3 or 4 colour arguments, or a \"vertexcolour\" directive");
                         }
                     }
                     break;
@@ -1536,7 +1537,7 @@ class LodStrategy;
                         else
                         {
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               ::std::format("scene_blend does not support \"{}\" for argument 1", prop->values.front()->getValue()));
+                                               "scene_blend does not support \"" + prop->values.front()->getValue() + "\" for argument 1");
                         }
                     }
                     else
@@ -1549,10 +1550,8 @@ class LodStrategy;
                         }
                         else
                         {
-                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
-                                               prop->file,
-                                               prop->line,
-                                               ::std::format("scene_blend does not support \"{}\" and \"{}\" as arguments", (*i0)->getValue(), (*i1)->getValue()));
+                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
+                                               "scene_blend does not support \"" + (*i0)->getValue() + "\" and \"" + (*i1)->getValue() + "\" as arguments");
                         }
                     }
                     break;
@@ -1582,7 +1581,7 @@ class LodStrategy;
                         else
                         {
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               ::std::format("separate_scene_blend does not support \"{}\" as argument 1", (*i0)->getValue()));
+                                               "separate_scene_blend does not support \"" + (*i0)->getValue() + "\" as argument 1");
                         }
                     }
                     else
@@ -1671,7 +1670,7 @@ class LodStrategy;
                         else
                         {
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                               ::std::format("depth_bias does not support \"{}\" for argument 1", (*i0)->getValue()));
+                                               "depth_bias does not support \"" + (*i0)->getValue() + "\" for argument 1");
                         }
                     }
                     break;
@@ -2197,7 +2196,7 @@ class LodStrategy;
                     break;
                 default:
                     compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, prop->file, prop->line,
-                                       ::std::format("token \"{}\" is not recognized", prop->name));
+                                       "token \"" + prop->name + "\" is not recognized");
                 }
             }
             else if((*i)->type == ANT_OBJECT)
@@ -2523,7 +2522,7 @@ class LodStrategy;
                     break;
                 default:
                     compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, prop->file, prop->line,
-                                       ::std::format("token \"{}\" is not recognized", prop->name));
+                                       "token \"" + prop->name + "\" is not recognized");
                 }
             }
             else if((*i)->type == ANT_OBJECT)
@@ -3249,14 +3248,8 @@ class LodStrategy;
                             }
 
                             if(!getReal(*i2, &base) || !getReal(*i3, &freq) || !getReal(*i4, &phase) || !getReal(*i5, &amp))
-                                compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
-                                                   prop->file,
-                                                   prop->line,
-                                                   ::std::format("arguments 3, 4, 5, and 6 must be valid numbers; received {}, {}, {}, {}",
-                                                    (*i2)->getValue(),
-                                                    (*i3)->getValue(),
-                                                    (*i4)->getValue(),
-                                                    (*i5)->getValue()));
+                                compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
+                                                   "arguments 3, 4, 5, and 6 must be valid numbers; received " + (*i2)->getValue() + ", " + (*i3)->getValue() + ", " + (*i4)->getValue() + ", " + (*i5)->getValue());
 
                             mUnit->setTransformAnimation(type, wave, base, freq, phase, amp);
                         }
@@ -3348,7 +3341,7 @@ class LodStrategy;
                     break;
                 default:
                     compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, prop->file, prop->line,
-                                       ::std::format("token \"{}\" is not recognized", prop->name));
+                                       "token \"" + prop->name + "\" is not recognized");
                 }
             }
             else if((*i)->type == ANT_OBJECT)
@@ -4149,7 +4142,7 @@ class LodStrategy;
 
                 default:
                     compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, prop->file, prop->line,
-                                       ::std::format("token \"{}\" is not recognized", prop->name));
+                                       "token \"" + prop->name + "\" is not recognized");
                 }
             }
         }
@@ -4384,7 +4377,7 @@ class LodStrategy;
                                 {
                                     if(!mSystem->getRenderer()->setParameter("material", locEvt.mName))
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                           ::std::format("material property could not be set with material \"{}\"", locEvt.mName));
+                                                           "material property could not be set with material \"" + locEvt.mName + "\"");
                                 }
                             }
                         }
@@ -4887,7 +4880,7 @@ class LodStrategy;
                     break;
                 default:
                     compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, prop->file, prop->line,
-                                       ::std::format("token \"{}\" is not recognized", prop->name));
+                                       "token \"" + prop->name + "\" is not recognized");
                 }
             }
         }
@@ -4972,7 +4965,7 @@ class LodStrategy;
                     break;
                 default:
                     compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, prop->file, prop->line,
-                                       ::std::format("token \"{}\" is not recognized", prop->name));
+                                       "token \"" + prop->name + "\" is not recognized");
                 }
             }
         }
@@ -5271,7 +5264,7 @@ class LodStrategy;
                     break;
                 default:
                     compiler->addError(ScriptCompiler::CE_UNEXPECTEDTOKEN, prop->file, prop->line,
-                                       ::std::format("token \"{}\" is not recognized", prop->name));
+                                       "token \"" + prop->name + "\" is not recognized");
                 }
             }
         }
