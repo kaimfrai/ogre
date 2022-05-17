@@ -53,7 +53,7 @@ namespace Ogre
         public:
             TimeControllerValue(RibbonTrail* r) { mTrail = r; }
 
-            [[nodiscard]] auto getValue() const -> Real { return 0; }// not a source 
+            [[nodiscard]] Real getValue() const { return 0; }// not a source 
             void setValue(Real value) { mTrail->_timeUpdate(value); }
         };
     }
@@ -119,7 +119,7 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------
-    auto RibbonTrail::getChainIndexForNode(const Node* n) -> size_t
+    size_t RibbonTrail::getChainIndexForNode(const Node* n)
     {
         NodeToChainSegmentMap::const_iterator i = mNodeToSegMap.find(n);
         if (i == mNodeToSegMap.end())
@@ -151,8 +151,8 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto 
-    RibbonTrail::getNodeIterator() const -> RibbonTrail::NodeIterator
+    RibbonTrail::NodeIterator 
+    RibbonTrail::getNodeIterator() const
     {
         return {mNodeList.begin(), mNodeList.end()};
     }
@@ -431,7 +431,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto RibbonTrail::getMovableType() const -> const String&
+    const String& RibbonTrail::getMovableType() const
     {
         return RibbonTrailFactory::FACTORY_TYPE_NAME;
     }
@@ -439,13 +439,13 @@ namespace Ogre
     //-----------------------------------------------------------------------
     String RibbonTrailFactory::FACTORY_TYPE_NAME = "RibbonTrail";
     //-----------------------------------------------------------------------
-    auto RibbonTrailFactory::getType() const -> const String&
+    const String& RibbonTrailFactory::getType() const
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    auto RibbonTrailFactory::createInstanceImpl( const String& name,
-        const NameValuePairList* params) -> MovableObject*
+    MovableObject* RibbonTrailFactory::createInstanceImpl( const String& name,
+        const NameValuePairList* params)
     {
         size_t maxElements = 20;
         size_t numberOfChains = 1;

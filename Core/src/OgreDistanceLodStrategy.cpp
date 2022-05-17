@@ -45,7 +45,7 @@ namespace Ogre {
         , mReferenceViewValue(-1)
     { }
     //-----------------------------------------------------------------------
-    auto DistanceLodStrategyBase::getValueImpl(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real
+    Real DistanceLodStrategyBase::getValueImpl(const MovableObject *movableObject, const Ogre::Camera *camera) const
     {
         Real squaredDist = getSquaredDepth(movableObject, camera);
 
@@ -78,36 +78,36 @@ namespace Ogre {
         return squaredDist * camera->_getLodBiasInverse();
     }
     //-----------------------------------------------------------------------
-    auto DistanceLodStrategyBase::getBaseValue() const -> Real
+    Real DistanceLodStrategyBase::getBaseValue() const
     {
         return Real(0);
     }
     //---------------------------------------------------------------------
-    auto DistanceLodStrategyBase::transformBias(Real factor) const -> Real
+    Real DistanceLodStrategyBase::transformBias(Real factor) const
     {
         assert(factor > 0.0f && "Bias factor must be > 0!");
         return 1.0f / factor;
     }
     //-----------------------------------------------------------------------
-    auto DistanceLodStrategyBase::transformUserValue(Real userValue) const -> Real
+    Real DistanceLodStrategyBase::transformUserValue(Real userValue) const
     {
         // Square user-supplied distance
         return Math::Sqr(userValue);
     }
     //-----------------------------------------------------------------------
-    auto DistanceLodStrategyBase::getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const -> ushort
+    ushort DistanceLodStrategyBase::getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const
     {
         // Get index assuming ascending values
         return getIndexAscending(value, meshLodUsageList);
     }
     //-----------------------------------------------------------------------
-    auto DistanceLodStrategyBase::getIndex(Real value, const Material::LodValueList& materialLodValueList) const -> ushort
+    ushort DistanceLodStrategyBase::getIndex(Real value, const Material::LodValueList& materialLodValueList) const
     {
         // Get index assuming ascending values
         return getIndexAscending(value, materialLodValueList);
     }
     //---------------------------------------------------------------------
-    auto DistanceLodStrategyBase::isSorted(const Mesh::LodValueList& values) const -> bool
+    bool DistanceLodStrategyBase::isSorted(const Mesh::LodValueList& values) const
     {
         // Determine if sorted ascending
         return isSortedAscending(values);
@@ -143,7 +143,7 @@ namespace Ogre {
         mReferenceViewEnabled = value;
     }
     //---------------------------------------------------------------------
-    auto DistanceLodStrategyBase::isReferenceViewEnabled() const -> bool
+    bool DistanceLodStrategyBase::isReferenceViewEnabled() const
     {
         return mReferenceViewEnabled;
     }
@@ -154,11 +154,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> DistanceLodSphereStrategy* Singleton<DistanceLodSphereStrategy>::msSingleton = 0;
-    auto DistanceLodSphereStrategy::getSingletonPtr() -> DistanceLodSphereStrategy*
+    DistanceLodSphereStrategy* DistanceLodSphereStrategy::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto DistanceLodSphereStrategy::getSingleton() -> DistanceLodSphereStrategy&
+    DistanceLodSphereStrategy& DistanceLodSphereStrategy::getSingleton()
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -167,7 +167,7 @@ namespace Ogre {
         : DistanceLodStrategyBase("distance_sphere")
     { }
     //-----------------------------------------------------------------------
-    auto DistanceLodSphereStrategy::getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real
+    Real DistanceLodSphereStrategy::getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const
     {
         // Get squared distance taking into account bounding radius
         // (d - r) ^ 2 = d^2 - 2dr + r^2, but this requires a lot 
@@ -185,11 +185,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> DistanceLodBoxStrategy* Singleton<DistanceLodBoxStrategy>::msSingleton = 0;
-    auto DistanceLodBoxStrategy::getSingletonPtr() -> DistanceLodBoxStrategy*
+    DistanceLodBoxStrategy* DistanceLodBoxStrategy::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto DistanceLodBoxStrategy::getSingleton() -> DistanceLodBoxStrategy&
+    DistanceLodBoxStrategy& DistanceLodBoxStrategy::getSingleton()
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -198,7 +198,7 @@ namespace Ogre {
         : DistanceLodStrategyBase("distance_box")
     { }
     //-----------------------------------------------------------------------
-    auto DistanceLodBoxStrategy::getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real
+    Real DistanceLodBoxStrategy::getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const
     {
         return movableObject->getWorldBoundingBox().squaredDistance(camera->getDerivedPosition());
     }

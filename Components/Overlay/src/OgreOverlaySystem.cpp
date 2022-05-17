@@ -53,11 +53,11 @@ class OverlayElement;
     class PanelOverlayElementFactory: public OverlayElementFactory
     {
     public:
-        auto createOverlayElement(const String& instanceName) -> OverlayElement* override
+        OverlayElement* createOverlayElement(const String& instanceName) override
         {
             return new PanelOverlayElement(instanceName);
         }
-        [[nodiscard]] auto getTypeName() const -> const String& override
+        [[nodiscard]] const String& getTypeName() const override
         {
             static String name = "Panel";
             return name;
@@ -68,11 +68,11 @@ class OverlayElement;
     class BorderPanelOverlayElementFactory: public OverlayElementFactory
     {
     public:
-        auto createOverlayElement(const String& instanceName) -> OverlayElement* override
+        OverlayElement* createOverlayElement(const String& instanceName) override
         {
             return new BorderPanelOverlayElement(instanceName);
         }
-        [[nodiscard]] auto getTypeName() const -> const String& override
+        [[nodiscard]] const String& getTypeName() const override
         {
             static String name = "BorderPanel";
             return name;
@@ -83,11 +83,11 @@ class OverlayElement;
     class TextAreaOverlayElementFactory: public OverlayElementFactory
     {
     public:
-        auto createOverlayElement(const String& instanceName) -> OverlayElement* override
+        OverlayElement* createOverlayElement(const String& instanceName) override
         {
             return new TextAreaOverlayElement(instanceName);
         }
-        [[nodiscard]] auto getTypeName() const -> const String& override
+        [[nodiscard]] const String& getTypeName() const override
         {
             static String name = "TextArea";
             return name;
@@ -95,11 +95,11 @@ class OverlayElement;
     };
 
     template<> OverlaySystem *Singleton<OverlaySystem>::msSingleton = 0;
-    auto OverlaySystem::getSingletonPtr() -> OverlaySystem*
+    OverlaySystem* OverlaySystem::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto OverlaySystem::getSingleton() -> OverlaySystem&
+    OverlaySystem& OverlaySystem::getSingleton()
     {
         assert( msSingleton );  return ( *msSingleton );
     }

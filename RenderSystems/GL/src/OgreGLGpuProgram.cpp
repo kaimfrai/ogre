@@ -42,7 +42,7 @@ THE SOFTWARE.
 namespace Ogre {
 class ResourceManager;
 
-auto GLArbGpuProgram::getProgramType() const -> GLenum
+GLenum GLArbGpuProgram::getProgramType() const
 {
     switch (mType)
     {
@@ -74,7 +74,7 @@ GLGpuProgram::~GLGpuProgram()
     unload(); 
 }
 
-auto GLGpuProgramBase::isAttributeValid(VertexElementSemantic semantic, uint index) -> bool
+bool GLGpuProgramBase::isAttributeValid(VertexElementSemantic semantic, uint index)
 {
     // default implementation
     switch(semantic)

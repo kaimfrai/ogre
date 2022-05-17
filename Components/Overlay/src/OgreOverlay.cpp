@@ -72,7 +72,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto Overlay::getName() const -> const String&
+    const String& Overlay::getName() const
     {
         return mName;
     }
@@ -100,12 +100,12 @@ namespace Ogre {
         assignZOrders();
     }
     //---------------------------------------------------------------------
-    auto Overlay::getZOrder() const -> ushort
+    ushort Overlay::getZOrder() const
     {
         return (ushort)mZOrder;
     }
     //---------------------------------------------------------------------
-    auto Overlay::isVisible() const -> bool
+    bool Overlay::isVisible() const
     {
         return mVisible;
     }
@@ -185,17 +185,17 @@ namespace Ogre {
         mTransformUpdated = true;
     }
     //---------------------------------------------------------------------
-    auto Overlay::getScrollX() const -> Real
+    Real Overlay::getScrollX() const
     {
         return mScrollX;
     }
     //---------------------------------------------------------------------
-    auto Overlay::getScrollY() const -> Real
+    Real Overlay::getScrollY() const
     {
         return mScrollY;
     }
       //---------------------------------------------------------------------
-    auto Overlay::getChild(const String& name) -> OverlayContainer*
+    OverlayContainer* Overlay::getChild(const String& name)
     {
 
         OverlayContainerList::iterator i, iend;
@@ -239,12 +239,12 @@ namespace Ogre {
         mTransformUpdated = true;
     }
     //---------------------------------------------------------------------
-    auto Overlay::getScaleX() const -> Real
+    Real Overlay::getScaleX() const
     {
         return mScaleX;
     }
     //---------------------------------------------------------------------
-    auto Overlay::getScaleY() const -> Real
+    Real Overlay::getScaleY() const
     {
         return mScaleY;
     }
@@ -346,7 +346,7 @@ namespace Ogre {
         mTransformOutOfDate = false;
     }
     //---------------------------------------------------------------------
-    auto Overlay::findElementAt(Real x, Real y) -> OverlayElement*
+    OverlayElement* Overlay::findElementAt(Real x, Real y)
     {
         OverlayElement* ret = NULL;
         int currZ = -1;

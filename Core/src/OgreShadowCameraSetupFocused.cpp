@@ -60,7 +60,7 @@ class Viewport;
         0,  0,  0,  1); // w
 
     /// Builds a standard view matrix out of a given position, direction and up vector.
-    static auto buildViewMatrix(const Vector3& pos, const Vector3& dir, const Vector3& up) -> Affine3
+    static Affine3 buildViewMatrix(const Vector3& pos, const Vector3& dir, const Vector3& up)
     {
         Matrix3 Rt = Math::lookRotation(-dir, up).transpose();
         Matrix4 m;
@@ -322,8 +322,8 @@ class Viewport;
         out_LVS->build(bodyLVS);
     }
     //-----------------------------------------------------------------------
-    auto FocusedShadowCameraSetup::getLSProjViewDir(const Matrix4& lightSpace, 
-        const Camera& cam, const PointListBody& bodyLVS) const -> Vector3
+    Vector3 FocusedShadowCameraSetup::getLSProjViewDir(const Matrix4& lightSpace, 
+        const Camera& cam, const PointListBody& bodyLVS) const
     {
         // goal is to construct a view direction
         // because parallel lines are not parallel any more after perspective projection we have to transform
@@ -350,8 +350,8 @@ class Viewport;
             Vector3::NEGATIVE_UNIT_Z : projectionDir.normalisedCopy();
     }
     //-----------------------------------------------------------------------
-    auto FocusedShadowCameraSetup::getNearCameraPoint_ws(const Affine3& viewMatrix,
-        const PointListBody& bodyLVS) const -> Vector3
+    Vector3 FocusedShadowCameraSetup::getNearCameraPoint_ws(const Affine3& viewMatrix,
+        const PointListBody& bodyLVS) const
     {
         if (bodyLVS.getPointCount() == 0)
             return {0,0,0};
@@ -377,8 +377,8 @@ class Viewport;
         return nearWorld;
     }
     //-----------------------------------------------------------------------
-    auto FocusedShadowCameraSetup::transformToUnitCube(const Matrix4& m, 
-        const PointListBody& body) const -> Matrix4
+    Matrix4 FocusedShadowCameraSetup::transformToUnitCube(const Matrix4& m, 
+        const PointListBody& body) const
     {
         // map the transformed body AAB points to the unit cube (-1/-1/-1) / (+1/+1/+1) corners
         AxisAlignedBox aab_trans;
@@ -603,7 +603,7 @@ class Viewport;
         } // for: polygon iteration
     }
     //-----------------------------------------------------------------------
-    auto FocusedShadowCameraSetup::PointListBody::getAAB() const -> const AxisAlignedBox&
+    const AxisAlignedBox& FocusedShadowCameraSetup::PointListBody::getAAB() const
     {
         return mAAB;
     }
@@ -656,14 +656,14 @@ class Viewport;
 
     }
     //-----------------------------------------------------------------------   
-    auto FocusedShadowCameraSetup::PointListBody::getPoint(size_t cnt) const -> const Vector3&
+    const Vector3& FocusedShadowCameraSetup::PointListBody::getPoint(size_t cnt) const
     {
         OgreAssertDbg(cnt < getPointCount(), "Search position out of range");
 
         return mBodyPoints[ cnt ];
     }
     //-----------------------------------------------------------------------   
-    auto FocusedShadowCameraSetup::PointListBody::getPointCount() const -> size_t
+    size_t FocusedShadowCameraSetup::PointListBody::getPointCount() const
     {
         return mBodyPoints.size();
     }

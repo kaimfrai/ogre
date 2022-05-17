@@ -183,7 +183,7 @@ void TestContext::setup()
 }
 //-----------------------------------------------------------------------
 
-auto TestContext::loadTests() -> OgreBites::Sample*
+OgreBites::Sample* TestContext::loadTests()
 {
     OgreBites::Sample* startSample = 0;
 
@@ -217,7 +217,7 @@ auto TestContext::loadTests() -> OgreBites::Sample*
 }
 //-----------------------------------------------------------------------
 
-auto TestContext::frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool
+bool TestContext::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     // pass a fixed timestep along to the tests
     Ogre::FrameEvent fixed_evt = Ogre::FrameEvent();
@@ -227,7 +227,7 @@ auto TestContext::frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool
     return mCurrentSample->frameRenderingQueued(fixed_evt);
 }
 
-auto TestContext::frameStarted(const Ogre::FrameEvent& evt) -> bool
+bool TestContext::frameStarted(const Ogre::FrameEvent& evt)
 {
     pollEvents();
 
@@ -253,7 +253,7 @@ auto TestContext::frameStarted(const Ogre::FrameEvent& evt) -> bool
 }
 //-----------------------------------------------------------------------
 
-auto TestContext::frameEnded(const Ogre::FrameEvent& evt) -> bool
+bool TestContext::frameEnded(const Ogre::FrameEvent& evt)
 {
     // pass a fixed timestep along to the tests
     Ogre::FrameEvent fixed_evt = Ogre::FrameEvent();
@@ -363,7 +363,7 @@ void TestContext::go(OgreBites::Sample* initialSample, ulong frameCount)
 }
 //-----------------------------------------------------------------------
 
-auto TestContext::oneTimeConfig() -> bool
+bool TestContext::oneTimeConfig()
 {
     // if forced, just do it and return
     if(mForceConfig)
@@ -525,7 +525,7 @@ void TestContext::finishedTests()
 }
 //-----------------------------------------------------------------------
 
-auto TestContext::getTimestep() -> Ogre::Real
+Ogre::Real TestContext::getTimestep()
 {
     return mTimestep;
 }
@@ -537,7 +537,7 @@ void TestContext::setTimestep(Ogre::Real timestep)
     mTimestep = timestep >= 0.f ? timestep : mTimestep;
 }
 
-auto main(int argc, char *argv[]) -> int
+int main(int argc, char *argv[])
 {
     TestContext tc(argc, argv);
 

@@ -44,25 +44,25 @@ namespace Ogre {
         : LodStrategy(name)
     { }
     //---------------------------------------------------------------------
-    auto PixelCountLodStrategyBase::getBaseValue() const -> Real
+    Real PixelCountLodStrategyBase::getBaseValue() const
     {
         // Use the maximum possible value as base
         return std::numeric_limits<Real>::max();
     }
     //---------------------------------------------------------------------
-    auto PixelCountLodStrategyBase::transformBias(Real factor) const -> Real
+    Real PixelCountLodStrategyBase::transformBias(Real factor) const
     {
         // No transformation required for pixel count strategy
         return factor;
     }
     //---------------------------------------------------------------------
-    auto PixelCountLodStrategyBase::getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const -> ushort
+    ushort PixelCountLodStrategyBase::getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const
     {
         // Values are descending
         return getIndexDescending(value, meshLodUsageList);
     }
     //---------------------------------------------------------------------
-    auto PixelCountLodStrategyBase::getIndex(Real value, const Material::LodValueList& materialLodValueList) const -> ushort
+    ushort PixelCountLodStrategyBase::getIndex(Real value, const Material::LodValueList& materialLodValueList) const
     {
         // Values are descending
         return getIndexDescending(value, materialLodValueList);
@@ -74,7 +74,7 @@ namespace Ogre {
         sortDescending(meshLodUsageList);
     }
     //---------------------------------------------------------------------
-    auto PixelCountLodStrategyBase::isSorted(const Mesh::LodValueList& values) const -> bool
+    bool PixelCountLodStrategyBase::isSorted(const Mesh::LodValueList& values) const
     {
         // Check if values are sorted descending
         return isSortedDescending(values);
@@ -86,11 +86,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> AbsolutePixelCountLodStrategy* Singleton<AbsolutePixelCountLodStrategy>::msSingleton = 0;
-    auto AbsolutePixelCountLodStrategy::getSingletonPtr() -> AbsolutePixelCountLodStrategy*
+    AbsolutePixelCountLodStrategy* AbsolutePixelCountLodStrategy::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto AbsolutePixelCountLodStrategy::getSingleton() -> AbsolutePixelCountLodStrategy&
+    AbsolutePixelCountLodStrategy& AbsolutePixelCountLodStrategy::getSingleton()
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -100,7 +100,7 @@ namespace Ogre {
     { }
     AbsolutePixelCountLodStrategy::~AbsolutePixelCountLodStrategy() {}
     //-----------------------------------------------------------------------
-    auto PixelCountLodStrategyBase::getValueImpl(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real
+    Real PixelCountLodStrategyBase::getValueImpl(const MovableObject *movableObject, const Ogre::Camera *camera) const
     {
         // Get area of unprojected circle with object bounding radius
         Real boundingArea = Math::PI * Math::Sqr(movableObject->getBoundingRadiusScaled());
@@ -147,7 +147,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto AbsolutePixelCountLodStrategy::getValueImpl(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real
+    Real AbsolutePixelCountLodStrategy::getValueImpl(const MovableObject *movableObject, const Ogre::Camera *camera) const
     {
         // Get ratio of screen size to absolutely covered pixel count
         Real absoluteValue = PixelCountLodStrategyBase::getValueImpl(movableObject, camera);
@@ -166,11 +166,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> ScreenRatioPixelCountLodStrategy* Singleton<ScreenRatioPixelCountLodStrategy>::msSingleton = 0;
-    auto ScreenRatioPixelCountLodStrategy::getSingletonPtr() -> ScreenRatioPixelCountLodStrategy*
+    ScreenRatioPixelCountLodStrategy* ScreenRatioPixelCountLodStrategy::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto ScreenRatioPixelCountLodStrategy::getSingleton() -> ScreenRatioPixelCountLodStrategy&
+    ScreenRatioPixelCountLodStrategy& ScreenRatioPixelCountLodStrategy::getSingleton()
     {
         assert( msSingleton );  return ( *msSingleton );
     }

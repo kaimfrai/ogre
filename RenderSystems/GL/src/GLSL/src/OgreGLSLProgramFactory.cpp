@@ -50,14 +50,14 @@ class ResourceManager;
             delete mLinkProgramManager;
     }
     //-----------------------------------------------------------------------
-    auto GLSLProgramFactory::getLanguage() const -> const String&
+    const String& GLSLProgramFactory::getLanguage() const
     {
         return sLanguageName;
     }
     //-----------------------------------------------------------------------
-    auto GLSLProgramFactory::create(ResourceManager* creator,
+    GpuProgram* GLSLProgramFactory::create(ResourceManager* creator,
         const String& name, ResourceHandle handle,
-        const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram*
+        const String& group, bool isManual, ManualResourceLoader* loader)
     {
         return new GLSLProgram(creator, name, handle, group, isManual, loader);
     }

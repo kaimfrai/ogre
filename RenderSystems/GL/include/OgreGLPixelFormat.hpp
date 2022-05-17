@@ -44,33 +44,33 @@ namespace Ogre {
             @return a GLenum describing the format, or 0 if there is no exactly matching 
             one (and conversion is needed)
         */
-        static auto getGLOriginFormat(PixelFormat mFormat) -> GLenum;
+        static GLenum getGLOriginFormat(PixelFormat mFormat);
     
         /** Takes the OGRE pixel format and returns type that must be provided
             to GL as data type for reading it into the GPU
             @return a GLenum describing the data type, or 0 if there is no exactly matching 
             one (and conversion is needed)
         */
-        static auto getGLOriginDataType(PixelFormat mFormat) -> GLenum;
+        static GLenum getGLOriginDataType(PixelFormat mFormat);
         
         /** Takes the OGRE pixel format and returns the type that must be provided
             to GL as internal format. GL_NONE if no match exists.
         @param mFormat The pixel format
         @param hwGamma Whether a hardware gamma-corrected version is requested
         */
-        static auto getGLInternalFormat(PixelFormat mFormat, bool hwGamma = false) -> GLenum;
+        static GLenum getGLInternalFormat(PixelFormat mFormat, bool hwGamma = false);
 
         /** Function to get the closest matching OGRE format to an internal GL format. To be
             precise, the format will be chosen that is most efficient to transfer to the card 
             without losing precision.
             @remarks It is valid for this function to always return PF_A8R8G8B8.
         */
-        static auto getClosestOGREFormat(GLenum fmt) -> PixelFormat;
+        static PixelFormat getClosestOGREFormat(GLenum fmt);
 
         /** Returns next power-of-two size if required by render system, in case
             RSC_NON_POWER_OF_2_TEXTURES is supported it returns value as-is.
         */
-        static auto optionalPO2(uint32 value) -> uint32;
+        static uint32 optionalPO2(uint32 value);
     };
 }
 

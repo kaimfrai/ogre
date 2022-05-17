@@ -199,10 +199,10 @@ class Camera;
         static QueuedUpdates msQueuedUpdates;
 
         /** Internal method for creating a new child node - must be overridden per subclass. */
-        virtual auto createChildImpl() -> Node* = 0;
+        virtual Node* createChildImpl() = 0;
 
         /** Internal method for creating a new child node - must be overridden per subclass. */
-        virtual auto createChildImpl(const String& name) -> Node* = 0;
+        virtual Node* createChildImpl(const String& name) = 0;
     public:
         /// Constructor, should only be called by parent, not directly.
         Node();
@@ -215,15 +215,15 @@ class Camera;
         virtual ~Node();  
 
         /** Returns the name of the node. */
-        auto getName() const -> const String& { return mName; }
+        const String& getName() const { return mName; }
 
         /** Gets this node's parent (NULL if this is the root).
         */
-        auto getParent() const -> Node* { return mParent; }
+        Node* getParent() const { return mParent; }
 
         /** Returns a quaternion representing the nodes orientation.
         */
-        auto getOrientation() const -> const Quaternion & { return mOrientation; }
+        const Quaternion & getOrientation() const { return mOrientation; }
 
         /** Sets the orientation of this node via a quaternion.
         @remarks
@@ -267,7 +267,7 @@ class Camera;
 
         /** Gets the position of the node relative to it's parent.
         */
-        auto getPosition() const -> const Vector3 & { return mPosition; }
+        const Vector3 & getPosition() const { return mPosition; }
 
         /** Sets the scaling factor applied to this node.
         @remarks
@@ -288,7 +288,7 @@ class Camera;
 
         /** Gets the scaling factor of this node.
         */
-        auto getScale() const -> const Vector3& { return mScale; }
+        const Vector3& getScale() const { return mScale; }
 
         /** Tells the node whether it should inherit orientation from it's parent node.
         @remarks
@@ -318,7 +318,7 @@ class Camera;
         @remarks
             See setInheritOrientation for more info.
         */
-        auto getInheritOrientation() const -> bool { return mInheritOrientation; }
+        bool getInheritOrientation() const { return mInheritOrientation; }
 
         /** Tells the node whether it should inherit scaling factors from it's parent node.
         @remarks
@@ -338,7 +338,7 @@ class Camera;
         @remarks
             See setInheritScale for more info.
         */
-        auto getInheritScale() const -> bool { return mInheritScale; }
+        bool getInheritScale() const { return mInheritScale; }
 
         /** Scales the node, combining it's current scale with the passed in scaling factor. 
         @remarks
@@ -432,7 +432,7 @@ class Camera;
 
         /** Gets a matrix whose columns are the local axes based on
             the nodes orientation relative to it's parent. */
-        auto getLocalAxes() const -> Matrix3;
+        Matrix3 getLocalAxes() const;
 
         /** Creates an unnamed new Node as a child of this node.
         @param translate
@@ -440,9 +440,9 @@ class Camera;
         @param rotate
             Initial rotation relative to parent
         */
-        virtual auto createChild(
+        virtual Node* createChild(
             const Vector3& translate = Vector3::ZERO, 
-            const Quaternion& rotate = Quaternion::IDENTITY ) -> Node*;
+            const Quaternion& rotate = Quaternion::IDENTITY );
 
         /** Creates a new named Node as a child of this node.
         @remarks
@@ -454,7 +454,7 @@ class Camera;
         @param rotate
             Initial rotation relative to parent
         */
-        virtual auto createChild(const String& name, const Vector3& translate = Vector3::ZERO, const Quaternion& rotate = Quaternion::IDENTITY) -> Node*;
+        virtual Node* createChild(const String& name, const Vector3& translate = Vector3::ZERO, const Quaternion& rotate = Quaternion::IDENTITY);
 
         /** Adds a (precreated) child scene node to this node. If it is attached to another node,
             it must be detached first.
@@ -465,21 +465,21 @@ class Camera;
         /** Reports the number of child nodes under this one.
         @deprecated use getChildren()
         */
-        auto numChildren() const -> uint16 { return static_cast< uint16 >( mChildren.size() ); }
+        uint16 numChildren() const { return static_cast< uint16 >( mChildren.size() ); }
 
         /** Gets a pointer to a child node.
         @remarks
             There is an alternate getChild method which returns a named child.
         @deprecated use getChildren()
         */
-        auto getChild(unsigned short index) const -> Node*;
+        Node* getChild(unsigned short index) const;
 
         /** Gets a pointer to a named child node.
         */
-        auto getChild(const String& name) const -> Node*;
+        Node* getChild(const String& name) const;
 
         /// List of sub-nodes of this Node
-        auto getChildren() const -> const ChildNodeMap& { return mChildren; }
+        const ChildNodeMap& getChildren() const { return mChildren; }
 
         /** Drops the specified child from this node. 
         @remarks
@@ -488,16 +488,16 @@ class Camera;
             There is also an alternate version which drops a named
             child from this node.
         */
-        virtual auto removeChild(unsigned short index) -> Node*;
+        virtual Node* removeChild(unsigned short index);
         /// @overload
-        virtual auto removeChild(Node* child) -> Node*;
+        virtual Node* removeChild(Node* child);
 
         /** Drops the named child from this node. 
         @remarks
             Does not delete the node, just detaches it from
             this parent, potentially to be reattached elsewhere.
         */
-        virtual auto removeChild(const String& name) -> Node*;
+        virtual Node* removeChild(const String& name);
         /** Removes all child Nodes attached to this node. Does not delete the nodes, just detaches them from
             this parent, potentially to be reattached elsewhere.
         */
@@ -518,15 +518,15 @@ class Camera;
 
         /** Gets the orientation of the node as derived from all parents.
         */
-        auto _getDerivedOrientation() const -> const Quaternion &;
+        const Quaternion & _getDerivedOrientation() const;
 
         /** Gets the position of the node as derived from all parents.
         */
-        auto _getDerivedPosition() const -> const Vector3 &;
+        const Vector3 & _getDerivedPosition() const;
 
         /** Gets the scaling factor of the node as derived from all parents.
         */
-        auto _getDerivedScale() const -> const Vector3 &;
+        const Vector3 & _getDerivedScale() const;
 
         /** Gets the full transformation matrix for this node.
         @remarks
@@ -537,7 +537,7 @@ class Camera;
             derived transforms have been updated before calling this method.
             Applications using Ogre should just use the relative transforms.
         */
-        auto _getFullTransform() const -> const Affine3&;
+        const Affine3& _getFullTransform() const;
 
         /** Internal method to update the Node.
         @note
@@ -562,7 +562,7 @@ class Camera;
         
         /** Gets the current listener for this Node.
         */
-        auto getListener() const -> Listener* { return mListener; }
+        Listener* getListener() const { return mListener; }
         
 
         /** Sets the current transform of this node to be the 'initial state' ie that
@@ -584,37 +584,37 @@ class Camera;
         @remarks
             Also resets the cumulative animation weight used for blending.
         */
-        auto getInitialPosition() const -> const Vector3& { return mInitialPosition; }
+        const Vector3& getInitialPosition() const { return mInitialPosition; }
         
         /** Gets the local position, relative to this node, of the given world-space position */
-        auto convertWorldToLocalPosition( const Vector3 &worldPos ) -> Vector3;
+        Vector3 convertWorldToLocalPosition( const Vector3 &worldPos );
 
         /** Gets the world position of a point in the node local space
             useful for simple transforms that don't require a child node.*/
-        auto convertLocalToWorldPosition( const Vector3 &localPos ) -> Vector3;
+        Vector3 convertLocalToWorldPosition( const Vector3 &localPos );
 
         /** Gets the local direction, relative to this node, of the given world-space direction */
-        auto convertWorldToLocalDirection( const Vector3 &worldDir, bool useScale ) -> Vector3;
+        Vector3 convertWorldToLocalDirection( const Vector3 &worldDir, bool useScale );
 
         /** Gets the world direction of a point in the node local space
             useful for simple transforms that don't require a child node.*/
-        auto convertLocalToWorldDirection( const Vector3 &localDir, bool useScale ) -> Vector3;
+        Vector3 convertLocalToWorldDirection( const Vector3 &localDir, bool useScale );
 
         /** Gets the local orientation, relative to this node, of the given world-space orientation */
-        auto convertWorldToLocalOrientation( const Quaternion &worldOrientation ) -> Quaternion;
+        Quaternion convertWorldToLocalOrientation( const Quaternion &worldOrientation );
 
         /** Gets the world orientation of an orientation in the node local space
             useful for simple transforms that don't require a child node.*/
-        auto convertLocalToWorldOrientation( const Quaternion &localOrientation ) -> Quaternion;
+        Quaternion convertLocalToWorldOrientation( const Quaternion &localOrientation );
 
         /** Gets the initial orientation of this node, see setInitialState for more info. */
-        auto getInitialOrientation() const -> const Quaternion& { return mInitialOrientation; }
+        const Quaternion& getInitialOrientation() const { return mInitialOrientation; }
 
         /** Gets the initial position of this node, see setInitialState for more info. */
-        auto getInitialScale() const -> const Vector3& { return mInitialScale; }
+        const Vector3& getInitialScale() const { return mInitialScale; }
 
         /** Helper function, get the squared view depth.  */
-        auto getSquaredViewDepth(const Camera* cam) const -> Real;
+        Real getSquaredViewDepth(const Camera* cam) const;
 
         /** To be called in the event of transform changes to this node that require it's recalculation.
         @remarks

@@ -121,7 +121,7 @@ struct GpuNamedConstants;
 
     /** Internal method returns whether required capabilities for this program is supported.
      */
-    auto isRequiredCapabilitiesSupported() const -> bool;
+    bool isRequiredCapabilitiesSupported() const;
 
     // catches errors during prepare
     void safePrepare();
@@ -144,7 +144,7 @@ struct GpuNamedConstants;
     GpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
                const String& group, bool isManual = false, ManualResourceLoader* loader = 0);
 
-    static auto getProgramTypeName(GpuProgramType programType) -> const String;
+    static const String getProgramTypeName(GpuProgramType programType);
 
     virtual ~GpuProgram() {}
 
@@ -161,28 +161,28 @@ struct GpuNamedConstants;
     void setSource(const String& source);
 
     /** Gets the syntax code for this program e.g. arbvp1, fp20, vs_1_1 etc */
-    auto getSyntaxCode() const -> const String& { return mSyntaxCode; }
+    const String& getSyntaxCode() const { return mSyntaxCode; }
 
     /** Sets the syntax code for this program e.g. arbvp1, fp20, vs_1_1 etc */
     void setSyntaxCode(const String& syntax);
 
     /** Gets the name of the file used as source for this program. */
-    auto getSourceFile() const -> const String& { return mFilename; }
+    const String& getSourceFile() const { return mFilename; }
     /** Gets the assembler source for this program. */
-    virtual auto getSource() const -> const String& { return mSource; }
+    virtual const String& getSource() const { return mSource; }
     /// Set the program type (only valid before load)
     void setType(GpuProgramType t);
     /// Get the program type
-    auto getType() const -> GpuProgramType { return mType; }
+    GpuProgramType getType() const { return mType; }
 
     /** Returns the GpuProgram which should be bound to the pipeline.
         @remarks
         This method is simply to allow some subclasses of GpuProgram to delegate
         the program which is bound to the pipeline to a delegate, if required. */
-    virtual auto _getBindingDelegate() -> GpuProgram* { return this; }
+    virtual GpuProgram* _getBindingDelegate() { return this; }
 
     /** Returns whether this program can be supported on the current renderer and hardware. */
-    virtual auto isSupported() const -> bool;
+    virtual bool isSupported() const;
 
     /** Creates a new parameters object compatible with this program definition.
         @remarks
@@ -191,7 +191,7 @@ struct GpuNamedConstants;
         populate any implementation-specific extras (like named parameters) where
         they are appropriate.
     */
-    virtual auto createParameters() -> GpuProgramParametersSharedPtr;
+    virtual GpuProgramParametersSharedPtr createParameters();
 
     /** Sets whether a vertex program includes the required instructions
         to perform skeletal animation.
@@ -208,7 +208,7 @@ struct GpuNamedConstants;
         If this returns true, OGRE will not blend the geometry according to
         skeletal animation, it will expect the vertex program to do it.
     */
-    virtual auto isSkeletalAnimationIncluded() const -> bool { return mSkeletalAnimation; }
+    virtual bool isSkeletalAnimationIncluded() const { return mSkeletalAnimation; }
 
     /** Sets whether a vertex program includes the required instructions
         to perform morph animation.
@@ -235,7 +235,7 @@ struct GpuNamedConstants;
         If this returns true, OGRE will not blend the geometry according to
         morph animation, it will expect the vertex program to do it.
     */
-    virtual auto isMorphAnimationIncluded() const -> bool { return mMorphAnimation; }
+    virtual bool isMorphAnimationIncluded() const { return mMorphAnimation; }
 
     /** Returns whether a vertex program includes the required instructions
         to perform pose animation.
@@ -243,11 +243,11 @@ struct GpuNamedConstants;
         If this returns true, OGRE will not blend the geometry according to
         pose animation, it will expect the vertex program to do it.
     */
-    virtual auto isPoseAnimationIncluded() const -> bool { return mPoseAnimation > 0; }
+    virtual bool isPoseAnimationIncluded() const { return mPoseAnimation > 0; }
     /** Returns the number of simultaneous poses the vertex program can
         blend, for use in pose animation.
     */
-    virtual auto getNumberOfPosesIncluded() const -> ushort { return mPoseAnimation; }
+    virtual ushort getNumberOfPosesIncluded() const { return mPoseAnimation; }
     /** Sets whether this vertex program requires support for vertex
         texture fetch from the hardware.
     */
@@ -255,12 +255,12 @@ struct GpuNamedConstants;
     /** Returns whether this vertex program requires support for vertex
         texture fetch from the hardware.
     */
-    virtual auto isVertexTextureFetchRequired() const -> bool { return mVertexTextureFetch; }
+    virtual bool isVertexTextureFetchRequired() const { return mVertexTextureFetch; }
 
     /// @deprecated use OT_DETAIL_ADJACENCY_BIT
     virtual void setAdjacencyInfoRequired(bool r) { mNeedsAdjacencyInfo = r; }
     /// @deprecated use OT_DETAIL_ADJACENCY_BIT
-    virtual auto isAdjacencyInfoRequired() const -> bool { return mNeedsAdjacencyInfo; }
+    virtual bool isAdjacencyInfoRequired() const { return mNeedsAdjacencyInfo; }
 
     /** Get a reference to the default parameters which are to be used for all
         uses of this program.
@@ -272,11 +272,11 @@ struct GpuNamedConstants;
         the default parameters; thus users of the program need only change the parameters
         which are unique to their own usage of the program.
     */
-    virtual auto getDefaultParameters() -> const GpuProgramParametersPtr&;
+    virtual const GpuProgramParametersPtr& getDefaultParameters();
 
     /** Returns true if default parameters have been set up.
      */
-    virtual auto hasDefaultParameters() const -> bool { return mDefaultParams.get() != 0; }
+    virtual bool hasDefaultParameters() const { return mDefaultParams.get() != 0; }
 
     /** Returns whether a vertex program wants light and material states to be passed
         through fixed pipeline low level API rendering calls (default false, subclasses can override)
@@ -284,7 +284,7 @@ struct GpuNamedConstants;
         Most vertex programs do not need this material information, however GLSL
         shaders can refer to this material and lighting state so enable this option
     */
-    virtual auto getPassSurfaceAndLightStates() const -> bool { return false; }
+    virtual bool getPassSurfaceAndLightStates() const { return false; }
 
     /** Returns whether a fragment program wants fog state to be passed
         through fixed pipeline low level API rendering calls (default true, subclasses can override)
@@ -294,7 +294,7 @@ struct GpuNamedConstants;
         pass if you want to perform fog in the shader). In OpenGL it is also
         common to be able to access the fixed-function fog state inside the shader.
     */
-    virtual auto getPassFogStates() const -> bool { return true; }
+    virtual bool getPassFogStates() const { return true; }
 
     /** Returns whether a vertex program wants transform state to be passed
         through fixed pipeline low level API rendering calls
@@ -302,16 +302,16 @@ struct GpuNamedConstants;
         Most vertex programs do not need fixed-function transform information, however GLSL
         shaders can refer to this state so enable this option
     */
-    virtual auto getPassTransformStates() const -> bool { return false; }
+    virtual bool getPassTransformStates() const { return false; }
 
     /** Returns a string that specifies the language of the gpu programs as specified
         in a material script. ie: asm, cg, hlsl, glsl
     */
-    virtual auto getLanguage() const -> const String&;
+    virtual const String& getLanguage() const;
 
     /** Did this program encounter a compile error when loading?
      */
-    virtual auto hasCompileError() const -> bool { return mCompileError; }
+    virtual bool hasCompileError() const { return mCompileError; }
 
     /** Reset a compile error if it occurred, allowing the load to be retried
      */
@@ -342,19 +342,19 @@ struct GpuNamedConstants;
     /** Gets the name of a file from which to load named parameters mapping
         for a program which would not be able to derive named parameters itself.
     */
-    auto getManualNamedConstantsFile() const -> const String& { return mManualNamedConstantsFile; }
+    const String& getManualNamedConstantsFile() const { return mManualNamedConstantsFile; }
     /** Get the full list of named constants.
         @note
         Only available if this parameters object has named parameters, which means either
         a high-level program which loads them, or a low-level program which has them
         specified manually.
     */
-    virtual auto getConstantDefinitions() -> const GpuNamedConstants& { return *mConstantDefs.get(); }
+    virtual const GpuNamedConstants& getConstantDefinitions() { return *mConstantDefs.get(); }
 
-    auto calculateSize() const -> size_t override;
+    size_t calculateSize() const override;
 
     /// internal method to get the microcode cache id
-    auto _getHash(uint32 seed = 0) const -> uint32;
+    uint32 _getHash(uint32 seed = 0) const;
 
     protected:
     /// Virtual method which must be implemented by subclasses, load from mSource
@@ -362,7 +362,7 @@ struct GpuNamedConstants;
 
     };
 
-    inline auto to_string(const GpuProgramType& v) -> String { return GpuProgram::getProgramTypeName(v); }
+    inline String to_string(const GpuProgramType& v) { return GpuProgram::getProgramTypeName(v); }
     /** @} */
     /** @} */
 }

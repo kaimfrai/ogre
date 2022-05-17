@@ -52,7 +52,7 @@ namespace {
         {
         }
 
-        auto operator()(const RenderablePass& a, const RenderablePass& b) const -> bool
+        bool operator()(const RenderablePass& a, const RenderablePass& b) const
         {
             if (a.renderable == b.renderable)
             {
@@ -82,7 +82,7 @@ namespace {
     /// Functor for accessing sort value 1 for radix sort (Pass)
     struct RadixSortFunctorPass
     {
-        auto operator()(const RenderablePass& p) const -> uint32
+        uint32 operator()(const RenderablePass& p) const
         {
             return p.pass->getHash();
         }
@@ -98,7 +98,7 @@ namespace {
         {
         }
 
-        auto operator()(const RenderablePass& p) const -> float
+        float operator()(const RenderablePass& p) const
         {
             // Sort DESCENDING by depth (ie far objects first), use negative distance
             // here because radix sorter always dealing with accessing sort

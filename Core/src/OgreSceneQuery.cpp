@@ -56,7 +56,7 @@ class MovableObject;
         mQueryMask = mask;
     }
     //-----------------------------------------------------------------------
-    auto SceneQuery::getQueryMask() const -> uint32
+    uint32 SceneQuery::getQueryMask() const
     {
         return mQueryMask;
     }
@@ -66,7 +66,7 @@ class MovableObject;
         mQueryTypeMask = mask;
     }
     //-----------------------------------------------------------------------
-    auto SceneQuery::getQueryTypeMask() const -> uint32
+    uint32 SceneQuery::getQueryTypeMask() const
     {
         return mQueryTypeMask;
     }
@@ -82,8 +82,8 @@ class MovableObject;
         mWorldFragmentType = wft;
     }
     //-----------------------------------------------------------------------
-    auto 
-    SceneQuery::getWorldFragmentType() const -> SceneQuery::WorldFragmentType
+    SceneQuery::WorldFragmentType 
+    SceneQuery::getWorldFragmentType() const
     {
         return mWorldFragmentType;
     }
@@ -98,7 +98,7 @@ class MovableObject;
         clearResults();
     }
     //-----------------------------------------------------------------------
-    auto RegionSceneQuery::getLastResults() const -> SceneQueryResult&
+    SceneQueryResult& RegionSceneQuery::getLastResults() const
     {
         assert(mLastResult);
         return *mLastResult;
@@ -110,8 +110,8 @@ class MovableObject;
         mLastResult = NULL;
     }
     //---------------------------------------------------------------------
-    auto
-    RegionSceneQuery::execute() -> SceneQueryResult&
+    SceneQueryResult&
+    RegionSceneQuery::execute()
     {
         clearResults();
         mLastResult = new SceneQueryResult();
@@ -120,8 +120,8 @@ class MovableObject;
         return *mLastResult;
     }
     //---------------------------------------------------------------------
-    auto RegionSceneQuery::
-        queryResult(MovableObject* obj) -> bool
+    bool RegionSceneQuery::
+        queryResult(MovableObject* obj)
     {
         // Add to internal list
         mLastResult->movables.push_back(obj);
@@ -129,7 +129,7 @@ class MovableObject;
         return true;
     }
     //---------------------------------------------------------------------
-    auto RegionSceneQuery::queryResult(SceneQuery::WorldFragment* fragment) -> bool
+    bool RegionSceneQuery::queryResult(SceneQuery::WorldFragment* fragment)
     {
         // Add to internal list
         mLastResult->worldFragments.push_back(fragment);
@@ -151,7 +151,7 @@ class MovableObject;
         mAABB = box;
     }
     //-----------------------------------------------------------------------
-    auto AxisAlignedBoxSceneQuery::getBox() const -> const AxisAlignedBox&
+    const AxisAlignedBox& AxisAlignedBoxSceneQuery::getBox() const
     {
         return mAABB;
     }
@@ -170,7 +170,7 @@ class MovableObject;
         mSphere = sphere;
     }
     //-----------------------------------------------------------------------
-    auto SphereSceneQuery::getSphere() const -> const Sphere&
+    const Sphere& SphereSceneQuery::getSphere() const
     {
         return mSphere;
     }
@@ -190,7 +190,7 @@ class MovableObject;
         mVolumes = volumes;
     }
     //-----------------------------------------------------------------------
-    auto PlaneBoundedVolumeListSceneQuery::getVolumes() const -> const PlaneBoundedVolumeList&
+    const PlaneBoundedVolumeList& PlaneBoundedVolumeListSceneQuery::getVolumes() const
     {
         return mVolumes;
     }
@@ -211,7 +211,7 @@ class MovableObject;
         mRay = ray;
     }
     //-----------------------------------------------------------------------
-    auto RaySceneQuery::getRay() const -> const Ray&
+    const Ray& RaySceneQuery::getRay() const
     {
         return mRay;
     }
@@ -222,17 +222,17 @@ class MovableObject;
         mMaxResults = maxresults;
     }
     //-----------------------------------------------------------------------
-    auto RaySceneQuery::getSortByDistance() const -> bool
+    bool RaySceneQuery::getSortByDistance() const
     {
         return mSortByDistance;
     }
     //-----------------------------------------------------------------------
-    auto RaySceneQuery::getMaxResults() const -> ushort
+    ushort RaySceneQuery::getMaxResults() const
     {
         return mMaxResults;
     }
     //-----------------------------------------------------------------------
-    auto RaySceneQuery::execute() -> RaySceneQueryResult&
+    RaySceneQueryResult& RaySceneQuery::execute()
     {
         // Clear without freeing the vector buffer
         mResult.clear();
@@ -258,7 +258,7 @@ class MovableObject;
         return mResult;
     }
     //-----------------------------------------------------------------------
-    auto RaySceneQuery::getLastResults() -> RaySceneQueryResult&
+    RaySceneQueryResult& RaySceneQuery::getLastResults()
     {
         return mResult;
     }
@@ -269,7 +269,7 @@ class MovableObject;
         RaySceneQueryResult().swap(mResult);
     }
     //-----------------------------------------------------------------------
-    auto RaySceneQuery::queryResult(MovableObject* obj, Real distance) -> bool
+    bool RaySceneQuery::queryResult(MovableObject* obj, Real distance)
     {
         // Add to internal list
         RaySceneQueryResultEntry dets;
@@ -281,7 +281,7 @@ class MovableObject;
         return true;
     }
     //-----------------------------------------------------------------------
-    auto RaySceneQuery::queryResult(SceneQuery::WorldFragment* fragment, Real distance) -> bool
+    bool RaySceneQuery::queryResult(SceneQuery::WorldFragment* fragment, Real distance)
     {
         // Add to internal list
         RaySceneQueryResultEntry dets;
@@ -303,7 +303,7 @@ class MovableObject;
         clearResults();
     }
     //-----------------------------------------------------------------------
-    auto IntersectionSceneQuery::getLastResults() const -> IntersectionSceneQueryResult&
+    IntersectionSceneQueryResult& IntersectionSceneQuery::getLastResults() const
     {
         assert(mLastResult);
         return *mLastResult;
@@ -315,8 +315,8 @@ class MovableObject;
         mLastResult = NULL;
     }
     //---------------------------------------------------------------------
-    auto
-    IntersectionSceneQuery::execute() -> IntersectionSceneQueryResult&
+    IntersectionSceneQueryResult&
+    IntersectionSceneQuery::execute()
     {
         clearResults();
         mLastResult = new IntersectionSceneQueryResult();
@@ -325,8 +325,8 @@ class MovableObject;
         return *mLastResult;
     }
     //---------------------------------------------------------------------
-    auto IntersectionSceneQuery::
-        queryResult(MovableObject* first, MovableObject* second) -> bool
+    bool IntersectionSceneQuery::
+        queryResult(MovableObject* first, MovableObject* second)
     {
         // Add to internal list
         mLastResult->movables2movables.push_back(
@@ -336,8 +336,8 @@ class MovableObject;
         return true;
     }
     //---------------------------------------------------------------------
-    auto IntersectionSceneQuery::
-        queryResult(MovableObject* movable, SceneQuery::WorldFragment* fragment) -> bool
+    bool IntersectionSceneQuery::
+        queryResult(MovableObject* movable, SceneQuery::WorldFragment* fragment)
     {
         // Add to internal list
         mLastResult->movables2world.push_back(

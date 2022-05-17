@@ -55,7 +55,7 @@ namespace Ogre {
          */
         virtual void endCurrent() = 0;
 
-        auto getInitialized() -> bool { return initialized; };
+        bool getInitialized() { return initialized; };
         void setInitialized() { initialized = true; };
 
         /** Create a new context based on the same window/pbuffer as this
@@ -63,7 +63,7 @@ namespace Ogre {
         @note The caller is responsible for deleting the returned context.
         */
         [[nodiscard]]
-        virtual auto clone() const -> GLContext* = 0;
+        virtual GLContext* clone() const = 0;
 
         /**
         * Release the render context.
@@ -74,7 +74,7 @@ namespace Ogre {
         * Get the state cache manager, creating it on demand
         */
         template<class StateCacheManager>
-        auto createOrRetrieveStateCacheManager() -> StateCacheManager* {
+        StateCacheManager* createOrRetrieveStateCacheManager() {
             if(!mStateCacheManager) {
                 StateCacheManager* stateCache = new StateCacheManager;
                 stateCache->initializeCache();
@@ -84,9 +84,9 @@ namespace Ogre {
         }
 
         /// VAOs deferred for destruction in proper GL context
-        auto _getVaoDeferredForDestruction() -> std::vector<uint32>& { return mVaoDeferredForDestruction; }
+        std::vector<uint32>& _getVaoDeferredForDestruction() { return mVaoDeferredForDestruction; }
         /// FBOs deferred for destruction in proper GL context
-        auto _getFboDeferredForDestruction() -> std::vector<uint32>& { return mFboDeferredForDestruction; }
+        std::vector<uint32>& _getFboDeferredForDestruction() { return mFboDeferredForDestruction; }
         
     protected:
         bool initialized;

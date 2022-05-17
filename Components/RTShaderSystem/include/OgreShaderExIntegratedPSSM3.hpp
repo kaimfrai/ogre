@@ -77,12 +77,12 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    virtual auto getType() const -> const String&;
+    virtual const String& getType() const;
 
     /** 
     @see SubRenderState::getType.
     */
-    virtual auto getExecutionOrder() const -> int;
+    virtual int getExecutionOrder() const;
 
     /** 
     @see SubRenderState::updateGpuProgramsParams.
@@ -98,7 +98,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    virtual auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool;
+    virtual bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass);
 
 
     
@@ -112,7 +112,7 @@ public:
 
     void setDebug(bool enable) { mDebug = enable; }
 
-    auto setParameter(const String& name, const String& value) -> bool override;
+    bool setParameter(const String& name, const String& value) override;
 
     static String Type;
 
@@ -151,27 +151,27 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
+    virtual bool resolveParameters(ProgramSet* programSet);
 
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
+    virtual bool resolveDependencies(ProgramSet* programSet);
 
     /** 
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
+    virtual bool addFunctionInvocations(ProgramSet* programSet);
 
     /** 
     Internal method that adds related vertex shader functions invocations.
     */
-    auto addVSInvocation(Function* vsMain, const int groupOrder) -> bool;
+    bool addVSInvocation(Function* vsMain, const int groupOrder);
 
     /** 
     Internal method that adds related pixel shader functions invocations.
     */
-    auto addPSInvocation(Program* psProgram, const int groupOrder) -> bool;
+    bool addPSInvocation(Program* psProgram, const int groupOrder);
 
 
 
@@ -221,12 +221,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] virtual auto getType() const -> const String&;
+    [[nodiscard]] virtual const String& getType() const;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*;
+    virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator);
 
 
 protected:
@@ -234,7 +234,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual auto createInstanceImpl() -> SubRenderState*;
+    virtual SubRenderState* createInstanceImpl();
 
 
 };

@@ -61,7 +61,7 @@ namespace Ogre {
         /** Intersection test with AABB
         @remarks May return false positives but will never miss an intersection.
         */
-        [[nodiscard]] inline auto intersects(const AxisAlignedBox& box) const -> bool
+        [[nodiscard]] inline bool intersects(const AxisAlignedBox& box) const
         {
             if (box.isNull()) return false;
             if (box.isInfinite()) return true;
@@ -92,7 +92,7 @@ namespace Ogre {
         /** Intersection test with Sphere
         @remarks May return false positives but will never miss an intersection.
         */
-        [[nodiscard]] inline auto intersects(const Sphere& sphere) const -> bool
+        [[nodiscard]] inline bool intersects(const Sphere& sphere) const
         {
             PlaneList::const_iterator i, iend;
             iend = planes.end();
@@ -117,7 +117,7 @@ namespace Ogre {
         @return std::pair of hit (bool) and distance
         @remarks May return false positives but will never miss an intersection.
         */
-        inline auto intersects(const Ray& ray) -> std::pair<bool, Real>
+        inline std::pair<bool, Real> intersects(const Ray& ray)
         {
             return Math::intersects(ray, planes, outside == Plane::POSITIVE_SIDE);
         }

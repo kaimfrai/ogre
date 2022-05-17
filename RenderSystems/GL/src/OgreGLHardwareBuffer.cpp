@@ -68,8 +68,8 @@ namespace Ogre {
             stateCacheManager->deleteGLBuffer(mTarget, mBufferId);
     }
     //---------------------------------------------------------------------
-    auto GLHardwareVertexBuffer::lockImpl(size_t offset, 
-        size_t length, LockOptions options) -> void*
+    void* GLHardwareVertexBuffer::lockImpl(size_t offset, 
+        size_t length, LockOptions options)
     {
         void* retPtr = 0;
 

@@ -65,7 +65,7 @@ namespace Ogre {
     {
     }
     //-----------------------------------------------------------------------
-    auto MovablePlane::_getDerivedPlane() const -> const Plane&
+    const Plane& MovablePlane::_getDerivedPlane() const
     {
         if (mParentNode)
         {
@@ -94,7 +94,7 @@ namespace Ogre {
         return mDerivedPlane;
     }
     //-----------------------------------------------------------------------
-    auto MovablePlane::getMovableType() const -> const String&
+    const String& MovablePlane::getMovableType() const
     {
         return msMovableType;
     }

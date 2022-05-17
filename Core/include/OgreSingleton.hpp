@@ -69,7 +69,7 @@ private:
     Singleton(const Singleton<T>&);
 
     /** @brief Private operator= . This is a forbidden operation. */
-    auto operator=(const Singleton<T>&) -> Singleton&;
+    Singleton& operator=(const Singleton<T>&);
 
 protected:
     static T* msSingleton;
@@ -94,13 +94,13 @@ public:
         msSingleton = 0;
     }
     /// Get the singleton instance
-    static auto getSingleton() -> T&
+    static T& getSingleton()
     {
         assert(msSingleton);
         return (*msSingleton);
     }
     /// @copydoc getSingleton
-    static auto getSingletonPtr() -> T* { return msSingleton; }
+    static T* getSingletonPtr() { return msSingleton; }
     };
     /** @} */
     /** @} */

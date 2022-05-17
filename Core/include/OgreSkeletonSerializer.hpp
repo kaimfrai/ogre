@@ -136,15 +136,15 @@ class TransformKeyFrame;
         void readKeyFrame(DataStreamPtr& stream, NodeAnimationTrack* track, Skeleton* pSkel);
         void readSkeletonAnimationLink(DataStreamPtr& stream, Skeleton* pSkel);
 
-        auto calcBoneSize(const Skeleton* pSkel, const Bone* pBone) -> size_t;
-        auto calcBoneSizeWithoutScale(const Skeleton* pSkel, const Bone* pBone) -> size_t;
-        auto calcBoneParentSize(const Skeleton* pSkel) -> size_t;
-        auto calcAnimationSize(const Skeleton* pSkel, const Animation* pAnim, SkeletonVersion ver) -> size_t;
-        auto calcAnimationTrackSize(const Skeleton* pSkel, const NodeAnimationTrack* pTrack) -> size_t;
-        auto calcKeyFrameSize(const Skeleton* pSkel, const TransformKeyFrame* pKey) -> size_t;
-        auto calcKeyFrameSizeWithoutScale(const Skeleton* pSkel, const TransformKeyFrame* pKey) -> size_t;
-        auto calcSkeletonAnimationLinkSize(const Skeleton* pSkel, 
-            const LinkedSkeletonAnimationSource& link) -> size_t;
+        size_t calcBoneSize(const Skeleton* pSkel, const Bone* pBone);
+        size_t calcBoneSizeWithoutScale(const Skeleton* pSkel, const Bone* pBone);
+        size_t calcBoneParentSize(const Skeleton* pSkel);
+        size_t calcAnimationSize(const Skeleton* pSkel, const Animation* pAnim, SkeletonVersion ver);
+        size_t calcAnimationTrackSize(const Skeleton* pSkel, const NodeAnimationTrack* pTrack);
+        size_t calcKeyFrameSize(const Skeleton* pSkel, const TransformKeyFrame* pKey);
+        size_t calcKeyFrameSizeWithoutScale(const Skeleton* pSkel, const TransformKeyFrame* pKey);
+        size_t calcSkeletonAnimationLinkSize(const Skeleton* pSkel, 
+            const LinkedSkeletonAnimationSource& link);
 
 
 

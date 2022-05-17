@@ -63,7 +63,7 @@ void ProgramSet::setCpuProgram(std::unique_ptr<Program>&& program)
 }
 
 //-----------------------------------------------------------------------------
-auto ProgramSet::getCpuProgram(GpuProgramType type) const -> Program*
+Program* ProgramSet::getCpuProgram(GpuProgramType type) const
 {
     switch(type)
     {
@@ -93,7 +93,7 @@ void ProgramSet::setGpuProgram(const GpuProgramPtr& program)
 }
 
 //-----------------------------------------------------------------------------
-auto ProgramSet::getGpuProgram(GpuProgramType type) const -> const GpuProgramPtr&
+const GpuProgramPtr& ProgramSet::getGpuProgram(GpuProgramType type) const
 {
     switch(type)
     {

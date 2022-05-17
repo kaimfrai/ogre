@@ -197,7 +197,7 @@ class VertexDeclaration;
 
         /** Returns the name of the rendering system.
         */
-        [[nodiscard]] virtual auto getName() const -> const String& = 0;
+        [[nodiscard]] virtual const String& getName() const = 0;
 
         /** Returns the details of this API's configuration options
         @remarks
@@ -220,7 +220,7 @@ class VertexDeclaration;
         A 'map' of options, i.e. a list of options which is also
         indexed by option name.
         */
-        [[nodiscard]] auto getConfigOptions() const -> const ConfigOptionMap& { return mOptions; }
+        [[nodiscard]] const ConfigOptionMap& getConfigOptions() const { return mOptions; }
 
         /** Sets an option for this API
 
@@ -259,11 +259,11 @@ class VertexDeclaration;
 
         /** get a RenderWindowDescription from the current ConfigOptionMap
          */
-        [[nodiscard]] auto getRenderWindowDescription() const -> RenderWindowDescription;
+        [[nodiscard]] RenderWindowDescription getRenderWindowDescription() const;
 
         /** Create an object for performing hardware occlusion queries. 
         */
-        virtual auto createHardwareOcclusionQuery() -> HardwareOcclusionQuery* = 0;
+        virtual HardwareOcclusionQuery* createHardwareOcclusionQuery() = 0;
 
         /** Destroy a hardware occlusion query object. 
         */
@@ -273,7 +273,7 @@ class VertexDeclaration;
         @note
         If the returned string is empty, there are no problems.
         */
-        virtual auto validateConfigOptions() -> String { return BLANKSTRING; }
+        virtual String validateConfigOptions() { return BLANKSTRING; }
 
         /** Start up the renderer using the settings selected (Or the defaults if none have been selected).
 
@@ -283,7 +283,7 @@ class VertexDeclaration;
         virtual void _initialise();
 
         /** Query the real capabilities of the GPU and driver in the RenderSystem*/
-        [[nodiscard]] virtual auto createRenderSystemCapabilities() const -> RenderSystemCapabilities* = 0;
+        [[nodiscard]] virtual RenderSystemCapabilities* createRenderSystemCapabilities() const = 0;
  
         /** Get a pointer to the current capabilities being used by the RenderSystem.
         @remarks
@@ -292,7 +292,7 @@ class VertexDeclaration;
         listener of the RenderSystemCapabilitiesCreated event to customise the capabilities
         on the fly before the RenderSystem is initialised.
         */
-        auto getMutableCapabilities() -> RenderSystemCapabilities*{ return mCurrentCapabilities; }
+        RenderSystemCapabilities* getMutableCapabilities(){ return mCurrentCapabilities; }
 
         /** Force the render system to use the special capabilities. Can only be called
         *    before the render system has been fully initializer (before createWindow is called) 
@@ -310,8 +310,8 @@ class VertexDeclaration;
         */
         virtual void shutdown();
 
-        virtual auto getFixedFunctionParams(TrackVertexColourType tracking,
-                                                                      FogMode fog) -> const GpuProgramParametersPtr&
+        virtual const GpuProgramParametersPtr& getFixedFunctionParams(TrackVertexColourType tracking,
+                                                                      FogMode fog)
         {
             return mFixedFunctionParams;
         }
@@ -395,14 +395,14 @@ class VertexDeclaration;
         | maxStencilBufferSize | Positive integer (usually 0, 8) | 0 | EGL_STENCIL_SIZE | Android |
         | maxDepthBufferSize | Positive integer (usually 0, 16, 24) | 16 | EGL_DEPTH_SIZE | Android |
         */
-        virtual auto _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
-            bool fullScreen, const NameValuePairList *miscParams = 0) -> RenderWindow*;
+        virtual RenderWindow* _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
+            bool fullScreen, const NameValuePairList *miscParams = 0);
         
         /** Create a MultiRenderTarget, which is a render target that renders to multiple RenderTextures
         at once. Surfaces can be bound and unbound at will.
         This fails if mCapabilities->getNumMultiRenderTargets() is smaller than 2.
         */
-        virtual auto createMultiRenderTarget(const String & name) -> MultiRenderTarget * = 0; 
+        virtual MultiRenderTarget * createMultiRenderTarget(const String & name) = 0; 
 
         /** Destroys a render window */
         virtual void destroyRenderWindow(const String& name);
@@ -417,29 +417,29 @@ class VertexDeclaration;
         /** Returns a pointer to the render target with the passed name, or NULL if that
         render target cannot be found.
         */
-        auto getRenderTarget( const String &name ) -> RenderTarget *;
+        RenderTarget * getRenderTarget( const String &name );
         /** Detaches the render target with the passed name from the render system and
         returns a pointer to it.
         @note
         If the render target cannot be found, NULL is returned.
         */
-        virtual auto detachRenderTarget( const String &name ) -> RenderTarget *;
+        virtual RenderTarget * detachRenderTarget( const String &name );
 
         /** Returns the global instance vertex buffer.
         */
-        [[nodiscard]] auto getGlobalInstanceVertexBuffer() const -> HardwareVertexBufferSharedPtr;
+        [[nodiscard]] HardwareVertexBufferSharedPtr getGlobalInstanceVertexBuffer() const;
         /** Sets the global instance vertex buffer.
         */
         void setGlobalInstanceVertexBuffer(const HardwareVertexBufferSharedPtr &val);
         /** Gets vertex declaration for the global vertex buffer for the global instancing
         */
-        [[nodiscard]] auto getGlobalInstanceVertexBufferVertexDeclaration() const -> VertexDeclaration*;
+        [[nodiscard]] VertexDeclaration* getGlobalInstanceVertexBufferVertexDeclaration() const;
         /** Sets vertex declaration for the global vertex buffer for the global instancing
         */
         void setGlobalInstanceVertexBufferVertexDeclaration( VertexDeclaration* val);
         /** Gets the global number of instances.
         */
-        [[nodiscard]] auto getGlobalNumberOfInstances() const -> size_t;
+        [[nodiscard]] size_t getGlobalNumberOfInstances() const;
         /** Sets the global number of instances.
         */
         void setGlobalNumberOfInstances(const size_t val);
@@ -464,7 +464,7 @@ class VertexDeclaration;
 
          @see setReverseDepthBuffer
          */
-        [[nodiscard]] auto isReverseDepthBufferEnabled() const -> bool;
+        [[nodiscard]] bool isReverseDepthBufferEnabled() const;
 
         // ------------------------------------------------------------------------
         //                     Internal Rendering Access
@@ -587,7 +587,7 @@ class VertexDeclaration;
                 attaching, and deleting it. Here's where API-specific magic happens.
                 Don't call this directly unless you know what you're doing.
         */
-        virtual auto _createDepthBufferFor( RenderTarget *renderTarget ) -> DepthBuffer* = 0;
+        virtual DepthBuffer* _createDepthBufferFor( RenderTarget *renderTarget ) = 0;
 
         /** Removes all depth buffers. Should be called on device lost and shutdown
             @remarks
@@ -612,7 +612,7 @@ class VertexDeclaration;
         * Will usually be called by the SceneManager, don't use this manually unless you know what
         * you are doing.
         */
-        virtual auto _pauseFrame() -> RenderSystemContext*;
+        virtual RenderSystemContext* _pauseFrame();
         /**
         * Resume rendering for a frame. This has to be called after a _pauseFrame call
         * Will usually be called by the SceneManager, don't use this manually unless you know what
@@ -634,7 +634,7 @@ class VertexDeclaration;
         */
         virtual void _setViewport(Viewport *vp) = 0;
         /** Get the current active viewport for rendering. */
-        virtual auto _getViewport() -> Viewport*;
+        virtual Viewport* _getViewport();
 
         /** Sets the culling mode for the render system based on the 'vertex winding'.
         A typical way for the rendering engine to cull triangles is based on the
@@ -649,7 +649,7 @@ class VertexDeclaration;
         */
         virtual void _setCullingMode(CullingMode mode) = 0;
 
-        [[nodiscard]] virtual auto _getCullingMode() const -> CullingMode;
+        [[nodiscard]] virtual CullingMode _getCullingMode() const;
 
         /** Sets the mode of operation for depth buffer tests from this point onwards.
         Sometimes you may wish to alter the behaviour of the depth buffer to achieve
@@ -700,11 +700,11 @@ class VertexDeclaration;
         /** The RenderSystem will keep a count of tris rendered, this resets the count. */
         virtual void _beginGeometryCount();
         /** Reports the number of tris rendered since the last _beginGeometryCount call. */
-        [[nodiscard]] virtual auto _getFaceCount() const -> unsigned int;
+        [[nodiscard]] virtual unsigned int _getFaceCount() const;
         /** Reports the number of batches rendered since the last _beginGeometryCount call. */
-        [[nodiscard]] virtual auto _getBatchCount() const -> unsigned int;
+        [[nodiscard]] virtual unsigned int _getBatchCount() const;
         /** Reports the number of vertices passed to the renderer since the last _beginGeometryCount call. */
-        [[nodiscard]] virtual auto _getVertexCount() const -> unsigned int;
+        [[nodiscard]] virtual unsigned int _getVertexCount() const;
 
         /** Converts a uniform projection matrix to suitable for this render system.
         @remarks
@@ -761,12 +761,12 @@ class VertexDeclaration;
         virtual void _dispatchCompute(const Vector3i& workgroupDim) {}
 
         /** Gets the capabilities of the render system. */
-        [[nodiscard]] auto getCapabilities() const -> const RenderSystemCapabilities* { return mCurrentCapabilities; }
+        [[nodiscard]] const RenderSystemCapabilities* getCapabilities() const { return mCurrentCapabilities; }
 
 
         /** Returns the driver version.
         */
-        [[nodiscard]] auto getDriverVersion() const -> const DriverVersion& { return mDriverVersion; }
+        [[nodiscard]] const DriverVersion& getDriverVersion() const { return mDriverVersion; }
 
         /** Returns the default material scheme used by the render system.
             Systems that use the RTSS to emulate a fixed function pipeline 
@@ -777,7 +777,7 @@ class VertexDeclaration;
             viewports.  It is a necessary step on these render systems for
             render textures to be rendered into properly.
         */
-        [[nodiscard]] auto _getDefaultViewportMaterialScheme() const -> const String&;
+        [[nodiscard]] const String& _getDefaultViewportMaterialScheme() const;
 
         /** Binds a given GpuProgram (but not the parameters). 
         @remarks Only one GpuProgram of each type can be bound at once, binding another
@@ -800,14 +800,14 @@ class VertexDeclaration;
         virtual void unbindGpuProgram(GpuProgramType gptype);
 
         /** Returns whether or not a Gpu program of the given type is currently bound. */
-        auto isGpuProgramBound(GpuProgramType gptype) -> bool;
+        bool isGpuProgramBound(GpuProgramType gptype);
 
         /**
          * Gets the native shading language version for this render system.
          * Formatted so that it can be used within a shading program. 
          * For example, OpenGL 3.2 would return 150, while 3.3 would return 330
          */
-        [[nodiscard]] auto getNativeShadingLanguageVersion() const -> uint16 { return mNativeShadingLanguageVersion; }
+        [[nodiscard]] uint16 getNativeShadingLanguageVersion() const { return mNativeShadingLanguageVersion; }
 
         /** Sets the user clipping region.
         @deprecated only needed for fixed function APIs
@@ -835,7 +835,7 @@ class VertexDeclaration;
         /** Indicates whether or not the vertex windings set will be inverted for the current render (e.g. reflections)
         @see RenderSystem::setInvertVertexWinding
         */
-        [[nodiscard]] auto getInvertVertexWinding() const -> bool;
+        [[nodiscard]] bool getInvertVertexWinding() const;
 
         /** Sets the 'scissor region' i.e. the region of the target in which rendering can take place.
         @remarks
@@ -866,7 +866,7 @@ class VertexDeclaration;
         the horizontal direction.
         @note only non-zero with D3D9
         */
-        virtual auto getHorizontalTexelOffset() -> Real { return 0.0f; }
+        virtual Real getHorizontalTexelOffset() { return 0.0f; }
         /** Returns the vertical texel offset value required for mapping 
         texel origins to pixel origins in this rendersystem.
         @remarks
@@ -877,7 +877,7 @@ class VertexDeclaration;
         the vertical direction.
         @note only non-zero with D3D9
         */
-        virtual auto getVerticalTexelOffset() -> Real { return 0.0f; }
+        virtual Real getVerticalTexelOffset() { return 0.0f; }
 
         /** Gets the minimum (closest) depth value to be used when rendering
         using identity transforms.
@@ -887,7 +887,7 @@ class VertexDeclaration;
         rendersystem. This method lets you retrieve the correct value.
         @see Renderable::getUseIdentityView, Renderable::getUseIdentityProjection
         */
-        virtual auto getMinimumDepthInputValue() -> Real = 0;
+        virtual Real getMinimumDepthInputValue() = 0;
         /** Gets the maximum (farthest) depth value to be used when rendering
         using identity transforms.
         @remarks
@@ -896,7 +896,7 @@ class VertexDeclaration;
         rendersystem. This method lets you retrieve the correct value.
         @see Renderable::getUseIdentityView, Renderable::getUseIdentityProjection
         */
-        virtual auto getMaximumDepthInputValue() -> Real = 0;
+        virtual Real getMaximumDepthInputValue() = 0;
         /** set the current multi pass count value.  This must be set prior to 
         calling _render() if multiple renderings of the same pass state are 
         required.
@@ -953,7 +953,7 @@ class VertexDeclaration;
         */
         static void setSharedListener(Listener* listener);
         /** Retrieve a pointer to the current shared render system listener. */
-        static auto getSharedListener() -> Listener*;
+        static Listener* getSharedListener();
 
         /** Adds a listener to the custom events that this render system can raise.
         @remarks
@@ -977,7 +977,7 @@ class VertexDeclaration;
         can raise.
         @see RenderSystem::addListener
         */
-        [[nodiscard]] auto getRenderSystemEvents() const -> const StringVector& { return mEventNames; }
+        [[nodiscard]] const StringVector& getRenderSystemEvents() const { return mEventNames; }
 
         /** Tell the rendersystem to perform any prep tasks it needs to directly
         before other threads which might access the rendering API are registered.
@@ -1055,7 +1055,7 @@ class VertexDeclaration;
 		* @param
 		*     colourBuffer Specifies the colour buffer that will be drawn into.
 		*/
-		virtual auto setDrawBuffer(ColourBufferType colourBuffer) -> bool { return false; };
+		virtual bool setDrawBuffer(ColourBufferType colourBuffer) { return false; };
 
     protected:
 
@@ -1121,7 +1121,7 @@ class VertexDeclaration;
         pass iteration auto constant entry
         @return True if more iterations are required
         */
-        auto updatePassIterationRenderState() -> bool;
+        bool updatePassIterationRenderState();
 
         /// List of names of events this rendersystem may raise
         StringVector mEventNames;
@@ -1176,8 +1176,8 @@ class VertexDeclaration;
 
         void initFixedFunctionParams();
         void setFFPLightParams(uint32 index, bool enabled);
-        [[nodiscard]] auto flipFrontFace() const -> bool;
-        static auto reverseCompareFunction(CompareFunction func) -> CompareFunction;
+        [[nodiscard]] bool flipFrontFace() const;
+        static CompareFunction reverseCompareFunction(CompareFunction func);
     private:
         StencilState mStencilState;
     };

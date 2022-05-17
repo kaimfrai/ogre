@@ -65,7 +65,7 @@ namespace Ogre {
         res.first->setFreeOnClose(false);
     }
 
-    auto ImageCodec::encode(const Any& input) const -> DataStreamPtr
+    DataStreamPtr ImageCodec::encode(const Any& input) const
     {
         Image* src = any_cast<Image*>(input);
 
@@ -165,7 +165,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    auto Image::operator=(const Image& img) -> Image&
+    Image& Image::operator=(const Image& img)
     {
         // Only create & copy when other data was owning
         if (img.mBuffer && img.mAutoDelete)
@@ -200,7 +200,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    auto Image::flipAroundY() -> Image &
+    Image & Image::flipAroundY()
     {
         OgreAssert(mBuffer, "No image data loaded");
         mNumMipmaps = 0; // Image operations lose precomputed mipmaps
@@ -250,7 +250,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    auto Image::flipAroundX() -> Image &
+    Image & Image::flipAroundX()
     {
         OgreAssert(mBuffer, "No image data loaded");
         
@@ -261,8 +261,8 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    auto Image::loadDynamicImage(uchar* pData, uint32 uWidth, uint32 uHeight, uint32 depth,
-                                   PixelFormat eFormat, bool autoDelete, uint32 numFaces, uint32 numMipMaps) -> Image&
+    Image& Image::loadDynamicImage(uchar* pData, uint32 uWidth, uint32 uHeight, uint32 depth,
+                                   PixelFormat eFormat, bool autoDelete, uint32 numFaces, uint32 numMipMaps)
     {
 
         freeMemory();
@@ -291,8 +291,8 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    auto Image::loadRawData(const DataStreamPtr& stream, uint32 uWidth, uint32 uHeight, uint32 uDepth,
-                              PixelFormat eFormat, uint32 numFaces, uint32 numMipMaps) -> Image&
+    Image& Image::loadRawData(const DataStreamPtr& stream, uint32 uWidth, uint32 uHeight, uint32 uDepth,
+                              PixelFormat eFormat, uint32 numFaces, uint32 numMipMaps)
     {
 
         size_t size = calculateSize(numMipMaps, numFaces, uWidth, uHeight, uDepth, eFormat);
@@ -307,7 +307,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
-    auto Image::load(const String& strFileName, const String& group) -> Image &
+    Image & Image::load(const String& strFileName, const String& group)
     {
 
         String strExt;
@@ -334,14 +334,14 @@ namespace Ogre {
         Codec::getCodec(ext)->encodeToFile(this, filename);
     }
     //---------------------------------------------------------------------
-    auto Image::encode(const String& formatextension) -> DataStreamPtr
+    DataStreamPtr Image::encode(const String& formatextension)
     {
         OgreAssert(mBuffer, "No image data loaded");
         // getCodec throws when no codec is found
         return Codec::getCodec(formatextension)->encode(this);
     }
     //-----------------------------------------------------------------------------
-    auto Image::load(const DataStreamPtr& stream, const String& type ) -> Image &
+    Image & Image::load(const DataStreamPtr& stream, const String& type )
     {
         freeMemory();
 
@@ -378,7 +378,7 @@ namespace Ogre {
         return *this;
     }
     //---------------------------------------------------------------------
-    auto Image::getFileExtFromMagic(const DataStreamPtr stream) -> String
+    String Image::getFileExtFromMagic(const DataStreamPtr stream)
     {
         // read the first 32 bytes or file size, if less
         size_t magicLen = std::min(stream->size(), (size_t)32);
@@ -395,66 +395,66 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
-    auto Image::getSize() const -> size_t
+    size_t Image::getSize() const
     {
         return mBufSize;
     }
 
     //-----------------------------------------------------------------------------
-    auto Image::getNumMipmaps() const -> uint32
+    uint32 Image::getNumMipmaps() const
     {
         return mNumMipmaps;
     }
 
     //-----------------------------------------------------------------------------
-    auto Image::hasFlag(const ImageFlags imgFlag) const -> bool
+    bool Image::hasFlag(const ImageFlags imgFlag) const
     {
         return (mFlags & imgFlag) != 0;
     }
 
     //-----------------------------------------------------------------------------
-    auto Image::getDepth() const -> uint32
+    uint32 Image::getDepth() const
     {
         return mDepth;
     }
     //-----------------------------------------------------------------------------
-    auto Image::getWidth() const -> uint32
+    uint32 Image::getWidth() const
     {
         return mWidth;
     }
 
     //-----------------------------------------------------------------------------
-    auto Image::getHeight() const -> uint32
+    uint32 Image::getHeight() const
     {
         return mHeight;
     }
     //-----------------------------------------------------------------------------
-    auto Image::getNumFaces() const -> uint32
+    uint32 Image::getNumFaces() const
     {
         if(hasFlag(IF_CUBEMAP))
             return 6;
         return 1;
     }
     //-----------------------------------------------------------------------------
-    auto Image::getRowSpan() const -> size_t
+    size_t Image::getRowSpan() const
     {
         return mWidth * mPixelSize;
     }
 
     //-----------------------------------------------------------------------------
-    auto Image::getFormat() const -> PixelFormat
+    PixelFormat Image::getFormat() const
     {
         return mFormat;
     }
 
     //-----------------------------------------------------------------------------
-    auto Image::getBPP() const -> uchar
+    uchar Image::getBPP() const
     {
         return mPixelSize * 8;
     }
 
     //-----------------------------------------------------------------------------
-    auto Image::getHasAlpha() const -> bool
+    bool Image::getHasAlpha() const
     {
         return PixelUtil::getFlags(mFormat) & PFF_HASALPHA;
     }
@@ -589,7 +589,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------------    
 
-    auto Image::getColourAt(uint32 x, uint32 y, uint32 z) const -> ColourValue
+    ColourValue Image::getColourAt(uint32 x, uint32 y, uint32 z) const
     {
         ColourValue rval;
         PixelUtil::unpackColour(&rval, mFormat, getData(x, y, z));
@@ -605,7 +605,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------------    
 
-    auto Image::getPixelBox(uint32 face, uint32 mipmap) const -> PixelBox
+    PixelBox Image::getPixelBox(uint32 face, uint32 mipmap) const
     {
         // Image data is arranged as:
         // face 0, top level (mip 0)
@@ -651,8 +651,8 @@ namespace Ogre {
         return src;
     }
     //-----------------------------------------------------------------------------
-    auto Image::calculateSize(uint32 mipmaps, uint32 faces, uint32 width, uint32 height, uint32 depth,
-                                PixelFormat format) -> size_t
+    size_t Image::calculateSize(uint32 mipmaps, uint32 faces, uint32 width, uint32 height, uint32 depth,
+                                PixelFormat format)
     {
         size_t size = 0;
         for(uint32 mip=0; mip<=mipmaps; ++mip)
@@ -665,8 +665,8 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto Image::loadTwoImagesAsRGBA(const String& rgbFilename, const String& alphaFilename,
-        const String& groupName, PixelFormat fmt) -> Image &
+    Image & Image::loadTwoImagesAsRGBA(const String& rgbFilename, const String& alphaFilename,
+        const String& groupName, PixelFormat fmt)
     {
         Image rgb, alpha;
 
@@ -677,9 +677,9 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto Image::loadTwoImagesAsRGBA(const DataStreamPtr& rgbStream,
+    Image& Image::loadTwoImagesAsRGBA(const DataStreamPtr& rgbStream,
                                       const DataStreamPtr& alphaStream, PixelFormat fmt,
-                                      const String& rgbType, const String& alphaType) -> Image&
+                                      const String& rgbType, const String& alphaType)
     {
         Image rgb, alpha;
 
@@ -690,7 +690,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto Image::combineTwoImagesAsRGBA(const Image& rgb, const Image& alpha, PixelFormat fmt) -> Image &
+    Image & Image::combineTwoImagesAsRGBA(const Image& rgb, const Image& alpha, PixelFormat fmt)
     {
         // the images should be the same size, have the same number of mipmaps
         OgreAssert(rgb.getWidth() == alpha.getWidth() && rgb.getHeight() == alpha.getHeight() &&

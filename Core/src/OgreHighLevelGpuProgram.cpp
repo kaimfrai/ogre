@@ -47,7 +47,7 @@ namespace Ogre
     {
     public:
         //-----------------------------------------------------------------------
-        auto doGet(const void* target) const -> String
+        String doGet(const void* target) const
         {
             return static_cast<const HighLevelGpuProgram*>(target)->getPreprocessorDefines();
         }
@@ -62,7 +62,7 @@ namespace Ogre
     class CmdEntryPoint : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String
+        String doGet(const void* target) const
         {
             return static_cast<const HighLevelGpuProgram*>(target)->getEntryPoint();
         }
@@ -123,7 +123,7 @@ namespace Ogre
         // superclasses will trigger unload
     }
     //---------------------------------------------------------------------------
-    auto HighLevelGpuProgram::createParameters() -> GpuProgramParametersSharedPtr
+    GpuProgramParametersSharedPtr HighLevelGpuProgram::createParameters()
     {
         // Make sure param defs are loaded
         GpuProgramParametersSharedPtr params = GpuProgramManager::getSingleton().createParameters();
@@ -143,7 +143,7 @@ namespace Ogre
             params->copyConstantsFrom(*(mDefaultParams.get()));
         return params;
     }
-    auto HighLevelGpuProgram::calculateSize() const -> size_t
+    size_t HighLevelGpuProgram::calculateSize() const
     {
         size_t memSize = GpuProgram::calculateSize();
         if(mAssemblerProgram)
@@ -152,7 +152,7 @@ namespace Ogre
         return memSize;
     }
 
-    auto HighLevelGpuProgram::parseDefines(String& defines) -> std::vector<std::pair<const char*, const char*>>
+    std::vector<std::pair<const char*, const char*>> HighLevelGpuProgram::parseDefines(String& defines)
     {
         std::vector<std::pair<const char*, const char*>> ret;
         if (defines.empty())
@@ -213,7 +213,7 @@ namespace Ogre
         return ret;
     }
 
-    auto HighLevelGpuProgram::appendBuiltinDefines(String defines) -> String
+    String HighLevelGpuProgram::appendBuiltinDefines(String defines)
     {
         if(!defines.empty()) defines += ",";
 
@@ -259,7 +259,7 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    auto HighLevelGpuProgram::getConstantDefinitions() -> const GpuNamedConstants&
+    const GpuNamedConstants& HighLevelGpuProgram::getConstantDefinitions()
     {
         if (!mConstantDefsBuilt)
         {
@@ -279,7 +279,7 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------
-    auto HighLevelGpuProgram::_resolveIncludes(const String& inSource, Resource* resourceBeingLoaded, const String& fileName, bool supportsFilename) -> String
+    String HighLevelGpuProgram::_resolveIncludes(const String& inSource, Resource* resourceBeingLoaded, const String& fileName, bool supportsFilename)
     {
         String outSource;
         // output will be at least this big

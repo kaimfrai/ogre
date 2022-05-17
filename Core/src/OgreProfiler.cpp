@@ -63,11 +63,11 @@ namespace Ogre {
     // PROFILE DEFINITIONS
     //-----------------------------------------------------------------------
     template<> Profiler* Singleton<Profiler>::msSingleton = 0;
-    auto Profiler::getSingletonPtr() -> Profiler*
+    Profiler* Profiler::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto Profiler::getSingleton() -> Profiler&
+    Profiler& Profiler::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -142,7 +142,7 @@ namespace Ogre {
         mTimer = t;
     }
     //-----------------------------------------------------------------------
-    auto Profiler::getTimer() -> Timer*
+    Timer* Profiler::getTimer()
     {
         assert(mTimer && "Timer not set!");
         return mTimer;
@@ -170,7 +170,7 @@ namespace Ogre {
         mNewEnableState = enabled;
     }
     //-----------------------------------------------------------------------
-    auto Profiler::getEnabled() const -> bool
+    bool Profiler::getEnabled() const
     {
         return mEnabled;
     }
@@ -478,14 +478,14 @@ namespace Ogre {
         ++mCurrentFrame;
     }
     //-----------------------------------------------------------------------
-    auto Profiler::watchForMax(const String& profileName) -> bool 
+    bool Profiler::watchForMax(const String& profileName) 
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
 
         return mRoot.watchForMax(profileName);
     }
     //-----------------------------------------------------------------------
-    auto ProfileInstance::watchForMax(const String& profileName) -> bool 
+    bool ProfileInstance::watchForMax(const String& profileName) 
     {
         ProfileChildren::iterator it = children.begin(), endit = children.end();
         for(;it != endit; ++it)
@@ -497,13 +497,13 @@ namespace Ogre {
         return false;
     }
     //-----------------------------------------------------------------------
-    auto Profiler::watchForMin(const String& profileName) -> bool 
+    bool Profiler::watchForMin(const String& profileName) 
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
         return mRoot.watchForMin(profileName);
     }
     //-----------------------------------------------------------------------
-    auto ProfileInstance::watchForMin(const String& profileName) -> bool 
+    bool ProfileInstance::watchForMin(const String& profileName) 
     {
         ProfileChildren::iterator it = children.begin(), endit = children.end();
         for(;it != endit; ++it)
@@ -515,13 +515,13 @@ namespace Ogre {
         return false;
     }
     //-----------------------------------------------------------------------
-    auto Profiler::watchForLimit(const String& profileName, long double limit, bool greaterThan) -> bool
+    bool Profiler::watchForLimit(const String& profileName, long double limit, bool greaterThan)
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
         return mRoot.watchForLimit(profileName, limit, greaterThan);
     }
     //-----------------------------------------------------------------------
-    auto ProfileInstance::watchForLimit(const String& profileName, long double limit, bool greaterThan) -> bool
+    bool ProfileInstance::watchForLimit(const String& profileName, long double limit, bool greaterThan)
     {
         ProfileChildren::iterator it = children.begin(), endit = children.end();
         for(;it != endit; ++it)
@@ -545,7 +545,7 @@ namespace Ogre {
         LogManager::getSingleton().logMessage("------------------------------------------------------------");
     }
 
-    auto ProfileHistory::StandardDeviationMilliseconds() const -> long double
+    long double ProfileHistory::StandardDeviationMilliseconds() const
     {
         if (totalCalls == 0ul)
             return 0.0l;
@@ -622,7 +622,7 @@ namespace Ogre {
         mUpdateDisplayFrequency = freq;
     }
     //-----------------------------------------------------------------------
-    auto Profiler::getUpdateDisplayFrequency() const -> uint
+    uint Profiler::getUpdateDisplayFrequency() const
     {
         return mUpdateDisplayFrequency;
     }

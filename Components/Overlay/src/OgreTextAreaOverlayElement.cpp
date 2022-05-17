@@ -52,49 +52,49 @@ namespace Ogre {
     class CmdCaption : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String;
+        String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
     class CmdCharHeight : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String;
+        String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
     class CmdSpaceWidth : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String;
+        String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
     class CmdFontName : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String;
+        String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
     class CmdColourTop : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String;
+        String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
     class CmdColourBottom : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String;
+        String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
     class CmdColour : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String;
+        String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
     class CmdAlignment : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String;
+        String doGet( const void* target ) const;
         void doSet( void* target, const String& val );
     };
     // Command objects
@@ -459,7 +459,7 @@ namespace Ogre {
         }
         mGeomPositionsOutOfDate = true;
     }
-    auto TextAreaOverlayElement::getCharHeight() const -> Real
+    Real TextAreaOverlayElement::getCharHeight() const
     {
         if (mMetricsMode == GMM_PIXELS)
         {
@@ -484,7 +484,7 @@ namespace Ogre {
 
         mGeomPositionsOutOfDate = true;
     }
-    auto TextAreaOverlayElement::getSpaceWidth() const -> Real
+    Real TextAreaOverlayElement::getSpaceWidth() const
     {
         if (mMetricsMode == GMM_PIXELS)
         {
@@ -502,12 +502,12 @@ namespace Ogre {
         delete mRenderOp.vertexData;
     }
     //---------------------------------------------------------------------
-    auto TextAreaOverlayElement::getTypeName() const -> const String&
+    const String& TextAreaOverlayElement::getTypeName() const
     {
         return msTypeName;
     }
     //---------------------------------------------------------------------
-    auto TextAreaOverlayElement::getMaterial() const -> const MaterialPtr&
+    const MaterialPtr& TextAreaOverlayElement::getMaterial() const
     {
         // On-demand load
         // Moved from setFontName to avoid issues with background parsing of scripts
@@ -573,7 +573,7 @@ namespace Ogre {
         mColoursChanged = true;
     }
     //---------------------------------------------------------------------
-    auto TextAreaOverlayElement::getColour() const -> const ColourValue&
+    const ColourValue& TextAreaOverlayElement::getColour() const
     {
         // Either one
         return mColourTop;
@@ -585,7 +585,7 @@ namespace Ogre {
         mColoursChanged = true;
     }
     //---------------------------------------------------------------------
-    auto TextAreaOverlayElement::getColourBottom() const -> const ColourValue&
+    const ColourValue& TextAreaOverlayElement::getColourBottom() const
     {
         return mColourBottom;
     }
@@ -596,7 +596,7 @@ namespace Ogre {
         mColoursChanged = true;
     }
     //---------------------------------------------------------------------
-    auto TextAreaOverlayElement::getColourTop() const -> const ColourValue&
+    const ColourValue& TextAreaOverlayElement::getColourTop() const
     {
         return mColourTop;
     }
@@ -701,7 +701,7 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Char height command object
     //
-    auto CmdCharHeight::doGet( const void* target ) const -> String
+    String CmdCharHeight::doGet( const void* target ) const
     {
         return StringConverter::toString( 
             static_cast< const TextAreaOverlayElement* >( target )->getCharHeight() );
@@ -714,7 +714,7 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Space width command object
     //
-    auto CmdSpaceWidth::doGet( const void* target ) const -> String
+    String CmdSpaceWidth::doGet( const void* target ) const
     {
         return StringConverter::toString( 
             static_cast< const TextAreaOverlayElement* >( target )->getSpaceWidth() );
@@ -729,7 +729,7 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Font name command object
     //
-    auto CmdFontName::doGet( const void* target ) const -> String
+    String CmdFontName::doGet( const void* target ) const
     {
         return static_cast< const TextAreaOverlayElement* >( target )->getFont()->getName();
     }
@@ -741,7 +741,7 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Colour command object
     //
-    auto CmdColour::doGet( const void* target ) const -> String
+    String CmdColour::doGet( const void* target ) const
     {
         return StringConverter::toString (
             static_cast< const TextAreaOverlayElement* >( target )->getColour());
@@ -756,7 +756,7 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Top colour command object
     //
-    auto CmdColourTop::doGet( const void* target ) const -> String
+    String CmdColourTop::doGet( const void* target ) const
     {
         return StringConverter::toString (
             static_cast< const TextAreaOverlayElement* >( target )->getColourTop());
@@ -771,7 +771,7 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Bottom colour command object
     //
-    auto CmdColourBottom::doGet( const void* target ) const -> String
+    String CmdColourBottom::doGet( const void* target ) const
     {
         return StringConverter::toString (
             static_cast< const TextAreaOverlayElement* >( target )->getColourBottom());
@@ -786,7 +786,7 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Alignment command object
     //
-    auto CmdAlignment::doGet( const void* target ) const -> String
+    String CmdAlignment::doGet( const void* target ) const
     {
         TextAreaOverlayElement::Alignment align = static_cast< const TextAreaOverlayElement* >( target )->getAlignment();
         switch (align)

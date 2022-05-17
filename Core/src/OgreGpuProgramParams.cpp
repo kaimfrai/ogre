@@ -227,7 +227,7 @@ namespace Ogre
         ser.importNamedConstants(stream, this);
     }
     //-----------------------------------------------------------------------------
-    auto GpuNamedConstants::calculateSize() const -> size_t
+    size_t GpuNamedConstants::calculateSize() const
     {
         size_t memSize = sizeof(*this);
         // Tally up constant defs
@@ -345,7 +345,7 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------------
-    auto GpuSharedParameters::calculateSize() const -> size_t
+    size_t GpuSharedParameters::calculateSize() const
     {
         size_t memSize = sizeof(*this);
 
@@ -444,7 +444,7 @@ namespace Ogre
     }
 
     //---------------------------------------------------------------------
-    auto GpuSharedParameters::getConstantDefinition(const String& name) const -> const GpuConstantDefinition&
+    const GpuConstantDefinition& GpuSharedParameters::getConstantDefinition(const String& name) const
     {
         GpuConstantDefinitionMap::const_iterator i = mNamedConstants.map.find(name);
         if (i == mNamedConstants.map.end())
@@ -456,7 +456,7 @@ namespace Ogre
         return i->second;
     }
     //---------------------------------------------------------------------
-    auto GpuSharedParameters::getConstantDefinitions() const -> const GpuNamedConstants&
+    const GpuNamedConstants& GpuSharedParameters::getConstantDefinitions() const
     {
         return mNamedConstants;
     }
@@ -765,7 +765,7 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------------
-    auto GpuProgramParameters::operator=(const GpuProgramParameters& oth) -> GpuProgramParameters&
+    GpuProgramParameters& GpuProgramParameters::operator=(const GpuProgramParameters& oth)
     {
         // let compiler perform shallow copies of structures
         // AutoConstantEntry, RealConstantEntry, IntConstantEntry
@@ -794,7 +794,7 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------------
-    auto GpuProgramParameters::calculateSize() const -> size_t
+    size_t GpuProgramParameters::calculateSize() const
     {
         size_t memSize = sizeof(*this);
 
@@ -1037,7 +1037,7 @@ namespace Ogre
         memcpy(dest, &mConstants[physicalIndex], sizeof(int) * count);
     }
     //---------------------------------------------------------------------
-    auto GpuProgramParameters::deriveVariability(GpuProgramParameters::AutoConstantType act) -> uint16
+    uint16 GpuProgramParameters::deriveVariability(GpuProgramParameters::AutoConstantType act)
     {
         switch(act)
         {
@@ -1201,8 +1201,8 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    auto GpuProgramParameters::getConstantLogicalIndexUse(
-        size_t logicalIndex, size_t requestedSize, uint16 variability, BaseConstantType type) -> GpuLogicalIndexUse*
+    GpuLogicalIndexUse* GpuProgramParameters::getConstantLogicalIndexUse(
+        size_t logicalIndex, size_t requestedSize, uint16 variability, BaseConstantType type)
     {
         OgreAssert(type != BCT_SAMPLER, "");
         if (!mLogicalToPhysical)
@@ -1303,14 +1303,14 @@ namespace Ogre
         return indexUse;
     }
     //-----------------------------------------------------------------------------
-    auto GpuProgramParameters::_getConstantPhysicalIndex(
-        size_t logicalIndex, size_t requestedSize, uint16 variability, BaseConstantType type) -> size_t
+    size_t GpuProgramParameters::_getConstantPhysicalIndex(
+        size_t logicalIndex, size_t requestedSize, uint16 variability, BaseConstantType type)
     {
         GpuLogicalIndexUse* indexUse = getConstantLogicalIndexUse(logicalIndex, requestedSize, variability, type);
         return indexUse ? indexUse->physicalIndex : 0;
     }
     //-----------------------------------------------------------------------------
-    auto GpuProgramParameters::getLogicalIndexForPhysicalIndex(size_t physicalIndex) -> size_t
+    size_t GpuProgramParameters::getLogicalIndexForPhysicalIndex(size_t physicalIndex)
     {
         // perhaps build a reverse map of this sometime (shared in GpuProgram)
         for (const auto& p : mLogicalToPhysical->map)
@@ -1322,7 +1322,7 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------------
-    auto GpuProgramParameters::getConstantDefinitions() const -> const GpuNamedConstants&
+    const GpuNamedConstants& GpuProgramParameters::getConstantDefinitions() const
     {
         if (!mNamedConstants)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -1331,7 +1331,7 @@ namespace Ogre
         return *mNamedConstants;
     }
     //-----------------------------------------------------------------------------
-    auto GpuProgramParameters::getConstantDefinition(const String& name) const -> const GpuConstantDefinition&
+    const GpuConstantDefinition& GpuProgramParameters::getConstantDefinition(const String& name) const
     {
         if (!mNamedConstants)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -1346,9 +1346,9 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------------
-    auto
+    const GpuConstantDefinition*
     GpuProgramParameters::_findNamedConstantDefinition(const String& name,
-                                                       bool throwExceptionIfNotFound) const -> const GpuConstantDefinition*
+                                                       bool throwExceptionIfNotFound) const
     {
         if (!mNamedConstants)
         {
@@ -2185,7 +2185,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------------
-    static auto withArrayOffset(const GpuConstantDefinition* def, const String& name) -> size_t
+    static size_t withArrayOffset(const GpuConstantDefinition* def, const String& name)
     {
         uint32 offset = 0;
         if(name.back() == ']')
@@ -2367,7 +2367,7 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramParameters::getAutoConstantEntry(const size_t index) -> GpuProgramParameters::AutoConstantEntry*
+    GpuProgramParameters::AutoConstantEntry* GpuProgramParameters::getAutoConstantEntry(const size_t index)
     {
         if (index < mAutoConstants.size())
         {
@@ -2379,8 +2379,8 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------------
-    auto
-    GpuProgramParameters::findFloatAutoConstantEntry(size_t logicalIndex) -> const GpuProgramParameters::AutoConstantEntry*
+    const GpuProgramParameters::AutoConstantEntry*
+    GpuProgramParameters::findFloatAutoConstantEntry(size_t logicalIndex)
     {
         if (!mLogicalToPhysical)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -2392,8 +2392,8 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------------
-    auto
-    GpuProgramParameters::findAutoConstantEntry(const String& paramName) const -> const GpuProgramParameters::AutoConstantEntry*
+    const GpuProgramParameters::AutoConstantEntry*
+    GpuProgramParameters::findAutoConstantEntry(const String& paramName) const
     {
         if (!mNamedConstants)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -2406,8 +2406,8 @@ namespace Ogre
         return _findRawAutoConstantEntryFloat(def.physicalIndex);
     }
     //---------------------------------------------------------------------------
-    auto
-    GpuProgramParameters::_findRawAutoConstantEntryFloat(size_t physicalIndex) const -> const GpuProgramParameters::AutoConstantEntry*
+    const GpuProgramParameters::AutoConstantEntry*
+    GpuProgramParameters::_findRawAutoConstantEntryFloat(size_t physicalIndex) const
     {
         for(AutoConstantList::const_iterator i = mAutoConstants.begin();
             i != mAutoConstants.end(); ++i)
@@ -2513,8 +2513,8 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto
-    GpuProgramParameters::getAutoConstantDefinition(const String& name) -> const GpuProgramParameters::AutoConstantDefinition*
+    const GpuProgramParameters::AutoConstantDefinition*
+    GpuProgramParameters::getAutoConstantDefinition(const String& name)
     {
         // find a constant definition that matches name by iterating through the
         // constant definition array
@@ -2536,8 +2536,8 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------
-    auto
-    GpuProgramParameters::getAutoConstantDefinition(const size_t idx) -> const GpuProgramParameters::AutoConstantDefinition*
+    const GpuProgramParameters::AutoConstantDefinition*
+    GpuProgramParameters::getAutoConstantDefinition(const size_t idx)
     {
 
         if (idx < getNumAutoConstantDefinitions())
@@ -2551,7 +2551,7 @@ namespace Ogre
             return 0;
     }
     //-----------------------------------------------------------------------
-    auto GpuProgramParameters::getNumAutoConstantDefinitions() -> size_t
+    size_t GpuProgramParameters::getNumAutoConstantDefinitions()
     {
         return sizeof(AutoConstantDictionary)/sizeof(AutoConstantDefinition);
     }
@@ -2579,7 +2579,7 @@ namespace Ogre
         addSharedParameters(GpuProgramManager::getSingleton().getSharedParameters(sharedParamsName));
     }
     //---------------------------------------------------------------------
-    auto GpuProgramParameters::isUsingSharedParameters(const String& sharedParamsName) const -> bool
+    bool GpuProgramParameters::isUsingSharedParameters(const String& sharedParamsName) const
     {
         for (GpuSharedParamUsageList::const_iterator i = mSharedParamSets.begin();
              i != mSharedParamSets.end(); ++i)
@@ -2608,8 +2608,8 @@ namespace Ogre
         mSharedParamSets.clear();
     }
     //---------------------------------------------------------------------
-    auto
-    GpuProgramParameters::getSharedParameters() const -> const GpuProgramParameters::GpuSharedParamUsageList&
+    const GpuProgramParameters::GpuSharedParamUsageList&
+    GpuProgramParameters::getSharedParameters() const
     {
         return mSharedParamSets;
     }

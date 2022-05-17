@@ -13,12 +13,12 @@
 #include "OgreMurmurHash3.hpp"
 #include "OgrePlatform.hpp"
 
-inline auto rotl32 ( uint32_t x, int8_t r ) -> uint32_t
+inline uint32_t rotl32 ( uint32_t x, int8_t r )
 {
   return (x << r) | (x >> (32 - r));
 }
 
-inline auto rotl64 ( uint64_t x, int8_t r ) -> uint64_t
+inline uint64_t rotl64 ( uint64_t x, int8_t r )
 {
   return (x << r) | (x >> (64 - r));
 }
@@ -34,12 +34,12 @@ namespace Ogre
 // Block read - if your platform needs to do endian-swapping or can only
 // handle aligned reads, do the conversion here
 
-inline auto getblock32 ( const uint32_t * p, int i ) -> uint32_t
+inline uint32_t getblock32 ( const uint32_t * p, int i )
 {
   return p[i];
 }
 
-inline auto getblock64 ( const uint64_t * p, int i ) -> uint64_t
+inline uint64_t getblock64 ( const uint64_t * p, int i )
 {
   return p[i];
 }
@@ -47,7 +47,7 @@ inline auto getblock64 ( const uint64_t * p, int i ) -> uint64_t
 //-----------------------------------------------------------------------------
 // Finalization mix - force all bits of a hash block to avalanche
 
-inline auto fmix32 ( uint32_t h ) -> uint32_t
+inline uint32_t fmix32 ( uint32_t h )
 {
   h ^= h >> 16;
   h *= 0x85ebca6b;
@@ -60,7 +60,7 @@ inline auto fmix32 ( uint32_t h ) -> uint32_t
 
 //----------
 
-inline auto fmix64 ( uint64_t k ) -> uint64_t
+inline uint64_t fmix64 ( uint64_t k )
 {
   k ^= k >> 33;
   k *= BIG_CONSTANT(0xff51afd7ed558ccd);

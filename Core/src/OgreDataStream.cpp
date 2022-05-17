@@ -44,13 +44,13 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    template <typename T> auto DataStream::operator >>(T& val) -> DataStream&
+    template <typename T> DataStream& DataStream::operator >>(T& val)
     {
         read(static_cast<void*>(&val), sizeof(T));
         return *this;
     }
     //-----------------------------------------------------------------------
-    auto DataStream::getLine(bool trimAfter) -> String
+    String DataStream::getLine(bool trimAfter)
     {
         char tmpBuf[OGRE_STREAM_TEMP_SIZE];
         String retString;
@@ -92,7 +92,7 @@ namespace Ogre {
         return retString;
     }
     //-----------------------------------------------------------------------
-    auto DataStream::readLine(char* buf, size_t maxCount, const String& delim) -> size_t
+    size_t DataStream::readLine(char* buf, size_t maxCount, const String& delim)
     {
         // Deal with both Unix & Windows LFs
         bool trimCR = false;
@@ -149,7 +149,7 @@ namespace Ogre {
         return totalCount;
     }
     //-----------------------------------------------------------------------
-    auto DataStream::skipLine(const String& delim) -> size_t
+    size_t DataStream::skipLine(const String& delim)
     {
         char tmpBuf[OGRE_STREAM_TEMP_SIZE];
         size_t total = 0;
@@ -180,7 +180,7 @@ namespace Ogre {
         return total;
     }
     //-----------------------------------------------------------------------
-    auto DataStream::getAsString() -> String
+    String DataStream::getAsString()
     {
         // Read the entire buffer - ideally in one read, but if the size of
         // the buffer is unknown, do multiple fixed size reads.
@@ -352,7 +352,7 @@ namespace Ogre {
         close();
     }
     //-----------------------------------------------------------------------
-    auto MemoryDataStream::read(void* buf, size_t count) -> size_t
+    size_t MemoryDataStream::read(void* buf, size_t count)
     {
         size_t cnt = count;
         // Read over end of memory?
@@ -368,7 +368,7 @@ namespace Ogre {
         return cnt;
     }
     //---------------------------------------------------------------------
-    auto MemoryDataStream::write(const void* buf, size_t count) -> size_t
+    size_t MemoryDataStream::write(const void* buf, size_t count)
     {
         size_t written = 0;
         if (isWriteable())
@@ -387,8 +387,8 @@ namespace Ogre {
         return written;
     }
     //-----------------------------------------------------------------------
-    auto MemoryDataStream::readLine(char* buf, size_t maxCount, 
-        const String& delim) -> size_t
+    size_t MemoryDataStream::readLine(char* buf, size_t maxCount, 
+        const String& delim)
     {
         // Deal with both Unix & Windows LFs
         bool trimCR = false;
@@ -425,7 +425,7 @@ namespace Ogre {
         return pos;
     }
     //-----------------------------------------------------------------------
-    auto MemoryDataStream::skipLine(const String& delim) -> size_t
+    size_t MemoryDataStream::skipLine(const String& delim)
     {
         size_t pos = 0;
 
@@ -458,13 +458,13 @@ namespace Ogre {
         mPos = mData + pos;
     }
     //-----------------------------------------------------------------------
-    auto MemoryDataStream::tell() const -> size_t
+    size_t MemoryDataStream::tell() const
     {
         //mData is start, mPos is current location
         return mPos - mData;
     }
     //-----------------------------------------------------------------------
-    auto MemoryDataStream::eof() const -> bool
+    bool MemoryDataStream::eof() const
     {
         return mPos >= mEnd;
     }
@@ -558,13 +558,13 @@ namespace Ogre {
         close();
     }
     //-----------------------------------------------------------------------
-    auto FileStreamDataStream::read(void* buf, size_t count) -> size_t
+    size_t FileStreamDataStream::read(void* buf, size_t count)
     {
         mInStream->read(static_cast<char*>(buf), static_cast<std::streamsize>(count));
         return (size_t)mInStream->gcount();
     }
     //-----------------------------------------------------------------------
-    auto FileStreamDataStream::write(const void* buf, size_t count) -> size_t
+    size_t FileStreamDataStream::write(const void* buf, size_t count)
     {
         size_t written = 0;
         if (isWriteable() && mFStream)
@@ -575,8 +575,8 @@ namespace Ogre {
         return written;
     }
     //-----------------------------------------------------------------------
-    auto FileStreamDataStream::readLine(char* buf, size_t maxCount, 
-        const String& delim) -> size_t
+    size_t FileStreamDataStream::readLine(char* buf, size_t maxCount, 
+        const String& delim)
     {
         if (delim.empty())
         {
@@ -654,13 +654,13 @@ namespace Ogre {
         mInStream->seekg(static_cast<std::streamoff>(pos), std::ios::beg);
     }
     //-----------------------------------------------------------------------
-    auto FileStreamDataStream::tell() const -> size_t
+    size_t FileStreamDataStream::tell() const
     {
         mInStream->clear(); //Clear fail status in case eof was set
         return (size_t)mInStream->tellg();
     }
     //-----------------------------------------------------------------------
-    auto FileStreamDataStream::eof() const -> bool
+    bool FileStreamDataStream::eof() const
     {
         return mInStream->eof();
     }
@@ -716,12 +716,12 @@ namespace Ogre {
         close();
     }
     //-----------------------------------------------------------------------
-    auto FileHandleDataStream::read(void* buf, size_t count) -> size_t
+    size_t FileHandleDataStream::read(void* buf, size_t count)
     {
         return fread(buf, 1, count, mFileHandle);
     }
     //-----------------------------------------------------------------------
-    auto FileHandleDataStream::write(const void* buf, size_t count) -> size_t
+    size_t FileHandleDataStream::write(const void* buf, size_t count)
     {
         if (!isWriteable())
             return 0;
@@ -740,12 +740,12 @@ namespace Ogre {
         fseek(mFileHandle, static_cast<long>(pos), SEEK_SET);
     }
     //-----------------------------------------------------------------------
-    auto FileHandleDataStream::tell() const -> size_t
+    size_t FileHandleDataStream::tell() const
     {
         return ftell( mFileHandle );
     }
     //-----------------------------------------------------------------------
-    auto FileHandleDataStream::eof() const -> bool
+    bool FileHandleDataStream::eof() const
     {
         return feof(mFileHandle) != 0;
     }

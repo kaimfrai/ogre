@@ -129,7 +129,7 @@ namespace Ogre {
         /// The hierarchical level of this profile, 0 being the root profile
         uint    hierarchicalLvl;
 
-        [[nodiscard]] auto StandardDeviationMilliseconds() const -> long double;
+        [[nodiscard]] long double StandardDeviationMilliseconds() const;
     };
 
     /// Represents an individual profile call
@@ -145,9 +145,9 @@ namespace Ogre {
         void logResults();
         void reset();
 
-        inline auto watchForMax() -> bool { return history.currentClocksPercent == history.maxClocksPercent; }
-        inline auto watchForMin() -> bool { return history.currentClocksPercent == history.minClocksPercent; }
-        inline auto watchForLimit(long double limit, bool greaterThan = true) -> bool
+        inline bool watchForMax() { return history.currentClocksPercent == history.maxClocksPercent; }
+        inline bool watchForMin() { return history.currentClocksPercent == history.minClocksPercent; }
+        inline bool watchForLimit(long double limit, bool greaterThan = true)
         {
             if (greaterThan)
                 return history.currentClocksPercent > limit;
@@ -155,9 +155,9 @@ namespace Ogre {
                 return history.currentClocksPercent < limit;
         }
 
-        auto watchForMax(const String& profileName) -> bool;
-        auto watchForMin(const String& profileName) -> bool;
-        auto watchForLimit(const String& profileName, long double limit, bool greaterThan = true) -> bool;
+        bool watchForMax(const String& profileName);
+        bool watchForMin(const String& profileName);
+        bool watchForLimit(const String& profileName, long double limit, bool greaterThan = true);
                                 
         /// The name of the profile
         String          name;
@@ -232,7 +232,7 @@ namespace Ogre {
             void setTimer(Timer* t);
 
             /** Retrieves the timer for the profiler */
-            auto getTimer() -> Timer*;
+            Timer* getTimer();
 
             /** Begins a profile
             @remarks 
@@ -288,7 +288,7 @@ namespace Ogre {
             void setEnabled(bool enabled);
 
             /** Gets whether this profiler is enabled */
-            [[nodiscard]] auto getEnabled() const -> bool;
+            [[nodiscard]] bool getEnabled() const;
 
             /** Enables a previously disabled profile 
             @remarks Can be safely called in the middle of the profile.
@@ -305,21 +305,21 @@ namespace Ogre {
             void setProfileGroupMask(uint32 mask) { mProfileMask = mask; }
             /** Get the mask which all profiles must pass to be enabled. 
             */
-            [[nodiscard]] auto getProfileGroupMask() const -> uint32 { return mProfileMask; }
+            [[nodiscard]] uint32 getProfileGroupMask() const { return mProfileMask; }
 
             /** Returns true if the specified profile reaches a new frame time maximum
             @remarks If this is called during a frame, it will be reading the results
             from the previous frame. Therefore, it is best to use this after the frame
             has ended.
             */
-            auto watchForMax(const String& profileName) -> bool;
+            bool watchForMax(const String& profileName);
 
             /** Returns true if the specified profile reaches a new frame time minimum
             @remarks If this is called during a frame, it will be reading the results
             from the previous frame. Therefore, it is best to use this after the frame
             has ended.
             */
-            auto watchForMin(const String& profileName) -> bool;
+            bool watchForMin(const String& profileName);
 
             /** Returns true if the specified profile goes over or under the given limit
                 frame time
@@ -331,7 +331,7 @@ namespace Ogre {
             @param greaterThan If true, this will return whether the limit is exceeded. Otherwise,
             it will return if the frame time has gone under this limit.
             */
-            auto watchForLimit(const String& profileName, long double limit, bool greaterThan = true) -> bool;
+            bool watchForLimit(const String& profileName, long double limit, bool greaterThan = true);
 
             /** Outputs current profile statistics to the log */
             void logResults();
@@ -343,7 +343,7 @@ namespace Ogre {
             void setUpdateDisplayFrequency(uint freq);
 
             /** Gets the frequency that the Profiler display is updated */
-            [[nodiscard]] auto getUpdateDisplayFrequency() const -> uint;
+            [[nodiscard]] uint getUpdateDisplayFrequency() const;
 
             /**
             @remarks
@@ -362,11 +362,11 @@ namespace Ogre {
             void removeListener(ProfileSessionListener* listener);
 
             /// @copydoc Singleton::getSingleton()
-            static auto getSingleton() -> Profiler&;
+            static Profiler& getSingleton();
             /// @copydoc Singleton::getSingleton()
-            static auto getSingletonPtr() -> Profiler*;
+            static Profiler* getSingletonPtr();
 
-            [[nodiscard]] auto getCurrentCalls() const -> uint
+            [[nodiscard]] uint getCurrentCalls() const
             {
                 return mCurrent->history.totalCalls;
             }

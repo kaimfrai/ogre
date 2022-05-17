@@ -65,10 +65,10 @@ namespace Ogre {
         void addPoint(const Vector3& p);
 
         /** Gets the detail of one of the control points of the spline. */
-        [[nodiscard]] auto getPoint(unsigned short index) const -> const Vector3&;
+        [[nodiscard]] const Vector3& getPoint(unsigned short index) const;
 
         /** Gets the number of control points in the spline. */
-        [[nodiscard]] auto getNumPoints() const -> unsigned short;
+        [[nodiscard]] unsigned short getNumPoints() const;
 
         /** Clears all the points in the spline. */
         void clear();
@@ -85,13 +85,13 @@ namespace Ogre {
             whole length of the spline, this method returns an interpolated point.
         @param t Parametric value.
         */
-        [[nodiscard]] auto interpolate(Real t) const -> Vector3;
+        [[nodiscard]] Vector3 interpolate(Real t) const;
 
         /** Interpolates a single segment of the spline given a parametric value.
         @param fromIndex The point index to treat as t=0. fromIndex + 1 is deemed to be t=1
         @param t Parametric value
         */
-        [[nodiscard]] auto interpolate(unsigned int fromIndex, Real t) const -> Vector3;
+        [[nodiscard]] Vector3 interpolate(unsigned int fromIndex, Real t) const;
 
 
         /** Tells the spline whether it should automatically calculate tangents on demand

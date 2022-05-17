@@ -57,29 +57,29 @@ class AnimationStateSet;
         unload();
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::getNumAnimations() const -> unsigned short
+    unsigned short SkeletonInstance::getNumAnimations() const
     {
         return mSkeleton->getNumAnimations();
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::getAnimation(unsigned short index) const -> Animation*
+    Animation* SkeletonInstance::getAnimation(unsigned short index) const
     {
         return mSkeleton->getAnimation(index);
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::createAnimation(const String& name, Real length) -> Animation*
+    Animation* SkeletonInstance::createAnimation(const String& name, Real length)
     {
         return mSkeleton->createAnimation(name, length);
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::getAnimation(const String& name, 
-        const LinkedSkeletonAnimationSource** linker) const -> Animation*
+    Animation* SkeletonInstance::getAnimation(const String& name, 
+        const LinkedSkeletonAnimationSource** linker) const
     {
         return mSkeleton->getAnimation(name, linker);
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::_getAnimationImpl(const String& name, 
-        const LinkedSkeletonAnimationSource** linker) const -> Animation*
+    Animation* SkeletonInstance::_getAnimationImpl(const String& name, 
+        const LinkedSkeletonAnimationSource** linker) const
     {
         return mSkeleton->_getAnimationImpl(name, linker);
     }
@@ -100,8 +100,8 @@ class AnimationStateSet;
         mSkeleton->removeAllLinkedSkeletonAnimationSources();
     }
     //-------------------------------------------------------------------------
-    auto
-    SkeletonInstance::getLinkedSkeletonAnimationSources() const -> const Skeleton::LinkedSkeletonAnimSourceList&
+    const Skeleton::LinkedSkeletonAnimSourceList&
+    SkeletonInstance::getLinkedSkeletonAnimationSources() const
     {
         return mSkeleton->getLinkedSkeletonAnimationSources();
     }
@@ -188,9 +188,9 @@ class AnimationStateSet;
     }
 
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::createTagPointOnBone(Bone* bone,
+    TagPoint* SkeletonInstance::createTagPointOnBone(Bone* bone,
         const Quaternion &offsetOrientation, 
-        const Vector3 &offsetPosition) -> TagPoint*
+        const Vector3 &offsetPosition)
     {
         TagPoint* ret;
         if (mFreeTagPoints.empty()) {
@@ -232,19 +232,19 @@ class AnimationStateSet;
         }
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::getName() const -> const String&
+    const String& SkeletonInstance::getName() const
     {
         // delegate
         return mSkeleton->getName();
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::getHandle() const -> ResourceHandle
+    ResourceHandle SkeletonInstance::getHandle() const
     {
         // delegate
         return mSkeleton->getHandle();
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::getGroup() const -> const String&
+    const String& SkeletonInstance::getGroup() const
     {
         // delegate
         return mSkeleton->getGroup();

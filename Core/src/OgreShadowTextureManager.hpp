@@ -78,7 +78,7 @@ namespace Ogre
         /** Get an appropriately defined 'null' texture, i.e. one which will always
             result in no shadows.
         */
-        virtual auto getNullShadowTexture(PixelFormat format) -> TexturePtr;
+        virtual TexturePtr getNullShadowTexture(PixelFormat format);
 
         /** Remove any shadow textures that are no longer being referenced.
         @remarks
@@ -93,9 +93,9 @@ namespace Ogre
         virtual void clear();
 
         /// @copydoc Singleton::getSingleton()
-        static auto getSingleton() -> ShadowTextureManager&;
+        static ShadowTextureManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static auto getSingletonPtr() -> ShadowTextureManager*;
+        static ShadowTextureManager* getSingletonPtr();
 
     };
 

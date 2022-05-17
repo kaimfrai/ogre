@@ -103,7 +103,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto Viewport::_isUpdated() const -> bool
+    bool Viewport::_isUpdated() const
     {
         return mUpdated;
     }
@@ -148,57 +148,57 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto Viewport::getZOrder() const -> int
+    int Viewport::getZOrder() const
     {
         return mZOrder;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getTarget() const -> RenderTarget*
+    RenderTarget* Viewport::getTarget() const
     {
         return mTarget;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getCamera() const -> Camera*
+    Camera* Viewport::getCamera() const
     {
         return mCamera;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getLeft() const -> Real
+    Real Viewport::getLeft() const
     {
         return mRelLeft;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getTop() const -> Real
+    Real Viewport::getTop() const
     {
         return mRelTop;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getWidth() const -> Real
+    Real Viewport::getWidth() const
     {
         return mRelWidth;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getHeight() const -> Real
+    Real Viewport::getHeight() const
     {
         return mRelHeight;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getActualLeft() const -> int
+    int Viewport::getActualLeft() const
     {
         return mActLeft;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getActualTop() const -> int
+    int Viewport::getActualTop() const
     {
         return mActTop;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getActualWidth() const -> int
+    int Viewport::getActualWidth() const
     {
         return mActWidth;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getActualHeight() const -> int
+    int Viewport::getActualHeight() const
     {
         return mActHeight;
     }
@@ -230,7 +230,7 @@ namespace Ogre {
                     "Setting Viewport orientation mode is not supported");
     }
     //---------------------------------------------------------------------
-    auto Viewport::getOrientationMode() const -> OrientationMode
+    OrientationMode Viewport::getOrientationMode() const
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Getting Viewport orientation mode is not supported");
@@ -242,7 +242,7 @@ namespace Ogre {
                     "Setting default Viewport orientation mode is not supported");
     }
     //---------------------------------------------------------------------
-    auto Viewport::getDefaultOrientationMode() -> OrientationMode
+    OrientationMode Viewport::getDefaultOrientationMode()
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Getting default Viewport orientation mode is not supported");
@@ -253,7 +253,7 @@ namespace Ogre {
         mBackColour = colour;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getBackgroundColour() const -> const ColourValue&
+    const ColourValue& Viewport::getBackgroundColour() const
     {
         return mBackColour;
     }
@@ -263,7 +263,7 @@ namespace Ogre {
         mDepthClearValue = depth;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getDepthClear() const -> float
+    float Viewport::getDepthClear() const
     {
         return mDepthClearValue;
     }
@@ -274,12 +274,12 @@ namespace Ogre {
         mClearBuffers = inClear ? inBuffers : 0;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getClearEveryFrame() const -> bool
+    bool Viewport::getClearEveryFrame() const
     {
         return mClearEveryFrame;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getClearBuffers() const -> unsigned int
+    unsigned int Viewport::getClearBuffers() const
     {
         return mClearBuffers;
     }
@@ -301,18 +301,18 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto Viewport::getActualDimensions() const -> Rect
+    Rect Viewport::getActualDimensions() const
     {
         return { mActLeft, mActTop, mActLeft + mActWidth, mActTop + mActHeight };
     }
 
     //---------------------------------------------------------------------
-    auto Viewport::_getNumRenderedFaces() const -> unsigned int
+    unsigned int Viewport::_getNumRenderedFaces() const
     {
         return mCamera ? mCamera->_getNumRenderedFaces() : 0;
     }
     //---------------------------------------------------------------------
-    auto Viewport::_getNumRenderedBatches() const -> unsigned int
+    unsigned int Viewport::_getNumRenderedBatches() const
     {
         return mCamera ? mCamera->_getNumRenderedBatches() : 0;
     }
@@ -347,7 +347,7 @@ namespace Ogre {
         mIsAutoUpdated = inAutoUpdated;
     }
     //---------------------------------------------------------------------
-    auto Viewport::isAutoUpdated() const -> bool
+    bool Viewport::isAutoUpdated() const
     {
         return mIsAutoUpdated;
     }
@@ -357,7 +357,7 @@ namespace Ogre {
         mShowOverlays = enabled;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getOverlaysEnabled() const -> bool
+    bool Viewport::getOverlaysEnabled() const
     {
         return mShowOverlays;
     }
@@ -367,7 +367,7 @@ namespace Ogre {
         mShowSkies = enabled;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getSkiesEnabled() const -> bool
+    bool Viewport::getSkiesEnabled() const
     {
         return mShowSkies;
     }
@@ -377,7 +377,7 @@ namespace Ogre {
         mShowShadows = enabled;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getShadowsEnabled() const -> bool
+    bool Viewport::getShadowsEnabled() const
     {
         return mShowShadows;
     }
@@ -431,7 +431,7 @@ namespace Ogre {
 		mColourBuffer = colourBuffer;
 	}
 	//-----------------------------------------------------------------------
-	auto Viewport::getDrawBuffer() const -> ColourBufferType
+	ColourBufferType Viewport::getDrawBuffer() const
 	{
 		return mColourBuffer;
 	}

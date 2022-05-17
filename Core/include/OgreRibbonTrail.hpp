@@ -101,9 +101,9 @@ template <typename T> class Controller;
         /** Remove tracking on a given node. */
         virtual void removeNode(const Node* n);
         /** Get an iterator over the nodes which are being tracked. */
-        virtual auto getNodeIterator() const -> NodeIterator;
+        virtual NodeIterator getNodeIterator() const;
         /** Get the chain index for a given Node being tracked. */
-        virtual auto getChainIndexForNode(const Node* n) -> size_t;
+        virtual size_t getChainIndexForNode(const Node* n);
 
         /** Set the length of the trail. 
         @remarks
@@ -113,7 +113,7 @@ template <typename T> class Controller;
         */
         virtual void setTrailLength(Real len);
         /** Get the length of the trail. */
-        virtual auto getTrailLength() const -> Real { return mTrailLength; }
+        virtual Real getTrailLength() const { return mTrailLength; }
 
         /** @copydoc BillboardChain::setMaxChainElements */
         void setMaxChainElements(size_t maxElements);
@@ -137,7 +137,7 @@ template <typename T> class Controller;
         */
         virtual void setInitialColour(size_t chainIndex, float r, float g, float b, float a = 1.0);
         /** Get the starting ribbon colour. */
-        auto getInitialColour(size_t chainIndex) const -> const ColourValue& { return mInitialColour.at(chainIndex); }
+        const ColourValue& getInitialColour(size_t chainIndex) const { return mInitialColour.at(chainIndex); }
 
         /** Enables / disables fading the trail using colour. 
         @param chainIndex The index of the chain
@@ -151,7 +151,7 @@ template <typename T> class Controller;
         */
         virtual void setInitialWidth(size_t chainIndex, Real width);
         /** Get the starting ribbon width in world units. */
-        auto getInitialWidth(size_t chainIndex) const -> Real { return mInitialWidth.at(chainIndex); }
+        Real getInitialWidth(size_t chainIndex) const { return mInitialWidth.at(chainIndex); }
         
         /** Set the change in ribbon width per second. 
         @param chainIndex The index of the chain
@@ -159,7 +159,7 @@ template <typename T> class Controller;
         */
         virtual void setWidthChange(size_t chainIndex, Real widthDeltaPerSecond);
         /** Get the change in ribbon width per second. */
-        auto getWidthChange(size_t chainIndex) const -> Real { return mDeltaWidth.at(chainIndex); }
+        Real getWidthChange(size_t chainIndex) const { return mDeltaWidth.at(chainIndex); }
 
         /** Enables / disables fading the trail using colour. 
         @param chainIndex The index of the chain
@@ -168,7 +168,7 @@ template <typename T> class Controller;
         virtual void setColourChange(size_t chainIndex, float r, float g, float b, float a);
 
         /** Get the per-second fading amount */
-        auto getColourChange(size_t chainIndex) const -> const ColourValue& { return mDeltaColour.at(chainIndex); }
+        const ColourValue& getColourChange(size_t chainIndex) const { return mDeltaColour.at(chainIndex); }
 
         /// @see Node::Listener::nodeUpdated
         void nodeUpdated(const Node* node);
@@ -178,7 +178,7 @@ template <typename T> class Controller;
         /// Perform any fading / width delta required; internal method
         virtual void _timeUpdate(Real time);
 
-        auto getMovableType() const -> const String& override;
+        const String& getMovableType() const override;
 
     private:
         /// List of nodes being trailed
@@ -232,14 +232,14 @@ template <typename T> class Controller;
     class RibbonTrailFactory : public MovableObjectFactory
     {
     protected:
-        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject*;
+        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);
     public:
         RibbonTrailFactory() {}
         ~RibbonTrailFactory() {}
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] auto getType() const -> const String&;
+        [[nodiscard]] const String& getType() const;
     };
     /** @} */
     /** @} */

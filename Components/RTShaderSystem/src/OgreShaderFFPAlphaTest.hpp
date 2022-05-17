@@ -65,17 +65,17 @@ A factory that enables creation of LayeredBlending instances.
     /**
     @see SubRenderState::resolveParameters.
     */
-    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
+    virtual bool resolveParameters(ProgramSet* programSet);
 
     /**
     @see SubRenderState::resolveDependencies.
     */
-    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
+    virtual bool resolveDependencies(ProgramSet* programSet);
 
     /**
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
+    virtual bool addFunctionInvocations(ProgramSet* programSet);
 
 public:
 
@@ -84,17 +84,17 @@ public:
     /**
     @see SubRenderState::getType.
     */
-    virtual auto getType() const -> const String&;
+    virtual const String& getType() const;
 
     /**
     @see SubRenderState::getExecutionOrder.
     */
-    virtual auto getExecutionOrder() const -> int;
+    virtual int getExecutionOrder() const;
 
     /**
     @see SubRenderState::preAddToRenderState.
     */
-    virtual auto preAddToRenderState (const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool;
+    virtual bool preAddToRenderState (const RenderState* renderState, Pass* srcPass, Pass* dstPass);
 
     /**
     @see SubRenderState::copyFrom.
@@ -117,14 +117,14 @@ static String Type;
 	/**
 	@see SubRenderStateFactory::getType.
 	*/
-	[[nodiscard]] virtual auto getType() const -> const String&;
+	[[nodiscard]] virtual const String& getType() const;
 
 protected:
 
 	/**
 	@see SubRenderStateFactory::createInstanceImpl.
 	*/
-	virtual auto createInstanceImpl() -> SubRenderState*;
+	virtual SubRenderState* createInstanceImpl();
 };
 
 } // namespace RTShader

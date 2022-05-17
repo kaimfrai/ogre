@@ -66,7 +66,7 @@ class OverlayTranslatorManager : public ScriptTranslatorManager
 public:
     OverlayTranslatorManager();
     ~OverlayTranslatorManager();
-    auto getTranslator(const AbstractNodePtr& node) -> ScriptTranslator*;
+    ScriptTranslator* getTranslator(const AbstractNodePtr& node);
 };
 }
 

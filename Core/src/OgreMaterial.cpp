@@ -84,7 +84,7 @@ class Renderable;
         unload(); 
     }
     //-----------------------------------------------------------------------
-    auto Material::operator=(const Material& rhs) -> Material&
+    Material& Material::operator=(const Material& rhs)
     {
         Resource::operator=(rhs);
         mReceiveShadows = rhs.mReceiveShadows;
@@ -168,7 +168,7 @@ class Renderable;
         }
     }
     //-----------------------------------------------------------------------
-    auto Material::calculateSize() const -> size_t
+    size_t Material::calculateSize() const
     {
         size_t memSize = sizeof(*this) + Resource::calculateSize();
 
@@ -183,7 +183,7 @@ class Renderable;
         return memSize;
     }
     //-----------------------------------------------------------------------
-    auto Material::clone(const String& newName, const String& newGroup) const -> MaterialPtr
+    MaterialPtr Material::clone(const String& newName, const String& newGroup) const
     {
         MaterialPtr newMat =
             MaterialManager::getSingleton().create(newName, newGroup.empty() ? mGroup : newGroup);
@@ -250,7 +250,7 @@ class Renderable;
 
     }
     //-----------------------------------------------------------------------
-    auto Material::createTechnique() -> Technique*
+    Technique* Material::createTechnique()
     {
         Technique *t = new Technique(this);
         mTechniques.push_back(t);
@@ -258,7 +258,7 @@ class Renderable;
         return t;
     }
     //-----------------------------------------------------------------------
-    auto Material::getTechnique(const String& name) const -> Technique*
+    Technique* Material::getTechnique(const String& name) const
     {
         Techniques::const_iterator i    = mTechniques.begin();
         Techniques::const_iterator iend = mTechniques.end();
@@ -278,7 +278,7 @@ class Renderable;
         return foundTechnique;
     }
     //-----------------------------------------------------------------------
-    auto Material::getNumLodLevels(unsigned short schemeIndex) const -> unsigned short
+    unsigned short Material::getNumLodLevels(unsigned short schemeIndex) const
     {
         // Safety check - empty list?
         if (mBestTechniquesBySchemeList.empty())
@@ -296,7 +296,7 @@ class Renderable;
         return static_cast<unsigned short>(i->second.size());
     }
     //-----------------------------------------------------------------------
-    auto Material::getNumLodLevels(const String& schemeName) const -> unsigned short
+    unsigned short Material::getNumLodLevels(const String& schemeName) const
     {
         return getNumLodLevels(
             MaterialManager::getSingleton()._getSchemeIndex(schemeName));
@@ -314,7 +314,7 @@ class Renderable;
 
     }
     //-----------------------------------------------------------------------------
-    auto Material::getBestTechnique(unsigned short lodIndex, const Renderable* rend) -> Technique*
+    Technique* Material::getBestTechnique(unsigned short lodIndex, const Renderable* rend)
     {
         if (mSupportedTechniques.empty())
         {
@@ -397,7 +397,7 @@ class Renderable;
     }
 
     //-----------------------------------------------------------------------
-    auto Material::isTransparent() const -> bool
+    bool Material::isTransparent() const
     {
         // Check each technique
         Techniques::const_iterator i, iend;
@@ -576,13 +576,13 @@ class Renderable;
         
     }
     // --------------------------------------------------------------------
-    auto Material::getLodIndex(Real value) const -> ushort
+    ushort Material::getLodIndex(Real value) const
     {
         return mLodStrategy->getIndex(value, mLodValues);
     }
 
     //---------------------------------------------------------------------
-    auto Material::getLodStrategy() const -> const LodStrategy *
+    const LodStrategy *Material::getLodStrategy() const
     {
         return mLodStrategy;
     }

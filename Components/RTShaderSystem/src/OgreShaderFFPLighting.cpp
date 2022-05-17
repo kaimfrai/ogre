@@ -78,14 +78,14 @@ FFPLighting::FFPLighting()
 }
 
 //-----------------------------------------------------------------------
-auto FFPLighting::getType() const -> const String&
+const String& FFPLighting::getType() const
 {
 	return Type;
 }
 
 
 //-----------------------------------------------------------------------
-auto	FFPLighting::getExecutionOrder() const -> int
+int	FFPLighting::getExecutionOrder() const
 {
 	return FFP_LIGHTING;
 }
@@ -159,7 +159,7 @@ void FFPLighting::updateGpuProgramsParams(Renderable* rend, const Pass* pass, co
 }
 
 //-----------------------------------------------------------------------
-auto FFPLighting::resolveParameters(ProgramSet* programSet) -> bool
+bool FFPLighting::resolveParameters(ProgramSet* programSet)
 {
 	Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
 	Function* vsMain = vsProgram->getEntryPointFunction();
@@ -274,7 +274,7 @@ auto FFPLighting::resolveParameters(ProgramSet* programSet) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto FFPLighting::resolveDependencies(ProgramSet* programSet) -> bool
+bool FFPLighting::resolveDependencies(ProgramSet* programSet)
 {
 	Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
 
@@ -288,7 +288,7 @@ auto FFPLighting::resolveDependencies(ProgramSet* programSet) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto FFPLighting::addFunctionInvocations(ProgramSet* programSet) -> bool
+bool FFPLighting::addFunctionInvocations(ProgramSet* programSet)
 {
 	Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);	
 	Function* vsMain = vsProgram->getEntryPointFunction();	
@@ -435,7 +435,7 @@ void FFPLighting::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-auto FFPLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
+bool FFPLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
 {
     //! [disable]
 	if (!srcPass->getLightingEnabled())
@@ -498,7 +498,7 @@ auto FFPLighting::preAddToRenderState(const RenderState* renderState, Pass* srcP
 	return true;
 }
 
-auto FFPLighting::setParameter(const String& name, const String& value) -> bool
+bool FFPLighting::setParameter(const String& name, const String& value)
 {
 	if(name == "normalise" || name == "normalised") // allow both spelling variations
 	{
@@ -530,7 +530,7 @@ void FFPLighting::setLightCount(const Vector3i& lightCount)
 }
 
 //-----------------------------------------------------------------------
-auto FFPLighting::getLightCount() const -> Vector3i
+Vector3i FFPLighting::getLightCount() const
 {
 	Vector3i lightCount(0, 0, 0);
 
@@ -550,14 +550,14 @@ auto FFPLighting::getLightCount() const -> Vector3i
 }
 
 //-----------------------------------------------------------------------
-auto FFPLightingFactory::getType() const -> const String&
+const String& FFPLightingFactory::getType() const
 {
 	return FFPLighting::Type;
 }
 
 //-----------------------------------------------------------------------
-auto	FFPLightingFactory::createInstance(ScriptCompiler* compiler, 
-												PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
+SubRenderState*	FFPLightingFactory::createInstance(ScriptCompiler* compiler, 
+												PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
 {
     if (prop->name != "lighting_stage" || prop->values.empty())
         return NULL;
@@ -600,7 +600,7 @@ void FFPLightingFactory::writeInstance(MaterialSerializer* ser, SubRenderState* 
 }
 
 //-----------------------------------------------------------------------
-auto	FFPLightingFactory::createInstanceImpl() -> SubRenderState*
+SubRenderState*	FFPLightingFactory::createInstanceImpl()
 {
 	return new FFPLighting;
 }

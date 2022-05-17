@@ -53,14 +53,14 @@ class Affine3;
         /// Privated copy constructor, to prevent misuse
         OptimisedUtil(const OptimisedUtil& rhs); /* do nothing, should not use */
         /// Privated operator=, to prevent misuse
-        auto operator=(const OptimisedUtil& rhs) -> OptimisedUtil&; /* do not use */
+        OptimisedUtil& operator=(const OptimisedUtil& rhs); /* do not use */
 
     protected:
         /// Store a pointer to the implementation
         static OptimisedUtil* msImplementation;
 
         /// Detect best implementation based on run-time environment
-        static auto _detectImplementation() -> OptimisedUtil*;
+        static OptimisedUtil* _detectImplementation();
 
     public:
         // Default constructor
@@ -73,7 +73,7 @@ class Affine3;
             Don't cache the pointer returned by this function, it'll change due
             run-time environment detection to pick up the best implementation.
         */
-        static auto getImplementation() -> OptimisedUtil* { return msImplementation; }
+        static OptimisedUtil* getImplementation() { return msImplementation; }
 
         /** Performs software vertex skinning.
         @param srcPosPtr Pointer to source position buffer.
@@ -214,13 +214,13 @@ class Affine3;
         The offset are in bytes, no matter what type of the pointer.
     */
     template <class T>
-    static inline auto rawOffsetPointer(const T* ptr, ptrdiff_t offset) -> const T*
+    static inline const T* rawOffsetPointer(const T* ptr, ptrdiff_t offset)
     {
         return (const T*)((const char*)(ptr) + offset);
     }
 
     template <class T>
-    static inline auto rawOffsetPointer(T* ptr, ptrdiff_t offset) -> T*
+    static inline T* rawOffsetPointer(T* ptr, ptrdiff_t offset)
     {
         return (T*)((char*)(ptr) + offset);
     }

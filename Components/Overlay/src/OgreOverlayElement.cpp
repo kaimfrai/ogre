@@ -154,7 +154,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    auto OverlayElement::getWidth() const -> Real
+    Real OverlayElement::getWidth() const
     {
         if (mMetricsMode != GMM_RELATIVE)
         {
@@ -180,7 +180,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    auto OverlayElement::getHeight() const -> Real
+    Real OverlayElement::getHeight() const
     {
         if (mMetricsMode != GMM_RELATIVE)
         {
@@ -206,7 +206,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    auto OverlayElement::getLeft() const -> Real
+    Real OverlayElement::getLeft() const
     {
         if (mMetricsMode != GMM_RELATIVE)
         {
@@ -233,7 +233,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    auto OverlayElement::getTop() const -> Real
+    Real OverlayElement::getTop() const
     {
         if (mMetricsMode != GMM_RELATIVE)
         {
@@ -303,7 +303,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    auto OverlayElement::getMaterialName() const -> const String&
+    const String& OverlayElement::getMaterialName() const
     {
         return mMaterial ? mMaterial->getName() : BLANKSTRING;
     }
@@ -348,7 +348,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto OverlayElement::getMaterial() const -> const MaterialPtr&
+    const MaterialPtr& OverlayElement::getMaterial() const
     {
         return mMaterial;
     }
@@ -533,7 +533,7 @@ namespace Ogre {
         mDerivedOutOfDate = true;
     }
     //---------------------------------------------------------------------
-    auto OverlayElement::_getDerivedLeft() -> Real
+    Real OverlayElement::_getDerivedLeft()
     {
         if (mDerivedOutOfDate)
         {
@@ -542,7 +542,7 @@ namespace Ogre {
         return mDerivedLeft;
     }
     //---------------------------------------------------------------------
-    auto OverlayElement::_getDerivedTop() -> Real
+    Real OverlayElement::_getDerivedTop()
     {
         if (mDerivedOutOfDate)
         {
@@ -551,12 +551,12 @@ namespace Ogre {
         return mDerivedTop;
     }
     //---------------------------------------------------------------------
-    auto OverlayElement::_getRelativeWidth() -> Real
+    Real OverlayElement::_getRelativeWidth()
     {
         return mWidth;
     }
     //---------------------------------------------------------------------
-    auto OverlayElement::_getRelativeHeight() -> Real
+    Real OverlayElement::_getRelativeHeight()
     {
         return mHeight;
     }
@@ -570,7 +570,7 @@ namespace Ogre {
         clippingRegion = mClippingRegion;
     }
     //---------------------------------------------------------------------
-    auto OverlayElement::_notifyZOrder(ushort newZOrder) -> ushort
+    ushort OverlayElement::_notifyZOrder(ushort newZOrder)
     {
         mZOrder = newZOrder;
         return mZOrder + 1;
@@ -699,7 +699,7 @@ namespace Ogre {
         mColour = col;
     }
     //-----------------------------------------------------------------------
-    auto OverlayElement::getColour() const -> const ColourValue&
+    const ColourValue& OverlayElement::getColour() const
     {
         return mColour;
     }
@@ -785,12 +785,12 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //-----------------------------------------------------------------------    
-    auto OverlayElement::contains(Real x, Real y) const -> bool
+    bool OverlayElement::contains(Real x, Real y) const
     {
         return x >= mClippingRegion.left && x <= mClippingRegion.right && y >= mClippingRegion.top && y <= mClippingRegion.bottom;
     }
     //-----------------------------------------------------------------------
-    auto OverlayElement::findElementAt(Real x, Real y) -> OverlayElement*       // relative to parent
+    OverlayElement* OverlayElement::findElementAt(Real x, Real y)       // relative to parent
     {
         OverlayElement* ret = NULL;
         if (contains(x , y ))
@@ -800,7 +800,7 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto OverlayElement::clone(const String& instanceName) -> OverlayElement*
+    OverlayElement* OverlayElement::clone(const String& instanceName)
     {
         OverlayElement* newElement;
 

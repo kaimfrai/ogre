@@ -62,19 +62,19 @@ namespace RTShader {
 String FFPTransform::Type = "FFP_Transform";
 
 //-----------------------------------------------------------------------
-auto FFPTransform::getType() const -> const String&
+const String& FFPTransform::getType() const
 {
     return Type;
 }
 
 
 //-----------------------------------------------------------------------
-auto FFPTransform::getExecutionOrder() const -> int
+int FFPTransform::getExecutionOrder() const
 {
     return FFP_TRANSFORM;
 }
 
-auto FFPTransform::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
+bool FFPTransform::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
 {
     mSetPointSize = srcPass->getPointSize() != 1.0f || srcPass->isPointAttenuationEnabled();
     mDoLightCalculations = srcPass->getLightingEnabled();
@@ -82,7 +82,7 @@ auto FFPTransform::preAddToRenderState(const RenderState* renderState, Pass* src
 }
 
 //-----------------------------------------------------------------------
-auto FFPTransform::createCpuSubPrograms(ProgramSet* programSet) -> bool
+bool FFPTransform::createCpuSubPrograms(ProgramSet* programSet)
 {
     //! [param_resolve]
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
@@ -155,14 +155,14 @@ void FFPTransform::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-auto FFPTransformFactory::getType() const -> const String&
+const String& FFPTransformFactory::getType() const
 {
     return FFPTransform::Type;
 }
 
 //-----------------------------------------------------------------------
-auto FFPTransformFactory::createInstance(ScriptCompiler* compiler, 
-                                                   PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
+SubRenderState* FFPTransformFactory::createInstance(ScriptCompiler* compiler, 
+                                                   PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
 {
     if (prop->name == "transform_stage")
     {
@@ -207,7 +207,7 @@ void FFPTransformFactory::writeInstance(MaterialSerializer* ser, SubRenderState*
 }
 
 //-----------------------------------------------------------------------
-auto FFPTransformFactory::createInstanceImpl() -> SubRenderState*
+SubRenderState* FFPTransformFactory::createInstanceImpl()
 {
     return new FFPTransform;
 }

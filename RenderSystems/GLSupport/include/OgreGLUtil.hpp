@@ -32,7 +32,7 @@ THE SOFTWARE.
 #include "OgreGLNativeSupport.hpp"
 
 namespace Ogre {
-	auto getGLSupport(int profile = GLNativeSupport::CONTEXT_CORE) -> GLNativeSupport*;
+	GLNativeSupport* getGLSupport(int profile = GLNativeSupport::CONTEXT_CORE);
 }
 
 #endif // OGREGLUTIL_H

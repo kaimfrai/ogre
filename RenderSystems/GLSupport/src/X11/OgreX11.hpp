@@ -19,12 +19,12 @@
 
 namespace Ogre
 {
-auto getXDisplay(Display* glDisplay, Atom& deleteWindow, Atom& fullScreen, Atom& state) -> Display*;
+Display* getXDisplay(Display* glDisplay, Atom& deleteWindow, Atom& fullScreen, Atom& state);
 
 void validateParentWindow(Display* display, Window parentWindow);
 
-auto createXWindow(Display* display, Window parent, XVisualInfo* visualInfo, int& left, int& top, uint& width,
-                     uint& height, Atom wmFullScreen, bool fullScreen) -> Window;
+Window createXWindow(Display* display, Window parent, XVisualInfo* visualInfo, int& left, int& top, uint& width,
+                     uint& height, Atom wmFullScreen, bool fullScreen);
 
 void destroyXWindow(Display* display, Window window);
 
@@ -33,7 +33,7 @@ void queryRect(Display* display, Window window, int& left, int& top, uint& width
 void finaliseTopLevel(Display* display, Window window, int& left, int& top, uint& width, uint& height, String& title,
                       Atom wmDelete);
 
-auto getXVideoModes(Display* display, VideoMode& currentMode, VideoModes& videoModes) -> bool;
+bool getXVideoModes(Display* display, VideoMode& currentMode, VideoModes& videoModes);
 } // namespace Ogre
 
 #endif

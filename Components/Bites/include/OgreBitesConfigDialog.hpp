@@ -46,7 +46,7 @@ namespace OgreBites {
 
      * @return pointer to Ogre::ConfigDialog or NULL if not available on the current platform.
      */
-    auto getNativeConfigDialog() -> Ogre::ConfigDialog*;
+    Ogre::ConfigDialog* getNativeConfigDialog();
 
 } /* namespace OgreBites */
 

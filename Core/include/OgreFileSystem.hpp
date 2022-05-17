@@ -46,7 +46,7 @@ class Archive;
     */
 
     /// internal method to open a FileStreamDataStream
-    auto _openFileStream(const String& path, std::ios::openmode mode, const String& name = "") -> DataStreamPtr;
+    DataStreamPtr _openFileStream(const String& path, std::ios::openmode mode, const String& name = "");
 
     /** Specialisation of the ArchiveFactory to allow reading of files from
         filesystem folders / directories.
@@ -55,11 +55,11 @@ class Archive;
     {
     public:
         /// @copydoc FactoryObj::getType
-        [[nodiscard]] auto getType() const -> const String&;
+        [[nodiscard]] const String& getType() const;
 
         using ArchiveFactory::createInstance;
 
-        auto createInstance( const String& name, bool readOnly ) -> Archive *;
+        Archive *createInstance( const String& name, bool readOnly );
 
         /// Set whether filesystem enumeration will include hidden files or not.
         /// This should be called prior to declaring and/or initializing filesystem
@@ -67,7 +67,7 @@ class Archive;
         static void setIgnoreHidden(bool ignore);
 
         /// Get whether hidden files are ignored during filesystem enumeration.
-        static auto getIgnoreHidden() -> bool;
+        static bool getIgnoreHidden();
     };
 
     class APKFileSystemArchiveFactory : public ArchiveFactory
@@ -76,9 +76,9 @@ class Archive;
         APKFileSystemArchiveFactory(AAssetManager* assetMgr) : mAssetMgr(assetMgr) {}
         virtual ~APKFileSystemArchiveFactory() {}
         /// @copydoc FactoryObj::getType
-        [[nodiscard]] auto getType() const -> const String&;
+        [[nodiscard]] const String& getType() const;
         /// @copydoc ArchiveFactory::createInstance
-        auto createInstance( const String& name, bool readOnly ) -> Archive *;
+        Archive *createInstance( const String& name, bool readOnly );
     private:
         AAssetManager* mAssetMgr;
     };

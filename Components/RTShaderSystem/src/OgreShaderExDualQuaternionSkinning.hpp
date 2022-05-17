@@ -62,17 +62,17 @@ public:
     /**
     @see SubRenderState::resolveParameters.
     */
-    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
+    virtual bool resolveParameters(ProgramSet* programSet);
 
     /**
     @see SubRenderState::resolveDependencies.
     */
-    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
+    virtual bool resolveDependencies(ProgramSet* programSet);
 
     /**
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
+    virtual bool addFunctionInvocations(ProgramSet* programSet);
 
 // Protected methods
 protected:

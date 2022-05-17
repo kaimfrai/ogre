@@ -77,27 +77,27 @@ namespace Ogre {
             initialise();
     }
 
-    auto GLFrameBufferObjectCommon::getWidth() const -> uint32
+    uint32 GLFrameBufferObjectCommon::getWidth() const
     {
         assert(mColour[0].buffer);
         return mColour[0].buffer->getWidth();
     }
-    auto GLFrameBufferObjectCommon::getHeight() const -> uint32
+    uint32 GLFrameBufferObjectCommon::getHeight() const
     {
         assert(mColour[0].buffer);
         return mColour[0].buffer->getHeight();
     }
-    auto GLFrameBufferObjectCommon::getFormat() const -> PixelFormat
+    PixelFormat GLFrameBufferObjectCommon::getFormat() const
     {
         assert(mColour[0].buffer);
         return mColour[0].buffer->getFormat();
     }
 
-    auto GLRTTManager::getSingletonPtr() -> GLRTTManager*
+    GLRTTManager* GLRTTManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto GLRTTManager::getSingleton() -> GLRTTManager&
+    GLRTTManager& GLRTTManager::getSingleton()
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -106,7 +106,7 @@ namespace Ogre {
     // need to implement in cpp due to how Ogre::Singleton works
     GLRTTManager::~GLRTTManager() {}
 
-    auto GLRTTManager::getSupportedAlternative(PixelFormat format) -> PixelFormat
+    PixelFormat GLRTTManager::getSupportedAlternative(PixelFormat format)
     {
         if (checkFormat(format))
         {

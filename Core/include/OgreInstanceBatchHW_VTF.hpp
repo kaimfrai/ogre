@@ -87,24 +87,24 @@ class VertexData;
         @param[in] currentCamera The camera being used for render (valid when using bone matrix lookup)
         @return The number of instances to be rendered
         */
-        virtual auto updateInstanceDataBuffer(bool isFirstTime, Camera* currentCamera) -> size_t;
+        virtual size_t updateInstanceDataBuffer(bool isFirstTime, Camera* currentCamera);
 
 
-        virtual auto checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool;
+        virtual bool checkSubMeshCompatibility( const SubMesh* baseSubMesh );
 
         /** Keeps filling the VTF with world matrix data. Overloaded to avoid culled objects
             and update visible instances' animation
         */
-        auto updateVertexTexture( Camera *currentCamera ) -> size_t;
+        size_t updateVertexTexture( Camera *currentCamera );
 
-        virtual auto matricesTogetherPerRow() const -> bool { return true; }
+        virtual bool matricesTogetherPerRow() const { return true; }
     public:
         InstanceBatchHW_VTF( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                             size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
                             const String &batchName );
         virtual ~InstanceBatchHW_VTF();
         /** @see InstanceBatch::calculateMaxNumInstances */
-        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t;
+        size_t calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const;
 
         /** @copydoc InstanceBatchHW::_boundsDirty */
         void _boundsDirty();
@@ -112,7 +112,7 @@ class VertexData;
         /** @copydoc InstanceBatchHW::setStaticAndUpdate */
         void setStaticAndUpdate( bool bStatic );
 
-        auto isStatic() const -> bool { return mKeepStatic; }
+        bool isStatic() const { return mKeepStatic; }
 
         /** Overloaded to visibility on a per unit basis and finally updated the vertex texture */
         virtual void _updateRenderQueue( RenderQueue* queue );

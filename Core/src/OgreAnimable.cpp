@@ -45,7 +45,7 @@ namespace Ogre {
     }
 
     /// Get an updateable reference to animable value list
-    auto AnimableObject::_getAnimableValueNames() -> StringVector&
+    StringVector& AnimableObject::_getAnimableValueNames()
     {
         AnimableDictionaryMap::iterator i = msAnimableDictionary.find(getAnimableDictionaryName());
         if (i != msAnimableDictionary.end())
@@ -56,7 +56,7 @@ namespace Ogre {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Animable value list not found for " + getAnimableDictionaryName());
     }
 
-    auto AnimableObject::getAnimableValueNames() const -> const StringVector&
+    const StringVector& AnimableObject::getAnimableValueNames() const
     {
         createAnimableDictionary();
 

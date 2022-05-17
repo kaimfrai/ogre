@@ -57,11 +57,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> ResourceGroupManager* Singleton<ResourceGroupManager>::msSingleton = 0;
-    auto ResourceGroupManager::getSingletonPtr() -> ResourceGroupManager*
+    ResourceGroupManager* ResourceGroupManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto ResourceGroupManager::getSingleton() -> ResourceGroupManager&
+    ResourceGroupManager& ResourceGroupManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -392,25 +392,25 @@ namespace Ogre {
         mCurrentGroup = 0;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::isResourceGroupInitialised(const String& name) const -> bool
+    bool ResourceGroupManager::isResourceGroupInitialised(const String& name) const
     {
         ResourceGroup* grp = getResourceGroup(name, true);
         return (grp->groupStatus != ResourceGroup::UNINITIALSED &&
             grp->groupStatus != ResourceGroup::INITIALISING);
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::isResourceGroupLoaded(const String& name) const -> bool
+    bool ResourceGroupManager::isResourceGroupLoaded(const String& name) const
     {
         return getResourceGroup(name, true)->groupStatus == ResourceGroup::LOADED;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceGroupExists(const String& name) const -> bool
+    bool ResourceGroupManager::resourceGroupExists(const String& name) const
     {
         return getResourceGroup(name) ? true : false;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceLocationExists(const String& name, 
-        const String& resGroup) const -> bool
+    bool ResourceGroupManager::resourceLocationExists(const String& name, 
+        const String& resGroup) const
     {
         ResourceGroup* grp = getResourceGroup(resGroup);
         if (!grp)
@@ -524,11 +524,11 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::openResourceImpl(const String& resourceName,
+    DataStreamPtr ResourceGroupManager::openResourceImpl(const String& resourceName,
                                                      const String& groupName,
                                                      bool searchGroupsIfNotFound,
                                                      Resource* resourceBeingLoaded,
-                                                     bool throwOnFailure) const -> DataStreamPtr
+                                                     bool throwOnFailure) const
     {
         OgreAssert(!resourceName.empty(), "resourceName is empty string");
         if(mLoadingListener)
@@ -577,8 +577,8 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::openResources(
-        const String& pattern, const String& groupName) const -> DataStreamList
+    DataStreamList ResourceGroupManager::openResources(
+        const String& pattern, const String& groupName) const
     {
         ResourceGroup* grp = getResourceGroup(groupName, true);
 
@@ -608,8 +608,8 @@ namespace Ogre {
         
     }
     //---------------------------------------------------------------------
-    auto ResourceGroupManager::createResource(const String& filename, 
-        const String& groupName, bool overwrite, const String& locationPattern) -> DataStreamPtr
+    DataStreamPtr ResourceGroupManager::createResource(const String& filename, 
+        const String& groupName, bool overwrite, const String& locationPattern)
     {
         ResourceGroup* grp = getResourceGroup(groupName, true);
         
@@ -756,7 +756,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::_findScriptLoader(const String &pattern) const -> ScriptLoader *
+    ScriptLoader *ResourceGroupManager::_findScriptLoader(const String &pattern) const
     {
         ScriptLoaderOrderMap::const_iterator oi;
         for (oi = mScriptLoaderOrderMap.begin();
@@ -1011,8 +1011,8 @@ namespace Ogre {
         loadList.push_back(res);
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::getResourceGroup(const String& name,
-                                                                                bool throwOnFailure) const -> ResourceGroupManager::ResourceGroup*
+    ResourceGroupManager::ResourceGroup* ResourceGroupManager::getResourceGroup(const String& name,
+                                                                                bool throwOnFailure) const
     {
         ResourceGroupMap::const_iterator i = mResourceGroupMap.find(name);
 
@@ -1027,7 +1027,7 @@ namespace Ogre {
         return i->second;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::_getResourceManager(const String& resourceType) const -> ResourceManager*
+    ResourceManager* ResourceGroupManager::_getResourceManager(const String& resourceType) const
     {
         ResourceManagerMap::const_iterator i = mResourceManagerMap.find(resourceType);
         if (i == mResourceManagerMap.end())
@@ -1235,7 +1235,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::listResourceNames(const String& groupName, bool dirs) const -> StringVectorPtr
+    StringVectorPtr ResourceGroupManager::listResourceNames(const String& groupName, bool dirs) const
     {
         // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
         StringVectorPtr vec(new StringVector());
@@ -1257,7 +1257,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::listResourceFileInfo(const String& groupName, bool dirs) const -> FileInfoListPtr
+    FileInfoListPtr ResourceGroupManager::listResourceFileInfo(const String& groupName, bool dirs) const
     {
         // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
         FileInfoListPtr vec(new FileInfoList());
@@ -1278,8 +1278,8 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::findResourceNames(const String& groupName, 
-        const String& pattern, bool dirs) const -> StringVectorPtr
+    StringVectorPtr ResourceGroupManager::findResourceNames(const String& groupName, 
+        const String& pattern, bool dirs) const
     {
         // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
         StringVectorPtr vec(new StringVector());
@@ -1299,8 +1299,8 @@ namespace Ogre {
         return vec;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::findResourceFileInfo(const String& groupName, 
-        const String& pattern, bool dirs) const -> FileInfoListPtr
+    FileInfoListPtr ResourceGroupManager::findResourceFileInfo(const String& groupName, 
+        const String& pattern, bool dirs) const
     {
         // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
         FileInfoListPtr vec(new FileInfoList());
@@ -1320,14 +1320,14 @@ namespace Ogre {
         return vec;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceExists(const String& groupName, const String& resourceName) const -> bool
+    bool ResourceGroupManager::resourceExists(const String& groupName, const String& resourceName) const
     {
         // Try to find in resource index first
         ResourceGroup* grp = getResourceGroup(groupName, true);
         return resourceExists(grp, resourceName) != 0;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceExists(ResourceGroup* grp, const String& resourceName) const -> Archive*
+    Archive* ResourceGroupManager::resourceExists(ResourceGroup* grp, const String& resourceName) const
     {
         // Try indexes first
         ResourceLocationIndex::iterator rit = grp->resourceIndexCaseSensitive.find(resourceName);
@@ -1340,14 +1340,14 @@ namespace Ogre {
         return NULL;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceModifiedTime(const String& groupName, const String& resourceName) const -> time_t
+    time_t ResourceGroupManager::resourceModifiedTime(const String& groupName, const String& resourceName) const
     {
         // Try to find in resource index first
         ResourceGroup* grp = getResourceGroup(groupName, true);
         return resourceModifiedTime(grp, resourceName);
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceModifiedTime(ResourceGroup* grp, const String& resourceName) const -> time_t
+    time_t ResourceGroupManager::resourceModifiedTime(ResourceGroup* grp, const String& resourceName) const
     {
         Archive* arch = resourceExists(grp, resourceName);
         if (arch)
@@ -1358,8 +1358,8 @@ namespace Ogre {
         return 0;
     }
     //-----------------------------------------------------------------------
-    auto
-    ResourceGroupManager::resourceExistsInAnyGroupImpl(const String& filename) const -> std::pair<Archive*, ResourceGroupManager::ResourceGroup*>
+    std::pair<Archive*, ResourceGroupManager::ResourceGroup*>
+    ResourceGroupManager::resourceExistsInAnyGroupImpl(const String& filename) const
     {
         OgreAssert(!filename.empty(), "resourceName is empty string");
 
@@ -1375,12 +1375,12 @@ namespace Ogre {
         return {};
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceExistsInAnyGroup(const String& filename) const -> bool
+    bool ResourceGroupManager::resourceExistsInAnyGroup(const String& filename) const
     {
         return resourceExistsInAnyGroupImpl(filename).first != 0;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::findGroupContainingResource(const String& filename) const -> const String&
+    const String& ResourceGroupManager::findGroupContainingResource(const String& filename) const
     {
         ResourceGroup* grp = resourceExistsInAnyGroupImpl(filename).second;
 
@@ -1394,7 +1394,7 @@ namespace Ogre {
             "ResourceGroupManager::findGroupContainingResource");
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::listResourceLocations(const String& groupName) const -> StringVectorPtr
+    StringVectorPtr ResourceGroupManager::listResourceLocations(const String& groupName) const
     {
         StringVectorPtr vec(new StringVector());
 
@@ -1412,7 +1412,7 @@ namespace Ogre {
         return vec;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::findResourceLocation(const String& groupName, const String& pattern) const -> StringVectorPtr
+    StringVectorPtr ResourceGroupManager::findResourceLocation(const String& groupName, const String& pattern) const
     {
         StringVectorPtr vec(new StringVector());
 
@@ -1441,18 +1441,18 @@ namespace Ogre {
         grp->customStageCount = stageCount;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::getCustomStagesForResourceGroup(const String& group) -> uint32
+    uint32 ResourceGroupManager::getCustomStagesForResourceGroup(const String& group)
     {
         ResourceGroup* grp = getResourceGroup(group, true);
         return grp->customStageCount;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::isResourceGroupInGlobalPool(const String& name) const -> bool
+    bool ResourceGroupManager::isResourceGroupInGlobalPool(const String& name) const
     {
         return getResourceGroup(name, true)->inGlobalPool;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::getResourceGroups() const -> StringVector
+    StringVector ResourceGroupManager::getResourceGroups() const
     {
         StringVector vec;
         for (ResourceGroupMap::const_iterator i = mResourceGroupMap.begin();
@@ -1463,14 +1463,14 @@ namespace Ogre {
         return vec;
     }
     //-----------------------------------------------------------------------
-    auto 
-    ResourceGroupManager::getResourceDeclarationList(const String& group) const -> ResourceGroupManager::ResourceDeclarationList
+    ResourceGroupManager::ResourceDeclarationList 
+    ResourceGroupManager::getResourceDeclarationList(const String& group) const
     {
         return getResourceGroup(group, true)->resourceDeclarations;
     }
     //---------------------------------------------------------------------
-    auto 
-    ResourceGroupManager::getResourceLocationList(const String& group) const -> const ResourceGroupManager::LocationList&
+    const ResourceGroupManager::LocationList& 
+    ResourceGroupManager::getResourceLocationList(const String& group) const
     {
         return getResourceGroup(group, true)->locationList;
     }
@@ -1480,7 +1480,7 @@ namespace Ogre {
         mLoadingListener = listener;
     }
     //-------------------------------------------------------------------------
-    auto ResourceGroupManager::getLoadingListener() const -> ResourceLoadingListener *
+    ResourceLoadingListener *ResourceGroupManager::getLoadingListener() const
     {
         return mLoadingListener;
     }

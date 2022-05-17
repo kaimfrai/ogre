@@ -67,7 +67,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] virtual auto toString () const -> String
+        [[nodiscard]] virtual String toString () const
         {
             StringStream str;
             str << "vec2(" << std::showpoint << mValue.x << "," << mValue.y << ")";
@@ -92,7 +92,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] virtual auto toString () const -> String
+        [[nodiscard]] virtual String toString () const
         {
             StringStream str;
             str << "vec3(" << std::showpoint << mValue.x << "," << mValue.y << "," << mValue.z << ")";
@@ -117,7 +117,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] virtual auto toString () const -> String
+        [[nodiscard]] virtual String toString () const
         {
             StringStream str;
             str << "vec4(" << std::showpoint << mValue.x << "," << mValue.y << "," << mValue.z << "," << mValue.w << ")";
@@ -143,7 +143,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] virtual auto toString () const -> String
+        [[nodiscard]] virtual String toString () const
         {
             return StringConverter::toString(mValue, 6, 0, ' ', std::ios::showpoint);
         }
@@ -166,7 +166,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] virtual auto toString () const -> String
+        [[nodiscard]] virtual String toString () const
         {
             return Ogre::StringConverter::toString(mValue);
         }
@@ -200,7 +200,7 @@ UniformParameter::UniformParameter(GpuConstantType type, const String& name,
     mAutoConstantType       = GpuProgramParameters::ACT_UNKNOWN;
 }
 
-static auto getGCType(const GpuProgramParameters::AutoConstantDefinition* def) -> GpuConstantType
+static GpuConstantType getGCType(const GpuProgramParameters::AutoConstantDefinition* def)
 {
     assert(def->elementType == GpuProgramParameters::ET_REAL);
 
@@ -342,7 +342,7 @@ void UniformParameter::bind(GpuProgramParametersSharedPtr paramsPtr)
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createInPosition(int index, Parameter::Content content) -> ParameterPtr
+ParameterPtr ParameterFactory::createInPosition(int index, Parameter::Content content)
 {
     return std::make_shared<Parameter>(GCT_FLOAT4, "iPos_" + StringConverter::toString(index),
                                        Parameter::SPS_POSITION, index,
@@ -350,7 +350,7 @@ auto ParameterFactory::createInPosition(int index, Parameter::Content content) -
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createOutPosition(int index) -> ParameterPtr
+ParameterPtr ParameterFactory::createOutPosition(int index)
 {
     return ParameterPtr(new Parameter(GCT_FLOAT4, "oPos_" + StringConverter::toString(index), 
         Parameter::SPS_POSITION, index, 
@@ -358,7 +358,7 @@ auto ParameterFactory::createOutPosition(int index) -> ParameterPtr
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createInNormal(int index) -> ParameterPtr
+ParameterPtr ParameterFactory::createInNormal(int index)
 {
     return ParameterPtr(new Parameter(GCT_FLOAT3, "iNormal_" + StringConverter::toString(index), 
         Parameter::SPS_NORMAL, index, 
@@ -367,7 +367,7 @@ auto ParameterFactory::createInNormal(int index) -> ParameterPtr
 
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createInWeights(int index) -> ParameterPtr
+ParameterPtr ParameterFactory::createInWeights(int index)
 {
     return ParameterPtr(new Parameter(GCT_FLOAT4, "iBlendWeights_" + StringConverter::toString(index), 
         Parameter::SPS_BLEND_WEIGHTS, index, 
@@ -376,7 +376,7 @@ auto ParameterFactory::createInWeights(int index) -> ParameterPtr
 
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createInIndices(int index) -> ParameterPtr
+ParameterPtr ParameterFactory::createInIndices(int index)
 {
 	return ParameterPtr(new Parameter(
 		GCT_UINT4
@@ -386,7 +386,7 @@ auto ParameterFactory::createInIndices(int index) -> ParameterPtr
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createInBiNormal(int index) -> ParameterPtr
+ParameterPtr ParameterFactory::createInBiNormal(int index)
 {
     return ParameterPtr(new Parameter(GCT_FLOAT3, "iBiNormal_" + StringConverter::toString(index), 
         Parameter::SPS_BINORMAL, index, 
@@ -394,7 +394,7 @@ auto ParameterFactory::createInBiNormal(int index) -> ParameterPtr
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createInTangent(int index) -> ParameterPtr
+ParameterPtr ParameterFactory::createInTangent(int index)
 {
     return ParameterPtr(new Parameter(GCT_FLOAT3, "iTangent_" + StringConverter::toString(index), 
         Parameter::SPS_TANGENT, index, 
@@ -402,7 +402,7 @@ auto ParameterFactory::createInTangent(int index) -> ParameterPtr
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createOutNormal(int index) -> ParameterPtr
+ParameterPtr ParameterFactory::createOutNormal(int index)
 {
     return ParameterPtr(new Parameter(GCT_FLOAT3, "oNormal_" + StringConverter::toString(index), 
         Parameter::SPS_NORMAL, index, 
@@ -410,7 +410,7 @@ auto ParameterFactory::createOutNormal(int index) -> ParameterPtr
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createOutBiNormal(int index) -> ParameterPtr
+ParameterPtr ParameterFactory::createOutBiNormal(int index)
 {
     return ParameterPtr(new Parameter(GCT_FLOAT3, "oBiNormal_" + StringConverter::toString(index), 
         Parameter::SPS_BINORMAL, index, 
@@ -418,7 +418,7 @@ auto ParameterFactory::createOutBiNormal(int index) -> ParameterPtr
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createOutTangent(int index) -> ParameterPtr
+ParameterPtr ParameterFactory::createOutTangent(int index)
 {
     return ParameterPtr(new Parameter(GCT_FLOAT3, "oTangent_" + StringConverter::toString(index), 
         Parameter::SPS_TANGENT, index, 
@@ -426,7 +426,7 @@ auto ParameterFactory::createOutTangent(int index) -> ParameterPtr
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createInColor(int index) -> ParameterPtr
+ParameterPtr ParameterFactory::createInColor(int index)
 {
     return ParameterPtr(new Parameter(GCT_FLOAT4, "iColor_" + StringConverter::toString(index), 
         Parameter::SPS_COLOR, index, 
@@ -434,7 +434,7 @@ auto ParameterFactory::createInColor(int index) -> ParameterPtr
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createOutColor(int index) -> ParameterPtr
+ParameterPtr ParameterFactory::createOutColor(int index)
 {
     return ParameterPtr(new Parameter(GCT_FLOAT4, "oColor_" + StringConverter::toString(index), 
         Parameter::SPS_COLOR, index, 
@@ -442,7 +442,7 @@ auto ParameterFactory::createOutColor(int index) -> ParameterPtr
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createInTexcoord(GpuConstantType type, int index, Parameter::Content content) -> ParameterPtr
+ParameterPtr ParameterFactory::createInTexcoord(GpuConstantType type, int index, Parameter::Content content)
 {
     switch (type)
     {
@@ -485,7 +485,7 @@ auto ParameterFactory::createInTexcoord(GpuConstantType type, int index, Paramet
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createOutTexcoord(GpuConstantType type, int index, Parameter::Content content) -> ParameterPtr
+ParameterPtr ParameterFactory::createOutTexcoord(GpuConstantType type, int index, Parameter::Content content)
 {
     switch (type)
     {
@@ -528,7 +528,7 @@ auto ParameterFactory::createOutTexcoord(GpuConstantType type, int index, Parame
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createSampler(GpuConstantType type, int index) -> UniformParameterPtr
+UniformParameterPtr ParameterFactory::createSampler(GpuConstantType type, int index)
 {
     switch (type)
     {
@@ -576,7 +576,7 @@ auto ParameterFactory::createSampler(GpuConstantType type, int index) -> Uniform
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createSampler1D(int index) -> UniformParameterPtr
+UniformParameterPtr ParameterFactory::createSampler1D(int index)
 {
     return UniformParameterPtr(new UniformParameter(GCT_SAMPLER1D, "gSampler1D_" + StringConverter::toString(index), 
         Parameter::SPS_UNKNOWN, index, 
@@ -585,7 +585,7 @@ auto ParameterFactory::createSampler1D(int index) -> UniformParameterPtr
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createSampler2D(int index) -> UniformParameterPtr
+UniformParameterPtr ParameterFactory::createSampler2D(int index)
 {
     return UniformParameterPtr(new UniformParameter(GCT_SAMPLER2D, "gSampler2D_" + StringConverter::toString(index), 
         Parameter::SPS_UNKNOWN, index, 
@@ -594,7 +594,7 @@ auto ParameterFactory::createSampler2D(int index) -> UniformParameterPtr
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createSampler2DArray(int index) -> UniformParameterPtr
+UniformParameterPtr ParameterFactory::createSampler2DArray(int index)
 {
     return UniformParameterPtr(new UniformParameter(GCT_SAMPLER2DARRAY, "gSampler2DArray_" + StringConverter::toString(index), 
                                                          Parameter::SPS_UNKNOWN, index, 
@@ -603,7 +603,7 @@ auto ParameterFactory::createSampler2DArray(int index) -> UniformParameterPtr
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createSampler3D(int index) -> UniformParameterPtr
+UniformParameterPtr ParameterFactory::createSampler3D(int index)
 {
     return UniformParameterPtr(new UniformParameter(GCT_SAMPLER3D, "gSampler3D_" + StringConverter::toString(index), 
         Parameter::SPS_UNKNOWN, index, 
@@ -612,7 +612,7 @@ auto ParameterFactory::createSampler3D(int index) -> UniformParameterPtr
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createSamplerCUBE(int index) -> UniformParameterPtr
+UniformParameterPtr ParameterFactory::createSamplerCUBE(int index)
 {
     return UniformParameterPtr(new UniformParameter(GCT_SAMPLERCUBE, "gSamplerCUBE_" + StringConverter::toString(index), 
         Parameter::SPS_UNKNOWN, index, 
@@ -620,38 +620,38 @@ auto ParameterFactory::createSamplerCUBE(int index) -> UniformParameterPtr
         (uint16)GPV_GLOBAL, 1));
 }
 //-----------------------------------------------------------------------
-auto ParameterFactory::createConstParam(const Vector2& val) -> ParameterPtr
+ParameterPtr ParameterFactory::createConstParam(const Vector2& val)
 {
     return ParameterPtr(new ConstParameterVec2(val, GCT_FLOAT2, Parameter::SPS_UNKNOWN,
                                                     Parameter::SPC_UNKNOWN));
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createConstParam(const Vector3& val) -> ParameterPtr
+ParameterPtr ParameterFactory::createConstParam(const Vector3& val)
 {
     return ParameterPtr(new ConstParameterVec3(val, GCT_FLOAT3, Parameter::SPS_UNKNOWN,
                                                     Parameter::SPC_UNKNOWN));
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createConstParam(const Vector4& val) -> ParameterPtr
+ParameterPtr ParameterFactory::createConstParam(const Vector4& val)
 {
     return ParameterPtr(new ConstParameterVec4(val, GCT_FLOAT4, Parameter::SPS_UNKNOWN,
                                                     Parameter::SPC_UNKNOWN));
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createConstParam(float val) -> ParameterPtr
+ParameterPtr ParameterFactory::createConstParam(float val)
 {
     return ParameterPtr(new ConstParameterFloat(val, GCT_FLOAT1, Parameter::SPS_UNKNOWN,
                                                      Parameter::SPC_UNKNOWN));
 }
 
 //-----------------------------------------------------------------------
-auto ParameterFactory::createUniform(GpuConstantType type, 
+UniformParameterPtr ParameterFactory::createUniform(GpuConstantType type, 
                                              int index, uint16 variability,
                                              const String& suggestedName,
-                                             size_t size) -> UniformParameterPtr
+                                             size_t size)
 {
     UniformParameterPtr param;
     

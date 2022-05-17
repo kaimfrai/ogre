@@ -59,7 +59,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 //-----------------------------------------------------------------------------
-    static auto getR2VBPrimitiveType(RenderOperation::OperationType operationType) -> GLint
+    static GLint getR2VBPrimitiveType(RenderOperation::OperationType operationType)
     {
         switch (operationType)
         {
@@ -76,7 +76,7 @@ namespace Ogre {
         }
     }
 //-----------------------------------------------------------------------------
-    static auto getVertexCountPerPrimitive(RenderOperation::OperationType operationType) -> GLint
+    static GLint getVertexCountPerPrimitive(RenderOperation::OperationType operationType)
     {
         //We can only get points, lines or triangles since they are the only
         //legal R2VB output primitive types
@@ -256,7 +256,7 @@ namespace Ogre {
             );
     }
 //-----------------------------------------------------------------------------
-    auto GLRenderToVertexBuffer::getSemanticVaryingName(VertexElementSemantic semantic, unsigned short index) -> String
+    String GLRenderToVertexBuffer::getSemanticVaryingName(VertexElementSemantic semantic, unsigned short index)
     {
         switch (semantic)
         {
@@ -276,7 +276,7 @@ namespace Ogre {
         }
     }
 //-----------------------------------------------------------------------------
-    auto GLRenderToVertexBuffer::getGLSemanticType(VertexElementSemantic semantic) -> GLint
+    GLint GLRenderToVertexBuffer::getGLSemanticType(VertexElementSemantic semantic)
     {
         switch (semantic)
         {

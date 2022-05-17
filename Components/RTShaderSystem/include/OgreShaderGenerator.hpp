@@ -93,7 +93,7 @@ public:
     Initialize the Shader Generator System.
     Return true upon success.
     */
-    static auto initialize() -> bool;
+    static bool initialize();
 
     /** 
     Destroy the Shader Generator instance.
@@ -116,11 +116,11 @@ public:
     but the implementation stays in this single compilation unit,
     preventing link errors.
     */
-    static auto getSingleton() -> ShaderGenerator&; 
+    static ShaderGenerator& getSingleton(); 
 
 
     /// @copydoc Singleton::getSingleton()
-    static auto getSingletonPtr() -> ShaderGenerator*;
+    static ShaderGenerator* getSingletonPtr();
 
     /** 
     Add a scene manager to the shader generator scene managers list.
@@ -138,7 +138,7 @@ public:
     Get the active scene manager that is doint the actual scene rendering.
     This attribute will be update on the call to preFindVisibleObjects. 
     */
-    auto getActiveSceneManager() -> SceneManager*;
+    SceneManager* getActiveSceneManager();
 
     /** 
     Set the active scene manager against which new render states are compiled.
@@ -158,7 +158,7 @@ public:
     /** 
     Return the target shader language currently in use.     
     */
-    [[nodiscard]] auto getTargetLanguage() const -> const String& { return mShaderLanguage; }
+    [[nodiscard]] const String& getTargetLanguage() const { return mShaderLanguage; }
 
     /** 
     Set the output shader target profiles.
@@ -170,7 +170,7 @@ public:
     /** 
     Get the output shader target profiles.
     */
-    [[nodiscard]] auto getShaderProfiles(GpuProgramType type) const -> const String&;
+    [[nodiscard]] const String& getShaderProfiles(GpuProgramType type) const;
 
     /** 
     Set the output shader cache path. Generated shader code will be written to this path.
@@ -183,7 +183,7 @@ public:
     /** 
     Get the output shader cache path.
     */
-    [[nodiscard]] auto getShaderCachePath() const -> const String& { return mShaderCachePath; }
+    [[nodiscard]] const String& getShaderCachePath() const { return mShaderCachePath; }
 
     /** 
     Flush the shader cache. This operation will cause all active schemes to be invalidated and will
@@ -199,7 +199,7 @@ public:
     regenerate shaders.
     @param schemeName The destination scheme name.
     */
-    auto getRenderState(const String& schemeName) -> RenderState*;
+    RenderState* getRenderState(const String& schemeName);
 
 
     typedef std::pair<RenderState*, bool> RenderStateCreateOrRetrieveResult;
@@ -207,14 +207,14 @@ public:
     Returns a requested render state. If the render state does not exist this function creates it.
     @param schemeName The scheme name to retrieve.
     */
-    auto createOrRetrieveRenderState(const String& schemeName) -> RenderStateCreateOrRetrieveResult;
+    RenderStateCreateOrRetrieveResult createOrRetrieveRenderState(const String& schemeName);
 
 
     /** 
     Tells if a given render state exists
     @param schemeName The scheme name to check.
     */
-    [[nodiscard]] auto hasRenderState(const String& schemeName) const -> bool;
+    [[nodiscard]] bool hasRenderState(const String& schemeName) const;
     
     /**
      Get render state of specific pass.
@@ -224,10 +224,10 @@ public:
      @param groupName The specific material name.
      @param passIndex The pass index.
      */
-    auto getRenderState(const String& schemeName, const String& materialName, const String& groupName, unsigned short passIndex) -> RenderState*;
+    RenderState* getRenderState(const String& schemeName, const String& materialName, const String& groupName, unsigned short passIndex);
 
     /// @overload
-    auto getRenderState(const String& schemeName, const Material& mat, uint16 passIndex = 0) -> RenderState*
+    RenderState* getRenderState(const String& schemeName, const Material& mat, uint16 passIndex = 0)
     {
         return getRenderState(schemeName, mat.getName(), mat.getGroup(), passIndex);
     }
@@ -243,18 +243,18 @@ public:
     /** 
     Returns the number of existing factories
     */
-    [[nodiscard]] auto getNumSubRenderStateFactories() const -> size_t;
+    [[nodiscard]] size_t getNumSubRenderStateFactories() const;
 
     /** 
     Returns a sub render state factory by index
     @note index must be lower than the value returned by getNumSubRenderStateFactories()
     */
-    auto getSubRenderStateFactory(size_t index) -> SubRenderStateFactory*;
+    SubRenderStateFactory* getSubRenderStateFactory(size_t index);
 
     /** 
     Returns a sub render state factory by name
     */
-    auto getSubRenderStateFactory(const String& type) -> SubRenderStateFactory*;
+    SubRenderStateFactory* getSubRenderStateFactory(const String& type);
 
     /** 
     Remove sub render state factory. 
@@ -266,11 +266,11 @@ public:
     Create an instance of sub render state from a given type. 
     @param type The type of sub render state to create.
     */
-    auto createSubRenderState(const String& type) -> SubRenderState*;
+    SubRenderState* createSubRenderState(const String& type);
 
     /// @overload
     template<typename T>
-    auto createSubRenderState() -> T*
+    T* createSubRenderState()
     {
         return static_cast<T*>(createSubRenderState(T::Type));
     }
@@ -289,10 +289,10 @@ public:
      @param srcTechniqueSchemeName The source technique scheme name.
      @param dstTechniqueSchemeName The destination shader based technique scheme name.
      */
-    [[nodiscard]] auto hasShaderBasedTechnique(const String& materialName, const String& groupName, const String& srcTechniqueSchemeName, const String& dstTechniqueSchemeName) const -> bool;
+    [[nodiscard]] bool hasShaderBasedTechnique(const String& materialName, const String& groupName, const String& srcTechniqueSchemeName, const String& dstTechniqueSchemeName) const;
 
     /// @overload
-    [[nodiscard]] auto hasShaderBasedTechnique(const Material& mat, const String& srcTechniqueSchemeName, const String& dstTechniqueSchemeName) const -> bool
+    [[nodiscard]] bool hasShaderBasedTechnique(const Material& mat, const String& srcTechniqueSchemeName, const String& dstTechniqueSchemeName) const
     {
         return hasShaderBasedTechnique(mat.getName(), mat.getGroup(), srcTechniqueSchemeName, dstTechniqueSchemeName);
     }
@@ -306,10 +306,10 @@ public:
     @param dstTechniqueSchemeName The destination shader based technique scheme name.
     @param overProgrammable If true a shader will be created even if the pass already has shaders
     */
-    auto createShaderBasedTechnique(const Material& srcMat, const String& srcTechniqueSchemeName, const String& dstTechniqueSchemeName, bool overProgrammable = false) -> bool;
+    bool createShaderBasedTechnique(const Material& srcMat, const String& srcTechniqueSchemeName, const String& dstTechniqueSchemeName, bool overProgrammable = false);
 
     /// @overload
-    auto createShaderBasedTechnique(const Technique* srcTech, const String& dstTechniqueSchemeName, bool overProgrammable = false) -> bool;
+    bool createShaderBasedTechnique(const Technique* srcTech, const String& dstTechniqueSchemeName, bool overProgrammable = false);
 
     /**
      Remove shader based technique from a given technique.
@@ -318,7 +318,7 @@ public:
      @param srcTech The source technique.
      @param dstTechniqueSchemeName The destination shader based technique scheme name.
      */
-    auto removeShaderBasedTechnique(const Technique* srcTech, const String& dstTechniqueSchemeName) -> bool;
+    bool removeShaderBasedTechnique(const Technique* srcTech, const String& dstTechniqueSchemeName);
 
     /** 
     Remove all shader based techniques of the given material. 
@@ -326,10 +326,10 @@ public:
     @param materialName The source material name.   
     @param groupName The source group name. 
     */
-    auto removeAllShaderBasedTechniques(const String& materialName, const String& groupName OGRE_RESOURCE_GROUP_INIT) -> bool;
+    bool removeAllShaderBasedTechniques(const String& materialName, const String& groupName OGRE_RESOURCE_GROUP_INIT);
 
     /// @overload
-    auto removeAllShaderBasedTechniques(const Material& mat) -> bool
+    bool removeAllShaderBasedTechniques(const Material& mat)
     {
         return removeAllShaderBasedTechniques(mat.getName(), mat.getGroup());
     }
@@ -342,7 +342,7 @@ public:
     @param dstMat The destination material
     @return True if successful
     */
-    auto cloneShaderBasedTechniques(const Material& srcMat, Material& dstMat) -> bool;
+    bool cloneShaderBasedTechniques(const Material& srcMat, Material& dstMat);
 
     /** 
     Remove all shader based techniques that created by this shader generator.   
@@ -367,7 +367,7 @@ public:
     given scheme name.
     @param schemeName The scheme to validate.
     */
-    auto validateScheme(const String& schemeName) -> bool;
+    bool validateScheme(const String& schemeName);
     
     /** 
     Invalidate specific material scheme. This action will lead to shader regeneration of the technique belongs to the
@@ -391,7 +391,7 @@ public:
     @param materialName The material to validate.
     @param groupName The source group name. 
     */
-    auto validateMaterial(const String& schemeName, const String& materialName, const String& groupName OGRE_RESOURCE_GROUP_INIT) -> bool;
+    bool validateMaterial(const String& schemeName, const String& materialName, const String& groupName OGRE_RESOURCE_GROUP_INIT);
 
     /// @overload
     void validateMaterial(const String& schemeName, const Material& mat)
@@ -415,7 +415,7 @@ public:
 	@param materialName The material to validate.
 	@param groupName The source group name.
 	*/
-	auto validateMaterialIlluminationPasses(const String& schemeName, const String& materialName, const String& groupName OGRE_RESOURCE_GROUP_INIT) -> bool;
+	bool validateMaterialIlluminationPasses(const String& schemeName, const String& materialName, const String& groupName OGRE_RESOURCE_GROUP_INIT);
 
     /** 
     Return custom material Serializer of the shader generator.
@@ -428,10 +428,10 @@ public:
     3. Add the return instance of serializer listener to the MaterialSerializer.
     4. Call one of the export methods of MaterialSerializer.
     */
-    auto getMaterialSerializerListener() -> MaterialSerializer::Listener*;
+    MaterialSerializer::Listener* getMaterialSerializerListener();
 
     /** Return the current number of generated shaders. */
-    [[nodiscard]] auto getShaderCount(GpuProgramType type) const -> size_t;
+    [[nodiscard]] size_t getShaderCount(GpuProgramType type) const;
 
     /** Set the vertex shader outputs compaction policy. 
     @see VSOutputCompactPolicy.
@@ -442,7 +442,7 @@ public:
     /** Get the vertex shader outputs compaction policy. 
     @see VSOutputCompactPolicy. 
     */
-    [[nodiscard]] auto getVertexShaderOutputsCompactPolicy() const -> VSOutputCompactPolicy { return mVSOutputCompactPolicy; }
+    [[nodiscard]] VSOutputCompactPolicy getVertexShaderOutputsCompactPolicy() const { return mVSOutputCompactPolicy; }
 
 
     /** Sets whether shaders are created for passes with shaders.
@@ -455,16 +455,16 @@ public:
     /** Returns whether shaders are created for passes with shaders.
     @see setCreateShaderOverProgrammablePass(). 
     */
-    [[nodiscard]] auto getCreateShaderOverProgrammablePass() const -> bool { return mCreateShaderOverProgrammablePass; }
+    [[nodiscard]] bool getCreateShaderOverProgrammablePass() const { return mCreateShaderOverProgrammablePass; }
 
 
     /** Returns the amount of schemes used in the for RT shader generation
     */
-    [[nodiscard]] auto getRTShaderSchemeCount() const -> size_t;
+    [[nodiscard]] size_t getRTShaderSchemeCount() const;
 
     /** Returns the scheme name used in the for RT shader generation by index
     */
-    [[nodiscard]] auto getRTShaderScheme(size_t index) const -> const String&;
+    [[nodiscard]] const String& getRTShaderScheme(size_t index) const;
 
     /// Default material scheme of the shader generator.
     static String DEFAULT_SCHEME_NAME;
@@ -479,7 +479,7 @@ private:
     struct MatGroupPair_less
     {
         // ensure we arrange the list first by material name then by group name
-        auto operator()(const MatGroupPair& p1, const MatGroupPair& p2) const -> bool
+        bool operator()(const MatGroupPair& p1, const MatGroupPair& p2) const
         {
             int cmpVal = strcmp(p1.first.c_str(),p2.first.c_str());
             return (cmpVal < 0) || ((cmpVal == 0) && (strcmp(p1.second.c_str(),p2.second.c_str()) < 0));
@@ -522,24 +522,24 @@ private:
         void buildTargetRenderState();
 
         /** Get source pass. */
-        auto getSrcPass() -> Pass* { return mSrcPass; }
+        Pass* getSrcPass() { return mSrcPass; }
 
         /** Get destination pass. */
-        auto getDstPass() -> Pass* { return mDstPass; }
+        Pass* getDstPass() { return mDstPass; }
 
 		/** Get illumination stage. */
-		auto getIlluminationStage() -> IlluminationStage { return mStage; }
+		IlluminationStage getIlluminationStage() { return mStage; }
 
 		/** Get illumination state. */
-		auto isIlluminationPass() -> bool { return mStage != IS_UNKNOWN; }
+		bool isIlluminationPass() { return mStage != IS_UNKNOWN; }
 
         /** Get custom render state of this pass. */
-        auto getCustomRenderState() -> RenderState* { return mCustomRenderState; }
+        RenderState* getCustomRenderState() { return mCustomRenderState; }
 
         /** Set the custom render state of this pass. */
         void setCustomRenderState(RenderState* customRenderState) { mCustomRenderState = customRenderState; }
 
-        [[nodiscard]] auto getParent() const -> const SGTechnique* { return mParent; }
+        [[nodiscard]] const SGTechnique* getParent() const { return mParent; }
     protected:
         // Parent technique.
         SGTechnique* mParent;
@@ -563,16 +563,16 @@ private:
         ~SGTechnique();
         
         /** Get the parent SGMaterial */
-        [[nodiscard]] auto getParent() const -> const SGMaterial* { return mParent; }
+        [[nodiscard]] const SGMaterial* getParent() const { return mParent; }
         
         /** Get the source technique. */
-        auto getSourceTechnique() -> const Technique* { return mSrcTechnique; }
+        const Technique* getSourceTechnique() { return mSrcTechnique; }
 
         /** Get the destination technique. */
-        auto getDestinationTechnique() -> Technique* { return mDstTechnique; }
+        Technique* getDestinationTechnique() { return mDstTechnique; }
 
         /** Get the destination technique scheme name. */
-        [[nodiscard]] auto getDestinationTechniqueSchemeName() const -> const String& { return mDstTechniqueSchemeName; }
+        [[nodiscard]] const String& getDestinationTechniqueSchemeName() const { return mDstTechniqueSchemeName; }
         
         /** Build the render state. */
         void buildTargetRenderState();
@@ -590,19 +590,19 @@ private:
         void setBuildDestinationTechnique(bool buildTechnique)  { mBuildDstTechnique = buildTechnique; }        
 
         /** Tells if the destination technique should be build. */
-        [[nodiscard]] auto getBuildDestinationTechnique() const -> bool               { return mBuildDstTechnique; }
+        [[nodiscard]] bool getBuildDestinationTechnique() const               { return mBuildDstTechnique; }
 
         /** Get render state of specific pass.
         @param passIndex The pass index.
         */
-        auto getRenderState(unsigned short passIndex) -> RenderState*;
+        RenderState* getRenderState(unsigned short passIndex);
         /** Tells if a custom render state exists for the given pass. */
-        auto hasRenderState(unsigned short passIndex) -> bool;
+        bool hasRenderState(unsigned short passIndex);
 
         /// whether shaders are created for passes with shaders
-        auto overProgrammablePass() -> bool { return mOverProgrammable; }
+        bool overProgrammablePass() { return mOverProgrammable; }
 
-        [[nodiscard]] auto getPassList() const -> const SGPassList&  { return mPassEntries; }
+        [[nodiscard]] const SGPassList& getPassList() const  { return mPassEntries; }
 
         // Key name for associating with a Technique instance.
         static String UserKey;
@@ -648,16 +648,16 @@ private:
         {}
 
         /** Get the material name. */
-        [[nodiscard]] auto getMaterialName() const -> const String&   { return mName; }
+        [[nodiscard]] const String& getMaterialName() const   { return mName; }
         
         /** Get the group name. */
-        [[nodiscard]] auto getGroupName() const -> const String&  { return mGroup; }
+        [[nodiscard]] const String& getGroupName() const  { return mGroup; }
 
         /** Get the const techniques list of this material. */
-        [[nodiscard]] auto getTechniqueList() const -> const SGTechniqueList&  { return mTechniqueEntries; }
+        [[nodiscard]] const SGTechniqueList& getTechniqueList() const  { return mTechniqueEntries; }
 
         /** Get the techniques list of this material. */
-        auto getTechniqueList() -> SGTechniqueList&              { return mTechniqueEntries; }
+        SGTechniqueList& getTechniqueList()              { return mTechniqueEntries; }
     
     protected:
         // The material name.
@@ -679,7 +679,7 @@ private:
 
         /** Return true if this scheme dose not contains any techniques.
         */
-        [[nodiscard]] auto empty() const -> bool  { return mTechniqueEntries.empty(); }
+        [[nodiscard]] bool empty() const  { return mTechniqueEntries.empty(); }
         
         /** Invalidate the whole scheme.
         @see ShaderGenerator::invalidateScheme.
@@ -699,7 +699,7 @@ private:
         /** Validate specific material.
         @see ShaderGenerator::validateMaterial.
         */
-        auto validate(const String& materialName, const String& groupName) -> bool;
+        bool validate(const String& materialName, const String& groupName);
 
 		/** Validate illumination passes of the specific material.
 		@see ShaderGenerator::invalidateMaterialIlluminationPasses.
@@ -709,7 +709,7 @@ private:
 		/** Validate illumination passes of the specific material.
 		@see ShaderGenerator::validateMaterialIlluminationPasses.
 		*/
-        auto validateIlluminationPasses(const String& materialName, const String& groupName) -> bool;
+        bool validateIlluminationPasses(const String& materialName, const String& groupName);
 
         /** Add a technique to current techniques list. */
         void addTechniqueEntry(SGTechnique* techEntry);
@@ -721,12 +721,12 @@ private:
         /** Get global render state of this scheme. 
         @see ShaderGenerator::getRenderState.
         */
-        auto getRenderState() -> RenderState*;
+        RenderState* getRenderState();
 
         /** Get specific pass render state. 
         @see ShaderGenerator::getRenderState.
         */
-        auto getRenderState(const String& materialName, const String& groupName, unsigned short passIndex) -> RenderState*;
+        RenderState* getRenderState(const String& materialName, const String& groupName, unsigned short passIndex);
 
     protected:
         /** Synchronize the current light settings of this scheme with the current settings of the scene. */
@@ -769,7 +769,7 @@ private:
     ~ShaderGenerator();
 
     /** Initialize the shader generator instance. */
-    auto _initialize() -> bool;
+    bool _initialize();
     
     /** Destory the shader generator instance. */
     void _destroy();
@@ -794,7 +794,7 @@ private:
     @param pass The pass that is the parent context of this node.
     @param translator The translator for the specific SubRenderState
     */
-    auto createSubRenderState(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*;
+    SubRenderState* createSubRenderState(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator);
     
     /** Create an instance of the SubRenderState based on script properties using the
     current sub render state factories.
@@ -804,10 +804,10 @@ private:
     @param texState The texture unit state that is the parent context of this node.
     @param translator The translator for the specific SubRenderState
     */
-    auto createSubRenderState(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator) -> SubRenderState*;
+    SubRenderState* createSubRenderState(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator);
 
     /** Return a matching script translator. */
-    auto getTranslator(const AbstractNodePtr& node) -> ScriptTranslator*;
+    ScriptTranslator* getTranslator(const AbstractNodePtr& node);
 
 
     /** This method called by instance of SGMaterialSerializerListener and 
@@ -829,8 +829,8 @@ private:
     This function is able to find materials with group specified as 
     AUTODETECT_RESOURCE_GROUP_NAME 
     */
-    auto findMaterialEntryIt(const String& materialName, const String& groupName) -> SGMaterialIterator;
-    [[nodiscard]] auto findMaterialEntryIt(const String& materialName, const String& groupName) const -> SGMaterialConstIterator;
+    SGMaterialIterator findMaterialEntryIt(const String& materialName, const String& groupName);
+    [[nodiscard]] SGMaterialConstIterator findMaterialEntryIt(const String& materialName, const String& groupName) const;
 
 
     typedef std::pair<SGScheme*, bool> SchemeCreateOrRetrieveResult;
@@ -838,13 +838,13 @@ private:
     Returns a requested scheme. If the scheme does not exist this function creates it.
     @param schemeName The scheme name to retrieve.
     */
-    auto createOrRetrieveScheme(const String& schemeName) -> SchemeCreateOrRetrieveResult;
+    SchemeCreateOrRetrieveResult createOrRetrieveScheme(const String& schemeName);
 
     /** Used to check if finalizing */
-    [[nodiscard]] auto getIsFinalizing() const -> bool;
+    [[nodiscard]] bool getIsFinalizing() const;
 
     /** Internal method that creates list of SGPass instances composing the given material. */
-    auto createSGPassList(Material* mat) const -> SGPassList;
+    SGPassList createSGPassList(Material* mat) const;
 
     // The active scene manager.
     SceneManager* mActiveSceneMgr;

@@ -53,7 +53,7 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------
-    auto FrameTimeControllerValue::frameStarted(const FrameEvent &evt) -> bool
+    bool FrameTimeControllerValue::frameStarted(const FrameEvent &evt)
     {
         if(mFrameDelay) 
         {
@@ -71,12 +71,12 @@ namespace Ogre
         return true;
     }
     //-----------------------------------------------------------------------
-    auto FrameTimeControllerValue::frameEnded(const FrameEvent &evt) -> bool
+    bool FrameTimeControllerValue::frameEnded(const FrameEvent &evt)
     {
         return true;
     }
     //-----------------------------------------------------------------------
-    auto FrameTimeControllerValue::getValue() const -> Real
+    Real FrameTimeControllerValue::getValue() const
     {
         return mFrameTime;
     }
@@ -86,7 +86,7 @@ namespace Ogre
         // Do nothing - value is set from frame listener
     }
     //-----------------------------------------------------------------------
-    auto FrameTimeControllerValue::getTimeFactor() const -> Real {
+    Real FrameTimeControllerValue::getTimeFactor() const {
         return mTimeFactor;
     }
     //-----------------------------------------------------------------------
@@ -98,7 +98,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto FrameTimeControllerValue::getFrameDelay() const -> Real {
+    Real FrameTimeControllerValue::getFrameDelay() const {
         return mFrameDelay;
     }
     //-----------------------------------------------------------------------
@@ -107,7 +107,7 @@ namespace Ogre
         mFrameDelay = fd;
     }
     //-----------------------------------------------------------------------
-    auto FrameTimeControllerValue::getElapsedTime() const -> Real
+    Real FrameTimeControllerValue::getElapsedTime() const
     {
         return mElapsedTime;
     }
@@ -124,7 +124,7 @@ namespace Ogre
         mTextureLayer = t;
     }
     //-----------------------------------------------------------------------
-    auto TextureFrameControllerValue::getValue() const -> Real
+    Real TextureFrameControllerValue::getValue() const
     {
         int numFrames = mTextureLayer->getNumFrames();
         return ((Real)mTextureLayer->getCurrentFrame() / (Real)numFrames);
@@ -149,7 +149,7 @@ namespace Ogre
         mRotate = rotate;
     }
     //-----------------------------------------------------------------------
-    auto TexCoordModifierControllerValue::getValue() const -> Real
+    Real TexCoordModifierControllerValue::getValue() const
     {
         const Matrix4& pMat = mTextureLayer->getTextureTransform();
         if (mTransU)
@@ -203,7 +203,7 @@ namespace Ogre
     {
     }
     //-----------------------------------------------------------------------
-    auto FloatGpuParameterControllerValue::getValue() const -> Real
+    Real FloatGpuParameterControllerValue::getValue() const
     {
         // do nothing, reading from a set of params not supported
         return 0.0f;
@@ -223,7 +223,7 @@ namespace Ogre
     {
     }
     //-----------------------------------------------------------------------
-    auto PassthroughControllerFunction::calculate(Real source) -> Real
+    Real PassthroughControllerFunction::calculate(Real source)
     {
         return getAdjustedInput(source);
 
@@ -238,7 +238,7 @@ namespace Ogre
         mTime = timeOffset;
     }
     //-----------------------------------------------------------------------
-    auto AnimationControllerFunction::calculate(Real source) -> Real
+    Real AnimationControllerFunction::calculate(Real source)
     {
         // Assume source is time since last update
         mTime += source;
@@ -267,7 +267,7 @@ namespace Ogre
         mScale = factor;
     }
     //-----------------------------------------------------------------------
-    auto ScaleControllerFunction::calculate(Real source) -> Real
+    Real ScaleControllerFunction::calculate(Real source)
     {
         return getAdjustedInput(source * mScale);
 
@@ -287,7 +287,7 @@ namespace Ogre
         mDutyCycle = dutyCycle;
     }
     //-----------------------------------------------------------------------
-    auto WaveformControllerFunction::getAdjustedInput(Real input) -> Real
+    Real WaveformControllerFunction::getAdjustedInput(Real input)
     {
         Real adjusted = ControllerFunction<Real>::getAdjustedInput(input);
 
@@ -301,7 +301,7 @@ namespace Ogre
         return adjusted;
     }
     //-----------------------------------------------------------------------
-    auto WaveformControllerFunction::calculate(Real source) -> Real
+    Real WaveformControllerFunction::calculate(Real source)
     {
         Real input = getAdjustedInput(source * mFrequency);
         Real output = 0;
@@ -357,7 +357,7 @@ namespace Ogre
         assert(mKeys.size() == mValues.size());
     }
     //-----------------------------------------------------------------------
-    auto LinearControllerFunction::calculate(Real source) -> Real {
+    Real LinearControllerFunction::calculate(Real source) {
         Real input = getAdjustedInput(source*mFrequency);
 
         std::vector<Real>::iterator ifirst = std::lower_bound(mKeys.begin(), mKeys.end(), input);

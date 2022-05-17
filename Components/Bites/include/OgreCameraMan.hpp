@@ -67,7 +67,7 @@ namespace OgreBites
         */
         void setCamera(Ogre::SceneNode* cam);
 
-        auto getCamera() -> Ogre::SceneNode*
+        Ogre::SceneNode* getCamera()
         {
             return mCamera;
         }
@@ -77,7 +77,7 @@ namespace OgreBites
         */
         virtual void setTarget(Ogre::SceneNode* target);
 
-        auto getTarget() -> Ogre::SceneNode*
+        Ogre::SceneNode* getTarget()
         {
             return mTarget;
         }
@@ -95,7 +95,7 @@ namespace OgreBites
             mTopSpeed = topSpeed;
         }
 
-        auto getTopSpeed() -> Ogre::Real
+        Ogre::Real getTopSpeed()
         {
             return mTopSpeed;
         }
@@ -105,7 +105,7 @@ namespace OgreBites
         */
         virtual void setStyle(CameraStyle style);
 
-        auto getStyle() -> CameraStyle
+        CameraStyle getStyle()
         {
             return mStyle;
         }
@@ -120,31 +120,31 @@ namespace OgreBites
         /**
         Processes key presses for free-look style movement.
         */
-        auto keyPressed(const KeyboardEvent& evt) -> bool;
+        bool keyPressed(const KeyboardEvent& evt);
 
         /**
         Processes key releases for free-look style movement.
         */
-        auto keyReleased(const KeyboardEvent& evt) -> bool;
+        bool keyReleased(const KeyboardEvent& evt);
 
         /**
         Processes mouse movement differently for each style.
         */
-        auto mouseMoved(const MouseMotionEvent& evt) -> bool;
+        bool mouseMoved(const MouseMotionEvent& evt);
 
-        auto mouseWheelRolled(const MouseWheelEvent& evt) -> bool;
+        bool mouseWheelRolled(const MouseWheelEvent& evt);
 
         /**
         Processes mouse presses. Only applies for orbit style.
         Left button is for orbiting, and right button is for zooming.
         */
-        auto mousePressed(const MouseButtonEvent& evt) -> bool;
+        bool mousePressed(const MouseButtonEvent& evt);
 
         /**
         Processes mouse releases. Only applies for orbit style.
         Left button is for orbiting, and right button is for zooming.
         */
-        auto mouseReleased(const MouseButtonEvent& evt) -> bool;
+        bool mouseReleased(const MouseButtonEvent& evt);
 
         /**
          * fix the yaw axis to be Vector3::UNIT_Y of the parent node (tabletop mode)
@@ -158,7 +158,7 @@ namespace OgreBites
 
         void setPivotOffset(const Ogre::Vector3& offset);
     protected:
-        auto getDistToTarget() -> Ogre::Real;
+        Ogre::Real getDistToTarget();
         Ogre::Node::TransformSpace mYawSpace;
         Ogre::SceneNode* mCamera;
         CameraStyle mStyle;

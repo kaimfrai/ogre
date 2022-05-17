@@ -55,9 +55,9 @@ class Viewport;
     {
     }
     //-----------------------------------------------------------------------
-    auto LiSPSMShadowCameraSetup::calculateLiSPSM(const Matrix4& lightSpace, 
+    Matrix4 LiSPSMShadowCameraSetup::calculateLiSPSM(const Matrix4& lightSpace, 
         const PointListBody& bodyB, const PointListBody& bodyLVS,
-        const SceneManager& sm, const Camera& cam, const Light& light) const -> Matrix4
+        const SceneManager& sm, const Camera& cam, const Light& light) const
     {
         // set up bodyB AAB in light space
         AxisAlignedBox bodyBAAB_ls;
@@ -104,9 +104,9 @@ class Viewport;
         return P * lightSpaceTranslation;
     }
     //-----------------------------------------------------------------------
-    auto LiSPSMShadowCameraSetup::calculateNOpt(const Matrix4& lightSpace, 
+    Real LiSPSMShadowCameraSetup::calculateNOpt(const Matrix4& lightSpace, 
         const AxisAlignedBox& bodyBABB_ls, const PointListBody& bodyLVS, 
-        const Camera& cam) const -> Real
+        const Camera& cam) const
     {
         // get inverse light space matrix
         Matrix4 invLightSpace = lightSpace.inverse();
@@ -142,8 +142,8 @@ class Viewport;
         return cam.getNearClipDistance() + Math::Sqrt(z0 * z1) * getOptimalAdjustFactor() * mOptAdjustFactorTweak;
     }
     //-----------------------------------------------------------------------
-    auto LiSPSMShadowCameraSetup::calculateNOptSimple(const PointListBody& bodyLVS, 
-        const Camera& cam) const -> Real
+    Real LiSPSMShadowCameraSetup::calculateNOptSimple(const PointListBody& bodyLVS, 
+        const Camera& cam) const
     {
         // get view matrix
         const Affine3& viewMatrix = cam.getViewMatrix();
@@ -160,8 +160,8 @@ class Viewport;
         return (Math::Abs(e_es.z) + Math::Sqrt(cam.getNearClipDistance() * cam.getFarClipDistance())) * getOptimalAdjustFactor() * mOptAdjustFactorTweak;
     }
     //-----------------------------------------------------------------------
-    auto LiSPSMShadowCameraSetup::calculateZ0_ls(const Matrix4& lightSpace, 
-        const Vector3& e, Real bodyB_zMax_ls, const Camera& cam) const -> Vector3
+    Vector3 LiSPSMShadowCameraSetup::calculateZ0_ls(const Matrix4& lightSpace, 
+        const Vector3& e, Real bodyB_zMax_ls, const Camera& cam) const
     {
         // z0_ls lies on the intersection point between the planes 'bodyB_ls near plane 
         // (z = bodyB_zNear_ls)' and plane with normal UNIT_X where e_ls lies upon (x = e_ls_x) 
@@ -300,7 +300,7 @@ class Viewport;
         mCosCamLightDirThreshold = Math::Cos(angle.valueRadians());
     }
     //---------------------------------------------------------------------
-    auto LiSPSMShadowCameraSetup::getCameraLightDirectionThreshold() const -> Degree
+    Degree LiSPSMShadowCameraSetup::getCameraLightDirectionThreshold() const
     {
         return { Math::ACos(mCosCamLightDirThreshold) };
     }

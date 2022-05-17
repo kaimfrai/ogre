@@ -47,7 +47,7 @@ THE SOFTWARE.
 
 namespace Ogre {
     //---------------------------------------------------------------------
-    auto PrefabFactory::createPrefab(Mesh* mesh) -> bool
+    bool PrefabFactory::createPrefab(Mesh* mesh)
     {
         const String& resourceName = mesh->getName();
 

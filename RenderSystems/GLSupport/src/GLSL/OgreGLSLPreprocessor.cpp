@@ -48,7 +48,7 @@ namespace Ogre {
 #define MAX_MACRO_ARGS 16
 
     /// Return closest power of two not smaller than given number
-    static auto ClosestPow2 (size_t x) -> size_t
+    static size_t ClosestPow2 (size_t x)
     {
         if (!(x & (x - 1)))
             return x;
@@ -103,7 +103,7 @@ namespace Ogre {
         Length += iOther.Length;
     }
 
-    auto CPreprocessor::Token::GetValue (long &oValue) const -> bool
+    bool CPreprocessor::Token::GetValue (long &oValue) const
     {
         long val = 0;
         size_t i = 0;
@@ -178,7 +178,7 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::Token::CountNL () -> int
+    int CPreprocessor::Token::CountNL ()
     {
         if (Type == TK_EOS || Type == TK_ERROR)
             return 0;
@@ -198,8 +198,8 @@ namespace Ogre {
         return c;
     }
 
-    auto CPreprocessor::Macro::Expand(const std::vector<Token>& iArgs,
-                                                      std::forward_list<Macro>& iMacros) -> CPreprocessor::Token
+    CPreprocessor::Token CPreprocessor::Macro::Expand(const std::vector<Token>& iArgs,
+                                                      std::forward_list<Macro>& iMacros)
     {
         Expanding = true;
 
@@ -273,7 +273,7 @@ namespace Ogre {
 
     CPreprocessor::~CPreprocessor() {}
 
-    auto CPreprocessor::GetToken (bool iExpand) -> CPreprocessor::Token
+    CPreprocessor::Token CPreprocessor::GetToken (bool iExpand)
     {
         if (Source >= SourceEnd)
             return {Token::TK_EOS};
@@ -406,7 +406,7 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::IsDefined (const Token &iToken) -> CPreprocessor::Macro *
+    CPreprocessor::Macro *CPreprocessor::IsDefined (const Token &iToken)
     {
         for (Macro& cur : MacroList)
             if (cur.Name == iToken)
@@ -416,7 +416,7 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::ExpandMacro (const Token &iToken) -> CPreprocessor::Token
+    CPreprocessor::Token CPreprocessor::ExpandMacro (const Token &iToken)
     {
         Macro *cur = IsDefined (iToken);
         if (cur && !cur->Expanding)
@@ -485,8 +485,8 @@ namespace Ogre {
      * 11: '*' '/' '%'
      * 12: unary '+' '-' '!' '~'
      */
-    auto CPreprocessor::GetExpression (
-        Token &oResult, int iLine, int iOpPriority) -> CPreprocessor::Token
+    CPreprocessor::Token CPreprocessor::GetExpression (
+        Token &oResult, int iLine, int iOpPriority)
     {
         char tmp [40];
 
@@ -672,7 +672,7 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::GetValue (const Token &iToken, long &oValue, int iLine) -> bool
+    bool CPreprocessor::GetValue (const Token &iToken, long &oValue, int iLine)
     {
         Token r;
         const Token *vt = &iToken;
@@ -748,8 +748,8 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::GetArgument (Token &oArg, bool iExpand,
-                                                     bool shouldAppendArg) -> CPreprocessor::Token
+    CPreprocessor::Token CPreprocessor::GetArgument (Token &oArg, bool iExpand,
+                                                     bool shouldAppendArg)
     {
         do
         {
@@ -852,8 +852,8 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::GetArguments (std::vector<Token>& oArgs,
-                                                      bool iExpand, bool shouldAppendArg) -> CPreprocessor::Token
+    CPreprocessor::Token CPreprocessor::GetArguments (std::vector<Token>& oArgs,
+                                                      bool iExpand, bool shouldAppendArg)
     {
         Token args [MAX_MACRO_ARGS];
         int nargs = 0;
@@ -923,7 +923,7 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::HandleDefine (Token &iBody, int iLine) -> bool
+    bool CPreprocessor::HandleDefine (Token &iBody, int iLine)
     {
         // Create an additional preprocessor to process macro body
         CPreprocessor cpp (iBody, iLine);
@@ -983,7 +983,7 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::HandleUnDef (Token &iBody, int iLine) -> bool
+    bool CPreprocessor::HandleUnDef (Token &iBody, int iLine)
     {
         CPreprocessor cpp (iBody, iLine);
 
@@ -1011,7 +1011,7 @@ namespace Ogre {
         return true;
     }
 
-    auto CPreprocessor::HandleIf(bool val, int iLine) -> bool
+    bool CPreprocessor::HandleIf(bool val, int iLine)
     {
         if (EnableOutput & (1 << 31))
         {
@@ -1029,7 +1029,7 @@ namespace Ogre {
         return true;
     }
 
-    auto CPreprocessor::HandleIfDef (Token &iBody, int iLine) -> bool
+    bool CPreprocessor::HandleIfDef (Token &iBody, int iLine)
     {
         CPreprocessor cpp (iBody, iLine);
 
@@ -1058,7 +1058,7 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::ExpandDefined (CPreprocessor *iParent, const std::vector<Token>& iArgs) -> CPreprocessor::Token
+    CPreprocessor::Token CPreprocessor::ExpandDefined (CPreprocessor *iParent, const std::vector<Token>& iArgs)
     {
         if (iArgs.size() != 1)
         {
@@ -1070,7 +1070,7 @@ namespace Ogre {
         return {Token::TK_NUMBER, v, 1};
     }
 
-    auto CPreprocessor::GetValueDef(const Token &iToken, long &oValue, int iLine) -> bool
+    bool CPreprocessor::GetValueDef(const Token &iToken, long &oValue, int iLine)
     {
         // Temporary add the defined() function to the macro list
         MacroList.emplace_front(Token(Token::TK_KEYWORD, "defined", 7));
@@ -1085,13 +1085,13 @@ namespace Ogre {
         return rc;
     }
 
-    auto CPreprocessor::HandleIf (Token &iBody, int iLine) -> bool
+    bool CPreprocessor::HandleIf (Token &iBody, int iLine)
     {
         long val;
         return GetValueDef(iBody, val, iLine) && HandleIf(val, iLine);
     }
 
-    auto CPreprocessor::HandleElif (Token &iBody, int iLine) -> bool
+    bool CPreprocessor::HandleElif (Token &iBody, int iLine)
     {
         if (EnableOutput == 1)
         {
@@ -1115,7 +1115,7 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::HandleElse (Token &iBody, int iLine) -> bool
+    bool CPreprocessor::HandleElse (Token &iBody, int iLine)
     {
         if (EnableOutput == 1)
         {
@@ -1134,7 +1134,7 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::HandleEndIf (Token &iBody, int iLine) -> bool
+    bool CPreprocessor::HandleEndIf (Token &iBody, int iLine)
     {
         EnableElif >>= 1;
         EnableOutput >>= 1;
@@ -1151,7 +1151,7 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::HandleDirective (Token &iToken, int iLine) -> CPreprocessor::Token
+    CPreprocessor::Token CPreprocessor::HandleDirective (Token &iToken, int iLine)
     {
         // Analyze preprocessor directive
         const char *directive = iToken.String + 1;
@@ -1274,7 +1274,7 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::Undef (const char *iMacroName, size_t iMacroNameLen) -> bool
+    bool CPreprocessor::Undef (const char *iMacroName, size_t iMacroNameLen)
     {
         Token name (Token::TK_KEYWORD, iMacroName, iMacroNameLen);
 
@@ -1294,7 +1294,7 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::Parse (const Token &iSource) -> CPreprocessor::Token
+    CPreprocessor::Token CPreprocessor::Parse (const Token &iSource)
     {
         Source = iSource.String;
         SourceEnd = Source + iSource.Length;
@@ -1397,7 +1397,7 @@ namespace Ogre {
     }
 
 
-    auto CPreprocessor::Parse (const char *iSource, size_t iLength, size_t &oLength) -> char *
+    char *CPreprocessor::Parse (const char *iSource, size_t iLength, size_t &oLength)
     {
         Token retval = Parse (Token (Token::TK_TEXT, iSource, iLength));
         if (retval.Type == Token::TK_ERROR)

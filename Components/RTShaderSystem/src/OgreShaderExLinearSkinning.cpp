@@ -58,7 +58,7 @@ LinearSkinning::LinearSkinning() : HardwareSkinningTechnique()
 }
 
 //-----------------------------------------------------------------------
-auto LinearSkinning::resolveParameters(ProgramSet* programSet) -> bool
+bool LinearSkinning::resolveParameters(ProgramSet* programSet)
 {
 
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
@@ -122,7 +122,7 @@ auto LinearSkinning::resolveParameters(ProgramSet* programSet) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto LinearSkinning::resolveDependencies(ProgramSet* programSet) -> bool
+bool LinearSkinning::resolveDependencies(ProgramSet* programSet)
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     vsProgram->addDependency(FFP_LIB_COMMON);
@@ -132,7 +132,7 @@ auto LinearSkinning::resolveDependencies(ProgramSet* programSet) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto LinearSkinning::addFunctionInvocations(ProgramSet* programSet) -> bool
+bool LinearSkinning::addFunctionInvocations(ProgramSet* programSet)
 {
 
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);

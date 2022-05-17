@@ -203,7 +203,7 @@ class SubMesh;
         }
 
         /** Gets whether this object is marked as dynamic */
-        auto getDynamic() const -> bool { return mBufferUsage & HardwareBuffer::HBU_DYNAMIC; }
+        bool getDynamic() const { return mBufferUsage & HardwareBuffer::HBU_DYNAMIC; }
 
         /** Start the definition of an update to a part of the object.
         @remarks
@@ -438,16 +438,16 @@ class SubMesh;
         }
 
         /// Get the number of vertices in the section currently being defined (returns 0 if no section is in progress).
-        virtual auto getCurrentVertexCount() const -> size_t;
+        virtual size_t getCurrentVertexCount() const;
 
         /// Get the number of indices in the section currently being defined (returns 0 if no section is in progress).
-        virtual auto getCurrentIndexCount() const -> size_t;
+        virtual size_t getCurrentIndexCount() const;
         
         /** Finish defining the object and compile the final renderable version. 
         @note
             Will return a pointer to the finished section or NULL if the section was discarded (i.e. has zero vertices/indices).
         */
-        virtual auto end() -> ManualObjectSection*;
+        virtual ManualObjectSection* end();
 
         /** Alter the material for a subsection of this object after it has been
             specified.
@@ -485,8 +485,8 @@ class SubMesh;
         @param meshName The name to give the mesh
         @param groupName The resource group to create the mesh in
         */
-        virtual auto convertToMesh(const String& meshName, 
-            const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> MeshPtr;
+        virtual MeshPtr convertToMesh(const String& meshName, 
+            const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
         /** Sets whether or not to use an 'identity' projection.
         @remarks
@@ -508,7 +508,7 @@ class SubMesh;
             need to change this.
         @see ManualObject::setUseIdentityProjection
         */
-        auto getUseIdentityProjection() const -> bool { return mUseIdentityProjection; }
+        bool getUseIdentityProjection() const { return mUseIdentityProjection; }
 
         /** Sets whether or not to use an 'identity' view.
         @remarks
@@ -530,7 +530,7 @@ class SubMesh;
             Normally you don't need to change this.
         @see ManualObject::setUseIdentityView
         */
-        auto getUseIdentityView() const -> bool { return mUseIdentityView; }
+        bool getUseIdentityView() const { return mUseIdentityView; }
 
         /** Sets the bounding box.
             @remarks Call this after having finished creating sections to modify the
@@ -543,11 +543,11 @@ class SubMesh;
 
         /** Gets the list of ManualObjectSection, i.e. a part of a ManualObject.
         */
-        auto getSections() const -> const std::vector<ManualObjectSection*>& { return mSectionList; }
+        const std::vector<ManualObjectSection*>& getSections() const { return mSectionList; }
 
-        auto getSection(size_t index) const -> ManualObjectSection* { return mSectionList.at(index); }
+        ManualObjectSection* getSection(size_t index) const { return mSectionList.at(index); }
 
-        auto getNumSections() const -> size_t { return mSectionList.size(); }
+        size_t getNumSections() const { return mSectionList.size(); }
 
 
         /** Sets whether or not to keep the original declaration order when 
@@ -565,23 +565,23 @@ class SubMesh;
         @return A flag indication if the declaration order will be kept when 
             queuing the renderables.
         */
-        auto getKeepDeclarationOrder() const -> bool { return mKeepDeclarationOrder; }
+        bool getKeepDeclarationOrder() const { return mKeepDeclarationOrder; }
         // MovableObject overrides
 
         /** @copydoc MovableObject::getMovableType */
-        auto getMovableType() const -> const String&;
+        const String& getMovableType() const;
         /** @copydoc MovableObject::getBoundingBox */
-        auto getBoundingBox() const -> const AxisAlignedBox& override { return mAABB; }
+        const AxisAlignedBox& getBoundingBox() const override { return mAABB; }
         /** @copydoc MovableObject::getBoundingRadius */
-        auto getBoundingRadius() const -> Real override { return mRadius; }
+        Real getBoundingRadius() const override { return mRadius; }
         /** @copydoc MovableObject::_updateRenderQueue */
         void _updateRenderQueue(RenderQueue* queue);
         /** Implement this method to enable stencil shadows */
-        auto getEdgeList() -> EdgeData* override;
+        EdgeData* getEdgeList() override;
         /** Implement this method to enable stencil shadows. */
-        auto getShadowVolumeRenderableList(
+        const ShadowRenderableList& getShadowVolumeRenderableList(
             const Light* light, const HardwareIndexBufferPtr& indexBuffer,
-            size_t& indexBufferUsedSize, float extrusionDist, int flags = 0) -> const ShadowRenderableList& override;
+            size_t& indexBufferUsedSize, float extrusionDist, int flags = 0) override;
 
         /// Built, renderable section of geometry
         class ManualObjectSection : public Renderable, public MovableAlloc
@@ -605,11 +605,11 @@ class SubMesh;
             virtual ~ManualObjectSection();
 
             /// Retrieve render operation for manipulation
-            auto getRenderOperation() -> RenderOperation*;
+            RenderOperation* getRenderOperation();
             /// Retrieve the material name in use
-            auto getMaterialName() const -> const String& { return mMaterialName; }
+            const String& getMaterialName() const { return mMaterialName; }
             /// Retrieve the material group in use
-            auto getMaterialGroup() const -> const String& { return mGroupName; }
+            const String& getMaterialGroup() const { return mGroupName; }
             /// update the material name in use
             void setMaterialName(const String& name,
                 const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
@@ -620,19 +620,19 @@ class SubMesh;
             /// Set whether we need 32-bit indices
             void set32BitIndices(bool n32) { m32BitIndices = n32; }
             /// Get whether we need 32-bit indices
-            auto get32BitIndices() const -> bool { return m32BitIndices; }
+            bool get32BitIndices() const { return m32BitIndices; }
             
             // Renderable overrides
             /** @copydoc Renderable::getMaterial */
-            auto getMaterial() const -> const MaterialPtr&;
+            const MaterialPtr& getMaterial() const;
             /** @copydoc Renderable::getRenderOperation */
             void getRenderOperation(RenderOperation& op);
             /** @copydoc Renderable::getWorldTransforms */
             void getWorldTransforms(Matrix4* xform) const;
             /** @copydoc Renderable::getSquaredViewDepth */
-            auto getSquaredViewDepth(const Ogre::Camera *) const -> Real;
+            Real getSquaredViewDepth(const Ogre::Camera *) const;
             /** @copydoc Renderable::getLights */
-            auto getLights() const -> const LightList &;
+            const LightList &getLights() const;
 
             /// convert this section to a SubMesh
             void convertToSubMesh(SubMesh* sm) const;
@@ -724,14 +724,14 @@ class SubMesh;
     class ManualObjectFactory : public MovableObjectFactory
     {
     protected:
-        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject*;
+        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);
     public:
         ManualObjectFactory() {}
         ~ManualObjectFactory() {}
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] auto getType() const -> const String&;
+        [[nodiscard]] const String& getType() const;
     };
     /** @} */
     /** @} */

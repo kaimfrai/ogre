@@ -52,7 +52,7 @@ namespace Ogre {
     {
     private:
         unsigned char* mData;
-        auto lockImpl(size_t offset, size_t length, LockOptions options) -> void* override;
+        void* lockImpl(size_t offset, size_t length, LockOptions options) override;
         void unlockImpl() override;
     public:
         DefaultHardwareBuffer(size_t sizeInBytes);
@@ -96,16 +96,16 @@ namespace Ogre {
         DefaultHardwareBufferManagerBase();
         ~DefaultHardwareBufferManagerBase();
         /// Creates a vertex buffer
-        auto 
+        HardwareVertexBufferSharedPtr 
             createVertexBuffer(size_t vertexSize, size_t numVerts, 
-                HardwareBuffer::Usage usage, bool useShadowBuffer = false) -> HardwareVertexBufferSharedPtr override;
+                HardwareBuffer::Usage usage, bool useShadowBuffer = false) override;
         /// Create a hardware index buffer
-        auto 
+        HardwareIndexBufferSharedPtr 
             createIndexBuffer(HardwareIndexBuffer::IndexType itype, size_t numIndexes, 
-                HardwareBuffer::Usage usage, bool useShadowBuffer = false) -> HardwareIndexBufferSharedPtr override;
+                HardwareBuffer::Usage usage, bool useShadowBuffer = false) override;
         /// Create a hardware uniform buffer
-        auto createUniformBuffer(size_t sizeBytes, HardwareBufferUsage = HBU_CPU_ONLY,
-                                              bool = false) -> HardwareBufferPtr override
+        HardwareBufferPtr createUniformBuffer(size_t sizeBytes, HardwareBufferUsage = HBU_CPU_ONLY,
+                                              bool = false) override
         {
             return std::make_shared<DefaultHardwareBuffer>(sizeBytes);
         }
@@ -124,27 +124,27 @@ namespace Ogre {
             destroyAllBindings();
         }
 
-        auto
+        HardwareVertexBufferSharedPtr
             createVertexBuffer(size_t vertexSize, size_t numVerts, HardwareBuffer::Usage usage,
-            bool useShadowBuffer = false) -> HardwareVertexBufferSharedPtr
+            bool useShadowBuffer = false)
         {
             return mImpl->createVertexBuffer(vertexSize, numVerts, usage, useShadowBuffer);
         }
 
-        auto
+        HardwareIndexBufferSharedPtr
             createIndexBuffer(HardwareIndexBuffer::IndexType itype, size_t numIndexes,
-            HardwareBuffer::Usage usage, bool useShadowBuffer = false) -> HardwareIndexBufferSharedPtr
+            HardwareBuffer::Usage usage, bool useShadowBuffer = false)
         {
             return mImpl->createIndexBuffer(itype, numIndexes, usage, useShadowBuffer);
         }
 
-        auto createRenderToVertexBuffer() -> RenderToVertexBufferSharedPtr
+        RenderToVertexBufferSharedPtr createRenderToVertexBuffer()
         {
             return mImpl->createRenderToVertexBuffer();
         }
 
-        auto createUniformBuffer(size_t sizeBytes, HardwareBufferUsage usage,
-                                              bool useShadowBuffer) -> HardwareBufferPtr
+        HardwareBufferPtr createUniformBuffer(size_t sizeBytes, HardwareBufferUsage usage,
+                                              bool useShadowBuffer)
         {
             return mImpl->createUniformBuffer(sizeBytes, usage, useShadowBuffer);
         }

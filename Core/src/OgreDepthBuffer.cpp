@@ -57,27 +57,27 @@ namespace Ogre
         detachFromAllRenderTargets();
     }
     //-----------------------------------------------------------------------
-    auto DepthBuffer::getPoolId() const -> uint16
+    uint16 DepthBuffer::getPoolId() const
     {
         return mPoolId;
     }
     //-----------------------------------------------------------------------
-    auto DepthBuffer::getWidth() const -> uint32
+    uint32 DepthBuffer::getWidth() const
     {
         return mWidth;
     }
     //----------------------------------------------------------------------
-    auto DepthBuffer::getHeight() const -> uint32
+    uint32 DepthBuffer::getHeight() const
     {
         return mHeight;
     }
     //-----------------------------------------------------------------------
-    auto DepthBuffer::isManual() const -> bool
+    bool DepthBuffer::isManual() const
     {
         return mManual;
     }
     //-----------------------------------------------------------------------
-    auto DepthBuffer::isCompatible( RenderTarget *renderTarget ) const -> bool
+    bool DepthBuffer::isCompatible( RenderTarget *renderTarget ) const
     {
         if( this->getWidth() >= renderTarget->getWidth() &&
             this->getHeight() >= renderTarget->getHeight() &&

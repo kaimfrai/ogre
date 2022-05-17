@@ -65,9 +65,9 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    virtual auto getType() const -> const String&;
+    virtual const String& getType() const;
 
-    auto setParameter(const String& name, const String& value) -> bool override;
+    bool setParameter(const String& name, const String& value) override;
 
     static String Type;
 
@@ -76,23 +76,23 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
+    virtual bool resolveParameters(ProgramSet* programSet);
 
     /** Resolve global lighting parameters */
-    virtual auto resolveGlobalParameters(ProgramSet* programSet) -> bool;
+    virtual bool resolveGlobalParameters(ProgramSet* programSet);
 
     /** Resolve per light parameters */
-    virtual auto resolvePerLightParameters(ProgramSet* programSet) -> bool;
+    virtual bool resolvePerLightParameters(ProgramSet* programSet);
 
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
+    virtual bool resolveDependencies(ProgramSet* programSet);
 
     /** 
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
+    virtual bool addFunctionInvocations(ProgramSet* programSet);
     
 
     /** 
@@ -128,12 +128,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] virtual auto getType() const -> const String&;
+    [[nodiscard]] virtual const String& getType() const;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*;
+    virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator);
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -146,7 +146,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual auto createInstanceImpl() -> SubRenderState*;
+    virtual SubRenderState* createInstanceImpl();
 
 
 };

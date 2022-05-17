@@ -117,7 +117,7 @@ namespace Ogre {
     {
         *xform = mParent->_getParentNodeFullTransform();
     }
-    auto ShadowRenderable::getLights() const -> const LightList& 
+    const LightList& ShadowRenderable::getLights() const 
     {
         // return empty
         static LightList ll;
@@ -140,7 +140,7 @@ namespace Ogre {
         edgeData->updateTriangleLightFacing(lightPos);
     }
     // ------------------------------------------------------------------------
-    static auto isBoundOkForMcGuire(const AxisAlignedBox& lightCapBounds, const Ogre::Vector3& lightPosition) -> bool
+    static bool isBoundOkForMcGuire(const AxisAlignedBox& lightCapBounds, const Ogre::Vector3& lightPosition)
     {
         // If light position is inside light cap bound then extrusion could be in opposite directions
         // and McGuire cap could intersect near clip plane of camera frustum without being noticed

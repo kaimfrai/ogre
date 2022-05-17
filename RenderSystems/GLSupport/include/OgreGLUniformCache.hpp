@@ -55,7 +55,7 @@ namespace Ogre
         /** Update a uniform
          @return A boolean value indicating whether this uniform needs to be updated in the GL.
          */
-        auto updateUniform(int location, const void *value, int length) -> bool;
+        bool updateUniform(int location, const void *value, int length);
     };
 }
 

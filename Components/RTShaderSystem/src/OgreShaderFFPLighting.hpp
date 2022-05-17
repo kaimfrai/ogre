@@ -77,12 +77,12 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    virtual auto getType() const -> const String&;
+    virtual const String& getType() const;
 
     /** 
     @see SubRenderState::getType.
     */
-    virtual auto getExecutionOrder() const -> int;
+    virtual int getExecutionOrder() const;
 
     /** 
     @see SubRenderState::updateGpuProgramsParams.
@@ -97,7 +97,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    virtual auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool;
+    virtual bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass);
 
     /** normalise the blinn-phong reflection model to make it energy conserving
      *
@@ -105,14 +105,14 @@ public:
      */
     void setNormaliseEnabled(bool enable) { mNormalisedEnable = enable; }
 
-    auto setParameter(const String& name, const String& value) -> bool override;
+    bool setParameter(const String& name, const String& value) override;
 
     static String Type;
 
     /**
     Get the specular component state.
     */
-    auto getSpecularEnable() const -> bool    { return mSpecularEnable; }
+    bool getSpecularEnable() const    { return mSpecularEnable; }
 
 // Protected types:
 protected:
@@ -160,7 +160,7 @@ protected:
     /** 
     Return the current track per vertex type.
     */
-    auto getTrackVertexColourType() const -> TrackVertexColourType { return mTrackVertexColourType; }
+    TrackVertexColourType getTrackVertexColourType() const { return mTrackVertexColourType; }
 
     /** 
     Set the light count per light type that this sub render state will generate.
@@ -172,7 +172,7 @@ protected:
     Get the light count per light type that this sub render state will generate.
     @see ShaderGenerator::getLightCount.
     */
-    auto getLightCount() const -> Vector3i;
+    Vector3i getLightCount() const;
 
     /** 
     Set the specular component state. If set to true this sub render state will compute a specular
@@ -184,17 +184,17 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
+    virtual bool resolveParameters(ProgramSet* programSet);
 
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
+    virtual bool resolveDependencies(ProgramSet* programSet);
 
     /** 
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
+    virtual bool addFunctionInvocations(ProgramSet* programSet);
 
 
     /** 
@@ -260,12 +260,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] virtual auto getType() const -> const String&;
+    [[nodiscard]] virtual const String& getType() const;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*;
+    virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator);
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -278,7 +278,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual auto createInstanceImpl() -> SubRenderState*;
+    virtual SubRenderState* createInstanceImpl();
 
 
 };

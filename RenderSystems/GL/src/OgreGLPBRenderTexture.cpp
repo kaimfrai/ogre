@@ -71,7 +71,7 @@ class RenderTexture;
         }
     }
 
-    auto GLPBRenderTexture::getContext() const -> GLContext*
+    GLContext* GLPBRenderTexture::getContext() const
     {
         return mManager->getContextFor(mPBFormat, mWidth, mHeight);
     }
@@ -93,13 +93,13 @@ class RenderTexture;
         }
     }
 
-    auto GLPBRTTManager::createRenderTexture(const String &name, 
-        const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> RenderTexture *
+    RenderTexture *GLPBRTTManager::createRenderTexture(const String &name, 
+        const GLSurfaceDesc &target, bool writeGamma, uint fsaa)
     {
         return new GLPBRenderTexture(this, name, target, writeGamma, fsaa);
     }
     
-    auto GLPBRTTManager::checkFormat(PixelFormat format) -> bool 
+    bool GLPBRTTManager::checkFormat(PixelFormat format) 
     { 
         return true; 
     }
@@ -151,7 +151,7 @@ class RenderTexture;
         }
     }
     
-    auto GLPBRTTManager::getContextFor(PixelComponentType ctype, uint32 width, uint32 height) -> GLContext *
+    GLContext *GLPBRTTManager::getContextFor(PixelComponentType ctype, uint32 width, uint32 height)
     {
         // Faster to return main context if the RTT is smaller than the window size
         // and ctype is PCT_BYTE. This must be checked every time because the window might have been resized

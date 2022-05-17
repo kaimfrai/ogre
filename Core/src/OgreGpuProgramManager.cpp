@@ -60,13 +60,13 @@ namespace {
             : GpuProgram(creator, name, handle, group, isManual, loader){}
         ~NullProgram() {}
         /// Overridden from GpuProgram - never supported
-        auto isSupported() const -> bool { return false; }
+        bool isSupported() const { return false; }
         /// Overridden from GpuProgram
-        auto getLanguage() const -> const String& { return sNullLang; }
-        auto calculateSize() const -> size_t { return 0; }
+        const String& getLanguage() const { return sNullLang; }
+        size_t calculateSize() const { return 0; }
 
         /// Overridden from StringInterface
-        auto setParameter(const String& name, const String& value) -> bool
+        bool setParameter(const String& name, const String& value)
         {
             // always silently ignore all parameters so as not to report errors on
             // unsupported platforms
@@ -80,22 +80,22 @@ namespace {
         NullProgramFactory() {}
         ~NullProgramFactory() {}
         /// Get the name of the language this factory creates programs for
-        [[nodiscard]] auto getLanguage() const -> const String&
+        [[nodiscard]] const String& getLanguage() const
         {
             return sNullLang;
         }
-        auto create(ResourceManager* creator,
+        GpuProgram* create(ResourceManager* creator,
             const String& name, ResourceHandle handle,
-            const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram*
+            const String& group, bool isManual, ManualResourceLoader* loader)
         {
             return new NullProgram(creator, name, handle, group, isManual, loader);
         }
     };
 }
 
-    auto GpuProgramManager::createImpl(const String& name, ResourceHandle handle, const String& group,
+    Resource* GpuProgramManager::createImpl(const String& name, ResourceHandle handle, const String& group,
                                             bool isManual, ManualResourceLoader* loader,
-                                            const NameValuePairList* params) -> Resource*
+                                            const NameValuePairList* params)
     {
         auto langIt = params->find("language");
         auto typeIt = params->find("type");
@@ -129,16 +129,16 @@ namespace {
 
     //-----------------------------------------------------------------------
     template<> GpuProgramManager* Singleton<GpuProgramManager>::msSingleton = 0;
-    auto GpuProgramManager::getSingletonPtr() -> GpuProgramManager*
+    GpuProgramManager* GpuProgramManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto GpuProgramManager::getSingleton() -> GpuProgramManager&
+    GpuProgramManager& GpuProgramManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
     //-----------------------------------------------------------------------
-    auto GpuProgramManager::getByName(const String& name, const String& group) const -> GpuProgramPtr
+    GpuProgramPtr GpuProgramManager::getByName(const String& name, const String& group) const
     {
         return static_pointer_cast<GpuProgram>(getResourceByName(name, group));
     }
@@ -165,9 +165,9 @@ namespace {
         ResourceGroupManager::getSingleton()._unregisterResourceManager(mResourceType);
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::load(const String& name,
+    GpuProgramPtr GpuProgramManager::load(const String& name,
         const String& groupName, const String& filename, 
-        GpuProgramType gptype, const String& syntaxCode) -> GpuProgramPtr
+        GpuProgramType gptype, const String& syntaxCode)
     {
         GpuProgramPtr prg;
         {
@@ -182,9 +182,9 @@ namespace {
         return prg;
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::loadFromString(const String& name, 
+    GpuProgramPtr GpuProgramManager::loadFromString(const String& name, 
         const String& groupName, const String& code, 
-        GpuProgramType gptype, const String& syntaxCode) -> GpuProgramPtr
+        GpuProgramType gptype, const String& syntaxCode)
     {
         GpuProgramPtr prg;
         {
@@ -199,9 +199,9 @@ namespace {
         return prg;
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::create(const String& name, const String& group, GpuProgramType gptype,
+    GpuProgramPtr GpuProgramManager::create(const String& name, const String& group, GpuProgramType gptype,
                                             const String& syntaxCode, bool isManual,
-                                            ManualResourceLoader* loader) -> GpuProgramPtr
+                                            ManualResourceLoader* loader)
     {
         auto prg = getFactory(syntaxCode)->create(this, name, getNextHandle(), group, isManual, loader);
         prg->setType(gptype);
@@ -215,25 +215,25 @@ namespace {
         return static_pointer_cast<GpuProgram>(ret);
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::createProgram(const String& name, const String& groupName,
+    GpuProgramPtr GpuProgramManager::createProgram(const String& name, const String& groupName,
                                                    const String& filename, GpuProgramType gptype,
-                                                   const String& syntaxCode) -> GpuProgramPtr
+                                                   const String& syntaxCode)
     {
         GpuProgramPtr prg = createProgram(name, groupName, syntaxCode, gptype);
         prg->setSourceFile(filename);
         return prg;
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::createProgramFromString(const String& name, 
+    GpuProgramPtr GpuProgramManager::createProgramFromString(const String& name, 
         const String& groupName, const String& code, GpuProgramType gptype, 
-        const String& syntaxCode) -> GpuProgramPtr
+        const String& syntaxCode)
     {
         GpuProgramPtr prg = createProgram(name, groupName, syntaxCode, gptype);
         prg->setSource(code);
         return prg;
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::getSupportedSyntax() -> const GpuProgramManager::SyntaxCodes&
+    const GpuProgramManager::SyntaxCodes& GpuProgramManager::getSupportedSyntax()
     {
         // Use the current render system
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
@@ -243,7 +243,7 @@ namespace {
     }
 
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::isSyntaxSupported(const String& syntaxCode) -> bool
+    bool GpuProgramManager::isSyntaxSupported(const String& syntaxCode)
     {
         // Use the current render system
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
@@ -252,12 +252,12 @@ namespace {
         return rs && rs->getCapabilities()->isShaderProfileSupported(syntaxCode);
     }
     //-----------------------------------------------------------------------------
-    auto GpuProgramManager::createParameters() -> GpuProgramParametersSharedPtr
+    GpuProgramParametersSharedPtr GpuProgramManager::createParameters()
     {
         return GpuProgramParametersSharedPtr(new GpuProgramParameters());
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::createSharedParameters(const String& name) -> GpuSharedParametersPtr
+    GpuSharedParametersPtr GpuProgramManager::createSharedParameters(const String& name)
     {
         if (mSharedParametersMap.find(name) != mSharedParametersMap.end())
         {
@@ -270,7 +270,7 @@ namespace {
         return ret;
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::getSharedParameters(const String& name) const -> GpuSharedParametersPtr
+    GpuSharedParametersPtr GpuProgramManager::getSharedParameters(const String& name) const
     {
         SharedParametersMap::const_iterator i = mSharedParametersMap.find(name);
         if (i == mSharedParametersMap.end())
@@ -282,18 +282,18 @@ namespace {
         return i->second;
     }
     //---------------------------------------------------------------------
-    auto 
-    GpuProgramManager::getAvailableSharedParameters() const -> const GpuProgramManager::SharedParametersMap&
+    const GpuProgramManager::SharedParametersMap& 
+    GpuProgramManager::getAvailableSharedParameters() const
     {
         return mSharedParametersMap;
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::getSaveMicrocodesToCache() const -> bool
+    bool GpuProgramManager::getSaveMicrocodesToCache() const
     {
         return mSaveMicrocodesToCache;
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::canGetCompiledShaderBuffer() -> bool
+    bool GpuProgramManager::canGetCompiledShaderBuffer()
     {
         // Use the current render system
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
@@ -311,12 +311,12 @@ namespace {
             mSaveMicrocodesToCache = val;
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::isCacheDirty( ) const -> bool
+    bool GpuProgramManager::isCacheDirty( ) const
     {
         return mCacheDirty;     
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::addRenderSystemToName( const String & name ) -> String
+    String GpuProgramManager::addRenderSystemToName( const String & name )
     {
         // Use the current render system
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
@@ -324,17 +324,17 @@ namespace {
         return rs->getName() + "_" + name;
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::isMicrocodeAvailableInCache( uint32 id ) const -> bool
+    bool GpuProgramManager::isMicrocodeAvailableInCache( uint32 id ) const
     {
         return mMicrocodeCache.find(id) != mMicrocodeCache.end();
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::getMicrocodeFromCache( uint32 id ) const -> const GpuProgramManager::Microcode &
+    const GpuProgramManager::Microcode & GpuProgramManager::getMicrocodeFromCache( uint32 id ) const
     {
         return mMicrocodeCache.find(id)->second;
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::createMicrocode( size_t size ) const -> GpuProgramManager::Microcode
+    GpuProgramManager::Microcode GpuProgramManager::createMicrocode( size_t size ) const
     {   
         return Microcode(new MemoryDataStream(size));  
     }
@@ -470,7 +470,7 @@ namespace {
         }
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::getFactory(const String& language) -> GpuProgramFactory*
+    GpuProgramFactory* GpuProgramManager::getFactory(const String& language)
     {
         FactoryMap::iterator i = mFactories.find(language);
 
@@ -482,7 +482,7 @@ namespace {
         return i->second;
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::isLanguageSupported(const String& lang) const -> bool
+    bool GpuProgramManager::isLanguageSupported(const String& lang) const
     {
         return mFactories.find(lang) != mFactories.end();
     }

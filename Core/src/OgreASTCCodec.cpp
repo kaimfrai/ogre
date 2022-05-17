@@ -55,7 +55,7 @@ namespace Ogre {
         uint8 zsize[3];			// block count is inferred
     } ASTCHeader;
 
-    auto ASTCCodec::getBitrateForPixelFormat(PixelFormat fmt) -> float
+    float ASTCCodec::getBitrateForPixelFormat(PixelFormat fmt)
     {
         switch (fmt)
         {
@@ -196,7 +196,7 @@ namespace Ogre {
     { 
     }
     //---------------------------------------------------------------------
-    auto ASTCCodec::decode(const DataStreamPtr& stream) const -> ImageCodec::DecodeResult
+    ImageCodec::DecodeResult ASTCCodec::decode(const DataStreamPtr& stream) const
     {
         DecodeResult ret;
         ASTCHeader header;
@@ -295,12 +295,12 @@ namespace Ogre {
 		return ret;
     }
     //---------------------------------------------------------------------    
-    auto ASTCCodec::getType() const -> String 
+    String ASTCCodec::getType() const 
     {
         return mType;
     }
     //---------------------------------------------------------------------    
-	auto ASTCCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String
+	String ASTCCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const
 	{
 		if (maxbytes >= sizeof(uint32))
 		{

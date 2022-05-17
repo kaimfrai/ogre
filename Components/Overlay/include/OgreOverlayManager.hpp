@@ -77,8 +77,8 @@ namespace Ogre {
         OrientationMode mLastViewportOrientationMode;
         float mPixelRatio;
 
-        auto parseChildren( DataStreamPtr& chunk, const String& line, int& l,
-            Overlay* pOverlay, bool isTemplate, OverlayContainer* parent = NULL) -> bool;
+        bool parseChildren( DataStreamPtr& chunk, const String& line, int& l,
+            Overlay* pOverlay, bool isTemplate, OverlayContainer* parent = NULL);
 
         FactoryMap mFactories;
 
@@ -99,20 +99,20 @@ namespace Ogre {
         void _restoreManualHardwareResources();
 
         /// @copydoc ScriptLoader::getScriptPatterns
-        [[nodiscard]] auto getScriptPatterns() const -> const StringVector&;
+        [[nodiscard]] const StringVector& getScriptPatterns() const;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName);
         /// @copydoc ScriptLoader::getLoadingOrder
-        [[nodiscard]] auto getLoadingOrder() const -> Real;
+        [[nodiscard]] Real getLoadingOrder() const;
 
         void addOverlay(Overlay* overlay);
 
         /** Create a new Overlay. */
-        auto create(const String& name) -> Overlay*;
+        Overlay* create(const String& name);
         /** Retrieve an Overlay by name 
         @return A pointer to the Overlay, or 0 if not found
         */
-        auto getByName(const String& name) -> Overlay*;
+        Overlay* getByName(const String& name);
         /** Destroys an existing overlay by name */
         void destroy(const String& name);
         /** Destroys an existing overlay */
@@ -120,27 +120,27 @@ namespace Ogre {
         /** Destroys all existing overlays */
         void destroyAll();
         typedef MapIterator<OverlayMap> OverlayMapIterator;
-        auto getOverlayIterator() -> OverlayMapIterator;
+        OverlayMapIterator getOverlayIterator();
 
         /** Internal method for queueing the visible overlays for rendering. */
         void _queueOverlaysForRendering(Camera* cam, RenderQueue* pQueue, Viewport *vp);
 
         /** Gets the height of the destination viewport in pixels. */
-        [[nodiscard]] auto getViewportHeight() const -> int;
+        [[nodiscard]] int getViewportHeight() const;
         
         /** Gets the width of the destination viewport in pixels. */
-        [[nodiscard]] auto getViewportWidth() const -> int;
-        [[nodiscard]] auto getViewportAspectRatio() const -> Real;
+        [[nodiscard]] int getViewportWidth() const;
+        [[nodiscard]] Real getViewportAspectRatio() const;
 
         /** Gets the orientation mode of the destination viewport. */
-        [[nodiscard]] auto getViewportOrientationMode() const -> OrientationMode;
+        [[nodiscard]] OrientationMode getViewportOrientationMode() const;
 
        /** Sets the pixel ratio: how many viewport pixels represent a single overlay pixel (in one dimension).
 
        By default this is an 1:1 mapping. However on HiDPI screens you want to increase that to scale up your Overlay.
        @see RenderWindow::getViewPointToPixelScale */
        void setPixelRatio(float ratio);
-       [[nodiscard]] auto getPixelRatio() const -> float;
+       [[nodiscard]] float getPixelRatio() const;
 
         /** Creates a new OverlayElement of the type requested.
         @remarks
@@ -149,13 +149,13 @@ namespace Ogre {
         @param typeName The type of element to create.
         @param instanceName The name to give the new instance.
         */
-        auto createOverlayElement(const String& typeName, const String& instanceName, bool = false) -> OverlayElement*;
+        OverlayElement* createOverlayElement(const String& typeName, const String& instanceName, bool = false);
 
         /** Gets a reference to an existing element. */
-        auto getOverlayElement(const String& name, bool = false) -> OverlayElement*;
+        OverlayElement* getOverlayElement(const String& name, bool = false);
 
         /** Tests if an element exists. */
-        auto hasOverlayElement(const String& name, bool = false) -> bool;
+        bool hasOverlayElement(const String& name, bool = false);
         
         /** Destroys a OverlayElement. 
         @remarks
@@ -186,19 +186,19 @@ namespace Ogre {
         void addOverlayElementFactory(OverlayElementFactory* elemFactory);
         
         /** Get const access to the list of registered OverlayElement factories. */
-        [[nodiscard]] auto getOverlayElementFactoryMap() const -> const FactoryMap& {
+        [[nodiscard]] const FactoryMap& getOverlayElementFactoryMap() const {
             return mFactories;
         }
 
-        auto createOverlayElementFromTemplate(const String& templateName, const String& typeName, const String& instanceName, bool = false) -> OverlayElement*;
+        OverlayElement* createOverlayElementFromTemplate(const String& templateName, const String& typeName, const String& instanceName, bool = false);
         /**
         *  @remarks
         *  Creates a new OverlayElement object from the specified template name.  The new
         *  object's name, and all of it's children, will be instanceName/orignalName.
         */
-        auto cloneOverlayElementFromTemplate(const String& templateName, const String& instanceName) -> OverlayElement*;
+        OverlayElement* cloneOverlayElementFromTemplate(const String& templateName, const String& instanceName);
 
-        auto createOverlayElementFromFactory(const String& typeName, const String& instanceName) -> OverlayElement*;
+        OverlayElement* createOverlayElementFromFactory(const String& typeName, const String& instanceName);
 
         /** Override standard Singleton retrieval.
         @remarks
@@ -215,9 +215,9 @@ namespace Ogre {
         but the implementation stays in this single compilation unit,
         preventing link errors.
         */
-        static auto getSingleton() -> OverlayManager&;
+        static OverlayManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static auto getSingletonPtr() -> OverlayManager*;
+        static OverlayManager* getSingletonPtr();
     };
 
 

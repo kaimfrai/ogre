@@ -7,7 +7,7 @@
 #define OGRE_COMPONENTS_BITES_SDLINPUTMAPPING_H
 
 namespace {
-    auto convert(const SDL_Event& in) -> OgreBites::Event
+    OgreBites::Event convert(const SDL_Event& in)
     {
         OgreBites::Event out;
 

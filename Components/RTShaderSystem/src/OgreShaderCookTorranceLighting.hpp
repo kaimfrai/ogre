@@ -39,13 +39,13 @@ class CookTorranceLighting : public SubRenderState
 public:
     CookTorranceLighting();
 
-    auto getType() const -> const String& override;
+    const String& getType() const override;
 
-    auto getExecutionOrder() const -> int { return FFP_LIGHTING; }
+    int getExecutionOrder() const { return FFP_LIGHTING; }
 
     void copyFrom(const SubRenderState& rhs) override;
 
-    auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool override;
+    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) override;
 
     // Type of this render state.
     static String Type;
@@ -53,11 +53,11 @@ public:
     /**
     Return the metallic-roughness map texture name.
     */
-    auto getMetalRoughnessMapName() const -> const String& { return mMetalRoughnessMapName; }
+    const String& getMetalRoughnessMapName() const { return mMetalRoughnessMapName; }
 
-    auto setParameter(const String& name, const String& value) -> bool override;
+    bool setParameter(const String& name, const String& value) override;
 
-    auto createCpuSubPrograms(ProgramSet* programSet) -> bool override;
+    bool createCpuSubPrograms(ProgramSet* programSet) override;
 
 private:
     String mMetalRoughnessMapName;
@@ -68,14 +68,14 @@ private:
 class CookTorranceLightingFactory : public SubRenderStateFactory
 {
 public:
-    [[nodiscard]] auto getType() const -> const String& override;
+    [[nodiscard]] const String& getType() const override;
 
-    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                   SGScriptTranslator* translator) -> SubRenderState* override;
+    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
+                                   SGScriptTranslator* translator) override;
     void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, Pass* srcPass, Pass* dstPass) override;
 
 protected:
-    auto createInstanceImpl() -> SubRenderState* override;
+    SubRenderState* createInstanceImpl() override;
 };
 
 /** @} */

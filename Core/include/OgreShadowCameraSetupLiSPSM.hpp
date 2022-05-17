@@ -131,9 +131,9 @@ class Viewport;
         @param cam Currently active camera
         @param light Currently active light
         */
-        auto calculateLiSPSM(const Matrix4& lightSpace, const PointListBody& bodyB, 
+        Matrix4 calculateLiSPSM(const Matrix4& lightSpace, const PointListBody& bodyB, 
             const PointListBody& bodyLVS, const SceneManager& sm, 
-            const Camera& cam, const Light& light) const -> Matrix4;
+            const Camera& cam, const Light& light) const;
 
         /** Calculates the distance between camera position and near clipping plane.
         @remarks
@@ -159,13 +159,13 @@ class Viewport;
         front of the light and the camera
         @param cam Currently active camera
         */
-        auto calculateNOpt(const Matrix4& lightSpace, const AxisAlignedBox& bodyBABB_ls, 
-            const PointListBody& bodyLVS, const Camera& cam) const -> Real;
+        Real calculateNOpt(const Matrix4& lightSpace, const AxisAlignedBox& bodyBABB_ls, 
+            const PointListBody& bodyLVS, const Camera& cam) const;
 
         /** Calculates a simpler version than the one above.
         */
-        auto calculateNOptSimple(const PointListBody& bodyLVS, 
-            const Camera& cam) const -> Real;
+        Real calculateNOptSimple(const PointListBody& bodyLVS, 
+            const Camera& cam) const;
 
         /** Calculates the visible point on the near plane for the n_opt calculation
         @remarks
@@ -177,8 +177,8 @@ class Viewport;
         @param bodyB_zMax_ls Maximum z-value of the light space bodyB bounding box
         @param cam Currently active camera
         */
-        auto calculateZ0_ls(const Matrix4& lightSpace, const Vector3& e, Real bodyB_zMax_ls, 
-            const Camera& cam) const -> Vector3;
+        Vector3 calculateZ0_ls(const Matrix4& lightSpace, const Vector3& e, Real bodyB_zMax_ls, 
+            const Camera& cam) const;
     public:
         /// @deprecated use create()
         LiSPSMShadowCameraSetup(Real n = 0.1f, bool useSimpleNOpt = true, Degree angle = Radian(0.451f));
@@ -190,7 +190,7 @@ class Viewport;
          * @param useSimpleNOpt
          * @param angle camera Light Direction Threshold
          */
-        static auto create(Real n = 0.1f, bool useSimpleNOpt = true, Degree angle = Radian(0.451f)) -> ShadowCameraSetupPtr
+        static ShadowCameraSetupPtr create(Real n = 0.1f, bool useSimpleNOpt = true, Degree angle = Radian(0.451f))
         {
             return std::make_shared<LiSPSMShadowCameraSetup>();
         }
@@ -220,7 +220,7 @@ class Viewport;
         /** Get the parameter n used to produce optimal shadows. 
         @see setOptimalAdjustFactor
         */
-        virtual auto getOptimalAdjustFactor() const -> Real { return mOptAdjustFactor; }
+        virtual Real getOptimalAdjustFactor() const { return mOptAdjustFactor; }
         /** Sets whether or not to use a slightly simpler version of the 
             camera near point derivation (default is true)
         */
@@ -228,7 +228,7 @@ class Viewport;
         /** Gets whether or not to use a slightly simpler version of the 
         camera near point derivation (default is true)
         */
-        virtual auto getUseSimpleOptimalAdjust() const -> bool { return mUseSimpleNOpt; }
+        virtual bool getUseSimpleOptimalAdjust() const { return mUseSimpleNOpt; }
 
         /** Sets the threshold between the camera and the light direction below
             which the LiSPSM projection is 'flattened', since coincident light
@@ -244,7 +244,7 @@ class Viewport;
         which the LiSPSM projection is 'flattened', since coincident light
         and camera projections cause problems with the perspective skew.
         */
-        virtual auto getCameraLightDirectionThreshold() const -> Degree;
+        virtual Degree getCameraLightDirectionThreshold() const;
 
 
     };

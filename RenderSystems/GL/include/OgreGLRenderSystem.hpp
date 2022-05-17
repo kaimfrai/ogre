@@ -101,8 +101,8 @@ struct GLGpuProgramBase;
         void setGLLight(size_t index, bool lt);
         void makeGLMatrix(GLfloat gl_matrix[16], const Matrix4& m);
  
-        [[nodiscard]] auto getBlendMode(SceneBlendFactor ogreBlend) const -> GLint;
-        [[nodiscard]] auto getTextureAddressingMode(TextureAddressingMode tam) const -> GLint;
+        [[nodiscard]] GLint getBlendMode(SceneBlendFactor ogreBlend) const;
+        [[nodiscard]] GLint getTextureAddressingMode(TextureAddressingMode tam) const;
                 void initialiseContext(RenderWindow* primary);
 
         /// Store last stencil mask state
@@ -110,8 +110,8 @@ struct GLGpuProgramBase;
         /// Store last depth write state
         bool mDepthWrite;
 
-        [[nodiscard]] auto convertCompareFunction(CompareFunction func) const -> GLint;
-        [[nodiscard]] auto convertStencilOp(StencilOperation op, bool invert = false) const -> GLint;
+        [[nodiscard]] GLint convertCompareFunction(CompareFunction func) const;
+        [[nodiscard]] GLint convertStencilOp(StencilOperation op, bool invert = false) const;
 
         bool mUseAutoTextureMatrix;
         GLfloat mAutoTextureMatrix[16];
@@ -162,17 +162,17 @@ struct GLGpuProgramBase;
         // Overridden RenderSystem functions
         // ----------------------------------
 
-        auto getFixedFunctionParams(TrackVertexColourType tracking, FogMode fog) -> const GpuProgramParametersPtr&;
+        const GpuProgramParametersPtr& getFixedFunctionParams(TrackVertexColourType tracking, FogMode fog);
 
         void applyFixedFunctionParams(const GpuProgramParametersPtr& params, uint16 variabilityMask);
 
-        [[nodiscard]] auto getName() const -> const String&;
+        [[nodiscard]] const String& getName() const;
 
         void _initialise() override;
 
         void initConfigOptions() override;
 
-        [[nodiscard]] virtual auto createRenderSystemCapabilities() const -> RenderSystemCapabilities*;
+        [[nodiscard]] virtual RenderSystemCapabilities* createRenderSystemCapabilities() const;
 
         void initialiseFromRenderSystemCapabilities(RenderSystemCapabilities* caps, RenderTarget* primary);
 
@@ -183,14 +183,14 @@ struct GLGpuProgramBase;
         void setLightingEnabled(bool enabled);
         
         /// @copydoc RenderSystem::_createRenderWindow
-        auto _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
-                                          bool fullScreen, const NameValuePairList *miscParams = 0) -> RenderWindow*;
+        RenderWindow* _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
+                                          bool fullScreen, const NameValuePairList *miscParams = 0);
 
         /// @copydoc RenderSystem::_createDepthBufferFor
-        auto _createDepthBufferFor( RenderTarget *renderTarget ) -> DepthBuffer*;
+        DepthBuffer* _createDepthBufferFor( RenderTarget *renderTarget );
         
         /// @copydoc RenderSystem::createMultiRenderTarget
-        virtual auto createMultiRenderTarget(const String & name) -> MultiRenderTarget *; 
+        virtual MultiRenderTarget * createMultiRenderTarget(const String & name); 
         
 
         void destroyRenderWindow(const String& name);
@@ -277,7 +277,7 @@ struct GLGpuProgramBase;
         void clearFrameBuffer(unsigned int buffers, 
                               const ColourValue& colour = ColourValue::Black, 
                               float depth = 1.0f, unsigned short stencil = 0);
-        auto createHardwareOcclusionQuery() -> HardwareOcclusionQuery*;
+        HardwareOcclusionQuery* createHardwareOcclusionQuery();
 
         // ----------------------------------
         // GLRenderSystem specific members
@@ -299,7 +299,7 @@ struct GLGpuProgramBase;
          */
         void _unregisterContext(GLContext *context);
 
-        auto _getStateCacheManager() -> GLStateCacheManager * { return mStateCacheManager; }
+        GLStateCacheManager * _getStateCacheManager() { return mStateCacheManager; }
         
         /// @copydoc RenderSystem::beginProfileEvent
         virtual void beginProfileEvent( const String &eventName );

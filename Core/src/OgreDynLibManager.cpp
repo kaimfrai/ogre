@@ -35,12 +35,12 @@ namespace Ogre
 {
     //-----------------------------------------------------------------------
     template<> DynLibManager* Singleton<DynLibManager>::msSingleton = 0;
-    auto DynLibManager::getSingletonPtr() -> DynLibManager*
+    DynLibManager* DynLibManager::getSingletonPtr()
     {
         return msSingleton;
     }
     //-----------------------------------------------------------------------
-    auto DynLibManager::getSingleton() -> DynLibManager&
+    DynLibManager& DynLibManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -49,7 +49,7 @@ namespace Ogre
     {
     }
     //-----------------------------------------------------------------------
-    auto DynLibManager::load( const String& filename) -> DynLib*
+    DynLib* DynLibManager::load( const String& filename)
     {
         DynLibList::iterator i = mLibList.find(filename);
         if (i != mLibList.end())

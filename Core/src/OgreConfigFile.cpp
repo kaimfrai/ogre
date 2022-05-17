@@ -124,7 +124,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ConfigFile::getSetting(const String& key, const String& section, const String& defaultValue) const -> String
+    String ConfigFile::getSetting(const String& key, const String& section, const String& defaultValue) const
     {
         
         SettingsBySection_::const_iterator seci = mSettings.find(section);
@@ -147,7 +147,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto ConfigFile::getMultiSetting(const String& key, const String& section) const -> StringVector
+    StringVector ConfigFile::getMultiSetting(const String& key, const String& section) const
     {
         StringVector ret;
 
@@ -170,7 +170,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto ConfigFile::getSettings(const String& section) const -> const ConfigFile::SettingsMultiMap&
+    const ConfigFile::SettingsMultiMap& ConfigFile::getSettings(const String& section) const
     {
         SettingsBySection_::const_iterator seci = mSettings.find(section);
         if (seci == mSettings.end())

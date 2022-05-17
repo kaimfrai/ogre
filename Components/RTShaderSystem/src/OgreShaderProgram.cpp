@@ -71,7 +71,7 @@ void Program::destroyParameters()
 }
 
 //-----------------------------------------------------------------------------
-auto Program::getType() const -> GpuProgramType
+GpuProgramType Program::getType() const
 {
     return mType;
 }
@@ -107,7 +107,7 @@ void Program::removeParameter(UniformParameterPtr parameter)
 
 //-----------------------------------------------------------------------------
 
-static auto isArray(GpuProgramParameters::AutoConstantType autoType) -> bool
+static bool isArray(GpuProgramParameters::AutoConstantType autoType)
 {
     switch (autoType)
     {
@@ -143,7 +143,7 @@ static auto isArray(GpuProgramParameters::AutoConstantType autoType) -> bool
     }
 }
 
-auto Program::resolveParameter(GpuProgramParameters::AutoConstantType autoType, uint32 data) -> UniformParameterPtr
+UniformParameterPtr Program::resolveParameter(GpuProgramParameters::AutoConstantType autoType, uint32 data)
 {
     UniformParameterPtr param;
 
@@ -165,8 +165,8 @@ auto Program::resolveParameter(GpuProgramParameters::AutoConstantType autoType, 
     return param;
 }
 
-auto Program::resolveAutoParameterReal(GpuProgramParameters::AutoConstantType autoType, 
-                                                Real data, size_t size) -> UniformParameterPtr
+UniformParameterPtr Program::resolveAutoParameterReal(GpuProgramParameters::AutoConstantType autoType, 
+                                                Real data, size_t size)
 {
     UniformParameterPtr param;
 
@@ -190,8 +190,8 @@ auto Program::resolveAutoParameterReal(GpuProgramParameters::AutoConstantType au
 }
 
 //-----------------------------------------------------------------------------
-auto Program::resolveAutoParameterReal(GpuProgramParameters::AutoConstantType autoType, GpuConstantType type,
-                                                float data, size_t size) -> UniformParameterPtr
+UniformParameterPtr Program::resolveAutoParameterReal(GpuProgramParameters::AutoConstantType autoType, GpuConstantType type,
+                                                float data, size_t size)
 {
     UniformParameterPtr param;
 
@@ -215,8 +215,8 @@ auto Program::resolveAutoParameterReal(GpuProgramParameters::AutoConstantType au
 }
 
 //-----------------------------------------------------------------------------
-auto Program::resolveAutoParameterInt(GpuProgramParameters::AutoConstantType autoType, GpuConstantType type, 
-                                           uint32 data, size_t size) -> UniformParameterPtr
+UniformParameterPtr Program::resolveAutoParameterInt(GpuProgramParameters::AutoConstantType autoType, GpuConstantType type, 
+                                           uint32 data, size_t size)
 {
     UniformParameterPtr param;
 
@@ -240,10 +240,10 @@ auto Program::resolveAutoParameterInt(GpuProgramParameters::AutoConstantType aut
 }
 
 //-----------------------------------------------------------------------------
-auto Program::resolveParameter(GpuConstantType type, 
+UniformParameterPtr Program::resolveParameter(GpuConstantType type, 
                                     int index, uint16 variability,
                                     const String& suggestedName,
-                                    size_t size) -> UniformParameterPtr
+                                    size_t size)
 {
     UniformParameterPtr param;
 
@@ -283,7 +283,7 @@ auto Program::resolveParameter(GpuConstantType type,
 
 
 //-----------------------------------------------------------------------------
-auto Program::getParameterByName(const String& name) -> UniformParameterPtr
+UniformParameterPtr Program::getParameterByName(const String& name)
 {
     UniformParameterIterator it;
 
@@ -299,7 +299,7 @@ auto Program::getParameterByName(const String& name) -> UniformParameterPtr
 }
 
 //-----------------------------------------------------------------------------
-auto Program::getParameterByType(GpuConstantType type, int index) -> UniformParameterPtr
+UniformParameterPtr Program::getParameterByType(GpuConstantType type, int index)
 {
     UniformParameterIterator it;
 
@@ -316,7 +316,7 @@ auto Program::getParameterByType(GpuConstantType type, int index) -> UniformPara
 }
 
 //-----------------------------------------------------------------------------
-auto Program::getParameterByAutoType(GpuProgramParameters::AutoConstantType autoType) -> UniformParameterPtr
+UniformParameterPtr Program::getParameterByAutoType(GpuProgramParameters::AutoConstantType autoType)
 {
     UniformParameterIterator it;
 
@@ -351,13 +351,13 @@ void Program::addPreprocessorDefines(const String& defines)
 }
 
 //-----------------------------------------------------------------------------
-auto Program::getDependencyCount() const -> size_t
+size_t Program::getDependencyCount() const
 {
     return mDependencies.size();
 }
 
 //-----------------------------------------------------------------------------
-auto Program::getDependency(unsigned int index) const -> const String&
+const String& Program::getDependency(unsigned int index) const
 {
     return mDependencies[index];
 }

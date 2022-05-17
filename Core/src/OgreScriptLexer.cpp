@@ -33,7 +33,7 @@ THE SOFTWARE.
 #include "OgreString.hpp"
 
 namespace Ogre {
-    auto ScriptLexer::tokenize(const String &str, const String& source) -> ScriptTokenList
+    ScriptTokenList ScriptLexer::tokenize(const String &str, const String& source)
     {
         String error;
         ScriptTokenList ret = _tokenize(str, source.c_str(), error);
@@ -44,7 +44,7 @@ namespace Ogre {
         return ret;
     }
 
-    auto ScriptLexer::_tokenize(const String &str, const char* source, String& error) -> ScriptTokenList
+    ScriptTokenList ScriptLexer::_tokenize(const String &str, const char* source, String& error)
     {
         // State enums
         enum{ READY = 0, COMMENT, MULTICOMMENT, WORD, QUOTE, VAR, POSSIBLECOMMENT };
@@ -318,12 +318,12 @@ namespace Ogre {
             tokens.push_back(token);
     }
 
-    auto ScriptLexer::isWhitespace(Ogre::String::value_type c) -> bool
+    bool ScriptLexer::isWhitespace(Ogre::String::value_type c)
     {
         return c == ' ' || c == '\r' || c == '\t';
     }
 
-    auto ScriptLexer::isNewline(Ogre::String::value_type c) -> bool
+    bool ScriptLexer::isNewline(Ogre::String::value_type c)
     {
         return c == '\n' || c == '\r';
     }

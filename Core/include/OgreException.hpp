@@ -116,28 +116,28 @@ namespace Ogre {
                 the place in which OGRE found the problem, and a text
                 description from the 3D rendering library, if available.
         */
-        [[nodiscard]] auto getFullDescription() const -> const String& { return fullDesc; }
+        [[nodiscard]] const String& getFullDescription() const { return fullDesc; }
 
         /** Gets the source function.
         */
-        [[nodiscard]] auto getSource() const -> const String & { return source; }
+        [[nodiscard]] const String &getSource() const { return source; }
 
         /** Gets source file name.
         */
-        [[nodiscard]] auto getFile() const -> const char* { return file; }
+        [[nodiscard]] const char* getFile() const { return file; }
 
         /** Gets line number.
         */
-        [[nodiscard]] auto getLine() const -> long { return line; }
+        [[nodiscard]] long getLine() const { return line; }
 
         /** Returns a string with only the 'description' field of this exception. Use 
             getFullDescriptionto get a full description of the error including line number,
             error number and what function threw the exception.
         */
-        [[nodiscard]] auto getDescription() const -> const String & { return description; }
+        [[nodiscard]] const String &getDescription() const { return description; }
 
         /// Override std::exception::what
-        [[nodiscard]] auto what() const throw() -> const char* { return fullDesc.c_str(); }
+        [[nodiscard]] const char* what() const throw() { return fullDesc.c_str(); }
         
     };
 

@@ -57,21 +57,21 @@ class GLRenderSystem;
         GLHardwareBufferManager();
         ~GLHardwareBufferManager();
         /// Creates a vertex buffer
-        auto createVertexBuffer(size_t vertexSize, 
-            size_t numVerts, HardwareBuffer::Usage usage, bool useShadowBuffer = false) -> HardwareVertexBufferSharedPtr;
+        HardwareVertexBufferSharedPtr createVertexBuffer(size_t vertexSize, 
+            size_t numVerts, HardwareBuffer::Usage usage, bool useShadowBuffer = false);
         /// Create a hardware vertex buffer
-        auto createIndexBuffer(
+        HardwareIndexBufferSharedPtr createIndexBuffer(
             HardwareIndexBuffer::IndexType itype, size_t numIndexes, 
-            HardwareBuffer::Usage usage, bool useShadowBuffer = false) -> HardwareIndexBufferSharedPtr;
+            HardwareBuffer::Usage usage, bool useShadowBuffer = false);
         /// Create a render to vertex buffer
-        auto createRenderToVertexBuffer() -> RenderToVertexBufferSharedPtr;
+        RenderToVertexBufferSharedPtr createRenderToVertexBuffer();
         /// Utility function to get the correct GL usage based on HBU's
-        static auto getGLUsage(unsigned int usage) -> GLenum;
+        static GLenum getGLUsage(unsigned int usage);
 
         /// Utility function to get the correct GL type based on VET's
-        static auto getGLType(unsigned int type) -> GLenum;
+        static GLenum getGLType(unsigned int type);
 
-        auto getStateCacheManager() -> GLStateCacheManager *;
+        GLStateCacheManager * getStateCacheManager();
 
         /** Allocator method to allow us to use a pool of memory as a scratch
             area for hardware buffers. This is because glMapBuffer is incredibly
@@ -80,14 +80,14 @@ class GLRenderSystem;
             memory pool, and use glBufferSubDataARB / glGetBufferSubDataARB
             instead.
         */
-        auto allocateScratch(uint32 size) -> void*;
+        void* allocateScratch(uint32 size);
 
         /// @see allocateScratch
         void deallocateScratch(void* ptr);
 
         /** Threshold after which glMapBuffer is used and not glBufferSubData
         */
-        [[nodiscard]] auto getGLMapBufferThreshold() const -> size_t;
+        [[nodiscard]] size_t getGLMapBufferThreshold() const;
         void setGLMapBufferThreshold( const size_t value );
     };
 }

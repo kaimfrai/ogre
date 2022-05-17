@@ -61,7 +61,7 @@ namespace Ogre {
 
         /** Gets the input value as adjusted by any delta.
         */
-        auto getAdjustedInput(T input) -> T
+        T getAdjustedInput(T input)
         {
             if (mDeltaInput)
             {
@@ -88,7 +88,7 @@ namespace Ogre {
 
         virtual ~ControllerFunction() {}
 
-        virtual auto calculate(T sourceValue) -> T = 0;
+        virtual T calculate(T sourceValue) = 0;
     };
 
 
@@ -100,7 +100,7 @@ namespace Ogre {
 
     public:
         virtual ~ControllerValue() { }
-        [[nodiscard]] virtual auto getValue() const -> T = 0;
+        [[nodiscard]] virtual T getValue() const = 0;
         virtual void setValue(T value) = 0;
 
     };
@@ -164,7 +164,7 @@ namespace Ogre {
             mSource = src;
         }
         /// Gets the input controller value
-        [[nodiscard]] auto getSource() const -> const SharedPtr< ControllerValue<T> >&
+        [[nodiscard]] const SharedPtr< ControllerValue<T> >& getSource() const
         {
             return mSource;
         }
@@ -175,13 +175,13 @@ namespace Ogre {
         }
 
         /// Gets the output controller value
-        [[nodiscard]] auto getDestination() const -> const SharedPtr< ControllerValue<T> >&
+        [[nodiscard]] const SharedPtr< ControllerValue<T> >& getDestination() const
         {
             return mDest;
         }
 
         /// Returns true if this controller is currently enabled
-        [[nodiscard]] auto getEnabled() const -> bool
+        [[nodiscard]] bool getEnabled() const
         {
             return mEnabled;
         }
@@ -201,7 +201,7 @@ namespace Ogre {
 
         /** Returns a pointer to the function object used by this controller.
         */
-        [[nodiscard]] auto getFunction() const -> const SharedPtr< ControllerFunction<T> >&
+        [[nodiscard]] const SharedPtr< ControllerFunction<T> >& getFunction() const
         {
             return mFunc;
         }

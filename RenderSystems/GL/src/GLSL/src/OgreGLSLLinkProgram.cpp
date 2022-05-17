@@ -48,7 +48,7 @@ THE SOFTWARE.
 namespace Ogre {
     namespace GLSL {
 
-    static auto getGLGeometryInputPrimitiveType(RenderOperation::OperationType operationType) -> GLint
+    static GLint getGLGeometryInputPrimitiveType(RenderOperation::OperationType operationType)
     {
         switch (operationType)
         {
@@ -71,7 +71,7 @@ namespace Ogre {
 		}
     }
     //-----------------------------------------------------------------------
-    static auto getGLGeometryOutputPrimitiveType(RenderOperation::OperationType operationType) -> GLint
+    static GLint getGLGeometryOutputPrimitiveType(RenderOperation::OperationType operationType)
     {
         switch (operationType)
         {
@@ -195,7 +195,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto GLSLLinkProgram::isAttributeValid(VertexElementSemantic semantic, uint index) -> bool
+    bool GLSLLinkProgram::isAttributeValid(VertexElementSemantic semantic, uint index)
     {
         return mValidAttributes.find(getFixedAttributeIndex(semantic, index)) != mValidAttributes.end();
     }

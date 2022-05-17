@@ -65,20 +65,20 @@ FFPColour::FFPColour()
 }
 
 //-----------------------------------------------------------------------
-auto FFPColour::getType() const -> const String&
+const String& FFPColour::getType() const
 {
     return Type;
 }
 
 
 //-----------------------------------------------------------------------
-auto FFPColour::getExecutionOrder() const -> int
+int FFPColour::getExecutionOrder() const
 {
     return FFP_COLOUR;
 }
 
 //-----------------------------------------------------------------------
-auto FFPColour::resolveParameters(ProgramSet* programSet) -> bool
+bool FFPColour::resolveParameters(ProgramSet* programSet)
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -111,13 +111,13 @@ auto FFPColour::resolveParameters(ProgramSet* programSet) -> bool
 
 
 //-----------------------------------------------------------------------
-auto FFPColour::resolveDependencies(ProgramSet* programSet) -> bool
+bool FFPColour::resolveDependencies(ProgramSet* programSet)
 {
     return true;
 }
 
 //-----------------------------------------------------------------------
-auto FFPColour::addFunctionInvocations(ProgramSet* programSet) -> bool
+bool FFPColour::addFunctionInvocations(ProgramSet* programSet)
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -201,7 +201,7 @@ void FFPColour::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-auto FFPColour::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
+bool FFPColour::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
 {
     TrackVertexColourType trackColour = srcPass->getVertexColourTracking();
 
@@ -212,14 +212,14 @@ auto FFPColour::preAddToRenderState(const RenderState* renderState, Pass* srcPas
 }
 
 //-----------------------------------------------------------------------
-auto FFPColourFactory::getType() const -> const String&
+const String& FFPColourFactory::getType() const
 {
     return FFPColour::Type;
 }
 
 //-----------------------------------------------------------------------
-auto FFPColourFactory::createInstance(ScriptCompiler* compiler, 
-                                                    PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
+SubRenderState* FFPColourFactory::createInstance(ScriptCompiler* compiler, 
+                                                    PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
 {
     if (prop->name == "colour_stage")
     {
@@ -252,7 +252,7 @@ void FFPColourFactory::writeInstance(MaterialSerializer* ser, SubRenderState* su
 }
 
 //-----------------------------------------------------------------------
-auto FFPColourFactory::createInstanceImpl() -> SubRenderState*
+SubRenderState* FFPColourFactory::createInstanceImpl()
 {
     return new FFPColour;
 }

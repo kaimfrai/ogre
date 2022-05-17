@@ -146,7 +146,7 @@ class Sphere;
         mutable RealRect mExtents;
         
         // Internal functions for calcs
-        auto calcProjectionParameters() const -> RealRect;
+        RealRect calcProjectionParameters() const;
         /// Update frustum if out of date
         void updateFrustum() const;
         /// Update view if out of date
@@ -161,8 +161,8 @@ class Sphere;
         void updateWorldSpaceCorners() const;
         /// Implementation of updateWorldSpaceCorners (called if out of date)
         virtual void updateWorldSpaceCornersImpl() const;
-        virtual auto isViewOutOfDate() const -> bool;
-        auto isFrustumOutOfDate() const -> bool;
+        virtual bool isViewOutOfDate() const;
+        bool isFrustumOutOfDate() const;
         /// Signal to update frustum information.
         virtual void invalidateFrustum() const;
         /// Signal to update view information.
@@ -218,7 +218,7 @@ class Sphere;
 
         /** Retrieves the frustums Y-dimension Field Of View (FOV).
         */
-        auto getFOVy() const -> const Radian&;
+        const Radian& getFOVy() const;
 
         /** Sets the position of the near clipping plane.
         @remarks
@@ -235,7 +235,7 @@ class Sphere;
 
         /** Retrieves the distance from the frustum to the near clipping plane.
         */
-        auto getNearClipDistance() const -> Real;
+        Real getNearClipDistance() const;
 
         /** Sets the distance to the far clipping plane.
         @remarks
@@ -261,7 +261,7 @@ class Sphere;
 
         /** Retrieves the distance from the frustum to the far clipping plane.
         */
-        auto getFarClipDistance() const -> Real;
+        Real getFarClipDistance() const;
 
         /** Sets the aspect ratio for the frustum viewport.
         @remarks
@@ -275,7 +275,7 @@ class Sphere;
 
         /** Retrieves the current aspect ratio.
         */
-        auto getAspectRatio() const -> Real;
+        Real getAspectRatio() const;
 
         /** Sets frustum offsets, used in stereo rendering.
         @remarks
@@ -307,7 +307,7 @@ class Sphere;
 
         /** Retrieves the frustum offsets.
         */
-        auto getFrustumOffset() const -> const Vector2&;
+        const Vector2& getFrustumOffset() const;
 
         /** Sets frustum focal length (used in stereo rendering).
         @param focalLength
@@ -317,7 +317,7 @@ class Sphere;
 
         /** Returns focal length of frustum.
         */
-        auto getFocalLength() const -> Real;
+        Real getFocalLength() const;
 
         /** Manually set the extents of the frustum.
         @param left, right, top, bottom The position where the side clip planes intersect
@@ -327,7 +327,7 @@ class Sphere;
         /** Reset the frustum extents to be automatically derived from other params. */
         void resetFrustumExtents();
         /** Get the extents of the frustum in view space. */
-        auto getFrustumExtents() const -> RealRect;
+        RealRect getFrustumExtents() const;
 
         /** Gets the depth-adjusted projection matrix for the current rendersystem
 
@@ -335,17 +335,17 @@ class Sphere;
             in that it the resulting depth range may vary between render systems since D3D uses [0,1] and
             GL uses [-1,1]. This is required for vertex and fragment programs.
         */
-        auto getProjectionMatrixWithRSDepth() const -> const Matrix4&;
+        const Matrix4& getProjectionMatrixWithRSDepth() const;
         /** Gets the normal projection matrix for this frustum
 
             i.e. the projection matrix which conforms to standard right-handed rules and
             uses depth range [-1,+1]. This is required for some uniform algebra.
         */
-        auto getProjectionMatrix() const -> const Matrix4&;
+        const Matrix4& getProjectionMatrix() const;
 
         /** Gets the view matrix for this frustum. Mainly for use by OGRE internally.
         */
-        auto getViewMatrix() const -> const Affine3&;
+        const Affine3& getViewMatrix() const;
 
         /** Calculate a view matrix for this frustum, relative to a potentially dynamic point. 
             Mainly for use by OGRE internally when using camera-relative rendering
@@ -372,7 +372,7 @@ class Sphere;
         void setCustomViewMatrix(bool enable, const Affine3& viewMatrix = Affine3::IDENTITY);
 
         /// Returns whether a custom view matrix is in use
-        auto isCustomViewMatrixEnabled() const -> bool { return mCustomViewMatrix; }
+        bool isCustomViewMatrixEnabled() const { return mCustomViewMatrix; }
 
         /** Set whether to use a custom projection matrix on this frustum.
         @remarks
@@ -398,19 +398,19 @@ class Sphere;
         void setCustomProjectionMatrix(bool enable,
                                        const Matrix4& projectionMatrix = Matrix4::IDENTITY);
         /// Returns whether a custom projection matrix is in use
-        auto isCustomProjectionMatrixEnabled() const -> bool { return mCustomProjMatrix; }
+        bool isCustomProjectionMatrixEnabled() const { return mCustomProjMatrix; }
 
         /** Retrieves the clipping planes of the frustum (world space).
         @remarks
             The clipping planes are ordered as declared in enumerate constants FrustumPlane.
         */
-        virtual auto getFrustumPlanes() const -> const Plane*;
+        virtual const Plane* getFrustumPlanes() const;
 
         /** Retrieves a specified plane of the frustum (world space).
         @remarks
             Gets a reference to one of the planes which make up the frustum frustum, e.g. for clipping purposes.
         */
-        virtual auto getFrustumPlane( unsigned short plane ) const -> const Plane&;
+        virtual const Plane& getFrustumPlane( unsigned short plane ) const;
 
         /// @copydoc MovableObject::isVisible
         using Ogre::MovableObject::isVisible;
@@ -426,7 +426,7 @@ class Sphere;
         @par
             Otherwise, @c false is returned.
         */
-        virtual auto isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy = 0) const -> bool;
+        virtual bool isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy = 0) const;
 
         /** Tests whether the given container is visible in the Frustum.
         @param bound
@@ -439,7 +439,7 @@ class Sphere;
         @par
             Otherwise, @c false is returned.
         */
-        virtual auto isVisible(const Sphere& bound, FrustumPlane* culledBy = 0) const -> bool;
+        virtual bool isVisible(const Sphere& bound, FrustumPlane* culledBy = 0) const;
 
         /** Tests whether the given vertex is visible in the Frustum.
         @param vert
@@ -452,17 +452,17 @@ class Sphere;
         @par
             Otherwise, @c false is returned.
         */
-        virtual auto isVisible(const Vector3& vert, FrustumPlane* culledBy = 0) const -> bool;
+        virtual bool isVisible(const Vector3& vert, FrustumPlane* culledBy = 0) const;
 
-        auto getTypeFlags() const -> uint32 override;
-        auto getBoundingBox() const -> const AxisAlignedBox& override;
-        auto getBoundingRadius() const -> Real override;
+        uint32 getTypeFlags() const override;
+        const AxisAlignedBox& getBoundingBox() const override;
+        Real getBoundingRadius() const override;
         void _updateRenderQueue(RenderQueue* queue) override;
-        auto getMovableType() const -> const String& override;
+        const String& getMovableType() const override;
         void _notifyCurrentCamera(Camera* cam) override;
 
         void setDebugColour(const ColourValue& col) { mDebugColour = col; }
-        auto getDebugColour() const -> const ColourValue& { return mDebugColour; }
+        const ColourValue& getDebugColour() const { return mDebugColour; }
 
         typedef Vector3 Corners[8];
 
@@ -472,7 +472,7 @@ class Sphere;
             top-left near, bottom-left near, bottom-right near, 
             top-right far, top-left far, bottom-left far, bottom-right far.
         */
-        virtual auto getWorldSpaceCorners() const -> const Corners&;
+        virtual const Corners& getWorldSpaceCorners() const;
 
         /** Sets the type of projection to use (orthographic or perspective). Default is perspective.
         */
@@ -480,7 +480,7 @@ class Sphere;
 
         /** Retrieves info on the type of projection used (orthographic or perspective).
         */
-        auto getProjectionType() const -> ProjectionType;
+        ProjectionType getProjectionType() const;
 
         /** Sets the orthographic window settings, for use with orthographic rendering only. 
         @note Calling this method will recalculate the aspect ratio, use 
@@ -507,11 +507,11 @@ class Sphere;
         void setOrthoWindowWidth(Real w);
         /** Gets the orthographic window height, for use with orthographic rendering only. 
         */
-        auto getOrthoWindowHeight() const -> Real;
+        Real getOrthoWindowHeight() const;
         /** Gets the orthographic window width, for use with orthographic rendering only. 
         @note This is calculated from the orthographic height and the aspect ratio
         */
-        auto getOrthoWindowWidth() const -> Real;
+        Real getOrthoWindowWidth() const;
 
         /** Modifies this frustum so it always renders from the reflection of itself through the
             plane specified.
@@ -533,11 +533,11 @@ class Sphere;
         void disableReflection();
 
         /// Returns whether this frustum is being reflected
-        auto isReflected() const -> bool { return mReflect; }
+        bool isReflected() const { return mReflect; }
         /// Returns the reflection matrix of the frustum if appropriate
-        auto getReflectionMatrix() const -> const Affine3& { return mReflectMatrix; }
+        const Affine3& getReflectionMatrix() const { return mReflectMatrix; }
         /// Returns the reflection plane of the frustum if appropriate
-        auto getReflectionPlane() const -> const Plane& { return mReflectPlane; }
+        const Plane& getReflectionPlane() const { return mReflectPlane; }
 
         /** Project a sphere onto the near plane and get the bounding rectangle. 
         @param sphere The world-space sphere to project.
@@ -556,8 +556,8 @@ class Sphere;
         @return @c true if the sphere was projected to a subset of the near plane,
             @c false if the entire near plane was contained.
         */
-        virtual auto projectSphere(const Sphere& sphere, 
-            Real* left, Real* top, Real* right, Real* bottom) const -> bool;
+        virtual bool projectSphere(const Sphere& sphere, 
+            Real* left, Real* top, Real* right, Real* bottom) const;
 
 
         /** Links the frustum to a custom near clip plane, which can be used
@@ -612,7 +612,7 @@ class Sphere;
         /** Disables any custom near clip plane. */
         void disableCustomNearClipPlane();
         /** Is a custom near clip plane in use? */
-        auto isCustomNearClipPlaneEnabled() const -> bool
+        bool isCustomNearClipPlaneEnabled() const
         { return mObliqueDepthProjection; }
 
         /// @copydoc MovableObject::visitRenderables
@@ -623,13 +623,13 @@ class Sphere;
         static const Real INFINITE_FAR_PLANE_ADJUST;
 
         /** Get the derived position of this frustum. */
-        virtual auto getPositionForViewUpdate() const -> const Vector3&;
+        virtual const Vector3& getPositionForViewUpdate() const;
         /** Get the derived orientation of this frustum. */
-        virtual auto getOrientationForViewUpdate() const -> const Quaternion&;
+        virtual const Quaternion& getOrientationForViewUpdate() const;
 
         /** Gets a world-space list of planes enclosing the frustum.
         */
-        auto getPlaneBoundedVolume() -> PlaneBoundedVolume;
+        PlaneBoundedVolume getPlaneBoundedVolume();
         /** Set the orientation mode of the frustum. Default is OR_DEGREE_0
         @remarks
             Setting the orientation of a frustum is only supported on
@@ -642,7 +642,7 @@ class Sphere;
             Getting the orientation of a frustum is only supported on
             iOS at this time.  An exception is thrown on other platforms.
         */
-        auto getOrientationMode() const -> OrientationMode;
+        OrientationMode getOrientationMode() const;
 
     };
 

@@ -43,19 +43,19 @@ namespace RTShader
 String WBOIT::Type = "WBOIT";
 
 //-----------------------------------------------------------------------
-auto WBOIT::getType() const -> const String& { return Type; }
+const String& WBOIT::getType() const { return Type; }
 
 //-----------------------------------------------------------------------
-auto WBOIT::getExecutionOrder() const -> int { return FFP_POST_PROCESS; }
+int WBOIT::getExecutionOrder() const { return FFP_POST_PROCESS; }
 
-auto WBOIT::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
+bool WBOIT::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
 {
     dstPass->setTransparentSortingEnabled(false);
     dstPass->setSeparateSceneBlending(SBF_ONE, SBF_ONE, SBF_ZERO, SBF_ONE_MINUS_SOURCE_ALPHA);
     return true;
 }
 
-auto WBOIT::createCpuSubPrograms(ProgramSet* programSet) -> bool
+bool WBOIT::createCpuSubPrograms(ProgramSet* programSet)
 {
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
     psProgram->addDependency("SGXLib_WBOIT");
@@ -94,11 +94,11 @@ auto WBOIT::createCpuSubPrograms(ProgramSet* programSet) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto WBOITFactory::getType() const -> const String& { return WBOIT::Type; }
+const String& WBOITFactory::getType() const { return WBOIT::Type; }
 
 //-----------------------------------------------------------------------
-auto WBOITFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                               SGScriptTranslator* translator) -> SubRenderState*
+SubRenderState* WBOITFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
+                                               SGScriptTranslator* translator)
 {
     if (prop->name != "weighted_blended_oit" || prop->values.empty())
         return NULL;
@@ -127,7 +127,7 @@ void WBOITFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subRen
 }
 
 //-----------------------------------------------------------------------
-auto WBOITFactory::createInstanceImpl() -> SubRenderState* { return new WBOIT; }
+SubRenderState* WBOITFactory::createInstanceImpl() { return new WBOIT; }
 
 } // namespace RTShader
 } // namespace Ogre

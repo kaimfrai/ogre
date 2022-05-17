@@ -17,12 +17,12 @@ void Renderable::setCustomParameter(size_t index, const Vector4& value) { mCusto
 
 void Renderable::removeCustomParameter(size_t index) { mCustomParameters.erase(index); }
 
-auto Renderable::hasCustomParameter(size_t index) const -> bool
+bool Renderable::hasCustomParameter(size_t index) const
 {
     return mCustomParameters.find(index) != mCustomParameters.end();
 }
 
-auto Renderable::getCustomParameter(size_t index) const -> const Vector4&
+const Vector4& Renderable::getCustomParameter(size_t index) const
 {
     CustomParameterMap::const_iterator i = mCustomParameters.find(index);
     if (i != mCustomParameters.end())

@@ -45,17 +45,17 @@ namespace Ogre {
         top = mTop;
     }
     //-----------------------------------------------------------------------
-    auto RenderWindow::isFullScreen() const -> bool
+    bool RenderWindow::isFullScreen() const
     {
         return mIsFullScreen;
     }
     //-----------------------------------------------------------------------
-    auto RenderWindow::isPrimary() const -> bool
+    bool RenderWindow::isPrimary() const
     {
         return mIsPrimary;
     }
 
-    auto RenderWindow::isDeactivatedOnFocusChange() const -> bool
+    bool RenderWindow::isDeactivatedOnFocusChange() const
     {
         return mAutoDeactivatedOnFocusChange;
     }

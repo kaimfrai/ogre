@@ -61,7 +61,7 @@ namespace Ogre {
         void writeScript(const RenderSystemCapabilities* caps, const String &name, String filename);
         
         /** Writes a RenderSystemCapabilities object to a string */
-        auto writeString(const RenderSystemCapabilities* caps, const String &name) -> String;
+        String writeString(const RenderSystemCapabilities* caps, const String &name);
 
         /** Parses a RenderSystemCapabilities script file passed as a stream.
             Adds it to RenderSystemCapabilitiesManager::_addRenderSystemCapabilities
@@ -125,7 +125,7 @@ namespace Ogre {
             mKeywordTypeMap.emplace(keyword, type);
         }
 
-        [[nodiscard]] auto getKeywordType(const String& keyword) const -> CapabilityKeywordType
+        [[nodiscard]] CapabilityKeywordType getKeywordType(const String& keyword) const
         {
             KeywordTypeMap::const_iterator it = mKeywordTypeMap.find(keyword);
             if (it != mKeywordTypeMap.end())

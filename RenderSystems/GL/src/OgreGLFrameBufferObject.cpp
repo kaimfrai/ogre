@@ -222,7 +222,7 @@ class DepthBuffer;
         }
         
     }
-    auto GLFrameBufferObject::bind(bool recreateIfNeeded) -> bool
+    bool GLFrameBufferObject::bind(bool recreateIfNeeded)
     {
         // Bind it to FBO
         const GLuint fb = mMultisampleFB ? mMultisampleFB : mFB;

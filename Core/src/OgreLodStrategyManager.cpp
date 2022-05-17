@@ -39,11 +39,11 @@ THE SOFTWARE.
 namespace Ogre {
     //-----------------------------------------------------------------------
     template<> LodStrategyManager* Singleton<LodStrategyManager>::msSingleton = 0;
-    auto LodStrategyManager::getSingletonPtr() -> LodStrategyManager*
+    LodStrategyManager* LodStrategyManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto LodStrategyManager::getSingleton() -> LodStrategyManager&
+    LodStrategyManager& LodStrategyManager::getSingleton()
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -82,7 +82,7 @@ namespace Ogre {
         mStrategies.insert(std::make_pair(strategy->getName(), strategy));
     }
     //-----------------------------------------------------------------------
-    auto LodStrategyManager::removeStrategy(const String& name) -> LodStrategy *
+    LodStrategy *LodStrategyManager::removeStrategy(const String& name)
     {
         // Find strategy with specified name
         StrategyMap::iterator it = mStrategies.find(name);
@@ -110,7 +110,7 @@ namespace Ogre {
         mStrategies.clear();
     }
     //-----------------------------------------------------------------------
-    auto LodStrategyManager::getStrategy(const String& name) -> LodStrategy *
+    LodStrategy *LodStrategyManager::getStrategy(const String& name)
     {
         // If name is "default", return the default strategy instead of performing a lookup
         if (name == "default") {
@@ -142,12 +142,12 @@ namespace Ogre {
         setDefaultStrategy(getStrategy(name));
     }
     //-----------------------------------------------------------------------
-    auto LodStrategyManager::getDefaultStrategy() -> LodStrategy *
+    LodStrategy *LodStrategyManager::getDefaultStrategy()
     {
         return mDefaultStrategy;
     }
     //-----------------------------------------------------------------------
-    auto LodStrategyManager::getIterator() -> MapIterator<LodStrategyManager::StrategyMap>
+    MapIterator<LodStrategyManager::StrategyMap> LodStrategyManager::getIterator()
     {
         // Construct map iterator from strategy map and return
         return MapIterator<StrategyMap>(mStrategies);

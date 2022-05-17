@@ -71,7 +71,7 @@ namespace Ogre {
 
         /** Return whether a codec is registered already. 
         */
-        static auto isCodecRegistered( const String& codecType ) -> bool
+        static bool isCodecRegistered( const String& codecType )
         {
             return msMapCodecs.find(codecType) != msMapCodecs.end();
         }
@@ -84,10 +84,10 @@ namespace Ogre {
         }
 
         /** Gets the file extension list for the registered codecs. */
-        static auto getExtensions() -> StringVector;
+        static StringVector getExtensions();
 
         /** Gets the codec registered for the passed in file extension. */
-        static auto getCodec(const String& extension) -> Codec*;
+        static Codec* getCodec(const String& extension);
 
         /** Gets the codec that can handle the given 'magic' identifier. 
         @param magicNumberPtr Pointer to a stream of bytes which should identify the file.
@@ -95,12 +95,12 @@ namespace Ogre {
             a different size magic number.
         @param maxbytes The number of bytes passed
         */
-        static auto getCodec(char *magicNumberPtr, size_t maxbytes) -> Codec*;
+        static Codec* getCodec(char *magicNumberPtr, size_t maxbytes);
 
         /** Codes the input and saves the result in the output
             stream.
         */
-        [[nodiscard]] virtual auto encode(const Any& input) const -> DataStreamPtr;
+        [[nodiscard]] virtual DataStreamPtr encode(const Any& input) const;
 
         /** Codes the data in the input chunk and saves the result in the output
             filename provided. Provided for efficiency since coding to memory is
@@ -118,7 +118,7 @@ namespace Ogre {
 
         /** Returns the type of the codec as a String
         */
-        [[nodiscard]] virtual auto getType() const -> String = 0;
+        [[nodiscard]] virtual String getType() const = 0;
 
         /** Returns whether a magic number header matches this codec.
         @param magicNumberPtr Pointer to a stream of bytes which should identify the file.
@@ -126,7 +126,7 @@ namespace Ogre {
             a different size magic number.
         @param maxbytes The number of bytes passed
         */
-        auto magicNumberMatch(const char *magicNumberPtr, size_t maxbytes) const -> bool
+        bool magicNumberMatch(const char *magicNumberPtr, size_t maxbytes) const
         { return !magicNumberToFileExt(magicNumberPtr, maxbytes).empty(); }
         /** Maps a magic number header to a file extension, if this codec recognises it.
         @param magicNumberPtr Pointer to a stream of bytes which should identify the file.
@@ -135,7 +135,7 @@ namespace Ogre {
         @param maxbytes The number of bytes passed
         @return A blank string if the magic number was unknown, or a file extension.
         */
-        virtual auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String = 0;
+        virtual String magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const = 0;
     };
     /** @} */
     /** @} */

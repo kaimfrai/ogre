@@ -77,7 +77,7 @@ class Camera;
         mMaterial->load();
     }
 
-    auto SimpleRenderable::getMaterial() const -> const MaterialPtr&
+    const MaterialPtr& SimpleRenderable::getMaterial() const
     {
         return mMaterial;
     }
@@ -114,7 +114,7 @@ class Camera;
         mBox = box;
     }
 
-    auto SimpleRenderable::getBoundingBox() const -> const AxisAlignedBox&
+    const AxisAlignedBox& SimpleRenderable::getBoundingBox() const
     {
         return mBox;
     }
@@ -131,13 +131,13 @@ class Camera;
     }
 
     //-----------------------------------------------------------------------
-    auto SimpleRenderable::getMovableType() const -> const String&
+    const String& SimpleRenderable::getMovableType() const
     {
         static String movType = "SimpleRenderable";
         return movType;
     }
     //-----------------------------------------------------------------------
-    auto SimpleRenderable::getLights() const -> const LightList&
+    const LightList& SimpleRenderable::getLights() const
     {
         // Use movable query lights
         return queryLights();

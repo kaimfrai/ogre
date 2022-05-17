@@ -98,7 +98,7 @@ namespace Ogre {
         /** Create a new local texture definition, and return a pointer to it.
             @param name     Name of the local texture
         */
-        auto createTextureDefinition(const String &name) -> TextureDefinition *;
+        TextureDefinition *createTextureDefinition(const String &name);
         
         /** Remove and destroy a local texture definition.
         */
@@ -106,25 +106,25 @@ namespace Ogre {
         
         /** Get a local texture definition.
         */
-        [[nodiscard]] auto getTextureDefinition(size_t idx) const -> TextureDefinition * { return mTextureDefinitions.at(idx); }
+        [[nodiscard]] TextureDefinition *getTextureDefinition(size_t idx) const { return mTextureDefinitions.at(idx); }
         
         /** Get a local texture definition with a specific name.
         */
-        [[nodiscard]] auto getTextureDefinition(const String& name) const -> TextureDefinition *;
+        [[nodiscard]] TextureDefinition *getTextureDefinition(const String& name) const;
 
         /** Get the number of local texture definitions.*/
-        [[nodiscard]] auto getNumTextureDefinitions() const -> size_t { return mTextureDefinitions.size(); }
+        [[nodiscard]] size_t getNumTextureDefinitions() const { return mTextureDefinitions.size(); }
         
         /** Remove all Texture Definitions
         */
         void removeAllTextureDefinitions();
         
         /** Get the TextureDefinitions in this Technique. */
-        [[nodiscard]] auto getTextureDefinitions() const -> const TextureDefinitions& { return mTextureDefinitions; }
+        [[nodiscard]] const TextureDefinitions& getTextureDefinitions() const { return mTextureDefinitions; }
         
         /** Create a new target pass, and return a pointer to it.
         */
-        auto createTargetPass() -> CompositionTargetPass *;
+        CompositionTargetPass *createTargetPass();
         
         /** Remove a target pass. It will also be destroyed.
         */
@@ -132,33 +132,33 @@ namespace Ogre {
         
         /** Get a target pass.
         */
-        [[nodiscard]] auto getTargetPass(size_t idx) const -> CompositionTargetPass* { return mTargetPasses.at(idx); }
+        [[nodiscard]] CompositionTargetPass* getTargetPass(size_t idx) const { return mTargetPasses.at(idx); }
         
         /** Get the number of target passes. */
-        [[nodiscard]] auto getNumTargetPasses() const -> size_t { return mTargetPasses.size(); }
+        [[nodiscard]] size_t getNumTargetPasses() const { return mTargetPasses.size(); }
         
         /** Remove all target passes.
         */
         void removeAllTargetPasses();
         
         /** Get the TargetPasses in this Technique. */
-        [[nodiscard]] auto getTargetPasses() const -> const TargetPasses& { return mTargetPasses; }
+        [[nodiscard]] const TargetPasses& getTargetPasses() const { return mTargetPasses; }
         
         /** Get output (final) target pass
          */
-        [[nodiscard]] auto getOutputTargetPass() const -> CompositionTargetPass * { return mOutputTarget; }
+        [[nodiscard]] CompositionTargetPass *getOutputTargetPass() const { return mOutputTarget; }
         
         /** Determine if this technique is supported on the current rendering device. 
         @param allowTextureDegradation True to accept a reduction in texture depth
          */
-        virtual auto isSupported(bool allowTextureDegradation) -> bool;
+        virtual bool isSupported(bool allowTextureDegradation);
         
         /** Assign a scheme name to this technique, used to switch between 
             multiple techniques by choice rather than for hardware compatibility.
         */
         virtual void setSchemeName(const String& schemeName);
         /** Get the scheme name assigned to this technique. */
-        [[nodiscard]] auto getSchemeName() const -> const String& { return mSchemeName; }
+        [[nodiscard]] const String& getSchemeName() const { return mSchemeName; }
         
         /** Set the name of the compositor logic assigned to this technique.
             Instances of this technique will be auto-coupled with the matching logic.
@@ -166,10 +166,10 @@ namespace Ogre {
         void setCompositorLogicName(const String& compositorLogicName) 
             { mCompositorLogicName = compositorLogicName; }
         /** Get the compositor logic name assigned to this technique */
-        [[nodiscard]] auto getCompositorLogicName() const -> const String& { return mCompositorLogicName; }
+        [[nodiscard]] const String& getCompositorLogicName() const { return mCompositorLogicName; }
 
         /** Get parent object */
-        auto getParent() -> Compositor *;
+        Compositor *getParent();
     private:
         /// Parent compositor
         Compositor *mParent;

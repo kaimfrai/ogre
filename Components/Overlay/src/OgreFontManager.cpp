@@ -37,11 +37,11 @@ namespace Ogre
 {
     //---------------------------------------------------------------------
     template<> FontManager * Singleton< FontManager >::msSingleton = 0;
-    auto FontManager::getSingletonPtr() -> FontManager*
+    FontManager* FontManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto FontManager::getSingleton() -> FontManager&
+    FontManager& FontManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -71,21 +71,21 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    auto FontManager::createImpl(const String& name, ResourceHandle handle, 
+    Resource* FontManager::createImpl(const String& name, ResourceHandle handle, 
         const String& group, bool isManual, ManualResourceLoader* loader,
-        const NameValuePairList* params) -> Resource*
+        const NameValuePairList* params)
     {
         return new Font(this, name, handle, group, isManual, loader);
     }
     //-----------------------------------------------------------------------
-    auto FontManager::getByName(const String& name, const String& groupName) const -> FontPtr
+    FontPtr FontManager::getByName(const String& name, const String& groupName) const
     {
         return static_pointer_cast<Font>(getResourceByName(name, groupName));
     }
     //---------------------------------------------------------------------
-    auto FontManager::create (const String& name, const String& group,
+    FontPtr FontManager::create (const String& name, const String& group,
                                     bool isManual, ManualResourceLoader* loader,
-                                    const NameValuePairList* createParams) -> FontPtr
+                                    const NameValuePairList* createParams)
     {
         return static_pointer_cast<Font>(createResource(name,group,isManual,loader,createParams));
     }

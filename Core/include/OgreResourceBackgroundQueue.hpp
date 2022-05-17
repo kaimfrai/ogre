@@ -117,7 +117,7 @@ namespace Ogre {
         typedef std::set<BackgroundProcessTicket> OutstandingRequestSet;   
         OutstandingRequestSet mOutstandingRequestSet;
 
-        auto addRequest(ResourceRequest& req) -> BackgroundProcessTicket;
+        BackgroundProcessTicket addRequest(ResourceRequest& req);
 
     public:
         ResourceBackgroundQueue();
@@ -141,8 +141,8 @@ namespace Ogre {
         @return Ticket identifying the request, use isProcessComplete() to 
             determine if completed if not using listener
         */
-        virtual auto initialiseResourceGroup(
-            const String& name, Listener* listener = 0) -> BackgroundProcessTicket;
+        virtual BackgroundProcessTicket initialiseResourceGroup(
+            const String& name, Listener* listener = 0);
 
         /** Initialise all resource groups which are yet to be initialised in 
             the background.
@@ -152,8 +152,8 @@ namespace Ogre {
         @return Ticket identifying the request, use isProcessComplete() to 
             determine if completed if not using listener
         */
-        virtual auto initialiseAllResourceGroups( 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+        virtual BackgroundProcessTicket initialiseAllResourceGroups( 
+            Listener* listener = 0);
         /** Prepares a resource group in the background.
         @see ResourceGroupManager::prepareResourceGroup
         @param name The name of the resource group to prepare
@@ -162,8 +162,8 @@ namespace Ogre {
         @return Ticket identifying the request, use isProcessComplete() to 
             determine if completed if not using listener
         */
-        virtual auto prepareResourceGroup(const String& name, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+        virtual BackgroundProcessTicket prepareResourceGroup(const String& name, 
+            Listener* listener = 0);
 
         /** Loads a resource group in the background.
         @see ResourceGroupManager::loadResourceGroup
@@ -173,8 +173,8 @@ namespace Ogre {
         @return Ticket identifying the request, use isProcessComplete() to 
             determine if completed if not using listener
         */
-        virtual auto loadResourceGroup(const String& name, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+        virtual BackgroundProcessTicket loadResourceGroup(const String& name, 
+            Listener* listener = 0);
 
 
         /** Unload a single resource in the background. 
@@ -185,9 +185,9 @@ namespace Ogre {
         @param listener Optional callback interface, take note of warnings in
             the header and only use if you understand them.
         */
-        virtual auto unload(
+        virtual BackgroundProcessTicket unload(
             const String& resType, const String& name, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+            Listener* listener = 0);
 
         /** Unload a single resource in the background. 
         @see ResourceManager::unload
@@ -197,9 +197,9 @@ namespace Ogre {
         @param listener Optional callback interface, take note of warnings in
             the header and only use if you understand them.
         */
-        virtual auto unload(
+        virtual BackgroundProcessTicket unload(
             const String& resType, ResourceHandle handle, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+            Listener* listener = 0);
 
         /** Unloads a resource group in the background.
         @see ResourceGroupManager::unloadResourceGroup
@@ -209,8 +209,8 @@ namespace Ogre {
         @return Ticket identifying the request, use isProcessComplete() to 
             determine if completed if not using listener
         */
-        virtual auto unloadResourceGroup(const String& name, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+        virtual BackgroundProcessTicket unloadResourceGroup(const String& name, 
+            Listener* listener = 0);
 
 
         /** Prepare a single resource in the background. 
@@ -230,12 +230,12 @@ namespace Ogre {
         @param listener Optional callback interface, take note of warnings in
             the header and only use if you understand them.
         */
-        virtual auto prepare(
+        virtual BackgroundProcessTicket prepare(
             const String& resType, const String& name, 
             const String& group, bool isManual = false, 
             ManualResourceLoader* loader = 0, 
             const NameValuePairList* loadParams = 0, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+            Listener* listener = 0);
 
         /** Load a single resource in the background. 
         @see ResourceManager::load
@@ -254,12 +254,12 @@ namespace Ogre {
         @param listener Optional callback interface, take note of warnings in
             the header and only use if you understand them.
         */
-        virtual auto load(
+        virtual BackgroundProcessTicket load(
             const String& resType, const String& name, 
             const String& group, bool isManual = false, 
             ManualResourceLoader* loader = 0, 
             const NameValuePairList* loadParams = 0, 
-            Listener* listener = 0) -> BackgroundProcessTicket;
+            Listener* listener = 0);
         /** Returns whether a previously queued process has completed or not. 
         @remarks
             This method of checking that a background process has completed is
@@ -273,25 +273,25 @@ namespace Ogre {
             time.
         This is why a non-existent ticket will return 'true'.
         */
-        virtual auto isProcessComplete(BackgroundProcessTicket ticket) -> bool;
+        virtual bool isProcessComplete(BackgroundProcessTicket ticket);
 
         /** Aborts background process.
         */
         void abortRequest( BackgroundProcessTicket ticket );
 
         /// Implementation for WorkQueue::RequestHandler
-        auto canHandleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ) -> bool;
+        bool canHandleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ);
         /// Implementation for WorkQueue::RequestHandler
-        auto handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ) -> WorkQueue::Response*;
+        WorkQueue::Response* handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ);
         /// Implementation for WorkQueue::ResponseHandler
-        auto canHandleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ) -> bool;
+        bool canHandleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ);
         /// Implementation for WorkQueue::ResponseHandler
         void handleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ);
 
         /// @copydoc Singleton::getSingleton()
-        static auto getSingleton() -> ResourceBackgroundQueue&;
+        static ResourceBackgroundQueue& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static auto getSingletonPtr() -> ResourceBackgroundQueue*;
+        static ResourceBackgroundQueue* getSingletonPtr();
 
     };
 

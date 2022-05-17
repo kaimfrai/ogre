@@ -139,7 +139,7 @@ namespace Ogre {
         */
         struct HashFunc
         {
-            virtual auto operator()(const Pass* p) const -> uint32 = 0;
+            virtual uint32 operator()(const Pass* p) const = 0;
             /// Need virtual destructor in case subclasses use it
             virtual ~HashFunc() {}
         };
@@ -280,12 +280,12 @@ namespace Ogre {
         ~Pass();
 
         /// Operator = overload
-        auto operator=(const Pass& oth) -> Pass&;
+        Pass& operator=(const Pass& oth);
 
-        auto calculateSize() const -> size_t;
+        size_t calculateSize() const;
 
         /// Gets the index of this Pass in the parent Technique
-        auto getIndex() const -> unsigned short { return mIndex; }
+        unsigned short getIndex() const { return mIndex; }
         /** Set the name of the pass
            @remarks
            The name of the pass is optional.  Its useful in material scripts where a material could inherit
@@ -293,7 +293,7 @@ namespace Ogre {
         */
         void setName(const String& name) { mName = name; }
         /// Get the name of the pass
-        auto getName() const -> const String& { return mName; }
+        const String& getName() const { return mName; }
 
         /// @name Surface properties
         /// @{
@@ -397,33 +397,33 @@ namespace Ogre {
 
         /** Gets the ambient colour reflectance of the pass.
          */
-        auto getAmbient() const -> const ColourValue& { return mAmbient; }
+        const ColourValue& getAmbient() const { return mAmbient; }
 
         /** Gets the diffuse colour reflectance of the pass.
          */
-        auto getDiffuse() const -> const ColourValue& { return mDiffuse; }
+        const ColourValue& getDiffuse() const { return mDiffuse; }
 
         /** Gets the specular colour reflectance of the pass.
          */
-        auto getSpecular() const -> const ColourValue& { return mSpecular; }
+        const ColourValue& getSpecular() const { return mSpecular; }
 
         /** Gets the self illumination colour of the pass.
          */
-        auto getSelfIllumination() const -> const ColourValue& { return mEmissive; }
+        const ColourValue& getSelfIllumination() const { return mEmissive; }
 
         /** Gets the self illumination colour of the pass.
             @see
             getSelfIllumination
         */
-        auto getEmissive() const -> const ColourValue& { return getSelfIllumination(); }
+        const ColourValue& getEmissive() const { return getSelfIllumination(); }
 
         /** Gets the 'shininess' property of the pass (affects specular highlights).
          */
-        auto getShininess() const -> float { return mShininess; }
+        float getShininess() const { return mShininess; }
 
         /** Gets which material properties follow the vertex colour
          */
-        auto getVertexColourTracking() const -> TrackVertexColourType {  return mTracking; }
+        TrackVertexColourType getVertexColourTracking() const {  return mTracking; }
 
         /** Sets whether or not dynamic lighting is enabled.
 
@@ -438,7 +438,7 @@ namespace Ogre {
 
         /** Returns whether or not dynamic lighting is enabled.
          */
-        auto getLightingEnabled() const -> bool { return mLightingEnabled; }
+        bool getLightingEnabled() const { return mLightingEnabled; }
         /// @}
 
         /**
@@ -448,7 +448,7 @@ namespace Ogre {
          * @note some drivers only support a value of 1.0 here
          */
         void setLineWidth(float width) { mLineWidth = width; }
-        auto getLineWidth() const -> float { return mLineWidth; }
+        float getLineWidth() const { return mLineWidth; }
 
         /// @name Point Sprites
         /// @{
@@ -457,7 +457,7 @@ namespace Ogre {
             This property determines what point size is used to render a point
             list.
         */
-        auto getPointSize() const -> float { return mPointAttenution[0]; }
+        float getPointSize() const { return mPointAttenution[0]; }
 
         /** Sets the point size of this pass.
 
@@ -488,7 +488,7 @@ namespace Ogre {
         /** Returns whether point sprites are enabled when rendering a
             point list.
         */
-        auto getPointSpritesEnabled() const -> bool {  return mPointSpritesEnabled; }
+        bool getPointSpritesEnabled() const {  return mPointSpritesEnabled; }
 
         /** Sets how points are attenuated with distance.
 
@@ -511,22 +511,22 @@ namespace Ogre {
         void setPointAttenuation(bool enabled, float constant = 0.0f, float linear = 1.0f, float quadratic = 0.0f);
 
         /** Returns whether points are attenuated with distance. */
-        auto isPointAttenuationEnabled() const -> bool { return mPointAttenuationEnabled; }
+        bool isPointAttenuationEnabled() const { return mPointAttenuationEnabled; }
 
         /** Returns the constant coefficient of point attenuation. */
-        auto getPointAttenuationConstant() const -> float { return mPointAttenution[1]; }
+        float getPointAttenuationConstant() const { return mPointAttenution[1]; }
         /** Returns the linear coefficient of point attenuation. */
-        auto getPointAttenuationLinear() const -> float { return mPointAttenution[2]; }
+        float getPointAttenuationLinear() const { return mPointAttenution[2]; }
         /** Returns the quadratic coefficient of point attenuation. */
-        auto getPointAttenuationQuadratic() const -> float { return mPointAttenution[3]; }
+        float getPointAttenuationQuadratic() const { return mPointAttenution[3]; }
 
         /// get all point attenuation params as (size, constant, linear, quadratic)
-        auto getPointAttenuation() const -> const Vector4f& { return mPointAttenution; }
+        const Vector4f& getPointAttenuation() const { return mPointAttenution; }
 
         /** Set the minimum point size, when point attenuation is in use. */
         void setPointMinSize(Real min);
         /** Get the minimum point size, when point attenuation is in use. */
-        auto getPointMinSize() const -> Real;
+        Real getPointMinSize() const;
         /** Set the maximum point size, when point attenuation is in use.
             @remarks Setting this to 0 indicates the max size supported by the card.
         */
@@ -534,7 +534,7 @@ namespace Ogre {
         /** Get the maximum point size, when point attenuation is in use.
             @remarks 0 indicates the max size supported by the card.
         */
-        auto getPointMaxSize() const -> Real;
+        Real getPointMaxSize() const;
         /// @}
 
         typedef VectorIterator<TextureUnitStates> TextureUnitStateIterator;
@@ -551,9 +551,9 @@ namespace Ogre {
             @note
             Applies to both fixed-function and programmable passes.
         */
-        auto createTextureUnitState( const String& textureName, unsigned short texCoordSet = 0) -> TextureUnitState*;
+        TextureUnitState* createTextureUnitState( const String& textureName, unsigned short texCoordSet = 0);
         /// @overload
-        auto createTextureUnitState() -> TextureUnitState*;
+        TextureUnitState* createTextureUnitState();
 
         /** Adds the passed in TextureUnitState, to the existing Pass.
             @param
@@ -563,11 +563,11 @@ namespace Ogre {
         void addTextureUnitState(TextureUnitState* state);
         /** Retrieves a const pointer to a texture unit state.
          */
-        auto getTextureUnitState(size_t index) const -> TextureUnitState* { return mTextureUnitStates.at(index); }
+        TextureUnitState* getTextureUnitState(size_t index) const { return mTextureUnitStates.at(index); }
         /** Retrieves the Texture Unit State matching name.
             Returns 0 if name match is not found.
         */
-        auto getTextureUnitState(const String& name) const -> TextureUnitState*;
+        TextureUnitState* getTextureUnitState(const String& name) const;
 
 
         /**  Retrieve the index of the Texture Unit State in the pass.
@@ -577,10 +577,10 @@ namespace Ogre {
              Throws an exception if the state is not attached to the pass.
              @deprecated use getTextureUnitStates()
         */
-        auto getTextureUnitStateIndex(const TextureUnitState* state) const -> unsigned short;
+        unsigned short getTextureUnitStateIndex(const TextureUnitState* state) const;
 
         /** Get the TextureUnitStates contained in this Pass. */
-        auto getTextureUnitStates() const -> const TextureUnitStates& { return mTextureUnitStates; }
+        const TextureUnitStates& getTextureUnitStates() const { return mTextureUnitStates; }
 
         /** Removes the indexed texture unit state from this pass.
             @remarks
@@ -593,7 +593,7 @@ namespace Ogre {
         void removeAllTextureUnitStates();
 
         /** Returns the number of texture unit settings */
-        auto getNumTextureUnitStates() const -> size_t { return mTextureUnitStates.size(); }
+        size_t getNumTextureUnitStates() const { return mTextureUnitStates.size(); }
 
         /** Gets the 'nth' texture which references the given content type.
             @remarks
@@ -601,8 +601,8 @@ namespace Ogre {
             exist, then this method returns an arbitrary high-value outside the
             valid range to index texture units.
         */
-        auto _getTextureUnitWithContentTypeIndex(
-            TextureUnitState::ContentType contentType, unsigned short index) const -> unsigned short;
+        unsigned short _getTextureUnitWithContentTypeIndex(
+            TextureUnitState::ContentType contentType, unsigned short index) const;
 
         /** Set texture filtering for every texture unit
             @note
@@ -681,23 +681,23 @@ namespace Ogre {
         void setSeparateSceneBlending( const SceneBlendFactor sourceFactor, const SceneBlendFactor destFactor, const SceneBlendFactor sourceFactorAlpha, const SceneBlendFactor destFactorAlpha );
 
         /// Retrieves the complete blend state of this pass
-        auto getBlendState() const -> const ColourBlendState& { return mBlendState; }
+        const ColourBlendState& getBlendState() const { return mBlendState; }
 
         /** Retrieves the source blending factor for the material
          */
-        auto getSourceBlendFactor() const -> SceneBlendFactor { return mBlendState.sourceFactor; }
+        SceneBlendFactor getSourceBlendFactor() const { return mBlendState.sourceFactor; }
 
         /** Retrieves the destination blending factor for the material
          */
-        auto getDestBlendFactor() const -> SceneBlendFactor { return mBlendState.destFactor; }
+        SceneBlendFactor getDestBlendFactor() const { return mBlendState.destFactor; }
 
         /** Retrieves the alpha source blending factor for the material
          */
-        auto getSourceBlendFactorAlpha() const -> SceneBlendFactor { return mBlendState.sourceFactorAlpha; }
+        SceneBlendFactor getSourceBlendFactorAlpha() const { return mBlendState.sourceFactorAlpha; }
 
         /** Retrieves the alpha destination blending factor for the material
          */
-        auto getDestBlendFactorAlpha() const -> SceneBlendFactor { return mBlendState.destFactorAlpha; }
+        SceneBlendFactor getDestBlendFactorAlpha() const { return mBlendState.destFactorAlpha; }
 
         /** Sets the specific operation used to blend source and destination pixels together.
 
@@ -717,10 +717,10 @@ namespace Ogre {
         void setSeparateSceneBlendingOperation(SceneBlendOperation op, SceneBlendOperation alphaOp);
 
         /** Returns the current blending operation */
-        auto getSceneBlendingOperation() const -> SceneBlendOperation { return mBlendState.operation; }
+        SceneBlendOperation getSceneBlendingOperation() const { return mBlendState.operation; }
 
         /** Returns the current alpha blending operation */
-        auto getSceneBlendingOperationAlpha() const -> SceneBlendOperation {  return mBlendState.alphaOperation; }
+        SceneBlendOperation getSceneBlendingOperationAlpha() const {  return mBlendState.alphaOperation; }
 
         /** Sets whether or not colour buffer writing is enabled for this %Pass.
 
@@ -736,7 +736,7 @@ namespace Ogre {
         /** Determines if colour buffer writing is enabled for this pass i.e. when at least one
             colour channel is enabled for writing.
          */
-        auto getColourWriteEnabled() const -> bool;
+        bool getColourWriteEnabled() const;
 
         /// Sets which colour buffer channels are enabled for writing for this Pass
         void setColourWriteEnabled(bool red, bool green, bool blue, bool alpha);
@@ -745,7 +745,7 @@ namespace Ogre {
         /// @}
 
         /** Returns true if this pass has some element of transparency. */
-        auto isTransparent() const -> bool;
+        bool isTransparent() const;
 
         /// @name Depth Testing
         /// @{
@@ -763,7 +763,7 @@ namespace Ogre {
 
         /** Returns whether or not this pass renders with depth-buffer checking on or not.
         */
-        auto getDepthCheckEnabled() const -> bool { return mDepthCheck; }
+        bool getDepthCheckEnabled() const { return mDepthCheck; }
 
         /** Sets whether or not this pass renders with depth-buffer writing on or not.
 
@@ -779,7 +779,7 @@ namespace Ogre {
 
         /** Returns whether or not this pass renders with depth-buffer writing on or not.
         */
-        auto getDepthWriteEnabled() const -> bool { return mDepthWrite; }
+        bool getDepthWriteEnabled() const { return mDepthWrite; }
 
         /** Sets the function used to compare depth values when depth checking is on.
 
@@ -792,7 +792,7 @@ namespace Ogre {
             @see
             setDepthFunction
         */
-        auto getDepthFunction() const -> CompareFunction {  return mDepthFunc; }
+        CompareFunction getDepthFunction() const {  return mDepthFunc; }
 
         /** Sets the depth bias to be used for this material.
 
@@ -819,9 +819,9 @@ namespace Ogre {
         void setDepthBias(float constantBias, float slopeScaleBias = 0.0f);
 
         /** Retrieves the const depth bias value as set by setDepthBias. */
-        auto getDepthBiasConstant() const -> float { return mDepthBiasConstant; }
+        float getDepthBiasConstant() const { return mDepthBiasConstant; }
         /** Retrieves the slope-scale depth bias value as set by setDepthBias. */
-        auto getDepthBiasSlopeScale() const -> float { return mDepthBiasSlopeScale; }
+        float getDepthBiasSlopeScale() const { return mDepthBiasSlopeScale; }
         /** Sets a factor which derives an additional depth bias from the number
             of times a pass is iterated.
             @remarks
@@ -832,7 +832,7 @@ namespace Ogre {
         /** Gets a factor which derives an additional depth bias from the number
             of times a pass is iterated.
         */
-        auto getIterationDepthBias() const -> float { return mDepthBiasPerIteration; }
+        float getIterationDepthBias() const { return mDepthBiasPerIteration; }
         /// @}
 
         /** Sets the culling mode for this pass based on the 'vertex winding'.
@@ -851,7 +851,7 @@ namespace Ogre {
 
         /** Returns the culling mode for geometry rendered with this pass. See setCullingMode for more information.
          */
-        auto getCullingMode() const -> CullingMode { return mCullMode; }
+        CullingMode getCullingMode() const { return mCullMode; }
 
         /** Sets the manual culling mode, performed by CPU rather than hardware.
 
@@ -876,7 +876,7 @@ namespace Ogre {
             @see
             setManualCullingMode
         */
-        auto getManualCullingMode() const -> ManualCullingMode;
+        ManualCullingMode getManualCullingMode() const;
 
         /** Sets the type of light shading required
 
@@ -888,7 +888,7 @@ namespace Ogre {
 
         /** Returns the type of light shading to be used.
          */
-        auto getShadingMode() const -> ShadeOptions { return mShadeOptions; }
+        ShadeOptions getShadingMode() const { return mShadeOptions; }
 
         /** Sets the type of polygon rendering required
             
@@ -899,7 +899,7 @@ namespace Ogre {
 
         /** Returns the type of light shading to be used.
          */
-        auto getPolygonMode() const -> PolygonMode { return mPolygonMode; }
+        PolygonMode getPolygonMode() const { return mPolygonMode; }
 
         /** Sets whether the PolygonMode set on this pass can be downgraded by the camera
 
@@ -911,7 +911,7 @@ namespace Ogre {
         /** Gets whether this renderable's chosen detail level can be
             overridden (downgraded) by the camera setting.
         */
-        auto getPolygonModeOverrideable() const -> bool { return mPolygonModeOverrideable; }
+        bool getPolygonModeOverrideable() const { return mPolygonModeOverrideable; }
 
         /// @name Fogging
         /// @{
@@ -952,35 +952,35 @@ namespace Ogre {
 
         /** Returns true if this pass is to override the scene fog settings.
          */
-        auto getFogOverride() const -> bool { return mFogOverride; }
+        bool getFogOverride() const { return mFogOverride; }
 
         /** Returns the fog mode for this pass.
             @note
             Only valid if getFogOverride is true.
         */
-        auto getFogMode() const -> FogMode { return mFogMode; }
+        FogMode getFogMode() const { return mFogMode; }
 
         /** Returns the fog colour for the scene.
          */
-        auto getFogColour() const -> const ColourValue& { return mFogColour; }
+        const ColourValue& getFogColour() const { return mFogColour; }
 
         /** Returns the fog start distance for this pass.
             @note
             Only valid if getFogOverride is true.
         */
-        auto getFogStart() const -> float { return mFogStart; }
+        float getFogStart() const { return mFogStart; }
 
         /** Returns the fog end distance for this pass.
             @note
             Only valid if getFogOverride is true.
         */
-        auto getFogEnd() const -> float { return mFogEnd; }
+        float getFogEnd() const { return mFogEnd; }
 
         /** Returns the fog density for this pass.
             @note
             Only valid if getFogOverride is true.
         */
-        auto getFogDensity() const -> float { return mFogDensity; }
+        float getFogDensity() const { return mFogDensity; }
         /// @}
 
         /// @name Alpha Rejection
@@ -1005,11 +1005,11 @@ namespace Ogre {
 
         /** Gets the alpha reject function. @see setAlphaRejectSettings for more information.
          */
-        auto getAlphaRejectFunction() const -> CompareFunction { return mAlphaRejectFunc; }
+        CompareFunction getAlphaRejectFunction() const { return mAlphaRejectFunc; }
 
         /** Gets the alpha reject value. @see setAlphaRejectSettings for more information.
          */
-        auto getAlphaRejectValue() const -> unsigned char { return mAlphaRejectVal; }
+        unsigned char getAlphaRejectValue() const { return mAlphaRejectVal; }
 
         /** Sets whether to use alpha to coverage (A2C) when blending alpha rejected values.
 
@@ -1024,7 +1024,7 @@ namespace Ogre {
 
         /** Gets whether to use alpha to coverage (A2C) when blending alpha rejected values.
          */
-        auto isAlphaToCoverageEnabled() const -> bool { return mAlphaToCoverageEnabled; }
+        bool isAlphaToCoverageEnabled() const { return mAlphaToCoverageEnabled; }
         /// @}
 
         /** Sets whether or not transparent sorting is enabled.
@@ -1043,7 +1043,7 @@ namespace Ogre {
 
         /** Returns whether or not transparent sorting is enabled.
          */
-        auto getTransparentSortingEnabled() const -> bool { return mTransparentSorting; }
+        bool getTransparentSortingEnabled() const { return mTransparentSorting; }
 
         /** Sets whether or not transparent sorting is forced.
             @param enabled
@@ -1058,7 +1058,7 @@ namespace Ogre {
 
         /** Returns whether or not transparent sorting is forced.
          */
-        auto getTransparentSortingForced() const -> bool { return mTransparentSortingForced; }
+        bool getTransparentSortingForced() const { return mTransparentSortingForced; }
 
         /// @name Light Iteration
         /// @{
@@ -1072,7 +1072,7 @@ namespace Ogre {
         */
         void setMaxSimultaneousLights(unsigned short maxLights) { mMaxSimultaneousLights = maxLights; }
         /** Gets the maximum number of lights to be used by this pass. */
-        auto getMaxSimultaneousLights() const -> unsigned short { return mMaxSimultaneousLights; }
+        unsigned short getMaxSimultaneousLights() const { return mMaxSimultaneousLights; }
 
         /** Sets the light index that this pass will start at in the light list.
 
@@ -1086,12 +1086,12 @@ namespace Ogre {
         */
         void setStartLight(unsigned short startLight) { mStartLight = startLight; }
         /** Gets the light index that this pass will start at in the light list. */
-        auto getStartLight() const -> unsigned short { return mStartLight; }
+        unsigned short getStartLight() const { return mStartLight; }
 
         /** Sets the light mask which can be matched to specific light flags to be handled by this pass */
         void setLightMask(uint32 mask) { mLightMask = mask; }
         /** Gets the light mask controlling which lights are used for this pass */
-        auto getLightMask() const -> uint32 { return mLightMask; }
+        uint32 getLightMask() const { return mLightMask; }
 
         /** Sets whether or not this pass should iterate per light or number of
             lights which can affect the object being rendered.
@@ -1139,12 +1139,12 @@ namespace Ogre {
                                 bool onlyForOneLightType = true, Light::LightTypes lightType = Light::LT_POINT);
 
         /** Does this pass run once for every light in range? */
-        auto getIteratePerLight() const -> bool { return mIteratePerLight; }
+        bool getIteratePerLight() const { return mIteratePerLight; }
         /** Does this pass run only for a single light type (if getIteratePerLight is true). */
-        auto getRunOnlyForOneLightType() const -> bool { return mRunOnlyForOneLightType; }
+        bool getRunOnlyForOneLightType() const { return mRunOnlyForOneLightType; }
         /** Gets the single light type this pass runs for if  getIteratePerLight and
             getRunOnlyForOneLightType are both true. */
-        auto getOnlyLightType() const -> Light::LightTypes { return mOnlyLightType; }
+        Light::LightTypes getOnlyLightType() const { return mOnlyLightType; }
 
         /** If light iteration is enabled, determine the number of lights per
             iteration.
@@ -1159,53 +1159,53 @@ namespace Ogre {
         /** If light iteration is enabled, determine the number of lights per
             iteration.
         */
-        auto getLightCountPerIteration() const -> unsigned short { return mLightsPerIteration; }
+        unsigned short getLightCountPerIteration() const { return mLightsPerIteration; }
         /// @}
 
         /// Gets the parent Technique
-        auto getParent() const -> Technique* { return mParent; }
+        Technique* getParent() const { return mParent; }
 
         /// Gets the resource group of the ultimate parent Material
-        auto getResourceGroup() const -> const String&;
+        const String& getResourceGroup() const;
 
         /// @name Gpu Programs
         /// @{
 
         /// Returns true if this pass is programmable i.e. includes either a vertex or fragment program.
-        auto isProgrammable() const -> bool
+        bool isProgrammable() const
         {
             for (const auto& u : mProgramUsage)
                 if (u) return true;
             return false;
         }
         /// Returns true if this pass uses a programmable vertex pipeline
-        auto hasVertexProgram() const -> bool { return hasGpuProgram(GPT_VERTEX_PROGRAM); }
+        bool hasVertexProgram() const { return hasGpuProgram(GPT_VERTEX_PROGRAM); }
         /// Returns true if this pass uses a programmable fragment pipeline
-        auto hasFragmentProgram() const -> bool { return hasGpuProgram(GPT_FRAGMENT_PROGRAM); }
+        bool hasFragmentProgram() const { return hasGpuProgram(GPT_FRAGMENT_PROGRAM); }
         /// Returns true if this pass uses a programmable geometry pipeline
-        auto hasGeometryProgram() const -> bool { return hasGpuProgram(GPT_GEOMETRY_PROGRAM); }
+        bool hasGeometryProgram() const { return hasGpuProgram(GPT_GEOMETRY_PROGRAM); }
         /// Returns true if this pass uses a programmable tessellation control pipeline
-        auto hasTessellationHullProgram() const -> bool { return hasGpuProgram(GPT_HULL_PROGRAM); }
+        bool hasTessellationHullProgram() const { return hasGpuProgram(GPT_HULL_PROGRAM); }
         /// Returns true if this pass uses a programmable tessellation control pipeline
-        auto hasTessellationDomainProgram() const -> bool { return hasGpuProgram(GPT_DOMAIN_PROGRAM); }
+        bool hasTessellationDomainProgram() const { return hasGpuProgram(GPT_DOMAIN_PROGRAM); }
         /// Returns true if this pass uses a programmable compute pipeline
-        auto hasComputeProgram() const -> bool { return hasGpuProgram(GPT_COMPUTE_PROGRAM); }
+        bool hasComputeProgram() const { return hasGpuProgram(GPT_COMPUTE_PROGRAM); }
         /// Gets the Gpu program used by this pass, only available after _load()
-        auto getGpuProgram(GpuProgramType programType) const -> const GpuProgramPtr&;
+        const GpuProgramPtr& getGpuProgram(GpuProgramType programType) const;
         /// @overload
-        auto getVertexProgram() const -> const GpuProgramPtr& { return getGpuProgram(GPT_VERTEX_PROGRAM); }
+        const GpuProgramPtr& getVertexProgram() const { return getGpuProgram(GPT_VERTEX_PROGRAM); }
         /// @overload
-        auto getFragmentProgram() const -> const GpuProgramPtr& { return getGpuProgram(GPT_FRAGMENT_PROGRAM); }
+        const GpuProgramPtr& getFragmentProgram() const { return getGpuProgram(GPT_FRAGMENT_PROGRAM); }
         /// @overload
-        auto getGeometryProgram() const -> const GpuProgramPtr& { return getGpuProgram(GPT_GEOMETRY_PROGRAM); }
+        const GpuProgramPtr& getGeometryProgram() const { return getGpuProgram(GPT_GEOMETRY_PROGRAM); }
         /// @overload
-        auto getTessellationHullProgram() const -> const GpuProgramPtr& { return getGpuProgram(GPT_HULL_PROGRAM); }
+        const GpuProgramPtr& getTessellationHullProgram() const { return getGpuProgram(GPT_HULL_PROGRAM); }
         /// @overload
-        auto getTessellationDomainProgram() const -> const GpuProgramPtr& { return getGpuProgram(GPT_DOMAIN_PROGRAM); }
+        const GpuProgramPtr& getTessellationDomainProgram() const { return getGpuProgram(GPT_DOMAIN_PROGRAM); }
         /// @overload
-        auto getComputeProgram() const -> const GpuProgramPtr& { return getGpuProgram(GPT_COMPUTE_PROGRAM); }
+        const GpuProgramPtr& getComputeProgram() const { return getGpuProgram(GPT_COMPUTE_PROGRAM); }
 
-        auto hasGpuProgram(GpuProgramType programType) const -> bool;
+        bool hasGpuProgram(GpuProgramType programType) const;
 
         /** Sets the details of the program to use.
             @remarks
@@ -1239,19 +1239,19 @@ namespace Ogre {
         void setComputeProgram(const String& name, bool resetParams = true);
 
         /** Gets the name of the program used by this pass. */
-        auto getGpuProgramName(GpuProgramType type) const -> const String&;
+        const String& getGpuProgramName(GpuProgramType type) const;
         /// @overload
-        auto getFragmentProgramName() const -> const String& { return getGpuProgramName(GPT_FRAGMENT_PROGRAM); }
+        const String& getFragmentProgramName() const { return getGpuProgramName(GPT_FRAGMENT_PROGRAM); }
         /// @overload
-        auto getGeometryProgramName() const -> const String& { return getGpuProgramName(GPT_GEOMETRY_PROGRAM); }
+        const String& getGeometryProgramName() const { return getGpuProgramName(GPT_GEOMETRY_PROGRAM); }
         /// @overload
-        auto getTessellationDomainProgramName() const -> const String& { return getGpuProgramName(GPT_DOMAIN_PROGRAM); }
+        const String& getTessellationDomainProgramName() const { return getGpuProgramName(GPT_DOMAIN_PROGRAM); }
         /// @overload
-        auto getTessellationHullProgramName() const -> const String& { return getGpuProgramName(GPT_HULL_PROGRAM); }
+        const String& getTessellationHullProgramName() const { return getGpuProgramName(GPT_HULL_PROGRAM); }
         /// @overload
-        auto getVertexProgramName() const -> const String& { return getGpuProgramName(GPT_VERTEX_PROGRAM); }
+        const String& getVertexProgramName() const { return getGpuProgramName(GPT_VERTEX_PROGRAM); }
         /// @overload
-        auto getComputeProgramName() const -> const String& { return getGpuProgramName(GPT_COMPUTE_PROGRAM); }
+        const String& getComputeProgramName() const { return getGpuProgramName(GPT_COMPUTE_PROGRAM); }
 
         /** Sets the Gpu program parameters.
             @remarks
@@ -1274,19 +1274,19 @@ namespace Ogre {
         void setComputeProgramParameters(GpuProgramParametersSharedPtr params);
 
         /** Gets the Gpu program parameters used by this pass. */
-        auto getGpuProgramParameters(GpuProgramType type) const -> const GpuProgramParametersSharedPtr&;
+        const GpuProgramParametersSharedPtr& getGpuProgramParameters(GpuProgramType type) const;
         /// @overload
-        auto getVertexProgramParameters() const -> GpuProgramParametersSharedPtr;
+        GpuProgramParametersSharedPtr getVertexProgramParameters() const;
         /// @overload
-        auto getFragmentProgramParameters() const -> GpuProgramParametersSharedPtr;
+        GpuProgramParametersSharedPtr getFragmentProgramParameters() const;
         /// @overload
-        auto getGeometryProgramParameters() const -> GpuProgramParametersSharedPtr;
+        GpuProgramParametersSharedPtr getGeometryProgramParameters() const;
         /// @overload
-        auto getTessellationHullProgramParameters() const -> GpuProgramParametersSharedPtr;
+        GpuProgramParametersSharedPtr getTessellationHullProgramParameters() const;
         /// @overload
-        auto getTessellationDomainProgramParameters() const -> GpuProgramParametersSharedPtr;
+        GpuProgramParametersSharedPtr getTessellationDomainProgramParameters() const;
         /// @overload
-        auto getComputeProgramParameters() const -> GpuProgramParametersSharedPtr;
+        GpuProgramParametersSharedPtr getComputeProgramParameters() const;
         /// @}
 
         /** Splits this Pass to one which can be handled in the number of
@@ -1300,7 +1300,7 @@ namespace Ogre {
             setting appropriate to approximate the multitexture. This Pass will be
             attached to the parent Technique of this Pass.
         */
-        auto _split(unsigned short numUnits) -> Pass*;
+        Pass* _split(unsigned short numUnits);
 
         /** Internal method to adjust pass index. */
         void _notifyIndex(unsigned short index);
@@ -1314,7 +1314,7 @@ namespace Ogre {
         /** Internal method for unloading this pass. */
         void _unload();
         /// Is this loaded?
-        auto isLoaded() const -> bool;
+        bool isLoaded() const;
 
         /** Gets the 'hash' of this pass, ie a precomputed number to use for sorting
             @remarks
@@ -1322,7 +1322,7 @@ namespace Ogre {
             using firstly its index (so that all passes are rendered in order), then
             by the textures which it's TextureUnitState instances are using.
         */
-        auto getHash() const -> uint32 { return mHash; }
+        uint32 getHash() const { return mHash; }
         /// Mark the hash as dirty
         void _dirtyHash();
         /** Internal method for recalculating the hash.
@@ -1355,16 +1355,16 @@ namespace Ogre {
         void setNormaliseNormals(bool normalise) { mNormaliseNormals = normalise; }
 
         /** Returns true if this pass has auto-normalisation of normals set. */
-        auto getNormaliseNormals() const -> bool {return mNormaliseNormals; }
+        bool getNormaliseNormals() const {return mNormaliseNormals; }
 
         /** Static method to retrieve all the Passes which need their
             hash values recalculated.
         */
-        static auto getDirtyHashList() -> const PassSet&
+        static const PassSet& getDirtyHashList()
         { return msDirtyHashList; }
         /** Static method to retrieve all the Passes which are pending deletion.
          */
-        static auto getPassGraveyard() -> const PassSet&
+        static const PassSet& getPassGraveyard()
         { return msPassGraveyard; }
         /** Static method to reset the list of passes which need their hash
             values recalculated.
@@ -1383,7 +1383,7 @@ namespace Ogre {
 
         /** Returns whether this pass is ambient only.
          */
-        auto isAmbientOnly() const -> bool;
+        bool isAmbientOnly() const;
 
         /** set the number of iterations that this pass
             should perform when doing fast multi pass operation.
@@ -1402,7 +1402,7 @@ namespace Ogre {
 
         /** Gets the pass iteration count value.
          */
-        auto getPassIterationCount() const -> size_t { return mPassIterationCount; }
+        size_t getPassIterationCount() const { return mPassIterationCount; }
 
         /** Sets whether or not this pass will be clipped by a scissor rectangle
             encompassing the lights that are being used in it.
@@ -1428,7 +1428,7 @@ namespace Ogre {
         /** Gets whether or not this pass will be clipped by a scissor rectangle
             encompassing the lights that are being used in it.
         */
-        auto getLightScissoringEnabled() const -> bool { return mLightScissoring; }
+        bool getLightScissoringEnabled() const { return mLightScissoring; }
 
         /** Sets whether or not this pass will be clipped by user clips planes
             bounding the area covered by the light.
@@ -1467,7 +1467,7 @@ namespace Ogre {
         /** Gets whether or not this pass will be clipped by user clips planes
             bounding the area covered by the light.
         */
-        auto getLightClipPlanesEnabled() const -> bool { return mLightClipPlanes; }
+        bool getLightClipPlanesEnabled() const { return mLightClipPlanes; }
 
         /** Manually set which illumination stage this pass is a member of.
 
@@ -1492,7 +1492,7 @@ namespace Ogre {
         */
         void setIlluminationStage(IlluminationStage is) { mIlluminationStage = is; }
         /// Get the manually assigned illumination stage, if any
-        auto getIlluminationStage() const -> IlluminationStage { return mIlluminationStage; }
+        IlluminationStage getIlluminationStage() const { return mIlluminationStage; }
         /** There are some default hash functions used to order passes so that
             render state changes are minimised, this enumerates them.
         */
@@ -1535,26 +1535,26 @@ namespace Ogre {
 
         /** Get the hash function used for all passes.
          */
-        static auto getHashFunction() -> HashFunc* { return msHashFunc; }
+        static HashFunc* getHashFunction() { return msHashFunc; }
 
         /** Get the builtin hash function.
          */
-        static auto getBuiltinHashFunction(BuiltinHashFunction builtin) -> HashFunc*;
+        static HashFunc* getBuiltinHashFunction(BuiltinHashFunction builtin);
 
         /** Return an instance of user objects binding associated with this class.
             You can use it to associate one or more custom objects with this class instance.
             @see UserObjectBindings::setUserAny.
         */
-        auto     getUserObjectBindings() -> UserObjectBindings& { return mUserObjectBindings; }
+        UserObjectBindings&     getUserObjectBindings() { return mUserObjectBindings; }
 
         /** Return an instance of user objects binding associated with this class.
             You can use it to associate one or more custom objects with this class instance.
             @see UserObjectBindings::setUserAny.
         */
-        auto getUserObjectBindings() const -> const UserObjectBindings& { return mUserObjectBindings; }
+        const UserObjectBindings& getUserObjectBindings() const { return mUserObjectBindings; }
      private:
-        auto getProgramUsage(GpuProgramType programType) -> std::unique_ptr<GpuProgramUsage>&;
-        auto getProgramUsage(GpuProgramType programType) const -> const std::unique_ptr<GpuProgramUsage>&;
+        std::unique_ptr<GpuProgramUsage>& getProgramUsage(GpuProgramType programType);
+        const std::unique_ptr<GpuProgramUsage>& getProgramUsage(GpuProgramType programType) const;
     };
 
     /** Struct recording a pass which can be used for a specific illumination stage.

@@ -99,7 +99,7 @@ class VertexDeclaration;
         /** Overridden member from HardwareBufferLicensee. */
         void licenseExpired(HardwareBuffer* buffer);
         /** Detect currently have buffer copies checked out and touch it. */
-        [[nodiscard]] auto buffersCheckedOut(bool positions = true, bool normals = true) const -> bool;
+        [[nodiscard]] bool buffersCheckedOut(bool positions = true, bool normals = true) const;
     };
 
 
@@ -133,12 +133,12 @@ class VertexDeclaration;
         virtual void destroyAllBindings();
 
         /// Internal method for creates a new vertex declaration, may be overridden by certain rendering APIs.
-        virtual auto createVertexDeclarationImpl() -> VertexDeclaration*;
+        virtual VertexDeclaration* createVertexDeclarationImpl();
         /// Internal method for destroys a vertex declaration, may be overridden by certain rendering APIs.
         virtual void destroyVertexDeclarationImpl(VertexDeclaration* decl);
 
         /// Internal method for creates a new VertexBufferBinding, may be overridden by certain rendering APIs.
-        virtual auto createVertexBufferBindingImpl() -> VertexBufferBinding*;
+        virtual VertexBufferBinding* createVertexBufferBindingImpl();
         /// Internal method for destroys a VertexBufferBinding, may be overridden by certain rendering APIs.
         virtual void destroyVertexBufferBindingImpl(VertexBufferBinding* binding);
 
@@ -193,9 +193,9 @@ class VertexDeclaration;
         static const size_t EXPIRED_DELAY_FRAME_THRESHOLD;
 
         /// Creates a new buffer as a copy of the source, does not copy data.
-        virtual auto makeBufferCopy(
+        virtual HardwareVertexBufferSharedPtr makeBufferCopy(
             const HardwareVertexBufferSharedPtr& source, 
-            HardwareBuffer::Usage usage, bool useShadowBuffer) -> HardwareVertexBufferSharedPtr;
+            HardwareBuffer::Usage usage, bool useShadowBuffer);
 
     public:
         HardwareBufferManagerBase();
@@ -232,9 +232,9 @@ class VertexDeclaration;
             reads and writes will be done to the shadow buffer, and the shadow buffer will
             be synchronised with the real buffer at an appropriate time.
         */
-        virtual auto 
+        virtual HardwareVertexBufferSharedPtr 
             createVertexBuffer(size_t vertexSize, size_t numVerts, HardwareBuffer::Usage usage, 
-            bool useShadowBuffer = false) -> HardwareVertexBufferSharedPtr = 0;
+            bool useShadowBuffer = false) = 0;
         /** Create a hardware index buffer.
         @remarks Note that because buffers can be shared, they are reference
             counted so you do not need to worry about destroying them this will be done
@@ -255,32 +255,32 @@ class VertexDeclaration;
             reads and writes will be done to the shadow buffer, and the shadow buffer will
             be synchronised with the real buffer at an appropriate time.
         */
-        virtual auto 
+        virtual HardwareIndexBufferSharedPtr 
             createIndexBuffer(HardwareIndexBuffer::IndexType itype, size_t numIndexes, 
-            HardwareBuffer::Usage usage, bool useShadowBuffer = false) -> HardwareIndexBufferSharedPtr = 0;
+            HardwareBuffer::Usage usage, bool useShadowBuffer = false) = 0;
 
         /** Create a render to vertex buffer.
         @remarks The parameters (such as vertex size etc) are determined later
             and are allocated when needed.
         */
-        virtual auto createRenderToVertexBuffer() -> RenderToVertexBufferSharedPtr;
+        virtual RenderToVertexBufferSharedPtr createRenderToVertexBuffer();
 
         /**
          * Create uniform buffer. This type of buffer allows the upload of shader constants once,
          * and sharing between shader stages or even shaders from another materials. 
          * The update shall be triggered by GpuProgramParameters, if is dirty
          */
-        virtual auto createUniformBuffer(size_t sizeBytes,
+        virtual HardwareBufferPtr createUniformBuffer(size_t sizeBytes,
                                                       HardwareBufferUsage usage = HBU_CPU_TO_GPU,
-                                                      bool useShadowBuffer = false) -> HardwareBufferPtr;
+                                                      bool useShadowBuffer = false);
 
         /** Creates a new vertex declaration. */
-        auto createVertexDeclaration() -> VertexDeclaration*;
+        VertexDeclaration* createVertexDeclaration();
         /** Destroys a vertex declaration. */
         void destroyVertexDeclaration(VertexDeclaration* decl);
 
         /** Creates a new VertexBufferBinding. */
-        auto createVertexBufferBinding() -> VertexBufferBinding*;
+        VertexBufferBinding* createVertexBufferBinding();
         /** Destroys a VertexBufferBinding. */
         void destroyVertexBufferBinding(VertexBufferBinding* binding);
 
@@ -313,11 +313,11 @@ class VertexDeclaration;
             If @c true, the current data is copied as well as the 
             structure of the buffer/
         */
-        auto allocateVertexBufferCopy(
+        HardwareVertexBufferSharedPtr allocateVertexBufferCopy(
             const HardwareVertexBufferSharedPtr& sourceBuffer, 
             BufferLicenseType licenseType,
             HardwareBufferLicensee* licensee,
-            bool copyData = false) -> HardwareVertexBufferSharedPtr;
+            bool copyData = false);
 
         /** Manually release a vertex buffer copy for others to subsequently use.
         @remarks
@@ -399,9 +399,9 @@ class VertexDeclaration;
         ~HardwareBufferManager();
 
         /// @copydoc Singleton::getSingleton()
-        static auto getSingleton() -> HardwareBufferManager&;
+        static HardwareBufferManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static auto getSingletonPtr() -> HardwareBufferManager*;
+        static HardwareBufferManager* getSingletonPtr();
 
     };
 

@@ -55,49 +55,49 @@ class ResourceManager;
     class CmdType : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     class CmdSyntax : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     class CmdSkeletal : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     class CmdMorph : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     class CmdPose : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     class CmdVTF : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     class CmdManualNamedConstsFile : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     class CmdAdjacency : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     // Command object for setting / getting parameters
@@ -149,14 +149,14 @@ class ResourceManager;
         mCompileError = false;
     }
 
-    auto GpuProgram::_getHash(uint32 seed) const -> uint32
+    uint32 GpuProgram::_getHash(uint32 seed) const
     {
         // include filename as same source can be used with different defines & entry points
         uint32 hash = FastHash(mName.c_str(), mName.size(), seed);
         return FastHash(mSource.c_str(), mSource.size(), hash);
     }
 
-    auto GpuProgram::calculateSize() const -> size_t
+    size_t GpuProgram::calculateSize() const
     {
         size_t memSize = sizeof(*this);
         memSize += mManualNamedConstantsFile.size() * sizeof(char);
@@ -243,7 +243,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------------
-    auto GpuProgram::isRequiredCapabilitiesSupported() const -> bool
+    bool GpuProgram::isRequiredCapabilitiesSupported() const
     {
         const RenderSystemCapabilities* caps = 
             Root::getSingleton().getRenderSystem()->getCapabilities();
@@ -267,7 +267,7 @@ class ResourceManager;
         return true;
     }
     //-----------------------------------------------------------------------------
-    auto GpuProgram::isSupported() const -> bool
+    bool GpuProgram::isSupported() const
     {
         if (mCompileError || !isRequiredCapabilitiesSupported())
             return false;
@@ -326,7 +326,7 @@ class ResourceManager;
 
     }
     //-----------------------------------------------------------------------------
-    auto GpuProgram::createParameters() -> GpuProgramParametersSharedPtr
+    GpuProgramParametersSharedPtr GpuProgram::createParameters()
     {
         // Default implementation simply returns standard parameters.
         GpuProgramParametersSharedPtr ret = 
@@ -370,7 +370,7 @@ class ResourceManager;
         return ret;
     }
     //-----------------------------------------------------------------------------
-    auto GpuProgram::getDefaultParameters() -> const GpuProgramParametersPtr&
+    const GpuProgramParametersPtr& GpuProgram::getDefaultParameters()
     {
         if (!mDefaultParams)
         {
@@ -379,7 +379,7 @@ class ResourceManager;
         return mDefaultParams;
     }
     //-----------------------------------------------------------------------------
-    auto GpuProgram::getProgramTypeName(GpuProgramType programType) -> const String
+    const String GpuProgram::getProgramTypeName(GpuProgramType programType)
     {
         switch (programType)
         {
@@ -438,7 +438,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------
-    auto GpuProgram::getLanguage() const -> const String&
+    const String& GpuProgram::getLanguage() const
     {
         static const String language = "asm";
 
@@ -446,7 +446,7 @@ class ResourceManager;
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    auto CmdType::doGet(const void* target) const -> String
+    String CmdType::doGet(const void* target) const
     {
         const GpuProgram* t = static_cast<const GpuProgram*>(target);
         return GpuProgram::getProgramTypeName(t->getType()) + "_program";
@@ -480,7 +480,7 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------
-    auto CmdSyntax::doGet(const void* target) const -> String
+    String CmdSyntax::doGet(const void* target) const
     {
         const GpuProgram* t = static_cast<const GpuProgram*>(target);
         return t->getSyntaxCode();
@@ -491,7 +491,7 @@ class ResourceManager;
         t->setSyntaxCode(val);
     }
     //-----------------------------------------------------------------------
-    auto CmdSkeletal::doGet(const void* target) const -> String
+    String CmdSkeletal::doGet(const void* target) const
     {
         const GpuProgram* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->isSkeletalAnimationIncluded());
@@ -502,7 +502,7 @@ class ResourceManager;
         t->setSkeletalAnimationIncluded(StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdMorph::doGet(const void* target) const -> String
+    String CmdMorph::doGet(const void* target) const
     {
         const GpuProgram* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->isMorphAnimationIncluded());
@@ -513,7 +513,7 @@ class ResourceManager;
         t->setMorphAnimationIncluded(StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdPose::doGet(const void* target) const -> String
+    String CmdPose::doGet(const void* target) const
     {
         const GpuProgram* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->getNumberOfPosesIncluded());
@@ -524,7 +524,7 @@ class ResourceManager;
         t->setPoseAnimationIncluded((ushort)StringConverter::parseUnsignedInt(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdVTF::doGet(const void* target) const -> String
+    String CmdVTF::doGet(const void* target) const
     {
         const GpuProgram* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->isVertexTextureFetchRequired());
@@ -535,7 +535,7 @@ class ResourceManager;
         t->setVertexTextureFetchRequired(StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdManualNamedConstsFile::doGet(const void* target) const -> String
+    String CmdManualNamedConstsFile::doGet(const void* target) const
     {
         const GpuProgram* t = static_cast<const GpuProgram*>(target);
         return t->getManualNamedConstantsFile();
@@ -546,7 +546,7 @@ class ResourceManager;
         t->setManualNamedConstantsFile(val);
     }
     //-----------------------------------------------------------------------
-    auto CmdAdjacency::doGet(const void* target) const -> String
+    String CmdAdjacency::doGet(const void* target) const
     {
         const GpuProgram* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->isAdjacencyInfoRequired());

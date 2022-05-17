@@ -68,14 +68,14 @@ void GLHardwareOcclusionQuery::endOcclusionQuery()
     glEndQueryARB(GL_SAMPLES_PASSED_ARB);
 }
 //------------------------------------------------------------------
-auto GLHardwareOcclusionQuery::pullOcclusionQuery( unsigned int* NumOfFragments ) -> bool 
+bool GLHardwareOcclusionQuery::pullOcclusionQuery( unsigned int* NumOfFragments ) 
 {
     glGetQueryObjectuivARB(mQueryID, GL_QUERY_RESULT_ARB, (GLuint*)NumOfFragments);
     mPixelCount = *NumOfFragments;
     return true;
 }
 //------------------------------------------------------------------
-auto GLHardwareOcclusionQuery::isStillOutstanding() -> bool
+bool GLHardwareOcclusionQuery::isStillOutstanding()
 {    
     GLuint available = GL_FALSE;
 

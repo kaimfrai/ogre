@@ -206,7 +206,7 @@ class Technique;
         void writeScrollEffect(const TextureUnitState::TextureEffect& effect, const TextureUnitState *pTex);
         void writeEnvironmentMapEffect(const TextureUnitState::TextureEffect& effect, const TextureUnitState *pTex);
 
-        auto convertFiltering(FilterOptions fo) -> String;
+        String convertFiltering(FilterOptions fo);
 
         
         /** Internal methods that invokes registered listeners callback.
@@ -282,7 +282,7 @@ class Technique;
             const bool includeProgDef = false, const String& programFilename = "", 
             const String& materialName = "");
         /** Returns a string representing the parsed material(s) */
-        [[nodiscard]] auto getQueuedAsString() const -> const String &;
+        [[nodiscard]] const String &getQueuedAsString() const;
         /** Clears the internal buffer */
         void clearQueue();
 
@@ -343,7 +343,7 @@ class Technique;
             buffer += (" " + val);
         }
 
-        auto quoteWord(const String& val) -> String
+        String quoteWord(const String& val)
         {
             if (val.find_first_of("{}$: \t") != String::npos)
                 return ("\"" + val + "\"");

@@ -90,8 +90,8 @@ public:
     //--
     void beginOcclusionQuery();
     void endOcclusionQuery();
-    auto pullOcclusionQuery( unsigned int* NumOfFragments) -> bool; 
-    auto isStillOutstanding() -> bool;
+    bool pullOcclusionQuery( unsigned int* NumOfFragments); 
+    bool isStillOutstanding();
 
 
     //----------------------------------------------------------------------

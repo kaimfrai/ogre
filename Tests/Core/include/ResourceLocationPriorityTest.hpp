@@ -53,9 +53,9 @@ public:
 
     virtual ~DummyArchive() {}
 
-    [[nodiscard]] virtual auto exists(const Ogre::String& name) const -> bool { return name == "dummyArchiveTest"; }
+    [[nodiscard]] virtual bool exists(const Ogre::String& name) const { return name == "dummyArchiveTest"; }
 
-    [[nodiscard]] virtual auto find(const Ogre::String& pattern, bool recursive = true, bool dirs = false) const -> Ogre::StringVectorPtr
+    [[nodiscard]] virtual Ogre::StringVectorPtr find(const Ogre::String& pattern, bool recursive = true, bool dirs = false) const
     {
         Ogre::StringVectorPtr results = std::make_shared<Ogre::StringVector>();
         if (dirs) return results;
@@ -66,8 +66,8 @@ public:
         return results;
     }
 
-    [[nodiscard]] virtual auto findFileInfo(const Ogre::String& pattern, bool recursive = true,
-                                               bool dirs = false) const -> Ogre::FileInfoListPtr
+    [[nodiscard]] virtual Ogre::FileInfoListPtr findFileInfo(const Ogre::String& pattern, bool recursive = true,
+                                               bool dirs = false) const
     {
         Ogre::FileInfoListPtr results = std::make_shared<Ogre::FileInfoList>();
         if (dirs) return results;
@@ -78,11 +78,11 @@ public:
         return results;
     }
 
-    [[nodiscard]] virtual auto getModifiedTime(const Ogre::String& filename) const -> time_t { return 0; }
+    [[nodiscard]] virtual time_t getModifiedTime(const Ogre::String& filename) const { return 0; }
 
-    [[nodiscard]] virtual auto isCaseSensitive() const -> bool { return true; }
+    [[nodiscard]] virtual bool isCaseSensitive() const { return true; }
 
-    [[nodiscard]] virtual auto list(bool recursive = true, bool dirs = false) const -> Ogre::StringVectorPtr
+    [[nodiscard]] virtual Ogre::StringVectorPtr list(bool recursive = true, bool dirs = false) const
     {
         Ogre::StringVectorPtr results = std::make_shared<Ogre::StringVector>();
         if (dirs) return results;
@@ -90,7 +90,7 @@ public:
         return results;
     }
 
-    [[nodiscard]] virtual auto listFileInfo(bool recursive = true, bool dirs = false) const -> Ogre::FileInfoListPtr
+    [[nodiscard]] virtual Ogre::FileInfoListPtr listFileInfo(bool recursive = true, bool dirs = false) const
     {
         Ogre::FileInfoListPtr results = std::make_shared<Ogre::FileInfoList>();
         if (dirs) return results;
@@ -102,7 +102,7 @@ public:
 
     virtual void unload() {}
 
-    [[nodiscard]] virtual auto open(const Ogre::String& filename, bool readOnly = true) const -> Ogre::DataStreamPtr
+    [[nodiscard]] virtual Ogre::DataStreamPtr open(const Ogre::String& filename, bool readOnly = true) const
     {
         if (filename == "dummyArchiveTest")
         {
@@ -114,7 +114,7 @@ public:
     }
 
 private:
-    static auto makeContents() -> unsigned char
+    static unsigned char makeContents()
     {
         // Don't start at zero so it's obvious if things aren't initialized.
         static unsigned char counter = 1;
@@ -129,14 +129,14 @@ class DummyArchiveFactory : public Ogre::ArchiveFactory
 public:
     virtual ~DummyArchiveFactory() {}
 
-    virtual auto createInstance(const Ogre::String& name, bool) -> Ogre::Archive*
+    virtual Ogre::Archive* createInstance(const Ogre::String& name, bool)
     {
         return new DummyArchive(name, "DummyArchive");
     }
 
     virtual void destroyInstance(Ogre::Archive* ptr) { delete ptr; }
 
-    [[nodiscard]] virtual auto getType() const -> const Ogre::String&
+    [[nodiscard]] virtual const Ogre::String& getType() const
     {
         static Ogre::String type = "DummyArchive";
         return type;

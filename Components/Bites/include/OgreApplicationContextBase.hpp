@@ -95,16 +95,16 @@ namespace OgreBites
          * get the main RenderWindow
          * owns the context on OpenGL
          */
-        [[nodiscard]] auto getRenderWindow() const -> Ogre::RenderWindow*
+        [[nodiscard]] Ogre::RenderWindow* getRenderWindow() const
         {
             return mWindows.empty() ? NULL : mWindows[0].render;
         }
 
-        [[nodiscard]] auto getRoot() const -> Ogre::Root* {
+        [[nodiscard]] Ogre::Root* getRoot() const {
             return mRoot;
         }
 
-        [[nodiscard]] auto getOverlaySystem() const -> Ogre::OverlaySystem* {
+        [[nodiscard]] Ogre::OverlaySystem* getOverlaySystem() const {
             return mOverlaySystem;
         }
 
@@ -120,15 +120,15 @@ namespace OgreBites
         void closeApp();
 
         // callback interface copied from various listeners to be used by ApplicationContext
-        virtual auto frameStarted(const Ogre::FrameEvent& evt) -> bool {
+        virtual bool frameStarted(const Ogre::FrameEvent& evt) {
             pollEvents();
             return true;
         }
-        virtual auto frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool;
-        virtual auto frameEnded(const Ogre::FrameEvent& evt) -> bool { return true; }
+        virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+        virtual bool frameEnded(const Ogre::FrameEvent& evt) { return true; }
         virtual void windowMoved(Ogre::RenderWindow* rw) {}
         virtual void windowResized(Ogre::RenderWindow* rw) {}
-        virtual auto windowClosing(Ogre::RenderWindow* rw) -> bool { return true; }
+        virtual bool windowClosing(Ogre::RenderWindow* rw) { return true; }
         virtual void windowClosed(Ogre::RenderWindow* rw) {}
         virtual void windowFocusChange(Ogre::RenderWindow* rw) {}
 
@@ -142,7 +142,7 @@ namespace OgreBites
         /**
           Initialize the RT Shader system.
           */
-        auto initialiseRTShaderSystem() -> bool;
+        bool initialiseRTShaderSystem();
 
         /**
          * make the RTSS write out the generated shaders for caching and debugging
@@ -173,7 +173,7 @@ namespace OgreBites
         but you can also restore from a config file. Note that this only happens
         when you start the context, and not when you reset it.
         */
-        virtual auto oneTimeConfig() -> bool;
+        virtual bool oneTimeConfig();
 
         /**
         When input is grabbed the mouse is confined to the window.
@@ -181,7 +181,7 @@ namespace OgreBites
         virtual void setWindowGrab(NativeWindowType* win, bool grab = true) {}
 
         /// get the vertical DPI of the display
-        [[nodiscard]] virtual auto getDisplayDPI() const -> float { return 96.0f; }
+        [[nodiscard]] virtual float getDisplayDPI() const { return 96.0f; }
 
         /// @overload
         void setWindowGrab(bool grab = true) {
@@ -261,9 +261,9 @@ namespace OgreBites
          *
          * By default the values from ogre.cfg are used for w, h and miscParams.
          */
-        virtual auto
+        virtual NativeWindowPair
         createWindow(const Ogre::String& name, uint32_t w = 0, uint32_t h = 0,
-                     Ogre::NameValuePairList miscParams = Ogre::NameValuePairList()) -> NativeWindowPair;
+                     Ogre::NameValuePairList miscParams = Ogre::NameValuePairList());
 
         /// destroy and erase an NativeWindowPair by name
         void destroyWindow(const Ogre::String& name);
@@ -271,14 +271,14 @@ namespace OgreBites
         /**
          * get the FileSystemLayer instace pointing to an application specific directory
          */
-        auto getFSLayer() -> Ogre::FileSystemLayer& { return *mFSLayer; }
+        Ogre::FileSystemLayer& getFSLayer() { return *mFSLayer; }
 
         /**
          * the directory where the media files were installed
          *
          * same as OGRE_MEDIA_DIR in CMake
          */
-        static auto getDefaultMediaDir() -> Ogre::String;
+        static Ogre::String getDefaultMediaDir();
     protected:
         /// internal method to destroy both the render and the native window
         virtual void _destroyWindow(const NativeWindowPair& win);

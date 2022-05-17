@@ -83,7 +83,7 @@ namespace Ogre {
         mPrograms.clear();
     }
     //---------------------------------------------------------------------
-    auto ShadowVolumeExtrudeProgram::get(Light::LightTypes lightType, bool finite) -> const GpuProgramPtr&
+    const GpuProgramPtr& ShadowVolumeExtrudeProgram::get(Light::LightTypes lightType, bool finite)
     {
         if (lightType == Light::LT_DIRECTIONAL)
         {

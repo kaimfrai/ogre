@@ -87,7 +87,7 @@ namespace Ogre
 
         /** Returns a vertex.
         */
-        auto getVertex(size_t vertex) const -> const Vector3&;
+        const Vector3& getVertex(size_t vertex) const;
 
         /** Sets a specific vertex of a polygon.
         @note Vertices must be coplanar.
@@ -100,11 +100,11 @@ namespace Ogre
 
         /** Vertex count.
         */
-        auto getVertexCount() const -> size_t;
+        size_t getVertexCount() const;
 
         /** Returns the polygon normal.
         */
-        auto getNormal() const -> const Vector3&;
+        const Vector3& getNormal() const;
 
         /** Deletes a specific vertex.
         */
@@ -116,7 +116,7 @@ namespace Ogre
             and within the polygon's bounds. Polygons are assumed to be convex
             and planar.
         */
-        auto isPointInside(const Vector3& point) const -> bool;
+        bool isPointInside(const Vector3& point) const;
 
         /** Stores the edges of the polygon in ccw order.
             The vertices are copied so the user has to take the 
@@ -130,18 +130,18 @@ namespace Ogre
 
         /** Determines if the current object is equal to the compared one.
         */
-        auto operator == (const Polygon& rhs) const -> bool;
+        bool operator == (const Polygon& rhs) const;
 
         /** Determines if the current object is not equal to the compared one.
         */
-        auto operator != (const Polygon& rhs) const -> bool
+        bool operator != (const Polygon& rhs) const
         { return !( *this == rhs ); }
 
-        auto operator=(const Ogre::Polygon&) -> Polygon& ;
+        Polygon& operator=(const Ogre::Polygon&) ;
 
         /** Prints out the polygon data.
         */
-        friend auto operator<< ( std::ostream& strm, const Polygon& poly ) -> std::ostream&;
+        friend std::ostream& operator<< ( std::ostream& strm, const Polygon& poly );
 
     };
     /** @} */

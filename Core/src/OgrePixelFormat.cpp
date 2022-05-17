@@ -46,11 +46,11 @@ namespace {
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    auto PixelBox::getConsecutiveSize() const -> size_t
+    size_t PixelBox::getConsecutiveSize() const
     {
         return PixelUtil::getMemorySize(getWidth(), getHeight(), getDepth(), format);
     }
-    auto PixelBox::getSubVolume(const Box &def, bool resetOrigin /* = true */) const -> PixelBox
+    PixelBox PixelBox::getSubVolume(const Box &def, bool resetOrigin /* = true */) const
     {
         OgreAssert(contains(def), "");
 
@@ -85,7 +85,7 @@ namespace Ogre {
 
         return rval;
     }
-    auto PixelBox::getTopLeftFrontPixelPtr() const -> uchar*
+    uchar* PixelBox::getTopLeftFrontPixelPtr() const
     {
         return data + (left + top * rowPitch + front * slicePitch) * PixelUtil::getNumElemBytes(format);
     }
@@ -94,7 +94,7 @@ namespace Ogre {
     * Directly get the description record for provided pixel format. For debug builds,
     * this checks the bounds of fmt with an assertion.
     */
-    static inline auto getDescriptionFor(const PixelFormat fmt) -> const PixelFormatDescription &
+    static inline const PixelFormatDescription &getDescriptionFor(const PixelFormat fmt)
     {
         const int ord = (int)fmt;
         assert(ord>=0 && ord<PF_COUNT);
@@ -102,17 +102,17 @@ namespace Ogre {
         return _pixelFormats[ord];
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::getNumElemBytes( PixelFormat format ) -> size_t
+    size_t PixelUtil::getNumElemBytes( PixelFormat format )
     {
         return getDescriptionFor(format).elemBytes;
     }
     //-----------------------------------------------------------------------
-    static auto astc_slice_size(uint32 width, uint32 height, uint32 blockWidth, uint32 blockHeight) -> size_t
+    static size_t astc_slice_size(uint32 width, uint32 height, uint32 blockWidth, uint32 blockHeight)
     {
         return ((width + blockWidth - 1) / blockWidth) *
                ((height + blockHeight - 1) / blockHeight) * 16;
     }
-    auto PixelUtil::getMemorySize(uint32 width, uint32 height, uint32 depth, PixelFormat format) -> size_t
+    size_t PixelUtil::getMemorySize(uint32 width, uint32 height, uint32 depth, PixelFormat format)
     {
         if(isCompressed(format))
         {
@@ -202,47 +202,47 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::getNumElemBits( PixelFormat format ) -> size_t
+    size_t PixelUtil::getNumElemBits( PixelFormat format )
     {
         return getDescriptionFor(format).elemBytes * 8;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::getFlags( PixelFormat format ) -> unsigned int
+    unsigned int PixelUtil::getFlags( PixelFormat format )
     {
         return getDescriptionFor(format).flags;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::hasAlpha(PixelFormat format) -> bool
+    bool PixelUtil::hasAlpha(PixelFormat format)
     {
         return (PixelUtil::getFlags(format) & PFF_HASALPHA) > 0;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::isFloatingPoint(PixelFormat format) -> bool
+    bool PixelUtil::isFloatingPoint(PixelFormat format)
     {
         return (PixelUtil::getFlags(format) & PFF_FLOAT) > 0;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::isInteger(PixelFormat format) -> bool
+    bool PixelUtil::isInteger(PixelFormat format)
     {
         return (PixelUtil::getFlags(format) & PFF_INTEGER) > 0;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::isCompressed(PixelFormat format) -> bool
+    bool PixelUtil::isCompressed(PixelFormat format)
     {
         return (PixelUtil::getFlags(format) & PFF_COMPRESSED) > 0;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::isDepth(PixelFormat format) -> bool
+    bool PixelUtil::isDepth(PixelFormat format)
     {
         return (PixelUtil::getFlags(format) & PFF_DEPTH) > 0;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::isNativeEndian(PixelFormat format) -> bool
+    bool PixelUtil::isNativeEndian(PixelFormat format)
     {
         return (PixelUtil::getFlags(format) & PFF_NATIVEENDIAN) > 0;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::isLuminance(PixelFormat format) -> bool
+    bool PixelUtil::isLuminance(PixelFormat format)
     {
         return (PixelUtil::getFlags(format) & PFF_LUMINANCE) > 0;
     }
@@ -274,29 +274,29 @@ namespace Ogre {
         rgba[3] = des.ashift;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::getFormatName(PixelFormat srcformat) -> const String&
+    const String& PixelUtil::getFormatName(PixelFormat srcformat)
     {
         return getDescriptionFor(srcformat).name;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::isAccessible(PixelFormat srcformat) -> bool
+    bool PixelUtil::isAccessible(PixelFormat srcformat)
     {
         return (srcformat != PF_UNKNOWN) && !isCompressed(srcformat);
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::getComponentType(PixelFormat fmt) -> PixelComponentType
+    PixelComponentType PixelUtil::getComponentType(PixelFormat fmt)
     {
         const PixelFormatDescription &des = getDescriptionFor(fmt);
         return des.componentType;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::getComponentCount(PixelFormat fmt) -> size_t
+    size_t PixelUtil::getComponentCount(PixelFormat fmt)
     {
         const PixelFormatDescription &des = getDescriptionFor(fmt);
         return des.componentCount;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::getFormatFromName(const String& name, bool accessibleOnly, bool caseSensitive) -> PixelFormat
+    PixelFormat PixelUtil::getFormatFromName(const String& name, bool accessibleOnly, bool caseSensitive)
     {
         String tmp = name;
         if (!caseSensitive)
@@ -328,7 +328,7 @@ namespace Ogre {
         return PF_UNKNOWN;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::getFormatForBitDepths(PixelFormat fmt, ushort integerBits, ushort floatBits) -> PixelFormat
+    PixelFormat PixelUtil::getFormatForBitDepths(PixelFormat fmt, ushort integerBits, ushort floatBits)
     {
         switch (integerBits)
         {
@@ -854,7 +854,7 @@ namespace Ogre {
         ::Ogre::AlignedMemory::deallocate(tmpptr);
     }
 
-    auto PixelBox::getColourAt(size_t x, size_t y, size_t z) const -> ColourValue
+    ColourValue PixelBox::getColourAt(size_t x, size_t y, size_t z) const
     {
         ColourValue cv;
 

@@ -62,7 +62,7 @@ SubRenderStateFactory::~SubRenderStateFactory()
 }
 
 //-----------------------------------------------------------------------
-auto SubRenderStateFactory::createInstance() -> SubRenderState*
+SubRenderState* SubRenderStateFactory::createInstance()
 {
     SubRenderState* subRenderState = createInstanceImpl();
 
@@ -72,7 +72,7 @@ auto SubRenderStateFactory::createInstance() -> SubRenderState*
 }
 
 //-----------------------------------------------------------------------
-auto SubRenderStateFactory::createOrRetrieveInstance(SGScriptTranslator* translator) -> SubRenderState*
+SubRenderState* SubRenderStateFactory::createOrRetrieveInstance(SGScriptTranslator* translator)
 {
     //check if we already create a SRS 
     SubRenderState* subRenderState = translator->getGeneratedSubRenderState(getType());
@@ -110,7 +110,7 @@ void SubRenderStateFactory::destroyAllInstances()
 }
 
 //-----------------------------------------------------------------------
-auto SubRenderState::operator=(const SubRenderState& rhs) -> SubRenderState&
+SubRenderState& SubRenderState::operator=(const SubRenderState& rhs)
 {
     if (getType() != rhs.getType())
     {
@@ -130,7 +130,7 @@ auto SubRenderState::operator=(const SubRenderState& rhs) -> SubRenderState&
 }
 
 //-----------------------------------------------------------------------
-auto SubRenderState::createCpuSubPrograms(ProgramSet* programSet) -> bool
+bool SubRenderState::createCpuSubPrograms(ProgramSet* programSet)
 {
     bool result;
 
@@ -153,25 +153,25 @@ auto SubRenderState::createCpuSubPrograms(ProgramSet* programSet) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto SubRenderState::resolveParameters(ProgramSet* programSet) -> bool
+bool SubRenderState::resolveParameters(ProgramSet* programSet)
 {
     return true;
 }
 
 //-----------------------------------------------------------------------
-auto SubRenderState::resolveDependencies(ProgramSet* programSet) -> bool
+bool SubRenderState::resolveDependencies(ProgramSet* programSet)
 {
     return true;
 }
 
 //-----------------------------------------------------------------------
-auto SubRenderState::addFunctionInvocations( ProgramSet* programSet ) -> bool
+bool SubRenderState::addFunctionInvocations( ProgramSet* programSet )
 {
     return true;
 }
 
 //-----------------------------------------------------------------------
-auto SubRenderState::getAccessor() -> SubRenderStateAccessorPtr
+SubRenderStateAccessorPtr SubRenderState::getAccessor()
 {
     if (!mThisAccessor)
     {
@@ -182,7 +182,7 @@ auto SubRenderState::getAccessor() -> SubRenderStateAccessorPtr
 }
 
 //-----------------------------------------------------------------------
-auto SubRenderState::getAccessor() const -> SubRenderStateAccessorPtr
+SubRenderStateAccessorPtr SubRenderState::getAccessor() const
 {
     if (!mThisAccessor)
     {

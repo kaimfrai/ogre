@@ -37,7 +37,7 @@ namespace Ogre
     {
     }
     //---------------------------------------------------------------------
-    auto KeyFrame::_clone(AnimationTrack* newParent) const -> KeyFrame*
+    KeyFrame* KeyFrame::_clone(AnimationTrack* newParent) const
     {
         return new KeyFrame(newParent, mTime);
     }
@@ -47,7 +47,7 @@ namespace Ogre
     {
     }
     //---------------------------------------------------------------------
-    auto NumericKeyFrame::getValue() const -> const AnyNumeric&
+    const AnyNumeric& NumericKeyFrame::getValue() const
     {
         return mValue;
     }
@@ -57,7 +57,7 @@ namespace Ogre
         mValue = val;
     }
     //---------------------------------------------------------------------
-    auto NumericKeyFrame::_clone(AnimationTrack* newParent) const -> KeyFrame*
+    KeyFrame* NumericKeyFrame::_clone(AnimationTrack* newParent) const
     {
         NumericKeyFrame* newKf = new NumericKeyFrame(newParent, mTime);
         newKf->mValue = mValue;
@@ -77,7 +77,7 @@ namespace Ogre
             mParentTrack->_keyFrameDataChanged();
     }
     //---------------------------------------------------------------------
-    auto TransformKeyFrame::getTranslate() const -> const Vector3&
+    const Vector3& TransformKeyFrame::getTranslate() const
     {
         return mTranslate;
     }
@@ -89,7 +89,7 @@ namespace Ogre
             mParentTrack->_keyFrameDataChanged();
     }
     //---------------------------------------------------------------------
-    auto TransformKeyFrame::getScale() const -> const Vector3&
+    const Vector3& TransformKeyFrame::getScale() const
     {
         return mScale;
     }
@@ -101,12 +101,12 @@ namespace Ogre
             mParentTrack->_keyFrameDataChanged();
     }
     //---------------------------------------------------------------------
-    auto TransformKeyFrame::getRotation() const -> const Quaternion&
+    const Quaternion& TransformKeyFrame::getRotation() const
     {
         return mRotate;
     }
     //---------------------------------------------------------------------
-    auto TransformKeyFrame::_clone(AnimationTrack* newParent) const -> KeyFrame*
+    KeyFrame* TransformKeyFrame::_clone(AnimationTrack* newParent) const
     {
         TransformKeyFrame* newKf = new TransformKeyFrame(newParent, mTime);
         newKf->mTranslate = mTranslate;
@@ -125,13 +125,13 @@ namespace Ogre
         mBuffer = buf;
     }
     //---------------------------------------------------------------------
-    auto 
-    VertexMorphKeyFrame::getVertexBuffer() const -> const HardwareVertexBufferSharedPtr&
+    const HardwareVertexBufferSharedPtr& 
+    VertexMorphKeyFrame::getVertexBuffer() const
     {
         return mBuffer;
     }
     //---------------------------------------------------------------------
-    auto VertexMorphKeyFrame::_clone(AnimationTrack* newParent) const -> KeyFrame*
+    KeyFrame* VertexMorphKeyFrame::_clone(AnimationTrack* newParent) const
     {
         VertexMorphKeyFrame* newKf = new VertexMorphKeyFrame(newParent, mTime);
         newKf->mBuffer = mBuffer;
@@ -180,14 +180,14 @@ namespace Ogre
         mPoseRefs.clear();
     }
     //---------------------------------------------------------------------
-    auto 
-    VertexPoseKeyFrame::getPoseReferences() const -> const VertexPoseKeyFrame::PoseRefList&
+    const VertexPoseKeyFrame::PoseRefList& 
+    VertexPoseKeyFrame::getPoseReferences() const
     {
         return mPoseRefs;
     }
 
     //---------------------------------------------------------------------
-    auto VertexPoseKeyFrame::_clone(AnimationTrack* newParent) const -> KeyFrame*
+    KeyFrame* VertexPoseKeyFrame::_clone(AnimationTrack* newParent) const
     {
         VertexPoseKeyFrame* newKf = new VertexPoseKeyFrame(newParent, mTime);
         // By-value copy ok

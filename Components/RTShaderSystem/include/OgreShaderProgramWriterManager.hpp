@@ -62,9 +62,9 @@ public:
     void addProgramWriter(const String& lang, ProgramWriter* writer);
 
     /** Returns whether a given high-level language is supported. */
-    auto isLanguageSupported(const String& lang) -> bool;
+    bool isLanguageSupported(const String& lang);
 
-    [[nodiscard]] auto getProgramWriter(const String& language) const -> ProgramWriter*
+    [[nodiscard]] ProgramWriter* getProgramWriter(const String& language) const
     {
         auto it = mProgramWriters.find(language);
         if (it != mProgramWriters.end())
@@ -88,10 +88,10 @@ public:
     but the implementation stays in this single compilation unit,
     preventing link errors.
     */
-    static auto getSingleton() -> ProgramWriterManager&;
+    static ProgramWriterManager& getSingleton();
 
     /// @copydoc Singleton::getSingleton()
-    static auto getSingletonPtr() -> ProgramWriterManager*;
+    static ProgramWriterManager* getSingletonPtr();
 };
 /** @} */
 /** @} */

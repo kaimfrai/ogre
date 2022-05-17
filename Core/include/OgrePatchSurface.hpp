@@ -116,27 +116,27 @@ class VertexDeclaration;
             @remarks This is useful when you wish to build the patch into external vertex / index buffers.
 
         */
-        [[nodiscard]] auto getRequiredVertexCount() const -> size_t;
+        [[nodiscard]] size_t getRequiredVertexCount() const;
         /** Based on a previous call to defineSurface, establishes the number of indexes required
             to hold this patch at the maximum detail level. 
             @remarks This is useful when you wish to build the patch into external vertex / index buffers.
 
         */
-        [[nodiscard]] auto getRequiredIndexCount() const -> size_t;
+        [[nodiscard]] size_t getRequiredIndexCount() const;
 
         /** Gets the current index count based on the current subdivision level. */
-        [[nodiscard]] auto getCurrentIndexCount() const -> size_t;
+        [[nodiscard]] size_t getCurrentIndexCount() const;
         /// Returns the index offset used by this buffer to write data into the buffer
-        [[nodiscard]] auto getIndexOffset() const -> size_t { return mIndexOffset; }
+        [[nodiscard]] size_t getIndexOffset() const { return mIndexOffset; }
         /// Returns the vertex offset used by this buffer to write data into the buffer
-        [[nodiscard]] auto getVertexOffset() const -> size_t { return mVertexOffset; }
+        [[nodiscard]] size_t getVertexOffset() const { return mVertexOffset; }
 
 
         /** Gets the bounds of this patch, only valid after calling defineSurface. */
-        [[nodiscard]] auto getBounds() const -> const AxisAlignedBox&;
+        [[nodiscard]] const AxisAlignedBox& getBounds() const;
         /** Gets the radius of the bounding sphere for this patch, only valid after defineSurface 
         has been called. */
-        [[nodiscard]] auto getBoundingSphereRadius() const -> Real;
+        [[nodiscard]] Real getBoundingSphereRadius() const;
         /** Tells the system to build the mesh relating to the surface into externally created
             buffers.
             @remarks
@@ -166,9 +166,9 @@ class VertexDeclaration;
         void setSubdivisionFactor(Real factor);
 
         /** Gets the current level of subdivision. */
-        [[nodiscard]] auto getSubdivisionFactor() const -> Real;
+        [[nodiscard]] Real getSubdivisionFactor() const;
 
-        [[nodiscard]] auto getControlPointBuffer() const -> void*
+        [[nodiscard]] void* getControlPointBuffer() const
         {
             return mControlPointBuffer;
         }
@@ -210,15 +210,15 @@ class VertexDeclaration;
 
         /** Internal method for finding the subdivision level given 3 control points.
         */
-        auto findLevel( Vector3& a, Vector3& b, Vector3& c) -> size_t;
+        size_t findLevel( Vector3& a, Vector3& b, Vector3& c);
 
         void distributeControlPoints(void* lockedBuffer);
         void subdivideCurve(void* lockedBuffer, size_t startIdx, size_t stepSize, size_t numSteps, size_t iterations);
         void interpolateVertexData(void* lockedBuffer, size_t leftIndex, size_t rightIndex, size_t destIndex);
         void makeTriangles();
 
-        auto getAutoULevel(bool forMax = false) -> size_t;
-        auto getAutoVLevel(bool forMax = false) -> size_t;
+        size_t getAutoULevel(bool forMax = false);
+        size_t getAutoVLevel(bool forMax = false);
 
         HardwareVertexBufferSharedPtr mVertexBuffer;
         HardwareIndexBufferSharedPtr mIndexBuffer;

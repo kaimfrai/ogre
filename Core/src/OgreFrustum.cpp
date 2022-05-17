@@ -106,7 +106,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    auto Frustum::getFOVy() const -> const Radian&
+    const Radian& Frustum::getFOVy() const
     {
         return mFOVy;
     }
@@ -120,7 +120,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    auto Frustum::getFarClipDistance() const -> Real
+    Real Frustum::getFarClipDistance() const
     {
         return mFarDist;
     }
@@ -134,7 +134,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    auto Frustum::getNearClipDistance() const -> Real
+    Real Frustum::getNearClipDistance() const
     {
         return mNearDist;
     }
@@ -151,7 +151,7 @@ class RenderQueue;
         setFrustumOffset(Vector2(horizontal, vertical));
     }
     //---------------------------------------------------------------------
-    auto Frustum::getFrustumOffset() const -> const Vector2&
+    const Vector2& Frustum::getFrustumOffset() const
     {
         return mFrustumOffset;
     }
@@ -163,12 +163,12 @@ class RenderQueue;
         invalidateFrustum();
     }
     //---------------------------------------------------------------------
-    auto Frustum::getFocalLength() const -> Real
+    Real Frustum::getFocalLength() const
     {
         return mFocalLength;
     }
     //-----------------------------------------------------------------------
-    auto Frustum::getProjectionMatrix() const -> const Matrix4&
+    const Matrix4& Frustum::getProjectionMatrix() const
     {
 
         updateFrustum();
@@ -176,7 +176,7 @@ class RenderQueue;
         return mProjMatrix;
     }
     //-----------------------------------------------------------------------
-    auto Frustum::getProjectionMatrixWithRSDepth() const -> const Matrix4&
+    const Matrix4& Frustum::getProjectionMatrixWithRSDepth() const
     {
 
         updateFrustum();
@@ -185,7 +185,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    auto Frustum::getViewMatrix() const -> const Affine3&
+    const Affine3& Frustum::getViewMatrix() const
     {
         updateView();
 
@@ -194,7 +194,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    auto Frustum::getFrustumPlanes() const -> const Plane*
+    const Plane* Frustum::getFrustumPlanes() const
     {
         // Make any pending updates to the calculated frustum planes
         updateFrustumPlanes();
@@ -203,7 +203,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    auto Frustum::getFrustumPlane(unsigned short plane) const -> const Plane&
+    const Plane& Frustum::getFrustumPlane(unsigned short plane) const
     {
         // Make any pending updates to the calculated frustum planes
         updateFrustumPlanes();
@@ -213,7 +213,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    auto Frustum::isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy) const -> bool
+    bool Frustum::isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy) const
     {
         // Null boxes always invisible
         if (bound.isNull()) return false;
@@ -252,7 +252,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    auto Frustum::isVisible(const Vector3& vert, FrustumPlane* culledBy) const -> bool
+    bool Frustum::isVisible(const Vector3& vert, FrustumPlane* culledBy) const
     {
         // Make any pending updates to the calculated frustum planes
         updateFrustumPlanes();
@@ -278,7 +278,7 @@ class RenderQueue;
         return true;
     }
     //-----------------------------------------------------------------------
-    auto Frustum::isVisible(const Sphere& sphere, FrustumPlane* culledBy) const -> bool
+    bool Frustum::isVisible(const Sphere& sphere, FrustumPlane* culledBy) const
     {
         // Make any pending updates to the calculated frustum planes
         updateFrustumPlanes();
@@ -306,12 +306,12 @@ class RenderQueue;
         return true;
     }
     //---------------------------------------------------------------------
-    auto Frustum::getTypeFlags() const -> uint32
+    uint32 Frustum::getTypeFlags() const
     {
         return SceneManager::FRUSTUM_TYPE_MASK;
     }
     //-----------------------------------------------------------------------
-    auto Frustum::calcProjectionParameters() const -> RealRect
+    RealRect Frustum::calcProjectionParameters() const
     { 
         if (mCustomProjMatrix)
         {
@@ -525,7 +525,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    auto Frustum::isViewOutOfDate() const -> bool
+    bool Frustum::isViewOutOfDate() const
     {
         // Attached to node?
         if (mParentNode)
@@ -554,7 +554,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    auto Frustum::isFrustumOutOfDate() const -> bool
+    bool Frustum::isFrustumOutOfDate() const
     {
         // Deriving custom near plane from linked plane?
         if (mObliqueDepthProjection)
@@ -732,7 +732,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    auto Frustum::getAspectRatio() const -> Real
+    Real Frustum::getAspectRatio() const
     {
         return mAspect;
     }
@@ -745,7 +745,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    auto Frustum::getBoundingBox() const -> const AxisAlignedBox&
+    const AxisAlignedBox& Frustum::getBoundingBox() const
     {
         return mBoundingBox;
     }
@@ -759,12 +759,12 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    auto Frustum::getMovableType() const -> const String&
+    const String& Frustum::getMovableType() const
     {
         return msMovableType;
     }
     //-----------------------------------------------------------------------
-    auto Frustum::getBoundingRadius() const -> Real
+    Real Frustum::getBoundingRadius() const
     {
         return (mFarDist == 0)? 100000 : mFarDist;
     }
@@ -792,7 +792,7 @@ class RenderQueue;
         mRecalcWorldSpaceCorners = true;
     }
     // -------------------------------------------------------------------
-    auto Frustum::getWorldSpaceCorners() const -> const Frustum::Corners&
+    const Frustum::Corners& Frustum::getWorldSpaceCorners() const
     {
         updateWorldSpaceCorners();
 
@@ -806,17 +806,17 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    auto Frustum::getProjectionType() const -> ProjectionType
+    ProjectionType Frustum::getProjectionType() const
     {
         return mProjType;
     }
     //-----------------------------------------------------------------------
-    auto Frustum::getPositionForViewUpdate() const -> const Vector3&
+    const Vector3& Frustum::getPositionForViewUpdate() const
     {
         return mLastParentPosition;
     }
     //-----------------------------------------------------------------------
-    auto Frustum::getOrientationForViewUpdate() const -> const Quaternion&
+    const Quaternion& Frustum::getOrientationForViewUpdate() const
     {
         return mLastParentOrientation;
     }
@@ -849,8 +849,8 @@ class RenderQueue;
         invalidateView();
     }
     //---------------------------------------------------------------------
-    auto Frustum::projectSphere(const Sphere& sphere, 
-        Real* left, Real* top, Real* right, Real* bottom) const -> bool
+    bool Frustum::projectSphere(const Sphere& sphere, 
+        Real* left, Real* top, Real* right, Real* bottom) const
     {
         // See http://www.gamasutra.com/features/20021011/lengyel_06.htm
         // Transform light position into camera space
@@ -1079,12 +1079,12 @@ class RenderQueue;
         invalidateFrustum();
     }
     //---------------------------------------------------------------------
-    auto Frustum::getOrthoWindowHeight() const -> Real
+    Real Frustum::getOrthoWindowHeight() const
     {
         return mOrthoHeight;
     }
     //---------------------------------------------------------------------
-    auto Frustum::getOrthoWindowWidth() const -> Real
+    Real Frustum::getOrthoWindowWidth() const
     {
         return mOrthoHeight * mAspect;  
     }
@@ -1114,13 +1114,13 @@ class RenderQueue;
         invalidateFrustum();
     }
     //---------------------------------------------------------------------
-    auto Frustum::getFrustumExtents() const -> RealRect
+    RealRect Frustum::getFrustumExtents() const
     {
         updateFrustum();
         return mExtents;
     }
     //---------------------------------------------------------------------
-    auto Frustum::getPlaneBoundedVolume() -> PlaneBoundedVolume
+    PlaneBoundedVolume Frustum::getPlaneBoundedVolume()
     {
         updateFrustumPlanes();
 
@@ -1140,7 +1140,7 @@ class RenderQueue;
                     "Setting Frustrum orientation mode is not supported");
     }
     //---------------------------------------------------------------------
-    auto Frustum::getOrientationMode() const -> OrientationMode
+    OrientationMode Frustum::getOrientationMode() const
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
                     "Getting Frustrum orientation mode is not supported");

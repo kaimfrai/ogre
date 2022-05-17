@@ -45,7 +45,7 @@ struct _find_search_t
     DIR *dirfd;
 };
         
-auto _findfirst(const char *pattern, struct _finddata_t *data) -> intptr_t
+intptr_t _findfirst(const char *pattern, struct _finddata_t *data)
 {
     _find_search_t *fs = new _find_search_t;
     fs->curfn = NULL;
@@ -90,7 +90,7 @@ auto _findfirst(const char *pattern, struct _finddata_t *data) -> intptr_t
     return (intptr_t)fs;
 }
 
-auto _findnext(intptr_t id, struct _finddata_t *data) -> int
+int _findnext(intptr_t id, struct _finddata_t *data)
 {
     _find_search_t *fs = reinterpret_cast<_find_search_t *>(id);
 
@@ -142,7 +142,7 @@ auto _findnext(intptr_t id, struct _finddata_t *data) -> int
     return 0;
 }
 
-auto _findclose(intptr_t id) -> int
+int _findclose(intptr_t id)
 {
     int ret;
     _find_search_t *fs = reinterpret_cast<_find_search_t *>(id);

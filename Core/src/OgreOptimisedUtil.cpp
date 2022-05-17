@@ -32,9 +32,9 @@ namespace Ogre {
 
     //---------------------------------------------------------------------
     // External functions
-    extern auto _getOptimisedUtilGeneral() -> OptimisedUtil*;
+    extern OptimisedUtil* _getOptimisedUtilGeneral();
 
-    extern auto _getOptimisedUtilSSE() -> OptimisedUtil*;
+    extern OptimisedUtil* _getOptimisedUtilSSE();
 
 #ifdef __DO_PROFILE__
     //---------------------------------------------------------------------
@@ -316,7 +316,7 @@ namespace Ogre {
     OptimisedUtil* OptimisedUtil::msImplementation = OptimisedUtil::_detectImplementation();
 
     //---------------------------------------------------------------------
-    auto OptimisedUtil::_detectImplementation() -> OptimisedUtil*
+    OptimisedUtil* OptimisedUtil::_detectImplementation()
     {
         //
         // Some speed test results (averaged number of CPU timestamp (RDTSC) per-function call):

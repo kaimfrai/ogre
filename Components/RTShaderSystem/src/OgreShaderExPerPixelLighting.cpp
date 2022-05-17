@@ -65,12 +65,12 @@ namespace RTShader {
 String PerPixelLighting::Type = "SGX_PerPixelLighting";
 
 //-----------------------------------------------------------------------
-auto PerPixelLighting::getType() const -> const String&
+const String& PerPixelLighting::getType() const
 {
     return Type;
 }
 
-auto PerPixelLighting::setParameter(const String& name, const String& value) -> bool
+bool PerPixelLighting::setParameter(const String& name, const String& value)
 {
 	if(name == "two_sided")
 	{
@@ -81,7 +81,7 @@ auto PerPixelLighting::setParameter(const String& name, const String& value) -> 
 }
 
 //-----------------------------------------------------------------------
-auto PerPixelLighting::resolveParameters(ProgramSet* programSet) -> bool
+bool PerPixelLighting::resolveParameters(ProgramSet* programSet)
 {
     if (false == resolveGlobalParameters(programSet))
         return false;
@@ -93,7 +93,7 @@ auto PerPixelLighting::resolveParameters(ProgramSet* programSet) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet) -> bool
+bool PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet)
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -168,7 +168,7 @@ auto PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto PerPixelLighting::resolvePerLightParameters(ProgramSet* programSet) -> bool
+bool PerPixelLighting::resolvePerLightParameters(ProgramSet* programSet)
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -250,7 +250,7 @@ auto PerPixelLighting::resolvePerLightParameters(ProgramSet* programSet) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto PerPixelLighting::resolveDependencies(ProgramSet* programSet) -> bool
+bool PerPixelLighting::resolveDependencies(ProgramSet* programSet)
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -267,7 +267,7 @@ auto PerPixelLighting::resolveDependencies(ProgramSet* programSet) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto PerPixelLighting::addFunctionInvocations(ProgramSet* programSet) -> bool
+bool PerPixelLighting::addFunctionInvocations(ProgramSet* programSet)
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM); 
     Function* vsMain = vsProgram->getEntryPointFunction();  
@@ -342,14 +342,14 @@ void PerPixelLighting::addPSGlobalIlluminationInvocation(const FunctionStageRef&
 }
 
 //-----------------------------------------------------------------------
-auto PerPixelLightingFactory::getType() const -> const String&
+const String& PerPixelLightingFactory::getType() const
 {
     return PerPixelLighting::Type;
 }
 
 //-----------------------------------------------------------------------
-auto PerPixelLightingFactory::createInstance(ScriptCompiler* compiler, 
-                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
+SubRenderState* PerPixelLightingFactory::createInstance(ScriptCompiler* compiler, 
+                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
 {
     if (prop->name != "lighting_stage" || prop->values.empty())
         return NULL;
@@ -389,7 +389,7 @@ void PerPixelLightingFactory::writeInstance(MaterialSerializer* ser, SubRenderSt
 }
 
 //-----------------------------------------------------------------------
-auto PerPixelLightingFactory::createInstanceImpl() -> SubRenderState*
+SubRenderState* PerPixelLightingFactory::createInstanceImpl()
 {
     return new PerPixelLighting;
 }

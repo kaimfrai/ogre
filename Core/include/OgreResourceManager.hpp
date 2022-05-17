@@ -63,7 +63,7 @@ namespace Ogre {
         /** Get the next item from the pool.
          @return pair indicating whether there was a free item, and the item if so
          */
-        virtual auto removeItem() -> std::pair<bool, T>
+        virtual std::pair<bool, T> removeItem()
         {
             std::pair<bool, T> ret;
             if (mItems.empty())
@@ -122,9 +122,9 @@ namespace Ogre {
         @param createParams If any parameters are required to create an instance,
             they should be supplied here as name / value pairs
         */
-        auto createResource(const String& name, const String& group,
+        ResourcePtr createResource(const String& name, const String& group,
             bool isManual = false, ManualResourceLoader* loader = 0, 
-            const NameValuePairList* createParams = 0) -> ResourcePtr;
+            const NameValuePairList* createParams = 0);
 
         typedef std::pair<ResourcePtr, bool> ResourceCreateOrRetrieveResult;
         /** Create a new resource, or retrieve an existing one with the same
@@ -139,10 +139,10 @@ namespace Ogre {
         @return A pair, the first element being the pointer, and the second being 
             an indicator specifying whether the resource was newly created.
         */
-        auto createOrRetrieve(const String& name,
+        ResourceCreateOrRetrieveResult createOrRetrieve(const String& name,
             const String& group, bool isManual = false, 
             ManualResourceLoader* loader = 0, 
-            const NameValuePairList* createParams = 0) -> ResourceCreateOrRetrieveResult;
+            const NameValuePairList* createParams = 0);
         
         /** Set a limit on the amount of memory this resource handler may use.
             @remarks
@@ -155,10 +155,10 @@ namespace Ogre {
 
         /** Get the limit on the amount of memory this resource handler may use.
         */
-        auto getMemoryBudget() const -> size_t;
+        size_t getMemoryBudget() const;
 
         /** Gets the current memory usage, in bytes. */
-        auto getMemoryUsage() const -> size_t { return mMemoryUsage.load(); }
+        size_t getMemoryUsage() const { return mMemoryUsage.load(); }
 
         /** Unloads a single resource by name.
         @remarks
@@ -318,19 +318,19 @@ namespace Ogre {
 
         /** Retrieves a pointer to a resource by name, or null if the resource does not exist.
         */
-        virtual auto getResourceByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const -> ResourcePtr;
+        virtual ResourcePtr getResourceByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const;
 
         /** Retrieves a pointer to a resource by handle, or null if the resource does not exist.
         */
-        virtual auto getByHandle(ResourceHandle handle) const -> ResourcePtr;
+        virtual ResourcePtr getByHandle(ResourceHandle handle) const;
         
         /// Returns whether the named resource exists in this manager
-        auto resourceExists(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT) const -> bool
+        bool resourceExists(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT) const
         {
             return getResourceByName(name, group).get() != 0;
         }
         /// Returns whether a resource with the given handle exists in this manager
-        auto resourceExists(ResourceHandle handle) const -> bool
+        bool resourceExists(ResourceHandle handle) const
         {
             return getByHandle(handle).get() != 0;
         }
@@ -365,33 +365,33 @@ namespace Ogre {
         @param backgroundThread Optional boolean which lets the load routine know if it
             is being run on the background resource loading thread
         */
-        auto prepare(const String& name,
+        ResourcePtr prepare(const String& name,
             const String& group, bool isManual = false, 
             ManualResourceLoader* loader = 0, const NameValuePairList* loadParams = 0,
-            bool backgroundThread = false) -> ResourcePtr;
+            bool backgroundThread = false);
 
         /** Generic load method, used to create a Resource specific to this 
             ResourceManager without using one of the specialised 'load' methods
             (containing per-Resource-type parameters).
         @copydetails ResourceManager::prepare()
         */
-        auto load(const String& name,
+        ResourcePtr load(const String& name,
             const String& group, bool isManual = false, 
             ManualResourceLoader* loader = 0, const NameValuePairList* loadParams = 0,
-            bool backgroundThread = false) -> ResourcePtr;
+            bool backgroundThread = false);
 
-        auto getScriptPatterns() const -> const StringVector& override { return mScriptPatterns; }
+        const StringVector& getScriptPatterns() const override { return mScriptPatterns; }
         void parseScript(DataStreamPtr& stream, const String& groupName) override;
-        auto getLoadingOrder() const -> Real override { return mLoadOrder; }
+        Real getLoadingOrder() const override { return mLoadOrder; }
 
         /** Gets a string identifying the type of resource this manager handles. */
-        auto getResourceType() const -> const String& { return mResourceType; }
+        const String& getResourceType() const { return mResourceType; }
 
         /** Sets whether this manager and its resources habitually produce log output */
         void setVerbose(bool v) { mVerbose = v; }
 
         /** Gets whether this manager and its resources habitually produce log output */
-        auto getVerbose() -> bool { return mVerbose; }
+        bool getVerbose() { return mVerbose; }
 
         /** Definition of a pool of resources, which users can use to reuse similar
             resources many times without destroying and recreating them.
@@ -406,12 +406,12 @@ namespace Ogre {
             ResourcePool(const String& name);
             ~ResourcePool();
             /// Get the name of the pool
-            [[nodiscard]] auto getName() const -> const String&;
+            [[nodiscard]] const String& getName() const;
             void clear();
         };
         
         /// Create a resource pool, or reuse one that already exists
-        auto getResourcePool(const String& name) -> ResourcePool*;
+        ResourcePool* getResourcePool(const String& name);
         /// Destroy a resource pool
         void destroyResourcePool(ResourcePool* pool);
         /// Destroy a resource pool
@@ -425,7 +425,7 @@ namespace Ogre {
     protected:
 
         /** Allocates the next handle. */
-        auto getNextHandle() -> ResourceHandle;
+        ResourceHandle getNextHandle();
 
         /** Create a new resource instance compatible with this manager (no custom 
             parameters are populated at this point). 
@@ -449,9 +449,9 @@ namespace Ogre {
             to differentiate which concrete class is created.
 
         */
-        virtual auto createImpl(const String& name, ResourceHandle handle, 
+        virtual Resource* createImpl(const String& name, ResourceHandle handle, 
             const String& group, bool isManual, ManualResourceLoader* loader, 
-            const NameValuePairList* createParams) -> Resource* = 0;
+            const NameValuePairList* createParams) = 0;
         /** Add a newly created resource to the manager (note weak reference) */
         virtual void addImpl( ResourcePtr& res );
         /** Remove a resource from this manager; remove it from the lists. */
@@ -490,7 +490,7 @@ namespace Ogre {
         @note
             Use of this iterator is NOT thread safe!
         */
-        auto getResourceIterator() -> ResourceMapIterator 
+        ResourceMapIterator getResourceIterator() 
         {
             return {mResourcesByHandle.begin(), mResourcesByHandle.end()};
         }

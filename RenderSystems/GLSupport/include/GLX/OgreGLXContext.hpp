@@ -49,7 +49,7 @@ class GLXGLSupport;
         virtual void endCurrent();
         
         /// @copydoc GLContext::clone
-        [[nodiscard]] auto clone() const -> GLContext*;
+        [[nodiscard]] GLContext* clone() const;
         
         ::GLXDrawable  mDrawable;
         ::GLXContext   mContext;

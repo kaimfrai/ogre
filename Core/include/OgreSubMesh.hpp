@@ -147,10 +147,10 @@ class VertexData;
 
         /// Sets the name of the Material which this SubMesh will use
         void setMaterialName(const String& matName, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
-        auto getMaterialName() const -> const String&;
+        const String& getMaterialName() const;
 
         void setMaterial(const MaterialPtr& mat) { mMaterial = mat; }
-        auto getMaterial() const -> const MaterialPtr& { return mMaterial; }
+        const MaterialPtr& getMaterial() const { return mMaterial; }
 
         /** Returns a RenderOperation structure required to render this mesh.
             @param 
@@ -187,7 +187,7 @@ class VertexData;
 
         /** Gets a const reference to the list of bone assignments
         */
-        auto getBoneAssignments() const -> const VertexBoneAssignmentList& { return mBoneAssignments; }
+        const VertexBoneAssignmentList& getBoneAssignments() const { return mBoneAssignments; }
 
 
         /** Must be called once to compile bone assignments into geometry buffer. */
@@ -195,19 +195,19 @@ class VertexData;
 
         typedef ConstMapIterator<AliasTextureNamePairList> AliasTextureIterator;
         /// @deprecated do not use
-        auto getAliasTextureIterator() const -> AliasTextureIterator;
+        AliasTextureIterator getAliasTextureIterator() const;
         /// @deprecated do not use
         void addTextureAlias(const String& aliasName, const String& textureName);
 
         /// @deprecated do not use
-        auto hasTextureAliases() const -> bool { return !mTextureAliases.empty(); }
+        bool hasTextureAliases() const { return !mTextureAliases.empty(); }
 
         /** Get the type of any vertex animation used by dedicated geometry.
         */
-        auto getVertexAnimationType() const -> VertexAnimationType;
+        VertexAnimationType getVertexAnimationType() const;
         
         /// Returns whether animation on dedicated vertex data includes normals
-        auto getVertexAnimationIncludesNormals() const -> bool { return mVertexAnimationIncludesNormals; }
+        bool getVertexAnimationIncludesNormals() const { return mVertexAnimationIncludesNormals; }
 
 
         /** Generate the submesh extremes (@see extremityPoints).
@@ -218,7 +218,7 @@ class VertexData;
 
         /** Returns true(by default) if the submesh should be included in the mesh EdgeList, otherwise returns false.
         */      
-        auto isBuildEdgesEnabled() const -> bool { return mBuildEdgesEnabled; }
+        bool isBuildEdgesEnabled() const { return mBuildEdgesEnabled; }
         void setBuildEdgesEnabled(bool b);
         /** Makes a copy of this submesh object and gives it a new name.
          @param newName
@@ -227,7 +227,7 @@ class VertexData;
          Optional mesh to make the parent of the newly created clone.
          If you leave this blank, the clone will be parented to the same Mesh as the original.
          */
-        auto clone(const String& newName, Mesh *parentMesh = 0) -> SubMesh *;
+        SubMesh * clone(const String& newName, Mesh *parentMesh = 0);
 
     private:
 

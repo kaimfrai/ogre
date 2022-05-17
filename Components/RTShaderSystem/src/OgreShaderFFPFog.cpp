@@ -70,19 +70,19 @@ FFPFog::FFPFog()
 }
 
 //-----------------------------------------------------------------------
-auto FFPFog::getType() const -> const String&
+const String& FFPFog::getType() const
 {
     return Type;
 }
 
 //-----------------------------------------------------------------------
-auto FFPFog::getExecutionOrder() const -> int
+int FFPFog::getExecutionOrder() const
 {
     return FFP_FOG;
 }
 
 //-----------------------------------------------------------------------
-auto FFPFog::resolveParameters(ProgramSet* programSet) -> bool
+bool FFPFog::resolveParameters(ProgramSet* programSet)
 {
     if (mFogMode == FOG_NONE)
         return true;
@@ -130,7 +130,7 @@ auto FFPFog::resolveParameters(ProgramSet* programSet) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto FFPFog::resolveDependencies(ProgramSet* programSet) -> bool
+bool FFPFog::resolveDependencies(ProgramSet* programSet)
 {
     if (mFogMode == FOG_NONE)
         return true;
@@ -152,7 +152,7 @@ auto FFPFog::resolveDependencies(ProgramSet* programSet) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto FFPFog::addFunctionInvocations(ProgramSet* programSet) -> bool
+bool FFPFog::addFunctionInvocations(ProgramSet* programSet)
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -227,7 +227,7 @@ void FFPFog::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-auto FFPFog::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool
+bool FFPFog::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
 {
     if (srcPass->getFogOverride())
     {
@@ -242,7 +242,7 @@ auto FFPFog::preAddToRenderState(const RenderState* renderState, Pass* srcPass, 
 }
 
 //-----------------------------------------------------------------------
-auto FFPFog::setParameter(const String& name, const String& value) -> bool
+bool FFPFog::setParameter(const String& name, const String& value)
 {
 	if(name == "calc_mode")
 	{
@@ -255,14 +255,14 @@ auto FFPFog::setParameter(const String& name, const String& value) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto FFPFogFactory::getType() const -> const String&
+const String& FFPFogFactory::getType() const
 {
     return FFPFog::Type;
 }
 
 //-----------------------------------------------------------------------
-auto FFPFogFactory::createInstance(ScriptCompiler* compiler, 
-                                                    PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
+SubRenderState* FFPFogFactory::createInstance(ScriptCompiler* compiler, 
+                                                    PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
 {
     if (prop->name == "fog_stage")
     {
@@ -323,7 +323,7 @@ void FFPFogFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subRe
 }
 
 //-----------------------------------------------------------------------
-auto FFPFogFactory::createInstanceImpl() -> SubRenderState*
+SubRenderState* FFPFogFactory::createInstanceImpl()
 {
     return new FFPFog;
 }

@@ -133,9 +133,9 @@ namespace Ogre {
         _destroyBuffers();
     }
     //-----------------------------------------------------------------------
-    auto BillboardSet::createBillboard(
+    Billboard* BillboardSet::createBillboard(
         const Vector3& position,
-        const ColourValue& colour ) -> Billboard*
+        const ColourValue& colour )
     {
         if( mActiveBillboards == mBillboardPool.size() )
         {
@@ -179,7 +179,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto BillboardSet::getBillboard( unsigned int index ) const -> Billboard*
+    Billboard* BillboardSet::getBillboard( unsigned int index ) const
     {
         assert(index < mActiveBillboards && "Billboard index out of bounds.");
         return mBillboardPool[index];
@@ -234,7 +234,7 @@ namespace Ogre {
         : sortDir(dir)
     {
     }
-    auto BillboardSet::SortByDirectionFunctor::operator()(Billboard* bill) const -> float
+    float BillboardSet::SortByDirectionFunctor::operator()(Billboard* bill) const
     {
         return sortDir.dotProduct(bill->getPosition());
     }
@@ -242,13 +242,13 @@ namespace Ogre {
         : sortPos(pos)
     {
     }
-    auto BillboardSet::SortByDistanceFunctor::operator()(Billboard* bill) const -> float
+    float BillboardSet::SortByDistanceFunctor::operator()(Billboard* bill) const
     {
         // Sort descending by squared distance
         return - (sortPos - bill->getPosition()).squaredLength();
     }
     //-----------------------------------------------------------------------
-    auto BillboardSet::_getSortMode() const -> SortMode
+    SortMode BillboardSet::_getSortMode() const
     {
         // Need to sort by distance if we're using accurate facing, or perpendicular billboard type.
         if (mAccurateFacing ||
@@ -748,7 +748,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto BillboardSet::billboardVisible(Camera* cam, const Billboard& bill) -> bool
+    bool BillboardSet::billboardVisible(Camera* cam, const Billboard& bill)
     {
         // Return always visible if not culling individually
         if (!mCullIndividual) return true;
@@ -856,7 +856,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto BillboardSet::getTypeFlags() const -> uint32
+    uint32 BillboardSet::getTypeFlags() const
     {
         return SceneManager::FX_TYPE_MASK;
     }
@@ -1069,18 +1069,18 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto BillboardSet::getMovableType() const -> const String&
+    const String& BillboardSet::getMovableType() const
     {
         return BillboardSetFactory::FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    auto BillboardSet::getSquaredViewDepth(const Camera* const cam) const -> Real
+    Real BillboardSet::getSquaredViewDepth(const Camera* const cam) const
     {
         assert(mParentNode);
         return mParentNode->getSquaredViewDepth(cam);
     }
     //-----------------------------------------------------------------------
-    auto BillboardSet::getLights() const -> const LightList&
+    const LightList& BillboardSet::getLights() const
     {
         // It's actually quite unlikely that this will be called,
         // because most billboards are unlit, but here we go anyway
@@ -1165,13 +1165,13 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String BillboardSetFactory::FACTORY_TYPE_NAME = "BillboardSet";
     //-----------------------------------------------------------------------
-    auto BillboardSetFactory::getType() const -> const String&
+    const String& BillboardSetFactory::getType() const
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    auto BillboardSetFactory::createInstanceImpl( const String& name,
-        const NameValuePairList* params) -> MovableObject*
+    MovableObject* BillboardSetFactory::createInstanceImpl( const String& name,
+        const NameValuePairList* params)
     {
         // may have parameters
         bool externalData = false;

@@ -161,7 +161,7 @@ namespace Ogre {
         void updateFaceNormals(size_t vertexSet, const HardwareVertexBufferSharedPtr& positionBuffer);
 
         [[nodiscard]]
-        auto clone() -> EdgeData*;
+        EdgeData* clone();
 
 
         /// Debugging method
@@ -206,7 +206,7 @@ namespace Ogre {
         @remarks
             The caller takes responsibility for deleting the returned structure.
         */
-        auto build() -> EdgeData*;
+        EdgeData* build();
 
         /// Debugging method
         void log(Log* l);
@@ -233,7 +233,7 @@ namespace Ogre {
         };
         /** Comparator for sorting geometries by vertex set */
         struct geometryLess {
-            auto operator()(const Geometry& a, const Geometry& b) const -> bool
+            bool operator()(const Geometry& a, const Geometry& b) const
             {
                 if (a.vertexSet < b.vertexSet) return true;
                 if (a.vertexSet > b.vertexSet) return false;
@@ -242,7 +242,7 @@ namespace Ogre {
         };
         /** Comparator for unique vertex list */
         struct vectorLess {
-            auto operator()(const Vector3& a, const Vector3& b) const -> bool
+            bool operator()(const Vector3& a, const Vector3& b) const
             {
                 if (a.x < b.x) return true;
                 if (a.x > b.x) return false;
@@ -272,8 +272,8 @@ namespace Ogre {
         void buildTrianglesEdges(const Geometry &geometry);
 
         /// Finds an existing common vertex, or inserts a new one
-        auto findOrCreateCommonVertex(const Vector3& vec, size_t vertexSet, 
-            size_t indexSet, size_t originalIndex) -> size_t;
+        size_t findOrCreateCommonVertex(const Vector3& vec, size_t vertexSet, 
+            size_t indexSet, size_t originalIndex);
         /// Connect existing edge or create a new edge - utility method during building
         void connectOrCreateEdge(size_t vertexSet, size_t triangleIndex, size_t vertIndex0, size_t vertIndex1, 
             size_t sharedVertIndex0, size_t sharedVertIndex1);

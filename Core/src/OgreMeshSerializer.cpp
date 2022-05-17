@@ -221,7 +221,7 @@ namespace Ogre {
         mListener = listener;
     }
     //-------------------------------------------------------------------------
-    auto MeshSerializer::getListener() -> MeshSerializerListener *
+    MeshSerializerListener *MeshSerializer::getListener()
     {
         return mListener;
     }

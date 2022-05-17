@@ -52,8 +52,8 @@ namespace Ogre {
             get called each render.
             @remarks The created operation must be instanciated using the new macro.
         */
-        virtual auto createOperation(
-            CompositorInstance* instance, const CompositionPass* pass) -> CompositorInstance::RenderSystemOperation* = 0;
+        virtual CompositorInstance::RenderSystemOperation* createOperation(
+            CompositorInstance* instance, const CompositionPass* pass) = 0;
 
     protected:
         virtual ~CustomCompositionPass() {}

@@ -38,12 +38,12 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-    static auto unquoted(const String& str, bool trim = true) -> String
+    static String unquoted(const String& str, bool trim = true)
     {
         return trim ? str.substr(1, str.size() - 2) : str;
     }
 
-    auto ScriptParser::parse(const ScriptTokenList &tokens, const String& file) -> ConcreteNodeListPtr
+    ConcreteNodeListPtr ScriptParser::parse(const ScriptTokenList &tokens, const String& file)
     {
         // MEMCATEGORY_GENERAL because SharedPtr can only free using that category
         ConcreteNodeListPtr nodes(new ConcreteNodeList());
@@ -438,7 +438,7 @@ namespace Ogre
         return nodes;
     }
 
-    auto ScriptParser::parseChunk(const ScriptTokenList &tokens, const String& file) -> ConcreteNodeListPtr
+    ConcreteNodeListPtr ScriptParser::parseChunk(const ScriptTokenList &tokens, const String& file)
     {
         // MEMCATEGORY_GENERAL because SharedPtr can only free using that category
         ConcreteNodeListPtr nodes(new ConcreteNodeList());
@@ -489,7 +489,7 @@ namespace Ogre
         return nodes;
     }
 
-    auto ScriptParser::getToken(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end, int offset) -> const ScriptToken *
+    const ScriptToken *ScriptParser::getToken(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end, int offset)
     {
         const ScriptToken *token = 0;
         ScriptTokenList::const_iterator iter = i + offset;
@@ -498,7 +498,7 @@ namespace Ogre
         return token;
     }
 
-    auto ScriptParser::skipNewlines(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end) -> ScriptTokenList::const_iterator
+    ScriptTokenList::const_iterator ScriptParser::skipNewlines(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end)
     {
         while(i != end && i->type == TID_NEWLINE)
             ++i;

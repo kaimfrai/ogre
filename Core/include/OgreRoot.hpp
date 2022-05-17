@@ -236,7 +236,7 @@ struct SceneManagerMetaData;
         @param now The current time in ms.
         @param type The type of event to be considered.
         */
-        auto calculateEventTime(unsigned long now, FrameEventTimeType type) -> Real;
+        Real calculateEventTime(unsigned long now, FrameEventTimeType type);
 
         /** Update a set of event times (note, progressive, only call once for each type per frame) */
         void populateFrameEvent(FrameEventTimeType type, FrameEvent& evtToUpdate);
@@ -276,7 +276,7 @@ struct SceneManagerMetaData;
                 If there is no saved configuration, or if the system failed
                 with the last config settings, <b>false</b> is returned.
         */
-        auto restoreConfig() -> bool;
+        bool restoreConfig();
 
         /** Displays a dialog asking the user to choose system settings.
             @remarks
@@ -297,7 +297,7 @@ struct SceneManagerMetaData;
                 If they clicked 'Cancel' (in which case the app should
                 strongly consider terminating), <b>false</b> is returned.
          */
-        auto showConfigDialog(ConfigDialog* dialog) -> bool;
+        bool showConfigDialog(ConfigDialog* dialog);
 
         /** Adds a new rendering subsystem to the list of available renderers.
             @remarks
@@ -318,7 +318,7 @@ struct SceneManagerMetaData;
                 list of RenderSystem subclasses. Can be used to build a
                 custom settings dialog.
         */
-        auto getAvailableRenderers() -> const RenderSystemList&;
+        const RenderSystemList& getAvailableRenderers();
 
         /** Retrieve a pointer to the render system by the given name
             @param
@@ -326,7 +326,7 @@ struct SceneManagerMetaData;
             @return
                 A pointer to the render system, <b>NULL</b> if no found.
         */
-        auto getRenderSystemByName(const String& name) -> RenderSystem*;
+        RenderSystem* getRenderSystemByName(const String& name);
 
         /** Sets the rendering subsystem to be used.
             @remarks
@@ -349,7 +349,7 @@ struct SceneManagerMetaData;
 
         /** Retrieve a pointer to the currently selected render system.
         */
-        auto getRenderSystem() -> RenderSystem*;
+        RenderSystem* getRenderSystem();
 
         /** Initialises the renderer.
             @remarks
@@ -368,11 +368,11 @@ struct SceneManagerMetaData;
                 A pointer to the automatically created window, if
                 requested, otherwise <b>NULL</b>.
         */
-        auto initialise(bool autoCreateWindow, const String& windowTitle = "OGRE Render Window",
-                                    const String& customCapabilitiesConfig = BLANKSTRING) -> RenderWindow*;
+        RenderWindow* initialise(bool autoCreateWindow, const String& windowTitle = "OGRE Render Window",
+                                    const String& customCapabilitiesConfig = BLANKSTRING);
 
         /** Returns whether the system is initialised or not. */
-        [[nodiscard]] auto isInitialised() const -> bool { return mIsInitialised; }
+        [[nodiscard]] bool isInitialised() const { return mIsInitialised; }
 
         /** Requests active RenderSystem to use custom RenderSystemCapabilities
         @remarks
@@ -384,7 +384,7 @@ struct SceneManagerMetaData;
         /** Get whether the entire render queue structure should be emptied on clearing, 
             or whether just the objects themselves should be cleared.
         */
-        [[nodiscard]] auto getRemoveRenderQueueStructuresOnClear() const -> bool { return mRemoveQueueStructuresOnClear; }
+        [[nodiscard]] bool getRemoveRenderQueueStructuresOnClear() const { return mRemoveQueueStructuresOnClear; }
 
         /** Set whether the entire render queue structure should be emptied on clearing, 
         or whether just the objects themselves should be cleared.
@@ -402,32 +402,32 @@ struct SceneManagerMetaData;
         void removeSceneManagerFactory(SceneManagerFactory* fact);
 
         /// @copydoc SceneManagerEnumerator::getMetaData(const String& )const
-        [[nodiscard]] auto getSceneManagerMetaData(const String& typeName) const -> const SceneManagerMetaData*;
+        [[nodiscard]] const SceneManagerMetaData* getSceneManagerMetaData(const String& typeName) const;
 
         /// @copydoc SceneManagerEnumerator::getMetaData()const
-        [[nodiscard]] auto getSceneManagerMetaData() const -> const SceneManagerEnumerator::MetaDataList&;
+        [[nodiscard]] const SceneManagerEnumerator::MetaDataList& getSceneManagerMetaData() const;
 
         /// create a default scene manager
-        auto createSceneManager() -> SceneManager*
+        SceneManager* createSceneManager()
         {
             return createSceneManager(DefaultSceneManagerFactory::FACTORY_TYPE_NAME);
         }
 
         /// @copydoc SceneManagerEnumerator::createSceneManager(const String&, const String&)
-        auto createSceneManager(const String& typeName, 
-            const String& instanceName = BLANKSTRING) -> SceneManager*;
+        SceneManager* createSceneManager(const String& typeName, 
+            const String& instanceName = BLANKSTRING);
 
         /// @copydoc SceneManagerEnumerator::destroySceneManager
         void destroySceneManager(SceneManager* sm);
 
         /// @copydoc SceneManagerEnumerator::getSceneManager
-        [[nodiscard]] auto getSceneManager(const String& instanceName) const -> SceneManager*;
+        [[nodiscard]] SceneManager* getSceneManager(const String& instanceName) const;
 
         /// @copydoc SceneManagerEnumerator::hasSceneManager
-        [[nodiscard]] auto hasSceneManager(const String& instanceName) const -> bool;
+        [[nodiscard]] bool hasSceneManager(const String& instanceName) const;
 
         /// @copydoc SceneManagerEnumerator::getSceneManagers
-        [[nodiscard]] auto getSceneManagers() const -> const SceneManagerEnumerator::Instances&;
+        [[nodiscard]] const SceneManagerEnumerator::Instances& getSceneManagers() const;
 
         /** Retrieves a reference to the current TextureManager.
             @remarks
@@ -444,14 +444,14 @@ struct SceneManagerMetaData;
                 selected, and these typically require a window upon which to
                 base texture format decisions.
         */
-        auto getTextureManager() -> TextureManager*;
+        TextureManager* getTextureManager();
 
         /** Retrieves a reference to the current MeshManager.
             @remarks
                 This performs the same function as MeshManager::getSingleton
                 and is provided for convenience to scripting engines.
         */
-        auto getMeshManager() -> MeshManager*;
+        MeshManager* getMeshManager();
 
         /** Registers a FrameListener which will be called back every frame.
             @remarks
@@ -493,7 +493,7 @@ struct SceneManagerMetaData;
             @see
                 Root, Root::queueEndRendering, Root::startRendering
         */
-        auto endRenderingQueued() -> bool;
+        bool endRenderingQueued();
 
         /** Starts / restarts the automatic rendering cycle.
             @remarks
@@ -531,7 +531,7 @@ struct SceneManagerMetaData;
             Overview of the render cycle
             ![](renderOneFrame.svg)
         */
-        auto renderOneFrame() -> bool;
+        bool renderOneFrame();
 
         /** Updates all the render targets with custom frame time information
         @remarks
@@ -539,7 +539,7 @@ struct SceneManagerMetaData;
         raising frame events before and after - all per-frame times are based on
         the time value you pass in.
         */
-        auto renderOneFrame(Real timeSinceLastFrame) -> bool;
+        bool renderOneFrame(Real timeSinceLastFrame);
 
         /** Shuts down the system manually.
             @remarks
@@ -571,9 +571,9 @@ struct SceneManagerMetaData;
             only locations which match that pattern (as determined by StringUtil::match)
             will be considered candidates for creation.
         */
-        static auto createFileStream(const String& filename,
+        static DataStreamPtr createFileStream(const String& filename,
                 const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-                bool overwrite = false, const String& locationPattern = BLANKSTRING) -> DataStreamPtr;
+                bool overwrite = false, const String& locationPattern = BLANKSTRING);
 
         /** Helper method to assist you in accessing readable file streams.
         @remarks
@@ -584,8 +584,8 @@ struct SceneManagerMetaData;
         @param groupName The name of the group in which to create the file, if the 
             resource system is used
         */      
-        static auto openFileStream(const String& filename,
-                const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> DataStreamPtr;
+        static DataStreamPtr openFileStream(const String& filename,
+                const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
         /** Retrieves a pointer to the window that was created automatically
             @remarks
@@ -595,15 +595,15 @@ struct SceneManagerMetaData;
                 returns a null pointer when Root has not been initialised with
                 the option of creating a window.
         */
-        auto getAutoCreatedWindow() -> RenderWindow*;
+        RenderWindow* getAutoCreatedWindow();
 
         /** @copydoc RenderSystem::_createRenderWindow
         */
-        auto createRenderWindow(const String &name, unsigned int width, unsigned int height, 
-            bool fullScreen, const NameValuePairList *miscParams = 0) -> RenderWindow* ;
+        RenderWindow* createRenderWindow(const String &name, unsigned int width, unsigned int height, 
+            bool fullScreen, const NameValuePairList *miscParams = 0) ;
 
         /// @overload
-        auto createRenderWindow(const RenderWindowDescription& desc) -> RenderWindow*
+        RenderWindow* createRenderWindow(const RenderWindowDescription& desc)
         {
             return createRenderWindow(desc.name, desc.width, desc.height,
                                       desc.useFullScreen, &desc.miscParams);
@@ -614,14 +614,14 @@ struct SceneManagerMetaData;
         @note
         If the render target cannot be found, NULL is returned.
         */
-        auto detachRenderTarget( RenderTarget* pWin ) -> RenderTarget*;
+        RenderTarget* detachRenderTarget( RenderTarget* pWin );
 
         /** Detaches a named RenderTarget from the active render system
         and returns a pointer to it.
         @note
         If the render target cannot be found, NULL is returned.
         */
-        auto detachRenderTarget( const String & name ) -> RenderTarget*;
+        RenderTarget* detachRenderTarget( const String & name );
 
         /** Destroys the given RenderTarget.
         */
@@ -635,7 +635,7 @@ struct SceneManagerMetaData;
 
         /** Retrieves a pointer to a named render target.
         */
-        auto getRenderTarget(const String &name) -> RenderTarget *;
+        RenderTarget * getRenderTarget(const String &name);
 
         /** Manually load a Plugin contained in a DLL / DSO.
          @remarks
@@ -683,10 +683,10 @@ struct SceneManagerMetaData;
         void uninstallPlugin(Plugin* plugin);
 
         /** Gets a read-only list of the currently installed plugins. */
-        [[nodiscard]] auto getInstalledPlugins() const -> const PluginInstanceList& { return mPlugins; }
+        [[nodiscard]] const PluginInstanceList& getInstalledPlugins() const { return mPlugins; }
 
         /** Gets a pointer to the central timer used for all OGRE timings */
-        auto getTimer() -> Timer*;
+        Timer* getTimer();
 
         /** Method for raising frame started events. 
         @remarks
@@ -707,7 +707,7 @@ struct SceneManagerMetaData;
         @return False if one or more frame listeners elected that the rendering loop should
             be terminated, true otherwise.
         */
-        auto _fireFrameStarted(FrameEvent& evt) -> bool;
+        bool _fireFrameStarted(FrameEvent& evt);
         /** Method for raising frame rendering queued events. 
         @remarks
             This method is only for internal use when you use OGRE's inbuilt rendering
@@ -717,7 +717,7 @@ struct SceneManagerMetaData;
             but before the buffers are swapped, or if you are not separating the
             update and buffer swap, then after the update just before _fireFrameEnded.
         */
-        auto _fireFrameRenderingQueued(FrameEvent& evt) -> bool;
+        bool _fireFrameRenderingQueued(FrameEvent& evt);
 
         /** Method for raising frame ended events. 
         @remarks
@@ -735,7 +735,7 @@ struct SceneManagerMetaData;
         @return False if one or more frame listeners elected that the rendering loop should
             be terminated, true otherwise.
         */
-        auto _fireFrameEnded(FrameEvent& evt) -> bool;
+        bool _fireFrameEnded(FrameEvent& evt);
         /** Method for raising frame started events. 
         @remarks
             This method is only for internal use when you use OGRE's inbuilt rendering
@@ -753,7 +753,7 @@ struct SceneManagerMetaData;
         @return False if one or more frame listeners elected that the rendering loop should
             be terminated, true otherwise.
         */
-        auto _fireFrameStarted() -> bool;
+        bool _fireFrameStarted();
         /** Method for raising frame rendering queued events. 
         @remarks
             This method is only for internal use when you use OGRE's inbuilt rendering
@@ -764,7 +764,7 @@ struct SceneManagerMetaData;
             updates in a frameRenderingQueued callback by just calling 
             RenderWindow::update with the 'swapBuffers' option set to false. 
         */
-        auto _fireFrameRenderingQueued() -> bool;
+        bool _fireFrameRenderingQueued();
         /** Method for raising frame ended events. 
         @remarks
             This method is only for internal use when you use OGRE's inbuilt rendering
@@ -779,7 +779,7 @@ struct SceneManagerMetaData;
         @return False if one or more frame listeners elected that the rendering loop should
             be terminated, true otherwise.
         */
-        auto _fireFrameEnded() -> bool;
+        bool _fireFrameEnded();
 
         /** Gets the number of the next frame to be rendered. 
         @remarks
@@ -789,14 +789,14 @@ struct SceneManagerMetaData;
             the current frame have been queued, thus reflecting that if you 
             start performing changes then, you will actually see them in the 
             next frame. */
-        [[nodiscard]] auto getNextFrameNumber() const -> unsigned long { return mNextFrame; }
+        [[nodiscard]] unsigned long getNextFrameNumber() const { return mNextFrame; }
 
         /** Returns the scene manager currently being used to render a frame.
         @remarks
             This is only intended for internal use; it is only valid during the
             rendering of a frame.
         */
-        [[nodiscard]] auto _getCurrentSceneManager() const -> SceneManager* { return mCurrentSceneManager; }
+        [[nodiscard]] SceneManager* _getCurrentSceneManager() const { return mCurrentSceneManager; }
         /** Sets the scene manager currently being used to render.
         @remarks
             This is only intended for internal use.
@@ -813,7 +813,7 @@ struct SceneManagerMetaData;
             individual RenderTarget instances using their own update() method.
         @return false if a FrameListener indicated it wishes to exit the render loop
         */
-        auto _updateAllRenderTargets() -> bool;
+        bool _updateAllRenderTargets();
 
         /** Internal method used for updating all RenderTarget objects (windows, 
             renderable textures etc) which are set to auto-update, with a custom time
@@ -826,12 +826,12 @@ struct SceneManagerMetaData;
             individual RenderTarget instances using their own update() method.
         @return false if a FrameListener indicated it wishes to exit the render loop
         */
-        auto _updateAllRenderTargets(FrameEvent& evt) -> bool;
+        bool _updateAllRenderTargets(FrameEvent& evt);
 
         /// @copydoc Singleton::getSingleton()
-        static auto getSingleton() -> Root&;
+        static Root& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static auto getSingletonPtr() -> Root*;
+        static Root* getSingletonPtr();
 
         /** Clears the history of all event times. 
         @remarks
@@ -857,7 +857,7 @@ struct SceneManagerMetaData;
         */
         void setFrameSmoothingPeriod(Real period) { mFrameSmoothingTime = period; }
         /** Gets the period over which OGRE smooths out fluctuations in frame times. */
-        [[nodiscard]] auto getFrameSmoothingPeriod() const -> Real { return mFrameSmoothingTime; }
+        [[nodiscard]] Real getFrameSmoothingPeriod() const { return mFrameSmoothingTime; }
 
         /** Register a new MovableObjectFactory which will create new MovableObject
             instances of a particular type, as identified by the getType() method.
@@ -882,21 +882,21 @@ struct SceneManagerMetaData;
         */
         void removeMovableObjectFactory(MovableObjectFactory* fact);
         /// Checks whether a factory is registered for a given MovableObject type
-        [[nodiscard]] auto hasMovableObjectFactory(const String& typeName) const -> bool;
+        [[nodiscard]] bool hasMovableObjectFactory(const String& typeName) const;
         /// Get a MovableObjectFactory for the given type
-        auto getMovableObjectFactory(const String& typeName) -> MovableObjectFactory*;
+        MovableObjectFactory* getMovableObjectFactory(const String& typeName);
         /** Allocate the next MovableObject type flag.
         @remarks
             This is done automatically if MovableObjectFactory::requestTypeFlags
             returns true; don't call this manually unless you're sure you need to.
         */
-        auto _allocateNextMovableObjectTypeFlag() -> uint32;
+        uint32 _allocateNextMovableObjectTypeFlag();
 
         typedef ConstMapIterator<MovableObjectFactoryMap> MovableObjectFactoryIterator;
         /** Return an iterator over all the MovableObjectFactory instances currently
             registered.
         */
-        [[nodiscard]] auto getMovableObjectFactories() const -> const MovableObjectFactoryMap&
+        [[nodiscard]] const MovableObjectFactoryMap& getMovableObjectFactories() const
         {
             return mMovableObjectFactoryMap;
         }
@@ -907,7 +907,7 @@ struct SceneManagerMetaData;
             However, you must remember to assign yourself a new channel through 
             which to process your tasks.
         */
-        [[nodiscard]] auto getWorkQueue() const -> WorkQueue* { return mWorkQueue.get(); }
+        [[nodiscard]] WorkQueue* getWorkQueue() const { return mWorkQueue.get(); }
 
         /** Replace the current work queue with an alternative. 
             You can use this method to replace the internal implementation of
@@ -929,7 +929,7 @@ struct SceneManagerMetaData;
         /** Returns whether blend indices information needs to be passed to the GPU
         see setBlendIndicesGpuRedundant() for more information
         */
-        [[nodiscard]] auto isBlendIndicesGpuRedundant() const -> bool { return mIsBlendIndicesGpuRedundant; }
+        [[nodiscard]] bool isBlendIndicesGpuRedundant() const { return mIsBlendIndicesGpuRedundant; }
 
         /** Sets whether blend weights information needs to be passed to the GPU.
         When entities use software animation they remove blend information such as
@@ -941,7 +941,7 @@ struct SceneManagerMetaData;
         /** Returns whether blend weights information needs to be passed to the GPU
         see setBlendWeightsGpuRedundant() for more information
         */
-        [[nodiscard]] auto isBlendWeightsGpuRedundant() const -> bool { return mIsBlendWeightsGpuRedundant; }
+        [[nodiscard]] bool isBlendWeightsGpuRedundant() const { return mIsBlendWeightsGpuRedundant; }
     
         /** Set the default minimum pixel size for object to be rendered by
         @note
@@ -951,7 +951,7 @@ struct SceneManagerMetaData;
 
         /** Get the default minimum pixel size for object to be rendered by
         */
-        auto getDefaultMinPixelSize() -> Real { return mDefaultMinPixelSize; }
+        Real getDefaultMinPixelSize() { return mDefaultMinPixelSize; }
     };
     /** @} */
     /** @} */

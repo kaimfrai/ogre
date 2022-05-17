@@ -44,11 +44,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> RenderSystemCapabilitiesManager* Singleton<RenderSystemCapabilitiesManager>::msSingleton = 0;
-    auto RenderSystemCapabilitiesManager::getSingletonPtr() -> RenderSystemCapabilitiesManager*
+    RenderSystemCapabilitiesManager* RenderSystemCapabilitiesManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto RenderSystemCapabilitiesManager::getSingleton() -> RenderSystemCapabilitiesManager&
+    RenderSystemCapabilitiesManager& RenderSystemCapabilitiesManager::getSingleton()
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -86,12 +86,12 @@ namespace Ogre {
         }
     }
 
-    auto RenderSystemCapabilitiesManager::loadParsedCapabilities(const String& name) -> RenderSystemCapabilities*
+    RenderSystemCapabilities* RenderSystemCapabilitiesManager::loadParsedCapabilities(const String& name)
     {
         return mCapabilitiesMap[name];
     }
 
-    auto RenderSystemCapabilitiesManager::getCapabilities() const -> const std::map<String, RenderSystemCapabilities*> &
+    const std::map<String, RenderSystemCapabilities*> &RenderSystemCapabilitiesManager::getCapabilities() const
     {
         return mCapabilitiesMap;
     }

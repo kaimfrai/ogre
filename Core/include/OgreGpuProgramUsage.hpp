@@ -103,7 +103,7 @@ namespace Ogre
         ~GpuProgramUsage();
 
         /** Gets the type of program we're trying to link to. */
-        [[nodiscard]] auto getType() const -> GpuProgramType { return mType; }
+        [[nodiscard]] GpuProgramType getType() const { return mType; }
 
         /** Sets the name of the program to use. 
         @param name The name of the program to use
@@ -124,9 +124,9 @@ namespace Ogre
         */
         void setProgram(const GpuProgramPtr& prog, bool resetParams = true);
         /** Gets the program being used. */
-        [[nodiscard]] auto getProgram() const -> const GpuProgramPtr& { return mProgram; }
+        [[nodiscard]] const GpuProgramPtr& getProgram() const { return mProgram; }
         /** Gets the program being used. */
-        [[nodiscard]] auto getProgramName() const -> const String& { return mProgram->getName(); }
+        [[nodiscard]] const String& getProgramName() const { return mProgram->getName(); }
 
         /** Sets the program parameters that should be used; because parameters can be
             shared between multiple usages for efficiency, this method is here for you
@@ -136,21 +136,21 @@ namespace Ogre
         void setParameters(const GpuProgramParametersSharedPtr& params);
         /** Gets the parameters being used here. 
         */
-        [[nodiscard]] auto getParameters() const -> const GpuProgramParametersSharedPtr&;
+        [[nodiscard]] const GpuProgramParametersSharedPtr& getParameters() const;
 
         /// Load this usage (and ensure program is loaded)
         void _load();
         /// Unload this usage 
         void _unload();
 
-        [[nodiscard]] auto calculateSize() const -> size_t;
+        [[nodiscard]] size_t calculateSize() const;
 
         // Resource Listener
         void unloadingComplete(Resource* prog);
         void loadingComplete(Resource* prog);
 
-        static auto _getProgramByName(const String& name, const String& group,
-                                               GpuProgramType type) -> GpuProgramPtr;
+        static GpuProgramPtr _getProgramByName(const String& name, const String& group,
+                                               GpuProgramType type);
     };
     /** @} */
     /** @} */

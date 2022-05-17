@@ -75,7 +75,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto SimpleSpline::interpolate(Real t) const -> Vector3
+    Vector3 SimpleSpline::interpolate(Real t) const
     {
         // Currently assumes points are evenly spaced, will cause velocity
         // change where this is not the case
@@ -92,7 +92,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto SimpleSpline::interpolate(unsigned int fromIndex, Real t) const -> Vector3
+    Vector3 SimpleSpline::interpolate(unsigned int fromIndex, Real t) const
     {
         // Bounds check
         assert (fromIndex < mPoints.size() &&
@@ -229,14 +229,14 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto SimpleSpline::getPoint(unsigned short index) const -> const Vector3&
+    const Vector3& SimpleSpline::getPoint(unsigned short index) const
     {
         assert (index < mPoints.size() && "Point index is out of bounds!!");
 
         return mPoints[index];
     }
     //---------------------------------------------------------------------
-    auto SimpleSpline::getNumPoints() const -> unsigned short
+    unsigned short SimpleSpline::getNumPoints() const
     {
         return (unsigned short)mPoints.size();
     }

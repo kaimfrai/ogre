@@ -223,14 +223,14 @@ class MovableObject;
         *xform = Matrix4::IDENTITY;
     }
 
-    auto Rectangle2D::getMovableType() const -> const String&
+    const String& Rectangle2D::getMovableType() const
     {
         return Rectangle2DFactory::FACTORY_TYPE_NAME;
     }
 
     const String Rectangle2DFactory::FACTORY_TYPE_NAME = "Rectangle2D";
 
-    auto Rectangle2DFactory::createInstanceImpl(const String& name, const NameValuePairList* params) -> MovableObject*
+    MovableObject* Rectangle2DFactory::createInstanceImpl(const String& name, const NameValuePairList* params)
     {
         bool includeTextureCoords = false;
         if (params)

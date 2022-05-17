@@ -78,12 +78,12 @@ namespace Ogre {
     {
     public:
         /** Tokenizes the given input and returns the list of tokens found */
-        static auto tokenize(const String &str, const String &source) -> ScriptTokenList;
+        static ScriptTokenList tokenize(const String &str, const String &source);
     private: // Private utility operations
-        static auto _tokenize(const String &str, const char* source, String& error) -> ScriptTokenList;
+        static ScriptTokenList _tokenize(const String &str, const char* source, String& error);
         static void setToken(const String &lexeme, uint32 line, ScriptTokenList& tokens);
-        static auto isWhitespace(Ogre::String::value_type c) -> bool;
-        static auto isNewline(Ogre::String::value_type c) -> bool;
+        static bool isWhitespace(Ogre::String::value_type c);
+        static bool isNewline(Ogre::String::value_type c);
     };
 
     /** @} */

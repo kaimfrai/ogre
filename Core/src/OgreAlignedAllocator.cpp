@@ -58,7 +58,7 @@ namespace Ogre {
         @par
             On failure, exception will be throw.
     */
-    auto AlignedMemory::allocate(size_t size, size_t alignment) -> void*
+    void* AlignedMemory::allocate(size_t size, size_t alignment)
     {
         assert(0 < alignment && alignment <= 128 && Bitwise::isPO2(alignment));
 
@@ -71,7 +71,7 @@ namespace Ogre {
         return result;
     }
     //---------------------------------------------------------------------
-    auto AlignedMemory::allocate(size_t size) -> void*
+    void* AlignedMemory::allocate(size_t size)
     {
         return allocate(size, OGRE_SIMD_ALIGNMENT);
     }

@@ -45,7 +45,7 @@ class ResourceManager;
     class CmdDelegate : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     static CmdDelegate msCmdDelegate;
@@ -104,7 +104,7 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::_getDelegate() const -> const GpuProgramPtr&
+    const GpuProgramPtr& UnifiedHighLevelGpuProgram::_getDelegate() const
     {
         if (!mChosenDelegate)
         {
@@ -127,7 +127,7 @@ class ResourceManager;
         mChosenDelegate.reset();
     }
     //-----------------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::calculateSize() const -> size_t
+    size_t UnifiedHighLevelGpuProgram::calculateSize() const
     {
         size_t memSize = 0;
 
@@ -140,12 +140,12 @@ class ResourceManager;
         return memSize;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::getLanguage() const -> const String&
+    const String& UnifiedHighLevelGpuProgram::getLanguage() const
     {
         return sLanguage;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::createParameters() -> GpuProgramParametersSharedPtr
+    GpuProgramParametersSharedPtr UnifiedHighLevelGpuProgram::createParameters()
     {
         if (isSupported())
         {
@@ -161,7 +161,7 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::_getBindingDelegate() -> GpuProgram*
+    GpuProgram* UnifiedHighLevelGpuProgram::_getBindingDelegate()
     {
         if (_getDelegate())
             return _getDelegate()->_getBindingDelegate();
@@ -169,13 +169,13 @@ class ResourceManager;
             return 0;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::isSupported() const -> bool
+    bool UnifiedHighLevelGpuProgram::isSupported() const
     {
         // Supported if one of the delegates is
         return _getDelegate() && _getDelegate()->isSupported();
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::isSkeletalAnimationIncluded() const -> bool
+    bool UnifiedHighLevelGpuProgram::isSkeletalAnimationIncluded() const
     {
         if (_getDelegate())
             return _getDelegate()->isSkeletalAnimationIncluded();
@@ -183,7 +183,7 @@ class ResourceManager;
             return false;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::isMorphAnimationIncluded() const -> bool
+    bool UnifiedHighLevelGpuProgram::isMorphAnimationIncluded() const
     {
         if (_getDelegate())
             return _getDelegate()->isMorphAnimationIncluded();
@@ -191,7 +191,7 @@ class ResourceManager;
             return false;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::isPoseAnimationIncluded() const -> bool
+    bool UnifiedHighLevelGpuProgram::isPoseAnimationIncluded() const
     {
         if (_getDelegate())
             return _getDelegate()->isPoseAnimationIncluded();
@@ -199,7 +199,7 @@ class ResourceManager;
             return false;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::getNumberOfPosesIncluded() const -> ushort
+    ushort UnifiedHighLevelGpuProgram::getNumberOfPosesIncluded() const
     {
         if (_getDelegate())
             return _getDelegate()->getNumberOfPosesIncluded();
@@ -207,7 +207,7 @@ class ResourceManager;
             return 0;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::isVertexTextureFetchRequired() const -> bool
+    bool UnifiedHighLevelGpuProgram::isVertexTextureFetchRequired() const
     {
         if (_getDelegate())
             return _getDelegate()->isVertexTextureFetchRequired();
@@ -215,7 +215,7 @@ class ResourceManager;
             return false;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::getDefaultParameters() -> const GpuProgramParametersPtr&
+    const GpuProgramParametersPtr& UnifiedHighLevelGpuProgram::getDefaultParameters()
     {
         if (_getDelegate())
             return _getDelegate()->getDefaultParameters();
@@ -224,7 +224,7 @@ class ResourceManager;
         return nullPtr;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::hasDefaultParameters() const -> bool
+    bool UnifiedHighLevelGpuProgram::hasDefaultParameters() const
     {
         if (_getDelegate())
             return _getDelegate()->hasDefaultParameters();
@@ -232,7 +232,7 @@ class ResourceManager;
             return false;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::getPassSurfaceAndLightStates() const -> bool
+    bool UnifiedHighLevelGpuProgram::getPassSurfaceAndLightStates() const
     {
         if (_getDelegate())
             return _getDelegate()->getPassSurfaceAndLightStates();
@@ -240,7 +240,7 @@ class ResourceManager;
             return GpuProgram::getPassSurfaceAndLightStates();
     }
     //---------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::getPassFogStates() const -> bool
+    bool UnifiedHighLevelGpuProgram::getPassFogStates() const
     {
         if (_getDelegate())
             return _getDelegate()->getPassFogStates();
@@ -248,7 +248,7 @@ class ResourceManager;
             return GpuProgram::getPassFogStates();
     }
     //---------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::getPassTransformStates() const -> bool
+    bool UnifiedHighLevelGpuProgram::getPassTransformStates() const
     {
         if (_getDelegate())
             return _getDelegate()->getPassTransformStates();
@@ -257,7 +257,7 @@ class ResourceManager;
 
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::hasCompileError() const -> bool
+    bool UnifiedHighLevelGpuProgram::hasCompileError() const
     {
         if (!_getDelegate())
         {
@@ -287,7 +287,7 @@ class ResourceManager;
             _getDelegate()->reload(flags);
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::isReloadable() const -> bool
+    bool UnifiedHighLevelGpuProgram::isReloadable() const
     {
         if (_getDelegate())
             return _getDelegate()->isReloadable();
@@ -301,7 +301,7 @@ class ResourceManager;
             _getDelegate()->unload();
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::isLoaded() const -> bool
+    bool UnifiedHighLevelGpuProgram::isLoaded() const
     {
         if (_getDelegate())
             return _getDelegate()->isLoaded();
@@ -309,7 +309,7 @@ class ResourceManager;
             return false;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::isLoading() const -> bool
+    bool UnifiedHighLevelGpuProgram::isLoading() const
     {
         if (_getDelegate())
             return _getDelegate()->isLoading();
@@ -317,7 +317,7 @@ class ResourceManager;
             return false;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::getLoadingState() const -> Resource::LoadingState
+    Resource::LoadingState UnifiedHighLevelGpuProgram::getLoadingState() const
     {
         if (_getDelegate())
             return _getDelegate()->getLoadingState();
@@ -325,7 +325,7 @@ class ResourceManager;
             return Resource::LOADSTATE_UNLOADED;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::getSize() const -> size_t
+    size_t UnifiedHighLevelGpuProgram::getSize() const
     {
         if (_getDelegate())
             return _getDelegate()->getSize();
@@ -339,7 +339,7 @@ class ResourceManager;
             _getDelegate()->touch();
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::isBackgroundLoaded() const -> bool
+    bool UnifiedHighLevelGpuProgram::isBackgroundLoaded() const
     {
         if (_getDelegate())
             return _getDelegate()->isBackgroundLoaded();
@@ -393,7 +393,7 @@ class ResourceManager;
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    auto CmdDelegate::doGet(const void* target) const -> String
+    String CmdDelegate::doGet(const void* target) const
     {
         // Can't do this (not one delegate), shouldn't matter
         return BLANKSTRING;
@@ -413,14 +413,14 @@ class ResourceManager;
     {
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgramFactory::getLanguage() const -> const String&
+    const String& UnifiedHighLevelGpuProgramFactory::getLanguage() const
     {
         return sLanguage;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgramFactory::create(ResourceManager* creator,
+    GpuProgram* UnifiedHighLevelGpuProgramFactory::create(ResourceManager* creator,
         const String& name, ResourceHandle handle,
-        const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram*
+        const String& group, bool isManual, ManualResourceLoader* loader)
     {
         return new UnifiedHighLevelGpuProgram(creator, name, handle, group, isManual, loader);
     }

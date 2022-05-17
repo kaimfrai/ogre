@@ -185,7 +185,7 @@ namespace Ogre {
         mCurrentCapabilities = 0;
     }
 
-    auto RenderSystem::getRenderWindowDescription() const -> RenderWindowDescription
+    RenderWindowDescription RenderSystem::getRenderWindowDescription() const
     {
         RenderWindowDescription ret;
         auto& miscParams = ret.miscParams;
@@ -343,9 +343,9 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------------------------------
-    auto RenderSystem::_createRenderWindow(const String& name, unsigned int width,
+    RenderWindow* RenderSystem::_createRenderWindow(const String& name, unsigned int width,
                                                     unsigned int height, bool fullScreen,
-                                                    const NameValuePairList* miscParams) -> RenderWindow*
+                                                    const NameValuePairList* miscParams)
     {
         if (mRenderTargets.find(name) != mRenderTargets.end())
         {
@@ -400,7 +400,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------------------------------
-    auto RenderSystem::getRenderTarget( const String &name ) -> RenderTarget *
+    RenderTarget * RenderSystem::getRenderTarget( const String &name )
     {
         RenderTargetMap::iterator it = mRenderTargets.find( name );
         RenderTarget *ret = NULL;
@@ -414,7 +414,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------------------------------
-    auto RenderSystem::detachRenderTarget( const String &name ) -> RenderTarget *
+    RenderTarget * RenderSystem::detachRenderTarget( const String &name )
     {
         RenderTargetMap::iterator it = mRenderTargets.find( name );
         RenderTarget *ret = NULL;
@@ -443,7 +443,7 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto RenderSystem::_getViewport() -> Viewport*
+    Viewport* RenderSystem::_getViewport()
     {
         return mActiveViewport;
     }
@@ -573,7 +573,7 @@ namespace Ogre {
             OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "Cannot begin frame - no viewport selected.");
     }
     //-----------------------------------------------------------------------
-    auto RenderSystem::_getCullingMode() const -> CullingMode
+    CullingMode RenderSystem::_getCullingMode() const
     {
         return mCullingMode;
     }
@@ -613,7 +613,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto RenderSystem::isReverseDepthBufferEnabled() const -> bool
+    bool RenderSystem::isReverseDepthBufferEnabled() const
     {
         return mIsReverseDepthBufferEnabled;
     }
@@ -667,17 +667,17 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto RenderSystem::_getFaceCount() const -> unsigned int
+    unsigned int RenderSystem::_getFaceCount() const
     {
         return static_cast< unsigned int >( mFaceCount );
     }
     //-----------------------------------------------------------------------
-    auto RenderSystem::_getBatchCount() const -> unsigned int
+    unsigned int RenderSystem::_getBatchCount() const
     {
         return static_cast< unsigned int >( mBatchCount );
     }
     //-----------------------------------------------------------------------
-    auto RenderSystem::_getVertexCount() const -> unsigned int
+    unsigned int RenderSystem::_getVertexCount() const
     {
         return static_cast< unsigned int >( mVertexCount );
     }
@@ -736,7 +736,7 @@ namespace Ogre {
         mInvertVertexWinding = invert;
     }
     //-----------------------------------------------------------------------
-    auto RenderSystem::getInvertVertexWinding() const -> bool
+    bool RenderSystem::getInvertVertexWinding() const
     {
         return mInvertVertexWinding;
     }
@@ -762,7 +762,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    auto RenderSystem::updatePassIterationRenderState() -> bool
+    bool RenderSystem::updatePassIterationRenderState()
     {
         if (mCurrentPassIterationCount <= 1)
             return false;
@@ -819,7 +819,7 @@ namespace Ogre {
         msSharedEventListener = listener;
     }
     //-----------------------------------------------------------------------
-    auto RenderSystem::getSharedListener() -> RenderSystem::Listener*
+    RenderSystem::Listener* RenderSystem::getSharedListener()
     {
         return msSharedEventListener;
     }
@@ -914,7 +914,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto RenderSystem::isGpuProgramBound(GpuProgramType gptype) -> bool
+    bool RenderSystem::isGpuProgramBound(GpuProgramType gptype)
     {
         switch(gptype)
         {
@@ -942,7 +942,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto RenderSystem::_pauseFrame() -> RenderSystem::RenderSystemContext*
+    RenderSystem::RenderSystemContext* RenderSystem::_pauseFrame()
     {
         _endFrame();
         return new RenderSystem::RenderSystemContext;
@@ -954,7 +954,7 @@ namespace Ogre {
         delete context;
     }
     //---------------------------------------------------------------------
-    auto RenderSystem::_getDefaultViewportMaterialScheme( ) const -> const String&
+    const String& RenderSystem::_getDefaultViewportMaterialScheme( ) const
     {
         if ( !(getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION)) )
         {
@@ -968,7 +968,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto RenderSystem::getGlobalInstanceVertexBuffer() const -> Ogre::HardwareVertexBufferSharedPtr
+    Ogre::HardwareVertexBufferSharedPtr RenderSystem::getGlobalInstanceVertexBuffer() const
     {
         return mGlobalInstanceVertexBuffer;
     }
@@ -984,7 +984,7 @@ namespace Ogre {
         mGlobalInstanceVertexBuffer = val;
     }
     //---------------------------------------------------------------------
-    auto RenderSystem::getGlobalNumberOfInstances() const -> size_t
+    size_t RenderSystem::getGlobalNumberOfInstances() const
     {
         return mGlobalNumberOfInstances;
     }
@@ -994,7 +994,7 @@ namespace Ogre {
         mGlobalNumberOfInstances = val;
     }
 
-    auto RenderSystem::getGlobalInstanceVertexBufferVertexDeclaration() const -> VertexDeclaration*
+    VertexDeclaration* RenderSystem::getGlobalInstanceVertexBufferVertexDeclaration() const
     {
         return mGlobalInstanceVertexBufferVertexDeclaration;
     }
@@ -1047,7 +1047,7 @@ namespace Ogre {
         mOptions[optSRGB.name] = optSRGB;
     }
 
-    auto RenderSystem::reverseCompareFunction(CompareFunction func) -> CompareFunction
+    CompareFunction RenderSystem::reverseCompareFunction(CompareFunction func)
     {
         switch(func)
         {
@@ -1064,7 +1064,7 @@ namespace Ogre {
         }
     }
 
-    auto RenderSystem::flipFrontFace() const -> bool
+    bool RenderSystem::flipFrontFace() const
     {
         return mInvertVertexWinding != mActiveRenderTarget->requiresTextureFlipping();
     }

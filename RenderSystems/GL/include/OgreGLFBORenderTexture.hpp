@@ -61,12 +61,12 @@ namespace Ogre {
         virtual void swapBuffers();
 
         /// Override so we can attach the depth buffer to the FBO
-        virtual auto attachDepthBuffer( DepthBuffer *depthBuffer ) -> bool;
+        virtual bool attachDepthBuffer( DepthBuffer *depthBuffer );
         virtual void detachDepthBuffer();
         virtual void _detachDepthBuffer();
 
-        [[nodiscard]] auto getContext() const -> GLContext* { return mFB.getContext(); }
-        auto getFBO() -> GLFrameBufferObjectCommon* { return &mFB; }
+        [[nodiscard]] GLContext* getContext() const { return mFB.getContext(); }
+        GLFrameBufferObjectCommon* getFBO() { return &mFB; }
     protected:
         GLFrameBufferObject mFB;
     };
@@ -94,15 +94,15 @@ namespace Ogre {
         
         /** Create a texture rendertarget object
         */
-        virtual auto createRenderTexture(const String &name, 
-            const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> GLFBORenderTexture *;
+        virtual GLFBORenderTexture *createRenderTexture(const String &name, 
+            const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
         
         /** Request a render buffer. If format is GL_NONE, return a zero buffer.
         */
-        auto requestRenderBuffer(GLenum format, uint32 width, uint32 height, uint fsaa) -> GLSurfaceDesc;
+        GLSurfaceDesc requestRenderBuffer(GLenum format, uint32 width, uint32 height, uint fsaa);
         /** Get a FBO without depth/stencil for temporary use, like blitting between textures.
         */
-        auto getTemporaryFBO() -> GLuint { return mTempFBO; }
+        GLuint getTemporaryFBO() { return mTempFBO; }
     private:
         /** Temporary FBO identifier
          */
@@ -113,8 +113,8 @@ namespace Ogre {
         
         /** Detect allowed FBO formats */
         void detectFBOFormats();
-        auto _tryFormat(GLenum depthFormat, GLenum stencilFormat) -> GLuint;
-        auto _tryPackedFormat(GLenum packedFormat) -> bool;
+        GLuint _tryFormat(GLenum depthFormat, GLenum stencilFormat);
+        bool _tryPackedFormat(GLenum packedFormat);
         void _createTempFramebuffer(GLuint internalfmt, GLuint fmt, GLenum type, GLuint &fb, GLuint &tid);
     };
     

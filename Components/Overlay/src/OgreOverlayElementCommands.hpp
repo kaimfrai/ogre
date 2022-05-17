@@ -58,42 +58,42 @@ namespace Ogre  {
         class CmdMaterial : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
+            String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /// Command object for OverlayElement  - see ParamCommand 
         class CmdCaption : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
+            String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /// Command object for OverlayElement  - see ParamCommand 
         class CmdMetricsMode : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
+            String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /// Command object for OverlayElement  - see ParamCommand 
         class CmdHorizontalAlign : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
+            String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /// Command object for OverlayElement  - see ParamCommand 
         class CmdVerticalAlign : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
+            String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
         /// Command object for OverlayElement  - see ParamCommand 
         class CmdVisible : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> String;
+            String doGet(const void* target) const;
             void doSet(void* target, const String& val);
         };
 

@@ -79,13 +79,13 @@ template <typename T> class ControllerValue;
 
         /** Creates a new controller and registers it with the manager.
         */
-        auto createController(const ControllerValueRealPtr& src,
-            const ControllerValueRealPtr& dest, const ControllerFunctionRealPtr& func) -> Controller<Real>*;
+        Controller<Real>* createController(const ControllerValueRealPtr& src,
+            const ControllerValueRealPtr& dest, const ControllerFunctionRealPtr& func);
 
         /** Creates a new controller use frame time source and passthrough controller function.
         */
-        auto createFrameTimePassthroughController(
-            const ControllerValueRealPtr& dest) -> Controller<Real>*;
+        Controller<Real>* createFrameTimePassthroughController(
+            const ControllerValueRealPtr& dest);
 
         /** Destroys all the controllers in existence.
         */
@@ -105,10 +105,10 @@ template <typename T> class ControllerValue;
         @see
             RenderSystem::beginFrame
         */
-        [[nodiscard]] auto getFrameTimeSource() const -> const ControllerValueRealPtr&;
+        [[nodiscard]] const ControllerValueRealPtr& getFrameTimeSource() const;
 
         /** Retrieve a simple passthrough controller function. */
-        [[nodiscard]] auto getPassthroughControllerFunction() const -> const ControllerFunctionRealPtr&;
+        [[nodiscard]] const ControllerFunctionRealPtr& getPassthroughControllerFunction() const;
 
         /** Creates a texture layer animator controller.
         @remarks
@@ -119,7 +119,7 @@ template <typename T> class ControllerValue;
         @param sequenceTime
             The amount of time in seconds it will take to loop through all the frames.
         */
-        auto createTextureAnimator(TextureUnitState* layer, Real sequenceTime) -> Controller<Real>*;
+        Controller<Real>* createTextureAnimator(TextureUnitState* layer, Real sequenceTime);
 
         /** Creates a basic time-based texture uv coordinate modifier designed for creating scrolling textures.
         @remarks
@@ -133,7 +133,7 @@ template <typename T> class ControllerValue;
         @param speed
             Speed of horizontal (u-coord) and vertical (v-coord) scroll, in complete wraps per second.
         */
-        auto createTextureUVScroller(TextureUnitState* layer, Real speed) -> Controller<Real>*;
+        Controller<Real>* createTextureUVScroller(TextureUnitState* layer, Real speed);
 
         /** Creates a basic time-based texture u coordinate modifier designed for creating scrolling textures.
         @remarks
@@ -145,7 +145,7 @@ template <typename T> class ControllerValue;
         @param uSpeed
             Speed of horizontal (u-coord) scroll, in complete wraps per second.
         */
-        auto createTextureUScroller(TextureUnitState* layer, Real uSpeed) -> Controller<Real>*;
+        Controller<Real>* createTextureUScroller(TextureUnitState* layer, Real uSpeed);
 
         /** Creates a basic time-based texture v coordinate modifier designed for creating scrolling textures.
         @remarks
@@ -157,7 +157,7 @@ template <typename T> class ControllerValue;
         @param vSpeed
             Speed of vertical (v-coord) scroll, in complete wraps per second.
         */
-        auto createTextureVScroller(TextureUnitState* layer, Real vSpeed) -> Controller<Real>*;
+        Controller<Real>* createTextureVScroller(TextureUnitState* layer, Real vSpeed);
 
         /** Creates a basic time-based texture coordinate modifier designed for creating rotating textures.
         @return
@@ -169,7 +169,7 @@ template <typename T> class ControllerValue;
         @param speed
             Speed of rotation, in complete anticlockwise revolutions per second.
         */
-        auto createTextureRotater(TextureUnitState* layer, Real speed) -> Controller<Real>*;
+        Controller<Real>* createTextureRotater(TextureUnitState* layer, Real speed);
 
         /** Creates a very flexible time-based texture transformation which can alter the scale, position or
             rotation of a texture based on a wave function.
@@ -188,8 +188,8 @@ template <typename T> class ControllerValue;
         @param amplitude
             Scales the output so that instead of lying within 0..1 it lies within 0..1*amplitude for exaggerated effects.
         */
-        auto createTextureWaveTransformer(TextureUnitState* layer, TextureUnitState::TextureTransformType ttype,
-            WaveformType waveType, Real base = 0, Real frequency = 1, Real phase = 0, Real amplitude = 1) -> Controller<Real>*;
+        Controller<Real>* createTextureWaveTransformer(TextureUnitState* layer, TextureUnitState::TextureTransformType ttype,
+            WaveformType waveType, Real base = 0, Real frequency = 1, Real phase = 0, Real amplitude = 1);
 
         /** Creates a controller for passing a frame time value through to a vertex / fragment program parameter.
         @remarks
@@ -203,8 +203,8 @@ template <typename T> class ControllerValue;
         @param timeFactor
             The factor by which to adjust the time elapsed by before passing it to the program.
         */
-        auto createGpuProgramTimerParam(GpuProgramParametersSharedPtr params, size_t paramIndex,
-            Real timeFactor = 1.0f) -> Controller<Real>*;
+        Controller<Real>* createGpuProgramTimerParam(GpuProgramParametersSharedPtr params, size_t paramIndex,
+            Real timeFactor = 1.0f);
 
         /** Removes & destroys the controller passed in as a pointer.
         */
@@ -214,7 +214,7 @@ template <typename T> class ControllerValue;
         @remarks
             See setTimeFactor for full information on the meaning of this value.
         */
-        [[nodiscard]] auto getTimeFactor() const -> Real;
+        [[nodiscard]] Real getTimeFactor() const;
 
         /** Set the relative speed to update frame time based controllers.
         @remarks
@@ -231,7 +231,7 @@ template <typename T> class ControllerValue;
         @remarks
             See setFrameDelay for full information on the meaning of this value.
         */
-        [[nodiscard]] auto getFrameDelay() const -> Real;
+        [[nodiscard]] Real getFrameDelay() const;
 
         /** Sets a constant frame rate.
         @remarks
@@ -251,7 +251,7 @@ template <typename T> class ControllerValue;
         @remarks
             See setElapsedTime for full information on the meaning of this value.
         */
-        [[nodiscard]] auto getElapsedTime() const -> Real;
+        [[nodiscard]] Real getElapsedTime() const;
 
         /** Set the elapsed time.
         @remarks
@@ -264,9 +264,9 @@ template <typename T> class ControllerValue;
         void setElapsedTime(Real elapsedTime);
 
         /// @copydoc Singleton::getSingleton()
-        static auto getSingleton() -> ControllerManager&;
+        static ControllerManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static auto getSingletonPtr() -> ControllerManager*;
+        static ControllerManager* getSingletonPtr();
     };
 
     /** @} */

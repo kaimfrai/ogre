@@ -70,7 +70,7 @@ public:
 
     /** Compare the the two set's versions of the specified image name
      *        @param name filename of the image (filename only, no path) */
-    auto compare(Ogre::String image) -> ComparisonResult
+    ComparisonResult compare(Ogre::String image)
     {
         ComparisonResult out;
         out.image = image + ".png";

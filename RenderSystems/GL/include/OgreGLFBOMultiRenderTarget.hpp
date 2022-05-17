@@ -51,13 +51,13 @@ class GLFrameBufferObjectCommon;
         ~GLFBOMultiRenderTarget();
 
         virtual void getCustomAttribute( const String& name, void *pData );
-        [[nodiscard]] auto getContext() const -> GLContext* { return fbo.getContext(); }
-        auto getFBO() -> GLFrameBufferObjectCommon* { return &fbo; }
+        [[nodiscard]] GLContext* getContext() const { return fbo.getContext(); }
+        GLFrameBufferObjectCommon* getFBO() { return &fbo; }
 
-        [[nodiscard]] auto requiresTextureFlipping() const -> bool { return true; }
+        [[nodiscard]] bool requiresTextureFlipping() const { return true; }
 
         /// Override so we can attach the depth buffer to the FBO
-        virtual auto attachDepthBuffer( DepthBuffer *depthBuffer ) -> bool;
+        virtual bool attachDepthBuffer( DepthBuffer *depthBuffer );
         virtual void detachDepthBuffer();
         virtual void _detachDepthBuffer();
     private:

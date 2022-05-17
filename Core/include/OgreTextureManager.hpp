@@ -76,10 +76,10 @@ class Image;
         virtual ~TextureManager();
 
         /// create a new sampler
-        auto createSampler(const String& name = BLANKSTRING) -> SamplerPtr;
+        SamplerPtr createSampler(const String& name = BLANKSTRING);
 
         /// retrieve an named sampler
-        auto getSampler(const String& name) const -> const SamplerPtr&;
+        const SamplerPtr& getSampler(const String& name) const;
 
         /// clear the list of named samplers
         /// @copydetails removeAll()
@@ -87,11 +87,11 @@ class Image;
 
         /// Create a new texture
         /// @copydetails ResourceManager::createResource
-        auto create (const String& name, const String& group,
+        TexturePtr create (const String& name, const String& group,
                             bool isManual = false, ManualResourceLoader* loader = 0,
-                            const NameValuePairList* createParams = 0) -> TexturePtr;
+                            const NameValuePairList* createParams = 0);
         /// @copydoc ResourceManager::getResourceByName
-        auto getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const -> TexturePtr;
+        TexturePtr getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const;
 
         using ResourceManager::createOrRetrieve;
 
@@ -119,22 +119,22 @@ class Image;
                 8-bits per channel textures, will be ignored for other types. Has the advantage
                 over pre-applied gamma that the texture precision is maintained.
         */
-        auto createOrRetrieve(
+        ResourceCreateOrRetrieveResult createOrRetrieve(
             const String &name, const String& group, bool isManual,
             ManualResourceLoader* loader, const NameValuePairList* createParams,
             TextureType texType, int numMipmaps = MIP_DEFAULT,
             Real gamma = 1.0f, bool isAlpha = false,
-            PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false) -> ResourceCreateOrRetrieveResult;
+            PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false);
 
         /** Prepares to loads a texture from a file.
             @copydetails TextureManager::load
             @param isAlpha deprecated: same as specifying #PF_A8 for @c desiredFormat
         */
-        auto prepare(
+        TexturePtr prepare(
             const String& name, const String& group,
             TextureType texType = TEX_TYPE_2D, int numMipmaps = MIP_DEFAULT,
             Real gamma = 1.0f, bool isAlpha = false,
-            PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false) -> TexturePtr;
+            PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false);
 
         /** Loads a texture from a file.
             @param
@@ -162,9 +162,9 @@ class Image;
                 8-bits per channel textures, will be ignored for other types. Has the advantage
                 over pre-applied gamma that the texture precision is maintained.
         */
-        auto load(const String& name, const String& group, TextureType texType = TEX_TYPE_2D,
+        TexturePtr load(const String& name, const String& group, TextureType texType = TEX_TYPE_2D,
                         int numMipmaps = MIP_DEFAULT, Real gamma = 1.0f,
-                        PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false) -> TexturePtr;
+                        PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false);
 
         /** Loads a texture from an Image object.
             @note
@@ -173,11 +173,11 @@ class Image;
             @param
                 img The Image object which contains the data to load
         */
-        virtual auto loadImage( 
+        virtual TexturePtr loadImage( 
             const String &name, const String& group, const Image &img, 
             TextureType texType = TEX_TYPE_2D,
             int numMipmaps = MIP_DEFAULT, Real gamma = 1.0f, bool isAlpha = false,
-            PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false) -> TexturePtr;
+            PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false);
             
         /** Loads a texture from a raw data stream.
             @note
@@ -212,10 +212,10 @@ class Image;
                  8-bits per channel textures, will be ignored for other types. Has the advantage
                  over pre-applied gamma that the texture precision is maintained.
         */
-        virtual auto loadRawData(const String &name, const String& group,
+        virtual TexturePtr loadRawData(const String &name, const String& group,
             DataStreamPtr& stream, ushort width, ushort height, 
             PixelFormat format, TextureType texType = TEX_TYPE_2D, 
-            int numMipmaps = MIP_DEFAULT, Real gamma = 1.0f, bool hwGammaCorrection = false) -> TexturePtr;
+            int numMipmaps = MIP_DEFAULT, Real gamma = 1.0f, bool hwGammaCorrection = false);
 
         /** Create a manual texture with specified width, height and depth (not loaded from a file).
             @param
@@ -264,17 +264,17 @@ class Image;
                 not support it.
             @param fsaaHint @copybrief RenderTarget::getFSAAHint
         */
-        virtual auto createManual(const String & name, const String& group,
+        virtual TexturePtr createManual(const String & name, const String& group,
             TextureType texType, uint width, uint height, uint depth, 
             int numMipmaps, PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = 0,
-            bool hwGammaCorrection = false, uint fsaa = 0, const String& fsaaHint = BLANKSTRING) -> TexturePtr;
+            bool hwGammaCorrection = false, uint fsaa = 0, const String& fsaaHint = BLANKSTRING);
             
         /** @overload
         */
-        auto createManual(const String & name, const String& group,
+        TexturePtr createManual(const String & name, const String& group,
             TextureType texType, uint width, uint height, int numMipmaps,
             PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = 0,
-            bool hwGammaCorrection = false, uint fsaa = 0, const String& fsaaHint = BLANKSTRING) -> TexturePtr
+            bool hwGammaCorrection = false, uint fsaa = 0, const String& fsaaHint = BLANKSTRING)
         {
             return createManual(name, group, texType, width, height, 1, 
                 numMipmaps, format, usage, loader, hwGammaCorrection, fsaa, fsaaHint);
@@ -291,7 +291,7 @@ class Image;
 
         /** Gets preferred bit depth for integer pixel format textures.
         */
-        virtual auto getPreferredIntegerBitDepth() const -> ushort;
+        virtual ushort getPreferredIntegerBitDepth() const;
 
         /** Sets preferred bit depth for float pixel format textures.
         @param
@@ -304,7 +304,7 @@ class Image;
 
         /** Gets preferred bit depth for float pixel format textures.
         */
-        virtual auto getPreferredFloatBitDepth() const -> ushort;
+        virtual ushort getPreferredFloatBitDepth() const;
 
         /** Sets preferred bit depth for integer and float pixel format.
         @param
@@ -335,17 +335,17 @@ class Image;
             the TextureUsage flags.
         @return true if the format is natively supported, false if a fallback would be used.
         */
-        virtual auto isFormatSupported(TextureType ttype, PixelFormat format, int usage) -> bool;
+        virtual bool isFormatSupported(TextureType ttype, PixelFormat format, int usage);
 
         /** Returns whether this render system can support the texture format requested
             with the given usage options, or another format with no quality reduction.
         */
-        virtual auto isEquivalentFormatSupported(TextureType ttype, PixelFormat format, int usage) -> bool;
+        virtual bool isEquivalentFormatSupported(TextureType ttype, PixelFormat format, int usage);
 
         /** Gets the format which will be natively used for a requested format given the
             constraints of the current device.
         */
-        virtual auto getNativeFormat(TextureType ttype, PixelFormat format, int usage) -> PixelFormat = 0;
+        virtual PixelFormat getNativeFormat(TextureType ttype, PixelFormat format, int usage) = 0;
 
         /** Returns whether this render system has hardware filtering supported for the
             texture format requested with the given usage options.
@@ -386,8 +386,8 @@ class Image;
             check if in fallback mode.
         @return true if the texture filtering is supported.
         */
-        virtual auto isHardwareFilteringSupported(TextureType ttype, PixelFormat format, int usage,
-            bool preciseFormatOnly = false) -> bool;
+        virtual bool isHardwareFilteringSupported(TextureType ttype, PixelFormat format, int usage,
+            bool preciseFormatOnly = false);
 
         /** Sets the default number of mipmaps to be used for loaded textures, for when textures are
             loaded automatically (e.g. by Material class) or when 'load' is called with the default
@@ -401,25 +401,25 @@ class Image;
 
         /** Gets the default number of mipmaps to be used for loaded textures.
         */
-        virtual auto getDefaultNumMipmaps() -> uint32
+        virtual uint32 getDefaultNumMipmaps()
         {
             return mDefaultNumMipmaps;
         }
 
         /// Internal method to create a warning texture (bound when a texture unit is blank)
-        auto _getWarningTexture() -> const TexturePtr&;
+        const TexturePtr& _getWarningTexture();
 
         /// get the default sampler
-        auto getDefaultSampler() -> const SamplerPtr&;
+        const SamplerPtr& getDefaultSampler();
 
         /// @copydoc Singleton::getSingleton()
-        static auto getSingleton() -> TextureManager&;
+        static TextureManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static auto getSingletonPtr() -> TextureManager*;
+        static TextureManager* getSingletonPtr();
 
     protected:
 
-        virtual auto _createSamplerImpl() -> SamplerPtr { return std::make_shared<Sampler>(); }
+        virtual SamplerPtr _createSamplerImpl() { return std::make_shared<Sampler>(); }
 
         ushort mPreferredIntegerBitDepth;
         ushort mPreferredFloatBitDepth;
@@ -441,7 +441,7 @@ class Image;
                 : Texture(creator, name, handle, group)
             {
             }
-            auto getBuffer(size_t, size_t) -> const HardwarePixelBufferSharedPtr& override
+            const HardwarePixelBufferSharedPtr& getBuffer(size_t, size_t) override
             {
                 static HardwarePixelBufferSharedPtr nullBuffer;
                 return nullBuffer;
@@ -453,15 +453,15 @@ class Image;
             void loadImpl() override {}
         };
 
-        auto createImpl(const String& name, ResourceHandle handle, const String& group, bool,
-                             ManualResourceLoader*, const NameValuePairList*) -> Resource* override
+        Resource* createImpl(const String& name, ResourceHandle handle, const String& group, bool,
+                             ManualResourceLoader*, const NameValuePairList*) override
         {
             return new NullTexture(this, name, handle, group);
         }
 
     public:
-        auto isHardwareFilteringSupported(TextureType, PixelFormat, int, bool) -> bool override { return false; }
-        auto getNativeFormat(TextureType, PixelFormat, int) -> PixelFormat override { return PF_UNKNOWN; }
+        bool isHardwareFilteringSupported(TextureType, PixelFormat, int, bool) override { return false; }
+        PixelFormat getNativeFormat(TextureType, PixelFormat, int) override { return PF_UNKNOWN; }
     };
     /** @} */
     /** @} */

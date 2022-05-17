@@ -71,8 +71,8 @@ namespace Ogre {
         /// @see RenderSystem::Listener
         virtual void eventOccurred(const String& eventName, const NameValuePairList* parameters);
 
-        static auto getSingleton() -> OverlaySystem&;
-        static auto getSingletonPtr() -> OverlaySystem*;
+        static OverlaySystem& getSingleton();
+        static OverlaySystem* getSingletonPtr();
     private:
         OverlayManager* mOverlayManager;
         FontManager* mFontManager;

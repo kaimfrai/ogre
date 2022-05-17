@@ -94,7 +94,7 @@ class Material;
         /// Internal method for clearing illumination pass list
         void clearIlluminationPasses();
         /// Internal method - check for manually assigned illumination passes
-        auto checkManuallyOrganisedIlluminationPasses() -> bool;
+        bool checkManuallyOrganisedIlluminationPasses();
 
 
         /** When casting shadow, if not using default Ogre shadow casting material, or 
@@ -168,14 +168,14 @@ class Material;
             This will only be correct after the Technique has been compiled, which is
             usually done from Material::compile.
         */
-        [[nodiscard]] auto isSupported() const -> bool;
+        [[nodiscard]] bool isSupported() const;
         /** Internal compilation method; see Material::compile. 
         @return Any information explaining problems with the compile.
         */
-        auto _compile(bool autoManageTextureUnits) -> String;
+        String _compile(bool autoManageTextureUnits);
         /// Internal method for checking hardware support
-        auto checkHardwareSupport(bool autoManageTextureUnits, StringStream& compileErrors) -> bool;
-        [[nodiscard]] auto calculateSize() const -> size_t;
+        bool checkHardwareSupport(bool autoManageTextureUnits, StringStream& compileErrors);
+        [[nodiscard]] size_t calculateSize() const;
 
         typedef VectorIterator<Passes> PassIterator;
         typedef VectorIterator<IlluminationPassList> IlluminationPassIterator;
@@ -191,15 +191,15 @@ class Material;
             that you create an alternative fallback Technique for if a card does not have 
             enough facilities for what you're asking for.
         */
-        auto createPass() -> Pass*;
+        Pass* createPass();
         /** Retrieves the Pass with the given index.*/
-        [[nodiscard]] auto getPass(size_t index) const -> Pass* { return mPasses.at(index); }
+        [[nodiscard]] Pass* getPass(size_t index) const { return mPasses.at(index); }
         /** Retrieves the Pass matching name.
             Returns 0 if name match is not found.
         */
-        [[nodiscard]] auto getPass(const String& name) const -> Pass*;
+        [[nodiscard]] Pass* getPass(const String& name) const;
         /** Retrieves the number of passes. */
-        [[nodiscard]] auto getNumPasses() const -> size_t { return mPasses.size(); }
+        [[nodiscard]] size_t getNumPasses() const { return mPasses.size(); }
         /** Removes the Pass with the given index. */
         void removePass(unsigned short index);
         /** Removes all Passes from this Technique. */
@@ -207,29 +207,29 @@ class Material;
         /** Move a pass from source index to destination index.
             If successful then returns true.
         */
-        auto movePass(const unsigned short sourceIndex, const unsigned short destinationIndex) -> bool;
+        bool movePass(const unsigned short sourceIndex, const unsigned short destinationIndex);
 
         /** Gets the passes in this Technique. */
-        [[nodiscard]] auto getPasses() const -> const Passes& {
+        [[nodiscard]] const Passes& getPasses() const {
             return mPasses;
         }
 
         /** Gets the illumination-stage categorised passes
          * @note triggers compilation if needed */
-        auto getIlluminationPasses() -> const IlluminationPassList&;
+        const IlluminationPassList& getIlluminationPasses();
 
         /** Internal method for splitting the passes into illumination passes. */
         void _compileIlluminationPasses();
         /// @}
 
         /// Gets the parent Material
-        [[nodiscard]] auto getParent() const -> Material* { return mParent; }
+        [[nodiscard]] Material* getParent() const { return mParent; }
 
         /** Overloaded operator to copy on Technique to another. */
-        auto operator=(const Technique& rhs) -> Technique&;
+        Technique& operator=(const Technique& rhs);
 
         /// Gets the resource group of the ultimate parent Material
-        [[nodiscard]] auto getResourceGroup() const -> const String&;
+        [[nodiscard]] const String& getResourceGroup() const;
 
         /** Returns true if this Technique involves transparency. 
         @remarks
@@ -239,21 +239,21 @@ class Material;
             scene, may be used for blending, therefore we have to treat
             the whole Technique as transparent.
         */
-        [[nodiscard]] auto isTransparent() const -> bool;
+        [[nodiscard]] bool isTransparent() const;
 
         /** Returns true if this Technique has transparent sorting enabled. 
         @remarks
             This basically boils down to whether the first pass
             has transparent sorting enabled or not
         */
-        [[nodiscard]] auto isTransparentSortingEnabled() const -> bool;
+        [[nodiscard]] bool isTransparentSortingEnabled() const;
 
         /** Returns true if this Technique has transparent sorting forced. 
         @remarks
             This basically boils down to whether the first pass
             has transparent sorting forced or not
         */
-        [[nodiscard]] auto isTransparentSortingForced() const -> bool;
+        [[nodiscard]] bool isTransparentSortingForced() const;
 
         /** Internal prepare method, derived from call to Material::prepare. */
         void _prepare();
@@ -265,7 +265,7 @@ class Material;
         void _unload();
 
         /// Is this loaded?
-        [[nodiscard]] auto isLoaded() const -> bool;
+        [[nodiscard]] bool isLoaded() const;
 
         /** Tells the technique that it needs recompilation. */
         void _notifyNeedsRecompile();
@@ -274,7 +274,7 @@ class Material;
         /// @{
         /** return this material specific  shadow casting specific material
         */
-        [[nodiscard]] auto getShadowCasterMaterial() const -> MaterialPtr;
+        [[nodiscard]] MaterialPtr getShadowCasterMaterial() const;
         /** Sets the details of the material to use when rendering as a
             shadow caster.
             @remarks
@@ -299,7 +299,7 @@ class Material;
         void setShadowCasterMaterial(const String &name);
         /** return this material specific shadow receiving specific material
         */
-        [[nodiscard]] auto getShadowReceiverMaterial() const -> MaterialPtr;
+        [[nodiscard]] MaterialPtr getShadowReceiverMaterial() const;
         /** set this material specific  shadow receiving specific material
         */
         void setShadowReceiverMaterial(MaterialPtr val);
@@ -575,7 +575,7 @@ class Material;
         */
         void setLodIndex(unsigned short index);
         /** Gets the level-of-detail index assigned to this Technique. */
-        [[nodiscard]] auto getLodIndex() const -> unsigned short { return mLodIndex; }
+        [[nodiscard]] unsigned short getLodIndex() const { return mLodIndex; }
 
         /** Set the 'scheme name' for this technique. 
         @remarks
@@ -598,19 +598,19 @@ class Material;
         /** Returns the scheme to which this technique is assigned.
             @see Technique::setSchemeName
         */
-        [[nodiscard]] auto getSchemeName() const -> const String&;
+        [[nodiscard]] const String& getSchemeName() const;
         
         /// Internal method for getting the scheme index
-        [[nodiscard]] auto _getSchemeIndex() const -> unsigned short;
+        [[nodiscard]] unsigned short _getSchemeIndex() const;
             
         /** Is depth writing going to occur on this technique? */
-        [[nodiscard]] auto isDepthWriteEnabled() const -> bool;
+        [[nodiscard]] bool isDepthWriteEnabled() const;
 
         /** Is depth checking going to occur on this technique? */
-        [[nodiscard]] auto isDepthCheckEnabled() const -> bool;
+        [[nodiscard]] bool isDepthCheckEnabled() const;
 
         /** Exists colour writing disabled pass on this technique? */
-        [[nodiscard]] auto hasColourWriteDisabled() const -> bool;
+        [[nodiscard]] bool hasColourWriteDisabled() const;
 
         /** Set the name of the technique.
         @remarks
@@ -619,7 +619,7 @@ class Material;
         */
         void setName(const String& name);
         /// Gets the name of the technique
-        [[nodiscard]] auto getName() const -> const String& { return mName; }
+        [[nodiscard]] const String& getName() const { return mName; }
 
         typedef ConstVectorIterator<GPUVendorRuleList> GPUVendorRuleIterator;
         typedef ConstVectorIterator<GPUDeviceNameRuleList> GPUDeviceNameRuleIterator;
@@ -627,7 +627,7 @@ class Material;
         /// @{
 
         /// Internal method for checking GPU vendor / device rules
-        auto checkGPURules(StringStream& errors) -> bool;
+        bool checkGPURules(StringStream& errors);
         /** Add a rule which manually influences the support for this technique based
             on a GPU vendor.
         @remarks
@@ -664,7 +664,7 @@ class Material;
         void removeGPUVendorRule(GPUVendor vendor);
 
         /// Get the currently registered vendor rules.
-        [[nodiscard]] auto getGPUVendorRules() const -> const GPUVendorRuleList& {
+        [[nodiscard]] const GPUVendorRuleList& getGPUVendorRules() const {
             return mGPUVendorRules;
         }
 
@@ -694,20 +694,20 @@ class Material;
         void removeGPUDeviceNameRule(const String& devicePattern);
 
         /// Get the currently registered device name rules.
-        [[nodiscard]] auto getGPUDeviceNameRules() const -> const GPUDeviceNameRuleList& { return mGPUDeviceNameRules; }
+        [[nodiscard]] const GPUDeviceNameRuleList& getGPUDeviceNameRules() const { return mGPUDeviceNameRules; }
         /// @}
 
         /** Return an instance of user objects binding associated with this class.
         You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.
         */
-        auto getUserObjectBindings() -> UserObjectBindings& { return mUserObjectBindings; }
+        UserObjectBindings& getUserObjectBindings() { return mUserObjectBindings; }
 
         /** Return an instance of user objects binding associated with this class.
         You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.        
         */
-        [[nodiscard]] auto getUserObjectBindings() const -> const UserObjectBindings& { return mUserObjectBindings; }
+        [[nodiscard]] const UserObjectBindings& getUserObjectBindings() const { return mUserObjectBindings; }
 
     };
 

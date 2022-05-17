@@ -117,7 +117,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------
-    auto RenderSystemCapabilitiesSerializer::writeString(const RenderSystemCapabilities* caps, const String &name) -> String
+    String RenderSystemCapabilitiesSerializer::writeString(const RenderSystemCapabilities* caps, const String &name)
     {
         using namespace std;
         

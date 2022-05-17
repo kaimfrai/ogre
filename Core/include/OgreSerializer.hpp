@@ -78,8 +78,8 @@ namespace Ogre {
         // Internal methods
         void writeFileHeader();
         void writeChunkHeader(uint16 id, size_t size);
-        auto calcChunkHeaderSize() -> size_t;
-        auto calcStringSize(const String& string) -> size_t;
+        size_t calcChunkHeaderSize();
+        size_t calcStringSize(const String& string);
 
         void writeFloats(const float* const pfloat, size_t count);
         void writeFloats(const double* const pfloat, size_t count);
@@ -93,7 +93,7 @@ namespace Ogre {
         void writeData(const void* const buf, size_t size, size_t count);
         
         void readFileHeader(const DataStreamPtr& stream);
-        auto readChunk(const DataStreamPtr& stream) -> unsigned short;
+        unsigned short readChunk(const DataStreamPtr& stream);
         
         void readBools(const DataStreamPtr& stream, bool* pDest, size_t count);
         void readFloats(const DataStreamPtr& stream, float* pDest, size_t count);
@@ -103,8 +103,8 @@ namespace Ogre {
         void readObject(const DataStreamPtr& stream, Vector3& pDest);
         void readObject(const DataStreamPtr& stream, Quaternion& pDest);
 
-        auto readString(const DataStreamPtr& stream) -> String;
-        auto readString(const DataStreamPtr& stream, size_t numChars) -> String;
+        String readString(const DataStreamPtr& stream);
+        String readString(const DataStreamPtr& stream, size_t numChars);
         
         void flipToLittleEndian(void* pData, size_t size, size_t count = 1);
         void flipFromLittleEndian(void* pData, size_t size, size_t count = 1);

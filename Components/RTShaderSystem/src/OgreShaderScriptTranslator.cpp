@@ -72,7 +72,7 @@ void SGScriptTranslator::translate(ScriptCompiler* compiler, const AbstractNodeP
 }
 
 //-----------------------------------------------------------------------------
-auto SGScriptTranslator::getGeneratedSubRenderState(const String& typeName) -> SubRenderState*
+SubRenderState* SGScriptTranslator::getGeneratedSubRenderState(const String& typeName)
 {
     //check if we are in the middle of parsing
     if (mGeneratedRenderState)

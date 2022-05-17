@@ -43,13 +43,13 @@ namespace Ogre {
             mAttributes.reset(new Attributes(*other.mAttributes));
     }
 
-    auto UserObjectBindings::swap(UserObjectBindings& rhs) -> UserObjectBindings&
+    UserObjectBindings& UserObjectBindings::swap(UserObjectBindings& rhs)
     {
         std::swap(mAttributes, rhs.mAttributes);
         return *this;
     }
 
-    auto UserObjectBindings::operator=(const UserObjectBindings& rhs) -> UserObjectBindings&
+    UserObjectBindings& UserObjectBindings::operator=(const UserObjectBindings& rhs)
     {
         UserObjectBindings(rhs).swap(*this);
         return *this;
@@ -66,7 +66,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto UserObjectBindings::getUserAny() const -> const Any&
+    const Any& UserObjectBindings::getUserAny() const
     {
         // Allocate attributes on demand.
         if (!mAttributes)
@@ -90,7 +90,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto UserObjectBindings::getUserAny(const String& key) const -> const Any&
+    const Any& UserObjectBindings::getUserAny(const String& key) const
     {
         if (!mAttributes)
             return emptyAny;

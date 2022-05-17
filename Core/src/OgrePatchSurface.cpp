@@ -141,22 +141,22 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto PatchSurface::getBounds() const -> const AxisAlignedBox&
+    const AxisAlignedBox& PatchSurface::getBounds() const
     {
         return mAABB;
     }
     //-----------------------------------------------------------------------
-    auto PatchSurface::getBoundingSphereRadius() const -> Real
+    Real PatchSurface::getBoundingSphereRadius() const
     {
         return mBoundingSphere;
     }
     //-----------------------------------------------------------------------
-    auto PatchSurface::getRequiredVertexCount() const -> size_t
+    size_t PatchSurface::getRequiredVertexCount() const
     {
         return mRequiredVertexCount;
     }
     //-----------------------------------------------------------------------
-    auto PatchSurface::getRequiredIndexCount() const -> size_t
+    size_t PatchSurface::getRequiredIndexCount() const
     {
         return mRequiredIndexCount;
     }
@@ -207,7 +207,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto PatchSurface::getAutoULevel(bool forMax) -> size_t
+    size_t PatchSurface::getAutoULevel(bool forMax)
     {
         // determine levels
         // Derived from work by Bart Sekura in Rogl
@@ -236,7 +236,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto PatchSurface::getAutoVLevel(bool forMax) -> size_t
+    size_t PatchSurface::getAutoVLevel(bool forMax)
     {
         Vector3 a,b,c;
         size_t u,v;
@@ -275,17 +275,17 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto PatchSurface::getSubdivisionFactor() const -> Real
+    Real PatchSurface::getSubdivisionFactor() const
     {
         return mSubdivisionFactor;
     }
     //-----------------------------------------------------------------------
-    auto PatchSurface::getCurrentIndexCount() const -> size_t
+    size_t PatchSurface::getCurrentIndexCount() const
     {
         return mCurrIndexCount;
     }
     //-----------------------------------------------------------------------
-    auto PatchSurface::findLevel(Vector3& a, Vector3& b, Vector3& c) -> size_t
+    size_t PatchSurface::findLevel(Vector3& a, Vector3& b, Vector3& c)
     {
         // Derived from work by Bart Sekura in rogl
         // Apart from I think I fixed a bug - see below

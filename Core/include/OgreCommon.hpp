@@ -52,14 +52,14 @@ class RenderWindow;
     */
 
     /// Fast general hashing algorithm
-    inline auto FastHash (const char * data, size_t len, uint32 hashSoFar = 0) -> uint32 {
+    inline uint32 FastHash (const char * data, size_t len, uint32 hashSoFar = 0) {
         uint32 ret;
         MurmurHash3_x86_32(data, len, hashSoFar, &ret);
         return ret;
     }
     /// Combine hashes with same style as boost::hash_combine
     template <typename T>
-    auto HashCombine (uint32 hashSoFar, const T& data) -> uint32
+    uint32 HashCombine (uint32 hashSoFar, const T& data)
     {
         return FastHash((const char*)&data, sizeof(T), hashSoFar);
     }
@@ -422,47 +422,47 @@ class RenderWindow;
         {
             mListHashDirty = true;
         }
-        auto isHashDirty() const -> bool
+        bool isHashDirty() const
         {
             return mListHashDirty;
         }
 
-        auto begin() -> iterator 
+        iterator begin() 
         { 
             // we have to assume that hash needs recalculating on non-const
             dirtyHash();
             return mList.begin(); 
         }
-        auto end() -> iterator { return mList.end(); }
-        auto begin() const -> const_iterator { return mList.begin(); }
-        auto end() const -> const_iterator { return mList.end(); }
-        auto rbegin() -> reverse_iterator 
+        iterator end() { return mList.end(); }
+        const_iterator begin() const { return mList.begin(); }
+        const_iterator end() const { return mList.end(); }
+        reverse_iterator rbegin() 
         { 
             // we have to assume that hash needs recalculating on non-const
             dirtyHash();
             return mList.rbegin(); 
         }
-        auto rend() -> reverse_iterator { return mList.rend(); }
-        auto rbegin() const -> const_reverse_iterator { return mList.rbegin(); }
-        auto rend() const -> const_reverse_iterator { return mList.rend(); }
-        auto size() const -> size_type { return mList.size(); }
-        auto max_size() const -> size_type { return mList.max_size(); }
-        auto capacity() const -> size_type { return mList.capacity(); }
-        auto empty() const -> bool { return mList.empty(); }
-        auto operator[](size_type n) -> reference 
+        reverse_iterator rend() { return mList.rend(); }
+        const_reverse_iterator rbegin() const { return mList.rbegin(); }
+        const_reverse_iterator rend() const { return mList.rend(); }
+        size_type size() const { return mList.size(); }
+        size_type max_size() const { return mList.max_size(); }
+        size_type capacity() const { return mList.capacity(); }
+        bool empty() const { return mList.empty(); }
+        reference operator[](size_type n) 
         { 
             // we have to assume that hash needs recalculating on non-const
             dirtyHash();
             return mList[n]; 
         }
-        auto operator[](size_type n) const -> const_reference { return mList[n]; }
-        auto at(size_type n) -> reference 
+        const_reference operator[](size_type n) const { return mList[n]; }
+        reference at(size_type n) 
         { 
             // we have to assume that hash needs recalculating on non-const
             dirtyHash();
             return mList.const_iterator(n); 
         }
-        auto at(size_type n) const -> const_reference { return mList.at(n); }
+        const_reference at(size_type n) const { return mList.at(n); }
         HashedVector() : mListHash(0), mListHashDirty(false) {}
         HashedVector(size_type n) : mList(n), mListHash(0), mListHashDirty(n > 0) {}
         HashedVector(size_type n, const T& t) : mList(n, t), mListHash(0), mListHashDirty(n > 0) {}
@@ -477,7 +477,7 @@ class RenderWindow;
         }
 
         ~HashedVector() {}
-        auto operator=(const HashedVector<T>& rhs) -> HashedVector<T>&
+        HashedVector<T>& operator=(const HashedVector<T>& rhs)
         {
             mList = rhs.mList;
             mListHash = rhs.mListHash;
@@ -486,20 +486,20 @@ class RenderWindow;
         }
 
         void reserve(size_t t) { mList.reserve(t); }
-        auto front() -> reference 
+        reference front() 
         { 
             // we have to assume that hash needs recalculating on non-const
             dirtyHash();
             return mList.front(); 
         }
-        auto front() const -> const_reference { return mList.front(); }
-        auto back() -> reference  
+        const_reference front() const { return mList.front(); }
+        reference back()  
         { 
             // we have to assume that hash needs recalculating on non-const
             dirtyHash();
             return mList.back(); 
         }
-        auto back() const -> const_reference { return mList.back(); }
+        const_reference back() const { return mList.back(); }
         void push_back(const T& t)
         { 
             mList.push_back(t);
@@ -517,7 +517,7 @@ class RenderWindow;
             mList.swap(rhs.mList);
             dirtyHash();
         }
-        auto insert(iterator pos, const T& t) -> iterator
+        iterator insert(iterator pos, const T& t)
         {
             bool recalc = (pos != end());
             iterator ret = mList.insert(pos, t);
@@ -542,13 +542,13 @@ class RenderWindow;
             dirtyHash();
         }
 
-        auto erase(iterator pos) -> iterator
+        iterator erase(iterator pos)
         {
             iterator ret = mList.erase(pos);
             dirtyHash();
             return ret;
         }
-        auto erase(iterator first, iterator last) -> iterator
+        iterator erase(iterator first, iterator last)
         {
             iterator ret = mList.erase(first, last);
             dirtyHash();
@@ -572,15 +572,15 @@ class RenderWindow;
                 dirtyHash();
         }
 
-        auto operator==(const HashedVector<T>& b) -> bool
+        bool operator==(const HashedVector<T>& b)
         { return mListHash == b.mListHash; }
 
-        auto operator<(const HashedVector<T>& b) -> bool
+        bool operator<(const HashedVector<T>& b)
         { return mListHash < b.mListHash; }
 
 
         /// Get the hash value
-        auto getHash() const -> uint32 
+        uint32 getHash() const 
         { 
             if (isHashDirty())
                 recalcHash();
@@ -622,7 +622,7 @@ class RenderWindow;
             : left( o.left ), top( o.top ), right( o.right ), bottom( o.bottom )
           {
           }
-          auto operator=( TRect const & o ) -> TRect &
+          TRect & operator=( TRect const & o )
           {
             left = o.left;
             top = o.top;
@@ -630,15 +630,15 @@ class RenderWindow;
             bottom = o.bottom;
             return *this;
           }
-          [[nodiscard]] auto width() const -> T
+          [[nodiscard]] T width() const
           {
             return right - left;
           }
-          [[nodiscard]] auto height() const -> T
+          [[nodiscard]] T height() const
           {
             return bottom - top;
           }
-          [[nodiscard]] auto isNull() const -> bool
+          [[nodiscard]] bool isNull() const
           {
               return width() == 0 || height() == 0;
           }
@@ -646,7 +646,7 @@ class RenderWindow;
           {
               left = right = top = bottom = 0;
           }
-          auto merge(const TRect& rhs) -> TRect &
+          TRect & merge(const TRect& rhs)
           {
               assert(right >= left && bottom >= top);
               assert(rhs.right >= rhs.left && rhs.bottom >= rhs.top);
@@ -674,7 +674,7 @@ class RenderWindow;
            * @param rhs Another rectangle.
            * @return The intersection of the two rectangles. Zero size if they don't intersect.
            */
-          [[nodiscard]] auto intersect(const TRect& rhs) const -> TRect
+          [[nodiscard]] TRect intersect(const TRect& rhs) const
           {
               assert(right >= left && bottom >= top);
               assert(rhs.right >= rhs.left && rhs.bottom >= rhs.top);
@@ -701,14 +701,14 @@ class RenderWindow;
               return ret;
 
           }
-          auto operator==(const TRect& rhs) const -> bool
+          bool operator==(const TRect& rhs) const
           {
               return left == rhs.left && right == rhs.right && top == rhs.top && bottom == rhs.bottom;
           }
-          auto operator!=(const TRect& rhs) const -> bool { return !(*this == rhs); }
+          bool operator!=(const TRect& rhs) const { return !(*this == rhs); }
         };
         template<typename T>
-        auto operator<<(std::ostream& o, const TRect<T>& r) -> std::ostream&
+        std::ostream& operator<<(std::ostream& o, const TRect<T>& r)
         {
             o << "TRect<>(l:" << r.left << ", t:" << r.top << ", r:" << r.right << ", b:" << r.bottom << ")";
             return o;
@@ -789,23 +789,23 @@ class RenderWindow;
             }
 
             /// Return true if the other box is a part of this one
-            [[nodiscard]] auto contains(const Box &def) const -> bool
+            [[nodiscard]] bool contains(const Box &def) const
             {
                 return (def.left >= left && def.top >= top && def.front >= front &&
                     def.right <= right && def.bottom <= bottom && def.back <= back);
             }
             
             /// Get the width of this box
-            [[nodiscard]] auto getWidth() const -> uint32 { return right-left; }
+            [[nodiscard]] uint32 getWidth() const { return right-left; }
             /// Get the height of this box
-            [[nodiscard]] auto getHeight() const -> uint32 { return bottom-top; }
+            [[nodiscard]] uint32 getHeight() const { return bottom-top; }
             /// Get the depth of this box
-            [[nodiscard]] auto getDepth() const -> uint32 { return back-front; }
+            [[nodiscard]] uint32 getDepth() const { return back-front; }
 
             /// origin (top, left, front) of the box
-            [[nodiscard]] auto getOrigin() const -> Vector<3, uint32> { return {left, top, front}; }
+            [[nodiscard]] Vector<3, uint32> getOrigin() const { return {left, top, front}; }
             /// size (width, height, depth) of the box
-            [[nodiscard]] auto getSize() const -> Vector<3, uint32> { return {getWidth(), getHeight(), getDepth()}; }
+            [[nodiscard]] Vector<3, uint32> getSize() const { return {getWidth(), getHeight(), getDepth()}; }
         };
 
     
@@ -821,8 +821,8 @@ class RenderWindow;
         Should be pre-populated with, for example '-e' and the default setting. 
         Options which are found will have the value updated.
     */
-    auto findCommandLineOpts(int numargs, char** argv, UnaryOptionList& unaryOptList,
-        BinaryOptionList& binOptList) -> int;
+    int findCommandLineOpts(int numargs, char** argv, UnaryOptionList& unaryOptList,
+        BinaryOptionList& binOptList);
 
     /// Generic result of clipping
     enum ClipResult

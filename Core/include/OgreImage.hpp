@@ -95,7 +95,7 @@ namespace Ogre {
 
         /** Assignment operator - copies all the data from the target image.
         */
-        auto operator = ( const Image & img ) -> Image &;
+        Image & operator = ( const Image & img );
 
         /**
          * sets all pixels to the specified colour
@@ -123,7 +123,7 @@ namespace Ogre {
                 originalimg
                 </pre>
         */
-        auto flipAroundY() -> Image &;
+        Image & flipAroundY();
 
         /** Flips (mirrors) the image around the X-axis.
             @remarks
@@ -139,7 +139,7 @@ namespace Ogre {
                 00000000000|00000000000
                 </pre>
         */                 
-        auto flipAroundX() -> Image &;
+        Image & flipAroundX();
 
         /** Stores a pointer to raw data in memory. The pixel format has to be specified.
             @remarks
@@ -184,11 +184,11 @@ namespace Ogre {
             @remarks 
                 The size of the buffer must be numFaces * PixelUtil::getMemorySize(width, height, depth, format)
          */
-        auto loadDynamicImage(uchar* data, uint32 width, uint32 height, uint32 depth, PixelFormat format,
-                                bool autoDelete = false, uint32 numFaces = 1, uint32 numMipMaps = 0) -> Image&;
+        Image& loadDynamicImage(uchar* data, uint32 width, uint32 height, uint32 depth, PixelFormat format,
+                                bool autoDelete = false, uint32 numFaces = 1, uint32 numMipMaps = 0);
 
         /// @overload
-        auto loadDynamicImage(uchar* data, uint32 width, uint32 height, PixelFormat format) -> Image&
+        Image& loadDynamicImage(uchar* data, uint32 width, uint32 height, PixelFormat format)
         {
             return loadDynamicImage(data, width, height, 1, format);
         }
@@ -211,10 +211,10 @@ namespace Ogre {
                 Of course, you will never have multiple faces (cube map) and
                 depth too.
         */
-        auto loadRawData(const DataStreamPtr& stream, uint32 width, uint32 height, uint32 depth,
-                           PixelFormat format, uint32 numFaces = 1, uint32 numMipMaps = 0) -> Image&;
+        Image& loadRawData(const DataStreamPtr& stream, uint32 width, uint32 height, uint32 depth,
+                           PixelFormat format, uint32 numFaces = 1, uint32 numMipMaps = 0);
         /// @overload
-        auto loadRawData(const DataStreamPtr& stream, uint32 width, uint32 height, PixelFormat format) -> Image&
+        Image& loadRawData(const DataStreamPtr& stream, uint32 width, uint32 height, PixelFormat format)
         {
             return loadRawData(stream, width, height, 1, format);
         }
@@ -234,7 +234,7 @@ namespace Ogre {
                 The memory associated with this buffer is destroyed with the
                 Image object.
         */
-        auto load( const String& filename, const String& groupName ) -> Image &;
+        Image & load( const String& filename, const String& groupName );
 
         /** Loads an image file from a stream.
             @remarks
@@ -256,7 +256,7 @@ namespace Ogre {
             @see
                 Image::load( const String& filename )
         */
-        auto load(const DataStreamPtr& stream, const String& type = BLANKSTRING ) -> Image &;
+        Image & load(const DataStreamPtr& stream, const String& type = BLANKSTRING );
 
         /** Utility method to combine 2 separate images into this one, with the first
         image source supplying the RGB channels, and the second image supplying the 
@@ -268,8 +268,8 @@ namespace Ogre {
         @param groupName The resource group from which to load the images
         @param format The destination format
         */
-        auto loadTwoImagesAsRGBA(const String& rgbFilename, const String& alphaFilename,
-            const String& groupName, PixelFormat format = PF_BYTE_RGBA) -> Image &;
+        Image & loadTwoImagesAsRGBA(const String& rgbFilename, const String& alphaFilename,
+            const String& groupName, PixelFormat format = PF_BYTE_RGBA);
 
         /** Utility method to combine 2 separate images into this one, with the first
         image source supplying the RGB channels, and the second image supplying the 
@@ -286,10 +286,10 @@ namespace Ogre {
             codec to use. Can be left blank if the stream data includes
             a header to identify the data.
         */
-        auto loadTwoImagesAsRGBA(const DataStreamPtr& rgbStream, const DataStreamPtr& alphaStream,
+        Image& loadTwoImagesAsRGBA(const DataStreamPtr& rgbStream, const DataStreamPtr& alphaStream,
                                    PixelFormat format = PF_BYTE_RGBA,
                                    const String& rgbType = BLANKSTRING,
-                                   const String& alphaType = BLANKSTRING) -> Image&;
+                                   const String& alphaType = BLANKSTRING);
 
         /** Utility method to combine 2 separate images into this one, with the first
             image source supplying the RGB channels, and the second image supplying the 
@@ -300,7 +300,7 @@ namespace Ogre {
             converted to greyscale.
         @param format The destination format
         */
-        auto combineTwoImagesAsRGBA(const Image& rgb, const Image& alpha, PixelFormat format = PF_BYTE_RGBA) -> Image &;
+        Image & combineTwoImagesAsRGBA(const Image& rgb, const Image& alpha, PixelFormat format = PF_BYTE_RGBA);
 
         
         /** Save the image as a file. 
@@ -318,7 +318,7 @@ namespace Ogre {
             @param formatextension An extension to identify the image format
                 to encode into, e.g. "jpg" or "png"
         */
-        auto encode(const String& formatextension) -> DataStreamPtr;
+        DataStreamPtr encode(const String& formatextension);
 
         /** Returns a pointer to the internal image buffer at the specified pixel location.
 
@@ -326,14 +326,14 @@ namespace Ogre {
             prefer to use getPixelBox, especially with complex images
             which include many faces or custom mipmaps.
         */
-        auto getData(uint32 x = 0, uint32 y = 0, uint32 z = 0) -> uchar*
+        uchar* getData(uint32 x = 0, uint32 y = 0, uint32 z = 0)
         {
             assert((!mBuffer && (x + y + z) == 0) || (x < mWidth && y < mHeight && z < mDepth));
             return mBuffer + mPixelSize * (z * mWidth * mHeight + mWidth * y + x);
         }
 
         /// @overload
-        [[nodiscard]] auto getData(uint32 x = 0, uint32 y = 0, uint32 z = 0) const -> const uchar*
+        [[nodiscard]] const uchar* getData(uint32 x = 0, uint32 y = 0, uint32 z = 0) const
         {
             assert(mBuffer);
             assert(x < mWidth && y < mHeight && z < mDepth);
@@ -341,61 +341,61 @@ namespace Ogre {
         }
 
         /// @overload
-        template <typename T> auto getData(uint32 x = 0, uint32 y = 0, uint32 z = 0) -> T*
+        template <typename T> T* getData(uint32 x = 0, uint32 y = 0, uint32 z = 0)
         {
             return reinterpret_cast<T*>(getData(x, y, z));
         }
 
         /// @overload
-        template <typename T> auto getData(uint32 x = 0, uint32 y = 0, uint32 z = 0) const -> const T*
+        template <typename T> const T* getData(uint32 x = 0, uint32 y = 0, uint32 z = 0) const
         {
             return reinterpret_cast<const T*>(getData(x, y, z));
         }
 
         /** Returns the size of the data buffer in bytes
         */
-        [[nodiscard]] auto getSize() const -> size_t;
+        [[nodiscard]] size_t getSize() const;
 
         /** Returns the number of mipmaps contained in the image.
         */
-        [[nodiscard]] auto getNumMipmaps() const -> uint32;
+        [[nodiscard]] uint32 getNumMipmaps() const;
 
         /** Returns true if the image has the appropriate flag set.
         */
-        [[nodiscard]] auto hasFlag(const ImageFlags imgFlag) const -> bool;
+        [[nodiscard]] bool hasFlag(const ImageFlags imgFlag) const;
 
         /** Gets the width of the image in pixels.
         */
-        [[nodiscard]] auto getWidth() const -> uint32;
+        [[nodiscard]] uint32 getWidth() const;
 
         /** Gets the height of the image in pixels.
         */
-        [[nodiscard]] auto getHeight() const -> uint32;
+        [[nodiscard]] uint32 getHeight() const;
 
         /** Gets the depth of the image.
         */
-        [[nodiscard]] auto getDepth() const -> uint32;
+        [[nodiscard]] uint32 getDepth() const;
         
         /** Get the number of faces of the image. This is usually 6 for a cubemap, and
             1 for a normal image.
         */
-        [[nodiscard]] auto getNumFaces() const -> uint32;
+        [[nodiscard]] uint32 getNumFaces() const;
 
         /** Gets the physical width in bytes of each row of pixels.
         */
-        [[nodiscard]] auto getRowSpan() const -> size_t;
+        [[nodiscard]] size_t getRowSpan() const;
 
         /** Returns the image format.
         */
-        [[nodiscard]] auto getFormat() const -> PixelFormat;
+        [[nodiscard]] PixelFormat getFormat() const;
 
         /** Returns the number of bits per pixel.
         */
-        [[nodiscard]] auto getBPP() const -> uchar;
+        [[nodiscard]] uchar getBPP() const;
 
         /** Returns true if the image has an alpha component.
         */
-        [[nodiscard]] auto getHasAlpha() const -> bool;
+        [[nodiscard]] bool getHasAlpha() const;
         
         /** Does gamma adjustment.
             @note
@@ -409,7 +409,7 @@ namespace Ogre {
          * is only valid for cubemaps and volume textures. This uses the first (largest)
          * mipmap.
          */
-        [[nodiscard]] auto getColourAt(uint32 x, uint32 y, uint32 z) const -> ColourValue;
+        [[nodiscard]] ColourValue getColourAt(uint32 x, uint32 y, uint32 z) const;
         
         /**
          * Set colour value at a certain location in the image. The z coordinate
@@ -421,7 +421,7 @@ namespace Ogre {
         /**
          * Get a PixelBox encapsulating the image data of a mipmap
          */
-        [[nodiscard]] auto getPixelBox(uint32 face = 0, uint32 mipmap = 0) const -> PixelBox;
+        [[nodiscard]] PixelBox getPixelBox(uint32 face = 0, uint32 mipmap = 0) const;
 
         /// Delete all the memory held by this image, if owned by this image (not dynamic)
         void freeMemory();
@@ -445,10 +445,10 @@ namespace Ogre {
         void resize(ushort width, ushort height, Filter filter = FILTER_BILINEAR);
         
         /// Static function to calculate size in bytes from the number of mipmaps, faces and the dimensions
-        static auto calculateSize(uint32 mipmaps, uint32 faces, uint32 width, uint32 height, uint32 depth, PixelFormat format) -> size_t;
+        static size_t calculateSize(uint32 mipmaps, uint32 faces, uint32 width, uint32 height, uint32 depth, PixelFormat format);
 
         /// Static function to get an image type string from a stream via magic numbers
-        static auto getFileExtFromMagic(DataStreamPtr stream) -> String;
+        static String getFileExtFromMagic(DataStreamPtr stream);
 
     private:
         /// The width of the image in pixels

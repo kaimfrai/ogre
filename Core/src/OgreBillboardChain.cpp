@@ -374,8 +374,8 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    auto
-    BillboardChain::getChainElement(size_t chainIndex, size_t elementIndex) const -> const BillboardChain::Element&
+    const BillboardChain::Element&
+    BillboardChain::getChainElement(size_t chainIndex, size_t elementIndex) const
     {
         const ChainSegment& seg = mChainSegmentList.at(chainIndex);
         OgreAssert(seg.head != SEGMENT_EMPTY, "Chain segment is empty");
@@ -387,7 +387,7 @@ class RenderSystem;
         return mChainElementList[idx];
     }
     //-----------------------------------------------------------------------
-    auto BillboardChain::getNumChainElements(size_t chainIndex) const -> size_t
+    size_t BillboardChain::getNumChainElements(size_t chainIndex) const
     {
         const ChainSegment& seg = mChainSegmentList.at(chainIndex);
         
@@ -653,23 +653,23 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    auto BillboardChain::getSquaredViewDepth(const Camera* cam) const -> Real
+    Real BillboardChain::getSquaredViewDepth(const Camera* cam) const
     {
         return (cam->getDerivedPosition() - mAABB.getCenter()).squaredLength();
     }
     //-----------------------------------------------------------------------
-    auto BillboardChain::getBoundingRadius() const -> Real
+    Real BillboardChain::getBoundingRadius() const
     {
         return mRadius;
     }
     //-----------------------------------------------------------------------
-    auto BillboardChain::getBoundingBox() const -> const AxisAlignedBox&
+    const AxisAlignedBox& BillboardChain::getBoundingBox() const
     {
         updateBoundingBox();
         return mAABB;
     }
     //-----------------------------------------------------------------------
-    auto BillboardChain::getMaterial() const -> const MaterialPtr&
+    const MaterialPtr& BillboardChain::getMaterial() const
     {
         return mMaterial;
     }
@@ -690,7 +690,7 @@ class RenderSystem;
         mMaterial->load();
     }
     //-----------------------------------------------------------------------
-    auto BillboardChain::getMovableType() const -> const String&
+    const String& BillboardChain::getMovableType() const
     {
         return BillboardChainFactory::FACTORY_TYPE_NAME;
     }
@@ -720,7 +720,7 @@ class RenderSystem;
         op.vertexData = mVertexData.get();
     }
     //-----------------------------------------------------------------------
-    auto BillboardChain::preRender(SceneManager* sm, RenderSystem* rsys) -> bool
+    bool BillboardChain::preRender(SceneManager* sm, RenderSystem* rsys)
     {
         // Retrieve the current viewport from the scene manager.
         // The viewport is only valid during a viewport update.
@@ -737,7 +737,7 @@ class RenderSystem;
         *xform = _getParentNodeFullTransform();
     }
     //-----------------------------------------------------------------------
-    auto BillboardChain::getLights() const -> const LightList&
+    const LightList& BillboardChain::getLights() const
     {
         return queryLights();
     }
@@ -752,13 +752,13 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     String BillboardChainFactory::FACTORY_TYPE_NAME = "BillboardChain";
     //-----------------------------------------------------------------------
-    auto BillboardChainFactory::getType() const -> const String&
+    const String& BillboardChainFactory::getType() const
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    auto BillboardChainFactory::createInstanceImpl( const String& name,
-        const NameValuePairList* params) -> MovableObject*
+    MovableObject* BillboardChainFactory::createInstanceImpl( const String& name,
+        const NameValuePairList* params)
     {
         size_t maxElements = 20;
         size_t numberOfChains = 1;

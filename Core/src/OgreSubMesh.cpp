@@ -80,7 +80,7 @@ class HardwareBufferManagerBase;
         mMaterial = MaterialManager::getSingleton().getByName(name, groupName);
     }
     //-----------------------------------------------------------------------
-    auto SubMesh::getMaterialName() const -> const String&
+    const String& SubMesh::getMaterialName() const
     {
         return mMaterial ? mMaterial->getName() : BLANKSTRING;
     }
@@ -131,7 +131,7 @@ class HardwareBufferManagerBase;
         mBoneAssignmentsOutOfDate = false;
     }
     //---------------------------------------------------------------------
-    auto SubMesh::getAliasTextureIterator() const -> SubMesh::AliasTextureIterator
+    SubMesh::AliasTextureIterator SubMesh::getAliasTextureIterator() const
     {
         return {mTextureAliases.begin(),
             mTextureAliases.end()};
@@ -156,7 +156,7 @@ class HardwareBufferManagerBase;
 
     }
     //---------------------------------------------------------------------
-    auto SubMesh::getVertexAnimationType() const -> VertexAnimationType
+    VertexAnimationType SubMesh::getVertexAnimationType() const
     {
         if(parent->_getAnimationTypesDirty())
         {
@@ -180,7 +180,7 @@ class HardwareBufferManagerBase;
         Cluster ()
         { }
 
-        [[nodiscard]] auto empty () const -> bool
+        [[nodiscard]] bool empty () const
         {
             if (mIndices.empty ())
                 return true;
@@ -189,7 +189,7 @@ class HardwareBufferManagerBase;
             return false;
         }
 
-        [[nodiscard]] auto volume () const -> float
+        [[nodiscard]] float volume () const
         {
             return (mMax.x - mMin.x) * (mMax.y - mMin.y) * (mMax.z - mMin.z);
         }
@@ -218,8 +218,8 @@ class HardwareBufferManagerBase;
             }
         }
 
-        auto split (int split_axis, const VertexElement *poselem,
-                       uint8 *vdata, size_t vsz) -> Cluster
+        Cluster split (int split_axis, const VertexElement *poselem,
+                       uint8 *vdata, size_t vsz)
         {
             Real r = (mMin [split_axis] + mMax [split_axis]) * 0.5f;
             Cluster newbox;
@@ -391,7 +391,7 @@ class HardwareBufferManagerBase;
         }
     }
     //---------------------------------------------------------------------
-    auto SubMesh::clone(const String& newName, Mesh *parentMesh) -> SubMesh *
+    SubMesh * SubMesh::clone(const String& newName, Mesh *parentMesh)
     {
         // This is a bit like a copy constructor, but with the additional aspect of registering the clone with
         //  the MeshManager

@@ -50,11 +50,11 @@ class CustomCompositionPass;
 class Renderable;
 
 template<> CompositorManager* Singleton<CompositorManager>::msSingleton = 0;
-auto CompositorManager::getSingletonPtr() -> CompositorManager*
+CompositorManager* CompositorManager::getSingletonPtr()
 {
     return msSingleton;
 }
-auto CompositorManager::getSingleton() -> CompositorManager&
+CompositorManager& CompositorManager::getSingleton()
 {  
     assert( msSingleton );  return ( *msSingleton );  
 }//-----------------------------------------------------------------------
@@ -86,21 +86,21 @@ CompositorManager::~CompositorManager()
     ResourceGroupManager::getSingleton()._unregisterScriptLoader(this);
 }
 //-----------------------------------------------------------------------
-auto CompositorManager::createImpl(const String& name, ResourceHandle handle,
+Resource* CompositorManager::createImpl(const String& name, ResourceHandle handle,
     const String& group, bool isManual, ManualResourceLoader* loader,
-    const NameValuePairList* params) -> Resource*
+    const NameValuePairList* params)
 {
     return new Compositor(this, name, handle, group, isManual, loader);
 }
 //-----------------------------------------------------------------------
-auto CompositorManager::create (const String& name, const String& group,
+CompositorPtr CompositorManager::create (const String& name, const String& group,
                                 bool isManual, ManualResourceLoader* loader,
-                                const NameValuePairList* createParams) -> CompositorPtr
+                                const NameValuePairList* createParams)
 {
     return static_pointer_cast<Compositor>(createResource(name,group,isManual,loader,createParams));
 }
 //-----------------------------------------------------------------------
-auto CompositorManager::getByName(const String& name, const String& groupName) const -> CompositorPtr
+CompositorPtr CompositorManager::getByName(const String& name, const String& groupName) const
 {
     return static_pointer_cast<Compositor>(getResourceByName(name, groupName));
 }
@@ -109,7 +109,7 @@ void CompositorManager::initialise()
 {
 }
 //-----------------------------------------------------------------------
-auto CompositorManager::getCompositorChain(Viewport *vp) -> CompositorChain *
+CompositorChain *CompositorManager::getCompositorChain(Viewport *vp)
 {
     Chains::iterator i=mChains.find(vp);
     if(i != mChains.end())
@@ -124,7 +124,7 @@ auto CompositorManager::getCompositorChain(Viewport *vp) -> CompositorChain *
     }
 }
 //-----------------------------------------------------------------------
-auto CompositorManager::hasCompositorChain(const Viewport *vp) const -> bool
+bool CompositorManager::hasCompositorChain(const Viewport *vp) const
 {
     return mChains.find(vp) != mChains.end();
 }
@@ -155,7 +155,7 @@ void CompositorManager::freeChains()
     mChains.clear();
 }
 //-----------------------------------------------------------------------
-auto CompositorManager::_getTexturedRectangle2D() -> Renderable *
+Renderable *CompositorManager::_getTexturedRectangle2D()
 {
     if(!mRectangle)
     {
@@ -170,7 +170,7 @@ auto CompositorManager::_getTexturedRectangle2D() -> Renderable *
     return mRectangle;
 }
 //-----------------------------------------------------------------------
-auto CompositorManager::addCompositor(Viewport *vp, const String &compositor, int addPosition) -> CompositorInstance *
+CompositorInstance *CompositorManager::addCompositor(Viewport *vp, const String &compositor, int addPosition)
 {
     CompositorPtr comp = getByName(compositor);
     if(!comp)
@@ -231,11 +231,11 @@ void CompositorManager::_reconstructAllCompositorResources()
     }
 }
 //---------------------------------------------------------------------
-auto CompositorManager::getPooledTexture(const String& name, 
+TexturePtr CompositorManager::getPooledTexture(const String& name, 
     const String& localName,
     uint32 w, uint32 h, PixelFormat f, uint aa, const String& aaHint, bool srgb,
     CompositorManager::UniqueTextureSet& texturesAssigned, 
-    CompositorInstance* inst, CompositionTechnique::TextureScope scope, TextureType type) -> TexturePtr
+    CompositorInstance* inst, CompositionTechnique::TextureScope scope, TextureType type)
 {
     OgreAssert(scope != CompositionTechnique::TS_GLOBAL, "Global scope texture can not be pooled");
 
@@ -326,7 +326,7 @@ auto CompositorManager::getPooledTexture(const String& name,
     return ret;
 }
 //---------------------------------------------------------------------
-auto CompositorManager::isInputPreviousTarget(CompositorInstance* inst, const Ogre::String& localName) -> bool
+bool CompositorManager::isInputPreviousTarget(CompositorInstance* inst, const Ogre::String& localName)
 {
     const CompositionTechnique::TargetPasses& passes = inst->getTechnique()->getTargetPasses();
     CompositionTechnique::TargetPasses::const_iterator it;
@@ -345,7 +345,7 @@ auto CompositorManager::isInputPreviousTarget(CompositorInstance* inst, const Og
 
 }
 //---------------------------------------------------------------------
-auto CompositorManager::isInputPreviousTarget(CompositorInstance* inst, TexturePtr tex) -> bool
+bool CompositorManager::isInputPreviousTarget(CompositorInstance* inst, TexturePtr tex)
 {
     const CompositionTechnique::TargetPasses& passes = inst->getTechnique()->getTargetPasses();
     CompositionTechnique::TargetPasses::const_iterator it;
@@ -366,7 +366,7 @@ auto CompositorManager::isInputPreviousTarget(CompositorInstance* inst, TextureP
 
 }
 //---------------------------------------------------------------------
-auto CompositorManager::isInputToOutputTarget(CompositorInstance* inst, const Ogre::String& localName) -> bool
+bool CompositorManager::isInputToOutputTarget(CompositorInstance* inst, const Ogre::String& localName)
 {
     CompositionTargetPass* tp = inst->getTechnique()->getOutputTargetPass();
     CompositionTargetPass::Passes::const_iterator pit = tp->getPasses().begin();
@@ -385,7 +385,7 @@ auto CompositorManager::isInputToOutputTarget(CompositorInstance* inst, const Og
 
 }
 //---------------------------------------------------------------------()
-auto CompositorManager::isInputToOutputTarget(CompositorInstance* inst, TexturePtr tex) -> bool
+bool CompositorManager::isInputToOutputTarget(CompositorInstance* inst, TexturePtr tex)
 {
     CompositionTargetPass* tp = inst->getTechnique()->getOutputTargetPass();
     CompositionTargetPass::Passes::const_iterator pit = tp->getPasses().begin();
@@ -476,7 +476,7 @@ void CompositorManager::unregisterCompositorLogic(const String& name)
     mCompositorLogics.erase( itor );
 }
 //---------------------------------------------------------------------
-auto CompositorManager::getCompositorLogic(const String& name) -> CompositorLogic*
+CompositorLogic* CompositorManager::getCompositorLogic(const String& name)
 {
     CompositorLogicMap::iterator it = mCompositorLogics.find(name);
     if (it == mCompositorLogics.end())
@@ -488,7 +488,7 @@ auto CompositorManager::getCompositorLogic(const String& name) -> CompositorLogi
     return it->second;
 }
 //---------------------------------------------------------------------
-auto CompositorManager::hasCompositorLogic(const String& name) -> bool
+bool CompositorManager::hasCompositorLogic(const String& name)
 {
 	return mCompositorLogics.find(name) != mCompositorLogics.end();
 }
@@ -517,12 +517,12 @@ void CompositorManager::unregisterCustomCompositionPass(const String& name)
 	mCustomCompositionPasses.erase( itor );
 }
 //---------------------------------------------------------------------
-auto CompositorManager::hasCustomCompositionPass(const String& name) -> bool
+bool CompositorManager::hasCustomCompositionPass(const String& name)
 {
 	return mCustomCompositionPasses.find(name) != mCustomCompositionPasses.end();
 }
 //---------------------------------------------------------------------
-auto CompositorManager::getCustomCompositionPass(const String& name) -> CustomCompositionPass*
+CustomCompositionPass* CompositorManager::getCustomCompositionPass(const String& name)
 {
     CustomCompositionPassMap::iterator it = mCustomCompositionPasses.find(name);
     if (it == mCustomCompositionPasses.end())

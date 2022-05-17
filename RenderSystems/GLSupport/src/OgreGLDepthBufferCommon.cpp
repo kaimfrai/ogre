@@ -41,7 +41,7 @@ GLDepthBufferCommon::~GLDepthBufferCommon()
     }
 }
 
-auto GLDepthBufferCommon::isCompatible(RenderTarget* renderTarget) const -> bool
+bool GLDepthBufferCommon::isCompatible(RenderTarget* renderTarget) const
 {
     bool retVal = false;
 

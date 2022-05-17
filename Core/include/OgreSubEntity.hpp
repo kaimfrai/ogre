@@ -140,7 +140,7 @@ class VertexData;
     public:
         /** Gets the name of the Material in use by this instance.
         */
-        auto getMaterialName() const -> const String&;
+        const String& getMaterialName() const;
 
         /** Sets the name of the Material to be used.
             @remarks
@@ -157,7 +157,7 @@ class VertexData;
         void setVisible(bool visible);
 
         /** Returns whether or not this SubEntity is supposed to be visible. */
-        auto isVisible() const -> bool { return mVisible; }
+        bool isVisible() const { return mVisible; }
 
         /** Sets the render queue group this SubEntity will be rendered through.
         @remarks
@@ -188,27 +188,27 @@ class VertexData;
         void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority);
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        auto getRenderQueueGroup() const -> uint8 { return mRenderQueueID; }
+        uint8 getRenderQueueGroup() const { return mRenderQueueID; }
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        auto getRenderQueuePriority() const -> ushort { return mRenderQueuePriority; }
+        ushort getRenderQueuePriority() const { return mRenderQueuePriority; }
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        auto isRenderQueueGroupSet() const -> bool { return mRenderQueueIDSet; }
+        bool isRenderQueueGroupSet() const { return mRenderQueueIDSet; }
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        auto isRenderQueuePrioritySet() const -> bool { return mRenderQueuePrioritySet; }
+        bool isRenderQueuePrioritySet() const { return mRenderQueuePrioritySet; }
 
         /** Accessor method to read mesh data.
         */
-        auto getSubMesh() -> SubMesh*;
+        SubMesh* getSubMesh();
 
         /** Accessor to get parent Entity */
-        auto getParent() const -> Entity* { return mParentEntity; }
+        Entity* getParent() const { return mParentEntity; }
 
 
-        auto getMaterial() const -> const MaterialPtr& override { return mMaterialPtr; }
-        auto getTechnique() const -> Technique* override;
+        const MaterialPtr& getMaterial() const override { return mMaterialPtr; }
+        Technique* getTechnique() const override;
         void getRenderOperation(RenderOperation& op) override;
 
         /** Tells this SubEntity to draw a subset of the SubMesh by adjusting the index buffer extents.
@@ -220,7 +220,7 @@ class VertexData;
         /** Returns the current value of the start index used for drawing.
          * \see setIndexDataStartIndex
         */
-        auto getIndexDataStartIndex() const -> size_t;
+        size_t getIndexDataStartIndex() const;
 
         /** Tells this SubEntity to draw a subset of the SubMesh by adjusting the index buffer extents.
          * Default value is SubMesh::indexData::indexCount so that the entire index buffer is used when drawing.
@@ -230,17 +230,17 @@ class VertexData;
 
         /** Returns the current value of the start index used for drawing.
         */
-        auto getIndexDataEndIndex() const -> size_t;
+        size_t getIndexDataEndIndex() const;
 
         /** Reset the custom start/end index to the default values.
         */
         void resetIndexDataStartEndIndex();
 
         void getWorldTransforms(Matrix4* xform) const override;
-        auto getNumWorldTransforms() const -> unsigned short override;
-        auto getSquaredViewDepth(const Camera* cam) const -> Real override;
-        auto getLights() const -> const LightList& override;
-        auto getCastsShadows() const -> bool override;
+        unsigned short getNumWorldTransforms() const override;
+        Real getSquaredViewDepth(const Camera* cam) const override;
+        const LightList& getLights() const override;
+        bool getCastsShadows() const override;
         /** Advanced method to get the temporarily blended vertex information
         for entities which are software skinned. 
         @remarks
@@ -250,7 +250,7 @@ class VertexData;
         @note
             The positions/normals of the returned vertex data is in object space.
         */
-        auto _getSkelAnimVertexData() -> VertexData*;
+        VertexData* _getSkelAnimVertexData();
         /** Advanced method to get the temporarily blended software morph vertex information
         @remarks
             Internal engine will eliminate software animation if possible, this
@@ -259,22 +259,22 @@ class VertexData;
         @note
             The positions/normals of the returned vertex data is in object space.
         */
-        auto _getSoftwareVertexAnimVertexData() -> VertexData*;
+        VertexData* _getSoftwareVertexAnimVertexData();
         /** Advanced method to get the hardware morph vertex information
         @note
             The positions/normals of the returned vertex data is in object space.
         */
-        auto _getHardwareVertexAnimVertexData() -> VertexData*;
+        VertexData* _getHardwareVertexAnimVertexData();
         /** Advanced method to get the temp buffer information for software 
         skeletal animation.
         */
-        auto _getSkelAnimTempBufferInfo() -> TempBlendedBufferInfo*;
+        TempBlendedBufferInfo* _getSkelAnimTempBufferInfo();
         /** Advanced method to get the temp buffer information for software 
         morph animation.
         */
-        auto _getVertexAnimTempBufferInfo() -> TempBlendedBufferInfo*;
+        TempBlendedBufferInfo* _getVertexAnimTempBufferInfo();
         /// Retrieve the VertexData which should be used for GPU binding
-        auto getVertexDataForBinding() -> VertexData*;
+        VertexData* getVertexDataForBinding();
 
         /** Mark all vertex data as so far unanimated. 
         */
@@ -283,7 +283,7 @@ class VertexData;
         */
         void _markBuffersUsedForAnimation();
         /** Are buffers already marked as vertex animated? */
-        auto _getBuffersMarkedForAnimation() const -> bool { return mVertexAnimationAppliedThisFrame; }
+        bool _getBuffersMarkedForAnimation() const { return mVertexAnimationAppliedThisFrame; }
         /** Internal method to copy original vertex data to the morph structures
         should there be no active animation in use.
         */

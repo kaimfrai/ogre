@@ -65,7 +65,7 @@ namespace RTShader {
 
     //-----------------------------------------------------------------------
 
-	auto TriplanarTexturing::resolveParameters(ProgramSet* programSet) -> bool
+	bool TriplanarTexturing::resolveParameters(ProgramSet* programSet)
 	{
 		Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
 		Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -113,7 +113,7 @@ namespace RTShader {
     }
 
     //-----------------------------------------------------------------------
-    auto TriplanarTexturing::resolveDependencies(ProgramSet* programSet) -> bool
+    bool TriplanarTexturing::resolveDependencies(ProgramSet* programSet)
     {
         Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
         Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
@@ -124,7 +124,7 @@ namespace RTShader {
     }
 
     //-----------------------------------------------------------------------
-	auto TriplanarTexturing::addFunctionInvocations(ProgramSet* programSet) -> bool
+	bool TriplanarTexturing::addFunctionInvocations(ProgramSet* programSet)
 	{
         Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
         Function* psMain = psProgram->getEntryPointFunction();
@@ -144,19 +144,19 @@ namespace RTShader {
     }
 
     //-----------------------------------------------------------------------
-    auto TriplanarTexturing::getType() const -> const String&
+    const String& TriplanarTexturing::getType() const
     {
         return type;
     }
 
     //-----------------------------------------------------------------------
-    auto TriplanarTexturing::getExecutionOrder() const -> int
+    int TriplanarTexturing::getExecutionOrder() const
     {
         return FFP_TEXTURING;
     }
 
     //-----------------------------------------------------------------------
-    auto TriplanarTexturing::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass ) -> bool
+    bool TriplanarTexturing::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass )
     {
         TextureUnitState* textureUnit;
     
@@ -227,14 +227,14 @@ namespace RTShader {
     }
 
     //-----------------------------------------------------------------------
-    auto TriplanarTexturingFactory::getType() const -> const String&
+    const String& TriplanarTexturingFactory::getType() const
     {
         return TriplanarTexturing::type;
     }
 
     //-----------------------------------------------------------------------
-    auto TriplanarTexturingFactory::createInstance(ScriptCompiler* compiler, 
-                                                       PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*
+    SubRenderState* TriplanarTexturingFactory::createInstance(ScriptCompiler* compiler, 
+                                                       PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
     {
         if (prop->name == "triplanarTexturing")
         {
@@ -297,7 +297,7 @@ namespace RTShader {
     }
 
     //-----------------------------------------------------------------------
-    auto TriplanarTexturingFactory::createInstanceImpl() -> SubRenderState*
+    SubRenderState* TriplanarTexturingFactory::createInstanceImpl()
     {
         return new TriplanarTexturing;
     }

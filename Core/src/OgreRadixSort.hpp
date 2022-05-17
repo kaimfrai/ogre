@@ -223,7 +223,7 @@ namespace Ogre {
             }
         }
 
-        inline auto getByte(int byteIndex, TCompValueType val) -> unsigned char
+        inline unsigned char getByte(int byteIndex, TCompValueType val)
         {
             return ((unsigned char*)(&val))[byteIndex];
         }

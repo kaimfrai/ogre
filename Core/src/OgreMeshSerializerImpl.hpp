@@ -122,33 +122,33 @@ class VertexData;
         virtual void writeExtremes(const Mesh *pMesh);
         virtual void writeSubMeshExtremes(unsigned short idx, const SubMesh* s);
 
-        virtual auto calcMeshSize(const Mesh* pMesh) -> size_t;
-        virtual auto calcSubMeshSize(const SubMesh* pSub) -> size_t;
-        virtual auto calcGeometrySize(const VertexData* pGeom) -> size_t;
-        virtual auto calcSkeletonLinkSize(const String& skelName) -> size_t;
-        virtual auto calcBoneAssignmentSize() -> size_t;
-        virtual auto calcSubMeshOperationSize(const SubMesh* pSub) -> size_t;
-        virtual auto calcSubMeshNameTableSize(const Mesh* pMesh) -> size_t;
-        virtual auto calcLodLevelSize(const Mesh* pMesh) -> size_t;
-        virtual auto calcLodUsageManualSize(const MeshLodUsage& usage) -> size_t;
-        virtual auto calcLodUsageGeneratedSize(const Mesh* pMesh, const MeshLodUsage& usage, unsigned short lodNum) -> size_t;
-        virtual auto calcLodUsageGeneratedSubmeshSize(const SubMesh* submesh, unsigned short lodNum) -> size_t;
-        virtual auto calcEdgeListSize(const Mesh* pMesh) -> size_t;
-        virtual auto calcEdgeListLodSize(const EdgeData* data, bool isManual) -> size_t;
-        virtual auto calcEdgeGroupSize(const EdgeData::EdgeGroup& group) -> size_t;
-        virtual auto calcPosesSize(const Mesh* pMesh) -> size_t;
-        virtual auto calcPoseSize(const Pose* pose) -> size_t;
-        virtual auto calcAnimationsSize(const Mesh* pMesh) -> size_t;
-        virtual auto calcAnimationSize(const Animation* anim) -> size_t;
-        virtual auto calcAnimationTrackSize(const VertexAnimationTrack* track) -> size_t;
-        virtual auto calcMorphKeyframeSize(const VertexMorphKeyFrame* kf, size_t vertexCount) -> size_t;
-        virtual auto calcPoseKeyframeSize(const VertexPoseKeyFrame* kf) -> size_t;
-        virtual auto calcPoseKeyframePoseRefSize() -> size_t;
-        virtual auto calcPoseVertexSize(const Pose* pose) -> size_t;
-        virtual auto calcSubMeshTextureAliasesSize(const SubMesh* pSub) -> size_t;
-        virtual auto calcBoundsInfoSize(const Mesh* pMesh) -> size_t;
-        virtual auto calcExtremesSize(const Mesh* pMesh) -> size_t;
-        virtual auto calcSubMeshExtremesSize(unsigned short idx, const SubMesh* s) -> size_t;
+        virtual size_t calcMeshSize(const Mesh* pMesh);
+        virtual size_t calcSubMeshSize(const SubMesh* pSub);
+        virtual size_t calcGeometrySize(const VertexData* pGeom);
+        virtual size_t calcSkeletonLinkSize(const String& skelName);
+        virtual size_t calcBoneAssignmentSize();
+        virtual size_t calcSubMeshOperationSize(const SubMesh* pSub);
+        virtual size_t calcSubMeshNameTableSize(const Mesh* pMesh);
+        virtual size_t calcLodLevelSize(const Mesh* pMesh);
+        virtual size_t calcLodUsageManualSize(const MeshLodUsage& usage);
+        virtual size_t calcLodUsageGeneratedSize(const Mesh* pMesh, const MeshLodUsage& usage, unsigned short lodNum);
+        virtual size_t calcLodUsageGeneratedSubmeshSize(const SubMesh* submesh, unsigned short lodNum);
+        virtual size_t calcEdgeListSize(const Mesh* pMesh);
+        virtual size_t calcEdgeListLodSize(const EdgeData* data, bool isManual);
+        virtual size_t calcEdgeGroupSize(const EdgeData::EdgeGroup& group);
+        virtual size_t calcPosesSize(const Mesh* pMesh);
+        virtual size_t calcPoseSize(const Pose* pose);
+        virtual size_t calcAnimationsSize(const Mesh* pMesh);
+        virtual size_t calcAnimationSize(const Animation* anim);
+        virtual size_t calcAnimationTrackSize(const VertexAnimationTrack* track);
+        virtual size_t calcMorphKeyframeSize(const VertexMorphKeyFrame* kf, size_t vertexCount);
+        virtual size_t calcPoseKeyframeSize(const VertexPoseKeyFrame* kf);
+        virtual size_t calcPoseKeyframePoseRefSize();
+        virtual size_t calcPoseVertexSize(const Pose* pose);
+        virtual size_t calcSubMeshTextureAliasesSize(const SubMesh* pSub);
+        virtual size_t calcBoundsInfoSize(const Mesh* pMesh);
+        virtual size_t calcExtremesSize(const Mesh* pMesh);
+        virtual size_t calcSubMeshExtremesSize(unsigned short idx, const SubMesh* s);
 
         virtual void readTextureLayer(const DataStreamPtr& stream, Mesh* pMesh, MaterialPtr& pMat);
         virtual void readSubMeshNameTable(const DataStreamPtr& stream, Mesh* pMesh);
@@ -210,12 +210,12 @@ class VertexData;
     protected:
         // In the past we could select to use manual or automatic generated Lod levels,
         // but now we can mix them. If it is mixed, we can't export it to older mesh formats.
-        auto compatibleLodStrategyName(String lodStrategyName) -> String;
-        virtual auto isLodMixed(const Mesh* pMesh) -> bool;
-        virtual auto calcLodLevelSize(const Mesh* pMesh) -> size_t;
-        virtual auto calcLodUsageManualSize(const MeshLodUsage& usage) -> size_t;
-        virtual auto calcLodUsageGeneratedSize(const Mesh* pMesh, const MeshLodUsage& usage, unsigned short lodNum) -> size_t;
-        virtual auto calcLodUsageGeneratedSubmeshSize(const SubMesh* submesh, unsigned short lodNum) -> size_t;
+        String compatibleLodStrategyName(String lodStrategyName);
+        virtual bool isLodMixed(const Mesh* pMesh);
+        virtual size_t calcLodLevelSize(const Mesh* pMesh);
+        virtual size_t calcLodUsageManualSize(const MeshLodUsage& usage);
+        virtual size_t calcLodUsageGeneratedSize(const Mesh* pMesh, const MeshLodUsage& usage, unsigned short lodNum);
+        virtual size_t calcLodUsageGeneratedSubmeshSize(const SubMesh* submesh, unsigned short lodNum);
 
         virtual void writeLodLevel(const Mesh* pMesh);
         virtual void writeLodUsageGenerated(const Mesh* pMesh, const MeshLodUsage& usage, unsigned short lodNum);
@@ -243,9 +243,9 @@ class VertexData;
         void readMorphKeyFrame(const DataStreamPtr& stream, Mesh* pMesh, VertexAnimationTrack* track);
         void writePose(const Pose* pose);
         void readPose(const DataStreamPtr& stream, Mesh* pMesh);
-        auto calcMorphKeyframeSize(const VertexMorphKeyFrame* kf, size_t vertexCount) -> size_t;
-        auto calcPoseSize(const Pose* pose) -> size_t;
-        auto calcPoseVertexSize() -> size_t;
+        size_t calcMorphKeyframeSize(const VertexMorphKeyFrame* kf, size_t vertexCount);
+        size_t calcPoseSize(const Pose* pose);
+        size_t calcPoseVertexSize();
         using MeshSerializerImpl::calcPoseVertexSize;
     };
 
@@ -258,7 +258,7 @@ class VertexData;
         MeshSerializerImpl_v1_4();
         ~MeshSerializerImpl_v1_4();
     protected:
-        virtual auto calcLodLevelSize(const Mesh* pMesh) -> size_t;
+        virtual size_t calcLodLevelSize(const Mesh* pMesh);
         virtual void readMeshLodLevel(const DataStreamPtr& stream, Mesh* pMesh);
 
         virtual void writeLodLevel(const Mesh* pMesh);
@@ -280,8 +280,8 @@ class VertexData;
         virtual void reorganiseTriangles(EdgeData* edgeData);
         
         virtual void writeEdgeList(const Mesh* pMesh);
-        virtual auto calcEdgeListLodSize(const EdgeData* edgeData, bool isManual) -> size_t;
-        virtual auto calcEdgeGroupSize(const EdgeData::EdgeGroup& group) -> size_t;
+        virtual size_t calcEdgeListLodSize(const EdgeData* edgeData, bool isManual);
+        virtual size_t calcEdgeGroupSize(const EdgeData::EdgeGroup& group);
     };
 
     /** Class for providing backwards-compatibility for loading version 1.2 of the .mesh format. 

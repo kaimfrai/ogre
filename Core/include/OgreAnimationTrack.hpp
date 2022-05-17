@@ -97,17 +97,17 @@ class VertexMorphKeyFrame;
         {
         }
 
-        [[nodiscard]] auto hasKeyIndex() const -> bool
+        [[nodiscard]] bool hasKeyIndex() const
         {
             return mKeyIndex != INVALID_KEY_INDEX;
         }
 
-        [[nodiscard]] auto getTimePos() const -> Real
+        [[nodiscard]] Real getTimePos() const
         {
             return mTimePos;
         }
 
-        [[nodiscard]] auto getKeyIndex() const -> uint
+        [[nodiscard]] uint getKeyIndex() const
         {
             return mKeyIndex;
         }
@@ -147,7 +147,7 @@ class VertexMorphKeyFrame;
             /** Get an interpolated keyframe for this track at the given time.
             @return true if the KeyFrame was populated, false if not.
             */
-            virtual auto getInterpolatedKeyFrame(const AnimationTrack* t, const TimeIndex& timeIndex, KeyFrame* kf) -> bool = 0;
+            virtual bool getInterpolatedKeyFrame(const AnimationTrack* t, const TimeIndex& timeIndex, KeyFrame* kf) = 0;
         };
 
         /// Constructor
@@ -156,13 +156,13 @@ class VertexMorphKeyFrame;
         virtual ~AnimationTrack();
 
         /** Get the handle associated with this track. */
-        [[nodiscard]] auto getHandle() const -> unsigned short { return mHandle; }
+        [[nodiscard]] unsigned short getHandle() const { return mHandle; }
 
         /** Returns the number of keyframes in this animation. */
-        [[nodiscard]] auto getNumKeyFrames() const -> size_t { return mKeyFrames.size(); }
+        [[nodiscard]] size_t getNumKeyFrames() const { return mKeyFrames.size(); }
 
         /** Returns the KeyFrame at the specified index. */
-        [[nodiscard]] auto getKeyFrame(size_t index) const -> KeyFrame* { return mKeyFrames.at(index); }
+        [[nodiscard]] KeyFrame* getKeyFrame(size_t index) const { return mKeyFrames.at(index); }
 
         /** Gets the 2 KeyFrame objects which are active at the time given, and the blend value between them.
         @remarks
@@ -185,8 +185,8 @@ class VertexMorphKeyFrame;
             value is, e.g. 0.0 for exactly at 1, 0.25 for a quarter etc. By definition the range of this 
             value is:  0.0 <= returnValue < 1.0 .
         */
-        virtual auto getKeyFramesAtTime(const TimeIndex& timeIndex, KeyFrame** keyFrame1, KeyFrame** keyFrame2,
-            unsigned short* firstKeyIndex = 0) const -> Real;
+        virtual Real getKeyFramesAtTime(const TimeIndex& timeIndex, KeyFrame** keyFrame1, KeyFrame** keyFrame2,
+            unsigned short* firstKeyIndex = 0) const;
 
         /** Creates a new KeyFrame and adds it to this animation at the given time index.
         @remarks
@@ -195,7 +195,7 @@ class VertexMorphKeyFrame;
             for you, so you don't need to create this one, just access it using getKeyFrame(0);
         @param timePos The time from which this KeyFrame will apply.
         */
-        virtual auto createKeyFrame(Real timePos) -> KeyFrame*;
+        virtual KeyFrame* createKeyFrame(Real timePos);
 
         /** Removes a KeyFrame by it's index. */
         virtual void removeKeyFrame(unsigned short index);
@@ -232,7 +232,7 @@ class VertexMorphKeyFrame;
         doing anything useful - can be used to determine if this track
         can be optimised out.
         */
-        [[nodiscard]] virtual auto hasNonZeroKeyFrames() const -> bool { return true; }
+        [[nodiscard]] virtual bool hasNonZeroKeyFrames() const { return true; }
 
         /** Optimise the current track by removing any duplicate keyframes. */
         virtual void optimise() {}
@@ -251,14 +251,14 @@ class VertexMorphKeyFrame;
         virtual void setListener(Listener* l) { mListener = l; }
 
         /** Returns the parent Animation object for this track. */
-        [[nodiscard]] auto getParent() const -> Animation * { return mParent; }
+        [[nodiscard]] Animation *getParent() const { return mParent; }
     private:
         /// Map used to translate global keyframe time lower bound index to local lower bound index
         typedef std::vector<ushort> KeyFrameIndexMap;
         KeyFrameIndexMap mKeyFrameIndexMap;
 
         /// Create a keyframe implementation - must be overridden
-        virtual auto createKeyFrameImpl(Real time) -> KeyFrame* = 0;
+        virtual KeyFrame* createKeyFrameImpl(Real time) = 0;
     protected:
         typedef std::vector<KeyFrame*> KeyFrameList;
         KeyFrameList mKeyFrames;
@@ -288,7 +288,7 @@ class VertexMorphKeyFrame;
             for you, so you don't need to create this one, just access it using getKeyFrame(0);
         @param timePos The time from which this KeyFrame will apply.
         */
-        virtual auto createNumericKeyFrame(Real timePos) -> NumericKeyFrame*;
+        virtual NumericKeyFrame* createNumericKeyFrame(Real timePos);
 
         /// @copydoc AnimationTrack::getInterpolatedKeyFrame
         virtual void getInterpolatedKeyFrame(const TimeIndex& timeIndex, KeyFrame* kf) const;
@@ -308,17 +308,17 @@ class VertexMorphKeyFrame;
             Real weight = 1.0, Real scale = 1.0f);
 
         /** Returns a pointer to the associated animable object (if any). */
-        [[nodiscard]] virtual auto getAssociatedAnimable() const -> const AnimableValuePtr&;
+        [[nodiscard]] virtual const AnimableValuePtr& getAssociatedAnimable() const;
 
         /** Sets the associated animable object which will be automatically 
             affected by calls to 'apply'. */
         virtual void setAssociatedAnimable(const AnimableValuePtr& val);
 
         /** Returns the KeyFrame at the specified index. */
-        [[nodiscard]] auto getNumericKeyFrame(unsigned short index) const -> NumericKeyFrame*;
+        [[nodiscard]] NumericKeyFrame* getNumericKeyFrame(unsigned short index) const;
 
         /** Clone this track (internal use only) */
-        auto _clone(Animation* newParent) const -> NumericAnimationTrack*;
+        NumericAnimationTrack* _clone(Animation* newParent) const;
 
 
     private:
@@ -326,7 +326,7 @@ class VertexMorphKeyFrame;
         AnimableValuePtr mTargetAnim;
 
         /// @copydoc AnimationTrack::createKeyFrameImpl
-        auto createKeyFrameImpl(Real time) -> KeyFrame*;
+        KeyFrame* createKeyFrameImpl(Real time);
 
 
     };
@@ -350,9 +350,9 @@ class VertexMorphKeyFrame;
             for you, so you don't need to create this one, just access it using getKeyFrame(0);
         @param timePos The time from which this KeyFrame will apply.
         */
-        virtual auto createNodeKeyFrame(Real timePos) -> TransformKeyFrame*;
+        virtual TransformKeyFrame* createNodeKeyFrame(Real timePos);
         /** Returns a pointer to the associated Node object (if any). */
-        virtual auto getAssociatedNode() const -> Node*;
+        virtual Node* getAssociatedNode() const;
 
         /** Sets the associated Node object which will be automatically affected by calls to 'apply'. */
         virtual void setAssociatedNode(Node* node);
@@ -365,7 +365,7 @@ class VertexMorphKeyFrame;
         virtual void setUseShortestRotationPath(bool useShortestPath);
 
         /** Gets the method of rotation calculation */
-        virtual auto getUseShortestRotationPath() const -> bool;
+        virtual bool getUseShortestRotationPath() const;
 
         /// @copydoc AnimationTrack::getInterpolatedKeyFrame
         virtual void getInterpolatedKeyFrame(const TimeIndex& timeIndex, KeyFrame* kf) const;
@@ -377,26 +377,26 @@ class VertexMorphKeyFrame;
         void _keyFrameDataChanged() const;
 
         /** Returns the KeyFrame at the specified index. */
-        virtual auto getNodeKeyFrame(unsigned short index) const -> TransformKeyFrame*;
+        virtual TransformKeyFrame* getNodeKeyFrame(unsigned short index) const;
 
 
         /** Method to determine if this track has any KeyFrames which are
             doing anything useful - can be used to determine if this track
             can be optimised out.
         */
-        virtual auto hasNonZeroKeyFrames() const -> bool;
+        virtual bool hasNonZeroKeyFrames() const;
 
         /** Optimise the current track by removing any duplicate keyframes. */
         virtual void optimise();
 
         /** Clone this track (internal use only) */
-        auto _clone(Animation* newParent) const -> NodeAnimationTrack*;
+        NodeAnimationTrack* _clone(Animation* newParent) const;
         
         void _applyBaseKeyFrame(const KeyFrame* base);
         
     private:
         /// Specialised keyframe creation
-        auto createKeyFrameImpl(Real time) -> KeyFrame*;
+        KeyFrame* createKeyFrameImpl(Real time);
         // Flag indicating we need to rebuild the splines next time
         virtual void buildInterpolationSplines() const;
 
@@ -506,10 +506,10 @@ class VertexMorphKeyFrame;
             VertexData* targetData, TargetMode target = TM_SOFTWARE);
 
         /** Get the type of vertex animation we're performing. */
-        [[nodiscard]] auto getAnimationType() const -> VertexAnimationType { return mAnimationType; }
+        [[nodiscard]] VertexAnimationType getAnimationType() const { return mAnimationType; }
         
         /** Whether the vertex animation (if present) includes normals */
-        [[nodiscard]] auto getVertexAnimationIncludesNormals() const -> bool;
+        [[nodiscard]] bool getVertexAnimationIncludesNormals() const;
 
         /** Creates a new morph KeyFrame and adds it to this animation at the given time index.
         @remarks
@@ -518,11 +518,11 @@ class VertexMorphKeyFrame;
         for you, so you don't need to create this one, just access it using getKeyFrame(0);
         @param timePos The time from which this KeyFrame will apply.
         */
-        virtual auto createVertexMorphKeyFrame(Real timePos) -> VertexMorphKeyFrame*;
+        virtual VertexMorphKeyFrame* createVertexMorphKeyFrame(Real timePos);
 
         /** Creates the single pose KeyFrame and adds it to this animation.
         */
-        virtual auto createVertexPoseKeyFrame(Real timePos) -> VertexPoseKeyFrame*;
+        virtual VertexPoseKeyFrame* createVertexPoseKeyFrame(Real timePos);
 
         /** @copydoc AnimationTrack::getInterpolatedKeyFrame
         */
@@ -539,32 +539,32 @@ class VertexMorphKeyFrame;
 
 
         /** Returns the morph KeyFrame at the specified index. */
-        [[nodiscard]] auto getVertexMorphKeyFrame(unsigned short index) const -> VertexMorphKeyFrame*;
+        [[nodiscard]] VertexMorphKeyFrame* getVertexMorphKeyFrame(unsigned short index) const;
 
         /** Returns the pose KeyFrame at the specified index. */
-        [[nodiscard]] auto getVertexPoseKeyFrame(unsigned short index) const -> VertexPoseKeyFrame*;
+        [[nodiscard]] VertexPoseKeyFrame* getVertexPoseKeyFrame(unsigned short index) const;
 
         /** Sets the associated VertexData which this track will update. */
         void setAssociatedVertexData(VertexData* data) { mTargetVertexData = data; }
         /** Gets the associated VertexData which this track will update. */
-        [[nodiscard]] auto getAssociatedVertexData() const -> VertexData* { return mTargetVertexData; }
+        [[nodiscard]] VertexData* getAssociatedVertexData() const { return mTargetVertexData; }
 
         /// Set the target mode
         void setTargetMode(TargetMode m) { mTargetMode = m; }
         /// Get the target mode
-        [[nodiscard]] auto getTargetMode() const -> TargetMode { return mTargetMode; }
+        [[nodiscard]] TargetMode getTargetMode() const { return mTargetMode; }
 
         /** Method to determine if this track has any KeyFrames which are
         doing anything useful - can be used to determine if this track
         can be optimised out.
         */
-        [[nodiscard]] virtual auto hasNonZeroKeyFrames() const -> bool;
+        [[nodiscard]] virtual bool hasNonZeroKeyFrames() const;
 
         /** Optimise the current track by removing any duplicate keyframes. */
         virtual void optimise();
 
         /** Clone this track (internal use only) */
-        auto _clone(Animation* newParent) const -> VertexAnimationTrack*;
+        VertexAnimationTrack* _clone(Animation* newParent) const;
         
         void _applyBaseKeyFrame(const KeyFrame* base);
 
@@ -577,7 +577,7 @@ class VertexMorphKeyFrame;
         VertexData* mTargetVertexData;
 
         /// @copydoc AnimationTrack::createKeyFrameImpl
-        auto createKeyFrameImpl(Real time) -> KeyFrame*;
+        KeyFrame* createKeyFrameImpl(Real time);
 
         /// Utility method for applying pose animation
         void applyPoseToVertexData(const Pose* pose, VertexData* data, Real influence);

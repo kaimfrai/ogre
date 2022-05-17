@@ -51,7 +51,7 @@ namespace Ogre {
         c.erase(p, c.end());
     }
 
-    auto VideoMode::getDescription() const -> String
+    String VideoMode::getDescription() const
     {
         return StringUtil::format("%4d x %4d", width, height);
     }
@@ -167,12 +167,12 @@ namespace Ogre {
             refreshConfig();
     }
 
-    auto GLRenderSystemCommon::checkExtension(const String& ext) const -> bool
+    bool GLRenderSystemCommon::checkExtension(const String& ext) const
     {
         return mExtensionList.find(ext) != mExtensionList.end() || mGLSupport->checkExtension(ext);
     }
 
-    auto GLRenderSystemCommon::hasMinGLVersion(int major, int minor) const -> bool
+    bool GLRenderSystemCommon::hasMinGLVersion(int major, int minor) const
     {
         if (mDriverVersion.major == major) {
             return mDriverVersion.minor >= minor;
@@ -222,7 +222,7 @@ namespace Ogre {
         mRTTManager->getBestDepthStencil( internalColourFormat, depthFormat, stencilFormat );
     }
 
-    auto GLRenderSystemCommon::getDisplayMonitorCount() const -> unsigned int
+    unsigned int GLRenderSystemCommon::getDisplayMonitorCount() const
     {
         return mGLSupport->getDisplayMonitorCount();
     }

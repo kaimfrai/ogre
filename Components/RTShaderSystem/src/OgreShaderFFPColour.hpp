@@ -80,12 +80,12 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    virtual auto getType() const -> const String&;
+    virtual const String& getType() const;
 
     /** 
     @see SubRenderState::getType.
     */
-    virtual auto getExecutionOrder() const -> int;
+    virtual int getExecutionOrder() const;
 
     /** 
     @see SubRenderState::copyFrom.
@@ -95,7 +95,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    virtual auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool;
+    virtual bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass);
 
     /**
     Set the resolve stage flags that this sub render state will produce.
@@ -108,7 +108,7 @@ public:
     /**
     Get the current resolve stage flags.
     */
-    auto getResolveStageFlags() const -> unsigned int            { return mResolveStageFlags; }
+    unsigned int getResolveStageFlags() const            { return mResolveStageFlags; }
 
     /**
     Add the given mask to resolve stage flags that this sub render state will produce.
@@ -126,9 +126,9 @@ public:
 
 // Protected methods
 protected:  
-    virtual auto resolveParameters(ProgramSet* programSet) -> bool; 
-    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
-    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
+    virtual bool resolveParameters(ProgramSet* programSet); 
+    virtual bool resolveDependencies(ProgramSet* programSet);
+    virtual bool addFunctionInvocations(ProgramSet* programSet);
 
 // Attributes.
 protected:
@@ -160,12 +160,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] virtual auto getType() const -> const String&;
+    [[nodiscard]] virtual const String& getType() const;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*;
+    virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator);
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -178,7 +178,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual auto createInstanceImpl() -> SubRenderState*;
+    virtual SubRenderState* createInstanceImpl();
 
 
 };

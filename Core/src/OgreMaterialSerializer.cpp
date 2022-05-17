@@ -142,7 +142,7 @@ namespace Ogre
         mGpuProgramDefinitionContainer.clear();
     }
     //-----------------------------------------------------------------------
-    auto MaterialSerializer::getQueuedAsString() const -> const String &
+    const String &MaterialSerializer::getQueuedAsString() const
     {
         return mBuffer;
     }
@@ -822,7 +822,7 @@ namespace Ogre
         LogManager::getSingleton().logMessage("MaterialSerializer : done.", LML_NORMAL);
     }
     //-----------------------------------------------------------------------
-    auto MaterialSerializer::convertFiltering(FilterOptions fo) -> String
+    String MaterialSerializer::convertFiltering(FilterOptions fo)
     {
         switch (fo)
         {
@@ -839,7 +839,7 @@ namespace Ogre
         return "point";
     }
     //-----------------------------------------------------------------------
-    static auto convertTexAddressMode(TextureAddressingMode tam) -> String
+    static String convertTexAddressMode(TextureAddressingMode tam)
     {
         switch (tam)
         {

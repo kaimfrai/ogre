@@ -82,7 +82,7 @@ class ArchiveFactory;
             @par
                 If the function fails, an exception is thrown.
         */
-        auto load( const String& filename, const String& archiveType, bool readOnly) -> Archive*;
+        Archive* load( const String& filename, const String& archiveType, bool readOnly);
 
         /** Unloads an archive.
         @remarks
@@ -96,7 +96,7 @@ class ArchiveFactory;
         void unload(const String& filename);
         typedef MapIterator<ArchiveMap> ArchiveMapIterator;
         /** Get an iterator over the Archives in this Manager. */
-        auto getArchiveIterator() -> ArchiveMapIterator;
+        ArchiveMapIterator getArchiveIterator();
 
         /** Adds a new ArchiveFactory to the list of available factories.
             @remarks
@@ -106,9 +106,9 @@ class ArchiveFactory;
         */
         void addArchiveFactory(ArchiveFactory* factory);
         /// @copydoc Singleton::getSingleton()
-        static auto getSingleton() -> ArchiveManager&;
+        static ArchiveManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static auto getSingletonPtr() -> ArchiveManager*;
+        static ArchiveManager* getSingletonPtr();
     };
     /** @} */
     /** @} */

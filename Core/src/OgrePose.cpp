@@ -95,7 +95,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    auto Pose::_getHardwareVertexBuffer(const VertexData* origData) const -> const HardwareVertexBufferSharedPtr&
+    const HardwareVertexBufferSharedPtr& Pose::_getHardwareVertexBuffer(const VertexData* origData) const
     {
         size_t numVertices = origData->vertexCount;
         
@@ -165,7 +165,7 @@ namespace Ogre {
         return mBuffer;
     }
     //---------------------------------------------------------------------
-    auto Pose::clone() const -> Pose*
+    Pose* Pose::clone() const
     {
         Pose* newPose = new Pose(mTarget, mName);
         newPose->mVertexOffsetMap = mVertexOffsetMap;

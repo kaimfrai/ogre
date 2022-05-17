@@ -77,11 +77,11 @@ class Skeleton;
             @param
                 rotate Initial rotation relative to parent
         */
-        auto createChild(unsigned short handle, 
-            const Vector3& translate = Vector3::ZERO, const Quaternion& rotate = Quaternion::IDENTITY) -> Bone*;
+        Bone* createChild(unsigned short handle, 
+            const Vector3& translate = Vector3::ZERO, const Quaternion& rotate = Quaternion::IDENTITY);
 
         /** Gets the numeric handle for this bone (unique within the skeleton). */
-        auto getHandle() const -> unsigned short;
+        unsigned short getHandle() const;
 
         /** Sets the current position / orientation to be the 'binding pose' ie the layout in which 
             bones were originally bound to a mesh.
@@ -111,7 +111,7 @@ class Skeleton;
         void setManuallyControlled(bool manuallyControlled);
 
         /** Getter for mManuallyControlled Flag */
-        auto isManuallyControlled() const -> bool;
+        bool isManuallyControlled() const;
 
         
         /** Gets the transform which takes bone space to current from the binding pose. 
@@ -121,11 +121,11 @@ class Skeleton;
         void _getOffsetTransform(Affine3& m) const;
 
         /** Gets the inverted binding pose scale. */
-        auto _getBindingPoseInverseScale() const -> const Vector3& { return mBindDerivedInverseScale; }
+        const Vector3& _getBindingPoseInverseScale() const { return mBindDerivedInverseScale; }
         /** Gets the inverted binding pose position. */
-        auto _getBindingPoseInversePosition() const -> const Vector3& { return mBindDerivedInversePosition; }
+        const Vector3& _getBindingPoseInversePosition() const { return mBindDerivedInversePosition; }
         /** Gets the inverted binding pose orientation. */
-        auto _getBindingPoseInverseOrientation() const -> const Quaternion& { return mBindDerivedInverseOrientation; }
+        const Quaternion& _getBindingPoseInverseOrientation() const { return mBindDerivedInverseOrientation; }
 
         /// @see Node::needUpdate
         void needUpdate(bool forceParentUpdate = false);
@@ -133,9 +133,9 @@ class Skeleton;
 
     private:
         /** See Node. */
-        auto createChildImpl() -> Node*;
+        Node* createChildImpl();
         /** See Node. */
-        auto createChildImpl(const String& name) -> Node*;
+        Node* createChildImpl(const String& name);
 
         /// Pointer back to creator, for child creation (not smart ptr so child does not preserve parent)
         Skeleton* mCreator;

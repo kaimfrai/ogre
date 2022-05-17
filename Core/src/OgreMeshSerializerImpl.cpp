@@ -337,7 +337,7 @@ namespace Ogre {
         if (has_extremes)
             LogManager::getSingleton().logMessage("Extremes exported.");
     }
-    auto MeshSerializerImpl::calcExtremesSize(const Mesh* pMesh) -> size_t
+    size_t MeshSerializerImpl::calcExtremesSize(const Mesh* pMesh)
     {
         size_t size = 0;
         for (unsigned short i = 0; i < pMesh->getNumSubMeshes(); ++i)
@@ -372,7 +372,7 @@ namespace Ogre {
         delete[] vertices;
     }
 
-    auto MeshSerializerImpl::calcSubMeshExtremesSize(unsigned short idx, const SubMesh* s) -> size_t
+    size_t MeshSerializerImpl::calcSubMeshExtremesSize(unsigned short idx, const SubMesh* s)
     {
         return MSTREAM_OVERHEAD_SIZE + sizeof (unsigned short) +
             s->extremityPoints.size() * sizeof (float)* 3;
@@ -510,7 +510,7 @@ namespace Ogre {
         popInnerChunk(mStream);
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcSubMeshNameTableSize(const Mesh* pMesh) -> size_t
+    size_t MeshSerializerImpl::calcSubMeshNameTableSize(const Mesh* pMesh)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
         // Figure out the size of the Name table.
@@ -530,7 +530,7 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcMeshSize(const Mesh* pMesh) -> size_t
+    size_t MeshSerializerImpl::calcMeshSize(const Mesh* pMesh)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 
@@ -588,7 +588,7 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcSubMeshSize(const SubMesh* pSub) -> size_t
+    size_t MeshSerializerImpl::calcSubMeshSize(const SubMesh* pSub)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
         
@@ -633,12 +633,12 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcSubMeshOperationSize(const SubMesh* pSub) -> size_t
+    size_t MeshSerializerImpl::calcSubMeshOperationSize(const SubMesh* pSub)
     {
         return MSTREAM_OVERHEAD_SIZE + sizeof(uint16);
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcSubMeshTextureAliasesSize(const SubMesh* pSub) -> size_t
+    size_t MeshSerializerImpl::calcSubMeshTextureAliasesSize(const SubMesh* pSub)
     {
         size_t chunkSize = 0;
         AliasTextureNamePairList::const_iterator i;
@@ -653,7 +653,7 @@ namespace Ogre {
         return chunkSize;
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcGeometrySize(const VertexData* vertexData) -> size_t
+    size_t MeshSerializerImpl::calcGeometrySize(const VertexData* vertexData)
     {
         const VertexDeclaration::VertexElementList& elemList =
             vertexData->vertexDeclaration->getElements();
@@ -1148,7 +1148,7 @@ namespace Ogre {
         // Material definition section phased out of 1.1
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcSkeletonLinkSize(const String& skelName) -> size_t
+    size_t MeshSerializerImpl::calcSkeletonLinkSize(const String& skelName)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 
@@ -1213,7 +1213,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcBoneAssignmentSize() -> size_t
+    size_t MeshSerializerImpl::calcBoneAssignmentSize()
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 
@@ -1316,7 +1316,7 @@ namespace Ogre {
         }
     }
 
-    auto MeshSerializerImpl::calcLodLevelSize(const Mesh* pMesh) -> size_t
+    size_t MeshSerializerImpl::calcLodLevelSize(const Mesh* pMesh)
     {
         exportedLodCount = pMesh->getNumLodLevels();
         size_t size = MSTREAM_OVERHEAD_SIZE; // Header
@@ -1340,7 +1340,7 @@ namespace Ogre {
         return size;
     }
 
-    auto MeshSerializerImpl::calcLodUsageManualSize(const MeshLodUsage& usage) -> size_t
+    size_t MeshSerializerImpl::calcLodUsageManualSize(const MeshLodUsage& usage)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;// Header
         size += sizeof(float);// float usage.userValue;
@@ -1348,7 +1348,7 @@ namespace Ogre {
         return size;
     }
 
-    auto MeshSerializerImpl::calcLodUsageGeneratedSize(const Mesh* pMesh, const MeshLodUsage& usage, unsigned short lodNum) -> size_t
+    size_t MeshSerializerImpl::calcLodUsageGeneratedSize(const Mesh* pMesh, const MeshLodUsage& usage, unsigned short lodNum)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
         size += sizeof(float); // float usage.userValue;
@@ -1359,7 +1359,7 @@ namespace Ogre {
         }
         return size;
     }
-    auto MeshSerializerImpl::calcLodUsageGeneratedSubmeshSize( const SubMesh* submesh, unsigned short lodNum ) -> size_t
+    size_t MeshSerializerImpl::calcLodUsageGeneratedSubmeshSize( const SubMesh* submesh, unsigned short lodNum )
     {
         size_t size = 0;
         
@@ -1424,7 +1424,7 @@ namespace Ogre {
         readFloats(stream, &radius, 1);
         pMesh->_setBoundingSphereRadius(radius);
     }
-    auto MeshSerializerImpl::calcBoundsInfoSize(const Mesh* pMesh) -> size_t
+    size_t MeshSerializerImpl::calcBoundsInfoSize(const Mesh* pMesh)
     {
         unsigned long size = MSTREAM_OVERHEAD_SIZE;
         size += sizeof(float) * 7;
@@ -1626,7 +1626,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcEdgeListSize(const Mesh* pMesh) -> size_t
+    size_t MeshSerializerImpl::calcEdgeListSize(const Mesh* pMesh)
     {
 
         size_t size = MSTREAM_OVERHEAD_SIZE;
@@ -1644,7 +1644,7 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcEdgeListLodSize(const EdgeData* edgeData, bool isManual) -> size_t
+    size_t MeshSerializerImpl::calcEdgeListLodSize(const EdgeData* edgeData, bool isManual)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 
@@ -1685,7 +1685,7 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcEdgeGroupSize(const EdgeData::EdgeGroup& group) -> size_t
+    size_t MeshSerializerImpl::calcEdgeGroupSize(const EdgeData::EdgeGroup& group)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 
@@ -1982,7 +1982,7 @@ namespace Ogre {
         popInnerChunk(stream);
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcAnimationsSize(const Mesh* pMesh) -> size_t
+    size_t MeshSerializerImpl::calcAnimationsSize(const Mesh* pMesh)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 
@@ -1995,7 +1995,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcAnimationSize(const Animation* anim) -> size_t
+    size_t MeshSerializerImpl::calcAnimationSize(const Animation* anim)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
         // char* name
@@ -2012,7 +2012,7 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcAnimationTrackSize(const VertexAnimationTrack* track) -> size_t
+    size_t MeshSerializerImpl::calcAnimationTrackSize(const VertexAnimationTrack* track)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
         // uint16 type
@@ -2039,8 +2039,8 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcMorphKeyframeSize(const VertexMorphKeyFrame* kf,
-        size_t vertexCount) -> size_t
+    size_t MeshSerializerImpl::calcMorphKeyframeSize(const VertexMorphKeyFrame* kf,
+        size_t vertexCount)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
         // float time
@@ -2052,7 +2052,7 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcPoseKeyframeSize(const VertexPoseKeyFrame* kf) -> size_t
+    size_t MeshSerializerImpl::calcPoseKeyframeSize(const VertexPoseKeyFrame* kf)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 
@@ -2065,7 +2065,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcPoseKeyframePoseRefSize() -> size_t
+    size_t MeshSerializerImpl::calcPoseKeyframePoseRefSize()
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
         // unsigned short poseIndex
@@ -2077,7 +2077,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcPosesSize(const Mesh* pMesh) -> size_t
+    size_t MeshSerializerImpl::calcPosesSize(const Mesh* pMesh)
     {
         size_t size = 0;
 
@@ -2093,7 +2093,7 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcPoseSize(const Pose* pose) -> size_t
+    size_t MeshSerializerImpl::calcPoseSize(const Pose* pose)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 
@@ -2111,7 +2111,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcPoseVertexSize(const Pose* pose) -> size_t
+    size_t MeshSerializerImpl::calcPoseVertexSize(const Pose* pose)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
         // unsigned long vertexIndex
@@ -2650,7 +2650,7 @@ namespace Ogre {
     {
     }
     //--------------------------------------------------------------------
-    auto MeshSerializerImpl_v1_8::compatibleLodStrategyName(String strategyName) -> String
+    String MeshSerializerImpl_v1_8::compatibleLodStrategyName(String strategyName)
     {
         if(strategyName == "distance_box" || strategyName == "distance_sphere")
             strategyName = "Distance";
@@ -2659,7 +2659,7 @@ namespace Ogre {
         return strategyName;
     }
     //--------------------------------------------------------------------
-    auto MeshSerializerImpl_v1_8::isLodMixed(const Mesh* pMesh) -> bool
+    bool MeshSerializerImpl_v1_8::isLodMixed(const Mesh* pMesh)
     {
         if(!pMesh->hasManualLodLevel()) {
             return false;
@@ -2675,7 +2675,7 @@ namespace Ogre {
 
         return false;
     }
-    auto MeshSerializerImpl_v1_8::calcLodLevelSize(const Mesh* pMesh) -> size_t
+    size_t MeshSerializerImpl_v1_8::calcLodLevelSize(const Mesh* pMesh)
     {
         if (isLodMixed(pMesh)) {
             return 0; // Supported in v1_9+
@@ -2701,7 +2701,7 @@ namespace Ogre {
         }
         return size;
     }
-    auto MeshSerializerImpl_v1_8::calcLodUsageManualSize(const MeshLodUsage& usage) -> size_t
+    size_t MeshSerializerImpl_v1_8::calcLodUsageManualSize(const MeshLodUsage& usage)
     {
         // Header
         size_t size = MSTREAM_OVERHEAD_SIZE; // M_MESH_LOD_USAGE <== this is removed in v1_9
@@ -2716,7 +2716,7 @@ namespace Ogre {
         return size;
     }
 
-    auto MeshSerializerImpl_v1_8::calcLodUsageGeneratedSize(const Mesh* pMesh, const MeshLodUsage& usage, unsigned short lodNum) -> size_t
+    size_t MeshSerializerImpl_v1_8::calcLodUsageGeneratedSize(const Mesh* pMesh, const MeshLodUsage& usage, unsigned short lodNum)
     {
         // Usage Header
         size_t size = MSTREAM_OVERHEAD_SIZE;
@@ -2733,7 +2733,7 @@ namespace Ogre {
         }
         return size;
     }
-    auto MeshSerializerImpl_v1_8::calcLodUsageGeneratedSubmeshSize(const SubMesh* submesh, unsigned short lodNum) -> size_t
+    size_t MeshSerializerImpl_v1_8::calcLodUsageGeneratedSubmeshSize(const SubMesh* submesh, unsigned short lodNum)
     {
         const IndexData* indexData = submesh->mLodFaceList[lodNum - 1];
         const HardwareIndexBufferSharedPtr& ibuf = indexData->indexBuffer;
@@ -3129,7 +3129,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl_v1_41::calcPoseSize(const Pose* pose) -> size_t
+    size_t MeshSerializerImpl_v1_41::calcPoseSize(const Pose* pose)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 
@@ -3145,7 +3145,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl_v1_41::calcPoseVertexSize() -> size_t
+    size_t MeshSerializerImpl_v1_41::calcPoseVertexSize()
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
         // unsigned long vertexIndex
@@ -3156,8 +3156,8 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl_v1_41::calcMorphKeyframeSize(const VertexMorphKeyFrame* kf,
-        size_t vertexCount) -> size_t
+    size_t MeshSerializerImpl_v1_41::calcMorphKeyframeSize(const VertexMorphKeyFrame* kf,
+        size_t vertexCount)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
         // float time
@@ -3179,7 +3179,7 @@ namespace Ogre {
     MeshSerializerImpl_v1_4::~MeshSerializerImpl_v1_4()
     {
     }
-    auto MeshSerializerImpl_v1_4::calcLodLevelSize(const Mesh* pMesh) -> size_t
+    size_t MeshSerializerImpl_v1_4::calcLodLevelSize(const Mesh* pMesh)
     {
         if (isLodMixed(pMesh) || pMesh->getLodStrategy() != DistanceLodBoxStrategy::getSingletonPtr()) {
             return 0; // Supported in v1_9+
@@ -3562,7 +3562,7 @@ namespace Ogre {
             }
         }
     }
-    auto MeshSerializerImpl_v1_3::calcEdgeListLodSize(const EdgeData* edgeData, bool isManual) -> size_t
+    size_t MeshSerializerImpl_v1_3::calcEdgeListLodSize(const EdgeData* edgeData, bool isManual)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 
@@ -3603,7 +3603,7 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl_v1_3::calcEdgeGroupSize(const EdgeData::EdgeGroup& group) -> size_t
+    size_t MeshSerializerImpl_v1_3::calcEdgeGroupSize(const EdgeData::EdgeGroup& group)
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 

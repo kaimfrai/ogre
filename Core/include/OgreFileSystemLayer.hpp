@@ -72,7 +72,7 @@ namespace Ogre
          @param filename The config file name (without path)
          @return The full path to the config file
          */
-        [[nodiscard]] auto getConfigFilePath(Ogre::String filename) const -> Ogre::String
+        [[nodiscard]] Ogre::String getConfigFilePath(Ogre::String filename) const
         {
             // look for the requested file in several locations:
             
@@ -108,7 +108,7 @@ namespace Ogre
          @param filename Name of the file.
          @return The full path to a writable location for the given filename.
          */
-        [[nodiscard]] auto getWritablePath(const Ogre::String& filename) const -> Ogre::String
+        [[nodiscard]] Ogre::String getWritablePath(const Ogre::String& filename) const
         {
             return mHomePath + filename;
         }
@@ -127,18 +127,18 @@ namespace Ogre
          * @param path
          * @return path inside the bundle
          */
-        static auto resolveBundlePath(String path) -> String;
+        static String resolveBundlePath(String path);
 
         /** Create a directory. */
-        static auto createDirectory(const Ogre::String& name) -> bool;
+        static bool createDirectory(const Ogre::String& name);
         /** Delete a directory. Should be empty */
-        static auto removeDirectory(const Ogre::String& name) -> bool;
+        static bool removeDirectory(const Ogre::String& name);
         /** Test if the given file exists. */
-        static auto fileExists(const Ogre::String& path) -> bool;
+        static bool fileExists(const Ogre::String& path);
         /** Delete a file. */
-        static auto removeFile(const Ogre::String& path) -> bool;
+        static bool removeFile(const Ogre::String& path);
         /** Rename a file. */
-        static auto renameFile(const Ogre::String& oldpath, const Ogre::String& newpath) -> bool;
+        static bool renameFile(const Ogre::String& oldpath, const Ogre::String& newpath);
 
     private:
         Ogre::StringVector mConfigPaths;

@@ -323,23 +323,23 @@ class Sphere;
         // mShadowRenderables are lazy initialized
     }
     //-----------------------------------------------------------------------
-    auto Entity::hasVertexAnimation() const -> bool
+    bool Entity::hasVertexAnimation() const
     {
         return mMesh->hasVertexAnimation();
     }
     //-----------------------------------------------------------------------
-    auto Entity::getMesh() const -> const MeshPtr&
+    const MeshPtr& Entity::getMesh() const
     {
         return mMesh;
     }
     //-----------------------------------------------------------------------
-    auto Entity::getSubEntity(const String& name) const -> SubEntity*
+    SubEntity* Entity::getSubEntity(const String& name) const
     {
         ushort index = mMesh->_getSubMeshIndex(name);
         return getSubEntity(index);
     }
     //-----------------------------------------------------------------------
-    auto Entity::clone( const String& newName) const -> Entity*
+    Entity* Entity::clone( const String& newName) const
     {
         OgreAssert(mManager, "Cannot clone an Entity that wasn't created through a SceneManager");
         Entity* newEnt = mManager->createEntity(newName, getMesh()->getName() );
@@ -480,7 +480,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Entity::getBoundingBox() const -> const AxisAlignedBox&
+    const AxisAlignedBox& Entity::getBoundingBox() const
     {
         // Get from Mesh
         if (mMesh->isLoaded())
@@ -568,7 +568,7 @@ class Sphere;
         return mFullBoundingBox;
     }
     //-----------------------------------------------------------------------
-    auto Entity::getChildObjectsBoundingBox() const -> AxisAlignedBox
+    AxisAlignedBox Entity::getChildObjectsBoundingBox() const
     {
         AxisAlignedBox aa_box;
         AxisAlignedBox full_aa_box;
@@ -587,7 +587,7 @@ class Sphere;
         return full_aa_box;
     }
     //-----------------------------------------------------------------------
-    auto Entity::getWorldBoundingBox(bool derive) const -> const AxisAlignedBox&
+    const AxisAlignedBox& Entity::getWorldBoundingBox(bool derive) const
     {
         if (derive)
         {
@@ -600,7 +600,7 @@ class Sphere;
         return MovableObject::getWorldBoundingBox(derive);
     }
     //-----------------------------------------------------------------------
-    auto Entity::getWorldBoundingSphere(bool derive) const -> const Sphere&
+    const Sphere& Entity::getWorldBoundingSphere(bool derive) const
     {
         if (derive)
         {
@@ -740,28 +740,28 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Entity::getAnimationState(const String& name) const -> AnimationState*
+    AnimationState* Entity::getAnimationState(const String& name) const
     {
         OgreAssert(mAnimationState, "Entity is not animated");
         return mAnimationState->getAnimationState(name);
     }
     //-----------------------------------------------------------------------
-    auto Entity::hasAnimationState(const String& name) const -> bool
+    bool Entity::hasAnimationState(const String& name) const
     {
         return mAnimationState && mAnimationState->hasAnimationState(name);
     }
     //-----------------------------------------------------------------------
-    auto Entity::getAllAnimationStates() const -> AnimationStateSet*
+    AnimationStateSet* Entity::getAllAnimationStates() const
     {
         return mAnimationState;
     }
     //-----------------------------------------------------------------------
-    auto Entity::getMovableType() const -> const String&
+    const String& Entity::getMovableType() const
     {
         return EntityFactory::FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    auto Entity::tempVertexAnimBuffersBound() const -> bool
+    bool Entity::tempVertexAnimBuffersBound() const
     {
         // Do we still have temp buffers for software vertex animation bound?
         bool ret = true;
@@ -783,7 +783,7 @@ class Sphere;
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto Entity::tempSkelAnimBuffersBound(bool requestNormals) const -> bool
+    bool Entity::tempSkelAnimBuffersBound(bool requestNormals) const
     {
         // Do we still have temp buffers for software skeleton animation bound?
         if (mSkelAnimVertexData)
@@ -976,8 +976,8 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Entity::initHardwareAnimationElements(VertexData* vdata,
-                                                 ushort numberOfElements, bool animateNormals) -> ushort
+    ushort Entity::initHardwareAnimationElements(VertexData* vdata,
+                                                 ushort numberOfElements, bool animateNormals)
     {
         ushort elemsSupported = numberOfElements;
         if (vdata->hwAnimationDataList.size() < numberOfElements)
@@ -1346,47 +1346,47 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Entity::_isAnimated() const -> bool
+    bool Entity::_isAnimated() const
     {
         return (mAnimationState && mAnimationState->hasEnabledAnimationState()) ||
                (getSkeleton() && getSkeleton()->hasManualBones());
     }
     //-----------------------------------------------------------------------
-    auto Entity::_isSkeletonAnimated() const -> bool
+    bool Entity::_isSkeletonAnimated() const
     {
         return getSkeleton() &&
             (mAnimationState->hasEnabledAnimationState() || getSkeleton()->hasManualBones());
     }
     //-----------------------------------------------------------------------
-    auto Entity::_getSkelAnimVertexData() const -> VertexData*
+    VertexData* Entity::_getSkelAnimVertexData() const
     {
         assert (mSkelAnimVertexData && "Not software skinned or has no shared vertex data!");
         return mSkelAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    auto Entity::_getSoftwareVertexAnimVertexData() const -> VertexData*
+    VertexData* Entity::_getSoftwareVertexAnimVertexData() const
     {
         assert (mSoftwareVertexAnimVertexData && "Not vertex animated or has no shared vertex data!");
         return mSoftwareVertexAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    auto Entity::_getHardwareVertexAnimVertexData() const -> VertexData*
+    VertexData* Entity::_getHardwareVertexAnimVertexData() const
     {
         assert (mHardwareVertexAnimVertexData && "Not vertex animated or has no shared vertex data!");
         return mHardwareVertexAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    auto Entity::_getSkelAnimTempBufferInfo() -> TempBlendedBufferInfo*
+    TempBlendedBufferInfo* Entity::_getSkelAnimTempBufferInfo()
     {
         return &mTempSkelAnimInfo;
     }
     //-----------------------------------------------------------------------
-    auto Entity::_getVertexAnimTempBufferInfo() -> TempBlendedBufferInfo*
+    TempBlendedBufferInfo* Entity::_getVertexAnimTempBufferInfo()
     {
         return &mTempVertexAnimInfo;
     }
     //-----------------------------------------------------------------------
-    auto Entity::cacheBoneMatrices() -> bool
+    bool Entity::cacheBoneMatrices()
     {
         Root& root = Root::getSingleton();
         unsigned long currentFrameNumber = root.getNextFrameNumber();
@@ -1408,18 +1408,18 @@ class Sphere;
         mDisplaySkeleton = display;
     }
     //-----------------------------------------------------------------------
-    auto Entity::getDisplaySkeleton() const -> bool
+    bool Entity::getDisplaySkeleton() const
     {
         return mDisplaySkeleton;
     }
     //-----------------------------------------------------------------------
-    auto Entity::getNumManualLodLevels() const -> size_t
+    size_t Entity::getNumManualLodLevels() const
     {
         return mLodEntityList.size();
     }
 
     //-----------------------------------------------------------------------
-    auto Entity::getManualLodLevel(size_t index) const -> Entity*
+    Entity* Entity::getManualLodLevel(size_t index) const
     {
         assert(index < mLodEntityList.size());
 
@@ -1473,12 +1473,12 @@ class Sphere;
 
     struct MovableObjectNameExists {
         const String& name;
-        auto operator()(const MovableObject* mo) -> bool {
+        bool operator()(const MovableObject* mo) {
             return mo->getName() == name;
         }
     };
 
-    auto Entity::attachObjectToBone(const String &boneName, MovableObject *pMovable, const Quaternion &offsetOrientation, const Vector3 &offsetPosition) -> TagPoint*
+    TagPoint* Entity::attachObjectToBone(const String &boneName, MovableObject *pMovable, const Quaternion &offsetOrientation, const Vector3 &offsetPosition)
     {
         MovableObjectNameExists pred = {pMovable->getName()};
         auto it = std::find_if(mChildObjectList.begin(), mChildObjectList.end(), pred);
@@ -1522,7 +1522,7 @@ class Sphere;
     }
 
     //-----------------------------------------------------------------------
-    auto Entity::detachObjectFromBone(const String &name) -> MovableObject*
+    MovableObject* Entity::detachObjectFromBone(const String &name)
     {
         MovableObjectNameExists pred = {name};
         auto it = std::find_if(mChildObjectList.begin(), mChildObjectList.end(), pred);
@@ -1592,7 +1592,7 @@ class Sphere;
     }
 
     //-----------------------------------------------------------------------
-    auto Entity::getBoundingRadius() const -> Real
+    Real Entity::getBoundingRadius() const
     {
         return mMesh->getBoundingSphereRadius();
     }
@@ -1656,7 +1656,7 @@ class Sphere;
         info->extractFrom(sourceData);
     }
     //-----------------------------------------------------------------------
-    auto Entity::cloneVertexDataRemoveBlendInfo(const VertexData* source) -> VertexData*
+    VertexData* Entity::cloneVertexDataRemoveBlendInfo(const VertexData* source)
     {
         // Clone without copying data
         VertexData* ret = source->clone(false);
@@ -1702,13 +1702,13 @@ class Sphere;
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto Entity::getEdgeList() -> EdgeData*
+    EdgeData* Entity::getEdgeList()
     {
         // Get from Mesh
         return mMesh->getEdgeList(mMeshLodIndex);
     }
     //-----------------------------------------------------------------------
-    auto Entity::isHardwareAnimationEnabled() -> bool
+    bool Entity::isHardwareAnimationEnabled()
     {
         //find whether the entity has hardware animation for the current active sceme
         unsigned short schemeIndex = MaterialManager::getSingleton()._getActiveSchemeIndex();
@@ -1728,7 +1728,7 @@ class Sphere;
         mSchemeHardwareAnim.clear();
     }
     //-----------------------------------------------------------------------
-    auto Entity::calcVertexProcessing() -> bool
+    bool Entity::calcVertexProcessing()
     {
         // init
         bool hasHardwareAnimation = false;
@@ -1853,14 +1853,14 @@ class Sphere;
     }
 
     //-----------------------------------------------------------------------
-    auto Entity::_getMeshLodFactorTransformed() const -> Real
+    Real Entity::_getMeshLodFactorTransformed() const
     {
         return mMeshLodFactorTransformed;
     }
     //-----------------------------------------------------------------------
-    auto
+    const ShadowRenderableList&
     Entity::getShadowVolumeRenderableList(const Light* light, const HardwareIndexBufferPtr& indexBuffer,
-                                          size_t& indexBufferUsedSize, float extrusionDistance, int flags) -> const ShadowRenderableList&
+                                          size_t& indexBufferUsedSize, float extrusionDistance, int flags)
     {
         assert(indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT &&
                "Only 16-bit indexes supported for now");
@@ -2030,7 +2030,7 @@ class Sphere;
         return mShadowRenderables;
     }
     //-----------------------------------------------------------------------
-    auto Entity::findBlendedVertexData(const VertexData* orig) -> const VertexData*
+    const VertexData* Entity::findBlendedVertexData(const VertexData* orig)
     {
         bool skel = hasSkeleton();
 
@@ -2054,7 +2054,7 @@ class Sphere;
             "Entity::findBlendedVertexData");
     }
     //-----------------------------------------------------------------------
-    auto Entity::findSubEntityForVertexData(const VertexData* orig) -> SubEntity*
+    SubEntity* Entity::findSubEntityForVertexData(const VertexData* orig)
     {
         if (orig == mMesh->sharedVertexData)
         {
@@ -2157,7 +2157,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Entity::EntityShadowRenderable::isVisible() const -> bool
+    bool Entity::EntityShadowRenderable::isVisible() const
     {
         if (mSubEntity)
         {
@@ -2274,12 +2274,12 @@ class Sphere;
         mMesh->_refreshAnimationState(mAnimationState);
     }
     //-----------------------------------------------------------------------
-    auto Entity::getTypeFlags() const -> uint32
+    uint32 Entity::getTypeFlags() const
     {
         return SceneManager::ENTITY_TYPE_MASK;
     }
     //-----------------------------------------------------------------------
-    auto Entity::getVertexDataForBinding() -> VertexData*
+    VertexData* Entity::getVertexDataForBinding()
     {
         Entity::VertexDataBindChoice c =
             chooseVertexDataForBinding(mMesh->getSharedVertexDataAnimationType() != VAT_NONE);
@@ -2298,7 +2298,7 @@ class Sphere;
         return mMesh->sharedVertexData;
     }
     //-----------------------------------------------------------------------
-    auto Entity::chooseVertexDataForBinding(bool vertexAnim) -> Entity::VertexDataBindChoice
+    Entity::VertexDataBindChoice Entity::chooseVertexDataForBinding(bool vertexAnim)
     {
         if (hasSkeleton())
         {
@@ -2366,13 +2366,13 @@ class Sphere;
     //-----------------------------------------------------------------------
     String EntityFactory::FACTORY_TYPE_NAME = "Entity";
     //-----------------------------------------------------------------------
-    auto EntityFactory::getType() const -> const String&
+    const String& EntityFactory::getType() const
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    auto EntityFactory::createInstanceImpl( const String& name,
-        const NameValuePairList* params) -> MovableObject*
+    MovableObject* EntityFactory::createInstanceImpl( const String& name,
+        const NameValuePairList* params)
     {
         // must have mesh parameter
         MeshPtr pMesh;

@@ -36,11 +36,11 @@ namespace Ogre
 {
     //-----------------------------------------------------------------------
     template<> SkeletonManager* Singleton<SkeletonManager>::msSingleton = 0;
-    auto SkeletonManager::getSingletonPtr() -> SkeletonManager*
+    SkeletonManager* SkeletonManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto SkeletonManager::getSingleton() -> SkeletonManager&
+    SkeletonManager& SkeletonManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -53,14 +53,14 @@ namespace Ogre
         ResourceGroupManager::getSingleton()._registerResourceManager(mResourceType, this);
     }
     //-----------------------------------------------------------------------
-    auto SkeletonManager::getByName(const String& name, const String& groupName) const -> SkeletonPtr
+    SkeletonPtr SkeletonManager::getByName(const String& name, const String& groupName) const
     {
         return static_pointer_cast<Skeleton>(getResourceByName(name, groupName));
     }
     //-----------------------------------------------------------------------
-    auto SkeletonManager::create (const String& name, const String& group,
+    SkeletonPtr SkeletonManager::create (const String& name, const String& group,
                                     bool isManual, ManualResourceLoader* loader,
-                                    const NameValuePairList* createParams) -> SkeletonPtr
+                                    const NameValuePairList* createParams)
     {
         return static_pointer_cast<Skeleton>(createResource(name,group,isManual,loader,createParams));
     }
@@ -70,9 +70,9 @@ namespace Ogre
         ResourceGroupManager::getSingleton()._unregisterResourceManager(mResourceType);
     }
     //-----------------------------------------------------------------------
-    auto SkeletonManager::createImpl(const String& name, ResourceHandle handle, 
+    Resource* SkeletonManager::createImpl(const String& name, ResourceHandle handle, 
         const String& group, bool isManual, ManualResourceLoader* loader, 
-        const NameValuePairList* createParams) -> Resource*
+        const NameValuePairList* createParams)
     {
         return new Skeleton(this, name, handle, group, isManual, loader);
     }

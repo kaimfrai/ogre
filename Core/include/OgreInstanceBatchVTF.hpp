@@ -144,19 +144,19 @@ class VertexData;
         virtual void createVertexSemantics( VertexData *thisVertexData, VertexData *baseVertexData,
                                     const HWBoneIdxVec &hwBoneIdx, const HWBoneWgtVec &hwBoneWgt) = 0;
 
-        auto convert3x4MatricesToDualQuaternions(Matrix3x4f* matrices, size_t numOfMatrices, float* outDualQuaternions) -> size_t;
+        size_t convert3x4MatricesToDualQuaternions(Matrix3x4f* matrices, size_t numOfMatrices, float* outDualQuaternions);
                                     
         /** Keeps filling the VTF with world matrix data */
         void updateVertexTexture();
 
         /** Affects VTF texture's width dimension */
-        virtual auto matricesTogetherPerRow() const -> bool = 0;
+        virtual bool matricesTogetherPerRow() const = 0;
 
         /** update the lookup numbers for entities with shared transforms */
         virtual void updateSharedLookupIndexes();
 
         /** @see InstanceBatch::generateInstancedEntity() */
-        virtual auto generateInstancedEntity(size_t num) -> InstancedEntity*;
+        virtual InstancedEntity* generateInstancedEntity(size_t num);
 
     public:
         BaseInstanceBatchVTF( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
@@ -169,7 +169,7 @@ class VertexData;
 
         //Renderable overloads
         void getWorldTransforms( Matrix4* xform ) const;
-        auto getNumWorldTransforms() const -> unsigned short;
+        unsigned short getNumWorldTransforms() const;
 
         /** Overloaded to be able to updated the vertex texture */
         void _updateRenderQueue(RenderQueue* queue);
@@ -192,28 +192,28 @@ class VertexData;
         /** Tells whether to use bone matrix lookup
         @see setBoneMatrixLookup()
         */
-        auto useBoneMatrixLookup() const -> bool { return mUseBoneMatrixLookup; }
+        bool useBoneMatrixLookup() const { return mUseBoneMatrixLookup; }
 
         void setBoneDualQuaternions(bool enable) { assert(mInstancedEntities.empty());
             mUseBoneDualQuaternions = enable; mRowLength = (mUseBoneDualQuaternions ? 2 : 3); }
 
-        auto useBoneDualQuaternions() const -> bool { return mUseBoneDualQuaternions; }
+        bool useBoneDualQuaternions() const { return mUseBoneDualQuaternions; }
 
         void setForceOneWeight(bool enable) {  assert(mInstancedEntities.empty());
             mForceOneWeight = enable; }
 
-        auto forceOneWeight() const -> bool { return mForceOneWeight; }
+        bool forceOneWeight() const { return mForceOneWeight; }
 
         void setUseOneWeight(bool enable) {  assert(mInstancedEntities.empty());
             mUseOneWeight = enable; }
 
-        auto useOneWeight() const -> bool { return mUseOneWeight; }
+        bool useOneWeight() const { return mUseOneWeight; }
 
         /** @see InstanceBatch::useBoneWorldMatrices()  */
-        virtual auto useBoneWorldMatrices() const -> bool { return !mUseBoneMatrixLookup; }
+        virtual bool useBoneWorldMatrices() const { return !mUseBoneMatrixLookup; }
 
         /** @return the maximum amount of shared transform entities when using lookup table*/
-        virtual auto getMaxLookupTableInstances() const -> size_t { return mMaxLookupTableInstances; }
+        virtual size_t getMaxLookupTableInstances() const { return mMaxLookupTableInstances; }
         
     };
 
@@ -227,7 +227,7 @@ class VertexData;
         void createVertexSemantics( VertexData *thisVertexData, VertexData *baseVertexData,
             const HWBoneIdxVec &hwBoneIdx, const HWBoneWgtVec &hwBoneWgt );
 
-        virtual auto matricesTogetherPerRow() const -> bool { return false; }
+        virtual bool matricesTogetherPerRow() const { return false; }
     public:
         InstanceBatchVTF( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                             size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
@@ -235,7 +235,7 @@ class VertexData;
         virtual ~InstanceBatchVTF();
 
         /** @see InstanceBatch::calculateMaxNumInstances */
-        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t;
+        size_t calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const;
     };
 }
 

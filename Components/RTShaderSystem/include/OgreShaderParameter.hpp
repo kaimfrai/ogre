@@ -342,7 +342,7 @@ public:
     virtual ~Parameter() {};
 
     /** Get the name of this parameter. */
-    [[nodiscard]] auto getName() const -> const String& { return mName; }
+    [[nodiscard]] const String& getName() const { return mName; }
 
     /// internal function for aliasing to GLSL builtins e.g. gl_Position
     void _rename(const String& newName, bool onlyLocal = false)
@@ -353,35 +353,35 @@ public:
     }
 
     /** Get the type of this parameter. */
-    [[nodiscard]] auto getType() const -> GpuConstantType { return mType; }
+    [[nodiscard]] GpuConstantType getType() const { return mType; }
 
     /** Get the semantic of this parameter. */
-    [[nodiscard]] auto getSemantic() const -> const Semantic& { return mSemantic; }
+    [[nodiscard]] const Semantic& getSemantic() const { return mSemantic; }
 
     /** Get the index of this parameter. */
-    [[nodiscard]] auto getIndex() const -> int { return mIndex; } 
+    [[nodiscard]] int getIndex() const { return mIndex; } 
 
     /** Return the content of this parameter. */
-    [[nodiscard]] auto getContent() const -> Content { return mContent; }
+    [[nodiscard]] Content getContent() const { return mContent; }
 
     /** Returns true if this instance is a ConstParameter otherwise false. */
-    [[nodiscard]] virtual auto isConstParameter() const -> bool { return false; }
+    [[nodiscard]] virtual bool isConstParameter() const { return false; }
 
     /** Returns the string representation of this parameter. */
-    [[nodiscard]] virtual auto toString() const -> String { return mName; }
+    [[nodiscard]] virtual String toString() const { return mName; }
     
     /** Returns Whether this parameter is an array. */
-    [[nodiscard]] auto isArray() const -> bool { return mSize > 0; }
+    [[nodiscard]] bool isArray() const { return mSize > 0; }
 
     /** Returns the number of elements in the parameter (for arrays). */
-    [[nodiscard]] auto getSize() const -> size_t { return mSize; }
+    [[nodiscard]] size_t getSize() const { return mSize; }
     
     /** Sets the number of elements in the parameter (for arrays). */
     void setSize(size_t size) { mSize = size; }
 
     /// track whether this was used
     void setUsed(bool used) { mUsed = used; }
-    auto isUsed() -> bool { return mUsed; }
+    bool isUsed() { return mUsed; }
 
 // Attributes.
 protected:
@@ -460,31 +460,31 @@ public:
 
     
     /** Get auto constant int data of this parameter, in case it is auto constant parameter. */
-    [[nodiscard]] auto getAutoConstantIntData() const -> uint32 { return mAutoConstantIntData; }
+    [[nodiscard]] uint32 getAutoConstantIntData() const { return mAutoConstantIntData; }
 
     /** Get auto constant real data of this parameter, in case it is auto constant parameter. */
-    [[nodiscard]] auto getAutoConstantRealData() const -> float { return mAutoConstantRealData; }
+    [[nodiscard]] float getAutoConstantRealData() const { return mAutoConstantRealData; }
 
     /** Return true if this parameter is a floating point type, false otherwise. */
-    [[nodiscard]] auto isFloat() const -> bool { return GpuConstantDefinition::isFloat(mType); }
+    [[nodiscard]] bool isFloat() const { return GpuConstantDefinition::isFloat(mType); }
 
     /** Return true if this parameter is a texture sampler type, false otherwise. */
-    [[nodiscard]] auto isSampler() const -> bool { return GpuConstantDefinition::isSampler(mType); }
+    [[nodiscard]] bool isSampler() const { return GpuConstantDefinition::isSampler(mType); }
 
     /** Return true if this parameter is an auto constant parameter, false otherwise. */
-    [[nodiscard]] auto isAutoConstantParameter() const -> bool { return mIsAutoConstantReal || mIsAutoConstantInt; }
+    [[nodiscard]] bool isAutoConstantParameter() const { return mIsAutoConstantReal || mIsAutoConstantInt; }
 
     /** Return true if this parameter an auto constant with int data type, false otherwise. */
-    [[nodiscard]] auto isAutoConstantIntParameter() const -> bool { return mIsAutoConstantInt; }
+    [[nodiscard]] bool isAutoConstantIntParameter() const { return mIsAutoConstantInt; }
 
     /** Return true if this parameter an auto constant with real data type, false otherwise. */
-    [[nodiscard]] auto isAutoConstantRealParameter() const -> bool { return mIsAutoConstantReal; }
+    [[nodiscard]] bool isAutoConstantRealParameter() const { return mIsAutoConstantReal; }
 
     /** Return the auto constant type of this parameter. */
-    [[nodiscard]] auto getAutoConstantType  () const -> GpuProgramParameters::AutoConstantType { return mAutoConstantType; }
+    [[nodiscard]] GpuProgramParameters::AutoConstantType getAutoConstantType  () const { return mAutoConstantType; }
 
     /** Return the variability of this parameter. */
-    [[nodiscard]] auto getVariability() const -> uint16 { return mVariability; }
+    [[nodiscard]] uint16 getVariability() const { return mVariability; }
 
     /** Bind this parameter to the corresponding GPU parameter. */
     void bind(GpuProgramParametersSharedPtr paramsPtr);
@@ -651,17 +651,17 @@ public:
     virtual             ~ConstParameter     () {}
 
     /** Returns the native value of this parameter. (for example a Vector3) */
-    [[nodiscard]] auto getValue() const -> const valueType& { return mValue; }
+    [[nodiscard]] const valueType& getValue() const { return mValue; }
 
     /** 
     @see Parameter::isConstParameter.
     */
-    [[nodiscard]] virtual auto isConstParameter() const -> bool { return true; }
+    [[nodiscard]] virtual bool isConstParameter() const { return true; }
 
     /** 
     @see Parameter::toString.
     */
-    [[nodiscard]] virtual auto toString() const -> String = 0;
+    [[nodiscard]] virtual String toString() const = 0;
 
 protected:
     valueType mValue;
@@ -675,36 +675,36 @@ class ParameterFactory
     // Interface.
 public:
 
-    static auto createInPosition(int index, Parameter::Content content = Parameter::SPC_POSITION_OBJECT_SPACE) -> ParameterPtr;
-    static auto createOutPosition(int index) -> ParameterPtr;
+    static ParameterPtr createInPosition(int index, Parameter::Content content = Parameter::SPC_POSITION_OBJECT_SPACE);
+    static ParameterPtr createOutPosition(int index);
 
-    static auto createInNormal(int index) -> ParameterPtr;
-    static auto createInWeights(int index) -> ParameterPtr;
-    static auto createInIndices(int index) -> ParameterPtr;
-    static auto createOutNormal(int index) -> ParameterPtr;
-    static auto createInBiNormal(int index) -> ParameterPtr;
-    static auto createOutBiNormal(int index) -> ParameterPtr;
-    static auto createInTangent(int index) -> ParameterPtr;
-    static auto createOutTangent(int index) -> ParameterPtr;
-    static auto createInColor(int index) -> ParameterPtr;
-    static auto createOutColor(int index) -> ParameterPtr;
+    static ParameterPtr createInNormal(int index);
+    static ParameterPtr createInWeights(int index);
+    static ParameterPtr createInIndices(int index);
+    static ParameterPtr createOutNormal(int index);
+    static ParameterPtr createInBiNormal(int index);
+    static ParameterPtr createOutBiNormal(int index);
+    static ParameterPtr createInTangent(int index);
+    static ParameterPtr createOutTangent(int index);
+    static ParameterPtr createInColor(int index);
+    static ParameterPtr createOutColor(int index);
 
-    static auto createInTexcoord(GpuConstantType type, int index, Parameter::Content content) -> ParameterPtr;
-    static auto createOutTexcoord(GpuConstantType type, int index, Parameter::Content content) -> ParameterPtr;
+    static ParameterPtr createInTexcoord(GpuConstantType type, int index, Parameter::Content content);
+    static ParameterPtr createOutTexcoord(GpuConstantType type, int index, Parameter::Content content);
 
-    static auto createConstParam(const Vector2& val) -> ParameterPtr;
-    static auto createConstParam(const Vector3& val) -> ParameterPtr;
-    static auto createConstParam(const Vector4& val) -> ParameterPtr;
-    static auto createConstParam(float val) -> ParameterPtr;
+    static ParameterPtr createConstParam(const Vector2& val);
+    static ParameterPtr createConstParam(const Vector3& val);
+    static ParameterPtr createConstParam(const Vector4& val);
+    static ParameterPtr createConstParam(float val);
 
-    static auto createSampler(GpuConstantType type, int index) -> UniformParameterPtr;
-    static auto createSampler1D(int index) -> UniformParameterPtr;
-    static auto createSampler2D(int index) -> UniformParameterPtr;
-    static auto createSampler2DArray(int index) -> UniformParameterPtr;
-    static auto createSampler3D(int index) -> UniformParameterPtr;
-    static auto createSamplerCUBE(int index) -> UniformParameterPtr;    
+    static UniformParameterPtr createSampler(GpuConstantType type, int index);
+    static UniformParameterPtr createSampler1D(int index);
+    static UniformParameterPtr createSampler2D(int index);
+    static UniformParameterPtr createSampler2DArray(int index);
+    static UniformParameterPtr createSampler3D(int index);
+    static UniformParameterPtr createSamplerCUBE(int index);    
 
-    static auto createUniform(GpuConstantType type, int index, uint16 variability, const String& suggestedName, size_t size) -> UniformParameterPtr;
+    static UniformParameterPtr createUniform(GpuConstantType type, int index, uint16 variability, const String& suggestedName, size_t size);
 };
 
 

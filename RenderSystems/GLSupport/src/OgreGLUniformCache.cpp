@@ -34,7 +34,7 @@ namespace Ogre {
     {
     }
 
-    auto GLUniformCache::updateUniform(int location, const void *value, int length) -> bool
+    bool GLUniformCache::updateUniform(int location, const void *value, int length)
     {
         return true;
     }

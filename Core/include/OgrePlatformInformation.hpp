@@ -85,21 +85,21 @@ namespace Ogre {
             Actual detecting are performs in the first time call to this function,
             and then all future calls with return internal cached value.
         */
-        static auto getCpuIdentifier() -> const String&;
+        static const String& getCpuIdentifier();
 
         /** Gets a or-masked of enum CpuFeatures that are supported by the CPU.
         @note
             Actual detecting are performs in the first time call to this function,
             and then all future calls with return internal cached value.
         */
-        static auto getCpuFeatures() -> uint;
+        static uint getCpuFeatures();
 
         /** Gets whether a specific feature is supported by the CPU.
         @note
             Actual detecting are performs in the first time call to this function,
             and then all future calls with return internal cached value.
         */
-        static auto hasCpuFeature(CpuFeatures feature) -> bool;
+        static bool hasCpuFeature(CpuFeatures feature);
 
 
         /** Write the CPU information to the passed in Log */

@@ -61,9 +61,9 @@ namespace Ogre {
     public:
         virtual ~GpuProgramFactory() {}
         /// Get the name of the language this factory creates programs for
-        [[nodiscard]] virtual auto getLanguage() const -> const String& = 0;
-        virtual auto create(ResourceManager* creator, const String& name, ResourceHandle handle,
-                                   const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* = 0;
+        [[nodiscard]] virtual const String& getLanguage() const = 0;
+        virtual GpuProgram* create(ResourceManager* creator, const String& name, ResourceHandle handle,
+                                   const String& group, bool isManual, ManualResourceLoader* loader) = 0;
         virtual void destroy(GpuProgram* prog) { delete prog; }
     };
 
@@ -90,7 +90,7 @@ namespace Ogre {
         /// Factory for unified high-level programs
         std::unique_ptr<GpuProgramFactory> mUnifiedFactory;
 
-        auto getFactory(const String& language) -> GpuProgramFactory*;
+        GpuProgramFactory* getFactory(const String& language);
 
     public:
 
@@ -106,19 +106,19 @@ namespace Ogre {
         bool mSaveMicrocodesToCache;
         bool mCacheDirty;           // When this is true the cache is 'dirty' and should be resaved to disk.
             
-        static auto addRenderSystemToName( const String &  name ) -> String;
+        static String addRenderSystemToName( const String &  name );
 
         /// Generic create method
-        auto createImpl(const String& name, ResourceHandle handle,
+        Resource* createImpl(const String& name, ResourceHandle handle,
             const String& group, bool isManual, ManualResourceLoader* loader,
-            const NameValuePairList* createParams) -> Resource*;
+            const NameValuePairList* createParams);
     public:
         GpuProgramManager();
         virtual ~GpuProgramManager();
 
         /// Get a resource by name
         /// @see GpuProgramManager::getResourceByName
-        auto getByName(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT) const -> GpuProgramPtr;
+        GpuProgramPtr getByName(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT) const;
 
         /** Loads a GPU program from a file
         @remarks
@@ -131,9 +131,9 @@ namespace Ogre {
         @param gptype The type of program to create
         @param syntaxCode The name of the syntax to be used for this program e.g. arbvp1, vs_1_1
         */
-        virtual auto load(const String& name, const String& groupName, 
+        virtual GpuProgramPtr load(const String& name, const String& groupName, 
             const String& filename, GpuProgramType gptype, 
-            const String& syntaxCode) -> GpuProgramPtr;
+            const String& syntaxCode);
 
         /** Loads a GPU program from a string
         @remarks
@@ -146,25 +146,25 @@ namespace Ogre {
         @param gptype The type of program to create.
         @param syntaxCode The name of the syntax to be used for this program e.g. arbvp1, vs_1_1
         */
-        virtual auto loadFromString(const String& name, const String& groupName,
+        virtual GpuProgramPtr loadFromString(const String& name, const String& groupName,
             const String& code, GpuProgramType gptype,
-            const String& syntaxCode) -> GpuProgramPtr;
+            const String& syntaxCode);
 
         /** Returns the syntaxes that the RenderSystem supports. */
-        static auto getSupportedSyntax() -> const SyntaxCodes&;
+        static const SyntaxCodes& getSupportedSyntax();
 
         /** Returns whether a given syntax code (e.g. "glsl330", "vs_4_0", "arbvp1") is supported. */
-        static auto isSyntaxSupported(const String& syntaxCode) -> bool;
+        static bool isSyntaxSupported(const String& syntaxCode);
 
         /** Returns whether a given high-level language (e.g. "glsl", "hlsl") is supported. */
-        auto isLanguageSupported(const String& lang) const -> bool;
+        bool isLanguageSupported(const String& lang) const;
 
         /** Creates a new GpuProgramParameters instance which can be used to bind
             parameters to your programs.
         @remarks
             Program parameters can be shared between multiple programs if you wish.
         */
-        virtual auto createParameters() -> GpuProgramParametersSharedPtr;
+        virtual GpuProgramParametersSharedPtr createParameters();
         
         /** Create a new, unloaded GpuProgram from a file of assembly. 
         @remarks    
@@ -180,9 +180,9 @@ namespace Ogre {
         @param syntaxCode The name of the syntax to be used for this program e.g. arbvp1, vs_1_1
         @param gptype The type of program to create
         */
-        virtual auto createProgram(const String& name, 
+        virtual GpuProgramPtr createProgram(const String& name, 
             const String& groupName, const String& filename, 
-            GpuProgramType gptype, const String& syntaxCode) -> GpuProgramPtr;
+            GpuProgramType gptype, const String& syntaxCode);
 
         /** Create a GPU program from a string of assembly code.
         @remarks    
@@ -198,16 +198,16 @@ namespace Ogre {
         @param gptype The type of program to create.
         @param syntaxCode The name of the syntax to be used for this program e.g. arbvp1, vs_1_1
         */
-        virtual auto createProgramFromString(const String& name, 
+        virtual GpuProgramPtr createProgramFromString(const String& name, 
             const String& groupName, const String& code, 
-            GpuProgramType gptype, const String& syntaxCode) -> GpuProgramPtr;
+            GpuProgramType gptype, const String& syntaxCode);
 
         /** General create method, using specific create parameters
             instead of name / value pairs. 
         */
-        auto create(const String& name, const String& group,
+        GpuProgramPtr create(const String& name, const String& group,
             GpuProgramType gptype, const String& language, bool isManual = false,
-            ManualResourceLoader* loader = 0) -> GpuProgramPtr;
+            ManualResourceLoader* loader = 0);
 
         /** Create a new, unloaded GpuProgram.
         @par
@@ -220,8 +220,8 @@ namespace Ogre {
         @param language Code of the language to use (e.g. "cg")
         @param gptype The type of program to create
         */
-        auto createProgram(const String& name, const String& groupName, const String& language,
-                                    GpuProgramType gptype) -> GpuProgramPtr
+        GpuProgramPtr createProgram(const String& name, const String& groupName, const String& language,
+                                    GpuProgramType gptype)
         {
             return create(name, groupName, gptype, language);
         }
@@ -231,43 +231,43 @@ namespace Ogre {
         @param name The name to give the shared parameters so you can refer to them
             later.
         */
-        virtual auto createSharedParameters(const String& name) -> GpuSharedParametersPtr;
+        virtual GpuSharedParametersPtr createSharedParameters(const String& name);
 
         /** Retrieve a set of shared parameters, which can be used across many 
         GpuProgramParameters objects of different structures.
         */
-        virtual auto getSharedParameters(const String& name) const -> GpuSharedParametersPtr;
+        virtual GpuSharedParametersPtr getSharedParameters(const String& name) const;
 
         /** Get (const) access to the available shared parameter sets. 
         */
-        virtual auto getAvailableSharedParameters() const -> const SharedParametersMap&;
+        virtual const SharedParametersMap& getAvailableSharedParameters() const;
 
         /** Get if the microcode of a shader should be saved to a cache
         */
-        auto getSaveMicrocodesToCache() const -> bool;
+        bool getSaveMicrocodesToCache() const;
         /** Set if the microcode of a shader should be saved to a cache
         */
         void setSaveMicrocodesToCache( bool val );
 
         /** Returns true if the microcodecache changed during the run.
         */
-        auto isCacheDirty() const -> bool;
+        bool isCacheDirty() const;
 
-        static auto canGetCompiledShaderBuffer() -> bool;
+        static bool canGetCompiledShaderBuffer();
         /** Check if a microcode is available for a program in the microcode cache.
         @param id The id of the program.
         */
-        auto isMicrocodeAvailableInCache(uint32 id) const -> bool;
+        bool isMicrocodeAvailableInCache(uint32 id) const;
 
         /** Returns a microcode for a program from the microcode cache.
         @param id The name of the program.
         */
-        auto getMicrocodeFromCache(uint32 id) const -> const Microcode&;
+        const Microcode& getMicrocodeFromCache(uint32 id) const;
 
         /** Creates a microcode to be later added to the cache.
         @param size The size of the microcode in bytes
         */
-        auto createMicrocode( size_t size ) const -> Microcode;
+        Microcode createMicrocode( size_t size ) const;
 
         /** Adds a microcode for a program to the microcode cache.
         @param id The id of the program
@@ -295,9 +295,9 @@ namespace Ogre {
         void removeFactory(GpuProgramFactory* factory);
 
         /// @copydoc Singleton::getSingleton()
-        static auto getSingleton() -> GpuProgramManager&;
+        static GpuProgramManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static auto getSingletonPtr() -> GpuProgramManager*;
+        static GpuProgramManager* getSingletonPtr();
     
 
 

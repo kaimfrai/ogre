@@ -37,7 +37,7 @@ THE SOFTWARE.
 struct HtmlNode : public Ogre::GeneralAllocatedObject
 {
     virtual ~HtmlNode() {}
-    virtual auto print(Ogre::String indent = "") -> Ogre::String = 0;
+    virtual Ogre::String print(Ogre::String indent = "") = 0;
 };
 //-----------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ struct HtmlTextNode : public HtmlNode
     HtmlTextNode(Ogre::String text):contents(text){}
     //-------------------------------------------------------------------
 
-    virtual auto print(Ogre::String indent = "") -> Ogre::String
+    virtual Ogre::String print(Ogre::String indent = "")
     {
         return contents;
     }
@@ -92,7 +92,7 @@ struct HtmlElement : public HtmlNode
     }
     //-------------------------------------------------------------------
 
-    auto appendElement(Ogre::String type) -> HtmlElement*
+    HtmlElement* appendElement(Ogre::String type)
     {
         HtmlElement* newNode = new HtmlElement(type);
         children.push_back(newNode);
@@ -100,7 +100,7 @@ struct HtmlElement : public HtmlNode
     }
     //-------------------------------------------------------------------
 
-    auto appendText(Ogre::String text) -> HtmlTextNode*
+    HtmlTextNode* appendText(Ogre::String text)
     {
         HtmlTextNode* newNode = new HtmlTextNode(text);
         children.push_back(newNode);
@@ -108,7 +108,7 @@ struct HtmlElement : public HtmlNode
     }
     //-------------------------------------------------------------------
 
-    virtual auto print(Ogre::String indent = "") -> Ogre::String
+    virtual Ogre::String print(Ogre::String indent = "")
     {
         // stream we'll output to
         Ogre::StringStream out;

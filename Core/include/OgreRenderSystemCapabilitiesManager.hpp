@@ -70,18 +70,18 @@ namespace Ogre {
         /** Returns a capability loaded with RenderSystemCapabilitiesManager::parseCapabilitiesFromArchive method
         * @return NULL if the name is invalid, a parsed RenderSystemCapabilities otherwise.
         */
-        auto loadParsedCapabilities(const String& name) -> RenderSystemCapabilities*;
+        RenderSystemCapabilities* loadParsedCapabilities(const String& name);
 
         /** Access to the internal map of loaded capabilities */
-        [[nodiscard]] auto getCapabilities() const -> const std::map<String, RenderSystemCapabilities*> &;
+        [[nodiscard]] const std::map<String, RenderSystemCapabilities*> &getCapabilities() const;
 
         /** Method used by RenderSystemCapabilitiesSerializer::parseScript */
         void _addRenderSystemCapabilities(const String& name, RenderSystemCapabilities* caps);
 
         /// @copydoc Singleton::getSingleton()
-        static auto getSingleton() -> RenderSystemCapabilitiesManager&;
+        static RenderSystemCapabilitiesManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static auto getSingletonPtr() -> RenderSystemCapabilitiesManager*;
+        static RenderSystemCapabilitiesManager* getSingletonPtr();
 
     private:
 

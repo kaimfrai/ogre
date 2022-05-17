@@ -62,7 +62,7 @@ void CompositionTargetPass::setInputMode(InputMode mode)
     mInputMode = mode;
 }
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::getInputMode() const -> CompositionTargetPass::InputMode
+CompositionTargetPass::InputMode CompositionTargetPass::getInputMode() const
 {
     return mInputMode;
 }
@@ -72,7 +72,7 @@ void CompositionTargetPass::setOutputName(const String &out)
     mOutputName = out;
 }
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::getOutputName() const -> const String &
+const String &CompositionTargetPass::getOutputName() const
 {
     return mOutputName;
 }
@@ -82,7 +82,7 @@ void CompositionTargetPass::setOnlyInitial(bool value)
     mOnlyInitial = value;
 }
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::getOnlyInitial() -> bool
+bool CompositionTargetPass::getOnlyInitial()
 {
     return mOnlyInitial;
 }
@@ -92,7 +92,7 @@ void CompositionTargetPass::setVisibilityMask(uint32 mask)
     mVisibilityMask = mask;
 }
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::getVisibilityMask() -> uint32
+uint32 CompositionTargetPass::getVisibilityMask()
 {
     return mVisibilityMask;
 }
@@ -102,7 +102,7 @@ void CompositionTargetPass::setLodBias(float bias)
     mLodBias = bias;
 }
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::getLodBias() -> float
+float CompositionTargetPass::getLodBias()
 {
     return mLodBias;
 }
@@ -112,7 +112,7 @@ void CompositionTargetPass::setMaterialScheme(const String& schemeName)
     mMaterialScheme = schemeName;
 }
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::getMaterialScheme() const -> const String&
+const String& CompositionTargetPass::getMaterialScheme() const
 {
     return mMaterialScheme;
 }
@@ -122,12 +122,12 @@ void CompositionTargetPass::setShadowsEnabled(bool enabled)
     mShadowsEnabled = enabled;
 }
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::getShadowsEnabled() const -> bool
+bool CompositionTargetPass::getShadowsEnabled() const
 {
     return mShadowsEnabled;
 }
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::createPass(CompositionPass::PassType type) -> CompositionPass *
+CompositionPass *CompositionTargetPass::createPass(CompositionPass::PassType type)
 {
     CompositionPass *t = new CompositionPass(this);
     t->setType(type);
@@ -156,13 +156,13 @@ void CompositionTargetPass::removeAllPasses()
 }
 
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::getParent() -> CompositionTechnique *
+CompositionTechnique *CompositionTargetPass::getParent()
 {
     return mParent;
 }
 
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::_isSupported() -> bool
+bool CompositionTargetPass::_isSupported()
 {
     // A target pass is supported if all passes are supported
 

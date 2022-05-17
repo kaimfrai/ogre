@@ -69,7 +69,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------------    
-    auto HardwarePixelBuffer::lock(size_t offset, size_t length, LockOptions options) -> void*
+    void* HardwarePixelBuffer::lock(size_t offset, size_t length, LockOptions options)
     {
         OgreAssert(!isLocked(), "already locked");
         OgreAssert(offset == 0 && length == mSizeInBytes, "must lock box or entire buffer");
@@ -80,7 +80,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------------    
-    auto HardwarePixelBuffer::lock(const Box& lockBox, LockOptions options) -> const PixelBox&
+    const PixelBox& HardwarePixelBuffer::lock(const Box& lockBox, LockOptions options)
     {
         if (mShadowBuffer)
         {
@@ -106,7 +106,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------------    
-    auto HardwarePixelBuffer::getCurrentLock() -> const PixelBox& 
+    const PixelBox& HardwarePixelBuffer::getCurrentLock() 
     { 
         OgreAssert(isLocked(), "buffer not locked");
         return mCurrentLock; 
@@ -114,7 +114,7 @@ namespace Ogre
     
     //-----------------------------------------------------------------------------    
     /// Internal implementation of lock()
-    auto HardwarePixelBuffer::lockImpl(size_t offset, size_t length, LockOptions options) -> void*
+    void* HardwarePixelBuffer::lockImpl(size_t offset, size_t length, LockOptions options)
     {
         OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "lockImpl(offset,length) is not valid for PixelBuffers and should never be called",
             "HardwarePixelBuffer::lockImpl");
@@ -184,7 +184,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------------    
     
-    auto HardwarePixelBuffer::getRenderTarget(size_t zoffset) -> RenderTexture *
+    RenderTexture *HardwarePixelBuffer::getRenderTarget(size_t zoffset)
     {
         assert(mUsage & TU_RENDERTARGET);
         return mSliceTRT.at(zoffset);

@@ -147,12 +147,12 @@ class SkeletonInstance;
 
 
         /// Returns number of matrices written to transform, assumes transform has enough space
-        auto getTransforms( Matrix4 *xform ) const -> size_t;
+        size_t getTransforms( Matrix4 *xform ) const;
         /// Returns number of 32-bit values written
-        auto getTransforms3x4( Matrix3x4f *xform ) const -> size_t;
+        size_t getTransforms3x4( Matrix3x4f *xform ) const;
 
         /// Returns true if this InstancedObject is visible to the current camera
-        auto findVisible( Camera *camera ) const -> bool;
+        bool findVisible( Camera *camera ) const;
 
         /// Creates/destroys our own skeleton, also tells slaves to unlink if we're destroying
         void createSkeletonInstance();
@@ -196,7 +196,7 @@ class SkeletonInstance;
             @param slave The InstancedEntity that should share with us and become our slave
             @return true if successfully shared (may fail if they aren't skeletally animated)
         */
-        auto shareTransformWith( InstancedEntity *slave ) -> bool;
+        bool shareTransformWith( InstancedEntity *slave );
 
         /** @see shareTransformWith
             Stops sharing the transform if this is a slave, and notifies the master we're no longer
@@ -207,16 +207,16 @@ class SkeletonInstance;
         */
         void stopSharingTransform();
 
-        auto _getOwner() const -> InstanceBatch* { return mBatchOwner; }
+        InstanceBatch* _getOwner() const { return mBatchOwner; }
 
-        auto getMovableType() const -> const String&;
+        const String& getMovableType() const;
 
-        auto getBoundingBox() const -> const AxisAlignedBox&;
-        auto getBoundingRadius() const -> Real;
+        const AxisAlignedBox& getBoundingBox() const;
+        Real getBoundingRadius() const;
 
         /** This is used by our batch owner to get the closest entity's depth, returns infinity
             when not attached to a scene node */
-        auto getSquaredViewDepth( const Camera* cam ) const -> Real;
+        Real getSquaredViewDepth( const Camera* cam ) const;
 
         /// Overridden so we can tell the InstanceBatch it needs to update it's bounds
         void _notifyMoved();
@@ -227,67 +227,67 @@ class SkeletonInstance;
         void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false ) {}
 
         /** @see Entity::hasSkeleton */
-        auto hasSkeleton() const -> bool { return mSkeletonInstance != 0; }
+        bool hasSkeleton() const { return mSkeletonInstance != 0; }
         /** @see Entity::getSkeleton */
-        auto getSkeleton() const -> SkeletonInstance* { return mSkeletonInstance; }
+        SkeletonInstance* getSkeleton() const { return mSkeletonInstance; }
 
         /** @see Entity::getAnimationState */
-        auto getAnimationState(const String& name) const -> AnimationState*;
+        AnimationState* getAnimationState(const String& name) const;
         /** @see Entity::getAllAnimationStates */
-        auto getAllAnimationStates() const -> AnimationStateSet*;
+        AnimationStateSet* getAllAnimationStates() const;
 
         /** Called by InstanceBatch in <i>his</i> _updateRenderQueue to tell us we need
             to calculate our bone matrices.
             @remarks Assumes it has a skeleton (mSkeletonInstance != 0)
             @return true if something was actually updated
         */
-        virtual auto _updateAnimation() -> bool;
+        virtual bool _updateAnimation();
 
         /** Sets the transformation look up number */
         void setTransformLookupNumber(uint16 num) { mTransformLookupNumber = num;}
 
         /** Retrieve the position */
-        auto getPosition() const -> const Vector3& { return mPosition; }
+        const Vector3& getPosition() const { return mPosition; }
         /** Set the position or the offset from the parent node if a parent node exists */ 
         void setPosition(const Vector3& position, bool doUpdate = true);
 
         /** Retrieve the orientation */
-        auto getOrientation() const -> const Quaternion& { return mOrientation; }
+        const Quaternion& getOrientation() const { return mOrientation; }
         /** Set the orientation or the offset from the parent node if a parent node exists */
         void setOrientation(const Quaternion& orientation, bool doUpdate = true);
 
         /** Retrieve the local scale */ 
-        auto getScale() const -> const Vector3& { return mScale; }
+        const Vector3& getScale() const { return mScale; }
         /** Set the  scale or the offset from the parent node if a parent node exists  */ 
         void setScale(const Vector3& scale, bool doUpdate = true);
 
         /** Returns the maximum derived scale coefficient among the xyz values */
-        auto getMaxScaleCoef() const -> Real;
+        Real getMaxScaleCoef() const;
 
         /** Update the world transform and derived values */
         void updateTransforms();
 
         /** Tells if the entity is in use. */
-        auto isInUse() const -> bool { return mInUse; }
+        bool isInUse() const { return mInUse; }
         /** Sets whether the entity is in use. */
         void setInUse(bool used);
 
         /** Returns the world transform of the instanced entity including local transform */
-        virtual auto _getParentNodeFullTransform() const -> const Affine3& {
+        virtual const Affine3& _getParentNodeFullTransform() const {
             assert((!mNeedTransformUpdate || !mUseLocalTransform) && "Transform data should be updated at this point");
             return mUseLocalTransform ? mFullLocalTransform :
                 mParentNode ? mParentNode->_getFullTransform() : Affine3::IDENTITY;
         }
 
         /** Returns the derived position of the instanced entity including local transform */
-        auto _getDerivedPosition() const -> const Vector3& {
+        const Vector3& _getDerivedPosition() const {
             assert((!mNeedTransformUpdate || !mUseLocalTransform) && "Transform data should be updated at this point");
             return mUseLocalTransform ? mDerivedLocalPosition :
                 mParentNode ? mParentNode->_getDerivedPosition() : Vector3::ZERO;
         }
 
         /** @copydoc MovableObject::isInScene */
-        virtual auto isInScene() const -> bool
+        virtual bool isInScene() const
         {
             //We assume that the instanced entity is in the scene if it is in use
             //It is in the scene whether it has a parent node or not
@@ -306,7 +306,7 @@ class SkeletonInstance;
         @param newParam New parameter
         */
         void setCustomParam( unsigned char idx, const Vector4 &newParam );
-        auto getCustomParam( unsigned char idx ) -> const Vector4&;
+        const Vector4& getCustomParam( unsigned char idx );
     };
 }
 

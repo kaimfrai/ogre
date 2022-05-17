@@ -75,25 +75,25 @@ public:
     Returns the number of bones in the model assigned to the material.
     @see setHardwareSkinningParam()
     */
-    auto getBoneCount() -> ushort;
+    ushort getBoneCount();
 
     /**
     Returns the number of weights/bones affecting a vertex.
     @see setHardwareSkinningParam()
     */
-    auto getWeightCount() -> ushort;
+    ushort getWeightCount();
 
     /**
     Only applicable for dual quaternion skinning.
     @see setHardwareSkinningParam()
     */
-    auto hasCorrectAntipodalityHandling() -> bool;
+    bool hasCorrectAntipodalityHandling();
 
     /**
     Only applicable for dual quaternion skinning.
     @see setHardwareSkinningParam()
     */
-    auto hasScalingShearingSupport() -> bool;
+    bool hasScalingShearingSupport();
 
     /**
     */
@@ -104,21 +104,21 @@ public:
     /**
     @see SubRenderState::resolveParameters.
     */
-    virtual auto resolveParameters(ProgramSet* programSet) -> bool = 0;
+    virtual bool resolveParameters(ProgramSet* programSet) = 0;
 
     /**
     @see SubRenderState::resolveDependencies.
     */
-    virtual auto resolveDependencies(ProgramSet* programSet) -> bool = 0;
+    virtual bool resolveDependencies(ProgramSet* programSet) = 0;
 
     /**
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool = 0;
+    virtual bool addFunctionInvocations(ProgramSet* programSet) = 0;
 
 protected:
     /** Translates an index number to a mask value */
-    auto indexToMask (int index) -> Operand::OpMask;
+    Operand::OpMask indexToMask (int index);
 
 // Attributes.
 protected:

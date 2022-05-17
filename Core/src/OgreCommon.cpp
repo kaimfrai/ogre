@@ -37,8 +37,8 @@ THE SOFTWARE.
 
 namespace Ogre 
 {
-    auto findCommandLineOpts(int numargs, char** argv, UnaryOptionList& unaryOptList, 
-        BinaryOptionList& binOptList) -> int
+    int findCommandLineOpts(int numargs, char** argv, UnaryOptionList& unaryOptList, 
+        BinaryOptionList& binOptList)
     {
         int startIndex = 1;
         for (int i = 1; i < numargs; ++i)

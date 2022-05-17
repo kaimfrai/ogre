@@ -137,7 +137,7 @@ namespace Ogre {
         /// Comparator to order pass groups
         struct PassGroupLess
         {
-            auto operator()(const Pass* a, const Pass* b) const -> bool
+            bool operator()(const Pass* a, const Pass* b) const
             {
                 // Sort by passHash, which is pass, then texture unit changes
                 uint32 hasha = a->getHash();
@@ -294,25 +294,25 @@ namespace Ogre {
             all solids when there are no shadows, or all solids which have shadow
             receiving enabled when using modulative shadows, or all ambient passes
             of solids which have shadow receive enabled for additive shadows. */
-        [[nodiscard]] auto getSolidsBasic() const -> const QueuedRenderableCollection&
+        [[nodiscard]] const QueuedRenderableCollection& getSolidsBasic() const
         { return mSolidsBasic; }
         /** Get the collection of solids currently queued per light (only applicable in 
             additive shadow modes). */
-        [[nodiscard]] auto getSolidsDiffuseSpecular() const -> const QueuedRenderableCollection&
+        [[nodiscard]] const QueuedRenderableCollection& getSolidsDiffuseSpecular() const
         { return mSolidsDiffuseSpecular; }
         /** Get the collection of solids currently queued for decal passes (only 
             applicable in additive shadow modes). */
-        [[nodiscard]] auto getSolidsDecal() const -> const QueuedRenderableCollection&
+        [[nodiscard]] const QueuedRenderableCollection& getSolidsDecal() const
         { return mSolidsDecal; }
         /** Get the collection of solids for which shadow receipt is disabled (only
             applicable when shadows are enabled). */
-        [[nodiscard]] auto getSolidsNoShadowReceive() const -> const QueuedRenderableCollection&
+        [[nodiscard]] const QueuedRenderableCollection& getSolidsNoShadowReceive() const
         { return mSolidsNoShadowReceive; }
         /** Get the collection of transparent objects currently queued */
-        [[nodiscard]] auto getTransparentsUnsorted() const -> const QueuedRenderableCollection&
+        [[nodiscard]] const QueuedRenderableCollection& getTransparentsUnsorted() const
         { return mTransparentsUnsorted; }
         /** Get the collection of transparent objects currently queued */
-        [[nodiscard]] auto getTransparents() const -> const QueuedRenderableCollection&
+        [[nodiscard]] const QueuedRenderableCollection& getTransparents() const
         { return mTransparents; }
 
 
@@ -429,7 +429,7 @@ namespace Ogre {
             }
         }
 
-        [[nodiscard]] auto getPriorityGroups() const -> const PriorityMap& { return mPriorityGroups; }
+        [[nodiscard]] const PriorityMap& getPriorityGroups() const { return mPriorityGroups; }
 
         /** Add a renderable to this group, with the given priority. */
         void addRenderable(Renderable* pRend, Technique* pTech, ushort priority)
@@ -501,7 +501,7 @@ namespace Ogre {
         void setShadowsEnabled(bool enabled) { mShadowsEnabled = enabled; }
 
         /** Are shadows enabled for this queue? */
-        [[nodiscard]] auto getShadowsEnabled() const -> bool { return mShadowsEnabled; }
+        [[nodiscard]] bool getShadowsEnabled() const { return mShadowsEnabled; }
 
         /** Sets whether or not the queue will split passes by their lighting type,
         ie ambient, per-light and decal. 

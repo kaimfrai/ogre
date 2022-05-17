@@ -77,9 +77,9 @@ class SubMesh;
         void setupIndices( const SubMesh* baseSubMesh );
 
         void removeBlendData();
-        virtual auto checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool;
+        virtual bool checkSubMeshCompatibility( const SubMesh* baseSubMesh );
 
-        auto updateVertexBuffer( Camera *currentCamera ) -> size_t;
+        size_t updateVertexBuffer( Camera *currentCamera );
 
     public:
         InstanceBatchHW( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
@@ -88,7 +88,7 @@ class SubMesh;
         virtual ~InstanceBatchHW();
 
         /** @see InstanceBatch::calculateMaxNumInstances */
-        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t;
+        size_t calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const;
 
         /** @see InstanceBatch::buildFrom */
         void buildFrom( const SubMesh *baseSubMesh, const RenderOperation &renderOperation );
@@ -106,11 +106,11 @@ class SubMesh;
         */
         void setStaticAndUpdate( bool bStatic );
 
-        auto isStatic() const -> bool                       { return mKeepStatic; }
+        bool isStatic() const                       { return mKeepStatic; }
 
         //Renderable overloads
         void getWorldTransforms( Matrix4* xform ) const;
-        auto getNumWorldTransforms() const -> unsigned short;
+        unsigned short getNumWorldTransforms() const;
 
         /** Overloaded to avoid updating skeletons (which we don't support), check visibility on a
             per unit basis and finally updated the vertex buffer */

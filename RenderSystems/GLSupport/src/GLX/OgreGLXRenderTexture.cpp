@@ -168,7 +168,7 @@ namespace Ogre
     }
     
     //-------------------------------------------------------------------------------------------------//
-    auto GLXPBuffer::getContext() const -> GLContext *
+    GLContext *GLXPBuffer::getContext() const
     {
         return mContext;
     }

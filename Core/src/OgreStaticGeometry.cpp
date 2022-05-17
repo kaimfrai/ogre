@@ -86,8 +86,8 @@ namespace Ogre {
         reset();
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::getRegion(const AxisAlignedBox& bounds,
-        bool autoCreate) -> StaticGeometry::Region*
+    StaticGeometry::Region* StaticGeometry::getRegion(const AxisAlignedBox& bounds,
+        bool autoCreate)
     {
         if (bounds.isNull())
             return 0;
@@ -129,8 +129,8 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::getVolumeIntersection(const AxisAlignedBox& box,
-        ushort x, ushort y, ushort z) -> Real
+    Real StaticGeometry::getVolumeIntersection(const AxisAlignedBox& box,
+        ushort x, ushort y, ushort z)
     {
         // Get bounds of indexed region
         AxisAlignedBox regionBounds = getRegionBounds(x, y, z);
@@ -147,7 +147,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::getRegionBounds(ushort x, ushort y, ushort z) -> AxisAlignedBox
+    AxisAlignedBox StaticGeometry::getRegionBounds(ushort x, ushort y, ushort z)
     {
         Vector3 min(
             ((Real)x - REGION_HALF_RANGE) * mRegionDimensions.x + mOrigin.x,
@@ -158,7 +158,7 @@ namespace Ogre {
         return { min, max };
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::getRegionCentre(ushort x, ushort y, ushort z) -> Vector3
+    Vector3 StaticGeometry::getRegionCentre(ushort x, ushort y, ushort z)
     {
         return {
             ((Real)x - REGION_HALF_RANGE) * mRegionDimensions.x + mOrigin.x
@@ -170,8 +170,8 @@ namespace Ogre {
             };
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::getRegion(
-            ushort x, ushort y, ushort z, bool autoCreate) -> StaticGeometry::Region*
+    StaticGeometry::Region* StaticGeometry::getRegion(
+            ushort x, ushort y, ushort z, bool autoCreate)
     {
         uint32 index = packIndex(x, y, z);
         Region* ret = getRegion(index);
@@ -195,7 +195,7 @@ namespace Ogre {
         return ret;
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::getRegion(uint32 index) -> StaticGeometry::Region*
+    StaticGeometry::Region* StaticGeometry::getRegion(uint32 index)
     {
         RegionMap::iterator i = mRegionMap.find(index);
         if (i != mRegionMap.end())
@@ -238,22 +238,22 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::packIndex(ushort x, ushort y, ushort z) -> uint32
+    uint32 StaticGeometry::packIndex(ushort x, ushort y, ushort z)
     {
         return x + (y << 10) + (z << 20);
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::getRegion(const Vector3& point,
-        bool autoCreate) -> StaticGeometry::Region*
+    StaticGeometry::Region* StaticGeometry::getRegion(const Vector3& point,
+        bool autoCreate)
     {
         ushort x, y, z;
         getRegionIndexes(point, x, y, z);
         return getRegion(x, y, z, autoCreate);
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::calculateBounds(VertexData* vertexData,
+    AxisAlignedBox StaticGeometry::calculateBounds(VertexData* vertexData,
         const Vector3& position, const Quaternion& orientation,
-        const Vector3& scale) -> AxisAlignedBox
+        const Vector3& scale)
     {
         const VertexElement* posElem =
             vertexData->vertexDeclaration->findElementBySemantic(
@@ -329,8 +329,8 @@ namespace Ogre {
         }
     }
     //--------------------------------------------------------------------------
-    auto
-    StaticGeometry::determineGeometry(SubMesh* sm) -> StaticGeometry::SubMeshLodGeometryLinkList*
+    StaticGeometry::SubMeshLodGeometryLinkList*
+    StaticGeometry::determineGeometry(SubMesh* sm)
     {
         OgreAssert(sm->indexData->indexBuffer, "currently only works with indexed geometry");
         // First, determine if we've already seen this submesh before
@@ -639,7 +639,7 @@ namespace Ogre {
         }
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::getRenderQueueGroup() const -> uint8
+    uint8 StaticGeometry::getRenderQueueGroup() const
     {
         return mRenderQueueID;
     }
@@ -654,7 +654,7 @@ namespace Ogre {
         }
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::getVisibilityFlags() const -> uint32
+    uint32 StaticGeometry::getVisibilityFlags() const
     {
         if(mRegionMap.empty())
             return MovableObject::getDefaultVisibilityFlags();
@@ -737,7 +737,7 @@ namespace Ogre {
         // shadow renderables are lazy initialized
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::Region::getTypeFlags() const -> uint32
+    uint32 StaticGeometry::Region::getTypeFlags() const
     {
         return SceneManager::STATICGEOMETRY_TYPE_MASK;
     }
@@ -816,7 +816,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::Region::getMovableType() const -> const String&
+    const String& StaticGeometry::Region::getMovableType() const
     {
         static String sType = "StaticGeometry";
         return sType;
@@ -847,12 +847,12 @@ namespace Ogre {
         mCurrentLod = mLodStrategy->getIndex(lodValue, mLodValues);
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::Region::getBoundingBox() const -> const AxisAlignedBox&
+    const AxisAlignedBox& StaticGeometry::Region::getBoundingBox() const
     {
         return mAABB;
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::Region::getBoundingRadius() const -> Real
+    Real StaticGeometry::Region::getBoundingRadius() const
     {
         return mBoundingRadius;
     }
@@ -873,7 +873,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::Region::isVisible() const -> bool
+    bool StaticGeometry::Region::isVisible() const
     {
         if(!mVisible || mBeyondFarDistance)
             return false;
@@ -886,9 +886,9 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    auto StaticGeometry::Region::getShadowVolumeRenderableList(
+    const ShadowRenderableList& StaticGeometry::Region::getShadowVolumeRenderableList(
         const Light* light, const HardwareIndexBufferPtr& indexBuffer, size_t& indexBufferUsedSize,
-        float extrusionDistance, int flags) -> const ShadowRenderableList&
+        float extrusionDistance, int flags)
     {
         // Calculate the object space light details
         Vector4 lightPos = light->getAs4DVector();
@@ -914,7 +914,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::Region::getEdgeList() -> EdgeData*
+    EdgeData* StaticGeometry::Region::getEdgeList()
     {
         return mLodBucketList[mCurrentLod]->getEdgeList();
     }
@@ -1153,7 +1153,7 @@ namespace Ogre {
         // no need to delete queued meshes, these are managed in StaticGeometry
     }
     //--------------------------------------------------------------------------
-    static auto getHash(StaticGeometry::SubMeshLodGeometryLink* geom) -> uint32
+    static uint32 getHash(StaticGeometry::SubMeshLodGeometryLink* geom)
     {
         // Formulate an identifying string for the geometry format
         // Must take into account the vertex declaration and the index type
@@ -1329,12 +1329,12 @@ namespace Ogre {
         delete mIndexData;
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::GeometryBucket::getMaterial() const -> const MaterialPtr&
+    const MaterialPtr& StaticGeometry::GeometryBucket::getMaterial() const
     {
         return mParent->getMaterial();
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::GeometryBucket::getTechnique() const -> Technique*
+    Technique* StaticGeometry::GeometryBucket::getTechnique() const
     {
         return mParent->getCurrentTechnique();
     }
@@ -1355,7 +1355,7 @@ namespace Ogre {
         *xform = mParent->getParent()->getParent()->_getParentNodeFullTransform();
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::GeometryBucket::getSquaredViewDepth(const Camera* cam) const -> Real
+    Real StaticGeometry::GeometryBucket::getSquaredViewDepth(const Camera* cam) const
     {
         const Region *region = mParent->getParent()->getParent();
         if (cam == region->mCamera)
@@ -1364,17 +1364,17 @@ namespace Ogre {
             return region->getParentNode()->getSquaredViewDepth(cam->getLodCamera());
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::GeometryBucket::getLights() const -> const LightList&
+    const LightList& StaticGeometry::GeometryBucket::getLights() const
     {
         return mParent->getParent()->getParent()->queryLights();
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::GeometryBucket::getCastsShadows() const -> bool
+    bool StaticGeometry::GeometryBucket::getCastsShadows() const
     {
         return mParent->getParent()->getParent()->getCastShadows();
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::GeometryBucket::assign(QueuedGeometry* qgeom) -> bool
+    bool StaticGeometry::GeometryBucket::assign(QueuedGeometry* qgeom)
     {
         // Do we have enough space?
         // -2 first to avoid overflow (-1 to adjust count to index, -1 to ensure

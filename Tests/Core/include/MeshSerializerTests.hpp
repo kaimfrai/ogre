@@ -81,15 +81,15 @@ public:
     void assertLodUsageClone(const MeshLodUsage& a, const MeshLodUsage& b, MeshVersion version = MESH_VERSION_LATEST);
 
     template<typename T>
-    auto isContainerClone(T& a, T& b) -> bool;
+    bool isContainerClone(T& a, T& b);
     template<typename K, typename V>
-    auto isHashMapClone(const std::unordered_map<K, V>& a, const std::unordered_map<K, V>& b) -> bool;
+    bool isHashMapClone(const std::unordered_map<K, V>& a, const std::unordered_map<K, V>& b);
 
     void getResourceFullPath(const ResourcePtr& resource, String& outPath);
-    auto copyFile(const String& srcPath, const String& dstPath) -> bool;
-    auto isLodMixed(const Mesh* pMesh) -> bool;
-    auto isEqual(Real a, Real b) -> bool;
-    auto isEqual(const Vector3& a, const Vector3& b) -> bool;
+    bool copyFile(const String& srcPath, const String& dstPath);
+    bool isLodMixed(const Mesh* pMesh);
+    bool isEqual(Real a, Real b);
+    bool isEqual(const Vector3& a, const Vector3& b);
 };
 
 #endif

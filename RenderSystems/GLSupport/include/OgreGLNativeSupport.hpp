@@ -44,7 +44,7 @@ namespace Ogre
         int16 refreshRate;
         uint8  bpp;
 
-        [[nodiscard]] auto getDescription() const -> String;
+        [[nodiscard]] String getDescription() const;
     };
     typedef std::vector<VideoMode>    VideoModes;
 
@@ -66,26 +66,26 @@ namespace Ogre
             virtual ~GLNativeSupport() {}
 
             /// @copydoc RenderSystem::_createRenderWindow
-            virtual auto newWindow(const String &name,
+            virtual RenderWindow* newWindow(const String &name,
                                             unsigned int width, unsigned int height,
                                             bool fullScreen,
-                                            const NameValuePairList *miscParams = 0) -> RenderWindow* = 0;
+                                            const NameValuePairList *miscParams = 0) = 0;
 
-            virtual auto createPBuffer(PixelComponentType format, size_t width, size_t height) -> GLPBuffer* {
+            virtual GLPBuffer* createPBuffer(PixelComponentType format, size_t width, size_t height) {
                 return NULL;
             }
 
             /**
             * Get the address of a function
             */
-            virtual auto getProcAddress(const char* procname) const -> void * = 0;
+            virtual void *getProcAddress(const char* procname) const = 0;
 
-            [[nodiscard]] auto checkExtension(const String& ext) const -> bool {
+            [[nodiscard]] bool checkExtension(const String& ext) const {
                 return extensionList.find(ext) != extensionList.end();
             }
 
             /// @copydoc RenderSystem::getDisplayMonitorCount
-            [[nodiscard]] virtual auto getDisplayMonitorCount() const -> unsigned int
+            [[nodiscard]] virtual unsigned int getDisplayMonitorCount() const
             {
                 return 1;
             }
@@ -102,12 +102,12 @@ namespace Ogre
             /**
             * Add any special config values to the system.
             */
-            virtual auto getConfigOptions() -> ConfigOptionMap { return {}; }
+            virtual ConfigOptionMap getConfigOptions() { return {}; }
 
-            [[nodiscard]] auto getFSAALevels() const -> const std::vector<int>& { return mFSAALevels; }
-            [[nodiscard]] auto getVideoModes() const -> const VideoModes& { return mVideoModes; }
+            [[nodiscard]] const std::vector<int>& getFSAALevels() const { return mFSAALevels; }
+            [[nodiscard]] const VideoModes& getVideoModes() const { return mVideoModes; }
 
-            [[nodiscard]] auto getContextProfile() const -> ContextProfile { return mContextProfile; }
+            [[nodiscard]] ContextProfile getContextProfile() const { return mContextProfile; }
         protected:
             // Allowed video modes
             VideoModes mVideoModes;

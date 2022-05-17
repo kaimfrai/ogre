@@ -79,7 +79,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto StringUtil::split( const String& str, const String& delims, unsigned int maxSplits, bool preserveDelims) -> StringVector
+    StringVector StringUtil::split( const String& str, const String& delims, unsigned int maxSplits, bool preserveDelims)
     {
         StringVector ret;
         // Pre-allocate some space for performance
@@ -139,7 +139,7 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::tokenise( const String& str, const String& singleDelims, const String& doubleDelims, unsigned int maxSplits) -> StringVector
+    StringVector StringUtil::tokenise( const String& str, const String& singleDelims, const String& doubleDelims, unsigned int maxSplits)
     {
         StringVector ret;
         // Pre-allocate some space for performance
@@ -239,7 +239,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::startsWith(const String& str, const String& pattern, bool lowerCase) -> bool
+    bool StringUtil::startsWith(const String& str, const String& pattern, bool lowerCase)
     {
         if (pattern.empty())
             return false;
@@ -252,7 +252,7 @@ namespace Ogre {
         return strncmp(str.c_str(), pattern.c_str(), pattern.size()) == 0;
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::endsWith(const String& str, const String& pattern, bool lowerCase) -> bool
+    bool StringUtil::endsWith(const String& str, const String& pattern, bool lowerCase)
     {
         if (pattern.empty())
             return false;
@@ -267,7 +267,7 @@ namespace Ogre {
         return strncmp(str.c_str() + offset, pattern.c_str(), pattern.size()) == 0;
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::standardisePath(const String& init) -> String
+    String StringUtil::standardisePath(const String& init)
     {
         String path = init;
 
@@ -278,7 +278,7 @@ namespace Ogre {
         return path;
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::normalizeFilePath(const String& init, bool makeLowerCase) -> String
+    String StringUtil::normalizeFilePath(const String& init, bool makeLowerCase)
     {
         const char* bufferSrc = init.c_str();
         int pathLen = (int)init.size();
@@ -409,7 +409,7 @@ namespace Ogre {
         splitBaseFilename( fullName, outBasename, outExtention );
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::match(const String& str, const String& pattern, bool caseSensitive) -> bool
+    bool StringUtil::match(const String& str, const String& pattern, bool caseSensitive)
     {
         String tmpStr = str;
         String tmpPattern = pattern;
@@ -478,7 +478,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::replaceAll(const String& source, const String& replaceWhat, const String& replaceWithWhat) -> const String
+    const String StringUtil::replaceAll(const String& source, const String& replaceWhat, const String& replaceWithWhat)
     {
         String result = source;
         String::size_type pos = 0;
@@ -492,7 +492,7 @@ namespace Ogre {
         return result;
     }
 
-    auto StringUtil::format(const char* fmt, ...) -> String
+    String StringUtil::format(const char* fmt, ...)
     {
         // try to use a stack buffer and fall back to heap for large strings
         char sbuf[1024];

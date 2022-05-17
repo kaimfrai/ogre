@@ -55,7 +55,7 @@ class RenderTexture;
         
         virtual void getCustomAttribute(const String& name, void* pData);
 
-        [[nodiscard]] auto getContext() const -> GLContext*;
+        [[nodiscard]] GLContext* getContext() const;
     protected:
         GLPBRTTManager *mManager;
         PixelComponentType mPBFormat;
@@ -71,12 +71,12 @@ class RenderTexture;
         
         /** @copydoc GLRTTManager::createRenderTexture
         */
-        virtual auto createRenderTexture(const String &name, 
-            const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> RenderTexture *;
+        virtual RenderTexture *createRenderTexture(const String &name, 
+            const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
         
          /** @copydoc GLRTTManager::checkFormat
         */
-        virtual auto checkFormat(PixelFormat format) -> bool;
+        virtual bool checkFormat(PixelFormat format);
         
         /** @copydoc GLRTTManager::bind
         */
@@ -96,7 +96,7 @@ class RenderTexture;
         
         /** Get GL rendering context for a certain component type and size.
         */
-        auto getContextFor(PixelComponentType ctype, uint32 width, uint32 height) -> GLContext *;
+        GLContext *getContextFor(PixelComponentType ctype, uint32 width, uint32 height);
     protected:
         /** GLSupport reference, used to create PBuffers */
         GLNativeSupport *mSupport;

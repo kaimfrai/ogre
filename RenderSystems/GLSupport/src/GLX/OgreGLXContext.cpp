@@ -85,7 +85,7 @@ namespace Ogre
         glXMakeCurrent(mGLSupport->getGLDisplay(), None, None);
     }
 
-    auto GLXContext::clone() const -> GLContext*
+    GLContext* GLXContext::clone() const
     {
         return new GLXContext(mGLSupport, mFBConfig, mDrawable);
     }

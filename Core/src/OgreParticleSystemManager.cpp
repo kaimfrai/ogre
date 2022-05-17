@@ -58,11 +58,11 @@ namespace Ogre {
     BillboardParticleRendererFactory* mBillboardRendererFactory = 0;
     //-----------------------------------------------------------------------
     template<> ParticleSystemManager* Singleton<ParticleSystemManager>::msSingleton = 0;
-    auto ParticleSystemManager::getSingletonPtr() -> ParticleSystemManager*
+    ParticleSystemManager* ParticleSystemManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto ParticleSystemManager::getSingleton() -> ParticleSystemManager&
+    ParticleSystemManager& ParticleSystemManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -94,12 +94,12 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::getScriptPatterns() const -> const StringVector&
+    const StringVector& ParticleSystemManager::getScriptPatterns() const
     {
         return mScriptPatterns;
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::getLoadingOrder() const -> Real
+    Real ParticleSystemManager::getLoadingOrder() const
     {
         /// Load late
         return 1000.0f;
@@ -185,8 +185,8 @@ namespace Ogre {
         }    
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::createTemplate(const String& name, 
-        const String& resourceGroup) -> ParticleSystem*
+    ParticleSystem* ParticleSystemManager::createTemplate(const String& name, 
+        const String& resourceGroup)
     {
         // check name
         if (mSystemTemplates.find(name) != mSystemTemplates.end())
@@ -202,7 +202,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::getTemplate(const String& name) -> ParticleSystem*
+    ParticleSystem* ParticleSystemManager::getTemplate(const String& name)
     {
         ParticleTemplateMap::iterator i = mSystemTemplates.find(name);
         if (i != mSystemTemplates.end())
@@ -215,16 +215,16 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::createSystemImpl(const String& name,
-        size_t quota, const String& resourceGroup) -> ParticleSystem*
+    ParticleSystem* ParticleSystemManager::createSystemImpl(const String& name,
+        size_t quota, const String& resourceGroup)
     {
         ParticleSystem* sys = new ParticleSystem(name, resourceGroup);
         sys->setParticleQuota(quota);
         return sys;
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::createSystemImpl(const String& name, 
-        const String& templateName) -> ParticleSystem*
+    ParticleSystem* ParticleSystemManager::createSystemImpl(const String& name, 
+        const String& templateName)
     {
         // Look up template
         ParticleSystem* pTemplate = getTemplate(templateName);
@@ -241,8 +241,8 @@ namespace Ogre {
         
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::_createEmitter(
-        const String& emitterType, ParticleSystem* psys) -> ParticleEmitter*
+    ParticleEmitter* ParticleSystemManager::_createEmitter(
+        const String& emitterType, ParticleSystem* psys)
     {
         // Locate emitter type
         ParticleEmitterFactoryMap::iterator pFact = mEmitterFactories.find(emitterType);
@@ -272,8 +272,8 @@ namespace Ogre {
         pFact->second->destroyEmitter(emitter);
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::_createAffector(
-        const String& affectorType, ParticleSystem* psys) -> ParticleAffector*
+    ParticleAffector* ParticleSystemManager::_createAffector(
+        const String& affectorType, ParticleSystem* psys)
     {
         // Locate affector type
         ParticleAffectorFactoryMap::iterator pFact = mAffectorFactories.find(affectorType);
@@ -304,7 +304,7 @@ namespace Ogre {
         pFact->second->destroyAffector(affector);
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::_createRenderer(const String& rendererType) -> ParticleSystemRenderer*
+    ParticleSystemRenderer* ParticleSystemManager::_createRenderer(const String& rendererType)
     {
         // Locate affector type
         ParticleSystemRendererFactoryMap::iterator pFact = mRendererFactories.find(rendererType);
@@ -343,22 +343,22 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto 
-    ParticleSystemManager::getAffectorFactoryIterator() -> ParticleSystemManager::ParticleAffectorFactoryIterator
+    ParticleSystemManager::ParticleAffectorFactoryIterator 
+    ParticleSystemManager::getAffectorFactoryIterator()
     {
         return {
             mAffectorFactories.begin(), mAffectorFactories.end()};
     }
     //-----------------------------------------------------------------------
-    auto 
-    ParticleSystemManager::getEmitterFactoryIterator() -> ParticleSystemManager::ParticleEmitterFactoryIterator
+    ParticleSystemManager::ParticleEmitterFactoryIterator 
+    ParticleSystemManager::getEmitterFactoryIterator()
     {
         return {
             mEmitterFactories.begin(), mEmitterFactories.end()};
     }
     //-----------------------------------------------------------------------
-    auto 
-    ParticleSystemManager::getRendererFactoryIterator() -> ParticleSystemManager::ParticleRendererFactoryIterator
+    ParticleSystemManager::ParticleRendererFactoryIterator 
+    ParticleSystemManager::getRendererFactoryIterator()
     {
         return {
             mRendererFactories.begin(), mRendererFactories.end()};
@@ -368,8 +368,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String ParticleSystemFactory::FACTORY_TYPE_NAME = "ParticleSystem";
     //-----------------------------------------------------------------------
-    auto ParticleSystemFactory::createInstanceImpl( const String& name, 
-            const NameValuePairList* params) -> MovableObject*
+    MovableObject* ParticleSystemFactory::createInstanceImpl( const String& name, 
+            const NameValuePairList* params)
     {
         if (params != 0)
         {
@@ -405,7 +405,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemFactory::getType() const -> const String&
+    const String& ParticleSystemFactory::getType() const
     {
         return FACTORY_TYPE_NAME;
     }

@@ -12,7 +12,7 @@ namespace Ogre {
 }  // namespace Ogre
 
 namespace OgreBites {
-    auto getNativeConfigDialog() -> Ogre::ConfigDialog* {
+    Ogre::ConfigDialog* getNativeConfigDialog() {
         return NULL;
     }
 } /* namespace OgreBites */

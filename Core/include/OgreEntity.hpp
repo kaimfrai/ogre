@@ -168,18 +168,18 @@ class VertexData;
         /** Internal method - given vertex data which could be from the Mesh or
             any submesh, finds the temporary blend copy.
         */
-        auto findBlendedVertexData(const VertexData* orig) -> const VertexData*;
+        const VertexData* findBlendedVertexData(const VertexData* orig);
         /** Internal method - given vertex data which could be from the Mesh or
             any SubMesh, finds the corresponding SubEntity.
         */
-        auto findSubEntityForVertexData(const VertexData* orig) -> SubEntity*;
+        SubEntity* findSubEntityForVertexData(const VertexData* orig);
 
         /** Internal method for extracting metadata out of source vertex data
             for fast assignment of temporary buffers later.
         */
         void extractTempBufferInfo(VertexData* sourceData, TempBlendedBufferInfo* info);
         /** Internal method to clone vertex data definitions but to remove blend buffers. */
-        auto cloneVertexDataRemoveBlendInfo(const VertexData* source) -> VertexData*;
+        VertexData* cloneVertexDataRemoveBlendInfo(const VertexData* source);
         /** Internal method for preparing this Entity for use in animation. */
         void prepareTempBlendBuffers();
         /** Mark all vertex data as so far unanimated.
@@ -239,7 +239,7 @@ class VertexData;
         @return
             True if the bone matrices cache has been updated. False if note.
         */
-        auto cacheBoneMatrices() -> bool;
+        bool cacheBoneMatrices();
 
         /** Flag indicating whether hardware animation is supported by this entities materials
             data is saved per scehme number.
@@ -309,16 +309,16 @@ class VertexData;
             active scheme. This is due to the fact that RTSS schemes may be different
             in their handling of hardware animation.
         */
-        auto calcVertexProcessing() -> bool;
+        bool calcVertexProcessing();
     
         /// Apply vertex animation.
         void applyVertexAnimation(bool hardwareAnimation, bool stencilShadows);
         /// Initialise the hardware animation elements for given vertex data.
-        auto initHardwareAnimationElements(VertexData* vdata, ushort numberOfElements, bool animateNormals) -> ushort;
+        ushort initHardwareAnimationElements(VertexData* vdata, ushort numberOfElements, bool animateNormals);
         /// Are software vertex animation temp buffers bound?
-        auto tempVertexAnimBuffersBound() const -> bool;
+        bool tempVertexAnimBuffersBound() const;
         /// Are software skeleton animation temp buffers bound?
-        auto tempSkelAnimBuffersBound(bool requestNormals) const -> bool;
+        bool tempSkelAnimBuffersBound(bool requestNormals) const;
 
     public:
         /// Contains the child objects (attached to bones) indexed by name.
@@ -351,7 +351,7 @@ class VertexData;
             void _createSeparateLightCap();
             /// Rebind the source positions (for temp buffer users).
             void rebindPositionBuffer(const VertexData* vertexData, bool force);
-            [[nodiscard]] auto isVisible() const -> bool override;
+            [[nodiscard]] bool isVisible() const override;
         };
     public:
         /** Default destructor.
@@ -360,25 +360,25 @@ class VertexData;
 
         /** Gets the Mesh that this Entity is based on.
         */
-        auto getMesh() const -> const MeshPtr&;
+        const MeshPtr& getMesh() const;
 
         /** Gets a pointer to a SubEntity, ie a part of an Entity.
         */
-        auto getSubEntity(size_t index) const -> SubEntity* { return mSubEntityList.at(index); }
+        SubEntity* getSubEntity(size_t index) const { return mSubEntityList.at(index); }
 
         /** Gets a pointer to a SubEntity by name
         @remarks 
             Names should be initialized during a Mesh creation.
         */
-        auto getSubEntity( const String& name ) const -> SubEntity*;
+        SubEntity* getSubEntity( const String& name ) const;
 
         /** Retrieves the number of SubEntity objects making up this entity.
         */
-        auto getNumSubEntities() const -> size_t { return mSubEntityList.size(); }
+        size_t getNumSubEntities() const { return mSubEntityList.size(); }
 
         /** Retrieves SubEntity objects making up this entity.
         */
-        auto getSubEntities() const -> const SubEntityList& {
+        const SubEntityList& getSubEntities() const {
             return mSubEntityList;
         }
 
@@ -391,7 +391,7 @@ class VertexData;
         @param newName
             Name for the new entity.
         */
-        auto clone( const String& newName ) const -> Entity*;
+        Entity* clone( const String& newName ) const;
 
         /** Sets the material to use for the whole of this entity.
         @remarks
@@ -423,13 +423,13 @@ class VertexData;
 
         void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority) override;
 
-        auto getBoundingBox() const -> const AxisAlignedBox& override;
+        const AxisAlignedBox& getBoundingBox() const override;
 
         /// Merge all the child object Bounds a return it.
-        auto getChildObjectsBoundingBox() const -> AxisAlignedBox;
+        AxisAlignedBox getChildObjectsBoundingBox() const;
 
         void _updateRenderQueue(RenderQueue* queue) override;
-        auto getMovableType() const -> const String& override;
+        const String& getMovableType() const override;
 
         /** For entities based on animated meshes, gets the AnimationState object for a single animation.
         @remarks
@@ -437,9 +437,9 @@ class VertexData;
             current state of each animation available to the entity. The AnimationState objects are
             initialised from the Mesh object.
         */
-        auto getAnimationState(const String& name) const -> AnimationState*;
+        AnimationState* getAnimationState(const String& name) const;
         /** Returns whether the AnimationState with the given name exists. */
-        auto hasAnimationState(const String& name) const -> bool;
+        bool hasAnimationState(const String& name) const;
         /** For entities based on animated meshes, gets the AnimationState objects for all animations.
         @return
             In case the entity is animated, this functions returns the pointer to a AnimationStateSet
@@ -449,7 +449,7 @@ class VertexData;
             current state of each animation available to the entity. The AnimationState objects are
             initialised from the Mesh object.
         */
-        auto getAllAnimationStates() const -> AnimationStateSet*;
+        AnimationStateSet* getAllAnimationStates() const;
 
         /** Tells the Entity whether or not it should display it's skeleton, if it has one.
         */
@@ -457,25 +457,25 @@ class VertexData;
 
         /** Returns whether or not the entity is currently displaying its skeleton.
         */
-        auto getDisplaySkeleton() const -> bool;
+        bool getDisplaySkeleton() const;
 
         /** Returns the number of manual levels of detail that this entity supports.
         @remarks
             This number never includes the original entity, it is difference
             with Mesh::getNumLodLevels.
         */
-        auto getNumManualLodLevels() const -> size_t;
+        size_t getNumManualLodLevels() const;
 
         /** Returns the current LOD used to render
         */
-        auto getCurrentLodIndex() -> ushort { return mMeshLodIndex; }
+        ushort getCurrentLodIndex() { return mMeshLodIndex; }
 
         /** Gets a pointer to the entity representing the numbered manual level of detail.
         @remarks
             The zero-based index never includes the original entity, unlike
             Mesh::getLodLevel.
         */
-        auto getManualLodLevel(size_t index) const -> Entity*;
+        Entity* getManualLodLevel(size_t index) const;
 
         /** Sets a level-of-detail bias for the mesh detail of this entity.
         @remarks
@@ -562,17 +562,17 @@ class VertexData;
         @return
             The TagPoint to which the object has been attached
         */
-        auto attachObjectToBone(const String &boneName,
+        TagPoint* attachObjectToBone(const String &boneName,
             MovableObject *pMovable,
             const Quaternion &offsetOrientation = Quaternion::IDENTITY,
-            const Vector3 &offsetPosition = Vector3::ZERO) -> TagPoint*;
+            const Vector3 &offsetPosition = Vector3::ZERO);
 
         /** Detach a MovableObject previously attached using attachObjectToBone.
             If the movable object name is not found then an exception is raised.
         @param movableName
             The name of the movable object to be detached.
         */
-        auto detachObjectFromBone(const String &movableName) -> MovableObject*;
+        MovableObject* detachObjectFromBone(const String &movableName);
 
         /** Detaches an object by pointer.
         @remarks
@@ -588,25 +588,25 @@ class VertexData;
         typedef VectorIterator<ChildObjectList> ChildObjectListIterator;
 
         /** Gets an iterator to the list of objects attached to bones on this entity. */
-        auto getAttachedObjects() const -> const ChildObjectList& { return mChildObjectList; }
+        const ChildObjectList& getAttachedObjects() const { return mChildObjectList; }
 
-        auto getBoundingRadius() const -> Real override;
-        auto getWorldBoundingBox(bool derive = false) const -> const AxisAlignedBox& override;
-        auto getWorldBoundingSphere(bool derive = false) const -> const Sphere& override;
+        Real getBoundingRadius() const override;
+        const AxisAlignedBox& getWorldBoundingBox(bool derive = false) const override;
+        const Sphere& getWorldBoundingSphere(bool derive = false) const override;
 
-        auto getEdgeList() -> EdgeData* override;
-        auto getShadowVolumeRenderableList(
+        EdgeData* getEdgeList() override;
+        const ShadowRenderableList& getShadowVolumeRenderableList(
             const Light* light, const HardwareIndexBufferPtr& indexBuffer,
-            size_t& indexBufferUsedSize, float extrusionDistance, int flags = 0) -> const ShadowRenderableList& override;
+            size_t& indexBufferUsedSize, float extrusionDistance, int flags = 0) override;
 
         /** Internal method for retrieving bone matrix information. */
-        auto _getBoneMatrices() const -> const Affine3* { return mBoneMatrices;}
+        const Affine3* _getBoneMatrices() const { return mBoneMatrices;}
         /** Internal method for retrieving bone matrix information. */
-        auto _getNumBoneMatrices() const -> unsigned short { return mNumBoneMatrices; }
+        unsigned short _getNumBoneMatrices() const { return mNumBoneMatrices; }
         /** Returns whether or not this entity is skeletally animated. */
-        auto hasSkeleton() const -> bool { return mSkeletonInstance != 0; }
+        bool hasSkeleton() const { return mSkeletonInstance != 0; }
         /** Get this Entity's personal skeleton instance. */
-        auto getSkeleton() const -> SkeletonInstance* { return mSkeletonInstance; }
+        SkeletonInstance* getSkeleton() const { return mSkeletonInstance; }
         /** Returns whether or not hardware animation is enabled.
         @remarks
             Because fixed-function indexed vertex blending is rarely supported
@@ -622,7 +622,7 @@ class VertexData;
             scheme. This is due to the fact that RTSS schemes may be different in their
             handling of hardware animation.
         */
-        auto isHardwareAnimationEnabled() -> bool;
+        bool isHardwareAnimationEnabled();
 
         void _notifyAttached(Node* parent, bool isTagPoint = false) override;
         /** Returns the number of requests that have been made for software animation
@@ -632,7 +632,7 @@ class VertexData;
             internal optimise for eliminate software animation. Requests for software
             animation are made by calling the addSoftwareAnimationRequest() method.
         */
-        auto getSoftwareAnimationRequests() const -> int { return mSoftwareAnimationRequests; }
+        int getSoftwareAnimationRequests() const { return mSoftwareAnimationRequests; }
         /** Returns the number of requests that have been made for software animation of normals
         @remarks
             If non-zero, and getSoftwareAnimationRequests() also returns non-zero,
@@ -644,7 +644,7 @@ class VertexData;
             Requests for software animation of normals are made by calling the
             addSoftwareAnimationRequest() method with 'true' as the parameter.
         */
-        auto getSoftwareAnimationNormalsRequests() const -> int { return mSoftwareAnimationNormalsRequests; }
+        int getSoftwareAnimationNormalsRequests() const { return mSoftwareAnimationNormalsRequests; }
         /** Add a request for software animation
         @remarks
             Tells the entity to perform animation calculations for skeletal/vertex
@@ -679,7 +679,7 @@ class VertexData;
 
         /** Returns whether or not this entity is either morph or pose animated.
         */
-        auto hasVertexAnimation() const -> bool;
+        bool hasVertexAnimation() const;
 
 
         /** Stops sharing the SkeletonInstance with other entities.
@@ -689,12 +689,12 @@ class VertexData;
 
         /** Returns whether this entity shares it's SkeltonInstance with other entity instances.
         */
-        inline auto sharesSkeletonInstance() const -> bool { return mSharedSkeletonEntities != NULL; }
+        inline bool sharesSkeletonInstance() const { return mSharedSkeletonEntities != NULL; }
 
         /** Returns a pointer to the set of entities which share a SkeletonInstance.
             If this instance does not share it's SkeletonInstance with other instances @c NULL will be returned
         */
-        inline auto getSkeletonInstanceSharingSet() const -> const EntitySet* { return mSharedSkeletonEntities; }
+        inline const EntitySet* getSkeletonInstanceSharingSet() const { return mSharedSkeletonEntities; }
 
         /** Updates the internal animation state set to include the latest
             available animations from the attached skeleton.
@@ -722,11 +722,11 @@ class VertexData;
             An entity is animated if any animation state is enabled, or any manual bone
             applied to the skeleton.
         */
-        auto _isAnimated() const -> bool;
+        bool _isAnimated() const;
 
         /** Tests if skeleton was animated.
         */
-        auto _isSkeletonAnimated() const -> bool;
+        bool _isSkeletonAnimated() const;
 
         /** Advanced method to get the temporarily blended skeletal vertex information
             for entities which are software skinned.
@@ -737,7 +737,7 @@ class VertexData;
         @note
             The positions/normals of the returned vertex data is in object space.
         */
-        auto _getSkelAnimVertexData() const -> VertexData*;
+        VertexData* _getSkelAnimVertexData() const;
         /** Advanced method to get the temporarily blended software vertex animation information
         @remarks
             Internal engine will eliminate software animation if possible, this
@@ -746,24 +746,24 @@ class VertexData;
         @note
             The positions/normals of the returned vertex data is in object space.
         */
-        auto _getSoftwareVertexAnimVertexData() const -> VertexData*;
+        VertexData* _getSoftwareVertexAnimVertexData() const;
         /** Advanced method to get the hardware morph vertex information
         @note
             The positions/normals of the returned vertex data is in object space.
         */
-        auto _getHardwareVertexAnimVertexData() const -> VertexData*;
+        VertexData* _getHardwareVertexAnimVertexData() const;
         /** Advanced method to get the temp buffer information for software
             skeletal animation.
         */
-        auto _getSkelAnimTempBufferInfo() -> TempBlendedBufferInfo*;
+        TempBlendedBufferInfo* _getSkelAnimTempBufferInfo();
         /** Advanced method to get the temp buffer information for software
             morph animation.
         */
-        auto _getVertexAnimTempBufferInfo() -> TempBlendedBufferInfo*;
+        TempBlendedBufferInfo* _getVertexAnimTempBufferInfo();
         /// Override to return specific type flag.
-        auto getTypeFlags() const -> uint32;
+        uint32 getTypeFlags() const;
         /// Retrieve the VertexData which should be used for GPU binding.
-        auto getVertexDataForBinding() -> VertexData*;
+        VertexData* getVertexDataForBinding();
 
         /// Identify which vertex data we should be sending to the renderer.
         enum VertexDataBindChoice
@@ -774,10 +774,10 @@ class VertexData;
             BIND_HARDWARE_MORPH
         };
         /// Choose which vertex data to bind to the renderer.
-        auto chooseVertexDataForBinding(bool hasVertexAnim) -> VertexDataBindChoice;
+        VertexDataBindChoice chooseVertexDataForBinding(bool hasVertexAnim);
 
         /** Are buffers already marked as vertex animated? */
-        auto _getBuffersMarkedForAnimation() const -> bool { return mVertexAnimationAppliedThisFrame; }
+        bool _getBuffersMarkedForAnimation() const { return mVertexAnimationAppliedThisFrame; }
         /** Mark just this vertex data as animated.
         */
         void _markBuffersUsedForAnimation();
@@ -790,7 +790,7 @@ class VertexData;
             Entity won't render until it has been successfully initialised, nor
             will many of the manipulation methods function.
         */
-        auto isInitialised() const -> bool { return mInitialised; }
+        bool isInitialised() const { return mInitialised; }
 
         /** Try to initialise the Entity from the underlying resources.
         @remarks
@@ -815,7 +815,7 @@ class VertexData;
         void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables = false) override;
 
         /** Get the LOD strategy transformation of the mesh LOD factor. */
-        auto _getMeshLodFactorTransformed() const -> Real;
+        Real _getMeshLodFactorTransformed() const;
         
         /** Entity's skeleton's AnimationState will not be automatically updated when set to true.
             Useful if you wish to handle AnimationState updates manually.
@@ -827,7 +827,7 @@ class VertexData;
         /** Entity's skeleton's AnimationState will not be automatically updated when set to true.
             Useful if you wish to handle AnimationState updates manually.
         */
-        auto getSkipAnimationStateUpdate() const -> bool {
+        bool getSkipAnimationStateUpdate() const {
             return mSkipAnimStateUpdates;
         }
 
@@ -843,7 +843,7 @@ class VertexData;
             useful if you have entities attached to the main entity. Otherwise position of attached
             entities will not be updated.
         */
-        auto getAlwaysUpdateMainSkeleton() const -> bool {
+        bool getAlwaysUpdateMainSkeleton() const {
             return mAlwaysUpdateMainSkeleton;
         }
 
@@ -861,7 +861,7 @@ class VertexData;
             Useful if you have skeletal animations that move the bones away from the root.  Otherwise, the
             bounding box of the mesh in the binding pose will be used.
         */
-        auto getUpdateBoundingBoxFromSkeleton() const -> bool {
+        bool getUpdateBoundingBoxFromSkeleton() const {
             return mUpdateBoundingBoxFromSkeleton;
         }
 
@@ -872,14 +872,14 @@ class VertexData;
     class EntityFactory : public MovableObjectFactory
     {
     private:
-        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject*;
+        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);
     public:
         EntityFactory() {}
         ~EntityFactory() {}
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] auto getType() const -> const String&;
+        [[nodiscard]] const String& getType() const;
     };
     /** @} */
     /** @} */

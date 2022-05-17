@@ -85,10 +85,10 @@ public:
     but the implementation stays in this single compilation unit,
     preventing link errors.
     */
-    static auto getSingleton() -> ProgramManager&;  
+    static ProgramManager& getSingleton();  
 
     /// @copydoc Singleton::getSingleton()
-    static auto getSingletonPtr() -> ProgramManager*;
+    static ProgramManager* getSingletonPtr();
 
     /** Release CPU/GPU programs set associated with the given ProgramSet
     @param programSet The ProgramSet holds the programs.
@@ -128,7 +128,7 @@ private:
     /** Create CPU program .    
     @param type The type of the program to create.
     */
-    auto createCpuProgram(GpuProgramType type) -> Program*;
+    Program* createCpuProgram(GpuProgramType type);
 
     /** Destroy a CPU program by name.
     @param shaderProgram The CPU program instance to destroy.
@@ -146,7 +146,7 @@ private:
     @param defines defines for the final source code
     @return A string representing a 128 bit hash value of the original string
     */
-    static auto generateHash(const String& programString, const String& defines) -> String;
+    static String generateHash(const String& programString, const String& defines);
 
     /** Create GPU program based on the give CPU program.
     @param shaderProgram The CPU program instance.
@@ -156,11 +156,11 @@ private:
     @param profilesList The profiles string for program compilation as string list.
     @param cachePath The output path to write the program into.
     */
-    auto createGpuProgram(Program* shaderProgram, 
+    GpuProgramPtr createGpuProgram(Program* shaderProgram, 
         ProgramWriter* programWriter,
         const String& language,
         const String& profiles,
-        const String& cachePath) -> GpuProgramPtr;
+        const String& cachePath);
 
     /** 
     Add program processor instance to this manager.
@@ -185,7 +185,7 @@ private:
     void flushGpuProgramsCache(GpuProgramsMap& gpuProgramsMap);
     
     /** Return the number of created shaders. */
-    [[nodiscard]] auto getShaderCount(GpuProgramType type) const -> size_t;
+    [[nodiscard]] size_t getShaderCount(GpuProgramType type) const;
 
     /** Fix the input of the pixel shader to be the same as the output of the vertex shader */
     void synchronizePixelnToBeVertexOut(ProgramSet* programSet);

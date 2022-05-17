@@ -130,7 +130,7 @@ namespace Ogre {
             { if (Allocated) free (Buffer); }
 
             /// Assignment operator
-            auto operator = (const Token &iOther) -> Token &
+            Token &operator = (const Token &iOther)
                 {
                     if (Allocated) free (Buffer);
                     Type = iOther.Type;
@@ -151,10 +151,10 @@ namespace Ogre {
             void AppendNL (int iCount);
 
             /// Count number of newlines in this token
-            auto CountNL () -> int;
+            int CountNL ();
 
             /// Get the numeric value of the token
-            auto GetValue (long &oValue) const -> bool;
+            bool GetValue (long &oValue) const;
 
             /// Set the numeric value of the token
             void SetValue (long iValue);
@@ -190,7 +190,7 @@ namespace Ogre {
             // Macro(Macro&&) = default; // TODO unsupported by VS2013
 
             /// Expand the macro value (will not work for functions)
-            auto Expand (const std::vector<Token>& iArgs, std::forward_list<Macro>& iMacros) -> Token;
+            Token Expand (const std::vector<Token>& iArgs, std::forward_list<Macro>& iMacros);
         };
 
         friend class CPreprocessor::Macro;
@@ -223,7 +223,7 @@ namespace Ogre {
          * @return
          *     The next token from the input stream
          */
-        auto GetToken (bool iExpand) -> Token;
+        Token GetToken (bool iExpand);
 
         /**
          * Handle a preprocessor directive.
@@ -234,7 +234,7 @@ namespace Ogre {
          * @return
          *     The last input token that was not proceeded.
          */
-        auto HandleDirective (Token &iToken, int iLine) -> Token;
+        Token HandleDirective (Token &iToken, int iLine);
 
         /**
          * Handle a #define directive.
@@ -246,7 +246,7 @@ namespace Ogre {
          * @return
          *     true if everything went ok, false if not
          */
-        auto HandleDefine (Token &iBody, int iLine) -> bool;
+        bool HandleDefine (Token &iBody, int iLine);
 
         /**
          * Undefine a previously defined macro
@@ -258,7 +258,7 @@ namespace Ogre {
          * @return
          *     true if everything went ok, false if not
          */
-        auto HandleUnDef (Token &iBody, int iLine) -> bool;
+        bool HandleUnDef (Token &iBody, int iLine);
 
         /**
          * Handle an #ifdef directive.
@@ -270,7 +270,7 @@ namespace Ogre {
          * @return
          *     true if everything went ok, false if not
          */
-        auto HandleIfDef (Token &iBody, int iLine) -> bool;
+        bool HandleIfDef (Token &iBody, int iLine);
 
         /**
          * Handle an #if directive.
@@ -282,10 +282,10 @@ namespace Ogre {
          * @return
          *     true if everything went ok, false if not
          */
-        auto HandleIf (Token &iBody, int iLine) -> bool;
+        bool HandleIf (Token &iBody, int iLine);
 
         /// @overload
-        auto HandleIf(bool val, int iLine) -> bool;
+        bool HandleIf(bool val, int iLine);
 
         /**
          * Handle an #elif directive.
@@ -297,7 +297,7 @@ namespace Ogre {
          * @return
          *     true if everything went ok, false if not
          */
-        auto HandleElif (Token &iBody, int iLine) -> bool;
+        bool HandleElif (Token &iBody, int iLine);
 
         /**
          * Handle an #else directive.
@@ -309,7 +309,7 @@ namespace Ogre {
          * @return
          *     true if everything went ok, false if not
          */
-        auto HandleElse (Token &iBody, int iLine) -> bool;
+        bool HandleElse (Token &iBody, int iLine);
 
         /**
          * Handle an #endif directive.
@@ -321,7 +321,7 @@ namespace Ogre {
          * @return
          *     true if everything went ok, false if not
          */
-        auto HandleEndIf (Token &iBody, int iLine) -> bool;
+        bool HandleEndIf (Token &iBody, int iLine);
 
         /**
          * Get a single function argument until next ',' or ')'.
@@ -338,7 +338,7 @@ namespace Ogre {
          * @return
          *     The first unhandled token after argument.
          */
-        auto GetArgument (Token &oArg, bool iExpand, bool shouldAppendArg) -> Token;
+        Token GetArgument (Token &oArg, bool iExpand, bool shouldAppendArg);
 
         /**
          * Get all the arguments of a macro: '(' arg1 { ',' arg2 { ',' ... }} ')'
@@ -350,7 +350,7 @@ namespace Ogre {
          *     If false, parameters are not expanded and no expressions are
          *     allowed; only a single keyword is expected per argument.
          */
-        auto GetArguments (std::vector<Token>& oArgs, bool iExpand, bool shouldAppendArg) -> Token;
+        Token GetArguments (std::vector<Token>& oArgs, bool iExpand, bool shouldAppendArg);
 
         /**
          * Parse an expression, compute it and return the result.
@@ -365,7 +365,7 @@ namespace Ogre {
          * @return
          *     The last unhandled token after the expression
          */
-        auto GetExpression (Token &oResult, int iLine, int iOpPriority = 0) -> Token;
+        Token GetExpression (Token &oResult, int iLine, int iOpPriority = 0);
 
         /**
          * Get the numeric value of a token.
@@ -382,11 +382,11 @@ namespace Ogre {
          * @return
          *     true if ok, false if not
          */
-        auto GetValue (const Token &iToken, long &oValue, int iLine) -> bool;
+        bool GetValue (const Token &iToken, long &oValue, int iLine);
 
         /// @overload
         /// same as above, but considers the defined() function
-        auto GetValueDef(const Token &iToken, long &oValue, int iLine) -> bool;
+        bool GetValueDef(const Token &iToken, long &oValue, int iLine);
 
         /**
          * Expand the given macro, if it exists.
@@ -396,7 +396,7 @@ namespace Ogre {
          * @return
          *     The expanded token or iToken if it is not a macro
          */
-        auto ExpandMacro (const Token &iToken) -> Token;
+        Token ExpandMacro (const Token &iToken);
 
         /**
          * Check if a macro is defined, and if so, return it
@@ -405,7 +405,7 @@ namespace Ogre {
          * @return
          *     The macro object or NULL if a macro with this name does not exist
          */
-        auto IsDefined (const Token &iToken) -> Macro *;
+        Macro *IsDefined (const Token &iToken);
 
         /**
          * The implementation of the defined() preprocessor function
@@ -416,7 +416,7 @@ namespace Ogre {
          * @return
          *     The return value encapsulated in a token
          */
-        static auto ExpandDefined (CPreprocessor *iParent, const std::vector<Token>& iArgs) -> Token;
+        static Token ExpandDefined (CPreprocessor *iParent, const std::vector<Token>& iArgs);
 
         /**
          * Parse the input string and return a token containing the whole output.
@@ -425,7 +425,7 @@ namespace Ogre {
          * @return
          *     The output text enclosed in a token
          */
-        auto Parse (const Token &iSource) -> Token;
+        Token Parse (const Token &iSource);
 
         /**
          * Call the error handler
@@ -477,7 +477,7 @@ namespace Ogre {
          * @return
          *     true if the macro has been undefined, false if macro doesn't exist
          */
-        auto Undef (const char *iMacroName, size_t iMacroNameLen) -> bool;
+        bool Undef (const char *iMacroName, size_t iMacroNameLen);
 
         /**
          * Parse the input string and return a newly-allocated output string.
@@ -501,7 +501,7 @@ namespace Ogre {
          *     that's *inside* the source buffer. You must free() the result
          *     string only if the returned address is not inside the source text.
          */
-        auto Parse (const char *iSource, size_t iLength, size_t &oLength) -> char *;
+        char *Parse (const char *iSource, size_t iLength, size_t &oLength);
     };
 
 } // namespace Ogre

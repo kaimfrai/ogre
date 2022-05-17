@@ -89,7 +89,7 @@ class SceneNode;
             @return
                 true if allows queue for rendering, false otherwise.
             */
-            virtual auto objectRendering(const MovableObject*, const Camera*) -> bool { return true; }
+            virtual bool objectRendering(const MovableObject*, const Camera*) { return true; }
             /** Called when the movable object needs to query a light list.
             @remarks
                 If you want to customize light finding for this object, you should override 
@@ -112,7 +112,7 @@ class SceneNode;
                 A pointer to a light list if you populated the light list yourself, or
                 NULL to fall back on the default finding process.
             */
-            virtual auto objectQueryLights(const MovableObject*) -> const LightList* { return 0; }
+            virtual const LightList* objectQueryLights(const MovableObject*) { return 0; }
         };
 
     protected:
@@ -190,11 +190,11 @@ class SceneNode;
         /** Notify the object of it's creator (internal use only) */
         virtual void _notifyCreator(MovableObjectFactory* fact) { mCreator = fact; }
         /** Get the creator of this object, if any (internal use only) */
-        auto  _getCreator() const -> MovableObjectFactory* { return mCreator; }
+        MovableObjectFactory*  _getCreator() const { return mCreator; }
         /** Notify the object of it's manager (internal use only) */
         virtual void _notifyManager(SceneManager* man) { mManager = man; }
         /** Get the manager of this object, if any (internal use only) */
-        auto _getManager() const -> SceneManager* { return mManager; }
+        SceneManager* _getManager() const { return mManager; }
 
         /** Notifies the movable object that hardware resources were lost
             @remarks
@@ -213,10 +213,10 @@ class SceneNode;
         virtual void _restoreManualHardwareResources() {}
 
         /** Returns the name of this object. */
-        auto getName() const -> const String& { return mName; }
+        const String& getName() const { return mName; }
 
         /** Returns the type name of this object. */
-        virtual auto getMovableType() const -> const String& = 0;
+        virtual const String& getMovableType() const = 0;
 
         /** Returns the node to which this object is attached.
         @remarks
@@ -224,7 +224,7 @@ class SceneNode;
             the latter case if it's attached to a bone on an animated entity. 
             Both are Node subclasses so this method will return either.
         */
-        auto getParentNode() const -> Node* { return mParentNode; }
+        Node* getParentNode() const { return mParentNode; }
 
         /** Returns the scene node to which this object is attached.
         @remarks
@@ -233,17 +233,17 @@ class SceneNode;
             This method will return the scene node of the parent entity 
             if the latter is true.
         */
-        auto getParentSceneNode() const -> SceneNode*;
+        SceneNode* getParentSceneNode() const;
 
         /// Gets whether the parent node is a TagPoint (or a SceneNode)
-        auto isParentTagPoint() const -> bool { return mParentIsTagPoint; }
+        bool isParentTagPoint() const { return mParentIsTagPoint; }
 
         /** Internal method called to notify the object that it has been attached to a node.
         */
         virtual void _notifyAttached(Node* parent, bool isTagPoint = false);
 
         /** Returns true if this object is attached to a SceneNode or TagPoint. */
-        auto isAttached() const -> bool { return (mParentNode != NULL); }
+        bool isAttached() const { return (mParentNode != NULL); }
 
         /** Detaches an object from a parent SceneNode or TagPoint, if attached. */
         void detachFromParent();
@@ -251,7 +251,7 @@ class SceneNode;
         /** Returns true if this object is attached to a SceneNode or TagPoint, 
             and this SceneNode / TagPoint is currently in an active part of the
             scene graph. */
-        virtual auto isInScene() const -> bool;
+        virtual bool isInScene() const;
 
         /** Internal method called to notify the object that it has been moved.
         */
@@ -268,20 +268,20 @@ class SceneNode;
             @remarks
                 This bounding box is in local coordinates.
         */
-        virtual auto getBoundingBox() const -> const AxisAlignedBox& = 0;
+        virtual const AxisAlignedBox& getBoundingBox() const = 0;
 
         /** Retrieves the radius of the origin-centered bounding sphere 
              for this object.
         */
-        virtual auto getBoundingRadius() const -> Real = 0;
+        virtual Real getBoundingRadius() const = 0;
 
         /// as getBoundingRadius, but with scaling applied
-        auto getBoundingRadiusScaled() const -> Real;
+        Real getBoundingRadiusScaled() const;
 
         /** Retrieves the axis-aligned bounding box for this object in world coordinates. */
-        virtual auto getWorldBoundingBox(bool derive = false) const -> const AxisAlignedBox&;
+        virtual const AxisAlignedBox& getWorldBoundingBox(bool derive = false) const;
         /** Retrieves the worldspace bounding sphere for this object. */
-        virtual auto getWorldBoundingSphere(bool derive = false) const -> const Sphere&;
+        virtual const Sphere& getWorldBoundingSphere(bool derive = false) const;
         /** Internal method by which the movable object must add Renderable subclass instances to the rendering queue.
             @remarks
                 The engine will call this method when this object is to be rendered. The object must then create one or more
@@ -309,13 +309,13 @@ class SceneNode;
         @remarks
             Returns the value set by MovableObject::setVisible only.
         */
-        auto getVisible() const -> bool { return mVisible; }
+        bool getVisible() const { return mVisible; }
 
         /** Returns whether or not this object is supposed to be visible or not. 
         @remarks
             Takes into account both upper rendering distance and visible flag.
         */
-        virtual auto isVisible() const -> bool;
+        virtual bool isVisible() const;
 
         /** Sets the distance at which the object is no longer rendered.
         @note Camera::setUseRenderingDistance() needs to be called for this parameter to be used.
@@ -328,7 +328,7 @@ class SceneNode;
         }
 
         /** Gets the distance at which batches are no longer rendered. */
-        auto getRenderingDistance() const -> Real { return mUpperDistance; }
+        Real getRenderingDistance() const { return mUpperDistance; }
 
         /** Sets the minimum pixel size an object needs to be in both screen axes in order to be rendered
         @note Camera::setUseMinPixelSize() needs to be called for this parameter to be used.
@@ -341,7 +341,7 @@ class SceneNode;
 
         /** Returns the minimum pixel size an object needs to be in both screen axes in order to be rendered
         */
-        auto getRenderingMinPixelSize() const -> Real {
+        Real getRenderingMinPixelSize() const {
             return mMinPixelSize; 
         }
 
@@ -349,13 +349,13 @@ class SceneNode;
         You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.        
         */
-        auto getUserObjectBindings() -> UserObjectBindings& { return mUserObjectBindings; }
+        UserObjectBindings& getUserObjectBindings() { return mUserObjectBindings; }
 
         /** Return an instance of user objects binding associated with this class.
         You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.        
         */
-        auto getUserObjectBindings() const -> const UserObjectBindings& { return mUserObjectBindings; }
+        const UserObjectBindings& getUserObjectBindings() const { return mUserObjectBindings; }
 
         /** Sets the render queue group this entity will be rendered through.
         @remarks
@@ -391,10 +391,10 @@ class SceneNode;
         /** Gets the queue group for this entity
         @see setRenderQueueGroup
         */
-        auto getRenderQueueGroup() const -> uint8 { return mRenderQueueID; }
+        uint8 getRenderQueueGroup() const { return mRenderQueueID; }
 
         /// Return the full transformation of the parent sceneNode or the attachingPoint node
-        virtual auto _getParentNodeFullTransform() const -> const Affine3&;
+        virtual const Affine3& _getParentNodeFullTransform() const;
 
         /** Sets the query flags for this object.
         @remarks
@@ -414,7 +414,7 @@ class SceneNode;
         void removeQueryFlags(uint32 flags) { mQueryFlags &= ~flags; }
         
         /// Returns the query flags relevant for this object
-        virtual auto getQueryFlags() const -> uint32 { return mQueryFlags; }
+        virtual uint32 getQueryFlags() const { return mQueryFlags; }
 
         /** Set the default query flags for all future MovableObject instances.
         */
@@ -422,7 +422,7 @@ class SceneNode;
 
         /** Get the default query flags for all future MovableObject instances.
         */
-        static auto getDefaultQueryFlags() -> uint32 { return msDefaultQueryFlags; }
+        static uint32 getDefaultQueryFlags() { return msDefaultQueryFlags; }
 
         
         /** Sets the visibility flags for this object.
@@ -442,7 +442,7 @@ class SceneNode;
         void removeVisibilityFlags(uint32 flags) { mVisibilityFlags &= ~flags; }
         
         /// Returns the visibility flags relevant for this object
-        virtual auto getVisibilityFlags() const -> uint32 { return mVisibilityFlags; }
+        virtual uint32 getVisibilityFlags() const { return mVisibilityFlags; }
 
         /** Set the default visibility flags for all future MovableObject instances.
         */
@@ -450,7 +450,7 @@ class SceneNode;
         
         /** Get the default visibility flags for all future MovableObject instances.
         */
-        static auto getDefaultVisibilityFlags() -> uint32 { return msDefaultVisibilityFlags; }
+        static uint32 getDefaultVisibilityFlags() { return msDefaultVisibilityFlags; }
 
         /** Sets a listener for this object.
         @remarks
@@ -461,7 +461,7 @@ class SceneNode;
 
         /** Gets the current listener for this object.
         */
-        auto getListener() const -> Listener* { return mListener; }
+        Listener* getListener() const { return mListener; }
 
         /** Gets a list of lights, ordered relative to how close they are to this movable object.
         @remarks
@@ -481,13 +481,13 @@ class SceneNode;
             the renderable is a part of the movable.
         @return The list of lights use to lighting this object.
         */
-        auto queryLights() const -> const LightList&;
+        const LightList& queryLights() const;
 
         /** Get a bitwise mask which will filter the lights affecting this object
         @remarks
         By default, this mask is fully set meaning all lights will affect this object
         */
-        auto getLightMask()const -> uint32 { return mLightMask; }
+        uint32 getLightMask()const { return mLightMask; }
         /** Set a bitwise mask which will filter the lights affecting this object
         @remarks
         This mask will be compared against the mask held against Light to determine
@@ -502,17 +502,17 @@ class SceneNode;
             (say if you want to use it to implement this method, and use the pointer
             as a return value) and for reading it's only accurate as at the last frame.
         */
-        auto _getLightList() -> LightList* { return &mLightList; }
+        LightList* _getLightList() { return &mLightList; }
 
         /// Returns details of the edges which might be used to determine a silhouette
-        auto getEdgeList() -> EdgeData* { return NULL; }
+        EdgeData* getEdgeList() { return NULL; }
         /// Define a default implementation of method from ShadowCaster which implements no shadows
-        auto getShadowVolumeRenderableList(
+        const ShadowRenderableList& getShadowVolumeRenderableList(
             const Light* light, const HardwareIndexBufferPtr& indexBuffer,
-            size_t& indexBufferUsedSize, float extrusionDist, int flags = 0) -> const ShadowRenderableList& override;
+            size_t& indexBufferUsedSize, float extrusionDist, int flags = 0) override;
 
-        auto getLightCapBounds() const -> const AxisAlignedBox& override;
-        auto getDarkCapBounds(const Light& light, Real dirLightExtrusionDist) const -> const AxisAlignedBox& override;
+        const AxisAlignedBox& getLightCapBounds() const override;
+        const AxisAlignedBox& getDarkCapBounds(const Light& light, Real dirLightExtrusionDist) const override;
         /** Sets whether or not this object will cast shadows.
         @remarks
         This setting simply allows you to turn on/off shadows for a given object.
@@ -527,14 +527,14 @@ class SceneNode;
         */
         void setCastShadows(bool enabled) { mCastShadows = enabled; }
         /** Returns whether shadow casting is enabled for this object. */
-        auto getCastShadows() const -> bool { return mCastShadows; }
+        bool getCastShadows() const { return mCastShadows; }
         /** Returns whether the Material of any Renderable that this MovableObject will add to 
             the render queue will receive shadows. 
         */
-        auto getReceivesShadows() -> bool;
+        bool getReceivesShadows();
             
         /** Get the distance to extrude for a point/spot light */
-        auto getPointExtrusionDistance(const Light* l) const -> Real;
+        Real getPointExtrusionDistance(const Light* l) const;
         /** Get the 'type flags' for this MovableObject.
         @remarks
             A type flag identifies the type of the MovableObject as a bitpattern. 
@@ -545,7 +545,7 @@ class SceneNode;
             Custom objects which don't use MovableObjectFactory will need to 
             override this if they want to be included in queries.
         */
-        virtual auto getTypeFlags() const -> uint32;
+        virtual uint32 getTypeFlags() const;
 
         /** Method to allow a caller to abstractly iterate over the Renderable
             instances that this MovableObject will add to the render queue when
@@ -571,7 +571,7 @@ class SceneNode;
         */
         void setDebugDisplayEnabled(bool enabled) { mDebugDisplay = enabled; }
         /// Gets whether debug display of this object is enabled. 
-        auto isDebugDisplayEnabled() const -> bool { return mDebugDisplay; }
+        bool isDebugDisplayEnabled() const { return mDebugDisplay; }
 
 
 
@@ -591,13 +591,13 @@ class SceneNode;
         uint32 mTypeFlag;
 
         /// Internal implementation of create method - must be overridden
-        virtual auto createInstanceImpl(
-            const String& name, const NameValuePairList* params = 0) -> MovableObject* = 0;
+        virtual MovableObject* createInstanceImpl(
+            const String& name, const NameValuePairList* params = 0) = 0;
     public:
         MovableObjectFactory() : mTypeFlag(0xFFFFFFFF) {}
         virtual ~MovableObjectFactory() {}
         /// Get the type of the object to be created
-        [[nodiscard]] virtual auto getType() const -> const String& = 0;
+        [[nodiscard]] virtual const String& getType() const = 0;
 
         /** Create a new instance of the object.
         @param name The name of the new object
@@ -606,9 +606,9 @@ class SceneNode;
         @param params Name/value pair list of additional parameters required to 
             construct the object (defined per subtype). Optional.
         */
-        auto createInstance(
+        MovableObject* createInstance(
             const String& name, SceneManager* manager, 
-            const NameValuePairList* params = 0) -> MovableObject*;
+            const NameValuePairList* params = 0);
         /** Destroy an instance of the object */
         virtual void destroyInstance(MovableObject* obj) { delete obj; }
 
@@ -625,7 +625,7 @@ class SceneNode;
             and given that you don't know what other MovableObject types are 
             registered, Root will allocate you one. 
         */
-        [[nodiscard]] virtual auto requestTypeFlags() const -> bool { return false; }
+        [[nodiscard]] virtual bool requestTypeFlags() const { return false; }
         /** Notify this factory of the type mask to apply. 
         @remarks
             This should normally only be called by Root in response to
@@ -641,7 +641,7 @@ class SceneNode;
             A type flag is like a query flag, except that it applies to all instances
             of a certain type of object.
         */
-        [[nodiscard]] auto getTypeFlags() const -> uint32 { return mTypeFlag; }
+        [[nodiscard]] uint32 getTypeFlags() const { return mTypeFlag; }
 
     };
     /** @} */

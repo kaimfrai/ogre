@@ -69,12 +69,12 @@ class Technique;
     }
     SubEntity::~SubEntity() = default; // ensure unique_ptr destructors are in cpp
     //-----------------------------------------------------------------------
-    auto SubEntity::getSubMesh() -> SubMesh*
+    SubMesh* SubEntity::getSubMesh()
     {
         return mSubMesh;
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::getMaterialName() const -> const String&
+    const String& SubEntity::getMaterialName() const
     {
         return mMaterialPtr ? mMaterialPtr->getName() : BLANKSTRING;
     }
@@ -115,7 +115,7 @@ class Technique;
         mParentEntity->reevaluateVertexProcessing();
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::getTechnique() const -> Technique*
+    Technique* SubEntity::getTechnique() const
     {
         return mMaterialPtr->getBestTechnique(mMaterialLodIndex, this);
     }
@@ -141,7 +141,7 @@ class Technique;
             mIndexStart = start_index;
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::getIndexDataStartIndex() const -> size_t
+    size_t SubEntity::getIndexDataStartIndex() const
     {
         return mIndexStart;
     }
@@ -152,7 +152,7 @@ class Technique;
             mIndexEnd = end_index;
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::getIndexDataEndIndex() const -> size_t
+    size_t SubEntity::getIndexDataEndIndex() const
     {
         return mIndexEnd;
     }
@@ -163,7 +163,7 @@ class Technique;
         mIndexEnd = 0;
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::getVertexDataForBinding() -> VertexData*
+    VertexData* SubEntity::getVertexDataForBinding()
     {
         if (mSubMesh->useSharedVertices)
         {
@@ -226,7 +226,7 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::getNumWorldTransforms() const -> unsigned short
+    unsigned short SubEntity::getNumWorldTransforms() const
     {
         if (!mParentEntity->mNumBoneMatrices ||
             !mParentEntity->isHardwareAnimationEnabled())
@@ -245,7 +245,7 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::getSquaredViewDepth(const Camera* cam) const -> Real
+    Real SubEntity::getSquaredViewDepth(const Camera* cam) const
     {
         // First of all, check the cached value
         // NB this is manually invalidated by parent each _notifyCurrentCamera call
@@ -280,7 +280,7 @@ class Technique;
         return dist;
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::getLights() const -> const LightList&
+    const LightList& SubEntity::getLights() const
     {
         return mParentEntity->queryLights();
     }
@@ -329,35 +329,35 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::getCastsShadows() const -> bool
+    bool SubEntity::getCastsShadows() const
     {
         return mParentEntity->getCastShadows();
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::_getSkelAnimVertexData() -> VertexData* 
+    VertexData* SubEntity::_getSkelAnimVertexData() 
     {
         assert (mSkelAnimVertexData && "Not software skinned or has no dedicated geometry!");
         return mSkelAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::_getSoftwareVertexAnimVertexData() -> VertexData*
+    VertexData* SubEntity::_getSoftwareVertexAnimVertexData()
     {
         assert (mSoftwareVertexAnimVertexData && "Not vertex animated or has no dedicated geometry!");
         return mSoftwareVertexAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::_getHardwareVertexAnimVertexData() -> VertexData*
+    VertexData* SubEntity::_getHardwareVertexAnimVertexData()
     {
         assert (mHardwareVertexAnimVertexData && "Not vertex animated or has no dedicated geometry!");
         return mHardwareVertexAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::_getSkelAnimTempBufferInfo() -> TempBlendedBufferInfo* 
+    TempBlendedBufferInfo* SubEntity::_getSkelAnimTempBufferInfo() 
     {
         return &mTempSkelAnimInfo;
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::_getVertexAnimTempBufferInfo() -> TempBlendedBufferInfo* 
+    TempBlendedBufferInfo* SubEntity::_getVertexAnimTempBufferInfo() 
     {
         return &mTempVertexAnimInfo;
     }

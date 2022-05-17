@@ -48,7 +48,7 @@ namespace Ogre
     */
     class Matrix4;
 
-    auto operator*(const Matrix4 &m, const Matrix4 &m2) -> Matrix4;
+    Matrix4 operator*(const Matrix4 &m, const Matrix4 &m2);
     /** Class encapsulating a standard 4x4 homogeneous matrix.
         @remarks
             OGRE uses column vectors when applying matrix multiplications,
@@ -101,13 +101,13 @@ namespace Ogre
         template<typename U>
         explicit TransformBase(const TransformBase<rows, U>& o) : TransformBase(o[0]) {}
 
-        auto operator[](size_t iRow) -> T*
+        T* operator[](size_t iRow)
         {
             assert(iRow < rows);
             return m[iRow];
         }
 
-        auto operator[](size_t iRow) const -> const T*
+        const T* operator[](size_t iRow) const
         {
             assert(iRow < rows);
             return m[iRow];
@@ -122,7 +122,7 @@ namespace Ogre
             m[2][3] = v[2];
         }
         /// Extracts the translation transformation part of the matrix.
-        [[nodiscard]] auto getTrans() const -> Vector<3, T>
+        [[nodiscard]] Vector<3, T> getTrans() const
         {
             assert(rows > 2);
             return Vector<3, T>(m[0][3], m[1][3], m[2][3]);
@@ -138,7 +138,7 @@ namespace Ogre
 
         /** Function for writing to a stream.
          */
-        inline friend auto operator<<(std::ostream& o, const TransformBase& mat) -> std::ostream&
+        inline friend std::ostream& operator<<(std::ostream& o, const TransformBase& mat)
         {
             o << "Matrix" << rows << "x4(";
             for (size_t i = 0; i < rows; ++i)
@@ -190,16 +190,16 @@ namespace Ogre
 
         /** Extracts the rotation / scaling part of the Matrix as a 3x3 matrix.
         */
-        [[nodiscard]] auto linear() const -> Matrix3
+        [[nodiscard]] Matrix3 linear() const
         {
             return {m[0][0], m[0][1], m[0][2],
                            m[1][0], m[1][1], m[1][2],
                            m[2][0], m[2][1], m[2][2]};
         }
 
-        [[nodiscard]] auto determinant() const -> Real;
+        [[nodiscard]] Real determinant() const;
 
-        [[nodiscard]] auto transpose() const -> Matrix4;
+        [[nodiscard]] Matrix4 transpose() const;
 
         /** Building a Affine3 from orientation / scale / position.
         @remarks
@@ -263,14 +263,14 @@ namespace Ogre
           *this = m3x3;
         }
         
-        auto operator=(const Matrix3& mat3) -> Matrix4& {
+        Matrix4& operator=(const Matrix3& mat3) {
             set3x3Matrix(mat3);
             return *this;
         }
 
         /** Tests 2 matrices for equality.
         */
-        inline auto operator == ( const Matrix4& m2 ) const -> bool
+        inline bool operator == ( const Matrix4& m2 ) const
         {
             if( 
                 m[0][0] != m2.m[0][0] || m[0][1] != m2.m[0][1] || m[0][2] != m2.m[0][2] || m[0][3] != m2.m[0][3] ||
@@ -283,7 +283,7 @@ namespace Ogre
 
         /** Tests 2 matrices for inequality.
         */
-        inline auto operator != ( const Matrix4& m2 ) const -> bool
+        inline bool operator != ( const Matrix4& m2 ) const
         {
             if( 
                 m[0][0] != m2.m[0][0] || m[0][1] != m2.m[0][1] || m[0][2] != m2.m[0][2] || m[0][3] != m2.m[0][3] ||
@@ -300,7 +300,7 @@ namespace Ogre
             and inverts the Y. */
         static const Matrix4 CLIPSPACE2DTOIMAGESPACE;
 
-        inline auto operator*(Real scalar) const -> Matrix4
+        inline Matrix4 operator*(Real scalar) const
         {
             return {
                 scalar*m[0][0], scalar*m[0][1], scalar*m[0][2], scalar*m[0][3],
@@ -309,8 +309,8 @@ namespace Ogre
                 scalar*m[3][0], scalar*m[3][1], scalar*m[3][2], scalar*m[3][3]};
         }
         
-        [[nodiscard]] auto adjoint() const -> Matrix4;
-        [[nodiscard]] auto inverse() const -> Matrix4;
+        [[nodiscard]] Matrix4 adjoint() const;
+        [[nodiscard]] Matrix4 inverse() const;
     };
 
     /// Transform specialization for 3D Affine - encapsulating a 3x4 Matrix
@@ -361,14 +361,14 @@ namespace Ogre
             m[3][0] = 0;         m[3][1] = 0;         m[3][2] = 0;         m[3][3] = 1;
         }
 
-        auto operator=(const Matrix3& mat3) -> Affine3& {
+        Affine3& operator=(const Matrix3& mat3) {
             set3x3Matrix(mat3);
             return *this;
         }
 
         /** Tests 2 matrices for equality.
         */
-        auto operator==(const Affine3& m2) const -> bool
+        bool operator==(const Affine3& m2) const
         {
             if(
                 m[0][0] != m2.m[0][0] || m[0][1] != m2.m[0][1] || m[0][2] != m2.m[0][2] || m[0][3] != m2.m[0][3] ||
@@ -378,9 +378,9 @@ namespace Ogre
             return true;
         }
 
-        auto operator!=(const Affine3& m2) const -> bool { return !(*this == m2); }
+        bool operator!=(const Affine3& m2) const { return !(*this == m2); }
 
-        [[nodiscard]] auto inverse() const -> Affine3;
+        [[nodiscard]] Affine3 inverse() const;
 
         /** Decompose to orientation / scale / position.
         */
@@ -393,14 +393,14 @@ namespace Ogre
 
         /** Gets a translation matrix.
         */
-        static auto getTrans( const Vector3& v ) -> Affine3
+        static Affine3 getTrans( const Vector3& v )
         {
             return getTrans(v.x, v.y, v.z);
         }
 
         /** Gets a translation matrix - variation for not using a vector.
         */
-        static auto getTrans( Real t_x, Real t_y, Real t_z ) -> Affine3
+        static Affine3 getTrans( Real t_x, Real t_y, Real t_z )
         {
             return {1, 0, 0, t_x,
                            0, 1, 0, t_y,
@@ -409,14 +409,14 @@ namespace Ogre
 
         /** Gets a scale matrix.
         */
-        static auto getScale( const Vector3& v ) -> Affine3
+        static Affine3 getScale( const Vector3& v )
         {
             return getScale(v.x, v.y, v.z);
         }
 
         /** Gets a scale matrix - variation for not using a vector.
         */
-        static auto getScale( Real s_x, Real s_y, Real s_z ) -> Affine3
+        static Affine3 getScale( Real s_x, Real s_y, Real s_z )
         {
             return {s_x, 0, 0, 0,
                            0, s_y, 0, 0,
@@ -428,7 +428,7 @@ namespace Ogre
         static const Affine3 IDENTITY;
     };
 
-    inline auto TransformBaseReal::transpose() const -> Matrix4
+    inline Matrix4 TransformBaseReal::transpose() const
     {
         return {m[0][0], m[1][0], m[2][0], m[3][0],
                        m[0][1], m[1][1], m[2][1], m[3][1],
@@ -438,7 +438,7 @@ namespace Ogre
 
     /** Matrix addition.
     */
-    inline auto operator+(const Matrix4& m, const Matrix4& m2) -> Matrix4
+    inline Matrix4 operator+(const Matrix4& m, const Matrix4& m2)
     {
         Matrix4 r;
 
@@ -467,7 +467,7 @@ namespace Ogre
 
     /** Matrix subtraction.
     */
-    inline auto operator-(const Matrix4& m, const Matrix4& m2) -> Matrix4
+    inline Matrix4 operator-(const Matrix4& m, const Matrix4& m2)
     {
         Matrix4 r;
         r[0][0] = m[0][0] - m2[0][0];
@@ -493,7 +493,7 @@ namespace Ogre
         return r;
     }
 
-    inline auto operator*(const Matrix4 &m, const Matrix4 &m2) -> Matrix4
+    inline Matrix4 operator*(const Matrix4 &m, const Matrix4 &m2)
     {
         Matrix4 r;
         r[0][0] = m[0][0] * m2[0][0] + m[0][1] * m2[1][0] + m[0][2] * m2[2][0] + m[0][3] * m2[3][0];
@@ -518,7 +518,7 @@ namespace Ogre
 
         return r;
     }
-    inline auto operator*(const Affine3 &m, const Affine3 &m2) -> Affine3
+    inline Affine3 operator*(const Affine3 &m, const Affine3 &m2)
     {
         return {
             m[0][0] * m2[0][0] + m[0][1] * m2[1][0] + m[0][2] * m2[2][0],
@@ -546,7 +546,7 @@ namespace Ogre
             and then all the tree elements of the resulting 3-D vector are
             divided by the resulting <i>w</i>.
     */
-    inline auto operator*(const Matrix4& m, const Vector3& v) -> Vector3
+    inline Vector3 operator*(const Matrix4& m, const Vector3& v)
     {
         Vector3 r;
 
@@ -559,7 +559,7 @@ namespace Ogre
         return r;
     }
     /// @overload
-    inline auto operator*(const Affine3& m,const Vector3& v) -> Vector3
+    inline Vector3 operator*(const Affine3& m,const Vector3& v)
     {
         return {
                 m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z + m[0][3],
@@ -567,7 +567,7 @@ namespace Ogre
                 m[2][0] * v.x + m[2][1] * v.y + m[2][2] * v.z + m[2][3]};
     }
 
-    inline auto operator*(const Matrix4& m, const Vector4& v) -> Vector4
+    inline Vector4 operator*(const Matrix4& m, const Vector4& v)
     {
         return {
             m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z + m[0][3] * v.w,
@@ -575,7 +575,7 @@ namespace Ogre
             m[2][0] * v.x + m[2][1] * v.y + m[2][2] * v.z + m[2][3] * v.w,
             m[3][0] * v.x + m[3][1] * v.y + m[3][2] * v.z + m[3][3] * v.w};
     }
-    inline auto operator*(const Affine3& m, const Vector4& v) -> Vector4
+    inline Vector4 operator*(const Affine3& m, const Vector4& v)
     {
         return {
             m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z + m[0][3] * v.w,
@@ -584,7 +584,7 @@ namespace Ogre
             v.w};
     }
 
-    inline auto operator * (const Vector4& v, const Matrix4& mat) -> Vector4
+    inline Vector4 operator * (const Vector4& v, const Matrix4& mat)
     {
         return {
             v.x*mat[0][0] + v.y*mat[1][0] + v.z*mat[2][0] + v.w*mat[3][0],

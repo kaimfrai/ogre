@@ -145,7 +145,7 @@ protected:
         A tokenized instruction list is built to be used by Pass 2.
 
     */
-    auto doPass1() -> bool;
+    bool doPass1();
 
     /** pure virtual method that must be set up by subclass to perform Pass 2 of compile process
     @remark
@@ -154,7 +154,7 @@ protected:
         symantic and context rules that could not be checked in Pass 1
 
     */
-    virtual auto doPass2() -> bool = 0;
+    virtual bool doPass2() = 0;
 
     void findEOL();
 
@@ -164,7 +164,7 @@ protected:
     @param sid is the token ID
     @return a pointer to the string text
     */
-    auto getTypeDefText(const uint sid) -> const char*;
+    const char* getTypeDefText(const uint sid);
 
     /** check to see if the text at the present position in the source is a numerical constant
     @param fvalue is a reference that will receive the float value that is in the source
@@ -173,7 +173,7 @@ protected:
         true if characters form a valid float representation
         false if a number value could not be extracted
     */
-    auto isFloatValue(float & fvalue, int & charsize) -> bool;
+    bool isFloatValue(float & fvalue, int & charsize);
 
     /** check to see if the text is in the symbol text library
     @param symbol points to beginning of text where a symbol token might exist
@@ -182,11 +182,11 @@ protected:
         true if a matching token could be found in the token type library
         false if could not be tokenized
     */
-    auto isSymbol(const char* symbol, int & symbolsize) -> bool;
+    bool isSymbol(const char* symbol, int & symbolsize);
 
 
     /// position to the next possible valid sysmbol
-    auto positionToNextSymbol() -> bool;
+    bool positionToNextSymbol();
 
 
     /** process input source text using rulepath to determine allowed tokens
@@ -207,7 +207,7 @@ protected:
         true if rule passed - all required tokens found
         false if one or more tokens required to complete the rule were not found
     */
-    auto processRulePath( uint rulepathIDX) -> bool;
+    bool processRulePath( uint rulepathIDX);
 
 
     // setup ActiveContexts - should be called by subclass to setup initial language contexts
@@ -232,7 +232,7 @@ protected:
         false if token symbol text does not match the source text
         if token is non-terminal then processRulePath is called
     */
-    auto ValidateToken(const uint rulepathIDX, const uint activeRuleID) -> bool;
+    bool ValidateToken(const uint rulepathIDX, const uint activeRuleID);
 
 
 public:
@@ -254,7 +254,7 @@ public:
         true if Pass 1 and Pass 2 are successful
         false if any errors occur in Pass 1 or Pass 2
     */
-    auto compile(const char* source) -> bool;
+    bool compile(const char* source);
 
     /** Initialize the type library with matching symbol text found in symbol text library
         find a default text for all Symbol Types in library

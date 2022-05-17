@@ -56,7 +56,7 @@ namespace OgreBites
             mLastSample = 0;
         }
 
-        virtual auto getCurrentSample() -> Sample*
+        virtual Sample* getCurrentSample()
         {
             return mCurrentSample;
         }
@@ -138,7 +138,7 @@ namespace OgreBites
 
         virtual void loadStartUpSample() {}
 
-        auto isCurrentSamplePaused() -> bool
+        bool isCurrentSamplePaused()
         {
             return !mCurrentSample || mSamplePaused;
         }
@@ -164,7 +164,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Processes frame started events.
         -----------------------------------------------------------------------------*/
-        virtual auto frameStarted(const Ogre::FrameEvent& evt) -> bool
+        virtual bool frameStarted(const Ogre::FrameEvent& evt)
         {
             pollEvents();
 
@@ -175,7 +175,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Processes rendering queued events.
         -----------------------------------------------------------------------------*/
-        virtual auto frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool
+        virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt)
         {
             // manually call sample callback to ensure correct order
             return !isCurrentSamplePaused() ? mCurrentSample->frameRenderingQueued(evt) : true;
@@ -184,7 +184,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Processes frame ended events.
         -----------------------------------------------------------------------------*/
-        virtual auto frameEnded(const Ogre::FrameEvent& evt) -> bool
+        virtual bool frameEnded(const Ogre::FrameEvent& evt)
         {
             // manually call sample callback to ensure correct order
             if (mCurrentSample && !mSamplePaused && !mCurrentSample->frameEnded(evt)) return false;
@@ -213,7 +213,7 @@ namespace OgreBites
             if (!isCurrentSamplePaused()) mCurrentSample->windowMoved(rw);
         }
 
-        virtual auto windowClosing(Ogre::RenderWindow* rw) -> bool
+        virtual bool windowClosing(Ogre::RenderWindow* rw)
         {
             if (!isCurrentSamplePaused()) return mCurrentSample->windowClosing(rw);
             return true;
@@ -231,7 +231,7 @@ namespace OgreBites
 
         // keyboard and mouse callbacks which manually call their respective sample callbacks to ensure correct order
 
-        virtual auto keyPressed(const KeyboardEvent& evt) -> bool
+        virtual bool keyPressed(const KeyboardEvent& evt)
         {
             // Ignore repeated signals from key being held down.
             if (evt.repeat) return true;
@@ -240,71 +240,71 @@ namespace OgreBites
             return true;
         }
 
-        virtual auto keyReleased(const KeyboardEvent& evt) -> bool
+        virtual bool keyReleased(const KeyboardEvent& evt)
         {
             if (!isCurrentSamplePaused()) return mCurrentSample->keyReleased(evt);
             return true;
         }
 
-        virtual auto touchMoved(const TouchFingerEvent& evt) -> bool
+        virtual bool touchMoved(const TouchFingerEvent& evt)
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchMoved(evt);
             return true;
         }
 
-        virtual auto mouseMoved(const MouseMotionEvent& evt) -> bool
+        virtual bool mouseMoved(const MouseMotionEvent& evt)
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mouseMoved(evt);
             return true;
         }
 
-        virtual auto touchPressed(const TouchFingerEvent& evt) -> bool
+        virtual bool touchPressed(const TouchFingerEvent& evt)
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchPressed(evt);
             return true;
         }
 
-        virtual auto mousePressed(const MouseButtonEvent& evt) -> bool
+        virtual bool mousePressed(const MouseButtonEvent& evt)
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mousePressed(evt);
             return true;
         }
 
-        virtual auto touchReleased(const TouchFingerEvent& evt) -> bool
+        virtual bool touchReleased(const TouchFingerEvent& evt)
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchReleased(evt);
             return true;
         }
 
-        virtual auto mouseReleased(const MouseButtonEvent& evt) -> bool
+        virtual bool mouseReleased(const MouseButtonEvent& evt)
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mouseReleased(evt);
             return true;
         }
 
-        virtual auto mouseWheelRolled(const MouseWheelEvent& evt) -> bool
+        virtual bool mouseWheelRolled(const MouseWheelEvent& evt)
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mouseWheelRolled(evt);
             return true;
         }
 
-        virtual auto textInput (const TextInputEvent& evt) -> bool
+        virtual bool textInput (const TextInputEvent& evt)
         {
             if (!isCurrentSamplePaused ())
                 return mCurrentSample->textInput (evt);
             return true;
         }
 
-        auto isFirstRun() -> bool { return mFirstRun; }
+        bool isFirstRun() { return mFirstRun; }
         void setFirstRun(bool flag) { mFirstRun = flag; }
-        auto isLastRun() -> bool { return mLastRun; }
+        bool isLastRun() { return mLastRun; }
         void setLastRun(bool flag) { mLastRun = flag; }
     protected:
         /*-----------------------------------------------------------------------------

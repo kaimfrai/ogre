@@ -67,8 +67,8 @@ namespace Ogre
 {
     struct MeshCodec : public Codec
     {
-        auto magicNumberToFileExt(const char* magicNumberPtr, size_t maxbytes) const -> String { return ""; }
-        [[nodiscard]] auto getType() const -> String { return "mesh"; }
+        String magicNumberToFileExt(const char* magicNumberPtr, size_t maxbytes) const { return ""; }
+        [[nodiscard]] String getType() const { return "mesh"; }
         void decode(const DataStreamPtr& input, const Any& output) const override
         {
             Mesh* dst = any_cast<Mesh*>(output);
@@ -80,11 +80,11 @@ namespace Ogre
 
     //-----------------------------------------------------------------------
     template<> MeshManager* Singleton<MeshManager>::msSingleton = 0;
-    auto MeshManager::getSingletonPtr() -> MeshManager*
+    MeshManager* MeshManager::getSingletonPtr()
     {
         return msSingleton;
     }
-    auto MeshManager::getSingleton() -> MeshManager&
+    MeshManager& MeshManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -111,7 +111,7 @@ namespace Ogre
         ResourceGroupManager::getSingleton()._unregisterResourceManager(mResourceType);
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::getByName(const String& name, const String& groupName) const -> MeshPtr
+    MeshPtr MeshManager::getByName(const String& name, const String& groupName) const
     {
         return static_pointer_cast<Mesh>(getResourceByName(name, groupName));
     }
@@ -125,13 +125,13 @@ namespace Ogre
         createManual("Prefab_Plane", RGN_INTERNAL, &mPrefabLoader)->setAutoBuildEdgeLists(false);
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::createOrRetrieve(
+    MeshManager::ResourceCreateOrRetrieveResult MeshManager::createOrRetrieve(
         const String& name, const String& group,
         bool isManual, ManualResourceLoader* loader,
         const NameValuePairList* params,
         HardwareBuffer::Usage vertexBufferUsage, 
         HardwareBuffer::Usage indexBufferUsage, 
-        bool vertexBufferShadowed, bool indexBufferShadowed) -> MeshManager::ResourceCreateOrRetrieveResult
+        bool vertexBufferShadowed, bool indexBufferShadowed)
     {
         ResourceCreateOrRetrieveResult res = 
             ResourceManager::createOrRetrieve(name,group,isManual,loader,params);
@@ -146,10 +146,10 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::prepare( const String& filename, const String& groupName, 
+    MeshPtr MeshManager::prepare( const String& filename, const String& groupName, 
         HardwareBuffer::Usage vertexBufferUsage, 
         HardwareBuffer::Usage indexBufferUsage, 
-        bool vertexBufferShadowed, bool indexBufferShadowed) -> MeshPtr
+        bool vertexBufferShadowed, bool indexBufferShadowed)
     {
         MeshPtr pMesh = static_pointer_cast<Mesh>(createOrRetrieve(filename,groupName,false,0,0,
                                          vertexBufferUsage,indexBufferUsage,
@@ -158,10 +158,10 @@ namespace Ogre
         return pMesh;
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::load( const String& filename, const String& groupName, 
+    MeshPtr MeshManager::load( const String& filename, const String& groupName, 
         HardwareBuffer::Usage vertexBufferUsage, 
         HardwareBuffer::Usage indexBufferUsage, 
-        bool vertexBufferShadowed, bool indexBufferShadowed) -> MeshPtr
+        bool vertexBufferShadowed, bool indexBufferShadowed)
     {
         MeshPtr pMesh = static_pointer_cast<Mesh>(createOrRetrieve(filename,groupName,false,0,0,
                                          vertexBufferUsage,indexBufferUsage,
@@ -170,25 +170,25 @@ namespace Ogre
         return pMesh;
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::create (const String& name, const String& group,
+    MeshPtr MeshManager::create (const String& name, const String& group,
                                     bool isManual, ManualResourceLoader* loader,
-                                    const NameValuePairList* createParams) -> MeshPtr
+                                    const NameValuePairList* createParams)
     {
         return static_pointer_cast<Mesh>(createResource(name,group,isManual,loader,createParams));
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::createManual( const String& name, const String& groupName, 
-        ManualResourceLoader* loader) -> MeshPtr
+    MeshPtr MeshManager::createManual( const String& name, const String& groupName, 
+        ManualResourceLoader* loader)
     {
         // Don't try to get existing, create should fail if already exists
         return create(name, groupName, true, loader);
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::createPlane( const String& name, const String& groupName,
+    MeshPtr MeshManager::createPlane( const String& name, const String& groupName,
         const Plane& plane, Real width, Real height, int xsegments, int ysegments,
         bool normals, unsigned short numTexCoordSets, Real xTile, Real yTile, const Vector3& upVector,
         HardwareBuffer::Usage vertexBufferUsage, HardwareBuffer::Usage indexBufferUsage,
-        bool vertexShadowBuffer, bool indexShadowBuffer) -> MeshPtr
+        bool vertexShadowBuffer, bool indexShadowBuffer)
     {
         // Create manual mesh which calls back self to load
         MeshPtr pMesh = createManual(name, groupName, &mPrefabLoader);
@@ -220,11 +220,11 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------
-    auto MeshManager::createCurvedPlane( const String& name, const String& groupName, 
+    MeshPtr MeshManager::createCurvedPlane( const String& name, const String& groupName, 
         const Plane& plane, Real width, Real height, Real bow, int xsegments, int ysegments,
         bool normals, unsigned short numTexCoordSets, Real xTile, Real yTile, const Vector3& upVector,
             HardwareBuffer::Usage vertexBufferUsage, HardwareBuffer::Usage indexBufferUsage,
-            bool vertexShadowBuffer, bool indexShadowBuffer) -> MeshPtr
+            bool vertexShadowBuffer, bool indexShadowBuffer)
     {
         // Create manual mesh which calls back self to load
         MeshPtr pMesh = createManual(name, groupName, &mPrefabLoader);
@@ -257,7 +257,7 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::createCurvedIllusionPlane(
+    MeshPtr MeshManager::createCurvedIllusionPlane(
         const String& name, const String& groupName, const Plane& plane,
         Real width, Real height, Real curvature,
         int xsegments, int ysegments,
@@ -267,7 +267,7 @@ namespace Ogre
         HardwareBuffer::Usage vertexBufferUsage, 
         HardwareBuffer::Usage indexBufferUsage,
         bool vertexShadowBuffer, bool indexShadowBuffer,
-        int ySegmentsToKeep) -> MeshPtr
+        int ySegmentsToKeep)
     {
         // Create manual mesh which calls back self to load
         MeshPtr pMesh = createManual(name, groupName, &mPrefabLoader);
@@ -388,7 +388,7 @@ namespace Ogre
         mListener = listener;
     }
     //-------------------------------------------------------------------------
-    auto MeshManager::getListener() -> MeshSerializerListener *
+    MeshSerializerListener *MeshManager::getListener()
     {
         return mListener;
     }
@@ -867,13 +867,13 @@ namespace Ogre
         pMesh->_setBounds(aabb, true);
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::createBezierPatch(const String& name, const String& groupName,
+    PatchMeshPtr MeshManager::createBezierPatch(const String& name, const String& groupName,
             void* controlPointBuffer, VertexDeclaration *declaration, 
             size_t width, size_t height,
             size_t uMaxSubdivisionLevel, size_t vMaxSubdivisionLevel,
             PatchSurface::VisibleSide visibleSide, 
             HardwareBuffer::Usage vbUsage, HardwareBuffer::Usage ibUsage,
-            bool vbUseShadow, bool ibUseShadow) -> PatchMeshPtr
+            bool vbUseShadow, bool ibUseShadow)
     {
         if (width < 3 || height < 3)
         {
@@ -904,12 +904,12 @@ namespace Ogre
         mPrepAllMeshesForShadowVolumes = enable;
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::getPrepareAllMeshesForShadowVolumes() -> bool
+    bool MeshManager::getPrepareAllMeshesForShadowVolumes()
     {
         return mPrepAllMeshesForShadowVolumes;
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::getBlendWeightsBaseElementType() const -> VertexElementType
+    VertexElementType MeshManager::getBlendWeightsBaseElementType() const
     {
         return mBlendWeightsBaseElementType;
     }
@@ -929,7 +929,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::getBoundsPaddingFactor( ) -> Real
+    Real MeshManager::getBoundsPaddingFactor( )
     {
         return mBoundsPaddingFactor;
     }
@@ -939,9 +939,9 @@ namespace Ogre
         mBoundsPaddingFactor = paddingFactor;
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::createImpl(const String& name, ResourceHandle handle, 
+    Resource* MeshManager::createImpl(const String& name, ResourceHandle handle, 
         const String& group, bool isManual, ManualResourceLoader* loader, 
-        const NameValuePairList* createParams) -> Resource*
+        const NameValuePairList* createParams)
     {
         // no use for createParams here
         return new Mesh(this, name, handle, group, isManual, loader);

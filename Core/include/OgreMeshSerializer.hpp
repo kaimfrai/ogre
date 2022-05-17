@@ -161,7 +161,7 @@ class Mesh;
         /// Sets the listener for this serializer
         void setListener(MeshSerializerListener *listener);
         /// Returns the current listener
-        auto getListener() -> MeshSerializerListener *;
+        MeshSerializerListener *getListener();
         
     private:
         typedef std::vector<MeshVersionData*> MeshVersionDataList;

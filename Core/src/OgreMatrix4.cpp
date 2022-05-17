@@ -63,16 +63,16 @@ namespace Ogre
           0,    0,  0,   1);
 
     //-----------------------------------------------------------------------
-    static auto
+    static Real
         MINOR(const TransformBaseReal& m, const size_t r0, const size_t r1, const size_t r2,
-                                const size_t c0, const size_t c1, const size_t c2) -> Real
+                                const size_t c0, const size_t c1, const size_t c2)
     {
         return m[r0][c0] * (m[r1][c1] * m[r2][c2] - m[r2][c1] * m[r1][c2]) -
             m[r0][c1] * (m[r1][c0] * m[r2][c2] - m[r2][c0] * m[r1][c2]) +
             m[r0][c2] * (m[r1][c0] * m[r2][c1] - m[r2][c0] * m[r1][c1]);
     }
     //-----------------------------------------------------------------------
-    auto Matrix4::adjoint() const -> Matrix4
+    Matrix4 Matrix4::adjoint() const
     {
         return { MINOR(*this, 1, 2, 3, 1, 2, 3),
             -MINOR(*this, 0, 2, 3, 1, 2, 3),
@@ -95,7 +95,7 @@ namespace Ogre
             MINOR(*this, 0, 1, 2, 0, 1, 2)};
     }
     //-----------------------------------------------------------------------
-    auto TransformBaseReal::determinant() const -> Real
+    Real TransformBaseReal::determinant() const
     {
         return m[0][0] * MINOR(*this, 1, 2, 3, 1, 2, 3) -
             m[0][1] * MINOR(*this, 1, 2, 3, 0, 2, 3) +
@@ -103,7 +103,7 @@ namespace Ogre
             m[0][3] * MINOR(*this, 1, 2, 3, 0, 1, 2);
     }
     //-----------------------------------------------------------------------
-    auto Matrix4::inverse() const -> Matrix4
+    Matrix4 Matrix4::inverse() const
     {
         Real m00 = m[0][0], m01 = m[0][1], m02 = m[0][2], m03 = m[0][3];
         Real m10 = m[1][0], m11 = m[1][1], m12 = m[1][2], m13 = m[1][3];
@@ -165,7 +165,7 @@ namespace Ogre
             d30, d31, d32, d33};
     }
     //-----------------------------------------------------------------------
-    auto Affine3::inverse() const -> Affine3
+    Affine3 Affine3::inverse() const
     {
         Real m10 = m[1][0], m11 = m[1][1], m12 = m[1][2];
         Real m20 = m[2][0], m21 = m[2][1], m22 = m[2][2];

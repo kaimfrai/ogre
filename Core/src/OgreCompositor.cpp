@@ -67,7 +67,7 @@ Compositor::~Compositor()
     unload(); 
 }
 //-----------------------------------------------------------------------
-auto Compositor::createTechnique() -> CompositionTechnique *
+CompositionTechnique *Compositor::createTechnique()
 {
     CompositionTechnique *t = new CompositionTechnique(this);
     mTechniques.push_back(t);
@@ -99,13 +99,13 @@ void Compositor::removeAllTechniques()
     mCompilationRequired = true;
 }
 //-----------------------------------------------------------------------
-auto Compositor::getTechniqueIterator() -> Compositor::TechniqueIterator
+Compositor::TechniqueIterator Compositor::getTechniqueIterator()
 {
     return {mTechniques.begin(), mTechniques.end()};
 }
 //-----------------------------------------------------------------------
 
-auto Compositor::getSupportedTechniqueIterator() -> Compositor::TechniqueIterator
+Compositor::TechniqueIterator Compositor::getSupportedTechniqueIterator()
 {
     return {mSupportedTechniques.begin(), mSupportedTechniques.end()};
 }
@@ -124,7 +124,7 @@ void Compositor::unloadImpl()
     freeGlobalTextures();
 }
 //-----------------------------------------------------------------------
-auto Compositor::calculateSize() const -> size_t
+size_t Compositor::calculateSize() const
 {
     return 0;
 }
@@ -150,7 +150,7 @@ void Compositor::compile()
     mCompilationRequired = false;
 }
 //---------------------------------------------------------------------
-auto Compositor::getSupportedTechnique(const String& schemeName) -> CompositionTechnique*
+CompositionTechnique* Compositor::getSupportedTechnique(const String& schemeName)
 {
     for(Techniques::iterator i = mSupportedTechniques.begin(); i != mSupportedTechniques.end(); ++i)
     {
@@ -319,12 +319,12 @@ void Compositor::freeGlobalTextures()
 
 }
 //-----------------------------------------------------------------------
-auto Compositor::getTextureInstanceName(const String& name, size_t mrtIndex) -> const String&
+const String& Compositor::getTextureInstanceName(const String& name, size_t mrtIndex)
 {
     return getTextureInstance(name, mrtIndex)->getName();
 }
 //-----------------------------------------------------------------------       
-auto Compositor::getTextureInstance(const String& name, size_t mrtIndex) -> const TexturePtr&
+const TexturePtr& Compositor::getTextureInstance(const String& name, size_t mrtIndex)
 {
     //Try simple texture
     GlobalTextureMap::iterator i = mGlobalTextures.find(name);
@@ -345,7 +345,7 @@ auto Compositor::getTextureInstance(const String& name, size_t mrtIndex) -> cons
         
 }
 //---------------------------------------------------------------------
-auto Compositor::getRenderTarget(const String& name, int slice) -> RenderTarget*
+RenderTarget* Compositor::getRenderTarget(const String& name, int slice)
 {
     // try simple texture
     GlobalTextureMap::iterator i = mGlobalTextures.find(name);

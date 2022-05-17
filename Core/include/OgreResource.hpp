@@ -170,7 +170,7 @@ class ResourceManager;
         }
 
         /// protected assignment as this is merely abstract
-        auto operator=(const Resource& rhs) -> Resource&;
+        Resource& operator=(const Resource& rhs);
 
         /** Internal hook to perform actions before the load process, but
             after the resource has been marked as 'loading'.
@@ -215,7 +215,7 @@ class ResourceManager;
         virtual void unloadImpl() = 0;
 
         /** Calculate the size of a resource; this will only be called after 'load' */
-        virtual auto calculateSize() const -> size_t;
+        virtual size_t calculateSize() const;
     public:
         /** Standard constructor.
         @param creator Pointer to the ResourceManager that is creating this resource
@@ -277,14 +277,14 @@ class ResourceManager;
 
         /** Returns true if the Resource is reloadable, false otherwise.
         */
-        auto isReloadable() const -> bool
+        bool isReloadable() const
         {
             return !mIsManual || mLoader;
         }
 
         /** Is this resource manually loaded?
         */
-        auto isManuallyLoaded() const -> bool
+        bool isManuallyLoaded() const
         {
             return mIsManual;
         }
@@ -296,7 +296,7 @@ class ResourceManager;
 
         /** Retrieves info about the size of the resource.
         */
-        auto getSize() const -> size_t
+        size_t getSize() const
         { 
             return mSize; 
         }
@@ -307,13 +307,13 @@ class ResourceManager;
 
         /** Gets resource name.
         */
-        auto getName() const -> const String& { return mName; }
+        const String& getName() const { return mName; }
 
-        auto getHandle() const -> ResourceHandle { return mHandle; }
+        ResourceHandle getHandle() const { return mHandle; }
 
         /** Returns true if the Resource has been prepared, false otherwise.
         */
-        auto isPrepared() const -> bool
+        bool isPrepared() const
         { 
             // No lock required to read this state since no modify
             return (mLoadingState.load() == LOADSTATE_PREPARED);
@@ -321,7 +321,7 @@ class ResourceManager;
 
         /** Returns true if the Resource has been loaded, false otherwise.
         */
-        auto isLoaded() const -> bool
+        bool isLoaded() const
         { 
             // No lock required to read this state since no modify
             return (mLoadingState.load() == LOADSTATE_LOADED);
@@ -330,14 +330,14 @@ class ResourceManager;
         /** Returns whether the resource is currently in the process of
             background loading.
         */
-        auto isLoading() const -> bool
+        bool isLoading() const
         {
             return (mLoadingState.load() == LOADSTATE_LOADING);
         }
 
         /** Returns the current loading state.
         */
-        auto getLoadingState() const -> LoadingState
+        LoadingState getLoadingState() const
         {
             return mLoadingState.load();
         }
@@ -353,7 +353,7 @@ class ResourceManager;
             other users of this resource should check isLoaded(), and if that
             returns false, don't use the resource and come back later.
         */
-        auto isBackgroundLoaded() const -> bool { return mIsBackgroundLoaded; }
+        bool isBackgroundLoaded() const { return mIsBackgroundLoaded; }
 
         /** Tells the resource whether it is background loaded or not.
 
@@ -387,7 +387,7 @@ class ResourceManager;
         virtual void removeListener(Listener* lis);
 
         /// Gets the group which this resource is a member of
-        auto getGroup() const -> const String& { return mGroup; }
+        const String& getGroup() const { return mGroup; }
 
         /** Change the resource group ownership of a Resource.
         @remarks
@@ -399,14 +399,14 @@ class ResourceManager;
         virtual void changeGroupOwnership(const String& newGroup);
 
         /// Gets the manager which created this resource
-        auto getCreator() -> ResourceManager* { return mCreator; }
+        ResourceManager* getCreator() { return mCreator; }
         /** Get the origin of this resource, e.g. a script file name.
         @remarks
             This property will only contain something if the creator of
             this resource chose to populate it. Script loaders are advised
             to populate it.
         */
-        auto getOrigin() const -> const String& { return mOrigin; }
+        const String& getOrigin() const { return mOrigin; }
         /// Notify this resource of it's origin
         void _notifyOrigin(const String& origin) { mOrigin = origin; }
 
@@ -417,7 +417,7 @@ class ResourceManager;
             know whether it needs rebuilding. This is a nice way of monitoring
             changes without having a tightly-bound callback.
         */
-        virtual auto getStateCount() const -> size_t { return mStateCount; }
+        virtual size_t getStateCount() const { return mStateCount; }
 
         /** Manually mark the state of this resource as having been changed.
         @remarks

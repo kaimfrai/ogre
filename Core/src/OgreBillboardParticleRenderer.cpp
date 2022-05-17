@@ -44,49 +44,49 @@ class RenderQueue;
     class CmdBillboardType : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for billboard origin (see ParamCommand).*/
     class CmdBillboardOrigin : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for billboard rotation type (see ParamCommand).*/
     class CmdBillboardRotationType : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for common direction (see ParamCommand).*/
     class CmdCommonDirection : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for common up-vector (see ParamCommand).*/
     class CmdCommonUpVector : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for point rendering (see ParamCommand).*/
     class CmdPointRendering : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     /** Command object for accurate facing(see ParamCommand).*/
     class CmdAccurateFacing : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String;
+        String doGet(const void* target) const;
         void doSet(void* target, const String& val);
     };
     static CmdBillboardType msBillboardTypeCmd;
@@ -100,7 +100,7 @@ class RenderQueue;
     static class CmdStacksAndSlices : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String
+        String doGet(const void* target) const
         {
             return StringConverter::toString(
                 static_cast<const BillboardParticleRenderer*>(target)->getTextureStacksAndSlices());
@@ -192,7 +192,7 @@ class RenderQueue;
         delete  mBillboardSet;
     }
     //-----------------------------------------------------------------------
-    auto BillboardParticleRenderer::getType() const -> const String&
+    const String& BillboardParticleRenderer::getType() const
     {
         return rendererTypeName;
     }
@@ -243,19 +243,19 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    auto BillboardParticleRendererFactory::getType() const -> const String&
+    const String& BillboardParticleRendererFactory::getType() const
     {
         return rendererTypeName;
     }
     //-----------------------------------------------------------------------
-    auto BillboardParticleRendererFactory::createInstance( 
-        const String& name ) -> ParticleSystemRenderer*
+    ParticleSystemRenderer* BillboardParticleRendererFactory::createInstance( 
+        const String& name )
     {
         return new BillboardParticleRenderer();
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    auto CmdBillboardType::doGet(const void* target) const -> String
+    String CmdBillboardType::doGet(const void* target) const
     {
         BillboardType t = static_cast<const BillboardParticleRenderer*>(target)->getBillboardType();
         switch(t)
@@ -310,7 +310,7 @@ class RenderQueue;
         static_cast<BillboardParticleRenderer*>(target)->setBillboardType(t);
     }
     //-----------------------------------------------------------------------
-    auto CmdBillboardOrigin::doGet(const void* target) const -> String
+    String CmdBillboardOrigin::doGet(const void* target) const
     {
         BillboardOrigin o = static_cast<const BillboardParticleRenderer*>(target)->getBillboardOrigin();
         switch (o)
@@ -368,7 +368,7 @@ class RenderQueue;
         static_cast<BillboardParticleRenderer*>(target)->setBillboardOrigin(o);
     }
     //-----------------------------------------------------------------------
-    auto CmdBillboardRotationType::doGet(const void* target) const -> String
+    String CmdBillboardRotationType::doGet(const void* target) const
     {
         BillboardRotationType r = static_cast<const BillboardParticleRenderer*>(target)->getBillboardRotationType();
         switch(r)
@@ -398,7 +398,7 @@ class RenderQueue;
         static_cast<BillboardParticleRenderer*>(target)->setBillboardRotationType(r);
     }
     //-----------------------------------------------------------------------
-    auto CmdCommonDirection::doGet(const void* target) const -> String
+    String CmdCommonDirection::doGet(const void* target) const
     {
         return StringConverter::toString(
             static_cast<const BillboardParticleRenderer*>(target)->getCommonDirection() );
@@ -409,7 +409,7 @@ class RenderQueue;
             StringConverter::parseVector3(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdCommonUpVector::doGet(const void* target) const -> String
+    String CmdCommonUpVector::doGet(const void* target) const
     {
         return StringConverter::toString(
             static_cast<const BillboardParticleRenderer*>(target)->getCommonUpVector() );
@@ -420,7 +420,7 @@ class RenderQueue;
             StringConverter::parseVector3(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdPointRendering::doGet(const void* target) const -> String
+    String CmdPointRendering::doGet(const void* target) const
     {
         return StringConverter::toString(
             static_cast<const BillboardParticleRenderer*>(target)->isPointRenderingEnabled() );
@@ -431,7 +431,7 @@ class RenderQueue;
             StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdAccurateFacing::doGet(const void* target) const -> String
+    String CmdAccurateFacing::doGet(const void* target) const
     {
         return StringConverter::toString(
             static_cast<const BillboardParticleRenderer*>(target)->getUseAccurateFacing() );

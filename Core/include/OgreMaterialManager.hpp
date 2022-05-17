@@ -114,30 +114,30 @@ class Technique;
             @return A pointer to the technique to be used, or NULL if you wish to
                 use the default technique for this material
             */
-            virtual auto handleSchemeNotFound(unsigned short schemeIndex, 
+            virtual Technique* handleSchemeNotFound(unsigned short schemeIndex, 
                 const String& schemeName, Material* originalMaterial, unsigned short lodIndex, 
-                const Renderable* rend) -> Technique* = 0;
+                const Renderable* rend) = 0;
 
 			/** Called right after illuminated passes were created,
 				so that owner of runtime generated technique can handle this.
 			@return True if notification is handled and should not be propagated further.
 			*/
-			virtual auto afterIlluminationPassesCreated(Technique* technique) -> bool { return false; }
+			virtual bool afterIlluminationPassesCreated(Technique* technique) { return false; }
 
 			/** Called right before illuminated passes would be removed,
 				so that owner of runtime generated technique can handle this.
 			@return True if notification is handled and should not be propagated further.
 			*/
-			virtual auto beforeIlluminationPassesCleared(Technique* technique) -> bool { return false; }
+			virtual bool beforeIlluminationPassesCleared(Technique* technique) { return false; }
         };
 
     private:
         /// Default settings
         MaterialPtr mDefaultSettings;
 
-        auto createImpl(const String& name, ResourceHandle handle, 
+        Resource* createImpl(const String& name, ResourceHandle handle, 
             const String& group, bool isManual, ManualResourceLoader* loader,
-            const NameValuePairList* params) -> Resource* override;
+            const NameValuePairList* params) override;
 
         /// Scheme name -> index. Never shrinks! Should be pretty static anyway
         typedef std::map<String, unsigned short> SchemeMap;
@@ -159,17 +159,17 @@ class Technique;
 
         /// Create a new material
         /// @see ResourceManager::createResource
-        auto create (const String& name, const String& group,
+        MaterialPtr create (const String& name, const String& group,
                             bool isManual = false, ManualResourceLoader* loader = 0,
-                            const NameValuePairList* createParams = 0) -> MaterialPtr;
+                            const NameValuePairList* createParams = 0);
         
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName
-        auto getByName(const String& name, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME) const -> MaterialPtr;
+        MaterialPtr getByName(const String& name, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME) const;
 
         /// Get a default material that is always available even when no resources were loaded
         /// @param useLighting whether the material should be lit
-        auto getDefaultMaterial(bool useLighting = true) -> MaterialPtr;
+        MaterialPtr getDefaultMaterial(bool useLighting = true);
 
         /** Default constructor.
         */
@@ -202,7 +202,7 @@ class Technique;
         virtual void setDefaultTextureFiltering(FilterOptions minFilter, FilterOptions magFilter, FilterOptions mipFilter);
 
         /// Get the default texture filtering
-        virtual auto getDefaultTextureFiltering(FilterType ftype) const -> FilterOptions;
+        virtual FilterOptions getDefaultTextureFiltering(FilterType ftype) const;
 
         /** Sets the default anisotropy level to be used for loaded textures, for when textures are
             loaded automatically (e.g. by Material class) or when 'load' is called with the default
@@ -212,7 +212,7 @@ class Technique;
         */
         void setDefaultAnisotropy(unsigned int maxAniso);
         /// Get the default maxAnisotropy
-        auto getDefaultAnisotropy() const -> unsigned int;
+        unsigned int getDefaultAnisotropy() const;
 
         /** Returns a pointer to the default Material settings.
 
@@ -236,25 +236,25 @@ class Technique;
             - Gourad shading mode
             - Bilinear texture filtering
         */
-        virtual auto getDefaultSettings() const -> MaterialPtr { return mDefaultSettings; }
+        virtual MaterialPtr getDefaultSettings() const { return mDefaultSettings; }
 
         /** Internal method - returns index for a given material scheme name.
         @see Technique::setSchemeName
         */
-        virtual auto _getSchemeIndex(const String& name) -> unsigned short;
+        virtual unsigned short _getSchemeIndex(const String& name);
         /** Internal method - returns name for a given material scheme index.
         @see Technique::setSchemeName
         */
-        virtual auto _getSchemeName(unsigned short index) -> const String&;
+        virtual const String& _getSchemeName(unsigned short index);
         /** Internal method - returns the active scheme index.
         @see Technique::setSchemeName
         */
-        auto _getActiveSchemeIndex() const -> unsigned short { return mActiveSchemeIndex; }
+        unsigned short _getActiveSchemeIndex() const { return mActiveSchemeIndex; }
 
         /** Returns the name of the active material scheme. 
         @see Technique::setSchemeName
         */
-        auto getActiveScheme() const -> const String& { return mActiveSchemeName; }
+        const String& getActiveScheme() const { return mActiveSchemeName; }
         
         /** Sets the name of the active material scheme. 
         @see Technique::setSchemeName
@@ -274,8 +274,8 @@ class Technique;
         virtual void removeListener(Listener* l, const Ogre::String& schemeName = BLANKSTRING);
 
         /// Internal method for sorting out missing technique for a scheme
-        virtual auto _arbitrateMissingTechniqueForActiveScheme(
-            Material* mat, unsigned short lodIndex, const Renderable* rend) -> Technique*;
+        virtual Technique* _arbitrateMissingTechniqueForActiveScheme(
+            Material* mat, unsigned short lodIndex, const Renderable* rend);
 
 		/// Internal method for sorting out illumination passes for a scheme
 		virtual void _notifyAfterIlluminationPassesCreated(Technique* mat);
@@ -285,9 +285,9 @@ class Technique;
 
 
 		/// @copydoc Singleton::getSingleton()
-        static auto getSingleton() -> MaterialManager&;
+        static MaterialManager& getSingleton();
         /// @copydoc Singleton::getSingleton()
-        static auto getSingletonPtr() -> MaterialManager*;
+        static MaterialManager* getSingletonPtr();
 
     };
     /** @} */

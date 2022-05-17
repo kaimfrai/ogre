@@ -53,7 +53,7 @@ HLSLProgramProcessor::~HLSLProgramProcessor()
 }
 
 //-----------------------------------------------------------------------------
-auto HLSLProgramProcessor::preCreateGpuPrograms( ProgramSet* programSet ) -> bool
+bool HLSLProgramProcessor::preCreateGpuPrograms( ProgramSet* programSet )
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -70,7 +70,7 @@ auto HLSLProgramProcessor::preCreateGpuPrograms( ProgramSet* programSet ) -> boo
 }
 
 //-----------------------------------------------------------------------------
-auto HLSLProgramProcessor::postCreateGpuPrograms( ProgramSet* programSet ) -> bool
+bool HLSLProgramProcessor::postCreateGpuPrograms( ProgramSet* programSet )
 {
     // Bind vertex auto parameters.
     for(auto type : {GPT_VERTEX_PROGRAM, GPT_FRAGMENT_PROGRAM})

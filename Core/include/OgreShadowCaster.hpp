@@ -84,13 +84,13 @@ class VertexData;
             before adding to a render queue
         */
         void setMaterial(const MaterialPtr& mat) { mMaterial = mat; }
-        [[nodiscard]] auto getMaterial() const -> const MaterialPtr& override { return mMaterial; }
+        [[nodiscard]] const MaterialPtr& getMaterial() const override { return mMaterial; }
         void getRenderOperation(RenderOperation& op) override { op = mRenderOp; }
         /// Get the internal render operation for set up.
-        auto getRenderOperationForUpdate() -> RenderOperation* {return &mRenderOp;}
+        RenderOperation* getRenderOperationForUpdate() {return &mRenderOp;}
         void getWorldTransforms(Matrix4* xform) const override;
-        auto getSquaredViewDepth(const Camera*) const -> Real override { return 0; /* not used */}
-        [[nodiscard]] auto getLights() const -> const LightList& override;
+        Real getSquaredViewDepth(const Camera*) const override { return 0; /* not used */}
+        [[nodiscard]] const LightList& getLights() const override;
         /** Does this renderable require a separate light cap?
         @remarks
             If possible, the light cap (when required) should be contained in the
@@ -101,12 +101,12 @@ class VertexData;
             inaccuracies caused by calculating the shadow geometry separately from
             the real geometry. 
         */
-        [[nodiscard]] auto isLightCapSeparate() const -> bool { return mLightCap != 0; }
+        [[nodiscard]] bool isLightCapSeparate() const { return mLightCap != 0; }
 
         /// Get the light cap version of this renderable.
-        auto getLightCapRenderable() -> ShadowRenderable* { return mLightCap; }
+        ShadowRenderable* getLightCapRenderable() { return mLightCap; }
         /// Should this ShadowRenderable be treated as visible?
-        [[nodiscard]] virtual auto isVisible() const -> bool { return true; }
+        [[nodiscard]] virtual bool isVisible() const { return true; }
 
         /** This function informs the shadow renderable that the global index buffer
             from the SceneManager has been updated. As all shadow use this buffer their pointer 
@@ -116,7 +116,7 @@ class VertexData;
         */
         void rebindIndexBuffer(const HardwareIndexBufferSharedPtr& indexBuffer);
 
-        [[nodiscard]] auto getPositionBuffer() const -> const HardwareVertexBufferSharedPtr& { return mPositionBuffer; }
+        [[nodiscard]] const HardwareVertexBufferSharedPtr& getPositionBuffer() const { return mPositionBuffer; }
     };
 
     /** A set of flags that can be used to influence ShadowRenderable creation. */
@@ -141,19 +141,19 @@ class VertexData;
     public:
         virtual ~ShadowCaster() { }
         /** Returns whether or not this object currently casts a shadow. */
-        [[nodiscard]] virtual auto getCastShadows() const -> bool = 0;
+        [[nodiscard]] virtual bool getCastShadows() const = 0;
 
         /** Returns details of the edges which might be used to determine a silhouette. */
-        virtual auto getEdgeList() -> EdgeData* = 0;
+        virtual EdgeData* getEdgeList() = 0;
         /** Returns whether the object has a valid edge list. */
-        auto hasEdgeList() -> bool { return getEdgeList() != NULL; }
+        bool hasEdgeList() { return getEdgeList() != NULL; }
 
         /** Get the world bounding box of the caster. */
-        [[nodiscard]] virtual auto getWorldBoundingBox(bool derive = false) const -> const AxisAlignedBox& = 0;
+        [[nodiscard]] virtual const AxisAlignedBox& getWorldBoundingBox(bool derive = false) const = 0;
         /** Gets the world space bounding box of the light cap. */
-        [[nodiscard]] virtual auto getLightCapBounds() const -> const AxisAlignedBox& = 0;
+        [[nodiscard]] virtual const AxisAlignedBox& getLightCapBounds() const = 0;
         /** Gets the world space bounding box of the dark cap, as extruded using the light provided. */
-        [[nodiscard]] virtual auto getDarkCapBounds(const Light& light, Real dirLightExtrusionDist) const -> const AxisAlignedBox& = 0;
+        [[nodiscard]] virtual const AxisAlignedBox& getDarkCapBounds(const Light& light, Real dirLightExtrusionDist) const = 0;
 
         typedef Ogre::ShadowRenderableList ShadowRenderableList;
         typedef VectorIterator<ShadowRenderableList> ShadowRenderableListIterator;
@@ -177,10 +177,10 @@ class VertexData;
         @param flags
             Technique-specific flags, see ShadowRenderableFlags.
         */
-        virtual auto
+        virtual const ShadowRenderableList&
         getShadowVolumeRenderableList(const Light* light, const HardwareIndexBufferPtr& indexBuffer,
                                       size_t& indexBufferUsedSize, float extrusionDistance,
-                                      int flags = 0) -> const ShadowRenderableList& = 0;
+                                      int flags = 0) = 0;
 
         /** Common implementation of releasing shadow renderables.*/
         static void clearShadowRenderableList(ShadowRenderableList& shadowRenderables);
@@ -211,7 +211,7 @@ class VertexData;
         static void extrudeVertices(const HardwareVertexBufferSharedPtr& vertexBuffer, 
             size_t originalVertexCount, const Vector4& lightPos, Real extrudeDist);
         /** Get the distance to extrude for a point/spot light. */
-        virtual auto getPointExtrusionDistance(const Light* l) const -> Real = 0;
+        virtual Real getPointExtrusionDistance(const Light* l) const = 0;
     protected:
         /** Tells the caster to perform the tasks necessary to update the 
             edge data's light listing. Can be overridden if the subclass needs 

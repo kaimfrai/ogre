@@ -80,7 +80,7 @@ class RenderSystem;
         }
     }
     //-----------------------------------------------------------------------
-    auto VertexData::clone(bool copyData, HardwareBufferManagerBase* mgr) const -> VertexData*
+    VertexData* VertexData::clone(bool copyData, HardwareBufferManagerBase* mgr) const
     {
         HardwareBufferManagerBase* pManager = mgr ? mgr : mMgr;
 
@@ -647,7 +647,7 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    auto VertexData::allocateHardwareAnimationElements(ushort count, bool animateNormals) -> ushort
+    ushort VertexData::allocateHardwareAnimationElements(ushort count, bool animateNormals)
     {
         // Find first free texture coord set
         unsigned short texCoord = vertexDeclaration->getNextFreeTextureCoordinate();
@@ -688,7 +688,7 @@ class RenderSystem;
     {
     }
     //-----------------------------------------------------------------------
-    auto IndexData::clone(bool copyData, HardwareBufferManagerBase* mgr) const -> IndexData*
+    IndexData* IndexData::clone(bool copyData, HardwareBufferManagerBase* mgr) const
     {
         HardwareBufferManagerBase* pManager = mgr ? mgr : HardwareBufferManager::getSingletonPtr();
         IndexData* dest = new IndexData();
@@ -740,14 +740,14 @@ class RenderSystem;
         {
         }
 
-        inline auto operator=(const Triangle& rhs) -> Triangle& {
+        inline Triangle& operator=(const Triangle& rhs) {
             a = rhs.a;
             b = rhs.b;
             c = rhs.c;
             return *this;
         }
 
-        [[nodiscard]] inline auto sharesEdge(const Triangle& t) const -> bool
+        [[nodiscard]] inline bool sharesEdge(const Triangle& t) const
         {
             return( (a == t.a && b == t.c) ||
                     (a == t.b && b == t.a) ||
@@ -760,14 +760,14 @@ class RenderSystem;
                     (c == t.c && a == t.b) );
         }
 
-        [[nodiscard]] inline auto sharesEdge(const uint32 ea, const uint32 eb, const Triangle& t) const -> bool
+        [[nodiscard]] inline bool sharesEdge(const uint32 ea, const uint32 eb, const Triangle& t) const
         {
             return( (ea == t.a && eb == t.c) ||
                     (ea == t.b && eb == t.a) ||
                     (ea == t.c && eb == t.b) ); 
         }
 
-        [[nodiscard]] inline auto sharesEdge(const EdgeMatchType edge, const Triangle& t) const -> bool
+        [[nodiscard]] inline bool sharesEdge(const EdgeMatchType edge, const Triangle& t) const
         {
             if (edge == AB)
                 return sharesEdge(a, b, t);
@@ -779,7 +779,7 @@ class RenderSystem;
                 return (edge == ANY) == sharesEdge(t);
         }
 
-        [[nodiscard]] inline auto endoSharedEdge(const Triangle& t) const -> EdgeMatchType
+        [[nodiscard]] inline EdgeMatchType endoSharedEdge(const Triangle& t) const
         {
             if (sharesEdge(a, b, t)) return AB;
             if (sharesEdge(b, c, t)) return BC;
@@ -787,7 +787,7 @@ class RenderSystem;
             return NONE;
         }
 
-        [[nodiscard]] inline auto exoSharedEdge(const Triangle& t) const -> EdgeMatchType
+        [[nodiscard]] inline EdgeMatchType exoSharedEdge(const Triangle& t) const
         {
             return t.endoSharedEdge(*this);
         }
@@ -939,7 +939,7 @@ class RenderSystem;
     }
 
     //-----------------------------------------------------------------------
-    auto VertexCacheProfiler::inCache(unsigned int index) -> bool
+    bool VertexCacheProfiler::inCache(unsigned int index)
     {
         for (unsigned int i = 0; i < buffersize; ++i)
         {

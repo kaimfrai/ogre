@@ -83,7 +83,7 @@ namespace OgreBites
             }
         }
 
-        virtual auto frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool
+        virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt)
         {
             if(!mTrayMgr) return true;
 
@@ -98,7 +98,7 @@ namespace OgreBites
             return true;
         }
 
-        virtual auto keyPressed(const KeyboardEvent& evt) -> bool
+        virtual bool keyPressed(const KeyboardEvent& evt)
         {
         	int key = evt.keysym.sym;
         	
@@ -115,7 +115,7 @@ namespace OgreBites
             return true;
         }
 
-        virtual auto keyReleased(const KeyboardEvent& evt) -> bool
+        virtual bool keyReleased(const KeyboardEvent& evt)
         {
             mCameraMan->keyReleased(evt);
 
@@ -125,7 +125,7 @@ namespace OgreBites
         /* IMPORTANT: When overriding these following handlers, remember to allow the tray manager
         to filter out any interface-related mouse events before processing them in your scene.
         If the tray manager handler returns true, the event was meant for the trays, not you. */
-        virtual auto mouseMoved(const MouseMotionEvent& evt) -> bool
+        virtual bool mouseMoved(const MouseMotionEvent& evt)
         {
             if (mTrayMgr->mouseMoved(evt)) return true;
 
@@ -134,14 +134,14 @@ namespace OgreBites
         }
 
         // convert and redirect
-        virtual auto touchMoved(const TouchFingerEvent& evt) -> bool {
+        virtual bool touchMoved(const TouchFingerEvent& evt) {
             MouseMotionEvent e;
             e.xrel = evt.dx * mWindow->getWidth();
             e.yrel = evt.dy * mWindow->getHeight();
             return mouseMoved(e);
         }
 
-        virtual auto mousePressed(const MouseButtonEvent& evt) -> bool
+        virtual bool mousePressed(const MouseButtonEvent& evt)
         {
             if (mTrayMgr->mousePressed(evt)) return true;
 
@@ -156,13 +156,13 @@ namespace OgreBites
         }
 
         // convert and redirect
-        virtual auto touchPressed(const TouchFingerEvent& evt) -> bool {
+        virtual bool touchPressed(const TouchFingerEvent& evt) {
             MouseButtonEvent e;
             e.button = BUTTON_LEFT;
             return mousePressed(e);
         }
 
-        virtual auto mouseReleased(const MouseButtonEvent& evt) -> bool
+        virtual bool mouseReleased(const MouseButtonEvent& evt)
         {
             if (mTrayMgr->mouseReleased(evt)) return true;
 
@@ -177,13 +177,13 @@ namespace OgreBites
         }
 
         // convert and redirect
-        virtual auto touchReleased(const TouchFingerEvent& evt) -> bool {
+        virtual bool touchReleased(const TouchFingerEvent& evt) {
             MouseButtonEvent e;
             e.button = BUTTON_LEFT;
             return mouseReleased(e);
         }
 
-        virtual auto mouseWheelRolled(const MouseWheelEvent& evt) -> bool {
+        virtual bool mouseWheelRolled(const MouseWheelEvent& evt) {
             if(mTrayMgr->mouseWheelRolled(evt))
                 return true;
             mCameraMan->mouseWheelRolled(evt);

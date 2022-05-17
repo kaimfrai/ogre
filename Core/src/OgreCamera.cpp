@@ -101,7 +101,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Camera::getSceneManager() const -> SceneManager*
+    SceneManager* Camera::getSceneManager() const
     {
         return mManager;
     }
@@ -114,13 +114,13 @@ class Sphere;
     }
 
     //-----------------------------------------------------------------------
-    auto Camera::getPolygonMode() const -> PolygonMode
+    PolygonMode Camera::getPolygonMode() const
     {
         return mSceneDetail;
     }
 
     //-----------------------------------------------------------------------
-    auto Camera::isViewOutOfDate() const -> bool
+    bool Camera::isViewOutOfDate() const
     {
         if(Frustum::isViewOutOfDate())
             mRecalcWindow = true;
@@ -211,7 +211,7 @@ class Sphere;
             mListeners.erase(i);
     }
     //-----------------------------------------------------------------------
-    auto operator<<( std::ostream& o, const Camera& c ) -> std::ostream&
+    std::ostream& operator<<( std::ostream& o, const Camera& c )
     {
         o << "Camera(Name='" << c.mName << "'";
 
@@ -245,79 +245,79 @@ class Sphere;
     }
 
     //-----------------------------------------------------------------------
-    auto Camera::_getNumRenderedFaces() const -> unsigned int
+    unsigned int Camera::_getNumRenderedFaces() const
     {
         return mVisFacesLastRender;
     }
     //-----------------------------------------------------------------------
-    auto Camera::_getNumRenderedBatches() const -> unsigned int
+    unsigned int Camera::_getNumRenderedBatches() const
     {
         return mVisBatchesLastRender;
     }
     //-----------------------------------------------------------------------
-    auto Camera::getDerivedOrientation() const -> const Quaternion&
+    const Quaternion& Camera::getDerivedOrientation() const
     {
         updateView();
         return mDerivedOrientation;
     }
     //-----------------------------------------------------------------------
-    auto Camera::getDerivedPosition() const -> const Vector3&
+    const Vector3& Camera::getDerivedPosition() const
     {
         updateView();
         return mDerivedPosition;
     }
     //-----------------------------------------------------------------------
-    auto Camera::getDerivedDirection() const -> Vector3
+    Vector3 Camera::getDerivedDirection() const
     {
         // Direction points down -Z
         updateView();
         return -mDerivedOrientation.zAxis();
     }
     //-----------------------------------------------------------------------
-    auto Camera::getDerivedUp() const -> Vector3
+    Vector3 Camera::getDerivedUp() const
     {
         updateView();
         return mDerivedOrientation.yAxis();
     }
     //-----------------------------------------------------------------------
-    auto Camera::getDerivedRight() const -> Vector3
+    Vector3 Camera::getDerivedRight() const
     {
         updateView();
         return mDerivedOrientation.xAxis();
     }
     //-----------------------------------------------------------------------
-    auto Camera::getRealOrientation() const -> const Quaternion&
+    const Quaternion& Camera::getRealOrientation() const
     {
         updateView();
         return mLastParentOrientation;
     }
     //-----------------------------------------------------------------------
-    auto Camera::getRealPosition() const -> const Vector3&
+    const Vector3& Camera::getRealPosition() const
     {
         updateView();
         return mLastParentPosition;
     }
     //-----------------------------------------------------------------------
-    auto Camera::getRealDirection() const -> Vector3
+    Vector3 Camera::getRealDirection() const
     {
         // Direction points down -Z
         updateView();
         return -mLastParentOrientation.zAxis();
     }
     //-----------------------------------------------------------------------
-    auto Camera::getRealUp() const -> Vector3
+    Vector3 Camera::getRealUp() const
     {
         updateView();
         return mLastParentOrientation.yAxis();
     }
     //-----------------------------------------------------------------------
-    auto Camera::getRealRight() const -> Vector3
+    Vector3 Camera::getRealRight() const
     {
         updateView();
         return mLastParentOrientation.xAxis();
     }
     //-----------------------------------------------------------------------
-    auto Camera::getMovableType() const -> const String&
+    const String& Camera::getMovableType() const
     {
         return msMovableType;
     }
@@ -329,12 +329,12 @@ class Sphere;
         mSceneLodFactorInv = 1.0f / factor;
     }
     //-----------------------------------------------------------------------
-    auto Camera::getLodBias() const -> Real
+    Real Camera::getLodBias() const
     {
         return mSceneLodFactor;
     }
     //-----------------------------------------------------------------------
-    auto Camera::_getLodBiasInverse() const -> Real
+    Real Camera::_getLodBiasInverse() const
     {
         return mSceneLodFactorInv;
     }
@@ -347,12 +347,12 @@ class Sphere;
             mLodCamera = lodCam;
     }
     //---------------------------------------------------------------------
-    auto Camera::getLodCamera() const -> const Camera*
+    const Camera* Camera::getLodCamera() const
     {
         return mLodCamera? mLodCamera : this;
     }
     //-----------------------------------------------------------------------
-    auto Camera::getCameraToViewportRay(Real screenX, Real screenY) const -> Ray
+    Ray Camera::getCameraToViewportRay(Real screenX, Real screenY) const
     {
         Ray ret;
         getCameraToViewportRay(screenX, screenY, &ret);
@@ -382,8 +382,8 @@ class Sphere;
         outRay->setDirection(rayDirection);
     } 
     //---------------------------------------------------------------------
-    auto Camera::getCameraToViewportBoxVolume(Real screenLeft, 
-        Real screenTop, Real screenRight, Real screenBottom, bool includeFarPlane) -> PlaneBoundedVolume
+    PlaneBoundedVolume Camera::getCameraToViewportBoxVolume(Real screenLeft, 
+        Real screenTop, Real screenRight, Real screenBottom, bool includeFarPlane)
     {
         PlaneBoundedVolume vol;
         getCameraToViewportBoxVolume(screenLeft, screenTop, screenRight, screenBottom, 
@@ -529,14 +529,14 @@ class Sphere;
 
     }
     // -------------------------------------------------------------------
-    auto Camera::getWindowPlanes() const -> const std::vector<Plane>&
+    const std::vector<Plane>& Camera::getWindowPlanes() const
     {
         updateView();
         setWindowImpl();
         return mWindowClipPlanes;
     }
     // -------------------------------------------------------------------
-    auto Camera::getBoundingRadius() const -> Real
+    Real Camera::getBoundingRadius() const
     {
         // return a little bigger than the near distance
         // just to keep things just outside
@@ -544,7 +544,7 @@ class Sphere;
 
     }
     //-----------------------------------------------------------------------
-    auto Camera::getAutoAspectRatio() const -> bool
+    bool Camera::getAutoAspectRatio() const
     {
         return mAutoAspectRatio;
     }
@@ -554,7 +554,7 @@ class Sphere;
         mAutoAspectRatio = autoratio;
     }
     //-----------------------------------------------------------------------
-    auto Camera::isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy) const -> bool
+    bool Camera::isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy) const
     {
         if (mCullFrustum)
         {
@@ -566,7 +566,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Camera::isVisible(const Sphere& bound, FrustumPlane* culledBy) const -> bool
+    bool Camera::isVisible(const Sphere& bound, FrustumPlane* culledBy) const
     {
         if (mCullFrustum)
         {
@@ -578,7 +578,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Camera::isVisible(const Vector3& vert, FrustumPlane* culledBy) const -> bool
+    bool Camera::isVisible(const Vector3& vert, FrustumPlane* culledBy) const
     {
         if (mCullFrustum)
         {
@@ -590,7 +590,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Camera::getWorldSpaceCorners() const -> const Frustum::Corners&
+    const Frustum::Corners& Camera::getWorldSpaceCorners() const
     {
         if (mCullFrustum)
         {
@@ -602,7 +602,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Camera::getFrustumPlane( unsigned short plane ) const -> const Plane&
+    const Plane& Camera::getFrustumPlane( unsigned short plane ) const
     {
         if (mCullFrustum)
         {
@@ -614,8 +614,8 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Camera::projectSphere(const Sphere& sphere, 
-        Real* left, Real* top, Real* right, Real* bottom) const -> bool
+    bool Camera::projectSphere(const Sphere& sphere, 
+        Real* left, Real* top, Real* right, Real* bottom) const
     {
         if (mCullFrustum)
         {
@@ -627,7 +627,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Camera::getNearClipDistance() const -> Real
+    Real Camera::getNearClipDistance() const
     {
         if (mCullFrustum)
         {
@@ -639,7 +639,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Camera::getFarClipDistance() const -> Real
+    Real Camera::getFarClipDistance() const
     {
         if (mCullFrustum)
         {
@@ -651,7 +651,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Camera::getViewMatrix() const -> const Affine3&
+    const Affine3& Camera::getViewMatrix() const
     {
         if (mCullFrustum)
         {
@@ -663,7 +663,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Camera::getViewMatrix(bool ownFrustumOnly) const -> const Affine3&
+    const Affine3& Camera::getViewMatrix(bool ownFrustumOnly) const
     {
         if (ownFrustumOnly)
         {
@@ -686,7 +686,7 @@ class Sphere;
     //| coordinate system in which this is true.            |
     //|_____________________________________________________|
     //
-    auto Camera::getRayForwardIntersect(const Vector3& anchor, const Vector3 *dir, Real planeOffset) const -> std::vector<Vector4>
+    std::vector<Vector4> Camera::getRayForwardIntersect(const Vector3& anchor, const Vector3 *dir, Real planeOffset) const
     {
         std::vector<Vector4> res;
 

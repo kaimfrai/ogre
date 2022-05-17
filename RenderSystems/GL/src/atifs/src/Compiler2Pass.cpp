@@ -77,7 +77,7 @@ void Compiler2Pass::InitSymbolTypeLib()
 }
 
 
-auto Compiler2Pass::compile(const char* source) -> bool
+bool Compiler2Pass::compile(const char* source)
 {
     bool Passed = false;
 
@@ -94,7 +94,7 @@ auto Compiler2Pass::compile(const char* source) -> bool
 }
 
 
-auto Compiler2Pass::doPass1() -> bool
+bool Compiler2Pass::doPass1()
 {
     // scan through Source string and build a token list using TokenInstructions
     // this is a simple brute force lexical scanner/analyzer that also parses the formed
@@ -119,7 +119,7 @@ auto Compiler2Pass::doPass1() -> bool
 }
 
 
-auto Compiler2Pass::processRulePath( uint rulepathIDX) -> bool
+bool Compiler2Pass::processRulePath( uint rulepathIDX)
 {
     // rule path determines what tokens and therefore what symbols are acceptable from the source
     // it is assumed that the tokens with the longest similar symbols are arranged first so
@@ -216,7 +216,7 @@ auto Compiler2Pass::processRulePath( uint rulepathIDX) -> bool
 }
 
 
-auto Compiler2Pass::ValidateToken(const uint rulepathIDX, const uint activeRuleID) -> bool
+bool Compiler2Pass::ValidateToken(const uint rulepathIDX, const uint activeRuleID)
 {
     int tokenlength = 0;
     // assume the test is going to fail
@@ -276,13 +276,13 @@ auto Compiler2Pass::ValidateToken(const uint rulepathIDX, const uint activeRuleI
 }
 
 
-auto Compiler2Pass::getTypeDefText(const uint sid) -> const char*
+const char* Compiler2Pass::getTypeDefText(const uint sid)
 {
     return mRootRulePath[mSymbolTypeLib[sid].mDefTextID].mSymbol;
 }
 
 
-auto Compiler2Pass::isFloatValue(float& fvalue, int& charsize) -> bool
+bool Compiler2Pass::isFloatValue(float& fvalue, int& charsize)
 {
     // check to see if it is a numeric float value
     bool valuefound = false;
@@ -304,7 +304,7 @@ auto Compiler2Pass::isFloatValue(float& fvalue, int& charsize) -> bool
 }
 
 
-auto Compiler2Pass::isSymbol(const char* symbol, int& symbolsize) -> bool
+bool Compiler2Pass::isSymbol(const char* symbol, int& symbolsize)
 {
     // compare text at source+charpos with the symbol : limit testing to symbolsize
     bool symbolfound = false;
@@ -317,7 +317,7 @@ auto Compiler2Pass::isSymbol(const char* symbol, int& symbolsize) -> bool
 }
 
 
-auto Compiler2Pass::positionToNextSymbol() -> bool
+bool Compiler2Pass::positionToNextSymbol()
 {
     bool validsymbolfound = false;
     bool endofsource = false;

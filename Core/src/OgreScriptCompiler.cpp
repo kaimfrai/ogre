@@ -68,7 +68,7 @@ namespace Ogre
         type = ANT_ATOM;
     }
 
-    auto AtomAbstractNode::clone() const -> AbstractNode *
+    AbstractNode *AtomAbstractNode::clone() const
     {
         AtomAbstractNode *node = new AtomAbstractNode(parent);
         node->file = file;
@@ -86,7 +86,7 @@ namespace Ogre
         type = ANT_OBJECT;
     }
 
-    auto ObjectAbstractNode::clone() const -> AbstractNode *
+    AbstractNode *ObjectAbstractNode::clone() const
     {
         ObjectAbstractNode *node = new ObjectAbstractNode(parent);
         node->file = file;
@@ -122,7 +122,7 @@ namespace Ogre
         mEnv[inName] = value;
     }
 
-    auto ObjectAbstractNode::getVariable(const String &inName) const -> std::pair<bool,String>
+    std::pair<bool,String> ObjectAbstractNode::getVariable(const String &inName) const
     {
         std::map<String,String>::const_iterator i = mEnv.find(inName);
         if(i != mEnv.end())
@@ -139,7 +139,7 @@ namespace Ogre
         return std::make_pair(false, "");
     }
 
-    auto ObjectAbstractNode::getVariables() const -> const std::map<String,String> &
+    const std::map<String,String> &ObjectAbstractNode::getVariables() const
     {
         return mEnv;
     }
@@ -151,7 +151,7 @@ namespace Ogre
         type = ANT_PROPERTY;
     }
 
-    auto PropertyAbstractNode::clone() const -> AbstractNode *
+    AbstractNode *PropertyAbstractNode::clone() const
     {
         PropertyAbstractNode *node = new PropertyAbstractNode(parent);
         node->file = file;
@@ -175,7 +175,7 @@ namespace Ogre
         type = ANT_IMPORT;
     }
 
-    auto ImportAbstractNode::clone() const -> AbstractNode *
+    AbstractNode *ImportAbstractNode::clone() const
     {
         ImportAbstractNode *node = new ImportAbstractNode();
         node->file = file;
@@ -193,7 +193,7 @@ namespace Ogre
         type = ANT_VARIABLE_ACCESS;
     }
 
-    auto VariableAccessAbstractNode::clone() const -> AbstractNode *
+    AbstractNode *VariableAccessAbstractNode::clone() const
     {
         VariableAccessAbstractNode *node = new VariableAccessAbstractNode(parent);
         node->file = file;
@@ -208,7 +208,7 @@ namespace Ogre
     {
     }
 
-    auto ScriptCompilerListener::importFile(ScriptCompiler *compiler, const String &name) -> ConcreteNodeListPtr
+    ConcreteNodeListPtr ScriptCompilerListener::importFile(ScriptCompiler *compiler, const String &name)
     {
         return {};
     }
@@ -218,7 +218,7 @@ namespace Ogre
         
     }
 
-    auto ScriptCompilerListener::postConversion(ScriptCompiler *compiler, const AbstractNodeListPtr &nodes) -> bool
+    bool ScriptCompilerListener::postConversion(ScriptCompiler *compiler, const AbstractNodeListPtr &nodes)
     {
         return true;
     }
@@ -236,13 +236,13 @@ namespace Ogre
             LogManager::getSingleton().logError(ss.str());
     }
 
-    auto ScriptCompilerListener::handleEvent(ScriptCompiler *compiler, ScriptCompilerEvent *evt, void *retval) -> bool
+    bool ScriptCompilerListener::handleEvent(ScriptCompiler *compiler, ScriptCompilerEvent *evt, void *retval)
     {
         return false;
     }
 
     // ScriptCompiler
-    auto ScriptCompiler::formatErrorCode(uint32 code) -> String
+    String ScriptCompiler::formatErrorCode(uint32 code)
     {
         switch(code)
         {
@@ -283,13 +283,13 @@ namespace Ogre
         initWordMap();
     }
 
-    auto ScriptCompiler::compile(const String &str, const String &source, const String &group) -> bool
+    bool ScriptCompiler::compile(const String &str, const String &source, const String &group)
     {
         ConcreteNodeListPtr nodes = ScriptParser::parse(ScriptLexer::tokenize(str, source), source);
         return compile(nodes, group);
     }
 
-    auto ScriptCompiler::compile(const ConcreteNodeListPtr &nodes, const String &group) -> bool
+    bool ScriptCompiler::compile(const ConcreteNodeListPtr &nodes, const String &group)
     {
         // Set up the compilation context
         mGroup = group;
@@ -354,24 +354,24 @@ namespace Ogre
         mListener = listener;
     }
 
-    auto ScriptCompiler::getListener() -> ScriptCompilerListener *
+    ScriptCompilerListener *ScriptCompiler::getListener()
     {
         return mListener;
     }
 
-    auto ScriptCompiler::getResourceGroup() const -> const String &
+    const String &ScriptCompiler::getResourceGroup() const
     {
         return mGroup;
     }
 
-    auto ScriptCompiler::_fireEvent(ScriptCompilerEvent *evt, void *retval) -> bool
+    bool ScriptCompiler::_fireEvent(ScriptCompilerEvent *evt, void *retval)
     {
         if(mListener)
             return mListener->handleEvent(this, evt, retval);
         return false;
     }
 
-    auto ScriptCompiler::convertToAST(const ConcreteNodeList &nodes) -> AbstractNodeListPtr
+    AbstractNodeListPtr ScriptCompiler::convertToAST(const ConcreteNodeList &nodes)
     {
         AbstractTreeBuilder builder(this);
         AbstractTreeBuilder::visit(&builder, nodes);
@@ -465,7 +465,7 @@ namespace Ogre
         }
     }
 
-    auto ScriptCompiler::loadImportPath(const Ogre::String &name) -> AbstractNodeListPtr
+    AbstractNodeListPtr ScriptCompiler::loadImportPath(const Ogre::String &name)
     {
         AbstractNodeListPtr retval;
         ConcreteNodeListPtr nodes;
@@ -489,7 +489,7 @@ namespace Ogre
         return retval;
     }
 
-    auto ScriptCompiler::locateTarget(const AbstractNodeList& nodes, const Ogre::String &target) -> AbstractNodeList
+    AbstractNodeList ScriptCompiler::locateTarget(const AbstractNodeList& nodes, const Ogre::String &target)
     {
         auto iter = nodes.end();
     
@@ -732,7 +732,7 @@ namespace Ogre
         }
     }
 
-    auto ScriptCompiler::isNameExcluded(const ObjectAbstractNode& node, AbstractNode* parent) -> bool
+    bool ScriptCompiler::isNameExcluded(const ObjectAbstractNode& node, AbstractNode* parent)
     {
         // Run past the listener
         bool excludeName = false;
@@ -1168,7 +1168,7 @@ namespace Ogre
 		mLargestRegisteredWordId = ID_END_BUILTIN_IDS;
 	}
 
-	auto ScriptCompiler::registerCustomWordId(const String &word) -> uint32
+	uint32 ScriptCompiler::registerCustomWordId(const String &word)
 	{
 		// if the word is already registered, just return the right id
 		IdMap::iterator iter = mIds.find(word);
@@ -1189,7 +1189,7 @@ namespace Ogre
     {
     }
 
-    auto ScriptCompiler::AbstractTreeBuilder::getResult() const -> const AbstractNodeListPtr &
+    const AbstractNodeListPtr &ScriptCompiler::AbstractTreeBuilder::getResult() const
     {
         return mNodes;
     }
@@ -1462,12 +1462,12 @@ namespace Ogre
     // ScriptCompilerManager
     template<> ScriptCompilerManager *Singleton<ScriptCompilerManager>::msSingleton = 0;
     
-    auto ScriptCompilerManager::getSingletonPtr() -> ScriptCompilerManager*
+    ScriptCompilerManager* ScriptCompilerManager::getSingletonPtr()
     {
         return msSingleton;
     }
     //-----------------------------------------------------------------------
-    auto ScriptCompilerManager::getSingleton() -> ScriptCompilerManager&
+    ScriptCompilerManager& ScriptCompilerManager::getSingleton()
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -1495,7 +1495,7 @@ namespace Ogre
         mScriptCompiler.setListener(listener);
     }
     //-----------------------------------------------------------------------
-    auto ScriptCompilerManager::getListener() -> ScriptCompilerListener *
+    ScriptCompilerListener *ScriptCompilerManager::getListener()
     {
         return mScriptCompiler.getListener();
     }
@@ -1522,7 +1522,7 @@ namespace Ogre
         mManagers.clear();
     }
     //-----------------------------------------------------------------------
-    auto ScriptCompilerManager::getTranslator(const AbstractNodePtr &node) -> ScriptTranslator *
+    ScriptTranslator *ScriptCompilerManager::getTranslator(const AbstractNodePtr &node)
     {
         ScriptTranslator *translator = 0;
         {
@@ -1537,7 +1537,7 @@ namespace Ogre
         return translator;
 	}
 	//-----------------------------------------------------------------------
-	auto ScriptCompilerManager::registerCustomWordId(const String &word) -> uint32
+	uint32 ScriptCompilerManager::registerCustomWordId(const String &word)
 	{
 		return mScriptCompiler.registerCustomWordId(word);
     }
@@ -1547,12 +1547,12 @@ namespace Ogre
         mScriptPatterns.push_back(pattern);
     }
     //-----------------------------------------------------------------------
-    auto ScriptCompilerManager::getScriptPatterns() const -> const StringVector&
+    const StringVector& ScriptCompilerManager::getScriptPatterns() const
     {
         return mScriptPatterns;
     }
     //-----------------------------------------------------------------------
-    auto ScriptCompilerManager::getLoadingOrder() const -> Real
+    Real ScriptCompilerManager::getLoadingOrder() const
     {
         /// Load relatively early, before most script loaders run
         return 90.0f;

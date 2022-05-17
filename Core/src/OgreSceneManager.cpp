@@ -186,7 +186,7 @@ SceneManager::~SceneManager()
     mMovableObjectCollectionMap.clear();
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getRenderQueue() -> RenderQueue*
+RenderQueue* SceneManager::getRenderQueue()
 {
     if (!mRenderQueue)
     {
@@ -225,12 +225,12 @@ void SceneManager::setSpecialCaseRenderQueueMode(SceneManager::SpecialCaseRender
     mSpecialCaseQueueMode = mode;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getSpecialCaseRenderQueueMode() -> SceneManager::SpecialCaseRenderQueueMode
+SceneManager::SpecialCaseRenderQueueMode SceneManager::getSpecialCaseRenderQueueMode()
 {
     return mSpecialCaseQueueMode;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::isRenderQueueToBeProcessed(uint8 qid) -> bool
+bool SceneManager::isRenderQueueToBeProcessed(uint8 qid)
 {
     bool inList = mSpecialCaseQueueList.find(qid) != mSpecialCaseQueueList.end();
     return (inList && mSpecialCaseQueueMode == SCRQM_INCLUDE)
@@ -242,12 +242,12 @@ void SceneManager::setWorldGeometryRenderQueue(uint8 qid)
     mWorldGeometryRenderQueue = qid;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getWorldGeometryRenderQueue() -> uint8
+uint8 SceneManager::getWorldGeometryRenderQueue()
 {
     return mWorldGeometryRenderQueue;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createCamera(const String& name) -> Camera*
+Camera* SceneManager::createCamera(const String& name)
 {
     // Check name not used
     if (mCameras.find(name) != mCameras.end())
@@ -268,7 +268,7 @@ auto SceneManager::createCamera(const String& name) -> Camera*
 }
 
 //-----------------------------------------------------------------------
-auto SceneManager::getCamera(const String& name) const -> Camera*
+Camera* SceneManager::getCamera(const String& name) const
 {
     CameraList::const_iterator i = mCameras.find(name);
     if (i == mCameras.end())
@@ -283,7 +283,7 @@ auto SceneManager::getCamera(const String& name) const -> Camera*
     }
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasCamera(const String& name) const -> bool
+bool SceneManager::hasCamera(const String& name) const
 {
     return (mCameras.find(name) != mCameras.end());
 }
@@ -349,25 +349,25 @@ void SceneManager::destroyAllCameras()
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createLight(const String& name) -> Light*
+Light* SceneManager::createLight(const String& name)
 {
     return static_cast<Light*>(
         createMovableObject(name, LightFactory::FACTORY_TYPE_NAME));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createLight() -> Light*
+Light* SceneManager::createLight()
 {
     String name = mMovableNameGenerator.generate();
     return createLight(name);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getLight(const String& name) const -> Light*
+Light* SceneManager::getLight(const String& name) const
 {
     return static_cast<Light*>(
         getMovableObject(name, LightFactory::FACTORY_TYPE_NAME));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasLight(const String& name) const -> bool
+bool SceneManager::hasLight(const String& name) const
 {
     return hasMovableObject(name, LightFactory::FACTORY_TYPE_NAME);
 }
@@ -382,12 +382,12 @@ void SceneManager::destroyAllLights()
     destroyAllMovableObjectsByType(LightFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::_getLightsAffectingFrustum() const -> const LightList&
+const LightList& SceneManager::_getLightsAffectingFrustum() const
 {
     return mLightsAffectingFrustum;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::lightLess::operator()(const Light* a, const Light* b) const -> bool
+bool SceneManager::lightLess::operator()(const Light* a, const Light* b) const
 {
     return a->tempSquareDist < b->tempSquareDist;
 }
@@ -448,7 +448,7 @@ void SceneManager::_populateLightList(const SceneNode* sn, Real radius, LightLis
     _populateLightList(sn->_getDerivedPosition(), radius, destList, lightMask);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createEntity(const String& entityName, PrefabType ptype) -> Entity*
+Entity* SceneManager::createEntity(const String& entityName, PrefabType ptype)
 {
     switch (ptype)
     {
@@ -467,17 +467,17 @@ auto SceneManager::createEntity(const String& entityName, PrefabType ptype) -> E
         "SceneManager::createEntity");
 }
 //---------------------------------------------------------------------
-auto SceneManager::createEntity(PrefabType ptype) -> Entity*
+Entity* SceneManager::createEntity(PrefabType ptype)
 {
     String name = mMovableNameGenerator.generate();
     return createEntity(name, ptype);
 }
 
 //-----------------------------------------------------------------------
-auto SceneManager::createEntity(
+Entity* SceneManager::createEntity(
                                    const String& entityName,
                                    const String& meshName,
-                                   const String& groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */) -> Entity*
+                                   const String& groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
 {
     // delegate to factory implementation
     NameValuePairList params;
@@ -489,31 +489,31 @@ auto SceneManager::createEntity(
 
 }
 //---------------------------------------------------------------------
-auto SceneManager::createEntity(const String& entityName, const MeshPtr& pMesh) -> Entity*
+Entity* SceneManager::createEntity(const String& entityName, const MeshPtr& pMesh)
 {
     return createEntity(entityName, pMesh->getName(), pMesh->getGroup());
 }
 //---------------------------------------------------------------------
-auto SceneManager::createEntity(const String& meshName) -> Entity*
+Entity* SceneManager::createEntity(const String& meshName)
 {
     String name = mMovableNameGenerator.generate();
     // note, we can't allow groupName to be passes, it would be ambiguous (2 string params)
     return createEntity(name, meshName, ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
 }
 //---------------------------------------------------------------------
-auto SceneManager::createEntity(const MeshPtr& pMesh) -> Entity*
+Entity* SceneManager::createEntity(const MeshPtr& pMesh)
 {
     String name = mMovableNameGenerator.generate();
     return createEntity(name, pMesh);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getEntity(const String& name) const -> Entity*
+Entity* SceneManager::getEntity(const String& name) const
 {
     return static_cast<Entity*>(
         getMovableObject(name, EntityFactory::FACTORY_TYPE_NAME));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasEntity(const String& name) const -> bool
+bool SceneManager::hasEntity(const String& name) const
 {
     return hasMovableObject(name, EntityFactory::FACTORY_TYPE_NAME);
 }
@@ -538,26 +538,26 @@ void SceneManager::destroyAllBillboardSets()
     destroyAllMovableObjectsByType(BillboardSetFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createManualObject(const String& name) -> ManualObject*
+ManualObject* SceneManager::createManualObject(const String& name)
 {
     return static_cast<ManualObject*>(
         createMovableObject(name, ManualObjectFactory::FACTORY_TYPE_NAME));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createManualObject() -> ManualObject*
+ManualObject* SceneManager::createManualObject()
 {
     String name = mMovableNameGenerator.generate();
     return createManualObject(name);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getManualObject(const String& name) const -> ManualObject*
+ManualObject* SceneManager::getManualObject(const String& name) const
 {
     return static_cast<ManualObject*>(
         getMovableObject(name, ManualObjectFactory::FACTORY_TYPE_NAME));
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasManualObject(const String& name) const -> bool
+bool SceneManager::hasManualObject(const String& name) const
 {
     return hasMovableObject(name, ManualObjectFactory::FACTORY_TYPE_NAME);
 
@@ -572,47 +572,47 @@ void SceneManager::destroyAllManualObjects()
 {
     destroyAllMovableObjectsByType(ManualObjectFactory::FACTORY_TYPE_NAME);
 }
-auto SceneManager::createScreenSpaceRect(const String& name, bool includeTextureCoords) -> Rectangle2D*
+Rectangle2D* SceneManager::createScreenSpaceRect(const String& name, bool includeTextureCoords)
 {
     NameValuePairList params;
     if(includeTextureCoords)
         params["includeTextureCoords"] = "true";
     return static_cast<Rectangle2D*>(createMovableObject(name, Rectangle2DFactory::FACTORY_TYPE_NAME, &params));
 }
-auto SceneManager::createScreenSpaceRect(bool includeTextureCoords) -> Rectangle2D*
+Rectangle2D* SceneManager::createScreenSpaceRect(bool includeTextureCoords)
 {
     return createScreenSpaceRect(mMovableNameGenerator.generate(), includeTextureCoords);
 }
 
-auto SceneManager::hasScreenSpaceRect(const String& name) const -> bool
+bool SceneManager::hasScreenSpaceRect(const String& name) const
 {
     return hasMovableObject(name, Rectangle2DFactory::FACTORY_TYPE_NAME);
 }
-auto SceneManager::getScreenSpaceRect(const String& name) const -> Rectangle2D*
+Rectangle2D* SceneManager::getScreenSpaceRect(const String& name) const
 {
     return static_cast<Rectangle2D*>(getMovableObject(name, Rectangle2DFactory::FACTORY_TYPE_NAME));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createBillboardChain(const String& name) -> BillboardChain*
+BillboardChain* SceneManager::createBillboardChain(const String& name)
 {
     return static_cast<BillboardChain*>(
         createMovableObject(name, BillboardChainFactory::FACTORY_TYPE_NAME));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createBillboardChain() -> BillboardChain*
+BillboardChain* SceneManager::createBillboardChain()
 {
     String name = mMovableNameGenerator.generate();
     return createBillboardChain(name);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getBillboardChain(const String& name) const -> BillboardChain*
+BillboardChain* SceneManager::getBillboardChain(const String& name) const
 {
     return static_cast<BillboardChain*>(
         getMovableObject(name, BillboardChainFactory::FACTORY_TYPE_NAME));
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasBillboardChain(const String& name) const -> bool
+bool SceneManager::hasBillboardChain(const String& name) const
 {
     return hasMovableObject(name, BillboardChainFactory::FACTORY_TYPE_NAME);
 }
@@ -627,26 +627,26 @@ void SceneManager::destroyAllBillboardChains()
     destroyAllMovableObjectsByType(BillboardChainFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createRibbonTrail(const String& name) -> RibbonTrail*
+RibbonTrail* SceneManager::createRibbonTrail(const String& name)
 {
     return static_cast<RibbonTrail*>(
         createMovableObject(name, RibbonTrailFactory::FACTORY_TYPE_NAME));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createRibbonTrail() -> RibbonTrail*
+RibbonTrail* SceneManager::createRibbonTrail()
 {
     String name = mMovableNameGenerator.generate();
     return createRibbonTrail(name);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getRibbonTrail(const String& name) const -> RibbonTrail*
+RibbonTrail* SceneManager::getRibbonTrail(const String& name) const
 {
     return static_cast<RibbonTrail*>(
         getMovableObject(name, RibbonTrailFactory::FACTORY_TYPE_NAME));
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasRibbonTrail(const String& name) const -> bool
+bool SceneManager::hasRibbonTrail(const String& name) const
 {
     return hasMovableObject(name, RibbonTrailFactory::FACTORY_TYPE_NAME);
 }
@@ -661,8 +661,8 @@ void SceneManager::destroyAllRibbonTrails()
     destroyAllMovableObjectsByType(RibbonTrailFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createParticleSystem(const String& name,
-    const String& templateName) -> ParticleSystem*
+ParticleSystem* SceneManager::createParticleSystem(const String& name,
+    const String& templateName)
 {
     NameValuePairList params;
     params["templateName"] = templateName;
@@ -672,8 +672,8 @@ auto SceneManager::createParticleSystem(const String& name,
             &params));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createParticleSystem(const String& name,
-    size_t quota, const String& group) -> ParticleSystem*
+ParticleSystem* SceneManager::createParticleSystem(const String& name,
+    size_t quota, const String& group)
 {
     NameValuePairList params;
     params["quota"] = StringConverter::toString(quota);
@@ -684,21 +684,21 @@ auto SceneManager::createParticleSystem(const String& name,
             &params));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createParticleSystem(size_t quota, const String& group) -> ParticleSystem*
+ParticleSystem* SceneManager::createParticleSystem(size_t quota, const String& group)
 {
     String name = mMovableNameGenerator.generate();
     return createParticleSystem(name, quota, group);
 }
 
 //-----------------------------------------------------------------------
-auto SceneManager::getParticleSystem(const String& name) const -> ParticleSystem*
+ParticleSystem* SceneManager::getParticleSystem(const String& name) const
 {
     return static_cast<ParticleSystem*>(
         getMovableObject(name, ParticleSystemFactory::FACTORY_TYPE_NAME));
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasParticleSystem(const String& name) const -> bool
+bool SceneManager::hasParticleSystem(const String& name) const
 {
     return hasMovableObject(name, ParticleSystemFactory::FACTORY_TYPE_NAME);
 }
@@ -747,16 +747,16 @@ void SceneManager::clearScene()
     mAutoParamDataSource.reset(createAutoParamDataSource());
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createSceneNodeImpl() -> SceneNode*
+SceneNode* SceneManager::createSceneNodeImpl()
 {
     return new SceneNode(this);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createSceneNodeImpl(const String& name) -> SceneNode*
+SceneNode* SceneManager::createSceneNodeImpl(const String& name)
 {
     return new SceneNode(this, name);
 }//-----------------------------------------------------------------------
-auto SceneManager::createSceneNode() -> SceneNode*
+SceneNode* SceneManager::createSceneNode()
 {
     SceneNode* sn = createSceneNodeImpl();
     mSceneNodes.push_back(sn);
@@ -764,7 +764,7 @@ auto SceneManager::createSceneNode() -> SceneNode*
     return sn;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createSceneNode(const String& name) -> SceneNode*
+SceneNode* SceneManager::createSceneNode(const String& name)
 {
     // Check name not used
     if (hasSceneNode(name))
@@ -849,7 +849,7 @@ void SceneManager::destroySceneNode(SceneNode* sn)
     _destroySceneNode(pos);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getRootSceneNode() -> SceneNode*
+SceneNode* SceneManager::getRootSceneNode()
 {
     if (!mSceneRoot)
     {
@@ -861,7 +861,7 @@ auto SceneManager::getRootSceneNode() -> SceneNode*
     return mSceneRoot.get();
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getSceneNode(const String& name, bool throwExceptionIfNotFound) const -> SceneNode*
+SceneNode* SceneManager::getSceneNode(const String& name, bool throwExceptionIfNotFound) const
 {
     OgreAssert(!name.empty(), "name must not be empty");
     auto i = mNamedNodes.find(name);
@@ -875,8 +875,8 @@ auto SceneManager::getSceneNode(const String& name, bool throwExceptionIfNotFoun
 }
 
 //-----------------------------------------------------------------------
-auto SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed, 
-                                   bool shadowDerivation) -> const Pass*
+const Pass* SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed, 
+                                   bool shadowDerivation)
 {
     //If using late material resolving, swap now.
     if (isLateMaterialResolving()) 
@@ -1421,7 +1421,7 @@ void SceneManager::setWorldGeometry(DataStreamPtr& stream,
 }
 
 //-----------------------------------------------------------------------
-auto SceneManager::materialLess::operator() (const Material* x, const Material* y) const -> bool
+bool SceneManager::materialLess::operator() (const Material* x, const Material* y) const
 {
     // If x transparent and y not, x > y (since x has to overlap y)
     if (x->isTransparent() && !y->isTransparent())
@@ -1641,7 +1641,7 @@ void SceneManager::SceneMgrQueuedRenderableVisitor::renderObjects(const QueuedRe
     transparentShadowCastersMode = false;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::validatePassForRendering(const Pass* pass) -> bool
+bool SceneManager::validatePassForRendering(const Pass* pass)
 {
     // Bypass if we're doing a texture shadow render and 
     // this pass is after the first (only 1 pass needed for shadow texture render, and 
@@ -1670,7 +1670,7 @@ auto SceneManager::validatePassForRendering(const Pass* pass) -> bool
     return true;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::validateRenderableForRendering(const Pass* pass, const Renderable* rend) -> bool
+bool SceneManager::validateRenderableForRendering(const Pass* pass, const Renderable* rend)
 {
     // Skip this renderable if we're doing modulative texture shadows, it casts shadows
     // and we're doing the render receivers pass and we're not self-shadowing
@@ -2061,12 +2061,12 @@ void SceneManager::setAmbientLight(const ColourValue& colour)
     mAutoParamDataSource->setAmbientLightColour(colour);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getAmbientLight() const -> const ColourValue&
+const ColourValue& SceneManager::getAmbientLight() const
 {
     return mAutoParamDataSource->getAmbientLightColour();
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getSuggestedViewpoint(bool random) -> ViewPoint
+ViewPoint SceneManager::getSuggestedViewpoint(bool random)
 {
     // By default return the origin
     ViewPoint vp;
@@ -2084,32 +2084,32 @@ void SceneManager::setFog(FogMode mode, const ColourValue& colour, Real density,
     mFogDensity = density;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getFogMode() const -> FogMode
+FogMode SceneManager::getFogMode() const
 {
     return mFogMode;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getFogColour() const -> const ColourValue&
+const ColourValue& SceneManager::getFogColour() const
 {
     return mFogColour;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getFogStart() const -> Real
+Real SceneManager::getFogStart() const
 {
     return mFogStart;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getFogEnd() const -> Real
+Real SceneManager::getFogEnd() const
 {
     return mFogEnd;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getFogDensity() const -> Real
+Real SceneManager::getFogDensity() const
 {
     return mFogDensity;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createBillboardSet(const String& name, unsigned int poolSize) -> BillboardSet*
+BillboardSet* SceneManager::createBillboardSet(const String& name, unsigned int poolSize)
 {
     NameValuePairList params;
     params["poolSize"] = StringConverter::toString(poolSize);
@@ -2117,19 +2117,19 @@ auto SceneManager::createBillboardSet(const String& name, unsigned int poolSize)
         createMovableObject(name, BillboardSetFactory::FACTORY_TYPE_NAME, &params));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createBillboardSet(unsigned int poolSize) -> BillboardSet*
+BillboardSet* SceneManager::createBillboardSet(unsigned int poolSize)
 {
     String name = mMovableNameGenerator.generate();
     return createBillboardSet(name, poolSize);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getBillboardSet(const String& name) const -> BillboardSet*
+BillboardSet* SceneManager::getBillboardSet(const String& name) const
 {
     return static_cast<BillboardSet*>(
         getMovableObject(name, BillboardSetFactory::FACTORY_TYPE_NAME));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasBillboardSet(const String& name) const -> bool
+bool SceneManager::hasBillboardSet(const String& name) const
 {
     return hasMovableObject(name, BillboardSetFactory::FACTORY_TYPE_NAME);
 }
@@ -2144,7 +2144,7 @@ void SceneManager::setDisplaySceneNodes(bool display)
     mDisplayNodes = display;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createAnimation(const String& name, Real length) -> Animation*
+Animation* SceneManager::createAnimation(const String& name, Real length)
 {
     // Check name not used
     if (mAnimationsList.find(name) != mAnimationsList.end())
@@ -2160,7 +2160,7 @@ auto SceneManager::createAnimation(const String& name, Real length) -> Animation
     return pAnim;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getAnimation(const String& name) const -> Animation*
+Animation* SceneManager::getAnimation(const String& name) const
 {
     AnimationList::const_iterator i = mAnimationsList.find(name);
     if (i == mAnimationsList.end())
@@ -2172,7 +2172,7 @@ auto SceneManager::getAnimation(const String& name) const -> Animation*
     return i->second;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasAnimation(const String& name) const -> bool
+bool SceneManager::hasAnimation(const String& name) const
 {
     return (mAnimationsList.find(name) != mAnimationsList.end());
 }
@@ -2211,7 +2211,7 @@ void SceneManager::destroyAllAnimations()
     mAnimationsList.clear();
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createAnimationState(const String& animName) -> AnimationState*
+AnimationState* SceneManager::createAnimationState(const String& animName)
 {
     // Get animation, this will throw an exception if not found
     Animation* anim = getAnimation(animName);
@@ -2221,13 +2221,13 @@ auto SceneManager::createAnimationState(const String& animName) -> AnimationStat
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getAnimationState(const String& animName) const -> AnimationState*
+AnimationState* SceneManager::getAnimationState(const String& animName) const
 {
     return mAnimationStates.getAnimationState(animName);
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasAnimationState(const String& name) const -> bool
+bool SceneManager::hasAnimationState(const String& name) const
 {
     return mAnimationStates.hasAnimationState(name);
 }
@@ -2444,7 +2444,7 @@ void SceneManager::firePostRenderQueues()
     }
 }
 //---------------------------------------------------------------------
-auto SceneManager::fireRenderQueueStarted(uint8 id, const String& invocation) -> bool
+bool SceneManager::fireRenderQueueStarted(uint8 id, const String& invocation)
 {
     RenderQueueListenerList::iterator i, iend;
     bool skip = false;
@@ -2457,7 +2457,7 @@ auto SceneManager::fireRenderQueueStarted(uint8 id, const String& invocation) ->
     return skip;
 }
 //---------------------------------------------------------------------
-auto SceneManager::fireRenderQueueEnded(uint8 id, const String& invocation) -> bool
+bool SceneManager::fireRenderQueueEnded(uint8 id, const String& invocation)
 {
     RenderQueueListenerList::iterator i, iend;
     bool repeat = false;
@@ -2563,7 +2563,7 @@ void SceneManager::showBoundingBoxes(bool bShow)
     mShowBoundingBoxes = bShow;
 }
 //---------------------------------------------------------------------
-auto SceneManager::getShowBoundingBoxes() const -> bool
+bool SceneManager::getShowBoundingBoxes() const
 {
     return mShowBoundingBoxes;
 }
@@ -2664,8 +2664,8 @@ void SceneManager::_notifyLightsDirty()
     ++mLightsDirtyCounter;
 }
 //---------------------------------------------------------------------
-auto SceneManager::lightsForShadowTextureLess::operator ()(
-    const Ogre::Light *l1, const Ogre::Light *l2) const -> bool
+bool SceneManager::lightsForShadowTextureLess::operator ()(
+    const Ogre::Light *l1, const Ogre::Light *l2) const
 {
     if (l1 == l2)
         return false;
@@ -2762,7 +2762,7 @@ void SceneManager::initShadowVolumeMaterials()
     mShadowRenderer.initShadowVolumeMaterials();
 }
 //---------------------------------------------------------------------
-auto SceneManager::getLightScissorRect(Light* l, const Camera* cam) -> const RealRect&
+const RealRect& SceneManager::getLightScissorRect(Light* l, const Camera* cam)
 {
     checkCachedLightClippingInfo();
 
@@ -2779,7 +2779,7 @@ auto SceneManager::getLightScissorRect(Light* l, const Camera* cam) -> const Rea
 
 }
 //---------------------------------------------------------------------
-auto SceneManager::buildAndSetScissor(const LightList& ll, const Camera* cam) -> ClipResult
+ClipResult SceneManager::buildAndSetScissor(const LightList& ll, const Camera* cam)
 {
     RealRect finalRect;
     // init (inverted since we want to grow from nothing)
@@ -2864,7 +2864,7 @@ void SceneManager::checkCachedLightClippingInfo(bool forceScissorRectsInvalidati
     }
 }
 //---------------------------------------------------------------------
-auto SceneManager::getLightClippingPlanes(Light* l) -> const PlaneList&
+const PlaneList& SceneManager::getLightClippingPlanes(Light* l)
 {
     checkCachedLightClippingInfo();
 
@@ -2880,7 +2880,7 @@ auto SceneManager::getLightClippingPlanes(Light* l) -> const PlaneList&
     
 }
 //---------------------------------------------------------------------
-auto SceneManager::buildAndSetLightClip(const LightList& ll) -> ClipResult
+ClipResult SceneManager::buildAndSetLightClip(const LightList& ll)
 {
     if (!mDestRenderSystem->getCapabilities()->hasCapability(RSC_USER_CLIP_PLANES))
         return CLIPPED_NONE;
@@ -2991,7 +2991,7 @@ void SceneManager::resetLightClip()
     mDestRenderSystem->setClipPlanes(PlaneList());
 }
 //---------------------------------------------------------------------
-auto SceneManager::getShadowColour() const -> const ColourValue&
+const ColourValue& SceneManager::getShadowColour() const
 {
     return mShadowRenderer.mShadowColour;
 }
@@ -3007,7 +3007,7 @@ void SceneManager::setShadowDirectionalLightExtrusionDistance(Real dist)
     mShadowRenderer.mShadowDirLightExtrudeDist = dist;
 }
 //---------------------------------------------------------------------
-auto SceneManager::getShadowDirectionalLightExtrusionDistance() const -> Real
+Real SceneManager::getShadowDirectionalLightExtrusionDistance() const
 {
     return mShadowRenderer.mShadowDirLightExtrudeDist;
 }
@@ -3030,7 +3030,7 @@ void SceneManager::setShadowCameraSetup(const ShadowCameraSetupPtr& shadowSetup)
 
 }
 //---------------------------------------------------------------------
-auto SceneManager::getShadowCameraSetup() const -> const ShadowCameraSetupPtr&
+const ShadowCameraSetupPtr& SceneManager::getShadowCameraSetup() const
 {
     return mShadowRenderer.mDefaultShadowCameraSetup;
 }
@@ -3065,7 +3065,7 @@ void SceneManager::prepareShadowTextures(Camera* cam, Viewport* vp, const LightL
     mIlluminationStage = savedStage;
 }
 //---------------------------------------------------------------------
-auto SceneManager::_pauseRendering() -> SceneManager::RenderContext*
+SceneManager::RenderContext* SceneManager::_pauseRendering()
 {
     RenderContext* context = new RenderContext;
     context->renderQueue = mRenderQueue.release();
@@ -3109,7 +3109,7 @@ void SceneManager::_resumeRendering(SceneManager::RenderContext* context)
     delete context;
 }
 //---------------------------------------------------------------------
-auto SceneManager::createStaticGeometry(const String& name) -> StaticGeometry*
+StaticGeometry* SceneManager::createStaticGeometry(const String& name)
 {
     // Check not existing
     if (mStaticGeometryList.find(name) != mStaticGeometryList.end())
@@ -3123,7 +3123,7 @@ auto SceneManager::createStaticGeometry(const String& name) -> StaticGeometry*
     return ret;
 }
 //---------------------------------------------------------------------
-auto SceneManager::getStaticGeometry(const String& name) const -> StaticGeometry*
+StaticGeometry* SceneManager::getStaticGeometry(const String& name) const
 {
     StaticGeometryList::const_iterator i = mStaticGeometryList.find(name);
     if (i == mStaticGeometryList.end())
@@ -3135,7 +3135,7 @@ auto SceneManager::getStaticGeometry(const String& name) const -> StaticGeometry
     return i->second;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasStaticGeometry(const String& name) const -> bool
+bool SceneManager::hasStaticGeometry(const String& name) const
 {
     return (mStaticGeometryList.find(name) != mStaticGeometryList.end());
 }
@@ -3168,11 +3168,11 @@ void SceneManager::destroyAllStaticGeometry()
     mStaticGeometryList.clear();
 }
 //---------------------------------------------------------------------
-auto SceneManager::createInstanceManager( const String &customName, const String &meshName,
+InstanceManager* SceneManager::createInstanceManager( const String &customName, const String &meshName,
                                                       const String &groupName,
                                                       InstanceManager::InstancingTechnique technique,
                                                       size_t numInstancesPerBatch, uint16 flags,
-                                                      unsigned short subMeshIdx ) -> InstanceManager*
+                                                      unsigned short subMeshIdx )
 {
     if (mInstanceManagerMap.find(customName) != mInstanceManagerMap.end())
     {
@@ -3188,7 +3188,7 @@ auto SceneManager::createInstanceManager( const String &customName, const String
     return retVal;
 }
 //---------------------------------------------------------------------
-auto SceneManager::getInstanceManager( const String &managerName ) const -> InstanceManager*
+InstanceManager* SceneManager::getInstanceManager( const String &managerName ) const
 {
     InstanceManagerMap::const_iterator itor = mInstanceManagerMap.find(managerName);
 
@@ -3202,7 +3202,7 @@ auto SceneManager::getInstanceManager( const String &managerName ) const -> Inst
     return itor->second;
 }
 //---------------------------------------------------------------------
-auto SceneManager::hasInstanceManager( const String &managerName ) const -> bool
+bool SceneManager::hasInstanceManager( const String &managerName ) const
 {
     InstanceManagerMap::const_iterator itor = mInstanceManagerMap.find(managerName);
     return itor != mInstanceManagerMap.end();
@@ -3242,11 +3242,11 @@ void SceneManager::destroyAllInstanceManagers()
     mDirtyInstanceManagers.clear();
 }
 //---------------------------------------------------------------------
-auto SceneManager::getNumInstancesPerBatch( const String &meshName, const String &groupName,
+size_t SceneManager::getNumInstancesPerBatch( const String &meshName, const String &groupName,
                                               const String &materialName,
                                               InstanceManager::InstancingTechnique technique,
                                               size_t numInstancesPerBatch, uint16 flags,
-                                              unsigned short subMeshIdx ) -> size_t
+                                              unsigned short subMeshIdx )
 {
     InstanceManager tmpMgr( "TmpInstanceManager", this, meshName, groupName,
                             technique, flags, numInstancesPerBatch, subMeshIdx );
@@ -3254,7 +3254,7 @@ auto SceneManager::getNumInstancesPerBatch( const String &meshName, const String
     return tmpMgr.getMaxOrBestNumInstancesPerBatch( materialName, numInstancesPerBatch, flags );
 }
 //---------------------------------------------------------------------
-auto SceneManager::createInstancedEntity( const String &materialName, const String &managerName ) -> InstancedEntity*
+InstancedEntity* SceneManager::createInstancedEntity( const String &materialName, const String &managerName )
 {
     InstanceManagerMap::const_iterator itor = mInstanceManagerMap.find(managerName);
 
@@ -3311,8 +3311,8 @@ void SceneManager::updateDirtyInstanceManagers()
     }
 }
 //---------------------------------------------------------------------
-auto 
-SceneManager::createAABBQuery(const AxisAlignedBox& box, uint32 mask) -> AxisAlignedBoxSceneQuery*
+AxisAlignedBoxSceneQuery* 
+SceneManager::createAABBQuery(const AxisAlignedBox& box, uint32 mask)
 {
     DefaultAxisAlignedBoxSceneQuery* q = new DefaultAxisAlignedBoxSceneQuery(this);
     q->setBox(box);
@@ -3320,8 +3320,8 @@ SceneManager::createAABBQuery(const AxisAlignedBox& box, uint32 mask) -> AxisAli
     return q;
 }
 //---------------------------------------------------------------------
-auto 
-SceneManager::createSphereQuery(const Sphere& sphere, uint32 mask) -> SphereSceneQuery*
+SphereSceneQuery* 
+SceneManager::createSphereQuery(const Sphere& sphere, uint32 mask)
 {
     DefaultSphereSceneQuery* q = new DefaultSphereSceneQuery(this);
     q->setSphere(sphere);
@@ -3329,9 +3329,9 @@ SceneManager::createSphereQuery(const Sphere& sphere, uint32 mask) -> SphereScen
     return q;
 }
 //---------------------------------------------------------------------
-auto 
+PlaneBoundedVolumeListSceneQuery* 
 SceneManager::createPlaneBoundedVolumeQuery(const PlaneBoundedVolumeList& volumes, 
-                                            uint32 mask) -> PlaneBoundedVolumeListSceneQuery*
+                                            uint32 mask)
 {
     DefaultPlaneBoundedVolumeListSceneQuery* q = new DefaultPlaneBoundedVolumeListSceneQuery(this);
     q->setVolumes(volumes);
@@ -3340,8 +3340,8 @@ SceneManager::createPlaneBoundedVolumeQuery(const PlaneBoundedVolumeList& volume
 }
 
 //---------------------------------------------------------------------
-auto
-SceneManager::createRayQuery(const Ray& ray, uint32 mask) -> ::std::unique_ptr<RaySceneQuery>
+::std::unique_ptr<RaySceneQuery>
+SceneManager::createRayQuery(const Ray& ray, uint32 mask)
 {
     ::std::unique_ptr<RaySceneQuery> q{ new DefaultRaySceneQuery(this)};
     q->setRay(ray);
@@ -3349,8 +3349,8 @@ SceneManager::createRayQuery(const Ray& ray, uint32 mask) -> ::std::unique_ptr<R
     return q;
 }
 //---------------------------------------------------------------------
-auto
-SceneManager::createIntersectionQuery(uint32 mask) -> ::std::unique_ptr<IntersectionSceneQuery>
+::std::unique_ptr<IntersectionSceneQuery>
+SceneManager::createIntersectionQuery(uint32 mask)
 {
 
     ::std::unique_ptr<IntersectionSceneQuery> q{new DefaultIntersectionSceneQuery(this)};
@@ -3363,8 +3363,8 @@ void SceneManager::destroyQuery(SceneQuery* query)
     delete query;
 }
 //---------------------------------------------------------------------
-auto 
-SceneManager::getMovableObjectCollection(const String& typeName) -> SceneManager::MovableObjectCollection*
+SceneManager::MovableObjectCollection* 
+SceneManager::getMovableObjectCollection(const String& typeName)
 {
     MovableObjectCollectionMap::iterator i = 
         mMovableObjectCollectionMap.find(typeName);
@@ -3381,8 +3381,8 @@ SceneManager::getMovableObjectCollection(const String& typeName) -> SceneManager
     }
 }
 //---------------------------------------------------------------------
-auto 
-SceneManager::getMovableObjectCollection(const String& typeName) const -> const SceneManager::MovableObjectCollection*
+const SceneManager::MovableObjectCollection* 
+SceneManager::getMovableObjectCollection(const String& typeName) const
 {
     MovableObjectCollectionMap::const_iterator i = 
         mMovableObjectCollectionMap.find(typeName);
@@ -3398,8 +3398,8 @@ SceneManager::getMovableObjectCollection(const String& typeName) const -> const 
     }
 }
 //---------------------------------------------------------------------
-auto SceneManager::createMovableObject(const String& name, 
-    const String& typeName, const NameValuePairList* params) -> MovableObject*
+MovableObject* SceneManager::createMovableObject(const String& name, 
+    const String& typeName, const NameValuePairList* params)
 {
     // Nasty hack to make generalised Camera functions work without breaking add-on SMs
     if (typeName == "Camera")
@@ -3424,7 +3424,7 @@ auto SceneManager::createMovableObject(const String& name,
     return newObj;
 }
 //---------------------------------------------------------------------
-auto SceneManager::createMovableObject(const String& typeName, const NameValuePairList* params /* = 0 */) -> MovableObject*
+MovableObject* SceneManager::createMovableObject(const String& typeName, const NameValuePairList* params /* = 0 */)
 {
     String name = mMovableNameGenerator.generate();
     return createMovableObject(name, typeName, params);
@@ -3501,7 +3501,7 @@ void SceneManager::destroyAllMovableObjects()
 
 }
 //---------------------------------------------------------------------
-auto SceneManager::getMovableObject(const String& name, const String& typeName) const -> MovableObject*
+MovableObject* SceneManager::getMovableObject(const String& name, const String& typeName) const
 {
     // Nasty hack to make generalised Camera functions work without breaking add-on SMs
     if (typeName == "Camera")
@@ -3524,7 +3524,7 @@ auto SceneManager::getMovableObject(const String& name, const String& typeName) 
     
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasMovableObject(const String& name, const String& typeName) const -> bool
+bool SceneManager::hasMovableObject(const String& name, const String& typeName) const
 {
     // Nasty hack to make generalised Camera functions work without breaking add-on SMs
     if (typeName == "Camera")
@@ -3541,8 +3541,8 @@ auto SceneManager::hasMovableObject(const String& name, const String& typeName) 
 }
 
 //---------------------------------------------------------------------
-auto
-SceneManager::getMovableObjects(const String& typeName) -> const SceneManager::MovableObjectMap&
+const SceneManager::MovableObjectMap&
+SceneManager::getMovableObjects(const String& typeName)
 {
     MovableObjectCollection* objectMap = getMovableObjectCollection(typeName);
     return objectMap->map;
@@ -3592,20 +3592,20 @@ void SceneManager::_injectRenderWithPass(Pass *pass, Renderable *rend, bool shad
     renderSingleObject(rend, usedPass, false, doLightIteration, manualLightList);
 }
 //---------------------------------------------------------------------
-auto SceneManager::getDestinationRenderSystem() -> RenderSystem *
+RenderSystem *SceneManager::getDestinationRenderSystem()
 {
     return mDestRenderSystem;
 }
 //---------------------------------------------------------------------
-auto SceneManager::_getCombinedVisibilityMask() const -> uint32
+uint32 SceneManager::_getCombinedVisibilityMask() const
 {
     return mCurrentViewport ?
         mCurrentViewport->getVisibilityMask() & mVisibilityMask : mVisibilityMask;
 
 }
 //---------------------------------------------------------------------
-auto 
-SceneManager::getVisibleObjectsBoundsInfo(const Camera* cam) const -> const VisibleObjectsBoundsInfo&
+const VisibleObjectsBoundsInfo& 
+SceneManager::getVisibleObjectsBoundsInfo(const Camera* cam) const
 {
     static VisibleObjectsBoundsInfo nullBox;
 
@@ -3616,8 +3616,8 @@ SceneManager::getVisibleObjectsBoundsInfo(const Camera* cam) const -> const Visi
     else
         return camVisObjIt->second;
 }
-auto
-SceneManager::getShadowCasterBoundsInfo( const Light* light, size_t iteration ) const -> const VisibleObjectsBoundsInfo&
+const VisibleObjectsBoundsInfo&
+SceneManager::getShadowCasterBoundsInfo( const Light* light, size_t iteration ) const
 {
     return mShadowRenderer.getShadowCasterBoundsInfo(light, iteration);
 }

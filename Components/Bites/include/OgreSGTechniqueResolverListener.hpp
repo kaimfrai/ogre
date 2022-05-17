@@ -64,14 +64,14 @@ public:
         that satisfy the target scheme name. If the scheme name is out target RT Shader System
         scheme name we will try to create shader generated technique for it.
     */
-    auto handleSchemeNotFound(unsigned short schemeIndex,
+    Ogre::Technique* handleSchemeNotFound(unsigned short schemeIndex,
                                           const Ogre::String& schemeName,
                                           Ogre::Material* originalMaterial, unsigned short lodIndex,
-                                          const Ogre::Renderable* rend) -> Ogre::Technique*;
+                                          const Ogre::Renderable* rend);
 
-    auto afterIlluminationPassesCreated(Ogre::Technique* tech) -> bool;
+    bool afterIlluminationPassesCreated(Ogre::Technique* tech);
 
-    auto beforeIlluminationPassesCleared(Ogre::Technique* tech) -> bool;
+    bool beforeIlluminationPassesCleared(Ogre::Technique* tech);
 
 protected:
     Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The shader generator instance.

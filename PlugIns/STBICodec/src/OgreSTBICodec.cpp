@@ -51,7 +51,7 @@ THE SOFTWARE.
 
 #include "stbi/stb_image.h"
 
-static auto custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/) -> Ogre::uchar*
+static Ogre::uchar* custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/)
 {
     unsigned long destLen = compressBound(data_len);
     Ogre::uchar* dest = (Ogre::uchar*)malloc(destLen);
@@ -111,8 +111,8 @@ namespace Ogre {
     { 
     }
     //---------------------------------------------------------------------
-    auto STBIImageCodec::encode(const MemoryDataStreamPtr& input,
-                                         const CodecDataPtr& pData) const -> DataStreamPtr
+    DataStreamPtr STBIImageCodec::encode(const MemoryDataStreamPtr& input,
+                                         const CodecDataPtr& pData) const
     {
         if(mType != "png") {
             OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
@@ -173,7 +173,7 @@ namespace Ogre {
         f.write((char*)data->getPtr(), data->size());
     }
     //---------------------------------------------------------------------
-    auto STBIImageCodec::decode(const DataStreamPtr& input) const -> ImageCodec::DecodeResult
+    ImageCodec::DecodeResult STBIImageCodec::decode(const DataStreamPtr& input) const
     {
         String contents = input->getAsString();
 
@@ -228,17 +228,17 @@ namespace Ogre {
         return ret;
     }
     //---------------------------------------------------------------------    
-    auto STBIImageCodec::getType() const -> String
+    String STBIImageCodec::getType() const
     {
         return mType;
     }
     //---------------------------------------------------------------------
-    auto STBIImageCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String
+    String STBIImageCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const
     {
         return BLANKSTRING;
     }
 
-    auto STBIPlugin::getName() const -> const String& {
+    const String& STBIPlugin::getName() const {
         static String name = "STB Image Codec";
         return name;
     }

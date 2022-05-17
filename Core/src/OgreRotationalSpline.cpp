@@ -56,7 +56,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto RotationalSpline::interpolate(Real t, bool useShortestPath) -> Quaternion
+    Quaternion RotationalSpline::interpolate(Real t, bool useShortestPath)
     {
         // Work out which segment this is in
         Real fSeg = t * (mPoints.size() - 1);
@@ -68,8 +68,8 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto RotationalSpline::interpolate(unsigned int fromIndex, Real t,
-        bool useShortestPath) -> Quaternion
+    Quaternion RotationalSpline::interpolate(unsigned int fromIndex, Real t,
+        bool useShortestPath)
     {
         // Bounds check
         assert (fromIndex < mPoints.size() &&
@@ -186,14 +186,14 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto RotationalSpline::getPoint(unsigned short index) const -> const Quaternion&
+    const Quaternion& RotationalSpline::getPoint(unsigned short index) const
     {
         assert (index < mPoints.size() && "Point index is out of bounds!!");
 
         return mPoints[index];
     }
     //---------------------------------------------------------------------
-    auto RotationalSpline::getNumPoints() const -> unsigned short
+    unsigned short RotationalSpline::getNumPoints() const
     {
         return (unsigned short)mPoints.size();
     }

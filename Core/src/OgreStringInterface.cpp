@@ -42,7 +42,7 @@ namespace Ogre {
     ParamDictionary::ParamDictionary() {}
     ParamDictionary::~ParamDictionary() {}
 
-    auto ParamDictionary::getParamCommand(const String& name) -> ParamCommand*
+    ParamCommand* ParamDictionary::getParamCommand(const String& name)
     {
         ParamCommandMap::iterator i = mParamCommands.find(name);
         if (i != mParamCommands.end())
@@ -55,7 +55,7 @@ namespace Ogre {
         }
     }
 
-    auto ParamDictionary::getParamCommand(const String& name) const -> const ParamCommand*
+    const ParamCommand* ParamDictionary::getParamCommand(const String& name) const
     {
         ParamCommandMap::const_iterator i = mParamCommands.find(name);
         if (i != mParamCommands.end())
@@ -74,7 +74,7 @@ namespace Ogre {
         mParamCommands[name] = paramCmd;
     }
 
-    auto StringInterface::createParamDictionary(const String& className) -> bool
+    bool StringInterface::createParamDictionary(const String& className)
     {
         ParamDictionaryMap::iterator it = msDictionary.find(className);
 
@@ -92,7 +92,7 @@ namespace Ogre {
         }
     }
 
-    auto StringInterface::getParameters() const -> const ParameterList&
+    const ParameterList& StringInterface::getParameters() const
     {
         static ParameterList emptyList;
 
@@ -104,7 +104,7 @@ namespace Ogre {
 
     }
 
-    auto StringInterface::getParameter(const String& name) const -> String
+    String StringInterface::getParameter(const String& name) const
     {
         // Get dictionary
         const ParamDictionary* dict = getParamDictionary();
@@ -124,7 +124,7 @@ namespace Ogre {
         return "";
     }
 
-    auto StringInterface::setParameter(const String& name, const String& value) -> bool
+    bool StringInterface::setParameter(const String& name, const String& value)
     {
         // Get dictionary
         ParamDictionary* dict = getParamDictionary();

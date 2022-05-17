@@ -53,31 +53,31 @@ class ResourceManager;
         void detachFromProgramObject( const uint programObject );
 
         /// Overridden from GpuProgram
-        auto getLanguage() const -> const String&;
+        const String& getLanguage() const;
 
-        auto getPassTransformStates() const -> bool {
+        bool getPassTransformStates() const {
             return mPassFFPStates;
         }
-        auto getPassSurfaceAndLightStates() const -> bool {
+        bool getPassSurfaceAndLightStates() const {
             return mPassFFPStates;
         }
-        auto getPassFogStates() const -> bool {
+        bool getPassFogStates() const {
             return mPassFFPStates;
         }
 
         /** Returns the operation type that this geometry program expects to
             receive as input
         */
-        auto getInputOperationType() const -> RenderOperation::OperationType
+        RenderOperation::OperationType getInputOperationType() const
         { return mInputOperationType; }
         /** Returns the operation type that this geometry program will emit
         */
-        auto getOutputOperationType() const -> RenderOperation::OperationType
+        RenderOperation::OperationType getOutputOperationType() const
         { return mOutputOperationType; }
         /** Returns the maximum number of vertices that this geometry program can
             output in a single run
         */
-        auto getMaxOutputVertices() const -> int { return mMaxOutputVertices; }
+        int getMaxOutputVertices() const { return mMaxOutputVertices; }
 
         /** Sets the operation type that this geometry program expects to receive
         */
@@ -110,7 +110,7 @@ class ResourceManager;
         void bindProgram();
         void unbindProgram();
         void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask);
-        auto isAttributeValid(VertexElementSemantic semantic, uint index) -> bool;
+        bool isAttributeValid(VertexElementSemantic semantic, uint index);
     protected:
         void loadFromSource();
         /// Internal unload implementation, must be implemented by subclasses

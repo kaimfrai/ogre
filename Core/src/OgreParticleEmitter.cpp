@@ -100,7 +100,7 @@ namespace Ogre
         mPosition = pos; 
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getPosition() const -> const Vector3& 
+    const Vector3& ParticleEmitter::getPosition() const 
     { 
         return mPosition; 
     }
@@ -114,7 +114,7 @@ namespace Ogre
         mUp.normalise();
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getDirection() const -> const Vector3&
+    const Vector3& ParticleEmitter::getDirection() const
     { 
         return mDirection; 
     }
@@ -125,7 +125,7 @@ namespace Ogre
         mUp.normalise();
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getUp() const -> const Vector3&
+    const Vector3& ParticleEmitter::getUp() const
     { 
         return mUp; 
     }
@@ -136,12 +136,12 @@ namespace Ogre
         mDirPositionRef     = nposition;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getDirPositionReference() const -> const Vector3&
+    const Vector3& ParticleEmitter::getDirPositionReference() const
     {
         return mDirPositionRef;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getDirPositionReferenceEnabled() const -> bool
+    bool ParticleEmitter::getDirPositionReferenceEnabled() const
     {
         return mUseDirPositionRef;
     }
@@ -152,7 +152,7 @@ namespace Ogre
         mAngle = angle;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getAngle() const -> const Radian&
+    const Radian& ParticleEmitter::getAngle() const
     {
         return mAngle;
     }
@@ -175,7 +175,7 @@ namespace Ogre
         mEmissionRate = particlesPerSecond; 
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getEmissionRate() const -> Real 
+    Real ParticleEmitter::getEmissionRate() const 
     { 
         return mEmissionRate; 
     }
@@ -205,7 +205,7 @@ namespace Ogre
         mColourRangeEnd = colourEnd;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getName() const -> const String&
+    const String& ParticleEmitter::getName() const
     {
         return mName;
     }
@@ -215,7 +215,7 @@ namespace Ogre
         mName = newName;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getEmittedEmitter() const -> const String&
+    const String& ParticleEmitter::getEmittedEmitter() const
     {
         return mEmittedEmitter;
     }
@@ -225,7 +225,7 @@ namespace Ogre
         mEmittedEmitter = emittedEmitter;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::isEmitted() const -> bool
+    bool ParticleEmitter::isEmitted() const
     {
         return mEmitted;
     }
@@ -235,7 +235,7 @@ namespace Ogre
         mEmitted = emitted;
     }
     //-----------------------------------------------------------------------
-    static auto sampleSphereUniform(const float& maxAngle) -> float
+    static float sampleSphereUniform(const float& maxAngle)
     {
         float cosMax = -std::cos(maxAngle) + 1; // for maxAngle = pi, cosMax = 2
         // see https://corysimon.github.io/articles/uniformdistn-on-sphere/
@@ -299,7 +299,7 @@ namespace Ogre
         destVector *= scalar;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::genEmissionTTL() -> Real
+    Real ParticleEmitter::genEmissionTTL()
     {
         if (mMaxTTL != mMinTTL)
         {
@@ -311,7 +311,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::genConstantEmissionCount(Real timeElapsed) -> unsigned short
+    unsigned short ParticleEmitter::genConstantEmissionCount(Real timeElapsed)
     {
         if (mEnabled)
         {
@@ -477,17 +477,17 @@ namespace Ogre
             &msEmittedEmitterCmd);
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getParticleVelocity() const -> Real
+    Real ParticleEmitter::getParticleVelocity() const
     {
         return mMinSpeed;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getMinParticleVelocity() const -> Real
+    Real ParticleEmitter::getMinParticleVelocity() const
     {
         return mMinSpeed;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getMaxParticleVelocity() const -> Real
+    Real ParticleEmitter::getMaxParticleVelocity() const
     {
         return mMaxSpeed;
     }
@@ -504,17 +504,17 @@ namespace Ogre
         mMaxSpeed = max;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getTimeToLive() const -> Real
+    Real ParticleEmitter::getTimeToLive() const
     {
         return mMinTTL;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getMinTimeToLive() const -> Real
+    Real ParticleEmitter::getMinTimeToLive() const
     {
         return mMinTTL;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getMaxTimeToLive() const -> Real
+    Real ParticleEmitter::getMaxTimeToLive() const
     {
         return mMaxTTL;
     }
@@ -529,17 +529,17 @@ namespace Ogre
         mMaxTTL = max;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getColour() const -> const ColourValue&
+    const ColourValue& ParticleEmitter::getColour() const
     {
         return mColourRangeStart;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getColourRangeStart() const -> const ColourValue&
+    const ColourValue& ParticleEmitter::getColourRangeStart() const
     {
         return mColourRangeStart;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getColourRangeEnd() const -> const ColourValue&
+    const ColourValue& ParticleEmitter::getColourRangeEnd() const
     {
         return mColourRangeEnd;
     }
@@ -561,7 +561,7 @@ namespace Ogre
         initDurationRepeat();
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getEnabled() const -> bool
+    bool ParticleEmitter::getEnabled() const
     {
         return mEnabled;
     }
@@ -572,7 +572,7 @@ namespace Ogre
         mStartTime = startTime;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getStartTime() const -> Real
+    Real ParticleEmitter::getStartTime() const
     {
         return mStartTime;
     }
@@ -582,7 +582,7 @@ namespace Ogre
         setDuration(duration, duration);
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getDuration() const -> Real
+    Real ParticleEmitter::getDuration() const
     {
         return mDurationMin;
     }
@@ -639,7 +639,7 @@ namespace Ogre
         setRepeatDelay(delay, delay);
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getRepeatDelay() const -> Real
+    Real ParticleEmitter::getRepeatDelay() const
     {
         return mRepeatDelayMin;
     }
@@ -663,22 +663,22 @@ namespace Ogre
         initDurationRepeat();
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getMinDuration() const -> Real
+    Real ParticleEmitter::getMinDuration() const
     {
         return mDurationMin;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getMaxDuration() const -> Real
+    Real ParticleEmitter::getMaxDuration() const
     {
         return mDurationMax;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getMinRepeatDelay() const -> Real
+    Real ParticleEmitter::getMinRepeatDelay() const
     {
         return mRepeatDelayMin;    
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getMaxRepeatDelay() const -> Real
+    Real ParticleEmitter::getMaxRepeatDelay() const
     {
         return mRepeatDelayMax;    
     }

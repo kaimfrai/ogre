@@ -52,7 +52,7 @@ namespace Ogre {
         // Locally key frame search helper
         struct KeyFrameTimeLess
         {
-            auto operator() (const KeyFrame* kf, const KeyFrame* kf2) const -> bool
+            bool operator() (const KeyFrame* kf, const KeyFrame* kf2) const
             {
                 return kf->getTime() < kf2->getTime();
             }
@@ -70,8 +70,8 @@ namespace Ogre {
         removeAllKeyFrames();
     }
     //---------------------------------------------------------------------
-    auto AnimationTrack::getKeyFramesAtTime(const TimeIndex& timeIndex, KeyFrame** keyFrame1, KeyFrame** keyFrame2,
-        unsigned short* firstKeyIndex) const -> Real
+    Real AnimationTrack::getKeyFramesAtTime(const TimeIndex& timeIndex, KeyFrame** keyFrame1, KeyFrame** keyFrame2,
+        unsigned short* firstKeyIndex) const
     {
         // Parametric time
         // t1 = time of previous keyframe
@@ -144,7 +144,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto AnimationTrack::createKeyFrame(Real timePos) -> KeyFrame*
+    KeyFrame* AnimationTrack::createKeyFrame(Real timePos)
     {
         KeyFrame* kf = createKeyFrameImpl(timePos);
 
@@ -253,7 +253,7 @@ namespace Ogre {
     {
     }
     //---------------------------------------------------------------------
-    auto NumericAnimationTrack::getAssociatedAnimable() const -> const AnimableValuePtr&
+    const AnimableValuePtr& NumericAnimationTrack::getAssociatedAnimable() const
     {
         return mTargetAnim;
     }
@@ -263,7 +263,7 @@ namespace Ogre {
         mTargetAnim = val;
     }
     //---------------------------------------------------------------------
-    auto NumericAnimationTrack::createKeyFrameImpl(Real time) -> KeyFrame*
+    KeyFrame* NumericAnimationTrack::createKeyFrameImpl(Real time)
     {
         return new NumericKeyFrame(this, time);
     }
@@ -323,17 +323,17 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    auto NumericAnimationTrack::createNumericKeyFrame(Real timePos) -> NumericKeyFrame*
+    NumericKeyFrame* NumericAnimationTrack::createNumericKeyFrame(Real timePos)
     {
         return static_cast<NumericKeyFrame*>(createKeyFrame(timePos));
     }
     //--------------------------------------------------------------------------
-    auto NumericAnimationTrack::getNumericKeyFrame(unsigned short index) const -> NumericKeyFrame*
+    NumericKeyFrame* NumericAnimationTrack::getNumericKeyFrame(unsigned short index) const
     {
         return static_cast<NumericKeyFrame*>(getKeyFrame(index));
     }
     //---------------------------------------------------------------------
-    auto NumericAnimationTrack::_clone(Animation* newParent) const -> NumericAnimationTrack*
+    NumericAnimationTrack* NumericAnimationTrack::_clone(Animation* newParent) const
     {
         NumericAnimationTrack* newTrack = 
             newParent->createNumericTrack(mHandle);
@@ -452,7 +452,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto NodeAnimationTrack::getAssociatedNode() const -> Node*
+    Node* NodeAnimationTrack::getAssociatedNode() const
     {
         return mTargetNode;
     }
@@ -549,7 +549,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    auto NodeAnimationTrack::getUseShortestRotationPath() const -> bool
+    bool NodeAnimationTrack::getUseShortestRotationPath() const
     {
         return mUseShortestRotationPath ;
     }
@@ -559,7 +559,7 @@ namespace Ogre {
         mSplineBuildNeeded = true;
     }
     //---------------------------------------------------------------------
-    auto NodeAnimationTrack::hasNonZeroKeyFrames() const -> bool
+    bool NodeAnimationTrack::hasNonZeroKeyFrames() const
     {
         KeyFrameList::const_iterator i = mKeyFrames.begin();
         for (; i != mKeyFrames.end(); ++i)
@@ -643,22 +643,22 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    auto NodeAnimationTrack::createKeyFrameImpl(Real time) -> KeyFrame*
+    KeyFrame* NodeAnimationTrack::createKeyFrameImpl(Real time)
     {
         return new TransformKeyFrame(this, time);
     }
     //--------------------------------------------------------------------------
-    auto NodeAnimationTrack::createNodeKeyFrame(Real timePos) -> TransformKeyFrame*
+    TransformKeyFrame* NodeAnimationTrack::createNodeKeyFrame(Real timePos)
     {
         return static_cast<TransformKeyFrame*>(createKeyFrame(timePos));
     }
     //--------------------------------------------------------------------------
-    auto NodeAnimationTrack::getNodeKeyFrame(unsigned short index) const -> TransformKeyFrame*
+    TransformKeyFrame* NodeAnimationTrack::getNodeKeyFrame(unsigned short index) const
     {
         return static_cast<TransformKeyFrame*>(getKeyFrame(index));
     }
     //---------------------------------------------------------------------
-    auto NodeAnimationTrack::_clone(Animation* newParent) const -> NodeAnimationTrack*
+    NodeAnimationTrack* NodeAnimationTrack::_clone(Animation* newParent) const
     {
         NodeAnimationTrack* newTrack = 
             newParent->createNodeTrack(mHandle, mTargetNode);
@@ -697,13 +697,13 @@ namespace Ogre {
     {
     }
     //--------------------------------------------------------------------------
-    auto VertexAnimationTrack::createVertexMorphKeyFrame(Real timePos) -> VertexMorphKeyFrame*
+    VertexMorphKeyFrame* VertexAnimationTrack::createVertexMorphKeyFrame(Real timePos)
     {
         OgreAssert(mAnimationType == VAT_MORPH, "Type mismatch");
         return static_cast<VertexMorphKeyFrame*>(createKeyFrame(timePos));
     }
     //--------------------------------------------------------------------------
-    auto VertexAnimationTrack::createVertexPoseKeyFrame(Real timePos) -> VertexPoseKeyFrame*
+    VertexPoseKeyFrame* VertexAnimationTrack::createVertexPoseKeyFrame(Real timePos)
     {
         OgreAssert(mAnimationType == VAT_POSE, "Type mismatch");
         return static_cast<VertexPoseKeyFrame*>(createKeyFrame(timePos));
@@ -777,7 +777,7 @@ namespace Ogre {
         
     }
     //--------------------------------------------------------------------------
-    auto VertexAnimationTrack::getVertexAnimationIncludesNormals() const -> bool
+    bool VertexAnimationTrack::getVertexAnimationIncludesNormals() const
     {
         if (mAnimationType == VAT_NONE)
             return false;
@@ -959,19 +959,19 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    auto VertexAnimationTrack::getVertexMorphKeyFrame(unsigned short index) const -> VertexMorphKeyFrame*
+    VertexMorphKeyFrame* VertexAnimationTrack::getVertexMorphKeyFrame(unsigned short index) const
     {
         OgreAssert(mAnimationType == VAT_MORPH, "Type mismatch");
         return static_cast<VertexMorphKeyFrame*>(getKeyFrame(index));
     }
     //--------------------------------------------------------------------------
-    auto VertexAnimationTrack::getVertexPoseKeyFrame(unsigned short index) const -> VertexPoseKeyFrame*
+    VertexPoseKeyFrame* VertexAnimationTrack::getVertexPoseKeyFrame(unsigned short index) const
     {
         OgreAssert(mAnimationType == VAT_POSE, "Type mismatch");
         return static_cast<VertexPoseKeyFrame*>(getKeyFrame(index));
     }
     //--------------------------------------------------------------------------
-    auto VertexAnimationTrack::createKeyFrameImpl(Real time) -> KeyFrame*
+    KeyFrame* VertexAnimationTrack::createKeyFrameImpl(Real time)
     {
         switch(mAnimationType)
         {
@@ -984,7 +984,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto VertexAnimationTrack::hasNonZeroKeyFrames() const -> bool
+    bool VertexAnimationTrack::hasNonZeroKeyFrames() const
     {
         if (mAnimationType == VAT_MORPH)
         {
@@ -1020,7 +1020,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto VertexAnimationTrack::_clone(Animation* newParent) const -> VertexAnimationTrack*
+    VertexAnimationTrack* VertexAnimationTrack::_clone(Animation* newParent) const
     {
         VertexAnimationTrack* newTrack = 
             newParent->createVertexTrack(mHandle, mAnimationType);

@@ -83,12 +83,12 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    virtual auto getType() const -> const String&;
+    virtual const String& getType() const;
 
     /** 
     @see SubRenderState::getType.
     */
-    virtual auto getExecutionOrder() const -> int;
+    virtual int getExecutionOrder() const;
 
     /** 
     @see SubRenderState::copyFrom.
@@ -98,7 +98,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    virtual auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) -> bool;
+    virtual bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass);
     
     static String Type;
 
@@ -150,7 +150,7 @@ protected:
     /** 
     Return the number of texture units this sub state handle. 
     */
-    auto getTextureUnitCount() const -> size_t { return mTextureUnitParamsList.size(); }
+    size_t getTextureUnitCount() const { return mTextureUnitParamsList.size(); }
 
     /** 
     Set texture unit of a given stage index.
@@ -162,38 +162,38 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    virtual auto resolveParameters(ProgramSet* programSet) -> bool;
+    virtual bool resolveParameters(ProgramSet* programSet);
 
     /** 
     Internal method that resolves uniform parameters of the given texture unit parameters.
     */
-    auto resolveUniformParams(TextureUnitParams* textureUnitParams, ProgramSet* programSet) -> bool;
+    bool resolveUniformParams(TextureUnitParams* textureUnitParams, ProgramSet* programSet);
 
     /** 
     Internal method that resolves functions parameters of the given texture unit parameters.
     */
-    auto resolveFunctionsParams(TextureUnitParams* textureUnitParams, ProgramSet* programSet) -> bool;
+    bool resolveFunctionsParams(TextureUnitParams* textureUnitParams, ProgramSet* programSet);
 
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    virtual auto resolveDependencies(ProgramSet* programSet) -> bool;
+    virtual bool resolveDependencies(ProgramSet* programSet);
 
     /** 
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual auto addFunctionInvocations(ProgramSet* programSet) -> bool;
+    virtual bool addFunctionInvocations(ProgramSet* programSet);
 
 
     /** 
     Internal method that adds vertex shader functions invocations.
     */
-    auto addVSFunctionInvocations(TextureUnitParams* textureUnitParams, Function* vsMain) -> bool;
+    bool addVSFunctionInvocations(TextureUnitParams* textureUnitParams, Function* vsMain);
 
     /** 
     Internal method that adds pixel shader functions invocations.
     */
-    auto addPSFunctionInvocations(TextureUnitParams* textureUnitParams, Function* psMain) -> bool;
+    bool addPSFunctionInvocations(TextureUnitParams* textureUnitParams, Function* psMain);
 
     /** 
     Adds the fragment shader code which samples the texel color in the texture
@@ -201,8 +201,8 @@ protected:
     virtual void addPSSampleTexelInvocation(TextureUnitParams* textureUnitParams, Function* psMain, 
         const ParameterPtr& texel, int groupOrder);
 
-    auto getPSArgument(ParameterPtr texel, LayerBlendSource blendSrc, const ColourValue& colourValue,
-                               Real alphaValue, bool isAlphaArgument) const -> ParameterPtr;
+    ParameterPtr getPSArgument(ParameterPtr texel, LayerBlendSource blendSrc, const ColourValue& colourValue,
+                               Real alphaValue, bool isAlphaArgument) const;
 
     virtual void addPSBlendInvocations(Function* psMain, ParameterPtr arg1, ParameterPtr arg2,
                 ParameterPtr texel,int samplerIndex, const LayerBlendModeEx& blendMode,
@@ -211,14 +211,14 @@ protected:
     /** 
     Determines the texture coordinates calculation method of the given texture unit state.
     */
-    auto getTexCalcMethod(TextureUnitState* textureUnitState) -> TexCoordCalcMethod;
+    TexCoordCalcMethod getTexCalcMethod(TextureUnitState* textureUnitState);
 
     /** 
     Determines if the given texture unit state need to use texture transformation matrix.
     */
-    auto needsTextureMatrix(TextureUnitState* textureUnitState) -> bool;
+    bool needsTextureMatrix(TextureUnitState* textureUnitState);
 
-    auto setParameter(const String& name, const String& value) -> bool override;
+    bool setParameter(const String& name, const String& value) override;
 
 // Attributes.
 protected:
@@ -257,12 +257,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] virtual auto getType() const -> const String&;
+    [[nodiscard]] virtual const String& getType() const;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) -> SubRenderState*;
+    virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator);
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -275,7 +275,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual auto createInstanceImpl() -> SubRenderState*;
+    virtual SubRenderState* createInstanceImpl();
 
 
 };

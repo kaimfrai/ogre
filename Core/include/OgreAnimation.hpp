@@ -69,19 +69,19 @@ class VertexData;
         virtual ~AnimationContainer() {}
 
         /** Gets the number of animations in this container. */
-        [[nodiscard]] virtual auto getNumAnimations() const -> unsigned short = 0;
+        [[nodiscard]] virtual unsigned short getNumAnimations() const = 0;
         
         /** Retrieve an animation by index.  */
-        [[nodiscard]] virtual auto getAnimation(unsigned short index) const -> Animation* = 0;
+        [[nodiscard]] virtual Animation* getAnimation(unsigned short index) const = 0;
         
         /** Retrieve an animation by name. */
-        [[nodiscard]] virtual auto getAnimation(const String& name) const -> Animation* = 0;
+        [[nodiscard]] virtual Animation* getAnimation(const String& name) const = 0;
         
         /** Create a new animation with a given length owned by this container. */
-        virtual auto createAnimation(const String& name, Real length) -> Animation* = 0;
+        virtual Animation* createAnimation(const String& name, Real length) = 0;
         
         /** Returns whether this object contains the named animation. */
-        [[nodiscard]] virtual auto hasAnimation(const String& name) const -> bool = 0;
+        [[nodiscard]] virtual bool hasAnimation(const String& name) const = 0;
         
         /** Removes an Animation from this container. */
         virtual void removeAnimation(const String& name) = 0;
@@ -130,10 +130,10 @@ class VertexData;
         virtual ~Animation();
 
         /** Gets the name of this animation. */
-        auto getName() const -> const String&;
+        const String& getName() const;
 
         /** Gets the total length of the animation. */
-        auto getLength() const -> Real;
+        Real getLength() const;
 
         /** Sets the length of the animation. 
         @note Changing the length of an animation may invalidate existing AnimationState
@@ -145,13 +145,13 @@ class VertexData;
         @param handle Handle to give the track, used for accessing the track later. 
             Must be unique within this Animation.
         */
-        auto createNodeTrack(unsigned short handle) -> NodeAnimationTrack*;
+        NodeAnimationTrack* createNodeTrack(unsigned short handle);
 
         /** Creates a NumericAnimationTrack for animating any numeric value.
         @param handle Handle to give the track, used for accessing the track later. 
             Must be unique within this Animation.
         */
-        auto createNumericTrack(unsigned short handle) -> NumericAnimationTrack*;
+        NumericAnimationTrack* createNumericTrack(unsigned short handle);
 
         /** Creates a VertexAnimationTrack for animating vertex position data.
         @param handle Handle to give the track, used for accessing the track later. 
@@ -160,7 +160,7 @@ class VertexData;
             modified; 0 for the shared geometry, and 1+ for SubMesh geometry with the same index-1.
         @param animType Either morph or pose animation, 
         */
-        auto createVertexTrack(unsigned short handle, VertexAnimationType animType) -> VertexAnimationTrack*;
+        VertexAnimationTrack* createVertexTrack(unsigned short handle, VertexAnimationType animType);
 
         /** Creates a new AnimationTrack automatically associated with a Node. 
         @remarks
@@ -170,15 +170,15 @@ class VertexData;
             Must be unique within this Animation.
         @param node A pointer to the Node object which will be affected by this track
         */
-        auto createNodeTrack(unsigned short handle, Node* node) -> NodeAnimationTrack*;
+        NodeAnimationTrack* createNodeTrack(unsigned short handle, Node* node);
 
         /** Creates a NumericAnimationTrack and associates it with an animable. 
         @param handle Handle to give the track, used for accessing the track later. 
         @param anim Animable object link
             Must be unique within this Animation.
         */
-        auto createNumericTrack(unsigned short handle, 
-            const AnimableValuePtr& anim) -> NumericAnimationTrack*;
+        NumericAnimationTrack* createNumericTrack(unsigned short handle, 
+            const AnimableValuePtr& anim);
 
         /** Creates a VertexAnimationTrack and associates it with VertexData. 
         @param handle Handle to give the track, used for accessing the track later. 
@@ -186,35 +186,35 @@ class VertexData;
         @param animType The animation type 
             Must be unique within this Animation.
         */
-        auto createVertexTrack(unsigned short handle, 
-            VertexData* data, VertexAnimationType animType) -> VertexAnimationTrack*;
+        VertexAnimationTrack* createVertexTrack(unsigned short handle, 
+            VertexData* data, VertexAnimationType animType);
 
         /** Gets the number of NodeAnimationTrack objects contained in this animation. */
-        auto getNumNodeTracks() const -> unsigned short;
+        unsigned short getNumNodeTracks() const;
 
         /** Gets a node track by it's handle. */
-        auto getNodeTrack(unsigned short handle) const -> NodeAnimationTrack*;
+        NodeAnimationTrack* getNodeTrack(unsigned short handle) const;
 
         /** Does a track exist with the given handle? */
-        auto hasNodeTrack(unsigned short handle) const -> bool;
+        bool hasNodeTrack(unsigned short handle) const;
 
         /** Gets the number of NumericAnimationTrack objects contained in this animation. */
-        auto getNumNumericTracks() const -> unsigned short;
+        unsigned short getNumNumericTracks() const;
 
         /** Gets a numeric track by it's handle. */
-        auto getNumericTrack(unsigned short handle) const -> NumericAnimationTrack*;
+        NumericAnimationTrack* getNumericTrack(unsigned short handle) const;
 
         /** Does a track exist with the given handle? */
-        auto hasNumericTrack(unsigned short handle) const -> bool;
+        bool hasNumericTrack(unsigned short handle) const;
 
         /** Gets the number of VertexAnimationTrack objects contained in this animation. */
-        auto getNumVertexTracks() const -> unsigned short;
+        unsigned short getNumVertexTracks() const;
 
         /** Gets a Vertex track by it's handle. */
-        auto getVertexTrack(unsigned short handle) const -> VertexAnimationTrack*;
+        VertexAnimationTrack* getVertexTrack(unsigned short handle) const;
 
         /** Does a track exist with the given handle? */
-        auto hasVertexTrack(unsigned short handle) const -> bool;
+        bool hasVertexTrack(unsigned short handle) const;
         
         /** Destroys the node track with the given handle. */
         void destroyNodeTrack(unsigned short handle);
@@ -340,7 +340,7 @@ class VertexData;
         @remarks
             See setInterpolationMode for more info.
         */
-        auto getInterpolationMode() const -> InterpolationMode;
+        InterpolationMode getInterpolationMode() const;
         /** Tells the animation how to interpolate rotations.
         @remarks
             By default, animations interpolate linearly between rotations. This
@@ -357,7 +357,7 @@ class VertexData;
         @remarks
             See setRotationInterpolationMode for more info.
         */
-        auto getRotationInterpolationMode() const -> RotationInterpolationMode;
+        RotationInterpolationMode getRotationInterpolationMode() const;
 
         // Methods for setting the defaults
         /** Sets the default animation interpolation mode. 
@@ -369,7 +369,7 @@ class VertexData;
         static void setDefaultInterpolationMode(InterpolationMode im);
 
         /** Gets the default interpolation mode for all animations. */
-        static auto getDefaultInterpolationMode() -> InterpolationMode;
+        static InterpolationMode getDefaultInterpolationMode();
 
         /** Sets the default rotation interpolation mode. 
         @remarks
@@ -380,7 +380,7 @@ class VertexData;
         static void setDefaultRotationInterpolationMode(RotationInterpolationMode im);
 
         /** Gets the default rotation interpolation mode for all animations. */
-        static auto getDefaultRotationInterpolationMode() -> RotationInterpolationMode;
+        static RotationInterpolationMode getDefaultRotationInterpolationMode();
 
         typedef std::map<unsigned short, NodeAnimationTrack*> NodeTrackList;
         typedef ConstMapIterator<NodeTrackList> NodeTrackIterator;
@@ -392,13 +392,13 @@ class VertexData;
         typedef ConstMapIterator<VertexTrackList> VertexTrackIterator;
 
         /// Fast access to NON-UPDATEABLE node track list
-        auto _getNodeTrackList() const -> const NodeTrackList&;
+        const NodeTrackList& _getNodeTrackList() const;
         
         /// Fast access to NON-UPDATEABLE numeric track list
-        auto _getNumericTrackList() const -> const NumericTrackList&;
+        const NumericTrackList& _getNumericTrackList() const;
 
         /// Fast access to NON-UPDATEABLE Vertex track list
-        auto _getVertexTrackList() const -> const VertexTrackList&;
+        const VertexTrackList& _getVertexTrackList() const;
 
         /** Optimise an animation by removing unnecessary tracks and keyframes.
         @remarks
@@ -444,7 +444,7 @@ class VertexData;
             object.
         */
         [[nodiscard]]
-        auto clone(const String& newName) const -> Animation*;
+        Animation* clone(const String& newName) const;
         
         /** Internal method used to tell the animation that keyframe list has been
             changed, which may cause it to rebuild some internal data */
@@ -460,7 +460,7 @@ class VertexData;
             relation to the whole animation sequence) and lower bound index of
             global keyframe time list.
         */
-        auto _getTimeIndex(Real timePos) const -> TimeIndex;
+        TimeIndex _getTimeIndex(Real timePos) const;
         
         /** Sets a base keyframe which for the skeletal / pose keyframes 
             in this animation. 
@@ -491,18 +491,18 @@ class VertexData;
         */
         void setUseBaseKeyFrame(bool useBaseKeyFrame, Real keyframeTime = 0.0f, const String& baseAnimName = BLANKSTRING);
         /** Whether a base keyframe is being used for this Animation. */
-        auto getUseBaseKeyFrame() const -> bool;
+        bool getUseBaseKeyFrame() const;
         /** If a base keyframe is being used, the time of that keyframe. */
-        auto getBaseKeyFrameTime() const -> Real;
+        Real getBaseKeyFrameTime() const;
         /** If a base keyframe is being used, the Animation that provides that keyframe. */
-        auto getBaseKeyFrameAnimationName() const -> const String&;
+        const String& getBaseKeyFrameAnimationName() const;
         
         /// Internal method to adjust keyframes relative to a base keyframe (@see setUseBaseKeyFrame) */
         void _applyBaseKeyFrame();
         
         void _notifyContainer(AnimationContainer* c);
         /** Retrieve the container of this animation. */
-        auto getContainer() -> AnimationContainer*;
+        AnimationContainer* getContainer();
         
     private:
         /// Node tracks, indexed by handle

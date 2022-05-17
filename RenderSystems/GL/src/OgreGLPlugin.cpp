@@ -41,7 +41,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    auto GLPlugin::getName() const -> const String&
+    const String& GLPlugin::getName() const
     {
         return sPluginName;
     }

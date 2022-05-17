@@ -86,7 +86,7 @@ class Affine3;
         }
 
         /// Array accessor operator
-        inline auto operator [] ( const size_t i ) const -> Real
+        inline Real operator [] ( const size_t i ) const
         {
             assert( i < 8 );
 
@@ -94,14 +94,14 @@ class Affine3;
         }
 
         /// Array accessor operator
-        inline auto operator [] ( const size_t i ) -> Real&
+        inline Real& operator [] ( const size_t i )
         {
             assert( i < 8 );
 
             return *(&w+i);
         }
         
-        inline auto operator= (const DualQuaternion& rkQ) -> DualQuaternion&
+        inline DualQuaternion& operator= (const DualQuaternion& rkQ)
         {
             w = rkQ.w;
             x = rkQ.x;
@@ -115,25 +115,25 @@ class Affine3;
             return *this;
         }
 
-        inline auto operator== (const DualQuaternion& rhs) const -> bool
+        inline bool operator== (const DualQuaternion& rhs) const
         {
             return (rhs.w == w) && (rhs.x == x) && (rhs.y == y) && (rhs.z == z) && 
                 (rhs.dw == dw) && (rhs.dx == dx) && (rhs.dy == dy) && (rhs.dz == dz);
         }
 
-        inline auto operator!= (const DualQuaternion& rhs) const -> bool
+        inline bool operator!= (const DualQuaternion& rhs) const
         {
             return !operator==(rhs);
         }
 
         /// Pointer accessor for direct copying
-        inline auto ptr() -> Real*
+        inline Real* ptr()
         {
             return &w;
         }
 
         /// Pointer accessor for direct copying
-        [[nodiscard]] inline auto ptr() const -> const Real*
+        [[nodiscard]] inline const Real* ptr() const
         {
             return &w;
         }
@@ -152,7 +152,7 @@ class Affine3;
         }
         
         /// Check whether this dual quaternion contains valid values
-        [[nodiscard]] inline auto isNaN() const -> bool
+        [[nodiscard]] inline bool isNaN() const
         {
             return Math::isNaN(w) || Math::isNaN(x) || Math::isNaN(y) || Math::isNaN(z) ||  
                 Math::isNaN(dw) || Math::isNaN(dx) || Math::isNaN(dy) || Math::isNaN(dz);
@@ -176,8 +176,8 @@ class Affine3;
         Function for writing to a stream. Outputs "DualQuaternion(w, x, y, z, dw, dx, dy, dz)" with w, x, y, z, dw, dx, dy, dz
         being the member values of the dual quaternion.
         */
-        inline friend auto operator <<
-        ( std::ostream& o, const DualQuaternion& q ) -> std::ostream&
+        inline friend std::ostream& operator <<
+        ( std::ostream& o, const DualQuaternion& q )
         {
             o << "DualQuaternion(" << q.w << ", " << q.x << ", " << q.y << ", " << q.z << ", " << q.dw << ", " << q.dx << ", " << q.dy << ", " << q.dz << ")";
             return o;

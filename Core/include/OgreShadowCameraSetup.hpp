@@ -95,7 +95,7 @@ class Viewport;
         DefaultShadowCameraSetup();
         virtual ~DefaultShadowCameraSetup();
 
-        static auto create() -> ShadowCameraSetupPtr
+        static ShadowCameraSetupPtr create()
         {
             return std::make_shared<DefaultShadowCameraSetup>();
         }

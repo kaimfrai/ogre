@@ -39,7 +39,7 @@
 namespace Ogre
 {
     // memory implementations
-    static auto OgreZalloc(void* opaque, size_t items, size_t size) -> void*
+    static void* OgreZalloc(void* opaque, size_t items, size_t size)
     {
         return (void*)new char[items * size];
     }
@@ -88,7 +88,7 @@ namespace Ogre
         init();
     }
     //---------------------------------------------------------------------
-    auto DeflateStream::getAvailInForSinglePass() -> size_t
+    size_t DeflateStream::getAvailInForSinglePass()
     {
         size_t ret = OGRE_DEFLATE_TMP_SIZE;
 
@@ -183,7 +183,7 @@ namespace Ogre
         close();
     }
     //---------------------------------------------------------------------
-    auto DeflateStream::read(void* buf, size_t count) -> size_t
+    size_t DeflateStream::read(void* buf, size_t count)
     {
         if (mStreamType == Invalid)
         {
@@ -253,7 +253,7 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    auto DeflateStream::write(const void* buf, size_t count) -> size_t
+    size_t DeflateStream::write(const void* buf, size_t count)
     {
         if ((getAccessMode() & WRITE) == 0)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -394,7 +394,7 @@ namespace Ogre
         }       
     }
     //---------------------------------------------------------------------
-    auto DeflateStream::tell() const -> size_t
+    size_t DeflateStream::tell() const
     {
         if (mStreamType == Invalid)
         {
@@ -411,7 +411,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    auto DeflateStream::eof() const -> bool
+    bool DeflateStream::eof() const
     {
         if (getAccessMode() & WRITE)
             return mTmpWriteStream->eof();

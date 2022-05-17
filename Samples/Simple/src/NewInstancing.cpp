@@ -56,7 +56,7 @@ Sample_NewInstancing::Sample_NewInstancing()
 }
 
 //------------------------------------------------------------------------------
-auto Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt) -> bool
+bool Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt)
 {
     animateUnits( evt.timeSinceLastFrame);
 
@@ -66,7 +66,7 @@ auto Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt) -> bool
 }
 
 //------------------------------------------------------------------------------
-auto Sample_NewInstancing::keyPressed(const KeyboardEvent& evt) -> bool
+bool Sample_NewInstancing::keyPressed(const KeyboardEvent& evt)
 {
     return SdkSample::keyPressed(evt);
 }
@@ -380,7 +380,7 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
 }
 
 //------------------------------------------------------------------------------
-auto Sample_NewInstancing::lookAt( const Vector3 &normDir ) -> Quaternion
+Quaternion Sample_NewInstancing::lookAt( const Vector3 &normDir )
 {
     return Math::lookRotation(normDir.normalisedCopy(), Vector3::UNIT_Y);
 }

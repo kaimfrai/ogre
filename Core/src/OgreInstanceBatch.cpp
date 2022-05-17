@@ -124,7 +124,7 @@ class Technique;
         mInstancesPerBatch = instancesPerBatch;
     }
     //-----------------------------------------------------------------------
-    auto InstanceBatch::checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool
+    bool InstanceBatch::checkSubMeshCompatibility( const SubMesh* baseSubMesh )
     {
         OgreAssert(baseSubMesh->operationType == RenderOperation::OT_TRIANGLE_LIST,
                    "Only meshes with OT_TRIANGLE_LIST are supported");
@@ -200,7 +200,7 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    auto InstanceBatch::generateInstancedEntity(size_t num) -> InstancedEntity*
+    InstancedEntity* InstanceBatch::generateInstancedEntity(size_t num)
     {
         return new InstancedEntity(this, static_cast<uint32>(num));
     }
@@ -225,7 +225,7 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    auto InstanceBatch::build( const SubMesh* baseSubMesh ) -> RenderOperation
+    RenderOperation InstanceBatch::build( const SubMesh* baseSubMesh )
     {
         if( checkSubMeshCompatibility( baseSubMesh ) )
         {
@@ -248,7 +248,7 @@ class Technique;
         createAllInstancedEntities();
     }
     //-----------------------------------------------------------------------
-    auto InstanceBatch::createInstancedEntity() -> InstancedEntity*
+    InstancedEntity* InstanceBatch::createInstancedEntity()
     {
         InstancedEntity *retVal = 0;
 
@@ -440,7 +440,7 @@ class Technique;
         mBoundsDirty = true;
     }
     //-----------------------------------------------------------------------
-    auto InstanceBatch::getMovableType() const -> const String&
+    const String& InstanceBatch::getMovableType() const
     {
         static String sType = "InstanceBatch";
         return sType;
@@ -528,17 +528,17 @@ class Technique;
         // MovableObject::_notifyCurrentCamera( cam ); // it does not suit
     }
     //-----------------------------------------------------------------------
-    auto InstanceBatch::getBoundingBox() const -> const AxisAlignedBox&
+    const AxisAlignedBox& InstanceBatch::getBoundingBox() const
     {
         return mFullBoundingBox;
     }
     //-----------------------------------------------------------------------
-    auto InstanceBatch::getBoundingRadius() const -> Real
+    Real InstanceBatch::getBoundingRadius() const
     {
         return mBoundingRadius;
     }
     //-----------------------------------------------------------------------
-    auto InstanceBatch::getSquaredViewDepth( const Camera* cam ) const -> Real
+    Real InstanceBatch::getSquaredViewDepth( const Camera* cam ) const
     {
         unsigned long currentFrameNumber = Root::getSingleton().getNextFrameNumber();
 
@@ -554,12 +554,12 @@ class Technique;
         return mCachedCameraDist;
     }
     //-----------------------------------------------------------------------
-    auto InstanceBatch::getLights( ) const -> const LightList&
+    const LightList& InstanceBatch::getLights( ) const
     {
         return queryLights();
     }
     //-----------------------------------------------------------------------
-    auto InstanceBatch::getTechnique( ) const -> Technique*
+    Technique* InstanceBatch::getTechnique( ) const
     {
         return mMaterial->getBestTechnique( mMaterialLodIndex, this );
     }
@@ -603,7 +603,7 @@ class Technique;
         mCustomParams[instancedEntity->mInstanceId * mCreator->getNumCustomParams() + idx] = newParam;
     }
     //-----------------------------------------------------------------------
-    auto InstanceBatch::_getCustomParam( InstancedEntity *instancedEntity, unsigned char idx ) -> const Vector4&
+    const Vector4& InstanceBatch::_getCustomParam( InstancedEntity *instancedEntity, unsigned char idx )
     {
         return mCustomParams[instancedEntity->mInstanceId * mCreator->getNumCustomParams() + idx];
     }

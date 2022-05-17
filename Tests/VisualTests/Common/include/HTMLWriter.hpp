@@ -41,7 +41,7 @@ public:
 
 protected:
 
-    virtual auto getOutput() -> Ogre::String
+    virtual Ogre::String getOutput()
     {
         Ogre::StringStream output;
 
@@ -161,7 +161,7 @@ protected:
 
     /** Summarizes the results of a single test (side-by-side images, pass/fail,
      *    more stats and such to come...). Returns an html div with summary markup */
-    auto summarizeSingleResult(const std::vector<const ComparisonResult*>& result, bool passed, const TestBatch& set1, const TestBatch& set2) -> HtmlElement*
+    HtmlElement* summarizeSingleResult(const std::vector<const ComparisonResult*>& result, bool passed, const TestBatch& set1, const TestBatch& set2)
     {
         // container and header
         HtmlElement* container = new HtmlElement("div");
@@ -265,7 +265,7 @@ protected:
     /** Writes a table with some info about a test batch
      *        @param set The set 
      *        @param name The name to use in the header above the table */
-    auto writeBatchInfoTable(const TestBatch& set, Ogre::String name) -> HtmlElement*
+    HtmlElement* writeBatchInfoTable(const TestBatch& set, Ogre::String name)
     {
         // main div
         HtmlElement* column = new HtmlElement("div");
@@ -299,7 +299,7 @@ protected:
     //-----------------------------------------------------------------------
 
     // helper that formats a float nicely for output
-    static auto formatFloat(float num, unsigned int length=6) -> Ogre::String
+    static Ogre::String formatFloat(float num, unsigned int length=6)
     {
         std::stringstream ss;
         ss.setf(std::ios::fixed, std::ios::floatfield);

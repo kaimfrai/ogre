@@ -116,8 +116,8 @@ namespace Ogre
         mNumCustomParams = numCustomParams;
     }
     //----------------------------------------------------------------------
-    auto InstanceManager::getMaxOrBestNumInstancesPerBatch( const String &materialName, size_t suggestedSize,
-                                                                uint16 flags ) -> size_t
+    size_t InstanceManager::getMaxOrBestNumInstancesPerBatch( const String &materialName, size_t suggestedSize,
+                                                                uint16 flags )
     {
         //Get the material
         MaterialPtr mat = MaterialManager::getSingleton().getByName( materialName,
@@ -168,7 +168,7 @@ namespace Ogre
         return retVal;
     }
     //----------------------------------------------------------------------
-    auto InstanceManager::createInstancedEntity( const String &materialName ) -> InstancedEntity*
+    InstancedEntity* InstanceManager::createInstancedEntity( const String &materialName )
     {
         InstanceBatch *instanceBatch;
 
@@ -181,7 +181,7 @@ namespace Ogre
         return instanceBatch->createInstancedEntity();
     }
     //-----------------------------------------------------------------------
-    inline auto InstanceManager::getFreeBatch( const String &materialName ) -> InstanceBatch*
+    inline InstanceBatch* InstanceManager::getFreeBatch( const String &materialName )
     {
         InstanceBatchVec &batchVec = mInstanceBatches[materialName];
 
@@ -199,7 +199,7 @@ namespace Ogre
         return buildNewBatch( materialName, false );
     }
     //-----------------------------------------------------------------------
-    auto InstanceManager::buildNewBatch( const String &materialName, bool firstTime ) -> InstanceBatch*
+    InstanceBatch* InstanceManager::buildNewBatch( const String &materialName, bool firstTime )
     {
         //Get the bone to index map for the batches
         Mesh::IndexMap &idxMap = mMeshReference->getSubMesh(mSubMeshIdx)->blendIndexToBoneIndexMap;
@@ -432,7 +432,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto InstanceManager::getSetting( BatchSettingId id, const String &materialName ) const -> bool
+    bool InstanceManager::getSetting( BatchSettingId id, const String &materialName ) const
     {
         assert( id < NUM_SETTINGS );
 
@@ -443,7 +443,7 @@ namespace Ogre
         //Return default
         return BatchSettings().setting[id];
     }
-    auto InstanceManager::hasSettings(const String& materialName) const -> bool
+    bool InstanceManager::hasSettings(const String& materialName) const
     {
         return mBatchSettings.find(materialName) != mBatchSettings.end();
     }
@@ -687,7 +687,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto InstanceManager::getInstanceBatchIterator( const String &materialName ) const -> InstanceManager::InstanceBatchIterator
+    InstanceManager::InstanceBatchIterator InstanceManager::getInstanceBatchIterator( const String &materialName ) const
     {
         InstanceBatchMap::const_iterator it = mInstanceBatches.find( materialName );
         if(it != mInstanceBatches.end())
