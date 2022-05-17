@@ -28,7 +28,6 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
-#include <format>
 #include <iterator>
 #include <list>
 #include <map>
@@ -190,7 +189,7 @@ class Affine3;
         {
             OGRE_EXCEPT(
                 Exception::ERR_DUPLICATE_ITEM,
-                ::std::format("A bone with the name {} already exists", name),
+                "A bone with the name " + name + " already exists",
                 "Skeleton::createBone" );
         }
         Bone* ret = new Bone(name, handle, this);
@@ -759,10 +758,9 @@ class Affine3;
                      boneHandleMap[srcParent->getHandle()] != destParent->getHandle()))
                 {
                     OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        ::std::format(
                         "Source skeleton incompatible with this skeleton: "
-                        "difference hierarchy between bone '{}"
-                        "' and '{}'.", srcBone->getName(), destBone->getName()),
+                        "difference hierarchy between bone '" + srcBone->getName() +
+                        "' and '" + destBone->getName() + "'.",
                         "Skeleton::_mergeSkeletonAnimations");
                 }
             }

@@ -27,7 +27,6 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <cassert>
-#include <format>
 #include <iterator>
 #include <memory>
 #include <string>
@@ -102,7 +101,7 @@ namespace Ogre
         if (n->getListener())
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                ::std::format("{} cannot monitor node {} since it already has a listener.", mName, n->getName()),
+                mName + " cannot monitor node " + n->getName() + " since it already has a listener.",
                 "RibbonTrail::addNode");
         }
 
