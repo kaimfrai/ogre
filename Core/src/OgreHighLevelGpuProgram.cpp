@@ -228,7 +228,7 @@ namespace Ogre
         // OGRE_VERTEX_SHADER, OGRE_FRAGMENT_SHADER
         tmp = GpuProgram::getProgramTypeName(getType());
         StringUtil::toUpperCase(tmp);
-        defines += ::std::format(",OGRE_{}_SHADER", tmp);
+        defines += ",OGRE_"+tmp+"_SHADER";
 
         if(renderSystem && renderSystem->isReverseDepthBufferEnabled())
             defines += ",OGRE_REVERSED_Z";

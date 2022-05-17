@@ -413,9 +413,8 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
             if(srcmat->getSupportedTechniques().empty())
             {
                 /// No supported techniques -- warn user
-                LogManager::getSingleton().logWarning(
-                    ::std::format("in compilation of Compositor {}"
-                    ": material {} has no supported techniques", mCompositor->getName(), srcmat->getName()));
+                LogManager::getSingleton().logWarning("in compilation of Compositor "
+                    +mCompositor->getName()+::std::format(": material {} has no supported techniques", srcmat->getName()));
                 break;
             }
             srctech = srcmat->getBestTechnique(0);

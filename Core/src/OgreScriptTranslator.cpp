@@ -1306,10 +1306,8 @@ class LodStrategy;
                             {
                                 AbstractNodeList::const_iterator i2 = getNodeAt(prop->values, 2);
                                 if (!getBoolean(*i2, &rule.caseSensitive))
-                                    compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
-                                                       prop->file,
-                                                       prop->line,
-                                                      "gpu_device_rule third argument must be \"true\", \"false\", \"yes\", \"no\", \"on\", or \"off\"");
+                                    compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
+                                                       "gpu_device_rule third argument must be \"true\", \"false\", \"yes\", \"no\", \"on\", or \"off\"");
                             }
 
                             mTechnique->addGPUDeviceNameRule(rule);
@@ -2372,10 +2370,8 @@ class LodStrategy;
 
                     if(!getValue(*i0, mode.u))
                     {
-                        compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
-                                           prop->file,
-                                           prop->line,
-                                           ::std::format("{} not supported as first argument (must be \"wrap\", \"clamp\", \"mirror\", or \"border\")", (*i0)->getValue()));
+                        compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
+                                           (*i0)->getValue() + " not supported as first argument (must be \"wrap\", \"clamp\", \"mirror\", or \"border\")");
                         return;
                     }
                     mode.v = mode.u;
@@ -2385,10 +2381,8 @@ class LodStrategy;
                     {
                         if(!getValue(*i1, mode.v))
                         {
-                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
-                                               prop->file,
-                                               prop->line,
-                                               ::std::format("{} not supported as second argument (must be \"wrap\", \"clamp\", \"mirror\", or \"border\")", (*i1)->getValue()));
+                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
+                                               (*i1)->getValue() + " not supported as second argument (must be \"wrap\", \"clamp\", \"mirror\", or \"border\")");
                         }
                     }
 
@@ -2396,10 +2390,8 @@ class LodStrategy;
                     {
                         if(!getValue(*i2, mode.w))
                         {
-                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
-                                               prop->file,
-                                               prop->line,
-                                               ::std::format("{} not supported as third argument (must be \"wrap\", \"clamp\", \"mirror\", or \"border\")", (*i2)->getValue()));
+                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
+                                               (*i2)->getValue() + " not supported as third argument (must be \"wrap\", \"clamp\", \"mirror\", or \"border\")");
                         }
                     }
 
@@ -2447,18 +2439,14 @@ class LodStrategy;
                         sampler->setFiltering(TFO_ANISOTROPIC);
                         break;
                     default:
-                        compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
-                                           prop->file,
-                                           prop->line,
-                                           ::std::format("{} not supported as first argument (must be \"none\", \"bilinear\", \"trilinear\", or \"anisotropic\")", prop->values.front()->getValue()));
+                        compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
+                                           prop->values.front()->getValue() + " not supported as first argument (must be \"none\", \"bilinear\", \"trilinear\", or \"anisotropic\")");
                     }
                 }
                 else
                 {
-                    compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
-                                       prop->file,
-                                       prop->line,
-                                       ::std::format("{} not supported as first argument (must be \"none\", \"bilinear\", \"trilinear\", or \"anisotropic\")", prop->values.front()->getValue()));
+                    compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
+                                       prop->values.front()->getValue() + " not supported as first argument (must be \"none\", \"bilinear\", \"trilinear\", or \"anisotropic\")");
                 }
             }
             else if(prop->values.size() == 3)
@@ -3105,18 +3093,14 @@ class LodStrategy;
                                 mUnit->setEnvironmentMap(true, TextureUnitState::ENV_NORMAL);
                                 break;
                             default:
-                                compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
-                                                   prop->file,
-                                                   prop->line,
-                                                   ::std::format("{} is not a valid argument (must be \"off\", \"spherical\", \"planar\", \"cubic_reflection\", or \"cubic_normal\")",  prop->values.front()->getValue()));
+                                compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
+                                                   prop->values.front()->getValue() + " is not a valid argument (must be \"off\", \"spherical\", \"planar\", \"cubic_reflection\", or \"cubic_normal\")");
                             }
                         }
                         else
                         {
-                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
-                                               prop->file,
-                                               prop->line,
-                                               ::std::format("{} is not a valid argument (must be \"off\", \"spherical\", \"planar\", \"cubic_reflection\", or \"cubic_normal\")", prop->values.front()->getValue()));
+                            compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
+                                               prop->values.front()->getValue() + " is not a valid argument (must be \"off\", \"spherical\", \"planar\", \"cubic_reflection\", or \"cubic_normal\")");
                         }
                     }
                     break;
@@ -3241,7 +3225,7 @@ class LodStrategy;
                                 break;
                             default:
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
-                                                   ::std::format("{} is not a valid transform type (must be \"scroll_x\", \"scroll_y\", \"scale_x\", \"scale_y\", or \"rotate\")", atom0->value));
+                                                   atom0->value + " is not a valid transform type (must be \"scroll_x\", \"scroll_y\", \"scale_x\", \"scale_y\", or \"rotate\")");
                             }
 
                             switch(atom1->id)
@@ -3262,10 +3246,8 @@ class LodStrategy;
                                 wave = WFT_INVERSE_SAWTOOTH;
                                 break;
                             default:
-                                compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
-                                                   prop->file,
-                                                   prop->line,
-                                                   ::std::format("{} is not a valid waveform type (must be \"sine\", \"triangle\", \"square\", \"sawtooth\", or \"inverse_sawtooth\")", atom1->value));
+                                compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
+                                                   atom1->value + " is not a valid waveform type (must be \"sine\", \"triangle\", \"square\", \"sawtooth\", or \"inverse_sawtooth\")");
                             }
 
                             if(!getReal(*i2, &base) || !getReal(*i3, &freq) || !getReal(*i4, &phase) || !getReal(*i5, &amp))
@@ -3355,10 +3337,8 @@ class LodStrategy;
 
                                 break;
                             default:
-                                compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
-                                                   prop->file,
-                                                   prop->line,
-                                                   ::std::format("{} is not a valid content type (must be \"named\" or \"shadow\" or \"compositor\")", atom->value));
+                                compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
+                                                   atom->value + " is not a valid content type (must be \"named\" or \"shadow\" or \"compositor\")");
                             }
                         }
                         else

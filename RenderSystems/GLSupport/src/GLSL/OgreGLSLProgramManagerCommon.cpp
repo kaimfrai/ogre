@@ -389,7 +389,8 @@ namespace Ogre {
                     }
                     else
                     {
-                        LogManager::getSingleton().logMessage(::std::format("Missing opening brace in GLSL Uniform Block in file {}", filename));
+                        LogManager::getSingleton().logMessage("Missing opening brace in GLSL Uniform Block in file "
+                                                              + filename);
                         break;
                     }
 

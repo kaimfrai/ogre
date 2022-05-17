@@ -136,7 +136,7 @@ void ATI_FS_GLGpuProgram::loadFromSource()
         LogManager::getSingleton().logMessage(buff + mName);
 
         OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
-            ::std::format("Cannot Compile ATI fragment shader : {}\n\n{}", mName, buff) , mName);// +
+            ::std::format("Cannot Compile ATI fragment shader : {}\n\n", mName ) + buff , mName);// + 
     }
 
 
