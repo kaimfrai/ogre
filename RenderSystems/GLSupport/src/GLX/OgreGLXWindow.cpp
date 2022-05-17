@@ -265,7 +265,7 @@ namespace Ogre
         }
 
         LogManager::getSingleton().logMessage(StringUtil::format(
-            "GLXWindow::create colourBufferSize={} gamma={} FSAA={}", bufferSize, mHwGamma, fsaa));
+            "GLXWindow::create colourBufferSize=%d gamma=%d FSAA=%d", bufferSize, mHwGamma, fsaa));
 
         mIsTopLevel = (! mIsExternal && parentWindow == DefaultRootWindow(xDisplay));
 

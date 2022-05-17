@@ -190,7 +190,7 @@ void TargetRenderState::acquirePrograms(Pass* pass)
         if (logProgramNames)
         {
             LogManager::getSingleton().logMessage(StringUtil::format(
-                "RTSS: using {} for Pass {} of '{}'", prog->getName().c_str(), pass->getIndex(), matName));
+                "RTSS: using %s for Pass %d of '%s'", prog->getName().c_str(), pass->getIndex(), matName));
         }
 
         // Bind the created GPU programs to the target pass.
@@ -202,7 +202,7 @@ void TargetRenderState::acquirePrograms(Pass* pass)
     if (hasError)
     {
         LogManager::getSingleton().logError(
-            StringUtil::format("RTSS: failed to create GpuPrograms for Pass {} of '{}'", pass->getIndex(), matName));
+            StringUtil::format("RTSS: failed to create GpuPrograms for Pass %d of '%s'", pass->getIndex(), matName));
     }
 
     mParent = pass;

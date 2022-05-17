@@ -189,7 +189,7 @@ void FunctionInvocation::writeSourceCode(std::ostream& os, const String& targetL
 //-----------------------------------------------------------------------
 static String parameterNullMsg(const String& name, size_t pos)
 {
-    return StringUtil::format("{}: parameter #{} is NULL", name.c_str(), pos);
+    return StringUtil::format("%s: parameter #%zu is NULL", name.c_str(), pos);
 }
 
 void FunctionAtom::pushOperand(ParameterPtr parameter, Operand::OpSemantic opSemantic, Operand::OpMask opMask, int indirectionLevel)

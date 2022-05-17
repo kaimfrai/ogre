@@ -448,7 +448,7 @@ namespace Ogre
                 {
                     // problem loading this glyph, continue
                     LogManager::getSingleton().logError(StringUtil::format(
-                        "Freetype could not load charcode {} in font {}", cp, mSource.c_str()));
+                        "Freetype could not load charcode %u in font %s", cp, mSource.c_str()));
                     continue;
                 }
 
@@ -457,7 +457,7 @@ namespace Ogre
                 {
                     // Yuck, FT didn't detect this but generated a null pointer!
                     LogManager::getSingleton().logWarning(StringUtil::format(
-                        "Freetype did not find charcode {} in font {}", cp, mSource.c_str()));
+                        "Freetype did not find charcode %u in font %s", cp, mSource.c_str()));
                     continue;
                 }
 
