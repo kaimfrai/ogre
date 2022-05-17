@@ -237,7 +237,8 @@ namespace Ogre {
             if (ver != mVersion)
             {
                 OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
-                    ::std::format("Invalid file: version incompatible, file reports {} Serializer is version {}", ver, mVersion),
+                    "Invalid file: version incompatible, file reports " + String(ver) +
+                    ::std::format(" Serializer is version {}", mVersion),
                     "Serializer::readFileHeader");
             }
         }

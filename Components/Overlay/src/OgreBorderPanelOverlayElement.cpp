@@ -459,11 +459,10 @@ namespace Ogre {
     //---------------------------------------------------------------------
     String BorderPanelOverlayElement::getCellUVString(BorderCellIndex idx) const
     {
-        String ret = ::std::format("{} {} {} {}",
-            StringConverter::toString(mBorderUV[idx].u1),
-            StringConverter::toString(mBorderUV[idx].v1),
-            StringConverter::toString(mBorderUV[idx].u2),
-            StringConverter::toString(mBorderUV[idx].v2));
+        String ret = StringConverter::toString(mBorderUV[idx].u1) + " " +
+                    StringConverter::toString(mBorderUV[idx].v1) + " " +
+                    StringConverter::toString(mBorderUV[idx].u2) + " " +
+                    StringConverter::toString(mBorderUV[idx].v2);
         return ret;
     }
     //---------------------------------------------------------------------
@@ -751,10 +750,10 @@ namespace Ogre {
     String CmdBorderSize::doGet(const void* target) const
     {
         const BorderPanelOverlayElement* t = static_cast<const BorderPanelOverlayElement*>(target);
-        return ::std::format("{} {} {} {}",
-            StringConverter::toString(t->getLeftBorderSize()),
-            StringConverter::toString(t->getRightBorderSize()),
-            StringConverter::toString(t->getTopBorderSize()),
+        return String(
+            StringConverter::toString(t->getLeftBorderSize()) + " " +
+            StringConverter::toString(t->getRightBorderSize()) + " " +
+            StringConverter::toString(t->getTopBorderSize()) + " " +
             StringConverter::toString(t->getBottomBorderSize()) );
     }
     void CmdBorderSize::doSet(void* target, const String& val)

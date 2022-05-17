@@ -136,7 +136,7 @@ namespace Ogre {
             (ver != "[Serializer_v1.80]"))
         {
             OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
-                ::std::format("Invalid file: version incompatible, file reports {}", ver),
+                "Invalid file: version incompatible, file reports " + String(ver),
                 "SkeletonSerializer::importSkeleton");
         }
         mVersion = ver;

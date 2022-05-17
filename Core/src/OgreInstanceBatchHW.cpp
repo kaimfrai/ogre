@@ -185,12 +185,11 @@ class Camera;
             8-2-mCreator->getNumCustomParams() ||
             3 + mCreator->getNumCustomParams() >= 8 )
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                ::std::format("There are not enough free TEXCOORDs to hold the "
-                "custom parameters (required: {}). See InstanceManager"
-                "::setNumCustomParams documentation",
-                Ogre::StringConverter::toString( 3 + mCreator->
-                                                        getNumCustomParams() )),
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "There are not enough free TEXCOORDs to hold the "
+                                                        "custom parameters (required: " +
+                                                        Ogre::StringConverter::toString( 3 + mCreator->
+                                                        getNumCustomParams() ) + "). See InstanceManager"
+                                                        "::setNumCustomParams documentation",
                         "InstanceBatchHW::checkSubMeshCompatibility");
         }
 

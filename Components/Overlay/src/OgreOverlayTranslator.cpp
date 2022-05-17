@@ -198,9 +198,8 @@ void ElementTranslator::translate(ScriptCompiler* compiler, const AbstractNodePt
             if(newElement->isContainer())
                 (*overlay)->add2D((OverlayContainer*)newElement);
             else
-                compiler->addError(ScriptCompiler::CE_OBJECTALLOCATIONERROR, obj->file,
-                obj->line,
-                ::std::format("Top level components must be containers, but '{}' is an element", type));
+                compiler->addError(ScriptCompiler::CE_OBJECTALLOCATIONERROR, obj->file, obj->line,
+                                   "Top level components must be containers, but '" + type + "' is an element");
         else
             any_cast<OverlayContainer*>(obj->parent->context)->addChild(newElement);
     }

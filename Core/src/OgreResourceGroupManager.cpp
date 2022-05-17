@@ -1032,7 +1032,8 @@ namespace Ogre {
         if (i == mResourceManagerMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                ::std::format("Cannot locate resource manager for resource type '{}'", resourceType), "ResourceGroupManager::_getResourceManager");
+                "Cannot locate resource manager for resource type '" +
+                resourceType + "'", "ResourceGroupManager::_getResourceManager");
         }
         return i->second;
 
@@ -1386,8 +1387,9 @@ namespace Ogre {
             return grp->name;
 
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-            ::std::format("Unable to derive resource group for {} automatically since the resource was not "
-            "found.", filename),
+            "Unable to derive resource group for " +
+            filename + " automatically since the resource was not "
+            "found.",
             "ResourceGroupManager::findGroupContainingResource");
     }
     //-----------------------------------------------------------------------

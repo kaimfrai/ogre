@@ -319,8 +319,8 @@ namespace Ogre {
         if (preCountIndexes > indexBuffer->getNumIndexes())
         {
             LogManager::getSingleton().logWarning(
-                ::std::format(
-                    "shadow index buffer size to small. Auto increasing buffer size to {}", StringConverter::toString(sizeof(unsigned short) * preCountIndexes)));
+                "shadow index buffer size to small. Auto increasing buffer size to" +
+                StringConverter::toString(sizeof(unsigned short) * preCountIndexes));
 
             SceneManager* pManager = Root::getSingleton()._getCurrentSceneManager();
             if (pManager)

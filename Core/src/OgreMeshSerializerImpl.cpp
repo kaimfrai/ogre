@@ -1095,9 +1095,8 @@ namespace Ogre {
             }
 
             if (seenTexAlias)
-                LogManager::getSingleton().logWarning(
-                    ::std::format("texture aliases for SubMeshes are deprecated - {}",
-                                                      stream->getName()));
+                LogManager::getSingleton().logWarning("texture aliases for SubMeshes are deprecated - " +
+                                                      stream->getName());
 
             if (!stream->eof())
             {

@@ -157,10 +157,8 @@ class RenderQueue;
                 if( itor == clonedMaterials.end() )
                 {
                     //No? Clone it and track it
-                    MaterialPtr cloned = casterMat->clone(
-                        ::std::format("{}/VTFMaterialCaster{}",
-                            mName,
-                            StringConverter::toString(clonedMaterials.size()) ));
+                    MaterialPtr cloned = casterMat->clone( mName + "/VTFMaterialCaster" +
+                                                    StringConverter::toString(clonedMaterials.size()) );
                     technique->setShadowCasterMaterial( cloned );
                     clonedMaterials[casterName] = cloned;
                 }

@@ -1176,8 +1176,8 @@ namespace Ogre {
         // Save
         mMovableObjectFactoryMap[fact->getType()] = fact;
 
-        LogManager::getSingleton().logMessage(
-            ::std::format("MovableObjectFactory for type '{}' registered.", fact->getType()));
+        LogManager::getSingleton().logMessage("MovableObjectFactory for type '" +
+            fact->getType() + "' registered.");
 
     }
     //---------------------------------------------------------------------

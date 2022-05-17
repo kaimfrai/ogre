@@ -99,8 +99,7 @@ void GLGpuNvparseProgram::loadFromSource()
 
         String script = mSource.substr(pos, newPos - pos);
         LogManager::getSingleton().logError("nvparse was removed while extracting a minimal subset for migration!");
-        LogManager::getSingleton().logError(
-            ::std::format("script \"{}\" could not be parsed!", script));
+        LogManager::getSingleton().logError("script \"" + script + "\" could not be parsed!");
 //         nvparse(script.c_str(), 0);
 //
 //         for (char* const * errors= nvparse_get_errors(); *errors; errors++)

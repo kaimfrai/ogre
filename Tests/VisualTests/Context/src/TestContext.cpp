@@ -265,17 +265,12 @@ bool TestContext::frameEnded(const Ogre::FrameEvent& evt)
         if (mCurrentSample->isScreenshotFrame(mCurrentFrame))
         {
             // take a screenshot
-            Ogre::String filename = ::std::format(
-                    "{}{}/{}_{}.png",
-                    mOutputDir,
-                    mBatch->name,
-                    mCurrentSample->getInfo()["Title"],
-                    Ogre::StringConverter::toString(mCurrentFrame));
+            Ogre::String filename = mOutputDir + mBatch->name + "/" +
+                    mCurrentSample->getInfo()["Title"] + "_" +
+                Ogre::StringConverter::toString(mCurrentFrame) + ".png";
             // remember the name of the shot, for later comparison purposes
-            mBatch->images.push_back(
-                ::std::format("{}_{}",
-                              mCurrentSample->getInfo()["Title"],
-                              Ogre::StringConverter::toString(mCurrentFrame)));
+            mBatch->images.push_back(mCurrentSample->getInfo()["Title"] + "_" +
+                                     Ogre::StringConverter::toString(mCurrentFrame));
             mWindow->writeContentsToFile(filename);
         }
 
