@@ -204,7 +204,7 @@ namespace Ogre {
                     {
                         // Backtrack here and allow a backslash normally within the quote
                         if(lastc == backslash)
-                            lexeme = ::std::format("{}\\{}", lexeme , c);
+                            ::std::format("{}\\{}", lexeme = lexeme , c);
                         else
                             lexeme += c;
                     }
