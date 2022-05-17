@@ -987,10 +987,11 @@ namespace Ogre
             {
                 writeAttribute(4, "filtering");
                 writeValue(
-                    ::std::format("{} {} {}",
                     convertFiltering(pTex->getTextureFiltering(FT_MIN))
+                    + " "
                     + convertFiltering(pTex->getTextureFiltering(FT_MAG))
-                    + convertFiltering(pTex->getTextureFiltering(FT_MIP))));
+                    + " "
+                    + convertFiltering(pTex->getTextureFiltering(FT_MIP)));
             }
 
             // Mip biasing

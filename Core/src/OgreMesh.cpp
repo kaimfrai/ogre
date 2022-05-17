@@ -2171,9 +2171,9 @@ namespace Ogre {
                     {
                         // Mixing of morph and pose animation on same data is not allowed
                         OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                            ::std::format("Animation tracks for shared vertex data on mesh {}"
-                            " try to mix vertex animation types, which is "
-                            "not allowed.", mName),
+                            "Animation tracks for shared vertex data on mesh "
+                            + mName + " try to mix vertex animation types, which is "
+                            "not allowed.",
                             "Mesh::_determineAnimationTypes");
                     }
                     mSharedVertexDataAnimationType = track->getAnimationType();
