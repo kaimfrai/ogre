@@ -444,7 +444,7 @@ void ShaderGenerator::addSubRenderStateFactory(SubRenderStateFactory* factory)
     if (itFind != mSubRenderStateFactories.end())
     {
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-            ::std::format("A factory of type '{}' already exists.", factory->getType() ),
+            "A factory of type '" + factory->getType() + "' already exists.",
             "ShaderGenerator::addSubRenderStateFactory");
     }       
     
@@ -472,7 +472,7 @@ SubRenderStateFactory*  ShaderGenerator::getSubRenderStateFactory(size_t index)
     }
 
     OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-        ::std::format("A factory on index {} does not exist.", StringConverter::toString(index) ),
+        "A factory on index " + StringConverter::toString(index) + " does not exist.",
         "ShaderGenerator::addSubRenderStateFactory");
         
     return NULL;
@@ -504,7 +504,7 @@ SubRenderState* ShaderGenerator::createSubRenderState(const String& type)
 
 
     OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-        ::std::format("A factory of type '{}' doesn't exists.", type ),
+        "A factory of type '" + type + "' doesn't exists.",
         "ShaderGenerator::createSubRenderState");
 
     return NULL;
@@ -574,7 +574,7 @@ RenderState* ShaderGenerator::getRenderState(const String& schemeName)
     if (itFind == mSchemeEntriesMap.end())
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-            ::std::format("A scheme named'{}' doesn't exists.", schemeName ),
+            "A scheme named'" + schemeName + "' doesn't exists.",
             "ShaderGenerator::getRenderState"); 
     }   
     
@@ -626,7 +626,7 @@ RenderState* ShaderGenerator::getRenderState(const String& schemeName,
     if (itFind == mSchemeEntriesMap.end())
     {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-            ::std::format("A scheme named'{}' doesn't exists.", schemeName ),
+            "A scheme named'" + schemeName + "' doesn't exists.",
             "ShaderGenerator::getRenderState");
     }
 
@@ -1281,7 +1281,7 @@ void ShaderGenerator::setTargetLanguage(const String& shaderLanguage)
     // Make sure that the shader language is supported.
     if (!mProgramWriterManager->isLanguageSupported(shaderLanguage))
     {
-        OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, ::std::format("'{}' is not supported", shaderLanguage ));
+        OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "'" + shaderLanguage + "' is not supported");
     }
 
     // Case target language changed -> flush the shaders cache.

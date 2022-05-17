@@ -130,7 +130,7 @@ class InstanceManager;
 
             //Reaching here means material is supported, but malformed
             OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
-            ::std::format("Material '{}' is malformed for this instancing technique", mMaterial->getName() ),
+            "Material '" + mMaterial->getName() + "' is malformed for this instancing technique",
             "InstanceBatchShader::calculateMaxNumInstances");
         }
 

@@ -167,7 +167,7 @@ protected:
         HtmlElement* container = new HtmlElement("div");
         container->appendAttribute("id",result[0]->testName);
         container->appendElement("h2")->appendText(result[0]->testName);
-            //+ ::std::format(" (frame {})", Ogre::StringConverter::toString(result.frame) ));
+            //+ " (frame " + Ogre::StringConverter::toString(result.frame) + ")");
         HtmlElement* content = container->appendElement("div");
         // if failed, we give it a different class, and make it red
         content->appendAttribute("class", Ogre::String("contentarea") 
@@ -203,7 +203,7 @@ protected:
 
             // add a frame label if more than one image
             if(result.size() > 1)
-                content->appendElement("h4")->appendText(::std::format("Frame {}:", Ogre::StringConverter::toString(result[i]->frame) ));
+                content->appendElement("h4")->appendText("Frame " + Ogre::StringConverter::toString(result[i]->frame) + ":");
 
             HtmlElement* imageBox = content->appendElement("div");
 
@@ -235,18 +235,18 @@ protected:
                 HtmlElement* mse = imageBox->appendElement("p");
                 mse->appendAttribute("class", "diffreport");
                 mse->appendElement("strong")->appendText(" MSE | ");
-                mse->appendText(::std::format("Overall: {} | ", formatFloat(result[i]->mse) ));
-                mse->appendText(::std::format("R: {} | ", formatFloat(result[i]->mseChannels.r) ));
-                mse->appendText(::std::format("G: {} | ", formatFloat(result[i]->mseChannels.g) ));
-                mse->appendText(::std::format("B: {} |", formatFloat(result[i]->mseChannels.b) ));
+                mse->appendText("Overall: " + formatFloat(result[i]->mse) + " | ");
+                mse->appendText("R: " + formatFloat(result[i]->mseChannels.r) + " | ");
+                mse->appendText("G: " + formatFloat(result[i]->mseChannels.g) + " | ");
+                mse->appendText("B: " + formatFloat(result[i]->mseChannels.b) + " |");
 
                 HtmlElement* psnr = imageBox->appendElement("p");
                 psnr->appendAttribute("class", "diffreport");
                 psnr->appendElement("strong")->appendText("PSNR| ");
-                psnr->appendText(::std::format("Overall: {} | ", formatFloat(result[i]->psnr) ));
-                psnr->appendText(::std::format("R: {} | ", formatFloat(result[i]->psnrChannels.r) ));
-                psnr->appendText(::std::format("G: {} | ", formatFloat(result[i]->psnrChannels.g) ));
-                psnr->appendText(::std::format("B: {} |", formatFloat(result[i]->psnrChannels.b) ));
+                psnr->appendText("Overall: " + formatFloat(result[i]->psnr) + " | ");
+                psnr->appendText("R: " + formatFloat(result[i]->psnrChannels.r) + " | ");
+                psnr->appendText("G: " + formatFloat(result[i]->psnrChannels.g) + " | ");
+                psnr->appendText("B: " + formatFloat(result[i]->psnrChannels.b) + " |");
 
                 HtmlElement* ssim = imageBox->appendElement("p");
                 ssim->appendAttribute("class", "diffreport");

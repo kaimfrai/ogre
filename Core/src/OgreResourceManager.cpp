@@ -219,7 +219,7 @@ namespace Ogre {
 
         if (!res)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        ::std::format("attempting to unload unknown resource: {} in group ", name ) + group);
+                        "attempting to unload unknown resource: " + name + " in group " + group);
 
         if (res)
         {
@@ -294,7 +294,7 @@ namespace Ogre {
 
         if (!res)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        ::std::format("attempting to remove unknown resource: {} in group ", name ) + group);
+                        "attempting to remove unknown resource: " + name + " in group " + group);
 
         if (res)
         {

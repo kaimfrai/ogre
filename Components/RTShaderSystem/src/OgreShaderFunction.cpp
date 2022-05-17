@@ -459,7 +459,7 @@ void Function::addInputParameter(ParameterPtr parameter)
     if (_getParameterBySemantic(mInputParameters, parameter->getSemantic(), parameter->getIndex()).get() != NULL)
     {
         OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
-            ::std::format("Parameter <{}> has equal semantic parameter", parameter->getName() ));
+            "Parameter <" + parameter->getName() + "> has equal semantic parameter");
     }
 
     addParameter(mInputParameters, parameter);
@@ -472,7 +472,7 @@ void Function::addOutputParameter(ParameterPtr parameter)
     if (_getParameterBySemantic(mOutputParameters, parameter->getSemantic(), parameter->getIndex()).get() != NULL)
     {
         OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
-            ::std::format("Parameter <{}> has equal semantic parameter", parameter->getName() ));
+            "Parameter <" + parameter->getName() + "> has equal semantic parameter");
     }
 
     addParameter(mOutputParameters, parameter);
@@ -509,14 +509,14 @@ void Function::addParameter(ShaderParameterList& parameterList, ParameterPtr par
     if (_getParameterByName(mInputParameters, parameter->getName()).get() != NULL)
     {
         OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
-            ::std::format("Parameter <{}> already declared", parameter->getName() ));
+            "Parameter <" + parameter->getName() + "> already declared");
     }
 
     // Check that parameter with the same name doest exist in output parameters list.
     if (_getParameterByName(mOutputParameters, parameter->getName()).get() != NULL)
     {
         OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
-            ::std::format("Parameter <{}> already declared", parameter->getName() ));
+            "Parameter <" + parameter->getName() + "> already declared");
     }
 
 

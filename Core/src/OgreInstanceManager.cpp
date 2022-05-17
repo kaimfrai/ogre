@@ -693,7 +693,7 @@ namespace Ogre
         if(it != mInstanceBatches.end())
             return { it->second.begin(), it->second.end() };
 
-        OGRE_EXCEPT(Exception::ERR_INVALID_STATE, ::std::format("Cannot create instance batch iterator. "
-                    "Material {} cannot be found", materialName ));
+        OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "Cannot create instance batch iterator. "
+                    "Material " + materialName + " cannot be found");
     }
 }

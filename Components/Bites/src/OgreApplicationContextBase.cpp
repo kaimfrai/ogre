@@ -281,7 +281,7 @@ void ApplicationContextBase::destroyWindow(const Ogre::String& name)
         return;
     }
 
-    OGRE_EXCEPT(Ogre::Exception::ERR_INVALIDPARAMS, ::std::format("No window named '{}'", name));
+    OGRE_EXCEPT(Ogre::Exception::ERR_INVALIDPARAMS, "No window named '"+name+"'");
 }
 
 void ApplicationContextBase::_destroyWindow(const NativeWindowPair& win)
@@ -362,7 +362,7 @@ void ApplicationContextBase::locateResources()
 
     if (Ogre::FileSystemLayer::fileExists(resourcesPath))
     {
-        Ogre::LogManager::getSingleton().logMessage(::std::format("Parsing '{}'", resourcesPath));
+        Ogre::LogManager::getSingleton().logMessage("Parsing '"+resourcesPath+"'");
         cf.load(resourcesPath);
     }
     else
@@ -397,7 +397,7 @@ void ApplicationContextBase::locateResources()
 
             if((type == "Zip" || type == "FileSystem") && !Ogre::FileSystemLayer::fileExists(arch))
             {
-                Ogre::LogManager::getSingleton().logWarning(::std::format("resource location '{}' does not exist - skipping", arch));
+                Ogre::LogManager::getSingleton().logWarning("resource location '"+arch+"' does not exist - skipping");
                 continue;
             }
 

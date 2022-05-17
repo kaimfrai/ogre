@@ -58,12 +58,12 @@ namespace Ogre {
         for (ti = triangles.begin(); ti != tiend; ++ti, ++num)
         {
             Triangle& t = *ti;
-            l->logMessage(::std::format("Triangle {} = {", StringConverter::toString(num) ) +
+            l->logMessage("Triangle " + StringConverter::toString(num) + " = {" +
                 "indexSet=" + StringConverter::toString(t.indexSet) + ", " + 
                 "vertexSet=" + StringConverter::toString(t.vertexSet) + ", " + 
                 "v0=" + StringConverter::toString(t.vertIndex[0]) + ", " + 
                 "v1=" + StringConverter::toString(t.vertIndex[1]) + ", " + 
-                ::std::format("v2={}}", StringConverter::toString(t.vertIndex[2]) )); 
+                "v2=" + StringConverter::toString(t.vertIndex[2]) + "}"); 
         }
         iend = edgeGroups.end();
         for (i = edgeGroups.begin(); i != iend; ++i)
@@ -75,19 +75,13 @@ namespace Ogre {
             {
                 Edge& e = *ei;
                 l->logMessage(
-                    ::std::format("Edge {} = {{\n"
-                    "  tri0={}, \n"
-                    "  tri1={}, \n"
-                    "  v0={}, \n"
-                    "  v1={}, \n"
-                    "  degenerate={} \n}}",
-                    StringConverter::toString(num),
-                    StringConverter::toString(e.triIndex[0]),
-                    StringConverter::toString(e.triIndex[1]),
-                    StringConverter::toString(e.vertIndex[0]),
-                    StringConverter::toString(e.vertIndex[1]),
-                    StringConverter::toString(e.degenerate) )
-                    );
+                    "Edge " + StringConverter::toString(num) + " = {\n" + 
+                    "  tri0=" + StringConverter::toString(e.triIndex[0]) + ", \n" + 
+                    "  tri1=" + StringConverter::toString(e.triIndex[1]) + ", \n" + 
+                    "  v0=" + StringConverter::toString(e.vertIndex[0]) + ", \n" + 
+                    "  v1=" + StringConverter::toString(e.vertIndex[1]) + ", \n"
+                    "  degenerate=" + StringConverter::toString(e.degenerate) + " \n"
+                    "}"); 
             }
         }
     }
@@ -504,7 +498,7 @@ namespace Ogre {
             l->logMessage("Original triangle set " + 
                 StringConverter::toString(mGeometryList[i].indexSet) + " - index count " + 
                 StringConverter::toString(iData->indexCount) + " - " + 
-            ::std::format("vertex set {} - ", StringConverter::toString(mGeometryList[i].vertexSet) ) + 
+            "vertex set " + StringConverter::toString(mGeometryList[i].vertexSet) + " - " + 
             "operationType " + StringConverter::toString(mGeometryList[i].opType));
             // Get the indexes ready for reading
             HardwareBufferLockGuard indexLock(iData->indexBuffer, HardwareBuffer::HBL_READ_ONLY);
@@ -531,7 +525,7 @@ namespace Ogre {
                     else
                     {
                         l->logMessage("Triangle " + StringConverter::toString(j) + 
-                            ::std::format(": ({})", StringConverter::toString(*p32Idx++) ));
+                            ": (" + StringConverter::toString(*p32Idx++) + ")");
                         j++;
                     }
                 }
@@ -552,7 +546,7 @@ namespace Ogre {
                     else
                     {
                         l->logMessage("Triangle " + StringConverter::toString(j) + 
-                            ::std::format(": ({})", StringConverter::toString(*p16Idx++) ));
+                            ": (" + StringConverter::toString(*p16Idx++) + ")");
                         j++;
                     }
                 }

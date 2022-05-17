@@ -410,7 +410,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
             {
                 /// No supported techniques -- warn user
                 LogManager::getSingleton().logWarning("in compilation of Compositor "
-                    +mCompositor->getName()+::std::format(": material {} has no supported techniques", srcmat->getName()));
+                    +mCompositor->getName()+": material "+srcmat->getName()+" has no supported techniques");
                 break;
             }
             srctech = srcmat->getBestTechnique(0);
@@ -428,7 +428,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
                 if (isCompute && !targetpass->hasGpuProgram(GPT_COMPUTE_PROGRAM))
                 {
                     LogManager::getSingleton().logError(
-                        ::std::format("in compilation of Compositor {}: material ", mCompositor->getName() ) +
+                        "in compilation of Compositor " + mCompositor->getName() + ": material " +
                         srcmat->getName() + " has no compute program");
                     continue;
                 }
@@ -447,7 +447,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
                         {
                             /// Texture unit not there
                             LogManager::getSingleton().logWarning("in compilation of Compositor "
-                                +mCompositor->getName()+::std::format(": material {} texture unit ", srcmat->getName())
+                                +mCompositor->getName()+": material "+srcmat->getName()+" texture unit "
                                 +StringConverter::toString(x)+" out of bounds");
                         }
                     }
@@ -720,7 +720,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
             if (def->formatList.size() > 1)
             {
                 String MRTbaseName = "mrt/c" + StringConverter::toString(dummyCounter++) + 
-                ::std::format("/{}/", def->name ) + mChain->getViewport()->getTarget()->getName();
+                "/" + def->name + "/" + mChain->getViewport()->getTarget()->getName();
                 MultiRenderTarget* mrt = 
                 Root::getSingleton().getRenderSystem()->createMultiRenderTarget(MRTbaseName);
                 mLocalMRTs[def->name] = mrt;
@@ -765,7 +765,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
             else
             {
                 String texName =  "c" + StringConverter::toString(dummyCounter++) + 
-                ::std::format("/{}/", def->name ) + mChain->getViewport()->getTarget()->getName();
+                "/" + def->name + "/" + mChain->getViewport()->getTarget()->getName();
                 
                 // space in the name mixup the cegui in the compositor demo
                 // this is an auto generated name - so no spaces can't hart us.
@@ -1050,14 +1050,14 @@ CompositorInstance::resolveTexReference(const CompositionTechnique::TextureDefin
 
         if (refTexDef && refTexDef->scope != CompositionTechnique::TS_GLOBAL)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        ::std::format("Referenced texture '{}' must have global scope", texDef->refTexName ));
+                        "Referenced texture '" + texDef->refTexName + "' must have global scope");
     }
 
     OgreAssert(refTexDef, "Referencing non-existent compositor texture");
 
     if (refTexDef->scope == CompositionTechnique::TS_LOCAL)
         OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                    ::std::format("Referenced texture '{}' has only local scope", texDef->refTexName ));
+                    "Referenced texture '" + texDef->refTexName + "' has only local scope");
 
     return refTexDef;
 }

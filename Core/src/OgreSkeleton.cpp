@@ -159,7 +159,7 @@ class Affine3;
         {
             OGRE_EXCEPT(
                 Exception::ERR_DUPLICATE_ITEM,
-                ::std::format("A bone with the handle {} already exists", StringConverter::toString(handle) ),
+                "A bone with the handle " + StringConverter::toString(handle) + " already exists",
                 "Skeleton::createBone" );
         }
         Bone* ret = new Bone(handle, this);
@@ -182,7 +182,7 @@ class Affine3;
         {
             OGRE_EXCEPT(
                 Exception::ERR_DUPLICATE_ITEM,
-                ::std::format("A bone with the handle {} already exists", StringConverter::toString(handle) ),
+                "A bone with the handle " + StringConverter::toString(handle) + " already exists",
                 "Skeleton::createBone" );
         }
         // Check name not used
@@ -304,7 +304,7 @@ class Affine3;
         {
             OGRE_EXCEPT(
                 Exception::ERR_DUPLICATE_ITEM,
-                ::std::format("An animation with the name {} already exists", name ),
+                "An animation with the name " + name + " already exists",
                 "Skeleton::createAnimation");
         }
 
@@ -525,7 +525,7 @@ class Affine3;
 
         if (i == mBoneListByName.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Bone named '{}' not found.", name ), 
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Bone named '" + name + "' not found.", 
                 "Skeleton::getBone");
         }
 

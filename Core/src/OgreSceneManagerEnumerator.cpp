@@ -132,7 +132,7 @@ class RenderSystem;
         }
 
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-            ::std::format("No metadata found for scene manager of type '{}'", typeName ),
+            "No metadata found for scene manager of type '" + typeName + "'",
             "SceneManagerEnumerator::createSceneManager");
 
     }
@@ -144,7 +144,7 @@ class RenderSystem;
         if (mInstances.find(instanceName) != mInstances.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
-                ::std::format("SceneManager instance called '{}' already exists", instanceName ),
+                "SceneManager instance called '" + instanceName + "' already exists",
                 "SceneManagerEnumerator::createSceneManager");
         }
 
@@ -172,7 +172,7 @@ class RenderSystem;
         {
             // Error!
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                ::std::format("No factory found for scene manager of type '{}'", typeName ),
+                "No factory found for scene manager of type '" + typeName + "'",
                 "SceneManagerEnumerator::createSceneManager");
         }
 
@@ -216,7 +216,7 @@ class RenderSystem;
         else
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                ::std::format("SceneManager instance with name '{}' not found.", instanceName ),
+                "SceneManager instance with name '" + instanceName + "' not found.",
                 "SceneManagerEnumerator::getSceneManager");
         }
 

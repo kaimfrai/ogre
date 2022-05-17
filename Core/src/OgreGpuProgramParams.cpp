@@ -360,7 +360,7 @@ namespace Ogre
         if (mNamedConstants.map.find(name) != mNamedConstants.map.end())
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        ::std::format("Constant entry with name '{}' already exists. ", name ),
+                        "Constant entry with name '" + name + "' already exists. ",
                         "GpuSharedParameters::addConstantDefinition");
         }
         GpuConstantDefinition def;
@@ -410,7 +410,7 @@ namespace Ogre
         {
             //FIXME Is this the right exception type?
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        ::std::format("Constant entry with name '{}' is not a known type.", name ),
+                        "Constant entry with name '" + name + "' is not a known type.",
                         "GpuSharedParameters::addConstantDefinition");
         }
 
@@ -450,7 +450,7 @@ namespace Ogre
         if (i == mNamedConstants.map.end())
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        ::std::format("Constant entry with name '{}' does not exist. ", name ),
+                        "Constant entry with name '" + name + "' does not exist. ",
                         "GpuSharedParameters::getConstantDefinition");
         }
         return i->second;
@@ -1367,7 +1367,7 @@ namespace Ogre
 			{
 				String knownNames;
                 OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-				::std::format("Parameter called {} does not exist. ", name ) + knownNames,
+				"Parameter called " + name + " does not exist. " + knownNames,
                             "GpuProgramParameters::_findNamedConstantDefinition");
 			}
             return 0;

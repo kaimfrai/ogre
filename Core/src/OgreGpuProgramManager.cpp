@@ -262,7 +262,7 @@ namespace {
         if (mSharedParametersMap.find(name) != mSharedParametersMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                ::std::format("The shared parameter set '{}' already exists!", name ), 
+                "The shared parameter set '" + name + "' already exists!", 
                 "GpuProgramManager::createSharedParameters");
         }
         GpuSharedParametersPtr ret(new GpuSharedParameters(name));
@@ -276,7 +276,7 @@ namespace {
         if (i == mSharedParametersMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                ::std::format("No shared parameter set with name '{}'!", name ), 
+                "No shared parameter set with name '" + name + "'!", 
                 "GpuProgramManager::getSharedParameters");
         }
         return i->second;

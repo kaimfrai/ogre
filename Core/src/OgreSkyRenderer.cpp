@@ -103,7 +103,7 @@ void SceneManager::SkyPlaneRenderer::setSkyPlane(
         if (!m)
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                ::std::format("Sky plane material '{}' not found.", materialName ),
+                "Sky plane material '" + materialName + "' not found.",
                 "SceneManager::setSkyPlane");
         }
         // Make sure the material doesn't update the depth buffer
@@ -195,7 +195,7 @@ void SceneManager::SkyBoxRenderer::setSkyBox(
         if (!m)
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                ::std::format("Sky box material '{}' not found.", materialName ),
+                "Sky box material '" + materialName + "' not found.",
                 "SceneManager::setSkyBox");
         }
         // Ensure loaded
@@ -331,7 +331,7 @@ void SceneManager::SkyDomeRenderer::setSkyDome(
         if (!m)
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                ::std::format("Sky dome material '{}' not found.", materialName ),
+                "Sky dome material '" + materialName + "' not found.",
                 "SceneManager::setSkyDome");
         }
         // Make sure the material doesn't update the depth buffer

@@ -222,7 +222,7 @@ namespace Ogre
                 case FIND_OPEN_BRACE:
                     if (tokens[0] != "{" || tokens.size() != 1)
                     {
-                        logParseError(::std::format("Expected '{' got: {}. Continuing to next line.", line ));
+                        logParseError("Expected '{' got: " + line + ". Continuing to next line.");
                     }
                     else
                     {
@@ -466,7 +466,7 @@ namespace Ogre
         if (mCurrentLine != 0 && mCurrentStream)
         {
             LogManager::getSingleton().logMessage(
-                ::std::format("Error in .rendercaps {}:", mCurrentStream->getName() ) + StringConverter::toString(mCurrentLineNumber) +
+                "Error in .rendercaps " + mCurrentStream->getName() + ":" + StringConverter::toString(mCurrentLineNumber) +
                 " : " + error);
         }
         else if (mCurrentStream)

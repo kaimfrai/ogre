@@ -160,7 +160,7 @@ namespace Ogre
             outMaterialName = pMat->getName();
         }
 
-        LogManager::getSingleton().logMessage(::std::format("MaterialSerializer : writing material {} to queue.", outMaterialName ), LML_NORMAL);
+        LogManager::getSingleton().logMessage("MaterialSerializer : writing material " + outMaterialName + " to queue.", LML_NORMAL);
 
         bool skipWriting = false;
 

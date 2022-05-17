@@ -83,7 +83,7 @@ namespace Ogre {
     void MeshSerializerImpl::exportMesh(const Mesh* pMesh, 
         const DataStreamPtr stream, Endian endianMode)
     {
-        LogManager::getSingleton().logMessage(::std::format("MeshSerializer writing mesh data to stream {}...", stream->getName() ));
+        LogManager::getSingleton().logMessage("MeshSerializer writing mesh data to stream " + stream->getName() + "...");
 
         // Decide on endian mode
         determineEndianness(endianMode);
@@ -99,7 +99,7 @@ namespace Ogre {
         if (!mStream->isWriteable())
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                ::std::format("Unable to use stream {} for writing", mStream->getName() ),
+                "Unable to use stream " + mStream->getName() + " for writing",
                 "MeshSerializerImpl::exportMesh");
         }
 
@@ -1002,11 +1002,10 @@ namespace Ogre {
         }
         else
         {
-            LogManager::getSingleton().logWarning(
-                ::std::format("Can't assign material '"
-                "' to SubMesh of '{}' because this "
-                "Material does not exist in group '{}'. Have you forgotten to define it in a "
-                ".material script?", materialName, pMesh->getName(), pMesh->getGroup()));
+            LogManager::getSingleton().logWarning("Can't assign material '" + materialName +
+                "' to SubMesh of '" + pMesh->getName() + "' because this "
+                "Material does not exist in group '"+pMesh->getGroup()+"'. Have you forgotten to define it in a "
+                ".material script?");
         }
 
         // bool useSharedVertices

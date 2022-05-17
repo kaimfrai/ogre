@@ -95,7 +95,7 @@ class ResourceManager;
             if (deleg->getType() != getType())
             {
                 LogManager::getSingleton().logError("unified program '" + getName() +
-                                                    ::std::format("' delegating to program with different type '{}'", dn ));
+                                                    "' delegating to program with different type '" + dn + "'");
                 continue;
             }
 

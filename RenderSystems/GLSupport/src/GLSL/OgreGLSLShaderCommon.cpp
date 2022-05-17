@@ -53,8 +53,8 @@ class ResourceManager;
     String GLSLShaderCommon::getResourceLogName() const
     {
         if(mLoadFromFile)
-            return ::std::format("'{}'", mFilename );
-        return ::std::format("'{}'", mName);
+            return "'" + mFilename + "'";
+        return "'"+mName+"'";
     }
 
     //-----------------------------------------------------------------------

@@ -801,7 +801,7 @@ namespace Ogre {
                     light->setType(Light::LT_SPOTLIGHT);
                 else
                     OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        ::std::format("Invalid light type '{}'.", ni->second ),
+                        "Invalid light type '" + ni->second + "'.",
                         "LightFactory::createInstance");
             }
 

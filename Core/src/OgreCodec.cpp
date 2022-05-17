@@ -82,10 +82,10 @@ class Any;
             if(msMapCodecs.empty())
                 formats_str = "There are no formats supported (no codecs registered).";
             else
-                formats_str = ::std::format("Supported formats are: {}.", StringConverter::toString(getExtensions()) );
+                formats_str = "Supported formats are: " + StringConverter::toString(getExtensions()) + ".";
 
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                        ::std::format("Can not find codec for '{}' format.\n", extension ) + formats_str);
+                        "Can not find codec for '" + extension + "' format.\n" + formats_str);
         }
 
         return i->second;

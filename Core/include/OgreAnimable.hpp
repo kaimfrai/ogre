@@ -285,7 +285,7 @@ namespace Ogre {
         virtual AnimableValuePtr createAnimableValue(const String& valueName)
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                ::std::format("No animable value named '{}' present.", valueName ), 
+                "No animable value named '" + valueName + "' present.", 
                 "AnimableObject::createAnimableValue");
         }
 

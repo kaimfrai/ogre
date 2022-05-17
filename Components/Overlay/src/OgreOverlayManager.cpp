@@ -128,7 +128,7 @@ class RenderQueue;
         else
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
-                ::std::format("Overlay with name '{}' already exists!", name ),
+                "Overlay with name '" + name + "' already exists!",
                 "OverlayManager::create");
         }
 
@@ -155,7 +155,7 @@ class RenderQueue;
         bool succ = mOverlayMap.emplace(overlay->getName(), overlay).second;
         if(succ) return;
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-                    ::std::format("Overlay with name '{}' already exists!", overlay->getName() ));
+                    "Overlay with name '" + overlay->getName() + "' already exists!");
     }
     //---------------------------------------------------------------------
     void OverlayManager::destroy(const String& name)
@@ -164,7 +164,7 @@ class RenderQueue;
         if (i == mOverlayMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                ::std::format("Overlay with name '{}' not found.", name ),
+                "Overlay with name '" + name + "' not found.",
                 "OverlayManager::destroy");
         }
         else
@@ -353,7 +353,7 @@ class RenderQueue;
         ElementMap::iterator ii = mElements.find(name);
         if (ii == mElements.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("OverlayElement with name {} not found.", name ));
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "OverlayElement with name " + name + " not found.");
         }
 
         return ii->second;
