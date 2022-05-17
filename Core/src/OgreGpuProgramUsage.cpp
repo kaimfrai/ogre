@@ -147,8 +147,8 @@ namespace Ogre
             String yourType = GpuProgram::getProgramTypeName(mProgram->getType());
 
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                ::std::format("{} is a {} program, but you are assigning it to a "
-                "{} program slot. This is invalid", mProgram->getName(), yourType, myType));
+                mProgram->getName() + ::std::format(" is a {} program, but you are assigning it to a "
+                "{} program slot. This is invalid", yourType, myType));
 
         }
     }

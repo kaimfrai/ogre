@@ -83,8 +83,8 @@ public:
         // load manually, so this can be done without all of Ogre initialized (i.e. for a 
         // command line utility for comparing test sets or something to that effect)
         // The FreeImage codecs must be loaded for this to work, but no resource stuff is needed.
-        std::ifstream file1(::std::format("{}/{}.png", mDirectory1, image ), std::ios::in | std::ios::binary);
-        std::ifstream file2(::std::format("{}/{}.png", mDirectory2 , image ), std::ios::in | std::ios::binary);
+        std::ifstream file1(Ogre::String(mDirectory1 + ::std::format("/{}.png", image )).c_str(), std::ios::in | std::ios::binary);
+        std::ifstream file2(Ogre::String(mDirectory2 + ::std::format("/{}.png", image )).c_str(), std::ios::in | std::ios::binary);
         Ogre::DataStreamPtr data1 = Ogre::DataStreamPtr(
             new Ogre::FileStreamDataStream(&file1, false));
         Ogre::DataStreamPtr data2 = Ogre::DataStreamPtr(

@@ -75,7 +75,7 @@ namespace Ogre
         if (logMessage.empty())
             return msg;
 
-        ::std::format("{}\n{}", logMessage = msg , logMessage);
+        logMessage = msg + ::std::format("\n{}", logMessage);
 
         LogManager::getSingleton().logMessage(LML_CRITICAL, logMessage);
 

@@ -805,8 +805,7 @@ namespace Ogre {
         OverlayElement* newElement;
 
         newElement = OverlayManager::getSingleton().createOverlayElement(
-            getTypeName(),
-            ::std::format("{}/{}", instanceName , mName));
+            getTypeName(), instanceName + ::std::format("/{}", mName));
         copyParametersTo(newElement);
 
         return newElement;

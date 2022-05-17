@@ -224,7 +224,7 @@ void Compositor::createGlobalTextures()
                     p != def->formatList.end(); ++p, ++atch)
                 {
 
-                    String texname = ::std::format("{}/{}", MRTbaseName, atch);
+                    String texname = MRTbaseName + ::std::format("/{}", StringConverter::toString(atch));
                     TexturePtr tex;
                     
                     tex = TextureManager::getSingleton().createManual(

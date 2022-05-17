@@ -476,7 +476,7 @@ void SelectMenu::setItems(const Ogre::StringVector &items)
         Ogre::BorderPanelOverlayElement* e =
                 (Ogre::BorderPanelOverlayElement*)Ogre::OverlayManager::getSingleton().createOverlayElementFromTemplate
                 ("SdkTrays/SelectMenuItem", "BorderPanel",
-                 ::std::format("{}/Item{}", mExpandedBox->getName(), Ogre::StringConverter::toString(i + 1)));
+                 mExpandedBox->getName() + ::std::format("/Item{}", Ogre::StringConverter::toString(i + 1)));
 
         e->setTop(6 + i * (mSmallBox->getHeight() - 8));
         e->setWidth(mExpandedBox->getWidth() - 32);
@@ -1165,7 +1165,7 @@ TrayManager::TrayManager(const Ogre::String &name, Ogre::RenderWindow *window, T
     for (unsigned int i = 0; i < 9; i++)    // make the real trays
     {
         mTrays[i] = (Ogre::OverlayContainer*)om.createOverlayElementFromTemplate
-                ("SdkTrays/Tray", "BorderPanel", ::std::format("{}{}Tray", nameBase , trayNames[i]));
+                ("SdkTrays/Tray", "BorderPanel", nameBase + ::std::format("{}Tray", trayNames[i]));
         mTraysLayer->add2D(mTrays[i]);
 
         mTrayWidgetAlign[i] = Ogre::GHA_CENTER;
