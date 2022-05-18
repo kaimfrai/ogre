@@ -150,7 +150,7 @@ public:
     /// Stencil value to set in case FBT_STENCIL is set
     unsigned short stencil;
 
-    virtual void execute(SceneManager *sm, RenderSystem *rs)
+    void execute(SceneManager *sm, RenderSystem *rs) override
     {
         if((buffers & FBT_COLOUR) && chain) // if chain is present, query colour from dst viewport
           colour = chain->getViewport()->getBackgroundColour();
@@ -209,7 +209,7 @@ public:
         mQuadFarCornersViewSpace = farCornersViewSpace;
     }
    
-    virtual void execute(SceneManager *sm, RenderSystem *rs)
+    void execute(SceneManager *sm, RenderSystem *rs) override
     {
         // Fire listener
         instance->_fireNotifyMaterialRender(pass_id, mat);
@@ -264,7 +264,7 @@ public:
 
     String mSchemeName;
 
-    virtual void execute(SceneManager *sm, RenderSystem *rs)
+    void execute(SceneManager *sm, RenderSystem *rs) override
     {
         MaterialManager& matMgr = MaterialManager::getSingleton();
         mPreviousScheme = matMgr.getActiveScheme();
@@ -287,7 +287,7 @@ public:
     
     const RSSetSchemeOperation* mSetOperation;
 
-    virtual void execute(SceneManager *sm, RenderSystem *rs)
+    void execute(SceneManager *sm, RenderSystem *rs) override
     {
         MaterialManager::getSingleton().setActiveScheme(mSetOperation->getPreviousScheme());
         sm->setLateMaterialResolving(mSetOperation->getPreviousLateResolving());
@@ -310,7 +310,7 @@ public:
         technique = mat->getBestTechnique();
     }
 
-    void execute(SceneManager *sm, RenderSystem *rs)
+    void execute(SceneManager *sm, RenderSystem *rs) override
     {
         // Fire listener
         instance->_fireNotifyMaterialRender(pass_id, mat);

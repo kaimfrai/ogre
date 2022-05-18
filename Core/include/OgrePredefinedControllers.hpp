@@ -67,10 +67,10 @@ class TextureUnitState;
 
         static ControllerValueRealPtr create() { return std::make_shared<FrameTimeControllerValue>(); }
 
-        bool frameEnded(const FrameEvent &evt);
-        bool frameStarted(const FrameEvent &evt);
-        [[nodiscard]] Real getValue() const;
-        void setValue(Real value);
+        bool frameEnded(const FrameEvent &evt) override;
+        bool frameStarted(const FrameEvent &evt) override;
+        [[nodiscard]] Real getValue() const override;
+        void setValue(Real value) override;
         [[nodiscard]] Real getTimeFactor() const;
         void setTimeFactor(Real tf);
         [[nodiscard]] Real getFrameDelay() const;
@@ -97,10 +97,10 @@ class TextureUnitState;
 
         /** Gets the frame number as a parametric value in the range [0,1]
         */
-        [[nodiscard]] Real getValue() const;
+        [[nodiscard]] Real getValue() const override;
         /** Sets the frame number as a parametric value in the range [0,1]; the actual frame number is (value * numFrames) % numFrames).
         */
-        void setValue(Real value);
+        void setValue(Real value) override;
 
     };
     //-----------------------------------------------------------------------
@@ -144,8 +144,8 @@ class TextureUnitState;
             return std::make_shared<TexCoordModifierControllerValue>(t, translateU, translateV, scaleU, scaleV, rotate);
         }
 
-        [[nodiscard]] Real getValue() const;
-        void setValue(Real value);
+        [[nodiscard]] Real getValue() const override;
+        void setValue(Real value) override;
 
     };
 
@@ -184,8 +184,8 @@ class TextureUnitState;
             return std::make_shared<FloatGpuParameterControllerValue>(params, index);
         }
 
-        [[nodiscard]] Real getValue() const;
-        void setValue(Real value);
+        [[nodiscard]] Real getValue() const override;
+        void setValue(Real value) override;
 
     };
     //-----------------------------------------------------------------------
@@ -207,7 +207,7 @@ class TextureUnitState;
             return std::make_shared<PassthroughControllerFunction>(deltaInput);
         }
 
-        Real calculate(Real source);
+        Real calculate(Real source) override;
     };
 
     /** Predefined controller function for dealing with animation.
@@ -232,7 +232,7 @@ class TextureUnitState;
             return std::make_shared<AnimationControllerFunction>(sequenceTime, timeOffset);
         }
 
-        Real calculate(Real source);
+        Real calculate(Real source) override;
 
         /** Set the time value manually. */
         void setTime(Real timeVal);
@@ -263,7 +263,7 @@ class TextureUnitState;
             return std::make_shared<ScaleControllerFunction>(scalefactor, deltaInput);
         }
 
-        Real calculate(Real source);
+        Real calculate(Real source) override;
     };
 
     //-----------------------------------------------------------------------
@@ -313,7 +313,7 @@ class TextureUnitState;
             return std::make_shared<WaveformControllerFunction>(wType, base, frequency, phase, amplitude, deltaInput, dutyCycle);
         }
 
-        Real calculate(Real source);
+        Real calculate(Real source) override;
     };
 
     //-----------------------------------------------------------------------
@@ -347,7 +347,7 @@ class TextureUnitState;
             return std::make_shared<LinearControllerFunction>(keys, values, frequency, deltaInput);
         }
 
-        Real calculate(Real source);
+        Real calculate(Real source) override;
     };
     //-----------------------------------------------------------------------
     /** @} */

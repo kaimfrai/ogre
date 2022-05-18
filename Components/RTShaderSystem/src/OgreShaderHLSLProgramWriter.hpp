@@ -54,12 +54,12 @@ public:
     HLSLProgramWriter();
 
     /** Class destructor */
-    virtual ~HLSLProgramWriter();
+    ~HLSLProgramWriter() override;
 
     /** 
     @see ProgramWriter::getTargetLanguage.
     */
-    [[nodiscard]] virtual const String& getTargetLanguage() const { return TargetLanguage; }
+    [[nodiscard]] const String& getTargetLanguage() const override { return TargetLanguage; }
 
     static String TargetLanguage;
 };

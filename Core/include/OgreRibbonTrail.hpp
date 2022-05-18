@@ -89,7 +89,7 @@ template <typename T> class Controller;
         RibbonTrail(const String& name, size_t maxElements = 20, size_t numberOfChains = 1, 
             bool useTextureCoords = true, bool useVertexColours = true);
         /// destructor
-        virtual ~RibbonTrail();
+        ~RibbonTrail() override;
 
         typedef std::vector<Node*> NodeList;
         typedef ConstVectorIterator<NodeList> NodeIterator;
@@ -116,11 +116,11 @@ template <typename T> class Controller;
         virtual Real getTrailLength() const { return mTrailLength; }
 
         /** @copydoc BillboardChain::setMaxChainElements */
-        void setMaxChainElements(size_t maxElements);
+        void setMaxChainElements(size_t maxElements) override;
         /** @copydoc BillboardChain::setNumberOfChains */
-        void setNumberOfChains(size_t numChains);
+        void setNumberOfChains(size_t numChains) override;
         /** @copydoc BillboardChain::clearChain */
-        void clearChain(size_t chainIndex);
+        void clearChain(size_t chainIndex) override;
 
         /** Set the starting ribbon colour for a given segment. 
         @param chainIndex The index of the chain
@@ -171,9 +171,9 @@ template <typename T> class Controller;
         const ColourValue& getColourChange(size_t chainIndex) const { return mDeltaColour.at(chainIndex); }
 
         /// @see Node::Listener::nodeUpdated
-        void nodeUpdated(const Node* node);
+        void nodeUpdated(const Node* node) override;
         /// @see Node::Listener::nodeDestroyed
-        void nodeDestroyed(const Node* node);
+        void nodeDestroyed(const Node* node) override;
 
         /// Perform any fading / width delta required; internal method
         virtual void _timeUpdate(Real time);
@@ -232,14 +232,14 @@ template <typename T> class Controller;
     class RibbonTrailFactory : public MovableObjectFactory
     {
     protected:
-        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);
+        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) override;
     public:
         RibbonTrailFactory() {}
-        ~RibbonTrailFactory() {}
+        ~RibbonTrailFactory() override {}
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const;
+        [[nodiscard]] const String& getType() const override;
     };
     /** @} */
     /** @} */

@@ -648,7 +648,7 @@ public:
         mValue = val;
     }
 
-    virtual             ~ConstParameter     () {}
+                ~ConstParameter     () override {}
 
     /** Returns the native value of this parameter. (for example a Vector3) */
     [[nodiscard]] const valueType& getValue() const { return mValue; }
@@ -656,12 +656,12 @@ public:
     /** 
     @see Parameter::isConstParameter.
     */
-    [[nodiscard]] virtual bool isConstParameter() const { return true; }
+    [[nodiscard]] bool isConstParameter() const override { return true; }
 
     /** 
     @see Parameter::toString.
     */
-    [[nodiscard]] virtual String toString() const = 0;
+    [[nodiscard]] String toString() const override = 0;
 
 protected:
     valueType mValue;

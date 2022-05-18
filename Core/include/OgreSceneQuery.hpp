@@ -238,7 +238,7 @@ class SceneManager;
     public:
         /** Standard constructor, should be called by SceneManager. */
         RegionSceneQuery(SceneManager* mgr);
-        virtual ~RegionSceneQuery();
+        ~RegionSceneQuery() override;
         /** Executes the query, returning the results back in one list.
         @remarks
             This method executes the scene query as configured, gathers the results
@@ -271,9 +271,9 @@ class SceneManager;
         virtual void clearResults();
 
         /** Self-callback in order to deal with execute which returns collection. */
-        bool queryResult(MovableObject* first);
+        bool queryResult(MovableObject* first) override;
         /** Self-callback in order to deal with execute which returns collection. */
-        bool queryResult(SceneQuery::WorldFragment* fragment);
+        bool queryResult(SceneQuery::WorldFragment* fragment) override;
     };
 
     /** Specialises the SceneQuery class for querying within an axis aligned box. */
@@ -283,7 +283,7 @@ class SceneManager;
         AxisAlignedBox mAABB;
     public:
         AxisAlignedBoxSceneQuery(SceneManager* mgr);
-        virtual ~AxisAlignedBoxSceneQuery();
+        ~AxisAlignedBoxSceneQuery() override;
 
         /** Sets the size of the box you wish to query. */
         void setBox(const AxisAlignedBox& box);
@@ -300,7 +300,7 @@ class SceneManager;
         Sphere mSphere;
     public:
         SphereSceneQuery(SceneManager* mgr);
-        virtual ~SphereSceneQuery();
+        ~SphereSceneQuery() override;
         /** Sets the sphere which is to be used for this query. */
         void setSphere(const Sphere& sphere);
 
@@ -317,7 +317,7 @@ class SceneManager;
         PlaneBoundedVolumeList mVolumes;
     public:
         PlaneBoundedVolumeListSceneQuery(SceneManager* mgr);
-        virtual ~PlaneBoundedVolumeListSceneQuery();
+        ~PlaneBoundedVolumeListSceneQuery() override;
         /** Sets the volume which is to be used for this query. */
         void setVolumes(const PlaneBoundedVolumeList& volumes);
 
@@ -383,7 +383,7 @@ class SceneManager;
 
     public:
         RaySceneQuery(SceneManager* mgr);
-        virtual ~RaySceneQuery();
+        ~RaySceneQuery() override;
         /** Sets the ray which is to be used for this query. */
         virtual void setRay(const Ray& ray);
         /** Gets the ray which is to be used for this query. */
@@ -444,9 +444,9 @@ class SceneManager;
         virtual void clearResults();
 
         /** Self-callback in order to deal with execute which returns collection. */
-        bool queryResult(MovableObject* obj, Real distance);
+        bool queryResult(MovableObject* obj, Real distance) override;
         /** Self-callback in order to deal with execute which returns collection. */
-        bool queryResult(SceneQuery::WorldFragment* fragment, Real distance);
+        bool queryResult(SceneQuery::WorldFragment* fragment, Real distance) override;
 
 
 
@@ -515,7 +515,7 @@ class SceneManager;
         IntersectionSceneQueryResult* mLastResult;
     public:
         IntersectionSceneQuery(SceneManager* mgr);
-        virtual ~IntersectionSceneQuery();
+        ~IntersectionSceneQuery() override;
 
         /** Executes the query, returning the results back in one list.
         @remarks
@@ -549,9 +549,9 @@ class SceneManager;
         virtual void clearResults();
 
         /** Self-callback in order to deal with execute which returns collection. */
-        bool queryResult(MovableObject* first, MovableObject* second);
+        bool queryResult(MovableObject* first, MovableObject* second) override;
         /** Self-callback in order to deal with execute which returns collection. */
-        bool queryResult(MovableObject* movable, SceneQuery::WorldFragment* fragment);
+        bool queryResult(MovableObject* movable, SceneQuery::WorldFragment* fragment) override;
     };
     
     /** @} */

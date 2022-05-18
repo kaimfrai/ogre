@@ -67,8 +67,8 @@ namespace Ogre
 {
     struct MeshCodec : public Codec
     {
-        String magicNumberToFileExt(const char* magicNumberPtr, size_t maxbytes) const { return ""; }
-        [[nodiscard]] String getType() const { return "mesh"; }
+        String magicNumberToFileExt(const char* magicNumberPtr, size_t maxbytes) const override { return ""; }
+        [[nodiscard]] String getType() const override { return "mesh"; }
         void decode(const DataStreamPtr& input, const Any& output) const override
         {
             Mesh* dst = any_cast<Mesh*>(output);

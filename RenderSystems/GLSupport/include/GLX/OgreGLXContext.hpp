@@ -40,16 +40,16 @@ class GLXGLSupport;
     public:
         GLXContext(GLXGLSupport* glsupport, ::GLXFBConfig fbconfig, ::GLXDrawable drawable, ::GLXContext context = nullptr);
         
-        virtual ~GLXContext();
+        ~GLXContext() override;
         
         /// @copydoc GLContext::setCurrent
-        virtual void setCurrent();
+        void setCurrent() override;
         
         /// @copydoc GLContext::endCurrent
-        virtual void endCurrent();
+        void endCurrent() override;
         
         /// @copydoc GLContext::clone
-        [[nodiscard]] GLContext* clone() const;
+        [[nodiscard]] GLContext* clone() const override;
         
         ::GLXDrawable  mDrawable;
         ::GLXContext   mContext;

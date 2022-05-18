@@ -66,15 +66,15 @@ class ResourceManager;
         class CmdAttach : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
-            void doSet(void* target, const String& shaderNames);
+            String doGet(const void* target) const override;
+            void doSet(void* target, const String& shaderNames) override;
         };
         /// Command object for setting matrix packing in column-major order
         class CmdColumnMajorMatrices : public ParamCommand
         {
         public:
-            String doGet(const void* target) const;
-            void doSet(void* target, const String& val);
+            String doGet(const void* target) const override;
+            void doSet(void* target, const String& val) override;
         };
 
         GLSLShaderCommon(ResourceManager* creator,
@@ -111,17 +111,17 @@ class ResourceManager;
         GLUniformCache*    getUniformCache(){return &mUniformCache;}
 
         /// GLSL does not provide access to the low level code of the shader, so use this shader for binding as well
-        GpuProgram* _getBindingDelegate() { return this; }
+        GpuProgram* _getBindingDelegate() override { return this; }
     protected:
         /// GLSL does not provide access to the low level implementation of the shader, so this method s a no-op
-        void createLowLevelImpl() {}
+        void createLowLevelImpl() override {}
 
         static CmdAttach msCmdAttach;
         static CmdColumnMajorMatrices msCmdColumnMajorMatrices;
 
         String getResourceLogName() const;
 
-        void prepareImpl();
+        void prepareImpl() override;
 
         /// Attached Shader names
         String mAttachedShaderNames;

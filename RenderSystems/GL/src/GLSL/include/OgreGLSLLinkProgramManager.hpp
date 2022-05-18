@@ -57,7 +57,7 @@ class GLSLProgram;
     public:
 
         GLSLLinkProgramManager();
-        ~GLSLLinkProgramManager();
+        ~GLSLLinkProgramManager() override;
 
         /**
             Get the program object that links the two active shader objects together

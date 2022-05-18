@@ -41,7 +41,7 @@ namespace Ogre {
     public:
         GLPBuffer(PixelComponentType format, uint32 width, uint32 height)
             : mFormat(format), mWidth(width), mHeight(height) {}
-        virtual ~GLPBuffer() {}
+        ~GLPBuffer() override {}
 
         PixelComponentType getFormat() { return mFormat; }
         uint32 getWidth() { return mWidth; }

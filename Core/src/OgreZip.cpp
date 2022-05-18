@@ -65,43 +65,43 @@ namespace {
         FileInfoList mFileList;
     public:
         ZipArchive(const String& name, const String& archType, const uint8* externBuf = nullptr, size_t externBufSz = 0);
-        ~ZipArchive();
+        ~ZipArchive() override;
         /// @copydoc Archive::isCaseSensitive
-        [[nodiscard]] bool isCaseSensitive() const { return true; }
+        [[nodiscard]] bool isCaseSensitive() const override { return true; }
 
         /// @copydoc Archive::load
-        void load();
+        void load() override;
         /// @copydoc Archive::unload
-        void unload();
+        void unload() override;
 
         /// @copydoc Archive::open
-        [[nodiscard]] DataStreamPtr open(const String& filename, bool readOnly = true) const;
+        [[nodiscard]] DataStreamPtr open(const String& filename, bool readOnly = true) const override;
 
         /// @copydoc Archive::create
-        DataStreamPtr create(const String& filename);
+        DataStreamPtr create(const String& filename) override;
 
         /// @copydoc Archive::remove
-        void remove(const String& filename);
+        void remove(const String& filename) override;
 
         /// @copydoc Archive::list
-        [[nodiscard]] StringVectorPtr list(bool recursive = true, bool dirs = false) const;
+        [[nodiscard]] StringVectorPtr list(bool recursive = true, bool dirs = false) const override;
 
         /// @copydoc Archive::listFileInfo
-        [[nodiscard]] FileInfoListPtr listFileInfo(bool recursive = true, bool dirs = false) const;
+        [[nodiscard]] FileInfoListPtr listFileInfo(bool recursive = true, bool dirs = false) const override;
 
         /// @copydoc Archive::find
         [[nodiscard]] StringVectorPtr find(const String& pattern, bool recursive = true,
-            bool dirs = false) const;
+            bool dirs = false) const override;
 
         /// @copydoc Archive::findFileInfo
         [[nodiscard]] FileInfoListPtr findFileInfo(const String& pattern, bool recursive = true,
-            bool dirs = false) const;
+            bool dirs = false) const override;
 
         /// @copydoc Archive::exists
-        [[nodiscard]] bool exists(const String& filename) const;
+        [[nodiscard]] bool exists(const String& filename) const override;
 
         /// @copydoc Archive::getModifiedTime
-        [[nodiscard]] time_t getModifiedTime(const String& filename) const;
+        [[nodiscard]] time_t getModifiedTime(const String& filename) const override;
     };
 }
     //-----------------------------------------------------------------------

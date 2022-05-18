@@ -70,16 +70,16 @@ class RenderQueue;
     public:
         /** Constructor */
         BorderPanelOverlayElement(const String& name);
-        virtual ~BorderPanelOverlayElement();
+        ~BorderPanelOverlayElement() override;
 
-        virtual void initialise();
+        void initialise() override;
 
         /** @copydoc OverlayElement::_releaseManualHardwareResources */
-        virtual void _releaseManualHardwareResources();
+        void _releaseManualHardwareResources() override;
         /** @copydoc OverlayElement::_restoreManualHardwareResources */
-        virtual void _restoreManualHardwareResources();
+        void _restoreManualHardwareResources() override;
 
-        [[nodiscard]] const String& getTypeName() const;
+        [[nodiscard]] const String& getTypeName() const override;
         /** @name Border Size
             Remember that the dimensions specified here are in relation to the size of
             the screen, so 0.1 is 1/10th of the screen width or height. Also note that because
@@ -176,16 +176,16 @@ class RenderQueue;
         [[nodiscard]] const String& getBorderMaterialName() const;
 
         /** @copydoc OverlayContainer::_updateRenderQueue */
-        void _updateRenderQueue(RenderQueue* queue);
+        void _updateRenderQueue(RenderQueue* queue) override;
         /// @copydoc OverlayElement::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
             bool debugRenderables = false);
 
         /** @copydoc OverlayElement::setMetricsMode */
-        void setMetricsMode(GuiMetricsMode gmm);
+        void setMetricsMode(GuiMetricsMode gmm) override;
 
         /** @copydoc OverlayElement::_update */
-        void _update();
+        void _update() override;
     private:
         Real mLeftBorderSize;
         Real mRightBorderSize;
@@ -209,11 +209,11 @@ class RenderQueue;
         static String msTypeName;
 
         /// Internal method for setting up geometry, called by OverlayElement::update
-        void updatePositionGeometry();
+        void updatePositionGeometry() override;
         /// Internal method for setting up geometry, called by OverlayElement::update
-        void updateTextureGeometry();
+        void updateTextureGeometry() override;
         /// Internal method for setting up parameters
-        void addBaseParameters();
+        void addBaseParameters() override;
 
         enum BorderCellIndex {
             BCELL_TOP_LEFT = 0,
@@ -247,12 +247,12 @@ class RenderQueue;
             mUseIdentityView = true;
             mPolygonModeOverrideable = parent->getPolygonModeOverrideable();
         }
-        [[nodiscard]] const MaterialPtr& getMaterial() const { return mParent->mBorderMaterial; }
-        void getRenderOperation(RenderOperation& op) { op = mParent->mRenderOp2; }
-        void getWorldTransforms(Matrix4* xform) const { mParent->getWorldTransforms(xform); }
-        [[nodiscard]] unsigned short getNumWorldTransforms() const { return 1; }
-        Real getSquaredViewDepth(const Camera* cam) const { return mParent->getSquaredViewDepth(cam); }
-        [[nodiscard]] const LightList& getLights() const
+        [[nodiscard]] const MaterialPtr& getMaterial() const override { return mParent->mBorderMaterial; }
+        void getRenderOperation(RenderOperation& op) override { op = mParent->mRenderOp2; }
+        void getWorldTransforms(Matrix4* xform) const override { mParent->getWorldTransforms(xform); }
+        [[nodiscard]] unsigned short getNumWorldTransforms() const override { return 1; }
+        Real getSquaredViewDepth(const Camera* cam) const override { return mParent->getSquaredViewDepth(cam); }
+        [[nodiscard]] const LightList& getLights() const override
         {
             // N/A, panels are not lit
             static LightList ll;

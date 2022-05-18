@@ -385,7 +385,7 @@ namespace Ogre
         @param name Optional name, just helps to identify logging output
         */
         DefaultWorkQueueBase(const String& name = BLANKSTRING);
-        virtual ~DefaultWorkQueueBase();
+        ~DefaultWorkQueueBase() override;
         /// Get the name of the work queue
         const String& getName() const;
         /** Get the number of worker threads that this queue will start when 
@@ -435,41 +435,41 @@ namespace Ogre
         virtual bool isShuttingDown() const { return mShuttingDown; }
 
         /// @copydoc WorkQueue::addRequestHandler
-        virtual void addRequestHandler(uint16 channel, RequestHandler* rh);
+        void addRequestHandler(uint16 channel, RequestHandler* rh) override;
         /// @copydoc WorkQueue::removeRequestHandler
-        virtual void removeRequestHandler(uint16 channel, RequestHandler* rh);
+        void removeRequestHandler(uint16 channel, RequestHandler* rh) override;
         /// @copydoc WorkQueue::addResponseHandler
-        virtual void addResponseHandler(uint16 channel, ResponseHandler* rh);
+        void addResponseHandler(uint16 channel, ResponseHandler* rh) override;
         /// @copydoc WorkQueue::removeResponseHandler
-        virtual void removeResponseHandler(uint16 channel, ResponseHandler* rh);
+        void removeResponseHandler(uint16 channel, ResponseHandler* rh) override;
 
         /// @copydoc WorkQueue::addRequest
-        virtual RequestID addRequest(uint16 channel, uint16 requestType, const Any& rData, uint8 retryCount = 0, 
-            bool forceSynchronous = false, bool idleThread = false);
+        RequestID addRequest(uint16 channel, uint16 requestType, const Any& rData, uint8 retryCount = 0, 
+            bool forceSynchronous = false, bool idleThread = false) override;
         /// @copydoc WorkQueue::abortRequest
-        virtual void abortRequest(RequestID id);
+        void abortRequest(RequestID id) override;
         /// @copydoc WorkQueue::abortPendingRequest
-        virtual bool abortPendingRequest(RequestID id);
+        bool abortPendingRequest(RequestID id) override;
         /// @copydoc WorkQueue::abortRequestsByChannel
-        virtual void abortRequestsByChannel(uint16 channel);
+        void abortRequestsByChannel(uint16 channel) override;
         /// @copydoc WorkQueue::abortPendingRequestsByChannel
-        virtual void abortPendingRequestsByChannel(uint16 channel);
+        void abortPendingRequestsByChannel(uint16 channel) override;
         /// @copydoc WorkQueue::abortAllRequests
-        virtual void abortAllRequests();
+        void abortAllRequests() override;
         /// @copydoc WorkQueue::setPaused
-        virtual void setPaused(bool pause);
+        void setPaused(bool pause) override;
         /// @copydoc WorkQueue::isPaused
-        virtual bool isPaused() const;
+        bool isPaused() const override;
         /// @copydoc WorkQueue::setRequestsAccepted
-        virtual void setRequestsAccepted(bool accept);
+        void setRequestsAccepted(bool accept) override;
         /// @copydoc WorkQueue::getRequestsAccepted
-        virtual bool getRequestsAccepted() const;
+        bool getRequestsAccepted() const override;
         /// @copydoc WorkQueue::processResponses
-        virtual void processResponses(); 
+        void processResponses() override; 
         /// @copydoc WorkQueue::getResponseProcessingTimeLimit
-        virtual unsigned long getResponseProcessingTimeLimit() const { return mResposeTimeLimitMS; }
+        unsigned long getResponseProcessingTimeLimit() const override { return mResposeTimeLimitMS; }
         /// @copydoc WorkQueue::setResponseProcessingTimeLimit
-        virtual void setResponseProcessingTimeLimit(unsigned long ms) { mResposeTimeLimitMS = ms; }
+        void setResponseProcessingTimeLimit(unsigned long ms) override { mResposeTimeLimitMS = ms; }
     protected:
         String mName;
         size_t mWorkerThreadCount;

@@ -214,7 +214,7 @@ class Frustum;
     TextureUnitState & TextureUnitState::operator = ( 
         const TextureUnitState &oth )
     {
-        assert(mAnimController == 0);
+        assert(mAnimController == nullptr);
         removeAllEffects();
 
         // copy basic members (int's, real's)

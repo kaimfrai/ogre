@@ -80,7 +80,7 @@ namespace Ogre {
         ParticleAffector(ParticleSystem* parent): mParent(parent) {}
 
         /** Virtual destructor essential. */
-        virtual ~ParticleAffector();
+        ~ParticleAffector() override;
 
         /** Method called to allow the affector to initialize all newly created particles in the system.
         @remarks

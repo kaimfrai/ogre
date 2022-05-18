@@ -58,7 +58,7 @@ class ResourceManager;
     public:
         GLGpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
-        virtual ~GLGpuProgram();
+        ~GLGpuProgram() override;
     protected:
 
         GLuint mProgramID;
@@ -70,22 +70,22 @@ class ResourceManager;
     public:
         GLArbGpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
-        virtual ~GLArbGpuProgram();
+        ~GLArbGpuProgram() override;
 
         /// Execute the binding functions for this program
-        void bindProgram();
+        void bindProgram() override;
         /// Execute the unbinding functions for this program
-        void unbindProgram();
+        void unbindProgram() override;
         /// Execute the param binding functions for this program
-        void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask);
+        void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask) override;
 
         /// Get the GL type for the program
         GLenum getProgramType() const;
 
     protected:
-        void loadFromSource();
+        void loadFromSource() override;
         /// @copydoc Resource::unloadImpl
-        void unloadImpl();
+        void unloadImpl() override;
 
     };
 

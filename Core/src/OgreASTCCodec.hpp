@@ -57,7 +57,7 @@ namespace Ogre {
 
 	public:
         ASTCCodec();
-        virtual ~ASTCCodec() { }
+        ~ASTCCodec() override { }
 
 		using ImageCodec::decode;
         [[nodiscard]] DecodeResult decode(const DataStreamPtr& input) const override;

@@ -75,7 +75,7 @@ class SubMesh;
     {
     public:
         MeshManager();
-        ~MeshManager();
+        ~MeshManager() override;
 
         /** Initialises the manager, only to be called by OGRE internally. */
         void _initialise();
@@ -416,7 +416,7 @@ class SubMesh;
         /// @copydoc ResourceManager::createImpl
         Resource* createImpl(const String& name, ResourceHandle handle, 
             const String& group, bool isManual, ManualResourceLoader* loader, 
-            const NameValuePairList* createParams);
+            const NameValuePairList* createParams) override;
     
         /** Enum identifying the types of manual mesh built by this manager */
         enum MeshBuildType
@@ -467,7 +467,7 @@ class SubMesh;
             /** Utility method for manual loading a curved illusion plane */
             static void loadManualCurvedIllusionPlane(Mesh* pMesh, MeshBuildParams& params);
 
-            void loadResource(Resource* res);
+            void loadResource(Resource* res) override;
         } mPrefabLoader;
 
         // element type for blend weights in vertex buffer (VET_UBYTE4, VET_USHORT1, or VET_FLOAT1)

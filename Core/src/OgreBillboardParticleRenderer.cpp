@@ -44,50 +44,50 @@ class RenderQueue;
     class CmdBillboardType : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        String doGet(const void* target) const override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for billboard origin (see ParamCommand).*/
     class CmdBillboardOrigin : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        String doGet(const void* target) const override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for billboard rotation type (see ParamCommand).*/
     class CmdBillboardRotationType : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        String doGet(const void* target) const override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for common direction (see ParamCommand).*/
     class CmdCommonDirection : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        String doGet(const void* target) const override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for common up-vector (see ParamCommand).*/
     class CmdCommonUpVector : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        String doGet(const void* target) const override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for point rendering (see ParamCommand).*/
     class CmdPointRendering : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        String doGet(const void* target) const override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for accurate facing(see ParamCommand).*/
     class CmdAccurateFacing : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        String doGet(const void* target) const override;
+        void doSet(void* target, const String& val) override;
     };
     static CmdBillboardType msBillboardTypeCmd;
     static CmdBillboardOrigin msBillboardOriginCmd;
@@ -100,12 +100,12 @@ class RenderQueue;
     static class CmdStacksAndSlices : public ParamCommand
     {
     public:
-        String doGet(const void* target) const
+        String doGet(const void* target) const override
         {
             return StringConverter::toString(
                 static_cast<const BillboardParticleRenderer*>(target)->getTextureStacksAndSlices());
         }
-        void doSet(void* target, const String& val)
+        void doSet(void* target, const String& val) override
         {
             Vector2 tmp = StringConverter::parseVector2(val);
             static_cast<BillboardParticleRenderer*>(target)->setTextureStacksAndSlices(tmp.x, tmp.y);

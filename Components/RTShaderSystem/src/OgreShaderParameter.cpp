@@ -62,12 +62,12 @@ namespace RTShader {
         {
         }
 
-        ~ConstParameterVec2() {}
+        ~ConstParameterVec2() override {}
 
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] virtual String toString () const
+        [[nodiscard]] String toString () const override
         {
             StringStream str;
             str << "vec2(" << std::showpoint << mValue.x << "," << mValue.y << ")";
@@ -87,12 +87,12 @@ namespace RTShader {
             : ConstParameter<Vector3>(val, type, semantic, content)
         {
         }
-        ~ConstParameterVec3() {}
+        ~ConstParameterVec3() override {}
 
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] virtual String toString () const
+        [[nodiscard]] String toString () const override
         {
             StringStream str;
             str << "vec3(" << std::showpoint << mValue.x << "," << mValue.y << "," << mValue.z << ")";
@@ -112,12 +112,12 @@ namespace RTShader {
             : ConstParameter<Vector4>(val, type, semantic, content)
         {
         }
-        ~ConstParameterVec4() {}
+        ~ConstParameterVec4() override {}
 
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] virtual String toString () const
+        [[nodiscard]] String toString () const override
         {
             StringStream str;
             str << "vec4(" << std::showpoint << mValue.x << "," << mValue.y << "," << mValue.z << "," << mValue.w << ")";
@@ -138,12 +138,12 @@ namespace RTShader {
         {
         }
 
-        ~ConstParameterFloat() {}
+        ~ConstParameterFloat() override {}
 
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] virtual String toString () const
+        [[nodiscard]] String toString () const override
         {
             return StringConverter::toString(mValue, 6, 0, ' ', std::ios::showpoint);
         }
@@ -161,12 +161,12 @@ namespace RTShader {
         {
         }
 
-        ~ConstParameterInt() {}
+        ~ConstParameterInt() override {}
 
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] virtual String toString () const
+        [[nodiscard]] String toString () const override
         {
             return Ogre::StringConverter::toString(mValue);
         }

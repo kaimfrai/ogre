@@ -59,32 +59,32 @@ class MovableObject;
     {
     protected:
         /// @copydoc LodStrategy::getValueImpl
-        virtual Real getValueImpl(const MovableObject *movableObject, const Camera *camera) const;
+        Real getValueImpl(const MovableObject *movableObject, const Camera *camera) const override;
 
     public:
         /** Default constructor. */
         DistanceLodStrategyBase(const String& name);
 
         /// @copydoc LodStrategy::getBaseValue
-        [[nodiscard]] virtual Real getBaseValue() const;
+        [[nodiscard]] Real getBaseValue() const override;
 
         /// @copydoc LodStrategy::transformBias
-        [[nodiscard]] virtual Real transformBias(Real factor) const;
+        [[nodiscard]] Real transformBias(Real factor) const override;
 
         /// @copydoc LodStrategy::transformUserValue
-        [[nodiscard]] virtual Real transformUserValue(Real userValue) const;
+        [[nodiscard]] Real transformUserValue(Real userValue) const override;
 
         /// @copydoc LodStrategy::getIndex
-        [[nodiscard]] virtual ushort getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const;
+        [[nodiscard]] ushort getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const override;
 
         /// @copydoc LodStrategy::getIndex
-        [[nodiscard]] virtual ushort getIndex(Real value, const Material::LodValueList& materialLodValueList) const;
+        [[nodiscard]] ushort getIndex(Real value, const Material::LodValueList& materialLodValueList) const override;
 
         /// @copydoc LodStrategy::sort
-        virtual void sort(Mesh::MeshLodUsageList& meshLodUsageList) const;
+        void sort(Mesh::MeshLodUsageList& meshLodUsageList) const override;
 
         /// @copydoc LodStrategy::isSorted
-        [[nodiscard]] virtual bool isSorted(const Mesh::LodValueList& values) const;
+        [[nodiscard]] bool isSorted(const Mesh::LodValueList& values) const override;
 
         /** Get the squared distance between the camera and the LOD object */
         virtual Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const = 0;
@@ -137,7 +137,7 @@ class MovableObject;
         /** Default constructor. */
         DistanceLodSphereStrategy();
 
-        Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const;
+        Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const override;
 
         /// @copydoc Singleton::getSingleton()
         static DistanceLodSphereStrategy& getSingleton();
@@ -170,7 +170,7 @@ class MovableObject;
         /** Default constructor. */
         DistanceLodBoxStrategy();
 
-        Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const;
+        Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const override;
 
         /// @copydoc Singleton::getSingleton()
         static DistanceLodBoxStrategy& getSingleton();

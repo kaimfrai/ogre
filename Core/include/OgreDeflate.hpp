@@ -232,7 +232,7 @@ namespace Ogre
         DeflateStream(const String& name, const DataStreamPtr& compressedStream, StreamType streamType, const String& tmpFileName="",
             size_t avail_in = 0);
         
-        ~DeflateStream();
+        ~DeflateStream() override;
         
         /** Returns whether the compressed stream is valid deflated data.
          @remarks
@@ -244,31 +244,31 @@ namespace Ogre
         
         /** @copydoc DataStream::read
          */
-        size_t read(void* buf, size_t count);
+        size_t read(void* buf, size_t count) override;
         
         /** @copydoc DataStream::write
          */
-        size_t write(const void* buf, size_t count);
+        size_t write(const void* buf, size_t count) override;
                 
         /** @copydoc DataStream::skip
          */
-        void skip(long count);
+        void skip(long count) override;
         
         /** @copydoc DataStream::seek
          */
-        void seek( size_t pos );
+        void seek( size_t pos ) override;
         
         /** @copydoc DataStream::tell
          */
-        [[nodiscard]] size_t tell() const;
+        [[nodiscard]] size_t tell() const override;
         
         /** @copydoc DataStream::eof
          */
-        [[nodiscard]] bool eof() const;
+        [[nodiscard]] bool eof() const override;
         
         /** @copydoc DataStream::close
          */
-        void close();
+        void close() override;
         
     };
 }

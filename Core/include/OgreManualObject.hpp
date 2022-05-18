@@ -131,10 +131,10 @@ class SubMesh;
     {
     public:
         ManualObject(const String& name);
-        virtual ~ManualObject();
+        ~ManualObject() override;
 
         /** @copydoc MovableObject::_releaseManualHardwareResources */
-        void _releaseManualHardwareResources() { clear(); }
+        void _releaseManualHardwareResources() override { clear(); }
 
         //pre-declare ManualObjectSection
         class ManualObjectSection;
@@ -569,13 +569,13 @@ class SubMesh;
         // MovableObject overrides
 
         /** @copydoc MovableObject::getMovableType */
-        const String& getMovableType() const;
+        const String& getMovableType() const override;
         /** @copydoc MovableObject::getBoundingBox */
         const AxisAlignedBox& getBoundingBox() const override { return mAABB; }
         /** @copydoc MovableObject::getBoundingRadius */
         Real getBoundingRadius() const override { return mRadius; }
         /** @copydoc MovableObject::_updateRenderQueue */
-        void _updateRenderQueue(RenderQueue* queue);
+        void _updateRenderQueue(RenderQueue* queue) override;
         /** Implement this method to enable stencil shadows */
         EdgeData* getEdgeList() override;
         /** Implement this method to enable stencil shadows. */
@@ -602,7 +602,7 @@ class SubMesh;
             /// @remark mat should not be null.
             ManualObjectSection(ManualObject* parent, const MaterialPtr& mat,
                 RenderOperation::OperationType opType);
-            virtual ~ManualObjectSection();
+            ~ManualObjectSection() override;
 
             /// Retrieve render operation for manipulation
             RenderOperation* getRenderOperation();
@@ -624,15 +624,15 @@ class SubMesh;
             
             // Renderable overrides
             /** @copydoc Renderable::getMaterial */
-            const MaterialPtr& getMaterial() const;
+            const MaterialPtr& getMaterial() const override;
             /** @copydoc Renderable::getRenderOperation */
-            void getRenderOperation(RenderOperation& op);
+            void getRenderOperation(RenderOperation& op) override;
             /** @copydoc Renderable::getWorldTransforms */
-            void getWorldTransforms(Matrix4* xform) const;
+            void getWorldTransforms(Matrix4* xform) const override;
             /** @copydoc Renderable::getSquaredViewDepth */
-            Real getSquaredViewDepth(const Ogre::Camera *) const;
+            Real getSquaredViewDepth(const Ogre::Camera *) const override;
             /** @copydoc Renderable::getLights */
-            const LightList &getLights() const;
+            const LightList &getLights() const override;
 
             /// convert this section to a SubMesh
             void convertToSubMesh(SubMesh* sm) const;
@@ -643,7 +643,7 @@ class SubMesh;
 
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
-            bool debugRenderables = false);
+            bool debugRenderables = false) override;
         
         
     private:
@@ -724,14 +724,14 @@ class SubMesh;
     class ManualObjectFactory : public MovableObjectFactory
     {
     protected:
-        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);
+        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) override;
     public:
         ManualObjectFactory() {}
-        ~ManualObjectFactory() {}
+        ~ManualObjectFactory() override {}
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const;
+        [[nodiscard]] const String& getType() const override;
     };
     /** @} */
     /** @} */

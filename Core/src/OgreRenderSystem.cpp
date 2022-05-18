@@ -815,7 +815,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::setSharedListener(Listener* listener)
     {
-        assert(msSharedEventListener == NULL || listener == NULL); // you can set or reset, but for safety not directly override
+        assert(msSharedEventListener == nullptr || listener == nullptr); // you can set or reset, but for safety not directly override
         msSharedEventListener = listener;
     }
     //-----------------------------------------------------------------------

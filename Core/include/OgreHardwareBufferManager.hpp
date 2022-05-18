@@ -89,7 +89,7 @@ class VertexDeclaration;
         bool bindNormals;
 
     public:
-        ~TempBlendedBufferInfo();
+        ~TempBlendedBufferInfo() override;
         /// Utility method, extract info from the given VertexData.
         void extractFrom(const VertexData* sourceData);
         /// Utility method, checks out temporary copies of src into dest.
@@ -97,7 +97,7 @@ class VertexDeclaration;
         /// Utility method, binds dest copies into a given VertexData struct.
         void bindTempCopies(VertexData* targetData, bool suppressHardwareUpload);
         /** Overridden member from HardwareBufferLicensee. */
-        void licenseExpired(HardwareBuffer* buffer);
+        void licenseExpired(HardwareBuffer* buffer) override;
         /** Detect currently have buffer copies checked out and touch it. */
         [[nodiscard]] bool buffersCheckedOut(bool positions = true, bool normals = true) const;
     };
@@ -396,7 +396,7 @@ class VertexDeclaration;
     {
     public:
         HardwareBufferManager();
-        ~HardwareBufferManager();
+        ~HardwareBufferManager() override;
 
         /// @copydoc Singleton::getSingleton()
         static HardwareBufferManager& getSingleton();

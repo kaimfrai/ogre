@@ -65,15 +65,15 @@ class RenderQueue;
     public:
         /** Constructor. */
         PanelOverlayElement(const String& name);
-        virtual ~PanelOverlayElement();
+        ~PanelOverlayElement() override;
 
         /** Initialise */
-        virtual void initialise();
+        void initialise() override;
 
         /** @copydoc OverlayElement::_releaseManualHardwareResources */
-        virtual void _releaseManualHardwareResources();
+        void _releaseManualHardwareResources() override;
         /** @copydoc OverlayElement::_restoreManualHardwareResources */
-        virtual void _restoreManualHardwareResources();
+        void _restoreManualHardwareResources() override;
 
         /** Sets the number of times textures should repeat. 
         @param x The number of times the texture should repeat horizontally
@@ -107,7 +107,7 @@ class RenderQueue;
         [[nodiscard]] const String& getTypeName() const override;
         void getRenderOperation(RenderOperation& op) override;
         /** Overridden from OverlayContainer */
-        void _updateRenderQueue(RenderQueue* queue);
+        void _updateRenderQueue(RenderQueue* queue) override;
 
     protected:
         /// Flag indicating if this panel should be visual or just group things
@@ -121,13 +121,13 @@ class RenderQueue;
         RenderOperation mRenderOp;
 
         /// Internal method for setting up geometry, called by OverlayElement::update
-        virtual void updatePositionGeometry();
+        void updatePositionGeometry() override;
 
         /// Called to update the texture coords when layers change
-        virtual void updateTextureGeometry();
+        void updateTextureGeometry() override;
 
         /// Method for setting up base parameters for this class
-        void addBaseParameters();
+        void addBaseParameters() override;
 
         static String msTypeName;
     };

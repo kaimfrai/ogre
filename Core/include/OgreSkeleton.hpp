@@ -109,7 +109,7 @@ class ResourceManager;
         */
         Skeleton(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
-        virtual ~Skeleton();
+        ~Skeleton() override;
 
 
         /** Creates a brand new Bone owned by this Skeleton. 
@@ -222,7 +222,7 @@ class ResourceManager;
         @param name The name of this animation
         @param length The length of the animation in seconds
         */
-        virtual Animation* createAnimation(const String& name, Real length);
+        Animation* createAnimation(const String& name, Real length) override;
 
         /** Returns the named Animation object. 
         @remarks
@@ -241,7 +241,7 @@ class ResourceManager;
              (@see addLinkedSkeletonAnimationSource). 
          @param name The name of the animation
          */
-        virtual Animation* getAnimation(const String& name) const;
+        Animation* getAnimation(const String& name) const override;
 
         /// Internal accessor for animations (returns null if animation does not exist)
         virtual Animation* _getAnimationImpl(const String& name, 
@@ -249,10 +249,10 @@ class ResourceManager;
 
 
         /** Returns whether this skeleton contains the named animation. */
-        virtual bool hasAnimation(const String& name) const;
+        bool hasAnimation(const String& name) const override;
 
         /** Removes an Animation from this skeleton. */
-        virtual void removeAnimation(const String& name);
+        void removeAnimation(const String& name) override;
 
         /** Changes the state of the skeleton to reflect the application of the passed in collection of animations.
         @remarks
@@ -288,14 +288,14 @@ class ResourceManager;
         virtual void _getBoneMatrices(Affine3* pMatrices);
 
         /** Gets the number of animations on this skeleton. */
-        virtual unsigned short getNumAnimations() const;
+        unsigned short getNumAnimations() const override;
 
         /** Gets a single animation by index. 
         @remarks
             Will NOT pick up animations in linked skeletons 
             (@see addLinkedSkeletonAnimationSource).
         */
-        virtual Animation* getAnimation(unsigned short index) const;
+        Animation* getAnimation(unsigned short index) const override;
 
 
         /** Gets the animation blending mode which this skeleton will use. */
@@ -461,13 +461,13 @@ class ResourceManager;
         /// Debugging method
         void _dumpContents(const String& filename);
 
-        void loadImpl() {}
-        void unloadImpl() { unprepareImpl(); }
+        void loadImpl() override {}
+        void unloadImpl() override { unprepareImpl(); }
 
-        void prepareImpl();
-        void unprepareImpl();
+        void prepareImpl() override;
+        void unprepareImpl() override;
         /// @copydoc Resource::calculateSize
-        size_t calculateSize() const;
+        size_t calculateSize() const override;
 
     };
 

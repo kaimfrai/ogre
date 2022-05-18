@@ -42,8 +42,8 @@ public:
     Ogre::Root* mRoot;
     Ogre::HardwareBufferManager* mHBM;
     Ogre::FileSystemLayer* mFSLayer;
-    void SetUp();
-    void TearDown();
+    void SetUp() override;
+    void TearDown() override;
 };
 
 #endif // ROOTWITHOUTRENDERSYSTEMFIXTURE_H

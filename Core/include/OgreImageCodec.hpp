@@ -65,7 +65,7 @@ namespace Ogre {
         [[nodiscard]] DataStreamPtr encode(const Any& input) const override;
         void encodeToFile(const Any& input, const String& outFileName) const override;
 
-        virtual ~ImageCodec();
+        ~ImageCodec() override;
         /** Codec return class for images. Has information about the size and the
             pixel format of the image. */
         class ImageData

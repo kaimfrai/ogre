@@ -52,50 +52,50 @@ namespace Ogre {
     class CmdCaption : public ParamCommand
     {
     public:
-        String doGet( const void* target ) const;
-        void doSet( void* target, const String& val );
+        String doGet( const void* target ) const override;
+        void doSet( void* target, const String& val ) override;
     };
     class CmdCharHeight : public ParamCommand
     {
     public:
-        String doGet( const void* target ) const;
-        void doSet( void* target, const String& val );
+        String doGet( const void* target ) const override;
+        void doSet( void* target, const String& val ) override;
     };
     class CmdSpaceWidth : public ParamCommand
     {
     public:
-        String doGet( const void* target ) const;
-        void doSet( void* target, const String& val );
+        String doGet( const void* target ) const override;
+        void doSet( void* target, const String& val ) override;
     };
     class CmdFontName : public ParamCommand
     {
     public:
-        String doGet( const void* target ) const;
-        void doSet( void* target, const String& val );
+        String doGet( const void* target ) const override;
+        void doSet( void* target, const String& val ) override;
     };
     class CmdColourTop : public ParamCommand
     {
     public:
-        String doGet( const void* target ) const;
-        void doSet( void* target, const String& val );
+        String doGet( const void* target ) const override;
+        void doSet( void* target, const String& val ) override;
     };
     class CmdColourBottom : public ParamCommand
     {
     public:
-        String doGet( const void* target ) const;
-        void doSet( void* target, const String& val );
+        String doGet( const void* target ) const override;
+        void doSet( void* target, const String& val ) override;
     };
     class CmdColour : public ParamCommand
     {
     public:
-        String doGet( const void* target ) const;
-        void doSet( void* target, const String& val );
+        String doGet( const void* target ) const override;
+        void doSet( void* target, const String& val ) override;
     };
     class CmdAlignment : public ParamCommand
     {
     public:
-        String doGet( const void* target ) const;
-        void doSet( void* target, const String& val );
+        String doGet( const void* target ) const override;
+        void doSet( void* target, const String& val ) override;
     };
     // Command objects
     static CmdCharHeight msCmdCharHeight;

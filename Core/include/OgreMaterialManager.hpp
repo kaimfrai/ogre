@@ -177,7 +177,7 @@ class Technique;
 
         /** Default destructor.
         */
-        virtual ~MaterialManager();
+        ~MaterialManager() override;
 
         /** Initialises the material manager, which also triggers it to 
          * parse all available .program and .material scripts. */

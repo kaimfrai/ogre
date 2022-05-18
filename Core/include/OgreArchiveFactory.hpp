@@ -59,7 +59,7 @@ namespace Ogre {
     class ArchiveFactory : public FactoryObj< Archive >, public ArchiveAlloc
     {
     public:
-        virtual ~ArchiveFactory() {}
+        ~ArchiveFactory() override {}
         /** Creates a new object.
         @param name Name of the object to create
         @param readOnly whether the Archive is read only
@@ -71,7 +71,7 @@ namespace Ogre {
         virtual Archive* createInstance(const String& name, bool readOnly) = 0;
 
         [[nodiscard]]
-        virtual Archive* createInstance(const String& name) { return createInstance(name, true); }
+        Archive* createInstance(const String& name) override { return createInstance(name, true); }
     };
     /** @} */
     /** @} */

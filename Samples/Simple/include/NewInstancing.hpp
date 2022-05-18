@@ -29,12 +29,12 @@ public:
 
     Sample_NewInstancing();
 
-    bool frameRenderingQueued(const FrameEvent& evt);
+    bool frameRenderingQueued(const FrameEvent& evt) override;
 
-    bool keyPressed(const KeyboardEvent& evt);
+    bool keyPressed(const KeyboardEvent& evt) override;
 
 protected:
-    void setupContent();
+    void setupContent() override;
 
     void setupLighting();
 
@@ -50,7 +50,7 @@ protected:
 
     void destroyManagers();
 
-    void cleanupContent();
+    void cleanupContent() override;
 
     void animateUnits( float timeSinceLast );
 

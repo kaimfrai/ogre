@@ -53,8 +53,8 @@ namespace Ogre
         public:
             TimeControllerValue(RibbonTrail* r) { mTrail = r; }
 
-            [[nodiscard]] Real getValue() const { return 0; }// not a source 
-            void setValue(Real value) { mTrail->_timeUpdate(value); }
+            [[nodiscard]] Real getValue() const override { return 0; }// not a source 
+            void setValue(Real value) override { mTrail->_timeUpdate(value); }
         };
     }
     //-----------------------------------------------------------------------

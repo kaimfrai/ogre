@@ -62,7 +62,7 @@ namespace Ogre {
                                 Usage usage, bool useSystemMemory, bool useShadowBuffer);
             HardwareIndexBuffer(HardwareBufferManagerBase* mgr, IndexType idxType, size_t numIndexes,
                                 HardwareBuffer* delegate);
-            ~HardwareIndexBuffer();
+            ~HardwareIndexBuffer() override;
             /// Return the manager of this buffer, if any
             [[nodiscard]] HardwareBufferManagerBase* getManager() const { return mMgr; }
             /// Get the type of indexes used in this buffer

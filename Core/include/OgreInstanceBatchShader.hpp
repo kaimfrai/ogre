@@ -77,8 +77,8 @@ class VertexData;
     {
         size_t  mNumWorldMatrices;
 
-        void setupVertices( const SubMesh* baseSubMesh );
-        void setupIndices( const SubMesh* baseSubMesh );
+        void setupVertices( const SubMesh* baseSubMesh ) override;
+        void setupIndices( const SubMesh* baseSubMesh ) override;
 
         /** When the mesh is (hardware) skinned, a different code path is called so that
             we reuse the index buffers and modify them in place. For example Instance #2
@@ -94,14 +94,14 @@ class VertexData;
                             const String &batchName );
 
         /** @see InstanceBatch::calculateMaxNumInstances */
-        size_t calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const;
+        size_t calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const override;
 
         /** @see InstanceBatch::buildFrom */
-        void buildFrom( const SubMesh *baseSubMesh, const RenderOperation &renderOperation );
+        void buildFrom( const SubMesh *baseSubMesh, const RenderOperation &renderOperation ) override;
 
         //Renderable overloads
-        void getWorldTransforms( Matrix4* xform ) const;
-        unsigned short getNumWorldTransforms() const;
+        void getWorldTransforms( Matrix4* xform ) const override;
+        unsigned short getNumWorldTransforms() const override;
     };
 }
 

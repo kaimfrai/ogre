@@ -43,19 +43,19 @@ namespace Ogre
 
 
         /// @copydoc Plugin::getName
-        [[nodiscard]] const String& getName() const;
+        [[nodiscard]] const String& getName() const override;
 
         /// @copydoc Plugin::install
-        void install();
+        void install() override;
 
         /// @copydoc Plugin::initialise
-        void initialise();
+        void initialise() override;
 
         /// @copydoc Plugin::shutdown
-        void shutdown();
+        void shutdown() override;
 
         /// @copydoc Plugin::uninstall
-        void uninstall();
+        void uninstall() override;
     protected:
         GLRenderSystem* mRenderSystem;
     };

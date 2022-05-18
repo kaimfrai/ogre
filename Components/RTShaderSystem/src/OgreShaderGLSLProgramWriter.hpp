@@ -62,18 +62,18 @@ public:
     GLSLProgramWriter();
 
     /** Class destructor */
-    virtual ~GLSLProgramWriter();
+    ~GLSLProgramWriter() override;
 
 
     /** 
     @see ProgramWriter::writeSourceCode.
     */
-    virtual void writeSourceCode(std::ostream& os, Program* program);
+    void writeSourceCode(std::ostream& os, Program* program) override;
 
     /** 
     @see ProgramWriter::getTargetLanguage.
     */
-    [[nodiscard]] virtual const String& getTargetLanguage() const { return TargetLanguage; }
+    [[nodiscard]] const String& getTargetLanguage() const override { return TargetLanguage; }
 
     static String TargetLanguage;
 

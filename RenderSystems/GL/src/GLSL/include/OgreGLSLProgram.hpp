@@ -47,21 +47,21 @@ class ResourceManager;
         GLSLProgram(ResourceManager* creator, 
             const String& name, ResourceHandle handle,
             const String& group, bool isManual, ManualResourceLoader* loader);
-        ~GLSLProgram();
+        ~GLSLProgram() override;
 
-        void attachToProgramObject( const uint programObject );
-        void detachFromProgramObject( const uint programObject );
+        void attachToProgramObject( const uint programObject ) override;
+        void detachFromProgramObject( const uint programObject ) override;
 
         /// Overridden from GpuProgram
-        const String& getLanguage() const;
+        const String& getLanguage() const override;
 
-        bool getPassTransformStates() const {
+        bool getPassTransformStates() const override {
             return mPassFFPStates;
         }
-        bool getPassSurfaceAndLightStates() const {
+        bool getPassSurfaceAndLightStates() const override {
             return mPassFFPStates;
         }
-        bool getPassFogStates() const {
+        bool getPassFogStates() const override {
             return mPassFFPStates;
         }
 
@@ -107,14 +107,14 @@ class ResourceManager;
         void setMaxOutputVertices(int maxOutputVertices)
         { mMaxOutputVertices = maxOutputVertices; }
 
-        void bindProgram();
-        void unbindProgram();
-        void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask);
-        bool isAttributeValid(VertexElementSemantic semantic, uint index);
+        void bindProgram() override;
+        void unbindProgram() override;
+        void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask) override;
+        bool isAttributeValid(VertexElementSemantic semantic, uint index) override;
     protected:
-        void loadFromSource();
+        void loadFromSource() override;
         /// Internal unload implementation, must be implemented by subclasses
-        void unloadHighLevelImpl();
+        void unloadHighLevelImpl() override;
 
         /// Populate the passed parameters with name->index map, must be overridden
         void buildConstantDefinitions() override;

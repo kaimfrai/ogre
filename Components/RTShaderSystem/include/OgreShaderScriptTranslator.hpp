@@ -55,7 +55,7 @@ public:
     /**
     *@see ScriptTranslator::translate.
     */
-    virtual void translate(ScriptCompiler *compiler, const AbstractNodePtr &node);
+    void translate(ScriptCompiler *compiler, const AbstractNodePtr &node) override;
 
     using ScriptTranslator::getBoolean;
     using ScriptTranslator::getString;

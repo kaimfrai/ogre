@@ -100,7 +100,7 @@ namespace Ogre
         /** Copy constructor */
         GpuProgramUsage(const GpuProgramUsage& rhs, Pass* newparent);
 
-        ~GpuProgramUsage();
+        ~GpuProgramUsage() override;
 
         /** Gets the type of program we're trying to link to. */
         [[nodiscard]] GpuProgramType getType() const { return mType; }
@@ -146,8 +146,8 @@ namespace Ogre
         [[nodiscard]] size_t calculateSize() const;
 
         // Resource Listener
-        void unloadingComplete(Resource* prog);
-        void loadingComplete(Resource* prog);
+        void unloadingComplete(Resource* prog) override;
+        void loadingComplete(Resource* prog) override;
 
         static GpuProgramPtr _getProgramByName(const String& name, const String& group,
                                                GpuProgramType type);

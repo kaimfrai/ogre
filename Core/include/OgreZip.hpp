@@ -53,13 +53,13 @@ class Archive;
     class ZipArchiveFactory : public ArchiveFactory
     {
     public:
-        virtual ~ZipArchiveFactory() {}
+        ~ZipArchiveFactory() override {}
         /// @copydoc FactoryObj::getType
-        [[nodiscard]] const String& getType() const;
+        [[nodiscard]] const String& getType() const override;
 
         using ArchiveFactory::createInstance;
 
-        Archive *createInstance( const String& name, bool readOnly );
+        Archive *createInstance( const String& name, bool readOnly ) override;
     };
 
     /** Specialisation of ZipArchiveFactory for embedded Zip files. */
@@ -67,7 +67,7 @@ class Archive;
     {
     public:
         EmbeddedZipArchiveFactory();
-        virtual ~EmbeddedZipArchiveFactory();
+        ~EmbeddedZipArchiveFactory() override;
 
         [[nodiscard]] const String& getType() const override;
 

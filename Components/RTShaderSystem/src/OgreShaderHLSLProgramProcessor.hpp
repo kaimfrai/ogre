@@ -55,7 +55,7 @@ public:
     HLSLProgramProcessor();
 
     /** Class destructor */
-    virtual ~HLSLProgramProcessor();
+    ~HLSLProgramProcessor() override;
 
     /** Return the target language of this processor. */
     [[nodiscard]] virtual const String& getTargetLanguage() const { return TargetLanguage; }
@@ -63,11 +63,11 @@ public:
     /** 
     @see ProgramProcessor::preCreateGpuPrograms
     */
-    virtual bool preCreateGpuPrograms(ProgramSet* programSet);
+    bool preCreateGpuPrograms(ProgramSet* programSet) override;
     /** 
     @see ProgramProcessor::postCreateGpuPrograms
     */
-    virtual bool postCreateGpuPrograms(ProgramSet* programSet);
+    bool postCreateGpuPrograms(ProgramSet* programSet) override;
 
     static String TargetLanguage;
 

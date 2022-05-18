@@ -58,7 +58,7 @@ protected:
     ::std::unique_ptr<MaterialManager> mMatMgr;
 
 public:
-    void SetUp();
-    void TearDown();
+    void SetUp() override;
+    void TearDown() override;
 };
 #endif

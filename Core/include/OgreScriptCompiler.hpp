@@ -128,8 +128,8 @@ class Material;
         uint32 id;
     public:
         AtomAbstractNode(AbstractNode *ptr);
-        [[nodiscard]] AbstractNode *clone() const;
-        [[nodiscard]] const String& getValue() const { return value; }
+        [[nodiscard]] AbstractNode *clone() const override;
+        [[nodiscard]] const String& getValue() const override { return value; }
     };
 
     /** This specific abstract node represents a script object */
@@ -147,8 +147,8 @@ class Material;
         AbstractNodeList overrides; // For use when processing object inheritance and overriding
     public:
         ObjectAbstractNode(AbstractNode *ptr);
-        [[nodiscard]] AbstractNode *clone() const;
-        [[nodiscard]] const String& getValue() const { return cls; }
+        [[nodiscard]] AbstractNode *clone() const override;
+        [[nodiscard]] const String& getValue() const override { return cls; }
 
         void addVariable(const String &name);
         void setVariable(const String &name, const String &value);
@@ -165,8 +165,8 @@ class Material;
         AbstractNodeList values;
     public:
         PropertyAbstractNode(AbstractNode *ptr);
-        [[nodiscard]] AbstractNode *clone() const;
-        [[nodiscard]] const String& getValue() const { return name; }
+        [[nodiscard]] AbstractNode *clone() const override;
+        [[nodiscard]] const String& getValue() const override { return name; }
     };
 
     /** This abstract node represents an import statement */
@@ -176,8 +176,8 @@ class Material;
         String target, source;
     public:
         ImportAbstractNode();
-        [[nodiscard]] AbstractNode *clone() const;
-        [[nodiscard]] const String& getValue() const { return target; }
+        [[nodiscard]] AbstractNode *clone() const override;
+        [[nodiscard]] const String& getValue() const override { return target; }
     };
 
     /** This abstract node represents a variable assignment */
@@ -187,8 +187,8 @@ class Material;
         String name;
     public:
         VariableAccessAbstractNode(AbstractNode *ptr);
-        [[nodiscard]] AbstractNode *clone() const;
-        [[nodiscard]] const String& getValue() const { return name; }
+        [[nodiscard]] AbstractNode *clone() const override;
+        [[nodiscard]] const String& getValue() const override { return name; }
     };
 
     class ScriptCompilerEvent;
@@ -423,7 +423,7 @@ class Material;
         ScriptCompiler mScriptCompiler;
     public:
         ScriptCompilerManager();
-        virtual ~ScriptCompilerManager();
+        ~ScriptCompilerManager() override;
 
         /// Sets the listener used for compiler instances
         void setListener(ScriptCompilerListener *listener);
@@ -455,11 +455,11 @@ class Material;
         /// Adds a script extension that can be handled (e.g. *.material, *.pu, etc.)
         void addScriptPattern(const String &pattern);
         /// @copydoc ScriptLoader::getScriptPatterns
-        [[nodiscard]] const StringVector& getScriptPatterns() const;
+        [[nodiscard]] const StringVector& getScriptPatterns() const override;
         /// @copydoc ScriptLoader::parseScript
-        void parseScript(DataStreamPtr& stream, const String& groupName);
+        void parseScript(DataStreamPtr& stream, const String& groupName) override;
         /// @copydoc ScriptLoader::getLoadingOrder
-        [[nodiscard]] Real getLoadingOrder() const;
+        [[nodiscard]] Real getLoadingOrder() const override;
 
         /// @copydoc Singleton::getSingleton()
         static ScriptCompilerManager& getSingleton();

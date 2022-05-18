@@ -54,7 +54,7 @@ namespace Ogre {
 
     public:
         STBIImageCodec(const String &type);
-        virtual ~STBIImageCodec() { }
+        ~STBIImageCodec() override { }
 
         using ImageCodec::decode;
         using ImageCodec::encode;
@@ -76,11 +76,11 @@ namespace Ogre {
     class STBIPlugin : public Plugin
     {
     public:
-        [[nodiscard]] const String& getName() const;
-        void install() { STBIImageCodec::startup(); }
-        void uninstall() { STBIImageCodec::shutdown(); }
-        void initialise() {}
-        void shutdown() {}
+        [[nodiscard]] const String& getName() const override;
+        void install() override { STBIImageCodec::startup(); }
+        void uninstall() override { STBIImageCodec::shutdown(); }
+        void initialise() override {}
+        void shutdown() override {}
     };
     /** @} */
     /** @} */

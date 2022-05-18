@@ -72,22 +72,22 @@ class RenderQueue;
         MovablePlane (const Vector3& rkNormal, const Vector3& rkPoint);
         MovablePlane (const Vector3& rkPoint0, const Vector3& rkPoint1,
             const Vector3& rkPoint2);
-        ~MovablePlane() {}
+        ~MovablePlane() override {}
         /// Overridden from MovableObject
-        void _notifyCurrentCamera(Camera*) { /* don't care */ }
+        void _notifyCurrentCamera(Camera*) override { /* don't care */ }
         /// Overridden from MovableObject
-        const AxisAlignedBox& getBoundingBox() const { return AxisAlignedBox::BOX_NULL; }
+        const AxisAlignedBox& getBoundingBox() const override { return AxisAlignedBox::BOX_NULL; }
         /// Overridden from MovableObject
-        Real getBoundingRadius() const { return 0.0f; }
+        Real getBoundingRadius() const override { return 0.0f; }
         /// Overridden from MovableObject
-        void _updateRenderQueue(RenderQueue*) { /* do nothing */}
+        void _updateRenderQueue(RenderQueue*) override { /* do nothing */}
         /// Overridden from MovableObject
-        const String& getMovableType() const;
+        const String& getMovableType() const override;
         /// Get the derived plane as transformed by its parent node. 
         const Plane& _getDerivedPlane() const;
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
-            bool debugRenderables = false)
+            bool debugRenderables = false) override
                 {
                     /* do nothing */
                     (void)visitor;

@@ -299,13 +299,13 @@ class AnimationStateSet;
         static ControllerValueRealPtr create(AnimationState* targetAnimationState, bool addTime = false);
 
         /** ControllerValue implementation. */
-        [[nodiscard]] Real getValue() const
+        [[nodiscard]] Real getValue() const override
         {
             return mTargetAnimationState->getTimePosition() / mTargetAnimationState->getLength();
         }
 
         /** ControllerValue implementation. */
-        void setValue(Real value)
+        void setValue(Real value) override
         {
             if(mAddTime)
                 mTargetAnimationState->addTime(value);

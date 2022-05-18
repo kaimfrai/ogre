@@ -52,7 +52,7 @@ namespace Ogre {
         /// Constructor
         ParticleSystemRenderer() {}
         /// Destructor
-        virtual ~ParticleSystemRenderer() {}
+        ~ParticleSystemRenderer() override {}
 
         /** Gets the type of this renderer - must be implemented by subclasses */
         [[nodiscard]] virtual const String& getType() const = 0;
@@ -98,7 +98,7 @@ namespace Ogre {
             should be overridden to destroy an instance of it. The default
             behaviour is to do nothing.
         */
-        virtual void _destroyVisualData(ParticleVisualData* vis) { assert (vis == 0); }
+        virtual void _destroyVisualData(ParticleVisualData* vis) { assert (vis == nullptr); }
 
         /** Sets which render queue group this renderer should target with it's
             output.

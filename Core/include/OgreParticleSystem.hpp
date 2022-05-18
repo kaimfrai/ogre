@@ -88,7 +88,7 @@ namespace Ogre {
         */
         ParticleSystem(const String& name, const String& resourceGroupName);
 
-        virtual ~ParticleSystem();
+        ~ParticleSystem() override;
 
         /** Sets the ParticleRenderer to be used to render this particle system.
         @remarks
@@ -299,15 +299,15 @@ namespace Ogre {
         */
         virtual const String& getMaterialName() const;
 
-        virtual void _notifyCurrentCamera(Camera* cam) override;
+        void _notifyCurrentCamera(Camera* cam) override;
         void _notifyAttached(Node* parent, bool isTagPoint = false) override;
-        virtual const AxisAlignedBox& getBoundingBox() const override { return mAABB; }
-        virtual Real getBoundingRadius() const override { return mBoundingRadius; }
-        virtual void _updateRenderQueue(RenderQueue* queue) override;
+        const AxisAlignedBox& getBoundingBox() const override { return mAABB; }
+        Real getBoundingRadius() const override { return mBoundingRadius; }
+        void _updateRenderQueue(RenderQueue* queue) override;
 
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
-            bool debugRenderables = false);
+            bool debugRenderables = false) override;
 
         /** Fast-forwards this system by the required number of seconds.
         @remarks
@@ -453,9 +453,9 @@ namespace Ogre {
         void _notifyOrigin(const String& origin) { mOrigin = origin; }
 
         /** @copydoc MovableObject::setRenderQueueGroup */
-        void setRenderQueueGroup(uint8 queueID);
+        void setRenderQueueGroup(uint8 queueID) override;
         /** @copydoc MovableObject::setRenderQueueGroupAndPriority */
-        void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority);
+        void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority) override;
 
         /** Set whether or not particles are sorted according to the camera.
         @remarks
@@ -546,7 +546,7 @@ namespace Ogre {
         bool getEmitting() const;
 
         /// Override to return specific type flag
-        uint32 getTypeFlags() const;
+        uint32 getTypeFlags() const override;
     private:
         AxisAlignedBox mAABB;
         Real mBoundingRadius;

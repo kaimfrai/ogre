@@ -150,17 +150,17 @@ namespace Ogre
 
         public: // queries
 
-            [[nodiscard]] virtual const std::type_info & getType() const
+            [[nodiscard]] const std::type_info & getType() const override
             {
                 return typeid(ValueType);
             }
 
-            [[nodiscard]] virtual placeholder * clone() const
+            [[nodiscard]] placeholder * clone() const override
             {
                 return new holder(held);
             }
 
-            virtual void writeToStream(std::ostream& o)
+            void writeToStream(std::ostream& o) override
             {
                 o << "Any::ValueType";
             }
@@ -207,7 +207,7 @@ namespace Ogre
         {
         public: // structors
 
-            ~numplaceholder()
+            ~numplaceholder() override
             {
             }
             virtual placeholder* add(placeholder* rhs) = 0;
@@ -229,37 +229,37 @@ namespace Ogre
 
         public: // queries
 
-            [[nodiscard]] virtual const std::type_info & getType() const
+            [[nodiscard]] const std::type_info & getType() const override
             {
                 return typeid(ValueType);
             }
 
-            [[nodiscard]] virtual placeholder * clone() const
+            [[nodiscard]] placeholder * clone() const override
             {
                 return new numholder(held);
             }
 
-            virtual placeholder* add(placeholder* rhs)
+            placeholder* add(placeholder* rhs) override
             {
                 return new numholder(held + static_cast<numholder*>(rhs)->held);
             }
-            virtual placeholder* subtract(placeholder* rhs)
+            placeholder* subtract(placeholder* rhs) override
             {
                 return new numholder(held - static_cast<numholder*>(rhs)->held);
             }
-            virtual placeholder* multiply(placeholder* rhs)
+            placeholder* multiply(placeholder* rhs) override
             {
                 return new numholder(held * static_cast<numholder*>(rhs)->held);
             }
-            virtual placeholder* multiply(Real factor)
+            placeholder* multiply(Real factor) override
             {
                 return new numholder(held * factor);
             }
-            virtual placeholder* divide(placeholder* rhs)
+            placeholder* divide(placeholder* rhs) override
             {
                 return new numholder(held / static_cast<numholder*>(rhs)->held);
             }
-            virtual void writeToStream(std::ostream& o)
+            void writeToStream(std::ostream& o) override
             {
                 o << held;
             }

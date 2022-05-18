@@ -207,7 +207,7 @@ public:
         return *this;
     }
 
-    bool keyPressed(const KeyboardEvent& evt)
+    bool keyPressed(const KeyboardEvent& evt) override
     {
         for (auto listner : mListenerChain)
         {
@@ -216,7 +216,7 @@ public:
         }
         return false;
     }
-    bool keyReleased(const KeyboardEvent& evt)
+    bool keyReleased(const KeyboardEvent& evt) override
     {
         for (auto listner : mListenerChain)
         {
@@ -225,7 +225,7 @@ public:
         }
         return false;
     }
-    bool touchMoved(const TouchFingerEvent& evt)
+    bool touchMoved(const TouchFingerEvent& evt) override
     {
         for (auto listner : mListenerChain)
         {
@@ -234,7 +234,7 @@ public:
         }
         return false;
     }
-    bool touchPressed(const TouchFingerEvent& evt)
+    bool touchPressed(const TouchFingerEvent& evt) override
     {
         for (auto listner : mListenerChain)
         {
@@ -243,7 +243,7 @@ public:
         }
         return false;
     }
-    bool touchReleased(const TouchFingerEvent& evt)
+    bool touchReleased(const TouchFingerEvent& evt) override
     {
         for (auto listner : mListenerChain)
         {
@@ -252,7 +252,7 @@ public:
         }
         return false;
     }
-    bool mouseMoved(const MouseMotionEvent& evt)
+    bool mouseMoved(const MouseMotionEvent& evt) override
     {
         for (auto listner : mListenerChain)
         {
@@ -261,7 +261,7 @@ public:
         }
         return false;
     }
-    bool mouseWheelRolled(const MouseWheelEvent& evt)
+    bool mouseWheelRolled(const MouseWheelEvent& evt) override
     {
         for (auto listner : mListenerChain)
         {
@@ -270,7 +270,7 @@ public:
         }
         return false;
     }
-    bool mousePressed(const MouseButtonEvent& evt)
+    bool mousePressed(const MouseButtonEvent& evt) override
     {
         for (auto listner : mListenerChain)
         {
@@ -279,7 +279,7 @@ public:
         }
         return false;
     }
-    bool mouseReleased(const MouseButtonEvent& evt)
+    bool mouseReleased(const MouseButtonEvent& evt) override
     {
         for (auto listner : mListenerChain)
         {
@@ -288,7 +288,7 @@ public:
         }
         return false;
     }
-    bool textInput (const TextInputEvent& evt)
+    bool textInput (const TextInputEvent& evt) override
     {
         for (auto listner : mListenerChain)
         {

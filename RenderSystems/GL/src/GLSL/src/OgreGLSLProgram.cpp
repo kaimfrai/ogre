@@ -136,12 +136,12 @@ class ResourceManager;
     class CmdInputOperationType : public ParamCommand
     {
     public:
-        String doGet(const void* target) const
+        String doGet(const void* target) const override
         {
             const GLSLProgram* t = static_cast<const GLSLProgram*>(target);
             return operationTypeToString(t->getInputOperationType());
         }
-        void doSet(void* target, const String& val)
+        void doSet(void* target, const String& val) override
         {
             GLSLProgram* t = static_cast<GLSLProgram*>(target);
             t->setInputOperationType(parseOperationType(val));
@@ -151,12 +151,12 @@ class ResourceManager;
     class CmdOutputOperationType : public ParamCommand
     {
     public:
-        String doGet(const void* target) const
+        String doGet(const void* target) const override
         {
             const GLSLProgram* t = static_cast<const GLSLProgram*>(target);
             return operationTypeToString(t->getOutputOperationType());
         }
-        void doSet(void* target, const String& val)
+        void doSet(void* target, const String& val) override
         {
             GLSLProgram* t = static_cast<GLSLProgram*>(target);
             t->setOutputOperationType(parseOperationType(val));
@@ -166,12 +166,12 @@ class ResourceManager;
     class CmdMaxOutputVertices : public ParamCommand
     {
     public:
-        String doGet(const void* target) const
+        String doGet(const void* target) const override
         {
             const GLSLProgram* t = static_cast<const GLSLProgram*>(target);
             return StringConverter::toString(t->getMaxOutputVertices());
         }
-        void doSet(void* target, const String& val)
+        void doSet(void* target, const String& val) override
         {
             GLSLProgram* t = static_cast<GLSLProgram*>(target);
             t->setMaxOutputVertices(StringConverter::parseInt(val));

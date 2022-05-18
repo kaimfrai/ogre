@@ -235,20 +235,20 @@ class Technique;
             size_t mMaxVertexIndex;
         public:
             GeometryBucket(MaterialBucket* parent, const VertexData* vData, const IndexData* iData);
-            virtual ~GeometryBucket();
+            ~GeometryBucket() override;
             MaterialBucket* getParent() { return mParent; }
             /// Get the vertex data for this geometry 
             [[nodiscard]] const VertexData* getVertexData() const { return mVertexData; }
             /// Get the index data for this geometry 
             [[nodiscard]] const IndexData* getIndexData() const { return mIndexData; }
             /// @copydoc Renderable::getMaterial
-            [[nodiscard]] const MaterialPtr& getMaterial() const;
-            [[nodiscard]] Technique* getTechnique() const;
-            void getRenderOperation(RenderOperation& op);
-            void getWorldTransforms(Matrix4* xform) const;
-            Real getSquaredViewDepth(const Camera* cam) const;
-            [[nodiscard]] const LightList& getLights() const;
-            [[nodiscard]] bool getCastsShadows() const;
+            [[nodiscard]] const MaterialPtr& getMaterial() const override;
+            [[nodiscard]] Technique* getTechnique() const override;
+            void getRenderOperation(RenderOperation& op) override;
+            void getWorldTransforms(Matrix4* xform) const override;
+            Real getSquaredViewDepth(const Camera* cam) const override;
+            [[nodiscard]] const LightList& getLights() const override;
+            [[nodiscard]] bool getCastsShadows() const override;
             
             /** Try to assign geometry to this bucket.
             @return false if there is no room left in this bucket
@@ -412,7 +412,7 @@ class Technique;
         public:
             Region(StaticGeometry* parent, const String& name, SceneManager* mgr, 
                 uint32 regionID, const Vector3& centre);
-            virtual ~Region();
+            ~Region() override;
             // more fields can be added in subclasses
             StaticGeometry* getParent() const { return mParent;}
             /// Assign a queued mesh to this region, read for final build
@@ -423,16 +423,16 @@ class Technique;
             uint32 getID() const { return mRegionID; }
             /// Get the centre point of the region
             const Vector3& getCentre() const { return mCentre; }
-            const String& getMovableType() const;
-            void _notifyCurrentCamera(Camera* cam);
-            const AxisAlignedBox& getBoundingBox() const;
-            Real getBoundingRadius() const;
-            void _updateRenderQueue(RenderQueue* queue);
+            const String& getMovableType() const override;
+            void _notifyCurrentCamera(Camera* cam) override;
+            const AxisAlignedBox& getBoundingBox() const override;
+            Real getBoundingRadius() const override;
+            void _updateRenderQueue(RenderQueue* queue) override;
             /// @copydoc MovableObject::visitRenderables
             void visitRenderables(Renderable::Visitor* visitor, 
-                bool debugRenderables = false);
-            bool isVisible() const;
-            uint32 getTypeFlags() const;
+                bool debugRenderables = false) override;
+            bool isVisible() const override;
+            uint32 getTypeFlags() const override;
 
             typedef VectorIterator<LODBucketList> LODIterator;
 
@@ -753,14 +753,14 @@ class Technique;
     /** Dummy factory to let Regions adhere to MovableObject protocol */
     class StaticGeometryFactory : public MovableObjectFactory
     {
-        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) { return nullptr; }
+        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) override { return nullptr; }
     public:
         StaticGeometryFactory() {}
-        ~StaticGeometryFactory() {}
+        ~StaticGeometryFactory() override {}
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const { return FACTORY_TYPE_NAME; }
+        [[nodiscard]] const String& getType() const override { return FACTORY_TYPE_NAME; }
     };
     /** @} */
     /** @} */

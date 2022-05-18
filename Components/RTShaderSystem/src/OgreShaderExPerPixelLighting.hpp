@@ -65,7 +65,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    virtual const String& getType() const;
+    const String& getType() const override;
 
     bool setParameter(const String& name, const String& value) override;
 
@@ -76,7 +76,7 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    virtual bool resolveParameters(ProgramSet* programSet);
+    bool resolveParameters(ProgramSet* programSet) override;
 
     /** Resolve global lighting parameters */
     virtual bool resolveGlobalParameters(ProgramSet* programSet);
@@ -87,12 +87,12 @@ protected:
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    virtual bool resolveDependencies(ProgramSet* programSet);
+    bool resolveDependencies(ProgramSet* programSet) override;
 
     /** 
     @see SubRenderState::addFunctionInvocations.
     */
-    virtual bool addFunctionInvocations(ProgramSet* programSet);
+    bool addFunctionInvocations(ProgramSet* programSet) override;
     
 
     /** 
@@ -128,17 +128,17 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] virtual const String& getType() const;
+    [[nodiscard]] const String& getType() const override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator);
+    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
     */
-    virtual void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, Pass* srcPass, Pass* dstPass);
+    void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, Pass* srcPass, Pass* dstPass) override;
 
     
 protected:
@@ -146,7 +146,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    virtual SubRenderState* createInstanceImpl();
+    SubRenderState* createInstanceImpl() override;
 
 
 };

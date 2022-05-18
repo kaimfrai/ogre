@@ -59,7 +59,7 @@ class Skeleton;
         Bone(unsigned short handle, Skeleton* creator);
         /** Constructor, not to be used directly (use Bone::createChild or Skeleton::createBone) */
         Bone(const String& name, unsigned short handle, Skeleton* creator);
-        ~Bone();
+        ~Bone() override;
 
     private:
         // Intentionally hide base implementations of createChild methods. This will also suppress
@@ -128,14 +128,14 @@ class Skeleton;
         const Quaternion& _getBindingPoseInverseOrientation() const { return mBindDerivedInverseOrientation; }
 
         /// @see Node::needUpdate
-        void needUpdate(bool forceParentUpdate = false);
+        void needUpdate(bool forceParentUpdate = false) override;
 
 
     private:
         /** See Node. */
-        Node* createChildImpl();
+        Node* createChildImpl() override;
         /** See Node. */
-        Node* createChildImpl(const String& name);
+        Node* createChildImpl(const String& name) override;
 
         /// Pointer back to creator, for child creation (not smart ptr so child does not preserve parent)
         Skeleton* mCreator;

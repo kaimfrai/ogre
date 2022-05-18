@@ -134,7 +134,7 @@ class VertexData;
         BillboardChain(const String& name, size_t maxElements = 20, size_t numberOfChains = 1, 
             bool useTextureCoords = true, bool useColours = true, bool dynamic = true);
 
-        ~BillboardChain();
+        ~BillboardChain() override;
 
         /** Set the maximum number of chain elements per chain 
         */
@@ -278,19 +278,19 @@ class VertexData;
 
 
         // Overridden members follow
-        Real getSquaredViewDepth(const Camera* cam) const;
-        Real getBoundingRadius() const;
-        const AxisAlignedBox& getBoundingBox() const;
-        const MaterialPtr& getMaterial() const;
-        const String& getMovableType() const;
-        void _updateRenderQueue(RenderQueue *);
-        void getRenderOperation(RenderOperation &);
-        virtual bool preRender(SceneManager* sm, RenderSystem* rsys);
-        void getWorldTransforms(Matrix4 *) const;
-        const LightList& getLights() const;
+        Real getSquaredViewDepth(const Camera* cam) const override;
+        Real getBoundingRadius() const override;
+        const AxisAlignedBox& getBoundingBox() const override;
+        const MaterialPtr& getMaterial() const override;
+        const String& getMovableType() const override;
+        void _updateRenderQueue(RenderQueue *) override;
+        void getRenderOperation(RenderOperation &) override;
+        bool preRender(SceneManager* sm, RenderSystem* rsys) override;
+        void getWorldTransforms(Matrix4 *) const override;
+        const LightList& getLights() const override;
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
-            bool debugRenderables = false);
+            bool debugRenderables = false) override;
 
 
 
@@ -383,14 +383,14 @@ class VertexData;
     class BillboardChainFactory : public MovableObjectFactory
     {
     private:
-        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);
+        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) override;
     public:
         BillboardChainFactory() {}
-        ~BillboardChainFactory() {}
+        ~BillboardChainFactory() override {}
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const;
+        [[nodiscard]] const String& getType() const override;
     };
 
     /** @} */

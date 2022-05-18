@@ -51,11 +51,11 @@ class RenderTexture;
     {
     public:
         GLPBRenderTexture(GLPBRTTManager *manager, const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
-        virtual ~GLPBRenderTexture();
+        ~GLPBRenderTexture() override;
         
-        virtual void getCustomAttribute(const String& name, void* pData);
+        void getCustomAttribute(const String& name, void* pData) override;
 
-        [[nodiscard]] GLContext* getContext() const;
+        [[nodiscard]] GLContext* getContext() const override;
     protected:
         GLPBRTTManager *mManager;
         PixelComponentType mPBFormat;
@@ -67,12 +67,12 @@ class RenderTexture;
     {
     public:
         GLPBRTTManager(GLNativeSupport *support, RenderTarget *mainwindow);
-        virtual ~GLPBRTTManager();
+        ~GLPBRTTManager() override;
         
         /** @copydoc GLRTTManager::createRenderTexture
         */
-        virtual RenderTexture *createRenderTexture(const String &name, 
-            const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
+        RenderTexture *createRenderTexture(const String &name, 
+            const GLSurfaceDesc &target, bool writeGamma, uint fsaa) override;
         
          /** @copydoc GLRTTManager::checkFormat
         */
@@ -80,11 +80,11 @@ class RenderTexture;
         
         /** @copydoc GLRTTManager::bind
         */
-        virtual void bind(RenderTarget *target);
+        void bind(RenderTarget *target) override;
         
         /** @copydoc GLRTTManager::unbind
         */
-        virtual void unbind(RenderTarget *target);
+        void unbind(RenderTarget *target) override;
         
         /** Create PBuffer for a certain pixel format and size
         */

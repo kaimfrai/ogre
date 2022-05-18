@@ -185,7 +185,7 @@ class SceneNode;
         MovableObject(const String& name);
         /** Virtual destructor - read Scott Meyers if you don't know why this is needed.
         */
-        virtual ~MovableObject();
+        ~MovableObject() override;
 
         /** Notify the object of it's creator (internal use only) */
         virtual void _notifyCreator(MovableObjectFactory* fact) { mCreator = fact; }
@@ -279,7 +279,7 @@ class SceneNode;
         Real getBoundingRadiusScaled() const;
 
         /** Retrieves the axis-aligned bounding box for this object in world coordinates. */
-        virtual const AxisAlignedBox& getWorldBoundingBox(bool derive = false) const;
+        const AxisAlignedBox& getWorldBoundingBox(bool derive = false) const override;
         /** Retrieves the worldspace bounding sphere for this object. */
         virtual const Sphere& getWorldBoundingSphere(bool derive = false) const;
         /** Internal method by which the movable object must add Renderable subclass instances to the rendering queue.
@@ -505,7 +505,7 @@ class SceneNode;
         LightList* _getLightList() { return &mLightList; }
 
         /// Returns details of the edges which might be used to determine a silhouette
-        EdgeData* getEdgeList() { return nullptr; }
+        EdgeData* getEdgeList() override { return nullptr; }
         /// Define a default implementation of method from ShadowCaster which implements no shadows
         const ShadowRenderableList& getShadowVolumeRenderableList(
             const Light* light, const HardwareIndexBufferPtr& indexBuffer,
@@ -527,14 +527,14 @@ class SceneNode;
         */
         void setCastShadows(bool enabled) { mCastShadows = enabled; }
         /** Returns whether shadow casting is enabled for this object. */
-        bool getCastShadows() const { return mCastShadows; }
+        bool getCastShadows() const override { return mCastShadows; }
         /** Returns whether the Material of any Renderable that this MovableObject will add to 
             the render queue will receive shadows. 
         */
         bool getReceivesShadows();
             
         /** Get the distance to extrude for a point/spot light */
-        Real getPointExtrusionDistance(const Light* l) const;
+        Real getPointExtrusionDistance(const Light* l) const override;
         /** Get the 'type flags' for this MovableObject.
         @remarks
             A type flag identifies the type of the MovableObject as a bitpattern. 

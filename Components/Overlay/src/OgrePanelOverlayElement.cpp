@@ -58,22 +58,22 @@ class RenderQueue;
     class CmdTiling : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        String doGet(const void* target) const override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for specifying transparency (see ParamCommand).*/
     class CmdTransparent : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        String doGet(const void* target) const override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for specifying UV coordinates (see ParamCommand).*/
     class CmdUVCoords : public ParamCommand
     {
     public:
-        String doGet(const void* target) const;
-        void doSet(void* target, const String& val);
+        String doGet(const void* target) const override;
+        void doSet(void* target, const String& val) override;
     };
     // Command objects
     static CmdTiling msCmdTiling;

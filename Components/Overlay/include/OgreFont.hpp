@@ -137,11 +137,11 @@ class ResourceManager;
         void createTextureFromFont();
 
         /// @copydoc Resource::loadImpl
-        virtual void loadImpl();
+        void loadImpl() override;
         /// @copydoc Resource::unloadImpl
-        virtual void unloadImpl();
+        void unloadImpl() override;
         /// @copydoc Resource::calculateSize
-        size_t calculateSize() const { return 0; } // permanent resource is in the texture 
+        size_t calculateSize() const override { return 0; } // permanent resource is in the texture 
     public:
 
         /** Constructor.
@@ -149,7 +149,7 @@ class ResourceManager;
         */
         Font(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
-        virtual ~Font();
+        ~Font() override;
 
         /** Sets the type of font. Must be set before loading. */
         void setType(FontType ftype);
@@ -340,7 +340,7 @@ class ResourceManager;
         /** Implementation of ManualResourceLoader::loadResource, called
             when the Texture that this font creates needs to (re)load.
         */
-        void loadResource(Resource* resource);
+        void loadResource(Resource* resource) override;
 
         /** Manually set the material used for this font.
         @remarks

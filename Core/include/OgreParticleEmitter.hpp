@@ -177,7 +177,7 @@ namespace Ogre {
     public:
         ParticleEmitter(ParticleSystem* psys);
         /** Virtual destructor essential. */
-        virtual ~ParticleEmitter();
+        ~ParticleEmitter() override;
 
         /** Sets the position of this emitter relative to the particle system center. */
         virtual void setPosition(const Vector3& pos);

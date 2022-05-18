@@ -132,7 +132,7 @@ class Sphere;
 
         /** Standard destructor.
         */
-        ~Light();
+        ~Light() override;
 
         /** Sets the type of light - see LightTypes for more info.
         */
@@ -293,7 +293,7 @@ class Sphere;
         void _updateRenderQueue(RenderQueue* queue) override {} // No rendering
 
         /** @copydoc MovableObject::getMovableType */
-        const String& getMovableType() const;
+        const String& getMovableType() const override;
 
         /** Retrieves the position of the light including any transform from nodes it is attached to. 
         @param cameraRelativeIfSet If set to true, returns data in camera-relative units if that's been set up (render use)
@@ -355,10 +355,10 @@ class Sphere;
         virtual const PlaneBoundedVolumeList& _getFrustumClipVolumes(const Camera* const cam) const;
 
         /// Override to return specific type flag
-        uint32 getTypeFlags() const;
+        uint32 getTypeFlags() const override;
 
         /// @copydoc AnimableObject::createAnimableValue
-        AnimableValuePtr createAnimableValue(const String& valueName);
+        AnimableValuePtr createAnimableValue(const String& valueName) override;
 
         /** Set this light to use a custom shadow camera when rendering texture shadows.
         @remarks
@@ -563,14 +563,14 @@ class Sphere;
     class LightFactory : public MovableObjectFactory
     {
     private:
-        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params);
+        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) override;
     public:
         LightFactory() {}
-        ~LightFactory() {}
+        ~LightFactory() override {}
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const;
+        [[nodiscard]] const String& getType() const override;
     };
     /** @} */
     /** @} */

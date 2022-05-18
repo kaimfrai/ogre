@@ -107,9 +107,9 @@ public:
     /**
     Listener overridden function notify the shader generator when rendering single object.
     */
-    virtual void notifyRenderSingleObject(Renderable* rend, const Pass* pass,
+    void notifyRenderSingleObject(Renderable* rend, const Pass* pass,
                                           const AutoParamDataSource* source, const LightList* pLightList,
-                                          bool suppressRenderStateChanges)
+                                          bool suppressRenderStateChanges) override
     {
         mOwner->notifyRenderSingleObject(rend, pass, source, pLightList, suppressRenderStateChanges);
     }
@@ -127,8 +127,8 @@ public:
     /**
     Listener overridden function notify the shader generator when finding visible objects process started.
     */
-    virtual void preFindVisibleObjects(SceneManager* source, SceneManager::IlluminationRenderStage irs,
-                                       Viewport* v)
+    void preFindVisibleObjects(SceneManager* source, SceneManager::IlluminationRenderStage irs,
+                                       Viewport* v) override
     {
         mOwner->preFindVisibleObjects(source, irs, v);
     }
@@ -144,7 +144,7 @@ public:
     SGScriptTranslatorManager(ShaderGenerator* owner) { mOwner = owner; }
 
     /// Returns a manager for the given object abstract node, or null if it is not supported
-    virtual ScriptTranslator* getTranslator(const AbstractNodePtr& node)
+    ScriptTranslator* getTranslator(const AbstractNodePtr& node) override
     {
         return mOwner->getTranslator(node);
     }
@@ -160,7 +160,7 @@ public:
     SGResourceGroupListener(ShaderGenerator* owner) { mOwner = owner; }
 
     /// sync our internal list if material gets dropped
-    virtual void resourceRemove(const ResourcePtr& resource)
+    void resourceRemove(const ResourcePtr& resource) override
     {
         if (auto mat = dynamic_cast<Material*>(resource.get()))
         {
@@ -1662,7 +1662,7 @@ void ShaderGenerator::SGTechnique::buildTargetRenderState()
 //-----------------------------------------------------------------------------
 void ShaderGenerator::SGTechnique::buildIlluminationTargetRenderState()
 {
-	assert(mDstTechnique != NULL);
+	assert(mDstTechnique != nullptr);
 	assert(!getBuildDestinationTechnique());
 
 	// Create the illumination passes.

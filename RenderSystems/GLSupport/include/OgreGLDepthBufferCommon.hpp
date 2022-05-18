@@ -31,7 +31,7 @@ namespace Ogre
                             GLHardwarePixelBufferCommon* depth, GLHardwarePixelBufferCommon* stencil,
                             const RenderTarget* target, bool isManual);
 
-        virtual ~GLDepthBufferCommon();
+        ~GLDepthBufferCommon() override;
 
         bool isCompatible( RenderTarget *renderTarget ) const override;
 

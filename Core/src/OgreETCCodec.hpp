@@ -57,7 +57,7 @@ namespace Ogre {
 
     public:
         ETCCodec(const String &type);
-        virtual ~ETCCodec() { }
+        ~ETCCodec() override { }
 
         using ImageCodec::decode;
         [[nodiscard]] DecodeResult decode(const DataStreamPtr& input) const override;

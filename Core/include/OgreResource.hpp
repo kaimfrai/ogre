@@ -240,7 +240,7 @@ class ResourceManager;
             @see
                 Resource::unload()
         */
-        virtual ~Resource();
+        ~Resource() override;
 
         /** Prepares the resource for load, if it is not already.  One can call prepare()
             before load(), but this is not required as load() will call prepare() 

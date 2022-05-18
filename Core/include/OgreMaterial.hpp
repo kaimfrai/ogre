@@ -146,9 +146,9 @@ class Technique;
         @see
         Resource
         */
-        void unloadImpl();
+        void unloadImpl() override;
         /// @copydoc Resource::calculateSize
-        size_t calculateSize() const;
+        size_t calculateSize() const override;
     public:
 
         /** Constructor - use resource manager's create method rather than this.
@@ -156,7 +156,7 @@ class Technique;
         Material(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
 
-        ~Material();
+        ~Material() override;
         /** Assignment operator to allow easy copying between materials.
         */
         Material& operator=( const Material& rhs );
@@ -640,7 +640,7 @@ class Technique;
 
         /** @copydoc Resource::touch
         */
-        void touch() 
+        void touch() override 
         { 
             if (mCompilationRequired) 
                 compile();

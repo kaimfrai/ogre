@@ -48,21 +48,21 @@ class GLFrameBufferObjectCommon;
     {
     public:
         GLFBOMultiRenderTarget(GLFBOManager *manager, const String &name);
-        ~GLFBOMultiRenderTarget();
+        ~GLFBOMultiRenderTarget() override;
 
-        virtual void getCustomAttribute( const String& name, void *pData );
-        [[nodiscard]] GLContext* getContext() const { return fbo.getContext(); }
-        GLFrameBufferObjectCommon* getFBO() { return &fbo; }
+        void getCustomAttribute( const String& name, void *pData ) override;
+        [[nodiscard]] GLContext* getContext() const override { return fbo.getContext(); }
+        GLFrameBufferObjectCommon* getFBO() override { return &fbo; }
 
-        [[nodiscard]] bool requiresTextureFlipping() const { return true; }
+        [[nodiscard]] bool requiresTextureFlipping() const override { return true; }
 
         /// Override so we can attach the depth buffer to the FBO
-        virtual bool attachDepthBuffer( DepthBuffer *depthBuffer );
-        virtual void detachDepthBuffer();
-        virtual void _detachDepthBuffer();
+        bool attachDepthBuffer( DepthBuffer *depthBuffer ) override;
+        void detachDepthBuffer() override;
+        void _detachDepthBuffer() override;
     private:
-        virtual void bindSurfaceImpl(size_t attachment, RenderTexture *target);
-        virtual void unbindSurfaceImpl(size_t attachment); 
+        void bindSurfaceImpl(size_t attachment, RenderTexture *target) override;
+        void unbindSurfaceImpl(size_t attachment) override; 
         GLFrameBufferObject fbo;
     };
 

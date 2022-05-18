@@ -76,7 +76,7 @@ class RenderQueue;
     public:
         /// Constructor: do not call direct, use OverlayManager::createOverlayElement
         OverlayContainer(const String& name);
-        virtual ~OverlayContainer();
+        ~OverlayContainer() override;
 
         /** Adds another OverlayElement to this container. */
         virtual void addChild(OverlayElement* elem);
@@ -90,7 +90,7 @@ class RenderQueue;
         virtual OverlayElement* getChild(const String& name);
 
         /** @copydoc OverlayElement::initialise */
-        void initialise();
+        void initialise() override;
 
         void _addChild(OverlayElement* elem);
         ChildMap::iterator _removeChild(OverlayElement* elem) { return _removeChild(elem->getName()); }
@@ -106,28 +106,28 @@ class RenderQueue;
         virtual ChildContainerIterator getChildContainerIterator();
 
         /** Tell the object and its children to recalculate */
-        virtual void _positionsOutOfDate();
+        void _positionsOutOfDate() override;
 
         /** Overridden from OverlayElement. */
-        virtual void _update();
+        void _update() override;
 
         /** Overridden from OverlayElement. */
-        virtual ushort _notifyZOrder(ushort newZOrder);
+        ushort _notifyZOrder(ushort newZOrder) override;
 
         /** Overridden from OverlayElement. */
-        virtual void _notifyViewport();
+        void _notifyViewport() override;
 
         /** Overridden from OverlayElement. */
-        virtual void _notifyWorldTransforms(const Matrix4& xform);
+        void _notifyWorldTransforms(const Matrix4& xform) override;
 
         /** Overridden from OverlayElement. */
-        virtual void _notifyParent(OverlayContainer* parent, Overlay* overlay);
+        void _notifyParent(OverlayContainer* parent, Overlay* overlay) override;
 
         /** Overridden from OverlayElement. */
-        virtual void _updateRenderQueue(RenderQueue* queue);
+        void _updateRenderQueue(RenderQueue* queue) override;
 
         /** Overridden from OverlayElement. */
-        [[nodiscard]] inline bool isContainer() const
+        [[nodiscard]] inline bool isContainer() const override
         { return true; }
 
         /** Should this container pass events to their children */
@@ -139,10 +139,10 @@ class RenderQueue;
         { mChildrenProcessEvents = val; }
 
         /** This returns a OverlayElement at position x,y. */
-        virtual OverlayElement* findElementAt(Real x, Real y);      // relative to parent
+        OverlayElement* findElementAt(Real x, Real y) override;      // relative to parent
 
-        void copyFromTemplate(OverlayElement* templateOverlay);
-        virtual OverlayElement* clone(const String& instanceName);
+        void copyFromTemplate(OverlayElement* templateOverlay) override;
+        OverlayElement* clone(const String& instanceName) override;
 
     };
 

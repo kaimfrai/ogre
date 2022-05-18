@@ -174,11 +174,11 @@ class Viewport;
         PolygonMode mSceneDetail;
 
         // Internal functions for calcs
-        bool isViewOutOfDate() const;
+        bool isViewOutOfDate() const override;
         /// Signal to update frustum information.
-        void invalidateFrustum() const;
+        void invalidateFrustum() const override;
         /// Signal to update view information.
-        void invalidateView() const;
+        void invalidateView() const override;
 
 
         /** Do actual window setting, using parameters set in SetWindow call
@@ -197,7 +197,7 @@ class Viewport;
 
         /** Standard destructor.
         */
-        virtual ~Camera();
+        ~Camera() override;
 
         /// Add a listener to this camera
         virtual void addListener(Listener* l);
@@ -422,18 +422,18 @@ class Viewport;
         virtual void forwardIntersect(const Plane& worldPlane, std::vector<Vector4>* intersect3d) const;
 
         /// @copydoc Frustum::isVisible(const AxisAlignedBox&, FrustumPlane*) const
-        bool isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy = nullptr) const;
+        bool isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy = nullptr) const override;
         /// @copydoc Frustum::isVisible(const Sphere&, FrustumPlane*) const
-        bool isVisible(const Sphere& bound, FrustumPlane* culledBy = nullptr) const;
+        bool isVisible(const Sphere& bound, FrustumPlane* culledBy = nullptr) const override;
         /// @copydoc Frustum::isVisible(const Vector3&, FrustumPlane*) const
-        bool isVisible(const Vector3& vert, FrustumPlane* culledBy = nullptr) const;
+        bool isVisible(const Vector3& vert, FrustumPlane* culledBy = nullptr) const override;
         /// @copydoc Frustum::getWorldSpaceCorners
-        const Corners& getWorldSpaceCorners() const;
+        const Corners& getWorldSpaceCorners() const override;
         /// @copydoc Frustum::getFrustumPlane
-        const Plane& getFrustumPlane( unsigned short plane ) const;
+        const Plane& getFrustumPlane( unsigned short plane ) const override;
         /// @copydoc Frustum::projectSphere
         bool projectSphere(const Sphere& sphere, 
-            Real* left, Real* top, Real* right, Real* bottom) const;
+            Real* left, Real* top, Real* right, Real* bottom) const override;
         /// @copydoc Frustum::getNearClipDistance
         Real getNearClipDistance() const;
         /// @copydoc Frustum::getFarClipDistance

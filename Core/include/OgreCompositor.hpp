@@ -63,7 +63,7 @@ class ResourceManager;
     public:
         Compositor(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
-        ~Compositor();
+        ~Compositor() override;
         
         /// Data types for internal lists
         typedef std::vector<CompositionTechnique *> Techniques;
@@ -149,12 +149,12 @@ class ResourceManager;
 
     protected:
         /// @copydoc Resource::loadImpl
-        void loadImpl();
+        void loadImpl() override;
 
         /// @copydoc Resource::unloadImpl
-        void unloadImpl();
+        void unloadImpl() override;
         /// @copydoc Resource::calculateSize
-        size_t calculateSize() const;
+        size_t calculateSize() const override;
         
         /** Check supportedness of techniques.
          */

@@ -49,9 +49,9 @@ class RenderTexture;
         GLCopyingRenderTexture(GLCopyingRTTManager *manager, const String &name, const GLSurfaceDesc &target, 
             bool writeGamma, uint fsaa);
         
-        virtual void getCustomAttribute(const String& name, void* pData);
+        void getCustomAttribute(const String& name, void* pData) override;
 
-        [[nodiscard]] GLContext* getContext() const { return nullptr; }
+        [[nodiscard]] GLContext* getContext() const override { return nullptr; }
     };
     
     /** Simple, copying manager/factory for RenderTextures. This is only used as the last fallback if
@@ -60,7 +60,7 @@ class RenderTexture;
     class GLCopyingRTTManager: public GLRTTManager
     {
     public:
-        RenderTexture *createRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa) {
+        RenderTexture *createRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa) override {
             return new GLCopyingRenderTexture(this, name, target, writeGamma, fsaa);
         }
 
@@ -68,11 +68,11 @@ class RenderTexture;
             return true;
         }
         
-        void bind(RenderTarget *target) {
+        void bind(RenderTarget *target) override {
             // Nothing to do here
         }
 
-        void unbind(RenderTarget *target);
+        void unbind(RenderTarget *target) override;
     };
 }
 

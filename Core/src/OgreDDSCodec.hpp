@@ -75,7 +75,7 @@ class ColourValue;
         static DDSCodec* msInstance;
     public:
         DDSCodec();
-        virtual ~DDSCodec() { }
+        ~DDSCodec() override { }
 
         using ImageCodec::decode;
         using ImageCodec::encode;

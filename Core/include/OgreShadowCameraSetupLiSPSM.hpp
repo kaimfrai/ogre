@@ -183,7 +183,7 @@ class Viewport;
         /// @deprecated use create()
         LiSPSMShadowCameraSetup(Real n = 0.1f, bool useSimpleNOpt = true, Degree angle = Radian(0.451f));
 
-        virtual ~LiSPSMShadowCameraSetup();
+        ~LiSPSMShadowCameraSetup() override;
 
         /**
          * @param n The adjustment factor
@@ -201,8 +201,8 @@ class Viewport;
         More information can be found on the webpage of the TU Wien: 
         http://www.cg.tuwien.ac.at/research/vr/lispsm/
         */
-        virtual void getShadowCamera(const SceneManager *sm, const Camera *cam, 
-            const Viewport *vp, const Light *light, Camera *texCam, size_t iteration) const;
+        void getShadowCamera(const SceneManager *sm, const Camera *cam, 
+            const Viewport *vp, const Light *light, Camera *texCam, size_t iteration) const override;
 
         /** Adjusts the parameter n to produce optimal shadows.
         @remarks

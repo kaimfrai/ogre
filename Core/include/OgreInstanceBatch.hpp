@@ -191,7 +191,7 @@ class Technique;
         InstanceBatch( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                        size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
                        const String &batchName );
-        virtual ~InstanceBatch();
+        ~InstanceBatch() override;
 
         MeshPtr& _getMeshRef() { return mMeshReference; }
 
@@ -345,28 +345,28 @@ class Technique;
 
         //Renderable overloads
         /** @copydoc Renderable::getMaterial */
-        const MaterialPtr& getMaterial() const      { return mMaterial; }
+        const MaterialPtr& getMaterial() const override      { return mMaterial; }
         /** @copydoc Renderable::getRenderOperation */
-        void getRenderOperation( RenderOperation& op )  { op = mRenderOperation; }
+        void getRenderOperation( RenderOperation& op ) override  { op = mRenderOperation; }
 
         /** @copydoc Renderable::getSquaredViewDepth */
-        Real getSquaredViewDepth( const Camera* cam ) const;
+        Real getSquaredViewDepth( const Camera* cam ) const override;
         /** @copydoc Renderable::getLights */
-        const LightList& getLights( ) const;
+        const LightList& getLights( ) const override;
         /** @copydoc Renderable::getTechnique */
-        Technique* getTechnique() const;
+        Technique* getTechnique() const override;
 
         /** @copydoc MovableObject::getMovableType */
-        const String& getMovableType() const;
+        const String& getMovableType() const override;
         /** @copydoc MovableObject::_notifyCurrentCamera */
-        void _notifyCurrentCamera( Camera* cam );
+        void _notifyCurrentCamera( Camera* cam ) override;
         /** @copydoc MovableObject::getBoundingBox */
-        const AxisAlignedBox& getBoundingBox() const;
+        const AxisAlignedBox& getBoundingBox() const override;
         /** @copydoc MovableObject::getBoundingRadius */
-        Real getBoundingRadius() const;
+        Real getBoundingRadius() const override;
 
-        virtual void _updateRenderQueue(RenderQueue* queue);
-        void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false );
+        void _updateRenderQueue(RenderQueue* queue) override;
+        void visitRenderables( Renderable::Visitor* visitor, bool debugRenderables = false ) override;
     };
 } // namespace Ogre
 

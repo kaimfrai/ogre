@@ -76,16 +76,16 @@ class ResourceManager;
 
         void createLowLevelImpl();
         void unloadHighLevelImpl();
-        void loadFromSource();
+        void loadFromSource() override;
 
-        void unloadImpl() { resetCompileError(); }
+        void unloadImpl() override { resetCompileError(); }
     public:
         /** Constructor, should be used only by factory classes. */
         UnifiedHighLevelGpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
-        ~UnifiedHighLevelGpuProgram();
+        ~UnifiedHighLevelGpuProgram() override;
 
-        virtual size_t calculateSize() const;
+        size_t calculateSize() const override;
 
         /** Adds a new delegate program to the list.
         @remarks
@@ -100,7 +100,7 @@ class ResourceManager;
         const GpuProgramPtr& _getDelegate() const;
 
         /** @copydoc GpuProgram::getLanguage */
-        const String& getLanguage() const;
+        const String& getLanguage() const override;
 
         /** Creates a new parameters object compatible with this program definition. 
         @remarks
@@ -109,14 +109,14 @@ class ResourceManager;
         HighLevelGpuProgramManager. This method creates a new instance of a parameters
         object containing the definition of the parameters this program understands.
         */
-        GpuProgramParametersSharedPtr createParameters();
+        GpuProgramParametersSharedPtr createParameters() override;
         /** @copydoc GpuProgram::_getBindingDelegate */
-        GpuProgram* _getBindingDelegate();
+        GpuProgram* _getBindingDelegate() override;
 
         // All the following methods must delegate to the implementation
 
         /** @copydoc GpuProgram::isSupported */
-        bool isSupported() const;
+        bool isSupported() const override;
 
         const String& getSource() const override
         {
@@ -124,36 +124,36 @@ class ResourceManager;
         }
 
         /** @copydoc GpuProgram::isSkeletalAnimationIncluded */
-        bool isSkeletalAnimationIncluded() const;
+        bool isSkeletalAnimationIncluded() const override;
 
-        bool isMorphAnimationIncluded() const;
+        bool isMorphAnimationIncluded() const override;
 
-        bool isPoseAnimationIncluded() const;
-        ushort getNumberOfPosesIncluded() const;
+        bool isPoseAnimationIncluded() const override;
+        ushort getNumberOfPosesIncluded() const override;
 
-        bool isVertexTextureFetchRequired() const;
+        bool isVertexTextureFetchRequired() const override;
         const GpuProgramParametersPtr& getDefaultParameters() override;
-        bool hasDefaultParameters() const;
-        bool getPassSurfaceAndLightStates() const;
-        bool getPassFogStates() const;
-        bool getPassTransformStates() const;
-        bool hasCompileError() const;
-        void resetCompileError();
+        bool hasDefaultParameters() const override;
+        bool getPassSurfaceAndLightStates() const override;
+        bool getPassFogStates() const override;
+        bool getPassTransformStates() const override;
+        bool hasCompileError() const override;
+        void resetCompileError() override;
 
-        void load(bool backgroundThread = false);
-        void reload(LoadingFlags flags = LF_DEFAULT);
+        void load(bool backgroundThread = false) override;
+        void reload(LoadingFlags flags = LF_DEFAULT) override;
         bool isReloadable() const;
         bool isLoaded() const;
         bool isLoading() const;
         LoadingState getLoadingState() const;
-        void unload();
+        void unload() override;
         size_t getSize() const;
-        void touch();
+        void touch() override;
         bool isBackgroundLoaded() const;
         void setBackgroundLoaded(bool bl);
-        void escalateLoading();
-        void addListener(Listener* lis);
-        void removeListener(Listener* lis);
+        void escalateLoading() override;
+        void addListener(Listener* lis) override;
+        void removeListener(Listener* lis) override;
 
     };
 
@@ -162,12 +162,12 @@ class ResourceManager;
     {
     public:
         UnifiedHighLevelGpuProgramFactory();
-        ~UnifiedHighLevelGpuProgramFactory();
+        ~UnifiedHighLevelGpuProgramFactory() override;
         /// Get the name of the language this factory creates programs for
-        [[nodiscard]] const String& getLanguage() const;
+        [[nodiscard]] const String& getLanguage() const override;
         GpuProgram* create(ResourceManager* creator,
             const String& name, ResourceHandle handle,
-            const String& group, bool isManual, ManualResourceLoader* loader);
+            const String& group, bool isManual, ManualResourceLoader* loader) override;
     };
 
     /** @} */

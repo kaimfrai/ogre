@@ -75,7 +75,7 @@ namespace OgreBites
             mCarouselPlace = 0.0f;
         }
 
-        virtual void loadStartUpSample()
+        void loadStartUpSample() override
         {
             if (mStartSampleIndex != -1)
             {
@@ -92,7 +92,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Extends runSample to handle creation and destruction of dummy scene.
           -----------------------------------------------------------------------------*/
-        virtual void runSample(Sample* s)
+        void runSample(Sample* s) override
         {
             if (mCurrentSample)  // sample quitting
             {
@@ -138,7 +138,7 @@ namespace OgreBites
         }
 
         /// catch any exceptions that might drop out of event handlers implemented by Samples
-        bool frameStarted(const Ogre::FrameEvent& evt)
+        bool frameStarted(const Ogre::FrameEvent& evt) override
         {
             try
             {
@@ -156,7 +156,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Extends frameRenderingQueued to update tray manager and carousel.
           -----------------------------------------------------------------------------*/
-        bool frameRenderingQueued(const Ogre::FrameEvent& evt)
+        bool frameRenderingQueued(const Ogre::FrameEvent& evt) override
         {
             // don't do all these calculations when sample's running or when in configuration screen or when no samples loaded
             if (!mLoadedSamples.empty() && mTitleLabel->getTrayLocation() != TL_NONE && (!mCurrentSample || mSamplePaused))
@@ -206,7 +206,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Handles confirmation dialog responses.
           -----------------------------------------------------------------------------*/
-        virtual void yesNoDialogClosed(const Ogre::DisplayString& question, bool yesHit)
+        void yesNoDialogClosed(const Ogre::DisplayString& question, bool yesHit) override
         {
             if (question.substr(0, 14) == "This will stop" && yesHit)   // confirm unloading of samples
             {
@@ -218,7 +218,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Handles button widget events.
           -----------------------------------------------------------------------------*/
-        virtual void buttonHit(Button* b)
+        void buttonHit(Button* b) override
         {
             if (b->getName() == "StartStop")   // start or stop sample
             {
@@ -361,7 +361,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Handles menu item selection changes.
           -----------------------------------------------------------------------------*/
-        virtual void itemSelected(SelectMenu* menu)
+        void itemSelected(SelectMenu* menu) override
         {
             if (menu == mCategoryMenu)      // category changed, so update the sample menu, carousel, and slider
             {
@@ -471,7 +471,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Handles sample slider changes.
           -----------------------------------------------------------------------------*/
-        virtual void sliderMoved(Slider* slider)
+        void sliderMoved(Slider* slider) override
         {
             // format the caption to be fraction style
             Ogre::String denom = "/" + Ogre::StringConverter::toString(mSampleMenu->getNumItems());
@@ -485,7 +485,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Handles keypresses.
           -----------------------------------------------------------------------------*/
-        virtual bool keyPressed(const KeyboardEvent& evt)
+        bool keyPressed(const KeyboardEvent& evt) override
         {
             if (mTrayMgr->isDialogVisible()) return true;  // ignore keypresses when dialog is showing
 
@@ -552,7 +552,7 @@ namespace OgreBites
           | Extends pointerPressed to inject mouse press into tray manager, and to check
           | for thumbnail clicks, just because we can.
           -----------------------------------------------------------------------------*/
-        virtual bool mousePressed(const MouseButtonEvent& evt)
+        bool mousePressed(const MouseButtonEvent& evt) override
         {
             if (mTitleLabel->getTrayLocation() != TL_NONE)
             {
@@ -573,7 +573,7 @@ namespace OgreBites
         }
 
         // convert and redirect
-        virtual bool touchPressed(const TouchFingerEvent& evt) {
+        bool touchPressed(const TouchFingerEvent& evt) override {
             MouseButtonEvent e;
             e.button = BUTTON_LEFT;
             return mousePressed(e);
@@ -604,7 +604,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Extends pointerReleased to inject mouse release into tray manager.
           -----------------------------------------------------------------------------*/
-        virtual bool mouseReleased(const MouseButtonEvent& evt)
+        bool mouseReleased(const MouseButtonEvent& evt) override
          {
             if (isCurrentSamplePaused()) return mTrayMgr->mouseReleased(evt);
 
@@ -612,7 +612,7 @@ namespace OgreBites
         }
 
         // convert and redirect
-        virtual bool touchReleased(const TouchFingerEvent& evt) {
+        bool touchReleased(const TouchFingerEvent& evt) override {
             MouseButtonEvent e;
             e.button = BUTTON_LEFT;
             return mouseReleased(e);
@@ -622,7 +622,7 @@ namespace OgreBites
           | Extends pointerMoved to inject mouse position into tray manager, and checks
           | for mouse wheel movements to slide the carousel, because we can.
           -----------------------------------------------------------------------------*/
-        virtual bool mouseMoved(const MouseMotionEvent& evt)
+        bool mouseMoved(const MouseMotionEvent& evt) override
         {
             if (isCurrentSamplePaused()) return mTrayMgr->mouseMoved(evt);
 
@@ -630,7 +630,7 @@ namespace OgreBites
         }
 
         // convert and redirect
-        virtual bool touchMoved(const TouchFingerEvent& evt) {
+        bool touchMoved(const TouchFingerEvent& evt) override {
             MouseMotionEvent e;
             e.x = evt.x * mWindow->getWidth();
             e.y = evt.y * mWindow->getHeight();
@@ -642,7 +642,7 @@ namespace OgreBites
         //TODO: Handle iOS and Android.
         /** Mouse wheel scrolls the sample list.
          */
-        virtual bool mouseWheelRolled(const MouseWheelEvent& evt)
+        bool mouseWheelRolled(const MouseWheelEvent& evt) override
         {
             if(mTrayMgr->mouseWheelRolled(evt))
                 return true;
@@ -662,7 +662,7 @@ namespace OgreBites
           | menu tray to the left for higher resolutions and move it to the center
           | for lower resolutions.
           -----------------------------------------------------------------------------*/
-        virtual void windowResized(Ogre::RenderWindow* rw)
+        void windowResized(Ogre::RenderWindow* rw) override
         {
             if (!mTrayMgr) return;
 
@@ -690,7 +690,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Extends setup to create dummy scene and tray interface.
           -----------------------------------------------------------------------------*/
-        virtual void setup()
+        void setup() override
         {
             ApplicationContext::setup();
             mWindow = getRenderWindow();
@@ -721,7 +721,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Overrides the default window title.
           -----------------------------------------------------------------------------*/
-        virtual NativeWindowPair createWindow(const Ogre::String& name, uint32_t w, uint32_t h, Ogre::NameValuePairList miscParams)
+        NativeWindowPair createWindow(const Ogre::String& name, uint32_t w, uint32_t h, Ogre::NameValuePairList miscParams) override
         {
             return ApplicationContext::createWindow(name, w, h, miscParams);
         }
@@ -731,7 +731,7 @@ namespace OgreBites
           | by samples. This way, additional special content can be initialised by
           | the samples that use them, so startup time is unaffected.
           -----------------------------------------------------------------------------*/
-        virtual void loadResources()
+        void loadResources() override
         {
             Ogre::OverlayManager::getSingleton().setPixelRatio(getDisplayDPI()/96);
 
@@ -880,7 +880,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Overrides to recover by last sample's index instead.
           -----------------------------------------------------------------------------*/
-        virtual void recoverLastSample()
+        void recoverLastSample() override
         {
             // restore the view while we're at it too
             mCategoryMenu->selectItem(mLastViewCategory);
@@ -912,7 +912,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Extends reconfigure to save the view and the index of last sample run.
           -----------------------------------------------------------------------------*/
-        virtual void reconfigure(const Ogre::String& renderer, Ogre::NameValuePairList& options)
+        void reconfigure(const Ogre::String& renderer, Ogre::NameValuePairList& options) override
         {
             mLastViewCategory = mCategoryMenu->getSelectionIndex();
             mLastViewTitle = mSampleMenu->getSelectionIndex();
@@ -935,7 +935,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Extends shutdown to destroy dummy scene and tray interface.
           -----------------------------------------------------------------------------*/
-        virtual void shutdown()
+        void shutdown() override
         {
             if (mTrayMgr)
             {
@@ -964,7 +964,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Extend to temporarily hide a sample's overlays while in the pause menu.
           -----------------------------------------------------------------------------*/
-        virtual void pauseCurrentSample()
+        void pauseCurrentSample() override
         {
             SampleContext::pauseCurrentSample();
 
@@ -985,7 +985,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Extend to unhide all of sample's temporarily hidden overlays.
           -----------------------------------------------------------------------------*/
-        virtual void unpauseCurrentSample()
+        void unpauseCurrentSample() override
         {
             SampleContext::unpauseCurrentSample();
 
