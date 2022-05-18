@@ -104,7 +104,7 @@ namespace Ogre {
         Exception(const Exception& rhs);
 
         /// Needed for compatibility with std::exception
-        ~Exception() throw() override {}
+        ~Exception() noexcept override {}
 
         /** Returns a string with the full description of this error.
             @remarks
@@ -137,7 +137,7 @@ namespace Ogre {
         [[nodiscard]] const String &getDescription() const { return description; }
 
         /// Override std::exception::what
-        [[nodiscard]] const char* what() const throw() override { return fullDesc.c_str(); }
+        [[nodiscard]] const char* what() const noexcept override { return fullDesc.c_str(); }
         
     };
 

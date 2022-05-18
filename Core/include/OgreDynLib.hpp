@@ -87,7 +87,7 @@ namespace Ogre {
                 If the function fails, the returned value is <b>NULL</b>.
 
         */
-        [[nodiscard]] void* getSymbol( const String& strName ) const throw();
+        [[nodiscard]] void* getSymbol( const String& strName ) const noexcept;
 
     private:
 
