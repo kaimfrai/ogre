@@ -97,7 +97,7 @@ protected:
     void writeUniformBlock(std::ostream& os, const String& name, int binding, const UniformParameterList& uniforms);
 
 protected:
-    typedef std::map<Parameter::Content, const char*>  ParamContentToStringMap;
+    using ParamContentToStringMap = std::map<Parameter::Content, const char *>;
 
     // Attributes.
 protected:

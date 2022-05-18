@@ -376,7 +376,7 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             const VertexBufferBinding::VertexBufferBindingMap& aBindings = a->vertexBufferBinding->getBindings();
             const VertexBufferBinding::VertexBufferBindingMap& bBindings = b->vertexBufferBinding->getBindings();
             EXPECT_TRUE(aBindings.size() == bBindings.size());
-            typedef VertexBufferBinding::VertexBufferBindingMap::const_iterator bindingIterator;
+            using bindingIterator = VertexBufferBinding::VertexBufferBindingMap::const_iterator;
             bindingIterator aIt = aBindings.begin();
             bindingIterator aEndIt = aBindings.end();
             bindingIterator bIt = bBindings.begin();
@@ -394,7 +394,7 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             const VertexDeclaration::VertexElementList& aElements = a->vertexDeclaration->getElements();
             const VertexDeclaration::VertexElementList& bElements = a->vertexDeclaration->getElements();
             EXPECT_TRUE(aElements.size() == bElements.size());
-            typedef VertexDeclaration::VertexElementList::const_iterator bindingIterator;
+            using bindingIterator = VertexDeclaration::VertexElementList::const_iterator;
             bindingIterator aIt = aElements.begin();
             bindingIterator aEndIt = aElements.end();
             bindingIterator bIt;
@@ -434,7 +434,7 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             const VertexData::HardwareAnimationDataList& aAnimData = a->hwAnimationDataList;
             const VertexData::HardwareAnimationDataList& bAnimData = b->hwAnimationDataList;
             EXPECT_TRUE(aAnimData.size() == bAnimData.size());
-            typedef VertexData::HardwareAnimationDataList::const_iterator bindingIterator;
+            using bindingIterator = VertexData::HardwareAnimationDataList::const_iterator;
             bindingIterator aIt = aAnimData.begin();
             bindingIterator aEndIt = aAnimData.end();
             bindingIterator bIt = bAnimData.begin();

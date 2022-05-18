@@ -464,7 +464,7 @@ class Sphere;
         void setDebugColour(const ColourValue& col) { mDebugColour = col; }
         const ColourValue& getDebugColour() const { return mDebugColour; }
 
-        typedef Vector3 Corners[8];
+        using Corners = Vector3[8];
 
         /** Gets the world space corners of the frustum.
         @remarks

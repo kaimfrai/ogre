@@ -90,9 +90,9 @@ class VertexData;
     class BaseInstanceBatchVTF : public InstanceBatch
     {
     protected:
-        typedef std::vector<uint8> HWBoneIdxVec;
-        typedef std::vector<float> HWBoneWgtVec;
-        typedef std::vector<Matrix4> Matrix4Vec;
+        using HWBoneIdxVec = std::vector<uint8>;
+        using HWBoneWgtVec = std::vector<float>;
+        using Matrix4Vec = std::vector<Matrix4>;
 
         size_t                  mMatricesPerInstance; //number of bone matrices per instance
         size_t                  mNumWorldMatrices;  //Num bones * num instances

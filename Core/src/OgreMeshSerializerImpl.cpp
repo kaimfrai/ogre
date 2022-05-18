@@ -3515,7 +3515,7 @@ namespace Ogre {
                 }
 
                 // The map used to mapping original triangle index to new index
-                typedef std::vector<size_t> TriangleIndexRemap;
+                using TriangleIndexRemap = std::vector<size_t>;
                 TriangleIndexRemap triangleIndexRemap(numTriangles);
 
                 // New triangles information that should be group by vertex set.

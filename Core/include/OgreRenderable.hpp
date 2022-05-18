@@ -344,7 +344,7 @@ namespace Ogre {
         };
 
     protected:
-        typedef std::map<size_t, Vector4> CustomParameterMap;
+        using CustomParameterMap = std::map<size_t, Vector4>;
         CustomParameterMap mCustomParameters;
         UserObjectBindings mUserObjectBindings;      /// User objects binding.
         bool mPolygonModeOverrideable;

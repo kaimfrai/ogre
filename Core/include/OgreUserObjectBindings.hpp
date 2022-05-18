@@ -104,9 +104,9 @@ namespace Ogre {
 
     // Types.
     private:
-        typedef std::map<String, Any>          UserObjectsMap;
-        typedef UserObjectsMap::iterator        UserObjectsMapIterator;
-        typedef UserObjectsMap::const_iterator  UserObjectsMapConstIterator;
+        using UserObjectsMap = std::map<String, Any>;
+        using UserObjectsMapIterator = UserObjectsMap::iterator;
+        using UserObjectsMapConstIterator = UserObjectsMap::const_iterator;
 
         /** Internal class that uses as data storage container.
         */

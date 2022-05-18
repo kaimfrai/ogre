@@ -62,8 +62,8 @@ class CompositionTechnique;
             IM_NONE,        /// No input
             IM_PREVIOUS     /// Output of previous Composition in chain
         };
-        typedef std::vector<CompositionPass *> Passes;
-        typedef VectorIterator<Passes> PassIterator;
+        using Passes = std::vector<CompositionPass *>;
+        using PassIterator = VectorIterator<Passes>;
         
         /** Set input mode of this TargetPass
         */

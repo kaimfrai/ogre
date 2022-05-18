@@ -242,7 +242,7 @@ class RenderTarget;
             GLHardwarePixelBufferCommon* buffer;
             size_t refcount;
         };
-        typedef std::map<RBFormat, RBRef> RenderBufferMap;
+        using RenderBufferMap = std::map<RBFormat, RBRef>;
         RenderBufferMap mRenderBufferMap;
     };
 

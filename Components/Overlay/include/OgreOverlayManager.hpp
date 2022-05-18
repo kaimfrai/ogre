@@ -66,9 +66,9 @@ namespace Ogre {
     class OverlayManager : public Singleton<OverlayManager>, public ScriptLoader, public OverlayAlloc
     {
     public:
-        typedef std::map<String, Overlay*> OverlayMap;
-        typedef std::map<String, OverlayElement*> ElementMap;
-        typedef std::map<String, OverlayElementFactory*> FactoryMap;
+        using OverlayMap = std::map<String, Overlay *>;
+        using ElementMap = std::map<String, OverlayElement *>;
+        using FactoryMap = std::map<String, OverlayElementFactory *>;
     private:
         OverlayMap mOverlayMap;
         StringVector mScriptPatterns;
@@ -84,7 +84,7 @@ namespace Ogre {
 
         ElementMap mElements;
 
-        typedef std::set<String> LoadedScripts;
+        using LoadedScripts = std::set<String>;
         LoadedScripts mLoadedScripts;
 
         std::unique_ptr<ScriptTranslatorManager> mTranslatorManager;
@@ -119,7 +119,7 @@ namespace Ogre {
         void destroy(Overlay* overlay);
         /** Destroys all existing overlays */
         void destroyAll();
-        typedef MapIterator<OverlayMap> OverlayMapIterator;
+        using OverlayMapIterator = MapIterator<OverlayMap>;
         OverlayMapIterator getOverlayIterator();
 
         /** Internal method for queueing the visible overlays for rendering. */

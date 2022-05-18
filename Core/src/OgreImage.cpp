@@ -223,7 +223,7 @@ namespace Ogre {
             break;
 
         case 3:
-            typedef uchar uchar3[3];
+            using uchar3 = uchar[3];
             for (y = 0; y < mHeight; y++)
             {
                 std::reverse((uchar3*)mBuffer + mWidth * y, (uchar3*)mBuffer + mWidth * (y + 1));

@@ -40,7 +40,7 @@ THE SOFTWARE.
 using namespace Ogre;
 
 namespace OgreBites {
-    typedef std::multimap<RenderWindow*, WindowEventListener*> WindowEventListeners;
+    using WindowEventListeners = std::multimap<RenderWindow *, WindowEventListener *>;
     static WindowEventListeners _msListeners;
     static RenderWindowList _msWindows;
 

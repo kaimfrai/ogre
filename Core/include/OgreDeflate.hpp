@@ -36,7 +36,7 @@
 #include "OgreDataStream.hpp"
 #include "OgrePrerequisites.hpp"
 
-typedef struct mz_stream_s z_stream;
+using z_stream = struct mz_stream_s;
 
 namespace Ogre
 {

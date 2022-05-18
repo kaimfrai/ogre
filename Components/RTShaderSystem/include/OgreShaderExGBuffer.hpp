@@ -73,7 +73,7 @@ public:
         TL_NORMAL_VIEWDEPTH,
         TL_DIFFUSE_SPECULAR,
     };
-    typedef std::vector<TargetLayout> TargetBuffers;
+    using TargetBuffers = std::vector<TargetLayout>;
 
     /**
     @see SubRenderState::getType.

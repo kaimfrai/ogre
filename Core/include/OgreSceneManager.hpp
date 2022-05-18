@@ -101,7 +101,7 @@ namespace Ogre {
     *  @{
     */
 
-    typedef std::vector<TexturePtr> ShadowTextureList;
+    using ShadowTextureList = std::vector<TexturePtr>;
 
     /** Structure containing the configuration for one shadow texture. */
     struct ShadowTextureConfig
@@ -115,8 +115,8 @@ namespace Ogre {
         ShadowTextureConfig() : width(512), height(512), format(PF_BYTE_RGBA), fsaa(0), depthBufferPoolId(1) {}
     };
 
-    typedef std::vector<ShadowTextureConfig> ShadowTextureConfigList;
-    typedef ConstVectorIterator<ShadowTextureConfigList> ConstShadowTextureConfigIterator;
+    using ShadowTextureConfigList = std::vector<ShadowTextureConfig>;
+    using ConstShadowTextureConfigIterator = ConstVectorIterator<ShadowTextureConfigList>;
 
     bool operator== ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs );
     bool operator!= ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs );
@@ -450,9 +450,9 @@ namespace Ogre {
         /// Allow visitor helper to access protected methods
         friend class SceneMgrQueuedRenderableVisitor;
 
-        typedef std::map<String, Camera* > CameraList;
-        typedef std::map<String, Animation*> AnimationList;
-        typedef std::map<String, MovableObject*> MovableObjectMap;
+        using CameraList = std::map<String, Camera *>;
+        using AnimationList = std::map<String, Animation *>;
+        using MovableObjectMap = std::map<String, MovableObject *>;
     protected:
 
         /// Subclasses can override this to ensure their specialised SceneNode is used.
@@ -473,15 +473,15 @@ namespace Ogre {
         */
         CameraList mCameras;
 
-        typedef std::map<String, StaticGeometry* > StaticGeometryList;
+        using StaticGeometryList = std::map<String, StaticGeometry *>;
         StaticGeometryList mStaticGeometryList;
-        typedef std::map<String, InstancedGeometry* > InstancedGeometryList;
+        using InstancedGeometryList = std::map<String, InstancedGeometry *>;
         InstancedGeometryList mInstancedGeometryList;
 
-        typedef std::map<String, InstanceManager*> InstanceManagerMap;
+        using InstanceManagerMap = std::map<String, InstanceManager *>;
         InstanceManagerMap  mInstanceManagerMap;
 
-        typedef std::vector<SceneNode*> SceneNodeList;
+        using SceneNodeList = std::vector<SceneNode *>;
 
         /** Central list of SceneNodes - for easy memory management.
             @note
@@ -503,7 +503,7 @@ namespace Ogre {
         std::unique_ptr<SceneNode> mSceneRoot;
 
         /// Autotracking scene nodes
-        typedef std::set<SceneNode*> AutoTrackingSceneNodes;
+        using AutoTrackingSceneNodes = std::set<SceneNode *>;
         AutoTrackingSceneNodes mAutoTrackingSceneNodes;
 
         // Sky params
@@ -588,7 +588,7 @@ namespace Ogre {
         Real mFogEnd;
         Real mFogDensity;
 
-        typedef std::set<uint8> SpecialCaseRenderQueueList;
+        using SpecialCaseRenderQueueList = std::set<uint8>;
         SpecialCaseRenderQueueList mSpecialCaseQueueList;
         SpecialCaseRenderQueueMode mSpecialCaseQueueMode;
         uint8 mWorldGeometryRenderQueue;
@@ -610,7 +610,7 @@ namespace Ogre {
                 have a focus step to limit the shadow sample distribution to only valid visible
                 scene elements.
         */
-        typedef std::map< const Camera*, VisibleObjectsBoundsInfo> CamVisibleObjectsMap;
+        using CamVisibleObjectsMap = std::map<const Camera *, VisibleObjectsBoundsInfo>;
         CamVisibleObjectsMap mCamVisibleObjectsMap; 
 
         /// Cached light information, used to tracking light's changes
@@ -634,7 +634,7 @@ namespace Ogre {
             }
         };
 
-        typedef std::vector<LightInfo> LightInfoList;
+        using LightInfoList = std::vector<LightInfo>;
 
         LightList mLightsAffectingFrustum;
         LightInfoList mCachedLightInfos;
@@ -646,7 +646,7 @@ namespace Ogre {
         {
                     MovableObjectMap map;
         };
-        typedef std::map<String, MovableObjectCollection*> MovableObjectCollectionMap;
+        using MovableObjectCollectionMap = std::map<String, MovableObjectCollection *>;
         MovableObjectCollectionMap mMovableObjectCollectionMap;
         NameGenerator mMovableNameGenerator;
         /** Gets the movable object collection for the given type name.
@@ -668,8 +668,8 @@ namespace Ogre {
 
         struct ShadowRenderer
         {
-            typedef std::vector<Camera*> CameraList;
-            typedef std::map< const Camera*, const Light* > ShadowCamLightMapping;
+            using CameraList = std::vector<Camera *>;
+            using ShadowCamLightMapping = std::map<const Camera *, const Light *>;
 
             ShadowRenderer(SceneManager* owner);
             ~ShadowRenderer();
@@ -832,12 +832,12 @@ namespace Ogre {
             void setShadowTextureConfig(size_t shadowIndex, uint16 width, uint16 height, PixelFormat format,
                                         uint16 fsaa, uint16 depthBufferPoolId);
 
-            typedef std::vector<ShadowCaster*> ShadowCasterList;
+            using ShadowCasterList = std::vector<ShadowCaster *>;
             ShadowCasterList mShadowCasterList;
             std::unique_ptr<SphereSceneQuery> mShadowCasterSphereQuery;
             std::unique_ptr<AxisAlignedBoxSceneQuery> mShadowCasterAABBQuery;
 
-            typedef std::vector<ShadowTextureListener*> ListenerList;
+            using ListenerList = std::vector<ShadowTextureListener *>;
             ListenerList mListeners;
 
             /// Inner class to use as callback for shadow caster scene query
@@ -922,12 +922,12 @@ namespace Ogre {
             which override the camera's own view / projection matrices. */
         void resetViewProjMode();
 
-        typedef std::vector<RenderQueueListener*> RenderQueueListenerList;
+        using RenderQueueListenerList = std::vector<RenderQueueListener *>;
         RenderQueueListenerList mRenderQueueListeners;
 
-        typedef std::vector<RenderObjectListener*> RenderObjectListenerList;
+        using RenderObjectListenerList = std::vector<RenderObjectListener *>;
         RenderObjectListenerList mRenderObjectListeners;
-        typedef std::vector<Listener*> ListenerList;
+        using ListenerList = std::vector<Listener *>;
         ListenerList mListeners;
         /// Internal method for firing the queue start event
         void firePreRenderQueues();
@@ -999,7 +999,7 @@ namespace Ogre {
             LightClippingInfo() : scissorValid(false), clipPlanesValid(false) {}
 
         };
-        typedef std::map<Light*, LightClippingInfo> LightClippingInfoMap;
+        using LightClippingInfoMap = std::map<Light *, LightClippingInfo>;
         LightClippingInfoMap mLightClippingInfoMap;
         unsigned long mLightClippingInfoMapFrameNumber;
 
@@ -1035,7 +1035,7 @@ namespace Ogre {
         /// Internal method for destroying shadow textures (texture-based shadows)
         virtual void destroyShadowTextures();
 
-        typedef std::vector<InstanceManager*>      InstanceManagerVec;
+        using InstanceManagerVec = std::vector<InstanceManager *>;
         InstanceManagerVec mDirtyInstanceManagers;
         InstanceManagerVec mDirtyInstanceMgrsTmp;
 
@@ -1110,19 +1110,19 @@ namespace Ogre {
         void updateGpuProgramParameters(const Pass* p);
 
         /// Set of registered LOD listeners
-        typedef std::set<LodListener*> LodListenerSet;
+        using LodListenerSet = std::set<LodListener *>;
         LodListenerSet mLodListeners;
 
         /// List of movable object LOD changed events
-        typedef std::vector<MovableObjectLodChangedEvent> MovableObjectLodChangedEventList;
+        using MovableObjectLodChangedEventList = std::vector<MovableObjectLodChangedEvent>;
         MovableObjectLodChangedEventList mMovableObjectLodChangedEvents;
 
         /// List of entity mesh LOD changed events
-        typedef std::vector<EntityMeshLodChangedEvent> EntityMeshLodChangedEventList;
+        using EntityMeshLodChangedEventList = std::vector<EntityMeshLodChangedEvent>;
         EntityMeshLodChangedEventList mEntityMeshLodChangedEvents;
 
         /// List of entity material LOD changed events
-        typedef std::vector<EntityMaterialLodChangedEvent> EntityMaterialLodChangedEventList;
+        using EntityMaterialLodChangedEventList = std::vector<EntityMaterialLodChangedEvent>;
         EntityMaterialLodChangedEventList mEntityMaterialLodChangedEvents;
 
     public:
@@ -1145,7 +1145,7 @@ namespace Ogre {
         */
         virtual const String& getTypeName() const = 0;
 
-        typedef MapIterator<CameraList> CameraIterator;
+        using CameraIterator = MapIterator<CameraList>;
         /// @name Cameras
         /// @{
         /** Creates a camera to be managed by this scene manager.
@@ -2232,7 +2232,7 @@ namespace Ogre {
         void destroyAllBillboardSets();
         /// @}
 
-        typedef MapIterator<AnimationList> AnimationIterator;
+        using AnimationIterator = MapIterator<AnimationList>;
         /// @name Scene Node Animation
         /// @{
         /** Internal method for applying animations to scene nodes.
@@ -3154,7 +3154,7 @@ namespace Ogre {
         void _addDirtyInstanceManager( InstanceManager *dirtyManager );
         /// @}
 
-        typedef MapIterator<MovableObjectMap> MovableObjectIterator;
+        using MovableObjectIterator = MapIterator<MovableObjectMap>;
         /// @name Movable Objects
         /// @{
         /** Create a movable object of the type specified.

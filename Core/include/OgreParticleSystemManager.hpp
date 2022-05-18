@@ -87,10 +87,10 @@ class ParticleSystemRenderer;
     {
         friend class ParticleSystemFactory;
     public:
-        typedef std::map<String, ParticleSystem*> ParticleTemplateMap;
-        typedef std::map<String, ParticleAffectorFactory*> ParticleAffectorFactoryMap;
-        typedef std::map<String, ParticleEmitterFactory*> ParticleEmitterFactoryMap;
-        typedef std::map<String, ParticleSystemRendererFactory*> ParticleSystemRendererFactoryMap;
+        using ParticleTemplateMap = std::map<String, ParticleSystem *>;
+        using ParticleAffectorFactoryMap = std::map<String, ParticleAffectorFactory *>;
+        using ParticleEmitterFactoryMap = std::map<String, ParticleEmitterFactory *>;
+        using ParticleSystemRendererFactoryMap = std::map<String, ParticleSystemRendererFactory *>;
     private:
         /// Templates based on scripts
         ParticleTemplateMap mSystemTemplates;
@@ -314,9 +314,9 @@ class ParticleSystemRenderer;
         /// @copydoc ScriptLoader::getLoadingOrder
         [[nodiscard]] Real getLoadingOrder() const override;
 
-        typedef MapIterator<ParticleAffectorFactoryMap> ParticleAffectorFactoryIterator;
-        typedef MapIterator<ParticleEmitterFactoryMap> ParticleEmitterFactoryIterator;
-        typedef MapIterator<ParticleSystemRendererFactoryMap> ParticleRendererFactoryIterator;
+        using ParticleAffectorFactoryIterator = MapIterator<ParticleAffectorFactoryMap>;
+        using ParticleEmitterFactoryIterator = MapIterator<ParticleEmitterFactoryMap>;
+        using ParticleRendererFactoryIterator = MapIterator<ParticleSystemRendererFactoryMap>;
         /** Return an iterator over the affector factories currently registered */
         ParticleAffectorFactoryIterator getAffectorFactoryIterator();
         /** Return an iterator over the emitter factories currently registered */
@@ -325,7 +325,7 @@ class ParticleSystemRenderer;
         ParticleRendererFactoryIterator getRendererFactoryIterator();
 
 
-        typedef MapIterator<ParticleTemplateMap> ParticleSystemTemplateIterator;
+        using ParticleSystemTemplateIterator = MapIterator<ParticleTemplateMap>;
         /** Gets an iterator over the list of particle system templates. */
         ParticleSystemTemplateIterator getTemplateIterator()
         {

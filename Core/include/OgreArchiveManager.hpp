@@ -51,11 +51,11 @@ class ArchiveFactory;
     class ArchiveManager : public Singleton<ArchiveManager>, public ArchiveAlloc
     {
     private:
-        typedef std::map<String, ArchiveFactory*> ArchiveFactoryMap;
+        using ArchiveFactoryMap = std::map<String, ArchiveFactory *>;
         /// Factories available to create archives, indexed by archive type (String identifier e.g. 'Zip')
         ArchiveFactoryMap mArchFactories;
         /// Currently loaded archives
-        typedef std::map<String, Archive*> ArchiveMap;
+        using ArchiveMap = std::map<String, Archive *>;
         ArchiveMap mArchives;
 
     public:
@@ -94,7 +94,7 @@ class ArchiveFactory;
             You must ensure that this archive is not being used before removing it.
         */
         void unload(const String& filename);
-        typedef MapIterator<ArchiveMap> ArchiveMapIterator;
+        using ArchiveMapIterator = MapIterator<ArchiveMap>;
         /** Get an iterator over the Archives in this Manager. */
         ArchiveMapIterator getArchiveIterator();
 

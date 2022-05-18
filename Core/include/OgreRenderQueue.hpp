@@ -100,7 +100,7 @@ class Technique;
     {
     public:
 
-        typedef std::unique_ptr<RenderQueueGroup> RenderQueueGroupMap[RENDER_QUEUE_COUNT];
+        using RenderQueueGroupMap = std::unique_ptr<RenderQueueGroup>[RENDER_QUEUE_COUNT];
 
         /** Class to listen in on items being added to the render queue. 
         @remarks

@@ -145,7 +145,7 @@ class Viewport;
         /** Internal method for forcing all active compositors to recreate their resources. */
         void _reconstructAllCompositorResources();
 
-        typedef std::set<Texture*> UniqueTextureSet;
+        using UniqueTextureSet = std::set<Texture *>;
 
         /** Utility function to get an existing pooled texture matching a given
             definition, or creating one if one doesn't exist. It also takes into
@@ -213,7 +213,7 @@ class Viewport;
             const String& group, bool isManual, ManualResourceLoader* loader,
             const NameValuePairList* params) override;
 
-        typedef std::map<const Viewport*, CompositorChain*> Chains;
+        using Chains = std::map<const Viewport *, CompositorChain *>;
         Chains mChains;
 
         /** Clear composition chains for all viewports
@@ -223,19 +223,19 @@ class Viewport;
         Rectangle2D *mRectangle;
 
         /// List of instances
-        typedef std::vector<CompositorInstance *> Instances;
+        using Instances = std::vector<CompositorInstance *>;
         Instances mInstances;
 
         /// Map of registered compositor logics
-        typedef std::map<String, CompositorLogic*> CompositorLogicMap;
+        using CompositorLogicMap = std::map<String, CompositorLogic *>;
         CompositorLogicMap mCompositorLogics;
 
         /// Map of registered custom composition passes
-        typedef std::map<String, CustomCompositionPass*> CustomCompositionPassMap;
+        using CustomCompositionPassMap = std::map<String, CustomCompositionPass *>;
         CustomCompositionPassMap mCustomCompositionPasses;
 
-        typedef std::vector<TexturePtr> TextureList;
-        typedef VectorIterator<TextureList> TextureIterator;
+        using TextureList = std::vector<TexturePtr>;
+        using TextureIterator = VectorIterator<TextureList>;
 
         struct TextureDef
         {
@@ -258,12 +258,12 @@ class Viewport;
                        std::tie(y.width, y.height, y.type, y.format, y.fsaa, y.fsaaHint, y.sRGBwrite);
             }
         };
-        typedef std::map<TextureDef, TextureList> TexturesByDef;
+        using TexturesByDef = std::map<TextureDef, TextureList>;
         TexturesByDef mTexturesByDef;
 
-        typedef std::pair<String, String> StringPair;
-        typedef std::map<TextureDef, TexturePtr> TextureDefMap;
-        typedef std::map<StringPair, TextureDefMap> ChainTexturesByDef;
+        using StringPair = std::pair<String, String>;
+        using TextureDefMap = std::map<TextureDef, TexturePtr>;
+        using ChainTexturesByDef = std::map<StringPair, TextureDefMap>;
         
         ChainTexturesByDef mChainTexturesByDef;
 

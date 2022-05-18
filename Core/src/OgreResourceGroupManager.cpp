@@ -783,8 +783,8 @@ namespace Ogre {
             "Parsing scripts for resource group " + grp->name);
 
         // Count up the number of scripts we have to parse
-        typedef std::pair<ScriptLoader*, FileInfoList> LoaderFileListPair;
-        typedef std::vector<LoaderFileListPair> ScriptLoaderFileList;
+        using LoaderFileListPair = std::pair<ScriptLoader *, FileInfoList>;
+        using ScriptLoaderFileList = std::vector<LoaderFileListPair>;
         ScriptLoaderFileList scriptLoaderFileList;
         size_t scriptCount = 0;
         // Iterate over script users in loading order and get streams

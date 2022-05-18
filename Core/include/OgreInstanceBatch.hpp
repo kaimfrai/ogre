@@ -104,10 +104,10 @@ class Technique;
     class InstanceBatch : public Renderable, public MovableObject
     {
     public:
-        typedef std::vector<::std::unique_ptr<InstancedEntity>>  InstancedEntityVec;
-        typedef std::vector<Vector4>           CustomParamsVec;
+        using InstancedEntityVec = std::vector< ::std::unique_ptr<InstancedEntity>>;
+        using CustomParamsVec = std::vector<Vector4>;
     protected:
-        typedef TransformBase<3, float>        Matrix3x4f;
+        using Matrix3x4f = TransformBase<3, float>;
         RenderOperation     mRenderOperation;
         size_t              mInstancesPerBatch;
 

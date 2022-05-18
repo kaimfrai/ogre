@@ -47,7 +47,7 @@ namespace Ogre
             TexParameteriMap mTexParameteriMap;
         };
 
-        typedef std::unordered_map<GLuint, TextureUnitParams> TexUnitsMap;
+        using TexUnitsMap = std::unordered_map<GLuint, TextureUnitParams>;
 
         /* These variables are used for caching OpenGL state.
          They are cached because state changes can be quite expensive,

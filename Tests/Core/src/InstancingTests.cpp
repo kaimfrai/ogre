@@ -44,7 +44,7 @@ THE SOFTWARE.
 
 using namespace Ogre;
 
-typedef RootWithoutRenderSystemFixture Instancing;
+using Instancing = RootWithoutRenderSystemFixture;
 
 TEST_F(Instancing, Bounds) {
     SceneManager* sceneMgr = mRoot->createSceneManager();

@@ -214,8 +214,8 @@ class SceneManager;
 
     };
 
-    typedef std::list<MovableObject*> SceneQueryResultMovableList;
-    typedef std::list<SceneQuery::WorldFragment*> SceneQueryResultWorldFragmentList;
+    using SceneQueryResultMovableList = std::list<MovableObject *>;
+    using SceneQueryResultWorldFragmentList = std::list<SceneQuery::WorldFragment *>;
     /** Holds the results of a scene query. */
     struct SceneQueryResult : public SceneMgtAlloc
     {
@@ -369,7 +369,7 @@ class SceneManager;
         }
 
     };
-    typedef std::vector<RaySceneQueryResultEntry> RaySceneQueryResult;
+    using RaySceneQueryResult = std::vector<RaySceneQueryResultEntry>;
 
     /** Specialises the SceneQuery class for querying along a ray. */
     class RaySceneQuery : public SceneQuery, public RaySceneQueryListener
@@ -485,10 +485,10 @@ class SceneManager;
     
     };
         
-    typedef std::pair<MovableObject*, MovableObject*> SceneQueryMovableObjectPair;
-    typedef std::pair<MovableObject*, SceneQuery::WorldFragment*> SceneQueryMovableObjectWorldFragmentPair;
-    typedef std::list<SceneQueryMovableObjectPair> SceneQueryMovableIntersectionList;
-    typedef std::list<SceneQueryMovableObjectWorldFragmentPair> SceneQueryMovableWorldFragmentIntersectionList;
+    using SceneQueryMovableObjectPair = std::pair<MovableObject *, MovableObject *>;
+    using SceneQueryMovableObjectWorldFragmentPair = std::pair<MovableObject *, SceneQuery::WorldFragment *>;
+    using SceneQueryMovableIntersectionList = std::list<SceneQueryMovableObjectPair>;
+    using SceneQueryMovableWorldFragmentIntersectionList = std::list<SceneQueryMovableObjectWorldFragmentPair>;
     /** Holds the results of an intersection scene query (pair values). */
     struct IntersectionSceneQueryResult : public SceneMgtAlloc
     {

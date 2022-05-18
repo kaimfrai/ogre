@@ -47,13 +47,13 @@ namespace Ogre
         assignment of a vertex to a bone for skeletal animation. There may be many of these
         per vertex if blended vertex assignments are allowed.
     */
-    typedef struct VertexBoneAssignment_s
+    using VertexBoneAssignment = struct VertexBoneAssignment_s
     {
         unsigned int vertexIndex;
         unsigned short boneIndex;
         Real weight;
 
-    } VertexBoneAssignment;
+    };
 
     /** @} */
     /** @} */

@@ -54,7 +54,7 @@ namespace Ogre {
     *  @{
     */
 
-    typedef std::vector<Renderable*> RenderableList;
+    using RenderableList = std::vector<Renderable *>;
 
     /** Struct associating a single Pass with a single Renderable. 
         This is used to for objects sorted by depth and thus not
@@ -156,9 +156,9 @@ namespace Ogre {
         /** Vector of RenderablePass objects, this is built on the assumption that
          vectors only ever increase in size, so even if we do clear() the memory stays
          allocated, ie fast */
-        typedef std::vector<RenderablePass> RenderablePassList;
+        using RenderablePassList = std::vector<RenderablePass>;
         /** Map of pass to renderable lists, this is a grouping by pass. */
-        typedef std::map<Pass*, RenderableList, PassGroupLess> PassGroupRenderableMap;
+        using PassGroupRenderableMap = std::map<Pass *, RenderableList, PassGroupLess>;
 
         /// Bitmask of the organisation modes requested
         uint8 mOrganisationMode;
@@ -393,9 +393,9 @@ namespace Ogre {
     class RenderQueueGroup : public RenderQueueAlloc
     {
     public:
-        typedef std::map<ushort, RenderPriorityGroup*, std::less<> > PriorityMap;
-        typedef MapIterator<PriorityMap> PriorityMapIterator;
-        typedef ConstMapIterator<PriorityMap> ConstPriorityMapIterator;
+        using PriorityMap = std::map<ushort, RenderPriorityGroup *, std::less<>>;
+        using PriorityMapIterator = MapIterator<PriorityMap>;
+        using ConstPriorityMapIterator = ConstMapIterator<PriorityMap>;
     private:
         bool mSplitPassesByLightingType;
         bool mSplitNoShadowPasses;

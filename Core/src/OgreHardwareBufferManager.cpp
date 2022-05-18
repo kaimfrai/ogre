@@ -353,7 +353,7 @@ namespace Ogre {
         //
         // For safely reason, use following code to resolve reenter problem.
         //
-        typedef FreeTemporaryVertexBufferMap::iterator _Iter;
+        using _Iter = FreeTemporaryVertexBufferMap::iterator;
         std::pair<_Iter, _Iter> range = mFreeTempVertexBufferMap.equal_range(sourceBuffer);
         if (range.first != range.second)
         {

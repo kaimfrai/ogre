@@ -194,7 +194,7 @@ class FunctionAtom : public RTShaderSystemAlloc
 {
 // Interface.
 public:
-    typedef std::vector<Operand> OperandVector;
+    using OperandVector = std::vector<Operand>;
 
     /** Class default destructor. */
     virtual ~FunctionAtom() {}
@@ -318,9 +318,9 @@ public:
     void writeSourceCode(std::ostream& os, const String& targetLanguage) const override;
 };
 
-typedef std::vector<FunctionAtom*>                 FunctionAtomInstanceList;
-typedef FunctionAtomInstanceList::iterator          FunctionAtomInstanceIterator;
-typedef FunctionAtomInstanceList::const_iterator    FunctionAtomInstanceConstIterator;
+using FunctionAtomInstanceList = std::vector<FunctionAtom *>;
+using FunctionAtomInstanceIterator = FunctionAtomInstanceList::iterator;
+using FunctionAtomInstanceConstIterator = FunctionAtomInstanceList::const_iterator;
 
 /** @} */
 /** @} */

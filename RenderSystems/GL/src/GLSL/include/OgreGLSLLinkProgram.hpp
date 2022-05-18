@@ -56,7 +56,7 @@ class GLUniformCache;
         /// Extract attributes
         void extractAttributes();
 
-        typedef std::set<GLuint> AttributeSet;
+        using AttributeSet = std::set<GLuint>;
         /// Custom attribute bindings
         AttributeSet mValidAttributes;
 
